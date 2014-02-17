@@ -7,6 +7,7 @@ Installation
 ============
 
 Install the latest version of Unity 3D from https://unity3d.com
+
 Download / clone this repository to your local machine.
 
 Running the examples
