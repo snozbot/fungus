@@ -17,12 +17,15 @@ Download / clone this repository to your local machine.
 Running the examples
 ====================
 
-- In Unity, select File > Open Project
-- Open the /fungus directory in the downloaded files
+- In Unity, select File > Open Project and open the repository dir
 - From the Project window, open the Example/Scenes/Example.unity scene
 - Press play and try out the example rooms
 
-The control scripts for each room can be found in Examples/Scripts/
+The control scripts for each room can be found in the Examples/Scripts dir.
+
+The library code for Fungus can be found in the Fungus/Scripts dir.
+
+Look at Fungus/Scripts/Room.cs for the full list of scripting commands available.
 
 Support
 =======
