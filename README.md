@@ -1,7 +1,11 @@
-fungus
+Author: Chris Gregan
+Website: www.snozbot.com
+Email: chris@snozbot.com
+
+Fungus
 ======
 
-An easy to use Unity 3D library for creating illustrated Interactive Fiction games
+An easy to use Unity 3D library for creating illustrated Interactive Fiction games.
 
 Installation
 ============
@@ -20,4 +24,10 @@ Running the examples
 
 The control scripts for each room can be found in Examples/Scripts/
 
+Support
+=======
 
+Please post any questions or bug reports on our issues page
+https://github.com/snozbot/fungus/issues
+
+You can contact the author directly at chris@snozbot.com
