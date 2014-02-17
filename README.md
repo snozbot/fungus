@@ -10,16 +10,15 @@ An easy to use Unity 3D library for creating illustrated Interactive Fiction gam
 Installation
 ============
 
-Install the latest version of Unity 3D from https://unity3d.com
-
-Download / clone this repository to your local machine.
+1. Install the latest version of Unity 3D from https://unity3d.com
+2. Download / clone this repository to your local machine.
 
 Running the examples
 ====================
 
-- In Unity, select File > Open Project and open the repository dir
-- From the Project window, open the Example/Scenes/Example.unity scene
-- Press play and try out the example rooms
+1. In Unity, select File > Open Project and open the repository dir
+2. From the Project window, open the Example/Scenes/Example.unity scene
+3. Press play and try out the example rooms
 
 The control scripts for each room can be found in the Examples/Scripts dir.
 
