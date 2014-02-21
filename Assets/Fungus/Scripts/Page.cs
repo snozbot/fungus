@@ -206,9 +206,9 @@ namespace Fungus
 						// Reset to idle, but calling action may set this again
 						mode = Mode.Idle;
 
-						Game.GetInstance().ResetCommandQueue();
-						tempAction();
-						Game.GetInstance().ExecuteCommandQueue();
+						Room room = Game.GetInstance().activeRoom;
+
+						room.ExecuteCommandMethod(tempAction);
 					}
 					else if (mode == Mode.Say)
 					{

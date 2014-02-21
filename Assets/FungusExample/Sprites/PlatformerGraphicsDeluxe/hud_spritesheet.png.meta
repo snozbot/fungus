@@ -1,0 +1,342 @@
+fileFormatVersion: 2
+guid: 03a236d7aa81749c6a7858d290facf12
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: hud_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 53
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 222
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 233
+        width: 46
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 230
+        width: 32
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 231
+        width: 30
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 177
+        width: 53
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 173
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 201
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 201
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 191
+        width: 26
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 191
+        width: 30
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 130
+        width: 53
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 133
+        width: 32
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 124
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 159
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 149
+        width: 44
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 151
+        width: 28
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 81
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 81
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 86
+        width: 46
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 82
+        width: 44
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 107
+        width: 44
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 109
+        width: 29
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 32
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 48
+        width: 46
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 40
+        width: 44
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 75
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 69
+        width: 28
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 30
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 10
+        width: 46
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_31
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 23
+        width: 32
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: hud_spritesheet_32
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 24
+        width: 32
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+  spritePackingTag: 
+  userData: 

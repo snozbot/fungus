@@ -27,8 +27,6 @@ namespace Fungus
 
 		CameraController cameraController;
 
-		CommandQueue commandQueue;
-
 		public float fadeDuration = 1f;
 
 		public string continueText = "Continue";
@@ -52,7 +50,6 @@ namespace Fungus
 		public virtual void Start()
 		{
 			cameraController = GetComponent<CameraController>();
-			commandQueue = GetComponent<CommandQueue>();
 
 			if (activeRoom == null)
 			{
@@ -69,16 +66,6 @@ namespace Fungus
 		public Room GetCurrentRoom()
 		{
 			return GetInstance().activeRoom;
-		}
-
-		public void ResetCommandQueue()
-		{
-			commandQueue.Reset();
-		}
-		
-		public void ExecuteCommandQueue()
-		{
-			commandQueue.Execute();
 		}
 
 		public void MoveToRoom(Room room)

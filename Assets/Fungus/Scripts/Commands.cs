@@ -28,6 +28,8 @@ namespace Fungus
 			{
 				callAction();
 			}
+
+			// Execute next command
 			onComplete();
 		}		
 	}
@@ -346,28 +348,29 @@ namespace Fungus
 		}		
 	}
 
-	// Plays the named animation on a object with a SpriteController component
-	public class PlayAnimationCommand : CommandQueue.Command
+	// Sets an animator trigger to change the animation state for an animated sprite
+	public class SetAnimatorTriggerCommand : CommandQueue.Command
 	{
-		SpriteController spriteController;
-		string animationName;
+		Animator animator;
+		string triggerName;
 
-		public PlayAnimationCommand(SpriteController _spriteController,
-		                            string _animationName)
+		public SetAnimatorTriggerCommand(Animator _animator,
+		                                 string _triggerName)
 		{
-			if (_spriteController == null)
+			if (_animator == null)
 			{
-				Debug.LogError("Sprite controller must not be null.");
+				Debug.LogError("Animator must not be null.");
 				return;
 			}
 
-			spriteController = _spriteController;
-			animationName = _animationName;
+			animator = _animator;
+			triggerName = _triggerName;
 		}
 		
 		public override void Execute(CommandQueue commandQueue, Action onComplete)
 		{
-			spriteController.PlayAnimation(animationName);
+			animator.SetTrigger(triggerName);
+
 			if (onComplete != null)
 			{
 				onComplete();

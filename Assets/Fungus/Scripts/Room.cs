@@ -135,9 +135,9 @@ namespace Fungus
 			// Rooms may have multiple child views and page. It is the responsibility of the client
 			// room script to set the appropriate view & page in its OnEnter method.
 
-			game.ResetCommandQueue();
+			commandQueue.Reset();
 			SendMessage("OnEnter", SendMessageOptions.DontRequireReceiver);
-			game.ExecuteCommandQueue();
+			commandQueue.Execute();
 
 			visitCount++;
 		}
@@ -146,6 +146,30 @@ namespace Fungus
 		public void Leave()
 		{
 			SendMessage("OnLeave", SendMessageOptions.DontRequireReceiver);
+		}
+
+		// Internal use only! Called by AnimationEventListener
+		public void AnimationEvent(string eventName)
+		{
+			commandQueue.Reset();
+			SendMessage("OnAnimationEvent", eventName, SendMessageOptions.DontRequireReceiver);
+			commandQueue.Execute();
+		}
+
+		// Internal use only!
+		public void ExecuteCommandMethod(string methodName)
+		{
+			commandQueue.Reset();
+			SendMessage(methodName, SendMessageOptions.DontRequireReceiver);
+			commandQueue.Execute();
+		}
+
+		// Internal use only!
+		public void ExecuteCommandMethod(Action method)
+		{
+			commandQueue.Reset();
+			method();
+			commandQueue.Execute();
 		}
 
 		// Public convenience methods
@@ -293,10 +317,10 @@ namespace Fungus
 			commandQueue.AddCommand(new FadeSpriteCommand(spriteController, targetAlpha, duration, slideOffset));
 		}
 
-		// Plays the named animation on a object with a SpriteController component
-		public void PlayAnimation(SpriteController spriteController, string animationName)
+		// Sets an animator trigger to change the animation state for an animated sprite
+		public void SetAnimatorTrigger(Animator animator, string triggerName)
 		{
-			commandQueue.AddCommand(new PlayAnimationCommand(spriteController, animationName));
+			commandQueue.AddCommand(new SetAnimatorTriggerCommand(animator, triggerName));
 		}
 
 		// Pans the camera to the target view of a period of time

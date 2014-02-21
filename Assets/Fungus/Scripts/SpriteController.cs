@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	// Extends sprite functionality with support for fading and playing simple animations
+	// Extends sprite functionality with support for fading
 	[RequireComponent (typeof (SpriteRenderer))]
 	public class SpriteController : MonoBehaviour 
 	{
@@ -103,18 +103,6 @@ namespace Fungus
 			{
 				startSlideOffset = slideOffset;
 			}
-		}
-
-		public void PlayAnimation(string animationName)
-		{
-			Animator anim = GetComponent<Animator>();
-			if (anim == null)
-			{
-				Debug.LogError("Failed to find animator component when playing animation " + animationName);
-				return;
-			}
-
-			anim.Play(animationName);
 		}
 	}
 }

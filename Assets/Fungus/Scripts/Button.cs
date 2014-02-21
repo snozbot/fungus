@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Fungus;
 
 namespace Fungus
 {
@@ -11,9 +12,9 @@ namespace Fungus
 	{
 		public string methodName;
 
-		public bool autoDisable = true;
+		public SpriteController spriteController;
 
-		SpriteController spriteController;
+		public bool autoDisable = false;
 
 		void Start()
 		{
@@ -33,11 +34,13 @@ namespace Fungus
 				return;
 			}
 
-			Game game = Game.GetInstance();
+			Room room = Game.GetInstance().activeRoom;
+			if (room == null)
+			{
+				return;
+			}
 
-			game.ResetCommandQueue();
-			gameObject.SendMessageUpwards(methodName, SendMessageOptions.RequireReceiver);
-			game.ExecuteCommandQueue();
+			room.ExecuteCommandMethod(methodName);
 
 			if (autoDisable)
 			{
