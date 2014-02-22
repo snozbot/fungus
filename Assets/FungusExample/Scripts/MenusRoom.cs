@@ -2,32 +2,32 @@ using UnityEngine;
 using System.Collections;
 using Fungus;
 
-public class MenuRoom : Room
+public class MenusRoom : Room
 {
-	public Room writingRoom;
-	public Room viewRoom;
-	public Room animationRoom;
+	public Room pagesRoom;
+	public Room viewsRoom;
+	public Room spritesRoom;
 
 	void OnEnter() 
 	{
 		AddOption("1. Writing a story with Pages", MoveToWriting);
 		AddOption("2. Controlling the camera with Views", MoveToViews);
-		AddOption("3. Using sprites and animations", MoveToAnimations);
+		AddOption("3. Using Sprites and Animations", MoveToAnimations);
 		Choose("Choose an example");
 	}
 
 	void MoveToWriting()
 	{
-		MoveToRoom(writingRoom);
+		MoveToRoom(pagesRoom);
 	}
 
 	void MoveToViews()
 	{
-		MoveToRoom(viewRoom);
+		MoveToRoom(viewsRoom);
 	}
 
 	void MoveToAnimations()
 	{
-		MoveToRoom(animationRoom);
+		MoveToRoom(spritesRoom);
 	}
 }

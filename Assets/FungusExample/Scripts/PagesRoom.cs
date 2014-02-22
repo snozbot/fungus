@@ -2,7 +2,7 @@
 using System.Collections;
 using Fungus;
 
-public class WritingRoom : Room 
+public class PagesRoom : Room 
 {
 	// This is a reference to the menu room so we can transition back to the menu using MoveToRoom()
 	public Room menuRoom;

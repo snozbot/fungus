@@ -2,7 +2,7 @@
 using System.Collections;
 using Fungus;
 
-public class AnimationRoom : Room 
+public class SpritesRoom : Room 
 {
 	public Room menuRoom;
 	public Animator blueAlienAnim;
@@ -42,6 +42,8 @@ public class AnimationRoom : Room
 
 			FadeSprite(blueAlienSprite, 0, 1f);
 			Wait(1f);
+
+			Say("Heh. That Blue Alien - what a guy!");
 
 			MoveToRoom(menuRoom);
 		}

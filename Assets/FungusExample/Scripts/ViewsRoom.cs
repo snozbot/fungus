@@ -2,7 +2,7 @@
 using System.Collections;
 using Fungus;
 
-public class ViewRoom : Room 
+public class ViewsRoom : Room 
 {
 	public Room menuRoom;
 
