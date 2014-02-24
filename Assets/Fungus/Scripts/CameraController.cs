@@ -9,14 +9,8 @@ namespace Fungus
 	// Supports several types of camera transition including snap, pan & fade.
 	public class CameraController : MonoBehaviour 
 	{
-		Action onArriveAction;
-
-		float moveDuration;
-		float moveTimer;
-		float startSize;
-		float endSize;
-		Vector3 startPos;
-		Vector3 endPos;
+		// Fixed Z coordinate of camera
+		public float cameraZ = - 10f;
 
 		Camera mainCamera;
 
@@ -34,8 +28,6 @@ namespace Fungus
 				Debug.LogError("Failed to find camera component");
 				return;
 			}
-
-			Reset();
 		}
 
 		public Texture2D fadeTexture;
@@ -102,16 +94,18 @@ namespace Fungus
 				fadeAction();
 			}
 		}
-		
-		void Reset()
+
+		// Position camera so sprite is centered and fills the screen
+		public void CenterOnSprite(SpriteRenderer spriteRenderer)
 		{
-			moveDuration = 0;
-			moveTimer = 0;
-			startSize = 0;
-			endSize = 0;
-			startPos = Vector3.zero;
-			endPos = Vector3.zero;
-			onArriveAction = null;
+			Sprite sprite = spriteRenderer.sprite;
+			Vector3 extents = sprite.bounds.extents;
+			float localScaleY = spriteRenderer.transform.localScale.y;
+			mainCamera.orthographicSize = extents.y * localScaleY;
+			
+			Vector3 pos = spriteRenderer.transform.position;
+			mainCamera.transform.position = new Vector3(pos.x, pos.y, 0);
+			SetCameraZ();
 		}
 
 		public void SnapToView(View view)
@@ -121,8 +115,6 @@ namespace Fungus
 
 		public void PanToView(View view, float duration, Action arriveAction)
 		{
-			Reset();
-
 			if (duration == 0f)
 			{
 				// Move immediately
@@ -136,64 +128,46 @@ namespace Fungus
 			}
 			else
 			{
-				moveDuration = duration;
-				onArriveAction = arriveAction;
-				moveTimer = 0;
-				startSize = mainCamera.orthographicSize;
-				endSize = view.viewSize;
-				startPos = mainCamera.transform.position;
-				endPos = view.transform.position;
+				StartCoroutine(PanInternal(view, duration, arriveAction));
 			}
 		}
 
-		// Position camera so sprite is centered and fills the screen
-		public void CenterOnSprite(SpriteRenderer spriteRenderer)
+		IEnumerator PanInternal(View view, float duration, Action arriveAction)
 		{
-			Sprite sprite = spriteRenderer.sprite;
-			Vector3 extents = sprite.bounds.extents;
-			float localScaleY = spriteRenderer.transform.localScale.y;
-			mainCamera.orthographicSize = extents.y * localScaleY;
-
-			Vector3 pos = spriteRenderer.transform.position;
-			mainCamera.transform.position = new Vector3(pos.x, pos.y, 0);
-			SetCameraZ();
-		}
-
-		void Update () 
-		{
-			if (moveDuration == 0f)
-			{
-				return;
-			}
-
-			moveTimer += Time.deltaTime;
+			float timer = 0;
+			float startSize = mainCamera.orthographicSize;
+			float endSize = view.viewSize;
+			Vector3 startPos = mainCamera.transform.position;
+			Vector3 endPos = view.transform.position;
 
 			bool arrived = false;
-			if (moveTimer > moveDuration)
+			while (!arrived)
 			{
-				moveTimer = moveDuration;
-				arrived = true;
-			}
-
-			float t = moveTimer / moveDuration;
-
-			mainCamera.orthographicSize = Mathf.Lerp(startSize, endSize, Mathf.SmoothStep(0f, 1f, t));
-			mainCamera.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, t));
-			SetCameraZ();
-
-			if (arrived)
-			{
-				if (onArriveAction != null)
+				timer += Time.deltaTime;
+				if (timer > duration)
 				{
-					onArriveAction();
+					arrived = true;
+					timer = duration;
 				}
-				Reset();
+
+				float t = timer / duration;
+				mainCamera.orthographicSize = Mathf.Lerp(startSize, endSize, Mathf.SmoothStep(0f, 1f, t));
+				mainCamera.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, t));
+				SetCameraZ();
+
+				if (arrived &&
+				    arriveAction != null)
+				{
+					arriveAction();
+				}
+
+				yield return null;
 			}
 		}
 
 		void SetCameraZ()
 		{
-			mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, -10f);
+			mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, cameraZ);
 		}
 	}
 }
