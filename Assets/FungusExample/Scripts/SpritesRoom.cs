@@ -35,10 +35,11 @@ public class SpritesRoom : Room
 
 		Say("Nice moves there Blue Alien!");
 
-		Say("Maybe you want a nice mushroom to sit down on?");
 		FadeSprite(redMushroomSprite, 1f, 1f);
 
+		Say("Maybe you want a nice mushroom to sit down on?");
 		Say("Don't want to sit? Ok, no problem.");
+
 		FadeSprite(redMushroomSprite, 0f, 1f);
 
 		Say("Uh oh, you look like you're turning a little green after all that dancing!");
