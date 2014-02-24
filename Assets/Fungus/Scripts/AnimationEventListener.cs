@@ -2,9 +2,11 @@
 using System.Collections;
 using Fungus;
 
+// Listens for animation events
+// The string parameter specifies a method name on the active room class
 public class AnimationEventListener : MonoBehaviour 
 {
-	void OnAnimationEvent(string eventName)
+	void OnAnimationEvent(string methodName)
 	{
 		Room room = Game.GetInstance().activeRoom;
 		if (room == null)
@@ -12,6 +14,6 @@ public class AnimationEventListener : MonoBehaviour
 			return;
 		}
 
-		room.AnimationEvent(eventName);
+		room.AnimationEvent(methodName);
 	}
 }

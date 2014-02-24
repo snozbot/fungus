@@ -149,11 +149,9 @@ namespace Fungus
 		}
 
 		// Internal use only! Called by AnimationEventListener
-		public void AnimationEvent(string eventName)
+		public void AnimationEvent(string methodName)
 		{
-			commandQueue.Reset();
-			SendMessage("OnAnimationEvent", eventName, SendMessageOptions.DontRequireReceiver);
-			commandQueue.Execute();
+			ExecuteCommandMethod(methodName);
 		}
 
 		// Internal use only!

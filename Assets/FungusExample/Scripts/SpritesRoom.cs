@@ -40,20 +40,19 @@ public class SpritesRoom : Room
 		Say("Never mind, you'll feel better soon!");
 	}
 
-	void OnAnimationEvent(string eventName)
+	// This method is called by the Animation Event Listener component on the blue alien.
+	// When the GreenAlienWalk animation finishes it fires an event which calls this method.
+	void AlienAnimationFinished()
 	{
-		if (eventName == "GreenAnimationFinished")
-		{
-			SetAnimatorTrigger(blueAlienAnim, "Stop");
+		SetAnimatorTrigger(blueAlienAnim, "Stop");
 
-			Say("Well done Blue Alien! Time to say goodbye!");
+		Say("Well done Blue Alien! Time to say goodbye!");
 
-			FadeSprite(blueAlienSprite, 0, 1f);
-			Wait(1f);
+		FadeSprite(blueAlienSprite, 0, 1f);
+		Wait(1f);
 
-			Say("Heh. That Blue Alien - what a guy!");
+		Say("Heh. That Blue Alien - what a guy!");
 
-			MoveToRoom(menuRoom);
-		}
+		MoveToRoom(menuRoom);
 	}
 }
