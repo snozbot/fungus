@@ -10,6 +10,8 @@ public class SpritesRoom : Room
 
 	void OnEnter() 
 	{	
+		ShowSprite(blueAlienSprite);
+
 		Say("Pink Alien says to Blue Alien...");
 		Say("...'Show me your funky moves!'");
 
