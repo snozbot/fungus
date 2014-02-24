@@ -6,19 +6,19 @@ namespace Fungus
 {
 	// Simple button handler class.
 	// When the user taps on the button, the named method is called on ancestor game objects (if it exists).
-	[RequireComponent (typeof (SpriteController))]
-	[RequireComponent (typeof (Collider2D))]
+	[RequireComponent (typeof (SpriteRenderer))]
+	[RequireComponent (typeof (BoxCollider2D))]
 	public class Button : MonoBehaviour 
 	{
 		public string methodName;
 
-		public SpriteController spriteController;
+		public SpriteRenderer spriteRenderer;
 
 		public bool autoDisable = false;
 
 		void Start()
 		{
-			spriteController = GetComponent<SpriteController>();
+			spriteRenderer = GetComponent<SpriteRenderer>();
 		}
 
 		void OnMouseUpAsButton() 
@@ -29,7 +29,7 @@ namespace Fungus
 			}
 
 			// Ignore button press if button is not fully visible
-			if (!spriteController.isShown)
+			if (spriteRenderer.color.a != 1f)
 			{
 				return;
 			}

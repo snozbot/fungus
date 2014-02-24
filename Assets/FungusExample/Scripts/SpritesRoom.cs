@@ -6,10 +6,14 @@ public class SpritesRoom : Room
 {
 	public Room menuRoom;
 	public Animator blueAlienAnim;
-	public SpriteController blueAlienSprite;
+	public SpriteRenderer blueAlienSprite;
+	public SpriteRenderer redMushroomSprite;
 
 	void OnEnter() 
 	{	
+		HideSprite(redMushroomSprite);
+		FadeSprite(redMushroomSprite, 1f, 2f);
+
 		ShowSprite(blueAlienSprite);
 
 		Say("Pink Alien says to Blue Alien...");
@@ -19,6 +23,8 @@ public class SpritesRoom : Room
 
 		Say("Blue Alien starts to dance.");
 		Say("Tap on Blue Alien to stop him dancing.");
+
+		FadeSprite(redMushroomSprite, 0f, 2f);
 	}	
 
 	// This method is called from the Button component on the BlueAlien object

@@ -316,31 +316,34 @@ namespace Fungus
 	// Fades a sprite to a given alpha value over a period of time
 	public class FadeSpriteCommand : CommandQueue.Command
 	{
-		SpriteController spriteController;
-		float targetAlpha;
+		SpriteRenderer spriteRenderer;
+		Color targetColor;
 		float fadeDuration;
 		Vector2 slideOffset = Vector2.zero;
 		
-		public FadeSpriteCommand(SpriteController _spriteController,
-		                         float _targetAlpha,
+		public FadeSpriteCommand(SpriteRenderer _spriteRenderer,
+		                         Color _targetColor,
 		                         float _fadeDuration,
 		                         Vector2 _slideOffset)
 		{
-			if (_spriteController == null)
+			if (_spriteRenderer == null)
 			{
-				Debug.LogError("Sprite controller must not be null.");
+				Debug.LogError("Sprite renderer must not be null.");
 				return;
 			}
 
-			spriteController = _spriteController;
-			targetAlpha = _targetAlpha;
+			spriteRenderer = _spriteRenderer;
+			targetColor = _targetColor;
 			fadeDuration = _fadeDuration;
 			slideOffset = _slideOffset;
 		}
 		
 		public override void Execute(CommandQueue commandQueue, Action onComplete)
 		{
-			spriteController.SlideFade(targetAlpha, fadeDuration, slideOffset);
+			SpriteFader.FadeSprite(spriteRenderer, targetColor, fadeDuration, slideOffset);
+
+			// Fade is asynchronous, but command completes immediately.
+			// If you need to wait for the fade to complete, just use an additional Wait() command
 			if (onComplete != null)
 			{
 				onComplete();

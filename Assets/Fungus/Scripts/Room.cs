@@ -294,27 +294,35 @@ namespace Fungus
 		}
 
 		// Sets sprite alpha to 0 immediately
-		public void HideSprite(SpriteController spriteController)
+		public void HideSprite(SpriteRenderer spriteRenderer)
 		{
-			commandQueue.AddCommand(new FadeSpriteCommand(spriteController, 0f, 0f, Vector2.zero));
+			Color color = spriteRenderer.color;
+			color.a = 0f;
+			commandQueue.AddCommand(new FadeSpriteCommand(spriteRenderer, color, 0f, Vector2.zero));
 		}
 
 		// Sets sprite alpha to 1 immediately
-		public void ShowSprite(SpriteController spriteController)
+		public void ShowSprite(SpriteRenderer spriteRenderer)
 		{
-			commandQueue.AddCommand(new FadeSpriteCommand(spriteController, 1f, 0f, Vector2.zero));
+			Color color = spriteRenderer.color;
+			color.a = 1f;
+			commandQueue.AddCommand(new FadeSpriteCommand(spriteRenderer, color, 0f, Vector2.zero));
 		}
 
 		// Fades a sprite to a given alpha value over a period of time
-		public void FadeSprite(SpriteController spriteController, float targetAlpha, float duration)
+		public void FadeSprite(SpriteRenderer spriteRenderer, float targetAlpha, float duration)
 		{
-			commandQueue.AddCommand(new FadeSpriteCommand(spriteController, targetAlpha, duration, Vector2.zero));
+			Color color = spriteRenderer.color;
+			color.a = targetAlpha;
+			commandQueue.AddCommand(new FadeSpriteCommand(spriteRenderer, color, duration, Vector2.zero));
 		}
 
 		// Fades a sprite to a given alpha value over a period of time, and applies a sliding motion to the sprite transform
-		public void FadeSprite(SpriteController spriteController, float targetAlpha, float duration, Vector2 slideOffset)
+		public void FadeSprite(SpriteRenderer spriteRenderer, float targetAlpha, float duration, Vector2 slideOffset)
 		{
-			commandQueue.AddCommand(new FadeSpriteCommand(spriteController, targetAlpha, duration, slideOffset));
+			Color color = spriteRenderer.color;
+			color.a = targetAlpha;
+			commandQueue.AddCommand(new FadeSpriteCommand(spriteRenderer, color, duration, slideOffset));
 		}
 
 		// Sets an animator trigger to change the animation state for an animated sprite
