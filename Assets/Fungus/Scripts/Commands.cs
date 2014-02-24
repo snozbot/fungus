@@ -482,6 +482,52 @@ namespace Fungus
 		}		
 	}
 
+	// Pans the camera through a sequence of views over a period of time.
+	public class PanToPathCommand : CommandQueue.Command
+	{
+		View[] views;
+		float duration;
+		
+		public PanToPathCommand(View[] _views,
+		                        	float _duration)
+		{
+			if (_views.Length == 0)
+			{
+				Debug.LogError("View list must not be empty.");
+				return;
+			}
+			
+			views = _views;
+			duration = _duration;
+		}
+		
+		public override void Execute(CommandQueue commandQueue, Action onComplete)
+		{
+			commandQueue.cameraController.PanToPath(views, duration, delegate {
+
+				if (views.Length > 0)
+				{
+					Game game = Game.GetInstance();
+					game.activeView = views[views.Length - 1];
+					
+					// Try to find a page that is a child of the active view.
+					// If there are multiple child pages then it is the client's responsibility 
+					// to set the correct active page in the room script.
+					Page defaultPage = game.activeView.gameObject.GetComponentInChildren<Page>();
+					if (defaultPage)
+					{
+						game.activePage = defaultPage;
+					}
+				}
+				
+				if (onComplete != null)
+				{
+					onComplete();
+				}
+			});
+		}		
+	}
+
 	// Fades the camera to a view over a period of time.
 	public class FadeToViewCommand : CommandQueue.Command
 	{

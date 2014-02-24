@@ -341,10 +341,16 @@ namespace Fungus
 			commandQueue.AddCommand(new SetAnimatorTriggerCommand(animator, triggerName));
 		}
 
-		// Pans the camera to the target view of a period of time
+		// Pans the camera to the target view over a period of time
 		public void PanToView(View targetView, float duration)
 		{
 			commandQueue.AddCommand(new PanToViewCommand(targetView, duration));
+		}
+
+		// Pans the camera through a sequence of target views over a period of time
+		public void PanToPath(float duration, params View[] targetViews)
+		{
+			commandQueue.AddCommand(new PanToPathCommand(targetViews, duration));
 		}
 
 		// Snaps the camera to the target view immediately

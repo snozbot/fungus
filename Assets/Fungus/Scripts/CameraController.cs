@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Fungus;
 
 namespace Fungus
@@ -162,6 +163,56 @@ namespace Fungus
 				}
 
 				yield return null;
+			}
+		}
+
+		public void PanToPath(View[] viewList, float duration, Action arriveAction)
+		{
+			List<Vector3> pathList = new List<Vector3>();
+
+			// Note: We use the z coord to tween the camera orthographic size
+
+			// Add current camera position as first point in path
+			Vector3 startPos = new Vector3(mainCamera.transform.position.x,
+			                               mainCamera.transform.position.y,
+			                               mainCamera.orthographicSize);
+			pathList.Add(startPos);
+
+			for (int i = 0; i < viewList.Length; ++i)
+			{
+				View view = viewList[i];
+
+				Vector3 viewPos = new Vector3(view.transform.position.x, 
+				                              view.transform.position.y, 
+				                              view.viewSize);
+				pathList.Add(viewPos);
+			}
+
+			StartCoroutine(PanToPathInternal(duration, arriveAction, pathList.ToArray()));
+		}
+
+		IEnumerator PanToPathInternal(float duration, Action arriveAction, Vector3[] path)
+		{
+			float timer = 0;
+
+			while (timer < duration)
+			{
+				timer += Time.deltaTime;
+				timer = Mathf.Min(timer, duration);
+				float percent = timer / duration;
+
+				Vector3 point = iTween.PointOnPath(path, percent);
+
+				mainCamera.transform.position = new Vector3(point.x, point.y, 0);
+				mainCamera.orthographicSize = point.z;
+				SetCameraZ();
+
+				yield return null;
+			}
+
+			if (arriveAction != null)
+			{
+				arriveAction();
 			}
 		}
 

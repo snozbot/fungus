@@ -16,6 +16,7 @@ public class ViewsRoom : Room
 
 		AddOption("Lets look at the logo", LookLogo);
 		AddOption("That's a nice toadstool over there", LookToadstool);
+		AddOption ("Give me the full tour", FullTour);
 		AddOption("Back to menu", MoveToMenu);
 
 		Choose("Wanna move the camera?");
@@ -40,5 +41,13 @@ public class ViewsRoom : Room
 		Say("Now that is a pretty mushroom");
 		Say("Hey - let's go look at that logo");
 		Call(LookLogo);
+	}
+
+	void FullTour()
+	{
+		Say("Let's have a look around here");
+		PanToPath(10f, logoView, toadstoolView, mainView);
+		Say("And we're back!");
+		Call(OnEnter);
 	}
 }
