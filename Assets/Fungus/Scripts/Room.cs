@@ -323,6 +323,18 @@ namespace Fungus
 			commandQueue.AddCommand(new FadeSpriteCommand(spriteRenderer, color, duration, slideOffset));
 		}
 
+		// Makes a sprite behave as a clickable button
+		public void AddButton(SpriteRenderer buttonSprite, Action buttonAction)
+		{
+			commandQueue.AddCommand(new AddButtonCommand(buttonSprite, buttonAction));
+		}
+
+		// Makes a sprite stop behaving as a clickable button
+		public void RemoveButton(SpriteRenderer buttonSprite)
+		{
+			commandQueue.AddCommand(new RemoveButtonCommand(buttonSprite));
+		}
+
 		// Sets an animator trigger to change the animation state for an animated sprite
 		public void SetAnimatorTrigger(Animator animator, string triggerName)
 		{

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using Fungus;
 
@@ -10,25 +11,34 @@ namespace Fungus
 	[RequireComponent (typeof (BoxCollider2D))]
 	public class Button : MonoBehaviour 
 	{
-		public string methodName;
-
+		public Action buttonAction;
 		public SpriteRenderer spriteRenderer;
 
-		public bool autoDisable = false;
-
-		void Start()
+		// Makes a sprite into a clickable button
+		public static void MakeButton(SpriteRenderer _spriteRenderer, Action _buttonAction)
 		{
-			spriteRenderer = GetComponent<SpriteRenderer>();
+			if (_spriteRenderer == null)
+			{
+				Debug.LogError("Sprite renderer must not be null");
+				return;
+			}
+
+			// Remove any previous button component that was added
+			Button oldButton = _spriteRenderer.gameObject.GetComponent<Button>();
+			if (oldButton != null)
+			{
+				Destroy(oldButton);
+			}
+
+			// This will automatically add a BoxCollider2d if none currently exists
+			Button button = _spriteRenderer.gameObject.AddComponent<Button>();
+			button.buttonAction = _buttonAction;
+			button.spriteRenderer = _spriteRenderer;
 		}
 
 		void OnMouseUpAsButton() 
 		{
-			if (methodName == "")
-			{
-				return;
-			}
-
-			// Ignore button press if button is not fully visible
+			// Ignore button press if sprite is not fully visible
 			if (spriteRenderer.color.a != 1f)
 			{
 				return;
@@ -40,12 +50,7 @@ namespace Fungus
 				return;
 			}
 
-			room.ExecuteCommandMethod(methodName);
-
-			if (autoDisable)
-			{
-				gameObject.SetActive(false);
-			}
+			room.ExecuteCommandMethod(buttonAction);
 		}
 	}
 }

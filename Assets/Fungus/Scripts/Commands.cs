@@ -351,7 +351,7 @@ namespace Fungus
 		}		
 	}
 
-	// Sets an animator trigger to change the animation state for an animated sprite
+	// Sets an animator trigger to change the animator state for an animated sprite
 	public class SetAnimatorTriggerCommand : CommandQueue.Command
 	{
 		Animator animator;
@@ -373,6 +373,64 @@ namespace Fungus
 		public override void Execute(CommandQueue commandQueue, Action onComplete)
 		{
 			animator.SetTrigger(triggerName);
+
+			if (onComplete != null)
+			{
+				onComplete();
+			}
+		}		
+	}
+
+	// Makes a sprite behave as a clickable button
+	public class AddButtonCommand : CommandQueue.Command
+	{
+		SpriteRenderer spriteRenderer;
+		Action buttonAction;
+		
+		public AddButtonCommand(SpriteRenderer _spriteRenderer,
+		                        Action _buttonAction)
+		{
+			if (_spriteRenderer == null)
+			{
+				Debug.LogError("Sprite renderer must not be null.");
+				return;
+			}
+			
+			spriteRenderer = _spriteRenderer;
+			buttonAction = _buttonAction;
+		}
+		
+		public override void Execute(CommandQueue commandQueue, Action onComplete)
+		{
+			Button.MakeButton(spriteRenderer, buttonAction);
+			
+			if (onComplete != null)
+			{
+				onComplete();
+			}
+		}		
+	}
+
+	// Makes a sprite stop behaving as a clickable button
+	public class RemoveButtonCommand : CommandQueue.Command
+	{
+		SpriteRenderer spriteRenderer;
+
+		public RemoveButtonCommand(SpriteRenderer _spriteRenderer)
+		{
+			if (_spriteRenderer == null)
+			{
+				Debug.LogError("Sprite renderer must not be null.");
+				return;
+			}
+			
+			spriteRenderer = _spriteRenderer;
+		}
+		
+		public override void Execute(CommandQueue commandQueue, Action onComplete)
+		{
+			Button button = spriteRenderer.gameObject.GetComponent<Button>();
+			GameObject.Destroy(button);
 
 			if (onComplete != null)
 			{

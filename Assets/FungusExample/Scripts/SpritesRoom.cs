@@ -12,7 +12,6 @@ public class SpritesRoom : Room
 	void OnEnter() 
 	{	
 		HideSprite(redMushroomSprite);
-		FadeSprite(redMushroomSprite, 1f, 2f);
 
 		ShowSprite(blueAlienSprite);
 
@@ -24,15 +23,24 @@ public class SpritesRoom : Room
 		Say("Blue Alien starts to dance.");
 		Say("Tap on Blue Alien to stop him dancing.");
 
-		FadeSprite(redMushroomSprite, 0f, 2f);
+		AddButton(blueAlienSprite, StopDancing);
 	}	
 
 	// This method is called from the Button component on the BlueAlien object
 	void StopDancing()
 	{
+		RemoveButton(blueAlienSprite);
+
 		SetAnimatorTrigger(blueAlienAnim, "Stop");
 
 		Say("Nice moves there Blue Alien!");
+
+		Say("Maybe you want a nice mushroom to sit down on?");
+		FadeSprite(redMushroomSprite, 1f, 1f);
+
+		Say("Don't want to sit? Ok, no problem.");
+		FadeSprite(redMushroomSprite, 0f, 1f);
+
 		Say("Uh oh, you look like you're turning a little green after all that dancing!");
 
 		SetAnimatorTrigger(blueAlienAnim, "StartGreenWalk");
