@@ -364,5 +364,41 @@ namespace Fungus
 		{
 			commandQueue.AddCommand(new FadeToViewCommand(targetView, duration));
 		}
+
+		// Plays game music using an audio clip
+		public void PlayGameMusic(AudioClip audioClip)
+		{
+			commandQueue.AddCommand(new PlayMusicCommand(audioClip));
+		}
+
+		// Stops playing game music
+		public void StopGameMusic()
+		{
+			commandQueue.AddCommand(new StopMusicCommand());
+		}
+
+		// Sets music volume immediately
+		public void SetMusicVolume(float musicVolume)
+		{
+			commandQueue.AddCommand(new SetMusicVolumeCommand(musicVolume, 0f));
+		}
+
+		// Fades music volume to required level over a period of time
+		public void SetMusicVolume(float musicVolume, float duration)
+		{
+			commandQueue.AddCommand(new SetMusicVolumeCommand(musicVolume, duration));
+		}
+
+		// Plays a sound effect once
+		public void PlaySound(AudioClip audioClip)
+		{
+			commandQueue.AddCommand(new PlaySoundCommand(audioClip, 1f));
+		}
+
+		// Plays a sound effect once, at the specified volume
+		public void PlaySound(AudioClip audioClip, float volume)
+		{
+			commandQueue.AddCommand(new PlaySoundCommand(audioClip, volume));
+		}
 	}
 }

@@ -570,4 +570,97 @@ namespace Fungus
 			});
 		}		
 	}
+
+	// Plays a music clip
+	public class PlayMusicCommand : CommandQueue.Command
+	{
+		AudioClip audioClip;
+
+		public PlayMusicCommand(AudioClip _audioClip)
+		{
+			if (_audioClip == null)
+			{
+				Debug.LogError("Audio clip must not be null.");
+				return;
+			}
+			
+			audioClip = _audioClip;
+		}
+		
+		public override void Execute(CommandQueue commandQueue, Action onComplete)
+		{
+			Game game = Game.GetInstance();
+
+			game.audio.clip = audioClip;
+			game.audio.Play();
+
+			if (onComplete != null)
+			{
+				onComplete();
+			}
+		}
+	}
+
+	// Stops a music clip
+	public class StopMusicCommand : CommandQueue.Command
+	{
+		public override void Execute(CommandQueue commandQueue, Action onComplete)
+		{
+			Game game = Game.GetInstance();
+			game.audio.Stop();
+
+			if (onComplete != null)
+			{
+				onComplete();
+			}
+		}
+	}
+
+	// Fades music volume to required level over a period of time
+	public class SetMusicVolumeCommand : CommandQueue.Command
+	{
+		float musicVolume;
+		float duration;
+		
+		public SetMusicVolumeCommand(float _musicVolume, float _duration)
+		{
+			musicVolume = _musicVolume;
+			duration = _duration;
+		}
+		
+		public override void Execute(CommandQueue commandQueue, Action onComplete)
+		{
+			Game game = Game.GetInstance();
+			iTween.AudioTo(game.gameObject, musicVolume, 1f, duration);
+
+			if (onComplete != null)
+			{
+				onComplete();
+			}
+		}
+	}
+
+	// Plays a sound effect once
+	public class PlaySoundCommand : CommandQueue.Command
+	{
+		AudioClip audioClip;
+		float volume;
+		
+		public PlaySoundCommand(AudioClip _audioClip, float _volume)
+		{
+			audioClip = _audioClip;
+			volume = _volume;
+		}
+		
+		public override void Execute(CommandQueue commandQueue, Action onComplete)
+		{
+			Game game = Game.GetInstance();
+			game.audio.PlayOneShot(audioClip, volume);
+
+			if (onComplete != null)
+			{
+				onComplete();
+			}
+		}
+	}
 }
