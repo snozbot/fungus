@@ -26,7 +26,14 @@ public class AudioRoom : Room
 		AddOption("Play a sound effect", PlaySound);
 		AddOption("Back to menu", MainMenu);
 
-		Choose("We are the music makers, and we are the dreamers of dreams.");
+		if (IsFirstVisit())
+		{
+			Choose("We are the music makers, and we are the dreamers of dreams.");
+		}
+		else
+		{
+			Choose();
+		}
 	}
 
 	void StartMusic()
