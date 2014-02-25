@@ -8,13 +8,13 @@ namespace Fungus
 	// Simple button handler class.
 	// When the user taps on the button, the named method is called on ancestor game objects (if it exists).
 	[RequireComponent (typeof (SpriteRenderer))]
-	[RequireComponent (typeof (BoxCollider2D))]
+	[RequireComponent (typeof (Collider2D))]
 	public class Button : MonoBehaviour 
 	{
 		public Action buttonAction;
 		public SpriteRenderer spriteRenderer;
 
-		// Makes a sprite into a clickable button
+		// Makes a sprite clickable by attaching a Button component (and BoxCollider2D if required)
 		public static void MakeButton(SpriteRenderer _spriteRenderer, Action _buttonAction)
 		{
 			if (_spriteRenderer == null)
@@ -30,7 +30,12 @@ namespace Fungus
 				Destroy(oldButton);
 			}
 
-			// This will automatically add a BoxCollider2d if none currently exists
+			// Add a BoxCollider2d if none currently exists
+			if (_spriteRenderer.gameObject.GetComponent<Collider2D>() == null)
+			{
+				_spriteRenderer.gameObject.AddComponent<BoxCollider2D>();
+			}
+
 			Button button = _spriteRenderer.gameObject.AddComponent<Button>();
 			button.buttonAction = _buttonAction;
 			button.spriteRenderer = _spriteRenderer;
@@ -44,13 +49,8 @@ namespace Fungus
 				return;
 			}
 
-			Room room = Game.GetInstance().activeRoom;
-			if (room == null)
-			{
-				return;
-			}
-
-			room.ExecuteCommandMethod(buttonAction);
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;		
+			commandQueue.CallCommandMethod(buttonAction);
 		}
 	}
 }

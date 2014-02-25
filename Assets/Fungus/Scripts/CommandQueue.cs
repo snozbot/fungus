@@ -9,14 +9,6 @@ namespace Fungus
 	// When a command completes, the next command is popped from the queue and exectuted.
 	public class CommandQueue : MonoBehaviour
 	{
-		[HideInInspector]
-		public CameraController cameraController;
-
-		public void Start()
-		{
-			cameraController = Game.GetInstance().GetComponent<CameraController>();
-		}
-
 		// Base class for commands used with the CommandQueue
 		public abstract class Command
 		{
@@ -25,18 +17,21 @@ namespace Fungus
 
 		List<Command> commandList = new List<Command>();
 
-		public void AddCommand(Command command)
+		// Adds a command to the queue for later execution
+		public virtual void AddCommand(Command command)
 		{
 			commandList.Add(command);
 		}
 
-		public void Reset()
+		// Clears all queued commands from the list
+		public virtual void Reset()
 		{
-			StopAllCoroutines();
 			commandList.Clear();
 		}
 
-		public void Execute()
+		// Executes the first command in the queue.
+		// When this command completes, the next command in the queue is executed.
+		public virtual void Execute()
 		{
 			if (commandList.Count == 0)
 			{
@@ -49,6 +44,27 @@ namespace Fungus
 				commandList.RemoveAt(0);
 				Execute();
 			});
+		}
+
+		// Calls a named method on a game object to populate the command queue.
+		// The command queue is then executed.
+		public void CallCommandMethod(GameObject target, string methodName)
+		{
+			Reset();
+			target.SendMessage(methodName, SendMessageOptions.DontRequireReceiver);
+			Execute();
+		}
+		
+		// Calls an Action delegate method to populate the command queue.
+		// The command queue is then executed.
+		public void CallCommandMethod(Action method)
+		{
+			Reset();
+			if (method != null)
+			{
+				method();
+			}
+			Execute();
 		}
 	}
 }

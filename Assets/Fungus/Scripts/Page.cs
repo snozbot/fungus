@@ -2,7 +2,6 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace Fungus
 {
@@ -64,20 +63,23 @@ namespace Fungus
 		public void Say(string sayText, Action sayAction)
 		{
 			mode = Mode.Say;
-			string subbedText = SubstituteStrings(sayText);
+			StringTable stringTable = Game.GetInstance().stringTable;
+			string subbedText = stringTable.SubstituteStrings(sayText);
 			WriteStory(subbedText, sayAction);
 		}
 
 		public void AddOption(string optionText, Action optionAction)
 		{
-			string subbedText = FormatLinkText(SubstituteStrings(optionText));
+			StringTable stringTable = Game.GetInstance().stringTable;
+			string subbedText = stringTable.FormatLinkText(stringTable.SubstituteStrings(optionText));
 			options.Add(new Option(subbedText, optionAction));
 		}
 
 		public void Choose(string _chooseText)
 		{
 			mode = Mode.Choose;
-			string subbedText = SubstituteStrings(_chooseText);
+			StringTable stringTable = Game.GetInstance().stringTable;
+			string subbedText = stringTable.SubstituteStrings(_chooseText);
 			WriteStory(subbedText, null);			
 		}
 
@@ -206,9 +208,8 @@ namespace Fungus
 						// Reset to idle, but calling action may set this again
 						mode = Mode.Idle;
 
-						Room room = Game.GetInstance().activeRoom;
-
-						room.ExecuteCommandMethod(tempAction);
+						CommandQueue commandQueue = Game.GetInstance().commandQueue;		
+						commandQueue.CallCommandMethod(tempAction);
 					}
 					else if (mode == Mode.Say)
 					{
@@ -272,41 +273,6 @@ namespace Fungus
 			                outerRect.y + boxStyle.padding.top,
 			                outerRect.width - (boxStyle.padding.left + boxStyle.padding.right),
 			                outerRect.height - (boxStyle.padding.top + boxStyle.padding.bottom));
-		}
-
-		private string SubstituteStrings(string text)
-		{
-			string subbedText = text;
-			
-			// Instantiate the regular expression object.
-			Regex r = new Regex("{.*?}");
-			
-			// Match the regular expression pattern against a text string.
-			var results = r.Matches(text);
-			foreach (Match match in results)
-			{
-				string stringKey = match.Value.Substring(1, match.Value.Length - 2);
-				string stringValue = Game.GetInstance().GetString(stringKey);
-				
-				subbedText = subbedText.Replace(match.Value, stringValue);
-			}
-			
-			return subbedText;
-		}
-		
-		private string FormatLinkText(string text)
-		{
-			string trimmed;
-			if (text.Contains("\n"))
-			{
-				trimmed = text.Substring(0, text.IndexOf("\n"));
-			}
-			else
-			{
-				trimmed = text;
-			}
-			
-			return trimmed;
 		}
 
 		Rect GetScreenRect()

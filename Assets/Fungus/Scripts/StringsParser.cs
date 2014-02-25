@@ -29,6 +29,8 @@ namespace Fungus
 		
 		static public void ProcessText(string text) 
 		{
+			StringTable stringTable = Game.GetInstance().stringTable; 
+
 			// Split text into lines. Add a newline at end to ensure last command is always parsed
 			string[] lines = Regex.Split(text + "\n", "(?<=\n)");
 			
@@ -86,7 +88,7 @@ namespace Fungus
 						// Trim off last newline
 						blockBuffer = blockBuffer.TrimEnd( '\r', '\n', ' ', '\t');
 
-						Game.GetInstance().SetString(blockTag, blockBuffer);
+						stringTable.SetString(blockTag, blockBuffer);
 					}
 
 					// Prepare to parse next block

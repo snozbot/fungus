@@ -4,34 +4,43 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	// Manages movement between rooms and global game state
-	[RequireComponent (typeof (CommandQueue))]
-	[RequireComponent (typeof (CameraController))]
+	// Manages global game state and movement between rooms
 	public class Game : MonoBehaviour 
 	{
 		public bool showLinks = true;
-
+		
 		public Room activeRoom;
-
-		[HideInInspector]
-		public View activeView;
-
-		[HideInInspector]
-		public Page activePage;
-
-		public GameState state = new GameState();
-
-		protected Dictionary<string, string> stringTable = new Dictionary<string, string>();
-
-		private static Game instance;
-
-		CameraController cameraController;
-
-		public float fadeDuration = 1f;
 
 		public string continueText = "Continue";
 		
 		public int charactersPerSecond = 60;
+
+		// Fixed Z coordinate of camera
+		public float cameraZ = - 10f;
+
+		public float fadeDuration = 1f;
+
+		public Texture2D fadeTexture;
+
+		[HideInInspector]
+		public View activeView;
+		
+		[HideInInspector]
+		public Page activePage;
+		
+		[HideInInspector]
+		public GameState state = new GameState();
+		
+		[HideInInspector]
+		public StringTable stringTable = new StringTable();
+		
+		[HideInInspector]
+		public CommandQueue commandQueue;
+		
+		[HideInInspector]
+		public CameraController cameraController;
+
+		static Game instance;
 
 		public static Game GetInstance()
 		{
@@ -49,7 +58,8 @@ namespace Fungus
 
 		public virtual void Start()
 		{
-			cameraController = GetComponent<CameraController>();
+			commandQueue = gameObject.AddComponent<CommandQueue>();
+			cameraController = gameObject.AddComponent<CameraController>();
 
 			if (activeRoom == null)
 			{
@@ -63,11 +73,6 @@ namespace Fungus
 			}
 		}
 
-		public Room GetCurrentRoom()
-		{
-			return GetInstance().activeRoom;
-		}
-
 		public void MoveToRoom(Room room)
 		{
 			if (room == null)
@@ -79,87 +84,15 @@ namespace Fungus
 			// Fade out screen
 			cameraController.Fade(0f, fadeDuration / 2f, delegate {
 
-				if (activeRoom != null)
-				{
-					activeRoom.Leave();
-				}
-
 				activeRoom = room;
 
-				activeRoom.Enter();
+				// Notify room script that the Room is being entered
+				// Calling private method on Room to hide implementation
+				activeRoom.gameObject.SendMessage("Enter");
 				
 				// Fade in screen
 				cameraController.Fade(1f, fadeDuration / 2f, null);
 			});
-		}
-
-		public void Restart()
-		{
-			// TODO: Reload scene
-		}
-		
-		public void ClearFlags()
-		{
-			state.ClearFlags();
-		}
-		
-		public bool GetFlag(string key)
-		{
-			return state.GetFlag(key);
-		}
-		
-		public void SetFlag(string key, bool value)
-		{
-			state.SetFlag(key, value);
-		}
-		
-		public void ClearCounters()
-		{
-			state.ClearCounters();
-		}
-		
-		public int GetCounter(string key)
-		{
-			return state.GetCounter(key);
-		}
-		
-		public void SetCounter(string key, int value)
-		{
-			state.SetCounter(key, value);
-		}
-		
-		public void ClearInventory()
-		{
-			state.ClearInventory();
-		}
-		
-		public int GetInventory(string key)
-		{
-			return state.GetInventory(key);
-		}
-
-		public void SetInventory(string key, int value)
-		{
-			state.SetInventory(key, value);
-		}
-		
-		public void ClearStringTable()
-		{
-			stringTable.Clear();
-		}
-		
-		public string GetString(string key)
-		{
-			if (stringTable.ContainsKey(key))
-			{
-				return stringTable[key];
-			}
-			return "";
-		}
-		
-		public void SetString(string key, string value)
-		{
-			stringTable[key] = value;
 		}
 	}
 }

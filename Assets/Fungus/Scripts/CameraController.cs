@@ -10,13 +10,15 @@ namespace Fungus
 	// Supports several types of camera transition including snap, pan & fade.
 	public class CameraController : MonoBehaviour 
 	{
-		// Fixed Z coordinate of camera
-		public float cameraZ = - 10f;
-
+		Game game;
 		Camera mainCamera;
+
+		float fadeAlpha = 0f;
 
 		void Start()
 		{
+			game = Game.GetInstance();
+
 			GameObject cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
 			if (cameraObject == null)
 			{
@@ -31,10 +33,6 @@ namespace Fungus
 			}
 		}
 
-		public Texture2D fadeTexture;
-
-		public float fadeAlpha = 1f;
-
 		void OnGUI()
 		{	
 			int drawDepth = -1000;
@@ -45,7 +43,7 @@ namespace Fungus
 				// 0 = scene fully obscured
 				GUI.color = new Color(1,1,1, 1f - fadeAlpha);	
 				GUI.depth = drawDepth;
-				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), fadeTexture);
+				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), game.fadeTexture);
 			}
 		}
 
@@ -114,6 +112,7 @@ namespace Fungus
 			PanToView(view, 0, null);
 		}
 
+		// Moves camera from current position to a target View over a period of time
 		public void PanToView(View view, float duration, Action arriveAction)
 		{
 			if (duration == 0f)
@@ -151,6 +150,7 @@ namespace Fungus
 					timer = duration;
 				}
 
+				// Apply smoothed lerp to camera position and orthographic size
 				float t = timer / duration;
 				mainCamera.orthographicSize = Mathf.Lerp(startSize, endSize, Mathf.SmoothStep(0f, 1f, t));
 				mainCamera.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, t));
@@ -166,13 +166,13 @@ namespace Fungus
 			}
 		}
 
+		// Moves camera smoothly through a sequence of Views over a period of time
 		public void PanToPath(View[] viewList, float duration, Action arriveAction)
 		{
 			List<Vector3> pathList = new List<Vector3>();
 
-			// Note: We use the z coord to tween the camera orthographic size
-
 			// Add current camera position as first point in path
+			// Note: We use the z coord to tween the camera orthographic size
 			Vector3 startPos = new Vector3(mainCamera.transform.position.x,
 			                               mainCamera.transform.position.y,
 			                               mainCamera.orthographicSize);
@@ -218,7 +218,7 @@ namespace Fungus
 
 		void SetCameraZ()
 		{
-			mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, cameraZ);
+			mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, game.cameraZ);
 		}
 	}
 }

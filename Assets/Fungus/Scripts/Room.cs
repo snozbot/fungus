@@ -10,23 +10,18 @@ namespace Fungus
 	// This is the main scripting interface for Fungus games.
 	// Each room in your game should have a script which inherits from Room.
 	// The OnEnter() method is called when the player enters the room.
-	// The OnLeave() method is called when the player moves to a different room.
-	// Convenience methods are provided for accessing all features of the library.
-	public abstract class Room : MonoBehaviour 
+	// The GameController base class provides easy access to all story control commands
+	public abstract class Room : GameController 
 	{
 		public int visitCount;
 
-		Game game;
-		CommandQueue commandQueue;
-		CameraController cameraController;
-	 
-		void Awake()
+		// Returns true if this is the first time the player has visited this room
+		public bool IsFirstVisit()
 		{
-			game = Game.GetInstance();
-			cameraController = game.gameObject.GetComponent<CameraController>();
-			commandQueue = game.gameObject.GetComponent<CommandQueue>();
+			return (visitCount == 0);
 		}
 
+		// Automatically draws arrows to other Rooms referenced in public properties
 		void OnDrawGizmos()
 		{
 			const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance;
@@ -100,9 +95,13 @@ namespace Fungus
 			Gizmos.DrawLine(arrowPosA, arrowPosC);
 		}
 		
-		// Internal use only! Called by Game when changing room
-		public void Enter()
+		// Called by Game when player enters the room
+		void Enter()
 		{
+			Game game = Game.GetInstance();
+			CameraController cameraController = game.gameObject.GetComponent<CameraController>();
+
+
 			// Pick first view found in the room and snap to camera to this view.
 			// It is allowed for a room to not have any views. 
 			// In this case game.activeView will be null, and the camera will attempt
@@ -135,270 +134,9 @@ namespace Fungus
 			// Rooms may have multiple child views and page. It is the responsibility of the client
 			// room script to set the appropriate view & page in its OnEnter method.
 
-			commandQueue.Reset();
-			SendMessage("OnEnter", SendMessageOptions.DontRequireReceiver);
-			commandQueue.Execute();
+			game.commandQueue.CallCommandMethod(game.activeRoom.gameObject, "OnEnter");
 
 			visitCount++;
-		}
-
-		// Internal use only! Called by Game when changing room
-		public void Leave()
-		{
-			SendMessage("OnLeave", SendMessageOptions.DontRequireReceiver);
-		}
-
-		// Internal use only! Called by AnimationEventListener
-		public void AnimationEvent(string methodName)
-		{
-			ExecuteCommandMethod(methodName);
-		}
-
-		// Internal use only!
-		public void ExecuteCommandMethod(string methodName)
-		{
-			commandQueue.Reset();
-			SendMessage(methodName, SendMessageOptions.DontRequireReceiver);
-			commandQueue.Execute();
-		}
-
-		// Internal use only!
-		public void ExecuteCommandMethod(Action method)
-		{
-			commandQueue.Reset();
-			method();
-			commandQueue.Execute();
-		}
-
-		// Public convenience methods
-		// These methods all execute immediately
-
-		// Returns true if this is the first time the player has visited this room
-		public bool IsFirstVisit()
-		{
-			return (visitCount == 0);
-		}
-
-		// Return true if the boolean flag for the key has been set to true
-		public bool GetFlag(string key)
-		{
-			return game.GetFlag(key);
-		}
-
-		// Returns the count value for the key
-		// Returns zero if no value has been set.
-		public int GetCounter(string key)
-		{
-			return game.GetCounter(key);
-		}
-
-		// Returns the inventory count value for the key
-		// Returns zero if no inventory count has been set.
-		public int GetInventory(string key)
-		{
-			return game.GetInventory(key);
-		}
-
-		// Returns true if the inventory count for the key is greater than zero
-		public bool HasInventory(string key)
-		{
-			return (game.GetInventory(key) > 0);
-		}
-
-		// Public command methods
-		// These methods all queue commands for later execution in serial order
-
-		// Wait for a period of time before executing the next command
-		public void Wait(float duration)
-		{
-			commandQueue.AddCommand(new WaitCommand(duration));
-		}
-
-		// Call a delegate method provided by the client
-		// Used to queue the execution of arbitrary code.
-		public void Call(Action callAction)
-		{
-			commandQueue.AddCommand(new CallCommand(callAction));
-		}
-
-		// Sets the currently active view immediately.
-		// The main camera snaps to the active view.
-		public void SetView(View view)
-		{
-			commandQueue.AddCommand(new SetViewCommand(view));
-		}
-
-		// Sets the currently active page for text rendering
-		public void SetPage(Page page)
-		{
-			commandQueue.AddCommand(new SetPageCommand(page));
-		}
-
-		// Sets the title text displayed at the top of the active page
-		public void Title(string titleText)
-		{
-			commandQueue.AddCommand(new TitleCommand(titleText));
-		}
-
-		// Writes story text to the currently active page.
-		// A 'continue' button is displayed when the text has fully appeared.
-		public void Say(string storyText)
-		{
-			commandQueue.AddCommand(new SayCommand(storyText));
-		}
-
-		// Adds an option button to the current list of options.
-		// Use the Choose command to display added options.
-		public void AddOption(string optionText, Action optionAction)
-		{
-			commandQueue.AddCommand(new AddOptionCommand(optionText, optionAction));
-		}
-
-		// Displays a text prompt, followed by all previously added options as buttons.
-		public void Choose(string chooseText)
-		{
-			commandQueue.AddCommand(new ChooseCommand(chooseText));
-		}
-
-		// Changes the active room to a different room
-		public void MoveToRoom(Room room)
-		{
-			commandQueue.AddCommand(new MoveToRoomCommand(room));
-		}
-
-		// Sets a global boolean flag value
-		public void SetFlag(string key, bool value)
-		{
-			commandQueue.AddCommand(new SetFlagCommand(key, value));
-		}
-
-		// Sets a global integer counter value
-		public void SetCounter(string key, int value)
-		{
-			commandQueue.AddCommand(new SetCounterCommand(key, value));
-		}
-
-		// Sets a global inventory count value
-		// Assumes that the count value is 1 (common case)
-		public void SetInventory(string key)
-		{
-			commandQueue.AddCommand(new SetInventoryCommand(key, 1));
-		}
-
-		// Sets a global inventory count value
-		public void SetInventory(string key, int value)
-		{
-			commandQueue.AddCommand(new SetInventoryCommand(key, value));
-		}
-
-		// Sets sprite alpha to 0 immediately
-		public void HideSprite(SpriteRenderer spriteRenderer)
-		{
-			Color color = spriteRenderer.color;
-			color.a = 0f;
-			commandQueue.AddCommand(new FadeSpriteCommand(spriteRenderer, color, 0f, Vector2.zero));
-		}
-
-		// Sets sprite alpha to 1 immediately
-		public void ShowSprite(SpriteRenderer spriteRenderer)
-		{
-			Color color = spriteRenderer.color;
-			color.a = 1f;
-			commandQueue.AddCommand(new FadeSpriteCommand(spriteRenderer, color, 0f, Vector2.zero));
-		}
-
-		// Fades a sprite to a given alpha value over a period of time
-		public void FadeSprite(SpriteRenderer spriteRenderer, float targetAlpha, float duration)
-		{
-			Color color = spriteRenderer.color;
-			color.a = targetAlpha;
-			commandQueue.AddCommand(new FadeSpriteCommand(spriteRenderer, color, duration, Vector2.zero));
-		}
-
-		// Fades a sprite to a given alpha value over a period of time, and applies a sliding motion to the sprite transform
-		public void FadeSprite(SpriteRenderer spriteRenderer, float targetAlpha, float duration, Vector2 slideOffset)
-		{
-			Color color = spriteRenderer.color;
-			color.a = targetAlpha;
-			commandQueue.AddCommand(new FadeSpriteCommand(spriteRenderer, color, duration, slideOffset));
-		}
-
-		// Makes a sprite behave as a clickable button
-		public void AddButton(SpriteRenderer buttonSprite, Action buttonAction)
-		{
-			commandQueue.AddCommand(new AddButtonCommand(buttonSprite, buttonAction));
-		}
-
-		// Makes a sprite stop behaving as a clickable button
-		public void RemoveButton(SpriteRenderer buttonSprite)
-		{
-			commandQueue.AddCommand(new RemoveButtonCommand(buttonSprite));
-		}
-
-		// Sets an animator trigger to change the animation state for an animated sprite
-		public void SetAnimatorTrigger(Animator animator, string triggerName)
-		{
-			commandQueue.AddCommand(new SetAnimatorTriggerCommand(animator, triggerName));
-		}
-
-		// Pans the camera to the target view over a period of time
-		public void PanToView(View targetView, float duration)
-		{
-			commandQueue.AddCommand(new PanToViewCommand(targetView, duration));
-		}
-
-		// Pans the camera through a sequence of target views over a period of time
-		public void PanToPath(float duration, params View[] targetViews)
-		{
-			commandQueue.AddCommand(new PanToPathCommand(targetViews, duration));
-		}
-
-		// Snaps the camera to the target view immediately
-		public void SnapToView(View targetView)
-		{
-			commandQueue.AddCommand(new PanToViewCommand(targetView, 0f));
-		}
-
-		// Fades out the current camera view, and fades in again using the target view.
-		public void FadeToView(View targetView, float duration)
-		{
-			commandQueue.AddCommand(new FadeToViewCommand(targetView, duration));
-		}
-
-		// Plays game music using an audio clip
-		public void PlayGameMusic(AudioClip audioClip)
-		{
-			commandQueue.AddCommand(new PlayMusicCommand(audioClip));
-		}
-
-		// Stops playing game music
-		public void StopGameMusic()
-		{
-			commandQueue.AddCommand(new StopMusicCommand());
-		}
-
-		// Sets music volume immediately
-		public void SetMusicVolume(float musicVolume)
-		{
-			commandQueue.AddCommand(new SetMusicVolumeCommand(musicVolume, 0f));
-		}
-
-		// Fades music volume to required level over a period of time
-		public void SetMusicVolume(float musicVolume, float duration)
-		{
-			commandQueue.AddCommand(new SetMusicVolumeCommand(musicVolume, duration));
-		}
-
-		// Plays a sound effect once
-		public void PlaySound(AudioClip audioClip)
-		{
-			commandQueue.AddCommand(new PlaySoundCommand(audioClip, 1f));
-		}
-
-		// Plays a sound effect once, at the specified volume
-		public void PlaySound(AudioClip audioClip, float volume)
-		{
-			commandQueue.AddCommand(new PlaySoundCommand(audioClip, volume));
 		}
 	}
 }

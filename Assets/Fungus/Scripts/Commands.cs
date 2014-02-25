@@ -77,8 +77,10 @@ namespace Fungus
 		
 		public override void Execute(CommandQueue commandQueue, Action onComplete)
 		{
-			commandQueue.cameraController.SnapToView(view);
-			Game.GetInstance().activeView = view;
+			Game game = Game.GetInstance();
+
+			game.cameraController.SnapToView(view);
+			game.activeView = view;
 
 			// Set the first page component found (if any) as the active page
 			Page page = view.gameObject.GetComponentInChildren<Page>();
@@ -261,7 +263,7 @@ namespace Fungus
 
 		public override void Execute(CommandQueue commandQueue, Action onComplete)
 		{
-			Game.GetInstance().SetFlag(key, value);
+			Game.GetInstance().state.SetFlag(key, value);
 			if (onComplete != null)
 			{
 				onComplete();
@@ -283,7 +285,7 @@ namespace Fungus
 		
 		public override void Execute(CommandQueue commandQueue, Action onComplete)
 		{
-			Game.GetInstance().SetCounter(key, value);
+			Game.GetInstance().state.SetCounter(key, value);
 			if (onComplete != null)
 			{
 				onComplete();
@@ -305,7 +307,7 @@ namespace Fungus
 		
 		public override void Execute(CommandQueue commandQueue, Action onComplete)
 		{
-			Game.GetInstance().SetInventory(key, value);
+			Game.GetInstance().state.SetInventory(key, value);
 			if (onComplete != null)
 			{
 				onComplete();
@@ -460,9 +462,10 @@ namespace Fungus
 		
 		public override void Execute(CommandQueue commandQueue, Action onComplete)
 		{
-			commandQueue.cameraController.PanToView(view, duration, delegate {
+			Game game = Game.GetInstance();
 
-				Game game = Game.GetInstance();
+			game.cameraController.PanToView(view, duration, delegate {
+
 				game.activeView = view;
 
 				// Try to find a page that is a child of the active view.
@@ -503,11 +506,12 @@ namespace Fungus
 		
 		public override void Execute(CommandQueue commandQueue, Action onComplete)
 		{
-			commandQueue.cameraController.PanToPath(views, duration, delegate {
+			Game game = Game.GetInstance();
+
+			game.cameraController.PanToPath(views, duration, delegate {
 
 				if (views.Length > 0)
 				{
-					Game game = Game.GetInstance();
 					game.activeView = views[views.Length - 1];
 					
 					// Try to find a page that is a child of the active view.
@@ -549,9 +553,10 @@ namespace Fungus
 		
 		public override void Execute(CommandQueue commandQueue, Action onComplete)
 		{
-			commandQueue.cameraController.FadeToView(view, duration, delegate {
+			Game game = Game.GetInstance();
 
-				Game game = Game.GetInstance();
+			game.cameraController.FadeToView(view, duration, delegate {
+
 				game.activeView = view;
 				
 				// Try to find a page that is a child of the active view.
