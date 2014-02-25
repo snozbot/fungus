@@ -11,9 +11,8 @@ namespace Fungus
 	{
 		public float viewSize = 0.5f;
 
+		// An empty Start() method is needed to display enable checkbox in editor
 		void Start()
-		{
-			// An empty Start() method is needed to display enable checkbox in editor
-		}
+		{}
 	}
 }
