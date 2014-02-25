@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CustomEditor (typeof(Room))]
+	[CustomEditor (typeof(Room), true)]
 	[CanEditMultipleObjects]
 	public class RoomEditor : Editor
 	{
