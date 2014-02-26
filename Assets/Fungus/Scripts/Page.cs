@@ -107,13 +107,34 @@ namespace Fungus
 		
 		IEnumerator WriteStoryInternal()
 		{
-			float writeDelay = 1f / (float)Game.GetInstance().charactersPerSecond;
-			
+			int charactersPerSecond = Game.GetInstance().charactersPerSecond;
+
+			// Zero means write instantly
+			if (charactersPerSecond <= 0)
+			{
+				displayedStoryText = originalStoryText;
+				yield break;
+			}
+
 			displayedStoryText = "";
+			float writeDelay = 1f / (float)charactersPerSecond;
+			float timeAccumulator = 0f;
+
 			while (displayedStoryText.Length < originalStoryText.Length)
 			{
-				displayedStoryText += originalStoryText.Substring(displayedStoryText.Length, 1);
-				yield return new WaitForSeconds(writeDelay);
+				timeAccumulator += Time.deltaTime;
+
+				while (timeAccumulator > 0f)
+				{
+					timeAccumulator -= writeDelay;
+
+					if (displayedStoryText.Length < originalStoryText.Length)
+					{
+						displayedStoryText += originalStoryText.Substring(displayedStoryText.Length, 1);
+					}
+				}
+
+				yield return null;
 			}
 
 			displayedStoryText = originalStoryText;
