@@ -13,12 +13,11 @@ namespace Fungus
 	{
 		public Bounds pageBounds = new Bounds(Vector3.zero, new Vector3(0.25f, 0.25f, 0f));
 
-		// The font size for title, say and option text is calculated by dividing the screen height
-		// by the number of allowed rows for each type of text. This gives a consistent font size
-		// regardless of the device resolution.
-		public int titleRows = 20;
-		public int sayRows = 25;
-		public int optionRows = 25;
+		// The font size for title, say and option text is calculated by multiplying the screen height
+		// by the corresponding font scale. Text appears the same size across all device resolutions.
+		public float titleFontScale = 1f / 20f;
+		public float sayFontScale = 1f / 25f;
+		public float optionFontScale = 1f / 25f;
 
 		public GUIStyle titleStyle;
 		public GUIStyle sayStyle;
@@ -143,9 +142,10 @@ namespace Fungus
 			innerRect = CalcInnerRect(outerRect);
 
 			// Override the font size to compensate for varying device resolution
-			titleStyle.fontSize = Screen.height / titleRows;
-			sayStyle.fontSize = Screen.height / sayRows;
-			optionStyle.fontSize = Screen.height / optionRows;
+			// Font size is calculated as a fraction of the current screen height
+			titleStyle.fontSize = Mathf.RoundToInt((float)Screen.height * titleFontScale);
+			sayStyle.fontSize = Mathf.RoundToInt((float)Screen.height * sayFontScale);
+			optionStyle.fontSize = Mathf.RoundToInt((float)Screen.height * optionFontScale);
 
 			// Draw box
 			Rect boxRect = outerRect;
