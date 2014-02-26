@@ -12,7 +12,7 @@ public class AudioRoom : Room
 	{
 		if (GetFlag("music"))
 		{
-			AddOption("Stop the music", StopMusic);
+			AddOption("Stop the music", StopGameMusic);
 
 			if (GetFlag("quiet") == false)
 			{
@@ -21,7 +21,7 @@ public class AudioRoom : Room
 		}
 		else
 		{
-			AddOption("Play some music", StartMusic);
+			AddOption("Play some music", StartGameMusic);
 		}
 		AddOption("Play a sound effect", PlaySound);
 		AddOption("Back to menu", MainMenu);
@@ -36,17 +36,17 @@ public class AudioRoom : Room
 		}
 	}
 
-	void StartMusic()
+	void StartGameMusic()
 	{
-		PlayGameMusic(musicClip);
+		PlayMusic(musicClip);
 		SetMusicVolume(1f);
 		SetFlag("music", true);
 		Call(OnEnter);
 	}
 
-	void StopMusic()
+	void StopGameMusic()
 	{
-		StopGameMusic();
+		StopMusic();
 		SetFlag("music", false);
 		SetFlag("quiet", false);
 		Call(OnEnter);

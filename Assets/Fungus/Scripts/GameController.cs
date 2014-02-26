@@ -226,14 +226,14 @@ public class GameController : MonoBehaviour
 	}
 	
 	// Plays game music using an audio clip
-	public void PlayGameMusic(AudioClip audioClip)
+	public void PlayMusic(AudioClip audioClip)
 	{
 		CommandQueue commandQueue = Game.GetInstance().commandQueue;
 		commandQueue.AddCommand(new PlayMusicCommand(audioClip));
 	}
 	
 	// Stops playing game music
-	public void StopGameMusic()
+	public void StopMusic()
 	{
 		CommandQueue commandQueue = Game.GetInstance().commandQueue;
 		commandQueue.AddCommand(new StopMusicCommand());
