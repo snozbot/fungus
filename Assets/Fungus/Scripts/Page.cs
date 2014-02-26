@@ -197,6 +197,9 @@ namespace Fungus
 
 			if (finishedWriting)
 			{
+				// Player can continue through single options by clicking / tapping anywhere
+				bool quickContinue = (options.Count == 1 && (Input.GetMouseButtonUp(0) || Input.anyKeyDown));
+
 				Rect buttonRect = innerRect;
 				buttonRect.y += titleHeight + storyHeight;
 				foreach (Option option in options)
@@ -204,7 +207,8 @@ namespace Fungus
 					GUIContent buttonContent = new GUIContent(option.optionText);
 					buttonRect.height = optionStyle.CalcHeight(buttonContent, innerRect.width);
 
-					if (GUI.Button(buttonRect, buttonContent, optionStyle))
+					if (quickContinue || 
+					    GUI.Button(buttonRect, buttonContent, optionStyle))
 					{
 						if (option.optionAction != null)
 						{
