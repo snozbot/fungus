@@ -7,9 +7,9 @@ namespace Fungus
 	// Manages global game state and movement between rooms
 	public class Game : MonoBehaviour 
 	{
-		public bool showLinks = true;
-		
 		public Room activeRoom;
+
+		public bool showLinks = true;
 
 		public string continueText = "Continue";
 		
