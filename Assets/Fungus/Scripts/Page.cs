@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Fungus
 {
@@ -54,6 +55,15 @@ namespace Fungus
 		
 		List<Option> options = new List<Option>();
 
+		void Start()
+		{
+			// Override the font size to compensate for varying device resolution
+			// Font size is calculated as a fraction of the current screen height
+			titleStyle.fontSize = Mathf.RoundToInt((float)Screen.height * titleFontScale);
+			sayStyle.fontSize = Mathf.RoundToInt((float)Screen.height * sayFontScale);
+			optionStyle.fontSize = Mathf.RoundToInt((float)Screen.height * optionFontScale);
+		}
+
 		public void SetTitle(string _titleText)
 		{
 			titleText = _titleText;
@@ -84,8 +94,6 @@ namespace Fungus
 
 		void WriteStory(string storyText, Action writeAction)
 		{
-			originalStoryText = storyText;
-
 			// Add continue option
 			if (writeAction != null)
 			{
@@ -96,20 +104,26 @@ namespace Fungus
 			// Hack to avoid displaying partial color tag text
 			if (storyText.Contains("<"))
 			{
+				originalStoryText = storyText;
 				displayedStoryText = storyText;
 			}
 			else
 			{
-				// Use a coroutine to write the text out over time
+				float textWidth = CalcInnerRect(GetScreenRect()).width;
+				originalStoryText = InsertLineBreaks(storyText, sayStyle, textWidth);
+				displayedStoryText = "";
+
+				// Use a coroutine to write the story text out over time
 				StartCoroutine(WriteStoryInternal());
 			}
 		}
-		
+
+		// Coroutine to write story text out over a period of time
 		IEnumerator WriteStoryInternal()
 		{
 			int charactersPerSecond = Game.GetInstance().charactersPerSecond;
 
-			// Zero means write instantly
+			// Zero CPS means write instantly
 			if (charactersPerSecond <= 0)
 			{
 				displayedStoryText = originalStoryText;
@@ -161,12 +175,6 @@ namespace Fungus
 			outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
 			outerRect.y = pageRect.center.y - outerRect.height / 2;
 			innerRect = CalcInnerRect(outerRect);
-
-			// Override the font size to compensate for varying device resolution
-			// Font size is calculated as a fraction of the current screen height
-			titleStyle.fontSize = Mathf.RoundToInt((float)Screen.height * titleFontScale);
-			sayStyle.fontSize = Mathf.RoundToInt((float)Screen.height * sayFontScale);
-			optionStyle.fontSize = Mathf.RoundToInt((float)Screen.height * optionFontScale);
 
 			// Draw box
 			Rect boxRect = outerRect;
@@ -296,6 +304,7 @@ namespace Fungus
 			                outerRect.height - (boxStyle.padding.top + boxStyle.padding.bottom));
 		}
 
+		// Returns the page rect in screen space coords
 		Rect GetScreenRect()
 		{
 			// Y decreases up the screen in GUI space, so top left is rect origin
@@ -313,6 +322,30 @@ namespace Fungus
 			Vector2 br = mainCamera.WorldToScreenPoint(bottomRight);
 			
 			return new Rect(tl.x, Screen.height - tl.y, br.x - tl.x, tl.y - br.y);
+		}
+
+		// Inserts extra line breaks to avoid partial words 'jumping' to next line due to word wrap
+		string InsertLineBreaks(string text, GUIStyle style, float maxWidth)
+		{
+			string output = "";
+			string[] parts = Regex.Split(text, @"(?=\s)");
+			foreach (string word in parts)
+			{
+				float oldHeight = style.CalcHeight(new GUIContent(output), maxWidth);
+				float newHeight = style.CalcHeight(new GUIContent(output + word), maxWidth);
+				
+				if (oldHeight > 0 &&
+				    newHeight > oldHeight)
+				{
+					output += "\n" + word.TrimStart();
+				}
+				else
+				{
+					output += word;
+				}				
+			}
+			
+			return output;
 		}
 	}
 }
