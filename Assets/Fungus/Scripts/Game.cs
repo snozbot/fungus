@@ -2,24 +2,59 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+/**
+ * @mainpage notitle
+ * This is the code documentation for Fungus, a Unity 3D plugin created by Chris Gregan of Snozbot.
+ * 
+ * @note For a list of all supported scripting commands, please see the Fungus.GameController class documentation.
+ * 
+ * Refer to http://www.snozbot.com/fungus for more information about Fungus.
+ */
+
+/** 
+ * @package Fungus An open source library for Unity 3D for creating graphic interactive fiction games.
+ */
 namespace Fungus
 {
-	// Manages global game state and movement between rooms
+	/** 
+	 * Manages global game state and movement between rooms.
+	 */
 	public class Game : MonoBehaviour 
 	{
+		/**
+		 * The currently active Room.
+		 * Only one Room may be active at a time.
+		 */
 		public Room activeRoom;
 
+		/**
+		 * Automatically display links between connected Rooms.
+		 */
 		public bool showLinks = true;
 
+		/**
+		 * Text to use on 'Continue' buttons
+		 */
 		public string continueText = "Continue";
-		
+
+		/**
+		 * Writing speed for page text.
+		 */
 		public int charactersPerSecond = 60;
 
-		// Fixed Z coordinate of camera
+		/**
+		 * Fixed Z coordinate of main camera.
+		 */
 		public float cameraZ = - 10f;
 
-		public float fadeDuration = 1f;
+		/**
+		 * Time for transition to complete when moving to a different Room.
+		 */
+		public float roomFadeDuration = 1f;
 
+		/**
+		 * Full screen texture used for screen fade effect
+		 */
 		public Texture2D fadeTexture;
 
 		[HideInInspector]
@@ -73,6 +108,9 @@ namespace Fungus
 			}
 		}
 
+		/**
+		 * Moves player to a different room.
+		 */
 		public void MoveToRoom(Room room)
 		{
 			if (room == null)
@@ -82,7 +120,7 @@ namespace Fungus
 			}
 
 			// Fade out screen
-			cameraController.Fade(0f, fadeDuration / 2f, delegate {
+			cameraController.Fade(0f, roomFadeDuration / 2f, delegate {
 
 				activeRoom = room;
 
@@ -91,7 +129,7 @@ namespace Fungus
 				activeRoom.gameObject.SendMessage("Enter");
 				
 				// Fade in screen
-				cameraController.Fade(1f, fadeDuration / 2f, null);
+				cameraController.Fade(1f, roomFadeDuration / 2f, null);
 			});
 		}
 	}

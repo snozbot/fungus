@@ -3,8 +3,10 @@ using System.Collections;
 
 namespace Fungus
 {
-	// Transitions a sprite from its current color to a target color.
-	// An offset can be applied to slide the sprite in while changing color.
+	/**
+	 * Transitions a sprite from its current color to a target color.
+	 * An offset can be applied to slide the sprite in while changing color.
+	 */
 	[RequireComponent (typeof (SpriteRenderer))]
 	public class SpriteFader : MonoBehaviour 
 	{
@@ -17,7 +19,9 @@ namespace Fungus
 
 		SpriteRenderer spriteRenderer;
 
-		// Attaches a SpriteFader component to a sprite object to transition its color over time
+		/** 
+		 * Attaches a SpriteFader component to a sprite object to transition its color over time.
+		 */
 		public static void FadeSprite(SpriteRenderer spriteRenderer, Color targetColor, float duration, Vector2 slideOffset)
 		{
 			if (spriteRenderer == null)

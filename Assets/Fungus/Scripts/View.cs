@@ -3,9 +3,11 @@ using System.Collections;
 
 namespace Fungus
 {
-	// Defines a camera view point.
-	// The position and rotation are specified using the game object's transform, so this class
-	// only specifies the ortographic view size.
+	/** 
+	 * Defines a camera view point.
+	 * The position and rotation are specified using the game object's transform, so this class
+	 * only needs to specify the ortographic view size.
+	 */
 	[ExecuteInEditMode]
 	public class View : MonoBehaviour 
 	{

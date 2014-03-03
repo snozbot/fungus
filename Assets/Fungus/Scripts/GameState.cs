@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	// Manages the global state information for the game
-	// This is implemented as a separate class to support saving and loading game state easily.
+	/**
+	 * Manages the global state information for the game.
+	 * Implemented as a separate class from Game to facilitate storing & restoring of game state.
+	 */
 	public class GameState 
 	{		
 		protected Dictionary<string, bool> flags = new Dictionary<string, bool>();

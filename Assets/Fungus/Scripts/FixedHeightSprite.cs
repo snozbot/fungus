@@ -3,8 +3,10 @@ using System.Collections;
 
 namespace Fungus
 {
-	// Adjusts the scale of a sprite to fit into a fixed number of vertical world units
-	// This helps to keep room sprites neatly organised in the editor.
+	/** 
+	 * Adjusts the scale of a sprite to fit into a fixed number of vertical world units.
+	 * This helps to keep room sprites neatly organised in the editor.
+	 */
 	[ExecuteInEditMode]
 	public class FixedHeightSprite : MonoBehaviour 
 	{

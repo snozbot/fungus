@@ -6,8 +6,10 @@ using Fungus;
 
 namespace Fungus
 {
-	// Controller for main camera.
-	// Supports several types of camera transition including snap, pan & fade.
+	/**
+	 * Controller for main camera.
+	 * Supports several types of camera transition including snap, pan & fade.
+	 */
 	public class CameraController : MonoBehaviour 
 	{
 		Game game;
@@ -94,7 +96,10 @@ namespace Fungus
 			}
 		}
 
-		// Position camera so sprite is centered and fills the screen
+		/**
+		 * Positions camera so sprite is centered and fills the screen.
+		 * @param spriteRenderer The sprite to center the camera on
+		 */
 		public void CenterOnSprite(SpriteRenderer spriteRenderer)
 		{
 			Sprite sprite = spriteRenderer.sprite;
@@ -112,7 +117,9 @@ namespace Fungus
 			PanToView(view, 0, null);
 		}
 
-		// Moves camera from current position to a target View over a period of time
+		/**
+		 * Moves camera from current position to a target View over a period of time.
+		 */
 		public void PanToView(View view, float duration, Action arriveAction)
 		{
 			if (duration == 0f)
@@ -166,7 +173,9 @@ namespace Fungus
 			}
 		}
 
-		// Moves camera smoothly through a sequence of Views over a period of time
+		/**
+		 * Moves camera smoothly through a sequence of Views over a period of time
+		 */
 		public void PanToPath(View[] viewList, float duration, Action arriveAction)
 		{
 			List<Vector3> pathList = new List<Vector3>();

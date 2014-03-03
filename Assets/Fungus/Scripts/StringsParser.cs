@@ -5,13 +5,15 @@ using System.Text.RegularExpressions;
 
 namespace Fungus
 {
-	// Parses a text file in a simple format and adds string values to the global string table.
-	// The format is:
-	// $FirstString
-	// The first string text goes here
-	// $SecondString
-	// The second string text goes here
-	// # This is a comment line and will be ignored by the parser
+	/**
+	 * Parses a text file using a simple format and adds string values to the global string table.
+	 * The format is:
+	 * $FirstString
+	 * The first string text goes here
+	 * $SecondString
+	 * The second string text goes here
+	 * # This is a comment line and will be ignored by the parser
+	 */
 	public class StringsParser : MonoBehaviour
 	{
 		public TextAsset stringsFile;
@@ -24,10 +26,10 @@ namespace Fungus
 
 		void Start()
 		{
-			StringsParser.ProcessText(stringsFile.text);
+			ProcessText(stringsFile.text);
 		}
 		
-		static public void ProcessText(string text) 
+		void ProcessText(string text) 
 		{
 			StringTable stringTable = Game.GetInstance().stringTable; 
 

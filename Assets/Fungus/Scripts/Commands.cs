@@ -5,8 +5,10 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	// Call a delegate method on execution.
-	// This command can be used to schedule arbitrary script code.
+	/** 
+	 * Call a delegate method on execution.
+	 * This command can be used to schedule arbitrary script code.
+	 */
 	public class CallCommand : CommandQueue.Command
 	{
 		Action callAction;
@@ -34,7 +36,9 @@ namespace Fungus
 		}		
 	}
 
-	// Wait for a period of time
+	/**
+	 * Wait for a period of time.
+	 */
 	public class WaitCommand : CommandQueue.Command
 	{
 		float duration;
@@ -59,8 +63,10 @@ namespace Fungus
 		}
 	}
 
-	// Sets the currently active view immediately.
-	// The main camera snaps to the active view.
+	/** 
+	 * Sets the currently active view immediately.
+	 * The main camera snaps to the active view.
+	 */
 	public class SetViewCommand : CommandQueue.Command
 	{
 		View view;
@@ -96,7 +102,9 @@ namespace Fungus
 		}		
 	}
 
-	// Sets the currently active page for text rendering
+	/**
+	 * Sets the currently active page for text rendering.
+	 */
 	public class SetPageCommand : CommandQueue.Command
 	{
 		Page page;
@@ -116,7 +124,9 @@ namespace Fungus
 		}		
 	}
 
-	// Sets the title text displayed at the top of the active page
+	/**
+	 * Sets the title text displayed at the top of the active page.
+	 */
 	public class TitleCommand : CommandQueue.Command
 	{
 		string titleText;
@@ -144,8 +154,10 @@ namespace Fungus
 		}		
 	}
 
-	// Writes story text to the currently active page.
-	// A 'continue' button is displayed when the text has fully appeared.
+	/** 
+	 * Writes story text to the currently active page.
+	 * A 'continue' button is displayed when the text has fully appeared.
+	 */
 	public class SayCommand : CommandQueue.Command
 	{
 		string storyText;
@@ -169,8 +181,10 @@ namespace Fungus
 		}
 	}
 
-	// Adds an option button to the current list of options.
-	// Use the Choose command to display added options.
+	/** 
+	 * Adds an option button to the current list of options.
+	 * Use the Choose command to display added options.
+	 */
 	public class AddOptionCommand : CommandQueue.Command
 	{
 		string optionText;
@@ -200,7 +214,9 @@ namespace Fungus
 		}		
 	}
 
-	// Displays all previously added options.
+	/**
+	 * Displays all previously added options.
+	 */
 	public class ChooseCommand : CommandQueue.Command
 	{
 		string chooseText;
@@ -225,7 +241,9 @@ namespace Fungus
 		}		
 	}
 
-	// Changes the active room to a different room
+	/** 
+	 * Changes the active room to a different room
+	 */
 	public class MoveToRoomCommand : CommandQueue.Command
 	{
 		Room room;
@@ -249,7 +267,9 @@ namespace Fungus
 		}
 	}
 
-	// Sets a global boolean flag value
+	/** 
+	 * Sets a global boolean flag value
+	 */
 	public class SetFlagCommand : CommandQueue.Command
 	{
 		string key;
@@ -271,7 +291,9 @@ namespace Fungus
 		}		
 	}
 
-	// Sets a global integer counter value
+	/** 
+	 * Sets a global integer counter value
+	 */
 	public class SetCounterCommand : CommandQueue.Command
 	{
 		string key;
@@ -293,7 +315,9 @@ namespace Fungus
 		}		
 	}
 
-	// Sets a global inventory count value
+	/**
+	 * Sets a global inventory count value
+	 */
 	public class SetInventoryCommand : CommandQueue.Command
 	{
 		string key;
@@ -315,7 +339,9 @@ namespace Fungus
 		}		
 	}
 
-	// Fades a sprite to a given alpha value over a period of time
+	/** 
+	 * Fades a sprite to a given alpha value over a period of time
+	 */
 	public class FadeSpriteCommand : CommandQueue.Command
 	{
 		SpriteRenderer spriteRenderer;
@@ -353,7 +379,9 @@ namespace Fungus
 		}		
 	}
 
-	// Sets an animator trigger to change the animator state for an animated sprite
+	/** 
+	 * Sets an animator trigger to change the animator state for an animated sprite
+	 */
 	public class SetAnimatorTriggerCommand : CommandQueue.Command
 	{
 		Animator animator;
@@ -383,7 +411,9 @@ namespace Fungus
 		}		
 	}
 
-	// Makes a sprite behave as a clickable button
+	/** 
+	 * Makes a sprite behave as a clickable button
+	 */
 	public class AddButtonCommand : CommandQueue.Command
 	{
 		SpriteRenderer spriteRenderer;
@@ -413,7 +443,9 @@ namespace Fungus
 		}		
 	}
 
-	// Makes a sprite stop behaving as a clickable button
+	/** 
+	 * Makes a sprite stop behaving as a clickable button
+	 */
 	public class RemoveButtonCommand : CommandQueue.Command
 	{
 		SpriteRenderer spriteRenderer;
@@ -441,7 +473,9 @@ namespace Fungus
 		}		
 	}
 
-	// Pans the camera to a view over a period of time.
+	/** 
+	 * Pans the camera to a view over a period of time.
+	 */
 	public class PanToViewCommand : CommandQueue.Command
 	{
 		View view;
@@ -485,7 +519,9 @@ namespace Fungus
 		}		
 	}
 
-	// Pans the camera through a sequence of views over a period of time.
+	/** 
+	 * Pans the camera through a sequence of views over a period of time.
+	 */
 	public class PanToPathCommand : CommandQueue.Command
 	{
 		View[] views;
@@ -532,7 +568,9 @@ namespace Fungus
 		}		
 	}
 
-	// Fades the camera to a view over a period of time.
+	/** 
+	 * Fades the camera to a view over a period of time.
+	 */
 	public class FadeToViewCommand : CommandQueue.Command
 	{
 		View view;
@@ -576,7 +614,9 @@ namespace Fungus
 		}		
 	}
 
-	// Plays a music clip
+	/** 
+	 * Plays a music clip
+	 */
 	public class PlayMusicCommand : CommandQueue.Command
 	{
 		AudioClip audioClip;
@@ -606,7 +646,9 @@ namespace Fungus
 		}
 	}
 
-	// Stops a music clip
+	/** 
+	 * Stops a music clip
+	 */
 	public class StopMusicCommand : CommandQueue.Command
 	{
 		public override void Execute(CommandQueue commandQueue, Action onComplete)
@@ -621,7 +663,9 @@ namespace Fungus
 		}
 	}
 
-	// Fades music volume to required level over a period of time
+	/** 
+	 * Fades music volume to required level over a period of time
+	 */
 	public class SetMusicVolumeCommand : CommandQueue.Command
 	{
 		float musicVolume;
@@ -645,7 +689,9 @@ namespace Fungus
 		}
 	}
 
-	// Plays a sound effect once
+	/** 
+	 * Plays a sound effect once
+	 */
 	public class PlaySoundCommand : CommandQueue.Command
 	{
 		AudioClip audioClip;

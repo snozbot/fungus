@@ -1,26 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Fungus;
 
-// Listens for animation events
-// Usage: 
-// 1. Attach this script to the animated sprite that you want to listen to for events.
-// 2. Add an event on the animation timeline 
-// 3. Edit the event and choose the 'CallRoomMethod' function
-// 4. In the string parameters box, enter the name of the method to call in the active Room's script.
-public class AnimationListener : MonoBehaviour 
+namespace Fungus
 {
-	// Handler method for animation events
-	// The string event parameter is used to call a named method on the active room class
-	void CallRoomMethod(string methodName)
+	/**
+	 * Listener component to handle animation events.
+	 * Usage: 
+	 * 1. Attach this script to the animated sprite that you want to listen to for events.
+	 * 2. Add an event on the animation timeline 
+	 * 3. Edit the event and choose the 'CallRoomMethod' function
+	 * 4. In the string parameters box, enter the name of the method to call in the active Room's script.
+	 */
+	public class AnimationListener : MonoBehaviour 
 	{
-		Room room = Game.GetInstance().activeRoom;
-		if (room == null)
+		/**
+		 * Handler method for animation events.
+		 * The string event parameter is used to call a named method on the active room class
+		 */
+		void CallRoomMethod(string methodName)
 		{
-			return;
-		}
+			Room room = Game.GetInstance().activeRoom;
+			if (room == null)
+			{
+				return;
+			}
 
-		CommandQueue commandQueue = Game.GetInstance().commandQueue;
-		commandQueue.CallCommandMethod(room.gameObject, methodName);
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.CallCommandMethod(room.gameObject, methodName);
+		}
 	}
 }

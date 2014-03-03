@@ -6,9 +6,11 @@ using System.Text.RegularExpressions;
 
 namespace Fungus
 {
-	// A rectangular screen area for rendering story text.
-	// Rooms may contain any number of Pages.
-	// If a Page is a child of a View, then transitiong to that View will automatically activate the Page.
+	/**
+	 * A rectangular screen area for rendering story text.
+	 * Rooms may contain any number of Pages.
+	 * If a Page is a child of a View, then transitioning to that View will automatically activate the Page.
+	 */
 	[ExecuteInEditMode]
 	public class Page : MonoBehaviour 
 	{

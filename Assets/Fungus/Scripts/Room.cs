@@ -7,15 +7,22 @@ using Fungus;
 
 namespace Fungus
 {
-	// This is the main scripting interface for Fungus games.
-	// Each room in your game should have a script which inherits from Room.
-	// The OnEnter() method is called when the player enters the room.
-	// The GameController base class provides easy access to all story control commands
+	/**
+	 * This is the primary base class for scripting Fungus games.
+	 * Each Room in your game should have a script component which inherits from Room.
+	 * The OnEnter() method is called when the player enters the room.
+	 * The GameController base class provides easy access to all Fungus functionality.
+	 */
 	public abstract class Room : GameController 
 	{
+		/**
+		 * Number of times player has entered the room
+		 */
 		public int visitCount;
 
-		// Returns true if this is the first time the player has visited this room
+		/**
+		 * Returns true if this is the first time the player has visited this room.
+		 */
 		public bool IsFirstVisit()
 		{
 			return (visitCount == 0);

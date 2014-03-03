@@ -5,8 +5,10 @@ using Fungus;
 
 namespace Fungus
 {
-	// Simple button handler class.
-	// When the user taps on the button, the named method is called on ancestor game objects (if it exists).
+	/**
+	 * Button click handler class for making sprites clickable.
+	 * When the user taps on the sprite, an Action delegate method is called
+	 */
 	[RequireComponent (typeof (SpriteRenderer))]
 	[RequireComponent (typeof (Collider2D))]
 	public class Button : MonoBehaviour 
@@ -14,7 +16,11 @@ namespace Fungus
 		public Action buttonAction;
 		public SpriteRenderer spriteRenderer;
 
-		// Makes a sprite clickable by attaching a Button component (and BoxCollider2D if required)
+		/**
+		 * Makes a sprite clickable by attaching a Button component (and BoxCollider2D if required).
+		 * @param _spriteRenderer The sprite to be made clickable
+		 * @param _buttonAction An Action delegate method to call when the player clicks on the sprite
+		 */
 		public static void MakeButton(SpriteRenderer _spriteRenderer, Action _buttonAction)
 		{
 			if (_spriteRenderer == null)
