@@ -47,6 +47,17 @@ namespace Fungus
 		
 		List<Option> options = new List<Option>();
 
+		float quickContinueTimer;
+
+		public virtual void Update()
+		{
+			if (quickContinueTimer > 0)
+			{
+				quickContinueTimer -= Time.deltaTime;
+				quickContinueTimer = Mathf.Max(quickContinueTimer, 0f);
+			}
+		}
+
 		public void SetTitle(string _titleText)
 		{
 			titleText = _titleText;
@@ -83,6 +94,11 @@ namespace Fungus
 				return;
 			}
 
+			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
+
+			// Disable quick continue for a short period to prevent accidental taps
+			quickContinueTimer = 0.8f;
+
 			// Add continue option
 			if (writeAction != null)
 			{
@@ -99,7 +115,7 @@ namespace Fungus
 			else
 			{
 				float textWidth = CalcInnerRect(GetScreenRect()).width;
-				originalStoryText = InsertLineBreaks(storyText, pageStyle.sayStyle, textWidth);
+				originalStoryText = InsertLineBreaks(storyText, sayStyle, textWidth);
 				displayedStoryText = "";
 
 				// Use a coroutine to write the story text out over time
@@ -156,6 +172,11 @@ namespace Fungus
 				return;
 			}
 
+			GUIStyle boxStyle = pageStyle.boxStyle;
+			GUIStyle titleStyle = pageStyle.GetScaledTitleStyle();
+			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
+			GUIStyle optionStyle = pageStyle.GetScaledOptionStyle();
+
 			Rect pageRect = GetScreenRect();
 			Rect outerRect = pageRect;
 			Rect innerRect = CalcInnerRect(outerRect);
@@ -167,25 +188,25 @@ namespace Fungus
 			float contentHeight = titleHeight + storyHeight + optionsHeight;
 
 			// Adjust inner and outer rect to center around original page middle
-			outerRect.height = contentHeight + (pageStyle.boxStyle.padding.top + pageStyle.boxStyle.padding.bottom);
+			outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
 			outerRect.y = pageRect.center.y - outerRect.height / 2;
 			innerRect = CalcInnerRect(outerRect);
 
 			// Draw box
 			Rect boxRect = outerRect;
-			boxRect.height = contentHeight + (pageStyle.boxStyle.padding.top + pageStyle.boxStyle.padding.bottom);
-			GUI.Box(boxRect, "", pageStyle.boxStyle);
+			boxRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
+			GUI.Box(boxRect, "", boxStyle);
 
 			// Draw title label
 			Rect titleRect = innerRect;
 			titleRect.height = titleHeight;
-			GUI.Label(titleRect, titleText, pageStyle.titleStyle);
+			GUI.Label(titleRect, titleText, titleStyle);
 
 			// Draw say label
 			Rect storyRect = innerRect;
 			storyRect.y += titleHeight;
 			storyRect.height = storyHeight;
-			GUI.Label(storyRect, displayedStoryText, pageStyle.sayStyle);
+			GUI.Label(storyRect, displayedStoryText, sayStyle);
 
 			// Draw option buttons
 			bool finishedWriting = (displayedStoryText.Length == originalStoryText.Length);
@@ -193,17 +214,19 @@ namespace Fungus
 			if (finishedWriting)
 			{
 				// Player can continue through single options by clicking / tapping anywhere
-				bool quickContinue = (options.Count == 1 && (Input.GetMouseButtonUp(0) || Input.anyKeyDown));
+				bool quickContinue = (quickContinueTimer == 0 &&
+									  options.Count == 1 && 
+				                      (Input.GetMouseButtonUp(0) || Input.anyKeyDown));
 
 				Rect buttonRect = innerRect;
 				buttonRect.y += titleHeight + storyHeight;
 				foreach (Option option in options)
 				{
 					GUIContent buttonContent = new GUIContent(option.optionText);
-					buttonRect.height = pageStyle.optionStyle.CalcHeight(buttonContent, innerRect.width);
+					buttonRect.height = optionStyle.CalcHeight(buttonContent, innerRect.width);
 
 					if (quickContinue || 
-					    GUI.Button(buttonRect, buttonContent, pageStyle.optionStyle))
+					    GUI.Button(buttonRect, buttonContent, optionStyle))
 					{
 						if (option.optionAction != null)
 						{
@@ -262,8 +285,10 @@ namespace Fungus
 				return 0;
 			}
 
+			GUIStyle titleStyle = pageStyle.GetScaledTitleStyle();
+
 			GUIContent titleContent = new GUIContent(titleText);
-			return pageStyle.titleStyle.CalcHeight(titleContent, boxWidth);
+			return titleStyle.CalcHeight(titleContent, boxWidth);
 		}
 
 		float CalcStoryHeight(float boxWidth)
@@ -277,8 +302,10 @@ namespace Fungus
 				return 0;
 			}
 
+			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
+
 			GUIContent storyContent = new GUIContent(originalStoryText + "\n");
-			return pageStyle.sayStyle.CalcHeight(storyContent, boxWidth);
+			return sayStyle.CalcHeight(storyContent, boxWidth);
 		}
 
 		float CalcOptionsHeight(float boxWidth)
@@ -291,12 +318,14 @@ namespace Fungus
 			{
 				return 0;
 			}
-			
+
+			GUIStyle optionStyle = pageStyle.GetScaledOptionStyle();
+
 			float totalHeight = 0;
 			foreach (Option option in options)
 			{
 				GUIContent optionContent = new GUIContent(option.optionText);
-				float optionHeight = pageStyle.optionStyle.CalcHeight(optionContent, boxWidth);
+				float optionHeight = optionStyle.CalcHeight(optionContent, boxWidth);
 				totalHeight += optionHeight;
 			}
 
@@ -313,10 +342,12 @@ namespace Fungus
 				return new Rect();
 			}
 
-			return new Rect(outerRect.x + pageStyle.boxStyle.padding.left,
-			                outerRect.y + pageStyle.boxStyle.padding.top,
-			                outerRect.width - (pageStyle.boxStyle.padding.left + pageStyle.boxStyle.padding.right),
-			                outerRect.height - (pageStyle.boxStyle.padding.top + pageStyle.boxStyle.padding.bottom));
+			GUIStyle boxStyle = pageStyle.boxStyle;
+
+			return new Rect(outerRect.x + boxStyle.padding.left,
+			                outerRect.y + boxStyle.padding.top,
+			                outerRect.width - (boxStyle.padding.left + boxStyle.padding.right),
+			                outerRect.height - (boxStyle.padding.top + boxStyle.padding.bottom));
 		}
 
 		// Returns the page rect in screen space coords

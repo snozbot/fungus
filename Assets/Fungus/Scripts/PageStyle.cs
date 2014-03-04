@@ -36,13 +36,40 @@ namespace Fungus
 		/// Style for text box
 		public GUIStyle boxStyle;
 
-		void Update()
+		/**
+		 * Returns the style for Title text.
+		 * Override the font size to compensate for varying device resolution.
+		 * Font size is calculated as a fraction of the current screen height.
+		 */
+		public GUIStyle GetScaledTitleStyle()
 		{
-			// Override the font size to compensate for varying device resolution
-			// Font size is calculated as a fraction of the current screen height
-			titleStyle.fontSize = Mathf.RoundToInt((float)Screen.height * titleFontScale);
-			sayStyle.fontSize = Mathf.RoundToInt((float)Screen.height * sayFontScale);
-			optionStyle.fontSize = Mathf.RoundToInt((float)Screen.height * optionFontScale);
+			GUIStyle style = new GUIStyle(titleStyle);
+			style.fontSize = Mathf.RoundToInt((float)Screen.height * titleFontScale);
+			return style;
+		}
+
+		/**
+		 * Returns the style for Say text.
+		 * Override the font size to compensate for varying device resolution.
+		 * Font size is calculated as a fraction of the current screen height.
+		 */
+		public GUIStyle GetScaledSayStyle()
+		{
+			GUIStyle style = new GUIStyle(sayStyle);
+			style.fontSize = Mathf.RoundToInt((float)Screen.height * sayFontScale);
+			return style;
+		}
+
+		/**
+		 * Returns the style for Option text.
+		 * Override the font size to compensate for varying device resolution.
+		 * Font size is calculated as a fraction of the current screen height.
+		 */
+		public GUIStyle GetScaledOptionStyle()
+		{
+			GUIStyle style = new GUIStyle(optionStyle);
+			style.fontSize = Mathf.RoundToInt((float)Screen.height * optionFontScale);
+			return style;
 		}
 	}
 }
