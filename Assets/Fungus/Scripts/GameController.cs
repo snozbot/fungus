@@ -104,18 +104,6 @@ namespace Fungus
 
 		#endregion
 		#region Page Methods
-		
-		/**
-		 * Sets the title text displayed at the top of the active Page.
-		 * The title text is only displayed when there is some story text or options to be shown.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param titleText The text to display as the title of the Page.
-		 */
-		public void Title(string titleText)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new TitleCommand(titleText));
-		}
 
 		/**
 		 * Sets the currently active Page for story text display.
@@ -129,7 +117,31 @@ namespace Fungus
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new SetPageCommand(page));
 		}
-		
+
+		/**
+		 * Sets the currently active style for displaying Pages.
+		 * Once this command executes, all Pages will display using the new style.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param pageStyle The style object to make active
+		 */
+		public void SetPageStyle(PageStyle pageStyle)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new SetPageStyleCommand(pageStyle));
+		}
+
+		/**
+		 * Sets the title text displayed at the top of the active Page.
+		 * The title text is only displayed when there is some story text or options to be shown.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param titleText The text to display as the title of the Page.
+		 */
+		public void Title(string titleText)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new TitleCommand(titleText));
+		}
+
 		/**
 		 * Writes story text to the currently active Page.
 		 * A 'continue' button is displayed when the text has fully appeared.

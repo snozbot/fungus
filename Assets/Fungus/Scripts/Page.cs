@@ -14,18 +14,8 @@ namespace Fungus
 	[ExecuteInEditMode]
 	public class Page : MonoBehaviour 
 	{
+		/// Rectangular bounds used to display page text
 		public Bounds pageBounds = new Bounds(Vector3.zero, new Vector3(0.25f, 0.25f, 0f));
-
-		// The font size for title, say and option text is calculated by multiplying the screen height
-		// by the corresponding font scale. Text appears the same size across all device resolutions.
-		public float titleFontScale = 1f / 20f;
-		public float sayFontScale = 1f / 25f;
-		public float optionFontScale = 1f / 25f;
-
-		public GUIStyle titleStyle;
-		public GUIStyle sayStyle;
-		public GUIStyle optionStyle;
-		public GUIStyle boxStyle;
 
 		string titleText = "";
 
@@ -57,15 +47,6 @@ namespace Fungus
 		
 		List<Option> options = new List<Option>();
 
-		void Start()
-		{
-			// Override the font size to compensate for varying device resolution
-			// Font size is calculated as a fraction of the current screen height
-			titleStyle.fontSize = Mathf.RoundToInt((float)Screen.height * titleFontScale);
-			sayStyle.fontSize = Mathf.RoundToInt((float)Screen.height * sayFontScale);
-			optionStyle.fontSize = Mathf.RoundToInt((float)Screen.height * optionFontScale);
-		}
-
 		public void SetTitle(string _titleText)
 		{
 			titleText = _titleText;
@@ -96,6 +77,12 @@ namespace Fungus
 
 		void WriteStory(string storyText, Action writeAction)
 		{
+			PageStyle pageStyle = Game.GetInstance().activePageStyle;
+			if (pageStyle == null)
+			{
+				return;
+			}
+
 			// Add continue option
 			if (writeAction != null)
 			{
@@ -112,7 +99,7 @@ namespace Fungus
 			else
 			{
 				float textWidth = CalcInnerRect(GetScreenRect()).width;
-				originalStoryText = InsertLineBreaks(storyText, sayStyle, textWidth);
+				originalStoryText = InsertLineBreaks(storyText, pageStyle.sayStyle, textWidth);
 				displayedStoryText = "";
 
 				// Use a coroutine to write the story text out over time
@@ -163,6 +150,12 @@ namespace Fungus
 				return;
 			}
 
+			PageStyle pageStyle = Game.GetInstance().activePageStyle;
+			if (pageStyle == null)
+			{
+				return;
+			}
+
 			Rect pageRect = GetScreenRect();
 			Rect outerRect = pageRect;
 			Rect innerRect = CalcInnerRect(outerRect);
@@ -174,25 +167,25 @@ namespace Fungus
 			float contentHeight = titleHeight + storyHeight + optionsHeight;
 
 			// Adjust inner and outer rect to center around original page middle
-			outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
+			outerRect.height = contentHeight + (pageStyle.boxStyle.padding.top + pageStyle.boxStyle.padding.bottom);
 			outerRect.y = pageRect.center.y - outerRect.height / 2;
 			innerRect = CalcInnerRect(outerRect);
 
 			// Draw box
 			Rect boxRect = outerRect;
-			boxRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
-			GUI.Box(boxRect, "", boxStyle);
+			boxRect.height = contentHeight + (pageStyle.boxStyle.padding.top + pageStyle.boxStyle.padding.bottom);
+			GUI.Box(boxRect, "", pageStyle.boxStyle);
 
 			// Draw title label
 			Rect titleRect = innerRect;
 			titleRect.height = titleHeight;
-			GUI.Label(titleRect, titleText, titleStyle);
+			GUI.Label(titleRect, titleText, pageStyle.titleStyle);
 
 			// Draw say label
 			Rect storyRect = innerRect;
 			storyRect.y += titleHeight;
 			storyRect.height = storyHeight;
-			GUI.Label(storyRect, displayedStoryText, sayStyle);
+			GUI.Label(storyRect, displayedStoryText, pageStyle.sayStyle);
 
 			// Draw option buttons
 			bool finishedWriting = (displayedStoryText.Length == originalStoryText.Length);
@@ -207,10 +200,10 @@ namespace Fungus
 				foreach (Option option in options)
 				{
 					GUIContent buttonContent = new GUIContent(option.optionText);
-					buttonRect.height = optionStyle.CalcHeight(buttonContent, innerRect.width);
+					buttonRect.height = pageStyle.optionStyle.CalcHeight(buttonContent, innerRect.width);
 
 					if (quickContinue || 
-					    GUI.Button(buttonRect, buttonContent, optionStyle))
+					    GUI.Button(buttonRect, buttonContent, pageStyle.optionStyle))
 					{
 						if (option.optionAction != null)
 						{
@@ -260,31 +253,40 @@ namespace Fungus
 
 		float CalcTitleHeight(float boxWidth)
 		{
-			if (mode == Mode.Idle ||
+			PageStyle pageStyle = Game.GetInstance().activePageStyle;
+
+			if (pageStyle == null ||
+			    mode == Mode.Idle ||
 			    titleText.Length == 0)
 			{
 				return 0;
 			}
 
 			GUIContent titleContent = new GUIContent(titleText);
-			return titleStyle.CalcHeight(titleContent, boxWidth);
+			return pageStyle.titleStyle.CalcHeight(titleContent, boxWidth);
 		}
 
 		float CalcStoryHeight(float boxWidth)
 		{
-			if (mode == Mode.Idle || 
+			PageStyle pageStyle = Game.GetInstance().activePageStyle;
+
+			if (pageStyle == null ||
+			    mode == Mode.Idle || 
 			    originalStoryText.Length == 0)
 			{
 				return 0;
 			}
 
 			GUIContent storyContent = new GUIContent(originalStoryText + "\n");
-			return sayStyle.CalcHeight(storyContent, boxWidth);
+			return pageStyle.sayStyle.CalcHeight(storyContent, boxWidth);
 		}
 
 		float CalcOptionsHeight(float boxWidth)
 		{
-			if (mode == Mode.Idle ||
+			PageStyle pageStyle = Game.GetInstance().activePageStyle;
+
+			if (pageStyle == null ||
+			    mode == Mode.Idle ||
 			    options.Count == 0)
 			{
 				return 0;
@@ -294,7 +296,7 @@ namespace Fungus
 			foreach (Option option in options)
 			{
 				GUIContent optionContent = new GUIContent(option.optionText);
-				float optionHeight = optionStyle.CalcHeight(optionContent, boxWidth);
+				float optionHeight = pageStyle.optionStyle.CalcHeight(optionContent, boxWidth);
 				totalHeight += optionHeight;
 			}
 
@@ -304,10 +306,17 @@ namespace Fungus
 		// Returns smaller internal box rect with padding style applied
 		Rect CalcInnerRect(Rect outerRect)
 		{
-			return new Rect(outerRect.x + boxStyle.padding.left,
-			                outerRect.y + boxStyle.padding.top,
-			                outerRect.width - (boxStyle.padding.left + boxStyle.padding.right),
-			                outerRect.height - (boxStyle.padding.top + boxStyle.padding.bottom));
+			PageStyle pageStyle = Game.GetInstance().activePageStyle;
+
+			if (pageStyle == null)
+			{
+				return new Rect();
+			}
+
+			return new Rect(outerRect.x + pageStyle.boxStyle.padding.left,
+			                outerRect.y + pageStyle.boxStyle.padding.top,
+			                outerRect.width - (pageStyle.boxStyle.padding.left + pageStyle.boxStyle.padding.right),
+			                outerRect.height - (pageStyle.boxStyle.padding.top + pageStyle.boxStyle.padding.bottom));
 		}
 
 		// Returns the page rect in screen space coords

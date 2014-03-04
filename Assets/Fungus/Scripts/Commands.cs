@@ -125,6 +125,28 @@ namespace Fungus
 	}
 
 	/**
+	 * Sets the currently active Page Style for rendering Pages.
+	 */
+	public class SetPageStyleCommand : CommandQueue.Command
+	{
+		PageStyle pageStyle;
+		
+		public SetPageStyleCommand(PageStyle _pageStyle)
+		{
+			pageStyle = _pageStyle;
+		}
+		
+		public override void Execute(CommandQueue commandQueue, Action onComplete)
+		{
+			Game.GetInstance().activePageStyle = pageStyle;
+			if (onComplete != null)
+			{
+				onComplete();
+			}
+		}		
+	}
+	
+	/**
 	 * Sets the title text displayed at the top of the active page.
 	 */
 	public class TitleCommand : CommandQueue.Command

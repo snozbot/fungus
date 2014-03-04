@@ -28,6 +28,11 @@ namespace Fungus
 		public Room activeRoom;
 
 		/**
+		 * The style to apply when displaying Pages.
+		 */
+		public PageStyle activePageStyle;
+
+		/**
 		 * Automatically display links between connected Rooms.
 		 */
 		public bool showLinks = true;
@@ -95,6 +100,13 @@ namespace Fungus
 		{
 			commandQueue = gameObject.AddComponent<CommandQueue>();
 			cameraController = gameObject.AddComponent<CameraController>();
+
+			AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+			audioSource.playOnAwake = false;
+			audioSource.loop = true;
+
+			// Create a default page style if none exists
+
 
 			if (activeRoom == null)
 			{

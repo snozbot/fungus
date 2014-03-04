@@ -2,10 +2,15 @@
 using System.Collections;
 using Fungus;
 
-public class PagesRoom : Room 
+public class PageRoom : Room 
 {
 	// This is a reference to the menu room so we can transition back to the menu using MoveToRoom()
 	public Room menuRoom;
+
+	// References to PageStyle prefab assets
+	// Use these with SetPageStyle() to change the Page rendering style
+	public PageStyle defaultStyle;
+	public PageStyle noBoxStyle;
 
 	// The OnEnter() method is called whenever the player enters the room
 	// You can also use the OnLeave() method to handle when the player leaves the room.
@@ -63,8 +68,14 @@ public class PagesRoom : Room
 
 	void ProduceSpores()
 	{
+		// Set a PageStyle with no background box texture
+		SetPageStyle(noBoxStyle);
+
 		Say("Yeah! I feel like doing some sporing!");
 		Say("Wow - look at all these spores! COOL!");
+
+		// Set the default style with background box texture
+		SetPageStyle(defaultStyle);
 
 		// Sets a game flag which we check above in GoToSleep
 		SetFlag("spawned", true);

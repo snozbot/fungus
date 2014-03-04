@@ -2,11 +2,11 @@ using UnityEngine;
 using System.Collections;
 using Fungus;
 
-public class MenusRoom : Room
+public class MenuRoom : Room
 {
-	public Room pagesRoom;
-	public Room viewsRoom;
-	public Room spritesRoom;
+	public Room pageRoom;
+	public Room viewRoom;
+	public Room spriteRoom;
 	public Room audioRoom;
 
 	void OnEnter() 
@@ -20,17 +20,17 @@ public class MenusRoom : Room
 
 	void MoveToWriting()
 	{
-		MoveToRoom(pagesRoom);
+		MoveToRoom(pageRoom);
 	}
 
 	void MoveToViews()
 	{
-		MoveToRoom(viewsRoom);
+		MoveToRoom(viewRoom);
 	}
 
 	void MoveToAnimations()
 	{
-		MoveToRoom(spritesRoom);
+		MoveToRoom(spriteRoom);
 	}
 
 	void MoveToAudio()

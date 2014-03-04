@@ -2,9 +2,10 @@
 using System.Collections;
 using Fungus;
 
-public class SpritesRoom : Room 
+public class SpriteRoom : Room 
 {
 	public Room menuRoom;
+
 	public Animator blueAlienAnim;
 	public SpriteRenderer blueAlienSprite;
 	public SpriteRenderer redMushroomSprite;
