@@ -21,6 +21,9 @@ namespace Fungus
 		/// Say font size as a fraction of screen height.
 		public float sayFontScale = 1f / 25f;
 
+		/// Continue font size as a fraction of screen height.
+		public float continueFontScale = 1f / 30f;
+
 		/// Option font size as a fraction of screen height.
 		public float optionFontScale = 1f / 25f;
 
@@ -30,15 +33,21 @@ namespace Fungus
 		/// Style for say text
 		public GUIStyle sayStyle;
 
+		/// Style for continue button
+		public GUIStyle continueStyle;
+
 		/// Style for option text
 		public GUIStyle optionStyle;
+
+		/// Style for option text (alternate rows)
+		public GUIStyle optionAlternateStyle;
 
 		/// Style for text box
 		public GUIStyle boxStyle;
 
 		/**
 		 * Returns the style for Title text.
-		 * Override the font size to compensate for varying device resolution.
+		 * Overrides the font size to compensate for varying device resolution.
 		 * Font size is calculated as a fraction of the current screen height.
 		 */
 		public GUIStyle GetScaledTitleStyle()
@@ -50,7 +59,7 @@ namespace Fungus
 
 		/**
 		 * Returns the style for Say text.
-		 * Override the font size to compensate for varying device resolution.
+		 * Overrides the font size to compensate for varying device resolution.
 		 * Font size is calculated as a fraction of the current screen height.
 		 */
 		public GUIStyle GetScaledSayStyle()
@@ -61,14 +70,45 @@ namespace Fungus
 		}
 
 		/**
-		 * Returns the style for Option text.
-		 * Override the font size to compensate for varying device resolution.
+		 * Returns the style for Option buttons.
+		 * Overrides the font size to compensate for varying device resolution.
 		 * Font size is calculated as a fraction of the current screen height.
+		 * @param alternateRow If true, will use the alternate row option style
 		 */
 		public GUIStyle GetScaledOptionStyle()
 		{
-			GUIStyle style = new GUIStyle(optionStyle);
+			GUIStyle style;
+			style = new GUIStyle(optionStyle);
 			style.fontSize = Mathf.RoundToInt((float)Screen.height * optionFontScale);
+			return style;
+		}
+
+		/**
+		 * Returns the alternate style for Option buttons.
+		 * This can be used to create alternating color rows.
+		 * Overrides the font size to compensate for varying device resolution.
+		 * Font size is calculated as a fraction of the current screen height.
+		 * @param alternateRow If true, will use the alternate row option style
+		 */
+		public GUIStyle GetScaledOptionAlternateStyle()
+		{
+			GUIStyle style;
+			style = new GUIStyle(optionAlternateStyle);
+			style.fontSize = Mathf.RoundToInt((float)Screen.height * optionFontScale);
+			return style;
+		}
+
+		/**
+		 * Returns the style for the Continue button.
+		 * Overrides the font size to compensate for varying device resolution.
+		 * Font size is calculated as a fraction of the current screen height.
+		 * @param alternateRow If true, will use the alternate row option style
+		 */
+		public GUIStyle GetScaledContinueStyle()
+		{
+			GUIStyle style;
+			style = new GUIStyle(continueStyle);
+			style.fontSize = Mathf.RoundToInt((float)Screen.height * continueFontScale);
 			return style;
 		}
 	}

@@ -10,7 +10,7 @@ public class PageRoom : Room
 	// References to PageStyle prefab assets
 	// Use these with SetPageStyle() to change the Page rendering style
 	public PageStyle defaultStyle;
-	public PageStyle noBoxStyle;
+	public PageStyle transparentStyle;
 
 	// The OnEnter() method is called whenever the player enters the room
 	// You can also use the OnLeave() method to handle when the player leaves the room.
@@ -20,7 +20,7 @@ public class PageRoom : Room
 		Title("The Mushroom");
 
 		// Each Say() command writes one line of text, followed by a continue button
-		Say("One day a mushroom grew in the forest");
+		Say("One day in the forest, a mushroom grew.");
 		Say("What am I doing here he wondered?");
 		Say("I think I will wait for a while and see if something happens.");
 
@@ -69,7 +69,7 @@ public class PageRoom : Room
 	void ProduceSpores()
 	{
 		// Set a PageStyle with no background box texture
-		SetPageStyle(noBoxStyle);
+		SetPageStyle(transparentStyle);
 
 		Say("Yeah! I feel like doing some sporing!");
 		Say("Wow - look at all these spores! COOL!");

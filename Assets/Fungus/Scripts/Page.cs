@@ -23,6 +23,7 @@ namespace Fungus
 		string displayedStoryText = "";
 
 		Action deferredAction;
+		Action continueAction;
 
 		public enum Mode
 		{
@@ -68,7 +69,8 @@ namespace Fungus
 			mode = Mode.Say;
 			StringTable stringTable = Game.GetInstance().stringTable;
 			string subbedText = stringTable.SubstituteStrings(sayText);
-			WriteStory(subbedText, sayAction);
+			continueAction = sayAction;
+			WriteStory(subbedText);
 		}
 
 		public void AddOption(string optionText, Action optionAction)
@@ -83,10 +85,10 @@ namespace Fungus
 			mode = Mode.Choose;
 			StringTable stringTable = Game.GetInstance().stringTable;
 			string subbedText = stringTable.SubstituteStrings(_chooseText);
-			WriteStory(subbedText, null);			
+			WriteStory(subbedText);			
 		}
 
-		void WriteStory(string storyText, Action writeAction)
+		void WriteStory(string storyText)
 		{
 			PageStyle pageStyle = Game.GetInstance().activePageStyle;
 			if (pageStyle == null)
@@ -98,13 +100,6 @@ namespace Fungus
 
 			// Disable quick continue for a short period to prevent accidental taps
 			quickContinueTimer = 0.8f;
-
-			// Add continue option
-			if (writeAction != null)
-			{
-				options.Clear();
-				options.Add(new Option(Game.GetInstance().continueText, writeAction));
-			}
 
 			// Hack to avoid displaying partial color tag text
 			if (storyText.Contains("<"))
@@ -176,6 +171,8 @@ namespace Fungus
 			GUIStyle titleStyle = pageStyle.GetScaledTitleStyle();
 			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
 			GUIStyle optionStyle = pageStyle.GetScaledOptionStyle();
+			GUIStyle optionAlternateStyle = pageStyle.GetScaledOptionAlternateStyle();
+			GUIStyle continueStyle = pageStyle.GetScaledContinueStyle();
 
 			Rect pageRect = GetScreenRect();
 			Rect outerRect = pageRect;
@@ -208,25 +205,49 @@ namespace Fungus
 			storyRect.height = storyHeight;
 			GUI.Label(storyRect, displayedStoryText, sayStyle);
 
-			// Draw option buttons
 			bool finishedWriting = (displayedStoryText.Length == originalStoryText.Length);
-
-			if (finishedWriting)
+			if (!finishedWriting)
 			{
-				// Player can continue through single options by clicking / tapping anywhere
-				bool quickContinue = (quickContinueTimer == 0 &&
-									  options.Count == 1 && 
-				                      (Input.GetMouseButtonUp(0) || Input.anyKeyDown));
+				return;
+			}
 
+			if (mode == Mode.Say)
+			{
+				Rect continueRect = CalcContinueRect(outerRect);
+				GUI.Button(continueRect, new GUIContent(Game.GetInstance().continueText), continueStyle);
+
+				// Player can continue by clicking anywhere
+				if (quickContinueTimer == 0 &&
+				    (Input.GetMouseButtonUp(0) || Input.anyKeyDown) &&
+				    continueAction != null)
+				{
+					deferredAction = continueAction;
+				}
+			}
+			else if (mode == Mode.Choose)
+			{
+				// Draw option buttons
 				Rect buttonRect = innerRect;
 				buttonRect.y += titleHeight + storyHeight;
+				bool alternateRow = false;
 				foreach (Option option in options)
 				{
 					GUIContent buttonContent = new GUIContent(option.optionText);
 					buttonRect.height = optionStyle.CalcHeight(buttonContent, innerRect.width);
 
-					if (quickContinue || 
-					    GUI.Button(buttonRect, buttonContent, optionStyle))
+					// Select style for odd/even colored rows
+					GUIStyle style;
+					if (alternateRow)
+					{
+						style = optionAlternateStyle;
+					}
+					else
+					{
+						style = optionStyle;
+					}
+					alternateRow = !alternateRow;
+
+					if (GUI.Button(buttonRect, buttonContent, style))
 					{
 						if (option.optionAction != null)
 						{
@@ -262,7 +283,7 @@ namespace Fungus
 						CommandQueue commandQueue = Game.GetInstance().commandQueue;		
 						commandQueue.CallCommandMethod(tempAction);
 					}
-					else if (mode == Mode.Say)
+					else if (mode == Mode.Say )
 					{
 						// Reset to idle, but calling action may set this again
 						mode = Mode.Idle;
@@ -294,15 +315,15 @@ namespace Fungus
 		float CalcStoryHeight(float boxWidth)
 		{
 			PageStyle pageStyle = Game.GetInstance().activePageStyle;
+			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
 
 			if (pageStyle == null ||
 			    mode == Mode.Idle || 
 			    originalStoryText.Length == 0)
 			{
-				return 0;
+				// Allow a space for story even if there's no text
+				return sayStyle.lineHeight;
 			}
-
-			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
 
 			GUIContent storyContent = new GUIContent(originalStoryText + "\n");
 			return sayStyle.CalcHeight(storyContent, boxWidth);
@@ -319,6 +340,7 @@ namespace Fungus
 				return 0;
 			}
 
+			// This assumes that the alternate option style is the same height as the regular style
 			GUIStyle optionStyle = pageStyle.GetScaledOptionStyle();
 
 			float totalHeight = 0;
@@ -328,6 +350,10 @@ namespace Fungus
 				float optionHeight = optionStyle.CalcHeight(optionContent, boxWidth);
 				totalHeight += optionHeight;
 			}
+
+			// Add space at bottom
+			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
+			totalHeight += sayStyle.lineHeight;
 
 			return totalHeight;
 		}
@@ -348,6 +374,27 @@ namespace Fungus
 			                outerRect.y + boxStyle.padding.top,
 			                outerRect.width - (boxStyle.padding.left + boxStyle.padding.right),
 			                outerRect.height - (boxStyle.padding.top + boxStyle.padding.bottom));
+		}
+
+		Rect CalcContinueRect(Rect outerRect)
+		{
+			PageStyle pageStyle = Game.GetInstance().activePageStyle;
+			
+			if (pageStyle == null)
+			{
+				return new Rect();
+			}
+
+			GUIStyle continueStyle = pageStyle.GetScaledContinueStyle();
+
+			GUIContent content = new GUIContent(Game.GetInstance().continueText);
+			float width = continueStyle.CalcSize(content).x;
+			float height = continueStyle.lineHeight;
+
+			float x = outerRect.xMin + (outerRect.width) - (width) - pageStyle.boxStyle.padding.right;
+			float y = outerRect.yMax - height / 2f;
+
+			return new Rect(x, y, width, height);
 		}
 
 		// Returns the page rect in screen space coords
