@@ -11,10 +11,12 @@ Installation
 ============
 
 Installation instructions are available on the Getting Started section on the Fungus website
+
 http://snozbot.com/fungus/get_started.html
 
 Support
 =======
 
 Training videos, documentation, forum and contact details are on the Fungus website
+
 http://snozbot.com/fungus/support.html
