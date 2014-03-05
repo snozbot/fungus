@@ -17,6 +17,16 @@ namespace Fungus
 		/// Rectangular bounds used to display page text
 		public Bounds pageBounds = new Bounds(Vector3.zero, new Vector3(0.25f, 0.25f, 0f));
 
+		/// Page position within bounds when display height is less than bounds height
+		public enum VerticalAlign
+		{
+			Top,
+			Middle,
+			Bottom
+		}
+
+		public VerticalAlign verticalAlign = VerticalAlign.Middle;
+
 		string titleText = "";
 
 		string originalStoryText = "";
@@ -184,9 +194,30 @@ namespace Fungus
 			float optionsHeight = CalcOptionsHeight(innerRect.width);
 			float contentHeight = titleHeight + storyHeight + optionsHeight;
 
-			// Adjust inner and outer rect to center around original page middle
-			outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
-			outerRect.y = pageRect.center.y - outerRect.height / 2;
+			// Adjust outer rect position based on alignment settings
+			switch (verticalAlign)
+			{
+			case VerticalAlign.Top:
+				outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
+				outerRect.y = pageRect.yMin;
+				break;
+			case VerticalAlign.Middle:
+				outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
+				outerRect.y = pageRect.center.y - outerRect.height / 2;
+				break;
+			case VerticalAlign.Bottom:
+				outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
+				outerRect.y = pageRect.yMax - outerRect.height;
+				break;
+			}
+
+			// Force outer rect to always be on-screen
+			// If the rect is bigger than the screen, then the top-left corner will always be visible
+			outerRect.x = Mathf.Min(outerRect.x, Screen.width - outerRect.width);
+			outerRect.y = Mathf.Min(outerRect.y, Screen.height - outerRect.height);
+			outerRect.x = Mathf.Max(0, outerRect.x);
+			outerRect.y = Mathf.Max(0, outerRect.y);
+
 			innerRect = CalcInnerRect(outerRect);
 
 			// Draw box
