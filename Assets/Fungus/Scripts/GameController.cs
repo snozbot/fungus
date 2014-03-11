@@ -19,7 +19,7 @@ namespace Fungus
 		public void MoveToRoom(Room room)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new MoveToRoomCommand(room));
+			commandQueue.AddCommand(new Command.MoveToRoomCommand(room));
 		}
 		
 		/**
@@ -30,7 +30,7 @@ namespace Fungus
 		public void Wait(float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new WaitCommand(duration));
+			commandQueue.AddCommand(new Command.WaitCommand(duration));
 		}
 		
 		/**
@@ -42,7 +42,7 @@ namespace Fungus
 		public void Call(Action callAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new CallCommand(callAction));
+			commandQueue.AddCommand(new Command.CallCommand(callAction));
 		}
 		
 		#endregion
@@ -57,7 +57,7 @@ namespace Fungus
 		public void SetView(View view)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new SetViewCommand(view));
+			commandQueue.AddCommand(new Command.SetViewCommand(view));
 		}
 
 		/**
@@ -71,7 +71,7 @@ namespace Fungus
 		public void PanToView(View targetView, float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new PanToViewCommand(targetView, duration));
+			commandQueue.AddCommand(new Command.PanToViewCommand(targetView, duration));
 		}
 		
 		/**
@@ -86,7 +86,7 @@ namespace Fungus
 		public void PanToPath(float duration, params View[] targetViews)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new PanToPathCommand(targetViews, duration));
+			commandQueue.AddCommand(new Command.PanToPathCommand(targetViews, duration));
 		}
 		
 		/**
@@ -99,7 +99,7 @@ namespace Fungus
 		public void FadeToView(View targetView, float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new FadeToViewCommand(targetView, duration));
+			commandQueue.AddCommand(new Command.FadeToViewCommand(targetView, duration));
 		}
 
 		#endregion
@@ -115,7 +115,7 @@ namespace Fungus
 		public void SetPage(Page page)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new SetPageCommand(page));
+			commandQueue.AddCommand(new Command.SetPageCommand(page));
 		}
 
 		/**
@@ -127,7 +127,7 @@ namespace Fungus
 		public void SetPageStyle(PageStyle pageStyle)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new SetPageStyleCommand(pageStyle));
+			commandQueue.AddCommand(new Command.SetPageStyleCommand(pageStyle));
 		}
 
 		/**
@@ -139,7 +139,7 @@ namespace Fungus
 		public void Title(string titleText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new TitleCommand(titleText));
+			commandQueue.AddCommand(new Command.TitleCommand(titleText));
 		}
 
 		/**
@@ -152,7 +152,7 @@ namespace Fungus
 		public void Say(string storyText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new SayCommand(storyText));
+			commandQueue.AddCommand(new Command.SayCommand(storyText));
 		}
 		
 		/**
@@ -165,7 +165,7 @@ namespace Fungus
 		public void AddOption(string optionText, Action optionAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new AddOptionCommand(optionText, optionAction));
+			commandQueue.AddCommand(new Command.AddOptionCommand(optionText, optionAction));
 		}
 
 		/**
@@ -185,7 +185,7 @@ namespace Fungus
 		public void Choose(string chooseText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new ChooseCommand(chooseText));
+			commandQueue.AddCommand(new Command.ChooseCommand(chooseText));
 		}
 
 		#endregion
@@ -200,7 +200,7 @@ namespace Fungus
 		public void SetFlag(string key, bool value)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new SetFlagCommand(key, value));
+			commandQueue.AddCommand(new Command.SetFlagCommand(key, value));
 		}
 		
 		/**
@@ -225,7 +225,7 @@ namespace Fungus
 		public void SetCounter(string key, int value)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new SetCounterCommand(key, value));
+			commandQueue.AddCommand(new Command.SetCounterCommand(key, value));
 		}
 		
 		/**
@@ -250,7 +250,7 @@ namespace Fungus
 		public void SetInventory(string key)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new SetInventoryCommand(key, 1));
+			commandQueue.AddCommand(new Command.SetInventoryCommand(key, 1));
 		}
 		
 		/**
@@ -262,7 +262,7 @@ namespace Fungus
 		public void SetInventory(string key, int value)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new SetInventoryCommand(key, value));
+			commandQueue.AddCommand(new Command.SetInventoryCommand(key, value));
 		}
 		
 		/**
@@ -342,7 +342,7 @@ namespace Fungus
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			Color color = spriteRenderer.color;
 			color.a = targetAlpha;
-			commandQueue.AddCommand(new FadeSpriteCommand(spriteRenderer, color, duration, slideOffset));
+			commandQueue.AddCommand(new Command.FadeSpriteCommand(spriteRenderer, color, duration, slideOffset));
 		}
 		
 		/**
@@ -357,7 +357,7 @@ namespace Fungus
 		public void AddButton(SpriteRenderer spriteRenderer, Action buttonAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new AddButtonCommand(spriteRenderer, buttonAction, false));
+			commandQueue.AddCommand(new Command.AddButtonCommand(spriteRenderer, buttonAction, false));
 		}
 		
 		/**
@@ -372,7 +372,7 @@ namespace Fungus
 		public void AddAutoButton(SpriteRenderer spriteRenderer, Action buttonAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new AddButtonCommand(spriteRenderer, buttonAction, true));
+			commandQueue.AddCommand(new Command.AddButtonCommand(spriteRenderer, buttonAction, true));
 		}
 
 		/**
@@ -384,7 +384,7 @@ namespace Fungus
 		public void RemoveButton(SpriteRenderer spriteRenderer)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new RemoveButtonCommand(spriteRenderer));
+			commandQueue.AddCommand(new Command.RemoveButtonCommand(spriteRenderer));
 		}
 		
 		/**
@@ -397,7 +397,7 @@ namespace Fungus
 		public void SetAnimatorTrigger(Animator animator, string triggerName)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new SetAnimatorTriggerCommand(animator, triggerName));
+			commandQueue.AddCommand(new Command.SetAnimatorTriggerCommand(animator, triggerName));
 		}
 
 		#endregion
@@ -411,7 +411,7 @@ namespace Fungus
 		public void PlayMusic(AudioClip audioClip)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new PlayMusicCommand(audioClip));
+			commandQueue.AddCommand(new Command.PlayMusicCommand(audioClip));
 		}
 		
 		/**
@@ -420,7 +420,7 @@ namespace Fungus
 		public void StopMusic()
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new StopMusicCommand());
+			commandQueue.AddCommand(new Command.StopMusicCommand());
 		}
 		
 		/**
@@ -440,7 +440,7 @@ namespace Fungus
 		public void SetMusicVolume(float musicVolume, float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new SetMusicVolumeCommand(musicVolume, duration));
+			commandQueue.AddCommand(new Command.SetMusicVolumeCommand(musicVolume, duration));
 		}
 		
 		/**
@@ -462,7 +462,7 @@ namespace Fungus
 		public void PlaySound(AudioClip audioClip, float volume)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new PlaySoundCommand(audioClip, volume));
+			commandQueue.AddCommand(new Command.PlaySoundCommand(audioClip, volume));
 		}
 
 		#endregion
