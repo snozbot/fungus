@@ -26,6 +26,8 @@ public class ButtonRoom : Room
 		Say("The Mushroom read his book with great interest.");
 		Say("After turning the last page, he considered his options.");
 
+		// Once the last Say command executes the page will dissappear because there's no more content to show.
+		// At that point, the game will automatically fade in all Auto Buttons in the room
 	}
 
 	void OnHomeClicked()
@@ -40,7 +42,9 @@ public class ButtonRoom : Room
 
 	void OnQuestionClicked()
 	{
+		// All Auto Buttons are automatically hidden as soon as the page has more content to show
+
 		Say("What book was he reading?");
-		Say("Perhaps we will never know for sure.");
+		Say("Sadly we will never know for sure.");
 	}
 }
