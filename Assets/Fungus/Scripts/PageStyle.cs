@@ -5,10 +5,7 @@ namespace Fungus
 {
 	/**
 	 * Defines visual appearance of a Page.
-	 * Usage: 
-	 * 1. Add this component to an empty game object
-	 * 2. Customize the style properties
-	 * 3. Assign the style object to the pageStyle property of the Page you wish to style
+	 * The Game.activePageStyle property controls the visual appearance of the displayed Page
 	 */
 	public class PageStyle : MonoBehaviour 
 	{
@@ -73,7 +70,6 @@ namespace Fungus
 		 * Returns the style for Option buttons.
 		 * Overrides the font size to compensate for varying device resolution.
 		 * Font size is calculated as a fraction of the current screen height.
-		 * @param alternateRow If true, will use the alternate row option style
 		 */
 		public GUIStyle GetScaledOptionStyle()
 		{
@@ -88,7 +84,6 @@ namespace Fungus
 		 * This can be used to create alternating color rows.
 		 * Overrides the font size to compensate for varying device resolution.
 		 * Font size is calculated as a fraction of the current screen height.
-		 * @param alternateRow If true, will use the alternate row option style
 		 */
 		public GUIStyle GetScaledOptionAlternateStyle()
 		{
@@ -102,7 +97,6 @@ namespace Fungus
 		 * Returns the style for the Continue button.
 		 * Overrides the font size to compensate for varying device resolution.
 		 * Font size is calculated as a fraction of the current screen height.
-		 * @param alternateRow If true, will use the alternate row option style
 		 */
 		public GUIStyle GetScaledContinueStyle()
 		{
