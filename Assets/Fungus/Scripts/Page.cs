@@ -299,6 +299,8 @@ namespace Fungus
 			{
 				if (deferredAction != null)
 				{
+					Game.GetInstance().PlayButtonClick();
+
 					Action tempAction = deferredAction;
 
 					displayedStoryText = "";
