@@ -301,13 +301,14 @@ namespace Fungus
 				{
 					Action tempAction = deferredAction;
 
-					options.Clear();
 					displayedStoryText = "";
 					originalStoryText = "";
 					deferredAction = null;
 
 					if (mode == Mode.Choose)
 					{
+						options.Clear();
+
 						// Reset to idle, but calling action may set this again
 						mode = Mode.Idle;
 
