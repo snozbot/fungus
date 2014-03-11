@@ -38,6 +38,9 @@ public class ButtonRoom : Room
 	void OnMusicClicked()
 	{
 		PlaySound(effectClip);
+
+		// Hide this button once the player clicks it
+		RemoveAndFadeButton(musicSprite);
 	}
 
 	void OnQuestionClicked()

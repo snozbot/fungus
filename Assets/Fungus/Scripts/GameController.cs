@@ -388,6 +388,21 @@ namespace Fungus
 		}
 		
 		/**
+		 * Makes a sprite stop behaving as a clickable button and fades out the button sprite.
+		 * The fade duration is specified in Game.buttonFadeDuration
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param spriteRenderer The sprite to be made non-clickable
+		 */
+		public void RemoveAndFadeButton(SpriteRenderer spriteRenderer)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.RemoveButtonCommand(spriteRenderer));
+
+			FadeSprite(spriteRenderer, 0f, Game.GetInstance().buttonFadeDuration);
+		}
+
+
+		/**
 		 * Sets an animator trigger to change the animation state for an animated sprite.
 		 * This is the primary method of controlling Unity animations from a Fungus command sequence.
 		 * This method returns immediately but it queues an asynchronous command for later execution.

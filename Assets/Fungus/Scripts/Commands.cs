@@ -474,7 +474,7 @@ namespace Fungus
 		}
 
 		/** 
-		 * Makes a sprite stop behaving as a clickable button
+		 * Makes a sprite stop behaving as a clickable button.
 		 */
 		public class RemoveButtonCommand : CommandQueue.Command
 		{
@@ -493,6 +493,7 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
+				// Remove the button component
 				Button button = spriteRenderer.gameObject.GetComponent<Button>();
 				GameObject.Destroy(button);
 
