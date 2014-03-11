@@ -55,6 +55,7 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
+				Game.GetInstance().waiting = true;
 				commandQueue.StartCoroutine(WaitCoroutine(duration, onComplete));
 			}
 			
@@ -63,6 +64,37 @@ namespace Fungus
 				yield return new WaitForSeconds(duration);
 				if (onComplete != null)
 				{
+					Game.GetInstance().waiting = false;
+					onComplete();
+				}
+			}
+		}
+
+		/**
+		 * Wait for a player tap/click/key press
+		 */
+		public class WaitForInputCommand : CommandQueue.Command
+		{
+			public override void Execute(CommandQueue commandQueue, Action onComplete)
+			{
+				Game.GetInstance().waiting = true;
+				commandQueue.StartCoroutine(WaitCoroutine(onComplete));
+			}
+			
+			IEnumerator WaitCoroutine(Action onComplete)
+			{
+				while (true)
+				{
+					if (Input.GetMouseButtonDown(0) || Input.anyKeyDown)
+					{
+						break;
+					}
+					yield return null;
+				}
+
+				if (onComplete != null)
+				{
+					Game.GetInstance().waiting = false;
 					onComplete();
 				}
 			}

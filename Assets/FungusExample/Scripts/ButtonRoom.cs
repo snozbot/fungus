@@ -26,6 +26,9 @@ public class ButtonRoom : Room
 		Say("The Mushroom read his book with great interest.");
 		Say("After turning the last page, he considered his options.");
 
+		// Uncomment this line to make the player tap the screen before showing the buttons
+		// WaitForInput();
+
 		// Once the last Say command executes the page will dissappear because there's no more content to show.
 		// At that point, the game will automatically fade in all Auto Buttons in the room
 	}

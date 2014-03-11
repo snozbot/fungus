@@ -13,7 +13,8 @@ namespace Fungus
 			bool showAutoButtons = false;
 			Page page = Game.GetInstance().activePage;
 			if (page != null &&
-			    page.mode == Page.Mode.Idle)
+			    page.mode == Page.Mode.Idle &&
+			    !Game.GetInstance().waiting)
 			{
 				showAutoButtons = true;
 			}

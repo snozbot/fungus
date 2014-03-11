@@ -32,7 +32,17 @@ namespace Fungus
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.WaitCommand(duration));
 		}
-		
+
+		/**
+		 * Wait until player taps, clicks or presses a key before executing the next command.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 */
+		public void WaitForInput()
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.WaitForInputCommand());
+		}
+
 		/**
 		 * Call a delegate method provided by the client.
 		 * Used to queue the execution of arbitrary code as part of a command sequeunce.

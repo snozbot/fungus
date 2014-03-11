@@ -93,6 +93,12 @@ namespace Fungus
 		[HideInInspector]
 		public ButtonController buttonController;
 
+		/**
+		 * True when executing a Wait() or WaitForTap() command
+		 */
+		[HideInInspector]
+		public bool waiting; 
+
 		static Game instance;
 
 		public static Game GetInstance()
