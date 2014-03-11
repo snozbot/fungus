@@ -11,10 +11,31 @@ namespace Fungus
 	[ExecuteInEditMode]
 	public class View : MonoBehaviour 
 	{
+		/**
+		 * Orthographic size of the camera view.
+		 */
 		public float viewSize = 0.5f;
 
-		// An empty Start() method is needed to display enable checkbox in editor
-		void Start()
-		{}
+		/**
+		 * Aspect ratio of the primary view rectangle.
+		 * e.g. a 4:3 aspect ratio = 1.333
+		 */
+		public float primaryAspectRatio = (4f / 3f);
+
+		/**
+		 * Color of the primary view rectangle.
+		 */
+		public Color primaryColor = Color.green;
+
+		/**
+		 * Aspect ratio of the secondary view rectangle.
+		 * e.g. a 2:1 aspect ratio = 2/1 = 2.0
+		 */
+		public float secondaryAspectRatio = (2f / 1f);
+
+		/**
+		 * Color of the secondary view rectangle.
+		 */
+		public Color secondaryColor = Color.grey;
 	}
 }

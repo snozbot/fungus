@@ -58,33 +58,43 @@ public class ViewEditor : Editor
 	{	
 		Vector3 pos = view.transform.position;
 		float viewSize = view.viewSize;
-		
-		// Draw 2:1 aspect ratio box
+
+		float height = viewSize;
+		float widthA = height * view.primaryAspectRatio;
+		float widthB = height * view.secondaryAspectRatio;
+
+		// Draw left box
 		{
-			float height = viewSize;
-			float width = height * (2f / 1f);
-			
+
 			Vector3[] verts = new Vector3[4];
-			verts[0] = pos + new Vector3(-width, -height, 0);
-			verts[1] = pos + new Vector3(-width, height, 0);
-			verts[2] = pos + new Vector3(width, height, 0);
-			verts[3] = pos + new Vector3(width, -height, 0);
+			verts[0] = pos + new Vector3(-widthB, -height, 0);
+			verts[1] = pos + new Vector3(-widthB, height, 0);
+			verts[2] = pos + new Vector3(-widthA, height, 0);
+			verts[3] = pos + new Vector3(-widthA, -height, 0);
 			
-			Handles.DrawSolidRectangleWithOutline(verts, new Color(1,1,1,0f), new Color(0,1,0,0.25f) );
+			Handles.DrawSolidRectangleWithOutline(verts, view.secondaryColor, view.primaryColor );
 		}
-		
-		// Draw 4:3 aspect ratio box
+
+		// Draw right box
 		{
-			float height = viewSize;
-			float width = height * (4f / 3f);
-			
 			Vector3[] verts = new Vector3[4];
-			verts[0] = pos + new Vector3(-width, -height, 0);
-			verts[1] = pos + new Vector3(-width, height, 0);
-			verts[2] = pos + new Vector3(width, height, 0);
-			verts[3] = pos + new Vector3(width, -height, 0);
+			verts[0] = pos + new Vector3(widthA, -height, 0);
+			verts[1] = pos + new Vector3(widthA, height, 0);
+			verts[2] = pos + new Vector3(widthB, height, 0);
+			verts[3] = pos + new Vector3(widthB, -height, 0);
 			
-			Handles.DrawSolidRectangleWithOutline(verts, new Color(1,1,1,0f), new Color(0,1,0,1) );
+			Handles.DrawSolidRectangleWithOutline(verts, view.secondaryColor, view.primaryColor );
+		}
+
+		// Draw center box
+		{
+			Vector3[] verts = new Vector3[4];
+			verts[0] = pos + new Vector3(-widthA, -height, 0);
+			verts[1] = pos + new Vector3(-widthA, height, 0);
+			verts[2] = pos + new Vector3(widthA, height, 0);
+			verts[3] = pos + new Vector3(widthA, -height, 0);
+			
+			Handles.DrawSolidRectangleWithOutline(verts, new Color(1,1,1,0f), view.primaryColor );
 		}
 	}
 }
