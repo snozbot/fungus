@@ -42,7 +42,7 @@ namespace Fungus
 			Choose
 		};
 
-		Mode mode = Mode.Idle;
+		public Mode mode = Mode.Idle;
 
 		class Option
 		{

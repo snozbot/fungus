@@ -13,15 +13,16 @@ namespace Fungus
 	[RequireComponent (typeof (Collider2D))]
 	public class Button : MonoBehaviour 
 	{
-		public Action buttonAction;
 		public SpriteRenderer spriteRenderer;
+		public bool autoDisplay;
+		public Action buttonAction;
 
 		/**
 		 * Makes a sprite clickable by attaching a Button component (and BoxCollider2D if required).
 		 * @param _spriteRenderer The sprite to be made clickable
 		 * @param _buttonAction An Action delegate method to call when the player clicks on the sprite
 		 */
-		public static void MakeButton(SpriteRenderer _spriteRenderer, Action _buttonAction)
+		public static void MakeButton(SpriteRenderer _spriteRenderer, bool _autoDisplay, Action _buttonAction)
 		{
 			if (_spriteRenderer == null)
 			{
@@ -43,8 +44,17 @@ namespace Fungus
 			}
 
 			Button button = _spriteRenderer.gameObject.AddComponent<Button>();
-			button.buttonAction = _buttonAction;
 			button.spriteRenderer = _spriteRenderer;
+			button.autoDisplay = _autoDisplay;
+			button.buttonAction = _buttonAction;
+
+			if (_autoDisplay)
+			{
+				// Use the current global alpha value for auto buttons
+				Color color = _spriteRenderer.color;
+				color.a = Game.GetInstance().buttonController.autoButtonAlpha;
+				_spriteRenderer.color = color;
+			}
 		}
 
 		void OnMouseUpAsButton() 
@@ -54,6 +64,9 @@ namespace Fungus
 			{
 				return;
 			}
+
+			// Sound effect
+			Game.GetInstance().PlayButtonClick();
 
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;		
 			commandQueue.CallCommandMethod(buttonAction);

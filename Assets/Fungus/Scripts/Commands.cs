@@ -439,10 +439,12 @@ namespace Fungus
 	public class AddButtonCommand : CommandQueue.Command
 	{
 		SpriteRenderer spriteRenderer;
+		bool autoDisplay;
 		Action buttonAction;
-		
+
 		public AddButtonCommand(SpriteRenderer _spriteRenderer,
-		                        Action _buttonAction)
+		                        Action _buttonAction,
+		                        bool _autoDisplay)
 		{
 			if (_spriteRenderer == null)
 			{
@@ -451,12 +453,13 @@ namespace Fungus
 			}
 			
 			spriteRenderer = _spriteRenderer;
+			autoDisplay = _autoDisplay;
 			buttonAction = _buttonAction;
 		}
 		
 		public override void Execute(CommandQueue commandQueue, Action onComplete)
 		{
-			Button.MakeButton(spriteRenderer, buttonAction);
+			Button.MakeButton(spriteRenderer, autoDisplay, buttonAction);
 			
 			if (onComplete != null)
 			{

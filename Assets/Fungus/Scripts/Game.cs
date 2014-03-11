@@ -53,14 +53,24 @@ namespace Fungus
 		public float cameraZ = - 10f;
 
 		/**
-		 * Time for transition to complete when moving to a different Room.
+		 * Time for fade transition to complete when moving to a different Room.
 		 */
 		public float roomFadeDuration = 1f;
+
+		/**
+		 * Time for fade transition to complete when hiding/showing buttons
+		 */
+		public float buttonFadeDuration = 0.25f;
 
 		/**
 		 * Full screen texture used for screen fade effect
 		 */
 		public Texture2D fadeTexture;
+
+		/**
+		 * Sound effect to play when buttons are clicked 
+		 */
+		public AudioClip buttonClickClip;
 
 		[HideInInspector]
 		public View activeView;
@@ -80,6 +90,9 @@ namespace Fungus
 		[HideInInspector]
 		public CameraController cameraController;
 
+		[HideInInspector]
+		public ButtonController buttonController;
+
 		static Game instance;
 
 		public static Game GetInstance()
@@ -98,15 +111,14 @@ namespace Fungus
 
 		public virtual void Start()
 		{
+			// Add components for additional game functionality
 			commandQueue = gameObject.AddComponent<CommandQueue>();
 			cameraController = gameObject.AddComponent<CameraController>();
+			buttonController = gameObject.AddComponent<ButtonController>();
 
 			AudioSource audioSource = gameObject.AddComponent<AudioSource>();
 			audioSource.playOnAwake = false;
 			audioSource.loop = true;
-
-			// Create a default page style if none exists
-
 
 			if (activeRoom == null)
 			{
@@ -139,10 +151,25 @@ namespace Fungus
 				// Notify room script that the Room is being entered
 				// Calling private method on Room to hide implementation
 				activeRoom.gameObject.SendMessage("Enter");
-				
+
+				// Hide all auto buttons when entering room
+				buttonController.autoButtonAlpha = 0f;
+
 				// Fade in screen
 				cameraController.Fade(1f, roomFadeDuration / 2f, null);
 			});
+		}
+
+		/**
+		 * Plays the button clicked sound effect
+		 */
+		public void PlayButtonClick()
+		{
+			if (buttonClickClip == null)
+			{
+				return;
+			}
+			audio.PlayOneShot(buttonClickClip);
 		}
 	}
 }

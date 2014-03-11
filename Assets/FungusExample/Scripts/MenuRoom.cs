@@ -7,33 +7,40 @@ public class MenuRoom : Room
 	public Room pageRoom;
 	public Room viewRoom;
 	public Room spriteRoom;
+	public Room buttonRoom;
 	public Room audioRoom;
 
 	void OnEnter() 
 	{
-		AddOption("Writing a story with Pages", MoveToWriting);
-		AddOption("Controlling the camera with Views", MoveToViews);
-		AddOption("Using Sprites and Animations", MoveToAnimations);
-		AddOption("Playing music and sound effects", MoveToAudio);
+		AddOption("Writing a story with Pages", MoveToWritingRoom);
+		AddOption("Controlling the camera with Views", MoveToViewRoom);
+		AddOption("Sprites and Animations", MoveToSpriteRoom);
+		AddOption("Using Buttons", MoveToButtonsRoom);
+		AddOption("Playing music and sound effects", MoveToAudioRoom);
 		Choose("Choose an example");
 	}
 
-	void MoveToWriting()
+	void MoveToWritingRoom()
 	{
 		MoveToRoom(pageRoom);
 	}
 
-	void MoveToViews()
+	void MoveToViewRoom()
 	{
 		MoveToRoom(viewRoom);
 	}
 
-	void MoveToAnimations()
+	void MoveToSpriteRoom()
 	{
 		MoveToRoom(spriteRoom);
 	}
 
-	void MoveToAudio()
+	void MoveToButtonsRoom()
+	{
+		MoveToRoom(buttonRoom);
+	}
+
+	void MoveToAudioRoom()
 	{
 		MoveToRoom(audioRoom);
 	}

@@ -357,9 +357,24 @@ namespace Fungus
 		public void AddButton(SpriteRenderer spriteRenderer, Action buttonAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new AddButtonCommand(spriteRenderer, buttonAction));
+			commandQueue.AddCommand(new AddButtonCommand(spriteRenderer, buttonAction, false));
 		}
 		
+		/**
+		 * Makes a sprite behave as a clickable button.
+		 * Same behaviour as AddButton(), except the button will be automatically hidden/shown by the game depending on the context.
+		 * All auto buttons are automatically displayed when there is no page content and the player taps on the screen.
+		 * If the player does not interact for a period, then all auto buttons are hidden again.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param spriteRenderer The sprite to be made clickable
+		 * @param buttonAction The Action delegate method to be called when the player clicks on the button
+		 */
+		public void AddAutoButton(SpriteRenderer spriteRenderer, Action buttonAction)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new AddButtonCommand(spriteRenderer, buttonAction, true));
+		}
+
 		/**
 		 * Makes a sprite stop behaving as a clickable button.
 		 * Removes the Button component from the sprite object.
