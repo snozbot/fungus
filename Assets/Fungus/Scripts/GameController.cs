@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 
@@ -200,114 +200,58 @@ namespace Fungus
 
 		#endregion
 		#region State Methods
-		
+
 		/**
-		 * Sets a boolean flag value.
+		 * Sets a globally accessible integer value.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the flag
-		 * @param value The boolean value to set the flag to
+		 * @param key The name of the value to set
+		 * @param value The value to set
 		 */
-		public void SetFlag(string key, bool value)
+		public void SetValue(string key, int value)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetFlagCommand(key, value));
+			commandQueue.AddCommand(new Command.SetValueCommand(key, value));
 		}
 
 		/**
-		 * Sets a boolean flag value to true.
+		 * Sets a globally accessible integer value to 1.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the flag
+		 * @param key The name of the value to set
 		 */
-		public void SetFlag(string key)
+		public void SetValue(string key)
 		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetFlagCommand(key, true));
+			SetValue(key, 1);
 		}
 
 		/**
-		 * Gets the current state of a flag.
-		 * Flag values are set using SetFlag().
-		 * Returns false if the flag has previously been set to false, or has not yet been set.
-		 * @param key The name of the flag
-		 * @return The boolean state of the flag.
+		 * Sets a globally accessible integer value to 0.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param key The key of the value.
 		 */
-		public bool GetFlag(string key)
+		public void ClearValue(string key)
 		{
-			GameState state = Game.GetInstance().state;
-			return state.GetFlag(key);
+			SetValue(key, 0);
 		}
 
 		/**
-		 * Sets an integer counter value.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the counter
-		 * @param value The value to set the counter to
+		 * Gets a globally accessible integer value.
+		 * Returns zero if the value has not previously been set.
+		 * @param key The name of the value
+		 * @return The integer value for this key, or 0 if not previously set.
 		 */
-		public void SetCounter(string key, int value)
+		public int GetValue(string key)
 		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetCounterCommand(key, value));
-		}
-		
-		/**
-		 * Gets the current value of a counter.
-	     * Counter values are set using SetCounter().
-		 * Returns zero if the counter has not previously been set to a value.
-		 * @param key The name of the counter
-		 * @return The current value of the counter
-		 */
-		public int GetCounter(string key)
-		{
-			GameState state = Game.GetInstance().state;
-			return state.GetCounter(key);
+			return Game.GetInstance().GetValue(key);
 		}
 
 		/**
-		 * Sets an inventory item count to 1.
-		 * This supports the common case where the player can only collect 1 instance of an inventory item.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the inventory item
+		 * Checks if a value is non-zero.
+		 * @param key The name of the value to check.
+		 * @return Returns true if the value is not equal to zero.
 		 */
-		public void SetInventory(string key)
+		public bool HasValue(string key)
 		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetInventoryCommand(key, 1));
-		}
-		
-		/**
-		 * Sets the inventory count for an item.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the inventory item
-		 * @param value The inventory count for the item
-		 */
-		public void SetInventory(string key, int value)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetInventoryCommand(key, value));
-		}
-		
-		/**
-		 * Gets the current inventory count for an item.
-	     * Inventory counts are set using SetInventory().
-		 * Returns zero if the inventory count has not previously been set to a value.
-		 * @param key The name of the inventory item
-		 * @return The current inventory count of the item
-		 */
-		public int GetInventory(string key)
-		{
-			GameState state = Game.GetInstance().state;
-			return state.GetInventory(key);
-		}
-		
-		/**
-		 * Check if player has an inventory item.
-		 * @param key The name of the inventory item
-		 * @return Returns true if the inventory count for an item is greater than zero
-		 */
-		public bool HasInventory(string key)
-		{
-			GameState state = Game.GetInstance().state;
-			return (state.GetInventory(key) > 0);
+			return GetValue(key) != 0;
 		}
 
 		#endregion

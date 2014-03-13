@@ -42,8 +42,8 @@ public class ButtonRoom : Room
 	{
 		PlaySound(effectClip);
 
-		// The music button has been set to hide if this flag is set
-		SetFlag("PlayedSound");
+		// The music button has been configured to hide when this value is set
+		SetValue("PlayedSound");
 	}
 
 	void OnQuestionClicked()

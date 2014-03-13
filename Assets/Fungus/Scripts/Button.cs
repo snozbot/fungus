@@ -18,14 +18,14 @@ namespace Fungus
 		public Action buttonAction;
 
 		/**
-		 * Automatically hide the button when displaying story text/options or waiting.
+		 * Automatically hides the button when displaying story text/options or waiting.
 		 */
 		public bool autoHide;
 
 		/**
-		 * Hide the button when a value is set.
+		 * Automatically hides the button when the specified game value is set (i.e. not equal to zero).
 		 */
-		public string hideOnFlag;
+		public string hideOnSetValue;
 
 		float targetAlpha;
 		bool showButton;
@@ -91,9 +91,9 @@ namespace Fungus
 				}
 			}
 
-			// Hide the button if the specified flag has been set to true
-			if (hideOnFlag.Length > 0 &&
-			    Game.GetInstance().state.GetFlag(hideOnFlag))
+			// Hide the button if the specified game value is non-zero
+			if (hideOnSetValue.Length > 0 &&
+			    Game.GetInstance().GetValue(hideOnSetValue) != 0)
 			{
 				targetAlpha = 0f;
 			}

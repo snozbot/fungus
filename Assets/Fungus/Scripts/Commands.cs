@@ -327,70 +327,22 @@ namespace Fungus
 		}
 
 		/** 
-		 * Sets a global boolean flag value
+		 * Sets a globally accessible game value
 		 */
-		public class SetFlagCommand : CommandQueue.Command
-		{
-			string key;
-			bool value;
-
-			public SetFlagCommand(string _key, bool _value)
-			{
-				key = _key;
-				value = _value;
-			}
-
-			public override void Execute(CommandQueue commandQueue, Action onComplete)
-			{
-				Game.GetInstance().state.SetFlag(key, value);
-				if (onComplete != null)
-				{
-					onComplete();
-				}
-			}		
-		}
-
-		/** 
-		 * Sets a global integer counter value
-		 */
-		public class SetCounterCommand : CommandQueue.Command
+		public class SetValueCommand : CommandQueue.Command
 		{
 			string key;
 			int value;
-			
-			public SetCounterCommand(string _key, int _value)
-			{
-				key = _key;
-				value = _value;
-			}
-			
-			public override void Execute(CommandQueue commandQueue, Action onComplete)
-			{
-				Game.GetInstance().state.SetCounter(key, value);
-				if (onComplete != null)
-				{
-					onComplete();
-				}
-			}		
-		}
 
-		/**
-		 * Sets a global inventory count value
-		 */
-		public class SetInventoryCommand : CommandQueue.Command
-		{
-			string key;
-			int value;
-			
-			public SetInventoryCommand(string _key, int _value)
+			public SetValueCommand(string _key, int _value)
 			{
 				key = _key;
 				value = _value;
 			}
-			
+
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Game.GetInstance().state.SetInventory(key, value);
+				Game.GetInstance().SetValue(key, value);
 				if (onComplete != null)
 				{
 					onComplete();

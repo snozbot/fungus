@@ -38,7 +38,7 @@ namespace Fungus
 		public bool showLinks = true;
 
 		/**
-		 * Text to use on 'Continue' buttons
+		 * Text to use on 'Continue' buttons.
 		 */
 		public string continueText = "Continue";
 
@@ -58,29 +58,32 @@ namespace Fungus
 		public float roomFadeDuration = 1f;
 
 		/**
-		 * Time for fade transition to complete when hiding/showing buttons
+		 * Time for fade transition to complete when hiding/showing buttons.
 		 */
 		public float buttonFadeDuration = 0.25f;
 
 		/**
-		 * Full screen texture used for screen fade effect
+		 * Full screen texture used for screen fade effect.
 		 */
 		public Texture2D fadeTexture;
 
 		/**
-		 * Sound effect to play when buttons are clicked 
+		 * Sound effect to play when buttons are clicked.
 		 */
 		public AudioClip buttonClickClip;
+
+		/**
+		 * Global dictionary of integer values for storing game state.
+		 */
+		[HideInInspector]
+		public Dictionary<string, int> values = new Dictionary<string, int>();
 
 		[HideInInspector]
 		public View activeView;
 		
 		[HideInInspector]
 		public Page activePage;
-		
-		[HideInInspector]
-		public GameState state = new GameState();
-		
+
 		[HideInInspector]
 		public StringTable stringTable = new StringTable();
 		
@@ -189,6 +192,30 @@ namespace Fungus
 			}
 
 			return false;
+		}
+
+		/**
+		 * Sets a globally accessible game state value.
+		 * @param key The key of the value.
+		 * @param value The integer value to store.
+		 */
+		public void SetValue(string key, int value)
+		{
+			values[key] = value;
+		}
+
+		/**
+		 * Gets a globally accessible game state value.
+		 * @param key The key of the value.
+		 * @return value The integer value for the specified key, or 0 if the key does not exist.
+		 */
+		public int GetValue(string key)
+		{
+			if (values.ContainsKey(key))
+			{
+				return values[key];
+			}
+			return 0;
 		}
 	}
 }

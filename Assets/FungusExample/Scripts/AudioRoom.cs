@@ -10,11 +10,11 @@ public class AudioRoom : Room
 
 	void OnEnter()
 	{
-		if (GetFlag("music"))
+		if (HasValue("music"))
 		{
 			AddOption("Stop the music", StopGameMusic);
 
-			if (GetFlag("quiet") == false)
+			if (HasValue("quiet") == false)
 			{
 				AddOption("Shhh! Make it quieter", MakeQuiet);
 			}
@@ -40,15 +40,15 @@ public class AudioRoom : Room
 	{
 		PlayMusic(musicClip);
 		SetMusicVolume(1f);
-		SetFlag("music", true);
+		SetValue("music");
 		Call(OnEnter);
 	}
 
 	void StopGameMusic()
 	{
 		StopMusic();
-		SetFlag("music", false);
-		SetFlag("quiet", false);
+		ClearValue("music");
+		ClearValue("quiet");
 		Call(OnEnter);
 	}
 
@@ -60,7 +60,7 @@ public class AudioRoom : Room
 
 	void MakeQuiet()
 	{
-		SetFlag("quiet", true);
+		SetValue("quiet");
 		SetMusicVolume(0.25f, 1f);
 		Call(OnEnter);
 	}

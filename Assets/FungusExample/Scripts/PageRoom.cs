@@ -46,9 +46,8 @@ public class PageRoom : Room
 
 	void GoToSleep()
 	{
-		// Check to see if a game flag has been set
-		// You can also use GetCounter & GetInventory to get other types of values.
-		if (GetFlag("spawned"))
+		// Check to see if a game value has been set
+		if (HasValue("spawned"))
 		{
 			Say("I am feeling rather sleepy after all that spawning!");
 			Say("Yawn! Good night world!");
@@ -78,7 +77,7 @@ public class PageRoom : Room
 		SetPageStyle(defaultStyle);
 
 		// Sets a game flag which we check above in GoToSleep
-		SetFlag("spawned", true);
+		SetValue("spawned");
 
 		AddOption("So tired. I sleep now.", GoToSleep);
 		AddOption("No way! More spores!", ProduceSpores);
