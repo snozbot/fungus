@@ -278,7 +278,25 @@ namespace Fungus
 		{
 			FadeSprite(spriteRenderer, 1, 0, Vector2.zero);
 		}
-		
+
+		/**
+		 * Shows or hides a sprite immediately, depending on the visible parameter.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param spriteRenderer The sprite to be modified
+		 * @param visible Shows the sprite when true, hides the sprite when false.
+		 */
+		public void ShowSprite(SpriteRenderer spriteRenderer, bool visible)
+		{
+			if (visible)
+			{
+				ShowSprite(spriteRenderer);
+			}
+			else
+			{
+				HideSprite(spriteRenderer);
+			}
+		}
+
 		/**
 		 * Fades the transparency of a sprite over a period of time.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
