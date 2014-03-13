@@ -179,6 +179,18 @@ namespace Fungus
 		}
 
 		/**
+		 * Adds an option with no action to the current list of player options.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param optionText The text to be displayed for this option
+		 * @param optionAction The Action delegate method to be called when the player selects the option
+		 */
+		public void AddOption(string optionText)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.AddOptionCommand(optionText, delegate {}));
+		}
+
+		/**
 		 * Display all previously added options as buttons, with no text prompt.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 */
