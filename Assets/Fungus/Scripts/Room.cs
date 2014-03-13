@@ -138,6 +138,14 @@ namespace Fungus
 			// It is allowed for a room to not have any pages. In this case game.activePage will be null
 			game.activePage = gameObject.GetComponentInChildren<Page>();
 
+			// Hide all buttons in the room before entering
+			// Buttons must always be made visible using a ShowButton() command
+			Button[] buttons = game.activeRoom.GetComponentsInChildren<Button>();
+			foreach (Button button in buttons)
+			{
+				button.SetAlpha(0f);
+			}
+
 			// Rooms may have multiple child views and page. It is the responsibility of the client
 			// room script to set the appropriate view & page in its OnEnter method.
 

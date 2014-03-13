@@ -471,64 +471,33 @@ namespace Fungus
 		}
 
 		/** 
-		 * Makes a sprite behave as a clickable button
+		 * Display a button and set the method to be called when player clicks.
 		 */
-		public class AddButtonCommand : CommandQueue.Command
+		public class ShowButtonCommand : CommandQueue.Command
 		{
-			SpriteRenderer spriteRenderer;
-			bool autoDisplay;
+			Button button;
+			bool visible;
 			Action buttonAction;
 
-			public AddButtonCommand(SpriteRenderer _spriteRenderer,
-			                        Action _buttonAction,
-			                        bool _autoDisplay)
+			public ShowButtonCommand(Button _button,
+			                         bool _visible,
+			                         Action _buttonAction)
 			{
-				if (_spriteRenderer == null)
+				if (_button == null)
 				{
-					Debug.LogError("Sprite renderer must not be null.");
+					Debug.LogError("Button must not be null.");
 					return;
 				}
 				
-				spriteRenderer = _spriteRenderer;
-				autoDisplay = _autoDisplay;
+				button = _button;
+				visible = _visible;
 				buttonAction = _buttonAction;
 			}
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Button.MakeButton(spriteRenderer, autoDisplay, buttonAction);
+				button.Show(visible, buttonAction);
 				
-				if (onComplete != null)
-				{
-					onComplete();
-				}
-			}		
-		}
-
-		/** 
-		 * Makes a sprite stop behaving as a clickable button.
-		 */
-		public class RemoveButtonCommand : CommandQueue.Command
-		{
-			SpriteRenderer spriteRenderer;
-
-			public RemoveButtonCommand(SpriteRenderer _spriteRenderer)
-			{
-				if (_spriteRenderer == null)
-				{
-					Debug.LogError("Sprite renderer must not be null.");
-					return;
-				}
-				
-				spriteRenderer = _spriteRenderer;
-			}
-			
-			public override void Execute(CommandQueue commandQueue, Action onComplete)
-			{
-				// Remove the button component
-				Button button = spriteRenderer.gameObject.GetComponent<Button>();
-				GameObject.Destroy(button);
-
 				if (onComplete != null)
 				{
 					onComplete();

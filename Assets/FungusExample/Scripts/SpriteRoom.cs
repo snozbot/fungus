@@ -22,15 +22,8 @@ public class SpriteRoom : Room
 		SetAnimatorTrigger(blueAlienAnim, "StartBlueWalk");
 
 		Say("Blue Alien starts to dance.");
-		Say("Tap on Blue Alien to stop him dancing.");
 
-		AddButton(blueAlienSprite, StopDancing);
-	}	
-
-	// This method is called from the Button component on the BlueAlien object
-	void StopDancing()
-	{
-		RemoveButton(blueAlienSprite);
+		Wait(4);
 
 		SetAnimatorTrigger(blueAlienAnim, "Stop");
 

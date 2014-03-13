@@ -212,7 +212,18 @@ namespace Fungus
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.SetFlagCommand(key, value));
 		}
-		
+
+		/**
+		 * Sets a boolean flag value to true.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param key The name of the flag
+		 */
+		public void SetFlag(string key)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.SetFlagCommand(key, true));
+		}
+
 		/**
 		 * Gets the current state of a flag.
 		 * Flag values are set using SetFlag().
@@ -356,7 +367,7 @@ namespace Fungus
 		}
 		
 		/**
-		 * Makes a sprite behave as a clickable button.
+		 * Displays a button and sets 
 		 * Automatically adds a Button component to the object to respond to player input.
 		 * If no Collider2D already exists on the object, then a BoxCollider2D is automatically added.
 		 * Use RemoveButton() to make a sprite non-clickable again.
@@ -364,25 +375,10 @@ namespace Fungus
 		 * @param spriteRenderer The sprite to be made clickable
 		 * @param buttonAction The Action delegate method to be called when the player clicks on the button
 		 */
-		public void AddButton(SpriteRenderer spriteRenderer, Action buttonAction)
+		public void ShowButton(Button button, Action buttonAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.AddButtonCommand(spriteRenderer, buttonAction, false));
-		}
-		
-		/**
-		 * Makes a sprite behave as a clickable button.
-		 * Same behaviour as AddButton(), except the button will be automatically hidden/shown by the game depending on the context.
-		 * All auto buttons are automatically displayed when there is no page content and the player taps on the screen.
-		 * If the player does not interact for a period, then all auto buttons are hidden again.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param spriteRenderer The sprite to be made clickable
-		 * @param buttonAction The Action delegate method to be called when the player clicks on the button
-		 */
-		public void AddAutoButton(SpriteRenderer spriteRenderer, Action buttonAction)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.AddButtonCommand(spriteRenderer, buttonAction, true));
+			commandQueue.AddCommand(new Command.ShowButtonCommand(button, true, buttonAction));
 		}
 
 		/**
@@ -391,26 +387,11 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param spriteRenderer The sprite to be made non-clickable
 		 */
-		public void RemoveButton(SpriteRenderer spriteRenderer)
+		public void HideButton(Button button)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.RemoveButtonCommand(spriteRenderer));
+			commandQueue.AddCommand(new Command.ShowButtonCommand(button, false, null));
 		}
-		
-		/**
-		 * Makes a sprite stop behaving as a clickable button and fades out the button sprite.
-		 * The fade duration is specified in Game.buttonFadeDuration
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param spriteRenderer The sprite to be made non-clickable
-		 */
-		public void RemoveAndFadeButton(SpriteRenderer spriteRenderer)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.RemoveButtonCommand(spriteRenderer));
-
-			FadeSprite(spriteRenderer, 0f, Game.GetInstance().buttonFadeDuration);
-		}
-
 
 		/**
 		 * Sets an animator trigger to change the animation state for an animated sprite.

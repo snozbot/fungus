@@ -8,18 +8,18 @@ public class ButtonRoom : Room
 
 	public AudioClip effectClip;
 
-	public SpriteRenderer homeSprite;
-	public SpriteRenderer musicSprite;
-	public SpriteRenderer questionSprite;
+	public Button homeButton;
+	public Button soundButton;
+	public Button questionButton;
 	
 	void OnEnter()
 	{
 		// Normal button, always visible
-		AddButton(homeSprite, OnHomeClicked);
+		ShowButton(homeButton, OnHomeClicked);
 
-		// Auto buttons, hidden when story/options are being displayed
-		AddAutoButton(musicSprite, OnMusicClicked);
-		AddAutoButton(questionSprite, OnQuestionClicked);
+		// Auto hide buttons (hidden when story/options are being displayed)
+		ShowButton(soundButton, OnMusicClicked);
+		ShowButton(questionButton, OnQuestionClicked);
 	
 		// NOTE: Add auto buttons before first Say() command to ensure they start hidden
 
@@ -42,13 +42,14 @@ public class ButtonRoom : Room
 	{
 		PlaySound(effectClip);
 
-		// Hide this button once the player clicks it
-		RemoveAndFadeButton(musicSprite);
+		// The music button has been set to hide if this flag is set
+		SetFlag("PlayedSound");
 	}
 
 	void OnQuestionClicked()
 	{
-		// All Auto Buttons are automatically hidden as soon as the page has more content to show
+		// Set the Button.autoHide property to automatically hide buttons when displaying page text/options or waiting
+		// The Question and Sound buttons have the Auto Hide property set, but the Home button does not.
 
 		Say("What book was he reading?");
 		Say("Sadly we will never know for sure.");

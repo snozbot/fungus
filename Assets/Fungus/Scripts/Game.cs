@@ -90,9 +90,6 @@ namespace Fungus
 		[HideInInspector]
 		public CameraController cameraController;
 
-		[HideInInspector]
-		public ButtonController buttonController;
-
 		/**
 		 * True when executing a Wait() or WaitForTap() command
 		 */
@@ -120,7 +117,6 @@ namespace Fungus
 			// Add components for additional game functionality
 			commandQueue = gameObject.AddComponent<CommandQueue>();
 			cameraController = gameObject.AddComponent<CameraController>();
-			buttonController = gameObject.AddComponent<ButtonController>();
 
 			AudioSource audioSource = gameObject.AddComponent<AudioSource>();
 			audioSource.playOnAwake = false;
@@ -158,9 +154,6 @@ namespace Fungus
 				// Calling private method on Room to hide implementation
 				activeRoom.gameObject.SendMessage("Enter");
 
-				// Hide all auto buttons when entering room
-				buttonController.autoButtonAlpha = 0f;
-
 				// Fade in screen
 				cameraController.Fade(1f, roomFadeDuration / 2f, null);
 			});
@@ -176,6 +169,26 @@ namespace Fungus
 				return;
 			}
 			audio.PlayOneShot(buttonClickClip);
+		}
+
+		/**
+		 * Returns true if the game is in an idle state.
+		 * The game is in and idle state if the active page is not currently displaying story text/options, and no Wait command is in progress
+		 */
+		public bool IsGameIdle()
+		{
+			if (waiting)
+			{
+				return false;
+			}
+
+			if (activePage == null ||
+			    activePage.mode == Page.Mode.Idle)
+			{
+				return true;
+			}
+
+			return false;
 		}
 	}
 }
