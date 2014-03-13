@@ -148,6 +148,8 @@ namespace Fungus
 				return;
 			}
 
+			waiting = true;
+
 			// Fade out screen
 			cameraController.Fade(0f, roomFadeDuration / 2f, delegate {
 
@@ -158,7 +160,9 @@ namespace Fungus
 				activeRoom.gameObject.SendMessage("Enter");
 
 				// Fade in screen
-				cameraController.Fade(1f, roomFadeDuration / 2f, null);
+				cameraController.Fade(1f, roomFadeDuration / 2f, delegate {
+					waiting = false;
+				});
 			});
 		}
 
