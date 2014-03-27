@@ -33,7 +33,7 @@ namespace Fungus
 		/**
 		 * Clears all queued commands from the list
 		 */
-		public virtual void Reset()
+		public virtual void Clear()
 		{
 			commandList.Clear();
 		}
@@ -63,7 +63,7 @@ namespace Fungus
 		 */
 		public void CallCommandMethod(GameObject target, string methodName)
 		{
-			Reset();
+			Clear();
 			target.SendMessage(methodName, SendMessageOptions.DontRequireReceiver);
 			Execute();
 		}
@@ -74,7 +74,7 @@ namespace Fungus
 		 */
 		public void CallCommandMethod(Action method)
 		{
-			Reset();
+			Clear();
 			if (method != null)
 			{
 				method();

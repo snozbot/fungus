@@ -2,15 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-/**
- * @mainpage notitle
- * This is the code documentation for Fungus, a Unity 3D plugin created by Chris Gregan of Snozbot.
- * 
- * @note For a list of all supported scripting commands, please see the Fungus.GameController class documentation.
- * 
- * Refer to http://www.snozbot.com/fungus for more information about Fungus.
- */
-
 /** 
  * @package Fungus An open source library for Unity 3D for creating graphic interactive fiction games.
  */
@@ -19,7 +10,7 @@ namespace Fungus
 	/** 
 	 * Manages global game state and movement between rooms.
 	 */
-	public class Game : MonoBehaviour 
+	public class Game : GameController 
 	{
 		/**
 		 * The currently active Room.
@@ -101,6 +92,9 @@ namespace Fungus
 
 		static Game instance;
 
+		/**
+		 * Returns the singleton instance for the Game class
+		 */
 		public static Game GetInstance()
 		{
 			if (!instance)
@@ -133,37 +127,11 @@ namespace Fungus
 
 			if (activeRoom != null)
 			{
-				MoveToRoom(activeRoom);
+				// Move to the active room
+				commandQueue.Clear();
+				commandQueue.AddCommand(new Command.MoveToRoomCommand(activeRoom));
+				commandQueue.Execute();
 			}
-		}
-
-		/**
-		 * Moves player to a different room.
-		 */
-		public void MoveToRoom(Room room)
-		{
-			if (room == null)
-			{
-				Debug.LogError("Failed to move to room. Room must not be null.");
-				return;
-			}
-
-			waiting = true;
-
-			// Fade out screen
-			cameraController.Fade(0f, roomFadeDuration / 2f, delegate {
-
-				activeRoom = room;
-
-				// Notify room script that the Room is being entered
-				// Calling private method on Room to hide implementation
-				activeRoom.gameObject.SendMessage("Enter");
-
-				// Fade in screen
-				cameraController.Fade(1f, roomFadeDuration / 2f, delegate {
-					waiting = false;
-				});
-			});
 		}
 
 		/**
@@ -203,7 +171,7 @@ namespace Fungus
 		 * @param key The key of the value.
 		 * @param value The integer value to store.
 		 */
-		public void SetValue(string key, int value)
+		public void SetGameValue(string key, int value)
 		{
 			values[key] = value;
 		}
@@ -213,7 +181,7 @@ namespace Fungus
 		 * @param key The key of the value.
 		 * @return value The integer value for the specified key, or 0 if the key does not exist.
 		 */
-		public int GetValue(string key)
+		public int GetGameValue(string key)
 		{
 			if (values.ContainsKey(key))
 			{

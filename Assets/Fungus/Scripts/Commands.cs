@@ -320,8 +320,24 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Game.GetInstance().MoveToRoom(room);
+				Game game = Game.GetInstance();
 
+				game.waiting = true;
+				
+				// Fade out screen
+				game.cameraController.Fade(0f, game.roomFadeDuration / 2f, delegate {
+					
+					game.activeRoom = room;
+					
+					// Notify room script that the Room is being entered
+					// Calling private method on Room to hide implementation
+					game.activeRoom.gameObject.SendMessage("Enter");
+					
+					// Fade in screen
+					game.cameraController.Fade(1f, game.roomFadeDuration / 2f, delegate {
+						game.waiting = false;
+					});
+				});
 				// MoveToRoom always resets the command queue so no need to call onComplete
 			}
 		}
@@ -342,7 +358,7 @@ namespace Fungus
 
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Game.GetInstance().SetValue(key, value);
+				Game.GetInstance().SetGameValue(key, value);
 				if (onComplete != null)
 				{
 					onComplete();
@@ -482,9 +498,12 @@ namespace Fungus
 			{
 				Game game = Game.GetInstance();
 
+				game.waiting = true;
+
 				game.cameraController.PanToView(view, duration, delegate {
 
 					game.activeView = view;
+					game.waiting = false;
 
 					// Try to find a page that is a child of the active view.
 					// If there are multiple child pages then it is the client's responsibility 
@@ -528,12 +547,15 @@ namespace Fungus
 			{
 				Game game = Game.GetInstance();
 
+				game.waiting = true;
+
 				game.cameraController.PanToPath(views, duration, delegate {
 
 					if (views.Length > 0)
 					{
 						game.activeView = views[views.Length - 1];
-						
+						game.waiting = false;
+
 						// Try to find a page that is a child of the active view.
 						// If there are multiple child pages then it is the client's responsibility 
 						// to set the correct active page in the room script.
@@ -577,10 +599,13 @@ namespace Fungus
 			{
 				Game game = Game.GetInstance();
 
+				game.waiting = true;
+
 				game.cameraController.FadeToView(view, duration, delegate {
 
 					game.activeView = view;
-					
+					game.waiting = false;
+
 					// Try to find a page that is a child of the active view.
 					// If there are multiple child pages then it is the client's responsibility 
 					// to set the correct active page in the room script.

@@ -5,18 +5,36 @@ using System.Collections;
 namespace Fungus
 {
 	/**
-	 * This class gives easy access to every scripting command available in Fungus.
+	 * This class gives easy static access to every scripting command available in Fungus.
 	 */
 	public class GameController : MonoBehaviour 
 	{
 		#region General Methods
-		
+
+		/**
+		 * Clears the command queue.
+		 */
+		public static void Clear()
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.Clear();
+		}
+
+		/**
+		 * Executes the commadns in the command queue.
+		 */
+		public static void Execute()
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.Execute ();
+		}
+
 		/**
 		 * Transitions from the current Room to another Room.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param room The Room to transition to.
 		 */
-		public void MoveToRoom(Room room)
+		public static void MoveToRoom(Room room)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.MoveToRoomCommand(room));
@@ -27,7 +45,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param duration The wait duration in seconds
 		 */
-		public void Wait(float duration)
+		public static void Wait(float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.WaitCommand(duration));
@@ -37,7 +55,7 @@ namespace Fungus
 		 * Wait until player taps, clicks or presses a key before executing the next command.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 */
-		public void WaitForInput()
+		public static void WaitForInput()
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.WaitForInputCommand());
@@ -49,7 +67,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param callAction The Action delegate method to be called when the command executes.
 		 */
-		public void Call(Action callAction)
+		public static void Call(Action callAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.CallCommand(callAction));
@@ -64,7 +82,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param view The View object to make active
 		 */
-		public void SetView(View view)
+		public static void SetView(View view)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.SetViewCommand(view));
@@ -78,7 +96,7 @@ namespace Fungus
 		 * @param targetView The View to pan the camera to.
 		 * @param duration The length of time in seconds needed to complete the pan.
 		 */
-		public void PanToView(View targetView, float duration)
+		public static void PanToView(View targetView, float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.PanToViewCommand(targetView, duration));
@@ -93,7 +111,7 @@ namespace Fungus
 		 * @param duration The length of time in seconds needed to complete the pan.
 		 * @param targetViews A parameter list of views to visit during the pan.
 		 */
-		public void PanToPath(float duration, params View[] targetViews)
+		public static void PanToPath(float duration, params View[] targetViews)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.PanToPathCommand(targetViews, duration));
@@ -106,7 +124,7 @@ namespace Fungus
 		 * @param targetView The View object to fade to.
 		 * @param duration The length of time in seconds needed to complete the pan.
 		 */
-		public void FadeToView(View targetView, float duration)
+		public static void FadeToView(View targetView, float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.FadeToViewCommand(targetView, duration));
@@ -122,7 +140,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param page The Page object to make active
 		 */
-		public void SetPage(Page page)
+		public static void SetPage(Page page)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.SetPageCommand(page));
@@ -134,7 +152,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param pageStyle The style object to make active
 		 */
-		public void SetPageStyle(PageStyle pageStyle)
+		public static void SetPageStyle(PageStyle pageStyle)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.SetPageStyleCommand(pageStyle));
@@ -146,7 +164,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param titleText The text to display as the title of the Page.
 		 */
-		public void Title(string titleText)
+		public static void Title(string titleText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.TitleCommand(titleText));
@@ -159,7 +177,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param storyText The text to be written to the currently active Page.
 		 */
-		public void Say(string storyText)
+		public static void Say(string storyText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.SayCommand(storyText));
@@ -172,7 +190,7 @@ namespace Fungus
 		 * @param optionText The text to be displayed for this option
 		 * @param optionAction The Action delegate method to be called when the player selects the option
 		 */
-		public void AddOption(string optionText, Action optionAction)
+		public static void AddOption(string optionText, Action optionAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.AddOptionCommand(optionText, optionAction));
@@ -184,7 +202,7 @@ namespace Fungus
 		 * @param optionText The text to be displayed for this option
 		 * @param optionAction The Action delegate method to be called when the player selects the option
 		 */
-		public void AddOption(string optionText)
+		public static void AddOption(string optionText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.AddOptionCommand(optionText, delegate {}));
@@ -194,7 +212,7 @@ namespace Fungus
 		 * Display all previously added options as buttons, with no text prompt.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 */
-		public void Choose()
+		public static void Choose()
 		{
 			Choose("");
 		}
@@ -204,7 +222,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param chooseText The story text to be written above the list of options
 		 */
-		public void Choose(string chooseText)
+		public static void Choose(string chooseText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.ChooseCommand(chooseText));
@@ -219,7 +237,7 @@ namespace Fungus
 		 * @param key The name of the value to set
 		 * @param value The value to set
 		 */
-		public void SetValue(string key, int value)
+		public static void SetValue(string key, int value)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.SetValueCommand(key, value));
@@ -230,7 +248,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param key The name of the value to set
 		 */
-		public void SetValue(string key)
+		public static void SetValue(string key)
 		{
 			SetValue(key, 1);
 		}
@@ -240,7 +258,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param key The key of the value.
 		 */
-		public void ClearValue(string key)
+		public static void ClearValue(string key)
 		{
 			SetValue(key, 0);
 		}
@@ -251,9 +269,9 @@ namespace Fungus
 		 * @param key The name of the value
 		 * @return The integer value for this key, or 0 if not previously set.
 		 */
-		public int GetValue(string key)
+		public static int GetValue(string key)
 		{
-			return Game.GetInstance().GetValue(key);
+			return Game.GetInstance().GetGameValue(key);
 		}
 
 		/**
@@ -261,7 +279,7 @@ namespace Fungus
 		 * @param key The name of the value to check.
 		 * @return Returns true if the value is not equal to zero.
 		 */
-		public bool HasValue(string key)
+		public static bool HasValue(string key)
 		{
 			return GetValue(key) != 0;
 		}
@@ -275,7 +293,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param spriteRenderer The sprite to be modified
 		 */
-		public void HideSprite(SpriteRenderer spriteRenderer)
+		public static void HideSprite(SpriteRenderer spriteRenderer)
 		{
 			FadeSprite(spriteRenderer, 0, 0, Vector2.zero);
 		}
@@ -286,7 +304,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param spriteRenderer The sprite to be modified
 		 */
-		public void ShowSprite(SpriteRenderer spriteRenderer)
+		public static void ShowSprite(SpriteRenderer spriteRenderer)
 		{
 			FadeSprite(spriteRenderer, 1, 0, Vector2.zero);
 		}
@@ -297,7 +315,7 @@ namespace Fungus
 		 * @param spriteRenderer The sprite to be modified
 		 * @param visible Shows the sprite when true, hides the sprite when false.
 		 */
-		public void ShowSprite(SpriteRenderer spriteRenderer, bool visible)
+		public static void ShowSprite(SpriteRenderer spriteRenderer, bool visible)
 		{
 			if (visible)
 			{
@@ -316,7 +334,7 @@ namespace Fungus
 		 * @param targetAlpha The final required transparency value [0..1]
 		 * @param duration The duration of the fade transition in seconds
 		 */
-		public void FadeSprite(SpriteRenderer spriteRenderer, float targetAlpha, float duration)
+		public static void FadeSprite(SpriteRenderer spriteRenderer, float targetAlpha, float duration)
 		{
 			FadeSprite(spriteRenderer, targetAlpha, duration, Vector2.zero);
 		}
@@ -332,7 +350,7 @@ namespace Fungus
 		 * @param duration The duration of the fade transition in seconds
 		 * @param slideOffset Offset to the starting position for the slide effect.
 		 */
-		public void FadeSprite(SpriteRenderer spriteRenderer, float targetAlpha, float duration, Vector2 slideOffset)
+		public static void FadeSprite(SpriteRenderer spriteRenderer, float targetAlpha, float duration, Vector2 slideOffset)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			Color color = spriteRenderer.color;
@@ -349,7 +367,7 @@ namespace Fungus
 		 * @param spriteRenderer The sprite to be made clickable
 		 * @param buttonAction The Action delegate method to be called when the player clicks on the button
 		 */
-		public void ShowButton(Button button, Action buttonAction)
+		public static void ShowButton(Button button, Action buttonAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.ShowButtonCommand(button, true, buttonAction));
@@ -361,7 +379,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param spriteRenderer The sprite to be made non-clickable
 		 */
-		public void HideButton(Button button)
+		public static void HideButton(Button button)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.ShowButtonCommand(button, false, null));
@@ -374,7 +392,7 @@ namespace Fungus
 		 * @param animator The sprite to be made non-clickable
 		 * @param triggerName Name of a trigger parameter in the animator controller
 		 */
-		public void SetAnimatorTrigger(Animator animator, string triggerName)
+		public static void SetAnimatorTrigger(Animator animator, string triggerName)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.SetAnimatorTriggerCommand(animator, triggerName));
@@ -388,7 +406,7 @@ namespace Fungus
 		 * One music clip may be played at a time.
 		 * @param audioClip The music clip to play
 		 */
-		public void PlayMusic(AudioClip audioClip)
+		public static void PlayMusic(AudioClip audioClip)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.PlayMusicCommand(audioClip));
@@ -397,7 +415,7 @@ namespace Fungus
 		/**
 		 * Stops playing game music.
 		 */
-		public void StopMusic()
+		public static void StopMusic()
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.StopMusicCommand());
@@ -407,7 +425,7 @@ namespace Fungus
 		 * Sets the game music volume immediately.
 		 * @param musicVolume The new music volume value [0..1]
 		 */
-		public void SetMusicVolume(float musicVolume)
+		public static void SetMusicVolume(float musicVolume)
 		{
 			SetMusicVolume(musicVolume, 0f);
 		}
@@ -417,7 +435,7 @@ namespace Fungus
 		 * @param musicVolume The new music volume value [0..1]
 		 * @param duration The length of time in seconds needed to complete the volume change.
 		 */
-		public void SetMusicVolume(float musicVolume, float duration)
+		public static void SetMusicVolume(float musicVolume, float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.SetMusicVolumeCommand(musicVolume, duration));
@@ -428,7 +446,7 @@ namespace Fungus
 		 * Multiple sound effects can be played at the same time.
 		 * @param audioClip The sound effect clip to play
 		 */
-		public void PlaySound(AudioClip audioClip)
+		public static void PlaySound(AudioClip audioClip)
 		{
 			PlaySound(audioClip, 1f);
 		}
@@ -439,7 +457,7 @@ namespace Fungus
 		 * @param audioClip The sound effect clip to play
 		 * @param volume The volume level of the sound effect
 		 */
-		public void PlaySound(AudioClip audioClip, float volume)
+		public static void PlaySound(AudioClip audioClip, float volume)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.PlaySoundCommand(audioClip, volume));

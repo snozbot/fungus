@@ -93,7 +93,7 @@ namespace Fungus
 
 			// Hide the button if the specified game value is non-zero
 			if (hideOnSetValue.Length > 0 &&
-			    Game.GetInstance().GetValue(hideOnSetValue) != 0)
+			    Game.GetInstance().GetGameValue(hideOnSetValue) != 0)
 			{
 				targetAlpha = 0f;
 			}
