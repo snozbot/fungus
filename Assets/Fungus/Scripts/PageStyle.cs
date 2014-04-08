@@ -12,11 +12,14 @@ namespace Fungus
 		// The font size for title, say and option text is calculated by multiplying the screen height
 		// by the corresponding font scale. Text appears the same size across all device resolutions.
 		
-		/// Title font size as a fraction of screen height.
-		public float titleFontScale = 1f / 20f;
+		/// Header font size as a fraction of screen height.
+		public float headerFontScale = 1f / 20f;
 
 		/// Say font size as a fraction of screen height.
 		public float sayFontScale = 1f / 25f;
+
+		/// Header font size as a fraction of screen height.
+		public float footerFontScale = 1f / 20f;
 
 		/// Continue font size as a fraction of screen height.
 		public float continueFontScale = 1f / 30f;
@@ -24,8 +27,11 @@ namespace Fungus
 		/// Option font size as a fraction of screen height.
 		public float optionFontScale = 1f / 25f;
 
-		/// Style for title text
-		public GUIStyle titleStyle;
+		/// Style for header text
+		public GUIStyle headerStyle;
+
+		/// Style for header text
+		public GUIStyle footerStyle;
 
 		/// Style for say text
 		public GUIStyle sayStyle;
@@ -43,14 +49,26 @@ namespace Fungus
 		public GUIStyle boxStyle;
 
 		/**
-		 * Returns the style for Title text.
+		 * Returns the style for Header text.
 		 * Overrides the font size to compensate for varying device resolution.
 		 * Font size is calculated as a fraction of the current screen height.
 		 */
-		public GUIStyle GetScaledTitleStyle()
+		public GUIStyle GetScaledHeaderStyle()
 		{
-			GUIStyle style = new GUIStyle(titleStyle);
-			style.fontSize = Mathf.RoundToInt((float)Screen.height * titleFontScale);
+			GUIStyle style = new GUIStyle(headerStyle);
+			style.fontSize = Mathf.RoundToInt((float)Screen.height * headerFontScale);
+			return style;
+		}
+
+		/**
+		 * Returns the style for Footer text.
+		 * Overrides the font size to compensate for varying device resolution.
+		 * Font size is calculated as a fraction of the current screen height.
+		 */
+		public GUIStyle GetScaledFooterStyle()
+		{
+			GUIStyle style = new GUIStyle(footerStyle);
+			style.fontSize = Mathf.RoundToInt((float)Screen.height * footerFontScale);
 			return style;
 		}
 

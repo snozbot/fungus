@@ -16,8 +16,8 @@ public class PageRoom : Room
 	// You can also use the OnLeave() method to handle when the player leaves the room.
 	void OnEnter()
 	{
-		// Sets the title text on the page
-		Title("The Mushroom");
+		// Sets the header text on the page
+		Header("The Mushroom");
 
 		// Each Say() command writes one line of text, followed by a continue button
 		Say("One day in the forest, a mushroom grew.");
@@ -27,8 +27,8 @@ public class PageRoom : Room
 		// Wait for a few seconds
 		Wait(3);
 
-		// Set the title text to the empty string to remove the page title
-		Title("");
+		// Set the header text to the empty string to remove the page title
+		Header("");
 
 		Say("...");
 		Say("Hmmm. Nothing seems to be happening.");

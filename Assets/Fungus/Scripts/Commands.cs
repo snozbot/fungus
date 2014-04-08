@@ -184,13 +184,13 @@ namespace Fungus
 		}
 		
 		/**
-		 * Sets the title text displayed at the top of the active page.
+		 * Sets the header text displayed at the top of the active page.
 		 */
-		public class TitleCommand : CommandQueue.Command
+		public class HeaderCommand : CommandQueue.Command
 		{
 			string titleText;
 			
-			public TitleCommand(string _titleText)
+			public HeaderCommand(string _titleText)
 			{
 				titleText = _titleText;
 			}
@@ -204,7 +204,37 @@ namespace Fungus
 				}
 				else
 				{
-					page.SetTitle(titleText);
+					page.SetHeader(titleText);
+				}
+				if (onComplete != null)
+				{
+					onComplete();
+				}
+			}		
+		}
+
+		/**
+		 * Sets the footer text displayed at the top of the active page.
+		 */
+		public class FooterCommand : CommandQueue.Command
+		{
+			string titleText;
+			
+			public FooterCommand(string _titleText)
+			{
+				titleText = _titleText;
+			}
+			
+			public override void Execute(CommandQueue commandQueue, Action onComplete)
+			{
+				Page page = Game.GetInstance().activePage;
+				if (page == null)
+				{
+					Debug.LogError("Active page must not be null");
+				}
+				else
+				{
+					page.SetFooter(titleText);
 				}
 				if (onComplete != null)
 				{
@@ -326,7 +356,7 @@ namespace Fungus
 				
 				// Fade out screen
 				game.cameraController.Fade(0f, game.roomFadeDuration / 2f, delegate {
-					
+
 					game.activeRoom = room;
 					
 					// Notify room script that the Room is being entered

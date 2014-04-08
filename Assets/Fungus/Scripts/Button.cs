@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using Fungus;
@@ -80,7 +80,7 @@ namespace Fungus
 			if (autoHide)
 			{
 				if (showButton &&
-				    Game.GetInstance().IsGameIdle())
+				    Game.GetInstance().ShowAutoButtons())
 				{
 					targetAlpha = 1f;
 
@@ -104,18 +104,28 @@ namespace Fungus
 			UpdateTargetAlpha();
 
 			SpriteRenderer spriteRenderer = renderer as SpriteRenderer;
-			Color color = spriteRenderer.color;
 			float fadeSpeed = (1f / Game.GetInstance().buttonFadeDuration);
-			color.a = Mathf.MoveTowards(color.a, targetAlpha, Time.deltaTime * fadeSpeed);
-			spriteRenderer.color = color;
+
+			float alpha = Mathf.MoveTowards(spriteRenderer.color.a, targetAlpha, Time.deltaTime * fadeSpeed);;
+
+			// Set alpha for this sprite and any child sprites
+			SpriteRenderer[] children = spriteRenderer.gameObject.GetComponentsInChildren<SpriteRenderer>();
+			foreach (SpriteRenderer child in children)
+			{
+				Color color = child.color;
+				color.a = alpha;
+				child.color = color;
+			}
 		}
 
 		void OnMouseUpAsButton() 
 		{
 			SpriteRenderer spriteRenderer = renderer as SpriteRenderer;
 
-			// Ignore button press if sprite is not fully visible
-			if (spriteRenderer.color.a != 1f)
+			// Ignore button press if sprite is not fully visible or 
+			// if the game is not in an idle state
+			if (spriteRenderer.color.a != 1f ||
+			    !Game.GetInstance().ShowAutoButtons())
 			{
 				return;
 			}

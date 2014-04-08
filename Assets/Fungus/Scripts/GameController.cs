@@ -159,15 +159,36 @@ namespace Fungus
 		}
 
 		/**
-		 * Sets the title text displayed at the top of the active Page.
-		 * The title text is only displayed when there is some story text or options to be shown.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param titleText The text to display as the title of the Page.
+		 * Obsolete! Use Header() instead.
 		 */
+		[System.Obsolete("use Header() instead")]
 		public static void Title(string titleText)
 		{
+			Header(titleText);
+		}
+
+		/**
+		 * Sets the header text displayed at the top of the active Page.
+		 * The header text is only displayed when there is some story text or options to be shown.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param footerText The text to display as the header of the Page.
+		 */
+		public static void Header(string headerText)
+		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.TitleCommand(titleText));
+			commandQueue.AddCommand(new Command.HeaderCommand(headerText));
+		}
+
+		/**
+		 * Sets the footer text displayed at the top of the active Page.
+		 * The footer text is only displayed when there is some story text or options to be shown.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param footerText The text to display as the footer of the Page.
+		 */
+		public static void Footer(string footerText)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.FooterCommand(footerText));
 		}
 
 		/**
@@ -375,7 +396,6 @@ namespace Fungus
 
 		/**
 		 * Makes a sprite stop behaving as a clickable button.
-		 * Removes the Button component from the sprite object.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param spriteRenderer The sprite to be made non-clickable
 		 */

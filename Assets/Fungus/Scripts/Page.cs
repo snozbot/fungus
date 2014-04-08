@@ -27,10 +27,11 @@ namespace Fungus
 
 		public VerticalAlign verticalAlign = VerticalAlign.Middle;
 
-		string titleText = "";
+		string headerText = "";
+		string footerText = "";
 
-		string originalStoryText = "";
 		string displayedStoryText = "";
+		string originalStoryText = "";
 
 		Action deferredAction;
 		Action continueAction;
@@ -42,6 +43,7 @@ namespace Fungus
 			Choose
 		};
 
+		[HideInInspector]
 		public Mode mode = Mode.Idle;
 
 		class Option
@@ -69,9 +71,14 @@ namespace Fungus
 			}
 		}
 
-		public void SetTitle(string _titleText)
+		public void SetHeader(string _headerText)
 		{
-			titleText = _titleText;
+			headerText = _headerText;
+		}
+
+		public void SetFooter(string _footerText)
+		{
+			footerText = _footerText;
 		}
 
 		public void Say(string sayText, Action sayAction)
@@ -106,23 +113,18 @@ namespace Fungus
 				return;
 			}
 
-			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
-
 			// Disable quick continue for a short period to prevent accidental taps
 			quickContinueTimer = 0.8f;
+
+			originalStoryText = storyText;
 
 			// Hack to avoid displaying partial color tag text
 			if (storyText.Contains("<"))
 			{
-				originalStoryText = storyText;
 				displayedStoryText = storyText;
 			}
 			else
 			{
-				float textWidth = CalcInnerRect(GetScreenRect()).width;
-				originalStoryText = InsertLineBreaks(storyText, sayStyle, textWidth);
-				displayedStoryText = "";
-
 				// Use a coroutine to write the story text out over time
 				StartCoroutine(WriteStoryInternal());
 			}
@@ -134,34 +136,47 @@ namespace Fungus
 			int charactersPerSecond = Game.GetInstance().charactersPerSecond;
 
 			// Zero CPS means write instantly
-			if (charactersPerSecond <= 0)
+			if (charactersPerSecond == 0)
 			{
 				displayedStoryText = originalStoryText;
 				yield break;
 			}
 
 			displayedStoryText = "";
-			float writeDelay = 1f / (float)charactersPerSecond;
-			float timeAccumulator = 0f;
 
-			while (displayedStoryText.Length < originalStoryText.Length)
+			// Make one character visible at a time
+			float writeDelay = (1f / (float)charactersPerSecond);
+			float timeAccumulator = 0f;
+			int i = 0;
+
+			while (true)
 			{
 				timeAccumulator += Time.deltaTime;
 
-				while (timeAccumulator > 0f)
+				while (timeAccumulator > writeDelay)
 				{
+					i++;
 					timeAccumulator -= writeDelay;
+				}
 
-					if (displayedStoryText.Length < originalStoryText.Length)
-					{
-						displayedStoryText += originalStoryText.Substring(displayedStoryText.Length, 1);
-					}
+				if (i >= originalStoryText.Length)
+				{
+					displayedStoryText = originalStoryText;
+					break;
+				}
+				else
+				{
+					string left = originalStoryText.Substring(0, i + 1);
+					string right = originalStoryText.Substring(i + 1);
+
+					displayedStoryText = left;
+					displayedStoryText += "<color=#FFFFFF00>";
+					displayedStoryText += right;
+					displayedStoryText += "</color>";
 				}
 
 				yield return null;
 			}
-
-			displayedStoryText = originalStoryText;
 		}
 
 		public virtual void OnGUI()
@@ -178,21 +193,23 @@ namespace Fungus
 			}
 
 			GUIStyle boxStyle = pageStyle.boxStyle;
-			GUIStyle titleStyle = pageStyle.GetScaledTitleStyle();
+			GUIStyle headerStyle = pageStyle.GetScaledHeaderStyle();
+			GUIStyle footerStyle = pageStyle.GetScaledFooterStyle();
 			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
 			GUIStyle optionStyle = pageStyle.GetScaledOptionStyle();
 			GUIStyle optionAlternateStyle = pageStyle.GetScaledOptionAlternateStyle();
 			GUIStyle continueStyle = pageStyle.GetScaledContinueStyle();
 
 			Rect pageRect = GetScreenRect();
-			Rect outerRect = pageRect;
+			Rect outerRect = FitRectToScreen(pageRect);
 			Rect innerRect = CalcInnerRect(outerRect);
 
 			// Calculate height of each section
-			float titleHeight = CalcTitleHeight(innerRect.width);
+			float headerHeight = CalcHeaderHeight(innerRect.width);
+			float footerHeight = CalcFooterHeight(innerRect.width);
 			float storyHeight = CalcStoryHeight(innerRect.width);
 			float optionsHeight = CalcOptionsHeight(innerRect.width);
-			float contentHeight = titleHeight + storyHeight + optionsHeight;
+			float contentHeight = headerHeight + footerHeight + storyHeight + optionsHeight;
 
 			// Adjust outer rect position based on alignment settings
 			switch (verticalAlign)
@@ -213,10 +230,7 @@ namespace Fungus
 
 			// Force outer rect to always be on-screen
 			// If the rect is bigger than the screen, then the top-left corner will always be visible
-			outerRect.x = Mathf.Min(outerRect.x, Screen.width - outerRect.width);
-			outerRect.y = Mathf.Min(outerRect.y, Screen.height - outerRect.height);
-			outerRect.x = Mathf.Max(0, outerRect.x);
-			outerRect.y = Mathf.Max(0, outerRect.y);
+			outerRect = FitRectToScreen(outerRect);
 
 			innerRect = CalcInnerRect(outerRect);
 
@@ -225,16 +239,28 @@ namespace Fungus
 			boxRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
 			GUI.Box(boxRect, "", boxStyle);
 
-			// Draw title label
-			Rect titleRect = innerRect;
-			titleRect.height = titleHeight;
-			GUI.Label(titleRect, titleText, titleStyle);
+			// Draw header label
+			Rect headerRect = innerRect;
+			headerRect.height = headerHeight;
+			if (headerHeight > 0)
+			{
+				GUI.Label(headerRect, headerText, headerStyle);
+			}
 
 			// Draw say label
 			Rect storyRect = innerRect;
-			storyRect.y += titleHeight;
+			storyRect.y += headerHeight;
 			storyRect.height = storyHeight;
 			GUI.Label(storyRect, displayedStoryText, sayStyle);
+
+			// Draw footer label
+			Rect footerRect = innerRect;
+			footerRect.y += storyHeight;
+			footerRect.height = footerHeight;
+			if (footerHeight > 0)
+			{
+				GUI.Label(footerRect, footerText, footerStyle);
+			}
 
 			bool finishedWriting = (displayedStoryText.Length == originalStoryText.Length);
 			if (!finishedWriting)
@@ -259,7 +285,7 @@ namespace Fungus
 			{
 				// Draw option buttons
 				Rect buttonRect = innerRect;
-				buttonRect.y += titleHeight + storyHeight;
+				buttonRect.y += headerHeight + storyHeight;
 				bool alternateRow = false;
 				foreach (Option option in options)
 				{
@@ -329,21 +355,38 @@ namespace Fungus
 			}
 		}
 
-		float CalcTitleHeight(float boxWidth)
+		float CalcHeaderHeight(float boxWidth)
 		{
 			PageStyle pageStyle = Game.GetInstance().activePageStyle;
 
 			if (pageStyle == null ||
 			    mode == Mode.Idle ||
-			    titleText.Length == 0)
+			    headerText.Length == 0)
 			{
 				return 0;
 			}
 
-			GUIStyle titleStyle = pageStyle.GetScaledTitleStyle();
+			GUIStyle headerStyle = pageStyle.GetScaledHeaderStyle();
 
-			GUIContent titleContent = new GUIContent(titleText);
-			return titleStyle.CalcHeight(titleContent, boxWidth);
+			GUIContent headerContent = new GUIContent(headerText);
+			return headerStyle.CalcHeight(headerContent, boxWidth);
+		}
+
+		float CalcFooterHeight(float boxWidth)
+		{
+			PageStyle pageStyle = Game.GetInstance().activePageStyle;
+			
+			if (pageStyle == null ||
+			    mode == Mode.Idle ||
+			    footerText.Length == 0)
+			{
+				return 0;
+			}
+			
+			GUIStyle footerStyle = pageStyle.GetScaledFooterStyle();
+			
+			GUIContent headerContent = new GUIContent(headerText);
+			return footerStyle.CalcHeight(headerContent, boxWidth);
 		}
 
 		float CalcStoryHeight(float boxWidth)
@@ -392,6 +435,20 @@ namespace Fungus
 			return totalHeight;
 		}
 
+		// Force rect to always be on-screen
+		Rect FitRectToScreen(Rect rect)
+		{
+			Rect fittedRect = new Rect();
+			fittedRect.width = Mathf.Min(rect.width, Screen.width);
+			fittedRect.height = Mathf.Min(rect.height, Screen.height);
+			fittedRect.x = Mathf.Min(rect.x, Screen.width - rect.width);
+			fittedRect.y = Mathf.Min(rect.y, Screen.height - rect.height);
+			fittedRect.x = Mathf.Max(0, fittedRect.x);
+			fittedRect.y = Mathf.Max(0, fittedRect.y);
+
+			return fittedRect;
+		}
+
 		// Returns smaller internal box rect with padding style applied
 		Rect CalcInnerRect(Rect outerRect)
 		{
@@ -404,10 +461,12 @@ namespace Fungus
 
 			GUIStyle boxStyle = pageStyle.boxStyle;
 
-			return new Rect(outerRect.x + boxStyle.padding.left,
-			                outerRect.y + boxStyle.padding.top,
-			                outerRect.width - (boxStyle.padding.left + boxStyle.padding.right),
-			                outerRect.height - (boxStyle.padding.top + boxStyle.padding.bottom));
+			Rect innerRect = new Rect(outerRect.x + boxStyle.padding.left,
+			                		  outerRect.y + boxStyle.padding.top,
+			                          outerRect.width - (boxStyle.padding.left + boxStyle.padding.right),
+			                          outerRect.height - (boxStyle.padding.top + boxStyle.padding.bottom));
+
+			return innerRect;
 		}
 
 		Rect CalcContinueRect(Rect outerRect)
@@ -431,8 +490,10 @@ namespace Fungus
 			return new Rect(x, y, width, height);
 		}
 
-		// Returns the page rect in screen space coords
-		Rect GetScreenRect()
+		/**
+		 * Returns the page rect in screen space coords
+		 */
+		public Rect GetScreenRect()
 		{
 			// Y decreases up the screen in GUI space, so top left is rect origin
 			
@@ -448,31 +509,9 @@ namespace Fungus
 			Vector2 tl = mainCamera.WorldToScreenPoint(topLeft);
 			Vector2 br = mainCamera.WorldToScreenPoint(bottomRight);
 			
-			return new Rect(tl.x, Screen.height - tl.y, br.x - tl.x, tl.y - br.y);
-		}
+			Rect pageRect = new Rect(tl.x, Screen.height - tl.y, br.x - tl.x, tl.y - br.y);
 
-		// Inserts extra line breaks to avoid partial words 'jumping' to next line due to word wrap
-		string InsertLineBreaks(string text, GUIStyle style, float maxWidth)
-		{
-			string output = "";
-			string[] parts = Regex.Split(text, @"(?=\s)");
-			foreach (string word in parts)
-			{
-				float oldHeight = style.CalcHeight(new GUIContent(output), maxWidth);
-				float newHeight = style.CalcHeight(new GUIContent(output + word), maxWidth);
-				
-				if (oldHeight > 0 &&
-				    newHeight > oldHeight)
-				{
-					output += "\n" + word.TrimStart();
-				}
-				else
-				{
-					output += word;
-				}				
-			}
-			
-			return output;
+			return FitRectToScreen(pageRect);
 		}
 	}
 }

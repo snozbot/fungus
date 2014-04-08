@@ -63,6 +63,10 @@ namespace Fungus
 		 */
 		public AudioClip buttonClickClip;
 
+		public float autoHideButtonDuration = 5f;
+
+		float autoHideButtonTimer;
+
 		/**
 		 * Global dictionary of integer values for storing game state.
 		 */
@@ -134,6 +138,17 @@ namespace Fungus
 			}
 		}
 
+		public virtual void Update()
+		{
+			autoHideButtonTimer -= Time.deltaTime;
+			autoHideButtonTimer = Mathf.Max(autoHideButtonTimer, 0f);
+
+			if (Input.GetMouseButtonDown(0))
+			{
+				autoHideButtonTimer = autoHideButtonDuration;
+			}
+		}
+
 		/**
 		 * Plays the button clicked sound effect
 		 */
@@ -147,10 +162,10 @@ namespace Fungus
 		}
 
 		/**
-		 * Returns true if the game is in an idle state.
-		 * The game is in and idle state if the active page is not currently displaying story text/options, and no Wait command is in progress
+		 * Returns true if the game should display 'auto hide' buttons.
+		 * Buttons will be displayed if the active page is not currently displaying story text/options, and no Wait command is in progress.
 		 */
-		public bool IsGameIdle()
+		public bool ShowAutoButtons()
 		{
 			if (waiting)
 			{
@@ -160,7 +175,7 @@ namespace Fungus
 			if (activePage == null ||
 			    activePage.mode == Page.Mode.Idle)
 			{
-				return true;
+				return (autoHideButtonTimer > 0f);
 			}
 
 			return false;
