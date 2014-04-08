@@ -273,7 +273,7 @@ namespace Fungus
 				if (continueStyle != null)
 				{
 					Rect continueRect = continueStyle.CalcContinueRect();
-					GUI.Label(continueRect, new GUIContent(continueStyle.continueText), continueStyle.style);
+					GUI.Label(continueRect, new GUIContent(continueStyle.continueText), continueStyle.GetScaledContinueStyle());
 				}
 
 				// Player can continue by clicking anywhere
