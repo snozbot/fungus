@@ -29,11 +29,6 @@ namespace Fungus
 		public bool showLinks = true;
 
 		/**
-		 * Text to use on 'Continue' buttons.
-		 */
-		public string continueText = "Continue";
-
-		/**
 		 * Writing speed for page text.
 		 */
 		public int charactersPerSecond = 60;
@@ -63,7 +58,15 @@ namespace Fungus
 		 */
 		public AudioClip buttonClickClip;
 
+		/**
+		 * Time which must elapse before buttons will automatically hide.
+		 */
 		public float autoHideButtonDuration = 5f;
+
+		/**
+		 * References to a style object which controls the appearance & behavior of the continue button.
+		 */
+		public ContinueStyle continueStyle;
 
 		float autoHideButtonTimer;
 

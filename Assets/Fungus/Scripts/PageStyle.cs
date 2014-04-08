@@ -21,9 +21,6 @@ namespace Fungus
 		/// Header font size as a fraction of screen height.
 		public float footerFontScale = 1f / 20f;
 
-		/// Continue font size as a fraction of screen height.
-		public float continueFontScale = 1f / 30f;
-
 		/// Option font size as a fraction of screen height.
 		public float optionFontScale = 1f / 25f;
 
@@ -35,9 +32,6 @@ namespace Fungus
 
 		/// Style for say text
 		public GUIStyle sayStyle;
-
-		/// Style for continue button
-		public GUIStyle continueStyle;
 
 		/// Style for option text
 		public GUIStyle optionStyle;
@@ -108,19 +102,6 @@ namespace Fungus
 			GUIStyle style;
 			style = new GUIStyle(optionAlternateStyle);
 			style.fontSize = Mathf.RoundToInt((float)Screen.height * optionFontScale);
-			return style;
-		}
-
-		/**
-		 * Returns the style for the Continue button.
-		 * Overrides the font size to compensate for varying device resolution.
-		 * Font size is calculated as a fraction of the current screen height.
-		 */
-		public GUIStyle GetScaledContinueStyle()
-		{
-			GUIStyle style;
-			style = new GUIStyle(continueStyle);
-			style.fontSize = Mathf.RoundToInt((float)Screen.height * continueFontScale);
 			return style;
 		}
 	}

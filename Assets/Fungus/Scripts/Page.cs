@@ -198,7 +198,6 @@ namespace Fungus
 			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
 			GUIStyle optionStyle = pageStyle.GetScaledOptionStyle();
 			GUIStyle optionAlternateStyle = pageStyle.GetScaledOptionAlternateStyle();
-			GUIStyle continueStyle = pageStyle.GetScaledContinueStyle();
 
 			Rect pageRect = GetScreenRect();
 			Rect outerRect = FitRectToScreen(pageRect);
@@ -270,8 +269,12 @@ namespace Fungus
 
 			if (mode == Mode.Say)
 			{
-				Rect continueRect = CalcContinueRect(outerRect);
-				GUI.Button(continueRect, new GUIContent(Game.GetInstance().continueText), continueStyle);
+				ContinueStyle continueStyle = Game.GetInstance().continueStyle;
+				if (continueStyle != null)
+				{
+					Rect continueRect = continueStyle.CalcContinueRect();
+					GUI.Label(continueRect, new GUIContent(continueStyle.continueText), continueStyle.style);
+				}
 
 				// Player can continue by clicking anywhere
 				if (quickContinueTimer == 0 &&
@@ -467,27 +470,6 @@ namespace Fungus
 			                          outerRect.height - (boxStyle.padding.top + boxStyle.padding.bottom));
 
 			return innerRect;
-		}
-
-		Rect CalcContinueRect(Rect outerRect)
-		{
-			PageStyle pageStyle = Game.GetInstance().activePageStyle;
-			
-			if (pageStyle == null)
-			{
-				return new Rect();
-			}
-
-			GUIStyle continueStyle = pageStyle.GetScaledContinueStyle();
-
-			GUIContent content = new GUIContent(Game.GetInstance().continueText);
-			float width = continueStyle.CalcSize(content).x;
-			float height = continueStyle.lineHeight;
-
-			float x = outerRect.xMin + (outerRect.width) - (width) - pageStyle.boxStyle.padding.right;
-			float y = outerRect.yMax - height / 2f;
-
-			return new Rect(x, y, width, height);
 		}
 
 		/**
