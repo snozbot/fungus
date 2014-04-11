@@ -7,6 +7,7 @@ public class MenuRoom : Room
 	public Room pageRoom;
 	public Room viewRoom;
 	public Room spriteRoom;
+	public Room parallaxRoom;
 	public Room buttonRoom;
 	public Room audioRoom;
 
@@ -15,6 +16,7 @@ public class MenuRoom : Room
 		AddOption("Writing a story with Pages", MoveToWritingRoom);
 		AddOption("Controlling the camera with Views", MoveToViewRoom);
 		AddOption("Sprites and Animations", MoveToSpriteRoom);
+		AddOption("Parallax scrolling effects", MoveToParallaxRoom);
 		AddOption("Using Buttons", MoveToButtonsRoom);
 		AddOption("Playing music and sound effects", MoveToAudioRoom);
 		Choose("Choose an example");
@@ -33,6 +35,11 @@ public class MenuRoom : Room
 	void MoveToSpriteRoom()
 	{
 		MoveToRoom(spriteRoom);
+	}
+
+	void MoveToParallaxRoom()
+	{
+		MoveToRoom(parallaxRoom);
 	}
 
 	void MoveToButtonsRoom()

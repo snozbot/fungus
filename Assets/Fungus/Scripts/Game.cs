@@ -197,7 +197,7 @@ namespace Fungus
 		/**
 		 * Gets a globally accessible game state value.
 		 * @param key The key of the value.
-		 * @return value The integer value for the specified key, or 0 if the key does not exist.
+		 * @return The integer value for the specified key, or 0 if the key does not exist.
 		 */
 		public int GetGameValue(string key)
 		{
@@ -206,6 +206,27 @@ namespace Fungus
 				return values[key];
 			}
 			return 0;
+		}
+
+		/**
+		 * Returns a parallax offset vector based on the camera position relative to the active Room.
+		 * Higher values for the parallaxFactor yield a larger offset (appears closer to camera).
+		 * Suggested range for good parallax effect is [0.1..0.5].
+		 * @param parallaxFactor Scale factor to apply to camera offset vector.
+		 * @return A parallax offset vector based on camera positon relative to current room and the parallaxFactor.
+		 */
+		public Vector3 GetParallaxOffset(float parallaxFactor)
+		{
+			if (activeRoom == null)
+			{
+				return Vector3.zero;
+			}
+
+			Vector3 a = activeRoom.transform.position;
+			Vector3 b = cameraController.GetCameraPosition();
+			Vector3 offset = (a - b) * parallaxFactor;
+
+			return offset;
 		}
 	}
 }

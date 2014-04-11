@@ -225,6 +225,14 @@ namespace Fungus
 			}
 		}
 
+		/**
+		 * Returns the current position of the main camera.
+		 */
+		public Vector3 GetCameraPosition()
+		{
+			return mainCamera.transform.position;
+		}
+
 		void SetCameraZ()
 		{
 			mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, game.cameraZ);
