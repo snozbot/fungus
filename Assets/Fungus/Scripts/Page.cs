@@ -272,8 +272,7 @@ namespace Fungus
 				ContinueStyle continueStyle = Game.GetInstance().continueStyle;
 				if (continueStyle != null)
 				{
-					Rect continueRect = continueStyle.CalcContinueRect();
-					GUI.Label(continueRect, new GUIContent(continueStyle.continueText), continueStyle.GetScaledContinueStyle());
+					DrawContinueButton(outerRect);
 				}
 
 				// Player can continue by clicking anywhere
@@ -493,6 +492,57 @@ namespace Fungus
 			Rect pageRect = new Rect(tl.x, Screen.height - tl.y, br.x - tl.x, tl.y - br.y);
 
 			return FitRectToScreen(pageRect);
+		}
+
+		void DrawContinueButton(Rect containerRect)
+		{
+			PageStyle pageStyle = Game.GetInstance().activePageStyle;
+			ContinueStyle continueStyle = Game.GetInstance().continueStyle;
+
+			if (pageStyle == null ||
+				continueStyle == null)
+			{
+				return;
+			}
+
+			GUIStyle style = continueStyle.style;
+			if (style == null)
+			{
+				return;
+			}
+
+			GUIContent content = new GUIContent(continueStyle.continueText);
+			GUIStyle scaledContinueStyle = continueStyle.GetScaledContinueStyle();
+
+			Rect continueRect;
+
+			if (continueStyle.onPage)
+			{
+				float width = scaledContinueStyle.CalcSize(content).x;
+				float height = scaledContinueStyle.lineHeight;
+				float x = containerRect.xMin + (containerRect.width) - (width) - pageStyle.boxStyle.padding.right;
+				float y = containerRect.yMax - height / 2f;
+				continueRect = new Rect(x, y, width, height);
+			}
+			else
+			{
+				Vector2 size = scaledContinueStyle.CalcSize(content);
+				
+				float x = Screen.width * continueStyle.screenPosition.x;
+				float y = Screen.height * continueStyle.screenPosition.y;
+				float width = size.x;
+				float height = size.y;
+				
+				x = Mathf.Max(x, continueStyle.padding.x);
+				x = Mathf.Min(x, Screen.width - width - continueStyle.padding.x); 
+				
+				y = Mathf.Max(y, continueStyle.padding.y);
+				y = Mathf.Min(y, Screen.height - height - continueStyle.padding.y); 
+				
+				continueRect = new Rect(x, y, width, height);
+			}
+
+			GUI.Label(continueRect, content, scaledContinueStyle);
 		}
 	}
 }
