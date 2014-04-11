@@ -442,12 +442,11 @@ namespace Fungus
 		Rect FitRectToScreen(Rect rect)
 		{
 			Rect fittedRect = new Rect();
-			fittedRect.width = Mathf.Min(rect.width, Screen.width);
-			fittedRect.height = Mathf.Min(rect.height, Screen.height);
-			fittedRect.x = Mathf.Min(rect.x, Screen.width - rect.width);
-			fittedRect.y = Mathf.Min(rect.y, Screen.height - rect.height);
-			fittedRect.x = Mathf.Max(0, fittedRect.x);
-			fittedRect.y = Mathf.Max(0, fittedRect.y);
+
+			fittedRect.xMax = Mathf.Min(rect.xMax, Screen.width);
+			fittedRect.xMin = Mathf.Max(rect.xMin, 0);
+			fittedRect.yMax = Mathf.Min(rect.yMax, Screen.height);
+			fittedRect.yMin = Mathf.Max(rect.yMin, 0);
 
 			return fittedRect;
 		}
