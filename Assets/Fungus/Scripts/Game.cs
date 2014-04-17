@@ -54,6 +54,16 @@ namespace Fungus
 		public Texture2D fadeTexture;
 
 		/**
+		 * Icon to display when manual pan mode is active.
+		 */
+		public Texture2D manualPanTexture;
+
+		/**
+		 * Icon to display when waiting for player input to continue
+		 */
+		public Texture2D continueTexture;
+
+		/**
 		 * Sound effect to play when buttons are clicked.
 		 */
 		public AudioClip buttonClickClip;
@@ -63,11 +73,6 @@ namespace Fungus
 		 */
 		public float autoHideButtonDuration = 5f;
 
-		/**
-		 * References to a style object which controls the appearance & behavior of the continue button.
-		 */
-		public ContinueStyle continueStyle;
-
 		float autoHideButtonTimer;
 
 		/**
@@ -76,9 +81,6 @@ namespace Fungus
 		[HideInInspector]
 		public Dictionary<string, int> values = new Dictionary<string, int>();
 
-		[HideInInspector]
-		public View activeView;
-		
 		[HideInInspector]
 		public Page activePage;
 
@@ -90,12 +92,18 @@ namespace Fungus
 		
 		[HideInInspector]
 		public CameraController cameraController;
-
+	
 		/**
 		 * True when executing a Wait() or WaitForTap() command
 		 */
 		[HideInInspector]
 		public bool waiting; 
+
+		[HideInInspector]
+		public bool manualPanActive;
+
+		[HideInInspector]
+		public float fadeAlpha = 0f;
 
 		static Game instance;
 
@@ -136,9 +144,15 @@ namespace Fungus
 			{
 				// Move to the active room
 				commandQueue.Clear();
-				commandQueue.AddCommand(new Command.MoveToRoomCommand(activeRoom));
+				commandQueue.AddCommand(new Command.MoveToRoom(activeRoom));
 				commandQueue.Execute();
 			}
+
+			// Create the Page game object as a child of Game
+			GameObject pageObject = new GameObject();
+			pageObject.name = "Page";
+			pageObject.transform.parent = transform;
+			activePage = pageObject.AddComponent<Page>();
 		}
 
 		public virtual void Update()
@@ -149,6 +163,46 @@ namespace Fungus
 			if (Input.GetMouseButtonDown(0))
 			{
 				autoHideButtonTimer = autoHideButtonDuration;
+			}
+		}
+
+		void OnGUI()
+		{	
+			if (manualPanActive)
+			{
+				// Draw the swipe-to-pan icon
+				if (manualPanTexture)
+				{
+					Rect rect = new Rect(Screen.width - manualPanTexture.width, 
+					                     0, 
+					                     manualPanTexture.width, 
+					                     manualPanTexture.height);
+					GUI.DrawTexture(rect, manualPanTexture);
+				}
+			}
+
+			if (activePage.mode == Page.Mode.Say &&
+			    activePage.FinishedWriting())
+			{
+				// Draw the continue icon
+				if (continueTexture)
+				{
+					Rect rect = new Rect(Screen.width - continueTexture.width, 
+					                     0, 
+					                     continueTexture.width, 
+					                     continueTexture.height);
+					GUI.DrawTexture(rect, continueTexture);
+				}
+			}
+
+			// Draw full screen fade texture
+			if (fadeAlpha < 1f)
+			{
+				// 1 = scene fully visible
+				// 0 = scene fully obscured
+				GUI.color = new Color(1,1,1, 1f - fadeAlpha);	
+				GUI.depth = -1000;
+				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), fadeTexture);
 			}
 		}
 
@@ -212,10 +266,10 @@ namespace Fungus
 		 * Returns a parallax offset vector based on the camera position relative to the active Room.
 		 * Higher values for the parallaxFactor yield a larger offset (appears closer to camera).
 		 * Suggested range for good parallax effect is [0.1..0.5].
-		 * @param parallaxFactor Scale factor to apply to camera offset vector.
+		 * @param parallaxFactor Horizontal and vertical scale factors to apply to camera offset vector.
 		 * @return A parallax offset vector based on camera positon relative to current room and the parallaxFactor.
 		 */
-		public Vector3 GetParallaxOffset(float parallaxFactor)
+		public Vector3 GetParallaxOffset(Vector2 parallaxFactor)
 		{
 			if (activeRoom == null)
 			{
@@ -224,7 +278,9 @@ namespace Fungus
 
 			Vector3 a = activeRoom.transform.position;
 			Vector3 b = cameraController.GetCameraPosition();
-			Vector3 offset = (a - b) * parallaxFactor;
+			Vector3 offset = (a - b);
+			offset.x *= parallaxFactor.x;
+			offset.y *= parallaxFactor.y;
 
 			return offset;
 		}

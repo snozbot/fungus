@@ -37,7 +37,7 @@ namespace Fungus
 		public static void MoveToRoom(Room room)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.MoveToRoomCommand(room));
+			commandQueue.AddCommand(new Command.MoveToRoom(room));
 		}
 		
 		/**
@@ -48,7 +48,7 @@ namespace Fungus
 		public static void Wait(float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.WaitCommand(duration));
+			commandQueue.AddCommand(new Command.Wait(duration));
 		}
 
 		/**
@@ -58,7 +58,7 @@ namespace Fungus
 		public static void WaitForInput()
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.WaitForInputCommand());
+			commandQueue.AddCommand(new Command.WaitForInput());
 		}
 
 		/**
@@ -70,7 +70,7 @@ namespace Fungus
 		public static void Call(Action callAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.CallCommand(callAction));
+			commandQueue.AddCommand(new Command.Call(callAction));
 		}
 		
 		#endregion
@@ -78,34 +78,46 @@ namespace Fungus
 
 		/**
 		 * Sets the currently active View immediately.
-		 * The main camera snaps to the new active View. If the View contains a Page object, this Page becomes the active Page.
+		 * The main camera snaps to the new active View.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param view The View object to make active
 		 */
 		public static void SetView(View view)
 		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetViewCommand(view));
+			PanToView(view, 0);
 		}
 
 		/**
 		 * Pans the camera to the target View over a period of time.
 		 * The pan starts at the current camera position and performs a smoothed linear pan to the target View.
-		 * Command execution blocks until the pan completes. When the camera arrives at the target View, this View becomes the active View.
+		 * Command execution blocks until the pan completes.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param targetView The View to pan the camera to.
 		 * @param duration The length of time in seconds needed to complete the pan.
 		 */
 		public static void PanToView(View targetView, float duration)
 		{
+			PanToPosition(targetView.transform.position, targetView.viewSize, duration);
+		}
+
+		/**
+		 * Pans the camera to the target position and size over a period of time.
+		 * The pan starts at the current camera position and performs a smoothed linear pan to the target.
+		 * Command execution blocks until the pan completes.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param targetView The View to pan the camera to.
+		 * @param duration The length of time in seconds needed to complete the pan.
+		 */
+		public static void PanToPosition(Vector3 targetPosition, float targetSize, float duration)
+		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.PanToViewCommand(targetView, duration));
+			commandQueue.AddCommand(new Command.PanToPosition(targetPosition, targetSize, duration));
 		}
 		
 		/**
 		 * Pans the camera through a sequence of target Views over a period of time.
 		 * The pan starts at the current camera position and performs a smooth pan through all Views in the list.
-		 * Command execution blocks until the pan completes. When the camera arrives at the last View in the list, this View becomes the active View.
+		 * Command execution blocks until the pan completes.
 		 * If more control is required over the camera path then you should instead use an Animator component to precisely control the Camera path.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param duration The length of time in seconds needed to complete the pan.
@@ -114,12 +126,11 @@ namespace Fungus
 		public static void PanToPath(float duration, params View[] targetViews)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.PanToPathCommand(targetViews, duration));
+			commandQueue.AddCommand(new Command.PanToPath(targetViews, duration));
 		}
 		
 		/**
 		 * Fades out the current camera View, and fades in again using the target View.
-		 * If the target View contains a Page object, this Page becomes the active Page.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param targetView The View object to fade to.
 		 * @param duration The length of time in seconds needed to complete the pan.
@@ -127,35 +138,184 @@ namespace Fungus
 		public static void FadeToView(View targetView, float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.FadeToViewCommand(targetView, duration));
+			commandQueue.AddCommand(new Command.FadeToView(targetView, duration));
+		}
+
+		/**
+		 * Activates manual pan mode.
+		 * The camera first pans to the nearest point between the two views over a period of time.
+		 * The player can pan around the rectangular area defined between viewA & viewB.
+		 * Manual panning remains active until a ManualPanOff, SetView, PanToView, FadeToPath or FadeToView command is executed.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param viewA View object which defines one extreme of the pan area.
+		 * @param viewB View object which defines the other extreme of the pan area.
+		 */
+		public static void StartManualPan(View viewA, View viewB, float duration = 1f)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.StartManualPan(viewA, viewB, duration));
+		}
+
+		/**
+		 * Deactivates manual pan mode.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 */
+		public static void StopManualPan()
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.StopManualPan());
+		}
+
+		/**
+		 * Stores the current camera view using a name.
+		 * You can later use PanToStoredView() to pan back to this stored position by name.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param viewName Name to associate with the stored camera view.
+		 */
+		public static void StoreView(string viewName = "")
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.StoreView(viewName));
+		}
+				
+		/**
+		 * Moves camera from the current position to a previously stored view over a period of time.
+		 * @param duration Time needed for pan to complete.
+		 * @param viewName Name of a camera view that was previously stored using StoreView().
+		 */
+		public static void PanToStoredView(float duration, string viewName = "")
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.PanToStoredView(viewName, duration));
 		}
 
 		#endregion
 		#region Page Methods
 
 		/**
-		 * Sets the currently active Page for story text display.
-		 * Once this command executes, all story text added using Say(), AddOption(), Choose(), etc. will be displayed on this Page.
-		 * When a Room contains multiple Page objects, this method can be used to control which Page object is active at a given time.
+		 * Sets the display rect for the active Page using a PageBounds object.
+		 * PageBounds objects can be edited visually in the Unity editor which is useful for accurate placement.
+		 * The actual screen space rect used is based on both the PageBounds values and the camera transform at the time the command is executed.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param page The Page object to make active
+		 * @param pageBounds The bounds object to use when calculating the Page display rect.
 		 */
-		public static void SetPage(Page page)
+		public static void SetPageBounds(PageBounds pageBounds, Page.Layout pageLayout = Page.Layout.FullSize)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetPageCommand(page));
+			commandQueue.AddCommand(new Command.SetPageBounds(pageBounds, pageLayout));
 		}
 
 		/**
-		 * Sets the currently active style for displaying Pages.
-		 * Once this command executes, all Pages will display using the new style.
+		 * Sets the screen space rectangle used to display the Page.
+		 * The rectangle coordinates are in normalized screen space. e.g. x1 = 0 (Far left), x1 = 1 (Far right).
+		 * The origin is at the top left of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param x1 Page rect left coordinate in normalized screen space coords [0..1]
+		 * @param y1 Page rect top coordinate in normalized screen space coords [0..1
+		 * @param x2 Page rect right coordinate in normalized screen space coords [0..1]
+		 * @param y2 Page rect bottom coordinate in normalized screen space coords [0..1]
+		 * @param pageLayout Layout mode for positioning page within the rect.
+		 */
+		public static void SetPageRect(float x1, float y1, float x2, float y2, Page.Layout pageLayout = Page.Layout.FullSize)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.SetPageRect(x1, y1, x2, y2, pageLayout));
+		}
+
+		/**
+		 * Sets the active Page to display at the top of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
+		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
+		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
+		 */
+		public static void SetPageTop(float scaleX, float scaleY, Page.Layout pageLayout)
+		{
+			float halfWidth = Mathf.Clamp01(scaleX) * 0.5f;
+			
+			float x1 = 0.5f - halfWidth;
+			float x2 = 0.5f + halfWidth;
+			float y1 = 0f;
+			float y2 = Mathf.Clamp01(scaleY);
+
+			SetPageRect(x1, y1, x2, y2, pageLayout);
+		}
+
+		/**
+		 * Sets the currently active Page to display at the top of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 */
+		public static void SetPageTop()
+		{
+			SetPageTop(0.75f, 0.25f, Page.Layout.FullSize);
+		}
+
+		/**
+		 * Sets the active Page to display at the middle of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
+		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
+		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
+		 */
+		public static void SetPageMiddle(float scaleX, float scaleY, Page.Layout pageLayout)
+		{
+			float halfWidth = Mathf.Clamp01(scaleX) * 0.5f;
+			float halfHeight = Mathf.Clamp01(scaleY) * 0.5f;
+
+			float x1 = 0.5f - halfWidth;
+			float x2 = 0.5f + halfWidth;
+			float y1 = 0.5f - halfHeight;
+			float y2 = 0.5f + halfHeight;
+
+			SetPageRect(x1, y1, x2, y2, pageLayout);
+		}
+
+		/**
+		 * Sets the currently active Page to display at the middle of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 */
+		public static void SetPageMiddle()
+		{
+			SetPageMiddle(0.5f, 0.5f, Page.Layout.FitToMiddle);
+		}
+
+		/**
+		 * Sets the active Page to display at the bottom of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
+		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
+		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
+		 */
+		public static void SetPageBottom(float scaleX, float scaleY, Page.Layout pageLayout)
+		{
+			float halfWidth = Mathf.Clamp01(scaleX) / 2f;
+			
+			float x1 = 0.5f - halfWidth;
+			float x2 = 0.5f + halfWidth;
+			float y1 = 1f - Mathf.Clamp01(scaleY);
+			float y2 = 1;
+
+			SetPageRect(x1, y1, x2, y2, pageLayout);
+		}
+
+		/**
+		 * Sets the currently active Page to display at the bottom of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 */
+		public static void SetPageBottom()
+		{
+			SetPageBottom(0.75f, 0.25f, Page.Layout.FullSize);
+		}
+
+		/**
+		 * Sets the active style for displaying the Page.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param pageStyle The style object to make active
 		 */
 		public static void SetPageStyle(PageStyle pageStyle)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetPageStyleCommand(pageStyle));
+			commandQueue.AddCommand(new Command.SetPageStyle(pageStyle));
 		}
 
 		/**
@@ -176,7 +336,7 @@ namespace Fungus
 		public static void Header(string headerText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.HeaderCommand(headerText));
+			commandQueue.AddCommand(new Command.SetHeader(headerText));
 		}
 
 		/**
@@ -188,7 +348,7 @@ namespace Fungus
 		public static void Footer(string footerText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.FooterCommand(footerText));
+			commandQueue.AddCommand(new Command.SetFooter(footerText));
 		}
 
 		/**
@@ -201,7 +361,7 @@ namespace Fungus
 		public static void Say(string storyText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SayCommand(storyText));
+			commandQueue.AddCommand(new Command.Say(storyText));
 		}
 		
 		/**
@@ -214,7 +374,7 @@ namespace Fungus
 		public static void AddOption(string optionText, Action optionAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.AddOptionCommand(optionText, optionAction));
+			commandQueue.AddCommand(new Command.AddOption(optionText, optionAction));
 		}
 
 		/**
@@ -226,7 +386,7 @@ namespace Fungus
 		public static void AddOption(string optionText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.AddOptionCommand(optionText, delegate {}));
+			commandQueue.AddCommand(new Command.AddOption(optionText, delegate {}));
 		}
 
 		/**
@@ -246,7 +406,7 @@ namespace Fungus
 		public static void Choose(string chooseText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.ChooseCommand(chooseText));
+			commandQueue.AddCommand(new Command.Choose(chooseText));
 		}
 
 		#endregion
@@ -261,7 +421,7 @@ namespace Fungus
 		public static void SetValue(string key, int value)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetValueCommand(key, value));
+			commandQueue.AddCommand(new Command.SetValue(key, value));
 		}
 
 		/**
@@ -376,7 +536,7 @@ namespace Fungus
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			Color color = spriteRenderer.color;
 			color.a = targetAlpha;
-			commandQueue.AddCommand(new Command.FadeSpriteCommand(spriteRenderer, color, duration, slideOffset));
+			commandQueue.AddCommand(new Command.FadeSprite(spriteRenderer, color, duration, slideOffset));
 		}
 		
 		/**
@@ -391,7 +551,7 @@ namespace Fungus
 		public static void ShowButton(Button button, Action buttonAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.ShowButtonCommand(button, true, buttonAction));
+			commandQueue.AddCommand(new Command.ShowButton(button, true, buttonAction));
 		}
 
 		/**
@@ -402,7 +562,7 @@ namespace Fungus
 		public static void HideButton(Button button)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.ShowButtonCommand(button, false, null));
+			commandQueue.AddCommand(new Command.ShowButton(button, false, null));
 		}
 
 		/**
@@ -415,7 +575,7 @@ namespace Fungus
 		public static void SetAnimatorTrigger(Animator animator, string triggerName)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetAnimatorTriggerCommand(animator, triggerName));
+			commandQueue.AddCommand(new Command.SetAnimatorTrigger(animator, triggerName));
 		}
 
 		#endregion
@@ -429,7 +589,7 @@ namespace Fungus
 		public static void PlayMusic(AudioClip audioClip)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.PlayMusicCommand(audioClip));
+			commandQueue.AddCommand(new Command.PlayMusic(audioClip));
 		}
 		
 		/**
@@ -438,7 +598,7 @@ namespace Fungus
 		public static void StopMusic()
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.StopMusicCommand());
+			commandQueue.AddCommand(new Command.StopMusic());
 		}
 		
 		/**
@@ -458,7 +618,7 @@ namespace Fungus
 		public static void SetMusicVolume(float musicVolume, float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetMusicVolumeCommand(musicVolume, duration));
+			commandQueue.AddCommand(new Command.SetMusicVolume(musicVolume, duration));
 		}
 		
 		/**
@@ -480,7 +640,7 @@ namespace Fungus
 		public static void PlaySound(AudioClip audioClip, float volume)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.PlaySoundCommand(audioClip, volume));
+			commandQueue.AddCommand(new Command.PlaySound(audioClip, volume));
 		}
 
 		#endregion

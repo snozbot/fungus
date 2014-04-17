@@ -108,11 +108,9 @@ namespace Fungus
 			Game game = Game.GetInstance();
 			CameraController cameraController = game.gameObject.GetComponent<CameraController>();
 
-
 			// Pick first view found in the room and snap to camera to this view.
 			// It is allowed for a room to not have any views. 
-			// In this case game.activeView will be null, and the camera will attempt
-			// to snap to the room sprite.
+			// In this case the camera will attempt to snap to the room sprite.
 			View view = gameObject.GetComponentInChildren<View>();
 			if (view == null)
 			{
@@ -130,13 +128,8 @@ namespace Fungus
 			else
 			{
 				// Snap to new view
-				cameraController.SnapToView(view);
-				game.activeView = view;
+				cameraController.PanToPosition(view.transform.position, view.viewSize, 0, null);
 			}
-
-			// Pick first page found in room
-			// It is allowed for a room to not have any pages. In this case game.activePage will be null
-			game.activePage = gameObject.GetComponentInChildren<Page>();
 
 			// Hide all buttons in the room before entering
 			// Buttons must always be made visible using a ShowButton() command
@@ -146,9 +139,12 @@ namespace Fungus
 				button.SetAlpha(0f);
 			}
 
-			// Rooms may have multiple child views and page. It is the responsibility of the client
-			// room script to set the appropriate view & page in its OnEnter method.
+			// Default to bottom aligned Page rect
+			game.activePage.SetPageRect(0.125f, 0.75f, 0.875f, 1f);
+			game.activePage.layout = Page.Layout.FullSize;
 
+			// Rooms may have multiple child views and page. 
+			// It is the responsibility of the client room script to set the desired active view & page in the OnEnter method.
 			game.commandQueue.CallCommandMethod(game.activeRoom.gameObject, "OnEnter");
 
 			visitCount++;

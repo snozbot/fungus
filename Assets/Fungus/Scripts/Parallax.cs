@@ -12,7 +12,7 @@ namespace Fungus
 		/**
 		 * Scale factor for calculating the parallax offset.
 		 */
-		public float parallaxFactor;
+		public Vector2 parallaxScale = new Vector2(0.1f, 0.1f);
 
 		Vector3 startPosition;
 
@@ -51,8 +51,8 @@ namespace Fungus
 				return;
 			}
 
-			Vector3 offset = Game.GetInstance().GetParallaxOffset(parallaxFactor);
-
+			Vector3 offset = Game.GetInstance().GetParallaxOffset(parallaxScale);
+	
 			// Set new position for sprite
 			transform.position = startPosition + offset;
 		}

@@ -14,18 +14,21 @@ namespace Fungus
 	[ExecuteInEditMode]
 	public class Page : MonoBehaviour 
 	{
-		/// Rectangular bounds used to display page text
-		public Bounds pageBounds = new Bounds(Vector3.zero, new Vector3(0.25f, 0.25f, 0f));
-
-		/// Page position within bounds when display height is less than bounds height
-		public enum VerticalAlign
+		/// Page alignment options
+		public enum Layout
 		{
-			Top,
-			Middle,
-			Bottom
+			/// Use the full rect to display the page.
+			FullSize,
+			/// Resize to fit displayed text and snap to top of rect.
+			FitToTop,
+			/// Resize to fit displayed text and snap to middle of rect.
+			FitToMiddle,
+			/// Resize to fit displayed text and snap to bottom of rect.
+			FitToBottom
 		}
 
-		public VerticalAlign verticalAlign = VerticalAlign.Middle;
+		/// Page position within bounds when display height is less than bounds height.
+		public Layout layout = Layout.FullSize;
 
 		string headerText = "";
 		string footerText = "";
@@ -61,6 +64,26 @@ namespace Fungus
 		List<Option> options = new List<Option>();
 
 		float quickContinueTimer;
+
+		Rect pageRect; // Screen space rect for Page in pixels
+
+		/**
+		 * Set the screen rect in normalized screen space coords.
+		 * The origin is at the top left of the screen.
+		 */
+		public void SetPageRect(float x1, float y1, float x2, float y2)
+		{
+			pageRect.xMin = Screen.width * x1;
+			pageRect.yMin = Screen.height * y1;
+			pageRect.xMax = Screen.width * x2;
+			pageRect.yMax = Screen.height * y2;
+
+			// Clamp to be on-screen
+			pageRect.xMax = Mathf.Min(pageRect.xMax, Screen.width);
+			pageRect.xMin = Mathf.Max(pageRect.xMin, 0);
+			pageRect.yMax = Mathf.Min(pageRect.yMax, Screen.height);
+			pageRect.yMin = Mathf.Max(pageRect.yMin, 0);
+		}
 
 		public virtual void Update()
 		{
@@ -179,6 +202,11 @@ namespace Fungus
 			}
 		}
 
+		public bool FinishedWriting()
+		{
+			return (displayedStoryText.Length == originalStoryText.Length);
+		}
+
 		public virtual void OnGUI()
 		{
 			if (mode == Mode.Idle)
@@ -199,8 +227,7 @@ namespace Fungus
 			GUIStyle optionStyle = pageStyle.GetScaledOptionStyle();
 			GUIStyle optionAlternateStyle = pageStyle.GetScaledOptionAlternateStyle();
 
-			Rect pageRect = GetScreenRect();
-			Rect outerRect = FitRectToScreen(pageRect);
+			Rect outerRect = pageRect;
 			Rect innerRect = CalcInnerRect(outerRect);
 
 			// Calculate height of each section
@@ -211,31 +238,35 @@ namespace Fungus
 			float contentHeight = headerHeight + footerHeight + storyHeight + optionsHeight;
 
 			// Adjust outer rect position based on alignment settings
-			switch (verticalAlign)
+			switch (layout)
 			{
-			case VerticalAlign.Top:
+			case Layout.FullSize:
+				outerRect.height = Mathf.Max(outerRect.height, contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom));
+				outerRect.y = Mathf.Min(outerRect.y, Screen.height - outerRect.height);
+				break;
+			case Layout.FitToTop:
 				outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
 				outerRect.y = pageRect.yMin;
 				break;
-			case VerticalAlign.Middle:
+			case Layout.FitToMiddle:
 				outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
 				outerRect.y = pageRect.center.y - outerRect.height / 2;
 				break;
-			case VerticalAlign.Bottom:
+			case Layout.FitToBottom:
 				outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
 				outerRect.y = pageRect.yMax - outerRect.height;
 				break;
 			}
-
-			// Force outer rect to always be on-screen
-			// If the rect is bigger than the screen, then the top-left corner will always be visible
-			outerRect = FitRectToScreen(outerRect);
 
 			innerRect = CalcInnerRect(outerRect);
 
 			// Draw box
 			Rect boxRect = outerRect;
 			boxRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
+			if (layout == Layout.FullSize)
+			{
+				boxRect.height = Mathf.Max(boxRect.height, pageRect.height);
+			}
 			GUI.Box(boxRect, "", boxStyle);
 
 			// Draw header label
@@ -261,20 +292,15 @@ namespace Fungus
 				GUI.Label(footerRect, footerText, footerStyle);
 			}
 
-			bool finishedWriting = (displayedStoryText.Length == originalStoryText.Length);
-			if (!finishedWriting)
+			if (!FinishedWriting())
 			{
 				return;
 			}
 
+			// Input handling
+
 			if (mode == Mode.Say)
 			{
-				ContinueStyle continueStyle = Game.GetInstance().continueStyle;
-				if (continueStyle != null)
-				{
-					DrawContinueButton(outerRect);
-				}
-
 				// Player can continue by clicking anywhere
 				if (quickContinueTimer == 0 &&
 				    (Input.GetMouseButtonUp(0) || Input.anyKeyDown) &&
@@ -437,19 +463,6 @@ namespace Fungus
 			return totalHeight;
 		}
 
-		// Force rect to always be on-screen
-		Rect FitRectToScreen(Rect rect)
-		{
-			Rect fittedRect = new Rect();
-
-			fittedRect.xMax = Mathf.Min(rect.xMax, Screen.width);
-			fittedRect.xMin = Mathf.Max(rect.xMin, 0);
-			fittedRect.yMax = Mathf.Min(rect.yMax, Screen.height);
-			fittedRect.yMin = Mathf.Max(rect.yMin, 0);
-
-			return fittedRect;
-		}
-
 		// Returns smaller internal box rect with padding style applied
 		Rect CalcInnerRect(Rect outerRect)
 		{
@@ -468,81 +481,6 @@ namespace Fungus
 			                          outerRect.height - (boxStyle.padding.top + boxStyle.padding.bottom));
 
 			return innerRect;
-		}
-
-		/**
-		 * Returns the page rect in screen space coords
-		 */
-		public Rect GetScreenRect()
-		{
-			// Y decreases up the screen in GUI space, so top left is rect origin
-			
-			Vector3 topLeft = transform.position + pageBounds.center;
-			topLeft.x -= pageBounds.extents.x;
-			topLeft.y += pageBounds.extents.y;
-			
-			Vector3 bottomRight = transform.position + pageBounds.center;
-			bottomRight.x += pageBounds.extents.x;
-			bottomRight.y -= pageBounds.extents.y;
-			
-			Camera mainCamera = GameObject.FindGameObjectWithTag("MainCamera").camera;
-			Vector2 tl = mainCamera.WorldToScreenPoint(topLeft);
-			Vector2 br = mainCamera.WorldToScreenPoint(bottomRight);
-			
-			Rect pageRect = new Rect(tl.x, Screen.height - tl.y, br.x - tl.x, tl.y - br.y);
-
-			return FitRectToScreen(pageRect);
-		}
-
-		void DrawContinueButton(Rect containerRect)
-		{
-			PageStyle pageStyle = Game.GetInstance().activePageStyle;
-			ContinueStyle continueStyle = Game.GetInstance().continueStyle;
-
-			if (pageStyle == null ||
-				continueStyle == null)
-			{
-				return;
-			}
-
-			GUIStyle style = continueStyle.style;
-			if (style == null)
-			{
-				return;
-			}
-
-			GUIContent content = new GUIContent(continueStyle.continueText);
-			GUIStyle scaledContinueStyle = continueStyle.GetScaledContinueStyle();
-
-			Rect continueRect;
-
-			if (continueStyle.onPage)
-			{
-				float width = scaledContinueStyle.CalcSize(content).x;
-				float height = scaledContinueStyle.lineHeight;
-				float x = containerRect.xMin + (containerRect.width) - (width) - pageStyle.boxStyle.padding.right;
-				float y = containerRect.yMax - height / 2f;
-				continueRect = new Rect(x, y, width, height);
-			}
-			else
-			{
-				Vector2 size = scaledContinueStyle.CalcSize(content);
-				
-				float x = Screen.width * continueStyle.screenPosition.x;
-				float y = Screen.height * continueStyle.screenPosition.y;
-				float width = size.x;
-				float height = size.y;
-				
-				x = Mathf.Max(x, continueStyle.padding.x);
-				x = Mathf.Min(x, Screen.width - width - continueStyle.padding.x); 
-				
-				y = Mathf.Max(y, continueStyle.padding.y);
-				y = Mathf.Min(y, Screen.height - height - continueStyle.padding.y); 
-				
-				continueRect = new Rect(x, y, width, height);
-			}
-
-			GUI.Label(continueRect, content, scaledContinueStyle);
 		}
 	}
 }
