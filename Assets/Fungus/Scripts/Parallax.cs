@@ -12,7 +12,7 @@ namespace Fungus
 		/**
 		 * Scale factor for calculating the parallax offset.
 		 */
-		public Vector2 parallaxScale = new Vector2(0.1f, 0.1f);
+		public Vector2 parallaxScale = new Vector2(0.25f, 0f);
 
 		Vector3 startPosition;
 
