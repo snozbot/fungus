@@ -54,9 +54,9 @@ namespace Fungus
 		public Texture2D fadeTexture;
 
 		/**
-		 * Icon to display when manual pan mode is active.
+		 * Icon to display when swipe pan mode is active.
 		 */
-		public Texture2D manualPanTexture;
+		public Texture2D swipePanTexture;
 
 		/**
 		 * Icon to display when waiting for player input to continue
@@ -119,7 +119,7 @@ namespace Fungus
 		public bool waiting; 
 
 		[HideInInspector]
-		public bool manualPanActive;
+		public bool swipePanActive;
 
 		[HideInInspector]
 		public float fadeAlpha = 0f;
@@ -189,16 +189,16 @@ namespace Fungus
 
 		void OnGUI()
 		{	
-			if (manualPanActive)
+			if (swipePanActive)
 			{
-				// Draw the swipe-to-pan icon
-				if (manualPanTexture)
+				// Draw the swipe panning icon
+				if (swipePanTexture)
 				{
-					Rect rect = new Rect(Screen.width - manualPanTexture.width, 
-					                     Screen.height - manualPanTexture.height, 
-					                     manualPanTexture.width, 
-					                     manualPanTexture.height);
-					GUI.DrawTexture(rect, manualPanTexture);
+					Rect rect = new Rect(Screen.width - swipePanTexture.width, 
+					                     Screen.height - swipePanTexture.height, 
+					                     swipePanTexture.width, 
+					                     swipePanTexture.height);
+					GUI.DrawTexture(rect, swipePanTexture);
 				}
 			}
 
@@ -209,7 +209,7 @@ namespace Fungus
 				if (continueTexture)
 				{
 					Rect rect = new Rect(Screen.width - continueTexture.width, 
-					                     Screen.height - manualPanTexture.height, 
+					                     Screen.height - swipePanTexture.height, 
 					                     continueTexture.width, 
 					                     continueTexture.height);
 					GUI.DrawTexture(rect, continueTexture);

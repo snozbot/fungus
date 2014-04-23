@@ -154,16 +154,16 @@ namespace Fungus
 		}
 		
 		/** 
-		 * Switches on manual pan mode.
+		 * Switches on swipe panning mode.
 		 * This allows the player to swipe the screen to pan around a region defined by 2 views.
 		 */
-		public class StartManualPan : CommandQueue.Command
+		public class StartSwipePan : CommandQueue.Command
 		{
 			View viewA;
 			View viewB;
 			float duration;
 			
-			public StartManualPan(View _viewA, View _viewB, float _duration)
+			public StartSwipePan(View _viewA, View _viewB, float _duration)
 			{
 				if (_viewA == null ||
 				    _viewB == null)
@@ -183,7 +183,7 @@ namespace Fungus
 
 				game.waiting = true;
 
-				game.cameraController.StartManualPan(viewA, viewB, duration, delegate {
+				game.cameraController.StartSwipePan(viewA, viewB, duration, delegate {
 
 					game.waiting = false;
 
@@ -196,15 +196,15 @@ namespace Fungus
 		}
 		
 		/** 
-		 * Switches off manual pan mode.
+		 * Switches off pan-to-swipe mode.
 		 */
-		public class StopManualPan : CommandQueue.Command
+		public class StopSwipePan : CommandQueue.Command
 		{
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
 				Game game = Game.GetInstance();
 				
-				game.cameraController.StopManualPan();
+				game.cameraController.StopSwipePan();
 				
 				if (onComplete != null)
 				{

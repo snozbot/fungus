@@ -142,28 +142,28 @@ namespace Fungus
 		}
 
 		/**
-		 * Activates manual pan mode.
+		 * Activates swipe panning mode.
 		 * The camera first pans to the nearest point between the two views over a period of time.
-		 * The player can pan around the rectangular area defined between viewA & viewB.
-		 * Manual panning remains active until a ManualPanOff, SetView, PanToView, FadeToPath or FadeToView command is executed.
+		 * The player can then pan around the rectangular area defined between viewA & viewB.
+		 * Swipe panning remains active until a StopSwipePan, SetView, PanToView, FadeToPath or FadeToView command is executed.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param viewA View object which defines one extreme of the pan area.
 		 * @param viewB View object which defines the other extreme of the pan area.
 		 */
-		public static void StartManualPan(View viewA, View viewB, float duration = 1f)
+		public static void StartSwipePan(View viewA, View viewB, float duration = 1f)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.StartManualPan(viewA, viewB, duration));
+			commandQueue.AddCommand(new Command.StartSwipePan(viewA, viewB, duration));
 		}
 
 		/**
-		 * Deactivates manual pan mode.
+		 * Deactivates swipe panning mode.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 */
-		public static void StopManualPan()
+		public static void StopSwipePan()
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.StopManualPan());
+			commandQueue.AddCommand(new Command.StopSwipePan());
 		}
 
 		/**

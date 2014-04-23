@@ -14,9 +14,9 @@ namespace Fungus
 	{
 		Game game;
 
-		// Manual panning control
-		View manualPanViewA;
-		View manualPanViewB;
+		// Swipe panning control
+		View swipePanViewA;
+		View swipePanViewB;
 		Vector3 previousMousePos;
 
 		class CameraView
@@ -39,7 +39,7 @@ namespace Fungus
 
 		public void FadeToView(View view, float fadeDuration, Action fadeAction)
 		{
-			game.manualPanActive = false;
+			game.swipePanActive = false;
 
 			// Fade out
 			Fade(0f, fadeDuration / 2f, delegate {
@@ -87,7 +87,7 @@ namespace Fungus
 		 */
 		public void CenterOnSprite(SpriteRenderer spriteRenderer)
 		{
-			game.manualPanActive = false;
+			game.swipePanActive = false;
 
 			Sprite sprite = spriteRenderer.sprite;
 			Vector3 extents = sprite.bounds.extents;
@@ -104,7 +104,7 @@ namespace Fungus
 		 */
 		public void PanToPosition(Vector3 targetPosition, float targetSize, float duration, Action arriveAction)
 		{
-			game.manualPanActive = false;
+			game.swipePanActive = false;
 			
 			if (duration == 0f)
 			{
@@ -207,7 +207,7 @@ namespace Fungus
 		 */
 		public void PanToPath(View[] viewList, float duration, Action arriveAction)
 		{
-			game.manualPanActive = false;
+			game.swipePanActive = false;
 
 			List<Vector3> pathList = new List<Vector3>();
 
@@ -257,22 +257,22 @@ namespace Fungus
 		}
 
 		/**
-		 * Activates manual panning mode.
+		 * Activates swipe panning mode.
 		 * The player can pan the camera within the area between viewA & viewB.
 		 */
-		public void StartManualPan(View viewA, View viewB, float duration, Action arriveAction)
+		public void StartSwipePan(View viewA, View viewB, float duration, Action arriveAction)
 		{
-			manualPanViewA = viewA;
-			manualPanViewB = viewB;
+			swipePanViewA = viewA;
+			swipePanViewB = viewB;
 
 			Vector3 cameraPos = Camera.main.transform.position;
 
-			Vector3 targetPosition = CalcCameraPosition(cameraPos, manualPanViewA, manualPanViewB);
-			float targetSize = CalcCameraSize(cameraPos, manualPanViewA, manualPanViewB); 
+			Vector3 targetPosition = CalcCameraPosition(cameraPos, swipePanViewA, swipePanViewB);
+			float targetSize = CalcCameraSize(cameraPos, swipePanViewA, swipePanViewB); 
 
 			PanToPosition(targetPosition, targetSize, duration, delegate {
 
-				game.manualPanActive = true;
+				game.swipePanActive = true;
 
 				if (arriveAction != null)
 				{
@@ -282,13 +282,13 @@ namespace Fungus
 		}
 
 		/**
-		 * Deactivates manual panning mode.
+		 * Deactivates swipe panning mode.
 		 */
-		public void StopManualPan()
+		public void StopSwipePan()
 		{
-			game.manualPanActive = false;
-			manualPanViewA = null;
-			manualPanViewB = null;
+			game.swipePanActive = false;
+			swipePanViewA = null;
+			swipePanViewB = null;
 		}
 
 		/**
@@ -306,7 +306,7 @@ namespace Fungus
 
 		void Update()	
 		{
-			if (!game.manualPanActive)
+			if (!game.swipePanActive)
 			{
 				return;
 			}
@@ -340,8 +340,8 @@ namespace Fungus
 
 			cameraPos += cameraDelta;
 
-			Camera.main.transform.position = CalcCameraPosition(cameraPos, manualPanViewA, manualPanViewB);
-			Camera.main.orthographicSize = CalcCameraSize(cameraPos, manualPanViewA, manualPanViewB); 
+			Camera.main.transform.position = CalcCameraPosition(cameraPos, swipePanViewA, swipePanViewB);
+			Camera.main.orthographicSize = CalcCameraSize(cameraPos, swipePanViewA, swipePanViewB); 
 		}
 
 		// Clamp camera position to region defined by the two views

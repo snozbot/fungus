@@ -18,7 +18,7 @@ public class MenuRoom : Room
 		AddOption("Writing a story with Pages", MoveToWritingRoom);
 		AddOption("Controlling the camera with Views", MoveToViewRoom);
 		AddOption("Sprites and Animations", MoveToSpriteRoom);
-		AddOption("Manual pan and parallax", MoveToParallaxRoom);
+		AddOption("Swipe panning and parallax", MoveToParallaxRoom);
 		AddOption("Using Buttons", MoveToButtonsRoom);
 		AddOption("Playing music and sound effects", MoveToAudioRoom);
 		Choose("Choose an example");

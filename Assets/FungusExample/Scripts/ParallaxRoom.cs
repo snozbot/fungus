@@ -19,7 +19,7 @@ public class ParallaxRoom : Room
 	{
 		SetView(viewA);
 
-		Say("Let's zoom in!");
+		Say("Let's move the camera!");
 		PanToView(viewB, 2);
 		Say("Oooh! Nice parallax!");
 		PanToView(viewA, 2);
@@ -28,7 +28,7 @@ public class ParallaxRoom : Room
 
 		ShowButton(menuButton, OnHomeButtonClicked);
 
-		StartManualPan(viewA, viewB, 0f);
+		StartSwipePan(viewA, viewB, 0f);
 	}
 
 	void OnHomeButtonClicked()
