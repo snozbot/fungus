@@ -49,29 +49,35 @@ namespace Fungus
 		public float buttonFadeDuration = 0.25f;
 
 		/**
-		 * Full screen texture used for screen fade effect.
+		 * Time which must elapse before buttons will automatically hide.
 		 */
-		public Texture2D fadeTexture;
+		public float autoHideButtonDuration = 5f;
 
 		/**
-		 * Icon to display when swipe pan mode is active.
+		 * Full screen texture used for screen fade effect.
 		 */
-		public Texture2D swipePanTexture;
+		public Texture2D screenFadeTexture;
+
+		/**
+		 * Position of continue and swipe icons in normalized screen space coords.
+		 * (0,0) = top left, (1,1) = bottom right
+		 */
+		public Vector2 iconPosition = new Vector2(1,1);
 
 		/**
 		 * Icon to display when waiting for player input to continue
 		 */
-		public Texture2D continueTexture;
+		public Texture2D continueIcon;
+
+		/**
+		 * Icon to display when swipe pan mode is active.
+		 */
+		public Texture2D swipePanIcon;
 
 		/**
 		 * Sound effect to play when buttons are clicked.
 		 */
 		public AudioClip buttonClickClip;
-
-		/**
-		 * Time which must elapse before buttons will automatically hide.
-		 */
-		public float autoHideButtonDuration = 5f;
 
 		/**
 		 * Default screen position for Page when player enters a Room.
@@ -192,13 +198,20 @@ namespace Fungus
 			if (swipePanActive)
 			{
 				// Draw the swipe panning icon
-				if (swipePanTexture)
+				if (swipePanIcon)
 				{
-					Rect rect = new Rect(Screen.width - swipePanTexture.width, 
-					                     Screen.height - swipePanTexture.height, 
-					                     swipePanTexture.width, 
-					                     swipePanTexture.height);
-					GUI.DrawTexture(rect, swipePanTexture);
+					float x = Screen.width * iconPosition.x;
+					float y = Screen.height * iconPosition.y;
+					float width = swipePanIcon.width;
+					float height = swipePanIcon.height;
+
+					x = Mathf.Max(x, 0);
+					y = Mathf.Max(y, 0);
+					x = Mathf.Min(x, Screen.width - width);
+					y = Mathf.Min(y, Screen.height - height);
+
+					Rect rect = new Rect(x, y, width, height);
+					GUI.DrawTexture(rect, swipePanIcon);
 				}
 			}
 
@@ -206,13 +219,20 @@ namespace Fungus
 			    activePage.FinishedWriting())
 			{
 				// Draw the continue icon
-				if (continueTexture)
+				if (continueIcon)
 				{
-					Rect rect = new Rect(Screen.width - continueTexture.width, 
-					                     Screen.height - swipePanTexture.height, 
-					                     continueTexture.width, 
-					                     continueTexture.height);
-					GUI.DrawTexture(rect, continueTexture);
+					float x = Screen.width * iconPosition.x;
+					float y = Screen.height * iconPosition.y;
+					float width = continueIcon.width;
+					float height = continueIcon.height;
+					
+					x = Mathf.Max(x, 0);
+					y = Mathf.Max(y, 0);
+					x = Mathf.Min(x, Screen.width - width);
+					y = Mathf.Min(y, Screen.height - height);
+					
+					Rect rect = new Rect(x, y, width, height);
+					GUI.DrawTexture(rect, continueIcon);
 				}
 			}
 
@@ -223,7 +243,7 @@ namespace Fungus
 				// 0 = scene fully obscured
 				GUI.color = new Color(1,1,1, 1f - fadeAlpha);	
 				GUI.depth = -1000;
-				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), fadeTexture);
+				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), screenFadeTexture);
 			}
 		}
 
