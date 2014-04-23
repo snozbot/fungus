@@ -55,7 +55,7 @@ namespace Fungus
 		}
 
 		/**
-		 * Returns the style for Footer text.
+		 * Returns the style for SetFooter text.
 		 * Overrides the font size to compensate for varying device resolution.
 		 * Font size is calculated as a fraction of the current screen height.
 		 */

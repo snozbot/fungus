@@ -194,8 +194,8 @@ namespace Fungus
 
 		/**
 		 * Sets the screen space rectangle used to display the story text using a Page object.
-		 * PageBounds objects can be edited visually in the Unity editor which is useful for accurate placement.
-		 * The actual screen space rect used is based on both the PageBounds values and the camera transform at the time the command is executed.
+		 * Page objects can be edited visually in the Unity editor which is useful for accurate placement.
+		 * The actual screen space rect used is based on both the Page bounds and the camera transform at the time the command is executed.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param page A Page object which defines the screen rect to use when rendering story text.
 		 */
