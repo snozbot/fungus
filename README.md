@@ -11,13 +11,13 @@ An easy to use Unity 3D library for creating illustrated Interactive Fiction gam
 Installation
 ============
 
-Installation instructions are available on the official Fungus website
+Installation instructions, training videos and documentation are available on the official Fungus website.
 
 http://fungus.snozbot.com/resources
 
 Support
 =======
 
-Training videos, documentation and the Fungus forums are on the official Fungus website
+Use the Fungus Forums to get help and support.
 
-http://snozbot.com/fungus/support.html
+http://fungus.snozbot.com/forum
