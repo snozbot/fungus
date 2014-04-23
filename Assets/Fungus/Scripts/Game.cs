@@ -73,7 +73,26 @@ namespace Fungus
 		 */
 		public float autoHideButtonDuration = 5f;
 
-		float autoHideButtonTimer;
+		/**
+		 * Default screen position for Page when player enters a Room.
+		 */
+		public Page.PagePosition defaultPagePosition;
+
+		/**
+		 * Default width and height of Page as a fraction of screen height [0..1]
+		 */
+		public Vector2 defaultPageScale = new Vector2(0.75f, 0.25f);
+
+		/**
+		 *  Automatically center the Page when player is choosing from multiple options.
+		 */
+		public bool centerChooseMenu = true;
+
+		/**
+		 * Width of Page as a fraction of screen width [0..1] when automatically centering a Choose menu. 
+		 * This setting only has an effect when centerChooseMenu is enabled.
+		 */
+		public float chooseMenuWidth = 0.5f;
 
 		/**
 		 * Global dictionary of integer values for storing game state.
@@ -104,6 +123,8 @@ namespace Fungus
 
 		[HideInInspector]
 		public float fadeAlpha = 0f;
+
+		float autoHideButtonTimer;
 
 		static Game instance;
 
@@ -174,7 +195,7 @@ namespace Fungus
 				if (manualPanTexture)
 				{
 					Rect rect = new Rect(Screen.width - manualPanTexture.width, 
-					                     0, 
+					                     Screen.height - manualPanTexture.height, 
 					                     manualPanTexture.width, 
 					                     manualPanTexture.height);
 					GUI.DrawTexture(rect, manualPanTexture);
@@ -188,7 +209,7 @@ namespace Fungus
 				if (continueTexture)
 				{
 					Rect rect = new Rect(Screen.width - continueTexture.width, 
-					                     0, 
+					                     Screen.height - manualPanTexture.height, 
 					                     continueTexture.width, 
 					                     continueTexture.height);
 					GUI.DrawTexture(rect, continueTexture);

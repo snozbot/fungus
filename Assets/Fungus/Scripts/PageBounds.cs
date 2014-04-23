@@ -31,13 +31,14 @@ namespace Fungus
 			Vector2 tl = Camera.main.WorldToScreenPoint(topLeft);
 			Vector2 br = Camera.main.WorldToScreenPoint(bottomRight);
 
-			float x1 = (tl.x / Screen.width);
-			float y1 = 1f - (tl.y / Screen.height);
-			float x2 = (br.x / Screen.width);
-			float y2 = 1f - (br.y / Screen.height);
+			Page.ScreenRect screenRect = new Page.ScreenRect();
+			screenRect.x1 = (tl.x / Screen.width);
+			screenRect.y1 = 1f - (tl.y / Screen.height);
+			screenRect.x2 = (br.x / Screen.width);
+			screenRect.y2 = 1f - (br.y / Screen.height);
 
 			Page page = Game.GetInstance().activePage;
-			page.SetPageRect(x1, y1, x2, y2);
+			page.pageRect = Page.CalcPageRect(screenRect);
 			page.layout = layout;
 		}
 	}

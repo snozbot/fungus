@@ -205,6 +205,12 @@ namespace Fungus
 			commandQueue.AddCommand(new Command.SetPageBounds(pageBounds, pageLayout));
 		}
 
+		public static void SetPageRect(Page.ScreenRect screenRect, Page.Layout pageLayout = Page.Layout.FullSize)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.SetPageRect(screenRect, pageLayout));
+		}
+
 		/**
 		 * Sets the screen space rectangle used to display the Page.
 		 * The rectangle coordinates are in normalized screen space. e.g. x1 = 0 (Far left), x1 = 1 (Far right).
@@ -218,8 +224,12 @@ namespace Fungus
 		 */
 		public static void SetPageRect(float x1, float y1, float x2, float y2, Page.Layout pageLayout = Page.Layout.FullSize)
 		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetPageRect(x1, y1, x2, y2, pageLayout));
+			Page.ScreenRect screenRect = new Page.ScreenRect();
+			screenRect.x1 = x1;
+			screenRect.y1 = y1;
+			screenRect.x2 = x2;
+			screenRect.y2 = y2;
+			SetPageRect(screenRect, pageLayout);
 		}
 
 		/**
@@ -231,14 +241,8 @@ namespace Fungus
 		 */
 		public static void SetPageTop(float scaleX, float scaleY, Page.Layout pageLayout)
 		{
-			float halfWidth = Mathf.Clamp01(scaleX) * 0.5f;
-			
-			float x1 = 0.5f - halfWidth;
-			float x2 = 0.5f + halfWidth;
-			float y1 = 0f;
-			float y2 = Mathf.Clamp01(scaleY);
-
-			SetPageRect(x1, y1, x2, y2, pageLayout);
+			Page.ScreenRect screenRect = Page.CalcScreenRect(new Vector2(scaleX, scaleY), Page.PagePosition.Top);
+			SetPageRect(screenRect, pageLayout);
 		}
 
 		/**
@@ -247,7 +251,8 @@ namespace Fungus
 		 */
 		public static void SetPageTop()
 		{
-			SetPageTop(0.75f, 0.25f, Page.Layout.FullSize);
+			Vector2 pageScale = Game.GetInstance().defaultPageScale;
+			SetPageTop(pageScale.x, pageScale.y, Page.Layout.FullSize);
 		}
 
 		/**
@@ -259,15 +264,8 @@ namespace Fungus
 		 */
 		public static void SetPageMiddle(float scaleX, float scaleY, Page.Layout pageLayout)
 		{
-			float halfWidth = Mathf.Clamp01(scaleX) * 0.5f;
-			float halfHeight = Mathf.Clamp01(scaleY) * 0.5f;
-
-			float x1 = 0.5f - halfWidth;
-			float x2 = 0.5f + halfWidth;
-			float y1 = 0.5f - halfHeight;
-			float y2 = 0.5f + halfHeight;
-
-			SetPageRect(x1, y1, x2, y2, pageLayout);
+			Page.ScreenRect screenRect = Page.CalcScreenRect(new Vector2(scaleX, scaleY), Page.PagePosition.Middle);
+			SetPageRect(screenRect, pageLayout);
 		}
 
 		/**
@@ -276,7 +274,8 @@ namespace Fungus
 		 */
 		public static void SetPageMiddle()
 		{
-			SetPageMiddle(0.5f, 0.5f, Page.Layout.FitToMiddle);
+			Vector2 pageScale = Game.GetInstance().defaultPageScale;
+			SetPageMiddle(pageScale.x, pageScale.y, Page.Layout.FitToMiddle);
 		}
 
 		/**
@@ -288,14 +287,8 @@ namespace Fungus
 		 */
 		public static void SetPageBottom(float scaleX, float scaleY, Page.Layout pageLayout)
 		{
-			float halfWidth = Mathf.Clamp01(scaleX) / 2f;
-			
-			float x1 = 0.5f - halfWidth;
-			float x2 = 0.5f + halfWidth;
-			float y1 = 1f - Mathf.Clamp01(scaleY);
-			float y2 = 1;
-
-			SetPageRect(x1, y1, x2, y2, pageLayout);
+			Page.ScreenRect screenRect = Page.CalcScreenRect(new Vector2(scaleX, scaleY), Page.PagePosition.Bottom);
+			SetPageRect(screenRect, pageLayout);
 		}
 
 		/**
@@ -304,7 +297,8 @@ namespace Fungus
 		 */
 		public static void SetPageBottom()
 		{
-			SetPageBottom(0.75f, 0.25f, Page.Layout.FullSize);
+			Vector2 pageScale = Game.GetInstance().defaultPageScale;
+			SetPageBottom(pageScale.x, pageScale.y, Page.Layout.FullSize);
 		}
 
 		/**
@@ -321,10 +315,10 @@ namespace Fungus
 		/**
 		 * Obsolete! Use Header() instead.
 		 */
-		[System.Obsolete("use Header() instead")]
+		[System.Obsolete("use SetHeader() instead")]
 		public static void Title(string titleText)
 		{
-			Header(titleText);
+			SetHeader(titleText);
 		}
 
 		/**
@@ -333,7 +327,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param footerText The text to display as the header of the Page.
 		 */
-		public static void Header(string headerText)
+		public static void SetHeader(string headerText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.SetHeader(headerText));
@@ -345,7 +339,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param footerText The text to display as the footer of the Page.
 		 */
-		public static void Footer(string footerText)
+		public static void SetFooter(string footerText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.SetFooter(footerText));

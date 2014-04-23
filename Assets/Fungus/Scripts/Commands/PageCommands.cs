@@ -43,25 +43,19 @@ namespace Fungus
 		 */
 		public class SetPageRect : CommandQueue.Command
 		{
-			float x1;
-			float y1;
-			float x2;
-			float y2;
+			Page.ScreenRect screenRect;
 			Page.Layout layout;
 			
-			public SetPageRect(float _x1, float _y1, float _x2, float _y2, Page.Layout _layout)
+			public SetPageRect(Page.ScreenRect _screenRect, Page.Layout _layout)
 			{
-				x1 = _x1;
-				y1 = _y1;
-				x2 = _x2;
-				y2 = _y2;
+				screenRect = _screenRect;
 				layout = _layout;
 			}
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
 				Page page = Game.GetInstance().activePage;
-				page.SetPageRect(x1, y1, x2, y2);
+				page.pageRect = Page.CalcPageRect(screenRect);
 				page.layout = layout;
 				
 				if (onComplete != null)

@@ -14,7 +14,30 @@ namespace Fungus
 	[ExecuteInEditMode]
 	public class Page : MonoBehaviour 
 	{
-		/// Page alignment options
+		/// Options for default Page position on screen 
+		public enum PagePosition
+		{
+			/// Page appears full-size and horizontally centered at top of screen.
+			Top,
+			/// Page appears centered in middle of screen, with height fitted to content.
+			Middle,
+			/// Page appears full-size and horizontally centered at bottom of screen.
+			Bottom
+		}
+
+		/**
+		 * Defines a rect in normalized screen space coordinates.
+		 * e.g. x1 = 0 means left of screen, x2 = 1 means right of screen.
+		 */
+		public class ScreenRect
+		{
+			public float x1;
+			public float y1;
+			public float x2;
+			public float y2;
+		}
+
+		/// Options for controlling page layout 
 		public enum Layout
 		{
 			/// Use the full rect to display the page.
@@ -27,8 +50,25 @@ namespace Fungus
 			FitToBottom
 		}
 
-		/// Page position within bounds when display height is less than bounds height.
+		/// Controls layout of content within Page rect.
 		public Layout layout = Layout.FullSize;
+
+		/// Supported states for Page
+		public enum Mode
+		{
+			/// No content to be displayed.
+			Idle,
+			/// Show a single line of text and wait for player input.
+			Say,
+			/// Show a multiple choice menu and wait for player to select an option.
+			Choose
+		};
+		
+		[HideInInspector]
+		public Mode mode = Mode.Idle;
+
+		/// Screen space rect for Page in pixels.
+		public Rect pageRect; 
 
 		string headerText = "";
 		string footerText = "";
@@ -38,16 +78,6 @@ namespace Fungus
 
 		Action deferredAction;
 		Action continueAction;
-
-		public enum Mode
-		{
-			Idle,
-			Say,
-			Choose
-		};
-
-		[HideInInspector]
-		public Mode mode = Mode.Idle;
 
 		class Option
 		{
@@ -65,27 +95,86 @@ namespace Fungus
 
 		float quickContinueTimer;
 
-		Rect pageRect; // Screen space rect for Page in pixels
-
 		/**
-		 * Set the screen rect in normalized screen space coords.
-		 * The origin is at the top left of the screen.
+		 * Calculate a screen space rectangle given normalized screen space coords.
+		 * The resulting rect is clamped to always be on-screen.
 		 */
-		public void SetPageRect(float x1, float y1, float x2, float y2)
+		public static Rect CalcPageRect(ScreenRect screenRect)
 		{
-			pageRect.xMin = Screen.width * x1;
-			pageRect.yMin = Screen.height * y1;
-			pageRect.xMax = Screen.width * x2;
-			pageRect.yMax = Screen.height * y2;
-
+			Rect rect = new Rect();
+			
+			rect.xMin = Screen.width * screenRect.x1;
+			rect.yMin = Screen.height * screenRect.y1;
+			rect.xMax = Screen.width * screenRect.x2;
+			rect.yMax = Screen.height * screenRect.y2;
+			
 			// Clamp to be on-screen
-			pageRect.xMax = Mathf.Min(pageRect.xMax, Screen.width);
-			pageRect.xMin = Mathf.Max(pageRect.xMin, 0);
-			pageRect.yMax = Mathf.Min(pageRect.yMax, Screen.height);
-			pageRect.yMin = Mathf.Max(pageRect.yMin, 0);
+			rect.xMax = Mathf.Min(rect.xMax, Screen.width);
+			rect.xMin = Mathf.Max(rect.xMin, 0);
+			rect.yMax = Mathf.Min(rect.yMax, Screen.height);
+			rect.yMin = Mathf.Max(rect.yMin, 0);
+			
+			return rect;
 		}
 
-		public virtual void Update()
+		/**
+		 * Calculates a screen rect in normalized screen space coordinates in one of the 'standard' Page positions (top, middle, bottom).
+		 */
+		public static ScreenRect CalcScreenRect(Vector2 pageScale, PagePosition pagePosition)
+		{
+			float width = Mathf.Clamp01(pageScale.x);
+			float height = Mathf.Clamp01(pageScale.y);
+
+			ScreenRect screenRect = new ScreenRect();
+
+			switch (pagePosition)
+			{
+			case PagePosition.Top:
+				screenRect.x1 = 0.5f - width * 0.5f;
+				screenRect.x2 = 0.5f + width * 0.5f;
+				screenRect.y1 = 0f;
+				screenRect.y2 = height;
+				break;
+			case PagePosition.Middle:
+				screenRect.x1 = 0.5f - width * 0.5f;
+				screenRect.x2 = 0.5f + width * 0.5f;
+				screenRect.y1 = 0.5f - height * 0.5f;
+				screenRect.y2 = 0.5f + height * 0.5f;
+				break;
+			case PagePosition.Bottom:
+				screenRect.x1 = 0.5f - width * 0.5f;
+				screenRect.x2 = 0.5f + width * 0.5f;
+				screenRect.y1 = 1f - Mathf.Clamp01(height);
+				screenRect.y2 = 1;
+				break;
+			}
+
+			return screenRect;
+		}
+
+		/**
+		 * Reset to the default page layout based on properties in Game class.
+		 */
+		public void SetDefaultPageLayout()
+		{
+			Game game = Game.GetInstance();
+			ScreenRect screenRect = CalcScreenRect(game.defaultPageScale, game.defaultPagePosition);
+			pageRect = CalcPageRect(screenRect);
+			switch (game.defaultPagePosition)
+			{
+			case Page.PagePosition.Top:
+				game.activePage.layout = Page.Layout.FullSize;
+				break;
+			case Page.PagePosition.Middle:
+				game.activePage.layout = Page.Layout.FitToMiddle;
+				break;
+			case Page.PagePosition.Bottom:
+				game.activePage.layout = Page.Layout.FullSize;
+				break;
+			}
+		}
+
+		void Update()
 		{
 			if (quickContinueTimer > 0)
 			{
@@ -227,7 +316,28 @@ namespace Fungus
 			GUIStyle optionStyle = pageStyle.GetScaledOptionStyle();
 			GUIStyle optionAlternateStyle = pageStyle.GetScaledOptionAlternateStyle();
 
-			Rect outerRect = pageRect;
+			Rect outerRect;
+			Layout tempLayout;
+
+			Game game = Game.GetInstance();
+			if (mode == Mode.Choose &&
+			    game.centerChooseMenu)
+			{
+				// Position the Choose menu in middle of screen
+				// The width is controlled by game.chooseMenuWidth
+				// The height is automatically fitted to the text content
+				Vector2 pageScale = new Vector2(game.chooseMenuWidth, 0.5f);
+				Page.ScreenRect screenRect = Page.CalcScreenRect(pageScale, Page.PagePosition.Middle);
+				outerRect = Page.CalcPageRect(screenRect);
+				tempLayout = Page.Layout.FitToMiddle;
+			}
+			else
+			{
+				outerRect = pageRect;
+				tempLayout = layout;
+			}
+
+			Rect originalRect = outerRect;
 			Rect innerRect = CalcInnerRect(outerRect);
 
 			// Calculate height of each section
@@ -238,7 +348,7 @@ namespace Fungus
 			float contentHeight = headerHeight + footerHeight + storyHeight + optionsHeight;
 
 			// Adjust outer rect position based on alignment settings
-			switch (layout)
+			switch (tempLayout)
 			{
 			case Layout.FullSize:
 				outerRect.height = Mathf.Max(outerRect.height, contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom));
@@ -246,15 +356,15 @@ namespace Fungus
 				break;
 			case Layout.FitToTop:
 				outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
-				outerRect.y = pageRect.yMin;
+				outerRect.y = originalRect.yMin;
 				break;
 			case Layout.FitToMiddle:
 				outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
-				outerRect.y = pageRect.center.y - outerRect.height / 2;
+				outerRect.y = originalRect.center.y - outerRect.height / 2;
 				break;
 			case Layout.FitToBottom:
 				outerRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
-				outerRect.y = pageRect.yMax - outerRect.height;
+				outerRect.y = originalRect.yMax - outerRect.height;
 				break;
 			}
 
@@ -263,9 +373,9 @@ namespace Fungus
 			// Draw box
 			Rect boxRect = outerRect;
 			boxRect.height = contentHeight + (boxStyle.padding.top + boxStyle.padding.bottom);
-			if (layout == Layout.FullSize)
+			if (tempLayout == Layout.FullSize)
 			{
-				boxRect.height = Mathf.Max(boxRect.height, pageRect.height);
+				boxRect.height = Mathf.Max(boxRect.height, originalRect.height);
 			}
 			GUI.Box(boxRect, "", boxStyle);
 

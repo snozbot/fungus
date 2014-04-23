@@ -139,9 +139,8 @@ namespace Fungus
 				button.SetAlpha(0f);
 			}
 
-			// Default to bottom aligned Page rect
-			game.activePage.SetPageRect(0.125f, 0.75f, 0.875f, 1f);
-			game.activePage.layout = Page.Layout.FullSize;
+			// Reset Page layout to default setting specified in Game object
+			game.activePage.SetDefaultPageLayout();
 
 			// Rooms may have multiple child views and page. 
 			// It is the responsibility of the client room script to set the desired active view & page in the OnEnter method.

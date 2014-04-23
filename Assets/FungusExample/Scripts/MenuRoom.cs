@@ -13,10 +13,12 @@ public class MenuRoom : Room
 
 	void OnEnter() 
 	{
+		SetPageMiddle();
+
 		AddOption("Writing a story with Pages", MoveToWritingRoom);
 		AddOption("Controlling the camera with Views", MoveToViewRoom);
 		AddOption("Sprites and Animations", MoveToSpriteRoom);
-		AddOption("Parallax scrolling effects", MoveToParallaxRoom);
+		AddOption("Manual pan and parallax", MoveToParallaxRoom);
 		AddOption("Using Buttons", MoveToButtonsRoom);
 		AddOption("Playing music and sound effects", MoveToAudioRoom);
 		Choose("Choose an example");

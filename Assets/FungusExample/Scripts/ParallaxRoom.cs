@@ -8,21 +8,31 @@ using Fungus;
 
 public class ParallaxRoom : Room 
 {
-	public View mainView;
-	public View zoomView;
+	public View viewA;
+	public View viewB;
+
+	public Button menuButton;
 
 	public Room menuRoom;
 
 	void OnEnter()
 	{
-		SetView(mainView);
+		SetView(viewA);
 
 		Say("Let's zoom in!");
-		PanToView(zoomView, 2);
+		PanToView(viewB, 2);
 		Say("Oooh! Nice parallax!");
-		PanToView(mainView, 2);
-		Say("Mmmm... purdy!");
+		PanToView(viewA, 2);
+		Say("Now you have a go!");
+		Say("Swipe the screen to pan around.");
 
+		ShowButton(menuButton, OnHomeButtonClicked);
+
+		StartManualPan(viewA, viewB, 0f);
+	}
+
+	void OnHomeButtonClicked()
+	{
 		MoveToRoom(menuRoom);
 	}
 }

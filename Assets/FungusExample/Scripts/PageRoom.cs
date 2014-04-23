@@ -17,24 +17,22 @@ public class PageRoom : Room
 	void OnEnter()
 	{
 		// Sets the header text on the page
-		Header("The Mushroom");
+		SetHeader("The Mushroom");
 
 		// Each Say() command writes one line of text, followed by a continue button
-		SetPageTop();
 		Say("One day in the forest, a mushroom grew.");
-
-		SetPageMiddle();
 		Say("What am I doing here he wondered?");
 
-		SetPageBottom();
+		SetPageTop();
 		Say("I think I will wait for a while and see if something happens.");
 
 		// Wait for a few seconds
 		Wait(3);
 
 		// Set the header text to the empty string to remove the page title
-		Header("");
+		SetHeader("");
 
+		SetPageBottom();
 		Say("...");
 		Say("Hmmm. Nothing seems to be happening.");
 
@@ -81,7 +79,7 @@ public class PageRoom : Room
 		// Set the default style with background box texture
 		SetPageStyle(defaultStyle);
 
-		// Sets a game flag which we check above in GoToSleep
+		// Sets a global value flag which we check above in GoToSleep
 		SetValue("spawned");
 
 		AddOption("So tired. I sleep now.", GoToSleep);
