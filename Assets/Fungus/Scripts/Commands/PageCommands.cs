@@ -10,25 +10,25 @@ namespace Fungus
 	namespace Command
 	{
 		/**
-		 * Sets the display rect for the active Page using a PageBounds object.
+		 * Sets the display rect for the PageController using a Page object.
 		 */
-		public class SetPageBounds : CommandQueue.Command
+		public class SetPage : CommandQueue.Command
 		{
-			PageBounds pageBounds;
-			Page.Layout pageLayout;
+			Page page;
+			PageController.Layout pageLayout;
 			
-			public SetPageBounds(PageBounds _pageBounds, Page.Layout _pageLayout)
+			public SetPage(Page _page, PageController.Layout _pageLayout)
 			{
-				pageBounds = _pageBounds;
+				page = _page;
 				pageLayout = _pageLayout;
 			}
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				if (pageBounds != null)
+				if (page != null)
 				{
-					pageBounds.UpdatePageRect();
-					Game.GetInstance().activePage.layout = pageLayout;
+					page.UpdatePageRect();
+					Game.GetInstance().pageController.layout = pageLayout;
 				}
 				
 				if (onComplete != null)
@@ -39,14 +39,14 @@ namespace Fungus
 		}
 		
 		/**
-		 * Sets the display rect for the active Page using normalized screen space coords.
+		 * Sets the screen rect for displaying story text using normalized screen space coords.
 		 */
 		public class SetPageRect : CommandQueue.Command
 		{
-			Page.ScreenRect screenRect;
-			Page.Layout layout;
+			PageController.ScreenRect screenRect;
+			PageController.Layout layout;
 			
-			public SetPageRect(Page.ScreenRect _screenRect, Page.Layout _layout)
+			public SetPageRect(PageController.ScreenRect _screenRect, PageController.Layout _layout)
 			{
 				screenRect = _screenRect;
 				layout = _layout;
@@ -54,8 +54,8 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Page page = Game.GetInstance().activePage;
-				page.pageRect = Page.CalcPageRect(screenRect);
+				PageController page = Game.GetInstance().pageController;
+				page.pageRect = PageController.CalcPageRect(screenRect);
 				page.layout = layout;
 				
 				if (onComplete != null)
@@ -66,7 +66,7 @@ namespace Fungus
 		}
 		
 		/**
-		 * Sets the currently active Page Style for rendering Pages.
+		 * Sets the active Page Style for rendering story text.
 		 */
 		public class SetPageStyle : CommandQueue.Command
 		{
@@ -88,7 +88,7 @@ namespace Fungus
 		}
 		
 		/**
-		 * Sets the header text displayed at the top of the active page.
+		 * Sets the header text displayed at the top of the page.
 		 */
 		public class SetHeader : CommandQueue.Command
 		{
@@ -101,15 +101,9 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Page page = Game.GetInstance().activePage;
-				if (page == null)
-				{
-					Debug.LogError("Active page must not be null");
-				}
-				else
-				{
-					page.SetHeader(titleText);
-				}
+				PageController page = Game.GetInstance().pageController;
+				page.SetHeader(titleText);
+
 				if (onComplete != null)
 				{
 					onComplete();
@@ -118,7 +112,7 @@ namespace Fungus
 		}
 		
 		/**
-		 * Sets the footer text displayed at the top of the active page.
+		 * Sets the footer text displayed at the bottom of the page.
 		 */
 		public class SetFooter : CommandQueue.Command
 		{
@@ -131,15 +125,9 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Page page = Game.GetInstance().activePage;
-				if (page == null)
-				{
-					Debug.LogError("Active page must not be null");
-				}
-				else
-				{
-					page.SetFooter(titleText);
-				}
+				PageController page = Game.GetInstance().pageController;
+				page.SetFooter(titleText);
+
 				if (onComplete != null)
 				{
 					onComplete();
@@ -148,8 +136,8 @@ namespace Fungus
 		}
 		
 		/** 
-		 * Writes story text to the currently active page.
-		 * A 'continue' icon is displayed when the text has fully appeared.
+		 * Writes story text to the page.
+		 * A continue icon is displayed when the text has fully appeared.
 		 */
 		public class Say : CommandQueue.Command
 		{
@@ -162,15 +150,8 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Page page = Game.GetInstance().activePage;
-				if (page == null)
-				{
-					Debug.LogError("Active page must not be null");
-				}
-				else
-				{
-					page.Say(storyText, onComplete);
-				}
+				PageController page = Game.GetInstance().pageController;
+				page.Say(storyText, onComplete);
 			}
 		}
 		
@@ -191,15 +172,9 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Page page = Game.GetInstance().activePage;
-				if (page == null)
-				{
-					Debug.LogError("Active page must not be null");
-				}
-				else
-				{
-					page.AddOption(optionText, optionAction);
-				}
+				PageController page = Game.GetInstance().pageController;
+				page.AddOption(optionText, optionAction);
+
 				if (onComplete != null)
 				{
 					onComplete();
@@ -221,16 +196,10 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Page page = Game.GetInstance().activePage;
-				if (page == null)
-				{
-					Debug.LogError("Active page must not be null");
-				}
-				else
-				{
-					page.Choose(chooseText);
-				}
-				// Choose always clears commandQueue, so no need to call onComplete()
+				PageController page = Game.GetInstance().pageController;
+				page.Choose(chooseText);
+
+				// Choose always clears the commandQueue, so there's no need to call onComplete()
 			}		
 		}
 	}

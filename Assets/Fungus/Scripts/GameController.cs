@@ -193,27 +193,32 @@ namespace Fungus
 		#region Page Methods
 
 		/**
-		 * Sets the display rect for the active Page using a PageBounds object.
+		 * Sets the screen space rectangle used to display the story text using a Page object.
 		 * PageBounds objects can be edited visually in the Unity editor which is useful for accurate placement.
 		 * The actual screen space rect used is based on both the PageBounds values and the camera transform at the time the command is executed.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param pageBounds The bounds object to use when calculating the Page display rect.
+		 * @param page A Page object which defines the screen rect to use when rendering story text.
 		 */
-		public static void SetPageBounds(PageBounds pageBounds, Page.Layout pageLayout = Page.Layout.FullSize)
+		public static void SetPage(Page page, PageController.Layout pageLayout = PageController.Layout.FullSize)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetPageBounds(pageBounds, pageLayout));
+			commandQueue.AddCommand(new Command.SetPage(page, pageLayout));
 		}
 
-		public static void SetPageRect(Page.ScreenRect screenRect, Page.Layout pageLayout = Page.Layout.FullSize)
+		/**
+		 * Sets the screen space rectangle used to display the story text using a ScreenRect object.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param screenRect A ScreenRect object which defines a rect in normalized screen space coordinates.
+		 */
+		public static void SetPageRect(PageController.ScreenRect screenRect, PageController.Layout pageLayout = PageController.Layout.FullSize)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.SetPageRect(screenRect, pageLayout));
 		}
 
 		/**
-		 * Sets the screen space rectangle used to display the Page.
-		 * The rectangle coordinates are in normalized screen space. e.g. x1 = 0 (Far left), x1 = 1 (Far right).
+		 * Sets the screen space rectangle used to display the story text.
+		 * The rectangle coordinates are in normalized screen space. e.g. x1 = 0 (left), y1 = 0 (top) x2 = 1 (right) y2 = 1 (bottom).
 		 * The origin is at the top left of the screen.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param x1 Page rect left coordinate in normalized screen space coords [0..1]
@@ -222,9 +227,9 @@ namespace Fungus
 		 * @param y2 Page rect bottom coordinate in normalized screen space coords [0..1]
 		 * @param pageLayout Layout mode for positioning page within the rect.
 		 */
-		public static void SetPageRect(float x1, float y1, float x2, float y2, Page.Layout pageLayout = Page.Layout.FullSize)
+		public static void SetPageRect(float x1, float y1, float x2, float y2, PageController.Layout pageLayout = PageController.Layout.FullSize)
 		{
-			Page.ScreenRect screenRect = new Page.ScreenRect();
+			PageController.ScreenRect screenRect = new PageController.ScreenRect();
 			screenRect.x1 = x1;
 			screenRect.y1 = y1;
 			screenRect.x2 = x2;
@@ -233,72 +238,72 @@ namespace Fungus
 		}
 
 		/**
-		 * Sets the active Page to display at the top of the screen.
+		 * Display story page at the top of the screen.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
 		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
 		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
 		 */
-		public static void SetPageTop(float scaleX, float scaleY, Page.Layout pageLayout)
+		public static void SetPageTop(float scaleX, float scaleY, PageController.Layout pageLayout)
 		{
-			Page.ScreenRect screenRect = Page.CalcScreenRect(new Vector2(scaleX, scaleY), Page.PagePosition.Top);
+			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Top);
 			SetPageRect(screenRect, pageLayout);
 		}
 
 		/**
-		 * Sets the currently active Page to display at the top of the screen.
+		 * Display story page at the top of the screen.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 */
 		public static void SetPageTop()
 		{
 			Vector2 pageScale = Game.GetInstance().defaultPageScale;
-			SetPageTop(pageScale.x, pageScale.y, Page.Layout.FullSize);
+			SetPageTop(pageScale.x, pageScale.y, PageController.Layout.FullSize);
 		}
 
 		/**
-		 * Sets the active Page to display at the middle of the screen.
+		 * Display story page at the middle of the screen.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
 		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
 		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
 		 */
-		public static void SetPageMiddle(float scaleX, float scaleY, Page.Layout pageLayout)
+		public static void SetPageMiddle(float scaleX, float scaleY, PageController.Layout pageLayout)
 		{
-			Page.ScreenRect screenRect = Page.CalcScreenRect(new Vector2(scaleX, scaleY), Page.PagePosition.Middle);
+			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Middle);
 			SetPageRect(screenRect, pageLayout);
 		}
 
 		/**
-		 * Sets the currently active Page to display at the middle of the screen.
+		 * Display story page at the middle of the screen.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 */
 		public static void SetPageMiddle()
 		{
 			Vector2 pageScale = Game.GetInstance().defaultPageScale;
-			SetPageMiddle(pageScale.x, pageScale.y, Page.Layout.FitToMiddle);
+			SetPageMiddle(pageScale.x, pageScale.y, PageController.Layout.FitToMiddle);
 		}
 
 		/**
-		 * Sets the active Page to display at the bottom of the screen.
+		 * Display story page at the bottom of the screen.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
 		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
 		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
 		 */
-		public static void SetPageBottom(float scaleX, float scaleY, Page.Layout pageLayout)
+		public static void SetPageBottom(float scaleX, float scaleY, PageController.Layout pageLayout)
 		{
-			Page.ScreenRect screenRect = Page.CalcScreenRect(new Vector2(scaleX, scaleY), Page.PagePosition.Bottom);
+			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Bottom);
 			SetPageRect(screenRect, pageLayout);
 		}
 
 		/**
-		 * Sets the currently active Page to display at the bottom of the screen.
+		 * Display story page at the bottom of the screen.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 */
 		public static void SetPageBottom()
 		{
 			Vector2 pageScale = Game.GetInstance().defaultPageScale;
-			SetPageBottom(pageScale.x, pageScale.y, Page.Layout.FullSize);
+			SetPageBottom(pageScale.x, pageScale.y, PageController.Layout.FullSize);
 		}
 
 		/**
@@ -322,7 +327,7 @@ namespace Fungus
 		}
 
 		/**
-		 * Sets the header text displayed at the top of the active Page.
+		 * Sets the header text displayed at the top of the page.
 		 * The header text is only displayed when there is some story text or options to be shown.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param footerText The text to display as the header of the Page.
@@ -334,7 +339,7 @@ namespace Fungus
 		}
 
 		/**
-		 * Sets the footer text displayed at the top of the active Page.
+		 * Sets the footer text displayed at the top of the page.
 		 * The footer text is only displayed when there is some story text or options to be shown.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param footerText The text to display as the footer of the Page.
@@ -346,11 +351,11 @@ namespace Fungus
 		}
 
 		/**
-		 * Writes story text to the currently active Page.
+		 * Writes story text to the page.
 		 * A 'continue' button is displayed when the text has fully appeared.
 		 * Command execution halts until the user chooses to continue.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param storyText The text to be written to the currently active Page.
+		 * @param storyText The text to be written to the page.
 		 */
 		public static void Say(string storyText)
 		{

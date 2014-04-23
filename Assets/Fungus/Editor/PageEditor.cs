@@ -6,12 +6,12 @@ using System.Collections.Generic;
 namespace Fungus
 {
 	[CanEditMultipleObjects]
-	[CustomEditor (typeof(PageBounds))]
-	public class PageBoundsEditor : Editor 
+	[CustomEditor (typeof(Page))]
+	public class PageEditor : Editor 
 	{
 		void OnSceneGUI () 
 		{
-			PageBounds t = target as PageBounds;
+			Page t = target as Page;
 
 			// Render the parent view to help user position the page
 			Transform parent = t.transform.parent;
@@ -37,14 +37,14 @@ namespace Fungus
 
 		void EditPageBounds()
 		{
-			PageBounds t = target as PageBounds;
+			Page t = target as Page;
 			Vector3 pos = t.transform.position;
 
 			Vector3[] verts = new Vector3[4];
-			verts[0] = new Vector3(pos.x + t.bounds.min.x, pos.y + t.bounds.min.y, 0);
-			verts[1] = new Vector3(pos.x + t.bounds.min.x, pos.y + t.bounds.max.y, 0);
-			verts[2] = new Vector3(pos.x + t.bounds.max.x, pos.y + t.bounds.max.y, 0);
-			verts[3] = new Vector3(pos.x + t.bounds.max.x, pos.y + t.bounds.min.y, 0);
+			verts[0] = new Vector3(pos.x + t.pageBounds.min.x, pos.y + t.pageBounds.min.y, 0);
+			verts[1] = new Vector3(pos.x + t.pageBounds.min.x, pos.y + t.pageBounds.max.y, 0);
+			verts[2] = new Vector3(pos.x + t.pageBounds.max.x, pos.y + t.pageBounds.max.y, 0);
+			verts[3] = new Vector3(pos.x + t.pageBounds.max.x, pos.y + t.pageBounds.min.y, 0);
 			
 			Handles.DrawSolidRectangleWithOutline(verts, new Color(1,1,1,0.2f), new Color(0,0,0,1));
 
@@ -92,7 +92,7 @@ namespace Fungus
 			t.transform.position = newBounds.center;
 			newBounds.center = Vector3.zero;
 
-			t.bounds = newBounds;
+			t.pageBounds = newBounds;
 		}
 	}
 }

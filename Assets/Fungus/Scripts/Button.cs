@@ -80,7 +80,7 @@ namespace Fungus
 			if (autoHide)
 			{
 				if (showButton &&
-				    Game.GetInstance().ShowAutoButtons())
+				    Game.GetInstance().GetShowAutoButtons())
 				{
 					targetAlpha = 1f;
 
@@ -125,7 +125,7 @@ namespace Fungus
 			// Ignore button press if sprite is not fully visible or 
 			// if the game is not in an idle state
 			if (spriteRenderer.color.a != 1f ||
-			    !Game.GetInstance().ShowAutoButtons())
+			    !Game.GetInstance().GetShowAutoButtons())
 			{
 				return;
 			}

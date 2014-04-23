@@ -82,7 +82,7 @@ namespace Fungus
 		/**
 		 * Default screen position for Page when player enters a Room.
 		 */
-		public Page.PagePosition defaultPagePosition;
+		public PageController.PagePosition defaultPagePosition;
 
 		/**
 		 * Default width and height of Page as a fraction of screen height [0..1]
@@ -107,9 +107,6 @@ namespace Fungus
 		public Dictionary<string, int> values = new Dictionary<string, int>();
 
 		[HideInInspector]
-		public Page activePage;
-
-		[HideInInspector]
 		public StringTable stringTable = new StringTable();
 		
 		[HideInInspector]
@@ -118,6 +115,9 @@ namespace Fungus
 		[HideInInspector]
 		public CameraController cameraController;
 	
+		[HideInInspector]
+		public PageController pageController;
+
 		/**
 		 * True when executing a Wait() or WaitForTap() command
 		 */
@@ -156,6 +156,7 @@ namespace Fungus
 			// Add components for additional game functionality
 			commandQueue = gameObject.AddComponent<CommandQueue>();
 			cameraController = gameObject.AddComponent<CameraController>();
+			pageController = gameObject.AddComponent<PageController>();
 
 			AudioSource audioSource = gameObject.AddComponent<AudioSource>();
 			audioSource.playOnAwake = false;
@@ -174,12 +175,6 @@ namespace Fungus
 				commandQueue.AddCommand(new Command.MoveToRoom(activeRoom));
 				commandQueue.Execute();
 			}
-
-			// Create the Page game object as a child of Game
-			GameObject pageObject = new GameObject();
-			pageObject.name = "Page";
-			pageObject.transform.parent = transform;
-			activePage = pageObject.AddComponent<Page>();
 		}
 
 		public virtual void Update()
@@ -215,8 +210,8 @@ namespace Fungus
 				}
 			}
 
-			if (activePage.mode == Page.Mode.Say &&
-			    activePage.FinishedWriting())
+			if (pageController.mode == PageController.Mode.Say &&
+			    pageController.FinishedWriting())
 			{
 				// Draw the continue icon
 				if (continueIcon)
@@ -261,17 +256,17 @@ namespace Fungus
 
 		/**
 		 * Returns true if the game should display 'auto hide' buttons.
-		 * Buttons will be displayed if the active page is not currently displaying story text/options, and no Wait command is in progress.
+		 * Buttons will be displayed if the game is not currently displaying story text/options, and no Wait command is in progress.
 		 */
-		public bool ShowAutoButtons()
+		public bool GetShowAutoButtons()
 		{
 			if (waiting)
 			{
 				return false;
 			}
 
-			if (activePage == null ||
-			    activePage.mode == Page.Mode.Idle)
+			if (pageController == null ||
+			    pageController.mode == PageController.Mode.Idle)
 			{
 				return (autoHideButtonTimer > 0f);
 			}
