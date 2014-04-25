@@ -318,7 +318,7 @@ namespace Fungus
 		}
 
 		/**
-		 * Obsolete! Use Header() instead.
+		 * Obsolete! Use SetHeader() instead.
 		 */
 		[System.Obsolete("use SetHeader() instead")]
 		public static void Title(string titleText)
@@ -537,14 +537,13 @@ namespace Fungus
 			color.a = targetAlpha;
 			commandQueue.AddCommand(new Command.FadeSprite(spriteRenderer, color, duration, slideOffset));
 		}
-		
+
 		/**
-		 * Displays a button and sets 
-		 * Automatically adds a Button component to the object to respond to player input.
+		 * Displays a button sprite object and sets the action callback method for the button.
 		 * If no Collider2D already exists on the object, then a BoxCollider2D is automatically added.
-		 * Use RemoveButton() to make a sprite non-clickable again.
+		 * Use HideButton() to make the sprite invisible and non-clickable again.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param spriteRenderer The sprite to be made clickable
+		 * @param button The button component of the sprite object to be shown.
 		 * @param buttonAction The Action delegate method to be called when the player clicks on the button
 		 */
 		public static void ShowButton(Button button, Action buttonAction)
@@ -554,7 +553,7 @@ namespace Fungus
 		}
 
 		/**
-		 * Makes a sprite stop behaving as a clickable button.
+		 * Hides the button sprite and makes it stop behaving as a clickable button.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param spriteRenderer The sprite to be made non-clickable
 		 */

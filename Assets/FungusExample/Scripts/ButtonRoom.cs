@@ -11,18 +11,16 @@ public class ButtonRoom : Room
 	public Button homeButton;
 	public Button soundButton;
 	public Button questionButton;
-	
+
 	void OnEnter()
 	{
-		// Normal button, always visible
+		// Show button, always visible (because autoHide is set to false)
 		ShowButton(homeButton, OnHomeClicked);
 
-		// Auto hide buttons (hidden when story/options are being displayed)
+		// Show buttons, auto hides when text is displayed (because autoHide is set to true)
 		ShowButton(soundButton, OnMusicClicked);
 		ShowButton(questionButton, OnQuestionClicked);
 	
-		// NOTE: Add auto buttons before first Say() command to ensure they start hidden
-
 		Say("The Mushroom read his book with great interest.");
 		Say("After turning the last page, he considered his options.");
 
@@ -42,7 +40,7 @@ public class ButtonRoom : Room
 	{
 		PlaySound(effectClip);
 
-		// The music button has been configured to hide when this value is set
+		// The music button has been configured to automatically hide when this value is set
 		SetValue("PlayedSound");
 	}
 
