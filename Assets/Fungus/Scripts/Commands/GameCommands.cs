@@ -142,7 +142,7 @@ namespace Fungus
 		}
 		
 		/** 
-		 * Sets a globally accessible game value
+		 * Sets a globally accessible integer value
 		 */
 		public class SetValue : CommandQueue.Command
 		{
@@ -158,6 +158,30 @@ namespace Fungus
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
 				Game.GetInstance().SetGameValue(key, value);
+				if (onComplete != null)
+				{
+					onComplete();
+				}
+			}		
+		}
+
+		/** 
+		 * Sets a globally accessible string value
+		 */
+		public class SetString : CommandQueue.Command
+		{
+			string key;
+			string value;
+			
+			public SetString(string _key, string _value)
+			{
+				key = _key;
+				value = _value;
+			}
+			
+			public override void Execute(CommandQueue commandQueue, Action onComplete)
+			{
+				Game.GetInstance().stringTable.SetString(key, value);
 				if (onComplete != null)
 				{
 					onComplete();

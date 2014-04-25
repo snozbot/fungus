@@ -464,6 +464,28 @@ namespace Fungus
 			return GetValue(key) != 0;
 		}
 
+		/**
+		 * Sets a globally accessible string value.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param key The name of the value to set
+		 * @param value The string value to set
+		 */
+		public static void SetString(string key, string value)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.SetString(key, value));
+		}
+
+		/**
+		 * Gets a globally accessible string value.
+		 * @param key The name of the value
+		 * @return The string value for this key, or the empty string if not previously set.
+		 */
+		public static string GetString(string key)
+		{
+			return Game.GetInstance().stringTable.GetString(key);
+		}
+
 		#endregion
 		#region Sprite Methods
 		
