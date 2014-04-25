@@ -20,7 +20,7 @@ namespace Fungus
 		/**
 		 * Automatically hides the button when displaying story text/options or waiting.
 		 */
-		public bool autoHide;
+		public bool autoHide = true;
 
 		/**
 		 * Automatically hides the button when the specified game value is set (i.e. not equal to zero).
