@@ -162,6 +162,9 @@ namespace Fungus
 			audioSource.playOnAwake = false;
 			audioSource.loop = true;
 
+			// Auto-hide buttons should be visible at start of game
+			autoHideButtonTimer = autoHideButtonDuration;
+
 			if (activeRoom == null)
 			{
 				// Pick first room found if none is specified
