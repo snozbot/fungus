@@ -13,7 +13,6 @@ public class PageRoom : Room
 	public PageStyle alternateStyle;
 
 	// The OnEnter() method is called whenever the player enters the room
-	// You can also use the OnLeave() method to handle when the player leaves the room.
 	void OnEnter()
 	{
 		// Sets the header text on the page
