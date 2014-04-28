@@ -2,9 +2,11 @@ Writing Story Text With Pages
 =============================
 
 The [Page](@ref Fungus.Page) component defines an area where the story textbox will appear on screen. 
-- A Page can display title text, say text and a list of options.
-- Only one page is ever active at a time.
-- The active Page automatically hides when there is no remaining story text or options to display.
+
+- The Page can display title text, say text and a list of options.
+- The Page automatically hides when there is no remaining story text or options to display.
+- The appearance of the text in the Page is controlled via the active [PageStyle](@ref Fungus.PageStyle) object.
+
 
 # How do I add a Page to a Room?
 
@@ -17,7 +19,7 @@ The [Page](@ref Fungus.Page) component defines an area where the story textbox w
 
 1. Ensure there are at least two Page objects in your Room. 
 2. Add public Page properties to your Room script and setup references to each Page in the Room.
-3. Use the [SetPage](@ref Fungus.GameController.SetPage) command to control which Page will be used for text rendering.
+3. Use the [SetPage](@ref Fungus.GameController.SetPage) command to control which Page rect will be used for rendering text.
 
 ## C# code example
 ~~~~~~~~~~~~~~~~~~~~
@@ -40,17 +42,13 @@ public class MyRoom : Room
 }
 ~~~~~~~~~~~~~~~~~~~~
 
-## Notes
-- If there is only one Page in a Room, Fungus will automatically make this the active Page when entering the Room.
-- If a View has a child Page object, Fungus will automatically make this the active Page after transitioning to that View (e.g. via [SetView](@ref Fungus.GameController.SetView))).
-- If you find that text is not rendering on the Page you expect, you probably need to set the active Page explicitly using the method shown above.
-
 - - -
 
 # How do I write story text to the active Page?
 
-1. Use the [Title](@ref Fungus.GameController.Title) command to set the title text to be displayed at the top of the active page.
-2. Use the [Say](@ref Fungus.GameController.Say) command to display a single line of story text and then wait for the player to press the continue button.
+1. Use the [SetHeader](@ref Fungus.GameController.SetHeader) command to set the header text to be displayed at the top of the active page.
+1. Use the [SetFooter](@ref Fungus.GameController.SetFooter) command to set the footer text to be displayed at the bottom of the active page.
+2. Use the [Say](@ref Fungus.GameController.Say) command to display a single line of story text and then wait for the player to click to continue.
 
 ## C# code example
 ~~~~~~~~~~~~~~~~~~~~
@@ -62,18 +60,11 @@ public class MyRoom : Room
 {
 	void OnEnter() 
 	{
-		Title("The Title"); // Sets the title text
+		SetHeader("The Title"); // Sets the header text
 		Say("Hello"); // Writes the story text and waits for player to continue
 	}
 }
 ~~~~~~~~~~~~~~~~~~~~
-
-## Notes
-- The [Page](@ref Fungus.Page) component defines the area where the story textbox will appear on screen. 
-- A Page can display title text, say text and a list of options.
-- Only one Page is ever active at a time.
-- The active Page automatically hides when there is no remaining story text or options to display.
-- The appearance of the title and say text in the Page is controlled via the active [PageStyle](@ref Fungus.PageStyle) object.
 
 - - -
 

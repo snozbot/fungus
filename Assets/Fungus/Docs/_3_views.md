@@ -41,7 +41,6 @@ public class MyRoom : Room
 - The [View](@ref Fungus.View) component specifies a single camera position and orthographic size.
 - Fungus automatically modifies the position and size of the camera when changing Rooms and transitioning between Views.
 - You can add multiple Views in a Fungus room and perform transitions between those Views to move the camera around the Room.
-- When a transition to a new View completes, Fungus looks for a Page object that is a child of that View. The child Page then utomatically becomes the active Page.
 - View transitions cause the command queue to pause until the transition has completed.
 - The View class currently only supports the Orthographic mode for Unity's Camera component.
 

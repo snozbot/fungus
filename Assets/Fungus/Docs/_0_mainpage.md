@@ -6,5 +6,5 @@ Fungus is an open source library for Unity 3D for creating interactive fiction /
 It was created and is maintained by Chris Gregan from [Snozbot.com](http://www.snozbot.com/).
 
 - See the [GameController](@ref Fungus.GameController) class for a full list of supported commands.
-- See http://www.snozbot.com/fungus for more information about the Fungus project.
+- See http://fungus.snozbot.com for more information about the Fungus project.
 
