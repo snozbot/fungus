@@ -62,15 +62,23 @@ namespace Fungus
 			float startAlpha = Game.GetInstance().fadeAlpha;
 			float timer = 0;
 
-			while (timer < fadeDuration)
+			// If already at the target alpha then complete immediately
+			if (startAlpha == targetAlpha)
 			{
-				float t = timer / fadeDuration;
-				timer += Time.deltaTime;
-
-				t = Mathf.Clamp01(t);   
-
-				Game.GetInstance().fadeAlpha = Mathf.Lerp(startAlpha, targetAlpha, t);
 				yield return null;
+			}
+			else
+			{
+				while (timer < fadeDuration)
+				{
+					float t = timer / fadeDuration;
+					timer += Time.deltaTime;
+
+					t = Mathf.Clamp01(t);   
+
+					Game.GetInstance().fadeAlpha = Mathf.Lerp(startAlpha, targetAlpha, t);
+					yield return null;
+				}
 			}
 
 			Game.GetInstance().fadeAlpha = targetAlpha;
