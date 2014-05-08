@@ -140,7 +140,38 @@ namespace Fungus
 				// MoveToRoom always resets the command queue so no need to call onComplete
 			}
 		}
-		
+
+		/** 
+		 * Switches to a different scene.
+		 */
+		public class MoveToScene : CommandQueue.Command
+		{
+			string sceneName;
+
+			public MoveToScene(string _sceneName)
+			{
+				if (_sceneName == "")
+				{
+					Debug.LogError("Scene name must not be empty");
+					return;
+				}
+				
+				sceneName = _sceneName;
+			}
+			
+			public override void Execute(CommandQueue commandQueue, Action onComplete)
+			{
+				Game game = Game.GetInstance();
+				
+				game.waiting = true;
+				
+				// Fade out screen
+				game.cameraController.Fade(0f, game.roomFadeDuration / 2f, delegate {
+					Game.GetInstance().LoadScene(sceneName, true);
+				});
+			}
+		}
+
 		/** 
 		 * Sets a globally accessible integer value
 		 */
@@ -181,7 +212,57 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Game.GetInstance().stringTable.SetString(key, value);
+				Game.stringTable.SetString(key, value);
+				if (onComplete != null)
+				{
+					onComplete();
+				}
+			}		
+		}
+
+		/** 
+		 * Save the current game state to persistant storage.
+		 */
+		public class Save : CommandQueue.Command
+		{
+			Action commandAction;
+
+			public Save(string saveName)
+			{
+				commandAction = delegate {
+					Game.GetInstance().SaveGame(saveName);
+				};
+			}
+			
+			public override void Execute(CommandQueue commandQueue, Action onComplete)
+			{
+				commandAction();
+
+				if (onComplete != null)
+				{
+					onComplete();
+				}
+			}		
+		}
+
+		/** 
+		 * Load the game state from persistant storage.
+		 */
+		public class Load : CommandQueue.Command
+		{
+			Action commandAction;
+			
+			public Load(string saveName)
+			{
+				commandAction = delegate {
+					Game.GetInstance().LoadGame(saveName);
+				};
+			}
+			
+			public override void Execute(CommandQueue commandQueue, Action onComplete)
+			{
+				commandAction();
+				
 				if (onComplete != null)
 				{
 					onComplete();

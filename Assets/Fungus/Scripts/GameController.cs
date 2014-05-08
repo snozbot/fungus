@@ -39,7 +39,18 @@ namespace Fungus
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.MoveToRoom(room));
 		}
-		
+
+		/**
+		 * Transitions to a different scene.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param sceneName The name of the scene to transition to.
+		 */
+		public static void MoveToScene(string sceneName)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.MoveToScene(sceneName));
+		}
+
 		/**
 		 * Wait for a period of time before executing the next command.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
@@ -72,7 +83,27 @@ namespace Fungus
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(callAction));
 		}
-		
+
+		/**
+		 * Save the current game state to persistant storage.
+		 * @param saveName The name of the saved game data.
+		 */
+		public static void Save(string saveName = "Fungus.Save")
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.Save(saveName));
+		}
+
+		/**
+		 * Load the current game state from persistant storage.
+		 * @param saveName The name of the saved game data.
+		 */
+		public static void Load(string saveName = "Fungus.Save")
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.Load(saveName));
+		}
+
 		#endregion
 		#region View Methods
 
@@ -483,7 +514,7 @@ namespace Fungus
 		 */
 		public static string GetString(string key)
 		{
-			return Game.GetInstance().stringTable.GetString(key);
+			return Game.stringTable.GetString(key);
 		}
 
 		#endregion

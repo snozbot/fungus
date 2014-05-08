@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 /** 
  * @package Fungus An open source library for Unity 3D for creating graphic interactive fiction games.
@@ -104,10 +108,10 @@ namespace Fungus
 		 * Global dictionary of integer values for storing game state.
 		 */
 		[HideInInspector]
-		public Dictionary<string, int> values = new Dictionary<string, int>();
+		static public Dictionary<string, int> values = new Dictionary<string, int>();
 
 		[HideInInspector]
-		public StringTable stringTable = new StringTable();
+		static public StringTable stringTable = new StringTable();
 		
 		[HideInInspector]
 		public CommandQueue commandQueue;
@@ -322,6 +326,91 @@ namespace Fungus
 			offset.y *= parallaxFactor.y;
 
 			return offset;
+		}
+
+		/**
+		 * Loads a new scene.
+		 * This is useful for splitting a large Fungus game across multiple scene files to reduce peak memory usage.
+		 * All previously loaded assets (including textures) will be released.
+		 * @param sceneName The filename of the scene to load.
+		 * @param saveGame Automatically save the current game state as a checkpoint.
+		 */
+		public void LoadScene(string sceneName, bool saveGame)
+		{
+			Application.LoadLevel(sceneName);
+
+			if (saveGame)
+			{
+				SaveGame("Fungus.Save");
+			}
+
+			// Free up memory used by textures in previous scene
+			Resources.UnloadUnusedAssets();
+		}
+
+		/**
+		 * Save the current game state to persistant storage.
+		 * Only the values, string table and current scene are stored.
+		 * @param saveName The name of the saved game data.
+		 */
+		public void SaveGame(string saveName)
+		{
+			// Store loaded scene name in save data
+			SetString("Fungus.Scene", Application.loadedLevelName);
+
+			var b = new BinaryFormatter();
+			var m = new MemoryStream();
+
+			// Save values
+			{
+				b.Serialize(m, values);
+				string s = Convert.ToBase64String(m.GetBuffer());
+				PlayerPrefs.SetString(saveName + ".values", s);
+			}
+
+			// Save string table
+			{
+				b.Serialize(m, stringTable.stringDict);
+				string s = Convert.ToBase64String(m.GetBuffer());
+				PlayerPrefs.SetString(saveName + ".stringTable", s);
+			}
+		}
+
+		/**
+		 * Loads the current game state from persistant storage.
+		 * This will cause the scene specified in the "Fungus.Scene" string to be loaded.
+		 * Each scene in your game should contain the necessary code to restore the current game state based on saved data.
+		 * @param saveName The name of the saved game data.
+		 */
+		public void LoadGame(string saveName)
+		{
+			// Load values
+			{
+				var data = PlayerPrefs.GetString(saveName + ".values");
+				if (!string.IsNullOrEmpty(data))
+				{
+					var b = new BinaryFormatter();
+					var m = new MemoryStream(Convert.FromBase64String(data));
+					values = (Dictionary<string, int>)b.Deserialize(m);
+				}
+			}
+
+			// Load string table
+			{
+				var data = PlayerPrefs.GetString(saveName + ".stringTable");
+				if (!string.IsNullOrEmpty(data))
+				{
+					var b = new BinaryFormatter();
+					var m = new MemoryStream(Convert.FromBase64String(data));
+					stringTable.stringDict = b.Deserialize(m) as Dictionary<string, string>;
+				}
+			}
+
+			string sceneName = GetString("Fungus.Scene");
+			if (sceneName.Length > 0)
+			{
+				LoadScene(sceneName, true);
+			}
 		}
 	}
 }

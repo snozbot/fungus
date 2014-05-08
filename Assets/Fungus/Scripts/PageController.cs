@@ -194,24 +194,21 @@ namespace Fungus
 		public void Say(string sayText, Action sayAction)
 		{
 			mode = Mode.Say;
-			StringTable stringTable = Game.GetInstance().stringTable;
-			string subbedText = stringTable.SubstituteStrings(sayText);
+			string subbedText = Game.stringTable.SubstituteStrings(sayText);
 			continueAction = sayAction;
 			WriteStory(subbedText);
 		}
 
 		public void AddOption(string optionText, Action optionAction)
 		{
-			StringTable stringTable = Game.GetInstance().stringTable;
-			string subbedText = stringTable.FormatLinkText(stringTable.SubstituteStrings(optionText));
+			string subbedText = Game.stringTable.FormatLinkText(Game.stringTable.SubstituteStrings(optionText));
 			options.Add(new Option(subbedText, optionAction));
 		}
 
 		public void Choose(string _chooseText)
 		{
 			mode = Mode.Choose;
-			StringTable stringTable = Game.GetInstance().stringTable;
-			string subbedText = stringTable.SubstituteStrings(_chooseText);
+			string subbedText = Game.stringTable.SubstituteStrings(_chooseText);
 			WriteStory(subbedText);			
 		}
 

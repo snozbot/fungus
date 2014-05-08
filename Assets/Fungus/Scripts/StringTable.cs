@@ -11,14 +11,14 @@ namespace Fungus
 	 */
 	public class StringTable
 	{
-		Dictionary<string, string> stringTable = new Dictionary<string, string>();
+		public Dictionary<string, string> stringDict = new Dictionary<string, string>();
 
 		/**
 		 * Removes all strings from the string table.
 		 */
 		public void ClearStringTable()
 		{
-			stringTable.Clear();
+			stringDict.Clear();
 		}
 
 		/**
@@ -26,9 +26,9 @@ namespace Fungus
 		 */
 		public string GetString(string key)
 		{
-			if (stringTable.ContainsKey(key))
+			if (stringDict.ContainsKey(key))
 			{
-				return stringTable[key];
+				return stringDict[key];
 			}
 			return "";
 		}
@@ -38,7 +38,7 @@ namespace Fungus
 		 */
 		public void SetString(string key, string value)
 		{
-			stringTable[key] = value;
+			stringDict[key] = value;
 		}
 
 		/** 
