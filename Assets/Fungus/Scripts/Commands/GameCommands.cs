@@ -15,28 +15,26 @@ namespace Fungus
 		 */
 		public class Call : CommandQueue.Command
 		{
-			Action callAction;
+			Action onExecute;
 			
-			public Call(Action _callAction)
+			public Call(Action callAction)
 			{
-				if (_callAction == null)
+				if (callAction == null)
 				{
 					Debug.LogError("Action must not be null.");
 					return;
 				}
 				
-				callAction = _callAction;
+				onExecute = callAction;
 			}
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				if (callAction != null)
-				{
-					callAction();
-				}
+				if (onExecute != null)
+					onExecute();
 				
-				// Execute next command
-				onComplete();
+				if (onComplete != null)
+					onComplete();	
 			}		
 		}
 		
@@ -104,40 +102,43 @@ namespace Fungus
 		 */
 		public class MoveToRoom : CommandQueue.Command
 		{
-			Room room;
-			
-			public MoveToRoom(Room _room)
+			Action onExecute;
+
+			public MoveToRoom(Room room)
 			{
-				if (_room == null)
+				if (room == null)
 				{
 					Debug.LogError("Room must not be null.");
 					return;
 				}
-				
-				room = _room;
+
+				onExecute = delegate {
+					Game game = Game.GetInstance();
+					game.waiting = true;
+					
+					// Fade out screen
+					game.cameraController.Fade(0f, game.roomFadeDuration / 2f, delegate {
+						
+						game.activeRoom = room;
+						
+						// Notify room script that the Room is being entered
+						// Calling private method on Room to hide implementation
+						game.activeRoom.gameObject.SendMessage("Enter");
+						
+						// Fade in screen
+						game.cameraController.Fade(1f, game.roomFadeDuration / 2f, delegate {
+							game.waiting = false;
+						});
+					});
+				};
 			}
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Game game = Game.GetInstance();
-				
-				game.waiting = true;
-				
-				// Fade out screen
-				game.cameraController.Fade(0f, game.roomFadeDuration / 2f, delegate {
-					
-					game.activeRoom = room;
-					
-					// Notify room script that the Room is being entered
-					// Calling private method on Room to hide implementation
-					game.activeRoom.gameObject.SendMessage("Enter");
-					
-					// Fade in screen
-					game.cameraController.Fade(1f, game.roomFadeDuration / 2f, delegate {
-						game.waiting = false;
-					});
-				});
-				// MoveToRoom always resets the command queue so no need to call onComplete
+				if (onExecute != null)
+					onExecute();
+
+				// This command resets the command queue so no need to call onComplete
 			}
 		}
 
@@ -146,29 +147,33 @@ namespace Fungus
 		 */
 		public class MoveToScene : CommandQueue.Command
 		{
-			string sceneName;
+			Action onExecute;
 
-			public MoveToScene(string _sceneName)
+			public MoveToScene(string sceneName)
 			{
-				if (_sceneName == "")
+				if (sceneName == "")
 				{
 					Debug.LogError("Scene name must not be empty");
 					return;
 				}
-				
-				sceneName = _sceneName;
+
+				onExecute = delegate {
+					Game game = Game.GetInstance();
+					game.waiting = true;
+					
+					// Fade out screen
+					game.cameraController.Fade(0f, game.roomFadeDuration / 2f, delegate {
+						Game.GetInstance().LoadScene(sceneName, true);
+					});
+				};
 			}
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Game game = Game.GetInstance();
-				
-				game.waiting = true;
-				
-				// Fade out screen
-				game.cameraController.Fade(0f, game.roomFadeDuration / 2f, delegate {
-					Game.GetInstance().LoadScene(sceneName, true);
-				});
+				if (onExecute != null)
+					onExecute();
+
+				// This command resets the command queue so no need to call onComplete
 			}
 		}
 
@@ -177,22 +182,22 @@ namespace Fungus
 		 */
 		public class SetValue : CommandQueue.Command
 		{
-			string key;
-			int value;
-			
-			public SetValue(string _key, int _value)
+			Action onExecute;
+
+			public SetValue(string key, int value)
 			{
-				key = _key;
-				value = _value;
+				onExecute = delegate {
+					Game.GetInstance().SetGameValue(key, value);
+				};
 			}
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Game.GetInstance().SetGameValue(key, value);
+				if (onExecute != null)
+					onExecute();
+
 				if (onComplete != null)
-				{
 					onComplete();
-				}
 			}		
 		}
 
@@ -201,22 +206,22 @@ namespace Fungus
 		 */
 		public class SetString : CommandQueue.Command
 		{
-			string key;
-			string value;
+			Action onExecute;
 			
-			public SetString(string _key, string _value)
+			public SetString(string key, string value)
 			{
-				key = _key;
-				value = _value;
+				onExecute = delegate {
+					Game.stringTable.SetString(key, value);
+				};
 			}
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Game.stringTable.SetString(key, value);
+				if (onExecute != null)
+					onExecute();
+
 				if (onComplete != null)
-				{
 					onComplete();
-				}
 			}		
 		}
 
@@ -225,23 +230,21 @@ namespace Fungus
 		 */
 		public class Save : CommandQueue.Command
 		{
-			Action commandAction;
+			Action onExecute;
 
 			public Save(string saveName)
 			{
-				commandAction = delegate {
+				onExecute = delegate {
 					Game.GetInstance().SaveGame(saveName);
 				};
 			}
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				commandAction();
+				onExecute();
 
 				if (onComplete != null)
-				{
 					onComplete();
-				}
 			}		
 		}
 
@@ -250,23 +253,21 @@ namespace Fungus
 		 */
 		public class Load : CommandQueue.Command
 		{
-			Action commandAction;
+			Action onExecute;
 			
 			public Load(string saveName)
 			{
-				commandAction = delegate {
+				onExecute = delegate {
 					Game.GetInstance().LoadGame(saveName);
 				};
 			}
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				commandAction();
+				onExecute();
 				
 				if (onComplete != null)
-				{
 					onComplete();
-				}
 			}		
 		}
 	}
