@@ -1,38 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Fungus;
 
-// The parallax effect is achieved by attaching a Parallax script to each sprite that requires a
-// parallax offset. The offset is then applied automatically whenever the camera moves around the active Room.
-// There is a handy parallax sprite prefab in Fungus/Prefabs/ParallaxSprite.prefab
-
-public class ParallaxRoom : Room 
+namespace Fungus.Example
 {
-	public View viewA;
-	public View viewB;
+	// The parallax effect is achieved by attaching a Parallax script to each sprite that requires a
+	// parallax offset. The offset is then applied automatically whenever the camera moves around the active Room.
+	// There is a handy parallax sprite prefab in Fungus/Prefabs/ParallaxSprite.prefab
 
-	public Button menuButton;
-
-	public Room menuRoom;
-
-	void OnEnter()
+	public class ParallaxRoom : Room 
 	{
-		SetView(viewA);
+		public View viewA;
+		public View viewB;
 
-		Say("Let's move the camera!");
-		PanToView(viewB, 2);
-		Say("Oooh! Nice parallax!");
-		PanToView(viewA, 2);
-		Say("Now you have a go!");
-		Say("Swipe the screen to pan around.");
+		public Button menuButton;
 
-		ShowButton(menuButton, OnHomeButtonClicked);
+		public Room menuRoom;
 
-		StartSwipePan(viewA, viewB, 0f);
-	}
+		void OnEnter()
+		{
+			SetView(viewA);
 
-	void OnHomeButtonClicked()
-	{
-		MoveToRoom(menuRoom);
+			Say("Let's move the camera!");
+			PanToView(viewB, 2);
+			Say("Oooh! Nice parallax!");
+			PanToView(viewA, 2);
+			Say("Now you have a go!");
+			Say("Swipe the screen to pan around.");
+
+			ShowButton(menuButton, OnHomeButtonClicked);
+
+			StartSwipePan(viewA, viewB, 0f);
+		}
+
+		void OnHomeButtonClicked()
+		{
+			MoveToRoom(menuRoom);
+		}
 	}
 }

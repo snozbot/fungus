@@ -1,56 +1,58 @@
 using UnityEngine;
 using System.Collections;
-using Fungus;
 
-public class MenuRoom : Room
+namespace Fungus.Example
 {
-	public Room pageRoom;
-	public Room viewRoom;
-	public Room spriteRoom;
-	public Room parallaxRoom;
-	public Room buttonRoom;
-	public Room audioRoom;
-
-	void OnEnter() 
+	public class MenuRoom : Room
 	{
-		SetPageMiddle();
+		public Room pageRoom;
+		public Room viewRoom;
+		public Room spriteRoom;
+		public Room parallaxRoom;
+		public Room buttonRoom;
+		public Room audioRoom;
 
-		AddOption("Writing a story with Pages", MoveToWritingRoom);
-		AddOption("Controlling the camera with Views", MoveToViewRoom);
-		AddOption("Sprites and Animations", MoveToSpriteRoom);
-		AddOption("Swipe panning and parallax", MoveToParallaxRoom);
-		AddOption("Using Buttons", MoveToButtonsRoom);
-		AddOption("Playing music and sound effects", MoveToAudioRoom);
-		Choose("Choose an example");
-	}
+		void OnEnter() 
+		{
+			SetPageMiddle();
 
-	void MoveToWritingRoom()
-	{
-		MoveToRoom(pageRoom);
-	}
+			AddOption("Writing a story with Pages", MoveToWritingRoom);
+			AddOption("Controlling the camera with Views", MoveToViewRoom);
+			AddOption("Sprites and Animations", MoveToSpriteRoom);
+			AddOption("Swipe panning and parallax", MoveToParallaxRoom);
+			AddOption("Using Buttons", MoveToButtonsRoom);
+			AddOption("Playing music and sound effects", MoveToAudioRoom);
+			Choose("Choose an example");
+		}
 
-	void MoveToViewRoom()
-	{
-		MoveToRoom(viewRoom);
-	}
+		void MoveToWritingRoom()
+		{
+			MoveToRoom(pageRoom);
+		}
 
-	void MoveToSpriteRoom()
-	{
-		MoveToRoom(spriteRoom);
-	}
+		void MoveToViewRoom()
+		{
+			MoveToRoom(viewRoom);
+		}
 
-	void MoveToParallaxRoom()
-	{
-		MoveToRoom(parallaxRoom);
-	}
+		void MoveToSpriteRoom()
+		{
+			MoveToRoom(spriteRoom);
+		}
 
-	void MoveToButtonsRoom()
-	{
-		MoveToRoom(buttonRoom);
-	}
+		void MoveToParallaxRoom()
+		{
+			MoveToRoom(parallaxRoom);
+		}
 
-	void MoveToAudioRoom()
-	{
-		MoveToRoom(audioRoom);
+		void MoveToButtonsRoom()
+		{
+			MoveToRoom(buttonRoom);
+		}
+
+		void MoveToAudioRoom()
+		{
+			MoveToRoom(audioRoom);
+		}
 	}
 }

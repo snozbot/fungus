@@ -1,61 +1,63 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Fungus;
 
-public class SpriteRoom : Room 
+namespace Fungus.Example
 {
-	public Room menuRoom;
-
-	public Animator blueAlienAnim;
-	public SpriteRenderer blueAlienSprite;
-	public SpriteRenderer redMushroomSprite;
-
-	void OnEnter() 
-	{	
-		HideSprite(redMushroomSprite);
-
-		ShowSprite(blueAlienSprite);
-
-		Say("Pink Alien says to Blue Alien...");
-		Say("...'Show me your funky moves!'");
-
-		SetAnimatorTrigger(blueAlienAnim, "StartBlueWalk");
-
-		Say("Blue Alien starts to dance.");
-
-		Wait(4);
-
-		SetAnimatorTrigger(blueAlienAnim, "Stop");
-
-		Say("Nice moves there Blue Alien!");
-
-		FadeSprite(redMushroomSprite, 1f, 1f);
-
-		Say("Maybe you want a nice mushroom to sit down on?");
-		Say("Don't want to sit? Ok, no problem.");
-
-		FadeSprite(redMushroomSprite, 0f, 1f);
-
-		Say("Uh oh, you look like you're turning a little green after all that dancing!");
-
-		SetAnimatorTrigger(blueAlienAnim, "StartGreenWalk");
-
-		Say("Never mind, you'll feel better soon!");
-	}
-
-	// This method is called by the Animation Event Listener component on the blue alien.
-	// When the GreenAlienWalk animation finishes it fires an event which calls this method.
-	void AlienAnimationFinished()
+	public class SpriteRoom : Room 
 	{
-		SetAnimatorTrigger(blueAlienAnim, "Stop");
+		public Room menuRoom;
 
-		Say("Well done Blue Alien! Time to say goodbye!");
+		public Animator blueAlienAnim;
+		public SpriteRenderer blueAlienSprite;
+		public SpriteRenderer redMushroomSprite;
 
-		FadeSprite(blueAlienSprite, 0, 1f);
-		Wait(1f);
+		void OnEnter() 
+		{	
+			HideSprite(redMushroomSprite);
 
-		Say("Heh. That Blue Alien - what a guy!");
+			ShowSprite(blueAlienSprite);
 
-		MoveToRoom(menuRoom);
+			Say("Pink Alien says to Blue Alien...");
+			Say("...'Show me your funky moves!'");
+
+			SetAnimatorTrigger(blueAlienAnim, "StartBlueWalk");
+
+			Say("Blue Alien starts to dance.");
+
+			Wait(4);
+
+			SetAnimatorTrigger(blueAlienAnim, "Stop");
+
+			Say("Nice moves there Blue Alien!");
+
+			FadeSprite(redMushroomSprite, 1f, 1f);
+
+			Say("Maybe you want a nice mushroom to sit down on?");
+			Say("Don't want to sit? Ok, no problem.");
+
+			FadeSprite(redMushroomSprite, 0f, 1f);
+
+			Say("Uh oh, you look like you're turning a little green after all that dancing!");
+
+			SetAnimatorTrigger(blueAlienAnim, "StartGreenWalk");
+
+			Say("Never mind, you'll feel better soon!");
+		}
+
+		// This method is called by the Animation Event Listener component on the blue alien.
+		// When the GreenAlienWalk animation finishes it fires an event which calls this method.
+		void AlienAnimationFinished()
+		{
+			SetAnimatorTrigger(blueAlienAnim, "Stop");
+
+			Say("Well done Blue Alien! Time to say goodbye!");
+
+			FadeSprite(blueAlienSprite, 0, 1f);
+			Wait(1f);
+
+			Say("Heh. That Blue Alien - what a guy!");
+
+			MoveToRoom(menuRoom);
+		}
 	}
 }
