@@ -5,7 +5,7 @@ namespace Fungus.Example
 {
 	public class ButtonRoom : Room 
 	{
-		public Fungus.Room menuRoom;
+		public Room menuRoom;
 
 		public AudioClip effectClip;
 
@@ -13,8 +13,15 @@ namespace Fungus.Example
 		public Button soundButton;
 		public Button questionButton;
 
+		// GUIButton displays a button texture at the same size & position regardless of screen resolution.
+		// This is handy for displaying simple buttons in a consistent manner across devices.
+		public GUIButton mushroomButton;
+
 		void OnEnter()
 		{
+			// Show the mushroom logo immediately
+			mushroomButton.enabled = true;
+
 			// Show button, always visible (because autoHide is set to false)
 			ShowButton(homeButton, OnHomeClicked);
 
@@ -34,6 +41,8 @@ namespace Fungus.Example
 
 		void OnHomeClicked()
 		{
+			mushroomButton.enabled = false;
+		
 			MoveToRoom(menuRoom);
 		}
 

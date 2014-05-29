@@ -11,15 +11,8 @@ namespace Fungus.Example
 		public SpriteRenderer blueAlienSprite;
 		public SpriteRenderer redMushroomSprite;
 
-		// AnchorGUITexture displays a texture at the same size & position regardless of screen resolution.
-		// This is handy for displaying simple GUI textures in a consistent manner across devices.
-		public AnchorGUITexture mushroomLogo;
-
 		void OnEnter() 
 		{	
-			// Show the mushroom logo immediately
-			mushroomLogo.enabled = true;
-
 			HideSprite(redMushroomSprite);
 
 			ShowSprite(blueAlienSprite);
@@ -63,12 +56,6 @@ namespace Fungus.Example
 			Wait(1f);
 
 			Say("Heh. That Blue Alien - what a guy!");
-
-			// We want the mushroom logo to hide just before we move to the menuRoom,
-			// so we pass a delegate method to the Call command which will execute as part of the command sequence.
-			Call(delegate {
-				mushroomLogo.enabled = false;
-			});
 
 			MoveToRoom(menuRoom);
 		}
