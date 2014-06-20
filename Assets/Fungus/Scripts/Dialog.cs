@@ -354,6 +354,13 @@ namespace Fungus
 		public void Say(string _sayText, Action sayAction)
 		{
 			string subbedText = Game.stringTable.SubstituteStrings(_sayText);
+
+			// Hack: Handle Say(""); by writing a single space character.
+			if (subbedText.Length == 0)
+			{
+				subbedText = " ";
+			}
+
 			continueAction = sayAction;
 			previousSayText = subbedText;
 
