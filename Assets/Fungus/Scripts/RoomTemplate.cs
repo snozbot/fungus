@@ -21,11 +21,11 @@ namespace Fungus
 
 		// Some common examples:
 		// public View mainView;
-		// public Page dialogPage;
+		// public Dialog otherDialog;
 		// public Room otherRoom;
 		// public SpriteRenderer characterSprite;
 		// public Animator characterAnim;
-		// public AudioClip musicClip;
+		// public AudioClip musicSound;
 
 		/** 
 		 * OnEnter() is always called when the player enters the room

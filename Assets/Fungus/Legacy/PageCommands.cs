@@ -79,7 +79,7 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				Game.GetInstance().activePageStyle = pageStyle;
+				Game.GetInstance().pageController.activePageStyle = pageStyle;
 				if (onComplete != null)
 				{
 					onComplete();
@@ -134,7 +134,7 @@ namespace Fungus
 				}
 			}		
 		}
-		
+
 		/** 
 		 * Writes story text to the page.
 		 * A continue icon is displayed when the text has fully appeared.
@@ -150,8 +150,8 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				PageController page = Game.GetInstance().pageController;
-				page.Say(storyText, onComplete);
+				IDialog sayDialog = Game.GetInstance().GetDialog();
+				sayDialog.Say(storyText, onComplete);
 			}
 		}
 		
@@ -172,8 +172,8 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				PageController page = Game.GetInstance().pageController;
-				page.AddOption(optionText, optionAction);
+				IDialog characterDialog = Game.GetInstance().GetDialog();
+				characterDialog.AddOption(optionText, optionAction);
 
 				if (onComplete != null)
 				{
@@ -196,8 +196,19 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				PageController page = Game.GetInstance().pageController;
-				page.Choose(chooseText);
+				IDialog dialog = Game.GetInstance().GetDialog();
+
+				PageController pageController = dialog as PageController;
+				if (pageController != null)
+				{
+					// Legacy support for old Pages system
+					pageController.Choose(chooseText);
+				}
+				else
+				{
+					// Support for modern IDialog interface
+					dialog.Say(chooseText, null);
+				}
 
 				// Choose always clears the commandQueue, so there's no need to call onComplete()
 			}		

@@ -3,48 +3,36 @@ using System.Collections;
 
 namespace Fungus.Example
 {
-	public class PageRoom : Room 
+	public class DialogRoom : Room 
 	{
 		// This is a reference to the menu room so we can transition back to the menu using MoveToRoom()
 		public Room menuRoom;
 
-		// References to PageStyle prefab assets
-		// Use these with SetPageStyle() to change the Page rendering style
-		public PageStyle defaultStyle;
-		public PageStyle alternateStyle;
-
 		// The OnEnter() method is called whenever the player enters the room
 		void OnEnter()
 		{
-			// Sets the header text on the page
-			SetHeader("The Mushroom");
-
 			// Each Say() command writes one line of text, followed by a continue button
-			Say("One day in the forest, a mushroom grew.");
-			Say("What am I doing here he wondered?");
+			Say("One day in the deep dark forest, a mushroom grew.");
 
-			SetPageTop();
+			SetCharacter("Mushroom");
+
+			Say("What am I doing here?");
 			Say("I think I will wait for a while and see if something happens.");
 
 			// Wait for a few seconds
-			Wait(3);
+			Wait(2);
 
-			// Set the header text to the empty string to remove the page title
-			SetHeader("");
-
-			SetPageBottom();
-			Say("...");
 			Say("Hmmm. Nothing seems to be happening.");
 
-			// Add a couple of user options
+			// Add a some user options, you can add as many as you like.
 			// The first parameter is the option text
 			// The second parameter is the method to call if the user selects the option
-			// You can add as many options as you like
 			AddOption("Go to sleep", GoToSleep);
 			AddOption("Produce spores", ProduceSpores);
 
-			// Display all the previously added options, with a text prompt
-			Choose("Whatever will I do?");
+			// Write some story text. 
+			// The previously added options will be displayed as buttons.
+			Say("Whatever will I do?");
 		}
 
 		void GoToSleep()
@@ -70,14 +58,8 @@ namespace Fungus.Example
 
 		void ProduceSpores()
 		{
-			// Set a PageStyle with no background box texture
-			SetPageStyle(alternateStyle);
-
 			Say("Yeah! I feel like doing some sporing!");
 			Say("Wow - look at all these spores! COOL!");
-
-			// Set the default style with background box texture
-			SetPageStyle(defaultStyle);
 
 			// Sets a global value flag which we check above in GoToSleep
 			SetValue("spawned");
@@ -85,7 +67,7 @@ namespace Fungus.Example
 			AddOption("So tired. I sleep now.", GoToSleep);
 			AddOption("No way! More spores!", ProduceSpores);
 
-			Choose("What will I do now?");
+			Say("What will I do now?");
 		}
 	}
 }

@@ -14,6 +14,10 @@ namespace Fungus
 	/** 
 	 * Manages global game state and movement between rooms.
 	 */
+	[RequireComponent(typeof(Dialog))]
+	[RequireComponent(typeof(CommandQueue))]
+	[RequireComponent(typeof(CameraController))]
+	[RequireComponent(typeof(PageController))]
 	public class Game : GameController 
 	{
 		/**
@@ -23,24 +27,9 @@ namespace Fungus
 		public Room activeRoom;
 
 		/**
-		 * The style to apply when displaying Pages.
-		 */
-		public PageStyle activePageStyle;
-
-		/**
 		 * Automatically display links between connected Rooms.
 		 */
 		public bool showLinks = true;
-
-		/**
-		 * Writing speed for page text.
-		 */
-		public int charactersPerSecond = 60;
-
-		/**
-		 * Fixed Z coordinate of main camera.
-		 */
-		public float cameraZ = - 10f;
 
 		/**
 		 * Time for fade transition to complete when moving to a different Room.
@@ -58,51 +47,9 @@ namespace Fungus
 		public float autoHideButtonDuration = 5f;
 
 		/**
-		 * Full screen texture used for screen fade effect.
+		 * Currently active Dialog object used to display character text and menus.
 		 */
-		public Texture2D screenFadeTexture;
-
-		/**
-		 * Position of continue and swipe icons in normalized screen space coords.
-		 * (0,0) = top left, (1,1) = bottom right
-		 */
-		public Vector2 iconPosition = new Vector2(1,1);
-
-		/**
-		 * Icon to display when waiting for player input to continue
-		 */
-		public Texture2D continueIcon;
-
-		/**
-		 * Icon to display when swipe pan mode is active.
-		 */
-		public Texture2D swipePanIcon;
-
-		/**
-		 * Sound effect to play when buttons are clicked.
-		 */
-		public AudioClip buttonClickClip;
-
-		/**
-		 * Default screen position for Page when player enters a Room.
-		 */
-		public PageController.PagePosition defaultPagePosition;
-
-		/**
-		 * Default width and height of Page as a fraction of screen height [0..1]
-		 */
-		public Vector2 defaultPageScale = new Vector2(0.75f, 0.25f);
-
-		/**
-		 *  Automatically center the Page when player is choosing from multiple options.
-		 */
-		public bool centerChooseMenu = true;
-
-		/**
-		 * Width of Page as a fraction of screen width [0..1] when automatically centering a Choose menu. 
-		 * This setting only has an effect when centerChooseMenu is enabled.
-		 */
-		public float chooseMenuWidth = 0.5f;
+		public Dialog dialog;
 
 		/**
 		 * Global dictionary of integer values for storing game state.
@@ -128,12 +75,6 @@ namespace Fungus
 		[HideInInspector]
 		public bool waiting; 
 
-		[HideInInspector]
-		public bool swipePanActive;
-
-		[HideInInspector]
-		public float fadeAlpha = 0f;
-
 		float autoHideButtonTimer;
 
 		static Game instance;
@@ -157,14 +98,11 @@ namespace Fungus
 
 		public virtual void Start()
 		{
-			// Add components for additional game functionality
-			commandQueue = gameObject.AddComponent<CommandQueue>();
-			cameraController = gameObject.AddComponent<CameraController>();
-			pageController = gameObject.AddComponent<PageController>();
+			// Acquire references to required components
 
-			AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-			audioSource.playOnAwake = false;
-			audioSource.loop = true;
+			commandQueue = gameObject.GetComponent<CommandQueue>();
+			cameraController = gameObject.GetComponent<CameraController>();
+			pageController = gameObject.GetComponent<PageController>();
 
 			// Auto-hide buttons should be visible at start of game
 			autoHideButtonTimer = autoHideButtonDuration;
@@ -195,70 +133,14 @@ namespace Fungus
 			}
 		}
 
-		void OnGUI()
-		{	
-			if (swipePanActive)
-			{
-				// Draw the swipe panning icon
-				if (swipePanIcon)
-				{
-					float x = Screen.width * iconPosition.x;
-					float y = Screen.height * iconPosition.y;
-					float width = swipePanIcon.width;
-					float height = swipePanIcon.height;
-
-					x = Mathf.Max(x, 0);
-					y = Mathf.Max(y, 0);
-					x = Mathf.Min(x, Screen.width - width);
-					y = Mathf.Min(y, Screen.height - height);
-
-					Rect rect = new Rect(x, y, width, height);
-					GUI.DrawTexture(rect, swipePanIcon);
-				}
-			}
-
-			if (pageController.mode == PageController.Mode.Say &&
-			    pageController.FinishedWriting())
-			{
-				// Draw the continue icon
-				if (continueIcon)
-				{
-					float x = Screen.width * iconPosition.x;
-					float y = Screen.height * iconPosition.y;
-					float width = continueIcon.width;
-					float height = continueIcon.height;
-					
-					x = Mathf.Max(x, 0);
-					y = Mathf.Max(y, 0);
-					x = Mathf.Min(x, Screen.width - width);
-					y = Mathf.Min(y, Screen.height - height);
-					
-					Rect rect = new Rect(x, y, width, height);
-					GUI.DrawTexture(rect, continueIcon);
-				}
-			}
-
-			// Draw full screen fade texture
-			if (fadeAlpha < 1f)
-			{
-				// 1 = scene fully visible
-				// 0 = scene fully obscured
-				GUI.color = new Color(1,1,1, 1f - fadeAlpha);	
-				GUI.depth = -1000;
-				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), screenFadeTexture);
-			}
-		}
-
-		/**
-		 * Plays the button clicked sound effect
-		 */
-		public void PlayButtonClick()
+		public IDialog GetDialog()
 		{
-			if (buttonClickClip == null)
+			if (dialog != null)
 			{
-				return;
+				return dialog as IDialog;
 			}
-			audio.PlayOneShot(buttonClickClip);
+			
+			return pageController as IDialog;
 		}
 
 		/**

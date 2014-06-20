@@ -20,7 +20,7 @@ namespace Fungus.Example
 			AddOption ("Give me the full tour", FullTour);
 			AddOption("Back to menu", MoveToMenu);
 
-			Choose("Wanna move the camera?");
+			Say("Wanna move the camera?");
 		}
 
 		void MoveToMenu()

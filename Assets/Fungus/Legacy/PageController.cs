@@ -10,7 +10,7 @@ namespace Fungus
 	 * Manages and draws a text box for rendering story text and multiple choice menus.
 	 */
 	[ExecuteInEditMode]
-	public class PageController : MonoBehaviour 
+	public class PageController : MonoBehaviour, IDialog
 	{
 		/// Options for default Page position on screen 
 		public enum PagePosition
@@ -62,11 +62,60 @@ namespace Fungus
 			Choose
 		};
 
+		/**
+		 * The style to apply when displaying Pages.
+		 */
+		public PageStyle activePageStyle;
+
 		/// Current Page story telling state
+		[HideInInspector]
 		public Mode mode = Mode.Idle;
 
 		/// Screen space rect for Page in pixels.
+		[HideInInspector]
 		public Rect pageRect; 
+
+		/**
+		 * Writing speed for page text.
+		 */
+		public int charactersPerSecond = 60;
+
+		/**
+		 * Icon to display when waiting for player input to continue
+		 */
+		public Texture2D continueIcon;
+
+		/**
+		 * Position of continue and swipe icons in normalized screen space coords.
+		 * (0,0) = top left, (1,1) = bottom right
+		 */
+		public Vector2 iconPosition = new Vector2(1,1);
+
+		/**
+		 * Default screen position for Page when player enters a Room.
+		 */
+		public PageController.PagePosition defaultPagePosition;
+		
+		/**
+		 * Default width and height of Page as a fraction of screen height [0..1]
+		 */
+		public Vector2 defaultPageScale = new Vector2(0.75f, 0.25f);
+		
+		/**
+		 * Automatically center the Page when player is choosing from multiple options.
+		 */
+		public bool centerChooseMenu = true;
+		
+		/**
+		 * Width of Page as a fraction of screen width [0..1] when automatically centering a Choose menu. 
+		 * This setting only has an effect when centerChooseMenu is enabled.
+		 */
+		public float chooseMenuWidth = 0.5f;
+
+		/**
+		 * Sound effect to play when buttons are clicked.
+		 */
+		public AudioClip clickSound;
 
 		string headerText = "";
 		string footerText = "";
@@ -155,19 +204,18 @@ namespace Fungus
 		 */
 		public void SetDefaultPageLayout()
 		{
-			Game game = Game.GetInstance();
-			ScreenRect screenRect = CalcScreenRect(game.defaultPageScale, game.defaultPagePosition);
+			ScreenRect screenRect = CalcScreenRect(defaultPageScale, defaultPagePosition);
 			pageRect = CalcPageRect(screenRect);
-			switch (game.defaultPagePosition)
+			switch (defaultPagePosition)
 			{
 			case PageController.PagePosition.Top:
-				game.pageController.layout = PageController.Layout.FullSize;
+				layout = PageController.Layout.FullSize;
 				break;
 			case PageController.PagePosition.Middle:
-				game.pageController.layout = PageController.Layout.FitToMiddle;
+				layout = PageController.Layout.FitToMiddle;
 				break;
 			case PageController.PagePosition.Bottom:
-				game.pageController.layout = PageController.Layout.FullSize;
+				layout = PageController.Layout.FullSize;
 				break;
 			}
 		}
@@ -191,12 +239,25 @@ namespace Fungus
 			footerText = _footerText;
 		}
 
-		public void Say(string sayText, Action sayAction)
+		public void Say(string sayText, Action sayAction = null)
 		{
+			// IDialog does not support the legacy Choose() command
+			// Instead, the assumption is that if you call Say() after some options have been added then show the choice menu.
+			if (options.Count > 0)
+			{
+				Choose(sayText);
+				return;
+			}
+
 			mode = Mode.Say;
 			string subbedText = Game.stringTable.SubstituteStrings(sayText);
 			continueAction = sayAction;
 			WriteStory(subbedText);
+		}
+
+		public void ClearOptions()
+		{
+			options.Clear();
 		}
 
 		public void AddOption(string optionText, Action optionAction)
@@ -212,10 +273,14 @@ namespace Fungus
 			WriteStory(subbedText);			
 		}
 
+		public void SetTimeout(float _timeoutDuration, Action _timeoutAction)
+		{
+			Debug.Log("SetTimeout() is not supported by PageController.");
+		}
+
 		void WriteStory(string storyText)
 		{
-			PageStyle pageStyle = Game.GetInstance().activePageStyle;
-			if (pageStyle == null)
+			if (activePageStyle == null)
 			{
 				return;
 			}
@@ -240,8 +305,6 @@ namespace Fungus
 		// Coroutine to write story text out over a period of time
 		IEnumerator WriteStoryInternal()
 		{
-			int charactersPerSecond = Game.GetInstance().charactersPerSecond;
-
 			// Zero CPS means write instantly
 			if (charactersPerSecond == 0)
 			{
@@ -298,30 +361,49 @@ namespace Fungus
 				return;
 			}
 
-			PageStyle pageStyle = Game.GetInstance().activePageStyle;
-			if (pageStyle == null)
+			if (activePageStyle == null)
 			{
 				return;
 			}
 
-			GUIStyle boxStyle = pageStyle.boxStyle;
-			GUIStyle headerStyle = pageStyle.GetScaledHeaderStyle();
-			GUIStyle footerStyle = pageStyle.GetScaledFooterStyle();
-			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
-			GUIStyle optionStyle = pageStyle.GetScaledOptionStyle();
-			GUIStyle optionAlternateStyle = pageStyle.GetScaledOptionAlternateStyle();
+			if (mode == PageController.Mode.Say &&
+			    FinishedWriting())
+			{
+				// Draw the continue icon
+				if (continueIcon)
+				{
+					float x = Screen.width * iconPosition.x;
+					float y = Screen.height * iconPosition.y;
+					float width = continueIcon.width;
+					float height = continueIcon.height;
+					
+					x = Mathf.Max(x, 0);
+					y = Mathf.Max(y, 0);
+					x = Mathf.Min(x, Screen.width - width);
+					y = Mathf.Min(y, Screen.height - height);
+					
+					Rect rect = new Rect(x, y, width, height);
+					GUI.DrawTexture(rect, continueIcon);
+				}
+			}
+
+			GUIStyle boxStyle = activePageStyle.boxStyle;
+			GUIStyle headerStyle = activePageStyle.GetScaledHeaderStyle();
+			GUIStyle footerStyle = activePageStyle.GetScaledFooterStyle();
+			GUIStyle sayStyle = activePageStyle.GetScaledSayStyle();
+			GUIStyle optionStyle = activePageStyle.GetScaledOptionStyle();
+			GUIStyle optionAlternateStyle = activePageStyle.GetScaledOptionAlternateStyle();
 
 			Rect outerRect;
 			Layout tempLayout;
 
-			Game game = Game.GetInstance();
 			if (mode == Mode.Choose &&
-			    game.centerChooseMenu)
+				centerChooseMenu)
 			{
 				// Position the Choose menu in middle of screen
 				// The width is controlled by game.chooseMenuWidth
 				// The height is automatically fitted to the text content
-				Vector2 pageScale = new Vector2(game.chooseMenuWidth, 0.5f);
+				Vector2 pageScale = new Vector2(chooseMenuWidth, 0.5f);
 				PageController.ScreenRect screenRect = PageController.CalcScreenRect(pageScale, PageController.PagePosition.Middle);
 				outerRect = PageController.CalcPageRect(screenRect);
 				tempLayout = PageController.Layout.FitToMiddle;
@@ -458,7 +540,7 @@ namespace Fungus
 			{
 				if (deferredAction != null)
 				{
-					Game.GetInstance().PlayButtonClick();
+					PlayButtonClick();
 
 					Action tempAction = deferredAction;
 
@@ -468,7 +550,7 @@ namespace Fungus
 
 					if (mode == Mode.Choose)
 					{
-						options.Clear();
+						ClearOptions();
 
 						// Reset to idle, but calling action may set this again
 						mode = Mode.Idle;
@@ -490,16 +572,14 @@ namespace Fungus
 
 		float CalcHeaderHeight(float boxWidth)
 		{
-			PageStyle pageStyle = Game.GetInstance().activePageStyle;
-
-			if (pageStyle == null ||
+			if (activePageStyle == null ||
 			    mode == Mode.Idle ||
 			    headerText.Length == 0)
 			{
 				return 0;
 			}
 
-			GUIStyle headerStyle = pageStyle.GetScaledHeaderStyle();
+			GUIStyle headerStyle = activePageStyle.GetScaledHeaderStyle();
 
 			GUIContent headerContent = new GUIContent(headerText);
 			return headerStyle.CalcHeight(headerContent, boxWidth);
@@ -507,16 +587,14 @@ namespace Fungus
 
 		float CalcFooterHeight(float boxWidth)
 		{
-			PageStyle pageStyle = Game.GetInstance().activePageStyle;
-			
-			if (pageStyle == null ||
+			if (activePageStyle == null ||
 			    mode == Mode.Idle ||
 			    footerText.Length == 0)
 			{
 				return 0;
 			}
 			
-			GUIStyle footerStyle = pageStyle.GetScaledFooterStyle();
+			GUIStyle footerStyle = activePageStyle.GetScaledFooterStyle();
 			
 			GUIContent headerContent = new GUIContent(headerText);
 			return footerStyle.CalcHeight(headerContent, boxWidth);
@@ -524,10 +602,9 @@ namespace Fungus
 
 		float CalcStoryHeight(float boxWidth)
 		{
-			PageStyle pageStyle = Game.GetInstance().activePageStyle;
-			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
+			GUIStyle sayStyle = activePageStyle.GetScaledSayStyle();
 
-			if (pageStyle == null ||
+			if (activePageStyle == null ||
 			    mode == Mode.Idle || 
 			    originalStoryText.Length == 0)
 			{
@@ -541,9 +618,7 @@ namespace Fungus
 
 		float CalcOptionsHeight(float boxWidth)
 		{
-			PageStyle pageStyle = Game.GetInstance().activePageStyle;
-
-			if (pageStyle == null ||
+			if (activePageStyle == null ||
 			    mode == Mode.Idle ||
 			    options.Count == 0)
 			{
@@ -551,7 +626,7 @@ namespace Fungus
 			}
 
 			// This assumes that the alternate option style is the same height as the regular style
-			GUIStyle optionStyle = pageStyle.GetScaledOptionStyle();
+			GUIStyle optionStyle = activePageStyle.GetScaledOptionStyle();
 
 			float totalHeight = 0;
 			foreach (Option option in options)
@@ -562,7 +637,7 @@ namespace Fungus
 			}
 
 			// Add space at bottom
-			GUIStyle sayStyle = pageStyle.GetScaledSayStyle();
+			GUIStyle sayStyle = activePageStyle.GetScaledSayStyle();
 			totalHeight += sayStyle.lineHeight;
 
 			return totalHeight;
@@ -571,14 +646,12 @@ namespace Fungus
 		// Returns smaller internal box rect with padding style applied
 		Rect CalcInnerRect(Rect outerRect)
 		{
-			PageStyle pageStyle = Game.GetInstance().activePageStyle;
-
-			if (pageStyle == null)
+			if (activePageStyle == null)
 			{
 				return new Rect();
 			}
 
-			GUIStyle boxStyle = pageStyle.boxStyle;
+			GUIStyle boxStyle = activePageStyle.boxStyle;
 
 			Rect innerRect = new Rect(outerRect.x + boxStyle.padding.left,
 			                		  outerRect.y + boxStyle.padding.top,
@@ -586,6 +659,17 @@ namespace Fungus
 			                          outerRect.height - (boxStyle.padding.top + boxStyle.padding.bottom));
 
 			return innerRect;
+		}
+
+		/**
+		 * Plays the button clicked sound effect
+		 */
+		public void PlayButtonClick()
+		{
+			if (clickSound != null)
+			{
+				audio.PlayOneShot(clickSound);
+			}
 		}
 	}
 }

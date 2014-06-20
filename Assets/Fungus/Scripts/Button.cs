@@ -27,6 +27,11 @@ namespace Fungus
 		 */
 		public string hideOnSetValue;
 
+		/**
+		 * Sound effect to play when button is clicked.
+		 */
+		public AudioClip clickSound;
+
 		float targetAlpha;
 		bool showButton;
 
@@ -130,8 +135,11 @@ namespace Fungus
 				return;
 			}
 
-			// Sound effect
-			Game.GetInstance().PlayButtonClick();
+			// Click sound effect
+			if (clickSound != null)
+			{
+				AudioSource.PlayClipAtPoint(clickSound, Vector3.zero);
+			}
 
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;		
 			commandQueue.CallCommandMethod(buttonAction);

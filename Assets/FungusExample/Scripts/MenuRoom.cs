@@ -5,7 +5,7 @@ namespace Fungus.Example
 {
 	public class MenuRoom : Room
 	{
-		public Room pageRoom;
+		public Room dialogRoom;
 		public Room viewRoom;
 		public Room spriteRoom;
 		public Room parallaxRoom;
@@ -14,20 +14,21 @@ namespace Fungus.Example
 
 		void OnEnter() 
 		{
-			SetPageMiddle();
+			SetCharacter("Narrator");
 
-			AddOption("Writing a story with Pages", MoveToWritingRoom);
+			AddOption("Telling a story with the Dialog", MoveToDialogRoom);
 			AddOption("Controlling the camera with Views", MoveToViewRoom);
 			AddOption("Sprites and Animations", MoveToSpriteRoom);
 			AddOption("Swipe panning and parallax", MoveToParallaxRoom);
 			AddOption("Using Buttons", MoveToButtonsRoom);
 			AddOption("Playing music and sound effects", MoveToAudioRoom);
-			Choose("Choose an example");
+
+			Say("Choose an example");
 		}
 
-		void MoveToWritingRoom()
+		void MoveToDialogRoom()
 		{
-			MoveToRoom(pageRoom);
+			MoveToRoom(dialogRoom);
 		}
 
 		void MoveToViewRoom()

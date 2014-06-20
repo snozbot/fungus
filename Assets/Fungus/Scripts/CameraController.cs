@@ -12,7 +12,31 @@ namespace Fungus
 	 */
 	public class CameraController : MonoBehaviour 
 	{
-		Game game;
+		/**
+		 * Full screen texture used for screen fade effect.
+		 */
+		public Texture2D screenFadeTexture;
+
+		/**
+		 * Icon to display when swipe pan mode is active.
+		 */
+		public Texture2D swipePanIcon;
+
+		/**
+		 * Position of continue and swipe icons in normalized screen space coords.
+		 * (0,0) = top left, (1,1) = bottom right
+		 */
+		public Vector2 swipeIconPosition = new Vector2(1,0);
+
+		/**
+		 * Fixed Z coordinate of main camera.
+		 */
+		public float cameraZ = -10f;
+
+		[HideInInspector]
+		public bool swipePanActive;
+
+		float fadeAlpha = 0f;
 
 		// Swipe panning control
 		View swipePanViewA;
@@ -27,9 +51,37 @@ namespace Fungus
 
 		Dictionary<string, CameraView> storedViews = new Dictionary<string, CameraView>();
 
-		void Start()
+		void OnGUI()
 		{
-			game = Game.GetInstance();
+			if (swipePanActive)
+			{
+				// Draw the swipe panning icon
+				if (swipePanIcon)
+				{
+					float x = Screen.width * swipeIconPosition.x;
+					float y = Screen.height * swipeIconPosition.y;
+					float width = swipePanIcon.width;
+					float height = swipePanIcon.height;
+					
+					x = Mathf.Max(x, 0);
+					y = Mathf.Max(y, 0);
+					x = Mathf.Min(x, Screen.width - width);
+					y = Mathf.Min(y, Screen.height - height);
+					
+					Rect rect = new Rect(x, y, width, height);
+					GUI.DrawTexture(rect, swipePanIcon);
+				}
+			}
+
+			// Draw full screen fade texture
+			if (fadeAlpha < 1f)
+			{
+				// 1 = scene fully visible
+				// 0 = scene fully obscured
+				GUI.color = new Color(1,1,1, 1f - fadeAlpha);	
+				GUI.depth = -1000;
+				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), screenFadeTexture);
+			}
 		}
 
 		public void Fade(float targetAlpha, float fadeDuration, Action fadeAction)
@@ -39,7 +91,7 @@ namespace Fungus
 
 		public void FadeToView(View view, float fadeDuration, Action fadeAction)
 		{
-			game.swipePanActive = false;
+			swipePanActive = false;
 
 			// Fade out
 			Fade(0f, fadeDuration / 2f, delegate {
@@ -59,7 +111,7 @@ namespace Fungus
 
 		IEnumerator FadeInternal(float targetAlpha, float fadeDuration, Action fadeAction)
 		{
-			float startAlpha = Game.GetInstance().fadeAlpha;
+			float startAlpha = fadeAlpha;
 			float timer = 0;
 
 			// If already at the target alpha then complete immediately
@@ -76,12 +128,12 @@ namespace Fungus
 
 					t = Mathf.Clamp01(t);   
 
-					Game.GetInstance().fadeAlpha = Mathf.Lerp(startAlpha, targetAlpha, t);
+					fadeAlpha = Mathf.Lerp(startAlpha, targetAlpha, t);
 					yield return null;
 				}
 			}
 
-			Game.GetInstance().fadeAlpha = targetAlpha;
+			fadeAlpha = targetAlpha;
 
 			if (fadeAction != null)
 			{
@@ -95,7 +147,7 @@ namespace Fungus
 		 */
 		public void CenterOnSprite(SpriteRenderer spriteRenderer)
 		{
-			game.swipePanActive = false;
+			swipePanActive = false;
 
 			Sprite sprite = spriteRenderer.sprite;
 			Vector3 extents = sprite.bounds.extents;
@@ -112,7 +164,7 @@ namespace Fungus
 		 */
 		public void PanToPosition(Vector3 targetPosition, float targetSize, float duration, Action arriveAction)
 		{
-			game.swipePanActive = false;
+			swipePanActive = false;
 			
 			if (duration == 0f)
 			{
@@ -215,7 +267,7 @@ namespace Fungus
 		 */
 		public void PanToPath(View[] viewList, float duration, Action arriveAction)
 		{
-			game.swipePanActive = false;
+			swipePanActive = false;
 
 			List<Vector3> pathList = new List<Vector3>();
 
@@ -280,7 +332,7 @@ namespace Fungus
 
 			PanToPosition(targetPosition, targetSize, duration, delegate {
 
-				game.swipePanActive = true;
+				swipePanActive = true;
 
 				if (arriveAction != null)
 				{
@@ -294,7 +346,7 @@ namespace Fungus
 		 */
 		public void StopSwipePan()
 		{
-			game.swipePanActive = false;
+			swipePanActive = false;
 			swipePanViewA = null;
 			swipePanViewB = null;
 		}
@@ -309,12 +361,12 @@ namespace Fungus
 
 		void SetCameraZ()
 		{
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, game.cameraZ);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, cameraZ);
 		}
 
 		void Update()	
 		{
-			if (!game.swipePanActive)
+			if (!swipePanActive)
 			{
 				return;
 			}

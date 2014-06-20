@@ -27,14 +27,7 @@ namespace Fungus.Example
 			AddOption("Play a sound effect", PlaySound);
 			AddOption("Back to menu", MainMenu);
 
-			if (IsFirstVisit())
-			{
-				Choose("We are the music makers, and we are the dreamers of dreams.");
-			}
-			else
-			{
-				Choose();
-			}
+			Say("We are the music makers, and we are the dreamers of dreams.");
 		}
 
 		void StartGameMusic()

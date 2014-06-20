@@ -9,7 +9,7 @@ namespace Fungus
 	 */
 	public class GameController : MonoBehaviour 
 	{
-		#region General Methods
+		#region Game Methods
 
 		/**
 		 * Clears the command queue.
@@ -221,164 +221,33 @@ namespace Fungus
 		}
 
 		#endregion
-		#region Page Methods
+		#region Dialog Methods
 
 		/**
-		 * Sets the screen space rectangle used to display the story text using a Page object.
-		 * Page objects can be edited visually in the Unity editor which is useful for accurate placement.
-		 * The actual screen space rect used is based on both the Page bounds and the camera transform at the time the command is executed.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param page A Page object which defines the screen rect to use when rendering story text.
+		 * Sets the Dialog object to use for displaying story text and options.
 		 */
-		public static void SetPage(Page page, PageController.Layout pageLayout = PageController.Layout.FullSize)
+		public static void SetDialog(Dialog dialog)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetPage(page, pageLayout));
+			commandQueue.AddCommand(new Command.Call(delegate {
+				Game.GetInstance().dialog = dialog;
+			}));
 		}
 
 		/**
-		 * Sets the screen space rectangle used to display the story text using a ScreenRect object.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param screenRect A ScreenRect object which defines a rect in normalized screen space coordinates.
+		 * Sets the active Character within the current active Dialog.
+		 * Each character has a distinct name, color & image.
 		 */
-		public static void SetPageRect(PageController.ScreenRect screenRect, PageController.Layout pageLayout = PageController.Layout.FullSize)
+		public static void SetCharacter(string characterID)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetPageRect(screenRect, pageLayout));
-		}
-
-		/**
-		 * Sets the screen space rectangle used to display the story text.
-		 * The rectangle coordinates are in normalized screen space. e.g. x1 = 0 (left), y1 = 0 (top) x2 = 1 (right) y2 = 1 (bottom).
-		 * The origin is at the top left of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param x1 Page rect left coordinate in normalized screen space coords [0..1]
-		 * @param y1 Page rect top coordinate in normalized screen space coords [0..1
-		 * @param x2 Page rect right coordinate in normalized screen space coords [0..1]
-		 * @param y2 Page rect bottom coordinate in normalized screen space coords [0..1]
-		 * @param pageLayout Layout mode for positioning page within the rect.
-		 */
-		public static void SetPageRect(float x1, float y1, float x2, float y2, PageController.Layout pageLayout = PageController.Layout.FullSize)
-		{
-			PageController.ScreenRect screenRect = new PageController.ScreenRect();
-			screenRect.x1 = x1;
-			screenRect.y1 = y1;
-			screenRect.x2 = x2;
-			screenRect.y2 = y2;
-			SetPageRect(screenRect, pageLayout);
-		}
-
-		/**
-		 * Display story page at the top of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
-		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
-		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
-		 */
-		public static void SetPageTop(float scaleX, float scaleY, PageController.Layout pageLayout)
-		{
-			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Top);
-			SetPageRect(screenRect, pageLayout);
-		}
-
-		/**
-		 * Display story page at the top of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 */
-		public static void SetPageTop()
-		{
-			Vector2 pageScale = Game.GetInstance().defaultPageScale;
-			SetPageTop(pageScale.x, pageScale.y, PageController.Layout.FullSize);
-		}
-
-		/**
-		 * Display story page at the middle of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
-		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
-		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
-		 */
-		public static void SetPageMiddle(float scaleX, float scaleY, PageController.Layout pageLayout)
-		{
-			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Middle);
-			SetPageRect(screenRect, pageLayout);
-		}
-
-		/**
-		 * Display story page at the middle of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 */
-		public static void SetPageMiddle()
-		{
-			Vector2 pageScale = Game.GetInstance().defaultPageScale;
-			SetPageMiddle(pageScale.x, pageScale.y, PageController.Layout.FitToMiddle);
-		}
-
-		/**
-		 * Display story page at the bottom of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
-		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
-		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
-		 */
-		public static void SetPageBottom(float scaleX, float scaleY, PageController.Layout pageLayout)
-		{
-			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Bottom);
-			SetPageRect(screenRect, pageLayout);
-		}
-
-		/**
-		 * Display story page at the bottom of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 */
-		public static void SetPageBottom()
-		{
-			Vector2 pageScale = Game.GetInstance().defaultPageScale;
-			SetPageBottom(pageScale.x, pageScale.y, PageController.Layout.FullSize);
-		}
-
-		/**
-		 * Sets the active style for displaying the Page.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param pageStyle The style object to make active
-		 */
-		public static void SetPageStyle(PageStyle pageStyle)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetPageStyle(pageStyle));
-		}
-
-		/**
-		 * Obsolete! Use SetHeader() instead.
-		 */
-		[System.Obsolete("use SetHeader() instead")]
-		public static void Title(string titleText)
-		{
-			SetHeader(titleText);
-		}
-
-		/**
-		 * Sets the header text displayed at the top of the page.
-		 * The header text is only displayed when there is some story text or options to be shown.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param footerText The text to display as the header of the Page.
-		 */
-		public static void SetHeader(string headerText)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetHeader(headerText));
-		}
-
-		/**
-		 * Sets the footer text displayed at the top of the page.
-		 * The footer text is only displayed when there is some story text or options to be shown.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param footerText The text to display as the footer of the Page.
-		 */
-		public static void SetFooter(string footerText)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetFooter(footerText));
+			commandQueue.AddCommand(new Command.Call(delegate {
+				Dialog dialog = Game.GetInstance().dialog;
+				if (dialog != null)
+				{
+					dialog.SetCharacter(characterID);
+				}
+			}));
 		}
 
 		/**
@@ -420,23 +289,19 @@ namespace Fungus
 		}
 
 		/**
-		 * Display all previously added options as buttons, with no text prompt.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * Sets a time limit for choosing from a list of options.
+		 * The timer will activate the next time a Say() command is executed that displays options.
 		 */
-		public static void Choose()
-		{
-			Choose("");
-		}
-		
-		/**
-		 * Displays a story text prompt, followed by all previously added options.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param chooseText The story text to be written above the list of options
-		 */
-		public static void Choose(string chooseText)
+		public static void SetTimeout(float timeoutDuration, Action timeoutAction)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.Choose(chooseText));
+			commandQueue.AddCommand(new Command.Call( delegate {
+				IDialog dialog = Game.GetInstance().GetDialog();
+				if (dialog != null)
+				{
+					dialog.SetTimeout(timeoutDuration, timeoutAction);
+				}
+			}));
 		}
 
 		#endregion
@@ -692,6 +557,203 @@ namespace Fungus
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.PlaySound(audioClip, volume));
+		}
+
+		#endregion
+		#region Obsolete Methods
+
+		// These methods are provided for backwards compatibility purposes and will be removed in a future release.
+
+		/**
+		 * Sets the screen space rectangle used to display the story text using a Page object.
+		 * Page objects can be edited visually in the Unity editor which is useful for accurate placement.
+		 * The actual screen space rect used is based on both the Page bounds and the camera transform at the time the command is executed.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param page A Page object which defines the screen rect to use when rendering story text.
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void SetPage(Page page, PageController.Layout pageLayout = PageController.Layout.FullSize)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.SetPage(page, pageLayout));
+		}
+		
+		/**
+		 * Sets the screen space rectangle used to display the story text using a ScreenRect object.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param screenRect A ScreenRect object which defines a rect in normalized screen space coordinates.
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void SetPageRect(PageController.ScreenRect screenRect, PageController.Layout pageLayout = PageController.Layout.FullSize)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.SetPageRect(screenRect, pageLayout));
+		}
+		
+		/**
+		 * Sets the screen space rectangle used to display the story text.
+		 * The rectangle coordinates are in normalized screen space. e.g. x1 = 0 (left), y1 = 0 (top) x2 = 1 (right) y2 = 1 (bottom).
+		 * The origin is at the top left of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param x1 Page rect left coordinate in normalized screen space coords [0..1]
+		 * @param y1 Page rect top coordinate in normalized screen space coords [0..1
+		 * @param x2 Page rect right coordinate in normalized screen space coords [0..1]
+		 * @param y2 Page rect bottom coordinate in normalized screen space coords [0..1]
+		 * @param pageLayout Layout mode for positioning page within the rect.
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void SetPageRect(float x1, float y1, float x2, float y2, PageController.Layout pageLayout = PageController.Layout.FullSize)
+		{
+			PageController.ScreenRect screenRect = new PageController.ScreenRect();
+			screenRect.x1 = x1;
+			screenRect.y1 = y1;
+			screenRect.x2 = x2;
+			screenRect.y2 = y2;
+			SetPageRect(screenRect, pageLayout);
+		}
+		
+		/**
+		 * Display story page at the top of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
+		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
+		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void SetPageTop(float scaleX, float scaleY, PageController.Layout pageLayout)
+		{
+			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Top);
+			SetPageRect(screenRect, pageLayout);
+		}
+		
+		/**
+		 * Display story page at the top of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void SetPageTop()
+		{
+			Vector2 pageScale = Game.GetInstance().pageController.defaultPageScale;
+			SetPageTop(pageScale.x, pageScale.y, PageController.Layout.FullSize);
+		}
+		
+		/**
+		 * Display story page at the middle of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
+		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
+		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void SetPageMiddle(float scaleX, float scaleY, PageController.Layout pageLayout)
+		{
+			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Middle);
+			SetPageRect(screenRect, pageLayout);
+		}
+		
+		/**
+		 * Display story page at the middle of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void SetPageMiddle()
+		{
+			Vector2 pageScale = Game.GetInstance().pageController.defaultPageScale;
+			SetPageMiddle(pageScale.x, pageScale.y, PageController.Layout.FitToMiddle);
+		}
+		
+		/**
+		 * Display story page at the bottom of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
+		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
+		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void SetPageBottom(float scaleX, float scaleY, PageController.Layout pageLayout)
+		{
+			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Bottom);
+			SetPageRect(screenRect, pageLayout);
+		}
+		
+		/**
+		 * Display story page at the bottom of the screen.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void SetPageBottom()
+		{
+			Vector2 pageScale = Game.GetInstance().pageController.defaultPageScale;
+			SetPageBottom(pageScale.x, pageScale.y, PageController.Layout.FullSize);
+		}
+		
+		/**
+		 * Sets the active style for displaying the Page.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param pageStyle The style object to make active
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void SetPageStyle(PageStyle pageStyle)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.SetPageStyle(pageStyle));
+		}
+		
+		/**
+		 * Obsolete: Use SetHeader() instead.
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void Title(string titleText)
+		{
+			SetHeader(titleText);
+		}
+		
+		/**
+		 * Sets the header text displayed at the top of the page.
+		 * The header text is only displayed when there is some story text or options to be shown.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param footerText The text to display as the header of the Page.
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void SetHeader(string headerText)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.SetHeader(headerText));
+		}
+		
+		/**
+		 * Sets the footer text displayed at the top of the page.
+		 * The footer text is only displayed when there is some story text or options to be shown.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param footerText The text to display as the footer of the Page.
+		 */
+		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		public static void SetFooter(string footerText)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.SetFooter(footerText));
+		}
+
+		/**
+		 * Display all previously added options as buttons, with no text prompt.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 */
+		[Obsolete("No longer required. Use Say() instead.")]
+		public static void Choose()
+		{
+			Choose("");
+		}
+		
+		/**
+		 * Displays a story text prompt, followed by all previously added options.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param chooseText The story text to be written above the list of options
+		 */
+		[Obsolete("No longer required. Use Say() instead.")]
+		public static void Choose(string chooseText)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.Choose(chooseText));
 		}
 
 		#endregion
