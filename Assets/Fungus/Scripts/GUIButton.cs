@@ -86,7 +86,7 @@ namespace Fungus
 
 			// Draw the texture
 			Rect textureRect = new Rect(x1, y1, x2 - x1, y2 - y1);
-			if (GUI.Button(textureRect, texture))
+			if (GUI.Button(textureRect, texture, new GUIStyle()))
 			{
 				switch (clickAction)
 				{
