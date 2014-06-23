@@ -135,53 +135,6 @@ namespace Fungus
 			}		
 		}
 
-		/** 
-		 * Writes story text to the page.
-		 * A continue icon is displayed when the text has fully appeared.
-		 */
-		public class Say : CommandQueue.Command
-		{
-			string storyText;
-			
-			public Say(string _storyText)
-			{
-				storyText = _storyText;
-			}
-			
-			public override void Execute(CommandQueue commandQueue, Action onComplete)
-			{
-				IDialog sayDialog = Game.GetInstance().GetDialog();
-				sayDialog.Say(storyText, onComplete);
-			}
-		}
-		
-		/** 
-		 * Adds an option button to the current list of options.
-		 * Use the Choose command to display added options.
-		 */
-		public class AddOption : CommandQueue.Command
-		{
-			string optionText;
-			Action optionAction;
-			
-			public AddOption(string _optionText, Action _optionAction)
-			{
-				optionText = _optionText;
-				optionAction = _optionAction;
-			}
-			
-			public override void Execute(CommandQueue commandQueue, Action onComplete)
-			{
-				IDialog characterDialog = Game.GetInstance().GetDialog();
-				characterDialog.AddOption(optionText, optionAction);
-
-				if (onComplete != null)
-				{
-					onComplete();
-				}
-			}		
-		}
-		
 		/**
 		 * Displays all previously added options.
 		 */
@@ -197,7 +150,7 @@ namespace Fungus
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
 				IDialog dialog = Game.GetInstance().GetDialog();
-
+				
 				PageController pageController = dialog as PageController;
 				if (pageController != null)
 				{
@@ -209,7 +162,7 @@ namespace Fungus
 					// Support for modern IDialog interface
 					dialog.Say(chooseText, null);
 				}
-
+				
 				// Choose always clears the commandQueue, so there's no need to call onComplete()
 			}		
 		}
