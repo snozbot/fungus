@@ -15,17 +15,19 @@ namespace Fungus
 		 */
 		public class Say : CommandQueue.Command
 		{
-			string storyText;
+			string sayText;
 			
-			public Say(string _storyText)
+			public Say(string _sayText)
 			{
-				storyText = _storyText;
+				sayText = _sayText;
 			}
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
+				string subbedText = Game.stringTable.SubstituteStrings(sayText);
+
 				IDialog sayDialog = Game.GetInstance().GetDialog();
-				sayDialog.Say(storyText, onComplete);
+				sayDialog.Say(subbedText, onComplete);
 			}
 		}
 		
@@ -47,7 +49,9 @@ namespace Fungus
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
 				IDialog characterDialog = Game.GetInstance().GetDialog();
-				characterDialog.AddOption(optionText, optionAction);
+
+				string subbedText = Game.stringTable.FormatLinkText(Game.stringTable.SubstituteStrings(optionText));
+				characterDialog.AddOption(subbedText, optionAction);
 				
 				if (onComplete != null)
 				{

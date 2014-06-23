@@ -149,18 +149,19 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
+				string subbedText = Game.stringTable.SubstituteStrings(chooseText);
+
 				IDialog dialog = Game.GetInstance().GetDialog();
-				
 				PageController pageController = dialog as PageController;
 				if (pageController != null)
 				{
 					// Legacy support for old Pages system
-					pageController.Choose(chooseText);
+					pageController.Choose(subbedText);
 				}
 				else
 				{
 					// Support for modern IDialog interface
-					dialog.Say(chooseText, null);
+					dialog.Say(subbedText, null);
 				}
 				
 				// Choose always clears the commandQueue, so there's no need to call onComplete()

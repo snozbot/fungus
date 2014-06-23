@@ -273,9 +273,8 @@ namespace Fungus
 			}
 
 			mode = Mode.Say;
-			string subbedText = Game.stringTable.SubstituteStrings(sayText);
 			continueAction = sayAction;
-			WriteStory(subbedText);
+			WriteStory(sayText);
 		}
 
 		public void ClearOptions()
@@ -285,15 +284,13 @@ namespace Fungus
 
 		public void AddOption(string optionText, Action optionAction)
 		{
-			string subbedText = Game.stringTable.FormatLinkText(Game.stringTable.SubstituteStrings(optionText));
-			options.Add(new Option(subbedText, optionAction));
+			options.Add(new Option(optionText, optionAction));
 		}
 
 		public void Choose(string _chooseText)
 		{
 			mode = Mode.Choose;
-			string subbedText = Game.stringTable.SubstituteStrings(_chooseText);
-			WriteStory(subbedText);			
+			WriteStory(_chooseText);			
 		}
 
 		public void SetTimeout(float _timeoutDuration, Action _timeoutAction)

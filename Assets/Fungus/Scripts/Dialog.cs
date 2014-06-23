@@ -362,16 +362,16 @@ namespace Fungus
 
 		public void Say(string _sayText, Action sayAction)
 		{
-			string subbedText = Game.stringTable.SubstituteStrings(_sayText);
+			string copyText = _sayText;
 
 			// Hack: Handle Say(""); by writing a single space character.
-			if (subbedText.Length == 0)
+			if (copyText.Length == 0)
 			{
-				subbedText = " ";
+				copyText = " ";
 			}
 
 			continueAction = sayAction;
-			previousSayText = subbedText;
+			previousSayText = copyText;
 
 			if (timeoutDuration > 0 &&
 				options.Count > 0)
@@ -380,7 +380,7 @@ namespace Fungus
 				timeoutTimer = timeoutDuration;
 			}
 
-			WriteSayText(subbedText);
+			WriteSayText(copyText);
 		}
 
 		void WriteSayText(string _sayText)
@@ -489,8 +489,7 @@ namespace Fungus
 		
 		public void AddOption(string optionText, Action optionAction)
 		{
-			string subbedText = Game.stringTable.FormatLinkText(Game.stringTable.SubstituteStrings(optionText));
-			options.Add(new Option(subbedText, optionAction));
+			options.Add(new Option(optionText, optionAction));
 		}
 
 		public void SetTimeout(float _timeoutDuration, Action _timeoutAction)
