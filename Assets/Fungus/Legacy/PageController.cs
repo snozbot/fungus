@@ -143,6 +143,29 @@ namespace Fungus
 		float quickContinueTimer;
 
 		/**
+		 * Translates the PageController specific Mode to the more generic DialogMode.
+		 */
+		public DialogMode GetDialogMode()
+		{
+			switch(mode)
+			{
+			case Mode.Say:
+			case Mode.Choose:
+				if (FinishedWriting())
+				{
+					return DialogMode.Waiting;
+				}
+				else
+				{
+					return DialogMode.Writing;
+				}
+			case Mode.Idle:
+			default:
+				return DialogMode.Idle;
+			}
+		}
+
+		/**
 		 * Calculate a screen space rectangle given normalized screen space coords.
 		 * The resulting rect is clamped to always be on-screen.
 		 */

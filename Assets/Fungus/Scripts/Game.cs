@@ -154,8 +154,10 @@ namespace Fungus
 				return false;
 			}
 
-			if (pageController == null ||
-			    pageController.mode == PageController.Mode.Idle)
+			IDialog dialog = GetDialog();
+
+			if (dialog == null ||
+			    dialog.GetDialogMode() == DialogMode.Idle)
 			{
 				return (autoHideButtonTimer > 0f);
 			}

@@ -6,11 +6,29 @@ using System.Collections.Generic;
 namespace Fungus
 {
 	/**
+	 * Permitted states for Dialogs.
+     */
+	public enum DialogMode
+	{
+		/// Dialog has no pending content to display so is not shown.
+		Idle,
+		/// Dialog is currently writing out content.
+		Writing,
+		/// Dialog has finished writing out content and is waiting for player input.
+		Waiting
+	}
+	
+	/**
 	 * Interface for Dialog implementations.
 	 * This allows us to introduce new types of Dialog in future.
 	 */
 	public interface IDialog
 	{
+		/**
+		 * Returns the current state of the Dialog.
+		 */
+		DialogMode GetDialogMode();
+
 		/**
 		 * Display a line of story text.
 		 * If any options have previously been added using AddOption(), these will be displayed and the
@@ -228,21 +246,12 @@ namespace Fungus
 		 */
 		public GUIStyle buttonStyle;
 
-		/**
-		 * Allowed states for dialog
-		 */
-		public enum DialogMode
+		DialogMode dialogMode;
+
+		public DialogMode GetDialogMode()
 		{
-			Idle,
-			Writing,
-			Waiting
+			return dialogMode;
 		}
-		
-		/**
-		 * Current state of dialog
-		 */
-		[HideInInspector]
-		public DialogMode dialogMode;
 
 		class Option
 		{
