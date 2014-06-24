@@ -52,6 +52,11 @@ namespace Fungus
 		public Dialog dialog;
 
 		/**
+		 * Loading image displayed when loading a scene using MoveToScene()
+		 */
+		public Texture2D loadingImage;
+
+		/**
 		 * Global dictionary of integer values for storing game state.
 		 */
 		[HideInInspector]
@@ -213,23 +218,15 @@ namespace Fungus
 		}
 
 		/**
-		 * Loads a new scene.
+		 * Loads a new scene and displays an optional loading image.
 		 * This is useful for splitting a large Fungus game across multiple scene files to reduce peak memory usage.
-		 * All previously loaded assets (including textures) will be released.
+		 * All previously loaded assets (including textures and audio) will be released.
 		 * @param sceneName The filename of the scene to load.
 		 * @param saveGame Automatically save the current game state as a checkpoint.
 		 */
 		public void LoadScene(string sceneName, bool saveGame)
 		{
-			Application.LoadLevel(sceneName);
-
-			if (saveGame)
-			{
-				SaveGame("Fungus.Save");
-			}
-
-			// Free up memory used by textures in previous scene
-			Resources.UnloadUnusedAssets();
+			SceneLoader.LoadScene(sceneName, loadingImage, saveGame);
 		}
 
 		/**
