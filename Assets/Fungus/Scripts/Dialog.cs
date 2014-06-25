@@ -283,8 +283,6 @@ namespace Fungus
 		float continueTimer;
 		bool instantCompleteText;
 
-		GameObject typingAudio;
-
 		// Cached versions of scaled style objects
 		GUIStyle cachedBoxStyle;
 		GUIStyle cachedNameTextStyle;
@@ -391,10 +389,11 @@ namespace Fungus
 
 			sayText = _sayText;
 			
-			// Hack to avoid displaying partial color tag text
 			if (_sayText.Contains("<"))
 			{
+				// Hack to avoid displaying partial color tag text - write instantly
 				displayedSayText = _sayText;
+				dialogMode = DialogMode.Waiting;
 			}
 			else
 			{
@@ -412,6 +411,8 @@ namespace Fungus
 				displayedSayText = sayText;
 				yield break;
 			}
+
+			GameObject typingAudio = null;
 
 			if (writingSound != null)
 			{
