@@ -351,14 +351,6 @@ namespace Fungus
 			swipePanViewB = null;
 		}
 
-		/**
-		 * Returns the current position of the main camera.
-		 */
-		public Vector3 GetCameraPosition()
-		{
-			return Camera.main.transform.position;
-		}
-
 		void SetCameraZ()
 		{
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, cameraZ);

@@ -195,29 +195,6 @@ namespace Fungus
 		}
 
 		/**
-		 * Returns a parallax offset vector based on the camera position relative to the active Room.
-		 * Higher values for the parallaxFactor yield a larger offset (appears closer to camera).
-		 * Suggested range for good parallax effect is [0.1..0.5].
-		 * @param parallaxFactor Horizontal and vertical scale factors to apply to camera offset vector.
-		 * @return A parallax offset vector based on camera positon relative to current room and the parallaxFactor.
-		 */
-		public Vector3 GetParallaxOffset(Vector2 parallaxFactor)
-		{
-			if (activeRoom == null)
-			{
-				return Vector3.zero;
-			}
-
-			Vector3 a = activeRoom.transform.position;
-			Vector3 b = cameraController.GetCameraPosition();
-			Vector3 offset = (a - b);
-			offset.x *= parallaxFactor.x;
-			offset.y *= parallaxFactor.y;
-
-			return offset;
-		}
-
-		/**
 		 * Loads a new scene and displays an optional loading image.
 		 * This is useful for splitting a large Fungus game across multiple scene files to reduce peak memory usage.
 		 * All previously loaded assets (including textures and audio) will be released.
