@@ -51,7 +51,7 @@ namespace Fungus.Example
 			PlaySound(effectClip);
 
 			// The music button has been configured to automatically hide when this value is set
-			SetValue("PlayedSound");
+			SetBoolean("PlayedSound", true);
 		}
 
 		void OnQuestionClicked()

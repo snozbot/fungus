@@ -24,7 +24,7 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				string subbedText = Game.stringTable.SubstituteStrings(sayText);
+				string subbedText = Variables.SubstituteStrings(sayText);
 
 				IDialog sayDialog = Game.GetInstance().GetDialog();
 				sayDialog.Say(subbedText, onComplete);
@@ -50,7 +50,7 @@ namespace Fungus
 			{
 				IDialog characterDialog = Game.GetInstance().GetDialog();
 
-				string subbedText = Game.stringTable.FormatLinkText(Game.stringTable.SubstituteStrings(optionText));
+				string subbedText = Variables.FormatLinkText(Variables.SubstituteStrings(optionText));
 				characterDialog.AddOption(subbedText, optionAction);
 				
 				if (onComplete != null)

@@ -23,9 +23,9 @@ namespace Fungus
 		public bool autoHide = true;
 
 		/**
-		 * Automatically hides the button when the specified game value is set (i.e. not equal to zero).
+		 * Automatically hides the button when the named boolean variable is set using SetBoolean()
 		 */
-		public string hideOnSetValue;
+		public string hideOnBoolean;
 
 		/**
 		 * Sound effect to play when button is clicked.
@@ -96,9 +96,9 @@ namespace Fungus
 				}
 			}
 
-			// Hide the button if the specified game value is non-zero
-			if (hideOnSetValue.Length > 0 &&
-			    Game.GetInstance().GetGameValue(hideOnSetValue) != 0)
+			// Hide the button if the specified boolean variable is true
+			if (hideOnBoolean.Length > 0 &&
+			    Variables.GetBoolean(hideOnBoolean))
 			{
 				targetAlpha = 0f;
 			}

@@ -38,7 +38,7 @@ namespace Fungus.Example
 		void GoToSleep()
 		{
 			// Check to see if a game value has been set
-			if (HasValue("spawned"))
+			if (Variables.GetBoolean("spawned"))
 			{
 				Say("I am feeling rather sleepy after all that spawning!");
 				Say("Yawn! Good night world!");
@@ -62,7 +62,7 @@ namespace Fungus.Example
 			Say("Wow - look at all these spores! COOL!");
 
 			// Sets a global value flag which we check above in GoToSleep
-			SetValue("spawned");
+			SetBoolean("spawned", true);
 
 			AddOption("So tired. I sleep now.", GoToSleep);
 			AddOption("No way! More spores!", ProduceSpores);

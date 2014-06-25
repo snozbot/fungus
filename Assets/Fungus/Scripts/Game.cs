@@ -32,6 +32,13 @@ namespace Fungus
 		public bool showLinks = true;
 
 		/**
+		 * Deletes all previously stored variables on launch.
+		 * Disable this if you want to have game variables persist between game launches.
+		 * It is then up to you to provide an in-game option to reset game variables.
+		 */
+		public bool deleteVariables = true;
+
+		/**
 		 * Time for fade transition to complete when moving to a different Room.
 		 */
 		public float roomFadeDuration = 1f;
@@ -56,15 +63,6 @@ namespace Fungus
 		 */
 		public Texture2D loadingImage;
 
-		/**
-		 * Global dictionary of integer values for storing game state.
-		 */
-		[HideInInspector]
-		static public Dictionary<string, int> values = new Dictionary<string, int>();
-
-		[HideInInspector]
-		static public StringTable stringTable = new StringTable();
-		
 		[HideInInspector]
 		public CommandQueue commandQueue;
 		
@@ -125,6 +123,11 @@ namespace Fungus
 				commandQueue.AddCommand(new Command.MoveToRoom(activeRoom));
 				commandQueue.Execute();
 			}
+
+			if (deleteVariables)
+			{
+				Variables.DeleteAll();
+			}
 		}
 
 		public virtual void Update()
@@ -171,30 +174,6 @@ namespace Fungus
 		}
 
 		/**
-		 * Sets a globally accessible game state value.
-		 * @param key The key of the value.
-		 * @param value The integer value to store.
-		 */
-		public void SetGameValue(string key, int value)
-		{
-			values[key] = value;
-		}
-
-		/**
-		 * Gets a globally accessible game state value.
-		 * @param key The key of the value.
-		 * @return The integer value for the specified key, or 0 if the key does not exist.
-		 */
-		public int GetGameValue(string key)
-		{
-			if (values.ContainsKey(key))
-			{
-				return values[key];
-			}
-			return 0;
-		}
-
-		/**
 		 * Loads a new scene and displays an optional loading image.
 		 * This is useful for splitting a large Fungus game across multiple scene files to reduce peak memory usage.
 		 * All previously loaded assets (including textures and audio) will be released.
@@ -211,27 +190,10 @@ namespace Fungus
 		 * Only the values, string table and current scene are stored.
 		 * @param saveName The name of the saved game data.
 		 */
+		[Obsolete("Use Variables.Save() instead.")]
 		public void SaveGame(string saveName)
 		{
-			// Store loaded scene name in save data
-			SetString("Fungus.Scene", Application.loadedLevelName);
-
-			var b = new BinaryFormatter();
-			var m = new MemoryStream();
-
-			// Save values
-			{
-				b.Serialize(m, values);
-				string s = Convert.ToBase64String(m.GetBuffer());
-				PlayerPrefs.SetString(saveName + ".values", s);
-			}
-
-			// Save string table
-			{
-				b.Serialize(m, stringTable.stringDict);
-				string s = Convert.ToBase64String(m.GetBuffer());
-				PlayerPrefs.SetString(saveName + ".stringTable", s);
-			}
+			Variables.Save();
 		}
 
 		/**
@@ -240,34 +202,13 @@ namespace Fungus
 		 * Each scene in your game should contain the necessary code to restore the current game state based on saved data.
 		 * @param saveName The name of the saved game data.
 		 */
-		public void LoadGame(string saveName)
+		public void LoadGame(string saveName = "_fungus")
 		{
-			// Load values
-			{
-				var data = PlayerPrefs.GetString(saveName + ".values");
-				if (!string.IsNullOrEmpty(data))
-				{
-					var b = new BinaryFormatter();
-					var m = new MemoryStream(Convert.FromBase64String(data));
-					values = (Dictionary<string, int>)b.Deserialize(m);
-				}
-			}
-
-			// Load string table
-			{
-				var data = PlayerPrefs.GetString(saveName + ".stringTable");
-				if (!string.IsNullOrEmpty(data))
-				{
-					var b = new BinaryFormatter();
-					var m = new MemoryStream(Convert.FromBase64String(data));
-					stringTable.stringDict = b.Deserialize(m) as Dictionary<string, string>;
-				}
-			}
-
-			string sceneName = GetString("Fungus.Scene");
+			Variables.SetSaveName(saveName);
+			string sceneName = Variables.GetString("_scene");
 			if (sceneName.Length > 0)
 			{
-				LoadScene(sceneName, true);
+				MoveToScene(sceneName);
 			}
 		}
 	}

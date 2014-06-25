@@ -149,7 +149,7 @@ namespace Fungus
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
-				string subbedText = Game.stringTable.SubstituteStrings(chooseText);
+				string subbedText = Variables.SubstituteStrings(chooseText);
 
 				IDialog dialog = Game.GetInstance().GetDialog();
 				PageController pageController = dialog as PageController;

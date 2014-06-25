@@ -88,7 +88,7 @@ namespace Fungus
 						// Trim off last newline
 						blockBuffer = blockBuffer.TrimEnd( '\r', '\n', ' ', '\t');
 
-						Game.stringTable.SetString(blockTag, blockBuffer);
+						Variables.SetString(blockTag, blockBuffer);
 					}
 
 					// Prepare to parse next block

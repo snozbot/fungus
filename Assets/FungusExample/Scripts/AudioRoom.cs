@@ -11,11 +11,11 @@ namespace Fungus.Example
 
 		void OnEnter()
 		{
-			if (HasValue("music"))
+			if (Variables.GetBoolean("music"))
 			{
 				AddOption("Stop the music", StopGameMusic);
 
-				if (HasValue("quiet") == false)
+				if (Variables.GetBoolean("quiet") == false)
 				{
 					AddOption("Shhh! Make it quieter", MakeQuiet);
 				}
@@ -34,15 +34,15 @@ namespace Fungus.Example
 		{
 			PlayMusic(musicClip);
 			SetMusicVolume(1f);
-			SetValue("music");
+			SetBoolean("music", true);
 			Call(OnEnter);
 		}
 
 		void StopGameMusic()
 		{
 			StopMusic();
-			ClearValue("music");
-			ClearValue("quiet");
+			SetBoolean("music", false);
+			SetBoolean("quiet", false);
 			Call(OnEnter);
 		}
 
@@ -54,7 +54,7 @@ namespace Fungus.Example
 
 		void MakeQuiet()
 		{
-			SetValue("quiet");
+			SetBoolean("quiet", true);
 			SetMusicVolume(0.25f, 1f);
 			Call(OnEnter);
 		}

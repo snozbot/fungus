@@ -88,20 +88,33 @@ namespace Fungus
 		 * Save the current game state to persistant storage.
 		 * @param saveName The name of the saved game data.
 		 */
-		public static void Save(string saveName = "Fungus.Save")
+		[Obsolete("Use Save() instead and use Variables.SetSaveName() if you need to set the save name.")]
+		public static void Save(string saveName)
+		{
+			GameController.Save();
+		}
+
+		/**
+		 * Saves the current game variables to persistant storage.
+		 */
+		public static void Save()
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.Save(saveName));
+			commandQueue.AddCommand(new Command.Call(delegate {
+				Variables.Save();
+			}));
 		}
 
 		/**
 		 * Load the current game state from persistant storage.
 		 * @param saveName The name of the saved game data.
 		 */
-		public static void Load(string saveName = "Fungus.Save")
+		public static void Load(string saveName = "_fungus")
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.Load(saveName));
+			commandQueue.AddCommand(new Command.Call(delegate {
+				Game.GetInstance().LoadGame(saveName);
+			}));
 		}
 
 		#endregion
@@ -313,10 +326,10 @@ namespace Fungus
 		 * @param key The name of the value to set
 		 * @param value The value to set
 		 */
+		[Obsolete("Use SetInteger() instead.")]
 		public static void SetValue(string key, int value)
 		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetValue(key, value));
+			SetInteger(key, value);
 		}
 
 		/**
@@ -324,9 +337,10 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param key The name of the value to set
 		 */
+		[Obsolete("Use SetInteger() instead")]
 		public static void SetValue(string key)
 		{
-			SetValue(key, 1);
+			SetInteger(key, 1);
 		}
 
 		/**
@@ -334,9 +348,10 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param key The key of the value.
 		 */
+		[Obsolete("Use Variables.DeleteKey() instead")]
 		public static void ClearValue(string key)
 		{
-			SetValue(key, 0);
+			Variables.DeleteKey(key);
 		}
 
 		/**
@@ -345,9 +360,21 @@ namespace Fungus
 		 * @param key The name of the value
 		 * @return The integer value for this key, or 0 if not previously set.
 		 */
+		[Obsolete("Use Variables.GetInteger() instead")]
 		public static int GetValue(string key)
 		{
-			return Game.GetInstance().GetGameValue(key);
+			return Variables.GetInteger(key);
+		}
+
+		/**
+		 * Gets a globally accessible string value.
+		 * @param key The name of the value
+		 * @return The string value for this key, or the empty string if not previously set.
+		 */
+		[Obsolete("Use Variables.GetString() instead")]
+		public static string GetString(string key)
+		{
+			return Variables.GetString(key);
 		}
 
 		/**
@@ -355,9 +382,52 @@ namespace Fungus
 		 * @param key The name of the value to check.
 		 * @return Returns true if the value is not equal to zero.
 		 */
+		[Obsolete("Use Variables.GetInteger() or Variables.HasKey() instead")]
 		public static bool HasValue(string key)
 		{
-			return GetValue(key) != 0;
+			return Variables.GetInteger(key) != 0;
+		}
+
+		/**
+		 * Sets a globally accessible boolean value.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param key The name of the value to set
+		 * @param value The boolean value to set
+		 */
+		public static void SetBoolean(string key, bool value)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.Call(delegate {
+				Variables.SetBoolean(key, value);
+			}));
+		}
+
+		/**
+		 * Sets a globally accessible integer value.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param key The name of the value to set
+		 * @param value The integer value to set
+		 */
+		public static void SetInteger(string key, int value)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.Call(delegate {
+				Variables.SetInteger(key, value);
+			}));
+		}
+
+		/**
+		 * Sets a globally accessible float value.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param key The name of the value to set
+		 * @param value The flaot value to set
+		 */
+		public static void SetFloat(string key, float value)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.Call(delegate {
+				Variables.SetFloat(key, value);
+			}));
 		}
 
 		/**
@@ -369,17 +439,9 @@ namespace Fungus
 		public static void SetString(string key, string value)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetString(key, value));
-		}
-
-		/**
-		 * Gets a globally accessible string value.
-		 * @param key The name of the value
-		 * @return The string value for this key, or the empty string if not previously set.
-		 */
-		public static string GetString(string key)
-		{
-			return Game.stringTable.GetString(key);
+			commandQueue.AddCommand(new Command.Call(delegate {
+				Variables.SetString(key, value);
+			}));
 		}
 
 		#endregion
@@ -579,7 +641,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param page A Page object which defines the screen rect to use when rendering story text.
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void SetPage(Page page, PageController.Layout pageLayout = PageController.Layout.FullSize)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
@@ -591,7 +653,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param screenRect A ScreenRect object which defines a rect in normalized screen space coordinates.
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void SetPageRect(PageController.ScreenRect screenRect, PageController.Layout pageLayout = PageController.Layout.FullSize)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
@@ -609,7 +671,7 @@ namespace Fungus
 		 * @param y2 Page rect bottom coordinate in normalized screen space coords [0..1]
 		 * @param pageLayout Layout mode for positioning page within the rect.
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void SetPageRect(float x1, float y1, float x2, float y2, PageController.Layout pageLayout = PageController.Layout.FullSize)
 		{
 			PageController.ScreenRect screenRect = new PageController.ScreenRect();
@@ -627,7 +689,7 @@ namespace Fungus
 		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
 		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void SetPageTop(float scaleX, float scaleY, PageController.Layout pageLayout)
 		{
 			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Top);
@@ -638,7 +700,7 @@ namespace Fungus
 		 * Display story page at the top of the screen.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void SetPageTop()
 		{
 			Vector2 pageScale = Game.GetInstance().pageController.defaultPageScale;
@@ -652,7 +714,7 @@ namespace Fungus
 		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
 		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void SetPageMiddle(float scaleX, float scaleY, PageController.Layout pageLayout)
 		{
 			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Middle);
@@ -663,7 +725,7 @@ namespace Fungus
 		 * Display story page at the middle of the screen.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void SetPageMiddle()
 		{
 			Vector2 pageScale = Game.GetInstance().pageController.defaultPageScale;
@@ -677,7 +739,7 @@ namespace Fungus
 		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
 		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void SetPageBottom(float scaleX, float scaleY, PageController.Layout pageLayout)
 		{
 			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Bottom);
@@ -688,7 +750,7 @@ namespace Fungus
 		 * Display story page at the bottom of the screen.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void SetPageBottom()
 		{
 			Vector2 pageScale = Game.GetInstance().pageController.defaultPageScale;
@@ -700,7 +762,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param pageStyle The style object to make active
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void SetPageStyle(PageStyle pageStyle)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
@@ -710,7 +772,7 @@ namespace Fungus
 		/**
 		 * Obsolete: Use SetHeader() instead.
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void Title(string titleText)
 		{
 			SetHeader(titleText);
@@ -722,7 +784,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param footerText The text to display as the header of the Page.
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void SetHeader(string headerText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
@@ -735,7 +797,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param footerText The text to display as the footer of the Page.
 		 */
-		[Obsolete("Pages are deprecated. Please use the new Dialog system instead.")]
+		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
 		public static void SetFooter(string footerText)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
