@@ -15,17 +15,34 @@ namespace Fungus
 	 */
 	public abstract class Room : GameController 
 	{
+		string GetVisitVariableKey()
+		{
+			return "_visits." + gameObject.name;
+		}
+
 		/**
-		 * Number of times player has entered the room
+		 * Returns the number of times the player has visited this Room.
+		 * The Room game object name is used to track the visit count and so must be unique in the game.
 		 */
-		public int visitCount;
+		public int GetVisitCount()
+		{
+			return Variables.GetInteger(GetVisitVariableKey());
+		}
+
+		/**
+		 * Sets the number of times the player has visited this Room.
+		 */
+		void SetVisitCount(int count)
+		{
+			Variables.SetInteger(GetVisitVariableKey(), count);
+		}
 
 		/**
 		 * Returns true if this is the first time the player has visited this room.
 		 */
 		public bool IsFirstVisit()
 		{
-			return (visitCount == 0);
+			return GetVisitCount() == 0;
 		}
 
 		// Automatically draws arrows to other Rooms referenced in public properties
@@ -146,7 +163,10 @@ namespace Fungus
 			// It is the responsibility of the client room script to set the desired active view & page in the OnEnter method.
 			game.commandQueue.CallCommandMethod(game.activeRoom.gameObject, "OnEnter");
 
+			// Increment visit count for this Room
+			int visitCount = GetVisitCount();
 			visitCount++;
+			SetVisitCount(visitCount);
 		}
 	}
 }
