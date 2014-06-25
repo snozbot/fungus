@@ -56,10 +56,11 @@ namespace Fungus
 				Destroy(room.gameObject);
 			}
 
+			// Wait for objects to actually be destroyed at end of run loop
 			yield return new WaitForEndOfFrame();
 
-			// Most big assets should no longer be referenced, so unload them.
-			Resources.UnloadUnusedAssets();
+			// All Room assets should no longer be referenced now, so unload them.
+			yield return Resources.UnloadUnusedAssets();
 
 			// Wait until scene has finished downloading (WebPlayer only)
 			while (!Application.CanStreamedLevelBeLoaded(sceneToLoad))
