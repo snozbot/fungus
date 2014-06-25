@@ -26,7 +26,7 @@ namespace Fungus
 		static public void LoadScene(string _sceneToLoad, Texture2D _loadingTexture, bool _saveCheckpoint)
 		{
 			// Unity does not provide a way to check if the named scene actually exists in the project.
-			GameObject go = new GameObject();
+			GameObject go = new GameObject("SceneLoader");
 			DontDestroyOnLoad(go);
 
 			SceneLoader sceneLoader = go.AddComponent<SceneLoader>();
