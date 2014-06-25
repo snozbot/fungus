@@ -416,7 +416,7 @@ namespace Fungus
 
 			if (writingSound != null)
 			{
-				typingAudio = new GameObject();
+				typingAudio = new GameObject("WritingSound");
 				typingAudio.AddComponent<AudioSource>();
 				typingAudio.audio.clip = writingSound;
 				typingAudio.audio.loop = loopWritingSound;
@@ -592,6 +592,8 @@ namespace Fungus
 
 											if (GUILayout.Button(options[i].optionText, cachedButtonStyle, GUILayout.MinWidth(Screen.width * minButtonWidth)))
 											{
+												AudioSource.PlayClipAtPoint(continueSound, new Vector3());
+
 												if (options[i].optionAction == null)
 												{
 													deferredAction = DoNullAction;
