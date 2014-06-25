@@ -500,12 +500,14 @@ namespace Fungus
 		/**
 		 * Plays game music using an audio clip.
 		 * One music clip may be played at a time.
-		 * @param audioClip The music clip to play
+		 * @param musicClip The music clip to play
 		 */
-		public static void PlayMusic(AudioClip audioClip)
+		public static void PlayMusic(AudioClip musicClip)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.PlayMusic(audioClip));
+			commandQueue.AddCommand(new Command.Call(delegate {
+				MusicManager.GetInstance().PlayMusic(musicClip);
+			}));
 		}
 		
 		/**
@@ -514,49 +516,55 @@ namespace Fungus
 		public static void StopMusic()
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.StopMusic());
+			commandQueue.AddCommand(new Command.Call(delegate {
+				MusicManager.GetInstance().StopMusic();
+			}));
 		}
 		
 		/**
 		 * Sets the game music volume immediately.
-		 * @param musicVolume The new music volume value [0..1]
+		 * @param volume The new music volume value [0..1]
 		 */
-		public static void SetMusicVolume(float musicVolume)
+		public static void SetMusicVolume(float volume)
 		{
-			SetMusicVolume(musicVolume, 0f);
+			SetMusicVolume(volume, 0f);
 		}
 		
 		/**
 		 * Fades the game music volume to required level over a period of time.
-		 * @param musicVolume The new music volume value [0..1]
+		 * @param volume The new music volume value [0..1]
 		 * @param duration The length of time in seconds needed to complete the volume change.
 		 */
-		public static void SetMusicVolume(float musicVolume, float duration)
+		public static void SetMusicVolume(float volume, float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetMusicVolume(musicVolume, duration));
+			commandQueue.AddCommand(new Command.Call(delegate {
+				MusicManager.GetInstance().SetMusicVolume(volume, duration);
+			}));
 		}
 		
 		/**
 		 * Plays a sound effect once.
 		 * Multiple sound effects can be played at the same time.
-		 * @param audioClip The sound effect clip to play
+		 * @param soundClip The sound effect clip to play
 		 */
-		public static void PlaySound(AudioClip audioClip)
+		public static void PlaySound(AudioClip soundClip)
 		{
-			PlaySound(audioClip, 1f);
+			PlaySound(soundClip, 1f);
 		}
 		
 		/**
 		 * Plays a sound effect once, at the specified volume.
 		 * Multiple sound effects can be played at the same time.
-		 * @param audioClip The sound effect clip to play
+		 * @param soundClip The sound effect clip to play
 		 * @param volume The volume level of the sound effect
 		 */
-		public static void PlaySound(AudioClip audioClip, float volume)
+		public static void PlaySound(AudioClip soundClip, float volume)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.PlaySound(audioClip, volume));
+			commandQueue.AddCommand(new Command.Call(delegate {
+				MusicManager.GetInstance().PlaySound(soundClip, volume);
+			}));
 		}
 
 		#endregion
