@@ -138,10 +138,11 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param targetView The View to pan the camera to.
 		 * @param duration The length of time in seconds needed to complete the pan.
+		 * @param wait Wait for pan to finish before executing next command.
 		 */
-		public static void PanToView(View targetView, float duration)
+		public static void PanToView(View targetView, float duration, bool wait = true)
 		{
-			PanToPosition(targetView.transform.position, targetView.transform.rotation, targetView.viewSize, duration);
+			PanToPosition(targetView.transform.position, targetView.transform.rotation, targetView.viewSize, duration, wait);
 		}
 
 		/**
@@ -153,11 +154,12 @@ namespace Fungus
 		 * @param targetRotation The rotation to pan the camera to.
 		 * @param targetSize The orthographic size to pan the camera to.
 		 * @param duration The length of time in seconds needed to complete the pan.
+		 * @param wait Wait for pan to finish before executing next command.
 		 */
-		public static void PanToPosition(Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration)
+		public static void PanToPosition(Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, bool wait)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.PanToPosition(targetPosition, targetRotation, targetSize, duration));
+			commandQueue.AddCommand(new Command.PanToPosition(targetPosition, targetRotation, targetSize, duration, wait));
 		}
 		
 		/**

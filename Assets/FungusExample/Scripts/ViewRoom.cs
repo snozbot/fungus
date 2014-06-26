@@ -31,7 +31,8 @@ namespace Fungus.Example
 		{
 			PanToView(logoView, 2f);
 			Wait(2);
-			PanToView(mainView, 2f);
+			PanToView(mainView, 2f, false); // Don't wait for pan to finish before executing next command
+			Say("Wow - nice logo!");
 			Call(OnEnter);
 		}
 

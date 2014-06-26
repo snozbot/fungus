@@ -49,30 +49,44 @@ namespace Fungus
 			Quaternion targetRotation;
 			float targetSize;
 			float duration;
+			bool wait;
 
-			public PanToPosition(Vector3 _targetPosition, Quaternion _targetRotation, float _targetSize, float _duration)
+			public PanToPosition(Vector3 _targetPosition, Quaternion _targetRotation, float _targetSize, float _duration, bool _wait)
 			{
 				targetPosition = _targetPosition;
 				targetRotation = _targetRotation;
 				targetSize = _targetSize;
 				duration = _duration;
+				wait = _wait;
 			}
 			
 			public override void Execute(CommandQueue commandQueue, Action onComplete)
 			{
 				Game game = Game.GetInstance();
-				
-				game.waiting = true;
-				
+
+				if (wait)
+				{
+					game.waiting = true;
+				}
+
 				game.cameraController.PanToPosition(targetPosition, targetRotation, targetSize, duration, delegate {
-					
-					game.waiting = false;
-					
+					if (wait)
+					{
+						game.waiting = false;
+						if (onComplete != null)
+						{
+							onComplete();
+						}
+					}
+				});
+
+				if (!wait)
+				{
 					if (onComplete != null)
 					{
 						onComplete();
 					}
-				});
+				}
 			}		
 		}
 

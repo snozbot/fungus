@@ -171,6 +171,9 @@ namespace Fungus
 		 */
 		public void PanToPosition(Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, Action arriveAction)
 		{
+			// Stop any pan that is currently active
+			StopAllCoroutines();
+
 			swipePanActive = false;
 			
 			if (duration == 0f)
