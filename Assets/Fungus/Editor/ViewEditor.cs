@@ -8,6 +8,16 @@ using Fungus;
 [CustomEditor (typeof(View))]
 public class ViewEditor : Editor 
 {
+	[DrawGizmo(GizmoType.NotSelected)]
+	static void RenderCustomGizmo(Transform objectTransform, GizmoType gizmoType)
+	{
+		View view = objectTransform.gameObject.GetComponent<View>();
+		if (view != null)
+		{
+			DrawView(view);
+		}
+	}
+
 	void OnSceneGUI () 
 	{
 		View t = target as View;
@@ -38,6 +48,8 @@ public class ViewEditor : Editor
 		Vector3[] handles = new Vector3[2];
 		handles[0] = pos + new Vector3(0, -viewSize, 0);
 		handles[1] = pos + new Vector3(0, viewSize, 0);
+
+		Handles.color = t.primaryColor;
 
 		for (int i = 0; i < 2; ++i)
 		{
@@ -72,7 +84,7 @@ public class ViewEditor : Editor
 			verts[1] = pos + new Vector3(-widthB, height, 0);
 			verts[2] = pos + new Vector3(-widthA, height, 0);
 			verts[3] = pos + new Vector3(-widthA, -height, 0);
-			
+
 			Handles.DrawSolidRectangleWithOutline(verts, view.secondaryColor, view.primaryColor );
 		}
 

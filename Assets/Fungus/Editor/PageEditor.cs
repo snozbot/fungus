@@ -13,17 +13,6 @@ namespace Fungus
 		{
 			Page t = target as Page;
 
-			// Render the parent view to help user position the page
-			Transform parent = t.transform.parent;
-			if (parent != null)
-			{
-				View view = parent.gameObject.GetComponent<View>();
-				if (view != null)
-				{
-					ViewEditor.DrawView(view);
-				}
-			}
-
 			if (t.enabled)
 			{
 				EditPageBounds();
