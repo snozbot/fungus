@@ -239,6 +239,20 @@ namespace Fungus
 			commandQueue.AddCommand(new Command.PanToStoredView(viewName, duration));
 		}
 
+		/**
+		 * Applies a random shake to the camera.
+		 * @param x Horizontal shake amount in world units.
+		 * @param x Vertical shake amount in world units.
+		 * @param duration Length of time for shake effect to last.
+		 */
+		public static void ShakeCamera(float x, float y, float duration)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.Call(delegate {
+				iTween.ShakePosition(Camera.main.gameObject, new Vector3(x, y, 0), duration);
+			}));
+		}
+
 		#endregion
 		#region Dialog Methods
 

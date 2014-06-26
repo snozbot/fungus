@@ -59,6 +59,9 @@ namespace Fungus.Example
 		void ProduceSpores()
 		{
 			Say("Yeah! I feel like doing some sporing!");
+
+			ShakeCamera(0.1f, 0.1f, 0.2f);
+
 			Say("Wow - look at all these spores! COOL!");
 
 			// Sets a global value flag which we check above in GoToSleep
