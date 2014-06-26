@@ -48,6 +48,7 @@ public class ViewEditor : Editor
 			                                        Handles.CubeCap);
 			if (newPos != handles[i])
 			{
+				Undo.RecordObject(t, "Changed view size");
 				t.viewSize = Mathf.Abs(newPos.y - pos.y);
 				break;
 			}
