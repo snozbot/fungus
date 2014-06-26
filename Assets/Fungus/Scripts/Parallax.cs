@@ -7,6 +7,7 @@ namespace Fungus
 	 * Attach this component to a sprite object to apply a simple parallax scrolling effect.
 	 * The horizontal and vertical parallax offset is calculated based on the distance from the camera to the position of the parent Room.
 	 * The scale parallax is calculated based on the ratio of the camera size to the size of the Room. This gives a 'dolly zoom' effect.
+	 * Accelerometer based parallax may also be applied on devices that support it.
 	 */
 	public class Parallax : MonoBehaviour 
 	{
@@ -27,8 +28,17 @@ namespace Fungus
 		 */
 		public float zoomedInScale = 1f;
 
+		/**
+		 * Scale factor for calculating parallax offset based on device accelerometer tilt angle.
+		 * Set this to 0 to disable the accelerometer parallax effect.
+		 */
+		public float accelerometerScale = 0.5f;
+
 		Vector3 startPosition;
 		Vector3 startScale;
+
+		Vector3 acceleration;
+		Vector3 velocity;
 
 		Room parentRoom;
 
@@ -66,13 +76,29 @@ namespace Fungus
 				return;
 			}
 
-			// Set new position for sprite
-			Vector3 a = parentRoom.transform.position;
-			Vector3 b = Camera.main.transform.position;
-			Vector3 offset = (a - b);
-			offset.x *= parallaxScale.x;
-			offset.y *= parallaxScale.y;
-			transform.position = startPosition + offset;
+			Vector3 translation = Vector3.zero;
+
+			// Apply parallax translation based on camera position relative to Room
+			{
+				Vector3 a = parentRoom.transform.position;
+				Vector3 b = Camera.main.transform.position;
+				translation = (a - b);
+				translation.x *= parallaxScale.x;
+				translation.y *= parallaxScale.y;
+			}
+
+			// Apply parallax translation based on device accelerometer
+			if (SystemInfo.supportsAccelerometer)
+			{
+				float maxParallaxScale = Mathf.Max(parallaxScale.x, parallaxScale.y); 
+				// The accelerometer data is quite noisy, so we apply smoothing to even it out.
+				acceleration = Vector3.SmoothDamp(acceleration, Input.acceleration, ref velocity, 0.1f);
+				// Assuming a 45 degree "neutral position" when holding a mobile device
+				Vector3 accelerometerOffset = Quaternion.Euler(45, 0, 0) * acceleration * maxParallaxScale * accelerometerScale;
+				translation += accelerometerOffset;
+			}
+
+			transform.position = startPosition + translation;
 
 			// Set new scale for sprite
 			float roomSize = parentRoom.renderer.bounds.extents.y;
