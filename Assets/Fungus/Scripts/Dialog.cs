@@ -282,8 +282,9 @@ namespace Fungus
 
 		float continueTimer;
 		bool instantCompleteText;
+		bool fullscreen;
 
-		// Cached versions of scaled style objects
+		// Cache scaled GUIStyle objects so we're not creating lots of new objects every frame
 		GUIStyle cachedBoxStyle;
 		GUIStyle cachedNameTextStyle;
 		GUIStyle cachedSayTextStyle;
@@ -296,12 +297,9 @@ namespace Fungus
 				return;
 			}
 
-			// Apply resolution independent scaling to styles
-			// Cache these so we're not creating lots of new objects every frame
-			cachedBoxStyle = ScaleFontSize(boxStyle);
-			cachedNameTextStyle = ScaleFontSize(nameTextStyle);
-			cachedSayTextStyle = ScaleFontSize(sayTextStyle);
-			cachedButtonStyle = ScaleFontSize (buttonStyle);
+			CacheScaledStyles();
+
+			fullscreen = Screen.fullScreen;
 		}
 
 		void Update()
@@ -347,15 +345,22 @@ namespace Fungus
 				timeoutTimer = Mathf.Max(timeoutTimer, 0f);
 			}
 
-			if (Application.isEditor)
+			// Update cached GUIStyles when running in editor or when switching to/from fullscreen
+			if (Application.isEditor || 
+			    fullscreen != Screen.fullScreen)
 			{
-				// Live update of GUIStyles when running in editor
-				// Not bid deal if we're triggering garbage collection inside editor
-				cachedBoxStyle = ScaleFontSize(boxStyle);
-				cachedNameTextStyle = ScaleFontSize(nameTextStyle);
-				cachedSayTextStyle = ScaleFontSize(sayTextStyle);
-				cachedButtonStyle = ScaleFontSize(buttonStyle);
+				CacheScaledStyles();
+
+				fullscreen = Screen.fullScreen;
 			}
+		}
+
+		void CacheScaledStyles()
+		{
+			cachedBoxStyle = ScaleFontSize(boxStyle);
+			cachedNameTextStyle = ScaleFontSize(nameTextStyle);
+			cachedSayTextStyle = ScaleFontSize(sayTextStyle);
+			cachedButtonStyle = ScaleFontSize(buttonStyle);
 		}
 
 		public void Say(string _sayText, Action sayAction)
