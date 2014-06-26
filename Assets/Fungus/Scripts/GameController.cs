@@ -141,7 +141,7 @@ namespace Fungus
 		 */
 		public static void PanToView(View targetView, float duration)
 		{
-			PanToPosition(targetView.transform.position, targetView.viewSize, duration);
+			PanToPosition(targetView.transform.position, targetView.transform.rotation, targetView.viewSize, duration);
 		}
 
 		/**
@@ -149,17 +149,20 @@ namespace Fungus
 		 * The pan starts at the current camera position and performs a smoothed linear pan to the target.
 		 * Command execution blocks until the pan completes.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param targetView The View to pan the camera to.
+		 * @param targetPosition The position to pan the camera to.
+		 * @param targetRotation The rotation to pan the camera to.
+		 * @param targetSize The orthographic size to pan the camera to.
 		 * @param duration The length of time in seconds needed to complete the pan.
 		 */
-		public static void PanToPosition(Vector3 targetPosition, float targetSize, float duration)
+		public static void PanToPosition(Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.PanToPosition(targetPosition, targetSize, duration));
+			commandQueue.AddCommand(new Command.PanToPosition(targetPosition, targetRotation, targetSize, duration));
 		}
 		
 		/**
 		 * Pans the camera through a sequence of target Views over a period of time.
+		 * Note: Does not support camera Rotation.
 		 * The pan starts at the current camera position and performs a smooth pan through all Views in the list.
 		 * Command execution blocks until the pan completes.
 		 * If more control is required over the camera path then you should instead use an Animator component to precisely control the Camera path.
@@ -167,6 +170,7 @@ namespace Fungus
 		 * @param duration The length of time in seconds needed to complete the pan.
 		 * @param targetViews A parameter list of views to visit during the pan.
 		 */
+		[Obsolete("Use a Camera animation instead.")]
 		public static void PanToPath(float duration, params View[] targetViews)
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;

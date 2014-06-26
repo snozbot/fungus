@@ -145,7 +145,7 @@ namespace Fungus
 			else
 			{
 				// Snap to new view
-				cameraController.PanToPosition(view.transform.position, view.viewSize, 0, null);
+				cameraController.PanToPosition(view.transform.position, view.transform.rotation, view.viewSize, 0, null);
 			}
 
 			// Hide all buttons in the room before entering

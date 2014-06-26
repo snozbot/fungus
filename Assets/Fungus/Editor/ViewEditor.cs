@@ -8,6 +8,7 @@ using Fungus;
 [CustomEditor (typeof(View))]
 public class ViewEditor : Editor 
 {
+	// Draw Views when they're not selected
 	[DrawGizmo(GizmoType.NotSelected)]
 	static void RenderCustomGizmo(Transform objectTransform, GizmoType gizmoType)
 	{
@@ -34,22 +35,19 @@ public class ViewEditor : Editor
 	
 	void EditViewBounds()
 	{
-		View t = target as View;
+		View view = target as View;
 
-		DrawView(t);
+		DrawView(view);
 
-		Vector3 pos = t.transform.position;
-		float viewSize = t.viewSize;
+		Vector3 pos = view.transform.position;
 
-		Vector3 newViewPos = Handles.PositionHandle(pos, Quaternion.identity);
-
-		t.transform.position = newViewPos;
+		float viewSize = CalculateLocalViewSize(view);
 
 		Vector3[] handles = new Vector3[2];
-		handles[0] = pos + new Vector3(0, -viewSize, 0);
-		handles[1] = pos + new Vector3(0, viewSize, 0);
+		handles[0] = view.transform.TransformPoint(new Vector3(0, -viewSize, 0));
+		handles[1] = view.transform.TransformPoint(new Vector3(0, viewSize, 0));
 
-		Handles.color = t.primaryColor;
+		Handles.color = view.primaryColor;
 
 		for (int i = 0; i < 2; ++i)
 		{
@@ -60,8 +58,8 @@ public class ViewEditor : Editor
 			                                        Handles.CubeCap);
 			if (newPos != handles[i])
 			{
-				Undo.RecordObject(t, "Changed view size");
-				t.viewSize = Mathf.Abs(newPos.y - pos.y);
+				Undo.RecordObject(view, "Changed view size");
+				view.viewSize = (newPos - pos).magnitude;
 				break;
 			}
 		}
@@ -69,21 +67,17 @@ public class ViewEditor : Editor
 
 	public static void DrawView(View view)
 	{	
-		Vector3 pos = view.transform.position;
-		float viewSize = view.viewSize;
-
-		float height = viewSize;
+		float height = CalculateLocalViewSize(view);
 		float widthA = height * view.primaryAspectRatio;
 		float widthB = height * view.secondaryAspectRatio;
 
 		// Draw left box
 		{
-
 			Vector3[] verts = new Vector3[4];
-			verts[0] = pos + new Vector3(-widthB, -height, 0);
-			verts[1] = pos + new Vector3(-widthB, height, 0);
-			verts[2] = pos + new Vector3(-widthA, height, 0);
-			verts[3] = pos + new Vector3(-widthA, -height, 0);
+			verts[0] = view.transform.TransformPoint(new Vector3(-widthB, -height, 0));
+			verts[1] = view.transform.TransformPoint(new Vector3(-widthB, height, 0));
+			verts[2] = view.transform.TransformPoint(new Vector3(-widthA, height, 0));
+			verts[3] = view.transform.TransformPoint(new Vector3(-widthA, -height, 0));
 
 			Handles.DrawSolidRectangleWithOutline(verts, view.secondaryColor, view.primaryColor );
 		}
@@ -91,10 +85,10 @@ public class ViewEditor : Editor
 		// Draw right box
 		{
 			Vector3[] verts = new Vector3[4];
-			verts[0] = pos + new Vector3(widthA, -height, 0);
-			verts[1] = pos + new Vector3(widthA, height, 0);
-			verts[2] = pos + new Vector3(widthB, height, 0);
-			verts[3] = pos + new Vector3(widthB, -height, 0);
+			verts[0] = view.transform.TransformPoint(new Vector3(widthA, -height, 0));
+			verts[1] = view.transform.TransformPoint(new Vector3(widthA, height, 0));
+			verts[2] = view.transform.TransformPoint(new Vector3(widthB, height, 0));
+			verts[3] = view.transform.TransformPoint(new Vector3(widthB, -height, 0));
 			
 			Handles.DrawSolidRectangleWithOutline(verts, view.secondaryColor, view.primaryColor );
 		}
@@ -102,12 +96,19 @@ public class ViewEditor : Editor
 		// Draw center box
 		{
 			Vector3[] verts = new Vector3[4];
-			verts[0] = pos + new Vector3(-widthA, -height, 0);
-			verts[1] = pos + new Vector3(-widthA, height, 0);
-			verts[2] = pos + new Vector3(widthA, height, 0);
-			verts[3] = pos + new Vector3(widthA, -height, 0);
-			
+			verts[0] = view.transform.TransformPoint(new Vector3(-widthA, -height, 0));
+			verts[1] = view.transform.TransformPoint(new Vector3(-widthA, height, 0));
+			verts[2] = view.transform.TransformPoint(new Vector3(widthA, height, 0));
+			verts[3] = view.transform.TransformPoint(new Vector3(widthA, -height, 0));
+
 			Handles.DrawSolidRectangleWithOutline(verts, new Color(1,1,1,0f), view.primaryColor );
 		}
+	}
+
+	// Calculate view size in local coordinates
+	// Kinda expensive, but accurate and only called in editor.
+	static float CalculateLocalViewSize(View view)
+	{
+		return view.transform.InverseTransformPoint(view.transform.position + new Vector3(0, view.viewSize, 0)).magnitude;
 	}
 }

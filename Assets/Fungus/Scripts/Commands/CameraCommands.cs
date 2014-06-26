@@ -31,7 +31,7 @@ namespace Fungus
 			{
 				Game game = Game.GetInstance();
 				
-				game.cameraController.PanToPosition(view.transform.position, view.viewSize, 0, null);
+				game.cameraController.PanToPosition(view.transform.position, view.transform.rotation, view.viewSize, 0, null);
 				
 				if (onComplete != null)
 				{
@@ -46,12 +46,14 @@ namespace Fungus
 		public class PanToPosition : CommandQueue.Command
 		{
 			Vector3 targetPosition;
+			Quaternion targetRotation;
 			float targetSize;
 			float duration;
 
-			public PanToPosition(Vector3 _targetPosition, float _targetSize, float _duration)
+			public PanToPosition(Vector3 _targetPosition, Quaternion _targetRotation, float _targetSize, float _duration)
 			{
 				targetPosition = _targetPosition;
+				targetRotation = _targetRotation;
 				targetSize = _targetSize;
 				duration = _duration;
 			}
@@ -62,7 +64,7 @@ namespace Fungus
 				
 				game.waiting = true;
 				
-				game.cameraController.PanToPosition(targetPosition, targetSize, duration, delegate {
+				game.cameraController.PanToPosition(targetPosition, targetRotation, targetSize, duration, delegate {
 					
 					game.waiting = false;
 					

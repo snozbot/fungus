@@ -46,6 +46,7 @@ namespace Fungus
 		class CameraView
 		{
 			public Vector3 cameraPos;
+			public Quaternion cameraRot;
 			public float cameraSize;
 		};
 
@@ -84,11 +85,17 @@ namespace Fungus
 			}
 		}
 
+		/**
+		 * Perform a fullscreen fade over a duration.
+		 */
 		public void Fade(float targetAlpha, float fadeDuration, Action fadeAction)
 		{
 			StartCoroutine(FadeInternal(targetAlpha, fadeDuration, fadeAction));
 		}
 
+		/**
+		 * Fade out, move camera to view and then fade back in.
+		 */
 		public void FadeToView(View view, float fadeDuration, Action fadeAction)
 		{
 			swipePanActive = false;
@@ -97,7 +104,7 @@ namespace Fungus
 			Fade(0f, fadeDuration / 2f, delegate {
 				
 				// Snap to new view
-				PanToPosition(view.transform.position, view.viewSize, 0f, null);
+				PanToPosition(view.transform.position, view.transform.rotation, view.viewSize, 0f, null);
 
 				// Fade in
 				Fade(1f, fadeDuration / 2f, delegate {
@@ -162,7 +169,7 @@ namespace Fungus
 		/**
 		 * Moves camera from current position to a target position over a period of time.
 		 */
-		public void PanToPosition(Vector3 targetPosition, float targetSize, float duration, Action arriveAction)
+		public void PanToPosition(Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, Action arriveAction)
 		{
 			swipePanActive = false;
 			
@@ -171,6 +178,7 @@ namespace Fungus
 				// Move immediately
 				Camera.main.orthographicSize = targetSize;
 				Camera.main.transform.position = targetPosition;
+				Camera.main.transform.rotation = targetRotation;
 				SetCameraZ();
 				if (arriveAction != null)
 				{
@@ -179,7 +187,7 @@ namespace Fungus
 			}
 			else
 			{
-				StartCoroutine(PanInternal(targetPosition, targetSize, duration, arriveAction));
+				StartCoroutine(PanInternal(targetPosition, targetRotation, targetSize, duration, arriveAction));
 			}
 		}
 
@@ -190,6 +198,7 @@ namespace Fungus
 		{
 			CameraView currentView = new CameraView();
 			currentView.cameraPos = Camera.main.transform.position;
+			currentView.cameraRot = Camera.main.transform.rotation;
 			currentView.cameraSize = Camera.main.orthographicSize;
 			storedViews[viewName] = currentView;
 		}
@@ -215,6 +224,7 @@ namespace Fungus
 			{
 				// Move immediately
 				Camera.main.transform.position = cameraView.cameraPos;
+				Camera.main.transform.rotation = cameraView.cameraRot;
 				Camera.main.orthographicSize = cameraView.cameraSize;
 				SetCameraZ();
 				if (arriveAction != null)
@@ -224,17 +234,19 @@ namespace Fungus
 			}
 			else
 			{
-				StartCoroutine(PanInternal(cameraView.cameraPos, cameraView.cameraSize, duration, arriveAction));
+				StartCoroutine(PanInternal(cameraView.cameraPos, cameraView.cameraRot, cameraView.cameraSize, duration, arriveAction));
 			}
 		}
 		
-		IEnumerator PanInternal(Vector3 targetPos, float targetSize, float duration, Action arriveAction)
+		IEnumerator PanInternal(Vector3 targetPos, Quaternion targetRot, float targetSize, float duration, Action arriveAction)
 		{
 			float timer = 0;
 			float startSize = Camera.main.orthographicSize;
 			float endSize = targetSize;
 			Vector3 startPos = Camera.main.transform.position;
 			Vector3 endPos = targetPos;
+			Quaternion startRot = Camera.main.transform.rotation;
+			Quaternion endRot = targetRot;
 
 			bool arrived = false;
 			while (!arrived)
@@ -250,6 +262,7 @@ namespace Fungus
 				float t = timer / duration;
 				Camera.main.orthographicSize = Mathf.Lerp(startSize, endSize, Mathf.SmoothStep(0f, 1f, t));
 				Camera.main.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, t));
+				Camera.main.transform.rotation = Quaternion.Lerp(startRot, endRot, Mathf.SmoothStep(0f, 1f, t));
 				SetCameraZ();
 
 				if (arrived &&
@@ -330,7 +343,7 @@ namespace Fungus
 			Vector3 targetPosition = CalcCameraPosition(cameraPos, swipePanViewA, swipePanViewB);
 			float targetSize = CalcCameraSize(cameraPos, swipePanViewA, swipePanViewB); 
 
-			PanToPosition(targetPosition, targetSize, duration, delegate {
+			PanToPosition(targetPosition, Quaternion.identity, targetSize, duration, delegate {
 
 				swipePanActive = true;
 

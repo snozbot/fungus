@@ -12,7 +12,7 @@ namespace Fungus
 	public class View : MonoBehaviour 
 	{
 		/**
-		 * Orthographic size of the camera view.
+		 * Orthographic size of the camera view in world space coordinates.
 		 */
 		public float viewSize = 0.5f;
 
@@ -37,5 +37,11 @@ namespace Fungus
 		 * Color of the secondary view rectangle.
 		 */
 		public Color secondaryColor = Color.grey;
+
+		void Update()
+		{
+			// Disable scaling to avoid complicating the orthographic size calculations
+			transform.localScale = new Vector3(1,1,1);
+		}
 	}
 }
