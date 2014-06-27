@@ -186,19 +186,18 @@ namespace Fungus
 		}
 
 		/**
-		 * Save the current game state to persistant storage.
-		 * Only the values, string table and current scene are stored.
-		 * @param saveName The name of the saved game data.
+		 * Save the current game variables to persistant storage.
+		 * Store the currently loaded scene name so that Game.LoadGame() can automatically move to the appropriate scene.
 		 */
-		[Obsolete("Use Variables.Save() instead.")]
-		public void SaveGame(string saveName)
+		public void SaveGame()
 		{
+			SetString("_scene", Application.loadedLevelName);
 			Variables.Save();
 		}
 
 		/**
 		 * Loads the current game state from persistant storage.
-		 * This will cause the scene specified in the "Fungus.Scene" string to be loaded.
+		 * This will cause the scene specified in the "_scene" string to be loaded.
 		 * Each scene in your game should contain the necessary code to restore the current game state based on saved data.
 		 * @param saveName The name of the saved game data.
 		 */

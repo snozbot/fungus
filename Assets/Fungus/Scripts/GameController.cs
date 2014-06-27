@@ -101,7 +101,7 @@ namespace Fungus
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(delegate {
-				Variables.Save();
+				Game.GetInstance().SaveGame();
 			}));
 		}
 

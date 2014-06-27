@@ -22,12 +22,11 @@ namespace Fungus
 		}
 
 		/**
-		 * Save the variable state to persistent storage.
-		 * The currently loaded scene name is stored so that Game.LoadGame() will automatically move to the appropriate scene.
+		 * Save the variables state to persistent storage.
 		 */
 		static public void Save()
 		{
-			SetString("_scene", Application.loadedLevelName);
+
 			PlayerPrefs.Save();
 		}
 
