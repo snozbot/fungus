@@ -1,128 +1,215 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace Fungus
 {
 	/**
-	 * Peristent data storage class for tracking game state.
-	 * Provides a basic save game system.
+	 * Static data storage class for managing global game variables.
+	 * Provides save and load functionality for persistent storage between game sessions.
 	 */
 	public class Variables
 	{
-		static string saveName = "_fungus";
+		static Dictionary<string, string> stringDict = new Dictionary<string, string>();
+		static Dictionary<string, int> intDict = new Dictionary<string, int>();
+		static Dictionary<string, float> floatDict = new Dictionary<string, float>();
+		static Dictionary<string, bool> boolDict = new Dictionary<string, bool>();
 
 		/**
-		 * Sets a name to prefix before all keys used with Set & Get methods.
-		 * You can use this to support multiple save data profiles, (e.g. for multiple users or a list of checkpoints).
+		 * Save the variable dictionaries to persistent storage using a name tag.
 		 */
-		static public void SetSaveName(string _saveName)
+		public static void Save(string saveName)
 		{
-			saveName = _saveName;
-		}
+			// Save strings
+			{
+				var b = new BinaryFormatter();
+				var m = new MemoryStream();
+				b.Serialize(m, stringDict);
+				PlayerPrefs.SetString(saveName + "." + "stringDict", Convert.ToBase64String(m.GetBuffer()));
+			}
 
-		/**
-		 * Save the variables state to persistent storage.
-		 */
-		static public void Save()
-		{
+			// Save ints
+			{
+				var b = new BinaryFormatter();
+				var m = new MemoryStream();
+				b.Serialize(m, intDict);
+				PlayerPrefs.SetString(saveName + "." + "intDict", Convert.ToBase64String(m.GetBuffer()));
+			}
+
+			// Save floats
+			{
+				var b = new BinaryFormatter();
+				var m = new MemoryStream();
+				b.Serialize(m, floatDict);
+				PlayerPrefs.SetString(saveName + "." + "floatDict", Convert.ToBase64String(m.GetBuffer()));
+			}
+
+			// Save bools
+			{
+				var b = new BinaryFormatter();
+				var m = new MemoryStream();
+				b.Serialize(m, boolDict);
+				PlayerPrefs.SetString(saveName + "." + "boolDict", Convert.ToBase64String(m.GetBuffer()));
+			}
 
 			PlayerPrefs.Save();
 		}
 
 		/**
-		 * Deletes all stored variables.
+		 * Loads the variable dictionaries from persistent storage using a name tag.
 		 */
-		static public void DeleteAll()
+		public static void Load(string saveName)
 		{
-			PlayerPrefs.DeleteAll();
+			var stringData = PlayerPrefs.GetString(saveName + "." + "stringDict");
+			if (string.IsNullOrEmpty(stringData))
+			{
+				stringDict.Clear();
+			}
+			else
+			{
+				var b = new BinaryFormatter();
+				var m = new MemoryStream(Convert.FromBase64String(stringData));
+				stringDict = (Dictionary<string, string>)b.Deserialize(m);
+			}
+
+			var floatData = PlayerPrefs.GetString(saveName + "." + "floatDict");
+			if (!string.IsNullOrEmpty(floatData))
+			{
+				var b = new BinaryFormatter();
+				var m = new MemoryStream(Convert.FromBase64String(floatData));
+				floatDict = b.Deserialize(m) as Dictionary<string, float>;
+			}
+
+			var intData = PlayerPrefs.GetString(saveName + "." + "intDict");
+			if (!string.IsNullOrEmpty(intData))
+			{
+				var b = new BinaryFormatter();
+				var m = new MemoryStream(Convert.FromBase64String(intData));
+				intDict = b.Deserialize(m) as Dictionary<string, int>;
+			}
+		
+			var boolData = PlayerPrefs.GetString(saveName + "." + "boolDict");
+			if (!string.IsNullOrEmpty(boolData))
+			{
+				var b = new BinaryFormatter();
+				var m = new MemoryStream(Convert.FromBase64String(boolData));
+				boolDict = b.Deserialize(m) as Dictionary<string, bool>;
+			}
 		}
 
 		/**
-		 * Deletes a single stored variable.
+		 * Clears all stored variables.
 		 */
-		static public void DeleteKey(string key)
+		public static void ClearAll()
 		{
-			PlayerPrefs.DeleteKey(AddPrefix(key));
+			stringDict.Clear();
+			intDict.Clear();
+			floatDict.Clear();
+			boolDict.Clear();
 		}
 
 		/**
 		 * Returns the float variable associated with the key.
 		 */
-		static public float GetFloat(string key)
+		public static float GetFloat(string key)
 		{
-			return PlayerPrefs.GetFloat(AddPrefix(key));
+			if (String.IsNullOrEmpty(key) ||
+				!floatDict.ContainsKey(key))
+			{
+				return 0;
+			}
+
+			return floatDict[key];
 		}
 
 		/**
 		 * Returns the integer variable associated with the key.
 		 */
-		static public int GetInteger(string key)
+		public static int GetInteger(string key)
 		{
-			return PlayerPrefs.GetInt(AddPrefix(key));
+			if (intDict == null)
+			{
+				Debug.Log ("Dict is null somehow");
+			}
+
+			if (String.IsNullOrEmpty(key) ||
+				!intDict.ContainsKey(key))
+			{
+				return 0;
+			}
+			
+			return intDict[key];
 		}
 
 		/**
 		 * Returns the boolean variable associated with the key.
 		 */
-		static public bool GetBoolean(string key)
+		public static bool GetBoolean(string key)
 		{
-			return (bool)(PlayerPrefs.GetInt(AddPrefix(key)) != 0);
+			if (String.IsNullOrEmpty(key) ||
+				!boolDict.ContainsKey(key))
+			{
+				return false;
+			}
+			
+			return boolDict[key];
 		}
 
 		/**
 		 * Returns the string variable associated with the key.
 		 */
-		static public string GetString(string key)
+		public static string GetString(string key)
 		{
-			return PlayerPrefs.GetString(AddPrefix(key));
-		}
-
-		/**
-		 * Returns true if a variable has been stored with this key.
-		 */
-		static public bool HasKey(string key)
-		{
-			return PlayerPrefs.HasKey(AddPrefix(key));
+			if (String.IsNullOrEmpty(key) ||
+				!stringDict.ContainsKey(key))
+			{
+				return "";
+			}
+			
+			return stringDict[key];
 		}
 
 		/**
 		 * Stores a float variable using the key.
 		 */
-		static public void SetFloat(string key, float value)
+		public static void SetFloat(string key, float value)
 		{
-			PlayerPrefs.SetFloat(AddPrefix(key), value);
+			floatDict[key] = value;
 		}
 
 		/**
 		 * Stores an integer variable using the key.
 		 */
-		static public void SetInteger(string key, int value)
+		public static void SetInteger(string key, int value)
 		{
-			PlayerPrefs.SetInt(AddPrefix(key), value);
+			intDict[key] = value;
 		}
 
 		/**
 		 * Stores a boolean variable using the key.
 		 */
-		static public void SetBoolean(string key, bool value)
+		public static void SetBoolean(string key, bool value)
 		{
-			PlayerPrefs.SetInt(AddPrefix(key), value ? 1 : 0);
+			boolDict[key] = value;
 		}
 
 		/**
 		 * Stores a string variable using the key.
 		 */
-		static public void SetString(string key, string value)
+		public static void SetString(string key, string value)
 		{
-			PlayerPrefs.SetString(AddPrefix(key), value);
+			stringDict[key] = value;
 		}
 
 		/** 
 		 * Replace keys in the input string with the string table entry.
 		 * Example format: "This {string_key} string"
 		 */
-		static public string SubstituteStrings(string text)
+		public static string SubstituteStrings(string text)
 		{
 			string subbedText = text;
 			
@@ -146,7 +233,7 @@ namespace Fungus
 		 * Chops a string at the first new line character encountered.
 		 * This is useful for link / button strings that must fit on a single line.
 		 */
-		static public string FormatLinkText(string text)
+		public static string FormatLinkText(string text)
 		{
 			string trimmed;
 			if (text.Contains("\n"))
@@ -159,16 +246,6 @@ namespace Fungus
 			}
 			
 			return trimmed;
-		}
-
-		static string AddPrefix(string key)
-		{
-			if (saveName.Length == 0)
-			{
-				return key;
-			}
-			
-			return saveName + "." + key;
 		}
 	}
 }

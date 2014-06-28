@@ -32,13 +32,6 @@ namespace Fungus
 		public bool showLinks = true;
 
 		/**
-		 * Deletes all previously stored variables on launch.
-		 * Disable this if you want to have game variables persist between game launches.
-		 * It is then up to you to provide an in-game option to reset game variables.
-		 */
-		public bool deleteVariables = true;
-
-		/**
 		 * Time for fade transition to complete when moving to a different Room.
 		 */
 		public float roomFadeDuration = 1f;
@@ -123,11 +116,6 @@ namespace Fungus
 				commandQueue.AddCommand(new Command.MoveToRoom(activeRoom));
 				commandQueue.Execute();
 			}
-
-			if (deleteVariables)
-			{
-				Variables.DeleteAll();
-			}
 		}
 
 		public virtual void Update()
@@ -186,24 +174,24 @@ namespace Fungus
 		}
 
 		/**
-		 * Save the current game variables to persistant storage.
-		 * Store the currently loaded scene name so that Game.LoadGame() can automatically move to the appropriate scene.
+		 * Save the current game variables to persistant storage using a save game name.
+		 * Stores the currently loaded scene name so that Game.LoadGame() can automatically move to the appropriate scene.
 		 */
-		public void SaveGame()
+		public void SaveGame(string saveName = "_fungus")
 		{
-			SetString("_scene", Application.loadedLevelName);
-			Variables.Save();
+			Variables.SetString("_scene", Application.loadedLevelName);
+			Variables.Save(saveName);
 		}
 
 		/**
-		 * Loads the current game state from persistant storage.
+		 * Loads the current game state from persistant storage using a save game name.
 		 * This will cause the scene specified in the "_scene" string to be loaded.
 		 * Each scene in your game should contain the necessary code to restore the current game state based on saved data.
 		 * @param saveName The name of the saved game data.
 		 */
 		public void LoadGame(string saveName = "_fungus")
 		{
-			Variables.SetSaveName(saveName);
+			Variables.Load(saveName);
 			string sceneName = Variables.GetString("_scene");
 			if (sceneName.Length > 0)
 			{

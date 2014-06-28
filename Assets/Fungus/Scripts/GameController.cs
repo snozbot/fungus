@@ -88,20 +88,11 @@ namespace Fungus
 		 * Save the current game state to persistant storage.
 		 * @param saveName The name of the saved game data.
 		 */
-		[Obsolete("Use Save() instead and use Variables.SetSaveName() if you need to set the save name.")]
-		public static void Save(string saveName)
-		{
-			GameController.Save();
-		}
-
-		/**
-		 * Saves the current game variables to persistant storage.
-		 */
-		public static void Save()
+		public static void Save(string saveName = "_fungus")
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(delegate {
-				Game.GetInstance().SaveGame();
+				Game.GetInstance().SaveGame(saveName);
 			}));
 		}
 
@@ -371,7 +362,9 @@ namespace Fungus
 		[Obsolete("Use Variables.DeleteKey() instead")]
 		public static void ClearValue(string key)
 		{
-			Variables.DeleteKey(key);
+			Variables.SetInteger(key, 0);
+			Variables.SetFloat(key, 0);
+			Variables.SetBoolean(key, false);
 		}
 
 		/**
