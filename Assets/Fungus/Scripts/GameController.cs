@@ -446,7 +446,7 @@ namespace Fungus
 		/**
 		 * Sets a globally accessible string value.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the value to set
+		 * @param key The name of the variable to set
 		 * @param value The string value to set
 		 */
 		public static void SetString(string key, string value)
@@ -454,6 +454,75 @@ namespace Fungus
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(delegate {
 				Variables.SetString(key, value);
+			}));
+		}
+
+		/**
+		 * Adds a delta amount to the named integer variable.
+		 * @param key The name of the integer variable to set.
+		 * @param delta The delta value to add to the variable.
+		 */
+		public static void AddInteger(string key, int delta)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.Call(delegate {
+				int value = Variables.GetInteger(key);
+				Variables.SetInteger(key, value + delta);
+			}));
+		}
+
+		/**
+		 * Multiplies the named integer variable.
+		 * @param key The name of the integer variable to set.
+		 * @param multiplier The multiplier to multiply the integer variable by.
+		 */
+		public static void MultiplyInteger(string key, int multiplier)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.Call(delegate {
+				int value = Variables.GetInteger(key);
+				Variables.SetInteger(key, value * multiplier);
+			}));
+		}
+
+		/**
+		 * Adds a delta amount to the named float variable.
+		 * @param key The name of the float variable to set.
+		 * @param delta The delta value to add to the variable.
+		 */
+		public static void AddFloat(string key, float delta)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.Call(delegate {
+				float value = Variables.GetFloat(key);
+				Variables.SetFloat(key, value + delta);
+			}));
+		}
+
+		/**
+		 * Multiplies the named float variable.
+		 * @param key The name of the float variable to set.
+		 * @param multiplier The multiplier to multiply the float variable by.
+		 */
+		public static void MultiplyFloat(string key, float multiplier)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.Call(delegate {
+				float value = Variables.GetFloat(key);
+				Variables.SetFloat(key, value * multiplier);
+			}));
+		}
+
+		/**
+		 * Toggles the state of a boolean variable.
+		 * @param The name of the boolean variable to toggle.
+		 */
+		public static void ToggleBoolean(string key)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.Call(delegate {
+				bool value = Variables.GetBoolean(key);
+				Variables.SetBoolean(key, !value);
 			}));
 		}
 
