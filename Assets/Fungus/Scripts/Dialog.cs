@@ -225,10 +225,45 @@ namespace Fungus
 		public float minButtonWidth = 0;
 
 		/**
-		 * Padding offset to apply around the character image, in pixels.
+		 * Padding values for each side of the character image.
 		 */
-		[Tooltip("Padding offset to apply around the character image, in pixels.")]
-		public RectOffset imagePadding;
+		[System.Serializable]
+		public class ImagePadding
+		{
+			/**
+			 * Padding to apply to left side of image as a fraction of screen height [-2..2].
+			 */
+			[Range(-2,2)]
+			[Tooltip("Padding to apply to left side of image as a fraction of screen height [-2..2].")]
+			public float left;
+
+			/**
+			 * Padding to apply to right side of image as a fraction of screen height [-2..2].
+			 */
+			[Range(-2,2)]
+			[Tooltip("Padding to apply to right side of image as a fraction of screen height [-2..2].")]
+			public float right;
+
+			/**
+			 * Padding to apply to top side of image as a fraction of screen height [-1..1].
+			 */
+			[Range(-1,1)]
+			[Tooltip("Padding to apply to top side of image as a fraction of screen height [-1..1].")]
+			public float top;
+
+			/**
+			 * Padding to apply to bottom side of image as a fraction of screen height [-1..1].
+			 */
+			[Range(-1,1)]
+			[Tooltip("Padding to apply to bottom side of image as a fraction of screen height [-1..1].")]
+			public float bottom;
+		}
+
+		/**
+		 * Padding offset to apply around the character image.
+		 */
+		[Tooltip("Padding offset to apply around the character image.")]
+		public ImagePadding imagePadding;
 
 		/**
 		 * Scale of character image, specified as a fraction of current screen height [0..1].
@@ -565,6 +600,13 @@ namespace Fungus
 			Rect sideImageRect = new Rect();
 			Rect dialogRect = new Rect();
 
+			// The left and right padding values are also calculated based on Screen.height to give
+			// consistent padding regardless of the screen aspect ratio
+			RectOffset imagePaddingRect = new RectOffset(Mathf.RoundToInt(imagePadding.left * Screen.height),
+			                                             Mathf.RoundToInt(imagePadding.right * Screen.height),
+			                                             Mathf.RoundToInt(imagePadding.top * Screen.height),
+			                                             Mathf.RoundToInt(imagePadding.bottom * Screen.height));
+
 			Character character = characters[activeCharacter];
 
 			GUILayout.BeginArea(areaRect);
@@ -589,8 +631,8 @@ namespace Fungus
 							// Reserve a rect for the side image based on the current screen height and imageScale
 							float sideImageHeight = Screen.height * imageScale;
 							float sideImageWidth = (sideImageHeight / character.image.height) * character.image.width;
-							float w = sideImageWidth + imagePadding.left + imagePadding.right;
-							float h = sideImageHeight + imagePadding.top + imagePadding.bottom;
+							float w = sideImageWidth + imagePaddingRect.left + imagePaddingRect.right;
+							float h = sideImageHeight + imagePaddingRect.top + imagePaddingRect.bottom;
 							sideImageRect = GUILayoutUtility.GetRect(w, h, GUILayout.Width(w), GUILayout.Height(h));
 						}
 						else if (character.imageSide == Character.ImageSide.Right)
@@ -689,8 +731,8 @@ namespace Fungus
 							// Reserve a rect for the side image based on the current screen height and imageScale
 							float sideImageHeight = Screen.height * imageScale;
 							float sideImageWidth = (sideImageHeight / character.image.height) * character.image.width;
-							float w = sideImageWidth + imagePadding.left + imagePadding.right;
-							float h = sideImageHeight + imagePadding.top + imagePadding.bottom;
+							float w = sideImageWidth + imagePaddingRect.left + imagePaddingRect.right;
+							float h = sideImageHeight + imagePaddingRect.top + imagePaddingRect.bottom;
 							sideImageRect = GUILayoutUtility.GetRect(w, h, GUILayout.Width(w), GUILayout.Height(h));
 						}
 						else if (character.imageSide == Character.ImageSide.Left)
@@ -720,9 +762,9 @@ namespace Fungus
 			if (character.image != null)
 			{
 				// Adjust side image rect based on aspect ratio of the image.
-				float sideImageHeight = character.image.height * ((sideImageRect.width - imagePadding.left - imagePadding.right) / character.image.width);
-				sideImageRect.yMax = sideImageRect.yMin + sideImageHeight + imagePadding.bottom + imagePadding.top;
-				sideImageRect = imagePadding.Remove(sideImageRect);
+				float sideImageHeight = character.image.height * ((sideImageRect.width - imagePaddingRect.left - imagePaddingRect.right) / character.image.width);
+				sideImageRect.yMax = sideImageRect.yMin + sideImageHeight + imagePaddingRect.bottom + imagePaddingRect.top;
+				sideImageRect = imagePaddingRect.Remove(sideImageRect);
 
 				// Adjust rect based on layout offset
 				sideImageRect.x += areaRect.x;
