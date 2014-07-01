@@ -15,6 +15,7 @@ namespace Fungus
 		public Texture2D texture;	
 
 		/// Fraction of screen height (for resolution independent sizing).
+		[Range(0, 1)]
 		public float verticalScale = 0.2f; 
 
 		/// Texture position on screen in localized screen coords ([0..1], [0..1])

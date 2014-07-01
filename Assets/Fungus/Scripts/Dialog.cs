@@ -168,6 +168,7 @@ namespace Fungus
 		/**
 		 * Writing speed for say text in Characters Per Second.
 		 */
+		[Range(0, 1000)]
 		public int writingSpeed = 100;
 
 		/**
@@ -193,12 +194,14 @@ namespace Fungus
 		/**
 		 * Number of buttons to display in the same row when showing multiple options
 		 */
+		[Range(0, 10)]
 		public int buttonsPerRow = 2;
 
 		/**
 		 * Minimum width of each button as a fraction of the screen width [0..1].
 		 * This is useful to create a column of buttons with matching width.
 		 */
+		[Range(0, 1)]
 		public float minButtonWidth = 0;
 
 		/**
@@ -209,6 +212,7 @@ namespace Fungus
 		/**
 		 * Scale of character image, specified as a fraction of current screen height [0..1].
 		 */
+		[Range(0, 1)]
 		public float imageScale = 0.25f;
 
 		/**
@@ -219,6 +223,7 @@ namespace Fungus
 		/**
 		 * Scale of timer image, specified as a fraction of current screen height [0..1].
 		 */
+		[Range(0, 1)]
 		public float timerScale = 0.2f;
 
 		/**

@@ -34,16 +34,19 @@ namespace Fungus
 		/**
 		 * Time for fade transition to complete when moving to a different Room.
 		 */
+		[Range(0,5)]
 		public float roomFadeDuration = 1f;
 
 		/**
 		 * Time for fade transition to complete when hiding/showing buttons.
 		 */
+		[Range(0,5)]
 		public float buttonFadeDuration = 0.25f;
 
 		/**
 		 * Time which must elapse before buttons will automatically hide.
 		 */
+		[Range(0, 60)]
 		public float autoHideButtonDuration = 5f;
 
 		/**
