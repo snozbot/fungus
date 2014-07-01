@@ -275,11 +275,11 @@ namespace Fungus
 		}
 
 		/**
-		 * Writes story text to the page.
+		 * Writes story text to the dialog.
 		 * A 'continue' button is displayed when the text has fully appeared.
 		 * Command execution halts until the user chooses to continue.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param storyText The text to be written to the page.
+		 * @param storyText The text to be written to the dialog.
 		 */
 		public static void Say(string storyText)
 		{
@@ -402,9 +402,9 @@ namespace Fungus
 		}
 
 		/**
-		 * Sets a globally accessible boolean value.
+		 * Sets a globally accessible boolean variable.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the value to set
+		 * @param key The name of the boolean variable to set
 		 * @param value The boolean value to set
 		 */
 		public static void SetBoolean(string key, bool value)
@@ -416,9 +416,9 @@ namespace Fungus
 		}
 
 		/**
-		 * Sets a globally accessible integer value.
+		 * Sets a globally accessible integer variable.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the value to set
+		 * @param key The name of the integer variable to set
 		 * @param value The integer value to set
 		 */
 		public static void SetInteger(string key, int value)
@@ -430,9 +430,9 @@ namespace Fungus
 		}
 
 		/**
-		 * Sets a globally accessible float value.
+		 * Sets a globally accessible float variable.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the value to set
+		 * @param key The name of the float variable to set
 		 * @param value The flaot value to set
 		 */
 		public static void SetFloat(string key, float value)
@@ -444,10 +444,10 @@ namespace Fungus
 		}
 
 		/**
-		 * Sets a globally accessible string value.
+		 * Sets a globally accessible string variable.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param key The name of the variable to set
-		 * @param value The string value to set
+		 * @param value The string variable to set
 		 */
 		public static void SetString(string key, string value)
 		{
