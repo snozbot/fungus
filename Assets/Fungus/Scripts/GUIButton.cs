@@ -11,17 +11,21 @@ namespace Fungus
 	 */
 	public class GUIButton : MonoBehaviour 
 	{
-		/// Texture to draw on the screen.
+		/// Button texture to draw on the screen.
+		[Tooltip("Button texture to draw on the screen.")]
 		public Texture2D texture;	
 
-		/// Fraction of screen height (for resolution independent sizing).
+		/// Button size as a fraction of screen height [0..1].
 		[Range(0, 1)]
+		[Tooltip("Button size as a fraction of screen height [0..1].")]
 		public float verticalScale = 0.2f; 
 
-		/// Texture position on screen in localized screen coords ([0..1], [0..1])
+		/// Texture position on screen in localized screen coords [0..1]
+		[Tooltip("Texture position on screen in localized screen coords [0..1]")]
 		public Vector2 screenPosition; 
 
-		/// Vertical and horizontal space between edge of screen and texture (in pixels).
+		/// Space between edge of screen and texture (in pixels).
+		[Tooltip("Space between edge of screen and texture (in pixels).")]
 		public Vector2 padding;
 
 		/// Supported actions to perform when player clicks the button.
@@ -36,9 +40,11 @@ namespace Fungus
 		};
 
 		/// Action to perform when player clicks the button.
+		[Tooltip("Action to perform when player clicks the button.")]
 		public ClickAction clickAction;
 
 		/// Parameter associated with the click action.
+		[Tooltip("Parameter associated with the click action.")]
 		public string actionParameter;
 
 		void OnGUI()

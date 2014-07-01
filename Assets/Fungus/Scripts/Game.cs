@@ -22,41 +22,47 @@ namespace Fungus
 	{
 		/**
 		 * The currently active Room.
-		 * Only one Room may be active at a time.
 		 */
+		[Tooltip("The currently active Room.")]
 		public Room activeRoom;
 
 		/**
-		 * Automatically display links between connected Rooms.
+		 * Show links between Rooms in scene view.
 		 */
+		[Tooltip("Show links between Rooms in scene view.")]
 		public bool showLinks = true;
 
 		/**
-		 * Time for fade transition to complete when moving to a different Room.
+		 * Fade transition time when moving between Rooms.
 		 */
 		[Range(0,5)]
+		[Tooltip("Fade transition time when moving between Rooms.")]
 		public float roomFadeDuration = 1f;
 
 		/**
-		 * Time for fade transition to complete when hiding/showing buttons.
+		 * Fade transition time when hiding/showing buttons.
 		 */
 		[Range(0,5)]
+		[Tooltip("Fade transition time when hiding/showing buttons.")]
 		public float buttonFadeDuration = 0.25f;
 
 		/**
-		 * Time which must elapse before buttons will automatically hide.
+		 * Time to elapse before buttons hide automatically.
 		 */
 		[Range(0, 60)]
+		[Tooltip("Time to elapse before buttons hide automatically.")]
 		public float autoHideButtonDuration = 5f;
 
 		/**
 		 * Currently active Dialog object used to display character text and menus.
 		 */
+		[Tooltip("Currently active Dialog object used to display character text and menus.")]
 		public Dialog dialog;
 
 		/**
-		 * Loading image displayed when loading a scene using MoveToScene()
+		 * Loading image displayed when loading a scene using MoveToScene() command.
 		 */
+		[Tooltip("Loading image displayed when loading a scene using MoveToScene() command.")]
 		public Texture2D loadingImage;
 
 		[HideInInspector]

@@ -20,16 +20,19 @@ namespace Fungus
 		/**
 		 * Automatically hides the button when displaying story text/options or waiting.
 		 */
+		[Tooltip("Automatically hides the button when displaying story text/options or waiting.")]
 		public bool autoHide = true;
 
 		/**
 		 * Automatically hides the button when the named boolean variable is set using SetBoolean()
 		 */
+		[Tooltip("Automatically hides the button when the named boolean variable is set using the SetBoolean() command.")]
 		public string hideOnBoolean;
 
 		/**
 		 * Sound effect to play when button is clicked.
 		 */
+		[Tooltip("Sound effect to play when button is clicked.")]
 		public AudioClip clickSound;
 
 		float targetAlpha;

@@ -71,42 +71,48 @@ namespace Fungus
 		public class Layout
 		{
 			/**
-			 * Pushes the left dialog edge away from the left side of the screen.
+			 * Push the left dialog edge away from the left side of the screen.
 			 */
+			[Tooltip("Push the left dialog edge away from the left side of the screen.")]
 			public bool leftSpace = false;
 
 			/**
-			 * Pushes the top dialog edge away from the top side of the screen.
+			 * Push the top dialog edge away from the top side of the screen.
 			 */
+			[Tooltip("Push the top dialog edge away from the top side of the screen.")]
 			public bool topSpace = true;
 
 			/**
-			 * Pushes the right dialog edge away from the right side of the screen.
+			 * Push the right dialog edge away from the right side of the screen.
 			 */
+			[Tooltip("Push the right dialog edge away from the right side of the screen.")]
 			public bool rightSpace = false;
 
 			/**
-			 * Pushes the bottom dialog edge away from the bottom side of the screen.
+			 * Push the bottom dialog edge away from the bottom side of the screen.
 			 */
+			[Tooltip("Push the bottom dialog edge away from the bottom side of the screen.")]
 			public bool bottomSpace = false;
 
 			/**
-			 * Minimum dimensions of the dialog.
+			 * Minimum dimensions of the dialog in normalized screen coordinates [0..1].
 			 * The dialog may expand beyond these dimensions to fit content.
-			 * Coordinates are in normalized screen coordinates [0..1]
 			 */
+			[Tooltip("Minimum dimensions of the dialog in normalized screen coordinates [0..1].")]
 			public Vector2 size = new Vector2(1f, 0.25f);
 
 			/**
-			 * Offsets the dialog relative to the top left corner of the screen.
+			 * Offset the dialog relative to the top left corner of the screen.
 			 * Coordinates are in normalized screen coordinates [0..1]
 			 */
+			[Tooltip("Offset the dialog relative to the top left corner of the screen.")]
 			public Vector2 offset;
 		}
 		
 		/**
 		 * Layout values used to control size and position of the dialog.
 		 */
+		[Tooltip("Layout values used to control size and position of the dialog.")]
 		public Layout layout;
 
 		/**
@@ -127,74 +133,87 @@ namespace Fungus
 			}
 
 			/**
-			 * Indentifier for this character for use with the SetCharacter() method.
+			 * Identifier for this character for use with the SetCharacter() command.
 			 */
+			[Tooltip("Identifier for this character for use with the SetCharacter() command.")]
 			public string characterID;
 
 			/**
-			 * Name text to display for the character.
+			 * Name text to display for the character on the dialog.
 			 * If empty then the name field is not displayed.
 			 */
+			[Tooltip("Name text to display for the character on the dialog.")]
 			public string name;
 
 			/**
-			 * The color for the name text.
+			 * The color of the name text label.
 			 * This always overrides any color value specified in the NameStyle property.
 			 */
+			[Tooltip("The color of the name text label.")]
 			public Color nameColor;
 
 			/**
 			 * Image to display for the character.
 			 * If no image is specified then no character image will be displayed.
 			 */
+			[Tooltip("Image to display for the character.")]
 			public Texture2D image;
 			
 			/**
 		 	 * Side of dialog where character image will be displayed.
 		 	 */
+			[Tooltip("Side of dialog where character image will be displayed.")]
 			public ImageSide imageSide;
 		}
 		
 		/**
 		 * List of game characters that can be displayed using this dialog.
 		 */
+		[Tooltip("List of game characters that can be displayed using this dialog.")]
 		public Character[] characters;
 
 		/**
-		 * Active character to use when displaying dialog.
+		 * Active character to use when displaying dialog (set using the SetCharacter() command).
 		 */
+		[Tooltip("Active character to use when displaying dialog.")]
 		public int activeCharacter;
 
 		/**
-		 * Writing speed for say text in Characters Per Second.
+		 * Writing speed for say text in characters per second.
 		 */
 		[Range(0, 1000)]
+		[Tooltip("Writing speed for say text in characters per second.")]
 		public int writingSpeed = 100;
 
 		/**
 		 * Sound to play while text is being written in the dialog.
 		 */
+		[Tooltip("Sound to play while text is being written in the dialog.")]
 		public AudioClip writingSound;
 
 		/**
 		 * Loop the writing sound as long as text is being written.
 		 */
+		[Tooltip("Loop the writing sound while text is being written.")]
 		public bool loopWritingSound = true; 
 		
 		/**
 		 * Sound effect to play when the player taps to continue.
 		 */
+		[Tooltip("Sound effect to play when the player taps to continue.")]
 		public AudioClip continueSound;
 
 		/**
 		 * Icon to display under the story text when waiting for player to tap to continue.
 		 */
+		[Tooltip("Icon to display under the story text when waiting for player to tap to continue.")]
 		public Texture2D continueIcon;
 
 		/**
-		 * Number of buttons to display in the same row when showing multiple options
+		 * Number of buttons to display in the same row when showing multiple options.
 		 */
 		[Range(0, 10)]
+		[Tooltip("Number of buttons to display in the same row when showing multiple options.")]
 		public int buttonsPerRow = 2;
 
 		/**
@@ -202,53 +221,63 @@ namespace Fungus
 		 * This is useful to create a column of buttons with matching width.
 		 */
 		[Range(0, 1)]
+		[Tooltip("Minimum width of each button as a fraction of the screen width [0..1].")]
 		public float minButtonWidth = 0;
 
 		/**
 		 * Padding offset to apply around the character image, in pixels.
 		 */
+		[Tooltip("Padding offset to apply around the character image, in pixels.")]
 		public RectOffset imagePadding;
 
 		/**
 		 * Scale of character image, specified as a fraction of current screen height [0..1].
 		 */
 		[Range(0, 1)]
+		[Tooltip("Scale of character image, specified as a fraction of current screen height [0..1].")]
 		public float imageScale = 0.25f;
 
 		/**
-		 * Animation frames for multiple choice time indicator
+		 * Animation frames for multiple choice time indicator.
 		 */
+		[Tooltip("Animation frames for multiple choice time indicator.")]
 		public Texture2D[] timerAnimation;
 
 		/**
 		 * Scale of timer image, specified as a fraction of current screen height [0..1].
 		 */
 		[Range(0, 1)]
+		[Tooltip("Scale of timer image, specified as a fraction of current screen height [0..1].")]
 		public float timerScale = 0.2f;
 
 		/**
 		 * Sound effect to play when time indicator advances.
 		 */
+		[Tooltip("Sound effect to play when time indicator advances.")]
 		public AudioClip timerSound;
 
 		/**
 		 * Style for dialog box background.
 		 */
+		[Tooltip("Style for dialog box background.")]
 		public GUIStyle boxStyle;
 		
 		/**
 		 * Style for name text.
 		 */
+		[Tooltip("Style for name text.")]
 		public GUIStyle nameTextStyle;
 
 		/**
 		 * Style for say text.
 		 */
+		[Tooltip("Style for say text.")]
 		public GUIStyle sayTextStyle;
 
 		/**
 		 * Style for option buttons
 		 */
+		[Tooltip("Style for option buttons.")]
 		public GUIStyle buttonStyle;
 
 		DialogMode dialogMode;
