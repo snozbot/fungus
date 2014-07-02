@@ -152,24 +152,7 @@ namespace Fungus
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.PanToPosition(targetPosition, targetRotation, targetSize, duration, wait));
 		}
-		
-		/**
-		 * Pans the camera through a sequence of target Views over a period of time.
-		 * Note: Does not support camera Rotation.
-		 * The pan starts at the current camera position and performs a smooth pan through all Views in the list.
-		 * Command execution blocks until the pan completes.
-		 * If more control is required over the camera path then you should instead use an Animator component to precisely control the Camera path.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param duration The length of time in seconds needed to complete the pan.
-		 * @param targetViews A parameter list of views to visit during the pan.
-		 */
-		[Obsolete("Use a Camera animation instead.")]
-		public static void PanToPath(float duration, params View[] targetViews)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.PanToPath(targetViews, duration));
-		}
-		
+
 		/**
 		 * Fades out the current camera View, and fades in again using the target View.
 		 * This method returns immediately but it queues an asynchronous command for later execution.
@@ -330,76 +313,6 @@ namespace Fungus
 
 		#endregion
 		#region State Methods
-
-		/**
-		 * Sets a globally accessible integer value.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the value to set
-		 * @param value The value to set
-		 */
-		[Obsolete("Use SetInteger() instead.")]
-		public static void SetValue(string key, int value)
-		{
-			SetInteger(key, value);
-		}
-
-		/**
-		 * Sets a globally accessible integer value to 1.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the value to set
-		 */
-		[Obsolete("Use SetInteger() instead")]
-		public static void SetValue(string key)
-		{
-			SetInteger(key, 1);
-		}
-
-		/**
-		 * Sets a globally accessible integer value to 0.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The key of the value.
-		 */
-		[Obsolete("Use Variables.DeleteKey() instead")]
-		public static void ClearValue(string key)
-		{
-			Variables.SetInteger(key, 0);
-			Variables.SetFloat(key, 0);
-			Variables.SetBoolean(key, false);
-		}
-
-		/**
-		 * Gets a globally accessible integer value.
-		 * Returns zero if the value has not previously been set.
-		 * @param key The name of the value
-		 * @return The integer value for this key, or 0 if not previously set.
-		 */
-		[Obsolete("Use Variables.GetInteger() instead")]
-		public static int GetValue(string key)
-		{
-			return Variables.GetInteger(key);
-		}
-
-		/**
-		 * Gets a globally accessible string value.
-		 * @param key The name of the value
-		 * @return The string value for this key, or the empty string if not previously set.
-		 */
-		[Obsolete("Use Variables.GetString() instead")]
-		public static string GetString(string key)
-		{
-			return Variables.GetString(key);
-		}
-
-		/**
-		 * Checks if a value is non-zero.
-		 * @param key The name of the value to check.
-		 * @return Returns true if the value is not equal to zero.
-		 */
-		[Obsolete("Use Variables.GetInteger() or Variables.HasKey() instead")]
-		public static bool HasValue(string key)
-		{
-			return Variables.GetInteger(key) != 0;
-		}
 
 		/**
 		 * Sets a globally accessible boolean variable.
@@ -714,6 +627,8 @@ namespace Fungus
 		#endregion
 		#region Obsolete Methods
 
+		/// @cond SHOW_OBSOLETE
+
 		// These methods are provided for backwards compatibility purposes and will be removed in a future release.
 
 		/**
@@ -907,6 +822,95 @@ namespace Fungus
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Choose(chooseText));
 		}
+
+		/**
+		 * Pans the camera through a sequence of target Views over a period of time.
+		 * Note: Does not support camera Rotation.
+		 * The pan starts at the current camera position and performs a smooth pan through all Views in the list.
+		 * Command execution blocks until the pan completes.
+		 * If more control is required over the camera path then you should instead use an Animator component to precisely control the Camera path.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param duration The length of time in seconds needed to complete the pan.
+		 * @param targetViews A parameter list of views to visit during the pan.
+		 */
+		[Obsolete("Use a Camera animation instead.")]
+		public static void PanToPath(float duration, params View[] targetViews)
+		{
+			CommandQueue commandQueue = Game.GetInstance().commandQueue;
+			commandQueue.AddCommand(new Command.PanToPath(targetViews, duration));
+		}
+
+		/**
+		 * Sets a globally accessible integer value.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param key The name of the value to set
+		 * @param value The value to set
+		 */
+		[Obsolete("Use SetInteger() instead.")]
+		public static void SetValue(string key, int value)
+		{
+			SetInteger(key, value);
+		}
+		
+		/**
+		 * Sets a globally accessible integer value to 1.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param key The name of the value to set
+		 */
+		[Obsolete("Use SetInteger() instead")]
+		public static void SetValue(string key)
+		{
+			SetInteger(key, 1);
+		}
+		
+		/**
+		 * Sets a globally accessible integer value to 0.
+		 * This method returns immediately but it queues an asynchronous command for later execution.
+		 * @param key The key of the value.
+		 */
+		[Obsolete("Use Variables.DeleteKey() instead")]
+		public static void ClearValue(string key)
+		{
+			Variables.SetInteger(key, 0);
+			Variables.SetFloat(key, 0);
+			Variables.SetBoolean(key, false);
+		}
+		
+		/**
+		 * Gets a globally accessible integer value.
+		 * Returns zero if the value has not previously been set.
+		 * @param key The name of the value
+		 * @return The integer value for this key, or 0 if not previously set.
+		 */
+		[Obsolete("Use Variables.GetInteger() instead")]
+		public static int GetValue(string key)
+		{
+			return Variables.GetInteger(key);
+		}
+		
+		/**
+		 * Gets a globally accessible string value.
+		 * @param key The name of the value
+		 * @return The string value for this key, or the empty string if not previously set.
+		 */
+		[Obsolete("Use Variables.GetString() instead")]
+		public static string GetString(string key)
+		{
+			return Variables.GetString(key);
+		}
+		
+		/**
+		 * Checks if a value is non-zero.
+		 * @param key The name of the value to check.
+		 * @return Returns true if the value is not equal to zero.
+		 */
+		[Obsolete("Use Variables.GetInteger() or Variables.HasKey() instead")]
+		public static bool HasValue(string key)
+		{
+			return Variables.GetInteger(key) != 0;
+		}
+
+		/// @endcond
 
 		#endregion
 	}
