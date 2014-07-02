@@ -868,7 +868,7 @@ namespace Fungus
 		 * This method returns immediately but it queues an asynchronous command for later execution.
 		 * @param key The key of the value.
 		 */
-		[Obsolete("Use Variables.DeleteKey() instead")]
+		[Obsolete("Use Variables.SetBoolean(key, false) instead")]
 		public static void ClearValue(string key)
 		{
 			Variables.SetInteger(key, 0);
