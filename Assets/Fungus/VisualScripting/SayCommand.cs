@@ -12,7 +12,7 @@ namespace Fungus
 
 		public List<Sequence> options = new List<Sequence>();
 
-		public override void OnExecute()
+		public override void OnEnter()
 		{
 			Dialog dialog = Game.GetInstance().dialog;
 
@@ -26,7 +26,7 @@ namespace Fungus
 			}
 
 			dialog.Say (text, delegate {
-				ExecuteNextCommand();
+				Finish();
 			});
 		}
 

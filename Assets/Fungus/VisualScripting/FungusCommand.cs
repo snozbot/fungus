@@ -48,10 +48,9 @@ namespace Fungus
 		public virtual void Execute()
 		{
 			OnEnter();
-			OnExecute();
 		}
 
-		public virtual void ExecuteNextCommand()
+		public virtual void Finish()
 		{
 			OnExit();
 			parentSequence.ExecuteNextCommand(this);
@@ -68,9 +67,6 @@ namespace Fungus
 		{}
 
 		public virtual void OnExit()
-		{}
-
-		public virtual void OnExecute()
 		{}
 
 		public virtual void GetConnectedSequences(ref List<Sequence> connectedSequences)

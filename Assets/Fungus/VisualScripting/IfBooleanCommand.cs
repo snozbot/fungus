@@ -13,7 +13,7 @@ namespace Fungus
 		public Sequence trueSequence;
 		public Sequence falseSequence;
 
-		public override void OnExecute()
+		public override void OnEnter()
 		{
 			if (Variables.GetBoolean(key))
 			{

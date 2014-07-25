@@ -10,14 +10,14 @@ namespace Fungus
 	{
 		public float duration;
 
-		public override void OnExecute()
+		public override void OnEnter()
 		{
 			Invoke ("OnWaitComplete", duration);
 		}
 
 		void OnWaitComplete()
 		{
-			ExecuteNextCommand();
+			Finish();
 		}
 	}
 

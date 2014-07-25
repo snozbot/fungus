@@ -10,7 +10,7 @@ namespace Fungus
 	{
 		public Sequence targetSequence;
 
-		public override void OnExecute()
+		public override void OnEnter()
 		{
 			if (targetSequence == null)
 			{

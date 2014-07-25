@@ -12,10 +12,10 @@ namespace Fungus
 
 		public bool value;
 
-		public override void OnExecute()
+		public override void OnEnter()
 		{
 			Variables.SetBoolean(key, value);
-			ExecuteNextCommand();
+			Finish();
 		}
 	}
 	
