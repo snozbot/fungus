@@ -111,9 +111,29 @@ public class FungusEditorWindow : EditorWindow
 			}
 		}
 
+		if (FungusCommandEditor.selectedCommand != null)
+		{
+			if (Selection.activeGameObject == null)
+			{
+				FungusCommandEditor.selectedCommand = null;
+			}
+			else
+			{
+				FungusCommand command = Selection.activeGameObject.GetComponent<FungusCommand>();
+				if (command == null)
+				{
+					FungusCommandEditor.selectedCommand = null;
+				}
+				else if (command.gameObject != FungusCommandEditor.selectedCommand.gameObject)
+				{
+					FungusCommandEditor.selectedCommand = null;
+				}
+			}
+		}
+
 		Sequence sequence = windowSequenceMap[windowId];
 
-		GUIStyle style = new GUIStyle(GUI.skin.box);
+		GUIStyle style = new GUIStyle(GUI.skin.button);
 
 		FungusCommand[] commands = sequence.gameObject.GetComponents<FungusCommand>();
 		foreach (FungusCommand command in commands)
@@ -134,7 +154,12 @@ public class FungusEditorWindow : EditorWindow
 				GUI.backgroundColor = Color.white;
 			}
 
-			GUILayout.Label(commandName, style, GUILayout.ExpandWidth(true));
+			if (GUILayout.Button(commandName, style, GUILayout.ExpandWidth(true)))
+			{
+				// Highlight the command in inspector
+				FungusCommandEditor.selectedCommand = command;
+				EditorUtility.SetDirty( command );
+			}
 		}
 
         GUI.DragWindow();

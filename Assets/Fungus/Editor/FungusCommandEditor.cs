@@ -8,6 +8,8 @@ using Fungus;
 public class FungusCommandEditor : Editor 
 {
 
+	public static FungusCommand selectedCommand;
+
 	public override void OnInspectorGUI() 
 	{
 		Rect rect = EditorGUILayout.BeginVertical();
@@ -24,7 +26,8 @@ public class FungusCommandEditor : Editor
 				EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
 			}
 
-			if (t.IsExecuting())
+			if (t.IsExecuting() ||
+			    t == selectedCommand)
 			{
 				EditorGUI.DrawRect(rect, new Color(1f, 1f, 0f, 0.25f));
 			}

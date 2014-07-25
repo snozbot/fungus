@@ -2,6 +2,7 @@
 using UnityEditor;
 #endif
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,10 +16,10 @@ namespace Fungus
 		[HideInInspector]
 		public Rect nodeRect = new Rect(10, 10, 100, 100);
 	
-		[HideInInspector]
+		[System.NonSerialized]
 		public SequenceController sequenceController;
 
-		[HideInInspector]
+		[System.NonSerialized]
 		public FungusCommand activeCommand;
 
 		public virtual void Start()
