@@ -59,25 +59,6 @@ public class FungusEditorWindow : EditorWindow
 			return;
 		}
 
-		string labelText = sequenceController.name;
-		if (Application.isPlaying)
-		{
-			if (sequenceController.activeSequence == null)
-			{
-				labelText += ": Idle";
-			}
-			else
-			{
-				labelText += ": Active";
-			}
-		}
-
-		GUILayout.BeginHorizontal();
-		GUILayout.FlexibleSpace();
-		GUILayout.Label(labelText);
-		GUILayout.Space(30);
-		GUILayout.EndHorizontal();
-
 		Sequence[] sequences = sequenceController.GetComponentsInChildren<Sequence>();
 
 		Rect scrollViewRect = new Rect();
@@ -119,6 +100,24 @@ public class FungusEditorWindow : EditorWindow
         EndWindows();
 
         GUI.EndScrollView();
+
+		string labelText = sequenceController.name;
+		if (Application.isPlaying)
+		{
+			if (sequenceController.activeSequence == null)
+			{
+				labelText += ": Idle";
+			}
+			else
+			{
+				labelText += ": Active";
+			}
+		}
+		
+		GUILayout.BeginVertical();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label(labelText);
+		GUILayout.EndVertical();
     }
 
     void DrawWindow(int windowId)
