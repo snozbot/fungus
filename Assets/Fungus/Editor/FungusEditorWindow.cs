@@ -78,18 +78,25 @@ public class FungusEditorWindow : EditorWindow
 		GUILayout.Space(30);
 		GUILayout.EndHorizontal();
 
-        // BeginScrollView lets you specify a region that 'looks into' a much larger area. In this case, we create a canvas
-        // 1000px X 1000px in size that's constrained to the same region as the EditorWindow. If the scrollbars are modified,
-        // the new values are stored in the Vector2 that's returned.
-        // http://docs.unity3d.com/Documentation/ScriptReference/GUI.BeginScrollView.html
-        scrollPos = GUI.BeginScrollView(new Rect(0, 0, position.width, position.height), scrollPos, new Rect(0, 0, 1000, 1000));
+		Sequence[] sequences = sequenceController.GetComponentsInChildren<Sequence>();
+
+		Rect scrollViewRect = new Rect();
+		foreach (Sequence s in sequences)
+		{
+			scrollViewRect.xMin = Mathf.Min(scrollViewRect.xMin, s.nodeRect.xMin);
+			scrollViewRect.xMax = Mathf.Max(scrollViewRect.xMax, s.nodeRect.xMax);
+			scrollViewRect.yMin = Mathf.Min(scrollViewRect.yMin, s.nodeRect.yMin);
+			scrollViewRect.yMax = Mathf.Max(scrollViewRect.yMax, s.nodeRect.yMax);
+		}
+		scrollViewRect.xMin -= 10;
+		scrollViewRect.yMin -= 10;
+
+		scrollPos = GUI.BeginScrollView(new Rect(0, 0, position.width, position.height), scrollPos, scrollViewRect);
 
         // In games, GUI.Window pops up a window on your screen. In the Editor, GUI.Window shows a sub-window inside an EditorWindow.
         // All calls to GUI.Window need to be wrapped in a BeginWindows / EndWindows pair.
         // http://docs.unity3d.com/Documentation/ScriptReference/EditorWindow.BeginWindows.html
         BeginWindows();
-
-		Sequence[] sequences = sequenceController.GetComponentsInChildren<Sequence>();
 
 		windowSequenceMap.Clear();
 		for (int i = 0; i < sequences.Length; ++i)
