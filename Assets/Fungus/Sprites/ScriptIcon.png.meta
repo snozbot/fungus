@@ -1,8 +1,10 @@
 fileFormatVersion: 2
-guid: ea8f56c43254d41728f5ac4e8299b6c9
+guid: 0e15bd6b84cec4a2499ad47398736102
 TextureImporter:
   fileIDToRecycleName:
     21300000: Mushroom
+    21300002: Mushroom 1
+    21300004: ScriptIcon
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

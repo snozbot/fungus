@@ -26,7 +26,7 @@ namespace Fungus
 				{
 					continue;
 				}
-
+				
 				Bounds bounds = room.renderer.bounds;
 				Vector3 pos = new Vector3(bounds.min.x, bounds.max.y, 0);
 				
