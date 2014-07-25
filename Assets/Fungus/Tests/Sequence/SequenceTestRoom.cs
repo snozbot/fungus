@@ -8,7 +8,7 @@ public class SequenceTestRoom : Room
 
 	void OnEnter() 
 	{
-		sequenceController.ExecuteSequence(sequenceController.activeSequence);
+		sequenceController.Execute();
 
 		/*
 		Sequence s = GetComponent<Sequence>();

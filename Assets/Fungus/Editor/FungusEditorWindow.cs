@@ -59,6 +59,25 @@ public class FungusEditorWindow : EditorWindow
 			return;
 		}
 
+		string labelText = sequenceController.name;
+		if (Application.isPlaying)
+		{
+			if (sequenceController.activeSequence == null)
+			{
+				labelText += ": Idle";
+			}
+			else
+			{
+				labelText += ": Active";
+			}
+		}
+
+		GUILayout.BeginHorizontal();
+		GUILayout.FlexibleSpace();
+		GUILayout.Label(labelText);
+		GUILayout.Space(30);
+		GUILayout.EndHorizontal();
+
         // BeginScrollView lets you specify a region that 'looks into' a much larger area. In this case, we create a canvas
         // 1000px X 1000px in size that's constrained to the same region as the EditorWindow. If the scrollbars are modified,
         // the new values are stored in the Vector2 that's returned.
@@ -145,7 +164,7 @@ public class FungusEditorWindow : EditorWindow
 			{
 				GUI.backgroundColor = Color.red;
 			}
-			else if (command.IsExecuting())
+			else if (ShouldHighlight(command))
 			{
 				GUI.backgroundColor = Color.yellow;
 			}
@@ -172,10 +191,10 @@ public class FungusEditorWindow : EditorWindow
 		FungusCommand[] commands = sequence.GetComponentsInChildren<FungusCommand>();
 		foreach (FungusCommand command in commands)
 		{
-			bool isExecuting = command.IsExecuting();
+			bool highlight = ShouldHighlight(command);
 
-			if (highlightedOnly && !isExecuting ||
-			    !highlightedOnly && isExecuting)
+			if (highlightedOnly && !highlight ||
+			    !highlightedOnly && highlight)
 			{
 				continue;
 			}
@@ -202,7 +221,7 @@ public class FungusEditorWindow : EditorWindow
 				pointB = p2;
 
 				Color color = Color.grey;
-				if (command.IsExecuting())
+				if (highlight)
 				{
 					color = Color.yellow;
 				}
@@ -210,5 +229,10 @@ public class FungusEditorWindow : EditorWindow
 				GLDraw.DrawConnectingCurve(pointA, pointB, color, 2);
 			}
 		}
+	}
+
+	bool ShouldHighlight(FungusCommand command)
+	{
+		return (command.IsExecuting() || (FungusCommandEditor.selectedCommand == command));
 	}
 }

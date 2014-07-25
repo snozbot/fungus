@@ -2,6 +2,7 @@
 using UnityEditor;
 #endif
 using UnityEngine;
+using System;
 using System.Collections;
 using Fungus;
 
@@ -9,11 +10,24 @@ public class SequenceController : MonoBehaviour
 {
 	public float stepTime;
 
+	public Sequence startSequence;
+
+	[System.NonSerialized]
 	public Sequence activeSequence;
+
+	public void Execute()
+	{
+		if (startSequence == null)
+		{
+			return;
+		}
+
+		ExecuteSequence(startSequence);
+	}
 
 	public void ExecuteSequence(Sequence sequence)
 	{
-		if (activeSequence == null)
+		if (sequence == null)
 		{
 			return;
 		}

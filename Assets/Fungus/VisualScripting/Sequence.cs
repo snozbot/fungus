@@ -110,6 +110,7 @@ namespace Fungus
 		public void Finish()
 		{
 			activeCommand = null;
+			sequenceController.activeSequence = null;
 
 			// No more commands to run in current sequence
 			#if UNITY_EDITOR
