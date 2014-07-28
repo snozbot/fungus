@@ -178,6 +178,14 @@ namespace Fungus
 		 */
 		public static void SetFloat(string key, float value)
 		{
+			if (stringDict.ContainsKey(key) ||
+			    intDict.ContainsKey(key) ||
+			    boolDict.ContainsKey(key)) 
+			{
+				Debug.LogError("Key already in use with a string, integer or boolean variable");
+				return;
+			}
+
 			floatDict[key] = value;
 		}
 
@@ -186,6 +194,14 @@ namespace Fungus
 		 */
 		public static void SetInteger(string key, int value)
 		{
+			if (stringDict.ContainsKey(key) ||
+			    floatDict.ContainsKey(key) ||
+			    boolDict.ContainsKey(key)) 
+			{
+				Debug.LogError("Key already in use with a string, float or boolean variable");
+				return;
+			}
+
 			intDict[key] = value;
 		}
 
@@ -194,6 +210,14 @@ namespace Fungus
 		 */
 		public static void SetBoolean(string key, bool value)
 		{
+			if (stringDict.ContainsKey(key) ||
+			    floatDict.ContainsKey(key) ||
+			    intDict.ContainsKey(key)) 
+			{
+				Debug.LogError("Key already in use with a string, float or integer variable");
+				return;
+			}
+
 			boolDict[key] = value;
 		}
 
@@ -202,6 +226,14 @@ namespace Fungus
 		 */
 		public static void SetString(string key, string value)
 		{
+			if (boolDict.ContainsKey(key) ||
+			    floatDict.ContainsKey(key) ||
+			    intDict.ContainsKey(key)) 
+			{
+				Debug.LogError("Key already in use with a boolean, float or integer variable");
+				return;
+			}
+
 			stringDict[key] = value;
 		}
 
