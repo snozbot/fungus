@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Fungus;
@@ -69,8 +70,13 @@ public class FungusEditorWindow : EditorWindow
 			scrollViewRect.yMin = Mathf.Min(scrollViewRect.yMin, s.nodeRect.yMin);
 			scrollViewRect.yMax = Mathf.Max(scrollViewRect.yMax, s.nodeRect.yMax);
 		}
-		scrollViewRect.xMin -= 10;
-		scrollViewRect.yMin -= 10;
+
+		// Empty buffer area around edges of scroll rect
+		float bufferScale = 0.1f;
+		scrollViewRect.xMin -= position.width * bufferScale;
+		scrollViewRect.yMin -= position.height * bufferScale;
+		scrollViewRect.xMax += position.width * bufferScale;
+		scrollViewRect.yMax += position.height * bufferScale;
 
 		scrollPos = GUI.BeginScrollView(new Rect(0, 0, position.width, position.height), scrollPos, scrollViewRect);
 
@@ -113,10 +119,15 @@ public class FungusEditorWindow : EditorWindow
 				labelText += ": Active";
 			}
 		}
+		else
+		{
+			labelText += ": Edit";
+		}
 		
 		GUILayout.BeginVertical();
 		GUILayout.FlexibleSpace();
 		GUILayout.Label(labelText);
+		GUILayout.Space(15);
 		GUILayout.EndVertical();
     }
 
@@ -183,8 +194,9 @@ public class FungusEditorWindow : EditorWindow
 			{
 				// Highlight the command in inspector
 				FungusCommandEditor.selectedCommand = command;
-				EditorUtility.SetDirty( command );
 			}
+
+			EditorUtility.SetDirty( command );
 		}
 
         GUI.DragWindow();
