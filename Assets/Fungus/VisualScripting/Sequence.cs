@@ -24,16 +24,22 @@ namespace Fungus
 
 		public virtual void Start()
 		{
-			// Populate sequenceController reference
+			sequenceController = GetSequenceController();
+		}
+
+		public SequenceController GetSequenceController()
+		{
+			SequenceController sc = null;
 			Transform parent = transform.parent;		
 			while (parent != null)
 			{
-				sequenceController = parent.gameObject.GetComponent<SequenceController>();
-				if (sequenceController != null)
+				sc = parent.gameObject.GetComponent<SequenceController>();
+				if (sc != null)
 				{
 					break;
 				}
 			}
+			return sc;
 		}
 
 		public bool HasError()
