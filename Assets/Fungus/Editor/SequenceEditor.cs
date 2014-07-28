@@ -8,7 +8,7 @@ using Fungus;
 public class SequenceEditor : Editor 
 {
 
-	static public Sequence SequenceField(string label, SequenceController sequenceController, Sequence sequence)
+	static public Sequence SequenceField(GUIContent label, SequenceController sequenceController, Sequence sequence)
 	{
 		if (sequenceController == null)
 		{
@@ -18,14 +18,14 @@ public class SequenceEditor : Editor
 		Sequence result = sequence;
 		
 		// Build dictionary of child sequences
-		List<string> sequenceNames = new List<string>();
+		List<GUIContent> sequenceNames = new List<GUIContent>();
 		
 		int selectedIndex = 0;
-		sequenceNames.Add("None");
+		sequenceNames.Add(new GUIContent("None"));
 		Sequence[] sequences = sequenceController.GetComponentsInChildren<Sequence>();
 		for (int i = 0; i < sequences.Length; ++i)
 		{
-			sequenceNames.Add(sequences[i].name);
+			sequenceNames.Add(new GUIContent(sequences[i].name));
 			
 			if (sequence == sequences[i])
 			{
@@ -33,7 +33,7 @@ public class SequenceEditor : Editor
 			}
 		}
 		
-		selectedIndex = EditorGUILayout.Popup("Start Sequence", selectedIndex, sequenceNames.ToArray());
+		selectedIndex = EditorGUILayout.Popup(label, selectedIndex, sequenceNames.ToArray());
 		if (selectedIndex == 0)
 		{
 			result = null; // Option 'None'

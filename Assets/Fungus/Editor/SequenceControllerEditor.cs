@@ -11,9 +11,11 @@ public class SequenceControllerEditor : Editor
 	{
 		SequenceController t = target as SequenceController;
 	
-		t.stepTime = EditorGUILayout.FloatField("Step Time", t.stepTime);
+		GUIContent stepTimeLabel = new GUIContent("Step Time", "Minimum time to execute each step");
+		t.stepTime = EditorGUILayout.FloatField(stepTimeLabel, t.stepTime);
 
-		t.startSequence = SequenceEditor.SequenceField("Start Sequence", t, t.startSequence);
+		GUIContent startSequenceLabel = new GUIContent("Start Sequence", "Sequence to be executed when controller starts.");
+		t.startSequence = SequenceEditor.SequenceField(startSequenceLabel, t, t.startSequence);
 
 		if (t.startSequence == null)
 		{

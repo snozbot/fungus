@@ -130,14 +130,14 @@ public class FungusEditorWindow : EditorWindow
 		GUILayout.BeginVertical();
 		GUILayout.FlexibleSpace();
 		GUILayout.BeginHorizontal();
-		GUILayout.Space(10);
+		GUILayout.Space(15);
 		if (GUILayout.Button(labelText))
 		{
 			Selection.activeGameObject = sequenceController.gameObject;
 		}
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
-		GUILayout.Space(10);
+		GUILayout.Space(15);
 		GUILayout.EndVertical();
     }
 
