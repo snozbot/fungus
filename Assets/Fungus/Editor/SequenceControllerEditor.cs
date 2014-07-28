@@ -28,6 +28,19 @@ public class SequenceControllerEditor : Editor
 		{
 			EditorWindow.GetWindow(typeof(FungusEditorWindow), false, "Fungus Editor");
 		}
+
+		if (GUILayout.Button("New Sequence"))
+		{
+			GameObject go = new GameObject("Sequence");
+			go.transform.parent = t.transform;
+			Sequence s = go.AddComponent<Sequence>();
+			FungusEditorWindow fungusEditorWindow = EditorWindow.GetWindow(typeof(FungusEditorWindow), false, "Fungus Editor") as FungusEditorWindow;
+			s.nodeRect.x = fungusEditorWindow.scrollPos.x;
+			s.nodeRect.y = fungusEditorWindow.scrollPos.y;
+			Undo.RegisterCreatedObjectUndo(go, "Sequence");
+			Selection.activeGameObject = go;
+		}
+
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();
 	}

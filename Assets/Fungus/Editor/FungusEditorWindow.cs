@@ -7,9 +7,11 @@ using Fungus;
 
 public class FungusEditorWindow : EditorWindow
 {
+	[System.NonSerialized]
+	public Vector2 scrollPos;                         // ScrollViews use a Vector2 to track the state of each scroll bar
+	
 	private List<Sequence> windowSequenceMap = new List<Sequence>();
-    private Vector2 scrollPos;                         // ScrollViews use a Vector2 to track the state of each scroll bar
-
+	
 	private GameObject cachedSelection;
 
     [MenuItem("Window/Fungus Editor")]
@@ -63,6 +65,7 @@ public class FungusEditorWindow : EditorWindow
 		Sequence[] sequences = sequenceController.GetComponentsInChildren<Sequence>();
 
 		Rect scrollViewRect = new Rect();
+
 		foreach (Sequence s in sequences)
 		{
 			scrollViewRect.xMin = Mathf.Min(scrollViewRect.xMin, s.nodeRect.xMin);
