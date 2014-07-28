@@ -112,22 +112,29 @@ public class FungusEditorWindow : EditorWindow
 		{
 			if (sequenceController.activeSequence == null)
 			{
-				labelText += ": Idle";
+				labelText += " (Idle)";
 			}
 			else
 			{
-				labelText += ": Active";
+				labelText += " (Running)";
 			}
 		}
 		else
 		{
-			labelText += ": Edit";
+			labelText += " (Edit)";
 		}
 		
 		GUILayout.BeginVertical();
 		GUILayout.FlexibleSpace();
-		GUILayout.Label(labelText);
-		GUILayout.Space(15);
+		GUILayout.BeginHorizontal();
+		GUILayout.Space(10);
+		if (GUILayout.Button(labelText))
+		{
+			Selection.activeGameObject = sequenceController.gameObject;
+		}
+		GUILayout.FlexibleSpace();
+		GUILayout.EndHorizontal();
+		GUILayout.Space(10);
 		GUILayout.EndVertical();
     }
 
