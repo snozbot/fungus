@@ -92,7 +92,7 @@ public class FungusEditorWindow : EditorWindow
 		for (int i = 0; i < sequences.Length; ++i)
 		{
 			Sequence sequence = sequences[i];
-			sequence.nodeRect = GUI.Window(i, sequence.nodeRect, DrawWindow, sequence.name);
+			sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, sequence.name, GUILayout.Width(100), GUILayout.Height(100), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 			windowSequenceMap.Add(sequence);
 		}
 
@@ -207,6 +207,12 @@ public class FungusEditorWindow : EditorWindow
 			}
 
 			EditorUtility.SetDirty( command );
+		}
+
+		// Add an invisible element if there are no commands to avoid window width/height collapsing
+		if (commands.Length == 0)
+		{
+			GUILayout.Space(10);
 		}
 
         GUI.DragWindow();
