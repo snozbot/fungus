@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	
+	[RequireComponent(typeof(Sequence))]
 	public class FungusCommand : MonoBehaviour 
 	{
 		[HideInInspector]
@@ -22,17 +22,24 @@ namespace Fungus
 		public virtual void Start()
 		{
 			parentSequence = GetComponent<Sequence>();
+			parentSequenceController = GetParentSequenceController();
+		}
 
-			// Populate sequenceController reference
+		public SequenceController GetParentSequenceController()
+		{
+			SequenceController sc = null;
+
 			Transform parent = transform.parent;		
 			while (parent != null)
 			{
-				parentSequenceController = parent.gameObject.GetComponent<SequenceController>();
-				if (parentSequenceController != null)
+				sc = parent.gameObject.GetComponent<SequenceController>();
+				if (sc != null)
 				{
 					break;
 				}
+				parent = parent.transform.parent;
 			}
+			return sc;
 		}
 
 		public bool IsExecuting()
