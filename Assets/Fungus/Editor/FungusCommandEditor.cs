@@ -14,7 +14,7 @@ public class FungusCommandEditor : Editor
 	{
 		Rect rect = EditorGUILayout.BeginVertical();
 
-		DrawDefaultInspector();
+		DrawCommandInspectorGUI();
 
 		FungusCommand t = target as FungusCommand;
 		if (t != null)
@@ -36,4 +36,8 @@ public class FungusCommandEditor : Editor
 		EditorGUILayout.EndVertical();
 	}
 
+	public virtual void DrawCommandInspectorGUI()
+	{
+		DrawDefaultInspector();
+	}
 }

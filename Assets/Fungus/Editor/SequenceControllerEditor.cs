@@ -6,7 +6,7 @@ using Fungus;
 using Rotorz.ReorderableList;
 using System.Linq;
 
-[CustomPropertyDrawer (typeof(SequenceController.Variable))]
+[CustomPropertyDrawer (typeof(Variable))]
 public class VariableDrawer : PropertyDrawer 
 {	
 	public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 
@@ -25,7 +25,7 @@ public class VariableDrawer : PropertyDrawer
 		typeRect.width -= keyRect.width;
 
 		string keyValue = EditorGUI.TextField(keyRect, label, keyProp.stringValue);
-		int selectedEnum = (int)(SequenceController.VariableType)EditorGUI.EnumPopup(typeRect, (SequenceController.VariableType)typeProp.enumValueIndex);
+		int selectedEnum = (int)(VariableType)EditorGUI.EnumPopup(typeRect, (VariableType)typeProp.enumValueIndex);
 
 		if (EditorGUI.EndChangeCheck ())
 		{
@@ -47,8 +47,7 @@ public class SequenceControllerEditor : Editor
 
 	void OnEnable() 
 	{
-		globalVariablesProperty = serializedObject.FindProperty("globalVariables");
-		localVariablesProperty = serializedObject.FindProperty("localVariables");
+		localVariablesProperty = serializedObject.FindProperty("variables");
 	}
 
 	public override void OnInspectorGUI() 
@@ -92,11 +91,8 @@ public class SequenceControllerEditor : Editor
 			EditorGUILayout.LabelField(new GUIContent("Error: Please select a Start Sequence"), style);
 		}
 
-		ReorderableListGUI.Title("Local Variables");
+		ReorderableListGUI.Title("Variables");
 		ReorderableListGUI.ListField(localVariablesProperty);
-
-		ReorderableListGUI.Title("Global Variables");
-		ReorderableListGUI.ListField(globalVariablesProperty);
 
 		serializedObject.ApplyModifiedProperties();
 	}

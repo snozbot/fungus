@@ -15,25 +15,9 @@ public class SequenceController : MonoBehaviour
 
 	[System.NonSerialized]
 	public Sequence activeSequence;
-
-	public enum VariableType
-	{
-		String,
-		Integer,
-		Float,
-		Boolean
-	};
-
-	[Serializable]
-	public class Variable
-	{
-		public string key;
-		public VariableType type;
-	}
-
-	public List<Variable> localVariables = new List<Variable>();
-	public List<Variable> globalVariables = new List<Variable>();
 	
+	public List<Variable> variables = new List<Variable>();
+
 	public void Execute()
 	{
 		if (startSequence == null)
@@ -58,4 +42,16 @@ public class SequenceController : MonoBehaviour
 		activeSequence = sequence;
 		sequence.ExecuteNextCommand();
 	}
+
+	public Variable GetVariable(string key)
+	{
+		foreach (Variable v in variables)
+		{
+			if (v.key == key)
+			{
+				return v;
+			}
+		}
+		return null;
+	}	
 }
