@@ -13,7 +13,7 @@ namespace Fungus
 		{
 			CompareCommand t = target as CompareCommand;
 
-			FungusScript sc = t.GetParentFungusScript();
+			FungusScript sc = t.GetFungusScript();
 			if (sc == null)
 			{
 				return;
@@ -115,11 +115,11 @@ namespace Fungus
 			}
 
 			Sequence onTrue = SequenceEditor.SequenceField(new GUIContent("On True Sequence", "Sequence to execute if comparision is true"),
-			                                               t.GetParentFungusScript(), 
+			                                               t.GetFungusScript(), 
 			                                               t.onTrueSequence);
 
 			Sequence onFalse = SequenceEditor.SequenceField(new GUIContent("On False Sequence", "Sequence to execute if comparision is false"),
-			                                                t.GetParentFungusScript(), 
+			                                                t.GetFungusScript(), 
 			                                                t.onFalseSequence);
 
 			if (onTrue != t.onTrueSequence)

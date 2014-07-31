@@ -18,7 +18,7 @@ namespace Fungus
 			
 			string newText = EditorGUILayout.TextField(new GUIContent("Text", "Text to display on option button"), t.text);
 			Sequence newSequence = SequenceEditor.SequenceField(new GUIContent("Sequence", "Sequence to execute when this option is selected"), 
-			                                                    t.GetParentFungusScript(), 
+			                                                    t.GetFungusScript(), 
 			                                                    t.sequence);
 			AddOptionCommand.Condition newCondition = (AddOptionCommand.Condition)EditorGUILayout.EnumPopup(new GUIContent("Condition", "Conditions for when this option is displayed"), t.condition);
 

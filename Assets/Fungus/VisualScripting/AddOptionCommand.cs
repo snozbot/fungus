@@ -24,7 +24,8 @@ namespace Fungus
 		{
 			Dialog dialog = Game.GetInstance().dialog;
 			if (dialog != null &&
-			    sequence != null)
+			    sequence != null &&
+			    !(condition == Condition.HideOnVisited && sequence.GetExecutionCount() > 0))
 			{
 				dialog.AddOption(text, () => {
 					Stop();

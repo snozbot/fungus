@@ -13,7 +13,7 @@ namespace Fungus
 		{
 			SetVariableCommand t = target as SetVariableCommand;
 
-			FungusScript fungusScript = t.GetParentFungusScript();
+			FungusScript fungusScript = t.GetFungusScript();
 			if (fungusScript == null)
 			{
 				return;

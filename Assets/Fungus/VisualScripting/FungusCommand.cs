@@ -22,10 +22,10 @@ namespace Fungus
 		public virtual void Start()
 		{
 			parentSequence = GetComponent<Sequence>();
-			parentFungusScript = GetParentFungusScript();
+			parentFungusScript = GetFungusScript();
 		}
 
-		public FungusScript GetParentFungusScript()
+		public FungusScript GetFungusScript()
 		{
 			FungusScript sc = null;
 

@@ -22,6 +22,8 @@ namespace Fungus
 		[System.NonSerialized]
 		public FungusCommand activeCommand;
 
+		int executionCount;
+
 		public virtual void Start()
 		{
 			fungusScript = GetFungusScript();
@@ -67,8 +69,18 @@ namespace Fungus
 			return (fungusScript.activeSequence == this);
 		}
 
+		public int GetExecutionCount()
+		{
+			return executionCount;
+		}
+
 		public void ExecuteNextCommand(FungusCommand currentCommand = null)
 		{
+			if (currentCommand == null)
+			{
+				executionCount++;
+			}
+
 			activeCommand = null;
 			FungusCommand nextCommand = null;
 
