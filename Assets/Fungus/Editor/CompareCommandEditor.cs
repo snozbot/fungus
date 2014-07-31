@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Fungus
 		{
 			CompareCommand t = target as CompareCommand;
 
-			SequenceController sc = t.GetParentSequenceController();
+			FungusScript sc = t.GetParentFungusScript();
 			if (sc == null)
 			{
 				return;
@@ -115,11 +115,11 @@ namespace Fungus
 			}
 
 			Sequence onTrue = SequenceEditor.SequenceField(new GUIContent("On True Sequence", "Sequence to execute if comparision is true"),
-			                                               t.GetParentSequenceController(), 
+			                                               t.GetParentFungusScript(), 
 			                                               t.onTrueSequence);
 
 			Sequence onFalse = SequenceEditor.SequenceField(new GUIContent("On False Sequence", "Sequence to execute if comparision is false"),
-			                                                t.GetParentSequenceController(), 
+			                                                t.GetParentFungusScript(), 
 			                                                t.onFalseSequence);
 
 			if (onTrue != t.onTrueSequence)

@@ -4,11 +4,11 @@ using Fungus;
 
 public class SequenceTestRoom : Room 
 {
-	public SequenceController sequenceController;
+	public FungusScript fungusScript;
 
 	void OnEnter() 
 	{
-		sequenceController.Execute();
+		fungusScript.Execute();
 
 		/*
 		Sequence s = GetComponent<Sequence>();

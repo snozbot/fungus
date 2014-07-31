@@ -17,23 +17,23 @@ namespace Fungus
 		public Rect nodeRect = new Rect(10, 10, 100, 100);
 	
 		[System.NonSerialized]
-		public SequenceController sequenceController;
+		public FungusScript fungusScript;
 
 		[System.NonSerialized]
 		public FungusCommand activeCommand;
 
 		public virtual void Start()
 		{
-			sequenceController = GetSequenceController();
+			fungusScript = GetFungusScript();
 		}
 
-		public SequenceController GetSequenceController()
+		public FungusScript GetFungusScript()
 		{
-			SequenceController sc = null;
+			FungusScript sc = null;
 			Transform parent = transform.parent;		
 			while (parent != null)
 			{
-				sc = parent.gameObject.GetComponent<SequenceController>();
+				sc = parent.gameObject.GetComponent<FungusScript>();
 				if (sc != null)
 				{
 					break;
@@ -58,13 +58,13 @@ namespace Fungus
 
 		public bool IsRunning()
 		{
-			if (sequenceController == null ||
-			    sequenceController.activeSequence == null)
+			if (fungusScript == null ||
+			    fungusScript.activeSequence == null)
 			{
 				return false;
 			}
 
-			return (sequenceController.activeSequence == this);
+			return (fungusScript.activeSequence == this);
 		}
 
 		public void ExecuteNextCommand(FungusCommand currentCommand = null)
@@ -93,14 +93,14 @@ namespace Fungus
 			}
 			else
 			{
-				if (sequenceController.stepTime == 0f)
+				if (fungusScript.stepTime == 0f)
 				{
 					activeCommand = nextCommand;
 					nextCommand.Execute();
 				}
 				else
 				{
-					StartCoroutine(ExecuteAfterDelay(nextCommand, sequenceController.stepTime));
+					StartCoroutine(ExecuteAfterDelay(nextCommand, fungusScript.stepTime));
 				}
 			}
 
@@ -116,11 +116,11 @@ namespace Fungus
 		public void Finish()
 		{
 			activeCommand = null;
-			sequenceController.activeSequence = null;
+			fungusScript.activeSequence = null;
 
 			// No more commands to run in current sequence
 			#if UNITY_EDITOR
-			Selection.activeGameObject = sequenceController.gameObject;
+			Selection.activeGameObject = fungusScript.gameObject;
 			#endif
 		}
 	}

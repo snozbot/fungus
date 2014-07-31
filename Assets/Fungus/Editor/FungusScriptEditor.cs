@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,8 +39,8 @@ public class VariableDrawer : PropertyDrawer
 	}
 }
 
-[CustomEditor (typeof(SequenceController))]
-public class SequenceControllerEditor : Editor 
+[CustomEditor (typeof(FungusScript))]
+public class FungusScriptEditor : Editor 
 {
 	SerializedProperty variablesProperty;
 
@@ -53,7 +53,7 @@ public class SequenceControllerEditor : Editor
 	{
 		serializedObject.Update();
 
-		SequenceController t = target as SequenceController;
+		FungusScript t = target as FungusScript;
 	
 		GUILayout.BeginHorizontal();
 		GUILayout.FlexibleSpace();

@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Fungus;
 
-public class SequenceController : MonoBehaviour 
+public class FungusScript : MonoBehaviour 
 {
 	public float stepTime;
 

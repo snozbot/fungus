@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Fungus
 		{
 			SetVariableCommand t = target as SetVariableCommand;
 
-			SequenceController sc = t.GetParentSequenceController();
+			FungusScript sc = t.GetParentFungusScript();
 			if (sc == null)
 			{
 				return;

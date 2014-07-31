@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 using UnityEngine;
@@ -14,7 +14,7 @@ namespace Fungus
 		public string errorMessage = "";
 
 		[HideInInspector]
-		public SequenceController parentSequenceController;
+		public FungusScript parentFungusScript;
 
 		[HideInInspector]
 		public Sequence parentSequence;
@@ -22,17 +22,17 @@ namespace Fungus
 		public virtual void Start()
 		{
 			parentSequence = GetComponent<Sequence>();
-			parentSequenceController = GetParentSequenceController();
+			parentFungusScript = GetParentFungusScript();
 		}
 
-		public SequenceController GetParentSequenceController()
+		public FungusScript GetParentFungusScript()
 		{
-			SequenceController sc = null;
+			FungusScript sc = null;
 
 			Transform parent = transform.parent;		
 			while (parent != null)
 			{
-				sc = parent.gameObject.GetComponent<SequenceController>();
+				sc = parent.gameObject.GetComponent<FungusScript>();
 				if (sc != null)
 				{
 					break;
@@ -67,7 +67,7 @@ namespace Fungus
 		{
 			OnExit();
 			parentSequence.Finish();
-			parentSequenceController.ExecuteSequence(s);
+			parentFungusScript.ExecuteSequence(s);
 		}
 
 		public virtual void OnEnter()

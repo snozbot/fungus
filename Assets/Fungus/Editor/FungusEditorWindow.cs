@@ -25,19 +25,19 @@ public class FungusEditorWindow : EditorWindow
 		Repaint();
 	}
 
-	SequenceController GetSequenceController()
+	FungusScript GetFungusScript()
 	{
 		GameObject activeObject = Selection.activeGameObject;
 
 		while (activeObject != null)
 		{
-			SequenceController sequenceController = activeObject.GetComponent<SequenceController>();
+			FungusScript fungusScript = activeObject.GetComponent<FungusScript>();
 			Sequence sequence = activeObject.GetComponent<Sequence>();
 
-			if (sequenceController != null)
+			if (fungusScript != null)
 			{
 				// Found sequence controller
-				return sequenceController;
+				return fungusScript;
 			}
 			else if (sequence != null &&
 			         sequence.transform.parent != null)
@@ -56,13 +56,13 @@ public class FungusEditorWindow : EditorWindow
 
     void OnGUI()
     {
-		SequenceController sequenceController = GetSequenceController();
-		if (sequenceController == null)
+		FungusScript fungusScript = GetFungusScript();
+		if (fungusScript == null)
 		{
 			return;
 		}
 
-		Sequence[] sequences = sequenceController.GetComponentsInChildren<Sequence>();
+		Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>();
 
 		Rect scrollViewRect = new Rect();
 
@@ -110,10 +110,10 @@ public class FungusEditorWindow : EditorWindow
 
         GUI.EndScrollView();
 
-		string labelText = sequenceController.name;
+		string labelText = fungusScript.name;
 		if (Application.isPlaying)
 		{
-			if (sequenceController.activeSequence == null)
+			if (fungusScript.activeSequence == null)
 			{
 				labelText += " (Idle)";
 			}
@@ -133,7 +133,7 @@ public class FungusEditorWindow : EditorWindow
 		GUILayout.Space(15);
 		if (GUILayout.Button(labelText))
 		{
-			Selection.activeGameObject = sequenceController.gameObject;
+			Selection.activeGameObject = fungusScript.gameObject;
 		}
 		GUILayout.FlexibleSpace();
 		GUILayout.EndHorizontal();

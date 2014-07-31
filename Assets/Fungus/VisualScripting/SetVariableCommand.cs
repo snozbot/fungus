@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using Fungus;
 
@@ -22,7 +22,7 @@ public class SetVariableCommand : FungusCommand
 			return;
 		}
 
-		Variable v = parentSequenceController.GetVariable(variableKey);
+		Variable v = parentFungusScript.GetVariable(variableKey);
 		if (v == null)
 		{
 			Debug.LogError("Variable " + variableKey + " not defined.");

@@ -35,7 +35,7 @@ namespace Fungus
 
 		public override void OnEnter()
 		{
-			Variable v = parentSequenceController.GetVariable(variableKey);
+			Variable v = parentFungusScript.GetVariable(variableKey);
 
 			bool condition = false;
 

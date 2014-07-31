@@ -8,9 +8,9 @@ using Fungus;
 public class SequenceEditor : Editor 
 {
 
-	static public Sequence SequenceField(GUIContent label, SequenceController sequenceController, Sequence sequence)
+	static public Sequence SequenceField(GUIContent label, FungusScript fungusScript, Sequence sequence)
 	{
-		if (sequenceController == null)
+		if (fungusScript == null)
 		{
 			return null;
 		}
@@ -22,7 +22,7 @@ public class SequenceEditor : Editor
 		
 		int selectedIndex = 0;
 		sequenceNames.Add(new GUIContent("<None>"));
-		Sequence[] sequences = sequenceController.GetComponentsInChildren<Sequence>();
+		Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>();
 		for (int i = 0; i < sequences.Length; ++i)
 		{
 			sequenceNames.Add(new GUIContent(sequences[i].name));
