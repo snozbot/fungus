@@ -26,78 +26,71 @@ namespace Fungus
 			{
 				Variable v = sc.variables[i];
 				keys.Add(v.key);
-				if (v.key == t.variableKey &&
+				if (v.key == t.variable.key &&
 				    index == 0)
 				{
 					index = i + 1;
 				}
 			}
 
-
-
 			int newIndex = EditorGUILayout.Popup("Variable", index, keys.ToArray());
 
-			if (newIndex != index)
+			bool keyChanged = (t.variable.key != keys[newIndex]);
+
+			if (keyChanged)
 			{
 				Undo.RecordObject(t, "Select variable");
+				t.variable.key = keys[newIndex];
 			}
 
-			if (newIndex == 0)
+			if (t.variable.key == "<None>")
 			{
-				t.variableKey = "";
 				return;
 			}
 
-			Variable variable = sc.variables[newIndex - 1];
+			VariableType variableType = sc.variables[newIndex - 1].type;
 
-			if (t.variableKey != variable.key)
-			{
-				Undo.RecordObject(t, "Select variable");
-				t.variableKey = variable.key;
-			}
+			bool booleanValue = t.variable.booleanValue;
+			int integerValue = t.variable.integerValue;
+			float floatValue = t.variable.floatValue;
+			string stringValue = t.variable.stringValue;
 
-			bool booleanValue = t.booleanValue;
-			int integerValue = t.integerValue;
-			float floatValue = t.floatValue;
-			string stringValue = t.stringValue;
-
-			switch (variable.type)
+			switch (variableType)
 			{
 			case VariableType.Boolean:
-				booleanValue = EditorGUILayout.Toggle(new GUIContent("Boolean Value", "The boolean value to set the variable with"), t.booleanValue);
+				booleanValue = EditorGUILayout.Toggle(new GUIContent("Boolean Value", "The boolean value to set the variable with"), booleanValue);
 				break;
 			case VariableType.Integer:
-				integerValue = EditorGUILayout.IntField(new GUIContent("Integer Value", "The integer value to set the variable with"), t.integerValue);
+				integerValue = EditorGUILayout.IntField(new GUIContent("Integer Value", "The integer value to set the variable with"), integerValue);
 				break;
 			case VariableType.Float:
-				floatValue = EditorGUILayout.FloatField(new GUIContent("Float Value", "The float value to set the variable with"), t.floatValue);
+				floatValue = EditorGUILayout.FloatField(new GUIContent("Float Value", "The float value to set the variable with"), floatValue);
 				break;
 			case VariableType.String:
-				stringValue = EditorGUILayout.TextField(new GUIContent("String Value", "The string value to set the variable with"), t.stringValue);
+				stringValue = EditorGUILayout.TextField(new GUIContent("String Value", "The string value to set the variable with"), stringValue);
 				break;
 			}
 
-			if (booleanValue != t.booleanValue)
+			if (booleanValue != t.variable.booleanValue)
 			{
 				Undo.RecordObject(t, "Set boolean value");
-				t.booleanValue = booleanValue;
+				t.variable.booleanValue = booleanValue;
 			}
-			else if (integerValue != t.integerValue)
+			else if (integerValue != t.variable.integerValue)
 			{
 				Undo.RecordObject(t, "Set integer value");
-				t.integerValue = integerValue;
+				t.variable.integerValue = integerValue;
 			}
-			else if (floatValue != t.floatValue)
+			else if (floatValue != t.variable.floatValue)
 			{
 				Undo.RecordObject(t, "Set float value");
-				t.floatValue = floatValue;
+				t.variable.floatValue = floatValue;
 			}
-			else if (stringValue != t.stringValue)
+			else if (stringValue != t.variable.stringValue)
 			{
 				Undo.RecordObject(t, "Set string value");
-				t.stringValue = stringValue;
+				t.variable.stringValue = stringValue;
 			}
-
 		}
 	}
 

@@ -4,45 +4,30 @@ using Fungus;
 
 public class SetVariableCommand : FungusCommand 
 {
-	public string variableKey;
-
-	public string stringValue;
-
-	public int integerValue;
-
-	public bool booleanValue;
-
-	public float floatValue;
-
+	public Variable variable;
+	
 	public override void OnEnter()
 	{
-		if (variableKey.Length == 0)
+		if (variable.key.Length == 0)
 		{
 			Finish();
 			return;
 		}
 
-		Variable v = parentSequenceController.GetVariable(variableKey);
+		Variable v = parentSequenceController.GetVariable(variable.key);
 		if (v == null)
 		{
-			Debug.LogError("Variable " + variableKey + " not defined.");
+			Debug.LogError("Variable " + variable.key + " not defined.");
 		}
 		else
 		{
-			switch (v.type)
+			if (v.IsSameType(variable))
 			{
-			case VariableType.String:
-				v.stringValue = stringValue;
-				break;
-			case VariableType.Integer:
-				v.integerValue = integerValue;
-				break;
-			case VariableType.Float:
-				v.floatValue = floatValue;
-				break;
-			case VariableType.Boolean:
-				v.booleanValue = booleanValue;
-				break;
+				v.Assign(variable);
+			}
+			else
+			{
+				Debug.LogError("Variables " + variable.key + " and " + v.key + " are not of the same type.");
 			}
 		}
 

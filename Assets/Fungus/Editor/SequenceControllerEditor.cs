@@ -34,7 +34,7 @@ public class VariableDrawer : PropertyDrawer
 			keyValue = new string(arr);
 
 			keyProp.stringValue = keyValue;
-			typeProp.enumValueIndex = selectedEnum;
+			typeProp.enumValueIndex = selectedEnum;	
 		}
 	}
 }
@@ -42,12 +42,11 @@ public class VariableDrawer : PropertyDrawer
 [CustomEditor (typeof(SequenceController))]
 public class SequenceControllerEditor : Editor 
 {
-	SerializedProperty globalVariablesProperty;
-	SerializedProperty localVariablesProperty;
+	SerializedProperty variablesProperty;
 
 	void OnEnable() 
 	{
-		localVariablesProperty = serializedObject.FindProperty("variables");
+		variablesProperty = serializedObject.FindProperty("variables");
 	}
 
 	public override void OnInspectorGUI() 
@@ -92,7 +91,7 @@ public class SequenceControllerEditor : Editor
 		}
 
 		ReorderableListGUI.Title("Variables");
-		ReorderableListGUI.ListField(localVariablesProperty);
+		ReorderableListGUI.ListField(variablesProperty);
 
 		serializedObject.ApplyModifiedProperties();
 	}
