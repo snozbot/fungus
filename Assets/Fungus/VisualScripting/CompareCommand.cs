@@ -5,9 +5,15 @@ using Fungus;
 public class CompareCommand : FungusCommand
 {
 	public string variableKey;
-
+	
 	public bool booleanValue;
 
+	public int integerValue;
+
+	public float floatValue;
+
+	public string stringValue;
+	
 	public Sequence trueSequence;
 
 	public Sequence falseSequence;
