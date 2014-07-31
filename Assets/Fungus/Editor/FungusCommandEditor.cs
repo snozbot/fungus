@@ -26,8 +26,11 @@ public class FungusCommandEditor : Editor
 				EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
 			}
 
-			if (t.IsExecuting() ||
-			    t == selectedCommand)
+			if (t.IsExecuting())
+			{
+				EditorGUI.DrawRect(rect, new Color(0f, 1f, 0f, 0.25f));
+			}
+			else if (t == selectedCommand)
 			{
 				EditorGUI.DrawRect(rect, new Color(1f, 1f, 0f, 0.25f));
 			}

@@ -193,7 +193,14 @@ public class FungusEditorWindow : EditorWindow
 			}
 			else if (ShouldHighlight(command))
 			{
-				GUI.backgroundColor = Color.yellow;
+				if (command.IsExecuting())
+				{
+					GUI.backgroundColor = Color.green;
+				}
+				else
+				{
+					GUI.backgroundColor = Color.yellow;
+				}
 			}
 			else
 			{
@@ -257,7 +264,14 @@ public class FungusEditorWindow : EditorWindow
 				Color color = Color.grey;
 				if (highlight)
 				{
-					color = Color.yellow;
+					if (command.IsExecuting())
+					{
+						color = Color.green;
+					}
+					else
+					{
+						color = Color.yellow;
+					}
 				}
 
 				GLDraw.DrawConnectingCurve(pointA, pointB, color, 2);
