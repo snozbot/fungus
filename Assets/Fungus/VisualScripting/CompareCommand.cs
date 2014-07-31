@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -130,7 +130,7 @@ namespace Fungus
 				}
 			}
 
-			Finish();
+			Continue();
 		}
 
 		public override void GetConnectedSequences(ref List<Sequence> connectedSequences)

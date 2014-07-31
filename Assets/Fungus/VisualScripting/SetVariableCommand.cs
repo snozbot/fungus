@@ -18,7 +18,7 @@ public class SetVariableCommand : FungusCommand
 	{
 		if (variableKey.Length == 0)
 		{
-			Finish();
+			Continue();
 			return;
 		}
 
@@ -46,6 +46,6 @@ public class SetVariableCommand : FungusCommand
 			}
 		}
 
-		Finish();
+		Continue();
 	}
 }

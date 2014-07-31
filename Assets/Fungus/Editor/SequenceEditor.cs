@@ -45,4 +45,30 @@ public class SequenceEditor : Editor
 		
 		return result;
 	}
+
+	static public string VariableField(GUIContent label, FungusScript fungusScript, string variableKey, ref VariableType variableType)
+	{
+		List<string> keys = new List<string>();
+		keys.Add("<None>");
+		int index = 0;
+		for (int i = 0; i < fungusScript.variables.Count; ++i)
+		{
+			Variable v = fungusScript.variables[i];
+			keys.Add(v.key);
+			if (v.key == variableKey &&
+			    index == 0)
+			{
+				index = i + 1;
+			}
+		}
+		
+		int newIndex = EditorGUILayout.Popup(label.text, index, keys.ToArray());
+		
+		if (newIndex > 0)
+		{
+			variableType = fungusScript.variables[newIndex - 1].type;
+		}
+		
+		return keys[newIndex];
+	}
 }

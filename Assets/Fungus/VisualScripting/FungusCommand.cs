@@ -57,16 +57,22 @@ namespace Fungus
 			OnEnter();
 		}
 
-		public virtual void Finish()
+		public virtual void Continue()
 		{
 			OnExit();
 			parentSequence.ExecuteNextCommand(this);
 		}
 
+		public virtual void Stop()
+		{
+			OnExit();
+			parentSequence.Stop();
+		}
+
 		public virtual void ExecuteSequence(Sequence s)
 		{
 			OnExit();
-			parentSequence.Finish();
+			parentSequence.Stop();
 			parentFungusScript.ExecuteSequence(s);
 		}
 

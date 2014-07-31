@@ -16,7 +16,7 @@ namespace Fungus
 
 		void OnWaitComplete()
 		{
-			Finish();
+			Continue();
 		}
 	}
 

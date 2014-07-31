@@ -13,42 +13,28 @@ namespace Fungus
 		{
 			SetVariableCommand t = target as SetVariableCommand;
 
-			FungusScript sc = t.GetParentFungusScript();
-			if (sc == null)
+			FungusScript fungusScript = t.GetParentFungusScript();
+			if (fungusScript == null)
 			{
 				return;
 			}
 
-			List<string> keys = new List<string>();
-			keys.Add("<None>");
-			int index = 0;
-			for (int i = 0; i < sc.variables.Count; ++i)
+			VariableType variableType = VariableType.Boolean;
+			string variableKey = SequenceEditor.VariableField(new GUIContent("Variable", "Variable to set"),
+			                                                  fungusScript,
+			                                                  t.variableKey,
+			                                                  ref variableType);
+	
+			if (variableKey != t.variableKey)
 			{
-				Variable v = sc.variables[i];
-				keys.Add(v.key);
-				if (v.key == t.variableKey &&
-				    index == 0)
-				{
-					index = i + 1;
-				}
-			}
-
-			int newIndex = EditorGUILayout.Popup("Variable", index, keys.ToArray());
-
-			bool keyChanged = (t.variableKey != keys[newIndex]);
-
-			if (keyChanged)
-			{
-				Undo.RecordObject(t, "Select variable");
-				t.variableKey = keys[newIndex];
+				Undo.RecordObject(t, "Set Variable Key");
+				t.variableKey = variableKey;
 			}
 
 			if (t.variableKey == "<None>")
 			{
 				return;
 			}
-
-			VariableType variableType = sc.variables[newIndex - 1].type;
 
 			bool booleanValue = t.booleanData.value;
 			int integerValue = t.integerData.value;

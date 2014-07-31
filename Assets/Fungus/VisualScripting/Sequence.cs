@@ -89,7 +89,7 @@ namespace Fungus
 
 			if (nextCommand == null)
 			{
-				Finish();
+				Stop();
 			}
 			else
 			{
@@ -113,7 +113,7 @@ namespace Fungus
 			command.Execute();
 		}
 
-		public void Finish()
+		public void Stop()
 		{
 			activeCommand = null;
 			fungusScript.activeSequence = null;
