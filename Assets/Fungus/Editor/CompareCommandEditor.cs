@@ -6,12 +6,12 @@ using System.Collections.Generic;
 namespace Fungus
 {
 
-	[CustomEditor (typeof(SetVariableCommand))]
-	public class SetVariableCommandEditor : FungusCommandEditor 
+	[CustomEditor (typeof(CompareCommand))]
+	public class CompareCommandEditor : FungusCommandEditor 
 	{
 		public override void DrawCommandInspectorGUI()
 		{
-			SetVariableCommand t = target as SetVariableCommand;
+			CompareCommand t = target as CompareCommand;
 
 			SequenceController sc = t.GetParentSequenceController();
 			if (sc == null)
@@ -49,6 +49,28 @@ namespace Fungus
 			}
 
 			VariableType variableType = sc.variables[newIndex - 1].type;
+
+			List<GUIContent> operatorList = new List<GUIContent>();
+			operatorList.Add(new GUIContent("=="));
+			operatorList.Add(new GUIContent("!="));
+			if (variableType == VariableType.Integer ||
+			    variableType == VariableType.Float)
+			{
+				operatorList.Add(new GUIContent("<"));
+				operatorList.Add(new GUIContent(">"));
+				operatorList.Add(new GUIContent("<="));
+				operatorList.Add(new GUIContent(">="));
+			}
+
+			CompareOperator compareOperator = (CompareOperator)EditorGUILayout.Popup(new GUIContent("Operator", 
+			                                                                                        "The comparison operator to use when comparing values"), 
+			                                                                         (int)t.compareOperator, 
+			                                                                         operatorList.ToArray());
+			if (compareOperator != t.compareOperator)
+			{
+				Undo.RecordObject(t, "Select compare operator");
+				t.compareOperator = compareOperator;
+			}
 
 			bool booleanValue = t.booleanData.value;
 			int integerValue = t.integerData.value;
@@ -90,6 +112,25 @@ namespace Fungus
 			{
 				Undo.RecordObject(t, "Set string value");
 				t.stringData.value = stringValue;
+			}
+
+			Sequence onTrue = SequenceEditor.SequenceField(new GUIContent("On True Sequence", "Sequence to execute if comparision is true"),
+			                                               t.GetParentSequenceController(), 
+			                                               t.onTrueSequence);
+
+			Sequence onFalse = SequenceEditor.SequenceField(new GUIContent("On False Sequence", "Sequence to execute if comparision is false"),
+			                                                t.GetParentSequenceController(), 
+			                                                t.onFalseSequence);
+
+			if (onTrue != t.onTrueSequence)
+			{
+				Undo.RecordObject(t, "Set On True Sequence");
+				t.onTrueSequence = onTrue;
+			}
+			if (onFalse != t.onFalseSequence)
+			{
+				Undo.RecordObject(t, "Set On False Sequence");
+				t.onFalseSequence = onFalse;
 			}
 		}
 	}

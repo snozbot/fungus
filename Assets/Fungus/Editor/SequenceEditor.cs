@@ -21,7 +21,7 @@ public class SequenceEditor : Editor
 		List<GUIContent> sequenceNames = new List<GUIContent>();
 		
 		int selectedIndex = 0;
-		sequenceNames.Add(new GUIContent("None"));
+		sequenceNames.Add(new GUIContent("<None>"));
 		Sequence[] sequences = sequenceController.GetComponentsInChildren<Sequence>();
 		for (int i = 0; i < sequences.Length; ++i)
 		{
