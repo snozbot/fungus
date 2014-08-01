@@ -16,7 +16,7 @@ namespace Fungus
 
 			EditorGUILayout.PrefixLabel(new GUIContent("Say Text", "Text to display in dialog"));
 			EditorStyles.textField.wordWrap = true;
-			string text = EditorGUILayout.TextArea(t.text);
+			string text = EditorGUILayout.TextArea(t.text, GUILayout.MinHeight(50));
 			if (text != t.text)
 			{
 				Undo.RecordObject(t, "Set Text");

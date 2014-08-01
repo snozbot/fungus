@@ -11,8 +11,6 @@ namespace Fungus
 
 	public class Sequence : MonoBehaviour 
 	{
-		public string titleText;
-
 		[HideInInspector]
 		public Rect nodeRect = new Rect(10, 10, 100, 100);
 	
