@@ -2,45 +2,49 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Fungus;
 
-[CustomEditor (typeof(FungusCommand), true)]
-public class FungusCommandEditor : Editor 
+namespace Fungus.Script
 {
 
-	public static FungusCommand selectedCommand;
-
-	public override void OnInspectorGUI() 
+	[CustomEditor (typeof(FungusCommand), true)]
+	public class FungusCommandEditor : Editor 
 	{
-		Rect rect = EditorGUILayout.BeginVertical();
 
-		DrawCommandInspectorGUI();
+		public static FungusCommand selectedCommand;
 
-		FungusCommand t = target as FungusCommand;
-		if (t != null)
+		public override void OnInspectorGUI() 
 		{
-			if (t.errorMessage.Length > 0)
+			Rect rect = EditorGUILayout.BeginVertical();
+
+			DrawCommandInspectorGUI();
+
+			FungusCommand t = target as FungusCommand;
+			if (t != null)
 			{
-				GUIStyle style = new GUIStyle(GUI.skin.label);
-				style.normal.textColor = new Color(1,0,0);
-				EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
+				if (t.errorMessage.Length > 0)
+				{
+					GUIStyle style = new GUIStyle(GUI.skin.label);
+					style.normal.textColor = new Color(1,0,0);
+					EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
+				}
+
+				if (t.IsExecuting())
+				{
+					EditorGUI.DrawRect(rect, new Color(0f, 1f, 0f, 0.25f));
+				}
+				else if (t == selectedCommand)
+				{
+					EditorGUI.DrawRect(rect, new Color(1f, 1f, 0f, 0.25f));
+				}
 			}
 
-			if (t.IsExecuting())
-			{
-				EditorGUI.DrawRect(rect, new Color(0f, 1f, 0f, 0.25f));
-			}
-			else if (t == selectedCommand)
-			{
-				EditorGUI.DrawRect(rect, new Color(1f, 1f, 0f, 0.25f));
-			}
+			EditorGUILayout.EndVertical();
 		}
 
-		EditorGUILayout.EndVertical();
+		public virtual void DrawCommandInspectorGUI()
+		{
+			DrawDefaultInspector();
+		}
 	}
 
-	public virtual void DrawCommandInspectorGUI()
-	{
-		DrawDefaultInspector();
-	}
 }

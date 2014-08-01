@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-namespace Fungus
+namespace Fungus.Script
 {
 
 	public class WaitCommand : FungusCommand 

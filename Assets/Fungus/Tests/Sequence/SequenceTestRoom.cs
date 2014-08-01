@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Fungus;
+using Fungus.Script;
 
 public class SequenceTestRoom : Room 
 {

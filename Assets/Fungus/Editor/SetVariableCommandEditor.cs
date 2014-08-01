@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Fungus
+namespace Fungus.Script
 {
 
 	[CustomEditor (typeof(SetVariableCommand))]
