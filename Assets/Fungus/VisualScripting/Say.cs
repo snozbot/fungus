@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
-	public class SayCommand : FungusCommand 
+	public class Say : FungusCommand 
 	{
 		public string text;
 

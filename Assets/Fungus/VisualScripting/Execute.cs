@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
-	public class ExecuteCommand : FungusCommand 
+	public class Execute : FungusCommand 
 	{
 		public Sequence targetSequence;
 

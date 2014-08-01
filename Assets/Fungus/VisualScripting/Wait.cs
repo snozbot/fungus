@@ -5,7 +5,7 @@ using System.Collections;
 namespace Fungus.Script
 {
 
-	public class WaitCommand : FungusCommand 
+	public class Wait : FungusCommand 
 	{
 		public float duration;
 

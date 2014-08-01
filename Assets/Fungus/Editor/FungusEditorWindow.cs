@@ -90,11 +90,17 @@ namespace Fungus.Script
 	        // http://docs.unity3d.com/Documentation/ScriptReference/EditorWindow.BeginWindows.html
 	        BeginWindows();
 
+			GUIStyle windowStyle = new GUIStyle(GUI.skin.window);
+
 			windowSequenceMap.Clear();
 			for (int i = 0; i < sequences.Length; ++i)
 			{
 				Sequence sequence = sequences[i];
-				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, sequence.name, GUILayout.Width(100), GUILayout.Height(100), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+
+				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
+				float windowWidth = Mathf.Max (titleWidth + 10, 100);
+
+				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, sequence.name, GUILayout.Width(windowWidth), GUILayout.Height(100), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 				windowSequenceMap.Add(sequence);
 			}
 
@@ -187,7 +193,6 @@ namespace Fungus.Script
 			foreach (FungusCommand command in commands)
 			{
 				string commandName = command.GetType().Name;
-				commandName = commandName.Replace("Command", "");
 
 				if (command.errorMessage.Length > 0)
 				{

@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using System.Collections;
@@ -7,12 +7,12 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 	
-	[CustomEditor (typeof(AddOptionCommand))]
+	[CustomEditor (typeof(AddOption))]
 	public class AddOptionCommandEditor : FungusCommandEditor
 	{
 		public override void DrawCommandInspectorGUI() 
 		{
-			AddOptionCommand t = target as AddOptionCommand;
+			AddOption t = target as AddOption;
 			
 			EditorGUI.BeginChangeCheck();
 			
@@ -20,7 +20,7 @@ namespace Fungus.Script
 			Sequence newSequence = SequenceEditor.SequenceField(new GUIContent("Sequence", "Sequence to execute when this option is selected"), 
 			                                                    t.GetFungusScript(), 
 			                                                    t.sequence);
-			AddOptionCommand.Condition newCondition = (AddOptionCommand.Condition)EditorGUILayout.EnumPopup(new GUIContent("Condition", "Conditions for when this option is displayed"), t.condition);
+			AddOption.Condition newCondition = (AddOption.Condition)EditorGUILayout.EnumPopup(new GUIContent("Condition", "Conditions for when this option is displayed"), t.condition);
 
 			if (EditorGUI.EndChangeCheck())
 			{
@@ -31,8 +31,8 @@ namespace Fungus.Script
 				t.condition = newCondition;
 			}
 
-			if (t.condition == AddOptionCommand.Condition.ShowOnBoolean || 
-			    t.condition == AddOptionCommand.Condition.HideOnBoolean)
+			if (t.condition == AddOption.Condition.ShowOnBoolean || 
+			    t.condition == AddOption.Condition.HideOnBoolean)
 			{
 				string newBooleanVariableKey = EditorGUILayout.TextField(new GUIContent("Boolean Variable Key", "Boolean variable to check for condition"), t.booleanVariableKey);
 				if (newBooleanVariableKey != t.booleanVariableKey)

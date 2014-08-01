@@ -7,12 +7,12 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
-	[CustomEditor (typeof(SayCommand))]
+	[CustomEditor (typeof(Say))]
 	public class SayCommandEditor : FungusCommandEditor
 	{
 		public override void DrawCommandInspectorGUI() 
 		{
-			SayCommand t = target as SayCommand;
+			Say t = target as Say;
 
 			EditorGUILayout.PrefixLabel(new GUIContent("Say Text", "Text to display in dialog"));
 			EditorStyles.textField.wordWrap = true;

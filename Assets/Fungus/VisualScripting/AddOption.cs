@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
-	public class AddOptionCommand : FungusCommand
+	public class AddOption : FungusCommand
 	{
 		public enum Condition
 		{

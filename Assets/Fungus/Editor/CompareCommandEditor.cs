@@ -6,12 +6,12 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
-	[CustomEditor (typeof(CompareCommand))]
+	[CustomEditor (typeof(Compare))]
 	public class CompareCommandEditor : FungusCommandEditor 
 	{
 		public override void DrawCommandInspectorGUI()
 		{
-			CompareCommand t = target as CompareCommand;
+			Compare t = target as Compare;
 
 			FungusScript sc = t.GetFungusScript();
 			if (sc == null)

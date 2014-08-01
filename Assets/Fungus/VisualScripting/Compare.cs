@@ -15,7 +15,7 @@ namespace Fungus.Script
 		GreaterThanOrEquals		// >=
 	}
 
-	public class CompareCommand : FungusCommand
+	public class Compare : FungusCommand
 	{
 		public string variableKey;
 
