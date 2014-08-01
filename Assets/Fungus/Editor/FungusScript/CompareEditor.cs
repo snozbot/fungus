@@ -7,7 +7,7 @@ namespace Fungus.Script
 {
 
 	[CustomEditor (typeof(Compare))]
-	public class CompareCommandEditor : FungusCommandEditor 
+	public class CompareEditor : FungusCommandEditor 
 	{
 		public override void DrawCommandInspectorGUI()
 		{

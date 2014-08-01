@@ -123,15 +123,18 @@ namespace Fungus.Script
 			{
 				if (fungusScript.activeSequence == null)
 				{
+					GUI.backgroundColor = Color.white;
 					labelText += " (Idle)";
 				}
 				else
 				{
+					GUI.backgroundColor = Color.green;
 					labelText += " (Running)";
 				}
 			}
 			else
 			{
+				GUI.backgroundColor = Color.yellow;
 				labelText += " (Edit)";
 			}
 			
