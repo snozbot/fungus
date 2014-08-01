@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 namespace Fungus
@@ -19,10 +20,12 @@ namespace Fungus
 
 		SpriteRenderer spriteRenderer;
 
+		Action onFadeComplete;
+
 		/** 
 		 * Attaches a SpriteFader component to a sprite object to transition its color over time.
 		 */
-		public static void FadeSprite(SpriteRenderer spriteRenderer, Color targetColor, float duration, Vector2 slideOffset)
+		public static void FadeSprite(SpriteRenderer spriteRenderer, Color targetColor, float duration, Vector2 slideOffset, Action onComplete = null)
 		{
 			if (spriteRenderer == null)
 			{
@@ -52,6 +55,10 @@ namespace Fungus
 			if (duration == 0f)
 			{
 				spriteRenderer.color = targetColor;
+				if (onComplete != null)
+				{
+					onComplete();
+				}
 				return;
 			}
 
@@ -62,6 +69,7 @@ namespace Fungus
 			spriteFader.endColor = targetColor;
 			spriteFader.endPosition = spriteRenderer.transform.position;
 			spriteFader.slideOffset = slideOffset;
+			spriteFader.onFadeComplete = onComplete;
 		}
 
 		void Start()
@@ -83,6 +91,11 @@ namespace Fungus
 
 				// Remove this component when transition is complete
 				Destroy(this);
+
+				if (onFadeComplete != null)
+				{
+					onFadeComplete();
+				}
 			}
 			else
 			{
