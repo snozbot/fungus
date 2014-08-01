@@ -4,7 +4,7 @@ using System.Collections;
 namespace Fungus.Script
 {
 
-	public class SetVariable : FungusCommand 
+	public class Set : FungusCommand 
 	{
 		public string variableKey;
 

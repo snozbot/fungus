@@ -6,12 +6,12 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
-	[CustomEditor (typeof(SetVariable))]
+	[CustomEditor (typeof(Set))]
 	public class SetVariableEditor : FungusCommandEditor 
 	{
 		public override void DrawCommandInspectorGUI()
 		{
-			SetVariable t = target as SetVariable;
+			Set t = target as Set;
 
 			FungusScript fungusScript = t.GetFungusScript();
 			if (fungusScript == null)
