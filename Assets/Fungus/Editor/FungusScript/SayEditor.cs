@@ -14,12 +14,18 @@ namespace Fungus.Script
 		{
 			Say t = target as Say;
 
+			EditorGUI.BeginChangeCheck();
+
+			string character = EditorGUILayout.TextField(new GUIContent("Character", "Character to display in dialog"), t.character);
+
 			EditorGUILayout.PrefixLabel(new GUIContent("Say Text", "Text to display in dialog"));
 			EditorStyles.textField.wordWrap = true;
 			string text = EditorGUILayout.TextArea(t.text, GUILayout.MinHeight(50));
-			if (text != t.text)
+
+			if (EditorGUI.EndChangeCheck())
 			{
-				Undo.RecordObject(t, "Set Text");
+				Undo.RecordObject(t, "Set Say");
+				t.character = character;
 				t.text = text;
 			}
 		}

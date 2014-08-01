@@ -20,6 +20,16 @@ namespace Fungus.Script
 		
 		public List<Variable> variables = new List<Variable>();
 
+		public bool startAutomatically = false;
+
+		void Start()
+		{
+			if (startAutomatically)
+			{
+				Execute();
+			}
+		}
+
 		public void Execute()
 		{
 			if (startSequence == null)

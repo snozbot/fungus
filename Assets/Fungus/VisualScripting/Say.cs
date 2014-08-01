@@ -7,6 +7,7 @@ namespace Fungus.Script
 {
 	public class Say : FungusCommand 
 	{
+		public string character;
 		public string text;
 
 		public override void OnEnter()
@@ -16,6 +17,11 @@ namespace Fungus.Script
 			{
 				Continue();
 				return;
+			}
+
+			if (character.Length > 0)
+			{
+				dialog.SetCharacter(character);
 			}
 
 			dialog.Say (text, delegate {

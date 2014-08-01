@@ -34,6 +34,7 @@ namespace Fungus.Script
 			while (parent != null)
 			{
 				sc = parent.gameObject.GetComponent<FungusScript>();
+		
 				if (sc != null)
 				{
 					break;
@@ -103,14 +104,14 @@ namespace Fungus.Script
 			}
 			else
 			{
-				if (fungusScript.stepTime == 0f)
+				if (GetFungusScript().stepTime == 0f)
 				{
 					activeCommand = nextCommand;
 					nextCommand.Execute();
 				}
 				else
 				{
-					StartCoroutine(ExecuteAfterDelay(nextCommand, fungusScript.stepTime));
+					StartCoroutine(ExecuteAfterDelay(nextCommand, GetFungusScript().stepTime));
 				}
 			}
 

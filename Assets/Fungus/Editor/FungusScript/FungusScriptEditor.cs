@@ -86,6 +86,9 @@ namespace Fungus.Script
 			GUIContent startSequenceLabel = new GUIContent("Start Sequence", "Sequence to be executed when controller starts.");
 			t.startSequence = SequenceEditor.SequenceField(startSequenceLabel, t, t.startSequence);
 
+			GUIContent startAutomaticallyLabel = new GUIContent("Start Automatically", "Start this Fungus Script when the scene starts.");
+			t.startAutomatically = EditorGUILayout.Toggle(startAutomaticallyLabel, t.startAutomatically);
+
 			if (t.startSequence == null)
 			{
 				GUIStyle style = new GUIStyle(GUI.skin.label);
