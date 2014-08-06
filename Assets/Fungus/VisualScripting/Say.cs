@@ -54,12 +54,12 @@ namespace Fungus.Script
 				else
 				{
 					if (showCondition == ShowCondition.BooleanIsTrue &&
-					    v.booleanValue != true)
+					    v.BooleanValue != true)
 					{
 						showSayText = false;
 					}
 					else if (showCondition == ShowCondition.BooleanIsFalse &&
-					         v.booleanValue != false)
+					         v.BooleanValue != false)
 					{
 						showSayText = false;
 					}

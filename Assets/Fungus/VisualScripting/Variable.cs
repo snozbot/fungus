@@ -13,16 +13,47 @@ namespace Fungus.Script
 		String
 	};
 
+	public enum VariableScope
+	{
+		Local,
+		Global
+	};
+
 	[Serializable]
 	public class Variable
 	{
 		public string key;
 		public VariableType type;
+		public VariableScope scope;
 
-		public bool booleanValue;
-		public int integerValue;
-		public float floatValue;
-		public string stringValue;
+		bool booleanValue;
+		int integerValue;
+		float floatValue;
+		string stringValue;
+
+		public bool BooleanValue
+		{
+			get { return booleanValue; }
+			set { booleanValue = value; }
+		}
+
+		public int IntegerValue
+		{
+			get { return integerValue; }
+			set { integerValue = value; }
+		}
+		
+		public float FloatValue
+		{
+			get { return floatValue; }
+			set { floatValue = value; }
+		}
+		
+		public string StringValue
+		{
+			get { return stringValue; }
+			set { stringValue = value; }
+		}
 
 		public bool IsSameType(Variable other)
 		{

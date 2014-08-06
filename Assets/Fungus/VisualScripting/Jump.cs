@@ -61,11 +61,11 @@ namespace Fungus.Script
 				switch (compareOperator)
 				{
 				case CompareOperator.Equals:
-					condition = (v.booleanValue == booleanData.value);
+					condition = (v.BooleanValue == booleanData.value);
 					break;
 				case CompareOperator.NotEquals:
 				default:
-					condition = (v.booleanValue != booleanData.value);
+					condition = (v.BooleanValue != booleanData.value);
 					break;
 				}
 				break;
@@ -73,22 +73,22 @@ namespace Fungus.Script
 				switch (compareOperator)
 				{
 				case CompareOperator.Equals:
-					condition = (v.integerValue == integerData.value);
+					condition = (v.IntegerValue == integerData.value);
 					break;
 				case CompareOperator.NotEquals:
-					condition = (v.integerValue != integerData.value);
+					condition = (v.IntegerValue != integerData.value);
 					break;
 				case CompareOperator.LessThan:
-					condition = (v.integerValue < integerData.value);
+					condition = (v.IntegerValue < integerData.value);
 					break;
 				case CompareOperator.GreaterThan:
-					condition = (v.integerValue > integerData.value);
+					condition = (v.IntegerValue > integerData.value);
 					break;
 				case CompareOperator.LessThanOrEquals:
-					condition = (v.integerValue <= integerData.value);
+					condition = (v.IntegerValue <= integerData.value);
 					break;
 				case CompareOperator.GreaterThanOrEquals:
-					condition = (v.integerValue >= integerData.value);
+					condition = (v.IntegerValue >= integerData.value);
 					break;
 				}
 				break;
@@ -96,22 +96,22 @@ namespace Fungus.Script
 				switch (compareOperator)
 				{
 				case CompareOperator.Equals:
-					condition = (v.floatValue == floatData.value);
+					condition = (v.FloatValue == floatData.value);
 					break;
 				case CompareOperator.NotEquals:
-					condition = (v.floatValue != floatData.value);
+					condition = (v.FloatValue != floatData.value);
 					break;
 				case CompareOperator.LessThan:
-					condition = (v.floatValue < floatData.value);
+					condition = (v.FloatValue < floatData.value);
 					break;
 				case CompareOperator.GreaterThan:
-					condition = (v.floatValue > floatData.value);
+					condition = (v.FloatValue > floatData.value);
 					break;
 				case CompareOperator.LessThanOrEquals:
-					condition = (v.floatValue <= floatData.value);
+					condition = (v.FloatValue <= floatData.value);
 					break;
 				case CompareOperator.GreaterThanOrEquals:
-					condition = (v.floatValue >= floatData.value);
+					condition = (v.FloatValue >= floatData.value);
 					break;
 				}
 				break;
@@ -119,11 +119,11 @@ namespace Fungus.Script
 				switch (compareOperator)
 				{
 				case CompareOperator.Equals:
-					condition = (v.stringValue == stringData.value);
+					condition = (v.StringValue == stringData.value);
 					break;
 				case CompareOperator.NotEquals:
 				default:
-					condition = (v.stringValue != stringData.value);
+					condition = (v.StringValue != stringData.value);
 					break;
 				}
 				break;

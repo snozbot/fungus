@@ -16,19 +16,29 @@ namespace Fungus.Script
 		{
 			SerializedProperty keyProp = property.FindPropertyRelative("key");
 			SerializedProperty typeProp = property.FindPropertyRelative("type");
+			SerializedProperty scopeProp = property.FindPropertyRelative("scope");
 
 			// Draw the text field control GUI.
 			EditorGUI.BeginChangeCheck();
 
+			float width1 = position.width * 0.5f;
+			float width2 = position.width * 0.25f;
+			float width3 = position.width * 0.25f;
+
 			Rect keyRect = position;
-			keyRect.width *= 0.5f;
+			keyRect.width = width1;
 
 			Rect typeRect = position;
-			typeRect.x += keyRect.width;
-			typeRect.width -= keyRect.width;
+			typeRect.x += width1;
+			typeRect.width = width2;
+
+			Rect scopeRect = position;
+			scopeRect.x += width1 + width2;
+			scopeRect.width = width3;
 
 			string keyValue = EditorGUI.TextField(keyRect, label, keyProp.stringValue);
-			int selectedEnum = (int)(VariableType)EditorGUI.EnumPopup(typeRect, (VariableType)typeProp.enumValueIndex);
+			int typeValue = (int)(VariableType)EditorGUI.EnumPopup(typeRect, (VariableType)typeProp.enumValueIndex);
+			int scopeValue = (int)(VariableScope)EditorGUI.EnumPopup(scopeRect, (VariableScope)scopeProp.enumValueIndex);
 
 			if (EditorGUI.EndChangeCheck ())
 			{
@@ -37,7 +47,8 @@ namespace Fungus.Script
 				keyValue = new string(arr);
 
 				keyProp.stringValue = keyValue;
-				typeProp.enumValueIndex = selectedEnum;	
+				typeProp.enumValueIndex = typeValue;	
+				scopeProp.enumValueIndex = scopeValue;
 			}
 		}
 	}

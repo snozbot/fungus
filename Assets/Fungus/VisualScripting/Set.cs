@@ -50,10 +50,10 @@ namespace Fungus.Script
 					{
 					default:
 					case SetOperator.Assign:
-						v.booleanValue = booleanData.value;
+						v.BooleanValue = booleanData.value;
 						break;
 					case SetOperator.Negate:
-						v.booleanValue = !booleanData.value;
+						v.BooleanValue = !booleanData.value;
 						break;
 					}
 					break;
@@ -62,22 +62,22 @@ namespace Fungus.Script
 					{
 					default:
 					case SetOperator.Assign:
-						v.integerValue = integerData.value;
+						v.IntegerValue = integerData.value;
 						break;
 					case SetOperator.Negate:
-						v.integerValue = -integerData.value;
+						v.IntegerValue = -integerData.value;
 						break;
 					case SetOperator.Add:
-						v.integerValue += integerData.value;
+						v.IntegerValue += integerData.value;
 						break;
 					case SetOperator.Subtract:
-						v.integerValue -= integerData.value;
+						v.IntegerValue -= integerData.value;
 						break;
 					case SetOperator.Multiply:
-						v.integerValue *= integerData.value;
+						v.IntegerValue *= integerData.value;
 						break;
 					case SetOperator.Divide:
-						v.integerValue /= integerData.value;
+						v.IntegerValue /= integerData.value;
 						break;
 					}
 					break;
@@ -86,22 +86,22 @@ namespace Fungus.Script
 					{
 					default:
 					case SetOperator.Assign:
-						v.floatValue = floatData.value;
+						v.FloatValue = floatData.value;
 						break;
 					case SetOperator.Negate:
-						v.floatValue = -floatData.value;
+						v.FloatValue = -floatData.value;
 						break;
 					case SetOperator.Add:
-						v.floatValue += floatData.value;
+						v.FloatValue += floatData.value;
 						break;
 					case SetOperator.Subtract:
-						v.floatValue -= floatData.value;
+						v.FloatValue -= floatData.value;
 						break;
 					case SetOperator.Multiply:
-						v.floatValue *= floatData.value;
+						v.FloatValue *= floatData.value;
 						break;
 					case SetOperator.Divide:
-						v.floatValue /= floatData.value;
+						v.FloatValue /= floatData.value;
 						break;
 					}
 					break;
@@ -110,7 +110,7 @@ namespace Fungus.Script
 					{
 					default:
 					case SetOperator.Assign:
-						v.stringValue = stringData.value;
+						v.StringValue = stringData.value;
 						break;
 					}
 					break;
