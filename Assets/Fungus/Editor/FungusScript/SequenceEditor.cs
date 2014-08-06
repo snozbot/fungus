@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -47,7 +48,7 @@ namespace Fungus.Script
 			return result;
 		}
 
-		static public string VariableField(GUIContent label, FungusScript fungusScript, string variableKey, ref VariableType variableType)
+		static public string VariableField(GUIContent label, FungusScript fungusScript, string variableKey, ref VariableType variableType, Func<Variable, bool> filter = null)
 		{
 			List<string> keys = new List<string>();
 			keys.Add("<None>");
@@ -55,6 +56,15 @@ namespace Fungus.Script
 			for (int i = 0; i < fungusScript.variables.Count; ++i)
 			{
 				Variable v = fungusScript.variables[i];
+
+				if (filter != null)
+				{
+					if (!filter(v))
+					{
+						continue;
+					}
+				}
+
 				keys.Add(v.key);
 				if (v.key == variableKey &&
 				    index == 0)

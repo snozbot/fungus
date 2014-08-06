@@ -24,6 +24,7 @@ namespace Fungus.Script
 			                                                  fungusScript,
 			                                                  t.variableKey,
 			                                                  ref variableType);
+			
 	
 			if (variableKey != t.variableKey)
 			{
