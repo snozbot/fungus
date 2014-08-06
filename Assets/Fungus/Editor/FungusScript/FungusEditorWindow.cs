@@ -195,7 +195,7 @@ namespace Fungus.Script
 			FungusCommand[] commands = sequence.gameObject.GetComponents<FungusCommand>();
 			foreach (FungusCommand command in commands)
 			{
-				string commandName = command.GetType().Name;
+				string commandName = command.GetCommandName();
 
 				if (command.errorMessage.Length > 0)
 				{
