@@ -7,29 +7,63 @@ namespace Fungus.Script
 
 	public class AddOption : FungusCommand
 	{
-		public enum Condition
+		public enum ShowCondition
 		{
-			AlwaysShow,
-			HideOnVisited,
-			ShowOnBoolean,
-			HideOnBoolean
+			Always,
+			NotVisited,
+			BooleanIsTrue,
+			BooleanIsFalse
 		}
 		
-		public string text;
-		public Sequence sequence;
-		public Condition condition;
+		public string optionText;
+		public Sequence targetSequence;
+		public ShowCondition showCondition;
 		public string booleanVariableKey;
 
 		public override void OnEnter()
 		{
 			Dialog dialog = Game.GetInstance().dialog;
-			if (dialog != null &&
-			    sequence != null &&
-			    !(condition == Condition.HideOnVisited && sequence.GetExecutionCount() > 0))
+
+			bool showOption = (dialog != null && targetSequence != null);
+
+			if (showCondition == ShowCondition.Always) 
 			{
-				dialog.AddOption(text, () => {
+				// Always show option
+			}
+			else if (showCondition == ShowCondition.NotVisited) 
+			{
+				if (targetSequence.GetExecutionCount () > 0)
+				{
+					showOption = false;	
+				}
+			}
+			else
+			{
+				Variable v = parentFungusScript.GetVariable(booleanVariableKey);
+				if (v == null)
+				{
+					showOption = false;
+				}
+				else
+				{
+					if (showCondition == ShowCondition.BooleanIsTrue &&
+						v.booleanValue != true)
+					{
+						showOption = false;
+					}
+					else if (showCondition == ShowCondition.BooleanIsFalse &&
+					    	 v.booleanValue != false)
+			    	{
+						showOption = false;
+					}
+				}				
+			}
+
+			if (showOption)
+			{
+				dialog.AddOption(optionText, () => {
 					Stop();
-					parentFungusScript.ExecuteSequence(sequence); 
+					parentFungusScript.ExecuteSequence(targetSequence); 
 				});
 			}
 			Continue();
@@ -37,9 +71,9 @@ namespace Fungus.Script
 
 		public override void GetConnectedSequences(ref List<Sequence> connectedSequences)
 		{
-			if (sequence != null)
+			if (targetSequence != null)
 			{
-				connectedSequences.Add(sequence);
+				connectedSequences.Add(targetSequence);
 			}
 		}
 
