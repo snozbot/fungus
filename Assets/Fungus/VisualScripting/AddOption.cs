@@ -31,7 +31,8 @@ namespace Fungus.Script
 			}
 			else if (showCondition == ShowCondition.NotVisited) 
 			{
-				if (targetSequence.GetExecutionCount () > 0)
+				if (targetSequence == null ||
+					targetSequence.GetExecutionCount () > 0)
 				{
 					showOption = false;	
 				}
