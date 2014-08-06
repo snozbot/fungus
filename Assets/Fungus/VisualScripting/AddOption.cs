@@ -23,7 +23,6 @@ namespace Fungus.Script
 		public override void OnEnter()
 		{
 			Dialog dialog = Game.GetInstance().dialog;
-
 			bool showOption = (dialog != null && targetSequence != null);
 
 			if (showCondition == ShowCondition.Always) 

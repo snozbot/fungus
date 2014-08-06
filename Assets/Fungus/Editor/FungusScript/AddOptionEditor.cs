@@ -16,7 +16,6 @@ namespace Fungus.Script
 
 			EditorGUI.BeginChangeCheck();
 
-
 			string optionText = EditorGUILayout.TextField(new GUIContent("Option Text", "Text for option button label"), t.optionText);
 			Sequence targetSequence = SequenceEditor.SequenceField(new GUIContent("Target Sequence", "Sequence to execute when option is selected"), t.GetFungusScript(), t.targetSequence);
 			AddOption.ShowCondition showCondition = (AddOption.ShowCondition)EditorGUILayout.EnumPopup(new GUIContent("Show Condition", "Condition when this option should be visible."), t.showCondition);
