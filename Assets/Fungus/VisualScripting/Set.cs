@@ -6,7 +6,19 @@ namespace Fungus.Script
 
 	public class Set : FungusCommand 
 	{
+		public enum SetOperator
+		{
+			Assign,		// =
+			Negate,		// !
+			Add, 		// +
+			Subtract,	// -
+			Multiply,	// *
+			Divide		// /
+		}
+
 		public string variableKey;
+
+		public SetOperator setOperator;
 
 		public BooleanData booleanData;
 
@@ -34,16 +46,73 @@ namespace Fungus.Script
 				switch (v.type)
 				{
 				case VariableType.Boolean:
-					v.booleanValue = booleanData.value;
+					switch (setOperator)
+					{
+					default:
+					case SetOperator.Assign:
+						v.booleanValue = booleanData.value;
+						break;
+					case SetOperator.Negate:
+						v.booleanValue = !booleanData.value;
+						break;
+					}
 					break;
 				case VariableType.Integer:
-					v.integerValue = integerData.value;
+					switch (setOperator)
+					{
+					default:
+					case SetOperator.Assign:
+						v.integerValue = integerData.value;
+						break;
+					case SetOperator.Negate:
+						v.integerValue = -integerData.value;
+						break;
+					case SetOperator.Add:
+						v.integerValue += integerData.value;
+						break;
+					case SetOperator.Subtract:
+						v.integerValue -= integerData.value;
+						break;
+					case SetOperator.Multiply:
+						v.integerValue *= integerData.value;
+						break;
+					case SetOperator.Divide:
+						v.integerValue /= integerData.value;
+						break;
+					}
 					break;
 				case VariableType.Float:
-					v.floatValue = floatData.value;
+					switch (setOperator)
+					{
+					default:
+					case SetOperator.Assign:
+						v.floatValue = floatData.value;
+						break;
+					case SetOperator.Negate:
+						v.floatValue = -floatData.value;
+						break;
+					case SetOperator.Add:
+						v.floatValue += floatData.value;
+						break;
+					case SetOperator.Subtract:
+						v.floatValue -= floatData.value;
+						break;
+					case SetOperator.Multiply:
+						v.floatValue *= floatData.value;
+						break;
+					case SetOperator.Divide:
+						v.floatValue /= floatData.value;
+						break;
+					}
 					break;
 				case VariableType.String:
-					v.stringValue = stringData.value;
+					switch (setOperator)
+					{
+					default:
+					case SetOperator.Assign:
+						v.stringValue = stringData.value;
+						break;
+					}
 					break;
 				}
 			}

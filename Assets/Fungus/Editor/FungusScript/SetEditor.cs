@@ -36,7 +36,95 @@ namespace Fungus.Script
 			{
 				return;
 			}
+			
+			List<GUIContent> operatorsList = new List<GUIContent>();
+			operatorsList.Add(new GUIContent("="));
+			if (variableType == VariableType.Boolean)
+			{
+				operatorsList.Add(new GUIContent("!"));
+			}
+			else if (variableType == VariableType.Integer ||
+			         variableType == VariableType.Float)
+			{
+					operatorsList.Add(new GUIContent("+"));
+					operatorsList.Add(new GUIContent("-"));
+					operatorsList.Add(new GUIContent("*"));
+					operatorsList.Add(new GUIContent("/"));
+			}
+			
+			int selectedIndex = 0;
+			switch (t.setOperator)
+			{
+				default:
+				case Set.SetOperator.Assign:
+					selectedIndex = 0;
+					break;
+				case Set.SetOperator.Negate:
+					selectedIndex = 1;
+					break;
+				case Set.SetOperator.Add:
+					selectedIndex = 1;
+					break;
+				case Set.SetOperator.Subtract:
+					selectedIndex = 2;
+					break;
+				case Set.SetOperator.Multiply:
+					selectedIndex = 3;
+					break;
+				case Set.SetOperator.Divide:
+					selectedIndex = 4;
+					break;
+			}
 
+			selectedIndex = EditorGUILayout.Popup(new GUIContent("Operator", "Arithmetic operator to use"), selectedIndex, operatorsList.ToArray());
+			
+			Set.SetOperator setOperator = Set.SetOperator.Assign;
+			switch (variableType)
+			{
+			default:
+			case VariableType.Boolean:
+			case VariableType.String:
+				switch (selectedIndex)
+				{
+				default:
+				case 0:
+					setOperator = Set.SetOperator.Assign;
+					break;
+				case 1:
+					setOperator = Set.SetOperator.Negate;
+					break;
+				}
+				break;
+			case VariableType.Integer:
+			case VariableType.Float:
+				switch (selectedIndex)
+				{
+				default:
+				case 0:
+					setOperator = Set.SetOperator.Assign;
+					break;
+				case 1:
+					setOperator = Set.SetOperator.Add;
+					break;
+				case 2:
+					setOperator = Set.SetOperator.Subtract;
+					break;
+				case 3:
+					setOperator = Set.SetOperator.Multiply;
+					break;
+				case 4:
+					setOperator = Set.SetOperator.Divide;
+					break;
+				}
+				break;
+			}
+
+			if (setOperator != t.setOperator)
+			{
+				Undo.RecordObject(t, "Set Operator");
+				t.setOperator = setOperator;
+			}
+			
 			bool booleanValue = t.booleanData.value;
 			int integerValue = t.integerData.value;
 			float floatValue = t.floatData.value;
