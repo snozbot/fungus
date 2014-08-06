@@ -14,8 +14,6 @@ namespace Fungus.Script
 		
 		private List<Sequence> windowSequenceMap = new List<Sequence>();
 		
-		private GameObject cachedSelection;
-
 	    [MenuItem("Window/Fungus Editor")]
 	    static void Init()
 	    {
@@ -27,7 +25,7 @@ namespace Fungus.Script
 			Repaint();
 		}
 
-		FungusScript GetFungusScript()
+		static public FungusScript GetFungusScript()
 		{
 			GameObject activeObject = Selection.activeGameObject;
 
@@ -145,6 +143,12 @@ namespace Fungus.Script
 			if (GUILayout.Button(labelText))
 			{
 				Selection.activeGameObject = fungusScript.gameObject;
+			}
+
+			GUI.backgroundColor = Color.white;
+			if (GUILayout.Button("Show Variables"))
+			{
+				EditorWindow.GetWindow<VariablesWindow>(true, "Fungus Variables");
 			}
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
