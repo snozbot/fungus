@@ -7,7 +7,7 @@ namespace Fungus.Script
 {
 
 	[CustomEditor (typeof(Set))]
-	public class SetVariableEditor : FungusCommandEditor 
+	public class SetEditor : FungusCommandEditor 
 	{
 		public override void DrawCommandInspectorGUI()
 		{
