@@ -14,6 +14,8 @@ namespace Fungus.Script
 	{	
 		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 
 		{
+			EditorGUI.BeginProperty(position, label, property);
+
 			SerializedProperty keyProp = property.FindPropertyRelative("key");
 			SerializedProperty typeProp = property.FindPropertyRelative("type");
 			SerializedProperty scopeProp = property.FindPropertyRelative("scope");
@@ -50,6 +52,8 @@ namespace Fungus.Script
 				typeProp.enumValueIndex = typeValue;	
 				scopeProp.enumValueIndex = scopeValue;
 			}
+
+			EditorGUI.EndProperty();
 		}
 	}
 
