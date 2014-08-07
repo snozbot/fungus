@@ -33,26 +33,26 @@ namespace Fungus.Script
 
 		public bool BooleanValue
 		{
-			get { return booleanValue; }
-			set { booleanValue = value; }
+			get { return (scope == VariableScope.Local) ? booleanValue : Variables.GetBoolean(key); }
+			set { if (scope == VariableScope.Local) { booleanValue = value; } else { Variables.SetBoolean(key, value); } }
 		}
 
 		public int IntegerValue
 		{
-			get { return integerValue; }
-			set { integerValue = value; }
+			get { return (scope == VariableScope.Local) ? integerValue : Variables.GetInteger(key); }
+			set { if (scope == VariableScope.Local) { integerValue = value; } else { Variables.SetInteger(key, value); } }
 		}
 		
 		public float FloatValue
 		{
-			get { return floatValue; }
-			set { floatValue = value; }
+			get { return (scope == VariableScope.Local) ? floatValue : Variables.GetFloat(key); }
+			set { if (scope == VariableScope.Local) { floatValue = value; } else {	Variables.SetFloat(key, value); } }
 		}
 		
 		public string StringValue
 		{
-			get { return stringValue; }
-			set { stringValue = value; }
+			get { return (scope == VariableScope.Local) ? stringValue : Variables.GetString(key); }
+			set { if (scope == VariableScope.Local) { stringValue = value; } else { Variables.SetString(key, value); } }
 		}
 
 		public bool IsSameType(Variable other)
