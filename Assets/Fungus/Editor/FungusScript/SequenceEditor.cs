@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Fungus.Script
 {
@@ -48,15 +49,19 @@ namespace Fungus.Script
 			return result;
 		}
 
-		static public string VariableField(GUIContent label, FungusScript fungusScript, string variableKey, ref VariableType variableType, Func<Variable, bool> filter = null)
+		static public FungusVariable VariableField(GUIContent label, FungusScript fungusScript, FungusVariable variable, Func<FungusVariable, bool> filter = null)
 		{
-			List<string> keys = new List<string>();
-			keys.Add("<None>");
-			int index = 0;
-			for (int i = 0; i < fungusScript.variables.Count; ++i)
-			{
-				Variable v = fungusScript.variables[i];
+			List<string> variableKeys = new List<string>();
+			List<FungusVariable> variableObjects = new List<FungusVariable>();
 
+			variableKeys.Add("<None>");
+			variableObjects.Add(null);
+
+			FungusVariable[] variables = fungusScript.GetComponents<FungusVariable>();
+			int index = 0;
+			int selectedIndex = 0;
+			foreach (FungusVariable v in variables)
+			{
 				if (filter != null)
 				{
 					if (!filter(v))
@@ -65,22 +70,20 @@ namespace Fungus.Script
 					}
 				}
 
-				keys.Add(v.key);
-				if (v.key == variableKey &&
-				    index == 0)
+				variableKeys.Add(v.key);
+				variableObjects.Add(v);
+
+				index++;
+
+				if (v == variable)
 				{
-					index = i + 1;
+					selectedIndex = index;
 				}
 			}
-			
-			int newIndex = EditorGUILayout.Popup(label.text, index, keys.ToArray());
-			
-			if (newIndex > 0)
-			{
-				variableType = fungusScript.variables[newIndex - 1].type;
-			}
-			
-			return keys[newIndex];
+
+			selectedIndex = EditorGUILayout.Popup(label.text, selectedIndex, variableKeys.ToArray());
+
+			return variableObjects[selectedIndex];
 		}
 	}
 

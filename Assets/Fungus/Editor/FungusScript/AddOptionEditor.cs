@@ -20,17 +20,15 @@ namespace Fungus.Script
 			Sequence targetSequence = SequenceEditor.SequenceField(new GUIContent("Target Sequence", "Sequence to execute when option is selected"), t.GetFungusScript(), t.targetSequence);
 			AddOption.ShowCondition showCondition = (AddOption.ShowCondition)EditorGUILayout.EnumPopup(new GUIContent("Show Condition", "Condition when this option should be visible."), t.showCondition);
 
-			string booleanVariableKey = t.booleanVariableKey;
+			BooleanVariable booleanVariable = t.booleanVariable;
 
 			if (showCondition == AddOption.ShowCondition.BooleanIsFalse ||
 				showCondition == AddOption.ShowCondition.BooleanIsTrue) 
 			{
-				VariableType type = VariableType.Boolean;
-				booleanVariableKey = SequenceEditor.VariableField (new GUIContent ("Boolean Variable", "Boolean variable to test for condition"),
-				                                                   t.GetFungusScript (),
-				                                                   t.booleanVariableKey,
-				                                                   ref type,
-				                                                   v => { return v.type == VariableType.Boolean; });						
+				booleanVariable = SequenceEditor.VariableField (new GUIContent ("Boolean Variable", "Boolean variable to test for condition"),
+				                                                t.GetFungusScript (),
+				                                                t.booleanVariable,
+				                                                v => { return v.GetType() == typeof(BooleanVariable); }) as BooleanVariable;
 			}
 
 			if (EditorGUI.EndChangeCheck())
@@ -39,7 +37,7 @@ namespace Fungus.Script
 				t.optionText = optionText;
 				t.targetSequence = targetSequence;
 				t.showCondition = showCondition;
-				t.booleanVariableKey = booleanVariableKey;
+				t.booleanVariable = booleanVariable;
 			}
 		}
 	}

@@ -3,12 +3,12 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Fungus;
-using Rotorz.ReorderableList;
-using System.Linq;
+//using Rotorz.ReorderableList;
+//using System.Linq;
 
 namespace Fungus.Script
 {
-
+	/*
 	[CustomPropertyDrawer (typeof(Variable))]
 	public class VariableDrawer : PropertyDrawer 
 	{	
@@ -56,20 +56,21 @@ namespace Fungus.Script
 			EditorGUI.EndProperty();
 		}
 	}
+	*/
 
 	[CustomEditor (typeof(FungusScript))]
 	public class FungusScriptEditor : Editor 
 	{
 		SerializedProperty variablesProperty;
 
-		void OnEnable() 
-		{
-			variablesProperty = serializedObject.FindProperty("variables");
-		}
+		//void OnEnable() 
+		//{
+		//	variablesProperty = serializedObject.FindProperty("variables");
+		//}
 
 		public override void OnInspectorGUI() 
 		{
-			serializedObject.Update();
+			//serializedObject.Update();
 
 			FungusScript t = target as FungusScript;
 		
@@ -111,10 +112,10 @@ namespace Fungus.Script
 				EditorGUILayout.LabelField(new GUIContent("Error: Please select a Start Sequence"), style);
 			}
 
-			ReorderableListGUI.Title("Variables");
-			ReorderableListGUI.ListField(variablesProperty);
+			//ReorderableListGUI.Title("Variables");
+			//ReorderableListGUI.ListField(variablesProperty);
 
-			serializedObject.ApplyModifiedProperties();
+			//serializedObject.ApplyModifiedProperties();
 		}
 	}
 

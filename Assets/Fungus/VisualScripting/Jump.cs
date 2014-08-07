@@ -26,7 +26,7 @@ namespace Fungus.Script
 	
 		public Sequence targetSequence; // Only used for Always condition
 	
-		public string variableKey;
+		public FungusVariable variable;
 
 		public CompareOperator compareOperator;
 
@@ -51,82 +51,87 @@ namespace Fungus.Script
 				return;
 			}
 		
-			Variable v = parentFungusScript.GetVariable(variableKey);
-			
 			bool condition = false;
 
-			switch (v.type)
+			if (variable == null)
 			{
-			case VariableType.Boolean:
+				Continue();
+				return;
+			}
+
+			if (variable.GetType() == typeof(BooleanVariable))
+			{
 				switch (compareOperator)
 				{
 				case CompareOperator.Equals:
-					condition = (v.BooleanValue == booleanData.value);
+					condition = (variable as BooleanVariable).Value == booleanData.value;
 					break;
 				case CompareOperator.NotEquals:
 				default:
-					condition = (v.BooleanValue != booleanData.value);
+					condition = (variable as BooleanVariable).Value != booleanData.value;
 					break;
 				}
-				break;
-			case VariableType.Integer:
+			}
+			else if (variable.GetType() == typeof(IntegerVariable))
+			{
 				switch (compareOperator)
 				{
 				case CompareOperator.Equals:
-					condition = (v.IntegerValue == integerData.value);
+					condition = (variable as IntegerVariable).Value == integerData.value;
 					break;
 				case CompareOperator.NotEquals:
-					condition = (v.IntegerValue != integerData.value);
+					condition = (variable as IntegerVariable).Value != integerData.value;
 					break;
 				case CompareOperator.LessThan:
-					condition = (v.IntegerValue < integerData.value);
+					condition = (variable as IntegerVariable).Value < integerData.value;
 					break;
 				case CompareOperator.GreaterThan:
-					condition = (v.IntegerValue > integerData.value);
+					condition = (variable as IntegerVariable).Value > integerData.value;
 					break;
 				case CompareOperator.LessThanOrEquals:
-					condition = (v.IntegerValue <= integerData.value);
+					condition = (variable as IntegerVariable).Value <= integerData.value;
 					break;
 				case CompareOperator.GreaterThanOrEquals:
-					condition = (v.IntegerValue >= integerData.value);
+					condition = (variable as IntegerVariable).Value >= integerData.value;
 					break;
 				}
-				break;
-			case VariableType.Float:
+			}
+			else if (variable.GetType() == typeof(FloatVariable))
+			{
 				switch (compareOperator)
 				{
 				case CompareOperator.Equals:
-					condition = (v.FloatValue == floatData.value);
+					condition = (variable as FloatVariable).Value == floatData.value;
 					break;
 				case CompareOperator.NotEquals:
-					condition = (v.FloatValue != floatData.value);
+					condition = (variable as FloatVariable).Value != floatData.value;
 					break;
 				case CompareOperator.LessThan:
-					condition = (v.FloatValue < floatData.value);
+					condition = (variable as FloatVariable).Value < floatData.value;
 					break;
 				case CompareOperator.GreaterThan:
-					condition = (v.FloatValue > floatData.value);
+					condition = (variable as FloatVariable).Value > floatData.value;
 					break;
 				case CompareOperator.LessThanOrEquals:
-					condition = (v.FloatValue <= floatData.value);
+					condition = (variable as FloatVariable).Value <= floatData.value;
 					break;
 				case CompareOperator.GreaterThanOrEquals:
-					condition = (v.FloatValue >= floatData.value);
+					condition = (variable as FloatVariable).Value >= floatData.value;
 					break;
 				}
-				break;
-			case VariableType.String:
+			}
+			else if (variable.GetType() == typeof(StringVariable))
+			{
 				switch (compareOperator)
 				{
 				case CompareOperator.Equals:
-					condition = (v.StringValue == stringData.value);
+					condition = (variable as StringVariable).Value == stringData.value;
 					break;
 				case CompareOperator.NotEquals:
 				default:
-					condition = (v.StringValue != stringData.value);
+					condition = (variable as StringVariable).Value != stringData.value;
 					break;
 				}
-				break;
 			}
 
 			if (condition)

@@ -18,7 +18,7 @@ namespace Fungus.Script
 		public string character;
 		public string text;
 		public ShowCondition showCondition;
-		public string booleanVariableKey;
+		public BooleanVariable booleanVariable;
 
 		int executionCount;
 
@@ -46,20 +46,19 @@ namespace Fungus.Script
 			}
 			else
 			{
-				Variable v = parentFungusScript.GetVariable(booleanVariableKey);
-				if (v == null)
+				if (booleanVariable == null)
 				{
 					showSayText = false;
 				}
 				else
 				{
 					if (showCondition == ShowCondition.BooleanIsTrue &&
-					    v.BooleanValue != true)
+					    booleanVariable.Value != true)
 					{
 						showSayText = false;
 					}
 					else if (showCondition == ShowCondition.BooleanIsFalse &&
-					         v.BooleanValue != false)
+					         booleanVariable.Value != false)
 					{
 						showSayText = false;
 					}

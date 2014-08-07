@@ -27,24 +27,25 @@ namespace Fungus.Script
 			}
 
 			// Warn about conflicting global variable types
-			Dictionary<string, VariableType> globalTypes = new Dictionary<string, VariableType>();
+			Dictionary<string, FungusVariable> globals = new Dictionary<string, FungusVariable>();
 			FungusScript[] fungusScripts = GameObject.FindObjectsOfType<FungusScript>();
 			foreach (FungusScript fs in fungusScripts)
 			{
-				foreach (Variable v in fs.variables)
+				FungusVariable[] variables = fs.GetComponents<FungusVariable>();
+				foreach (FungusVariable v in variables)
 				{
 					if (v.scope == VariableScope.Global)
 					{
-						if (globalTypes.ContainsKey(v.key))
+						if (globals.ContainsKey(v.key))
 						{
-							if (globalTypes[v.key] != v.type)
+							if (globals[v.key].GetType() != v.GetType())
 							{
 								GUIStyle errorStyle = new GUIStyle(GUI.skin.label);
 								errorStyle.normal.textColor = new Color(1,0,0);
 								GUILayout.Label("Error: Global '" + v.key + "' must use the same type in all scripts.", errorStyle);
 							}
 						}
-						globalTypes[v.key] = v.type;
+						globals[v.key] = v;
 					}
 				}
 			}
@@ -71,7 +72,8 @@ namespace Fungus.Script
 			boxStyle.margin.top = 0;
 			boxStyle.margin.bottom = 0;
 
-			foreach (Variable variable in fungusScript.variables)
+			FungusVariable[] fsVariables = fungusScript.GetComponents<FungusVariable>();
+			foreach (FungusVariable variable in fsVariables)
 			{
 				GUILayout.BeginHorizontal(boxStyle);
 
@@ -91,33 +93,31 @@ namespace Fungus.Script
 					break;
 				}
 
-				switch (variable.type)
+				if (variable.GetType() == typeof(BooleanVariable))
 				{
-				case VariableType.Boolean:
 					typeString = "Boolean";
-					valueString = variable.BooleanValue ? "True" : "False";
-					break;
-				case VariableType.Integer:
+					valueString = (variable as BooleanVariable).Value ? "True" : "False";
+				}
+				else if (variable.GetType() == typeof(IntegerVariable))
+				{
 					typeString = "Integer";
-					valueString = variable.IntegerValue.ToString();
-					break;
-				case VariableType.Float:
+					valueString = (variable as IntegerVariable).Value.ToString();
+				}
+				else if (variable.GetType() == typeof(FloatVariable))
+				{
 					typeString = "Float";
-					valueString = variable.FloatValue.ToString();
-					break;
-				case VariableType.String:
+					valueString = (variable as FloatVariable).Value.ToString();
+				}
+				else if (variable.GetType() == typeof(StringVariable))
+				{
 					typeString = "String";
+					valueString = (variable as StringVariable).Value;
 
-					if (variable.StringValue == null ||
-						variable.StringValue.Length == 0)
+					if (valueString == null ||
+					    valueString.Length == 0)
 					{
 						valueString = "\"\"";
 					}
-					else
-					{
-						valueString = variable.StringValue;
-					}
-					break;
 				}
 
 				GUILayout.Label(keyString, GUILayout.Width(columnWidth));

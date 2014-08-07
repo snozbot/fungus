@@ -16,7 +16,7 @@ namespace Fungus.Script
 			Divide		// /
 		}
 
-		public string variableKey;
+		public FungusVariable variable;
 
 		public SetOperator setOperator;
 
@@ -30,89 +30,82 @@ namespace Fungus.Script
 		
 		public override void OnEnter()
 		{
-			if (variableKey.Length == 0)
+			if (variable == null)
 			{
 				Continue();
 				return;
 			}
 
-			Variable v = parentFungusScript.GetVariable(variableKey);
-			if (v == null)
+			if (variable.GetType() == typeof(BooleanVariable))
 			{
-				Debug.LogError("Variable " + variableKey + " not defined.");
-			}
-			else
-			{
-				switch (v.type)
+				switch (setOperator)
 				{
-				case VariableType.Boolean:
-					switch (setOperator)
-					{
-					default:
-					case SetOperator.Assign:
-						v.BooleanValue = booleanData.value;
-						break;
-					case SetOperator.Negate:
-						v.BooleanValue = !booleanData.value;
-						break;
-					}
+				default:
+				case SetOperator.Assign:
+					(variable as BooleanVariable).Value = booleanData.value;
 					break;
-				case VariableType.Integer:
-					switch (setOperator)
-					{
-					default:
-					case SetOperator.Assign:
-						v.IntegerValue = integerData.value;
-						break;
-					case SetOperator.Negate:
-						v.IntegerValue = -integerData.value;
-						break;
-					case SetOperator.Add:
-						v.IntegerValue += integerData.value;
-						break;
-					case SetOperator.Subtract:
-						v.IntegerValue -= integerData.value;
-						break;
-					case SetOperator.Multiply:
-						v.IntegerValue *= integerData.value;
-						break;
-					case SetOperator.Divide:
-						v.IntegerValue /= integerData.value;
-						break;
-					}
+				case SetOperator.Negate:
+					(variable as BooleanVariable).Value = !booleanData.value;
 					break;
-				case VariableType.Float:
-					switch (setOperator)
-					{
-					default:
-					case SetOperator.Assign:
-						v.FloatValue = floatData.value;
-						break;
-					case SetOperator.Negate:
-						v.FloatValue = -floatData.value;
-						break;
-					case SetOperator.Add:
-						v.FloatValue += floatData.value;
-						break;
-					case SetOperator.Subtract:
-						v.FloatValue -= floatData.value;
-						break;
-					case SetOperator.Multiply:
-						v.FloatValue *= floatData.value;
-						break;
-					case SetOperator.Divide:
-						v.FloatValue /= floatData.value;
-						break;
-					}
+				}
+			}
+			else if (variable.GetType() == typeof(IntegerVariable))
+			{
+				switch (setOperator)
+				{
+				default:
+				case SetOperator.Assign:
+					(variable as IntegerVariable).Value = integerData.value;
 					break;
-				case VariableType.String:
-					switch (setOperator)
-					{
-					default:
-					case SetOperator.Assign:
-						v.StringValue = stringData.value;
-						break;
-					}
+				case SetOperator.Negate:
+					(variable as IntegerVariable).Value = -integerData.value;
+					break;
+				case SetOperator.Add:
+					(variable as IntegerVariable).Value += integerData.value;
+					break;
+				case SetOperator.Subtract:
+					(variable as IntegerVariable).Value -= integerData.value;
+					break;
+				case SetOperator.Multiply:
+					(variable as IntegerVariable).Value *= integerData.value;
+					break;
+				case SetOperator.Divide:
+					(variable as IntegerVariable).Value /= integerData.value;
+					break;
+				}
+			}
+			else if (variable.GetType() == typeof(FloatVariable))
+			{
+				switch (setOperator)
+				{
+				default:
+				case SetOperator.Assign:
+					(variable as FloatVariable).Value = floatData.value;
+					break;
+				case SetOperator.Negate:
+					(variable as FloatVariable).Value = -floatData.value;
+					break;
+				case SetOperator.Add:
+					(variable as FloatVariable).Value += floatData.value;
+					break;
+				case SetOperator.Subtract:
+					(variable as FloatVariable).Value -= floatData.value;
+					break;
+				case SetOperator.Multiply:
+					(variable as FloatVariable).Value *= floatData.value;
+					break;
+				case SetOperator.Divide:
+					(variable as FloatVariable).Value /= floatData.value;
+					break;
+				}
+			}
+			else if (variable.GetType() == typeof(StringVariable))
+			{
+				switch (setOperator)
+				{
+				default:
+				case SetOperator.Assign:
+					(variable as StringVariable).Value = stringData.value;
 					break;
 				}
 			}

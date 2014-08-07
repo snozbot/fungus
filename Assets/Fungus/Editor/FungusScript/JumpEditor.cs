@@ -36,43 +36,28 @@ namespace Fungus.Script
 				}
 				return;
 			}
-			
-			List<string> keys = new List<string>();
-			keys.Add("<None>");
-			int index = 0;
-			for (int i = 0; i < sc.variables.Count; ++i)
-			{
-				Variable v = sc.variables[i];
-				keys.Add(v.key);
-				if (v.key == t.variableKey &&
-				    index == 0)
-				{
-					index = i + 1;
-				}
-			}
 
-			int newIndex = EditorGUILayout.Popup("Compare Variable", index, keys.ToArray());
+			FungusVariable fungusVariable = SequenceEditor.VariableField(new GUIContent("Compare Variable", "Variable to use in compare operation"),
+			                                                             t.GetFungusScript(),
+			                                                             t.variable,
+			                                                             null);
 
-			bool keyChanged = (t.variableKey != keys[newIndex]);
-
-			if (keyChanged)
+			if (fungusVariable != t.variable)
 			{
 				Undo.RecordObject(t, "Select variable");
-				t.variableKey = keys[newIndex];
+				t.variable = fungusVariable;
 			}
 
-			if (t.variableKey == "<None>")
+			if (t.variable == null)
 			{
 				return;
 			}
 
-			VariableType variableType = sc.variables[newIndex - 1].type;
-
 			List<GUIContent> operatorList = new List<GUIContent>();
 			operatorList.Add(new GUIContent("=="));
 			operatorList.Add(new GUIContent("!="));
-			if (variableType == VariableType.Integer ||
-			    variableType == VariableType.Float)
+			if (t.variable.GetType() == typeof(IntegerVariable) ||
+			    t.variable.GetType() == typeof(FloatVariable))
 			{
 				operatorList.Add(new GUIContent("<"));
 				operatorList.Add(new GUIContent(">"));
@@ -95,20 +80,21 @@ namespace Fungus.Script
 			float floatValue = t.floatData.value;
 			string stringValue = t.stringData.value;
 
-			switch (variableType)
+			if (t.variable.GetType() == typeof(BooleanVariable))
 			{
-			case VariableType.Boolean:
 				booleanValue = EditorGUILayout.Toggle(new GUIContent("Boolean Value", "The boolean value to set the variable with"), booleanValue);
-				break;
-			case VariableType.Integer:
+			}
+			else if (t.variable.GetType() == typeof(IntegerVariable))
+			{
 				integerValue = EditorGUILayout.IntField(new GUIContent("Integer Value", "The integer value to set the variable with"), integerValue);
-				break;
-			case VariableType.Float:
+			}
+			else if (t.variable.GetType() == typeof(FloatVariable))
+			{
 				floatValue = EditorGUILayout.FloatField(new GUIContent("Float Value", "The float value to set the variable with"), floatValue);
-				break;
-			case VariableType.String:
+			}
+			else if (t.variable.GetType() == typeof(StringVariable))
+			{
 				stringValue = EditorGUILayout.TextField(new GUIContent("String Value", "The string value to set the variable with"), stringValue);
-				break;
 			}
 
 			if (booleanValue != t.booleanData.value)

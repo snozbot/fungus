@@ -19,37 +19,34 @@ namespace Fungus.Script
 				return;
 			}
 
-			VariableType variableType = VariableType.Boolean;
-			string variableKey = SequenceEditor.VariableField(new GUIContent("Variable", "Variable to set"),
-			                                                  fungusScript,
-			                                                  t.variableKey,
-			                                                  ref variableType);
-			
-	
-			if (variableKey != t.variableKey)
+			FungusVariable variable = SequenceEditor.VariableField(new GUIContent("Variable", "Variable to set"),
+			                                                  	   fungusScript,
+			                                                  	   t.variable);
+
+			if (variable != t.variable)
 			{
 				Undo.RecordObject(t, "Set Variable Key");
-				t.variableKey = variableKey;
+				t.variable = variable;
 			}
 
-			if (t.variableKey == "<None>")
+			if (t.variable == null)
 			{
 				return;
 			}
 			
 			List<GUIContent> operatorsList = new List<GUIContent>();
 			operatorsList.Add(new GUIContent("="));
-			if (variableType == VariableType.Boolean)
+			if (variable.GetType() == typeof(BooleanVariable))
 			{
 				operatorsList.Add(new GUIContent("!"));
 			}
-			else if (variableType == VariableType.Integer ||
-			         variableType == VariableType.Float)
+			else if (variable.GetType() == typeof(IntegerVariable) ||
+			         variable.GetType() == typeof(FloatVariable))
 			{
-					operatorsList.Add(new GUIContent("+"));
-					operatorsList.Add(new GUIContent("-"));
-					operatorsList.Add(new GUIContent("*"));
-					operatorsList.Add(new GUIContent("/"));
+				operatorsList.Add(new GUIContent("+"));
+				operatorsList.Add(new GUIContent("-"));
+				operatorsList.Add(new GUIContent("*"));
+				operatorsList.Add(new GUIContent("/"));
 			}
 			
 			int selectedIndex = 0;
@@ -79,11 +76,9 @@ namespace Fungus.Script
 			selectedIndex = EditorGUILayout.Popup(new GUIContent("Operator", "Arithmetic operator to use"), selectedIndex, operatorsList.ToArray());
 			
 			Set.SetOperator setOperator = Set.SetOperator.Assign;
-			switch (variableType)
+			if (variable.GetType() == typeof(BooleanVariable) || 
+			    variable.GetType() == typeof(StringVariable))
 			{
-			default:
-			case VariableType.Boolean:
-			case VariableType.String:
 				switch (selectedIndex)
 				{
 				default:
@@ -94,9 +89,10 @@ namespace Fungus.Script
 					setOperator = Set.SetOperator.Negate;
 					break;
 				}
-				break;
-			case VariableType.Integer:
-			case VariableType.Float:
+			} 
+			else if (variable.GetType() == typeof(IntegerVariable) || 
+			         variable.GetType() == typeof(FloatVariable))
+			{
 				switch (selectedIndex)
 				{
 				default:
@@ -116,7 +112,6 @@ namespace Fungus.Script
 					setOperator = Set.SetOperator.Divide;
 					break;
 				}
-				break;
 			}
 
 			if (setOperator != t.setOperator)
@@ -130,20 +125,21 @@ namespace Fungus.Script
 			float floatValue = t.floatData.value;
 			string stringValue = t.stringData.value;
 
-			switch (variableType)
+			if (variable.GetType() == typeof(BooleanVariable))
 			{
-			case VariableType.Boolean:
 				booleanValue = EditorGUILayout.Toggle(new GUIContent("Boolean Value", "The boolean value to set the variable with"), booleanValue);
-				break;
-			case VariableType.Integer:
+			}
+			else if (variable.GetType() == typeof(IntegerVariable))
+			{
 				integerValue = EditorGUILayout.IntField(new GUIContent("Integer Value", "The integer value to set the variable with"), integerValue);
-				break;
-			case VariableType.Float:
+			}
+			else if (variable.GetType() == typeof(FloatVariable))
+			{
 				floatValue = EditorGUILayout.FloatField(new GUIContent("Float Value", "The float value to set the variable with"), floatValue);
-				break;
-			case VariableType.String:
+			}
+			else if (variable.GetType() == typeof(StringVariable))
+			{
 				stringValue = EditorGUILayout.TextField(new GUIContent("String Value", "The string value to set the variable with"), stringValue);
-				break;
 			}
 
 			if (booleanValue != t.booleanData.value)

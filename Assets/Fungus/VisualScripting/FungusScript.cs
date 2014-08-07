@@ -18,8 +18,6 @@ namespace Fungus.Script
 		[System.NonSerialized]
 		public Sequence activeSequence;
 		
-		public List<Variable> variables = new List<Variable>();
-
 		public bool startAutomatically = false;
 
 		void Start()
@@ -54,18 +52,6 @@ namespace Fungus.Script
 			activeSequence = sequence;
 			sequence.ExecuteNextCommand();
 		}
-
-		public Variable GetVariable(string key)
-		{
-			foreach (Variable v in variables)
-			{
-				if (v.key == key)
-				{
-					return v;
-				}
-			}
-			return null;
-		}	
 	}
 
 }

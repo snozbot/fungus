@@ -24,17 +24,15 @@ namespace Fungus.Script
 
 			Say.ShowCondition showCondition = (Say.ShowCondition)EditorGUILayout.EnumPopup(new GUIContent("Show Condition", "Condition when this say text should be visible."), t.showCondition);
 			
-			string booleanVariableKey = t.booleanVariableKey;
+			BooleanVariable booleanVariable = t.booleanVariable;
 			
 			if (showCondition == Say.ShowCondition.BooleanIsFalse ||
 			    showCondition == Say.ShowCondition.BooleanIsTrue) 
 			{
-				VariableType type = VariableType.Boolean;
-				booleanVariableKey = SequenceEditor.VariableField (new GUIContent ("Boolean Variable", "Boolean variable to test for condition"),
-				                                                   t.GetFungusScript (),
-				                                                   t.booleanVariableKey,
-				                                                   ref type,
-				                                                   v => { return v.type == VariableType.Boolean; });						
+				booleanVariable = SequenceEditor.VariableField (new GUIContent ("Boolean Variable", "Boolean variable to test for condition"),
+				                                                t.GetFungusScript (),
+				                                                t.booleanVariable,
+				                                                v => { return v.GetType() == typeof(BooleanVariable); }) as BooleanVariable;						
 			}
 			
 			if (EditorGUI.EndChangeCheck())
@@ -43,7 +41,7 @@ namespace Fungus.Script
 				t.character = character;
 				t.text = text;
 				t.showCondition = showCondition;
-				t.booleanVariableKey = booleanVariableKey;
+				t.booleanVariable = booleanVariable;
 			}			
 			
 		}

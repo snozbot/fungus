@@ -18,7 +18,7 @@ namespace Fungus.Script
 		public string optionText;
 		public Sequence targetSequence;
 		public ShowCondition showCondition;
-		public string booleanVariableKey;
+		public BooleanVariable booleanVariable;
 
 		public override void OnEnter()
 		{
@@ -39,20 +39,19 @@ namespace Fungus.Script
 			}
 			else
 			{
-				Variable v = parentFungusScript.GetVariable(booleanVariableKey);
-				if (v == null)
+				if (booleanVariable == null)
 				{
 					showOption = false;
 				}
 				else
 				{
 					if (showCondition == ShowCondition.BooleanIsTrue &&
-						v.BooleanValue != true)
+					    booleanVariable.Value != true)
 					{
 						showOption = false;
 					}
 					else if (showCondition == ShowCondition.BooleanIsFalse &&
-					    	 v.BooleanValue != false)
+					         booleanVariable.Value != false)
 			    	{
 						showOption = false;
 					}
