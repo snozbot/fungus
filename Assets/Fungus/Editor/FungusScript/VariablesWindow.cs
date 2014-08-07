@@ -26,6 +26,29 @@ namespace Fungus.Script
 				return;
 			}
 
+			// Warn about conflicting global variable types
+			Dictionary<string, VariableType> globalTypes = new Dictionary<string, VariableType>();
+			FungusScript[] fungusScripts = GameObject.FindObjectsOfType<FungusScript>();
+			foreach (FungusScript fs in fungusScripts)
+			{
+				foreach (Variable v in fs.variables)
+				{
+					if (v.scope == VariableScope.Global)
+					{
+						if (globalTypes.ContainsKey(v.key))
+						{
+							if (globalTypes[v.key] != v.type)
+							{
+								GUIStyle errorStyle = new GUIStyle(GUI.skin.label);
+								errorStyle.normal.textColor = new Color(1,0,0);
+								GUILayout.Label("Error: Global '" + v.key + "' must use the same type in all scripts.", errorStyle);
+							}
+						}
+						globalTypes[v.key] = v.type;
+					}
+				}
+			}
+
 			bool showValues = Application.isPlaying;
 
 			float columnWidth = (position.width - 40) / (showValues ? 4 : 3);
