@@ -30,15 +30,13 @@ namespace Fungus.Script
 
 		public CompareOperator compareOperator;
 
-		public FungusVariable compareVariable;
+		public BooleanData booleanData;
 
-		public bool booleanValue;
+		public IntegerData integerData;
 
-		public int integerValue;
+		public FloatData floatData;
 
-		public float floatValue;
-
-		public string stringValue;
+		public StringData stringData;
 		
 		public Sequence onTrueSequence;
 
@@ -64,7 +62,7 @@ namespace Fungus.Script
 			if (variable.GetType() == typeof(BooleanVariable))
 			{
 				bool lhs = (variable as BooleanVariable).Value;
-				bool rhs = (compareVariable as BooleanVariable) == null ? booleanValue : (compareVariable as BooleanVariable).Value;
+				bool rhs = booleanData.Value;
 
 				switch (compareOperator)
 				{
@@ -80,7 +78,7 @@ namespace Fungus.Script
 			else if (variable.GetType() == typeof(IntegerVariable))
 			{
 				int lhs = (variable as IntegerVariable).Value;
-				int rhs = (compareVariable as IntegerVariable) == null ? integerValue : (compareVariable as IntegerVariable).Value;
+				int rhs = integerData.Value;
 
 				switch (compareOperator)
 				{
@@ -107,7 +105,7 @@ namespace Fungus.Script
 			else if (variable.GetType() == typeof(FloatVariable))
 			{
 				float lhs = (variable as FloatVariable).Value;
-				float rhs = (compareVariable as FloatVariable) == null ? floatValue : (compareVariable as FloatVariable).Value;
+				float rhs = floatData.Value;
 
 				switch (compareOperator)
 				{
@@ -134,7 +132,7 @@ namespace Fungus.Script
 			else if (variable.GetType() == typeof(StringVariable))
 			{
 				string lhs = (variable as StringVariable).Value;
-				string rhs = (compareVariable as StringVariable) == null ? stringValue : (compareVariable as StringVariable).Value;
+				string rhs = stringData.Value;
 
 				switch (compareOperator)
 				{

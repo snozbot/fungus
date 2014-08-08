@@ -21,6 +21,12 @@ namespace Fungus.Script
 	{
 		public BooleanVariable booleanReference;
 		public bool booleanValue;
+
+		public bool Value
+		{
+			get { return (booleanReference == null) ? booleanValue : booleanReference.Value; }
+			set { if (booleanReference == null) { booleanValue = value; } else { booleanReference.Value = value; } }
+		}
 	}
 
 }

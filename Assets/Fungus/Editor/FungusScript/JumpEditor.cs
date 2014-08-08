@@ -11,6 +11,8 @@ namespace Fungus.Script
 	{
 		public override void DrawCommandInspectorGUI()
 		{
+			serializedObject.Update();
+			
 			Jump t = target as Jump;
 
 			FungusScript sc = t.GetFungusScript();
@@ -75,61 +77,21 @@ namespace Fungus.Script
 				t.compareOperator = compareOperator;
 			}
 
-			FungusVariable compareVariable = FungusVariableEditor.VariableField(new GUIContent("Compare Variable", "Variable to compare with"),
-			                                                                    t.GetFungusScript(),
-			                                                                    t.compareVariable,
-			                                                                    v => v.GetType() == fungusVariable.GetType());
-
-			if (compareVariable != t.compareVariable)
+			if (t.variable.GetType() == typeof(BooleanVariable))
 			{
-				Undo.RecordObject(t, "Select Compare Variable");
-				t.compareVariable = compareVariable;
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("booleanData"));
 			}
-
-			if (compareVariable == null)
+			else if (t.variable.GetType() == typeof(IntegerVariable))
 			{
-				bool booleanValue = t.booleanValue;
-				int integerValue = t.integerValue;
-				float floatValue = t.floatValue;
-				string stringValue = t.stringValue;
-
-				if (t.variable.GetType() == typeof(BooleanVariable))
-				{
-					booleanValue = EditorGUILayout.Toggle(new GUIContent("Boolean Value", "The boolean value to set the variable with"), booleanValue);
-				}
-				else if (t.variable.GetType() == typeof(IntegerVariable))
-				{
-					integerValue = EditorGUILayout.IntField(new GUIContent("Integer Value", "The integer value to set the variable with"), integerValue);
-				}
-				else if (t.variable.GetType() == typeof(FloatVariable))
-				{
-					floatValue = EditorGUILayout.FloatField(new GUIContent("Float Value", "The float value to set the variable with"), floatValue);
-				}
-				else if (t.variable.GetType() == typeof(StringVariable))
-				{
-					stringValue = EditorGUILayout.TextField(new GUIContent("String Value", "The string value to set the variable with"), stringValue);
-				}
-
-				if (booleanValue != t.booleanValue)
-				{
-					Undo.RecordObject(t, "Set boolean value");
-					t.booleanValue = booleanValue;
-				}
-				else if (integerValue != t.integerValue)
-				{
-					Undo.RecordObject(t, "Set integer value");
-					t.integerValue = integerValue;
-				}
-				else if (floatValue != t.floatValue)
-				{
-					Undo.RecordObject(t, "Set float value");
-					t.floatValue = floatValue;
-				}
-				else if (stringValue != t.stringValue)
-				{
-					Undo.RecordObject(t, "Set string value");
-					t.stringValue = stringValue;
-				}			
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("integerData"));
+			}
+			else if (t.variable.GetType() == typeof(FloatVariable))
+			{
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("floatData"));
+			}
+			else if (t.variable.GetType() == typeof(StringVariable))
+			{
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("stringData"));
 			}
 
 			Sequence onTrue = SequenceEditor.SequenceField(new GUIContent("On True Sequence", "Sequence to execute if comparision is true"),
@@ -150,6 +112,8 @@ namespace Fungus.Script
 				Undo.RecordObject(t, "Set On False Sequence");
 				t.onFalseSequence = onFalse;
 			}
+
+			serializedObject.ApplyModifiedProperties();
 		}
 	}
 

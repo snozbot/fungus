@@ -11,6 +11,8 @@ namespace Fungus.Script
 	{
 		public override void DrawCommandInspectorGUI()
 		{
+			serializedObject.Update();
+
 			Set t = target as Set;
 
 			FungusScript fungusScript = t.GetFungusScript();
@@ -120,53 +122,24 @@ namespace Fungus.Script
 				t.setOperator = setOperator;
 			}
 
-			FungusVariable setVariable = FungusVariableEditor.VariableField(new GUIContent("Other Variable", "The variable to read the assigned value from."),
-			                                                                t.GetFungusScript(),
-			                                                                t.setVariable,
-			                                                                v => v.GetType() == variable.GetType ());
-
-			if (setVariable != t.setVariable)
+			if (variable.GetType() == typeof(BooleanVariable))
 			{
-				Undo.RecordObject(t, "Select Set Variable");
-				t.setVariable = setVariable;
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("booleanData"));
+			}
+			else if (variable.GetType() == typeof(IntegerVariable))
+			{
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("integerData"));
+			}
+			else if (variable.GetType() == typeof(FloatVariable))
+			{
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("floatData"));
+			}
+			else if (variable.GetType() == typeof(StringVariable))
+			{
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("stringData"));
 			}
 
-			if (setVariable == null)
-			{
-				EditorGUI.BeginChangeCheck();
-
-				bool booleanValue = t.booleanValue;
-				int integerValue = t.integerValue;
-				float floatValue = t.floatValue;
-				string stringValue = t.stringValue;
-
-				if (variable.GetType() == typeof(BooleanVariable))
-				{
-					booleanValue = EditorGUILayout.Toggle (new GUIContent("Boolean Value", "A constant boolean value to set the variable with"), booleanValue);
-				}
-				else if (variable.GetType() == typeof(IntegerVariable))
-				{
-					integerValue = EditorGUILayout.IntField(new GUIContent("Integer Value", "A constant integer value to set the variable with"), integerValue);
-				}
-				else if (variable.GetType() == typeof(FloatVariable))
-				{
-					floatValue = EditorGUILayout.FloatField(new GUIContent("Float Value", "A constant float value to set the variable with"), floatValue);
-				}
-				else if (variable.GetType() == typeof(StringVariable))
-				{
-					stringValue = EditorGUILayout.TextField(new GUIContent("String Value", "A constant string value to set the variable with"), stringValue);
-				}
-
-				if (EditorGUI.EndChangeCheck())
-				{
-					Undo.RecordObject(t, "Set Variable Data");
-
-					t.booleanValue = booleanValue;
-					t.integerValue = integerValue;
-					t.floatValue = floatValue;
-					t.stringValue = stringValue;
-				}
-			}
+			serializedObject.ApplyModifiedProperties();
 		}
 	}
 

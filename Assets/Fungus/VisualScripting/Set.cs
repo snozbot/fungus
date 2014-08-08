@@ -20,15 +20,13 @@ namespace Fungus.Script
 
 		public SetOperator setOperator;
 
-		public FungusVariable setVariable;
+		public BooleanData booleanData;
 
-		public bool booleanValue;
+		public IntegerData integerData;
 
-		public int integerValue;
+		public FloatData floatData;
 
-		public float floatValue;
-
-		public string stringValue;
+		public StringData stringData;
 		
 		public override void OnEnter()
 		{
@@ -41,7 +39,7 @@ namespace Fungus.Script
 			if (variable.GetType() == typeof(BooleanVariable))
 			{
 				BooleanVariable lhs = (variable as BooleanVariable);
-				bool rhs = (setVariable as BooleanVariable) == null ? booleanValue : (setVariable as BooleanVariable).Value;
+				bool rhs = booleanData.Value;
 
 				switch (setOperator)
 				{
@@ -57,7 +55,7 @@ namespace Fungus.Script
 			else if (variable.GetType() == typeof(IntegerVariable))
 			{
 				IntegerVariable lhs = (variable as IntegerVariable);
-				int rhs = (setVariable as IntegerVariable) == null ? integerValue : (setVariable as IntegerVariable).Value;
+				int rhs = integerData.Value;
 
 				switch (setOperator)
 				{
@@ -82,7 +80,7 @@ namespace Fungus.Script
 			else if (variable.GetType() == typeof(FloatVariable))
 			{
 				FloatVariable lhs = (variable as FloatVariable);
-				float rhs = (setVariable as FloatVariable) == null ? floatValue : (setVariable as FloatVariable).Value;
+				float rhs = floatData.Value;
 				
 				switch (setOperator)
 				{
@@ -107,7 +105,7 @@ namespace Fungus.Script
 			else if (variable.GetType() == typeof(StringVariable))
 			{
 				StringVariable lhs = (variable as StringVariable);
-				string rhs = (setVariable as StringVariable) == null ? stringValue : (setVariable as StringVariable).Value;
+				string rhs = stringData.Value;
 
 				switch (setOperator)
 				{

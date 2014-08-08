@@ -20,6 +20,12 @@ namespace Fungus.Script
 	{
 		public IntegerVariable integerReference;
 		public int integerValue;
+
+		public int Value
+		{
+			get { return (integerReference == null) ? integerValue : integerReference.Value; }
+			set { if (integerReference == null) { integerValue = value; } else { integerReference.Value = value; } }
+		}
 	}
 
 }

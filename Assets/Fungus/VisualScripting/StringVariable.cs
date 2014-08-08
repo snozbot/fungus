@@ -20,6 +20,12 @@ namespace Fungus.Script
 	{
 		public StringVariable stringReference;
 		public string stringValue;
+
+		public string Value
+		{
+			get { return (stringReference == null) ? stringValue : stringReference.Value; }
+			set { if (stringReference == null) { stringValue = value; } else { stringReference.Value = value; } }
+		}
 	}
 
 }

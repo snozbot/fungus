@@ -20,6 +20,12 @@ namespace Fungus.Script
 	{
 		public FloatVariable floatReference;
 		public float floatValue;
+
+		public float Value
+		{
+			get { return (floatReference == null) ? floatValue : floatReference.Value; }
+			set { if (floatReference == null) { floatValue = value; } else { floatReference.Value = value; } }
+		}
 	}
 
 }
