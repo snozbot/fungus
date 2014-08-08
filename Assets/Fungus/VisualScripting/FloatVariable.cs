@@ -18,8 +18,11 @@ namespace Fungus.Script
 	[System.Serializable]
 	public class FloatData
 	{
-		public FloatVariable floatReference;
-		public float floatValue;
+		[SerializeField]
+		FloatVariable floatReference;
+
+		[SerializeField]
+		float floatValue;
 
 		public float Value
 		{

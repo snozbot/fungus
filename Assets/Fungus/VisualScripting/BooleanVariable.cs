@@ -19,8 +19,11 @@ namespace Fungus.Script
 	[System.Serializable]
 	public class BooleanData
 	{
-		public BooleanVariable booleanReference;
-		public bool booleanValue;
+		[SerializeField]
+		BooleanVariable booleanReference;
+
+		[SerializeField]
+		bool booleanValue;
 
 		public bool Value
 		{

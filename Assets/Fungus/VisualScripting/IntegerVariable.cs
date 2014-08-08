@@ -18,8 +18,11 @@ namespace Fungus.Script
 	[System.Serializable]
 	public class IntegerData
 	{
-		public IntegerVariable integerReference;
-		public int integerValue;
+		[SerializeField]
+		IntegerVariable integerReference;
+
+		[SerializeField]
+		int integerValue;
 
 		public int Value
 		{
