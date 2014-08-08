@@ -39,7 +39,25 @@ namespace Fungus.Script
 			scopeRect.width = width3;
 			
 			string keyValue = EditorGUI.TextField(keyRect, label, keyProp.stringValue);
-			int typeValue = (int)(VariableType)EditorGUI.EnumPopup(typeRect, (VariableType)typeProp.enumValueIndex);
+
+			string typeLabel = "";
+			switch ((VariableType)typeProp.enumValueIndex)
+			{
+			case VariableType.Boolean:
+				typeLabel = "Boolean";
+				break;
+			case VariableType.Integer:
+				typeLabel = "Integer";
+				break;
+			case VariableType.Float:
+				typeLabel = "Float";
+				break;
+			case VariableType.String:
+				typeLabel = "String";
+				break;
+			}
+			GUI.Label(typeRect, typeLabel);
+
 			int scopeValue = (int)(VariableScope)EditorGUI.EnumPopup(scopeRect, (VariableScope)scopeProp.enumValueIndex);
 			
 			if (EditorGUI.EndChangeCheck ())
@@ -49,7 +67,6 @@ namespace Fungus.Script
 				keyValue = new string(arr);
 				
 				keyProp.stringValue = keyValue;
-				typeProp.enumValueIndex = typeValue;	
 				scopeProp.enumValueIndex = scopeValue;
 			}
 			

@@ -43,18 +43,6 @@ namespace Fungus.Script
 				Selection.activeGameObject = go;
 			}
 
-			if (GUILayout.Button("Add Variable"))
-			{
-				GenericMenu menu = new GenericMenu ();
-				
-				menu.AddItem(new GUIContent ("Boolean"), false, AddBooleanVariable, t);
-				menu.AddItem (new GUIContent ("Integer"), false, AddIntegerVariable, t);
-				menu.AddItem (new GUIContent ("Float"), false, AddFloatVariable, t);
-				menu.AddItem (new GUIContent ("String"), false, AddStringVariable, t);
-
-				menu.ShowAsContext ();
-			}
-			
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 
@@ -75,7 +63,22 @@ namespace Fungus.Script
 			}
 
 			ReorderableListGUI.Title("Variables");
-			ReorderableListGUI.ListField(variablesProperty);
+			ReorderableListGUI.ListField(variablesProperty, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton );
+
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			if (GUILayout.Button("Add Variable"))
+			{
+				GenericMenu menu = new GenericMenu ();
+				
+				menu.AddItem(new GUIContent ("Boolean"), false, AddBooleanVariable, t);
+				menu.AddItem (new GUIContent ("Integer"), false, AddIntegerVariable, t);
+				menu.AddItem (new GUIContent ("Float"), false, AddFloatVariable, t);
+				menu.AddItem (new GUIContent ("String"), false, AddStringVariable, t);
+				
+				menu.ShowAsContext ();
+			}
+			GUILayout.EndHorizontal();
 
 			serializedObject.ApplyModifiedProperties();
 		}
@@ -87,9 +90,11 @@ namespace Fungus.Script
 			{
 				return;
 			}
-			
-			FungusVariable variable = fungusScript.gameObject.AddComponent<BooleanVariable>();
+
+			Variable variable = new Variable();
 			variable.key = MakeUniqueKey(fungusScript);
+			variable.type = VariableType.Boolean;
+			fungusScript.variables.Add(variable);
 		}
 
 		void AddIntegerVariable(object obj)
@@ -100,8 +105,10 @@ namespace Fungus.Script
 				return;
 			}
 			
-			FungusVariable variable = fungusScript.gameObject.AddComponent<IntegerVariable>();
+			Variable variable = new Variable();
 			variable.key = MakeUniqueKey(fungusScript);
+			variable.type = VariableType.Integer;
+			fungusScript.variables.Add(variable);
 		}
 
 		void AddFloatVariable(object obj)
@@ -112,8 +119,10 @@ namespace Fungus.Script
 				return;
 			}
 			
-			FungusVariable variable = fungusScript.gameObject.AddComponent<FloatVariable>();
+			Variable variable = new Variable();
 			variable.key = MakeUniqueKey(fungusScript);
+			variable.type = VariableType.Float;
+			fungusScript.variables.Add(variable);
 		}
 
 		void AddStringVariable(object obj)
@@ -124,21 +133,21 @@ namespace Fungus.Script
 				return;
 			}
 			
-			FungusVariable variable = fungusScript.gameObject.AddComponent<StringVariable>();
+			Variable variable = new Variable();
 			variable.key = MakeUniqueKey(fungusScript);
+			variable.type = VariableType.String;
+			fungusScript.variables.Add(variable);
 		}
 
 		string MakeUniqueKey(FungusScript fungusScript)
 		{
-			FungusVariable[] variables = fungusScript.GetComponents<FungusVariable>();
-
 			int index = 0;
 			while (true)
 			{
 				string key = "Var" + index;
 
 				bool found = false;
-				foreach(FungusVariable variable in variables)
+				foreach(Variable variable in fungusScript.variables)
 				{
 					if (variable.key == key)
 					{
