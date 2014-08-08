@@ -10,10 +10,10 @@ namespace Fungus.Script
 		{
 			Assign,		// =
 			Negate,		// !
-			Add, 		// +
-			Subtract,	// -
-			Multiply,	// *
-			Divide		// /
+			Add, 		// +=
+			Subtract,	// -=
+			Multiply,	// *=
+			Divide		// /=
 		}
 
 		public FungusVariable variable;

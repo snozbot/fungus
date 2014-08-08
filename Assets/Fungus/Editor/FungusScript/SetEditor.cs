@@ -45,10 +45,10 @@ namespace Fungus.Script
 			else if (variable.GetType() == typeof(IntegerVariable) ||
 			         variable.GetType() == typeof(FloatVariable))
 			{
-				operatorsList.Add(new GUIContent("+"));
-				operatorsList.Add(new GUIContent("-"));
-				operatorsList.Add(new GUIContent("*"));
-				operatorsList.Add(new GUIContent("/"));
+				operatorsList.Add(new GUIContent("+="));
+				operatorsList.Add(new GUIContent("-="));
+				operatorsList.Add(new GUIContent("*="));
+				operatorsList.Add(new GUIContent("/="));
 			}
 			
 			int selectedIndex = 0;
