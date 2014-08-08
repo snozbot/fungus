@@ -26,6 +26,15 @@ namespace Fungus.Script
 				t.key = key;
 				t.scope = scope;
 			}
+
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			if (GUILayout.Button("Delete Variable"))
+			{
+				Undo.RecordObject(t, "Delete Variable");
+				DestroyImmediate(t);
+			}
+			GUILayout.EndHorizontal();
 		}
 
 		static public FungusVariable VariableField(GUIContent label, FungusScript fungusScript, FungusVariable variable, Func<FungusVariable, bool> filter = null)

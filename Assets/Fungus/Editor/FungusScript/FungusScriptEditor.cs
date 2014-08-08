@@ -92,6 +92,18 @@ namespace Fungus.Script
 				Undo.RegisterCreatedObjectUndo(go, "Sequence");
 				Selection.activeGameObject = go;
 			}
+
+			if (GUILayout.Button("Add Variable"))
+			{
+				GenericMenu menu = new GenericMenu ();
+				
+				menu.AddItem(new GUIContent ("Boolean"), false, AddBooleanVariable, t);
+				menu.AddItem (new GUIContent ("Integer"), false, AddIntegerVariable, t);
+				menu.AddItem (new GUIContent ("Float"), false, AddFloatVariable, t);
+				menu.AddItem (new GUIContent ("String"), false, AddStringVariable, t);
+
+				menu.ShowAsContext ();
+			}
 			
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
@@ -116,6 +128,80 @@ namespace Fungus.Script
 			//ReorderableListGUI.ListField(variablesProperty);
 
 			//serializedObject.ApplyModifiedProperties();
+		}
+
+		void AddBooleanVariable(object obj)
+		{
+			FungusScript fungusScript = obj as FungusScript;
+			if (fungusScript == null)
+			{
+				return;
+			}
+			
+			FungusVariable variable = fungusScript.gameObject.AddComponent<BooleanVariable>();
+			variable.key = MakeUniqueKey(fungusScript);
+		}
+
+		void AddIntegerVariable(object obj)
+		{
+			FungusScript fungusScript = obj as FungusScript;
+			if (fungusScript == null)
+			{
+				return;
+			}
+			
+			FungusVariable variable = fungusScript.gameObject.AddComponent<IntegerVariable>();
+			variable.key = MakeUniqueKey(fungusScript);
+		}
+
+		void AddFloatVariable(object obj)
+		{
+			FungusScript fungusScript = obj as FungusScript;
+			if (fungusScript == null)
+			{
+				return;
+			}
+			
+			FungusVariable variable = fungusScript.gameObject.AddComponent<FloatVariable>();
+			variable.key = MakeUniqueKey(fungusScript);
+		}
+
+		void AddStringVariable(object obj)
+		{
+			FungusScript fungusScript = obj as FungusScript;
+			if (fungusScript == null)
+			{
+				return;
+			}
+			
+			FungusVariable variable = fungusScript.gameObject.AddComponent<StringVariable>();
+			variable.key = MakeUniqueKey(fungusScript);
+		}
+
+		string MakeUniqueKey(FungusScript fungusScript)
+		{
+			FungusVariable[] variables = fungusScript.GetComponents<FungusVariable>();
+
+			int index = 0;
+			while (true)
+			{
+				string key = "Var" + index;
+
+				bool found = false;
+				foreach(FungusVariable variable in variables)
+				{
+					if (variable.key == key)
+					{
+						found = true;
+						index++;
+					}
+				}
+
+				if (!found)
+				{
+					return key;
+				}
+			}
 		}
 	}
 
