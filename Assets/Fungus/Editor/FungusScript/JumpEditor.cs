@@ -37,10 +37,10 @@ namespace Fungus.Script
 				return;
 			}
 
-			FungusVariable fungusVariable = SequenceEditor.VariableField(new GUIContent("Compare Variable", "Variable to use in compare operation"),
-			                                                             t.GetFungusScript(),
-			                                                             t.variable,
-			                                                             null);
+			FungusVariable fungusVariable = FungusVariableEditor.VariableField(new GUIContent("Compare Variable", "Variable to use in compare operation"),
+			                                                                   t.GetFungusScript(),
+			                                                                   t.variable,
+			                                                                   null);
 
 			if (fungusVariable != t.variable)
 			{
@@ -75,47 +75,61 @@ namespace Fungus.Script
 				t.compareOperator = compareOperator;
 			}
 
-			bool booleanValue = t.booleanData.value;
-			int integerValue = t.integerData.value;
-			float floatValue = t.floatData.value;
-			string stringValue = t.stringData.value;
+			FungusVariable compareVariable = FungusVariableEditor.VariableField(new GUIContent("Compare Variable", "Variable to compare with"),
+			                                                                    t.GetFungusScript(),
+			                                                                    t.compareVariable,
+			                                                                    v => v.GetType() == fungusVariable.GetType());
 
-			if (t.variable.GetType() == typeof(BooleanVariable))
+			if (compareVariable != t.compareVariable)
 			{
-				booleanValue = EditorGUILayout.Toggle(new GUIContent("Boolean Value", "The boolean value to set the variable with"), booleanValue);
-			}
-			else if (t.variable.GetType() == typeof(IntegerVariable))
-			{
-				integerValue = EditorGUILayout.IntField(new GUIContent("Integer Value", "The integer value to set the variable with"), integerValue);
-			}
-			else if (t.variable.GetType() == typeof(FloatVariable))
-			{
-				floatValue = EditorGUILayout.FloatField(new GUIContent("Float Value", "The float value to set the variable with"), floatValue);
-			}
-			else if (t.variable.GetType() == typeof(StringVariable))
-			{
-				stringValue = EditorGUILayout.TextField(new GUIContent("String Value", "The string value to set the variable with"), stringValue);
+				Undo.RecordObject(t, "Select Compare Variable");
+				t.compareVariable = compareVariable;
 			}
 
-			if (booleanValue != t.booleanData.value)
+			if (compareVariable == null)
 			{
-				Undo.RecordObject(t, "Set boolean value");
-				t.booleanData.value = booleanValue;
-			}
-			else if (integerValue != t.integerData.value)
-			{
-				Undo.RecordObject(t, "Set integer value");
-				t.integerData.value = integerValue;
-			}
-			else if (floatValue != t.floatData.value)
-			{
-				Undo.RecordObject(t, "Set float value");
-				t.floatData.value = floatValue;
-			}
-			else if (stringValue != t.stringData.value)
-			{
-				Undo.RecordObject(t, "Set string value");
-				t.stringData.value = stringValue;
+				bool booleanValue = t.booleanValue;
+				int integerValue = t.integerValue;
+				float floatValue = t.floatValue;
+				string stringValue = t.stringValue;
+
+				if (t.variable.GetType() == typeof(BooleanVariable))
+				{
+					booleanValue = EditorGUILayout.Toggle(new GUIContent("Boolean Value", "The boolean value to set the variable with"), booleanValue);
+				}
+				else if (t.variable.GetType() == typeof(IntegerVariable))
+				{
+					integerValue = EditorGUILayout.IntField(new GUIContent("Integer Value", "The integer value to set the variable with"), integerValue);
+				}
+				else if (t.variable.GetType() == typeof(FloatVariable))
+				{
+					floatValue = EditorGUILayout.FloatField(new GUIContent("Float Value", "The float value to set the variable with"), floatValue);
+				}
+				else if (t.variable.GetType() == typeof(StringVariable))
+				{
+					stringValue = EditorGUILayout.TextField(new GUIContent("String Value", "The string value to set the variable with"), stringValue);
+				}
+
+				if (booleanValue != t.booleanValue)
+				{
+					Undo.RecordObject(t, "Set boolean value");
+					t.booleanValue = booleanValue;
+				}
+				else if (integerValue != t.integerValue)
+				{
+					Undo.RecordObject(t, "Set integer value");
+					t.integerValue = integerValue;
+				}
+				else if (floatValue != t.floatValue)
+				{
+					Undo.RecordObject(t, "Set float value");
+					t.floatValue = floatValue;
+				}
+				else if (stringValue != t.stringValue)
+				{
+					Undo.RecordObject(t, "Set string value");
+					t.stringValue = stringValue;
+				}			
 			}
 
 			Sequence onTrue = SequenceEditor.SequenceField(new GUIContent("On True Sequence", "Sequence to execute if comparision is true"),

@@ -29,10 +29,10 @@ namespace Fungus.Script
 			if (showCondition == Say.ShowCondition.BooleanIsFalse ||
 			    showCondition == Say.ShowCondition.BooleanIsTrue) 
 			{
-				booleanVariable = SequenceEditor.VariableField (new GUIContent ("Boolean Variable", "Boolean variable to test for condition"),
-				                                                t.GetFungusScript (),
-				                                                t.booleanVariable,
-				                                                v => { return v.GetType() == typeof(BooleanVariable); }) as BooleanVariable;						
+				booleanVariable = FungusVariableEditor.VariableField (new GUIContent ("Boolean Variable", "Boolean variable to test for condition"),
+				                                                      t.GetFungusScript (),
+				                                                      t.booleanVariable,
+				                                                      v => { return v.GetType() == typeof(BooleanVariable); }) as BooleanVariable;						
 			}
 			
 			if (EditorGUI.EndChangeCheck())

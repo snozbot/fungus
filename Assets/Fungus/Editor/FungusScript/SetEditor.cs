@@ -19,9 +19,9 @@ namespace Fungus.Script
 				return;
 			}
 
-			FungusVariable variable = SequenceEditor.VariableField(new GUIContent("Variable", "Variable to set"),
-			                                                  	   fungusScript,
-			                                                  	   t.variable);
+			FungusVariable variable = FungusVariableEditor.VariableField(new GUIContent("Variable", "Variable to set"),
+			                                                             fungusScript,
+			                                                             t.variable);
 
 			if (variable != t.variable)
 			{
@@ -119,48 +119,53 @@ namespace Fungus.Script
 				Undo.RecordObject(t, "Set Operator");
 				t.setOperator = setOperator;
 			}
-			
-			bool booleanValue = t.booleanData.value;
-			int integerValue = t.integerData.value;
-			float floatValue = t.floatData.value;
-			string stringValue = t.stringData.value;
 
-			if (variable.GetType() == typeof(BooleanVariable))
+			FungusVariable setVariable = FungusVariableEditor.VariableField(new GUIContent("Other Variable", "The variable to read the assigned value from."),
+			                                                                t.GetFungusScript(),
+			                                                                t.setVariable,
+			                                                                v => v.GetType() == variable.GetType ());
+
+			if (setVariable != t.setVariable)
 			{
-				booleanValue = EditorGUILayout.Toggle(new GUIContent("Boolean Value", "The boolean value to set the variable with"), booleanValue);
-			}
-			else if (variable.GetType() == typeof(IntegerVariable))
-			{
-				integerValue = EditorGUILayout.IntField(new GUIContent("Integer Value", "The integer value to set the variable with"), integerValue);
-			}
-			else if (variable.GetType() == typeof(FloatVariable))
-			{
-				floatValue = EditorGUILayout.FloatField(new GUIContent("Float Value", "The float value to set the variable with"), floatValue);
-			}
-			else if (variable.GetType() == typeof(StringVariable))
-			{
-				stringValue = EditorGUILayout.TextField(new GUIContent("String Value", "The string value to set the variable with"), stringValue);
+				Undo.RecordObject(t, "Select Set Variable");
+				t.setVariable = setVariable;
 			}
 
-			if (booleanValue != t.booleanData.value)
+			if (setVariable == null)
 			{
-				Undo.RecordObject(t, "Set boolean value");
-				t.booleanData.value = booleanValue;
-			}
-			else if (integerValue != t.integerData.value)
-			{
-				Undo.RecordObject(t, "Set integer value");
-				t.integerData.value = integerValue;
-			}
-			else if (floatValue != t.floatData.value)
-			{
-				Undo.RecordObject(t, "Set float value");
-				t.floatData.value = floatValue;
-			}
-			else if (stringValue != t.stringData.value)
-			{
-				Undo.RecordObject(t, "Set string value");
-				t.stringData.value = stringValue;
+				EditorGUI.BeginChangeCheck();
+
+				bool booleanValue = t.booleanValue;
+				int integerValue = t.integerValue;
+				float floatValue = t.floatValue;
+				string stringValue = t.stringValue;
+
+				if (variable.GetType() == typeof(BooleanVariable))
+				{
+					booleanValue = EditorGUILayout.Toggle (new GUIContent("Boolean Value", "A constant boolean value to set the variable with"), booleanValue);
+				}
+				else if (variable.GetType() == typeof(IntegerVariable))
+				{
+					integerValue = EditorGUILayout.IntField(new GUIContent("Integer Value", "A constant integer value to set the variable with"), integerValue);
+				}
+				else if (variable.GetType() == typeof(FloatVariable))
+				{
+					floatValue = EditorGUILayout.FloatField(new GUIContent("Float Value", "A constant float value to set the variable with"), floatValue);
+				}
+				else if (variable.GetType() == typeof(StringVariable))
+				{
+					stringValue = EditorGUILayout.TextField(new GUIContent("String Value", "A constant string value to set the variable with"), stringValue);
+				}
+
+				if (EditorGUI.EndChangeCheck())
+				{
+					Undo.RecordObject(t, "Set Variable Data");
+
+					t.booleanValue = booleanValue;
+					t.integerValue = integerValue;
+					t.floatValue = floatValue;
+					t.stringValue = stringValue;
+				}
 			}
 		}
 	}

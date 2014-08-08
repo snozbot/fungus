@@ -20,13 +20,15 @@ namespace Fungus.Script
 
 		public SetOperator setOperator;
 
-		public BooleanData booleanData;
+		public FungusVariable setVariable;
 
-		public IntegerData integerData;
+		public bool booleanValue;
 
-		public FloatData floatData;
+		public int integerValue;
 
-		public StringData stringData;
+		public float floatValue;
+
+		public string stringValue;
 		
 		public override void OnEnter()
 		{
@@ -38,74 +40,80 @@ namespace Fungus.Script
 
 			if (variable.GetType() == typeof(BooleanVariable))
 			{
+				BooleanVariable lhs = (variable as BooleanVariable);
+				bool rhs = (setVariable as BooleanVariable) == null ? booleanValue : (setVariable as BooleanVariable).Value;
+
 				switch (setOperator)
 				{
 				default:
 				case SetOperator.Assign:
-					(variable as BooleanVariable).Value = booleanData.value;
+					lhs.Value = rhs;
 					break;
 				case SetOperator.Negate:
-					(variable as BooleanVariable).Value = !booleanData.value;
+					lhs.Value = !rhs;
 					break;
 				}
 			}
 			else if (variable.GetType() == typeof(IntegerVariable))
 			{
+				IntegerVariable lhs = (variable as IntegerVariable);
+				int rhs = (setVariable as IntegerVariable) == null ? integerValue : (setVariable as IntegerVariable).Value;
+
 				switch (setOperator)
 				{
 				default:
 				case SetOperator.Assign:
-					(variable as IntegerVariable).Value = integerData.value;
-					break;
-				case SetOperator.Negate:
-					(variable as IntegerVariable).Value = -integerData.value;
+					lhs.Value = rhs;
 					break;
 				case SetOperator.Add:
-					(variable as IntegerVariable).Value += integerData.value;
+					lhs.Value += rhs;
 					break;
 				case SetOperator.Subtract:
-					(variable as IntegerVariable).Value -= integerData.value;
+					lhs.Value -= rhs;
 					break;
 				case SetOperator.Multiply:
-					(variable as IntegerVariable).Value *= integerData.value;
+					lhs.Value *= rhs;
 					break;
 				case SetOperator.Divide:
-					(variable as IntegerVariable).Value /= integerData.value;
+					lhs.Value /= rhs;
 					break;
 				}
 			}
 			else if (variable.GetType() == typeof(FloatVariable))
 			{
+				FloatVariable lhs = (variable as FloatVariable);
+				float rhs = (setVariable as FloatVariable) == null ? floatValue : (setVariable as FloatVariable).Value;
+				
 				switch (setOperator)
 				{
 				default:
 				case SetOperator.Assign:
-					(variable as FloatVariable).Value = floatData.value;
-					break;
-				case SetOperator.Negate:
-					(variable as FloatVariable).Value = -floatData.value;
+					lhs.Value = rhs;
 					break;
 				case SetOperator.Add:
-					(variable as FloatVariable).Value += floatData.value;
+					lhs.Value += rhs;
 					break;
 				case SetOperator.Subtract:
-					(variable as FloatVariable).Value -= floatData.value;
+					lhs.Value -= rhs;
 					break;
 				case SetOperator.Multiply:
-					(variable as FloatVariable).Value *= floatData.value;
+					lhs.Value *= rhs;
 					break;
 				case SetOperator.Divide:
-					(variable as FloatVariable).Value /= floatData.value;
+					lhs.Value /= rhs;
 					break;
 				}
 			}
 			else if (variable.GetType() == typeof(StringVariable))
 			{
+				StringVariable lhs = (variable as StringVariable);
+				string rhs = (setVariable as StringVariable) == null ? stringValue : (setVariable as StringVariable).Value;
+
 				switch (setOperator)
 				{
 				default:
 				case SetOperator.Assign:
-					(variable as StringVariable).Value = stringData.value;
+					lhs.Value = rhs;
 					break;
 				}
 			}

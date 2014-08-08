@@ -30,13 +30,15 @@ namespace Fungus.Script
 
 		public CompareOperator compareOperator;
 
-		public BooleanData booleanData;
+		public FungusVariable compareVariable;
 
-		public IntegerData integerData;
+		public bool booleanValue;
 
-		public FloatData floatData;
+		public int integerValue;
 
-		public StringData stringData;
+		public float floatValue;
+
+		public string stringValue;
 		
 		public Sequence onTrueSequence;
 
@@ -61,75 +63,87 @@ namespace Fungus.Script
 
 			if (variable.GetType() == typeof(BooleanVariable))
 			{
+				bool lhs = (variable as BooleanVariable).Value;
+				bool rhs = (compareVariable as BooleanVariable) == null ? booleanValue : (compareVariable as BooleanVariable).Value;
+
 				switch (compareOperator)
 				{
 				case CompareOperator.Equals:
-					condition = (variable as BooleanVariable).Value == booleanData.value;
+					condition = lhs == rhs;
 					break;
 				case CompareOperator.NotEquals:
 				default:
-					condition = (variable as BooleanVariable).Value != booleanData.value;
+					condition = lhs != rhs;
 					break;
 				}
 			}
 			else if (variable.GetType() == typeof(IntegerVariable))
 			{
+				int lhs = (variable as IntegerVariable).Value;
+				int rhs = (compareVariable as IntegerVariable) == null ? integerValue : (compareVariable as IntegerVariable).Value;
+
 				switch (compareOperator)
 				{
 				case CompareOperator.Equals:
-					condition = (variable as IntegerVariable).Value == integerData.value;
+					condition = lhs == rhs;
 					break;
 				case CompareOperator.NotEquals:
-					condition = (variable as IntegerVariable).Value != integerData.value;
+					condition = lhs != rhs;
 					break;
 				case CompareOperator.LessThan:
-					condition = (variable as IntegerVariable).Value < integerData.value;
+					condition = lhs < rhs;
 					break;
 				case CompareOperator.GreaterThan:
-					condition = (variable as IntegerVariable).Value > integerData.value;
+					condition = lhs > rhs;
 					break;
 				case CompareOperator.LessThanOrEquals:
-					condition = (variable as IntegerVariable).Value <= integerData.value;
+					condition = lhs <= rhs;
 					break;
 				case CompareOperator.GreaterThanOrEquals:
-					condition = (variable as IntegerVariable).Value >= integerData.value;
+					condition = lhs >= rhs;
 					break;
 				}
 			}
 			else if (variable.GetType() == typeof(FloatVariable))
 			{
+				float lhs = (variable as FloatVariable).Value;
+				float rhs = (compareVariable as FloatVariable) == null ? floatValue : (compareVariable as FloatVariable).Value;
+
 				switch (compareOperator)
 				{
 				case CompareOperator.Equals:
-					condition = (variable as FloatVariable).Value == floatData.value;
+					condition = lhs == rhs;
 					break;
 				case CompareOperator.NotEquals:
-					condition = (variable as FloatVariable).Value != floatData.value;
+					condition = lhs != rhs;
 					break;
 				case CompareOperator.LessThan:
-					condition = (variable as FloatVariable).Value < floatData.value;
+					condition = lhs < rhs;
 					break;
 				case CompareOperator.GreaterThan:
-					condition = (variable as FloatVariable).Value > floatData.value;
+					condition = lhs > rhs;
 					break;
 				case CompareOperator.LessThanOrEquals:
-					condition = (variable as FloatVariable).Value <= floatData.value;
+					condition = lhs <= rhs;
 					break;
 				case CompareOperator.GreaterThanOrEquals:
-					condition = (variable as FloatVariable).Value >= floatData.value;
+					condition = lhs >= rhs;
 					break;
 				}
 			}
 			else if (variable.GetType() == typeof(StringVariable))
 			{
+				string lhs = (variable as StringVariable).Value;
+				string rhs = (compareVariable as StringVariable) == null ? stringValue : (compareVariable as StringVariable).Value;
+
 				switch (compareOperator)
 				{
 				case CompareOperator.Equals:
-					condition = (variable as StringVariable).Value == stringData.value;
+					condition = lhs == rhs;
 					break;
 				case CompareOperator.NotEquals:
 				default:
-					condition = (variable as StringVariable).Value != stringData.value;
+					condition = lhs != rhs;
 					break;
 				}
 			}
