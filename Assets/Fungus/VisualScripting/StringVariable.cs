@@ -15,4 +15,11 @@ namespace Fungus.Script
 		}
 	}
 
+	[System.Serializable]
+	public class StringData
+	{
+		public StringVariable stringReference;
+		public string stringValue;
+	}
+
 }

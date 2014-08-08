@@ -15,4 +15,11 @@ namespace Fungus.Script
 		}
 	}
 
+	[System.Serializable]
+	public class FloatData
+	{
+		public FloatVariable floatReference;
+		public float floatValue;
+	}
+
 }

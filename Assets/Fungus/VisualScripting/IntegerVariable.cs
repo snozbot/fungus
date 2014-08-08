@@ -15,4 +15,11 @@ namespace Fungus.Script
 		}
 	}
 
+	[System.Serializable]
+	public class IntegerData
+	{
+		public IntegerVariable integerReference;
+		public int integerValue;
+	}
+
 }
