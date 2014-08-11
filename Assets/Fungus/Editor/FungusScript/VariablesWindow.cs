@@ -50,93 +50,12 @@ namespace Fungus.Script
 				}
 			}
 
+			scrollPos = GUILayout.BeginScrollView(scrollPos, GUILayout.MinWidth(Mathf.Max(position.width, 300)));
+
 			FungusScriptEditor fungusScriptEditor = Editor.CreateEditor(fungusScript) as FungusScriptEditor;
 			fungusScriptEditor.DrawVariablesGUI();
 
-			/*
-
-			bool showValues = Application.isPlaying;
-
-			float columnWidth = (position.width - 40) / (showValues ? 4 : 3);
-
-			scrollPos = GUILayout.BeginScrollView(scrollPos);
-
-			GUILayout.BeginHorizontal();
-			GUILayout.Label("Key", GUILayout.Width(columnWidth));
-			GUILayout.Label("Type", GUILayout.Width(columnWidth));
-			GUILayout.Label("Scope", GUILayout.Width(columnWidth));
-			if (showValues)
-			{
-				GUILayout.Label("Value", GUILayout.Width(columnWidth));
-			}
-			GUILayout.EndHorizontal();
-
-			GUIStyle boxStyle = new GUIStyle(GUI.skin.box);
-			boxStyle.margin.left = 0;
-			boxStyle.margin.right = 0;
-			boxStyle.margin.top = 0;
-			boxStyle.margin.bottom = 0;
-
-			List<FungusVariable> fsVariables = fungusScript.variables;
-			foreach (FungusVariable variable in fsVariables)
-			{
-				GUILayout.BeginHorizontal(boxStyle);
-
-				string keyString = variable.key;
-				string typeString = "";
-				string scopeString = "";
-				string valueString = "";
-
-				switch (variable.scope)
-				{
-				default:
-				case VariableScope.Local:
-					scopeString = "Local";
-					break;
-				case VariableScope.Global:
-					scopeString = "Global";
-					break;
-				}
-
-				if (variable.GetType() == typeof(BooleanVariable))
-				{
-					typeString = "Boolean";
-					valueString = (variable as BooleanVariable).Value ? "True" : "False";
-				}
-				else if (variable.GetType() == typeof(IntegerVariable))
-				{
-					typeString = "Integer";
-					valueString = (variable as IntegerVariable).Value.ToString();
-				}
-				else if (variable.GetType() == typeof(FloatVariable))
-				{
-					typeString = "Float";
-					valueString = (variable as FloatVariable).Value.ToString();
-				}
-				else if (variable.GetType() == typeof(StringVariable))
-				{
-					typeString = "String";
-					valueString = (variable as StringVariable).Value;
-
-					if (valueString == null ||
-					    valueString.Length == 0)
-					{
-						valueString = "\"\"";
-					}
-				}
-
-				GUILayout.Label(keyString, GUILayout.Width(columnWidth));
-				GUILayout.Label(typeString, GUILayout.Width(columnWidth));
-				GUILayout.Label(scopeString, GUILayout.Width(columnWidth));
-				if (showValues)
-				{
-					GUILayout.Label(valueString, GUILayout.Width(columnWidth));
-				}
-
-				GUILayout.EndHorizontal();
-			}
 			GUILayout.EndScrollView();
-			*/
 		}
 	}
 

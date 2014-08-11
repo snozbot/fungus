@@ -100,7 +100,7 @@ namespace Fungus.Script
 
 			float width1 = 60;
 			float width3 = 50;
-			float width2 = position.width - width1 - width3;
+			float width2 = Mathf.Max(position.width - width1 - width3, 100);
 			
 			Rect typeRect = position;
 			typeRect.width = width1;
@@ -141,29 +141,34 @@ namespace Fungus.Script
 			{
 				const float w = 100;
 				Rect valueRect = keyRect;
-				keyRect.width = w;
+				keyRect.width = w - 5;
 				valueRect.x += w;
-				valueRect.width -= w;
+				valueRect.width -= (w + 5);
 				key = EditorGUI.TextField(keyRect, variable.key);
 				if (variable.GetType() == typeof(BooleanVariable))
 				{
-					EditorGUI.Toggle(valueRect, (variable as BooleanVariable).Value);
+					BooleanVariable v = variable as BooleanVariable;
+					v.Value = EditorGUI.Toggle(valueRect, v.Value);
 				}
 				else if (variable.GetType() == typeof(IntegerVariable))
 				{
-					EditorGUI.IntField(valueRect, (variable as IntegerVariable).Value);
+					IntegerVariable v = variable as IntegerVariable;
+					v.Value = EditorGUI.IntField(valueRect, v.Value);
 				}
 				else if (variable.GetType() == typeof(FloatVariable))
 				{
-					EditorGUI.FloatField(valueRect, (variable as FloatVariable).Value);
+					FloatVariable v = variable as FloatVariable;
+					v.Value = EditorGUI.FloatField(valueRect, v.Value);
 				}
 				else if (variable.GetType() == typeof(StringVariable))
 				{
-					EditorGUI.TextField(valueRect, (variable as StringVariable).Value);
+					StringVariable v = variable as StringVariable;
+					v.Value = EditorGUI.TextField(valueRect, v.Value);
 				}
 			}
 			else
 			{
+				keyRect.width -= 5;
 				key = EditorGUI.TextField(keyRect, variable.key);
 			}
 
