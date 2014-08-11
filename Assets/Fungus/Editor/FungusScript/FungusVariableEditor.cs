@@ -8,7 +8,6 @@ using System.Linq;
 
 namespace Fungus.Script
 {
-
 	[CustomPropertyDrawer (typeof(Variable))]
 	public class VariableDrawer : PropertyDrawer 
 	{	
@@ -77,6 +76,13 @@ namespace Fungus.Script
 	[CustomEditor (typeof(FungusVariable), true)]
 	public class FungusVariableEditor : FungusCommandEditor
 	{
+		void OnEnable()
+		{
+			// Uncomment to hide variable components in inspector
+			//FungusVariable t = target as FungusVariable;
+			//t.hideFlags = HideFlags.HideInInspector;
+		}
+
 		public override void OnInspectorGUI() 
 		{
 			FungusVariable t = target as FungusVariable;

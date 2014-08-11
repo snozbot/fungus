@@ -63,7 +63,9 @@ namespace Fungus.Script
 			}
 
 			ReorderableListGUI.Title("Variables");
-			ReorderableListGUI.ListField(variablesProperty, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton );
+
+			VariableListAdaptor adaptor = new VariableListAdaptor(variablesProperty, 0);
+			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton);
 
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
