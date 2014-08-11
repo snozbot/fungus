@@ -67,15 +67,24 @@ namespace Fungus.Script
 				EditorGUILayout.LabelField(new GUIContent("Error: Please select a Start Sequence"), style);
 			}
 
-			ReorderableListGUI.Title("Variables");
+			serializedObject.ApplyModifiedProperties();
+		}
 
+		public void DrawVariablesGUI()
+		{
+			serializedObject.Update();
+
+			FungusScript t = target as FungusScript;
+			
+			ReorderableListGUI.Title("Variables");
+			
 			VariableListAdaptor adaptor = new VariableListAdaptor(variablesProperty, 0);
 			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton);
-
+			
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
 
-			if (GUILayout.Button("Add Variable"))
+			if (!Application.isPlaying && GUILayout.Button("Add Variable"))
 			{
 				GenericMenu menu = new GenericMenu ();
 				

@@ -50,6 +50,11 @@ namespace Fungus.Script
 				}
 			}
 
+			FungusScriptEditor fungusScriptEditor = Editor.CreateEditor(fungusScript) as FungusScriptEditor;
+			fungusScriptEditor.DrawVariablesGUI();
+
+			/*
+
 			bool showValues = Application.isPlaying;
 
 			float columnWidth = (position.width - 40) / (showValues ? 4 : 3);
@@ -131,6 +136,7 @@ namespace Fungus.Script
 				GUILayout.EndHorizontal();
 			}
 			GUILayout.EndScrollView();
+			*/
 		}
 	}
 

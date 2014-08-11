@@ -134,11 +134,41 @@ namespace Fungus.Script
 			GUI.Label(typeRect, type);
 
 			EditorGUI.BeginChangeCheck();
-						
-			string key = EditorGUI.TextField(keyRect, variable.key);
+
+			string key = variable.key;
+
+			if (Application.isPlaying)
+			{
+				const float w = 100;
+				Rect valueRect = keyRect;
+				keyRect.width = w;
+				valueRect.x += w;
+				valueRect.width -= w;
+				key = EditorGUI.TextField(keyRect, variable.key);
+				if (variable.GetType() == typeof(BooleanVariable))
+				{
+					EditorGUI.Toggle(valueRect, (variable as BooleanVariable).Value);
+				}
+				else if (variable.GetType() == typeof(IntegerVariable))
+				{
+					EditorGUI.IntField(valueRect, (variable as IntegerVariable).Value);
+				}
+				else if (variable.GetType() == typeof(FloatVariable))
+				{
+					EditorGUI.FloatField(valueRect, (variable as FloatVariable).Value);
+				}
+				else if (variable.GetType() == typeof(StringVariable))
+				{
+					EditorGUI.TextField(valueRect, (variable as StringVariable).Value);
+				}
+			}
+			else
+			{
+				key = EditorGUI.TextField(keyRect, variable.key);
+			}
 
 			VariableScope scope = (VariableScope)EditorGUI.EnumPopup(scopeRect, variable.scope);
-			
+		
 			if (EditorGUI.EndChangeCheck ())
 			{
 				Undo.RecordObject(variable, "Set Variable");
