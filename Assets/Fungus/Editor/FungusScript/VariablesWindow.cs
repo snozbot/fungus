@@ -72,7 +72,7 @@ namespace Fungus.Script
 			boxStyle.margin.top = 0;
 			boxStyle.margin.bottom = 0;
 
-			FungusVariable[] fsVariables = fungusScript.GetComponents<FungusVariable>();
+			List<FungusVariable> fsVariables = fungusScript.variables;
 			foreach (FungusVariable variable in fsVariables)
 			{
 				GUILayout.BeginHorizontal(boxStyle);

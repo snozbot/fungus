@@ -18,6 +18,11 @@ namespace Fungus.Script
 			variablesProperty = serializedObject.FindProperty("variables");
 		}
 
+		public void OnInspectorUpdate()
+		{
+			Repaint();
+		}
+
 		public override void OnInspectorGUI() 
 		{
 			serializedObject.Update();
@@ -69,6 +74,7 @@ namespace Fungus.Script
 
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
+
 			if (GUILayout.Button("Add Variable"))
 			{
 				GenericMenu menu = new GenericMenu ();
@@ -93,9 +99,9 @@ namespace Fungus.Script
 				return;
 			}
 
-			Variable variable = new Variable();
+			Undo.RecordObject(fungusScript, "Add Boolean");
+			BooleanVariable variable = fungusScript.gameObject.AddComponent<BooleanVariable>();
 			variable.key = MakeUniqueKey(fungusScript);
-			variable.type = VariableType.Boolean;
 			fungusScript.variables.Add(variable);
 		}
 
@@ -107,9 +113,9 @@ namespace Fungus.Script
 				return;
 			}
 			
-			Variable variable = new Variable();
+			Undo.RecordObject(fungusScript, "Add Integer");
+			IntegerVariable variable = fungusScript.gameObject.AddComponent<IntegerVariable>();
 			variable.key = MakeUniqueKey(fungusScript);
-			variable.type = VariableType.Integer;
 			fungusScript.variables.Add(variable);
 		}
 
@@ -121,9 +127,9 @@ namespace Fungus.Script
 				return;
 			}
 			
-			Variable variable = new Variable();
+			Undo.RecordObject(fungusScript, "Add Float");
+			FloatVariable variable = fungusScript.gameObject.AddComponent<FloatVariable>();
 			variable.key = MakeUniqueKey(fungusScript);
-			variable.type = VariableType.Float;
 			fungusScript.variables.Add(variable);
 		}
 
@@ -135,9 +141,9 @@ namespace Fungus.Script
 				return;
 			}
 			
-			Variable variable = new Variable();
+			Undo.RecordObject(fungusScript, "Add String");
+			StringVariable variable = fungusScript.gameObject.AddComponent<StringVariable>();
 			variable.key = MakeUniqueKey(fungusScript);
-			variable.type = VariableType.String;
 			fungusScript.variables.Add(variable);
 		}
 
@@ -149,7 +155,7 @@ namespace Fungus.Script
 				string key = "Var" + index;
 
 				bool found = false;
-				foreach(Variable variable in fungusScript.variables)
+				foreach(FungusVariable variable in fungusScript.GetComponents<FungusVariable>())
 				{
 					if (variable.key == key)
 					{

@@ -18,18 +18,6 @@ namespace Fungus.Script
 		Global
 	}
 
-	[System.Serializable]
-	public class Variable
-	{
-		public string key;
-		public VariableType type;
-		public VariableScope scope;
-		public BooleanData booleanData;
-		public IntegerData integerData;
-		public FloatData floatData;
-		public StringData stringData;
-	}
-
 	public class FungusVariable : MonoBehaviour
 	{
 		public VariableScope scope;

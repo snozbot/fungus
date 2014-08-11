@@ -8,105 +8,13 @@ using System.Linq;
 
 namespace Fungus.Script
 {
-	[CustomPropertyDrawer (typeof(Variable))]
-	public class VariableDrawer : PropertyDrawer 
-	{	
-		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 
-		{
-			EditorGUI.BeginProperty(position, label, property);
-			
-			SerializedProperty keyProp = property.FindPropertyRelative("key");
-			SerializedProperty typeProp = property.FindPropertyRelative("type");
-			SerializedProperty scopeProp = property.FindPropertyRelative("scope");
-			
-			// Draw the text field control GUI.
-			EditorGUI.BeginChangeCheck();
-			
-			float width2 = 60;
-			float width3 = 50;
-			float width1 = position.width - width2 - width3;
-
-			Rect keyRect = position;
-			keyRect.width = width1;
-			
-			Rect typeRect = position;
-			typeRect.x += width1;
-			typeRect.width = width2;
-			
-			Rect scopeRect = position;
-			scopeRect.x += width1 + width2;
-			scopeRect.width = width3;
-			
-			string keyValue = EditorGUI.TextField(keyRect, label, keyProp.stringValue);
-
-			string typeLabel = "";
-			switch ((VariableType)typeProp.enumValueIndex)
-			{
-			case VariableType.Boolean:
-				typeLabel = "Boolean";
-				break;
-			case VariableType.Integer:
-				typeLabel = "Integer";
-				break;
-			case VariableType.Float:
-				typeLabel = "Float";
-				break;
-			case VariableType.String:
-				typeLabel = "String";
-				break;
-			}
-			GUI.Label(typeRect, typeLabel);
-
-			int scopeValue = (int)(VariableScope)EditorGUI.EnumPopup(scopeRect, (VariableScope)scopeProp.enumValueIndex);
-			
-			if (EditorGUI.EndChangeCheck ())
-			{
-				char[] arr = keyValue.Where(c => (char.IsLetterOrDigit(c) || c == '_')).ToArray(); 
-				
-				keyValue = new string(arr);
-				
-				keyProp.stringValue = keyValue;
-				scopeProp.enumValueIndex = scopeValue;
-			}
-			
-			EditorGUI.EndProperty();
-		}
-	}
-	
 	[CustomEditor (typeof(FungusVariable), true)]
 	public class FungusVariableEditor : FungusCommandEditor
 	{
 		void OnEnable()
 		{
-			// Uncomment to hide variable components in inspector
-			//FungusVariable t = target as FungusVariable;
-			//t.hideFlags = HideFlags.HideInInspector;
-		}
-
-		public override void OnInspectorGUI() 
-		{
 			FungusVariable t = target as FungusVariable;
-
-			EditorGUI.BeginChangeCheck();
-
-			string key = EditorGUILayout.TextField(new GUIContent("Key", "Name to use for this variable"), t.key);
-			VariableScope scope = (VariableScope)EditorGUILayout.EnumPopup(new GUIContent("Scope", "Local or global access to variable value"), t.scope);
-
-			if (EditorGUI.EndChangeCheck())
-			{
-				Undo.RecordObject(t, "Set Variable");
-				t.key = key;
-				t.scope = scope;
-			}
-
-			GUILayout.BeginHorizontal();
-			GUILayout.FlexibleSpace();
-			if (GUILayout.Button("Delete Variable"))
-			{
-				Undo.RecordObject(t, "Delete Variable");
-				DestroyImmediate(t);
-			}
-			GUILayout.EndHorizontal();
+			t.hideFlags = HideFlags.HideInInspector;
 		}
 
 		static public FungusVariable VariableField(GUIContent label, FungusScript fungusScript, FungusVariable variable, Func<FungusVariable, bool> filter = null)
@@ -117,7 +25,7 @@ namespace Fungus.Script
 			variableKeys.Add("<None>");
 			variableObjects.Add(null);
 			
-			FungusVariable[] variables = fungusScript.GetComponents<FungusVariable>();
+			List<FungusVariable> variables = fungusScript.variables;
 			int index = 0;
 			int selectedIndex = 0;
 			foreach (FungusVariable v in variables)

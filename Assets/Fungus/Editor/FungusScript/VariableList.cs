@@ -4,9 +4,8 @@
 
 using UnityEngine;
 using UnityEditor;
-
 using System;
-
+using System.Linq;
 using Rotorz.ReorderableList;
 
 namespace Fungus.Script
@@ -14,7 +13,6 @@ namespace Fungus.Script
 	
 	public class VariableListAdaptor : IReorderableListAdaptor 
 	{
-		
 		private SerializedProperty _arrayProperty;
 		
 		public float fixedItemHeight;
@@ -41,8 +39,7 @@ namespace Fungus.Script
 		}
 		
 		public VariableListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f) 
-		{
-		}
+		{}
 
 		public int Count 
 		{
@@ -77,10 +74,14 @@ namespace Fungus.Script
 			_arrayProperty.InsertArrayElementAtIndex(index);
 		}
 
-		public void Remove(int index) {
+		public void Remove(int index) 
+		{
+			FungusVariable variable = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as FungusVariable;
+			Undo.DestroyObjectImmediate(variable);
+
+			_arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = null;
 			_arrayProperty.DeleteArrayElementAtIndex(index);
 		}
-
 
 		public void Move(int sourceIndex, int destIndex) 
 		{
@@ -95,7 +96,59 @@ namespace Fungus.Script
 		
 		public virtual void DrawItem(Rect position, int index) 
 		{
-			EditorGUI.PropertyField(position, this[index], GUIContent.none, false);
+			FungusVariable variable = this[index].objectReferenceValue as FungusVariable;
+
+			float width1 = 60;
+			float width3 = 50;
+			float width2 = position.width - width1 - width3;
+			
+			Rect typeRect = position;
+			typeRect.width = width1;
+			
+			Rect keyRect = position;
+			keyRect.x += width1;
+			keyRect.width = width2;
+			
+			Rect scopeRect = position;
+			scopeRect.x += width1 + width2;
+			scopeRect.width = width3;
+
+			string type = "";
+			if (variable.GetType() == typeof(BooleanVariable))
+			{
+				type = "Boolean";
+			}
+			else if (variable.GetType() == typeof(IntegerVariable))
+			{
+				type = "Integer";
+			}
+			else if (variable.GetType() == typeof(FloatVariable))
+			{
+				type = "Float";
+			}
+			else if (variable.GetType() == typeof(StringVariable))
+			{
+				type = "String";
+			}
+
+			GUI.Label(typeRect, type);
+
+			EditorGUI.BeginChangeCheck();
+						
+			string key = EditorGUI.TextField(keyRect, variable.key);
+
+			VariableScope scope = (VariableScope)EditorGUI.EnumPopup(scopeRect, variable.scope);
+			
+			if (EditorGUI.EndChangeCheck ())
+			{
+				Undo.RecordObject(variable, "Set Variable");
+
+				char[] arr = key.Where(c => (char.IsLetterOrDigit(c) || c == '_')).ToArray(); 
+				key = new string(arr);
+
+				variable.key = key;
+				variable.scope = scope;
+			}
 		}
 		
 		public virtual float GetItemHeight(int index) 
