@@ -11,7 +11,7 @@ using Rotorz.ReorderableList;
 namespace Fungus.Script
 {
 	
-	public class VariableListAdaptor : IReorderableListAdaptor 
+	public class FungusVariableListAdaptor : IReorderableListAdaptor 
 	{
 		private SerializedProperty _arrayProperty;
 		
@@ -27,7 +27,7 @@ namespace Fungus.Script
 			get { return _arrayProperty; }
 		}
 		
-		public VariableListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight) 
+		public FungusVariableListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight) 
 		{
 			if (arrayProperty == null)
 				throw new ArgumentNullException("Array property was null.");
@@ -38,7 +38,7 @@ namespace Fungus.Script
 			this.fixedItemHeight = fixedItemHeight;
 		}
 		
-		public VariableListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f) 
+		public FungusVariableListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f) 
 		{}
 
 		public int Count 
