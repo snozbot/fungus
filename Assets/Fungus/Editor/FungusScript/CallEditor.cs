@@ -6,14 +6,14 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
-	[CustomEditor (typeof(Jump))]
-	public class JumpEditor : FungusCommandEditor 
+	[CustomEditor (typeof(Call))]
+	public class CallEditor : FungusCommandEditor 
 	{
 		public override void DrawCommandInspectorGUI()
 		{
 			serializedObject.Update();
 			
-			Jump t = target as Jump;
+			Call t = target as Call;
 
 			FungusScript sc = t.GetFungusScript();
 			if (sc == null)
@@ -21,16 +21,16 @@ namespace Fungus.Script
 				return;
 			}
 
-			JumpCondition jumpCondition = (JumpCondition)EditorGUILayout.EnumPopup(new GUIContent("Jump Condition", "Condition when jump will occur"), t.jumpCondition);
-			if (jumpCondition != t.jumpCondition)
+			CallCondition callCondition = (CallCondition)EditorGUILayout.EnumPopup(new GUIContent("Call Condition", "Condition when call will occur"), t.callCondition);
+			if (callCondition != t.callCondition)
 			{
-				Undo.RecordObject(t, "Set Jump Condition");
-				t.jumpCondition = jumpCondition;
+				Undo.RecordObject(t, "Set Call Condition");
+				t.callCondition = callCondition;
 			}
 			
-			if (t.jumpCondition == JumpCondition.JumpAlways)
+			if (t.callCondition == CallCondition.CallAlways)
 			{
-				Sequence targetSequence = SequenceEditor.SequenceField(new GUIContent("Target Sequence", "Sequence to jump to"), t.GetFungusScript(), t.targetSequence);
+				Sequence targetSequence = SequenceEditor.SequenceField(new GUIContent("Target Sequence", "Sequence to call"), t.GetFungusScript(), t.targetSequence);
 				if (targetSequence != t.targetSequence)
 				{
 					Undo.RecordObject(t, "Set Target Sequence");

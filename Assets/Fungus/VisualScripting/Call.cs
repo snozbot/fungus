@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
-	public enum JumpCondition
+	public enum CallCondition
 	{
-		JumpAlways,
-		JumpOnCompare
+		CallAlways,
+		CallOnCompare
 	}
 
 	public enum CompareOperator
@@ -20,9 +20,9 @@ namespace Fungus.Script
 		GreaterThanOrEquals		// >=
 	}
 
-	public class Jump : FungusCommand
+	public class Call : FungusCommand
 	{
-		public JumpCondition jumpCondition;
+		public CallCondition callCondition;
 	
 		public Sequence targetSequence; // Only used for Always condition
 	
@@ -44,7 +44,7 @@ namespace Fungus.Script
 
 		public override void OnEnter()
 		{
-			if (jumpCondition == JumpCondition.JumpAlways &&
+			if (callCondition == CallCondition.CallAlways &&
 				targetSequence != null)
 			{
 				ExecuteSequence(targetSequence);
@@ -168,7 +168,7 @@ namespace Fungus.Script
 
 		public override void GetConnectedSequences(ref List<Sequence> connectedSequences)
 		{
-			if (jumpCondition == JumpCondition.JumpAlways &&
+			if (callCondition == CallCondition.CallAlways &&
 			    targetSequence != null)
 			{
 				connectedSequences.Add(targetSequence);
@@ -187,7 +187,7 @@ namespace Fungus.Script
 		
 		public override string GetCommandName()
 		{
-			if (jumpCondition == JumpCondition.JumpAlways)
+			if (callCondition == CallCondition.CallAlways)
 			{
 				return GetType().Name;
 			}
