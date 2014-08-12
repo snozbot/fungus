@@ -14,6 +14,9 @@ namespace Fungus.Script
 		[HideInInspector]
 		public Rect nodeRect = new Rect(10, 10, 100, 100);
 	
+		[HideInInspector]
+		public string description = "";
+
 		[System.NonSerialized]
 		public FungusScript fungusScript;
 

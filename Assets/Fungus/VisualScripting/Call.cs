@@ -185,7 +185,7 @@ namespace Fungus.Script
 			}
 		}
 		
-		public override string GetCommandName()
+		public override string GetCommandTitle()
 		{
 			if (callCondition == CallCondition.CallAlways)
 			{

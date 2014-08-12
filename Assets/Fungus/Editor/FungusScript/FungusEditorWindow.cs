@@ -98,7 +98,7 @@ namespace Fungus.Script
 				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
 				float windowWidth = Mathf.Max (titleWidth + 10, 100);
 
-				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, sequence.name, GUILayout.Width(windowWidth), GUILayout.Height(100), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, sequence.name, GUILayout.Width(windowWidth), GUILayout.Height(40), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 				windowSequenceMap.Add(sequence);
 			}
 
@@ -194,12 +194,20 @@ namespace Fungus.Script
 
 			Sequence sequence = windowSequenceMap[windowId];
 
+			string description = GUILayout.TextArea(sequence.description, GUILayout.ExpandWidth(true));
+			if (description != sequence.description)
+			{
+				Undo.RecordObject(sequence, "Set Description");
+				sequence.description = description;
+			}
+
+			/*
 			GUIStyle style = new GUIStyle(GUI.skin.button);
 
 			FungusCommand[] commands = sequence.gameObject.GetComponents<FungusCommand>();
 			foreach (FungusCommand command in commands)
 			{
-				string commandName = command.GetCommandName();
+				string commandName = command.GetCommandTitle();
 
 				if (command.errorMessage.Length > 0)
 				{
@@ -233,8 +241,10 @@ namespace Fungus.Script
 			// Add an invisible element if there are no commands to avoid window width/height collapsing
 			if (commands.Length == 0)
 			{
-				GUILayout.Space(10);
 			}
+			*/
+
+			GUILayout.Space(10);
 
 	        GUI.DragWindow();
 	    }

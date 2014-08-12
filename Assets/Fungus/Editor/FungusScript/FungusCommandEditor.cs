@@ -9,8 +9,13 @@ namespace Fungus.Script
 	[CustomEditor (typeof(FungusCommand), true)]
 	public class FungusCommandEditor : Editor 
 	{
-
 		public static FungusCommand selectedCommand;
+
+		void OnEnable()
+		{
+			FungusCommand t = target as FungusCommand;
+			t.hideFlags = HideFlags.HideInInspector;
+		}
 
 		public override void OnInspectorGUI() 
 		{

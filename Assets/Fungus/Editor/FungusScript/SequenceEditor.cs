@@ -10,6 +10,8 @@ namespace Fungus.Script
 	[CustomEditor (typeof(Sequence))]
 	public class SequenceEditor : Editor 
 	{
+		FungusCommand activeCommand;
+
 		static public Sequence SequenceField(GUIContent label, FungusScript fungusScript, Sequence sequence)
 		{
 			if (fungusScript == null)
@@ -46,6 +48,67 @@ namespace Fungus.Script
 			}
 			
 			return result;
+		}
+
+		public override bool RequiresConstantRepaint()
+		{
+			return true;
+		}
+
+		/*
+		public void OnInspectorUpdate()
+		{
+			Repaint();
+		}
+		*/
+
+		public override void OnInspectorGUI()
+		{
+			Sequence t = target as Sequence;
+
+			FungusCommand[] commands = t.GetComponents<FungusCommand>();
+
+			/*
+			if (Application.isPlaying)
+			{
+				foreach (FungusCommand command in commands)
+				{
+					if (command == FungusCommandEditor.selectedCommand)
+					{
+						activeCommand = command;
+						Debug.Log("Found it");
+					}
+				}
+			}
+			*/
+
+			foreach (FungusCommand command in commands)
+			{
+				bool showCommandInspector = false;
+				if (command == activeCommand ||
+				    command.IsExecuting())
+				{
+					showCommandInspector = true;
+				}
+
+				if (GUILayout.Button(command.GetCommandTitle()))
+				{
+					if (activeCommand == command)
+					{
+						activeCommand = null;
+					}
+					else
+					{
+						activeCommand = command;
+					}
+				}
+
+				if (showCommandInspector)
+				{
+					Editor commandEditor = Editor.CreateEditor(command);
+					commandEditor.OnInspectorGUI();
+				}
+			}
 		}
 	}
 
