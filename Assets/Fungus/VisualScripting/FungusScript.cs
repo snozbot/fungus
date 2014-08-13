@@ -18,6 +18,9 @@ namespace Fungus.Script
 		[System.NonSerialized]
 		public Sequence executingSequence;
 
+		[System.NonSerialized]
+		public FungusCommand copyCommand;
+
 		public Sequence selectedSequence;
 
 		public bool startAutomatically = false;

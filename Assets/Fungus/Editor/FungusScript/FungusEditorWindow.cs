@@ -62,6 +62,8 @@ namespace Fungus.Script
 				return;
 			}
 
+			EditorUtility.SetDirty(fungusScript);
+
 			if (Event.current.button == 0 && 
 			    Event.current.type == EventType.MouseDown) 
 			{

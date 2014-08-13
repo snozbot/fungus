@@ -64,11 +64,18 @@ namespace Fungus.Script
 			GUILayout.EndHorizontal();
 
 			EditorGUILayout.Separator();
+			GUI.backgroundColor = Color.yellow;
 			GUILayout.Box("Sequence Editor", GUILayout.ExpandWidth(true));
-			
+			GUI.backgroundColor = Color.white;
+
 			GUILayout.BeginHorizontal();
 
-			if (GUILayout.Button("New"))
+			if (t.selectedSequence == null)
+			{
+				GUILayout.FlexibleSpace();
+			}
+
+			if (GUILayout.Button("Create"))
 			{
 				GameObject go = new GameObject("Sequence");
 				go.transform.parent = t.transform;
@@ -80,6 +87,11 @@ namespace Fungus.Script
 				Undo.RegisterCreatedObjectUndo(go, "Sequence");
 				t.selectedSequence = s;
 				return;
+			}
+
+			if (t.selectedSequence == null)
+			{
+				GUILayout.FlexibleSpace();
 			}
 
 			if (t.selectedSequence != null)
@@ -111,6 +123,10 @@ namespace Fungus.Script
 			if (t.selectedSequence != null)
 			{
 				DrawSequenceGUI(t.selectedSequence);
+
+				EditorGUILayout.Separator();
+
+				DrawAddCommandGUI(t.selectedSequence);
 			}
 
 			serializedObject.ApplyModifiedProperties();
@@ -120,7 +136,7 @@ namespace Fungus.Script
 		{
 			EditorGUI.BeginChangeCheck();
 
-			string sequenceName = EditorGUILayout.TextField(new GUIContent("Name", "Name of sequence displayed in editor window"), sequence.name);
+			string sequenceName = EditorGUILayout.TextField(new GUIContent("Sequence Name", "Name of sequence displayed in editor window"), sequence.name);
 			string sequenceDescription = EditorGUILayout.TextField(new GUIContent("Description", "Sequence description displayed in editor window"), sequence.description);
 
 			EditorGUILayout.Separator();
@@ -137,17 +153,26 @@ namespace Fungus.Script
 			FungusCommand[] commands = sequence.GetComponents<FungusCommand>();
 			foreach (FungusCommand command in commands)
 			{
-				if (GUILayout.Button(command.GetCommandTitle()))
+				if (GUILayout.Button(command.GetCommandTitle(), GUILayout.ExpandWidth(true)))
 				{
 					command.expanded = !command.expanded;
 				}
-				
+
 				if (command.expanded)
 				{
 					Editor commandEditor = Editor.CreateEditor(command);
 					commandEditor.OnInspectorGUI();
 				}
 			}
+		}
+
+		public void DrawAddCommandGUI(Sequence sequence)
+		{
+			// FungusScript t = target as FungusScript;
+
+			GUI.backgroundColor = Color.yellow;
+			GUILayout.Box("Add Command", GUILayout.ExpandWidth(true));
+			GUI.backgroundColor = Color.white;
 		}
 
 		public void DrawVariablesGUI()

@@ -12,7 +12,7 @@ namespace Fungus.Script
 	public class Sequence : MonoBehaviour 
 	{
 		[HideInInspector]
-		public Rect nodeRect = new Rect(10, 10, 100, 100);
+		public Rect nodeRect = new Rect(10, 10, 100, 40);
 
 		[HideInInspector]
 		public string description = "";

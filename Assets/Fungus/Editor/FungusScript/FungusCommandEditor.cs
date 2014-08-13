@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,11 +23,55 @@ namespace Fungus.Script
 
 		public override void OnInspectorGUI() 
 		{
+			FungusCommand t = target as FungusCommand;
+
 			Rect rect = EditorGUILayout.BeginVertical();
+
+			GUILayout.BeginHorizontal();
+
+			if (GUILayout.Button("Up"))
+			{
+				UnityEditorInternal.ComponentUtility.MoveComponentUp(t);
+			}
+			if (GUILayout.Button("Down"))
+			{
+				UnityEditorInternal.ComponentUtility.MoveComponentDown(t);
+			}
+
+			GUILayout.FlexibleSpace();
+
+			FungusScript fungusScript = t.GetFungusScript();
+
+			if (fungusScript != null)
+			{
+				if (GUILayout.Button("Copy"))
+				{
+					fungusScript.copyCommand = t;
+				}
+
+				if (fungusScript.copyCommand != null)
+				{
+					if (GUILayout.Button("Paste"))
+					{
+						CopyComponent<FungusCommand>(fungusScript.copyCommand, t.gameObject);
+					}
+				}
+			}
+
+			if (GUILayout.Button("Delete"))
+			{
+				Undo.DestroyObjectImmediate(t);
+				return;
+			}
+
+			GUILayout.EndHorizontal();
+
+			EditorGUILayout.Separator();
 
 			DrawCommandInspectorGUI();
 
-			FungusCommand t = target as FungusCommand;
+			EditorGUILayout.Separator();
+
 			if (t != null)
 			{
 				if (t.errorMessage.Length > 0)
@@ -52,6 +97,18 @@ namespace Fungus.Script
 		public virtual void DrawCommandInspectorGUI()
 		{
 			DrawDefaultInspector();
+		}
+
+		T CopyComponent<T>(T original, GameObject destination) where T : Component
+		{
+			System.Type type = original.GetType();
+			Component copy = Undo.AddComponent(destination, type);
+			System.Reflection.FieldInfo[] fields = type.GetFields();
+			foreach (System.Reflection.FieldInfo field in fields)
+			{
+				field.SetValue(copy, field.GetValue(original));
+			}
+			return copy as T;
 		}
 	}
 
