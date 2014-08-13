@@ -82,6 +82,11 @@ namespace Fungus.Script
 				Continue();
 			});
 		}
+
+		public override string GetDescription()
+		{
+			return "\"" + text + "\"";
+		}
 	}
 
 }

@@ -185,14 +185,41 @@ namespace Fungus.Script
 			}
 		}
 		
-		public override string GetCommandTitle()
+		public override string GetDescription()
 		{
 			if (callCondition == CallCondition.CallAlways)
 			{
-				return GetType().Name;
+				return targetSequence.name;
 			}
-			
-			return GetType().Name + "?";
+			else
+			{
+				if (variable == null)
+				{
+					return "No variable selected";
+				}
+
+				string description = "If " + variable.key + " then ";
+
+				if (onTrueSequence == null)
+				{
+					description += "<continue>";
+				}
+				else
+				{
+					description += onTrueSequence.name;
+				}
+				description += " else ";
+				if (onFalseSequence == null)
+				{
+					description += "<continue>";
+				}
+				else
+				{
+					description += onFalseSequence.name;
+				}
+
+				return description;
+			}
 		}
 	}
 

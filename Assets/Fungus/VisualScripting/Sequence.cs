@@ -131,11 +131,6 @@ namespace Fungus.Script
 		{
 			activeCommand = null;
 			fungusScript.executingSequence = null;
-
-			// No more commands to run in current sequence
-			#if UNITY_EDITOR
-			Selection.activeGameObject = fungusScript.gameObject;
-			#endif
 		}
 	}
 }

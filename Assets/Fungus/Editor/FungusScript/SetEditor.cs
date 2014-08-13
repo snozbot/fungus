@@ -9,7 +9,7 @@ namespace Fungus.Script
 	[CustomEditor (typeof(Set))]
 	public class SetEditor : FungusCommandEditor 
 	{
-		public override void DrawCommandInspectorGUI()
+		public override void DrawCommandGUI()
 		{
 			serializedObject.Update();
 

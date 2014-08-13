@@ -52,10 +52,6 @@ namespace Fungus.Script
 				return;
 			}
 
-	#if UNITY_EDITOR
-			Selection.activeGameObject = sequence.gameObject;
-	#endif
-
 			executingSequence = sequence;
 			sequence.ExecuteNextCommand();
 		}

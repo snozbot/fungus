@@ -88,9 +88,9 @@ namespace Fungus.Script
 		public virtual void GetConnectedSequences(ref List<Sequence> connectedSequences)
 		{}
 		
-		public virtual string GetCommandTitle()
+		public virtual string GetDescription()
 		{
-			return GetType().Name;
+			return "";
 		}
 	}
 

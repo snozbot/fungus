@@ -10,7 +10,7 @@ namespace Fungus.Script
 	[CustomEditor (typeof(AddOption))]
 	public class AddOptionEditor : FungusCommandEditor
 	{
-		public override void DrawCommandInspectorGUI() 
+		public override void DrawCommandGUI() 
 		{
 			AddOption t = target as AddOption;
 

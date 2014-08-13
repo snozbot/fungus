@@ -25,50 +25,66 @@ namespace Fungus.Script
 		{
 			FungusCommand t = target as FungusCommand;
 
-			Rect rect = EditorGUILayout.BeginVertical();
-
 			GUILayout.BeginHorizontal();
 
-			if (GUILayout.Button("Up"))
-			{
-				UnityEditorInternal.ComponentUtility.MoveComponentUp(t);
-			}
-			if (GUILayout.Button("Down"))
-			{
-				UnityEditorInternal.ComponentUtility.MoveComponentDown(t);
-			}
+			t.expanded = EditorGUILayout.Foldout(t.expanded, t.GetType().Name);
+
+			GUIStyle labelStyle = EditorStyles.miniLabel;
+			GUILayout.Label(t.GetDescription().Replace("\n", "").Replace("\r", ""), labelStyle);
 
 			GUILayout.FlexibleSpace();
 
-			FungusScript fungusScript = t.GetFungusScript();
+			GUILayout.EndHorizontal();
 
+			if (!t.expanded)
+			{
+				return;
+			}
+
+			GUILayout.BeginHorizontal();
+
+			GUILayout.FlexibleSpace();
+
+			if (GUILayout.Button("Up", EditorStyles.miniButtonLeft))
+			{
+				UnityEditorInternal.ComponentUtility.MoveComponentUp(t);
+			}
+			if (GUILayout.Button("Down", EditorStyles.miniButtonMid))
+			{
+				UnityEditorInternal.ComponentUtility.MoveComponentDown(t);
+			}
+			
+			FungusScript fungusScript = t.GetFungusScript();
+			
 			if (fungusScript != null)
 			{
-				if (GUILayout.Button("Copy"))
+				if (GUILayout.Button("Copy", EditorStyles.miniButtonMid))
 				{
 					fungusScript.copyCommand = t;
 				}
-
+				
 				if (fungusScript.copyCommand != null)
 				{
-					if (GUILayout.Button("Paste"))
+					if (GUILayout.Button("Paste", EditorStyles.miniButtonMid))
 					{
 						CopyComponent<FungusCommand>(fungusScript.copyCommand, t.gameObject);
 					}
 				}
 			}
-
-			if (GUILayout.Button("Delete"))
+			
+			if (GUILayout.Button("Delete", EditorStyles.miniButtonRight))
 			{
 				Undo.DestroyObjectImmediate(t);
 				return;
 			}
 
+			GUILayout.FlexibleSpace();
+
 			GUILayout.EndHorizontal();
 
 			EditorGUILayout.Separator();
 
-			DrawCommandInspectorGUI();
+			DrawCommandGUI();
 
 			EditorGUILayout.Separator();
 
@@ -81,6 +97,7 @@ namespace Fungus.Script
 					EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
 				}
 
+				/*
 				if (t.IsExecuting())
 				{
 					EditorGUI.DrawRect(rect, new Color(0f, 1f, 0f, 0.25f));
@@ -89,12 +106,11 @@ namespace Fungus.Script
 				{
 					EditorGUI.DrawRect(rect, new Color(1f, 1f, 0f, 0.25f));
 				}
+				*/
 			}
-
-			EditorGUILayout.EndVertical();
 		}
 
-		public virtual void DrawCommandInspectorGUI()
+		public virtual void DrawCommandGUI()
 		{
 			DrawDefaultInspector();
 		}

@@ -75,7 +75,8 @@ namespace Fungus.Script
 				GUILayout.FlexibleSpace();
 			}
 
-			if (GUILayout.Button("Create"))
+			if (GUILayout.Button("Create", 
+			                     t.selectedSequence == null ?  EditorStyles.miniButton : EditorStyles.miniButtonLeft))
 			{
 				GameObject go = new GameObject("Sequence");
 				go.transform.parent = t.transform;
@@ -96,12 +97,12 @@ namespace Fungus.Script
 
 			if (t.selectedSequence != null)
 			{
-				if (GUILayout.Button("Delete"))
+				if (GUILayout.Button("Delete", EditorStyles.miniButtonMid))
 				{
 					Undo.DestroyObjectImmediate(t.selectedSequence.gameObject);
 					t.selectedSequence = null;
 				}
-				if (GUILayout.Button("Duplicate"))
+				if (GUILayout.Button("Duplicate", EditorStyles.miniButtonRight))
 				{
 					GameObject copy = GameObject.Instantiate(t.selectedSequence.gameObject) as GameObject;
 					copy.transform.parent = t.transform;
@@ -149,20 +150,12 @@ namespace Fungus.Script
 			}
 
 			EditorGUILayout.PrefixLabel("Commands");
-			
+
 			FungusCommand[] commands = sequence.GetComponents<FungusCommand>();
 			foreach (FungusCommand command in commands)
 			{
-				if (GUILayout.Button(command.GetCommandTitle(), GUILayout.ExpandWidth(true)))
-				{
-					command.expanded = !command.expanded;
-				}
-
-				if (command.expanded)
-				{
-					Editor commandEditor = Editor.CreateEditor(command);
-					commandEditor.OnInspectorGUI();
-				}
+				Editor commandEditor = Editor.CreateEditor(command);
+				commandEditor.OnInspectorGUI();
 			}
 		}
 

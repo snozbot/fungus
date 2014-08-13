@@ -166,12 +166,7 @@ namespace Fungus.Script
 			GUILayout.BeginVertical();
 			GUILayout.FlexibleSpace();
 			GUILayout.BeginHorizontal();
-			GUILayout.Space(15);
-			if (GUILayout.Button(labelText))
-			{
-				Selection.activeGameObject = fungusScript.gameObject;
-			}
-
+			GUILayout.Space(10);
 			GUI.backgroundColor = Color.white;
 			if (GUILayout.Button("Show Variables"))
 			{
@@ -224,21 +219,9 @@ namespace Fungus.Script
 
 			Sequence sequence = windowSequenceMap[windowId];
 
-			if (!Application.isPlaying && sequence.gameObject == Selection.activeGameObject)
-			{
-				string description = GUILayout.TextArea(sequence.description, GUILayout.ExpandWidth(true));
-				if (description != sequence.description)
-				{
-					Undo.RecordObject(sequence, "Set Description");
-					sequence.description = description;
-				}
-			}
-			else
-			{
-				GUIStyle labelStyle = new GUIStyle(GUI.skin.label);
-				labelStyle.wordWrap = true;
-				GUILayout.Label(sequence.description, labelStyle);
-			}
+			GUIStyle labelStyle = new GUIStyle(GUI.skin.label);
+			labelStyle.wordWrap = true;
+			GUILayout.Label(sequence.description, labelStyle);
 
 			/*
 			GUIStyle style = new GUIStyle(GUI.skin.button);

@@ -10,7 +10,7 @@ namespace Fungus.Script
 	[CustomEditor (typeof(Say))]
 	public class SayEditor : FungusCommandEditor
 	{
-		public override void DrawCommandInspectorGUI() 
+		public override void DrawCommandGUI() 
 		{
 			Say t = target as Say;
 
