@@ -38,18 +38,7 @@ namespace Fungus.Script
 			{
 				EditorWindow.GetWindow(typeof(FungusEditorWindow), false, "Fungus Editor");
 			}
-			
-			if (GUILayout.Button("New Sequence"))
-			{
-				GameObject go = new GameObject("Sequence");
-				go.transform.parent = t.transform;
-				Sequence s = go.AddComponent<Sequence>();
-				FungusEditorWindow fungusEditorWindow = EditorWindow.GetWindow(typeof(FungusEditorWindow), false, "Fungus Editor") as FungusEditorWindow;
-				s.nodeRect.x = fungusEditorWindow.scrollPos.x;
-				s.nodeRect.y = fungusEditorWindow.scrollPos.y;
-				Undo.RegisterCreatedObjectUndo(go, "Sequence");
-			}
-			
+
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 			
@@ -69,6 +58,49 @@ namespace Fungus.Script
 			GUIContent startAutomaticallyLabel = new GUIContent("Start Automatically", "Start this Fungus Script when the scene starts.");
 			t.startAutomatically = EditorGUILayout.Toggle(startAutomaticallyLabel, t.startAutomatically);
 
+			EditorGUILayout.Separator();
+			GUILayout.Box("Sequence Editor", GUILayout.ExpandWidth(true));
+			
+			GUILayout.BeginHorizontal();
+
+			if (GUILayout.Button("New"))
+			{
+				GameObject go = new GameObject("Sequence");
+				go.transform.parent = t.transform;
+				Sequence s = go.AddComponent<Sequence>();
+				FungusEditorWindow fungusEditorWindow = EditorWindow.GetWindow(typeof(FungusEditorWindow), false, "Fungus Editor") as FungusEditorWindow;
+				s.nodeRect.x = fungusEditorWindow.scrollPos.x;
+				s.nodeRect.y = fungusEditorWindow.scrollPos.y;
+				Undo.RegisterCreatedObjectUndo(go, "Sequence");
+				t.selectedSequence = s;
+				return;
+			}
+
+			if (t.selectedSequence != null)
+			{
+				if (GUILayout.Button("Delete"))
+				{
+					Undo.DestroyObjectImmediate(t.selectedSequence.gameObject);
+					t.selectedSequence = null;
+				}
+				if (GUILayout.Button("Duplicate"))
+				{
+					GameObject copy = GameObject.Instantiate(t.selectedSequence.gameObject) as GameObject;
+					copy.transform.parent = t.transform;
+					copy.name = t.selectedSequence.name;
+					
+					Sequence sequenceCopy = copy.GetComponent<Sequence>();
+					sequenceCopy.nodeRect.x += sequenceCopy.nodeRect.width + 10;
+					
+					Undo.RegisterCreatedObjectUndo(copy, "Duplicate Sequence");
+					t.selectedSequence = sequenceCopy;
+				}
+			}
+
+			GUILayout.EndHorizontal();
+
+			EditorGUILayout.Separator();
+
 			if (t.selectedSequence != null)
 			{
 				DrawSequenceGUI(t.selectedSequence);
@@ -81,12 +113,9 @@ namespace Fungus.Script
 		{
 			EditorGUI.BeginChangeCheck();
 
-			EditorGUILayout.Separator();
-			GUILayout.Box("Sequence", GUILayout.ExpandWidth(true));
-			EditorGUILayout.Separator();
-
 			string sequenceName = EditorGUILayout.TextField(new GUIContent("Name", "Name of sequence displayed in editor window"), sequence.name);
 			string sequenceDescription = EditorGUILayout.TextField(new GUIContent("Description", "Sequence description displayed in editor window"), sequence.description);
+
 			EditorGUILayout.Separator();
 
 			if (EditorGUI.EndChangeCheck())
@@ -96,34 +125,11 @@ namespace Fungus.Script
 				sequence.description = sequenceDescription;
 			}
 
-			/*
-			if (Application.isPlaying)
-			{
-				foreach (FungusCommand command in commands)
-				{
-					if (command == FungusCommandEditor.selectedCommand)
-					{
-						activeCommand = command;
-						Debug.Log("Found it");
-					}
-				}
-			}
-			*/
-			
 			EditorGUILayout.PrefixLabel("Commands");
 			
 			FungusCommand[] commands = sequence.GetComponents<FungusCommand>();
 			foreach (FungusCommand command in commands)
 			{
-				/*
-				bool showCommandInspector = false;
-				if (command == activeCommand ||
-				    command.IsExecuting())
-				{
-					showCommandInspector = true;
-				}
-				*/
-				
 				if (GUILayout.Button(command.GetCommandTitle()))
 				{
 					command.expanded = !command.expanded;
