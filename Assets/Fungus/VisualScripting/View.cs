@@ -5,7 +5,7 @@ using System.Collections;
 namespace Fungus.Script
 {
 
-	public class MoveCamera : FungusCommand 
+	public class View : FungusCommand 
 	{
 		public enum Transition
 		{
@@ -15,12 +15,11 @@ namespace Fungus.Script
 
 		public Transition transition;
 		public float duration;
-		public View targetView;
+		public Fungus.View targetView;
 		public bool waitUntilFinished = true;
 
 		public override void OnEnter()
 		{
-
 			Game game = Game.GetInstance();
 
 			if (waitUntilFinished)
