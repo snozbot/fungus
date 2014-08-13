@@ -55,16 +55,18 @@ namespace Fungus.Script
 			return true;
 		}
 
-		/*
-		public void OnInspectorUpdate()
-		{
-			Repaint();
-		}
-		*/
-
 		public override void OnInspectorGUI()
 		{
 			Sequence t = target as Sequence;
+
+			EditorGUILayout.PrefixLabel(new GUIContent("Description", "Sequence description displayed in editor window"));
+
+			string description = GUILayout.TextArea(t.description, GUILayout.ExpandWidth(true));
+			if (description != t.description)
+			{
+				Undo.RecordObject(t, "Set Description");
+				t.description = description;
+			}
 
 			FungusCommand[] commands = t.GetComponents<FungusCommand>();
 
@@ -81,6 +83,8 @@ namespace Fungus.Script
 				}
 			}
 			*/
+
+			EditorGUILayout.PrefixLabel("Commands");
 
 			foreach (FungusCommand command in commands)
 			{

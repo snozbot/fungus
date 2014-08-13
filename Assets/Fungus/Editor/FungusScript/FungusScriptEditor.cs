@@ -15,7 +15,10 @@ namespace Fungus.Script
 
 		void OnEnable() 
 		{
-			variablesProperty = serializedObject.FindProperty("variables");
+			if (serializedObject != null)
+			{
+				variablesProperty = serializedObject.FindProperty("variables");
+			}
 		}
 
 		public void OnInspectorUpdate()

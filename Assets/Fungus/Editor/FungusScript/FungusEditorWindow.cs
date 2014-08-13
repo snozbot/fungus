@@ -98,7 +98,17 @@ namespace Fungus.Script
 				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
 				float windowWidth = Mathf.Max (titleWidth + 10, 100);
 
-				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, sequence.name, GUILayout.Width(windowWidth), GUILayout.Height(40), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+				if (Selection.activeGameObject == sequence.gameObject)
+				{
+					Rect outlineRect = sequence.nodeRect;
+					outlineRect.width += 10;
+					outlineRect.x -= 5;
+					outlineRect.height += 10;
+					outlineRect.y -= 5;
+					GLDraw.DrawBox(outlineRect, Color.green, 2);
+				}
+
+				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, sequence.name, GUILayout.Width(windowWidth), GUILayout.Height(20), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 				windowSequenceMap.Add(sequence);
 			}
 
@@ -172,6 +182,7 @@ namespace Fungus.Script
 				}
 			}
 
+			/*
 			if (FungusCommandEditor.selectedCommand != null)
 			{
 				if (Selection.activeGameObject == null)
@@ -191,14 +202,24 @@ namespace Fungus.Script
 					}
 				}
 			}
+			*/
 
 			Sequence sequence = windowSequenceMap[windowId];
 
-			string description = GUILayout.TextArea(sequence.description, GUILayout.ExpandWidth(true));
-			if (description != sequence.description)
+			if (!Application.isPlaying && sequence.gameObject == Selection.activeGameObject)
 			{
-				Undo.RecordObject(sequence, "Set Description");
-				sequence.description = description;
+				string description = GUILayout.TextArea(sequence.description, GUILayout.ExpandWidth(true));
+				if (description != sequence.description)
+				{
+					Undo.RecordObject(sequence, "Set Description");
+					sequence.description = description;
+				}
+			}
+			else
+			{
+				GUIStyle labelStyle = new GUIStyle(GUI.skin.label);
+				labelStyle.wordWrap = true;
+				GUILayout.Label(sequence.description, labelStyle);
 			}
 
 			/*
@@ -244,7 +265,7 @@ namespace Fungus.Script
 			}
 			*/
 
-			GUILayout.Space(10);
+			GUILayout.Space(1);
 
 	        GUI.DragWindow();
 	    }
