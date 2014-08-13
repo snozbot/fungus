@@ -10,7 +10,7 @@ namespace Fungus.Script
 	[CustomEditor (typeof(Sequence))]
 	public class SequenceEditor : Editor 
 	{
-		FungusCommand activeCommand;
+		// FungusCommand activeCommand;
 
 		static public Sequence SequenceField(GUIContent label, FungusScript fungusScript, Sequence sequence)
 		{
@@ -88,12 +88,14 @@ namespace Fungus.Script
 
 			foreach (FungusCommand command in commands)
 			{
+				/*
 				bool showCommandInspector = false;
 				if (command == activeCommand ||
 				    command.IsExecuting())
 				{
 					showCommandInspector = true;
 				}
+				*/
 
 				if (GUILayout.Button(command.GetCommandTitle()))
 				{

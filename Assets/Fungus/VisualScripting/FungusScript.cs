@@ -17,7 +17,9 @@ namespace Fungus.Script
 
 		[System.NonSerialized]
 		public Sequence executingSequence;
-		
+
+		public Sequence selectedSequence;
+
 		public bool startAutomatically = false;
 
 		public List<FungusVariable> variables = new List<FungusVariable>();

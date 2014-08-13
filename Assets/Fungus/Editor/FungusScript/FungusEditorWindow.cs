@@ -62,6 +62,12 @@ namespace Fungus.Script
 				return;
 			}
 
+			if (Event.current.button == 0 && 
+			    Event.current.type == EventType.MouseDown) 
+			{
+				fungusScript.selectedSequence = null;
+			}
+
 			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>();
 
 			Rect scrollViewRect = new Rect();
@@ -98,7 +104,7 @@ namespace Fungus.Script
 				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
 				float windowWidth = Mathf.Max (titleWidth + 10, 100);
 
-				if (Selection.activeGameObject == sequence.gameObject)
+				if (fungusScript.selectedSequence == sequence)
 				{
 					Rect outlineRect = sequence.nodeRect;
 					outlineRect.width += 10;
@@ -168,16 +174,17 @@ namespace Fungus.Script
 
 	    void DrawWindow(int windowId)
 	    {
-			// Select game object when node is clicked
+			// Select sequence when node is clicked
 			if (Event.current.button == 0 && 
-		    	Event.current.type == EventType.MouseUp) 
+		    	Event.current.type == EventType.MouseDown) 
 			{
 				if (windowId < windowSequenceMap.Count)
 				{
 					Sequence s = windowSequenceMap[windowId];
 					if (s != null)
 					{
-						Selection.activeGameObject = s.gameObject;
+						FungusScript fungusScript = s.GetFungusScript();
+						fungusScript.selectedSequence = s;
 					}
 				}
 			}

@@ -48,7 +48,6 @@ namespace Fungus.Script
 				s.nodeRect.x = fungusEditorWindow.scrollPos.x;
 				s.nodeRect.y = fungusEditorWindow.scrollPos.y;
 				Undo.RegisterCreatedObjectUndo(go, "Sequence");
-				Selection.activeGameObject = go;
 			}
 			
 			GUILayout.FlexibleSpace();
@@ -59,20 +58,85 @@ namespace Fungus.Script
 			
 			GUIContent startSequenceLabel = new GUIContent("Start Sequence", "Sequence to be executed when controller starts.");
 			t.startSequence = SequenceEditor.SequenceField(startSequenceLabel, t, t.startSequence);
-			
-			GUIContent startAutomaticallyLabel = new GUIContent("Start Automatically", "Start this Fungus Script when the scene starts.");
-			t.startAutomatically = EditorGUILayout.Toggle(startAutomaticallyLabel, t.startAutomatically);
-			
+
 			if (t.startSequence == null)
 			{
 				GUIStyle style = new GUIStyle(GUI.skin.label);
 				style.normal.textColor = new Color(1,0,0);
 				EditorGUILayout.LabelField(new GUIContent("Error: Please select a Start Sequence"), style);
 			}
-			
+
+			GUIContent startAutomaticallyLabel = new GUIContent("Start Automatically", "Start this Fungus Script when the scene starts.");
+			t.startAutomatically = EditorGUILayout.Toggle(startAutomaticallyLabel, t.startAutomatically);
+
+			if (t.selectedSequence != null)
+			{
+				DrawSequenceGUI(t.selectedSequence);
+			}
+
 			serializedObject.ApplyModifiedProperties();
 		}
-		
+
+		public void DrawSequenceGUI(Sequence sequence)
+		{
+			EditorGUI.BeginChangeCheck();
+
+			EditorGUILayout.Separator();
+			GUILayout.Box("Sequence", GUILayout.ExpandWidth(true));
+			EditorGUILayout.Separator();
+
+			string sequenceName = EditorGUILayout.TextField(new GUIContent("Name", "Name of sequence displayed in editor window"), sequence.name);
+			string sequenceDescription = EditorGUILayout.TextField(new GUIContent("Description", "Sequence description displayed in editor window"), sequence.description);
+			EditorGUILayout.Separator();
+
+			if (EditorGUI.EndChangeCheck())
+			{
+				Undo.RecordObject(sequence, "Set Sequence");
+				sequence.name = sequenceName;
+				sequence.description = sequenceDescription;
+			}
+
+			/*
+			if (Application.isPlaying)
+			{
+				foreach (FungusCommand command in commands)
+				{
+					if (command == FungusCommandEditor.selectedCommand)
+					{
+						activeCommand = command;
+						Debug.Log("Found it");
+					}
+				}
+			}
+			*/
+			
+			EditorGUILayout.PrefixLabel("Commands");
+			
+			FungusCommand[] commands = sequence.GetComponents<FungusCommand>();
+			foreach (FungusCommand command in commands)
+			{
+				/*
+				bool showCommandInspector = false;
+				if (command == activeCommand ||
+				    command.IsExecuting())
+				{
+					showCommandInspector = true;
+				}
+				*/
+				
+				if (GUILayout.Button(command.GetCommandTitle()))
+				{
+					command.expanded = !command.expanded;
+				}
+				
+				if (command.expanded)
+				{
+					Editor commandEditor = Editor.CreateEditor(command);
+					commandEditor.OnInspectorGUI();
+				}
+			}
+		}
+
 		public void DrawVariablesGUI()
 		{
 			serializedObject.Update();
