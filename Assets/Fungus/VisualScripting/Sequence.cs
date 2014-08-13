@@ -63,12 +63,12 @@ namespace Fungus.Script
 		public bool IsRunning()
 		{
 			if (fungusScript == null ||
-			    fungusScript.activeSequence == null)
+			    fungusScript.executingSequence == null)
 			{
 				return false;
 			}
 
-			return (fungusScript.activeSequence == this);
+			return (fungusScript.executingSequence == this);
 		}
 
 		public int GetExecutionCount()
@@ -130,7 +130,7 @@ namespace Fungus.Script
 		public void Stop()
 		{
 			activeCommand = null;
-			fungusScript.activeSequence = null;
+			fungusScript.executingSequence = null;
 
 			// No more commands to run in current sequence
 			#if UNITY_EDITOR

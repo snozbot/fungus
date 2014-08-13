@@ -16,11 +16,12 @@ namespace Fungus.Script
 		public Sequence startSequence;
 
 		[System.NonSerialized]
-		public Sequence activeSequence;
+		public Sequence executingSequence;
 		
 		public bool startAutomatically = false;
 
 		public List<FungusVariable> variables = new List<FungusVariable>();
+
 
 		void Start()
 		{
@@ -51,7 +52,7 @@ namespace Fungus.Script
 			Selection.activeGameObject = sequence.gameObject;
 	#endif
 
-			activeSequence = sequence;
+			executingSequence = sequence;
 			sequence.ExecuteNextCommand();
 		}
 	}

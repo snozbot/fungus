@@ -129,7 +129,7 @@ namespace Fungus.Script
 			string labelText = fungusScript.name;
 			if (Application.isPlaying)
 			{
-				if (fungusScript.activeSequence == null)
+				if (fungusScript.executingSequence == null)
 				{
 					GUI.backgroundColor = Color.white;
 					labelText += " (Idle)";
