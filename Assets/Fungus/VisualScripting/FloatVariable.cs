@@ -29,6 +29,18 @@ namespace Fungus.Script
 			get { return (floatReference == null) ? floatValue : floatReference.Value; }
 			set { if (floatReference == null) { floatValue = value; } else { floatReference.Value = value; } }
 		}
+
+		public string GetDescription()
+		{
+			if (floatReference == null)
+			{
+				return floatValue.ToString();
+			}
+			else
+			{
+				return floatReference.key;
+			}
+		}
 	}
 
 }

@@ -57,6 +57,32 @@ namespace Fungus.Script
 				Continue();
 			}
 		}
+
+		public override string GetDescription()
+		{
+			string description = "";
+
+			switch (transition)
+			{
+			case Transition.Move:
+				description = "Move to ";
+				break;
+			case Transition.Fade:
+				description = "Fade to ";
+				break;
+			}
+
+			if (targetView == null)
+			{
+				description = "<no view selected>";
+			}
+			else
+			{
+				description += targetView.name;
+			}
+
+			return description;
+		}
 	}
 
 }

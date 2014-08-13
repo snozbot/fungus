@@ -118,6 +118,58 @@ namespace Fungus.Script
 
 			Continue();
 		}
+
+		public override string GetDescription()
+		{
+			if (variable == null)
+			{
+				return "<Variable not selected>";
+			}
+
+			string description = variable.key;
+
+			switch (setOperator)
+			{
+			default:
+			case SetOperator.Assign:
+				description += " = ";
+				break;
+			case SetOperator.Negate:
+				description += " != ";
+				break;
+			case SetOperator.Add:
+				description += " += ";
+				break;
+			case SetOperator.Subtract:
+				description += " -= ";
+				break;
+			case SetOperator.Multiply:
+				description += " *= ";
+				break;
+			case SetOperator.Divide:
+				description += " /= ";
+				break;
+			}
+
+			if (variable.GetType() == typeof(BooleanVariable))
+			{
+				description += booleanData.GetDescription();
+			}
+			else if (variable.GetType() == typeof(IntegerVariable))
+			{
+				description += integerData.GetDescription();
+			}
+			else if (variable.GetType() == typeof(FloatVariable))
+			{
+				description += floatData.GetDescription();
+			}
+			else if (variable.GetType() == typeof(StringVariable))
+			{
+				description += stringData.GetDescription();
+			}
+
+			return description;
+		}
 	}
 
 }

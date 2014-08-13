@@ -30,6 +30,18 @@ namespace Fungus.Script
 			get { return (booleanReference == null) ? booleanValue : booleanReference.Value; }
 			set { if (booleanReference == null) { booleanValue = value; } else { booleanReference.Value = value; } }
 		}
+
+		public string GetDescription()
+		{
+			if (booleanReference == null)
+			{
+				return booleanValue.ToString();
+			}
+			else
+			{
+				return booleanReference.key;
+			}
+		}
 	}
 
 }

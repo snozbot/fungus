@@ -29,6 +29,18 @@ namespace Fungus.Script
 			get { return (integerReference == null) ? integerValue : integerReference.Value; }
 			set { if (integerReference == null) { integerValue = value; } else { integerReference.Value = value; } }
 		}
+
+		public string GetDescription()
+		{
+			if (integerReference == null)
+			{
+				return integerValue.ToString();
+			}
+			else
+			{
+				return integerReference.key;
+			}
+		}
 	}
 
 }
