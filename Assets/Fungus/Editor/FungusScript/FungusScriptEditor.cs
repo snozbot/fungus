@@ -19,6 +19,12 @@ namespace Fungus.Script
 			{
 				variablesProperty = serializedObject.FindProperty("variables");
 			}
+
+			FungusScript t = target as FungusScript;
+			if (t != null)
+			{
+				t.transform.hideFlags = HideFlags.HideInInspector;
+			}
 		}
 		
 		public void OnInspectorUpdate()
@@ -31,17 +37,7 @@ namespace Fungus.Script
 			serializedObject.Update();
 			
 			FungusScript t = target as FungusScript;
-			
-			GUILayout.BeginHorizontal();
-			GUILayout.FlexibleSpace();
-			if (GUILayout.Button("Open Fungus Editor"))
-			{
-				EditorWindow.GetWindow(typeof(FungusEditorWindow), false, "Fungus Editor");
-			}
 
-			GUILayout.FlexibleSpace();
-			GUILayout.EndHorizontal();
-			
 			GUIContent stepTimeLabel = new GUIContent("Step Time", "Minimum time to execute each step");
 			t.stepTime = EditorGUILayout.FloatField(stepTimeLabel, t.stepTime);
 			
@@ -58,6 +54,15 @@ namespace Fungus.Script
 			GUIContent startAutomaticallyLabel = new GUIContent("Start Automatically", "Start this Fungus Script when the scene starts.");
 			t.startAutomatically = EditorGUILayout.Toggle(startAutomaticallyLabel, t.startAutomatically);
 
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			if (GUILayout.Button("Open Fungus Editor"))
+			{
+				EditorWindow.GetWindow(typeof(FungusEditorWindow), false, "Fungus Editor");
+			}
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
+
 			EditorGUILayout.Separator();
 			GUILayout.Box("Sequence Editor", GUILayout.ExpandWidth(true));
 			
@@ -67,6 +72,7 @@ namespace Fungus.Script
 			{
 				GameObject go = new GameObject("Sequence");
 				go.transform.parent = t.transform;
+				go.transform.hideFlags = HideFlags.HideInHierarchy;
 				Sequence s = go.AddComponent<Sequence>();
 				FungusEditorWindow fungusEditorWindow = EditorWindow.GetWindow(typeof(FungusEditorWindow), false, "Fungus Editor") as FungusEditorWindow;
 				s.nodeRect.x = fungusEditorWindow.scrollPos.x;
@@ -87,6 +93,7 @@ namespace Fungus.Script
 				{
 					GameObject copy = GameObject.Instantiate(t.selectedSequence.gameObject) as GameObject;
 					copy.transform.parent = t.transform;
+					copy.transform.hideFlags = HideFlags.HideInHierarchy;
 					copy.name = t.selectedSequence.name;
 					
 					Sequence sequenceCopy = copy.GetComponent<Sequence>();

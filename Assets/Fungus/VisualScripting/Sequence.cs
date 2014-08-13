@@ -13,7 +13,7 @@ namespace Fungus.Script
 	{
 		[HideInInspector]
 		public Rect nodeRect = new Rect(10, 10, 100, 100);
-	
+
 		[HideInInspector]
 		public string description = "";
 
@@ -24,7 +24,7 @@ namespace Fungus.Script
 		public FungusCommand activeCommand;
 
 		int executionCount;
-
+	
 		public virtual void Start()
 		{
 			fungusScript = GetFungusScript();

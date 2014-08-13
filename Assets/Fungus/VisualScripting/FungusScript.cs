@@ -24,7 +24,6 @@ namespace Fungus.Script
 
 		public List<FungusVariable> variables = new List<FungusVariable>();
 
-
 		void Start()
 		{
 			if (startAutomatically)

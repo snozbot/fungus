@@ -49,66 +49,6 @@ namespace Fungus.Script
 			
 			return result;
 		}
-
-		public override bool RequiresConstantRepaint()
-		{
-			return true;
-		}
-
-		public override void OnInspectorGUI()
-		{
-			Sequence t = target as Sequence;
-
-			EditorGUILayout.PrefixLabel(new GUIContent("Description", "Sequence description displayed in editor window"));
-
-			string description = GUILayout.TextArea(t.description, GUILayout.ExpandWidth(true));
-			if (description != t.description)
-			{
-				Undo.RecordObject(t, "Set Description");
-				t.description = description;
-			}
-
-			FungusCommand[] commands = t.GetComponents<FungusCommand>();
-
-			/*
-			if (Application.isPlaying)
-			{
-				foreach (FungusCommand command in commands)
-				{
-					if (command == FungusCommandEditor.selectedCommand)
-					{
-						activeCommand = command;
-						Debug.Log("Found it");
-					}
-				}
-			}
-			*/
-
-			EditorGUILayout.PrefixLabel("Commands");
-
-			foreach (FungusCommand command in commands)
-			{
-				/*
-				bool showCommandInspector = false;
-				if (command == activeCommand ||
-				    command.IsExecuting())
-				{
-					showCommandInspector = true;
-				}
-				*/
-
-				if (GUILayout.Button(command.GetCommandTitle()))
-				{
-					command.expanded = !command.expanded;
-				}
-
-				if (command.expanded)
-				{
-					Editor commandEditor = Editor.CreateEditor(command);
-					commandEditor.OnInspectorGUI();
-				}
-			}
-		}
 	}
 
 }

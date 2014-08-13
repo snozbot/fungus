@@ -100,7 +100,7 @@ namespace Fungus.Script
 			for (int i = 0; i < sequences.Length; ++i)
 			{
 				Sequence sequence = sequences[i];
-
+			
 				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
 				float windowWidth = Mathf.Max (titleWidth + 10, 100);
 
@@ -115,6 +115,7 @@ namespace Fungus.Script
 				}
 
 				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, sequence.name, GUILayout.Width(windowWidth), GUILayout.Height(20), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+
 				windowSequenceMap.Add(sequence);
 			}
 
