@@ -96,6 +96,9 @@ namespace Fungus.Script
 
 			GUIStyle windowStyle = new GUIStyle(GUI.skin.window);
 
+			bool drawOutline = false;
+			Rect outlineRect = new Rect();
+
 			windowSequenceMap.Clear();
 			for (int i = 0; i < sequences.Length; ++i)
 			{
@@ -106,12 +109,12 @@ namespace Fungus.Script
 
 				if (fungusScript.selectedSequence == sequence)
 				{
-					Rect outlineRect = sequence.nodeRect;
+					drawOutline = true;
+					outlineRect = sequence.nodeRect;
 					outlineRect.width += 10;
 					outlineRect.x -= 5;
 					outlineRect.height += 10;
 					outlineRect.y -= 5;
-					GLDraw.DrawBox(outlineRect, Color.green, 2);
 				}
 
 				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, sequence.name, GUILayout.Width(windowWidth), GUILayout.Height(20), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
@@ -130,6 +133,11 @@ namespace Fungus.Script
 			}
 
 	        EndWindows();
+
+			if (drawOutline)
+			{
+				GLDraw.DrawBox(outlineRect, Color.green, 2);
+			}
 
 	        GUI.EndScrollView();
 
