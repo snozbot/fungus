@@ -19,6 +19,9 @@ namespace Fungus.Script
 		[HideInInspector]
 		public Sequence parentSequence;
 
+		[HideInInspector]
+		public bool expanded;
+
 		public virtual void Start()
 		{
 			parentSequence = GetComponent<Sequence>();

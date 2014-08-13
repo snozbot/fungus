@@ -97,17 +97,10 @@ namespace Fungus.Script
 
 				if (GUILayout.Button(command.GetCommandTitle()))
 				{
-					if (activeCommand == command)
-					{
-						activeCommand = null;
-					}
-					else
-					{
-						activeCommand = command;
-					}
+					command.expanded = !command.expanded;
 				}
 
-				if (showCommandInspector)
+				if (command.expanded)
 				{
 					Editor commandEditor = Editor.CreateEditor(command);
 					commandEditor.OnInspectorGUI();
