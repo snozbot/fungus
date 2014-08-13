@@ -14,7 +14,10 @@ namespace Fungus.Script
 		void OnEnable()
 		{
 			FungusCommand t = target as FungusCommand;
-			t.hideFlags = HideFlags.HideInInspector;
+			if (t != null)
+			{
+				t.hideFlags = HideFlags.HideInInspector;
+			}
 		}
 
 		public override void OnInspectorGUI() 
