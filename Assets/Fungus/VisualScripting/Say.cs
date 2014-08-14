@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
+	[HelpText("Writes a line of story text to the dialog. A condition can be specified for when the story text should be shown.")]
 	public class Say : FungusCommand 
 	{
 		public enum ShowCondition
@@ -83,7 +84,7 @@ namespace Fungus.Script
 			});
 		}
 
-		public override string GetDescription()
+		public override string GetSummary()
 		{
 			return "\"" + text + "\"";
 		}

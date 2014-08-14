@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Fungus.Script
 {
-
+	[HelpText("Sets a variable to a new value using simple arithmetic operations. The value can be a constant or another variable.")]
 	public class Set : FungusCommand 
 	{
 		public enum SetOperator
@@ -119,7 +119,7 @@ namespace Fungus.Script
 			Continue();
 		}
 
-		public override string GetDescription()
+		public override string GetSummary()
 		{
 			if (variable == null)
 			{

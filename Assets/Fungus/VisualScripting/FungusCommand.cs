@@ -2,11 +2,22 @@
 using UnityEditor;
 #endif
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus.Script
 {
+	public class HelpTextAttribute : Attribute
+	{
+		public HelpTextAttribute(string helpText)
+		{
+			this.HelpText = helpText;
+		}
+		
+		public string HelpText { get; set; }
+	}
+
 	[RequireComponent(typeof(Sequence))]
 	public class FungusCommand : MonoBehaviour 
 	{
@@ -88,7 +99,12 @@ namespace Fungus.Script
 		public virtual void GetConnectedSequences(ref List<Sequence> connectedSequences)
 		{}
 		
-		public virtual string GetDescription()
+		public virtual string GetSummary()
+		{
+			return "";
+		}
+
+		public virtual string GetHelpText()
 		{
 			return "";
 		}

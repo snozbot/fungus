@@ -38,7 +38,7 @@ namespace Fungus.Script
 			}
 
 			GUIStyle labelStyle = EditorStyles.miniLabel;
-			GUILayout.Label(t.GetDescription().Replace("\n", "").Replace("\r", ""), labelStyle);
+			GUILayout.Label(t.GetSummary().Replace("\n", "").Replace("\r", ""), labelStyle);
 
 			GUILayout.FlexibleSpace();
 

@@ -20,6 +20,7 @@ namespace Fungus.Script
 		GreaterThanOrEquals		// >=
 	}
 
+	[HelpText("Start running another sequence. Can use a variable comparision to decide which sequence to run.")]
 	public class Call : FungusCommand
 	{
 		public CallCondition callCondition;
@@ -185,7 +186,7 @@ namespace Fungus.Script
 			}
 		}
 		
-		public override string GetDescription()
+		public override string GetSummary()
 		{
 			if (callCondition == CallCondition.CallAlways)
 			{

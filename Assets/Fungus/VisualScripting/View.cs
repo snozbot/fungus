@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Fungus.Script
 {
-
+	[HelpText("Moves the camera to a location specified by a View object. Supports Move and Fade transitions over a period of time.")]
 	public class View : FungusCommand 
 	{
 		public enum Transition
@@ -58,7 +58,7 @@ namespace Fungus.Script
 			}
 		}
 
-		public override string GetDescription()
+		public override string GetSummary()
 		{
 			string description = "";
 

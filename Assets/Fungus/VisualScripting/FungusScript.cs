@@ -11,10 +11,6 @@ namespace Fungus.Script
 
 	public class FungusScript : MonoBehaviour 
 	{
-		public float stepTime;
-
-		public Sequence startSequence;
-
 		[System.NonSerialized]
 		public Sequence executingSequence;
 
@@ -22,7 +18,14 @@ namespace Fungus.Script
 		public FungusCommand copyCommand;
 
 		[HideInInspector]
+		public int selectedCommandIndex;
+
+		[HideInInspector]
 		public Vector2 scrollPos;
+
+		public float stepTime;
+		
+		public Sequence startSequence;
 
 		public Sequence selectedSequence;
 

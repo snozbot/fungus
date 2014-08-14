@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
-
+	[HelpText("Adds an option button to be displayed by the next Say command. The target sequence is run when the player selects the option. A condition can be specified for when the option should be shown.")]
 	public class Option : FungusCommand
 	{
 		public enum ShowCondition
@@ -76,7 +76,7 @@ namespace Fungus.Script
 			}
 		}
 
-		public override string GetDescription()
+		public override string GetSummary()
 		{
 			string description = "\"" + optionText + "\"";
 			if (targetSequence != null)

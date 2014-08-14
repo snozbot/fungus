@@ -135,9 +135,11 @@ namespace Fungus.Script
 			{
 				DrawSequenceGUI(t.selectedSequence);
 
-				EditorGUILayout.Separator();
-
-				DrawAddCommandGUI(t.selectedSequence);
+				if (!Application.isPlaying)
+				{
+					EditorGUILayout.Separator();
+					DrawAddCommandGUI(t.selectedSequence);
+				}
 			}
 
 			serializedObject.ApplyModifiedProperties();
@@ -171,11 +173,63 @@ namespace Fungus.Script
 
 		public void DrawAddCommandGUI(Sequence sequence)
 		{
-			// FungusScript t = target as FungusScript;
+			FungusScript t = target as FungusScript;
 
 			GUI.backgroundColor = Color.yellow;
 			GUILayout.Box("Add Command", GUILayout.ExpandWidth(true));
 			GUI.backgroundColor = Color.white;
+
+			// Build list of categories
+			List<System.Type> commandTypes = EditorExtensions.FindDerivedTypes(typeof(FungusCommand)).ToList();
+			if (commandTypes.Count == 0)
+			{
+				return;
+			}
+
+			List<string> commandNames = new List<string>();
+			foreach(System.Type type in commandTypes)
+			{
+				commandNames.Add(type.Name);
+			}
+
+			EditorGUI.BeginChangeCheck();
+
+			int selectedCommandIndex = EditorGUILayout.Popup("Command", t.selectedCommandIndex, commandNames.ToArray());
+
+			if (EditorGUI.EndChangeCheck())
+			{
+				Undo.RecordObject(t, "Select Command");
+				t.selectedCommandIndex = selectedCommandIndex;
+			}
+
+			System.Type selectedType = commandTypes[selectedCommandIndex];
+			if (selectedType == null)
+			{
+				return;
+			}
+
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			if (GUILayout.Button(new GUIContent("Add Command", "Add the selected command to the sequence")))
+			{
+				Undo.AddComponent(sequence.gameObject, selectedType);
+			}
+			GUILayout.EndHorizontal();
+
+			EditorGUILayout.Separator();
+							
+			object[] attributes = selectedType.GetCustomAttributes(typeof(HelpTextAttribute), false);
+			foreach (object obj in attributes)
+			{
+				HelpTextAttribute helpTextAttr = obj as HelpTextAttribute;
+				if (helpTextAttr != null)
+				{
+					GUIStyle labelStyle = new GUIStyle(EditorStyles.miniLabel);
+					labelStyle.wordWrap = true;
+					GUILayout.Label(helpTextAttr.HelpText, labelStyle);
+					break;
+				}
+			}
 		}
 
 		public void DrawVariablesGUI()
