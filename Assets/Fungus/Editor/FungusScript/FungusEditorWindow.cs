@@ -9,9 +9,6 @@ namespace Fungus.Script
 
 	public class FungusEditorWindow : EditorWindow
 	{
-		[System.NonSerialized]
-		public Vector2 scrollPos;                         // ScrollViews use a Vector2 to track the state of each scroll bar
-		
 		private List<Sequence> windowSequenceMap = new List<Sequence>();
 		
 	    [MenuItem("Window/Fungus Editor")]
@@ -83,22 +80,17 @@ namespace Fungus.Script
 			}
 
 			// Empty buffer area around edges of scroll rect
-			float bufferScale = 0.1f;
+			float bufferScale = 0.25f;
 			scrollViewRect.xMin -= position.width * bufferScale;
 			scrollViewRect.yMin -= position.height * bufferScale;
 			scrollViewRect.xMax += position.width * bufferScale;
 			scrollViewRect.yMax += position.height * bufferScale;
 
-			scrollPos = GUI.BeginScrollView(new Rect(0, 0, position.width, position.height), scrollPos, scrollViewRect);
+			fungusScript.scrollPos = GUI.BeginScrollView(new Rect(0, 0, position.width, position.height), fungusScript.scrollPos, scrollViewRect);
 
-	        // In games, GUI.Window pops up a window on your screen. In the Editor, GUI.Window shows a sub-window inside an EditorWindow.
-	        // All calls to GUI.Window need to be wrapped in a BeginWindows / EndWindows pair.
-	        // http://docs.unity3d.com/Documentation/ScriptReference/EditorWindow.BeginWindows.html
 	        BeginWindows();
 
 			GUIStyle windowStyle = new GUIStyle(GUI.skin.window);
-
-			Rect outlineRect = new Rect();
 
 			windowSequenceMap.Clear();
 			for (int i = 0; i < sequences.Length; ++i)
@@ -123,9 +115,18 @@ namespace Fungus.Script
 				DrawConnections(fungusScript, s, true);
 			}
 
-			if (fungusScript.selectedSequence != null)
+			if (fungusScript.selectedSequence != null ||
+			    fungusScript.executingSequence != null)
 			{
-				outlineRect = fungusScript.selectedSequence.nodeRect;
+				Rect outlineRect = new Rect();
+				if (fungusScript.executingSequence != null)
+				{
+					outlineRect = fungusScript.executingSequence.nodeRect;
+				}
+				else if (fungusScript.selectedSequence != null)
+				{
+					outlineRect = fungusScript.selectedSequence.nodeRect;
+				}
 				outlineRect.width += 10;
 				outlineRect.x -= 5;
 				outlineRect.height += 10;
@@ -137,26 +138,6 @@ namespace Fungus.Script
 
 	        GUI.EndScrollView();
 
-			string labelText = fungusScript.name;
-			if (Application.isPlaying)
-			{
-				if (fungusScript.executingSequence == null)
-				{
-					GUI.backgroundColor = Color.white;
-					labelText += " (Idle)";
-				}
-				else
-				{
-					GUI.backgroundColor = Color.green;
-					labelText += " (Running)";
-				}
-			}
-			else
-			{
-				GUI.backgroundColor = Color.yellow;
-				labelText += " (Edit)";
-			}
-			
 			GUILayout.BeginVertical();
 			GUILayout.FlexibleSpace();
 			GUILayout.BeginHorizontal();
@@ -189,76 +170,11 @@ namespace Fungus.Script
 				}
 			}
 
-			/*
-			if (FungusCommandEditor.selectedCommand != null)
-			{
-				if (Selection.activeGameObject == null)
-				{
-					FungusCommandEditor.selectedCommand = null;
-				}
-				else
-				{
-					FungusCommand command = Selection.activeGameObject.GetComponent<FungusCommand>();
-					if (command == null)
-					{
-						FungusCommandEditor.selectedCommand = null;
-					}
-					else if (command.gameObject != FungusCommandEditor.selectedCommand.gameObject)
-					{
-						FungusCommandEditor.selectedCommand = null;
-					}
-				}
-			}
-			*/
-
 			Sequence sequence = windowSequenceMap[windowId];
 
 			GUIStyle labelStyle = new GUIStyle(GUI.skin.label);
 			labelStyle.wordWrap = true;
 			GUILayout.Label(sequence.description, labelStyle);
-
-			/*
-			GUIStyle style = new GUIStyle(GUI.skin.button);
-
-			FungusCommand[] commands = sequence.gameObject.GetComponents<FungusCommand>();
-			foreach (FungusCommand command in commands)
-			{
-				string commandName = command.GetCommandTitle();
-
-				if (command.errorMessage.Length > 0)
-				{
-					GUI.backgroundColor = Color.red;
-				}
-				else if (ShouldHighlight(command))
-				{
-					if (command.IsExecuting())
-					{
-						GUI.backgroundColor = Color.green;
-					}
-					else
-					{
-						GUI.backgroundColor = Color.yellow;
-					}
-				}
-				else
-				{
-					GUI.backgroundColor = Color.white;
-				}
-
-				if (GUILayout.Button(commandName, style, GUILayout.ExpandWidth(true)))
-				{
-					// Highlight the command in inspector
-					FungusCommandEditor.selectedCommand = command;
-				}
-
-				EditorUtility.SetDirty( command );
-			}
-
-			// Add an invisible element if there are no commands to avoid window width/height collapsing
-			if (commands.Length == 0)
-			{
-			}
-			*/
 
 			GUILayout.Space(1);
 

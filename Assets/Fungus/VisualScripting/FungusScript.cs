@@ -21,6 +21,9 @@ namespace Fungus.Script
 		[System.NonSerialized]
 		public FungusCommand copyCommand;
 
+		[HideInInspector]
+		public Vector2 scrollPos;
+
 		public Sequence selectedSequence;
 
 		public bool startAutomatically = false;
@@ -53,6 +56,7 @@ namespace Fungus.Script
 			}
 
 			executingSequence = sequence;
+			selectedSequence = sequence;
 			sequence.ExecuteNextCommand();
 		}
 	}

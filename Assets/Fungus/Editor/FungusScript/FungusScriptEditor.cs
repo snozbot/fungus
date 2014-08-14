@@ -82,9 +82,8 @@ namespace Fungus.Script
 				go.transform.parent = t.transform;
 				go.transform.hideFlags = HideFlags.HideInHierarchy;
 				Sequence s = go.AddComponent<Sequence>();
-				FungusEditorWindow fungusEditorWindow = EditorWindow.GetWindow(typeof(FungusEditorWindow), false, "Fungus Editor") as FungusEditorWindow;
-				s.nodeRect.x = fungusEditorWindow.scrollPos.x;
-				s.nodeRect.y = fungusEditorWindow.scrollPos.y;
+				s.nodeRect.x = t.scrollPos.x;
+				s.nodeRect.y = t.scrollPos.y;
 				Undo.RegisterCreatedObjectUndo(go, "Sequence");
 				t.selectedSequence = s;
 				return;
