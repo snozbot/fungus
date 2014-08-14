@@ -25,6 +25,8 @@ namespace Fungus.Script
 		{
 			FungusCommand t = target as FungusCommand;
 
+			GUILayout.BeginVertical();
+
 			GUILayout.BeginHorizontal();
 
 			t.expanded = EditorGUILayout.Foldout(t.expanded, t.GetType().Name);
@@ -38,6 +40,15 @@ namespace Fungus.Script
 
 			if (!t.expanded)
 			{
+				GUILayout.EndVertical();
+				if (Event.current.type == EventType.Repaint &&
+				    t.IsExecuting())
+				{
+					Rect rect = GUILayoutUtility.GetLastRect();
+					rect.x -= 10;
+					rect.width += 10;
+					GLDraw.DrawBox(rect, Color.green, 1.5f);
+				}
 				return;
 			}
 
@@ -96,17 +107,17 @@ namespace Fungus.Script
 					style.normal.textColor = new Color(1,0,0);
 					EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
 				}
+			}
 
-				/*
-				if (t.IsExecuting())
-				{
-					EditorGUI.DrawRect(rect, new Color(0f, 1f, 0f, 0.25f));
-				}
-				else if (t == selectedCommand)
-				{
-					EditorGUI.DrawRect(rect, new Color(1f, 1f, 0f, 0.25f));
-				}
-				*/
+			GUILayout.EndVertical();
+
+			if (Event.current.type == EventType.Repaint &&
+			    t.IsExecuting())
+			{
+				Rect rect = GUILayoutUtility.GetLastRect();
+				rect.x -= 10;
+				rect.width += 10;
+				GLDraw.DrawBox(rect, Color.green, 1.5f);
 			}
 		}
 
