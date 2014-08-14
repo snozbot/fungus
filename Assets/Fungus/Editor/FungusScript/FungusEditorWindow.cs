@@ -98,7 +98,6 @@ namespace Fungus.Script
 
 			GUIStyle windowStyle = new GUIStyle(GUI.skin.window);
 
-			bool drawOutline = false;
 			Rect outlineRect = new Rect();
 
 			windowSequenceMap.Clear();
@@ -109,16 +108,6 @@ namespace Fungus.Script
 				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
 				float windowWidth = Mathf.Max (titleWidth + 10, 100);
 
-				if (fungusScript.selectedSequence == sequence)
-				{
-					drawOutline = true;
-					outlineRect = sequence.nodeRect;
-					outlineRect.width += 10;
-					outlineRect.x -= 5;
-					outlineRect.height += 10;
-					outlineRect.y -= 5;
-				}
-
 				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, sequence.name, GUILayout.Width(windowWidth), GUILayout.Height(20), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 
 				windowSequenceMap.Add(sequence);
@@ -127,19 +116,24 @@ namespace Fungus.Script
 			// Draw connections
 			foreach (Sequence s in windowSequenceMap)
 			{
-				DrawConnections(s, false);
+				DrawConnections(fungusScript, s, false);
 			}
 			foreach (Sequence s in windowSequenceMap)
 			{
-				DrawConnections(s, true);
+				DrawConnections(fungusScript, s, true);
+			}
+
+			if (fungusScript.selectedSequence != null)
+			{
+				outlineRect = fungusScript.selectedSequence.nodeRect;
+				outlineRect.width += 10;
+				outlineRect.x -= 5;
+				outlineRect.height += 10;
+				outlineRect.y -= 5;
+				GLDraw.DrawBox(outlineRect, Color.green, 2);
 			}
 
 	        EndWindows();
-
-			if (drawOutline)
-			{
-				GLDraw.DrawBox(outlineRect, Color.green, 2);
-			}
 
 	        GUI.EndScrollView();
 
@@ -271,14 +265,16 @@ namespace Fungus.Script
 	        GUI.DragWindow();
 	    }
 
-		void DrawConnections(Sequence sequence, bool highlightedOnly)
+		void DrawConnections(FungusScript fungusScript, Sequence sequence, bool highlightedOnly)
 		{
 			List<Sequence> connectedSequences = new List<Sequence>();
+
+			bool sequenceIsSelected = (fungusScript.selectedSequence == sequence);
 
 			FungusCommand[] commands = sequence.GetComponentsInChildren<FungusCommand>();
 			foreach (FungusCommand command in commands)
 			{
-				bool highlight = ShouldHighlight(command);
+				bool highlight = command.IsExecuting() || (sequenceIsSelected && command.expanded);
 
 				if (highlightedOnly && !highlight ||
 				    !highlightedOnly && highlight)
@@ -291,43 +287,33 @@ namespace Fungus.Script
 
 				foreach (Sequence sequenceB in connectedSequences)
 				{
-					Rect rectA = sequence.nodeRect;
-					Rect rectB = sequenceB.nodeRect;
-
-					Vector2 pointA;
-					Vector2 pointB;
-
-					Vector2 p1 = rectA.center;
-					Vector2 p2 = rectB.center;
-					GLDraw.segment_rect_intersection(rectA, ref p1, ref p2);
-					pointA = p2;
-
-					p1 = rectB.center;
-					p2 = rectA.center;
-					GLDraw.segment_rect_intersection(rectB, ref p1, ref p2);
-					pointB = p2;
-
-					Color color = Color.grey;
-					if (highlight)
-					{
-						if (command.IsExecuting())
-						{
-							color = Color.green;
-						}
-						else
-						{
-							color = Color.yellow;
-						}
-					}
-
-					GLDraw.DrawConnectingCurve(pointA, pointB, color, 2);
+					DrawRectConnection(sequence.nodeRect, sequenceB.nodeRect, highlight);
 				}
 			}
 		}
 
-		bool ShouldHighlight(FungusCommand command)
+		void DrawRectConnection(Rect rectA, Rect rectB, bool highlight)
 		{
-			return (command.IsExecuting() || (FungusCommandEditor.selectedCommand == command));
+			Vector2 pointA;
+			Vector2 pointB;
+			
+			Vector2 p1 = rectA.center;
+			Vector2 p2 = rectB.center;
+			GLDraw.segment_rect_intersection(rectA, ref p1, ref p2);
+			pointA = p2;
+			
+			p1 = rectB.center;
+			p2 = rectA.center;
+			GLDraw.segment_rect_intersection(rectB, ref p1, ref p2);
+			pointB = p2;
+			
+			Color color = Color.grey;
+			if (highlight)
+			{
+				color = Color.green;
+			}
+			
+			GLDraw.DrawConnectingCurve(pointA, pointB, color, 2);
 		}
 	}
 
