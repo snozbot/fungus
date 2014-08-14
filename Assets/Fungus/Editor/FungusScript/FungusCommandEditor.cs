@@ -29,7 +29,13 @@ namespace Fungus.Script
 
 			GUILayout.BeginHorizontal();
 
-			t.expanded = EditorGUILayout.Foldout(t.expanded, t.GetType().Name);
+			bool expanded = EditorGUILayout.Foldout(t.expanded, t.GetType().Name);
+
+			if (expanded != t.expanded)
+			{
+				Undo.RecordObject(t, "Set Expanded");
+				t.expanded = expanded;
+			}
 
 			GUIStyle labelStyle = EditorStyles.miniLabel;
 			GUILayout.Label(t.GetDescription().Replace("\n", "").Replace("\r", ""), labelStyle);
