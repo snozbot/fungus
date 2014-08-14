@@ -10,9 +10,7 @@ namespace Fungus.Script
 	[CustomEditor (typeof(Sequence))]
 	public class SequenceEditor : Editor 
 	{
-		// FungusCommand activeCommand;
-
-		static public Sequence SequenceField(GUIContent label, FungusScript fungusScript, Sequence sequence)
+		static public Sequence SequenceField(GUIContent label, GUIContent nullLabel, FungusScript fungusScript, Sequence sequence)
 		{
 			if (fungusScript == null)
 			{
@@ -25,7 +23,7 @@ namespace Fungus.Script
 			List<GUIContent> sequenceNames = new List<GUIContent>();
 			
 			int selectedIndex = 0;
-			sequenceNames.Add(new GUIContent("<None>"));
+			sequenceNames.Add(nullLabel);
 			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>();
 			for (int i = 0; i < sequences.Length; ++i)
 			{

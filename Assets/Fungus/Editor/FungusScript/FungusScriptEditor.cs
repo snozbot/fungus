@@ -38,12 +38,14 @@ namespace Fungus.Script
 			
 			FungusScript t = target as FungusScript;
 
-			GUIContent stepTimeLabel = new GUIContent("Step Time", "Minimum time to execute each step");
-			t.stepTime = EditorGUILayout.FloatField(stepTimeLabel, t.stepTime);
-			
-			GUIContent startSequenceLabel = new GUIContent("Start Sequence", "Sequence to be executed when controller starts.");
-			t.startSequence = SequenceEditor.SequenceField(startSequenceLabel, t, t.startSequence);
+			float stepTime = EditorGUILayout.FloatField(new GUIContent("Step Time", "Minimum time to execute each step"), t.stepTime);
 
+			EditorGUI.BeginChangeCheck();
+
+			Sequence startSequence = SequenceEditor.SequenceField(new GUIContent("Start Sequence", "Sequence to be executed when controller starts."), 
+			                                                      new GUIContent("<None>"),
+			                                                      t, 
+			                                                      t.startSequence);
 			if (t.startSequence == null)
 			{
 				GUIStyle style = new GUIStyle(GUI.skin.label);
@@ -51,8 +53,17 @@ namespace Fungus.Script
 				EditorGUILayout.LabelField(new GUIContent("Error: Please select a Start Sequence"), style);
 			}
 
-			GUIContent startAutomaticallyLabel = new GUIContent("Start Automatically", "Start this Fungus Script when the scene starts.");
-			t.startAutomatically = EditorGUILayout.Toggle(startAutomaticallyLabel, t.startAutomatically);
+			bool startAutomatically = EditorGUILayout.Toggle(new GUIContent("Start Automatically", "Start this Fungus Script when the scene starts."), t.startAutomatically);
+
+			if (EditorGUI.EndChangeCheck())
+			{
+				Undo.RecordObject(t, "Set Fungus Script");
+				t.stepTime = stepTime;
+				t.startSequence = startSequence;
+				t.startAutomatically = startAutomatically;
+			}
+
+			EditorGUILayout.Separator();
 
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();

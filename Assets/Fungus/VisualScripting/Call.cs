@@ -7,7 +7,7 @@ namespace Fungus.Script
 	public enum CallCondition
 	{
 		CallAlways,
-		CallOnCompare
+		CallIf
 	}
 
 	public enum CompareOperator
@@ -202,7 +202,7 @@ namespace Fungus.Script
 
 				if (onTrueSequence == null)
 				{
-					description += "<continue>";
+					description += "<Continue>";
 				}
 				else
 				{
@@ -211,7 +211,7 @@ namespace Fungus.Script
 				description += " else ";
 				if (onFalseSequence == null)
 				{
-					description += "<continue>";
+					description += "<Continue>";
 				}
 				else
 				{

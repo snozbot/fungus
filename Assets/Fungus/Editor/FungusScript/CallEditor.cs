@@ -30,7 +30,10 @@ namespace Fungus.Script
 			
 			if (t.callCondition == CallCondition.CallAlways)
 			{
-				Sequence targetSequence = SequenceEditor.SequenceField(new GUIContent("Target Sequence", "Sequence to call"), t.GetFungusScript(), t.targetSequence);
+				Sequence targetSequence = SequenceEditor.SequenceField(new GUIContent("Target Sequence", "Sequence to call"), 
+				                                                       new GUIContent("<Continue>"), 
+				                                                       t.GetFungusScript(), 
+				                                                       t.targetSequence);
 				if (targetSequence != t.targetSequence)
 				{
 					Undo.RecordObject(t, "Set Target Sequence");
@@ -39,7 +42,7 @@ namespace Fungus.Script
 				return;
 			}
 
-			FungusVariable fungusVariable = FungusVariableEditor.VariableField(new GUIContent("Compare Variable", "Variable to use in compare operation"),
+			FungusVariable fungusVariable = FungusVariableEditor.VariableField(new GUIContent("Variable", "Variable to use in operation"),
 			                                                                   t.GetFungusScript(),
 			                                                                   t.variable,
 			                                                                   null);
@@ -95,10 +98,12 @@ namespace Fungus.Script
 			}
 
 			Sequence onTrue = SequenceEditor.SequenceField(new GUIContent("On True Sequence", "Sequence to execute if comparision is true"),
+			                                               new GUIContent("<Continue>"),
 			                                               t.GetFungusScript(), 
 			                                               t.onTrueSequence);
 
 			Sequence onFalse = SequenceEditor.SequenceField(new GUIContent("On False Sequence", "Sequence to execute if comparision is false"),
+			                                                new GUIContent("<Continue>"),
 			                                                t.GetFungusScript(), 
 			                                                t.onFalseSequence);
 

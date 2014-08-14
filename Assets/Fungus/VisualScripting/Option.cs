@@ -76,10 +76,14 @@ namespace Fungus.Script
 			}
 		}
 
-
 		public override string GetDescription()
 		{
-			return "\"" + optionText + "\"";
+			string description = "\"" + optionText + "\"";
+			if (targetSequence != null)
+			{
+				description += " (" + targetSequence.name + ")";
+			}
+			return description;
 		}
 	}
 	
