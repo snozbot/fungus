@@ -76,6 +76,11 @@ namespace Fungus.Script
 			}
 		}
 
+
+		public override string GetDescription()
+		{
+			return "\"" + optionText + "\"";
+		}
 	}
 	
 }
