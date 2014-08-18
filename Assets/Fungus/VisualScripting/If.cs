@@ -191,6 +191,11 @@ namespace Fungus.Script
 
 			return description;
 		}
+
+		public override bool HasReference(FungusVariable variable)
+		{
+			return (variable == this.variable);
+		}
 	}
 
 }

@@ -98,6 +98,11 @@ namespace Fungus.Script
 
 		public virtual void GetConnectedSequences(ref List<Sequence> connectedSequences)
 		{}
+
+		public virtual bool HasReference(FungusVariable variable)
+		{
+			return false;
+		}
 		
 		public virtual string GetSummary()
 		{

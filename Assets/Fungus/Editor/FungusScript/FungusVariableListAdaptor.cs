@@ -173,6 +173,46 @@ namespace Fungus.Script
 				variable.key = key;
 				variable.scope = scope;
 			}
+
+			FungusScript fungusScript = FungusEditorWindow.GetFungusScript();
+			if (fungusScript != null)
+			{
+				bool highlight = false;
+
+				// Is an executing command referencing this variable?
+				if (Application.isPlaying)
+				{
+					if (fungusScript.executingSequence != null &&
+					    fungusScript.executingSequence.activeCommand != null)
+					{
+						if (fungusScript.executingSequence.activeCommand.HasReference(variable))
+						{
+							highlight = true;
+						}
+					}
+				}
+				else
+				{
+					// Is an expanded command referencing this variable?
+					if (fungusScript.selectedSequence != null)
+					{
+						FungusCommand[] commands = fungusScript.selectedSequence.GetComponents<FungusCommand>();
+						foreach (FungusCommand command in commands)
+						{
+							if (command.expanded &&
+							    command.HasReference(variable))
+							{
+								highlight = true;
+							}
+						}
+					}
+				}
+
+				if (highlight)
+				{
+					GLDraw.DrawBox(position, Color.green, 2);
+				}
+			}
 		}
 
 		public virtual float GetItemHeight(int index) {
