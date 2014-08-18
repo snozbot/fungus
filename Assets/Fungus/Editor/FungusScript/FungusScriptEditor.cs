@@ -39,9 +39,9 @@ namespace Fungus.Script
 				t.transform.hideFlags = (components.Length == 2) ? HideFlags.HideInInspector : HideFlags.None;
 			}
 
-			float stepTime = EditorGUILayout.FloatField(new GUIContent("Step Time", "Minimum time to execute each step"), t.stepTime);
-
 			EditorGUI.BeginChangeCheck();
+
+			float stepTime = EditorGUILayout.FloatField(new GUIContent("Step Time", "Minimum time to execute each step"), t.stepTime);
 
 			Sequence startSequence = SequenceEditor.SequenceField(new GUIContent("Start Sequence", "Sequence to be executed when controller starts."), 
 			                                                      new GUIContent("<None>"),
