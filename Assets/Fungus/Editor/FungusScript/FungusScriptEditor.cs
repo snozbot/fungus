@@ -150,16 +150,22 @@ namespace Fungus.Script
 		{
 			EditorGUI.BeginChangeCheck();
 
-			string sequenceName = EditorGUILayout.TextField(new GUIContent("Sequence Name", "Name of sequence displayed in editor window"), sequence.name);
-			string sequenceDescription = EditorGUILayout.TextField(new GUIContent("Description", "Sequence description displayed in editor window"), sequence.description);
+			string name = EditorGUILayout.TextField(new GUIContent("Sequence Name", "Name of sequence displayed in editor window"), sequence.name);
+			string desc = EditorGUILayout.TextField(new GUIContent("Description", "Sequence description displayed in editor window"), sequence.description);
 
 			EditorGUILayout.Separator();
 
-			if (EditorGUI.EndChangeCheck())
+			if (name != sequence.name)
 			{
-				Undo.RecordObject(sequence, "Set Sequence");
-				sequence.name = sequenceName;
-				sequence.description = sequenceDescription;
+				// The name is the gameobject name, so have to undo seperately
+				Undo.RecordObject(sequence.gameObject, "Set Sequence Name");
+				sequence.name = name;
+			}
+
+			if (desc != sequence.description)
+			{
+				Undo.RecordObject(sequence, "Set Sequence Description");
+				sequence.description = desc;
 			}
 
 			EditorGUILayout.PrefixLabel("Commands");
