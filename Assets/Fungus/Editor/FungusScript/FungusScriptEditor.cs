@@ -87,7 +87,7 @@ namespace Fungus.Script
 				GUILayout.FlexibleSpace();
 			}
 
-			if (GUILayout.Button("Create", 
+			if (GUILayout.Button(t.selectedSequence == null ? "Create Sequence" : "Create", 
 			                     t.selectedSequence == null ?  EditorStyles.miniButton : EditorStyles.miniButtonLeft))
 			{
 				GameObject go = new GameObject("Sequence");
