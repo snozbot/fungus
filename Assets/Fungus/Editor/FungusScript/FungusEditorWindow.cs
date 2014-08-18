@@ -145,7 +145,7 @@ namespace Fungus.Script
 			GUI.backgroundColor = Color.white;
 			if (GUILayout.Button("Show Variables"))
 			{
-				EditorWindow.GetWindow<VariablesWindow>(true, "Fungus Variables");
+				EditorWindow.GetWindow<VariablesWindow>("Fungus Variables");
 			}
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
