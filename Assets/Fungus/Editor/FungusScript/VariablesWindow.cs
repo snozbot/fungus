@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System;
 using System.Collections;
@@ -18,7 +18,7 @@ namespace Fungus.Script
 
 		void OnGUI()
 		{
-			FungusScript fungusScript = FungusEditorWindow.GetFungusScript();
+			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
 
 			if (fungusScript == null)
 			{

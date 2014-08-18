@@ -68,9 +68,9 @@ namespace Fungus.Script
 
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
-			if (GUILayout.Button("Open Fungus Editor"))
+			if (GUILayout.Button("Open Editor"))
 			{
-				EditorWindow.GetWindow(typeof(FungusEditorWindow), false, "Fungus Editor");
+				EditorWindow.GetWindow(typeof(FungusScriptWindow), false, "Fungus Script");
 			}
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();

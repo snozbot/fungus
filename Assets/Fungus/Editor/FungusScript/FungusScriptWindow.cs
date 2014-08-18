@@ -7,16 +7,16 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
-	public class FungusEditorWindow : EditorWindow
+	public class FungusScriptWindow : EditorWindow
 	{
 		private List<Sequence> windowSequenceMap = new List<Sequence>();
 
 		static public FungusScript activeFungusScript;
 
-	    [MenuItem("Window/Fungus Editor")]
+	    [MenuItem("Window/Fungus Script")]
 	    static void Init()
 	    {
-	        GetWindow(typeof(FungusEditorWindow), false, "Fungus Editor");
+	        GetWindow(typeof(FungusScriptWindow), false, "Fungus Script");
 	    }
 
 		public void OnInspectorUpdate()

@@ -174,7 +174,7 @@ namespace Fungus.Script
 				variable.scope = scope;
 			}
 
-			FungusScript fungusScript = FungusEditorWindow.GetFungusScript();
+			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
 			if (fungusScript != null)
 			{
 				bool highlight = false;
