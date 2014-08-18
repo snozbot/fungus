@@ -125,6 +125,10 @@ namespace Fungus.Script
 			GUILayout.FlexibleSpace();
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(10);
+			GUILayout.Label(fungusScript.name, EditorStyles.miniLabel);
+			GUILayout.EndHorizontal();
+			GUILayout.BeginHorizontal();
+			GUILayout.Space(10);
 			GUI.backgroundColor = Color.white;
 			if (GUILayout.Button("Show Variables"))
 			{
@@ -132,7 +136,7 @@ namespace Fungus.Script
 			}
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
-			GUILayout.Space(15);
+			GUILayout.Space(20);
 			GUILayout.EndVertical();
 	    }
 
