@@ -25,6 +25,11 @@ namespace Fungus.Script
 		{
 			FungusCommand t = target as FungusCommand;
 
+			if (t == null)
+			{
+				return;
+			}
+
 			GUILayout.BeginVertical();
 
 			GUILayout.BeginHorizontal();
@@ -44,74 +49,63 @@ namespace Fungus.Script
 
 			GUILayout.EndHorizontal();
 
-			if (!t.expanded)
+			if (t.expanded)
 			{
-				GUILayout.EndVertical();
-				if (Event.current.type == EventType.Repaint &&
-				    t.IsExecuting())
+				GUILayout.BeginHorizontal();
+
+				GUILayout.FlexibleSpace();
+
+				if (GUILayout.Button("Up", EditorStyles.miniButtonLeft))
 				{
-					Rect rect = GUILayoutUtility.GetLastRect();
-					rect.x -= 10;
-					rect.width += 10;
-					GLDraw.DrawBox(rect, Color.green, 1.5f);
+					UnityEditorInternal.ComponentUtility.MoveComponentUp(t);
 				}
-				return;
-			}
-
-			GUILayout.BeginHorizontal();
-
-			GUILayout.FlexibleSpace();
-
-			if (GUILayout.Button("Up", EditorStyles.miniButtonLeft))
-			{
-				UnityEditorInternal.ComponentUtility.MoveComponentUp(t);
-			}
-			if (GUILayout.Button("Down", EditorStyles.miniButtonMid))
-			{
-				UnityEditorInternal.ComponentUtility.MoveComponentDown(t);
-			}
-			
-			FungusScript fungusScript = t.GetFungusScript();
-			
-			if (fungusScript != null)
-			{
-				if (GUILayout.Button("Copy", EditorStyles.miniButtonMid))
+				if (GUILayout.Button("Down", EditorStyles.miniButtonMid))
 				{
-					fungusScript.copyCommand = t;
+					UnityEditorInternal.ComponentUtility.MoveComponentDown(t);
 				}
 				
-				if (fungusScript.copyCommand != null)
+				FungusScript fungusScript = t.GetFungusScript();
+				
+				if (fungusScript != null)
 				{
-					if (GUILayout.Button("Paste", EditorStyles.miniButtonMid))
+					if (GUILayout.Button("Copy", EditorStyles.miniButtonMid))
 					{
-						CopyComponent<FungusCommand>(fungusScript.copyCommand, t.gameObject);
+						fungusScript.copyCommand = t;
+					}
+					
+					if (fungusScript.copyCommand != null)
+					{
+						if (GUILayout.Button("Paste", EditorStyles.miniButtonMid))
+						{
+							CopyComponent<FungusCommand>(fungusScript.copyCommand, t.gameObject);
+						}
 					}
 				}
-			}
-			
-			if (GUILayout.Button("Delete", EditorStyles.miniButtonRight))
-			{
-				Undo.DestroyObjectImmediate(t);
-				return;
-			}
-
-			GUILayout.FlexibleSpace();
-
-			GUILayout.EndHorizontal();
-
-			EditorGUILayout.Separator();
-
-			DrawCommandGUI();
-
-			EditorGUILayout.Separator();
-
-			if (t != null)
-			{
-				if (t.errorMessage.Length > 0)
+				
+				if (GUILayout.Button("Delete", EditorStyles.miniButtonRight))
 				{
-					GUIStyle style = new GUIStyle(GUI.skin.label);
-					style.normal.textColor = new Color(1,0,0);
-					EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
+					Undo.DestroyObjectImmediate(t);
+					return;
+				}
+
+				GUILayout.FlexibleSpace();
+
+				GUILayout.EndHorizontal();
+
+				EditorGUILayout.Separator();
+
+				DrawCommandGUI();
+
+				EditorGUILayout.Separator();
+
+				if (t != null)
+				{
+					if (t.errorMessage.Length > 0)
+					{
+						GUIStyle style = new GUIStyle(GUI.skin.label);
+						style.normal.textColor = new Color(1,0,0);
+						EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
+					}
 				}
 			}
 

@@ -190,6 +190,11 @@ namespace Fungus.Script
 		{
 			if (callCondition == CallCondition.CallAlways)
 			{
+				if (targetSequence == null)
+				{
+					return "No target sequence selected";
+				}
+
 				return targetSequence.name;
 			}
 			else
