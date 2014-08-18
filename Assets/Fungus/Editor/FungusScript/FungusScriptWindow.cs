@@ -50,12 +50,6 @@ namespace Fungus.Script
 
 			EditorUtility.SetDirty(fungusScript);
 
-			if (Event.current.button == 0 && 
-			    Event.current.type == EventType.MouseDown) 
-			{
-				fungusScript.selectedSequence = null;
-			}
-
 			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>();
 
 			Rect scrollViewRect = new Rect();
