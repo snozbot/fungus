@@ -21,7 +21,7 @@ namespace Fungus.Script
 			}
 		}
 
-		public override void OnInspectorGUI() 
+		public virtual void DrawInspectorGUI(int commandIndex) 
 		{
 			FungusCommand t = target as FungusCommand;
 
@@ -34,7 +34,9 @@ namespace Fungus.Script
 
 			GUILayout.BeginHorizontal();
 
-			bool expanded = EditorGUILayout.Foldout(t.expanded, t.GetType().Name);
+			string commandLabel = commandIndex.ToString() + "  " + t.GetType().Name;
+
+			bool expanded = EditorGUILayout.Foldout(t.expanded, commandLabel);
 
 			if (expanded != t.expanded)
 			{

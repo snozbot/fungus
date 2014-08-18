@@ -164,10 +164,11 @@ namespace Fungus.Script
 			EditorGUILayout.PrefixLabel("Commands");
 
 			FungusCommand[] commands = sequence.GetComponents<FungusCommand>();
+			int index = 1;
 			foreach (FungusCommand command in commands)
 			{
-				Editor commandEditor = Editor.CreateEditor(command);
-				commandEditor.OnInspectorGUI();
+				FungusCommandEditor commandEditor = Editor.CreateEditor(command) as FungusCommandEditor;
+				commandEditor.DrawInspectorGUI(index++);
 			}
 		}
 
