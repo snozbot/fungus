@@ -115,6 +115,8 @@ namespace Fungus.Script
 				DrawConnections(fungusScript, s, true);
 			}
 
+	        EndWindows();
+
 			if (fungusScript.selectedSequence != null ||
 			    fungusScript.executingSequence != null)
 			{
@@ -134,9 +136,7 @@ namespace Fungus.Script
 				GLDraw.DrawBox(outlineRect, Color.green, 2);
 			}
 
-	        EndWindows();
-
-	        GUI.EndScrollView();
+			GUI.EndScrollView();
 
 			GUILayout.BeginVertical();
 			GUILayout.FlexibleSpace();
