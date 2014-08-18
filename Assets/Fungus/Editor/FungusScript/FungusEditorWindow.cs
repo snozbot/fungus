@@ -56,6 +56,7 @@ namespace Fungus.Script
 			FungusScript fungusScript = GetFungusScript();
 			if (fungusScript == null)
 			{
+				GUILayout.Label("No Fungus Script object selected");
 				return;
 			}
 
