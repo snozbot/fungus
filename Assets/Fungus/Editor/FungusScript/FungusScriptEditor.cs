@@ -19,16 +19,13 @@ namespace Fungus.Script
 			{
 				variablesProperty = serializedObject.FindProperty("variables");
 			}
-
-			FungusScript t = target as FungusScript;
-			if (t != null)
-			{
-				t.transform.hideFlags = HideFlags.HideInInspector;
-			}
 		}
 		
 		public void OnInspectorUpdate()
 		{
+
+			FungusScript t = target as FungusScript;
+
 			Repaint();
 		}
 		
@@ -37,6 +34,13 @@ namespace Fungus.Script
 			serializedObject.Update();
 			
 			FungusScript t = target as FungusScript;
+
+			if (t != null)
+			{
+				// Hide the transform component if FungusScript is the only component on the game object
+				Component[] components = t.GetComponents(typeof(Component));
+				t.transform.hideFlags = (components.Length == 2) ? HideFlags.HideInInspector : HideFlags.None;
+			}
 
 			float stepTime = EditorGUILayout.FloatField(new GUIContent("Step Time", "Minimum time to execute each step"), t.stepTime);
 
