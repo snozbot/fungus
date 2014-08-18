@@ -41,6 +41,17 @@ namespace Fungus.Script
 			}
 		}
 
+		public Sequence CreateSequence(Vector2 position)
+		{
+			GameObject go = new GameObject("Sequence");
+			go.transform.parent = transform;
+			go.transform.hideFlags = HideFlags.HideInHierarchy;
+			Sequence s = go.AddComponent<Sequence>();
+			s.nodeRect.x = position.x;
+			s.nodeRect.y = position.y;
+			return s;
+		}
+
 		public void Execute()
 		{
 			if (startSequence == null)

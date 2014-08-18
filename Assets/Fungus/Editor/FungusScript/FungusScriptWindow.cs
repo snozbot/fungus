@@ -71,6 +71,17 @@ namespace Fungus.Script
 
 			fungusScript.scrollPos = GUI.BeginScrollView(new Rect(0, 0, position.width, position.height), fungusScript.scrollPos, scrollViewRect);
 
+			if (Event.current.type == EventType.ContextClick)
+			{
+				GenericMenu menu = new GenericMenu();
+				Vector2 mousePos = Event.current.mousePosition;
+				mousePos += fungusScript.scrollPos;
+				menu.AddItem (new GUIContent ("Create Sequence"), false, CreateSequenceCallback, mousePos);
+				menu.ShowAsContext ();
+				
+				Event.current.Use();
+			}
+
 	        BeginWindows();
 
 			GUIStyle windowStyle = new GUIStyle(GUI.skin.window);
@@ -138,10 +149,23 @@ namespace Fungus.Script
 			GUILayout.EndHorizontal();
 			GUILayout.Space(20);
 			GUILayout.EndVertical();
-	    }
+		}
 
-	    void DrawWindow(int windowId)
-	    {
+		void CreateSequenceCallback(object item)
+		{
+			FungusScript fungusScript = GetFungusScript();
+			if (fungusScript != null)
+			{
+				Vector2 position = (Vector2)item;
+				position -= fungusScript.scrollPos;
+				Sequence newSequence = fungusScript.CreateSequence(position);
+				Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
+				fungusScript.selectedSequence = newSequence;
+			}				
+		}
+
+		void DrawWindow(int windowId)
+		{
 			// Select sequence when node is clicked
 			if (Event.current.button == 0 && 
 		    	Event.current.type == EventType.MouseDown) 

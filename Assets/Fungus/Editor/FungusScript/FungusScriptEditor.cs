@@ -90,15 +90,9 @@ namespace Fungus.Script
 			if (GUILayout.Button(t.selectedSequence == null ? "Create Sequence" : "Create", 
 			                     t.selectedSequence == null ?  EditorStyles.miniButton : EditorStyles.miniButtonLeft))
 			{
-				GameObject go = new GameObject("Sequence");
-				go.transform.parent = t.transform;
-				go.transform.hideFlags = HideFlags.HideInHierarchy;
-				Sequence s = go.AddComponent<Sequence>();
-				s.nodeRect.x = t.scrollPos.x;
-				s.nodeRect.y = t.scrollPos.y;
-				Undo.RegisterCreatedObjectUndo(go, "Sequence");
-				t.selectedSequence = s;
-				return;
+				Sequence newSequence = t.CreateSequence(t.scrollPos);
+				Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
+				t.selectedSequence = newSequence;
 			}
 
 			if (t.selectedSequence == null)
