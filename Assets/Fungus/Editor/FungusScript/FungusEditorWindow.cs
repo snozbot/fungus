@@ -10,7 +10,9 @@ namespace Fungus.Script
 	public class FungusEditorWindow : EditorWindow
 	{
 		private List<Sequence> windowSequenceMap = new List<Sequence>();
-		
+
+		static public FungusScript activeFungusScript;
+
 	    [MenuItem("Window/Fungus Editor")]
 	    static void Init()
 	    {
@@ -24,31 +26,17 @@ namespace Fungus.Script
 
 		static public FungusScript GetFungusScript()
 		{
-			GameObject activeObject = Selection.activeGameObject;
-
-			while (activeObject != null)
+			if (Selection.activeGameObject != null)
 			{
-				FungusScript fungusScript = activeObject.GetComponent<FungusScript>();
-				Sequence sequence = activeObject.GetComponent<Sequence>();
+				FungusScript fungusScript = Selection.activeGameObject.GetComponent<FungusScript>();
 
 				if (fungusScript != null)
 				{
-					// Found sequence controller
-					return fungusScript;
-				}
-				else if (sequence != null &&
-				         sequence.transform.parent != null)
-				{
-					// Check parent for sequence controller
-					activeObject = sequence.transform.parent.gameObject;
-				}
-				else
-				{
-					activeObject = null;
+					activeFungusScript = fungusScript;
 				}
 			}
 
-			return null;
+			return activeFungusScript;
 		}
 
 	    void OnGUI()
@@ -167,6 +155,8 @@ namespace Fungus.Script
 					{
 						FungusScript fungusScript = s.GetFungusScript();
 						fungusScript.selectedSequence = s;
+
+						Selection.activeGameObject = fungusScript.gameObject;
 					}
 				}
 			}
