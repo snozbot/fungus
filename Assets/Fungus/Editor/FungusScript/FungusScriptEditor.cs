@@ -23,9 +23,6 @@ namespace Fungus.Script
 		
 		public void OnInspectorUpdate()
 		{
-
-			FungusScript t = target as FungusScript;
-
 			Repaint();
 		}
 		
