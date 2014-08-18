@@ -6,39 +6,18 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
-	[CustomEditor (typeof(Call))]
-	public class CallEditor : FungusCommandEditor 
+	[CustomEditor (typeof(If))]
+	public class IfEditor : FungusCommandEditor 
 	{
 		public override void DrawCommandGUI()
 		{
 			serializedObject.Update();
-			
-			Call t = target as Call;
 
-			FungusScript sc = t.GetFungusScript();
-			if (sc == null)
-			{
-				return;
-			}
+			If t = target as If;
 
-			CallCondition callCondition = (CallCondition)EditorGUILayout.EnumPopup(new GUIContent("Call Condition", "Condition when call will occur"), t.callCondition);
-			if (callCondition != t.callCondition)
+			FungusScript fungusScript = t.GetFungusScript();
+			if (fungusScript == null)
 			{
-				Undo.RecordObject(t, "Set Call Condition");
-				t.callCondition = callCondition;
-			}
-			
-			if (t.callCondition == CallCondition.CallAlways)
-			{
-				Sequence targetSequence = SequenceEditor.SequenceField(new GUIContent("Target Sequence", "Sequence to call"), 
-				                                                       new GUIContent("<Continue>"), 
-				                                                       t.GetFungusScript(), 
-				                                                       t.targetSequence);
-				if (targetSequence != t.targetSequence)
-				{
-					Undo.RecordObject(t, "Set Target Sequence");
-					t.targetSequence = targetSequence;
-				}
 				return;
 			}
 
@@ -49,7 +28,7 @@ namespace Fungus.Script
 
 			if (fungusVariable != t.variable)
 			{
-				Undo.RecordObject(t, "Select variable");
+				Undo.RecordObject(t, "Select Variable");
 				t.variable = fungusVariable;
 			}
 
@@ -70,52 +49,54 @@ namespace Fungus.Script
 				operatorList.Add(new GUIContent(">="));
 			}
 
-			CompareOperator compareOperator = (CompareOperator)EditorGUILayout.Popup(new GUIContent("Operator", 
+			CompareOperator compareOperator = (CompareOperator)EditorGUILayout.Popup(new GUIContent("Compare", 
 			                                                                                        "The comparison operator to use when comparing values"), 
 			                                                                         (int)t.compareOperator, 
 			                                                                         operatorList.ToArray());
 			if (compareOperator != t.compareOperator)
 			{
-				Undo.RecordObject(t, "Select compare operator");
+				Undo.RecordObject(t, "Select Compare Operator");
 				t.compareOperator = compareOperator;
 			}
 
 			if (t.variable.GetType() == typeof(BooleanVariable))
 			{
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("booleanData"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("booleanValue"));
 			}
 			else if (t.variable.GetType() == typeof(IntegerVariable))
 			{
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("integerData"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("integerValue"));
 			}
 			else if (t.variable.GetType() == typeof(FloatVariable))
 			{
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("floatData"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("floatValue"));
 			}
 			else if (t.variable.GetType() == typeof(StringVariable))
 			{
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("stringData"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("stringValue"));
 			}
 
-			Sequence onTrue = SequenceEditor.SequenceField(new GUIContent("On True Sequence", "Sequence to execute if comparision is true"),
+			EditorGUILayout.Separator();
+
+			Sequence thenSequence = SequenceEditor.SequenceField(new GUIContent("Then", "Sequence to execute if comparision is true"),
 			                                               new GUIContent("<Continue>"),
 			                                               t.GetFungusScript(), 
-			                                               t.onTrueSequence);
+			                                               t.thenSequence);
 
-			Sequence onFalse = SequenceEditor.SequenceField(new GUIContent("On False Sequence", "Sequence to execute if comparision is false"),
+			Sequence elseSequence = SequenceEditor.SequenceField(new GUIContent("Else", "Sequence to execute if comparision is false"),
 			                                                new GUIContent("<Continue>"),
 			                                                t.GetFungusScript(), 
-			                                                t.onFalseSequence);
+			                                                t.elseSequence);
 
-			if (onTrue != t.onTrueSequence)
+			if (thenSequence != t.thenSequence)
 			{
-				Undo.RecordObject(t, "Set On True Sequence");
-				t.onTrueSequence = onTrue;
+				Undo.RecordObject(t, "Set Then Sequence");
+				t.thenSequence = thenSequence;
 			}
-			if (onFalse != t.onFalseSequence)
+			if (elseSequence != t.elseSequence)
 			{
-				Undo.RecordObject(t, "Set On False Sequence");
-				t.onFalseSequence = onFalse;
+				Undo.RecordObject(t, "Set Else Sequence");
+				t.elseSequence = elseSequence;
 			}
 
 			serializedObject.ApplyModifiedProperties();

@@ -4,12 +4,6 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
-	public enum CallCondition
-	{
-		CallAlways,
-		CallIf
-	}
-
 	public enum CompareOperator
 	{
 		Equals, 				// ==
@@ -20,38 +14,27 @@ namespace Fungus.Script
 		GreaterThanOrEquals		// >=
 	}
 
-	[HelpText("Start running another sequence. Can use a variable comparision to decide which sequence to run.")]
-	public class Call : FungusCommand
+	[HelpText("Execute another sequence IF a condition is true. Sequences can be specified for both true (THEN) and false (ELSE) conditions.")]
+	public class If : FungusCommand
 	{
-		public CallCondition callCondition;
-	
-		public Sequence targetSequence; // Only used for Always condition
-	
 		public FungusVariable variable;
 
 		public CompareOperator compareOperator;
 
-		public BooleanData booleanData;
+		public BooleanData booleanValue;
 
-		public IntegerData integerData;
+		public IntegerData integerValue;
 
-		public FloatData floatData;
+		public FloatData floatValue;
 
-		public StringData stringData;
+		public StringData stringValue;
 		
-		public Sequence onTrueSequence;
+		public Sequence thenSequence;
 
-		public Sequence onFalseSequence;
+		public Sequence elseSequence;
 
 		public override void OnEnter()
 		{
-			if (callCondition == CallCondition.CallAlways &&
-				targetSequence != null)
-			{
-				ExecuteSequence(targetSequence);
-				return;
-			}
-		
 			bool condition = false;
 
 			if (variable == null)
@@ -63,7 +46,7 @@ namespace Fungus.Script
 			if (variable.GetType() == typeof(BooleanVariable))
 			{
 				bool lhs = (variable as BooleanVariable).Value;
-				bool rhs = booleanData.Value;
+				bool rhs = booleanValue.Value;
 
 				switch (compareOperator)
 				{
@@ -79,7 +62,7 @@ namespace Fungus.Script
 			else if (variable.GetType() == typeof(IntegerVariable))
 			{
 				int lhs = (variable as IntegerVariable).Value;
-				int rhs = integerData.Value;
+				int rhs = integerValue.Value;
 
 				switch (compareOperator)
 				{
@@ -106,7 +89,7 @@ namespace Fungus.Script
 			else if (variable.GetType() == typeof(FloatVariable))
 			{
 				float lhs = (variable as FloatVariable).Value;
-				float rhs = floatData.Value;
+				float rhs = floatValue.Value;
 
 				switch (compareOperator)
 				{
@@ -133,7 +116,7 @@ namespace Fungus.Script
 			else if (variable.GetType() == typeof(StringVariable))
 			{
 				string lhs = (variable as StringVariable).Value;
-				string rhs = stringData.Value;
+				string rhs = stringValue.Value;
 
 				switch (compareOperator)
 				{
@@ -149,17 +132,17 @@ namespace Fungus.Script
 
 			if (condition)
 			{
-				if (onTrueSequence != null)
+				if (thenSequence != null)
 				{
-					ExecuteSequence(onTrueSequence);
+					ExecuteSequence(thenSequence);
 					return;
 				}
 			}
 			else
 			{
-				if (onFalseSequence != null)
+				if (elseSequence != null)
 				{
-					ExecuteSequence(onFalseSequence);
+					ExecuteSequence(elseSequence);
 					return;
 				}
 			}
@@ -169,63 +152,44 @@ namespace Fungus.Script
 
 		public override void GetConnectedSequences(ref List<Sequence> connectedSequences)
 		{
-			if (callCondition == CallCondition.CallAlways &&
-			    targetSequence != null)
+			if (thenSequence != null)
 			{
-				connectedSequences.Add(targetSequence);
-				return;
-			}		
-		
-			if (onTrueSequence != null)
-			{
-				connectedSequences.Add(onTrueSequence);
+				connectedSequences.Add(thenSequence);
 			}
-			if (onFalseSequence != null)
+			if (elseSequence != null)
 			{
-				connectedSequences.Add(onFalseSequence);
+				connectedSequences.Add(elseSequence);
 			}
 		}
 		
 		public override string GetSummary()
 		{
-			if (callCondition == CallCondition.CallAlways)
+			if (variable == null)
 			{
-				if (targetSequence == null)
-				{
-					return "No target sequence selected";
-				}
+				return "No variable selected";
+			}
 
-				return targetSequence.name;
+			string description = "IF " + variable.key + " THEN ";
+
+			if (thenSequence == null)
+			{
+				description += "<Continue>";
 			}
 			else
 			{
-				if (variable == null)
-				{
-					return "No variable selected";
-				}
-
-				string description = "If " + variable.key + " then ";
-
-				if (onTrueSequence == null)
-				{
-					description += "<Continue>";
-				}
-				else
-				{
-					description += onTrueSequence.name;
-				}
-				description += " else ";
-				if (onFalseSequence == null)
-				{
-					description += "<Continue>";
-				}
-				else
-				{
-					description += onFalseSequence.name;
-				}
-
-				return description;
+				description += thenSequence.name;
 			}
+			description += " ELSE ";
+			if (elseSequence == null)
+			{
+				description += "<Continue>";
+			}
+			else
+			{
+				description += elseSequence.name;
+			}
+
+			return description;
 		}
 	}
 
