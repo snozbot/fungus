@@ -169,27 +169,67 @@ namespace Fungus.Script
 				return "No variable selected";
 			}
 
-			string description = "IF " + variable.key + " THEN ";
+			string summary = variable.key;
+			switch (compareOperator)
+			{
+			case CompareOperator.Equals:
+				summary += " == ";
+				break;
+			case CompareOperator.NotEquals:
+				summary += " != ";
+				break;
+			case CompareOperator.LessThan:
+				summary += " < ";
+				break;
+			case CompareOperator.GreaterThan:
+				summary += " > ";
+				break;
+			case CompareOperator.LessThanOrEquals:
+				summary += " <= ";
+				break;
+			case CompareOperator.GreaterThanOrEquals:
+				summary += " >= ";
+				break;
+			}
+
+			if (variable.GetType() == typeof(BooleanVariable))
+			{
+				summary += booleanValue.GetDescription();
+			}
+			else if (variable.GetType() == typeof(IntegerVariable))
+			{
+				summary += integerValue.GetDescription();
+			}
+			else if (variable.GetType() == typeof(FloatVariable))
+			{
+				summary += floatValue.GetDescription();
+			}
+			else if (variable.GetType() == typeof(StringVariable))
+			{
+				summary += stringValue.GetDescription();
+			}
+
+			summary += " THEN ";
 
 			if (thenSequence == null)
 			{
-				description += "<Continue>";
+				summary += "<Continue>";
 			}
 			else
 			{
-				description += thenSequence.name;
+				summary += thenSequence.name;
 			}
-			description += " ELSE ";
+			summary += " ELSE ";
 			if (elseSequence == null)
 			{
-				description += "<Continue>";
+				summary += "<Continue>";
 			}
 			else
 			{
-				description += elseSequence.name;
+				summary += elseSequence.name;
 			}
 
-			return description;
+			return summary;
 		}
 
 		public override bool HasReference(FungusVariable variable)
