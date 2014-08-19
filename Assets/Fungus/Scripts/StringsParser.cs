@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Fungus.Script;
 
 namespace Fungus
 {
@@ -88,7 +89,7 @@ namespace Fungus
 						// Trim off last newline
 						blockBuffer = blockBuffer.TrimEnd( '\r', '\n', ' ', '\t');
 
-						Variables.SetString(blockTag, blockBuffer);
+						GlobalVariables.SetString(blockTag, blockBuffer);
 					}
 
 					// Prepare to parse next block

@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Fungus.Script;
 
 /** 
  * @package Fungus An open source library for Unity 3D for creating graphic interactive fiction games.
@@ -17,7 +18,6 @@ namespace Fungus
 	[RequireComponent(typeof(Dialog))]
 	[RequireComponent(typeof(CommandQueue))]
 	[RequireComponent(typeof(CameraController))]
-	[RequireComponent(typeof(PageController))]
 	public class Game : GameController 
 	{
 		/**
@@ -71,9 +71,6 @@ namespace Fungus
 		[HideInInspector]
 		public CameraController cameraController;
 	
-		[HideInInspector]
-		public PageController pageController;
-
 		/**
 		 * True when executing a Wait() or WaitForTap() command
 		 */
@@ -107,7 +104,6 @@ namespace Fungus
 
 			commandQueue = gameObject.GetComponent<CommandQueue>();
 			cameraController = gameObject.GetComponent<CameraController>();
-			pageController = gameObject.GetComponent<PageController>();
 
 			// Auto-hide buttons should be visible at start of game
 			autoHideButtonTimer = autoHideButtonDuration;
@@ -145,7 +141,7 @@ namespace Fungus
 				return dialog as IDialog;
 			}
 			
-			return pageController as IDialog;
+			return null;
 		}
 
 		/**
@@ -188,8 +184,8 @@ namespace Fungus
 		 */
 		public void SaveGame(string saveName = "_fungus")
 		{
-			Variables.SetString("_scene", Application.loadedLevelName);
-			Variables.Save(saveName);
+			GlobalVariables.SetString("_scene", Application.loadedLevelName);
+			GlobalVariables.Save(saveName);
 		}
 
 		/**
@@ -200,8 +196,8 @@ namespace Fungus
 		 */
 		public void LoadGame(string saveName = "_fungus")
 		{
-			Variables.Load(saveName);
-			string sceneName = Variables.GetString("_scene");
+			GlobalVariables.Load(saveName);
+			string sceneName = GlobalVariables.GetString("_scene");
 			if (sceneName.Length > 0)
 			{
 				MoveToScene(sceneName);

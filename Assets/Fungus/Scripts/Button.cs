@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
-using Fungus;
+using Fungus.Script;
 
 namespace Fungus
 {
@@ -101,7 +101,7 @@ namespace Fungus
 
 			// Hide the button if the specified boolean variable is true
 			if (hideOnBoolean.Length > 0 &&
-			    Variables.GetBoolean(hideOnBoolean))
+			    GlobalVariables.GetBoolean(hideOnBoolean))
 			{
 				targetAlpha = 0f;
 			}

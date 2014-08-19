@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using Fungus;
+using Fungus.Script;
 
 namespace Fungus
 {
@@ -26,7 +26,7 @@ namespace Fungus
 		 */
 		public int GetVisitCount()
 		{
-			return Variables.GetInteger(GetVisitVariableKey());
+			return GlobalVariables.GetInteger(GetVisitVariableKey());
 		}
 
 		/**
@@ -34,7 +34,7 @@ namespace Fungus
 		 */
 		void SetVisitCount(int count)
 		{
-			Variables.SetInteger(GetVisitVariableKey(), count);
+			GlobalVariables.SetInteger(GetVisitVariableKey(), count);
 		}
 
 		/**
@@ -155,9 +155,6 @@ namespace Fungus
 			{
 				button.SetAlpha(0f);
 			}
-
-			// Reset Page layout to default setting specified in Game object
-			game.pageController.SetDefaultPageLayout();
 
 			// Rooms may have multiple child views and page. 
 			// It is the responsibility of the client room script to set the desired active view & page in the OnEnter method.

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace Fungus.Script
@@ -10,8 +10,8 @@ namespace Fungus.Script
 
 		public int Value
 		{
-			get { return (scope == VariableScope.Local) ? integerValue : Variables.GetInteger(key); }
-			set { if (scope == VariableScope.Local) { integerValue = value; } else { Variables.SetInteger(key, value); } }
+			get { return (scope == VariableScope.Local) ? integerValue : GlobalVariables.GetInteger(key); }
+			set { if (scope == VariableScope.Local) { integerValue = value; } else { GlobalVariables.SetInteger(key, value); } }
 		}
 	}
 

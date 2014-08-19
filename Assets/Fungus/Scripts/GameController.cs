@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using Fungus.Script;
 
 namespace Fungus
 {
@@ -324,7 +325,7 @@ namespace Fungus
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(delegate {
-				Variables.SetBoolean(key, value);
+				GlobalVariables.SetBoolean(key, value);
 			}));
 		}
 
@@ -338,7 +339,7 @@ namespace Fungus
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(delegate {
-				Variables.SetInteger(key, value);
+				GlobalVariables.SetInteger(key, value);
 			}));
 		}
 
@@ -352,7 +353,7 @@ namespace Fungus
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(delegate {
-				Variables.SetFloat(key, value);
+				GlobalVariables.SetFloat(key, value);
 			}));
 		}
 
@@ -366,7 +367,7 @@ namespace Fungus
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(delegate {
-				Variables.SetString(key, value);
+				GlobalVariables.SetString(key, value);
 			}));
 		}
 
@@ -379,8 +380,8 @@ namespace Fungus
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(delegate {
-				int value = Variables.GetInteger(key);
-				Variables.SetInteger(key, value + delta);
+				int value = GlobalVariables.GetInteger(key);
+				GlobalVariables.SetInteger(key, value + delta);
 			}));
 		}
 
@@ -393,8 +394,8 @@ namespace Fungus
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(delegate {
-				int value = Variables.GetInteger(key);
-				Variables.SetInteger(key, value * multiplier);
+				int value = GlobalVariables.GetInteger(key);
+				GlobalVariables.SetInteger(key, value * multiplier);
 			}));
 		}
 
@@ -407,8 +408,8 @@ namespace Fungus
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(delegate {
-				float value = Variables.GetFloat(key);
-				Variables.SetFloat(key, value + delta);
+				float value = GlobalVariables.GetFloat(key);
+				GlobalVariables.SetFloat(key, value + delta);
 			}));
 		}
 
@@ -421,8 +422,8 @@ namespace Fungus
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(delegate {
-				float value = Variables.GetFloat(key);
-				Variables.SetFloat(key, value * multiplier);
+				float value = GlobalVariables.GetFloat(key);
+				GlobalVariables.SetFloat(key, value * multiplier);
 			}));
 		}
 
@@ -434,8 +435,8 @@ namespace Fungus
 		{
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.AddCommand(new Command.Call(delegate {
-				bool value = Variables.GetBoolean(key);
-				Variables.SetBoolean(key, !value);
+				bool value = GlobalVariables.GetBoolean(key);
+				GlobalVariables.SetBoolean(key, !value);
 			}));
 		}
 
@@ -623,294 +624,6 @@ namespace Fungus
 				MusicManager.GetInstance().PlaySound(soundClip, volume);
 			}));
 		}
-
-		#endregion
-		#region Obsolete Methods
-
-		/// @cond SHOW_OBSOLETE
-
-		// These methods are provided for backwards compatibility purposes and will be removed in a future release.
-
-		/**
-		 * Sets the screen space rectangle used to display the story text using a Page object.
-		 * Page objects can be edited visually in the Unity editor which is useful for accurate placement.
-		 * The actual screen space rect used is based on both the Page bounds and the camera transform at the time the command is executed.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param page A Page object which defines the screen rect to use when rendering story text.
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void SetPage(Page page, PageController.Layout pageLayout = PageController.Layout.FullSize)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetPage(page, pageLayout));
-		}
-		
-		/**
-		 * Sets the screen space rectangle used to display the story text using a ScreenRect object.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param screenRect A ScreenRect object which defines a rect in normalized screen space coordinates.
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void SetPageRect(PageController.ScreenRect screenRect, PageController.Layout pageLayout = PageController.Layout.FullSize)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetPageRect(screenRect, pageLayout));
-		}
-		
-		/**
-		 * Sets the screen space rectangle used to display the story text.
-		 * The rectangle coordinates are in normalized screen space. e.g. x1 = 0 (left), y1 = 0 (top) x2 = 1 (right) y2 = 1 (bottom).
-		 * The origin is at the top left of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param x1 Page rect left coordinate in normalized screen space coords [0..1]
-		 * @param y1 Page rect top coordinate in normalized screen space coords [0..1
-		 * @param x2 Page rect right coordinate in normalized screen space coords [0..1]
-		 * @param y2 Page rect bottom coordinate in normalized screen space coords [0..1]
-		 * @param pageLayout Layout mode for positioning page within the rect.
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void SetPageRect(float x1, float y1, float x2, float y2, PageController.Layout pageLayout = PageController.Layout.FullSize)
-		{
-			PageController.ScreenRect screenRect = new PageController.ScreenRect();
-			screenRect.x1 = x1;
-			screenRect.y1 = y1;
-			screenRect.x2 = x2;
-			screenRect.y2 = y2;
-			SetPageRect(screenRect, pageLayout);
-		}
-		
-		/**
-		 * Display story page at the top of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
-		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
-		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void SetPageTop(float scaleX, float scaleY, PageController.Layout pageLayout)
-		{
-			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Top);
-			SetPageRect(screenRect, pageLayout);
-		}
-		
-		/**
-		 * Display story page at the top of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void SetPageTop()
-		{
-			Vector2 pageScale = Game.GetInstance().pageController.defaultPageScale;
-			SetPageTop(pageScale.x, pageScale.y, PageController.Layout.FullSize);
-		}
-		
-		/**
-		 * Display story page at the middle of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
-		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
-		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void SetPageMiddle(float scaleX, float scaleY, PageController.Layout pageLayout)
-		{
-			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Middle);
-			SetPageRect(screenRect, pageLayout);
-		}
-		
-		/**
-		 * Display story page at the middle of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void SetPageMiddle()
-		{
-			Vector2 pageScale = Game.GetInstance().pageController.defaultPageScale;
-			SetPageMiddle(pageScale.x, pageScale.y, PageController.Layout.FitToMiddle);
-		}
-		
-		/**
-		 * Display story page at the bottom of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param scaleX Scales the width of the Page [0..1]. 1 = full screen width.
-		 * @param scaleY Scales the height of the Page [0..1]. 1 = full screen height.
-		 * @param pageLayout Controls how the Page is positioned and sized based on the displayed content.
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void SetPageBottom(float scaleX, float scaleY, PageController.Layout pageLayout)
-		{
-			PageController.ScreenRect screenRect = PageController.CalcScreenRect(new Vector2(scaleX, scaleY), PageController.PagePosition.Bottom);
-			SetPageRect(screenRect, pageLayout);
-		}
-		
-		/**
-		 * Display story page at the bottom of the screen.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void SetPageBottom()
-		{
-			Vector2 pageScale = Game.GetInstance().pageController.defaultPageScale;
-			SetPageBottom(pageScale.x, pageScale.y, PageController.Layout.FullSize);
-		}
-		
-		/**
-		 * Sets the active style for displaying the Page.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param pageStyle The style object to make active
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void SetPageStyle(PageStyle pageStyle)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetPageStyle(pageStyle));
-		}
-		
-		/**
-		 * Obsolete: Use SetHeader() instead.
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void Title(string titleText)
-		{
-			SetHeader(titleText);
-		}
-		
-		/**
-		 * Sets the header text displayed at the top of the page.
-		 * The header text is only displayed when there is some story text or options to be shown.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param footerText The text to display as the header of the Page.
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void SetHeader(string headerText)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetHeader(headerText));
-		}
-		
-		/**
-		 * Sets the footer text displayed at the top of the page.
-		 * The footer text is only displayed when there is some story text or options to be shown.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param footerText The text to display as the footer of the Page.
-		 */
-		[Obsolete("Pages are obsolete. Please use the new Dialog system instead.")]
-		public static void SetFooter(string footerText)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.SetFooter(footerText));
-		}
-
-		/**
-		 * Display all previously added options as buttons, with no text prompt.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 */
-		[Obsolete("No longer required. Use Say() instead.")]
-		public static void Choose()
-		{
-			Choose("");
-		}
-		
-		/**
-		 * Displays a story text prompt, followed by all previously added options.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param chooseText The story text to be written above the list of options
-		 */
-		[Obsolete("No longer required. Use Say() instead.")]
-		public static void Choose(string chooseText)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.Choose(chooseText));
-		}
-
-		/**
-		 * Pans the camera through a sequence of target Views over a period of time.
-		 * Note: Does not support camera Rotation.
-		 * The pan starts at the current camera position and performs a smooth pan through all Views in the list.
-		 * Command execution blocks until the pan completes.
-		 * If more control is required over the camera path then you should instead use an Animator component to precisely control the Camera path.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param duration The length of time in seconds needed to complete the pan.
-		 * @param targetViews A parameter list of views to visit during the pan.
-		 */
-		[Obsolete("Use a Camera animation instead.")]
-		public static void PanToPath(float duration, params View[] targetViews)
-		{
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.AddCommand(new Command.PanToPath(targetViews, duration));
-		}
-
-		/**
-		 * Sets a globally accessible integer value.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the value to set
-		 * @param value The value to set
-		 */
-		[Obsolete("Use SetInteger() instead.")]
-		public static void SetValue(string key, int value)
-		{
-			SetInteger(key, value);
-		}
-		
-		/**
-		 * Sets a globally accessible integer value to 1.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The name of the value to set
-		 */
-		[Obsolete("Use SetInteger() instead")]
-		public static void SetValue(string key)
-		{
-			SetInteger(key, 1);
-		}
-		
-		/**
-		 * Sets a globally accessible integer value to 0.
-		 * This method returns immediately but it queues an asynchronous command for later execution.
-		 * @param key The key of the value.
-		 */
-		[Obsolete("Use Variables.SetBoolean(key, false) instead")]
-		public static void ClearValue(string key)
-		{
-			Variables.SetInteger(key, 0);
-			Variables.SetFloat(key, 0);
-			Variables.SetBoolean(key, false);
-		}
-		
-		/**
-		 * Gets a globally accessible integer value.
-		 * Returns zero if the value has not previously been set.
-		 * @param key The name of the value
-		 * @return The integer value for this key, or 0 if not previously set.
-		 */
-		[Obsolete("Use Variables.GetInteger() instead")]
-		public static int GetValue(string key)
-		{
-			return Variables.GetInteger(key);
-		}
-		
-		/**
-		 * Gets a globally accessible string value.
-		 * @param key The name of the value
-		 * @return The string value for this key, or the empty string if not previously set.
-		 */
-		[Obsolete("Use Variables.GetString() instead")]
-		public static string GetString(string key)
-		{
-			return Variables.GetString(key);
-		}
-		
-		/**
-		 * Checks if a value is non-zero.
-		 * @param key The name of the value to check.
-		 * @return Returns true if the value is not equal to zero.
-		 */
-		[Obsolete("Use Variables.GetInteger() or Variables.HasKey() instead")]
-		public static bool HasValue(string key)
-		{
-			return Variables.GetInteger(key) != 0;
-		}
-
-		/// @endcond
 
 		#endregion
 	}

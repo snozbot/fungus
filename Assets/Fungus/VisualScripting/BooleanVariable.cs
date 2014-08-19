@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 
@@ -11,8 +11,8 @@ namespace Fungus.Script
 
 		public bool Value
 		{
-			get { return (scope == VariableScope.Local) ? booleanValue : Variables.GetBoolean(key); }
-			set { if (scope == VariableScope.Local) { booleanValue = value; } else { Variables.SetBoolean(key, value); } }
+			get { return (scope == VariableScope.Local) ? booleanValue : GlobalVariables.GetBoolean(key); }
+			set { if (scope == VariableScope.Local) { booleanValue = value; } else { GlobalVariables.SetBoolean(key, value); } }
 		}
 	}
 
