@@ -20,12 +20,6 @@ namespace Fungus
 	public class Game : MonoBehaviour 
 	{
 		/**
-		 * The currently active Room.
-		 */
-		[Tooltip("The currently active Room.")]
-		public Room activeRoom;
-
-		/**
 		 * Show links between Rooms in scene view.
 		 */
 		[Tooltip("Show links between Rooms in scene view.")]
@@ -99,16 +93,9 @@ namespace Fungus
 			// Acquire references to required components
 
 			cameraController = gameObject.GetComponent<CameraController>();
-			
 
 			// Auto-hide buttons should be visible at start of game
 			autoHideButtonTimer = autoHideButtonDuration;
-
-			if (activeRoom == null)
-			{
-				// Pick first room found if none is specified
-				activeRoom = GameObject.FindObjectOfType(typeof(Room)) as Room;
-			}
 		}
 
 		public virtual void Update()

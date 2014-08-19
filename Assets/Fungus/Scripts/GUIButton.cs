@@ -101,12 +101,7 @@ namespace Fungus
 					Application.OpenURL(actionParameter);
 					break;
 				case ClickAction.SendMessage:
-					// Send the message to all Room objects in the scene
-					Room[] allRooms = GameObject.FindObjectsOfType<Room>();
-					foreach (Room room in allRooms)
-					{
-						room.SendMessage(actionParameter, SendMessageOptions.DontRequireReceiver);
-					}
+					// TODO: Execute a sequence
 					break;
 				}
 			}

@@ -35,52 +35,25 @@ namespace Fungus
 		public float accelerometerScale = 0.5f;
 
 		Vector3 startPosition;
-		Vector3 startScale;
+		// Vector3 startScale;
 
 		Vector3 acceleration;
 		Vector3 velocity;
-
-		Room parentRoom;
 
 		void Start () 
 		{
 			// Store the starting position and scale of the sprite object
 			startPosition = transform.position;
-			startScale = transform.localScale;
-
-			// Store a reference to the parent Room object
-			Transform ancestor = transform.parent;
-			while (ancestor != null)
-			{
-				Room room = ancestor.GetComponent<Room>();
-				if (room != null)
-				{
-					parentRoom = room;
-					break;
-				}
-				ancestor = ancestor.transform.parent;
-			}
+			// startScale = transform.localScale;
 		}
 
 		void Update () 
 		{
-			if (parentRoom == null)
-			{
-				// Don't apply offset if the sprite is not a child of a Room
-				return;
-			}
-
-			if (Game.GetInstance().activeRoom != parentRoom)
-			{
-				// Early out if this sprite is not in the currently active Room
-				return;
-			}
-
 			Vector3 translation = Vector3.zero;
 
 			// Apply parallax translation based on camera position relative to Room
 			{
-				Vector3 a = parentRoom.transform.position;
+				Vector3 a = startPosition;
 				Vector3 b = Camera.main.transform.position;
 				translation = (a - b);
 				translation.x *= parallaxScale.x;
@@ -101,10 +74,12 @@ namespace Fungus
 			transform.position = startPosition + translation;
 
 			// Set new scale for sprite
+			/*
 			float roomSize = parentRoom.renderer.bounds.extents.y;
 			float t = Camera.main.orthographicSize / roomSize ;
 			float scale = Mathf.Lerp (zoomedInScale, zoomedOutScale, t);
 			transform.localScale = startScale * scale;
+			*/
 		}
 	}
 }

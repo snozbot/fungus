@@ -19,16 +19,7 @@ namespace Fungus
 		 */
 		void CallRoomMethod(string methodName)
 		{
-			Room room = Game.GetInstance().activeRoom;
-			if (room == null)
-			{
-				return;
-			}
-
-			/*
-			CommandQueue commandQueue = Game.GetInstance().commandQueue;
-			commandQueue.CallCommandMethod(room.gameObject, methodName);
-			*/
+			// TODO: Execute a FungusScript sequence
 		}
 	}
 }

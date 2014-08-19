@@ -49,12 +49,7 @@ namespace Fungus
 				yield return new WaitForEndOfFrame();
 			}
 
-			// Destroy all Room objects to release references to most game assets
-			Room[] rooms = GameObject.FindObjectsOfType<Room>();
-			foreach (Room room in rooms)
-			{
-				Destroy(room.gameObject);
-			}
+			// TODO: Destroy all objects to release references to most game assets
 
 			// Wait for objects to actually be destroyed at end of run loop
 			yield return new WaitForEndOfFrame();
