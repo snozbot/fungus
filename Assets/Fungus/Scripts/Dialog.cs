@@ -347,7 +347,6 @@ namespace Fungus
 		
 		Action deferredAction;
 		Action continueAction;
-		bool executeAsCommand;
 
 		float continueTimer;
 		bool instantCompleteText;
@@ -678,12 +677,10 @@ namespace Fungus
 												if (options[i].optionAction == null)
 												{
 													deferredAction = DoNullAction;
-													executeAsCommand = false;
 												}
 												else
 												{
 													deferredAction = options[i].optionAction;
-													executeAsCommand = true;
 												}
 											}
 
@@ -799,12 +796,10 @@ namespace Fungus
 					if (continueAction == null)
 					{
 						deferredAction = DoNullAction;
-						executeAsCommand = false;
 					}
 					else
 					{
 						deferredAction = continueAction;
-						executeAsCommand = false;
 					}
 				}
 
@@ -814,7 +809,6 @@ namespace Fungus
 				    timeoutTimer == 0)
 				{
 					deferredAction = timeoutAction;
-					executeAsCommand = true;
 				}
 			}
 			
@@ -835,18 +829,7 @@ namespace Fungus
 					timeoutTimer = 0;
 					timeoutAnimationIndex = 0;
 
-					if (executeAsCommand)
-					{
-						executeAsCommand = false;
-
-						// Execute next command
-						CommandQueue commandQueue = Game.GetInstance().commandQueue;		
-						commandQueue.CallCommandMethod(tempAction);
-					}
-					else
-					{
-						tempAction();
-					}
+					tempAction();
 				}
 			}
 		}

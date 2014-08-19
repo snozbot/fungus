@@ -16,9 +16,8 @@ namespace Fungus
 	 * Manages global game state and movement between rooms.
 	 */
 	[RequireComponent(typeof(Dialog))]
-	[RequireComponent(typeof(CommandQueue))]
 	[RequireComponent(typeof(CameraController))]
-	public class Game : GameController 
+	public class Game : MonoBehaviour 
 	{
 		/**
 		 * The currently active Room.
@@ -66,9 +65,6 @@ namespace Fungus
 		public Texture2D loadingImage;
 
 		[HideInInspector]
-		public CommandQueue commandQueue;
-		
-		[HideInInspector]
 		public CameraController cameraController;
 	
 		/**
@@ -102,8 +98,8 @@ namespace Fungus
 		{
 			// Acquire references to required components
 
-			commandQueue = gameObject.GetComponent<CommandQueue>();
 			cameraController = gameObject.GetComponent<CameraController>();
+			
 
 			// Auto-hide buttons should be visible at start of game
 			autoHideButtonTimer = autoHideButtonDuration;
@@ -112,14 +108,6 @@ namespace Fungus
 			{
 				// Pick first room found if none is specified
 				activeRoom = GameObject.FindObjectOfType(typeof(Room)) as Room;
-			}
-
-			if (activeRoom != null)
-			{
-				// Move to the active room
-				commandQueue.Clear();
-				commandQueue.AddCommand(new Command.MoveToRoom(activeRoom));
-				commandQueue.Execute();
 			}
 		}
 
@@ -200,7 +188,7 @@ namespace Fungus
 			string sceneName = GlobalVariables.GetString("_scene");
 			if (sceneName.Length > 0)
 			{
-				MoveToScene(sceneName);
+			//	MoveToScene(sceneName);
 			}
 		}
 	}

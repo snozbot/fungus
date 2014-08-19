@@ -82,7 +82,7 @@ namespace Fungus
 				Game game = Game.GetInstance();
 				if (game != null)
 				{
-					Game.Save();
+				//	Game.Save();
 				}
 			}
 

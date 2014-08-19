@@ -13,7 +13,7 @@ namespace Fungus
 	 * The OnEnter() method is called when the player enters the room.
 	 * The GameController base class provides easy access to all Fungus functionality.
 	 */
-	public abstract class Room : GameController 
+	public abstract class Room : UnityEngine.MonoBehaviour 
 	{
 		string GetVisitVariableKey()
 		{
@@ -158,7 +158,7 @@ namespace Fungus
 
 			// Rooms may have multiple child views and page. 
 			// It is the responsibility of the client room script to set the desired active view & page in the OnEnter method.
-			game.commandQueue.CallCommandMethod(game.activeRoom.gameObject, "OnEnter");
+			// game.commandQueue.CallCommandMethod(game.activeRoom.gameObject, "OnEnter");
 
 			// Increment visit count for this Room
 			int visitCount = GetVisitCount();

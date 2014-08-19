@@ -144,8 +144,10 @@ namespace Fungus
 				AudioSource.PlayClipAtPoint(clickSound, Vector3.zero);
 			}
 
+			/*
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;		
 			commandQueue.CallCommandMethod(buttonAction);
+			*/
 		}
 	}
 }

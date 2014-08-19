@@ -25,8 +25,10 @@ namespace Fungus
 				return;
 			}
 
+			/*
 			CommandQueue commandQueue = Game.GetInstance().commandQueue;
 			commandQueue.CallCommandMethod(room.gameObject, methodName);
+			*/
 		}
 	}
 }
