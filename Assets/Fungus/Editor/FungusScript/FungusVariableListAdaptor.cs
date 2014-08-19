@@ -5,7 +5,6 @@
 using UnityEngine;
 using UnityEditor;
 using System;
-using System.Linq;
 using Rotorz.ReorderableList;
 
 namespace Fungus.Script
@@ -13,7 +12,7 @@ namespace Fungus.Script
 	public class FungusVariableListAdaptor : IReorderableListAdaptor {
 		
 		private SerializedProperty _arrayProperty;
-		
+
 		public float fixedItemHeight;
 		
 		public SerializedProperty this[int index] {
@@ -162,19 +161,18 @@ namespace Fungus.Script
 			}
 			
 			VariableScope scope = (VariableScope)EditorGUI.EnumPopup(scopeRect, variable.scope);
-			
+
+			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
+
 			if (EditorGUI.EndChangeCheck ())
 			{
 				Undo.RecordObject(variable, "Set Variable");
-				
-				char[] arr = key.Where(c => (char.IsLetterOrDigit(c) || c == '_')).ToArray(); 
-				key = new string(arr);
-				
-				variable.key = key;
+
+				// Modify the key if it clashes with an existing variable key
+				variable.key = fungusScript.GetUniqueVariableKey(key, variable);
 				variable.scope = scope;
 			}
 
-			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
 			if (fungusScript != null)
 			{
 				bool highlight = false;

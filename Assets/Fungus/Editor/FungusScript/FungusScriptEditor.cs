@@ -11,16 +11,6 @@ namespace Fungus.Script
 	[CustomEditor (typeof(FungusScript))]
 	public class FungusScriptEditor : Editor 
 	{
-		SerializedProperty variablesProperty;
-		
-		void OnEnable() 
-		{
-			if (this != null && serializedObject != null)
-			{
-				variablesProperty = serializedObject.FindProperty("variables");
-			}
-		}
-		
 		public void OnInspectorUpdate()
 		{
 			Repaint();
@@ -28,8 +18,6 @@ namespace Fungus.Script
 		
 		public override void OnInspectorGUI() 
 		{
-			serializedObject.Update();
-			
 			FungusScript t = target as FungusScript;
 
 			if (t != null)
@@ -136,8 +124,6 @@ namespace Fungus.Script
 					DrawAddCommandGUI(t.selectedSequence);
 				}
 			}
-
-			serializedObject.ApplyModifiedProperties();
 		}
 
 		public void DrawSequenceGUI(Sequence sequence)
@@ -244,7 +230,8 @@ namespace Fungus.Script
 			FungusScript t = target as FungusScript;
 			
 			ReorderableListGUI.Title("Variables");
-			
+
+			SerializedProperty variablesProperty = serializedObject.FindProperty("variables");
 			FungusVariableListAdaptor adaptor = new FungusVariableListAdaptor(variablesProperty, 0);
 			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton);
 			
@@ -277,32 +264,8 @@ namespace Fungus.Script
 			
 			Undo.RecordObject(fungusScript, "Add Variable");
 			T variable = fungusScript.gameObject.AddComponent<T>();
-			variable.key = MakeUniqueKey(fungusScript);
+			variable.key = fungusScript.GetUniqueVariableKey("");
 			fungusScript.variables.Add(variable);
-		}
-
-		string MakeUniqueKey(FungusScript fungusScript)
-		{
-			int index = 0;
-			while (true)
-			{
-				string key = "Var" + index;
-				
-				bool found = false;
-				foreach(FungusVariable variable in fungusScript.GetComponents<FungusVariable>())
-				{
-					if (variable.key == key)
-					{
-						found = true;
-						index++;
-					}
-				}
-				
-				if (!found)
-				{
-					return key;
-				}
-			}
 		}
 	}
 	

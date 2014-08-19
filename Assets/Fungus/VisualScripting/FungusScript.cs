@@ -1,8 +1,6 @@
-﻿#if UNITY_EDITOR
-using UnityEditor;
-#endif
-using UnityEngine;
+﻿using UnityEngine;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -72,6 +70,50 @@ namespace Fungus.Script
 			executingSequence = sequence;
 			selectedSequence = sequence;
 			sequence.ExecuteNextCommand();
+		}
+
+		public string GetUniqueVariableKey(string originalKey, FungusVariable ignoreVariable = null)
+		{
+			int suffix = 0;
+			string baseKey = originalKey;
+
+			// Only letters and digits allowed
+			char[] arr = baseKey.Where(c => (char.IsLetterOrDigit(c) || c == '_')).ToArray(); 
+			baseKey = new string(arr);
+
+			// No leading digits allowed
+			baseKey = baseKey.TrimStart('0','1','2','3','4','5','6','7','8','9');
+
+			// No empty keys allowed
+			if (baseKey.Length == 0)
+			{
+				baseKey = "Var";
+			}
+
+			string key = baseKey;
+			while (true)
+			{
+				bool collision = false;
+				foreach(FungusVariable variable in GetComponents<FungusVariable>())
+				{
+					if (variable == ignoreVariable)
+					{
+						continue;
+					}
+
+					if (variable.key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
+					{
+						collision = true;
+						suffix++;
+						key = baseKey + suffix;
+					}
+				}
+				
+				if (!collision)
+				{
+					return key;
+				}
+			}
 		}
 	}
 
