@@ -19,8 +19,9 @@ namespace Fungus.Script
 			string character = EditorGUILayout.TextField(new GUIContent("Character", "Character to display in dialog"), t.character);
 
 			EditorGUILayout.PrefixLabel(new GUIContent("Say Text", "Text to display in dialog"));
-			EditorStyles.textField.wordWrap = true;
-			string text = EditorGUILayout.TextArea(t.text, GUILayout.MinHeight(50));
+			GUIStyle sayStyle = new GUIStyle(EditorStyles.textArea);
+			sayStyle.wordWrap = true;
+			string text = EditorGUILayout.TextArea(t.text, sayStyle, GUILayout.MinHeight(30));
 
 			Say.ShowCondition showCondition = (Say.ShowCondition)EditorGUILayout.EnumPopup(new GUIContent("Show Condition", "Condition when this say text should be visible."), t.showCondition);
 			

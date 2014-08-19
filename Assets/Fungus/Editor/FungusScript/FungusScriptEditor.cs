@@ -15,7 +15,7 @@ namespace Fungus.Script
 		
 		void OnEnable() 
 		{
-			if (serializedObject != null)
+			if (this != null && serializedObject != null)
 			{
 				variablesProperty = serializedObject.FindProperty("variables");
 			}
@@ -231,7 +231,7 @@ namespace Fungus.Script
 				{
 					GUIStyle labelStyle = new GUIStyle(EditorStyles.miniLabel);
 					labelStyle.wordWrap = true;
-					GUILayout.Label(helpTextAttr.HelpText, labelStyle);
+					EditorGUILayout.HelpBox(helpTextAttr.HelpText, MessageType.Info);
 					break;
 				}
 			}
