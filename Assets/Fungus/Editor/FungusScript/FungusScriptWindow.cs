@@ -11,8 +11,6 @@ namespace Fungus.Script
 	{
 		private List<Sequence> windowSequenceMap = new List<Sequence>();
 
-		static public FungusScript activeFungusScript;
-
 	    [MenuItem("Window/Fungus Script")]
 	    static void Init()
 	    {
@@ -28,15 +26,10 @@ namespace Fungus.Script
 		{
 			if (Selection.activeGameObject != null)
 			{
-				FungusScript fungusScript = Selection.activeGameObject.GetComponent<FungusScript>();
-
-				if (fungusScript != null)
-				{
-					activeFungusScript = fungusScript;
-				}
+				return Selection.activeGameObject.GetComponent<FungusScript>();
 			}
 
-			return activeFungusScript;
+			return null;
 		}
 
 	    void OnGUI()
