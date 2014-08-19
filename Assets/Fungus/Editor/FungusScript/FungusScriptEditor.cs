@@ -145,7 +145,10 @@ namespace Fungus.Script
 			EditorGUI.BeginChangeCheck();
 
 			string name = EditorGUILayout.TextField(new GUIContent("Sequence Name", "Name of sequence displayed in editor window"), sequence.name);
-			string desc = EditorGUILayout.TextField(new GUIContent("Description", "Sequence description displayed in editor window"), sequence.description);
+			EditorGUILayout.PrefixLabel(new GUIContent("Description", "Sequence description displayed in editor window"));
+			GUIStyle descriptionStyle = new GUIStyle(EditorStyles.textArea);
+			descriptionStyle.wordWrap = true;
+			string desc = EditorGUILayout.TextArea(sequence.description, descriptionStyle);
 
 			EditorGUILayout.Separator();
 
