@@ -22,9 +22,25 @@ namespace Fungus.Script
 
 			if (t != null)
 			{
-				// Hide the transform component if FungusScript is the only component on the game object
+				// Hide the transform component if FungusScript & Variables are the only components on the game object
+				// Gives a bit more room in inspector for editing commands. The transform will become visible if any non-Fungus 
+				// components are attached to the game object.
 				Component[] components = t.GetComponents(typeof(Component));
-				t.transform.hideFlags = (components.Length == 2) ? HideFlags.HideInInspector : HideFlags.None;
+				int count = 0;
+				foreach (Component component in components)
+				{
+					System.Type type = component.GetType();
+					if (type == typeof(Transform) ||
+						type == typeof(FungusScript) ||
+					    type == typeof(BooleanVariable) ||
+					    type == typeof(IntegerVariable) ||
+					    type == typeof(FloatVariable) ||
+					    type == typeof(StringVariable))
+					{
+						count++;
+					}
+				}
+				t.transform.hideFlags = (count == components.Length) ? HideFlags.HideInInspector : HideFlags.None;
 			}
 
 			EditorGUI.BeginChangeCheck();
