@@ -21,6 +21,6 @@ namespace Fungus.Script
 	public class FungusVariable : MonoBehaviour
 	{
 		public VariableScope scope;
-		public string key;
+		public string key = "";
 	}
 }

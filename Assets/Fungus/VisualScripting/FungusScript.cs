@@ -96,7 +96,8 @@ namespace Fungus.Script
 				bool collision = false;
 				foreach(FungusVariable variable in GetComponents<FungusVariable>())
 				{
-					if (variable == ignoreVariable)
+					if (variable == ignoreVariable ||
+					    variable.key == null)
 					{
 						continue;
 					}
