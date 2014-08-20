@@ -16,22 +16,8 @@ namespace Fungus
 	 * Manages global game state and movement between rooms.
 	 */
 	[RequireComponent(typeof(Dialog))]
-	[RequireComponent(typeof(CameraController))]
 	public class Game : MonoBehaviour 
 	{
-		/**
-		 * Show links between Rooms in scene view.
-		 */
-		[Tooltip("Show links between Rooms in scene view.")]
-		public bool showLinks = true;
-
-		/**
-		 * Fade transition time when moving between Rooms.
-		 */
-		[Range(0,5)]
-		[Tooltip("Fade transition time when moving between Rooms.")]
-		public float roomFadeDuration = 1f;
-
 		/**
 		 * Fade transition time when hiding/showing buttons.
 		 */
@@ -58,15 +44,6 @@ namespace Fungus
 		[Tooltip("Loading image displayed when loading a scene using MoveToScene() command.")]
 		public Texture2D loadingImage;
 
-		[HideInInspector]
-		public CameraController cameraController;
-	
-		/**
-		 * True when executing a Wait() or WaitForTap() command
-		 */
-		[HideInInspector]
-		public bool waiting; 
-
 		float autoHideButtonTimer;
 
 		static Game instance;
@@ -90,10 +67,6 @@ namespace Fungus
 
 		public virtual void Start()
 		{
-			// Acquire references to required components
-
-			cameraController = gameObject.GetComponent<CameraController>();
-
 			// Auto-hide buttons should be visible at start of game
 			autoHideButtonTimer = autoHideButtonDuration;
 		}
@@ -125,7 +98,9 @@ namespace Fungus
 		 */
 		public bool GetShowAutoButtons()
 		{
-			if (waiting)
+			CameraController cameraController = CameraController.GetInstance();
+
+			if (cameraController.waiting)
 			{
 				return false;
 			}

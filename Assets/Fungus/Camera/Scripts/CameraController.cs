@@ -36,6 +36,9 @@ namespace Fungus
 		[HideInInspector]
 		public bool swipePanActive;
 
+		[HideInInspector]
+		public bool waiting; 
+
 		float fadeAlpha = 0f;
 
 		// Swipe panning control
@@ -51,6 +54,37 @@ namespace Fungus
 		};
 
 		Dictionary<string, CameraView> storedViews = new Dictionary<string, CameraView>();
+
+		static CameraController instance;
+		
+		/**
+		 * Returns the CameraController singleton instance.
+		 * Will create a CameraController game object if none currently exists.
+		 */
+		static public CameraController GetInstance()
+		{
+			if (instance == null)
+			{
+				GameObject go = new GameObject("CameraController");
+				instance = go.AddComponent<CameraController>();
+			}
+			
+			return instance;
+		}
+
+		public static Texture2D CreateColorTexture(Color color, int width, int height)
+		{
+			Color[] pixels = new Color[width * height];
+			for (int i = 0; i < pixels.Length; i++) 
+			{
+				pixels[i] = color;
+			}
+			Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
+			texture.SetPixels(pixels);
+			texture.Apply();
+
+			return texture;		
+		}
 
 		void OnGUI()
 		{
@@ -75,7 +109,8 @@ namespace Fungus
 			}
 
 			// Draw full screen fade texture
-			if (fadeAlpha < 1f)
+			if (fadeAlpha < 1f &&
+			    screenFadeTexture != null)
 			{
 				// 1 = scene fully visible
 				// 0 = scene fully obscured
@@ -164,6 +199,11 @@ namespace Fungus
 			Vector3 pos = spriteRenderer.transform.position;
 			Camera.main.transform.position = new Vector3(pos.x, pos.y, 0);
 			SetCameraZ();
+		}
+
+		public void PanToView(View view, float duration, Action arriveAction)
+		{
+			PanToPosition(view.transform.position, view.transform.rotation, view.viewSize, duration, arriveAction);
 		}
 
 		/**
@@ -267,7 +307,7 @@ namespace Fungus
 				Camera.main.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, t));
 				Camera.main.transform.rotation = Quaternion.Lerp(startRot, endRot, Mathf.SmoothStep(0f, 1f, t));
 				SetCameraZ();
-
+			
 				if (arrived &&
 				    arriveAction != null)
 				{

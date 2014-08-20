@@ -18,22 +18,25 @@ namespace Fungus.Script
 		public float duration;
 		public Fungus.View targetView;
 		public bool waitUntilFinished = true;
+		public Color fadeColor = Color.black;
 
 		public override void OnEnter()
 		{
-			Game game = Game.GetInstance();
+			CameraController cameraController = CameraController.GetInstance();
 
 			if (waitUntilFinished)
 			{
-				game.waiting = true;
+				cameraController.waiting = true;
 			}
 
 			if (transition == Transition.Fade)
 			{
-				game.cameraController.FadeToView(targetView, duration, delegate {	
+				cameraController.screenFadeTexture = CameraController.CreateColorTexture(fadeColor, 32, 32);
+
+				cameraController.FadeToView(targetView, duration, delegate {	
 					if (waitUntilFinished)
 					{
-						game.waiting = false;
+						cameraController.waiting = false;
 						Continue();
 					}
 				});
@@ -44,10 +47,10 @@ namespace Fungus.Script
 				Quaternion targetRotation = targetView.transform.rotation;
 				float targetSize = targetView.viewSize;
 
-				game.cameraController.PanToPosition(targetPosition, targetRotation, targetSize, duration, delegate {
+				cameraController.PanToPosition(targetPosition, targetRotation, targetSize, duration, delegate {
 					if (waitUntilFinished)
 					{
-						game.waiting = false;
+						cameraController.waiting = false;
 						Continue();
 					}
 				});

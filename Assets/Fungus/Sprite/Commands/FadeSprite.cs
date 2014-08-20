@@ -15,17 +15,17 @@ namespace Fungus.Script
 
 		public override void OnEnter()
 		{
-			Game game = Game.GetInstance();
+			CameraController cameraController = CameraController.GetInstance();
 
 			if (waitUntilFinished)
 			{
-				game.waiting = true;
+				cameraController.waiting = true;
 			}
 
 			SpriteFader.FadeSprite(spriteRenderer, targetColor, duration, Vector2.zero, delegate {
 				if (waitUntilFinished)
 				{
-					game.waiting = false;
+					cameraController.waiting = false;
 					Continue();
 				}
 			});
