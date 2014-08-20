@@ -4,6 +4,7 @@ using System.Collections;
 
 namespace Fungus.Script
 {
+	[CommandName("Load Scene")]
 	[HelpText("Loads a new scene and displays an optional loading image. This is useful " +
 		"for splitting a large game across multiple scene files to reduce peak memory " +
 		"usage. All previously loaded assets (including textures and audio) will be released." +

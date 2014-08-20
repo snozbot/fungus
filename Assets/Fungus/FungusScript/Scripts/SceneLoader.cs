@@ -46,7 +46,12 @@ namespace Fungus
 				yield return new WaitForEndOfFrame();
 			}
 
-			// TODO: Destroy all objects to release references to most game assets
+			// Destroy tagged objects to release asset references
+			GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("DestroyOnSceneLoad");
+			foreach (GameObject go in gameObjects)
+			{
+				DestroyImmediate(go);
+			}
 
 			// Wait for objects to actually be destroyed at end of run loop
 			yield return new WaitForEndOfFrame();
