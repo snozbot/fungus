@@ -134,6 +134,7 @@ namespace Fungus
 		public void FadeToView(View view, float fadeDuration, Action fadeAction)
 		{
 			swipePanActive = false;
+			fadeAlpha = 1f;
 
 			// Fade out
 			Fade(0f, fadeDuration / 2f, delegate {
