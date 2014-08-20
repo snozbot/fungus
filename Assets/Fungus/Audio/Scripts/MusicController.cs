@@ -9,21 +9,21 @@ namespace Fungus
 	 * Music playback persists across scene loads.
 	 */
 	[RequireComponent(typeof(AudioSource))]
-	public class MusicManager : MonoBehaviour 
+	public class MusicController : MonoBehaviour 
 	{
-		static MusicManager instance;
+		static MusicController instance;
 
 		/**
-		 * Returns the MusicManager singleton instance.
-		 * Will create a MusicManager game object if none currently exists.
+		 * Returns the MusicController singleton instance.
+		 * Will create a MusicController game object if none currently exists.
 		 */
-		static public MusicManager GetInstance()
+		static public MusicController GetInstance()
 		{
 			if (instance == null)
 			{
-				GameObject go = new GameObject("MusicManager");
+				GameObject go = new GameObject("MusicController");
 				DontDestroyOnLoad(go);
-				instance = go.AddComponent<MusicManager>();
+				instance = go.AddComponent<MusicController>();
 			}
 
 			return instance;
