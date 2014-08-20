@@ -117,18 +117,6 @@ namespace Fungus
 		}
 
 		/**
-		 * Loads a new scene and displays an optional loading image.
-		 * This is useful for splitting a large Fungus game across multiple scene files to reduce peak memory usage.
-		 * All previously loaded assets (including textures and audio) will be released.
-		 * @param sceneName The filename of the scene to load.
-		 * @param saveGame Automatically save the current game state as a checkpoint.
-		 */
-		public void LoadScene(string sceneName, bool saveGame)
-		{
-			SceneLoader.LoadScene(sceneName, loadingImage, saveGame);
-		}
-
-		/**
 		 * Save the current game variables to persistant storage using a save game name.
 		 * Stores the currently loaded scene name so that Game.LoadGame() can automatically move to the appropriate scene.
 		 */

@@ -15,15 +15,13 @@ namespace Fungus
 		Texture2D loadingTexture;
 		string sceneToLoad;
 		bool displayedImage;
-		bool saveCheckpoint;
 
 		/**
 		 * Asynchronously load a new scene.
 		 * @param _sceneToLoad The name of the scene to load. Scenes must be added in project build settings.
 		 * @param _loadingTexture Loading image to display while loading the new scene.
-		 * @param _saveCheckpoint Automatically save a checkpoint once the new scene has loaded.
 		 */
-		static public void LoadScene(string _sceneToLoad, Texture2D _loadingTexture, bool _saveCheckpoint)
+		static public void LoadScene(string _sceneToLoad, Texture2D _loadingTexture)
 		{
 			// Unity does not provide a way to check if the named scene actually exists in the project.
 			GameObject go = new GameObject("SceneLoader");
@@ -32,7 +30,6 @@ namespace Fungus
 			SceneLoader sceneLoader = go.AddComponent<SceneLoader>();
 			sceneLoader.sceneToLoad = _sceneToLoad;
 			sceneLoader.loadingTexture = _loadingTexture;
-			sceneLoader.saveCheckpoint = _saveCheckpoint;
 		}
 
 		void Start()
@@ -70,16 +67,6 @@ namespace Fungus
 
 			// Clean up any remaining unused assets
 			Resources.UnloadUnusedAssets();
-
-			// Save a checkpoint if required
-			if (saveCheckpoint)
-			{
-				Game game = Game.GetInstance();
-				if (game != null)
-				{
-				//	Game.Save();
-				}
-			}
 
 			// We're now finished with the SceneLoader
 			Destroy(gameObject);
