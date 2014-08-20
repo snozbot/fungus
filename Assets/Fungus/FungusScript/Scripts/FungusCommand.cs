@@ -8,6 +8,16 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
+	public class CommandNameAttribute : Attribute
+	{
+		public CommandNameAttribute(string commandName)
+		{
+			this.CommandName = commandName;
+		}
+		
+		public string CommandName { get; set; }
+	}
+	
 	public class HelpTextAttribute : Attribute
 	{
 		public HelpTextAttribute(string helpText)
@@ -103,7 +113,7 @@ namespace Fungus.Script
 		{
 			return false;
 		}
-		
+
 		public virtual string GetSummary()
 		{
 			return "";

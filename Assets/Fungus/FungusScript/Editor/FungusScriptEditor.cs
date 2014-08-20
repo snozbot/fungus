@@ -196,7 +196,7 @@ namespace Fungus.Script
 			List<string> commandNames = new List<string>();
 			foreach(System.Type type in commandTypes)
 			{
-				commandNames.Add(type.Name);
+				commandNames.Add(GetCommandName(type));
 			}
 
 			EditorGUI.BeginChangeCheck();
@@ -282,6 +282,21 @@ namespace Fungus.Script
 			T variable = fungusScript.gameObject.AddComponent<T>();
 			variable.key = fungusScript.GetUniqueVariableKey("");
 			fungusScript.variables.Add(variable);
+		}
+
+		public static string GetCommandName(System.Type commandType)
+		{
+			object[] attributes = commandType.GetCustomAttributes(typeof(CommandNameAttribute), false);
+			foreach (object obj in attributes)
+			{
+				CommandNameAttribute commandNameAttr = obj as CommandNameAttribute;
+				if (commandNameAttr != null)
+				{
+					return commandNameAttr.CommandName;
+				}
+			}
+			
+			return commandType.Name;
 		}
 	}
 	

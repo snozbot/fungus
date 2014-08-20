@@ -34,33 +34,33 @@ namespace Fungus.Script
 
 			GUILayout.BeginHorizontal();
 
-			string commandLabel = commandIndex.ToString() + "  " + t.GetType().Name;
-
-			bool expanded = EditorGUILayout.Foldout(t.expanded, commandLabel);
-
-			if (expanded != t.expanded)
-			{
-				Undo.RecordObject(t, "Set Expanded");
-				t.expanded = expanded;
-			}
-
-			GUIStyle labelStyle = EditorStyles.miniLabel;
-			labelStyle.wordWrap = true;
-			string summary = t.GetSummary().Replace("\n", "").Replace("\r", "");
-			if (summary.Length > 80)
-			{
-				summary = summary.Substring(0, 80) + "...";
-			}
-			GUILayout.Label(summary, labelStyle);
-
-			GUILayout.FlexibleSpace();
-
-			GUILayout.EndHorizontal();
-
 			if (t.expanded)
 			{
-				GUILayout.BeginHorizontal();
+				GUI.backgroundColor = Color.yellow;
+			}
 
+			string commandName = FungusScriptEditor.GetCommandName(t.GetType());
+			if (GUILayout.Button(commandName, EditorStyles.miniButton))
+			{
+				Undo.RecordObject(t, "Toggle Expanded");
+				t.expanded = !t.expanded;
+			}
+			GUI.backgroundColor = Color.white;
+
+			if (!t.expanded)
+			{
+				GUIStyle labelStyle = EditorStyles.miniLabel;
+				labelStyle.wordWrap = true;
+				string summary = t.GetSummary().Replace("\n", "").Replace("\r", "");
+				if (summary.Length > 80)
+				{
+					summary = summary.Substring(0, 80) + "...";
+				}
+				GUILayout.Label(summary, labelStyle);
+				GUILayout.FlexibleSpace();
+			}
+			else			
+			{
 				GUILayout.FlexibleSpace();
 
 				if (GUILayout.Button("Up", EditorStyles.miniButtonLeft))
@@ -95,25 +95,23 @@ namespace Fungus.Script
 					Undo.DestroyObjectImmediate(t);
 					return;
 				}
+			}
 
-				GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
 
-				GUILayout.EndHorizontal();
-
-				EditorGUILayout.Separator();
+			if (t.expanded)
+			{
+				//EditorGUILayout.Separator();
 
 				DrawCommandGUI();
 
 				EditorGUILayout.Separator();
 
-				if (t != null)
+				if (t.errorMessage.Length > 0)
 				{
-					if (t.errorMessage.Length > 0)
-					{
-						GUIStyle style = new GUIStyle(GUI.skin.label);
-						style.normal.textColor = new Color(1,0,0);
-						EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
-					}
+					GUIStyle style = new GUIStyle(GUI.skin.label);
+					style.normal.textColor = new Color(1,0,0);
+					EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
 				}
 			}
 
