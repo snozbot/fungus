@@ -38,12 +38,6 @@ namespace Fungus
 		[Tooltip("Currently active Dialog object used to display character text and menus.")]
 		public Dialog dialog;
 
-		/**
-		 * Loading image displayed when loading a scene using MoveToScene() command.
-		 */
-		[Tooltip("Loading image displayed when loading a scene using MoveToScene() command.")]
-		public Texture2D loadingImage;
-
 		float autoHideButtonTimer;
 
 		static Game instance;
@@ -114,32 +108,6 @@ namespace Fungus
 			}
 
 			return false;
-		}
-
-		/**
-		 * Save the current game variables to persistant storage using a save game name.
-		 * Stores the currently loaded scene name so that Game.LoadGame() can automatically move to the appropriate scene.
-		 */
-		public void SaveGame(string saveName = "_fungus")
-		{
-			GlobalVariables.SetString("_scene", Application.loadedLevelName);
-			GlobalVariables.Save(saveName);
-		}
-
-		/**
-		 * Loads the current game state from persistant storage using a save game name.
-		 * This will cause the scene specified in the "_scene" string to be loaded.
-		 * Each scene in your game should contain the necessary code to restore the current game state based on saved data.
-		 * @param saveName The name of the saved game data.
-		 */
-		public void LoadGame(string saveName = "_fungus")
-		{
-			GlobalVariables.Load(saveName);
-			string sceneName = GlobalVariables.GetString("_scene");
-			if (sceneName.Length > 0)
-			{
-			//	MoveToScene(sceneName);
-			}
 		}
 	}
 }
