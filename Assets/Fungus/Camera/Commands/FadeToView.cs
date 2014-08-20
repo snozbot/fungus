@@ -56,7 +56,7 @@ namespace Fungus.Script
 		{
 			if (targetView == null)
 			{
-				return "<no view selected>";
+				return "Error: No view selected";
 			}
 			else
 			{

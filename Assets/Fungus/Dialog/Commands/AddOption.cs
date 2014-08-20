@@ -80,7 +80,11 @@ namespace Fungus.Script
 		public override string GetSummary()
 		{
 			string description = "\"" + optionText + "\"";
-			if (targetSequence != null)
+			if (targetSequence == null)
+			{
+				description += " <Continue>";
+			}
+			else
 			{
 				description += " (" + targetSequence.name + ")";
 			}

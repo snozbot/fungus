@@ -166,7 +166,7 @@ namespace Fungus.Script
 		{
 			if (variable == null)
 			{
-				return "No variable selected";
+				return "Error: No variable selected";
 			}
 
 			string summary = variable.key;

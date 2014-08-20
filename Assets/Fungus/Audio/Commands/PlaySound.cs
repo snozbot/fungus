@@ -27,7 +27,7 @@ namespace Fungus.Script
 		{
 			if (soundClip == null)
 			{
-				return "No sound clip selected";
+				return "Error: No music clip selected";
 			}
 
 			return soundClip.name;

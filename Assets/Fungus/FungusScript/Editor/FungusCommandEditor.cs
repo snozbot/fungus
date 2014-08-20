@@ -34,34 +34,66 @@ namespace Fungus.Script
 
 			GUILayout.BeginHorizontal();
 
-			if (t.expanded)
+			bool error = false;
+			string summary = t.GetSummary().Replace("\n", "").Replace("\r", "");
+			if (summary.Length > 80)
+			{
+				summary = summary.Substring(0, 80) + "...";
+			}
+			if (summary.StartsWith("Error:"))
+			{
+				error = true;
+			}
+
+			if (!t.enabled)
+			{
+				GUI.backgroundColor = Color.grey;
+			}
+			else if (error)
+			{
+				GUI.backgroundColor = Color.red;
+			}
+			else if (t.expanded)
 			{
 				GUI.backgroundColor = Color.yellow;
 			}
 
 			string commandName = FungusScriptEditor.GetCommandName(t.GetType());
-			if (GUILayout.Button(commandName, EditorStyles.miniButton))
+			if (GUILayout.Button(commandName, EditorStyles.miniButton, GUILayout.MinWidth(80)))
 			{
 				Undo.RecordObject(t, "Toggle Expanded");
 				t.expanded = !t.expanded;
 			}
 			GUI.backgroundColor = Color.white;
 
-			if (!t.expanded)
+			GUIStyle labelStyle = new GUIStyle(EditorStyles.whiteMiniLabel);
+			labelStyle.wordWrap = true;
+			if (!t.enabled)
 			{
-				GUIStyle labelStyle = EditorStyles.miniLabel;
-				labelStyle.wordWrap = true;
-				string summary = t.GetSummary().Replace("\n", "").Replace("\r", "");
-				if (summary.Length > 80)
-				{
-					summary = summary.Substring(0, 80) + "...";
-				}
-				GUILayout.Label(summary, labelStyle);
-				GUILayout.FlexibleSpace();
+				labelStyle.normal.textColor = Color.grey;
 			}
-			else			
+			else if (error)
 			{
+				labelStyle.normal.textColor = Color.red;
+			}
+
+			GUILayout.Label(summary, labelStyle);
+			GUILayout.FlexibleSpace();
+
+			GUILayout.EndHorizontal();
+
+			if (t.expanded)
+			{
+				GUILayout.BeginHorizontal();
+
 				GUILayout.FlexibleSpace();
+
+				bool enabled = GUILayout.Toggle(t.enabled, "");
+				if (t.enabled != enabled)
+				{
+					Undo.RecordObject(t, "Set Enabled");
+					t.enabled = enabled;
+				}
 
 				if (GUILayout.Button("Up", EditorStyles.miniButtonLeft))
 				{
@@ -95,13 +127,8 @@ namespace Fungus.Script
 					Undo.DestroyObjectImmediate(t);
 					return;
 				}
-			}
 
-			GUILayout.EndHorizontal();
-
-			if (t.expanded)
-			{
-				//EditorGUILayout.Separator();
+				GUILayout.EndHorizontal();
 
 				DrawCommandGUI();
 

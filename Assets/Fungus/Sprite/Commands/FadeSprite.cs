@@ -8,8 +8,8 @@ namespace Fungus.Script
 	[HelpText("Fades a sprite to a target color over a period of time.")]
 	public class FadeSprite : FungusCommand 
 	{
-		public float duration;
 		public SpriteRenderer spriteRenderer;
+		public float duration;
 		public Color targetColor = Color.white;
 		public bool waitUntilFinished = true;
 
@@ -34,6 +34,16 @@ namespace Fungus.Script
 			{
 				Continue();
 			}
+		}
+
+		public override string GetSummary()
+		{
+			if (spriteRenderer == null)
+			{
+				return "Error: No sprite renderer selected";
+			}
+
+			return spriteRenderer.name + " to " + targetColor.ToString();
 		}
 	}
 

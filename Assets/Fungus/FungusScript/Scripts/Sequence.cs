@@ -96,8 +96,11 @@ namespace Fungus.Script
 				}
 				else if (executeNext)
 				{
-					nextCommand = command;
-					break;
+					if (command.enabled)
+					{
+						nextCommand = command;
+						break;
+					}
 				}
 			}
 
