@@ -47,7 +47,7 @@ namespace Fungus.Script
 			}
 			else
 			{
-				return "Move to " + targetView.name;
+				return targetView.name;
 			}
 		}
 	}

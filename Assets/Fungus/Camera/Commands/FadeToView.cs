@@ -60,7 +60,7 @@ namespace Fungus.Script
 			}
 			else
 			{
-				return "Fade to " + targetView.name;
+				return targetView.name;
 			}
 		}
 	}
