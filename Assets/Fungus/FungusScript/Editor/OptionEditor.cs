@@ -7,12 +7,12 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
-	[CustomEditor (typeof(Option))]
+	[CustomEditor (typeof(AddOption))]
 	public class OptionEditor : FungusCommandEditor
 	{
 		public override void DrawCommandGUI() 
 		{
-			Option t = target as Option;
+			AddOption t = target as AddOption;
 
 			EditorGUI.BeginChangeCheck();
 
@@ -21,12 +21,12 @@ namespace Fungus.Script
 			                                                       new GUIContent("<Continue>"),
 			                                                       t.GetFungusScript(), 
 			                                                       t.targetSequence);
-			Option.ShowCondition showCondition = (Option.ShowCondition)EditorGUILayout.EnumPopup(new GUIContent("Show Condition", "Condition when this option should be visible."), t.showCondition);
+			AddOption.ShowCondition showCondition = (AddOption.ShowCondition)EditorGUILayout.EnumPopup(new GUIContent("Show Condition", "Condition when this option should be visible."), t.showCondition);
 
 			BooleanVariable booleanVariable = t.booleanVariable;
 
-			if (showCondition == Option.ShowCondition.BooleanIsFalse ||
-				showCondition == Option.ShowCondition.BooleanIsTrue) 
+			if (showCondition == AddOption.ShowCondition.BooleanIsFalse ||
+				showCondition == AddOption.ShowCondition.BooleanIsTrue) 
 			{
 				booleanVariable = FungusVariableEditor.VariableField (new GUIContent ("Boolean Variable", "Boolean variable to test for condition"),
 				                                                      t.GetFungusScript (),

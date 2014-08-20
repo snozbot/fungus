@@ -4,8 +4,9 @@ using System.Collections;
 
 namespace Fungus.Script
 {
+	[CommandName("Set View")]
 	[HelpText("Moves the camera to a location specified by a View object. Supports Move and Fade transitions over a period of time.")]
-	public class View : FungusCommand 
+	public class SetView : FungusCommand 
 	{
 		public enum Transition
 		{

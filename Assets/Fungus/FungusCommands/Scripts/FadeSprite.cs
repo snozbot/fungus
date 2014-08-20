@@ -4,7 +4,8 @@ using System.Collections;
 
 namespace Fungus.Script
 {
-
+	[CommandName("Fade Sprite")]
+	[HelpText("Fades a sprite to a target color over a period of time.")]
 	public class FadeSprite : FungusCommand 
 	{
 		public float duration;
