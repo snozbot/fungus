@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
+	[CommandCategory("Dialog")]
 	[CommandName("Add Option")]
 	[HelpText("Adds an option button to be displayed by the next Say command. The target sequence is run when the player selects the option. A condition can be specified for when the option should be shown.")]
 	public class AddOption : FungusCommand

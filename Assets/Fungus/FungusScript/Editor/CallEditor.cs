@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
-
 	[CustomEditor (typeof(Call))]
 	public class CallEditor : FungusCommandEditor 
 	{

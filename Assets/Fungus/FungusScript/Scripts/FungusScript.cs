@@ -16,6 +16,9 @@ namespace Fungus.Script
 		public FungusCommand copyCommand;
 
 		[HideInInspector]
+		public int selectedCategoryIndex;
+
+		[HideInInspector]
 		public int selectedCommandIndex;
 
 		[HideInInspector]

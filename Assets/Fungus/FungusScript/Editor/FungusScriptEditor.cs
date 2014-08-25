@@ -95,9 +95,7 @@ namespace Fungus.Script
 				sequence.description = desc;
 			}
 
-			GUI.backgroundColor = Color.yellow;
 			GUILayout.Box("Commands", GUILayout.ExpandWidth(true));
-			GUI.backgroundColor = Color.white;
 
 			FungusCommand[] commands = sequence.GetComponents<FungusCommand>();
 			int index = 1;
@@ -113,52 +111,90 @@ namespace Fungus.Script
 			}
 
 			EditorGUILayout.Separator();
-
-			GUI.backgroundColor = Color.yellow;
+			
 			GUILayout.Box("New Command", GUILayout.ExpandWidth(true));
-			GUI.backgroundColor = Color.white;
 
+			List<string> categories = new List<string>();
+			
 			// Build list of categories
-			List<System.Type> commandTypes = EditorExtensions.FindDerivedTypes(typeof(FungusCommand)).ToList();
-			if (commandTypes.Count == 0)
+			List<System.Type> subTypes = EditorExtensions.FindDerivedTypes(typeof(FungusCommand)).ToList();
+			foreach(System.Type type in subTypes)
 			{
-				return;
+				object[] attributes = type.GetCustomAttributes(false);
+				foreach (object obj in attributes)
+				{
+					CommandCategoryAttribute categoryAttr = obj as CommandCategoryAttribute;
+					if (categoryAttr != null)
+					{
+						if (!categories.Contains(categoryAttr.Category))
+						{
+							categories.Add(categoryAttr.Category);
+						}
+					}
+				}
 			}
 
-			List<string> commandNames = new List<string>();
-			foreach(System.Type type in commandTypes)
-			{
-				commandNames.Add(GetCommandName(type));
-			}
+			categories.Sort();
 
 			EditorGUI.BeginChangeCheck();
 
-			int selectedCommandIndex = EditorGUILayout.Popup("Command", fungusScript.selectedCommandIndex, commandNames.ToArray());
+			EditorGUILayout.BeginHorizontal();
 
+			int selectedCategoryIndex = EditorGUILayout.Popup(fungusScript.selectedCategoryIndex, categories.ToArray());
+			
+			List<string> commandNames = new List<string>();
+			List<System.Type> commandTypes = new List<System.Type>();
+			
+			string categoryName = categories[selectedCategoryIndex];
+			foreach (System.Type type in subTypes)
+			{
+				object[] attributes = type.GetCustomAttributes(false);
+				foreach (object obj in attributes)
+				{
+					CommandCategoryAttribute categoryAttr = obj as CommandCategoryAttribute;
+					if (categoryAttr != null)
+					{
+						if (categoryAttr.Category == categoryName)
+						{
+							commandNames.Add(type.Name);
+							commandTypes.Add(type);
+						}
+					}
+				}
+			}
+			
+			int selectedCommandIndex = EditorGUILayout.Popup(fungusScript.selectedCommandIndex, commandNames.ToArray());
+
+			if (selectedCategoryIndex != fungusScript.selectedCategoryIndex)
+			{
+				// Default to first item in list if category has changed
+				selectedCommandIndex = 0;
+			}
+			
 			if (EditorGUI.EndChangeCheck())
 			{
 				Undo.RecordObject(fungusScript, "Select Command");
+				fungusScript.selectedCategoryIndex = selectedCategoryIndex;
 				fungusScript.selectedCommandIndex = selectedCommandIndex;
 			}
 
 			System.Type selectedType = commandTypes[selectedCommandIndex];
-			if (selectedType == null)
+			if (fungusScript.selectedSequence == null ||
+				selectedType == null)
 			{
+				EditorGUILayout.EndHorizontal();
 				return;
 			}
 
-			GUILayout.BeginHorizontal();
-			GUILayout.FlexibleSpace();
-			if (GUILayout.Button(new GUIContent("Add Command", "Add the selected command to the sequence")))
+			if (GUILayout.Button(new GUIContent("Add", "Add the selected command to the sequence"), EditorStyles.miniButton))
 			{
-				Undo.AddComponent(sequence.gameObject, selectedType);
+				Undo.AddComponent(fungusScript.selectedSequence.gameObject, selectedType);
 			}
-			GUILayout.EndHorizontal();
+			
+			EditorGUILayout.EndHorizontal();
 
-			EditorGUILayout.Separator();
-							
-			object[] attributes = selectedType.GetCustomAttributes(typeof(HelpTextAttribute), false);
-			foreach (object obj in attributes)
+			object[] helpAttributes = selectedType.GetCustomAttributes(typeof(HelpTextAttribute), false);
+			foreach (object obj in helpAttributes)
 			{
 				HelpTextAttribute helpTextAttr = obj as HelpTextAttribute;
 				if (helpTextAttr != null)
@@ -169,6 +205,8 @@ namespace Fungus.Script
 					break;
 				}
 			}
+
+			EditorGUILayout.Separator();
 		}
 
 		public void DrawVariablesGUI()

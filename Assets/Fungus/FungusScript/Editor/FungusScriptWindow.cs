@@ -190,11 +190,8 @@ namespace Fungus.Script
 
 			EditorGUILayout.BeginVertical();
 
-			EditorGUILayout.Separator();
-			GUI.backgroundColor = Color.yellow;
 			GUILayout.Box("Sequence", GUILayout.ExpandWidth(true));
-			GUI.backgroundColor = Color.white;
-			
+
 			GUILayout.BeginHorizontal();
 			
 			if (fungusScript.selectedSequence == null)

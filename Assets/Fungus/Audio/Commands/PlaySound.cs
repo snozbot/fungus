@@ -3,6 +3,7 @@ using System.Collections;
 
 namespace Fungus.Script
 {
+	[CommandCategory("Audio")]
 	[CommandName("Play Sound")]
 	[HelpText("Plays a sound effect. Multiple sound effects can play at the same time.")]
 	public class PlaySound : FungusCommand

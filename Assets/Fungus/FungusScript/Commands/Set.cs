@@ -3,6 +3,7 @@ using System.Collections;
 
 namespace Fungus.Script
 {
+	[CommandCategory("Scripting")]
 	[HelpText("Sets a variable to a new value using simple arithmetic operations. The value can be a constant or another variable.")]
 	public class Set : FungusCommand 
 	{

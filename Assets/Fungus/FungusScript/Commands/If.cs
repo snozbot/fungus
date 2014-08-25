@@ -14,6 +14,7 @@ namespace Fungus.Script
 		GreaterThanOrEquals		// >=
 	}
 
+	[CommandCategory("Scripting")]
 	[HelpText("Execute another sequence IF a condition is true. Sequences can be specified for both true (THEN) and false (ELSE) conditions.")]
 	public class If : FungusCommand
 	{

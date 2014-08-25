@@ -3,6 +3,7 @@ using System.Collections;
 
 namespace Fungus.Script
 {
+	[CommandCategory("Audio")]
 	[CommandName("Stop Music")]
 	[HelpText("Stops the currently playing game music.")]
 	public class StopMusic : FungusCommand

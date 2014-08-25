@@ -4,6 +4,7 @@ using System.Collections;
 
 namespace Fungus.Script
 {
+	[CommandCategory("Camera")]
 	[CommandName("Fade To View")]
 	[HelpText("Fades the camera out and in again at a location specified by a View object.")]
 	public class FadeToView : FungusCommand 

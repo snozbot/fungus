@@ -4,6 +4,7 @@ using System.Collections;
 
 namespace Fungus.Script
 {
+	[CommandCategory("Camera")]
 	[CommandName("Move To View")]
 	[HelpText("Moves the camera to a location specified by a View object.")]
 	public class MoveToView : FungusCommand 

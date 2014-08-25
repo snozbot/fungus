@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
+	[CommandCategory("Dialog")]
 	[HelpText("Writes a line of story text to the dialog. A condition can be specified for when the story text should be shown.")]
 	public class Say : FungusCommand 
 	{

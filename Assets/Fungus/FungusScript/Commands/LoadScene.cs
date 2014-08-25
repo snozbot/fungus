@@ -4,6 +4,7 @@ using System.Collections;
 
 namespace Fungus.Script
 {
+	[CommandCategory("Scripting")]
 	[CommandName("Load Scene")]
 	[HelpText("Loads a new scene and displays an optional loading image. This is useful " +
 		"for splitting a large game across multiple scene files to reduce peak memory " +

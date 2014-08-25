@@ -28,6 +28,16 @@ namespace Fungus.Script
 		public string HelpText { get; set; }
 	}
 
+	public class CommandCategoryAttribute : Attribute
+	{
+		public CommandCategoryAttribute(string categoryText)
+		{
+			this.Category = categoryText;
+		}
+		
+		public string Category { get; set; }
+	}
+	
 	[RequireComponent(typeof(Sequence))]
 	public class FungusCommand : MonoBehaviour 
 	{
