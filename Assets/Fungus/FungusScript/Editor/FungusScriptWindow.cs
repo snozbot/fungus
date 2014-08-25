@@ -62,7 +62,15 @@ namespace Fungus.Script
 			scrollViewRect.xMax += position.width * bufferScale;
 			scrollViewRect.yMax += position.height * bufferScale;
 
-			fungusScript.scrollPos = GUI.BeginScrollView(new Rect(0, 0, position.width, position.height), fungusScript.scrollPos, scrollViewRect);
+			Rect windowRect = new Rect(0, 0, position.width, position.height);
+
+			// Clip GL drawing so not to overlap scrollbars
+			Rect clipRect = new Rect(fungusScript.scrollPos.x + scrollViewRect.x,
+			                         fungusScript.scrollPos.y + scrollViewRect.y,
+			                         windowRect.width - 15,
+			                         windowRect.height - 15);
+			
+			fungusScript.scrollPos = GLDraw.BeginScrollView(windowRect, fungusScript.scrollPos, scrollViewRect, clipRect);
 
 			if (Event.current.type == EventType.ContextClick)
 			{
@@ -123,7 +131,7 @@ namespace Fungus.Script
 				GLDraw.DrawBox(outlineRect, Color.green, 2);
 			}
 
-			GUI.EndScrollView();
+			GLDraw.EndScrollView();
 
 			GUILayout.BeginVertical();
 			GUILayout.FlexibleSpace();
