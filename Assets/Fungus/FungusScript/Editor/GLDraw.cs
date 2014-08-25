@@ -72,19 +72,33 @@ public class GLDraw
         return false;
     }
 
-    public static void BeginGroup(Rect position)
-    {
-        clippingEnabled = true;
-        clippingBounds = new Rect(0, 0, position.width, position.height);
-        GUI.BeginGroup(position);
-    }
+	public static void BeginGroup(Rect position)
+	{
+		clippingEnabled = true;
+		clippingBounds = new Rect(0, 0, position.width, position.height);
+		GUI.BeginGroup(position);
+	}
+	
+	public static void EndGroup()
+	{
+		GUI.EndGroup();
+		clippingBounds = new Rect(0, 0, Screen.width, Screen.height);
+		clippingEnabled = false;
+	}
 
-    public static void EndGroup()
-    {
-        GUI.EndGroup();
-        clippingBounds = new Rect(0, 0, Screen.width, Screen.height);
-        clippingEnabled = false;
-    }
+	public static Vector2 BeginScrollView(Rect position, Vector2 scrollPos, Rect viewRect, Rect clipRect)
+	{
+		clippingEnabled = true;
+		clippingBounds = clipRect;
+		return GUI.BeginScrollView(position, scrollPos, viewRect);
+	}
+	
+	public static void EndScrollView()
+	{
+		GUI.EndScrollView();
+		clippingBounds = new Rect(0, 0, Screen.width, Screen.height);
+		clippingEnabled = false;
+	}
 
     public static void CreateMaterial()
     {
@@ -145,6 +159,25 @@ public class GLDraw
         }
         GL.End();
     }
+
+	public static void DrawRect(Rect rect, Color color)
+	{
+		if (Event.current == null)
+			return;
+		if (Event.current.type != EventType.repaint)
+			return;
+
+		CreateMaterial();
+		// set the current material
+		lineMaterial.SetPass( 0 );
+		GL.Begin( GL.QUADS );
+		GL.Color( color );
+		GL.Vertex3( rect.xMin, rect.yMin, 0 );
+		GL.Vertex3( rect.xMax, rect.yMin, 0 );
+		GL.Vertex3( rect.xMax, rect.yMax, 0 );
+		GL.Vertex3( rect.xMin, rect.yMax, 0 );
+		GL.End();
+	}
 
     public static void DrawBox(Rect box, Color color, float width)
     {
