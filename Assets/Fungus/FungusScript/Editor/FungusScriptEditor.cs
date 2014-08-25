@@ -77,7 +77,7 @@ namespace Fungus.Script
 
 			EditorGUI.BeginChangeCheck();
 
-			string name = EditorGUILayout.TextField(new GUIContent("Sequence Name", "Name of sequence displayed in editor window"), sequence.name);
+			string name = EditorGUILayout.TextField(new GUIContent("Name", "Name of sequence displayed in editor window"), sequence.name);
 			string desc = EditorGUILayout.TextField(new GUIContent("Description", "Sequence description displayed in editor window"), sequence.description);
 	
 			EditorGUILayout.Separator();
