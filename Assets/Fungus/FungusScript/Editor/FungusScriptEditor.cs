@@ -60,6 +60,10 @@ namespace Fungus.Script
 			}
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
+
+			EditorGUILayout.Separator();
+
+			DrawVariablesGUI();
 		}
 
 		public void DrawSequenceGUI(FungusScript fungusScript)

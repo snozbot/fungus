@@ -86,20 +86,20 @@ namespace Fungus.Script
 		{
 			FungusVariable variable = this[index].objectReferenceValue as FungusVariable;
 			
-			float width1 = 60;
+			float width1 = 100;
 			float width3 = 50;
-			float width2 = Mathf.Max(position.width - width1 - width3, 100);
-			
-			Rect typeRect = position;
-			typeRect.width = width1;
+			float width2 = Mathf.Max(position.width - width1 - width3, 60);
 			
 			Rect keyRect = position;
-			keyRect.x += width1;
-			keyRect.width = width2;
+			keyRect.width = width1;
 			
+			Rect valueRect = position;
+			valueRect.x += width1 + 5;
+			valueRect.width = width2 - 5;
+
 			Rect scopeRect = position;
-			scopeRect.x += width1 + width2;
-			scopeRect.width = width3;
+			scopeRect.x += width1 + width2 + 5;
+			scopeRect.width = width3 - 5;
 			
 			string type = "";
 			if (variable.GetType() == typeof(BooleanVariable))
@@ -118,21 +118,16 @@ namespace Fungus.Script
 			{
 				type = "String";
 			}
-			
-			GUI.Label(typeRect, type);
-			
-			EditorGUI.BeginChangeCheck();
-			
+
+			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
+
 			string key = variable.key;
-			
+			VariableScope scope = variable.scope;
+
 			if (Application.isPlaying)
 			{
-				const float w = 100;
-				Rect valueRect = keyRect;
-				keyRect.width = w - 5;
-				valueRect.x += w;
-				valueRect.width -= (w + 5);
-				key = EditorGUI.TextField(keyRect, variable.key);
+				GUI.Label(keyRect, variable.key);
+
 				if (variable.GetType() == typeof(BooleanVariable))
 				{
 					BooleanVariable v = variable as BooleanVariable;
@@ -153,24 +148,32 @@ namespace Fungus.Script
 					StringVariable v = variable as StringVariable;
 					v.Value = EditorGUI.TextField(valueRect, v.Value);
 				}
+
+				if (scope == VariableScope.Local)
+				{
+					GUI.Label(scopeRect, "Local");
+				}
+				else if (scope == VariableScope.Global)
+				{
+					GUI.Label(scopeRect, "Global");
+				}
 			}
 			else
 			{
-				keyRect.width -= 5;
+				EditorGUI.BeginChangeCheck();
+
 				key = EditorGUI.TextField(keyRect, variable.key);
-			}
-			
-			VariableScope scope = (VariableScope)EditorGUI.EnumPopup(scopeRect, variable.scope);
+				GUI.Label(valueRect, type);
+				scope = (VariableScope)EditorGUI.EnumPopup(scopeRect, variable.scope);
 
-			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
-
-			if (EditorGUI.EndChangeCheck ())
-			{
-				Undo.RecordObject(variable, "Set Variable");
-
-				// Modify the key if it clashes with an existing variable key
-				variable.key = fungusScript.GetUniqueVariableKey(key, variable);
-				variable.scope = scope;
+				if (EditorGUI.EndChangeCheck ())
+				{
+					Undo.RecordObject(variable, "Set Variable");
+					
+					// Modify the key if it clashes with an existing variable key
+					variable.key = fungusScript.GetUniqueVariableKey(key, variable);
+					variable.scope = scope;
+				}
 			}
 
 			if (fungusScript != null)
