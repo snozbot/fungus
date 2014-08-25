@@ -4,49 +4,68 @@ using UnityEditor;
 public class SplitViewWindow : EditorWindow
 {
 	private Vector2 scrollPos = Vector2.zero;
-	float currentScrollViewHeight;
+	float commandViewWidth;
 	bool resize = false;
 	Rect cursorChangeRect;
+
+	public float minViewWidth = 150;
 	
 	[MenuItem("MyWindows/SplitView")]
 	public static void Init(){
 		GetWindow<SplitViewWindow>();
 	}
 	
-	void OnEnable(){
-		this.position = new Rect(200,200,400,300);
-		currentScrollViewHeight = this.position.height/2;
-		cursorChangeRect = new Rect(0,currentScrollViewHeight,this.position.width,5f);
+	void OnEnable()
+	{
+		commandViewWidth = minViewWidth;
+		cursorChangeRect = new Rect(this.position.width - commandViewWidth, 0, 4f, this.position.height);
 	}
 	
-	void OnGUI(){
-		GUILayout.BeginVertical();
-		scrollPos = GUILayout.BeginScrollView(scrollPos,GUILayout.Height(currentScrollViewHeight));
-		for(int i=0;i<20;i++)
-			GUILayout.Label("dfs");
-		GUILayout.EndScrollView();
-		
-		ResizeScrollView();
-		
-		GUILayout.FlexibleSpace();
-		GUILayout.Label("Lower part");
-		
-		GUILayout.EndVertical();
+	void OnGUI()
+	{
+		GUILayout.BeginHorizontal();
+		DrawScriptView();
+		ResizeViews();
+		GUILayout.EndHorizontal();
+
 		Repaint();
 	}
 	
-	private void ResizeScrollView(){
-		GUI.DrawTexture(cursorChangeRect,EditorGUIUtility.whiteTexture);
-		EditorGUIUtility.AddCursorRect(cursorChangeRect,MouseCursor.ResizeVertical);
+	void DrawScriptView()
+	{
+		Rect scriptViewRect = new Rect(0, 0, this.position.width - commandViewWidth, this.position.height);
 		
-		if( Event.current.type == EventType.mouseDown && cursorChangeRect.Contains(Event.current.mousePosition)){
+		scrollPos = GUI.BeginScrollView(scriptViewRect, scrollPos, scriptViewRect);
+
+		GUI.EndScrollView();		
+	}
+
+	void ResizeViews()
+	{
+		cursorChangeRect.x = this.position.width - commandViewWidth;
+		cursorChangeRect.height = this.position.height;
+
+		GUI.color = Color.grey;
+		GUI.DrawTexture(cursorChangeRect, EditorGUIUtility.whiteTexture);
+		EditorGUIUtility.AddCursorRect(cursorChangeRect, MouseCursor.ResizeHorizontal);
+		
+		if (Event.current.type == EventType.mouseDown && cursorChangeRect.Contains(Event.current.mousePosition))
+		{
 			resize = true;
 		}
-		if(resize){
-			currentScrollViewHeight = Event.current.mousePosition.y;
-			cursorChangeRect.Set(cursorChangeRect.x,currentScrollViewHeight,cursorChangeRect.width,cursorChangeRect.height);
+		if (resize)
+		{
+			commandViewWidth = this.position.width - Event.current.mousePosition.x;
+			commandViewWidth = Mathf.Max(minViewWidth, commandViewWidth);
+			commandViewWidth = Mathf.Min(this.position.width - minViewWidth, commandViewWidth);
 		}
 		if(Event.current.type == EventType.MouseUp)
+		{
 			resize = false;        
+		}
+	}
+
+	void DrawCommandView()
+	{
 	}
 }
