@@ -22,25 +22,7 @@ namespace Fungus.Script
 
 			if (t != null)
 			{
-				// Hide the transform component if FungusScript & Variables are the only components on the game object
-				// Gives a bit more room in inspector for editing commands. The transform will become visible if any non-Fungus 
-				// components are attached to the game object.
-				Component[] components = t.GetComponents(typeof(Component));
-				int count = 0;
-				foreach (Component component in components)
-				{
-					System.Type type = component.GetType();
-					if (type == typeof(Transform) ||
-						type == typeof(FungusScript) ||
-					    type == typeof(BooleanVariable) ||
-					    type == typeof(IntegerVariable) ||
-					    type == typeof(FloatVariable) ||
-					    type == typeof(StringVariable))
-					{
-						count++;
-					}
-				}
-				t.transform.hideFlags = (count == components.Length) ? HideFlags.HideInInspector : HideFlags.None;
+				t.transform.hideFlags = HideFlags.None;
 			}
 
 			EditorGUI.BeginChangeCheck();
@@ -78,80 +60,22 @@ namespace Fungus.Script
 			}
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
-
-			EditorGUILayout.Separator();
-			GUI.backgroundColor = Color.yellow;
-			GUILayout.Box("Sequence Editor", GUILayout.ExpandWidth(true));
-			GUI.backgroundColor = Color.white;
-
-			GUILayout.BeginHorizontal();
-
-			if (t.selectedSequence == null)
-			{
-				GUILayout.FlexibleSpace();
-			}
-
-			if (GUILayout.Button(t.selectedSequence == null ? "Create Sequence" : "Create", 
-			                     t.selectedSequence == null ?  EditorStyles.miniButton : EditorStyles.miniButtonLeft))
-			{
-				Sequence newSequence = t.CreateSequence(t.scrollPos);
-				Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
-				t.selectedSequence = newSequence;
-			}
-
-			if (t.selectedSequence == null)
-			{
-				GUILayout.FlexibleSpace();
-			}
-
-			if (t.selectedSequence != null)
-			{
-				if (GUILayout.Button("Delete", EditorStyles.miniButtonMid))
-				{
-					Undo.DestroyObjectImmediate(t.selectedSequence.gameObject);
-					t.selectedSequence = null;
-				}
-				if (GUILayout.Button("Duplicate", EditorStyles.miniButtonRight))
-				{
-					GameObject copy = GameObject.Instantiate(t.selectedSequence.gameObject) as GameObject;
-					copy.transform.parent = t.transform;
-					copy.transform.hideFlags = HideFlags.HideInHierarchy;
-					copy.name = t.selectedSequence.name;
-					
-					Sequence sequenceCopy = copy.GetComponent<Sequence>();
-					sequenceCopy.nodeRect.x += sequenceCopy.nodeRect.width + 10;
-					
-					Undo.RegisterCreatedObjectUndo(copy, "Duplicate Sequence");
-					t.selectedSequence = sequenceCopy;
-				}
-			}
-
-			GUILayout.EndHorizontal();
-
-			EditorGUILayout.Separator();
-
-			if (t.selectedSequence != null)
-			{
-				DrawSequenceGUI(t.selectedSequence);
-
-				if (!Application.isPlaying)
-				{
-					EditorGUILayout.Separator();
-					DrawAddCommandGUI(t.selectedSequence);
-				}
-			}
 		}
 
-		public void DrawSequenceGUI(Sequence sequence)
+		public void DrawSequenceGUI(FungusScript fungusScript)
 		{
+			if (fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+				
+			Sequence sequence = fungusScript.selectedSequence;
+
 			EditorGUI.BeginChangeCheck();
 
 			string name = EditorGUILayout.TextField(new GUIContent("Sequence Name", "Name of sequence displayed in editor window"), sequence.name);
-			EditorGUILayout.PrefixLabel(new GUIContent("Description", "Sequence description displayed in editor window"));
-			GUIStyle descriptionStyle = new GUIStyle(EditorStyles.textArea);
-			descriptionStyle.wordWrap = true;
-			string desc = EditorGUILayout.TextArea(sequence.description, descriptionStyle);
-
+			string desc = EditorGUILayout.TextField(new GUIContent("Description", "Sequence description displayed in editor window"), sequence.description);
+	
 			EditorGUILayout.Separator();
 
 			if (name != sequence.name)
@@ -167,7 +91,9 @@ namespace Fungus.Script
 				sequence.description = desc;
 			}
 
-			EditorGUILayout.PrefixLabel("Commands");
+			GUI.backgroundColor = Color.yellow;
+			GUILayout.Box("Commands", GUILayout.ExpandWidth(true));
+			GUI.backgroundColor = Color.white;
 
 			FungusCommand[] commands = sequence.GetComponents<FungusCommand>();
 			int index = 1;
@@ -176,14 +102,16 @@ namespace Fungus.Script
 				FungusCommandEditor commandEditor = Editor.CreateEditor(command) as FungusCommandEditor;
 				commandEditor.DrawInspectorGUI(index++);
 			}
-		}
 
-		public void DrawAddCommandGUI(Sequence sequence)
-		{
-			FungusScript t = target as FungusScript;
+			if (Application.isPlaying)
+			{
+				return;
+			}
+
+			EditorGUILayout.Separator();
 
 			GUI.backgroundColor = Color.yellow;
-			GUILayout.Box("Add Command", GUILayout.ExpandWidth(true));
+			GUILayout.Box("New Command", GUILayout.ExpandWidth(true));
 			GUI.backgroundColor = Color.white;
 
 			// Build list of categories
@@ -201,12 +129,12 @@ namespace Fungus.Script
 
 			EditorGUI.BeginChangeCheck();
 
-			int selectedCommandIndex = EditorGUILayout.Popup("Command", t.selectedCommandIndex, commandNames.ToArray());
+			int selectedCommandIndex = EditorGUILayout.Popup("Command", fungusScript.selectedCommandIndex, commandNames.ToArray());
 
 			if (EditorGUI.EndChangeCheck())
 			{
-				Undo.RecordObject(t, "Select Command");
-				t.selectedCommandIndex = selectedCommandIndex;
+				Undo.RecordObject(fungusScript, "Select Command");
+				fungusScript.selectedCommandIndex = selectedCommandIndex;
 			}
 
 			System.Type selectedType = commandTypes[selectedCommandIndex];

@@ -19,7 +19,10 @@ namespace Fungus.Script
 		public int selectedCommandIndex;
 
 		[HideInInspector]
-		public Vector2 scrollPos;
+		public Vector2 scriptScrollPos;
+
+		[HideInInspector]
+		public Vector2 commandScrollPos;
 
 		public float stepTime;
 		

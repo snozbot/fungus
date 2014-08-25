@@ -148,8 +148,6 @@ namespace Fungus.Script
 			    t.IsExecuting())
 			{
 				Rect rect = GUILayoutUtility.GetLastRect();
-				rect.x -= 10;
-				rect.width += 10;
 				GLDraw.DrawBox(rect, Color.green, 1.5f);
 			}
 		}

@@ -6,9 +6,13 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
-
 	public class FungusScriptWindow : EditorWindow
 	{
+		float commandViewWidth;
+		bool resize = false;
+		Rect cursorChangeRect;
+		public const float minViewWidth = 300;
+
 		private List<Sequence> windowSequenceMap = new List<Sequence>();
 
 	    [MenuItem("Window/Fungus Script")]
@@ -16,6 +20,12 @@ namespace Fungus.Script
 	    {
 	        GetWindow(typeof(FungusScriptWindow), false, "Fungus Script");
 	    }
+
+		void OnEnable()
+		{
+			commandViewWidth = minViewWidth;
+			cursorChangeRect = new Rect(this.position.width - commandViewWidth, 0, 4f, this.position.height);
+		}
 
 		public void OnInspectorUpdate()
 		{
@@ -32,8 +42,8 @@ namespace Fungus.Script
 			return null;
 		}
 
-	    void OnGUI()
-	    {
+		void OnGUI()
+		{
 			FungusScript fungusScript = GetFungusScript();
 			if (fungusScript == null)
 			{
@@ -41,12 +51,21 @@ namespace Fungus.Script
 				return;
 			}
 
+			GUILayout.BeginHorizontal();
+			DrawScriptView(fungusScript);
+			ResizeViews();
+			DrawCommandView(fungusScript);
+			GUILayout.EndHorizontal();
+		}
+		
+		void DrawScriptView(FungusScript fungusScript)
+		{
 			EditorUtility.SetDirty(fungusScript);
-
+			
 			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>();
-
+			
 			Rect scrollViewRect = new Rect();
-
+			
 			foreach (Sequence s in sequences)
 			{
 				scrollViewRect.xMin = Mathf.Min(scrollViewRect.xMin, s.nodeRect.xMin);
@@ -54,52 +73,55 @@ namespace Fungus.Script
 				scrollViewRect.yMin = Mathf.Min(scrollViewRect.yMin, s.nodeRect.yMin);
 				scrollViewRect.yMax = Mathf.Max(scrollViewRect.yMax, s.nodeRect.yMax);
 			}
-
+			
 			// Empty buffer area around edges of scroll rect
 			float bufferScale = 0.25f;
 			scrollViewRect.xMin -= position.width * bufferScale;
 			scrollViewRect.yMin -= position.height * bufferScale;
 			scrollViewRect.xMax += position.width * bufferScale;
 			scrollViewRect.yMax += position.height * bufferScale;
-
-			Rect windowRect = new Rect(0, 0, position.width, position.height);
+			
+			// Calc rect for left hand script view
+			Rect scriptViewRect = new Rect(0, 0, this.position.width - commandViewWidth, this.position.height);
 
 			// Clip GL drawing so not to overlap scrollbars
-			Rect clipRect = new Rect(fungusScript.scrollPos.x + scrollViewRect.x,
-			                         fungusScript.scrollPos.y + scrollViewRect.y,
-			                         windowRect.width - 15,
-			                         windowRect.height - 15);
-			
-			fungusScript.scrollPos = GLDraw.BeginScrollView(windowRect, fungusScript.scrollPos, scrollViewRect, clipRect);
+			Rect clipRect = new Rect(fungusScript.scriptScrollPos.x + scrollViewRect.x,
+			                         fungusScript.scriptScrollPos.y + scrollViewRect.y,
+			                         scriptViewRect.width - 15,
+			                         scriptViewRect.height - 15);
 
+			GUILayoutUtility.GetRect(scriptViewRect.width, scriptViewRect.height);
+
+			fungusScript.scriptScrollPos = GLDraw.BeginScrollView(scriptViewRect, fungusScript.scriptScrollPos, scrollViewRect, clipRect);
+			
 			if (Event.current.type == EventType.ContextClick)
 			{
 				GenericMenu menu = new GenericMenu();
 				Vector2 mousePos = Event.current.mousePosition;
-				mousePos += fungusScript.scrollPos;
+				mousePos += fungusScript.scriptScrollPos;
 				menu.AddItem (new GUIContent ("Create Sequence"), false, CreateSequenceCallback, mousePos);
 				menu.ShowAsContext ();
 				
 				Event.current.Use();
 			}
-
-	        BeginWindows();
-
+			
+			BeginWindows();
+			
 			GUIStyle windowStyle = new GUIStyle(GUI.skin.window);
-
+			
 			windowSequenceMap.Clear();
 			for (int i = 0; i < sequences.Length; ++i)
 			{
 				Sequence sequence = sequences[i];
-			
+				
 				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
 				float windowWidth = Mathf.Max (titleWidth + 10, 100);
-
+				
 				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, sequence.name, GUILayout.Width(windowWidth), GUILayout.Height(20), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
-
+				
 				windowSequenceMap.Add(sequence);
 			}
-
+			
 			// Draw connections
 			foreach (Sequence s in windowSequenceMap)
 			{
@@ -109,9 +131,9 @@ namespace Fungus.Script
 			{
 				DrawConnections(fungusScript, s, true);
 			}
-
-	        EndWindows();
-
+			
+			EndWindows();
+			
 			if (fungusScript.selectedSequence != null ||
 			    fungusScript.executingSequence != null)
 			{
@@ -130,26 +152,103 @@ namespace Fungus.Script
 				outlineRect.y -= 5;
 				GLDraw.DrawBox(outlineRect, Color.green, 2);
 			}
-
+			
 			GLDraw.EndScrollView();
-
-			GUILayout.BeginVertical();
-			GUILayout.FlexibleSpace();
-			GUILayout.BeginHorizontal();
-			GUILayout.Space(10);
-			GUILayout.Label(fungusScript.name, EditorStyles.miniLabel);
-			GUILayout.EndHorizontal();
-			GUILayout.BeginHorizontal();
-			GUILayout.Space(10);
-			GUI.backgroundColor = Color.white;
-			if (GUILayout.Button("Show Variables"))
+		}
+		
+		void ResizeViews()
+		{
+			cursorChangeRect.x = this.position.width - commandViewWidth;
+			cursorChangeRect.height = this.position.height;
+			
+			GUI.color = Color.grey;
+			GUI.DrawTexture(cursorChangeRect, EditorGUIUtility.whiteTexture);
+			GUI.color = Color.white;
+			EditorGUIUtility.AddCursorRect(cursorChangeRect, MouseCursor.ResizeHorizontal);
+			
+			if (Event.current.type == EventType.mouseDown && cursorChangeRect.Contains(Event.current.mousePosition))
 			{
-				EditorWindow.GetWindow<VariablesWindow>("Fungus Variables");
+				resize = true;
 			}
-			GUILayout.FlexibleSpace();
+			if (resize)
+			{
+				commandViewWidth = this.position.width - Event.current.mousePosition.x;
+				commandViewWidth = Mathf.Max(minViewWidth, commandViewWidth);
+				commandViewWidth = Mathf.Min(this.position.width - minViewWidth, commandViewWidth);
+			}
+			if(Event.current.type == EventType.MouseUp)
+			{
+				resize = false;        
+			}
+		}
+		
+		void DrawCommandView(FungusScript fungusScript)
+		{
+			GUILayout.Space(5);
+
+			fungusScript.commandScrollPos = GUILayout.BeginScrollView(fungusScript.commandScrollPos);
+
+			EditorGUILayout.BeginVertical();
+
+			EditorGUILayout.Separator();
+			GUI.backgroundColor = Color.yellow;
+			GUILayout.Box("Sequence", GUILayout.ExpandWidth(true));
+			GUI.backgroundColor = Color.white;
+			
+			GUILayout.BeginHorizontal();
+			
+			if (fungusScript.selectedSequence == null)
+			{
+				GUILayout.FlexibleSpace();
+			}
+			
+			if (GUILayout.Button(fungusScript.selectedSequence == null ? "Create Sequence" : "Create", 
+			                     fungusScript.selectedSequence == null ?  EditorStyles.miniButton : EditorStyles.miniButtonLeft))
+			{
+				Sequence newSequence = fungusScript.CreateSequence(fungusScript.scriptScrollPos);
+				Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
+				fungusScript.selectedSequence = newSequence;
+			}
+			
+			if (fungusScript.selectedSequence == null)
+			{
+				GUILayout.FlexibleSpace();
+			}
+			
+			if (fungusScript.selectedSequence != null)
+			{
+				if (GUILayout.Button("Delete", EditorStyles.miniButtonMid))
+				{
+					Undo.DestroyObjectImmediate(fungusScript.selectedSequence.gameObject);
+					fungusScript.selectedSequence = null;
+				}
+				if (GUILayout.Button("Duplicate", EditorStyles.miniButtonRight))
+				{
+					GameObject copy = GameObject.Instantiate(fungusScript.selectedSequence.gameObject) as GameObject;
+					copy.transform.parent = fungusScript.transform;
+					copy.transform.hideFlags = HideFlags.HideInHierarchy;
+					copy.name = fungusScript.selectedSequence.name;
+					
+					Sequence sequenceCopy = copy.GetComponent<Sequence>();
+					sequenceCopy.nodeRect.x += sequenceCopy.nodeRect.width + 10;
+					
+					Undo.RegisterCreatedObjectUndo(copy, "Duplicate Sequence");
+					fungusScript.selectedSequence = sequenceCopy;
+				}
+			}
+			
 			GUILayout.EndHorizontal();
-			GUILayout.Space(20);
-			GUILayout.EndVertical();
+			
+			EditorGUILayout.Separator();
+
+			FungusScriptEditor editor = Editor.CreateEditor(fungusScript) as FungusScriptEditor;
+			editor.DrawSequenceGUI(fungusScript);
+
+			GUILayout.FlexibleSpace();
+
+			EditorGUILayout.EndVertical();
+
+			GUILayout.EndScrollView();
 		}
 
 		void CreateSequenceCallback(object item)
@@ -158,7 +257,7 @@ namespace Fungus.Script
 			if (fungusScript != null)
 			{
 				Vector2 position = (Vector2)item;
-				position -= fungusScript.scrollPos;
+				position -= fungusScript.scriptScrollPos;
 				Sequence newSequence = fungusScript.CreateSequence(position);
 				Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
 				fungusScript.selectedSequence = newSequence;
