@@ -44,11 +44,18 @@ namespace Fungus.Script
 		{
 			if (character == null)
 			{
-				return;
+				if (leftImage != null)
+					leftImage.enabled = false;
+				if (rightImage != null)
+					rightImage.enabled = false;
+				if (nameText != null)
+					nameText.text = "";
 			}
-
-			SetCharacterImage(character.characterImage, character.dialogSide);
-			SetCharacterName(character.name, character.characterColor);
+			else
+			{
+				SetCharacterImage(character.characterImage, character.dialogSide);
+				SetCharacterName(character.name, character.characterColor);
+			}
 		}
 		
 		public void SetCharacterImage(Sprite image, DialogSide side)

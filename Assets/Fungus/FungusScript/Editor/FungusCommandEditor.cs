@@ -168,6 +168,38 @@ namespace Fungus.Script
 			}
 			return copy as T;
 		}
+
+		static public T ObjectField<T>(GUIContent label, GUIContent nullLabel, T selectedObject) where T : MonoBehaviour
+		{
+			List<GUIContent> objectNames = new List<GUIContent>();
+			
+			int selectedIndex = 0;
+			objectNames.Add(nullLabel);
+			T[] objects = GameObject.FindObjectsOfType<T>();
+			for (int i = 0; i < objects.Length; ++i)
+			{
+				objectNames.Add(new GUIContent(objects[i].name));
+				
+				if (selectedObject == objects[i])
+				{
+					selectedIndex = i + 1;
+				}
+			}
+
+			T result;
+
+			selectedIndex = EditorGUILayout.Popup(label, selectedIndex, objectNames.ToArray());
+			if (selectedIndex == 0)
+			{
+				result = null; // Null option
+			}
+			else
+			{
+				result = objects[selectedIndex - 1];
+			}
+			
+			return result;
+		}
 	}
 
 }

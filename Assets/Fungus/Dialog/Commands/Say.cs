@@ -46,10 +46,7 @@ namespace Fungus.Script
 
 			dialogController.ShowDialog(true);
 
-			if (character != null)
-			{
-				dialogController.SetCharacter(character);
-			}
+			dialogController.SetCharacter(character);
 
 			if (options.Count > 0)
 			{

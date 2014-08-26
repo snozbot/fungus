@@ -21,14 +21,14 @@ namespace Fungus.Script
 
 			EditorGUI.BeginChangeCheck();
 
+			Character character = FungusCommandEditor.ObjectField<Character>(new GUIContent("Character", "Character to display in dialog"), 
+			                                                                 new GUIContent("<None>"),
+			                                                                 t.character);
+
 			EditorGUILayout.PrefixLabel(new GUIContent("Say Text", "Text to display in dialog"));
 			GUIStyle sayStyle = new GUIStyle(EditorStyles.textArea);
 			sayStyle.wordWrap = true;
 			string text = EditorGUILayout.TextArea(t.storyText, sayStyle, GUILayout.MinHeight(30));
-
-			Character character = EditorGUILayout.ObjectField(new GUIContent("Character", "Character to display in dialog"), 
-			                                                  t.character,
-			                                                  typeof(Character), true) as Character;
 
 			bool displayOnce = EditorGUILayout.Toggle(new GUIContent("Display Once", "Display this text once and never show it again."), t.displayOnce);
 			                                         
