@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 	[CommandCategory("Dialog")]
-	[HelpText("Writes a line of story text to the dialog. A condition can be specified for when the story text should be shown.")]
+	[HelpText("Writes a line of story text to the dialog. A list of options can be specified for the player to choose from. Use a non-zero timeout to give the player a limited time to choose.")]
 	public class Say : FungusCommand 
 	{
 		static public DialogController dialogController;

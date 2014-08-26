@@ -156,7 +156,7 @@ namespace Fungus.Script
 					{
 						if (categoryAttr.Category == categoryName)
 						{
-							commandNames.Add(type.Name);
+							commandNames.Add(GetCommandName(type));
 							commandTypes.Add(type);
 						}
 					}
