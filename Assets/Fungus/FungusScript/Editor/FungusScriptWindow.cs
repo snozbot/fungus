@@ -8,7 +8,6 @@ namespace Fungus.Script
 {
 	public class FungusScriptWindow : EditorWindow
 	{
-		float commandViewWidth;
 		bool resize = false;
 		Rect cursorChangeRect;
 		public const float minViewWidth = 300;
@@ -23,8 +22,6 @@ namespace Fungus.Script
 
 		void OnEnable()
 		{
-			commandViewWidth = minViewWidth;
-			cursorChangeRect = new Rect(this.position.width - commandViewWidth, 0, 4f, this.position.height);
 		}
 
 		public void OnInspectorUpdate()
@@ -53,7 +50,7 @@ namespace Fungus.Script
 
 			GUILayout.BeginHorizontal();
 			DrawScriptView(fungusScript);
-			ResizeViews();
+			ResizeViews(fungusScript);
 			DrawCommandView(fungusScript);
 			GUILayout.EndHorizontal();
 		}
@@ -82,7 +79,7 @@ namespace Fungus.Script
 			scrollViewRect.yMax += position.height * bufferScale;
 			
 			// Calc rect for left hand script view
-			Rect scriptViewRect = new Rect(0, 0, this.position.width - commandViewWidth, this.position.height);
+			Rect scriptViewRect = new Rect(0, 0, this.position.width - fungusScript.commandViewWidth, this.position.height);
 
 			// Clip GL drawing so not to overlap scrollbars
 			Rect clipRect = new Rect(fungusScript.scriptScrollPos.x + scrollViewRect.x,
@@ -156,11 +153,10 @@ namespace Fungus.Script
 			GLDraw.EndScrollView();
 		}
 		
-		void ResizeViews()
+		void ResizeViews(FungusScript fungusScript)
 		{
-			cursorChangeRect.x = this.position.width - commandViewWidth;
-			cursorChangeRect.height = this.position.height;
-			
+			cursorChangeRect = new Rect(this.position.width - fungusScript.commandViewWidth, 0, 4f, this.position.height);
+
 			GUI.color = Color.grey;
 			GUI.DrawTexture(cursorChangeRect, EditorGUIUtility.whiteTexture);
 			GUI.color = Color.white;
@@ -172,9 +168,9 @@ namespace Fungus.Script
 			}
 			if (resize)
 			{
-				commandViewWidth = this.position.width - Event.current.mousePosition.x;
-				commandViewWidth = Mathf.Max(minViewWidth, commandViewWidth);
-				commandViewWidth = Mathf.Min(this.position.width - minViewWidth, commandViewWidth);
+				fungusScript.commandViewWidth = this.position.width - Event.current.mousePosition.x;
+				fungusScript.commandViewWidth = Mathf.Max(minViewWidth, fungusScript.commandViewWidth);
+				fungusScript.commandViewWidth = Mathf.Min(this.position.width - minViewWidth, fungusScript.commandViewWidth);
 			}
 			if(Event.current.type == EventType.MouseUp)
 			{

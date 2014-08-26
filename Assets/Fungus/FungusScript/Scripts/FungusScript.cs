@@ -27,6 +27,9 @@ namespace Fungus.Script
 		[HideInInspector]
 		public Vector2 commandScrollPos;
 
+		[HideInInspector]
+		public float commandViewWidth = 300;
+
 		public float stepTime;
 		
 		public Sequence startSequence;
