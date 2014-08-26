@@ -9,7 +9,8 @@ namespace Fungus.Script
 	[HelpText("Writes a line of story text to the dialog. A condition can be specified for when the story text should be shown.")]
 	public class Say : FungusCommand 
 	{
-		public DialogController dialogController;
+		static public DialogController dialogController;
+
 		public Character character;
 		public string storyText;
 		public bool displayOnce;
@@ -43,6 +44,8 @@ namespace Fungus.Script
 
 			executionCount++;
 
+			dialogController.ShowDialog(true);
+
 			if (character != null)
 			{
 				dialogController.SetCharacter(character);
@@ -58,6 +61,9 @@ namespace Fungus.Script
 					Sequence onSelectSequence = sayOption.targetSequence;
 
 					dialogOption.onSelect = delegate {
+
+						dialogController.ShowDialog(false);
+
 						if (onSelectSequence == null)
 						{
 							Continue ();
@@ -76,6 +82,7 @@ namespace Fungus.Script
 			else
 			{
 				dialogController.Say(storyText, delegate {
+					dialogController.ShowDialog(false);
 					Continue();
 				});
 			}

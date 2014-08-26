@@ -26,10 +26,6 @@ namespace Fungus.Script
 			sayStyle.wordWrap = true;
 			string text = EditorGUILayout.TextArea(t.storyText, sayStyle, GUILayout.MinHeight(30));
 
-			DialogController dialogController = EditorGUILayout.ObjectField(new GUIContent("Dialog", "Dialog to display story text with"),
-			                                                                t.dialogController, 
-			                                                                typeof(DialogController), true) as DialogController;
-
 			Character character = EditorGUILayout.ObjectField(new GUIContent("Character", "Character to display in dialog"), 
 			                                                  t.character,
 			                                                  typeof(Character), true) as Character;
@@ -39,7 +35,6 @@ namespace Fungus.Script
 			if (EditorGUI.EndChangeCheck())
 			{
 				Undo.RecordObject(t, "Set Say");
-				t.dialogController = dialogController;
 				t.character = character;
 				t.storyText = text;
 				t.displayOnce = displayOnce;

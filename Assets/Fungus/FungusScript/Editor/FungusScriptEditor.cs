@@ -178,6 +178,12 @@ namespace Fungus.Script
 				fungusScript.selectedCommandIndex = selectedCommandIndex;
 			}
 
+			if (selectedCommandIndex >= commandTypes.Count)
+			{
+				EditorGUILayout.EndHorizontal();
+				return;
+			}
+
 			System.Type selectedType = commandTypes[selectedCommandIndex];
 			if (fungusScript.selectedSequence == null ||
 				selectedType == null)
