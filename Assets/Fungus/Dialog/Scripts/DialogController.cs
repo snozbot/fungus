@@ -32,6 +32,14 @@ namespace Fungus.Script
 
 		List<Action> optionActions = new List<Action>();
 
+		public void ShowDialog(bool visible)
+		{
+			if (dialogCanvas != null)
+			{
+				dialogCanvas.gameObject.SetActive(visible);
+			}
+		}
+
 		public void SetCharacter(Character character)
 		{
 			if (character == null)
