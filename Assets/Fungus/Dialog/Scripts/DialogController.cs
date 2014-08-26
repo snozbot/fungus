@@ -5,145 +5,216 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class DialogController : MonoBehaviour 
+namespace Fungus.Script
 {
-	public Sprite testCharacter;
 
-	public Canvas dialogCanvas;
-	public List<Button> optionButtons = new List<Button>();
-	public Text nameText;
-	public Text storyText;
-	public Image continueImage;
-	public Image leftImage;
-	public Image rightImage;
-
-	public enum ImageSide
+	public class DialogController : MonoBehaviour 
 	{
-		Left,
-		Right
-	};
-	
-	public void SetCharacterImage(Sprite image, ImageSide side)
-	{
-		if (leftImage != null)
+		public enum DialogSide
 		{
-			if (image != null &&
-			    side == ImageSide.Left)
+			Left,
+			Right
+		};
+
+		public class Option
+		{
+			public string text;
+			public Action onSelect;
+		}
+
+		public Canvas dialogCanvas;
+		public List<UnityEngine.UI.Button> optionButtons = new List<UnityEngine.UI.Button>();
+		public Text nameText;
+		public Text storyText;
+		public Image continueImage;
+		public Image leftImage;
+		public Image rightImage;
+
+		List<Action> optionActions = new List<Action>();
+
+		public void SetCharacter(Character character)
+		{
+			if (character == null)
 			{
-				leftImage.sprite = image;
-				leftImage.enabled = true;
+				return;
 			}
-			else
-			{
-				leftImage.enabled = false;
-			}
-		}
 
-		if (rightImage != null)
-		{
-			rightImage.sprite = null;
-			if (image != null &&
-			    side == ImageSide.Right)
-			{
-				rightImage.sprite = image;
-				rightImage.enabled = true;
-			}
-			else
-			{
-				rightImage.sprite = null;
-				rightImage.enabled = false;
-			}
-		}
-	}
-
-	public void SetCharacterName(string name, Color color)
-	{
-		if (nameText != null)
-		{
-			nameText.text = name;
-			nameText.color = color;
-		}
-	}
-
-	public void SetStoryText(string text)
-	{
-		if (storyText != null)
-		{
-			storyText.text = text;
-		}
-	}
-
-	public void ShowContinueIcon(bool visible)
-	{
-		if (continueImage != null)
-		{
-			continueImage.enabled = visible;
-		}
-	}
-
-	public void ClearOptions()
-	{
-		if (optionButtons == null)
-		{
-			return;
-		}
-
-		foreach (Button button in optionButtons)
-		{
-			button.gameObject.SetActive(false);
-		}
-	}
-
-	public void AddOption(string text, Action action)
-	{
-		if (optionButtons == null)
-		{
-			return;
+			SetCharacterImage(character.characterImage, character.dialogSide);
+			SetCharacterName(character.name, character.characterColor);
 		}
 		
-		foreach (Button button in optionButtons)
+		public void SetCharacterImage(Sprite image, DialogSide side)
 		{
-			if (!button.gameObject.activeSelf)
+			if (leftImage != null)
 			{
-				button.gameObject.SetActive(true);
-
-				Text textComponent = button.GetComponentInChildren<Text>();
-				if (textComponent != null)
+				if (image != null &&
+				    side == DialogSide.Left)
 				{
-					textComponent.text = text;
+					leftImage.sprite = image;
+					leftImage.enabled = true;
 				}
+				else
+				{
+					leftImage.enabled = false;
+				}
+			}
 
-				// TODO: Connect action
+			if (rightImage != null)
+			{
+				rightImage.sprite = null;
+				if (image != null &&
+				    side == DialogSide.Right)
+				{
+					rightImage.sprite = image;
+					rightImage.enabled = true;
+				}
+				else
+				{
+					rightImage.sprite = null;
+					rightImage.enabled = false;
+				}
+			}
+		}
 
-				break;
+		public void SetCharacterName(string name, Color color)
+		{
+			if (nameText != null)
+			{
+				nameText.text = name;
+				nameText.color = color;
+			}
+		}
+
+		public void Say(string text, Action onComplete)
+		{
+			Clear();
+
+			if (storyText != null)
+			{
+				storyText.text = text;
+			}
+
+			// TODO: Wait for text to finish writing
+
+			ShowContinueIcon(true);
+			StartCoroutine(WaitForInput(onComplete));
+		}
+
+		public void Say(string text, List<Option> options)
+		{
+			Clear();
+
+			if (storyText != null)
+			{
+				storyText.text = text;
+			}
+			
+			ShowContinueIcon(false);
+
+			foreach (Option option in options)
+			{
+				AddOption(option.text, option.onSelect);
+			}
+		}
+
+		IEnumerator WaitForInput(Action onComplete)
+		{
+			// TODO: Handle touch input
+			while (!Input.GetMouseButtonDown(0))
+			{
+				yield return null;
+			}
+
+			Clear();
+
+			if (onComplete != null)
+			{
+				onComplete();
+			}
+		}
+
+		void ShowContinueIcon(bool visible)
+		{
+			if (continueImage != null)
+			{
+				continueImage.enabled = visible;
+			}
+		}
+
+		void Clear()
+		{
+			ClearStoryText();
+			ClearOptions();
+		}
+
+		void ClearStoryText()
+		{
+			if (storyText != null)
+			{
+				storyText.text = "";
+			}
+		}
+
+		void ClearOptions()
+		{
+			if (optionButtons == null)
+			{
+				return;
+			}
+
+			optionActions.Clear();
+
+			foreach (UnityEngine.UI.Button button in optionButtons)
+			{
+				if (button != null)
+				{
+					button.gameObject.SetActive(false);
+				}
+			}
+		}
+
+		bool AddOption(string text, Action action)
+		{
+			if (optionButtons == null)
+			{
+				return false;
+			}
+
+			bool addedOption = false;
+			foreach (UnityEngine.UI.Button button in optionButtons)
+			{
+				if (!button.gameObject.activeSelf)
+				{
+					button.gameObject.SetActive(true);
+
+					Text textComponent = button.GetComponentInChildren<Text>();
+					if (textComponent != null)
+					{
+						textComponent.text = text;
+					}
+
+					optionActions.Add(action);
+
+					addedOption = true;
+					break;
+				}
+			}
+
+			return addedOption;
+		}
+
+		public void SelectOption(int index)
+		{
+			if (index < optionActions.Count)
+			{
+				Action optionAction = optionActions[index];
+				if (optionAction != null)
+				{
+					Clear();
+					optionAction();
+				}
 			}
 		}
 	}
-
-	public void Start()
-	{
-		SetCharacterImage(testCharacter, ImageSide.Left);
-		SetCharacterName("Podrick", Color.red);
-		SetStoryText("Simple story text");
-		ShowContinueIcon(false);
-
-		ClearOptions();
-		AddOption("Something 1", Callback );
-		AddOption("Something 2", Callback );
-	}
-
-	void Callback()
-	{
-		Debug.Log ("Callback");
-	}
-
-	//public UnityEvent testEvent;
-
-	// Write story text over time
-	// Show character image (with side, fade in?)
-	// Hide / Show canvas
-	// Show continue image
-	// Show one button
-	// Show button grid
 
 }

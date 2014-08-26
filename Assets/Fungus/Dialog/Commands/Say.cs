@@ -9,65 +9,33 @@ namespace Fungus.Script
 	[HelpText("Writes a line of story text to the dialog. A condition can be specified for when the story text should be shown.")]
 	public class Say : FungusCommand 
 	{
-		public enum ShowCondition
+		public DialogController dialogController;
+		public Character character;
+		public string storyText;
+		public bool displayOnce;
+
+		[Serializable]
+		public class SayOption
 		{
-			Always,
-			Once,
-			BooleanIsTrue,
-			BooleanIsFalse
+			public string optionText;
+			public Sequence targetSequence;
 		}
-		
-		public string character;
-		public string text;
-		public ShowCondition showCondition;
-		public BooleanVariable booleanVariable;
+
+		public List<SayOption> options = new List<SayOption>();
+
+		public float timeoutDuration;
 
 		int executionCount;
 
 		public override void OnEnter()
 		{
-			Dialog dialog = Game.GetInstance().dialog;
-			if (dialog == null)
+			if (dialogController == null)
 			{
 				Continue();
 				return;
 			}
 			
-			bool showSayText = true;
-			
-			if (showCondition == ShowCondition.Always) 
-			{
-				// Always show option
-			}
-			else if (showCondition == ShowCondition.Once) 
-			{
-				if (executionCount > 0)
-				{
-					showSayText = false;	
-				}
-			}
-			else
-			{
-				if (booleanVariable == null)
-				{
-					showSayText = false;
-				}
-				else
-				{
-					if (showCondition == ShowCondition.BooleanIsTrue &&
-					    booleanVariable.Value != true)
-					{
-						showSayText = false;
-					}
-					else if (showCondition == ShowCondition.BooleanIsFalse &&
-					         booleanVariable.Value != false)
-					{
-						showSayText = false;
-					}
-				}				
-			}
-			
-			if (!showSayText)
+			if (displayOnce && executionCount > 0)
 			{
 				Continue();
 				return;
@@ -75,19 +43,55 @@ namespace Fungus.Script
 
 			executionCount++;
 
-			if (character.Length > 0)
+			if (character != null)
 			{
-				dialog.SetCharacter(character);
+				dialogController.SetCharacter(character);
 			}
 
-			dialog.Say (text, delegate {
-				Continue();
-			});
+			if (options.Count > 0)
+			{
+				List<DialogController.Option> dialogOptions = new List<DialogController.Option>();
+				foreach (SayOption sayOption in options)
+				{
+					DialogController.Option dialogOption = new DialogController.Option();
+					dialogOption.text = sayOption.optionText;
+					Sequence onSelectSequence = sayOption.targetSequence;
+
+					dialogOption.onSelect = delegate {
+						if (onSelectSequence == null)
+						{
+							Continue ();
+						}
+						else
+						{
+							ExecuteSequence(onSelectSequence);
+						}
+					};
+
+					dialogOptions.Add(dialogOption);
+				}
+
+				dialogController.Say(storyText, dialogOptions);
+			}
+			else
+			{
+				dialogController.Say(storyText, delegate {
+					Continue();
+				});
+			}
 		}
 
 		public override string GetSummary()
 		{
-			return "\"" + text + "\"";
+			return "\"" + storyText + "\"";
+		}
+
+		public override void GetConnectedSequences (ref List<Sequence> connectedSequences)
+		{
+			foreach (SayOption option in options)
+			{
+				connectedSequences.Add(option.targetSequence);
+			}
 		}
 	}
 
