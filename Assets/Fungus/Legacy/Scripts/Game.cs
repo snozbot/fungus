@@ -15,7 +15,7 @@ namespace Fungus
 	/** 
 	 * Manages global game state and movement between rooms.
 	 */
-	[RequireComponent(typeof(Dialog))]
+	[RequireComponent(typeof(LegacyDialog))]
 	public class Game : MonoBehaviour 
 	{
 		/**
@@ -36,7 +36,7 @@ namespace Fungus
 		 * Currently active Dialog object used to display character text and menus.
 		 */
 		[Tooltip("Currently active Dialog object used to display character text and menus.")]
-		public Dialog dialog;
+		public LegacyDialog dialog;
 
 		float autoHideButtonTimer;
 

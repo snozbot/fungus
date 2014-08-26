@@ -17,7 +17,7 @@ namespace Fungus.Script
 
 			EditorGUI.BeginChangeCheck();
 
-			DialogController dialogController = FungusCommandEditor.ObjectField<DialogController>(new GUIContent("Active Dialog", "Dialog to use when displaying Say command story text"), 
+			Dialog dialogController = FungusCommandEditor.ObjectField<Dialog>(new GUIContent("Active Dialog", "Dialog to use when displaying Say command story text"), 
 			                                                                                      new GUIContent("<None>"),
 			                                                                                      t.dialogController);						                                         
 			if (EditorGUI.EndChangeCheck())

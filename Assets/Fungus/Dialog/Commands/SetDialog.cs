@@ -10,7 +10,7 @@ namespace Fungus.Script
 	[HelpText("Sets the active dialog for displaying story text with the Say command.")]
 	public class SetDialog : FungusCommand 
 	{
-		public DialogController dialogController;
+		public Dialog dialogController;
 
 		public override void OnEnter()
 		{

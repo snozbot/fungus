@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace Fungus.Script
@@ -8,7 +8,7 @@ namespace Fungus.Script
 	{
 		public string characterName;
 		public Sprite characterImage;
-		public DialogController.DialogSide dialogSide;
+		public Dialog.DialogSide dialogSide;
 		public Color characterColor;
 	}
 
