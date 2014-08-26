@@ -9,7 +9,7 @@ using Fungus;
 public class ViewEditor : Editor 
 {
 	// Draw Views when they're not selected
-	[DrawGizmo(GizmoType.NotSelected)]
+	[DrawGizmo(GizmoType.NotSelected | GizmoType.SelectedOrChild)]
 	static void RenderCustomGizmo(Transform objectTransform, GizmoType gizmoType)
 	{
 		View view = objectTransform.gameObject.GetComponent<View>();
