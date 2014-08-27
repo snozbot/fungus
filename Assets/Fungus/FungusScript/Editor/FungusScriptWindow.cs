@@ -289,6 +289,11 @@ namespace Fungus.Script
 
 		void DrawConnections(FungusScript fungusScript, Sequence sequence, bool highlightedOnly)
 		{
+			if (sequence == null)
+			{
+				return;
+			}
+
 			List<Sequence> connectedSequences = new List<Sequence>();
 
 			bool sequenceIsSelected = (fungusScript.selectedSequence == sequence);
@@ -309,6 +314,11 @@ namespace Fungus.Script
 
 				foreach (Sequence sequenceB in connectedSequences)
 				{
+					if (sequenceB == null)
+					{
+						continue;
+					}
+
 					DrawRectConnection(sequence.nodeRect, sequenceB.nodeRect, highlight);
 				}
 			}

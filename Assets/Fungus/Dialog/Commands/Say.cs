@@ -102,7 +102,10 @@ namespace Fungus.Script
 		{
 			foreach (SayOption option in options)
 			{
-				connectedSequences.Add(option.targetSequence);
+				if (option.targetSequence != null)
+				{
+					connectedSequences.Add(option.targetSequence);
+				}
 			}
 		}
 	}
