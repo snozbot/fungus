@@ -76,7 +76,6 @@ namespace Fungus.Script
 
 			if (rightImage != null)
 			{
-				rightImage.sprite = null;
 				if (image != null &&
 				    side == DialogSide.Right)
 				{
@@ -85,7 +84,6 @@ namespace Fungus.Script
 				}
 				else
 				{
-					rightImage.sprite = null;
 					rightImage.enabled = false;
 				}
 			}
