@@ -87,7 +87,15 @@ namespace Fungus.Script
 
 		public override string GetSummary()
 		{
-			return "\"" + storyText + "\"";
+			string summary = "";
+			if (character != null)
+			{
+				summary = character.characterName + ": ";
+			}
+
+			summary += "\"" + storyText + "\"";
+
+			return summary;
 		}
 
 		public override void GetConnectedSequences (ref List<Sequence> connectedSequences)

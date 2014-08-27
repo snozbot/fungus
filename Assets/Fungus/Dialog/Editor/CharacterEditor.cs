@@ -19,6 +19,11 @@ namespace Fungus.Script
 			}
 		}
 
+		void OnDisable()
+		{
+			DestroyImmediate(spriteMaterial);
+		}
+
 		public override void OnInspectorGUI() 
 		{
 			Character t = target as Character;
