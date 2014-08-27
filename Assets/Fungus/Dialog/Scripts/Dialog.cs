@@ -107,27 +107,39 @@ namespace Fungus.Script
 				storyText.text = text;
 			}
 
-			// TODO: Wait for text to finish writing
-
-			ShowContinueIcon(true);
-			StartCoroutine(WaitForInput(onComplete));
+			StartCoroutine(WriteText(text, delegate {
+				ShowContinueIcon(true);
+				StartCoroutine(WaitForInput(onComplete));
+			}));
 		}
 
 		public void Say(string text, List<Option> options)
 		{
 			Clear();
 
+			ShowContinueIcon(false);
+
+			StartCoroutine(WriteText(text, delegate {
+				foreach (Option option in options)
+				{
+					AddOption(option.text, option.onSelect);
+				}
+			}));
+		}
+
+		IEnumerator WriteText(string text, Action onWritingComplete)
+		{
 			if (storyText != null)
 			{
 				storyText.text = text;
 			}
-			
-			ShowContinueIcon(false);
 
-			foreach (Option option in options)
+			if (onWritingComplete != null)
 			{
-				AddOption(option.text, option.onSelect);
+				onWritingComplete();
 			}
+
+			yield break;
 		}
 
 		IEnumerator WaitForInput(Action onComplete)

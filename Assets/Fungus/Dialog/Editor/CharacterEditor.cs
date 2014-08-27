@@ -16,6 +16,7 @@ namespace Fungus.Script
 			if (shader != null)
 			{
 				spriteMaterial = new Material(shader);
+				spriteMaterial.hideFlags = HideFlags.DontSave;
 			}
 		}
 

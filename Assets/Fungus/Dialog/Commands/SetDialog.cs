@@ -16,7 +16,7 @@ namespace Fungus.Script
 		{
 			if (dialogController != null)
 			{
-				Say.dialogController = dialogController;
+				Say.dialog = dialogController;
 			}
 
 			Continue();

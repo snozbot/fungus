@@ -9,7 +9,7 @@ namespace Fungus.Script
 	[HelpText("Writes a line of story text to the dialog. A list of options can be specified for the player to choose from. Use a non-zero timeout to give the player a limited time to choose.")]
 	public class Say : FungusCommand 
 	{
-		static public Dialog dialogController;
+		static public Dialog dialog;
 
 		public Character character;
 		public string storyText;
@@ -30,7 +30,7 @@ namespace Fungus.Script
 
 		public override void OnEnter()
 		{
-			if (dialogController == null)
+			if (dialog == null)
 			{
 				Continue();
 				return;
@@ -44,9 +44,9 @@ namespace Fungus.Script
 
 			executionCount++;
 
-			dialogController.ShowDialog(true);
+			dialog.ShowDialog(true);
 
-			dialogController.SetCharacter(character);
+			dialog.SetCharacter(character);
 
 			if (options.Count > 0)
 			{
@@ -59,7 +59,7 @@ namespace Fungus.Script
 
 					dialogOption.onSelect = delegate {
 
-						dialogController.ShowDialog(false);
+						dialog.ShowDialog(false);
 
 						if (onSelectSequence == null)
 						{
@@ -74,12 +74,12 @@ namespace Fungus.Script
 					dialogOptions.Add(dialogOption);
 				}
 
-				dialogController.Say(storyText, dialogOptions);
+				dialog.Say(storyText, dialogOptions);
 			}
 			else
 			{
-				dialogController.Say(storyText, delegate {
-					dialogController.ShowDialog(false);
+				dialog.Say(storyText, delegate {
+					dialog.ShowDialog(false);
 					Continue();
 				});
 			}
