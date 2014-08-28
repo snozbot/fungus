@@ -50,16 +50,15 @@ namespace Fungus.Script
 			if (characterImage != null &&
 			    spriteMaterial != null)
 			{
-				float aspect = (float)characterImage.texture.width / (float)characterImage.texture.height;
-
 				EditorGUILayout.BeginHorizontal();
 				GUILayout.FlexibleSpace();
+				float aspect = (float)characterImage.texture.width / (float)characterImage.texture.height;
 				Rect imagePreviewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(150), GUILayout.ExpandWidth(false));
 				GUILayout.FlexibleSpace();
 				EditorGUILayout.EndHorizontal();
-				EditorGUI.DrawPreviewTexture(imagePreviewRect, 
-				                             characterImage.texture,
-				                             spriteMaterial);
+
+				DrawPreview(imagePreviewRect, 
+				                     characterImage.texture);
 			}
 
 			if (EditorGUI.EndChangeCheck())
@@ -71,6 +70,17 @@ namespace Fungus.Script
 				t.characterImage = characterImage;
 				t.dialogSide = dialogSide;
 			}			
+		}
+
+		public void DrawPreview(Rect previewRect, Texture2D texture)
+		{
+			if (texture == null)
+			{
+				return;
+			}
+			EditorGUI.DrawPreviewTexture(previewRect, 
+			                             texture,
+			                             spriteMaterial);
 		}
 	}
 

@@ -17,11 +17,33 @@ namespace Fungus.Script
 
 			EditorGUI.BeginChangeCheck();
 
-
 			EditorGUILayout.PrefixLabel(new GUIContent("Say Text", "Text to display in dialog"));
+
 			GUIStyle sayStyle = new GUIStyle(EditorStyles.textArea);
 			sayStyle.wordWrap = true;
-			string text = EditorGUILayout.TextArea(t.storyText, sayStyle, GUILayout.MinHeight(30));
+
+			EditorGUILayout.BeginHorizontal();
+
+			string text = EditorGUILayout.TextArea(t.storyText, sayStyle, GUILayout.MinHeight(40));
+
+			if (t.character != null &&
+			    t.character.characterImage != null &&
+			    t.character.characterImage.texture != null)
+			{
+				Texture2D characterTexture = t.character.characterImage.texture;
+
+				float aspect = (float)characterTexture.width / (float)characterTexture.height;
+				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(40), GUILayout.ExpandWidth(false));
+				CharacterEditor characterEditor = Editor.CreateEditor(t.character) as CharacterEditor;
+				if (characterEditor != null)
+				{
+					characterEditor.DrawPreview(previewRect, characterTexture);
+				}
+			}
+
+			EditorGUILayout.EndHorizontal();
+
+			EditorGUILayout.Separator();
 
 			Character character = FungusCommandEditor.ObjectField<Character>(new GUIContent("Character", "Character to display in dialog"), 
 			                                                                 new GUIContent("<None>"),

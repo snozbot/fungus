@@ -24,6 +24,8 @@ namespace Fungus.Script
 		public Character character;
 		public float timeoutDuration;
 
+		bool showBasicGUI;
+
 		public override void OnEnter()
 		{
 			// Remember active dialog between Choose calls
@@ -31,7 +33,7 @@ namespace Fungus.Script
 			{
 				if (Choose.activeDialog == null)
 				{
-					Continue();
+					showBasicGUI = true;
 					return;
 				}
 				else
@@ -108,6 +110,51 @@ namespace Fungus.Script
 					connectedSequences.Add(option.targetSequence);
 				}
 			}
+		}
+
+		void OnGUI()
+		{
+			if (!showBasicGUI)
+			{
+				return;
+			}
+			
+			// Draw a basic GUI to use when no uGUI dialog has been set
+			// Does not support drawing character images
+			
+			GUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+			GUILayout.FlexibleSpace();
+			
+			GUILayout.BeginVertical(GUILayout.Height(Screen.height));
+			GUILayout.FlexibleSpace();
+			
+			GUILayout.BeginVertical(new GUIStyle(GUI.skin.box));
+
+			if (character != null)
+			{
+				GUILayout.Label(character.characterName);
+				GUILayout.Space(10);
+			}
+
+			GUILayout.Label(chooseText);
+
+			foreach (Option option in options)
+			{
+				if (GUILayout.Button(option.optionText))
+				{
+					options.Clear();
+					showBasicGUI = false;
+					ExecuteSequence(option.targetSequence);
+				}
+			}
+
+			GUILayout.EndVertical();
+			
+			GUILayout.FlexibleSpace();
+			GUILayout.EndVertical();
+			
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
 		}
 	}
 

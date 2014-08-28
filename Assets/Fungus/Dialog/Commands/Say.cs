@@ -18,6 +18,8 @@ namespace Fungus.Script
 		public bool showOnce;
 		int executionCount;
 
+		bool showBasicGUI;
+
 		public override void OnEnter()
 		{
 			if (showOnce && executionCount > 0)
@@ -33,7 +35,7 @@ namespace Fungus.Script
 			{
 				if (activeDialog == null)
 				{
-					Continue();
+					showBasicGUI = true;
 					return;
 				}
 				else
@@ -67,6 +69,46 @@ namespace Fungus.Script
 			summary += "\"" + storyText + "\"";
 
 			return summary;
+		}
+
+		void OnGUI()
+		{
+			if (!showBasicGUI)
+			{
+				return;
+			}
+
+			// Draw a basic GUI to use when no uGUI dialog has been set
+			// Does not support drawing character images
+
+			GUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+			GUILayout.FlexibleSpace();
+
+			GUILayout.BeginVertical(GUILayout.Height(Screen.height));
+			GUILayout.FlexibleSpace();
+
+			GUILayout.BeginVertical(new GUIStyle(GUI.skin.box));
+
+			if (character != null)
+			{
+				GUILayout.Label(character.characterName);
+				GUILayout.Space(10);
+			}
+
+			GUILayout.Label(storyText);
+			if (GUILayout.Button("Continue"))
+			{
+				showBasicGUI = false;
+				Continue();
+			}
+
+			GUILayout.EndVertical();
+
+			GUILayout.FlexibleSpace();
+			GUILayout.EndVertical();
+
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
 		}
 	}
 
