@@ -9,8 +9,8 @@ namespace Fungus.Script
 	[HelpText("Presents a list of options for the player to choose from, with an optional timeout. Add options using preceding AddOption commands.")]
 	public class Choose : FungusCommand 
 	{
-		public Dialog dialog;
-		static public Dialog activeDialog;
+		public ChooseDialog dialog;
+		static public ChooseDialog activeDialog;
 
 		public class Option
 		{
@@ -54,12 +54,12 @@ namespace Fungus.Script
 			}
 			else
 			{
-				List<Dialog.Option> dialogOptions = new List<Dialog.Option>();
-				foreach (Option sayOption in options)
+				List<ChooseDialog.Option> dialogOptions = new List<ChooseDialog.Option>();
+				foreach (Option option in options)
 				{
-					Dialog.Option dialogOption = new Dialog.Option();
-					dialogOption.text = sayOption.optionText;
-					Sequence onSelectSequence = sayOption.targetSequence;
+					ChooseDialog.Option dialogOption = new ChooseDialog.Option();
+					dialogOption.text = option.optionText;
+					Sequence onSelectSequence = option.targetSequence;
 
 					dialogOption.onSelect = delegate {
 

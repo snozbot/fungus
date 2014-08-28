@@ -27,7 +27,7 @@ namespace Fungus.Script
 			                                                                 new GUIContent("<None>"),
 			                                                                 t.character);
 
-			Dialog dialog = FungusCommandEditor.ObjectField<Dialog>(new GUIContent("Dialog", "Dialog to use when displaying Say command story text"), 
+			SayDialog dialog = FungusCommandEditor.ObjectField<SayDialog>(new GUIContent("Say Dialog", "Dialog to use when displaying Say command story text"), 
 			                                                                  new GUIContent("<Default>"),
 			                                                                  t.dialog);
 

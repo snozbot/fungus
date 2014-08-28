@@ -8,7 +8,7 @@ namespace Fungus.Script
 	{
 		public string characterName;
 		public Sprite characterImage;
-		public Dialog.DialogSide dialogSide;
+		public SayDialog.DialogSide dialogSide;
 		public Color characterColor;
 	}
 

@@ -26,9 +26,9 @@ namespace Fungus.Script
 			                                                                 new GUIContent("<None>"),
 			                                                                 t.character);
 
-			Dialog dialog = FungusCommandEditor.ObjectField<Dialog>(new GUIContent("Dialog", "Dialog to use when displaying choices"), 
-			                                                        new GUIContent("<Default>"),
-			                                                        t.dialog);
+			ChooseDialog dialog = FungusCommandEditor.ObjectField<ChooseDialog>(new GUIContent("Choose Dialog", "Dialog to use when displaying choices"), 
+			                                                                    new GUIContent("<Default>"),
+			                                                                    t.dialog);
 
 			float timeoutDuration = EditorGUILayout.FloatField(new GUIContent("Timeout Duration", "Time limit for player to make a choice. Set to 0 for no limit."), t.timeoutDuration);
 

@@ -42,7 +42,7 @@ namespace Fungus.Script
 			                                                    typeof(Sprite),
 			                                                    true) as Sprite;
 
-			Dialog.DialogSide dialogSide = (Dialog.DialogSide)EditorGUILayout.EnumPopup(new GUIContent("Image Side", "Which side to display the image in the dialog"),
+			SayDialog.DialogSide dialogSide = (SayDialog.DialogSide)EditorGUILayout.EnumPopup(new GUIContent("Image Side", "Which side to display the image in the dialog"),
 			                                                                            t.dialogSide);
 
 			EditorGUILayout.Separator();
