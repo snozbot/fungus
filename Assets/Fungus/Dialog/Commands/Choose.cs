@@ -44,16 +44,15 @@ namespace Fungus.Script
 				activeDialog = dialog;
 			}
 
-			dialog.ShowDialog(true);
-
-			dialog.SetCharacter(character);
-
 			if (options.Count == 0)
 			{
 				Continue();
 			}
 			else
 			{
+				dialog.ShowDialog(true);
+				dialog.SetCharacter(character);
+
 				List<ChooseDialog.Option> dialogOptions = new List<ChooseDialog.Option>();
 				foreach (Option option in options)
 				{
