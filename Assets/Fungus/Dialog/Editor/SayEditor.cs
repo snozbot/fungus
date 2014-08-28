@@ -31,7 +31,7 @@ namespace Fungus.Script
 			string text = EditorGUILayout.TextArea(t.storyText, sayStyle, GUILayout.MinHeight(30));
 
 			bool displayOnce = EditorGUILayout.Toggle(new GUIContent("Display Once", "Display this text once and never show it again."), t.displayOnce);
-			                                         
+
 			if (EditorGUI.EndChangeCheck())
 			{
 				Undo.RecordObject(t, "Set Say");
@@ -39,6 +39,17 @@ namespace Fungus.Script
 				t.storyText = text;
 				t.displayOnce = displayOnce;
 			}			
+
+			if (t.options.Count > 0)
+			{
+				float timeout = EditorGUILayout.FloatField(new GUIContent("Option Timeout", "Time limit for player to choose an option."),
+				                                           t.timeoutDuration);
+				if (timeout != t.timeoutDuration)
+				{
+					Undo.RecordObject(t, "Set Timeout");
+					t.timeoutDuration = timeout;
+				}
+			}
 
 			ReorderableListGUI.Title("Options");
 			ReorderableListGUI.ListField(optionListProperty);

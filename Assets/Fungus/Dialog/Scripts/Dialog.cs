@@ -22,6 +22,10 @@ namespace Fungus.Script
 			public Action onSelect;
 		}
 
+		public float writingSpeed;
+		public AudioClip writingSound;
+		public bool loopWritingSound = true;
+
 		public Canvas dialogCanvas;
 		public List<UnityEngine.UI.Button> optionButtons = new List<UnityEngine.UI.Button>();
 		public Text nameText;
@@ -129,9 +133,64 @@ namespace Fungus.Script
 
 		IEnumerator WriteText(string text, Action onWritingComplete)
 		{
-			if (storyText != null)
+			// Zero CPS means write instantly
+			// Also write instantly if text contains markup tags
+			if (writingSpeed == 0 ||
+			    text.Contains("<"))
 			{
 				storyText.text = text;
+				if (onWritingComplete != null)
+				{
+					onWritingComplete();
+				}
+				yield break;
+			}
+			
+			GameObject typingAudio = null;
+			
+			if (writingSound != null)
+			{
+				typingAudio = new GameObject("WritingSound");
+				typingAudio.AddComponent<AudioSource>();
+				typingAudio.audio.clip = writingSound;
+				typingAudio.audio.loop = loopWritingSound;
+				typingAudio.audio.Play();
+			}
+			
+			storyText.text = "";
+			
+			// Make one character visible at a time
+			float writeDelay = (1f / (float)writingSpeed);
+			float timeAccumulator = 0f;
+			int i = 0;
+
+			while (true)
+			{
+				timeAccumulator += Time.deltaTime;
+				
+				while (timeAccumulator > writeDelay)
+				{
+					i++;
+					timeAccumulator -= writeDelay;
+				}
+				
+				if (i >= text.Length)
+				{
+					storyText.text = text;
+					break;
+				}
+				else
+				{
+					string left = text.Substring(0, i + 1);
+					storyText.text = left;
+				}
+				
+				yield return null;
+			}
+
+			if (typingAudio != null)
+			{
+				Destroy(typingAudio);
 			}
 
 			if (onWritingComplete != null)
