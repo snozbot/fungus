@@ -31,7 +31,7 @@ namespace Fungus.Script
 			                                                                  new GUIContent("<Default>"),
 			                                                                  t.dialog);
 
-			bool displayOnce = EditorGUILayout.Toggle(new GUIContent("Display Once", "Display this text once and never show it again."), t.displayOnce);
+			bool showOnce = EditorGUILayout.Toggle(new GUIContent("Show Once", "Show this text once and never show it again."), t.showOnce);
 
 			if (EditorGUI.EndChangeCheck())
 			{
@@ -39,7 +39,7 @@ namespace Fungus.Script
 				t.storyText = text;
 				t.character = character;
 				t.dialog = dialog;
-				t.displayOnce = displayOnce;
+				t.showOnce = showOnce;
 			}			
 		}
 	}

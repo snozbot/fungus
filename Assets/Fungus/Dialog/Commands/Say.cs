@@ -15,12 +15,12 @@ namespace Fungus.Script
 
 		public Character character;
 		public string storyText;
-		public bool displayOnce;
+		public bool showOnce;
 		int executionCount;
 
 		public override void OnEnter()
 		{
-			if (displayOnce && executionCount > 0)
+			if (showOnce && executionCount > 0)
 			{
 				Continue();
 				return;

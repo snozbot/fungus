@@ -13,8 +13,17 @@ namespace Fungus.Script
 		public string optionText;
 		public Sequence targetSequence;
 
+		public bool hideOnSelected;
+
 		public override void OnEnter()
 		{
+			if (hideOnSelected &&
+			    targetSequence.GetExecutionCount() > 0)
+			{
+				Continue();
+				return;
+			}
+
 			Choose.Option option = new Choose.Option();
 			option.optionText = optionText;
 			option.targetSequence = targetSequence;
