@@ -9,6 +9,8 @@ namespace Fungus.Script
 
 	public class ChooseDialog : Dialog 
 	{
+		public Slider slider;
+
 		public class Option
 		{
 			public string text;
@@ -38,8 +40,21 @@ namespace Fungus.Script
 
 		IEnumerator WaitForTimeout(float timeoutDuration, Action onTimeout)
 		{
-			yield return new WaitForSeconds(timeoutDuration);
-			
+			float elapsedTime = 0;
+
+			while (elapsedTime < timeoutDuration)
+			{
+				if (slider != null)
+				{
+					float t = elapsedTime / timeoutDuration;
+					slider.value = t;
+				}
+
+				elapsedTime += Time.deltaTime;
+
+				yield return null;
+			}
+
 			Clear();
 			
 			if (onTimeout != null)
