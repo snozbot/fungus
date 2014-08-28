@@ -10,23 +10,21 @@ namespace Fungus.Script
 	public class Say : FungusCommand 
 	{
 		static public Dialog dialog;
-
-		public Character character;
-		public string storyText;
-		public bool displayOnce;
-
-		[Serializable]
+	
 		public class SayOption
 		{
 			public string optionText;
 			public Sequence targetSequence;
 		}
 
-		public List<SayOption> options = new List<SayOption>();
+		static public List<SayOption> options = new List<SayOption>();
 
-		public float timeoutDuration;
-
+		public Character character;
+		public string storyText;
+		public bool displayOnce;
 		int executionCount;
+
+		public float continueTime;
 
 		public override void OnEnter()
 		{
@@ -73,8 +71,13 @@ namespace Fungus.Script
 
 					dialogOptions.Add(dialogOption);
 				}
+			
+				options.Clear();
 
-				dialog.Say(storyText, dialogOptions);
+				dialog.Say(storyText, dialogOptions, 0, delegate {
+					dialog.ShowDialog(false);
+					Continue();
+				});
 			}
 			else
 			{

@@ -13,10 +13,6 @@ namespace Fungus.Script
 	{
 		public override void DrawCommandGUI() 
 		{
-			serializedObject.Update();
-
-			SerializedProperty optionListProperty = serializedObject.FindProperty("options");
-			
 			Say t = target as Say;
 
 			EditorGUI.BeginChangeCheck();
@@ -32,29 +28,16 @@ namespace Fungus.Script
 
 			bool displayOnce = EditorGUILayout.Toggle(new GUIContent("Display Once", "Display this text once and never show it again."), t.displayOnce);
 
+			float continueTime = EditorGUILayout.FloatField(new GUIContent("Continue Time", "Time to wait before executing next command in the sequence. Useful for time limited player choices."), t.continueTime);
+
 			if (EditorGUI.EndChangeCheck())
 			{
 				Undo.RecordObject(t, "Set Say");
 				t.character = character;
 				t.storyText = text;
 				t.displayOnce = displayOnce;
+				t.continueTime = continueTime;
 			}			
-
-			if (t.options.Count > 0)
-			{
-				float timeout = EditorGUILayout.FloatField(new GUIContent("Option Timeout", "Time limit for player to choose an option."),
-				                                           t.timeoutDuration);
-				if (timeout != t.timeoutDuration)
-				{
-					Undo.RecordObject(t, "Set Timeout");
-					t.timeoutDuration = timeout;
-				}
-			}
-
-			ReorderableListGUI.Title("Options");
-			ReorderableListGUI.ListField(optionListProperty);
-			
-			serializedObject.ApplyModifiedProperties();
 		}
 	}
 

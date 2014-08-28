@@ -113,11 +113,20 @@ namespace Fungus.Script
 
 			StartCoroutine(WriteText(text, delegate {
 				ShowContinueIcon(true);
-				StartCoroutine(WaitForInput(onComplete));
+
+				StartCoroutine(WaitForInput(delegate {
+					Clear();
+					
+					if (onComplete != null)
+					{
+						onComplete();
+					}
+				}));
+
 			}));
 		}
 
-		public void Say(string text, List<Option> options)
+		public void Say(string text, List<Option> options, float timeoutDuration, Action onTimeout)
 		{
 			Clear();
 
@@ -127,6 +136,11 @@ namespace Fungus.Script
 				foreach (Option option in options)
 				{
 					AddOption(option.text, option.onSelect);
+				}
+
+				if (timeoutDuration > 0)
+				{
+					StartCoroutine(WaitForTimeout(timeoutDuration, onTimeout));
 				}
 			}));
 		}
@@ -201,7 +215,7 @@ namespace Fungus.Script
 			yield break;
 		}
 
-		IEnumerator WaitForInput(Action onComplete)
+		IEnumerator WaitForInput(Action onInput)
 		{
 			// TODO: Handle touch input
 			while (!Input.GetMouseButtonDown(0))
@@ -209,11 +223,21 @@ namespace Fungus.Script
 				yield return null;
 			}
 
-			Clear();
-
-			if (onComplete != null)
+			if (onInput != null)
 			{
-				onComplete();
+				onInput();
+			}
+		}
+
+		IEnumerator WaitForTimeout(float timeoutDuration, Action onTimeout)
+		{
+			yield return new WaitForSeconds(timeoutDuration);
+			
+			Clear();
+			
+			if (onTimeout != null)
+			{
+				onTimeout();
 			}
 		}
 
@@ -229,6 +253,7 @@ namespace Fungus.Script
 		{
 			ClearStoryText();
 			ClearOptions();
+			ShowContinueIcon(false);
 		}
 
 		void ClearStoryText()
@@ -294,6 +319,7 @@ namespace Fungus.Script
 				Action optionAction = optionActions[index];
 				if (optionAction != null)
 				{
+					StopCoroutine("WaitForTimeout");
 					Clear();
 					optionAction();
 				}
