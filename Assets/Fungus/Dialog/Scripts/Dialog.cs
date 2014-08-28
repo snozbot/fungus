@@ -126,7 +126,7 @@ namespace Fungus.Script
 			}));
 		}
 
-		public void Say(string text, List<Option> options, float timeoutDuration, Action onTimeout)
+		public void Choose(string text, List<Option> options, float timeoutDuration, Action onTimeout)
 		{
 			Clear();
 

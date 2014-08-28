@@ -15,10 +15,10 @@ namespace Fungus.Script
 
 		public override void OnEnter()
 		{
-			Say.SayOption option = new Say.SayOption();
+			Choose.Option option = new Choose.Option();
 			option.optionText = optionText;
 			option.targetSequence = targetSequence;
-			Say.options.Add(option);
+			Choose.options.Add(option);
 
 			Continue();
 		}
