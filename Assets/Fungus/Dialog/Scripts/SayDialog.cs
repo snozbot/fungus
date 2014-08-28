@@ -50,7 +50,6 @@ namespace Fungus.Script
 
 		IEnumerator WaitForInput(Action onInput)
 		{
-			// TODO: Handle touch input
 			while (!Input.GetMouseButtonDown(0))
 			{
 				yield return null;

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,12 +15,10 @@ namespace Fungus.Script
 		public class Option
 		{
 			public string text;
-			public Action onSelect;
+			public UnityAction onSelect;
 		}
 
 		public List<UnityEngine.UI.Button> optionButtons = new List<UnityEngine.UI.Button>();
-
-		List<Action> optionActions = new List<Action>();
 
 		public void Choose(string text, List<Option> options, float timeoutDuration, Action onTimeout)
 		{
@@ -75,9 +74,12 @@ namespace Fungus.Script
 			{
 				return;
 			}
-			
-			optionActions.Clear();
-			
+
+			foreach (UnityEngine.UI.Button button in optionButtons)
+			{
+				button.onClick.RemoveAllListeners();
+			}
+
 			foreach (UnityEngine.UI.Button button in optionButtons)
 			{
 				if (button != null)
@@ -87,7 +89,7 @@ namespace Fungus.Script
 			}
 		}
 		
-		bool AddOption(string text, Action action)
+		bool AddOption(string text, UnityAction action)
 		{
 			if (optionButtons == null)
 			{
@@ -106,8 +108,17 @@ namespace Fungus.Script
 					{
 						textComponent.text = text;
 					}
-					
-					optionActions.Add(action);
+
+					UnityAction buttonAction = action;
+
+					button.onClick.AddListener(delegate {
+						StopAllCoroutines(); // Stop timeout
+						Clear();
+						if (buttonAction != null)
+						{
+							buttonAction();
+						}
+					});
 					
 					addedOption = true;
 					break;
@@ -115,21 +126,7 @@ namespace Fungus.Script
 			}
 			
 			return addedOption;
-		}
-		
-		public void SelectOption(int index)
-		{
-			if (index < optionActions.Count)
-			{
-				Action optionAction = optionActions[index];
-				if (optionAction != null)
-				{
-					StopCoroutine("WaitForTimeout");
-					Clear();
-					optionAction();
-				}
-			}
-		}
+		}		
 	}
 
 }
