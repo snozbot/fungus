@@ -23,8 +23,8 @@ namespace Fungus.Script
 		public void Choose(string text, List<Option> options, float timeoutDuration, Action onTimeout)
 		{
 			Clear();
-			
-			StartCoroutine(WriteText(text, delegate {
+
+			Action onWritingComplete = delegate {
 				foreach (Option option in options)
 				{
 					AddOption(option.text, option.onSelect);
@@ -34,7 +34,9 @@ namespace Fungus.Script
 				{
 					StartCoroutine(WaitForTimeout(timeoutDuration, onTimeout));
 				}
-			}));
+			};
+
+			StartCoroutine(WriteText(text, onWritingComplete, onTimeout));
 		}
 
 		IEnumerator WaitForTimeout(float timeoutDuration, Action onTimeout)

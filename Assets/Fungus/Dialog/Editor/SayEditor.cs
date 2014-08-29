@@ -24,7 +24,8 @@ namespace Fungus.Script
 
 			EditorGUILayout.BeginHorizontal();
 
-			string text = EditorGUILayout.TextArea(t.storyText, sayStyle, GUILayout.MinHeight(40));
+			float minHeight = sayStyle.CalcHeight(new GUIContent(t.storyText), EditorGUIUtility.currentViewWidth);
+			string text = EditorGUILayout.TextArea(t.storyText, sayStyle, GUILayout.MinHeight(minHeight + 10), GUILayout.ExpandHeight(true));
 
 			if (t.character != null &&
 			    t.character.characterImage != null &&

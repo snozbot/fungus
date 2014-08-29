@@ -18,20 +18,27 @@ namespace Fungus.Script
 			{
 				storyText.text = text;
 			}
-			
-			StartCoroutine(WriteText(text, delegate {
+
+			Action onWritingComplete = delegate {
 				ShowContinueImage(true);
-				
 				StartCoroutine(WaitForInput(delegate {
-					Clear();
-					
+					Clear();					
 					if (onComplete != null)
 					{
 						onComplete();
 					}
 				}));
-				
-			}));
+			};
+
+			Action onExitTag = delegate {
+				Clear();					
+				if (onComplete != null)
+				{
+					onComplete();
+				}
+			};
+
+			StartCoroutine(WriteText(text, onWritingComplete, onExitTag));
 		}
 
 		protected override void Clear()
@@ -40,24 +47,16 @@ namespace Fungus.Script
 			ShowContinueImage(false);
 		}
 
+		protected override void OnWaitForInputTag(bool waiting)
+		{
+			ShowContinueImage(waiting);
+		}
+
 		void ShowContinueImage(bool visible)
 		{
 			if (continueImage != null)
 			{
 				continueImage.enabled = visible;
-			}
-		}
-
-		IEnumerator WaitForInput(Action onInput)
-		{
-			while (!Input.GetMouseButtonDown(0))
-			{
-				yield return null;
-			}
-			
-			if (onInput != null)
-			{
-				onInput();
 			}
 		}
 	}
