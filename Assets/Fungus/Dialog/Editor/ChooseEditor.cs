@@ -30,6 +30,11 @@ namespace Fungus.Script
 			                                                                    new GUIContent("<Default>"),
 			                                                                    t.dialog);
 
+			AudioClip voiceOverClip = EditorGUILayout.ObjectField(new GUIContent("Voice Over Clip", "Voice over audio to play when the choose text is displayed"),
+			                                                      t.voiceOverClip,
+			                                                      typeof(AudioClip),
+			                                                      true) as AudioClip;
+
 			float timeoutDuration = EditorGUILayout.FloatField(new GUIContent("Timeout Duration", "Time limit for player to make a choice. Set to 0 for no limit."), t.timeoutDuration);
 
 			if (EditorGUI.EndChangeCheck())
@@ -38,6 +43,7 @@ namespace Fungus.Script
 				t.chooseText = chooseText;
 				t.character = character;
 				t.dialog = dialog;
+				t.voiceOverClip = voiceOverClip;
 				t.timeoutDuration = timeoutDuration;
 			}			
 		}

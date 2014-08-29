@@ -53,6 +53,11 @@ namespace Fungus.Script
 			                                                                  new GUIContent("<Default>"),
 			                                                                  t.dialog);
 
+			AudioClip voiceOverClip = EditorGUILayout.ObjectField(new GUIContent("Voice Over Clip", "Voice over audio to play when the say text is displayed"),
+			                                                      t.voiceOverClip,
+			                                                      typeof(AudioClip),
+			                                                      true) as AudioClip;
+
 			bool showOnce = EditorGUILayout.Toggle(new GUIContent("Show Once", "Show this text once and never show it again."), t.showOnce);
 
 			if (EditorGUI.EndChangeCheck())
@@ -61,6 +66,7 @@ namespace Fungus.Script
 				t.storyText = text;
 				t.character = character;
 				t.dialog = dialog;
+				t.voiceOverClip = voiceOverClip;
 				t.showOnce = showOnce;
 			}			
 		}

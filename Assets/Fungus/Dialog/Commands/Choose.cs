@@ -22,6 +22,7 @@ namespace Fungus.Script
 
 		public string chooseText;
 		public Character character;
+		public AudioClip voiceOverClip;
 		public float timeoutDuration;
 
 		bool showBasicGUI;
@@ -80,6 +81,11 @@ namespace Fungus.Script
 				}
 			
 				options.Clear();
+
+				if (voiceOverClip != null)
+				{
+					MusicController.GetInstance().PlaySound(voiceOverClip, 1f);
+				}
 
 				dialog.Choose(chooseText, dialogOptions, timeoutDuration, delegate {
 					dialog.ShowDialog(false);

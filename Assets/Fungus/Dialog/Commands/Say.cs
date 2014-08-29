@@ -15,6 +15,7 @@ namespace Fungus.Script
 
 		public Character character;
 		public string storyText;
+		public AudioClip voiceOverClip;
 		public bool showOnce;
 		int executionCount;
 
@@ -51,6 +52,11 @@ namespace Fungus.Script
 			dialog.ShowDialog(true);
 
 			dialog.SetCharacter(character);
+
+			if (voiceOverClip != null)
+			{
+				MusicController.GetInstance().PlaySound(voiceOverClip, 1f);
+			}
 
 			dialog.Say(storyText, delegate {
 				dialog.ShowDialog(false);
