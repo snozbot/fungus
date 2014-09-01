@@ -11,13 +11,39 @@ namespace Fungus.Script
 	[CustomEditor (typeof(Say))]
 	public class SayEditor : FungusCommandEditor
 	{
+		static public bool showTagHelp;
+
 		public override void DrawCommandGUI() 
 		{
 			Say t = target as Say;
 
 			EditorGUI.BeginChangeCheck();
 
+			EditorGUILayout.BeginHorizontal();
 			EditorGUILayout.PrefixLabel(new GUIContent("Say Text", "Text to display in dialog"));
+			GUILayout.FlexibleSpace();
+			if (GUILayout.Button(new GUIContent("Tag Help", "Show help info for tags"), new GUIStyle(EditorStyles.miniButton)))
+			{
+				showTagHelp = !showTagHelp;
+			}
+			EditorGUILayout.EndHorizontal();
+
+			if (showTagHelp)
+			{
+				string tagsText = "\t{b} Bold Text {/b}\n" + 
+						"\t{i} Italic Text {/i}\n" +
+						"\t{color=red} Color Text {/color}\n" +
+						"\t{w}, {w=0.5} Wait \n" +
+						"\t{wi} Wait for input\n" +
+						"\t{wc} Wait for input and clear\n" +
+						"\t{wp}, {wp=0.5} Wait on punctuation\n" +
+						"\t{c} Clear\n" +
+						"\t{s}, {s=60} Writing speed (chars per sec)\n" +
+						"\t{x} Exit";
+
+				float pixelHeight = EditorStyles.miniLabel.CalcHeight(new GUIContent(tagsText), EditorGUIUtility.currentViewWidth);
+				EditorGUILayout.SelectableLabel(tagsText, EditorStyles.miniLabel, GUILayout.MinHeight(pixelHeight));
+			}
 
 			GUIStyle sayStyle = new GUIStyle(EditorStyles.textArea);
 			sayStyle.wordWrap = true;
