@@ -17,9 +17,10 @@ namespace Fungus.Script
 			Right
 		};
 
-		public float writingSpeed;
+		public float writingSpeed = 60;
 		public AudioClip writingSound;
 		public bool loopWritingSound = true;
+		public float punctuationPause = 0.25f;
 		
 		public Canvas dialogCanvas;
 		public Text nameText;
@@ -27,7 +28,8 @@ namespace Fungus.Script
 		public Image leftImage;
 		public Image rightImage;
 
-		float speed;
+		float currentSpeed;
+		float currentPunctuationPause;
 		bool boldActive;
 		bool italicActive;
 		bool colorActive;
@@ -130,7 +132,8 @@ namespace Fungus.Script
 			italicActive = false;
 			colorActive = false;
 			colorText = "";
-			speed = writingSpeed;
+			currentSpeed = writingSpeed;
+			currentPunctuationPause = punctuationPause;
 
 			List<Glyph> glyphs = MakeGlyphList(text);
 
@@ -141,7 +144,7 @@ namespace Fungus.Script
 
 			// Zero speed means write instantly
 			// Also write instantly if text contains rich text markup tags
-			if (speed == 0 ||
+			if (currentSpeed == 0 ||
 			    text.Contains("<"))
 			{
 				foreach (Glyph glyph in glyphs)
@@ -171,9 +174,9 @@ namespace Fungus.Script
 			}
 			
 			float writeDelay = 0f;
-			if (speed > 0)
+			if (currentSpeed > 0)
 			{
-				writeDelay = (1f / (float)speed);
+				writeDelay = (1f / (float)currentSpeed);
 			}
 
 			float timeAccumulator = 0f;
@@ -221,6 +224,20 @@ namespace Fungus.Script
 			
 							storyText.text += start + glyph.param + end;
 						}
+
+						// Add a wait glyph on punctuation marks
+						if (punctuationPause > 0 &&
+						    IsPunctuation(glyph.param))
+						{
+							// Ignore if next glyph is also punctuation, or if punctuation is the last character.
+							bool skip = (i < glyphs.Count - 1 &&
+							             glyphs[i + 1].type == GlyphType.Character &&
+							             IsPunctuation(glyphs[i + 1].param));
+
+							if (!skip)
+								yield return new WaitForSeconds(currentPunctuationPause);
+						}
+
 						break;
 
 					case GlyphType.BoldStart:
@@ -276,14 +293,14 @@ namespace Fungus.Script
 						break;
 
 					case GlyphType.Speed:
-						if (!Single.TryParse(glyph.param, out speed))
+						if (!Single.TryParse(glyph.param, out currentSpeed))
 						{
-							speed = 0f;
+							currentSpeed = 0f;
 						}
 						writeDelay = 0;
-						if (speed > 0)
+						if (currentSpeed > 0)
 						{
-							writeDelay = (1f / (float)speed);
+							writeDelay = (1f / (float)currentSpeed);
 						}
 						break;
 
@@ -302,6 +319,10 @@ namespace Fungus.Script
 						yield break;
 
 					case GlyphType.WaitOnPunctuation:
+						if (!Single.TryParse(glyph.param, out currentPunctuationPause))
+						{
+							currentPunctuationPause = 0f;
+						}
 						break;
 					}
 
@@ -340,6 +361,14 @@ namespace Fungus.Script
 			}
 		}
 
+		bool IsPunctuation(string character)
+		{
+			return character == "." ||
+				character == "?" ||
+				character == "!" ||
+				character == ",";
+		}
+		
 		List<Glyph> MakeGlyphList(string storyText)
 		{
 			List<Glyph> glyphList = new List<Glyph>();
@@ -358,14 +387,10 @@ namespace Fungus.Script
 			
 				foreach (char c in preText)
 				{
-					glyphList.Add(MakeCharacterGlyph(c.ToString()));
+					AddCharacterGlyph(glyphList, c.ToString());
 				}
 
-				Glyph tagGlyph = MakeTagGlyph(tagText);
-				if (tagGlyph != null)
-				{
-					glyphList.Add (tagGlyph);
-				}
+				AddTagGlyph(glyphList, tagText);
 
 				position = m.Index + tagText.Length;
 				m = m.NextMatch();
@@ -376,28 +401,28 @@ namespace Fungus.Script
 				string postText = storyText.Substring(position, storyText.Length - position);
 				foreach (char c in postText)
 				{
-					glyphList.Add(MakeCharacterGlyph(c.ToString()));
+					AddCharacterGlyph(glyphList, c.ToString());
 				}
 			}
 
 			return glyphList;
 		}
 
-		Glyph MakeCharacterGlyph(string character)
+		void AddCharacterGlyph(List<Glyph> glyphList, string character)
 		{
 			Glyph glyph = new Glyph();
 			glyph.type = GlyphType.Character;
 			glyph.param = character;
-			return glyph;
+			glyphList.Add(glyph);
 		}
 
-		Glyph MakeTagGlyph(string tagText)
+		void AddTagGlyph(List<Glyph> glyphList, string tagText)
 		{
 			if (tagText.Length < 3 ||
 			    tagText.Substring(0,1) != "{" ||
 			    tagText.Substring(tagText.Length - 1,1) != "}")
 			{
-				return null;
+				return;
 			}
 
 			string tag = tagText.Substring(1, tagText.Length - 2);
@@ -478,7 +503,7 @@ namespace Fungus.Script
 			glyph.type = type;
 			glyph.param = paramText.Trim();
 
-			return glyph;
+			glyphList.Add(glyph);
 		}
 
 		protected IEnumerator WaitForInput(Action onInput)
