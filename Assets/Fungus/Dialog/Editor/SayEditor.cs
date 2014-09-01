@@ -13,6 +13,23 @@ namespace Fungus.Script
 	{
 		static public bool showTagHelp;
 
+		static public void DrawTagHelpLabel()
+		{
+			string tagsText = "\t{b} Bold Text {/b}\n" + 
+				"\t{i} Italic Text {/i}\n" +
+					"\t{color=red} Color Text {/color}\n" +
+					"\t{w}, {w=0.5} Wait \n" +
+					"\t{wi} Wait for input\n" +
+					"\t{wc} Wait for input and clear\n" +
+					"\t{wp}, {wp=0.5} Wait on punctuation\n" +
+					"\t{c} Clear\n" +
+					"\t{s}, {s=60} Writing speed (chars per sec)\n" +
+					"\t{x} Exit";
+			
+			float pixelHeight = EditorStyles.miniLabel.CalcHeight(new GUIContent(tagsText), EditorGUIUtility.currentViewWidth);
+			EditorGUILayout.SelectableLabel(tagsText, EditorStyles.miniLabel, GUILayout.MinHeight(pixelHeight));
+		}
+
 		public override void DrawCommandGUI() 
 		{
 			Say t = target as Say;
@@ -30,19 +47,7 @@ namespace Fungus.Script
 
 			if (showTagHelp)
 			{
-				string tagsText = "\t{b} Bold Text {/b}\n" + 
-						"\t{i} Italic Text {/i}\n" +
-						"\t{color=red} Color Text {/color}\n" +
-						"\t{w}, {w=0.5} Wait \n" +
-						"\t{wi} Wait for input\n" +
-						"\t{wc} Wait for input and clear\n" +
-						"\t{wp}, {wp=0.5} Wait on punctuation\n" +
-						"\t{c} Clear\n" +
-						"\t{s}, {s=60} Writing speed (chars per sec)\n" +
-						"\t{x} Exit";
-
-				float pixelHeight = EditorStyles.miniLabel.CalcHeight(new GUIContent(tagsText), EditorGUIUtility.currentViewWidth);
-				EditorGUILayout.SelectableLabel(tagsText, EditorStyles.miniLabel, GUILayout.MinHeight(pixelHeight));
+				DrawTagHelpLabel();
 			}
 
 			GUIStyle sayStyle = new GUIStyle(EditorStyles.textArea);

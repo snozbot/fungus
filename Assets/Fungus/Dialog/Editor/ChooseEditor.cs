@@ -11,13 +11,28 @@ namespace Fungus.Script
 	[CustomEditor (typeof(Choose))]
 	public class ChooseEditor : FungusCommandEditor
 	{
+		static public bool showTagHelp;
+
 		public override void DrawCommandGUI() 
 		{
 			Choose t = target as Choose;
 
 			EditorGUI.BeginChangeCheck();
 
+			EditorGUILayout.BeginHorizontal();
 			EditorGUILayout.PrefixLabel(new GUIContent("Choose Text", "Text to display in dialog"));
+			GUILayout.FlexibleSpace();
+			if (GUILayout.Button(new GUIContent("Tag Help", "Show help info for tags"), new GUIStyle(EditorStyles.miniButton)))
+			{
+				showTagHelp = !showTagHelp;
+			}
+			EditorGUILayout.EndHorizontal();
+
+			if (showTagHelp)
+			{
+				SayEditor.DrawTagHelpLabel();
+			}
+
 			GUIStyle sayStyle = new GUIStyle(EditorStyles.textArea);
 			sayStyle.wordWrap = true;
 			string chooseText = EditorGUILayout.TextArea(t.chooseText, sayStyle, GUILayout.MinHeight(30));
