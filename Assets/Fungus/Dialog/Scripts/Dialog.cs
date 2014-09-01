@@ -30,13 +30,19 @@ namespace Fungus.Script
 		protected enum GlyphType
 		{
 			Character,				// Text character
+			BoldStart,				// b
+			BoldEnd,				// /b
+			ItalicStart,			// i
+			ItalicEnd,				// /i
+			ColorStart,				// color=red
+			ColorEnd,				// /color
 			Wait, 					// w, w=0.5
-			WaitForInput, 			// i
-			WaitForInputAndClear, 	// ic
+			WaitForInputNoClear, 	// wi
+			WaitForInputAndClear, 	// wc
+			WaitOnPunctuation, 		// wp, wp=0.5
 			Clear, 					// c
 			Speed, 					// s, s=60
-			Exit, 					// x
-			Punctuation 			// p, p=0.5
+			Exit 					// x
 		}
 
 		protected class Glyph
@@ -196,7 +202,7 @@ namespace Fungus.Script
 						timeAccumulator = 0f;
 						break;
 
-					case GlyphType.WaitForInput:
+					case GlyphType.WaitForInputNoClear:
 						OnWaitForInputTag(true);
 						yield return StartCoroutine(WaitForInput(null));
 						OnWaitForInputTag(false);
@@ -239,7 +245,7 @@ namespace Fungus.Script
 
 						yield break;
 
-					case GlyphType.Punctuation:
+					case GlyphType.WaitOnPunctuation:
 						break;
 					}
 
@@ -343,13 +349,22 @@ namespace Fungus.Script
 			GlyphType type = GlyphType.Character;
 			string paramText = "";
 
-			if (tag == "i")
+			if (tag == "wi")
 			{
-				type = GlyphType.WaitForInput;
+				type = GlyphType.WaitForInputNoClear;
 			}
-			if (tag == "ic")
+			if (tag == "wc")
 			{
 				type = GlyphType.WaitForInputAndClear;
+			}
+			else if (tag.StartsWith("wp="))
+			{
+				type = GlyphType.WaitOnPunctuation;
+				paramText = tag.Substring(2, tag.Length - 2);
+			}
+			else if (tag == "wp")
+			{
+				type = GlyphType.WaitOnPunctuation;
 			}
 			else if (tag.StartsWith("w="))
 			{
@@ -377,19 +392,10 @@ namespace Fungus.Script
 			{
 				type = GlyphType.Exit;
 			}
-			else if (tag.StartsWith("p="))
-			{
-				type = GlyphType.Punctuation;
-				paramText = tag.Substring(2, tag.Length - 2);
-			}
-			else if (tag == "p")
-			{
-				type = GlyphType.Punctuation;
-			}
 
 			Glyph glyph = new Glyph();
 			glyph.type = type;
-			glyph.param = paramText;
+			glyph.param = paramText.Trim();
 
 			return glyph;
 		}
