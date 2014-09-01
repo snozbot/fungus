@@ -27,6 +27,12 @@ namespace Fungus.Script
 		public Image leftImage;
 		public Image rightImage;
 
+		float speed;
+		bool boldActive;
+		bool italicActive;
+		bool colorActive;
+		string colorText;
+
 		protected enum GlyphType
 		{
 			Character,				// Text character
@@ -120,6 +126,11 @@ namespace Fungus.Script
 		protected IEnumerator WriteText(string text, Action onWritingComplete, Action onExitTag)
 		{
 			storyText.text = "";
+			boldActive = false;
+			italicActive = false;
+			colorActive = false;
+			colorText = "";
+			speed = writingSpeed;
 
 			List<Glyph> glyphs = MakeGlyphList(text);
 
@@ -128,9 +139,9 @@ namespace Fungus.Script
 				yield break;
 			}
 
-			// Zero writingSpeed means write instantly
+			// Zero speed means write instantly
 			// Also write instantly if text contains rich text markup tags
-			if (writingSpeed == 0 ||
+			if (speed == 0 ||
 			    text.Contains("<"))
 			{
 				foreach (Glyph glyph in glyphs)
@@ -160,9 +171,9 @@ namespace Fungus.Script
 			}
 			
 			float writeDelay = 0f;
-			if (writingSpeed > 0)
+			if (speed > 0)
 			{
-				writeDelay = (1f / (float)writingSpeed);
+				writeDelay = (1f / (float)speed);
 			}
 
 			float timeAccumulator = 0f;
@@ -188,8 +199,53 @@ namespace Fungus.Script
 						}
 						else
 						{
-							storyText.text += glyph.param;
+							// Wrap each individual character in rich text markup tags if required
+							// This must be done at the character level to support writing out the story text over time.
+							string start = "";
+							string end = "";
+							if (boldActive)
+							{
+								start += "<b>"; 
+								end += "</b>";
+							}
+							if (italicActive)
+							{
+								start += "<i>"; 
+								end += "</i>"; 
+							}
+							if (colorActive)
+							{
+								start += "<color=" + colorText + ">"; 
+								end += "</color>"; 
+							}
+			
+							storyText.text += start + glyph.param + end;
 						}
+						break;
+
+					case GlyphType.BoldStart:
+						boldActive = true;
+						break;
+						
+					case GlyphType.BoldEnd:
+						boldActive = false;
+						break;
+					
+					case GlyphType.ItalicStart:
+						italicActive = true;
+						break;
+						
+					case GlyphType.ItalicEnd:
+						italicActive = false;
+						break;
+
+					case GlyphType.ColorStart:
+						colorActive = true;
+						colorText = glyph.param;
+						break;
+						
+					case GlyphType.ColorEnd:
+						colorActive = false;
 						break;
 
 					case GlyphType.Wait:
@@ -220,14 +276,14 @@ namespace Fungus.Script
 						break;
 
 					case GlyphType.Speed:
-						if (!Single.TryParse(glyph.param, out writingSpeed))
+						if (!Single.TryParse(glyph.param, out speed))
 						{
-							writingSpeed = 0f;
+							speed = 0f;
 						}
 						writeDelay = 0;
-						if (writingSpeed > 0)
+						if (speed > 0)
 						{
-							writeDelay = (1f / (float)writingSpeed);
+							writeDelay = (1f / (float)speed);
 						}
 						break;
 
@@ -349,7 +405,32 @@ namespace Fungus.Script
 			GlyphType type = GlyphType.Character;
 			string paramText = "";
 
-			if (tag == "wi")
+			if (tag == "b")
+			{
+				type = GlyphType.BoldStart;
+			}
+			else if (tag == "/b")
+			{
+				type = GlyphType.BoldEnd;
+			}
+			else if (tag == "i")
+			{
+				type = GlyphType.ItalicStart;
+			}
+			else if (tag == "/i")
+			{
+				type = GlyphType.ItalicEnd;
+			}
+			else if (tag.StartsWith("color="))
+			{
+				type = GlyphType.ColorStart;
+				paramText = tag.Substring(6, tag.Length - 6);
+			}
+			else if (tag == "/color")
+			{
+				type = GlyphType.ColorEnd;
+			}
+			else if (tag == "wi")
 			{
 				type = GlyphType.WaitForInputNoClear;
 			}
@@ -360,7 +441,7 @@ namespace Fungus.Script
 			else if (tag.StartsWith("wp="))
 			{
 				type = GlyphType.WaitOnPunctuation;
-				paramText = tag.Substring(2, tag.Length - 2);
+				paramText = tag.Substring(3, tag.Length - 3);
 			}
 			else if (tag == "wp")
 			{

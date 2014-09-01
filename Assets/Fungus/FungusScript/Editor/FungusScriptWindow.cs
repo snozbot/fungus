@@ -272,6 +272,7 @@ namespace Fungus.Script
 						fungusScript.selectedSequence = s;
 
 						Selection.activeGameObject = fungusScript.gameObject;
+						GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 					}
 				}
 			}

@@ -63,6 +63,7 @@ namespace Fungus.Script
 			{
 				Undo.RecordObject(t, "Toggle Expanded");
 				t.expanded = !t.expanded;
+				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 			}
 			GUI.backgroundColor = Color.white;
 
