@@ -63,6 +63,10 @@ namespace Fungus.Script
 
 			EditorGUILayout.Separator();
 
+
+
+			EditorGUILayout.Separator();
+
 			DrawVariablesGUI();
 		}
 
@@ -98,11 +102,10 @@ namespace Fungus.Script
 			GUILayout.Box("Commands", GUILayout.ExpandWidth(true));
 
 			FungusCommand[] commands = sequence.GetComponents<FungusCommand>();
-			int index = 1;
 			foreach (FungusCommand command in commands)
 			{
 				FungusCommandEditor commandEditor = Editor.CreateEditor(command) as FungusCommandEditor;
-				commandEditor.DrawInspectorGUI(index++);
+				commandEditor.DrawInspectorGUI();
 			}
 
 			if (Application.isPlaying)

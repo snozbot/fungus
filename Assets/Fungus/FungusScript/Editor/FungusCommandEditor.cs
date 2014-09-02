@@ -21,7 +21,7 @@ namespace Fungus.Script
 			}
 		}
 
-		public virtual void DrawInspectorGUI(int commandIndex) 
+		public virtual void DrawInspectorGUI() 
 		{
 			FungusCommand t = target as FungusCommand;
 
