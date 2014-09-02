@@ -91,7 +91,8 @@ namespace Fungus.Script
 
 			fungusScript.scriptScrollPos = GLDraw.BeginScrollView(scriptViewRect, fungusScript.scriptScrollPos, scrollViewRect, clipRect);
 			
-			if (Event.current.type == EventType.ContextClick)
+			if (Event.current.type == EventType.ContextClick &&
+			    clipRect.Contains(Event.current.mousePosition))
 			{
 				GenericMenu menu = new GenericMenu();
 				Vector2 mousePos = Event.current.mousePosition;
