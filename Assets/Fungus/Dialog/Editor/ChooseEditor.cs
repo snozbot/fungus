@@ -39,11 +39,13 @@ namespace Fungus.Script
 
 			Character character = FungusCommandEditor.ObjectField<Character>(new GUIContent("Character", "Character to display in dialog"), 
 			                                                                 new GUIContent("<None>"),
-			                                                                 t.character);
+			                                                                 t.character,
+			                                                                 Character.activeCharacters);
 
 			ChooseDialog dialog = FungusCommandEditor.ObjectField<ChooseDialog>(new GUIContent("Choose Dialog", "Dialog to use when displaying choices"), 
 			                                                                    new GUIContent("<Default>"),
-			                                                                    t.dialog);
+			                                                                    t.dialog,
+			                                                                    ChooseDialog.activeDialogs);
 
 			AudioClip voiceOverClip = EditorGUILayout.ObjectField(new GUIContent("Voice Over Clip", "Voice over audio to play when the choose text is displayed"),
 			                                                      t.voiceOverClip,

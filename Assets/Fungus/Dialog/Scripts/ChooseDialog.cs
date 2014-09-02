@@ -8,6 +8,7 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
+	[ExecuteInEditMode]
 	public class ChooseDialog : Dialog 
 	{
 		public Slider slider;
@@ -19,6 +20,21 @@ namespace Fungus.Script
 		}
 
 		public List<UnityEngine.UI.Button> optionButtons = new List<UnityEngine.UI.Button>();
+
+		static public List<ChooseDialog> activeDialogs = new List<ChooseDialog>();
+
+		void OnEnable()
+		{
+			if (!activeDialogs.Contains(this))
+			{
+				activeDialogs.Add(this);
+			}
+		}
+		
+		void OnDisable()
+		{
+			activeDialogs.Remove(this);
+		}
 
 		public void Choose(string text, List<Option> options, float timeoutDuration, Action onTimeout)
 		{

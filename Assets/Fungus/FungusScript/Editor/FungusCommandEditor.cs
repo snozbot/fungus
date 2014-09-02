@@ -170,18 +170,17 @@ namespace Fungus.Script
 			return copy as T;
 		}
 
-		static public T ObjectField<T>(GUIContent label, GUIContent nullLabel, T selectedObject) where T : MonoBehaviour
+		static public T ObjectField<T>(GUIContent label, GUIContent nullLabel, T selectedObject, List<T> objectList) where T : MonoBehaviour
 		{
 			List<GUIContent> objectNames = new List<GUIContent>();
 			
 			int selectedIndex = 0;
 			objectNames.Add(nullLabel);
-			T[] objects = GameObject.FindObjectsOfType<T>();
-			for (int i = 0; i < objects.Length; ++i)
+			for (int i = 0; i < objectList.Count; ++i)
 			{
-				objectNames.Add(new GUIContent(objects[i].name));
+				objectNames.Add(new GUIContent(objectList[i].name));
 				
-				if (selectedObject == objects[i])
+				if (selectedObject == objectList[i])
 				{
 					selectedIndex = i + 1;
 				}
@@ -196,7 +195,7 @@ namespace Fungus.Script
 			}
 			else
 			{
-				result = objects[selectedIndex - 1];
+				result = objectList[selectedIndex - 1];
 			}
 			
 			return result;

@@ -2,13 +2,30 @@
 using UnityEngine.UI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Fungus.Script
 {
 
+	[ExecuteInEditMode]
 	public class SayDialog : Dialog 
 	{
 		public Image continueImage;
+
+		static public List<SayDialog> activeDialogs = new List<SayDialog>();
+
+		void OnEnable()
+		{
+			if (!activeDialogs.Contains(this))
+			{
+				activeDialogs.Add(this);
+			}
+		}
+		
+		void OnDisable()
+		{
+			activeDialogs.Remove(this);
+		}
 
 		public void Say(string text, Action onComplete)
 		{
