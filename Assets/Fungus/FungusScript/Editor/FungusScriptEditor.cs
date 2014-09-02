@@ -114,39 +114,14 @@ namespace Fungus.Script
 			
 			GUILayout.Box("New Command", GUILayout.ExpandWidth(true));
 
-			List<string> categories = new List<string>();
-			
-			// Build list of categories
-			List<System.Type> subTypes = EditorExtensions.FindDerivedTypes(typeof(FungusCommand)).ToList();
-			foreach(System.Type type in subTypes)
-			{
-				object[] attributes = type.GetCustomAttributes(false);
-				foreach (object obj in attributes)
-				{
-					CommandCategoryAttribute categoryAttr = obj as CommandCategoryAttribute;
-					if (categoryAttr != null)
-					{
-						if (!categories.Contains(categoryAttr.Category))
-						{
-							categories.Add(categoryAttr.Category);
-						}
-					}
-				}
-			}
-
-			categories.Sort();
-
 			EditorGUI.BeginChangeCheck();
 
 			EditorGUILayout.BeginHorizontal();
 
-			int selectedCategoryIndex = EditorGUILayout.Popup(fungusScript.selectedCategoryIndex, categories.ToArray());
-			
 			List<string> commandNames = new List<string>();
-			List<System.Type> commandTypes = new List<System.Type>();
-			
-			string categoryName = categories[selectedCategoryIndex];
-			foreach (System.Type type in subTypes)
+			List<System.Type> commandTypes = EditorExtensions.FindDerivedTypes(typeof(FungusCommand)).ToList();
+
+			foreach (System.Type type in commandTypes)
 			{
 				object[] attributes = type.GetCustomAttributes(false);
 				foreach (object obj in attributes)
@@ -154,27 +129,18 @@ namespace Fungus.Script
 					CommandCategoryAttribute categoryAttr = obj as CommandCategoryAttribute;
 					if (categoryAttr != null)
 					{
-						if (categoryAttr.Category == categoryName)
-						{
-							commandNames.Add(GetCommandName(type));
-							commandTypes.Add(type);
-						}
+						string commandItem = categoryAttr.Category + " / " + GetCommandName(type);
+						commandNames.Add(commandItem);
+						break;
 					}
 				}
 			}
 			
 			int selectedCommandIndex = EditorGUILayout.Popup(fungusScript.selectedCommandIndex, commandNames.ToArray());
 
-			if (selectedCategoryIndex != fungusScript.selectedCategoryIndex)
-			{
-				// Default to first item in list if category has changed
-				selectedCommandIndex = 0;
-			}
-			
 			if (EditorGUI.EndChangeCheck())
 			{
 				Undo.RecordObject(fungusScript, "Select Command");
-				fungusScript.selectedCategoryIndex = selectedCategoryIndex;
 				fungusScript.selectedCommandIndex = selectedCommandIndex;
 			}
 
