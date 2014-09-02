@@ -139,12 +139,12 @@ namespace Fungus.Script
 				}
 			}
 			
-			int selectedCommandIndex = EditorGUILayout.Popup(fungusScript.selectedCommandIndex, commandNames.ToArray());
+			int selectedCommandIndex = EditorGUILayout.Popup(fungusScript.selectedAddCommandIndex, commandNames.ToArray());
 
 			if (EditorGUI.EndChangeCheck())
 			{
 				Undo.RecordObject(fungusScript, "Select Command");
-				fungusScript.selectedCommandIndex = selectedCommandIndex;
+				fungusScript.selectedAddCommandIndex = selectedCommandIndex;
 			}
 
 			if (selectedCommandIndex >= commandTypes.Count)
