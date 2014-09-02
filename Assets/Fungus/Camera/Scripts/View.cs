@@ -22,20 +22,20 @@ namespace Fungus
 		 * e.g. a 4:3 aspect ratio = 1.333
 		 */
 		[Tooltip("Aspect ratio of the primary view rectangle. (e.g. 4:3 aspect ratio = 1.333)")]
-		public float primaryAspectRatio = (4f / 3f);
-
-		/**
-		 * Color of the primary view rectangle.
-		 */
-		[Tooltip("Color of the primary view rectangle.")]
-		public Color primaryColor = Color.green;
+		public Vector2 primaryAspectRatio = new Vector2(4, 3);
 
 		/**
 		 * Aspect ratio of the secondary view rectangle.
 		 * e.g. a 2:1 aspect ratio = 2/1 = 2.0
 		 */
 		[Tooltip("Aspect ratio of the secondary view rectangle. (e.g. 2:1 aspect ratio = 2.0)")]
-		public float secondaryAspectRatio = (2f / 1f);
+		public Vector2 secondaryAspectRatio = new Vector2(2, 1);
+
+		/**
+		 * Color of the primary view rectangle.
+		 */
+		[Tooltip("Color of the primary view rectangle.")]
+		public Color primaryColor = Color.green;
 
 		/**
 		 * Color of the secondary view rectangle.
