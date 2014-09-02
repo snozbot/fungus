@@ -42,7 +42,6 @@ namespace Fungus.Script
 				Undo.RecordObject(sequence, "Set Sequence Description");
 				sequence.description = desc;
 			}
-			
 
 			ReorderableListGUI.Title("Command Sequence");
 
@@ -57,14 +56,12 @@ namespace Fungus.Script
 			
 			EditorGUI.BeginChangeCheck();
 
-			EditorGUILayout.Separator();
-
 			EditorGUILayout.BeginHorizontal();
-			
-			List<string> commandNames = new List<string>();
-			List<System.Type> commandTypes = EditorExtensions.FindDerivedTypes(typeof(FungusCommand)).ToList();
-			
-			foreach (System.Type type in commandTypes)
+
+			// Build list of categories
+			List<string> categories = new List<string>();
+			List<System.Type> subTypes = EditorExtensions.FindDerivedTypes(typeof(FungusCommand)).ToList();
+			foreach(System.Type type in subTypes)
 			{
 				object[] attributes = type.GetCustomAttributes(false);
 				foreach (object obj in attributes)
@@ -72,24 +69,58 @@ namespace Fungus.Script
 					CommandCategoryAttribute categoryAttr = obj as CommandCategoryAttribute;
 					if (categoryAttr != null)
 					{
-						string commandItem = categoryAttr.Category + " - " + FungusScriptEditor.GetCommandName(type);
-						commandNames.Add(commandItem);
-						break;
+						if (!categories.Contains(categoryAttr.Category))
+						{
+							categories.Add(categoryAttr.Category);
+						}
 					}
 				}
 			}
+			categories.Sort();
 
-			int selectedCommandIndex = EditorGUILayout.Popup(fungusScript.selectedAddCommandIndex, commandNames.ToArray());
+			GUILayout.Label("New Command");
+			GUILayout.FlexibleSpace();
+			int selectedCategoryIndex = EditorGUILayout.Popup(fungusScript.selectedCommandCategoryIndex, categories.ToArray());
 			
+			List<string> commandNames = new List<string>();
+			List<System.Type> commandTypes = new List<System.Type>();
+			
+			string categoryName = categories[selectedCategoryIndex];
+			foreach (System.Type type in subTypes)
+			{
+				object[] attributes = type.GetCustomAttributes(false);
+				foreach (object obj in attributes)
+				{
+					CommandCategoryAttribute categoryAttr = obj as CommandCategoryAttribute;
+					if (categoryAttr != null)
+					{
+						if (categoryAttr.Category == categoryName)
+						{
+							commandNames.Add(FungusScriptEditor.GetCommandName(type));
+							commandTypes.Add(type);
+						}
+					}
+				}
+			}
+			
+			int selectedCommandIndex = EditorGUILayout.Popup(fungusScript.selectedAddCommandIndex, commandNames.ToArray());
+			if (selectedCategoryIndex != fungusScript.selectedCommandCategoryIndex)
+			{
+				// Default to first item in list if category has changed
+				selectedCommandIndex = 0;
+			}
+
+			EditorGUILayout.EndHorizontal();
+
 			if (EditorGUI.EndChangeCheck())
 			{
 				Undo.RecordObject(fungusScript, "Select Command");
+				fungusScript.selectedCommandCategoryIndex = selectedCategoryIndex;
 				fungusScript.selectedAddCommandIndex = selectedCommandIndex;
 			}
 			
 			if (selectedCommandIndex >= commandTypes.Count)
 			{
-				EditorGUILayout.EndHorizontal();
 				return;
 			}
 			
@@ -97,11 +128,14 @@ namespace Fungus.Script
 			if (fungusScript.selectedSequence == null ||
 			    selectedType == null)
 			{
-				EditorGUILayout.EndHorizontal();
 				return;
 			}
-			
-			if (GUILayout.Button(new GUIContent("Add Command", "Add the selected command to the sequence"), EditorStyles.miniButton))
+
+			EditorGUILayout.BeginHorizontal();
+
+			GUILayout.FlexibleSpace();
+
+			if (GUILayout.Button(new GUIContent("Add Command", "Add the selected command to the sequence")))
 			{
 				FungusCommand newCommand = Undo.AddComponent(fungusScript.selectedSequence.gameObject, selectedType) as FungusCommand;
 				Undo.RecordObject(fungusScript, "Add Command");
@@ -110,7 +144,7 @@ namespace Fungus.Script
 
 			if (fungusScript.copyCommand != null)
 			{
-				if (GUILayout.Button("Paste", EditorStyles.miniButton))
+				if (GUILayout.Button("Paste"))
 				{
 					FungusCommandEditor.PasteCommand(fungusScript.copyCommand, fungusScript.selectedSequence);
 				}
