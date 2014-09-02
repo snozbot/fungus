@@ -198,8 +198,7 @@ namespace Fungus.Script
 					if (fungusScript.selectedSequence != null &&
 					    fungusScript.selectedCommand != null)
 					{
-						FungusCommand[] commands = fungusScript.selectedSequence.GetComponents<FungusCommand>();
-						foreach (FungusCommand command in commands)
+						foreach (FungusCommand command in fungusScript.selectedSequence.commandList)
 						{
 							if (fungusScript.selectedCommand == command &&
 							    command.HasReference(variable))

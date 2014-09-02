@@ -51,7 +51,7 @@ namespace Fungus.Script
 			GUILayout.BeginHorizontal();
 			DrawScriptView(fungusScript);
 			ResizeViews(fungusScript);
-			DrawCommandView(fungusScript);
+			DrawSequenceView(fungusScript);
 			GUILayout.EndHorizontal();
 		}
 		
@@ -179,7 +179,7 @@ namespace Fungus.Script
 			}
 		}
 		
-		void DrawCommandView(FungusScript fungusScript)
+		void DrawSequenceView(FungusScript fungusScript)
 		{
 			GUILayout.Space(5);
 
@@ -235,13 +235,16 @@ namespace Fungus.Script
 			}
 			
 			GUILayout.EndHorizontal();
-			
-			EditorGUILayout.Separator();
 
-			FungusScriptEditor editor = Editor.CreateEditor(fungusScript) as FungusScriptEditor;
-			editor.DrawSequenceGUI(fungusScript);
+			if (fungusScript.selectedSequence != null)
+			{
+				EditorGUILayout.Separator();
 
-			GUILayout.FlexibleSpace();
+				SequenceEditor editor = Editor.CreateEditor(fungusScript.selectedSequence) as SequenceEditor;
+				editor.DrawSequenceGUI(fungusScript);
+
+				GUILayout.FlexibleSpace();
+			}
 
 			EditorGUILayout.EndVertical();
 

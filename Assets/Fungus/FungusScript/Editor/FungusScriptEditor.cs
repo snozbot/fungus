@@ -2,7 +2,6 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Fungus;
 using Rotorz.ReorderableList;
 using System.Linq;
 
@@ -72,120 +71,6 @@ namespace Fungus.Script
 			EditorGUILayout.Separator();
 
 			DrawVariablesGUI();
-		}
-
-		public void DrawSequenceGUI(FungusScript fungusScript)
-		{
-			if (fungusScript.selectedSequence == null)
-			{
-				return;
-			}
-				
-			Sequence sequence = fungusScript.selectedSequence;
-
-			EditorGUI.BeginChangeCheck();
-
-			string name = EditorGUILayout.TextField(new GUIContent("Name", "Name of sequence displayed in editor window"), sequence.name);
-			string desc = EditorGUILayout.TextField(new GUIContent("Description", "Sequence description displayed in editor window"), sequence.description);
-	
-			EditorGUILayout.Separator();
-
-			if (name != sequence.name)
-			{
-				// The name is the gameobject name, so have to undo seperately
-				Undo.RecordObject(sequence.gameObject, "Set Sequence Name");
-				sequence.name = name;
-			}
-
-			if (desc != sequence.description)
-			{
-				Undo.RecordObject(sequence, "Set Sequence Description");
-				sequence.description = desc;
-			}
-
-			GUILayout.Box("Commands", GUILayout.ExpandWidth(true));
-
-			FungusCommand[] commands = sequence.GetComponents<FungusCommand>();
-			foreach (FungusCommand command in commands)
-			{
-				FungusCommandEditor commandEditor = Editor.CreateEditor(command) as FungusCommandEditor;
-				commandEditor.DrawCommandRowGUI();
-			}
-
-			if (Application.isPlaying)
-			{
-				return;
-			}
-
-			EditorGUILayout.Separator();
-			
-			GUILayout.Box("New Command", GUILayout.ExpandWidth(true));
-
-			EditorGUI.BeginChangeCheck();
-
-			EditorGUILayout.BeginHorizontal();
-
-			List<string> commandNames = new List<string>();
-			List<System.Type> commandTypes = EditorExtensions.FindDerivedTypes(typeof(FungusCommand)).ToList();
-
-			foreach (System.Type type in commandTypes)
-			{
-				object[] attributes = type.GetCustomAttributes(false);
-				foreach (object obj in attributes)
-				{
-					CommandCategoryAttribute categoryAttr = obj as CommandCategoryAttribute;
-					if (categoryAttr != null)
-					{
-						string commandItem = categoryAttr.Category + " / " + GetCommandName(type);
-						commandNames.Add(commandItem);
-						break;
-					}
-				}
-			}
-			
-			int selectedCommandIndex = EditorGUILayout.Popup(fungusScript.selectedAddCommandIndex, commandNames.ToArray());
-
-			if (EditorGUI.EndChangeCheck())
-			{
-				Undo.RecordObject(fungusScript, "Select Command");
-				fungusScript.selectedAddCommandIndex = selectedCommandIndex;
-			}
-
-			if (selectedCommandIndex >= commandTypes.Count)
-			{
-				EditorGUILayout.EndHorizontal();
-				return;
-			}
-
-			System.Type selectedType = commandTypes[selectedCommandIndex];
-			if (fungusScript.selectedSequence == null ||
-				selectedType == null)
-			{
-				EditorGUILayout.EndHorizontal();
-				return;
-			}
-
-			if (GUILayout.Button(new GUIContent("Add", "Add the selected command to the sequence"), EditorStyles.miniButton))
-			{
-				Undo.AddComponent(fungusScript.selectedSequence.gameObject, selectedType);
-			}
-			
-			EditorGUILayout.EndHorizontal();
-
-			object[] helpAttributes = selectedType.GetCustomAttributes(typeof(HelpTextAttribute), false);
-			foreach (object obj in helpAttributes)
-			{
-				HelpTextAttribute helpTextAttr = obj as HelpTextAttribute;
-				if (helpTextAttr != null)
-				{
-					GUIStyle labelStyle = new GUIStyle(EditorStyles.miniLabel);
-					labelStyle.wordWrap = true;
-					EditorGUILayout.HelpBox(helpTextAttr.HelpText, MessageType.Info);
-					break;
-				}
-			}
-
-			EditorGUILayout.Separator();
 		}
 
 		public void DrawVariablesGUI()

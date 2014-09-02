@@ -9,6 +9,7 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
+	[ExecuteInEditMode]
 	public class Sequence : MonoBehaviour 
 	{
 		[HideInInspector]
@@ -23,8 +24,10 @@ namespace Fungus.Script
 		[System.NonSerialized]
 		public FungusCommand activeCommand;
 
+		public List<FungusCommand> commandList = new List<FungusCommand>();
+
 		int executionCount;
-	
+
 		public virtual void Start()
 		{
 			fungusScript = GetFungusScript();
@@ -48,8 +51,7 @@ namespace Fungus.Script
 
 		public bool HasError()
 		{
-			FungusCommand[] commands = GetComponents<FungusCommand>();
-			foreach (FungusCommand command in commands)
+			foreach (FungusCommand command in commandList)
 			{
 				if (command.errorMessage.Length > 0)
 				{
@@ -87,8 +89,7 @@ namespace Fungus.Script
 			FungusCommand nextCommand = null;
 
 			bool executeNext = (currentCommand == null);
-			FungusCommand[] commands = GetComponents<FungusCommand>();
-			foreach (FungusCommand command in commands)
+			foreach (FungusCommand command in commandList)
 			{
 				if (command == currentCommand)
 				{

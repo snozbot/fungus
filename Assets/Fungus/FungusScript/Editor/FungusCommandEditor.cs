@@ -103,27 +103,18 @@ namespace Fungus.Script
 
 			GUILayout.BeginHorizontal();
 
-			string commandName = FungusScriptEditor.GetCommandName(t.GetType());
-			GUILayout.Label(commandName, EditorStyles.largeLabel);
-
-			GUILayout.FlexibleSpace();
-
-			bool enabled = GUILayout.Toggle(t.enabled, "");
+			bool enabled = GUILayout.Toggle(t.enabled, new GUIContent());
 			if (t.enabled != enabled)
 			{
 				Undo.RecordObject(t, "Set Enabled");
 				t.enabled = enabled;
 			}
 
-			if (GUILayout.Button("Up", EditorStyles.miniButtonLeft))
-			{
-				UnityEditorInternal.ComponentUtility.MoveComponentUp(t);
-			}
-			if (GUILayout.Button("Down", EditorStyles.miniButtonMid))
-			{
-				UnityEditorInternal.ComponentUtility.MoveComponentDown(t);
-			}
-			
+			string commandName = FungusScriptEditor.GetCommandName(t.GetType());
+			GUILayout.Label(commandName + " Command", EditorStyles.boldLabel);
+
+			GUILayout.FlexibleSpace();
+
 			if (fungusScript != null)
 			{
 				if (GUILayout.Button("Copy", EditorStyles.miniButtonMid))
@@ -133,17 +124,15 @@ namespace Fungus.Script
 				
 				if (fungusScript.copyCommand != null)
 				{
-					if (GUILayout.Button("Paste", EditorStyles.miniButtonMid))
+					if (GUILayout.Button("Paste", EditorStyles.miniButton))
 					{
-						CopyComponent<FungusCommand>(fungusScript.copyCommand, t.gameObject);
+						Sequence parentSequence = t.GetComponent<Sequence>();
+						if (parentSequence != null)
+						{
+							PasteCommand(fungusScript.copyCommand, parentSequence);
+						}
 					}
 				}
-			}
-			
-			if (GUILayout.Button("Delete", EditorStyles.miniButtonRight))
-			{
-				Undo.DestroyObjectImmediate(t);
-				return;
 			}
 
 			GUILayout.EndHorizontal();
@@ -169,16 +158,24 @@ namespace Fungus.Script
 			DrawDefaultInspector();
 		}
 
-		T CopyComponent<T>(T original, GameObject destination) where T : Component
+		static public FungusCommand PasteCommand(FungusCommand copyCommand, Sequence sequence)
 		{
-			System.Type type = original.GetType();
-			Component copy = Undo.AddComponent(destination, type);
+			System.Type type = copyCommand.GetType();
+			Component copy = Undo.AddComponent(sequence.gameObject, type);
 			System.Reflection.FieldInfo[] fields = type.GetFields();
 			foreach (System.Reflection.FieldInfo field in fields)
 			{
-				field.SetValue(copy, field.GetValue(original));
+				field.SetValue(copy, field.GetValue(copyCommand));
 			}
-			return copy as T;
+
+			FungusScript fungusScript = sequence.GetFungusScript();
+
+			Undo.RecordObject(fungusScript, "Paste Command");
+
+			FungusCommand newCommand = copy as FungusCommand;
+			sequence.commandList.Add(newCommand);
+
+			return newCommand;
 		}
 
 		static public T ObjectField<T>(GUIContent label, GUIContent nullLabel, T selectedObject, List<T> objectList) where T : MonoBehaviour
