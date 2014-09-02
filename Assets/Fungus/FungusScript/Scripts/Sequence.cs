@@ -135,6 +135,7 @@ namespace Fungus.Script
 			activeCommand = null;
 			fungusScript.executingSequence = null;
 			fungusScript.selectedSequence = null;
+			fungusScript.selectedCommand = null;
 		}
 	}
 }

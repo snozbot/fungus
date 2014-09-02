@@ -55,8 +55,7 @@ namespace Fungus.Script
 
 			EditorGUILayout.BeginHorizontal();
 
-			float minHeight = sayStyle.CalcHeight(new GUIContent(t.storyText), EditorGUIUtility.currentViewWidth);
-			string text = EditorGUILayout.TextArea(t.storyText, sayStyle, GUILayout.MinHeight(minHeight + 10), GUILayout.ExpandHeight(true));
+			string text = EditorGUILayout.TextArea(t.storyText, sayStyle, GUILayout.MinHeight(60));
 
 			if (t.character != null &&
 			    t.character.characterImage != null &&
@@ -65,7 +64,7 @@ namespace Fungus.Script
 				Texture2D characterTexture = t.character.characterImage.texture;
 
 				float aspect = (float)characterTexture.width / (float)characterTexture.height;
-				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(40), GUILayout.ExpandWidth(false));
+				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(50), GUILayout.ExpandWidth(false));
 				CharacterEditor characterEditor = Editor.CreateEditor(t.character) as CharacterEditor;
 				if (characterEditor != null)
 				{

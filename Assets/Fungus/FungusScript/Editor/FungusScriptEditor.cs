@@ -63,7 +63,11 @@ namespace Fungus.Script
 
 			EditorGUILayout.Separator();
 
-
+			if (t.selectedCommand != null)
+			{
+				FungusCommandEditor commandEditor = Editor.CreateEditor(t.selectedCommand) as FungusCommandEditor;
+				commandEditor.DrawCommandInspectorGUI();
+			}
 
 			EditorGUILayout.Separator();
 
@@ -105,7 +109,7 @@ namespace Fungus.Script
 			foreach (FungusCommand command in commands)
 			{
 				FungusCommandEditor commandEditor = Editor.CreateEditor(command) as FungusCommandEditor;
-				commandEditor.DrawInspectorGUI();
+				commandEditor.DrawCommandRowGUI();
 			}
 
 			if (Application.isPlaying)

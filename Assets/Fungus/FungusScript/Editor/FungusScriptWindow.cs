@@ -202,6 +202,7 @@ namespace Fungus.Script
 				Sequence newSequence = fungusScript.CreateSequence(fungusScript.scriptScrollPos);
 				Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
 				fungusScript.selectedSequence = newSequence;
+				fungusScript.selectedCommand = null;
 			}
 			
 			if (fungusScript.selectedSequence == null)
@@ -215,6 +216,7 @@ namespace Fungus.Script
 				{
 					Undo.DestroyObjectImmediate(fungusScript.selectedSequence.gameObject);
 					fungusScript.selectedSequence = null;
+					fungusScript.selectedCommand = null;
 				}
 				if (GUILayout.Button("Duplicate", EditorStyles.miniButtonRight))
 				{
@@ -228,6 +230,7 @@ namespace Fungus.Script
 					
 					Undo.RegisterCreatedObjectUndo(copy, "Duplicate Sequence");
 					fungusScript.selectedSequence = sequenceCopy;
+					fungusScript.selectedCommand = null;
 				}
 			}
 			
@@ -271,6 +274,7 @@ namespace Fungus.Script
 					{
 						FungusScript fungusScript = s.GetFungusScript();
 						fungusScript.selectedSequence = s;
+						fungusScript.selectedCommand = null;
 
 						Selection.activeGameObject = fungusScript.gameObject;
 						GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
@@ -303,7 +307,9 @@ namespace Fungus.Script
 			FungusCommand[] commands = sequence.GetComponentsInChildren<FungusCommand>();
 			foreach (FungusCommand command in commands)
 			{
-				bool highlight = command.IsExecuting() || (sequenceIsSelected && command.expanded);
+				bool commandIsSelected = (fungusScript.selectedCommand == command);
+
+				bool highlight = command.IsExecuting() || (sequenceIsSelected && commandIsSelected);
 
 				if (highlightedOnly && !highlight ||
 				    !highlightedOnly && highlight)

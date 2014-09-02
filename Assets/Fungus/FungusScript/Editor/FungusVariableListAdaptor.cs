@@ -195,12 +195,13 @@ namespace Fungus.Script
 				else
 				{
 					// Is an expanded command referencing this variable?
-					if (fungusScript.selectedSequence != null)
+					if (fungusScript.selectedSequence != null &&
+					    fungusScript.selectedCommand != null)
 					{
 						FungusCommand[] commands = fungusScript.selectedSequence.GetComponents<FungusCommand>();
 						foreach (FungusCommand command in commands)
 						{
-							if (command.expanded &&
+							if (fungusScript.selectedCommand == command &&
 							    command.HasReference(variable))
 							{
 								highlight = true;

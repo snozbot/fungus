@@ -33,6 +33,8 @@ namespace Fungus.Script
 
 		public Sequence selectedSequence;
 
+		public FungusCommand selectedCommand;
+
 		public bool startAutomatically = false;
 
 		public List<FungusVariable> variables = new List<FungusVariable>();

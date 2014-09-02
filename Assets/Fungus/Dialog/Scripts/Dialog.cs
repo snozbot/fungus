@@ -59,7 +59,7 @@ namespace Fungus.Script
 			public string param = "";
 		}
 
-		public void ShowDialog(bool visible)
+		public virtual void ShowDialog(bool visible)
 		{
 			if (dialogCanvas != null)
 			{
@@ -214,7 +214,7 @@ namespace Fungus.Script
 							if (italicActive)
 							{
 								start += "<i>"; 
-								end += "</i>"; 
+								end = "</i>" + end; // Have to nest tags correctly 
 							}
 							if (colorActive)
 							{

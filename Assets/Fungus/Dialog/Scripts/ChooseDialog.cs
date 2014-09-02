@@ -11,7 +11,7 @@ namespace Fungus.Script
 	[ExecuteInEditMode]
 	public class ChooseDialog : Dialog 
 	{
-		public Slider slider;
+		public Slider timeoutSlider;
 
 		public class Option
 		{
@@ -36,6 +36,12 @@ namespace Fungus.Script
 			activeDialogs.Remove(this);
 		}
 
+		public override void ShowDialog (bool visible)
+		{
+			base.ShowDialog (visible);
+			timeoutSlider.gameObject.SetActive(false);
+		}
+
 		public void Choose(string text, List<Option> options, float timeoutDuration, Action onTimeout)
 		{
 			Clear();
@@ -48,6 +54,7 @@ namespace Fungus.Script
 				
 				if (timeoutDuration > 0)
 				{
+					timeoutSlider.gameObject.SetActive(true);
 					StartCoroutine(WaitForTimeout(timeoutDuration, onTimeout));
 				}
 			};
@@ -61,10 +68,10 @@ namespace Fungus.Script
 
 			while (elapsedTime < timeoutDuration)
 			{
-				if (slider != null)
+				if (timeoutSlider != null)
 				{
 					float t = elapsedTime / timeoutDuration;
-					slider.value = t;
+					timeoutSlider.value = t;
 				}
 
 				elapsedTime += Time.deltaTime;

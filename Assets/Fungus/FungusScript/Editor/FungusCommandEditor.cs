@@ -21,16 +21,15 @@ namespace Fungus.Script
 			}
 		}
 
-		public virtual void DrawInspectorGUI() 
+		public virtual void DrawCommandRowGUI() 
 		{
 			FungusCommand t = target as FungusCommand;
-
 			if (t == null)
 			{
 				return;
 			}
 
-			GUILayout.BeginVertical();
+			FungusScript fungusScript = t.GetFungusScript();
 
 			GUILayout.BeginHorizontal();
 
@@ -53,7 +52,7 @@ namespace Fungus.Script
 			{
 				GUI.backgroundColor = Color.red;
 			}
-			else if (t.expanded)
+			else if (fungusScript.selectedCommand == t)
 			{
 				GUI.backgroundColor = Color.yellow;
 			}
@@ -61,8 +60,7 @@ namespace Fungus.Script
 			string commandName = FungusScriptEditor.GetCommandName(t.GetType());
 			if (GUILayout.Button(commandName, EditorStyles.miniButton, GUILayout.MinWidth(80)))
 			{
-				Undo.RecordObject(t, "Toggle Expanded");
-				t.expanded = !t.expanded;
+				fungusScript.selectedCommand = t;
 				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 			}
 			GUI.backgroundColor = Color.white;
@@ -83,74 +81,87 @@ namespace Fungus.Script
 
 			GUILayout.EndHorizontal();
 
-			if (t.expanded)
-			{
-				GUILayout.BeginHorizontal();
-
-				GUILayout.FlexibleSpace();
-
-				bool enabled = GUILayout.Toggle(t.enabled, "");
-				if (t.enabled != enabled)
-				{
-					Undo.RecordObject(t, "Set Enabled");
-					t.enabled = enabled;
-				}
-
-				if (GUILayout.Button("Up", EditorStyles.miniButtonLeft))
-				{
-					UnityEditorInternal.ComponentUtility.MoveComponentUp(t);
-				}
-				if (GUILayout.Button("Down", EditorStyles.miniButtonMid))
-				{
-					UnityEditorInternal.ComponentUtility.MoveComponentDown(t);
-				}
-				
-				FungusScript fungusScript = t.GetFungusScript();
-				
-				if (fungusScript != null)
-				{
-					if (GUILayout.Button("Copy", EditorStyles.miniButtonMid))
-					{
-						fungusScript.copyCommand = t;
-					}
-					
-					if (fungusScript.copyCommand != null)
-					{
-						if (GUILayout.Button("Paste", EditorStyles.miniButtonMid))
-						{
-							CopyComponent<FungusCommand>(fungusScript.copyCommand, t.gameObject);
-						}
-					}
-				}
-				
-				if (GUILayout.Button("Delete", EditorStyles.miniButtonRight))
-				{
-					Undo.DestroyObjectImmediate(t);
-					return;
-				}
-
-				GUILayout.EndHorizontal();
-
-				DrawCommandGUI();
-
-				EditorGUILayout.Separator();
-
-				if (t.errorMessage.Length > 0)
-				{
-					GUIStyle style = new GUIStyle(GUI.skin.label);
-					style.normal.textColor = new Color(1,0,0);
-					EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
-				}
-			}
-
-			GUILayout.EndVertical();
-
 			if (Event.current.type == EventType.Repaint &&
 			    t.IsExecuting())
 			{
 				Rect rect = GUILayoutUtility.GetLastRect();
 				GLDraw.DrawBox(rect, Color.green, 1.5f);
 			}
+		}
+
+		public virtual void DrawCommandInspectorGUI()
+		{
+			FungusCommand t = target as FungusCommand;
+			if (t == null)
+			{
+				return;
+			}
+
+			FungusScript fungusScript = t.GetFungusScript();
+
+			GUILayout.BeginVertical(GUI.skin.box);
+
+			GUILayout.BeginHorizontal();
+
+			string commandName = FungusScriptEditor.GetCommandName(t.GetType());
+			GUILayout.Label(commandName, EditorStyles.largeLabel);
+
+			GUILayout.FlexibleSpace();
+
+			bool enabled = GUILayout.Toggle(t.enabled, "");
+			if (t.enabled != enabled)
+			{
+				Undo.RecordObject(t, "Set Enabled");
+				t.enabled = enabled;
+			}
+
+			if (GUILayout.Button("Up", EditorStyles.miniButtonLeft))
+			{
+				UnityEditorInternal.ComponentUtility.MoveComponentUp(t);
+			}
+			if (GUILayout.Button("Down", EditorStyles.miniButtonMid))
+			{
+				UnityEditorInternal.ComponentUtility.MoveComponentDown(t);
+			}
+			
+			if (fungusScript != null)
+			{
+				if (GUILayout.Button("Copy", EditorStyles.miniButtonMid))
+				{
+					fungusScript.copyCommand = t;
+				}
+				
+				if (fungusScript.copyCommand != null)
+				{
+					if (GUILayout.Button("Paste", EditorStyles.miniButtonMid))
+					{
+						CopyComponent<FungusCommand>(fungusScript.copyCommand, t.gameObject);
+					}
+				}
+			}
+			
+			if (GUILayout.Button("Delete", EditorStyles.miniButtonRight))
+			{
+				Undo.DestroyObjectImmediate(t);
+				return;
+			}
+
+			GUILayout.EndHorizontal();
+
+			EditorGUILayout.Separator();
+			
+			DrawCommandGUI();
+
+			EditorGUILayout.Separator();
+
+			if (t.errorMessage.Length > 0)
+			{
+				GUIStyle style = new GUIStyle(GUI.skin.label);
+				style.normal.textColor = new Color(1,0,0);
+				EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
+			}
+
+			GUILayout.EndVertical();
 		}
 
 		public virtual void DrawCommandGUI()
