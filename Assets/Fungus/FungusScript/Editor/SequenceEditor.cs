@@ -72,16 +72,14 @@ namespace Fungus.Script
 					CommandCategoryAttribute categoryAttr = obj as CommandCategoryAttribute;
 					if (categoryAttr != null)
 					{
-						string commandItem = categoryAttr.Category + " / " + FungusScriptEditor.GetCommandName(type);
+						string commandItem = categoryAttr.Category + " - " + FungusScriptEditor.GetCommandName(type);
 						commandNames.Add(commandItem);
 						break;
 					}
 				}
 			}
 
-			Rect newRect = GUILayoutUtility.GetRect(100, 30);
-
-			int selectedCommandIndex = EditorGUI.Popup(newRect, fungusScript.selectedAddCommandIndex, commandNames.ToArray());
+			int selectedCommandIndex = EditorGUILayout.Popup(fungusScript.selectedAddCommandIndex, commandNames.ToArray());
 			
 			if (EditorGUI.EndChangeCheck())
 			{
@@ -110,7 +108,6 @@ namespace Fungus.Script
 				fungusScript.selectedSequence.commandList.Add(newCommand);
 			}
 
-			/*
 			if (fungusScript.copyCommand != null)
 			{
 				if (GUILayout.Button("Paste", EditorStyles.miniButton))
@@ -118,10 +115,9 @@ namespace Fungus.Script
 					FungusCommandEditor.PasteCommand(fungusScript.copyCommand, fungusScript.selectedSequence);
 				}
 			}
-			*/
 
 			EditorGUILayout.EndHorizontal();
-			
+
 			object[] helpAttributes = selectedType.GetCustomAttributes(typeof(HelpTextAttribute), false);
 			foreach (object obj in helpAttributes)
 			{
@@ -134,8 +130,6 @@ namespace Fungus.Script
 					break;
 				}
 			}
-			
-			EditorGUILayout.Separator();
 
 			serializedObject.ApplyModifiedProperties();
 		}
