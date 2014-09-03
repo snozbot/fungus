@@ -134,7 +134,7 @@ namespace Fungus.Script
 			summaryRect.x += buttonWidth + 5;
 			summaryRect.width -= (buttonWidth + 5);
 
-			if (GUI.Button(buttonRect, commandName, commandStyle))
+			if (GUI.Button(buttonRect, commandName, commandStyle) && !Application.isPlaying)
 			{
 				fungusScript.selectedCommand = command;
 				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
@@ -157,7 +157,7 @@ namespace Fungus.Script
 			if (Event.current.type == EventType.Repaint)
 			{
 			    if ((Application.isPlaying && command.IsExecuting()) ||
-				    (Application.isEditor && fungusScript.selectedCommand == command))
+				    (!Application.isPlaying && fungusScript.selectedCommand == command))
 				{
 					Rect boxRect = position;
 					boxRect.y += 1;
