@@ -49,18 +49,56 @@ namespace Fungus.Script
 		}
 		
 		public void Add() {
+			FungusCommand newCommand = AddNewCommand();
+			if (newCommand == null)
+			{
+				return;
+			}
+
 			int newIndex = _arrayProperty.arraySize;
 			++_arrayProperty.arraySize;
-			ResetValue(_arrayProperty.GetArrayElementAtIndex(newIndex));
+			_arrayProperty.GetArrayElementAtIndex(newIndex).objectReferenceValue = newCommand;
 		}
 
 		public void Insert(int index) {
+			FungusCommand newCommand = AddNewCommand();
+			if (newCommand == null)
+			{
+				return;
+			}
+
 			_arrayProperty.InsertArrayElementAtIndex(index);
-			ResetValue(_arrayProperty.GetArrayElementAtIndex(index));
+			_arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = newCommand;
+		}
+
+		FungusCommand AddNewCommand()
+		{
+			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
+			if (fungusScript == null ||
+			    fungusScript.selectedAddCommandType == null)
+			{
+				return null;
+			}
+			
+			Sequence sequence = fungusScript.selectedSequence;
+			if (sequence == null)
+			{
+				return null;
+			}
+			
+			return sequence.gameObject.AddComponent(fungusScript.selectedAddCommandType) as FungusCommand;
 		}
 
 		public void Duplicate(int index) {
+
+			FungusCommand command = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as FungusCommand;
+
+			// Add the command as a new component
+			Sequence parentSequence = command.GetComponent<Sequence>();
+			FungusCommand newCommand = FungusCommandEditor.PasteCommand(command, parentSequence);
+
 			_arrayProperty.InsertArrayElementAtIndex(index);
+			_arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = newCommand;
 		}
 
 		public void Remove(int index) {
@@ -130,15 +168,21 @@ namespace Fungus.Script
 			buttonRect.y -= 2;
 			buttonRect.height += 5;
 
+			GUI.Box(buttonRect, commandName, commandStyle);
+
 			Rect summaryRect = position;
 			summaryRect.x += buttonWidth + 5;
 			summaryRect.width -= (buttonWidth + 5);
 
-			if (GUI.Button(buttonRect, commandName, commandStyle) && !Application.isPlaying)
+			if (!Application.isPlaying &&
+			    Event.current.type == EventType.MouseDown &&
+			    Event.current.button == 0 &&
+			    position.Contains(Event.current.mousePosition))
 			{
 				fungusScript.selectedCommand = command;
 				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 			}
+				
 			GUI.backgroundColor = Color.white;
 			
 			GUIStyle labelStyle = new GUIStyle(EditorStyles.miniLabel);

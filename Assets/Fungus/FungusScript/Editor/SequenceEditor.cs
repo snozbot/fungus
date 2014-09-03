@@ -47,7 +47,7 @@ namespace Fungus.Script
 
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
 			FungusCommandListAdaptor adaptor = new FungusCommandListAdaptor(commandListProperty, 0);
-			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableDuplicateCommand | ReorderableListFlags.HideAddButton);
+			ReorderableListControl.DrawControlFromState(adaptor, null, 0);
 
 			if (Application.isPlaying)
 			{
@@ -129,18 +129,12 @@ namespace Fungus.Script
 				return;
 			}
 
+			fungusScript.selectedAddCommandType = selectedType;
+
 			EditorGUILayout.BeginHorizontal();
 
 			GUILayout.FlexibleSpace();
-
-			if (GUILayout.Button(new GUIContent("Add Command", "Add the selected command to the sequence")))
-			{
-				FungusCommand newCommand = Undo.AddComponent(fungusScript.selectedSequence.gameObject, selectedType) as FungusCommand;
-				Undo.RecordObject(fungusScript, "Add Command");
-				fungusScript.selectedSequence.commandList.Add(newCommand);
-				fungusScript.selectedCommand = newCommand;
-			}
-
+		
 			if (fungusScript.copyCommand != null)
 			{
 				if (GUILayout.Button("Paste"))
