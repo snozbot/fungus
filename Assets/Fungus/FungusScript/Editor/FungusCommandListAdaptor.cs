@@ -117,13 +117,16 @@ namespace Fungus.Script
 
 			Rect buttonRect = position;
 			buttonRect.width = 80;
+			buttonRect.y -= 2;
+			buttonRect.height += 5;
 
 			Rect summaryRect = position;
 			summaryRect.x += 85;
 			summaryRect.width -= 85;
 
 			string commandName = FungusScriptEditor.GetCommandName(command.GetType());
-			if (GUI.Button(buttonRect, commandName, EditorStyles.miniButton))
+			GUIStyle commandStyle = new GUIStyle(GUI.skin.box);
+			if (GUI.Button(buttonRect, commandName, commandStyle))
 			{
 				fungusScript.selectedCommand = command;
 				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
