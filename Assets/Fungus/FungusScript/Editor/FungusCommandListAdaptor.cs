@@ -146,6 +146,18 @@ namespace Fungus.Script
 				error = true;
 			}
 
+			float indentWidth = 20;			
+			for (int i = 0; i < command.indentLevel; ++i)
+			{
+				Rect indentRect = position;
+				indentRect.x += i * indentWidth;
+				indentRect.width = indentWidth + 1;
+				indentRect.y -= 2;
+				indentRect.height += 5;
+				GUI.backgroundColor = new Color(0.8f, 0.8f, 0.8f, 0.1f);
+				GUI.Box(indentRect, "");
+			}
+
 			if (!command.enabled)
 			{
 				GUI.backgroundColor = Color.grey;
@@ -164,6 +176,7 @@ namespace Fungus.Script
 			float buttonWidth = Mathf.Max(commandStyle.CalcSize(new GUIContent(commandName)).x, 80f);
 
 			Rect buttonRect = position;
+			buttonRect.x += command.indentLevel * indentWidth;
 			buttonRect.width = buttonWidth;
 			buttonRect.y -= 2;
 			buttonRect.height += 5;
@@ -171,8 +184,8 @@ namespace Fungus.Script
 			GUI.Box(buttonRect, commandName, commandStyle);
 
 			Rect summaryRect = position;
-			summaryRect.x += buttonWidth + 5;
-			summaryRect.width -= (buttonWidth + 5);
+			summaryRect.x = buttonRect.x + buttonWidth + 5;
+			summaryRect.width = position.width - buttonWidth - 5;
 
 			if (!Application.isPlaying &&
 			    Event.current.type == EventType.MouseDown &&

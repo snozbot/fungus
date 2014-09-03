@@ -43,8 +43,9 @@ namespace Fungus.Script
 				sequence.description = desc;
 			}
 
-			ReorderableListGUI.Title("Command Sequence");
+			UpdateIndentLevels(sequence);
 
+			ReorderableListGUI.Title("Command Sequence");
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
 			FungusCommandListAdaptor adaptor = new FungusCommandListAdaptor(commandListProperty, 0);
 			ReorderableListControl.DrawControlFromState(adaptor, null, 0);
@@ -154,6 +155,17 @@ namespace Fungus.Script
 			}
 
 			serializedObject.ApplyModifiedProperties();
+		}
+
+		void UpdateIndentLevels(Sequence sequence)
+		{
+			int indentLevel = 0;
+			foreach(FungusCommand command in sequence.commandList)
+			{
+				indentLevel += command.GetPreIndent();
+				command.indentLevel = Math.Max(indentLevel, 0);
+				indentLevel += command.GetPostIndent();
+			}
 		}
 
 		static public Sequence SequenceField(GUIContent label, GUIContent nullLabel, FungusScript fungusScript, Sequence sequence)

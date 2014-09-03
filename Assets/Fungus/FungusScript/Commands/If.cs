@@ -239,6 +239,11 @@ namespace Fungus.Script
 		{
 			return (variable == this.variable);
 		}
+
+		public override int GetPostIndent()
+		{
+			return 1;
+		}
 	}
 
 }

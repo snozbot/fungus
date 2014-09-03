@@ -23,6 +23,7 @@ namespace Fungus.Script
 		public string CommandName { get; set; }
 		public string HelpText { get; set; }
 		public Color ButtonColor { get; set; }
+		public Color IndentOffset { get; set; }
 	}
 	
 	[RequireComponent(typeof(Sequence))]
@@ -36,6 +37,9 @@ namespace Fungus.Script
 
 		[HideInInspector]
 		public Sequence parentSequence;
+
+		[HideInInspector]
+		public int indentLevel;
 
 		public virtual void Start()
 		{
@@ -116,6 +120,22 @@ namespace Fungus.Script
 		public virtual string GetHelpText()
 		{
 			return "";
+		}
+
+		/**
+		 * Indent offset for this command.
+		 */
+		public virtual int GetPreIndent()
+		{
+			return 0;
+		}
+
+		/**
+		 * Indent offset for subsequent commands.
+		 */
+		public virtual int GetPostIndent()
+		{
+			return 0;
 		}
 	}
 
