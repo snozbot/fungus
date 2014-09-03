@@ -50,13 +50,6 @@ namespace Fungus.Script
 
 			GUILayout.BeginHorizontal();
 
-			bool enabled = GUILayout.Toggle(t.enabled, new GUIContent());
-			if (t.enabled != enabled)
-			{
-				Undo.RecordObject(t, "Set Enabled");
-				t.enabled = enabled;
-			}
-
 			CommandInfoAttribute commandInfoAttr = FungusCommandEditor.GetCommandInfo(t.GetType());
 			if (commandInfoAttr == null)
 			{
@@ -66,13 +59,28 @@ namespace Fungus.Script
 			}
 
 			string commandName = commandInfoAttr.CommandName;
-			GUILayout.Label(commandName + " Command", EditorStyles.boldLabel);
+			GUIStyle commandStyle = new GUIStyle(GUI.skin.box);
+			if (t.enabled)
+			{
+				GUI.backgroundColor = commandInfoAttr.ButtonColor;
+			}
+			else
+			{
+				GUI.backgroundColor = Color.grey;
+			}
+			GUILayout.Label(commandName, commandStyle, GUILayout.MinWidth(80), GUILayout.ExpandWidth(true));
+			GUI.backgroundColor = Color.white;
 
-			GUILayout.FlexibleSpace();
+			bool enabled = GUILayout.Toggle(t.enabled, new GUIContent());
+			if (t.enabled != enabled)
+			{
+				Undo.RecordObject(t, "Set Enabled");
+				t.enabled = enabled;
+			}
 
 			if (fungusScript != null)
 			{
-				if (GUILayout.Button("Copy", EditorStyles.miniButtonMid))
+				if (GUILayout.Button("Copy", EditorStyles.miniButton))
 				{
 					fungusScript.copyCommand = t;
 				}
