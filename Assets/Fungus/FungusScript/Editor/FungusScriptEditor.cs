@@ -24,6 +24,11 @@ namespace Fungus.Script
 				t.transform.hideFlags = HideFlags.None;
 			}
 
+			if (Application.isPlaying)
+			{
+				t.selectedCommand = t.executingSequence.activeCommand;
+			}
+
 			EditorGUI.BeginChangeCheck();
 
 			float stepTime = EditorGUILayout.FloatField(new GUIContent("Step Time", "Minimum time to execute each step"), t.stepTime);
