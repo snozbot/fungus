@@ -114,9 +114,27 @@ namespace Fungus.Script
 				
 				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
 				float windowWidth = Mathf.Max (titleWidth + 10, 100);
-				
-				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, sequence.name, GUILayout.Width(windowWidth), GUILayout.Height(20), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
-				
+
+				/*
+				int connectionCount = sequence.GetConnectedSequences().Count;
+				if (connectionCount == 0)
+				{
+					GUI.backgroundColor = Color.blue;
+				}
+				if (connectionCount == 1)
+				{
+					GUI.backgroundColor = Color.green;
+				}
+				else
+				{
+					GUI.backgroundColor = Color.yellow;
+				}
+				GUI.backgroundColor = Color.white;
+				*/
+
+				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, "", GUI.skin.box, GUILayout.Width(windowWidth), GUILayout.Height(20), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+			
+
 				windowSequenceMap.Add(sequence);
 			}
 			
@@ -285,13 +303,16 @@ namespace Fungus.Script
 				}
 			}
 
+			GUILayout.Space(10);
+
 			Sequence sequence = windowSequenceMap[windowId];
 
 			GUIStyle labelStyle = new GUIStyle(GUI.skin.label);
-			labelStyle.wordWrap = true;
-			GUILayout.Label(sequence.description, labelStyle);
+			labelStyle.alignment = TextAnchor.MiddleCenter;
 
-			GUILayout.Space(1);
+			GUILayout.Label(sequence.name, labelStyle);
+
+			GUILayout.Space(10);
 
 	        GUI.DragWindow();
 	    }

@@ -138,5 +138,15 @@ namespace Fungus.Script
 			fungusScript.selectedSequence = null;
 			fungusScript.selectedCommand = null;
 		}
+
+		public List<Sequence> GetConnectedSequences()
+		{
+			List<Sequence> connectedSequences = new List<Sequence>();
+			foreach (FungusCommand command in commandList)
+			{
+				command.GetConnectedSequences(ref connectedSequences);
+			}
+			return connectedSequences;
+		}
 	}
 }
