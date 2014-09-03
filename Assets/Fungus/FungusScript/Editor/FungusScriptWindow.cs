@@ -105,8 +105,10 @@ namespace Fungus.Script
 			
 			BeginWindows();
 			
-			GUIStyle windowStyle = new GUIStyle(GUI.skin.window);
-			
+			GUIStyle windowStyle = new GUIStyle(EditorStyles.toolbarButton);
+			windowStyle.stretchHeight = true;
+			windowStyle.fixedHeight = 40;
+
 			windowSequenceMap.Clear();
 			for (int i = 0; i < sequences.Length; ++i)
 			{
@@ -132,8 +134,15 @@ namespace Fungus.Script
 				GUI.backgroundColor = Color.white;
 				*/
 
-				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, "", GUI.skin.box, GUILayout.Width(windowWidth), GUILayout.Height(20), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
-			
+				if (fungusScript.selectedSequence == sequence ||
+				    fungusScript.executingSequence == sequence)
+				{
+					GUI.backgroundColor = Color.green;
+				}
+					
+				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, "", windowStyle, GUILayout.Width(windowWidth), GUILayout.Height(20), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+
+				GUI.backgroundColor = Color.white;
 
 				windowSequenceMap.Add(sequence);
 			}
@@ -149,7 +158,8 @@ namespace Fungus.Script
 			}
 			
 			EndWindows();
-			
+
+			/*
 			if (fungusScript.selectedSequence != null ||
 			    fungusScript.executingSequence != null)
 			{
@@ -168,6 +178,7 @@ namespace Fungus.Script
 				outlineRect.y -= 5;
 				GLDraw.DrawBox(outlineRect, Color.green, 2);
 			}
+			*/
 			
 			GLDraw.EndScrollView();
 		}
@@ -303,16 +314,16 @@ namespace Fungus.Script
 				}
 			}
 
-			GUILayout.Space(10);
-
 			Sequence sequence = windowSequenceMap[windowId];
 
 			GUIStyle labelStyle = new GUIStyle(GUI.skin.label);
 			labelStyle.alignment = TextAnchor.MiddleCenter;
 
+			GUILayout.BeginVertical();
+			GUILayout.FlexibleSpace();
 			GUILayout.Label(sequence.name, labelStyle);
-
-			GUILayout.Space(10);
+			GUILayout.FlexibleSpace();
+			GUILayout.EndVertical();
 
 	        GUI.DragWindow();
 	    }

@@ -146,12 +146,12 @@ namespace Fungus.Script
 				error = true;
 			}
 
-			float indentWidth = 20;			
+			float indentSize = 20;			
 			for (int i = 0; i < command.indentLevel; ++i)
 			{
 				Rect indentRect = position;
-				indentRect.x += i * indentWidth;
-				indentRect.width = indentWidth + 1;
+				indentRect.x += i * indentSize;
+				indentRect.width = indentSize + 1;
 				indentRect.y -= 2;
 				indentRect.height += 5;
 				GUI.backgroundColor = new Color(0.8f, 0.8f, 0.8f, 0.25f);
@@ -159,18 +159,19 @@ namespace Fungus.Script
 			}
 
 			string commandName = commandInfoAttr.CommandName;
-			GUIStyle commandStyle = new GUIStyle(GUI.skin.box);
+			GUIStyle commandStyle = new GUIStyle(EditorStyles.miniButtonLeft);
 			float buttonWidth = Mathf.Max(commandStyle.CalcSize(new GUIContent(commandName)).x, 80f);
+			float indentWidth = command.indentLevel * indentSize;
 
 			Rect buttonRect = position;
-			buttonRect.x += command.indentLevel * indentWidth;
+			buttonRect.x += indentWidth;
 			buttonRect.width = buttonWidth;
 			buttonRect.y -= 2;
 			buttonRect.height += 5;
 
-			Rect summaryRect = position;
-			summaryRect.x = buttonRect.x + buttonWidth + 5;
-			summaryRect.width = position.width - buttonWidth - 5;
+			Rect summaryRect = buttonRect;
+			summaryRect.x += buttonWidth - 1;
+			summaryRect.width = position.width - buttonWidth - indentWidth;
 
 			if (!Application.isPlaying &&
 			    Event.current.type == EventType.MouseDown &&
@@ -181,48 +182,38 @@ namespace Fungus.Script
 				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 			}
 
+			Color buttonBackgroundColor = commandInfoAttr.ButtonColor;
+			Color summaryBackgroundColor = Color.white;
+
 			if ((Application.isPlaying && command.IsExecuting()) ||
 			    (!Application.isPlaying && fungusScript.selectedCommand == command))
 			{
-				Rect boxRect = summaryRect;
-				boxRect.x -= 6;
-				boxRect.width += 6 - indentWidth * command.indentLevel;
-				boxRect.y -= 2;
-				boxRect.height += 5;
-				
-				GUI.backgroundColor = Color.green;
-				GUI.Box(boxRect, "");
+				summaryBackgroundColor = Color.green;
+				buttonBackgroundColor = Color.green;
+			}
+			else if (error)
+			{
+				summaryBackgroundColor = Color.red;
 			}
 
 			if (!command.enabled)
 			{
-				GUI.backgroundColor = Color.grey;
-			}
-			else if (error)
-			{
-				GUI.backgroundColor = Color.red;
-			}
-			else
-			{
-				GUI.backgroundColor = commandInfoAttr.ButtonColor;
+				buttonBackgroundColor = Color.grey;
 			}
 
-			GUI.Box(buttonRect, commandName, commandStyle);
+			GUI.backgroundColor = buttonBackgroundColor;
+			GUI.Label(buttonRect, commandName, commandStyle);
 
-			GUI.backgroundColor = Color.white;
-
-			GUIStyle labelStyle = new GUIStyle(EditorStyles.miniLabel);
-			labelStyle.wordWrap = true;
+			GUIStyle labelStyle = new GUIStyle(EditorStyles.miniButtonRight);
+			labelStyle.alignment = TextAnchor.MiddleLeft;
 			if (!command.enabled)
 			{
 				labelStyle.normal.textColor = Color.grey;
 			}
-			else if (error)
-			{
-				labelStyle.normal.textColor = Color.red;
-			}
-			
-			GUI.Label(summaryRect, summary, labelStyle);
+
+			GUI.backgroundColor = summaryBackgroundColor;
+			GUI.Box(summaryRect, summary, labelStyle);
+			GUI.backgroundColor = Color.white;
 		}
 
 		public virtual float GetItemHeight(int index) {

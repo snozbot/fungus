@@ -59,7 +59,7 @@ namespace Fungus.Script
 			}
 
 			string commandName = commandInfoAttr.CommandName;
-			GUIStyle commandStyle = new GUIStyle(GUI.skin.box);
+			GUIStyle commandStyle = new GUIStyle(GUI.skin.button);
 			if (t.enabled)
 			{
 				GUI.backgroundColor = commandInfoAttr.ButtonColor;
