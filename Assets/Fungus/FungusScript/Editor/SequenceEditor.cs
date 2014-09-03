@@ -138,13 +138,14 @@ namespace Fungus.Script
 				FungusCommand newCommand = Undo.AddComponent(fungusScript.selectedSequence.gameObject, selectedType) as FungusCommand;
 				Undo.RecordObject(fungusScript, "Add Command");
 				fungusScript.selectedSequence.commandList.Add(newCommand);
+				fungusScript.selectedCommand = newCommand;
 			}
 
 			if (fungusScript.copyCommand != null)
 			{
 				if (GUILayout.Button("Paste"))
 				{
-					FungusCommandEditor.PasteCommand(fungusScript.copyCommand, fungusScript.selectedSequence);
+					fungusScript.selectedCommand = FungusCommandEditor.PasteCommand(fungusScript.copyCommand, fungusScript.selectedSequence);
 				}
 			}
 
