@@ -121,17 +121,19 @@ namespace Fungus.Script
 				GUI.backgroundColor = commandInfoAttr.ButtonColor;
 			}
 
+			string commandName = commandInfoAttr.CommandName;
+			GUIStyle commandStyle = new GUIStyle(GUI.skin.box);
+			float buttonWidth = Mathf.Max(commandStyle.CalcSize(new GUIContent(commandName)).x, 80f);
+
 			Rect buttonRect = position;
-			buttonRect.width = 80;
+			buttonRect.width = buttonWidth;
 			buttonRect.y -= 2;
 			buttonRect.height += 5;
 
 			Rect summaryRect = position;
-			summaryRect.x += 85;
-			summaryRect.width -= 85;
+			summaryRect.x += buttonWidth + 5;
+			summaryRect.width -= (buttonWidth + 5);
 
-			string commandName = commandInfoAttr.CommandName;
-			GUIStyle commandStyle = new GUIStyle(GUI.skin.box);
 			if (GUI.Button(buttonRect, commandName, commandStyle))
 			{
 				fungusScript.selectedCommand = command;
