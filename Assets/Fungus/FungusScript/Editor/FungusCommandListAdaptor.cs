@@ -116,10 +116,6 @@ namespace Fungus.Script
 			{
 				GUI.backgroundColor = Color.red;
 			}
-			else if (fungusScript.selectedCommand == command)
-			{
-				GUI.backgroundColor = Color.yellow;
-			}
 			else
 			{
 				GUI.backgroundColor = commandInfoAttr.ButtonColor;
@@ -156,10 +152,15 @@ namespace Fungus.Script
 			
 			GUI.Label(summaryRect, summary, labelStyle);
 
-			if (Event.current.type == EventType.Repaint &&
-			    command.IsExecuting())
+			if (Event.current.type == EventType.Repaint)
 			{
-				GLDraw.DrawBox(position, Color.green, 1.5f);
+			    if ((Application.isPlaying && command.IsExecuting()) ||
+				    (Application.isEditor && fungusScript.selectedCommand == command))
+				{
+					Rect boxRect = position;
+					boxRect.y += 1;
+					GLDraw.DrawBox(boxRect, Color.green, 1.5f);
+				}
 			}
 		}
 
