@@ -154,8 +154,44 @@ namespace Fungus.Script
 				indentRect.width = indentWidth + 1;
 				indentRect.y -= 2;
 				indentRect.height += 5;
-				GUI.backgroundColor = new Color(0.8f, 0.8f, 0.8f, 0.1f);
+				GUI.backgroundColor = new Color(0.8f, 0.8f, 0.8f, 0.25f);
 				GUI.Box(indentRect, "");
+			}
+
+			string commandName = commandInfoAttr.CommandName;
+			GUIStyle commandStyle = new GUIStyle(GUI.skin.box);
+			float buttonWidth = Mathf.Max(commandStyle.CalcSize(new GUIContent(commandName)).x, 80f);
+
+			Rect buttonRect = position;
+			buttonRect.x += command.indentLevel * indentWidth;
+			buttonRect.width = buttonWidth;
+			buttonRect.y -= 2;
+			buttonRect.height += 5;
+
+			Rect summaryRect = position;
+			summaryRect.x = buttonRect.x + buttonWidth + 5;
+			summaryRect.width = position.width - buttonWidth - 5;
+
+			if (!Application.isPlaying &&
+			    Event.current.type == EventType.MouseDown &&
+			    Event.current.button == 0 &&
+			    position.Contains(Event.current.mousePosition))
+			{
+				fungusScript.selectedCommand = command;
+				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
+			}
+
+			if ((Application.isPlaying && command.IsExecuting()) ||
+			    (!Application.isPlaying && fungusScript.selectedCommand == command))
+			{
+				Rect boxRect = summaryRect;
+				boxRect.x -= 6;
+				boxRect.width += 6 - indentWidth * command.indentLevel;
+				boxRect.y -= 2;
+				boxRect.height += 5;
+				
+				GUI.backgroundColor = Color.green;
+				GUI.Box(boxRect, "");
 			}
 
 			if (!command.enabled)
@@ -171,33 +207,10 @@ namespace Fungus.Script
 				GUI.backgroundColor = commandInfoAttr.ButtonColor;
 			}
 
-			string commandName = commandInfoAttr.CommandName;
-			GUIStyle commandStyle = new GUIStyle(GUI.skin.box);
-			float buttonWidth = Mathf.Max(commandStyle.CalcSize(new GUIContent(commandName)).x, 80f);
-
-			Rect buttonRect = position;
-			buttonRect.x += command.indentLevel * indentWidth;
-			buttonRect.width = buttonWidth;
-			buttonRect.y -= 2;
-			buttonRect.height += 5;
-
 			GUI.Box(buttonRect, commandName, commandStyle);
 
-			Rect summaryRect = position;
-			summaryRect.x = buttonRect.x + buttonWidth + 5;
-			summaryRect.width = position.width - buttonWidth - 5;
-
-			if (!Application.isPlaying &&
-			    Event.current.type == EventType.MouseDown &&
-			    Event.current.button == 0 &&
-			    position.Contains(Event.current.mousePosition))
-			{
-				fungusScript.selectedCommand = command;
-				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
-			}
-				
 			GUI.backgroundColor = Color.white;
-			
+
 			GUIStyle labelStyle = new GUIStyle(EditorStyles.miniLabel);
 			labelStyle.wordWrap = true;
 			if (!command.enabled)
@@ -210,17 +223,6 @@ namespace Fungus.Script
 			}
 			
 			GUI.Label(summaryRect, summary, labelStyle);
-
-			if (Event.current.type == EventType.Repaint)
-			{
-			    if ((Application.isPlaying && command.IsExecuting()) ||
-				    (!Application.isPlaying && fungusScript.selectedCommand == command))
-				{
-					Rect boxRect = position;
-					boxRect.y += 1;
-					GLDraw.DrawBox(boxRect, Color.green, 1.5f);
-				}
-			}
 		}
 
 		public virtual float GetItemHeight(int index) {
