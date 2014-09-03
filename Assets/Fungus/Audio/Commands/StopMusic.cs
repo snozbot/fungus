@@ -3,9 +3,10 @@ using System.Collections;
 
 namespace Fungus.Script
 {
-	[CommandCategory("Audio")]
-	[CommandName("Stop Music")]
-	[HelpText("Stops the currently playing game music.")]
+	[CommandInfo("Audio", 
+	             "Stop Music", 
+	             "Stops the currently playing game music.", 
+	             1,1,1)]
 	public class StopMusic : FungusCommand
 	{
 		public override void OnEnter()

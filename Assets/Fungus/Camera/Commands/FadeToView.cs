@@ -4,9 +4,10 @@ using System.Collections;
 
 namespace Fungus.Script
 {
-	[CommandCategory("Camera")]
-	[CommandName("Fade To View")]
-	[HelpText("Fades the camera out and in again at a location specified by a View object.")]
+	[CommandInfo("Camera", 
+	             "Fade To View", 
+	             "Fades the camera out and in again at a location specified by a View object.", 
+	             1,1,1)]
 	public class FadeToView : FungusCommand 
 	{
 		public float duration;

@@ -4,9 +4,10 @@ using System.Collections;
 
 namespace Fungus.Script
 {
-	[CommandCategory("Camera")]
-	[CommandName("Move To View")]
-	[HelpText("Moves the camera to a location specified by a View object.")]
+	[CommandInfo("Camera", 
+	             "Move To View", 
+	             "Moves the camera to a location specified by a View object.", 
+	             1,1,1)]
 	public class MoveToView : FungusCommand 
 	{
 		public float duration;

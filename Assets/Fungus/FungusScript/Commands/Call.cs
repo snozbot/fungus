@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
-	[CommandCategory("Scripting")]
-	[HelpText("Execute another sequence.")]
+	[CommandInfo("Scripting", 
+	             "Call", 
+	             "Execute another sequence.", 
+	             1,1,1)]
 	public class Call : FungusCommand
 	{	
 		public Sequence targetSequence;

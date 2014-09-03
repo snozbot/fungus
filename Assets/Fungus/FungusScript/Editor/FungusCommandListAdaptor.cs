@@ -124,7 +124,13 @@ namespace Fungus.Script
 			summaryRect.x += 85;
 			summaryRect.width -= 85;
 
-			string commandName = FungusScriptEditor.GetCommandName(command.GetType());
+			CommandInfoAttribute commandInfoAttr = FungusCommandEditor.GetCommandInfo(command.GetType());
+			if (commandInfoAttr == null)
+			{
+				return;
+			}
+
+			string commandName = commandInfoAttr.CommandName;
 			GUIStyle commandStyle = new GUIStyle(GUI.skin.box);
 			if (GUI.Button(buttonRect, commandName, commandStyle))
 			{

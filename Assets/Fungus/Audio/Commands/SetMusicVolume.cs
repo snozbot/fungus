@@ -3,9 +3,10 @@ using System.Collections;
 
 namespace Fungus.Script
 {
-	[CommandCategory("Audio")]
-	[CommandName("Set Music Volume")]
-	[HelpText("Sets the game music volume level.")]
+	[CommandInfo("Audio",
+	             "Set Music Volume",
+	             "Sets the game music volume level.", 
+	             1,1,1)]
 	public class SetMusicVolume : FungusCommand
 	{
 		[Range(0,1)]

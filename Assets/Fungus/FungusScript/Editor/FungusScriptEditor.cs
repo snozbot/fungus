@@ -117,21 +117,6 @@ namespace Fungus.Script
 			variable.key = fungusScript.GetUniqueVariableKey("");
 			fungusScript.variables.Add(variable);
 		}
-
-		public static string GetCommandName(System.Type commandType)
-		{
-			object[] attributes = commandType.GetCustomAttributes(typeof(CommandNameAttribute), false);
-			foreach (object obj in attributes)
-			{
-				CommandNameAttribute commandNameAttr = obj as CommandNameAttribute;
-				if (commandNameAttr != null)
-				{
-					return commandNameAttr.CommandName;
-				}
-			}
-			
-			return commandType.Name;
-		}
 	}
 	
 }

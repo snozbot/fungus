@@ -66,7 +66,7 @@ namespace Fungus.Script
 				object[] attributes = type.GetCustomAttributes(false);
 				foreach (object obj in attributes)
 				{
-					CommandCategoryAttribute categoryAttr = obj as CommandCategoryAttribute;
+					CommandInfoAttribute categoryAttr = obj as CommandInfoAttribute;
 					if (categoryAttr != null)
 					{
 						if (!categories.Contains(categoryAttr.Category))
@@ -88,18 +88,16 @@ namespace Fungus.Script
 			string categoryName = categories[selectedCategoryIndex];
 			foreach (System.Type type in subTypes)
 			{
-				object[] attributes = type.GetCustomAttributes(false);
-				foreach (object obj in attributes)
+				CommandInfoAttribute commandInfoAttr = FungusCommandEditor.GetCommandInfo(type);
+				if (commandInfoAttr == null)
 				{
-					CommandCategoryAttribute categoryAttr = obj as CommandCategoryAttribute;
-					if (categoryAttr != null)
-					{
-						if (categoryAttr.Category == categoryName)
-						{
-							commandNames.Add(FungusScriptEditor.GetCommandName(type));
-							commandTypes.Add(type);
-						}
-					}
+					continue;
+				}
+
+				if (categoryName == commandInfoAttr.Category)
+				{
+					commandNames.Add(commandInfoAttr.CommandName);
+					commandTypes.Add(type);
 				}
 			}
 			
@@ -152,17 +150,12 @@ namespace Fungus.Script
 
 			EditorGUILayout.EndHorizontal();
 
-			object[] helpAttributes = selectedType.GetCustomAttributes(typeof(HelpTextAttribute), false);
-			foreach (object obj in helpAttributes)
+			CommandInfoAttribute infoAttr = FungusCommandEditor.GetCommandInfo(selectedType);
+			if (infoAttr != null)
 			{
-				HelpTextAttribute helpTextAttr = obj as HelpTextAttribute;
-				if (helpTextAttr != null)
-				{
-					GUIStyle labelStyle = new GUIStyle(EditorStyles.miniLabel);
-					labelStyle.wordWrap = true;
-					EditorGUILayout.HelpBox(helpTextAttr.HelpText, MessageType.Info);
-					break;
-				}
+				GUIStyle labelStyle = new GUIStyle(EditorStyles.miniLabel);
+				labelStyle.wordWrap = true;
+				EditorGUILayout.HelpBox(infoAttr.HelpText, MessageType.Info);
 			}
 
 			serializedObject.ApplyModifiedProperties();

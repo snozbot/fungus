@@ -4,9 +4,10 @@ using System.Collections;
 
 namespace Fungus.Script
 {
-	[CommandCategory("Scripting")]
-	[CommandName("Load Globals")]
-	[HelpText("Loads a set of global variables previously saved using the SaveGlobals command.")]
+	[CommandInfo("Scripting", 
+	             "Load Globals", 
+	             "Loads a set of global variables previously saved using the SaveGlobals command.", 
+	             1,1,1)]
 	public class LoadGlobals : FungusCommand
 	{
 		public string saveName = "";

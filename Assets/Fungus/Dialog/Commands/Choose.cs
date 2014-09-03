@@ -5,8 +5,10 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
-	[CommandCategory("Dialog")]
-	[HelpText("Presents a list of options for the player to choose from, with an optional timeout. Add options using preceding AddOption commands.")]
+	[CommandInfo("Dialog", 
+	             "Choose", 
+	             "Presents a list of options for the player to choose from, with an optional timeout. Add options using preceding AddOption commands.", 
+	             1,1,1)]
 	public class Choose : FungusCommand 
 	{
 		public ChooseDialog dialog;

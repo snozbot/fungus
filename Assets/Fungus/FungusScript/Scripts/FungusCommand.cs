@@ -8,34 +8,21 @@ using System.Collections.Generic;
 
 namespace Fungus.Script
 {
-	public class CommandNameAttribute : Attribute
-	{
-		public CommandNameAttribute(string commandName)
-		{
-			this.CommandName = commandName;
-		}
-		
-		public string CommandName { get; set; }
-	}
 	
-	public class HelpTextAttribute : Attribute
+	public class CommandInfoAttribute : Attribute
 	{
-		public HelpTextAttribute(string helpText)
+		public CommandInfoAttribute(string category, string commandName, string helpText, float red, float green, float blue)
 		{
+			this.Category = category;
+			this.CommandName = commandName;
 			this.HelpText = helpText;
+			this.ButtonColor = new Color(red, green, blue);
 		}
-		
-		public string HelpText { get; set; }
-	}
 
-	public class CommandCategoryAttribute : Attribute
-	{
-		public CommandCategoryAttribute(string categoryText)
-		{
-			this.Category = categoryText;
-		}
-		
 		public string Category { get; set; }
+		public string CommandName { get; set; }
+		public string HelpText { get; set; }
+		public Color ButtonColor { get; set; }
 	}
 	
 	[RequireComponent(typeof(Sequence))]

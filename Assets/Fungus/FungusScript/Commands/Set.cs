@@ -3,8 +3,10 @@ using System.Collections;
 
 namespace Fungus.Script
 {
-	[CommandCategory("Scripting")]
-	[HelpText("Sets a variable to a new value using simple arithmetic operations. The value can be a constant or another variable.")]
+	[CommandInfo("Scripting", 
+	             "Set", 
+	             "Sets a variable to a new value using simple arithmetic operations. The value can be a constant or another variable.", 
+	             1,1,1)]
 	public class Set : FungusCommand 
 	{
 		public enum SetOperator

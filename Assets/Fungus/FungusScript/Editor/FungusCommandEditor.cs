@@ -21,6 +21,21 @@ namespace Fungus.Script
 			}
 		}
 
+		public static CommandInfoAttribute GetCommandInfo(System.Type commandType)
+		{
+			object[] attributes = commandType.GetCustomAttributes(typeof(CommandInfoAttribute), false);
+			foreach (object obj in attributes)
+			{
+				CommandInfoAttribute commandInfoAttr = obj as CommandInfoAttribute;
+				if (commandInfoAttr != null)
+				{
+					return commandInfoAttr;
+				}
+			}
+			
+			return null;
+		}
+
 		public virtual void DrawCommandRowGUI() 
 		{
 			FungusCommand t = target as FungusCommand;
@@ -57,7 +72,13 @@ namespace Fungus.Script
 				GUI.backgroundColor = Color.yellow;
 			}
 
-			string commandName = FungusScriptEditor.GetCommandName(t.GetType());
+			CommandInfoAttribute commandInfoAttr = FungusCommandEditor.GetCommandInfo(t.GetType());
+			if (commandInfoAttr == null)
+			{
+				return;
+			}
+
+			string commandName = commandInfoAttr.CommandName;
 			if (GUILayout.Button(commandName, EditorStyles.miniButton, GUILayout.MinWidth(80)))
 			{
 				fungusScript.selectedCommand = t;
@@ -110,7 +131,15 @@ namespace Fungus.Script
 				t.enabled = enabled;
 			}
 
-			string commandName = FungusScriptEditor.GetCommandName(t.GetType());
+			CommandInfoAttribute commandInfoAttr = FungusCommandEditor.GetCommandInfo(t.GetType());
+			if (commandInfoAttr == null)
+			{
+				GUILayout.EndHorizontal();
+				GUILayout.EndVertical();
+				return;
+			}
+
+			string commandName = commandInfoAttr.CommandName;
 			GUILayout.Label(commandName + " Command", EditorStyles.boldLabel);
 
 			GUILayout.FlexibleSpace();

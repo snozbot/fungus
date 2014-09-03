@@ -4,8 +4,10 @@ using System.Collections;
 
 namespace Fungus.Script
 {
-	[CommandCategory("Scripting")]
-	[HelpText("Waits for period of time before executing the next command in the sequence.")]
+	[CommandInfo("Scripting", 
+	             "Wait", 
+	             "Waits for period of time before executing the next command in the sequence.", 
+	             1,1,1)]
 	public class Wait : FungusCommand 
 	{
 		public float duration = 1;
