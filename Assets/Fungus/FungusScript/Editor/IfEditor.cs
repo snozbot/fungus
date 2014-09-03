@@ -76,29 +76,6 @@ namespace Fungus.Script
 				EditorGUILayout.PropertyField(serializedObject.FindProperty("stringValue"));
 			}
 
-			EditorGUILayout.Separator();
-
-			Sequence thenSequence = SequenceEditor.SequenceField(new GUIContent("Then", "Sequence to execute if comparision is true"),
-			                                               new GUIContent("<Continue>"),
-			                                               t.GetFungusScript(), 
-			                                               t.thenSequence);
-
-			Sequence elseSequence = SequenceEditor.SequenceField(new GUIContent("Else", "Sequence to execute if comparision is false"),
-			                                                new GUIContent("<Continue>"),
-			                                                t.GetFungusScript(), 
-			                                                t.elseSequence);
-
-			if (thenSequence != t.thenSequence)
-			{
-				Undo.RecordObject(t, "Set Then Sequence");
-				t.thenSequence = thenSequence;
-			}
-			if (elseSequence != t.elseSequence)
-			{
-				Undo.RecordObject(t, "Set Else Sequence");
-				t.elseSequence = elseSequence;
-			}
-
 			serializedObject.ApplyModifiedProperties();
 		}
 	}

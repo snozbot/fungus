@@ -26,7 +26,14 @@ namespace Fungus.Script
 
 			if (Application.isPlaying)
 			{
-				t.selectedCommand = t.executingSequence.activeCommand;
+				if (t.executingSequence == null)
+				{
+					t.selectedCommand = null;
+				}
+				else
+				{
+					t.selectedCommand = t.executingSequence.activeCommand;
+				}
 			}
 
 			EditorGUI.BeginChangeCheck();

@@ -81,8 +81,13 @@ namespace Fungus.Script
 
 		public virtual void Continue()
 		{
+			Continue(this);
+		}
+
+		public virtual void Continue(FungusCommand currentCommand)
+		{
 			OnExit();
-			parentSequence.ExecuteNextCommand(this);
+			parentSequence.ExecuteNextCommand(currentCommand);
 		}
 
 		public virtual void Stop()

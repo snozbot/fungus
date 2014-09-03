@@ -16,7 +16,7 @@ namespace Fungus.Script
 
 	[CommandInfo("Scripting", 
 	             "If", 
-	             "Execute another sequence IF a condition is true. Sequences can be specified for both true (THEN) and false (ELSE) conditions.", 
+	             "If the test expression is true, execute the following block of commands.", 
 	             253, 253, 150)]
 	public class If : FungusCommand
 	{
@@ -32,10 +32,6 @@ namespace Fungus.Script
 
 		public StringData stringValue;
 		
-		public Sequence thenSequence;
-
-		public Sequence elseSequence;
-
 		public override void OnEnter()
 		{
 			bool condition = false;
@@ -135,36 +131,38 @@ namespace Fungus.Script
 
 			if (condition)
 			{
-				if (thenSequence != null)
-				{
-					ExecuteSequence(thenSequence);
-					return;
-				}
+				Continue();
 			}
 			else
 			{
-				if (elseSequence != null)
+				// Find the next Else or EndIf command at the same indent level as this If command
+				bool foundThisCommand = false;
+				int indent = indentLevel;
+				foreach(FungusCommand command in parentSequence.commandList)
 				{
-					ExecuteSequence(elseSequence);
-					return;
+					if (foundThisCommand &&
+					    command.indentLevel == indent)
+					{
+						System.Type type = command.GetType();
+						if (type == typeof(Else) || 
+						    type == typeof(EndIf))
+						{
+							// Execute command immediately after the Else or EndIf command
+							Continue(command);
+							return;
+						}
+					}
+					else if (command == this)
+					{
+						foundThisCommand = true;
+					}
 				}
-			}
 
-			Continue();
+				// No matching EndIf command found, so just stop the sequence
+				Stop();
+			}
 		}
 
-		public override void GetConnectedSequences(ref List<Sequence> connectedSequences)
-		{
-			if (thenSequence != null)
-			{
-				connectedSequences.Add(thenSequence);
-			}
-			if (elseSequence != null)
-			{
-				connectedSequences.Add(elseSequence);
-			}
-		}
-		
 		public override string GetSummary()
 		{
 			if (variable == null)
@@ -210,26 +208,6 @@ namespace Fungus.Script
 			else if (variable.GetType() == typeof(StringVariable))
 			{
 				summary += stringValue.GetDescription();
-			}
-
-			summary += " THEN ";
-
-			if (thenSequence == null)
-			{
-				summary += "<Continue>";
-			}
-			else
-			{
-				summary += thenSequence.name;
-			}
-			summary += " ELSE ";
-			if (elseSequence == null)
-			{
-				summary += "<Continue>";
-			}
-			else
-			{
-				summary += elseSequence.name;
 			}
 
 			return summary;
