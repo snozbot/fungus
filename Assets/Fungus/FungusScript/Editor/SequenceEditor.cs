@@ -47,7 +47,7 @@ namespace Fungus.Script
 
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
 			FungusCommandListAdaptor adaptor = new FungusCommandListAdaptor(commandListProperty, 0);
-			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton);
+			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableDuplicateCommand | ReorderableListFlags.HideAddButton);
 
 			if (Application.isPlaying)
 			{

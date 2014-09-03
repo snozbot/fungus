@@ -79,7 +79,10 @@ namespace Fungus.Script
 		}
 
 		public void Clear() {
-			_arrayProperty.ClearArray();
+			while (Count > 0)
+			{
+				Remove(0);
+			}
 		}
 		
 		public void DrawItem(Rect position, int index) 
