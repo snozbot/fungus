@@ -7,7 +7,7 @@ namespace Fungus.Script
 	[CommandInfo("Sprite", 
 	             "Fade Sprite", 
 	             "Fades a sprite to a target color over a period of time.", 
-	             1,1,1)]
+	             212, 178, 211)]
 	public class FadeSprite : FungusCommand 
 	{
 		public SpriteRenderer spriteRenderer;

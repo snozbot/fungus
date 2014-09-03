@@ -17,7 +17,7 @@ namespace Fungus.Script
 	[CommandInfo("Scripting", 
 	             "If", 
 	             "Execute another sequence IF a condition is true. Sequences can be specified for both true (THEN) and false (ELSE) conditions.", 
-	             1,1,1)]
+	             253, 253, 150)]
 	public class If : FungusCommand
 	{
 		public FungusVariable variable;

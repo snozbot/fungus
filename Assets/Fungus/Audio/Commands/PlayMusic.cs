@@ -6,7 +6,7 @@ namespace Fungus.Script
 	[CommandInfo("Audio",
 	             "Play Music",
 	             "Plays game music. If any game music is already playing, it is stopped. Music continues playing across scene loads.", 
-	             1,1,1)]
+	             242, 209, 176)]
 	public class PlayMusic : FungusCommand
 	{
 		public AudioClip musicClip;

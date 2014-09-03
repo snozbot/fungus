@@ -7,7 +7,7 @@ namespace Fungus.Script
 	[CommandInfo("Scripting", 
 	             "Call", 
 	             "Execute another sequence.", 
-	             1,1,1)]
+	             253, 253, 150)]
 	public class Call : FungusCommand
 	{	
 		public Sequence targetSequence;

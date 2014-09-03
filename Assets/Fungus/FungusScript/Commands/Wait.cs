@@ -7,7 +7,7 @@ namespace Fungus.Script
 	[CommandInfo("Scripting", 
 	             "Wait", 
 	             "Waits for period of time before executing the next command in the sequence.", 
-	             1,1,1)]
+	             253, 253, 150)]
 	public class Wait : FungusCommand 
 	{
 		public float duration = 1;

@@ -6,7 +6,7 @@ namespace Fungus.Script
 	[CommandInfo("Audio",
 	             "Set Music Volume",
 	             "Sets the game music volume level.", 
-	             1,1,1)]
+	             242, 209, 176)]
 	public class SetMusicVolume : FungusCommand
 	{
 		[Range(0,1)]

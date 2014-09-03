@@ -8,7 +8,7 @@ namespace Fungus.Script
 	[CommandInfo("Dialog", 
 	             "Add Option", 
 	             "Adds an option for the player to select, displayed by the next Say command.", 
-	             1,1,1)]
+	             184, 210, 235)]
 	public class AddOption : FungusCommand 
 	{
 		public string optionText;

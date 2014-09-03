@@ -11,12 +11,12 @@ namespace Fungus.Script
 	
 	public class CommandInfoAttribute : Attribute
 	{
-		public CommandInfoAttribute(string category, string commandName, string helpText, float red, float green, float blue)
+		public CommandInfoAttribute(string category, string commandName, string helpText, byte red, byte green, byte blue)
 		{
 			this.Category = category;
 			this.CommandName = commandName;
 			this.HelpText = helpText;
-			this.ButtonColor = new Color(red, green, blue);
+			this.ButtonColor = new Color32(red, green, blue, 255);
 		}
 
 		public string Category { get; set; }

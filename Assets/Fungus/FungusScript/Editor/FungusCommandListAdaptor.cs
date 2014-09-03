@@ -89,6 +89,12 @@ namespace Fungus.Script
 		{
 			FungusCommand command = this[index].objectReferenceValue as FungusCommand;
 
+			CommandInfoAttribute commandInfoAttr = FungusCommandEditor.GetCommandInfo(command.GetType());
+			if (commandInfoAttr == null)
+			{
+				return;
+			}
+
 			FungusScript fungusScript = command.GetFungusScript();
 			
 			bool error = false;
@@ -101,7 +107,7 @@ namespace Fungus.Script
 			{
 				error = true;
 			}
-			
+
 			if (!command.enabled)
 			{
 				GUI.backgroundColor = Color.grey;
@@ -114,6 +120,10 @@ namespace Fungus.Script
 			{
 				GUI.backgroundColor = Color.yellow;
 			}
+			else
+			{
+				GUI.backgroundColor = commandInfoAttr.ButtonColor;
+			}
 
 			Rect buttonRect = position;
 			buttonRect.width = 80;
@@ -123,12 +133,6 @@ namespace Fungus.Script
 			Rect summaryRect = position;
 			summaryRect.x += 85;
 			summaryRect.width -= 85;
-
-			CommandInfoAttribute commandInfoAttr = FungusCommandEditor.GetCommandInfo(command.GetType());
-			if (commandInfoAttr == null)
-			{
-				return;
-			}
 
 			string commandName = commandInfoAttr.CommandName;
 			GUIStyle commandStyle = new GUIStyle(GUI.skin.box);
