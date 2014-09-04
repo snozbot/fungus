@@ -12,6 +12,10 @@ namespace Fungus.Script
 		Rect cursorChangeRect;
 		public const float minViewWidth = 300;
 
+		static bool locked = false;
+		static GUIStyle lockButtonStyle;
+		static FungusScript activeFungusScript;
+
 		private List<Sequence> windowSequenceMap = new List<Sequence>();
 
 	    [MenuItem("Window/Fungus Script")]
@@ -20,8 +24,14 @@ namespace Fungus.Script
 	        GetWindow(typeof(FungusScriptWindow), false, "Fungus Script");
 	    }
 
-		void OnEnable()
-		{
+		// Implementing this method causes the padlock image to display on the window
+		// https://leahayes.wordpress.com/2013/04/30/adding-the-little-padlock-button-to-your-editorwindow/#more-455
+		void ShowButton(Rect position) {
+			if (lockButtonStyle == null)
+			{
+				lockButtonStyle = "IN LockButton";
+			}
+			locked = GUI.Toggle(position, locked, GUIContent.none, lockButtonStyle);
 		}
 
 		public void OnInspectorUpdate()
@@ -31,9 +41,17 @@ namespace Fungus.Script
 
 		static public FungusScript GetFungusScript()
 		{
+			if (locked && activeFungusScript != null)
+			{
+				return activeFungusScript;
+			}
+
+			locked = false;
+
 			if (Selection.activeGameObject != null)
 			{
-				return Selection.activeGameObject.GetComponent<FungusScript>();
+				activeFungusScript = Selection.activeGameObject.GetComponent<FungusScript>();
+				return activeFungusScript;
 			}
 
 			return null;

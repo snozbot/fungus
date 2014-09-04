@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 83e4bd04047eb419fbb6b205dd1f2f91
+guid: c22400d5bd211479099238aaacbd4852
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Button
+    21300000: ScriptIcon32
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -22,7 +22,7 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -3
+  textureFormat: -1
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
