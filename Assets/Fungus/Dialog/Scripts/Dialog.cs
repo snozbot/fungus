@@ -11,12 +11,6 @@ namespace Fungus.Script
 	
 	public class Dialog : MonoBehaviour 
 	{
-		public enum DialogSide
-		{
-			Left,
-			Right
-		};
-
 		public float writingSpeed = 60;
 		public AudioClip writingSound;
 		public bool loopWritingSound = true;
@@ -25,8 +19,7 @@ namespace Fungus.Script
 		public Canvas dialogCanvas;
 		public Text nameText;
 		public Text storyText;
-		public Image leftImage;
-		public Image rightImage;
+		public Image characterImage;
 
 		float currentSpeed;
 		float currentPunctuationPause;
@@ -71,47 +64,30 @@ namespace Fungus.Script
 		{
 			if (character == null)
 			{
-				if (leftImage != null)
-					leftImage.enabled = false;
-				if (rightImage != null)
-					rightImage.enabled = false;
+				if (characterImage != null)
+					characterImage.enabled = false;
 				if (nameText != null)
 					nameText.text = "";
 			}
 			else
 			{
-				SetCharacterImage(character.characterImage, character.dialogSide);
+				SetCharacterImage(character.characterImage);
 				SetCharacterName(character.name, character.characterColor);
 			}
 		}
 		
-		public void SetCharacterImage(Sprite image, DialogSide side)
+		public void SetCharacterImage(Sprite image)
 		{
-			if (leftImage != null)
+			if (characterImage != null)
 			{
-				if (image != null &&
-				    side == DialogSide.Left)
+				if (image != null)
 				{
-					leftImage.sprite = image;
-					leftImage.enabled = true;
+					characterImage.sprite = image;
+					characterImage.enabled = true;
 				}
 				else
 				{
-					leftImage.enabled = false;
-				}
-			}
-			
-			if (rightImage != null)
-			{
-				if (image != null &&
-				    side == DialogSide.Right)
-				{
-					rightImage.sprite = image;
-					rightImage.enabled = true;
-				}
-				else
-				{
-					rightImage.enabled = false;
+					characterImage.enabled = false;
 				}
 			}
 		}

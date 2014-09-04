@@ -51,9 +51,9 @@ namespace Fungus.Script
 				activeDialog = dialog;
 			}
 	
-			dialog.ShowDialog(true);
-
 			dialog.SetCharacter(character);
+
+			dialog.ShowDialog(true);
 
 			if (voiceOverClip != null)
 			{

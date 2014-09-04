@@ -42,9 +42,6 @@ namespace Fungus.Script
 			                                                    typeof(Sprite),
 			                                                    true) as Sprite;
 
-			SayDialog.DialogSide dialogSide = (SayDialog.DialogSide)EditorGUILayout.EnumPopup(new GUIContent("Image Side", "Which side to display the image in the dialog"),
-			                                                                            t.dialogSide);
-
 			EditorGUILayout.Separator();
 
 			if (characterImage != null &&
@@ -68,7 +65,6 @@ namespace Fungus.Script
 				t.characterName = characterName;
 				t.characterColor = characterColor;
 				t.characterImage = characterImage;
-				t.dialogSide = dialogSide;
 			}			
 		}
 

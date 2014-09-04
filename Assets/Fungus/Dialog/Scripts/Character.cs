@@ -10,7 +10,6 @@ namespace Fungus.Script
 	{
 		public string characterName;
 		public Sprite characterImage;
-		public SayDialog.DialogSide dialogSide;
 		public Color characterColor;
 
 		static public List<Character> activeCharacters = new List<Character>();
