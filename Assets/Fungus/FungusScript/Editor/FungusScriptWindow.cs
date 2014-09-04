@@ -117,23 +117,6 @@ namespace Fungus.Script
 				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
 				float windowWidth = Mathf.Max (titleWidth + 10, 100);
 
-				/*
-				int connectionCount = sequence.GetConnectedSequences().Count;
-				if (connectionCount == 0)
-				{
-					GUI.backgroundColor = Color.blue;
-				}
-				if (connectionCount == 1)
-				{
-					GUI.backgroundColor = Color.green;
-				}
-				else
-				{
-					GUI.backgroundColor = Color.yellow;
-				}
-				GUI.backgroundColor = Color.white;
-				*/
-
 				if (fungusScript.selectedSequence == sequence ||
 				    fungusScript.executingSequence == sequence)
 				{
@@ -159,27 +142,6 @@ namespace Fungus.Script
 			
 			EndWindows();
 
-			/*
-			if (fungusScript.selectedSequence != null ||
-			    fungusScript.executingSequence != null)
-			{
-				Rect outlineRect = new Rect();
-				if (fungusScript.executingSequence != null)
-				{
-					outlineRect = fungusScript.executingSequence.nodeRect;
-				}
-				else if (fungusScript.selectedSequence != null)
-				{
-					outlineRect = fungusScript.selectedSequence.nodeRect;
-				}
-				outlineRect.width += 10;
-				outlineRect.x -= 5;
-				outlineRect.height += 10;
-				outlineRect.y -= 5;
-				GLDraw.DrawBox(outlineRect, Color.green, 2);
-			}
-			*/
-			
 			GLDraw.EndScrollView();
 		}
 		
@@ -296,7 +258,8 @@ namespace Fungus.Script
 		void DrawWindow(int windowId)
 		{
 			// Select sequence when node is clicked
-			if (Event.current.button == 0 && 
+			if (!Application.isPlaying &&
+			    Event.current.button == 0 && 
 		    	Event.current.type == EventType.MouseDown) 
 			{
 				if (windowId < windowSequenceMap.Count)
