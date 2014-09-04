@@ -36,7 +36,7 @@ namespace Fungus.Script
 		{
 			if (targetSequence == null)
 			{
-				return "<Continue> (No sequence selected)";
+				return "<Continue>";
 			}
 
 			return targetSequence.name;

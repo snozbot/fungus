@@ -68,15 +68,7 @@ namespace Fungus.Script
 
 		public override string GetSummary()
 		{
-			string summary = "";
-			if (character != null)
-			{
-				summary = character.characterName + ": ";
-			}
-
-			summary += "\"" + storyText + "\"";
-
-			return summary;
+			return "\"" + storyText + "\"";
 		}
 
 		void OnGUI()
