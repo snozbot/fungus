@@ -157,7 +157,7 @@ namespace Fungus.Script
 				indentRect.width = indentSize + 1;
 				indentRect.y -= 2;
 				indentRect.height += 5;
-				GUI.backgroundColor = new Color(0.8f, 0.8f, 0.8f, 0.25f);
+				GUI.backgroundColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 				GUI.Box(indentRect, "");
 			}
 

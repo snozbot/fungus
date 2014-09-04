@@ -46,17 +46,16 @@ namespace Fungus.Script
 
 			FungusScript fungusScript = t.GetFungusScript();
 
-			GUILayout.BeginVertical(GUI.skin.box);
-
-			GUILayout.BeginHorizontal();
-
 			CommandInfoAttribute commandInfoAttr = FungusCommandEditor.GetCommandInfo(t.GetType());
 			if (commandInfoAttr == null)
 			{
-				GUILayout.EndHorizontal();
-				GUILayout.EndVertical();
 				return;
 			}
+
+			GUILayout.BeginVertical(GUI.skin.box);
+
+			GUI.backgroundColor = Color.green;
+			GUILayout.BeginHorizontal(GUI.skin.box);
 
 			string commandName = commandInfoAttr.CommandName;
 			GUIStyle commandStyle = new GUIStyle(GUI.skin.button);
@@ -69,6 +68,7 @@ namespace Fungus.Script
 				GUI.backgroundColor = Color.grey;
 			}
 			GUILayout.Label(commandName, commandStyle, GUILayout.MinWidth(80), GUILayout.ExpandWidth(true));
+
 			GUI.backgroundColor = Color.white;
 
 			bool enabled = GUILayout.Toggle(t.enabled, new GUIContent());
@@ -83,22 +83,11 @@ namespace Fungus.Script
 				if (GUILayout.Button("Copy", EditorStyles.miniButton))
 				{
 					fungusScript.copyCommand = t;
-				}
-				
-				if (fungusScript.copyCommand != null)
-				{
-					if (GUILayout.Button("Paste", EditorStyles.miniButton))
-					{
-						Sequence parentSequence = t.GetComponent<Sequence>();
-						if (parentSequence != null)
-						{
-							PasteCommand(fungusScript.copyCommand, parentSequence);
-						}
-					}
-				}
+				}				
 			}
 
 			GUILayout.EndHorizontal();
+			GUI.backgroundColor = Color.white;
 
 			EditorGUILayout.Separator();
 			
