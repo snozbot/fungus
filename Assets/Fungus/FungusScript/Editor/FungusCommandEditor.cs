@@ -67,11 +67,17 @@ namespace Fungus.Script
 			{
 				GUI.backgroundColor = Color.grey;
 			}
-			GUILayout.Label(commandName, commandStyle, GUILayout.MinWidth(80), GUILayout.ExpandWidth(true));
+
+			bool enabled = t.enabled;
+
+			if (GUILayout.Button(commandName, commandStyle, GUILayout.MinWidth(80), GUILayout.ExpandWidth(true)))
+			{
+				enabled = !enabled;
+			}
 
 			GUI.backgroundColor = Color.white;
+			enabled = GUILayout.Toggle(enabled, new GUIContent());
 
-			bool enabled = GUILayout.Toggle(t.enabled, new GUIContent());
 			if (t.enabled != enabled)
 			{
 				Undo.RecordObject(t, "Set Enabled");
