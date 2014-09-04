@@ -53,12 +53,15 @@ namespace Fungus.Script
 
 			bool startAutomatically = EditorGUILayout.Toggle(new GUIContent("Start Automatically", "Start this Fungus Script when the scene starts."), t.startAutomatically);
 
+			bool colorCommands = EditorGUILayout.Toggle(new GUIContent("Color Commands", "Display commands using colors in editor window."), t.colorCommands);
+
 			if (EditorGUI.EndChangeCheck())
 			{
 				Undo.RecordObject(t, "Set Fungus Script");
 				t.stepTime = stepTime;
 				t.startSequence = startSequence;
 				t.startAutomatically = startAutomatically;
+				t.colorCommands = colorCommands;
 			}
 
 			EditorGUILayout.Separator();

@@ -61,7 +61,14 @@ namespace Fungus.Script
 			GUIStyle commandStyle = new GUIStyle(EditorStyles.miniButton);
 			if (t.enabled)
 			{
-				GUI.backgroundColor = t.GetButtonColor();
+				if (fungusScript.colorCommands)
+				{
+					GUI.backgroundColor = t.GetButtonColor();
+				}
+				else
+				{
+					GUI.backgroundColor = Color.white;
+				}
 			}
 			else
 			{

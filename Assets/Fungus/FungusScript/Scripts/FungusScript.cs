@@ -41,7 +41,9 @@ namespace Fungus.Script
 
 		public FungusCommand selectedCommand;
 
-		public bool startAutomatically = false;
+		public bool startAutomatically = true;
+
+		public bool colorCommands = true;
 
 		public List<FungusVariable> variables = new List<FungusVariable>();
 

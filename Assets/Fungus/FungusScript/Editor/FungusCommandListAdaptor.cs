@@ -185,7 +185,11 @@ namespace Fungus.Script
 				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 			}
 
-			Color buttonBackgroundColor = command.GetButtonColor();
+			Color buttonBackgroundColor = Color.white;
+			if (fungusScript.colorCommands)
+			{
+				buttonBackgroundColor = command.GetButtonColor();
+			}
 			Color summaryBackgroundColor = Color.white;
 
 			if (selected)
