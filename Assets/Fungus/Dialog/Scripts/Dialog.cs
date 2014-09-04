@@ -139,6 +139,10 @@ namespace Fungus.Script
 
 			if (glyphs.Count == 0)
 			{
+				if (onWritingComplete != null)
+				{
+					onWritingComplete();
+				}
 				yield break;
 			}
 
