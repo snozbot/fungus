@@ -7,8 +7,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Dialog", 
 	             "Say", 
-	             "Writes a line of story text to the dialog. A list of options can be specified for the player to choose from. Use a non-zero timeout to give the player a limited time to choose.", 
-	             184, 210, 235)]
+	             "Writes a line of story text to the dialog. A list of options can be specified for the player to choose from. Use a non-zero timeout to give the player a limited time to choose.")]
 	public class Say : FungusCommand 
 	{
 		public SayDialog dialog;
@@ -109,6 +108,11 @@ namespace Fungus.Script
 
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(184, 210, 235, 255);
 		}
 	}
 

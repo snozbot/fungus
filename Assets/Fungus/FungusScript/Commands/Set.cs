@@ -5,8 +5,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Scripting", 
 	             "Set", 
-	             "Sets a variable to a new value using simple arithmetic operations. The value can be a constant or another variable.", 
-	             255, 255, 255)]
+	             "Sets a variable to a new value using simple arithmetic operations. The value can be a constant or another variable.")]
 	public class Set : FungusCommand 
 	{
 		public enum SetOperator
@@ -177,6 +176,11 @@ namespace Fungus.Script
 		public override bool HasReference(FungusVariable variable)
 		{
 			return (variable == this.variable);
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(235, 191, 217, 255);
 		}
 	}
 

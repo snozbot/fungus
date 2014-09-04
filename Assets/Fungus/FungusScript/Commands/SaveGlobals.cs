@@ -6,8 +6,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Scripting", 
 	             "Save Globals", 
-	             "Saves all current global variables to be loaded again later using the LoadGlobals command. This provides a basic save game system.", 
-	             255, 255, 255)]
+	             "Saves all current global variables to be loaded again later using the LoadGlobals command. This provides a basic save game system.")]
 	public class SaveGlobals : FungusCommand
 	{
 		public string saveName = "";
@@ -20,6 +19,11 @@ namespace Fungus.Script
 		public override string GetSummary()
 		{
 			return saveName;
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(235, 191, 217, 255);
 		}
 	}
 	

@@ -11,19 +11,16 @@ namespace Fungus.Script
 	
 	public class CommandInfoAttribute : Attribute
 	{
-		public CommandInfoAttribute(string category, string commandName, string helpText, byte red, byte green, byte blue)
+		public CommandInfoAttribute(string category, string commandName, string helpText)
 		{
 			this.Category = category;
 			this.CommandName = commandName;
 			this.HelpText = helpText;
-			this.ButtonColor = new Color32(red, green, blue, 255);
 		}
 
 		public string Category { get; set; }
 		public string CommandName { get; set; }
 		public string HelpText { get; set; }
-		public Color ButtonColor { get; set; }
-		public Color IndentOffset { get; set; }
 	}
 	
 	[RequireComponent(typeof(Sequence))]
@@ -141,6 +138,11 @@ namespace Fungus.Script
 		public virtual int GetPostIndent()
 		{
 			return 0;
+		}
+
+		public virtual Color GetButtonColor()
+		{
+			return Color.white;
 		}
 	}
 

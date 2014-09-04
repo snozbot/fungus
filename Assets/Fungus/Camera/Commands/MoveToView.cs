@@ -6,8 +6,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Camera", 
 	             "Move To View", 
-	             "Moves the camera to a location specified by a View object.", 
-	             216, 228, 170)]
+	             "Moves the camera to a location specified by a View object.")]
 	public class MoveToView : FungusCommand 
 	{
 		public float duration;
@@ -51,6 +50,11 @@ namespace Fungus.Script
 			{
 				return targetView.name;
 			}
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(216, 228, 170, 255);
 		}
 	}
 

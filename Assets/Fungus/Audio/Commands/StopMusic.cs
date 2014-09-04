@@ -5,8 +5,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Audio", 
 	             "Stop Music", 
-	             "Stops the currently playing game music.", 
-	             242, 209, 176)]
+	             "Stops the currently playing game music.")]
 	public class StopMusic : FungusCommand
 	{
 		public override void OnEnter()
@@ -18,6 +17,11 @@ namespace Fungus.Script
 			}
 
 			Continue();
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(242, 209, 176, 255);
 		}
 	}
 

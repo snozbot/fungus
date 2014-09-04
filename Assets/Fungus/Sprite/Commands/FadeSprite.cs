@@ -6,8 +6,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Sprite", 
 	             "Fade Sprite", 
-	             "Fades a sprite to a target color over a period of time.", 
-	             212, 178, 211)]
+	             "Fades a sprite to a target color over a period of time.")]
 	public class FadeSprite : FungusCommand 
 	{
 		public SpriteRenderer spriteRenderer;
@@ -46,6 +45,11 @@ namespace Fungus.Script
 			}
 
 			return spriteRenderer.name + " to " + targetColor.ToString();
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(221, 184, 169, 255);
 		}
 	}
 

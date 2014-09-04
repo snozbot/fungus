@@ -6,8 +6,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Scripting", 
 	             "Else", 
-	             "Marks the start of a sequence block to be executed when the preceding If statement is false.", 
-	             253, 253, 150)]
+	             "Marks the start of a sequence block to be executed when the preceding If statement is false.")]
 	public class Else : FungusCommand
 	{
 		public override void OnEnter()
@@ -46,6 +45,11 @@ namespace Fungus.Script
 		public override int GetPostIndent()
 		{
 			return 1;
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(253, 253, 150, 255);
 		}
 	}
 

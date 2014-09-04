@@ -9,8 +9,7 @@ namespace Fungus.Script
 	             "Loads a new scene and displays an optional loading image. This is useful " +
 	             "for splitting a large game across multiple scene files to reduce peak memory " +
 	             "usage. All previously loaded assets (including textures and audio) will be released." +
-	             "The scene to be loaded must be added to the scene list in Build Settings.", 
-	             255, 255, 255)]
+	             "The scene to be loaded must be added to the scene list in Build Settings.")]
 	public class LoadScene : FungusCommand 
 	{
 		public string sceneName = "";
@@ -30,6 +29,11 @@ namespace Fungus.Script
 			}
 
 			return sceneName;
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(235, 191, 217, 255);
 		}
 	}
 

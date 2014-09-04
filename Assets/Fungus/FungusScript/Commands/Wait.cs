@@ -6,8 +6,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Scripting", 
 	             "Wait", 
-	             "Waits for period of time before executing the next command in the sequence.", 
-	             255, 255, 255)]
+	             "Waits for period of time before executing the next command in the sequence.")]
 	public class Wait : FungusCommand 
 	{
 		public float duration = 1;
@@ -25,6 +24,11 @@ namespace Fungus.Script
 		public override string GetSummary()
 		{
 			return duration.ToString() + " seconds";
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(235, 191, 217, 255);
 		}
 	}
 

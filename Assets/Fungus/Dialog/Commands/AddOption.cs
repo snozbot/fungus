@@ -7,8 +7,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Dialog", 
 	             "Add Option", 
-	             "Adds an option for the player to select, displayed by the next Say command.", 
-	             184, 210, 235)]
+	             "Adds an option for the player to select, displayed by the next Say command.")]
 	public class AddOption : FungusCommand 
 	{
 		public string optionText;
@@ -55,6 +54,11 @@ namespace Fungus.Script
 			{
 				connectedSequences.Add (targetSequence);
 			}
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(184, 210, 235, 255);
 		}
 	}
 

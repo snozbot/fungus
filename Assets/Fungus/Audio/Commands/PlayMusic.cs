@@ -5,8 +5,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Audio",
 	             "Play Music",
-	             "Plays game music. If any game music is already playing, it is stopped. Music continues playing across scene loads.", 
-	             242, 209, 176)]
+	             "Plays game music. If any game music is already playing, it is stopped. Music continues playing across scene loads.")]
 	public class PlayMusic : FungusCommand
 	{
 		public AudioClip musicClip;
@@ -30,6 +29,11 @@ namespace Fungus.Script
 			}
 
 			return musicClip.name;
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(242, 209, 176, 255);
 		}
 	}
 

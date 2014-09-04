@@ -6,8 +6,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Camera", 
 	             "Fade To View", 
-	             "Fades the camera out and in again at a location specified by a View object.", 
-	             216, 228, 170)]
+	             "Fades the camera out and in again at a location specified by a View object.")]
 	public class FadeToView : FungusCommand 
 	{
 		public float duration;
@@ -64,6 +63,11 @@ namespace Fungus.Script
 			{
 				return targetView.name;
 			}
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(216, 228, 170, 255);
 		}
 	}
 

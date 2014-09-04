@@ -5,8 +5,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Audio",
 	             "Set Music Volume",
-	             "Sets the game music volume level.", 
-	             242, 209, 176)]
+	             "Sets the game music volume level.")]
 	public class SetMusicVolume : FungusCommand
 	{
 		[Range(0,1)]
@@ -29,6 +28,11 @@ namespace Fungus.Script
 		public override string GetSummary()
 		{
 			return "Set to " + volume + " over " + fadeDuration + " seconds.";
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(242, 209, 176, 255);
 		}
 	}
 

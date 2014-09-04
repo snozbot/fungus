@@ -5,8 +5,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Audio", 
 	             "Play Sound",
-	             "Plays a sound effect. Multiple sound effects can play at the same time.", 
-	             242, 209, 176)]
+	             "Plays a sound effect. Multiple sound effects can play at the same time.")]
 	public class PlaySound : FungusCommand
 	{
 		public AudioClip soundClip;
@@ -33,6 +32,11 @@ namespace Fungus.Script
 			}
 
 			return soundClip.name;
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(242, 209, 176, 255);
 		}
 	}
 

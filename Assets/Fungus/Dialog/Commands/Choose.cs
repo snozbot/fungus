@@ -7,8 +7,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Dialog", 
 	             "Choose", 
-	             "Presents a list of options for the player to choose from, with an optional timeout. Add options using preceding AddOption commands.", 
-	             184, 210, 235)]
+	             "Presents a list of options for the player to choose from, with an optional timeout. Add options using preceding AddOption commands.")]
 	public class Choose : FungusCommand 
 	{
 		public ChooseDialog dialog;
@@ -163,6 +162,11 @@ namespace Fungus.Script
 			
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(184, 210, 235, 255);
 		}
 	}
 

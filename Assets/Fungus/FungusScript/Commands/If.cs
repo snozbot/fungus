@@ -16,8 +16,7 @@ namespace Fungus.Script
 
 	[CommandInfo("Scripting", 
 	             "If", 
-	             "If the test expression is true, execute the following block of commands.", 
-	             253, 253, 150)]
+	             "If the test expression is true, execute the following block of commands.")]
 	public class If : FungusCommand
 	{
 		public FungusVariable variable;
@@ -221,6 +220,11 @@ namespace Fungus.Script
 		public override int GetPostIndent()
 		{
 			return 1;
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(253, 253, 150, 255);
 		}
 	}
 

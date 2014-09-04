@@ -6,8 +6,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Scripting", 
 	             "EndIf", 
-	             "Marks the end of an If statement block.", 
-	             253, 253, 150)]
+	             "Marks the end of an If statement block.")]
 	public class EndIf : FungusCommand
 	{
 		public override void OnEnter()
@@ -18,6 +17,11 @@ namespace Fungus.Script
 		public override int GetPreIndent()
 		{
 			return -1;
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(253, 253, 150, 255);
 		}
 	}
 

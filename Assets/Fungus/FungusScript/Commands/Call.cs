@@ -6,8 +6,7 @@ namespace Fungus.Script
 {
 	[CommandInfo("Scripting", 
 	             "Call", 
-	             "Execute another sequence.", 
-	             255, 255, 255)]
+	             "Execute another sequence.")]
 	public class Call : FungusCommand
 	{	
 		public Sequence targetSequence;
@@ -40,6 +39,11 @@ namespace Fungus.Script
 			}
 
 			return targetSequence.name;
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(235, 191, 217, 255);
 		}
 	}
 
