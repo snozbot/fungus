@@ -146,6 +146,9 @@ namespace Fungus.Script
 				error = true;
 			}
 
+			bool selected = (Application.isPlaying && command.IsExecuting()) ||
+							(!Application.isPlaying && fungusScript.selectedCommand == command);
+
 			float indentSize = 20;			
 			for (int i = 0; i < command.indentLevel; ++i)
 			{
@@ -185,8 +188,7 @@ namespace Fungus.Script
 			Color buttonBackgroundColor = commandInfoAttr.ButtonColor;
 			Color summaryBackgroundColor = Color.white;
 
-			if ((Application.isPlaying && command.IsExecuting()) ||
-			    (!Application.isPlaying && fungusScript.selectedCommand == command))
+			if (selected)
 			{
 				summaryBackgroundColor = Color.green;
 				buttonBackgroundColor = Color.green;
@@ -209,6 +211,10 @@ namespace Fungus.Script
 			if (!command.enabled)
 			{
 				labelStyle.normal.textColor = Color.grey;
+			}
+			else if (error && !selected)
+			{
+				labelStyle.normal.textColor = Color.white;
 			}
 
 			GUI.backgroundColor = summaryBackgroundColor;
