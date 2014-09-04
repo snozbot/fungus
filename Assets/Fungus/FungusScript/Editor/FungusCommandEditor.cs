@@ -55,10 +55,10 @@ namespace Fungus.Script
 			GUILayout.BeginVertical(GUI.skin.box);
 
 			GUI.backgroundColor = Color.green;
-			GUILayout.BeginHorizontal(GUI.skin.box);
+			GUILayout.BeginHorizontal(GUI.skin.button);
 
 			string commandName = commandInfoAttr.CommandName;
-			GUIStyle commandStyle = new GUIStyle(GUI.skin.button);
+			GUIStyle commandStyle = new GUIStyle(EditorStyles.miniButton);
 			if (t.enabled)
 			{
 				GUI.backgroundColor = commandInfoAttr.ButtonColor;
