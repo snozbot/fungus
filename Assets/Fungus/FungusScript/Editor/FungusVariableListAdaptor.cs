@@ -120,6 +120,47 @@ namespace Fungus.Script
 			}
 
 			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
+			if (fungusScript == null)
+			{
+				return;
+			}
+
+			bool highlight = false;
+				
+			// Is an executing command referencing this variable?
+			if (Application.isPlaying)
+			{
+				if (fungusScript.executingSequence != null &&
+				    fungusScript.executingSequence.activeCommand != null)
+				{
+					if (fungusScript.executingSequence.activeCommand.HasReference(variable))
+					{
+						highlight = true;
+					}
+				}
+			}
+			else
+			{
+				// Is an expanded command referencing this variable?
+				if (fungusScript.selectedSequence != null &&
+				    fungusScript.selectedCommand != null)
+				{
+					foreach (FungusCommand command in fungusScript.selectedSequence.commandList)
+					{
+						if (fungusScript.selectedCommand == command &&
+						    command.HasReference(variable))
+						{
+							highlight = true;
+						}
+					}
+				}
+			}
+			
+			if (highlight)
+			{
+				GUI.backgroundColor = Color.green;
+				GUI.Box(position, "");
+			}
 
 			string key = variable.key;
 			VariableScope scope = variable.scope;
@@ -176,44 +217,7 @@ namespace Fungus.Script
 				}
 			}
 
-			if (fungusScript != null)
-			{
-				bool highlight = false;
-
-				// Is an executing command referencing this variable?
-				if (Application.isPlaying)
-				{
-					if (fungusScript.executingSequence != null &&
-					    fungusScript.executingSequence.activeCommand != null)
-					{
-						if (fungusScript.executingSequence.activeCommand.HasReference(variable))
-						{
-							highlight = true;
-						}
-					}
-				}
-				else
-				{
-					// Is an expanded command referencing this variable?
-					if (fungusScript.selectedSequence != null &&
-					    fungusScript.selectedCommand != null)
-					{
-						foreach (FungusCommand command in fungusScript.selectedSequence.commandList)
-						{
-							if (fungusScript.selectedCommand == command &&
-							    command.HasReference(variable))
-							{
-								highlight = true;
-							}
-						}
-					}
-				}
-
-				if (highlight)
-				{
-					GLDraw.DrawBox(position, Color.green, 2);
-				}
-			}
+			GUI.backgroundColor = Color.white;
 		}
 
 		public virtual float GetItemHeight(int index) {
