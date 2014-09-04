@@ -165,8 +165,15 @@ namespace Fungus.Script
 			while (i < glyphs.Count)
 			{
 				timeAccumulator += Time.deltaTime;
-				
-				while (timeAccumulator > writeDelay)
+
+				bool skipWriting = false;
+				if (Input.GetMouseButtonDown(0))
+				{
+					skipWriting = true;
+				}
+
+				while (skipWriting ||
+				       timeAccumulator > writeDelay)
 				{
 					timeAccumulator -= writeDelay;
 
@@ -210,11 +217,12 @@ namespace Fungus.Script
 						    IsPunctuation(glyph.param))
 						{
 							// Ignore if next glyph is also punctuation, or if punctuation is the last character.
-							bool skip = (i < glyphs.Count - 1 &&
+							bool skipCharacter = (i < glyphs.Count - 1 &&
 							             glyphs[i + 1].type == GlyphType.Character &&
 							             IsPunctuation(glyphs[i + 1].param));
 
-							if (!skip)
+							if (!skipCharacter &&
+							    !skipWriting)
 								yield return new WaitForSeconds(currentPunctuationPause);
 						}
 
@@ -251,8 +259,11 @@ namespace Fungus.Script
 						{
 							duration = 1f;
 						}
-						yield return new WaitForSeconds(duration);
-						timeAccumulator = 0f;
+						if (!skipWriting)
+						{
+							yield return new WaitForSeconds(duration);
+							timeAccumulator = 0f;
+						}
 						break;
 
 					case GlyphType.WaitForInputNoClear:
@@ -345,8 +356,7 @@ namespace Fungus.Script
 		{
 			return character == "." ||
 				character == "?" ||
-				character == "!" ||
-				character == ",";
+				character == "!";
 		}
 		
 		List<Glyph> MakeGlyphList(string storyText)
