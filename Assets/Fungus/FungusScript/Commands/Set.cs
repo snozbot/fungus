@@ -6,7 +6,7 @@ namespace Fungus.Script
 	[CommandInfo("Scripting", 
 	             "Set", 
 	             "Sets a variable to a new value using simple arithmetic operations. The value can be a constant or another variable.", 
-	             253, 253, 150)]
+	             255, 255, 255)]
 	public class Set : FungusCommand 
 	{
 		public enum SetOperator

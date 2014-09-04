@@ -170,7 +170,7 @@ namespace Fungus.Script
 			buttonRect.x += indentWidth;
 			buttonRect.width = buttonWidth;
 			buttonRect.y -= 2;
-			buttonRect.height += 5;
+			buttonRect.height += 6;
 
 			Rect summaryRect = buttonRect;
 			summaryRect.x += buttonWidth - 1;
@@ -193,14 +193,14 @@ namespace Fungus.Script
 				summaryBackgroundColor = Color.green;
 				buttonBackgroundColor = Color.green;
 			}
+			else if (!command.enabled)
+			{
+				buttonBackgroundColor = Color.grey;
+				summaryBackgroundColor = Color.grey;
+			}
 			else if (error)
 			{
 				summaryBackgroundColor = Color.red;
-			}
-
-			if (!command.enabled)
-			{
-				buttonBackgroundColor = Color.grey;
 			}
 
 			GUI.backgroundColor = buttonBackgroundColor;
@@ -208,11 +208,7 @@ namespace Fungus.Script
 
 			GUIStyle labelStyle = new GUIStyle(EditorStyles.miniButtonRight);
 			labelStyle.alignment = TextAnchor.MiddleLeft;
-			if (!command.enabled)
-			{
-				labelStyle.normal.textColor = Color.grey;
-			}
-			else if (error && !selected)
+			if (error && !selected)
 			{
 				labelStyle.normal.textColor = Color.white;
 			}

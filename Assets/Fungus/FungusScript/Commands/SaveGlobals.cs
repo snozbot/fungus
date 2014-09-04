@@ -7,7 +7,7 @@ namespace Fungus.Script
 	[CommandInfo("Scripting", 
 	             "Save Globals", 
 	             "Saves all current global variables to be loaded again later using the LoadGlobals command. This provides a basic save game system.", 
-	             253, 253, 150)]
+	             255, 255, 255)]
 	public class SaveGlobals : FungusCommand
 	{
 		public string saveName = "";
