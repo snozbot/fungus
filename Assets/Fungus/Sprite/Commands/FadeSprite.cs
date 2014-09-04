@@ -10,7 +10,7 @@ namespace Fungus.Script
 	public class FadeSprite : FungusCommand 
 	{
 		public SpriteRenderer spriteRenderer;
-		public float duration;
+		public float duration = 1f;
 		public Color targetColor = Color.white;
 		public bool waitUntilFinished = true;
 
