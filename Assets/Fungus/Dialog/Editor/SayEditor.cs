@@ -81,11 +81,6 @@ namespace Fungus.Script
 			                                                                 t.character,
 			                                                                 Character.activeCharacters);
 
-			SayDialog dialog = FungusCommandEditor.ObjectField<SayDialog>(new GUIContent("Say Dialog", "Dialog to use when displaying Say command story text"), 
-			                                                              new GUIContent("<Default>"),
-			                                                              t.dialog,
-			                                                              SayDialog.activeDialogs);
-
 			AudioClip voiceOverClip = EditorGUILayout.ObjectField(new GUIContent("Voice Over Clip", "Voice over audio to play when the say text is displayed"),
 			                                                      t.voiceOverClip,
 			                                                      typeof(AudioClip),
@@ -98,7 +93,6 @@ namespace Fungus.Script
 				Undo.RecordObject(t, "Set Say");
 				t.storyText = text;
 				t.character = character;
-				t.dialog = dialog;
 				t.voiceOverClip = voiceOverClip;
 				t.showOnce = showOnce;
 			}			

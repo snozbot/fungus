@@ -10,10 +10,6 @@ namespace Fungus.Script
 	             "Writes a line of story text to the dialog. A list of options can be specified for the player to choose from. Use a non-zero timeout to give the player a limited time to choose.")]
 	public class Say : FungusCommand 
 	{
-		public SayDialog dialog;
-	
-		static public SayDialog activeDialog;
-
 		public Character character;
 		public string storyText;
 		public AudioClip voiceOverClip;
@@ -32,22 +28,12 @@ namespace Fungus.Script
 			
 			executionCount++;
 
-			// Remember active dialog between Say calls
+			SayDialog dialog = SetSayDialog.activeDialog;
+			showBasicGUI = false;
 			if (dialog == null)
 			{
-				if (activeDialog == null)
-				{
-					showBasicGUI = true;
-					return;
-				}
-				else
-				{
-					dialog = activeDialog;
-				}
-			}
-			else
-			{
-				activeDialog = dialog;
+				showBasicGUI = true;
+				return;
 			}
 	
 			dialog.SetCharacter(character);

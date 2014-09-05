@@ -42,11 +42,6 @@ namespace Fungus.Script
 			                                                                 t.character,
 			                                                                 Character.activeCharacters);
 
-			ChooseDialog dialog = FungusCommandEditor.ObjectField<ChooseDialog>(new GUIContent("Choose Dialog", "Dialog to use when displaying choices"), 
-			                                                                    new GUIContent("<Default>"),
-			                                                                    t.dialog,
-			                                                                    ChooseDialog.activeDialogs);
-
 			AudioClip voiceOverClip = EditorGUILayout.ObjectField(new GUIContent("Voice Over Clip", "Voice over audio to play when the choose text is displayed"),
 			                                                      t.voiceOverClip,
 			                                                      typeof(AudioClip),
@@ -59,7 +54,6 @@ namespace Fungus.Script
 				Undo.RecordObject(t, "Set Choose");
 				t.chooseText = chooseText;
 				t.character = character;
-				t.dialog = dialog;
 				t.voiceOverClip = voiceOverClip;
 				t.timeoutDuration = timeoutDuration;
 			}			

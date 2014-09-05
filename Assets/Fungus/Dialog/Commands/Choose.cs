@@ -10,9 +10,6 @@ namespace Fungus.Script
 	             "Presents a list of options for the player to choose from, with an optional timeout. Add options using preceding AddOption commands.")]
 	public class Choose : FungusCommand 
 	{
-		public ChooseDialog dialog;
-		static public ChooseDialog activeDialog;
-
 		public class Option
 		{
 			public string optionText;
@@ -30,22 +27,12 @@ namespace Fungus.Script
 
 		public override void OnEnter()
 		{
-			// Remember active dialog between Choose calls
+			ChooseDialog dialog = SetChooseDialog.activeDialog;
+			showBasicGUI = false;
 			if (dialog == null)
 			{
-				if (Choose.activeDialog == null)
-				{
-					showBasicGUI = true;
-					return;
-				}
-				else
-				{
-					dialog = Choose.activeDialog;
-				}
-			}
-			else
-			{
-				activeDialog = dialog;
+				showBasicGUI = true;
+				return;
 			}
 
 			if (options.Count == 0)
