@@ -163,7 +163,7 @@ namespace Fungus.Script
 
 			string commandName = commandInfoAttr.CommandName;
 			GUIStyle commandStyle = new GUIStyle(EditorStyles.miniButtonLeft);
-			float buttonWidth = Mathf.Max(commandStyle.CalcSize(new GUIContent(commandName)).x, 80f);
+			float buttonWidth = Mathf.Max(commandStyle.CalcSize(new GUIContent(commandName)).x, 100f);
 			float indentWidth = command.indentLevel * indentSize;
 
 			Rect buttonRect = position;
