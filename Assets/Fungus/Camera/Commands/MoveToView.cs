@@ -9,7 +9,7 @@ namespace Fungus.Script
 	             "Moves the camera to a location specified by a View object.")]
 	public class MoveToView : FungusCommand 
 	{
-		public float duration;
+		public float duration = 1;
 		public Fungus.View targetView;
 		public bool waitUntilFinished = true;
 

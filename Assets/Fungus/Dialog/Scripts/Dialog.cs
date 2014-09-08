@@ -167,10 +167,12 @@ namespace Fungus.Script
 				timeAccumulator += Time.deltaTime;
 
 				bool skipWriting = false;
+				/*
 				if (Input.GetMouseButtonDown(0))
 				{
 					skipWriting = true;
 				}
+				*/
 
 				while (skipWriting ||
 				       timeAccumulator > writeDelay)
