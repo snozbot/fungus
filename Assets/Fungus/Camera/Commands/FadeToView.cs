@@ -9,7 +9,7 @@ namespace Fungus.Script
 	             "Fades the camera out and in again at a location specified by a View object.")]
 	public class FadeToView : FungusCommand 
 	{
-		public float duration;
+		public float duration = 1f;
 		public Fungus.View targetView;
 		public bool waitUntilFinished = true;
 		public Color fadeColor = Color.black;
