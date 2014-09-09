@@ -34,7 +34,7 @@ namespace Fungus.Script
 			string characterName = EditorGUILayout.TextField(new GUIContent("Name Text", "Name of the character display in the dialog"),
 			                                                 t.characterName);
 
-			Color characterColor = EditorGUILayout.ColorField(new GUIContent("Text Color", "Color of name text display in the dialog"),
+			Color characterColor = EditorGUILayout.ColorField(new GUIContent("Name Color", "Color of name text display in the dialog"),
 			                                                  t.characterColor);
 
 			Sprite characterImage = EditorGUILayout.ObjectField(new GUIContent("Image", "Character image sprite to display in the dialog"),

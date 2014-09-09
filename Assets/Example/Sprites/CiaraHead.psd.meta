@@ -1,8 +1,9 @@
 fileFormatVersion: 2
-guid: 3c64e30cbefbe4e768ef68d85c85061e
+guid: 05ccd53483a554ca9b31f685fa76154a
 TextureImporter:
   fileIDToRecycleName:
-    21300000: SkipperProfile
+    21300000: UrchinGirlProfile
+    21300002: CiaraHead
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

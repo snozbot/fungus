@@ -72,7 +72,15 @@ namespace Fungus.Script
 			else
 			{
 				SetCharacterImage(character.characterImage);
-				SetCharacterName(character.name, character.characterColor);
+
+				string characterName = character.characterName;
+				if (characterName == "")
+				{
+					// Use game object name as default
+					characterName = character.name;
+				}
+
+				SetCharacterName(characterName, character.characterColor);
 			}
 		}
 		

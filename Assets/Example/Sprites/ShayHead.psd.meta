@@ -1,8 +1,9 @@
 fileFormatVersion: 2
-guid: 05ccd53483a554ca9b31f685fa76154a
+guid: f7484a661774243b193bebc6e3ae5120
 TextureImporter:
   fileIDToRecycleName:
-    21300000: UrchinGirlProfile
+    21300000: RoamerProfile
+    21300002: ShayHead
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
