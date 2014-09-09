@@ -8,6 +8,8 @@ using Fungus;
 [CustomEditor (typeof(View))]
 public class ViewEditor : Editor 
 {
+	static Color viewColor = Color.yellow;
+
 	// Draw Views when they're not selected
 	[DrawGizmo(GizmoType.NotSelected | GizmoType.SelectedOrChild)]
 	static void RenderCustomGizmo(Transform objectTransform, GizmoType gizmoType)
@@ -75,9 +77,6 @@ public class ViewEditor : Editor
 		}
 		EditorGUILayout.Separator();
 
-		Color primaryColor = EditorGUILayout.ColorField(new GUIContent("Primary Color", "Color for inner primary aspect ratio rectangle"), t.primaryColor);
-		Color secondaryColor = EditorGUILayout.ColorField(new GUIContent("Secondary Color", "Color for outer secondary aspect ratio rectangle"), t.secondaryColor);
-
 		if (EditorGUI.EndChangeCheck())
 		{
 			// Avoid divide by zero errors
@@ -92,8 +91,6 @@ public class ViewEditor : Editor
 
 			t.primaryAspectRatio = primaryAspectRatio;
 			t.secondaryAspectRatio = secondaryAspectRatio;
-			t.primaryColor = primaryColor;
-			t.secondaryColor = secondaryColor;
 
 			SceneView.RepaintAll();
 		}
@@ -127,7 +124,7 @@ public class ViewEditor : Editor
 		handles[0] = view.transform.TransformPoint(new Vector3(0, -viewSize, 0));
 		handles[1] = view.transform.TransformPoint(new Vector3(0, viewSize, 0));
 
-		Handles.color = view.primaryColor;
+		Handles.color = Color.white;
 
 		for (int i = 0; i < 2; ++i)
 		{
@@ -151,6 +148,18 @@ public class ViewEditor : Editor
 		float widthA = height * (view.primaryAspectRatio.x / view.primaryAspectRatio.y);
 		float widthB = height * (view.secondaryAspectRatio.x / view.secondaryAspectRatio.y);
 
+		Color transparent = new Color(1,1,1,0f);
+		Color fill = viewColor;
+		Color outline = viewColor;
+
+		if (Selection.activeGameObject == view.gameObject)
+		{
+			fill = outline = Color.green;
+		}
+
+		fill.a = 0.1f;
+		outline.a = 0.5f;
+
 		// Draw left box
 		{
 			Vector3[] verts = new Vector3[4];
@@ -159,7 +168,7 @@ public class ViewEditor : Editor
 			verts[2] = view.transform.TransformPoint(new Vector3(-widthA, height, 0));
 			verts[3] = view.transform.TransformPoint(new Vector3(-widthA, -height, 0));
 
-			Handles.DrawSolidRectangleWithOutline(verts, view.secondaryColor, view.primaryColor );
+			Handles.DrawSolidRectangleWithOutline(verts, fill, transparent);
 		}
 
 		// Draw right box
@@ -170,18 +179,29 @@ public class ViewEditor : Editor
 			verts[2] = view.transform.TransformPoint(new Vector3(widthB, height, 0));
 			verts[3] = view.transform.TransformPoint(new Vector3(widthB, -height, 0));
 			
-			Handles.DrawSolidRectangleWithOutline(verts, view.secondaryColor, view.primaryColor );
+			Handles.DrawSolidRectangleWithOutline(verts, fill, transparent);
 		}
 
-		// Draw center box
+		// Draw inner box
 		{
 			Vector3[] verts = new Vector3[4];
 			verts[0] = view.transform.TransformPoint(new Vector3(-widthA, -height, 0));
 			verts[1] = view.transform.TransformPoint(new Vector3(-widthA, height, 0));
 			verts[2] = view.transform.TransformPoint(new Vector3(widthA, height, 0));
 			verts[3] = view.transform.TransformPoint(new Vector3(widthA, -height, 0));
+			
+			Handles.DrawSolidRectangleWithOutline(verts, transparent, outline );
+		}
 
-			Handles.DrawSolidRectangleWithOutline(verts, new Color(1,1,1,0f), view.primaryColor );
+		// Draw outer box
+		{
+			Vector3[] verts = new Vector3[4];
+			verts[0] = view.transform.TransformPoint(new Vector3(-widthB, -height, 0));
+			verts[1] = view.transform.TransformPoint(new Vector3(-widthB, height, 0));
+			verts[2] = view.transform.TransformPoint(new Vector3(widthB, height, 0));
+			verts[3] = view.transform.TransformPoint(new Vector3(widthB, -height, 0));
+			
+			Handles.DrawSolidRectangleWithOutline(verts, transparent, outline );
 		}
 	}
 

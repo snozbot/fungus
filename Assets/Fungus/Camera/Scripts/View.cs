@@ -31,18 +31,6 @@ namespace Fungus
 		[Tooltip("Aspect ratio of the secondary view rectangle. (e.g. 2:1 aspect ratio = 2.0)")]
 		public Vector2 secondaryAspectRatio = new Vector2(2, 1);
 
-		/**
-		 * Color of the primary view rectangle.
-		 */
-		[Tooltip("Color of the primary view rectangle.")]
-		public Color primaryColor = Color.green;
-
-		/**
-		 * Color of the secondary view rectangle.
-		 */
-		[Tooltip("Color of the secondary view rectangle.")]
-		public Color secondaryColor = Color.grey;
-
 		void Update()
 		{
 			// Disable scaling to avoid complicating the orthographic size calculations
