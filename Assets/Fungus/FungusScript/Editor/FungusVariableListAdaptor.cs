@@ -201,20 +201,20 @@ namespace Fungus.Script
 			}
 			else
 			{
-				EditorGUI.BeginChangeCheck();
-
 				key = EditorGUI.TextField(keyRect, variable.key);
 				GUI.Label(valueRect, type);
 				scope = (VariableScope)EditorGUI.EnumPopup(scopeRect, variable.scope);
 
-				if (EditorGUI.EndChangeCheck ())
-				{
-					Undo.RecordObject(variable, "Set Variable");
-					
-					// Modify the key if it clashes with an existing variable key
-					variable.key = fungusScript.GetUniqueVariableKey(key, variable);
-					variable.scope = scope;
-				}
+				// To access properties in a monobehavior, you have new a SerializedObject
+				// http://answers.unity3d.com/questions/629803/findrelativeproperty-never-worked-for-me-how-does.html
+				SerializedObject variableObject = new SerializedObject(this[index].objectReferenceValue);
+				SerializedProperty keyProp = variableObject.FindProperty("key");
+				SerializedProperty scopeProp = variableObject.FindProperty("scope");
+
+				variableObject.Update();
+				keyProp.stringValue = fungusScript.GetUniqueVariableKey(key, variable);
+				scopeProp.enumValueIndex = (int)scope;
+				variableObject.ApplyModifiedProperties();
 			}
 
 			GUI.backgroundColor = Color.white;

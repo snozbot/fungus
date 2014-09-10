@@ -76,6 +76,7 @@ namespace Fungus.Script
 
 			GUILayout.Label("New Command");
 			GUILayout.FlexibleSpace();
+
 			// We should probably use SerializedProperty for the category & command index but there's no real benefit to doing so
 			int selectedCategoryIndex = EditorGUILayout.Popup(fungusScript.selectedCommandCategoryIndex, categories.ToArray());
 			
