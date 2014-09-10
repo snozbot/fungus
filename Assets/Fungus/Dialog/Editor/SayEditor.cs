@@ -48,7 +48,6 @@ namespace Fungus.Script
 			serializedObject.Update();
 
 			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.PrefixLabel(new GUIContent("Say Text", "Text to display in dialog"));
 			GUILayout.FlexibleSpace();
 			if (GUILayout.Button(new GUIContent("Tag Help", "Show help info for tags"), new GUIStyle(EditorStyles.miniButton)))
 			{

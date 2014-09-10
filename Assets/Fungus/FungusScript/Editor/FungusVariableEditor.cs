@@ -17,7 +17,7 @@ namespace Fungus.Script
 			t.hideFlags = HideFlags.HideInInspector;
 		}
 
-		static public FungusVariable VariableField(GUIContent label, FungusScript fungusScript, FungusVariable variable, Func<FungusVariable, bool> filter = null)
+		static public void VariableField(SerializedProperty property, GUIContent label, FungusScript fungusScript, Func<FungusVariable, bool> filter = null)
 		{
 			List<string> variableKeys = new List<string>();
 			List<FungusVariable> variableObjects = new List<FungusVariable>();
@@ -28,6 +28,9 @@ namespace Fungus.Script
 			List<FungusVariable> variables = fungusScript.variables;
 			int index = 0;
 			int selectedIndex = 0;
+
+			FungusVariable selectedVariable = property.objectReferenceValue as FungusVariable;
+
 			foreach (FungusVariable v in variables)
 			{
 				if (filter != null)
@@ -43,7 +46,7 @@ namespace Fungus.Script
 				
 				index++;
 				
-				if (v == variable)
+				if (v == selectedVariable)
 				{
 					selectedIndex = index;
 				}
@@ -51,7 +54,7 @@ namespace Fungus.Script
 			
 			selectedIndex = EditorGUILayout.Popup(label.text, selectedIndex, variableKeys.ToArray());
 			
-			return variableObjects[selectedIndex];
+			property.objectReferenceValue = variableObjects[selectedIndex];
 		}
 	}
 

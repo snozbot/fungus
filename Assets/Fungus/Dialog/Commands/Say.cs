@@ -10,8 +10,10 @@ namespace Fungus.Script
 	             "Writes a line of story text to the dialog. A list of options can be specified for the player to choose from. Use a non-zero timeout to give the player a limited time to choose.")]
 	public class Say : FungusCommand 
 	{
-		public Character character;
+		[TextArea(5,10)]
 		public string storyText;
+
+		public Character character;
 		public AudioClip voiceOverClip;
 		public bool showOnce;
 		int executionCount;

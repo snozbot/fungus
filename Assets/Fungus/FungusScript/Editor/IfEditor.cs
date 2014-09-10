@@ -9,6 +9,23 @@ namespace Fungus.Script
 	[CustomEditor (typeof(If))]
 	public class IfEditor : FungusCommandEditor 
 	{
+		SerializedProperty variableProp;
+		SerializedProperty compareOperatorProp;
+		SerializedProperty booleanValueProp;
+		SerializedProperty integerValueProp;
+		SerializedProperty floatValueProp;
+		SerializedProperty stringValueProp;
+
+		void OnEnable()
+		{
+			variableProp = serializedObject.FindProperty("variable");
+			compareOperatorProp = serializedObject.FindProperty("compareOperator");
+			booleanValueProp = serializedObject.FindProperty("booleanValue");
+			integerValueProp = serializedObject.FindProperty("integerValue");
+			floatValueProp = serializedObject.FindProperty("floatValue");
+			stringValueProp = serializedObject.FindProperty("stringValue");
+		}
+
 		public override void DrawCommandGUI()
 		{
 			serializedObject.Update();
@@ -21,27 +38,25 @@ namespace Fungus.Script
 				return;
 			}
 
-			FungusVariable fungusVariable = FungusVariableEditor.VariableField(new GUIContent("Variable", "Variable to use in operation"),
-			                                                                   t.GetFungusScript(),
-			                                                                   t.variable,
-			                                                                   null);
+			FungusVariableEditor.VariableField(variableProp, 
+			                                   new GUIContent("Variable", "Variable to use in operation"),
+											   t.GetFungusScript(),
+											   null);
 
-			if (fungusVariable != t.variable)
+			if (variableProp.objectReferenceValue == null)
 			{
-				Undo.RecordObject(t, "Select Variable");
-				t.variable = fungusVariable;
-			}
-
-			if (t.variable == null)
-			{
+				serializedObject.ApplyModifiedProperties();
 				return;
 			}
+
+			FungusVariable selectedVariable = variableProp.objectReferenceValue as FungusVariable;
+			System.Type variableType = selectedVariable.GetType();
 
 			List<GUIContent> operatorList = new List<GUIContent>();
 			operatorList.Add(new GUIContent("=="));
 			operatorList.Add(new GUIContent("!="));
-			if (t.variable.GetType() == typeof(IntegerVariable) ||
-			    t.variable.GetType() == typeof(FloatVariable))
+			if (variableType == typeof(IntegerVariable) ||
+			    variableType == typeof(FloatVariable))
 			{
 				operatorList.Add(new GUIContent("<"));
 				operatorList.Add(new GUIContent(">"));
@@ -49,31 +64,25 @@ namespace Fungus.Script
 				operatorList.Add(new GUIContent(">="));
 			}
 
-			CompareOperator compareOperator = (CompareOperator)EditorGUILayout.Popup(new GUIContent("Compare", 
-			                                                                                        "The comparison operator to use when comparing values"), 
-			                                                                         (int)t.compareOperator, 
-			                                                                         operatorList.ToArray());
-			if (compareOperator != t.compareOperator)
-			{
-				Undo.RecordObject(t, "Select Compare Operator");
-				t.compareOperator = compareOperator;
-			}
+			compareOperatorProp.enumValueIndex = EditorGUILayout.Popup(new GUIContent("Compare", "The comparison operator to use when comparing values"), 
+			                                                           compareOperatorProp.enumValueIndex, 
+			                                                           operatorList.ToArray());
 
-			if (t.variable.GetType() == typeof(BooleanVariable))
+			if (variableType == typeof(BooleanVariable))
 			{
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("booleanValue"));
+				EditorGUILayout.PropertyField(booleanValueProp);
 			}
-			else if (t.variable.GetType() == typeof(IntegerVariable))
+			else if (variableType == typeof(IntegerVariable))
 			{
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("integerValue"));
+				EditorGUILayout.PropertyField(integerValueProp);
 			}
-			else if (t.variable.GetType() == typeof(FloatVariable))
+			else if (variableType == typeof(FloatVariable))
 			{
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("floatValue"));
+				EditorGUILayout.PropertyField(floatValueProp);
 			}
-			else if (t.variable.GetType() == typeof(StringVariable))
+			else if (variableType == typeof(StringVariable))
 			{
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("stringValue"));
+				EditorGUILayout.PropertyField(stringValueProp);
 			}
 
 			serializedObject.ApplyModifiedProperties();
