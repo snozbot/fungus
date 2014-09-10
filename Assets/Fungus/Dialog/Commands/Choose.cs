@@ -8,7 +8,7 @@ namespace Fungus.Script
 	[CommandInfo("Dialog", 
 	             "Choose", 
 	             "Presents a list of options for the player to choose from, with an optional timeout. Add options using preceding AddOption commands.")]
-	public class Choose : FungusCommand 
+	public class Choose : Command 
 	{
 		public class Option
 		{

@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 using System;
 using System.Collections;
@@ -41,7 +41,7 @@ namespace Fungus.Script
 
 			ReorderableListGUI.Title("Command Sequence");
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
-			FungusCommandListAdaptor adaptor = new FungusCommandListAdaptor(commandListProperty, 0);
+			CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
 			ReorderableListControl.DrawControlFromState(adaptor, null, 0);
 
 			if (Application.isPlaying)
@@ -56,7 +56,7 @@ namespace Fungus.Script
 
 			// Build list of categories
 			List<string> categories = new List<string>();
-			List<System.Type> subTypes = EditorExtensions.FindDerivedTypes(typeof(FungusCommand)).ToList();
+			List<System.Type> subTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).ToList();
 			foreach(System.Type type in subTypes)
 			{
 				object[] attributes = type.GetCustomAttributes(false);
@@ -86,7 +86,7 @@ namespace Fungus.Script
 			string categoryName = categories[selectedCategoryIndex];
 			foreach (System.Type type in subTypes)
 			{
-				CommandInfoAttribute commandInfoAttr = FungusCommandEditor.GetCommandInfo(type);
+				CommandInfoAttribute commandInfoAttr = CommandEditor.GetCommandInfo(type);
 				if (commandInfoAttr == null)
 				{
 					continue;
@@ -138,13 +138,13 @@ namespace Fungus.Script
 			{
 				if (GUILayout.Button("Paste"))
 				{
-					fungusScript.selectedCommand = FungusCommandEditor.PasteCommand(fungusScript.copyCommand, fungusScript.selectedSequence);
+					fungusScript.selectedCommand = CommandEditor.PasteCommand(fungusScript.copyCommand, fungusScript.selectedSequence);
 				}
 			}
 
 			EditorGUILayout.EndHorizontal();
 
-			CommandInfoAttribute infoAttr = FungusCommandEditor.GetCommandInfo(selectedType);
+			CommandInfoAttribute infoAttr = CommandEditor.GetCommandInfo(selectedType);
 			if (infoAttr != null)
 			{
 				GUIStyle labelStyle = new GUIStyle(EditorStyles.miniLabel);
@@ -158,7 +158,7 @@ namespace Fungus.Script
 		void UpdateIndentLevels(Sequence sequence)
 		{
 			int indentLevel = 0;
-			foreach(FungusCommand command in sequence.commandList)
+			foreach(Command command in sequence.commandList)
 			{
 				indentLevel += command.GetPreIndent();
 				command.indentLevel = Math.Max(indentLevel, 0);

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace Fungus.Script
@@ -6,7 +6,7 @@ namespace Fungus.Script
 	[CommandInfo("Audio", 
 	             "Stop Music", 
 	             "Stops the currently playing game music.")]
-	public class StopMusic : FungusCommand
+	public class StopMusic : Command
 	{
 		public override void OnEnter()
 		{

@@ -7,14 +7,14 @@ namespace Fungus.Script
 	[CommandInfo("Scripting", 
 	             "Else", 
 	             "Marks the start of a sequence block to be executed when the preceding If statement is false.")]
-	public class Else : FungusCommand
+	public class Else : Command
 	{
 		public override void OnEnter()
 		{
 			// Find the next EndIf command at the same indent level as this Else command
 			bool foundThisCommand = false;
 			int indent = indentLevel;
-			foreach(FungusCommand command in parentSequence.commandList)
+			foreach(Command command in parentSequence.commandList)
 			{
 				if (foundThisCommand &&
 				    command.indentLevel == indent)

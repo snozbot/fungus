@@ -25,9 +25,9 @@ namespace Fungus.Script
 		public FungusScript fungusScript;
 
 		[System.NonSerialized]
-		public FungusCommand activeCommand;
+		public Command activeCommand;
 
-		public List<FungusCommand> commandList = new List<FungusCommand>();
+		public List<Command> commandList = new List<Command>();
 
 		int executionCount;
 
@@ -54,7 +54,7 @@ namespace Fungus.Script
 
 		public bool HasError()
 		{
-			foreach (FungusCommand command in commandList)
+			foreach (Command command in commandList)
 			{
 				if (command.errorMessage.Length > 0)
 				{
@@ -81,7 +81,7 @@ namespace Fungus.Script
 			return executionCount;
 		}
 
-		public void ExecuteNextCommand(FungusCommand currentCommand = null)
+		public void ExecuteNextCommand(Command currentCommand = null)
 		{
 			if (currentCommand == null)
 			{
@@ -89,10 +89,10 @@ namespace Fungus.Script
 			}
 
 			activeCommand = null;
-			FungusCommand nextCommand = null;
+			Command nextCommand = null;
 
 			bool executeNext = (currentCommand == null);
-			foreach (FungusCommand command in commandList)
+			foreach (Command command in commandList)
 			{
 				if (command == currentCommand)
 				{
@@ -127,7 +127,7 @@ namespace Fungus.Script
 
 		}
 
-		IEnumerator ExecuteAfterDelay(FungusCommand command, float delay)
+		IEnumerator ExecuteAfterDelay(Command command, float delay)
 		{
 			activeCommand = command;
 			yield return new WaitForSeconds(delay);
@@ -145,7 +145,7 @@ namespace Fungus.Script
 		public List<Sequence> GetConnectedSequences()
 		{
 			List<Sequence> connectedSequences = new List<Sequence>();
-			foreach (FungusCommand command in commandList)
+			foreach (Command command in commandList)
 			{
 				command.GetConnectedSequences(ref connectedSequences);
 			}

@@ -145,7 +145,7 @@ namespace Fungus.Script
 				if (fungusScript.selectedSequence != null &&
 				    fungusScript.selectedCommand != null)
 				{
-					foreach (FungusCommand command in fungusScript.selectedSequence.commandList)
+					foreach (Command command in fungusScript.selectedSequence.commandList)
 					{
 						if (fungusScript.selectedCommand == command &&
 						    command.HasReference(variable))

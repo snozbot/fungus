@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace Fungus.Script
@@ -6,7 +6,7 @@ namespace Fungus.Script
 	[CommandInfo("Audio", 
 	             "Play Sound",
 	             "Plays a sound effect. Multiple sound effects can play at the same time.")]
-	public class PlaySound : FungusCommand
+	public class PlaySound : Command
 	{
 		public AudioClip soundClip;
 

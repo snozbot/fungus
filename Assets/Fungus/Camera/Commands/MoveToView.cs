@@ -7,7 +7,7 @@ namespace Fungus.Script
 	[CommandInfo("Camera", 
 	             "Move To View", 
 	             "Moves the camera to a location specified by a View object.")]
-	public class MoveToView : FungusCommand 
+	public class MoveToView : Command 
 	{
 		public float duration = 1;
 		public Fungus.View targetView;

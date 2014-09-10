@@ -7,7 +7,7 @@ namespace Fungus.Script
 	[CommandInfo("Animation", 
 	             "Set Anim Integer", 
 	             "Sets an integer parameter on an animator to control an animation")]
-	public class SetAnimInteger : FungusCommand 
+	public class SetAnimInteger : Command 
 	{
 		public Animator animator;
 		public string parameterName;

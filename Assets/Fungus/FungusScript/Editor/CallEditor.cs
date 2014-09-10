@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 	[CustomEditor (typeof(Call))]
-	public class CallEditor : FungusCommandEditor 
+	public class CallEditor : CommandEditor 
 	{
 		SerializedProperty targetSequenceProp;
 

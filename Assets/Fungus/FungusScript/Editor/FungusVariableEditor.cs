@@ -9,7 +9,7 @@ using System.Linq;
 namespace Fungus.Script
 {
 	[CustomEditor (typeof(FungusVariable), true)]
-	public class FungusVariableEditor : FungusCommandEditor
+	public class FungusVariableEditor : CommandEditor
 	{
 		void OnEnable()
 		{
@@ -85,7 +85,7 @@ namespace Fungus.Script
 			FungusScript fungusScript = property.serializedObject.targetObject as FungusScript;
 			if (fungusScript == null)
 			{
-				FungusCommand command = property.serializedObject.targetObject as FungusCommand;
+				Command command = property.serializedObject.targetObject as Command;
 				if (command != null)
 				{
 					fungusScript = command.GetFungusScript();
@@ -158,7 +158,7 @@ namespace Fungus.Script
 			FungusScript fungusScript = property.serializedObject.targetObject as FungusScript;
 			if (fungusScript == null)
 			{
-				FungusCommand command = property.serializedObject.targetObject as FungusCommand;
+				Command command = property.serializedObject.targetObject as Command;
 				if (command != null)
 				{
 					fungusScript = command.GetFungusScript();
@@ -231,7 +231,7 @@ namespace Fungus.Script
 			FungusScript fungusScript = property.serializedObject.targetObject as FungusScript;
 			if (fungusScript == null)
 			{
-				FungusCommand command = property.serializedObject.targetObject as FungusCommand;
+				Command command = property.serializedObject.targetObject as Command;
 				if (command != null)
 				{
 					fungusScript = command.GetFungusScript();
@@ -304,7 +304,7 @@ namespace Fungus.Script
 			FungusScript fungusScript = property.serializedObject.targetObject as FungusScript;
 			if (fungusScript == null)
 			{
-				FungusCommand command = property.serializedObject.targetObject as FungusCommand;
+				Command command = property.serializedObject.targetObject as Command;
 				if (command != null)
 				{
 					fungusScript = command.GetFungusScript();

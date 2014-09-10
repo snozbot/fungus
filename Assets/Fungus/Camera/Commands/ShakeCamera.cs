@@ -7,7 +7,7 @@ namespace Fungus.Script
 	[CommandInfo("Camera", 
 	             "Shake Camera", 
 	             "Applies a camera shake effect to the main camera.")]
-	public class ShakeCamera : FungusCommand 
+	public class ShakeCamera : Command 
 	{
 		public float duration = 0.5f;
 		public Vector2 amount = new Vector2(1, 1);

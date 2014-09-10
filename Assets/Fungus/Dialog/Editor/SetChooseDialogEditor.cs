@@ -9,7 +9,7 @@ namespace Fungus.Script
 {
 
 	[CustomEditor (typeof(SetChooseDialog))]
-	public class SetChooseDialogEditor : FungusCommandEditor
+	public class SetChooseDialogEditor : CommandEditor
 	{
 		SerializedProperty chooseDialogProp;
 
@@ -22,7 +22,7 @@ namespace Fungus.Script
 		{
 			serializedObject.Update();
 
-			FungusCommandEditor.ObjectField<ChooseDialog>(chooseDialogProp,
+			CommandEditor.ObjectField<ChooseDialog>(chooseDialogProp,
 			                                              new GUIContent("Choose Dialog", "Dialog to use when displaying options with the Choose command."), 
 			                                              new GUIContent("<None>"),
 			                                              ChooseDialog.activeDialogs);

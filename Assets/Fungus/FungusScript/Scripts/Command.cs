@@ -24,7 +24,7 @@ namespace Fungus.Script
 	}
 	
 	[RequireComponent(typeof(Sequence))]
-	public class FungusCommand : MonoBehaviour 
+	public class Command : MonoBehaviour 
 	{
 		[HideInInspector]
 		public string errorMessage = "";
@@ -81,7 +81,7 @@ namespace Fungus.Script
 			Continue(this);
 		}
 
-		public virtual void Continue(FungusCommand currentCommand)
+		public virtual void Continue(Command currentCommand)
 		{
 			OnExit();
 			parentSequence.ExecuteNextCommand(currentCommand);

@@ -7,7 +7,7 @@ namespace Fungus.Script
 	[CommandInfo("Camera", 
 	             "Fade To View", 
 	             "Fades the camera out and in again at a location specified by a View object.")]
-	public class FadeToView : FungusCommand 
+	public class FadeToView : Command 
 	{
 		public float duration = 1f;
 		public Fungus.View targetView;

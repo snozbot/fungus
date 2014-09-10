@@ -6,7 +6,7 @@ namespace Fungus.Script
 	[CommandInfo("Scripting", 
 	             "Set Variable", 
 	             "Sets a variable to a new value using simple arithmetic operations. The value can be a constant or another variable.")]
-	public class SetVariable : FungusCommand 
+	public class SetVariable : Command 
 	{
 		public enum SetOperator
 		{

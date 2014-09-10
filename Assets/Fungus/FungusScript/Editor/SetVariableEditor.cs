@@ -7,7 +7,7 @@ namespace Fungus.Script
 {
 
 	[CustomEditor (typeof(SetVariable))]
-	public class SetVariableEditor : FungusCommandEditor 
+	public class SetVariableEditor : CommandEditor 
 	{
 		SerializedProperty variableProp;
 		SerializedProperty setOperatorProp;

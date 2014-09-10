@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 
@@ -7,7 +7,7 @@ namespace Fungus.Script
 	[CommandInfo("Scripting", 
 	             "Load Globals", 
 	             "Loads a set of global variables previously saved using the SaveGlobals command.")]
-	public class LoadGlobals : FungusCommand
+	public class LoadGlobals : Command
 	{
 		public string saveName = "";
 

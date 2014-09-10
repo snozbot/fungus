@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2012-2013 Rotorz Limited. All rights reserved.
+// Copyright (c) 2012-2013 Rotorz Limited. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -9,7 +9,7 @@ using Rotorz.ReorderableList;
 
 namespace Fungus.Script
 {
-	public class FungusCommandListAdaptor : IReorderableListAdaptor {
+	public class CommandListAdaptor : IReorderableListAdaptor {
 		
 		private SerializedProperty _arrayProperty;
 
@@ -23,7 +23,7 @@ namespace Fungus.Script
 			get { return _arrayProperty; }
 		}
 		
-		public FungusCommandListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight) {
+		public CommandListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight) {
 			if (arrayProperty == null)
 				throw new ArgumentNullException("Array property was null.");
 			if (!arrayProperty.isArray)
@@ -33,7 +33,7 @@ namespace Fungus.Script
 			this.fixedItemHeight = fixedItemHeight;
 		}
 		
-		public FungusCommandListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f) {
+		public CommandListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f) {
 		}
 				
 		public int Count {
@@ -49,7 +49,7 @@ namespace Fungus.Script
 		}
 		
 		public void Add() {
-			FungusCommand newCommand = AddNewCommand();
+			Command newCommand = AddNewCommand();
 			if (newCommand == null)
 			{
 				return;
@@ -61,7 +61,7 @@ namespace Fungus.Script
 		}
 
 		public void Insert(int index) {
-			FungusCommand newCommand = AddNewCommand();
+			Command newCommand = AddNewCommand();
 			if (newCommand == null)
 			{
 				return;
@@ -71,7 +71,7 @@ namespace Fungus.Script
 			_arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = newCommand;
 		}
 
-		FungusCommand AddNewCommand()
+		Command AddNewCommand()
 		{
 			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
 			if (fungusScript == null ||
@@ -86,16 +86,16 @@ namespace Fungus.Script
 				return null;
 			}
 			
-			return sequence.gameObject.AddComponent(fungusScript.selectedAddCommandType) as FungusCommand;
+			return sequence.gameObject.AddComponent(fungusScript.selectedAddCommandType) as Command;
 		}
 
 		public void Duplicate(int index) {
 
-			FungusCommand command = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as FungusCommand;
+			Command command = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as Command;
 
 			// Add the command as a new component
 			Sequence parentSequence = command.GetComponent<Sequence>();
-			FungusCommand newCommand = FungusCommandEditor.PasteCommand(command, parentSequence);
+			Command newCommand = CommandEditor.PasteCommand(command, parentSequence);
 
 			_arrayProperty.InsertArrayElementAtIndex(index);
 			_arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = newCommand;
@@ -103,7 +103,7 @@ namespace Fungus.Script
 
 		public void Remove(int index) {
 			// Remove the Fungus Command component
-			FungusCommand command = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as FungusCommand;
+			Command command = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as Command;
 			Undo.DestroyObjectImmediate(command);
 
 			_arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = null;
@@ -125,9 +125,9 @@ namespace Fungus.Script
 		
 		public void DrawItem(Rect position, int index) 
 		{
-			FungusCommand command = this[index].objectReferenceValue as FungusCommand;
+			Command command = this[index].objectReferenceValue as Command;
 
-			CommandInfoAttribute commandInfoAttr = FungusCommandEditor.GetCommandInfo(command.GetType());
+			CommandInfoAttribute commandInfoAttr = CommandEditor.GetCommandInfo(command.GetType());
 			if (commandInfoAttr == null)
 			{
 				return;

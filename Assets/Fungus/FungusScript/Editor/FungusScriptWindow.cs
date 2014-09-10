@@ -320,8 +320,8 @@ namespace Fungus.Script
 
 			bool sequenceIsSelected = (fungusScript.selectedSequence == sequence);
 
-			FungusCommand[] commands = sequence.GetComponentsInChildren<FungusCommand>();
-			foreach (FungusCommand command in commands)
+			Command[] commands = sequence.GetComponentsInChildren<Command>();
+			foreach (Command command in commands)
 			{
 				bool commandIsSelected = (fungusScript.selectedCommand == command);
 

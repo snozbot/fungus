@@ -7,7 +7,7 @@ namespace Fungus.Script
 {
 
 	[CustomEditor (typeof(If))]
-	public class IfEditor : FungusCommandEditor 
+	public class IfEditor : CommandEditor 
 	{
 		SerializedProperty variableProp;
 		SerializedProperty compareOperatorProp;

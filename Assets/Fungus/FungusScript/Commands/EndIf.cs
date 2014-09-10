@@ -7,7 +7,7 @@ namespace Fungus.Script
 	[CommandInfo("Scripting", 
 	             "End If", 
 	             "Marks the end of an If statement block.")]
-	public class EndIf : FungusCommand
+	public class EndIf : Command
 	{
 		public override void OnEnter()
 		{

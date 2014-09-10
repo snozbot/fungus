@@ -9,7 +9,7 @@ namespace Fungus.Script
 {
 
 	[CustomEditor (typeof(AddOption))]
-	public class AddOptionEditor : FungusCommandEditor
+	public class AddOptionEditor : CommandEditor
 	{
 		SerializedProperty optionTextProp;
 		SerializedProperty hideOnSelectedProp;

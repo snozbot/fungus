@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace Fungus.Script
@@ -6,7 +6,7 @@ namespace Fungus.Script
 	[CommandInfo("Audio",
 	             "Play Music",
 	             "Plays game music. If any game music is already playing, it is stopped. Music continues playing across scene loads.")]
-	public class PlayMusic : FungusCommand
+	public class PlayMusic : Command
 	{
 		public AudioClip musicClip;
 

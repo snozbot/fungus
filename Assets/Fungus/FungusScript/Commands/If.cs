@@ -17,7 +17,7 @@ namespace Fungus.Script
 	[CommandInfo("Scripting", 
 	             "If", 
 	             "If the test expression is true, execute the following block of commands.")]
-	public class If : FungusCommand
+	public class If : Command
 	{
 		public FungusVariable variable;
 
@@ -137,7 +137,7 @@ namespace Fungus.Script
 				// Find the next Else or EndIf command at the same indent level as this If command
 				bool foundThisCommand = false;
 				int indent = indentLevel;
-				foreach(FungusCommand command in parentSequence.commandList)
+				foreach(Command command in parentSequence.commandList)
 				{
 					if (foundThisCommand &&
 					    command.indentLevel == indent)

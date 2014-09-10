@@ -7,7 +7,7 @@ namespace Fungus.Script
 	[CommandInfo("Animation", 
 	             "Set Anim Bool", 
 	             "Sets a boolean parameter on an animator to control an animation")]
-	public class SetAnimBool : FungusCommand 
+	public class SetAnimBool : Command 
 	{
 		public Animator animator;
 		public string parameterName;

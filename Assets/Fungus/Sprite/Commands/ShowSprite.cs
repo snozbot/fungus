@@ -7,7 +7,7 @@ namespace Fungus.Script
 	[CommandInfo("Sprite", 
 	             "Show Sprite", 
 	             "Makes a sprite visible / invisible by setting the color alpha.")]
-	public class ShowSprite : FungusCommand 
+	public class ShowSprite : Command 
 	{
 		public SpriteRenderer spriteRenderer;
 		public bool visible = true;

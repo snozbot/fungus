@@ -9,7 +9,7 @@ namespace Fungus.Script
 {
 
 	[CustomEditor (typeof(SetSayDialog))]
-	public class SetSayDialogEditor : FungusCommandEditor
+	public class SetSayDialogEditor : CommandEditor
 	{
 		SerializedProperty sayDialogProp;
 		
@@ -22,7 +22,7 @@ namespace Fungus.Script
 		{
 			serializedObject.Update();
 
-			FungusCommandEditor.ObjectField<SayDialog>(sayDialogProp,
+			CommandEditor.ObjectField<SayDialog>(sayDialogProp,
 			                                           new GUIContent("Say Dialog", "Dialog to use when displaying Say command story text"), 
 			                                           new GUIContent("<None>"),
 			                                           SayDialog.activeDialogs);

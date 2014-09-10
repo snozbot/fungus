@@ -7,14 +7,14 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
-	[CustomEditor (typeof(FungusCommand), true)]
-	public class FungusCommandEditor : Editor 
+	[CustomEditor (typeof(Command), true)]
+	public class CommandEditor : Editor 
 	{
-		public static FungusCommand selectedCommand;
+		public static Command selectedCommand;
 
 		void OnEnable()
 		{
-			FungusCommand t = target as FungusCommand;
+			Command t = target as Command;
 			if (t != null)
 			{
 				t.hideFlags = HideFlags.HideInInspector;
@@ -38,7 +38,7 @@ namespace Fungus.Script
 
 		public virtual void DrawCommandInspectorGUI()
 		{
-			FungusCommand t = target as FungusCommand;
+			Command t = target as Command;
 			if (t == null)
 			{
 				return;
@@ -46,7 +46,7 @@ namespace Fungus.Script
 
 			FungusScript fungusScript = t.GetFungusScript();
 
-			CommandInfoAttribute commandInfoAttr = FungusCommandEditor.GetCommandInfo(t.GetType());
+			CommandInfoAttribute commandInfoAttr = CommandEditor.GetCommandInfo(t.GetType());
 			if (commandInfoAttr == null)
 			{
 				return;
@@ -123,7 +123,7 @@ namespace Fungus.Script
 			DrawDefaultInspector();
 		}
 
-		static public FungusCommand PasteCommand(FungusCommand copyCommand, Sequence sequence)
+		static public Command PasteCommand(Command copyCommand, Sequence sequence)
 		{
 			System.Type type = copyCommand.GetType();
 			Component copy = Undo.AddComponent(sequence.gameObject, type);
@@ -137,7 +137,7 @@ namespace Fungus.Script
 
 			Undo.RecordObject(fungusScript, "Paste Command");
 
-			FungusCommand newCommand = copy as FungusCommand;
+			Command newCommand = copy as Command;
 			sequence.commandList.Add(newCommand);
 
 			return newCommand;

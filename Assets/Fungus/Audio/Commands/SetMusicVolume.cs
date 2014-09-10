@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace Fungus.Script
@@ -6,7 +6,7 @@ namespace Fungus.Script
 	[CommandInfo("Audio",
 	             "Set Music Volume",
 	             "Sets the game music volume level.")]
-	public class SetMusicVolume : FungusCommand
+	public class SetMusicVolume : Command
 	{
 		[Range(0,1)]
 		public float volume = 1;

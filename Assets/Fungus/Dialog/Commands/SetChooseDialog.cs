@@ -8,7 +8,7 @@ namespace Fungus.Script
 	[CommandInfo("Dialog", 
 	             "Set Choose Dialog", 
 	             "Sets the active dialog to use for displaying story text with the Choose command.")]
-	public class SetChooseDialog : FungusCommand 
+	public class SetChooseDialog : Command 
 	{
 		public ChooseDialog chooseDialog;	
 		static public ChooseDialog activeDialog;

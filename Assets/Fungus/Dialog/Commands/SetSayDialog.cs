@@ -8,7 +8,7 @@ namespace Fungus.Script
 	[CommandInfo("Dialog", 
 	             "Set Say Dialog", 
 	             "Sets the active dialog to use for displaying story text with the Say command.")]
-	public class SetSayDialog : FungusCommand 
+	public class SetSayDialog : Command 
 	{
 		public SayDialog sayDialog;	
 		static public SayDialog activeDialog;

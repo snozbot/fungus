@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Linq;
 using System.Collections;
@@ -13,7 +13,7 @@ namespace Fungus.Script
 		public Sequence executingSequence;
 
 		[System.NonSerialized]
-		public FungusCommand copyCommand;
+		public Command copyCommand;
 
 		[HideInInspector]
 		public int selectedAddCommandIndex;
@@ -39,7 +39,7 @@ namespace Fungus.Script
 
 		public Sequence selectedSequence;
 
-		public FungusCommand selectedCommand;
+		public Command selectedCommand;
 
 		public bool startAutomatically = true;
 

@@ -81,7 +81,7 @@ namespace Fungus.Script
 
 			if (t.selectedCommand != null)
 			{
-				FungusCommandEditor commandEditor = Editor.CreateEditor(t.selectedCommand) as FungusCommandEditor;
+				CommandEditor commandEditor = Editor.CreateEditor(t.selectedCommand) as CommandEditor;
 				commandEditor.DrawCommandInspectorGUI();
 			}
 

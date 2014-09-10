@@ -10,7 +10,7 @@ namespace Fungus.Script
 	             "for splitting a large game across multiple scene files to reduce peak memory " +
 	             "usage. All previously loaded assets (including textures and audio) will be released." +
 	             "The scene to be loaded must be added to the scene list in Build Settings.")]
-	public class LoadScene : FungusCommand 
+	public class LoadScene : Command 
 	{
 		public string sceneName = "";
 

@@ -9,7 +9,7 @@ namespace Fungus.Script
 {
 
 	[CustomEditor (typeof(Choose))]
-	public class ChooseEditor : FungusCommandEditor
+	public class ChooseEditor : CommandEditor
 	{
 		static public bool showTagHelp;
 
@@ -45,7 +45,7 @@ namespace Fungus.Script
 
 			EditorGUILayout.PropertyField(chooseTextProp);
 
-			FungusCommandEditor.ObjectField<Character>(characterProp,
+			CommandEditor.ObjectField<Character>(characterProp,
 			                                           new GUIContent("Character", "Character to display in dialog"), 
 			                                           new GUIContent("<None>"),
 			                                           Character.activeCharacters);
