@@ -223,8 +223,24 @@ namespace Fungus.Script
 						}
 
 						// Add a wait glyph on punctuation marks
-						if (punctuationPause > 0 &&
-						    IsPunctuation(glyph.param))
+						bool doPause = punctuationPause > 0 && IsPunctuation(glyph.param);
+						if (i == glyphs.Count - 1)
+						{
+							doPause = false; // No pause on last character
+						}
+						else 
+						{
+							// No pause if next glyph is a pause
+							GlyphType nextType = glyphs[i + 1].type;
+							if (nextType == GlyphType.Wait ||
+							    nextType == GlyphType.WaitForInputAndClear ||
+							    nextType == GlyphType.WaitForInputNoClear)
+							{
+								doPause = false;
+							}
+						}
+
+						if (doPause)
 						{
 							// Ignore if next glyph is also punctuation, or if punctuation is the last character.
 							bool skipCharacter = (i < glyphs.Count - 1 &&
