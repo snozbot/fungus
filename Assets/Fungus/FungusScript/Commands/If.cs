@@ -19,7 +19,7 @@ namespace Fungus.Script
 	             "If the test expression is true, execute the following block of commands.")]
 	public class If : Command
 	{
-		public FungusVariable variable;
+		public Variable variable;
 
 		public CompareOperator compareOperator;
 
@@ -212,7 +212,7 @@ namespace Fungus.Script
 			return summary;
 		}
 
-		public override bool HasReference(FungusVariable variable)
+		public override bool HasReference(Variable variable)
 		{
 			return (variable == this.variable);
 		}

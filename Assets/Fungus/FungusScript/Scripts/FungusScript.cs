@@ -45,7 +45,7 @@ namespace Fungus.Script
 
 		public bool colorCommands = true;
 
-		public List<FungusVariable> variables = new List<FungusVariable>();
+		public List<Variable> variables = new List<Variable>();
 
 		void Start()
 		{
@@ -88,7 +88,7 @@ namespace Fungus.Script
 			sequence.ExecuteNextCommand();
 		}
 
-		public string GetUniqueVariableKey(string originalKey, FungusVariable ignoreVariable = null)
+		public string GetUniqueVariableKey(string originalKey, Variable ignoreVariable = null)
 		{
 			int suffix = 0;
 			string baseKey = originalKey;
@@ -110,7 +110,7 @@ namespace Fungus.Script
 			while (true)
 			{
 				bool collision = false;
-				foreach(FungusVariable variable in GetComponents<FungusVariable>())
+				foreach(Variable variable in GetComponents<Variable>())
 				{
 					if (variable == ignoreVariable ||
 					    variable.key == null)

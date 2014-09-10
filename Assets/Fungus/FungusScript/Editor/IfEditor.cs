@@ -38,7 +38,7 @@ namespace Fungus.Script
 				return;
 			}
 
-			FungusVariableEditor.VariableField(variableProp, 
+			VariableEditor.VariableField(variableProp, 
 			                                   new GUIContent("Variable", "Variable to use in operation"),
 											   t.GetFungusScript(),
 											   null);
@@ -49,7 +49,7 @@ namespace Fungus.Script
 				return;
 			}
 
-			FungusVariable selectedVariable = variableProp.objectReferenceValue as FungusVariable;
+			Variable selectedVariable = variableProp.objectReferenceValue as Variable;
 			System.Type variableType = selectedVariable.GetType();
 
 			List<GUIContent> operatorList = new List<GUIContent>();

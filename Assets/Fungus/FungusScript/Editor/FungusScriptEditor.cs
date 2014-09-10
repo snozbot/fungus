@@ -98,7 +98,7 @@ namespace Fungus.Script
 			
 			ReorderableListGUI.Title("Variables");
 
-			FungusVariableListAdaptor adaptor = new FungusVariableListAdaptor(variablesProp, 0);
+			VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0);
 			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton);
 			
 			GUILayout.BeginHorizontal();
@@ -118,7 +118,7 @@ namespace Fungus.Script
 			GUILayout.EndHorizontal();
 		}
 		
-		void AddVariable<T>(object obj) where T : FungusVariable
+		void AddVariable<T>(object obj) where T : Variable
 		{
 			FungusScript fungusScript = obj as FungusScript;
 			if (fungusScript == null)

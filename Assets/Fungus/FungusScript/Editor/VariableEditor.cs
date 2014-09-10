@@ -8,30 +8,30 @@ using System.Linq;
 
 namespace Fungus.Script
 {
-	[CustomEditor (typeof(FungusVariable), true)]
-	public class FungusVariableEditor : CommandEditor
+	[CustomEditor (typeof(Variable), true)]
+	public class VariableEditor : CommandEditor
 	{
 		void OnEnable()
 		{
-			FungusVariable t = target as FungusVariable;
+			Variable t = target as Variable;
 			t.hideFlags = HideFlags.HideInInspector;
 		}
 
-		static public void VariableField(SerializedProperty property, GUIContent label, FungusScript fungusScript, Func<FungusVariable, bool> filter = null)
+		static public void VariableField(SerializedProperty property, GUIContent label, FungusScript fungusScript, Func<Variable, bool> filter = null)
 		{
 			List<string> variableKeys = new List<string>();
-			List<FungusVariable> variableObjects = new List<FungusVariable>();
+			List<Variable> variableObjects = new List<Variable>();
 			
 			variableKeys.Add("<None>");
 			variableObjects.Add(null);
 			
-			List<FungusVariable> variables = fungusScript.variables;
+			List<Variable> variables = fungusScript.variables;
 			int index = 0;
 			int selectedIndex = 0;
 
-			FungusVariable selectedVariable = property.objectReferenceValue as FungusVariable;
+			Variable selectedVariable = property.objectReferenceValue as Variable;
 
-			foreach (FungusVariable v in variables)
+			foreach (Variable v in variables)
 			{
 				if (filter != null)
 				{
@@ -97,15 +97,15 @@ namespace Fungus.Script
 				BooleanVariable selectedBooleanVariable = referenceProp.objectReferenceValue as BooleanVariable;
 
 				List<string> variableKeys = new List<string>();
-				List<FungusVariable> variableObjects = new List<FungusVariable>();
+				List<Variable> variableObjects = new List<Variable>();
 				
 				variableKeys.Add("<Value>");
 				variableObjects.Add(null);
 				
-				FungusVariable[] variables = fungusScript.GetComponents<FungusVariable>();
+				Variable[] variables = fungusScript.GetComponents<Variable>();
 				int index = 0;
 				int selectedIndex = 0;
-				foreach (FungusVariable v in variables)
+				foreach (Variable v in variables)
 				{
 					if (v.GetType() != typeof(BooleanVariable))
 					{
@@ -170,15 +170,15 @@ namespace Fungus.Script
 				IntegerVariable selectedVariable = referenceProp.objectReferenceValue as IntegerVariable;
 				
 				List<string> variableKeys = new List<string>();
-				List<FungusVariable> variableObjects = new List<FungusVariable>();
+				List<Variable> variableObjects = new List<Variable>();
 				
 				variableKeys.Add("<Value>");
 				variableObjects.Add(null);
 				
-				FungusVariable[] variables = fungusScript.GetComponents<FungusVariable>();
+				Variable[] variables = fungusScript.GetComponents<Variable>();
 				int index = 0;
 				int selectedIndex = 0;
-				foreach (FungusVariable v in variables)
+				foreach (Variable v in variables)
 				{
 					if (v.GetType() != typeof(IntegerVariable))
 					{
@@ -243,15 +243,15 @@ namespace Fungus.Script
 				FloatVariable selectedVariable = referenceProp.objectReferenceValue as FloatVariable;
 				
 				List<string> variableKeys = new List<string>();
-				List<FungusVariable> variableObjects = new List<FungusVariable>();
+				List<Variable> variableObjects = new List<Variable>();
 				
 				variableKeys.Add("<Value>");
 				variableObjects.Add(null);
 				
-				FungusVariable[] variables = fungusScript.GetComponents<FungusVariable>();
+				Variable[] variables = fungusScript.GetComponents<Variable>();
 				int index = 0;
 				int selectedIndex = 0;
-				foreach (FungusVariable v in variables)
+				foreach (Variable v in variables)
 				{
 					if (v.GetType() != typeof(FloatVariable))
 					{
@@ -316,15 +316,15 @@ namespace Fungus.Script
 				StringVariable selectedVariable = referenceProp.objectReferenceValue as StringVariable;
 				
 				List<string> variableKeys = new List<string>();
-				List<FungusVariable> variableObjects = new List<FungusVariable>();
+				List<Variable> variableObjects = new List<Variable>();
 				
 				variableKeys.Add("<Value>");
 				variableObjects.Add(null);
 				
-				FungusVariable[] variables = fungusScript.GetComponents<FungusVariable>();
+				Variable[] variables = fungusScript.GetComponents<Variable>();
 				int index = 0;
 				int selectedIndex = 0;
-				foreach (FungusVariable v in variables)
+				foreach (Variable v in variables)
 				{
 					if (v.GetType() != typeof(StringVariable))
 					{

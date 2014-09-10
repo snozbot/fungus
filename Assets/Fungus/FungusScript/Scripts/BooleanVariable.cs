@@ -5,7 +5,7 @@ using System.Collections;
 namespace Fungus.Script
 {
 
-	public class BooleanVariable : FungusVariable 
+	public class BooleanVariable : Variable 
 	{
 		bool booleanValue;
 

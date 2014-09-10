@@ -18,7 +18,7 @@ namespace Fungus.Script
 			Divide		// /=
 		}
 
-		public FungusVariable variable;
+		public Variable variable;
 
 		public SetOperator setOperator;
 
@@ -173,7 +173,7 @@ namespace Fungus.Script
 			return description;
 		}
 
-		public override bool HasReference(FungusVariable variable)
+		public override bool HasReference(Variable variable)
 		{
 			return (variable == this.variable);
 		}

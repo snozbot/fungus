@@ -4,7 +4,7 @@ using System.Collections;
 namespace Fungus.Script
 {
 
-	public class FloatVariable : FungusVariable 
+	public class FloatVariable : Variable 
 	{
 		float floatValue;
 
