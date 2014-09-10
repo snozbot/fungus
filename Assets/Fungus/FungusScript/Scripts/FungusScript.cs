@@ -110,7 +110,7 @@ namespace Fungus
 			while (true)
 			{
 				bool collision = false;
-				foreach(Variable variable in GetComponents<Variable>())
+				foreach(Variable variable in variables)
 				{
 					if (variable == ignoreVariable ||
 					    variable.key == null)

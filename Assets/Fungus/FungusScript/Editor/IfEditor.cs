@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Fungus
 {
@@ -39,9 +40,9 @@ namespace Fungus
 			}
 
 			VariableEditor.VariableField(variableProp, 
-			                                   new GUIContent("Variable", "Variable to use in operation"),
-											   t.GetFungusScript(),
-											   null);
+			                             new GUIContent("Variable", "Variable to use in operation"),
+										 t.GetFungusScript(),
+										 null);
 
 			if (variableProp.objectReferenceValue == null)
 			{
@@ -49,7 +50,7 @@ namespace Fungus
 				return;
 			}
 
-			Variable selectedVariable = variableProp.objectReferenceValue as Variable;
+			Variable selectedVariable = (Variable)variableProp.objectReferenceValue;
 			System.Type variableType = selectedVariable.GetType();
 
 			List<GUIContent> operatorList = new List<GUIContent>();

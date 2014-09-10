@@ -102,10 +102,9 @@ namespace Fungus
 				variableKeys.Add("<Value>");
 				variableObjects.Add(null);
 				
-				Variable[] variables = fungusScript.GetComponents<Variable>();
 				int index = 0;
 				int selectedIndex = 0;
-				foreach (Variable v in variables)
+				foreach (Variable v in fungusScript.variables)
 				{
 					if (v.GetType() != typeof(BooleanVariable))
 					{
@@ -175,10 +174,9 @@ namespace Fungus
 				variableKeys.Add("<Value>");
 				variableObjects.Add(null);
 				
-				Variable[] variables = fungusScript.GetComponents<Variable>();
 				int index = 0;
 				int selectedIndex = 0;
-				foreach (Variable v in variables)
+				foreach (Variable v in fungusScript.variables)
 				{
 					if (v.GetType() != typeof(IntegerVariable))
 					{
@@ -248,10 +246,9 @@ namespace Fungus
 				variableKeys.Add("<Value>");
 				variableObjects.Add(null);
 				
-				Variable[] variables = fungusScript.GetComponents<Variable>();
 				int index = 0;
 				int selectedIndex = 0;
-				foreach (Variable v in variables)
+				foreach (Variable v in fungusScript.variables)
 				{
 					if (v.GetType() != typeof(FloatVariable))
 					{
@@ -321,10 +318,9 @@ namespace Fungus
 				variableKeys.Add("<Value>");
 				variableObjects.Add(null);
 				
-				Variable[] variables = fungusScript.GetComponents<Variable>();
 				int index = 0;
 				int selectedIndex = 0;
-				foreach (Variable v in variables)
+				foreach (Variable v in fungusScript.variables)
 				{
 					if (v.GetType() != typeof(StringVariable))
 					{
