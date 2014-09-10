@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Fungus.Script
+namespace Fungus
 {
 	[CommandInfo("Audio",
 	             "Set Music Volume",

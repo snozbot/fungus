@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Rotorz.ReorderableList;
 using System.Linq;
 
-namespace Fungus.Script
+namespace Fungus
 {
 	[CustomEditor (typeof(FungusScript))]
 	public class FungusScriptEditor : Editor 

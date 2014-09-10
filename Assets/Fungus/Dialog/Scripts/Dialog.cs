@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Fungus.Script
+namespace Fungus
 {
 	
 	public class Dialog : MonoBehaviour 

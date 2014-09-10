@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Fungus.Script
+namespace Fungus
 {
 	[CustomEditor (typeof(Variable), true)]
 	public class VariableEditor : CommandEditor

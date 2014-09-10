@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-namespace Fungus.Script
+namespace Fungus
 {
 
 	public class BooleanVariable : Variable 

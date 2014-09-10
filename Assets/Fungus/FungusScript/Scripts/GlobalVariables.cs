@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-namespace Fungus.Script
+namespace Fungus
 {
 	/**
 	 * Static data storage class for managing global game variables.

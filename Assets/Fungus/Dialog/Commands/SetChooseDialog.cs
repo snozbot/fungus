@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Fungus.Script
+namespace Fungus
 {
 	[CommandInfo("Dialog", 
 	             "Set Choose Dialog", 

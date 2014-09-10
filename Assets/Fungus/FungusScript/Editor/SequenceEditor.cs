@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Rotorz.ReorderableList;
 
-namespace Fungus.Script
+namespace Fungus
 {
 
 	[CustomEditor (typeof(Sequence))]

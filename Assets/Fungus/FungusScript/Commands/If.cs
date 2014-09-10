@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Fungus.Script
+namespace Fungus
 {
 	public enum CompareOperator
 	{

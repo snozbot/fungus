@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Fungus.Script
+namespace Fungus
 {
 
 	public class FloatVariable : Variable 

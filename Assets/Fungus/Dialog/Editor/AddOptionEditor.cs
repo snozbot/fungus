@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Rotorz.ReorderableList;
 
-namespace Fungus.Script
+namespace Fungus
 {
 
 	[CustomEditor (typeof(AddOption))]

@@ -7,7 +7,7 @@ using UnityEditor;
 using System;
 using Rotorz.ReorderableList;
 
-namespace Fungus.Script
+namespace Fungus
 {
 	public class CommandListAdaptor : IReorderableListAdaptor {
 		

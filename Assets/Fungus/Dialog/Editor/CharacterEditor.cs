@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections;
 
-namespace Fungus.Script
+namespace Fungus
 {
 
 	[CustomEditor (typeof(Character))]
