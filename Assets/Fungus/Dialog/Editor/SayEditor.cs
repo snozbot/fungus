@@ -30,11 +30,22 @@ namespace Fungus.Script
 			EditorGUILayout.SelectableLabel(tagsText, EditorStyles.miniLabel, GUILayout.MinHeight(pixelHeight));
 		}
 
+		SerializedProperty storyTextProp;
+		SerializedProperty characterProp;
+		SerializedProperty voiceOverClipProp;
+		SerializedProperty showOnceProp;
+
+		void OnEnable()
+		{
+			storyTextProp = serializedObject.FindProperty("storyText");
+			characterProp = serializedObject.FindProperty("character");
+			voiceOverClipProp = serializedObject.FindProperty("voiceOverClip");
+			showOnceProp = serializedObject.FindProperty("showOnce");
+		}
+
 		public override void DrawCommandGUI() 
 		{
-			Say t = target as Say;
-
-			EditorGUI.BeginChangeCheck();
+			serializedObject.Update();
 
 			EditorGUILayout.BeginHorizontal();
 			EditorGUILayout.PrefixLabel(new GUIContent("Say Text", "Text to display in dialog"));
@@ -50,12 +61,11 @@ namespace Fungus.Script
 				DrawTagHelpLabel();
 			}
 
-			GUIStyle sayStyle = new GUIStyle(EditorStyles.textArea);
-			sayStyle.wordWrap = true;
-
 			EditorGUILayout.BeginHorizontal();
 
-			string text = EditorGUILayout.TextArea(t.storyText, sayStyle, GUILayout.MinHeight(60));
+			EditorGUILayout.PropertyField(storyTextProp);
+
+			Say t = target as Say;
 
 			if (t.character != null &&
 			    t.character.profileSprite != null &&
@@ -76,26 +86,17 @@ namespace Fungus.Script
 
 			EditorGUILayout.Separator();
 
-			Character character = FungusCommandEditor.ObjectField<Character>(new GUIContent("Character", "Character to display in dialog"), 
-			                                                                 new GUIContent("<None>"),
-			                                                                 t.character,
-			                                                                 Character.activeCharacters);
+			FungusCommandEditor.ObjectField<Character>(characterProp, 
+			                                           new GUIContent("Character", "Character to display in dialog"), 
+			                                           new GUIContent("<None>"),
+													   Character.activeCharacters);
 
-			AudioClip voiceOverClip = EditorGUILayout.ObjectField(new GUIContent("Voice Over Clip", "Voice over audio to play when the say text is displayed"),
-			                                                      t.voiceOverClip,
-			                                                      typeof(AudioClip),
-			                                                      true) as AudioClip;
+			EditorGUILayout.PropertyField(voiceOverClipProp, 
+			                              new GUIContent("Voice Over Clip", "Voice over audio to play when the say text is displayed"));
 
-			bool showOnce = EditorGUILayout.Toggle(new GUIContent("Show Once", "Show this text once and never show it again."), t.showOnce);
+			EditorGUILayout.PropertyField(showOnceProp, new GUIContent("Show Once", "Show this text once and never show it again."));
 
-			if (EditorGUI.EndChangeCheck())
-			{
-				Undo.RecordObject(t, "Set Say");
-				t.storyText = text;
-				t.character = character;
-				t.voiceOverClip = voiceOverClip;
-				t.showOnce = showOnce;
-			}			
+			serializedObject.ApplyModifiedProperties();
 		}
 	}
 	

@@ -28,8 +28,6 @@ namespace Fungus.Script
 
 			AddOption t = target as AddOption;
 
-			EditorGUI.BeginChangeCheck();
-
 			EditorGUILayout.PropertyField(optionTextProp, new GUIContent("Option Text", "Text to display on the option button."));
 
 			SequenceEditor.SequenceField(targetSequenceProp,

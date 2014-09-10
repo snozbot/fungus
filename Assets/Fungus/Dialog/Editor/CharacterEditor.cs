@@ -39,8 +39,6 @@ namespace Fungus.Script
 		{
 			serializedObject.Update();
 
-			EditorGUI.BeginChangeCheck();
-
 			EditorGUILayout.PropertyField(nameTextProp, new GUIContent("Name Text", "Name of the character display in the dialog"));
 
 			EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));

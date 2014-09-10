@@ -11,21 +11,22 @@ namespace Fungus.Script
 	[CustomEditor (typeof(SetChooseDialog))]
 	public class SetChooseDialogEditor : FungusCommandEditor
 	{
+		SerializedProperty chooseDialogProp;
+
+		void OnEnable()
+		{
+			chooseDialogProp = serializedObject.FindProperty("chooseDialog");
+		}
+
 		public override void DrawCommandGUI() 
 		{
-			SetChooseDialog t = target as SetChooseDialog;
+			serializedObject.Update();
 
-			EditorGUI.BeginChangeCheck();
-
-			ChooseDialog dialog = FungusCommandEditor.ObjectField<ChooseDialog>(new GUIContent("Choose Dialog", "Dialog to use when displaying options with the Choose command."), 
-			                                                              	 	new GUIContent("<None>"),
-			                                                              	 	t.dialog,
-			                                                              	 	ChooseDialog.activeDialogs);
-			if (EditorGUI.EndChangeCheck())
-			{
-				Undo.RecordObject(t, "Set Choose Dialog");
-				t.dialog = dialog;
-			}			
+			FungusCommandEditor.ObjectField<ChooseDialog>(chooseDialogProp,
+			                                              new GUIContent("Choose Dialog", "Dialog to use when displaying options with the Choose command."), 
+			                                              new GUIContent("<None>"),
+			                                              ChooseDialog.activeDialogs);
+			serializedObject.ApplyModifiedProperties();
 		}
 	}
 	

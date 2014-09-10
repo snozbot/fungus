@@ -13,14 +13,24 @@ namespace Fungus.Script
 	{
 		static public bool showTagHelp;
 
+		SerializedProperty chooseTextProp;
+		SerializedProperty characterProp;
+		SerializedProperty voiceOverClipProp;
+		SerializedProperty timeoutDurationProp;
+
+		void OnEnable()
+		{
+			chooseTextProp = serializedObject.FindProperty("chooseText");
+			characterProp = serializedObject.FindProperty("character");
+			voiceOverClipProp = serializedObject.FindProperty("voiceOverClip");
+			timeoutDurationProp = serializedObject.FindProperty("timeoutDuration");
+		}
+
 		public override void DrawCommandGUI() 
 		{
-			Choose t = target as Choose;
-
-			EditorGUI.BeginChangeCheck();
+			serializedObject.Update();
 
 			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.PrefixLabel(new GUIContent("Choose Text", "Text to display in dialog"));
 			GUILayout.FlexibleSpace();
 			if (GUILayout.Button(new GUIContent("Tag Help", "Show help info for tags"), new GUIStyle(EditorStyles.miniButton)))
 			{
@@ -33,30 +43,18 @@ namespace Fungus.Script
 				SayEditor.DrawTagHelpLabel();
 			}
 
-			GUIStyle sayStyle = new GUIStyle(EditorStyles.textArea);
-			sayStyle.wordWrap = true;
-			string chooseText = EditorGUILayout.TextArea(t.chooseText, sayStyle, GUILayout.MinHeight(30));
+			EditorGUILayout.PropertyField(chooseTextProp);
 
-			Character character = FungusCommandEditor.ObjectField<Character>(new GUIContent("Character", "Character to display in dialog"), 
-			                                                                 new GUIContent("<None>"),
-			                                                                 t.character,
-			                                                                 Character.activeCharacters);
+			FungusCommandEditor.ObjectField<Character>(characterProp,
+			                                           new GUIContent("Character", "Character to display in dialog"), 
+			                                           new GUIContent("<None>"),
+			                                           Character.activeCharacters);
 
-			AudioClip voiceOverClip = EditorGUILayout.ObjectField(new GUIContent("Voice Over Clip", "Voice over audio to play when the choose text is displayed"),
-			                                                      t.voiceOverClip,
-			                                                      typeof(AudioClip),
-			                                                      true) as AudioClip;
+			EditorGUILayout.PropertyField(voiceOverClipProp, new GUIContent("Voice Over Clip", "Voice over audio to play when the choose text is displayed"));
 
-			float timeoutDuration = EditorGUILayout.FloatField(new GUIContent("Timeout Duration", "Time limit for player to make a choice. Set to 0 for no limit."), t.timeoutDuration);
+			EditorGUILayout.PropertyField(timeoutDurationProp, new GUIContent("Timeout Duration", "Time limit for player to make a choice. Set to 0 for no limit."));
 
-			if (EditorGUI.EndChangeCheck())
-			{
-				Undo.RecordObject(t, "Set Choose");
-				t.chooseText = chooseText;
-				t.character = character;
-				t.voiceOverClip = voiceOverClip;
-				t.timeoutDuration = timeoutDuration;
-			}			
+			serializedObject.ApplyModifiedProperties();
 		}
 	}
 	

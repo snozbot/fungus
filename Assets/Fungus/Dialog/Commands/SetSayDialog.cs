@@ -10,23 +10,23 @@ namespace Fungus.Script
 	             "Sets the active dialog to use for displaying story text with the Say command.")]
 	public class SetSayDialog : FungusCommand 
 	{
-		public SayDialog dialog;	
+		public SayDialog sayDialog;	
 		static public SayDialog activeDialog;
 
 		public override void OnEnter()
 		{
-			activeDialog = dialog;
+			activeDialog = sayDialog;
 			Continue();
 		}
 
 		public override string GetSummary()
 		{
-			if (dialog == null)
+			if (sayDialog == null)
 			{
 				return "Error: No dialog selected";
 			}
 
-			return dialog.name;
+			return sayDialog.name;
 		}
 
 		public override Color GetButtonColor()

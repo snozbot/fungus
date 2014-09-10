@@ -10,23 +10,23 @@ namespace Fungus.Script
 	             "Sets the active dialog to use for displaying story text with the Choose command.")]
 	public class SetChooseDialog : FungusCommand 
 	{
-		public ChooseDialog dialog;	
+		public ChooseDialog chooseDialog;	
 		static public ChooseDialog activeDialog;
 
 		public override void OnEnter()
 		{
-			activeDialog = dialog;
+			activeDialog = chooseDialog;
 			Continue();
 		}
 
 		public override string GetSummary()
 		{
-			if (dialog == null)
+			if (chooseDialog == null)
 			{
 				return "Error: No dialog selected";
 			}
 
-			return dialog.name;
+			return chooseDialog.name;
 		}
 
 		public override Color GetButtonColor()

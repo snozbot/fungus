@@ -18,7 +18,9 @@ namespace Fungus.Script
 
 		static public List<Option> options = new List<Option>();
 
+		[TextArea(5,10)]
 		public string chooseText;
+
 		public Character character;
 		public AudioClip voiceOverClip;
 		public float timeoutDuration;

@@ -143,10 +143,17 @@ namespace Fungus.Script
 			return newCommand;
 		}
 
-		static public T ObjectField<T>(GUIContent label, GUIContent nullLabel, T selectedObject, List<T> objectList) where T : MonoBehaviour
+		static public void ObjectField<T>(SerializedProperty property, GUIContent label, GUIContent nullLabel, List<T> objectList) where T : MonoBehaviour
 		{
+			if (property == null)
+			{
+				return;
+			}
+
 			List<GUIContent> objectNames = new List<GUIContent>();
-			
+
+			T selectedObject = property.objectReferenceValue as T;
+
 			int selectedIndex = 0;
 			objectNames.Add(nullLabel);
 			for (int i = 0; i < objectList.Count; ++i)
@@ -170,8 +177,8 @@ namespace Fungus.Script
 			{
 				result = objectList[selectedIndex - 1];
 			}
-			
-			return result;
+
+			property.objectReferenceValue = result;
 		}
 	}
 

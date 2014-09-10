@@ -11,21 +11,23 @@ namespace Fungus.Script
 	[CustomEditor (typeof(SetSayDialog))]
 	public class SetSayDialogEditor : FungusCommandEditor
 	{
+		SerializedProperty sayDialogProp;
+		
+		void OnEnable()
+		{
+			sayDialogProp = serializedObject.FindProperty("sayDialog");
+		}
+
 		public override void DrawCommandGUI() 
 		{
-			SetSayDialog t = target as SetSayDialog;
+			serializedObject.Update();
 
-			EditorGUI.BeginChangeCheck();
+			FungusCommandEditor.ObjectField<SayDialog>(sayDialogProp,
+			                                           new GUIContent("Say Dialog", "Dialog to use when displaying Say command story text"), 
+			                                           new GUIContent("<None>"),
+			                                           SayDialog.activeDialogs);
 
-			SayDialog dialog = FungusCommandEditor.ObjectField<SayDialog>(new GUIContent("Say Dialog", "Dialog to use when displaying Say command story text"), 
-			                                                              new GUIContent("<None>"),
-			                                                              t.dialog,
-			                                                              SayDialog.activeDialogs);
-			if (EditorGUI.EndChangeCheck())
-			{
-				Undo.RecordObject(t, "Set Say Dialog");
-				t.dialog = dialog;
-			}			
+			serializedObject.ApplyModifiedProperties();
 		}
 	}
 	
