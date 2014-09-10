@@ -48,8 +48,6 @@ namespace Fungus.Script
 				}
 			}
 
-			EditorGUI.BeginChangeCheck();
-
 			EditorGUILayout.PropertyField(stepTimeProp, new GUIContent("Step Time", "Minimum time to execute each step"));
 
 			SequenceEditor.SequenceField(startSequenceProp, 

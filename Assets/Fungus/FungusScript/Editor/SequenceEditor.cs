@@ -12,6 +12,15 @@ namespace Fungus.Script
 	[CustomEditor (typeof(Sequence))]
 	public class SequenceEditor : Editor 
 	{
+		SerializedProperty sequenceNameProp;
+		SerializedProperty descriptionProp;
+
+		void OnEnable()
+		{
+			sequenceNameProp = serializedObject.FindProperty("sequenceName");
+			descriptionProp = serializedObject.FindProperty("description");
+		}
+
 		public void DrawSequenceGUI(FungusScript fungusScript)
 		{
 			if (fungusScript.selectedSequence == null)
@@ -23,25 +32,10 @@ namespace Fungus.Script
 			
 			Sequence sequence = fungusScript.selectedSequence;
 			
-			EditorGUI.BeginChangeCheck();
-			
-			string name = EditorGUILayout.TextField(new GUIContent("Name", "Name of sequence displayed in editor window"), sequence.name);
-			string desc = EditorGUILayout.TextField(new GUIContent("Description", "Sequence description displayed in editor window"), sequence.description);
-			
+			EditorGUILayout.PropertyField(sequenceNameProp);
+			EditorGUILayout.PropertyField(descriptionProp);
+
 			EditorGUILayout.Separator();
-			
-			if (name != sequence.name)
-			{
-				// The name is the gameobject name, so have to undo seperately
-				Undo.RecordObject(sequence.gameObject, "Set Sequence Name");
-				sequence.name = name;
-			}
-			
-			if (desc != sequence.description)
-			{
-				Undo.RecordObject(sequence, "Set Sequence Description");
-				sequence.description = desc;
-			}
 
 			UpdateIndentLevels(sequence);
 
@@ -52,6 +46,7 @@ namespace Fungus.Script
 
 			if (Application.isPlaying)
 			{
+				serializedObject.ApplyModifiedProperties();
 				return;
 			}
 			
@@ -81,6 +76,7 @@ namespace Fungus.Script
 
 			GUILayout.Label("New Command");
 			GUILayout.FlexibleSpace();
+			// We should probably use SerializedProperty for the category & command index but there's no real benefit to doing so
 			int selectedCategoryIndex = EditorGUILayout.Popup(fungusScript.selectedCommandCategoryIndex, categories.ToArray());
 			
 			List<string> commandNames = new List<string>();
@@ -127,6 +123,7 @@ namespace Fungus.Script
 			if (fungusScript.selectedSequence == null ||
 			    selectedType == null)
 			{
+				serializedObject.ApplyModifiedProperties();
 				return;
 			}
 

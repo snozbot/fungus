@@ -132,7 +132,7 @@ namespace Fungus.Script
 			{
 				Sequence sequence = sequences[i];
 				
-				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
+				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.sequenceName)).x;
 				float windowWidth = Mathf.Max (titleWidth + 10, 100);
 
 				if (fungusScript.selectedSequence == sequence ||
@@ -302,7 +302,7 @@ namespace Fungus.Script
 
 			GUILayout.BeginVertical();
 			GUILayout.FlexibleSpace();
-			GUILayout.Label(sequence.name, labelStyle);
+			GUILayout.Label(sequence.sequenceName, labelStyle);
 			GUILayout.FlexibleSpace();
 			GUILayout.EndVertical();
 
