@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 	[CommandInfo("Scripting", 
-	             "EndIf", 
+	             "End If", 
 	             "Marks the end of an If statement block.")]
 	public class EndIf : FungusCommand
 	{

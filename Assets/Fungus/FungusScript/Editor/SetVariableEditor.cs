@@ -6,14 +6,14 @@ using System.Collections.Generic;
 namespace Fungus.Script
 {
 
-	[CustomEditor (typeof(Set))]
-	public class SetEditor : FungusCommandEditor 
+	[CustomEditor (typeof(SetVariable))]
+	public class SetVariableEditor : FungusCommandEditor 
 	{
 		public override void DrawCommandGUI()
 		{
 			serializedObject.Update();
 
-			Set t = target as Set;
+			SetVariable t = target as SetVariable;
 
 			FungusScript fungusScript = t.GetFungusScript();
 			if (fungusScript == null)
@@ -55,29 +55,29 @@ namespace Fungus.Script
 			switch (t.setOperator)
 			{
 				default:
-				case Set.SetOperator.Assign:
+				case SetVariable.SetOperator.Assign:
 					selectedIndex = 0;
 					break;
-				case Set.SetOperator.Negate:
+				case SetVariable.SetOperator.Negate:
 					selectedIndex = 1;
 					break;
-				case Set.SetOperator.Add:
+				case SetVariable.SetOperator.Add:
 					selectedIndex = 1;
 					break;
-				case Set.SetOperator.Subtract:
+				case SetVariable.SetOperator.Subtract:
 					selectedIndex = 2;
 					break;
-				case Set.SetOperator.Multiply:
+				case SetVariable.SetOperator.Multiply:
 					selectedIndex = 3;
 					break;
-				case Set.SetOperator.Divide:
+				case SetVariable.SetOperator.Divide:
 					selectedIndex = 4;
 					break;
 			}
 
 			selectedIndex = EditorGUILayout.Popup(new GUIContent("Operator", "Arithmetic operator to use"), selectedIndex, operatorsList.ToArray());
 			
-			Set.SetOperator setOperator = Set.SetOperator.Assign;
+			SetVariable.SetOperator setOperator = SetVariable.SetOperator.Assign;
 			if (variable.GetType() == typeof(BooleanVariable) || 
 			    variable.GetType() == typeof(StringVariable))
 			{
@@ -85,10 +85,10 @@ namespace Fungus.Script
 				{
 				default:
 				case 0:
-					setOperator = Set.SetOperator.Assign;
+					setOperator = SetVariable.SetOperator.Assign;
 					break;
 				case 1:
-					setOperator = Set.SetOperator.Negate;
+					setOperator = SetVariable.SetOperator.Negate;
 					break;
 				}
 			} 
@@ -99,19 +99,19 @@ namespace Fungus.Script
 				{
 				default:
 				case 0:
-					setOperator = Set.SetOperator.Assign;
+					setOperator = SetVariable.SetOperator.Assign;
 					break;
 				case 1:
-					setOperator = Set.SetOperator.Add;
+					setOperator = SetVariable.SetOperator.Add;
 					break;
 				case 2:
-					setOperator = Set.SetOperator.Subtract;
+					setOperator = SetVariable.SetOperator.Subtract;
 					break;
 				case 3:
-					setOperator = Set.SetOperator.Multiply;
+					setOperator = SetVariable.SetOperator.Multiply;
 					break;
 				case 4:
-					setOperator = Set.SetOperator.Divide;
+					setOperator = SetVariable.SetOperator.Divide;
 					break;
 				}
 			}

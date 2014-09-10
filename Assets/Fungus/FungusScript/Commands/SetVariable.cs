@@ -4,9 +4,9 @@ using System.Collections;
 namespace Fungus.Script
 {
 	[CommandInfo("Scripting", 
-	             "Set", 
+	             "Set Variable", 
 	             "Sets a variable to a new value using simple arithmetic operations. The value can be a constant or another variable.")]
-	public class Set : FungusCommand 
+	public class SetVariable : FungusCommand 
 	{
 		public enum SetOperator
 		{
@@ -180,7 +180,7 @@ namespace Fungus.Script
 
 		public override Color GetButtonColor()
 		{
-			return new Color32(235, 191, 217, 255);
+			return new Color32(253, 253, 150, 255);
 		}
 	}
 
