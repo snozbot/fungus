@@ -8,9 +8,12 @@ namespace Fungus.Script
 	[ExecuteInEditMode]
 	public class Character : MonoBehaviour 
 	{
-		public string characterName; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
-		public Sprite characterImage;
-		public Color characterColor;
+		public string nameText; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
+		public Color nameColor = Color.white;
+		public Sprite profileSprite;
+
+		[TextArea(5,10)]
+		public string notes;
 
 		static public List<Character> activeCharacters = new List<Character>();
 

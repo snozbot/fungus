@@ -10,8 +10,19 @@ namespace Fungus.Script
 	{
 		Material spriteMaterial;
 
+		SerializedProperty nameTextProp;
+		SerializedProperty nameColorProp;
+		SerializedProperty profileSpriteProp;
+		SerializedProperty notesProp;
+
 		void OnEnable()
 		{
+			// Setup the SerializedProperties
+			nameTextProp = serializedObject.FindProperty ("nameText");
+			nameColorProp = serializedObject.FindProperty ("nameColor");
+			profileSpriteProp = serializedObject.FindProperty ("profileSprite");
+			notesProp = serializedObject.FindProperty ("notes");
+
 			Shader shader = Shader.Find("Sprites/Default");
 			if (shader != null)
 			{
@@ -27,45 +38,35 @@ namespace Fungus.Script
 
 		public override void OnInspectorGUI() 
 		{
-			Character t = target as Character;
+			serializedObject.Update();
 
 			EditorGUI.BeginChangeCheck();
 
-			string characterName = EditorGUILayout.TextField(new GUIContent("Name Text", "Name of the character display in the dialog"),
-			                                                 t.characterName);
+			EditorGUILayout.PropertyField(nameTextProp, new GUIContent("Name Text", "Name of the character display in the dialog"));
 
-			Color characterColor = EditorGUILayout.ColorField(new GUIContent("Name Color", "Color of name text display in the dialog"),
-			                                                  t.characterColor);
+			EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));
 
-			Sprite characterImage = EditorGUILayout.ObjectField(new GUIContent("Image", "Character image sprite to display in the dialog"),
-			                                                    t.characterImage,
-			                                                    typeof(Sprite),
-			                                                    true) as Sprite;
+			EditorGUILayout.PropertyField(profileSpriteProp, new GUIContent("Image", "Character image sprite to display in the dialog"));
+
+			EditorGUILayout.PropertyField(notesProp, new GUIContent("Notes", "Notes about this story character (personality, attibutes, etc.)"));
 
 			EditorGUILayout.Separator();
 
-			if (characterImage != null &&
+			Character t = target as Character;
+			if (t.profileSprite != null &&
 			    spriteMaterial != null)
 			{
 				EditorGUILayout.BeginHorizontal();
 				GUILayout.FlexibleSpace();
-				float aspect = (float)characterImage.texture.width / (float)characterImage.texture.height;
+				float aspect = (float)t.profileSprite.texture.width / (float)t.profileSprite.texture.height;
 				Rect imagePreviewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(150), GUILayout.ExpandWidth(false));
 				GUILayout.FlexibleSpace();
 				EditorGUILayout.EndHorizontal();
 
-				DrawPreview(imagePreviewRect, 
-				                     characterImage.texture);
+				DrawPreview(imagePreviewRect, t.profileSprite.texture);
 			}
 
-			if (EditorGUI.EndChangeCheck())
-			{
-				Undo.RecordObject(t, "Set Character");
-
-				t.characterName = characterName;
-				t.characterColor = characterColor;
-				t.characterImage = characterImage;
-			}			
+			serializedObject.ApplyModifiedProperties();
 		}
 
 		public void DrawPreview(Rect previewRect, Texture2D texture)

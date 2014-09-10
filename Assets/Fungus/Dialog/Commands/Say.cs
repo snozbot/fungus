@@ -76,7 +76,7 @@ namespace Fungus.Script
 
 			if (character != null)
 			{
-				GUILayout.Label(character.characterName);
+				GUILayout.Label(character.nameText);
 				GUILayout.Space(10);
 			}
 

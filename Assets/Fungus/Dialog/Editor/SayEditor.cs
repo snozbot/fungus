@@ -58,10 +58,10 @@ namespace Fungus.Script
 			string text = EditorGUILayout.TextArea(t.storyText, sayStyle, GUILayout.MinHeight(60));
 
 			if (t.character != null &&
-			    t.character.characterImage != null &&
-			    t.character.characterImage.texture != null)
+			    t.character.profileSprite != null &&
+			    t.character.profileSprite.texture != null)
 			{
-				Texture2D characterTexture = t.character.characterImage.texture;
+				Texture2D characterTexture = t.character.profileSprite.texture;
 
 				float aspect = (float)characterTexture.width / (float)characterTexture.height;
 				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(50), GUILayout.ExpandWidth(false));
