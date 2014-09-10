@@ -10,6 +10,9 @@ public class ViewEditor : Editor
 {
 	static Color viewColor = Color.yellow;
 
+	SerializedProperty primaryAspectRatioProp;
+	SerializedProperty secondaryAspectRatioProp;
+
 	// Draw Views when they're not selected
 	[DrawGizmo(GizmoType.NotSelected | GizmoType.SelectedOrChild)]
 	static void RenderCustomGizmo(Transform objectTransform, GizmoType gizmoType)
@@ -53,47 +56,52 @@ public class ViewEditor : Editor
 		}
 	}
 
+	void OnEnable()
+	{
+		primaryAspectRatioProp = serializedObject.FindProperty ("primaryAspectRatio");
+		secondaryAspectRatioProp = serializedObject.FindProperty ("secondaryAspectRatio");
+	}
+
 	public override void OnInspectorGUI()
 	{
-		View t = target as View;
+		serializedObject.Update();
 
 		EditorGUI.BeginChangeCheck();
 
 		string[] ratios = { "<None>", "Landscape / 4:3", "Landscape / 3:2", "Landscape / 16:10", "Landscape / 17:10", "Landscape / 16:9", "Landscape / 2:1", "Portrait / 3:4", "Portrait / 2:3", "Portrait / 10:16", "Portrait / 10:17", "Portrait / 9:16", "Portrait / 1:2" };
 
-		Vector2 primaryAspectRatio = EditorGUILayout.Vector2Field(new GUIContent("Primary Aspect Ratio", "Width and height values that define the primary aspect ratio (e.g. 4:3)"), t.primaryAspectRatio);
+		EditorGUILayout.PropertyField(primaryAspectRatioProp, new GUIContent("Primary Aspect Ratio", "Width and height values that define the primary aspect ratio (e.g. 4:3)"));
 		int primaryIndex = EditorGUILayout.Popup("Select Aspect Ratio", 0, ratios);
 		if (primaryIndex > 0)
 		{
-			primaryAspectRatio = LookupAspectRatio(primaryIndex);
+			primaryAspectRatioProp.vector2Value = LookupAspectRatio(primaryIndex);
 		}
 		EditorGUILayout.Separator();
 
-		Vector2 secondaryAspectRatio = EditorGUILayout.Vector2Field(new GUIContent("Secondary Aspect Ratio", "Width and height values that define the primary aspect ratio (e.g. 4:3)"), t.secondaryAspectRatio);
+		EditorGUILayout.PropertyField(secondaryAspectRatioProp, new GUIContent("Secondary Aspect Ratio", "Width and height values that define the primary aspect ratio (e.g. 4:3)"));
 		int secondaryIndex = EditorGUILayout.Popup("Select Aspect Ratio", 0, ratios);
 		if (secondaryIndex > 0)
 		{
-			secondaryAspectRatio = LookupAspectRatio(secondaryIndex);
+			secondaryAspectRatioProp.vector2Value = LookupAspectRatio(secondaryIndex);
 		}
 		EditorGUILayout.Separator();
 
 		if (EditorGUI.EndChangeCheck())
 		{
 			// Avoid divide by zero errors
-			if (primaryAspectRatio.y == 0)
+			if (primaryAspectRatioProp.vector2Value.y == 0)
 			{
-				primaryAspectRatio.y = 1;
+				primaryAspectRatioProp.vector2Value = new Vector2(primaryAspectRatioProp.vector2Value.x, 1f);
 			}
-			if (secondaryAspectRatio.y == 0)
+			if (secondaryAspectRatioProp.vector2Value.y == 0)
 			{
-				secondaryAspectRatio.y = 1;
+				secondaryAspectRatioProp.vector2Value = new Vector2(secondaryAspectRatioProp.vector2Value.x, 1f);
 			}
-
-			t.primaryAspectRatio = primaryAspectRatio;
-			t.secondaryAspectRatio = secondaryAspectRatio;
 
 			SceneView.RepaintAll();
 		}
+
+		serializedObject.ApplyModifiedProperties();
 	}
 	
 	void OnSceneGUI () 

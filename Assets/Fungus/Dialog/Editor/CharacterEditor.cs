@@ -17,7 +17,6 @@ namespace Fungus.Script
 
 		void OnEnable()
 		{
-			// Setup the SerializedProperties
 			nameTextProp = serializedObject.FindProperty ("nameText");
 			nameColorProp = serializedObject.FindProperty ("nameColor");
 			profileSpriteProp = serializedObject.FindProperty ("profileSprite");
