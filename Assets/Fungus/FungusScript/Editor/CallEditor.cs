@@ -8,8 +8,17 @@ namespace Fungus.Script
 	[CustomEditor (typeof(Call))]
 	public class CallEditor : FungusCommandEditor 
 	{
+		SerializedProperty targetSequenceProp;
+
+		void OnEnable()
+		{
+			targetSequenceProp = serializedObject.FindProperty("targetSequence");
+		}
+
 		public override void DrawCommandGUI()
 		{
+			serializedObject.Update();
+
 			Call t = target as Call;
 
 			FungusScript fungusScript = t.GetFungusScript();
@@ -18,15 +27,12 @@ namespace Fungus.Script
 				return;
 			}
 
-			Sequence targetSequence = SequenceEditor.SequenceField(new GUIContent("Target Sequence", "Sequence to call"), 
-			                                                       new GUIContent("<Continue>"), 
-			                                                       fungusScript, 
-			                                                       t.targetSequence);
-			if (targetSequence != t.targetSequence)
-			{
-				Undo.RecordObject(t, "Set Target Sequence");
-				t.targetSequence = targetSequence;
-			}
+			SequenceEditor.SequenceField(targetSequenceProp,
+			                             new GUIContent("Target Sequence", "Sequence to call"), 
+										 new GUIContent("<Continue>"), 
+										 fungusScript);
+
+			serializedObject.ApplyModifiedProperties();
 		}
 	}
 

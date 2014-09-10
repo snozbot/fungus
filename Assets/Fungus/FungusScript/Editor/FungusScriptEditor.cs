@@ -10,6 +10,21 @@ namespace Fungus.Script
 	[CustomEditor (typeof(FungusScript))]
 	public class FungusScriptEditor : Editor 
 	{
+		SerializedProperty stepTimeProp;
+		SerializedProperty startSequenceProp;
+		SerializedProperty startAutomaticallyProp;
+		SerializedProperty colorCommandsProp;
+		SerializedProperty variablesProp;
+
+		void OnEnable()
+		{
+			stepTimeProp = serializedObject.FindProperty("stepTime");
+			startSequenceProp = serializedObject.FindProperty("startSequence");
+			startAutomaticallyProp = serializedObject.FindProperty("startAutomatically");
+			colorCommandsProp = serializedObject.FindProperty("colorCommands");
+			variablesProp = serializedObject.FindProperty("variables");
+		}
+
 		public void OnInspectorUpdate()
 		{
 			Repaint();
@@ -17,12 +32,9 @@ namespace Fungus.Script
 		
 		public override void OnInspectorGUI() 
 		{
-			FungusScript t = target as FungusScript;
+			serializedObject.Update();
 
-			if (t != null)
-			{
-				t.transform.hideFlags = HideFlags.None;
-			}
+			FungusScript t = target as FungusScript;
 
 			if (Application.isPlaying)
 			{
@@ -38,12 +50,13 @@ namespace Fungus.Script
 
 			EditorGUI.BeginChangeCheck();
 
-			float stepTime = EditorGUILayout.FloatField(new GUIContent("Step Time", "Minimum time to execute each step"), t.stepTime);
+			EditorGUILayout.PropertyField(stepTimeProp, new GUIContent("Step Time", "Minimum time to execute each step"));
 
-			Sequence startSequence = SequenceEditor.SequenceField(new GUIContent("Start Sequence", "Sequence to be executed when controller starts."), 
-			                                                      new GUIContent("<None>"),
-			                                                      t, 
-			                                                      t.startSequence);
+			SequenceEditor.SequenceField(startSequenceProp, 
+			                             new GUIContent("Start Sequence", "Sequence to be executed when controller starts."), 
+										 new GUIContent("<None>"),
+			                             t);
+
 			if (t.startSequence == null)
 			{
 				GUIStyle style = new GUIStyle(GUI.skin.label);
@@ -51,18 +64,9 @@ namespace Fungus.Script
 				EditorGUILayout.LabelField(new GUIContent("Error: Please select a Start Sequence"), style);
 			}
 
-			bool startAutomatically = EditorGUILayout.Toggle(new GUIContent("Start Automatically", "Start this Fungus Script when the scene starts."), t.startAutomatically);
+			EditorGUILayout.PropertyField(startAutomaticallyProp, new GUIContent("Start Automatically", "Start this Fungus Script when the scene starts."));
 
-			bool colorCommands = EditorGUILayout.Toggle(new GUIContent("Color Commands", "Display commands using colors in editor window."), t.colorCommands);
-
-			if (EditorGUI.EndChangeCheck())
-			{
-				Undo.RecordObject(t, "Set Fungus Script");
-				t.stepTime = stepTime;
-				t.startSequence = startSequence;
-				t.startAutomatically = startAutomatically;
-				t.colorCommands = colorCommands;
-			}
+			EditorGUILayout.PropertyField(colorCommandsProp, new GUIContent("Color Commands", "Display commands using colors in editor window."));
 
 			EditorGUILayout.Separator();
 
@@ -86,18 +90,17 @@ namespace Fungus.Script
 			EditorGUILayout.Separator();
 
 			DrawVariablesGUI();
+
+			serializedObject.ApplyModifiedProperties();
 		}
 
 		public void DrawVariablesGUI()
 		{
-			serializedObject.Update();
-			
 			FungusScript t = target as FungusScript;
 			
 			ReorderableListGUI.Title("Variables");
 
-			SerializedProperty variablesProperty = serializedObject.FindProperty("variables");
-			FungusVariableListAdaptor adaptor = new FungusVariableListAdaptor(variablesProperty, 0);
+			FungusVariableListAdaptor adaptor = new FungusVariableListAdaptor(variablesProp, 0);
 			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton);
 			
 			GUILayout.BeginHorizontal();
@@ -115,8 +118,6 @@ namespace Fungus.Script
 				menu.ShowAsContext ();
 			}
 			GUILayout.EndHorizontal();
-			
-			serializedObject.ApplyModifiedProperties();
 		}
 		
 		void AddVariable<T>(object obj) where T : FungusVariable

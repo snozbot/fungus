@@ -168,15 +168,15 @@ namespace Fungus.Script
 			}
 		}
 
-		static public Sequence SequenceField(GUIContent label, GUIContent nullLabel, FungusScript fungusScript, Sequence sequence)
+		static public void SequenceField(SerializedProperty property, GUIContent label, GUIContent nullLabel, FungusScript fungusScript)
 		{
 			if (fungusScript == null)
 			{
-				return null;
+				return;
 			}
-			
-			Sequence result = sequence;
-			
+
+			Sequence sequence = property.objectReferenceValue as Sequence;
+		
 			// Build dictionary of child sequences
 			List<GUIContent> sequenceNames = new List<GUIContent>();
 			
@@ -196,14 +196,14 @@ namespace Fungus.Script
 			selectedIndex = EditorGUILayout.Popup(label, selectedIndex, sequenceNames.ToArray());
 			if (selectedIndex == 0)
 			{
-				result = null; // Option 'None'
+				sequence = null; // Option 'None'
 			}
 			else
 			{
-				result = sequences[selectedIndex - 1];
+				sequence = sequences[selectedIndex - 1];
 			}
 			
-			return result;
+			property.objectReferenceValue = sequence;
 		}
 
 		static public Sequence SequenceField(Rect position, GUIContent nullLabel, FungusScript fungusScript, Sequence sequence)

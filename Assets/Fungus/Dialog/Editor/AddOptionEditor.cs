@@ -11,29 +11,35 @@ namespace Fungus.Script
 	[CustomEditor (typeof(AddOption))]
 	public class AddOptionEditor : FungusCommandEditor
 	{
+		SerializedProperty optionTextProp;
+		SerializedProperty hideOnSelectedProp;
+		SerializedProperty targetSequenceProp;
+
+		void OnEnable()
+		{
+			optionTextProp = serializedObject.FindProperty("optionText");
+			hideOnSelectedProp = serializedObject.FindProperty("hideOnSelected");
+			targetSequenceProp = serializedObject.FindProperty("targetSequence");
+		}
+
 		public override void DrawCommandGUI() 
 		{
+			serializedObject.Update();
+
 			AddOption t = target as AddOption;
 
 			EditorGUI.BeginChangeCheck();
 
-			string optionText = EditorGUILayout.TextField(new GUIContent("Option Text", "Text to display on the option button."),
-			                                              t.optionText);
+			EditorGUILayout.PropertyField(optionTextProp, new GUIContent("Option Text", "Text to display on the option button."));
 
-			Sequence targetSequence = SequenceEditor.SequenceField(new GUIContent("Target Sequence", "Sequence to execute when this option is selected by the player."),
-			                                                       new GUIContent("<Continue>"),
-			                                                       t.GetFungusScript(),
-			                                                       t.targetSequence);
+			SequenceEditor.SequenceField(targetSequenceProp,
+			                             new GUIContent("Target Sequence", "Sequence to execute when this option is selected by the player."),
+			                             new GUIContent("<Continue>"),
+			                             t.GetFungusScript());
 
-			bool hideOnSelected = EditorGUILayout.Toggle(new GUIContent("Hide On Selected", "Hide this option forever once the player has selected it."), t.hideOnSelected);
+			EditorGUILayout.PropertyField(hideOnSelectedProp, new GUIContent("Hide On Selected", "Hide this option forever once the player has selected it."));
 
-			if (EditorGUI.EndChangeCheck())
-			{
-				Undo.RecordObject(t, "Set Add Option");
-				t.optionText = optionText;
-				t.targetSequence = targetSequence;
-				t.hideOnSelected = hideOnSelected;
-			}			
+			serializedObject.ApplyModifiedProperties();
 		}
 	}
 
