@@ -16,7 +16,7 @@ namespace Fungus.Script
 		public Rect nodeRect = new Rect(10, 10, 100, 40);
 
 		[HideInInspector]
-		public string sequenceName = "";
+		public string sequenceName = "Sequence";
 
 		[HideInInspector]
 		public string description = "";
