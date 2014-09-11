@@ -12,17 +12,11 @@ namespace Fungus
 	[ExecuteInEditMode]
 	public class Sequence : MonoBehaviour 
 	{
-		[HideInInspector]
 		public Rect nodeRect = new Rect(10, 10, 100, 40);
 
-		[HideInInspector]
 		public string sequenceName = "Sequence";
 
-		[HideInInspector]
 		public string description = "";
-
-		[System.NonSerialized]
-		public FungusScript fungusScript;
 
 		[System.NonSerialized]
 		public Command activeCommand;
@@ -31,25 +25,9 @@ namespace Fungus
 
 		int executionCount;
 
-		public virtual void Start()
-		{
-			fungusScript = GetFungusScript();
-		}
-
 		public FungusScript GetFungusScript()
 		{
-			FungusScript sc = null;
-			Transform parent = transform.parent;		
-			while (parent != null)
-			{
-				sc = parent.gameObject.GetComponent<FungusScript>();
-		
-				if (sc != null)
-				{
-					break;
-				}
-			}
-			return sc;
+			return GetComponentInParent<FungusScript>();
 		}
 
 		public bool HasError()
@@ -67,6 +45,8 @@ namespace Fungus
 
 		public bool IsRunning()
 		{
+			FungusScript fungusScript = GetFungusScript();
+
 			if (fungusScript == null ||
 			    fungusScript.executingSequence == null)
 			{
@@ -114,14 +94,16 @@ namespace Fungus
 			}
 			else
 			{
-				if (GetFungusScript().stepTime == 0f)
+				FungusScript fungusScript = GetFungusScript();
+
+				if (fungusScript.stepTime == 0f)
 				{
 					activeCommand = nextCommand;
 					nextCommand.Execute();
 				}
 				else
 				{
-					StartCoroutine(ExecuteAfterDelay(nextCommand, GetFungusScript().stepTime));
+					StartCoroutine(ExecuteAfterDelay(nextCommand, fungusScript.stepTime));
 				}
 			}
 
@@ -136,6 +118,12 @@ namespace Fungus
 
 		public void Stop()
 		{
+			FungusScript fungusScript = GetFungusScript();
+			if (fungusScript == null)
+			{
+				return;
+			}
+
 			activeCommand = null;
 			fungusScript.executingSequence = null;
 			fungusScript.selectedSequence = null;

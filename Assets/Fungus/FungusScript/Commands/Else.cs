@@ -11,10 +11,16 @@ namespace Fungus
 	{
 		public override void OnEnter()
 		{
+			Sequence sequence = GetSequence();
+			if (sequence == null)
+			{
+				return;
+			}
+
 			// Find the next EndIf command at the same indent level as this Else command
 			bool foundThisCommand = false;
 			int indent = indentLevel;
-			foreach(Command command in parentSequence.commandList)
+			foreach(Command command in sequence.commandList)
 			{
 				if (foundThisCommand &&
 				    command.indentLevel == indent)

@@ -33,6 +33,12 @@ namespace Fungus
 		
 		public override void OnEnter()
 		{
+			Sequence sequence = GetSequence();
+			if (sequence == null)
+			{
+				return;
+			}
+
 			bool condition = false;
 
 			if (variable == null)
@@ -137,7 +143,7 @@ namespace Fungus
 				// Find the next Else or EndIf command at the same indent level as this If command
 				bool foundThisCommand = false;
 				int indent = indentLevel;
-				foreach(Command command in parentSequence.commandList)
+				foreach(Command command in sequence.commandList)
 				{
 					if (foundThisCommand &&
 					    command.indentLevel == indent)

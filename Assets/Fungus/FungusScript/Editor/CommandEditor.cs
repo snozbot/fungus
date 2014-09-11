@@ -125,6 +125,11 @@ namespace Fungus
 
 		static public Command PasteCommand(Command copyCommand, Sequence sequence)
 		{
+			if (sequence == null)
+			{
+				return null;
+			}
+
 			System.Type type = copyCommand.GetType();
 			Component copy = Undo.AddComponent(sequence.gameObject, type);
 			System.Reflection.FieldInfo[] fields = type.GetFields();
@@ -133,9 +138,7 @@ namespace Fungus
 				field.SetValue(copy, field.GetValue(copyCommand));
 			}
 
-			FungusScript fungusScript = sequence.GetFungusScript();
-
-			Undo.RecordObject(fungusScript, "Paste Command");
+			Undo.RecordObject(sequence, "Paste Command");
 
 			Command newCommand = copy as Command;
 			sequence.commandList.Add(newCommand);

@@ -286,11 +286,13 @@ namespace Fungus
 					if (s != null)
 					{
 						FungusScript fungusScript = s.GetFungusScript();
-						fungusScript.selectedSequence = s;
-						fungusScript.selectedCommand = null;
-
-						Selection.activeGameObject = fungusScript.gameObject;
-						GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
+						if (fungusScript != null)
+						{
+							fungusScript.selectedSequence = s;
+							fungusScript.selectedCommand = null;
+							Selection.activeGameObject = fungusScript.gameObject;
+							GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
+						}
 					}
 				}
 			}
@@ -320,8 +322,7 @@ namespace Fungus
 
 			bool sequenceIsSelected = (fungusScript.selectedSequence == sequence);
 
-			Command[] commands = sequence.GetComponentsInChildren<Command>();
-			foreach (Command command in commands)
+			foreach (Command command in sequence.commandList)
 			{
 				bool commandIsSelected = (fungusScript.selectedCommand == command);
 

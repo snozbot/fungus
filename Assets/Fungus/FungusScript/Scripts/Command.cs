@@ -24,51 +24,37 @@ namespace Fungus
 	}
 	
 	[RequireComponent(typeof(Sequence))]
-	public class Command : MonoBehaviour 
+	public class Command : MonoBehaviour
 	{
-		[HideInInspector]
 		public string errorMessage = "";
 
-		[HideInInspector]
-		public FungusScript parentFungusScript;
-
-		[HideInInspector]
-		public Sequence parentSequence;
-
-		[HideInInspector]
 		public int indentLevel;
 
-		public virtual void Start()
+		public Sequence GetSequence()
 		{
-			parentSequence = GetComponent<Sequence>();
-			parentFungusScript = GetFungusScript();
+			return gameObject.GetComponent<Sequence>();
 		}
 
 		public FungusScript GetFungusScript()
 		{
-			FungusScript sc = null;
-
-			Transform parent = transform.parent;		
-			while (parent != null)
+			Sequence s = GetSequence();
+			if (s == null)
 			{
-				sc = parent.gameObject.GetComponent<FungusScript>();
-				if (sc != null)
-				{
-					break;
-				}
-				parent = parent.transform.parent;
+				return null;
 			}
-			return sc;
+
+			return s.GetFungusScript();
 		}
 
 		public bool IsExecuting()
 		{
-			if (parentSequence == null)
+			Sequence sequence = GetSequence();
+			if (sequence == null)
 			{
 				return false;
 			}
 
-			return (parentSequence.activeCommand == this);
+			return (sequence.activeCommand == this);
 		}
 
 		public virtual void Execute()
@@ -84,20 +70,36 @@ namespace Fungus
 		public virtual void Continue(Command currentCommand)
 		{
 			OnExit();
-			parentSequence.ExecuteNextCommand(currentCommand);
+			Sequence sequence = GetSequence();
+			if (sequence != null)
+			{
+				sequence.ExecuteNextCommand(currentCommand);
+			}
 		}
 
 		public virtual void Stop()
 		{
 			OnExit();
-			parentSequence.Stop();
+			Sequence sequence = GetSequence();
+			if (sequence != null)
+			{
+				sequence.Stop();
+			}
 		}
 
 		public virtual void ExecuteSequence(Sequence s)
 		{
 			OnExit();
-			parentSequence.Stop();
-			parentFungusScript.ExecuteSequence(s);
+			Sequence sequence = GetSequence();
+			if (sequence != null)
+			{
+				sequence.Stop();
+				FungusScript fungusScript = sequence.GetFungusScript();
+				if (fungusScript != null)
+				{
+					fungusScript.ExecuteSequence(s);
+				}
+			}
 		}
 
 		public virtual void OnEnter()
