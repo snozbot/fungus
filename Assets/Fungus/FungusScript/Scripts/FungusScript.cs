@@ -45,6 +45,8 @@ namespace Fungus
 
 		public bool colorCommands = true;
 
+		public bool hideSequenceObjects = true;
+
 		public List<Variable> variables = new List<Variable>();
 
 		void Start()
@@ -130,6 +132,15 @@ namespace Fungus
 				{
 					return key;
 				}
+			}
+		}
+
+		public void UpdateHideFlags()
+		{
+			Sequence[] sequences = GetComponentsInChildren<Sequence>();
+			foreach (Sequence sequence in sequences)
+			{
+				sequence.gameObject.hideFlags = hideSequenceObjects ? HideFlags.HideInHierarchy : HideFlags.None;
 			}
 		}
 	}

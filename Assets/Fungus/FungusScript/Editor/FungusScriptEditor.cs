@@ -14,6 +14,7 @@ namespace Fungus
 		SerializedProperty startSequenceProp;
 		SerializedProperty startAutomaticallyProp;
 		SerializedProperty colorCommandsProp;
+		SerializedProperty hideSequenceObjectsProp;
 		SerializedProperty variablesProp;
 
 		void OnEnable()
@@ -22,6 +23,7 @@ namespace Fungus
 			startSequenceProp = serializedObject.FindProperty("startSequence");
 			startAutomaticallyProp = serializedObject.FindProperty("startAutomatically");
 			colorCommandsProp = serializedObject.FindProperty("colorCommands");
+			hideSequenceObjectsProp = serializedObject.FindProperty("hideSequenceObjects");
 			variablesProp = serializedObject.FindProperty("variables");
 		}
 
@@ -35,6 +37,8 @@ namespace Fungus
 			serializedObject.Update();
 
 			FungusScript t = target as FungusScript;
+
+			t.UpdateHideFlags();
 
 			if (Application.isPlaying)
 			{
@@ -65,6 +69,8 @@ namespace Fungus
 			EditorGUILayout.PropertyField(startAutomaticallyProp, new GUIContent("Start Automatically", "Start this Fungus Script when the scene starts."));
 
 			EditorGUILayout.PropertyField(colorCommandsProp, new GUIContent("Color Commands", "Display commands using colors in editor window."));
+
+			EditorGUILayout.PropertyField(hideSequenceObjectsProp, new GUIContent("Hide Sequence Objects", "Hides the Sequence game objects in the hierarchy view."));
 
 			EditorGUILayout.Separator();
 
