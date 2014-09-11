@@ -62,7 +62,13 @@ namespace Fungus
 			FungusScript fungusScript = GetFungusScript();
 			if (fungusScript == null)
 			{
-				GUILayout.Label("No Fungus Script object selected");
+				GUILayout.Label("No Fungus Script scene object selected");
+				return;
+			}
+
+			if (PrefabUtility.GetPrefabType(fungusScript) == PrefabType.Prefab)
+			{
+				GUILayout.Label("No Fungus Script scene object selected (selected object is a prefab)");
 				return;
 			}
 

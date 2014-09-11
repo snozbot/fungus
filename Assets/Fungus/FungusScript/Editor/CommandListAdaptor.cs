@@ -127,6 +127,11 @@ namespace Fungus
 		{
 			Command command = this[index].objectReferenceValue as Command;
 
+			if (command == null)
+			{
+				return;
+			}
+
 			CommandInfoAttribute commandInfoAttr = CommandEditor.GetCommandInfo(command.GetType());
 			if (commandInfoAttr == null)
 			{
@@ -134,7 +139,11 @@ namespace Fungus
 			}
 
 			FungusScript fungusScript = command.GetFungusScript();
-			
+			if (fungusScript == null)
+			{
+				return;
+			}
+
 			bool error = false;
 			string summary = command.GetSummary().Replace("\n", "").Replace("\r", "");
 			if (summary.Length > 80)

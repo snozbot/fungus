@@ -45,6 +45,10 @@ namespace Fungus
 			}
 
 			FungusScript fungusScript = t.GetFungusScript();
+			if (fungusScript == null)
+			{
+				return;
+			}
 
 			CommandInfoAttribute commandInfoAttr = CommandEditor.GetCommandInfo(t.GetType());
 			if (commandInfoAttr == null)

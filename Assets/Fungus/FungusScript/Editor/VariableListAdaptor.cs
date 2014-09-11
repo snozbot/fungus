@@ -85,7 +85,12 @@ namespace Fungus
 		public void DrawItem(Rect position, int index) 
 		{
 			Variable variable = this[index].objectReferenceValue as Variable;
-			
+
+			if (variable == null)
+			{
+				return;
+			}
+
 			float width1 = 100;
 			float width3 = 50;
 			float width2 = Mathf.Max(position.width - width1 - width3, 60);

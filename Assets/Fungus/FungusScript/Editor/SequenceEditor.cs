@@ -183,7 +183,7 @@ namespace Fungus
 			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>();
 			for (int i = 0; i < sequences.Length; ++i)
 			{
-				sequenceNames.Add(new GUIContent(sequences[i].name));
+				sequenceNames.Add(new GUIContent(sequences[i].sequenceName));
 				
 				if (sequence == sequences[i])
 				{
@@ -221,7 +221,7 @@ namespace Fungus
 			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>();
 			for (int i = 0; i < sequences.Length; ++i)
 			{
-				sequenceNames.Add(new GUIContent(sequences[i].name));
+				sequenceNames.Add(new GUIContent(sequences[i].sequenceName));
 				
 				if (sequence == sequences[i])
 				{
