@@ -43,7 +43,30 @@ namespace Fungus
 				SayEditor.DrawTagHelpLabel();
 			}
 
+			EditorGUILayout.BeginHorizontal();
+			
 			EditorGUILayout.PropertyField(chooseTextProp);
+			
+			Choose t = target as Choose;
+			
+			if (t.character != null &&
+			    t.character.profileSprite != null &&
+			    t.character.profileSprite.texture != null)
+			{
+				Texture2D characterTexture = t.character.profileSprite.texture;
+				
+				float aspect = (float)characterTexture.width / (float)characterTexture.height;
+				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(50), GUILayout.ExpandWidth(false));
+				CharacterEditor characterEditor = Editor.CreateEditor(t.character) as CharacterEditor;
+				if (characterEditor != null)
+				{
+					characterEditor.DrawPreview(previewRect, characterTexture);
+				}
+			}
+			
+			EditorGUILayout.EndHorizontal();
+
+			EditorGUILayout.Separator();
 
 			CommandEditor.ObjectField<Character>(characterProp,
 			                                           new GUIContent("Character", "Character to display in dialog"), 
