@@ -17,7 +17,6 @@ namespace Fungus
 
 		void OnEnable()
 		{
-			sequenceNameProp = serializedObject.FindProperty("sequenceName");
 			descriptionProp = serializedObject.FindProperty("description");
 		}
 
@@ -31,8 +30,15 @@ namespace Fungus
 			serializedObject.Update();
 			
 			Sequence sequence = fungusScript.selectedSequence;
-			
-			EditorGUILayout.PropertyField(sequenceNameProp);
+
+			EditorGUI.BeginChangeCheck();
+			string sequenceName = EditorGUILayout.TextField(new GUIContent("Name", "Name of sequence object"), sequence.gameObject.name);
+			if (EditorGUI.EndChangeCheck())
+			{
+				Undo.RecordObject(sequence.gameObject, "Set Sequence Name");
+				sequence.gameObject.name = sequenceName;
+			}
+
 			EditorGUILayout.PropertyField(descriptionProp);
 
 			EditorGUILayout.Separator();
@@ -183,7 +189,7 @@ namespace Fungus
 			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>();
 			for (int i = 0; i < sequences.Length; ++i)
 			{
-				sequenceNames.Add(new GUIContent(sequences[i].sequenceName));
+				sequenceNames.Add(new GUIContent(sequences[i].name));
 				
 				if (sequence == sequences[i])
 				{
@@ -221,7 +227,7 @@ namespace Fungus
 			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>();
 			for (int i = 0; i < sequences.Length; ++i)
 			{
-				sequenceNames.Add(new GUIContent(sequences[i].sequenceName));
+				sequenceNames.Add(new GUIContent(sequences[i].name));
 				
 				if (sequence == sequences[i])
 				{

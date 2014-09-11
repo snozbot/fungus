@@ -14,8 +14,6 @@ namespace Fungus
 	{
 		public Rect nodeRect = new Rect(10, 10, 100, 40);
 
-		public string sequenceName = "Sequence";
-
 		public string description = "";
 
 		[System.NonSerialized]

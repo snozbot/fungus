@@ -24,6 +24,20 @@ namespace Fungus
 	        GetWindow(typeof(FungusScriptWindow), false, "Fungus Script");
 	    }
 
+		[MenuItem("GameObject/Fungus/Fungus Script")]
+		static void CreateFungusScript()
+		{
+			GameObject newFungusScriptGO = new GameObject();
+			newFungusScriptGO.name = "FungusScript";
+			FungusScript fungusScript = newFungusScriptGO.AddComponent<FungusScript>();
+			GameObject newSequenceGO = new GameObject();
+			newSequenceGO.transform.parent = newFungusScriptGO.transform;
+			newSequenceGO.name = "Start";
+			newSequenceGO.hideFlags = HideFlags.HideInHierarchy;
+			Sequence sequence = newSequenceGO.AddComponent<Sequence>();
+			fungusScript.startSequence = sequence;
+		}
+		
 		// Implementing this method causes the padlock image to display on the window
 		// https://leahayes.wordpress.com/2013/04/30/adding-the-little-padlock-button-to-your-editorwindow/#more-455
 		void ShowButton(Rect position) {
@@ -137,8 +151,8 @@ namespace Fungus
 			for (int i = 0; i < sequences.Length; ++i)
 			{
 				Sequence sequence = sequences[i];
-				
-				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.sequenceName)).x;
+
+				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
 				float windowWidth = Mathf.Max (titleWidth + 10, 100);
 
 				if (fungusScript.selectedSequence == sequence ||
@@ -310,7 +324,7 @@ namespace Fungus
 
 			GUILayout.BeginVertical();
 			GUILayout.FlexibleSpace();
-			GUILayout.Label(sequence.sequenceName, labelStyle);
+			GUILayout.Label(sequence.name, labelStyle);
 			GUILayout.FlexibleSpace();
 			GUILayout.EndVertical();
 
