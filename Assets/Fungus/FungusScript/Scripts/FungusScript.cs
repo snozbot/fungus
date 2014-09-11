@@ -45,7 +45,7 @@ namespace Fungus
 
 		public bool colorCommands = true;
 
-		public bool hideSequenceObjects = true;
+		public bool showSequenceObjects = false;
 
 		public List<Variable> variables = new List<Variable>();
 
@@ -140,7 +140,7 @@ namespace Fungus
 			Sequence[] sequences = GetComponentsInChildren<Sequence>();
 			foreach (Sequence sequence in sequences)
 			{
-				sequence.gameObject.hideFlags = hideSequenceObjects ? HideFlags.HideInHierarchy : HideFlags.None;
+				sequence.gameObject.hideFlags = showSequenceObjects ? HideFlags.None : HideFlags.HideInHierarchy;
 			}
 		}
 	}
