@@ -127,7 +127,7 @@ namespace Fungus
 			}
 			
 			Undo.RecordObject(fungusScript, "Add Variable");
-			T newVariable = ScriptableObject.CreateInstance<T>();
+			T newVariable = fungusScript.gameObject.AddComponent<T>();
 			newVariable.key = fungusScript.GetUniqueVariableKey("");
 			fungusScript.variables.Add(newVariable);
 		}

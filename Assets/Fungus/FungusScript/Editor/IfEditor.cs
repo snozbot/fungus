@@ -50,7 +50,7 @@ namespace Fungus
 				return;
 			}
 
-			Variable selectedVariable = (Variable)variableProp.objectReferenceValue;
+			Variable selectedVariable = variableProp.objectReferenceValue as Variable;
 			System.Type variableType = selectedVariable.GetType();
 
 			List<GUIContent> operatorList = new List<GUIContent>();
