@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+#if !UNITY_WINRT
 using System.Runtime.Serialization.Formatters.Binary;
+#endif
 using System.IO;
 
 namespace Fungus
@@ -24,6 +26,7 @@ namespace Fungus
 		 */
 		public static void Save(string saveName)
 		{
+#if !UNITY_WINRT
 			// Save strings
 			{
 				var b = new BinaryFormatter();
@@ -57,6 +60,7 @@ namespace Fungus
 			}
 
 			PlayerPrefs.Save();
+#endif
 		}
 
 		/**
@@ -64,6 +68,7 @@ namespace Fungus
 		 */
 		public static void Load(string saveName)
 		{
+#if !UNITY_WINRT
 			var stringData = PlayerPrefs.GetString(saveName + "." + "stringDict");
 			if (string.IsNullOrEmpty(stringData))
 			{
@@ -99,6 +104,7 @@ namespace Fungus
 				var m = new MemoryStream(Convert.FromBase64String(boolData));
 				boolDict = b.Deserialize(m) as Dictionary<string, bool>;
 			}
+#endif
 		}
 
 		/**
