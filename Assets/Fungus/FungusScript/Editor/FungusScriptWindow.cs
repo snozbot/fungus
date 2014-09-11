@@ -345,7 +345,8 @@ namespace Fungus
 
 				foreach (Sequence sequenceB in connectedSequences)
 				{
-					if (sequenceB == null)
+					if (sequenceB == null ||
+					    sequenceB.GetFungusScript() != fungusScript)
 					{
 						continue;
 					}

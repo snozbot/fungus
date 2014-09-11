@@ -52,7 +52,7 @@ namespace Fungus
 		{
 			if (targetSequence != null)
 			{
-				connectedSequences.Add (targetSequence);
+				connectedSequences.Add(targetSequence);
 			}
 		}
 
