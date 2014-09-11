@@ -26,8 +26,10 @@ namespace Fungus
 	[RequireComponent(typeof(Sequence))]
 	public class Command : MonoBehaviour
 	{
+		[HideInInspector]
 		public string errorMessage = "";
 
+		[HideInInspector]
 		public int indentLevel;
 
 		public Sequence GetSequence()
