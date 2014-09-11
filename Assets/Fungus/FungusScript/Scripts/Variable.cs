@@ -18,6 +18,7 @@ namespace Fungus
 		Global
 	}
 
+	[RequireComponent(typeof(FungusScript))]
 	public class Variable : MonoBehaviour
 	{
 		public VariableScope scope;
