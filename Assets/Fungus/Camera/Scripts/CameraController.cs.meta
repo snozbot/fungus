@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: efb7bb24722d4469bbd789bd2e01db19
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - screenFadeTexture: {fileID: 2800000, guid: f6c7b1f3a78a24703b70c746d8b9c768, type: 3}
+  - swipePanIcon: {fileID: 2800000, guid: 41bc737f4dc1b40db872aca00bcd7d4b, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
