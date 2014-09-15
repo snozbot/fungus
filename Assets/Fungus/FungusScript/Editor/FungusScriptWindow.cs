@@ -269,8 +269,9 @@ namespace Fungus
 			{
 				EditorGUILayout.Separator();
 
-				SequenceEditor editor = Editor.CreateEditor(fungusScript.selectedSequence) as SequenceEditor;
-				editor.DrawSequenceGUI(fungusScript);
+				SequenceEditor sequenceEditor = Editor.CreateEditor(fungusScript.selectedSequence) as SequenceEditor;
+				sequenceEditor.DrawSequenceGUI(fungusScript);
+				DestroyImmediate(sequenceEditor);
 
 				GUILayout.FlexibleSpace();
 			}

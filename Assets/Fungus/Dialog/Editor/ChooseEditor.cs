@@ -58,10 +58,8 @@ namespace Fungus
 				float aspect = (float)characterTexture.width / (float)characterTexture.height;
 				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(50), GUILayout.ExpandWidth(false));
 				CharacterEditor characterEditor = Editor.CreateEditor(t.character) as CharacterEditor;
-				if (characterEditor != null)
-				{
-					characterEditor.DrawPreview(previewRect, characterTexture);
-				}
+				characterEditor.DrawPreview(previewRect, characterTexture);
+				DestroyImmediate(characterEditor);
 			}
 			
 			EditorGUILayout.EndHorizontal();

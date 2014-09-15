@@ -89,6 +89,7 @@ namespace Fungus
 			{
 				CommandEditor commandEditor = Editor.CreateEditor(t.selectedCommand) as CommandEditor;
 				commandEditor.DrawCommandInspectorGUI();
+				DestroyImmediate(commandEditor);
 			}
 
 			EditorGUILayout.Separator();
