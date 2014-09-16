@@ -160,13 +160,35 @@ public class ViewEditor : Editor
 		Color fill = viewColor;
 		Color outline = viewColor;
 
-		if (Selection.activeGameObject == view.gameObject)
+		bool highlight = Selection.activeGameObject == view.gameObject;
+
+		FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
+		if (fungusScript != null)
 		{
-			fill = outline = Color.green;
+			MoveToView moveToViewCommand = fungusScript.selectedCommand as MoveToView;
+			if (moveToViewCommand != null)
+			{
+				highlight = (moveToViewCommand.targetView == view);
+			}
+
+			FadeToView fadeToViewCommand = fungusScript.selectedCommand as FadeToView;
+			if (fadeToViewCommand != null)
+			{
+				highlight = (fadeToViewCommand.targetView == view);
+			}
 		}
 
-		fill.a = 0.1f;
-		outline.a = 0.5f;
+		if (highlight)
+		{
+			fill = outline = Color.green;
+			fill.a = 0.1f;
+			outline.a = 1f;
+		}
+		else
+		{
+			fill.a = 0.1f;
+			outline.a = 0.5f;
+		}
 
 		// Draw left box
 		{
