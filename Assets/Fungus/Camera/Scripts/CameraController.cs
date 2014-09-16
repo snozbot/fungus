@@ -16,45 +16,45 @@ namespace Fungus
 		 * Full screen texture used for screen fade effect.
 		 */
 		public Texture2D screenFadeTexture;
-
+		
 		/**
 		 * Icon to display when swipe pan mode is active.
 		 */
 		public Texture2D swipePanIcon;
-
+		
 		/**
 		 * Position of continue and swipe icons in normalized screen space coords.
 		 * (0,0) = top left, (1,1) = bottom right
 		 */
 		public Vector2 swipeIconPosition = new Vector2(1,0);
-
+		
 		/**
 		 * Fixed Z coordinate of main camera.
 		 */
 		public float cameraZ = -10f;
-
+		
 		[HideInInspector]
 		public bool swipePanActive;
-
+		
 		[HideInInspector]
 		public bool waiting; 
-
+		
 		float fadeAlpha = 0f;
-
+		
 		// Swipe panning control
 		View swipePanViewA;
 		View swipePanViewB;
 		Vector3 previousMousePos;
-
+		
 		class CameraView
 		{
 			public Vector3 cameraPos;
 			public Quaternion cameraRot;
 			public float cameraSize;
 		};
-
+		
 		Dictionary<string, CameraView> storedViews = new Dictionary<string, CameraView>();
-
+		
 		static CameraController instance;
 		
 		/**
@@ -71,7 +71,7 @@ namespace Fungus
 			
 			return instance;
 		}
-
+		
 		public static Texture2D CreateColorTexture(Color color, int width, int height)
 		{
 			Color[] pixels = new Color[width * height];
@@ -82,10 +82,10 @@ namespace Fungus
 			Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
 			texture.SetPixels(pixels);
 			texture.Apply();
-
+			
 			return texture;		
 		}
-
+		
 		void OnGUI()
 		{
 			if (swipePanActive)
@@ -107,19 +107,19 @@ namespace Fungus
 					GUI.DrawTexture(rect, swipePanIcon);
 				}
 			}
-
+			
 			// Draw full screen fade texture
-			if (fadeAlpha < 1f &&
+			if (fadeAlpha > 0f &&
 			    screenFadeTexture != null)
 			{
 				// 1 = scene fully visible
 				// 0 = scene fully obscured
-				GUI.color = new Color(1,1,1, 1f - fadeAlpha);	
+				GUI.color = new Color(1,1,1, fadeAlpha);	
 				GUI.depth = -1000;
 				GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), screenFadeTexture);
 			}
 		}
-
+		
 		/**
 		 * Perform a fullscreen fade over a duration.
 		 */
@@ -127,23 +127,23 @@ namespace Fungus
 		{
 			StartCoroutine(FadeInternal(targetAlpha, fadeDuration, fadeAction));
 		}
-
+		
 		/**
 		 * Fade out, move camera to view and then fade back in.
 		 */
 		public void FadeToView(View view, float fadeDuration, Action fadeAction)
 		{
 			swipePanActive = false;
-			fadeAlpha = 1f;
-
+			fadeAlpha = 0f;
+			
 			// Fade out
-			Fade(0f, fadeDuration / 2f, delegate {
+			Fade(1f, fadeDuration / 2f, delegate {
 				
 				// Snap to new view
 				PanToPosition(view.transform.position, view.transform.rotation, view.viewSize, 0f, null);
-
+				
 				// Fade in
-				Fade(1f, fadeDuration / 2f, delegate {
+				Fade(0f, fadeDuration / 2f, delegate {
 					if (fadeAction != null)
 					{
 						fadeAction();
@@ -151,12 +151,12 @@ namespace Fungus
 				});
 			});
 		}
-
+		
 		IEnumerator FadeInternal(float targetAlpha, float fadeDuration, Action fadeAction)
 		{
 			float startAlpha = fadeAlpha;
 			float timer = 0;
-
+			
 			// If already at the target alpha then complete immediately
 			if (startAlpha == targetAlpha)
 			{
@@ -168,22 +168,22 @@ namespace Fungus
 				{
 					float t = timer / fadeDuration;
 					timer += Time.deltaTime;
-
+					
 					t = Mathf.Clamp01(t);   
-
+					
 					fadeAlpha = Mathf.Lerp(startAlpha, targetAlpha, t);
 					yield return null;
 				}
 			}
-
+			
 			fadeAlpha = targetAlpha;
-
+			
 			if (fadeAction != null)
 			{
 				fadeAction();
 			}
 		}
-
+		
 		/**
 		 * Positions camera so sprite is centered and fills the screen.
 		 * @param spriteRenderer The sprite to center the camera on
@@ -191,7 +191,7 @@ namespace Fungus
 		public void CenterOnSprite(SpriteRenderer spriteRenderer)
 		{
 			swipePanActive = false;
-
+			
 			Sprite sprite = spriteRenderer.sprite;
 			Vector3 extents = sprite.bounds.extents;
 			float localScaleY = spriteRenderer.transform.localScale.y;
@@ -201,12 +201,12 @@ namespace Fungus
 			Camera.main.transform.position = new Vector3(pos.x, pos.y, 0);
 			SetCameraZ();
 		}
-
+		
 		public void PanToView(View view, float duration, Action arriveAction)
 		{
 			PanToPosition(view.transform.position, view.transform.rotation, view.viewSize, duration, arriveAction);
 		}
-
+		
 		/**
 		 * Moves camera from current position to a target position over a period of time.
 		 */
@@ -214,7 +214,7 @@ namespace Fungus
 		{
 			// Stop any pan that is currently active
 			StopAllCoroutines();
-
+			
 			swipePanActive = false;
 			
 			if (duration == 0f)
@@ -234,7 +234,7 @@ namespace Fungus
 				StartCoroutine(PanInternal(targetPosition, targetRotation, targetSize, duration, arriveAction));
 			}
 		}
-
+		
 		/**
 		 * Stores the current camera view using a name.
 		 */
@@ -246,7 +246,7 @@ namespace Fungus
 			currentView.cameraSize = Camera.main.orthographicSize;
 			storedViews[viewName] = currentView;
 		}
-
+		
 		/**
 		 * Moves the camera to a previously stored camera view over a period of time.
 		 */
@@ -261,9 +261,9 @@ namespace Fungus
 				}
 				return;
 			}
-
+			
 			CameraView cameraView = storedViews[viewName];
-
+			
 			if (duration == 0f)
 			{
 				// Move immediately
@@ -291,7 +291,7 @@ namespace Fungus
 			Vector3 endPos = targetPos;
 			Quaternion startRot = Camera.main.transform.rotation;
 			Quaternion endRot = targetRot;
-
+			
 			bool arrived = false;
 			while (!arrived)
 			{
@@ -301,78 +301,78 @@ namespace Fungus
 					arrived = true;
 					timer = duration;
 				}
-
+				
 				// Apply smoothed lerp to camera position and orthographic size
 				float t = timer / duration;
 				Camera.main.orthographicSize = Mathf.Lerp(startSize, endSize, Mathf.SmoothStep(0f, 1f, t));
 				Camera.main.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, t));
 				Camera.main.transform.rotation = Quaternion.Lerp(startRot, endRot, Mathf.SmoothStep(0f, 1f, t));
 				SetCameraZ();
-			
+				
 				if (arrived &&
 				    arriveAction != null)
 				{
 					arriveAction();
 				}
-
+				
 				yield return null;
 			}
 		}
-
+		
 		/**
 		 * Moves camera smoothly through a sequence of Views over a period of time
 		 */
 		public void PanToPath(View[] viewList, float duration, Action arriveAction)
 		{
 			swipePanActive = false;
-
+			
 			List<Vector3> pathList = new List<Vector3>();
-
+			
 			// Add current camera position as first point in path
 			// Note: We use the z coord to tween the camera orthographic size
 			Vector3 startPos = new Vector3(Camera.main.transform.position.x,
 			                               Camera.main.transform.position.y,
 			                               Camera.main.orthographicSize);
 			pathList.Add(startPos);
-
+			
 			for (int i = 0; i < viewList.Length; ++i)
 			{
 				View view = viewList[i];
-
+				
 				Vector3 viewPos = new Vector3(view.transform.position.x, 
 				                              view.transform.position.y, 
 				                              view.viewSize);
 				pathList.Add(viewPos);
 			}
-
+			
 			StartCoroutine(PanToPathInternal(duration, arriveAction, pathList.ToArray()));
 		}
-
+		
 		IEnumerator PanToPathInternal(float duration, Action arriveAction, Vector3[] path)
 		{
 			float timer = 0;
-
+			
 			while (timer < duration)
 			{
 				timer += Time.deltaTime;
 				timer = Mathf.Min(timer, duration);
 				float percent = timer / duration;
-
+				
 				Vector3 point = iTween.PointOnPath(path, percent);
-
+				
 				Camera.main.transform.position = new Vector3(point.x, point.y, 0);
 				Camera.main.orthographicSize = point.z;
 				SetCameraZ();
-
+				
 				yield return null;
 			}
-
+			
 			if (arriveAction != null)
 			{
 				arriveAction();
 			}
 		}
-
+		
 		/**
 		 * Activates swipe panning mode.
 		 * The player can pan the camera within the area between viewA & viewB.
@@ -381,23 +381,23 @@ namespace Fungus
 		{
 			swipePanViewA = viewA;
 			swipePanViewB = viewB;
-
+			
 			Vector3 cameraPos = Camera.main.transform.position;
-
+			
 			Vector3 targetPosition = CalcCameraPosition(cameraPos, swipePanViewA, swipePanViewB);
 			float targetSize = CalcCameraSize(cameraPos, swipePanViewA, swipePanViewB); 
-
+			
 			PanToPosition(targetPosition, Quaternion.identity, targetSize, duration, delegate {
-
+				
 				swipePanActive = true;
-
+				
 				if (arriveAction != null)
 				{
 					arriveAction();
 				}
 			}); 
 		}
-
+		
 		/**
 		 * Deactivates swipe panning mode.
 		 */
@@ -407,21 +407,21 @@ namespace Fungus
 			swipePanViewA = null;
 			swipePanViewB = null;
 		}
-
+		
 		void SetCameraZ()
 		{
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, cameraZ);
 		}
-
+		
 		void Update()	
 		{
 			if (!swipePanActive)
 			{
 				return;
 			}
-
+			
 			Vector3 delta = Vector3.zero;
-
+			
 			if (Input.touchCount > 0)
 			{
 				if (Input.GetTouch(0).phase == TouchPhase.Moved)
@@ -429,7 +429,7 @@ namespace Fungus
 					delta = Input.GetTouch(0).deltaPosition;
 				}
 			}
-
+			
 			if (Input.GetMouseButtonDown(0))
 			{
 				previousMousePos = Input.mousePosition;	
@@ -439,34 +439,34 @@ namespace Fungus
 				delta = Input.mousePosition - previousMousePos;
 				previousMousePos = Input.mousePosition;
 			}
-
+			
 			Vector3 cameraDelta = Camera.main.ScreenToViewportPoint(delta);
 			cameraDelta.x *= -2f;
 			cameraDelta.y *= -1f;
 			cameraDelta.z = 0f;
-
+			
 			Vector3 cameraPos = Camera.main.transform.position;
-
+			
 			cameraPos += cameraDelta;
-
+			
 			Camera.main.transform.position = CalcCameraPosition(cameraPos, swipePanViewA, swipePanViewB);
 			Camera.main.orthographicSize = CalcCameraSize(cameraPos, swipePanViewA, swipePanViewB); 
 		}
-
+		
 		// Clamp camera position to region defined by the two views
 		Vector3 CalcCameraPosition(Vector3 pos, View viewA, View viewB)
 		{
 			Vector3 safePos = pos;
-
+			
 			// Clamp camera position to region defined by the two views
 			safePos.x = Mathf.Max(safePos.x, Mathf.Min(viewA.transform.position.x, viewB.transform.position.x));
 			safePos.x = Mathf.Min(safePos.x, Mathf.Max(viewA.transform.position.x, viewB.transform.position.x));
 			safePos.y = Mathf.Max(safePos.y, Mathf.Min(viewA.transform.position.y, viewB.transform.position.y));
 			safePos.y = Mathf.Min(safePos.y, Mathf.Max(viewA.transform.position.y, viewB.transform.position.y));
-
+			
 			return safePos;
 		}
-
+		
 		// Smoothly interpolate camera orthographic size based on relative position to two views
 		float CalcCameraSize(Vector3 pos, View viewA, View viewB)
 		{
@@ -484,7 +484,7 @@ namespace Fungus
 			t = Mathf.Clamp01(t); // Not really necessary but no harm
 			
 			float cameraSize = Mathf.Lerp(viewA.viewSize, viewB.viewSize, t);
-
+			
 			return cameraSize;
 		}
 	}
