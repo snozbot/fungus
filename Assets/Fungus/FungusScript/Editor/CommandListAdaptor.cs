@@ -85,8 +85,11 @@ namespace Fungus
 			{
 				return null;
 			}
-			
-			return sequence.gameObject.AddComponent(fungusScript.selectedAddCommandType) as Command;
+
+			Command newCommand = sequence.gameObject.AddComponent(fungusScript.selectedAddCommandType) as Command;
+			fungusScript.selectedCommand = newCommand;
+
+			return newCommand;
 		}
 
 		public void Duplicate(int index) {
