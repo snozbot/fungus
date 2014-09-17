@@ -12,7 +12,7 @@ namespace Fungus
 	{
 		SerializedProperty stepTimeProp;
 		SerializedProperty startSequenceProp;
-		SerializedProperty startAutomaticallyProp;
+		SerializedProperty executeOnStartProp;
 		SerializedProperty colorCommandsProp;
 		SerializedProperty showSequenceObjectsProp;
 		SerializedProperty variablesProp;
@@ -21,7 +21,7 @@ namespace Fungus
 		{
 			stepTimeProp = serializedObject.FindProperty("stepTime");
 			startSequenceProp = serializedObject.FindProperty("startSequence");
-			startAutomaticallyProp = serializedObject.FindProperty("startAutomatically");
+			executeOnStartProp = serializedObject.FindProperty("executeOnStart");
 			colorCommandsProp = serializedObject.FindProperty("colorCommands");
 			showSequenceObjectsProp = serializedObject.FindProperty("showSequenceObjects");
 			variablesProp = serializedObject.FindProperty("variables");
@@ -66,7 +66,7 @@ namespace Fungus
 				EditorGUILayout.LabelField(new GUIContent("Error: Please select a Start Sequence"), style);
 			}
 
-			EditorGUILayout.PropertyField(startAutomaticallyProp, new GUIContent("Start Automatically", "Start this Fungus Script when the scene starts."));
+			EditorGUILayout.PropertyField(executeOnStartProp, new GUIContent("Execute On Start", "Execute this Fungus Script when the scene starts."));
 
 			EditorGUILayout.PropertyField(colorCommandsProp, new GUIContent("Color Commands", "Display commands using colors in editor window."));
 
