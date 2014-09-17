@@ -7,6 +7,10 @@ using System.Collections.Generic;
 namespace Fungus
 {
 
+	/**
+	 * Visual scripting controller for the Fungus Script programming language.
+	 * FungusScript objects may be edited visually using the Fungus Script editor window.
+	 */
 	public class FungusScript : MonoBehaviour 
 	{
 		/**
