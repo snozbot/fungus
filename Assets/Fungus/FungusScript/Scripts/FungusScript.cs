@@ -185,6 +185,27 @@ namespace Fungus
 		}
 
 		/**
+		 * Gets the value of a boolean variable.
+		 * Returns false if the variable key does not exist.
+		 */
+		public bool GetBooleanVariable(string key)
+		{
+			foreach (Variable v in variables)
+			{
+				if (v.key == key)
+				{
+					BooleanVariable variable = v as BooleanVariable;
+					if (variable != null)
+					{
+						return variable.Value;
+					}
+				}
+			}
+			Debug.LogWarning("Boolean variable " + key + " not found.");
+			return false;
+		}
+					
+		/**
 		 * Sets the value of a boolean variable.
 		 * The variable must already be added to the list of variables for this Fungus Script.
 		 */
@@ -203,6 +224,27 @@ namespace Fungus
 				}
 			}
 			Debug.LogWarning("Boolean variable " + key + " not found.");
+		}
+
+		/**
+		 * Gets the value of an integer variable.
+		 * Returns false if the variable key does not exist.
+		 */
+		public int GetIntegerVariable(string key)
+		{
+			foreach (Variable v in variables)
+			{
+				if (v.key == key)
+				{
+					IntegerVariable variable = v as IntegerVariable;
+					if (variable != null)
+					{
+						return variable.Value;
+					}
+				}
+			}
+			Debug.LogWarning("Integer variable " + key + " not found.");
+			return 0;
 		}
 
 		/**
@@ -227,6 +269,27 @@ namespace Fungus
 		}
 
 		/**
+		 * Gets the value of a float variable.
+		 * Returns false if the variable key does not exist.
+		 */
+		public float GetFloatVariable(string key)
+		{
+			foreach (Variable v in variables)
+			{
+				if (v.key == key)
+				{
+					FloatVariable variable = v as FloatVariable;
+					if (variable != null)
+					{
+						return variable.Value;
+					}
+				}
+			}
+			Debug.LogWarning("Float variable " + key + " not found.");
+			return 0f;
+		}
+				
+		/**
 		 * Sets the value of a float variable.
 		 * The variable must already be added to the list of variables for this Fungus Script.
 		 */
@@ -245,6 +308,27 @@ namespace Fungus
 				}
 			}
 			Debug.LogWarning("Float variable " + key + " not found.");
+		}
+
+		/**
+		 * Gets the value of a string variable.
+		 * Returns false if the variable key does not exist.
+		 */
+		public string GetStringVariable(string key)
+		{
+			foreach (Variable v in variables)
+			{
+				if (v.key == key)
+				{
+					StringVariable variable = v as StringVariable;
+					if (variable != null)
+					{
+						return variable.Value;
+					}
+				}
+			}
+			Debug.LogWarning("String variable " + key + " not found.");
+			return "";
 		}
 
 		/**
