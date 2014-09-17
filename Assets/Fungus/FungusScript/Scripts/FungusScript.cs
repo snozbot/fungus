@@ -185,6 +185,90 @@ namespace Fungus
 		}
 
 		/**
+		 * Sets the value of a boolean variable.
+		 * The variable must already be added to the list of variables for this Fungus Script.
+		 */
+		public void SetBooleanVariable(string key, bool value)
+		{
+			foreach (Variable v in variables)
+			{
+				if (v.key == key)
+				{
+					BooleanVariable variable = v as BooleanVariable;
+					if (variable != null)
+					{
+						variable.Value = value;
+						return;
+					}
+				}
+			}
+			Debug.LogWarning("Boolean variable " + key + " not found.");
+		}
+
+		/**
+		 * Sets the value of an integer variable.
+		 * The variable must already be added to the list of variables for this Fungus Script.
+		 */
+		public void SetIntegerVariable(string key, int value)
+		{
+			foreach (Variable v in variables)
+			{
+				if (v.key == key)
+				{
+					IntegerVariable variable = v as IntegerVariable;
+					if (variable != null)
+					{
+						variable.Value = value;
+						return;
+					}
+				}
+			}
+			Debug.LogWarning("Integer variable " + key + " not found.");
+		}
+
+		/**
+		 * Sets the value of a float variable.
+		 * The variable must already be added to the list of variables for this Fungus Script.
+		 */
+		public void SetFloatVariable(string key, float value)
+		{
+			foreach (Variable v in variables)
+			{
+				if (v.key == key)
+				{
+					FloatVariable variable = v as FloatVariable;
+					if (variable != null)
+					{
+						variable.Value = value;
+						return;
+					}
+				}
+			}
+			Debug.LogWarning("Float variable " + key + " not found.");
+		}
+
+		/**
+		 * Sets the value of a string variable.
+		 * The variable must already be added to the list of variables for this Fungus Script.
+		 */
+		public void SetStringVariable(string key, string value)
+		{
+			foreach (Variable v in variables)
+			{
+				if (v.key == key)
+				{
+					StringVariable variable = v as StringVariable;
+					if (variable != null)
+					{
+						variable.Value = value;
+						return;
+					}
+				}
+			}
+			Debug.LogWarning("String variable " + key + " not found.");
+		}
+
+		/**
 		 * Set the sequence objects to be hidden or visible depending on the showSequenceObjects property.
 		 */
 		public void UpdateHideFlags()
