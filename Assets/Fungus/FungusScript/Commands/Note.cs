@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,11 +8,11 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "Note", 
 	             "Records design notes and reminders about your script.")]
-	public class Comment : Command
+	public class Note : Command
 	{	
 		[TextArea(2,4)]
 		public string commentText = "";
-	
+
 		public override void OnEnter()
 		{
 			Continue();

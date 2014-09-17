@@ -12,15 +12,6 @@ namespace Fungus
 	{
 		public static Command selectedCommand;
 
-		void OnEnable()
-		{
-			Command t = target as Command;
-			if (t != null)
-			{
-				t.hideFlags = HideFlags.HideInInspector;
-			}
-		}
-
 		public static CommandInfoAttribute GetCommandInfo(System.Type commandType)
 		{
 			object[] attributes = commandType.GetCustomAttributes(typeof(CommandInfoAttribute), false);

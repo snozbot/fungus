@@ -16,15 +16,6 @@ namespace Fungus
 		public Command copyCommand;
 
 		[HideInInspector]
-		public int selectedAddCommandIndex;
-
-		[HideInInspector]
-		public System.Type selectedAddCommandType;
-
-		[HideInInspector]
-		public int selectedCommandCategoryIndex;
-
-		[HideInInspector]
 		public Vector2 scriptScrollPos;
 
 		[HideInInspector]

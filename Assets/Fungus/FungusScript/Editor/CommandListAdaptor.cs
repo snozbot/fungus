@@ -5,12 +5,21 @@
 using UnityEngine;
 using UnityEditor;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Rotorz.ReorderableList;
 
 namespace Fungus
 {
 	public class CommandListAdaptor : IReorderableListAdaptor {
-		
+
+		private class SetCommandOperation
+		{
+			public Sequence sequence;
+			public Type commandType;
+			public int index;
+		}
+
 		private SerializedProperty _arrayProperty;
 
 		public float fixedItemHeight;
@@ -74,8 +83,7 @@ namespace Fungus
 		Command AddNewCommand()
 		{
 			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
-			if (fungusScript == null ||
-			    fungusScript.selectedAddCommandType == null)
+			if (fungusScript == null)
 			{
 				return null;
 			}
@@ -86,7 +94,7 @@ namespace Fungus
 				return null;
 			}
 
-			Command newCommand = sequence.gameObject.AddComponent(fungusScript.selectedAddCommandType) as Command;
+			Command newCommand = sequence.gameObject.AddComponent<Note>() as Command;
 			fungusScript.selectedCommand = newCommand;
 
 			return newCommand;
@@ -174,8 +182,10 @@ namespace Fungus
 			}
 
 			string commandName = commandInfoAttr.CommandName;
-			GUIStyle commandStyle = new GUIStyle(EditorStyles.miniButtonLeft);
-			float buttonWidth = Mathf.Max(commandStyle.CalcSize(new GUIContent(commandName)).x, 100f);
+
+			GUIStyle commandLabelStyle = new GUIStyle(EditorStyles.miniButtonLeft);
+
+			float buttonWidth = Mathf.Max(commandLabelStyle.CalcSize(new GUIContent(commandName)).x, 100f);
 			float indentWidth = command.indentLevel * indentSize;
 
 			Rect buttonRect = position;
@@ -186,7 +196,7 @@ namespace Fungus
 
 			Rect summaryRect = buttonRect;
 			summaryRect.x += buttonWidth - 1;
-			summaryRect.width = position.width - buttonWidth - indentWidth;
+			summaryRect.width = position.width - buttonWidth - indentWidth - 15;
 
 			if (!Application.isPlaying &&
 			    Event.current.type == EventType.MouseDown &&
@@ -220,18 +230,31 @@ namespace Fungus
 			}
 
 			GUI.backgroundColor = buttonBackgroundColor;
-			GUI.Label(buttonRect, commandName, commandStyle);
+			GUI.Label(buttonRect, commandName, commandLabelStyle);
 
-			GUIStyle labelStyle = new GUIStyle(EditorStyles.miniButtonRight);
-			labelStyle.alignment = TextAnchor.MiddleLeft;
+			GUIStyle summaryStyle = new GUIStyle(EditorStyles.miniButtonRight);
+			summaryStyle.alignment = TextAnchor.MiddleLeft;
 			if (error && !selected)
 			{
-				labelStyle.normal.textColor = Color.white;
+				summaryStyle.normal.textColor = Color.white;
 			}
 
 			GUI.backgroundColor = summaryBackgroundColor;
-			GUI.Box(summaryRect, summary, labelStyle);
+			GUI.Box(summaryRect, summary, summaryStyle);
+		
 			GUI.backgroundColor = Color.white;
+
+			Rect menuRect = summaryRect;
+			menuRect.x += menuRect.width + 2;
+			menuRect.y = position.y + 1;
+			menuRect.width = 18;
+			menuRect.height = position.height;
+
+			GUIStyle menuButtonStyle = new GUIStyle(EditorStyles.popup);
+			if (GUI.Button(menuRect, new GUIContent("", "Select command type"), menuButtonStyle))
+			{
+				ShowCommandMenu(index, fungusScript.selectedSequence);
+			}
 		}
 
 		public virtual float GetItemHeight(int index) {
@@ -276,7 +299,56 @@ namespace Fungus
 					element.objectReferenceValue = null;
 				break;
 			}
-		}		
+		}
+
+		void ShowCommandMenu(int index, Sequence sequence)
+		{
+			GenericMenu commandMenu = new GenericMenu();
+
+			// Build menu list
+			List<System.Type> menuTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).ToList();
+			foreach(System.Type type in menuTypes)
+			{
+				object[] attributes = type.GetCustomAttributes(false);
+				foreach (object obj in attributes)
+				{
+					CommandInfoAttribute infoAttr = obj as CommandInfoAttribute;
+					if (infoAttr != null)
+					{
+						SetCommandOperation commandOperation = new SetCommandOperation();
+
+						commandOperation.sequence = sequence;
+						commandOperation.commandType = type;
+						commandOperation.index = index;
+
+						commandMenu.AddItem (new GUIContent (infoAttr.Category + "/" + infoAttr.CommandName), 
+						                     false, Callback, commandOperation);
+					}
+				}
+			}
+
+			commandMenu.ShowAsContext();
+		}
+
+		void Callback(object obj)
+		{
+			SetCommandOperation commandOperation = obj as SetCommandOperation;
+
+			Sequence sequence = commandOperation.sequence;
+			if (sequence == null)
+			{
+				return;
+			}
+
+			Command newCommand = Undo.AddComponent(sequence.gameObject, commandOperation.commandType)  as Command;
+			sequence.GetFungusScript().selectedCommand = newCommand;
+
+			Command oldCommand = sequence.commandList[commandOperation.index];
+			Undo.DestroyObjectImmediate(oldCommand);
+
+			Undo.RecordObject(sequence, "Set command type");
+			sequence.commandList[commandOperation.index] = newCommand;
+		}
 	}
 }
 

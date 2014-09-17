@@ -55,86 +55,6 @@ namespace Fungus
 				serializedObject.ApplyModifiedProperties();
 				return;
 			}
-			
-			EditorGUI.BeginChangeCheck();
-
-			EditorGUILayout.BeginHorizontal();
-
-			// Build list of categories
-			List<string> categories = new List<string>();
-			List<System.Type> subTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).ToList();
-			foreach(System.Type type in subTypes)
-			{
-				object[] attributes = type.GetCustomAttributes(false);
-				foreach (object obj in attributes)
-				{
-					CommandInfoAttribute categoryAttr = obj as CommandInfoAttribute;
-					if (categoryAttr != null)
-					{
-						if (!categories.Contains(categoryAttr.Category))
-						{
-							categories.Add(categoryAttr.Category);
-						}
-					}
-				}
-			}
-			categories.Sort();
-
-			GUILayout.Label("New Command");
-			GUILayout.FlexibleSpace();
-
-			// We should probably use SerializedProperty for the category & command index but there's no real benefit to doing so
-			int selectedCategoryIndex = EditorGUILayout.Popup(fungusScript.selectedCommandCategoryIndex, categories.ToArray());
-			
-			List<string> commandNames = new List<string>();
-			List<System.Type> commandTypes = new List<System.Type>();
-			
-			string categoryName = categories[selectedCategoryIndex];
-			foreach (System.Type type in subTypes)
-			{
-				CommandInfoAttribute commandInfoAttr = CommandEditor.GetCommandInfo(type);
-				if (commandInfoAttr == null)
-				{
-					continue;
-				}
-
-				if (categoryName == commandInfoAttr.Category)
-				{
-					commandNames.Add(commandInfoAttr.CommandName);
-					commandTypes.Add(type);
-				}
-			}
-			
-			int selectedCommandIndex = EditorGUILayout.Popup(fungusScript.selectedAddCommandIndex, commandNames.ToArray());
-			if (selectedCategoryIndex != fungusScript.selectedCommandCategoryIndex)
-			{
-				// Default to first item in list if category has changed
-				selectedCommandIndex = 0;
-			}
-
-			EditorGUILayout.EndHorizontal();
-
-			if (EditorGUI.EndChangeCheck())
-			{
-				Undo.RecordObject(fungusScript, "Select Command");
-				fungusScript.selectedCommandCategoryIndex = selectedCategoryIndex;
-				fungusScript.selectedAddCommandIndex = selectedCommandIndex;
-			}
-			
-			if (selectedCommandIndex >= commandTypes.Count)
-			{
-				return;
-			}
-			
-			System.Type selectedType = commandTypes[selectedCommandIndex];
-			if (fungusScript.selectedSequence == null ||
-			    selectedType == null)
-			{
-				serializedObject.ApplyModifiedProperties();
-				return;
-			}
-
-			fungusScript.selectedAddCommandType = selectedType;
 
 			EditorGUILayout.BeginHorizontal();
 
@@ -150,12 +70,13 @@ namespace Fungus
 
 			EditorGUILayout.EndHorizontal();
 
-			CommandInfoAttribute infoAttr = CommandEditor.GetCommandInfo(selectedType);
-			if (infoAttr != null)
+			if (fungusScript.selectedCommand != null)
 			{
-				GUIStyle labelStyle = new GUIStyle(EditorStyles.miniLabel);
-				labelStyle.wordWrap = true;
-				EditorGUILayout.HelpBox(infoAttr.HelpText, MessageType.Info);
+				CommandInfoAttribute infoAttr = CommandEditor.GetCommandInfo(fungusScript.selectedCommand.GetType());
+				if (infoAttr != null)
+				{
+					EditorGUILayout.HelpBox(infoAttr.HelpText, MessageType.Info);
+				}
 			}
 
 			serializedObject.ApplyModifiedProperties();
