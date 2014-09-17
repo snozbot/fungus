@@ -10,7 +10,7 @@ namespace Fungus
 	{
 		bool resize = false;
 		Rect cursorChangeRect;
-		public const float minViewWidth = 300;
+		public const float minViewWidth = 350;
 
 		static bool locked = false;
 		static GUIStyle lockButtonStyle;
