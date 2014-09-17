@@ -36,6 +36,7 @@ namespace Fungus
 			newSequenceGO.hideFlags = HideFlags.HideInHierarchy;
 			Sequence sequence = newSequenceGO.AddComponent<Sequence>();
 			fungusScript.startSequence = sequence;
+			fungusScript.selectedSequence = sequence;
 		}
 		
 		// Implementing this method causes the padlock image to display on the window
