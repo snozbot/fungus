@@ -37,8 +37,6 @@ namespace Fungus
 				return;
 			}
 
-			Debug.Log (options.Count);
-
 			if (options.Count == 0)
 			{
 				Continue();
