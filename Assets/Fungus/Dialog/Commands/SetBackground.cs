@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Camera", 
+	[CommandInfo("Dialog", 
 	             "Set Background", 
 	             "Draws a fullscreen background texture using a Background UI object.")]
 	public class SetBackground : Command 
@@ -35,7 +35,7 @@ namespace Fungus
 
 		public override Color GetButtonColor()
 		{
-			return new Color32(216, 228, 170, 255);
+			return new Color32(184, 210, 235, 255);
 		}
 	}
 
