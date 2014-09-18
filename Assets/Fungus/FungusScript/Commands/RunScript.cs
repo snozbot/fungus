@@ -21,7 +21,13 @@ namespace Fungus
 				{
 					Stop();
 				}
+
 				targetFungusScript.Execute();
+
+				if (!stopCurrentScript)
+				{
+					Continue();
+				}
 			}
 			else
 			{		
