@@ -77,12 +77,17 @@ namespace Fungus
 		public class Settings
 		{
 			/**
-		 	 * Minimum time for each command to execute when playing the scene in the editor.
-		 	 * Slowing down the program flow makes it easier to visualise execution order.
+			 * Slow down execution when playing in the editor to make it easier to visualise program flow.
+			 */
+			[Tooltip("Slow down execution in the editor to make it easier to visualise program flow")]
+			public bool runSlowInEditor = true;
+
+			/**
+		 	 * Minimum time for each command to execute when runSlowInEditor is enabled.
 		 	 */
 			[Range(0f, 5f)]
-			[Tooltip("Minimum time for each command to execute when playing the scene in the editor")]
-			public float minCommandDuration = 0.25f;
+			[Tooltip("Minimum time that each command will take to execute when Run Slow In Editor is enabled")]
+			public float runSlowDuration = 0.25f;
 
 			/**
 			 * Use command color when displaying the command list in the Fungus Editor window.
