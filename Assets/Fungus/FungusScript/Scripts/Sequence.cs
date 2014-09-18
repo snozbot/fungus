@@ -1,6 +1,3 @@
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 using System;
 using System.Collections;
@@ -10,12 +7,8 @@ namespace Fungus
 {
 
 	[ExecuteInEditMode]
-	public class Sequence : MonoBehaviour 
+	public class Sequence : Node 
 	{
-		public Rect nodeRect = new Rect(10, 10, 100, 40);
-
-		public string description = "";
-
 		[System.NonSerialized]
 		public Command activeCommand;
 
