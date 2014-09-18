@@ -37,6 +37,8 @@ namespace Fungus
 				return;
 			}
 
+			Debug.Log (options.Count);
+
 			if (options.Count == 0)
 			{
 				Continue();
@@ -91,11 +93,15 @@ namespace Fungus
 
 		public override void GetConnectedSequences (ref List<Sequence> connectedSequences)
 		{
-			foreach (Option option in options)
+			// Show connected sequences from preceding AddOption commands
+			if (IsExecuting())
 			{
-				if (option.targetSequence != null)
+				foreach (Option option in options)
 				{
-					connectedSequences.Add(option.targetSequence);
+					if (option.targetSequence != null)
+					{
+						connectedSequences.Add(option.targetSequence);
+					}
 				}
 			}
 		}
