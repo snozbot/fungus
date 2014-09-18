@@ -10,20 +10,16 @@ namespace Fungus
 	[CustomEditor (typeof(FungusScript))]
 	public class FungusScriptEditor : Editor 
 	{
-		SerializedProperty stepTimeProp;
 		SerializedProperty startSequenceProp;
 		SerializedProperty executeOnStartProp;
-		SerializedProperty colorCommandsProp;
-		SerializedProperty showSequenceObjectsProp;
+		SerializedProperty settingsProp;
 		SerializedProperty variablesProp;
 
 		void OnEnable()
 		{
-			stepTimeProp = serializedObject.FindProperty("stepTime");
 			startSequenceProp = serializedObject.FindProperty("startSequence");
 			executeOnStartProp = serializedObject.FindProperty("executeOnStart");
-			colorCommandsProp = serializedObject.FindProperty("colorCommands");
-			showSequenceObjectsProp = serializedObject.FindProperty("showSequenceObjects");
+			settingsProp = serializedObject.FindProperty("settings");
 			variablesProp = serializedObject.FindProperty("variables");
 		}
 
@@ -52,10 +48,8 @@ namespace Fungus
 				}
 			}
 
-			EditorGUILayout.PropertyField(stepTimeProp, new GUIContent("Step Time", "Minimum time to execute each step"));
-
 			SequenceEditor.SequenceField(startSequenceProp, 
-			                             new GUIContent("Start Sequence", "Sequence to be executed when controller starts."), 
+			                             new GUIContent("Start Sequence", "First sequence to execute when the Fungus Script executes"), 
 										 new GUIContent("<None>"),
 			                             t);
 
@@ -66,11 +60,9 @@ namespace Fungus
 				EditorGUILayout.LabelField(new GUIContent("Error: Please select a Start Sequence"), style);
 			}
 
-			EditorGUILayout.PropertyField(executeOnStartProp, new GUIContent("Execute On Start", "Execute this Fungus Script when the scene starts."));
+			EditorGUILayout.PropertyField(executeOnStartProp, new GUIContent("Execute On Start", "Execute this Fungus Script when the scene starts playing"));
 
-			EditorGUILayout.PropertyField(colorCommandsProp, new GUIContent("Color Commands", "Display commands using colors in editor window."));
-
-			EditorGUILayout.PropertyField(showSequenceObjectsProp, new GUIContent("Show Sequence Objects", "Display the child Sequence game objects in the hierarchy view."));
+			EditorGUILayout.PropertyField(settingsProp, new GUIContent("Settings", "Configution options for the Fungus Script"), true);
 
 			EditorGUILayout.Separator();
 

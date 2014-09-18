@@ -44,45 +44,65 @@ namespace Fungus
 		public float commandViewWidth = 350;
 
 		/**
-		 * Execution speed when running the script in the editor. Pauses on each command to help visualise execution order.
-		 */
-		public float stepTime;
-
-		/**
-		 * First sequence to execute when the Fungus Script executes.
-		 */
-		public Sequence startSequence;
-
-		/**
 		 * Currently selected sequence in the Fungus Script editor.
 		 */
+		[HideInInspector]
 		public Sequence selectedSequence;
-
+		
 		/**
 		 * Currently selected command in the Fungus Script editor.
 		 */
+		[HideInInspector]
 		public Command selectedCommand;
-
-		/**
-		 * Execute this Fungus Script when the scene starts.
-		 */
-		public bool executeOnStart = true;
-
-		/**
-		 * Use command color when displaying command list in Fungus Editor window.
-		 */
-		public bool colorCommands = true;
-
-		/**
-		 * Show the sequence game objects in the Hierarchy view.
-		 * This can be useful if you want to inspect the child gameobjects and components that make up the Fungus Script.
-		 */
-		public bool showSequenceObjects = false;
 
 		/**
 		 * The list of variables that can be accessed by the Fungus Script.
 		 */
+		[HideInInspector]
 		public List<Variable> variables = new List<Variable>();
+
+		/**
+		 * First sequence to execute when the Fungus Script executes.
+		 */
+		[Tooltip("First sequence to execute when the Fungus Script executes")]
+		public Sequence startSequence;
+
+		/**
+		 * Execute this Fungus Script when the scene starts.
+		 */
+		[Tooltip("Execute this Fungus Script when the scene starts playing")]
+		public bool executeOnStart = true;
+
+		[System.Serializable]
+		public class Settings
+		{
+			/**
+		 	 * Minimum time for each command to execute when playing the scene in the editor.
+		 	 * Slowing down the program flow makes it easier to visualise execution order.
+		 	 */
+			[Range(0f, 5f)]
+			[Tooltip("Minimum time for each command to execute when playing the scene in the editor")]
+			public float minCommandDuration = 0.25f;
+
+			/**
+			 * Use command color when displaying the command list in the Fungus Editor window.
+			 */
+			[Tooltip("Use command color when displaying the command list in the Fungus Editor window")]
+			public bool colorCommands = true;
+			
+			/**
+			 * Hides the child sequence game objects in the Hierarchy view.
+			 * Deselect to inspect the child gameobjects and components that make up the Fungus Script.
+			 */
+			[Tooltip("Hides the child sequence game objects in the Hierarchy view")]
+			public bool hideSequenceObjects = true;
+		}
+
+		/**
+		 * Advanced configuration options for the Fungus Script.
+		 */
+		[Tooltip("Advanced configuration options for the Fungus Script")]
+		public Settings settings;
 
 		void Start()
 		{
@@ -360,7 +380,7 @@ namespace Fungus
 			Sequence[] sequences = GetComponentsInChildren<Sequence>();
 			foreach (Sequence sequence in sequences)
 			{
-				sequence.gameObject.hideFlags = showSequenceObjects ? HideFlags.None : HideFlags.HideInHierarchy;
+				sequence.gameObject.hideFlags = settings.hideSequenceObjects ? HideFlags.HideInHierarchy : HideFlags.None;
 			}
 		}
 	}

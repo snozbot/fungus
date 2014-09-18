@@ -94,14 +94,14 @@ namespace Fungus
 			{
 				FungusScript fungusScript = GetFungusScript();
 
-				if (fungusScript.stepTime == 0f)
+				if (fungusScript.settings.minCommandDuration == 0f)
 				{
 					activeCommand = nextCommand;
 					nextCommand.Execute();
 				}
 				else
 				{
-					StartCoroutine(ExecuteAfterDelay(nextCommand, fungusScript.stepTime));
+					StartCoroutine(ExecuteAfterDelay(nextCommand, fungusScript.settings.minCommandDuration));
 				}
 			}
 

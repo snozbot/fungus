@@ -208,7 +208,7 @@ namespace Fungus
 			}
 
 			Color buttonBackgroundColor = Color.white;
-			if (fungusScript.colorCommands)
+			if (fungusScript.settings.colorCommands)
 			{
 				buttonBackgroundColor = command.GetButtonColor();
 			}
