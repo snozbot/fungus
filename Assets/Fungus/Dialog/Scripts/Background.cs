@@ -7,7 +7,7 @@ public class Background : MonoBehaviour
 	public Canvas backgroundCanvas;
 	public Image backgroundImage;
 
-	public void SetBackgroundImage(Sprite imageSprite)
+	public virtual void SetBackgroundImage(Sprite imageSprite)
 	{
 		if (backgroundCanvas != null)
 		{

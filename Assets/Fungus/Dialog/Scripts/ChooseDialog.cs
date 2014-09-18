@@ -23,7 +23,7 @@ namespace Fungus
 
 		static public List<ChooseDialog> activeDialogs = new List<ChooseDialog>();
 
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			if (!activeDialogs.Contains(this))
 			{
@@ -31,7 +31,7 @@ namespace Fungus
 			}
 		}
 		
-		void OnDisable()
+		protected virtual void OnDisable()
 		{
 			activeDialogs.Remove(this);
 		}
@@ -42,7 +42,7 @@ namespace Fungus
 			timeoutSlider.gameObject.SetActive(false);
 		}
 
-		public void Choose(string text, List<Option> options, float timeoutDuration, Action onTimeout)
+		public virtual void Choose(string text, List<Option> options, float timeoutDuration, Action onTimeout)
 		{
 			Clear();
 
@@ -62,7 +62,7 @@ namespace Fungus
 			StartCoroutine(WriteText(text, onWritingComplete, onTimeout));
 		}
 
-		IEnumerator WaitForTimeout(float timeoutDuration, Action onTimeout)
+		protected virtual IEnumerator WaitForTimeout(float timeoutDuration, Action onTimeout)
 		{
 			float elapsedTime = 0;
 
@@ -93,7 +93,7 @@ namespace Fungus
 			ClearOptions();
 		}
 
-		void ClearOptions()
+		protected virtual void ClearOptions()
 		{
 			if (optionButtons == null)
 			{
@@ -114,7 +114,7 @@ namespace Fungus
 			}
 		}
 		
-		bool AddOption(string text, UnityAction action)
+		protected virtual bool AddOption(string text, UnityAction action)
 		{
 			if (optionButtons == null)
 			{

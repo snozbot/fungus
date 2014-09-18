@@ -29,7 +29,7 @@ namespace Fungus
 			return instance;
 		}
 
-		void Start()
+		protected virtual void Start()
 		{
 			audio.playOnAwake = false;
 			audio.loop = true;
@@ -49,7 +49,7 @@ namespace Fungus
 		/**
 		 * Stops playing game music.
 		 */
-		public void StopMusic()
+		public virtual void StopMusic()
 		{
 			audio.Stop();
 		}
@@ -59,7 +59,7 @@ namespace Fungus
 		 * @param volume The new music volume value [0..1]
 		 * @param duration The length of time in seconds needed to complete the volume change.
 		 */
-		public void SetMusicVolume(float volume, float duration)
+		public virtual void SetMusicVolume(float volume, float duration)
 		{
 			iTween.AudioTo(gameObject, volume, 1f, duration);
 		}
@@ -70,7 +70,7 @@ namespace Fungus
 		 * @param soundClip The sound effect clip to play
 		 * @param volume The volume level of the sound effect
 		 */
-		public void PlaySound(AudioClip soundClip, float volume)
+		public virtual void PlaySound(AudioClip soundClip, float volume)
 		{
 			audio.PlayOneShot(soundClip, volume);
 		}

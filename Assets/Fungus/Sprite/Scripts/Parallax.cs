@@ -28,12 +28,11 @@ namespace Fungus
 		 */
 		public float accelerometerScale = 0.5f;
 
-		Vector3 startPosition;
+		protected Vector3 startPosition;
+		protected Vector3 acceleration;
+		protected Vector3 velocity;
 
-		Vector3 acceleration;
-		Vector3 velocity;
-
-		void Start () 
+		protected virtual void Start () 
 		{
 			// Store the starting position and scale of the sprite object
 			startPosition = transform.position;
@@ -45,7 +44,7 @@ namespace Fungus
 			}
 		}
 
-		void Update () 
+		protected virtual void Update () 
 		{
 			if (backgroundSprite == null)
 			{

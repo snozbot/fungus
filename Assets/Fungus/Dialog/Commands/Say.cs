@@ -16,9 +16,8 @@ namespace Fungus
 		public Character character;
 		public AudioClip voiceOverClip;
 		public bool showOnce;
-		int executionCount;
-
-		bool showBasicGUI;
+		protected int executionCount;
+		protected bool showBasicGUI;
 
 		public override void OnEnter()
 		{
@@ -58,7 +57,7 @@ namespace Fungus
 			return "\"" + storyText + "\"";
 		}
 
-		void OnGUI()
+		protected virtual void OnGUI()
 		{
 			if (!showBasicGUI)
 			{

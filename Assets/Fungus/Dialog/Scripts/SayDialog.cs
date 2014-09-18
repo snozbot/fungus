@@ -14,7 +14,7 @@ namespace Fungus
 
 		static public List<SayDialog> activeDialogs = new List<SayDialog>();
 
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			if (!activeDialogs.Contains(this))
 			{
@@ -22,12 +22,12 @@ namespace Fungus
 			}
 		}
 		
-		void OnDisable()
+		protected virtual void OnDisable()
 		{
 			activeDialogs.Remove(this);
 		}
 
-		public void Say(string text, Action onComplete)
+		public virtual void Say(string text, Action onComplete)
 		{
 			Clear();
 			
@@ -69,7 +69,7 @@ namespace Fungus
 			ShowContinueImage(waiting);
 		}
 
-		void ShowContinueImage(bool visible)
+		protected virtual void ShowContinueImage(bool visible)
 		{
 			if (continueImage != null)
 			{

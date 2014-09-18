@@ -39,23 +39,23 @@ namespace Fungus
 		[HideInInspector]
 		public bool waiting; 
 		
-		float fadeAlpha = 0f;
+		protected float fadeAlpha = 0f;
 		
 		// Swipe panning control
-		View swipePanViewA;
-		View swipePanViewB;
-		Vector3 previousMousePos;
+		protected View swipePanViewA;
+		protected View swipePanViewB;
+		protected Vector3 previousMousePos;
 		
-		class CameraView
+		protected class CameraView
 		{
 			public Vector3 cameraPos;
 			public Quaternion cameraRot;
 			public float cameraSize;
 		};
 		
-		Dictionary<string, CameraView> storedViews = new Dictionary<string, CameraView>();
+		protected Dictionary<string, CameraView> storedViews = new Dictionary<string, CameraView>();
 		
-		static CameraController instance;
+		protected static CameraController instance;
 		
 		/**
 		 * Returns the CameraController singleton instance.
@@ -86,7 +86,7 @@ namespace Fungus
 			return texture;		
 		}
 		
-		void OnGUI()
+		protected virtual void OnGUI()
 		{
 			if (swipePanActive)
 			{
@@ -123,7 +123,7 @@ namespace Fungus
 		/**
 		 * Perform a fullscreen fade over a duration.
 		 */
-		public void Fade(float targetAlpha, float fadeDuration, Action fadeAction)
+		public virtual void Fade(float targetAlpha, float fadeDuration, Action fadeAction)
 		{
 			StartCoroutine(FadeInternal(targetAlpha, fadeDuration, fadeAction));
 		}
@@ -131,7 +131,7 @@ namespace Fungus
 		/**
 		 * Fade out, move camera to view and then fade back in.
 		 */
-		public void FadeToView(View view, float fadeDuration, Action fadeAction)
+		public virtual void FadeToView(View view, float fadeDuration, Action fadeAction)
 		{
 			swipePanActive = false;
 			fadeAlpha = 0f;
@@ -152,7 +152,7 @@ namespace Fungus
 			});
 		}
 		
-		IEnumerator FadeInternal(float targetAlpha, float fadeDuration, Action fadeAction)
+		protected virtual IEnumerator FadeInternal(float targetAlpha, float fadeDuration, Action fadeAction)
 		{
 			float startAlpha = fadeAlpha;
 			float timer = 0;
@@ -188,7 +188,7 @@ namespace Fungus
 		 * Positions camera so sprite is centered and fills the screen.
 		 * @param spriteRenderer The sprite to center the camera on
 		 */
-		public void CenterOnSprite(SpriteRenderer spriteRenderer)
+		public virtual void CenterOnSprite(SpriteRenderer spriteRenderer)
 		{
 			swipePanActive = false;
 			
@@ -202,7 +202,7 @@ namespace Fungus
 			SetCameraZ();
 		}
 		
-		public void PanToView(View view, float duration, Action arriveAction)
+		public virtual void PanToView(View view, float duration, Action arriveAction)
 		{
 			PanToPosition(view.transform.position, view.transform.rotation, view.viewSize, duration, arriveAction);
 		}
@@ -210,7 +210,7 @@ namespace Fungus
 		/**
 		 * Moves camera from current position to a target position over a period of time.
 		 */
-		public void PanToPosition(Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, Action arriveAction)
+		public virtual void PanToPosition(Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, Action arriveAction)
 		{
 			// Stop any pan that is currently active
 			StopAllCoroutines();
@@ -238,7 +238,7 @@ namespace Fungus
 		/**
 		 * Stores the current camera view using a name.
 		 */
-		public void StoreView(string viewName)
+		public virtual void StoreView(string viewName)
 		{
 			CameraView currentView = new CameraView();
 			currentView.cameraPos = Camera.main.transform.position;
@@ -250,7 +250,7 @@ namespace Fungus
 		/**
 		 * Moves the camera to a previously stored camera view over a period of time.
 		 */
-		public void PanToStoredView(string viewName, float duration, Action arriveAction)
+		public virtual void PanToStoredView(string viewName, float duration, Action arriveAction)
 		{
 			if (!storedViews.ContainsKey(viewName))
 			{
@@ -282,7 +282,7 @@ namespace Fungus
 			}
 		}
 		
-		IEnumerator PanInternal(Vector3 targetPos, Quaternion targetRot, float targetSize, float duration, Action arriveAction)
+		protected virtual IEnumerator PanInternal(Vector3 targetPos, Quaternion targetRot, float targetSize, float duration, Action arriveAction)
 		{
 			float timer = 0;
 			float startSize = Camera.main.orthographicSize;
@@ -322,7 +322,7 @@ namespace Fungus
 		/**
 		 * Moves camera smoothly through a sequence of Views over a period of time
 		 */
-		public void PanToPath(View[] viewList, float duration, Action arriveAction)
+		public virtual void PanToPath(View[] viewList, float duration, Action arriveAction)
 		{
 			swipePanActive = false;
 			
@@ -348,7 +348,7 @@ namespace Fungus
 			StartCoroutine(PanToPathInternal(duration, arriveAction, pathList.ToArray()));
 		}
 		
-		IEnumerator PanToPathInternal(float duration, Action arriveAction, Vector3[] path)
+		protected virtual IEnumerator PanToPathInternal(float duration, Action arriveAction, Vector3[] path)
 		{
 			float timer = 0;
 			
@@ -377,7 +377,7 @@ namespace Fungus
 		 * Activates swipe panning mode.
 		 * The player can pan the camera within the area between viewA & viewB.
 		 */
-		public void StartSwipePan(View viewA, View viewB, float duration, Action arriveAction)
+		public virtual void StartSwipePan(View viewA, View viewB, float duration, Action arriveAction)
 		{
 			swipePanViewA = viewA;
 			swipePanViewB = viewB;
@@ -401,19 +401,19 @@ namespace Fungus
 		/**
 		 * Deactivates swipe panning mode.
 		 */
-		public void StopSwipePan()
+		public virtual void StopSwipePan()
 		{
 			swipePanActive = false;
 			swipePanViewA = null;
 			swipePanViewB = null;
 		}
 		
-		void SetCameraZ()
+		protected virtual void SetCameraZ()
 		{
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, cameraZ);
 		}
 		
-		void Update()	
+		protected virtual void Update()	
 		{
 			if (!swipePanActive)
 			{
@@ -454,7 +454,7 @@ namespace Fungus
 		}
 		
 		// Clamp camera position to region defined by the two views
-		Vector3 CalcCameraPosition(Vector3 pos, View viewA, View viewB)
+		protected virtual Vector3 CalcCameraPosition(Vector3 pos, View viewA, View viewB)
 		{
 			Vector3 safePos = pos;
 			
@@ -468,7 +468,7 @@ namespace Fungus
 		}
 		
 		// Smoothly interpolate camera orthographic size based on relative position to two views
-		float CalcCameraSize(Vector3 pos, View viewA, View viewB)
+		protected virtual float CalcCameraSize(Vector3 pos, View viewA, View viewB)
 		{
 			// Get ray and point in same space
 			Vector3 toViewB = viewB.transform.position - viewA.transform.position;

@@ -27,7 +27,7 @@ namespace Fungus
 			}
 		}
 
-		void OnWaitComplete()
+		protected virtual void OnWaitComplete()
 		{
 			Continue();
 		}

@@ -17,7 +17,7 @@ namespace Fungus
 
 		static public List<Character> activeCharacters = new List<Character>();
 
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			if (!activeCharacters.Contains(this))
 			{
@@ -25,7 +25,7 @@ namespace Fungus
 			}
 		}
 		
-		void OnDisable()
+		protected virtual void OnDisable()
 		{
 			activeCharacters.Remove(this);
 		}

@@ -11,9 +11,9 @@ namespace Fungus
 	[CustomEditor (typeof(SetSayDialog))]
 	public class SetSayDialogEditor : CommandEditor
 	{
-		SerializedProperty sayDialogProp;
+		protected SerializedProperty sayDialogProp;
 		
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			sayDialogProp = serializedObject.FindProperty("sayDialog");
 		}

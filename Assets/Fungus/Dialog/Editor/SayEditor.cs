@@ -30,12 +30,12 @@ namespace Fungus
 			EditorGUILayout.SelectableLabel(tagsText, EditorStyles.miniLabel, GUILayout.MinHeight(pixelHeight));
 		}
 
-		SerializedProperty storyTextProp;
-		SerializedProperty characterProp;
-		SerializedProperty voiceOverClipProp;
-		SerializedProperty showOnceProp;
+		protected SerializedProperty storyTextProp;
+		protected SerializedProperty characterProp;
+		protected SerializedProperty voiceOverClipProp;
+		protected SerializedProperty showOnceProp;
 
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			storyTextProp = serializedObject.FindProperty("storyText");
 			characterProp = serializedObject.FindProperty("character");

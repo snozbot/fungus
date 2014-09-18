@@ -8,14 +8,14 @@ namespace Fungus
 	[CustomEditor (typeof(Character))]
 	public class CharacterEditor : Editor
 	{
-		Material spriteMaterial;
+		protected Material spriteMaterial;
 
-		SerializedProperty nameTextProp;
-		SerializedProperty nameColorProp;
-		SerializedProperty profileSpriteProp;
-		SerializedProperty notesProp;
+		protected SerializedProperty nameTextProp;
+		protected SerializedProperty nameColorProp;
+		protected SerializedProperty profileSpriteProp;
+		protected SerializedProperty notesProp;
 
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			nameTextProp = serializedObject.FindProperty ("nameText");
 			nameColorProp = serializedObject.FindProperty ("nameColor");
@@ -30,7 +30,7 @@ namespace Fungus
 			}
 		}
 
-		void OnDisable()
+		protected virtual void OnDisable()
 		{
 			DestroyImmediate(spriteMaterial);
 		}
@@ -66,7 +66,7 @@ namespace Fungus
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		public void DrawPreview(Rect previewRect, Texture2D texture)
+		public virtual void DrawPreview(Rect previewRect, Texture2D texture)
 		{
 			if (texture == null)
 			{

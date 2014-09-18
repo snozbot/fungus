@@ -31,7 +31,7 @@ namespace Fungus
 		[Tooltip("Aspect ratio of the secondary view rectangle. (e.g. 2:1 aspect ratio = 2.0)")]
 		public Vector2 secondaryAspectRatio = new Vector2(2, 1);
 
-		void Update()
+		protected virtual void Update()
 		{
 			// Disable scaling to avoid complicating the orthographic size calculations
 			transform.localScale = new Vector3(1,1,1);

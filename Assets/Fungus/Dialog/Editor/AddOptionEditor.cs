@@ -11,11 +11,11 @@ namespace Fungus
 	[CustomEditor (typeof(AddOption))]
 	public class AddOptionEditor : CommandEditor
 	{
-		SerializedProperty optionTextProp;
-		SerializedProperty hideOnSelectedProp;
-		SerializedProperty targetSequenceProp;
+		protected SerializedProperty optionTextProp;
+		protected SerializedProperty hideOnSelectedProp;
+		protected SerializedProperty targetSequenceProp;
 
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			optionTextProp = serializedObject.FindProperty("optionText");
 			hideOnSelectedProp = serializedObject.FindProperty("hideOnSelected");

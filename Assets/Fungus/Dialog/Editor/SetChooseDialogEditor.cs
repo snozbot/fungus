@@ -11,9 +11,9 @@ namespace Fungus
 	[CustomEditor (typeof(SetChooseDialog))]
 	public class SetChooseDialogEditor : CommandEditor
 	{
-		SerializedProperty chooseDialogProp;
+		protected SerializedProperty chooseDialogProp;
 
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			chooseDialogProp = serializedObject.FindProperty("chooseDialog");
 		}

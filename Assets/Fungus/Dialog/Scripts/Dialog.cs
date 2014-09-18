@@ -21,12 +21,12 @@ namespace Fungus
 		public Text storyText;
 		public Image characterImage;
 
-		float currentSpeed;
-		float currentPunctuationPause;
-		bool boldActive;
-		bool italicActive;
-		bool colorActive;
-		string colorText;
+		protected float currentSpeed;
+		protected float currentPunctuationPause;
+		protected bool boldActive;
+		protected bool italicActive;
+		protected bool colorActive;
+		protected string colorText;
 
 		protected enum GlyphType
 		{
@@ -60,7 +60,7 @@ namespace Fungus
 			}
 		}
 		
-		public void SetCharacter(Character character)
+		public virtual void SetCharacter(Character character)
 		{
 			if (character == null)
 			{
@@ -84,7 +84,7 @@ namespace Fungus
 			}
 		}
 		
-		public void SetCharacterImage(Sprite image)
+		public virtual void SetCharacterImage(Sprite image)
 		{
 			if (characterImage != null)
 			{
@@ -100,7 +100,7 @@ namespace Fungus
 			}
 		}
 		
-		public void SetCharacterName(string name, Color color)
+		public virtual void SetCharacterName(string name, Color color)
 		{
 			if (nameText != null)
 			{
@@ -109,7 +109,7 @@ namespace Fungus
 			}
 		}
 
-		protected IEnumerator WriteText(string text, Action onWritingComplete, Action onExitTag)
+		protected virtual IEnumerator WriteText(string text, Action onWritingComplete, Action onExitTag)
 		{
 			storyText.text = "";
 			boldActive = false;
@@ -370,7 +370,7 @@ namespace Fungus
 			ClearStoryText();
 		}
 		
-		void ClearStoryText()
+		protected virtual void ClearStoryText()
 		{
 			if (storyText != null)
 			{
@@ -378,14 +378,14 @@ namespace Fungus
 			}
 		}
 
-		bool IsPunctuation(string character)
+		protected virtual bool IsPunctuation(string character)
 		{
 			return character == "." ||
 				character == "?" ||
 				character == "!";
 		}
 		
-		List<Glyph> MakeGlyphList(string storyText)
+		protected virtual List<Glyph> MakeGlyphList(string storyText)
 		{
 			List<Glyph> glyphList = new List<Glyph>();
 
@@ -424,7 +424,7 @@ namespace Fungus
 			return glyphList;
 		}
 
-		void AddCharacterGlyph(List<Glyph> glyphList, string character)
+		protected virtual void AddCharacterGlyph(List<Glyph> glyphList, string character)
 		{
 			Glyph glyph = new Glyph();
 			glyph.type = GlyphType.Character;
@@ -432,7 +432,7 @@ namespace Fungus
 			glyphList.Add(glyph);
 		}
 
-		void AddTagGlyph(List<Glyph> glyphList, string tagText)
+		protected virtual void AddTagGlyph(List<Glyph> glyphList, string tagText)
 		{
 			if (tagText.Length < 3 ||
 			    tagText.Substring(0,1) != "{" ||
@@ -522,7 +522,7 @@ namespace Fungus
 			glyphList.Add(glyph);
 		}
 
-		protected IEnumerator WaitForInput(Action onInput)
+		protected virtual IEnumerator WaitForInput(Action onInput)
 		{
 			while (!Input.GetMouseButtonDown(0))
 			{

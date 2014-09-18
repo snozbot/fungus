@@ -25,7 +25,7 @@ namespace Fungus
 		public AudioClip voiceOverClip;
 		public float timeoutDuration;
 
-		bool showBasicGUI;
+		protected bool showBasicGUI;
 
 		public override void OnEnter()
 		{
@@ -100,7 +100,7 @@ namespace Fungus
 			}
 		}
 
-		void OnGUI()
+		protected virtual void OnGUI()
 		{
 			if (!showBasicGUI)
 			{

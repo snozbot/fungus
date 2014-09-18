@@ -11,16 +11,16 @@ namespace Fungus
 	[RequireComponent (typeof (SpriteRenderer))]
 	public class SpriteFader : MonoBehaviour 
 	{
-		float fadeDuration;
-		float fadeTimer;
-		Color startColor;
-		Color endColor;
-		Vector2 slideOffset;
-		Vector3 endPosition;
+		protected float fadeDuration;
+		protected float fadeTimer;
+		protected Color startColor;
+		protected Color endColor;
+		protected Vector2 slideOffset;
+		protected Vector3 endPosition;
 
-		SpriteRenderer spriteRenderer;
+		protected SpriteRenderer spriteRenderer;
 
-		Action onFadeComplete;
+		protected Action onFadeComplete;
 
 		/** 
 		 * Attaches a SpriteFader component to a sprite object to transition its color over time.
@@ -72,12 +72,12 @@ namespace Fungus
 			spriteFader.onFadeComplete = onComplete;
 		}
 
-		void Start()
+		protected virtual void Start()
 		{
 			spriteRenderer = renderer as SpriteRenderer;
 		}
 
-		void Update() 
+		protected virtual void Update() 
 		{
 			fadeTimer += Time.deltaTime;
 			if (fadeTimer > fadeDuration)

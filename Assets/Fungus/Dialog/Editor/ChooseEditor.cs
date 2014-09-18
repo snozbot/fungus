@@ -13,12 +13,12 @@ namespace Fungus
 	{
 		static public bool showTagHelp;
 
-		SerializedProperty chooseTextProp;
-		SerializedProperty characterProp;
-		SerializedProperty voiceOverClipProp;
-		SerializedProperty timeoutDurationProp;
+		protected SerializedProperty chooseTextProp;
+		protected SerializedProperty characterProp;
+		protected SerializedProperty voiceOverClipProp;
+		protected SerializedProperty timeoutDurationProp;
 
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			chooseTextProp = serializedObject.FindProperty("chooseText");
 			characterProp = serializedObject.FindProperty("character");
