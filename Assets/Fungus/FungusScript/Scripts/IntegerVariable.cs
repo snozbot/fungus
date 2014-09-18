@@ -6,7 +6,7 @@ namespace Fungus
 
 	public class IntegerVariable : Variable 
 	{
-		int integerValue;
+		protected int integerValue;
 
 		public int Value
 		{
@@ -19,10 +19,10 @@ namespace Fungus
 	public class IntegerData
 	{
 		[SerializeField]
-		IntegerVariable integerReference;
+		protected IntegerVariable integerReference;
 
 		[SerializeField]
-		int integerValue;
+		protected int integerValue;
 
 		public int Value
 		{
@@ -30,7 +30,7 @@ namespace Fungus
 			set { if (integerReference == null) { integerValue = value; } else { integerReference.Value = value; } }
 		}
 
-		public string GetDescription()
+		public virtual string GetDescription()
 		{
 			if (integerReference == null)
 			{

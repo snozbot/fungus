@@ -12,15 +12,15 @@ namespace Fungus
 	[CustomEditor (typeof(Sequence))]
 	public class SequenceEditor : Editor 
 	{
-		SerializedProperty sequenceNameProp;
-		SerializedProperty descriptionProp;
+		protected SerializedProperty sequenceNameProp;
+		protected SerializedProperty descriptionProp;
 
-		void OnEnable()
+		public virtual void OnEnable()
 		{
 			descriptionProp = serializedObject.FindProperty("description");
 		}
 
-		public void DrawSequenceGUI(FungusScript fungusScript)
+		public virtual void DrawSequenceGUI(FungusScript fungusScript)
 		{
 			if (fungusScript.selectedSequence == null)
 			{
@@ -82,7 +82,7 @@ namespace Fungus
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		void UpdateIndentLevels(Sequence sequence)
+		protected virtual void UpdateIndentLevels(Sequence sequence)
 		{
 			int indentLevel = 0;
 			foreach(Command command in sequence.commandList)

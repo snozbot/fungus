@@ -9,14 +9,14 @@ namespace Fungus
 	[CustomEditor (typeof(SetVariable))]
 	public class SetVariableEditor : CommandEditor 
 	{
-		SerializedProperty variableProp;
-		SerializedProperty setOperatorProp;
-		SerializedProperty booleanDataProp;
-		SerializedProperty integerDataProp;
-		SerializedProperty floatDataProp;
-		SerializedProperty stringDataProp;
+		protected SerializedProperty variableProp;
+		protected SerializedProperty setOperatorProp;
+		protected SerializedProperty booleanDataProp;
+		protected SerializedProperty integerDataProp;
+		protected SerializedProperty floatDataProp;
+		protected SerializedProperty stringDataProp;
 
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			variableProp = serializedObject.FindProperty("variable");
 			setOperatorProp = serializedObject.FindProperty("setOperator");

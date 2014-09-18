@@ -25,12 +25,12 @@ namespace Fungus
 			Text,
 		};
 
-		void Start()
+		public virtual void Start()
 		{
 			ProcessText(stringsFile.text);
 		}
 		
-		void ProcessText(string text) 
+		protected virtual void ProcessText(string text) 
 		{
 			// Split text into lines. Add a newline at end to ensure last command is always parsed
 			string[] lines = Regex.Split(text + "\n", "(?<=\n)");

@@ -1,6 +1,3 @@
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 using System;
 using System.Collections;
@@ -32,12 +29,12 @@ namespace Fungus
 		[HideInInspector]
 		public int indentLevel;
 
-		public Sequence GetSequence()
+		public virtual Sequence GetSequence()
 		{
 			return gameObject.GetComponent<Sequence>();
 		}
 
-		public FungusScript GetFungusScript()
+		public virtual FungusScript GetFungusScript()
 		{
 			Sequence s = GetSequence();
 			if (s == null)
@@ -48,7 +45,7 @@ namespace Fungus
 			return s.GetFungusScript();
 		}
 
-		public bool IsExecuting()
+		public virtual bool IsExecuting()
 		{
 			Sequence sequence = GetSequence();
 			if (sequence == null)

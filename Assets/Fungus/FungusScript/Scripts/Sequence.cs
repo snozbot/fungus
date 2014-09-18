@@ -21,14 +21,14 @@ namespace Fungus
 
 		public List<Command> commandList = new List<Command>();
 
-		int executionCount;
+		protected int executionCount;
 
-		public FungusScript GetFungusScript()
+		public virtual FungusScript GetFungusScript()
 		{
 			return GetComponentInParent<FungusScript>();
 		}
 
-		public bool HasError()
+		public virtual bool HasError()
 		{
 			foreach (Command command in commandList)
 			{
@@ -41,7 +41,7 @@ namespace Fungus
 			return false;
 		}
 
-		public bool IsRunning()
+		public virtual bool IsRunning()
 		{
 			FungusScript fungusScript = GetFungusScript();
 
@@ -54,12 +54,12 @@ namespace Fungus
 			return (fungusScript.executingSequence == this);
 		}
 
-		public int GetExecutionCount()
+		public virtual int GetExecutionCount()
 		{
 			return executionCount;
 		}
 
-		public void ExecuteNextCommand(Command currentCommand = null)
+		public virtual void ExecuteNextCommand(Command currentCommand = null)
 		{
 			if (currentCommand == null)
 			{
@@ -114,7 +114,7 @@ namespace Fungus
 			command.Execute();
 		}
 
-		public void Stop()
+		public virtual void Stop()
 		{
 			FungusScript fungusScript = GetFungusScript();
 			if (fungusScript == null)
@@ -128,7 +128,7 @@ namespace Fungus
 			fungusScript.selectedCommand = null;
 		}
 
-		public List<Sequence> GetConnectedSequences()
+		public virtual List<Sequence> GetConnectedSequences()
 		{
 			List<Sequence> connectedSequences = new List<Sequence>();
 			foreach (Command command in commandList)

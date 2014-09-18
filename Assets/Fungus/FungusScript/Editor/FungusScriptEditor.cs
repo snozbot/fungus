@@ -10,12 +10,12 @@ namespace Fungus
 	[CustomEditor (typeof(FungusScript))]
 	public class FungusScriptEditor : Editor 
 	{
-		SerializedProperty startSequenceProp;
-		SerializedProperty executeOnStartProp;
-		SerializedProperty settingsProp;
-		SerializedProperty variablesProp;
+		protected SerializedProperty startSequenceProp;
+		protected SerializedProperty executeOnStartProp;
+		protected SerializedProperty settingsProp;
+		protected SerializedProperty variablesProp;
 
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			startSequenceProp = serializedObject.FindProperty("startSequence");
 			executeOnStartProp = serializedObject.FindProperty("executeOnStart");
@@ -23,11 +23,6 @@ namespace Fungus
 			variablesProp = serializedObject.FindProperty("variables");
 		}
 
-		public void OnInspectorUpdate()
-		{
-			Repaint();
-		}
-		
 		public override void OnInspectorGUI() 
 		{
 			serializedObject.Update();
@@ -91,7 +86,7 @@ namespace Fungus
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		public void DrawVariablesGUI()
+		public virtual void DrawVariablesGUI()
 		{
 			FungusScript t = target as FungusScript;
 			
@@ -117,7 +112,7 @@ namespace Fungus
 			GUILayout.EndHorizontal();
 		}
 		
-		void AddVariable<T>(object obj) where T : Variable
+		protected virtual void AddVariable<T>(object obj) where T : Variable
 		{
 			FungusScript fungusScript = obj as FungusScript;
 			if (fungusScript == null)

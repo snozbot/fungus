@@ -8,9 +8,9 @@ namespace Fungus
 	[CustomEditor (typeof(Call))]
 	public class CallEditor : CommandEditor 
 	{
-		SerializedProperty targetSequenceProp;
+		protected SerializedProperty targetSequenceProp;
 
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			targetSequenceProp = serializedObject.FindProperty("targetSequence");
 		}

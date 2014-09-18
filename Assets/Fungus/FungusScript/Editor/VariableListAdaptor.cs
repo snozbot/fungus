@@ -11,7 +11,7 @@ namespace Fungus
 {
 	public class VariableListAdaptor : IReorderableListAdaptor {
 		
-		private SerializedProperty _arrayProperty;
+		protected SerializedProperty _arrayProperty;
 
 		public float fixedItemHeight;
 		

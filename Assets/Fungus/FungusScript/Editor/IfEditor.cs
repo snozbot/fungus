@@ -10,14 +10,14 @@ namespace Fungus
 	[CustomEditor (typeof(If))]
 	public class IfEditor : CommandEditor 
 	{
-		SerializedProperty variableProp;
-		SerializedProperty compareOperatorProp;
-		SerializedProperty booleanValueProp;
-		SerializedProperty integerValueProp;
-		SerializedProperty floatValueProp;
-		SerializedProperty stringValueProp;
+		protected SerializedProperty variableProp;
+		protected SerializedProperty compareOperatorProp;
+		protected SerializedProperty booleanValueProp;
+		protected SerializedProperty integerValueProp;
+		protected SerializedProperty floatValueProp;
+		protected SerializedProperty stringValueProp;
 
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			variableProp = serializedObject.FindProperty("variable");
 			compareOperatorProp = serializedObject.FindProperty("compareOperator");

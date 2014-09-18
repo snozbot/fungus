@@ -109,7 +109,7 @@ namespace Fungus
 		[Tooltip("Advanced configuration options for the Fungus Script")]
 		public Settings settings;
 
-		void Start()
+		protected virtual void Start()
 		{
 			if (executeOnStart)
 			{
@@ -120,7 +120,7 @@ namespace Fungus
 		/**
 		 * Create a new sequence node which you can then add commands to.
 		 */
-		public Sequence CreateSequence(Vector2 position)
+		public virtual Sequence CreateSequence(Vector2 position)
 		{
 			GameObject go = new GameObject("Sequence");
 			go.transform.parent = transform;
@@ -134,7 +134,7 @@ namespace Fungus
 		/**
 		 * Start running the Fungus Script by executing the startSequence.
 		 */
-		public void Execute()
+		public virtual void Execute()
 		{
 			if (startSequence == null)
 			{
@@ -147,7 +147,7 @@ namespace Fungus
 		/**
 		 * Start running the Fungus Script by executing a specific child sequence.
 		 */
-		public void ExecuteSequence(Sequence sequence)
+		public virtual void ExecuteSequence(Sequence sequence)
 		{
 			// Sequence must be a child of the parent Fungus Script
 			if (sequence == null ||
@@ -164,7 +164,7 @@ namespace Fungus
 		/**
 		 * Returns a new variable key that is guaranteed not to clash with any existing variable in the list.
 		 */
-		public string GetUniqueVariableKey(string originalKey, Variable ignoreVariable = null)
+		public virtual string GetUniqueVariableKey(string originalKey, Variable ignoreVariable = null)
 		{
 			int suffix = 0;
 			string baseKey = originalKey;
@@ -213,7 +213,7 @@ namespace Fungus
 		 * Gets the value of a boolean variable.
 		 * Returns false if the variable key does not exist.
 		 */
-		public bool GetBooleanVariable(string key)
+		public virtual bool GetBooleanVariable(string key)
 		{
 			foreach (Variable v in variables)
 			{
@@ -234,7 +234,7 @@ namespace Fungus
 		 * Sets the value of a boolean variable.
 		 * The variable must already be added to the list of variables for this Fungus Script.
 		 */
-		public void SetBooleanVariable(string key, bool value)
+		public virtual void SetBooleanVariable(string key, bool value)
 		{
 			foreach (Variable v in variables)
 			{
@@ -255,7 +255,7 @@ namespace Fungus
 		 * Gets the value of an integer variable.
 		 * Returns false if the variable key does not exist.
 		 */
-		public int GetIntegerVariable(string key)
+		public virtual int GetIntegerVariable(string key)
 		{
 			foreach (Variable v in variables)
 			{
@@ -276,7 +276,7 @@ namespace Fungus
 		 * Sets the value of an integer variable.
 		 * The variable must already be added to the list of variables for this Fungus Script.
 		 */
-		public void SetIntegerVariable(string key, int value)
+		public virtual void SetIntegerVariable(string key, int value)
 		{
 			foreach (Variable v in variables)
 			{
@@ -297,7 +297,7 @@ namespace Fungus
 		 * Gets the value of a float variable.
 		 * Returns false if the variable key does not exist.
 		 */
-		public float GetFloatVariable(string key)
+		public virtual float GetFloatVariable(string key)
 		{
 			foreach (Variable v in variables)
 			{
@@ -318,7 +318,7 @@ namespace Fungus
 		 * Sets the value of a float variable.
 		 * The variable must already be added to the list of variables for this Fungus Script.
 		 */
-		public void SetFloatVariable(string key, float value)
+		public virtual void SetFloatVariable(string key, float value)
 		{
 			foreach (Variable v in variables)
 			{
@@ -339,7 +339,7 @@ namespace Fungus
 		 * Gets the value of a string variable.
 		 * Returns false if the variable key does not exist.
 		 */
-		public string GetStringVariable(string key)
+		public virtual string GetStringVariable(string key)
 		{
 			foreach (Variable v in variables)
 			{
@@ -360,7 +360,7 @@ namespace Fungus
 		 * Sets the value of a string variable.
 		 * The variable must already be added to the list of variables for this Fungus Script.
 		 */
-		public void SetStringVariable(string key, string value)
+		public virtual void SetStringVariable(string key, string value)
 		{
 			foreach (Variable v in variables)
 			{
@@ -380,7 +380,7 @@ namespace Fungus
 		/**
 		 * Set the sequence objects to be hidden or visible depending on the showSequenceObjects property.
 		 */
-		public void UpdateHideFlags()
+		public virtual void UpdateHideFlags()
 		{
 			Sequence[] sequences = GetComponentsInChildren<Sequence>();
 			foreach (Sequence sequence in sequences)

@@ -16,10 +16,10 @@ namespace Fungus
 	 */
 	public class GlobalVariables
 	{
-		static Dictionary<string, string> stringDict = new Dictionary<string, string>();
-		static Dictionary<string, int> intDict = new Dictionary<string, int>();
-		static Dictionary<string, float> floatDict = new Dictionary<string, float>();
-		static Dictionary<string, bool> boolDict = new Dictionary<string, bool>();
+		protected static Dictionary<string, string> stringDict = new Dictionary<string, string>();
+		protected static Dictionary<string, int> intDict = new Dictionary<string, int>();
+		protected static Dictionary<string, float> floatDict = new Dictionary<string, float>();
+		protected static Dictionary<string, bool> boolDict = new Dictionary<string, bool>();
 
 		/**
 		 * Save the variable dictionaries to persistent storage using a name tag.

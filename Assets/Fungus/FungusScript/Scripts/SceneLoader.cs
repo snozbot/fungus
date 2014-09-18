@@ -12,9 +12,9 @@ namespace Fungus
 	 */
 	public class SceneLoader : MonoBehaviour
 	{
-		Texture2D loadingTexture;
-		string sceneToLoad;
-		bool displayedImage;
+		protected Texture2D loadingTexture;
+		protected string sceneToLoad;
+		protected bool displayedImage;
 
 		/**
 		 * Asynchronously load a new scene.
@@ -32,7 +32,7 @@ namespace Fungus
 			sceneLoader.loadingTexture = _loadingTexture;
 		}
 
-		void Start()
+		protected virtual void Start()
 		{
 			StartCoroutine(DoLoadSequence());
 		}
@@ -77,7 +77,7 @@ namespace Fungus
 			Destroy(gameObject);
 		}
 
-		void OnGUI()
+		protected virtual void OnGUI()
 		{
 			if (loadingTexture == null)
 			{

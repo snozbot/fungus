@@ -6,7 +6,7 @@ namespace Fungus
 
 	public class StringVariable : Variable 
 	{
-		string stringValue;
+		protected string stringValue;
 
 		public string Value
 		{
@@ -19,10 +19,10 @@ namespace Fungus
 	public class StringData
 	{
 		[SerializeField]
-		StringVariable stringReference;
+		protected StringVariable stringReference;
 
 		[SerializeField]
-		string stringValue;
+		protected string stringValue;
 
 		public string Value
 		{
@@ -30,7 +30,7 @@ namespace Fungus
 			set { if (stringReference == null) { stringValue = value; } else { stringReference.Value = value; } }
 		}
 
-		public string GetDescription()
+		public virtual string GetDescription()
 		{
 			if (stringReference == null)
 			{

@@ -7,7 +7,7 @@ namespace Fungus
 
 	public class BooleanVariable : Variable 
 	{
-		bool booleanValue;
+		protected bool booleanValue;
 
 		public bool Value
 		{
@@ -20,10 +20,10 @@ namespace Fungus
 	public class BooleanData
 	{
 		[SerializeField]
-		BooleanVariable booleanReference;
+		protected BooleanVariable booleanReference;
 
 		[SerializeField]
-		bool booleanValue;
+		protected bool booleanValue;
 
 		public bool Value
 		{
@@ -31,7 +31,7 @@ namespace Fungus
 			set { if (booleanReference == null) { booleanValue = value; } else { booleanReference.Value = value; } }
 		}
 
-		public string GetDescription()
+		public virtual string GetDescription()
 		{
 			if (booleanReference == null)
 			{

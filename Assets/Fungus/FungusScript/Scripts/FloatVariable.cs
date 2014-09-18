@@ -6,7 +6,7 @@ namespace Fungus
 
 	public class FloatVariable : Variable 
 	{
-		float floatValue;
+		protected float floatValue;
 
 		public float Value
 		{
@@ -19,10 +19,10 @@ namespace Fungus
 	public class FloatData
 	{
 		[SerializeField]
-		FloatVariable floatReference;
+		protected FloatVariable floatReference;
 
 		[SerializeField]
-		float floatValue;
+		protected float floatValue;
 
 		public float Value
 		{
@@ -30,7 +30,7 @@ namespace Fungus
 			set { if (floatReference == null) { floatValue = value; } else { floatReference.Value = value; } }
 		}
 
-		public string GetDescription()
+		public virtual string GetDescription()
 		{
 			if (floatReference == null)
 			{

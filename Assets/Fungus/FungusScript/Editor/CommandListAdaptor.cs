@@ -13,14 +13,14 @@ namespace Fungus
 {
 	public class CommandListAdaptor : IReorderableListAdaptor {
 
-		private class SetCommandOperation
+		protected class SetCommandOperation
 		{
 			public Sequence sequence;
 			public Type commandType;
 			public int index;
 		}
 
-		private SerializedProperty _arrayProperty;
+		protected SerializedProperty _arrayProperty;
 
 		public float fixedItemHeight;
 		

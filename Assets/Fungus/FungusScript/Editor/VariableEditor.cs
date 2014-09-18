@@ -11,7 +11,7 @@ namespace Fungus
 	[CustomEditor (typeof(Variable), true)]
 	public class VariableEditor : CommandEditor
 	{
-		void OnEnable()
+		protected virtual void OnEnable()
 		{
 			Variable t = target as Variable;
 			t.hideFlags = HideFlags.HideInInspector;

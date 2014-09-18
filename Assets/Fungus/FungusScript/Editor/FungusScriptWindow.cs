@@ -8,15 +8,15 @@ namespace Fungus
 {
 	public class FungusScriptWindow : EditorWindow
 	{
-		bool resize = false;
-		Rect cursorChangeRect;
+		protected bool resize = false;
+		protected Rect cursorChangeRect;
 		public const float minViewWidth = 350;
 
 		static bool locked = false;
 		static GUIStyle lockButtonStyle;
 		static FungusScript activeFungusScript;
 
-		private List<Sequence> windowSequenceMap = new List<Sequence>();
+		protected List<Sequence> windowSequenceMap = new List<Sequence>();
 
 	    [MenuItem("Window/Fungus Script")]
 	    static void Init()
@@ -41,7 +41,7 @@ namespace Fungus
 		
 		// Implementing this method causes the padlock image to display on the window
 		// https://leahayes.wordpress.com/2013/04/30/adding-the-little-padlock-button-to-your-editorwindow/#more-455
-		void ShowButton(Rect position) {
+		protected virtual void ShowButton(Rect position) {
 			if (lockButtonStyle == null)
 			{
 				lockButtonStyle = "IN LockButton";
@@ -49,7 +49,7 @@ namespace Fungus
 			locked = GUI.Toggle(position, locked, GUIContent.none, lockButtonStyle);
 		}
 
-		public void OnInspectorUpdate()
+		public virtual void OnInspectorUpdate()
 		{
 			Repaint();
 		}
@@ -72,7 +72,7 @@ namespace Fungus
 			return null;
 		}
 
-		void OnGUI()
+		protected virtual void OnGUI()
 		{
 			FungusScript fungusScript = GetFungusScript();
 			if (fungusScript == null)
@@ -94,7 +94,7 @@ namespace Fungus
 			GUILayout.EndHorizontal();
 		}
 		
-		void DrawScriptView(FungusScript fungusScript)
+		protected virtual void DrawScriptView(FungusScript fungusScript)
 		{
 			EditorUtility.SetDirty(fungusScript);
 			
@@ -184,7 +184,7 @@ namespace Fungus
 			GLDraw.EndScrollView();
 		}
 		
-		void ResizeViews(FungusScript fungusScript)
+		protected virtual void ResizeViews(FungusScript fungusScript)
 		{
 			cursorChangeRect = new Rect(this.position.width - fungusScript.commandViewWidth, 0, 4f, this.position.height);
 
@@ -209,7 +209,7 @@ namespace Fungus
 			}
 		}
 		
-		void DrawSequenceView(FungusScript fungusScript)
+		protected virtual void DrawSequenceView(FungusScript fungusScript)
 		{
 			GUILayout.Space(5);
 
@@ -282,7 +282,7 @@ namespace Fungus
 			GUILayout.EndScrollView();
 		}
 
-		void CreateSequenceCallback(object item)
+		protected virtual void CreateSequenceCallback(object item)
 		{
 			FungusScript fungusScript = GetFungusScript();
 			if (fungusScript != null)
@@ -295,7 +295,7 @@ namespace Fungus
 			}				
 		}
 
-		void DrawWindow(int windowId)
+		protected virtual void DrawWindow(int windowId)
 		{
 			// Select sequence when node is clicked
 			if (!Application.isPlaying &&
@@ -333,7 +333,7 @@ namespace Fungus
 	        GUI.DragWindow();
 	    }
 
-		void DrawConnections(FungusScript fungusScript, Sequence sequence, bool highlightedOnly)
+		protected virtual void DrawConnections(FungusScript fungusScript, Sequence sequence, bool highlightedOnly)
 		{
 			if (sequence == null)
 			{
@@ -372,7 +372,7 @@ namespace Fungus
 			}
 		}
 
-		void DrawRectConnection(Rect rectA, Rect rectB, bool highlight)
+		protected virtual void DrawRectConnection(Rect rectA, Rect rectB, bool highlight)
 		{
 			Vector2 pointA;
 			Vector2 pointB;
