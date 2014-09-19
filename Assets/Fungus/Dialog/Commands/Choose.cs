@@ -33,8 +33,13 @@ namespace Fungus
 			showBasicGUI = false;
 			if (dialog == null)
 			{
-				showBasicGUI = true;
-				return;
+				// Try to get any SayDialog in the scene
+				dialog = GameObject.FindObjectOfType<ChooseDialog>();
+				if (dialog == null)
+				{
+					showBasicGUI = true;
+					return;
+				}
 			}
 
 			if (options.Count == 0)
