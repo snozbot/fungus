@@ -131,23 +131,10 @@ namespace Fungus
 			}
 
 			// Zero speed means write instantly
-			// Also write instantly if text contains rich text markup tags
 			if (currentSpeed == 0 ||
 			    text.Contains("<"))
 			{
-				foreach (Glyph glyph in glyphs)
-				{
-					if (glyph.type == GlyphType.Character)
-					{
-						storyText.text += glyph.param;
-					}
-				}
-
-				if (onWritingComplete != null)
-				{
-					onWritingComplete();
-				}
-				yield break;
+				currentSpeed = 10000;
 			}
 
 			GameObject typingAudio = null;
@@ -160,12 +147,6 @@ namespace Fungus
 				typingAudio.audio.loop = loopWritingSound;
 				typingAudio.audio.Play();
 			}
-			
-			float writeDelay = 0f;
-			if (currentSpeed > 0)
-			{
-				writeDelay = (1f / (float)currentSpeed);
-			}
 
 			float timeAccumulator = 0f;
 
@@ -174,16 +155,13 @@ namespace Fungus
 			{
 				timeAccumulator += Time.deltaTime;
 
-				bool skipWriting = false;
-				/*
-				if (Input.GetMouseButtonDown(0))
+				float writeDelay = 0f;
+				if (currentSpeed > 0)
 				{
-					skipWriting = true;
+					writeDelay = (1f / (float)currentSpeed);
 				}
-				*/
 
-				while (skipWriting ||
-				       timeAccumulator > writeDelay)
+				while (timeAccumulator > writeDelay)
 				{
 					timeAccumulator -= writeDelay;
 
@@ -220,6 +198,11 @@ namespace Fungus
 							}
 			
 							storyText.text += start + glyph.param + end;
+
+							if (Input.GetMouseButtonDown(0))
+							{
+								currentSpeed = 10000; // Write instantly
+							}
 						}
 
 						// Add a wait glyph on punctuation marks
@@ -247,9 +230,10 @@ namespace Fungus
 							             glyphs[i + 1].type == GlyphType.Character &&
 							             IsPunctuation(glyphs[i + 1].param));
 
-							if (!skipCharacter &&
-							    !skipWriting)
+							if (!skipCharacter)
+							{
 								yield return new WaitForSeconds(currentPunctuationPause);
+							}
 						}
 
 						break;
@@ -285,16 +269,14 @@ namespace Fungus
 						{
 							duration = 1f;
 						}
-						if (!skipWriting)
-						{
-							yield return new WaitForSeconds(duration);
-							timeAccumulator = 0f;
-						}
+						yield return new WaitForSeconds(duration);
+						timeAccumulator = 0f;
 						break;
 
 					case GlyphType.WaitForInputNoClear:
 						OnWaitForInputTag(true);
 						yield return StartCoroutine(WaitForInput(null));
+						timeAccumulator = 0f;
 						OnWaitForInputTag(false);
 						break;
 					
@@ -302,11 +284,13 @@ namespace Fungus
 						OnWaitForInputTag(true);
 						yield return StartCoroutine(WaitForInput(null));
 						OnWaitForInputTag(false);
+						timeAccumulator = 0f;
 						storyText.text = "";
 						break;
 
 					case GlyphType.Clear:
 						storyText.text = "";
+						timeAccumulator = 0f;
 						break;
 
 					case GlyphType.Speed:
@@ -315,6 +299,7 @@ namespace Fungus
 							currentSpeed = 0f;
 						}
 						writeDelay = 0;
+						timeAccumulator = 0f;
 						if (currentSpeed > 0)
 						{
 							writeDelay = (1f / (float)currentSpeed);
