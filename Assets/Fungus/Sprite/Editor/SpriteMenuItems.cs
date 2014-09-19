@@ -7,11 +7,16 @@ namespace Fungus
 
 	public class SpriteMenuItems 
 	{
-
 		[MenuItem("GameObject/Fungus/Sprite/ParallaxSprite")]
-		static void CreateBackground()
+		static void CreateParallaxSprite()
 		{
 			InstantiatePrefab("ParallaxSprite");
+		}
+
+		[MenuItem("GameObject/Fungus/Sprite/ClickableSprite")]
+		static void CreateClickableSprite()
+		{
+			InstantiatePrefab("ClickableSprite");
 		}
 
 		static void InstantiatePrefab(string prefabName)
