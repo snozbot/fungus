@@ -19,7 +19,7 @@ namespace Fungus
 			GameObject prefab = Resources.LoadAssetAtPath("Assets/Fungus/Sprite/Prefabs/" + prefabName + ".prefab", typeof(GameObject)) as GameObject;
 			if (prefab != null)
 			{
-				GameObject go = GameObject.Instantiate(prefab) as GameObject;
+				GameObject go = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
 				go.name = prefabName;
 			}
 		}
