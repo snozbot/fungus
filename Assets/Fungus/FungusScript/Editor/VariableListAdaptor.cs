@@ -210,7 +210,7 @@ namespace Fungus
 				GUI.Label(valueRect, type);
 				scope = (VariableScope)EditorGUI.EnumPopup(scopeRect, variable.scope);
 
-				// To access properties in a monobehavior, you have new a SerializedObject
+				// To access properties in a monobehavior, you have to new a SerializedObject
 				// http://answers.unity3d.com/questions/629803/findrelativeproperty-never-worked-for-me-how-does.html
 				SerializedObject variableObject = new SerializedObject(this[index].objectReferenceValue);
 				SerializedProperty keyProp = variableObject.FindProperty("key");

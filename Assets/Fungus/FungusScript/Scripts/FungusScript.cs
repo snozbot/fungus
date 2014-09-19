@@ -20,12 +20,6 @@ namespace Fungus
 		public Sequence executingSequence;
 
 		/**
-		 * Copy and paste buffer for command objects.
-		 */
-		[System.NonSerialized]
-		public Command copyCommand;
-
-		/**
 		 * Scroll position of Fungus Script editor window (map view).
 		 */
 		[HideInInspector]

@@ -19,8 +19,7 @@ namespace Fungus
 		public string CommandName { get; set; }
 		public string HelpText { get; set; }
 	}
-	
-	[RequireComponent(typeof(Sequence))]
+
 	public class Command : MonoBehaviour
 	{
 		[HideInInspector]
@@ -28,6 +27,9 @@ namespace Fungus
 
 		[HideInInspector]
 		public int indentLevel;
+
+		[HideInInspector]
+		public bool selected;
 
 		public virtual Sequence GetSequence()
 		{

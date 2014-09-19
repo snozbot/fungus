@@ -37,6 +37,7 @@ namespace Fungus
 			Sequence sequence = newSequenceGO.AddComponent<Sequence>();
 			fungusScript.startSequence = sequence;
 			fungusScript.selectedSequence = sequence;
+			Undo.RegisterCreatedObjectUndo(newFungusScriptGO, "Create Fungus Script");
 		}
 		
 		// Implementing this method causes the padlock image to display on the window

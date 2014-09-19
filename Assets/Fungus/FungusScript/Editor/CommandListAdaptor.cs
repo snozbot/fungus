@@ -106,7 +106,14 @@ namespace Fungus
 
 			// Add the command as a new component
 			Sequence parentSequence = command.GetComponent<Sequence>();
-			Command newCommand = CommandEditor.PasteCommand(command, parentSequence);
+
+			System.Type type = command.GetType();
+			Command newCommand = Undo.AddComponent(parentSequence.gameObject, type) as Command;
+			System.Reflection.FieldInfo[] fields = type.GetFields();
+			foreach (System.Reflection.FieldInfo field in fields)
+			{
+				field.SetValue(newCommand, field.GetValue(command));
+			}
 
 			_arrayProperty.InsertArrayElementAtIndex(index);
 			_arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = newCommand;
@@ -166,8 +173,8 @@ namespace Fungus
 				error = true;
 			}
 
-			bool selected = (Application.isPlaying && command.IsExecuting()) ||
-							(!Application.isPlaying && fungusScript.selectedCommand == command);
+			bool highlight = (Application.isPlaying && command.IsExecuting()) ||
+							 (!Application.isPlaying && fungusScript.selectedCommand == command);
 
 			float indentSize = 20;			
 			for (int i = 0; i < command.indentLevel; ++i)
@@ -196,7 +203,7 @@ namespace Fungus
 
 			Rect summaryRect = buttonRect;
 			summaryRect.x += buttonWidth - 1;
-			summaryRect.width = position.width - buttonWidth - indentWidth - 15;
+			summaryRect.width = position.width - buttonWidth - indentWidth - 23;
 
 			if (!Application.isPlaying &&
 			    Event.current.type == EventType.MouseDown &&
@@ -214,7 +221,7 @@ namespace Fungus
 			}
 			Color summaryBackgroundColor = Color.white;
 
-			if (selected)
+			if (highlight)
 			{
 				summaryBackgroundColor = Color.green;
 				buttonBackgroundColor = Color.green;
@@ -234,7 +241,7 @@ namespace Fungus
 
 			GUIStyle summaryStyle = new GUIStyle(EditorStyles.miniButtonRight);
 			summaryStyle.alignment = TextAnchor.MiddleLeft;
-			if (error && !selected)
+			if (error && !highlight)
 			{
 				summaryStyle.normal.textColor = Color.white;
 			}
@@ -244,16 +251,23 @@ namespace Fungus
 		
 			GUI.backgroundColor = Color.white;
 
-			Rect menuRect = summaryRect;
-			menuRect.x += menuRect.width + 2;
-			menuRect.y = position.y + 1;
-			menuRect.width = 18;
-			menuRect.height = position.height;
-
-			GUIStyle menuButtonStyle = new GUIStyle(EditorStyles.popup);
-			if (GUI.Button(menuRect, new GUIContent("", "Select command type"), menuButtonStyle))
+			if (!Application.isPlaying)
 			{
-				ShowCommandMenu(index, fungusScript.selectedSequence);
+				Rect menuRect = summaryRect;
+				menuRect.x += menuRect.width + 4;
+				menuRect.y = position.y + 1;
+				menuRect.width = 22;
+				menuRect.height = position.height;
+				GUIStyle menuButtonStyle = new GUIStyle("Foldout");
+				if (GUI.Button(menuRect, new GUIContent("", "Select command type"), menuButtonStyle))
+				{
+					ShowCommandMenu(index, fungusScript.selectedSequence);
+				}
+
+				Rect selectRect = position;
+				selectRect.x -= 19;
+				selectRect.width = 20;
+				command.selected = EditorGUI.Toggle(selectRect, command.selected);
 			}
 		}
 

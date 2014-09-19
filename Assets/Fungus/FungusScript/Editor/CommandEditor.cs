@@ -86,14 +86,6 @@ namespace Fungus
 				t.enabled = enabled;
 			}
 
-			if (fungusScript != null)
-			{
-				if (GUILayout.Button("Copy", EditorStyles.miniButton))
-				{
-					fungusScript.copyCommand = t;
-				}				
-			}
-
 			GUILayout.EndHorizontal();
 			GUI.backgroundColor = Color.white;
 
@@ -116,29 +108,6 @@ namespace Fungus
 		public virtual void DrawCommandGUI()
 		{
 			DrawDefaultInspector();
-		}
-
-		static public Command PasteCommand(Command copyCommand, Sequence sequence)
-		{
-			if (sequence == null)
-			{
-				return null;
-			}
-
-			System.Type type = copyCommand.GetType();
-			Component copy = Undo.AddComponent(sequence.gameObject, type);
-			System.Reflection.FieldInfo[] fields = type.GetFields();
-			foreach (System.Reflection.FieldInfo field in fields)
-			{
-				field.SetValue(copy, field.GetValue(copyCommand));
-			}
-
-			Undo.RecordObject(sequence, "Paste Command");
-
-			Command newCommand = copy as Command;
-			sequence.commandList.Add(newCommand);
-
-			return newCommand;
 		}
 
 		static public void ObjectField<T>(SerializedProperty property, GUIContent label, GUIContent nullLabel, List<T> objectList) where T : MonoBehaviour
