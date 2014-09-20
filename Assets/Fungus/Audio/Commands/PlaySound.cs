@@ -9,6 +9,7 @@ namespace Fungus
 	public class PlaySound : Command
 	{
 		public AudioClip soundClip;
+		public float timeToStart;
 
 		[Range(0,1)]
 		public float volume = 1;

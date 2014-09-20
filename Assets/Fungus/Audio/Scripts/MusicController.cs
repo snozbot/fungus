@@ -45,6 +45,13 @@ namespace Fungus
 			audio.clip = musicClip;
 			audio.Play();
 		}
+		
+		public void PlayMusicAtTime(AudioClip musicClip, float atTime)
+		{
+			audio.clip = musicClip;
+			audio.time = atTime;		// May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html
+			audio.Play();
+		}
 
 		/**
 		 * Stops playing game music.
@@ -72,6 +79,12 @@ namespace Fungus
 		 */
 		public virtual void PlaySound(AudioClip soundClip, float volume)
 		{
+			audio.PlayOneShot(soundClip, volume);
+		}
+		
+		public virtual void PlaySoundAtTime(AudioClip soundClip, float volume, float atTime)
+		{
+			audio.time = atTime;						// This may not work BK
 			audio.PlayOneShot(soundClip, volume);
 		}
 	}
