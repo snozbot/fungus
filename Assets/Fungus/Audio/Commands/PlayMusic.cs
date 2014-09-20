@@ -17,7 +17,6 @@ namespace Fungus
 			MusicController musicController = MusicController.GetInstance();
 			if (musicController != null)
 			{
-				
 				if (atTime > 0)
 				{
 					musicController.PlayMusicAtTime(musicClip, atTime);

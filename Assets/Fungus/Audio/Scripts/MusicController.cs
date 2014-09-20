@@ -49,7 +49,7 @@ namespace Fungus
 		public void PlayMusicAtTime(AudioClip musicClip, float atTime)
 		{
 			audio.clip = musicClip;
-			audio.time = atTime;		// May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html
+			audio.time = atTime;		// May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
 			audio.Play();
 		}
 
@@ -59,6 +59,12 @@ namespace Fungus
 		public virtual void StopMusic()
 		{
 			audio.Stop();
+		}
+		
+		public void StopAllAudio()
+		{
+			audio.Stop ();
+			// Mechanically the same as StopMusic(), but both seem to be practically synfunctional. BK
 		}
 
 		/**
