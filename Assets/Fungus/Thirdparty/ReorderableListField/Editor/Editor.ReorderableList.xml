@@ -1,0 +1,1277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>Editor.ReorderableList</name>
+  </assembly>
+  <members>
+    <member name="T:Rotorz.ReorderableList.GenericListAdaptor`1">
+      <summary>
+            Reorderable list adaptor for generic list.
+            </summary>
+      <typeparam name="T">Type of list element.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.#ctor(System.Collections.Generic.IList{`0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{`0},System.Single)">
+      <summary>
+            Initializes a new instance of <see cref="T:Rotorz.ReorderableList.GenericListAdaptor`1" />.
+            </summary>
+      <param name="list">The list which can be reordered.</param>
+      <param name="itemDrawer">Callback to draw list item.</param>
+      <param name="itemHeight">Height of list item in pixels.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.Add">
+      <summary>
+            Add new element at end of list.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.CanDrag(System.Int32)">
+      <summary>
+            Determines whether an item can be reordered by dragging mouse.
+            </summary>
+      <param name="index">Zero-based index for list element.</param>
+      <returns>
+            A value of <c>true</c> if item can be dragged; otherwise <c>false</c>.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.CanRemove(System.Int32)">
+      <summary>
+            Determines whether an item can be removed from list.
+            </summary>
+      <param name="index">Zero-based index for list element.</param>
+      <returns>
+            A value of <c>true</c> if item can be removed; otherwise <c>false</c>.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.Clear">
+      <summary>
+            Clear all elements from list.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.GenericListAdaptor`1.Count">
+      <summary>
+            Gets count of elements in list.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.DrawItem(UnityEngine.Rect,System.Int32)">
+      <summary>
+            Draw interface for list element.
+            </summary>
+      <param name="position">Position in GUI.</param>
+      <param name="index">Zero-based index of array element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.Duplicate(System.Int32)">
+      <summary>
+            Duplicate existing element.
+            </summary>
+      <param name="index">Zero-based index of list element.</param>
+    </member>
+    <member name="F:Rotorz.ReorderableList.GenericListAdaptor`1.fixedItemHeight">
+      <summary>
+            Fixed height of each list item.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.GetItemHeight(System.Int32)">
+      <summary>
+            Gets height of list item in pixels.
+            </summary>
+      <param name="index">Zero-based index of array element.</param>
+      <returns>
+            Measurement in pixels.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.Insert(System.Int32)">
+      <summary>
+            Insert new element at specified index.
+            </summary>
+      <param name="index">Zero-based index for list element.</param>
+    </member>
+    <member name="P:Rotorz.ReorderableList.GenericListAdaptor`1.Item(System.Int32)">
+      <summary>
+            Gets element from list.
+            </summary>
+      <param name="index">Zero-based index of element.</param>
+      <returns>
+            The element.
+            </returns>
+    </member>
+    <member name="P:Rotorz.ReorderableList.GenericListAdaptor`1.List">
+      <summary>
+            Gets the underlying list data structure.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.Move(System.Int32,System.Int32)">
+      <summary>
+            Move element from source index to destination index.
+            </summary>
+      <param name="sourceIndex">Zero-based index of source element.</param>
+      <param name="destIndex">Zero-based index of destination element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.Remove(System.Int32)">
+      <summary>
+            Remove element at specified index.
+            </summary>
+      <param name="index">Zero-based index of list element.</param>
+    </member>
+    <member name="T:Rotorz.ReorderableList.IReorderableListAdaptor">
+      <summary>
+            Adaptor allowing reorderable list control to interface with list data.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.Add">
+      <summary>
+            Add new element at end of list.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.CanDrag(System.Int32)">
+      <summary>
+            Determines whether an item can be reordered by dragging mouse.
+            </summary>
+      <param name="index">Zero-based index for list element.</param>
+      <returns>
+            A value of <c>true</c> if item can be dragged; otherwise <c>false</c>.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.CanRemove(System.Int32)">
+      <summary>
+            Determines whether an item can be removed from list.
+            </summary>
+      <param name="index">Zero-based index for list element.</param>
+      <returns>
+            A value of <c>true</c> if item can be removed; otherwise <c>false</c>.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.Clear">
+      <summary>
+            Clear all elements from list.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.IReorderableListAdaptor.Count">
+      <summary>
+            Gets count of elements in list.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.DrawItem(UnityEngine.Rect,System.Int32)">
+      <summary>
+            Draw interface for list element.
+            </summary>
+      <param name="position">Position in GUI.</param>
+      <param name="index">Zero-based index of array element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.Duplicate(System.Int32)">
+      <summary>
+            Duplicate existing element.
+            </summary>
+      <param name="index">Zero-based index of list element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.GetItemHeight(System.Int32)">
+      <summary>
+            Gets height of list item in pixels.
+            </summary>
+      <param name="index">Zero-based index of array element.</param>
+      <returns>
+            Measurement in pixels.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.Insert(System.Int32)">
+      <summary>
+            Insert new element at specified index.
+            </summary>
+      <param name="index">Zero-based index for list element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.Move(System.Int32,System.Int32)">
+      <summary>
+            Move element from source index to destination index.
+            </summary>
+      <param name="sourceIndex">Zero-based index of source element.</param>
+      <param name="destIndex">Zero-based index of destination element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.Remove(System.Int32)">
+      <summary>
+            Remove element at specified index.
+            </summary>
+      <param name="index">Zero-based index of list element.</param>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ItemInsertedEventArgs">
+      <summary>
+            Arguments which are passed to <see cref="T:Rotorz.ReorderableList.ItemInsertedEventHandler" />.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ItemInsertedEventArgs.#ctor(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32,System.Boolean)">
+      <summary>
+            Initializes a new instance of <see cref="T:Rotorz.ReorderableList.ItemInsertedEventArgs" />.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="itemIndex">Zero-based index of item.</param>
+      <param name="wasDuplicated">Indicates if inserted item was duplicated from another item.</param>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ItemInsertedEventArgs.adaptor">
+      <summary>
+            Gets adaptor to reorderable list container which contains element.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ItemInsertedEventArgs.itemIndex">
+      <summary>
+            Gets zero-based index of item which was inserted.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ItemInsertedEventArgs.wasDuplicated">
+      <summary>
+            Indicates if inserted item was duplicated from another item.
+            </summary>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ItemInsertedEventHandler">
+      <summary>
+            An event handler which is invoked after new list item is inserted.
+            </summary>
+      <param name="sender">Object which raised event.</param>
+      <param name="args">Event arguments.</param>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ItemRemovingEventArgs">
+      <summary>
+            Arguments which are passed to <see cref="T:Rotorz.ReorderableList.ItemRemovingEventHandler" />.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ItemRemovingEventArgs.#ctor(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32)">
+      <summary>
+            Initializes a new instance of <see cref="T:Rotorz.ReorderableList.ItemInsertedEventArgs" />.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="itemIndex">Zero-based index of item.</param>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ItemRemovingEventArgs.adaptor">
+      <summary>
+            Gets adaptor to reorderable list container which contains element.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ItemRemovingEventArgs.itemIndex">
+      <summary>
+            Gets zero-based index of item which was inserted.
+            </summary>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ItemRemovingEventHandler">
+      <summary>
+            An event handler which is invoked before a list item is removed.
+            </summary>
+      <param name="sender">Object which raised event.</param>
+      <param name="args">Event arguments.</param>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ReorderableListControl">
+      <summary>
+            Base class for custom reorderable list control.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.#ctor">
+      <summary>
+            Initializes a new instance of <see cref="T:Rotorz.ReorderableList.ReorderableListControl" />.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.#ctor(Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Initializes a new instance of <see cref="T:Rotorz.ReorderableList.ReorderableListControl" />.
+            </summary>
+      <param name="flags">Optional flags which affect behavior of control.</param>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.addButtonStyle">
+      <summary>
+            Gets or sets style used to draw add button.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.AddItem(Rotorz.ReorderableList.IReorderableListAdaptor)">
+      <summary>
+            Add item at end of list and raises the event <see cref="E:Rotorz.ReorderableList.ReorderableListControl.ItemInserted" />.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.AddItemsToMenu(UnityEditor.GenericMenu,System.Int32,Rotorz.ReorderableList.IReorderableListAdaptor)">
+      <summary>
+            Invoked to generate context menu for list item.
+            </summary>
+      <param name="menu">Menu which can be populated.</param>
+      <param name="itemIndex">Zero-based index of item which was right-clicked.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.AnchorBackgroundColor">
+      <summary>
+            Background color of anchor list item.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.CalculateListHeight(Rotorz.ReorderableList.IReorderableListAdaptor)">
+      <summary>
+            Calculate height of list control in pixels.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <returns>
+            Required list height in pixels.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.CalculateListHeight(System.Int32,System.Single)">
+      <summary>
+            Calculate height of list control in pixels.
+            </summary>
+      <param name="itemCount">Count of items in list.</param>
+      <param name="itemHeight">Fixed height of list item.</param>
+      <returns>
+            Required list height in pixels.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.ClearAll(Rotorz.ReorderableList.IReorderableListAdaptor)">
+      <summary>
+            Remove all items from list.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <returns>
+            Returns a value of <c>false</c> if operation was cancelled.
+            </returns>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandClearAll">
+      <summary>
+            Content for "Clear All" command.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandDuplicate">
+      <summary>
+            Content for "Duplicate" command.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandInsertAbove">
+      <summary>
+            Content for "Insert Above" command.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandInsertBelow">
+      <summary>
+            Content for "Insert Below" command.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandMoveToBottom">
+      <summary>
+            Content for "Move to Bottom" command.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandMoveToTop">
+      <summary>
+            Content for "Move to Top" command.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandRemove">
+      <summary>
+            Content for "Remove" command.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.containerStyle">
+      <summary>
+            Gets or sets style used to draw background of list control.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.defaultContextHandler">
+      <summary>
+            Default functionality to handle context command.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.DoCommand(System.String,System.Int32,Rotorz.ReorderableList.IReorderableListAdaptor)">
+      <summary>
+            Call to manually perform command.
+            </summary>
+      <param name="commandName">Name of command. This is the text shown in the context menu.</param>
+      <param name="itemIndex">Zero-based index of item which was right-clicked.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <returns>
+            A value of <c>true</c> if command was known; otherwise <c>false</c>.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.DoCommand(UnityEngine.GUIContent,System.Int32,Rotorz.ReorderableList.IReorderableListAdaptor)">
+      <summary>
+            Call to manually perform command.
+            </summary>
+      <param name="command">Content representing command.</param>
+      <param name="itemIndex">Zero-based index of item which was right-clicked.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <returns>
+            A value of <c>true</c> if command was known; otherwise <c>false</c>.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.Draw(Rotorz.ReorderableList.IReorderableListAdaptor)">
+      <summary>
+            Draw layout version of list control.
+            </summary>
+      <param name="controlID">Unique ID of list control.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Delegate for drawing empty list.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.Draw(Rotorz.ReorderableList.IReorderableListAdaptor,Rotorz.ReorderableList.ReorderableListControl.DrawEmpty)">
+      <summary>
+            Draw layout version of list control.
+            </summary>
+      <param name="controlID">Unique ID of list control.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Delegate for drawing empty list.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.Draw(UnityEngine.Rect,Rotorz.ReorderableList.IReorderableListAdaptor)">
+      <summary>
+            Draw list control with absolute positioning.
+            </summary>
+      <param name="position">Position of list control in GUI.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Delegate for drawing empty list.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.Draw(UnityEngine.Rect,Rotorz.ReorderableList.IReorderableListAdaptor,Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute)">
+      <summary>
+            Draw list control with absolute positioning.
+            </summary>
+      <param name="position">Position of list control in GUI.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Delegate for drawing empty list.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.DrawControlFromState(Rotorz.ReorderableList.IReorderableListAdaptor,Rotorz.ReorderableList.ReorderableListControl.DrawEmpty,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Generate and draw control from state object.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Delegate for drawing empty list.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.DrawControlFromState(UnityEngine.Rect,Rotorz.ReorderableList.IReorderableListAdaptor,Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Generate and draw control from state object.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Delegate for drawing empty list.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.DuplicateItem(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32)">
+      <summary>
+            Duplicate specified item and raises the event <see cref="E:Rotorz.ReorderableList.ReorderableListControl.ItemInserted" />.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="itemIndex">Zero-based index of item.</param>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.flags">
+      <summary>
+            Gets or sets flags which affect behavior of control.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.HandleCommand(System.String,System.Int32,Rotorz.ReorderableList.IReorderableListAdaptor)">
+      <summary>
+            Invoked to handle context command.
+            </summary>
+      <param name="commandName">Name of command. This is the text shown in the context menu.</param>
+      <param name="itemIndex">Zero-based index of item which was right-clicked.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <returns>
+            A value of <c>true</c> if command was known; otherwise <c>false</c>.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.InsertItem(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32)">
+      <summary>
+            Insert item at specified index and raises the event <see cref="E:Rotorz.ReorderableList.ReorderableListControl.ItemInserted" />.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="itemIndex">Zero-based index of item.</param>
+    </member>
+    <member name="E:Rotorz.ReorderableList.ReorderableListControl.ItemInserted">
+      <summary>
+            Occurs after list item is inserted or duplicated.
+            </summary>
+    </member>
+    <member name="E:Rotorz.ReorderableList.ReorderableListControl.ItemRemoving">
+      <summary>
+            Occurs before list item is removed and allows removal to be cancelled.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.MoveItem(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32,System.Int32)">
+      <summary>
+            Move item from source index to destination index.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="sourceIndex">Zero-based index of source item.</param>
+      <param name="destIndex">Zero-based index of destination index.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.OnItemInserted(Rotorz.ReorderableList.ItemInsertedEventArgs)">
+      <summary>
+            Raises event after list item is inserted or duplicated.
+            </summary>
+      <param name="args">Event arguments.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.OnItemRemoving(Rotorz.ReorderableList.ItemRemovingEventArgs)">
+      <summary>
+            Raises event before list item is removed and provides oppertunity to cancel.
+            </summary>
+      <param name="args">Event arguments.</param>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.removeButtonStyle">
+      <summary>
+            Gets or sets style used to draw remove button.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.RemoveItem(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32)">
+      <summary>
+            Remove specified item.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="itemIndex">Zero-based index of item.</param>
+      <returns>
+            Returns a value of <c>false</c> if operation was cancelled.
+            </returns>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.TargetBackgroundColor">
+      <summary>
+            Background color of target slot when dragging list item.
+            </summary>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ReorderableListControl.DrawEmpty">
+      <summary>
+            Invoked to draw content for empty list.
+            </summary>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute">
+      <summary>
+            Invoked to draw content for empty list with absolute positioning.
+            </summary>
+      <param name="position">Position of empty content.</param>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ReorderableListControl.ItemDrawer`1">
+      <summary>
+            Invoked to draw list item.
+            </summary>
+      <param name="position">Position of list item.</param>
+      <param name="item">The list item.</param>
+      <typeparam name="T">Type of item list.</typeparam>
+      <returns>
+            The modified value.
+            </returns>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ReorderableListFlags">
+      <summary>
+            Additional flags which can be passed into reorderable list field.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListFlags.DisableReordering">
+      <summary>
+            Hide grab handles and disable reordering of list items.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListFlags.HideAddButton">
+      <summary>
+            Hide add button at base of control.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListFlags.HideRemoveButtons">
+      <summary>
+            Hide remove buttons from list items.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListFlags.DisableContextMenu">
+      <summary>
+            Do not display context menu upon right-clicking grab handle.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListFlags.DisableDuplicateCommand">
+      <summary>
+            Hide "Duplicate" option from context menu.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListFlags.DisableAutoFocus">
+      <summary>
+            Do not automatically focus first control of newly added items.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListFlags.ShowIndices">
+      <summary>
+            Show zero-based index of array elements.
+            </summary>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListFlags.DisableClipping">
+      <summary>
+            Do not attempt to clip items which are out of view.
+            </summary>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ReorderableListGUI">
+      <summary>
+            Utility class for drawing reorderable lists.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.CalculateListFieldHeight(Rotorz.ReorderableList.IReorderableListAdaptor)">
+      <summary>
+            Calculate height of list field for adapted collection.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <returns>
+            Required list height in pixels.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.CalculateListFieldHeight(Rotorz.ReorderableList.IReorderableListAdaptor,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Calculate height of list field for adapted collection.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <returns>
+            Required list height in pixels.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.CalculateListFieldHeight(System.Int32)">
+      <summary>
+            Calculate height of list field for absolute positioning.
+            </summary>
+      <param name="itemCount">Count of items in list.</param>
+      <param name="itemHeight">Fixed height of list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <returns>
+            Required list height in pixels.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.CalculateListFieldHeight(System.Int32,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Calculate height of list field for absolute positioning.
+            </summary>
+      <param name="itemCount">Count of items in list.</param>
+      <param name="itemHeight">Fixed height of list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <returns>
+            Required list height in pixels.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.CalculateListFieldHeight(System.Int32,System.Single)">
+      <summary>
+            Calculate height of list field for absolute positioning.
+            </summary>
+      <param name="itemCount">Count of items in list.</param>
+      <param name="itemHeight">Fixed height of list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <returns>
+            Required list height in pixels.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.CalculateListFieldHeight(System.Int32,System.Single,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Calculate height of list field for absolute positioning.
+            </summary>
+      <param name="itemCount">Count of items in list.</param>
+      <param name="itemHeight">Fixed height of list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <returns>
+            Required list height in pixels.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.CalculateListFieldHeight(UnityEditor.SerializedProperty)">
+      <summary>
+            Calculate height of list field for absolute positioning.
+            </summary>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <returns>
+            Required list height in pixels.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.CalculateListFieldHeight(UnityEditor.SerializedProperty,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Calculate height of list field for absolute positioning.
+            </summary>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <returns>
+            Required list height in pixels.
+            </returns>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.currentItemIndex">
+      <summary>
+            Gets zero-based index of list item which is currently being drawn;
+            or a value of -1 if no item is currently being drawn.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.defaultAddButtonStyle">
+      <summary>
+            Gets default style for add item button.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.defaultContainerStyle">
+      <summary>
+            Gets default style for background of list control.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.DefaultItemDrawer``1(UnityEngine.Rect,``0)">
+      <summary>
+            Default list item drawer implementation.
+            </summary>
+      <param name="position">Position to draw list item control(s).</param>
+      <param name="item">Value of list item.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+      <returns>
+            Unmodified value of list item.
+            </returns>
+    </member>
+    <member name="F:Rotorz.ReorderableList.ReorderableListGUI.DefaultItemHeight">
+      <summary>
+            Default list item height is 18 pixels.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.defaultRemoveButtonStyle">
+      <summary>
+            Gets default style for remove item button.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.defaultTitleStyle">
+      <summary>
+            Gets default style for title header.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.indexOfChangedItem">
+      <summary>
+            Gets or sets zero-based index of last item which was changed. A value of -1
+            indicates that no item was changed by list.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField(Rotorz.ReorderableList.IReorderableListAdaptor)">
+      <summary>
+            Draw list field control for adapted collection.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField(Rotorz.ReorderableList.IReorderableListAdaptor,Rotorz.ReorderableList.ReorderableListControl.DrawEmpty)">
+      <summary>
+            Draw list field control for adapted collection.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField(Rotorz.ReorderableList.IReorderableListAdaptor,Rotorz.ReorderableList.ReorderableListControl.DrawEmpty,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control for adapted collection.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField(Rotorz.ReorderableList.IReorderableListAdaptor,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control for adapted collection.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField``1(System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0})">
+      <summary>
+            Draw list field control.
+            </summary>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField``1(System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},Rotorz.ReorderableList.ReorderableListControl.DrawEmpty)">
+      <summary>
+            Draw list field control.
+            </summary>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField``1(System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},Rotorz.ReorderableList.ReorderableListControl.DrawEmpty,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control.
+            </summary>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField``1(System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},Rotorz.ReorderableList.ReorderableListControl.DrawEmpty,System.Single)">
+      <summary>
+            Draw list field control.
+            </summary>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField``1(System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},Rotorz.ReorderableList.ReorderableListControl.DrawEmpty,System.Single,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control.
+            </summary>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField``1(System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control.
+            </summary>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField``1(System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},System.Single)">
+      <summary>
+            Draw list field control.
+            </summary>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField``1(System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},System.Single,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control.
+            </summary>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField(UnityEditor.SerializedProperty)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField(UnityEditor.SerializedProperty,Rotorz.ReorderableList.ReorderableListControl.DrawEmpty)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField(UnityEditor.SerializedProperty,Rotorz.ReorderableList.ReorderableListControl.DrawEmpty,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField(UnityEditor.SerializedProperty,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField(UnityEditor.SerializedProperty,System.Single)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField(UnityEditor.SerializedProperty,System.Single,Rotorz.ReorderableList.ReorderableListControl.DrawEmpty)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField(UnityEditor.SerializedProperty,System.Single,Rotorz.ReorderableList.ReorderableListControl.DrawEmpty,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListField(UnityEditor.SerializedProperty,System.Single,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,Rotorz.ReorderableList.IReorderableListAdaptor)">
+      <summary>
+            Draw list field control for adapted collection.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,Rotorz.ReorderableList.IReorderableListAdaptor,Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute)">
+      <summary>
+            Draw list field control for adapted collection.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,Rotorz.ReorderableList.IReorderableListAdaptor,Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control for adapted collection.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,Rotorz.ReorderableList.IReorderableListAdaptor,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control for adapted collection.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute``1(UnityEngine.Rect,System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0})">
+      <summary>
+            Draw list field control with absolute positioning.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute``1(UnityEngine.Rect,System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute)">
+      <summary>
+            Draw list field control with absolute positioning.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute``1(UnityEngine.Rect,System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control with absolute positioning.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute``1(UnityEngine.Rect,System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute,System.Single)">
+      <summary>
+            Draw list field control with absolute positioning.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute``1(UnityEngine.Rect,System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute,System.Single,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control with absolute positioning.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute``1(UnityEngine.Rect,System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control with absolute positioning.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute``1(UnityEngine.Rect,System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},System.Single)">
+      <summary>
+            Draw list field control with absolute positioning.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute``1(UnityEngine.Rect,System.Collections.Generic.IList{``0},Rotorz.ReorderableList.ReorderableListControl.ItemDrawer{``0},System.Single,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control with absolute positioning.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="list">The list which can be reordered.</param>
+      <param name="drawItem">Callback to draw list item.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="itemHeight">Height of a single list item.</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+      <typeparam name="T">Type of list item.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,UnityEditor.SerializedProperty)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,UnityEditor.SerializedProperty,Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,UnityEditor.SerializedProperty,Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,UnityEditor.SerializedProperty,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,UnityEditor.SerializedProperty,System.Single)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,UnityEditor.SerializedProperty,System.Single,Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,UnityEditor.SerializedProperty,System.Single,Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,UnityEditor.SerializedProperty,System.Single,Rotorz.ReorderableList.ReorderableListFlags)">
+      <summary>
+            Draw list field control for serializable property array.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="arrayProperty">Serializable property.</param>
+      <param name="fixedItemHeight">Use fixed height for items rather than <see cref="M:UnityEditor.EditorGUI.GetPropertyHeight(UnityEditor.SerializedProperty)" />.</param>
+      <param name="drawEmpty">Callback to draw custom content for empty list (optional).</param>
+      <param name="flags">Optional flags to pass into list field.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.TextFieldItemDrawer(UnityEngine.Rect,System.String)">
+      <summary>
+            Draws text field allowing list items to be edited.
+            </summary>
+      <param name="position">Position to draw list item control(s).</param>
+      <param name="item">Value of list item.</param>
+      <returns>
+            Modified value of list item.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.Title(System.String)">
+      <summary>
+            Draw title control for list field.
+            </summary>
+      <param name="title">Text for title control.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.Title(UnityEngine.GUIContent)">
+      <summary>
+            Draw title control for list field.
+            </summary>
+      <param name="title">Content for title control.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.Title(UnityEngine.Rect,System.String)">
+      <summary>
+            Draw title control for list field with absolute positioning.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="text">Text for title control.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListGUI.Title(UnityEngine.Rect,UnityEngine.GUIContent)">
+      <summary>
+            Draw title control for list field with absolute positioning.
+            </summary>
+      <param name="position">Position of control.</param>
+      <param name="title">Content for title control.</param>
+    </member>
+    <member name="T:Rotorz.ReorderableList.SerializedPropertyAdaptor">
+      <summary>
+            Reorderable list adaptor for serialized array property.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.#ctor(UnityEditor.SerializedProperty)">
+      <summary>
+            Initializes a new instance of <see cref="T:Rotorz.ReorderableList.SerializedPropertyAdaptor" />.
+            </summary>
+      <param name="arrayProperty">Serialized property for entire array.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.#ctor(UnityEditor.SerializedProperty,System.Single)">
+      <summary>
+            Initializes a new instance of <see cref="T:Rotorz.ReorderableList.SerializedPropertyAdaptor" />.
+            </summary>
+      <param name="arrayProperty">Serialized property for entire array.</param>
+      <param name="fixedItemHeight">Non-zero height overrides property drawer height calculation.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.Add">
+      <summary>
+            Add new element at end of list.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.SerializedPropertyAdaptor.arrayProperty">
+      <summary>
+            Gets the underlying serialized array property.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.CanDrag(System.Int32)">
+      <summary>
+            Determines whether an item can be reordered by dragging mouse.
+            </summary>
+      <param name="index">Zero-based index for list element.</param>
+      <returns>
+            A value of <c>true</c> if item can be dragged; otherwise <c>false</c>.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.CanRemove(System.Int32)">
+      <summary>
+            Determines whether an item can be removed from list.
+            </summary>
+      <param name="index">Zero-based index for list element.</param>
+      <returns>
+            A value of <c>true</c> if item can be removed; otherwise <c>false</c>.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.Clear">
+      <summary>
+            Clear all elements from list.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.SerializedPropertyAdaptor.Count">
+      <summary>
+            Gets count of elements in list.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.DrawItem(UnityEngine.Rect,System.Int32)">
+      <summary>
+            Draw interface for list element.
+            </summary>
+      <param name="position">Position in GUI.</param>
+      <param name="index">Zero-based index of array element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.Duplicate(System.Int32)">
+      <summary>
+            Duplicate existing element.
+            </summary>
+      <param name="index">Zero-based index of list element.</param>
+    </member>
+    <member name="F:Rotorz.ReorderableList.SerializedPropertyAdaptor.fixedItemHeight">
+      <summary>
+            Fixed height of each list item.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.GetItemHeight(System.Int32)">
+      <summary>
+            Gets height of list item in pixels.
+            </summary>
+      <param name="index">Zero-based index of array element.</param>
+      <returns>
+            Measurement in pixels.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.Insert(System.Int32)">
+      <summary>
+            Insert new element at specified index.
+            </summary>
+      <param name="index">Zero-based index for list element.</param>
+    </member>
+    <member name="P:Rotorz.ReorderableList.SerializedPropertyAdaptor.Item(System.Int32)">
+      <summary>
+            Gets element from list.
+            </summary>
+      <param name="index">Zero-based index of element.</param>
+      <returns>
+            Serialized property wrapper for array element.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.Move(System.Int32,System.Int32)">
+      <summary>
+            Move element from source index to destination index.
+            </summary>
+      <param name="sourceIndex">Zero-based index of source element.</param>
+      <param name="destIndex">Zero-based index of destination element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.Remove(System.Int32)">
+      <summary>
+            Remove element at specified index.
+            </summary>
+      <param name="index">Zero-based index of list element.</param>
+    </member>
+  </members>
+</doc>
