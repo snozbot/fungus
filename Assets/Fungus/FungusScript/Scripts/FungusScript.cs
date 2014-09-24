@@ -111,6 +111,12 @@ namespace Fungus
 			}
 		}
 
+		protected virtual Sequence CreateSequenceComponent(GameObject parent)
+		{
+			Sequence s = parent.AddComponent<Sequence>();
+			return s;
+		}
+
 		/**
 		 * Create a new sequence node which you can then add commands to.
 		 */
@@ -119,7 +125,7 @@ namespace Fungus
 			GameObject go = new GameObject("Sequence");
 			go.transform.parent = transform;
 			go.transform.hideFlags = HideFlags.HideInHierarchy;
-			Sequence s = go.AddComponent<Sequence>();
+			Sequence s = CreateSequenceComponent(go);
 			s.nodeRect.x = position.x;
 			s.nodeRect.y = position.y;
 			return s;
