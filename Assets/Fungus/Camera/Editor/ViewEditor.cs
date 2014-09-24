@@ -113,11 +113,6 @@ namespace Fungus
 			{
 				EditViewBounds();
 			}
-
-			if (GUI.changed)
-			{
-				EditorUtility.SetDirty(target);
-			}
 		}
 		
 		protected virtual void EditViewBounds()
