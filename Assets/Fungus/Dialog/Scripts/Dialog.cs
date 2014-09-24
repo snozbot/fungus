@@ -353,6 +353,17 @@ namespace Fungus
 		protected virtual void Clear()
 		{
 			ClearStoryText();
+
+			// Reset control variables
+			currentSpeed = 60;
+			currentPunctuationPause = 0.25f;
+			boldActive = false;
+			italicActive = false;
+			colorActive = false;
+			colorText = "";
+
+			// Kill any active write coroutine
+			StopAllCoroutines();
 		}
 		
 		protected virtual void ClearStoryText()
