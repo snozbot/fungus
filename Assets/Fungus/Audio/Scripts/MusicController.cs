@@ -39,10 +39,12 @@ namespace Fungus
 		 * Plays game music using an audio clip.
 		 * One music clip may be played at a time.
 		 * @param musicClip The music clip to play
+		 * @param atTime Time in the music clip to start at
 		 */
-		public void PlayMusic(AudioClip musicClip)
+		public void PlayMusic(AudioClip musicClip, float atTime = 0)
 		{
 			audio.clip = musicClip;
+			audio.time = atTime;		// May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
 			audio.Play();
 		}
 
@@ -53,13 +55,13 @@ namespace Fungus
 		{
 			audio.Stop();
 		}
-
+		
 		/**
 		 * Fades the game music volume to required level over a period of time.
 		 * @param volume The new music volume value [0..1]
 		 * @param duration The length of time in seconds needed to complete the volume change.
 		 */
-		public virtual void SetMusicVolume(float volume, float duration)
+		public virtual void SetAudioVolume(float volume, float duration)
 		{
 			iTween.AudioTo(gameObject, volume, 1f, duration);
 		}
@@ -72,6 +74,12 @@ namespace Fungus
 		 */
 		public virtual void PlaySound(AudioClip soundClip, float volume)
 		{
+			audio.PlayOneShot(soundClip, volume);
+		}
+		
+		public virtual void PlaySoundAtTime(AudioClip soundClip, float volume, float atTime)
+		{
+			audio.time = atTime;						// This may not work BK
 			audio.PlayOneShot(soundClip, volume);
 		}
 	}
