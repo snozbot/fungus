@@ -10,7 +10,8 @@ namespace Fungus
 	{
 		protected bool resize = false;
 		protected Rect cursorChangeRect;
-		public const float minViewWidth = 350;
+		protected const float minViewWidth = 350;
+		protected Vector2 newNodePosition = new Vector2();
 
 		static bool locked = false;
 		static GUIStyle lockButtonStyle;
@@ -120,7 +121,11 @@ namespace Fungus
 				
 				Event.current.Use();
 			}
-			
+
+			// Calculate center of script view for positioning new nodes
+			newNodePosition.x = scrollViewRect.xMin + fungusScript.scriptScrollPos.x + scriptViewRect.width / 2;
+			newNodePosition.y = scrollViewRect.yMin + fungusScript.scriptScrollPos.y + scriptViewRect.height / 2;
+
 			BeginWindows();
 			
 			GUIStyle windowStyle = new GUIStyle(EditorStyles.toolbarButton);
@@ -214,7 +219,7 @@ namespace Fungus
 				Vector2 newPosition;
 				if (fungusScript.selectedSequence == null)
 				{
-					newPosition = fungusScript.scriptScrollPos;
+					newPosition = newNodePosition;
 				}
 				else
 				{
