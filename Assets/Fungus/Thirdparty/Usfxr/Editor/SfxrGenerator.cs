@@ -258,7 +258,7 @@ public class SfxrGenerator : EditorWindow {
 	public bool RenderParameters(SfxrParams parameters) {
 		bool soundChanged = false;
 
-		GUIStyle waveTypeStyle = EditorStyles.popup;
+		GUIStyle waveTypeStyle = new GUIStyle(EditorStyles.popup);
 		waveTypeStyle.fontSize = 12;
 		waveTypeStyle.fixedHeight = 22;
 
