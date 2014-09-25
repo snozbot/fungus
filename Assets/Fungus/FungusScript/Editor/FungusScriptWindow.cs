@@ -132,6 +132,13 @@ namespace Fungus
 			windowStyle.stretchHeight = true;
 			windowStyle.fixedHeight = 40;
 
+			if (Event.current.button == 0 && 
+				Event.current.type == EventType.MouseDown)
+			{
+				fungusScript.selectedSequence = null;
+				fungusScript.selectedCommand = null;
+			}
+					
 			windowSequenceMap.Clear();
 			for (int i = 0; i < sequences.Length; ++i)
 			{
