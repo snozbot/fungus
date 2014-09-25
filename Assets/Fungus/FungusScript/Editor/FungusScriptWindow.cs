@@ -211,7 +211,18 @@ namespace Fungus
 			if (GUILayout.Button(fungusScript.selectedSequence == null ? "Create Sequence" : "Create", 
 			                     fungusScript.selectedSequence == null ?  EditorStyles.miniButton : EditorStyles.miniButtonLeft))
 			{
-				CreateSequence(fungusScript, fungusScript.scriptScrollPos);
+				Vector2 newPosition;
+				if (fungusScript.selectedSequence == null)
+				{
+					newPosition = fungusScript.scriptScrollPos;
+				}
+				else
+				{
+					Rect selectedRect = fungusScript.selectedSequence.nodeRect;
+					newPosition = new Vector2(selectedRect.position.x + selectedRect.width + 20, selectedRect.y);
+				}
+
+				CreateSequence(fungusScript, newPosition);
 			}
 			
 			if (fungusScript.selectedSequence == null)
