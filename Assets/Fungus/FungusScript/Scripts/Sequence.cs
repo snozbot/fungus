@@ -27,7 +27,10 @@ namespace Fungus
 			if (fungusScript == null)
 			{
 				// Legacy support for earlier system where Sequences were children of the FungusScript
-				fungusScript = GetComponentInParent<FungusScript>();
+				if (transform.parent != null)
+				{
+					fungusScript = transform.parent.GetComponent<FungusScript>();
+				}
 			}
 
 			return fungusScript;
