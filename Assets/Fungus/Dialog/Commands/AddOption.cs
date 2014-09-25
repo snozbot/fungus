@@ -42,7 +42,7 @@ namespace Fungus
 			}
 			else
 			{
-				summaryText += " (" + targetSequence.name + ")";
+				summaryText += " (" + targetSequence.sequenceName + ")";
 			}
 
 			return summaryText;

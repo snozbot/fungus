@@ -27,28 +27,28 @@ namespace Fungus
 		{
 			serializedObject.Update();
 
-			FungusScript t = target as FungusScript;
+			FungusScript fungusScript = target as FungusScript;
 
-			t.UpdateHideFlags();
+			fungusScript.UpdateHideFlags();
 
 			if (Application.isPlaying)
 			{
-				if (t.executingSequence == null)
+				if (fungusScript.executingSequence == null)
 				{
-					t.selectedCommand = null;
+					fungusScript.selectedCommand = null;
 				}
 				else
 				{
-					t.selectedCommand = t.executingSequence.activeCommand;
+					fungusScript.selectedCommand = fungusScript.executingSequence.activeCommand;
 				}
 			}
 
 			SequenceEditor.SequenceField(startSequenceProp, 
 			                             new GUIContent("Start Sequence", "First sequence to execute when the Fungus Script executes"), 
 										 new GUIContent("<None>"),
-			                             t);
+			                             fungusScript);
 
-			if (t.startSequence == null)
+			if (fungusScript.startSequence == null)
 			{
 				GUIStyle style = new GUIStyle(GUI.skin.label);
 				style.normal.textColor = new Color(1,0,0);
@@ -72,9 +72,9 @@ namespace Fungus
 
 			EditorGUILayout.Separator();
 
-			if (t.selectedCommand != null)
+			if (fungusScript.selectedCommand != null)
 			{
-				CommandEditor commandEditor = Editor.CreateEditor(t.selectedCommand) as CommandEditor;
+				CommandEditor commandEditor = Editor.CreateEditor(fungusScript.selectedCommand) as CommandEditor;
 				commandEditor.DrawCommandInspectorGUI();
 				DestroyImmediate(commandEditor);
 			}

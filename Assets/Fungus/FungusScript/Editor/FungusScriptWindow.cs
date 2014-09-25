@@ -66,12 +66,6 @@ namespace Fungus
 				return;
 			}
 
-			if (PrefabUtility.GetPrefabType(fungusScript) == PrefabType.Prefab)
-			{
-				GUILayout.Label("No Fungus Script scene object selected (selected object is a prefab)");
-				return;
-			}
-
 			GUILayout.BeginHorizontal();
 			DrawScriptView(fungusScript);
 			ResizeViews(fungusScript);
@@ -83,7 +77,7 @@ namespace Fungus
 		{
 			EditorUtility.SetDirty(fungusScript);
 			
-			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>();
+			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>(true);
 			
 			Rect scrollViewRect = new Rect();
 			
@@ -137,6 +131,9 @@ namespace Fungus
 			for (int i = 0; i < sequences.Length; ++i)
 			{
 				Sequence sequence = sequences[i];
+
+				// Hack to support legacy design where sequences were child gameobjects (will be removed soon)
+				sequence.UpdateSequenceName();
 
 				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
 				float windowWidth = Mathf.Max (titleWidth + 10, 100);
@@ -214,38 +211,22 @@ namespace Fungus
 			if (GUILayout.Button(fungusScript.selectedSequence == null ? "Create Sequence" : "Create", 
 			                     fungusScript.selectedSequence == null ?  EditorStyles.miniButton : EditorStyles.miniButtonLeft))
 			{
-				Sequence newSequence = fungusScript.CreateSequence(fungusScript.scriptScrollPos);
-				Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
-				fungusScript.selectedSequence = newSequence;
-				fungusScript.selectedCommand = null;
+				CreateSequence(fungusScript, fungusScript.scriptScrollPos);
 			}
 			
 			if (fungusScript.selectedSequence == null)
 			{
 				GUILayout.FlexibleSpace();
 			}
-			
-			if (fungusScript.selectedSequence != null)
+			else
 			{
 				if (GUILayout.Button("Delete", EditorStyles.miniButtonMid))
 				{
-					Undo.DestroyObjectImmediate(fungusScript.selectedSequence.gameObject);
-					fungusScript.selectedSequence = null;
-					fungusScript.selectedCommand = null;
+					DeleteSequence(fungusScript, fungusScript.selectedSequence);
 				}
 				if (GUILayout.Button("Duplicate", EditorStyles.miniButtonRight))
 				{
-					GameObject copy = GameObject.Instantiate(fungusScript.selectedSequence.gameObject) as GameObject;
-					copy.transform.parent = fungusScript.transform;
-					copy.transform.hideFlags = HideFlags.HideInHierarchy;
-					copy.name = fungusScript.selectedSequence.name;
-					
-					Sequence sequenceCopy = copy.GetComponent<Sequence>();
-					sequenceCopy.nodeRect.x += sequenceCopy.nodeRect.width + 10;
-					
-					Undo.RegisterCreatedObjectUndo(copy, "Duplicate Sequence");
-					fungusScript.selectedSequence = sequenceCopy;
-					fungusScript.selectedCommand = null;
+					DuplicateSequence(fungusScript, fungusScript.selectedSequence);
 				}
 			}
 			
@@ -267,6 +248,53 @@ namespace Fungus
 			GUILayout.EndScrollView();
 		}
 
+		protected virtual Sequence CreateSequence(FungusScript fungusScript, Vector2 position)
+		{
+			Sequence newSequence = fungusScript.CreateSequence(position);
+			Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
+			fungusScript.selectedSequence = newSequence;
+			fungusScript.selectedCommand = null;
+
+			return newSequence;
+		}
+
+		protected virtual void DeleteSequence(FungusScript fungusScript, Sequence sequence)
+		{
+			foreach (Command command in sequence.commandList)
+			{
+				Undo.DestroyObjectImmediate(command);
+			}
+			
+			Undo.DestroyObjectImmediate(sequence);
+			fungusScript.selectedSequence = null;
+			fungusScript.selectedCommand = null;
+		}
+
+		protected virtual void DuplicateSequence(FungusScript fungusScript, Sequence sequence)
+		{
+			if (sequence == null)
+			{
+				return;
+			}
+
+			Vector2 newPosition = new Vector2(sequence.nodeRect.position.x + sequence.nodeRect.width + 20, sequence.nodeRect.y);
+			Sequence newSequence = CreateSequence(fungusScript, newPosition);
+			newSequence.sequenceName = sequence.sequenceName + " (Copy)";
+
+			foreach (Command command in sequence.commandList)
+			{
+				System.Type type = command.GetType();
+				Command newCommand = Undo.AddComponent(fungusScript.gameObject, type) as Command;
+				System.Reflection.FieldInfo[] fields = type.GetFields();
+				foreach (System.Reflection.FieldInfo field in fields)
+				{
+					field.SetValue(newCommand, field.GetValue(command));
+				}
+				newCommand.selected = false;
+				newSequence.commandList.Add(newCommand);
+			}
+		}
+
 		protected virtual void CreateSequenceCallback(object item)
 		{
 			FungusScript fungusScript = GetFungusScript();
@@ -274,9 +302,7 @@ namespace Fungus
 			{
 				Vector2 position = (Vector2)item;
 				position -= fungusScript.scriptScrollPos;
-				Sequence newSequence = fungusScript.CreateSequence(position);
-				Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
-				fungusScript.selectedSequence = newSequence;
+				CreateSequence(fungusScript, position);
 			}				
 		}
 
@@ -311,7 +337,7 @@ namespace Fungus
 
 			GUILayout.BeginVertical();
 			GUILayout.FlexibleSpace();
-			GUILayout.Label(sequence.name, labelStyle);
+			GUILayout.Label(sequence.sequenceName, labelStyle);
 			GUILayout.FlexibleSpace();
 			GUILayout.EndVertical();
 

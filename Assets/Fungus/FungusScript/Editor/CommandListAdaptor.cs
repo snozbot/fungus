@@ -94,7 +94,7 @@ namespace Fungus
 				return null;
 			}
 
-			Command newCommand = sequence.gameObject.AddComponent<Note>() as Command;
+			Command newCommand = Undo.AddComponent<Note>(fungusScript.gameObject) as Command;
 			fungusScript.selectedCommand = newCommand;
 
 			return newCommand;
