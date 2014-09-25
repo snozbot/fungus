@@ -19,7 +19,7 @@ namespace Fungus
 			MusicController musicController = MusicController.GetInstance();
 			if (musicController != null)
 			{
-				musicController.SetMusicVolume(volume, fadeDuration);
+				musicController.SetAudioVolume(volume, fadeDuration);
 			}
 
 			Continue();
