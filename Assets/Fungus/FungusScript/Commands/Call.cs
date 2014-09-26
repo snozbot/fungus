@@ -38,7 +38,7 @@ namespace Fungus
 				return "<Continue>";
 			}
 
-			return targetSequence.name;
+			return targetSequence.sequenceName;
 		}
 
 		public override Color GetButtonColor()

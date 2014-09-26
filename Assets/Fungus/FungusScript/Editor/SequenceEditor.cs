@@ -17,6 +17,7 @@ namespace Fungus
 
 		public virtual void OnEnable()
 		{
+			sequenceNameProp = serializedObject.FindProperty("sequenceName");
 			descriptionProp = serializedObject.FindProperty("description");
 		}
 
@@ -31,14 +32,7 @@ namespace Fungus
 			
 			Sequence sequence = fungusScript.selectedSequence;
 
-			EditorGUI.BeginChangeCheck();
-			string sequenceName = EditorGUILayout.TextField(new GUIContent("Name", "Name of sequence object"), sequence.gameObject.name);
-			if (EditorGUI.EndChangeCheck())
-			{
-				Undo.RecordObject(sequence.gameObject, "Set Sequence Name");
-				sequence.gameObject.name = sequenceName;
-			}
-
+			EditorGUILayout.PropertyField(sequenceNameProp);
 			EditorGUILayout.PropertyField(descriptionProp);
 
 			EditorGUILayout.Separator();
@@ -107,10 +101,10 @@ namespace Fungus
 			
 			int selectedIndex = 0;
 			sequenceNames.Add(nullLabel);
-			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>();
+			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>(true);
 			for (int i = 0; i < sequences.Length; ++i)
 			{
-				sequenceNames.Add(new GUIContent(sequences[i].name));
+				sequenceNames.Add(new GUIContent(sequences[i].sequenceName));
 				
 				if (sequence == sequences[i])
 				{
@@ -345,9 +339,9 @@ namespace Fungus
 				if (command != null &&
 				    command.selected)
 				{
-					Undo.DestroyObjectImmediate(command);
 					Undo.RecordObject(sequence, "Delete");
 					sequence.commandList.RemoveAt(i);
+					Undo.DestroyObjectImmediate(command);
 				}
 			}
 		}

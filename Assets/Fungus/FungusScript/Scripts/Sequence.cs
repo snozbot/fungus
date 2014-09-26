@@ -9,6 +9,10 @@ namespace Fungus
 	[ExecuteInEditMode]
 	public class Sequence : Node 
 	{
+		public string sequenceName = "New Sequence";
+		
+		public string description = "";
+
 		[System.NonSerialized]
 		public Command activeCommand;
 
@@ -18,7 +22,18 @@ namespace Fungus
 
 		public virtual FungusScript GetFungusScript()
 		{
-			return GetComponentInParent<FungusScript>();
+			FungusScript fungusScript = GetComponent<FungusScript>();
+
+			if (fungusScript == null)
+			{
+				// Legacy support for earlier system where Sequences were children of the FungusScript
+				if (transform.parent != null)
+				{
+					fungusScript = transform.parent.GetComponent<FungusScript>();
+				}
+			}
+
+			return fungusScript;
 		}
 
 		public virtual bool HasError()
@@ -129,6 +144,17 @@ namespace Fungus
 				command.GetConnectedSequences(ref connectedSequences);
 			}
 			return connectedSequences;
+		}
+
+		// Force set the sequence name for any legacy child sequences.
+		// This is a temporary hack to make it easier to upgrade from earlier versions and will be removed soon.
+		public virtual void UpdateSequenceName()
+		{
+			if (sequenceName == "New Sequence" &&
+			    GetComponent<FungusScript>() == null)
+			{
+				sequenceName = gameObject.name;
+			}
 		}
 	}
 }

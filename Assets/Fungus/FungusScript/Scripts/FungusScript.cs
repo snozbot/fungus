@@ -90,11 +90,11 @@ namespace Fungus
 			public bool colorCommands = true;
 			
 			/**
-			 * Hides the child sequence game objects in the Hierarchy view.
-			 * Deselect to inspect the child gameobjects and components that make up the Fungus Script.
+			 * Hides the Fungus Script sequence and command components in the inspector.
+			 * Deselect to inspect the sequence and command components that make up the Fungus Script.
 			 */
-			[Tooltip("Hides the child sequence game objects in the Hierarchy view")]
-			public bool hideSequenceObjects = true;
+			[Tooltip("Hides the Fungus Script sequence and command components in the inspector")]
+			public bool hideComponents = true;
 		}
 
 		/**
@@ -122,10 +122,7 @@ namespace Fungus
 		 */
 		public virtual Sequence CreateSequence(Vector2 position)
 		{
-			GameObject go = new GameObject("Sequence");
-			go.transform.parent = transform;
-			go.transform.hideFlags = HideFlags.HideInHierarchy;
-			Sequence s = CreateSequenceComponent(go);
+			Sequence s = CreateSequenceComponent(gameObject);
 			s.nodeRect.x = position.x;
 			s.nodeRect.y = position.y;
 			return s;
@@ -382,10 +379,16 @@ namespace Fungus
 		 */
 		public virtual void UpdateHideFlags()
 		{
-			Sequence[] sequences = GetComponentsInChildren<Sequence>();
+			Sequence[] sequences = GetComponents<Sequence>();
 			foreach (Sequence sequence in sequences)
 			{
-				sequence.gameObject.hideFlags = settings.hideSequenceObjects ? HideFlags.HideInHierarchy : HideFlags.None;
+				sequence.hideFlags = settings.hideComponents ? HideFlags.HideInInspector : HideFlags.None;
+			}
+
+			Command[] commands = GetComponents<Command>();
+			foreach (Command command in commands)
+			{
+				command.hideFlags = settings.hideComponents ? HideFlags.HideInInspector : HideFlags.None;
 			}
 		}
 	}
