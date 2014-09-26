@@ -128,9 +128,9 @@ namespace Fungus
 
 			BeginWindows();
 			
-			GUIStyle windowStyle = new GUIStyle(EditorStyles.toolbarButton);
+			GUIStyle windowStyle = new GUIStyle("VCS_StickyNote");
 			windowStyle.stretchHeight = true;
-			windowStyle.fixedHeight = 40;
+			windowStyle.fixedHeight = 20;
 
 			if (Event.current.button == 0 && 
 				Event.current.type == EventType.MouseDown)
@@ -427,7 +427,7 @@ namespace Fungus
 				color = Color.green;
 			}
 			
-			GLDraw.DrawConnectingCurve(pointA, pointB, color, 2);
+			GLDraw.DrawConnectingCurve(pointA, pointB, color, 2f);
 		}
 	}
 
