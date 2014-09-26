@@ -128,7 +128,7 @@ namespace Fungus
 
 			BeginWindows();
 			
-			GUIStyle windowStyle = new GUIStyle("VCS_StickyNote");
+			GUIStyle windowStyle = new GUIStyle(EditorStyles.toolbarButton);
 			windowStyle.stretchHeight = true;
 			windowStyle.fixedHeight = 20;
 
