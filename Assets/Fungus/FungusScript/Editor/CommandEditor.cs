@@ -107,7 +107,27 @@ namespace Fungus
 
 		public virtual void DrawCommandGUI()
 		{
-			DrawDefaultInspector();
+			// Code below was copied from here
+			// http://answers.unity3d.com/questions/550829/how-to-add-a-script-field-in-custom-inspector.html
+
+			// Users should not be able to change the MonoScript for the command using the usual Script field.
+			// Doing so could cause sequence.commandList to contain null entries.
+			// To avoid this we manually display all properties, except for m_Script.
+			serializedObject.Update();
+			SerializedProperty iterator = serializedObject.GetIterator();
+			bool enterChildren = true;
+			while (iterator.NextVisible(enterChildren))
+			{
+				enterChildren = false;
+
+				if (iterator.name == "m_Script")
+				{
+					continue;
+				}
+
+				EditorGUILayout.PropertyField(iterator, true, new GUILayoutOption[0]);
+			}
+			serializedObject.ApplyModifiedProperties();
 		}
 
 		static public void ObjectField<T>(SerializedProperty property, GUIContent label, GUIContent nullLabel, List<T> objectList) where T : MonoBehaviour
