@@ -248,6 +248,18 @@ namespace Fungus
 				summaryRect.x += commandNameWidth;
 				summaryRect.width -= commandNameWidth;
 			}
+
+			if (error)
+			{
+				GUISkin editorSkin = EditorGUIUtility.GetBuiltinSkin(EditorSkin.Inspector);
+				Rect errorRect = new Rect(summaryRect);
+				errorRect.x += errorRect.width - 20;
+				errorRect.y += 2;
+				errorRect.width = 20;
+				GUI.Label(errorRect, editorSkin.GetStyle("CN EntryError").normal.background);
+				summaryRect.width -= 20;
+			}
+
 			GUIStyle summaryStyle = new GUIStyle(EditorStyles.miniLabel);
 			summaryStyle.padding.top += 3;
 			summaryStyle.richText = true;
