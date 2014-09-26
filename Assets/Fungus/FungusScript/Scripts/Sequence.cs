@@ -20,6 +20,15 @@ namespace Fungus
 
 		protected int executionCount;
 
+		protected virtual void Start()
+		{
+			// Give each child command a reference back to its parent sequence
+			foreach (Command command in commandList)
+			{
+				command.parentSequence = this;
+			}
+		}
+
 		public virtual FungusScript GetFungusScript()
 		{
 			FungusScript fungusScript = GetComponent<FungusScript>();
