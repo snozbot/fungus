@@ -162,6 +162,8 @@ namespace Fungus
 				return;
 			}
 
+			bool isNote = command.GetType() == typeof(Note);
+
 			bool error = false;
 			string summary = command.GetSummary().Replace("\n", "").Replace("\r", "");
 			if (summary.Length > 80)
@@ -172,6 +174,7 @@ namespace Fungus
 			{
 				error = true;
 			}
+			summary = "<i>" + summary + "</i>";
 
 			bool highlight = (Application.isPlaying && command.IsExecuting()) ||
 							 (!Application.isPlaying && fungusScript.selectedCommand == command);
@@ -190,20 +193,20 @@ namespace Fungus
 
 			string commandName = commandInfoAttr.CommandName;
 
-			GUIStyle commandLabelStyle = new GUIStyle(EditorStyles.miniButtonLeft);
+			GUIStyle commandLabelStyle = new GUIStyle(EditorStyles.miniButton);
+			commandLabelStyle.alignment = TextAnchor.MiddleLeft;
+			commandLabelStyle.richText = true;
+			commandLabelStyle.fontSize = 11;
+			commandLabelStyle.padding.top -= 1;
 
-			float buttonWidth = Mathf.Max(commandLabelStyle.CalcSize(new GUIContent(commandName)).x, 100f);
+			float commandNameWidth = Mathf.Max(commandLabelStyle.CalcSize(new GUIContent(commandName)).x, 90f);
 			float indentWidth = command.indentLevel * indentSize;
 
-			Rect buttonRect = position;
-			buttonRect.x += indentWidth;
-			buttonRect.width = buttonWidth;
-			buttonRect.y -= 2;
-			buttonRect.height += 6;
-
-			Rect summaryRect = buttonRect;
-			summaryRect.x += buttonWidth - 1;
-			summaryRect.width = position.width - buttonWidth - indentWidth - 23;
+			Rect commandLabelRect = position;
+			commandLabelRect.x += indentWidth;
+			commandLabelRect.y -= 2;
+			commandLabelRect.width -= (indentSize * command.indentLevel + 24);
+			commandLabelRect.height += 6;
 
 			if (!Application.isPlaying &&
 			    Event.current.type == EventType.MouseDown &&
@@ -214,46 +217,59 @@ namespace Fungus
 				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 			}
 
-			Color buttonBackgroundColor = Color.white;
+			Color commandLabelColor = Color.white;
 			if (fungusScript.settings.colorCommands)
 			{
-				buttonBackgroundColor = command.GetButtonColor();
+				commandLabelColor = command.GetButtonColor();
 			}
-			Color summaryBackgroundColor = Color.white;
 
 			if (highlight)
 			{
-				summaryBackgroundColor = Color.green;
-				buttonBackgroundColor = Color.green;
+				commandLabelColor = Color.green;
 			}
 			else if (!command.enabled)
 			{
-				buttonBackgroundColor = Color.grey;
-				summaryBackgroundColor = Color.grey;
+				commandLabelColor = Color.grey;
 			}
 			else if (error)
 			{
-				summaryBackgroundColor = Color.red;
+				// TODO: Show warning icon
 			}
 
-			GUI.backgroundColor = buttonBackgroundColor;
-			GUI.Label(buttonRect, commandName, commandLabelStyle);
-
-			GUIStyle summaryStyle = new GUIStyle(EditorStyles.miniButtonRight);
-			summaryStyle.alignment = TextAnchor.MiddleLeft;
-			if (error && !highlight)
+			if (!isNote)
 			{
-				summaryStyle.normal.textColor = Color.white;
+				GUI.backgroundColor = commandLabelColor;
+				GUI.Label(commandLabelRect, commandName, commandLabelStyle);
 			}
 
-			GUI.backgroundColor = summaryBackgroundColor;
-			GUI.Box(summaryRect, summary, summaryStyle);
-		
+			Rect summaryRect = new Rect(commandLabelRect);
+			if (!isNote)
+			{
+				summaryRect.x += commandNameWidth;
+				summaryRect.width -= commandNameWidth;
+			}
+
+			if (error)
+			{
+				GUISkin editorSkin = EditorGUIUtility.GetBuiltinSkin(EditorSkin.Inspector);
+				Rect errorRect = new Rect(summaryRect);
+				errorRect.x += errorRect.width - 20;
+				errorRect.y += 2;
+				errorRect.width = 20;
+				GUI.Label(errorRect, editorSkin.GetStyle("CN EntryError").normal.background);
+				summaryRect.width -= 20;
+			}
+
+			GUIStyle summaryStyle = new GUIStyle(EditorStyles.miniLabel);
+			summaryStyle.padding.top += 3;
+			summaryStyle.richText = true;
+			GUI.Label(summaryRect, summary, summaryStyle);
+
 			GUI.backgroundColor = Color.white;
 
 			if (!Application.isPlaying)
 			{
-				Rect menuRect = summaryRect;
+				Rect menuRect = commandLabelRect;
 				menuRect.x += menuRect.width + 4;
 				menuRect.y = position.y + 1;
 				menuRect.width = 22;

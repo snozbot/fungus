@@ -34,7 +34,7 @@ namespace Fungus
 			return instance;
 		}
 
-		protected virtual void Start()
+		protected override void Start()
 		{
 			if (Application.isPlaying)
 			{

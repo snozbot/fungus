@@ -148,7 +148,7 @@ namespace Fungus
 		{
 			// Sequence must be a child of the parent Fungus Script
 			if (sequence == null ||
-			    (sequence.transform.parent != transform && sequence.transform != transform)) 
+			    sequence.transform.parent != transform && sequence.transform != transform) 
 			{
 				return;
 			}

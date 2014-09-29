@@ -31,31 +31,32 @@ namespace Fungus
 		[HideInInspector]
 		public bool selected;
 
-		public virtual Sequence GetSequence()
-		{
-			return gameObject.GetComponent<Sequence>();
-		}
+		/**
+		 * Reference to the Sequence object that this command belongs to.
+		 * This reference is only set at runtime (null in editor).
+		 */
+		[NonSerialized]
+		public Sequence parentSequence;
 
 		public virtual FungusScript GetFungusScript()
 		{
-			Sequence s = GetSequence();
-			if (s == null)
+			FungusScript fungusScript = GetComponent<FungusScript>();
+			if (fungusScript == null &&
+			    transform.parent != null)
 			{
-				return null;
+				fungusScript = transform.parent.GetComponent<FungusScript>();
 			}
-
-			return s.GetFungusScript();
+			return fungusScript;
 		}
 
 		public virtual bool IsExecuting()
 		{
-			Sequence sequence = GetSequence();
-			if (sequence == null)
+			if (parentSequence == null)
 			{
 				return false;
 			}
 
-			return (sequence.activeCommand == this);
+			return (parentSequence.activeCommand == this);
 		}
 
 		public virtual void Execute()
@@ -71,31 +72,28 @@ namespace Fungus
 		public virtual void Continue(Command currentCommand)
 		{
 			OnExit();
-			Sequence sequence = GetSequence();
-			if (sequence != null)
+			if (parentSequence != null)
 			{
-				sequence.ExecuteNextCommand(currentCommand);
+				parentSequence.ExecuteNextCommand(currentCommand);
 			}
 		}
 
 		public virtual void Stop()
 		{
 			OnExit();
-			Sequence sequence = GetSequence();
-			if (sequence != null)
+			if (parentSequence != null)
 			{
-				sequence.Stop();
+				parentSequence.Stop();
 			}
 		}
 
 		public virtual void ExecuteSequence(Sequence s)
 		{
 			OnExit();
-			Sequence sequence = GetSequence();
-			if (sequence != null)
+			if (parentSequence != null)
 			{
-				sequence.Stop();
-				FungusScript fungusScript = sequence.GetFungusScript();
+				parentSequence.Stop();
+				FungusScript fungusScript = parentSequence.GetFungusScript();
 				if (fungusScript != null)
 				{
 					fungusScript.ExecuteSequence(s);
