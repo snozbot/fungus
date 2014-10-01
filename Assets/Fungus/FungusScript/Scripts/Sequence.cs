@@ -140,7 +140,7 @@ namespace Fungus
 			activeCommand = null;
 			fungusScript.executingSequence = null;
 			fungusScript.selectedSequence = null;
-			fungusScript.selectedCommand = null;
+			fungusScript.selectedCommands.Clear();
 		}
 
 		public virtual List<Sequence> GetConnectedSequences()

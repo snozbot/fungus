@@ -148,14 +148,23 @@ namespace Fungus
 			{
 				// Is an expanded command referencing this variable?
 				if (fungusScript.selectedSequence != null &&
-				    fungusScript.selectedCommand != null)
+				    fungusScript.selectedCommands.Count > 0)
 				{
 					foreach (Command command in fungusScript.selectedSequence.commandList)
 					{
-						if (fungusScript.selectedCommand == command &&
-						    command.HasReference(variable))
+						foreach (Command selectedCommand in fungusScript.selectedCommands)
 						{
-							highlight = true;
+							if (selectedCommand == command &&
+							    command.HasReference(variable))
+							{
+								highlight = true;
+								break;
+							}
+						}
+
+						if (highlight)
+						{
+							break;
 						}
 					}
 				}

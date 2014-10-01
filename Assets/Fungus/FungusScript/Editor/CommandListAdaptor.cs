@@ -95,7 +95,8 @@ namespace Fungus
 			}
 
 			Command newCommand = Undo.AddComponent<Note>(sequence.gameObject) as Command;
-			fungusScript.selectedCommand = newCommand;
+			fungusScript.selectedCommands.Clear();
+			fungusScript.selectedCommands.Add(newCommand);
 
 			return newCommand;
 		}
@@ -176,8 +177,18 @@ namespace Fungus
 			}
 			summary = "<i>" + summary + "</i>";
 
+			bool commandIsSelected = false;
+			foreach (Command selectedCommand in fungusScript.selectedCommands)
+			{
+				if (selectedCommand == command)
+				{
+					commandIsSelected = true;
+					break;
+				}
+			}
+
 			bool highlight = (Application.isPlaying && command.IsExecuting()) ||
-							 (!Application.isPlaying && fungusScript.selectedCommand == command);
+							 (!Application.isPlaying && commandIsSelected);
 
 			float indentSize = 20;			
 			for (int i = 0; i < command.indentLevel; ++i)
@@ -213,7 +224,7 @@ namespace Fungus
 			    Event.current.button == 0 &&
 			    position.Contains(Event.current.mousePosition))
 			{
-				fungusScript.selectedCommand = command;
+				fungusScript.selectedCommands.Add(command);
 				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 			}
 
@@ -372,8 +383,10 @@ namespace Fungus
 				return;
 			}
 
+			sequence.GetFungusScript().selectedCommands.Clear();
+
 			Command newCommand = Undo.AddComponent(sequence.gameObject, commandOperation.commandType)  as Command;
-			sequence.GetFungusScript().selectedCommand = newCommand;
+			sequence.GetFungusScript().selectedCommands.Add(newCommand);
 
 			Command oldCommand = sequence.commandList[commandOperation.index];
 			Undo.DestroyObjectImmediate(oldCommand);

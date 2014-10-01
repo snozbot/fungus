@@ -235,7 +235,7 @@ namespace Fungus
 			if (fungusScript != null)
 			{
 				Undo.RecordObject(fungusScript, "Select None");
-				fungusScript.selectedCommand = null;
+				fungusScript.selectedCommands.Clear();
 			}
 
 			foreach (Command command in sequence.commandList)
@@ -282,18 +282,20 @@ namespace Fungus
 			Sequence sequence = target as Sequence;
 			FungusScript fungusScript = sequence.GetFungusScript();
 
-			// Find where to paste commands in sequence (either at end or after selected command)
+			// Find where to paste commands in sequence (either at end or after last selected command)
 			int pasteIndex = sequence.commandList.Count;
-			if (fungusScript.selectedCommand != null)
+			if (fungusScript.selectedCommands.Count > 0)
 			{
 				for (int i = 0; i < sequence.commandList.Count; ++i)
 				{
 					Command command = sequence.commandList[i];
-					
-					if (fungusScript.selectedCommand == command)
+
+					foreach (Command selectedCommand in fungusScript.selectedCommands)
 					{
-						pasteIndex = i + 1;
-						break;
+						if (command == selectedCommand)
+						{
+							pasteIndex = i + 1;
+						}
 					}
 				}
 			}

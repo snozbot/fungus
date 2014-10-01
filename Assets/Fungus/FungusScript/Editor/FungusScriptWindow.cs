@@ -127,7 +127,7 @@ namespace Fungus
 				Event.current.type == EventType.MouseDown)
 			{
 				fungusScript.selectedSequence = null;
-				fungusScript.selectedCommand = null;
+				fungusScript.selectedCommands.Clear();
 			}
 
 			// Draw connections
@@ -278,7 +278,7 @@ namespace Fungus
 			Sequence newSequence = fungusScript.CreateSequence(position);
 			Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
 			fungusScript.selectedSequence = newSequence;
-			fungusScript.selectedCommand = null;
+			fungusScript.selectedCommands.Clear();
 
 			return newSequence;
 		}
@@ -292,7 +292,7 @@ namespace Fungus
 			
 			Undo.DestroyObjectImmediate(sequence);
 			fungusScript.selectedSequence = null;
-			fungusScript.selectedCommand = null;
+			fungusScript.selectedCommands.Clear();
 		}
 
 		protected virtual void DuplicateSequence(FungusScript fungusScript, Sequence sequence)
@@ -346,9 +346,12 @@ namespace Fungus
 						FungusScript fungusScript = s.GetFungusScript();
 						if (fungusScript != null)
 						{
+							if (s != fungusScript.selectedSequence || !EditorGUI.actionKey)
+							{
+								fungusScript.selectedCommands.Clear();
+							}
+
 							fungusScript.selectedSequence = s;
-							fungusScript.selectedCommand = null;
-							Selection.activeGameObject = fungusScript.gameObject;
 							GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 						}
 					}
@@ -381,7 +384,15 @@ namespace Fungus
 
 			foreach (Command command in sequence.commandList)
 			{
-				bool commandIsSelected = (fungusScript.selectedCommand == command);
+				bool commandIsSelected = false;
+				foreach (Command selectedCommand in fungusScript.selectedCommands)
+				{
+					if (selectedCommand == command)
+					{
+						commandIsSelected = true;
+						break;
+					}
+				}
 
 				bool highlight = command.IsExecuting() || (sequenceIsSelected && commandIsSelected);
 

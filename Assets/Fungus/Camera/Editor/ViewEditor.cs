@@ -162,16 +162,23 @@ namespace Fungus
 			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
 			if (fungusScript != null)
 			{
-				MoveToView moveToViewCommand = fungusScript.selectedCommand as MoveToView;
-				if (moveToViewCommand != null)
+				foreach (Command command in fungusScript.selectedCommands)
 				{
-					highlight = (moveToViewCommand.targetView == view);
-				}
-
-				FadeToView fadeToViewCommand = fungusScript.selectedCommand as FadeToView;
-				if (fadeToViewCommand != null)
-				{
-					highlight = (fadeToViewCommand.targetView == view);
+					MoveToView moveToViewCommand = command as MoveToView;
+					if (moveToViewCommand != null &&
+					    moveToViewCommand.targetView == view)
+					{
+						highlight = true;
+					}
+					else
+					{
+						FadeToView fadeToViewCommand = command as FadeToView;
+						if (fadeToViewCommand != null &&
+						    fadeToViewCommand.targetView == view)
+						{
+							highlight = true;
+						}
+					}
 				}
 			}
 

@@ -35,7 +35,7 @@ namespace Fungus
 		 * Currently selected command in the Fungus Script editor.
 		 */
 		[HideInInspector]
-		public Command selectedCommand;
+		public List<Command> selectedCommands = new List<Command>();
 
 		/**
 		 * The list of variables that can be accessed by the Fungus Script.
