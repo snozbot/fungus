@@ -13,7 +13,6 @@ namespace Fungus
 	public class SequenceEditor : Editor 
 	{
 		protected SerializedProperty sequenceNameProp;
-		protected SerializedProperty descriptionProp;
 
 		protected bool showContextMenu;
 
@@ -36,7 +35,7 @@ namespace Fungus
 		{
 			serializedObject.Update();
 
-			Sequence sequence = target as Sequence; // fungusScript.selectedSequence;
+			Sequence sequence = target as Sequence;
 			UpdateIndentLevels(sequence);
 
 			ReorderableListGUI.Title(sequence.sequenceName);
@@ -156,14 +155,11 @@ namespace Fungus
 			bool showPaste = false;
 
 			Sequence sequence = target as Sequence;
-			foreach (Command command in sequence.commandList)
+			if (sequence.GetFungusScript().selectedCommands.Count > 0)
 			{
-				if (command.selected)
-				{
-					showCut = true;
-					showCopy = true;
-					showDelete = true;
-				}
+				showCut = true;
+				showCopy = true;
+				showDelete = true;
 			}
 
 			CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
@@ -221,10 +217,13 @@ namespace Fungus
 		protected virtual void SelectAll()
 		{
 			Sequence sequence = target as Sequence;
+			FungusScript fungusScript = sequence.GetFungusScript();
+
+			fungusScript.selectedCommands.Clear();
+			Undo.RecordObject(fungusScript, "Select All");
 			foreach (Command command in sequence.commandList)
 			{
-				Undo.RecordObject(command, "Select All");
-				command.selected = true;
+				fungusScript.selectedCommands.Add(command);
 			}
 		}
 
@@ -237,12 +236,6 @@ namespace Fungus
 				Undo.RecordObject(fungusScript, "Select None");
 				fungusScript.selectedCommands.Clear();
 			}
-
-			foreach (Command command in sequence.commandList)
-			{
-				Undo.RecordObject(command, "Select None");
-				command.selected = false;
-			}
 		}
 
 		protected virtual void Cut()
@@ -254,23 +247,19 @@ namespace Fungus
 		protected virtual void Copy()
 		{
 			Sequence sequence = target as Sequence;
+			FungusScript fungusScript = sequence.GetFungusScript();
 
 			CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
-
 			commandCopyBuffer.Clear();
 
-			foreach (Command command in sequence.commandList)
+			foreach (Command command in fungusScript.selectedCommands)
 			{
-				if (command.selected)
+				System.Type type = command.GetType();
+				Command newCommand = Undo.AddComponent(commandCopyBuffer.gameObject, type) as Command;
+				System.Reflection.FieldInfo[] fields = type.GetFields();
+				foreach (System.Reflection.FieldInfo field in fields)
 				{
-					System.Type type = command.GetType();
-					Command newCommand = Undo.AddComponent(commandCopyBuffer.gameObject, type) as Command;
-					System.Reflection.FieldInfo[] fields = type.GetFields();
-					foreach (System.Reflection.FieldInfo field in fields)
-					{
-						field.SetValue(newCommand, field.GetValue(command));
-					}
-					newCommand.selected = false;
+					field.SetValue(newCommand, field.GetValue(command));
 				}
 			}
 		}
@@ -309,8 +298,7 @@ namespace Fungus
 				{
 					field.SetValue(newCommand, field.GetValue(command));
 				}
-				newCommand.selected = false;
-				
+
 				Undo.RecordObject(sequence, "Paste");
 				sequence.commandList.Insert(pasteIndex++, newCommand);
 			}
@@ -319,18 +307,29 @@ namespace Fungus
 		protected virtual void Delete()
 		{
 			Sequence sequence = target as Sequence;
+			FungusScript fungusScript = sequence.GetFungusScript();
 
 			for (int i = sequence.commandList.Count - 1; i >= 0; --i)
 			{
 				Command command = sequence.commandList[i];
-				if (command != null &&
-				    command.selected)
+				foreach (Command selectedCommand in fungusScript.selectedCommands)
 				{
-					Undo.RecordObject(sequence, "Delete");
-					sequence.commandList.RemoveAt(i);
-					Undo.DestroyObjectImmediate(command);
+					if (command == selectedCommand)
+					{
+						int selectedIndex = i;
+					
+						Undo.RecordObject(sequence, "Delete");
+						sequence.commandList.RemoveAt(i);
+						Undo.DestroyObjectImmediate(command);
+
+						break;
+					}
 				}
 			}
+
+			Undo.RecordObject(fungusScript, "Delete");
+			fungusScript.selectedCommands.Clear();
+			fungusScript.selectedSequence = null;
 		}
 	}
 

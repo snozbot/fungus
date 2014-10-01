@@ -315,7 +315,6 @@ namespace Fungus
 				{
 					field.SetValue(newCommand, field.GetValue(command));
 				}
-				newCommand.selected = false;
 				newSequence.commandList.Add(newCommand);
 			}
 		}
@@ -346,6 +345,7 @@ namespace Fungus
 						FungusScript fungusScript = s.GetFungusScript();
 						if (fungusScript != null)
 						{
+							Undo.RecordObject(fungusScript, "Select");
 							if (s != fungusScript.selectedSequence || !EditorGUI.actionKey)
 							{
 								fungusScript.selectedCommands.Clear();

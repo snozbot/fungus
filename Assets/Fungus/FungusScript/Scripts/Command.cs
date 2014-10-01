@@ -28,9 +28,6 @@ namespace Fungus
 		[HideInInspector]
 		public int indentLevel;
 
-		[HideInInspector]
-		public bool selected;
-
 		/**
 		 * Reference to the Sequence object that this command belongs to.
 		 * This reference is only set at runtime (null in editor).

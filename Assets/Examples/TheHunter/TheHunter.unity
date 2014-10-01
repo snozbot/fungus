@@ -944,7 +944,7 @@ MonoBehaviour:
     y: 0
     width: 100
     height: 40
-  description: 
+  sequenceName: New Sequence
   commandList: []
 --- !u!4 &330427400
 Transform:
@@ -1395,6 +1395,53 @@ Transform:
   - {fileID: 686889653}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!1 &518300786
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 518300788}
+  - 114: {fileID: 518300787}
+  m_Layer: 0
+  m_Name: _CommandCopyBuffer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &518300787
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 518300786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28859462f29464188bb29cc9f1f6e92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 10
+    y: 10
+    width: 100
+    height: 20
+  sequenceName: New Sequence
+  commandList: []
+--- !u!4 &518300788
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 518300786}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &524591087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1516,7 +1563,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'I am not a thief!{wc}
 
     But I am very hungry.{wc}
@@ -1541,7 +1587,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'Ah ha! I thought I heard a thief skulking about!{wc}
 
     Trying to steal my fish eh?{wc}
@@ -1564,7 +1609,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   spriteRenderer: {fileID: 335445528}
   duration: 3
   targetColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1583,11 +1627,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -87
-    y: -10.5
-    width: 100
-    height: 40
-  description: 
+    x: -192
+    y: -215.5
+    width: 240
+    height: 151
+  sequenceName: Check for fish
   commandList:
   - {fileID: 541676553}
   - {fileID: 541676556}
@@ -1621,7 +1665,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 3
   targetView: {fileID: 842161036}
   waitUntilFinished: 1
@@ -1639,7 +1682,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 1196017812}
 --- !u!114 &541676558
 MonoBehaviour:
@@ -1655,7 +1697,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: No, I could not!{wc} Now be off with you!
   character: {fileID: 339869593}
   voiceOverClip: {fileID: 0}
@@ -2577,11 +2618,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 6.56027222
-    y: 188.5
-    width: 100
-    height: 40
-  description: 
+    x: -208.439697
+    y: 150.5
+    width: 240
+    height: 511
+  sequenceName: Bear
   commandList:
   - {fileID: 899740689}
   - {fileID: 899740688}
@@ -2620,7 +2661,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'Wait... no! What are you doing!?{wc}
 
     You can''t eat me! I''m the narrator!{wc}
@@ -2642,7 +2682,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   sayDialog: {fileID: 1070206234}
 --- !u!114 &899740680
 MonoBehaviour:
@@ -2657,7 +2696,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: BURP!
   character: {fileID: 686889652}
   voiceOverClip: {fileID: 0}
@@ -2675,7 +2713,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: Noooooooo!
   character: {fileID: 338947448}
   voiceOverClip: {fileID: 0}
@@ -2693,7 +2730,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: Ayyyyyyeeee!
   character: {fileID: 339869593}
   voiceOverClip: {fileID: 0}
@@ -2711,7 +2747,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: Aaaaaagh!
   character: {fileID: 1712414755}
   voiceOverClip: {fileID: 0}
@@ -2729,7 +2764,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   spriteRenderer: {fileID: 577549097}
   duration: 1
   targetColor: {r: 1, g: 1, b: 1, a: 1}
@@ -2747,7 +2781,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 5
   targetView: {fileID: 700450244}
   waitUntilFinished: 0
@@ -2764,7 +2797,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'Now remember to keep quiet.{wc}
 
     The last thing you want in this part of the woods is to run into a...'
@@ -2784,7 +2816,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 5
   targetView: {fileID: 1628360239}
   waitUntilFinished: 1
@@ -2801,7 +2832,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 2
   targetView: {fileID: 2069641431}
   waitUntilFinished: 1
@@ -2820,7 +2850,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   spriteRenderer: {fileID: 577549097}
   visible: 0
 --- !u!4 &899740690
@@ -2848,7 +2877,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 5
   amount: {x: .200000003, y: .200000003}
   waitUntilFinished: 0
@@ -2865,7 +2893,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   sayDialog: {fileID: 1070206234}
 --- !u!114 &899740693
 MonoBehaviour:
@@ -2880,7 +2907,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: .5
   amount: {x: .200000003, y: .200000003}
   waitUntilFinished: 0
@@ -2897,7 +2923,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: RAAAAAARRRRRR!!!!!!
   character: {fileID: 686889652}
   voiceOverClip: {fileID: 0}
@@ -2915,7 +2940,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   sayDialog: {fileID: 1070206234}
 --- !u!114 &899740696
 MonoBehaviour:
@@ -2930,7 +2954,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'And so, in a tragic twist of fate, everyone was eaten by a badly drawn
     bear.{wc}
 
@@ -2951,7 +2974,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   sayDialog: {fileID: 1185554287}
 --- !u!114 &899740698
 MonoBehaviour:
@@ -2966,7 +2988,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   sayDialog: {fileID: 1185554287}
 --- !u!114 &899740699
 MonoBehaviour:
@@ -2981,7 +3002,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: RAAAAAARRRRRR!
   character: {fileID: 686889652}
   voiceOverClip: {fileID: 0}
@@ -2999,7 +3019,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: .5
   amount: {x: .200000003, y: .200000003}
   waitUntilFinished: 0
@@ -3016,7 +3035,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 2
   targetAlpha: 1
   waitUntilFinished: 1
@@ -3035,7 +3053,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: RAAAAAAAAAARRRRRRRRRR!!!!!!
   character: {fileID: 686889652}
   voiceOverClip: {fileID: 0}
@@ -3053,7 +3070,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 1
   targetAlpha: 1
   waitUntilFinished: 1
@@ -3416,11 +3432,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -89
-    y: 49
-    width: 100
-    height: 40
-  description: 
+    x: -228
+    y: -40
+    width: 240
+    height: 171
+  sequenceName: Rescued
   commandList:
   - {fileID: 1196017816}
   - {fileID: 1196017815}
@@ -3443,7 +3459,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'Oh be quiet Skipper.{wc}
 
     You look hungry! Do you want to something to eat?'
@@ -3464,7 +3479,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: What! This is an outrage! Mind your own busin...
   character: {fileID: 339869593}
   voiceOverClip: {fileID: 0}
@@ -3483,7 +3497,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'What''s all this racket?{wc}
 
     Ah! I see Skipper has found a little girl to be mean to!{wc}
@@ -3506,7 +3519,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   spriteRenderer: {fileID: 307931412}
   duration: 1
   targetColor: {r: 1, g: 1, b: 1, a: 1}
@@ -3525,7 +3537,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: Oh yes please! Thank you!
   character: {fileID: 1712414755}
   voiceOverClip: {fileID: 0}
@@ -3544,7 +3555,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   variable: {fileID: 1831099569}
   setOperator: 0
   booleanData:
@@ -3573,7 +3583,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 2111357054}
 --- !u!1001 &1208210135
 Prefab:
@@ -4188,7 +4197,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 1759344996}
 --- !u!114 &1507034365
 MonoBehaviour:
@@ -4204,11 +4212,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 5
-    y: -158
-    width: 100
-    height: 40
-  description: 
+    x: 427
+    y: -289
+    width: 240
+    height: 131
+  sequenceName: Start
   commandList:
   - {fileID: 1507034370}
   - {fileID: 1507034368}
@@ -4229,7 +4237,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 3
   targetView: {fileID: 476715957}
   waitUntilFinished: 1
@@ -4261,7 +4268,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   spriteRenderer: {fileID: 307931412}
   visible: 0
 --- !u!114 &1507034369
@@ -4278,7 +4284,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   spriteRenderer: {fileID: 335445528}
   visible: 0
 --- !u!114 &1507034370
@@ -4294,7 +4299,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   commentText: This is the entry point for the script and handles the basic setup
     for the scene
 --- !u!1 &1509015466
@@ -4887,7 +4891,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'I''m starving! I wonder if there''s any fish in that pool?{wc}
 
     I better be careful though, I might not be the only person in these woods...'
@@ -4908,11 +4911,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 6
-    y: -78
-    width: 100
-    height: 40
-  description: 
+    x: 128
+    y: -268
+    width: 240
+    height: 311
+  sequenceName: Intro
   commandList:
   - {fileID: 1759345009}
   - {fileID: 1759345007}
@@ -4954,7 +4957,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   sayDialog: {fileID: 1070206234}
 --- !u!114 &1759344999
 MonoBehaviour:
@@ -4970,7 +4972,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseText: What should I do?
   character: {fileID: 1712414755}
   voiceOverClip: {fileID: 0}
@@ -4989,7 +4990,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Shout out loud
   targetSequence: {fileID: 1801800854}
   hideOnSelected: 0
@@ -5007,7 +5007,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Check pool for fish
   targetSequence: {fileID: 541676554}
   hideOnSelected: 0
@@ -5025,7 +5024,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseDialog: {fileID: 1016272668}
 --- !u!114 &1759345003
 MonoBehaviour:
@@ -5041,7 +5039,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'For a day and a night, Ciara fled through the dark forest.{wc}
 
     She didn''t dare to stop for fear of {color=red}The Hunter{/color}, but her grumbling
@@ -5063,7 +5060,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 3
   targetView: {fileID: 1726080688}
   waitUntilFinished: 1
@@ -5081,7 +5077,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: Emerging from the forest, she found herself at a beautiful mountain stream.
   character: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -5100,7 +5095,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   sayDialog: {fileID: 1185554287}
 --- !u!114 &1759345007
 MonoBehaviour:
@@ -5116,8 +5110,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   musicClip: {fileID: 8300000, guid: ae3aa0e9b0f0248a59548b5d9e77a6c1, type: 3}
+  atTime: 0
 --- !u!114 &1759345008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5132,7 +5126,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   volume: .504999995
   fadeDuration: 2
 --- !u!114 &1759345009
@@ -5149,7 +5142,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   volume: 0
   fadeDuration: 0
 --- !u!114 &1759345010
@@ -5166,7 +5158,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 541676554}
 --- !u!1 &1787345558
 GameObject:
@@ -5288,7 +5279,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'HEY! Is anybody out there?!{wc}
 
     If there is, you better run!'
@@ -5309,11 +5299,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 105
-    y: -10.5
-    width: 100
-    height: 40
-  description: 
+    x: 435
+    y: -86.5
+    width: 240
+    height: 311
+  sequenceName: Shout out
   commandList:
   - {fileID: 1801800853}
   - {fileID: 1801800859}
@@ -5343,7 +5333,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'Ha ha! Don''t worry, you can join us for dinner.{wc}
 
     Hey Skipper!{wc}
@@ -5366,7 +5355,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: Um...
   character: {fileID: 1712414755}
   voiceOverClip: {fileID: 0}
@@ -5385,7 +5373,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: I'm not little and I'm not lost!
   character: {fileID: 1712414755}
   voiceOverClip: {fileID: 0}
@@ -5404,7 +5391,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: "And what do we have here?{wc}\nThe woods are a dangerous place my little
     friend.{wc} \nAre you lost?"
   character: {fileID: 338947448}
@@ -5424,7 +5410,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   spriteRenderer: {fileID: 307931412}
   duration: 3
   targetColor: {r: 1, g: 1, b: 1, a: 1}
@@ -5443,7 +5428,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'Oh don''t mind him.{wc}
 
     He''s a cuddly teddy bear under that grim exterior.{wc}
@@ -5466,7 +5450,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'Hrmph!{wc}
 
     Oh good, another mouth to feed.'
@@ -5487,7 +5470,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   spriteRenderer: {fileID: 335445528}
   duration: 1
   targetColor: {r: 1, g: 1, b: 1, a: 1}
@@ -5506,7 +5488,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: I see! And so I guess you're not hungry either?
   character: {fileID: 338947448}
   voiceOverClip: {fileID: 0}
@@ -5525,7 +5506,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 3
   targetView: {fileID: 842161036}
   waitUntilFinished: 1
@@ -5543,7 +5523,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 2111357054}
 --- !u!114 &1801800866
 MonoBehaviour:
@@ -5559,7 +5538,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   variable: {fileID: 1831099569}
   setOperator: 0
   booleanData:
@@ -5587,7 +5565,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   commentText: This is a comment
 --- !u!1001 &1802700403
 Prefab:
@@ -5736,11 +5713,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptScrollPos: {x: 104.770874, y: 41.4898682}
-  commandScrollPos: {x: 0, y: 0}
-  commandViewWidth: 350
-  selectedSequence: {fileID: 1507034365}
-  selectedCommand: {fileID: 1507034364}
+  scriptScrollPos: {x: 0, y: 140.623611}
+  selectedSequence: {fileID: 1196017812}
+  selectedCommands:
+  - {fileID: 1196017815}
   variables:
   - {fileID: 1831099569}
   startSequence: {fileID: 1507034365}
@@ -5749,7 +5725,7 @@ MonoBehaviour:
     runSlowInEditor: 1
     runSlowDuration: .25
     colorCommands: 1
-    hideSequenceObjects: 1
+    hideComponents: 1
 --- !u!114 &1831099569
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -6154,11 +6130,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 10
-    y: 114.5
-    width: 100
-    height: 40
-  description: 
+    x: 143
+    y: 119.5
+    width: 240
+    height: 191
+  sequenceName: Exit
   commandList:
   - {fileID: 2111357060}
   - {fileID: 2111357059}
@@ -6182,7 +6158,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   spriteRenderer: {fileID: 335445528}
   duration: 1
   targetColor: {r: 1, g: 1, b: 1, a: 0}
@@ -6201,7 +6176,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
 --- !u!114 &2111357057
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6216,7 +6190,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 1
-  selected: 0
   storyText: 'Move it thief! And remember...{wc}
 
     I''ll be watching you!'
@@ -6237,7 +6210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   variable: {fileID: 1831099569}
   compareOperator: 0
   booleanValue:
@@ -6266,7 +6238,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   spriteRenderer: {fileID: 307931412}
   duration: 1
   targetColor: {r: 1, g: 1, b: 1, a: 0}
@@ -6285,7 +6256,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'Ok, let''s go get you some food!{wc}
 
     This way, follow me!'
@@ -6306,7 +6276,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 1
-  selected: 0
   duration: 1
 --- !u!114 &2111357062
 MonoBehaviour:
@@ -6321,5 +6290,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 899740677}
