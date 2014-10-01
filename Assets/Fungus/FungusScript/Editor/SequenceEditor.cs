@@ -12,6 +12,13 @@ namespace Fungus
 	[CustomEditor (typeof(Sequence))]
 	public class SequenceEditor : Editor 
 	{
+		protected class AddCommandOperation
+		{
+			public Sequence sequence;
+			public Type commandType;
+			public int index;
+		}
+
 		protected SerializedProperty sequenceNameProp;
 
 		protected bool showContextMenu;
@@ -42,6 +49,19 @@ namespace Fungus
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
 			CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
 			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.HideAddButton);
+
+			GUILayout.Space(20);
+
+			Rect plusRect = GUILayoutUtility.GetLastRect();
+			plusRect.x += 10;
+			plusRect.y += 2;
+			plusRect.width = 16;
+			plusRect.height = 16;
+
+			if (GUI.Button(plusRect, "", new GUIStyle("OL Plus")))
+			{
+				ShowCommandMenu();
+			}
 
 			if (!Application.isPlaying)
 			{
@@ -170,10 +190,6 @@ namespace Fungus
 			}
 
 			GenericMenu commandMenu = new GenericMenu();
-
-			//commandMenu.AddItem (new GUIContent ("Create Command"), false, SelectNone);
-
-			// commandMenu.AddSeparator("");
 
 			if (showCut)
 			{
@@ -328,8 +344,6 @@ namespace Fungus
 				{
 					if (command == selectedCommand)
 					{
-						int selectedIndex = i;
-					
 						Undo.RecordObject(sequence, "Delete");
 						sequence.commandList.RemoveAt(i);
 						Undo.DestroyObjectImmediate(command);
@@ -380,6 +394,65 @@ namespace Fungus
 				newSequence.commandList.Add(newCommand);
 			}
 		}
+
+		void ShowCommandMenu()
+		{
+			Sequence sequence = target as Sequence;
+			int index = sequence.commandList.Count;
+
+			GenericMenu commandMenu = new GenericMenu();
+			
+			// Build menu list
+			List<System.Type> menuTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).ToList();
+			foreach(System.Type type in menuTypes)
+			{
+				object[] attributes = type.GetCustomAttributes(false);
+				foreach (object obj in attributes)
+				{
+					CommandInfoAttribute infoAttr = obj as CommandInfoAttribute;
+					if (infoAttr != null)
+					{
+						AddCommandOperation commandOperation = new AddCommandOperation();
+						
+						commandOperation.sequence = sequence;
+						commandOperation.commandType = type;
+						commandOperation.index = index;
+						
+						commandMenu.AddItem (new GUIContent (infoAttr.Category + "/" + infoAttr.CommandName), 
+						                     false, AddCommandCallback, commandOperation);
+					}
+				}
+			}
+			
+			commandMenu.ShowAsContext();
+		}
+		
+		void AddCommandCallback(object obj)
+		{
+			AddCommandOperation commandOperation = obj as AddCommandOperation;
+			
+			Sequence sequence = commandOperation.sequence;
+			if (sequence == null)
+			{
+				return;
+			}
+			
+			sequence.GetFungusScript().selectedCommands.Clear();
+			
+			Command newCommand = Undo.AddComponent(sequence.gameObject, commandOperation.commandType) as Command;
+			sequence.GetFungusScript().selectedCommands.Add(newCommand);
+
+			Undo.RecordObject(sequence, "Set command type");
+			if (commandOperation.index < sequence.commandList.Count - 1)
+			{
+				sequence.commandList[commandOperation.index] = newCommand;
+			}
+			else
+			{
+				sequence.commandList.Add(newCommand);
+			}
+		}
+
 	}
 
 }

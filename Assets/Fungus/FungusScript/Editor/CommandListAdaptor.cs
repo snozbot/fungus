@@ -13,13 +13,6 @@ namespace Fungus
 {
 	public class CommandListAdaptor : IReorderableListAdaptor {
 
-		protected class SetCommandOperation
-		{
-			public Sequence sequence;
-			public Type commandType;
-			public int index;
-		}
-
 		protected SerializedProperty _arrayProperty;
 
 		public float fixedItemHeight;
@@ -345,57 +338,6 @@ namespace Fungus
 					element.objectReferenceValue = null;
 				break;
 			}
-		}
-
-		void ShowCommandMenu(int index, Sequence sequence)
-		{
-			GenericMenu commandMenu = new GenericMenu();
-
-			// Build menu list
-			List<System.Type> menuTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).ToList();
-			foreach(System.Type type in menuTypes)
-			{
-				object[] attributes = type.GetCustomAttributes(false);
-				foreach (object obj in attributes)
-				{
-					CommandInfoAttribute infoAttr = obj as CommandInfoAttribute;
-					if (infoAttr != null)
-					{
-						SetCommandOperation commandOperation = new SetCommandOperation();
-
-						commandOperation.sequence = sequence;
-						commandOperation.commandType = type;
-						commandOperation.index = index;
-
-						commandMenu.AddItem (new GUIContent (infoAttr.Category + "/" + infoAttr.CommandName), 
-						                     false, Callback, commandOperation);
-					}
-				}
-			}
-
-			commandMenu.ShowAsContext();
-		}
-
-		void Callback(object obj)
-		{
-			SetCommandOperation commandOperation = obj as SetCommandOperation;
-
-			Sequence sequence = commandOperation.sequence;
-			if (sequence == null)
-			{
-				return;
-			}
-
-			sequence.GetFungusScript().selectedCommands.Clear();
-
-			Command newCommand = Undo.AddComponent(sequence.gameObject, commandOperation.commandType)  as Command;
-			sequence.GetFungusScript().selectedCommands.Add(newCommand);
-
-			Command oldCommand = sequence.commandList[commandOperation.index];
-			Undo.DestroyObjectImmediate(oldCommand);
-
-			Undo.RecordObject(sequence, "Set command type");
-			sequence.commandList[commandOperation.index] = newCommand;
 		}
 	}
 }
