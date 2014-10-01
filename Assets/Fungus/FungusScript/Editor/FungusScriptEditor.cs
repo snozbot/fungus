@@ -77,6 +77,7 @@ namespace Fungus
 			{
 				SequenceEditor sequenceEditor = Editor.CreateEditor(fungusScript.selectedSequence) as SequenceEditor;
 				sequenceEditor.DrawInspectorGUI(fungusScript);
+				DestroyImmediate(sequenceEditor);
 			}
 
 			if (fungusScript.selectedCommands.Count == 1)
