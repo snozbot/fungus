@@ -8,9 +8,6 @@ namespace Fungus
 {
 	public class FungusScriptWindow : EditorWindow
 	{
-		protected bool resize = false;
-		protected Rect cursorChangeRect;
-		protected const float minViewWidth = 350;
 		protected Vector2 newNodePosition = new Vector2();
 
 		static bool locked = false;
@@ -69,8 +66,6 @@ namespace Fungus
 
 			GUILayout.BeginHorizontal();
 			DrawScriptView(fungusScript);
-			ResizeViews(fungusScript);
-			DrawSequenceView(fungusScript);
 			GUILayout.EndHorizontal();
 		}
 		
@@ -98,7 +93,7 @@ namespace Fungus
 			scrollViewRect.yMax += position.height * bufferScale;
 			
 			// Calc rect for left hand script view
-			Rect scriptViewRect = new Rect(0, 0, this.position.width - fungusScript.commandViewWidth, this.position.height);
+			Rect scriptViewRect = new Rect(0, 0, this.position.width, this.position.height);
 
 			// Clip GL drawing so not to overlap scrollbars
 			Rect clipRect = new Rect(fungusScript.scriptScrollPos.x + scrollViewRect.x,
@@ -127,10 +122,6 @@ namespace Fungus
 			newNodePosition.y = scrollViewRect.yMin + fungusScript.scriptScrollPos.y + scriptViewRect.height / 2;
 
 			BeginWindows();
-			
-			GUIStyle windowStyle = new GUIStyle(EditorStyles.toolbarButton);
-			windowStyle.stretchHeight = true;
-			windowStyle.fixedHeight = 20;
 
 			if (Event.current.button == 0 && 
 				Event.current.type == EventType.MouseDown)
@@ -138,7 +129,20 @@ namespace Fungus
 				fungusScript.selectedSequence = null;
 				fungusScript.selectedCommand = null;
 			}
-					
+
+			// Draw connections
+			foreach (Sequence s in sequences)
+			{
+				DrawConnections(fungusScript, s, false);
+			}
+			foreach (Sequence s in sequences)
+			{
+				DrawConnections(fungusScript, s, true);
+			}
+
+			GUIStyle windowStyle = new GUIStyle();
+			windowStyle.stretchHeight = true;
+
 			windowSequenceMap.Clear();
 			for (int i = 0; i < sequences.Length; ++i)
 			{
@@ -147,37 +151,34 @@ namespace Fungus
 				// Hack to support legacy design where sequences were child gameobjects (will be removed soon)
 				sequence.UpdateSequenceName();
 
-				float titleWidth = windowStyle.CalcSize(new GUIContent(sequence.name)).x;
-				float windowWidth = Mathf.Max (titleWidth + 10, 100);
-
 				if (fungusScript.selectedSequence == sequence ||
 				    fungusScript.executingSequence == sequence)
 				{
 					GUI.backgroundColor = Color.green;
+
+					Rect highlightRect = new Rect(sequence.nodeRect);
+					highlightRect.y -= 1;
+					highlightRect.height += 5;
+					GUI.Box(highlightRect, "");
+					GUI.backgroundColor = Color.white;
 				}
-					
-				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, "", windowStyle, GUILayout.Width(windowWidth), GUILayout.Height(20), GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+
+				sequence.nodeRect.width = 240;
+				sequence.nodeRect.height = 20;
+
+				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, "", windowStyle);
 
 				GUI.backgroundColor = Color.white;
 
 				windowSequenceMap.Add(sequence);
 			}
-			
-			// Draw connections
-			foreach (Sequence s in windowSequenceMap)
-			{
-				DrawConnections(fungusScript, s, false);
-			}
-			foreach (Sequence s in windowSequenceMap)
-			{
-				DrawConnections(fungusScript, s, true);
-			}
-			
+
 			EndWindows();
 
 			GLDraw.EndScrollView();
 		}
-		
+
+		/*
 		protected virtual void ResizeViews(FungusScript fungusScript)
 		{
 			cursorChangeRect = new Rect(this.position.width - fungusScript.commandViewWidth, 0, 4f, this.position.height);
@@ -202,7 +203,7 @@ namespace Fungus
 				resize = false;        
 			}
 		}
-		
+
 		protected virtual void DrawSequenceView(FungusScript fungusScript)
 		{
 			GUILayout.Space(5);
@@ -270,6 +271,7 @@ namespace Fungus
 
 			GUILayout.EndScrollView();
 		}
+		*/
 
 		protected virtual Sequence CreateSequence(FungusScript fungusScript, Vector2 position)
 		{
@@ -355,13 +357,12 @@ namespace Fungus
 
 			Sequence sequence = windowSequenceMap[windowId];
 
-			GUIStyle labelStyle = new GUIStyle(GUI.skin.label);
-			labelStyle.alignment = TextAnchor.MiddleCenter;
-
 			GUILayout.BeginVertical();
-			GUILayout.FlexibleSpace();
-			GUILayout.Label(sequence.sequenceName, labelStyle);
-			GUILayout.FlexibleSpace();
+
+			SequenceEditor sequenceEditor = Editor.CreateEditor(sequence) as SequenceEditor;
+			sequenceEditor.DrawCommandListGUI(sequence.GetFungusScript());
+			DestroyImmediate(sequenceEditor);
+
 			GUILayout.EndVertical();
 
 	        GUI.DragWindow();

@@ -26,18 +26,6 @@ namespace Fungus
 		public Vector2 scriptScrollPos;
 
 		/**
-		 * Scroll position of Fungus Script editor window (command view).
-		 */
-		[HideInInspector]
-		public Vector2 commandScrollPos;
-
-		/**
-		 * Current width of command view
-		 */
-		[HideInInspector]
-		public float commandViewWidth = 350;
-
-		/**
 		 * Currently selected sequence in the Fungus Script editor.
 		 */
 		[HideInInspector]

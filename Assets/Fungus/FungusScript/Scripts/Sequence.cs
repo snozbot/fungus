@@ -10,8 +10,6 @@ namespace Fungus
 	public class Sequence : Node 
 	{
 		public string sequenceName = "New Sequence";
-		
-		public string description = "";
 
 		[System.NonSerialized]
 		public Command activeCommand;

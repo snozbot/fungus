@@ -93,6 +93,13 @@ namespace Fungus
 			
 			DrawCommandGUI();
 
+			// Display help text
+			CommandInfoAttribute infoAttr = CommandEditor.GetCommandInfo(t.GetType());
+			if (infoAttr != null)
+			{
+				EditorGUILayout.HelpBox(infoAttr.CommandName + ":\n" + infoAttr.HelpText, MessageType.Info, true);
+			}
+
 			EditorGUILayout.Separator();
 
 			if (t.errorMessage.Length > 0)
@@ -127,6 +134,7 @@ namespace Fungus
 
 				EditorGUILayout.PropertyField(iterator, true, new GUILayoutOption[0]);
 			}
+
 			serializedObject.ApplyModifiedProperties();
 		}
 

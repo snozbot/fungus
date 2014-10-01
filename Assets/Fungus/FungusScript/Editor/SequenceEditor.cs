@@ -15,64 +15,49 @@ namespace Fungus
 		protected SerializedProperty sequenceNameProp;
 		protected SerializedProperty descriptionProp;
 
+		protected bool showContextMenu;
+
 		public virtual void OnEnable()
 		{
 			sequenceNameProp = serializedObject.FindProperty("sequenceName");
-			descriptionProp = serializedObject.FindProperty("description");
 		}
 
-		public virtual void DrawSequenceGUI(FungusScript fungusScript)
+		public virtual void DrawInspectorGUI(FungusScript fungusScript)
 		{
-			if (fungusScript.selectedSequence == null)
-			{
-				return;
-			}
-
 			serializedObject.Update();
-			
-			Sequence sequence = fungusScript.selectedSequence;
 
 			EditorGUILayout.PropertyField(sequenceNameProp);
-			EditorGUILayout.PropertyField(descriptionProp);
-
 			EditorGUILayout.Separator();
 
+			serializedObject.ApplyModifiedProperties();
+		}
+
+		public virtual void DrawCommandListGUI(FungusScript fungusScript)
+		{
+			serializedObject.Update();
+
+			Sequence sequence = target as Sequence; // fungusScript.selectedSequence;
 			UpdateIndentLevels(sequence);
 
-			ReorderableListGUI.Title("Command Sequence");
+			ReorderableListGUI.Title(sequence.sequenceName);
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
 			CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
-			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.HideRemoveButtons);
+			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.HideAddButton);
 
 			if (!Application.isPlaying)
 			{
-				Rect copyMenuRect = GUILayoutUtility.GetLastRect();
-				copyMenuRect.y += copyMenuRect.height - 17;
-				copyMenuRect.width = 24;
-				copyMenuRect.height = 18;
-				if (GUI.Button(copyMenuRect, "", new GUIStyle("DropDown")))
+				if (Event.current.button == 1 && 
+				    Event.current.isMouse)
 				{
-					ShowCopyMenu();
+					showContextMenu = !showContextMenu;
 				}
 			}
 
-			EditorGUILayout.BeginHorizontal();
-
-			if (fungusScript.selectedCommand != null)
+			if (showContextMenu)
 			{
-				CommandInfoAttribute infoAttr = CommandEditor.GetCommandInfo(fungusScript.selectedCommand.GetType());
-				if (infoAttr != null)
-				{
-					EditorGUILayout.HelpBox(infoAttr.CommandName + ":\n" + infoAttr.HelpText, MessageType.Info, true);
-				}
+				ShowCopyMenu();
 			}
 
-			// Need to expand to fill space or else reorderable list width changes if no command is selected
-			GUILayout.FlexibleSpace();
-			
-			EditorGUILayout.EndHorizontal();
-
-			
 			serializedObject.ApplyModifiedProperties();
 		}
 

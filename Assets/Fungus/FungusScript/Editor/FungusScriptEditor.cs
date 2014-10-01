@@ -72,6 +72,12 @@ namespace Fungus
 
 			EditorGUILayout.Separator();
 
+			if (fungusScript.selectedSequence != null)
+			{
+				SequenceEditor sequenceEditor = Editor.CreateEditor(fungusScript.selectedSequence) as SequenceEditor;
+				sequenceEditor.DrawInspectorGUI(fungusScript);
+			}
+
 			if (fungusScript.selectedCommand != null)
 			{
 				CommandEditor commandEditor = Editor.CreateEditor(fungusScript.selectedCommand) as CommandEditor;

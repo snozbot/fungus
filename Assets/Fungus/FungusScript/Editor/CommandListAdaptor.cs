@@ -193,7 +193,7 @@ namespace Fungus
 
 			string commandName = commandInfoAttr.CommandName;
 
-			GUIStyle commandLabelStyle = new GUIStyle(EditorStyles.miniButton);
+			GUIStyle commandLabelStyle = new GUIStyle(GUI.skin.box );
 			commandLabelStyle.alignment = TextAnchor.MiddleLeft;
 			commandLabelStyle.richText = true;
 			commandLabelStyle.fontSize = 11;
@@ -203,10 +203,10 @@ namespace Fungus
 			float indentWidth = command.indentLevel * indentSize;
 
 			Rect commandLabelRect = position;
-			commandLabelRect.x += indentWidth;
+			commandLabelRect.x += indentWidth - 21;
 			commandLabelRect.y -= 2;
-			commandLabelRect.width -= (indentSize * command.indentLevel + 24);
-			commandLabelRect.height += 6;
+			commandLabelRect.width -= (indentSize * command.indentLevel - 22);
+			commandLabelRect.height += 5;
 
 			if (!Application.isPlaying &&
 			    Event.current.type == EventType.MouseDown &&
@@ -216,6 +216,22 @@ namespace Fungus
 				fungusScript.selectedCommand = command;
 				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 			}
+
+			/*
+			if (!Application.isPlaying)
+			{
+				Rect menuRect = commandLabelRect;
+				menuRect.x += menuRect.width - 8;
+				menuRect.y = position.y + 1;
+				menuRect.width = 22;
+				menuRect.height = position.height;
+				GUIStyle menuButtonStyle = new GUIStyle("ShurikenPopUp");
+				if (GUI.Button(menuRect, new GUIContent("", "Select command type"), menuButtonStyle))
+				{
+					ShowCommandMenu(index, fungusScript.selectedSequence);
+				}
+			}
+			*/
 
 			Color commandLabelColor = Color.white;
 			if (fungusScript.settings.colorCommands)
@@ -236,9 +252,14 @@ namespace Fungus
 				// TODO: Show warning icon
 			}
 
-			if (!isNote)
+			GUI.backgroundColor = commandLabelColor;
+
+			if (isNote)
 			{
-				GUI.backgroundColor = commandLabelColor;
+				GUI.Label(commandLabelRect, "", commandLabelStyle);
+			}
+			else
+			{
 				GUI.Label(commandLabelRect, commandName, commandLabelStyle);
 			}
 
@@ -266,25 +287,6 @@ namespace Fungus
 			GUI.Label(summaryRect, summary, summaryStyle);
 
 			GUI.backgroundColor = Color.white;
-
-			if (!Application.isPlaying)
-			{
-				Rect menuRect = commandLabelRect;
-				menuRect.x += menuRect.width + 4;
-				menuRect.y = position.y + 1;
-				menuRect.width = 22;
-				menuRect.height = position.height;
-				GUIStyle menuButtonStyle = new GUIStyle("Foldout");
-				if (GUI.Button(menuRect, new GUIContent("", "Select command type"), menuButtonStyle))
-				{
-					ShowCommandMenu(index, fungusScript.selectedSequence);
-				}
-
-				Rect selectRect = position;
-				selectRect.x -= 19;
-				selectRect.width = 20;
-				command.selected = EditorGUI.Toggle(selectRect, command.selected);
-			}
 		}
 
 		public virtual float GetItemHeight(int index) {
