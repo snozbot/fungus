@@ -224,8 +224,11 @@ namespace Fungus
 			    Event.current.button == 0 &&
 			    position.Contains(Event.current.mousePosition))
 			{
-				fungusScript.selectedCommands.Add(command);
-				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
+				if (!fungusScript.selectedCommands.Contains(command))
+				{
+					fungusScript.selectedCommands.Add(command);
+					GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
+				}
 			}
 
 			/*

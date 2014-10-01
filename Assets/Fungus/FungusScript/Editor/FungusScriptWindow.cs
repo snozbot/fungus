@@ -151,18 +151,6 @@ namespace Fungus
 				// Hack to support legacy design where sequences were child gameobjects (will be removed soon)
 				sequence.UpdateSequenceName();
 
-				if (fungusScript.selectedSequence == sequence ||
-				    fungusScript.executingSequence == sequence)
-				{
-					GUI.backgroundColor = Color.green;
-
-					Rect highlightRect = new Rect(sequence.nodeRect);
-					highlightRect.y -= 1;
-					highlightRect.height += 5;
-					GUI.Box(highlightRect, "");
-					GUI.backgroundColor = Color.white;
-				}
-
 				sequence.nodeRect.width = 240;
 				sequence.nodeRect.height = 20;
 
@@ -273,7 +261,7 @@ namespace Fungus
 		}
 		*/
 
-		protected virtual Sequence CreateSequence(FungusScript fungusScript, Vector2 position)
+		public static Sequence CreateSequence(FungusScript fungusScript, Vector2 position)
 		{
 			Sequence newSequence = fungusScript.CreateSequence(position);
 			Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
@@ -295,30 +283,6 @@ namespace Fungus
 			fungusScript.selectedCommands.Clear();
 		}
 
-		protected virtual void DuplicateSequence(FungusScript fungusScript, Sequence sequence)
-		{
-			if (sequence == null)
-			{
-				return;
-			}
-
-			Vector2 newPosition = new Vector2(sequence.nodeRect.position.x + sequence.nodeRect.width + 20, sequence.nodeRect.y);
-			Sequence newSequence = CreateSequence(fungusScript, newPosition);
-			newSequence.sequenceName = sequence.sequenceName + " (Copy)";
-
-			foreach (Command command in sequence.commandList)
-			{
-				System.Type type = command.GetType();
-				Command newCommand = Undo.AddComponent(fungusScript.gameObject, type) as Command;
-				System.Reflection.FieldInfo[] fields = type.GetFields();
-				foreach (System.Reflection.FieldInfo field in fields)
-				{
-					field.SetValue(newCommand, field.GetValue(command));
-				}
-				newSequence.commandList.Add(newCommand);
-			}
-		}
-
 		protected virtual void CreateSequenceCallback(object item)
 		{
 			FungusScript fungusScript = GetFungusScript();
@@ -332,6 +296,9 @@ namespace Fungus
 
 		protected virtual void DrawWindow(int windowId)
 		{
+			Sequence sequence = windowSequenceMap[windowId];
+			FungusScript fungusScript = sequence.GetFungusScript();
+
 			// Select sequence when node is clicked
 			if (!Application.isPlaying &&
 			    Event.current.button == 0 && 
@@ -339,26 +306,26 @@ namespace Fungus
 			{
 				if (windowId < windowSequenceMap.Count)
 				{
-					Sequence s = windowSequenceMap[windowId];
-					if (s != null)
+					Undo.RecordObject(fungusScript, "Select");
+					if (sequence != fungusScript.selectedSequence || !EditorGUI.actionKey)
 					{
-						FungusScript fungusScript = s.GetFungusScript();
-						if (fungusScript != null)
-						{
-							Undo.RecordObject(fungusScript, "Select");
-							if (s != fungusScript.selectedSequence || !EditorGUI.actionKey)
-							{
-								fungusScript.selectedCommands.Clear();
-							}
-
-							fungusScript.selectedSequence = s;
-							GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
-						}
+						fungusScript.selectedCommands.Clear();
 					}
+
+					fungusScript.selectedSequence = sequence;
+					GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 				}
 			}
 
-			Sequence sequence = windowSequenceMap[windowId];
+			if (fungusScript.selectedSequence == sequence ||
+			    fungusScript.executingSequence == sequence)
+			{
+				GUI.backgroundColor = Color.green;
+				
+				Rect highlightRect = new Rect(0, 0, sequence.nodeRect.width, 24);
+				GUI.Box(highlightRect, "");
+				GUI.backgroundColor = Color.white;
+			}
 
 			GUILayout.BeginVertical();
 
