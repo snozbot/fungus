@@ -169,6 +169,11 @@ namespace Fungus
 				sequence.nodeRect.width = 240;
 				sequence.nodeRect.height = 20;
 
+				if (fungusScript.selectedSequence == sequence)
+				{
+					sequence.nodeRect.width += 27;
+				}
+
 				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, "", windowStyle);
 
 				GUI.backgroundColor = Color.white;

@@ -66,7 +66,14 @@ namespace Fungus
 				{
 					Rect plusRect = GUILayoutUtility.GetLastRect();
 					plusRect.x = sequence.nodeRect.width - 28;
-					plusRect.y += 2;
+					if (sequence.commandList.Count > 0)
+					{
+						plusRect.y += 2;
+					}
+					else
+					{
+						plusRect.y -= 18;
+					}
 					plusRect.width = 16;
 					plusRect.height = 16;
 
