@@ -48,19 +48,29 @@ namespace Fungus
 			ReorderableListGUI.Title(sequence.sequenceName);
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
 			CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
-			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.HideAddButton);
+
+			ReorderableListFlags flags = ReorderableListFlags.HideAddButton;
+			if (Application.isPlaying || sequence != fungusScript.selectedSequence)
+			{
+				flags |= ReorderableListFlags.HideRemoveButtons;
+			}
+			ReorderableListControl.DrawControlFromState(adaptor, null, flags);
 
 			GUILayout.Space(20);
 
-			Rect plusRect = GUILayoutUtility.GetLastRect();
-			plusRect.x += 10;
-			plusRect.y += 2;
-			plusRect.width = 16;
-			plusRect.height = 16;
-
-			if (GUI.Button(plusRect, "", new GUIStyle("OL Plus")))
+			if (!Application.isPlaying &&
+			    sequence == fungusScript.selectedSequence)
 			{
-				ShowCommandMenu();
+				Rect plusRect = GUILayoutUtility.GetLastRect();
+				plusRect.x = sequence.nodeRect.width - 28;
+				plusRect.y += 2;
+				plusRect.width = 16;
+				plusRect.height = 16;
+
+				if (GUI.Button(plusRect, "", new GUIStyle("OL Plus")))
+				{
+					ShowCommandMenu();
+				}
 			}
 
 			if (!Application.isPlaying)

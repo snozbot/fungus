@@ -1542,6 +1542,7 @@ GameObject:
   - 114: {fileID: 541676556}
   - 114: {fileID: 541676558}
   - 114: {fileID: 541676557}
+  - 114: {fileID: 541676559}
   m_Layer: 0
   m_Name: Check for fish
   m_TagString: Untagged
@@ -1627,12 +1628,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -192
-    y: -215.5
+    x: -189
+    y: -264.5
     width: 240
-    height: 151
+    height: 191
   sequenceName: Check for fish
   commandList:
+  - {fileID: 541676559}
   - {fileID: 541676553}
   - {fileID: 541676556}
   - {fileID: 541676552}
@@ -1701,6 +1703,20 @@ MonoBehaviour:
   character: {fileID: 339869593}
   voiceOverClip: {fileID: 0}
   showOnce: 0
+--- !u!114 &541676559
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 541676550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d14ccff3ce441ecba28c9a53b98a08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  commentText: This is a comment
 --- !u!1 &577549095
 GameObject:
   m_ObjectHideFlags: 0
@@ -2618,10 +2634,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -208.439697
-    y: 150.5
+    x: -176.439697
+    y: 158.5
     width: 240
-    height: 511
+    height: 531
   sequenceName: Bear
   commandList:
   - {fileID: 899740689}
@@ -3432,10 +3448,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -228
-    y: -40
+    x: -173
+    y: -48
     width: 240
-    height: 171
+    height: 191
   sequenceName: Rescued
   commandList:
   - {fileID: 1196017816}
@@ -4212,10 +4228,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 427
-    y: -289
+    x: 396
+    y: -262
     width: 240
-    height: 131
+    height: 151
   sequenceName: Start
   commandList:
   - {fileID: 1507034370}
@@ -4914,7 +4930,7 @@ MonoBehaviour:
     x: 128
     y: -268
     width: 240
-    height: 311
+    height: 331
   sequenceName: Intro
   commandList:
   - {fileID: 1759345009}
@@ -5299,19 +5315,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 435
-    y: -86.5
+    x: 403
+    y: -90.5
     width: 240
-    height: 311
+    height: 331
   sequenceName: Shout out
   commandList:
+  - {fileID: 1801800867}
   - {fileID: 1801800853}
   - {fileID: 1801800859}
   - {fileID: 1801800864}
   - {fileID: 1801800858}
   - {fileID: 1801800857}
   - {fileID: 1801800863}
-  - {fileID: 1801800867}
   - {fileID: 1801800856}
   - {fileID: 1801800855}
   - {fileID: 1801800862}
@@ -5674,6 +5690,7 @@ GameObject:
   - 114: {fileID: 1831099570}
   - 114: {fileID: 1831099569}
   - 114: {fileID: 1831099571}
+  - 114: {fileID: 1831099572}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: Untagged
@@ -5713,10 +5730,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptScrollPos: {x: 0, y: 140.623611}
-  selectedSequence: {fileID: 1196017812}
-  selectedCommands:
-  - {fileID: 1196017815}
+  scriptScrollPos: {x: 56.003418, y: 144.493408}
+  selectedSequence: {fileID: 541676554}
+  selectedCommands: []
   variables:
   - {fileID: 1831099569}
   startSequence: {fileID: 1507034365}
@@ -5766,6 +5782,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Var
+--- !u!114 &1831099572
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  musicClip: {fileID: 0}
+  atTime: 0
 --- !u!1001 &1849986066
 Prefab:
   m_ObjectHideFlags: 0
@@ -6130,10 +6161,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 143
-    y: 119.5
+    x: 125
+    y: 71.5
     width: 240
-    height: 191
+    height: 211
   sequenceName: Exit
   commandList:
   - {fileID: 2111357060}
