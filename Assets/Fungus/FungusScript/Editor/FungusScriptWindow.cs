@@ -406,11 +406,8 @@ namespace Fungus
 
 		protected virtual void DrawRectConnection(Rect rectA, Rect rectB, bool highlight)
 		{
-			float minOffset = 2;
-			float maxOffset = -2;
-
-			Vector2 pointA0 = new Vector2(rectA.xMin + minOffset, rectA.center.y);
-			Vector2 pointA1 = new Vector2(rectA.xMax + maxOffset, rectA.center.y);
+			Vector2 pointA0 = new Vector2(rectA.xMin, rectA.center.y);
+			Vector2 pointA1 = new Vector2(rectA.xMax, rectA.center.y);
 			Vector2 pointB0 = new Vector2(rectB.xMin, rectB.center.y + 4);
 			Vector2 pointB1 = new Vector2(rectB.xMax, rectB.center.y + 4);
 
@@ -449,7 +446,14 @@ namespace Fungus
 				color = Color.green;
 			}
 
+
 			GLDraw.DrawConnectingCurve(pointA, pointB, color, 1.025f);
+
+			Rect dotARect = new Rect(pointA.x - 5, pointA.y - 5, 10, 10);
+			GUI.Label(dotARect, "", new GUIStyle("U2D.dragDotActive"));
+
+			Rect dotBRect = new Rect(pointB.x - 5, pointB.y - 5, 10, 10);
+			GUI.Label(dotBRect, "", new GUIStyle("U2D.dragDotDimmed"));
 		}
 	}
 

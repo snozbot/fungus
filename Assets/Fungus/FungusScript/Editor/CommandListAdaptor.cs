@@ -204,7 +204,7 @@ namespace Fungus
 
 			string commandName = commandInfoAttr.CommandName;
 
-			GUIStyle commandLabelStyle = new GUIStyle(GUI.skin.box );
+			GUIStyle commandLabelStyle = new GUIStyle(GUI.skin.box);
 			commandLabelStyle.alignment = TextAnchor.MiddleLeft;
 			commandLabelStyle.richText = true;
 			commandLabelStyle.fontSize = 11;

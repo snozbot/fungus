@@ -268,7 +268,6 @@ public class GLDraw
 
 		DrawLine(arrowPosA, arrowPosB, color, 1.025f);
 		DrawLine(arrowPosA, arrowPosC, color, 1.025f);
-		// DrawLine(arrowPosB, arrowPosC, color, 1);
 	}
 
     public static void DrawBezier(Vector2 start, Vector2 startTangent, Vector2 end, Vector2 endTangent, Color color, float width)
