@@ -1631,10 +1631,9 @@ MonoBehaviour:
     x: -189
     y: -264.5
     width: 240
-    height: 191
+    height: 171
   sequenceName: Check for fish
   commandList:
-  - {fileID: 541676559}
   - {fileID: 541676553}
   - {fileID: 541676556}
   - {fileID: 541676552}
@@ -4231,10 +4230,9 @@ MonoBehaviour:
     x: 396
     y: -262
     width: 240
-    height: 151
+    height: 131
   sequenceName: Start
   commandList:
-  - {fileID: 1507034370}
   - {fileID: 1507034368}
   - {fileID: 1507034369}
   - {fileID: 1507034366}
@@ -5318,10 +5316,9 @@ MonoBehaviour:
     x: 403
     y: -90.5
     width: 240
-    height: 331
+    height: 311
   sequenceName: Shout out
   commandList:
-  - {fileID: 1801800867}
   - {fileID: 1801800853}
   - {fileID: 1801800859}
   - {fileID: 1801800864}
@@ -5730,8 +5727,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptScrollPos: {x: 56.003418, y: 144.493408}
-  selectedSequence: {fileID: 541676554}
+  scriptScrollPos: {x: 56.003418, y: 92.9988937}
+  selectedSequence: {fileID: 1801800854}
   selectedCommands: []
   variables:
   - {fileID: 1831099569}

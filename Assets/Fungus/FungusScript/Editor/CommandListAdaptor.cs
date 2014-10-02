@@ -87,7 +87,7 @@ namespace Fungus
 				return null;
 			}
 
-			Command newCommand = Undo.AddComponent<Note>(sequence.gameObject) as Command;
+			Command newCommand = Undo.AddComponent<Comment>(sequence.gameObject) as Command;
 			fungusScript.selectedCommands.Clear();
 			fungusScript.selectedCommands.Add(newCommand);
 
@@ -116,7 +116,10 @@ namespace Fungus
 		public void Remove(int index) {
 			// Remove the Fungus Command component
 			Command command = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as Command;
-			Undo.DestroyObjectImmediate(command);
+			if (command != null)
+			{
+				Undo.DestroyObjectImmediate(command);
+			}
 
 			_arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = null;
 			_arrayProperty.DeleteArrayElementAtIndex(index);
@@ -156,7 +159,7 @@ namespace Fungus
 				return;
 			}
 
-			bool isNote = command.GetType() == typeof(Note);
+			bool isComment = command.GetType() == typeof(Comment);
 
 			bool error = false;
 			string summary = command.GetSummary().Replace("\n", "").Replace("\r", "");
@@ -261,7 +264,7 @@ namespace Fungus
 
 			GUI.backgroundColor = commandLabelColor;
 
-			if (isNote)
+			if (isComment)
 			{
 				GUI.Label(commandLabelRect, "", commandLabelStyle);
 			}
@@ -271,7 +274,7 @@ namespace Fungus
 			}
 
 			Rect summaryRect = new Rect(commandLabelRect);
-			if (!isNote)
+			if (!isComment)
 			{
 				summaryRect.x += commandNameWidth;
 				summaryRect.width -= commandNameWidth;
