@@ -82,9 +82,16 @@ namespace Fungus
 
 			if (fungusScript.selectedCommands.Count == 1)
 			{
-				CommandEditor commandEditor = Editor.CreateEditor(fungusScript.selectedCommands[0]) as CommandEditor;
-				commandEditor.DrawCommandInspectorGUI();
-				DestroyImmediate(commandEditor);
+				if (fungusScript.selectedCommands[0] == null)
+				{
+					fungusScript.selectedCommands.Clear();
+				}
+				else
+				{
+					CommandEditor commandEditor = Editor.CreateEditor(fungusScript.selectedCommands[0]) as CommandEditor;
+					commandEditor.DrawCommandInspectorGUI();
+					DestroyImmediate(commandEditor);
+				}
 			}
 
 			EditorGUILayout.Separator();
