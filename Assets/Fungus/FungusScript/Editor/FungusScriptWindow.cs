@@ -69,7 +69,6 @@ namespace Fungus
 			// Delete any scheduled objects
 			foreach (Sequence deleteSequence in deleteList)
 			{
-				Debug.Log("delete");
 				foreach (Command command in deleteSequence.commandList)
 				{
 					Undo.DestroyObjectImmediate(command);
@@ -83,7 +82,7 @@ namespace Fungus
 
 			GUILayout.BeginHorizontal();
 			DrawScriptView(fungusScript);
-			GUILayout.EndHorizontal();
+			GUILayout.EndHorizontal();		
 		}
 		
 		protected virtual void DrawScriptView(FungusScript fungusScript)
@@ -135,6 +134,17 @@ namespace Fungus
 			// Calculate center of script view for positioning new nodes
 			newNodePosition.x = scrollViewRect.xMin + fungusScript.scriptScrollPos.x + scriptViewRect.width / 2;
 			newNodePosition.y = scrollViewRect.yMin + fungusScript.scriptScrollPos.y + scriptViewRect.height / 2;
+
+			Vector2 buttonPosition = new Vector2(scrollViewRect.xMin + fungusScript.scriptScrollPos.x + 8, 
+			                                    scrollViewRect.yMin + fungusScript.scriptScrollPos.y + 8);
+
+			if (GUI.Button(new Rect(buttonPosition.x, buttonPosition.y, 16, 16), "", new GUIStyle("OL Plus")))
+			{
+				Vector2 nodePosition = new Vector2(buttonPosition.x + fungusScript.scriptScrollPos.x + 30,
+				                                   buttonPosition.y + fungusScript.scriptScrollPos.y + 30);
+
+				CreateSequenceCallback(nodePosition);
+			}
 
 			BeginWindows();
 
