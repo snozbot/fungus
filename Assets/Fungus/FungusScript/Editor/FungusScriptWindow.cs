@@ -14,6 +14,8 @@ namespace Fungus
 		static GUIStyle lockButtonStyle;
 		static FungusScript activeFungusScript;
 
+		public static List<Sequence> deleteList = new List<Sequence>();
+
 		protected List<Sequence> windowSequenceMap = new List<Sequence>();
 
 	    [MenuItem("Window/Fungus Script")]
@@ -64,6 +66,21 @@ namespace Fungus
 				return;
 			}
 
+			// Delete any scheduled objects
+			foreach (Sequence deleteSequence in deleteList)
+			{
+				Debug.Log("delete");
+				foreach (Command command in deleteSequence.commandList)
+				{
+					Undo.DestroyObjectImmediate(command);
+				}
+				
+				Undo.DestroyObjectImmediate(deleteSequence);
+				fungusScript.selectedSequence = null;
+				fungusScript.selectedCommands.Clear();
+			}
+			deleteList.Clear();
+
 			GUILayout.BeginHorizontal();
 			DrawScriptView(fungusScript);
 			GUILayout.EndHorizontal();
@@ -71,8 +88,6 @@ namespace Fungus
 		
 		protected virtual void DrawScriptView(FungusScript fungusScript)
 		{
-			EditorUtility.SetDirty(fungusScript);
-			
 			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>(true);
 			
 			Rect scrollViewRect = new Rect();

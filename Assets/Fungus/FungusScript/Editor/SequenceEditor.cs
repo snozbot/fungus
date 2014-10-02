@@ -58,8 +58,6 @@ namespace Fungus
 
 			GUILayout.Space(20);
 
-			bool deleteSequence = false;
-
 			if (!Application.isPlaying &&
 			    sequence == fungusScript.selectedSequence)
 			{
@@ -87,7 +85,7 @@ namespace Fungus
 					
 					if (GUI.Button(deleteRect, "", new GUIStyle("WinBtnCloseWin")))
 					{
-						deleteSequence = true;
+						DeleteSequence();
 					}
 				}
 			}
@@ -107,12 +105,6 @@ namespace Fungus
 			}
 
 			serializedObject.ApplyModifiedProperties();
-
-			// Delete the sequence after we've finished updating serializedObject
-			if (deleteSequence)
-			{
-				DeleteSequence();
-			}
 		}
 
 		protected virtual void UpdateIndentLevels(Sequence sequence)
@@ -396,16 +388,7 @@ namespace Fungus
 		protected virtual void DeleteSequence()
 		{
 			Sequence sequence = target as Sequence;
-			FungusScript fungusScript = sequence.GetFungusScript();
-
-			foreach (Command command in sequence.commandList)
-			{
-				Undo.DestroyObjectImmediate(command);
-			}
-			
-			Undo.DestroyObjectImmediate(sequence);
-			fungusScript.selectedSequence = null;
-			fungusScript.selectedCommands.Clear();
+			FungusScriptWindow.deleteList.Add(sequence);
 		}
 
 		protected virtual void DuplicateSequence()
