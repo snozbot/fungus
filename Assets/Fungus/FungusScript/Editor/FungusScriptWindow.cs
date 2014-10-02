@@ -395,33 +395,61 @@ namespace Fungus
 						continue;
 					}
 
-					DrawRectConnection(sequence.nodeRect, sequenceB.nodeRect, highlight);
+					Rect startRect = sequence.nodeRect;
+					startRect.y += command.nodeYOffset;
+					startRect.height = 0;
+
+					DrawRectConnection(startRect, sequenceB.nodeRect, highlight);
 				}
 			}
 		}
 
 		protected virtual void DrawRectConnection(Rect rectA, Rect rectB, bool highlight)
 		{
+			float minOffset = 2;
+			float maxOffset = -2;
+
+			Vector2 pointA0 = new Vector2(rectA.xMin + minOffset, rectA.center.y);
+			Vector2 pointA1 = new Vector2(rectA.xMax + maxOffset, rectA.center.y);
+			Vector2 pointB0 = new Vector2(rectB.xMin, rectB.center.y + 4);
+			Vector2 pointB1 = new Vector2(rectB.xMax, rectB.center.y + 4);
+
+			float d0 = Vector2.Distance(pointA0, pointB0);
+			float d1 = Vector2.Distance(pointA0, pointB1);
+			float d2 = Vector2.Distance(pointA1, pointB0);
+			float d3 = Vector2.Distance(pointA1, pointB1);
+
 			Vector2 pointA;
+			{
+				if (d0 < Mathf.Min(d2, d3) || d1 < Mathf.Min(d2, d3))
+				{
+					pointA = pointA0;
+				}
+				else
+				{
+					pointA = pointA1;
+				}
+			}
+
 			Vector2 pointB;
-			
-			Vector2 p1 = rectA.center;
-			Vector2 p2 = rectB.center;
-			GLDraw.segment_rect_intersection(rectA, ref p1, ref p2);
-			pointA = p2;
-			
-			p1 = rectB.center;
-			p2 = rectA.center;
-			GLDraw.segment_rect_intersection(rectB, ref p1, ref p2);
-			pointB = p2;
-			
+			{
+				if (d0 < Mathf.Min(d1, d3) || d2 < Mathf.Min(d1, d3))
+				{
+					pointB = pointB0;
+				}
+				else
+				{
+					pointB = pointB1;
+				}
+			}
+
 			Color color = Color.grey;
 			if (highlight)
 			{
 				color = Color.green;
 			}
-			
-			GLDraw.DrawConnectingCurve(pointA, pointB, color, 2f);
+
+			GLDraw.DrawConnectingCurve(pointA, pointB, color, 1.025f);
 		}
 	}
 

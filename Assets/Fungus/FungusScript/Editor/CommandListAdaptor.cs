@@ -16,6 +16,8 @@ namespace Fungus
 		protected SerializedProperty _arrayProperty;
 
 		public float fixedItemHeight;
+
+		public Rect nodeRect = new Rect();
 		
 		public SerializedProperty this[int index] {
 			get { return _arrayProperty.GetArrayElementAtIndex(index); }
@@ -159,6 +161,8 @@ namespace Fungus
 				return;
 			}
 
+			command.nodeYOffset = position.center.y;
+
 			bool isComment = command.GetType() == typeof(Comment);
 
 			bool error = false;
@@ -226,22 +230,6 @@ namespace Fungus
 					GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 				}
 			}
-
-			/*
-			if (!Application.isPlaying)
-			{
-				Rect menuRect = commandLabelRect;
-				menuRect.x += menuRect.width - 8;
-				menuRect.y = position.y + 1;
-				menuRect.width = 22;
-				menuRect.height = position.height;
-				GUIStyle menuButtonStyle = new GUIStyle("ShurikenPopUp");
-				if (GUI.Button(menuRect, new GUIContent("", "Select command type"), menuButtonStyle))
-				{
-					ShowCommandMenu(index, fungusScript.selectedSequence);
-				}
-			}
-			*/
 
 			Color commandLabelColor = Color.white;
 			if (fungusScript.settings.colorCommands)

@@ -48,6 +48,7 @@ namespace Fungus
 			ReorderableListGUI.Title(sequence.sequenceName);
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
 			CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
+			adaptor.nodeRect = sequence.nodeRect;
 
 			ReorderableListFlags flags = ReorderableListFlags.HideAddButton;
 			if (Application.isPlaying || sequence != fungusScript.selectedSequence)

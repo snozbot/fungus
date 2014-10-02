@@ -28,6 +28,9 @@ namespace Fungus
 		[HideInInspector]
 		public int indentLevel;
 
+		[NonSerialized]
+		public float nodeYOffset;
+
 		/**
 		 * Reference to the Sequence object that this command belongs to.
 		 * This reference is only set at runtime (null in editor).
