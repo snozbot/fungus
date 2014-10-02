@@ -58,18 +58,37 @@ namespace Fungus
 
 			GUILayout.Space(20);
 
+			bool deleteSequence = false;
+
 			if (!Application.isPlaying &&
 			    sequence == fungusScript.selectedSequence)
 			{
-				Rect plusRect = GUILayoutUtility.GetLastRect();
-				plusRect.x = sequence.nodeRect.width - 28;
-				plusRect.y += 2;
-				plusRect.width = 16;
-				plusRect.height = 16;
-
-				if (GUI.Button(plusRect, "", new GUIStyle("OL Plus")))
+				// Show add command button
 				{
-					ShowCommandMenu();
+					Rect plusRect = GUILayoutUtility.GetLastRect();
+					plusRect.x = sequence.nodeRect.width - 28;
+					plusRect.y += 2;
+					plusRect.width = 16;
+					plusRect.height = 16;
+
+					if (GUI.Button(plusRect, "", new GUIStyle("OL Plus")))
+					{
+						ShowCommandMenu();
+					}
+				}
+
+				// Show delete sequence button
+				{
+					Rect deleteRect = new Rect();
+					deleteRect.x = sequence.nodeRect.width - 28;
+					deleteRect.y = 7;
+					deleteRect.width = 16;
+					deleteRect.height = 16;
+					
+					if (GUI.Button(deleteRect, "", new GUIStyle("WinBtnCloseWin")))
+					{
+						deleteSequence = true;
+					}
 				}
 			}
 
@@ -88,6 +107,12 @@ namespace Fungus
 			}
 
 			serializedObject.ApplyModifiedProperties();
+
+			// Delete the sequence after we've finished updating serializedObject
+			if (deleteSequence)
+			{
+				DeleteSequence();
+			}
 		}
 
 		protected virtual void UpdateIndentLevels(Sequence sequence)
