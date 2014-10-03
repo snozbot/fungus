@@ -377,7 +377,7 @@ namespace Fungus
 			foreach (Sequence sequence in sequences)
 			{
 				sequence.hideFlags = settings.hideComponents ? HideFlags.HideInInspector : HideFlags.None;
-				sequence.gameObject.hideFlags = settings.hideComponents ? HideFlags.HideInInspector : HideFlags.None;
+				sequence.gameObject.hideFlags = settings.hideComponents ? HideFlags.HideInHierarchy : HideFlags.None;
 			}
 
 			Command[] commands = GetComponentsInChildren<Command>();
