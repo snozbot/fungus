@@ -57,11 +57,11 @@ namespace Fungus
 			}
 			ReorderableListControl.DrawControlFromState(adaptor, null, flags);
 
-			GUILayout.Space(20);
-
 			if (!Application.isPlaying &&
 			    sequence == fungusScript.selectedSequence)
 			{
+				GUILayout.Space(20);
+
 				// Show add command button
 				{
 					Rect plusRect = GUILayoutUtility.GetLastRect();
@@ -101,9 +101,10 @@ namespace Fungus
 			if (!Application.isPlaying)
 			{
 				if (Event.current.button == 1 && 
-				    Event.current.isMouse)
+				    Event.current.type == EventType.MouseDown)
 				{
 					showContextMenu = !showContextMenu;
+					Event.current.Use();
 				}
 			}
 

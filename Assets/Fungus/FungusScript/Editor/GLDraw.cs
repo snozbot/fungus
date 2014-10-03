@@ -90,7 +90,7 @@ public class GLDraw
 	{
 		clippingEnabled = true;
 		clippingBounds = clipRect;
-		return GUI.BeginScrollView(position, scrollPos, viewRect);
+		return GUI.BeginScrollView(position, scrollPos, viewRect, GUIStyle.none, GUIStyle.none);
 	}
 	
 	public static void EndScrollView()

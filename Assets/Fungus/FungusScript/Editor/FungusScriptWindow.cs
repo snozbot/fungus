@@ -116,7 +116,7 @@ namespace Fungus
 			GUILayoutUtility.GetRect(scriptViewRect.width, scriptViewRect.height);
 
 			fungusScript.scrollPos = GLDraw.BeginScrollView(scriptViewRect, fungusScript.scrollPos, scrollViewRect, clipRect);
-
+		
 			Vector2 newNodePosition = new Vector2(scrollViewRect.xMin + fungusScript.scrollPos.x + 8, 
 			                                    scrollViewRect.yMin + fungusScript.scrollPos.y + 8);
 
@@ -169,6 +169,12 @@ namespace Fungus
 			}
 
 			EndWindows();
+
+			if (Event.current.button == 1 &&
+			    Event.current.type == EventType.MouseDrag)
+			{
+				fungusScript.scrollPos -= Event.current.delta;
+			}
 
 			GLDraw.EndScrollView();
 		}
@@ -346,8 +352,8 @@ namespace Fungus
 			DestroyImmediate(sequenceEditor);
 
 			GUILayout.EndVertical();
-
-	        GUI.DragWindow();
+				
+			GUI.DragWindow();
 	    }
 
 		protected virtual void DrawConnections(FungusScript fungusScript, Sequence sequence, bool highlightedOnly)
