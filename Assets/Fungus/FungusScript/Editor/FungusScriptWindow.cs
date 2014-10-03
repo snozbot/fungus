@@ -306,7 +306,7 @@ namespace Fungus
 			// Select sequence when node is clicked
 			if (!Application.isPlaying &&
 			    Event.current.button == 0 && 
-		    	Event.current.type == EventType.MouseDown) 
+		    	(Event.current.type == EventType.MouseDown))
 			{
 				if (windowId < windowSequenceMap.Count)
 				{
@@ -316,12 +316,13 @@ namespace Fungus
 						fungusScript.selectedCommands.Clear();
 					}
 
-					if (fungusScript.selectedSequence != sequence)
+					if (fungusScript.selectedSequence != sequence &&
+					    Event.current.mousePosition.x > sequence.nodeRect.width - 30f)
 					{
 						Event.current.Use();
-						fungusScript.selectedSequence = sequence;
 					}
 
+					fungusScript.selectedSequence = sequence;
 					GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 				}
 			}
