@@ -367,13 +367,14 @@ namespace Fungus
 		 */
 		public virtual void UpdateHideFlags()
 		{
-			Sequence[] sequences = GetComponents<Sequence>();
+			Sequence[] sequences = GetComponentsInChildren<Sequence>();
 			foreach (Sequence sequence in sequences)
 			{
 				sequence.hideFlags = settings.hideComponents ? HideFlags.HideInInspector : HideFlags.None;
+				sequence.gameObject.hideFlags = settings.hideComponents ? HideFlags.HideInInspector : HideFlags.None;
 			}
 
-			Command[] commands = GetComponents<Command>();
+			Command[] commands = GetComponentsInChildren<Command>();
 			foreach (Command command in commands)
 			{
 				command.hideFlags = settings.hideComponents ? HideFlags.HideInInspector : HideFlags.None;
