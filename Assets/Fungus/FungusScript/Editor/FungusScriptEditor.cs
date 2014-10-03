@@ -41,6 +41,7 @@ namespace Fungus
 				{
 					fungusScript.selectedCommands.Clear();
 					fungusScript.selectedCommands.Add(fungusScript.executingSequence.activeCommand);
+					EditorUtility.SetDirty(fungusScript);
 				}
 			}
 
