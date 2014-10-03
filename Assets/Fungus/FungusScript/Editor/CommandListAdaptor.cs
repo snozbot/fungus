@@ -161,8 +161,6 @@ namespace Fungus
 				return;
 			}
 
-			command.nodeYOffset = position.center.y;
-
 			bool isComment = command.GetType() == typeof(Comment);
 
 			bool error = false;

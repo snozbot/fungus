@@ -359,8 +359,12 @@ namespace Fungus
 
 			bool sequenceIsSelected = (fungusScript.selectedSequence == sequence);
 
+			int index = 0;
+
 			foreach (Command command in sequence.commandList)
 			{
+				index++;
+
 				bool commandIsSelected = false;
 				foreach (Command selectedCommand in fungusScript.selectedCommands)
 				{
@@ -391,7 +395,7 @@ namespace Fungus
 					}
 
 					Rect startRect = sequence.nodeRect;
-					startRect.y += command.nodeYOffset;
+					startRect.y += (index -1) * 20 + 35;
 					startRect.height = 0;
 
 					DrawRectConnection(startRect, sequenceB.nodeRect, highlight);
