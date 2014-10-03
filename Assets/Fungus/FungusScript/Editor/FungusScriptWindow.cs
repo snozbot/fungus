@@ -8,8 +8,6 @@ namespace Fungus
 {
 	public class FungusScriptWindow : EditorWindow
 	{
-		protected Vector2 newNodePosition = new Vector2();
-
 		static bool locked = false;
 		static GUIStyle lockButtonStyle;
 		static FungusScript activeFungusScript;
@@ -110,38 +108,22 @@ namespace Fungus
 			Rect scriptViewRect = new Rect(0, 0, this.position.width, this.position.height);
 
 			// Clip GL drawing so not to overlap scrollbars
-			Rect clipRect = new Rect(fungusScript.scriptScrollPos.x + scrollViewRect.x,
-			                         fungusScript.scriptScrollPos.y + scrollViewRect.y,
+			Rect clipRect = new Rect(fungusScript.scrollPos.x + scrollViewRect.x,
+			                         fungusScript.scrollPos.y + scrollViewRect.y,
 			                         scriptViewRect.width - 15,
 			                         scriptViewRect.height - 15);
 
 			GUILayoutUtility.GetRect(scriptViewRect.width, scriptViewRect.height);
 
-			fungusScript.scriptScrollPos = GLDraw.BeginScrollView(scriptViewRect, fungusScript.scriptScrollPos, scrollViewRect, clipRect);
-			
-			if (Event.current.type == EventType.ContextClick &&
-			    clipRect.Contains(Event.current.mousePosition))
+			fungusScript.scrollPos = GLDraw.BeginScrollView(scriptViewRect, fungusScript.scrollPos, scrollViewRect, clipRect);
+
+			Vector2 newNodePosition = new Vector2(scrollViewRect.xMin + fungusScript.scrollPos.x + 8, 
+			                                    scrollViewRect.yMin + fungusScript.scrollPos.y + 8);
+
+			if (GUI.Button(new Rect(newNodePosition.x, newNodePosition.y, 16, 16), "", new GUIStyle("OL Plus")))
 			{
-				GenericMenu menu = new GenericMenu();
-				Vector2 mousePos = Event.current.mousePosition;
-				mousePos += fungusScript.scriptScrollPos;
-				menu.AddItem (new GUIContent ("Create Sequence"), false, CreateSequenceCallback, mousePos);
-				menu.ShowAsContext ();
-				
-				Event.current.Use();
-			}
-
-			// Calculate center of script view for positioning new nodes
-			newNodePosition.x = scrollViewRect.xMin + fungusScript.scriptScrollPos.x + scriptViewRect.width / 2;
-			newNodePosition.y = scrollViewRect.yMin + fungusScript.scriptScrollPos.y + scriptViewRect.height / 2;
-
-			Vector2 buttonPosition = new Vector2(scrollViewRect.xMin + fungusScript.scriptScrollPos.x + 8, 
-			                                    scrollViewRect.yMin + fungusScript.scriptScrollPos.y + 8);
-
-			if (GUI.Button(new Rect(buttonPosition.x, buttonPosition.y, 16, 16), "", new GUIStyle("OL Plus")))
-			{
-				Vector2 nodePosition = new Vector2(buttonPosition.x + fungusScript.scriptScrollPos.x + 30,
-				                                   buttonPosition.y + fungusScript.scriptScrollPos.y + 30);
+				Vector2 nodePosition = new Vector2(newNodePosition.x + fungusScript.scrollPos.x + 30,
+				                                   newNodePosition.y + fungusScript.scrollPos.y + 30);
 
 				CreateSequenceCallback(nodePosition);
 			}
@@ -319,7 +301,7 @@ namespace Fungus
 			if (fungusScript != null)
 			{
 				Vector2 position = (Vector2)item;
-				position -= fungusScript.scriptScrollPos;
+				position -= fungusScript.scrollPos;
 				CreateSequence(fungusScript, position);
 			}				
 		}

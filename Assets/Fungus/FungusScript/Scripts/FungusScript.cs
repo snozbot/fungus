@@ -23,7 +23,7 @@ namespace Fungus
 		 * Scroll position of Fungus Script editor window (map view).
 		 */
 		[HideInInspector]
-		public Vector2 scriptScrollPos;
+		public Vector2 scrollPos;
 
 		/**
 		 * Currently selected sequence in the Fungus Script editor.
