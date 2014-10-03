@@ -86,39 +86,30 @@ namespace Fungus
 		protected virtual void DrawScriptView(FungusScript fungusScript)
 		{
 			Sequence[] sequences = fungusScript.GetComponentsInChildren<Sequence>(true);
-			
-			Rect scrollViewRect = new Rect();
-			
+
 			foreach (Sequence s in sequences)
 			{
-				scrollViewRect.xMin = Mathf.Min(scrollViewRect.xMin, s.nodeRect.xMin);
-				scrollViewRect.xMax = Mathf.Max(scrollViewRect.xMax, s.nodeRect.xMax);
-				scrollViewRect.yMin = Mathf.Min(scrollViewRect.yMin, s.nodeRect.yMin);
-				scrollViewRect.yMax = Mathf.Max(scrollViewRect.yMax, s.nodeRect.yMax);
+				fungusScript.scrollViewRect.xMin = Mathf.Min(fungusScript.scrollViewRect.xMin, s.nodeRect.xMin - 100);
+				fungusScript.scrollViewRect.xMax = Mathf.Max(fungusScript.scrollViewRect.xMax, s.nodeRect.xMax + 100);
+				fungusScript.scrollViewRect.yMin = Mathf.Min(fungusScript.scrollViewRect.yMin, s.nodeRect.yMin - 100);
+				fungusScript.scrollViewRect.yMax = Mathf.Max(fungusScript.scrollViewRect.yMax, s.nodeRect.yMax + 100);
 			}
-			
-			// Empty buffer area around edges of scroll rect
-			float bufferScale = 0.25f;
-			scrollViewRect.xMin -= position.width * bufferScale;
-			scrollViewRect.yMin -= position.height * bufferScale;
-			scrollViewRect.xMax += position.width * bufferScale;
-			scrollViewRect.yMax += position.height * bufferScale;
-			
+
 			// Calc rect for left hand script view
 			Rect scriptViewRect = new Rect(0, 0, this.position.width, this.position.height);
 
 			// Clip GL drawing so not to overlap scrollbars
-			Rect clipRect = new Rect(fungusScript.scrollPos.x + scrollViewRect.x,
-			                         fungusScript.scrollPos.y + scrollViewRect.y,
+			Rect clipRect = new Rect(fungusScript.scrollPos.x + fungusScript.scrollViewRect.x,
+			                         fungusScript.scrollPos.y + fungusScript.scrollViewRect.y,
 			                         scriptViewRect.width - 15,
 			                         scriptViewRect.height - 15);
 
 			GUILayoutUtility.GetRect(scriptViewRect.width, scriptViewRect.height);
 
-			fungusScript.scrollPos = GLDraw.BeginScrollView(scriptViewRect, fungusScript.scrollPos, scrollViewRect, clipRect);
+			fungusScript.scrollPos = GLDraw.BeginScrollView(scriptViewRect, fungusScript.scrollPos, fungusScript.scrollViewRect, clipRect);
 		
-			Vector2 newNodePosition = new Vector2(scrollViewRect.xMin + fungusScript.scrollPos.x + 8, 
-			                                    scrollViewRect.yMin + fungusScript.scrollPos.y + 8);
+			Vector2 newNodePosition = new Vector2(fungusScript.scrollViewRect.xMin + fungusScript.scrollPos.x + 8, 
+			                                      fungusScript.scrollViewRect.yMin + fungusScript.scrollPos.y + 8);
 
 			if (GUI.Button(new Rect(newNodePosition.x, newNodePosition.y, 16, 16), "", new GUIStyle("OL Plus")))
 			{

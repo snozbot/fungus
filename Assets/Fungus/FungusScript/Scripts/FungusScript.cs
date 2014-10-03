@@ -20,10 +20,16 @@ namespace Fungus
 		public Sequence executingSequence;
 
 		/**
-		 * Scroll position of Fungus Script editor window (map view).
+		 * Scroll position of Fungus Script editor window.
 		 */
 		[HideInInspector]
 		public Vector2 scrollPos;
+
+		/**
+		 * Scrollable area for Fungus Script editor window.
+		 */
+		[HideInInspector]
+		public Rect scrollViewRect;
 
 		/**
 		 * Currently selected sequence in the Fungus Script editor.
