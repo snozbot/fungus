@@ -395,7 +395,8 @@ namespace Fungus
 					}
 
 					Rect startRect = sequence.nodeRect;
-					startRect.y += (index -1) * 20 + 35;
+					//startRect.y += (index -1) * 20 + 35;
+					startRect.y += 14;
 					startRect.height = 0;
 
 					DrawRectConnection(startRect, sequenceB.nodeRect, highlight);
@@ -445,14 +446,13 @@ namespace Fungus
 				color = Color.green;
 			}
 
-
 			GLDraw.DrawConnectingCurve(pointA, pointB, color, 1.025f);
 
 			Rect dotARect = new Rect(pointA.x - 5, pointA.y - 5, 10, 10);
 			GUI.Label(dotARect, "", new GUIStyle("U2D.dragDotActive"));
 
 			Rect dotBRect = new Rect(pointB.x - 5, pointB.y - 5, 10, 10);
-			GUI.Label(dotBRect, "", new GUIStyle("U2D.dragDotDimmed"));
+			GUI.Label(dotBRect, "", new GUIStyle("U2D.dragDotActive"));
 		}
 	}
 

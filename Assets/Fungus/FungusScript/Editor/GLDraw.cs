@@ -247,8 +247,8 @@ public class GLDraw
 
         DrawBezier(start, tangentA, end, tangentB, color, width, segments);
 
-		Vector2 pA = CubeBezier(start, tangentA, end, tangentB, 0.4f);
-		Vector2 pB = CubeBezier(start, tangentA, end, tangentB, 0.5f);
+		Vector2 pA = CubeBezier(start, tangentA, end, tangentB, 0.6f);
+		Vector2 pB = CubeBezier(start, tangentA, end, tangentB, 0.7f);
 
 		float arrowHeadSize = 5;
 		

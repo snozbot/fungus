@@ -1627,8 +1627,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -206
-    y: -257.5
+    x: -244
+    y: -226.5
     width: 240
     height: 167
   sequenceName: Check for fish
@@ -2564,6 +2564,102 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1802700403}
   m_GameObject: {fileID: 882646452}
+--- !u!1 &891057085
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 891057089}
+  - 114: {fileID: 891057088}
+  - 114: {fileID: 891057087}
+  - 114: {fileID: 891057086}
+  m_Layer: 0
+  m_Name: FungusScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &891057086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 891057085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: -347
+    y: -359
+    width: 240
+    height: 68
+  sequenceName: New Sequence
+  commandList: []
+--- !u!114 &891057087
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 891057085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 10
+    y: 10
+    width: 240
+    height: 68
+  sequenceName: New Sequence
+  commandList: []
+--- !u!114 &891057088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 891057085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollPos: {x: 226.013794, y: 380.023193}
+  scrollViewRect:
+    serializedVersion: 2
+    x: -872
+    y: -876
+    width: 1522
+    height: 1354
+  selectedSequence: {fileID: 891057086}
+  selectedCommands: []
+  variables: []
+  startSequence: {fileID: 891057087}
+  executeOnStart: 1
+  settings:
+    runSlowInEditor: 1
+    runSlowDuration: .25
+    colorCommands: 1
+    hideComponents: 1
+--- !u!4 &891057089
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 891057085}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &899740676
 GameObject:
   m_ObjectHideFlags: 1
@@ -2618,8 +2714,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -176.439697
-    y: 158.5
+    x: -227.439697
+    y: 85.5
     width: 240
     height: 527
   sequenceName: Bear
@@ -3432,8 +3528,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 122
-    y: -104
+    x: 57
+    y: -89
     width: 240
     height: 187
   sequenceName: Rescued
@@ -3714,6 +3810,82 @@ MonoScript:
   m_Namespace: UnityEngine.EventSystems
   m_AssemblyName: UnityEngine.UI.dll
   m_IsEditorScript: 0
+--- !u!1 &1247920059
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1247920062}
+  - 114: {fileID: 1247920061}
+  - 114: {fileID: 1247920060}
+  m_Layer: 0
+  m_Name: FungusScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1247920060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1247920059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 10
+    y: 10
+    width: 240
+    height: 68
+  sequenceName: New Sequence
+  commandList: []
+--- !u!114 &1247920061
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1247920059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollPos: {x: 0, y: 0}
+  scrollViewRect:
+    serializedVersion: 2
+    x: -390
+    y: -390
+    width: 1040
+    height: 868
+  selectedSequence: {fileID: 1247920060}
+  selectedCommands: []
+  variables: []
+  startSequence: {fileID: 1247920060}
+  executeOnStart: 1
+  settings:
+    runSlowInEditor: 1
+    runSlowDuration: .25
+    colorCommands: 1
+    hideComponents: 1
+--- !u!4 &1247920062
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1247920059}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &1269446786
 GameObject:
   m_ObjectHideFlags: 0
@@ -4211,8 +4383,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -206
-    y: -426
+    x: -227
+    y: -429
     width: 240
     height: 127
   sequenceName: Start
@@ -5281,8 +5453,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 403
-    y: -110.5
+    x: 467
+    y: -81.5
     width: 240
     height: 307
   sequenceName: Shout out
@@ -5681,16 +5853,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 409.017578, y: 381.025635}
+  scrollPos: {x: 595.03479, y: 943.067627}
   scrollViewRect:
     serializedVersion: 2
-    x: -628
+    x: -670.439697
     y: -849
-    width: 1730
+    width: 1799.4397
     height: 1938.5
   selectedSequence: {fileID: 1759344996}
   selectedCommands:
-  - {fileID: 1759345008}
+  - {fileID: 1759345010}
   variables:
   - {fileID: 1831099569}
   startSequence: {fileID: 1507034365}
@@ -5755,6 +5927,82 @@ MonoBehaviour:
   indentLevel: 0
   musicClip: {fileID: 0}
   atTime: 0
+--- !u!1 &1846387297
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1846387300}
+  - 114: {fileID: 1846387299}
+  - 114: {fileID: 1846387298}
+  m_Layer: 0
+  m_Name: FungusScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1846387298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1846387297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 10
+    y: 10
+    width: 240
+    height: 68
+  sequenceName: New Sequence
+  commandList: []
+--- !u!114 &1846387299
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1846387297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollPos: {x: 0, y: 0}
+  scrollViewRect:
+    serializedVersion: 2
+    x: -390
+    y: -390
+    width: 1040
+    height: 868
+  selectedSequence: {fileID: 1846387298}
+  selectedCommands: []
+  variables: []
+  startSequence: {fileID: 1846387298}
+  executeOnStart: 1
+  settings:
+    runSlowInEditor: 1
+    runSlowDuration: .25
+    colorCommands: 1
+    hideComponents: 1
+--- !u!4 &1846387300
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1846387297}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1001 &1849986066
 Prefab:
   m_ObjectHideFlags: 0

@@ -230,16 +230,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 378.023071, y: 394.024048}
+  scrollPos: {x: 436.026611, y: 460.028076}
   scrollViewRect:
     serializedVersion: 2
-    x: -973
-    y: -591
-    width: 2064
-    height: 1389
-  selectedSequence: {fileID: 1947290628}
-  selectedCommands:
-  - {fileID: 1947290634}
+    x: -1049
+    y: -608
+    width: 2140
+    height: 1416
+  selectedSequence: {fileID: 0}
+  selectedCommands: []
   variables:
   - {fileID: 16019625}
   startSequence: {fileID: 1947290628}
@@ -887,8 +886,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -572
-    y: 149
+    x: -630
+    y: -139
     width: 240
     height: 167
   sequenceName: StopJumping
@@ -1903,8 +1902,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 22
-    y: 203
+    x: -52
+    y: -75
     width: 240
     height: 87
   sequenceName: BackToTheStart
@@ -3282,8 +3281,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -312
-    y: -172
+    x: -322
+    y: 1
     width: 240
     height: 407
   sequenceName: Start
