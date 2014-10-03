@@ -101,8 +101,8 @@ namespace Fungus
 			// Clip GL drawing so not to overlap scrollbars
 			Rect clipRect = new Rect(fungusScript.scrollPos.x + fungusScript.scrollViewRect.x,
 			                         fungusScript.scrollPos.y + fungusScript.scrollViewRect.y,
-			                         scriptViewRect.width - 15,
-			                         scriptViewRect.height - 15);
+			                         scriptViewRect.width,
+			                         scriptViewRect.height);
 
 			GUILayoutUtility.GetRect(scriptViewRect.width, scriptViewRect.height);
 
