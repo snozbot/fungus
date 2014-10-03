@@ -230,11 +230,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptScrollPos: {x: 0, y: 0}
-  commandScrollPos: {x: 0, y: 0}
-  commandViewWidth: 350
+  scrollPos: {x: 378.023071, y: 394.024048}
+  scrollViewRect:
+    serializedVersion: 2
+    x: -973
+    y: -591
+    width: 2064
+    height: 1389
   selectedSequence: {fileID: 1947290628}
-  selectedCommand: {fileID: 0}
+  selectedCommands:
+  - {fileID: 1947290634}
   variables:
   - {fileID: 16019625}
   startSequence: {fileID: 1947290628}
@@ -243,7 +248,7 @@ MonoBehaviour:
     runSlowInEditor: 1
     runSlowDuration: .25
     colorCommands: 1
-    hideSequenceObjects: 1
+    hideComponents: 1
 --- !u!4 &16019624
 Transform:
   m_ObjectHideFlags: 0
@@ -882,11 +887,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -154
-    y: 108
-    width: 100
-    height: 40
-  description: 
+    x: -572
+    y: 149
+    width: 240
+    height: 167
+  sequenceName: StopJumping
   commandList:
   - {fileID: 418947481}
   - {fileID: 418947482}
@@ -896,7 +901,7 @@ MonoBehaviour:
   - {fileID: 418947483}
 --- !u!114 &418947480
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418947477}
@@ -907,7 +912,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   animator: {fileID: 2120294220}
   parameterName: AmIJumping
   value:
@@ -915,7 +919,7 @@ MonoBehaviour:
     booleanValue: 0
 --- !u!114 &418947481
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418947477}
@@ -926,14 +930,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: But I don't wanna stop!
   character: {fileID: 1844806518}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &418947482
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418947477}
@@ -944,7 +947,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   variable: {fileID: 16019625}
   setOperator: 0
   booleanData:
@@ -961,7 +963,7 @@ MonoBehaviour:
     stringValue: 
 --- !u!114 &418947483
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418947477}
@@ -972,11 +974,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 1059081933}
 --- !u!114 &418947484
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418947477}
@@ -987,11 +988,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 2
 --- !u!114 &418947485
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418947477}
@@ -1002,7 +1002,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 4
 --- !u!1 &492670789
 GameObject:
@@ -1904,17 +1903,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 40
-    y: 104
-    width: 100
-    height: 40
-  description: 
+    x: 22
+    y: 203
+    width: 240
+    height: 87
+  sequenceName: BackToTheStart
   commandList:
   - {fileID: 1059081935}
   - {fileID: 1059081934}
 --- !u!114 &1059081934
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1059081931}
@@ -1925,11 +1924,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 1947290628}
 --- !u!114 &1059081935
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1059081931}
@@ -1940,7 +1938,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: OK, back to the start!
   character: {fileID: 1844806518}
   voiceOverClip: {fileID: 0}
@@ -3257,7 +3254,7 @@ GameObject:
   m_IsActive: 1
 --- !u!114 &1947290627
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3268,7 +3265,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: I don't need shoes, I don't even have feet!
   character: {fileID: 1844806518}
   voiceOverClip: {fileID: 0}
@@ -3286,11 +3282,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -45
-    y: -9
-    width: 100
-    height: 40
-  description: 
+    x: -312
+    y: -172
+    width: 240
+    height: 407
+  sequenceName: Start
   commandList:
   - {fileID: 1947290641}
   - {fileID: 1947290640}
@@ -3312,7 +3308,7 @@ MonoBehaviour:
   - {fileID: 1947290636}
 --- !u!114 &1947290629
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3323,14 +3319,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: I can't find my shoes anywhere!
   character: {fileID: 102763371}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1947290630
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3341,7 +3336,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   sayDialog: {fileID: 1426510413}
 --- !u!4 &1947290631
 Transform:
@@ -3357,7 +3351,7 @@ Transform:
   m_RootOrder: 0
 --- !u!114 &1947290632
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3368,13 +3362,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Stop jumping
   targetSequence: {fileID: 418947479}
   hideOnSelected: 0
 --- !u!114 &1947290633
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3385,13 +3378,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: .5
   targetView: {fileID: 953757}
   waitUntilFinished: 0
 --- !u!114 &1947290634
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3402,13 +3394,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Go back to the start
   targetSequence: {fileID: 1059081933}
   hideOnSelected: 0
 --- !u!114 &1947290635
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3419,14 +3410,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: Wait a second...
   character: {fileID: 1871969526}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1947290636
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3437,14 +3427,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: You took too long!
   character: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1947290637
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3455,14 +3444,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseText: 
   character: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 5
 --- !u!114 &1947290638
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3473,11 +3461,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseDialog: {fileID: 2060983701}
 --- !u!114 &1947290639
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3488,12 +3475,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   volume: .419999987
   fadeDuration: 7.19999981
 --- !u!114 &1947290640
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3504,11 +3490,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   musicClip: {fileID: 8300000, guid: 19f33067513db4e9cb3a36d5c984bba7, type: 3}
+  atTime: 0
 --- !u!114 &1947290641
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3519,7 +3505,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   duration: 1
   targetView: {fileID: 1261834500}
   waitUntilFinished: 1
@@ -3527,7 +3512,7 @@ MonoBehaviour:
   fadeTexture: {fileID: 0}
 --- !u!114 &1947290642
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3538,7 +3523,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   variable: {fileID: 16019625}
   setOperator: 0
   booleanData:
@@ -3555,7 +3539,7 @@ MonoBehaviour:
     stringValue: 
 --- !u!114 &1947290643
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3566,7 +3550,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   variable: {fileID: 16019625}
   setOperator: 0
   booleanData:
@@ -3583,7 +3566,7 @@ MonoBehaviour:
     stringValue: 
 --- !u!114 &1947290644
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3594,7 +3577,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   animator: {fileID: 2120294220}
   parameterName: AmIJumping
   value:
@@ -3602,7 +3584,7 @@ MonoBehaviour:
     booleanValue: 0
 --- !u!114 &1947290645
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3613,7 +3595,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   animator: {fileID: 2120294220}
   parameterName: AmIJumping
   value:
@@ -3621,7 +3602,7 @@ MonoBehaviour:
     booleanValue: 0
 --- !u!114 &1947290646
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1947290626}
@@ -3632,7 +3613,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   variable: {fileID: 16019625}
   setOperator: 0
   booleanData:
