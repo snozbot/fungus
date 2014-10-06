@@ -337,6 +337,28 @@ namespace Fungus
 
 			// Build menu list
 			List<System.Type> menuTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).ToList();
+
+			List<KeyValuePair<System.Type,CommandInfoAttribute>> filteredAttributes = GetFilteredCommandInfoAttribute(menuTypes);
+
+			foreach(var keyPair in filteredAttributes)
+			{
+				SetCommandOperation commandOperation = new SetCommandOperation();
+				
+				commandOperation.sequence = sequence;
+				commandOperation.commandType = keyPair.Key;
+				commandOperation.index = index;
+				
+				commandMenu.AddItem (new GUIContent (keyPair.Value.Category + "/" + keyPair.Value.CommandName), 
+				                     false, Callback, commandOperation);
+			}
+
+			commandMenu.ShowAsContext();
+		}
+
+		List<KeyValuePair<System.Type,CommandInfoAttribute>> GetFilteredCommandInfoAttribute(List<System.Type> menuTypes)
+		{
+			Dictionary<string, KeyValuePair<System.Type,CommandInfoAttribute>> filteredAttributes = new Dictionary<string, KeyValuePair<Type, CommandInfoAttribute>>();
+			
 			foreach(System.Type type in menuTypes)
 			{
 				object[] attributes = type.GetCustomAttributes(false);
@@ -345,21 +367,23 @@ namespace Fungus
 					CommandInfoAttribute infoAttr = obj as CommandInfoAttribute;
 					if (infoAttr != null)
 					{
-						SetCommandOperation commandOperation = new SetCommandOperation();
-
-						commandOperation.sequence = sequence;
-						commandOperation.commandType = type;
-						commandOperation.index = index;
-
-						commandMenu.AddItem (new GUIContent (infoAttr.Category + "/" + infoAttr.CommandName), 
-						                     false, Callback, commandOperation);
+						string dictionnaryName = string.Format("{0}/{1}",infoAttr.Category,infoAttr.CommandName);
+						
+						int exisitingItemPriotiry = -1;
+						if(filteredAttributes.ContainsKey(dictionnaryName))
+							exisitingItemPriotiry = filteredAttributes[dictionnaryName].Value.Priority;
+						
+						if(infoAttr.Priority > exisitingItemPriotiry)
+						{
+							KeyValuePair<System.Type, CommandInfoAttribute> keyValuePair = new KeyValuePair<Type, CommandInfoAttribute>(type,infoAttr);
+							filteredAttributes[dictionnaryName] = keyValuePair;
+						}
 					}
 				}
 			}
-
-			commandMenu.ShowAsContext();
+			return filteredAttributes.Values.ToList<KeyValuePair<System.Type,CommandInfoAttribute>>();
 		}
-
+		
 		void Callback(object obj)
 		{
 			SetCommandOperation commandOperation = obj as SetCommandOperation;
