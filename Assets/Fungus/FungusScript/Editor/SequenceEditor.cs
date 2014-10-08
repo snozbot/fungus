@@ -57,23 +57,26 @@ namespace Fungus
 			}
 			ReorderableListControl.DrawControlFromState(adaptor, null, flags);
 
-			GUILayout.Space(16);
+			Rect bottomBoxRect = GUILayoutUtility.GetRect(sequence.nodeRect.width, 20);
+			bottomBoxRect.y -= 7;
+			bottomBoxRect.x += 5;
+			bottomBoxRect.width -= 10;
+			if (sequence.commandList.Count == 0)
+			{
+				bottomBoxRect.y -= 16;
+			}
+
+			GUI.backgroundColor = new Color32(200, 200, 200, 255);
+			GUI.Box(bottomBoxRect, "");
 
 			if (!Application.isPlaying &&
 			    sequence == fungusScript.selectedSequence)
 			{
 				// Show add command button
 				{
-					Rect plusRect = GUILayoutUtility.GetLastRect();
-					plusRect.x = sequence.nodeRect.width - 28;
-					if (sequence.commandList.Count > 0)
-					{
-						plusRect.y += 2;
-					}
-					else
-					{
-						plusRect.y -= 18;
-					}
+					Rect plusRect = bottomBoxRect;
+					plusRect.x = plusRect.width - 19;
+					plusRect.y += 2;
 					plusRect.width = 16;
 					plusRect.height = 16;
 
