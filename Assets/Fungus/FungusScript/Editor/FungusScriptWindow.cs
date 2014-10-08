@@ -395,8 +395,7 @@ namespace Fungus
 					}
 
 					Rect startRect = sequence.nodeRect;
-					//startRect.y += (index -1) * 20 + 35;
-					startRect.y += 14;
+					startRect.y += (sequence.commandList.Count) * 20 + 34;
 					startRect.height = 0;
 
 					DrawRectConnection(startRect, sequenceB.nodeRect, highlight);
