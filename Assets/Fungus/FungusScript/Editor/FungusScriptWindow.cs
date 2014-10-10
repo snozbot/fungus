@@ -16,6 +16,11 @@ namespace Fungus
 
 		protected List<Sequence> windowSequenceMap = new List<Sequence>();
 
+		// The ReorderableList control doesn't drag properly when used with GUI.DragWindow(),
+		// so we just implement dragging ourselves.
+		protected bool dragging;
+		protected Vector2 startDragPosition;
+
 	    [MenuItem("Window/Fungus Script")]
 	    static void Init()
 	    {
@@ -119,8 +124,6 @@ namespace Fungus
 				CreateSequenceCallback(nodePosition);
 			}
 
-			BeginWindows();
-
 			if (Event.current.button == 0 && 
 				Event.current.type == EventType.MouseDown)
 			{
@@ -141,6 +144,8 @@ namespace Fungus
 			GUIStyle windowStyle = new GUIStyle();
 			windowStyle.stretchHeight = true;
 
+			BeginWindows();
+
 			windowSequenceMap.Clear();
 			for (int i = 0; i < sequences.Length; ++i)
 			{
@@ -150,9 +155,9 @@ namespace Fungus
 				sequence.UpdateSequenceName();
 
 				sequence.nodeRect.width = 240;
-				sequence.nodeRect.height = 20;
+				sequence.nodeRect.height = CalcRectHeight(sequence.commandList.Count);
 
-				sequence.nodeRect = GUILayout.Window(i, sequence.nodeRect, DrawWindow, "", windowStyle);
+				GUILayout.Window(i, sequence.nodeRect, DrawWindow, "", windowStyle);
 
 				GUI.backgroundColor = Color.white;
 
@@ -303,11 +308,44 @@ namespace Fungus
 			Sequence sequence = windowSequenceMap[windowId];
 			FungusScript fungusScript = sequence.GetFungusScript();
 
+			if (!Application.isPlaying &&
+			    Event.current.button == 0)
+			{
+			    if (Event.current.type == EventType.MouseDrag && dragging)
+				{
+					sequence.nodeRect.x += Event.current.delta.x;
+					sequence.nodeRect.y += Event.current.delta.y;
+				}
+				else if (Event.current.type == EventType.MouseUp &&
+				         dragging)
+				{
+					Vector2 newPos = new Vector2(sequence.nodeRect.x, sequence.nodeRect.y);
+
+					sequence.nodeRect.x = startDragPosition.x;
+					sequence.nodeRect.y = startDragPosition.y;
+
+					Undo.RecordObject(sequence, "Node Position");
+
+					sequence.nodeRect.x = newPos.x;
+					sequence.nodeRect.y = newPos.y;
+
+					dragging = false;
+				}
+			}
+					
 			// Select sequence when node is clicked
 			if (!Application.isPlaying &&
 			    Event.current.button == 0 && 
 		    	(Event.current.type == EventType.MouseDown))
 			{
+				// Check if might be start of a window drag
+				if (Event.current.mousePosition.y < 26)
+				{
+					dragging = true;
+					startDragPosition.x = sequence.nodeRect.x;
+					startDragPosition.y = sequence.nodeRect.y;
+				}
+
 				if (windowId < windowSequenceMap.Count)
 				{
 					Undo.RecordObject(fungusScript, "Select");
@@ -344,8 +382,6 @@ namespace Fungus
 			DestroyImmediate(sequenceEditor);
 
 			GUILayout.EndVertical();
-				
-			GUI.DragWindow();
 	    }
 
 		protected virtual void DrawConnections(FungusScript fungusScript, Sequence sequence, bool highlightedOnly)
@@ -394,11 +430,14 @@ namespace Fungus
 						continue;
 					}
 
-					Rect startRect = sequence.nodeRect;
-					startRect.y += (sequence.commandList.Count) * 20 + 34;
+					Rect startRect = new Rect(sequence.nodeRect);
+					startRect.y += CalcRectHeight(sequence.commandList.Count);
 					startRect.height = 0;
 
-					DrawRectConnection(startRect, sequenceB.nodeRect, highlight);
+					Rect endRect = new Rect(sequenceB.nodeRect);
+					endRect.height = 22;
+
+					DrawRectConnection(startRect, endRect, highlight);
 				}
 			}
 		}
@@ -453,6 +492,10 @@ namespace Fungus
 			Rect dotBRect = new Rect(pointB.x - 5, pointB.y - 5, 10, 10);
 			GUI.Label(dotBRect, "", new GUIStyle("U2D.dragDotActive"));
 		}
-	}
 
+		protected virtual float CalcRectHeight(int numCommands)
+		{
+			return (numCommands * 20) + 34;
+		}
+	}
 }
