@@ -20,6 +20,7 @@ namespace Fungus
 		// so we just implement dragging ourselves.
 		protected bool dragging;
 		protected Vector2 startDragPosition;
+		protected Sequence selectedSequence;
 
 	    [MenuItem("Window/Fungus Script")]
 	    static void Init()
@@ -127,6 +128,7 @@ namespace Fungus
 			if (Event.current.button == 0 && 
 				Event.current.type == EventType.MouseDown)
 			{
+				selectedSequence = fungusScript.selectedSequence;
 				fungusScript.selectedSequence = null;
 				fungusScript.selectedCommands.Clear();
 			}
@@ -354,7 +356,7 @@ namespace Fungus
 						fungusScript.selectedCommands.Clear();
 					}
 
-					if (fungusScript.selectedSequence != sequence &&
+					if (selectedSequence != sequence &&
 					    Event.current.mousePosition.x > sequence.nodeRect.width - 30f)
 					{
 						Event.current.Use();
