@@ -8,16 +8,18 @@ namespace Fungus
 	
 	public class CommandInfoAttribute : Attribute
 	{
-		public CommandInfoAttribute(string category, string commandName, string helpText)
+		public CommandInfoAttribute(string category, string commandName, string helpText, int priority = 0)
 		{
 			this.Category = category;
 			this.CommandName = commandName;
 			this.HelpText = helpText;
+			this.Priority = priority;
 		}
 
 		public string Category { get; set; }
 		public string CommandName { get; set; }
 		public string HelpText { get; set; }
+		public int Priority { get; set; }
 	}
 
 	public class Command : MonoBehaviour
