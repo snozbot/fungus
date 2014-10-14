@@ -103,26 +103,15 @@ namespace Fungus
 
 			// Calc rect for left hand script view
 			Rect scriptViewRect = new Rect(0, 0, this.position.width, this.position.height);
-
-			// Clip GL drawing so not to overlap scrollbars
-			Rect clipRect = new Rect(fungusScript.scrollPos.x + fungusScript.scrollViewRect.x,
-			                         fungusScript.scrollPos.y + fungusScript.scrollViewRect.y,
-			                         scriptViewRect.width,
-			                         scriptViewRect.height);
-
 			GUILayoutUtility.GetRect(scriptViewRect.width, scriptViewRect.height);
 
-			fungusScript.scrollPos = GLDraw.BeginScrollView(scriptViewRect, fungusScript.scrollPos, fungusScript.scrollViewRect, clipRect);
-		
-			Vector2 newNodePosition = new Vector2(fungusScript.scrollViewRect.xMin + fungusScript.scrollPos.x + 8, 
-			                                      fungusScript.scrollViewRect.yMin + fungusScript.scrollPos.y + 8);
+			GLDraw.BeginGroup(scriptViewRect);
 
-			if (GUI.Button(new Rect(newNodePosition.x, newNodePosition.y, 16, 16), "", new GUIStyle("OL Plus")))
+			if (GUI.Button(new Rect(8, 8, 16, 16), "", new GUIStyle("OL Plus")))
 			{
-				Vector2 nodePosition = new Vector2(newNodePosition.x + fungusScript.scrollPos.x + 30,
-				                                   newNodePosition.y + fungusScript.scrollPos.y + 30);
-
-				CreateSequenceCallback(nodePosition);
+				Vector2 newNodePosition = new Vector2(50 - fungusScript.scrollPos.x, 
+				                                      50 - fungusScript.scrollPos.y);
+				CreateSequence(fungusScript, newNodePosition);
 			}
 
 			if (Event.current.button == 0 && 
@@ -156,10 +145,15 @@ namespace Fungus
 				// Hack to support legacy design where sequences were child gameobjects (will be removed soon)
 				sequence.UpdateSequenceName();
 
-				sequence.nodeRect.width = 240;
 				sequence.nodeRect.height = CalcRectHeight(sequence.commandList.Count);
 
-				GUILayout.Window(i, sequence.nodeRect, DrawWindow, "", windowStyle);
+				Rect windowRect = new Rect(sequence.nodeRect);
+				windowRect.x += fungusScript.scrollPos.x;
+				windowRect.y += fungusScript.scrollPos.y;
+				windowRect.width = 240;
+				windowRect.height = sequence.nodeRect.height;
+
+				GUILayout.Window(i, windowRect, DrawWindow, "", windowStyle);
 
 				GUI.backgroundColor = Color.white;
 
@@ -171,10 +165,10 @@ namespace Fungus
 			if (Event.current.button == 1 &&
 			    Event.current.type == EventType.MouseDrag)
 			{
-				fungusScript.scrollPos -= Event.current.delta;
+				fungusScript.scrollPos += Event.current.delta;
 			}
 
-			GLDraw.EndScrollView();
+			GLDraw.EndGroup();
 		}
 
 		/*
@@ -278,6 +272,7 @@ namespace Fungus
 			Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
 			fungusScript.selectedSequence = newSequence;
 			fungusScript.selectedCommands.Clear();
+			newSequence.nodeRect.width = 240;
 
 			return newSequence;
 		}
@@ -292,17 +287,6 @@ namespace Fungus
 			Undo.DestroyObjectImmediate(sequence);
 			fungusScript.selectedSequence = null;
 			fungusScript.selectedCommands.Clear();
-		}
-
-		protected virtual void CreateSequenceCallback(object item)
-		{
-			FungusScript fungusScript = GetFungusScript();
-			if (fungusScript != null)
-			{
-				Vector2 position = (Vector2)item;
-				position -= fungusScript.scrollPos;
-				CreateSequence(fungusScript, position);
-			}				
 		}
 
 		protected virtual void DrawWindow(int windowId)
@@ -435,9 +419,13 @@ namespace Fungus
 					Rect startRect = new Rect(sequence.nodeRect);
 					startRect.y += CalcRectHeight(sequence.commandList.Count);
 					startRect.height = 0;
+					startRect.x += fungusScript.scrollPos.x;
+					startRect.y += fungusScript.scrollPos.y;
 
 					Rect endRect = new Rect(sequenceB.nodeRect);
 					endRect.height = 22;
+					endRect.x += fungusScript.scrollPos.x;
+					endRect.y += fungusScript.scrollPos.y;
 
 					DrawRectConnection(startRect, endRect, highlight);
 				}
