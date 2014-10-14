@@ -389,6 +389,11 @@ namespace Fungus
 				command.hideFlags = settings.hideComponents ? HideFlags.HideInInspector : HideFlags.None;
 			}
 		}
+
+		public virtual void ClearSelectedCommands()
+		{
+			selectedCommands.Clear();
+		}
 	}
 
 }

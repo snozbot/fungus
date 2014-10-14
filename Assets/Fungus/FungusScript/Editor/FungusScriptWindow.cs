@@ -119,7 +119,7 @@ namespace Fungus
 			{
 				selectedSequence = fungusScript.selectedSequence;
 				fungusScript.selectedSequence = null;
-				fungusScript.selectedCommands.Clear();
+				fungusScript.ClearSelectedCommands();
 			}
 
 			// Draw connections
@@ -271,7 +271,7 @@ namespace Fungus
 			Sequence newSequence = fungusScript.CreateSequence(position);
 			Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
 			fungusScript.selectedSequence = newSequence;
-			fungusScript.selectedCommands.Clear();
+			fungusScript.ClearSelectedCommands();
 			newSequence.nodeRect.width = 240;
 
 			return newSequence;
@@ -286,7 +286,7 @@ namespace Fungus
 			
 			Undo.DestroyObjectImmediate(sequence);
 			fungusScript.selectedSequence = null;
-			fungusScript.selectedCommands.Clear();
+			fungusScript.ClearSelectedCommands();
 		}
 
 		protected virtual void DrawWindow(int windowId)
@@ -335,9 +335,9 @@ namespace Fungus
 				if (windowId < windowSequenceMap.Count)
 				{
 					Undo.RecordObject(fungusScript, "Select");
-					if (sequence != fungusScript.selectedSequence || !EditorGUI.actionKey)
+					if (sequence != selectedSequence || !EditorGUI.actionKey)
 					{
-						fungusScript.selectedCommands.Clear();
+						fungusScript.ClearSelectedCommands();
 					}
 
 					if (selectedSequence != sequence &&
@@ -381,11 +381,12 @@ namespace Fungus
 
 			bool sequenceIsSelected = (fungusScript.selectedSequence == sequence);
 
-			int index = 0;
-
 			foreach (Command command in sequence.commandList)
 			{
-				index++;
+				if (command == null)
+				{
+					continue;
+				}
 
 				bool commandIsSelected = false;
 				foreach (Command selectedCommand in fungusScript.selectedCommands)

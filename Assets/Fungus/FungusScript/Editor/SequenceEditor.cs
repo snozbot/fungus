@@ -286,7 +286,7 @@ namespace Fungus
 			Sequence sequence = target as Sequence;
 			FungusScript fungusScript = sequence.GetFungusScript();
 
-			fungusScript.selectedCommands.Clear();
+			fungusScript.ClearSelectedCommands();
 			Undo.RecordObject(fungusScript, "Select All");
 			foreach (Command command in sequence.commandList)
 			{
@@ -301,7 +301,7 @@ namespace Fungus
 			if (fungusScript != null)
 			{
 				Undo.RecordObject(fungusScript, "Select None");
-				fungusScript.selectedCommands.Clear();
+				fungusScript.ClearSelectedCommands();
 			}
 		}
 
@@ -393,7 +393,7 @@ namespace Fungus
 			}
 
 			Undo.RecordObject(fungusScript, "Delete");
-			fungusScript.selectedCommands.Clear();
+			fungusScript.ClearSelectedCommands();
 			fungusScript.selectedSequence = null;
 		}
 
@@ -467,7 +467,7 @@ namespace Fungus
 				return;
 			}
 			
-			sequence.GetFungusScript().selectedCommands.Clear();
+			sequence.GetFungusScript().ClearSelectedCommands();
 			
 			Command newCommand = Undo.AddComponent(sequence.gameObject, commandOperation.commandType) as Command;
 			sequence.GetFungusScript().selectedCommands.Add(newCommand);
