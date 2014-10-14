@@ -446,37 +446,33 @@ namespace Fungus
 
 		protected virtual void DrawRectConnection(Rect rectA, Rect rectB, bool highlight)
 		{
-			Vector2 pointA0 = new Vector2(rectA.xMin, rectA.center.y);
-			Vector2 pointA1 = new Vector2(rectA.xMax, rectA.center.y);
-			Vector2 pointB0 = new Vector2(rectB.xMin, rectB.center.y + 4);
-			Vector2 pointB1 = new Vector2(rectB.xMax, rectB.center.y + 4);
+			Vector2[] pointsA = new Vector2[] {
+				new Vector2(rectA.xMin, rectA.center.y),
+				new Vector2(rectA.xMin + rectA.width / 2, rectA.yMax + 15),
+				new Vector2(rectA.xMax, rectA.center.y) 
+			};
 
-			float d0 = Vector2.Distance(pointA0, pointB0);
-			float d1 = Vector2.Distance(pointA0, pointB1);
-			float d2 = Vector2.Distance(pointA1, pointB0);
-			float d3 = Vector2.Distance(pointA1, pointB1);
+			Vector2[] pointsB = new Vector2[] {
+				new Vector2(rectB.xMin, rectB.center.y + 4),
+				new Vector2(rectB.xMin + rectB.width / 2, rectB.yMin),
+				new Vector2(rectB.xMax, rectB.center.y + 4)
+			};
 
-			Vector2 pointA;
+			Vector2 pointA = Vector2.zero;
+			Vector2 pointB = Vector2.zero;
+			float minDist = float.MaxValue;
+
+			foreach (Vector2 a in pointsA)
 			{
-				if (d0 < Mathf.Min(d2, d3) || d1 < Mathf.Min(d2, d3))
+				foreach (Vector2 b in pointsB)
 				{
-					pointA = pointA0;
-				}
-				else
-				{
-					pointA = pointA1;
-				}
-			}
-
-			Vector2 pointB;
-			{
-				if (d0 < Mathf.Min(d1, d3) || d2 < Mathf.Min(d1, d3))
-				{
-					pointB = pointB0;
-				}
-				else
-				{
-					pointB = pointB1;
+					float d = Vector2.Distance(a, b);
+					if (d < minDist)
+					{
+						pointA = a;
+						pointB = b;
+						minDist = d;
+					}
 				}
 			}
 
