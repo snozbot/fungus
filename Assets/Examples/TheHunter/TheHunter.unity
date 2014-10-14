@@ -484,7 +484,7 @@ Prefab:
     - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: profileSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e,
+      objectReference: {fileID: 21300002, guid: 3c64e30cbefbe4e768ef68d85c85061e,
         type: 3}
     - target: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: m_Name
@@ -823,7 +823,7 @@ Prefab:
     - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: profileSprite
       value: 
-      objectReference: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120,
+      objectReference: {fileID: 21300002, guid: f7484a661774243b193bebc6e3ae5120,
         type: 3}
     - target: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: m_Name
@@ -892,7 +892,7 @@ Prefab:
     - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: profileSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a,
+      objectReference: {fileID: 21300002, guid: 05ccd53483a554ca9b31f685fa76154a,
         type: 3}
     - target: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: m_Name
@@ -1085,7 +1085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: Shay
   nameColor: {r: .933333337, g: .772549033, b: .349019617, a: 1}
-  profileSprite: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
+  profileSprite: {fileID: 21300002, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   notes: 
 --- !u!1 &339869592
 GameObject:
@@ -1117,7 +1117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: Skipper
   nameColor: {r: .294117659, g: .650980413, b: .949019611, a: 1}
-  profileSprite: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
+  profileSprite: {fileID: 21300002, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   notes: 
 --- !u!4 &339869594
 Transform:
@@ -1641,7 +1641,7 @@ MonoBehaviour:
     x: -244
     y: -226.5
     width: 240
-    height: 167
+    height: 154
   sequenceName: Check for fish
   commandList:
   - {fileID: 541676553}
@@ -2735,7 +2735,7 @@ MonoBehaviour:
     x: -227.439697
     y: 85.5
     width: 240
-    height: 527
+    height: 514
   sequenceName: Bear
   commandList:
   - {fileID: 899740689}
@@ -3550,7 +3550,7 @@ MonoBehaviour:
     x: 57
     y: -89
     width: 240
-    height: 187
+    height: 174
   sequenceName: Rescued
   commandList:
   - {fileID: 1196017816}
@@ -4407,10 +4407,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -227
-    y: -429
+    x: -204
+    y: -450
     width: 240
-    height: 127
+    height: 114
   sequenceName: Start
   commandList:
   - {fileID: 1507034368}
@@ -4985,7 +4985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: Ciara
   nameColor: {r: .925490201, g: .482352942, b: .196078435, a: 1}
-  profileSprite: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
+  profileSprite: {fileID: 21300002, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   notes: 
 --- !u!1 &1726080686
 GameObject:
@@ -5097,7 +5097,7 @@ MonoBehaviour:
     x: 121
     y: -453
     width: 240
-    height: 327
+    height: 314
   sequenceName: Intro
   commandList:
   - {fileID: 1759345009}
@@ -5485,7 +5485,7 @@ MonoBehaviour:
     x: 467
     y: -81.5
     width: 240
-    height: 307
+    height: 294
   sequenceName: Shout out
   commandList:
   - {fileID: 1801800853}
@@ -5882,16 +5882,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 90, y: 323.029419}
+  scrollPos: {x: 364.017578, y: 347.033203}
   scrollViewRect:
     serializedVersion: 2
     x: -670.439697
-    y: -858
+    y: -864
     width: 1799.4397
-    height: 1947.5
-  selectedSequence: {fileID: 1759344996}
-  selectedCommands:
-  - {fileID: 1759345010}
+    height: 1953.5
+  selectedSequence: {fileID: 1507034365}
+  selectedCommands: []
   variables:
   - {fileID: 1831099569}
   startSequence: {fileID: 1507034365}
@@ -6398,10 +6397,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 122
-    y: 108.5
+    x: 88
+    y: 166.5
     width: 240
-    height: 207
+    height: 194
   sequenceName: Exit
   commandList:
   - {fileID: 2111357060}
