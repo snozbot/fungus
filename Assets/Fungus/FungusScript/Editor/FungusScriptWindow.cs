@@ -229,8 +229,16 @@ namespace Fungus
 			float height = this.position.height / fungusScript.zoom;
 
 			// Match background color of scene view
-			GUI.color = new Color32(86, 86, 86, 255); 
+			if (EditorGUIUtility.isProSkin)
+			{
+				GUI.color = new Color32(71, 71, 71, 255); 
+			}
+			else
+			{
+				GUI.color = new Color32(86, 86, 86, 255); 
+			}
 			GUI.DrawTexture( new Rect(0,0, width, height), EditorGUIUtility.whiteTexture );
+
 			GUI.color = Color.white;
 			Color color = new Color32(96, 96, 96, 255);
 
