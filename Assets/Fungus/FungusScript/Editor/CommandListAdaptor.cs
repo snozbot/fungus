@@ -269,6 +269,7 @@ namespace Fungus
 			{
 				summaryRect.x += commandNameWidth;
 				summaryRect.width -= commandNameWidth;
+				summaryRect.width -= 5;
 			}
 
 			if (error)
@@ -282,9 +283,12 @@ namespace Fungus
 				summaryRect.width -= 20;
 			}
 
-			GUIStyle summaryStyle = new GUIStyle(EditorStyles.miniLabel);
-			summaryStyle.padding.top += 3;
+			GUIStyle summaryStyle = new GUIStyle();
+			summaryStyle.fontSize = 10; 
+			summaryStyle.padding.top += 5;
 			summaryStyle.richText = true;
+			summaryStyle.wordWrap = false;
+			summaryStyle.clipping = TextClipping.Clip;
 			GUI.Label(summaryRect, summary, summaryStyle);
 
 			GUI.backgroundColor = Color.white;
