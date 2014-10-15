@@ -61,7 +61,14 @@ namespace Fungus
 			}
 
 			GUI.backgroundColor = new Color32(200, 200, 200, 255);
-			GUI.Box(bottomBoxRect, "");
+
+			GUIStyle boxStyle = new GUIStyle(GUI.skin.box);
+			boxStyle.normal.background = FungusEditorResources.texTitleBackground;
+			boxStyle.border.left = 2;
+			boxStyle.border.right = 2;
+			boxStyle.border.top = 2;
+			boxStyle.border.bottom = 2;
+			GUI.Box(bottomBoxRect, "", boxStyle);
 
 			if (!Application.isPlaying &&
 			    sequence == fungusScript.selectedSequence)
