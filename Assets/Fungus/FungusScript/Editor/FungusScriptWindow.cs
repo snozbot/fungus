@@ -22,6 +22,10 @@ namespace Fungus
 		protected Vector2 startDragPosition;
 		protected Sequence selectedSequence;
 
+		// Set this flag to tell the context menu to appear.
+		// The context menu is modal, so we need to defer displaying it if the background needs to be repainted
+		public static bool showContextMenu;
+
 	    [MenuItem("Window/Fungus Script")]
 	    static void Init()
 	    {
@@ -86,7 +90,15 @@ namespace Fungus
 
 			GUILayout.BeginHorizontal();
 			DrawScriptView(fungusScript);
-			GUILayout.EndHorizontal();		
+			GUILayout.EndHorizontal();
+
+
+			if (Event.current.type == EventType.Repaint &&
+				showContextMenu)
+			{
+				ShowContextMenu();
+				showContextMenu = false;
+			}
 		}
 		
 		protected virtual void DrawScriptView(FungusScript fungusScript)
@@ -502,5 +514,261 @@ namespace Fungus
 		{
 			return (int)(mouseY - 34 + 7) / 20;
 		}
+
+		public static void ShowContextMenu()
+		{
+			FungusScript fungusScript = GetFungusScript();
+			if (fungusScript == null)
+			{
+				return;
+			}
+
+			bool showCut = false;
+			bool showCopy = false;
+			bool showDelete = false;
+			bool showPaste = false;
+			
+			if (fungusScript.selectedCommands.Count > 0)
+			{
+				showCut = true;
+				showCopy = true;
+				showDelete = true;
+			}
+			
+			CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
+			
+			if (commandCopyBuffer.HasCommands())
+			{
+				showPaste = true;
+			}
+			
+			GenericMenu commandMenu = new GenericMenu();
+			
+			if (showCut)
+			{
+				commandMenu.AddItem (new GUIContent ("Cut"), false, Cut);
+			}
+			else
+			{
+				commandMenu.AddDisabledItem(new GUIContent ("Cut"));
+			}
+			
+			if (showCopy)
+			{
+				commandMenu.AddItem (new GUIContent ("Copy"), false, Copy);
+			}
+			else
+			{
+				commandMenu.AddDisabledItem(new GUIContent ("Copy"));
+			}
+			
+			if (showPaste)
+			{
+				commandMenu.AddItem (new GUIContent ("Paste"), false, Paste);
+			}
+			else
+			{
+				commandMenu.AddDisabledItem(new GUIContent ("Paste"));
+			}
+			
+			if (showDelete)
+			{
+				commandMenu.AddItem (new GUIContent ("Delete"), false, Delete);
+			}
+			else
+			{
+				commandMenu.AddDisabledItem(new GUIContent ("Delete"));
+			}
+			
+			commandMenu.AddSeparator("");
+			
+			commandMenu.AddItem (new GUIContent ("Select All"), false, SelectAll);
+			commandMenu.AddItem (new GUIContent ("Select None"), false, SelectNone);
+			
+			commandMenu.AddSeparator("");
+			
+			commandMenu.AddItem (new GUIContent ("Delete Sequence"), false, DeleteSequence);
+			commandMenu.AddItem (new GUIContent ("Duplicate Sequence"), false, DuplicateSequence);
+			
+			commandMenu.ShowAsContext();
+		}
+		
+		protected static void SelectAll()
+		{
+			FungusScript fungusScript = GetFungusScript();
+			if (fungusScript == null ||
+			    fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+
+			fungusScript.ClearSelectedCommands();
+			Undo.RecordObject(fungusScript, "Select All");
+			foreach (Command command in fungusScript.selectedSequence.commandList)
+			{
+				fungusScript.selectedCommands.Add(command);
+			}
+		}
+		
+		protected static void SelectNone()
+		{
+			FungusScript fungusScript = GetFungusScript();
+			if (fungusScript == null ||
+			    fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+
+			Undo.RecordObject(fungusScript, "Select None");
+			fungusScript.ClearSelectedCommands();
+		}
+		
+		protected static void Cut()
+		{
+			Copy();
+			Delete();
+		}
+		
+		protected static void Copy()
+		{
+			FungusScript fungusScript = GetFungusScript();
+			if (fungusScript == null ||
+			    fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+
+			CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
+			commandCopyBuffer.Clear();
+			
+			foreach (Command command in fungusScript.selectedCommands)
+			{
+				System.Type type = command.GetType();
+				Command newCommand = Undo.AddComponent(commandCopyBuffer.gameObject, type) as Command;
+				System.Reflection.FieldInfo[] fields = type.GetFields();
+				foreach (System.Reflection.FieldInfo field in fields)
+				{
+					field.SetValue(newCommand, field.GetValue(command));
+				}
+			}
+		}
+		
+		protected static void Paste()
+		{
+			FungusScript fungusScript = GetFungusScript();
+			if (fungusScript == null ||
+			    fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+
+			CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
+
+			// Find where to paste commands in sequence (either at end or after last selected command)
+			int pasteIndex = fungusScript.selectedSequence.commandList.Count;
+			if (fungusScript.selectedCommands.Count > 0)
+			{
+				for (int i = 0; i < fungusScript.selectedSequence.commandList.Count; ++i)
+				{
+					Command command = fungusScript.selectedSequence.commandList[i];
+					
+					foreach (Command selectedCommand in fungusScript.selectedCommands)
+					{
+						if (command == selectedCommand)
+						{
+							pasteIndex = i + 1;
+						}
+					}
+				}
+			}
+			
+			foreach (Command command in commandCopyBuffer.GetCommands())
+			{
+				System.Type type = command.GetType();
+				Command newCommand = Undo.AddComponent(fungusScript.selectedSequence.gameObject, type) as Command;
+				System.Reflection.FieldInfo[] fields = type.GetFields();
+				foreach (System.Reflection.FieldInfo field in fields)
+				{
+					field.SetValue(newCommand, field.GetValue(command));
+				}
+				
+				Undo.RecordObject(fungusScript.selectedSequence, "Paste");
+				fungusScript.selectedSequence.commandList.Insert(pasteIndex++, newCommand);
+			}
+		}
+		
+		protected static void Delete()
+		{
+			FungusScript fungusScript = GetFungusScript();
+			if (fungusScript == null ||
+			    fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+
+			for (int i = fungusScript.selectedSequence.commandList.Count - 1; i >= 0; --i)
+			{
+				Command command = fungusScript.selectedSequence.commandList[i];
+				foreach (Command selectedCommand in fungusScript.selectedCommands)
+				{
+					if (command == selectedCommand)
+					{
+						Undo.RecordObject(fungusScript.selectedSequence, "Delete");
+						fungusScript.selectedSequence.commandList.RemoveAt(i);
+						Undo.DestroyObjectImmediate(command);
+						
+						break;
+					}
+				}
+			}
+			
+			Undo.RecordObject(fungusScript, "Delete");
+			fungusScript.ClearSelectedCommands();
+			fungusScript.selectedSequence = null;
+		}
+		
+		public static void DeleteSequence()
+		{
+			FungusScript fungusScript = GetFungusScript();
+			if (fungusScript == null ||
+			    fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+
+			FungusScriptWindow.deleteList.Add(fungusScript.selectedSequence);
+		}
+		
+		protected static void DuplicateSequence()
+		{
+			FungusScript fungusScript = GetFungusScript();
+			if (fungusScript == null ||
+			    fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+
+			Vector2 newPosition = new Vector2(fungusScript.selectedSequence.nodeRect.position.x + 
+			                                  fungusScript.selectedSequence.nodeRect.width + 20, 
+			                                  fungusScript.selectedSequence.nodeRect.y);
+
+			Sequence oldSequence = fungusScript.selectedSequence;
+
+			Sequence newSequence = FungusScriptWindow.CreateSequence(fungusScript, newPosition);
+			newSequence.sequenceName = oldSequence.sequenceName + " (Copy)";
+
+			foreach (Command command in oldSequence.commandList)
+			{
+				System.Type type = command.GetType();
+				Command newCommand = Undo.AddComponent(fungusScript.gameObject, type) as Command;
+				System.Reflection.FieldInfo[] fields = type.GetFields();
+				foreach (System.Reflection.FieldInfo field in fields)
+				{
+					field.SetValue(newCommand, field.GetValue(command));
+				}
+				newSequence.commandList.Add(newCommand);
+			}
+		}
+
 	}
 }
