@@ -173,8 +173,8 @@ namespace Fungus
 			EndWindows();
 
 			// Right click to drag view
-			if (Event.current.button == 1 &&
-			    Event.current.type == EventType.MouseDrag)
+			if ((Event.current.button == 1 && Event.current.type == EventType.MouseDrag) ||
+			    (Event.current.type == EventType.ScrollWheel))
 			{
 				fungusScript.scrollPos += Event.current.delta;
 			}
