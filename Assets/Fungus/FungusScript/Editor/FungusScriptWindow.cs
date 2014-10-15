@@ -587,7 +587,7 @@ namespace Fungus
 
 		protected virtual int CalcCommandIndex(float mouseY)
 		{
-			return (int)(mouseY - 34 + 7) / 20;
+			return Math.Max(0, (int)(mouseY - 34 + 7) / 20);
 		}
 
 		public static void ShowContextMenu()
