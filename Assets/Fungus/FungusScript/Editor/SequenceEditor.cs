@@ -60,14 +60,16 @@ namespace Fungus
 				bottomBoxRect.y -= 16;
 			}
 
-			GUI.backgroundColor = new Color32(200, 200, 200, 255);
-
-			GUIStyle boxStyle = new GUIStyle(GUI.skin.box);
+			GUIStyle boxStyle = new GUIStyle();
+			boxStyle.border = new RectOffset(2, 2, 2, 1);
+			boxStyle.margin = new RectOffset(5, 5, 5, 0);
+			boxStyle.padding = new RectOffset(5, 5, 0, 0);
+			boxStyle.alignment = TextAnchor.MiddleLeft;
 			boxStyle.normal.background = FungusEditorResources.texTitleBackground;
-			boxStyle.border.left = 2;
-			boxStyle.border.right = 2;
-			boxStyle.border.top = 2;
-			boxStyle.border.bottom = 2;
+			boxStyle.normal.textColor = EditorGUIUtility.isProSkin
+										? new Color(0.8f, 0.8f, 0.8f)
+										: new Color(0.2f, 0.2f, 0.2f);
+
 			GUI.Box(bottomBoxRect, "", boxStyle);
 
 			if (!Application.isPlaying &&
