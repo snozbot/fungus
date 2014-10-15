@@ -107,7 +107,7 @@ namespace Fungus
 			
 			GUILayout.Space(8);
 			
-			if (GUILayout.Button("", new GUIStyle("OL Plus")))
+			if (GUILayout.Button(FungusEditorResources.texAddButton))
 			{
 				Vector2 newNodePosition = new Vector2(50 - fungusScript.scrollPos.x, 
 				                                      50 - fungusScript.scrollPos.y);

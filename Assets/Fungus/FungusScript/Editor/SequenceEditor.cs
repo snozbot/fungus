@@ -71,10 +71,10 @@ namespace Fungus
 					Rect plusRect = bottomBoxRect;
 					plusRect.x = plusRect.width - 19;
 					plusRect.y += 2;
-					plusRect.width = 16;
-					plusRect.height = 16;
+					plusRect.width = 32;
+					plusRect.height = 32;
 
-					if (GUI.Button(plusRect, "", new GUIStyle("OL Plus")))
+					if (GUI.Button(plusRect, FungusEditorResources.texAddButton))
 					{
 						ShowCommandMenu();
 					}
