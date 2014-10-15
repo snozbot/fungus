@@ -88,10 +88,7 @@ namespace Fungus
 			}
 			deleteList.Clear();
 
-			GUILayout.BeginHorizontal();
 			DrawScriptView(fungusScript);
-			GUILayout.EndHorizontal();
-
 
 			if (Event.current.type == EventType.Repaint &&
 				showContextMenu)
