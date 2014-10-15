@@ -99,6 +99,45 @@ namespace Fungus
 			}
 		}
 
+		protected virtual void DrawGrid(FungusScript fungusScript)
+		{
+			float width = this.position.width / fungusScript.zoom;
+			float height = this.position.height / fungusScript.zoom;
+
+			// Test Unity Pro dark skin
+			bool testProSkin = false;
+
+			if (testProSkin)
+			{
+				GUI.color = new Color32(56, 56, 56, 255); 
+				GUI.DrawTexture( new Rect(0,0, width, height), EditorGUIUtility.whiteTexture );
+				GUI.color = Color.white;
+			}
+
+			Color color = new Color32(180, 180, 180, 255);
+			if (testProSkin || EditorGUIUtility.isProSkin)
+			{
+				color = new Color32(64, 64, 64, 255);
+			}
+
+			float gridSize = 128f;
+
+			float x = fungusScript.scrollPos.x % gridSize;
+			while (x < width)
+			{
+				GLDraw.DrawLine(new Vector2(x, 0), new Vector2(x, height), color, 1f);
+				x += gridSize;
+			}
+
+			float y = fungusScript.scrollPos.y % gridSize;
+			while (y < height)
+			{
+				GLDraw.DrawLine(new Vector2(0, y), new Vector2(width, y), color, 1f);
+				y += gridSize;
+			}
+
+		}
+
 		protected virtual void DrawControls(FungusScript fungusScript)
 		{
 			GUILayout.Space(8);
@@ -149,11 +188,13 @@ namespace Fungus
 				fungusScript.scrollViewRect.yMax = Mathf.Max(fungusScript.scrollViewRect.yMax, s.nodeRect.yMax + 400);
 			}
 
-			// Calc rect for left hand script view
+			// Calc rect for script view
 			Rect scriptViewRect = new Rect(0, 0, this.position.width / fungusScript.zoom, this.position.height / fungusScript.zoom);
 
 			EditorZoomArea.Begin(fungusScript.zoom, scriptViewRect);
 
+			DrawGrid(fungusScript);
+			
 			GLDraw.BeginGroup(scriptViewRect);
 
 			if (Event.current.button == 0 && 
