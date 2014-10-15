@@ -219,7 +219,7 @@ namespace Fungus
 
 			if (!Application.isPlaying &&
 			    Event.current.type == EventType.MouseDown &&
-			    Event.current.button == 0 &&
+			    (Event.current.button == 0 || Event.current.button == 1) &&
 			    position.Contains(Event.current.mousePosition))
 			{
 				if (!fungusScript.selectedCommands.Contains(command))

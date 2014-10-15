@@ -119,7 +119,10 @@ namespace Fungus
 			{
 				selectedSequence = fungusScript.selectedSequence;
 				fungusScript.selectedSequence = null;
-				fungusScript.ClearSelectedCommands();
+				if (!EditorGUI.actionKey)
+				{
+					fungusScript.ClearSelectedCommands();
+				}
 			}
 
 			// Draw connections
@@ -321,11 +324,12 @@ namespace Fungus
 					
 			// Select sequence when node is clicked
 			if (!Application.isPlaying &&
-			    Event.current.button == 0 && 
+			    (Event.current.button == 0 || Event.current.button == 1) && 
 		    	(Event.current.type == EventType.MouseDown))
 			{
 				// Check if might be start of a window drag
-				if (Event.current.mousePosition.y < 26)
+				if (Event.current.button == 0 &&
+				    Event.current.mousePosition.y < 26)
 				{
 					dragging = true;
 					startDragPosition.x = sequence.nodeRect.x;
@@ -337,7 +341,16 @@ namespace Fungus
 					Undo.RecordObject(fungusScript, "Select");
 					if (sequence != selectedSequence || !EditorGUI.actionKey)
 					{
-						fungusScript.ClearSelectedCommands();
+						int commandIndex = CalcCommandIndex(Event.current.mousePosition.y);
+						if (commandIndex < sequence.commandList.Count &&
+						    fungusScript.selectedCommands.Contains(sequence.commandList[commandIndex]))
+						{
+							// Right clicking on an already selected command does not clear the selected list
+						}
+						else
+						{
+							fungusScript.ClearSelectedCommands();
+						}
 					}
 
 					if (selectedSequence != sequence &&
@@ -483,6 +496,11 @@ namespace Fungus
 		protected virtual float CalcRectHeight(int numCommands)
 		{
 			return (numCommands * 20) + 34;
+		}
+
+		protected virtual int CalcCommandIndex(float mouseY)
+		{
+			return (int)(mouseY - 34 + 7) / 20;
 		}
 	}
 }
