@@ -454,10 +454,16 @@ namespace Fungus
 			if (fungusScript.selectedSequence == sequence ||
 			    fungusScript.executingSequence == sequence)
 			{
-				GUI.backgroundColor = Color.green;
-				
+				GUI.backgroundColor = Color.green;				
 				Rect highlightRect = new Rect(0, 0, sequence.nodeRect.width, 24);
-				GUI.Box(highlightRect, "");
+				GUIStyle highlightStyle = new GUIStyle();
+				highlightStyle.normal.background = FungusEditorResources.texCommandBackground;
+				highlightStyle.border.top = 1;
+				highlightStyle.border.bottom = 1;
+				highlightStyle.border.left = 1;
+				highlightStyle.border.right = 1;
+
+				GUI.Box(highlightRect, "", highlightStyle);
 				GUI.backgroundColor = Color.white;
 			}
 
