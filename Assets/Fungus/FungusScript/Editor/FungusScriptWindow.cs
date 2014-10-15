@@ -99,45 +99,6 @@ namespace Fungus
 			}
 		}
 
-		protected virtual void DrawGrid(FungusScript fungusScript)
-		{
-			float width = this.position.width / fungusScript.zoom;
-			float height = this.position.height / fungusScript.zoom;
-
-			// Test Unity Pro dark skin
-			bool testProSkin = false;
-
-			if (testProSkin)
-			{
-				GUI.color = new Color32(56, 56, 56, 255); 
-				GUI.DrawTexture( new Rect(0,0, width, height), EditorGUIUtility.whiteTexture );
-				GUI.color = Color.white;
-			}
-
-			Color color = new Color32(180, 180, 180, 255);
-			if (testProSkin || EditorGUIUtility.isProSkin)
-			{
-				color = new Color32(64, 64, 64, 255);
-			}
-
-			float gridSize = 128f;
-
-			float x = fungusScript.scrollPos.x % gridSize;
-			while (x < width)
-			{
-				GLDraw.DrawLine(new Vector2(x, 0), new Vector2(x, height), color, 1f);
-				x += gridSize;
-			}
-
-			float y = fungusScript.scrollPos.y % gridSize;
-			while (y < height)
-			{
-				GLDraw.DrawLine(new Vector2(0, y), new Vector2(width, y), color, 1f);
-				y += gridSize;
-			}
-
-		}
-
 		protected virtual void DrawControls(FungusScript fungusScript)
 		{
 			GUILayout.Space(8);
@@ -248,15 +209,56 @@ namespace Fungus
 			EndWindows();
 
 			// Right click to drag view
-			if ((Event.current.button == 1 && Event.current.type == EventType.MouseDrag) ||
-			    (Event.current.type == EventType.ScrollWheel))
+			if (Event.current.button == 1 && Event.current.type == EventType.MouseDrag)
 			{
 				fungusScript.scrollPos += Event.current.delta;
+			}
+			else if (Event.current.type == EventType.ScrollWheel)
+			{
+				fungusScript.scrollPos -= Event.current.delta;
 			}
 
 			GLDraw.EndGroup();
 
 			EditorZoomArea.End();
+		}
+
+		protected virtual void DrawGrid(FungusScript fungusScript)
+		{
+			float width = this.position.width / fungusScript.zoom;
+			float height = this.position.height / fungusScript.zoom;
+			
+			// Test Unity Pro dark skin
+			bool testProSkin = false;
+			
+			if (testProSkin)
+			{
+				GUI.color = new Color32(56, 56, 56, 255); 
+				GUI.DrawTexture( new Rect(0,0, width, height), EditorGUIUtility.whiteTexture );
+				GUI.color = Color.white;
+			}
+			
+			Color color = new Color32(180, 180, 180, 255);
+			if (testProSkin || EditorGUIUtility.isProSkin)
+			{
+				color = new Color32(64, 64, 64, 255);
+			}
+			
+			float gridSize = 128f;
+			
+			float x = fungusScript.scrollPos.x % gridSize;
+			while (x < width)
+			{
+				GLDraw.DrawLine(new Vector2(x, 0), new Vector2(x, height), color, 1f);
+				x += gridSize;
+			}
+			
+			float y = fungusScript.scrollPos.y % gridSize;
+			while (y < height)
+			{
+				GLDraw.DrawLine(new Vector2(0, y), new Vector2(width, y), color, 1f);
+				y += gridSize;
+			}
 		}
 
 		/*
