@@ -112,7 +112,6 @@ namespace Fungus
 
 			// Calc rect for left hand script view
 			Rect scriptViewRect = new Rect(0, 0, this.position.width, this.position.height);
-			GUILayoutUtility.GetRect(scriptViewRect.width, scriptViewRect.height);
 
 			GLDraw.BeginGroup(scriptViewRect);
 
@@ -163,7 +162,6 @@ namespace Fungus
 				windowRect.x += fungusScript.scrollPos.x;
 				windowRect.y += fungusScript.scrollPos.y;
 				windowRect.width = 240;
-				windowRect.height = sequence.nodeRect.height;
 
 				GUILayout.Window(i, windowRect, DrawWindow, "", windowStyle);
 
@@ -174,6 +172,7 @@ namespace Fungus
 
 			EndWindows();
 
+			// Right click to drag view
 			if (Event.current.button == 1 &&
 			    Event.current.type == EventType.MouseDrag)
 			{
