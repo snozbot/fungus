@@ -215,7 +215,7 @@ namespace Fungus
 			}
 			else if (Event.current.type == EventType.ScrollWheel)
 			{
-				fungusScript.scrollPos -= Event.current.delta;
+				fungusScript.scrollPos -= Event.current.delta * 4f;
 			}
 
 			GLDraw.EndGroup();
