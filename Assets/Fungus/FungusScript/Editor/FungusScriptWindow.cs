@@ -227,23 +227,13 @@ namespace Fungus
 		{
 			float width = this.position.width / fungusScript.zoom;
 			float height = this.position.height / fungusScript.zoom;
-			
-			// Test Unity Pro dark skin
-			bool testProSkin = false;
-			
-			if (testProSkin)
-			{
-				GUI.color = new Color32(56, 56, 56, 255); 
-				GUI.DrawTexture( new Rect(0,0, width, height), EditorGUIUtility.whiteTexture );
-				GUI.color = Color.white;
-			}
-			
-			Color color = new Color32(180, 180, 180, 255);
-			if (testProSkin || EditorGUIUtility.isProSkin)
-			{
-				color = new Color32(64, 64, 64, 255);
-			}
-			
+
+			// Match background color of scene view
+			GUI.color = new Color32(86, 86, 86, 255); 
+			GUI.DrawTexture( new Rect(0,0, width, height), EditorGUIUtility.whiteTexture );
+			GUI.color = Color.white;
+			Color color = new Color32(96, 96, 96, 255);
+
 			float gridSize = 128f;
 			
 			float x = fungusScript.scrollPos.x % gridSize;
