@@ -26,6 +26,12 @@ namespace Fungus
 		public Vector2 scrollPos;
 
 		/**
+		 * Zoom level of Fungus Script editor window
+		 */
+		[HideInInspector]
+		public float zoom = 1f;
+
+		/**
 		 * Scrollable area for Fungus Script editor window.
 		 */
 		[HideInInspector]

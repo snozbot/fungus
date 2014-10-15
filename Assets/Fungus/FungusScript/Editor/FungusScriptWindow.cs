@@ -89,6 +89,7 @@ namespace Fungus
 			deleteList.Clear();
 
 			DrawScriptView(fungusScript);
+			DrawControls(fungusScript);
 
 			if (Event.current.type == EventType.Repaint &&
 				showContextMenu)
@@ -96,6 +97,44 @@ namespace Fungus
 				ShowContextMenu();
 				showContextMenu = false;
 			}
+		}
+
+		protected virtual void DrawControls(FungusScript fungusScript)
+		{
+			GUILayout.Space(8);
+			
+			GUILayout.BeginHorizontal();
+			
+			GUILayout.Space(8);
+			
+			if (GUILayout.Button("", new GUIStyle("OL Plus")))
+			{
+				Vector2 newNodePosition = new Vector2(50 - fungusScript.scrollPos.x, 
+				                                      50 - fungusScript.scrollPos.y);
+				CreateSequence(fungusScript, newNodePosition);
+			}
+			
+			GUILayout.FlexibleSpace();
+			
+			float minValue = 0.6f;
+			float maxValue = 1f;
+			float range = maxValue - minValue;
+			
+			fungusScript.zoom = GUILayout.HorizontalSlider(fungusScript.zoom, minValue, maxValue, GUILayout.Width(100));
+			if (fungusScript.zoom < minValue + range * 0.25f)
+			{
+				fungusScript.zoom = minValue;
+			}
+			else if (fungusScript.zoom > minValue + range * 0.75f)
+			{
+				fungusScript.zoom = maxValue;
+			}
+			else
+			{
+				fungusScript.zoom = minValue + (range * 0.5f);
+			}
+			
+			GUILayout.EndHorizontal();
 		}
 		
 		protected virtual void DrawScriptView(FungusScript fungusScript)
@@ -111,16 +150,11 @@ namespace Fungus
 			}
 
 			// Calc rect for left hand script view
-			Rect scriptViewRect = new Rect(0, 0, this.position.width, this.position.height);
+			Rect scriptViewRect = new Rect(0, 0, this.position.width / fungusScript.zoom, this.position.height / fungusScript.zoom);
+
+			EditorZoomArea.Begin(fungusScript.zoom, scriptViewRect);
 
 			GLDraw.BeginGroup(scriptViewRect);
-
-			if (GUI.Button(new Rect(8, 8, 16, 16), "", new GUIStyle("OL Plus")))
-			{
-				Vector2 newNodePosition = new Vector2(50 - fungusScript.scrollPos.x, 
-				                                      50 - fungusScript.scrollPos.y);
-				CreateSequence(fungusScript, newNodePosition);
-			}
 
 			if (Event.current.button == 0 && 
 				Event.current.type == EventType.MouseDown)
@@ -180,6 +214,8 @@ namespace Fungus
 			}
 
 			GLDraw.EndGroup();
+
+			EditorZoomArea.End();
 		}
 
 		/*
