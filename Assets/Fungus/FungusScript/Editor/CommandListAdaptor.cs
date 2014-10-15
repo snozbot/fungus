@@ -203,6 +203,11 @@ namespace Fungus
 			string commandName = commandInfoAttr.CommandName;
 
 			GUIStyle commandLabelStyle = new GUIStyle(GUI.skin.box);
+			commandLabelStyle.normal.background = FungusEditorResources.texCommandBackground;
+			commandLabelStyle.border.top = 1;
+			commandLabelStyle.border.bottom = 1;
+			commandLabelStyle.border.left = 1;
+			commandLabelStyle.border.right = 1;
 			commandLabelStyle.alignment = TextAnchor.MiddleLeft;
 			commandLabelStyle.richText = true;
 			commandLabelStyle.fontSize = 11;
