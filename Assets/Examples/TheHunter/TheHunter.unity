@@ -1582,6 +1582,7 @@ MonoBehaviour:
 
     Couldn''t you spare just one? '
   character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &541676552
@@ -1604,6 +1605,7 @@ MonoBehaviour:
 
     We''ll see about that!'
   character: {fileID: 339869593}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &541676553
@@ -1710,6 +1712,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: No, I could not!{wc} Now be off with you!
   character: {fileID: 339869593}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!1 &577549095
@@ -2650,6 +2653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollPos: {x: 226.013794, y: 380.023193}
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -872
@@ -2691,7 +2695,6 @@ GameObject:
   - 114: {fileID: 899740682}
   - 114: {fileID: 899740681}
   - 114: {fileID: 899740680}
-  - 114: {fileID: 899740679}
   - 114: {fileID: 899740678}
   - 114: {fileID: 899740685}
   - 114: {fileID: 899740686}
@@ -2700,13 +2703,9 @@ GameObject:
   - 114: {fileID: 899740689}
   - 114: {fileID: 899740684}
   - 114: {fileID: 899740691}
-  - 114: {fileID: 899740692}
   - 114: {fileID: 899740700}
   - 114: {fileID: 899740699}
-  - 114: {fileID: 899740698}
-  - 114: {fileID: 899740697}
   - 114: {fileID: 899740696}
-  - 114: {fileID: 899740695}
   - 114: {fileID: 899740694}
   - 114: {fileID: 899740693}
   - 114: {fileID: 899740702}
@@ -2735,13 +2734,12 @@ MonoBehaviour:
     x: -227.439697
     y: 85.5
     width: 240
-    height: 514
+    height: 414
   sequenceName: Bear
   commandList:
   - {fileID: 899740689}
   - {fileID: 899740688}
   - {fileID: 899740687}
-  - {fileID: 899740692}
   - {fileID: 899740686}
   - {fileID: 899740685}
   - {fileID: 899740684}
@@ -2750,14 +2748,10 @@ MonoBehaviour:
   - {fileID: 899740681}
   - {fileID: 899740700}
   - {fileID: 899740699}
-  - {fileID: 899740697}
   - {fileID: 899740696}
   - {fileID: 899740693}
-  - {fileID: 899740695}
   - {fileID: 899740694}
-  - {fileID: 899740698}
   - {fileID: 899740678}
-  - {fileID: 899740679}
   - {fileID: 899740691}
   - {fileID: 899740702}
   - {fileID: 899740680}
@@ -2781,22 +2775,9 @@ MonoBehaviour:
 
     Arggghh!'
   character: {fileID: 0}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &899740679
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  sayDialog: {fileID: 1070206234}
 --- !u!114 &899740680
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2812,6 +2793,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: BURP!
   character: {fileID: 686889652}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &899740681
@@ -2829,6 +2811,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: Noooooooo!
   character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &899740682
@@ -2846,6 +2829,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: Ayyyyyyeeee!
   character: {fileID: 339869593}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &899740683
@@ -2863,6 +2847,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: Aaaaaagh!
   character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &899740684
@@ -2915,6 +2900,7 @@ MonoBehaviour:
 
     The last thing you want in this part of the woods is to run into a...'
   character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &899740687
@@ -2994,20 +2980,6 @@ MonoBehaviour:
   duration: 5
   amount: {x: .200000003, y: .200000003}
   waitUntilFinished: 0
---- !u!114 &899740692
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  sayDialog: {fileID: 1070206234}
 --- !u!114 &899740693
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3039,22 +3011,9 @@ MonoBehaviour:
   indentLevel: 0
   storyText: RAAAAAARRRRRR!!!!!!
   character: {fileID: 686889652}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &899740695
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  sayDialog: {fileID: 1070206234}
 --- !u!114 &899740696
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3073,36 +3032,9 @@ MonoBehaviour:
 
     THE END'
   character: {fileID: 0}
+  sayDialog: {fileID: 1185554287}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &899740697
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  sayDialog: {fileID: 1185554287}
---- !u!114 &899740698
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  sayDialog: {fileID: 1185554287}
 --- !u!114 &899740699
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3118,6 +3050,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: RAAAAAARRRRRR!
   character: {fileID: 686889652}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &899740700
@@ -3169,6 +3102,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: RAAAAAAAAAARRRRRRRRRR!!!!!!
   character: {fileID: 686889652}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &899740703
@@ -3578,6 +3512,7 @@ MonoBehaviour:
 
     You look hungry! Do you want to something to eat?'
   character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1196017814
@@ -3596,6 +3531,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: What! This is an outrage! Mind your own busin...
   character: {fileID: 339869593}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1196017815
@@ -3618,6 +3554,7 @@ MonoBehaviour:
 
     Pay him no attention.'
   character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1196017816
@@ -3654,6 +3591,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: Oh yes please! Thank you!
   character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1196017818
@@ -3877,6 +3815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollPos: {x: 0, y: 0}
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -390
@@ -5040,15 +4979,12 @@ GameObject:
   - 4: {fileID: 1759344997}
   - 114: {fileID: 1759344996}
   - 114: {fileID: 1759344995}
-  - 114: {fileID: 1759344998}
-  - 114: {fileID: 1759345002}
   - 114: {fileID: 1759345001}
   - 114: {fileID: 1759345000}
   - 114: {fileID: 1759344999}
   - 114: {fileID: 1759345004}
   - 114: {fileID: 1759345003}
   - 114: {fileID: 1759345005}
-  - 114: {fileID: 1759345006}
   - 114: {fileID: 1759345007}
   - 114: {fileID: 1759345009}
   - 114: {fileID: 1759345008}
@@ -5078,6 +5014,7 @@ MonoBehaviour:
 
     I better be careful though, I might not be the only person in these woods...'
   character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1759344996
@@ -5094,22 +5031,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 121
-    y: -453
+    x: 104
+    y: -465
     width: 240
-    height: 314
+    height: 254
   sequenceName: Intro
   commandList:
   - {fileID: 1759345009}
   - {fileID: 1759345007}
   - {fileID: 1759345008}
-  - {fileID: 1759345006}
   - {fileID: 1759345003}
   - {fileID: 1759345004}
   - {fileID: 1759345005}
-  - {fileID: 1759344998}
   - {fileID: 1759344995}
-  - {fileID: 1759345002}
   - {fileID: 1759345001}
   - {fileID: 1759345000}
   - {fileID: 1759344999}
@@ -5126,21 +5060,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1831099567}
   m_RootOrder: 0
---- !u!114 &1759344998
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400048, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  sayDialog: {fileID: 1070206234}
 --- !u!114 &1759344999
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5157,6 +5076,7 @@ MonoBehaviour:
   indentLevel: 0
   chooseText: What should I do?
   character: {fileID: 1712414755}
+  chooseDialog: {fileID: 1016272668}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 8
 --- !u!114 &1759345000
@@ -5193,21 +5113,6 @@ MonoBehaviour:
   optionText: Check pool for fish
   targetSequence: {fileID: 541676554}
   hideOnSelected: 0
---- !u!114 &1759345002
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400056, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  chooseDialog: {fileID: 1016272668}
 --- !u!114 &1759345003
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5227,6 +5132,7 @@ MonoBehaviour:
     She didn''t dare to stop for fear of {color=red}The Hunter{/color}, but her grumbling
     stomach told her she would need to find food soon.'
   character: {fileID: 0}
+  sayDialog: {fileID: 1185554287}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1759345004
@@ -5262,23 +5168,9 @@ MonoBehaviour:
   indentLevel: 0
   storyText: Emerging from the forest, she found herself at a beautiful mountain stream.
   character: {fileID: 0}
+  sayDialog: {fileID: 1185554287}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &1759345006
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400064, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  sayDialog: {fileID: 1185554287}
 --- !u!114 &1759345007
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5466,6 +5358,7 @@ MonoBehaviour:
 
     If there is, you better run!'
   character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1801800854
@@ -5521,6 +5414,7 @@ MonoBehaviour:
 
     Come meet our new friend!'
   character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1801800856
@@ -5539,6 +5433,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: Um...
   character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1801800857
@@ -5557,6 +5452,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: I'm not little and I'm not lost!
   character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1801800858
@@ -5576,6 +5472,7 @@ MonoBehaviour:
   storyText: "And what do we have here?{wc}\nThe woods are a dangerous place my little
     friend.{wc} \nAre you lost?"
   character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1801800859
@@ -5616,6 +5513,7 @@ MonoBehaviour:
 
     Sort of.'
   character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1801800861
@@ -5636,6 +5534,7 @@ MonoBehaviour:
 
     Oh good, another mouth to feed.'
   character: {fileID: 339869593}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1801800862
@@ -5672,6 +5571,7 @@ MonoBehaviour:
   indentLevel: 0
   storyText: I see! And so I guess you're not hungry either?
   character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1801800864
@@ -5882,14 +5782,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 364.017578, y: 347.033203}
+  scrollPos: {x: 460.017578, y: 531.033203}
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
-    x: -670.439697
-    y: -864
-    width: 1799.4397
-    height: 1953.5
-  selectedSequence: {fileID: 1507034365}
+    x: -810.017578
+    y: -883.033203
+    width: 1939.01758
+    height: 1972.5332
+  selectedSequence: {fileID: 0}
   selectedCommands: []
   variables:
   - {fileID: 1831099569}
@@ -6003,6 +5904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollPos: {x: 0, y: 0}
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -390
@@ -6461,6 +6363,7 @@ MonoBehaviour:
 
     I''ll be watching you!'
   character: {fileID: 339869593}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &2111357058
@@ -6527,6 +6430,7 @@ MonoBehaviour:
 
     This way, follow me!'
   character: {fileID: 338947448}
+  sayDialog: {fileID: 1185554287}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &2111357061
