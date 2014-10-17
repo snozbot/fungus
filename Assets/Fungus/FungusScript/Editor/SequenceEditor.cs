@@ -48,7 +48,7 @@ namespace Fungus
 			CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
 			adaptor.nodeRect = sequence.nodeRect;
 
-			ReorderableListFlags flags = ReorderableListFlags.HideAddButton | ReorderableListFlags.HideRemoveButtons;
+			ReorderableListFlags flags = ReorderableListFlags.HideAddButton | ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.DisableContextMenu;
 			ReorderableListControl.DrawControlFromState(adaptor, null, flags);
 
 			Rect bottomBoxRect = GUILayoutUtility.GetRect(sequence.nodeRect.width, 20);
