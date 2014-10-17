@@ -106,6 +106,24 @@ namespace Fungus
 		{
 			return new Color32(184, 210, 235, 255);
 		}
+
+		public override void OnCommandAdded(Sequence parentSequence)
+		{
+			// Find last Say command in the sequence, then copy the Say dialog it's using.
+			// This saves a step when adding a new Say command
+			for (int i = parentSequence.commandList.Count - 1; i >= 0; --i) 
+			{
+				Say sayCommand = parentSequence.commandList[i] as Say;
+				if (sayCommand != null)
+				{
+					if (sayCommand.sayDialog != null)
+					{
+						sayDialog = sayCommand.sayDialog;
+						break;
+					}
+				}
+			}
+		}
 	}
 
 }

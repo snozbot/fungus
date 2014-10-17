@@ -268,6 +268,9 @@ namespace Fungus
 			Command newCommand = Undo.AddComponent(sequence.gameObject, commandOperation.commandType) as Command;
 			sequence.GetFungusScript().selectedCommands.Add(newCommand);
 
+			// Let command know it has just been added to the sequence
+			newCommand.OnCommandAdded(sequence);
+
 			Undo.RecordObject(sequence, "Set command type");
 			if (commandOperation.index < sequence.commandList.Count - 1)
 			{

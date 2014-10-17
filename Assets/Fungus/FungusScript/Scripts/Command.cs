@@ -98,6 +98,12 @@ namespace Fungus
 			}
 		}
 
+		/**
+		 * Called when the new command is added to a sequence in the editor.
+		 */
+		public virtual void OnCommandAdded(Sequence parentSequence)
+		{}
+
 		public virtual void OnEnter()
 		{}
 
