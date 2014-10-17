@@ -14,6 +14,7 @@ namespace Fungus
 		public string storyText;
 
 		public Character character;
+		public SayDialog sayDialog;
 		public AudioClip voiceOverClip;
 		public bool showOnce;
 		protected int executionCount;
@@ -29,30 +30,29 @@ namespace Fungus
 			
 			executionCount++;
 
-			SayDialog dialog = SetSayDialog.activeDialog;
 			showBasicGUI = false;
-			if (dialog == null)
+			if (sayDialog == null)
 			{
 				// Try to get any SayDialog in the scene
-				dialog = GameObject.FindObjectOfType<SayDialog>();
-				if (dialog == null)
+				sayDialog = GameObject.FindObjectOfType<SayDialog>();
+				if (sayDialog == null)
 				{
 					showBasicGUI = true;
 					return;
 				}
 			}
 	
-			dialog.SetCharacter(character);
+			sayDialog.SetCharacter(character);
 
-			dialog.ShowDialog(true);
+			sayDialog.ShowDialog(true);
 
 			if (voiceOverClip != null)
 			{
 				MusicController.GetInstance().PlaySound(voiceOverClip, 1f);
 			}
 
-			dialog.Say(storyText, delegate {
-				dialog.ShowDialog(false);
+			sayDialog.Say(storyText, delegate {
+				sayDialog.ShowDialog(false);
 				Continue();
 			});
 		}

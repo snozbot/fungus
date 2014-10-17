@@ -24,6 +24,20 @@ namespace Fungus
 		public virtual void OnEnable()
 		{
 			sequenceNameProp = serializedObject.FindProperty("sequenceName");
+
+			// Strip out any null commands from the command list
+			// This can happen if a command class is removed or renamed
+			serializedObject.Update();
+			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
+			for (int i = commandListProperty.arraySize - 1; i >= 0; --i)
+			{
+				SerializedProperty commandProperty = commandListProperty.GetArrayElementAtIndex(i);
+				if (commandProperty.objectReferenceValue == null)
+				{
+					commandListProperty.DeleteArrayElementAtIndex(i);
+				}
+			}
+			serializedObject.ApplyModifiedProperties();
 		}
 
 		public virtual void DrawInspectorGUI(FungusScript fungusScript)

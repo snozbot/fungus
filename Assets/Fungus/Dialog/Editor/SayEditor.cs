@@ -32,6 +32,7 @@ namespace Fungus
 
 		protected SerializedProperty storyTextProp;
 		protected SerializedProperty characterProp;
+		protected SerializedProperty sayDialogProp;
 		protected SerializedProperty voiceOverClipProp;
 		protected SerializedProperty showOnceProp;
 
@@ -39,6 +40,7 @@ namespace Fungus
 		{
 			storyTextProp = serializedObject.FindProperty("storyText");
 			characterProp = serializedObject.FindProperty("character");
+			sayDialogProp = serializedObject.FindProperty("sayDialog");
 			voiceOverClipProp = serializedObject.FindProperty("voiceOverClip");
 			showOnceProp = serializedObject.FindProperty("showOnce");
 		}
@@ -84,9 +86,14 @@ namespace Fungus
 			EditorGUILayout.Separator();
 
 			CommandEditor.ObjectField<Character>(characterProp, 
-			                                           new GUIContent("Character", "Character to display in dialog"), 
-			                                           new GUIContent("<None>"),
-													   Character.activeCharacters);
+			                                     new GUIContent("Character", "Character to display in dialog"), 
+			                                     new GUIContent("<None>"),
+												 Character.activeCharacters);
+
+			CommandEditor.ObjectField<SayDialog>(sayDialogProp, 
+			                                     new GUIContent("Say Dialog", "Say Dialog object to use to display the story text"), 
+			                                     new GUIContent("<None>"),
+			                                     SayDialog.activeDialogs);
 
 			EditorGUILayout.PropertyField(voiceOverClipProp, 
 			                              new GUIContent("Voice Over Clip", "Voice over audio to play when the say text is displayed"));
