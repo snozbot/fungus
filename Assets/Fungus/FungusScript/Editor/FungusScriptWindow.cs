@@ -22,11 +22,14 @@ namespace Fungus
 		protected Vector2 startDragPosition;
 		protected Sequence selectedSequence;
 
+		protected const float minZoomValue = 0.5f;
+		protected const float maxZoomValue = 1f;
+
 		// Set this flag to tell the context menu to appear.
 		// The context menu is modal, so we need to defer displaying it if the background needs to be repainted
 		public static bool showContextMenu;
 
-	    [MenuItem("Window/Fungus Script")]
+		[MenuItem("Window/Fungus Script")]
 	    static void Init()
 	    {
 	        GetWindow(typeof(FungusScriptWindow), false, "Fungus Script");
@@ -115,12 +118,10 @@ namespace Fungus
 			}
 			
 			GUILayout.FlexibleSpace();
+
 			
-			float minValue = 0.6f;
-			float maxValue = 1f;
-			float range = maxValue - minValue;
-			
-			fungusScript.zoom = GUILayout.HorizontalSlider(fungusScript.zoom, minValue, maxValue, GUILayout.Width(100));
+			fungusScript.zoom = GUILayout.HorizontalSlider(fungusScript.zoom, minZoomValue, maxZoomValue, GUILayout.Width(100));
+			/*
 			if (fungusScript.zoom < minValue + range * 0.25f)
 			{
 				fungusScript.zoom = minValue;
@@ -133,6 +134,7 @@ namespace Fungus
 			{
 				fungusScript.zoom = minValue + (range * 0.5f);
 			}
+			*/
 			
 			GUILayout.EndHorizontal();
 		}
@@ -215,7 +217,8 @@ namespace Fungus
 			}
 			else if (Event.current.type == EventType.ScrollWheel)
 			{
-				fungusScript.scrollPos -= Event.current.delta * 4f;
+				fungusScript.zoom += Event.current.delta.y * 0.01f;
+				fungusScript.zoom = Mathf.Clamp(fungusScript.zoom, minZoomValue, maxZoomValue);
 			}
 
 			GLDraw.EndGroup();
