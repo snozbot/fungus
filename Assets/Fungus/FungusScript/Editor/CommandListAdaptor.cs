@@ -227,7 +227,7 @@ namespace Fungus
 			    (Event.current.button == 0 || Event.current.button == 1) &&
 			    position.Contains(Event.current.mousePosition))
 			{
-				if (fungusScript.selectedCommands.Contains(command))
+				if (fungusScript.selectedCommands.Contains(command) && Event.current.button == 0)
 				{
 					fungusScript.selectedCommands.Remove(command);
 				}
