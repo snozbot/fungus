@@ -188,18 +188,6 @@ namespace Fungus
 			bool highlight = (Application.isPlaying && command.IsExecuting()) ||
 							 (!Application.isPlaying && commandIsSelected);
 
-			float indentSize = 20;			
-			for (int i = 0; i < command.indentLevel; ++i)
-			{
-				Rect indentRect = position;
-				indentRect.x += i * indentSize;
-				indentRect.width = indentSize + 1;
-				indentRect.y -= 2;
-				indentRect.height += 5;
-				GUI.backgroundColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
-				GUI.Box(indentRect, "");
-			}
-
 			string commandName = commandInfoAttr.CommandName;
 
 			GUIStyle commandLabelStyle = new GUIStyle(GUI.skin.box);
@@ -212,6 +200,18 @@ namespace Fungus
 			commandLabelStyle.richText = true;
 			commandLabelStyle.fontSize = 11;
 			commandLabelStyle.padding.top -= 1;
+
+			float indentSize = 20;			
+			for (int i = 0; i < command.indentLevel; ++i)
+			{
+				Rect indentRect = position;
+				indentRect.x += i * indentSize - 21;
+				indentRect.width = indentSize + 1;
+				indentRect.y -= 2;
+				indentRect.height += 5;
+				GUI.backgroundColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+				GUI.Box(indentRect, "", commandLabelStyle);
+			}
 
 			float commandNameWidth = Mathf.Max(commandLabelStyle.CalcSize(new GUIContent(commandName)).x, 90f);
 			float indentWidth = command.indentLevel * indentSize;
