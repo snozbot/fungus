@@ -119,23 +119,8 @@ namespace Fungus
 			
 			GUILayout.FlexibleSpace();
 
-			
 			fungusScript.zoom = GUILayout.HorizontalSlider(fungusScript.zoom, minZoomValue, maxZoomValue, GUILayout.Width(100));
-			/*
-			if (fungusScript.zoom < minValue + range * 0.25f)
-			{
-				fungusScript.zoom = minValue;
-			}
-			else if (fungusScript.zoom > minValue + range * 0.75f)
-			{
-				fungusScript.zoom = maxValue;
-			}
-			else
-			{
-				fungusScript.zoom = minValue + (range * 0.5f);
-			}
-			*/
-			
+
 			GUILayout.EndHorizontal();
 		}
 		

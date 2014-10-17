@@ -227,11 +227,15 @@ namespace Fungus
 			    (Event.current.button == 0 || Event.current.button == 1) &&
 			    position.Contains(Event.current.mousePosition))
 			{
-				if (!fungusScript.selectedCommands.Contains(command))
+				if (fungusScript.selectedCommands.Contains(command))
+				{
+					fungusScript.selectedCommands.Remove(command);
+				}
+				else
 				{
 					fungusScript.selectedCommands.Add(command);
-					GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 				}
+				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 			}
 
 			Color commandLabelColor = Color.white;
