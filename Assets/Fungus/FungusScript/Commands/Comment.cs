@@ -5,9 +5,9 @@ using System.Collections.Generic;
 namespace Fungus
 {
 	[CommandInfo("Scripting", 
-	             "Note", 
+	             "Comment", 
 	             "Records design notes and reminders about your script.")]
-	public class Note : Command
+	public class Comment : Command
 	{	
 		[TextArea(2,4)]
 		public string commentText = "";

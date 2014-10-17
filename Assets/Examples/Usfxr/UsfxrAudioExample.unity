@@ -198,7 +198,7 @@ GameObject:
   m_IsActive: 1
 --- !u!114 &1295658134
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1295658133}
@@ -209,12 +209,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   ParentTransform: {fileID: 0}
   SettingsString: 0,.5,,.0004,.354,.414,.3,.731,,,,,,,,,,,,,,,,,,1,,,,,,
 --- !u!114 &1295658135
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1295658133}
@@ -225,7 +224,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   ParentTransform: {fileID: 0}
   SettingsString: 1,.5,,.1749,.0094,.2571,.3,.6665,.2,-.2852,,,,,,,,,,,.2159,.1001,,.1209,-.1511,1,,,,,,
 --- !u!114 &1295658136
@@ -241,11 +239,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 110
-    height: 40
-  description: 
+    x: -91
+    y: -438
+    width: 240
+    height: 127
+  sequenceName: Sound Sequence
   commandList:
   - {fileID: 1295658134}
   - {fileID: 1295658138}
@@ -265,7 +263,7 @@ Transform:
   m_RootOrder: 0
 --- !u!114 &1295658138
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1295658133}
@@ -276,12 +274,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   ParentTransform: {fileID: 0}
   SettingsString: 1,.5,,.142,,.1233,.3,.4328,,,,,,,,,,,,,,,,,,1,,,.1,,,
 --- !u!114 &1295658139
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1295658133}
@@ -292,7 +289,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   ParentTransform: {fileID: 0}
   SettingsString: 0,.5,,.0259,.3178,.2433,.3,.7694,,,,,,,,,.4286,.673,,,,,,,,1,,,,,,
 --- !u!1 &1457713101
@@ -328,7 +324,7 @@ MonoBehaviour:
     y: 10
     width: 100
     height: 40
-  description: 
+  sequenceName: New Sequence
   commandList: []
 --- !u!4 &1457713103
 Transform:
@@ -382,11 +378,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptScrollPos: {x: 87.5, y: 0}
-  commandScrollPos: {x: 0, y: 0}
-  commandViewWidth: 350
+  scrollPos: {x: 158.009644, y: 294.017944}
+  scrollViewRect:
+    serializedVersion: 2
+    x: -547
+    y: -838
+    width: 1187
+    height: 1365
   selectedSequence: {fileID: 1295658136}
-  selectedCommand: {fileID: 1295658139}
+  selectedCommands: []
   variables: []
   startSequence: {fileID: 1295658136}
   executeOnStart: 1
@@ -394,4 +394,4 @@ MonoBehaviour:
     runSlowInEditor: 1
     runSlowDuration: .25
     colorCommands: 1
-    hideSequenceObjects: 1
+    hideComponents: 1

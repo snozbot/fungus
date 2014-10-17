@@ -35,11 +35,13 @@ namespace Fungus
 			{
 				if (fungusScript.executingSequence == null)
 				{
-					fungusScript.selectedCommand = null;
+					fungusScript.selectedCommands.Clear();
 				}
 				else
 				{
-					fungusScript.selectedCommand = fungusScript.executingSequence.activeCommand;
+					fungusScript.selectedCommands.Clear();
+					fungusScript.selectedCommands.Add(fungusScript.executingSequence.activeCommand);
+					EditorUtility.SetDirty(fungusScript);
 				}
 			}
 
@@ -72,11 +74,25 @@ namespace Fungus
 
 			EditorGUILayout.Separator();
 
-			if (fungusScript.selectedCommand != null)
+			if (fungusScript.selectedSequence != null)
 			{
-				CommandEditor commandEditor = Editor.CreateEditor(fungusScript.selectedCommand) as CommandEditor;
-				commandEditor.DrawCommandInspectorGUI();
-				DestroyImmediate(commandEditor);
+				SequenceEditor sequenceEditor = Editor.CreateEditor(fungusScript.selectedSequence) as SequenceEditor;
+				sequenceEditor.DrawInspectorGUI(fungusScript);
+				DestroyImmediate(sequenceEditor);
+			}
+
+			if (fungusScript.selectedCommands.Count == 1)
+			{
+				if (fungusScript.selectedCommands[0] == null)
+				{
+					fungusScript.selectedCommands.Clear();
+				}
+				else
+				{
+					CommandEditor commandEditor = Editor.CreateEditor(fungusScript.selectedCommands[0]) as CommandEditor;
+					commandEditor.DrawCommandInspectorGUI();
+					DestroyImmediate(commandEditor);
+				}
 			}
 
 			EditorGUILayout.Separator();

@@ -14,6 +14,7 @@ namespace Fungus
 		public string storyText;
 
 		public Character character;
+		public SayDialog sayDialog;
 		public AudioClip voiceOverClip;
 		public bool showOnce;
 		protected int executionCount;
@@ -29,30 +30,29 @@ namespace Fungus
 			
 			executionCount++;
 
-			SayDialog dialog = SetSayDialog.activeDialog;
 			showBasicGUI = false;
-			if (dialog == null)
+			if (sayDialog == null)
 			{
 				// Try to get any SayDialog in the scene
-				dialog = GameObject.FindObjectOfType<SayDialog>();
-				if (dialog == null)
+				sayDialog = GameObject.FindObjectOfType<SayDialog>();
+				if (sayDialog == null)
 				{
 					showBasicGUI = true;
 					return;
 				}
 			}
 	
-			dialog.SetCharacter(character);
+			sayDialog.SetCharacter(character);
 
-			dialog.ShowDialog(true);
+			sayDialog.ShowDialog(true);
 
 			if (voiceOverClip != null)
 			{
 				MusicController.GetInstance().PlaySound(voiceOverClip, 1f);
 			}
 
-			dialog.Say(storyText, delegate {
-				dialog.ShowDialog(false);
+			sayDialog.Say(storyText, delegate {
+				sayDialog.ShowDialog(false);
 				Continue();
 			});
 		}
@@ -105,6 +105,24 @@ namespace Fungus
 		public override Color GetButtonColor()
 		{
 			return new Color32(184, 210, 235, 255);
+		}
+
+		public override void OnCommandAdded(Sequence parentSequence)
+		{
+			// Find last Say command in the sequence, then copy the Say dialog it's using.
+			// This saves a step when adding a new Say command
+			for (int i = parentSequence.commandList.Count - 1; i >= 0; --i) 
+			{
+				Say sayCommand = parentSequence.commandList[i] as Say;
+				if (sayCommand != null)
+				{
+					if (sayCommand.sayDialog != null)
+					{
+						sayDialog = sayCommand.sayDialog;
+						break;
+					}
+				}
+			}
 		}
 	}
 

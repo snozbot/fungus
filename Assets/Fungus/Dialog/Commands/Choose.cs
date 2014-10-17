@@ -22,6 +22,7 @@ namespace Fungus
 		public string chooseText;
 
 		public Character character;
+		public ChooseDialog chooseDialog;
 		public AudioClip voiceOverClip;
 		public float timeoutDuration;
 
@@ -29,13 +30,12 @@ namespace Fungus
 
 		public override void OnEnter()
 		{
-			ChooseDialog dialog = SetChooseDialog.activeDialog;
 			showBasicGUI = false;
-			if (dialog == null)
+			if (chooseDialog == null)
 			{
 				// Try to get any SayDialog in the scene
-				dialog = GameObject.FindObjectOfType<ChooseDialog>();
-				if (dialog == null)
+				chooseDialog = GameObject.FindObjectOfType<ChooseDialog>();
+				if (chooseDialog == null)
 				{
 					showBasicGUI = true;
 					return;
@@ -48,8 +48,8 @@ namespace Fungus
 			}
 			else
 			{
-				dialog.ShowDialog(true);
-				dialog.SetCharacter(character);
+				chooseDialog.ShowDialog(true);
+				chooseDialog.SetCharacter(character);
 
 				List<ChooseDialog.Option> dialogOptions = new List<ChooseDialog.Option>();
 				foreach (Option option in options)
@@ -60,7 +60,7 @@ namespace Fungus
 
 					dialogOption.onSelect = delegate {
 
-						dialog.ShowDialog(false);
+						chooseDialog.ShowDialog(false);
 
 						if (onSelectSequence == null)
 						{
@@ -82,8 +82,8 @@ namespace Fungus
 					MusicController.GetInstance().PlaySound(voiceOverClip, 1f);
 				}
 
-				dialog.Choose(chooseText, dialogOptions, timeoutDuration, delegate {
-					dialog.ShowDialog(false);
+				chooseDialog.Choose(chooseText, dialogOptions, timeoutDuration, delegate {
+					chooseDialog.ShowDialog(false);
 					Continue();
 				});
 			}

@@ -90,7 +90,7 @@ public class GLDraw
 	{
 		clippingEnabled = true;
 		clippingBounds = clipRect;
-		return GUI.BeginScrollView(position, scrollPos, viewRect);
+		return GUI.BeginScrollView(position, scrollPos, viewRect, GUIStyle.none, GUIStyle.none);
 	}
 	
 	public static void EndScrollView()
@@ -247,10 +247,10 @@ public class GLDraw
 
         DrawBezier(start, tangentA, end, tangentB, color, width, segments);
 
-		Vector2 pA = CubeBezier(start, tangentA, end, tangentB, 0.7f);
-		Vector2 pB = CubeBezier(start, tangentA, end, tangentB, 0.8f);
+		Vector2 pA = CubeBezier(start, tangentA, end, tangentB, 0.6f);
+		Vector2 pB = CubeBezier(start, tangentA, end, tangentB, 0.7f);
 
-		float arrowHeadSize = 10;
+		float arrowHeadSize = 5;
 		
 		Vector2 arrowPosA = pB;
 		Vector2 arrowPosB = arrowPosA;
@@ -266,9 +266,8 @@ public class GLDraw
 		arrowPosC.y += dir.x * arrowHeadSize;
 		arrowPosC -= dir * arrowHeadSize;
 
-		DrawLine(arrowPosA, arrowPosB, color, 1);
-		DrawLine(arrowPosA, arrowPosC, color, 1);
-		DrawLine(arrowPosB, arrowPosC, color, 1);
+		DrawLine(arrowPosA, arrowPosB, color, 1.025f);
+		DrawLine(arrowPosA, arrowPosC, color, 1.025f);
 	}
 
     public static void DrawBezier(Vector2 start, Vector2 startTangent, Vector2 end, Vector2 endTangent, Color color, float width)

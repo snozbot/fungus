@@ -83,7 +83,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 57262721}
   - 114: {fileID: 57262723}
-  - 114: {fileID: 57262724}
   - 114: {fileID: 57262722}
   - 114: {fileID: 57262725}
   - 114: {fileID: 57262726}
@@ -110,7 +109,7 @@ Transform:
   m_RootOrder: 11
 --- !u!114 &57262722
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 57262720}
@@ -121,9 +120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseText: What would you like to do?
   character: {fileID: 0}
+  chooseDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
 --- !u!114 &57262723
@@ -139,36 +138,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -190
-    y: 385
-    width: 100
-    height: 40
-  description: 
+    x: -397.40332
+    y: 526.172302
+    width: 240
+    height: 134
+  sequenceName: TryVoice
   commandList:
-  - {fileID: 57262724}
   - {fileID: 57262726}
   - {fileID: 57262727}
   - {fileID: 57262728}
   - {fileID: 57262725}
   - {fileID: 57262722}
---- !u!114 &57262724
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 57262720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  chooseDialog: {fileID: 306771627}
 --- !u!114 &57262725
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 57262720}
@@ -179,13 +162,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: '"End program"'
-  targetSequence: {fileID: 2006087467}
+  targetSequence: {fileID: 0}
   hideOnSelected: 1
 --- !u!114 &57262726
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 57262720}
@@ -196,13 +178,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: '"Open door"'
   targetSequence: {fileID: 1640703358}
   hideOnSelected: 1
 --- !u!114 &57262727
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 57262720}
@@ -213,13 +194,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: '"Lamp off"'
   targetSequence: {fileID: 1499008163}
   hideOnSelected: 1
 --- !u!114 &57262728
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 57262720}
@@ -230,7 +210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: '"Lights on"'
   targetSequence: {fileID: 1824373603}
   hideOnSelected: 0
@@ -243,7 +222,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 73747986}
   - 114: {fileID: 73747988}
-  - 114: {fileID: 73747989}
   - 114: {fileID: 73747987}
   - 114: {fileID: 73747990}
   m_Layer: 0
@@ -267,7 +245,7 @@ Transform:
   m_RootOrder: 18
 --- !u!114 &73747987
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 73747985}
@@ -278,7 +256,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: '"Lamp on"
 
 
@@ -295,6 +272,7 @@ MonoBehaviour:
 
     The lamp dims to a more useable level.'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &73747988
@@ -310,33 +288,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 21
-    y: 424
-    width: 100
-    height: 40
-  description: 
+    x: 145.276245
+    y: 431.162079
+    width: 240
+    height: 74
+  sequenceName: LampOnVoice
   commandList:
-  - {fileID: 73747989}
   - {fileID: 73747987}
   - {fileID: 73747990}
---- !u!114 &73747989
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 73747985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!114 &73747990
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 73747985}
@@ -347,7 +309,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 57262723}
 --- !u!1 &157780834
 GameObject:
@@ -358,8 +319,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 157780836}
   - 114: {fileID: 157780835}
-  - 114: {fileID: 157780837}
-  - 114: {fileID: 157780839}
   - 114: {fileID: 157780838}
   - 114: {fileID: 157780840}
   m_Layer: 0
@@ -382,14 +341,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -191
-    y: 305
-    width: 100
-    height: 40
-  description: 
+    x: -222.590332
+    y: 231.548828
+    width: 240
+    height: 74
+  sequenceName: LookAtLamp
   commandList:
-  - {fileID: 157780837}
-  - {fileID: 157780839}
   - {fileID: 157780838}
   - {fileID: 157780840}
 --- !u!4 &157780836
@@ -404,24 +361,9 @@ Transform:
   m_Children: []
   m_Father: {fileID: 771014101}
   m_RootOrder: 8
---- !u!114 &157780837
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 157780834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d14ccff3ce441ecba28c9a53b98a08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  commentText: Discover voice recognition through the lamp.
 --- !u!114 &157780838
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 157780834}
@@ -432,7 +374,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'The lamp looks like a futuristic version of a normal desk lamp. There''s
     a thin round base, a narrow stem and, at the top, a lampshade. Instead of a bulb,
     there''s a curved lens that sits almost seamlessly into the shade, as though it
@@ -474,26 +415,12 @@ MonoBehaviour:
 
     The lamp dims to a more useable level.'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &157780839
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 157780834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!114 &157780840
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 157780834}
@@ -504,7 +431,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 57262723}
 --- !u!1 &177024814
 GameObject:
@@ -598,8 +524,8 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_TargetGraphic: {fileID: 177024818}
   m_Interactable: 1
+  m_TargetGraphic: {fileID: 177024818}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -617,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .588}
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
@@ -634,6 +560,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 177024814}
+  m_HideIfInvisible: 0
 --- !u!1 &234853276
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,7 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 43bce127d27b74a66a29b68d0de90ddb, type: 3}
@@ -703,6 +630,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 234853276}
+  m_HideIfInvisible: 0
 --- !u!1 &306771625
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,7 +698,6 @@ GameObject:
   - 4: {fileID: 314243101}
   - 114: {fileID: 314243102}
   - 114: {fileID: 314243103}
-  - 114: {fileID: 314243104}
   - 114: {fileID: 314243105}
   m_Layer: 0
   m_Name: InspectDoorFirst
@@ -804,18 +731,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -114
-    y: 159
-    width: 104
-    height: 40
-  description: 
+    x: 1099.81128
+    y: 370.378845
+    width: 240
+    height: 74
+  sequenceName: InspectDoorFirst
   commandList:
-  - {fileID: 314243104}
   - {fileID: 314243103}
   - {fileID: 314243105}
 --- !u!114 &314243103
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 314243100}
@@ -826,7 +752,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'You take a closer look at the door. There are no handles or controls
     of any kind that you can see.
 
@@ -844,26 +769,12 @@ MonoBehaviour:
 
     You hear nothing back.'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &314243104
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 314243100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!114 &314243105
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 314243100}
@@ -874,7 +785,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 570845514}
 --- !u!1 &406472410
 GameObject:
@@ -923,7 +833,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 43bce127d27b74a66a29b68d0de90ddb, type: 3}
@@ -945,6 +855,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 406472410}
+  m_HideIfInvisible: 0
 --- !u!1 &449724766
 GameObject:
   m_ObjectHideFlags: 1
@@ -955,7 +866,6 @@ GameObject:
   - 4: {fileID: 449724768}
   - 114: {fileID: 449724767}
   - 114: {fileID: 449724769}
-  - 114: {fileID: 449724770}
   - 114: {fileID: 449724771}
   m_Layer: 0
   m_Name: Shout
@@ -977,13 +887,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -26
-    y: 16
-    width: 100
-    height: 40
-  description: Try shouting out when you first wake up.
+    x: 405.099487
+    y: -70.2529602
+    width: 240
+    height: 74
+  sequenceName: Shout
   commandList:
-  - {fileID: 449724770}
   - {fileID: 449724769}
   - {fileID: 449724771}
 --- !u!4 &449724768
@@ -1000,7 +909,7 @@ Transform:
   m_RootOrder: 1
 --- !u!114 &449724769
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 449724766}
@@ -1011,7 +920,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'You shout out as loud as you can.
 
     "HELLO?"
@@ -1024,26 +932,12 @@ MonoBehaviour:
 
     Weird.'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &449724770
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 449724766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!114 &449724771
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 449724766}
@@ -1054,7 +948,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 1260488682}
 --- !u!1 &527814923
 GameObject:
@@ -1129,8 +1022,8 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_TargetGraphic: {fileID: 527814926}
   m_Interactable: 1
+  m_TargetGraphic: {fileID: 527814926}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -1148,7 +1041,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .588}
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
@@ -1165,6 +1058,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 527814923}
+  m_HideIfInvisible: 0
 --- !u!224 &527814928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1193,7 +1087,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 570845515}
   - 114: {fileID: 570845514}
-  - 114: {fileID: 570845517}
   - 114: {fileID: 570845516}
   - 114: {fileID: 570845518}
   - 114: {fileID: 570845521}
@@ -1219,13 +1112,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 161
-    y: 88
-    width: 100
-    height: 40
-  description: Try sitting up to get your bearings.
+    x: 737.520691
+    y: 169.562195
+    width: 240
+    height: 134
+  sequenceName: StandingThere
   commandList:
-  - {fileID: 570845517}
   - {fileID: 570845520}
   - {fileID: 570845519}
   - {fileID: 570845518}
@@ -1245,7 +1137,7 @@ Transform:
   m_RootOrder: 2
 --- !u!114 &570845516
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 570845513}
@@ -1256,29 +1148,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseText: You're standing in the middle of the room.
   character: {fileID: 0}
+  chooseDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
---- !u!114 &570845517
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 570845513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  chooseDialog: {fileID: 306771627}
 --- !u!114 &570845518
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 570845513}
@@ -1289,13 +1166,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Listen
   targetSequence: {fileID: 1868799482}
   hideOnSelected: 1
 --- !u!114 &570845519
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 570845513}
@@ -1306,13 +1182,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Inspect the jumpsuit
   targetSequence: {fileID: 1376784304}
   hideOnSelected: 1
 --- !u!114 &570845520
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 570845513}
@@ -1323,13 +1198,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Inspect the door
   targetSequence: {fileID: 314243102}
   hideOnSelected: 1
 --- !u!114 &570845521
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 570845513}
@@ -1340,7 +1214,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Inspect the desk
   targetSequence: {fileID: 1680954148}
   hideOnSelected: 0
@@ -1391,7 +1264,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 0, g: 1, b: .0896551609, a: .588235319}
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
@@ -1408,6 +1281,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 576489123}
+  m_HideIfInvisible: 0
 --- !u!1 &576994357
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,7 +1329,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Sprite: {fileID: 21300000, guid: b3426f0a4460547a69fc64b85700a13d, type: 3}
   m_Type: 0
@@ -1472,6 +1346,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1275593113}
   m_GameObject: {fileID: 576994357}
+  m_HideIfInvisible: 0
 --- !u!1 &610326563
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,6 +1377,7 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
+  m_OverrideSorting: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!224 &610326565
@@ -1532,7 +1408,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 639548734}
   - 114: {fileID: 639548733}
-  - 114: {fileID: 639548736}
   - 114: {fileID: 639548735}
   - 114: {fileID: 639548737}
   m_Layer: 0
@@ -1555,13 +1430,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -81
-    y: 681
-    width: 100
-    height: 40
-  description: 
+    x: -281.863403
+    y: 726.720093
+    width: 240
+    height: 74
+  sequenceName: ExamineDeskLit
   commandList:
-  - {fileID: 639548736}
   - {fileID: 639548735}
   - {fileID: 639548737}
 --- !u!4 &639548734
@@ -1578,7 +1452,7 @@ Transform:
   m_RootOrder: 16
 --- !u!114 &639548735
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 639548732}
@@ -1589,30 +1463,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: The desk looks even cleaner and smoother in this light. There doesn't
     seem to be anything worth looking at.
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &639548736
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 639548732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!114 &639548737
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 639548732}
@@ -1623,7 +1482,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 817573245}
 --- !u!1 &669296791
 GameObject:
@@ -1634,10 +1492,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 669296793}
   - 114: {fileID: 669296792}
-  - 114: {fileID: 669296794}
-  - 114: {fileID: 669296796}
   - 114: {fileID: 669296795}
-  - 114: {fileID: 669296798}
   - 114: {fileID: 669296797}
   - 114: {fileID: 669296799}
   - 114: {fileID: 669296800}
@@ -1663,16 +1518,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 243
-    y: 314
-    width: 118
-    height: 40
-  description: 
+    x: 547.538696
+    y: 360.768036
+    width: 240
+    height: 154
+  sequenceName: LookAtRightDrawer
   commandList:
-  - {fileID: 669296794}
-  - {fileID: 669296796}
   - {fileID: 669296795}
-  - {fileID: 669296798}
   - {fileID: 669296799}
   - {fileID: 669296800}
   - {fileID: 669296802}
@@ -1690,24 +1542,9 @@ Transform:
   m_Children: []
   m_Father: {fileID: 771014101}
   m_RootOrder: 10
---- !u!114 &669296794
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 669296791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d14ccff3ce441ecba28c9a53b98a08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  commentText: Discover voice regonition through paper.
 --- !u!114 &669296795
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 669296791}
@@ -1718,7 +1555,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'You open the drawer and take out a thin sheaf of paper, no more than
     ten sheets. Each sheet is quite heavy for size, though it''s not particularly
     thick. It has a strange sheen to it visible even in this dim light.{wc}
@@ -1735,26 +1571,12 @@ MonoBehaviour:
 
     The words {b}this down{/b} appear after {b}With{/b}.'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &669296796
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 669296791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!114 &669296797
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 669296791}
@@ -1765,29 +1587,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseText: What would you like to do next?
   character: {fileID: 0}
+  chooseDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
---- !u!114 &669296798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 669296791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  chooseDialog: {fileID: 306771627}
 --- !u!114 &669296799
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 669296791}
@@ -1798,13 +1605,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Say "Lamp on."
   targetSequence: {fileID: 73747988}
   hideOnSelected: 0
 --- !u!114 &669296800
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 669296791}
@@ -1815,13 +1621,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Say "End program."
-  targetSequence: {fileID: 2006087467}
+  targetSequence: {fileID: 0}
   hideOnSelected: 0
 --- !u!114 &669296801
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 669296791}
@@ -1832,13 +1637,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Say "Open door."
   targetSequence: {fileID: 1640703358}
   hideOnSelected: 0
 --- !u!114 &669296802
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 669296791}
@@ -1849,7 +1653,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Say "Lights on."
   targetSequence: {fileID: 1824373603}
   hideOnSelected: 0
@@ -1865,7 +1668,6 @@ GameObject:
   - 114: {fileID: 684444671}
   - 114: {fileID: 684444672}
   - 114: {fileID: 684444673}
-  - 114: {fileID: 684444674}
   m_Layer: 0
   m_Name: OpenA147
   m_TagString: Untagged
@@ -1898,19 +1700,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 369
-    y: 845
-    width: 100
-    height: 40
-  description: 
+    x: 933
+    y: 863
+    width: 240
+    height: 94
+  sequenceName: OpenA147
   commandList:
-  - {fileID: 684444674}
   - {fileID: 684444673}
   - {fileID: 684444672}
   - {fileID: 684444671}
 --- !u!114 &684444671
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 684444668}
@@ -1921,7 +1722,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseText: 'You put your hand over the grille and mumble, "Can you open door A147?"
 
 
@@ -1947,11 +1747,12 @@ MonoBehaviour:
 
     "Samson! What the hell are you opening that cell for?"'
   character: {fileID: 0}
+  chooseDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 1.5
 --- !u!114 &684444672
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 684444668}
@@ -1962,13 +1763,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Run!
   targetSequence: {fileID: 1925614670}
   hideOnSelected: 0
 --- !u!114 &684444673
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 684444668}
@@ -1979,25 +1779,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Listen
   targetSequence: {fileID: 1910717285}
   hideOnSelected: 0
---- !u!114 &684444674
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 684444668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  chooseDialog: {fileID: 306771627}
 --- !u!1 &698212754
 GameObject:
   m_ObjectHideFlags: 0
@@ -2071,8 +1855,8 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_TargetGraphic: {fileID: 698212757}
   m_Interactable: 1
+  m_TargetGraphic: {fileID: 698212757}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -2090,7 +1874,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .588}
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
@@ -2126,6 +1910,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 698212754}
+  m_HideIfInvisible: 0
 --- !u!1 &771014099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2153,11 +1938,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptScrollPos: {x: 385.071075, y: 53.9417725}
-  commandScrollPos: {x: 0, y: 0}
-  commandViewWidth: 300
-  selectedSequence: {fileID: 1797174374}
-  selectedCommand: {fileID: 1797174380}
+  scrollPos: {x: 368.373291, y: -211.354309}
+  zoom: 1
+  scrollViewRect:
+    serializedVersion: 2
+    x: -1118.14856
+    y: -592
+    width: 2934.21484
+    height: 2134
+  selectedSequence: {fileID: 0}
+  selectedCommands: []
   variables: []
   startSequence: {fileID: 1797174374}
   executeOnStart: 1
@@ -2165,7 +1955,7 @@ MonoBehaviour:
     runSlowInEditor: 1
     runSlowDuration: .25
     colorCommands: 1
-    hideSequenceObjects: 1
+    hideComponents: 1
 --- !u!4 &771014101
 Transform:
   m_ObjectHideFlags: 0
@@ -2214,7 +2004,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 817573248}
   - 114: {fileID: 817573245}
-  - 114: {fileID: 817573247}
   - 114: {fileID: 817573246}
   - 114: {fileID: 817573249}
   m_Layer: 0
@@ -2237,18 +2026,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 184
-    y: 595
-    width: 100
-    height: 40
-  description: 
+    x: 237.39093
+    y: 710.021729
+    width: 240
+    height: 74
+  sequenceName: ExamineDoorLit
   commandList:
-  - {fileID: 817573247}
   - {fileID: 817573246}
   - {fileID: 817573249}
 --- !u!114 &817573246
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 817573244}
@@ -2259,7 +2047,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'You approach the door, looking at it more closely in the bright light
     and you spot, very faint, the outline of a label on the smooth metal.{wi}
 
@@ -2303,23 +2090,9 @@ MonoBehaviour:
     "Oh, well, that''ll all be covered in orientation tomorrow, just try to relax
     and remain calm until then."{wi}'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &817573247
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 817573244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!4 &817573248
 Transform:
   m_ObjectHideFlags: 1
@@ -2334,7 +2107,7 @@ Transform:
   m_RootOrder: 21
 --- !u!114 &817573249
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 817573244}
@@ -2345,7 +2118,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 904348472}
 --- !u!1 &844878605
 GameObject:
@@ -2386,7 +2158,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 894174099}
   - 114: {fileID: 894174095}
-  - 114: {fileID: 894174098}
   - 114: {fileID: 894174097}
   - 114: {fileID: 894174096}
   m_Layer: 0
@@ -2409,18 +2180,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 130
-    y: 774
-    width: 100
-    height: 40
-  description: 
+    x: -289.824646
+    y: 976.687988
+    width: 240
+    height: 74
+  sequenceName: Why
   commandList:
-  - {fileID: 894174098}
   - {fileID: 894174097}
   - {fileID: 894174096}
 --- !u!114 &894174096
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 894174094}
@@ -2431,11 +2201,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 904348472}
 --- !u!114 &894174097
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 894174094}
@@ -2446,7 +2215,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: '"Alright, but why am I here? Orientation for what?"
 
 
@@ -2461,23 +2229,9 @@ MonoBehaviour:
 
     "Why are {i}you{/i} being so difficult? I''m just trying to do my job, here."'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &894174098
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 894174094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  chooseDialog: {fileID: 306771627}
 --- !u!4 &894174099
 Transform:
   m_ObjectHideFlags: 1
@@ -2553,7 +2307,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Sprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
   m_Type: 0
@@ -2588,6 +2342,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1271596753}
   m_GameObject: {fileID: 902390527}
+  m_HideIfInvisible: 0
 --- !u!1 &904348470
 GameObject:
   m_ObjectHideFlags: 1
@@ -2597,7 +2352,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 904348471}
   - 114: {fileID: 904348472}
-  - 114: {fileID: 904348474}
   - 114: {fileID: 904348473}
   - 114: {fileID: 904348475}
   - 114: {fileID: 904348477}
@@ -2634,20 +2388,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 183
-    y: 678
-    width: 100
-    height: 40
-  description: 
+    x: 168.221863
+    y: 820.855652
+    width: 240
+    height: 114
+  sequenceName: DoorTalk
   commandList:
-  - {fileID: 904348474}
   - {fileID: 904348477}
   - {fileID: 904348476}
   - {fileID: 904348475}
   - {fileID: 904348473}
 --- !u!114 &904348473
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 904348470}
@@ -2658,29 +2411,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseText: What do you want to say next?
   character: {fileID: 0}
+  chooseDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
---- !u!114 &904348474
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 904348470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  chooseDialog: {fileID: 306771627}
 --- !u!114 &904348475
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 904348470}
@@ -2691,13 +2429,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Ask how he's doing.
   targetSequence: {fileID: 948050620}
   hideOnSelected: 0
 --- !u!114 &904348476
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 904348470}
@@ -2708,13 +2445,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Ask why you're there.
   targetSequence: {fileID: 894174095}
   hideOnSelected: 1
 --- !u!114 &904348477
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 904348470}
@@ -2725,7 +2461,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Ask where you are.
   targetSequence: {fileID: 1567107788}
   hideOnSelected: 1
@@ -2738,7 +2473,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 948050616}
   - 114: {fileID: 948050620}
-  - 114: {fileID: 948050619}
   - 114: {fileID: 948050618}
   - 114: {fileID: 948050617}
   - 114: {fileID: 948050621}
@@ -2763,7 +2497,7 @@ Transform:
   m_RootOrder: 20
 --- !u!114 &948050617
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 948050615}
@@ -2774,13 +2508,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Say "Truck the control room at top speed"
   targetSequence: {fileID: 1597430799}
   hideOnSelected: 0
 --- !u!114 &948050618
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 948050615}
@@ -2791,7 +2524,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseText: 'Time for a charm offensive.
 
 
@@ -2837,23 +2569,9 @@ MonoBehaviour:
     "It''s bad for us in the control room, sure, but the really dangerous stuff is
     with all the automated trucks. Very nasty business."'
   character: {fileID: 0}
+  chooseDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
---- !u!114 &948050619
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 948050615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  chooseDialog: {fileID: 306771627}
 --- !u!114 &948050620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2867,19 +2585,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 289
-    y: 777
-    width: 100
-    height: 40
-  description: 
+    x: 609
+    y: 727
+    width: 240
+    height: 94
+  sequenceName: How
   commandList:
-  - {fileID: 948050619}
   - {fileID: 948050617}
   - {fileID: 948050621}
   - {fileID: 948050618}
 --- !u!114 &948050621
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 948050615}
@@ -2890,7 +2607,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Say "Can you open door A147"
   targetSequence: {fileID: 684444670}
   hideOnSelected: 0
@@ -3057,8 +2773,8 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_TargetGraphic: {fileID: 1002527488}
   m_Interactable: 1
+  m_TargetGraphic: {fileID: 1002527488}
   m_FillRect: {fileID: 576489124}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
@@ -3083,7 +2799,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .588}
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
@@ -3100,6 +2816,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 1002527485}
+  m_HideIfInvisible: 0
 --- !u!1 &1020378993
 GameObject:
   m_ObjectHideFlags: 0
@@ -3247,7 +2964,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 43bce127d27b74a66a29b68d0de90ddb, type: 3}
@@ -3269,6 +2986,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1275593113}
   m_GameObject: {fileID: 1065110601}
+  m_HideIfInvisible: 0
 --- !u!1 &1077748663
 GameObject:
   m_ObjectHideFlags: 0
@@ -3332,7 +3050,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 43bce127d27b74a66a29b68d0de90ddb, type: 3}
@@ -3354,6 +3072,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 1077748663}
+  m_HideIfInvisible: 0
 --- !u!1 &1170700146
 GameObject:
   m_ObjectHideFlags: 1
@@ -3363,8 +3082,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1170700148}
   - 114: {fileID: 1170700147}
-  - 114: {fileID: 1170700149}
-  - 114: {fileID: 1170700152}
   - 114: {fileID: 1170700151}
   - 114: {fileID: 1170700150}
   - 114: {fileID: 1170700153}
@@ -3388,14 +3105,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 18
-    y: 306
-    width: 110
-    height: 40
-  description: 
+    x: 52.0456238
+    y: 303.079071
+    width: 240
+    height: 94
+  sequenceName: LookAtLeftDrawer
   commandList:
-  - {fileID: 1170700149}
-  - {fileID: 1170700152}
   - {fileID: 1170700151}
   - {fileID: 1170700150}
   - {fileID: 1170700153}
@@ -3411,24 +3126,9 @@ Transform:
   m_Children: []
   m_Father: {fileID: 771014101}
   m_RootOrder: 9
---- !u!114 &1170700149
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1170700146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d14ccff3ce441ecba28c9a53b98a08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  commentText: Neither
 --- !u!114 &1170700150
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1170700146}
@@ -3439,13 +3139,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Look at the right drawer
   targetSequence: {fileID: 669296792}
   hideOnSelected: 0
 --- !u!114 &1170700151
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1170700146}
@@ -3456,28 +3155,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Look at the lamp.
   targetSequence: {fileID: 157780835}
   hideOnSelected: 0
---- !u!114 &1170700152
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1170700146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  chooseDialog: {fileID: 306771627}
 --- !u!114 &1170700153
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1170700146}
@@ -3488,9 +3171,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseText: The left drawer is as empty as your memories.
   character: {fileID: 0}
+  chooseDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
 --- !u!1 &1206280512
@@ -3553,7 +3236,6 @@ GameObject:
   - 4: {fileID: 1260488686}
   - 114: {fileID: 1260488682}
   - 114: {fileID: 1260488683}
-  - 114: {fileID: 1260488685}
   - 114: {fileID: 1260488684}
   m_Layer: 0
   m_Name: SittingUp
@@ -3575,18 +3257,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 156
-    y: 7
-    width: 100
-    height: 40
-  description: 
+    x: 730.41095
+    y: 26.1830368
+    width: 240
+    height: 74
+  sequenceName: SittingUp
   commandList:
-  - {fileID: 1260488685}
   - {fileID: 1260488684}
   - {fileID: 1260488683}
 --- !u!114 &1260488683
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1260488681}
@@ -3597,11 +3278,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 570845514}
 --- !u!114 &1260488684
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1260488681}
@@ -3612,28 +3292,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: You sit up gingerly and swing your legs off the bed. The jumpsuit includes
     neat little slippers, and you don't feel any aches or pains. If anything, you're
     incredibly well-rested.{wc} You stretch out your arms and stand up.
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &1260488685
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1260488681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!4 &1260488686
 Transform:
   m_ObjectHideFlags: 1
@@ -3814,6 +3479,8 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
 --- !u!1 &1376784303
 GameObject:
   m_ObjectHideFlags: 1
@@ -3824,7 +3491,6 @@ GameObject:
   - 4: {fileID: 1376784307}
   - 114: {fileID: 1376784304}
   - 114: {fileID: 1376784308}
-  - 114: {fileID: 1376784306}
   - 114: {fileID: 1376784305}
   m_Layer: 0
   m_Name: InspectJumpsuitFirst
@@ -3846,18 +3512,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 180
-    y: 186
-    width: 124
-    height: 40
-  description: 
+    x: 1099.93945
+    y: 62.363739
+    width: 240
+    height: 74
+  sequenceName: InspectJumpsuitFirst
   commandList:
-  - {fileID: 1376784306}
   - {fileID: 1376784305}
   - {fileID: 1376784308}
 --- !u!114 &1376784305
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1376784303}
@@ -3868,7 +3533,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'The fabric feels natural, like cotton, but the design and quality is
     like nothing you''ve seen. There are no seams anywhere, not a stitch of thread,
     not even around the curious plastic zip that moves like the top of a ziploc bag,
@@ -3883,23 +3547,9 @@ MonoBehaviour:
     and breathable, like you could wear it for a week. Almost certainly a uniform
     of some kind, though made to fit you and you alone.'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &1376784306
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1376784303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!4 &1376784307
 Transform:
   m_ObjectHideFlags: 1
@@ -3914,7 +3564,7 @@ Transform:
   m_RootOrder: 5
 --- !u!114 &1376784308
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1376784303}
@@ -3925,7 +3575,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 570845514}
 --- !u!1 &1446920681
 GameObject:
@@ -3978,6 +3627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Resolution: {x: 1024, y: 768}
+  m_CanvasScaleMode: 0
   m_MatchWidthOrHeight: 0
 --- !u!114 &1446920684
 MonoBehaviour:
@@ -4011,6 +3661,7 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
+  m_OverrideSorting: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!1 &1486521695
@@ -4086,8 +3737,8 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_TargetGraphic: {fileID: 1486521698}
   m_Interactable: 1
+  m_TargetGraphic: {fileID: 1486521698}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -4105,7 +3756,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .588}
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
@@ -4141,6 +3792,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 1486521695}
+  m_HideIfInvisible: 0
 --- !u!1 &1499008162
 GameObject:
   m_ObjectHideFlags: 1
@@ -4150,7 +3802,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1499008164}
   - 114: {fileID: 1499008163}
-  - 114: {fileID: 1499008166}
   - 114: {fileID: 1499008165}
   - 114: {fileID: 1499008167}
   m_Layer: 0
@@ -4173,13 +3824,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -385
-    y: 383
-    width: 100
-    height: 40
-  description: 
+    x: -718.14856
+    y: 551.898376
+    width: 240
+    height: 74
+  sequenceName: LampOffVoice
   commandList:
-  - {fileID: 1499008166}
   - {fileID: 1499008165}
   - {fileID: 1499008167}
 --- !u!4 &1499008164
@@ -4196,7 +3846,7 @@ Transform:
   m_RootOrder: 14
 --- !u!114 &1499008165
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1499008162}
@@ -4207,33 +3857,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: '"Lamp off"
 
 
     The lamp blinks off obediently. It''s slightly less bright in here, but still
     very bright.'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &1499008166
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1499008162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!114 &1499008167
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1499008162}
@@ -4244,7 +3879,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 57262723}
 --- !u!1 &1567107783
 GameObject:
@@ -4255,7 +3889,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1567107784}
   - 114: {fileID: 1567107788}
-  - 114: {fileID: 1567107787}
   - 114: {fileID: 1567107786}
   - 114: {fileID: 1567107785}
   m_Layer: 0
@@ -4279,7 +3912,7 @@ Transform:
   m_RootOrder: 19
 --- !u!114 &1567107785
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1567107783}
@@ -4290,11 +3923,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 904348472}
 --- !u!114 &1567107786
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1567107783}
@@ -4305,7 +3937,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'You decide to lead with an unambiguous question.
 
 
@@ -4315,23 +3946,9 @@ MonoBehaviour:
     "Oh, well, that''s complicated, you''re underground in a facility that, well,
     you know what, never mind, like I said, it''ll all be covered at tomorrow''s orientation."'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &1567107787
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1567107783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  chooseDialog: {fileID: 306771627}
 --- !u!114 &1567107788
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4345,13 +3962,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -23
-    y: 774
-    width: 100
-    height: 40
-  description: 
+    x: -280.929169
+    y: 839.200806
+    width: 240
+    height: 74
+  sequenceName: Where
   commandList:
-  - {fileID: 1567107787}
   - {fileID: 1567107786}
   - {fileID: 1567107785}
 --- !u!1 &1597430797
@@ -4363,7 +3979,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1597430798}
   - 114: {fileID: 1597430799}
-  - 114: {fileID: 1597430801}
   - 114: {fileID: 1597430800}
   - 114: {fileID: 1597430802}
   m_Layer: 0
@@ -4398,18 +4013,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 73
-    y: 936
-    width: 100
-    height: 40
-  description: 
+    x: 173.902527
+    y: 989.151489
+    width: 240
+    height: 74
+  sequenceName: Truck
   commandList:
-  - {fileID: 1597430801}
   - {fileID: 1597430800}
   - {fileID: 1597430802}
 --- !u!114 &1597430800
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1597430797}
@@ -4420,7 +4034,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: '"Hey, can you truck theck on troll rum atop spede?"
 
 
@@ -4449,26 +4062,12 @@ MonoBehaviour:
 
 '
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &1597430801
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1597430797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!114 &1597430802
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1597430797}
@@ -4479,7 +4078,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 1925614670}
 --- !u!1 &1640703357
 GameObject:
@@ -4490,7 +4088,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1640703359}
   - 114: {fileID: 1640703358}
-  - 114: {fileID: 1640703362}
   - 114: {fileID: 1640703361}
   - 114: {fileID: 1640703360}
   m_Layer: 0
@@ -4513,13 +4110,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 21
-    y: 365
-    width: 100
-    height: 40
-  description: 
+    x: 528.392273
+    y: 577.671021
+    width: 240
+    height: 74
+  sequenceName: OpenDoorVoice
   commandList:
-  - {fileID: 1640703362}
   - {fileID: 1640703361}
   - {fileID: 1640703360}
 --- !u!4 &1640703359
@@ -4536,7 +4132,7 @@ Transform:
   m_RootOrder: 12
 --- !u!114 &1640703360
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1640703357}
@@ -4547,11 +4143,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 57262723}
 --- !u!114 &1640703361
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1640703357}
@@ -4562,7 +4157,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: '"Door open"
 
 
@@ -4574,23 +4168,9 @@ MonoBehaviour:
 
     Nothing. Oh well.'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &1640703362
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1640703357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!1 &1680954147
 GameObject:
   m_ObjectHideFlags: 1
@@ -4600,7 +4180,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1680954151}
   - 114: {fileID: 1680954148}
-  - 114: {fileID: 1680954150}
   - 114: {fileID: 1680954149}
   - 114: {fileID: 1680954153}
   - 114: {fileID: 1680954154}
@@ -4625,20 +4204,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 22
-    y: 181
-    width: 103
-    height: 40
-  description: 
+    x: 437.663483
+    y: 167.582901
+    width: 240
+    height: 114
+  sequenceName: InspectDeskFirst
   commandList:
-  - {fileID: 1680954150}
   - {fileID: 1680954154}
   - {fileID: 1680954153}
   - {fileID: 1680954152}
   - {fileID: 1680954149}
 --- !u!114 &1680954149
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1680954147}
@@ -4649,28 +4227,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseText: "The desk is simple and sturdy, a little impersonal. The lamp looks
     like a solid piece of chrome and it's currently switched off. \n\nUnderneath the
     lip of the desktop sit two drawers, one on either side."
   character: {fileID: 0}
+  chooseDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
---- !u!114 &1680954150
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1680954147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  chooseDialog: {fileID: 306771627}
 --- !u!4 &1680954151
 Transform:
   m_ObjectHideFlags: 1
@@ -4685,7 +4248,7 @@ Transform:
   m_RootOrder: 4
 --- !u!114 &1680954152
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1680954147}
@@ -4696,13 +4259,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Look at the lamp
   targetSequence: {fileID: 157780835}
   hideOnSelected: 0
 --- !u!114 &1680954153
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1680954147}
@@ -4713,13 +4275,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Open the right drawer
   targetSequence: {fileID: 669296792}
   hideOnSelected: 0
 --- !u!114 &1680954154
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1680954147}
@@ -4730,7 +4291,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Open the left drawer
   targetSequence: {fileID: 1170700147}
   hideOnSelected: 0
@@ -4787,6 +4347,7 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
+  m_OverrideSorting: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!114 &1686856206
@@ -4802,6 +4363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Resolution: {x: 1024, y: 768}
+  m_CanvasScaleMode: 0
   m_MatchWidthOrHeight: 0
 --- !u!114 &1686856207
 MonoBehaviour:
@@ -4868,7 +4430,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 43bce127d27b74a66a29b68d0de90ddb, type: 3}
@@ -4890,6 +4452,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 1754923516}
+  m_HideIfInvisible: 0
 --- !u!1 &1797174372
 GameObject:
   m_ObjectHideFlags: 1
@@ -4899,10 +4462,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1797174375}
   - 114: {fileID: 1797174374}
-  - 114: {fileID: 1797174373}
   - 114: {fileID: 1797174379}
   - 114: {fileID: 1797174378}
-  - 114: {fileID: 1797174376}
   - 114: {fileID: 1797174377}
   - 114: {fileID: 1797174380}
   - 114: {fileID: 1797174381}
@@ -4913,21 +4474,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1797174373
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1797174372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d14ccff3ce441ecba28c9a53b98a08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  commentText: This is where the game starts. Right here.
 --- !u!114 &1797174374
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4941,16 +4487,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 160
-    y: -192
-    width: 100
-    height: 40
-  description: The beginning of the game.
+    x: 56.9085083
+    y: 46.356102
+    width: 240
+    height: 134
+  sequenceName: Start
   commandList:
-  - {fileID: 1797174373}
   - {fileID: 1797174381}
   - {fileID: 1797174380}
-  - {fileID: 1797174376}
   - {fileID: 1797174379}
   - {fileID: 1797174378}
   - {fileID: 1797174377}
@@ -4966,24 +4510,9 @@ Transform:
   m_Children: []
   m_Father: {fileID: 771014101}
   m_RootOrder: 0
---- !u!114 &1797174376
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1797174372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  chooseDialog: {fileID: 306771627}
 --- !u!114 &1797174377
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1797174372}
@@ -4994,18 +4523,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseText: "You awake on a comfortable bed in a smallish room. Even though the
     light is low, you can tell the walls are a brilliant white, the bedside table
     a clean, tasteful construction of dark wood and frosted glass. Beyond that lies
     a writing desk with a couple of drawers and a lamp. You\u2019re dressed in a light
     blue jumpsuit that\u2019s quite flattering and very comfy, but definitely unfamiliar."
   character: {fileID: 0}
+  chooseDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
 --- !u!114 &1797174378
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1797174372}
@@ -5016,13 +4545,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Sit up
   targetSequence: {fileID: 1260488682}
   hideOnSelected: 0
 --- !u!114 &1797174379
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1797174372}
@@ -5033,13 +4561,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Shout
   targetSequence: {fileID: 449724767}
   hideOnSelected: 0
 --- !u!114 &1797174380
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1797174372}
@@ -5050,12 +4577,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   background: {fileID: 2052418066}
   backgroundImage: {fileID: 21300000, guid: 252b5a6bfbbc64f5184461a9150031bf, type: 3}
 --- !u!114 &1797174381
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1797174372}
@@ -5066,8 +4592,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   musicClip: {fileID: 8300000, guid: 8f2a44f9988c2445aa82bed59f677134, type: 3}
+  atTime: 0
 --- !u!1 &1824373602
 GameObject:
   m_ObjectHideFlags: 1
@@ -5077,9 +4603,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1824373604}
   - 114: {fileID: 1824373603}
-  - 114: {fileID: 1824373606}
   - 114: {fileID: 1824373605}
-  - 114: {fileID: 1824373610}
   - 114: {fileID: 1824373609}
   - 114: {fileID: 1824373608}
   - 114: {fileID: 1824373607}
@@ -5103,15 +4627,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 19
-    y: 544
-    width: 100
-    height: 40
-  description: 
+    x: -25
+    y: 587
+    width: 240
+    height: 114
+  sequenceName: LightsOnVoice
   commandList:
-  - {fileID: 1824373606}
   - {fileID: 1824373605}
-  - {fileID: 1824373610}
   - {fileID: 1824373609}
   - {fileID: 1824373608}
   - {fileID: 1824373607}
@@ -5129,7 +4651,7 @@ Transform:
   m_RootOrder: 13
 --- !u!114 &1824373605
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1824373602}
@@ -5140,33 +4662,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: '"Lights on!"
 
 
     The lights quickly fade up. You shield your eyes for a moment but you quickly
     adapt. Everything looks more or less the way it did, just, well, brighter.'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &1824373606
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1824373602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!114 &1824373607
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1824373602}
@@ -5177,14 +4684,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   chooseText: What would you like to do next?
   character: {fileID: 0}
+  chooseDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
 --- !u!114 &1824373608
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1824373602}
@@ -5195,13 +4702,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Examine desk
   targetSequence: {fileID: 639548733}
   hideOnSelected: 1
 --- !u!114 &1824373609
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1824373602}
@@ -5212,25 +4718,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   optionText: Examine door
   targetSequence: {fileID: 817573245}
   hideOnSelected: 0
---- !u!114 &1824373610
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1824373602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926adf8389384479eb93ef4d6ce8eb33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  chooseDialog: {fileID: 306771627}
 --- !u!1 &1868799481
 GameObject:
   m_ObjectHideFlags: 1
@@ -5240,7 +4730,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1868799485}
   - 114: {fileID: 1868799482}
-  - 114: {fileID: 1868799486}
   - 114: {fileID: 1868799484}
   - 114: {fileID: 1868799483}
   m_Layer: 0
@@ -5263,18 +4752,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 320
-    y: 135
-    width: 100
-    height: 40
-  description: 
+    x: 1100.65942
+    y: 203.350891
+    width: 240
+    height: 74
+  sequenceName: ListenFirst
   commandList:
-  - {fileID: 1868799486}
   - {fileID: 1868799484}
   - {fileID: 1868799483}
 --- !u!114 &1868799483
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1868799481}
@@ -5285,11 +4773,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 570845514}
 --- !u!114 &1868799484
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1868799481}
@@ -5300,12 +4787,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: You hold your breath and strain to hear anything. There's a faint machine-like
     hum, barely perceptible, coming from the ceiling. You think you can hear voices
     for a moment, but after holding your breath another couple of times, you hear
     nothing.
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!4 &1868799485
@@ -5320,21 +4807,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 771014101}
   m_RootOrder: 6
---- !u!114 &1868799486
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1868799481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!1 &1910717284
 GameObject:
   m_ObjectHideFlags: 1
@@ -5344,7 +4816,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1910717288}
   - 114: {fileID: 1910717285}
-  - 114: {fileID: 1910717287}
   - 114: {fileID: 1910717286}
   - 114: {fileID: 1910717289}
   m_Layer: 0
@@ -5367,18 +4838,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 255
-    y: 914
-    width: 100
-    height: 40
-  description: 
+    x: 592.672424
+    y: 1044.29565
+    width: 240
+    height: 74
+  sequenceName: Trapped
   commandList:
-  - {fileID: 1910717287}
   - {fileID: 1910717286}
   - {fileID: 1910717289}
 --- !u!114 &1910717286
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1910717284}
@@ -5389,7 +4859,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: 'The door slides shut just as quick as it opened, before you get a chance
     to leave. So close to getting away!
 
@@ -5405,23 +4874,9 @@ MonoBehaviour:
 
     "It''s OK. It was my own fault. I just need to be more careful."'
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &1910717287
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1910717284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!4 &1910717288
 Transform:
   m_ObjectHideFlags: 1
@@ -5436,7 +4891,7 @@ Transform:
   m_RootOrder: 26
 --- !u!114 &1910717289
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1910717284}
@@ -5447,7 +4902,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 1597430799}
 --- !u!1 &1925614669
 GameObject:
@@ -5458,7 +4912,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1925614671}
   - 114: {fileID: 1925614670}
-  - 114: {fileID: 1925614672}
   - 114: {fileID: 1925614673}
   - 114: {fileID: 1925614674}
   m_Layer: 0
@@ -5481,13 +4934,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 632
-    y: 973
-    width: 100
-    height: 40
-  description: 
+    x: 613.991577
+    y: 896.073914
+    width: 240
+    height: 74
+  sequenceName: FREEDOM!
   commandList:
-  - {fileID: 1925614672}
   - {fileID: 1925614673}
   - {fileID: 1925614674}
 --- !u!4 &1925614671
@@ -5502,24 +4954,9 @@ Transform:
   m_Children: []
   m_Father: {fileID: 771014101}
   m_RootOrder: 25
---- !u!114 &1925614672
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1925614669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!114 &1925614673
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1925614669}
@@ -5530,14 +4967,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   storyText: You saunter through the hallway and on to your freedom. Well done!
   character: {fileID: 0}
+  sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &1925614674
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1925614669}
@@ -5548,7 +4985,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  selected: 0
   targetSequence: {fileID: 1797174374}
 --- !u!1 &1931134860
 GameObject:
@@ -5623,8 +5059,8 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_TargetGraphic: {fileID: 1931134863}
   m_Interactable: 1
+  m_TargetGraphic: {fileID: 1931134863}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -5642,7 +5078,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .588}
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
@@ -5678,6 +5114,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 1931134860}
+  m_HideIfInvisible: 0
 --- !u!1 &1952009529
 GameObject:
   m_ObjectHideFlags: 0
@@ -5725,7 +5162,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 43bce127d27b74a66a29b68d0de90ddb, type: 3}
@@ -5747,6 +5184,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 1952009529}
+  m_HideIfInvisible: 0
 --- !u!1 &2006087465
 GameObject:
   m_ObjectHideFlags: 1
@@ -5755,10 +5193,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2006087466}
-  - 114: {fileID: 2006087467}
-  - 114: {fileID: 2006087470}
-  - 114: {fileID: 2006087469}
-  - 114: {fileID: 2006087468}
   m_Layer: 0
   m_Name: EndProgramVoice
   m_TagString: Untagged
@@ -5778,85 +5212,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 771014101}
   m_RootOrder: 17
---- !u!114 &2006087467
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2006087465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 15
-    y: 482
-    width: 109
-    height: 40
-  description: 
-  commandList:
-  - {fileID: 2006087470}
-  - {fileID: 2006087469}
-  - {fileID: 2006087468}
---- !u!114 &2006087468
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2006087465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  targetSequence: {fileID: 57262723}
---- !u!114 &2006087469
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2006087465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  storyText: '"End program"
-
-
-    Nothing.
-
-
-    "Computer, end program."
-
-
-    Again, nothing. Maybe real life isn''t like Star Trek after all.'
-  character: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &2006087470
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2006087465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60846452b4dd44937b12b1c00111d8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  selected: 0
-  sayDialog: {fileID: 1206280514}
 --- !u!1 &2027003763
 GameObject:
   m_ObjectHideFlags: 0
@@ -5904,7 +5259,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 43bce127d27b74a66a29b68d0de90ddb, type: 3}
@@ -5926,6 +5281,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 2027003763}
+  m_HideIfInvisible: 0
 --- !u!1 &2052418065
 GameObject:
   m_ObjectHideFlags: 0
@@ -6042,8 +5398,8 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_TargetGraphic: {fileID: 2074993377}
   m_Interactable: 1
+  m_TargetGraphic: {fileID: 2074993377}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -6061,7 +5417,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .588}
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
@@ -6097,6 +5453,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 2074993374}
+  m_HideIfInvisible: 0
 --- !u!1 &2083895222
 GameObject:
   m_ObjectHideFlags: 0
@@ -6144,7 +5501,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 43bce127d27b74a66a29b68d0de90ddb, type: 3}
@@ -6166,6 +5523,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 977776766}
   m_GameObject: {fileID: 2083895222}
+  m_HideIfInvisible: 0
 --- !u!1 &2135004221
 GameObject:
   m_ObjectHideFlags: 0
@@ -6225,6 +5583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
 --- !u!4 &2135004225
 Transform:
   m_ObjectHideFlags: 0

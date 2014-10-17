@@ -20,22 +20,22 @@ namespace Fungus
 		public Sequence executingSequence;
 
 		/**
-		 * Scroll position of Fungus Script editor window (map view).
+		 * Scroll position of Fungus Script editor window.
 		 */
 		[HideInInspector]
-		public Vector2 scriptScrollPos;
+		public Vector2 scrollPos;
 
 		/**
-		 * Scroll position of Fungus Script editor window (command view).
+		 * Zoom level of Fungus Script editor window
 		 */
 		[HideInInspector]
-		public Vector2 commandScrollPos;
+		public float zoom = 1f;
 
 		/**
-		 * Current width of command view
+		 * Scrollable area for Fungus Script editor window.
 		 */
 		[HideInInspector]
-		public float commandViewWidth = 350;
+		public Rect scrollViewRect;
 
 		/**
 		 * Currently selected sequence in the Fungus Script editor.
@@ -47,7 +47,7 @@ namespace Fungus
 		 * Currently selected command in the Fungus Script editor.
 		 */
 		[HideInInspector]
-		public Command selectedCommand;
+		public List<Command> selectedCommands = new List<Command>();
 
 		/**
 		 * The list of variables that can be accessed by the Fungus Script.
@@ -379,17 +379,26 @@ namespace Fungus
 		 */
 		public virtual void UpdateHideFlags()
 		{
-			Sequence[] sequences = GetComponents<Sequence>();
+			Sequence[] sequences = GetComponentsInChildren<Sequence>();
 			foreach (Sequence sequence in sequences)
 			{
 				sequence.hideFlags = settings.hideComponents ? HideFlags.HideInInspector : HideFlags.None;
+				if (sequence.gameObject != gameObject)
+				{
+					sequence.gameObject.hideFlags = settings.hideComponents ? HideFlags.HideInHierarchy : HideFlags.None;
+				}
 			}
 
-			Command[] commands = GetComponents<Command>();
+			Command[] commands = GetComponentsInChildren<Command>();
 			foreach (Command command in commands)
 			{
 				command.hideFlags = settings.hideComponents ? HideFlags.HideInInspector : HideFlags.None;
 			}
+		}
+
+		public virtual void ClearSelectedCommands()
+		{
+			selectedCommands.Clear();
 		}
 	}
 

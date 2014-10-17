@@ -17,8 +17,7 @@ namespace Fungus
 
 		public override void OnEnter()
 		{
-			if (hideOnSelected &&
-			    targetSequence.GetExecutionCount() > 0)
+			if (targetSequence == null || (hideOnSelected && targetSequence.GetExecutionCount() > 0))
 			{
 				Continue();
 				return;

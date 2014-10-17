@@ -15,6 +15,7 @@ namespace Fungus
 
 		protected SerializedProperty chooseTextProp;
 		protected SerializedProperty characterProp;
+		protected SerializedProperty chooseDialogProp;
 		protected SerializedProperty voiceOverClipProp;
 		protected SerializedProperty timeoutDurationProp;
 
@@ -22,6 +23,7 @@ namespace Fungus
 		{
 			chooseTextProp = serializedObject.FindProperty("chooseText");
 			characterProp = serializedObject.FindProperty("character");
+			chooseDialogProp = serializedObject.FindProperty("chooseDialog");
 			voiceOverClipProp = serializedObject.FindProperty("voiceOverClip");
 			timeoutDurationProp = serializedObject.FindProperty("timeoutDuration");
 		}
@@ -67,9 +69,14 @@ namespace Fungus
 			EditorGUILayout.Separator();
 
 			CommandEditor.ObjectField<Character>(characterProp,
-			                                           new GUIContent("Character", "Character to display in dialog"), 
-			                                           new GUIContent("<None>"),
-			                                           Character.activeCharacters);
+			                                     new GUIContent("Character", "Character to display in dialog"), 
+			                                     new GUIContent("<None>"),
+			                                     Character.activeCharacters);
+
+			CommandEditor.ObjectField<ChooseDialog>(chooseDialogProp, 
+			                                     	new GUIContent("Choose Dialog", "Choose Dialog object to use to display the multiple player choices"), 
+			                                     	new GUIContent("<None>"),
+			                                       	ChooseDialog.activeDialogs);
 
 			EditorGUILayout.PropertyField(voiceOverClipProp, new GUIContent("Voice Over Clip", "Voice over audio to play when the choose text is displayed"));
 

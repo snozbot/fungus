@@ -10,8 +10,6 @@ namespace Fungus
 	public class Sequence : Node 
 	{
 		public string sequenceName = "New Sequence";
-		
-		public string description = "";
 
 		[System.NonSerialized]
 		public Command activeCommand;
@@ -142,7 +140,7 @@ namespace Fungus
 			activeCommand = null;
 			fungusScript.executingSequence = null;
 			fungusScript.selectedSequence = null;
-			fungusScript.selectedCommand = null;
+			fungusScript.selectedCommands.Clear();
 		}
 
 		public virtual List<Sequence> GetConnectedSequences()

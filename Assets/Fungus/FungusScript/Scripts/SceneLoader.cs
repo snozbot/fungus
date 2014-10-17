@@ -46,11 +46,12 @@ namespace Fungus
 				yield return new WaitForEndOfFrame();
 			}
 
-			// Destroy tagged objects to release asset references
-			GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("DestroyOnSceneLoad");
-			foreach (GameObject go in gameObjects)
+			// Sprites tend to take up most of the memory in a Fungus game, so destroy all sprite objects
+			// first to free up memory for loading in the next scene.
+			SpriteRenderer[] renderers = GameObject.FindObjectsOfType<SpriteRenderer>();
+			foreach (SpriteRenderer renderer in renderers)
 			{
-				DestroyImmediate(go);
+				DestroyImmediate(renderer.gameObject);
 			}
 
 			// Wait for objects to actually be destroyed at end of run loop
