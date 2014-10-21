@@ -158,97 +158,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &427649606
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 427649610}
-  - 114: {fileID: 427649609}
-  - 114: {fileID: 427649608}
-  - 114: {fileID: 427649607}
-  m_Layer: 0
-  m_Name: _CommandCopyBuffer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &427649607
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 427649606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 665e8847cab3749f597622c6c52997ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  target: {fileID: 1621124268}
-  tweenName: 
-  duration: 1
-  easeType: 2
-  loopType: 0
-  waitUntilFinished: 1
-  toTransform: {fileID: 0}
-  toScale: {x: .5, y: .5, z: 0}
---- !u!114 &427649608
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 427649606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 665e8847cab3749f597622c6c52997ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  target: {fileID: 1621124268}
-  tweenName: 
-  duration: 1
-  easeType: 2
-  loopType: 0
-  waitUntilFinished: 1
-  toTransform: {fileID: 0}
-  toScale: {x: .5, y: .5, z: 0}
---- !u!114 &427649609
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 427649606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28859462f29464188bb29cc9f1f6e92c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 10
-    y: 10
-    width: 100
-    height: 20
-  sequenceName: New Sequence
-  commandList: []
---- !u!4 &427649610
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 427649606}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
 --- !u!1 &497781871
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,6 +231,7 @@ GameObject:
   - 114: {fileID: 868139011}
   - 114: {fileID: 868139012}
   - 114: {fileID: 868139013}
+  - 114: {fileID: 868139014}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: Untagged
@@ -367,7 +277,7 @@ MonoBehaviour:
     x: 60
     y: 60
     width: 240
-    height: 434
+    height: 454
   sequenceName: Test iTween
   commandList:
   - {fileID: 868138995}
@@ -390,6 +300,7 @@ MonoBehaviour:
   - {fileID: 868139003}
   - {fileID: 868139007}
   - {fileID: 868139006}
+  - {fileID: 868139014}
 --- !u!114 &868138993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,17 +312,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 171, y: -80}
+  scrollPos: {x: 163, y: -41}
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -350
     y: -350
     width: 1050
-    height: 1244
-  selectedSequence: {fileID: 868138992}
-  selectedCommands:
-  - {fileID: 868139013}
+    height: 1284
+  selectedSequence: {fileID: 0}
+  selectedCommands: []
   variables: []
   startSequence: {fileID: 868138992}
   executeOnStart: 1
@@ -833,6 +743,28 @@ MonoBehaviour:
   loopType: 0
   waitUntilFinished: 1
   amount: {x: 1, y: 1, z: 0}
+--- !u!114 &868139014
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 868138990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 433657382cf894ff2973ee118eed40ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  target: {fileID: 1621124268}
+  tweenName: 
+  duration: 1
+  easeType: 2
+  loopType: 0
+  waitUntilFinished: 1
+  fromTransform: {fileID: 1955612100}
+  fromPosition: {x: 0, y: 0, z: 0}
+  axis: 3
 --- !u!1 &1090256565
 GameObject:
   m_ObjectHideFlags: 0

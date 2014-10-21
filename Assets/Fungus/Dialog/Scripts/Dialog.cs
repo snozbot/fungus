@@ -232,7 +232,9 @@ namespace Fungus
 
 							if (!skipCharacter)
 							{
+								typingAudio.audio.Pause();
 								yield return new WaitForSeconds(currentPunctuationPause);
+								typingAudio.audio.Play();
 							}
 						}
 
@@ -269,20 +271,31 @@ namespace Fungus
 						{
 							duration = 1f;
 						}
+						typingAudio.audio.Pause();
 						yield return new WaitForSeconds(duration);
+						typingAudio.audio.Play();
+
 						timeAccumulator = 0f;
 						break;
 
 					case GlyphType.WaitForInputNoClear:
 						OnWaitForInputTag(true);
+
+						typingAudio.audio.Pause();
 						yield return StartCoroutine(WaitForInput(null));
+						typingAudio.audio.Play();
+
 						timeAccumulator = 0f;
 						OnWaitForInputTag(false);
 						break;
 					
 					case GlyphType.WaitForInputAndClear:
 						OnWaitForInputTag(true);
+
+						typingAudio.audio.Pause();
 						yield return StartCoroutine(WaitForInput(null));
+						typingAudio.audio.Play();
+
 						OnWaitForInputTag(false);
 						timeAccumulator = 0f;
 						storyText.text = "";

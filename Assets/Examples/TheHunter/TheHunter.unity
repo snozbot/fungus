@@ -1649,8 +1649,8 @@ MonoBehaviour:
   - {fileID: 541676553}
   - {fileID: 541676556}
   - {fileID: 541676552}
-  - {fileID: 541676558}
   - {fileID: 541676551}
+  - {fileID: 541676558}
   - {fileID: 541676557}
 --- !u!4 &541676555
 Transform:
@@ -3220,7 +3220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   writingSpeed: 60
-  writingSound: {fileID: 0}
+  writingSound: {fileID: 8300000, guid: 5a3c8e205638142dcb8227abe5f14f1f, type: 3}
   loopWritingSound: 1
   punctuationPause: .400000006
   dialogCanvas: {fileID: 140463388}
@@ -3305,6 +3305,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: ffe6272c05a0840d1b4b07028163f170, type: 2}
+      propertyPath: writingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a3c8e205638142dcb8227abe5f14f1f, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ffe6272c05a0840d1b4b07028163f170, type: 2}
   m_RootGameObject: {fileID: 1185554285}
@@ -3424,7 +3428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   writingSpeed: 60
-  writingSound: {fileID: 0}
+  writingSound: {fileID: 8300000, guid: 5a3c8e205638142dcb8227abe5f14f1f, type: 3}
   loopWritingSound: 1
   punctuationPause: .400000006
   dialogCanvas: {fileID: 655392669}
@@ -5782,7 +5786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 377.652466, y: 514.8302}
+  scrollPos: {x: 348.627258, y: 535.06012}
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -5790,8 +5794,9 @@ MonoBehaviour:
     y: -883.033203
     width: 1939.01758
     height: 1972.5332
-  selectedSequence: {fileID: 0}
-  selectedCommands: []
+  selectedSequence: {fileID: 541676554}
+  selectedCommands:
+  - {fileID: 541676551}
   variables:
   - {fileID: 1831099569}
   startSequence: {fileID: 1507034365}
@@ -6066,6 +6071,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9,
         type: 3}
+    - target: {fileID: 11400006, guid: 00974f07e5b9248d48d344335b83f4bd, type: 2}
+      propertyPath: writingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a3c8e205638142dcb8227abe5f14f1f, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00974f07e5b9248d48d344335b83f4bd, type: 2}
   m_RootGameObject: {fileID: 1070206232}
@@ -6430,7 +6439,7 @@ MonoBehaviour:
 
     This way, follow me!'
   character: {fileID: 338947448}
-  sayDialog: {fileID: 1185554287}
+  sayDialog: {fileID: 1070206234}
   voiceOverClip: {fileID: 0}
   showOnce: 0
 --- !u!114 &2111357061
