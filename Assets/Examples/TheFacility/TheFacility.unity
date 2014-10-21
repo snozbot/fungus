@@ -138,8 +138,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -397.40332
-    y: 526.172302
+    x: -11.5033875
+    y: 383.288513
     width: 240
     height: 134
   sequenceName: TryVoice
@@ -288,8 +288,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 145.276245
-    y: 431.162079
+    x: 487.728394
+    y: 491.952423
     width: 240
     height: 74
   sequenceName: LampOnVoice
@@ -341,8 +341,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -222.590332
-    y: 231.548828
+    x: 485.616882
+    y: 368.326965
     width: 240
     height: 74
   sequenceName: LookAtLamp
@@ -732,8 +732,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1099.81128
-    y: 370.378845
+    x: 1116.02197
+    y: 246.771912
     width: 240
     height: 74
   sequenceName: InspectDoorFirst
@@ -931,8 +931,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 405.099487
-    y: -70.2529602
+    x: 487.166351
+    y: -96.5954437
     width: 240
     height: 74
   sequenceName: Shout
@@ -1156,8 +1156,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 737.520691
-    y: 169.562195
+    x: 782.073914
+    y: 68.5611267
     width: 240
     height: 134
   sequenceName: StandingThere
@@ -1422,8 +1422,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -281.863403
-    y: 726.720093
+    x: -267.692169
+    y: 776.090332
     width: 240
     height: 74
   sequenceName: ExamineDeskLit
@@ -1510,8 +1510,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 547.538696
-    y: 360.768036
+    x: 793.739502
+    y: 447.90094
     width: 240
     height: 154
   sequenceName: LookAtRightDrawer
@@ -1692,8 +1692,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 933
-    y: 863
+    x: 902.604858
+    y: 908.593018
     width: 240
     height: 94
   sequenceName: OpenA147
@@ -1960,6 +1960,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 771014101}
   - 114: {fileID: 771014100}
+  - 114: {fileID: 771014102}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: GameController
@@ -1978,18 +1979,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 358.373291, y: 31.6456909}
+  scrollPos: {x: -84.4041138, y: 155.750885}
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -1118.14856
     y: -592
     width: 2934.21484
-    height: 2134
-  selectedSequence: {fileID: 1797174374}
-  selectedCommands:
-  - {fileID: 1797174373}
-  variables: []
+    height: 2208.61548
+  selectedSequence: {fileID: 1868799482}
+  selectedCommands: []
+  variables:
+  - {fileID: 771014102}
   startSequence: {fileID: 1797174374}
   executeOnStart: 1
   settings:
@@ -2036,6 +2037,19 @@ Transform:
   - {fileID: 1910717288}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!114 &771014102
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 771014099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d02d9822eec54c98afe95bb497211b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: Var
 --- !u!1 &817573244
 GameObject:
   m_ObjectHideFlags: 1
@@ -2067,8 +2081,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 237.39093
-    y: 710.021729
+    x: 169.508423
+    y: 769.799561
     width: 240
     height: 74
   sequenceName: ExamineDoorLit
@@ -2220,8 +2234,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -289.824646
-    y: 976.687988
+    x: -268.548035
+    y: 1039.50513
     width: 240
     height: 74
   sequenceName: Why
@@ -2363,8 +2377,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 168.221863
-    y: 820.855652
+    x: 170.248169
+    y: 901.90979
     width: 240
     height: 114
   sequenceName: DoorTalk
@@ -2560,8 +2574,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 609
-    y: 727
+    x: 580.631226
+    y: 799.94873
     width: 240
     height: 94
   sequenceName: How
@@ -3080,8 +3094,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 52.0456238
-    y: 303.079071
+    x: 486.696472
+    y: 207.840912
     width: 240
     height: 94
   sequenceName: LookAtLeftDrawer
@@ -3283,8 +3297,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 730.41095
-    y: 26.1830368
+    x: 488.262848
+    y: 30.2357101
     width: 240
     height: 74
   sequenceName: SittingUp
@@ -3482,8 +3496,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1099.93945
-    y: 62.363739
+    x: 1110.07129
+    y: -35.9139404
     width: 240
     height: 74
   sequenceName: InspectJumpsuitFirst
@@ -3794,8 +3808,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -718.14856
-    y: 551.898376
+    x: -337.315613
+    y: 414.093811
     width: 240
     height: 74
   sequenceName: LampOffVoice
@@ -3932,8 +3946,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -280.929169
-    y: 839.200806
+    x: -266.771088
+    y: 908.425903
     width: 240
     height: 74
   sequenceName: Where
@@ -3983,8 +3997,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 173.902527
-    y: 989.151489
+    x: 174.91571
+    y: 1058.04761
     width: 240
     height: 74
   sequenceName: Truck
@@ -4080,8 +4094,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 528.392273
-    y: 577.671021
+    x: 551.695129
+    y: 670.883057
     width: 240
     height: 74
   sequenceName: OpenDoorVoice
@@ -4174,8 +4188,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 437.663483
-    y: 167.582901
+    x: 783.15509
+    y: 270.926453
     width: 240
     height: 114
   sequenceName: InspectDeskFirst
@@ -4475,8 +4489,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 56.9085083
-    y: 46.356102
+    x: 137.96225
+    y: -48.8820724
     width: 240
     height: 134
   sequenceName: Start
@@ -4600,7 +4614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -25
+    x: -14.8682861
     y: 587
     width: 240
     height: 114
@@ -4725,8 +4739,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1100.65942
-    y: 203.350891
+    x: 1114.84399
+    y: 109.237518
     width: 240
     height: 74
   sequenceName: ListenFirst
@@ -4811,8 +4825,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 592.672424
-    y: 1044.29565
+    x: 578.488037
+    y: 947.818665
     width: 240
     height: 74
   sequenceName: Trapped
@@ -4907,8 +4921,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 613.991577
-    y: 896.073914
+    x: 580.610229
+    y: 1065.31152
     width: 240
     height: 74
   sequenceName: FREEDOM!
