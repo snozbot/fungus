@@ -442,7 +442,7 @@ namespace Fungus
 			
 			Vector3 cameraDelta = Camera.main.ScreenToViewportPoint(delta);
 			cameraDelta.x *= -2f;
-			cameraDelta.y *= -1f;
+			cameraDelta.y *= -2f;
 			cameraDelta.z = 0f;
 			
 			Vector3 cameraPos = Camera.main.transform.position;
