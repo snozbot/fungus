@@ -14,6 +14,7 @@ namespace Fungus
 
 		protected SerializedProperty primaryAspectRatioProp;
 		protected SerializedProperty secondaryAspectRatioProp;
+		protected SerializedProperty viewSizeProp;
 
 		// Draw Views when they're not selected
 		[DrawGizmo(GizmoType.NotSelected | GizmoType.SelectedOrChild)]
@@ -62,6 +63,7 @@ namespace Fungus
 		{
 			primaryAspectRatioProp = serializedObject.FindProperty ("primaryAspectRatio");
 			secondaryAspectRatioProp = serializedObject.FindProperty ("secondaryAspectRatio");
+			viewSizeProp = serializedObject.FindProperty("viewSize");
 		}
 
 		public override void OnInspectorGUI()
@@ -69,6 +71,8 @@ namespace Fungus
 			serializedObject.Update();
 
 			EditorGUI.BeginChangeCheck();
+
+			EditorGUILayout.PropertyField(viewSizeProp);
 
 			string[] ratios = { "<None>", "Landscape / 4:3", "Landscape / 3:2", "Landscape / 16:10", "Landscape / 17:10", "Landscape / 16:9", "Landscape / 2:1", "Portrait / 3:4", "Portrait / 2:3", "Portrait / 10:16", "Portrait / 10:17", "Portrait / 9:16", "Portrait / 1:2" };
 
@@ -140,8 +144,9 @@ namespace Fungus
 				                                        Handles.CubeCap);
 				if (newPos != handles[i])
 				{
-					Undo.RecordObject(view, "Changed view size");
+					Undo.RecordObject(view, "Set View Size");
 					view.viewSize = (newPos - pos).magnitude;
+					EditorUtility.SetDirty(view);
 					break;
 				}
 			}
