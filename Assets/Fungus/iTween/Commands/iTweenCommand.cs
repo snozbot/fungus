@@ -3,7 +3,14 @@ using System.Collections;
 
 namespace Fungus
 {
-
+	public enum iTweenAxis
+	{
+		None,
+		X,
+		Y,
+		Z
+	}
+	
 	public abstract class iTweenCommand : Command 
 	{
 		public GameObject target;
