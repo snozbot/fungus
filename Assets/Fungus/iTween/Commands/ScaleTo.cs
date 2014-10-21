@@ -8,12 +8,20 @@ namespace Fungus
 	             "Changes a game object's scale to a specified value over time.")]
 	public class ScaleTo : iTweenCommand 
 	{
-		public Vector3 scale;
+		public Transform toTransform;
+		public Vector3 toScale;
 
 		public override void DoTween()
 		{
 			Hashtable tweenParams = new Hashtable();
-			tweenParams.Add("scale", scale);
+			if (toTransform == null)
+			{
+				tweenParams.Add("scale", toScale);
+			}
+			else
+			{
+				tweenParams.Add("scale", toTransform);
+			}
 			tweenParams.Add("time", duration);
 			tweenParams.Add("easetype", easeType);
 			tweenParams.Add("looptype", loopType);

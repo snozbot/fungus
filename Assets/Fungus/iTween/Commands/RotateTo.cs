@@ -8,13 +8,21 @@ namespace Fungus
 	             "Rotates a game object to the specified angles over time.")]
 	public class RotateTo : iTweenCommand 
 	{
-		public Vector3 rotation;
+		public Transform toTransform;
+		public Vector3 toRotation;
 		public bool isLocal;
 
 		public override void DoTween()
 		{
 			Hashtable tweenParams = new Hashtable();
-			tweenParams.Add("rotation", rotation);
+			if (toTransform == null)
+			{
+				tweenParams.Add("rotation", toRotation);
+			}
+			else
+			{
+				tweenParams.Add("rotation", toTransform);
+			}
 			tweenParams.Add("time", duration);
 			tweenParams.Add("easetype", easeType);
 			tweenParams.Add("looptype", loopType);
