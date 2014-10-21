@@ -15,6 +15,9 @@ namespace Fungus
 		public AudioClip writingSound;
 		public bool loopWritingSound = true;
 		public float punctuationPause = 0.25f;
+
+		[Tooltip("Click anywhere on screen to continue when set to true, or only on dialog when false.")]
+		public bool clickAnywhere = true;
 		
 		public Canvas dialogCanvas;
 		public Text nameText;
@@ -27,6 +30,8 @@ namespace Fungus
 		protected bool italicActive;
 		protected bool colorActive;
 		protected string colorText;
+
+		protected bool wasPointerClicked;
 
 		protected enum GlyphType
 		{
@@ -50,6 +55,17 @@ namespace Fungus
 		{
 			public GlyphType type = GlyphType.Character;
 			public string param = "";
+		}
+
+		protected virtual void LateUpdate()
+		{
+			wasPointerClicked = false;
+
+			if (clickAnywhere &&
+			    Input.GetMouseButtonDown(0))
+			{
+				wasPointerClicked = true;
+			}
 		}
 
 		public virtual void ShowDialog(bool visible)
@@ -199,9 +215,10 @@ namespace Fungus
 			
 							storyText.text += start + glyph.param + end;
 
-							if (Input.GetMouseButtonDown(0))
+							if (wasPointerClicked)
 							{
 								currentSpeed = 10000; // Write instantly
+								wasPointerClicked = false;
 							}
 						}
 
@@ -533,10 +550,12 @@ namespace Fungus
 
 		protected virtual IEnumerator WaitForInput(Action onInput)
 		{
-			while (!Input.GetMouseButtonDown(0))
+			while (!wasPointerClicked)
 			{
 				yield return null;
 			}
+
+			wasPointerClicked = false;
 
 			if (onInput != null)
 			{
@@ -546,6 +565,11 @@ namespace Fungus
 
 		protected virtual void OnWaitForInputTag(bool waiting)
 		{}
+
+		public virtual void OnPointerClick()
+		{
+			wasPointerClicked = true;
+		}
 	}
 	
 }

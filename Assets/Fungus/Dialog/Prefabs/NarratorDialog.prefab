@@ -44,6 +44,8 @@ GameObject:
   - 224: {fileID: 22400002}
   - 222: {fileID: 22200000}
   - 114: {fileID: 11400006}
+  - 225: {fileID: 22500000}
+  - 114: {fileID: 11400014}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -111,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Resolution: {x: 1024, y: 768}
+  m_CanvasScaleMode: 0
   m_MatchWidthOrHeight: 0
 --- !u!114 &11400002
 MonoBehaviour:
@@ -141,9 +144,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   writingSpeed: 60
-  writingSound: {fileID: 0}
+  writingSound: {fileID: 8300000, guid: 5a3c8e205638142dcb8227abe5f14f1f, type: 3}
   loopWritingSound: 1
   punctuationPause: .400000006
+  clickAnywhere: 1
   dialogCanvas: {fileID: 22300000}
   nameText: {fileID: 0}
   storyText: {fileID: 11400008}
@@ -160,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .39199999}
   m_Sprite: {fileID: 10909, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
@@ -181,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
@@ -221,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Sprite: {fileID: 21300000, guid: b3426f0a4460547a69fc64b85700a13d, type: 3}
   m_Type: 0
@@ -231,24 +235,57 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11400014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400004}
+          m_MethodName: OnPointerClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!222 &22200000
 CanvasRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
+  m_HideIfInvisible: 0
 --- !u!222 &22200002
 CanvasRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
+  m_HideIfInvisible: 0
 --- !u!222 &22200004
 CanvasRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
+  m_HideIfInvisible: 0
 --- !u!223 &22300000
 Canvas:
   m_ObjectHideFlags: 1
@@ -262,6 +299,7 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
+  m_OverrideSorting: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!224 &22400000
@@ -335,6 +373,16 @@ RectTransform:
   m_AnchoredPosition: {x: -2.43186951e-05, y: 15.8000002}
   m_SizeDelta: {x: -.300000191, y: 32.0999985}
   m_Pivot: {x: .5, y: .5}
+--- !u!225 &22500000
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
