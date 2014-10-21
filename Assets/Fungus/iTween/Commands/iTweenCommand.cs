@@ -7,10 +7,11 @@ namespace Fungus
 	public abstract class iTweenCommand : Command 
 	{
 		public GameObject target;
+		public string tweenName;
 		public float duration = 1f;
 		public iTween.EaseType easeType = iTween.EaseType.easeInOutQuad;
 		public iTween.LoopType loopType = iTween.LoopType.none;
-		public bool waitUntilFinished;
+		public bool waitUntilFinished = true;
 
 		public override void OnEnter()
 		{

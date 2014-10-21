@@ -13,6 +13,7 @@ namespace Fungus
 		public override void DoTween()
 		{
 			Hashtable tweenParams = new Hashtable();
+			tweenParams.Add("name", tweenName);
 			tweenParams.Add("amount", offset);
 			tweenParams.Add("time", duration);
 			tweenParams.Add("easetype", easeType);

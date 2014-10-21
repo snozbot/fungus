@@ -335,7 +335,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   target: {fileID: 1090256565}
-  tweenName: 
+  tweenName: MoveIt
   duration: 1
   easeType: 2
   loopType: 0
@@ -392,10 +392,9 @@ MonoBehaviour:
     x: -350
     y: -350
     width: 1050
-    height: 1084
-  selectedSequence: {fileID: 868138992}
-  selectedCommands:
-  - {fileID: 868139003}
+    height: 1104
+  selectedSequence: {fileID: 0}
+  selectedCommands: []
   variables: []
   startSequence: {fileID: 868138992}
   executeOnStart: 1
