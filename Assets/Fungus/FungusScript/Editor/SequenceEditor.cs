@@ -294,7 +294,7 @@ namespace Fungus
 			sequence.GetFungusScript().ClearSelectedCommands();
 			
 			Command newCommand = Undo.AddComponent(sequence.gameObject, commandOperation.commandType) as Command;
-			sequence.GetFungusScript().selectedCommands.Add(newCommand);
+			sequence.GetFungusScript().AddSelectedCommand(newCommand);
 
 			// Let command know it has just been added to the sequence
 			newCommand.OnCommandAdded(sequence);

@@ -90,8 +90,8 @@ namespace Fungus
 			}
 
 			Command newCommand = Undo.AddComponent<Comment>(sequence.gameObject) as Command;
-			fungusScript.selectedCommands.Clear();
-			fungusScript.selectedCommands.Add(newCommand);
+			fungusScript.ClearSelectedCommands();
+			fungusScript.AddSelectedCommand(newCommand);
 
 			return newCommand;
 		}
@@ -233,7 +233,7 @@ namespace Fungus
 				}
 				else
 				{
-					fungusScript.selectedCommands.Add(command);
+					fungusScript.AddSelectedCommand(command);
 				}
 				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 			}

@@ -19,15 +19,16 @@ namespace Fungus
 				// Static variables are not serialized (e.g. when playing in the editor)
 				// We need to reaquire the static reference to the game object in this case
 				GameObject go = GameObject.Find("_CommandCopyBuffer");
-				if (go != null)
-				{
-					instance = go.GetComponent<CommandCopyBuffer>();
-				}
-				else
+				if (go == null)
 				{
 					go = new GameObject("_CommandCopyBuffer");
+					go.hideFlags = HideFlags.HideAndDontSave;
+				}
+
+				instance = go.GetComponent<CommandCopyBuffer>();
+				if (instance == null)
+				{
 					instance = go.AddComponent<CommandCopyBuffer>();
-					go.hideFlags = HideFlags.HideInHierarchy;
 				}
 			}
 			

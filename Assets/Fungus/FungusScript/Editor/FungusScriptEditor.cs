@@ -35,12 +35,12 @@ namespace Fungus
 			{
 				if (fungusScript.executingSequence == null)
 				{
-					fungusScript.selectedCommands.Clear();
+					fungusScript.ClearSelectedCommands();
 				}
 				else
 				{
-					fungusScript.selectedCommands.Clear();
-					fungusScript.selectedCommands.Add(fungusScript.executingSequence.activeCommand);
+					fungusScript.ClearSelectedCommands();
+					fungusScript.AddSelectedCommand(fungusScript.executingSequence.activeCommand);
 					EditorUtility.SetDirty(fungusScript);
 				}
 			}
@@ -85,7 +85,7 @@ namespace Fungus
 			{
 				if (fungusScript.selectedCommands[0] == null)
 				{
-					fungusScript.selectedCommands.Clear();
+					fungusScript.ClearSelectedCommands();
 				}
 				else
 				{

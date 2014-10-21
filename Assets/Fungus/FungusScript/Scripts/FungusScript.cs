@@ -400,6 +400,14 @@ namespace Fungus
 		{
 			selectedCommands.Clear();
 		}
+
+		public virtual void AddSelectedCommand(Command command)
+		{
+			if (!selectedCommands.Contains(command))
+			{
+				selectedCommands.Add(command);
+			}
+		}
 	}
 
 }

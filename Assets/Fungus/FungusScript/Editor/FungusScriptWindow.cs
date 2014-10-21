@@ -87,7 +87,7 @@ namespace Fungus
 				
 				Undo.DestroyObjectImmediate(deleteSequence);
 				fungusScript.selectedSequence = null;
-				fungusScript.selectedCommands.Clear();
+				fungusScript.ClearSelectedCommands();
 			}
 			deleteList.Clear();
 
@@ -673,7 +673,7 @@ namespace Fungus
 			Undo.RecordObject(fungusScript, "Select All");
 			foreach (Command command in fungusScript.selectedSequence.commandList)
 			{
-				fungusScript.selectedCommands.Add(command);
+				fungusScript.AddSelectedCommand(command);
 			}
 		}
 		
@@ -707,7 +707,7 @@ namespace Fungus
 
 			CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
 			commandCopyBuffer.Clear();
-			
+
 			foreach (Command command in fungusScript.selectedCommands)
 			{
 				System.Type type = command.GetType();
