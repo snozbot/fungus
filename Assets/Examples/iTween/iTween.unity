@@ -316,6 +316,12 @@ GameObject:
   - 114: {fileID: 868139003}
   - 114: {fileID: 868139007}
   - 114: {fileID: 868139006}
+  - 114: {fileID: 868139008}
+  - 114: {fileID: 868139009}
+  - 114: {fileID: 868139010}
+  - 114: {fileID: 868139011}
+  - 114: {fileID: 868139012}
+  - 114: {fileID: 868139013}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: Untagged
@@ -361,10 +367,16 @@ MonoBehaviour:
     x: 60
     y: 60
     width: 240
-    height: 314
+    height: 434
   sequenceName: Test iTween
   commandList:
   - {fileID: 868138995}
+  - {fileID: 868139011}
+  - {fileID: 868139012}
+  - {fileID: 868139013}
+  - {fileID: 868139008}
+  - {fileID: 868139009}
+  - {fileID: 868139010}
   - {fileID: 868138991}
   - {fileID: 868138996}
   - {fileID: 868138998}
@@ -389,17 +401,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 3, y: 0}
+  scrollPos: {x: 171, y: -80}
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -350
     y: -350
     width: 1050
-    height: 1124
+    height: 1244
   selectedSequence: {fileID: 868138992}
   selectedCommands:
-  - {fileID: 868139006}
+  - {fileID: 868139013}
   variables: []
   startSequence: {fileID: 868138992}
   executeOnStart: 1
@@ -696,6 +708,131 @@ MonoBehaviour:
   toTransform: {fileID: 1955612100}
   toPosition: {x: 0, y: 0, z: 0}
   axis: 3
+--- !u!114 &868139008
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 868138990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 358f65040c3ef4327b70b2813cc197c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  target: {fileID: 1090256565}
+  tweenName: 
+  duration: 1
+  easeType: 2
+  loopType: 0
+  waitUntilFinished: 1
+  amount: {x: 1, y: 1, z: 0}
+  isLocal: 0
+  axis: 0
+--- !u!114 &868139009
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 868138990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82c753a90aa184bd88472f4589167f0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  target: {fileID: 131346341}
+  tweenName: 
+  duration: 1
+  easeType: 2
+  loopType: 0
+  waitUntilFinished: 1
+  amount: {x: 0, y: 0, z: 45}
+  space: 1
+--- !u!114 &868139010
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 868138990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61780d2ea956492a8f59308dae6f12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  target: {fileID: 1621124268}
+  tweenName: 
+  duration: 1
+  easeType: 2
+  loopType: 0
+  waitUntilFinished: 1
+  amount: {x: .5, y: .5, z: 0}
+--- !u!114 &868139011
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 868138990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720f059c883c4402c89fcc507d5f7e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  target: {fileID: 1090256565}
+  tweenName: 
+  duration: 1
+  easeType: 2
+  loopType: 0
+  waitUntilFinished: 1
+  amount: {x: 0, y: 1, z: 0}
+  space: 1
+--- !u!114 &868139012
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 868138990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea1bc1400ac79424ba3c1aca77fb5d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  target: {fileID: 1621124268}
+  tweenName: 
+  duration: 1
+  easeType: 2
+  loopType: 0
+  waitUntilFinished: 1
+  amount: {x: 0, y: 0, z: 45}
+  space: 1
+--- !u!114 &868139013
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 868138990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea4591c01defd496586e9b7237c966c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  target: {fileID: 1955612099}
+  tweenName: 
+  duration: 1
+  easeType: 2
+  loopType: 0
+  waitUntilFinished: 1
+  amount: {x: 1, y: 1, z: 0}
 --- !u!1 &1090256565
 GameObject:
   m_ObjectHideFlags: 0
