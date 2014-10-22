@@ -39,8 +39,8 @@ namespace Fungus
 			}
 
 			VariableEditor.VariableField(variableProp, 
-			                                   new GUIContent("Variable", "Variable to set"),
-			                                   fungusScript);
+			                             new GUIContent("Set Variable", "Variable to set"),
+			                             fungusScript);
 
 
 			if (variableProp.objectReferenceValue == null)
@@ -91,7 +91,7 @@ namespace Fungus
 					break;
 			}
 
-			selectedIndex = EditorGUILayout.Popup(new GUIContent("Operator", "Arithmetic operator to use"), selectedIndex, operatorsList.ToArray());
+			selectedIndex = EditorGUILayout.Popup(new GUIContent("Operation", "Arithmetic operator to use"), selectedIndex, operatorsList.ToArray());
 			
 			SetVariable.SetOperator setOperator = SetVariable.SetOperator.Assign;
 			if (variableType == typeof(BooleanVariable) || 
@@ -136,19 +136,19 @@ namespace Fungus
 
 			if (variableType == typeof(BooleanVariable))
 			{
-				EditorGUILayout.PropertyField(booleanDataProp);
+				EditorGUILayout.PropertyField(booleanDataProp, new GUIContent("Boolean"));
 			}
 			else if (variableType == typeof(IntegerVariable))
 			{
-				EditorGUILayout.PropertyField(integerDataProp);
+				EditorGUILayout.PropertyField(integerDataProp, new GUIContent("Integer"));
 			}
 			else if (variableType == typeof(FloatVariable))
 			{
-				EditorGUILayout.PropertyField(floatDataProp);
+				EditorGUILayout.PropertyField(floatDataProp, new GUIContent("Float"));
 			}
 			else if (variableType == typeof(StringVariable))
 			{
-				EditorGUILayout.PropertyField(stringDataProp);
+				EditorGUILayout.PropertyField(stringDataProp, new GUIContent("String"));
 			}
 
 			serializedObject.ApplyModifiedProperties();
