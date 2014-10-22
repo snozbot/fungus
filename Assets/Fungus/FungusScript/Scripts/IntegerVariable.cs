@@ -6,39 +6,39 @@ namespace Fungus
 
 	public class IntegerVariable : Variable 
 	{
-		protected int integerValue;
+		protected int integerVal;
 
 		public int Value
 		{
-			get { return (scope == VariableScope.Local) ? integerValue : GlobalVariables.GetInteger(key); }
-			set { if (scope == VariableScope.Local) { integerValue = value; } else { GlobalVariables.SetInteger(key, value); } }
+			get { return (scope == VariableScope.Local) ? integerVal : GlobalVariables.GetInteger(key); }
+			set { if (scope == VariableScope.Local) { integerVal = value; } else { GlobalVariables.SetInteger(key, value); } }
 		}
 	}
 
 	[System.Serializable]
-	public class IntegerData
+	public struct IntegerData
 	{
 		[SerializeField]
-		protected IntegerVariable integerReference;
+		public IntegerVariable integerRef;
 
 		[SerializeField]
-		protected int integerValue;
+		public int integerVal;
 
 		public int Value
 		{
-			get { return (integerReference == null) ? integerValue : integerReference.Value; }
-			set { if (integerReference == null) { integerValue = value; } else { integerReference.Value = value; } }
+			get { return (integerRef == null) ? integerVal : integerRef.Value; }
+			set { if (integerRef == null) { integerVal = value; } else { integerRef.Value = value; } }
 		}
 
-		public virtual string GetDescription()
+		public string GetDescription()
 		{
-			if (integerReference == null)
+			if (integerRef == null)
 			{
-				return integerValue.ToString();
+				return integerVal.ToString();
 			}
 			else
 			{
-				return integerReference.key;
+				return integerRef.key;
 			}
 		}
 	}

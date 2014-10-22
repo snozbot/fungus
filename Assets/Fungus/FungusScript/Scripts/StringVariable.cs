@@ -6,39 +6,39 @@ namespace Fungus
 
 	public class StringVariable : Variable 
 	{
-		protected string stringValue;
+		protected string stringVal;
 
 		public string Value
 		{
-			get { return (scope == VariableScope.Local) ? stringValue : GlobalVariables.GetString(key); }
-			set { if (scope == VariableScope.Local) { stringValue = value; } else { GlobalVariables.SetString(key, value); } }
+			get { return (scope == VariableScope.Local) ? stringVal : GlobalVariables.GetString(key); }
+			set { if (scope == VariableScope.Local) { stringVal = value; } else { GlobalVariables.SetString(key, value); } }
 		}
 	}
 
 	[System.Serializable]
-	public class StringData
+	public struct StringData
 	{
 		[SerializeField]
-		protected StringVariable stringReference;
+		public StringVariable stringRef;
 
 		[SerializeField]
-		protected string stringValue;
+		public string stringVal;
 
 		public string Value
 		{
-			get { return (stringReference == null) ? stringValue : stringReference.Value; }
-			set { if (stringReference == null) { stringValue = value; } else { stringReference.Value = value; } }
+			get { return (stringRef == null) ? stringVal : stringRef.Value; }
+			set { if (stringRef == null) { stringVal = value; } else { stringRef.Value = value; } }
 		}
 
-		public virtual string GetDescription()
+		public string GetDescription()
 		{
-			if (stringReference == null)
+			if (stringRef == null)
 			{
-				return stringValue;
+				return stringVal;
 			}
 			else
 			{
-				return stringReference.key;
+				return stringRef.key;
 			}
 		}
 	}

@@ -6,39 +6,39 @@ namespace Fungus
 
 	public class FloatVariable : Variable 
 	{
-		protected float floatValue;
+		protected float floatVal;
 
 		public float Value
 		{
-			get { return (scope == VariableScope.Local) ? floatValue : GlobalVariables.GetFloat(key); }
-			set { if (scope == VariableScope.Local) { floatValue = value; } else {	GlobalVariables.SetFloat(key, value); } }
+			get { return (scope == VariableScope.Local) ? floatVal : GlobalVariables.GetFloat(key); }
+			set { if (scope == VariableScope.Local) { floatVal = value; } else {	GlobalVariables.SetFloat(key, value); } }
 		}
 	}
 
 	[System.Serializable]
-	public class FloatData
+	public struct FloatData
 	{
 		[SerializeField]
-		protected FloatVariable floatReference;
+		public FloatVariable floatRef;
 
 		[SerializeField]
-		protected float floatValue;
+		public float floatVal;
 
 		public float Value
 		{
-			get { return (floatReference == null) ? floatValue : floatReference.Value; }
-			set { if (floatReference == null) { floatValue = value; } else { floatReference.Value = value; } }
+			get { return (floatRef == null) ? floatVal : floatRef.Value; }
+			set { if (floatRef == null) { floatVal = value; } else { floatRef.Value = value; } }
 		}
 
-		public virtual string GetDescription()
+		public string GetDescription()
 		{
-			if (floatReference == null)
+			if (floatRef == null)
 			{
-				return floatValue.ToString();
+				return floatVal.ToString();
 			}
 			else
 			{
-				return floatReference.key;
+				return floatRef.key;
 			}
 		}
 	}

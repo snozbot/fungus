@@ -23,13 +23,13 @@ namespace Fungus
 
 		public CompareOperator compareOperator;
 
-		public BooleanData booleanValue;
+		public BooleanData booleanData;
 
-		public IntegerData integerValue;
+		public IntegerData integerData;
 
-		public FloatData floatValue;
+		public FloatData floatData;
 
-		public StringData stringValue;
+		public StringData stringData;
 		
 		public override void OnEnter()
 		{
@@ -49,7 +49,7 @@ namespace Fungus
 			if (variable.GetType() == typeof(BooleanVariable))
 			{
 				bool lhs = (variable as BooleanVariable).Value;
-				bool rhs = booleanValue.Value;
+				bool rhs = booleanData.Value;
 
 				switch (compareOperator)
 				{
@@ -65,7 +65,7 @@ namespace Fungus
 			else if (variable.GetType() == typeof(IntegerVariable))
 			{
 				int lhs = (variable as IntegerVariable).Value;
-				int rhs = integerValue.Value;
+				int rhs = integerData.Value;
 
 				switch (compareOperator)
 				{
@@ -92,7 +92,7 @@ namespace Fungus
 			else if (variable.GetType() == typeof(FloatVariable))
 			{
 				float lhs = (variable as FloatVariable).Value;
-				float rhs = floatValue.Value;
+				float rhs = floatData.Value;
 
 				switch (compareOperator)
 				{
@@ -119,7 +119,7 @@ namespace Fungus
 			else if (variable.GetType() == typeof(StringVariable))
 			{
 				string lhs = (variable as StringVariable).Value;
-				string rhs = stringValue.Value;
+				string rhs = stringData.Value;
 
 				switch (compareOperator)
 				{
@@ -199,19 +199,19 @@ namespace Fungus
 
 			if (variable.GetType() == typeof(BooleanVariable))
 			{
-				summary += booleanValue.GetDescription();
+				summary += booleanData.GetDescription();
 			}
 			else if (variable.GetType() == typeof(IntegerVariable))
 			{
-				summary += integerValue.GetDescription();
+				summary += integerData.GetDescription();
 			}
 			else if (variable.GetType() == typeof(FloatVariable))
 			{
-				summary += floatValue.GetDescription();
+				summary += floatData.GetDescription();
 			}
 			else if (variable.GetType() == typeof(StringVariable))
 			{
-				summary += stringValue.GetDescription();
+				summary += stringData.GetDescription();
 			}
 
 			return summary;

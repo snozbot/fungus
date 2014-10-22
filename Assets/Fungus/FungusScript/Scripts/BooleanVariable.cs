@@ -7,39 +7,39 @@ namespace Fungus
 
 	public class BooleanVariable : Variable 
 	{
-		protected bool booleanValue;
+		protected bool booleanVal;
 
 		public bool Value
 		{
-			get { return (scope == VariableScope.Local) ? booleanValue : GlobalVariables.GetBoolean(key); }
-			set { if (scope == VariableScope.Local) { booleanValue = value; } else { GlobalVariables.SetBoolean(key, value); } }
+			get { return (scope == VariableScope.Local) ? booleanVal : GlobalVariables.GetBoolean(key); }
+			set { if (scope == VariableScope.Local) { booleanVal = value; } else { GlobalVariables.SetBoolean(key, value); } }
 		}
 	}
 
 	[System.Serializable]
-	public class BooleanData
+	public struct BooleanData
 	{
 		[SerializeField]
-		protected BooleanVariable booleanReference;
+		public BooleanVariable booleanRef;
 
 		[SerializeField]
-		protected bool booleanValue;
+		public bool booleanVal;
 
 		public bool Value
 		{
-			get { return (booleanReference == null) ? booleanValue : booleanReference.Value; }
-			set { if (booleanReference == null) { booleanValue = value; } else { booleanReference.Value = value; } }
+			get { return (booleanRef == null) ? booleanVal : booleanRef.Value; }
+			set { if (booleanRef == null) { booleanVal = value; } else { booleanRef.Value = value; } }
 		}
 
-		public virtual string GetDescription()
+		public string GetDescription()
 		{
-			if (booleanReference == null)
+			if (booleanRef == null)
 			{
-				return booleanValue.ToString();
+				return booleanVal.ToString();
 			}
 			else
 			{
-				return booleanReference.key;
+				return booleanRef.key;
 			}
 		}
 	}

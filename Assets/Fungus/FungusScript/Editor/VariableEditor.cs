@@ -71,8 +71,8 @@ namespace Fungus
 		{
 			EditorGUI.BeginProperty(position, label, property);
 			
-			SerializedProperty referenceProp = property.FindPropertyRelative("booleanReference");
-			SerializedProperty valueProp = property.FindPropertyRelative("booleanValue");
+			SerializedProperty referenceProp = property.FindPropertyRelative("booleanRef");
+			SerializedProperty valueProp = property.FindPropertyRelative("booleanVal");
 
 			const int popupWidth = 65;
 			
@@ -143,8 +143,8 @@ namespace Fungus
 		{
 			EditorGUI.BeginProperty(position, label, property);
 			
-			SerializedProperty referenceProp = property.FindPropertyRelative("integerReference");
-			SerializedProperty valueProp = property.FindPropertyRelative("integerValue");
+			SerializedProperty referenceProp = property.FindPropertyRelative("integerRef");
+			SerializedProperty valueProp = property.FindPropertyRelative("integerVal");
 
 			const int popupWidth = 65;
 			
@@ -215,8 +215,8 @@ namespace Fungus
 		{
 			EditorGUI.BeginProperty(position, label, property);
 			
-			SerializedProperty referenceProp = property.FindPropertyRelative("floatReference");
-			SerializedProperty valueProp = property.FindPropertyRelative("floatValue");
+			SerializedProperty referenceProp = property.FindPropertyRelative("floatRef");
+			SerializedProperty valueProp = property.FindPropertyRelative("floatVal");
 
 			const int popupWidth = 65;
 
@@ -287,8 +287,8 @@ namespace Fungus
 		{
 			EditorGUI.BeginProperty(position, label, property);
 			
-			SerializedProperty referenceProp = property.FindPropertyRelative("stringReference");
-			SerializedProperty valueProp = property.FindPropertyRelative("stringValue");
+			SerializedProperty referenceProp = property.FindPropertyRelative("stringRef");
+			SerializedProperty valueProp = property.FindPropertyRelative("stringVal");
 			
 			const int popupWidth = 65;
 			
@@ -299,6 +299,7 @@ namespace Fungus
 			
 			if (referenceProp.objectReferenceValue == null)
 			{
+				// StringData stringData = valueProp.serializedObject
 				valueProp.stringValue = EditorGUI.TextField(valueRect, valueProp.stringValue);
 				popupRect.x += valueRect.width + 5;
 				popupRect.width = popupWidth;

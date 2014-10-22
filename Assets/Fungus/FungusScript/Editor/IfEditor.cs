@@ -12,19 +12,19 @@ namespace Fungus
 	{
 		protected SerializedProperty variableProp;
 		protected SerializedProperty compareOperatorProp;
-		protected SerializedProperty booleanValueProp;
-		protected SerializedProperty integerValueProp;
-		protected SerializedProperty floatValueProp;
-		protected SerializedProperty stringValueProp;
+		protected SerializedProperty booleanDataProp;
+		protected SerializedProperty integerDataProp;
+		protected SerializedProperty floatDataProp;
+		protected SerializedProperty stringDataProp;
 
 		protected virtual void OnEnable()
 		{
 			variableProp = serializedObject.FindProperty("variable");
 			compareOperatorProp = serializedObject.FindProperty("compareOperator");
-			booleanValueProp = serializedObject.FindProperty("booleanValue");
-			integerValueProp = serializedObject.FindProperty("integerValue");
-			floatValueProp = serializedObject.FindProperty("floatValue");
-			stringValueProp = serializedObject.FindProperty("stringValue");
+			booleanDataProp = serializedObject.FindProperty("booleanData");
+			integerDataProp = serializedObject.FindProperty("integerData");
+			floatDataProp = serializedObject.FindProperty("floatData");
+			stringDataProp = serializedObject.FindProperty("stringData");
 		}
 
 		public override void DrawCommandGUI()
@@ -71,19 +71,19 @@ namespace Fungus
 
 			if (variableType == typeof(BooleanVariable))
 			{
-				EditorGUILayout.PropertyField(booleanValueProp);
+				EditorGUILayout.PropertyField(booleanDataProp);
 			}
 			else if (variableType == typeof(IntegerVariable))
 			{
-				EditorGUILayout.PropertyField(integerValueProp);
+				EditorGUILayout.PropertyField(integerDataProp);
 			}
 			else if (variableType == typeof(FloatVariable))
 			{
-				EditorGUILayout.PropertyField(floatValueProp);
+				EditorGUILayout.PropertyField(floatDataProp);
 			}
 			else if (variableType == typeof(StringVariable))
 			{
-				EditorGUILayout.PropertyField(stringValueProp);
+				EditorGUILayout.PropertyField(stringDataProp);
 			}
 
 			serializedObject.ApplyModifiedProperties();
