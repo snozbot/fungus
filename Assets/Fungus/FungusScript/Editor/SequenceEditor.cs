@@ -19,32 +19,13 @@ namespace Fungus
 			public int index;
 		}
 
-		protected SerializedProperty sequenceNameProp;
-
-		public virtual void OnEnable()
-		{
-			sequenceNameProp = serializedObject.FindProperty("sequenceName");
-
-			/*
-			// Strip out any null commands from the command list
-			// This can happen if a command class is removed or renamed
-			serializedObject.Update();
-			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
-			for (int i = commandListProperty.arraySize - 1; i >= 0; --i)
-			{
-				SerializedProperty commandProperty = commandListProperty.GetArrayElementAtIndex(i);
-				if (commandProperty.objectReferenceValue == null)
-				{
-					commandListProperty.DeleteArrayElementAtIndex(i);
-				}
-			}
-			serializedObject.ApplyModifiedProperties();
-			*/
-		}
-
 		public virtual void DrawInspectorGUI(FungusScript fungusScript)
 		{
 			serializedObject.Update();
+
+			// We acquire the serialized properties in the draw methods instead of in OnEnable as otherwise
+			// deleting or renaming a command class would generate a bunch of null reference exceptions.
+			SerializedProperty sequenceNameProp = serializedObject.FindProperty("sequenceName");
 
 			EditorGUILayout.PropertyField(sequenceNameProp);
 			EditorGUILayout.Separator();
@@ -61,8 +42,9 @@ namespace Fungus
 
 			sequence.nodeRect.width = 240;
 
-			ReorderableListGUI.Title(sequence.sequenceName);
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
+
+			ReorderableListGUI.Title(sequence.sequenceName);
 			CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
 			adaptor.nodeRect = sequence.nodeRect;
 
@@ -122,6 +104,17 @@ namespace Fungus
 				}
 			}
 
+			// Remove any null entries in the command list.
+			// This can happen when a command class is deleted or renamed.
+			for (int i = commandListProperty.arraySize - 1; i >= 0; --i)
+			{
+				SerializedProperty commandProperty = commandListProperty.GetArrayElementAtIndex(i);
+				if (commandProperty.objectReferenceValue == null)
+				{
+					commandListProperty.DeleteArrayElementAtIndex(i);
+				}
+			}
+
 			serializedObject.ApplyModifiedProperties();
 
 			if (!Application.isPlaying)
@@ -142,6 +135,11 @@ namespace Fungus
 			int indentLevel = 0;
 			foreach(Command command in sequence.commandList)
 			{
+				if (command == null)
+				{
+					continue;
+				}
+
 				indentLevel += command.GetPreIndent();
 				command.indentLevel = Math.Max(indentLevel, 0);
 				indentLevel += command.GetPostIndent();
