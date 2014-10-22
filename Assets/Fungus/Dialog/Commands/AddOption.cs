@@ -14,10 +14,11 @@ namespace Fungus
 		public Sequence targetSequence;
 
 		public bool hideOnSelected;
+		protected bool wasSelected;
 
 		public override void OnEnter()
 		{
-			if (targetSequence == null || (hideOnSelected && targetSequence.GetExecutionCount() > 0))
+			if (hideOnSelected && wasSelected)
 			{
 				Continue();
 				return;
@@ -26,7 +27,11 @@ namespace Fungus
 			Choose.Option option = new Choose.Option();
 			option.optionText = optionText;
 			option.targetSequence = targetSequence;
-			option.action = () => DoSetOperation();
+
+			option.action = () => {
+				wasSelected = true;
+				DoSetOperation(); // Set variable (if one is specified)
+			};
 
 			Choose.options.Add(option);
 

@@ -56,14 +56,17 @@ namespace Fungus
 				foreach (Option option in options)
 				{
 					ChooseDialog.Option dialogOption = new ChooseDialog.Option();
+
+					// Store these in local variables so they get closed over correctly by the delegate call
 					dialogOption.text = option.optionText;
 					Sequence onSelectSequence = option.targetSequence;
+					Action optionAction = option.action;
 
 					dialogOption.onSelect = delegate {
 
-						if (option.action != null)
+						if (optionAction != null)
 						{
-							option.action();
+							optionAction();
 						}
 
 						chooseDialog.ShowDialog(false);
