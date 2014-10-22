@@ -32,91 +32,7 @@ namespace Fungus
 		
 		public override void OnEnter()
 		{
-			if (variable == null)
-			{
-				Continue();
-				return;
-			}
-
-			if (variable.GetType() == typeof(BooleanVariable))
-			{
-				BooleanVariable lhs = (variable as BooleanVariable);
-				bool rhs = booleanData.Value;
-
-				switch (setOperator)
-				{
-				default:
-				case SetOperator.Assign:
-					lhs.Value = rhs;
-					break;
-				case SetOperator.Negate:
-					lhs.Value = !rhs;
-					break;
-				}
-			}
-			else if (variable.GetType() == typeof(IntegerVariable))
-			{
-				IntegerVariable lhs = (variable as IntegerVariable);
-				int rhs = integerData.Value;
-
-				switch (setOperator)
-				{
-				default:
-				case SetOperator.Assign:
-					lhs.Value = rhs;
-					break;
-				case SetOperator.Add:
-					lhs.Value += rhs;
-					break;
-				case SetOperator.Subtract:
-					lhs.Value -= rhs;
-					break;
-				case SetOperator.Multiply:
-					lhs.Value *= rhs;
-					break;
-				case SetOperator.Divide:
-					lhs.Value /= rhs;
-					break;
-				}
-			}
-			else if (variable.GetType() == typeof(FloatVariable))
-			{
-				FloatVariable lhs = (variable as FloatVariable);
-				float rhs = floatData.Value;
-				
-				switch (setOperator)
-				{
-				default:
-				case SetOperator.Assign:
-					lhs.Value = rhs;
-					break;
-				case SetOperator.Add:
-					lhs.Value += rhs;
-					break;
-				case SetOperator.Subtract:
-					lhs.Value -= rhs;
-					break;
-				case SetOperator.Multiply:
-					lhs.Value *= rhs;
-					break;
-				case SetOperator.Divide:
-					lhs.Value /= rhs;
-					break;
-				}
-			}
-			else if (variable.GetType() == typeof(StringVariable))
-			{
-				StringVariable lhs = (variable as StringVariable);
-				string rhs = stringData.Value;
-
-				switch (setOperator)
-				{
-				default:
-				case SetOperator.Assign:
-					lhs.Value = rhs;
-					break;
-				}
-			}
+			DoSetOperation();
 
 			Continue();
 		}
@@ -181,6 +97,94 @@ namespace Fungus
 		public override Color GetButtonColor()
 		{
 			return new Color32(253, 253, 150, 255);
+		}
+
+		protected virtual void DoSetOperation()
+		{
+			if (variable == null)
+			{
+				return;
+			}
+
+			if (variable.GetType() == typeof(BooleanVariable))
+			{
+				BooleanVariable lhs = (variable as BooleanVariable);
+				bool rhs = booleanData.Value;
+				
+				switch (setOperator)
+				{
+				default:
+				case SetOperator.Assign:
+					lhs.Value = rhs;
+					break;
+				case SetOperator.Negate:
+					lhs.Value = !rhs;
+					break;
+				}
+			}
+			else if (variable.GetType() == typeof(IntegerVariable))
+			{
+				IntegerVariable lhs = (variable as IntegerVariable);
+				int rhs = integerData.Value;
+				
+				switch (setOperator)
+				{
+				default:
+				case SetOperator.Assign:
+					lhs.Value = rhs;
+					break;
+				case SetOperator.Add:
+					lhs.Value += rhs;
+					break;
+				case SetOperator.Subtract:
+					lhs.Value -= rhs;
+					break;
+				case SetOperator.Multiply:
+					lhs.Value *= rhs;
+					break;
+				case SetOperator.Divide:
+					lhs.Value /= rhs;
+					break;
+				}
+			}
+			else if (variable.GetType() == typeof(FloatVariable))
+			{
+				FloatVariable lhs = (variable as FloatVariable);
+				float rhs = floatData.Value;
+				
+				switch (setOperator)
+				{
+				default:
+				case SetOperator.Assign:
+					lhs.Value = rhs;
+					break;
+				case SetOperator.Add:
+					lhs.Value += rhs;
+					break;
+				case SetOperator.Subtract:
+					lhs.Value -= rhs;
+					break;
+				case SetOperator.Multiply:
+					lhs.Value *= rhs;
+					break;
+				case SetOperator.Divide:
+					lhs.Value /= rhs;
+					break;
+				}
+			}
+			else if (variable.GetType() == typeof(StringVariable))
+			{
+				StringVariable lhs = (variable as StringVariable);
+				string rhs = stringData.Value;
+				
+				switch (setOperator)
+				{
+				default:
+				case SetOperator.Assign:
+					lhs.Value = rhs;
+					break;
+				}
+			}
 		}
 	}
 

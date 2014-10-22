@@ -14,6 +14,7 @@ namespace Fungus
 		{
 			public string optionText;
 			public Sequence targetSequence;
+			public Action action;
 		}
 
 		static public List<Option> options = new List<Option>();
@@ -59,6 +60,11 @@ namespace Fungus
 					Sequence onSelectSequence = option.targetSequence;
 
 					dialogOption.onSelect = delegate {
+
+						if (option.action != null)
+						{
+							option.action();
+						}
 
 						chooseDialog.ShowDialog(false);
 

@@ -9,14 +9,15 @@ namespace Fungus
 {
 
 	[CustomEditor (typeof(AddOption))]
-	public class AddOptionEditor : CommandEditor
+	public class AddOptionEditor : SetVariableEditor
 	{
 		protected SerializedProperty optionTextProp;
 		protected SerializedProperty hideOnSelectedProp;
 		protected SerializedProperty targetSequenceProp;
 
-		protected virtual void OnEnable()
+		protected override void OnEnable()
 		{
+			base.OnEnable();
 			optionTextProp = serializedObject.FindProperty("optionText");
 			hideOnSelectedProp = serializedObject.FindProperty("hideOnSelected");
 			targetSequenceProp = serializedObject.FindProperty("targetSequence");
@@ -38,6 +39,8 @@ namespace Fungus
 			EditorGUILayout.PropertyField(hideOnSelectedProp, new GUIContent("Hide On Selected", "Hide this option forever once the player has selected it."));
 
 			serializedObject.ApplyModifiedProperties();
+
+			base.DrawCommandGUI();
 		}
 	}
 

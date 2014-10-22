@@ -8,7 +8,7 @@ namespace Fungus
 	[CommandInfo("Dialog", 
 	             "Add Option", 
 	             "Adds an option for the player to select, displayed by the next Say command.")]
-	public class AddOption : Command 
+	public class AddOption : SetVariable 
 	{
 		public string optionText;
 		public Sequence targetSequence;
@@ -26,6 +26,8 @@ namespace Fungus
 			Choose.Option option = new Choose.Option();
 			option.optionText = optionText;
 			option.targetSequence = targetSequence;
+			option.action = () => DoSetOperation();
+
 			Choose.options.Add(option);
 
 			Continue();
