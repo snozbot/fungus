@@ -408,6 +408,20 @@ namespace Fungus
 				selectedCommands.Add(command);
 			}
 		}
+
+		public virtual void Reset()
+		{
+			Command[] commands = GetComponentsInChildren<Command>();
+			foreach (Command command in commands)
+			{
+				command.OnReset();
+			}
+
+			foreach (Variable variable in variables)
+			{
+				variable.OnReset();
+			}
+		}
 	}
 
 }

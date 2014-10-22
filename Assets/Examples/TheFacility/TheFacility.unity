@@ -1348,6 +1348,7 @@ GameObject:
   - 114: {fileID: 570845517}
   - 114: {fileID: 570845527}
   - 114: {fileID: 570845533}
+  - 114: {fileID: 570845522}
   m_Layer: 0
   m_Name: StandingThere
   m_TagString: Untagged
@@ -1371,9 +1372,10 @@ MonoBehaviour:
     x: 804.489258
     y: -118.825607
     width: 240
-    height: 334
+    height: 354
   sequenceName: StandingThere
   commandList:
+  - {fileID: 570845522}
   - {fileID: 570845520}
   - {fileID: 570845519}
   - {fileID: 570845518}
@@ -1553,6 +1555,26 @@ MonoBehaviour:
   optionText: Inspect the desk
   targetSequence: {fileID: 1680954148}
   hideOnSelected: 0
+--- !u!114 &570845522
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 570845513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: You sit up gingerly and swing your legs off the bed. The jumpsuit includes
+    neat little slippers, and you don't feel any aches or pains. If anything, you're
+    incredibly well-rested.{wc} You stretch out your arms and stand up.
+  character: {fileID: 0}
+  sayDialog: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
 --- !u!114 &570845526
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2474,7 +2496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: -115.191772, y: 152.935455}
+  scrollPos: {x: -189.191772, y: 103.935455}
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -2482,13 +2504,13 @@ MonoBehaviour:
     y: -610.734985
     width: 3261.20312
     height: 2227.35059
-  selectedSequence: {fileID: 948050620}
+  selectedSequence: {fileID: 570845514}
   selectedCommands:
-  - {fileID: 948050617}
+  - {fileID: 570845522}
   variables:
   - {fileID: 771014102}
   - {fileID: 771014103}
-  startSequence: {fileID: 904348472}
+  startSequence: {fileID: 1797174374}
   executeOnStart: 1
   settings:
     runSlowInEditor: 1
@@ -5142,7 +5164,6 @@ GameObject:
   - 114: {fileID: 1797174384}
   - 114: {fileID: 1797174382}
   - 114: {fileID: 1797174376}
-  - 114: {fileID: 1797174380}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -5184,7 +5205,7 @@ MonoBehaviour:
     x: 501.703979
     y: -117.210686
     width: 240
-    height: 234
+    height: 214
   sequenceName: Start
   commandList:
   - {fileID: 1797174373}
@@ -5195,7 +5216,6 @@ MonoBehaviour:
   - {fileID: 1797174384}
   - {fileID: 1797174383}
   - {fileID: 1797174382}
-  - {fileID: 1797174380}
   - {fileID: 1797174376}
 --- !u!4 &1797174375
 Transform:
@@ -5305,26 +5325,6 @@ MonoBehaviour:
   optionText: Shout
   targetSequence: {fileID: 0}
   hideOnSelected: 0
---- !u!114 &1797174380
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1797174372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: You sit up gingerly and swing your legs off the bed. The jumpsuit includes
-    neat little slippers, and you don't feel any aches or pains. If anything, you're
-    incredibly well-rested.{wc} You stretch out your arms and stand up.
-  character: {fileID: 0}
-  sayDialog: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
 --- !u!114 &1797174381
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5830,6 +5830,7 @@ GameObject:
   - 114: {fileID: 1925614670}
   - 114: {fileID: 1925614673}
   - 114: {fileID: 1925614674}
+  - 114: {fileID: 1925614672}
   m_Layer: 0
   m_Name: FREEDOM!
   m_TagString: Untagged
@@ -5853,10 +5854,11 @@ MonoBehaviour:
     x: 234.655121
     y: 207.536453
     width: 240
-    height: 74
+    height: 94
   sequenceName: FREEDOM!
   commandList:
   - {fileID: 1925614673}
+  - {fileID: 1925614672}
   - {fileID: 1925614674}
 --- !u!4 &1925614671
 Transform:
@@ -5870,6 +5872,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 771014101}
   m_RootOrder: 25
+--- !u!114 &1925614672
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1925614669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0000066e72e484959b6a314a95d0dcd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
 --- !u!114 &1925614673
 MonoBehaviour:
   m_ObjectHideFlags: 2

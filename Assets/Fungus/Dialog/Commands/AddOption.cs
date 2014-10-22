@@ -66,6 +66,11 @@ namespace Fungus
 		{
 			return new Color32(184, 210, 235, 255);
 		}
+
+		public override void OnReset()
+		{
+			wasSelected = false;
+		}
 	}
 
 }

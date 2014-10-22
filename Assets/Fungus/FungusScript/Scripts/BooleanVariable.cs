@@ -14,6 +14,11 @@ namespace Fungus
 			get { return (scope == VariableScope.Local) ? booleanVal : GlobalVariables.GetBoolean(key); }
 			set { if (scope == VariableScope.Local) { booleanVal = value; } else { GlobalVariables.SetBoolean(key, value); } }
 		}
+
+		public override void OnReset()
+		{
+			Value = false;
+		}
 	}
 
 	[System.Serializable]

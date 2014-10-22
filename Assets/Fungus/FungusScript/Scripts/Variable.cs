@@ -23,5 +23,8 @@ namespace Fungus
 	{
 		public VariableScope scope;
 		public string key = "";
+
+		public virtual void OnReset()
+		{}
 	}
 }

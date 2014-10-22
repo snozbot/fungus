@@ -13,6 +13,11 @@ namespace Fungus
 			get { return (scope == VariableScope.Local) ? integerVal : GlobalVariables.GetInteger(key); }
 			set { if (scope == VariableScope.Local) { integerVal = value; } else { GlobalVariables.SetInteger(key, value); } }
 		}
+
+		public override void OnReset()
+		{
+			Value = 0;
+		}
 	}
 
 	[System.Serializable]

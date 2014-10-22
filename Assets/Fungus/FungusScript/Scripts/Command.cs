@@ -112,6 +112,9 @@ namespace Fungus
 		public virtual void OnExit()
 		{}
 
+		public virtual void OnReset()
+		{}
+
 		public virtual void GetConnectedSequences(ref List<Sequence> connectedSequences)
 		{}
 

@@ -124,6 +124,11 @@ namespace Fungus
 				}
 			}
 		}
+
+		public override void OnReset()
+		{
+			executionCount = 0;
+		}
 	}
 
 }
