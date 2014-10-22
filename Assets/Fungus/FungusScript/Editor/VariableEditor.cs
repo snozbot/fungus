@@ -61,6 +61,12 @@ namespace Fungus
 	[CustomPropertyDrawer (typeof(BooleanData))]
 	public class BooleanDataDrawer : PropertyDrawer 
 	{	
+		protected enum BooleanState
+		{
+			True,
+			False
+		}
+
 		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 
 		{
 			EditorGUI.BeginProperty(position, label, property);
@@ -77,7 +83,7 @@ namespace Fungus
 
 			if (referenceProp.objectReferenceValue == null)
 			{
-				valueProp.boolValue = EditorGUI.Toggle(valueRect, valueProp.boolValue);
+				valueProp.boolValue = ((BooleanState)EditorGUI.EnumPopup(valueRect, valueProp.boolValue ? BooleanState.True : BooleanState.False) == BooleanState.True);
 				popupRect.x += valueRect.width + 5;
 				popupRect.width = popupWidth;
 			}
