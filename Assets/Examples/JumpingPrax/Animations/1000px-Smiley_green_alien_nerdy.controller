@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: 1000px-Smiley_green_alien_nerdy.svg
+  m_Name: 1000px-Smiley_green_alien_nerdy
   serializedVersion: 2
   m_AnimatorParameters:
   - m_Name: AmIJumping
