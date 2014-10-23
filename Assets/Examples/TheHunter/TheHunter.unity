@@ -484,7 +484,7 @@ Prefab:
     - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: profileSprite
       value: 
-      objectReference: {fileID: 21300002, guid: 3c64e30cbefbe4e768ef68d85c85061e,
+      objectReference: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e,
         type: 3}
     - target: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: m_Name
@@ -823,7 +823,7 @@ Prefab:
     - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: profileSprite
       value: 
-      objectReference: {fileID: 21300002, guid: f7484a661774243b193bebc6e3ae5120,
+      objectReference: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120,
         type: 3}
     - target: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: m_Name
@@ -892,7 +892,7 @@ Prefab:
     - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: profileSprite
       value: 
-      objectReference: {fileID: 21300002, guid: 05ccd53483a554ca9b31f685fa76154a,
+      objectReference: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a,
         type: 3}
     - target: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: m_Name
@@ -1085,7 +1085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: Shay
   nameColor: {r: .933333337, g: .772549033, b: .349019617, a: 1}
-  profileSprite: {fileID: 21300002, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
+  profileSprite: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   notes: 
 --- !u!1 &339869592
 GameObject:
@@ -1117,7 +1117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: Skipper
   nameColor: {r: .294117659, g: .650980413, b: .949019611, a: 1}
-  profileSprite: {fileID: 21300002, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
+  profileSprite: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   notes: 
 --- !u!4 &339869594
 Transform:
@@ -3566,17 +3566,17 @@ MonoBehaviour:
   variable: {fileID: 1831099569}
   setOperator: 0
   booleanData:
-    booleanReference: {fileID: 0}
-    booleanValue: 1
+    booleanRef: {fileID: 0}
+    booleanVal: 0
   integerData:
-    integerReference: {fileID: 0}
-    integerValue: 0
+    integerRef: {fileID: 0}
+    integerVal: 0
   floatData:
-    floatReference: {fileID: 0}
-    floatValue: 0
+    floatRef: {fileID: 0}
+    floatVal: 0
   stringData:
-    stringReference: {fileID: 0}
-    stringValue: 
+    stringRef: {fileID: 0}
+    stringVal: 
 --- !u!114 &1196017819
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5055,7 +5055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: Ciara
   nameColor: {r: .925490201, g: .482352942, b: .196078435, a: 1}
-  profileSprite: {fileID: 21300002, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
+  profileSprite: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   notes: 
 --- !u!1 &1726080686
 GameObject:
@@ -5224,6 +5224,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+  variable: {fileID: 0}
+  setOperator: 0
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
   optionText: Shout out loud
   targetSequence: {fileID: 1801800854}
   hideOnSelected: 0
@@ -5241,6 +5255,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+  variable: {fileID: 0}
+  setOperator: 0
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
   optionText: Check pool for fish
   targetSequence: {fileID: 541676554}
   hideOnSelected: 0
@@ -5754,17 +5782,17 @@ MonoBehaviour:
   variable: {fileID: 1831099569}
   setOperator: 0
   booleanData:
-    booleanReference: {fileID: 0}
-    booleanValue: 0
+    booleanRef: {fileID: 0}
+    booleanVal: 0
   integerData:
-    integerReference: {fileID: 0}
-    integerValue: 0
+    integerRef: {fileID: 0}
+    integerVal: 0
   floatData:
-    floatReference: {fileID: 0}
-    floatValue: 0
+    floatRef: {fileID: 0}
+    floatVal: 0
   stringData:
-    stringReference: {fileID: 0}
-    stringValue: 
+    stringRef: {fileID: 0}
+    stringVal: 
 --- !u!1001 &1827495415
 Prefab:
   m_ObjectHideFlags: 0
@@ -6461,18 +6489,18 @@ MonoBehaviour:
   indentLevel: 0
   variable: {fileID: 1831099569}
   compareOperator: 0
-  booleanValue:
-    booleanReference: {fileID: 0}
-    booleanValue: 1
-  integerValue:
-    integerReference: {fileID: 0}
-    integerValue: 0
-  floatValue:
-    floatReference: {fileID: 0}
-    floatValue: 0
-  stringValue:
-    stringReference: {fileID: 0}
-    stringValue: 
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
 --- !u!114 &2111357059
 MonoBehaviour:
   m_ObjectHideFlags: 2
