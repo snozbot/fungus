@@ -23,6 +23,7 @@ namespace Fungus
 		public Text nameText;
 		public Text storyText;
 		public Image characterImage;
+		public AudioClip characterTypingSound;
 
 		protected float currentSpeed;
 		protected float currentPunctuationPause;
@@ -30,6 +31,7 @@ namespace Fungus
 		protected bool italicActive;
 		protected bool colorActive;
 		protected string colorText;
+		protected float clickCooldownTimer;
 
 		protected bool wasPointerClicked;
 
@@ -61,10 +63,18 @@ namespace Fungus
 		{
 			wasPointerClicked = false;
 
-			if (clickAnywhere &&
+			if (clickCooldownTimer > 0f)
+			{
+				clickCooldownTimer -= Time.deltaTime;
+				clickCooldownTimer = Mathf.Max(0, clickCooldownTimer); 
+			}
+
+			if (clickCooldownTimer == 0f &&
+			    clickAnywhere &&
 			    Input.GetMouseButtonDown(0))
 			{
 				wasPointerClicked = true;
+				clickCooldownTimer = 0.2f;
 			}
 		}
 
@@ -84,6 +94,7 @@ namespace Fungus
 					characterImage.enabled = false;
 				if (nameText != null)
 					nameText.text = "";
+				characterTypingSound = null;
 			}
 			else
 			{
@@ -96,8 +107,11 @@ namespace Fungus
 					characterName = character.name;
 				}
 
+				characterTypingSound = character.soundEffect;
+
 				SetCharacterName(characterName, character.nameColor);
 			}
+
 		}
 		
 		public virtual void SetCharacterImage(Sprite image)
@@ -159,7 +173,14 @@ namespace Fungus
 			{
 				typingAudio = new GameObject("WritingSound");
 				typingAudio.AddComponent<AudioSource>();
-				typingAudio.audio.clip = writingSound;
+				if (characterTypingSound != null)
+				{
+					typingAudio.audio.clip = characterTypingSound;
+				}
+				else
+				{
+					typingAudio.audio.clip = writingSound;
+				}
 				typingAudio.audio.loop = loopWritingSound;
 				typingAudio.audio.Play();
 			}
@@ -320,6 +341,7 @@ namespace Fungus
 							typingAudio.audio.Play();
 
 						timeAccumulator = 0f;
+						currentSpeed = writingSpeed;
 						OnWaitForInputTag(false);
 						break;
 					
@@ -336,6 +358,7 @@ namespace Fungus
 
 						OnWaitForInputTag(false);
 						timeAccumulator = 0f;
+						currentSpeed = writingSpeed;
 						storyText.text = "";
 						break;
 
@@ -589,7 +612,10 @@ namespace Fungus
 
 		public virtual void OnPointerClick()
 		{
-			wasPointerClicked = true;
+			if (clickCooldownTimer == 0f)
+			{
+				wasPointerClicked = true;
+			}
 		}
 	}
 	

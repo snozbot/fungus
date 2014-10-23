@@ -506,6 +506,14 @@ Prefab:
       propertyPath: nameColor.b
       value: .949019611
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: typingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0dc7e509ace954462bc8ab20fcb68d60, type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: soundEffect
+      value: 
+      objectReference: {fileID: 8300000, guid: 0dc7e509ace954462bc8ab20fcb68d60, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_RootGameObject: {fileID: 339869592}
@@ -575,6 +583,14 @@ Prefab:
       propertyPath: nameColor.b
       value: .168685108
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: typingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9b3be2062b59848a2bd178f5748b386d, type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: soundEffect
+      value: 
+      objectReference: {fileID: 8300000, guid: 9b3be2062b59848a2bd178f5748b386d, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_RootGameObject: {fileID: 686889651}
@@ -845,6 +861,14 @@ Prefab:
       propertyPath: nameColor.b
       value: .349019617
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: typingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 23e52ab29f28743309c85b6d7bdc8ad6, type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: soundEffect
+      value: 
+      objectReference: {fileID: 8300000, guid: 23e52ab29f28743309c85b6d7bdc8ad6, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_RootGameObject: {fileID: 338947446}
@@ -914,6 +938,14 @@ Prefab:
       propertyPath: nameColor.b
       value: .196078435
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: typingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 124184555ec434aa68814be3bd116c26, type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: soundEffect
+      value: 
+      objectReference: {fileID: 8300000, guid: 124184555ec434aa68814be3bd116c26, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_RootGameObject: {fileID: 1712414753}
@@ -1086,7 +1118,7 @@ MonoBehaviour:
   nameText: Shay
   nameColor: {r: .933333337, g: .772549033, b: .349019617, a: 1}
   profileSprite: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
-  typingSound: {fileID: 0}
+  soundEffect: {fileID: 8300000, guid: 23e52ab29f28743309c85b6d7bdc8ad6, type: 3}
   notes: 
 --- !u!1 &339869592
 GameObject:
@@ -1119,7 +1151,7 @@ MonoBehaviour:
   nameText: Skipper
   nameColor: {r: .294117659, g: .650980413, b: .949019611, a: 1}
   profileSprite: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
-  typingSound: {fileID: 0}
+  soundEffect: {fileID: 8300000, guid: 0dc7e509ace954462bc8ab20fcb68d60, type: 3}
   notes: 
 --- !u!4 &339869594
 Transform:
@@ -1999,7 +2031,7 @@ MonoBehaviour:
   nameText: Badly Drawn Bear
   nameColor: {r: .95588237, g: .347840369, b: .168685108, a: 1}
   profileSprite: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
-  typingSound: {fileID: 0}
+  soundEffect: {fileID: 8300000, guid: 9b3be2062b59848a2bd178f5748b386d, type: 3}
   notes: 
 --- !u!4 &686889653
 Transform:
@@ -5018,7 +5050,7 @@ MonoBehaviour:
   nameText: Ciara
   nameColor: {r: .925490201, g: .482352942, b: .196078435, a: 1}
   profileSprite: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
-  typingSound: {fileID: 0}
+  soundEffect: {fileID: 8300000, guid: 124184555ec434aa68814be3bd116c26, type: 3}
   notes: 
 --- !u!1001 &1725106525
 Prefab:

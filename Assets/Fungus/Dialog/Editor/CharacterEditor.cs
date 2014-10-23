@@ -13,6 +13,7 @@ namespace Fungus
 		protected SerializedProperty nameTextProp;
 		protected SerializedProperty nameColorProp;
 		protected SerializedProperty profileSpriteProp;
+		protected SerializedProperty soundEffectProp;
 		protected SerializedProperty notesProp;
 
 		protected virtual void OnEnable()
@@ -20,6 +21,7 @@ namespace Fungus
 			nameTextProp = serializedObject.FindProperty ("nameText");
 			nameColorProp = serializedObject.FindProperty ("nameColor");
 			profileSpriteProp = serializedObject.FindProperty ("profileSprite");
+			soundEffectProp = serializedObject.FindProperty ("soundEffect");
 			notesProp = serializedObject.FindProperty ("notes");
 
 			Shader shader = Shader.Find("Sprites/Default");
@@ -40,11 +42,9 @@ namespace Fungus
 			serializedObject.Update();
 
 			EditorGUILayout.PropertyField(nameTextProp, new GUIContent("Name Text", "Name of the character display in the dialog"));
-
 			EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));
-
 			EditorGUILayout.PropertyField(profileSpriteProp, new GUIContent("Image", "Character image sprite to display in the dialog"));
-
+			EditorGUILayout.PropertyField(soundEffectProp, new GUIContent("Sound Effect", "Sound to play when the character is talking. Overrides the setting in the Dialog."));
 			EditorGUILayout.PropertyField(notesProp, new GUIContent("Notes", "Notes about this story character (personality, attibutes, etc.)"));
 
 			EditorGUILayout.Separator();
