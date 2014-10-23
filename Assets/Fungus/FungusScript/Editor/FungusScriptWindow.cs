@@ -18,7 +18,7 @@ namespace Fungus
 
 		// The ReorderableList control doesn't drag properly when used with GUI.DragWindow(),
 		// so we just implement dragging ourselves.
-		protected bool dragging;
+		protected int dragWindowId = -1;
 		protected Vector2 startDragPosition;
 		protected Sequence selectedSequence;
 
@@ -180,6 +180,31 @@ namespace Fungus
 				sequence.UpdateSequenceName();
 
 				sequence.nodeRect.height = CalcRectHeight(sequence.commandList.Count);
+
+				if (!Application.isPlaying &&
+				    Event.current.button == 0)
+				{
+					if (Event.current.type == EventType.MouseDrag && dragWindowId == i)
+					{
+						sequence.nodeRect.x += Event.current.delta.x;
+						sequence.nodeRect.y += Event.current.delta.y;
+					}
+					else if (Event.current.type == EventType.MouseUp &&
+					         dragWindowId == i)
+					{
+						Vector2 newPos = new Vector2(sequence.nodeRect.x, sequence.nodeRect.y);
+						
+						sequence.nodeRect.x = startDragPosition.x;
+						sequence.nodeRect.y = startDragPosition.y;
+						
+						Undo.RecordObject(sequence, "Node Position");
+						
+						sequence.nodeRect.x = newPos.x;
+						sequence.nodeRect.y = newPos.y;
+
+						dragWindowId = -1;
+					}
+				}
 
 				Rect windowRect = new Rect(sequence.nodeRect);
 				windowRect.x += fungusScript.scrollPos.x;
@@ -369,32 +394,7 @@ namespace Fungus
 		{
 			Sequence sequence = windowSequenceMap[windowId];
 			FungusScript fungusScript = sequence.GetFungusScript();
-
-			if (!Application.isPlaying &&
-			    Event.current.button == 0)
-			{
-			    if (Event.current.type == EventType.MouseDrag && dragging)
-				{
-					sequence.nodeRect.x += Event.current.delta.x;
-					sequence.nodeRect.y += Event.current.delta.y;
-				}
-				else if (Event.current.type == EventType.MouseUp &&
-				         dragging)
-				{
-					Vector2 newPos = new Vector2(sequence.nodeRect.x, sequence.nodeRect.y);
-
-					sequence.nodeRect.x = startDragPosition.x;
-					sequence.nodeRect.y = startDragPosition.y;
-
-					Undo.RecordObject(sequence, "Node Position");
-
-					sequence.nodeRect.x = newPos.x;
-					sequence.nodeRect.y = newPos.y;
-
-					dragging = false;
-				}
-			}
-					
+								
 			// Select sequence when node is clicked
 			if (!Application.isPlaying &&
 			    (Event.current.button == 0 || Event.current.button == 1) && 
@@ -404,7 +404,7 @@ namespace Fungus
 				if (Event.current.button == 0 &&
 				    Event.current.mousePosition.y < 26)
 				{
-					dragging = true;
+					dragWindowId = windowId;
 					startDragPosition.x = sequence.nodeRect.x;
 					startDragPosition.y = sequence.nodeRect.y;
 				}
