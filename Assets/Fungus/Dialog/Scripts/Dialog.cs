@@ -238,6 +238,11 @@ namespace Fungus
 							{
 								doPause = false;
 							}
+
+							if (currentSpeed > 1000)
+							{
+								doPause = false;
+							}
 						}
 
 						if (doPause)
