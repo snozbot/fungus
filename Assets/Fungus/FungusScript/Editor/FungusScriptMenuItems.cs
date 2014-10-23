@@ -14,9 +14,8 @@ namespace Fungus
 			newFungusScriptGO.name = "FungusScript";
 			FungusScript fungusScript = newFungusScriptGO.AddComponent<FungusScript>();
 			Sequence sequence = Undo.AddComponent<Sequence>(newFungusScriptGO);
-			sequence.nodeRect.x += 50;
-			sequence.nodeRect.y += 50;
-			sequence.nodeRect.width = 240;
+			sequence.nodeRect.x += 60;
+			sequence.nodeRect.y += 60;
 			fungusScript.startSequence = sequence;
 			fungusScript.selectedSequence = sequence;
 			fungusScript.scrollPos = Vector2.zero;

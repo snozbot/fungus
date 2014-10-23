@@ -26,8 +26,18 @@ namespace Fungus
 			// We acquire the serialized properties in the draw methods instead of in OnEnable as otherwise
 			// deleting or renaming a command class would generate a bunch of null reference exceptions.
 			SerializedProperty sequenceNameProp = serializedObject.FindProperty("sequenceName");
-
 			EditorGUILayout.PropertyField(sequenceNameProp);
+
+			SerializedProperty nodeRectProp = serializedObject.FindProperty("nodeRect");
+			EditorGUI.BeginChangeCheck();
+			float width = EditorGUILayout.FloatField(new GUIContent("Node Width"), nodeRectProp.rectValue.width);
+			if (EditorGUI.EndChangeCheck())
+			{
+				Rect nodeRect = nodeRectProp.rectValue;
+				nodeRect.width = Mathf.Max(width, 100);
+				nodeRectProp.rectValue = nodeRect;
+			}
+
 			EditorGUILayout.Separator();
 
 			serializedObject.ApplyModifiedProperties();
@@ -39,8 +49,6 @@ namespace Fungus
 
 			Sequence sequence = target as Sequence;
 			UpdateIndentLevels(sequence);
-
-			sequence.nodeRect.width = 240;
 
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
 

@@ -209,7 +209,6 @@ namespace Fungus
 				Rect windowRect = new Rect(sequence.nodeRect);
 				windowRect.x += fungusScript.scrollPos.x;
 				windowRect.y += fungusScript.scrollPos.y;
-				windowRect.width = 240;
 
 				GUILayout.Window(i, windowRect, DrawWindow, "", windowStyle);
 
@@ -373,7 +372,6 @@ namespace Fungus
 			Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
 			fungusScript.selectedSequence = newSequence;
 			fungusScript.ClearSelectedCommands();
-			newSequence.nodeRect.width = 240;
 
 			return newSequence;
 		}
