@@ -424,7 +424,7 @@ namespace Fungus
 			yield break;
 		}
 
-		protected virtual void Clear()
+		public virtual void Clear()
 		{
 			ClearStoryText();
 
