@@ -535,7 +535,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 24
+    m_MaxSize: 20
     m_Alignment: 4
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -581,6 +581,7 @@ MonoBehaviour:
   nameText: Prax
   nameColor: {r: .257352948, g: .815618575, b: 1, a: 1}
   profileSprite: {fileID: 21300000, guid: d18d934d212d442ee90406fd28e6eef6, type: 3}
+  soundEffect: {fileID: 0}
   notes: 
 --- !u!4 &102763372
 Transform:
@@ -1050,7 +1051,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 24
+    m_MaxSize: 20
     m_Alignment: 4
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2355,6 +2356,7 @@ MonoBehaviour:
   nameText: {fileID: 1599807780}
   storyText: {fileID: 904137537}
   characterImage: {fileID: 982770894}
+  characterTypingSound: {fileID: 0}
   continueImage: {fileID: 2062365600}
 --- !u!1 &1436669959
 GameObject:
@@ -2527,7 +2529,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 24
+    m_MaxSize: 20
     m_Alignment: 4
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -3017,6 +3019,7 @@ MonoBehaviour:
   nameText: Prax
   nameColor: {r: .257352948, g: .815618575, b: 1, a: 1}
   profileSprite: {fileID: 21300000, guid: f2e901e070fff48cda67e3f446d80e79, type: 3}
+  soundEffect: {fileID: 0}
   notes: Prax is in a good mood!
 --- !u!4 &1844806519
 Transform:
@@ -3073,6 +3076,7 @@ MonoBehaviour:
   nameText: Prax
   nameColor: {r: .257352948, g: .815618575, b: 1, a: 1}
   profileSprite: {fileID: 21300000, guid: a3850401348404655bd0352054c28683, type: 3}
+  soundEffect: {fileID: 0}
   notes: 
 --- !u!1 &1873765285
 GameObject:
@@ -3733,6 +3737,7 @@ MonoBehaviour:
   nameText: {fileID: 35344135}
   storyText: {fileID: 689227474}
   characterImage: {fileID: 54732630}
+  characterTypingSound: {fileID: 0}
   timeoutSlider: {fileID: 1436669961}
   optionButtons:
   - {fileID: 1773019754}
@@ -3925,7 +3930,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 24
+    m_MaxSize: 20
     m_Alignment: 4
     m_RichText: 1
     m_HorizontalOverflow: 0
