@@ -87,7 +87,7 @@ namespace Fungus
 			}
 		}
 
-		protected override void Clear()
+		public override void Clear()
 		{
 			base.Clear();
 			ClearOptions();

@@ -58,7 +58,7 @@ namespace Fungus
 			StartCoroutine(WriteText(text, onWritingComplete, onExitTag));
 		}
 
-		protected override void Clear()
+		public override void Clear()
 		{
 			base.Clear();
 			ShowContinueImage(false);
