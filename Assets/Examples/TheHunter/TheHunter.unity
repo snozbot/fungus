@@ -795,7 +795,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300002, guid: 6b100daff28d04f69a49015f83966425, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6b100daff28d04f69a49015f83966425, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &308429316
 Prefab:
@@ -3605,7 +3605,7 @@ MonoBehaviour:
   setOperator: 0
   booleanData:
     booleanRef: {fileID: 0}
-    booleanVal: 0
+    booleanVal: 1
   integerData:
     integerRef: {fileID: 0}
     integerVal: 0
@@ -5936,7 +5936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 348.627258, y: 535.06012}
+  scrollPos: {x: 307.899506, y: -13.4894714}
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -5944,9 +5944,9 @@ MonoBehaviour:
     y: -883.033203
     width: 1939.01758
     height: 1972.5332
-  selectedSequence: {fileID: 541676554}
+  selectedSequence: {fileID: 2111357054}
   selectedCommands:
-  - {fileID: 541676551}
+  - {fileID: 2111357058}
   variables:
   - {fileID: 1831099569}
   startSequence: {fileID: 1507034365}
@@ -6530,7 +6530,7 @@ MonoBehaviour:
   compareOperator: 0
   booleanData:
     booleanRef: {fileID: 0}
-    booleanVal: 0
+    booleanVal: 1
   integerData:
     integerRef: {fileID: 0}
     integerVal: 0
