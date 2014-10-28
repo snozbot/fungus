@@ -4,9 +4,9 @@ using System.Collections;
 namespace Fungus
 {
 	[CommandInfo("Audio",
-	             "Set Music Volume",
-	             "Sets the game music volume level.")]
-	public class SetMusicVolume : Command
+	             "Set Audio Volume",
+	             "Sets the global volume level for audio played with Play Music and Play Sound commands.")]
+	public class SetAudioVolume : Command
 	{
 		[Range(0,1)]
 		public float volume = 1;
