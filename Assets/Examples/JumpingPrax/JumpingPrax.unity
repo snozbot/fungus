@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 721.026611, y: 156.028076}
+  scrollPos: {x: 678.026611, y: 27.0280762}
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -240,8 +240,9 @@ MonoBehaviour:
     y: -608
     width: 2140
     height: 1416
-  selectedSequence: {fileID: 0}
-  selectedCommands: []
+  selectedSequence: {fileID: 1947290628}
+  selectedCommands:
+  - {fileID: 1947290641}
   variables:
   - {fileID: 16019625}
   startSequence: {fileID: 1947290628}
@@ -3294,7 +3295,6 @@ GameObject:
   - 114: {fileID: 1947290637}
   - 114: {fileID: 1947290636}
   - 114: {fileID: 1947290640}
-  - 114: {fileID: 1947290639}
   - 114: {fileID: 1947290643}
   - 114: {fileID: 1947290642}
   - 114: {fileID: 1947290644}
@@ -3343,7 +3343,7 @@ MonoBehaviour:
     x: -343
     y: 27
     width: 240
-    height: 354
+    height: 334
   sequenceName: Start
   commandList:
   - {fileID: 1947290641}
@@ -3354,7 +3354,6 @@ MonoBehaviour:
   - {fileID: 1947290635}
   - {fileID: 1947290646}
   - {fileID: 1947290645}
-  - {fileID: 1947290639}
   - {fileID: 1947290627}
   - {fileID: 1947290632}
   - {fileID: 1947290634}
@@ -3522,21 +3521,6 @@ MonoBehaviour:
   chooseDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 5
---- !u!114 &1947290639
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1947290626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5f62b7b5779c46aba13ef24141b2729, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  volume: .419999987
-  fadeDuration: 7.19999981
 --- !u!114 &1947290640
 MonoBehaviour:
   m_ObjectHideFlags: 2

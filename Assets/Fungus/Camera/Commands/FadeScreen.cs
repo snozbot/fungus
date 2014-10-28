@@ -6,7 +6,8 @@ namespace Fungus
 {
 	[CommandInfo("Camera", 
 	             "Fade Screen", 
-	             "Draws a fullscreen texture over the scene to give a fade effect. Target alpha 1 will obscure the screen, alpha 0 will reveal the screen.")]
+	             "Draws a fullscreen texture over the scene to give a fade effect. Setting Target Alpha to 1 will obscure the screen, alpha 0 will reveal the screen. " +
+	             "If no Fade Texture is provided then a default flat color texture is used.")]
 	public class FadeScreen : Command 
 	{
 		public float duration = 1f;

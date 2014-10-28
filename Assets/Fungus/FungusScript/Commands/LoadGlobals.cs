@@ -6,7 +6,7 @@ namespace Fungus
 {
 	[CommandInfo("Scripting", 
 	             "Load Globals", 
-	             "Loads a set of global variables previously saved using the SaveGlobals command.")]
+	             "Loads a set of global variables previously saved using the Save Globals command.")]
 	public class LoadGlobals : Command
 	{
 		public string saveName = "";

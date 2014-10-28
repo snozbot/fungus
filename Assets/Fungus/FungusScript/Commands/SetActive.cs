@@ -6,7 +6,7 @@ namespace Fungus
 {
 	[CommandInfo("Scripting", 
 	             "Set Active", 
-	             "Sets a game object to be active / inactive.")]
+	             "Sets a game object in the scene to be active / inactive.")]
 	public class SetActive : Command
 	{	
 		public GameObject targetGameObject;

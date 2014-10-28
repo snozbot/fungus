@@ -6,7 +6,7 @@ namespace Fungus
 {
 	[CommandInfo("Scripting", 
 	             "Else", 
-	             "Marks the start of a sequence block to be executed when the preceding If statement is false.")]
+	             "Marks the start of a sequence block to be executed when the preceding If statement is False.")]
 	public class Else : Command
 	{
 		public override void OnEnter()

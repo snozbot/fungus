@@ -6,7 +6,7 @@ namespace Fungus
 {
 	[CommandInfo("Scripting", 
 	             "Comment", 
-	             "Records design notes and reminders about your script.")]
+	             "Use comments to record design notes and reminders about your game.")]
 	public class Comment : Command
 	{	
 		[TextArea(2,4)]

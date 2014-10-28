@@ -5,7 +5,7 @@ namespace Fungus
 {
 	[CommandInfo("Audio", 
 	             "Play Sound",
-	             "Plays a sound effect. Multiple sound effects can play at the same time.")]
+	             "Plays a once-off sound effect. Multiple sound effects can be played at the same time.")]
 	public class PlaySound : Command
 	{
 		public AudioClip soundClip;

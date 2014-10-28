@@ -6,7 +6,7 @@ namespace Fungus
 {
 	[CommandInfo("Animation", 
 	             "Set Anim Integer", 
-	             "Sets an integer parameter on an animator to control an animation")]
+	             "Sets an integer parameter on an Animator component to control a Unity animation")]
 	public class SetAnimInteger : Command 
 	{
 		public Animator animator;

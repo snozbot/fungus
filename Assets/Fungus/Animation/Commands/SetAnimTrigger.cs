@@ -6,7 +6,7 @@ namespace Fungus
 {
 	[CommandInfo("Animation", 
 	             "Set Anim Trigger", 
-	             "Sets a trigger parameter on an animator to control an animation")]
+	             "Sets a trigger parameter on an Animator component to control a Unity animation")]
 	public class SetAnimTrigger : Command 
 	{
 		public Animator animator;

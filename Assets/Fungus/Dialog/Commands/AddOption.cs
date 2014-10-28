@@ -7,7 +7,8 @@ namespace Fungus
 {
 	[CommandInfo("Dialog", 
 	             "Add Option", 
-	             "Adds an option for the player to select, displayed by the next Say command.")]
+	             "Adds an option for the player to select. All previously added options are displayed by the next Choose command. " + 
+	             "You can specify another sequence to call and/or a variable to set when the options is selected.")]
 	public class AddOption : SetVariable 
 	{
 		public string optionText;

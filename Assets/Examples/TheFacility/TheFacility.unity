@@ -2497,7 +2497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: -311.701569, y: 165.035736}
+  scrollPos: {x: -194.05423, y: 156.7798}
   zoom: .968997777
   scrollViewRect:
     serializedVersion: 2
@@ -2505,8 +2505,9 @@ MonoBehaviour:
     y: -610.734985
     width: 3261.20312
     height: 2227.35059
-  selectedSequence: {fileID: 0}
-  selectedCommands: []
+  selectedSequence: {fileID: 1797174374}
+  selectedCommands:
+  - {fileID: 1797174373}
   variables:
   - {fileID: 771014102}
   - {fileID: 771014103}
@@ -5925,6 +5926,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+  resetCommands: 1
+  resetLocalVariables: 1
+  resetGlobalVariables: 1
 --- !u!114 &1925614673
 MonoBehaviour:
   m_ObjectHideFlags: 2

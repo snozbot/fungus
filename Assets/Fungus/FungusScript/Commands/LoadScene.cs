@@ -6,9 +6,9 @@ namespace Fungus
 {
 	[CommandInfo("Scripting", 
 	             "Load Scene", 
-	             "Loads a new scene and displays an optional loading image. This is useful " +
+	             "Loads a new Unity scene and displays an optional loading image. This is useful " +
 	             "for splitting a large game across multiple scene files to reduce peak memory " +
-	             "usage. All previously loaded assets (including textures and audio) will be released." +
+	             "usage. Previously loaded assets will be released before loading the scene to free up memory." +
 	             "The scene to be loaded must be added to the scene list in Build Settings.")]
 	public class LoadScene : Command 
 	{

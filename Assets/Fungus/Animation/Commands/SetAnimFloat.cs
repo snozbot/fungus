@@ -6,7 +6,7 @@ namespace Fungus
 {
 	[CommandInfo("Animation", 
 	             "Set Anim Float", 
-	             "Sets a float parameter on an animator to control an animation")]
+	             "Sets a float parameter on an Animator component to control a Unity animation")]
 	public class SetAnimFloat : Command 
 	{
 		public Animator animator;

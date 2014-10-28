@@ -6,7 +6,7 @@ namespace Fungus
 {
 	[CommandInfo("Animation", 
 	             "Set Anim Bool", 
-	             "Sets a boolean parameter on an animator to control an animation")]
+	             "Sets a boolean parameter on an Animator component to control a Unity animation")]
 	public class SetAnimBool : Command 
 	{
 		public Animator animator;

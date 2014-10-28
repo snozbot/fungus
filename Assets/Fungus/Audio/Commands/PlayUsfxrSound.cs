@@ -4,7 +4,7 @@
 
     [CommandInfo("Audio", 
 	             "Play Usfxr Sound", 
-	             "Plays a usfxr synth sound. Use the usfxr editor [Window->Generate usfxr Sound Effects] to create the SettingsString. Set a ParentTransform if using positional sound. See https://github.com/zeh/usfxr for more information about usfxr.")]
+	             "Plays a usfxr synth sound. Use the usfxr editor [Window > Generate usfxr Sound Effects] to create the SettingsString. Set a ParentTransform if using positional sound. See https://github.com/zeh/usfxr for more information about usfxr.")]
     public class PlayUsfxrSound : Command {
         protected SfxrSynth _synth = new SfxrSynth();
         public Transform ParentTransform = null;

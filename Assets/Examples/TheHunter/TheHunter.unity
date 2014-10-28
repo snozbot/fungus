@@ -1448,6 +1448,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 518300788}
   - 114: {fileID: 518300787}
+  - 114: {fileID: 518300789}
   m_Layer: 0
   m_Name: _CommandCopyBuffer
   m_TagString: Untagged
@@ -1486,6 +1487,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &518300789
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 518300786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  musicClip: {fileID: 8300000, guid: ae3aa0e9b0f0248a59548b5d9e77a6c1, type: 3}
+  atTime: 0
 --- !u!1 &524591087
 GameObject:
   m_ObjectHideFlags: 0
@@ -4435,6 +4451,7 @@ GameObject:
   - 114: {fileID: 1507034364}
   - 114: {fileID: 1507034369}
   - 114: {fileID: 1507034368}
+  - 114: {fileID: 1507034370}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -4474,9 +4491,10 @@ MonoBehaviour:
     x: -204
     y: -450
     width: 240
-    height: 114
+    height: 134
   sequenceName: Start
   commandList:
+  - {fileID: 1507034370}
   - {fileID: 1507034368}
   - {fileID: 1507034369}
   - {fileID: 1507034366}
@@ -4544,6 +4562,21 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderer: {fileID: 335445528}
   visible: 0
+--- !u!114 &1507034370
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1507034363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  musicClip: {fileID: 8300000, guid: ae3aa0e9b0f0248a59548b5d9e77a6c1, type: 3}
+  atTime: 0
 --- !u!1 &1509015466
 GameObject:
   m_ObjectHideFlags: 0
@@ -5155,9 +5188,6 @@ GameObject:
   - 114: {fileID: 1759345004}
   - 114: {fileID: 1759345003}
   - 114: {fileID: 1759345005}
-  - 114: {fileID: 1759345007}
-  - 114: {fileID: 1759345009}
-  - 114: {fileID: 1759345008}
   - 114: {fileID: 1759345010}
   m_Layer: 0
   m_Name: Intro
@@ -5204,12 +5234,9 @@ MonoBehaviour:
     x: 104
     y: -465
     width: 240
-    height: 254
+    height: 194
   sequenceName: Intro
   commandList:
-  - {fileID: 1759345009}
-  - {fileID: 1759345007}
-  - {fileID: 1759345008}
   - {fileID: 1759345003}
   - {fileID: 1759345004}
   - {fileID: 1759345005}
@@ -5369,54 +5396,6 @@ MonoBehaviour:
   sayDialog: {fileID: 1185554287}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &1759345007
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400066, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  musicClip: {fileID: 8300000, guid: ae3aa0e9b0f0248a59548b5d9e77a6c1, type: 3}
-  atTime: 0
---- !u!114 &1759345008
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400068, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5f62b7b5779c46aba13ef24141b2729, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  volume: .504999995
-  fadeDuration: 2
---- !u!114 &1759345009
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400070, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5f62b7b5779c46aba13ef24141b2729, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  volume: 0
-  fadeDuration: 0
 --- !u!114 &1759345010
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5936,7 +5915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 307.899506, y: -13.4894714}
+  scrollPos: {x: 241.899506, y: 519.510498}
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -5944,9 +5923,9 @@ MonoBehaviour:
     y: -883.033203
     width: 1939.01758
     height: 1972.5332
-  selectedSequence: {fileID: 2111357054}
+  selectedSequence: {fileID: 1507034365}
   selectedCommands:
-  - {fileID: 2111357058}
+  - {fileID: 1507034370}
   variables:
   - {fileID: 1831099569}
   startSequence: {fileID: 1507034365}
