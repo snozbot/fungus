@@ -409,17 +409,29 @@ namespace Fungus
 			}
 		}
 
-		public virtual void Reset()
+		public virtual void Reset(bool resetCommands, bool resetLocalVariables, bool resetGlobalVariables)
 		{
-			Command[] commands = GetComponentsInChildren<Command>();
-			foreach (Command command in commands)
+			if (resetCommands)
 			{
-				command.OnReset();
+				Command[] commands = GetComponentsInChildren<Command>();
+				foreach (Command command in commands)
+				{
+					command.OnReset();
+				}
 			}
 
 			foreach (Variable variable in variables)
 			{
-				variable.OnReset();
+				if (resetLocalVariables &&
+				    variable.scope == VariableScope.Local)
+				{
+					variable.OnReset();
+				}
+				else if (resetGlobalVariables &&
+				         variable.scope == VariableScope.Global)
+				{
+					variable.OnReset();
+				}
 			}
 		}
 	}

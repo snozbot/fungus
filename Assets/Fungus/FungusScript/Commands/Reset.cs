@@ -6,12 +6,16 @@ namespace Fungus
 {
 	[CommandInfo("Scripting", 
 	             "Reset", 
-	             "Resets state of all commands and variables in this Fungus Script.")]
+	             "Resets the state of all commands and local and global variables in the Fungus Script.")]
 	public class Reset : Command
 	{	
+		public bool resetCommands = true;
+		public bool resetLocalVariables = true;
+		public bool resetGlobalVariables = true;
+
 		public override void OnEnter()
 		{
-			GetFungusScript().Reset();
+			GetFungusScript().Reset(resetCommands, resetLocalVariables, resetGlobalVariables);
 			Continue();
 		}
 
