@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Scripting", 
+	[CommandInfo("", 
 	             "Comment", 
 	             "Use comments to record design notes and reminders about your game.")]
 	public class Comment : Command

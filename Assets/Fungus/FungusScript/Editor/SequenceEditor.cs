@@ -230,6 +230,17 @@ namespace Fungus
 			return result;
 		}
 
+		// Compare delegate for sorting the list of command attributes
+		static int CompareCommandAttributes(KeyValuePair<System.Type, CommandInfoAttribute> x, KeyValuePair<System.Type, CommandInfoAttribute> y)
+		{
+			int compare = (x.Value.Category.CompareTo(y.Value.Category));
+			if (compare == 0)
+			{
+				compare = (x.Value.CommandName.CompareTo(y.Value.CommandName));
+			}
+			return compare;
+		}
+
 		void ShowCommandMenu()
 		{
 			Sequence sequence = target as Sequence;
@@ -241,6 +252,8 @@ namespace Fungus
 			List<System.Type> menuTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).ToList();
 			List<KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = GetFilteredCommandInfoAttribute(menuTypes);
 
+			filteredAttributes.Sort( CompareCommandAttributes );
+
 			foreach(var keyPair in filteredAttributes)
 			{
 				AddCommandOperation commandOperation = new AddCommandOperation();
@@ -248,9 +261,18 @@ namespace Fungus
 				commandOperation.sequence = sequence;
 				commandOperation.commandType = keyPair.Key;
 				commandOperation.index = index;
-				
-				commandMenu.AddItem (new GUIContent (keyPair.Value.Category + "/" + keyPair.Value.CommandName), 
-				                     false, AddCommandCallback, commandOperation);
+
+				GUIContent menuItem;
+				if (keyPair.Value.Category == "")
+				{
+					menuItem = new GUIContent(keyPair.Value.CommandName);
+				}
+				else
+				{
+					menuItem = new GUIContent (keyPair.Value.Category + "/" + keyPair.Value.CommandName);
+				}
+
+				commandMenu.AddItem(menuItem, false, AddCommandCallback, commandOperation);
 			}
 
 			commandMenu.ShowAsContext();
