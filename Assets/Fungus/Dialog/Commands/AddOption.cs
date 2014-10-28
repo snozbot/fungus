@@ -11,10 +11,15 @@ namespace Fungus
 	             "You can specify another sequence to call and/or a variable to set when the options is selected.")]
 	public class AddOption : SetVariable 
 	{
+		[Tooltip("Option text to display when presenting the option to the player")]
 		public string optionText;
+
+		[Tooltip("Sequence to execute when the player selects this option")]
 		public Sequence targetSequence;
 
+		[Tooltip("Hide this option once it has been selected so that it won't appear again even if executed again")]
 		public bool hideOnSelected;
+
 		protected bool wasSelected;
 
 		public override void OnEnter()

@@ -8,8 +8,13 @@ namespace Fungus
 	             "Rotates a game object to the specified angles over time.")]
 	public class RotateTo : iTweenCommand 
 	{
+		[Tooltip("Target transform that the GameObject will rotate to")]
 		public Transform toTransform;
+
+		[Tooltip("Target rotation that the GameObject will rotate to, if no To Transform is set")]
 		public Vector3 toRotation;
+
+		[Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
 		public bool isLocal;
 
 		public override void DoTween()

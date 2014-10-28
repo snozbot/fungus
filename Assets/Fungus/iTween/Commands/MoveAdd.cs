@@ -8,7 +8,10 @@ namespace Fungus
 	             "Moves a game object by a specified offset over time.")]
 	public class MoveAdd : iTweenCommand 
 	{
+		[Tooltip("A translation offset in space the GameObject will animate to")]
 		public Vector3 offset;
+
+		[Tooltip("Apply the transformation in either the world coordinate or local cordinate system")]
 		public Space space = Space.Self;
 
 		public override void DoTween()

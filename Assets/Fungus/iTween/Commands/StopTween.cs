@@ -8,6 +8,7 @@ namespace Fungus
 	             "Stops an active iTween by name.")]
 	public class StopTween : Command 
 	{
+		[Tooltip("Stop and destroy any Tweens in current scene with the supplied name")]
 		public string tweenName;
 
 		public override void OnEnter()

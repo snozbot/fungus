@@ -12,14 +12,24 @@ namespace Fungus
 	             "Select [Game Object > Fungus > Dialog > Character] to create a new selectable speaking character.")]
 	public class Say : Command 
 	{
+		[Tooltip("Story text to display to the player")]
 		[TextArea(5,10)]
 		public string storyText;
 
+		[Tooltip("Speaking character to use when writing the story text")]
 		public Character character;
+
+		[Tooltip("Say Dialog to use when writing the story text.")]
 		public SayDialog sayDialog;
+
+		[Tooltip("Voiceover audio to play when writing the story text")]
 		public AudioClip voiceOverClip;
+
+		[Tooltip("Only show this text once, even if the command is executed again")]
 		public bool showOnce;
+
 		protected int executionCount;
+
 		protected bool showBasicGUI;
 
 		public override void OnEnter()

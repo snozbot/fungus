@@ -9,6 +9,7 @@ namespace Fungus
 	             "Saves all current global variables to persistent storage. These can be loaded back in again in future using the LoadGlobals command. This provides a basic save game system.")]
 	public class SaveGlobals : Command
 	{
+		[Tooltip("Save Name of saved global variable values")]
 		public string saveName = "";
 
 		public override void OnEnter()

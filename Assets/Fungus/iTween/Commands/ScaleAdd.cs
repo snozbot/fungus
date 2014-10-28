@@ -8,6 +8,7 @@ namespace Fungus
 	             "Changes a game object's scale by a specified offset over time.")]
 	public class ScaleAdd : iTweenCommand 
 	{
+		[Tooltip("A scale offset in space the GameObject will animate to")]
 		public Vector3 offset;
 
 		public override void DoTween()

@@ -9,6 +9,7 @@ namespace Fungus
 	             "Waits for period of time before executing the next command in the sequence.")]
 	public class Wait : Command 
 	{
+		[Tooltip("Duration to wait for")]
 		public float duration = 1;
 
 		public override void OnEnter()

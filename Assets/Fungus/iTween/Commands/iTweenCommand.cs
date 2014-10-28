@@ -13,11 +13,22 @@ namespace Fungus
 	
 	public abstract class iTweenCommand : Command 
 	{
+		[Tooltip("Target game object to apply the Tween to")]
 		public GameObject target;
+
+		[Tooltip("An individual name useful for stopping iTweens by name")]
 		public string tweenName;
+
+		[Tooltip("The time in seconds the animation will take to complete")]
 		public float duration = 1f;
+
+		[Tooltip("The shape of the easing curve applied to the animation")]
 		public iTween.EaseType easeType = iTween.EaseType.easeInOutQuad;
+
+		[Tooltip("The type of loop to apply once the animation has completed")]
 		public iTween.LoopType loopType = iTween.LoopType.none;
+
+		[Tooltip("Wait until the tween has finished before executing the next command")]
 		public bool waitUntilFinished = true;
 
 		public override void OnEnter()

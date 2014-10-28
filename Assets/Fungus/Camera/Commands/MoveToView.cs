@@ -9,8 +9,13 @@ namespace Fungus
 	             "Moves the camera to a location specified by a View object. Select [Game Object > Fungus > Camera > View] to create a View object.")]
 	public class MoveToView : Command 
 	{
+		[Tooltip("Time for move effect to complete")]
 		public float duration = 1;
+
+		[Tooltip("View to transition to when move is complete")]
 		public Fungus.View targetView;
+
+		[Tooltip("Wait until the fade has finished before executing next command")]
 		public bool waitUntilFinished = true;
 
 		public override void OnEnter()

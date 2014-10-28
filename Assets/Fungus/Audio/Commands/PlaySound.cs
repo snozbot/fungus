@@ -8,9 +8,11 @@ namespace Fungus
 	             "Plays a once-off sound effect. Multiple sound effects can be played at the same time.")]
 	public class PlaySound : Command
 	{
+		[Tooltip("Sound effect clip to play")]
 		public AudioClip soundClip;
 
 		[Range(0,1)]
+		[Tooltip("Volume level of the sound effect")]
 		public float volume = 1;
 
 		public override void OnEnter()

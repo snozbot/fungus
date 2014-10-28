@@ -18,16 +18,22 @@ namespace Fungus
 			Divide		// /=
 		}
 
+		[Tooltip("The variable whos value will be set")]
 		public Variable variable;
 
+		[Tooltip("The type of math operation to be performed")]
 		public SetOperator setOperator;
 
+		[Tooltip("Boolean value to set with")]
 		public BooleanData booleanData;
 
+		[Tooltip("Integer value to set with")]
 		public IntegerData integerData;
 
+		[Tooltip("Float value to set with")]
 		public FloatData floatData;
 
+		[Tooltip("String value to set with")]
 		public StringData stringData;
 		
 		public override void OnEnter()

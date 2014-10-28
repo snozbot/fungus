@@ -9,8 +9,13 @@ namespace Fungus
 	             "Sets a float parameter on an Animator component to control a Unity animation")]
 	public class SetAnimFloat : Command 
 	{
+		[Tooltip("Reference to an Animator component in a game object")]
 		public Animator animator;
+
+		[Tooltip("Name of the float Animator parameter that will have its value changed")]
 		public string parameterName;
+
+		[Tooltip("The float value to set the parameter to")]
 		public FloatData value;
 
 		public override void OnEnter()

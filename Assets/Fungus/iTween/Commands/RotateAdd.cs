@@ -8,7 +8,10 @@ namespace Fungus
 	             "Rotates a game object by the specified angles over time.")]
 	public class RotateAdd : iTweenCommand 
 	{
+		[Tooltip("A rotation offset in space the GameObject will animate to")]
 		public Vector3 offset;
+
+		[Tooltip("Apply the transformation in either the world coordinate or local cordinate system")]
 		public Space space = Space.Self;
 
 		public override void DoTween()

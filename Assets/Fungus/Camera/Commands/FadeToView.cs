@@ -9,10 +9,19 @@ namespace Fungus
 	             "Fades the camera out and in again at a position specified by a View object. Select [Game Object > Fungus > Camera > View] to create a View object.")]
 	public class FadeToView : Command 
 	{
+		[Tooltip("Time for fade effect to complete")]
 		public float duration = 1f;
+
+		[Tooltip("View to transition to when Fade is complete")]
 		public Fungus.View targetView;
+
+		[Tooltip("Wait until the fade has finished before executing next command")]
 		public bool waitUntilFinished = true;
+
+		[Tooltip("Color to render fullscreen fade texture with when screen is obscured.")]
 		public Color fadeColor = Color.black;
+
+		[Tooltip("Optional texture to use when rendering the fullscreen fade effect.")]
 		public Texture2D fadeTexture;
 
 		public override void OnEnter()

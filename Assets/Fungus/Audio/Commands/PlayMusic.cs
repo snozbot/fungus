@@ -8,6 +8,7 @@ namespace Fungus
 	             "Plays looping game music. If any game music is already playing, it is stopped. Game music will continue playing across scene loads.")]
 	public class PlayMusic : Command
 	{
+		[Tooltip("Music sound clip to play")]
 		public AudioClip musicClip;
 
 		[Tooltip("Time to begin playing in seconds. If the audio file is compressed, the time index may be inaccurate.")]

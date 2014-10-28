@@ -12,8 +12,10 @@ namespace Fungus
 	             "The scene to be loaded must be added to the scene list in Build Settings.")]
 	public class LoadScene : Command 
 	{
+		[Tooltip("Name of the scene to load. The scene must also be added to the build settings.")]
 		public string sceneName = "";
 
+		[Tooltip("Image to display while loading the scene")]
 		public Texture2D loadingImage;
 
 		public override void OnEnter()

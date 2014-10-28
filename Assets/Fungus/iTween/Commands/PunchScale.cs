@@ -8,6 +8,7 @@ namespace Fungus
 	             "Applies a jolt of force to a GameObject's scale and wobbles it back to its initial scale.")]
 	public class PunchScale : iTweenCommand 
 	{
+		[Tooltip("A scale offset in space the GameObject will animate to")]
 		public Vector3 amount;
 
 		public override void DoTween()

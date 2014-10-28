@@ -8,7 +8,10 @@ namespace Fungus
 	             "Changes a game object's scale to the specified value and back to its original scale over time.")]
 	public class ScaleFrom : iTweenCommand 
 	{
+		[Tooltip("Target transform that the GameObject will scale from")]
 		public Transform fromTransform;
+
+		[Tooltip("Target scale that the GameObject will scale from, if no From Transform is set")]
 		public Vector3 fromScale;
 
 		public override void DoTween()

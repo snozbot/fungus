@@ -9,7 +9,10 @@ namespace Fungus
 	             "Sets a trigger parameter on an Animator component to control a Unity animation")]
 	public class SetAnimTrigger : Command 
 	{
+		[Tooltip("Reference to an Animator component in a game object")]
 		public Animator animator;
+
+		[Tooltip("Name of the trigger Animator parameter that will have its value changed")]
 		public string parameterName;
 
 		public override void OnEnter()

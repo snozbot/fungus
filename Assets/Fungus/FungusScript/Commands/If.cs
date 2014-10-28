@@ -19,16 +19,22 @@ namespace Fungus
 	             "If the test expression is true, execute the following block of commands.")]
 	public class If : Command
 	{
+		[Tooltip("The variable whos value will be checked")]
 		public Variable variable;
 
+		[Tooltip("The type of comparison to be performed")]
 		public CompareOperator compareOperator;
 
+		[Tooltip("Boolean value to compare against")]
 		public BooleanData booleanData;
 
+		[Tooltip("Integer value to compare against")]
 		public IntegerData integerData;
 
+		[Tooltip("Float value to compare against")]
 		public FloatData floatData;
 
+		[Tooltip("String value to compare against")]
 		public StringData stringData;
 		
 		public override void OnEnter()

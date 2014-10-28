@@ -9,8 +9,13 @@ namespace Fungus
 	             "Sets a boolean parameter on an Animator component to control a Unity animation")]
 	public class SetAnimBool : Command 
 	{
+		[Tooltip("Reference to an Animator component in a game object")]
 		public Animator animator;
+
+		[Tooltip("Name of the boolean Animator parameter that will have its value changed")]
 		public string parameterName;
+
+		[Tooltip("The boolean value to set the parameter to")]
 		public BooleanData value;
 
 		public override void OnEnter()

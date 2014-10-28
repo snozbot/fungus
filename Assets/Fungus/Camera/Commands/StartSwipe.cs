@@ -9,8 +9,13 @@ namespace Fungus
 	             "Activates swipe panning mode where the player can pan the camera within the area between viewA & viewB.")]
 	public class StartSwipe : Command 
 	{
+		[Tooltip("Defines one extreme of the scrollable area that the player can pan around")]
 		public View viewA;
+
+		[Tooltip("Defines one extreme of the scrollable area that the player can pan around")]
 		public View viewB;
+
+		[Tooltip("Time to move the camera to a valid starting position between the two views")]
 		public float duration = 0.5f;
 		
 		public override void OnEnter()

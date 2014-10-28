@@ -8,7 +8,10 @@ namespace Fungus
 	             "Randomly shakes a GameObject's rotation by a diminishing amount over time.")]
 	public class ShakeRotation : iTweenCommand 
 	{
+		[Tooltip("A rotation offset in space the GameObject will animate to")]
 		public Vector3 amount;
+
+		[Tooltip("Apply the transformation in either the world coordinate or local cordinate system")]
 		public Space space = Space.Self;
 		
 		public override void DoTween()

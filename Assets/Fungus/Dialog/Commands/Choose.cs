@@ -21,12 +21,20 @@ namespace Fungus
 
 		static public List<Option> options = new List<Option>();
 
+		[Tooltip("Story text to display to prompt player to choose an option")]
 		[TextArea(5,10)]
 		public string chooseText;
 
+		[Tooltip("Speaking character to use when prompting the player to choose an option")]
 		public Character character;
+
+		[Tooltip("Choose Dialog object to use to display the player options")]
 		public ChooseDialog chooseDialog;
+
+		[Tooltip("Voiceover audio to play when prompting the player to choose an option")]
 		public AudioClip voiceOverClip;
+
+		[Tooltip("Time limit for player to choose an option. Set to 0 for no time limit.")]
 		public float timeoutDuration;
 
 		protected bool showBasicGUI;

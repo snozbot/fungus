@@ -9,6 +9,7 @@ namespace Fungus
 	             "Loads a set of global variables previously saved using the Save Globals command.")]
 	public class LoadGlobals : Command
 	{
+		[Tooltip("Save Name of saved global variable values")]
 		public string saveName = "";
 
 		public override void OnEnter()

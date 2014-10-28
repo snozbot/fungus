@@ -9,8 +9,13 @@ namespace Fungus
 	             "Sets an integer parameter on an Animator component to control a Unity animation")]
 	public class SetAnimInteger : Command 
 	{
+		[Tooltip("Reference to an Animator component in a game object")]
 		public Animator animator;
+
+		[Tooltip("Name of the integer Animator parameter that will have its value changed")]
 		public string parameterName;
+
+		[Tooltip("The integer value to set the parameter to")]
 		public IntegerData value;
 
 		public override void OnEnter()

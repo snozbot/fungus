@@ -10,10 +10,19 @@ namespace Fungus
 	             "If no Fade Texture is provided then a default flat color texture is used.")]
 	public class FadeScreen : Command 
 	{
+		[Tooltip("Time for fade effect to complete")]
 		public float duration = 1f;
+
+		[Tooltip("Current target alpha transparency value. The fade gradually adjusts the alpha to approach this target value.")]
 		public float targetAlpha = 1f;
+
+		[Tooltip("Wait until the fade has finished before executing next command")]
 		public bool waitUntilFinished = true;
+
+		[Tooltip("Color to render fullscreen fade texture with when screen is obscured.")]
 		public Color fadeColor = Color.black;
+
+		[Tooltip("Optional texture to use when rendering the fullscreen fade effect.")]
 		public Texture2D fadeTexture;
 		
 		public override void OnEnter()

@@ -8,8 +8,13 @@ namespace Fungus
 	             "Rotates a GameObject to look at a supplied Transform or Vector3 over time.")]
 	public class LookTo : iTweenCommand 
 	{
+		[Tooltip("Target transform that the GameObject will look at")]
 		public Transform toTransform;
+
+		[Tooltip("Target world position that the GameObject will look at, if no From Transform is set")]
 		public Vector3 toPosition;
+
+		[Tooltip("Restricts rotation to the supplied axis only")]
 		public iTweenAxis axis;
 
 		public override void DoTween()

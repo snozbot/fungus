@@ -9,8 +9,13 @@ namespace Fungus
 	             "Applies a camera shake effect to the main camera.")]
 	public class ShakeCamera : Command 
 	{
+		[Tooltip("Time for camera shake effect to complete")]
 		public float duration = 0.5f;
+
+		[Tooltip("Magnitude of shake effect in x & y axes")]
 		public Vector2 amount = new Vector2(1, 1);
+
+		[Tooltip("Wait until the shake effect has finished before executing next command")]
 		public bool waitUntilFinished;
 
 		public override void OnEnter()

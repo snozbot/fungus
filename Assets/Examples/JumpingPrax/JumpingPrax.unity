@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 678.026611, y: 27.0280762}
+  scrollPos: {x: 659.026611, y: 230.028076}
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -242,7 +242,7 @@ MonoBehaviour:
     height: 1416
   selectedSequence: {fileID: 1947290628}
   selectedCommands:
-  - {fileID: 1947290641}
+  - {fileID: 1947290640}
   variables:
   - {fileID: 16019625}
   startSequence: {fileID: 1947290628}

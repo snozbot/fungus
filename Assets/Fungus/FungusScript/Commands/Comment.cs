@@ -9,6 +9,7 @@ namespace Fungus
 	             "Use comments to record design notes and reminders about your game.")]
 	public class Comment : Command
 	{	
+		[Tooltip("Text to display for this comment")]
 		[TextArea(2,4)]
 		public string commentText = "";
 

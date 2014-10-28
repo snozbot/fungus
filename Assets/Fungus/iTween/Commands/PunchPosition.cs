@@ -8,7 +8,10 @@ namespace Fungus
 	             "Applies a jolt of force to a GameObject's position and wobbles it back to its initial position.")]
 	public class PunchPosition : iTweenCommand 
 	{
+		[Tooltip("A translation offset in space the GameObject will animate to")]
 		public Vector3 amount;
+
+		[Tooltip("Apply the transformation in either the world coordinate or local cordinate system")]
 		public Space space = Space.Self;
 
 		public override void DoTween()

@@ -8,6 +8,7 @@ namespace Fungus
 	             "Randomly shakes a GameObject's rotation by a diminishing amount over time.")]
 	public class ShakeScale : iTweenCommand 
 	{
+		[Tooltip("A scale offset in space the GameObject will animate to")]
 		public Vector3 amount;
 		
 		public override void DoTween()

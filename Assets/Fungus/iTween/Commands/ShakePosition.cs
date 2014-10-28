@@ -8,8 +8,13 @@ namespace Fungus
 	             "Randomly shakes a GameObject's position by a diminishing amount over time.")]
 	public class ShakePosition : iTweenCommand 
 	{
+		[Tooltip("A translation offset in space the GameObject will animate to")]
 		public Vector3 amount;
+
+		[Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
 		public bool isLocal;
+
+		[Tooltip("Restricts rotation to the supplied axis only")]
 		public iTweenAxis axis;
 		
 		public override void DoTween()

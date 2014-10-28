@@ -9,8 +9,10 @@ namespace Fungus
 	             "Start executing another Fungus Script.")]
 	public class RunScript : Command
 	{	
+		[Tooltip("Reference to another Fungus Script to execute")]
 		public FungusScript targetFungusScript;
 
+		[Tooltip("Stop executing current script before executing the new Fungus Script")]
 		public bool stopCurrentScript = true;
 	
 		public override void OnEnter()

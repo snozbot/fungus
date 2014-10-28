@@ -9,8 +9,10 @@ namespace Fungus
 	             "Sets a game object in the scene to be active / inactive.")]
 	public class SetActive : Command
 	{	
+		[Tooltip("Reference to game object to enable / disable")]
 		public GameObject targetGameObject;
 
+		[Tooltip("Set to true to enable the game object")]
 		public BooleanData activeState;
 	
 		public override void OnEnter()

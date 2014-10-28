@@ -9,6 +9,7 @@ namespace Fungus
 	             "Execute another sequence in the same Fungus Script.")]
 	public class Call : Command
 	{	
+		[Tooltip("Sequence to execute")]
 		public Sequence targetSequence;
 	
 		public override void OnEnter()
