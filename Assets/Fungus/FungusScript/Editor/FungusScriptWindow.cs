@@ -92,7 +92,7 @@ namespace Fungus
 			deleteList.Clear();
 
 			DrawScriptView(fungusScript);
-			DrawControls(fungusScript);
+			DrawOverlay(fungusScript);
 
 			if (Event.current.type == EventType.Repaint &&
 				showContextMenu)
@@ -102,7 +102,7 @@ namespace Fungus
 			}
 		}
 
-		protected virtual void DrawControls(FungusScript fungusScript)
+		protected virtual void DrawOverlay(FungusScript fungusScript)
 		{
 			GUILayout.Space(8);
 			
@@ -116,10 +116,38 @@ namespace Fungus
 				                                      50 - fungusScript.scrollPos.y);
 				CreateSequence(fungusScript, newNodePosition);
 			}
-			
-			GUILayout.FlexibleSpace();
+
+			GUILayout.Space(8);
 
 			fungusScript.zoom = GUILayout.HorizontalSlider(fungusScript.zoom, minZoomValue, maxZoomValue, GUILayout.Width(100));
+
+			GUILayout.FlexibleSpace();
+
+			GUILayout.EndHorizontal();
+
+			GUILayout.FlexibleSpace();
+
+			GUILayout.BeginHorizontal();
+
+			GUILayout.BeginVertical(GUILayout.Width(300));
+		
+			GUILayout.FlexibleSpace();
+
+			fungusScript.variablesScrollPos = GUILayout.BeginScrollView(fungusScript.variablesScrollPos, GUILayout.MaxHeight(position.height * 0.75f));
+
+			GUILayout.FlexibleSpace();
+
+			GUILayout.Space(8);
+
+			FungusScriptEditor fungusScriptEditor = Editor.CreateEditor (fungusScript) as FungusScriptEditor;
+			fungusScriptEditor.DrawVariablesGUI();
+			DestroyImmediate(fungusScriptEditor);
+
+			GUILayout.EndScrollView();
+
+			GUILayout.EndVertical();
+
+			GUILayout.FlexibleSpace();
 
 			GUILayout.EndHorizontal();
 		}
@@ -270,101 +298,6 @@ namespace Fungus
 				y += gridSize;
 			}
 		}
-
-		/*
-		protected virtual void ResizeViews(FungusScript fungusScript)
-		{
-			cursorChangeRect = new Rect(this.position.width - fungusScript.commandViewWidth, 0, 4f, this.position.height);
-
-			GUI.color = Color.grey;
-			GUI.DrawTexture(cursorChangeRect, EditorGUIUtility.whiteTexture);
-			GUI.color = Color.white;
-			EditorGUIUtility.AddCursorRect(cursorChangeRect, MouseCursor.ResizeHorizontal);
-			
-			if (Event.current.type == EventType.mouseDown && cursorChangeRect.Contains(Event.current.mousePosition))
-			{
-				resize = true;
-			}
-			if (resize)
-			{
-				fungusScript.commandViewWidth = this.position.width - Event.current.mousePosition.x;
-				fungusScript.commandViewWidth = Mathf.Max(minViewWidth, fungusScript.commandViewWidth);
-				fungusScript.commandViewWidth = Mathf.Min(this.position.width - minViewWidth, fungusScript.commandViewWidth);
-			}
-			if(Event.current.type == EventType.MouseUp)
-			{
-				resize = false;        
-			}
-		}
-
-		protected virtual void DrawSequenceView(FungusScript fungusScript)
-		{
-			GUILayout.Space(5);
-
-			fungusScript.commandScrollPos = GUILayout.BeginScrollView(fungusScript.commandScrollPos);
-
-			EditorGUILayout.BeginVertical();
-
-			GUILayout.Box("Sequence", GUILayout.ExpandWidth(true));
-
-			GUILayout.BeginHorizontal();
-			
-			if (fungusScript.selectedSequence == null)
-			{
-				GUILayout.FlexibleSpace();
-			}
-			
-			if (GUILayout.Button(fungusScript.selectedSequence == null ? "Create Sequence" : "Create", 
-			                     fungusScript.selectedSequence == null ?  EditorStyles.miniButton : EditorStyles.miniButtonLeft))
-			{
-				Vector2 newPosition;
-				if (fungusScript.selectedSequence == null)
-				{
-					newPosition = newNodePosition;
-				}
-				else
-				{
-					Rect selectedRect = fungusScript.selectedSequence.nodeRect;
-					newPosition = new Vector2(selectedRect.position.x + selectedRect.width + 20, selectedRect.y);
-				}
-
-				CreateSequence(fungusScript, newPosition);
-			}
-			
-			if (fungusScript.selectedSequence == null)
-			{
-				GUILayout.FlexibleSpace();
-			}
-			else
-			{
-				if (GUILayout.Button("Delete", EditorStyles.miniButtonMid))
-				{
-					DeleteSequence(fungusScript, fungusScript.selectedSequence);
-				}
-				if (GUILayout.Button("Duplicate", EditorStyles.miniButtonRight))
-				{
-					DuplicateSequence(fungusScript, fungusScript.selectedSequence);
-				}
-			}
-			
-			GUILayout.EndHorizontal();
-
-			if (fungusScript.selectedSequence != null)
-			{
-				EditorGUILayout.Separator();
-
-				SequenceEditor sequenceEditor = Editor.CreateEditor(fungusScript.selectedSequence) as SequenceEditor;
-				sequenceEditor.DrawSequenceGUI(fungusScript);
-				DestroyImmediate(sequenceEditor);
-
-				GUILayout.FlexibleSpace();
-			}
-
-			EditorGUILayout.EndVertical();
-
-			GUILayout.EndScrollView();
-		}
-		*/
 
 		public static Sequence CreateSequence(FungusScript fungusScript, Vector2 position)
 		{

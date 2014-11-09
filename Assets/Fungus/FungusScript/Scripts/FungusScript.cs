@@ -26,6 +26,15 @@ namespace Fungus
 		public Vector2 scrollPos;
 
 		/**
+		 * Scroll position of Fungus Script variables window.
+		 */
+		[HideInInspector]
+		public Vector2 variablesScrollPos;
+
+		[HideInInspector]
+		public bool variablesExpanded = true;
+
+		/**
 		 * Zoom level of Fungus Script editor window
 		 */
 		[HideInInspector]

@@ -97,35 +97,65 @@ namespace Fungus
 
 			EditorGUILayout.Separator();
 
-			DrawVariablesGUI();
-
 			serializedObject.ApplyModifiedProperties();
 		}
 
 		public virtual void DrawVariablesGUI()
 		{
-			FungusScript t = target as FungusScript;
-			
-			ReorderableListGUI.Title("Variables");
+			serializedObject.Update();
 
-			VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0);
-			ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton);
-			
-			GUILayout.BeginHorizontal();
-			GUILayout.FlexibleSpace();
-			
-			if (!Application.isPlaying && GUILayout.Button("Add Variable"))
+			FungusScript t = target as FungusScript;
+
+			if (!t.variablesExpanded)
 			{
-				GenericMenu menu = new GenericMenu ();
-				
-				menu.AddItem(new GUIContent ("Boolean"), false, AddVariable<BooleanVariable>, t);
-				menu.AddItem (new GUIContent ("Integer"), false, AddVariable<IntegerVariable>, t);
-				menu.AddItem (new GUIContent ("Float"), false, AddVariable<FloatVariable>, t);
-				menu.AddItem (new GUIContent ("String"), false, AddVariable<StringVariable>, t);
-				
-				menu.ShowAsContext ();
+				if (GUILayout.Button ("Variables", GUILayout.Height(24)))
+				{
+					t.variablesExpanded = true;
+				}
 			}
-			GUILayout.EndHorizontal();
+			else
+			{
+				ReorderableListGUI.Title("Variables");
+				VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0);
+				ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton);
+
+				float plusWidth = 32;
+				float plusHeight = 24;
+
+				Rect listRect = GUILayoutUtility.GetLastRect();
+
+				Rect buttonRect = listRect;
+				float buttonHeight = 24;
+				buttonRect.x = 4;
+				buttonRect.y -= buttonHeight - 1;
+				buttonRect.width -= 30;
+				buttonRect.height = buttonHeight;
+				
+				if (GUI.Button (buttonRect, "Variables"))
+				{
+					t.variablesExpanded = false;
+				}
+
+				Rect plusRect = listRect;
+				plusRect.x += plusRect.width - plusWidth;
+				plusRect.y -= plusHeight - 1;
+				plusRect.width = plusWidth;
+				plusRect.height = plusHeight;
+
+				if (!Application.isPlaying && GUI.Button(plusRect, FungusEditorResources.texAddButton))
+				{
+					GenericMenu menu = new GenericMenu ();
+					
+					menu.AddItem(new GUIContent ("Boolean"), false, AddVariable<BooleanVariable>, t);
+					menu.AddItem (new GUIContent ("Integer"), false, AddVariable<IntegerVariable>, t);
+					menu.AddItem (new GUIContent ("Float"), false, AddVariable<FloatVariable>, t);
+					menu.AddItem (new GUIContent ("String"), false, AddVariable<StringVariable>, t);
+
+					menu.ShowAsContext ();
+				}
+			}
+
+			serializedObject.ApplyModifiedProperties();
 		}
 		
 		protected virtual void AddVariable<T>(object obj) where T : Variable
