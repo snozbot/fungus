@@ -115,14 +115,24 @@ namespace Fungus
 			}
 			else
 			{
-				ReorderableListGUI.Title("Variables");
-				VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0);
-				ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton);
+				Rect listRect = new Rect();
+
+				if (t.variables.Count > 0)
+				{
+					ReorderableListGUI.Title("Variables");
+					VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0);
+					ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton);
+					listRect = GUILayoutUtility.GetLastRect();
+				}
+				else
+				{
+					GUILayoutUtility.GetRect(300, 24);
+					listRect = GUILayoutUtility.GetLastRect();
+					listRect.y += 20;
+				}
 
 				float plusWidth = 32;
 				float plusHeight = 24;
-
-				Rect listRect = GUILayoutUtility.GetLastRect();
 
 				Rect buttonRect = listRect;
 				float buttonHeight = 24;
