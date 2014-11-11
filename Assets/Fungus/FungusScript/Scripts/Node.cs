@@ -6,7 +6,7 @@ namespace Fungus
 
 	public class Node : MonoBehaviour 
 	{
-		public Rect nodeRect = new Rect(0, 0, 240, 20);
+		public Rect nodeRect = new Rect(0, 0, 120, 30);
 	}
 
 }

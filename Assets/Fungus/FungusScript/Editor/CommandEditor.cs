@@ -47,13 +47,10 @@ namespace Fungus
 				return;
 			}
 
+			EditorGUILayout.PrefixLabel(new GUIContent("Command"));
+
 			GUILayout.BeginVertical(GUI.skin.box);
 
-			GUI.backgroundColor = Color.green;
-			GUILayout.BeginHorizontal(GUI.skin.button);
-
-			string commandName = commandInfoAttr.CommandName;
-			GUIStyle commandStyle = new GUIStyle(EditorStyles.miniButton);
 			if (t.enabled)
 			{
 				if (fungusScript.settings.colorCommands)
@@ -69,15 +66,15 @@ namespace Fungus
 			{
 				GUI.backgroundColor = Color.grey;
 			}
+			GUILayout.BeginHorizontal(GUI.skin.button);
 
-			bool enabled = t.enabled;
+			string commandName = commandInfoAttr.CommandName;
+			GUILayout.Label(commandName, GUILayout.MinWidth(80), GUILayout.ExpandWidth(true));
 
-			if (GUILayout.Button(commandName, commandStyle, GUILayout.MinWidth(80), GUILayout.ExpandWidth(true)))
-			{
-				enabled = !enabled;
-			}
+			GUILayout.FlexibleSpace();
 
 			GUI.backgroundColor = Color.white;
+			bool enabled = t.enabled;
 			enabled = GUILayout.Toggle(enabled, new GUIContent());
 
 			if (t.enabled != enabled)
@@ -108,7 +105,7 @@ namespace Fungus
 			CommandInfoAttribute infoAttr = CommandEditor.GetCommandInfo(t.GetType());
 			if (infoAttr != null)
 			{
-				EditorGUILayout.HelpBox(infoAttr.CommandName + ":\n" + infoAttr.HelpText, MessageType.Info, true);
+				EditorGUILayout.HelpBox(infoAttr.HelpText, MessageType.Info, true);
 			}
 		}
 

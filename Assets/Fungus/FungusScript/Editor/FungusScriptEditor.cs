@@ -72,31 +72,6 @@ namespace Fungus
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 
-			EditorGUILayout.Separator();
-
-			if (fungusScript.selectedSequence != null)
-			{
-				SequenceEditor sequenceEditor = Editor.CreateEditor(fungusScript.selectedSequence) as SequenceEditor;
-				sequenceEditor.DrawInspectorGUI(fungusScript);
-				DestroyImmediate(sequenceEditor);
-			}
-
-			if (fungusScript.selectedCommands.Count == 1)
-			{
-				if (fungusScript.selectedCommands[0] == null)
-				{
-					fungusScript.ClearSelectedCommands();
-				}
-				else
-				{
-					CommandEditor commandEditor = Editor.CreateEditor(fungusScript.selectedCommands[0]) as CommandEditor;
-					commandEditor.DrawCommandInspectorGUI();
-					DestroyImmediate(commandEditor);
-				}
-			}
-
-			EditorGUILayout.Separator();
-
 			serializedObject.ApplyModifiedProperties();
 		}
 
@@ -121,7 +96,14 @@ namespace Fungus
 				{
 					ReorderableListGUI.Title("Variables");
 					VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0);
-					ReorderableListControl.DrawControlFromState(adaptor, null, ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton);
+
+					ReorderableListFlags flags = ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton;
+					if (Application.isPlaying)
+					{
+						flags |= ReorderableListFlags.HideRemoveButtons;
+					}
+
+					ReorderableListControl.DrawControlFromState(adaptor, null, flags);
 					listRect = GUILayoutUtility.GetLastRect();
 				}
 				else
@@ -138,9 +120,12 @@ namespace Fungus
 				float buttonHeight = 24;
 				buttonRect.x = 4;
 				buttonRect.y -= buttonHeight - 1;
-				buttonRect.width -= 30;
 				buttonRect.height = buttonHeight;
-				
+				if (!Application.isPlaying)
+				{
+					buttonRect.width -= 30;
+				}
+
 				if (GUI.Button (buttonRect, "Variables"))
 				{
 					t.variablesExpanded = false;

@@ -18,7 +18,7 @@ namespace Fungus
 		public float fixedItemHeight;
 
 		public Rect nodeRect = new Rect();
-		
+
 		public SerializedProperty this[int index] {
 			get { return _arrayProperty.GetArrayElementAtIndex(index); }
 		}
@@ -222,17 +222,25 @@ namespace Fungus
 			commandLabelRect.width -= (indentSize * command.indentLevel - 22);
 			commandLabelRect.height += 5;
 
+			// Select command via left click
 			if (!Application.isPlaying &&
 			    Event.current.type == EventType.MouseDown &&
-			    (Event.current.button == 0 || Event.current.button == 1) &&
+			    Event.current.button == 0 &&
 			    position.Contains(Event.current.mousePosition))
 			{
 				if (fungusScript.selectedCommands.Contains(command) && Event.current.button == 0)
 				{
+					// Left click on an already selected command
 					fungusScript.selectedCommands.Remove(command);
 				}
 				else
 				{
+					// Left click and no command key
+					if (!EditorGUI.actionKey && Event.current.button == 0)
+					{
+						fungusScript.ClearSelectedCommands();
+					}
+
 					fungusScript.AddSelectedCommand(command);
 				}
 				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)

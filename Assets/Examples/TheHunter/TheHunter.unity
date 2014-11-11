@@ -1690,10 +1690,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -244
-    y: -226.5
-    width: 240
-    height: 154
+    x: 105.654449
+    y: -378.268433
+    width: 120
+    height: 30
   sequenceName: Check for fish
   commandList:
   - {fileID: 541676553}
@@ -2704,6 +2704,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollPos: {x: 226.013794, y: 380.023193}
+  variablesScrollPos: {x: 0, y: 0}
+  variablesExpanded: 1
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -2782,10 +2784,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -227.439697
-    y: 85.5
-    width: 240
-    height: 414
+    x: 108.608582
+    y: -195.124023
+    width: 120
+    height: 30
   sequenceName: Bear
   commandList:
   - {fileID: 899740689}
@@ -3490,10 +3492,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 57
-    y: -89
-    width: 240
-    height: 174
+    x: 106.621155
+    y: -319.003174
+    width: 120
+    height: 30
   sequenceName: Rescued
   commandList:
   - {fileID: 1196017816}
@@ -3824,6 +3826,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollPos: {x: 0, y: 0}
+  variablesScrollPos: {x: 0, y: 0}
+  variablesExpanded: 1
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -4488,10 +4492,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -204
-    y: -450
-    width: 240
-    height: 134
+    x: 105.537018
+    y: -501.022339
+    width: 120
+    height: 30
   sequenceName: Start
   commandList:
   - {fileID: 1507034370}
@@ -5231,10 +5235,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 104
-    y: -465
-    width: 240
-    height: 194
+    x: 108
+    y: -439.890259
+    width: 120
+    height: 30
   sequenceName: Intro
   commandList:
   - {fileID: 1759345003}
@@ -5552,10 +5556,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 467
-    y: -81.5
-    width: 240
-    height: 294
+    x: 257.201355
+    y: -354.533142
+    width: 120
+    height: 30
   sequenceName: Shout out
   commandList:
   - {fileID: 1801800853}
@@ -5915,17 +5919,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 241.899506, y: 519.510498}
+  scrollPos: {x: 255.192505, y: 540.002808}
+  variablesScrollPos: {x: 0, y: 0}
+  variablesExpanded: 0
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -810.017578
-    y: -883.033203
+    y: -904.006714
     width: 1939.01758
-    height: 1972.5332
-  selectedSequence: {fileID: 1507034365}
-  selectedCommands:
-  - {fileID: 1507034370}
+    height: 1993.50671
+  selectedSequence: {fileID: 1759344996}
+  selectedCommands: []
   variables:
   - {fileID: 1831099569}
   startSequence: {fileID: 1507034365}
@@ -6038,6 +6043,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollPos: {x: 0, y: 0}
+  variablesScrollPos: {x: 0, y: 0}
+  variablesExpanded: 1
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -6424,10 +6431,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 88
-    y: 166.5
-    width: 240
-    height: 194
+    x: 105.007446
+    y: -258.68811
+    width: 120
+    height: 30
   sequenceName: Exit
   commandList:
   - {fileID: 2111357060}
@@ -6587,3 +6594,43 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetSequence: {fileID: 899740677}
+--- !u!1 &2142927451
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2142927453}
+  - 114: {fileID: 2142927452}
+  m_Layer: 0
+  m_Name: _FungusState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2142927452
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2142927451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedFungusScript: {fileID: 1831099568}
+--- !u!4 &2142927453
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2142927451}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0

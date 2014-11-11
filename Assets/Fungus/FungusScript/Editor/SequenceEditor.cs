@@ -19,30 +19,6 @@ namespace Fungus
 			public int index;
 		}
 
-		public virtual void DrawInspectorGUI(FungusScript fungusScript)
-		{
-			serializedObject.Update();
-
-			// We acquire the serialized properties in the draw methods instead of in OnEnable as otherwise
-			// deleting or renaming a command class would generate a bunch of null reference exceptions.
-			SerializedProperty sequenceNameProp = serializedObject.FindProperty("sequenceName");
-			EditorGUILayout.PropertyField(sequenceNameProp);
-
-			SerializedProperty nodeRectProp = serializedObject.FindProperty("nodeRect");
-			EditorGUI.BeginChangeCheck();
-			float width = EditorGUILayout.FloatField(new GUIContent("Node Width"), nodeRectProp.rectValue.width);
-			if (EditorGUI.EndChangeCheck())
-			{
-				Rect nodeRect = nodeRectProp.rectValue;
-				nodeRect.width = Mathf.Max(width, 100);
-				nodeRectProp.rectValue = nodeRect;
-			}
-
-			EditorGUILayout.Separator();
-
-			serializedObject.ApplyModifiedProperties();
-		}
-
 		public virtual void DrawCommandListGUI(FungusScript fungusScript)
 		{
 			serializedObject.Update();
@@ -50,65 +26,45 @@ namespace Fungus
 			Sequence sequence = target as Sequence;
 			UpdateIndentLevels(sequence);
 
+			SerializedProperty sequenceNameProperty = serializedObject.FindProperty("sequenceName");
+			Rect sequenceLabelRect = new Rect(40, 5, 120, 16);
+			EditorGUI.LabelField(sequenceLabelRect, new GUIContent("Sequence Name"));
+			Rect sequenceNameRect = new Rect(40, 21, 180, 16);
+			EditorGUI.PropertyField(sequenceNameRect, sequenceNameProperty, new GUIContent(""));
+
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
 
-			ReorderableListGUI.Title(sequence.sequenceName);
+			ReorderableListGUI.Title("Commands");
 			CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
 			adaptor.nodeRect = sequence.nodeRect;
 
 			ReorderableListFlags flags = ReorderableListFlags.HideAddButton | ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.DisableContextMenu;
+
 			ReorderableListControl.DrawControlFromState(adaptor, null, flags);
 
-			Rect bottomBoxRect = GUILayoutUtility.GetRect(sequence.nodeRect.width, 20);
-			bottomBoxRect.y -= 7;
-			bottomBoxRect.x += 5;
-			bottomBoxRect.width -= 10;
-			if (sequence.commandList.Count == 0)
+			if (!Application.isPlaying)
 			{
-				bottomBoxRect.y -= 16;
+				if (Event.current.type == EventType.ContextClick)
+				{
+					ShowContextMenu();
+				}
 			}
-
-			GUIStyle boxStyle = new GUIStyle();
-			boxStyle.border = new RectOffset(2, 2, 2, 1);
-			boxStyle.margin = new RectOffset(5, 5, 5, 0);
-			boxStyle.padding = new RectOffset(5, 5, 0, 0);
-			boxStyle.alignment = TextAnchor.MiddleLeft;
-			boxStyle.normal.background = FungusEditorResources.texTitleBackground;
-			boxStyle.normal.textColor = EditorGUIUtility.isProSkin
-										? new Color(0.8f, 0.8f, 0.8f)
-										: new Color(0.2f, 0.2f, 0.2f);
-
-			GUI.Box(bottomBoxRect, "", boxStyle);
 
 			if (!Application.isPlaying &&
 			    sequence == fungusScript.selectedSequence)
 			{
 				// Show add command button
 				{
-					Rect plusRect = bottomBoxRect;
-					plusRect.x = plusRect.width - 19;
-					plusRect.y += 2;
-					plusRect.width = 16;
-					plusRect.height = 16;
+					GUILayout.BeginHorizontal();
 
-					if (GUI.Button(plusRect, FungusEditorResources.texAddButton, new GUIStyle()))
+					GUILayout.FlexibleSpace();
+
+					if (GUILayout.Button(FungusEditorResources.texAddButton))
 					{
 						ShowCommandMenu();
 					}
-				}
 
-				// Show delete sequence button
-				{
-					Rect deleteRect = new Rect();
-					deleteRect.x = sequence.nodeRect.width - 28;
-					deleteRect.y = 7;
-					deleteRect.width = 16;
-					deleteRect.height = 16;
-					
-					if (GUI.Button(deleteRect, "", new GUIStyle("WinBtnCloseWin")))
-					{
-						FungusScriptWindow.DeleteSequence();
-					}
+					GUILayout.EndHorizontal();
 				}
 			}
 
@@ -124,18 +80,6 @@ namespace Fungus
 			}
 
 			serializedObject.ApplyModifiedProperties();
-
-			if (!Application.isPlaying)
-			{
-				if (Event.current.button == 1 && 
-				    Event.current.type == EventType.MouseDown)
-				{
-					// Set a flag to show the context menu on the new display frame
-					// This gives the sequence list display a chance to update
-					FungusScriptWindow.showContextMenu = true;
-					Event.current.Use();
-				}
-			}
 		}
 
 		protected virtual void UpdateIndentLevels(Sequence sequence)
@@ -338,6 +282,231 @@ namespace Fungus
 			}
 		}
 
+		public void ShowContextMenu()
+		{
+			Sequence sequence = target as Sequence;
+			FungusScript fungusScript = sequence.GetFungusScript();
+
+			if (fungusScript == null)
+			{
+				return;
+			}
+			
+			bool showCut = false;
+			bool showCopy = false;
+			bool showDelete = false;
+			bool showPaste = false;
+			
+			if (fungusScript.selectedCommands.Count > 0)
+			{
+				showCut = true;
+				showCopy = true;
+				showDelete = true;
+			}
+			
+			CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
+			
+			if (commandCopyBuffer.HasCommands())
+			{
+				showPaste = true;
+			}
+			
+			GenericMenu commandMenu = new GenericMenu();
+			
+			if (showCut)
+			{
+				commandMenu.AddItem (new GUIContent ("Cut"), false, Cut);
+			}
+			else
+			{
+				commandMenu.AddDisabledItem(new GUIContent ("Cut"));
+			}
+			
+			if (showCopy)
+			{
+				commandMenu.AddItem (new GUIContent ("Copy"), false, Copy);
+			}
+			else
+			{
+				commandMenu.AddDisabledItem(new GUIContent ("Copy"));
+			}
+			
+			if (showPaste)
+			{
+				commandMenu.AddItem (new GUIContent ("Paste"), false, Paste);
+			}
+			else
+			{
+				commandMenu.AddDisabledItem(new GUIContent ("Paste"));
+			}
+			
+			if (showDelete)
+			{
+				commandMenu.AddItem (new GUIContent ("Delete"), false, Delete);
+			}
+			else
+			{
+				commandMenu.AddDisabledItem(new GUIContent ("Delete"));
+			}
+			
+			commandMenu.AddSeparator("");
+			
+			commandMenu.AddItem (new GUIContent ("Select All"), false, SelectAll);
+			commandMenu.AddItem (new GUIContent ("Select None"), false, SelectNone);
+			
+			commandMenu.ShowAsContext();
+		}
+		
+		protected void SelectAll()
+		{
+			Sequence sequence = target as Sequence;
+			FungusScript fungusScript = sequence.GetFungusScript();
+
+			if (fungusScript == null ||
+			    fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+			
+			fungusScript.ClearSelectedCommands();
+			Undo.RecordObject(fungusScript, "Select All");
+			foreach (Command command in fungusScript.selectedSequence.commandList)
+			{
+				fungusScript.AddSelectedCommand(command);
+			}
+
+			Repaint();
+		}
+		
+		protected void SelectNone()
+		{
+			Sequence sequence = target as Sequence;
+			FungusScript fungusScript = sequence.GetFungusScript();
+
+			if (fungusScript == null ||
+			    fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+			
+			Undo.RecordObject(fungusScript, "Select None");
+			fungusScript.ClearSelectedCommands();
+
+			Repaint();
+		}
+		
+		protected void Cut()
+		{
+			Copy();
+			Delete();
+		}
+		
+		protected void Copy()
+		{
+			Sequence sequence = target as Sequence;
+			FungusScript fungusScript = sequence.GetFungusScript();
+
+			if (fungusScript == null ||
+			    fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+			
+			CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
+			commandCopyBuffer.Clear();
+			
+			foreach (Command command in fungusScript.selectedCommands)
+			{
+				System.Type type = command.GetType();
+				Command newCommand = Undo.AddComponent(commandCopyBuffer.gameObject, type) as Command;
+				System.Reflection.FieldInfo[] fields = type.GetFields();
+				foreach (System.Reflection.FieldInfo field in fields)
+				{
+					field.SetValue(newCommand, field.GetValue(command));
+				}
+			}
+		}
+		
+		protected void Paste()
+		{
+			Sequence sequence = target as Sequence;
+			FungusScript fungusScript = sequence.GetFungusScript();
+
+			if (fungusScript == null ||
+			    fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+			
+			CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
+			
+			// Find where to paste commands in sequence (either at end or after last selected command)
+			int pasteIndex = fungusScript.selectedSequence.commandList.Count;
+			if (fungusScript.selectedCommands.Count > 0)
+			{
+				for (int i = 0; i < fungusScript.selectedSequence.commandList.Count; ++i)
+				{
+					Command command = fungusScript.selectedSequence.commandList[i];
+					
+					foreach (Command selectedCommand in fungusScript.selectedCommands)
+					{
+						if (command == selectedCommand)
+						{
+							pasteIndex = i + 1;
+						}
+					}
+				}
+			}
+			
+			foreach (Command command in commandCopyBuffer.GetCommands())
+			{
+				System.Type type = command.GetType();
+				Command newCommand = Undo.AddComponent(fungusScript.selectedSequence.gameObject, type) as Command;
+				System.Reflection.FieldInfo[] fields = type.GetFields();
+				foreach (System.Reflection.FieldInfo field in fields)
+				{
+					field.SetValue(newCommand, field.GetValue(command));
+				}
+				
+				Undo.RecordObject(fungusScript.selectedSequence, "Paste");
+				fungusScript.selectedSequence.commandList.Insert(pasteIndex++, newCommand);
+			}
+
+			Repaint();
+		}
+		
+		protected void Delete()
+		{
+			Sequence sequence = target as Sequence;
+			FungusScript fungusScript = sequence.GetFungusScript();
+
+			if (fungusScript == null ||
+			    fungusScript.selectedSequence == null)
+			{
+				return;
+			}
+			
+			for (int i = fungusScript.selectedSequence.commandList.Count - 1; i >= 0; --i)
+			{
+				Command command = fungusScript.selectedSequence.commandList[i];
+				foreach (Command selectedCommand in fungusScript.selectedCommands)
+				{
+					if (command == selectedCommand)
+					{
+						Undo.RecordObject(fungusScript.selectedSequence, "Delete");
+						fungusScript.selectedSequence.commandList.RemoveAt(i);
+						Undo.DestroyObjectImmediate(command);
+						
+						break;
+					}
+				}
+			}
+			
+			Undo.RecordObject(fungusScript, "Delete");
+			fungusScript.ClearSelectedCommands();
+
+			Repaint();
+		}
 	}
 
 }
