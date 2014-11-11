@@ -157,10 +157,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1470.05457
-    y: -118.735016
-    width: 240
-    height: 514
+    x: 1115.35596
+    y: 17.5333862
+    width: 120
+    height: 30
   sequenceName: TryVoice
   commandList:
   - {fileID: 57262726}
@@ -1325,6 +1325,46 @@ RectTransform:
   m_AnchoredPosition: {x: 266.5, y: -82.6052704}
   m_SizeDelta: {x: 533, y: 33.0421066}
   m_Pivot: {x: .5, y: .5}
+--- !u!1 &552372303
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 552372305}
+  - 114: {fileID: 552372304}
+  m_Layer: 0
+  m_Name: _FungusState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &552372304
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 552372303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedFungusScript: {fileID: 771014100}
+--- !u!4 &552372305
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 552372303}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &570845513
 GameObject:
   m_ObjectHideFlags: 1
@@ -1370,10 +1410,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 804.489258
-    y: -118.825607
-    width: 240
-    height: 354
+    x: 734.351135
+    y: 17.4427872
+    width: 120
+    height: 30
   sequenceName: StandingThere
   commandList:
   - {fileID: 570845522}
@@ -2016,10 +2056,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 272.156677
-    y: 372.185455
-    width: 240
-    height: 254
+    x: 737.76062
+    y: 182.838104
+    width: 120
+    height: 30
   sequenceName: OpenA147
   commandList:
   - {fileID: 684444681}
@@ -2497,17 +2537,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: -194.05423, y: 156.7798}
-  zoom: .968997777
+  scrollPos: {x: -440.05423, y: 55.7798004}
+  variablesScrollPos: {x: 0, y: 0}
+  variablesExpanded: 1
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -1118.14856
     y: -610.734985
     width: 3261.20312
     height: 2227.35059
-  selectedSequence: {fileID: 1797174374}
-  selectedCommands:
-  - {fileID: 1797174373}
+  selectedSequence: {fileID: 0}
+  selectedCommands: []
   variables:
   - {fileID: 771014102}
   - {fileID: 771014103}
@@ -2755,10 +2796,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 871.185425
-    y: 383.865509
-    width: 240
-    height: 314
+    x: 918.288086
+    y: 99.3444824
+    width: 120
+    height: 30
   sequenceName: DoorTalk
   commandList:
   - {fileID: 904348477}
@@ -3199,10 +3240,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 597.577087
-    y: 383.176605
-    width: 240
-    height: 254
+    x: 737.837646
+    y: 98.6635132
+    width: 120
+    height: 30
   sequenceName: How
   commandList:
   - {fileID: 948050628}
@@ -4577,10 +4618,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1138.65356
-    y: -118.559326
-    width: 240
-    height: 374
+    x: 920.223206
+    y: 17.7090759
+    width: 120
+    height: 30
   sequenceName: InspectDeskFirst
   commandList:
   - {fileID: 1680954166}
@@ -5224,10 +5265,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 501.703979
-    y: -117.210686
-    width: 240
-    height: 234
+    x: 557.814453
+    y: 17.053772
+    width: 120
+    height: 30
   sequenceName: Start
   commandList:
   - {fileID: 1797174373}
@@ -5490,10 +5531,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1173.2124
-    y: 380.727905
-    width: 240
-    height: 274
+    x: 1112.09448
+    y: 99.2148132
+    width: 120
+    height: 30
   sequenceName: LightsOnVoice
   commandList:
   - {fileID: 1824373605}
@@ -5892,10 +5933,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 234.655121
-    y: 207.536453
-    width: 240
-    height: 94
+    x: 559.306458
+    y: 100.366745
+    width: 120
+    height: 30
   sequenceName: FREEDOM!
   commandList:
   - {fileID: 1925614673}

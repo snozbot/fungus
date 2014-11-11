@@ -232,7 +232,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 659.026611, y: 230.028076}
+  scrollPos: {x: 698.026611, y: 312.028076}
+  variablesScrollPos: {x: 0, y: 0}
+  variablesExpanded: 1
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -240,9 +242,8 @@ MonoBehaviour:
     y: -608
     width: 2140
     height: 1416
-  selectedSequence: {fileID: 1947290628}
-  selectedCommands:
-  - {fileID: 1947290640}
+  selectedSequence: {fileID: 1059081933}
+  selectedCommands: []
   variables:
   - {fileID: 16019625}
   startSequence: {fileID: 1947290628}
@@ -895,10 +896,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -630
-    y: -139
-    width: 240
-    height: 134
+    x: -314
+    y: -98
+    width: 120
+    height: 30
   sequenceName: StopJumping
   commandList:
   - {fileID: 418947481}
@@ -1648,6 +1649,46 @@ Prefab:
   m_RootGameObject: {fileID: 102763370}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &975464276
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 975464278}
+  - 114: {fileID: 975464277}
+  m_Layer: 0
+  m_Name: _FungusState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &975464277
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 975464276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedFungusScript: {fileID: 16019623}
+--- !u!4 &975464278
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 975464276}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &982770892
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,10 +1946,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -49
-    y: -145
-    width: 240
-    height: 74
+    x: -152
+    y: -152
+    width: 120
+    height: 30
   sequenceName: BackToTheStart
   commandList:
   - {fileID: 1059081935}
@@ -3340,10 +3381,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -343
-    y: 27
-    width: 240
-    height: 334
+    x: -314
+    y: -201
+    width: 120
+    height: 30
   sequenceName: Start
   commandList:
   - {fileID: 1947290641}

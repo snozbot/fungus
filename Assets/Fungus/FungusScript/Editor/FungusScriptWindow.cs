@@ -37,6 +37,11 @@ namespace Fungus
 			followExecution = true;
 		}
 
+		protected void OnInspectorUpdate()
+		{
+			Repaint();
+		}
+
 		static public FungusScript GetFungusScript()
 		{
 			// Using a temp hidden object to track the active Fungus Script across 
