@@ -7,6 +7,7 @@ namespace Fungus
 {
 
 	[ExecuteInEditMode]
+	[RequireComponent(typeof(FungusScript))]
 	public class Sequence : Node 
 	{
 		public string sequenceName = "New Sequence";
