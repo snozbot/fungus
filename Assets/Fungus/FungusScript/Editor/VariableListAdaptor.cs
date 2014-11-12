@@ -129,47 +129,28 @@ namespace Fungus
 			{
 				return;
 			}
-
+							
+			// Highlight if an active or selected command is referencing this variable
 			bool highlight = false;
-				
-			// Is an executing command referencing this variable?
-			if (Application.isPlaying)
+			if (fungusScript.selectedSequence != null)
 			{
-				if (fungusScript.executingSequence != null &&
-				    fungusScript.executingSequence.activeCommand != null)
+				if (Application.isPlaying && fungusScript.selectedSequence.IsExecuting())
 				{
-					if (fungusScript.executingSequence.activeCommand.HasReference(variable))
-					{
-						highlight = true;
-					}
+					highlight = fungusScript.selectedSequence.activeCommand.HasReference(variable);
 				}
-			}
-			else
-			{
-				// Is an expanded command referencing this variable?
-				if (fungusScript.selectedSequence != null &&
-				    fungusScript.selectedCommands.Count > 0)
+				else if (!Application.isPlaying && fungusScript.selectedCommands.Count > 0)
 				{
-					foreach (Command command in fungusScript.selectedSequence.commandList)
+					foreach (Command selectedCommand in fungusScript.selectedCommands)
 					{
-						foreach (Command selectedCommand in fungusScript.selectedCommands)
+						if (selectedCommand.HasReference(variable))
 						{
-							if (selectedCommand == command &&
-							    command.HasReference(variable))
-							{
-								highlight = true;
-								break;
-							}
-						}
-
-						if (highlight)
-						{
+							highlight = true;
 							break;
 						}
 					}
 				}
 			}
-			
+
 			if (highlight)
 			{
 				GUI.backgroundColor = Color.green;

@@ -21,26 +21,26 @@ namespace Fungus
 	{
 		public override void OnInspectorGUI () 
 		{
-			SequenceInspector t = target as SequenceInspector;
-			Sequence s = t.sequence;
+			SequenceInspector sequenceInspector = target as SequenceInspector;
+			Sequence sequence = sequenceInspector.sequence;
 
-			if (s == null)
+			if (sequence == null)
 			{
 				return;
 			}
 
-			FungusScript fungusScript = s.GetFungusScript();
+			FungusScript fungusScript = sequence.GetFungusScript();
 
-			SequenceEditor sequenceEditor = Editor.CreateEditor(s) as SequenceEditor;
+			SequenceEditor sequenceEditor = Editor.CreateEditor(sequence) as SequenceEditor;
 			sequenceEditor.DrawCommandListGUI(fungusScript);
 			DestroyImmediate(sequenceEditor);
 
 			Command inspectCommand = null;
 
 			if (Application.isPlaying &&
-			    fungusScript.executingSequence != null)
+			    sequence.activeCommand != null)
 			{
-				inspectCommand = fungusScript.executingSequence.activeCommand;
+				inspectCommand = sequence.activeCommand;
 			}
 			else if (fungusScript.selectedCommands.Count == 1)
 			{
@@ -49,7 +49,7 @@ namespace Fungus
 
 			if (Application.isPlaying &&
 			    inspectCommand != null &&
-			    inspectCommand.parentSequence != s)
+			    inspectCommand.parentSequence != sequence)
 			{
 				Repaint();
 				return;

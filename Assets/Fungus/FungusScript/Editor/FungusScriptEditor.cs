@@ -31,20 +31,6 @@ namespace Fungus
 
 			fungusScript.UpdateHideFlags();
 
-			if (Application.isPlaying)
-			{
-				if (fungusScript.executingSequence == null)
-				{
-					fungusScript.ClearSelectedCommands();
-				}
-				else
-				{
-					fungusScript.ClearSelectedCommands();
-					fungusScript.AddSelectedCommand(fungusScript.executingSequence.activeCommand);
-					EditorUtility.SetDirty(fungusScript);
-				}
-			}
-
 			SequenceEditor.SequenceField(startSequenceProp, 
 			                             new GUIContent("Start Sequence", "First sequence to execute when the Fungus Script executes"), 
 										 new GUIContent("<None>"),

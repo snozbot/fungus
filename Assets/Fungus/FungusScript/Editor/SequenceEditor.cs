@@ -27,9 +27,9 @@ namespace Fungus
 			UpdateIndentLevels(sequence);
 
 			SerializedProperty sequenceNameProperty = serializedObject.FindProperty("sequenceName");
-			Rect sequenceLabelRect = new Rect(40, 5, 120, 16);
+			Rect sequenceLabelRect = new Rect(45, 5, 120, 16);
 			EditorGUI.LabelField(sequenceLabelRect, new GUIContent("Sequence Name"));
-			Rect sequenceNameRect = new Rect(40, 21, 180, 16);
+			Rect sequenceNameRect = new Rect(45, 21, 180, 16);
 			EditorGUI.PropertyField(sequenceNameRect, sequenceNameProperty, new GUIContent(""));
 
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");

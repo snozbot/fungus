@@ -18,13 +18,11 @@ namespace Fungus
 		// so we just implement dragging ourselves.
 		protected int dragWindowId = -1;
 		protected Vector2 startDragPosition;
-		protected Sequence selectedSequence;
 
 		protected const float minZoomValue = 0.25f;
 		protected const float maxZoomValue = 1f;
 
 		protected static SequenceInspector sequenceInspector;
-		protected bool followExecution = true;
 
 		[MenuItem("Window/Fungus Script")]
 	    static void Init()
@@ -32,13 +30,19 @@ namespace Fungus
 	        GetWindow(typeof(FungusScriptWindow), false, "Fungus Script");
 	    }
 
-		public virtual void OnEnable()
-		{
-			followExecution = true;
-		}
-
 		protected void OnInspectorUpdate()
 		{
+			// Ensure the Sequence Inspector is always showing the currently selected sequence
+			FungusScript fungusScript = GetFungusScript();
+			if (fungusScript.selectedSequence != null)
+			{
+			    if (sequenceInspector == null)
+				{
+					ShowSequenceInspector(fungusScript);
+				}
+				sequenceInspector.sequence = fungusScript.selectedSequence;
+			}
+
 			Repaint();
 		}
 
@@ -78,37 +82,26 @@ namespace Fungus
 			// Delete any scheduled objects
 			foreach (Sequence deleteSequence in deleteList)
 			{
+				bool isSelected = (fungusScript.selectedSequence == deleteSequence);
+
 				foreach (Command command in deleteSequence.commandList)
 				{
 					Undo.DestroyObjectImmediate(command);
 				}
 				
 				Undo.DestroyObjectImmediate(deleteSequence);
-				SetSelectedSequence(fungusScript, null);
 				fungusScript.ClearSelectedCommands();
+
+				if (isSelected)
+				{
+					// Revert to showing properties for the Fungus Script
+					Selection.activeGameObject = fungusScript.gameObject;
+				}
 			}
 			deleteList.Clear();
 
 			DrawScriptView(fungusScript);
 			DrawOverlay(fungusScript);
-
-			if (Application.isPlaying &&
-			    fungusScript.executingSequence != null && 
-			    followExecution)
-			{
-				// Set SequenceInspector object as the selected object
-				if (Selection.activeGameObject == fungusScript.gameObject ||
-					Selection.activeGameObject == sequenceInspector)
-				{
-					SetSelectedSequence(fungusScript, fungusScript.executingSequence);
-				}
-
-				// Make sure SequenceInspector is using the currently executing sequence
-				if (sequenceInspector != null)
-				{
-					sequenceInspector.sequence = fungusScript.executingSequence;
-				}
-			}
 
 			// Redraw on next frame to get crisp refresh rate
 			Repaint();
@@ -188,14 +181,12 @@ namespace Fungus
 			if (Event.current.button == 0 && 
 				Event.current.type == EventType.MouseDown)
 			{
-				selectedSequence = fungusScript.selectedSequence;
-				SetSelectedSequence(fungusScript, null);
+				fungusScript.selectedSequence = null;
 				if (!EditorGUI.actionKey)
 				{
 					fungusScript.ClearSelectedCommands();
 				}
 				Selection.activeGameObject = fungusScript.gameObject;
-				followExecution = false;
 			}
 
 			// Draw connections
@@ -223,8 +214,7 @@ namespace Fungus
 				// Hack to support legacy design where sequences were child gameobjects (will be removed soon)
 				sequence.UpdateSequenceName();
 
-				float nodeWidth = nodeStyle.CalcSize(new GUIContent(sequence.sequenceName)).x;
-
+				float nodeWidth = nodeStyle.CalcSize(new GUIContent(sequence.sequenceName)).x + 10;
 				sequence.nodeRect.width = Mathf.Max(120, nodeWidth);
 				sequence.nodeRect.height = 30;
 
@@ -321,7 +311,8 @@ namespace Fungus
 		{
 			Sequence newSequence = fungusScript.CreateSequence(position);
 			Undo.RegisterCreatedObjectUndo(newSequence, "New Sequence");
-			SetSelectedSequence(fungusScript, newSequence);
+			ShowSequenceInspector(fungusScript);
+			fungusScript.selectedSequence = newSequence;
 			fungusScript.ClearSelectedCommands();
 
 			return newSequence;
@@ -335,7 +326,6 @@ namespace Fungus
 			}
 			
 			Undo.DestroyObjectImmediate(sequence);
-			SetSelectedSequence(fungusScript, null);
 			fungusScript.ClearSelectedCommands();
 		}
 
@@ -349,8 +339,7 @@ namespace Fungus
 		    	Event.current.type == EventType.MouseDown)
 			{
 				// Check if might be start of a window drag
-				if (Event.current.button == 0 &&
-				    Event.current.mousePosition.y < 26)
+				if (Event.current.button == 0)
 				{
 					dragWindowId = windowId;
 					startDragPosition.x = sequence.nodeRect.x;
@@ -361,23 +350,23 @@ namespace Fungus
 				{
 					Undo.RecordObject(fungusScript, "Select");
 
-					SetSelectedSequence(fungusScript, sequence);
-					GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
+					ShowSequenceInspector(fungusScript);
+					fungusScript.selectedSequence = sequence;
 
-					if (Application.isPlaying)
-					{
-						// If user selected a non-executing sequence then stop following execution
-						followExecution = (fungusScript.selectedSequence == fungusScript.executingSequence);
-					}
+					GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 				}
 			}
 
 			GUIStyle nodeStyle = null;
-			if (fungusScript.selectedSequence == sequence ||
-			    fungusScript.executingSequence == sequence)
+			if (fungusScript.selectedSequence == sequence)
 			{
 				// Green node
 				nodeStyle = new GUIStyle("flow node 3");
+			}
+			else if (sequence.IsExecuting())
+			{
+				// Blue node
+				nodeStyle = new GUIStyle("flow node 2");
 			}
 			else
 			{
@@ -540,10 +529,8 @@ namespace Fungus
 			}
 		}
 
-		protected static void SetSelectedSequence(FungusScript fungusScript, Sequence sequence)
+		protected static void ShowSequenceInspector(FungusScript fungusScript)
 		{
-			fungusScript.selectedSequence = sequence;
-
 			if (sequenceInspector == null)
 			{
 				// Create a Scriptable Object with a custom editor which we can use to inspect the selected sequence.
@@ -552,12 +539,7 @@ namespace Fungus
 				sequenceInspector.hideFlags = HideFlags.DontSave;
 			}
 
-			sequenceInspector.sequence = sequence;
-
-			if (sequence != null)
-			{
-				Selection.activeObject = sequenceInspector;
-			}
+			Selection.activeObject = sequenceInspector;
 
 			EditorUtility.SetDirty(sequenceInspector);
 		}

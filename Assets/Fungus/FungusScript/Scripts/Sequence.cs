@@ -56,17 +56,15 @@ namespace Fungus
 			return false;
 		}
 
-		public virtual bool IsRunning()
+		public virtual bool IsExecuting()
 		{
 			FungusScript fungusScript = GetFungusScript();
-
-			if (fungusScript == null ||
-			    fungusScript.executingSequence == null)
+			if (fungusScript == null)
 			{
 				return false;
 			}
 
-			return (fungusScript.executingSequence == this);
+			return (activeCommand != null);
 		}
 
 		public virtual int GetExecutionCount()
@@ -138,8 +136,6 @@ namespace Fungus
 			}
 
 			activeCommand = null;
-			fungusScript.executingSequence = null;
-			fungusScript.selectedSequence = null;
 			fungusScript.ClearSelectedCommands();
 		}
 

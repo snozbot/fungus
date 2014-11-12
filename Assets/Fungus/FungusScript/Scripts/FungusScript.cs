@@ -14,12 +14,6 @@ namespace Fungus
 	public class FungusScript : MonoBehaviour 
 	{
 		/**
-		 * Currently executing sequence.
-		 */
-		[System.NonSerialized]
-		public Sequence executingSequence;
-
-		/**
 		 * Scroll position of Fungus Script editor window.
 		 */
 		[HideInInspector]
@@ -147,24 +141,37 @@ namespace Fungus
 				return;
 			}
 
+			// Show start sequence by default
+			selectedSequence = startSequence;
+
 			ExecuteSequence(startSequence);
 		}
 
 		/**
 		 * Start running the Fungus Script by executing a specific child sequence.
+		 * The sequence must be in an idle state to be executed.
+		 * Returns true if the Sequence started execution.
 		 */
-		public virtual void ExecuteSequence(Sequence sequence)
+		public virtual bool ExecuteSequence(Sequence sequence)
 		{
 			// Sequence must be a child of the parent Fungus Script
 			if (sequence == null ||
-			    sequence.transform.parent != transform && sequence.transform != transform) 
+			    sequence.transform.parent != transform && 
+			    sequence.transform != transform) 
 			{
-				return;
+				return false;
 			}
 
-			executingSequence = sequence;
-			selectedSequence = sequence;
+			// Can't restart a running sequence, have to wait until it's idle again
+			if (sequence.IsExecuting())
+			{
+				return false;
+			}
+
+			// Execute the first command in the command list
 			sequence.ExecuteNextCommand();
+
+			return true;
 		}
 
 		/**
