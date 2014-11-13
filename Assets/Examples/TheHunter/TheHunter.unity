@@ -4288,22 +4288,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!115 &1433226136
-MonoScript:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  serializedVersion: 4
-  m_Script: 
-  m_DefaultReferences: {}
-  m_Icon: {fileID: 0}
-  m_EditorGraphData: {fileID: 0}
-  m_ExecutionOrder: 0
-  m_ClassName: AppStart
-  m_Namespace: Fungus
-  m_AssemblyName: Assembly-CSharp.dll
-  m_IsEditorScript: 0
 --- !u!1 &1440444951
 GameObject:
   m_ObjectHideFlags: 0
@@ -4474,9 +4458,7 @@ GameObject:
   - 114: {fileID: 1507034369}
   - 114: {fileID: 1507034368}
   - 114: {fileID: 1507034370}
-  - 114: {fileID: 1507034372}
   - 114: {fileID: 1507034371}
-  - 114: {fileID: 1507034373}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -4518,7 +4500,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: Start
-  eventHandler: {fileID: 1507034373}
+  eventHandler: {fileID: 1507034371}
   commandList:
   - {fileID: 1507034370}
   - {fileID: 1507034368}
@@ -4604,28 +4586,6 @@ MonoBehaviour:
   musicClip: {fileID: 8300000, guid: ae3aa0e9b0f0248a59548b5d9e77a6c1, type: 3}
   atTime: 0
 --- !u!114 &1507034371
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507034363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1433226136}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1507034372
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507034363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbebb04788538436198f5292e6a3d835, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1507034373
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
