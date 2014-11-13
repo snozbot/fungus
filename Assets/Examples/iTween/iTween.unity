@@ -232,6 +232,7 @@ GameObject:
   - 114: {fileID: 868139012}
   - 114: {fileID: 868139013}
   - 114: {fileID: 868139014}
+  - 114: {fileID: 868139015}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: Untagged
@@ -279,6 +280,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: Test iTween
+  eventHandler: {fileID: 868139015}
   commandList:
   - {fileID: 868138995}
   - {fileID: 868139011}
@@ -322,16 +324,13 @@ MonoBehaviour:
     y: -350
     width: 1050
     height: 1284
-  selectedSequence: {fileID: 0}
+  selectedSequence: {fileID: 868138992}
   selectedCommands: []
   variables: []
-  startSequence: {fileID: 868138992}
-  executeOnStart: 1
-  settings:
-    runSlowInEditor: 1
-    runSlowDuration: .25
-    colorCommands: 1
-    hideComponents: 1
+  runSlowInEditor: 1
+  runSlowDuration: .25
+  colorCommands: 1
+  hideComponents: 1
 --- !u!4 &868138994
 Transform:
   m_ObjectHideFlags: 0
@@ -767,6 +766,18 @@ MonoBehaviour:
   fromTransform: {fileID: 1955612100}
   fromPosition: {x: 0, y: 0, z: 0}
   axis: 3
+--- !u!114 &868139015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 868138990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentSequence: {fileID: 868138992}
 --- !u!1 &1090256565
 GameObject:
   m_ObjectHideFlags: 0

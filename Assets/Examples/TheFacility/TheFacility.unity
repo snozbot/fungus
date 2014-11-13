@@ -162,6 +162,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: TryVoice
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 57262726}
   - {fileID: 57262743}
@@ -1415,6 +1416,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: StandingThere
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 570845522}
   - {fileID: 570845520}
@@ -2061,6 +2063,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: OpenA147
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 684444681}
   - {fileID: 684444673}
@@ -2547,18 +2550,15 @@ MonoBehaviour:
     y: -610.734985
     width: 3261.20312
     height: 2227.35059
-  selectedSequence: {fileID: 0}
+  selectedSequence: {fileID: 1797174374}
   selectedCommands: []
   variables:
   - {fileID: 771014102}
   - {fileID: 771014103}
-  startSequence: {fileID: 1797174374}
-  executeOnStart: 1
-  settings:
-    runSlowInEditor: 1
-    runSlowDuration: .25
-    colorCommands: 1
-    hideComponents: 1
+  runSlowInEditor: 1
+  runSlowDuration: .25
+  colorCommands: 1
+  hideComponents: 1
 --- !u!4 &771014101
 Transform:
   m_ObjectHideFlags: 0
@@ -2801,6 +2801,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: DoorTalk
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 904348477}
   - {fileID: 904348476}
@@ -3245,6 +3246,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: How
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 948050628}
   - {fileID: 948050617}
@@ -4623,6 +4625,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: InspectDeskFirst
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1680954166}
   - {fileID: 1680954154}
@@ -5227,6 +5230,7 @@ GameObject:
   - 114: {fileID: 1797174382}
   - 114: {fileID: 1797174376}
   - 114: {fileID: 1797174380}
+  - 114: {fileID: 1797174385}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -5270,6 +5274,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: Start
+  eventHandler: {fileID: 1797174385}
   commandList:
   - {fileID: 1797174373}
   - {fileID: 1797174381}
@@ -5490,6 +5495,18 @@ MonoBehaviour:
   stringData:
     stringRef: {fileID: 0}
     stringVal: shout
+--- !u!114 &1797174385
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1797174372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentSequence: {fileID: 1797174374}
 --- !u!1 &1824373602
 GameObject:
   m_ObjectHideFlags: 1
@@ -5536,6 +5553,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: LightsOnVoice
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1824373605}
   - {fileID: 1824373609}
@@ -5938,6 +5956,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: FREEDOM!
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1925614673}
   - {fileID: 1925614672}

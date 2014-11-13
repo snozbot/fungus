@@ -242,17 +242,14 @@ MonoBehaviour:
     y: -608
     width: 2140
     height: 1416
-  selectedSequence: {fileID: 1059081933}
+  selectedSequence: {fileID: 1947290628}
   selectedCommands: []
   variables:
   - {fileID: 16019625}
-  startSequence: {fileID: 1947290628}
-  executeOnStart: 1
-  settings:
-    runSlowInEditor: 1
-    runSlowDuration: .25
-    colorCommands: 1
-    hideComponents: 1
+  runSlowInEditor: 1
+  runSlowDuration: .25
+  colorCommands: 1
+  hideComponents: 1
 --- !u!4 &16019624
 Transform:
   m_ObjectHideFlags: 0
@@ -901,6 +898,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: StopJumping
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 418947481}
   - {fileID: 418947482}
@@ -1951,6 +1949,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: BackToTheStart
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1059081935}
   - {fileID: 1059081934}
@@ -3343,6 +3342,7 @@ GameObject:
   - 114: {fileID: 1947290645}
   - 114: {fileID: 1947290633}
   - 114: {fileID: 1947290641}
+  - 114: {fileID: 1947290630}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -3386,6 +3386,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: Start
+  eventHandler: {fileID: 1947290630}
   commandList:
   - {fileID: 1947290641}
   - {fileID: 1947290640}
@@ -3420,6 +3421,18 @@ MonoBehaviour:
   sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
+--- !u!114 &1947290630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1947290626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentSequence: {fileID: 1947290628}
 --- !u!4 &1947290631
 Transform:
   m_ObjectHideFlags: 1

@@ -176,6 +176,46 @@ MonoBehaviour:
   cameraZ: -10
   swipePanActive: 0
   waiting: 0
+--- !u!1 &1245640432
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1245640434}
+  - 114: {fileID: 1245640433}
+  m_Layer: 0
+  m_Name: _FungusState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1245640433
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1245640432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedFungusScript: {fileID: 1818246743}
+--- !u!4 &1245640434
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1245640432}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &1295658133
 GameObject:
   m_ObjectHideFlags: 1
@@ -189,6 +229,7 @@ GameObject:
   - 114: {fileID: 1295658134}
   - 114: {fileID: 1295658138}
   - 114: {fileID: 1295658139}
+  - 114: {fileID: 1295658140}
   m_Layer: 0
   m_Name: Sound Sequence
   m_TagString: Untagged
@@ -240,10 +281,11 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -91
-    y: -438
-    width: 240
-    height: 114
+    y: -437
+    width: 120
+    height: 30
   sequenceName: Sound Sequence
+  eventHandler: {fileID: 1295658140}
   commandList:
   - {fileID: 1295658134}
   - {fileID: 1295658138}
@@ -291,6 +333,18 @@ MonoBehaviour:
   indentLevel: 0
   ParentTransform: {fileID: 0}
   SettingsString: 0,.5,,.0259,.3178,.2433,.3,.7694,,,,,,,,,.4286,.673,,,,,,,,1,,,,,,
+--- !u!114 &1295658140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1295658133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentSequence: {fileID: 1295658136}
 --- !u!1 &1457713101
 GameObject:
   m_ObjectHideFlags: 1
@@ -325,6 +379,7 @@ MonoBehaviour:
     width: 100
     height: 40
   sequenceName: New Sequence
+  eventHandler: {fileID: 0}
   commandList: []
 --- !u!4 &1457713103
 Transform:
@@ -379,6 +434,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollPos: {x: 517.51593, y: 615.148438}
+  variablesScrollPos: {x: 0, y: 0}
+  variablesExpanded: 1
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -389,10 +446,7 @@ MonoBehaviour:
   selectedSequence: {fileID: 1295658136}
   selectedCommands: []
   variables: []
-  startSequence: {fileID: 1295658136}
-  executeOnStart: 1
-  settings:
-    runSlowInEditor: 1
-    runSlowDuration: .25
-    colorCommands: 1
-    hideComponents: 1
+  runSlowInEditor: 1
+  runSlowDuration: .25
+  colorCommands: 1
+  hideComponents: 1
