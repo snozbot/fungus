@@ -53,7 +53,7 @@ namespace Fungus
 
 			if (t.enabled)
 			{
-				if (fungusScript.settings.colorCommands)
+				if (fungusScript.colorCommands)
 				{
 					GUI.backgroundColor = t.GetButtonColor();
 				}

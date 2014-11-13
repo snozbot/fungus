@@ -59,60 +59,30 @@ namespace Fungus
 		public List<Variable> variables = new List<Variable>();
 
 		/**
-		 * First sequence to execute when the Fungus Script executes.
+		 * Slow down execution when playing in the editor to make it easier to visualise program flow.
 		 */
-		[Tooltip("First sequence to execute when the Fungus Script executes")]
-		public Sequence startSequence;
+		[Tooltip("Slow down execution in the editor to make it easier to visualise program flow")]
+		public bool runSlowInEditor = true;
 
 		/**
-		 * Execute this Fungus Script when the scene starts.
-		 */
-		[Tooltip("Execute this Fungus Script when the scene starts playing")]
-		public bool executeOnStart = true;
-
-		[System.Serializable]
-		public class Settings
-		{
-			/**
-			 * Slow down execution when playing in the editor to make it easier to visualise program flow.
-			 */
-			[Tooltip("Slow down execution in the editor to make it easier to visualise program flow")]
-			public bool runSlowInEditor = true;
-
-			/**
-		 	 * Minimum time for each command to execute when runSlowInEditor is enabled.
-		 	 */
-			[Range(0f, 5f)]
-			[Tooltip("Minimum time that each command will take to execute when Run Slow In Editor is enabled")]
-			public float runSlowDuration = 0.25f;
-
-			/**
-			 * Use command color when displaying the command list in the Fungus Editor window.
-			 */
-			[Tooltip("Use command color when displaying the command list in the Fungus Editor window")]
-			public bool colorCommands = true;
-			
-			/**
-			 * Hides the Fungus Script sequence and command components in the inspector.
-			 * Deselect to inspect the sequence and command components that make up the Fungus Script.
-			 */
-			[Tooltip("Hides the Fungus Script sequence and command components in the inspector")]
-			public bool hideComponents = true;
-		}
+	 	 * Minimum time for each command to execute when runSlowInEditor is enabled.
+	 	 */
+		[Range(0f, 5f)]
+		[Tooltip("Minimum time that each command will take to execute when Run Slow In Editor is enabled")]
+		public float runSlowDuration = 0.25f;
 
 		/**
-		 * Advanced configuration options for the Fungus Script.
+		 * Use command color when displaying the command list in the Fungus Editor window.
 		 */
-		[Tooltip("Advanced configuration options for the Fungus Script")]
-		public Settings settings;
-
-		protected virtual void Start()
-		{
-			if (executeOnStart)
-			{
-				Execute();
-			}
-		}
+		[Tooltip("Use command color when displaying the command list in the Fungus Editor window")]
+		public bool colorCommands = true;
+		
+		/**
+		 * Hides the Fungus Script sequence and command components in the inspector.
+		 * Deselect to inspect the sequence and command components that make up the Fungus Script.
+		 */
+		[Tooltip("Hides the Fungus Script sequence and command components in the inspector")]
+		public bool hideComponents = true;
 
 		protected virtual Sequence CreateSequenceComponent(GameObject parent)
 		{
@@ -132,23 +102,26 @@ namespace Fungus
 		}
 
 		/**
-		 * Start running the Fungus Script by executing the startSequence.
+		 * Start running another Fungus Script by executing a specific child sequence.
+		 * The sequence must be in an idle state to be executed.
+		 * Returns true if the Sequence started execution.
 		 */
-		public virtual void Execute()
+		public virtual bool ExecuteSequence(string sequenceName)
 		{
-			if (startSequence == null)
+			Sequence [] sequences = GetComponentsInChildren<Sequence>();
+			foreach (Sequence sequence in sequences)
 			{
-				return;
+				if (sequence.sequenceName == sequenceName)
+				{
+					return ExecuteSequence(sequence);
+				}
 			}
 
-			// Show start sequence by default
-			selectedSequence = startSequence;
-
-			ExecuteSequence(startSequence);
+			return false;
 		}
 
 		/**
-		 * Start running the Fungus Script by executing a specific child sequence.
+		 * Start running another Fungus Script by executing a specific child sequence.
 		 * The sequence must be in an idle state to be executed.
 		 * Returns true if the Sequence started execution.
 		 */
@@ -398,17 +371,17 @@ namespace Fungus
 			Sequence[] sequences = GetComponentsInChildren<Sequence>();
 			foreach (Sequence sequence in sequences)
 			{
-				sequence.hideFlags = settings.hideComponents ? HideFlags.HideInInspector : HideFlags.None;
+				sequence.hideFlags = hideComponents ? HideFlags.HideInInspector : HideFlags.None;
 				if (sequence.gameObject != gameObject)
 				{
-					sequence.gameObject.hideFlags = settings.hideComponents ? HideFlags.HideInHierarchy : HideFlags.None;
+					sequence.gameObject.hideFlags = hideComponents ? HideFlags.HideInHierarchy : HideFlags.None;
 				}
 			}
 
 			Command[] commands = GetComponentsInChildren<Command>();
 			foreach (Command command in commands)
 			{
-				command.hideFlags = settings.hideComponents ? HideFlags.HideInInspector : HideFlags.None;
+				command.hideFlags = hideComponents ? HideFlags.HideInInspector : HideFlags.None;
 			}
 		}
 

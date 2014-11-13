@@ -985,6 +985,7 @@ MonoBehaviour:
     width: 100
     height: 40
   sequenceName: New Sequence
+  eventHandler: {fileID: 0}
   commandList: []
 --- !u!4 &330427400
 Transform:
@@ -1474,6 +1475,7 @@ MonoBehaviour:
     width: 100
     height: 20
   sequenceName: New Sequence
+  eventHandler: {fileID: 0}
   commandList: []
 --- !u!4 &518300788
 Transform:
@@ -1695,6 +1697,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: Check for fish
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 541676553}
   - {fileID: 541676556}
@@ -2672,6 +2675,7 @@ MonoBehaviour:
     width: 240
     height: 68
   sequenceName: New Sequence
+  eventHandler: {fileID: 0}
   commandList: []
 --- !u!114 &891057087
 MonoBehaviour:
@@ -2691,6 +2695,7 @@ MonoBehaviour:
     width: 240
     height: 68
   sequenceName: New Sequence
+  eventHandler: {fileID: 0}
   commandList: []
 --- !u!114 &891057088
 MonoBehaviour:
@@ -2716,13 +2721,10 @@ MonoBehaviour:
   selectedSequence: {fileID: 891057086}
   selectedCommands: []
   variables: []
-  startSequence: {fileID: 891057087}
-  executeOnStart: 1
-  settings:
-    runSlowInEditor: 1
-    runSlowDuration: .25
-    colorCommands: 1
-    hideComponents: 1
+  runSlowInEditor: 1
+  runSlowDuration: .25
+  colorCommands: 1
+  hideComponents: 1
 --- !u!4 &891057089
 Transform:
   m_ObjectHideFlags: 1
@@ -2789,6 +2791,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: Bear
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 899740689}
   - {fileID: 899740688}
@@ -3492,11 +3495,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 106.621155
+    x: 105.621155
     y: -319.003174
     width: 120
     height: 30
   sequenceName: Rescued
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1196017816}
   - {fileID: 1196017815}
@@ -3813,6 +3817,7 @@ MonoBehaviour:
     width: 240
     height: 68
   sequenceName: New Sequence
+  eventHandler: {fileID: 0}
   commandList: []
 --- !u!114 &1247920061
 MonoBehaviour:
@@ -3838,13 +3843,10 @@ MonoBehaviour:
   selectedSequence: {fileID: 1247920060}
   selectedCommands: []
   variables: []
-  startSequence: {fileID: 1247920060}
-  executeOnStart: 1
-  settings:
-    runSlowInEditor: 1
-    runSlowDuration: .25
-    colorCommands: 1
-    hideComponents: 1
+  runSlowInEditor: 1
+  runSlowDuration: .25
+  colorCommands: 1
+  hideComponents: 1
 --- !u!4 &1247920062
 Transform:
   m_ObjectHideFlags: 1
@@ -4286,6 +4288,22 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!115 &1433226136
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 4
+  m_Script: 
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_EditorGraphData: {fileID: 0}
+  m_ExecutionOrder: 0
+  m_ClassName: AppStart
+  m_Namespace: Fungus
+  m_AssemblyName: Assembly-CSharp.dll
+  m_IsEditorScript: 0
 --- !u!1 &1440444951
 GameObject:
   m_ObjectHideFlags: 0
@@ -4456,6 +4474,9 @@ GameObject:
   - 114: {fileID: 1507034369}
   - 114: {fileID: 1507034368}
   - 114: {fileID: 1507034370}
+  - 114: {fileID: 1507034372}
+  - 114: {fileID: 1507034371}
+  - 114: {fileID: 1507034373}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -4492,11 +4513,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 105.537018
-    y: -501.022339
+    x: 106.537018
+    y: -503.022339
     width: 120
     height: 30
   sequenceName: Start
+  eventHandler: {fileID: 1507034373}
   commandList:
   - {fileID: 1507034370}
   - {fileID: 1507034368}
@@ -4581,6 +4603,42 @@ MonoBehaviour:
   indentLevel: 0
   musicClip: {fileID: 8300000, guid: ae3aa0e9b0f0248a59548b5d9e77a6c1, type: 3}
   atTime: 0
+--- !u!114 &1507034371
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1507034363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1433226136}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentSequence: {fileID: 1507034365}
+--- !u!114 &1507034372
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1507034363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbebb04788538436198f5292e6a3d835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentSequence: {fileID: 1507034365}
+--- !u!114 &1507034373
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1507034363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentSequence: {fileID: 1507034365}
 --- !u!1 &1509015466
 GameObject:
   m_ObjectHideFlags: 0
@@ -5236,10 +5294,11 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 108
-    y: -439.890259
+    y: -437.890259
     width: 120
     height: 30
   sequenceName: Intro
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1759345003}
   - {fileID: 1759345004}
@@ -5561,6 +5620,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: Shout out
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1801800853}
   - {fileID: 1801800859}
@@ -5879,7 +5939,6 @@ GameObject:
   - 114: {fileID: 1831099570}
   - 114: {fileID: 1831099569}
   - 114: {fileID: 1831099571}
-  - 114: {fileID: 1831099572}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: Untagged
@@ -5919,7 +5978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 255.192505, y: 540.002808}
+  scrollPos: {x: 204.192505, y: 518.002808}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 0
   zoom: 1
@@ -5929,17 +5988,15 @@ MonoBehaviour:
     y: -904.006714
     width: 1939.01758
     height: 1993.50671
-  selectedSequence: {fileID: 1759344996}
-  selectedCommands: []
+  selectedSequence: {fileID: 1507034365}
+  selectedCommands:
+  - {fileID: 1507034370}
   variables:
   - {fileID: 1831099569}
-  startSequence: {fileID: 1507034365}
-  executeOnStart: 1
-  settings:
-    runSlowInEditor: 1
-    runSlowDuration: .25
-    colorCommands: 1
-    hideComponents: 1
+  runSlowInEditor: 1
+  runSlowDuration: .25
+  colorCommands: 1
+  hideComponents: 1
 --- !u!114 &1831099569
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5980,21 +6037,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Var
---- !u!114 &1831099572
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1831099566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  musicClip: {fileID: 0}
-  atTime: 0
 --- !u!1 &1846387297
 GameObject:
   m_ObjectHideFlags: 1
@@ -6030,6 +6072,7 @@ MonoBehaviour:
     width: 240
     height: 68
   sequenceName: New Sequence
+  eventHandler: {fileID: 0}
   commandList: []
 --- !u!114 &1846387299
 MonoBehaviour:
@@ -6055,13 +6098,10 @@ MonoBehaviour:
   selectedSequence: {fileID: 1846387298}
   selectedCommands: []
   variables: []
-  startSequence: {fileID: 1846387298}
-  executeOnStart: 1
-  settings:
-    runSlowInEditor: 1
-    runSlowDuration: .25
-    colorCommands: 1
-    hideComponents: 1
+  runSlowInEditor: 1
+  runSlowDuration: .25
+  colorCommands: 1
+  hideComponents: 1
 --- !u!4 &1846387300
 Transform:
   m_ObjectHideFlags: 1
@@ -6436,6 +6476,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: Exit
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 2111357060}
   - {fileID: 2111357059}

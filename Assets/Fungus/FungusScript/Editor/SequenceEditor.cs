@@ -12,6 +12,12 @@ namespace Fungus
 	[CustomEditor (typeof(Sequence))]
 	public class SequenceEditor : Editor 
 	{
+		protected class SetEventHandlerOperation
+		{
+			public Sequence sequence;
+			public Type eventHandlerType;
+		}
+
 		protected class AddCommandOperation
 		{
 			public Sequence sequence;
@@ -19,11 +25,14 @@ namespace Fungus
 			public int index;
 		}
 
-		public virtual void DrawCommandListGUI(FungusScript fungusScript)
+		public virtual void DrawSequenceGUI(FungusScript fungusScript)
 		{
 			serializedObject.Update();
 
 			Sequence sequence = target as Sequence;
+
+			DrawEventHandlerGUI(fungusScript);
+
 			UpdateIndentLevels(sequence);
 
 			SerializedProperty sequenceNameProperty = serializedObject.FindProperty("sequenceName");
@@ -80,6 +89,90 @@ namespace Fungus
 			}
 
 			serializedObject.ApplyModifiedProperties();
+		}
+
+		protected void DrawEventHandlerGUI(FungusScript fungusScript)
+		{
+			// Show available Event Handlers in a drop down list with type of current
+			// event handler selected.
+			List<System.Type> eventHandlerTypes = EditorExtensions.FindDerivedTypes(typeof(EventHandler)).ToList();
+
+			Sequence sequence = target as Sequence;
+			System.Type currentType = null;
+			if (sequence.eventHandler != null)
+			{
+				currentType = sequence.eventHandler.GetType();
+			}
+
+			string currentHandlerName = "None";
+			if (currentType != null)
+			{
+				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(currentType);
+				currentHandlerName = info.EventHandlerName;
+			}
+
+			EditorGUILayout.BeginHorizontal();
+			EditorGUILayout.PrefixLabel(new GUIContent("Execute On Event"));
+			if (GUILayout.Button(new GUIContent(currentHandlerName), EditorStyles.popup))
+			{
+				SetEventHandlerOperation noneOperation = new SetEventHandlerOperation();
+				noneOperation.sequence = sequence;
+				noneOperation.eventHandlerType = null;
+				
+				GenericMenu eventHandlerMenu = new GenericMenu();
+				eventHandlerMenu.AddItem(new GUIContent("None"), false, OnSelectEventHandler, noneOperation);
+				foreach (System.Type type in eventHandlerTypes)
+				{
+					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
+					
+					string typeName = "";
+					if (info.Category.Length > 0)
+					{
+						typeName = info.Category + "/";
+					}
+					typeName += info.EventHandlerName;
+
+					SetEventHandlerOperation operation = new SetEventHandlerOperation();
+					operation.sequence = sequence;
+					operation.eventHandlerType = type;
+
+					eventHandlerMenu.AddItem(new GUIContent(typeName), false, OnSelectEventHandler, operation);
+				}
+				eventHandlerMenu.ShowAsContext();
+			}
+			EditorGUILayout.EndHorizontal();
+
+			if (sequence.eventHandler != null)
+			{
+				EventHandlerEditor eventHandlerEditor = Editor.CreateEditor(sequence.eventHandler) as EventHandlerEditor;
+				eventHandlerEditor.DrawInspectorGUI();
+				DestroyImmediate(eventHandlerEditor);
+			}
+		}
+
+		protected void OnSelectEventHandler(object obj)
+		{
+			SetEventHandlerOperation operation = obj as SetEventHandlerOperation;
+			Sequence sequence = operation.sequence;
+			System.Type selectedType = operation.eventHandlerType;
+			if (sequence == null)
+			{
+				return;
+			}
+
+			Undo.RecordObject(sequence, "Set Start Event");
+
+			if (sequence.eventHandler != null)
+			{
+				Undo.DestroyObjectImmediate(sequence.eventHandler);
+			}
+
+			if (selectedType != null)
+			{
+				EventHandler newHandler = Undo.AddComponent(sequence.gameObject, selectedType) as EventHandler;
+				newHandler.parentSequence = sequence;
+				sequence.eventHandler = newHandler;
+			}
 		}
 
 		protected virtual void UpdateIndentLevels(Sequence sequence)

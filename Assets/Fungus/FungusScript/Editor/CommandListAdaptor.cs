@@ -247,7 +247,7 @@ namespace Fungus
 			}
 
 			Color commandLabelColor = Color.white;
-			if (fungusScript.settings.colorCommands)
+			if (fungusScript.colorCommands)
 			{
 				commandLabelColor = command.GetButtonColor();
 			}

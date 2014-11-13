@@ -374,7 +374,21 @@ namespace Fungus
 				nodeStyle = new GUIStyle("flow node 4");
 			}
 
-			GUILayout.Box(sequence.sequenceName, nodeStyle, GUILayout.Width(sequence.nodeRect.width), GUILayout.Height(sequence.nodeRect.height));
+			nodeStyle.wordWrap = true;
+			string nodeName = "";
+			if (sequence.eventHandler != null)
+			{
+				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(sequence.eventHandler.GetType());
+				if (info != null)
+				{
+					nodeName = "(" + info.EventHandlerName + ")\n";
+					nodeStyle.padding.top = 23; // Adjust label to fit on two lines
+
+				}
+			}
+			nodeName += sequence.sequenceName;
+
+			GUILayout.Box(nodeName, nodeStyle, GUILayout.Width(sequence.nodeRect.width), GUILayout.Height(sequence.nodeRect.height));
 
 			if (Event.current.type == EventType.ContextClick)
 			{

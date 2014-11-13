@@ -32,7 +32,7 @@ namespace Fungus
 			FungusScript fungusScript = sequence.GetFungusScript();
 
 			SequenceEditor sequenceEditor = Editor.CreateEditor(sequence) as SequenceEditor;
-			sequenceEditor.DrawCommandListGUI(fungusScript);
+			sequenceEditor.DrawSequenceGUI(fungusScript);
 			DestroyImmediate(sequenceEditor);
 
 			Command inspectCommand = null;

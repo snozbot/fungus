@@ -10,16 +10,18 @@ namespace Fungus
 	[CustomEditor (typeof(FungusScript))]
 	public class FungusScriptEditor : Editor 
 	{
-		protected SerializedProperty startSequenceProp;
-		protected SerializedProperty executeOnStartProp;
-		protected SerializedProperty settingsProp;
+		protected SerializedProperty runSlowInEditorProp;
+		protected SerializedProperty runSlowDurationProp;
+		protected SerializedProperty colorCommandsProp;
+		protected SerializedProperty hideComponentsProp;
 		protected SerializedProperty variablesProp;
 
 		protected virtual void OnEnable()
 		{
-			startSequenceProp = serializedObject.FindProperty("startSequence");
-			executeOnStartProp = serializedObject.FindProperty("executeOnStart");
-			settingsProp = serializedObject.FindProperty("settings");
+			runSlowInEditorProp = serializedObject.FindProperty("runSlowInEditor");
+			runSlowDurationProp = serializedObject.FindProperty("runSlowDuration");
+			colorCommandsProp = serializedObject.FindProperty("colorCommands");
+			hideComponentsProp = serializedObject.FindProperty("hideComponents");
 			variablesProp = serializedObject.FindProperty("variables");
 		}
 
@@ -31,23 +33,10 @@ namespace Fungus
 
 			fungusScript.UpdateHideFlags();
 
-			SequenceEditor.SequenceField(startSequenceProp, 
-			                             new GUIContent("Start Sequence", "First sequence to execute when the Fungus Script executes"), 
-										 new GUIContent("<None>"),
-			                             fungusScript);
-
-			if (fungusScript.startSequence == null)
-			{
-				GUIStyle style = new GUIStyle(GUI.skin.label);
-				style.normal.textColor = new Color(1,0,0);
-				EditorGUILayout.LabelField(new GUIContent("Error: Please select a Start Sequence"), style);
-			}
-
-			EditorGUILayout.PropertyField(executeOnStartProp, new GUIContent("Execute On Start", "Execute this Fungus Script when the scene starts playing"));
-
-			EditorGUILayout.PropertyField(settingsProp, new GUIContent("Settings", "Configution options for the Fungus Script"), true);
-
-			EditorGUILayout.Separator();
+			EditorGUILayout.PropertyField(runSlowInEditorProp);
+			EditorGUILayout.PropertyField(runSlowDurationProp);
+			EditorGUILayout.PropertyField(colorCommandsProp);
+			EditorGUILayout.PropertyField(hideComponentsProp);
 
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();

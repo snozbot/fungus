@@ -12,7 +12,10 @@ namespace Fungus
 		[Tooltip("Reference to another Fungus Script to execute")]
 		public FungusScript targetFungusScript;
 
-		[Tooltip("Stop executing current script before executing the new Fungus Script")]
+		[Tooltip("Name of sequence to execute in target Fungus Script")]
+		public string targetSequenceName;
+
+		[Tooltip("Stop executing the current sequence before executing the new Fungus Script")]
 		public bool stopCurrentScript = true;
 	
 		public override void OnEnter()
@@ -24,7 +27,7 @@ namespace Fungus
 					Stop();
 				}
 
-				targetFungusScript.Execute();
+				targetFungusScript.ExecuteSequence(targetSequenceName);
 
 				if (!stopCurrentScript)
 				{

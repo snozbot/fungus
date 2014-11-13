@@ -12,9 +12,13 @@ namespace Fungus
 	{
 		public string sequenceName = "New Sequence";
 
+		public EventHandler eventHandler;
+
+		[HideInInspector]
 		[System.NonSerialized]
 		public Command activeCommand;
 
+		[HideInInspector]
 		public List<Command> commandList = new List<Command>();
 
 		protected int executionCount;
@@ -108,14 +112,14 @@ namespace Fungus
 			{
 				FungusScript fungusScript = GetFungusScript();
 
-				if (!fungusScript.settings.runSlowInEditor)
+				if (!fungusScript.runSlowInEditor)
 				{
 					activeCommand = nextCommand;
 					nextCommand.Execute();
 				}
 				else
 				{
-					StartCoroutine(ExecuteAfterDelay(nextCommand, fungusScript.settings.runSlowDuration));
+					StartCoroutine(ExecuteAfterDelay(nextCommand, fungusScript.runSlowDuration));
 				}
 			}
 
