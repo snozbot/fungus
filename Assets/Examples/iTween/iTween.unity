@@ -169,8 +169,8 @@ GameObject:
   - 212: {fileID: 470391091}
   - 114: {fileID: 470391090}
   - 114: {fileID: 470391089}
-  - 114: {fileID: 470391088}
   - 114: {fileID: 470391087}
+  - 114: {fileID: 470391088}
   m_Layer: 0
   m_Name: Mushroom4
   m_TagString: Untagged
@@ -209,10 +209,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 470391086}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentSequence: {fileID: 470391089}
+  message: StartMoving
 --- !u!114 &470391089
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -256,8 +257,7 @@ MonoBehaviour:
     width: 1212
     height: 902
   selectedSequence: {fileID: 470391089}
-  selectedCommands:
-  - {fileID: 470391087}
+  selectedCommands: []
   variables: []
   runSlowInEditor: 1
   runSlowDuration: .25
@@ -371,7 +371,9 @@ GameObject:
   - 114: {fileID: 868139012}
   - 114: {fileID: 868139013}
   - 114: {fileID: 868139014}
+  - 114: {fileID: 868139016}
   - 114: {fileID: 868139015}
+  - 114: {fileID: 868139017}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: Untagged
@@ -421,12 +423,13 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: Test iTween
-  eventHandler: {fileID: 868139015}
+  eventHandler: {fileID: 868139016}
   commandList:
   - {fileID: 868138995}
   - {fileID: 868139011}
   - {fileID: 868139012}
   - {fileID: 868139013}
+  - {fileID: 868139017}
   - {fileID: 868139008}
   - {fileID: 868139009}
   - {fileID: 868139010}
@@ -465,8 +468,9 @@ MonoBehaviour:
     y: -350
     width: 1050
     height: 1284
-  selectedSequence: {fileID: 0}
-  selectedCommands: []
+  selectedSequence: {fileID: 868138992}
+  selectedCommands:
+  - {fileID: 868139017}
   variables: []
   runSlowInEditor: 1
   runSlowDuration: .25
@@ -947,6 +951,21 @@ MonoBehaviour:
   axis: 3
 --- !u!114 &868139015
 MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 868138990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43743931d28f43f89eced820d907351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  messageTarget: 0
+  message: 
+--- !u!114 &868139016
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -957,6 +976,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentSequence: {fileID: 868138992}
+--- !u!114 &868139017
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 868138990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43743931d28f43f89eced820d907351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  messageTarget: 1
+  message: StartMoving
 --- !u!1 &1090256565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFungusScript: {fileID: 868138993}
+  selectedFungusScript: {fileID: 470391090}
 --- !u!4 &1971204865
 Transform:
   m_ObjectHideFlags: 1
