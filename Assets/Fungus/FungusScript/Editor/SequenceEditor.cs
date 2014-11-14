@@ -104,7 +104,7 @@ namespace Fungus
 				currentType = sequence.eventHandler.GetType();
 			}
 
-			string currentHandlerName = "None";
+			string currentHandlerName = "<None>";
 			if (currentType != null)
 			{
 				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(currentType);
