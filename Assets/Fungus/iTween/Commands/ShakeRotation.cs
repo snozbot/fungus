@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace Fungus
@@ -26,7 +26,7 @@ namespace Fungus
 			tweenParams.Add("oncomplete", "OnComplete");
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
-			iTween.ShakeRotation(target, tweenParams);
+			iTween.ShakeRotation(ResolveTarget(targetObject), tweenParams);
 		}		
 	}
 	

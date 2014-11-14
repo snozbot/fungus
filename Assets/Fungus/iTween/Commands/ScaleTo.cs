@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace Fungus
@@ -32,7 +32,7 @@ namespace Fungus
 			tweenParams.Add("oncomplete", "OnComplete");
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
-			iTween.ScaleTo(target, tweenParams);
+			iTween.ScaleTo(ResolveTarget(targetObject), tweenParams);
 		}		
 	}
 

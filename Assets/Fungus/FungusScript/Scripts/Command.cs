@@ -160,10 +160,39 @@ namespace Fungus
 			return 0;
 		}
 
+		/**
+		 * Return the color for the command background in inspector.
+		 */
 		public virtual Color GetButtonColor()
 		{
 			return Color.white;
 		}
+
+		/**
+		 * Get the appropriate game object from a TargetObject.
+		 * Returns the Fungus Script game object if the target type is Owner.
+		 * Returns the specified other game object if the target type is Other.
+		 */
+		protected virtual GameObject ResolveTarget(TargetObject targetObject)
+		{
+			if (parentSequence == null)
+			{
+				return null;
+			}
+
+			GameObject target = null;
+			if (targetObject.targetType == TargetObjectType.Owner)
+			{
+				target = parentSequence.GetFungusScript().gameObject;
+			}
+			else
+			{
+				target = targetObject.otherGameObject;
+			}
+
+			return target;
+		}
+
 	}
 
 }
