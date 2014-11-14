@@ -34,6 +34,11 @@ namespace Fungus
 		{
 			// Ensure the Sequence Inspector is always showing the currently selected sequence
 			FungusScript fungusScript = GetFungusScript();
+			if (fungusScript == null)
+			{
+				return;
+			}
+
 			if (fungusScript.selectedSequence != null)
 			{
 			    if (sequenceInspector == null)
