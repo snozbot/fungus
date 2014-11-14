@@ -1182,7 +1182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFungusScript: {fileID: 470391090}
+  selectedFungusScript: {fileID: 868138993}
 --- !u!4 &1971204865
 Transform:
   m_ObjectHideFlags: 1
