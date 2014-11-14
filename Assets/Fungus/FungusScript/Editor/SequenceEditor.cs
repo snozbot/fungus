@@ -121,23 +121,36 @@ namespace Fungus
 				
 				GenericMenu eventHandlerMenu = new GenericMenu();
 				eventHandlerMenu.AddItem(new GUIContent("None"), false, OnSelectEventHandler, noneOperation);
+
+				// Add event handlers with no category first
 				foreach (System.Type type in eventHandlerTypes)
 				{
-					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
-					
-					string typeName = "";
-					if (info.Category.Length > 0)
+					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);					
+					if (info.Category.Length == 0)
 					{
-						typeName = info.Category + "/";
+						SetEventHandlerOperation operation = new SetEventHandlerOperation();
+						operation.sequence = sequence;
+						operation.eventHandlerType = type;
+						
+						eventHandlerMenu.AddItem(new GUIContent(info.EventHandlerName), false, OnSelectEventHandler, operation);
 					}
-					typeName += info.EventHandlerName;
-
-					SetEventHandlerOperation operation = new SetEventHandlerOperation();
-					operation.sequence = sequence;
-					operation.eventHandlerType = type;
-
-					eventHandlerMenu.AddItem(new GUIContent(typeName), false, OnSelectEventHandler, operation);
 				}
+
+				// Add event handlers with a category afterwards
+				foreach (System.Type type in eventHandlerTypes)
+				{
+					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);					
+					if (info.Category.Length > 0)
+					{			
+						SetEventHandlerOperation operation = new SetEventHandlerOperation();
+						operation.sequence = sequence;
+						operation.eventHandlerType = type;
+						string typeName = info.Category + "/" + info.EventHandlerName;
+						eventHandlerMenu.AddItem(new GUIContent(typeName), false, OnSelectEventHandler, operation);
+					}
+				}
+
+
 				eventHandlerMenu.ShowAsContext();
 			}
 			EditorGUILayout.EndHorizontal();

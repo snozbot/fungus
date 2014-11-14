@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[EventHandlerInfo("Scripting",
+	[EventHandlerInfo("",
 	                  "Enable Object",
 	                  "The sequence will execute when the owner game object is enabled.")]
 	public class EnableObject : EventHandler
