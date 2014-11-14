@@ -383,6 +383,12 @@ namespace Fungus
 			{
 				command.hideFlags = hideComponents ? HideFlags.HideInInspector : HideFlags.None;
 			}
+
+			EventHandler[] eventHandlers = GetComponentsInChildren<EventHandler>();
+			foreach (EventHandler eventHandler in eventHandlers)
+			{
+				eventHandler.hideFlags = hideComponents ? HideFlags.HideInInspector : HideFlags.None;
+			}
 		}
 
 		public virtual void ClearSelectedCommands()
