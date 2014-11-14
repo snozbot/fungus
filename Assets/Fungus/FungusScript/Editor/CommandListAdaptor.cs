@@ -164,7 +164,16 @@ namespace Fungus
 			bool isComment = command.GetType() == typeof(Comment);
 
 			bool error = false;
-			string summary = command.GetSummary().Replace("\n", "").Replace("\r", "");
+			string summary = command.GetSummary();
+			if (summary == null)
+			{
+				summary = "";
+			}
+			else
+			{
+				summary = summary.Replace("\n", "").Replace("\r", "");
+			}
+
 			if (summary.Length > 80)
 			{
 				summary = summary.Substring(0, 80) + "...";
