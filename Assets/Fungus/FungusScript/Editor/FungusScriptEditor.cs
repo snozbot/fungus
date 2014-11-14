@@ -56,6 +56,11 @@ namespace Fungus
 
 			FungusScript t = target as FungusScript;
 
+			if (t.variables.Count == 0)
+			{
+				t.variablesExpanded = true;
+			}
+
 			if (!t.variablesExpanded)
 			{
 				if (GUILayout.Button ("Variables", GUILayout.Height(24)))
