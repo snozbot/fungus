@@ -17,7 +17,7 @@ namespace Fungus
 			SerializedProperty targetTypeProp = property.FindPropertyRelative("targetType");
 			SerializedProperty otherGameObjectProp = property.FindPropertyRelative("otherGameObject");
 
-			EditorGUI.PropertyField(position, targetTypeProp, new GUIContent("Game Object"));
+			EditorGUI.PropertyField(position, targetTypeProp, new GUIContent("Game Object", "Select either the owner game object or another object in the scene."));
 
 			if (targetTypeProp.enumValueIndex == 0)
 			{
