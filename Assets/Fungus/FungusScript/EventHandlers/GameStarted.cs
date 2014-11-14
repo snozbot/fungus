@@ -6,9 +6,9 @@ using System.Collections.Generic;
 namespace Fungus
 {
 	[EventHandlerInfo("",
-	                  "Start Game",
+	                  "Game Started",
 	                  "The sequence will execute when the game starts playing.")]
-	public class StartGame : EventHandler
+	public class GameStarted : EventHandler
 	{	
 		protected virtual void Start()
 		{

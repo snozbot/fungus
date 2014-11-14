@@ -4,9 +4,9 @@ using System.Collections;
 namespace Fungus
 {
 	[EventHandlerInfo("",
-	                  "Receive Message",
-	                  "The sequence will execute when the specified message is received from a SendFungusMessage command.")]
-	public class ReceiveMessage : EventHandler 
+	                  "Message Received",
+	                  "The sequence will execute when the specified message is received from a Send Message command.")]
+	public class MessageReceived : EventHandler 
 	{
 		public string message;
 

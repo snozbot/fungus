@@ -26,19 +26,19 @@ namespace Fungus
 
 			FungusScript fungusScript = GetFungusScript();
 
-			ReceiveMessage[] receivers = null;
+			MessageReceived[] receivers = null;
 			if (messageTarget == MessageTarget.SameScript)
 			{
-				receivers = fungusScript.GetComponentsInChildren<ReceiveMessage>();
+				receivers = fungusScript.GetComponentsInChildren<MessageReceived>();
 			}
 			else
 			{
-				receivers = GameObject.FindObjectsOfType<ReceiveMessage>();
+				receivers = GameObject.FindObjectsOfType<MessageReceived>();
 			}
 
 			if (receivers != null)
 			{
-				foreach (ReceiveMessage receiver in receivers)
+				foreach (MessageReceived receiver in receivers)
 				{
 					receiver.OnSendFungusMessage(message);
 				}
