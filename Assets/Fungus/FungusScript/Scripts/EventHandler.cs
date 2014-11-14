@@ -28,6 +28,8 @@ namespace Fungus
 	 * Add an EventHandlerInfo attibute and your new EventHandler class will automatically appear in the
 	 * 'Start Event' dropdown menu when a sequence is selected.
 	 */
+	[RequireComponent(typeof(Sequence))]
+	[RequireComponent(typeof(FungusScript))]
 	public class EventHandler : MonoBehaviour
 	{	
 		[HideInInspector]
