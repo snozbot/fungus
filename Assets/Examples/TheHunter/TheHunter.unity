@@ -4637,7 +4637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  musicClip: {fileID: 8300000, guid: ae3aa0e9b0f0248a59548b5d9e77a6c1, type: 3}
+  musicClip: {fileID: 8300000, guid: c9a4c3829980445ba963b126e0198da6, type: 3}
   atTime: 0
 --- !u!114 &1507034371
 MonoBehaviour:
@@ -5941,7 +5941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 257.192505, y: 556.002808}
+  scrollPos: {x: 214.192505, y: 569.002808}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 0
   zoom: 1
@@ -5951,8 +5951,9 @@ MonoBehaviour:
     y: -904.006714
     width: 1939.01758
     height: 1993.50671
-  selectedSequence: {fileID: 0}
-  selectedCommands: []
+  selectedSequence: {fileID: 1507034365}
+  selectedCommands:
+  - {fileID: 1507034370}
   variables:
   - {fileID: 1831099569}
   runSlowInEditor: 1
