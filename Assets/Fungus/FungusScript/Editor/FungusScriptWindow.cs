@@ -304,10 +304,13 @@ namespace Fungus
 				x += gridSize;
 			}
 			
-			float y = fungusScript.scrollPos.y % gridSize;
+			float y = (fungusScript.scrollPos.y % gridSize);
 			while (y < height)
 			{
-				GLDraw.DrawLine(new Vector2(0, y), new Vector2(width, y), color, 1f);
+				if (y >= 0)
+				{
+					GLDraw.DrawLine(new Vector2(0, y), new Vector2(width, y), color, 1f);
+				}
 				y += gridSize;
 			}
 		}
