@@ -1,7 +1,7 @@
 Fungus
 ======
 
-An easy to use Unity 3D library for creating illustrated Interactive Fiction games.
+An easy to use Unity 3D extension for interactive storytelling.
 
 - Author: Chris Gregan
 - Website: www.snozbot.com/fungus
@@ -13,11 +13,11 @@ Installation
 
 Installation instructions, training videos and documentation are available on the official Fungus website.
 
-http://fungus.snozbot.com/resources
+http://fungusgames.com/resources
 
 Support
 =======
 
 Use the Fungus Forums to get help and support.
 
-http://fungus.snozbot.com/forum
+http://fungusgames.com/forum
