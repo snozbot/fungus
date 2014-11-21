@@ -386,7 +386,13 @@ namespace Fungus
 				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(sequence.eventHandler.GetType());
 				if (info != null)
 				{
-					nodeName = "(" + info.EventHandlerName + ")\n";
+					string handlerSummary = sequence.eventHandler.GetSummary();
+					if (handlerSummary == "")
+					{
+						handlerSummary = info.EventHandlerName;
+					}
+
+					nodeName = "(" + handlerSummary + ")\n";
 					nodeStyle.padding.top = 23; // Adjust label to fit on two lines
 
 				}
