@@ -11,6 +11,7 @@ namespace Fungus
 	 * Visual scripting controller for the Fungus Script programming language.
 	 * FungusScript objects may be edited visually using the Fungus Script editor window.
 	 */
+	[AddComponentMenu("Fungus/Fungus Script")]
 	public class FungusScript : MonoBehaviour 
 	{
 		/**
@@ -368,27 +369,45 @@ namespace Fungus
 		 */
 		public virtual void UpdateHideFlags()
 		{
-			Sequence[] sequences = GetComponentsInChildren<Sequence>();
-			foreach (Sequence sequence in sequences)
+			if (hideComponents)
 			{
-				sequence.hideFlags = hideComponents ? HideFlags.HideInInspector : HideFlags.None;
-				if (sequence.gameObject != gameObject)
+				Sequence[] sequences = GetComponentsInChildren<Sequence>();
+				foreach (Sequence sequence in sequences)
 				{
-					sequence.gameObject.hideFlags = hideComponents ? HideFlags.HideInHierarchy : HideFlags.None;
+					sequence.hideFlags = HideFlags.HideInInspector;
+					if (sequence.gameObject != gameObject)
+					{
+						sequence.gameObject.hideFlags = HideFlags.HideInHierarchy;
+					}
+				}
+
+				Command[] commands = GetComponentsInChildren<Command>();
+				foreach (Command command in commands)
+				{
+					command.hideFlags = HideFlags.HideInInspector;
+				}
+
+				EventHandler[] eventHandlers = GetComponentsInChildren<EventHandler>();
+				foreach (EventHandler eventHandler in eventHandlers)
+				{
+					eventHandler.hideFlags = HideFlags.HideInInspector;
+				}
+			}
+			else
+			{
+				MonoBehaviour[] monoBehaviours = GetComponentsInChildren<MonoBehaviour>();
+				foreach (MonoBehaviour monoBehaviour in monoBehaviours)
+				{
+					if (monoBehaviour == null)
+					{
+						continue;
+					}
+
+					monoBehaviour.hideFlags = HideFlags.None;
+					monoBehaviour.gameObject.hideFlags = HideFlags.None;
 				}
 			}
 
-			Command[] commands = GetComponentsInChildren<Command>();
-			foreach (Command command in commands)
-			{
-				command.hideFlags = hideComponents ? HideFlags.HideInInspector : HideFlags.None;
-			}
-
-			EventHandler[] eventHandlers = GetComponentsInChildren<EventHandler>();
-			foreach (EventHandler eventHandler in eventHandlers)
-			{
-				eventHandler.hideFlags = hideComponents ? HideFlags.HideInInspector : HideFlags.None;
-			}
 		}
 
 		public virtual void ClearSelectedCommands()
