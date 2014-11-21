@@ -10,18 +10,16 @@ namespace Fungus
 	[CustomEditor (typeof(FungusScript))]
 	public class FungusScriptEditor : Editor 
 	{
-		protected SerializedProperty runSlowInEditorProp;
-		protected SerializedProperty runSlowDurationProp;
 		protected SerializedProperty colorCommandsProp;
 		protected SerializedProperty hideComponentsProp;
+		protected SerializedProperty runSlowDurationProp;
 		protected SerializedProperty variablesProp;
 
 		protected virtual void OnEnable()
 		{
-			runSlowInEditorProp = serializedObject.FindProperty("runSlowInEditor");
-			runSlowDurationProp = serializedObject.FindProperty("runSlowDuration");
 			colorCommandsProp = serializedObject.FindProperty("colorCommands");
 			hideComponentsProp = serializedObject.FindProperty("hideComponents");
+			runSlowDurationProp = serializedObject.FindProperty("runSlowDuration");
 			variablesProp = serializedObject.FindProperty("variables");
 		}
 
@@ -33,10 +31,9 @@ namespace Fungus
 
 			fungusScript.UpdateHideFlags();
 
-			EditorGUILayout.PropertyField(runSlowInEditorProp);
-			EditorGUILayout.PropertyField(runSlowDurationProp);
 			EditorGUILayout.PropertyField(colorCommandsProp);
 			EditorGUILayout.PropertyField(hideComponentsProp);
+			EditorGUILayout.PropertyField(runSlowDurationProp);
 
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();

@@ -12,6 +12,9 @@ namespace Fungus
 	{
 		public string sequenceName = "New Sequence";
 
+		[Tooltip("Slow down execution in the editor to make it easier to visualise program flow")]
+		public bool runSlowInEditor = true;
+
 		public EventHandler eventHandler;
 
 		[HideInInspector]
@@ -96,7 +99,7 @@ namespace Fungus
 				}
 				else if (executeNext)
 				{
-					if (command.enabled)
+					if (command.enabled && command.GetType() != typeof(Comment))
 					{
 						nextCommand = command;
 						break;
@@ -112,14 +115,17 @@ namespace Fungus
 			{
 				FungusScript fungusScript = GetFungusScript();
 
-				if (!fungusScript.runSlowInEditor)
+				if (fungusScript.gameObject.activeInHierarchy)
 				{
-					activeCommand = nextCommand;
-					nextCommand.Execute();
-				}
-				else
-				{
-					StartCoroutine(ExecuteAfterDelay(nextCommand, fungusScript.runSlowDuration));
+					if (!runSlowInEditor)
+					{
+						activeCommand = nextCommand;
+						nextCommand.Execute();
+					}
+					else
+					{
+						StartCoroutine(ExecuteAfterDelay(nextCommand, fungusScript.runSlowDuration));
+					}
 				}
 			}
 

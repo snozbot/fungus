@@ -31,6 +31,9 @@ namespace Fungus
 
 			Sequence sequence = target as Sequence;
 
+			SerializedProperty runSlowInEditorProp = serializedObject.FindProperty("runSlowInEditor");
+			EditorGUILayout.PropertyField(runSlowInEditorProp);
+
 			DrawEventHandlerGUI(fungusScript);
 
 			UpdateIndentLevels(sequence);

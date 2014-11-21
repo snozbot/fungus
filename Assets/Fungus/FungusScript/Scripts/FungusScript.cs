@@ -60,12 +60,6 @@ namespace Fungus
 		public List<Variable> variables = new List<Variable>();
 
 		/**
-		 * Slow down execution when playing in the editor to make it easier to visualise program flow.
-		 */
-		[Tooltip("Slow down execution in the editor to make it easier to visualise program flow")]
-		public bool runSlowInEditor = true;
-
-		/**
 	 	 * Minimum time for each command to execute when runSlowInEditor is enabled.
 	 	 */
 		[Range(0f, 5f)]
