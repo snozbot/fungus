@@ -26,7 +26,7 @@ namespace Fungus
 
 		protected int executionCount;
 
-		protected virtual void Start()
+		protected virtual void Awake()
 		{
 			// Give each child command a reference back to its parent sequence
 			foreach (Command command in commandList)

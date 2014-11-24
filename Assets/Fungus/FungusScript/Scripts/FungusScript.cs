@@ -116,6 +116,32 @@ namespace Fungus
 		}
 
 		/**
+		 * Sends a message to this Fungus Script only.
+		 * Any sequence with a matching MessageReceived event handler will start executing.
+		 */
+		public virtual void SendFungusMessage(string messageName)
+		{
+			MessageReceived[] eventHandlers = GetComponentsInChildren<MessageReceived>();
+			foreach (MessageReceived eventHandler in eventHandlers)
+			{
+				eventHandler.OnSendFungusMessage(messageName);
+			}
+		}
+
+		/**
+		 * Sends a message to all Fungus Script objects in the current scene.
+		 * Any sequence with a matching MessageReceived event handler will start executing.
+		 */
+		public static void BroadcastFungusMessage(string messageName)
+		{
+			MessageReceived[] eventHandlers = GameObject.FindObjectsOfType<MessageReceived>();
+			foreach (MessageReceived eventHandler in eventHandlers)
+			{
+				eventHandler.OnSendFungusMessage(messageName);
+			}
+		}
+
+		/**
 		 * Start running another Fungus Script by executing a specific child sequence.
 		 * The sequence must be in an idle state to be executed.
 		 * Returns true if the Sequence started execution.
