@@ -544,6 +544,8 @@ namespace Fungus
 			Sequence newSequence = FungusScriptWindow.CreateSequence(fungusScript, newPosition);
 			newSequence.sequenceName = oldSequence.sequenceName + " (Copy)";
 
+			Undo.RecordObject(newSequence, "Duplicate Sequence");
+
 			foreach (Command command in oldSequence.commandList)
 			{
 				System.Type type = command.GetType();
@@ -554,6 +556,19 @@ namespace Fungus
 					field.SetValue(newCommand, field.GetValue(command));
 				}
 				newSequence.commandList.Add(newCommand);
+			}
+
+			if (oldSequence.eventHandler != null)
+			{
+				EventHandler eventHandler = oldSequence.eventHandler;
+				System.Type type = eventHandler.GetType();
+				EventHandler newEventHandler = Undo.AddComponent(fungusScript.gameObject, type) as EventHandler;
+				System.Reflection.FieldInfo[] fields = type.GetFields();
+				foreach (System.Reflection.FieldInfo field in fields)
+				{
+					field.SetValue(newEventHandler, field.GetValue(eventHandler));
+				}
+				newSequence.eventHandler = newEventHandler;
 			}
 		}
 
