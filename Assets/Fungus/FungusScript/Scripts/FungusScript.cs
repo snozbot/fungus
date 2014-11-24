@@ -59,6 +59,10 @@ namespace Fungus
 		[HideInInspector]
 		public List<Variable> variables = new List<Variable>();
 
+		[TextArea(3, 5)]
+		[Tooltip("Description text displayed in the Fungus Script editor window")]
+		public string description;
+
 		/**
 	 	 * Minimum time for each command to execute when runSlowInEditor is enabled.
 	 	 */

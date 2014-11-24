@@ -159,6 +159,15 @@ namespace Fungus
 
 			GUILayout.FlexibleSpace();
 
+			GUILayout.BeginVertical();
+			GUILayout.FlexibleSpace();
+			GUILayout.Label(fungusScript.name, EditorStyles.whiteBoldLabel);
+			if (fungusScript.description.Length > 0)
+			{
+				GUILayout.Label(fungusScript.description, EditorStyles.whiteLargeLabel);
+			}
+			GUILayout.EndVertical();
+
 			GUILayout.EndHorizontal();
 		}
 		

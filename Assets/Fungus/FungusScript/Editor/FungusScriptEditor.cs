@@ -10,6 +10,7 @@ namespace Fungus
 	[CustomEditor (typeof(FungusScript))]
 	public class FungusScriptEditor : Editor 
 	{
+		protected SerializedProperty descriptionProp;
 		protected SerializedProperty colorCommandsProp;
 		protected SerializedProperty hideComponentsProp;
 		protected SerializedProperty runSlowDurationProp;
@@ -17,6 +18,7 @@ namespace Fungus
 
 		protected virtual void OnEnable()
 		{
+			descriptionProp = serializedObject.FindProperty("description");
 			colorCommandsProp = serializedObject.FindProperty("colorCommands");
 			hideComponentsProp = serializedObject.FindProperty("hideComponents");
 			runSlowDurationProp = serializedObject.FindProperty("runSlowDuration");
@@ -31,6 +33,7 @@ namespace Fungus
 
 			fungusScript.UpdateHideFlags();
 
+			EditorGUILayout.PropertyField(descriptionProp);
 			EditorGUILayout.PropertyField(colorCommandsProp);
 			EditorGUILayout.PropertyField(hideComponentsProp);
 			EditorGUILayout.PropertyField(runSlowDurationProp);
