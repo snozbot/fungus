@@ -51,7 +51,10 @@ namespace Fungus
 			SpriteRenderer[] renderers = GameObject.FindObjectsOfType<SpriteRenderer>();
 			foreach (SpriteRenderer renderer in renderers)
 			{
-				DestroyImmediate(renderer.gameObject);
+				if (renderer != null)
+				{
+					DestroyImmediate(renderer.gameObject);
+				}
 			}
 
 			// Wait for objects to actually be destroyed at end of run loop
