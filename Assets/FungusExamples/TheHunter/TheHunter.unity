@@ -997,6 +997,7 @@ MonoBehaviour:
     width: 100
     height: 40
   sequenceName: New Sequence
+  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
 --- !u!4 &330427400
@@ -1081,7 +1082,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1831099567}
-  m_RootOrder: 6
+  m_RootOrder: 0
 --- !u!1 &335445526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,6 +1530,7 @@ MonoBehaviour:
     width: 100
     height: 20
   sequenceName: New Sequence
+  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
 --- !u!4 &518300788
@@ -1643,184 +1645,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1262863302}
   m_GameObject: {fileID: 524591087}
---- !u!1 &541676550
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 100000, guid: 4844148fce0014eedac572d6562c44d0, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 541676555}
-  - 114: {fileID: 541676554}
-  - 114: {fileID: 541676553}
-  - 114: {fileID: 541676552}
-  - 114: {fileID: 541676551}
-  - 114: {fileID: 541676556}
-  - 114: {fileID: 541676558}
-  - 114: {fileID: 541676557}
-  m_Layer: 0
-  m_Name: Check for fish
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &541676551
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400000, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 541676550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'I am not a thief!{wc}
-
-    But I am very hungry.{wc}
-
-    And you do have a lot of fish.{wc}
-
-    Couldn''t you spare just one? '
-  character: {fileID: 1712414755}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &541676552
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400002, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 541676550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'Ah ha! I thought I heard a thief skulking about!{wc}
-
-    Trying to steal my fish eh?{wc}
-
-    We''ll see about that!'
-  character: {fileID: 339869593}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &541676553
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400004, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 541676550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  spriteRenderer: {fileID: 335445528}
-  duration: 3
-  targetColor: {r: 1, g: 1, b: 1, a: 1}
-  waitUntilFinished: 0
---- !u!114 &541676554
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 11400006, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 541676550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 105.654449
-    y: -378.268433
-    width: 120
-    height: 30
-  sequenceName: Check for fish
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 541676553}
-  - {fileID: 541676556}
-  - {fileID: 541676552}
-  - {fileID: 541676551}
-  - {fileID: 541676558}
-  - {fileID: 541676557}
---- !u!4 &541676555
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 400000, guid: 4844148fce0014eedac572d6562c44d0, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 541676550}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -213.556229, y: 108.1604, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1831099567}
-  m_RootOrder: 2
---- !u!114 &541676556
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400008, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 541676550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: 3
-  targetView: {fileID: 842161036}
-  waitUntilFinished: 1
---- !u!114 &541676557
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400010, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 541676550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  targetSequence: {fileID: 1196017812}
---- !u!114 &541676558
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400012, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 541676550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: No, I could not!{wc} Now be off with you!
-  character: {fileID: 339869593}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
 --- !u!1 &577549095
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,6 +2557,7 @@ MonoBehaviour:
     width: 240
     height: 68
   sequenceName: New Sequence
+  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
 --- !u!114 &891057087
@@ -2753,6 +2578,7 @@ MonoBehaviour:
     width: 240
     height: 68
   sequenceName: New Sequence
+  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
 --- !u!114 &891057088
@@ -2779,7 +2605,7 @@ MonoBehaviour:
   selectedSequence: {fileID: 891057086}
   selectedCommands: []
   variables: []
-  runSlowInEditor: 1
+  description: 
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -2795,448 +2621,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &899740676
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 899740690}
-  - 114: {fileID: 899740677}
-  - 114: {fileID: 899740683}
-  - 114: {fileID: 899740682}
-  - 114: {fileID: 899740681}
-  - 114: {fileID: 899740680}
-  - 114: {fileID: 899740678}
-  - 114: {fileID: 899740685}
-  - 114: {fileID: 899740686}
-  - 114: {fileID: 899740688}
-  - 114: {fileID: 899740687}
-  - 114: {fileID: 899740689}
-  - 114: {fileID: 899740684}
-  - 114: {fileID: 899740691}
-  - 114: {fileID: 899740700}
-  - 114: {fileID: 899740699}
-  - 114: {fileID: 899740696}
-  - 114: {fileID: 899740694}
-  - 114: {fileID: 899740693}
-  - 114: {fileID: 899740702}
-  - 114: {fileID: 899740701}
-  - 114: {fileID: 899740703}
-  m_Layer: 0
-  m_Name: Bear
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &899740677
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 108.608582
-    y: -195.124023
-    width: 120
-    height: 30
-  sequenceName: Bear
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 899740689}
-  - {fileID: 899740688}
-  - {fileID: 899740687}
-  - {fileID: 899740686}
-  - {fileID: 899740685}
-  - {fileID: 899740684}
-  - {fileID: 899740683}
-  - {fileID: 899740682}
-  - {fileID: 899740681}
-  - {fileID: 899740700}
-  - {fileID: 899740699}
-  - {fileID: 899740696}
-  - {fileID: 899740693}
-  - {fileID: 899740694}
-  - {fileID: 899740678}
-  - {fileID: 899740691}
-  - {fileID: 899740702}
-  - {fileID: 899740680}
-  - {fileID: 899740701}
---- !u!114 &899740678
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'Wait... no! What are you doing!?{wc}
-
-    You can''t eat me! I''m the narrator!{wc}
-
-    Arggghh!'
-  character: {fileID: 0}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &899740680
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: BURP!
-  character: {fileID: 686889652}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &899740681
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: Noooooooo!
-  character: {fileID: 338947448}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &899740682
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: Ayyyyyyeeee!
-  character: {fileID: 339869593}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &899740683
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: Aaaaaagh!
-  character: {fileID: 1712414755}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &899740684
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  spriteRenderer: {fileID: 577549097}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 1}
-  waitUntilFinished: 1
---- !u!114 &899740685
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: 5
-  targetView: {fileID: 700450244}
-  waitUntilFinished: 0
---- !u!114 &899740686
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'Now remember to keep quiet.{wc}
-
-    The last thing you want in this part of the woods is to run into a...'
-  character: {fileID: 338947448}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &899740687
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: 5
-  targetView: {fileID: 1628360239}
-  waitUntilFinished: 1
---- !u!114 &899740688
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 437f9a4e3dbc647f9bdce95308418bff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: 2
-  targetView: {fileID: 2069641431}
-  waitUntilFinished: 1
-  fadeColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeTexture: {fileID: 0}
---- !u!114 &899740689
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  spriteRenderer: {fileID: 577549097}
-  visible: 0
---- !u!4 &899740690
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1831099567}
-  m_RootOrder: 7
---- !u!114 &899740691
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 616cd37e21c7645c58a89edf5abee56f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: 5
-  amount: {x: .200000003, y: .200000003}
-  waitUntilFinished: 0
---- !u!114 &899740693
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 616cd37e21c7645c58a89edf5abee56f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: .5
-  amount: {x: .200000003, y: .200000003}
-  waitUntilFinished: 0
---- !u!114 &899740694
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: RAAAAAARRRRRR!!!!!!
-  character: {fileID: 686889652}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &899740696
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'And so, in a tragic twist of fate, everyone was eaten by a badly drawn
-    bear.{wc}
-
-    THE END'
-  character: {fileID: 0}
-  sayDialog: {fileID: 1185554287}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &899740699
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: RAAAAAARRRRRR!
-  character: {fileID: 686889652}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &899740700
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 616cd37e21c7645c58a89edf5abee56f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: .5
-  amount: {x: .200000003, y: .200000003}
-  waitUntilFinished: 0
---- !u!114 &899740701
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: 2
-  targetAlpha: 1
-  waitUntilFinished: 1
-  fadeColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeTexture: {fileID: 0}
---- !u!114 &899740702
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: RAAAAAAAAAARRRRRRRRRR!!!!!!
-  character: {fileID: 686889652}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &899740703
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 899740676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: 1
-  targetAlpha: 1
-  waitUntilFinished: 1
-  fadeColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeTexture: {fileID: 0}
 --- !u!1 &1016272666
 GameObject:
   m_ObjectHideFlags: 0
@@ -3505,212 +2889,6 @@ MonoBehaviour:
   characterImage: {fileID: 0}
   characterTypingSound: {fileID: 0}
   continueImage: {fileID: 1650608145}
---- !u!1 &1196017810
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 100006, guid: 4844148fce0014eedac572d6562c44d0, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1196017811}
-  - 114: {fileID: 1196017812}
-  - 114: {fileID: 1196017816}
-  - 114: {fileID: 1196017815}
-  - 114: {fileID: 1196017814}
-  - 114: {fileID: 1196017813}
-  - 114: {fileID: 1196017817}
-  - 114: {fileID: 1196017818}
-  - 114: {fileID: 1196017819}
-  m_Layer: 0
-  m_Name: Rescued
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1196017811
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 400006, guid: 4844148fce0014eedac572d6562c44d0, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1196017810}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1831099567}
-  m_RootOrder: 4
---- !u!114 &1196017812
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 11400018, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1196017810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 105.621155
-    y: -319.003174
-    width: 120
-    height: 30
-  sequenceName: Rescued
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 1196017816}
-  - {fileID: 1196017815}
-  - {fileID: 1196017814}
-  - {fileID: 1196017813}
-  - {fileID: 1196017817}
-  - {fileID: 1196017818}
-  - {fileID: 1196017819}
---- !u!114 &1196017813
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400020, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1196017810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'Oh be quiet Skipper.{wc}
-
-    You look hungry! Do you want to something to eat?'
-  character: {fileID: 338947448}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1196017814
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400022, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1196017810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: What! This is an outrage! Mind your own busin...
-  character: {fileID: 339869593}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1196017815
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400024, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1196017810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'What''s all this racket?{wc}
-
-    Ah! I see Skipper has found a little girl to be mean to!{wc}
-
-    Pay him no attention.'
-  character: {fileID: 338947448}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1196017816
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400026, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1196017810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  spriteRenderer: {fileID: 307931412}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 1}
-  waitUntilFinished: 1
---- !u!114 &1196017817
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400028, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1196017810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: Oh yes please! Thank you!
-  character: {fileID: 1712414755}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1196017818
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400030, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1196017810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 1831099569}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
---- !u!114 &1196017819
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400032, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1196017810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  targetSequence: {fileID: 2111357054}
 --- !u!1001 &1208210135
 Prefab:
   m_ObjectHideFlags: 0
@@ -3876,6 +3054,7 @@ MonoBehaviour:
     width: 240
     height: 68
   sequenceName: New Sequence
+  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
 --- !u!114 &1247920061
@@ -3902,7 +3081,7 @@ MonoBehaviour:
   selectedSequence: {fileID: 1247920060}
   selectedCommands: []
   variables: []
-  runSlowInEditor: 1
+  description: 
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -4498,159 +3677,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1906080536}
   m_GameObject: {fileID: 1461018195}
---- !u!1 &1507034363
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 100008, guid: 4844148fce0014eedac572d6562c44d0, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1507034367}
-  - 114: {fileID: 1507034365}
-  - 114: {fileID: 1507034366}
-  - 114: {fileID: 1507034364}
-  - 114: {fileID: 1507034369}
-  - 114: {fileID: 1507034368}
-  - 114: {fileID: 1507034370}
-  - 114: {fileID: 1507034371}
-  m_Layer: 0
-  m_Name: Start
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1507034364
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400034, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507034363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  targetSequence: {fileID: 1759344996}
---- !u!114 &1507034365
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 11400036, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507034363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 106.537018
-    y: -503.022339
-    width: 120
-    height: 30
-  sequenceName: Start
-  eventHandler: {fileID: 1507034371}
-  commandList:
-  - {fileID: 1507034370}
-  - {fileID: 1507034368}
-  - {fileID: 1507034369}
-  - {fileID: 1507034366}
-  - {fileID: 1507034364}
---- !u!114 &1507034366
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400038, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507034363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 437f9a4e3dbc647f9bdce95308418bff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: 3
-  targetView: {fileID: 476715957}
-  waitUntilFinished: 1
-  fadeColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeTexture: {fileID: 0}
---- !u!4 &1507034367
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 400008, guid: 4844148fce0014eedac572d6562c44d0, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507034363}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -213.556229, y: 108.1604, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1831099567}
-  m_RootOrder: 1
---- !u!114 &1507034368
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400040, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507034363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  spriteRenderer: {fileID: 307931412}
-  visible: 0
---- !u!114 &1507034369
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400042, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507034363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  spriteRenderer: {fileID: 335445528}
-  visible: 0
---- !u!114 &1507034370
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507034363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  musicClip: {fileID: 8300000, guid: c9a4c3829980445ba963b126e0198da6, type: 3}
-  atTime: 0
---- !u!114 &1507034371
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507034363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentSequence: {fileID: 1507034365}
 --- !u!1 &1509015466
 GameObject:
   m_ObjectHideFlags: 0
@@ -5198,246 +4224,6 @@ MonoBehaviour:
   viewSize: 1.57525635
   primaryAspectRatio: {x: 4, y: 3}
   secondaryAspectRatio: {x: 2, y: 1}
---- !u!1 &1759344994
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 100010, guid: 4844148fce0014eedac572d6562c44d0, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1759344997}
-  - 114: {fileID: 1759344996}
-  - 114: {fileID: 1759344995}
-  - 114: {fileID: 1759345001}
-  - 114: {fileID: 1759345000}
-  - 114: {fileID: 1759344999}
-  - 114: {fileID: 1759345004}
-  - 114: {fileID: 1759345003}
-  - 114: {fileID: 1759345005}
-  - 114: {fileID: 1759345010}
-  m_Layer: 0
-  m_Name: Intro
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1759344995
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400044, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'I''m starving! I wonder if there''s any fish in that pool?{wc}
-
-    I better be careful though, I might not be the only person in these woods...'
-  character: {fileID: 1712414755}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1759344996
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 11400046, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 108
-    y: -437.890259
-    width: 120
-    height: 30
-  sequenceName: Intro
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 1759345003}
-  - {fileID: 1759345004}
-  - {fileID: 1759345005}
-  - {fileID: 1759344995}
-  - {fileID: 1759345001}
-  - {fileID: 1759345000}
-  - {fileID: 1759344999}
-  - {fileID: 1759345010}
---- !u!4 &1759344997
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 400010, guid: 4844148fce0014eedac572d6562c44d0, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -213.556229, y: 108.1604, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1831099567}
-  m_RootOrder: 0
---- !u!114 &1759344999
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400050, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  chooseText: What should I do?
-  character: {fileID: 1712414755}
-  chooseDialog: {fileID: 1016272668}
-  voiceOverClip: {fileID: 0}
-  timeoutDuration: 8
---- !u!114 &1759345000
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400052, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 0}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  optionText: Shout out loud
-  targetSequence: {fileID: 1801800854}
-  hideOnSelected: 0
---- !u!114 &1759345001
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400054, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 0}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  optionText: Check pool for fish
-  targetSequence: {fileID: 541676554}
-  hideOnSelected: 0
---- !u!114 &1759345003
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400058, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'For a day and a night, Ciara fled through the dark forest.{wc}
-
-    She didn''t dare to stop for fear of {color=red}The Hunter{/color}, but her grumbling
-    stomach told her she would need to find food soon.'
-  character: {fileID: 0}
-  sayDialog: {fileID: 1185554287}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1759345004
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400060, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: 3
-  targetView: {fileID: 1726080688}
-  waitUntilFinished: 1
---- !u!114 &1759345005
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400062, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: Emerging from the forest, she found herself at a beautiful mountain stream.
-  character: {fileID: 0}
-  sayDialog: {fileID: 1185554287}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1759345010
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400072, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1759344994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  targetSequence: {fileID: 541676554}
 --- !u!1 &1787345558
 GameObject:
   m_ObjectHideFlags: 0
@@ -5502,342 +4288,6 @@ RectTransform:
   m_AnchoredPosition: {x: 79, y: .0699939728}
   m_SizeDelta: {x: 216, y: 216}
   m_Pivot: {x: .5, y: 0}
---- !u!1 &1801800851
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 100012, guid: 4844148fce0014eedac572d6562c44d0, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1801800852}
-  - 114: {fileID: 1801800854}
-  - 114: {fileID: 1801800853}
-  - 114: {fileID: 1801800859}
-  - 114: {fileID: 1801800858}
-  - 114: {fileID: 1801800857}
-  - 114: {fileID: 1801800855}
-  - 114: {fileID: 1801800856}
-  - 114: {fileID: 1801800861}
-  - 114: {fileID: 1801800860}
-  - 114: {fileID: 1801800862}
-  - 114: {fileID: 1801800863}
-  - 114: {fileID: 1801800864}
-  - 114: {fileID: 1801800866}
-  - 114: {fileID: 1801800865}
-  m_Layer: 0
-  m_Name: Shout out
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1801800852
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 400012, guid: 4844148fce0014eedac572d6562c44d0, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -213.556229, y: 108.1604, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1831099567}
-  m_RootOrder: 3
---- !u!114 &1801800853
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400074, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'HEY! Is anybody out there?!{wc}
-
-    If there is, you better run!'
-  character: {fileID: 1712414755}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1801800854
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 11400076, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 257.201355
-    y: -354.533142
-    width: 120
-    height: 30
-  sequenceName: Shout out
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 1801800853}
-  - {fileID: 1801800859}
-  - {fileID: 1801800864}
-  - {fileID: 1801800858}
-  - {fileID: 1801800857}
-  - {fileID: 1801800863}
-  - {fileID: 1801800856}
-  - {fileID: 1801800855}
-  - {fileID: 1801800862}
-  - {fileID: 1801800861}
-  - {fileID: 1801800860}
-  - {fileID: 1801800866}
-  - {fileID: 1801800865}
---- !u!114 &1801800855
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400078, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'Ha ha! Don''t worry, you can join us for dinner.{wc}
-
-    Hey Skipper!{wc}
-
-    Come meet our new friend!'
-  character: {fileID: 338947448}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1801800856
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400080, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: Um...
-  character: {fileID: 1712414755}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1801800857
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400082, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: I'm not little and I'm not lost!
-  character: {fileID: 1712414755}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1801800858
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400084, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: "And what do we have here?{wc}\nThe woods are a dangerous place my little
-    friend.{wc} \nAre you lost?"
-  character: {fileID: 338947448}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1801800859
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400086, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  spriteRenderer: {fileID: 307931412}
-  duration: 3
-  targetColor: {r: 1, g: 1, b: 1, a: 1}
-  waitUntilFinished: 0
---- !u!114 &1801800860
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400088, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'Oh don''t mind him.{wc}
-
-    He''s a cuddly teddy bear under that grim exterior.{wc}
-
-    Sort of.'
-  character: {fileID: 338947448}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1801800861
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400090, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'Hrmph!{wc}
-
-    Oh good, another mouth to feed.'
-  character: {fileID: 339869593}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1801800862
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400092, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  spriteRenderer: {fileID: 335445528}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 1}
-  waitUntilFinished: 0
---- !u!114 &1801800863
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400094, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: I see! And so I guess you're not hungry either?
-  character: {fileID: 338947448}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &1801800864
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400096, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: 3
-  targetView: {fileID: 842161036}
-  waitUntilFinished: 1
---- !u!114 &1801800865
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400098, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  targetSequence: {fileID: 2111357054}
---- !u!114 &1801800866
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400100, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801800851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 1831099569}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
 --- !u!1001 &1827495415
 Prefab:
   m_ObjectHideFlags: 0
@@ -5902,6 +4352,80 @@ GameObject:
   - 114: {fileID: 1831099570}
   - 114: {fileID: 1831099569}
   - 114: {fileID: 1831099571}
+  - 114: {fileID: 1831099578}
+  - 114: {fileID: 1831099577}
+  - 114: {fileID: 1831099576}
+  - 114: {fileID: 1831099575}
+  - 114: {fileID: 1831099574}
+  - 114: {fileID: 1831099573}
+  - 114: {fileID: 1831099572}
+  - 114: {fileID: 1831099608}
+  - 114: {fileID: 1831099607}
+  - 114: {fileID: 1831099606}
+  - 114: {fileID: 1831099605}
+  - 114: {fileID: 1831099604}
+  - 114: {fileID: 1831099603}
+  - 114: {fileID: 1831099602}
+  - 114: {fileID: 1831099601}
+  - 114: {fileID: 1831099600}
+  - 114: {fileID: 1831099599}
+  - 114: {fileID: 1831099598}
+  - 114: {fileID: 1831099597}
+  - 114: {fileID: 1831099596}
+  - 114: {fileID: 1831099595}
+  - 114: {fileID: 1831099594}
+  - 114: {fileID: 1831099593}
+  - 114: {fileID: 1831099592}
+  - 114: {fileID: 1831099591}
+  - 114: {fileID: 1831099590}
+  - 114: {fileID: 1831099589}
+  - 114: {fileID: 1831099588}
+  - 114: {fileID: 1831099587}
+  - 114: {fileID: 1831099586}
+  - 114: {fileID: 1831099585}
+  - 114: {fileID: 1831099584}
+  - 114: {fileID: 1831099583}
+  - 114: {fileID: 1831099582}
+  - 114: {fileID: 1831099581}
+  - 114: {fileID: 1831099580}
+  - 114: {fileID: 1831099579}
+  - 114: {fileID: 1831099645}
+  - 114: {fileID: 1831099644}
+  - 114: {fileID: 1831099643}
+  - 114: {fileID: 1831099642}
+  - 114: {fileID: 1831099641}
+  - 114: {fileID: 1831099640}
+  - 114: {fileID: 1831099639}
+  - 114: {fileID: 1831099638}
+  - 114: {fileID: 1831099637}
+  - 114: {fileID: 1831099636}
+  - 114: {fileID: 1831099635}
+  - 114: {fileID: 1831099634}
+  - 114: {fileID: 1831099633}
+  - 114: {fileID: 1831099632}
+  - 114: {fileID: 1831099631}
+  - 114: {fileID: 1831099630}
+  - 114: {fileID: 1831099629}
+  - 114: {fileID: 1831099628}
+  - 114: {fileID: 1831099627}
+  - 114: {fileID: 1831099626}
+  - 114: {fileID: 1831099625}
+  - 114: {fileID: 1831099624}
+  - 114: {fileID: 1831099623}
+  - 114: {fileID: 1831099622}
+  - 114: {fileID: 1831099621}
+  - 114: {fileID: 1831099620}
+  - 114: {fileID: 1831099619}
+  - 114: {fileID: 1831099618}
+  - 114: {fileID: 1831099617}
+  - 114: {fileID: 1831099616}
+  - 114: {fileID: 1831099615}
+  - 114: {fileID: 1831099614}
+  - 114: {fileID: 1831099613}
+  - 114: {fileID: 1831099612}
+  - 114: {fileID: 1831099611}
+  - 114: {fileID: 1831099610}
+  - 114: {fileID: 1831099609}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: Untagged
@@ -5919,14 +4443,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1759344997}
-  - {fileID: 1507034367}
-  - {fileID: 541676555}
-  - {fileID: 1801800852}
-  - {fileID: 1196017811}
-  - {fileID: 2111357053}
   - {fileID: 332860038}
-  - {fileID: 899740690}
   m_Father: {fileID: 0}
   m_RootOrder: 6
 --- !u!114 &1831099568
@@ -5941,22 +4458,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 214.192505, y: 569.002808}
+  scrollPos: {x: 244.192505, y: 536.002808}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 0
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -810.017578
-    y: -904.006714
+    y: -909.022339
     width: 1939.01758
-    height: 1993.50671
-  selectedSequence: {fileID: 1507034365}
-  selectedCommands:
-  - {fileID: 1507034370}
+    height: 1998.52234
+  selectedSequence: {fileID: 1831099578}
+  selectedCommands: []
   variables:
   - {fileID: 1831099569}
-  runSlowInEditor: 1
+  description: 
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -6000,6 +4516,1449 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Var
+--- !u!114 &1831099572
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentSequence: {fileID: 1831099578}
+--- !u!114 &1831099573
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  targetSequence: {fileID: 1831099608}
+--- !u!114 &1831099574
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 437f9a4e3dbc647f9bdce95308418bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: 3
+  targetView: {fileID: 476715957}
+  waitUntilFinished: 1
+  fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeTexture: {fileID: 0}
+--- !u!114 &1831099575
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 335445528}
+  visible: 0
+--- !u!114 &1831099576
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 307931412}
+  visible: 0
+--- !u!114 &1831099577
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  musicClip: {fileID: 8300000, guid: c9a4c3829980445ba963b126e0198da6, type: 3}
+  atTime: 0
+--- !u!114 &1831099578
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 109.537018
+    y: -507.022339
+    width: 120
+    height: 30
+  sequenceName: Start
+  runSlowInEditor: 1
+  eventHandler: {fileID: 1831099572}
+  commandList:
+  - {fileID: 1831099577}
+  - {fileID: 1831099576}
+  - {fileID: 1831099575}
+  - {fileID: 1831099574}
+  - {fileID: 1831099573}
+--- !u!114 &1831099579
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  targetSequence: {fileID: 1831099637}
+--- !u!114 &1831099580
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  variable: {fileID: 1831099569}
+  setOperator: 0
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+--- !u!114 &1831099581
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'Oh don''t mind him.{wc}
+
+    He''s a cuddly teddy bear under that grim exterior.{wc}
+
+    Sort of.'
+  character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099582
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'Hrmph!{wc}
+
+    Oh good, another mouth to feed.'
+  character: {fileID: 339869593}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099583
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 335445528}
+  duration: 1
+  targetColor: {r: 1, g: 1, b: 1, a: 1}
+  waitUntilFinished: 0
+--- !u!114 &1831099584
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'Ha ha! Don''t worry, you can join us for dinner.{wc}
+
+    Hey Skipper!{wc}
+
+    Come meet our new friend!'
+  character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099585
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: Um...
+  character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099586
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: I see! And so I guess you're not hungry either?
+  character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099587
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: I'm not little and I'm not lost!
+  character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099588
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: "And what do we have here?{wc}\nThe woods are a dangerous place my little
+    friend.{wc} \nAre you lost?"
+  character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099589
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: 3
+  targetView: {fileID: 842161036}
+  waitUntilFinished: 1
+--- !u!114 &1831099590
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 307931412}
+  duration: 3
+  targetColor: {r: 1, g: 1, b: 1, a: 1}
+  waitUntilFinished: 0
+--- !u!114 &1831099591
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'HEY! Is anybody out there?!{wc}
+
+    If there is, you better run!'
+  character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099592
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 279.201355
+    y: -379.533142
+    width: 120
+    height: 30
+  sequenceName: Shout out
+  runSlowInEditor: 1
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1831099591}
+  - {fileID: 1831099590}
+  - {fileID: 1831099589}
+  - {fileID: 1831099588}
+  - {fileID: 1831099587}
+  - {fileID: 1831099586}
+  - {fileID: 1831099585}
+  - {fileID: 1831099584}
+  - {fileID: 1831099583}
+  - {fileID: 1831099582}
+  - {fileID: 1831099581}
+  - {fileID: 1831099580}
+  - {fileID: 1831099579}
+--- !u!114 &1831099593
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  targetSequence: {fileID: 1831099645}
+--- !u!114 &1831099594
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: No, I could not!{wc} Now be off with you!
+  character: {fileID: 339869593}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099595
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'I am not a thief!{wc}
+
+    But I am very hungry.{wc}
+
+    And you do have a lot of fish.{wc}
+
+    Couldn''t you spare just one? '
+  character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099596
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'Ah ha! I thought I heard a thief skulking about!{wc}
+
+    Trying to steal my fish eh?{wc}
+
+    We''ll see about that!'
+  character: {fileID: 339869593}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099597
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: 3
+  targetView: {fileID: 842161036}
+  waitUntilFinished: 1
+--- !u!114 &1831099598
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 335445528}
+  duration: 3
+  targetColor: {r: 1, g: 1, b: 1, a: 1}
+  waitUntilFinished: 0
+--- !u!114 &1831099599
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 108.654449
+    y: -379.268433
+    width: 120
+    height: 30
+  sequenceName: Check for fish
+  runSlowInEditor: 1
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1831099598}
+  - {fileID: 1831099597}
+  - {fileID: 1831099596}
+  - {fileID: 1831099595}
+  - {fileID: 1831099594}
+  - {fileID: 1831099593}
+--- !u!114 &1831099600
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  targetSequence: {fileID: 1831099599}
+--- !u!114 &1831099601
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  chooseText: What should I do?
+  character: {fileID: 1712414755}
+  chooseDialog: {fileID: 1016272668}
+  voiceOverClip: {fileID: 0}
+  timeoutDuration: 8
+--- !u!114 &1831099602
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  variable: {fileID: 0}
+  setOperator: 0
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: Shout out loud
+  targetSequence: {fileID: 1831099592}
+  hideOnSelected: 0
+--- !u!114 &1831099603
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  variable: {fileID: 0}
+  setOperator: 0
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: Check pool for fish
+  targetSequence: {fileID: 0}
+  hideOnSelected: 0
+--- !u!114 &1831099604
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'I''m starving! I wonder if there''s any fish in that pool?{wc}
+
+    I better be careful though, I might not be the only person in these woods...'
+  character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099605
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: Emerging from the forest, she found herself at a beautiful mountain stream.
+  character: {fileID: 0}
+  sayDialog: {fileID: 1185554287}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099606
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: 3
+  targetView: {fileID: 1726080688}
+  waitUntilFinished: 1
+--- !u!114 &1831099607
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'For a day and a night, Ciara fled through the dark forest.{wc}
+
+    She didn''t dare to stop for fear of {color=red}The Hunter{/color}, but her grumbling
+    stomach told her she would need to find food soon.'
+  character: {fileID: 0}
+  sayDialog: {fileID: 1185554287}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099608
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 111
+    y: -441.890259
+    width: 120
+    height: 30
+  sequenceName: Intro
+  runSlowInEditor: 1
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1831099607}
+  - {fileID: 1831099606}
+  - {fileID: 1831099605}
+  - {fileID: 1831099604}
+  - {fileID: 1831099603}
+  - {fileID: 1831099602}
+  - {fileID: 1831099601}
+  - {fileID: 1831099600}
+--- !u!114 &1831099609
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: 2
+  targetAlpha: 1
+  waitUntilFinished: 1
+  fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeTexture: {fileID: 0}
+--- !u!114 &1831099610
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: BURP!
+  character: {fileID: 686889652}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099611
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: RAAAAAAAAAARRRRRRRRRR!!!!!!
+  character: {fileID: 686889652}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099612
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616cd37e21c7645c58a89edf5abee56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: 5
+  amount: {x: .200000003, y: .200000003}
+  waitUntilFinished: 0
+--- !u!114 &1831099613
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'Wait... no! What are you doing!?{wc}
+
+    You can''t eat me! I''m the narrator!{wc}
+
+    Arggghh!'
+  character: {fileID: 0}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099614
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: RAAAAAARRRRRR!!!!!!
+  character: {fileID: 686889652}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099615
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616cd37e21c7645c58a89edf5abee56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: .5
+  amount: {x: .200000003, y: .200000003}
+  waitUntilFinished: 0
+--- !u!114 &1831099616
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'And so, in a tragic twist of fate, everyone was eaten by a badly drawn
+    bear.{wc}
+
+    THE END'
+  character: {fileID: 0}
+  sayDialog: {fileID: 1185554287}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099617
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: RAAAAAARRRRRR!
+  character: {fileID: 686889652}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099618
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616cd37e21c7645c58a89edf5abee56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: .5
+  amount: {x: .200000003, y: .200000003}
+  waitUntilFinished: 0
+--- !u!114 &1831099619
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: Noooooooo!
+  character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099620
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: Ayyyyyyeeee!
+  character: {fileID: 339869593}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099621
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: Aaaaaagh!
+  character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099622
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 577549097}
+  duration: 1
+  targetColor: {r: 1, g: 1, b: 1, a: 1}
+  waitUntilFinished: 1
+--- !u!114 &1831099623
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: 5
+  targetView: {fileID: 700450244}
+  waitUntilFinished: 0
+--- !u!114 &1831099624
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'Now remember to keep quiet.{wc}
+
+    The last thing you want in this part of the woods is to run into a...'
+  character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099625
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: 5
+  targetView: {fileID: 1628360239}
+  waitUntilFinished: 1
+--- !u!114 &1831099626
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 437f9a4e3dbc647f9bdce95308418bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: 2
+  targetView: {fileID: 2069641431}
+  waitUntilFinished: 1
+  fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeTexture: {fileID: 0}
+--- !u!114 &1831099627
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 577549097}
+  visible: 0
+--- !u!114 &1831099628
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 108.608582
+    y: -194.124023
+    width: 120
+    height: 30
+  sequenceName: Bear
+  runSlowInEditor: 1
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1831099627}
+  - {fileID: 1831099626}
+  - {fileID: 1831099625}
+  - {fileID: 1831099624}
+  - {fileID: 1831099623}
+  - {fileID: 1831099622}
+  - {fileID: 1831099621}
+  - {fileID: 1831099620}
+  - {fileID: 1831099619}
+  - {fileID: 1831099618}
+  - {fileID: 1831099617}
+  - {fileID: 1831099616}
+  - {fileID: 1831099615}
+  - {fileID: 1831099614}
+  - {fileID: 1831099613}
+  - {fileID: 1831099612}
+  - {fileID: 1831099611}
+  - {fileID: 1831099610}
+  - {fileID: 1831099609}
+--- !u!114 &1831099629
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  targetSequence: {fileID: 1831099628}
+--- !u!114 &1831099630
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 335445528}
+  duration: 1
+  targetColor: {r: 1, g: 1, b: 1, a: 0}
+  waitUntilFinished: 1
+--- !u!114 &1831099631
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+--- !u!114 &1831099632
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 1
+  duration: 1
+--- !u!114 &1831099633
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 1
+  storyText: 'Move it thief! And remember...{wc}
+
+    I''ll be watching you!'
+  character: {fileID: 339869593}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099634
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  variable: {fileID: 1831099569}
+  compareOperator: 0
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+--- !u!114 &1831099635
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 307931412}
+  duration: 1
+  targetColor: {r: 1, g: 1, b: 1, a: 0}
+  waitUntilFinished: 1
+--- !u!114 &1831099636
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'Ok, let''s go get you some food!{wc}
+
+    This way, follow me!'
+  character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099637
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 108.007446
+    y: -254.68811
+    width: 120
+    height: 30
+  sequenceName: Exit
+  runSlowInEditor: 1
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1831099636}
+  - {fileID: 1831099635}
+  - {fileID: 1831099634}
+  - {fileID: 1831099633}
+  - {fileID: 1831099632}
+  - {fileID: 1831099631}
+  - {fileID: 1831099630}
+  - {fileID: 1831099629}
+--- !u!114 &1831099638
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  targetSequence: {fileID: 1831099637}
+--- !u!114 &1831099639
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  variable: {fileID: 1831099569}
+  setOperator: 0
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+--- !u!114 &1831099640
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: Oh yes please! Thank you!
+  character: {fileID: 1712414755}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099641
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'Oh be quiet Skipper.{wc}
+
+    You look hungry! Do you want to something to eat?'
+  character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099642
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: What! This is an outrage! Mind your own busin...
+  character: {fileID: 339869593}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099643
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'What''s all this racket?{wc}
+
+    Ah! I see Skipper has found a little girl to be mean to!{wc}
+
+    Pay him no attention.'
+  character: {fileID: 338947448}
+  sayDialog: {fileID: 1070206234}
+  voiceOverClip: {fileID: 0}
+  showOnce: 0
+--- !u!114 &1831099644
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 307931412}
+  duration: 1
+  targetColor: {r: 1, g: 1, b: 1, a: 1}
+  waitUntilFinished: 1
+--- !u!114 &1831099645
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 108.621155
+    y: -317.003174
+    width: 120
+    height: 30
+  sequenceName: Rescued
+  runSlowInEditor: 1
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1831099644}
+  - {fileID: 1831099643}
+  - {fileID: 1831099642}
+  - {fileID: 1831099641}
+  - {fileID: 1831099640}
+  - {fileID: 1831099639}
+  - {fileID: 1831099638}
 --- !u!1 &1846387297
 GameObject:
   m_ObjectHideFlags: 1
@@ -6035,6 +5994,7 @@ MonoBehaviour:
     width: 240
     height: 68
   sequenceName: New Sequence
+  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
 --- !u!114 &1846387299
@@ -6061,7 +6021,7 @@ MonoBehaviour:
   selectedSequence: {fileID: 1846387298}
   selectedCommands: []
   variables: []
-  runSlowInEditor: 1
+  description: 
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -6382,220 +6342,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1262863302}
   m_GameObject: {fileID: 2094006158}
---- !u!1 &2111357052
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 100016, guid: 4844148fce0014eedac572d6562c44d0, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2111357053}
-  - 114: {fileID: 2111357054}
-  - 114: {fileID: 2111357058}
-  - 114: {fileID: 2111357056}
-  - 114: {fileID: 2111357060}
-  - 114: {fileID: 2111357059}
-  - 114: {fileID: 2111357057}
-  - 114: {fileID: 2111357055}
-  - 114: {fileID: 2111357061}
-  - 114: {fileID: 2111357062}
-  m_Layer: 0
-  m_Name: Exit
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2111357053
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 400016, guid: 4844148fce0014eedac572d6562c44d0, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2111357052}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1831099567}
-  m_RootOrder: 5
---- !u!114 &2111357054
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 11400106, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2111357052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 105.007446
-    y: -258.68811
-    width: 120
-    height: 30
-  sequenceName: Exit
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 2111357060}
-  - {fileID: 2111357059}
-  - {fileID: 2111357058}
-  - {fileID: 2111357057}
-  - {fileID: 2111357061}
-  - {fileID: 2111357056}
-  - {fileID: 2111357055}
-  - {fileID: 2111357062}
---- !u!114 &2111357055
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400108, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2111357052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  spriteRenderer: {fileID: 335445528}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 0}
-  waitUntilFinished: 1
---- !u!114 &2111357056
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400110, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2111357052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
---- !u!114 &2111357057
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400112, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2111357052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 1
-  storyText: 'Move it thief! And remember...{wc}
-
-    I''ll be watching you!'
-  character: {fileID: 339869593}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &2111357058
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400114, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2111357052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 1831099569}
-  compareOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
---- !u!114 &2111357059
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400116, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2111357052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  spriteRenderer: {fileID: 307931412}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 0}
-  waitUntilFinished: 1
---- !u!114 &2111357060
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400118, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2111357052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: 'Ok, let''s go get you some food!{wc}
-
-    This way, follow me!'
-  character: {fileID: 338947448}
-  sayDialog: {fileID: 1070206234}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &2111357061
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11400120, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2111357052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 1
-  duration: 1
---- !u!114 &2111357062
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2111357052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  targetSequence: {fileID: 899740677}
 --- !u!1 &2142927451
 GameObject:
   m_ObjectHideFlags: 1
