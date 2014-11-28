@@ -61,7 +61,7 @@ namespace Fungus
 
 		[TextArea(3, 5)]
 		[Tooltip("Description text displayed in the Fungus Script editor window")]
-		public string description;
+		public string description = "";
 
 		/**
 	 	 * Minimum time for each command to execute when runSlowInEditor is enabled.
