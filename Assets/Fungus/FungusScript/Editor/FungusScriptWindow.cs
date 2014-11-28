@@ -574,6 +574,7 @@ namespace Fungus
 				{
 					field.SetValue(newEventHandler, field.GetValue(eventHandler));
 				}
+				newEventHandler.parentSequence = newSequence;
 				newSequence.eventHandler = newEventHandler;
 			}
 		}
