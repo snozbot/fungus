@@ -225,9 +225,6 @@ namespace Fungus
 			{
 				Sequence sequence = sequences[i];
 
-				// Hack to support legacy design where sequences were child gameobjects (will be removed soon)
-				sequence.UpdateSequenceName();
-
 				float nodeWidth = nodeStyle.CalcSize(new GUIContent(sequence.sequenceName)).x + 10;
 				sequence.nodeRect.width = Mathf.Max(120, nodeWidth);
 				sequence.nodeRect.height = 30;

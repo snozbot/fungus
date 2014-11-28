@@ -152,10 +152,9 @@ namespace Fungus
 		 */
 		public virtual bool ExecuteSequence(Sequence sequence)
 		{
-			// Sequence must be a child of the parent Fungus Script
+			// Sequence must be a component of the Fungus Script game object
 			if (sequence == null ||
-			    sequence.transform.parent != transform && 
-			    sequence.transform != transform) 
+			    sequence.gameObject != gameObject) 
 			{
 				return false;
 			}

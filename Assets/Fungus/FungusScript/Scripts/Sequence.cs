@@ -159,16 +159,5 @@ namespace Fungus
 			}
 			return connectedSequences;
 		}
-
-		// Force set the sequence name for any legacy child sequences.
-		// This is a temporary hack to make it easier to upgrade from earlier versions and will be removed soon.
-		public virtual void UpdateSequenceName()
-		{
-			if (sequenceName == "New Sequence" &&
-			    GetComponent<FungusScript>() == null)
-			{
-				sequenceName = gameObject.name;
-			}
-		}
 	}
 }
