@@ -216,135 +216,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &1295658133
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1295658137}
-  - 114: {fileID: 1295658136}
-  - 114: {fileID: 1295658135}
-  - 114: {fileID: 1295658134}
-  - 114: {fileID: 1295658138}
-  - 114: {fileID: 1295658139}
-  - 114: {fileID: 1295658140}
-  m_Layer: 0
-  m_Name: Sound Sequence
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1295658134
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1295658133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3ff412ad89846a47a70a620a222cbf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  ParentTransform: {fileID: 0}
-  SettingsString: 0,.5,,.0004,.354,.414,.3,.731,,,,,,,,,,,,,,,,,,1,,,,,,
---- !u!114 &1295658135
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1295658133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3ff412ad89846a47a70a620a222cbf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  ParentTransform: {fileID: 0}
-  SettingsString: 1,.5,,.1749,.0094,.2571,.3,.6665,.2,-.2852,,,,,,,,,,,.2159,.1001,,.1209,-.1511,1,,,,,,
---- !u!114 &1295658136
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1295658133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: -91
-    y: -437
-    width: 120
-    height: 30
-  sequenceName: Sound Sequence
-  eventHandler: {fileID: 1295658140}
-  commandList:
-  - {fileID: 1295658134}
-  - {fileID: 1295658138}
-  - {fileID: 1295658135}
-  - {fileID: 1295658139}
---- !u!4 &1295658137
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1295658133}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1818246742}
-  m_RootOrder: 0
---- !u!114 &1295658138
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1295658133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3ff412ad89846a47a70a620a222cbf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  ParentTransform: {fileID: 0}
-  SettingsString: 1,.5,,.142,,.1233,.3,.4328,,,,,,,,,,,,,,,,,,1,,,.1,,,
---- !u!114 &1295658139
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1295658133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3ff412ad89846a47a70a620a222cbf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  ParentTransform: {fileID: 0}
-  SettingsString: 0,.5,,.0259,.3178,.2433,.3,.7694,,,,,,,,,.4286,.673,,,,,,,,1,,,,,,
---- !u!114 &1295658140
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1295658133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentSequence: {fileID: 1295658136}
 --- !u!1 &1457713101
 GameObject:
   m_ObjectHideFlags: 1
@@ -379,6 +250,7 @@ MonoBehaviour:
     width: 100
     height: 40
   sequenceName: New Sequence
+  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
 --- !u!4 &1457713103
@@ -402,6 +274,12 @@ GameObject:
   m_Component:
   - 4: {fileID: 1818246742}
   - 114: {fileID: 1818246743}
+  - 114: {fileID: 1818246749}
+  - 114: {fileID: 1818246748}
+  - 114: {fileID: 1818246747}
+  - 114: {fileID: 1818246746}
+  - 114: {fileID: 1818246745}
+  - 114: {fileID: 1818246744}
   m_Layer: 0
   m_Name: Fungus Script
   m_TagString: Untagged
@@ -418,8 +296,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1295658137}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!114 &1818246743
@@ -440,13 +317,110 @@ MonoBehaviour:
   scrollViewRect:
     serializedVersion: 2
     x: -547
-    y: -838
+    y: -889
     width: 1187
-    height: 1365
-  selectedSequence: {fileID: 1295658136}
+    height: 1416
+  selectedSequence: {fileID: 1818246749}
   selectedCommands: []
   variables: []
-  runSlowInEditor: 1
+  description: 
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
+--- !u!114 &1818246744
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818246741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentSequence: {fileID: 1818246749}
+--- !u!114 &1818246745
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818246741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ff412ad89846a47a70a620a222cbf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  ParentTransform: {fileID: 0}
+  SettingsString: 0,.5,,.0259,.3178,.2433,.3,.7694,,,,,,,,,.4286,.673,,,,,,,,1,,,,,,
+--- !u!114 &1818246746
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818246741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ff412ad89846a47a70a620a222cbf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  ParentTransform: {fileID: 0}
+  SettingsString: 1,.5,,.1749,.0094,.2571,.3,.6665,.2,-.2852,,,,,,,,,,,.2159,.1001,,.1209,-.1511,1,,,,,,
+--- !u!114 &1818246747
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818246741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ff412ad89846a47a70a620a222cbf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  ParentTransform: {fileID: 0}
+  SettingsString: 1,.5,,.142,,.1233,.3,.4328,,,,,,,,,,,,,,,,,,1,,,.1,,,
+--- !u!114 &1818246748
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818246741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ff412ad89846a47a70a620a222cbf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  ParentTransform: {fileID: 0}
+  SettingsString: 0,.5,,.0004,.354,.414,.3,.731,,,,,,,,,,,,,,,,,,1,,,,,,
+--- !u!114 &1818246749
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818246741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: -91
+    y: -489
+    width: 120
+    height: 30
+  sequenceName: Sound Sequence
+  runSlowInEditor: 1
+  eventHandler: {fileID: 1818246744}
+  commandList:
+  - {fileID: 1818246748}
+  - {fileID: 1818246747}
+  - {fileID: 1818246746}
+  - {fileID: 1818246745}
