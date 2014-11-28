@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: a3850401348404655bd0352054c28683
+guid: 088536216c5364d2ba277595d378c215
 TextureImporter:
   fileIDToRecycleName:
-    21300000: 500px-Smiley_green_alien_wow.svg
+    21300000: 1000px-Smiley_green_alien_nerdy.svg
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -22,8 +22,8 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -1
-  maxTextureSize: 2048
+  textureFormat: -3
+  maxTextureSize: 1024
   textureSettings:
     filterMode: -1
     aniso: 1
