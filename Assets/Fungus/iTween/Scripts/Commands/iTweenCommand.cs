@@ -14,7 +14,7 @@ namespace Fungus
 	public abstract class iTweenCommand : Command 
 	{
 		[Tooltip("Target game object to apply the Tween to")]
-		public TargetObject targetObject = new TargetObject();
+		public GameObject targetObject;
 
 		[Tooltip("An individual name useful for stopping iTweens by name")]
 		public string tweenName;
@@ -33,9 +33,7 @@ namespace Fungus
 
 		public override void OnEnter()
 		{
-			GameObject target = ResolveTarget(targetObject);
-
-			if (target == null)
+			if (targetObject == null)
 			{
 				Continue();
 				return;
@@ -66,12 +64,12 @@ namespace Fungus
 
 		public override string GetSummary()
 		{
-			if (targetObject.targetType == TargetObjectType.Other && targetObject.otherGameObject == null)
+			if (targetObject == null)
 			{
 				return "Error: No target object selected";
 			}
 
-			return targetObject.GetSummary() + " over " + duration + " seconds";
+			return targetObject.name + " over " + duration + " seconds";
 		}
 		
 		public override Color GetButtonColor()
