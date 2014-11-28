@@ -12,7 +12,7 @@ namespace Fungus
 		public Transform toTransform;
 
 		[Tooltip("Target scale that the GameObject will scale to, if no To Transform is set")]
-		public Vector3 toScale;
+		public Vector3 toScale = new Vector3(1f, 1f, 1f);
 
 		public override void DoTween()
 		{
