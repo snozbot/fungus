@@ -31,6 +31,9 @@ namespace Fungus
 
 			Sequence sequence = target as Sequence;
 
+			SerializedProperty descriptionProp = serializedObject.FindProperty("description");
+			EditorGUILayout.PropertyField(descriptionProp);
+
 			SerializedProperty runSlowInEditorProp = serializedObject.FindProperty("runSlowInEditor");
 			EditorGUILayout.PropertyField(runSlowInEditorProp);
 
@@ -54,16 +57,12 @@ namespace Fungus
 
 			ReorderableListControl.DrawControlFromState(adaptor, null, flags);
 
-			if (!Application.isPlaying)
+			if (Event.current.type == EventType.ContextClick)
 			{
-				if (Event.current.type == EventType.ContextClick)
-				{
-					ShowContextMenu();
-				}
+				ShowContextMenu();
 			}
 
-			if (!Application.isPlaying &&
-			    sequence == fungusScript.selectedSequence)
+			if (sequence == fungusScript.selectedSequence)
 			{
 				// Show add command button
 				{
@@ -110,7 +109,7 @@ namespace Fungus
 			string currentHandlerName = "<None>";
 			if (currentType != null)
 			{
-				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(currentType);
+				EventHandlerInfoAttribute info = EventHandler.GetEventHandlerInfo(currentType);
 				currentHandlerName = info.EventHandlerName;
 			}
 
@@ -128,7 +127,7 @@ namespace Fungus
 				// Add event handlers with no category first
 				foreach (System.Type type in eventHandlerTypes)
 				{
-					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);					
+					EventHandlerInfoAttribute info = EventHandler.GetEventHandlerInfo(type);					
 					if (info.Category.Length == 0)
 					{
 						SetEventHandlerOperation operation = new SetEventHandlerOperation();
@@ -142,7 +141,7 @@ namespace Fungus
 				// Add event handlers with a category afterwards
 				foreach (System.Type type in eventHandlerTypes)
 				{
-					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);					
+					EventHandlerInfoAttribute info = EventHandler.GetEventHandlerInfo(type);					
 					if (info.Category.Length > 0)
 					{			
 						SetEventHandlerOperation operation = new SetEventHandlerOperation();
@@ -376,6 +375,7 @@ namespace Fungus
 			
 			Command newCommand = Undo.AddComponent(sequence.gameObject, commandOperation.commandType) as Command;
 			sequence.GetFungusScript().AddSelectedCommand(newCommand);
+			newCommand.parentSequence = sequence;
 
 			// Let command know it has just been added to the sequence
 			newCommand.OnCommandAdded(sequence);
@@ -571,6 +571,8 @@ namespace Fungus
 			{
 				System.Type type = command.GetType();
 				Command newCommand = Undo.AddComponent(fungusScript.selectedSequence.gameObject, type) as Command;
+				newCommand.parentSequence = fungusScript.selectedSequence;
+
 				System.Reflection.FieldInfo[] fields = type.GetFields();
 				foreach (System.Reflection.FieldInfo field in fields)
 				{

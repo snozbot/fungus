@@ -78,10 +78,6 @@ namespace Fungus
 					VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0);
 
 					ReorderableListFlags flags = ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton;
-					if (Application.isPlaying)
-					{
-						flags |= ReorderableListFlags.HideRemoveButtons;
-					}
 
 					ReorderableListControl.DrawControlFromState(adaptor, null, flags);
 					listRect = GUILayoutUtility.GetLastRect();
@@ -117,7 +113,8 @@ namespace Fungus
 				plusRect.width = plusWidth;
 				plusRect.height = plusHeight;
 
-				if (!Application.isPlaying && GUI.Button(plusRect, FungusEditorResources.texAddButton))
+				if (!Application.isPlaying && 
+				    GUI.Button(plusRect, FungusEditorResources.texAddButton))
 				{
 					GenericMenu menu = new GenericMenu ();
 					

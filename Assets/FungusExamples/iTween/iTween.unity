@@ -230,6 +230,7 @@ MonoBehaviour:
     width: 120
     height: 30
   sequenceName: Do Tween
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 470391088}
   commandList:
@@ -418,11 +419,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 161
-    y: 214
-    width: 120
-    height: 30
+    x: 164
+    y: 193
+    width: 121
+    height: 40
   sequenceName: Test iTween
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 868139016}
   commandList:
@@ -469,9 +471,8 @@ MonoBehaviour:
     y: -350
     width: 1213
     height: 1284
-  selectedSequence: {fileID: 868138992}
-  selectedCommands:
-  - {fileID: 868139014}
+  selectedSequence: {fileID: 0}
+  selectedCommands: []
   variables: []
   description: 
   runSlowDuration: .25

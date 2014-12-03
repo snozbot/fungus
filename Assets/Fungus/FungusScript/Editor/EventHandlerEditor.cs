@@ -31,7 +31,7 @@ namespace Fungus
 			}
 
 			EventHandler t = target as EventHandler;
-			EventHandlerInfoAttribute info = GetEventHandlerInfo(t.GetType());
+			EventHandlerInfoAttribute info = EventHandler.GetEventHandlerInfo(t.GetType());
 			if (info != null &&
 			    info.HelpText.Length > 0)
 			{
@@ -39,21 +39,6 @@ namespace Fungus
 			}
 
 			serializedObject.ApplyModifiedProperties();
-		}
-
-		public static EventHandlerInfoAttribute GetEventHandlerInfo(System.Type eventHandlerType)
-		{
-			object[] attributes = eventHandlerType.GetCustomAttributes(typeof(EventHandlerInfoAttribute), false);
-			foreach (object obj in attributes)
-			{
-				EventHandlerInfoAttribute eventHandlerInfoAttr = obj as EventHandlerInfoAttribute;
-				if (eventHandlerInfoAttr != null)
-				{
-					return eventHandlerInfoAttr;
-				}
-			}
-			
-			return null;
 		}
 	}
 

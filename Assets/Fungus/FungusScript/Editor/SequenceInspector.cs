@@ -36,13 +36,7 @@ namespace Fungus
 			DestroyImmediate(sequenceEditor);
 
 			Command inspectCommand = null;
-
-			if (Application.isPlaying &&
-			    sequence.activeCommand != null)
-			{
-				inspectCommand = sequence.activeCommand;
-			}
-			else if (fungusScript.selectedCommands.Count == 1)
+			if (fungusScript.selectedCommands.Count == 1)
 			{
 				inspectCommand = fungusScript.selectedCommands[0];
 			}

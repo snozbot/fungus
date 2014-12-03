@@ -194,9 +194,6 @@ namespace Fungus
 				}
 			}
 
-			bool highlight = (Application.isPlaying && command.IsExecuting()) ||
-							 (!Application.isPlaying && commandIsSelected);
-
 			string commandName = commandInfoAttr.CommandName;
 
 			GUIStyle commandLabelStyle = new GUIStyle(GUI.skin.box);
@@ -232,8 +229,7 @@ namespace Fungus
 			commandLabelRect.height += 5;
 
 			// Select command via left click
-			if (!Application.isPlaying &&
-			    Event.current.type == EventType.MouseDown &&
+			if (Event.current.type == EventType.MouseDown &&
 			    Event.current.button == 0 &&
 			    position.Contains(Event.current.mousePosition))
 			{
@@ -261,7 +257,7 @@ namespace Fungus
 				commandLabelColor = command.GetButtonColor();
 			}
 
-			if (highlight)
+			if (commandIsSelected)
 			{
 				commandLabelColor = Color.green;
 			}
@@ -285,6 +281,15 @@ namespace Fungus
 				GUI.Label(commandLabelRect, commandName, commandLabelStyle);
 			}
 
+			if (command.IsExecuting())
+			{
+				Rect iconRect = new Rect(commandLabelRect);
+				iconRect.x += iconRect.width - commandLabelRect.width - 20;
+				iconRect.width = 20;
+				iconRect.height = 20;
+				GUI.Label(iconRect, FungusEditorResources.texPlaySmall, new GUIStyle());
+			}
+
 			Rect summaryRect = new Rect(commandLabelRect);
 			if (!isComment)
 			{
@@ -292,6 +297,14 @@ namespace Fungus
 				summaryRect.width -= commandNameWidth;
 				summaryRect.width -= 5;
 			}
+
+			GUIStyle summaryStyle = new GUIStyle();
+			summaryStyle.fontSize = 10; 
+			summaryStyle.padding.top += 5;
+			summaryStyle.richText = true;
+			summaryStyle.wordWrap = false;
+			summaryStyle.clipping = TextClipping.Clip;
+			GUI.Label(summaryRect, summary, summaryStyle);
 
 			if (error)
 			{
@@ -303,14 +316,6 @@ namespace Fungus
 				GUI.Label(errorRect, editorSkin.GetStyle("CN EntryError").normal.background);
 				summaryRect.width -= 20;
 			}
-
-			GUIStyle summaryStyle = new GUIStyle();
-			summaryStyle.fontSize = 10; 
-			summaryStyle.padding.top += 5;
-			summaryStyle.richText = true;
-			summaryStyle.wordWrap = false;
-			summaryStyle.clipping = TextClipping.Clip;
-			GUI.Label(summaryRect, summary, summaryStyle);
 
 			GUI.backgroundColor = Color.white;
 		}

@@ -1233,7 +1233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: -440.05423, y: 55.7798004}
+  scrollPos: {x: -373.054199, y: 73.7798004}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   zoom: 1
@@ -1243,7 +1243,7 @@ MonoBehaviour:
     y: -610.734985
     width: 3261.20312
     height: 2227.35059
-  selectedSequence: {fileID: 771014104}
+  selectedSequence: {fileID: 0}
   selectedCommands: []
   variables:
   - {fileID: 771014102}
@@ -1323,9 +1323,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 560.814453
     y: 17.053772
-    width: 120
-    height: 30
+    width: 121
+    height: 40
   sequenceName: Start
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 771014227}
   commandList:
@@ -1368,9 +1369,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 733.351135
     y: 17.4427872
-    width: 120
-    height: 30
-  sequenceName: StandingThere
+    width: 128
+    height: 40
+  sequenceName: Standing there
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -1669,11 +1671,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 917.223145
-    y: 16.7090759
-    width: 120
-    height: 30
-  sequenceName: InspectDeskFirst
+    x: 916.223145
+    y: 15.7090759
+    width: 142
+    height: 40
+  sequenceName: Inspect desk first
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -1737,8 +1740,9 @@ MonoBehaviour:
     x: 1108.35596
     y: 16.5333862
     width: 120
-    height: 30
-  sequenceName: TryVoice
+    height: 40
+  sequenceName: Try voice
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -2184,11 +2188,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1108.09448
-    y: 100.214813
+    x: 1106.09448
+    y: 101.214813
     width: 120
-    height: 30
-  sequenceName: LightsOnVoice
+    height: 40
+  sequenceName: Lights on
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -2247,8 +2252,9 @@ MonoBehaviour:
     x: 919.288086
     y: 101.344482
     width: 120
-    height: 30
-  sequenceName: DoorTalk
+    height: 40
+  sequenceName: Door talk
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -2320,11 +2326,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 734.837646
+    x: 730.837646
     y: 101.663513
-    width: 120
-    height: 30
-  sequenceName: How
+    width: 135
+    height: 40
+  sequenceName: How you doing?
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -2379,11 +2386,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 736.76062
+    x: 737.76062
     y: 184.838104
     width: 120
-    height: 30
-  sequenceName: OpenA147
+    height: 40
+  sequenceName: Open A147
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -4348,8 +4356,9 @@ MonoBehaviour:
     x: 561.306458
     y: 101.366745
     width: 120
-    height: 30
+    height: 40
   sequenceName: FREEDOM!
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:

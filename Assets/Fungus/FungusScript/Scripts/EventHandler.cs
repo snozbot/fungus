@@ -26,7 +26,7 @@ namespace Fungus
 	 * To create a custom Event Handler, simply subclass EventHandler and call the ExecuteSequence() method
 	 * when the event occurs. 
 	 * Add an EventHandlerInfo attibute and your new EventHandler class will automatically appear in the
-	 * 'Start Event' dropdown menu when a sequence is selected.
+	 * 'Execute On Event' dropdown menu when a sequence is selected.
 	 */
 	[RequireComponent(typeof(Sequence))]
 	[RequireComponent(typeof(FungusScript))]
@@ -34,6 +34,24 @@ namespace Fungus
 	{	
 		[HideInInspector]
 		public Sequence parentSequence;
+
+		/**
+		 * Returns the class attribute info for an event handler class.
+		 */
+		public static EventHandlerInfoAttribute GetEventHandlerInfo(System.Type eventHandlerType)
+		{
+			object[] attributes = eventHandlerType.GetCustomAttributes(typeof(EventHandlerInfoAttribute), false);
+			foreach (object obj in attributes)
+			{
+				EventHandlerInfoAttribute eventHandlerInfoAttr = obj as EventHandlerInfoAttribute;
+				if (eventHandlerInfoAttr != null)
+				{
+					return eventHandlerInfoAttr;
+				}
+			}
+			
+			return null;
+		}
 
 		/**
 		 * The Event Handler should call this method when the event is detected.
@@ -56,7 +74,13 @@ namespace Fungus
 		 */
 		public virtual string GetSummary()
 		{
-			return "";
+			EventHandlerInfoAttribute info = GetEventHandlerInfo(this.GetType());
+			if (info == null)
+			{
+				return "";
+			}
+
+			return info.EventHandlerName;
 		}
 	}
 }

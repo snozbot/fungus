@@ -734,10 +734,11 @@ MonoBehaviour:
     x: -591
     y: -391
     width: 1887
-    height: 1008
-  selectedSequence: {fileID: 0}
+    height: 1017
+  selectedSequence: {fileID: 2019116669}
   selectedCommands: []
   variables: []
+  description: 
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -754,11 +755,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -31
-    y: 99
-    width: 120
-    height: 30
+    x: -32
+    y: 100
+    width: 137
+    height: 40
   sequenceName: Drag Completed
+  description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116681}
   commandList:
@@ -795,9 +797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  targetObject:
-    targetType: 1
-    otherGameObject: {fileID: 606394391}
+  targetObject: {fileID: 606394391}
   tweenName: 
   duration: 1
   easeType: 2
@@ -872,9 +872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  targetObject:
-    targetType: 1
-    otherGameObject: {fileID: 1081858233}
+  targetObject: {fileID: 1081858233}
   tweenName: 
   duration: .100000001
   easeType: 2
@@ -894,9 +892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  targetObject:
-    targetType: 1
-    otherGameObject: {fileID: 1081858233}
+  targetObject: {fileID: 1081858233}
   tweenName: 
   duration: .100000001
   easeType: 2
@@ -945,10 +941,11 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -35
-    y: 182
+    y: 186
     width: 120
-    height: 30
+    height: 40
   sequenceName: Drag Exited
+  description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116684}
   commandList:
@@ -997,10 +994,11 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -33
-    y: 141
+    y: 142
     width: 120
-    height: 30
+    height: 40
   sequenceName: Drag Entered
+  description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116686}
   commandList:
@@ -1033,11 +1031,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -32
-    y: 57
-    width: 120
-    height: 30
+    x: -33
+    y: 58
+    width: 131
+    height: 40
   sequenceName: Drag Cancelled
+  description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116673}
   commandList:
@@ -1071,10 +1070,11 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -33
-    y: 14
+    y: 11
     width: 120
-    height: 30
+    height: 40
   sequenceName: Drag Start
+  description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116678}
   commandList:
@@ -1093,9 +1093,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  targetObject:
-    targetType: 1
-    otherGameObject: {fileID: 1637100245}
+  targetObject: {fileID: 1637100245}
   tweenName: 
   duration: 1
   easeType: 2
@@ -1129,9 +1127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  targetObject:
-    targetType: 1
-    otherGameObject: {fileID: 606394391}
+  targetObject: {fileID: 606394391}
   tweenName: 
   duration: 1
   easeType: 2
@@ -1152,9 +1148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  targetObject:
-    targetType: 1
-    otherGameObject: {fileID: 606394391}
+  targetObject: {fileID: 606394391}
   tweenName: 
   duration: 1
   easeType: 2
@@ -1188,11 +1182,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 184
+    x: 185
     y: 14
-    width: 120
-    height: 30
+    width: 137
+    height: 40
   sequenceName: Object Clicked 1
+  description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116692}
   commandList:
@@ -1212,9 +1207,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 185
     y: 56
-    width: 120
-    height: 30
+    width: 137
+    height: 40
   sequenceName: Object Clicked 2
+  description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116696}
   commandList:
@@ -1232,9 +1228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  targetObject:
-    targetType: 1
-    otherGameObject: {fileID: 591590528}
+  targetObject: {fileID: 591590528}
   tweenName: 
   duration: 1
   easeType: 2

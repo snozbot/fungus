@@ -221,33 +221,18 @@ GameObject:
   m_Component:
   - 4: {fileID: 16019624}
   - 114: {fileID: 16019623}
-  - 114: {fileID: 16019625}
   - 114: {fileID: 16019626}
   - 114: {fileID: 16019650}
   - 114: {fileID: 16019649}
-  - 114: {fileID: 16019648}
   - 114: {fileID: 16019647}
   - 114: {fileID: 16019646}
   - 114: {fileID: 16019645}
-  - 114: {fileID: 16019644}
   - 114: {fileID: 16019643}
   - 114: {fileID: 16019642}
-  - 114: {fileID: 16019635}
-  - 114: {fileID: 16019631}
-  - 114: {fileID: 16019630}
-  - 114: {fileID: 16019629}
   - 114: {fileID: 16019628}
-  - 114: {fileID: 16019627}
-  - 114: {fileID: 16019636}
-  - 114: {fileID: 16019641}
-  - 114: {fileID: 16019640}
-  - 114: {fileID: 16019639}
-  - 114: {fileID: 16019638}
-  - 114: {fileID: 16019637}
-  - 114: {fileID: 16019632}
-  - 114: {fileID: 16019634}
-  - 114: {fileID: 16019633}
   - 114: {fileID: 16019651}
+  - 114: {fileID: 16019627}
+  - 114: {fileID: 16019625}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: Untagged
@@ -276,11 +261,9 @@ MonoBehaviour:
     y: -642
     width: 2140
     height: 1450
-  selectedSequence: {fileID: 16019632}
-  selectedCommands:
-  - {fileID: 16019633}
-  variables:
-  - {fileID: 16019625}
+  selectedSequence: {fileID: 16019626}
+  selectedCommands: []
+  variables: []
   description: 
   runSlowDuration: .25
   colorCommands: 1
@@ -305,11 +288,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 16019622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d02d9822eec54c98afe95bb497211b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scope: 0
-  key: Jumping
+  errorMessage: 
+  indentLevel: 0
+  targetSequence: {fileID: 16019626}
 --- !u!114 &16019626
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -323,29 +307,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -212
-    y: -241
-    width: 120
-    height: 30
+    x: -251
+    y: -190
+    width: 121
+    height: 40
   sequenceName: Start
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 16019651}
   commandList:
   - {fileID: 16019650}
   - {fileID: 16019649}
-  - {fileID: 16019648}
   - {fileID: 16019647}
   - {fileID: 16019646}
   - {fileID: 16019645}
-  - {fileID: 16019644}
   - {fileID: 16019643}
   - {fileID: 16019642}
-  - {fileID: 16019635}
-  - {fileID: 16019631}
-  - {fileID: 16019630}
-  - {fileID: 16019629}
   - {fileID: 16019628}
   - {fileID: 16019627}
+  - {fileID: 16019625}
 --- !u!114 &16019627
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -359,8 +339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  storyText: You took too long!
-  character: {fileID: 0}
+  storyText: That's me done jumping for now
+  character: {fileID: 1844806518}
   sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
@@ -382,283 +362,6 @@ MonoBehaviour:
   value:
     booleanRef: {fileID: 0}
     booleanVal: 0
---- !u!114 &16019629
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 16019625}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
---- !u!114 &16019630
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  chooseText: 
-  character: {fileID: 1844806518}
-  chooseDialog: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  timeoutDuration: 5
---- !u!114 &16019631
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 0}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  optionText: Go back to the start
-  targetSequence: {fileID: 16019632}
-  hideOnSelected: 0
---- !u!114 &16019632
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: -60
-    y: -172
-    width: 120
-    height: 30
-  sequenceName: BackToTheStart
-  runSlowInEditor: 1
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 16019634}
-  - {fileID: 16019633}
---- !u!114 &16019633
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  targetSequence: {fileID: 16019626}
---- !u!114 &16019634
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: OK, back to the start!
-  character: {fileID: 1844806518}
-  sayDialog: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
---- !u!114 &16019635
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 0}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  optionText: Stop jumping
-  targetSequence: {fileID: 16019636}
-  hideOnSelected: 0
---- !u!114 &16019636
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: -316
-    y: -172
-    width: 120
-    height: 30
-  sequenceName: StopJumping
-  runSlowInEditor: 1
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 16019641}
-  - {fileID: 16019640}
-  - {fileID: 16019639}
-  - {fileID: 16019638}
-  - {fileID: 16019637}
---- !u!114 &16019637
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  targetSequence: {fileID: 16019632}
---- !u!114 &16019638
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  duration: 2
---- !u!114 &16019639
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee63e642958494f1ebed8116ae4b1103, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  animator: {fileID: 2120294220}
-  parameterName: AmIJumping
-  value:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
---- !u!114 &16019640
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 16019625}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
---- !u!114 &16019641
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  storyText: But I don't wanna stop!
-  character: {fileID: 1844806518}
-  sayDialog: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showOnce: 0
 --- !u!114 &16019642
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -695,33 +398,6 @@ MonoBehaviour:
   value:
     booleanRef: {fileID: 0}
     booleanVal: 1
---- !u!114 &16019644
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 16019625}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
 --- !u!114 &16019645
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -774,33 +450,6 @@ MonoBehaviour:
   sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showOnce: 0
---- !u!114 &16019648
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 16019622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 16019625}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
 --- !u!114 &16019649
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -836,7 +485,7 @@ MonoBehaviour:
   fadeTexture: {fileID: 0}
 --- !u!114 &16019651
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 16019622}
@@ -3777,7 +3426,7 @@ GameObject:
   - 212: {fileID: 2120294218}
   - 95: {fileID: 2120294220}
   m_Layer: 0
-  m_Name: 1000px-Smiley_green_alien_nerdy.svg
+  m_Name: GreenAlien
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

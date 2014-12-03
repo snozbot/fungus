@@ -22,7 +22,11 @@ namespace Fungus
 		protected const float minZoomValue = 0.25f;
 		protected const float maxZoomValue = 1f;
 
+		protected GUIStyle nodeStyle = new GUIStyle();
+
 		protected static SequenceInspector sequenceInspector;
+
+		public const float playIconFadeTime = 0.5f;
 
 		[MenuItem("Window/Fungus Script")]
 	    static void Init()
@@ -30,7 +34,23 @@ namespace Fungus
 	        GetWindow(typeof(FungusScriptWindow), false, "Fungus Script");
 	    }
 
-		protected void OnInspectorUpdate()
+		protected virtual void OnEnable()
+		{
+			// All sequence nodes use the same GUIStyle, but with a different background
+			nodeStyle.border.left = 20;
+			nodeStyle.border.right = 20;
+			nodeStyle.border.top = 5;
+			nodeStyle.border.bottom = 5;
+			nodeStyle.padding.left = 20;
+			nodeStyle.padding.right = 20;
+			nodeStyle.padding.top = 5;
+			nodeStyle.padding.bottom = 5;
+			nodeStyle.contentOffset = Vector2.zero;
+			nodeStyle.alignment = TextAnchor.MiddleCenter;
+			nodeStyle.wordWrap = true;
+		}
+
+		protected virtual void OnInspectorUpdate()
 		{
 			// Ensure the Sequence Inspector is always showing the currently selected sequence
 			FungusScript fungusScript = GetFungusScript();
@@ -218,16 +238,20 @@ namespace Fungus
 
 			BeginWindows();
 
-			GUIStyle nodeStyle = new GUIStyle("flow node 3");
-
 			windowSequenceMap.Clear();
 			for (int i = 0; i < sequences.Length; ++i)
 			{
 				Sequence sequence = sequences[i];
 
-				float nodeWidth = nodeStyle.CalcSize(new GUIContent(sequence.sequenceName)).x + 10;
-				sequence.nodeRect.width = Mathf.Max(120, nodeWidth);
-				sequence.nodeRect.height = 30;
+				float nodeWidthA = nodeStyle.CalcSize(new GUIContent(sequence.sequenceName)).x + 10;
+				float nodeWidthB = 0f;
+				if (sequence.eventHandler != null)
+				{
+					nodeWidthB = nodeStyle.CalcSize(new GUIContent(sequence.eventHandler.GetSummary())).x + 10;
+				}
+
+				sequence.nodeRect.width = Mathf.Max(Mathf.Max(nodeWidthA, nodeWidthB), 120);
+				sequence.nodeRect.height = 40;
 
 				if (Event.current.button == 0)
 				{
@@ -265,6 +289,43 @@ namespace Fungus
 			}
 
 			EndWindows();
+
+			// Draw play icons beside all executing sequences
+			if (Application.isPlaying)
+			{
+				foreach (Sequence s in sequences)
+				{
+					if (s.IsExecuting())
+					{
+						s.executingIconTimer = playIconFadeTime;
+					}
+
+					if (s.executingIconTimer > 0f)
+					{
+						s.executingIconTimer = Mathf.Max(s.executingIconTimer - Time.deltaTime, 0f);
+
+						Rect rect = new Rect(s.nodeRect);
+
+						rect.x += fungusScript.scrollPos.x - 37;
+						rect.y += fungusScript.scrollPos.y + 3;
+						rect.width = 34;
+						rect.height = 34;
+
+						if (!s.IsExecuting() && s.executingIconTimer < playIconFadeTime)
+						{
+							float alpha = s.executingIconTimer / playIconFadeTime;
+							GUI.color = new Color(1f, 1f, 1f, alpha); 
+						}
+
+						if (GUI.Button(rect, FungusEditorResources.texPlayBig as Texture, new GUIStyle()))
+						{
+							SelectSequence(fungusScript, s);
+						}
+
+						GUI.color = Color.white;
+					}
+				}
+			}
 
 			// Right click to drag view
 			if (Event.current.button == 1 && Event.current.type == EventType.MouseDrag)
@@ -321,6 +382,18 @@ namespace Fungus
 			}
 		}
 
+		protected virtual void SelectSequence(FungusScript fungusScript, Sequence sequence)
+		{
+			// Select the sequence and also select currently executing command
+			ShowSequenceInspector(fungusScript);
+			fungusScript.selectedSequence = sequence;
+			fungusScript.ClearSelectedCommands();
+			if (sequence.activeCommand != null)
+			{
+				fungusScript.AddSelectedCommand(sequence.activeCommand);
+			}
+		}
+		
 		public static Sequence CreateSequence(FungusScript fungusScript, Vector2 position)
 		{
 			Sequence newSequence = fungusScript.CreateSequence(position);
@@ -364,51 +437,59 @@ namespace Fungus
 				{
 					Undo.RecordObject(fungusScript, "Select");
 
-					ShowSequenceInspector(fungusScript);
-					fungusScript.selectedSequence = sequence;
+					SelectSequence(fungusScript, sequence);
 
 					GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 				}
 			}
 
-			GUIStyle nodeStyle = null;
-			if (fungusScript.selectedSequence == sequence)
+			bool selected = (fungusScript.selectedSequence == sequence);
+
+			GUIStyle nodeStyleCopy = new GUIStyle(nodeStyle);
+
+			if (sequence.eventHandler != null)
 			{
-				// Green node
-				nodeStyle = new GUIStyle("flow node 3");
-			}
-			else if (sequence.IsExecuting())
-			{
-				// Blue node
-				nodeStyle = new GUIStyle("flow node 2");
+				nodeStyleCopy.normal.background = selected ? FungusEditorResources.texEventNodeOn : FungusEditorResources.texEventNodeOff;
 			}
 			else
 			{
-				// Yellow node
-				nodeStyle = new GUIStyle("flow node 4");
+				// Count the number of unique connections (excluding self references)
+				List<Sequence> uniqueList = new List<Sequence>();
+				List<Sequence> connectedSequences = sequence.GetConnectedSequences();
+				foreach (Sequence connectedSequence in connectedSequences)
+				{
+					if (connectedSequence == sequence ||
+					    uniqueList.Contains(connectedSequence))
+					{
+						continue;
+					}
+					uniqueList.Add(connectedSequence);
+				}
+
+				if (uniqueList.Count > 1)
+				{
+					nodeStyleCopy.normal.background = selected ? FungusEditorResources.texChoiceNodeOn : FungusEditorResources.texChoiceNodeOff;
+				}
+				else
+				{
+					nodeStyleCopy.normal.background = selected ? FungusEditorResources.texProcessNodeOn : FungusEditorResources.texProcessNodeOff;
+				}
 			}
 
-			nodeStyle.wordWrap = true;
+			// Show event handler name, or a custom summary if one is provided
 			string nodeName = "";
 			if (sequence.eventHandler != null)
 			{
-				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(sequence.eventHandler.GetType());
-				if (info != null)
-				{
-					string handlerSummary = sequence.eventHandler.GetSummary();
-					if (handlerSummary == "")
-					{
-						handlerSummary = info.EventHandlerName;
-					}
-
-					nodeName = "(" + handlerSummary + ")\n";
-					nodeStyle.padding.top = 23; // Adjust label to fit on two lines
-
-				}
+				string handlerSummary = sequence.eventHandler.GetSummary();
+				nodeName = "(" + handlerSummary + ")\n";
 			}
 			nodeName += sequence.sequenceName;
 
-			GUILayout.Box(nodeName, nodeStyle, GUILayout.Width(sequence.nodeRect.width), GUILayout.Height(sequence.nodeRect.height));
+			GUILayout.Box(nodeName, nodeStyleCopy, GUILayout.Width(sequence.nodeRect.width), GUILayout.Height(sequence.nodeRect.height));
+			if (sequence.description.Length > 0)
+			{
+				GUILayout.Label(sequence.description, EditorStyles.whiteLabel);
+			}
 
 			if (Event.current.type == EventType.ContextClick)
 			{
@@ -463,6 +544,7 @@ namespace Fungus
 				foreach (Sequence sequenceB in connectedSequences)
 				{
 					if (sequenceB == null ||
+					    sequence == sequenceB ||
 					    sequenceB.GetFungusScript() != fungusScript)
 					{
 						continue;
@@ -484,17 +566,17 @@ namespace Fungus
 		protected virtual void DrawRectConnection(Rect rectA, Rect rectB, bool highlight)
 		{
 			Vector2[] pointsA = new Vector2[] {
-				new Vector2(rectA.xMin, rectA.center.y),
-				new Vector2(rectA.xMin + rectA.width / 2, rectA.yMin),
-				new Vector2(rectA.xMin + rectA.width / 2, rectA.yMax),
-				new Vector2(rectA.xMax, rectA.center.y) 
+				new Vector2(rectA.xMin + 5, rectA.center.y),
+				new Vector2(rectA.xMin + rectA.width / 2, rectA.yMin + 2),
+				new Vector2(rectA.xMin + rectA.width / 2, rectA.yMax - 2),
+				new Vector2(rectA.xMax - 5, rectA.center.y) 
 			};
 
 			Vector2[] pointsB = new Vector2[] {
-				new Vector2(rectB.xMin, rectB.center.y),
-				new Vector2(rectB.xMin + rectB.width / 2, rectB.yMin),
-				new Vector2(rectB.xMin + rectB.width / 2, rectB.yMax),
-				new Vector2(rectB.xMax, rectB.center.y)
+				new Vector2(rectB.xMin + 5, rectB.center.y),
+				new Vector2(rectB.xMin + rectB.width / 2, rectB.yMin + 2),
+				new Vector2(rectB.xMin + rectB.width / 2, rectB.yMax - 2),
+				new Vector2(rectB.xMax - 5, rectB.center.y)
 			};
 
 			Vector2 pointA = Vector2.zero;
