@@ -243,6 +243,10 @@ namespace Fungus
 					}
 					
 					yield break;
+
+				case TokenType.Message:
+					FungusScript.BroadcastFungusMessage(token.param);
+					break;
 				}
 
 				// Update text writing

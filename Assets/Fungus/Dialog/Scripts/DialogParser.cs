@@ -20,7 +20,8 @@ namespace Fungus
 		WaitOnPunctuation, 		// wp, wp=0.5
 		Clear, 					// c
 		Speed, 					// s, s=60
-		Exit 					// x
+		Exit, 					// x
+		Message					// m=MessageName
 	}
 	
 	public class Token
@@ -152,6 +153,11 @@ namespace Fungus
 			else if (tag == "x")
 			{
 				type = TokenType.Exit;
+			}
+			else if (tag.StartsWith("m="))
+			{
+				type = TokenType.Message;
+				paramText = tag.Substring(2, tag.Length - 2);
 			}
 			
 			Token token = new Token();
