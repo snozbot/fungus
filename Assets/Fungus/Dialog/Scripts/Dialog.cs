@@ -35,7 +35,7 @@ namespace Fungus
 
 		protected bool wasPointerClicked;
 
-		protected enum GlyphType
+		protected enum TokenType
 		{
 			Character,				// Text character
 			BoldStart,				// b
@@ -53,9 +53,9 @@ namespace Fungus
 			Exit 					// x
 		}
 
-		protected class Glyph
+		protected class Token
 		{
-			public GlyphType type = GlyphType.Character;
+			public TokenType type = TokenType.Character;
 			public string param = "";
 		}
 
@@ -149,9 +149,9 @@ namespace Fungus
 			currentSpeed = writingSpeed;
 			currentPunctuationPause = punctuationPause;
 
-			List<Glyph> glyphs = MakeGlyphList(text);
+			List<Token> tokens = MakeTokenList(text);
 
-			if (glyphs.Count == 0)
+			if (tokens.Count == 0)
 			{
 				if (onWritingComplete != null)
 				{
@@ -188,7 +188,7 @@ namespace Fungus
 			float timeAccumulator = 0f;
 
 			int i = 0;
-			while (i < glyphs.Count)
+			while (i < tokens.Count)
 			{
 				timeAccumulator += Time.deltaTime;
 
@@ -202,13 +202,13 @@ namespace Fungus
 				{
 					timeAccumulator -= writeDelay;
 
-					Glyph glyph = glyphs[i];
+					Token token = tokens[i];
 
-					switch (glyph.type)
+					switch (token.type)
 					{
-					case GlyphType.Character:
+					case TokenType.Character:
 
-						if (storyText.text.Length == 0 && glyph.param == "\n")
+						if (storyText.text.Length == 0 && token.param == "\n")
 						{
 							// Ignore leading newlines
 						}
@@ -234,7 +234,7 @@ namespace Fungus
 								end += "</color>"; 
 							}
 			
-							storyText.text += start + glyph.param + end;
+							storyText.text += start + token.param + end;
 
 							if (wasPointerClicked)
 							{
@@ -243,19 +243,19 @@ namespace Fungus
 							}
 						}
 
-						// Add a wait glyph on punctuation marks
-						bool doPause = punctuationPause > 0 && IsPunctuation(glyph.param);
-						if (i == glyphs.Count - 1)
+						// Add a wait token on punctuation marks
+						bool doPause = punctuationPause > 0 && IsPunctuation(token.param);
+						if (i == tokens.Count - 1)
 						{
 							doPause = false; // No pause on last character
 						}
 						else 
 						{
-							// No pause if next glyph is a pause
-							GlyphType nextType = glyphs[i + 1].type;
-							if (nextType == GlyphType.Wait ||
-							    nextType == GlyphType.WaitForInputAndClear ||
-							    nextType == GlyphType.WaitForInputNoClear)
+							// No pause if next token is a pause
+							TokenType nextType = tokens[i + 1].type;
+							if (nextType == TokenType.Wait ||
+							    nextType == TokenType.WaitForInputAndClear ||
+							    nextType == TokenType.WaitForInputNoClear)
 							{
 								doPause = false;
 							}
@@ -268,10 +268,10 @@ namespace Fungus
 
 						if (doPause)
 						{
-							// Ignore if next glyph is also punctuation, or if punctuation is the last character.
-							bool skipCharacter = (i < glyphs.Count - 1 &&
-							             glyphs[i + 1].type == GlyphType.Character &&
-							             IsPunctuation(glyphs[i + 1].param));
+							// Ignore if next token is also punctuation, or if punctuation is the last character.
+							bool skipCharacter = (i < tokens.Count - 1 &&
+							             tokens[i + 1].type == TokenType.Character &&
+							             IsPunctuation(tokens[i + 1].param));
 
 							if (!skipCharacter)
 							{
@@ -287,34 +287,34 @@ namespace Fungus
 
 						break;
 
-					case GlyphType.BoldStart:
+					case TokenType.BoldStart:
 						boldActive = true;
 						break;
 						
-					case GlyphType.BoldEnd:
+					case TokenType.BoldEnd:
 						boldActive = false;
 						break;
 					
-					case GlyphType.ItalicStart:
+					case TokenType.ItalicStart:
 						italicActive = true;
 						break;
 						
-					case GlyphType.ItalicEnd:
+					case TokenType.ItalicEnd:
 						italicActive = false;
 						break;
 
-					case GlyphType.ColorStart:
+					case TokenType.ColorStart:
 						colorActive = true;
-						colorText = glyph.param;
+						colorText = token.param;
 						break;
 						
-					case GlyphType.ColorEnd:
+					case TokenType.ColorEnd:
 						colorActive = false;
 						break;
 
-					case GlyphType.Wait:
+					case TokenType.Wait:
 						float duration = 1f;
-						if (!Single.TryParse(glyph.param, out duration))
+						if (!Single.TryParse(token.param, out duration))
 						{
 							duration = 1f;
 						}
@@ -330,7 +330,7 @@ namespace Fungus
 						timeAccumulator = 0f;
 						break;
 
-					case GlyphType.WaitForInputNoClear:
+					case TokenType.WaitForInputNoClear:
 						OnWaitForInputTag(true);
 						if (typingAudio != null)
 							typingAudio.audio.Pause();
@@ -345,7 +345,7 @@ namespace Fungus
 						OnWaitForInputTag(false);
 						break;
 					
-					case GlyphType.WaitForInputAndClear:
+					case TokenType.WaitForInputAndClear:
 						OnWaitForInputTag(true);
 
 						if (typingAudio != null)
@@ -362,13 +362,13 @@ namespace Fungus
 						storyText.text = "";
 						break;
 
-					case GlyphType.Clear:
+					case TokenType.Clear:
 						storyText.text = "";
 						timeAccumulator = 0f;
 						break;
 
-					case GlyphType.Speed:
-						if (!Single.TryParse(glyph.param, out currentSpeed))
+					case TokenType.Speed:
+						if (!Single.TryParse(token.param, out currentSpeed))
 						{
 							currentSpeed = 0f;
 						}
@@ -380,7 +380,7 @@ namespace Fungus
 						}
 						break;
 
-					case GlyphType.Exit:
+					case TokenType.Exit:
 
 						if (typingAudio != null)
 						{
@@ -394,15 +394,15 @@ namespace Fungus
 
 						yield break;
 
-					case GlyphType.WaitOnPunctuation:
-						if (!Single.TryParse(glyph.param, out currentPunctuationPause))
+					case TokenType.WaitOnPunctuation:
+						if (!Single.TryParse(token.param, out currentPunctuationPause))
 						{
 							currentPunctuationPause = 0f;
 						}
 						break;
 					}
 
-					if (++i >= glyphs.Count)
+					if (++i >= tokens.Count)
 					{
 						break;
 					}			
@@ -455,9 +455,9 @@ namespace Fungus
 				character == "!";
 		}
 		
-		protected virtual List<Glyph> MakeGlyphList(string storyText)
+		protected virtual List<Token> MakeTokenList(string storyText)
 		{
-			List<Glyph> glyphList = new List<Glyph>();
+			List<Token> tokenList = new List<Token>();
 
 			string pattern = @"\{.*?\}";
 			Regex myRegex = new Regex(pattern);
@@ -473,10 +473,10 @@ namespace Fungus
 			
 				foreach (char c in preText)
 				{
-					AddCharacterGlyph(glyphList, c.ToString());
+					AddCharacterToken(tokenList, c.ToString());
 				}
 
-				AddTagGlyph(glyphList, tagText);
+				AddTagToken(tokenList, tagText);
 
 				position = m.Index + tagText.Length;
 				m = m.NextMatch();
@@ -487,22 +487,22 @@ namespace Fungus
 				string postText = storyText.Substring(position, storyText.Length - position);
 				foreach (char c in postText)
 				{
-					AddCharacterGlyph(glyphList, c.ToString());
+					AddCharacterToken(tokenList, c.ToString());
 				}
 			}
 
-			return glyphList;
+			return tokenList;
 		}
 
-		protected virtual void AddCharacterGlyph(List<Glyph> glyphList, string character)
+		protected virtual void AddCharacterToken(List<Token> tokenList, string character)
 		{
-			Glyph glyph = new Glyph();
-			glyph.type = GlyphType.Character;
-			glyph.param = character;
-			glyphList.Add(glyph);
+			Token token = new Token();
+			token.type = TokenType.Character;
+			token.param = character;
+			tokenList.Add(token);
 		}
 
-		protected virtual void AddTagGlyph(List<Glyph> glyphList, string tagText)
+		protected virtual void AddTagToken(List<Token> tokenList, string tagText)
 		{
 			if (tagText.Length < 3 ||
 			    tagText.Substring(0,1) != "{" ||
@@ -513,83 +513,83 @@ namespace Fungus
 
 			string tag = tagText.Substring(1, tagText.Length - 2);
 
-			GlyphType type = GlyphType.Character;
+			TokenType type = TokenType.Character;
 			string paramText = "";
 
 			if (tag == "b")
 			{
-				type = GlyphType.BoldStart;
+				type = TokenType.BoldStart;
 			}
 			else if (tag == "/b")
 			{
-				type = GlyphType.BoldEnd;
+				type = TokenType.BoldEnd;
 			}
 			else if (tag == "i")
 			{
-				type = GlyphType.ItalicStart;
+				type = TokenType.ItalicStart;
 			}
 			else if (tag == "/i")
 			{
-				type = GlyphType.ItalicEnd;
+				type = TokenType.ItalicEnd;
 			}
 			else if (tag.StartsWith("color="))
 			{
-				type = GlyphType.ColorStart;
+				type = TokenType.ColorStart;
 				paramText = tag.Substring(6, tag.Length - 6);
 			}
 			else if (tag == "/color")
 			{
-				type = GlyphType.ColorEnd;
+				type = TokenType.ColorEnd;
 			}
 			else if (tag == "wi")
 			{
-				type = GlyphType.WaitForInputNoClear;
+				type = TokenType.WaitForInputNoClear;
 			}
 			if (tag == "wc")
 			{
-				type = GlyphType.WaitForInputAndClear;
+				type = TokenType.WaitForInputAndClear;
 			}
 			else if (tag.StartsWith("wp="))
 			{
-				type = GlyphType.WaitOnPunctuation;
+				type = TokenType.WaitOnPunctuation;
 				paramText = tag.Substring(3, tag.Length - 3);
 			}
 			else if (tag == "wp")
 			{
-				type = GlyphType.WaitOnPunctuation;
+				type = TokenType.WaitOnPunctuation;
 			}
 			else if (tag.StartsWith("w="))
 			{
-				type = GlyphType.Wait;
+				type = TokenType.Wait;
 				paramText = tag.Substring(2, tag.Length - 2);
 			}
 			else if (tag == "w")
 			{
-				type = GlyphType.Wait;
+				type = TokenType.Wait;
 			}
 			else if (tag == "c")
 			{
-				type = GlyphType.Clear;
+				type = TokenType.Clear;
 			}
 			else if (tag.StartsWith("s="))
 			{
-				type = GlyphType.Speed;
+				type = TokenType.Speed;
 				paramText = tag.Substring(2, tag.Length - 2);
 			}
 			else if (tag == "s")
 			{
-				type = GlyphType.Speed;
+				type = TokenType.Speed;
 			}
 			else if (tag == "x")
 			{
-				type = GlyphType.Exit;
+				type = TokenType.Exit;
 			}
 
-			Glyph glyph = new Glyph();
-			glyph.type = type;
-			glyph.param = paramText.Trim();
+			Token token = new Token();
+			token.type = type;
+			token.param = paramText.Trim();
 
-			glyphList.Add(glyph);
+			tokenList.Add(token);
 		}
 
 		protected virtual IEnumerator WaitForInput(Action onInput)
