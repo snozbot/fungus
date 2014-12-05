@@ -73,18 +73,32 @@ namespace Fungus
 				glyph.colorText = colorText;
 				glyphs.Add(glyph);
 
-				if (i < words.Length - 2 && 
-				    IsPunctuation(c) &&
-				    !IsPunctuation(words[i + 1])) // No punctuation pause on last character, or if next character is also punctuation
+				if (i < words.Length - 1 && 
+				    IsPunctuation(c)) // No punctuation pause on last character, or if next character is also punctuation
 				{
 					doPunctuationPause = true;
+				}
+
+				// Special case: pause just before open parentheses
+				if (i < words.Length - 2)
+				{
+					if (words[i + 1] == '(')
+					{
+						doPunctuationPause = true;
+					}
 				}
 			}
 		}
 
 		protected virtual bool IsPunctuation(char character)
 		{
-			return character == '.' || character == '?' || character == '!';
+			return character == '.' || 
+				character == '?' ||  
+				character == '!' || 
+				character == ',' ||
+				character == ':' ||
+				character == ';' ||
+				character == ')';
 		}
 
 		/**
