@@ -18,6 +18,11 @@ namespace Fungus
 		{
 			Value = 0;
 		}
+
+		public override string ToString()
+		{
+			return Value.ToString();
+		}
 	}
 
 	[System.Serializable]

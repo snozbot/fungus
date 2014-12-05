@@ -19,6 +19,11 @@ namespace Fungus
 		{
 			Value = false;
 		}
+
+		public override string ToString()
+		{
+			return Value.ToString();
+		}
 	}
 
 	[System.Serializable]

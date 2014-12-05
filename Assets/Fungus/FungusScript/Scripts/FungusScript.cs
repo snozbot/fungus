@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Fungus
 {
@@ -263,7 +264,7 @@ namespace Fungus
 
 		/**
 		 * Gets the value of an integer variable.
-		 * Returns false if the variable key does not exist.
+		 * Returns 0 if the variable key does not exist.
 		 */
 		public virtual int GetIntegerVariable(string key)
 		{
@@ -305,7 +306,7 @@ namespace Fungus
 
 		/**
 		 * Gets the value of a float variable.
-		 * Returns false if the variable key does not exist.
+		 * Returns 0 if the variable key does not exist.
 		 */
 		public virtual float GetFloatVariable(string key)
 		{
@@ -347,7 +348,7 @@ namespace Fungus
 
 		/**
 		 * Gets the value of a string variable.
-		 * Returns false if the variable key does not exist.
+		 * Returns the empty string if the variable key does not exist.
 		 */
 		public virtual string GetStringVariable(string key)
 		{
@@ -470,6 +471,32 @@ namespace Fungus
 					variable.OnReset();
 				}
 			}
+		}
+
+		public virtual string SubstituteVariables(string text)
+		{
+			string subbedText = text;
+			
+			// Instantiate the regular expression object.
+			Regex r = new Regex("{\\$.*?}");
+			
+			// Match the regular expression pattern against a text string.
+			var results = r.Matches(text);
+			foreach (Match match in results)
+			{
+				string key = match.Value.Substring(2, match.Value.Length - 3);
+				foreach (Variable variable in variables)
+				{
+					if (variable.key == key)
+					{	
+						string value = variable.ToString();
+						subbedText = subbedText.Replace(match.Value, value);
+						break;
+					}
+				}
+			}
+			
+			return subbedText;
 		}
 	}
 
