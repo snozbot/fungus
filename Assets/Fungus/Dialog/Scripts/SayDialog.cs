@@ -30,11 +30,6 @@ namespace Fungus
 		public virtual void Say(string text, Action onComplete)
 		{
 			Clear();
-			
-			if (storyText != null)
-			{
-				storyText.text = text;
-			}
 
 			Action onWritingComplete = delegate {
 				ShowContinueImage(true);
