@@ -98,7 +98,7 @@ namespace Fungus
 
 				if (voiceOverClip != null)
 				{
-					MusicController.GetInstance().PlaySound(voiceOverClip, 1f);
+					chooseDialog.PlayVoiceOver(voiceOverClip);
 				}
 
 				chooseDialog.Choose(chooseText, dialogOptions, timeoutDuration, delegate {

@@ -39,7 +39,8 @@ namespace Fungus
 			Action onWritingComplete = delegate {
 				ShowContinueImage(true);
 				StartCoroutine(WaitForInput(delegate {
-					Clear();					
+					Clear();
+					StopVoiceOver();
 					if (onComplete != null)
 					{
 						onComplete();

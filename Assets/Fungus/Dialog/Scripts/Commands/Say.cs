@@ -60,7 +60,7 @@ namespace Fungus
 
 			if (voiceOverClip != null)
 			{
-				MusicController.GetInstance().PlaySound(voiceOverClip, 1f);
+				sayDialog.PlayVoiceOver(voiceOverClip);
 			}
 
 			sayDialog.Say(storyText, delegate {

@@ -34,6 +34,8 @@ namespace Fungus
 
 		protected bool wasPointerClicked;
 
+		protected AudioSource voiceOverAudio;
+
 		protected virtual void LateUpdate()
 		{
 			wasPointerClicked = false;
@@ -210,6 +212,7 @@ namespace Fungus
 					OnWaitForInputTag(false);
 					currentSpeed = writingSpeed;
 					dialogText.Clear();
+					StopVoiceOver();
 					break;
 
 				case TokenType.WaitOnPunctuation:
@@ -330,6 +333,24 @@ namespace Fungus
 			if (clickCooldownTimer == 0f)
 			{
 				wasPointerClicked = true;
+			}
+		}
+
+		public virtual void PlayVoiceOver(AudioClip voiceOverSound)
+		{
+			if (voiceOverAudio == null)
+			{
+				voiceOverAudio = gameObject.AddComponent<AudioSource>();
+			}
+			voiceOverAudio.clip = voiceOverSound;
+			voiceOverAudio.Play();
+		}
+
+		public virtual void StopVoiceOver()
+		{
+			if (voiceOverAudio)
+			{
+				Destroy(voiceOverAudio);
 			}
 		}
 	}
