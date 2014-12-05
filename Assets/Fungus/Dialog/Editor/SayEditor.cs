@@ -24,8 +24,9 @@ namespace Fungus
 					"\t{wp}, {wp=0.5} Wait on punctuation\n" +
 					"\t{c} Clear\n" +
 					"\t{s}, {s=60} Writing speed (chars per sec)\n" +
-					"\t{x} Exit" +
-					"\t{m} Broadcast message";
+					"\t{x} Exit\n" +
+					"\t{m} Broadcast message\n" +
+					"\t{$VarName} Substitute variable";
 			
 			float pixelHeight = EditorStyles.miniLabel.CalcHeight(new GUIContent(tagsText), EditorGUIUtility.currentViewWidth);
 			EditorGUILayout.SelectableLabel(tagsText, EditorStyles.miniLabel, GUILayout.MinHeight(pixelHeight));

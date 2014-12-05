@@ -59,8 +59,10 @@ namespace Fungus
 			}
 			else
 			{
+				FungusScript fungusScript = GetFungusScript();
+
 				chooseDialog.ShowDialog(true);
-				chooseDialog.SetCharacter(character);
+				chooseDialog.SetCharacter(character, fungusScript);
 
 				List<ChooseDialog.Option> dialogOptions = new List<ChooseDialog.Option>();
 				foreach (Option option in options)
@@ -69,6 +71,7 @@ namespace Fungus
 
 					// Store these in local variables so they get closed over correctly by the delegate call
 					dialogOption.text = option.optionText;
+					dialogOption.text = fungusScript.SubstituteVariables(dialogOption.text);
 					Sequence onSelectSequence = option.targetSequence;
 					Action optionAction = option.action;
 
@@ -101,7 +104,9 @@ namespace Fungus
 					chooseDialog.PlayVoiceOver(voiceOverClip);
 				}
 
-				chooseDialog.Choose(chooseText, dialogOptions, timeoutDuration, delegate {
+				string subbedText = fungusScript.SubstituteVariables(chooseText);
+
+				chooseDialog.Choose(subbedText, dialogOptions, timeoutDuration, delegate {
 					chooseDialog.ShowDialog(false);
 					Continue();
 				});

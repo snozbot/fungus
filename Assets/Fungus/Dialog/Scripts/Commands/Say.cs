@@ -54,7 +54,8 @@ namespace Fungus
 				}
 			}
 	
-			sayDialog.SetCharacter(character);
+			FungusScript fungusScript = GetFungusScript();
+			sayDialog.SetCharacter(character, fungusScript);
 
 			sayDialog.ShowDialog(true);
 
@@ -63,7 +64,9 @@ namespace Fungus
 				sayDialog.PlayVoiceOver(voiceOverClip);
 			}
 
-			sayDialog.Say(storyText, delegate {
+			string subbedText = fungusScript.SubstituteVariables(storyText);
+
+			sayDialog.Say(subbedText, delegate {
 				sayDialog.ShowDialog(false);
 				Continue();
 			});

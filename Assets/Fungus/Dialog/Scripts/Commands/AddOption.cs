@@ -31,7 +31,7 @@ namespace Fungus
 			}
 
 			Choose.Option option = new Choose.Option();
-			option.optionText = optionText;
+			option.optionText = optionText; // Note: Variable substitution happens in the Choose command (as late as possible)
 			option.targetSequence = targetSequence;
 
 			option.action = () => {

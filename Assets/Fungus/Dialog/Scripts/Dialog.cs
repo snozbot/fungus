@@ -63,7 +63,7 @@ namespace Fungus
 			}
 		}
 		
-		public virtual void SetCharacter(Character character)
+		public virtual void SetCharacter(Character character, FungusScript fungusScript = null)
 		{
 			if (character == null)
 			{
@@ -82,6 +82,11 @@ namespace Fungus
 				{
 					// Use game object name as default
 					characterName = character.name;
+				}
+
+				if (fungusScript != null)
+				{
+					characterName = fungusScript.SubstituteVariables(characterName);
 				}
 
 				characterTypingSound = character.soundEffect;
