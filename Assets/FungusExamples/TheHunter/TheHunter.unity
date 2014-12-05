@@ -997,6 +997,7 @@ MonoBehaviour:
     width: 100
     height: 40
   sequenceName: New Sequence
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
@@ -1530,6 +1531,7 @@ MonoBehaviour:
     width: 100
     height: 20
   sequenceName: New Sequence
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
@@ -2557,6 +2559,7 @@ MonoBehaviour:
     width: 240
     height: 68
   sequenceName: New Sequence
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
@@ -2578,6 +2581,7 @@ MonoBehaviour:
     width: 240
     height: 68
   sequenceName: New Sequence
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
@@ -3054,6 +3058,7 @@ MonoBehaviour:
     width: 240
     height: 68
   sequenceName: New Sequence
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
@@ -4458,7 +4463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 244.192505, y: 536.002808}
+  scrollPos: {x: 71.1925049, y: 537.002808}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 0
   zoom: 1
@@ -4468,11 +4473,13 @@ MonoBehaviour:
     y: -909.022339
     width: 1939.01758
     height: 1998.52234
-  selectedSequence: {fileID: 1831099578}
+  selectedSequence: {fileID: 0}
   selectedCommands: []
   variables:
   - {fileID: 1831099569}
-  description: 
+  description: 'This is an example of a short Visual Novel / RPG
+
+    style game'
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -4620,9 +4627,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 109.537018
     y: -507.022339
-    width: 120
-    height: 30
+    width: 121
+    height: 40
   sequenceName: Start
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 1831099572}
   commandList:
@@ -4895,8 +4903,9 @@ MonoBehaviour:
     x: 279.201355
     y: -379.533142
     width: 120
-    height: 30
+    height: 40
   sequenceName: Shout out
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -5039,9 +5048,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 108.654449
     y: -379.268433
-    width: 120
-    height: 30
+    width: 125
+    height: 40
   sequenceName: Check for fish
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -5234,8 +5244,9 @@ MonoBehaviour:
     x: 111
     y: -441.890259
     width: 120
-    height: 30
+    height: 40
   sequenceName: Intro
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -5600,8 +5611,9 @@ MonoBehaviour:
     x: 108.608582
     y: -194.124023
     width: 120
-    height: 30
+    height: 40
   sequenceName: Bear
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -5782,8 +5794,9 @@ MonoBehaviour:
     x: 108.007446
     y: -254.68811
     width: 120
-    height: 30
+    height: 40
   sequenceName: Exit
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -5947,8 +5960,9 @@ MonoBehaviour:
     x: 108.621155
     y: -317.003174
     width: 120
-    height: 30
+    height: 40
   sequenceName: Rescued
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
@@ -5994,6 +6008,7 @@ MonoBehaviour:
     width: 240
     height: 68
   sequenceName: New Sequence
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []

@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 163, y: -41}
+  scrollPos: {x: 85, y: -80}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   zoom: 1
@@ -474,7 +474,9 @@ MonoBehaviour:
   selectedSequence: {fileID: 0}
   selectedCommands: []
   variables: []
-  description: 
+  description: 'This scene shows how to use the iTween commands
+
+    to apply simple animation effects to objects'
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1

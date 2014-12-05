@@ -250,6 +250,7 @@ MonoBehaviour:
     width: 100
     height: 40
   sequenceName: New Sequence
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
@@ -310,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 517.51593, y: 615.148438}
+  scrollPos: {x: 352.51593, y: 571.148438}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   zoom: 1
@@ -323,7 +324,8 @@ MonoBehaviour:
   selectedSequence: {fileID: 1818246749}
   selectedCommands: []
   variables: []
-  description: 
+  description: "This scene shows how to use Usfxr to play\nprocedural sound effects.
+    \nSelect: Window > Generate usfxr Sound Effects\nto edit your own procedural sounds."
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -414,9 +416,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: -91
     y: -489
-    width: 120
-    height: 30
+    width: 138
+    height: 40
   sequenceName: Sound Sequence
+  description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 1818246744}
   commandList:

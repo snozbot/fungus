@@ -734,11 +734,13 @@ MonoBehaviour:
     x: -591
     y: -391
     width: 1887
-    height: 1017
-  selectedSequence: {fileID: 2019116669}
+    height: 1019
+  selectedSequence: {fileID: 0}
   selectedCommands: []
   variables: []
-  description: 
+  description: 'This scene shows how to set up a drag-and-drop
+
+    behavior and making objects clickable.'
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -940,8 +942,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -35
-    y: 186
+    x: -33
+    y: 188
     width: 120
     height: 40
   sequenceName: Drag Exited
@@ -994,7 +996,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -33
-    y: 142
+    y: 145
     width: 120
     height: 40
   sequenceName: Drag Entered
@@ -1032,7 +1034,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -33
-    y: 58
+    y: 56
     width: 131
     height: 40
   sequenceName: Drag Cancelled

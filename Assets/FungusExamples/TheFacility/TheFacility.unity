@@ -1233,9 +1233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: -373.054199, y: 73.7798004}
+  scrollPos: {x: -542.054199, y: 17.7798004}
   variablesScrollPos: {x: 0, y: 0}
-  variablesExpanded: 1
+  variablesExpanded: 0
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -1248,7 +1248,11 @@ MonoBehaviour:
   variables:
   - {fileID: 771014102}
   - {fileID: 771014103}
-  description: 
+  description: 'This is a simple Choose Your Own Adventure
+
+    style game with minimal graphics and a focus
+
+    on text based story telling'
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
