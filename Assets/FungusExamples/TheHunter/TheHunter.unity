@@ -4473,8 +4473,9 @@ MonoBehaviour:
     y: -909.022339
     width: 1939.01758
     height: 1998.52234
-  selectedSequence: {fileID: 0}
-  selectedCommands: []
+  selectedSequence: {fileID: 1831099578}
+  selectedCommands:
+  - {fileID: 1831099577}
   variables:
   - {fileID: 1831099569}
   description: 'This is an example of a short Visual Novel / RPG
@@ -4610,7 +4611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  musicClip: {fileID: 8300000, guid: c9a4c3829980445ba963b126e0198da6, type: 3}
+  musicClip: {fileID: 8300000, guid: d858bb0968ae746b0a6801434b848b69, type: 3}
   atTime: 0
 --- !u!114 &1831099578
 MonoBehaviour:
