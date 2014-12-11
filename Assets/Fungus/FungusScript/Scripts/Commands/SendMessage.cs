@@ -15,7 +15,7 @@ namespace Fungus
 		}
 
 		public MessageTarget messageTarget;
-		public string message;
+		public string message = "";
 
 		public override void OnEnter()
 		{
