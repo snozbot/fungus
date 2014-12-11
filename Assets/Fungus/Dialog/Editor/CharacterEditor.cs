@@ -12,6 +12,8 @@ namespace Fungus
 
 		protected SerializedProperty nameTextProp;
 		protected SerializedProperty nameColorProp;
+		protected SerializedProperty sayDialogBoxProp;
+		protected SerializedProperty chooseDialogBoxProp;
 		protected SerializedProperty profileSpriteProp;
 		protected SerializedProperty soundEffectProp;
 		protected SerializedProperty notesProp;
@@ -20,6 +22,8 @@ namespace Fungus
 		{
 			nameTextProp = serializedObject.FindProperty ("nameText");
 			nameColorProp = serializedObject.FindProperty ("nameColor");
+			sayDialogBoxProp = serializedObject.FindProperty ("sayDialogBox");
+			chooseDialogBoxProp = serializedObject.FindProperty ("chooseDialogBox");
 			profileSpriteProp = serializedObject.FindProperty ("profileSprite");
 			soundEffectProp = serializedObject.FindProperty ("soundEffect");
 			notesProp = serializedObject.FindProperty ("notes");
@@ -43,6 +47,8 @@ namespace Fungus
 
 			EditorGUILayout.PropertyField(nameTextProp, new GUIContent("Name Text", "Name of the character display in the dialog"));
 			EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));
+			EditorGUILayout.PropertyField(sayDialogBoxProp, new GUIContent("Say Dialog", "Say dialog box this character should use"));
+			EditorGUILayout.PropertyField(chooseDialogBoxProp, new GUIContent("Choose Dialog", "Choose dialog box this character should use"));
 			EditorGUILayout.PropertyField(profileSpriteProp, new GUIContent("Image", "Character image sprite to display in the dialog"));
 			EditorGUILayout.PropertyField(soundEffectProp, new GUIContent("Sound Effect", "Sound to play when the character is talking. Overrides the setting in the Dialog."));
 			EditorGUILayout.PropertyField(notesProp, new GUIContent("Notes", "Notes about this story character (personality, attibutes, etc.)"));
@@ -56,7 +62,7 @@ namespace Fungus
 				EditorGUILayout.BeginHorizontal();
 				GUILayout.FlexibleSpace();
 				float aspect = (float)t.profileSprite.texture.width / (float)t.profileSprite.texture.height;
-				Rect imagePreviewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(150), GUILayout.ExpandWidth(false));
+				Rect imagePreviewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(250), GUILayout.ExpandWidth(true));
 				GUILayout.FlexibleSpace();
 				EditorGUILayout.EndHorizontal();
 

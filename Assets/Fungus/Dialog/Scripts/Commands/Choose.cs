@@ -44,8 +44,17 @@ namespace Fungus
 			showBasicGUI = false;
 			if (chooseDialog == null)
 			{
-				// Try to get any SayDialog in the scene
-				chooseDialog = GameObject.FindObjectOfType<ChooseDialog>();
+				if ( character != null ) {
+					// Try to get character's choose box
+					chooseDialog = character.chooseDialogBox;
+				}
+				
+				if (chooseDialog == null)
+				{
+					// Try to get any SayDialog in the scene
+					chooseDialog = GameObject.FindObjectOfType<ChooseDialog>();
+				}
+	
 				if (chooseDialog == null)
 				{
 					showBasicGUI = true;

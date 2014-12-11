@@ -48,10 +48,19 @@ namespace Fungus
 			showBasicGUI = false;
 			if (sayDialog == null)
 			{
-				// Try to get any SayDialog in the scene
-				sayDialog = GameObject.FindObjectOfType<SayDialog>();
+				if ( character != null ) {
+					// Try to get character's dialog box
+					sayDialog = character.sayDialogBox;
+				}
+
 				if (sayDialog == null)
 				{
+				    // Try to get any SayDialog in the scene
+				    sayDialog = GameObject.FindObjectOfType<SayDialog>();
+				}
+				if (sayDialog == null)
+				{
+					// No custom dialog box exists, just use basic gui
 					showBasicGUI = true;
 					return;
 				}
@@ -77,7 +86,12 @@ namespace Fungus
 
 		public override string GetSummary()
 		{
-			return "\"" + storyText + "\"";
+			string namePrefix = "";
+			if (character != null) 
+			{
+				namePrefix = character.nameText + ": ";
+			}
+			return namePrefix + "\"" + storyText + "\"";
 		}
 
 		protected virtual void OnGUI()
