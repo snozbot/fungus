@@ -25,8 +25,11 @@ namespace Fungus
 		[Tooltip("Voiceover audio to play when writing the story text")]
 		public AudioClip voiceOverClip;
 
-		[Tooltip("Only show this text once, even if the command is executed again")]
-		public bool showOnce;
+		[Tooltip("Always show this Say text when the command is executed multiple times")]
+		public bool showAlways = true;
+
+		[Tooltip("Number of times to show this Say text when the command is executed multiple times")]
+		public int showCount = 1;
 
 		protected int executionCount;
 
@@ -34,7 +37,7 @@ namespace Fungus
 
 		public override void OnEnter()
 		{
-			if (showOnce && executionCount > 0)
+			if (!showAlways && executionCount >= showCount)
 			{
 				Continue();
 				return;

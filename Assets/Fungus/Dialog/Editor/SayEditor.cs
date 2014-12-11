@@ -36,7 +36,8 @@ namespace Fungus
 		protected SerializedProperty characterProp;
 		protected SerializedProperty sayDialogProp;
 		protected SerializedProperty voiceOverClipProp;
-		protected SerializedProperty showOnceProp;
+		protected SerializedProperty showAlwaysProp;
+		protected SerializedProperty showCountProp;
 
 		protected virtual void OnEnable()
 		{
@@ -44,7 +45,8 @@ namespace Fungus
 			characterProp = serializedObject.FindProperty("character");
 			sayDialogProp = serializedObject.FindProperty("sayDialog");
 			voiceOverClipProp = serializedObject.FindProperty("voiceOverClip");
-			showOnceProp = serializedObject.FindProperty("showOnce");
+			showAlwaysProp = serializedObject.FindProperty("showAlways");
+			showCountProp = serializedObject.FindProperty("showCount");
 		}
 
 		public override void DrawCommandGUI() 
@@ -97,10 +99,14 @@ namespace Fungus
 			                                     new GUIContent("<None>"),
 			                                     SayDialog.activeDialogs);
 
-			EditorGUILayout.PropertyField(voiceOverClipProp, 
-			                              new GUIContent("Voice Over Clip", "Voice over audio to play when the say text is displayed"));
+			EditorGUILayout.PropertyField(voiceOverClipProp);
 
-			EditorGUILayout.PropertyField(showOnceProp, new GUIContent("Show Once", "Show this text once and never show it again."));
+			EditorGUILayout.PropertyField(showAlwaysProp);
+
+			if (showAlwaysProp.boolValue == false)
+			{
+				EditorGUILayout.PropertyField(showCountProp);
+			}
 
 			serializedObject.ApplyModifiedProperties();
 		}
