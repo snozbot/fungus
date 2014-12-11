@@ -86,7 +86,7 @@ GameObject:
   m_Layer: 0
   m_Name: CloseView
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -112,7 +112,7 @@ Transform:
   m_PrefabInternal: {fileID: 1496739718}
   m_GameObject: {fileID: 953756}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.280959994, y: -.0295749996, z: 0}
+  m_LocalPosition: {x: -.270000011, y: -.270000011, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -345,7 +345,8 @@ MonoBehaviour:
   character: {fileID: 1844806518}
   sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &16019628
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -381,7 +382,8 @@ MonoBehaviour:
   character: {fileID: 1844806518}
   sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &16019643
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -417,7 +419,8 @@ MonoBehaviour:
   character: {fileID: 1871969526}
   sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &16019646
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -451,7 +454,8 @@ MonoBehaviour:
   character: {fileID: 102763371}
   sayDialog: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &16019649
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2187,7 +2191,7 @@ GameObject:
   m_Layer: 0
   m_Name: WideView
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2511,11 +2515,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -.280959994
+      value: -.270000011
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -.0295749996
+      value: -.270000011
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
       propertyPath: m_LocalPosition.z
