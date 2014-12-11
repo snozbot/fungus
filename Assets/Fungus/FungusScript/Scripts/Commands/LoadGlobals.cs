@@ -15,6 +15,7 @@ namespace Fungus
 		public override void OnEnter()
 		{
 			GlobalVariables.Load(saveName);
+			Continue();
 		}
 		
 		public override string GetSummary()
