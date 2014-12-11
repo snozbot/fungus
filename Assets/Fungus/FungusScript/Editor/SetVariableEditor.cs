@@ -56,7 +56,7 @@ namespace Fungus
 			operatorsList.Add(new GUIContent("="));
 			if (variableType == typeof(BooleanVariable))
 			{
-				operatorsList.Add(new GUIContent("!"));
+				operatorsList.Add(new GUIContent("=!"));
 			}
 			else if (variableType == typeof(IntegerVariable) ||
 			         variableType == typeof(FloatVariable))

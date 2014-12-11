@@ -11,7 +11,7 @@ namespace Fungus
 		public enum SetOperator
 		{
 			Assign,		// =
-			Negate,		// !
+			Negate,		// =!
 			Add, 		// +=
 			Subtract,	// -=
 			Multiply,	// *=
@@ -59,7 +59,7 @@ namespace Fungus
 				description += " = ";
 				break;
 			case SetOperator.Negate:
-				description += " != ";
+				description += " =! ";
 				break;
 			case SetOperator.Add:
 				description += " += ";
