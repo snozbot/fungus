@@ -530,15 +530,19 @@ namespace Fungus
 			
 			CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
 			commandCopyBuffer.Clear();
-			
-			foreach (Command command in fungusScript.selectedCommands)
+
+			// Scan through all commands in execution order to see if each needs to be copied
+			foreach (Command command in fungusScript.selectedSequence.commandList)
 			{
-				System.Type type = command.GetType();
-				Command newCommand = Undo.AddComponent(commandCopyBuffer.gameObject, type) as Command;
-				System.Reflection.FieldInfo[] fields = type.GetFields();
-				foreach (System.Reflection.FieldInfo field in fields)
+				if (fungusScript.selectedCommands.Contains(command))
 				{
-					field.SetValue(newCommand, field.GetValue(command));
+					System.Type type = command.GetType();
+					Command newCommand = Undo.AddComponent(commandCopyBuffer.gameObject, type) as Command;
+					System.Reflection.FieldInfo[] fields = type.GetFields();
+					foreach (System.Reflection.FieldInfo field in fields)
+					{
+						field.SetValue(newCommand, field.GetValue(command));
+					}
 				}
 			}
 		}
