@@ -63,7 +63,7 @@ namespace Fungus
 
 			if (!t.variablesExpanded)
 			{
-				if (GUILayout.Button ("Variables", GUILayout.Height(24)))
+				if (GUILayout.Button ("Variables (" + t.variables.Count + ")", GUILayout.Height(24)))
 				{
 					t.variablesExpanded = true;
 				}
