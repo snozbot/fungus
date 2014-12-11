@@ -630,7 +630,7 @@ namespace Fungus
 			Sequence oldSequence = sequence;
 
 			Sequence newSequence = FungusScriptWindow.CreateSequence(fungusScript, newPosition);
-			newSequence.sequenceName = oldSequence.sequenceName + " (Copy)";
+			newSequence.sequenceName = fungusScript.GetUniqueSequenceKey(oldSequence.sequenceName + " (Copy)");
 
 			Undo.RecordObject(newSequence, "Duplicate Sequence");
 

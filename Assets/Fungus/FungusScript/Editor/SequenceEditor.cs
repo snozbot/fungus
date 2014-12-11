@@ -47,6 +47,13 @@ namespace Fungus
 			Rect sequenceNameRect = new Rect(45, 21, 180, 16);
 			EditorGUI.PropertyField(sequenceNameRect, sequenceNameProperty, new GUIContent(""));
 
+			// Ensure sequence name is unique for this Fungus Script
+			string uniqueName = fungusScript.GetUniqueSequenceKey(sequenceNameProperty.stringValue, sequence);
+			if (uniqueName != sequence.sequenceName)
+			{
+				sequenceNameProperty.stringValue = uniqueName;
+			}
+
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
 
 			ReorderableListGUI.Title("Commands");

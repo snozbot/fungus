@@ -98,6 +98,7 @@ namespace Fungus
 			Sequence s = CreateSequenceComponent(gameObject);
 			s.nodeRect.x = position.x;
 			s.nodeRect.y = position.y;
+			s.sequenceName = GetUniqueSequenceKey(s.sequenceName, s);
 			return s;
 		}
 
@@ -206,6 +207,49 @@ namespace Fungus
 					}
 
 					if (variable.key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
+					{
+						collision = true;
+						suffix++;
+						key = baseKey + suffix;
+					}
+				}
+				
+				if (!collision)
+				{
+					return key;
+				}
+			}
+		}
+
+		/**
+		 * Returns a new Sequence key that is guaranteed not to clash with any existing Sequence in the Fungus Script.
+		 */
+		public virtual string GetUniqueSequenceKey(string originalKey, Sequence ignoreSequence = null)
+		{
+			int suffix = 0;
+			string baseKey = originalKey.Trim();
+			
+			// No empty keys allowed
+			if (baseKey.Length == 0)
+			{
+				baseKey = "Sequence";
+			}
+
+			Sequence[] sequences = GetComponentsInChildren<Sequence>();
+
+			string key = baseKey;
+			while (true)
+			{
+				bool collision = false;
+				foreach(Sequence sequence in sequences)
+				{
+					if (sequence == ignoreSequence ||
+					    sequence.sequenceName == null)
+					{
+						continue;
+					}
+					
+					if (sequence.sequenceName.Equals(key, StringComparison.CurrentCultureIgnoreCase))
 					{
 						collision = true;
 						suffix++;
