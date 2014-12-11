@@ -8,46 +8,29 @@ namespace Fungus
 	public class DialogMenuItems 
 	{
 
-		[MenuItem("GameObject/Fungus/Dialog/Background")]
-		static void CreateBackground()
-		{
-			InstantiatePrefab("Background");
-		}
-
 		[MenuItem("GameObject/Fungus/Dialog/Character")]
 		static void CreateCharacter()
 		{
-			InstantiatePrefab("Character");
+			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Dialog/Prefabs/Character.prefab");
 		}
 
 		[MenuItem("GameObject/Fungus/Dialog/NarratorDialog")]
 		static void CreateNarratorDialog()
 		{
-			InstantiatePrefab("NarratorDialog");
+			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Dialog/Prefabs/NarratorDialog.prefab");
 		}
 
 		[MenuItem("GameObject/Fungus/Dialog/SayDialog")]
 		static void CreateSayDialog()
 		{
-			InstantiatePrefab("SayDialog");
+			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Dialog/Prefabs/SayDialog.prefab");
 		}
 
 		[MenuItem("GameObject/Fungus/Dialog/ChooseDialog")]
 		static void CreateChooseDialog()
 		{
-			InstantiatePrefab("ChooseDialog");
+			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Dialog/Prefabs/ChooseDialog.prefab");
 		}
-
-		static void InstantiatePrefab(string prefabName)
-		{
-			GameObject prefab = Resources.LoadAssetAtPath("Assets/Fungus/Dialog/Prefabs/" + prefabName + ".prefab", typeof(GameObject)) as GameObject;
-			if (prefab != null)
-			{
-				GameObject go = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
-				go.name = prefabName;
-			}
-		}
-
 	}
 
 }
