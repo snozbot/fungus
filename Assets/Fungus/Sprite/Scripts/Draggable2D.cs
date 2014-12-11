@@ -81,12 +81,13 @@ namespace Fungus
 				{
 					handler.OnDragCancelled(this);
 				}
+
+				if (returnToStartPos)
+				{
+					iTween.MoveTo(gameObject, startingPosition, returnDuration);
+				}
 			}
 
-			if (returnToStartPos)
-			{
-				iTween.MoveTo(gameObject, startingPosition, returnDuration);
-			}
 		}
 
 		protected virtual void OnTriggerEnter2D(Collider2D other) 
