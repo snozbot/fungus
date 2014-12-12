@@ -105,7 +105,9 @@ namespace Fungus
 				Texture2D characterTexture = t.character.profileSprite.texture;
 				
 				float aspect = (float)characterTexture.width / (float)characterTexture.height;
-				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(250), GUILayout.ExpandWidth(true));
+
+				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(100), GUILayout.ExpandWidth(true));
+
 				CharacterEditor characterEditor = Editor.CreateEditor(t.character) as CharacterEditor;
 				characterEditor.DrawPreview(previewRect, characterTexture);
 				DestroyImmediate(characterEditor);

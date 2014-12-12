@@ -35,13 +35,14 @@ namespace Fungus
 			                             new GUIContent("Target Sequence", "Sequence to execute when this option is selected by the player."),
 			                             new GUIContent("<Continue>"),
 			                             t.GetFungusScript());
+
+			serializedObject.ApplyModifiedProperties();
+
 			base.DrawCommandGUI();
 			
+			serializedObject.Update();
 			EditorGUILayout.PropertyField(hideOnSelectedProp, new GUIContent("Hide On Selected", "Hide this option forever once the player has selected it."));
-			
 			serializedObject.ApplyModifiedProperties();
-			
-			
 		}
 	}
 	

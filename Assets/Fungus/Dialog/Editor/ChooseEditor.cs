@@ -31,9 +31,7 @@ namespace Fungus
 		public override void DrawCommandGUI() 
 		{
 			serializedObject.Update();
-			
-			
-			
+
 			CommandEditor.ObjectField<Character>(characterProp,
 			                                     new GUIContent("Character", "Character to display in dialog"), 
 			                                     new GUIContent("<None>"),
@@ -43,7 +41,7 @@ namespace Fungus
 			                                        new GUIContent("Choose Dialog", "Choose Dialog object to use to display the multiple player choices"), 
 			                                        new GUIContent("<Default>"),
 			                                        ChooseDialog.activeDialogs);
-			
+
 			EditorGUILayout.BeginHorizontal();
 			
 			EditorGUILayout.PropertyField(chooseTextProp);
@@ -51,7 +49,7 @@ namespace Fungus
 			EditorGUILayout.EndHorizontal();
 			
 			EditorGUILayout.BeginHorizontal();
-			
+
 			GUILayout.FlexibleSpace();
 			if (GUILayout.Button(new GUIContent("Tag Help", "Show help info for tags"), new GUIStyle(EditorStyles.miniButton)))
 			{
@@ -79,7 +77,9 @@ namespace Fungus
 				Texture2D characterTexture = t.character.profileSprite.texture;
 				
 				float aspect = (float)characterTexture.width / (float)characterTexture.height;
-				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(250), GUILayout.ExpandWidth(true));
+
+				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(100), GUILayout.ExpandWidth(true));
+
 				CharacterEditor characterEditor = Editor.CreateEditor(t.character) as CharacterEditor;
 				characterEditor.DrawPreview(previewRect, characterTexture);
 				DestroyImmediate(characterEditor);
