@@ -14,8 +14,8 @@ namespace Fungus
 		protected SerializedProperty nameColorProp;
 		protected SerializedProperty sayDialogBoxProp;
 		protected SerializedProperty chooseDialogBoxProp;
-		protected SerializedProperty profileSpriteProp;
 		protected SerializedProperty soundEffectProp;
+		protected SerializedProperty portraitsProp;
 		protected SerializedProperty notesProp;
 
 		protected virtual void OnEnable()
@@ -24,8 +24,8 @@ namespace Fungus
 			nameColorProp = serializedObject.FindProperty ("nameColor");
 			sayDialogBoxProp = serializedObject.FindProperty ("sayDialogBox");
 			chooseDialogBoxProp = serializedObject.FindProperty ("chooseDialogBox");
-			profileSpriteProp = serializedObject.FindProperty ("profileSprite");
 			soundEffectProp = serializedObject.FindProperty ("soundEffect");
+			portraitsProp = serializedObject.FindProperty ("portraits");
 			notesProp = serializedObject.FindProperty ("notes");
 
 			Shader shader = Shader.Find("Sprites/Default");
@@ -49,22 +49,29 @@ namespace Fungus
 			EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));
 			EditorGUILayout.PropertyField(sayDialogBoxProp, new GUIContent("Say Dialog", "Say dialog box this character should use"));
 			EditorGUILayout.PropertyField(chooseDialogBoxProp, new GUIContent("Choose Dialog", "Choose dialog box this character should use"));
-			EditorGUILayout.PropertyField(profileSpriteProp, new GUIContent("Image", "Character image sprite to display in the dialog"));
+			EditorGUILayout.PropertyField(portraitsProp, new GUIContent("Portraits", "Character image sprites to display in the dialog"),true);
 			EditorGUILayout.PropertyField(soundEffectProp, new GUIContent("Sound Effect", "Sound to play when the character is talking. Overrides the setting in the Dialog."));
 			EditorGUILayout.PropertyField(notesProp, new GUIContent("Notes", "Notes about this story character (personality, attibutes, etc.)"));
 
 			EditorGUILayout.Separator();
 
 			Character t = target as Character;
+
+			if (t.portraits != null &&
+			    t.portraits.Count > 0)
+			{
+				t.profileSprite = t.portraits[0];
+			}
+			else
+			{
+				t.profileSprite = null;
+			}
+
 			if (t.profileSprite != null &&
 			    spriteMaterial != null)
 			{
-				EditorGUILayout.BeginHorizontal();
-				GUILayout.FlexibleSpace();
 				float aspect = (float)t.profileSprite.texture.width / (float)t.profileSprite.texture.height;
-				Rect imagePreviewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(250), GUILayout.ExpandWidth(true));
-				GUILayout.FlexibleSpace();
-				EditorGUILayout.EndHorizontal();
+				Rect imagePreviewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(100), GUILayout.ExpandWidth(true));
 
 				DrawPreview(imagePreviewRect, t.profileSprite.texture);
 			}
