@@ -263,12 +263,11 @@ MonoBehaviour:
     height: 1450
   selectedSequence: {fileID: 16019626}
   selectedCommands:
-  - {fileID: 16019647}
+  - {fileID: 16019627}
   variables: []
   description: 'This scene shows how to control a Unity animation
 
     using trigger parameters. '
-  portraitType: 0
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -346,11 +345,10 @@ MonoBehaviour:
   storyText: That's me done jumping for now
   character: {fileID: 82341266}
   sayDialog: {fileID: 0}
-  portrait: {fileID: 21300000, guid: 088536216c5364d2ba277595d378c215, type: 3}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &16019628
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -385,11 +383,10 @@ MonoBehaviour:
   storyText: I don't need shoes, I don't even have feet!
   character: {fileID: 82341266}
   sayDialog: {fileID: 0}
-  portrait: {fileID: 21300000, guid: f2e901e070fff48cda67e3f446d80e79, type: 3}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &16019643
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -424,11 +421,10 @@ MonoBehaviour:
   storyText: Wait a second...
   character: {fileID: 82341266}
   sayDialog: {fileID: 0}
-  portrait: {fileID: 21300000, guid: a3850401348404655bd0352054c28683, type: 3}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &16019646
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -461,11 +457,10 @@ MonoBehaviour:
   storyText: I can't find my shoes anywhere!
   character: {fileID: 82341266}
   sayDialog: {fileID: 0}
-  portrait: {fileID: 21300000, guid: d18d934d212d442ee90406fd28e6eef6, type: 3}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &16019649
 MonoBehaviour:
   m_ObjectHideFlags: 2
