@@ -16,6 +16,7 @@ namespace Fungus
 		protected SerializedProperty chooseTextProp;
 		protected SerializedProperty characterProp;
 		protected SerializedProperty chooseDialogProp;
+		protected SerializedProperty portraitProp;
 		protected SerializedProperty voiceOverClipProp;
 		protected SerializedProperty timeoutDurationProp;
 		
@@ -23,6 +24,7 @@ namespace Fungus
 		{
 			chooseTextProp = serializedObject.FindProperty("chooseText");
 			characterProp = serializedObject.FindProperty("character");
+			portraitProp = serializedObject.FindProperty("portrait");
 			chooseDialogProp = serializedObject.FindProperty("chooseDialog");
 			voiceOverClipProp = serializedObject.FindProperty("voiceOverClip");
 			timeoutDurationProp = serializedObject.FindProperty("timeoutDuration");
@@ -31,25 +33,44 @@ namespace Fungus
 		public override void DrawCommandGUI() 
 		{
 			serializedObject.Update();
+			
+			Choose t = target as Choose;
 
+			bool showPortraits = false;
+			// Only show portrait selection if...
+			if (t.character != null &&              // Character is selected
+			    t.character.portraits.Count > 0 &&  // Selected Character has at least 1 portrait
+			    t.chooseDialog.characterImage != null) // Selected Say Dialog has a character image  
+			{
+				showPortraits = true;         
+			}
+			
 			CommandEditor.ObjectField<Character>(characterProp,
 			                                     new GUIContent("Character", "Character to display in dialog"), 
 			                                     new GUIContent("<None>"),
 			                                     Character.activeCharacters);
-			
+
 			CommandEditor.ObjectField<ChooseDialog>(chooseDialogProp, 
 			                                        new GUIContent("Choose Dialog", "Choose Dialog object to use to display the multiple player choices"), 
 			                                        new GUIContent("<Default>"),
 			                                        ChooseDialog.activeDialogs);
 
-			EditorGUILayout.BeginHorizontal();
+			if (showPortraits) 
+			{
+				CommandEditor.ObjectField<Sprite>(portraitProp, 
+				                                  new GUIContent("Portrait", "Portrait representing speaking character"), 
+				                                  new GUIContent("<None>"),
+				                                  t.character.portraits);
+			}
+			else
+			{
+				t.portrait = null;
+			}
 			
 			EditorGUILayout.PropertyField(chooseTextProp);
 			
-			EditorGUILayout.EndHorizontal();
-			
 			EditorGUILayout.BeginHorizontal();
-
+			
 			GUILayout.FlexibleSpace();
 			if (GUILayout.Button(new GUIContent("Tag Help", "Show help info for tags"), new GUIStyle(EditorStyles.miniButton)))
 			{
@@ -68,18 +89,14 @@ namespace Fungus
 			
 			EditorGUILayout.PropertyField(timeoutDurationProp, new GUIContent("Timeout Duration", "Time limit for player to make a choice. Set to 0 for no limit."));
 			
-			Choose t = target as Choose;
-			
-			if (t.character != null &&
-			    t.character.profileSprite != null &&
-			    t.character.profileSprite.texture != null)
+			if (showPortraits && t.portrait != null)
 			{
-				Texture2D characterTexture = t.character.profileSprite.texture;
+				Texture2D characterTexture = t.portrait.texture;
 				
 				float aspect = (float)characterTexture.width / (float)characterTexture.height;
-
+				
 				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(100), GUILayout.ExpandWidth(true));
-
+				
 				CharacterEditor characterEditor = Editor.CreateEditor(t.character) as CharacterEditor;
 				characterEditor.DrawPreview(previewRect, characterTexture);
 				DestroyImmediate(characterEditor);

@@ -261,6 +261,7 @@ MonoBehaviour:
   - {fileID: 470391087}
   variables: []
   description: 
+  portraitType: 0
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -310,7 +311,7 @@ GameObject:
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -421,7 +422,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 164
     y: 193
-    width: 121
+    width: 130
     height: 40
   sequenceName: Test iTween
   description: 
@@ -461,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 85, y: -80}
+  scrollPos: {x: 133, y: -117}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   zoom: 1
@@ -471,12 +472,13 @@ MonoBehaviour:
     y: -350
     width: 1213
     height: 1284
-  selectedSequence: {fileID: 0}
+  selectedSequence: {fileID: 868138992}
   selectedCommands: []
   variables: []
   description: 'This scene shows how to use the iTween commands
 
     to apply simple animation effects to objects'
+  portraitType: 0
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1

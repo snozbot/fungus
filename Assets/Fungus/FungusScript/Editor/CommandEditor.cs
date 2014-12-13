@@ -135,7 +135,7 @@ namespace Fungus
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		static public void ObjectField<T>(SerializedProperty property, GUIContent label, GUIContent nullLabel, List<T> objectList) where T : MonoBehaviour
+		static public void ObjectField<T>(SerializedProperty property, GUIContent label, GUIContent nullLabel, List<T> objectList) where T : Object 
 		{
 			if (property == null)
 			{
@@ -150,7 +150,17 @@ namespace Fungus
 			objectNames.Add(nullLabel);
 			for (int i = 0; i < objectList.Count; ++i)
 			{
-				objectNames.Add(new GUIContent(objectList[i].name));
+				string formattedName = "";
+				if ( typeof(T).IsSubclassOf(typeof(MonoBehaviour)) == true )
+				{
+					formattedName = objectList[i].name;
+				}
+				else
+				{
+					formattedName = objectList[i].ToString();
+					formattedName = formattedName.Substring(0, formattedName.LastIndexOf("(") - 1);
+				}
+				objectNames.Add(new GUIContent(formattedName));
 				
 				if (selectedObject == objectList[i])
 				{

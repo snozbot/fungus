@@ -14,8 +14,7 @@ namespace Fungus
 		public ChooseDialog chooseDialogBox;
 		public AudioClip soundEffect;
 		public Sprite profileSprite;
-		public List<Sprite> portraits;
-
+		public List<Sprite> portraits;	
 
 		[TextArea(5,10)]
 		public string notes;

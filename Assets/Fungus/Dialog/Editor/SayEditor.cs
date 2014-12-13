@@ -31,19 +31,21 @@ namespace Fungus
 			float pixelHeight = EditorStyles.miniLabel.CalcHeight(new GUIContent(tagsText), EditorGUIUtility.currentViewWidth);
 			EditorGUILayout.SelectableLabel(tagsText, EditorStyles.miniLabel, GUILayout.MinHeight(pixelHeight));
 		}
-		
-		protected SerializedProperty storyTextProp;
+
 		protected SerializedProperty characterProp;
 		protected SerializedProperty sayDialogProp;
+		protected SerializedProperty portraitProp;
+		protected SerializedProperty storyTextProp;
 		protected SerializedProperty voiceOverClipProp;
 		protected SerializedProperty showAlwaysProp;
 		protected SerializedProperty showCountProp;
 		
 		protected virtual void OnEnable()
 		{
-			storyTextProp = serializedObject.FindProperty("storyText");
 			characterProp = serializedObject.FindProperty("character");
 			sayDialogProp = serializedObject.FindProperty("sayDialog");
+			portraitProp = serializedObject.FindProperty("portrait");
+			storyTextProp = serializedObject.FindProperty("storyText");
 			voiceOverClipProp = serializedObject.FindProperty("voiceOverClip");
 			showAlwaysProp = serializedObject.FindProperty("showAlways");
 			showCountProp = serializedObject.FindProperty("showCount");
@@ -52,22 +54,41 @@ namespace Fungus
 		public override void DrawCommandGUI() 
 		{
 			serializedObject.Update();
-			
+
+			Say t = target as Say;
+
+			bool showPortraits = false;
+			// Only show portrait selection if...
+			if (t.character != null &&              // Character is selected
+			    t.character.portraits.Count > 0 &&  // Selected Character has at least 1 portrait
+			    t.sayDialog.characterImage != null) // Selected Say Dialog has a character image 
+			{
+				showPortraits = true;               
+			}
+
 			CommandEditor.ObjectField<Character>(characterProp, 
 			                                     new GUIContent("Character", "Character to display in dialog"), 
 			                                     new GUIContent("<None>"),
 			                                     Character.activeCharacters);
-			
+
 			CommandEditor.ObjectField<SayDialog>(sayDialogProp, 
 			                                     new GUIContent("Say Dialog", "Say Dialog object to use to display the story text"), 
 			                                     new GUIContent("<Default>"),
 			                                     SayDialog.activeDialogs);
-			
-			EditorGUILayout.BeginHorizontal();
+
+			if (showPortraits) 
+			{
+				CommandEditor.ObjectField<Sprite>(portraitProp, 
+			                                	     new GUIContent("Portrait", "Portrait representing speaking character"), 
+			                                    	 new GUIContent("<None>"),
+			                                     	t.character.portraits);
+			}
+			else
+			{
+				t.portrait = null;
+			}
 			
 			EditorGUILayout.PropertyField(storyTextProp);
-			
-			EditorGUILayout.EndHorizontal();
 			
 			EditorGUILayout.BeginHorizontal();
 			
@@ -96,13 +117,9 @@ namespace Fungus
 				EditorGUILayout.PropertyField(showCountProp);
 			}
 			
-			Say t = target as Say;
-			
-			if (t.character != null &&
-			    t.character.profileSprite != null &&
-			    t.character.profileSprite.texture != null)
+			if (showPortraits && t.portrait != null)
 			{
-				Texture2D characterTexture = t.character.profileSprite.texture;
+				Texture2D characterTexture = t.portrait.texture;
 				
 				float aspect = (float)characterTexture.width / (float)characterTexture.height;
 

@@ -49,8 +49,8 @@ namespace Fungus
 			EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));
 			EditorGUILayout.PropertyField(sayDialogBoxProp, new GUIContent("Say Dialog", "Say dialog box this character should use"));
 			EditorGUILayout.PropertyField(chooseDialogBoxProp, new GUIContent("Choose Dialog", "Choose dialog box this character should use"));
-			EditorGUILayout.PropertyField(portraitsProp, new GUIContent("Portraits", "Character image sprites to display in the dialog"),true);
 			EditorGUILayout.PropertyField(soundEffectProp, new GUIContent("Sound Effect", "Sound to play when the character is talking. Overrides the setting in the Dialog."));
+			EditorGUILayout.PropertyField(portraitsProp, new GUIContent("Portraits", "Character image sprites to display in the dialog"),true);
 			EditorGUILayout.PropertyField(notesProp, new GUIContent("Notes", "Notes about this story character (personality, attibutes, etc.)"));
 
 			EditorGUILayout.Separator();

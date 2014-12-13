@@ -492,7 +492,7 @@ GameObject:
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1233,7 +1233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: -542.054199, y: 17.7798004}
+  scrollPos: {x: -418.054199, y: -18.2201996}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 0
   zoom: 1
@@ -1243,7 +1243,7 @@ MonoBehaviour:
     y: -610.734985
     width: 3261.20312
     height: 2227.35059
-  selectedSequence: {fileID: 0}
+  selectedSequence: {fileID: 771014106}
   selectedCommands: []
   variables:
   - {fileID: 771014102}
@@ -1253,6 +1253,7 @@ MonoBehaviour:
     style game with minimal graphics and a focus
 
     on text based story telling'
+  portraitType: 3
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -1327,7 +1328,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 560.814453
     y: 17.053772
-    width: 121
+    width: 130
     height: 40
   sequenceName: Start
   description: 
@@ -1373,7 +1374,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 733.351135
     y: 17.4427872
-    width: 128
+    width: 134
     height: 40
   sequenceName: Standing there
   description: 
@@ -1442,8 +1443,11 @@ MonoBehaviour:
     nothing.
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014110
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1512,8 +1516,11 @@ MonoBehaviour:
     of some kind, though made to fit you and you alone.'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014113
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1585,8 +1592,11 @@ MonoBehaviour:
     You hear nothing back.'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014116
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1630,6 +1640,7 @@ MonoBehaviour:
   chooseText: You're standing in the middle of the room.
   character: {fileID: 0}
   chooseDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
 --- !u!114 &771014118
@@ -1677,7 +1688,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 916.223145
     y: 15.7090759
-    width: 142
+    width: 149
     height: 40
   sequenceName: Inspect desk first
   description: 
@@ -1817,8 +1828,11 @@ MonoBehaviour:
   storyText: The room echoes to the sound of nothing happening.
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014126
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1906,8 +1920,11 @@ MonoBehaviour:
     very bright.'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014130
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2005,8 +2022,11 @@ MonoBehaviour:
     The lamp dims to a more useable level.'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014134
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2072,8 +2092,11 @@ MonoBehaviour:
     Nothing. Oh well.'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014137
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2117,6 +2140,7 @@ MonoBehaviour:
   chooseText: What would you like to do?
   character: {fileID: 0}
   chooseDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
 --- !u!114 &771014139
@@ -2332,7 +2356,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 730.837646
     y: 101.663513
-    width: 135
+    width: 140
     height: 40
   sequenceName: How you doing?
   description: 
@@ -2520,8 +2544,11 @@ MonoBehaviour:
     "It''s OK. It was my own fault. I just need to be more careful."'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014158
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2565,6 +2592,7 @@ MonoBehaviour:
   chooseText: What do you do?
   character: {fileID: 0}
   chooseDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 10
 --- !u!114 &771014160
@@ -2666,8 +2694,11 @@ MonoBehaviour:
     "Samson! What the hell are you opening that cell for?"'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014163
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2764,8 +2795,11 @@ MonoBehaviour:
 '
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014167
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2809,6 +2843,7 @@ MonoBehaviour:
   chooseText: What do you want to say?
   character: {fileID: 0}
   chooseDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
 --- !u!114 &771014169
@@ -2930,8 +2965,11 @@ MonoBehaviour:
     with all the automated trucks. Very nasty business."'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 1
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014172
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3000,8 +3038,11 @@ MonoBehaviour:
     "Why are {i}you{/i} being so difficult? I''m just trying to do my job, here."'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014175
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3065,8 +3106,11 @@ MonoBehaviour:
     you know what, never mind, like I said, it''ll all be covered at tomorrow''s orientation."'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014178
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3110,6 +3154,7 @@ MonoBehaviour:
   chooseText: What do you want to say next?
   character: {fileID: 0}
   chooseDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
 --- !u!114 &771014180
@@ -3259,8 +3304,11 @@ MonoBehaviour:
     and remain calm until then."{wi}'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014184
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3332,8 +3380,11 @@ MonoBehaviour:
     seem to be anything worth looking at.
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014188
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3377,6 +3428,7 @@ MonoBehaviour:
   chooseText: What would you like to do next?
   character: {fileID: 0}
   chooseDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
 --- !u!114 &771014190
@@ -3459,8 +3511,11 @@ MonoBehaviour:
     adapt. Everything looks more or less the way it did, just, well, brighter.'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 1
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014193
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3659,8 +3714,11 @@ MonoBehaviour:
     The lamp dims to a more useable level.'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014200
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3745,8 +3803,11 @@ MonoBehaviour:
     The words {b}this down{/b} appear after {b}With{/b}.'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014204
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3817,8 +3878,11 @@ MonoBehaviour:
   storyText: The left drawer is as empty as your memories.
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014208
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3862,6 +3926,7 @@ MonoBehaviour:
   chooseText: Underneath the lip of the desktop sit two drawers, one on either side.
   character: {fileID: 0}
   chooseDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
 --- !u!114 &771014210
@@ -3971,8 +4036,11 @@ MonoBehaviour:
     a solid piece of chrome and it''s currently switched off. '
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 1
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014214
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4081,8 +4149,11 @@ MonoBehaviour:
     incredibly well-rested.{wc} You stretch out your arms and stand up.
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 1
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014218
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4122,8 +4193,11 @@ MonoBehaviour:
     Weird.'
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014220
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4167,6 +4241,7 @@ MonoBehaviour:
   chooseText: What do you do?
   character: {fileID: 0}
   chooseDialog: {fileID: 306771627}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
 --- !u!114 &771014222
@@ -4249,8 +4324,11 @@ MonoBehaviour:
     jumpsuit that\u2019s quite flattering and very comfy, but definitely unfamiliar."
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014225
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4342,8 +4420,11 @@ MonoBehaviour:
   storyText: You saunter through the hallway and on to your freedom. Well done!
   character: {fileID: 0}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
+  appendToPrev: 0
 --- !u!114 &771014231
 MonoBehaviour:
   m_ObjectHideFlags: 2
