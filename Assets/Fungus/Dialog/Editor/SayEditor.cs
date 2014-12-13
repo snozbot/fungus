@@ -60,7 +60,9 @@ namespace Fungus
 			bool showPortraits = false;
 			// Only show portrait selection if...
 			if (t.character != null &&              // Character is selected
+			    t.character.portraits != null &&    // Character has a portraits field
 			    t.character.portraits.Count > 0 &&  // Selected Character has at least 1 portrait
+			    t.sayDialog != null &&              // Say Dialog is selected
 			    t.sayDialog.characterImage != null) // Selected Say Dialog has a character image 
 			{
 				showPortraits = true;               
