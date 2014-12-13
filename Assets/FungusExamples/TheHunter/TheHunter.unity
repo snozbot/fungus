@@ -463,6 +463,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 488519165}
     m_Modifications:
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -377.012329
@@ -528,6 +532,19 @@ Prefab:
       propertyPath: soundEffect
       value: 
       objectReference: {fileID: 8300000, guid: 0dc7e509ace954462bc8ab20fcb68d60, type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e,
+        type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: sayDialogBox
+      value: 
+      objectReference: {fileID: 1070206234}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: chooseDialogBox
+      value: 
+      objectReference: {fileID: 1016272668}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_RootGameObject: {fileID: 339869592}
@@ -540,6 +557,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 488519165}
     m_Modifications:
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -377.012329
@@ -605,6 +626,19 @@ Prefab:
       propertyPath: soundEffect
       value: 
       objectReference: {fileID: 8300000, guid: 9b3be2062b59848a2bd178f5748b386d, type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50,
+        type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: sayDialogBox
+      value: 
+      objectReference: {fileID: 1070206234}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: chooseDialogBox
+      value: 
+      objectReference: {fileID: 1016272668}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_RootGameObject: {fileID: 686889651}
@@ -816,6 +850,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 488519165}
     m_Modifications:
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -377.012329
@@ -881,6 +919,19 @@ Prefab:
       propertyPath: soundEffect
       value: 
       objectReference: {fileID: 8300000, guid: 23e52ab29f28743309c85b6d7bdc8ad6, type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120,
+        type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: sayDialogBox
+      value: 
+      objectReference: {fileID: 1070206234}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: chooseDialogBox
+      value: 
+      objectReference: {fileID: 1016272668}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_RootGameObject: {fileID: 338947446}
@@ -893,6 +944,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 488519165}
     m_Modifications:
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -377.012329
@@ -958,6 +1013,19 @@ Prefab:
       propertyPath: soundEffect
       value: 
       objectReference: {fileID: 8300000, guid: 124184555ec434aa68814be3bd116c26, type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a,
+        type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: sayDialogBox
+      value: 
+      objectReference: {fileID: 1070206234}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: chooseDialogBox
+      value: 
+      objectReference: {fileID: 1016272668}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_RootGameObject: {fileID: 1712414753}
@@ -1176,8 +1244,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: Shay
   nameColor: {r: .933333337, g: .772549033, b: .349019617, a: 1}
-  profileSprite: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
+  sayDialogBox: {fileID: 1070206234}
+  chooseDialogBox: {fileID: 1016272668}
   soundEffect: {fileID: 8300000, guid: 23e52ab29f28743309c85b6d7bdc8ad6, type: 3}
+  profileSprite: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
+  portraits:
+  - {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   notes: 
 --- !u!1 &339869592
 GameObject:
@@ -1209,8 +1281,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: Skipper
   nameColor: {r: .294117659, g: .650980413, b: .949019611, a: 1}
-  profileSprite: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
+  sayDialogBox: {fileID: 1070206234}
+  chooseDialogBox: {fileID: 1016272668}
   soundEffect: {fileID: 8300000, guid: 0dc7e509ace954462bc8ab20fcb68d60, type: 3}
+  profileSprite: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
+  portraits:
+  - {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   notes: 
 --- !u!4 &339869594
 Transform:
@@ -1365,7 +1441,7 @@ GameObject:
   m_Layer: 0
   m_Name: IntroView
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1505,7 +1581,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 518300788}
   - 114: {fileID: 518300787}
-  - 114: {fileID: 518300789}
   m_Layer: 0
   m_Name: _CommandCopyBuffer
   m_TagString: Untagged
@@ -1547,21 +1622,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &518300789
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 518300786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  musicClip: {fileID: 8300000, guid: ae3aa0e9b0f0248a59548b5d9e77a6c1, type: 3}
-  atTime: 0
 --- !u!1 &524591087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,8 +1996,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: Badly Drawn Bear
   nameColor: {r: .95588237, g: .347840369, b: .168685108, a: 1}
-  profileSprite: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
+  sayDialogBox: {fileID: 1070206234}
+  chooseDialogBox: {fileID: 1016272668}
   soundEffect: {fileID: 8300000, guid: 9b3be2062b59848a2bd178f5748b386d, type: 3}
+  profileSprite: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
+  portraits:
+  - {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   notes: 
 --- !u!4 &686889653
 Transform:
@@ -1963,7 +2027,7 @@ GameObject:
   m_Layer: 0
   m_Name: BearView
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2134,7 +2198,7 @@ GameObject:
   m_Layer: 0
   m_Name: CharacterView
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3961,7 +4025,7 @@ GameObject:
   m_Layer: 0
   m_Name: ZoomOutView
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4183,8 +4247,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: Ciara
   nameColor: {r: .925490201, g: .482352942, b: .196078435, a: 1}
-  profileSprite: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
+  sayDialogBox: {fileID: 1070206234}
+  chooseDialogBox: {fileID: 1016272668}
   soundEffect: {fileID: 8300000, guid: 124184555ec434aa68814be3bd116c26, type: 3}
+  profileSprite: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
+  portraits:
+  - {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   notes: 
 --- !u!1 &1726080686
 GameObject:
@@ -4198,7 +4266,7 @@ GameObject:
   m_Layer: 0
   m_Name: WaterView
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4363,7 +4431,6 @@ GameObject:
   - 114: {fileID: 1831099575}
   - 114: {fileID: 1831099574}
   - 114: {fileID: 1831099573}
-  - 114: {fileID: 1831099572}
   - 114: {fileID: 1831099608}
   - 114: {fileID: 1831099607}
   - 114: {fileID: 1831099606}
@@ -4431,6 +4498,7 @@ GameObject:
   - 114: {fileID: 1831099611}
   - 114: {fileID: 1831099610}
   - 114: {fileID: 1831099609}
+  - 114: {fileID: 1831099572}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: Untagged
@@ -4463,7 +4531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 71.1925049, y: 537.002808}
+  scrollPos: {x: 752.192505, y: 534.002808}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 0
   zoom: 1
@@ -4473,9 +4541,8 @@ MonoBehaviour:
     y: -909.022339
     width: 1939.01758
     height: 1998.52234
-  selectedSequence: {fileID: 1831099578}
-  selectedCommands:
-  - {fileID: 1831099577}
+  selectedSequence: {fileID: 1831099608}
+  selectedCommands: []
   variables:
   - {fileID: 1831099569}
   description: 'This is an example of a short Visual Novel / RPG
@@ -4628,7 +4695,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 109.537018
     y: -507.022339
-    width: 121
+    width: 130
     height: 40
   sequenceName: Start
   description: 
@@ -4701,8 +4768,10 @@ MonoBehaviour:
     Sort of.'
   character: {fileID: 338947448}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099582
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4721,8 +4790,10 @@ MonoBehaviour:
     Oh good, another mouth to feed.'
   character: {fileID: 339869593}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099583
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4760,8 +4831,10 @@ MonoBehaviour:
     Come meet our new friend!'
   character: {fileID: 338947448}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099585
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4778,8 +4851,10 @@ MonoBehaviour:
   storyText: Um...
   character: {fileID: 1712414755}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099586
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4796,8 +4871,10 @@ MonoBehaviour:
   storyText: I see! And so I guess you're not hungry either?
   character: {fileID: 338947448}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099587
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4814,8 +4891,10 @@ MonoBehaviour:
   storyText: I'm not little and I'm not lost!
   character: {fileID: 1712414755}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099588
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4833,8 +4912,10 @@ MonoBehaviour:
     friend.{wc} \nAre you lost?"
   character: {fileID: 338947448}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099589
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4886,8 +4967,10 @@ MonoBehaviour:
     If there is, you better run!'
   character: {fileID: 1712414755}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099592
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4953,8 +5036,10 @@ MonoBehaviour:
   storyText: No, I could not!{wc} Now be off with you!
   character: {fileID: 339869593}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099595
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4977,8 +5062,10 @@ MonoBehaviour:
     Couldn''t you spare just one? '
   character: {fileID: 1712414755}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099596
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4999,8 +5086,10 @@ MonoBehaviour:
     We''ll see about that!'
   character: {fileID: 339869593}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099597
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5047,9 +5136,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 108.654449
-    y: -379.268433
-    width: 125
+    x: 106.654449
+    y: -380.268433
+    width: 130
     height: 40
   sequenceName: Check for fish
   description: 
@@ -5092,6 +5181,7 @@ MonoBehaviour:
   chooseText: What should I do?
   character: {fileID: 1712414755}
   chooseDialog: {fileID: 1016272668}
+  portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 8
 --- !u!114 &1831099602
@@ -5172,8 +5262,10 @@ MonoBehaviour:
     I better be careful though, I might not be the only person in these woods...'
   character: {fileID: 1712414755}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099605
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5190,8 +5282,10 @@ MonoBehaviour:
   storyText: Emerging from the forest, she found herself at a beautiful mountain stream.
   character: {fileID: 0}
   sayDialog: {fileID: 1185554287}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099606
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5227,8 +5321,10 @@ MonoBehaviour:
     stomach told her she would need to find food soon.'
   character: {fileID: 0}
   sayDialog: {fileID: 1185554287}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099608
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5242,7 +5338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 111
+    x: 112
     y: -441.890259
     width: 120
     height: 40
@@ -5293,8 +5389,10 @@ MonoBehaviour:
   storyText: BURP!
   character: {fileID: 686889652}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099611
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5311,8 +5409,10 @@ MonoBehaviour:
   storyText: RAAAAAAAAAARRRRRRRRRR!!!!!!
   character: {fileID: 686889652}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099612
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5348,9 +5448,11 @@ MonoBehaviour:
 
     Arggghh!'
   character: {fileID: 0}
-  sayDialog: {fileID: 1070206234}
+  sayDialog: {fileID: 1185554287}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099614
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5367,8 +5469,10 @@ MonoBehaviour:
   storyText: RAAAAAARRRRRR!!!!!!
   character: {fileID: 686889652}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099615
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5404,8 +5508,10 @@ MonoBehaviour:
     THE END'
   character: {fileID: 0}
   sayDialog: {fileID: 1185554287}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099617
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5422,8 +5528,10 @@ MonoBehaviour:
   storyText: RAAAAAARRRRRR!
   character: {fileID: 686889652}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099618
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5456,8 +5564,10 @@ MonoBehaviour:
   storyText: Noooooooo!
   character: {fileID: 338947448}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099620
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5474,8 +5584,10 @@ MonoBehaviour:
   storyText: Ayyyyyyeeee!
   character: {fileID: 339869593}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099621
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5492,8 +5604,10 @@ MonoBehaviour:
   storyText: Aaaaaagh!
   character: {fileID: 1712414755}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099622
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5545,8 +5659,10 @@ MonoBehaviour:
     The last thing you want in this part of the woods is to run into a...'
   character: {fileID: 338947448}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099625
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5713,8 +5829,10 @@ MonoBehaviour:
     I''ll be watching you!'
   character: {fileID: 339869593}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099634
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5777,8 +5895,10 @@ MonoBehaviour:
     This way, follow me!'
   character: {fileID: 338947448}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099637
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5866,8 +5986,10 @@ MonoBehaviour:
   storyText: Oh yes please! Thank you!
   character: {fileID: 1712414755}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099641
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5886,8 +6008,10 @@ MonoBehaviour:
     You look hungry! Do you want to something to eat?'
   character: {fileID: 338947448}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099642
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5904,8 +6028,10 @@ MonoBehaviour:
   storyText: What! This is an outrage! Mind your own busin...
   character: {fileID: 339869593}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099643
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5926,8 +6052,10 @@ MonoBehaviour:
     Pay him no attention.'
   character: {fileID: 338947448}
   sayDialog: {fileID: 1070206234}
+  portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
-  showOnce: 0
+  showAlways: 1
+  showCount: 1
 --- !u!114 &1831099644
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -6258,7 +6386,7 @@ GameObject:
   m_Layer: 0
   m_Name: ZoomInView
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
