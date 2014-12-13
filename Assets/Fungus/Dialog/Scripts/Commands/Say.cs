@@ -22,6 +22,9 @@ namespace Fungus
 		[Tooltip("Say Dialog to use when writing the story text.")]
 		public SayDialog sayDialog;
 
+		[Tooltip("Portrait that represents speaking character")]
+		public Sprite portrait;
+
 		[Tooltip("Voiceover audio to play when writing the story text")]
 		public AudioClip voiceOverClip;
 
@@ -42,7 +45,7 @@ namespace Fungus
 				Continue();
 				return;
 			}
-			
+
 			executionCount++;
 
 			showBasicGUI = false;
@@ -68,6 +71,7 @@ namespace Fungus
 	
 			FungusScript fungusScript = GetFungusScript();
 			sayDialog.SetCharacter(character, fungusScript);
+			sayDialog.SetCharacterImage(portrait);
 
 			sayDialog.ShowDialog(true);
 

@@ -75,7 +75,6 @@ namespace Fungus
 			}
 			else
 			{
-				SetCharacterImage(character.profileSprite);
 
 				string characterName = character.nameText;
 				if (characterName == "")

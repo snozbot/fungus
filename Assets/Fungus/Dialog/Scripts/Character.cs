@@ -12,8 +12,9 @@ namespace Fungus
 		public Color nameColor = Color.white;
 		public SayDialog sayDialogBox;
 		public ChooseDialog chooseDialogBox;
-		public Sprite profileSprite;
 		public AudioClip soundEffect;
+		public Sprite profileSprite;
+		public List<Sprite> portraits;	
 
 		[TextArea(5,10)]
 		public string notes;

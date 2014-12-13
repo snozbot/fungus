@@ -173,11 +173,6 @@ namespace Fungus
 			{
 				summary = summary.Replace("\n", "").Replace("\r", "");
 			}
-
-			if (summary.Length > 80)
-			{
-				summary = summary.Substring(0, 80) + "...";
-			}
 			if (summary.StartsWith("Error:"))
 			{
 				error = true;

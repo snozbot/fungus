@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 507.026611, y: 303.028076}
+  scrollPos: {x: 854.026611, y: 244.028076}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   zoom: 1
@@ -262,11 +262,13 @@ MonoBehaviour:
     width: 2140
     height: 1450
   selectedSequence: {fileID: 16019626}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 16019647}
   variables: []
   description: 'This scene shows how to control a Unity animation
 
     using trigger parameters. '
+  portraitType: 0
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -311,7 +313,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -251
     y: -190
-    width: 121
+    width: 130
     height: 40
   sequenceName: Start
   description: 
@@ -342,11 +344,13 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: That's me done jumping for now
-  character: {fileID: 1844806518}
+  character: {fileID: 82341266}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 088536216c5364d2ba277595d378c215, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
+  appendToPrev: 0
 --- !u!114 &16019628
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -379,11 +383,13 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: I don't need shoes, I don't even have feet!
-  character: {fileID: 1844806518}
+  character: {fileID: 82341266}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 21300000, guid: f2e901e070fff48cda67e3f446d80e79, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
+  appendToPrev: 0
 --- !u!114 &16019643
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -416,11 +422,13 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: Wait a second...
-  character: {fileID: 1871969526}
+  character: {fileID: 82341266}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 21300000, guid: a3850401348404655bd0352054c28683, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
+  appendToPrev: 0
 --- !u!114 &16019646
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -451,11 +459,13 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: I can't find my shoes anywhere!
-  character: {fileID: 102763371}
+  character: {fileID: 82341266}
   sayDialog: {fileID: 0}
+  portrait: {fileID: 21300000, guid: d18d934d212d442ee90406fd28e6eef6, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
+  appendToPrev: 0
 --- !u!114 &16019649
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -700,6 +710,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!1 &82341265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 1766775830}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 82341267}
+  - 114: {fileID: 82341266}
+  m_Layer: 0
+  m_Name: Alien
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &82341266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1766775830}
+  m_GameObject: {fileID: 82341265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: Prax
+  nameColor: {r: .257352948, g: .815618575, b: 1, a: 1}
+  sayDialogBox: {fileID: 1426510413}
+  chooseDialogBox: {fileID: 2060983701}
+  soundEffect: {fileID: 0}
+  profileSprite: {fileID: 21300000, guid: f2e901e070fff48cda67e3f446d80e79, type: 3}
+  portraits:
+  - {fileID: 21300000, guid: f2e901e070fff48cda67e3f446d80e79, type: 3}
+  - {fileID: 21300000, guid: a3850401348404655bd0352054c28683, type: 3}
+  - {fileID: 21300000, guid: 088536216c5364d2ba277595d378c215, type: 3}
+  - {fileID: 21300000, guid: d18d934d212d442ee90406fd28e6eef6, type: 3}
+  notes: 
+--- !u!4 &82341267
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 1766775830}
+  m_GameObject: {fileID: 82341265}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -377.012329, y: -60.5565338, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 115669580}
+  m_RootOrder: 0
 --- !u!1 &89485189
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,51 +831,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1215079671}
   m_GameObject: {fileID: 89485189}
---- !u!1 &102763370
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_PrefabInternal: {fileID: 968198287}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 102763372}
-  - 114: {fileID: 102763371}
-  m_Layer: 0
-  m_Name: AlienSad
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &102763371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
-    type: 2}
-  m_PrefabInternal: {fileID: 968198287}
-  m_GameObject: {fileID: 102763370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: Prax
-  nameColor: {r: .257352948, g: .815618575, b: 1, a: 1}
-  profileSprite: {fileID: 21300000, guid: d18d934d212d442ee90406fd28e6eef6, type: 3}
-  soundEffect: {fileID: 0}
-  notes: 
---- !u!4 &102763372
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_PrefabInternal: {fileID: 968198287}
-  m_GameObject: {fileID: 102763370}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -377.012329, y: -60.5565338, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 115669580}
-  m_RootOrder: 0
 --- !u!1 &115669579
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,9 +856,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 102763372}
-  - {fileID: 1871969525}
-  - {fileID: 1844806519}
+  - {fileID: 82341267}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!1 &171864907
@@ -1129,79 +1144,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
   m_RootGameObject: {fileID: 1261834498}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
---- !u!1001 &612354559
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 115669580}
-    m_Modifications:
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -377.012329
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -60.5565338
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: nameText
-      value: Prax
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_Name
-      value: AlienCheerful
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: profileSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: f2e901e070fff48cda67e3f446d80e79,
-        type: 3}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: nameColor.r
-      value: .257352948
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: nameColor.g
-      value: .815618575
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: nameColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: notes
-      value: Prax is in a good mood!
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_RootGameObject: {fileID: 1844806517}
   m_IsPrefabParent: 0
   m_IsExploded: 1
 --- !u!1 &637969834
@@ -1492,144 +1434,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1467280113}
   m_GameObject: {fileID: 904137534}
---- !u!1001 &953561412
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 115669580}
-    m_Modifications:
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -377.012329
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -60.5565338
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: nameText
-      value: Prax
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_Name
-      value: AlienWow
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: profileSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: a3850401348404655bd0352054c28683,
-        type: 3}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: nameColor.r
-      value: .257352948
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: nameColor.g
-      value: .815618575
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: nameColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_RootGameObject: {fileID: 1871969524}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
---- !u!1001 &968198287
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 115669580}
-    m_Modifications:
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -377.012329
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -60.5565338
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: nameText
-      value: Prax
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: m_Name
-      value: AlienSad
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: profileSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d18d934d212d442ee90406fd28e6eef6,
-        type: 3}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: nameColor.r
-      value: .257352948
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: nameColor.g
-      value: .815618575
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-      propertyPath: nameColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_RootGameObject: {fileID: 102763370}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &975464276
 GameObject:
   m_ObjectHideFlags: 1
@@ -2771,6 +2575,107 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1215079671}
   m_GameObject: {fileID: 1679475631}
+--- !u!1001 &1766775830
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 115669580}
+    m_Modifications:
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -377.012329
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -60.5565338
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: nameText
+      value: Prax
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_Name
+      value: Alien
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: profileSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f2e901e070fff48cda67e3f446d80e79,
+        type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: nameColor.r
+      value: .257352948
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: nameColor.g
+      value: .815618575
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: nameColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: f2e901e070fff48cda67e3f446d80e79,
+        type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: a3850401348404655bd0352054c28683,
+        type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 088536216c5364d2ba277595d378c215,
+        type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: d18d934d212d442ee90406fd28e6eef6,
+        type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: sayDialogBox
+      value: 
+      objectReference: {fileID: 1426510413}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: chooseDialogBox
+      value: 
+      objectReference: {fileID: 2060983701}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_RootGameObject: {fileID: 82341265}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1773019752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2899,96 +2804,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1215079671}
   m_GameObject: {fileID: 1773019752}
---- !u!1 &1844806517
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_PrefabInternal: {fileID: 612354559}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1844806519}
-  - 114: {fileID: 1844806518}
-  m_Layer: 0
-  m_Name: AlienCheerful
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1844806518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
-    type: 2}
-  m_PrefabInternal: {fileID: 612354559}
-  m_GameObject: {fileID: 1844806517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: Prax
-  nameColor: {r: .257352948, g: .815618575, b: 1, a: 1}
-  profileSprite: {fileID: 21300000, guid: f2e901e070fff48cda67e3f446d80e79, type: 3}
-  soundEffect: {fileID: 0}
-  notes: Prax is in a good mood!
---- !u!4 &1844806519
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_PrefabInternal: {fileID: 612354559}
-  m_GameObject: {fileID: 1844806517}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -377.012329, y: -60.5565338, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 115669580}
-  m_RootOrder: 2
---- !u!1 &1871969524
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_PrefabInternal: {fileID: 953561412}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1871969525}
-  - 114: {fileID: 1871969526}
-  m_Layer: 0
-  m_Name: AlienWow
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1871969525
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_PrefabInternal: {fileID: 953561412}
-  m_GameObject: {fileID: 1871969524}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -377.012329, y: -60.5565338, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 115669580}
-  m_RootOrder: 1
---- !u!114 &1871969526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
-    type: 2}
-  m_PrefabInternal: {fileID: 953561412}
-  m_GameObject: {fileID: 1871969524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: Prax
-  nameColor: {r: .257352948, g: .815618575, b: 1, a: 1}
-  profileSprite: {fileID: 21300000, guid: a3850401348404655bd0352054c28683, type: 3}
-  soundEffect: {fileID: 0}
-  notes: 
 --- !u!1 &1873765285
 GameObject:
   m_ObjectHideFlags: 0
