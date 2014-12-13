@@ -4531,7 +4531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 752.192505, y: 534.002808}
+  scrollPos: {x: 105.192505, y: 536.002808}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 0
   zoom: 1
@@ -4541,7 +4541,7 @@ MonoBehaviour:
     y: -909.022339
     width: 1939.01758
     height: 1998.52234
-  selectedSequence: {fileID: 1831099608}
+  selectedSequence: {fileID: 1831099578}
   selectedCommands: []
   variables:
   - {fileID: 1831099569}
@@ -4695,7 +4695,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 109.537018
     y: -507.022339
-    width: 130
+    width: 121
     height: 40
   sequenceName: Start
   description: 
@@ -5138,7 +5138,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 106.654449
     y: -380.268433
-    width: 130
+    width: 125
     height: 40
   sequenceName: Check for fish
   description: 
