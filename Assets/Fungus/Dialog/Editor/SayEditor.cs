@@ -57,17 +57,6 @@ namespace Fungus
 
 			Say t = target as Say;
 
-			bool showPortraits = false;
-			// Only show portrait selection if...
-			if (t.character != null &&              // Character is selected
-			    t.character.portraits != null &&    // Character has a portraits field
-			    t.character.portraits.Count > 0 &&  // Selected Character has at least 1 portrait
-			    t.sayDialog != null &&              // Say Dialog is selected
-			    t.sayDialog.characterImage != null) // Selected Say Dialog has a character image 
-			{
-				showPortraits = true;               
-			}
-
 			CommandEditor.ObjectField<Character>(characterProp, 
 			                                     new GUIContent("Character", "Character to display in dialog"), 
 			                                     new GUIContent("<None>"),
@@ -77,6 +66,26 @@ namespace Fungus
 			                                     new GUIContent("Say Dialog", "Say Dialog object to use to display the story text"), 
 			                                     new GUIContent("<Default>"),
 			                                     SayDialog.activeDialogs);
+			bool showPortraits = false;
+			// Only show portrait selection if...
+			if (t.character != null &&              // Character is selected
+			    t.character.portraits != null &&    // Character has a portraits field
+			    t.character.portraits.Count > 0 )   // Selected Character has at least 1 portrait
+			{
+				SayDialog sd = t.sayDialog;
+				if (t.sayDialog == null)            // If default box selected
+				{
+					sd = t.character.sayDialogBox;  // Try to get character's default say dialog box
+					if (t.sayDialog == null)        // If no default specified, try to get any SayDialog in the scene
+					{
+						sd = GameObject.FindObjectOfType<SayDialog>();
+					}
+				}
+				if (sd != null && sd.characterImage != null) // Check that selected say dialog has a character image
+				{
+				    showPortraits = true;    
+				}
+			}
 
 			if (showPortraits) 
 			{
