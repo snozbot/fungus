@@ -28,6 +28,8 @@ namespace Fungus
 
 		public const float playIconFadeTime = 0.5f;
 
+		protected bool mouseOverVariables = false;
+
 		[MenuItem("Window/Fungus Script")]
 	    static void Init()
 	    {
@@ -173,6 +175,18 @@ namespace Fungus
 			fungusScriptEditor.DrawVariablesGUI();
 			DestroyImmediate(fungusScriptEditor);
 
+			Rect variableWindowRect = GUILayoutUtility.GetLastRect();
+			if (fungusScript.variablesExpanded &&
+			    fungusScript.variables.Count > 0)
+			{
+				variableWindowRect.y -= 20;
+				variableWindowRect.height += 20;
+			}
+			if (Event.current.type == EventType.Repaint)
+			{
+				mouseOverVariables = variableWindowRect.Contains(Event.current.mousePosition); 
+			}
+
 			GUILayout.EndScrollView();
 
 			GUILayout.EndVertical();
@@ -213,7 +227,8 @@ namespace Fungus
 			GLDraw.BeginGroup(scriptViewRect);
 
 			if (Event.current.button == 0 && 
-				Event.current.type == EventType.MouseDown)
+				Event.current.type == EventType.MouseDown &&
+			    !mouseOverVariables)
 			{
 				fungusScript.selectedSequence = null;
 				if (!EditorGUI.actionKey)
@@ -423,7 +438,8 @@ namespace Fungus
 								
 			// Select sequence when node is clicked
 			if (Event.current.button == 0 && 
-		    	Event.current.type == EventType.MouseDown)
+		    	Event.current.type == EventType.MouseDown &&
+			    !mouseOverVariables)
 			{
 				// Check if might be start of a window drag
 				if (Event.current.button == 0)
