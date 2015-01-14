@@ -6,22 +6,23 @@ namespace Fungus
 
 	public class StringVariable : Variable 
 	{
-		protected string stringVal;
+		public string value = "";
 
-		public string Value
-		{
-			get { return (scope == VariableScope.Local) ? stringVal : GlobalVariables.GetString(key); }
-			set { if (scope == VariableScope.Local) { stringVal = value; } else { GlobalVariables.SetString(key, value); } }
-		}
+		protected string startValue = "";
 
 		public override void OnReset()
 		{
-			Value = "";
+			value = startValue;
 		}
 
 		public override string ToString()
 		{
-			return Value.ToString();
+			return value.ToString();
+		}
+
+		protected virtual void Start()
+		{
+			startValue = value;
 		}
 	}
 
@@ -36,8 +37,8 @@ namespace Fungus
 
 		public string Value
 		{
-			get { return (stringRef == null) ? stringVal : stringRef.Value; }
-			set { if (stringRef == null) { stringVal = value; } else { stringRef.Value = value; } }
+			get { return (stringRef == null) ? stringVal : stringRef.value; }
+			set { if (stringRef == null) { stringVal = value; } else { stringRef.value = value; } }
 		}
 
 		public string GetDescription()

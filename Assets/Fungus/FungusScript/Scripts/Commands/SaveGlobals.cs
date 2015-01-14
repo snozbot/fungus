@@ -14,7 +14,7 @@ namespace Fungus
 
 		public override void OnEnter()
 		{
-			GlobalVariables.Save(saveName);
+			//GlobalVariables.Save(saveName);
 			Continue();
 		}
 		

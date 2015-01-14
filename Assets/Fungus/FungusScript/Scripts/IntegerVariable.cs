@@ -6,22 +6,23 @@ namespace Fungus
 
 	public class IntegerVariable : Variable 
 	{
-		protected int integerVal;
+		public int value;
 
-		public int Value
-		{
-			get { return (scope == VariableScope.Local) ? integerVal : GlobalVariables.GetInteger(key); }
-			set { if (scope == VariableScope.Local) { integerVal = value; } else { GlobalVariables.SetInteger(key, value); } }
-		}
+		protected int startValue;
 
 		public override void OnReset()
 		{
-			Value = 0;
+			value = startValue;
 		}
 
 		public override string ToString()
 		{
-			return Value.ToString();
+			return value.ToString();
+		}
+
+		protected virtual void Start()
+		{
+			startValue = value;
 		}
 	}
 
@@ -36,8 +37,8 @@ namespace Fungus
 
 		public int Value
 		{
-			get { return (integerRef == null) ? integerVal : integerRef.Value; }
-			set { if (integerRef == null) { integerVal = value; } else { integerRef.Value = value; } }
+			get { return (integerRef == null) ? integerVal : integerRef.value; }
+			set { if (integerRef == null) { integerVal = value; } else { integerRef.value = value; } }
 		}
 
 		public string GetDescription()

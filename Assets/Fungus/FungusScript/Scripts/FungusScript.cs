@@ -265,6 +265,23 @@ namespace Fungus
 		}
 
 		/**
+		 * Gets a list of all variables with public scope in this Fungus Script.
+		 */
+		public virtual List<Variable> GetPublicVariables()
+		{
+			List<Variable> publicVariables = new List<Variable>();
+			foreach (Variable v in variables)
+			{
+				if (v.scope == VariableScope.Public)
+				{
+					publicVariables.Add(v);
+				}
+			}
+
+			return publicVariables;
+		}
+
+		/**
 		 * Gets the value of a boolean variable.
 		 * Returns false if the variable key does not exist.
 		 */
@@ -277,7 +294,7 @@ namespace Fungus
 					BooleanVariable variable = v as BooleanVariable;
 					if (variable != null)
 					{
-						return variable.Value;
+						return variable.value;
 					}
 				}
 			}
@@ -298,7 +315,7 @@ namespace Fungus
 					BooleanVariable variable = v as BooleanVariable;
 					if (variable != null)
 					{
-						variable.Value = value;
+						variable.value = value;
 						return;
 					}
 				}
@@ -319,7 +336,7 @@ namespace Fungus
 					IntegerVariable variable = v as IntegerVariable;
 					if (variable != null)
 					{
-						return variable.Value;
+						return variable.value;
 					}
 				}
 			}
@@ -340,7 +357,7 @@ namespace Fungus
 					IntegerVariable variable = v as IntegerVariable;
 					if (variable != null)
 					{
-						variable.Value = value;
+						variable.value = value;
 						return;
 					}
 				}
@@ -361,7 +378,7 @@ namespace Fungus
 					FloatVariable variable = v as FloatVariable;
 					if (variable != null)
 					{
-						return variable.Value;
+						return variable.value;
 					}
 				}
 			}
@@ -382,7 +399,7 @@ namespace Fungus
 					FloatVariable variable = v as FloatVariable;
 					if (variable != null)
 					{
-						variable.Value = value;
+						variable.value = value;
 						return;
 					}
 				}
@@ -403,7 +420,7 @@ namespace Fungus
 					StringVariable variable = v as StringVariable;
 					if (variable != null)
 					{
-						return variable.Value;
+						return variable.value;
 					}
 				}
 			}
@@ -424,7 +441,7 @@ namespace Fungus
 					StringVariable variable = v as StringVariable;
 					if (variable != null)
 					{
-						variable.Value = value;
+						variable.value = value;
 						return;
 					}
 				}
@@ -505,12 +522,12 @@ namespace Fungus
 			foreach (Variable variable in variables)
 			{
 				if (resetLocalVariables &&
-				    variable.scope == VariableScope.Local)
+				    variable.scope == VariableScope.Private)
 				{
 					variable.OnReset();
 				}
 				else if (resetGlobalVariables &&
-				         variable.scope == VariableScope.Global)
+				         variable.scope == VariableScope.Public)
 				{
 					variable.OnReset();
 				}

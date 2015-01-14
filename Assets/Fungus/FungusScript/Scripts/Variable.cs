@@ -14,8 +14,8 @@ namespace Fungus
 
 	public enum VariableScope
 	{
-		Local,
-		Global
+		Private,
+		Public
 	}
 
 	[RequireComponent(typeof(FungusScript))]

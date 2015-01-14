@@ -91,21 +91,20 @@ namespace Fungus
 				return;
 			}
 
-			float width1 = 100;
-			float width3 = 50;
-			float width2 = Mathf.Max(position.width - width1 - width3, 60);
-			
-			Rect keyRect = position;
-			keyRect.width = width1;
-			
-			Rect valueRect = position;
-			valueRect.x += width1 + 5;
-			valueRect.width = width2 - 5;
+			float[] widths = { 50, 100, 130, 60 };
+			Rect[] rects = new Rect[4];
 
-			Rect scopeRect = position;
-			scopeRect.x += width1 + width2 + 5;
-			scopeRect.width = width3 - 5;
-			
+			for (int i = 0; i < 4; ++i)
+			{
+				rects[i] = position;
+				rects[i].width = widths[i] - 5;
+
+				for (int j = 0; j < i; ++j)
+				{
+					rects[i].x += widths[j];
+				}
+			}
+
 			string type = "";
 			if (variable.GetType() == typeof(BooleanVariable))
 			{
@@ -160,57 +159,26 @@ namespace Fungus
 			string key = variable.key;
 			VariableScope scope = variable.scope;
 
-			if (Application.isPlaying)
-			{
-				GUI.Label(keyRect, variable.key);
+			// To access properties in a monobehavior, you have to new a SerializedObject
+			// http://answers.unity3d.com/questions/629803/findrelativeproperty-never-worked-for-me-how-does.html
+			SerializedObject variableObject = new SerializedObject(this[index].objectReferenceValue);
 
-				if (variable.GetType() == typeof(BooleanVariable))
-				{
-					BooleanVariable v = variable as BooleanVariable;
-					v.Value = EditorGUI.Toggle(valueRect, v.Value);
-				}
-				else if (variable.GetType() == typeof(IntegerVariable))
-				{
-					IntegerVariable v = variable as IntegerVariable;
-					v.Value = EditorGUI.IntField(valueRect, v.Value);
-				}
-				else if (variable.GetType() == typeof(FloatVariable))
-				{
-					FloatVariable v = variable as FloatVariable;
-					v.Value = EditorGUI.FloatField(valueRect, v.Value);
-				}
-				else if (variable.GetType() == typeof(StringVariable))
-				{
-					StringVariable v = variable as StringVariable;
-					v.Value = EditorGUI.TextField(valueRect, v.Value);
-				}
+			variableObject.Update();
 
-				if (scope == VariableScope.Local)
-				{
-					GUI.Label(scopeRect, "Local");
-				}
-				else if (scope == VariableScope.Global)
-				{
-					GUI.Label(scopeRect, "Global");
-				}
-			}
-			else
-			{
-				key = EditorGUI.TextField(keyRect, variable.key);
-				GUI.Label(valueRect, type);
-				scope = (VariableScope)EditorGUI.EnumPopup(scopeRect, variable.scope);
+			GUI.Label(rects[0], type);
 
-				// To access properties in a monobehavior, you have to new a SerializedObject
-				// http://answers.unity3d.com/questions/629803/findrelativeproperty-never-worked-for-me-how-does.html
-				SerializedObject variableObject = new SerializedObject(this[index].objectReferenceValue);
-				SerializedProperty keyProp = variableObject.FindProperty("key");
-				SerializedProperty scopeProp = variableObject.FindProperty("scope");
+			key = EditorGUI.TextField(rects[1], variable.key);
+			SerializedProperty keyProp = variableObject.FindProperty("key");
+			keyProp.stringValue = fungusScript.GetUniqueVariableKey(key, variable);
 
-				variableObject.Update();
-				keyProp.stringValue = fungusScript.GetUniqueVariableKey(key, variable);
-				scopeProp.enumValueIndex = (int)scope;
-				variableObject.ApplyModifiedProperties();
-			}
+			SerializedProperty defaultProp = variableObject.FindProperty("value");
+			EditorGUI.PropertyField(rects[2], defaultProp, new GUIContent(""));
+
+			SerializedProperty scopeProp = variableObject.FindProperty("scope");
+			scope = (VariableScope)EditorGUI.EnumPopup(rects[3], variable.scope);
+			scopeProp.enumValueIndex = (int)scope;
+
+			variableObject.ApplyModifiedProperties();
 
 			GUI.backgroundColor = Color.white;
 		}

@@ -89,7 +89,8 @@ namespace Fungus
 						// Trim off last newline
 						blockBuffer = blockBuffer.TrimEnd( '\r', '\n', ' ', '\t');
 
-						GlobalVariables.SetString(blockTag, blockBuffer);
+						// TODO: Store in a string table class
+						// GlobalVariables.SetString(blockTag, blockBuffer);
 					}
 
 					// Prepare to parse next block

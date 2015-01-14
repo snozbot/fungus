@@ -54,7 +54,7 @@ namespace Fungus
 
 			if (variable.GetType() == typeof(BooleanVariable))
 			{
-				bool lhs = (variable as BooleanVariable).Value;
+				bool lhs = (variable as BooleanVariable).value;
 				bool rhs = booleanData.Value;
 
 				switch (compareOperator)
@@ -70,7 +70,7 @@ namespace Fungus
 			}
 			else if (variable.GetType() == typeof(IntegerVariable))
 			{
-				int lhs = (variable as IntegerVariable).Value;
+				int lhs = (variable as IntegerVariable).value;
 				int rhs = integerData.Value;
 
 				switch (compareOperator)
@@ -97,7 +97,7 @@ namespace Fungus
 			}
 			else if (variable.GetType() == typeof(FloatVariable))
 			{
-				float lhs = (variable as FloatVariable).Value;
+				float lhs = (variable as FloatVariable).value;
 				float rhs = floatData.Value;
 
 				switch (compareOperator)
@@ -124,7 +124,7 @@ namespace Fungus
 			}
 			else if (variable.GetType() == typeof(StringVariable))
 			{
-				string lhs = (variable as StringVariable).Value;
+				string lhs = (variable as StringVariable).value;
 				string rhs = stringData.Value;
 
 				switch (compareOperator)

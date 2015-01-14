@@ -51,7 +51,30 @@ namespace Fungus
 					selectedIndex = index;
 				}
 			}
-			
+
+			FungusScript[] fsList = GameObject.FindObjectsOfType<FungusScript>();
+			foreach (FungusScript fs in fsList)
+			{
+				if (fs == fungusScript)
+				{
+					continue;
+				}
+
+				List<Variable> publicVars = fs.GetPublicVariables();
+				foreach (Variable v in publicVars)
+				{
+					variableKeys.Add(fs.name + " / " + v.key);
+					variableObjects.Add(v);
+
+					index++;
+
+					if (v == selectedVariable)
+					{
+						selectedIndex = index;
+					}
+				}
+			}
+
 			selectedIndex = EditorGUILayout.Popup(label.text, selectedIndex, variableKeys.ToArray());
 			
 			property.objectReferenceValue = variableObjects[selectedIndex];

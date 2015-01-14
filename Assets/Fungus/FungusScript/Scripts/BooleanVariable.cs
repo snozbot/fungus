@@ -7,22 +7,23 @@ namespace Fungus
 
 	public class BooleanVariable : Variable 
 	{
-		protected bool booleanVal;
+		public bool value;
 
-		public bool Value
-		{
-			get { return (scope == VariableScope.Local) ? booleanVal : GlobalVariables.GetBoolean(key); }
-			set { if (scope == VariableScope.Local) { booleanVal = value; } else { GlobalVariables.SetBoolean(key, value); } }
-		}
+		protected bool startValue;
 
 		public override void OnReset()
 		{
-			Value = false;
+			value = startValue;
 		}
 
 		public override string ToString()
 		{
-			return Value.ToString();
+			return value.ToString();
+		}
+
+		protected virtual void Start()
+		{
+			startValue = value;
 		}
 	}
 
@@ -37,8 +38,8 @@ namespace Fungus
 
 		public bool Value
 		{
-			get { return (booleanRef == null) ? booleanVal : booleanRef.Value; }
-			set { if (booleanRef == null) { booleanVal = value; } else { booleanRef.Value = value; } }
+			get { return (booleanRef == null) ? booleanVal : booleanRef.value; }
+			set { if (booleanRef == null) { booleanVal = value; } else { booleanRef.value = value; } }
 		}
 
 		public string GetDescription()

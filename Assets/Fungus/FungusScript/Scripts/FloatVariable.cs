@@ -6,22 +6,23 @@ namespace Fungus
 
 	public class FloatVariable : Variable 
 	{
-		protected float floatVal;
+		public float value;
 
-		public float Value
-		{
-			get { return (scope == VariableScope.Local) ? floatVal : GlobalVariables.GetFloat(key); }
-			set { if (scope == VariableScope.Local) { floatVal = value; } else {	GlobalVariables.SetFloat(key, value); } }
-		}
+		protected float startValue;
 
 		public override void OnReset()
 		{
-			Value = 0;
+			value = startValue;
 		}
 
 		public override string ToString()
 		{
-			return Value.ToString();
+			return value.ToString();
+		}
+
+		protected virtual void Start()
+		{
+			startValue = value;
 		}
 	}
 
@@ -36,8 +37,8 @@ namespace Fungus
 
 		public float Value
 		{
-			get { return (floatRef == null) ? floatVal : floatRef.Value; }
-			set { if (floatRef == null) { floatVal = value; } else { floatRef.Value = value; } }
+			get { return (floatRef == null) ? floatVal : floatRef.value; }
+			set { if (floatRef == null) { floatVal = value; } else { floatRef.value = value; } }
 		}
 
 		public string GetDescription()
