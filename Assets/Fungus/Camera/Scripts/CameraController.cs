@@ -195,11 +195,15 @@ namespace Fungus
 			Sprite sprite = spriteRenderer.sprite;
 			Vector3 extents = sprite.bounds.extents;
 			float localScaleY = spriteRenderer.transform.localScale.y;
-			Camera.main.orthographicSize = extents.y * localScaleY;
-			
-			Vector3 pos = spriteRenderer.transform.position;
-			Camera.main.transform.position = new Vector3(pos.x, pos.y, 0);
-			SetCameraZ();
+
+			Camera camera = GetCamera();
+			if (camera != null)
+			{
+				camera.orthographicSize = extents.y * localScaleY;
+				Vector3 pos = spriteRenderer.transform.position;
+				camera.transform.position = new Vector3(pos.x, pos.y, 0);
+				SetCameraZ();
+			}
 		}
 		
 		public virtual void PanToView(View view, float duration, Action arriveAction)
@@ -220,9 +224,13 @@ namespace Fungus
 			if (duration == 0f)
 			{
 				// Move immediately
-				Camera.main.orthographicSize = targetSize;
-				Camera.main.transform.position = targetPosition;
-				Camera.main.transform.rotation = targetRotation;
+				Camera camera = GetCamera();
+				if (camera != null)
+				{
+					camera.orthographicSize = targetSize;
+					camera.transform.position = targetPosition;
+					camera.transform.rotation = targetRotation;
+				}
 				SetCameraZ();
 				if (arriveAction != null)
 				{
@@ -240,11 +248,15 @@ namespace Fungus
 		 */
 		public virtual void StoreView(string viewName)
 		{
-			CameraView currentView = new CameraView();
-			currentView.cameraPos = Camera.main.transform.position;
-			currentView.cameraRot = Camera.main.transform.rotation;
-			currentView.cameraSize = Camera.main.orthographicSize;
-			storedViews[viewName] = currentView;
+			Camera camera = GetCamera();
+			if (camera != null)
+			{
+				CameraView currentView = new CameraView();
+				currentView.cameraPos = camera.transform.position;
+				currentView.cameraRot = camera.transform.rotation;
+				currentView.cameraSize = camera.orthographicSize;
+				storedViews[viewName] = currentView;
+			}
 		}
 		
 		/**
@@ -267,9 +279,14 @@ namespace Fungus
 			if (duration == 0f)
 			{
 				// Move immediately
-				Camera.main.transform.position = cameraView.cameraPos;
-				Camera.main.transform.rotation = cameraView.cameraRot;
-				Camera.main.orthographicSize = cameraView.cameraSize;
+				Camera camera = GetCamera();
+				if (camera != null)
+				{
+					camera.transform.position = cameraView.cameraPos;
+					camera.transform.rotation = cameraView.cameraRot;
+					camera.orthographicSize = cameraView.cameraSize;
+				}
+
 				SetCameraZ();
 				if (arriveAction != null)
 				{
@@ -284,12 +301,18 @@ namespace Fungus
 		
 		protected virtual IEnumerator PanInternal(Vector3 targetPos, Quaternion targetRot, float targetSize, float duration, Action arriveAction)
 		{
+			Camera camera = GetCamera();
+			if (camera == null)
+			{
+				yield break;
+			}
+
 			float timer = 0;
-			float startSize = Camera.main.orthographicSize;
+			float startSize = camera.orthographicSize;
 			float endSize = targetSize;
-			Vector3 startPos = Camera.main.transform.position;
+			Vector3 startPos = camera.transform.position;
 			Vector3 endPos = targetPos;
-			Quaternion startRot = Camera.main.transform.rotation;
+			Quaternion startRot = camera.transform.rotation;
 			Quaternion endRot = targetRot;
 			
 			bool arrived = false;
@@ -304,9 +327,9 @@ namespace Fungus
 				
 				// Apply smoothed lerp to camera position and orthographic size
 				float t = timer / duration;
-				Camera.main.orthographicSize = Mathf.Lerp(startSize, endSize, Mathf.SmoothStep(0f, 1f, t));
-				Camera.main.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, t));
-				Camera.main.transform.rotation = Quaternion.Lerp(startRot, endRot, Mathf.SmoothStep(0f, 1f, t));
+				camera.orthographicSize = Mathf.Lerp(startSize, endSize, Mathf.SmoothStep(0f, 1f, t));
+				camera.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, t));
+				camera.transform.rotation = Quaternion.Lerp(startRot, endRot, Mathf.SmoothStep(0f, 1f, t));
 				SetCameraZ();
 				
 				if (arrived &&
@@ -324,15 +347,21 @@ namespace Fungus
 		 */
 		public virtual void PanToPath(View[] viewList, float duration, Action arriveAction)
 		{
+			Camera camera = GetCamera();
+			if (camera == null)
+			{
+				return;
+			}
+
 			swipePanActive = false;
 			
 			List<Vector3> pathList = new List<Vector3>();
 			
 			// Add current camera position as first point in path
 			// Note: We use the z coord to tween the camera orthographic size
-			Vector3 startPos = new Vector3(Camera.main.transform.position.x,
-			                               Camera.main.transform.position.y,
-			                               Camera.main.orthographicSize);
+			Vector3 startPos = new Vector3(camera.transform.position.x,
+			                               camera.transform.position.y,
+			                               camera.orthographicSize);
 			pathList.Add(startPos);
 			
 			for (int i = 0; i < viewList.Length; ++i)
@@ -350,6 +379,12 @@ namespace Fungus
 		
 		protected virtual IEnumerator PanToPathInternal(float duration, Action arriveAction, Vector3[] path)
 		{
+			Camera camera = GetCamera();
+			if (camera == null)
+			{
+				yield break;
+			}
+
 			float timer = 0;
 			
 			while (timer < duration)
@@ -360,8 +395,8 @@ namespace Fungus
 				
 				Vector3 point = iTween.PointOnPath(path, percent);
 				
-				Camera.main.transform.position = new Vector3(point.x, point.y, 0);
-				Camera.main.orthographicSize = point.z;
+				camera.transform.position = new Vector3(point.x, point.y, 0);
+				camera.orthographicSize = point.z;
 				SetCameraZ();
 				
 				yield return null;
@@ -379,10 +414,16 @@ namespace Fungus
 		 */
 		public virtual void StartSwipePan(View viewA, View viewB, float duration, Action arriveAction)
 		{
+			Camera camera = GetCamera();
+			if (camera == null)
+			{
+				return;
+			}
+
 			swipePanViewA = viewA;
 			swipePanViewB = viewB;
 			
-			Vector3 cameraPos = Camera.main.transform.position;
+			Vector3 cameraPos = camera.transform.position;
 			
 			Vector3 targetPosition = CalcCameraPosition(cameraPos, swipePanViewA, swipePanViewB);
 			float targetSize = CalcCameraSize(cameraPos, swipePanViewA, swipePanViewB); 
@@ -410,7 +451,11 @@ namespace Fungus
 		
 		protected virtual void SetCameraZ()
 		{
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, cameraZ);
+			Camera camera = GetCamera();
+			if (camera)
+			{
+				camera.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y, cameraZ);
+			}
 		}
 		
 		protected virtual void Update()	
@@ -439,18 +484,22 @@ namespace Fungus
 				delta = Input.mousePosition - previousMousePos;
 				previousMousePos = Input.mousePosition;
 			}
-			
-			Vector3 cameraDelta = Camera.main.ScreenToViewportPoint(delta);
-			cameraDelta.x *= -2f;
-			cameraDelta.y *= -2f;
-			cameraDelta.z = 0f;
-			
-			Vector3 cameraPos = Camera.main.transform.position;
-			
-			cameraPos += cameraDelta;
-			
-			Camera.main.transform.position = CalcCameraPosition(cameraPos, swipePanViewA, swipePanViewB);
-			Camera.main.orthographicSize = CalcCameraSize(cameraPos, swipePanViewA, swipePanViewB); 
+
+			Camera camera = GetCamera();
+			if (camera != null)
+			{
+				Vector3 cameraDelta = camera.ScreenToViewportPoint(delta);
+				cameraDelta.x *= -2f;
+				cameraDelta.y *= -2f;
+				cameraDelta.z = 0f;
+				
+				Vector3 cameraPos = camera.transform.position;
+				
+				cameraPos += cameraDelta;
+				
+				camera.transform.position = CalcCameraPosition(cameraPos, swipePanViewA, swipePanViewB);
+				camera.orthographicSize = CalcCameraSize(cameraPos, swipePanViewA, swipePanViewB); 
+			}
 		}
 		
 		// Clamp camera position to region defined by the two views
@@ -486,6 +535,17 @@ namespace Fungus
 			float cameraSize = Mathf.Lerp(viewA.viewSize, viewB.viewSize, t);
 			
 			return cameraSize;
+		}
+
+		protected Camera GetCamera()
+		{
+			Camera camera = Camera.main;
+			if (camera == null)
+			{
+				camera = GameObject.FindObjectOfType<Camera>() as Camera;
+			}
+
+			return camera;
 		}
 	}
 }
