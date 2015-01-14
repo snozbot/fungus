@@ -21,16 +21,19 @@ namespace Fungus
 
 		public override void OnEnter ()
 		{
+			FungusScript fungusScript = GetFungusScript();
+			string message = fungusScript.SubstituteVariables(logMessage.Value);
+
 			switch (logType)
 			{
 			case DebugLogType.Info:
-				Debug.Log(logMessage.Value);
+				Debug.Log(message);
 				break;
 			case DebugLogType.Warning:
-				Debug.LogWarning(logMessage.Value);
+				Debug.LogWarning(message);
 				break;
 			case DebugLogType.Error:
-				Debug.LogError(logMessage.Value);
+				Debug.LogError(message);
 				break;
 			}
 
