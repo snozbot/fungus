@@ -266,6 +266,25 @@ namespace Fungus
 		}
 
 		/**
+		 * Returns the variable with the specified key, or null if the key is not found.
+		 * You can then access the variable's value using the Value property. e.g.
+		 * 	BooleanVariable boolVar = fungusScript.GetVariable<BooleanVariable>("MyBool");
+		 * 	boolVar.Value = false;
+		 */
+		public T GetVariable<T>(string key) where T : Variable
+		{
+			foreach (Variable variable in variables)
+			{
+				if (variable.key == key)
+				{
+					return variable as T;
+				}
+			}
+
+			return null;
+		}
+
+		/**
 		 * Gets a list of all variables with public scope in this Fungus Script.
 		 */
 		public virtual List<Variable> GetPublicVariables()
