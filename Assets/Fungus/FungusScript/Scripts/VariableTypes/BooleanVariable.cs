@@ -6,6 +6,7 @@ namespace Fungus
 {
 
 	[VariableInfo("", "Boolean")]
+	[AddComponentMenu("")]
 	public class BooleanVariable : VariableBase<bool>
 	{}
 

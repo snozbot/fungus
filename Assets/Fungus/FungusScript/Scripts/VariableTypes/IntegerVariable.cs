@@ -4,6 +4,7 @@ using System.Collections;
 namespace Fungus
 {
 	[VariableInfo("", "Integer")]
+	[AddComponentMenu("")]
 	public class IntegerVariable : VariableBase<int> 
 	{}
 

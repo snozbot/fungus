@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("iTween", 
 	             "Rotate To", 
 	             "Rotates a game object to the specified angles over time.")]
+	[AddComponentMenu("")]
 	public class RotateTo : iTweenCommand 
 	{
 		[Tooltip("Target transform that the GameObject will rotate to")]

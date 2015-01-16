@@ -4,6 +4,7 @@ using System.Collections;
 namespace Fungus
 {
 	[VariableInfo("Other", "Texture")]
+	[AddComponentMenu("")]
 	public class TextureVariable : VariableBase<Texture>
 	{}
 

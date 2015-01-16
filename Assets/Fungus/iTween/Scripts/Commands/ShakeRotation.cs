@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("iTween", 
 	             "Shake Rotation", 
 	             "Randomly shakes a GameObject's rotation by a diminishing amount over time.")]
+	[AddComponentMenu("")]
 	public class ShakeRotation : iTweenCommand 
 	{
 		[Tooltip("A rotation offset in space the GameObject will animate to")]

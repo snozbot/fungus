@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Camera", 
 	             "Shake Camera", 
 	             "Applies a camera shake effect to the main camera.")]
+	[AddComponentMenu("")]
 	public class ShakeCamera : Command 
 	{
 		[Tooltip("Time for camera shake effect to complete")]

@@ -9,6 +9,7 @@ namespace Fungus
 	             "Add Option", 
 	             "Adds an option for the player to select. All previously added options are displayed by the next Choose command. " + 
 	             "You can specify another sequence to call and/or a variable to set when the options is selected.")]
+	[AddComponentMenu("")]
 	public class AddOption : SetVariable 
 	{
 		[Tooltip("Option text to display when presenting the option to the player")]

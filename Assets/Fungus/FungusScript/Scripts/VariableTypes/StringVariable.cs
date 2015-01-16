@@ -5,6 +5,7 @@ namespace Fungus
 {
 
 	[VariableInfo("", "String")]
+	[AddComponentMenu("")]
 	public class StringVariable : VariableBase<string>
 	{}
 

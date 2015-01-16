@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Animation", 
 	             "Set Anim Bool", 
 	             "Sets a boolean parameter on an Animator component to control a Unity animation")]
+	[AddComponentMenu("")]
 	public class SetAnimBool : Command 
 	{
 		[Tooltip("Reference to an Animator component in a game object")]

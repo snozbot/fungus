@@ -4,6 +4,7 @@ using System.Collections;
 namespace Fungus
 {
 	[VariableInfo("Other", "Sprite")]
+	[AddComponentMenu("")]
 	public class SpriteVariable : VariableBase<Sprite>
 	{}
 

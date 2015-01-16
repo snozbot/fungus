@@ -8,6 +8,7 @@ namespace Fungus
 	             "Fade Screen", 
 	             "Draws a fullscreen texture over the scene to give a fade effect. Setting Target Alpha to 1 will obscure the screen, alpha 0 will reveal the screen. " +
 	             "If no Fade Texture is provided then a default flat color texture is used.")]
+	[AddComponentMenu("")]
 	public class FadeScreen : Command 
 	{
 		[Tooltip("Time for fade effect to complete")]

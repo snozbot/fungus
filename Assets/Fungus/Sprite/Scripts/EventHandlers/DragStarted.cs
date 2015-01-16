@@ -8,6 +8,7 @@ namespace Fungus
 	[EventHandlerInfo("Sprites",
 	                  "Drag Started",
 	                  "The sequence will execute when the player starts dragging an object.")]
+	[AddComponentMenu("")]
 	public class DragStarted : EventHandler
 	{	
 		public Draggable2D draggableObject;

@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Camera", 
 	             "Fade To View", 
 	             "Fades the camera out and in again at a position specified by a View object. Select [Game Object > Fungus > Camera > View] to create a View object.")]
+	[AddComponentMenu("")]
 	public class FadeToView : Command 
 	{
 		[Tooltip("Time for fade effect to complete")]

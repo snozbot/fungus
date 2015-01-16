@@ -49,6 +49,7 @@ namespace Fungus
 /// <para>Author: Bob Berkebile (http://pixelplacement.com)</para>
 /// <para>Support: http://itween.pixelplacement.com</para>
 /// </summary>
+[AddComponentMenu("")]
 public class iTween : MonoBehaviour{
 		
 	#region Variables

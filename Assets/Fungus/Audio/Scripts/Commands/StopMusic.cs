@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("Audio", 
 	             "Stop Music", 
 	             "Stops the currently playing game music.")]
+	[AddComponentMenu("")]
 	public class StopMusic : Command
 	{
 		public override void OnEnter()

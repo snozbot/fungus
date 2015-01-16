@@ -10,6 +10,7 @@ namespace Fungus
 	             "Writes a line of story text to a Say Dialog. " +
 	             "Select [Game Object > Fungus > Dialog > Say Dialog] to create a new Say Dialog in your scene. " + 
 	             "Select [Game Object > Fungus > Dialog > Character] to create a new selectable speaking character.")]
+	[AddComponentMenu("")]
 	public class Say : Command 
 	{
 		[Tooltip("Story text to display to the player")]

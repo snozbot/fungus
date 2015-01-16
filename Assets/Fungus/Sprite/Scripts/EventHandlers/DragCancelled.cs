@@ -8,6 +8,7 @@ namespace Fungus
 	[EventHandlerInfo("Sprites",
 	                  "Drag Cancelled",
 	                  "The sequence will execute when the player drags an object and releases it without dropping it on a target object.")]
+	[AddComponentMenu("")]
 	public class DragCancelled : EventHandler
 	{	
 		public Draggable2D draggableObject;

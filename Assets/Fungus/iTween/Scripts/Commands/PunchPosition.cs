@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("iTween", 
 	             "Punch Position", 
 	             "Applies a jolt of force to a GameObject's position and wobbles it back to its initial position.")]
+	[AddComponentMenu("")]
 	public class PunchPosition : iTweenCommand 
 	{
 		[Tooltip("A translation offset in space the GameObject will animate to")]

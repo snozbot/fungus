@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("", 
 	             "Comment", 
 	             "Use comments to record design notes and reminders about your game.")]
+	[AddComponentMenu("")]
 	public class Comment : Command
 	{	
 		[Tooltip("Text to display for this comment")]

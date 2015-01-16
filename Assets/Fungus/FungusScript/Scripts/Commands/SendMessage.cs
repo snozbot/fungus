@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "Send Message", 
 	             "Sends a message to either the owner Fungus Script or all Fungus Scripts in the scene. Sequences can listen for this message to start execution.")]
+	[AddComponentMenu("")]
 	public class SendMessage : Command
 	{
 		public enum MessageTarget

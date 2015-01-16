@@ -17,6 +17,7 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "If", 
 	             "If the test expression is true, execute the following block of commands.")]
+	[AddComponentMenu("")]
 	public class If : Command
 	{
 		[Tooltip("The variable whos value will be checked")]

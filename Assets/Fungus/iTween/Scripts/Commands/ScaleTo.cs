@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("iTween", 
 	             "Scale To", 
 	             "Changes a game object's scale to a specified value over time.")]
+	[AddComponentMenu("")]
 	public class ScaleTo : iTweenCommand 
 	{
 		[Tooltip("Target transform that the GameObject will scale to")]

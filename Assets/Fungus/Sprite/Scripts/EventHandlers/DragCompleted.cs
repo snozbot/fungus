@@ -8,6 +8,7 @@ namespace Fungus
 	[EventHandlerInfo("Sprites",
 	                  "Drag Completed",
 	                  "The sequence will execute when the player drags an object and successfully drops it on a target object.")]
+	[AddComponentMenu("")]
 	public class DragCompleted : EventHandler
 	{	
 		public Draggable2D draggableObject;

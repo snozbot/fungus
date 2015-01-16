@@ -4,6 +4,7 @@ using System.Collections;
 namespace Fungus
 {
 
+	[AddComponentMenu("")]
 	public class CommandCopyBuffer : Sequence 
 	{
 		protected static CommandCopyBuffer instance;

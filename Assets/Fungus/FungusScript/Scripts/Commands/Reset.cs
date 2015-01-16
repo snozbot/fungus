@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "Reset", 
 	             "Resets the state of all commands and local and global variables in the Fungus Script.")]
+	[AddComponentMenu("")]
 	public class Reset : Command
 	{	
 		[Tooltip("Reset state of all commands in the script")]

@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "Save Globals", 
 	             "Saves all current global variables to persistent storage. These can be loaded back in again in future using the LoadGlobals command. This provides a basic save game system.")]
+	[AddComponentMenu("")]
 	public class SaveGlobals : Command
 	{
 		[Tooltip("Save Name of saved global variable values")]

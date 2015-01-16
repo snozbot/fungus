@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("iTween", 
 	             "Move Add", 
 	             "Moves a game object by a specified offset over time.")]
+	[AddComponentMenu("")]
 	public class MoveAdd : iTweenCommand 
 	{
 		[Tooltip("A translation offset in space the GameObject will animate to")]

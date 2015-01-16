@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "Random Float", 
 	             "Sets an float variable to a random value in the defined range.")]
+	[AddComponentMenu("")]
 	public class RandomFloat : Command 
 	{
 		[Tooltip("The variable whos value will be set")]

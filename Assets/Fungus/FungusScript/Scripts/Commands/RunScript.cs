@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "Run Script", 
 	             "Start executing another Fungus Script.")]
+	[AddComponentMenu("")]
 	public class RunScript : Command
 	{	
 		[Tooltip("Reference to another Fungus Script to execute")]

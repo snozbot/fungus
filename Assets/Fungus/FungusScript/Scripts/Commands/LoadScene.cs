@@ -10,6 +10,7 @@ namespace Fungus
 	             "for splitting a large game across multiple scene files to reduce peak memory " +
 	             "usage. Previously loaded assets will be released before loading the scene to free up memory." +
 	             "The scene to be loaded must be added to the scene list in Build Settings.")]
+	[AddComponentMenu("")]
 	public class LoadScene : Command 
 	{
 		[Tooltip("Name of the scene to load. The scene must also be added to the build settings.")]

@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "Destroy", 
 	             "Destroys a specified game object in the scene.")]
+	[AddComponentMenu("")]
 	public class Destroy : Command
 	{	
 		[Tooltip("Reference to game object to destroy")]

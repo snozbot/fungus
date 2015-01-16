@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("iTween", 
 	             "Punch Scale", 
 	             "Applies a jolt of force to a GameObject's scale and wobbles it back to its initial scale.")]
+	[AddComponentMenu("")]
 	public class PunchScale : iTweenCommand 
 	{
 		[Tooltip("A scale offset in space the GameObject will animate to")]

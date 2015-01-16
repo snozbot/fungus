@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "Stop", 
 	             "Stop executing the current Fungus Script.")]
+	[AddComponentMenu("")]
 	public class Stop : Command
 	{		
 		public override void OnEnter()

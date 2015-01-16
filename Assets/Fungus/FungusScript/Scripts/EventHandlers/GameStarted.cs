@@ -8,6 +8,7 @@ namespace Fungus
 	[EventHandlerInfo("",
 	                  "Game Started",
 	                  "The sequence will execute when the game starts playing.")]
+	[AddComponentMenu("")]
 	public class GameStarted : EventHandler
 	{	
 		protected virtual void Start()

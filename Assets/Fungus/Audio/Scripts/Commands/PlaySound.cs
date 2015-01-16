@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("Audio", 
 	             "Play Sound",
 	             "Plays a once-off sound effect. Multiple sound effects can be played at the same time.")]
+	[AddComponentMenu("")]
 	public class PlaySound : Command
 	{
 		[Tooltip("Sound effect clip to play")]

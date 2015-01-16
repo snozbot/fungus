@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+[AddComponentMenu("")]
 public class SfxrCacheSurrogate : MonoBehaviour {
 
 	/**

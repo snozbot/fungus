@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Camera", 
 	             "Stop Swipe", 
 	             "Deactivates swipe panning mode.")]
+	[AddComponentMenu("")]
 	public class StopSwipe : Command 
 	{
 		public override void OnEnter()

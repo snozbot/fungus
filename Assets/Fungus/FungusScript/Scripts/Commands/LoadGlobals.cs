@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "Load Globals", 
 	             "Loads a set of global variables previously saved using the Save Globals command.")]
+	[AddComponentMenu("")]
 	public class LoadGlobals : Command
 	{
 		[Tooltip("Save Name of saved global variable values")]

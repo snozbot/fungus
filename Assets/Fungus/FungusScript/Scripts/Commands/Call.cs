@@ -4,9 +4,11 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
+
 	[CommandInfo("Scripting", 
 	             "Call", 
 	             "Execute another sequence in the same Fungus Script.")]
+	[AddComponentMenu("")]
 	public class Call : Command
 	{	
 		[Tooltip("Sequence to execute")]

@@ -4,6 +4,7 @@ using System.Collections;
 namespace Fungus
 {
 	[VariableInfo("Other", "Vector2")]
+	[AddComponentMenu("")]
 	public class Vector2Variable : VariableBase<Vector2>
 	{}
 

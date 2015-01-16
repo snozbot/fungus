@@ -7,6 +7,8 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "Wait", 
 	             "Waits for period of time before executing the next command in the sequence.")]
+
+	[AddComponentMenu("")]
 	public class Wait : Command 
 	{
 		[Tooltip("Duration to wait for")]

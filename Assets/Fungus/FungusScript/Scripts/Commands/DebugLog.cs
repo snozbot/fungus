@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "Debug Log", 
 	             "Writes a log message to the debug console.")]
+	[AddComponentMenu("")]
 	public class DebugLog : Command 
 	{
 		public enum DebugLogType

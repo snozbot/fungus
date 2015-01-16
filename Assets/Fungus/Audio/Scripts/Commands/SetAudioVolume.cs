@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("Audio",
 	             "Set Audio Volume",
 	             "Sets the global volume level for audio played with Play Music and Play Sound commands.")]
+	[AddComponentMenu("")]
 	public class SetAudioVolume : Command
 	{
 		[Range(0,1)]

@@ -6,6 +6,7 @@ namespace Fungus
 	[EventHandlerInfo("Input",
 	                  "Key Pressed",
 	                  "The sequence will execute when a key press event occurs.")]
+	[AddComponentMenu("")]
 	public class KeyPressed : EventHandler
 	{	
 		public enum KeyPressType

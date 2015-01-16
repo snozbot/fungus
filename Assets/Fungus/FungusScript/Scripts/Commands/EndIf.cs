@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "End If", 
 	             "Marks the end of an If statement block.")]
+	[AddComponentMenu("")]
 	public class EndIf : Command
 	{
 		public override void OnEnter()

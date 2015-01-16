@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Scripting", 
 	             "Set Active", 
 	             "Sets a game object in the scene to be active / inactive.")]
+	[AddComponentMenu("")]
 	public class SetActive : Command
 	{	
 		[Tooltip("Reference to game object to enable / disable")]

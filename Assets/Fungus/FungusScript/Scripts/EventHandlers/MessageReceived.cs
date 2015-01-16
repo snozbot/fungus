@@ -6,6 +6,7 @@ namespace Fungus
 	[EventHandlerInfo("",
 	                  "Message Received",
 	                  "The sequence will execute when the specified message is received from a Send Message command.")]
+	[AddComponentMenu("")]
 	public class MessageReceived : EventHandler 
 	{
 		public string message;

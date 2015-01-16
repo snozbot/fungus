@@ -4,6 +4,7 @@ using System.Collections;
 namespace Fungus
 {
 	[VariableInfo("Other", "Color")]
+	[AddComponentMenu("")]
 	public class ColorVariable : VariableBase<Color>
 	{}
 

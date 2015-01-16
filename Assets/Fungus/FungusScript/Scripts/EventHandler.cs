@@ -30,6 +30,7 @@ namespace Fungus
 	 */
 	[RequireComponent(typeof(Sequence))]
 	[RequireComponent(typeof(FungusScript))]
+	[AddComponentMenu("")]
 	public class EventHandler : MonoBehaviour
 	{	
 		[HideInInspector]

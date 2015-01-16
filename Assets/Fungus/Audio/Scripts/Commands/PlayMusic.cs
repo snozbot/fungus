@@ -6,6 +6,7 @@ namespace Fungus
 	[CommandInfo("Audio",
 	             "Play Music",
 	             "Plays looping game music. If any game music is already playing, it is stopped. Game music will continue playing across scene loads.")]
+	[AddComponentMenu("")]
 	public class PlayMusic : Command
 	{
 		[Tooltip("Music sound clip to play")]

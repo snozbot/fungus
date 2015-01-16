@@ -7,6 +7,7 @@ namespace Fungus
 	[CommandInfo("Sprite", 
 	             "Fade Sprite", 
 	             "Fades a sprite to a target color over a period of time.")]
+	[AddComponentMenu("")]
 	public class FadeSprite : Command 
 	{
 		public SpriteRenderer spriteRenderer;

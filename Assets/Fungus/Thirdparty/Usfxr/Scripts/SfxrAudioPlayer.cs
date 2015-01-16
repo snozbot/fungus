@@ -6,6 +6,8 @@ using UnityEngine;
 #if UNITY_EDITOR
 [ExecuteInEditMode]
 #endif
+
+[AddComponentMenu("")]
 public class SfxrAudioPlayer : MonoBehaviour {
 
 	/**
