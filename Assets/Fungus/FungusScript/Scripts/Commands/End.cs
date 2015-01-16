@@ -4,12 +4,11 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	// Note: The End If command is deprecated, use the End command instead.
 	[CommandInfo("Scripting", 
 	             "End", 
-	             "Marks the end of a conditional block.", -1)]
+	             "Marks the end of a conditional block.")]
 	[AddComponentMenu("")]
-	public class EndIf : Command
+	public class End : Command
 	{
 		public override void OnEnter()
 		{

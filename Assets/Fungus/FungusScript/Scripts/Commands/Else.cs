@@ -17,7 +17,7 @@ namespace Fungus
 				return;
 			}
 
-			// Find the next EndIf command at the same indent level as this Else command
+			// Find the next End command at the same indent level as this Else command
 			bool foundThisCommand = false;
 			int indent = indentLevel;
 			foreach(Command command in parentSequence.commandList)
@@ -26,7 +26,8 @@ namespace Fungus
 				    command.indentLevel == indent)
 				{
 					System.Type type = command.GetType();
-					if (type == typeof(EndIf))
+					if (type == typeof(EndIf) || // Legacy support for old EndIf command
+					    type == typeof(End))
 					{
 						// Execute command immediately after the EndIf command
 						Continue(command);

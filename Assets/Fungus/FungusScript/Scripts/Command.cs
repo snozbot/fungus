@@ -8,6 +8,13 @@ namespace Fungus
 	
 	public class CommandInfoAttribute : Attribute
 	{
+		/**
+		 * Metadata atribute for the Command class.
+		 * @param category The category to place this command in.
+		 * @param commandName The display name of the command.
+		 * @param helpText Help information to display in the inspector.
+		 * @param priority If two command classes have the same name, the one with highest priority is listed. Negative priority removess the command from the list.
+		 */
 		public CommandInfoAttribute(string category, string commandName, string helpText, int priority = 0)
 		{
 			this.Category = category;

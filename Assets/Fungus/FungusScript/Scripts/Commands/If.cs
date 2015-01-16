@@ -156,7 +156,8 @@ namespace Fungus
 					{
 						System.Type type = command.GetType();
 						if (type == typeof(Else) || 
-						    type == typeof(EndIf))
+						    type == typeof(EndIf) || // Legacy support for old EndIf command
+						    type == typeof(End))
 						{
 							// Execute command immediately after the Else or EndIf command
 							Continue(command);
@@ -169,7 +170,7 @@ namespace Fungus
 					}
 				}
 
-				// No matching EndIf command found, so just stop the sequence
+				// No matching End command found, so just stop the sequence
 				Stop();
 			}
 		}
