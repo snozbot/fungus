@@ -3,31 +3,12 @@ using System.Collections;
 
 namespace Fungus
 {
-
-	public class FloatVariable : Variable 
-	{
-		public float value;
-
-		protected float startValue;
-
-		public override void OnReset()
-		{
-			value = startValue;
-		}
-
-		public override string ToString()
-		{
-			return value.ToString();
-		}
-
-		protected virtual void Start()
-		{
-			startValue = value;
-		}
-	}
+	[VariableInfo("", "Float")]
+	public class FloatVariable : VariableBase<float>
+	{}
 
 	[System.Serializable]
-	public struct FloatData
+	public class FloatData
 	{
 		[SerializeField]
 		public FloatVariable floatRef;

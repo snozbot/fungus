@@ -5,30 +5,12 @@ using System.Collections;
 namespace Fungus
 {
 
-	public class BooleanVariable : Variable 
-	{
-		public bool value;
-
-		protected bool startValue;
-
-		public override void OnReset()
-		{
-			value = startValue;
-		}
-
-		public override string ToString()
-		{
-			return value.ToString();
-		}
-
-		protected virtual void Start()
-		{
-			startValue = value;
-		}
-	}
+	[VariableInfo("", "Boolean")]
+	public class BooleanVariable : VariableBase<bool>
+	{}
 
 	[System.Serializable]
-	public struct BooleanData
+	public class BooleanData
 	{
 		[SerializeField]
 		public BooleanVariable booleanRef;

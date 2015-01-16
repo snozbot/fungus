@@ -200,7 +200,8 @@ namespace Fungus
 				bool collision = false;
 				foreach(Variable variable in variables)
 				{
-					if (variable == ignoreVariable ||
+					if (variable == null ||
+						variable == ignoreVariable ||
 					    variable.key == null)
 					{
 						continue;

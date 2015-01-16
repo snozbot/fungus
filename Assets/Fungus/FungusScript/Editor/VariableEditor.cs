@@ -17,6 +17,21 @@ namespace Fungus
 			t.hideFlags = HideFlags.HideInInspector;
 		}
 
+		public static VariableInfoAttribute GetVariableInfo(System.Type variableType)
+		{
+			object[] attributes = variableType.GetCustomAttributes(typeof(VariableInfoAttribute), false);
+			foreach (object obj in attributes)
+			{
+				VariableInfoAttribute variableInfoAttr = obj as VariableInfoAttribute;
+				if (variableInfoAttr != null)
+				{
+					return variableInfoAttr;
+				}
+			}
+			
+			return null;
+		}
+
 		static public void VariableField(SerializedProperty property, GUIContent label, FungusScript fungusScript, Func<Variable, bool> filter = null)
 		{
 			List<string> variableKeys = new List<string>();
@@ -81,21 +96,31 @@ namespace Fungus
 		}
 	}
 
-	[CustomPropertyDrawer (typeof(BooleanData))]
-	public class BooleanDataDrawer : PropertyDrawer 
+	public class VariableDataDrawer<T> : PropertyDrawer where T : Variable
 	{	
-		protected enum BooleanState
-		{
-			True,
-			False
-		}
 
 		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 
 		{
 			EditorGUI.BeginProperty(position, label, property);
-			
-			SerializedProperty referenceProp = property.FindPropertyRelative("booleanRef");
-			SerializedProperty valueProp = property.FindPropertyRelative("booleanVal");
+
+			// The variable reference and data properties must follow the naming convention 'typeRef', 'typeVal'
+
+			VariableInfoAttribute typeInfo = VariableEditor.GetVariableInfo(typeof(T));
+			if (typeInfo == null)
+			{
+				return;
+			}
+
+			string propNameBase = typeInfo.VariableType;
+			propNameBase = Char.ToLowerInvariant(propNameBase[0]) + propNameBase.Substring(1);
+
+			SerializedProperty referenceProp = property.FindPropertyRelative(propNameBase + "Ref");
+			SerializedProperty valueProp = property.FindPropertyRelative(propNameBase + "Val");
+
+			if (referenceProp == null || valueProp == null)
+			{
+				return;
+			}
 
 			const int popupWidth = 65;
 			
@@ -103,14 +128,14 @@ namespace Fungus
 			Rect valueRect = controlRect;
 			valueRect.width = controlRect.width - popupWidth - 5;
 			Rect popupRect = controlRect;
-
+			
 			if (referenceProp.objectReferenceValue == null)
 			{
-				valueProp.boolValue = ((BooleanState)EditorGUI.EnumPopup(valueRect, valueProp.boolValue ? BooleanState.True : BooleanState.False) == BooleanState.True);
+				EditorGUI.PropertyField(valueRect, valueProp, new GUIContent(""));
 				popupRect.x += valueRect.width + 5;
 				popupRect.width = popupWidth;
 			}
-
+			
 			FungusScript fungusScript = property.serializedObject.targetObject as FungusScript;
 			if (fungusScript == null)
 			{
@@ -120,11 +145,11 @@ namespace Fungus
 					fungusScript = command.GetFungusScript();
 				}
 			}
-
+			
 			if (fungusScript != null)
 			{
-				BooleanVariable selectedBooleanVariable = referenceProp.objectReferenceValue as BooleanVariable;
-
+				T selectedVariable = referenceProp.objectReferenceValue as T;
+				
 				List<string> variableKeys = new List<string>();
 				List<Variable> variableObjects = new List<Variable>();
 				
@@ -135,17 +160,17 @@ namespace Fungus
 				int selectedIndex = 0;
 				foreach (Variable v in fungusScript.variables)
 				{
-					if (v.GetType() != typeof(BooleanVariable))
+					if (v.GetType() != typeof(T))
 					{
 						continue;
 					}
-
+					
 					variableKeys.Add(v.key);
 					variableObjects.Add(v);
 					
 					index++;
 					
-					if (v == selectedBooleanVariable)
+					if (v == selectedVariable)
 					{
 						selectedIndex = index;
 					}
@@ -154,226 +179,56 @@ namespace Fungus
 				selectedIndex = EditorGUI.Popup(popupRect, selectedIndex, variableKeys.ToArray());
 				referenceProp.objectReferenceValue = variableObjects[selectedIndex];
 			}
-
+			
 			EditorGUI.EndProperty();
 		}
 	}
+
+	[CustomPropertyDrawer (typeof(BooleanData))]
+	public class BooleanDataDrawer : VariableDataDrawer<BooleanVariable>
+	{}
 
 	[CustomPropertyDrawer (typeof(IntegerData))]
-	public class IntegerDataDrawer : PropertyDrawer 
-	{	
-		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 
-		{
-			EditorGUI.BeginProperty(position, label, property);
-			
-			SerializedProperty referenceProp = property.FindPropertyRelative("integerRef");
-			SerializedProperty valueProp = property.FindPropertyRelative("integerVal");
-
-			const int popupWidth = 65;
-			
-			Rect controlRect = EditorGUI.PrefixLabel(position, label);
-			Rect valueRect = controlRect;
-			valueRect.width = controlRect.width - popupWidth - 5;
-			Rect popupRect = controlRect;
-
-			if (referenceProp.objectReferenceValue == null)
-			{
-				valueProp.intValue = EditorGUI.IntField(valueRect, valueProp.intValue);
-				popupRect.x += valueRect.width + 5;
-				popupRect.width = popupWidth;
-			}
-
-			FungusScript fungusScript = property.serializedObject.targetObject as FungusScript;
-			if (fungusScript == null)
-			{
-				Command command = property.serializedObject.targetObject as Command;
-				if (command != null)
-				{
-					fungusScript = command.GetFungusScript();
-				}
-			}
-
-			if (fungusScript != null)
-			{
-				IntegerVariable selectedVariable = referenceProp.objectReferenceValue as IntegerVariable;
-				
-				List<string> variableKeys = new List<string>();
-				List<Variable> variableObjects = new List<Variable>();
-				
-				variableKeys.Add("<Value>");
-				variableObjects.Add(null);
-				
-				int index = 0;
-				int selectedIndex = 0;
-				foreach (Variable v in fungusScript.variables)
-				{
-					if (v.GetType() != typeof(IntegerVariable))
-					{
-						continue;
-					}
-					
-					variableKeys.Add(v.key);
-					variableObjects.Add(v);
-					
-					index++;
-					
-					if (v == selectedVariable)
-					{
-						selectedIndex = index;
-					}
-				}
-				
-				selectedIndex = EditorGUI.Popup(popupRect, selectedIndex, variableKeys.ToArray());
-				referenceProp.objectReferenceValue = variableObjects[selectedIndex];
-			}
-
-			EditorGUI.EndProperty();
-		}
-	}
+	public class IntegerDataDrawer : VariableDataDrawer<IntegerVariable>
+	{}
 
 	[CustomPropertyDrawer (typeof(FloatData))]
-	public class FloatDataDrawer : PropertyDrawer 
-	{	
-		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 
-		{
-			EditorGUI.BeginProperty(position, label, property);
-			
-			SerializedProperty referenceProp = property.FindPropertyRelative("floatRef");
-			SerializedProperty valueProp = property.FindPropertyRelative("floatVal");
-
-			const int popupWidth = 65;
-
-			Rect controlRect = EditorGUI.PrefixLabel(position, label);
-			Rect valueRect = controlRect;
-			valueRect.width = controlRect.width - popupWidth - 5;
-			Rect popupRect = controlRect;
-			
-			if (referenceProp.objectReferenceValue == null)
-			{
-				valueProp.floatValue = EditorGUI.FloatField(valueRect, valueProp.floatValue);
-				popupRect.x += valueRect.width + 5;
-				popupRect.width = popupWidth;
-			}
-			
-			FungusScript fungusScript = property.serializedObject.targetObject as FungusScript;
-			if (fungusScript == null)
-			{
-				Command command = property.serializedObject.targetObject as Command;
-				if (command != null)
-				{
-					fungusScript = command.GetFungusScript();
-				}
-			}
-			
-			if (fungusScript != null)
-			{
-				FloatVariable selectedVariable = referenceProp.objectReferenceValue as FloatVariable;
-				
-				List<string> variableKeys = new List<string>();
-				List<Variable> variableObjects = new List<Variable>();
-				
-				variableKeys.Add("<Value>");
-				variableObjects.Add(null);
-				
-				int index = 0;
-				int selectedIndex = 0;
-				foreach (Variable v in fungusScript.variables)
-				{
-					if (v.GetType() != typeof(FloatVariable))
-					{
-						continue;
-					}
-					
-					variableKeys.Add(v.key);
-					variableObjects.Add(v);
-					
-					index++;
-					
-					if (v == selectedVariable)
-					{
-						selectedIndex = index;
-					}
-				}
-				
-				selectedIndex = EditorGUI.Popup(popupRect, selectedIndex, variableKeys.ToArray());
-				referenceProp.objectReferenceValue = variableObjects[selectedIndex];
-			}
-			
-			EditorGUI.EndProperty();
-		}
-	}
+	public class FloatDataDrawer : VariableDataDrawer<FloatVariable>
+	{}
 
 	[CustomPropertyDrawer (typeof(StringData))]
-	public class StringDataDrawer : PropertyDrawer 
-	{	
-		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 
-		{
-			EditorGUI.BeginProperty(position, label, property);
-			
-			SerializedProperty referenceProp = property.FindPropertyRelative("stringRef");
-			SerializedProperty valueProp = property.FindPropertyRelative("stringVal");
-			
-			const int popupWidth = 65;
-			
-			Rect controlRect = EditorGUI.PrefixLabel(position, label);
-			Rect valueRect = controlRect;
-			valueRect.width = controlRect.width - popupWidth - 5;
-			Rect popupRect = controlRect;
-			
-			if (referenceProp.objectReferenceValue == null)
-			{
-				// StringData stringData = valueProp.serializedObject
-				valueProp.stringValue = EditorGUI.TextField(valueRect, valueProp.stringValue);
-				popupRect.x += valueRect.width + 5;
-				popupRect.width = popupWidth;
-			}
-			
-			FungusScript fungusScript = property.serializedObject.targetObject as FungusScript;
-			if (fungusScript == null)
-			{
-				Command command = property.serializedObject.targetObject as Command;
-				if (command != null)
-				{
-					fungusScript = command.GetFungusScript();
-				}
-			}
-			
-			if (fungusScript != null)
-			{
-				StringVariable selectedVariable = referenceProp.objectReferenceValue as StringVariable;
-				
-				List<string> variableKeys = new List<string>();
-				List<Variable> variableObjects = new List<Variable>();
-				
-				variableKeys.Add("<Value>");
-				variableObjects.Add(null);
-				
-				int index = 0;
-				int selectedIndex = 0;
-				foreach (Variable v in fungusScript.variables)
-				{
-					if (v.GetType() != typeof(StringVariable))
-					{
-						continue;
-					}
-					
-					variableKeys.Add(v.key);
-					variableObjects.Add(v);
-					
-					index++;
-					
-					if (v == selectedVariable)
-					{
-						selectedIndex = index;
-					}
-				}
-				
-				selectedIndex = EditorGUI.Popup(popupRect, selectedIndex, variableKeys.ToArray());
-				referenceProp.objectReferenceValue = variableObjects[selectedIndex];
-			}
-			
-			EditorGUI.EndProperty();
-		}
-	}
+	public class StringDataDrawer : VariableDataDrawer<StringVariable>
+	{}
+
+	[CustomPropertyDrawer (typeof(ColorData))]
+	public class ColorDataDrawer : VariableDataDrawer<ColorVariable>
+	{}
+
+	[CustomPropertyDrawer (typeof(Vector2Data))]
+	public class Vector2DataDrawer : VariableDataDrawer<Vector2Variable>
+	{}
+
+	[CustomPropertyDrawer (typeof(Vector3Data))]
+	public class Vector3DataDrawer : VariableDataDrawer<Vector3Variable>
+	{}
 	
+	[CustomPropertyDrawer (typeof(MaterialData))]
+	public class MaterialDataDrawer : VariableDataDrawer<MaterialVariable>
+	{}
+
+	[CustomPropertyDrawer (typeof(TextureData))]
+	public class TextureDataDrawer : VariableDataDrawer<TextureVariable>
+	{}
+
+	[CustomPropertyDrawer (typeof(SpriteData))]
+	public class SpriteDataDrawer : VariableDataDrawer<SpriteVariable>
+	{}
+
+	[CustomPropertyDrawer (typeof(GameObjectData))]
+	public class GameObjectDataDrawer : VariableDataDrawer<GameObjectVariable>
+	{}
+	
+	[CustomPropertyDrawer (typeof(ObjectData))]
+	public class ObjectDataDrawer : VariableDataDrawer<ObjectVariable>
+	{}
 }

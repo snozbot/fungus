@@ -4,30 +4,12 @@ using System.Collections;
 namespace Fungus
 {
 
-	public class StringVariable : Variable 
-	{
-		public string value = "";
-
-		protected string startValue = "";
-
-		public override void OnReset()
-		{
-			value = startValue;
-		}
-
-		public override string ToString()
-		{
-			return value.ToString();
-		}
-
-		protected virtual void Start()
-		{
-			startValue = value;
-		}
-	}
+	[VariableInfo("", "String")]
+	public class StringVariable : VariableBase<string>
+	{}
 
 	[System.Serializable]
-	public struct StringData
+	public class StringData
 	{
 		[SerializeField]
 		public StringVariable stringRef;

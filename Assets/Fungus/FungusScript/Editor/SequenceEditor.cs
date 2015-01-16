@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 using System;
 using System.Collections;
@@ -580,18 +581,23 @@ namespace Fungus
 			
 			foreach (Command command in commandCopyBuffer.GetCommands())
 			{
-				System.Type type = command.GetType();
-				Command newCommand = Undo.AddComponent(fungusScript.selectedSequence.gameObject, type) as Command;
-				newCommand.parentSequence = fungusScript.selectedSequence;
-
-				System.Reflection.FieldInfo[] fields = type.GetFields();
-				foreach (System.Reflection.FieldInfo field in fields)
+				// Using the Editor copy / paste functionality instead instead of reflection
+				// because this does a deep copy of the command properties.
+				if (ComponentUtility.CopyComponent(command))
 				{
-					field.SetValue(newCommand, field.GetValue(command));
+					if (ComponentUtility.PasteComponentAsNew(fungusScript.gameObject))
+					{
+						Command[] commands = fungusScript.GetComponents<Command>();
+						Command pastedCommand = commands.Last<Command>();
+						if (pastedCommand != null)
+						{
+							fungusScript.selectedSequence.commandList.Insert(pasteIndex++, pastedCommand);
+						}
+					}
+
+					// This stops the user pasting the command manually into another game object.
+					ComponentUtility.CopyComponent(fungusScript.transform);
 				}
-				
-				Undo.RecordObject(fungusScript.selectedSequence, "Paste");
-				fungusScript.selectedSequence.commandList.Insert(pasteIndex++, newCommand);
 			}
 
 			Repaint();

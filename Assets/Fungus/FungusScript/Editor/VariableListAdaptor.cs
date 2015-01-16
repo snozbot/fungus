@@ -91,7 +91,7 @@ namespace Fungus
 				return;
 			}
 
-			float[] widths = { 50, 100, 130, 60 };
+			float[] widths = { 80, 100, 140, 60 };
 			Rect[] rects = new Rect[4];
 
 			for (int i = 0; i < 4; ++i)
@@ -105,22 +105,10 @@ namespace Fungus
 				}
 			}
 
-			string type = "";
-			if (variable.GetType() == typeof(BooleanVariable))
+			VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(variable.GetType());
+			if (variableInfo == null)
 			{
-				type = "Boolean";
-			}
-			else if (variable.GetType() == typeof(IntegerVariable))
-			{
-				type = "Integer";
-			}
-			else if (variable.GetType() == typeof(FloatVariable))
-			{
-				type = "Float";
-			}
-			else if (variable.GetType() == typeof(StringVariable))
-			{
-				type = "String";
+				return;
 			}
 
 			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
@@ -165,7 +153,7 @@ namespace Fungus
 
 			variableObject.Update();
 
-			GUI.Label(rects[0], type);
+			GUI.Label(rects[0], variableInfo.VariableType);
 
 			key = EditorGUI.TextField(rects[1], variable.key);
 			SerializedProperty keyProp = variableObject.FindProperty("key");

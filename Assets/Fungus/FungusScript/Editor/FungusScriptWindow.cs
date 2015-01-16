@@ -161,7 +161,7 @@ namespace Fungus
 
 			GUILayout.BeginHorizontal();
 
-			GUILayout.BeginVertical(GUILayout.Width(400));
+			GUILayout.BeginVertical(GUILayout.Width(440));
 		
 			GUILayout.FlexibleSpace();
 

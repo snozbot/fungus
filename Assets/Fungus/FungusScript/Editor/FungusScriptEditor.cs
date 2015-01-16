@@ -4,12 +4,19 @@ using System.Collections;
 using System.Collections.Generic;
 using Rotorz.ReorderableList;
 using System.Linq;
+using System.Reflection;
 
 namespace Fungus
 {
 	[CustomEditor (typeof(FungusScript))]
 	public class FungusScriptEditor : Editor 
 	{
+		protected class AddVariableInfo
+		{
+			public FungusScript fungusScript;
+			public System.Type variableType;
+		}
+
 		protected SerializedProperty descriptionProp;
 		protected SerializedProperty colorCommandsProp;
 		protected SerializedProperty hideComponentsProp;
@@ -117,11 +124,46 @@ namespace Fungus
 				    GUI.Button(plusRect, FungusEditorResources.texAddButton))
 				{
 					GenericMenu menu = new GenericMenu ();
-					
-					menu.AddItem(new GUIContent ("Boolean"), false, AddVariable<BooleanVariable>, t);
-					menu.AddItem (new GUIContent ("Integer"), false, AddVariable<IntegerVariable>, t);
-					menu.AddItem (new GUIContent ("Float"), false, AddVariable<FloatVariable>, t);
-					menu.AddItem (new GUIContent ("String"), false, AddVariable<StringVariable>, t);
+
+					List<System.Type> types = FindAllDerivedTypes<Variable>();
+
+					// Add variable types without a category
+					foreach (System.Type type in types)
+					{
+						VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(type);
+						if (variableInfo == null ||
+						    variableInfo.Category != "")
+						{
+							continue;
+						}
+
+						AddVariableInfo addVariableInfo = new AddVariableInfo();
+						addVariableInfo.fungusScript = t;
+						addVariableInfo.variableType = type;
+
+						GUIContent typeName = new GUIContent(variableInfo.VariableType);
+
+						menu.AddItem(typeName, false, AddVariable, addVariableInfo);
+					}
+
+					// Add types with a category
+					foreach (System.Type type in types)
+					{
+						VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(type);
+						if (variableInfo == null ||
+						    variableInfo.Category == "")
+						{
+							continue;
+						}
+
+						AddVariableInfo info = new AddVariableInfo();
+						info.fungusScript = t;
+						info.variableType = type;
+
+						GUIContent typeName = new GUIContent(variableInfo.Category + "/" + variableInfo.VariableType);
+
+						menu.AddItem(typeName, false, AddVariable, info);
+					}
 
 					menu.ShowAsContext ();
 				}
@@ -129,20 +171,40 @@ namespace Fungus
 
 			serializedObject.ApplyModifiedProperties();
 		}
-		
-		protected virtual void AddVariable<T>(object obj) where T : Variable
+
+		protected virtual void AddVariable(object obj)
 		{
-			FungusScript fungusScript = obj as FungusScript;
-			if (fungusScript == null)
+			AddVariableInfo addVariableInfo = obj as AddVariableInfo;
+			if (addVariableInfo == null)
 			{
 				return;
 			}
-			
+
+			FungusScript fungusScript = addVariableInfo.fungusScript;
+			System.Type variableType = addVariableInfo.variableType;
+
 			Undo.RecordObject(fungusScript, "Add Variable");
-			T newVariable = fungusScript.gameObject.AddComponent<T>();
+			Variable newVariable = fungusScript.gameObject.AddComponent(variableType) as Variable;
 			newVariable.key = fungusScript.GetUniqueVariableKey("");
 			fungusScript.variables.Add(newVariable);
 		}
+
+		public static List<System.Type> FindAllDerivedTypes<T>()
+		{
+			return FindAllDerivedTypes<T>(Assembly.GetAssembly(typeof(T)));
+		}
+		
+		public static List<System.Type> FindAllDerivedTypes<T>(Assembly assembly)
+		{
+			var derivedType = typeof(T);
+			return assembly
+				.GetTypes()
+					.Where(t =>
+					       t != derivedType &&
+					       derivedType.IsAssignableFrom(t)
+					       ).ToList();
+			
+		} 
 	}
 	
 }

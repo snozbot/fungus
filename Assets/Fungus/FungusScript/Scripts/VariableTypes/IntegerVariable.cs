@@ -3,31 +3,12 @@ using System.Collections;
 
 namespace Fungus
 {
-
-	public class IntegerVariable : Variable 
-	{
-		public int value;
-
-		protected int startValue;
-
-		public override void OnReset()
-		{
-			value = startValue;
-		}
-
-		public override string ToString()
-		{
-			return value.ToString();
-		}
-
-		protected virtual void Start()
-		{
-			startValue = value;
-		}
-	}
+	[VariableInfo("", "Integer")]
+	public class IntegerVariable : VariableBase<int> 
+	{}
 
 	[System.Serializable]
-	public struct IntegerData
+	public class IntegerData
 	{
 		[SerializeField]
 		public IntegerVariable integerRef;
