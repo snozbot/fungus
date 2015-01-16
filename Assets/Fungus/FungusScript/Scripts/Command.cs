@@ -117,6 +117,12 @@ namespace Fungus
 		public virtual void OnCommandAdded(Sequence parentSequence)
 		{}
 
+		/**
+		 * Called when the command is deleted from a sequence in the editor.
+		 */
+		public virtual void OnCommandRemoved(Sequence parentSequence)
+		{}
+
 		public virtual void OnEnter()
 		{}
 

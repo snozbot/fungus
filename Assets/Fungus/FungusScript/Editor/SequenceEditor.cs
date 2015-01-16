@@ -615,6 +615,8 @@ namespace Fungus
 				{
 					if (command == selectedCommand)
 					{
+						command.OnCommandRemoved(sequence);
+
 						Undo.RecordObject(fungusScript.selectedSequence, "Delete");
 						fungusScript.selectedSequence.commandList.RemoveAt(i);
 						Undo.DestroyObjectImmediate(command);
