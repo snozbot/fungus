@@ -61,6 +61,14 @@ namespace Fungus
 			{
 				dialogCanvas.gameObject.SetActive(visible);
 			}
+
+			if (visible)
+			{
+				// A new dialog is often shown as the result of a mouse click, so we need
+				// to make sure the previous click doesn't register on the new dialogue
+				wasPointerClicked = false;
+				clickCooldownTimer = 0.2f;
+			}
 		}
 		
 		public virtual void SetCharacter(Character character, FungusScript fungusScript = null)
