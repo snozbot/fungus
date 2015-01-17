@@ -20,6 +20,10 @@ namespace Fungus
 		}
 
 		[Tooltip("The variable whos value will be set")]
+		[VariableProperty(typeof(BooleanVariable),
+		                  typeof(IntegerVariable), 
+		                  typeof(FloatVariable), 
+		                  typeof(StringVariable))]
 		public Variable variable;
 
 		[Tooltip("The type of math operation to be performed")]

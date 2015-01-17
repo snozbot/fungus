@@ -25,6 +25,16 @@ namespace Fungus
 		public int Order { get; set; }
 	}
 
+	public class VariablePropertyAttribute : PropertyAttribute 
+	{
+		public VariablePropertyAttribute (params System.Type[] variableTypes) 
+		{
+			this.VariableTypes = variableTypes;
+		}
+
+		public System.Type[] VariableTypes { get; set; }
+	}
+
 	[RequireComponent(typeof(FungusScript))]
 	public abstract class Variable : MonoBehaviour
 	{

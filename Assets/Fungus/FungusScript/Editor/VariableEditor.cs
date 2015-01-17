@@ -32,7 +32,11 @@ namespace Fungus
 			return null;
 		}
 
-		static public void VariableField(SerializedProperty property, GUIContent label, FungusScript fungusScript, Func<Variable, bool> filter = null)
+		static public void VariableField(SerializedProperty property, 
+		                                 GUIContent label, 
+		                                 FungusScript fungusScript, 
+		                                 Func<Variable, bool> filter, 
+		                                 Func<string, int, string[], int> drawer = null)
 		{
 			List<string> variableKeys = new List<string>();
 			List<Variable> variableObjects = new List<Variable>();
@@ -90,12 +94,49 @@ namespace Fungus
 				}
 			}
 
-			selectedIndex = EditorGUILayout.Popup(label.text, selectedIndex, variableKeys.ToArray());
-			
+			if (drawer == null)
+			{
+				selectedIndex = EditorGUILayout.Popup(label.text, selectedIndex, variableKeys.ToArray());
+			}
+			else
+			{
+				selectedIndex = drawer(label.text, selectedIndex, variableKeys.ToArray());
+			}
+
 			property.objectReferenceValue = variableObjects[selectedIndex];
 		}
 	}
 
+	[CustomPropertyDrawer(typeof(VariablePropertyAttribute))]
+	public class VariableDrawer : PropertyDrawer
+	{	
+		
+		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 
+		{
+			VariablePropertyAttribute variableProperty = attribute as VariablePropertyAttribute;
+
+			EditorGUI.BeginProperty(position, label, property);
+
+			// Filter the variables by the types listed in the VariableProperty attribute
+			Func<Variable, bool> compare = v => 
+			{
+				if (variableProperty.VariableTypes.Length == 0)
+				{
+					return true;
+				}
+				return variableProperty.VariableTypes.Contains<System.Type>(v.GetType());
+			};
+
+			VariableEditor.VariableField(property, 
+			                             label,
+			                             FungusScriptWindow.GetFungusScript(),
+			                             compare,
+			                             (s,t,u) => (EditorGUI.Popup(position, s, t, u)));
+
+			EditorGUI.EndProperty();
+		}
+	}
+	
 	public class VariableDataDrawer<T> : PropertyDrawer where T : Variable
 	{	
 

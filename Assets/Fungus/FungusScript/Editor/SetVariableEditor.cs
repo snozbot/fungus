@@ -38,13 +38,7 @@ namespace Fungus
 				return;
 			}
 
-			VariableEditor.VariableField(variableProp, 
-			                             new GUIContent("Set Variable", "Variable to set"),
-			                             fungusScript,
-			                             (v) => (v.GetType() == typeof(BooleanVariable) ||
-			        							 v.GetType() == typeof(IntegerVariable) ||
-			        							 v.GetType() == typeof(FloatVariable) ||
-			        							 v.GetType() == typeof(StringVariable)));
+			EditorGUILayout.PropertyField(variableProp);
 
 			if (variableProp.objectReferenceValue == null)
 			{

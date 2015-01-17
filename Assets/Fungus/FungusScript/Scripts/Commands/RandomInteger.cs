@@ -10,6 +10,7 @@ namespace Fungus
 	public class RandomInteger : Command 
 	{
 		[Tooltip("The variable whos value will be set")]
+		[VariableProperty(typeof(IntegerVariable))]
 		public IntegerVariable variable;
 
 		[Tooltip("Minimum value for random range")]

@@ -10,6 +10,7 @@ namespace Fungus
 	public class RandomFloat : Command 
 	{
 		[Tooltip("The variable whos value will be set")]
+		[VariableProperty(typeof(FloatVariable))]
 		public FloatVariable variable;
 
 		[Tooltip("Minimum value for random range")]

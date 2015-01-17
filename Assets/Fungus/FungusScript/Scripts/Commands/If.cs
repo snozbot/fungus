@@ -20,7 +20,12 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class If : Command
 	{
-		[Tooltip("The variable whos value will be checked")]
+
+		[Tooltip("Variable to use in expression")]
+		[VariableProperty(typeof(BooleanVariable),
+		                  typeof(IntegerVariable), 
+		                  typeof(FloatVariable), 
+		                  typeof(StringVariable))]
 		public Variable variable;
 
 		[Tooltip("The type of comparison to be performed")]

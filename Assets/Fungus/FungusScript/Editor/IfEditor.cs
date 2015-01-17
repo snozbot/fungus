@@ -39,10 +39,7 @@ namespace Fungus
 				return;
 			}
 
-			VariableEditor.VariableField(variableProp, 
-			                             new GUIContent("Variable", "Variable to use in operation"),
-										 t.GetFungusScript(),
-										 null);
+			EditorGUILayout.PropertyField(variableProp);
 
 			if (variableProp.objectReferenceValue == null)
 			{
