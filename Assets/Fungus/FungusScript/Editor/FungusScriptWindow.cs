@@ -8,8 +8,6 @@ namespace Fungus
 {
 	public class FungusScriptWindow : EditorWindow
 	{
-		static GUIStyle lockButtonStyle;
-
 		public static List<Sequence> deleteList = new List<Sequence>();
 
 		protected List<Sequence> windowSequenceMap = new List<Sequence>();
