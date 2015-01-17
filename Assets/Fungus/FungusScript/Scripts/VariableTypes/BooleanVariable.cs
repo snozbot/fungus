@@ -11,7 +11,7 @@ namespace Fungus
 	{}
 
 	[System.Serializable]
-	public class BooleanData
+	public struct BooleanData
 	{
 		[SerializeField]
 		public BooleanVariable booleanRef;

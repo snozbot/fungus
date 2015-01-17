@@ -10,7 +10,7 @@ namespace Fungus
 	{}
 
 	[System.Serializable]
-	public class StringData
+	public struct StringData
 	{
 		[SerializeField]
 		public StringVariable stringRef;

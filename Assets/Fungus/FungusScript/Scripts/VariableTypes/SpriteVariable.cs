@@ -9,7 +9,7 @@ namespace Fungus
 	{}
 
 	[System.Serializable]
-	public class SpriteData
+	public struct SpriteData
 	{
 		[SerializeField]
 		public SpriteVariable spriteRef;

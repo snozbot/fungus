@@ -9,7 +9,7 @@ namespace Fungus
 	{}
 
 	[System.Serializable]
-	public class GameObjectData
+	public struct GameObjectData
 	{
 		[SerializeField]
 		public GameObjectVariable gameObjectRef;

@@ -9,7 +9,7 @@ namespace Fungus
 	{}
 
 	[System.Serializable]
-	public class FloatData
+	public struct FloatData
 	{
 		[SerializeField]
 		public FloatVariable floatRef;

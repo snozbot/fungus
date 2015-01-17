@@ -9,7 +9,7 @@ namespace Fungus
 	{}
 
 	[System.Serializable]
-	public class MaterialData
+	public struct MaterialData
 	{
 		[SerializeField]
 		public MaterialVariable materialRef;

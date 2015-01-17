@@ -9,7 +9,7 @@ namespace Fungus
 	{}
 
 	[System.Serializable]
-	public class IntegerData
+	public struct IntegerData
 	{
 		[SerializeField]
 		public IntegerVariable integerRef;

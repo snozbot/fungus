@@ -9,7 +9,7 @@ namespace Fungus
 	{}
 
 	[System.Serializable]
-	public class TextureData
+	public struct TextureData
 	{
 		[SerializeField]
 		public TextureVariable textureRef;

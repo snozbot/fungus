@@ -9,7 +9,7 @@ namespace Fungus
 	{}
 
 	[System.Serializable]
-	public class ColorData
+	public struct ColorData
 	{
 		[SerializeField]
 		public ColorVariable colorRef;

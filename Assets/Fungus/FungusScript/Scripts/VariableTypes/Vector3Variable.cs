@@ -9,7 +9,7 @@ namespace Fungus
 	{}
 
 	[System.Serializable]
-	public class Vector3Data
+	public struct Vector3Data
 	{
 		[SerializeField]
 		public Vector3Variable vector3Ref;
