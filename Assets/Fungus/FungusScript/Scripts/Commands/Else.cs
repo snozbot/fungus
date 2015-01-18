@@ -43,15 +43,15 @@ namespace Fungus
 			// No matching EndIf command found, so just stop the sequence
 			Stop();
 		}
-		
-		public override int GetPreIndent()
+
+		public override bool OpenBlock()
 		{
-			return -1;
+			return true;
 		}
 
-		public override int GetPostIndent()
+		public override bool CloseBlock()
 		{
-			return 1;
+			return true;
 		}
 
 		public override Color GetButtonColor()

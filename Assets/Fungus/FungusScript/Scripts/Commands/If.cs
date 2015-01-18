@@ -235,9 +235,9 @@ namespace Fungus
 			return (variable == this.variable);
 		}
 
-		public override int GetPostIndent()
+		public override bool OpenBlock()
 		{
-			return 1;
+			return true;
 		}
 
 		public override Color GetButtonColor()

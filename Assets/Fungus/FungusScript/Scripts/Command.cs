@@ -158,19 +158,19 @@ namespace Fungus
 		}
 
 		/**
-		 * Indent offset for this command.
+		 * This command starts a block of commands.
 		 */
-		public virtual int GetPreIndent()
+		public virtual bool OpenBlock()
 		{
-			return 0;
+			return false;
 		}
 
 		/**
-		 * Indent offset for subsequent commands.
+		 * This command ends a block of commands.
 		 */
-		public virtual int GetPostIndent()
+		public virtual bool CloseBlock()
 		{
-			return 0;
+			return false;
 		}
 
 		/**

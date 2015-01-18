@@ -208,9 +208,16 @@ namespace Fungus
 					continue;
 				}
 
-				indentLevel += command.GetPreIndent();
+				if (command.CloseBlock())
+				{
+					indentLevel--;
+				}
 				command.indentLevel = Math.Max(indentLevel, 0);
-				indentLevel += command.GetPostIndent();
+
+				if (command.OpenBlock())
+				{
+					indentLevel++;
+				}
 			}
 		}
 

@@ -16,9 +16,9 @@ namespace Fungus
 			Continue();
 		}
 
-		public override int GetPreIndent()
+		public override bool CloseBlock()
 		{
-			return -1;
+			return true;
 		}
 
 		public override Color GetButtonColor()
