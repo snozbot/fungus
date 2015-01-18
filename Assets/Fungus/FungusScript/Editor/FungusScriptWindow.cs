@@ -28,6 +28,8 @@ namespace Fungus
 
 		protected bool mouseOverVariables = false;
 
+		protected int forceRepaintCount;
+
 		[MenuItem("Window/Fungus Script")]
 	    static void Init()
 	    {
@@ -67,6 +69,9 @@ namespace Fungus
 				}
 				sequenceInspector.sequence = fungusScript.selectedSequence;
 			}
+
+			forceRepaintCount--;
+			forceRepaintCount = Math.Max(0, forceRepaintCount);
 
 			Repaint();
 		}
@@ -128,8 +133,11 @@ namespace Fungus
 			DrawScriptView(fungusScript);
 			DrawOverlay(fungusScript);
 
-			// Redraw on next frame to get crisp refresh rate
-			Repaint();
+			if (forceRepaintCount > 0)
+			{
+				// Redraw on next frame to get crisp refresh rate
+				Repaint();
+			}
 		}
 
 		protected virtual void DrawOverlay(FungusScript fungusScript)
@@ -272,6 +280,8 @@ namespace Fungus
 					{
 						sequence.nodeRect.x += Event.current.delta.x;
 						sequence.nodeRect.y += Event.current.delta.y;
+
+						forceRepaintCount = 6;
 					}
 					else if (Event.current.type == EventType.MouseUp &&
 					         dragWindowId == i)
@@ -287,6 +297,7 @@ namespace Fungus
 						sequence.nodeRect.y = newPos.y;
 
 						dragWindowId = -1;
+						forceRepaintCount = 6;
 					}
 				}
 
@@ -344,11 +355,13 @@ namespace Fungus
 			if (Event.current.button == 1 && Event.current.type == EventType.MouseDrag)
 			{
 				fungusScript.scrollPos += Event.current.delta;
+				forceRepaintCount = 6;
 			}
 			else if (Event.current.type == EventType.ScrollWheel)
 			{
 				fungusScript.zoom -= Event.current.delta.y * 0.01f;
 				fungusScript.zoom = Mathf.Clamp(fungusScript.zoom, minZoomValue, maxZoomValue);
+				forceRepaintCount = 6;
 			}
 
 			GLDraw.EndGroup();
