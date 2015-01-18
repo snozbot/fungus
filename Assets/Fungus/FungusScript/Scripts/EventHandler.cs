@@ -37,24 +37,6 @@ namespace Fungus
 		public Sequence parentSequence;
 
 		/**
-		 * Returns the class attribute info for an event handler class.
-		 */
-		public static EventHandlerInfoAttribute GetEventHandlerInfo(System.Type eventHandlerType)
-		{
-			object[] attributes = eventHandlerType.GetCustomAttributes(typeof(EventHandlerInfoAttribute), false);
-			foreach (object obj in attributes)
-			{
-				EventHandlerInfoAttribute eventHandlerInfoAttr = obj as EventHandlerInfoAttribute;
-				if (eventHandlerInfoAttr != null)
-				{
-					return eventHandlerInfoAttr;
-				}
-			}
-			
-			return null;
-		}
-
-		/**
 		 * The Event Handler should call this method when the event is detected.
 		 */
 		public virtual bool ExecuteSequence()
@@ -75,13 +57,7 @@ namespace Fungus
 		 */
 		public virtual string GetSummary()
 		{
-			EventHandlerInfoAttribute info = GetEventHandlerInfo(this.GetType());
-			if (info == null)
-			{
-				return "";
-			}
-
-			return info.EventHandlerName;
+			return "";
 		}
 	}
 }

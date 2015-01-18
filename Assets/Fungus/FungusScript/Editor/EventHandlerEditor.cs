@@ -10,6 +10,24 @@ namespace Fungus
 	[CustomEditor (typeof(EventHandler), true)]
 	public class EventHandlerEditor : Editor 
 	{
+		/**
+		 * Returns the class attribute info for an event handler class.
+		 */
+		public static EventHandlerInfoAttribute GetEventHandlerInfo(System.Type eventHandlerType)
+		{
+			object[] attributes = eventHandlerType.GetCustomAttributes(typeof(EventHandlerInfoAttribute), false);
+			foreach (object obj in attributes)
+			{
+				EventHandlerInfoAttribute eventHandlerInfoAttr = obj as EventHandlerInfoAttribute;
+				if (eventHandlerInfoAttr != null)
+				{
+					return eventHandlerInfoAttr;
+				}
+			}
+			
+			return null;
+		}
+
 		public virtual void DrawInspectorGUI()
 		{
 			// Users should not be able to change the MonoScript for the command using the usual Script field.
@@ -31,7 +49,7 @@ namespace Fungus
 			}
 
 			EventHandler t = target as EventHandler;
-			EventHandlerInfoAttribute info = EventHandler.GetEventHandlerInfo(t.GetType());
+			EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(t.GetType());
 			if (info != null &&
 			    info.HelpText.Length > 0)
 			{

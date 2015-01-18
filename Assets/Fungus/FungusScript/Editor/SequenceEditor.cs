@@ -117,7 +117,7 @@ namespace Fungus
 			string currentHandlerName = "<None>";
 			if (currentType != null)
 			{
-				EventHandlerInfoAttribute info = EventHandler.GetEventHandlerInfo(currentType);
+				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(currentType);
 				currentHandlerName = info.EventHandlerName;
 			}
 
@@ -135,7 +135,7 @@ namespace Fungus
 				// Add event handlers with no category first
 				foreach (System.Type type in eventHandlerTypes)
 				{
-					EventHandlerInfoAttribute info = EventHandler.GetEventHandlerInfo(type);					
+					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);					
 					if (info.Category.Length == 0)
 					{
 						SetEventHandlerOperation operation = new SetEventHandlerOperation();
@@ -149,7 +149,7 @@ namespace Fungus
 				// Add event handlers with a category afterwards
 				foreach (System.Type type in eventHandlerTypes)
 				{
-					EventHandlerInfoAttribute info = EventHandler.GetEventHandlerInfo(type);					
+					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);					
 					if (info.Category.Length > 0)
 					{			
 						SetEventHandlerOperation operation = new SetEventHandlerOperation();

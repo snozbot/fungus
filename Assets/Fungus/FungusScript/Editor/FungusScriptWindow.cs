@@ -495,9 +495,21 @@ namespace Fungus
 			if (sequence.eventHandler != null)
 			{
 				string handlerSummary = sequence.eventHandler.GetSummary();
+				if (handlerSummary == "")
+				{
+					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(sequence.eventHandler.GetType());
+					if (info != null)
+					{
+						handlerSummary = info.EventHandlerName;
+					}
+				}
 				nodeName = "(" + handlerSummary + ")\n";
 			}
 			nodeName += sequence.sequenceName;
+
+			// Make sure node is wide enough to fit the node name text
+			float width = nodeStyleCopy.CalcSize(new GUIContent(nodeName)).x;
+			sequence.nodeRect.width = Mathf.Max (sequence.nodeRect.width, width);
 
 			GUILayout.Box(nodeName, nodeStyleCopy, GUILayout.Width(sequence.nodeRect.width), GUILayout.Height(sequence.nodeRect.height));
 			if (sequence.description.Length > 0)
