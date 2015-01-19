@@ -152,26 +152,35 @@ namespace Fungus
 			else
 			{
 				// Find the next Else or EndIf command at the same indent level as this If command
-				bool foundThisCommand = false;
-				int indent = indentLevel;
-				foreach(Command command in parentSequence.commandList)
+				for (int i = commandIndex + 1; i < parentSequence.commandList.Count; ++i)
 				{
-					if (foundThisCommand &&
-					    command.indentLevel == indent)
+					Command nextCommand = parentSequence.commandList[i];
+
+					// Find next command at same indent level as this If command
+					// Skip disabled commands & comments
+					if (!nextCommand.enabled || 
+					    nextCommand.GetType() == typeof(Comment) ||
+					    nextCommand.indentLevel != indentLevel)
 					{
-						System.Type type = command.GetType();
-						if (type == typeof(Else) || 
-						    type == typeof(EndIf) || // Legacy support for old EndIf command
-						    type == typeof(End))
+						continue;
+					}
+
+					System.Type type = nextCommand.GetType();
+					if (type == typeof(Else) || 
+					    type == typeof(EndIf) || // Legacy support for old EndIf command
+					    type == typeof(End))
+					{
+						if (i >= parentSequence.commandList.Count - 1)
 						{
-							// Execute command immediately after the Else or EndIf command
-							Continue(command);
+							// Last command in Sequence, so stop
+							Stop();
+						}
+						else
+						{
+							// Execute command immediately after the Else or End command
+							Continue(nextCommand);
 							return;
 						}
-					}
-					else if (command == this)
-					{
-						foundThisCommand = true;
 					}
 				}
 

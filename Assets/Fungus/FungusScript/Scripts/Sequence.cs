@@ -37,11 +37,27 @@ namespace Fungus
 		protected virtual void Awake()
 		{
 			// Give each child command a reference back to its parent sequence
+			int index = 0;
 			foreach (Command command in commandList)
 			{
 				command.parentSequence = this;
+				command.commandIndex = index++;
 			}
 		}
+
+#if UNITY_EDITOR
+		// The user can modify the command list order while playing in the editor,
+		// so we keep the command indices updated every frame. There's no need to
+		// do this in player builds so we compile this bit out for those builds.
+		void Update()
+		{
+			int index = 0;
+			foreach (Command command in commandList)
+			{
+				command.commandIndex = index++;
+			}
+		}
+#endif
 
 		public virtual FungusScript GetFungusScript()
 		{
@@ -97,26 +113,26 @@ namespace Fungus
 
 			FungusScript fungusScript = GetFungusScript();
 
-			activeCommand = null;
-			Command nextCommand = null;
-			executingIconTimer = 0.5f;
-
-			bool executeNext = (currentCommand == null);
-			foreach (Command command in commandList)
+			int commandIndex = 0;
+			if (currentCommand != null)
 			{
-				if (command == currentCommand)
-				{
-					executeNext = true;
-				}
-				else if (executeNext)
-				{
-					if (command.enabled && command.GetType() != typeof(Comment))
-					{
-						nextCommand = command;
-						break;
-					}
-				}
+				commandIndex = currentCommand.commandIndex + 1;
 			}
+
+			while (commandIndex < commandList.Count &&
+				   (!commandList[commandIndex].enabled || commandList[commandIndex].GetType() == typeof(Comment)))
+			{
+				commandIndex = commandList[commandIndex].commandIndex + 1;
+			}
+
+			Command nextCommand = null;
+			if (commandIndex < commandList.Count)
+			{
+				nextCommand = commandList[commandIndex];
+			}
+
+			activeCommand = null;
+			executingIconTimer = 0.5f;
 
 			if (nextCommand == null)
 			{
