@@ -6,7 +6,39 @@ namespace Fungus
 	[VariableInfo("", "Integer")]
 	[AddComponentMenu("")]
 	public class IntegerVariable : VariableBase<int> 
-	{}
+	{
+		public virtual bool Evaluate(CompareOperator compareOperator, int integerValue)
+		{
+			int lhs = value;
+			int rhs = integerValue;
+
+			bool condition = false;
+
+			switch (compareOperator)
+			{
+			case CompareOperator.Equals:
+				condition = lhs == rhs;
+				break;
+			case CompareOperator.NotEquals:
+				condition = lhs != rhs;
+				break;
+			case CompareOperator.LessThan:
+				condition = lhs < rhs;
+				break;
+			case CompareOperator.GreaterThan:
+				condition = lhs > rhs;
+				break;
+			case CompareOperator.LessThanOrEquals:
+				condition = lhs <= rhs;
+				break;
+			case CompareOperator.GreaterThanOrEquals:
+				condition = lhs >= rhs;
+				break;
+			}
+
+			return condition;
+		}
+	}
 
 	[System.Serializable]
 	public struct IntegerData

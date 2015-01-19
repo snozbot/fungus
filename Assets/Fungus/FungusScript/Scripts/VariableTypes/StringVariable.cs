@@ -7,7 +7,28 @@ namespace Fungus
 	[VariableInfo("", "String")]
 	[AddComponentMenu("")]
 	public class StringVariable : VariableBase<string>
-	{}
+	{
+		public virtual bool Evaluate(CompareOperator compareOperator, string stringValue)
+		{
+			string lhs = value;
+			string rhs = stringValue;
+
+			bool condition = false;
+
+			switch (compareOperator)
+			{
+			case CompareOperator.Equals:
+				condition = lhs == rhs;
+				break;
+			case CompareOperator.NotEquals:
+			default:
+				condition = lhs != rhs;
+				break;
+			}
+
+			return condition;
+		}
+	}
 
 	[System.Serializable]
 	public struct StringData
