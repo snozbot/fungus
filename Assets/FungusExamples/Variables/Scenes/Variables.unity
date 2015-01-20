@@ -335,6 +335,8 @@ GameObject:
   - 114: {fileID: 1269704331}
   - 114: {fileID: 1269704332}
   - 114: {fileID: 1269704333}
+  - 114: {fileID: 1269704335}
+  - 114: {fileID: 1269704334}
   m_Layer: 0
   m_Name: RedScript
   m_TagString: Untagged
@@ -406,6 +408,8 @@ MonoBehaviour:
   runSlowInEditor: 1
   eventHandler: {fileID: 1269704323}
   commandList:
+  - {fileID: 1269704334}
+  - {fileID: 1269704335}
   - {fileID: 1269704324}
   - {fileID: 1269704328}
   - {fileID: 1269704322}
@@ -438,8 +442,9 @@ MonoBehaviour:
     y: -418
     width: 1213
     height: 953
-  selectedSequence: {fileID: 0}
-  selectedCommands: []
+  selectedSequence: {fileID: 1269704318}
+  selectedCommands:
+  - {fileID: 1269704335}
   variables:
   - {fileID: 1269704317}
   - {fileID: 1269704316}
@@ -706,6 +711,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+--- !u!114 &1269704334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269704314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae9ac2fcbd1d542619ab0bc7549fb264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  labelName: Hi there
+--- !u!114 &1269704335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269704314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea4da378c47144a86979765ac5e9690c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  labelName: Hi there
 --- !u!1 &1671111970
 GameObject:
   m_ObjectHideFlags: 1
