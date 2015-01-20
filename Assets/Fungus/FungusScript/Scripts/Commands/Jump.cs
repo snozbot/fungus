@@ -10,11 +10,11 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Jump : Command
 	{
-		public string labelName;
+		public Label targetLabel;
 
 		public override void OnEnter()
 		{
-			if (labelName.Length == 0)
+			if (targetLabel == null)
 			{
 				Continue();
 				return;
@@ -24,12 +24,22 @@ namespace Fungus
 			{
 				Label label = command as Label;
 				if (label != null &&
-					label.labelName == labelName)
+				    label == targetLabel)
 				{
 					Continue(label.commandIndex + 1);
 					break;
 				}
 			}
+		}
+
+		public override string GetSummary()
+		{
+			if (targetLabel == null)
+			{
+				return "Error: No label selected";
+			}
+
+			return "To " + targetLabel.key;
 		}
 
 		public override Color GetButtonColor()

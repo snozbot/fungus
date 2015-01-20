@@ -10,7 +10,7 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Label : Command
 	{
-		public string labelName = "";
+		public string key = "";
 
 		public override void OnEnter()
 		{
@@ -19,12 +19,12 @@ namespace Fungus
 
 		public override string GetSummary()
 		{
-			return labelName;
+			return key;
 		}
 
 		public override Color GetButtonColor()
 		{
-			return new Color32(253, 253, 150, 255);
+			return new Color32(200, 200, 253, 255);
 		}
 	}
 

@@ -42,7 +42,8 @@ namespace Fungus
 
 		/**
 		 * Reference to the Sequence object that this command belongs to.
-		 * This reference is only set at runtime (null in editor).
+		 * This reference is only populated at runtime and in the editor when the 
+		 * sequence is selected.
 		 */
 		[NonSerialized]
 		public Sequence parentSequence;

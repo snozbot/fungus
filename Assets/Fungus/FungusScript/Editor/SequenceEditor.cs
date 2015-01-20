@@ -55,6 +55,12 @@ namespace Fungus
 				sequenceNameProperty.stringValue = uniqueName;
 			}
 
+			// Make sure each command has a reference to its parent sequence
+			foreach (Command command in sequence.commandList)
+			{
+				command.parentSequence = sequence;
+			}
+
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
 
 			ReorderableListGUI.Title("Commands");
