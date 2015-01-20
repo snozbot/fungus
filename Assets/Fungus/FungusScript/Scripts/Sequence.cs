@@ -25,6 +25,12 @@ namespace Fungus
 		[System.NonSerialized]
 		public Command activeCommand;
 
+		// Index of last command executed before the current one
+		// -1 indicates no previous command
+		[HideInInspector]
+		[System.NonSerialized]
+		public int previousActiveCommandIndex = -1;
+
 		[HideInInspector]
 		[System.NonSerialized]
 		public float executingIconTimer;
@@ -37,6 +43,7 @@ namespace Fungus
 		protected virtual void Awake()
 		{
 			// Give each child command a reference back to its parent sequence
+			// and tell each command its index in the list.
 			int index = 0;
 			foreach (Command command in commandList)
 			{
@@ -104,32 +111,38 @@ namespace Fungus
 			return executionCount;
 		}
 
-		public virtual void ExecuteNextCommand(Command currentCommand = null)
+		public virtual void ExecuteCommand(int commandIndex)
 		{
-			if (currentCommand == null)
+			if (activeCommand == null)
+			{
+				previousActiveCommandIndex = -1;
+			}
+			else
+			{
+				previousActiveCommandIndex = activeCommand.commandIndex;
+			}
+
+			if (commandIndex >= commandList.Count)
+			{
+				Stop();
+				return;
+			}
+
+			if (commandIndex == 0)
 			{
 				executionCount++;
 			}
 
 			FungusScript fungusScript = GetFungusScript();
 
-			int commandIndex = 0;
-			if (currentCommand != null)
-			{
-				commandIndex = currentCommand.commandIndex + 1;
-			}
-
+			// Skip disabled commands and comments
 			while (commandIndex < commandList.Count &&
 				   (!commandList[commandIndex].enabled || commandList[commandIndex].GetType() == typeof(Comment)))
 			{
 				commandIndex = commandList[commandIndex].commandIndex + 1;
 			}
 
-			Command nextCommand = null;
-			if (commandIndex < commandList.Count)
-			{
-				nextCommand = commandList[commandIndex];
-			}
+			Command nextCommand = commandList[commandIndex];
 
 			activeCommand = null;
 			executingIconTimer = 0.5f;
@@ -143,8 +156,8 @@ namespace Fungus
 				if (fungusScript.gameObject.activeInHierarchy)
 				{
 					// Auto select a command in some situations
-					if ((fungusScript.selectedCommands.Count == 0 && currentCommand == null) ||
-						(fungusScript.selectedCommands.Count == 1 && fungusScript.selectedCommands[0] == currentCommand))
+					if ((fungusScript.selectedCommands.Count == 0 && commandIndex == 0) ||
+						(fungusScript.selectedCommands.Count == 1 && fungusScript.selectedCommands[0].commandIndex == commandIndex))
 					{
 						fungusScript.ClearSelectedCommands();
 						fungusScript.AddSelectedCommand(nextCommand);
@@ -191,6 +204,17 @@ namespace Fungus
 				command.GetConnectedSequences(ref connectedSequences);
 			}
 			return connectedSequences;
+		}
+
+		public virtual System.Type GetPreviousActiveCommandType()
+		{
+			if (previousActiveCommandIndex >= 0 &&
+			    previousActiveCommandIndex < commandList.Count)
+			{
+				return commandList[previousActiveCommandIndex].GetType();
+			}
+
+			return null;
 		}
 	}
 }

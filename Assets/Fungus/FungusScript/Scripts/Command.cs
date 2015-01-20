@@ -75,15 +75,15 @@ namespace Fungus
 
 		public virtual void Continue()
 		{
-			Continue(this);
+			Continue(commandIndex + 1);
 		}
 
-		public virtual void Continue(Command currentCommand)
+		public virtual void Continue(int nextCommandIndex)
 		{
 			OnExit();
 			if (parentSequence != null)
 			{
-				parentSequence.ExecuteNextCommand(currentCommand);
+				parentSequence.ExecuteCommand(nextCommandIndex);
 			}
 		}
 

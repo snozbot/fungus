@@ -168,7 +168,7 @@ namespace Fungus
 			}
 
 			// Execute the first command in the command list
-			sequence.ExecuteNextCommand();
+			sequence.ExecuteCommand(0);
 
 			return true;
 		}

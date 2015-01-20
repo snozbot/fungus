@@ -7,7 +7,7 @@ using System.Reflection;
 namespace Fungus
 {
 
-	[CustomEditor (typeof(If))]
+	[CustomEditor (typeof(If), true)]
 	public class IfEditor : CommandEditor 
 	{
 		protected SerializedProperty variableProp;

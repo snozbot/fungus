@@ -7,7 +7,7 @@ namespace Fungus
 
 	[CommandInfo("Scripting", 
 	             "If", 
-	             "If the test expression is true, execute the following block of commands.")]
+	             "If the test expression is true, execute the following command block.")]
 	[AddComponentMenu("")]
 	public class If : Condition
 	{
@@ -83,15 +83,22 @@ namespace Fungus
 			}
 		}
 
-		public void OnTrue()
+		protected virtual void OnTrue()
 		{
 			Continue();
 		}
 
-		public void OnFalse()
+		protected virtual void OnFalse()
 		{
-			// Find the next Else or EndIf command at the same indent level as this If command
-			for (int i = commandIndex; i < parentSequence.commandList.Count; ++i)
+			// Last command in sequence
+			if (commandIndex >= parentSequence.commandList.Count)
+			{
+				Stop();
+				return;
+			}
+
+			// Find the next Else, ElseIf or End command at the same indent level as this If command
+			for (int i = commandIndex + 1; i < parentSequence.commandList.Count; ++i)
 			{
 				Command nextCommand = parentSequence.commandList[i];
 				
@@ -117,9 +124,16 @@ namespace Fungus
 					else
 					{
 						// Execute command immediately after the Else or End command
-						Continue(nextCommand);
+						Continue(nextCommand.commandIndex + 1);
 						return;
 					}
+				}
+				else if (type == typeof(ElseIf))
+				{
+					// Execute the Else If command
+					Continue(i);
+
+					return;
 				}
 			}
 

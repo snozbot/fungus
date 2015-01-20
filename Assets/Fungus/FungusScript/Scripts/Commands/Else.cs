@@ -6,7 +6,7 @@ namespace Fungus
 {
 	[CommandInfo("Scripting", 
 	             "Else", 
-	             "Marks the start of a sequence block to be executed when the preceding If statement is False.")]
+	             "Marks the start of a command block to be executed when the preceding If statement is False.")]
 	[AddComponentMenu("")]
 	public class Else : Command
 	{
@@ -17,30 +17,33 @@ namespace Fungus
 				return;
 			}
 
-			// Find the next End command at the same indent level as this Else command
-			bool foundThisCommand = false;
-			int indent = indentLevel;
-			foreach(Command command in parentSequence.commandList)
+			// Stop if this is the last command in the list
+			if (commandIndex >= parentSequence.commandList.Count - 1)
 			{
-				if (foundThisCommand &&
-				    command.indentLevel == indent)
+				Stop();
+				return;
+			}
+
+			// Find the next End command at the same indent level as this Else command
+			int indent = indentLevel;
+			for (int i = commandIndex + 1; i < parentSequence.commandList.Count; ++i)
+			{
+				Command command = parentSequence.commandList[i];
+				
+				if (command.indentLevel == indent)
 				{
 					System.Type type = command.GetType();
 					if (type == typeof(EndIf) || // Legacy support for old EndIf command
 					    type == typeof(End))
 					{
 						// Execute command immediately after the EndIf command
-						Continue(command);
+						Continue(command.commandIndex + 1);
 						return;
 					}
 				}
-				else if (command == this)
-				{
-					foundThisCommand = true;
-				}
 			}
-
-			// No matching EndIf command found, so just stop the sequence
+			
+			// No End command found
 			Stop();
 		}
 
