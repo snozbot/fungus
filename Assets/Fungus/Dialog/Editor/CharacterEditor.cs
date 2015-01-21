@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections;
+using Rotorz.ReorderableList;
 
 namespace Fungus
 {
@@ -50,7 +51,10 @@ namespace Fungus
 			EditorGUILayout.PropertyField(sayDialogBoxProp, new GUIContent("Say Dialog", "Say dialog box this character should use"));
 			EditorGUILayout.PropertyField(chooseDialogBoxProp, new GUIContent("Choose Dialog", "Choose dialog box this character should use"));
 			EditorGUILayout.PropertyField(soundEffectProp, new GUIContent("Sound Effect", "Sound to play when the character is talking. Overrides the setting in the Dialog."));
-			EditorGUILayout.PropertyField(portraitsProp, new GUIContent("Portraits", "Character image sprites to display in the dialog"),true);
+
+			ReorderableListGUI.Title(new GUIContent("Portraits", "Character image sprites to display in the dialog"));
+			ReorderableListGUI.ListField(portraitsProp);
+
 			EditorGUILayout.PropertyField(notesProp, new GUIContent("Notes", "Notes about this story character (personality, attibutes, etc.)"));
 
 			EditorGUILayout.Separator();
