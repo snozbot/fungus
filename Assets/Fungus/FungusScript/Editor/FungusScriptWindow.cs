@@ -322,6 +322,7 @@ namespace Fungus
 					if (s.IsExecuting())
 					{
 						s.executingIconTimer = playIconFadeTime;
+						forceRepaintCount = 6;
 					}
 
 					if (s.executingIconTimer > 0f)
