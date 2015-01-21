@@ -14,7 +14,7 @@ namespace Fungus
 	{
 		[Tooltip("Story text to display to prompt player to choose an option")]
 		[TextArea(5,10)]
-		public string chooseText;
+		public string chooseText = "";
 		
 		[Tooltip("Speaking character to use when prompting the player to choose an option")]
 		public Character character;
@@ -101,6 +101,7 @@ namespace Fungus
 					
 					dialogOption.onSelect = delegate {
 						chooseDialog.ShowDialog(false);
+						theOption.wasSelected = true;
 						Continue(theOption.commandIndex + 1);
 					};
 					

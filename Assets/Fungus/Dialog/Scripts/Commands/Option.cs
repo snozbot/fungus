@@ -12,7 +12,7 @@ namespace Fungus
 	public class Option : If 
 	{
 		[Tooltip("Option text to display when presenting the option to the player")]
-		public string optionText;
+		public string optionText = "";
 
 		[Tooltip("Hide this option once it has been selected so that it won't appear again even if executed again")]
 		public bool hideOnSelected;
@@ -50,8 +50,8 @@ namespace Fungus
 			for (int i = commandIndex + 1; i < parentSequence.commandList.Count; ++i)
 			{
 				End endCommand = parentSequence.commandList[i] as End;
-				
-				if (endCommand != null &&
+
+				if (endCommand != null && 
 				    endCommand.indentLevel == indentLevel)
 				{
 					// Continue at next command after End
