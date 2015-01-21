@@ -1091,130 +1091,98 @@ GameObject:
   - 114: {fileID: 771014226}
   - 114: {fileID: 771014225}
   - 114: {fileID: 771014224}
-  - 114: {fileID: 771014223}
-  - 114: {fileID: 771014222}
-  - 114: {fileID: 771014221}
-  - 114: {fileID: 771014220}
   - 114: {fileID: 771014219}
-  - 114: {fileID: 771014218}
   - 114: {fileID: 771014105}
   - 114: {fileID: 771014106}
   - 114: {fileID: 771014217}
-  - 114: {fileID: 771014216}
-  - 114: {fileID: 771014215}
-  - 114: {fileID: 771014214}
-  - 114: {fileID: 771014118}
-  - 114: {fileID: 771014117}
-  - 114: {fileID: 771014116}
   - 114: {fileID: 771014115}
-  - 114: {fileID: 771014114}
-  - 114: {fileID: 771014113}
   - 114: {fileID: 771014112}
-  - 114: {fileID: 771014111}
-  - 114: {fileID: 771014110}
   - 114: {fileID: 771014109}
-  - 114: {fileID: 771014108}
   - 114: {fileID: 771014107}
   - 114: {fileID: 771014119}
   - 114: {fileID: 771014213}
-  - 114: {fileID: 771014212}
-  - 114: {fileID: 771014211}
-  - 114: {fileID: 771014210}
-  - 114: {fileID: 771014209}
-  - 114: {fileID: 771014208}
   - 114: {fileID: 771014207}
   - 114: {fileID: 771014206}
-  - 114: {fileID: 771014205}
-  - 114: {fileID: 771014204}
   - 114: {fileID: 771014203}
   - 114: {fileID: 771014202}
-  - 114: {fileID: 771014201}
-  - 114: {fileID: 771014200}
   - 114: {fileID: 771014199}
   - 114: {fileID: 771014121}
-  - 114: {fileID: 771014120}
   - 114: {fileID: 771014122}
-  - 114: {fileID: 771014198}
-  - 114: {fileID: 771014197}
-  - 114: {fileID: 771014196}
-  - 114: {fileID: 771014195}
-  - 114: {fileID: 771014194}
-  - 114: {fileID: 771014193}
-  - 114: {fileID: 771014140}
-  - 114: {fileID: 771014139}
-  - 114: {fileID: 771014138}
-  - 114: {fileID: 771014137}
   - 114: {fileID: 771014136}
-  - 114: {fileID: 771014135}
-  - 114: {fileID: 771014134}
   - 114: {fileID: 771014133}
   - 114: {fileID: 771014132}
-  - 114: {fileID: 771014131}
-  - 114: {fileID: 771014130}
   - 114: {fileID: 771014129}
   - 114: {fileID: 771014128}
-  - 114: {fileID: 771014127}
-  - 114: {fileID: 771014126}
   - 114: {fileID: 771014125}
-  - 114: {fileID: 771014124}
   - 114: {fileID: 771014123}
   - 114: {fileID: 771014141}
   - 114: {fileID: 771014192}
-  - 114: {fileID: 771014191}
-  - 114: {fileID: 771014190}
-  - 114: {fileID: 771014189}
-  - 114: {fileID: 771014188}
   - 114: {fileID: 771014187}
   - 114: {fileID: 771014186}
-  - 114: {fileID: 771014185}
-  - 114: {fileID: 771014184}
   - 114: {fileID: 771014183}
   - 114: {fileID: 771014143}
-  - 114: {fileID: 771014142}
   - 114: {fileID: 771014144}
-  - 114: {fileID: 771014182}
-  - 114: {fileID: 771014181}
-  - 114: {fileID: 771014180}
-  - 114: {fileID: 771014179}
-  - 114: {fileID: 771014178}
   - 114: {fileID: 771014177}
-  - 114: {fileID: 771014176}
-  - 114: {fileID: 771014175}
   - 114: {fileID: 771014174}
-  - 114: {fileID: 771014173}
-  - 114: {fileID: 771014172}
   - 114: {fileID: 771014147}
-  - 114: {fileID: 771014146}
   - 114: {fileID: 771014145}
   - 114: {fileID: 771014148}
   - 114: {fileID: 771014171}
-  - 114: {fileID: 771014170}
-  - 114: {fileID: 771014169}
-  - 114: {fileID: 771014168}
-  - 114: {fileID: 771014167}
   - 114: {fileID: 771014166}
   - 114: {fileID: 771014165}
-  - 114: {fileID: 771014164}
-  - 114: {fileID: 771014163}
   - 114: {fileID: 771014150}
-  - 114: {fileID: 771014149}
   - 114: {fileID: 771014151}
   - 114: {fileID: 771014162}
-  - 114: {fileID: 771014161}
-  - 114: {fileID: 771014160}
-  - 114: {fileID: 771014159}
-  - 114: {fileID: 771014158}
   - 114: {fileID: 771014157}
   - 114: {fileID: 771014156}
-  - 114: {fileID: 771014155}
-  - 114: {fileID: 771014154}
   - 114: {fileID: 771014153}
-  - 114: {fileID: 771014152}
   - 114: {fileID: 771014231}
   - 114: {fileID: 771014230}
   - 114: {fileID: 771014229}
   - 114: {fileID: 771014228}
-  - 114: {fileID: 771014227}
+  - 114: {fileID: 771014222}
+  - 114: {fileID: 771014218}
+  - 114: {fileID: 771014221}
+  - 114: {fileID: 771014220}
+  - 114: {fileID: 771014223}
+  - 114: {fileID: 771014117}
+  - 114: {fileID: 771014110}
+  - 114: {fileID: 771014116}
+  - 114: {fileID: 771014113}
+  - 114: {fileID: 771014114}
+  - 114: {fileID: 771014111}
+  - 114: {fileID: 771014108}
+  - 114: {fileID: 771014204}
+  - 114: {fileID: 771014201}
+  - 114: {fileID: 771014118}
+  - 114: {fileID: 771014120}
+  - 114: {fileID: 771014200}
+  - 114: {fileID: 771014137}
+  - 114: {fileID: 771014126}
+  - 114: {fileID: 771014135}
+  - 114: {fileID: 771014124}
+  - 114: {fileID: 771014134}
+  - 114: {fileID: 771014131}
+  - 114: {fileID: 771014127}
+  - 114: {fileID: 771014130}
+  - 114: {fileID: 771014142}
+  - 114: {fileID: 771014138}
+  - 114: {fileID: 771014140}
+  - 114: {fileID: 771014139}
+  - 114: {fileID: 771014176}
+  - 114: {fileID: 771014146}
+  - 114: {fileID: 771014175}
+  - 114: {fileID: 771014173}
+  - 114: {fileID: 771014172}
+  - 114: {fileID: 771014167}
+  - 114: {fileID: 771014149}
+  - 114: {fileID: 771014164}
+  - 114: {fileID: 771014163}
+  - 114: {fileID: 771014158}
+  - 114: {fileID: 771014155}
+  - 114: {fileID: 771014154}
+  - 114: {fileID: 771014152}
+  - 114: {fileID: 771014159}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: GameController
@@ -1233,9 +1201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: -418.054199, y: -18.2201996}
+  scrollPos: {x: -363.054199, y: -2.22019958}
   variablesScrollPos: {x: 0, y: 0}
-  variablesExpanded: 0
+  variablesExpanded: 1
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -1243,7 +1211,7 @@ MonoBehaviour:
     y: -610.734985
     width: 3261.20312
     height: 2227.35059
-  selectedSequence: {fileID: 771014106}
+  selectedSequence: {fileID: 771014104}
   selectedCommands: []
   variables:
   - {fileID: 771014102}
@@ -1253,7 +1221,6 @@ MonoBehaviour:
     style game with minimal graphics and a focus
 
     on text based story telling'
-  portraitType: 3
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -1300,6 +1267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: choice
+  value: 
 --- !u!114 &771014103
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1313,6 +1281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: lamp_on
+  value: 0
 --- !u!114 &771014104
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1328,21 +1297,21 @@ MonoBehaviour:
     serializedVersion: 2
     x: 560.814453
     y: 17.053772
-    width: 130
+    width: 120
     height: 40
   sequenceName: Start
   description: 
   runSlowInEditor: 1
-  eventHandler: {fileID: 771014227}
+  eventHandler: {fileID: 771014159}
   commandList:
   - {fileID: 771014226}
   - {fileID: 771014225}
   - {fileID: 771014224}
-  - {fileID: 771014223}
   - {fileID: 771014222}
   - {fileID: 771014221}
-  - {fileID: 771014220}
   - {fileID: 771014219}
+  - {fileID: 771014220}
+  - {fileID: 771014223}
   - {fileID: 771014218}
   - {fileID: 771014105}
 --- !u!114 &771014105
@@ -1374,7 +1343,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 733.351135
     y: 17.4427872
-    width: 134
+    width: 128
     height: 40
   sequenceName: Standing there
   description: 
@@ -1382,20 +1351,16 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014217}
-  - {fileID: 771014216}
-  - {fileID: 771014215}
-  - {fileID: 771014214}
-  - {fileID: 771014118}
   - {fileID: 771014117}
   - {fileID: 771014116}
   - {fileID: 771014115}
   - {fileID: 771014114}
-  - {fileID: 771014113}
   - {fileID: 771014112}
-  - {fileID: 771014111}
-  - {fileID: 771014110}
+  - {fileID: 771014113}
   - {fileID: 771014109}
+  - {fileID: 771014111}
   - {fileID: 771014108}
+  - {fileID: 771014110}
   - {fileID: 771014107}
 --- !u!114 &771014107
 MonoBehaviour:
@@ -1413,17 +1378,18 @@ MonoBehaviour:
   targetSequence: {fileID: 771014106}
 --- !u!114 &771014108
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
-  indentLevel: 0
+  indentLevel: 1
+  targetSequence: {fileID: 771014119}
 --- !u!114 &771014109
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1447,22 +1413,34 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014110
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
+--- !u!114 &771014111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 771014099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
   compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -1474,20 +1452,10 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: listen
---- !u!114 &771014111
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
+    stringVal: 
+  optionText: Inspect the desk
+  hideOnSelected: 0
+  hideOnCondition: 0
 --- !u!114 &771014112
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1520,22 +1488,21 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014113
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
   compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -1547,20 +1514,40 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: jumpsuit
+    stringVal: 
+  optionText: Listen
+  hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014114
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+  compareOperator: 0
+  variable: {fileID: 0}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: Inspect the jumpsuit
+  hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014115
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1596,22 +1583,21 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014116
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
   compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -1623,16 +1609,19 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: door
+    stringVal: 
+  optionText: Inspect the door
+  hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014117
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
+  m_Script: {fileID: 11500000, guid: 14d1bf29d0098422daf85e7bfd9896cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
@@ -1645,34 +1634,17 @@ MonoBehaviour:
   timeoutDuration: 0
 --- !u!114 &771014118
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: desk
-  optionText: Inspect the desk
-  targetSequence: {fileID: 771014119}
-  hideOnSelected: 0
 --- !u!114 &771014119
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1688,7 +1660,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 916.223145
     y: 15.7090759
-    width: 149
+    width: 142
     height: 40
   sequenceName: Inspect desk first
   description: 
@@ -1696,35 +1668,47 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014213}
-  - {fileID: 771014212}
-  - {fileID: 771014211}
-  - {fileID: 771014210}
-  - {fileID: 771014209}
-  - {fileID: 771014208}
+  - {fileID: 771014204}
+  - {fileID: 771014201}
   - {fileID: 771014207}
   - {fileID: 771014206}
-  - {fileID: 771014205}
-  - {fileID: 771014204}
+  - {fileID: 771014200}
   - {fileID: 771014203}
   - {fileID: 771014202}
-  - {fileID: 771014201}
-  - {fileID: 771014200}
+  - {fileID: 771014120}
   - {fileID: 771014199}
   - {fileID: 771014121}
-  - {fileID: 771014120}
+  - {fileID: 771014118}
 --- !u!114 &771014120
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+  compareOperator: 0
+  variable: {fileID: 0}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: Look at the lamp
+  hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014121
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1761,29 +1745,20 @@ MonoBehaviour:
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 771014198}
-  - {fileID: 771014197}
-  - {fileID: 771014196}
-  - {fileID: 771014195}
-  - {fileID: 771014194}
-  - {fileID: 771014193}
-  - {fileID: 771014140}
-  - {fileID: 771014139}
-  - {fileID: 771014138}
   - {fileID: 771014137}
-  - {fileID: 771014136}
   - {fileID: 771014135}
+  - {fileID: 771014136}
   - {fileID: 771014134}
-  - {fileID: 771014133}
   - {fileID: 771014132}
+  - {fileID: 771014133}
+  - {fileID: 771014124}
+  - {fileID: 771014128}
+  - {fileID: 771014129}
   - {fileID: 771014131}
   - {fileID: 771014130}
-  - {fileID: 771014129}
-  - {fileID: 771014128}
   - {fileID: 771014127}
-  - {fileID: 771014126}
   - {fileID: 771014125}
-  - {fileID: 771014124}
+  - {fileID: 771014126}
   - {fileID: 771014123}
 --- !u!114 &771014123
 MonoBehaviour:
@@ -1801,17 +1776,34 @@ MonoBehaviour:
   targetSequence: {fileID: 771014122}
 --- !u!114 &771014124
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+  compareOperator: 0
+  variable: {fileID: 771014103}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: '"Lamp off"'
+  hideOnSelected: 1
+  hideOnCondition: 1
 --- !u!114 &771014125
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1832,22 +1824,34 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014126
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
+--- !u!114 &771014127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 771014099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
   compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -1859,20 +1863,10 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: end_program
---- !u!114 &771014127
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
+    stringVal: 
+  optionText: '"End program"'
+  hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014128
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1924,22 +1918,35 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014130
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 1
+  targetSequence: {fileID: 771014141}
+--- !u!114 &771014131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 771014099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
   compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -1951,20 +1958,10 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: lamp_off
---- !u!114 &771014131
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
+    stringVal: 
+  optionText: '"Lights on"'
+  hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014132
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2026,22 +2023,51 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014134
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
   compareOperator: 0
+  variable: {fileID: 771014103}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: '"Lamp on"'
+  hideOnSelected: 0
+  hideOnCondition: 1
+--- !u!114 &771014135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 771014099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -2053,20 +2079,10 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: lamp_on
---- !u!114 &771014135
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
+    stringVal: 
+  optionText: '"Open door"'
+  hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014136
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2096,43 +2112,15 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014137
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  compareOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: open_door
---- !u!114 &771014138
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
+  m_Script: {fileID: 11500000, guid: 14d1bf29d0098422daf85e7bfd9896cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
@@ -2143,21 +2131,34 @@ MonoBehaviour:
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
+--- !u!114 &771014138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 771014099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
 --- !u!114 &771014139
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
+  compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -2169,25 +2170,25 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: end_program
-  optionText: '"End program"'
-  targetSequence: {fileID: 0}
+    stringVal: 
+  optionText: Examine desk
   hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014140
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
+  compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -2199,10 +2200,10 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: lights_on
-  optionText: '"Lights on"'
-  targetSequence: {fileID: 771014141}
+    stringVal: 
+  optionText: Examine door
   hideOnSelected: 0
+  hideOnCondition: 0
 --- !u!114 &771014141
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2226,30 +2227,33 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014192}
-  - {fileID: 771014191}
-  - {fileID: 771014190}
-  - {fileID: 771014189}
-  - {fileID: 771014188}
+  - {fileID: 771014142}
+  - {fileID: 771014139}
   - {fileID: 771014187}
   - {fileID: 771014186}
-  - {fileID: 771014185}
-  - {fileID: 771014184}
+  - {fileID: 771014140}
   - {fileID: 771014183}
   - {fileID: 771014143}
-  - {fileID: 771014142}
+  - {fileID: 771014138}
 --- !u!114 &771014142
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 14d1bf29d0098422daf85e7bfd9896cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+  chooseText: What would you like to do next?
+  character: {fileID: 0}
+  chooseDialog: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  timeoutDuration: 0
 --- !u!114 &771014143
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2286,16 +2290,11 @@ MonoBehaviour:
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 771014182}
-  - {fileID: 771014181}
-  - {fileID: 771014180}
-  - {fileID: 771014179}
-  - {fileID: 771014178}
-  - {fileID: 771014177}
   - {fileID: 771014176}
   - {fileID: 771014175}
-  - {fileID: 771014174}
+  - {fileID: 771014177}
   - {fileID: 771014173}
+  - {fileID: 771014174}
   - {fileID: 771014172}
   - {fileID: 771014147}
   - {fileID: 771014146}
@@ -2316,13 +2315,13 @@ MonoBehaviour:
   targetSequence: {fileID: 771014144}
 --- !u!114 &771014146
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
@@ -2356,7 +2355,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 730.837646
     y: 101.663513
-    width: 140
+    width: 135
     height: 40
   sequenceName: How you doing?
   description: 
@@ -2364,25 +2363,22 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014171}
-  - {fileID: 771014170}
-  - {fileID: 771014169}
-  - {fileID: 771014168}
   - {fileID: 771014167}
+  - {fileID: 771014164}
   - {fileID: 771014166}
   - {fileID: 771014165}
-  - {fileID: 771014164}
   - {fileID: 771014163}
   - {fileID: 771014150}
   - {fileID: 771014149}
 --- !u!114 &771014149
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
@@ -2414,7 +2410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 737.76062
+    x: 736.76062
     y: 184.838104
     width: 120
     height: 40
@@ -2424,25 +2420,22 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014162}
-  - {fileID: 771014161}
-  - {fileID: 771014160}
-  - {fileID: 771014159}
   - {fileID: 771014158}
-  - {fileID: 771014157}
-  - {fileID: 771014156}
   - {fileID: 771014155}
   - {fileID: 771014154}
   - {fileID: 771014153}
   - {fileID: 771014152}
+  - {fileID: 771014157}
+  - {fileID: 771014156}
 --- !u!114 &771014152
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
@@ -2463,19 +2456,19 @@ MonoBehaviour:
   targetSequence: {fileID: 771014231}
 --- !u!114 &771014154
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
   compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -2487,20 +2480,40 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: run
+    stringVal: 
+  optionText: Run!
+  hideOnSelected: 0
+  hideOnCondition: 0
 --- !u!114 &771014155
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+  compareOperator: 0
+  variable: {fileID: 0}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: Listen
+  hideOnSelected: 0
+  hideOnCondition: 0
 --- !u!114 &771014156
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2513,8 +2526,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
-  indentLevel: 1
-  targetSequence: {fileID: 0}
+  indentLevel: 0
+  targetSequence: {fileID: 771014148}
 --- !u!114 &771014157
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2527,7 +2540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
-  indentLevel: 1
+  indentLevel: 0
   storyText: 'The door slides shut just as quick as it opened, before you get a chance
     to leave. So close to getting away!
 
@@ -2548,43 +2561,15 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014158
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  compareOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: listen
---- !u!114 &771014159
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
+  m_Script: {fileID: 11500000, guid: 14d1bf29d0098422daf85e7bfd9896cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
@@ -2595,66 +2580,18 @@ MonoBehaviour:
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 10
---- !u!114 &771014160
+--- !u!114 &771014159
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: run
-  optionText: Run!
-  targetSequence: {fileID: 0}
-  hideOnSelected: 0
---- !u!114 &771014161
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: listen
-  optionText: Listen
-  targetSequence: {fileID: 0}
-  hideOnSelected: 0
+  parentSequence: {fileID: 771014104}
 --- !u!114 &771014162
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2696,24 +2633,23 @@ MonoBehaviour:
   sayDialog: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showAlways: 1
+  showAlways: 0
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014163
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
   compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -2725,20 +2661,40 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: openA147
+    stringVal: 
+  optionText: Say "Can you open door A147"
+  hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014164
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+  compareOperator: 0
+  variable: {fileID: 0}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: Say "Truck the control room at top speed"
+  hideOnSelected: 0
+  hideOnCondition: 0
 --- !u!114 &771014165
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2799,43 +2755,15 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014167
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  compareOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: truck
---- !u!114 &771014168
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
+  m_Script: {fileID: 11500000, guid: 14d1bf29d0098422daf85e7bfd9896cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
@@ -2846,66 +2774,6 @@ MonoBehaviour:
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
---- !u!114 &771014169
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: openA147
-  optionText: Say "Can you open door A147"
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
---- !u!114 &771014170
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: truck
-  optionText: Say "Truck the control room at top speed"
-  targetSequence: {fileID: 0}
-  hideOnSelected: 0
 --- !u!114 &771014171
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2967,24 +2835,23 @@ MonoBehaviour:
   sayDialog: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showAlways: 1
+  showAlways: 0
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014172
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
   compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -2996,20 +2863,40 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: how
+    stringVal: 
+  optionText: Ask how he's doing.
+  hideOnSelected: 0
+  hideOnCondition: 0
 --- !u!114 &771014173
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+  compareOperator: 0
+  variable: {fileID: 0}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: Ask why you're there.
+  hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014174
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3042,22 +2929,21 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014175
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
   compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -3069,20 +2955,29 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: why
+    stringVal: 
+  optionText: Ask where you are.
+  hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014176
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 14d1bf29d0098422daf85e7bfd9896cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+  chooseText: What do you want to say next?
+  character: {fileID: 0}
+  chooseDialog: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  timeoutDuration: 0
 --- !u!114 &771014177
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3110,143 +3005,6 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
---- !u!114 &771014178
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  compareOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: where
---- !u!114 &771014179
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  chooseText: What do you want to say next?
-  character: {fileID: 0}
-  chooseDialog: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  timeoutDuration: 0
---- !u!114 &771014180
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: how
-  optionText: Ask how he's doing.
-  targetSequence: {fileID: 0}
-  hideOnSelected: 0
---- !u!114 &771014181
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: why
-  optionText: Ask why you're there.
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
---- !u!114 &771014182
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: where
-  optionText: Ask where you are.
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
 --- !u!114 &771014183
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3308,47 +3066,6 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
---- !u!114 &771014184
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  compareOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: examine_door
---- !u!114 &771014185
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
 --- !u!114 &771014186
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3384,113 +3101,6 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
---- !u!114 &771014188
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  compareOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: examine_desk
---- !u!114 &771014189
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  chooseText: What would you like to do next?
-  character: {fileID: 0}
-  chooseDialog: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  timeoutDuration: 0
---- !u!114 &771014190
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: examine_desk
-  optionText: Examine desk
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
---- !u!114 &771014191
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: examine_door
-  optionText: Examine door
-  targetSequence: {fileID: 0}
-  hideOnSelected: 0
 --- !u!114 &771014192
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3513,152 +3123,8 @@ MonoBehaviour:
   sayDialog: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showAlways: 1
+  showAlways: 0
   showCount: 1
-  appendToPrev: 0
---- !u!114 &771014193
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
---- !u!114 &771014194
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 1
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: lamp_off
-  optionText: '"Lamp off"'
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
---- !u!114 &771014195
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fa968f01a7f9496bb50e13dfe16760d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
---- !u!114 &771014196
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 1
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: lamp_on
-  optionText: '"Lamp on"'
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
---- !u!114 &771014197
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014103}
-  compareOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: open_door
---- !u!114 &771014198
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: open_door
-  optionText: '"Open door"'
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
 --- !u!114 &771014199
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3718,22 +3184,21 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014200
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
   compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -3745,20 +3210,40 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: lamp
+    stringVal: 
+  optionText: Open the right drawer
+  hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014201
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
+  compareOperator: 0
+  variable: {fileID: 0}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: Open the left drawer
+  hideOnSelected: 1
+  hideOnCondition: 0
 --- !u!114 &771014202
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3807,47 +3292,25 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014204
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: 14d1bf29d0098422daf85e7bfd9896cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
-  compareOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: right_drawer
---- !u!114 &771014205
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
+  chooseText: Underneath the lip of the desktop sit two drawers, one on either side.
+  character: {fileID: 0}
+  chooseDialog: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  timeoutDuration: 0
 --- !u!114 &771014206
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3882,143 +3345,6 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
---- !u!114 &771014208
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  compareOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: left_drawer
---- !u!114 &771014209
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  chooseText: Underneath the lip of the desktop sit two drawers, one on either side.
-  character: {fileID: 0}
-  chooseDialog: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  timeoutDuration: 0
---- !u!114 &771014210
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: lamp
-  optionText: Look at the lamp
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
---- !u!114 &771014211
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: right_drawer
-  optionText: Open the right drawer
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
---- !u!114 &771014212
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: left_drawer
-  optionText: Open the left drawer
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
 --- !u!114 &771014213
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4038,99 +3364,8 @@ MonoBehaviour:
   sayDialog: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showAlways: 1
+  showAlways: 0
   showCount: 1
-  appendToPrev: 0
---- !u!114 &771014214
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: listen
-  optionText: Listen
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
---- !u!114 &771014215
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: jumpsuit
-  optionText: Inspect the jumpsuit
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
---- !u!114 &771014216
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: door
-  optionText: Inspect the door
-  targetSequence: {fileID: 0}
-  hideOnSelected: 1
 --- !u!114 &771014217
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4151,18 +3386,17 @@ MonoBehaviour:
   sayDialog: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  showAlways: 1
+  showAlways: 0
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014218
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
@@ -4197,22 +3431,21 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014220
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 771014102}
   compareOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -4224,16 +3457,49 @@ MonoBehaviour:
     floatVal: 0
   stringData:
     stringRef: {fileID: 0}
-    stringVal: shout
+    stringVal: 
+  optionText: Sit up
+  hideOnSelected: 0
+  hideOnCondition: 0
 --- !u!114 &771014221
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  compareOperator: 0
+  variable: {fileID: 0}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: Shout
+  hideOnSelected: 0
+  hideOnCondition: 0
+--- !u!114 &771014222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 771014099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d1bf29d0098422daf85e7bfd9896cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
@@ -4244,66 +3510,26 @@ MonoBehaviour:
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   timeoutDuration: 0
---- !u!114 &771014222
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: sit_up
-  optionText: Sit up
-  targetSequence: {fileID: 0}
-  hideOnSelected: 0
 --- !u!114 &771014223
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 771014102}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: shout
-  optionText: Shout
-  targetSequence: {fileID: 0}
-  hideOnSelected: 0
+  indentLevel: 1
+  storyText: Lets find out what's going on.
+  character: {fileID: 0}
+  sayDialog: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
 --- !u!114 &771014224
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4328,7 +3554,6 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014225
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4362,18 +3587,6 @@ MonoBehaviour:
   waitUntilFinished: 1
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
   fadeTexture: {fileID: 0}
---- !u!114 &771014227
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentSequence: {fileID: 771014104}
 --- !u!114 &771014228
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4424,7 +3637,6 @@ MonoBehaviour:
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  appendToPrev: 0
 --- !u!114 &771014231
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5340,7 +4552,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -5691,7 +4902,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
