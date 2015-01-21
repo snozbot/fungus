@@ -44,10 +44,10 @@ namespace Fungus
 				return;
 			}
 
-			EvaluateCondition();
+			EvaluateAndContinue();
 		}
 
-		protected void EvaluateCondition()
+		public bool EvaluateCondition()
 		{
 			BooleanVariable booleanVariable = variable as BooleanVariable;
 			IntegerVariable integerVariable = variable as IntegerVariable;
@@ -73,7 +73,12 @@ namespace Fungus
 				condition = stringVariable.Evaluate(compareOperator, stringData.Value);
 			}
 
-			if (condition)
+			return condition;
+		}
+
+		protected void EvaluateAndContinue()
+		{
+			if (EvaluateCondition())
 			{
 				OnTrue();
 			}

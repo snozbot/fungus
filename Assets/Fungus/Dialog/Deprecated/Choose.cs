@@ -7,9 +7,8 @@ namespace Fungus
 {
 	[CommandInfo("Dialog", 
 	             "Choose", 
-	             "Presents a list of options for the player to choose from using a Choose Dialog. " + 
-	             "Place Add Option commands before the Choose command to specify the player options. " + 
-	             "You can also set a timeout which will cause the following command to execute when the timer runs out.")]
+	             "Obsolete: This command will be removed in a future update. Please use the Option command instead.",
+	             -1)]
 	[AddComponentMenu("")]
 	public class Choose : Command 
 	{

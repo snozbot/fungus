@@ -21,7 +21,7 @@ namespace Fungus
 			    previousCommandType == typeof(ElseIf) )
 			{
 				// Else If behaves the same as an If command
-				EvaluateCondition();
+				EvaluateAndContinue();
 			}
 			else
 			{

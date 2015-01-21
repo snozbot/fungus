@@ -7,8 +7,8 @@ namespace Fungus
 {
 	[CommandInfo("Dialog", 
 	             "Add Option", 
-	             "Adds an option for the player to select. All previously added options are displayed by the next Choose command. " + 
-	             "You can specify another sequence to call and/or a variable to set when the options is selected.")]
+	             "Obsolete: This command will be removed in a future update. Please use the Option command instead.",
+	             -1)]
 	[AddComponentMenu("")]
 	public class AddOption : SetVariable 
 	{

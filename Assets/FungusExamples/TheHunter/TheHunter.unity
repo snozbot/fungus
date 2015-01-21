@@ -141,7 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -282,7 +281,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -1026,6 +1024,15 @@ Prefab:
       propertyPath: chooseDialogBox
       value: 
       objectReference: {fileID: 1016272668}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_RootGameObject: {fileID: 1712414753}
@@ -1912,7 +1919,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -3316,6 +3322,7 @@ CanvasGroup:
     type: 2}
   m_PrefabInternal: {fileID: 332292456}
   m_GameObject: {fileID: 1269446786}
+  m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
@@ -3588,6 +3595,7 @@ CanvasGroup:
     type: 2}
   m_PrefabInternal: {fileID: 1906080536}
   m_GameObject: {fileID: 1391076436}
+  m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
@@ -4436,9 +4444,6 @@ GameObject:
   - 114: {fileID: 1831099606}
   - 114: {fileID: 1831099605}
   - 114: {fileID: 1831099604}
-  - 114: {fileID: 1831099603}
-  - 114: {fileID: 1831099602}
-  - 114: {fileID: 1831099601}
   - 114: {fileID: 1831099600}
   - 114: {fileID: 1831099599}
   - 114: {fileID: 1831099598}
@@ -4498,7 +4503,13 @@ GameObject:
   - 114: {fileID: 1831099611}
   - 114: {fileID: 1831099610}
   - 114: {fileID: 1831099609}
-  - 114: {fileID: 1831099572}
+  - 114: {fileID: 1831099654}
+  - 114: {fileID: 1831099601}
+  - 114: {fileID: 1831099656}
+  - 114: {fileID: 1831099655}
+  - 114: {fileID: 1831099602}
+  - 114: {fileID: 1831099603}
+  - 114: {fileID: 1831099657}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: Untagged
@@ -4531,16 +4542,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 105.192505, y: 536.002808}
+  scrollPos: {x: 385.192505, y: 562.002808}
   variablesScrollPos: {x: 0, y: 0}
-  variablesExpanded: 0
+  variablesExpanded: 1
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -810.017578
-    y: -909.022339
+    y: -911.022339
     width: 1939.01758
-    height: 1998.52234
+    height: 2000.52234
   selectedSequence: {fileID: 1831099578}
   selectedCommands: []
   variables:
@@ -4564,6 +4575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: SkipperAngry
+  value: 0
 --- !u!114 &1831099570
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4578,6 +4590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Var
+  value: 0
 --- !u!114 &1831099571
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4591,18 +4604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Var
---- !u!114 &1831099572
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1831099566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentSequence: {fileID: 1831099578}
+  value: 0
 --- !u!114 &1831099573
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4694,13 +4696,13 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 109.537018
-    y: -507.022339
-    width: 121
+    y: -511.022339
+    width: 120
     height: 40
   sequenceName: Start
   description: 
   runSlowInEditor: 1
-  eventHandler: {fileID: 1831099572}
+  eventHandler: {fileID: 1831099654}
   commandList:
   - {fileID: 1831099577}
   - {fileID: 1831099576}
@@ -5163,7 +5165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
-  indentLevel: 0
+  indentLevel: 1
   targetSequence: {fileID: 1831099599}
 --- !u!114 &1831099601
 MonoBehaviour:
@@ -5173,7 +5175,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1831099566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
+  m_Script: {fileID: 11500000, guid: 14d1bf29d0098422daf85e7bfd9896cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
@@ -5192,28 +5194,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1831099566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 0}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  optionText: Shout out loud
-  targetSequence: {fileID: 1831099592}
-  hideOnSelected: 0
 --- !u!114 &1831099603
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5222,28 +5207,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1831099566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 0}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  optionText: Check pool for fish
-  targetSequence: {fileID: 0}
-  hideOnSelected: 0
+  indentLevel: 1
+  targetSequence: {fileID: 1831099592}
 --- !u!114 &1831099604
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5338,7 +5307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 112
+    x: 109.963318
     y: -441.890259
     width: 120
     height: 40
@@ -5351,10 +5320,13 @@ MonoBehaviour:
   - {fileID: 1831099606}
   - {fileID: 1831099605}
   - {fileID: 1831099604}
+  - {fileID: 1831099601}
+  - {fileID: 1831099657}
+  - {fileID: 1831099656}
+  - {fileID: 1831099600}
+  - {fileID: 1831099655}
   - {fileID: 1831099603}
   - {fileID: 1831099602}
-  - {fileID: 1831099601}
-  - {fileID: 1831099600}
 --- !u!114 &1831099609
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5846,8 +5818,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 1831099569}
   compareOperator: 0
+  variable: {fileID: 1831099569}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -6102,6 +6074,92 @@ MonoBehaviour:
   - {fileID: 1831099640}
   - {fileID: 1831099639}
   - {fileID: 1831099638}
+--- !u!114 &1831099654
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentSequence: {fileID: 1831099578}
+--- !u!114 &1831099655
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  compareOperator: 0
+  variable: {fileID: 0}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: Shout out loud
+  hideOnSelected: 0
+  hideOnCondition: 0
+--- !u!114 &1831099656
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c5b93481b9848e593f07aca6b1f636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  compareOperator: 0
+  variable: {fileID: 1831099569}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  optionText: Check pool for fish
+  hideOnSelected: 0
+  hideOnCondition: 0
+--- !u!114 &1831099657
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831099566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 1
+  targetSequence: {fileID: 1831099599}
 --- !u!1 &1846387297
 GameObject:
   m_ObjectHideFlags: 1

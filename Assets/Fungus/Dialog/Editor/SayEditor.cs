@@ -90,9 +90,9 @@ namespace Fungus
 			if (showPortraits) 
 			{
 				CommandEditor.ObjectField<Sprite>(portraitProp, 
-			                                	     new GUIContent("Portrait", "Portrait representing speaking character"), 
-			                                    	 new GUIContent("<None>"),
-			                                     	t.character.portraits);
+			                                	  new GUIContent("Portrait", "Portrait representing speaking character"), 
+			                                      new GUIContent("<None>"),
+			                                      t.character.portraits);
 			}
 			else
 			{
