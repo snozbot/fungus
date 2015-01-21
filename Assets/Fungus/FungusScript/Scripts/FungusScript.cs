@@ -266,6 +266,50 @@ namespace Fungus
 		}
 
 		/**
+		 * Returns a new Label key that is guaranteed not to clash with any existing Label in the Sequence.
+		 */
+		public virtual string GetUniqueLabelKey(string originalKey, Label ignoreLabel)
+		{
+			int suffix = 0;
+			string baseKey = originalKey.Trim();
+			
+			// No empty keys allowed
+			if (baseKey.Length == 0)
+			{
+				baseKey = "Label";
+			}
+			
+			Sequence sequence = ignoreLabel.parentSequence;
+			
+			string key = baseKey;
+			while (true)
+			{
+				bool collision = false;
+				foreach(Command command in sequence.commandList)
+				{
+					Label label = command as Label;
+					if (label == null ||
+						label == ignoreLabel)
+					{
+						continue;
+					}
+					
+					if (label.key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
+					{
+						collision = true;
+						suffix++;
+						key = baseKey + suffix;
+					}
+				}
+				
+				if (!collision)
+				{
+					return key;
+				}
+			}
+		}
+
+		/**
 		 * Returns the variable with the specified key, or null if the key is not found.
 		 * You can then access the variable's value using the Value property. e.g.
 		 * 	BooleanVariable boolVar = fungusScript.GetVariable<BooleanVariable>("MyBool");

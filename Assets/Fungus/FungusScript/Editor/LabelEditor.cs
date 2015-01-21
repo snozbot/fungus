@@ -8,9 +8,11 @@ using System.Linq;
 
 namespace Fungus
 {
-	public class LabelEditor
+	[CustomEditor (typeof(Label))]
+	public class LabelEditor : CommandEditor
 	{
-
+		protected SerializedProperty keyProp;
+		
 		static public void LabelField(SerializedProperty property, 
 		                              GUIContent labelText, 
 		                              Sequence sequence)
@@ -47,6 +49,29 @@ namespace Fungus
 			selectedIndex = EditorGUILayout.Popup(labelText.text, selectedIndex, labelKeys.ToArray());
 
 			property.objectReferenceValue = labelObjects[selectedIndex];
+		}
+
+		protected virtual void OnEnable()
+		{
+			keyProp = serializedObject.FindProperty("key");
+		}
+		
+		public override void DrawCommandGUI()
+		{
+			Label t = target as Label;
+
+			FungusScript fungusScript = t.GetFungusScript();
+			if (fungusScript == null)
+			{
+				return;
+			}
+		
+			serializedObject.Update();
+
+			EditorGUILayout.PropertyField(keyProp);
+			keyProp.stringValue = fungusScript.GetUniqueLabelKey(keyProp.stringValue, t);
+
+			serializedObject.ApplyModifiedProperties();
 		}
 	}
 	

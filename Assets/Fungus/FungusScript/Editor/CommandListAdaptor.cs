@@ -161,7 +161,8 @@ namespace Fungus
 				return;
 			}
 
-			bool isComment = command.GetType() == typeof(Comment);
+			bool isComment = (command.GetType() == typeof(Comment));
+			bool isLabel = (command.GetType() == typeof(Label));
 
 			bool error = false;
 			string summary = command.GetSummary();
@@ -177,7 +178,15 @@ namespace Fungus
 			{
 				error = true;
 			}
-			summary = "<i>" + summary + "</i>";
+
+			if (isComment || isLabel)
+			{
+				summary = "<b> " + summary + "</b>";
+			}
+			else
+			{
+				summary = "<i>" + summary + "</i>";
+			}
 
 			bool commandIsSelected = false;
 			foreach (Command selectedCommand in fungusScript.selectedCommands)
@@ -267,7 +276,7 @@ namespace Fungus
 
 			GUI.backgroundColor = commandLabelColor;
 
-			if (isComment)
+			if (isComment || isLabel)
 			{
 				GUI.Label(commandLabelRect, "", commandLabelStyle);
 			}
@@ -286,7 +295,7 @@ namespace Fungus
 			}
 
 			Rect summaryRect = new Rect(commandLabelRect);
-			if (!isComment)
+			if (!isComment && !isLabel)
 			{
 				summaryRect.x += commandNameWidth;
 				summaryRect.width -= commandNameWidth;

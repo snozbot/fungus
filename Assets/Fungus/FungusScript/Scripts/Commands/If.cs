@@ -103,9 +103,10 @@ namespace Fungus
 				Command nextCommand = parentSequence.commandList[i];
 				
 				// Find next command at same indent level as this If command
-				// Skip disabled commands & comments
+				// Skip disabled commands, comments & labels
 				if (!nextCommand.enabled || 
 				    nextCommand.GetType() == typeof(Comment) ||
+				    nextCommand.GetType() == typeof(Label) ||
 				    nextCommand.indentLevel != indentLevel)
 				{
 					continue;

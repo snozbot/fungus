@@ -39,7 +39,7 @@ namespace Fungus
 				return "Error: No label selected";
 			}
 
-			return "To " + targetLabel.key;
+			return targetLabel.key;
 		}
 
 		public override Color GetButtonColor()

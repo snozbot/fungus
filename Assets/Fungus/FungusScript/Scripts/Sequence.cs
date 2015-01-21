@@ -135,11 +135,19 @@ namespace Fungus
 
 			FungusScript fungusScript = GetFungusScript();
 
-			// Skip disabled commands and comments
+			// Skip disabled commands, comments and labels
 			while (commandIndex < commandList.Count &&
-				   (!commandList[commandIndex].enabled || commandList[commandIndex].GetType() == typeof(Comment)))
+				   (!commandList[commandIndex].enabled || 
+			 		commandList[commandIndex].GetType() == typeof(Comment) ||
+			 	    commandList[commandIndex].GetType() == typeof(Label)))
 			{
 				commandIndex = commandList[commandIndex].commandIndex + 1;
+			}
+
+			if (commandIndex >= commandList.Count)
+			{
+				Stop();
+				return;
 			}
 
 			Command nextCommand = commandList[commandIndex];
