@@ -170,7 +170,7 @@ namespace Fungus
 				{
 					// Auto select a command in some situations
 					if ((fungusScript.selectedCommands.Count == 0 && commandIndex == 0) ||
-						(fungusScript.selectedCommands.Count == 1 && fungusScript.selectedCommands[0].commandIndex == commandIndex))
+					    (fungusScript.selectedCommands.Count == 1 && fungusScript.selectedCommands[0].commandIndex == previousActiveCommandIndex))
 					{
 						fungusScript.ClearSelectedCommands();
 						fungusScript.AddSelectedCommand(nextCommand);
