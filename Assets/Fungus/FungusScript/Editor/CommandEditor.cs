@@ -151,14 +151,17 @@ namespace Fungus
 			for (int i = 0; i < objectList.Count; ++i)
 			{
 				string formattedName = "";
-				if ( typeof(T).IsSubclassOf(typeof(MonoBehaviour)) == true )
+				if (objectList[i] != null)
 				{
-					formattedName = objectList[i].name;
-				}
-				else
-				{
-					formattedName = objectList[i].ToString();
-					formattedName = formattedName.Substring(0, formattedName.LastIndexOf("(") - 1);
+					if ( typeof(T).IsSubclassOf(typeof(MonoBehaviour)) == true )
+					{
+						formattedName = objectList[i].name;
+					}
+					else
+					{
+						formattedName = objectList[i].ToString();
+						formattedName = formattedName.Substring(0, formattedName.LastIndexOf("(") - 1);
+					}
 				}
 				objectNames.Add(new GUIContent(formattedName));
 				
