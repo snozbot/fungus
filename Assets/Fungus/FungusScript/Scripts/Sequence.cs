@@ -61,6 +61,11 @@ namespace Fungus
 			int index = 0;
 			foreach (Command command in commandList)
 			{
+				if (command == null) // Null entry will be deleted automatically later
+				{
+					continue;
+				}
+
 				command.commandIndex = index++;
 			}
 		}

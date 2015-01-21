@@ -58,6 +58,10 @@ namespace Fungus
 			// Make sure each command has a reference to its parent sequence
 			foreach (Command command in sequence.commandList)
 			{
+				if (command == null) // Will be deleted from the list later on
+				{
+					continue;
+				}
 				command.parentSequence = sequence;
 			}
 
