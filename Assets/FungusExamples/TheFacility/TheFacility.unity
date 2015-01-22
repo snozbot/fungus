@@ -1085,7 +1085,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 771014101}
   - 114: {fileID: 771014100}
-  - 114: {fileID: 771014102}
   - 114: {fileID: 771014103}
   - 114: {fileID: 771014104}
   - 114: {fileID: 771014226}
@@ -1201,7 +1200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: -363.054199, y: -2.22019958}
+  scrollPos: {x: -385.054199, y: 15.7798004}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   zoom: 1
@@ -1212,9 +1211,9 @@ MonoBehaviour:
     width: 3261.20312
     height: 2227.35059
   selectedSequence: {fileID: 771014104}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 771014226}
   variables:
-  - {fileID: 771014102}
   - {fileID: 771014103}
   description: 'This is a simple Choose Your Own Adventure
 
@@ -1254,20 +1253,6 @@ Transform:
   - {fileID: 1910717288}
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!114 &771014102
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771014099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4580f28dd8581476b810b38eea2f1316, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scope: 0
-  key: choice
-  value: 
 --- !u!114 &771014103
 MonoBehaviour:
   m_ObjectHideFlags: 2
