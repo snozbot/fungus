@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,8 +11,24 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class End : Command
 	{
+		[NonSerialized]
+		public bool loop = false;
+
 		public override void OnEnter()
 		{
+			if (loop)
+			{
+				for (int i = commandIndex - 1; i >= 0; --i)
+				{
+					System.Type commandType = parentSequence.commandList[i].GetType();
+					if (commandType == typeof(While))
+					{
+						Continue(i);
+						return;
+					}
+				}
+			}
+
 			Continue();
 		}
 
