@@ -206,7 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -251,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 854.026611, y: 244.028076}
+  scrollPos: {x: 670.026611, y: 246.028076}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   zoom: 1
@@ -312,7 +311,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -251
     y: -190
-    width: 130
+    width: 120
     height: 40
   sequenceName: Start
   description: 
@@ -345,7 +344,7 @@ MonoBehaviour:
   storyText: That's me done jumping for now
   character: {fileID: 82341266}
   sayDialog: {fileID: 0}
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 088536216c5364d2ba277595d378c215, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -383,7 +382,7 @@ MonoBehaviour:
   storyText: I don't need shoes, I don't even have feet!
   character: {fileID: 82341266}
   sayDialog: {fileID: 0}
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: f2e901e070fff48cda67e3f446d80e79, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -421,7 +420,7 @@ MonoBehaviour:
   storyText: Wait a second...
   character: {fileID: 82341266}
   sayDialog: {fileID: 0}
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: a3850401348404655bd0352054c28683, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -457,7 +456,7 @@ MonoBehaviour:
   storyText: I can't find my shoes anywhere!
   character: {fileID: 82341266}
   sayDialog: {fileID: 0}
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: d18d934d212d442ee90406fd28e6eef6, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -1622,7 +1621,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -1846,6 +1844,7 @@ CanvasGroup:
     type: 2}
   m_PrefabInternal: {fileID: 1467280113}
   m_GameObject: {fileID: 1245657369}
+  m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
