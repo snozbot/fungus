@@ -10,8 +10,6 @@ namespace Fungus
 	{
 		public string nameText; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
 		public Color nameColor = Color.white;
-		public SayDialog sayDialogBox;
-		public ChooseDialog chooseDialogBox;
 		public AudioClip soundEffect;
 		public Sprite profileSprite;
 		public List<Sprite> portraits;	

@@ -176,14 +176,15 @@ namespace Fungus
 						fungusScript.AddSelectedCommand(nextCommand);
 					}
 
-					if (!runSlowInEditor)
+					if (runSlowInEditor &&
+					    nextCommand.RunSlowInEditor())
 					{
-						activeCommand = nextCommand;
-						nextCommand.Execute();
+						StartCoroutine(ExecuteAfterDelay(nextCommand, fungusScript.runSlowDuration));
 					}
 					else
 					{
-						StartCoroutine(ExecuteAfterDelay(nextCommand, fungusScript.runSlowDuration));
+						activeCommand = nextCommand;
+						nextCommand.Execute();
 					}
 				}
 			}

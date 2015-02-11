@@ -261,7 +261,6 @@ MonoBehaviour:
   - {fileID: 470391087}
   variables: []
   description: 
-  portraitType: 0
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -422,7 +421,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 164
     y: 193
-    width: 130
+    width: 120
     height: 40
   sequenceName: Test iTween
   description: 
@@ -478,7 +477,6 @@ MonoBehaviour:
   description: 'This scene shows how to use the iTween commands
 
     to apply simple animation effects to objects'
-  portraitType: 0
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1

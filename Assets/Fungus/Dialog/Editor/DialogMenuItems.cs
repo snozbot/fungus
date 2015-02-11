@@ -5,31 +5,41 @@ using System.Collections;
 namespace Fungus
 {
 
+	// The prefab names are prefixed with Fungus to avoid clashes with any other prefabs in the project
 	public class DialogMenuItems 
 	{
 
 		[MenuItem("GameObject/Fungus/Dialog/Character")]
 		static void CreateCharacter()
 		{
-			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Dialog/Prefabs/Character.prefab");
-		}
-
-		[MenuItem("GameObject/Fungus/Dialog/NarratorDialog")]
-		static void CreateNarratorDialog()
-		{
-			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Dialog/Prefabs/NarratorDialog.prefab");
+			GameObject go = Resources.Load<GameObject>("FungusCharacter");
+			if (go != null)
+			{
+				GameObject spawnedGO = PrefabUtility.InstantiatePrefab(go) as GameObject;
+				spawnedGO.name = "Character";
+			}
 		}
 
 		[MenuItem("GameObject/Fungus/Dialog/SayDialog")]
 		static void CreateSayDialog()
 		{
-			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Dialog/Prefabs/SayDialog.prefab");
+			GameObject go = Resources.Load<GameObject>("FungusSayDialog");
+			if (go != null)
+			{
+				GameObject spawnedGO = PrefabUtility.InstantiatePrefab(go) as GameObject;
+				spawnedGO.name = "SayDialog";
+			}
 		}
 
-		[MenuItem("GameObject/Fungus/Dialog/ChooseDialog")]
-		static void CreateChooseDialog()
+		[MenuItem("GameObject/Fungus/Dialog/MenuDialog")]
+		static void CreateMenuDialog()
 		{
-			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Dialog/Prefabs/ChooseDialog.prefab");
+			GameObject go = Resources.Load<GameObject>("FungusMenuDialog");
+			if (go != null)
+			{
+				GameObject spawnedGO = PrefabUtility.InstantiatePrefab(go) as GameObject;
+				spawnedGO.name = "MenuDialog";
+			}
 		}
 	}
 

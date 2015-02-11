@@ -20,9 +20,6 @@ namespace Fungus
 		[Tooltip("Speaking character to use when writing the story text")]
 		public Character character;
 
-		[Tooltip("Say Dialog to use when writing the story text.")]
-		public SayDialog sayDialog;
-
 		[Tooltip("Portrait that represents speaking character")]
 		public Sprite portrait;
 
@@ -35,9 +32,10 @@ namespace Fungus
 		[Tooltip("Number of times to show this Say text when the command is executed multiple times")]
 		public int showCount = 1;
 
-		protected int executionCount;
+		[Tooltip("Wait for player input before hiding the dialog and continuing. If false then the dialog will display and execution will continue.")]
+		public bool waitForInput = true;
 
-		protected bool showBasicGUI;
+		protected int executionCount;
 
 		public override void OnEnter()
 		{
@@ -49,25 +47,12 @@ namespace Fungus
 
 			executionCount++;
 
-			showBasicGUI = false;
+			SayDialog sayDialog = SetSayDialog.GetActiveSayDialog();
+
 			if (sayDialog == null)
 			{
-				if ( character != null ) {
-					// Try to get character's dialog box
-					sayDialog = character.sayDialogBox;
-				}
-
-				if (sayDialog == null)
-				{
-				    // Try to get any SayDialog in the scene
-				    sayDialog = GameObject.FindObjectOfType<SayDialog>();
-				}
-				if (sayDialog == null)
-				{
-					// No custom dialog box exists, just use basic gui
-					showBasicGUI = true;
-					return;
-				}
+				Continue();
+				return;
 			}
 	
 			FungusScript fungusScript = GetFungusScript();
@@ -83,8 +68,11 @@ namespace Fungus
 
 			string subbedText = fungusScript.SubstituteVariables(storyText);
 
-			sayDialog.Say(subbedText, delegate {
-				sayDialog.ShowDialog(false);
+			sayDialog.Say(subbedText, waitForInput, delegate {
+				if (waitForInput)
+				{
+					sayDialog.ShowDialog(false);
+				}
 				Continue();
 			});
 		}
@@ -99,67 +87,9 @@ namespace Fungus
 			return namePrefix + "\"" + storyText + "\"";
 		}
 
-		protected virtual void OnGUI()
-		{
-			if (!showBasicGUI)
-			{
-				return;
-			}
-
-			// Draw a basic GUI to use when no uGUI dialog has been set
-			// Does not support drawing character images
-
-			GUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
-			GUILayout.FlexibleSpace();
-
-			GUILayout.BeginVertical(GUILayout.Height(Screen.height));
-			GUILayout.FlexibleSpace();
-
-			GUILayout.BeginVertical(new GUIStyle(GUI.skin.box));
-
-			if (character != null)
-			{
-				GUILayout.Label(character.nameText);
-				GUILayout.Space(10);
-			}
-
-			GUILayout.Label(storyText);
-			if (GUILayout.Button("Continue"))
-			{
-				showBasicGUI = false;
-				Continue();
-			}
-
-			GUILayout.EndVertical();
-
-			GUILayout.FlexibleSpace();
-			GUILayout.EndVertical();
-
-			GUILayout.FlexibleSpace();
-			GUILayout.EndHorizontal();
-		}
-
 		public override Color GetButtonColor()
 		{
 			return new Color32(184, 210, 235, 255);
-		}
-
-		public override void OnCommandAdded(Sequence parentSequence)
-		{
-			// Find last Say command in the sequence, then copy the Say dialog it's using.
-			// This saves a step when adding a new Say command
-			for (int i = parentSequence.commandList.Count - 1; i >= 0; --i) 
-			{
-				Say sayCommand = parentSequence.commandList[i] as Say;
-				if (sayCommand != null)
-				{
-					if (sayCommand.sayDialog != null)
-					{
-						sayDialog = sayCommand.sayDialog;
-						break;
-					}
-				}
-			}
 		}
 
 		public override void OnReset()

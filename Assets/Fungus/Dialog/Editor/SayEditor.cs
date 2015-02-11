@@ -39,7 +39,8 @@ namespace Fungus
 		protected SerializedProperty voiceOverClipProp;
 		protected SerializedProperty showAlwaysProp;
 		protected SerializedProperty showCountProp;
-		
+		protected SerializedProperty waitForInputProp;
+
 		protected virtual void OnEnable()
 		{
 			characterProp = serializedObject.FindProperty("character");
@@ -49,6 +50,7 @@ namespace Fungus
 			voiceOverClipProp = serializedObject.FindProperty("voiceOverClip");
 			showAlwaysProp = serializedObject.FindProperty("showAlways");
 			showCountProp = serializedObject.FindProperty("showCount");
+			waitForInputProp = serializedObject.FindProperty("waitForInput");
 		}
 		
 		public override void DrawCommandGUI() 
@@ -72,19 +74,7 @@ namespace Fungus
 			    t.character.portraits != null &&    // Character has a portraits field
 			    t.character.portraits.Count > 0 )   // Selected Character has at least 1 portrait
 			{
-				SayDialog sd = t.sayDialog;
-				if (t.sayDialog == null)            // If default box selected
-				{
-					sd = t.character.sayDialogBox;  // Try to get character's default say dialog box
-					if (t.sayDialog == null)        // If no default specified, try to get any SayDialog in the scene
-					{
-						sd = GameObject.FindObjectOfType<SayDialog>();
-					}
-				}
-				if (sd != null && sd.characterImage != null) // Check that selected say dialog has a character image
-				{
-				    showPortraits = true;    
-				}
+				showPortraits = true;    
 			}
 
 			if (showPortraits) 
@@ -127,7 +117,9 @@ namespace Fungus
 			{
 				EditorGUILayout.PropertyField(showCountProp);
 			}
-			
+
+			EditorGUILayout.PropertyField(waitForInputProp);
+
 			if (showPortraits && t.portrait != null)
 			{
 				Texture2D characterTexture = t.portrait.texture;

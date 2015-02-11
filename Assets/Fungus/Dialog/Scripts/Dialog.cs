@@ -76,7 +76,7 @@ namespace Fungus
 			if (character == null)
 			{
 				if (characterImage != null)
-					characterImage.enabled = false;
+					characterImage.gameObject.SetActive(false);
 				if (nameText != null)
 					nameText.text = "";
 				characterTypingSound = null;
@@ -110,11 +110,11 @@ namespace Fungus
 				if (image != null)
 				{
 					characterImage.sprite = image;
-					characterImage.enabled = true;
+					characterImage.gameObject.SetActive(true);
 				}
 				else
 				{
-					characterImage.enabled = false;
+					characterImage.gameObject.SetActive(false);
 				}
 			}
 		}

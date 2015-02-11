@@ -27,20 +27,30 @@ namespace Fungus
 			activeDialogs.Remove(this);
 		}
 
-		public virtual void Say(string text, Action onComplete)
+		public virtual void Say(string text, bool waitForInput, Action onComplete)
 		{
 			Clear();
 
 			Action onWritingComplete = delegate {
-				ShowContinueImage(true);
-				StartCoroutine(WaitForInput(delegate {
-					Clear();
-					StopVoiceOver();
+				if (waitForInput)
+				{
+					ShowContinueImage(true);
+					StartCoroutine(WaitForInput(delegate {
+						Clear();
+						StopVoiceOver();
+						if (onComplete != null)
+						{
+							onComplete();
+						}
+					}));
+				}
+				else
+				{
 					if (onComplete != null)
 					{
 						onComplete();
 					}
-				}));
+				}
 			};
 
 			Action onExitTag = delegate {

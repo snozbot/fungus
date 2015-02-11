@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: Character
+  m_Name: FungusCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: Character Name
   nameColor: {r: 1, g: 1, b: 1, a: 1}
-  profileSprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
+  soundEffect: {fileID: 0}
+  profileSprite: {fileID: 0}
+  portraits: []
   notes: 
 --- !u!1001 &100100000
 Prefab:

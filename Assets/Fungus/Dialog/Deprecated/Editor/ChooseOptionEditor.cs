@@ -8,8 +8,8 @@ using Rotorz.ReorderableList;
 namespace Fungus
 {
 	
-	[CustomEditor (typeof(Choose))]
-	public class ChooseEditor : CommandEditor
+	[CustomEditor (typeof(ChooseOption))]
+	public class ChooseOptionEditor : CommandEditor
 	{
 		static public bool showTagHelp;
 		
@@ -34,7 +34,7 @@ namespace Fungus
 		{
 			serializedObject.Update();
 			
-			Choose t = target as Choose;
+			ChooseOption t = target as ChooseOption;
 			
 			CommandEditor.ObjectField<Character>(characterProp,
 			                                     new GUIContent("Character", "Character to display in dialog"), 
@@ -52,20 +52,9 @@ namespace Fungus
 			    t.character.portraits != null &&      // Character has a portraits field
 			    t.character.portraits.Count > 0 )     // Selected Character has at least 1 portrait
 			{
-				ChooseDialog cd = t.chooseDialog;
-				if (t.chooseDialog == null)           // If default box selected
-				{
-					cd = t.character.chooseDialogBox; // Try to get character's default choose dialog box
-					if (t.chooseDialog == null)       // If no default specified, Try to get any ChooseDialog in the scene
-					{
-						cd = GameObject.FindObjectOfType<ChooseDialog>();
-					}
-				}
-				if (cd != null && cd.characterImage != null) // Check that selected choose dialog has a character image
-				{
-					showPortraits = true;    
-				}
+				showPortraits = true;    
 			}			
+
 			if (showPortraits) 
 			{
 				CommandEditor.ObjectField<Sprite>(portraitProp, 
