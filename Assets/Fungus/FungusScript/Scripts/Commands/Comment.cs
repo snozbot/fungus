@@ -10,6 +10,9 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Comment : Command
 	{	
+		[Tooltip("Name of Commenter")]
+		public string commenterName = "";
+
 		[Tooltip("Text to display for this comment")]
 		[TextArea(2,4)]
 		public string commentText = "";
@@ -21,6 +24,10 @@ namespace Fungus
 
 		public override string GetSummary()
 		{
+			if (commenterName != "")
+			{
+				return commenterName + ": " + commentText;
+			}
 			return commentText;
 		}
 
