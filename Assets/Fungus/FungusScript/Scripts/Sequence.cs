@@ -215,7 +215,10 @@ namespace Fungus
 			List<Sequence> connectedSequences = new List<Sequence>();
 			foreach (Command command in commandList)
 			{
-				command.GetConnectedSequences(ref connectedSequences);
+				if (command != null)
+				{
+					command.GetConnectedSequences(ref connectedSequences);
+				}
 			}
 			return connectedSequences;
 		}
