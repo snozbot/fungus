@@ -89,6 +89,7 @@ namespace Fungus
 			
 			EditorGUILayout.PropertyField(timeoutDurationProp, new GUIContent("Timeout Duration", "Time limit for player to make a choice. Set to 0 for no limit."));
 			
+			/*
 			if (showPortraits && t.portrait != null)
 			{
 				Texture2D characterTexture = t.portrait.texture;
@@ -96,12 +97,12 @@ namespace Fungus
 				float aspect = (float)characterTexture.width / (float)characterTexture.height;
 				
 				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(100), GUILayout.ExpandWidth(true));
-				
 				CharacterEditor characterEditor = Editor.CreateEditor(t.character) as CharacterEditor;
 				characterEditor.DrawPreview(previewRect, characterTexture);
 				DestroyImmediate(characterEditor);
 			}
-			
+			*/
+
 			serializedObject.ApplyModifiedProperties();
 		}
 	}
