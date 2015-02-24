@@ -47,8 +47,6 @@ namespace Fungus
 				return;
 			}
 
-			EditorGUILayout.PrefixLabel(new GUIContent("Command"));
-
 			GUILayout.BeginVertical(GUI.skin.box);
 
 			if (t.enabled)
@@ -150,20 +148,8 @@ namespace Fungus
 			objectNames.Add(nullLabel);
 			for (int i = 0; i < objectList.Count; ++i)
 			{
-				string formattedName = "";
-				if (objectList[i] != null)
-				{
-					if ( typeof(T).IsSubclassOf(typeof(MonoBehaviour)) == true )
-					{
-						formattedName = objectList[i].name;
-					}
-					else
-					{
-						formattedName = objectList[i].ToString();
-						formattedName = formattedName.Substring(0, formattedName.LastIndexOf("(") - 1);
-					}
-				}
-				objectNames.Add(new GUIContent(formattedName));
+				if (objectList[i] == null) continue;
+				objectNames.Add(new GUIContent(objectList[i].name));
 				
 				if (selectedObject == objectList[i])
 				{
@@ -186,5 +172,4 @@ namespace Fungus
 			property.objectReferenceValue = result;
 		}
 	}
-
 }
