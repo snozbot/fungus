@@ -47,6 +47,13 @@ namespace Fungus
 			}
 
 			FungusScript fungusScript = parentSequence.GetFungusScript();
+
+			// Auto-follow the executing sequence if none is currently selected
+			if (fungusScript.selectedSequence == null)
+			{
+				fungusScript.selectedSequence = parentSequence;
+			}
+
 			return fungusScript.ExecuteSequence(parentSequence);
 		}
 
