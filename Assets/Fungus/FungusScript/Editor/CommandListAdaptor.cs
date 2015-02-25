@@ -143,7 +143,7 @@ namespace Fungus
 		public void DrawItem(Rect position, int index) 
 		{
 			Command command = this[index].objectReferenceValue as Command;
-
+			
 			if (command == null)
 			{
 				return;
