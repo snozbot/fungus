@@ -114,16 +114,26 @@ namespace Fungus
 		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) 
 		{
 			VariablePropertyAttribute variableProperty = attribute as VariablePropertyAttribute;
+			if (variableProperty == null)
+			{
+				return;
+			}
 
 			EditorGUI.BeginProperty(position, label, property);
 
 			// Filter the variables by the types listed in the VariableProperty attribute
 			Func<Variable, bool> compare = v => 
 			{
+				if (v == null)
+				{
+					return false;
+				}
+
 				if (variableProperty.VariableTypes.Length == 0)
 				{
 					return true;
 				}
+
 				return variableProperty.VariableTypes.Contains<System.Type>(v.GetType());
 			};
 
@@ -201,6 +211,11 @@ namespace Fungus
 				int selectedIndex = 0;
 				foreach (Variable v in fungusScript.variables)
 				{
+					if (v == null)
+					{
+						continue;
+					}
+
 					if (v.GetType() != typeof(T))
 					{
 						continue;
