@@ -32,69 +32,202 @@ namespace Fungus
 
 			Sequence sequence = target as Sequence;
 
-			SerializedProperty descriptionProp = serializedObject.FindProperty("description");
-			EditorGUILayout.PropertyField(descriptionProp);
-
-			SerializedProperty runSlowInEditorProp = serializedObject.FindProperty("runSlowInEditor");
-			EditorGUILayout.PropertyField(runSlowInEditorProp);
-
-			DrawEventHandlerGUI(fungusScript);
-
-			UpdateIndentLevels(sequence);
-
-			SerializedProperty sequenceNameProperty = serializedObject.FindProperty("sequenceName");
-			Rect sequenceLabelRect = new Rect(45, 5, 120, 16);
-			EditorGUI.LabelField(sequenceLabelRect, new GUIContent("Sequence Name"));
-			Rect sequenceNameRect = new Rect(45, 21, 180, 16);
-			EditorGUI.PropertyField(sequenceNameRect, sequenceNameProperty, new GUIContent(""));
-
-			// Ensure sequence name is unique for this Fungus Script
-			string uniqueName = fungusScript.GetUniqueSequenceKey(sequenceNameProperty.stringValue, sequence);
-			if (uniqueName != sequence.sequenceName)
-			{
-				sequenceNameProperty.stringValue = uniqueName;
-			}
-
-			// Make sure each command has a reference to its parent sequence
-			foreach (Command command in sequence.commandList)
-			{
-				if (command == null) // Will be deleted from the list later on
-				{
-					continue;
-				}
-				command.parentSequence = sequence;
-			}
-
 			SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
-
-			ReorderableListGUI.Title("Commands");
-			CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
-			adaptor.nodeRect = sequence.nodeRect;
-
-			ReorderableListFlags flags = ReorderableListFlags.HideAddButton | ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.DisableContextMenu;
-
-			ReorderableListControl.DrawControlFromState(adaptor, null, flags);
-
-			if (Event.current.type == EventType.ContextClick)
-			{
-				ShowContextMenu();
-			}
-
+			
 			if (sequence == fungusScript.selectedSequence)
 			{
-				// Show add command button
+				SerializedProperty descriptionProp = serializedObject.FindProperty("description");
+				EditorGUILayout.PropertyField(descriptionProp);
+				
+				SerializedProperty runSlowInEditorProp = serializedObject.FindProperty("runSlowInEditor");
+				EditorGUILayout.PropertyField(runSlowInEditorProp);
+				
+				DrawEventHandlerGUI(fungusScript);
+				
+				UpdateIndentLevels(sequence);
+				
+				SerializedProperty sequenceNameProperty = serializedObject.FindProperty("sequenceName");
+				Rect sequenceLabelRect = new Rect(45, 5, 120, 16);
+				EditorGUI.LabelField(sequenceLabelRect, new GUIContent("Sequence Name"));
+				Rect sequenceNameRect = new Rect(45, 21, 180, 16);
+				EditorGUI.PropertyField(sequenceNameRect, sequenceNameProperty, new GUIContent(""));
+				
+				// Ensure sequence name is unique for this Fungus Script
+				string uniqueName = fungusScript.GetUniqueSequenceKey(sequenceNameProperty.stringValue, sequence);
+				if (uniqueName != sequence.sequenceName)
 				{
-					GUILayout.BeginHorizontal();
-
-					GUILayout.FlexibleSpace();
-
-					if (GUILayout.Button(FungusEditorResources.texAddButton))
+					sequenceNameProperty.stringValue = uniqueName;
+				}
+				
+				// Make sure each command has a reference to its parent sequence
+				foreach (Command command in sequence.commandList)
+				{
+					if (command == null) // Will be deleted from the list later on
 					{
-						ShowCommandMenu();
+						continue;
+					}
+					command.parentSequence = sequence;
+				}
+
+				ReorderableListGUI.Title("Commands");
+				CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
+				adaptor.nodeRect = sequence.nodeRect;
+				
+				ReorderableListFlags flags = ReorderableListFlags.HideAddButton | ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.DisableContextMenu;
+				
+				ReorderableListControl.DrawControlFromState(adaptor, null, flags);
+				
+				if (Event.current.type == EventType.ContextClick)
+				{
+					ShowContextMenu();
+				}
+
+				GUILayout.BeginHorizontal();
+
+				// Previous Command
+				if ((Event.current.type == EventType.keyDown) && (Event.current.keyCode == KeyCode.PageUp))
+				{
+					SelectPrevious();
+					GUI.FocusControl("dummycontrol");
+					Event.current.Use();
+				}
+				// Next Command
+				if ((Event.current.type == EventType.keyDown) && (Event.current.keyCode == KeyCode.PageDown))
+				{
+					SelectNext();
+					GUI.FocusControl("dummycontrol");
+					Event.current.Use();
+				}
+
+				if (GUIUtility.keyboardControl == 0) //Only call keyboard shortcuts when not typing in a text field
+				{
+					Event e = Event.current;
+
+					// Copy keyboard shortcut
+					if (e.type == EventType.ValidateCommand && e.commandName == "Copy")
+					{
+						if (fungusScript.selectedCommands.Count > 0)
+						{
+							e.Use();
+						}
+					}
+					if (e.type == EventType.ExecuteCommand && e.commandName == "Copy")		
+					{
+						Copy();
+						e.Use();
 					}
 
-					GUILayout.EndHorizontal();
+					// Cut keyboard shortcut
+					if (e.type == EventType.ValidateCommand && e.commandName == "Cut")
+					{
+						if (fungusScript.selectedCommands.Count > 0)
+						{
+							e.Use();
+						}
+					}
+					if (e.type == EventType.ExecuteCommand && e.commandName == "Cut")
+					{
+						Cut();
+						e.Use();
+					}
+
+					// Paste keyboard shortcut
+					if (e.type == EventType.ValidateCommand && e.commandName == "Paste")
+					{
+						CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
+						if (commandCopyBuffer.HasCommands())
+						{
+							e.Use();
+						}
+					}
+					if (e.type == EventType.ExecuteCommand && e.commandName == "Paste")		
+					{
+						Paste();
+						e.Use();
+					}
+
+					// Duplicate keyboard shortcut
+					if (e.type == EventType.ValidateCommand && e.commandName == "Duplicate")
+					{
+						if (fungusScript.selectedCommands.Count > 0)
+						{
+							e.Use();
+						}
+					}
+					if (e.type == EventType.ExecuteCommand && e.commandName == "Duplicate")		
+					{
+						Copy();
+						Paste();
+						e.Use();
+					}
+
+					// Delete keyboard shortcut
+					if (e.type == EventType.ValidateCommand && e.commandName == "Delete")
+					{
+						if (fungusScript.selectedCommands.Count > 0)
+						{
+							e.Use();
+						}
+					}
+					if (e.type == EventType.ExecuteCommand && e.commandName == "Delete")		
+					{
+						Delete();
+						e.Use();
+					}
+
+					// SelectAll keyboard shortcut
+					if (e.type == EventType.ValidateCommand && e.commandName == "SelectAll")
+					{
+						e.Use();
+					}
+					if (e.type == EventType.ExecuteCommand && e.commandName == "SelectAll")		
+					{
+						SelectAll();
+						e.Use();
+					}
 				}
+
+				// Up Button
+				Texture2D upIcon = Resources.Load("Icons/up") as Texture2D;
+				if (GUILayout.Button(upIcon))
+				{
+					SelectPrevious();
+				}
+
+				// Down Button
+				Texture2D downIcon = Resources.Load("Icons/down") as Texture2D;
+				if (GUILayout.Button(downIcon))
+				{
+					SelectNext();
+				}
+				
+				GUILayout.FlexibleSpace();
+
+				GUILayout.FlexibleSpace();
+				
+				// Add Button
+				Texture2D addIcon = Resources.Load("Icons/add") as Texture2D;
+				if (GUILayout.Button(addIcon))
+				{
+					ShowCommandMenu();
+				}
+
+				// Duplicate Button
+				Texture2D duplicateIcon = Resources.Load("Icons/duplicate") as Texture2D;
+				if (GUILayout.Button(duplicateIcon))
+				{
+					Copy();
+					Paste();
+				}
+				
+				// Delete Button
+				Texture2D deleteIcon = Resources.Load("Icons/delete") as Texture2D;
+				if (GUILayout.Button(deleteIcon))
+				{
+					Delete();
+				}
+				
+				GUILayout.EndHorizontal();
 			}
 
 			// Remove any null entries in the command list.
@@ -308,7 +441,7 @@ namespace Fungus
 		}
 
 		// Compare delegate for sorting the list of command attributes
-		static int CompareCommandAttributes(KeyValuePair<System.Type, CommandInfoAttribute> x, KeyValuePair<System.Type, CommandInfoAttribute> y)
+		protected static int CompareCommandAttributes(KeyValuePair<System.Type, CommandInfoAttribute> x, KeyValuePair<System.Type, CommandInfoAttribute> y)
 		{
 			int compare = (x.Value.Category.CompareTo(y.Value.Category));
 			if (compare == 0)
@@ -354,8 +487,8 @@ namespace Fungus
 
 			commandMenu.ShowAsContext();
 		}
-
-		List<KeyValuePair<System.Type,CommandInfoAttribute>> GetFilteredCommandInfoAttribute(List<System.Type> menuTypes)
+		
+		protected static List<KeyValuePair<System.Type,CommandInfoAttribute>> GetFilteredCommandInfoAttribute(List<System.Type> menuTypes)
 		{
 			Dictionary<string, KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = new Dictionary<string, KeyValuePair<System.Type, CommandInfoAttribute>>();
 			
@@ -385,8 +518,8 @@ namespace Fungus
 			}
 			return filteredAttributes.Values.ToList<KeyValuePair<System.Type,CommandInfoAttribute>>();
 		}
-
-		void AddCommandCallback(object obj)
+		
+		protected static void AddCommandCallback(object obj)
 		{
 			AddCommandOperation commandOperation = obj as AddCommandOperation;
 			
@@ -630,7 +763,7 @@ namespace Fungus
 			{
 				return;
 			}
-			
+			int lastSelectedIndex = 0;
 			for (int i = fungusScript.selectedSequence.commandList.Count - 1; i >= 0; --i)
 			{
 				Command command = fungusScript.selectedSequence.commandList[i];
@@ -639,11 +772,11 @@ namespace Fungus
 					if (command == selectedCommand)
 					{
 						command.OnCommandRemoved(sequence);
-
+						
 						Undo.RecordObject(fungusScript.selectedSequence, "Delete");
 						fungusScript.selectedSequence.commandList.RemoveAt(i);
 						Undo.DestroyObjectImmediate(command);
-						
+						lastSelectedIndex = i;
 						break;
 					}
 				}
@@ -651,9 +784,84 @@ namespace Fungus
 			
 			Undo.RecordObject(fungusScript, "Delete");
 			fungusScript.ClearSelectedCommands();
-
+			
+			if (lastSelectedIndex < fungusScript.selectedSequence.commandList.Count)
+			{
+				Command nextCommand = fungusScript.selectedSequence.commandList[lastSelectedIndex];
+				sequence.GetFungusScript().AddSelectedCommand(nextCommand);
+			}
+			
+			Repaint();
+		}
+		
+		protected void SelectPrevious()
+		{
+			Sequence sequence = target as Sequence;
+			FungusScript fungusScript = sequence.GetFungusScript();
+			
+			int firstSelectedIndex = fungusScript.selectedSequence.commandList.Count;
+			bool firstSelectedCommandFound = false;
+			if (fungusScript.selectedCommands.Count > 0)
+			{
+				for (int i = 0; i < fungusScript.selectedSequence.commandList.Count; i++)
+				{
+					Command commandInSequence = fungusScript.selectedSequence.commandList[i];
+					
+					foreach (Command selectedCommand in fungusScript.selectedCommands)
+					{
+						if (commandInSequence == selectedCommand)
+						{
+							if (!firstSelectedCommandFound)
+							{
+								firstSelectedIndex = i;
+								firstSelectedCommandFound = true;
+								break;
+							}
+						}
+					}
+					if (firstSelectedCommandFound)
+					{
+						break;
+					}
+				}
+			}
+			if (firstSelectedIndex > 0)
+			{
+				fungusScript.ClearSelectedCommands();
+				fungusScript.AddSelectedCommand(fungusScript.selectedSequence.commandList[firstSelectedIndex-1]);
+			}
+			
+			Repaint();
+		}
+		protected void SelectNext()
+		{
+			Sequence sequence = target as Sequence;
+			FungusScript fungusScript = sequence.GetFungusScript();
+			
+			int lastSelectedIndex = -1;
+			if (fungusScript.selectedCommands.Count > 0)
+			{
+				for (int i = 0; i < fungusScript.selectedSequence.commandList.Count; i++)
+				{
+					Command commandInSequence = fungusScript.selectedSequence.commandList[i];
+					
+					foreach (Command selectedCommand in fungusScript.selectedCommands)
+					{
+						if (commandInSequence == selectedCommand)
+						{
+							lastSelectedIndex = i;
+						}
+					}
+				}
+			}
+			if (lastSelectedIndex < fungusScript.selectedSequence.commandList.Count-1)
+			{
+				fungusScript.ClearSelectedCommands();
+				fungusScript.AddSelectedCommand(fungusScript.selectedSequence.commandList[lastSelectedIndex+1]);
+			}
+			
 			Repaint();
 		}
 	}
-
+	
 }
