@@ -19,7 +19,7 @@ namespace Fungus
 
 		public override string GetSummary()
 		{
-			return key + ":";
+			return key;
 		}
 
 		public override Color GetButtonColor()
