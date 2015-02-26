@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 429146}
   - 82: {fileID: 8229146}
-  - 114: {fileID: 11429146}
   m_Layer: 0
   m_Name: PourLiquid
   m_TagString: Untagged
@@ -87,18 +86,6 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
---- !u!114 &11429146
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b075fa02cc74bf4ebaa63f7337c5007, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 8229146}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
