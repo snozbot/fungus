@@ -65,12 +65,6 @@ namespace Fungus
 		public string description = "";
 
 		/**
-	 	 * Portrait Stage to use for this game.
-	 	 */
-		[Tooltip("Default stage to display portraits on")]
-		public PortraitStage defaultPortraitStage;
-
-		/**
 	 	 * Minimum time for each command to execute when runSlowInEditor is enabled.
 	 	 */
 		[Range(0f, 5f)]

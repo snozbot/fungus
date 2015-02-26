@@ -65,7 +65,6 @@ namespace Fungus
 			// Only show optional portrait fields once required fields have been filled...
 			if (t.portraitStage != null)                // Character is selected
 			{
-				ps = t.GetFungusScript().defaultPortraitStage;;  // Try to get game's default portrait stage
 				if (t.portraitStage == null)        // If no default specified, try to get any portrait stage in the scene
 				{
 					ps = GameObject.FindObjectOfType<PortraitStage>();

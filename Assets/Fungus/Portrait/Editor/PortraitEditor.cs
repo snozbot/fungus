@@ -101,7 +101,6 @@ namespace Fungus
 				}
 				if (t.portraitStage == null)            // If default portrait stage selected
 				{
-					ps = t.GetFungusScript().defaultPortraitStage;;  // Try to get game's default portrait stage
 					if (t.portraitStage == null)        // If no default specified, try to get any portrait stage in the scene
 					{
 						ps = GameObject.FindObjectOfType<PortraitStage>();

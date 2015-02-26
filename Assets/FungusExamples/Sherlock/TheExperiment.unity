@@ -4035,10 +4035,9 @@ MonoBehaviour:
     height: 2818.85034
   selectedSequence: {fileID: 1390555298}
   selectedCommands:
-  - {fileID: 1390555343}
+  - {fileID: 1390555345}
   variables: []
   description: 'Example scene from Sherlock: The Game Is On'
-  defaultPortraitStage: {fileID: 0}
   runSlowDuration: 0
   colorCommands: 1
   hideComponents: 1
@@ -4094,7 +4093,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -2589.33252
+    x: -2590.33252
     y: -1077.83801
     width: 120
     height: 40
