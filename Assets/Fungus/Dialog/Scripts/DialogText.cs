@@ -18,7 +18,8 @@ namespace Fungus
 	public class DialogText
 	{
 		protected List<Glyph> glyphs = new List<Glyph>();
-
+		protected bool oneBeep = false;
+		
 		public bool boldActive { get; set; }
 		public bool italicActive { get; set; }
 		public bool colorActive { get; set; }
@@ -26,7 +27,10 @@ namespace Fungus
 		public float writingSpeed { get; set; }
 		public float punctuationPause { get; set; }
 		public AudioSource typingAudio { get; set; }
-
+		public float slowBeepsAt { get; set; }
+		public float fastBeepsAt { get; set; }
+		public bool beepPerCharacter { get; set; }
+		
 		public virtual void Clear()
 		{
 			glyphs.Clear();
@@ -34,10 +38,15 @@ namespace Fungus
 
 		public virtual void Append(string words)
 		{
+			if (beepPerCharacter && (writingSpeed <= slowBeepsAt || writingSpeed >= fastBeepsAt)) // beeps match character speed at these speeds
+				oneBeep = true;
+			else
+				oneBeep = false;
 			if (typingAudio != null)
 			{
 				typingAudio.Stop();
-				typingAudio.Play();
+				if (!oneBeep)
+					typingAudio.Play();
 			}
 
 			float hideTimer = 0f;
@@ -59,7 +68,7 @@ namespace Fungus
 
 				Glyph glyph = new Glyph();
 				glyph.hideTimer = hideTimer;
-				if (doPunctuationPause)
+				if (doPunctuationPause && writingSpeed != 0)
 				{
 					glyph.hasPunctuationPause = true;
 					glyph.hideTimer += punctuationPause;
@@ -72,13 +81,12 @@ namespace Fungus
 				glyph.colorActive = colorActive;
 				glyph.colorText = colorText;
 				glyphs.Add(glyph);
-
-				if (i < words.Length - 1 && 
-				    IsPunctuation(c)) // No punctuation pause on last character, or if next character is also punctuation
+				
+				if (IsPunctuation(c)) // If punctuation, do punctuation pause
 				{
 					doPunctuationPause = true;
 				}
-
+				
 				// Special case: pause just before open parentheses
 				if (i < words.Length - 2)
 				{
@@ -94,20 +102,20 @@ namespace Fungus
 		{
 			return character == '.' || 
 				character == '?' ||  
-				character == '!' || 
-				character == ',' ||
-				character == ':' ||
-				character == ';' ||
-				character == ')';
+					character == '!' || 
+					character == ',' ||
+					character == ':' ||
+					character == ';' ||
+					character == ')';
 		}
-
+		
 		/**
 		 * Returns true when all glyphs are visible.
 		 */
 		public virtual bool UpdateGlyphs(bool instantComplete)
 		{
 			float elapsedTime = Time.deltaTime;
-
+			
 			foreach (Glyph glyph in glyphs)
 			{
 				if (instantComplete)
@@ -130,6 +138,14 @@ namespace Fungus
 						elapsedTime -= glyph.hideTimer;
 						glyph.hideTimer = 0f;
 						// Some elapsed time left over, so carry on to next glyph
+						if ((oneBeep && typingAudio != null))
+						{
+							if(!typingAudio.isPlaying && 
+							   (glyph.character != " " && glyph.character != "\t" && glyph.character != "\n" ) )
+							{
+								typingAudio.PlayOneShot(typingAudio.clip);
+							}
+						}
 					}
 					else
 					{

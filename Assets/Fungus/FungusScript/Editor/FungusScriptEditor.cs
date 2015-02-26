@@ -11,13 +11,13 @@ namespace Fungus
 	[CustomEditor (typeof(FungusScript))]
 	public class FungusScriptEditor : Editor 
 	{
+		protected SerializedProperty descriptionProp;
+		protected SerializedProperty defaultPortraitStageProp;
 		protected class AddVariableInfo
 		{
 			public FungusScript fungusScript;
 			public System.Type variableType;
 		}
-
-		protected SerializedProperty descriptionProp;
 		protected SerializedProperty colorCommandsProp;
 		protected SerializedProperty hideComponentsProp;
 		protected SerializedProperty runSlowDurationProp;
@@ -26,6 +26,7 @@ namespace Fungus
 		protected virtual void OnEnable()
 		{
 			descriptionProp = serializedObject.FindProperty("description");
+			defaultPortraitStageProp = serializedObject.FindProperty("defaultPortraitStage");
 			colorCommandsProp = serializedObject.FindProperty("colorCommands");
 			hideComponentsProp = serializedObject.FindProperty("hideComponents");
 			runSlowDurationProp = serializedObject.FindProperty("runSlowDuration");
@@ -41,6 +42,7 @@ namespace Fungus
 			fungusScript.UpdateHideFlags();
 
 			EditorGUILayout.PropertyField(descriptionProp);
+			EditorGUILayout.PropertyField(defaultPortraitStageProp);
 			EditorGUILayout.PropertyField(colorCommandsProp);
 			EditorGUILayout.PropertyField(hideComponentsProp);
 			EditorGUILayout.PropertyField(runSlowDurationProp);
@@ -81,6 +83,16 @@ namespace Fungus
 
 				if (t.variables.Count > 0)
 				{
+					// Remove any null variables from the list
+					// Can sometimes happen when upgrading to a new version of Fungus (if .meta GUID changes for a variable class)
+					for (int i = t.variables.Count - 1; i >= 0; i--)
+					{
+						if (t.variables[i] == null)
+						{
+							t.variables.RemoveAt(i);
+						}
+					}
+
 					ReorderableListGUI.Title("Variables");
 					VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0);
 
@@ -124,7 +136,6 @@ namespace Fungus
 				    GUI.Button(plusRect, FungusEditorResources.texAddButton))
 				{
 					GenericMenu menu = new GenericMenu ();
-
 					List<System.Type> types = FindAllDerivedTypes<Variable>();
 
 					// Add variable types without a category

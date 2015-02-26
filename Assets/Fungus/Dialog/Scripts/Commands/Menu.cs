@@ -17,12 +17,13 @@ namespace Fungus
 		// Menu Timeout executes a sequence if the timeout expires
 		// The 'Hide If Visited' option checks the execution count of the target sequence
 		// Hide Say dialog when finished? Let Say command handle that
-
 		// Can wrap in an If statement if you need a conditional option
 
-		public string text = "Option";
+		public string text = "Option Text";
 		public Sequence targetSequence;
 		public bool hideIfVisited;
+
+		public MenuDialog setMenuDialog;
 
 		protected static bool eventSystemPresent;
 
@@ -30,21 +31,22 @@ namespace Fungus
 		{
 			CheckEventSystem();
 
-			MenuDialog menuDialog = SetMenuDialog.GetActiveMenuDialog();
-
-			if (menuDialog != null)
+			if (setMenuDialog != null)
 			{
-				menuDialog.gameObject.SetActive(true);
+				// Override the active menu dialog
+				MenuDialog.activeMenuDialog = setMenuDialog;
+			}
 
-				if (hideIfVisited &&
-					targetSequence != null &&
-				    targetSequence.GetExecutionCount() > 0)
+			bool hideOption = (hideIfVisited && targetSequence != null && targetSequence.GetExecutionCount() > 0);
+
+			if (!hideOption)
+			{
+				MenuDialog menuDialog = MenuDialog.GetMenuDialog();
+				if (menuDialog != null)
 				{
-					// Don't show this option
-				}
-				else
-				{
-					menuDialog.AddOption(text, targetSequence);
+					menuDialog.gameObject.SetActive(true);
+					string displayText = text;
+					menuDialog.AddOption(displayText, targetSequence);
 				}
 			}
 

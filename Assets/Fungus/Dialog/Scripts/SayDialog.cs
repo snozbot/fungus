@@ -7,24 +7,39 @@ using System.Collections.Generic;
 namespace Fungus
 {
 
-	[ExecuteInEditMode]
 	public class SayDialog : Dialog 
 	{
+		// Currently active Say Dialog used to display Say text
+		public static SayDialog activeSayDialog;
+
 		public Image continueImage;
 
-		static public List<SayDialog> activeDialogs = new List<SayDialog>();
-
-		protected virtual void OnEnable()
+		public static SayDialog GetSayDialog()
 		{
-			if (!activeDialogs.Contains(this))
+			if (activeSayDialog == null)
 			{
-				activeDialogs.Add(this);
+				// Use first Say Dialog found in the scene (if any)
+				SayDialog sd = GameObject.FindObjectOfType<SayDialog>();
+				if (sd != null)
+				{
+					activeSayDialog = sd;
+				}
+				
+				if (activeSayDialog == null)
+				{
+					// Auto spawn a say dialog object from the prefab
+					GameObject go = Resources.Load<GameObject>("FungusSayDialog");
+					if (go != null)
+					{
+						GameObject spawnedGO = Instantiate(go) as GameObject;
+						spawnedGO.name = "SayDialog";
+						spawnedGO.SetActive(false);
+						activeSayDialog = spawnedGO.GetComponent<SayDialog>();
+					}
+				}
 			}
-		}
-		
-		protected virtual void OnDisable()
-		{
-			activeDialogs.Remove(this);
+			
+			return activeSayDialog;
 		}
 
 		public virtual void Say(string text, bool waitForInput, Action onComplete)

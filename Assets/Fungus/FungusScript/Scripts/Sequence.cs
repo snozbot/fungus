@@ -10,7 +10,7 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Sequence : Node 
 	{
-		public string sequenceName = "Sequence";
+		public string sequenceName = "New Sequence";
 
 		[TextArea(2, 5)]
 		[Tooltip("Description text to display under the sequence node")]

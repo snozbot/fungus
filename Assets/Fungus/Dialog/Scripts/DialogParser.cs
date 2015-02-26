@@ -17,11 +17,22 @@ namespace Fungus
 		Wait, 					// w, w=0.5
 		WaitForInputNoClear, 	// wi
 		WaitForInputAndClear, 	// wc
-		WaitOnPunctuation, 		// wp, wp=0.5
+		WaitOnPunctuationStart, // wp, wp=0.5
+		WaitOnPunctuationEnd,   // /wp
 		Clear, 					// c
-		Speed, 					// s, s=60
+		SpeedStart, 			// s, s=60
+		SpeedEnd, 				// /s
 		Exit, 					// x
-		Message					// m=MessageName
+		Message,				// m=MessageName
+		VerticalPunch,       	// {vpunch=0.5}
+		HorizontalPunch,        // {hpunch=0.5}
+		Shake,					// {shake=0.5}
+		Shiver,                 // {shiver=0.5}
+		Flash,					// {flash=0.5}
+		Audio,					// {audio=Sound}
+		AudioLoop,				// {audioloop=Sound}
+		AudioPause,				// {audiopause=Sound}
+		AudioStop				// {audiostop=Sound}
 	}
 	
 	public class Token
@@ -121,12 +132,16 @@ namespace Fungus
 			}
 			else if (tag.StartsWith("wp="))
 			{
-				type = TokenType.WaitOnPunctuation;
+				type = TokenType.WaitOnPunctuationStart;
 				paramText = tag.Substring(3, tag.Length - 3);
 			}
 			else if (tag == "wp")
 			{
-				type = TokenType.WaitOnPunctuation;
+				type = TokenType.WaitOnPunctuationStart;
+			}
+			else if (tag == "/wp")
+			{
+				type = TokenType.WaitOnPunctuationEnd;
 			}
 			else if (tag.StartsWith("w="))
 			{
@@ -143,12 +158,16 @@ namespace Fungus
 			}
 			else if (tag.StartsWith("s="))
 			{
-				type = TokenType.Speed;
+				type = TokenType.SpeedStart;
 				paramText = tag.Substring(2, tag.Length - 2);
 			}
 			else if (tag == "s")
 			{
-				type = TokenType.Speed;
+				type = TokenType.SpeedStart;
+			}
+			else if (tag == "/s")
+			{
+				type = TokenType.SpeedEnd;
 			}
 			else if (tag == "x")
 			{
@@ -159,7 +178,41 @@ namespace Fungus
 				type = TokenType.Message;
 				paramText = tag.Substring(2, tag.Length - 2);
 			}
-			
+			else if (tag.StartsWith("vpunch="))
+			{
+				type = TokenType.VerticalPunch;
+				paramText = tag.Substring(7, tag.Length - 7);
+			}
+			else if (tag.StartsWith("hpunch="))
+			{
+				type = TokenType.HorizontalPunch;
+				paramText = tag.Substring(7, tag.Length - 7);
+			}
+			else if (tag.StartsWith("shake="))
+			{
+				type = TokenType.Shake;
+				paramText = tag.Substring(6, tag.Length - 6);
+			}
+			else if (tag.StartsWith("shiver="))
+			{
+				type = TokenType.Shiver;
+				paramText = tag.Substring(7, tag.Length - 7);
+			}
+			else if (tag.StartsWith("flash="))
+			{
+				type = TokenType.Flash;
+				paramText = tag.Substring(6, tag.Length - 6);
+			}
+			else if (tag.StartsWith("audio="))
+			{
+				type = TokenType.Audio;
+				paramText = tag.Substring(6, tag.Length - 6);
+			}
+			else if (tag.StartsWith("audioloop="))
+			{
+				type = TokenType.AudioLoop;
+				paramText = tag.Substring(10, tag.Length - 10);
+			}
 			Token token = new Token();
 			token.type = type;
 			token.param = paramText.Trim();

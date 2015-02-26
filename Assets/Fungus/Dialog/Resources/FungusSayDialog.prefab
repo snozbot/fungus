@@ -232,7 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -254,7 +254,17 @@ MonoBehaviour:
   writingSpeed: 30
   writingSound: {fileID: 8300000, guid: 5a3c8e205638142dcb8227abe5f14f1f, type: 3}
   loopWritingSound: 1
+  beepPerCharacter: 0
+  slowBeepsAt: 10
+  fastBeepsAt: 30
   punctuationPause: .200000003
+  alwaysFadeDialog: 1
+  fadeDuration: .25
+  fadeEaseType: 0
+  alwaysMoveDialog: 0
+  startPosition: {x: 0, y: 0}
+  moveSpeed: 1000
+  moveEaseType: 0
   clickAnywhere: 1
   dialogCanvas: {fileID: 22388894}
   nameText: {fileID: 11488900}
@@ -276,7 +286,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 333ca057701a73249850670faef184dc, type: 3}
+    m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
@@ -323,7 +333,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: .258823544, g: .254901975, b: .262745112, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: ee3a4060b74a7fd45b0cc411c99fd8f2, type: 3}
+    m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0

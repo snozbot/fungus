@@ -10,8 +10,39 @@ namespace Fungus
 	
 	public class MenuDialog : MonoBehaviour
 	{
+		// Currently active Menu Dialog used to display Menu options
+		public static MenuDialog activeMenuDialog;
+
 		protected Button[] cachedButtons;
 		protected Slider cachedSlider;
+
+		public static MenuDialog GetMenuDialog()
+		{
+			if (activeMenuDialog == null)
+			{
+				// Use first Menu Dialog found in the scene (if any)
+				MenuDialog md = GameObject.FindObjectOfType<MenuDialog>();
+				if (md != null)
+				{
+					activeMenuDialog = md;
+				}
+				
+				if (activeMenuDialog == null)
+				{
+					// Auto spawn a menu dialog object from the prefab
+					GameObject go = Resources.Load<GameObject>("FungusMenuDialog");
+					if (go != null)
+					{
+						GameObject spawnedGO = Instantiate(go) as GameObject;
+						spawnedGO.name = "DialogMenu";
+						spawnedGO.SetActive(false);
+						activeMenuDialog = spawnedGO.GetComponent<MenuDialog>();
+					}
+				}
+			}
+			
+			return activeMenuDialog;
+		}
 
 		public virtual void Awake()
 		{
@@ -21,7 +52,11 @@ namespace Fungus
 			Slider timeoutSlider = GetComponentInChildren<Slider>();
 			cachedSlider = timeoutSlider;
 
-			Clear();
+			if (Application.isPlaying)
+			{
+				// Don't auto disable buttons in the editor
+				Clear();
+			}
 		}
 
 		public virtual void OnEnable()
@@ -58,7 +93,6 @@ namespace Fungus
 
 		public virtual bool AddOption(string text, Sequence targetSequence)
 		{
-			gameObject.SetActive(true);
 
 			bool addedOption = false;
 			foreach (Button button in cachedButtons)
@@ -79,14 +113,8 @@ namespace Fungus
 
 						StopAllCoroutines(); // Stop timeout
 						Clear();
-						gameObject.SetActive(false);
 
-						// Hide the active Say dialog in case it's still being displayed
-						SayDialog activeSayDialog = SetSayDialog.GetActiveSayDialog();
-						if (activeSayDialog != null)
-						{
-							activeSayDialog.ShowDialog(false);
-						}
+						HideSayDialog();
 
 						if (sequence != null)
 						{
@@ -95,6 +123,8 @@ namespace Fungus
 							FungusScript fungusScript = sequence.GetFungusScript();
 							fungusScript.selectedSequence = sequence;
 							#endif
+
+							gameObject.SetActive(false);
 
 							sequence.ExecuteCommand(0);
 						}
@@ -108,9 +138,32 @@ namespace Fungus
 			return addedOption;
 		}
 
+		protected virtual void HideSayDialog()
+		{
+			SayDialog sayDialog = SayDialog.GetSayDialog();
+			if (sayDialog != null)
+			{
+				bool fadingOut = false;
+				bool movingOut = false;
+				if (sayDialog.alwaysFadeDialog)
+				{
+					sayDialog.FadeOutDialog();
+					fadingOut = true;
+				}
+				if (sayDialog.alwaysMoveDialog)
+				{
+					sayDialog.MoveOutDialog();
+					movingOut = true;
+				}
+				if (!fadingOut && !movingOut)
+				{
+					sayDialog.ShowDialog(false);
+				}
+			}
+		}
+
 		public virtual void ShowTimer(float duration, Sequence targetSequence)
 		{
-			gameObject.SetActive(true);
 
 			if (cachedSlider != null)
 			{
@@ -141,7 +194,9 @@ namespace Fungus
 			
 			Clear();
 			gameObject.SetActive(false);
-			
+
+			HideSayDialog();
+
 			if (targetSequence != null)
 			{
 				targetSequence.ExecuteCommand(0);

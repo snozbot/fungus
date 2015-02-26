@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections;
 using Rotorz.ReorderableList;
+using System.Collections.Generic;
 
 namespace Fungus
 {
@@ -9,14 +10,11 @@ namespace Fungus
 	[CustomEditor (typeof(Character))]
 	public class CharacterEditor : Editor
 	{
-		protected Material spriteMaterial;
-
 		protected SerializedProperty nameTextProp;
 		protected SerializedProperty nameColorProp;
-		protected SerializedProperty sayDialogBoxProp;
-		protected SerializedProperty chooseDialogBoxProp;
 		protected SerializedProperty soundEffectProp;
 		protected SerializedProperty portraitsProp;
+		protected SerializedProperty portraitsFaceProp;
 		protected SerializedProperty notesProp;
 
 		protected virtual void OnEnable()
@@ -25,38 +23,20 @@ namespace Fungus
 			nameColorProp = serializedObject.FindProperty ("nameColor");
 			soundEffectProp = serializedObject.FindProperty ("soundEffect");
 			portraitsProp = serializedObject.FindProperty ("portraits");
+			portraitsFaceProp = serializedObject.FindProperty ("portraitsFace");
 			notesProp = serializedObject.FindProperty ("notes");
-
-			Shader shader = Shader.Find("Sprites/Default");
-			if (shader != null)
-			{
-				spriteMaterial = new Material(shader);
-				spriteMaterial.hideFlags = HideFlags.DontSave;
-			}
-		}
-
-		protected virtual void OnDisable()
-		{
-			DestroyImmediate(spriteMaterial);
 		}
 
 		public override void OnInspectorGUI() 
 		{
 			serializedObject.Update();
 
+			Character t = target as Character;
+
 			EditorGUILayout.PropertyField(nameTextProp, new GUIContent("Name Text", "Name of the character display in the dialog"));
 			EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));
 			EditorGUILayout.PropertyField(soundEffectProp, new GUIContent("Sound Effect", "Sound to play when the character is talking. Overrides the setting in the Dialog."));
-
-			ReorderableListGUI.Title(new GUIContent("Portraits", "Character image sprites to display in the dialog"));
-			ReorderableListGUI.ListField(portraitsProp);
-
 			EditorGUILayout.PropertyField(notesProp, new GUIContent("Notes", "Notes about this story character (personality, attibutes, etc.)"));
-
-			EditorGUILayout.Separator();
-
-			Character t = target as Character;
-
 			if (t.portraits != null &&
 			    t.portraits.Count > 0)
 			{
@@ -66,29 +46,32 @@ namespace Fungus
 			{
 				t.profileSprite = null;
 			}
-
-			if (t.profileSprite != null &&
-			    spriteMaterial != null)
+			
+			if (t.profileSprite != null)
 			{
-				float aspect = (float)t.profileSprite.texture.width / (float)t.profileSprite.texture.height;
-				Rect imagePreviewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(100), GUILayout.ExpandWidth(true));
-
-				DrawPreview(imagePreviewRect, t.profileSprite.texture);
+				Texture2D characterTexture = t.profileSprite.texture;
+				float aspect = (float)characterTexture.width / (float)characterTexture.height;
+				Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(100), GUILayout.ExpandWidth(true));
+				if (characterTexture != null)
+					GUI.DrawTexture(previewRect,characterTexture,ScaleMode.ScaleToFit,true,aspect);
 			}
+			ReorderableListGUI.Title(new GUIContent("Portraits", "Character image sprites to display in the dialog"));
+			ReorderableListGUI.ListField(portraitsProp);
+			string[] facingArrows = new string[]
+			{
+				"FRONT",
+				"<--",
+				"-->",
+			};
+			portraitsFaceProp.enumValueIndex = EditorGUILayout.Popup("Portraits Face", (int)portraitsFaceProp.enumValueIndex, facingArrows);
+
+			EditorGUILayout.Separator();
+
+			EditorUtility.SetDirty(t);
 
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		public virtual void DrawPreview(Rect previewRect, Texture2D texture)
-		{
-			if (texture == null)
-			{
-				return;
-			}
-			EditorGUI.DrawPreviewTexture(previewRect, 
-			                             texture,
-			                             spriteMaterial);
-		}
 	}
 
 }

@@ -10,11 +10,25 @@ namespace Fungus
 	
 	public class Dialog : MonoBehaviour 
 	{
+		public static Character speakingCharacter;
+		public static string prevStoryText;
+		
 		public float writingSpeed = 60;
 		public AudioClip writingSound;
 		public bool loopWritingSound = true;
+		public bool beepPerCharacter = false;
+		public float slowBeepsAt = 10f;
+		public float fastBeepsAt = 30f;
 		public float punctuationPause = 0.25f;
-
+		public bool alwaysFadeDialog = false;
+		public float fadeDuration = 1f;
+		public LeanTweenType fadeEaseType;
+		public bool alwaysMoveDialog = false;
+		public Vector2 startPosition;
+		protected Vector2 endPosition;
+		public float moveSpeed = 1000f;
+		public LeanTweenType moveEaseType;
+		
 		[Tooltip("Click anywhere on screen to continue when set to true, or only on dialog when false.")]
 		public bool clickAnywhere = true;
 		
@@ -59,9 +73,10 @@ namespace Fungus
 		{
 			if (dialogCanvas != null)
 			{
+				LeanTween.cancel(dialogCanvas.gameObject);
+				dialogCanvas.GetComponent<CanvasGroup>().alpha = 1;
 				dialogCanvas.gameObject.SetActive(visible);
 			}
-
 			if (visible)
 			{
 				// A new dialog is often shown as the result of a mouse click, so we need
@@ -69,6 +84,71 @@ namespace Fungus
 				wasPointerClicked = false;
 				clickCooldownTimer = 0.2f;
 			}
+		}
+		
+		public virtual void FadeInDialog()
+		{
+			LeanTween.cancel(dialogCanvas.gameObject);
+			dialogCanvas.GetComponent<CanvasGroup>().alpha = 0;
+			dialogCanvas.gameObject.SetActive(true);
+			if (fadeDuration == 0) fadeDuration = float.Epsilon;
+			LeanTween.value(dialogCanvas.gameObject,0,1,fadeDuration).setEase(fadeEaseType).setOnUpdate(
+				(float fadeAmount)=>{
+				dialogCanvas.GetComponent<CanvasGroup>().alpha = fadeAmount;
+			}
+			).setOnComplete(
+				()=>{
+				dialogCanvas.GetComponent<CanvasGroup>().alpha = 1;
+			}
+			);
+		}
+
+		public virtual void MoveInDialog()
+		{
+			endPosition = this.transform.position;
+			float moveDuration = (Vector3.Distance(startPosition,this.transform.position)/moveSpeed);
+			if (moveSpeed == 0) moveDuration = float.Epsilon;
+			LeanTween.value(this.gameObject,(Vector2)startPosition,(Vector2)endPosition,moveDuration).setEase(moveEaseType).setOnUpdate(
+				(Vector3 updatePosition)=>{
+				this.transform.position = updatePosition;
+			}
+			).setOnComplete(
+				()=>{
+				this.transform.position = endPosition;
+			}
+			);
+		}
+		
+		public virtual void FadeOutDialog()
+		{
+			LeanTween.cancel(dialogCanvas.gameObject);
+			if (fadeDuration == 0) fadeDuration = float.Epsilon;
+			LeanTween.value(dialogCanvas.gameObject,1,0,fadeDuration).setEase(fadeEaseType).setOnUpdate(
+				(float fadeAmount)=>{
+				dialogCanvas.GetComponent<CanvasGroup>().alpha = fadeAmount;
+			}
+			).setOnComplete(
+				()=>{
+				dialogCanvas.gameObject.SetActive(false);
+				dialogCanvas.GetComponent<CanvasGroup>().alpha = 1;
+			}
+			);
+		}
+
+		public virtual void MoveOutDialog()
+		{
+			endPosition = this.transform.position;
+			float moveDuration = (Vector3.Distance(startPosition,this.transform.position)/moveSpeed);
+			if (moveSpeed == 0) moveDuration = float.Epsilon;
+			LeanTween.value(this.gameObject,(Vector2)endPosition,(Vector2)startPosition,moveDuration).setEase(moveEaseType).setOnUpdate(
+				(Vector3 updatePosition)=>{
+				this.transform.position = updatePosition;
+			}
+			).setOnComplete(
+				()=>{
+				this.transform.position = endPosition;
+			}
+			);
 		}
 		
 		public virtual void SetCharacter(Character character, FungusScript fungusScript = null)
@@ -83,24 +163,48 @@ namespace Fungus
 			}
 			else
 			{
-
+				Character prevSpeakingCharacter = speakingCharacter;
+				speakingCharacter = character;
+				
+				// Dim portraits of non-speaking characters
+				foreach (PortraitStage ps in PortraitStage.activePortraitStages)
+				{
+					if (ps.dimPortraits)
+					{
+						foreach (Character c in ps.charactersOnStage)
+						{
+							if (prevSpeakingCharacter != speakingCharacter)
+							{
+								if (c != speakingCharacter)
+								{
+									Portrait.Dim(c,ps);
+								}
+								else
+								{
+									Portrait.Undim(c,ps);
+								}
+							}
+						}
+					}
+				}
+				
 				string characterName = character.nameText;
+
 				if (characterName == "")
 				{
 					// Use game object name as default
 					characterName = character.name;
 				}
-
+				
 				if (fungusScript != null)
 				{
 					characterName = fungusScript.SubstituteVariables(characterName);
 				}
-
+				
 				characterTypingSound = character.soundEffect;
-
+				
 				SetCharacterName(characterName, character.nameColor);
 			}
-
 		}
 		
 		public virtual void SetCharacterImage(Sprite image)
@@ -148,13 +252,17 @@ namespace Fungus
 			DialogText dialogText = new DialogText();
 			dialogText.writingSpeed = writingSpeed;
 			dialogText.punctuationPause = punctuationPause;
-
+			dialogText.beepPerCharacter = beepPerCharacter;
+			dialogText.slowBeepsAt = slowBeepsAt;
+			dialogText.fastBeepsAt = fastBeepsAt;
+			
 			GameObject typingAudio = null;
 			if (characterTypingSound != null || writingSound != null)
 			{
 				typingAudio = new GameObject("WritingSound");
 				typingAudio.AddComponent<AudioSource>();
-
+				typingAudio.hideFlags = HideFlags.HideInHierarchy;
+				
 				if (characterTypingSound != null)
 				{
 					typingAudio.audio.clip = characterTypingSound;
@@ -226,21 +334,24 @@ namespace Fungus
 					dialogText.Clear();
 					StopVoiceOver();
 					break;
-
-				case TokenType.WaitOnPunctuation:
+					
+				case TokenType.WaitOnPunctuationStart:
 					float newPunctuationPause = 0f;
 					if (!Single.TryParse(token.param, out newPunctuationPause))
 					{
-						newPunctuationPause = punctuationPause;
+						newPunctuationPause = 0f;
 					}
 					dialogText.punctuationPause = newPunctuationPause;
 					break;
-
+				case TokenType.WaitOnPunctuationEnd:
+					dialogText.punctuationPause = punctuationPause;
+					break;
+					
 				case TokenType.Clear:
 					dialogText.Clear();
 					break;
 					
-				case TokenType.Speed:
+				case TokenType.SpeedStart:
 					float newSpeed = 0;
 					if (!Single.TryParse(token.param, out newSpeed))
 					{
@@ -249,18 +360,98 @@ namespace Fungus
 					dialogText.writingSpeed = newSpeed;
 					break;
 					
-				case TokenType.Exit:
+				case TokenType.SpeedEnd:
+					dialogText.writingSpeed = writingSpeed;
+					break;
 					
+				case TokenType.Exit:
 					if (onExitTag != null)
 					{
+						prevStoryText = storyText.text;
 						Destroy(typingAudio);
 						onExitTag();
 					}
-					
 					yield break;
-
+					
 				case TokenType.Message:
 					FungusScript.BroadcastFungusMessage(token.param);
+					break;
+				case TokenType.VerticalPunch:
+					float vPunchIntensity = 0;
+					if (!Single.TryParse(token.param, out vPunchIntensity))
+					{
+						vPunchIntensity = 0f;
+					}
+					VerticalPunch(vPunchIntensity);
+					break;
+				case TokenType.HorizontalPunch:
+					float hPunchIntensity = 0;
+					if (!Single.TryParse(token.param, out hPunchIntensity))
+					{
+						hPunchIntensity = 0f;
+					}
+					HorizontalPunch(hPunchIntensity);
+					break;
+				case TokenType.Shake:
+					float shakeIntensity = 0;
+					if (!Single.TryParse(token.param, out shakeIntensity))
+					{
+						shakeIntensity = 0f;
+					}
+					Shake(shakeIntensity);
+					break;
+				case TokenType.Shiver:
+					float shiverIntensity = 0;
+					if (!Single.TryParse(token.param, out shiverIntensity))
+					{
+						shiverIntensity = 0f;
+					}
+					Shiver(shiverIntensity);
+					break;
+				case TokenType.Flash:
+					float flashDuration = 0;
+					if (!Single.TryParse(token.param, out flashDuration))
+					{
+						flashDuration = 0f;
+					}
+					Flash(flashDuration);
+					break;
+				case TokenType.Audio:
+					{
+						AudioSource audioSource = FindAudio(token.param);
+						if (audioSource != null)
+						{
+							audioSource.PlayOneShot(audioSource.clip);
+						}
+					}
+					break;
+				case TokenType.AudioLoop:
+					{
+						AudioSource audioSource = FindAudio(token.param);
+						if (audioSource != null)
+						{
+							audioSource.Play();
+							audioSource.loop = true;
+						}
+					}
+					break;
+				case TokenType.AudioPause:
+					{
+						AudioSource audioSource = FindAudio(token.param);
+						if (audioSource != null)
+						{
+							audioSource.Pause ();
+						}
+					}
+					break;
+				case TokenType.AudioStop:
+					{
+						AudioSource audioSource = FindAudio(token.param);
+						if (audioSource != null)
+						{
+							audioSource.Pause ();
+						}
+					}
 					break;
 				}
 
@@ -276,6 +467,8 @@ namespace Fungus
 				// Now process next token
 			}
 
+			prevStoryText = storyText.text;
+			
 			Destroy(typingAudio);
 
 			if (onWritingComplete != null)
@@ -285,7 +478,48 @@ namespace Fungus
 			
 			yield break;
 		}
-	
+
+		protected virtual AudioSource FindAudio(string audioObjectName)
+		{
+			GameObject go = GameObject.Find(audioObjectName);
+			if (go == null)
+			{
+				return null;
+			}
+
+			return go.audio;
+		}
+
+		protected virtual void VerticalPunch(float intensity)
+		{
+			iTween.ShakePosition(this.gameObject, new Vector3(0f, intensity, 0f), 0.5f);
+		}
+		
+		protected virtual void HorizontalPunch(float intensity)
+		{
+			iTween.ShakePosition(this.gameObject, new Vector3(intensity, 0f, 0f), 0.5f);
+		}
+		
+		protected virtual void Shake(float intensity)
+		{
+			iTween.ShakePosition(this.gameObject, new Vector3(intensity, intensity, 0f), 0.5f);
+		}
+		
+		protected virtual void Shiver(float intensity)
+		{
+			iTween.ShakePosition(this.gameObject, new Vector3(intensity, intensity, 0f), 1f);
+		}
+		
+		protected virtual void Flash(float duration)
+		{
+			CameraController cameraController = CameraController.GetInstance();
+			cameraController.screenFadeTexture = CameraController.CreateColorTexture(new Color(1f,1f,1f,1f), 32, 32);
+			cameraController.Fade(1f, duration, delegate {
+				cameraController.screenFadeTexture = CameraController.CreateColorTexture(new Color(1f,1f,1f,1f), 32, 32);
+				cameraController.Fade(0f, duration, delegate {Destroy(cameraController);});
+			});
+		}
+		
 		public virtual void Clear()
 		{
 			ClearStoryText();
@@ -316,11 +550,31 @@ namespace Fungus
 			{
 				yield return null;
 			}
-
 			wasPointerClicked = false;
 
 			if (onInput != null)
 			{
+				// Stop all tweening portraits
+				foreach( Character c in Character.activeCharacters )
+				{
+					if (c.state.portraitImage != null)
+					{
+						if (LeanTween.isTweening(c.state.portraitObj))
+						{
+							LeanTween.cancel(c.state.portraitObj, true);
+							c.state.portraitImage.material.SetFloat( "_Fade", 1 );
+							Portrait.SetRectTransform(c.state.portraitImage.rectTransform, c.state.position);
+							if (c.state.dimmed == true)
+							{
+								c.state.portraitImage.material.SetColor("_Color", new Color(0.5f,0.5f,0.5f,1f));
+							}
+							else
+							{
+								c.state.portraitImage.material.SetColor("_Color", new Color(1f,1f,1f,1f));
+							}
+						}
+					}
+				}
 				onInput();
 			}
 		}

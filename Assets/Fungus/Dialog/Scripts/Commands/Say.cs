@@ -7,23 +7,21 @@ namespace Fungus
 {
 	[CommandInfo("Dialog", 
 	             "Say", 
-	             "Writes a line of story text to a Say Dialog. " +
-	             "Select [Game Object > Fungus > Dialog > Say Dialog] to create a new Say Dialog in your scene. " + 
-	             "Select [Game Object > Fungus > Dialog > Character] to create a new selectable speaking character.")]
+	             "Writes text in a dialog box.")]
 	[AddComponentMenu("")]
 	public class Say : Command 
 	{
-		[Tooltip("Story text to display to the player")]
+		[Tooltip("Text to display")]
 		[TextArea(5,10)]
 		public string storyText;
 
-		[Tooltip("Speaking character to use when writing the story text")]
+		[Tooltip("Character that is speaking")]
 		public Character character;
 
 		[Tooltip("Portrait that represents speaking character")]
 		public Sprite portrait;
 
-		[Tooltip("Voiceover audio to play when writing the story text")]
+		[Tooltip("Voiceover audio to play when writing the text")]
 		public AudioClip voiceOverClip;
 
 		[Tooltip("Always show this Say text when the command is executed multiple times")]
@@ -32,8 +30,20 @@ namespace Fungus
 		[Tooltip("Number of times to show this Say text when the command is executed multiple times")]
 		public int showCount = 1;
 
-		[Tooltip("Wait for player input before hiding the dialog and continuing. If false then the dialog will display and execution will continue.")]
-		public bool waitForInput = true;
+		[Tooltip("Type this text in the previous dialog box.")]
+		public bool extendPrevious = false;
+
+		[Tooltip("Fade in this dialog box.")]
+		public bool fadeIn = false;
+
+		[Tooltip("Fade out this dialog box.")]
+		public bool fadeOut = false;
+
+		[Tooltip("Wait for player to click before hiding the dialog and continuing. If false then the dialog will display and execution will continue immediately.")]
+		public bool waitForClick = true;
+
+		[Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
+		public SayDialog setSayDialog;
 
 		protected int executionCount;
 
@@ -47,7 +57,13 @@ namespace Fungus
 
 			executionCount++;
 
-			SayDialog sayDialog = SetSayDialog.GetActiveSayDialog();
+			// Override the active say dialog if needed
+			if (setSayDialog != null)
+			{
+				SayDialog.activeSayDialog = setSayDialog;
+			}
+
+			SayDialog sayDialog = SayDialog.GetSayDialog();
 
 			if (sayDialog == null)
 			{
@@ -59,19 +75,65 @@ namespace Fungus
 			sayDialog.SetCharacter(character, fungusScript);
 			sayDialog.SetCharacterImage(portrait);
 
-			sayDialog.ShowDialog(true);
+			bool fadingIn = false;
+			bool movingIn = false;
+			if (sayDialog.alwaysFadeDialog || fadeIn)
+			{
+				sayDialog.FadeInDialog();
+				fadingIn = true;
+			}
+			if (sayDialog.alwaysMoveDialog)
+			{
+				sayDialog.MoveInDialog();
+				movingIn = true;
+			}
+			if (!fadingIn && !movingIn)
+			{
+				sayDialog.ShowDialog(true);
+			}
 
 			if (voiceOverClip != null)
 			{
 				sayDialog.PlayVoiceOver(voiceOverClip);
 			}
 
-			string subbedText = fungusScript.SubstituteVariables(storyText);
+			string displayText = storyText;
 
-			sayDialog.Say(subbedText, waitForInput, delegate {
-				if (waitForInput)
+			foreach (CustomTag ct in CustomTag.activeCustomTags)
+			{
+				displayText = displayText.Replace(ct.tagStartSymbol,ct.replaceTagStartWith);
+				if (ct.tagEndSymbol != "" && ct.replaceTagEndWith != "")
 				{
-					sayDialog.ShowDialog(false);
+					displayText = displayText.Replace(ct.tagEndSymbol,ct.replaceTagEndWith);
+				}
+			}
+
+			if (extendPrevious)
+			{
+				displayText = "{s=0}" + Dialog.prevStoryText + "{/s}" + displayText;
+			}
+
+			string subbedText = fungusScript.SubstituteVariables(displayText);
+
+			sayDialog.Say(subbedText, waitForClick, delegate {
+				if (waitForClick)
+				{
+					bool fadingOut = false;
+					bool movingOut = false;
+					if (sayDialog.alwaysFadeDialog || fadeOut)
+					{
+						sayDialog.FadeOutDialog();
+						fadingOut = true;
+					}
+					if (sayDialog.alwaysMoveDialog)
+					{
+						sayDialog.MoveOutDialog();
+						movingOut = true;
+					}
+					if (!fadingOut && !movingOut)
+					{
+						sayDialog.ShowDialog(false);
+					}
 				}
 				Continue();
 			});
@@ -83,6 +145,10 @@ namespace Fungus
 			if (character != null) 
 			{
 				namePrefix = character.nameText + ": ";
+			}
+			if (extendPrevious)
+			{
+				namePrefix = "EXTEND" + ": ";
 			}
 			return namePrefix + "\"" + storyText + "\"";
 		}

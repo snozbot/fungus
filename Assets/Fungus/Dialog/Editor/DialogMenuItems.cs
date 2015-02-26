@@ -41,6 +41,29 @@ namespace Fungus
 				spawnedGO.name = "MenuDialog";
 			}
 		}
+
+		[MenuItem("GameObject/Fungus/Dialog/Tag")]
+		static void CreateTagDialog()
+		{
+			GameObject go = Resources.Load<GameObject>("FungusTag");
+			if (go != null)
+			{
+				GameObject spawnedGO = PrefabUtility.InstantiatePrefab(go) as GameObject;
+				spawnedGO.name = "Tag";
+			}
+		}
+
+		[MenuItem("GameObject/Fungus/Portrait/PortraitStage")]
+		static void CreatePortraitStage()
+		{
+			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Portrait/Prefabs/PortraitStage.prefab");
+		}
+		
+		[MenuItem("GameObject/Fungus/Portrait/PortraitPosition")]
+		static void CreatePortraitPosition()
+		{
+			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Portrait/Prefabs/PortraitPosition.prefab");
+		}
 	}
 
 }

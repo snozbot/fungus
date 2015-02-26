@@ -13,12 +13,14 @@ namespace Fungus
 		protected SerializedProperty textProp;
 		protected SerializedProperty targetSequenceProp;
 		protected SerializedProperty hideIfVisitedProp;
+		protected SerializedProperty setMenuDialogProp;
 
 		protected virtual void OnEnable()
 		{
 			textProp = serializedObject.FindProperty("text");
 			targetSequenceProp = serializedObject.FindProperty("targetSequence");
 			hideIfVisitedProp = serializedObject.FindProperty("hideIfVisited");
+			setMenuDialogProp = serializedObject.FindProperty("setMenuDialog");
 		}
 		
 		public override void DrawCommandGUI()
@@ -39,6 +41,7 @@ namespace Fungus
 			                             fungusScript);
 			
 			EditorGUILayout.PropertyField(hideIfVisitedProp);
+			EditorGUILayout.PropertyField(setMenuDialogProp);
 
 			serializedObject.ApplyModifiedProperties();
 		}

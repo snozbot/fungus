@@ -417,6 +417,10 @@ Prefab:
       propertyPath: portraits.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: translatedName.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -377.012329
@@ -504,6 +508,18 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120,
         type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraitsFace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: translatedName.Array.data[0].language
+      value: english
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: translatedName.Array.data[0].text
+      value: Ciara
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_RootGameObject: {fileID: 1712414753}
@@ -677,7 +693,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: Shay
-  translatedName: []
   nameColor: {r: .713235259, g: .405372232, b: .125865042, a: 1}
   soundEffect: {fileID: 8300000, guid: 23e52ab29f28743309c85b6d7bdc8ad6, type: 3}
   profileSprite: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
@@ -714,7 +729,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: Skipper
-  translatedName: []
   nameColor: {r: .294117659, g: .650980413, b: .949019611, a: 1}
   soundEffect: {fileID: 8300000, guid: 0dc7e509ace954462bc8ab20fcb68d60, type: 3}
   profileSprite: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
@@ -866,8 +880,57 @@ Transform:
   - {fileID: 339869594}
   - {fileID: 338947447}
   - {fileID: 686889653}
+  - {fileID: 494523727}
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!1 &494523726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 1557115304}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 494523727}
+  - 114: {fileID: 494523728}
+  m_Layer: 0
+  m_Name: Ciara2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &494523727
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 1557115304}
+  m_GameObject: {fileID: 494523726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -377.012329, y: -60.5565338, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 488519165}
+  m_RootOrder: 4
+--- !u!114 &494523728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1557115304}
+  m_GameObject: {fileID: 494523726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: Ciara
+  nameColor: {r: .925490201, g: .482352942, b: .196078435, a: 1}
+  soundEffect: {fileID: 8300000, guid: 124184555ec434aa68814be3bd116c26, type: 3}
+  profileSprite: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
+  portraits:
+  - {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
+  portraitsFace: 0
+  notes: 
 --- !u!1 &518300786
 GameObject:
   m_ObjectHideFlags: 1
@@ -1081,7 +1144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: Badly Drawn Bear
-  translatedName: []
   nameColor: {r: .95588237, g: .347840369, b: .168685108, a: 1}
   soundEffect: {fileID: 8300000, guid: 9b3be2062b59848a2bd178f5748b386d, type: 3}
   profileSprite: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
@@ -1385,12 +1447,12 @@ MonoBehaviour:
   selectedSequence: {fileID: 0}
   selectedCommands: []
   variables: []
-  author: 
   description: 
   defaultPortraitStage: {fileID: 0}
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
+  saveSelection: 1
 --- !u!4 &891057089
 Transform:
   m_ObjectHideFlags: 1
@@ -1580,12 +1642,12 @@ MonoBehaviour:
   selectedSequence: {fileID: 0}
   selectedCommands: []
   variables: []
-  author: 
   description: 
   defaultPortraitStage: {fileID: 0}
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
+  saveSelection: 1
 --- !u!4 &1247920062
 Transform:
   m_ObjectHideFlags: 1
@@ -1598,6 +1660,125 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1001 &1557115304
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 488519165}
+    m_Modifications:
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: translatedName.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -377.012329
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -60.5565338
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: profileSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a,
+        type: 3}
+    - target: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: m_Name
+      value: Ciara2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: nameText
+      value: Ciara
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: nameColor.r
+      value: .925490201
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: nameColor.g
+      value: .482352942
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: nameColor.b
+      value: .196078435
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: typingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 124184555ec434aa68814be3bd116c26, type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: soundEffect
+      value: 
+      objectReference: {fileID: 8300000, guid: 124184555ec434aa68814be3bd116c26, type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a,
+        type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: sayDialogBox
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: chooseDialogBox
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraits.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120,
+        type: 3}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: portraitsFace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: translatedName.Array.data[0].language
+      value: english
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+      propertyPath: translatedName.Array.data[0].text
+      value: Ciara
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_RootGameObject: {fileID: 494523726}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1594072534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,7 +1917,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: Ciara
-  translatedName: []
   nameColor: {r: .925490201, g: .482352942, b: .196078435, a: 1}
   soundEffect: {fileID: 8300000, guid: 124184555ec434aa68814be3bd116c26, type: 3}
   profileSprite: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
@@ -1956,7 +2136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 202.192505, y: 563.002808}
+  scrollPos: {x: 343.192505, y: 552.002808}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   zoom: 1
@@ -1966,11 +2146,10 @@ MonoBehaviour:
     y: -911.022339
     width: 1939.01758
     height: 2000.52234
-  selectedSequence: {fileID: 0}
+  selectedSequence: {fileID: 1831099578}
   selectedCommands: []
   variables:
   - {fileID: 1831099569}
-  author: 
   description: 'This is an example of a short Visual Novel / RPG
 
     style game'
@@ -1978,6 +2157,7 @@ MonoBehaviour:
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
+  saveSelection: 1
 --- !u!114 &1831099569
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2127,7 +2307,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 112.537018
-    y: -506.022339
+    y: -505.022339
     width: 120
     height: 40
   sequenceName: Start
@@ -2199,7 +2379,6 @@ MonoBehaviour:
     He''s a cuddly teddy bear under that grim exterior.{wc}
 
     Sort of.'
-  translatedText: []
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2226,7 +2405,6 @@ MonoBehaviour:
   storyText: 'Hrmph!{wc}
 
     Oh good, another mouth to feed.'
-  translatedText: []
   character: {fileID: 339869593}
   portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2272,7 +2450,6 @@ MonoBehaviour:
     Hey Skipper!{wc}
 
     Come meet our new friend!'
-  translatedText: []
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2297,7 +2474,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: Um...
-  translatedText: []
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2322,7 +2498,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: I see! And so I guess you're not hungry either?
-  translatedText: []
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2347,7 +2522,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: I'm not little and I'm not lost!
-  translatedText: []
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2373,7 +2547,6 @@ MonoBehaviour:
   indentLevel: 0
   storyText: "And what do we have here?{wc}\nThe woods are a dangerous place my little
     friend.{wc} \nAre you lost?"
-  translatedText: []
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2433,7 +2606,6 @@ MonoBehaviour:
   storyText: 'HEY! Is anybody out there?!{wc}
 
     If there is, you better run!'
-  translatedText: []
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2507,7 +2679,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: No, I could not!{wc} Now be off with you!
-  translatedText: []
   character: {fileID: 339869593}
   portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2538,7 +2709,6 @@ MonoBehaviour:
     And you do have a lot of fish.{wc}
 
     Couldn''t you spare just one? '
-  translatedText: []
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2567,7 +2737,6 @@ MonoBehaviour:
     Trying to steal my fish eh?{wc}
 
     We''ll see about that!'
-  translatedText: []
   character: {fileID: 339869593}
   portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2653,7 +2822,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Shout out loud
-  translatedText: []
   targetSequence: {fileID: 1831099592}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
@@ -2671,7 +2839,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Check pool for fish
-  translatedText: []
   targetSequence: {fileID: 1831099599}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
@@ -2691,7 +2858,6 @@ MonoBehaviour:
   storyText: 'I''m starving! I wonder if there''s any fish in that pool?{wc}
 
     I better be careful though, I might not be the only person in these woods...'
-  translatedText: []
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2700,7 +2866,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeIn: 0
   fadeOut: 0
-  waitForClick: 1
+  waitForClick: 0
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099605
 MonoBehaviour:
@@ -2716,7 +2882,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: Emerging from the forest, she found herself at a beautiful mountain stream.
-  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2759,8 +2924,9 @@ MonoBehaviour:
   storyText: 'For a day and a night, Ciara fled through the dark forest.{wc}
 
     She didn''t dare to stop for fear of {color=red}The Hunter{/color}, but her grumbling
-    stomach told her she would need to find food soon.'
-  translatedText: []
+    stomach told her she would need to find food soon.
+
+'
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2784,7 +2950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 111.963318
+    x: 112.963318
     y: -441.890259
     width: 120
     height: 40
@@ -2832,7 +2998,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: BURP!
-  translatedText: []
   character: {fileID: 686889652}
   portrait: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2857,7 +3022,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: RAAAAAAAAAARRRRRRRRRR!!!!!!
-  translatedText: []
   character: {fileID: 686889652}
   portrait: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2902,7 +3066,6 @@ MonoBehaviour:
     You can''t eat me! I''m the narrator!{wc}
 
     Arggghh!'
-  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2927,7 +3090,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: RAAAAAARRRRRR!!!!!!
-  translatedText: []
   character: {fileID: 686889652}
   portrait: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2971,7 +3133,6 @@ MonoBehaviour:
     bear.{wc}
 
     THE END'
-  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2996,7 +3157,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: RAAAAAARRRRRR!
-  translatedText: []
   character: {fileID: 686889652}
   portrait: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3037,7 +3197,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: Noooooooo!
-  translatedText: []
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3062,7 +3221,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: Ayyyyyyeeee!
-  translatedText: []
   character: {fileID: 339869593}
   portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3087,7 +3245,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: Aaaaaagh!
-  translatedText: []
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3147,7 +3304,6 @@ MonoBehaviour:
   storyText: 'Now remember to keep quiet.{wc}
 
     The last thing you want in this part of the woods is to run into a...'
-  translatedText: []
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3322,7 +3478,6 @@ MonoBehaviour:
   storyText: 'Move it thief! And remember...{wc}
 
     I''ll be watching you!'
-  translatedText: []
   character: {fileID: 339869593}
   portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3393,7 +3548,6 @@ MonoBehaviour:
   storyText: 'Ok, let''s go get you some food!{wc}
 
     This way, follow me!'
-  translatedText: []
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3489,7 +3643,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: Oh yes please! Thank you!
-  translatedText: []
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3516,7 +3669,6 @@ MonoBehaviour:
   storyText: 'Oh be quiet Skipper.{wc}
 
     You look hungry! Do you want something to eat?'
-  translatedText: []
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3541,7 +3693,6 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: What! This is an outrage! Mind your own busin...
-  translatedText: []
   character: {fileID: 339869593}
   portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3570,7 +3721,6 @@ MonoBehaviour:
     Ah! I see Skipper has found a little girl to be mean to!{wc}
 
     Pay him no attention.'
-  translatedText: []
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3702,12 +3852,12 @@ MonoBehaviour:
   selectedSequence: {fileID: 0}
   selectedCommands: []
   variables: []
-  author: 
   description: 
   defaultPortraitStage: {fileID: 0}
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
+  saveSelection: 1
 --- !u!4 &1846387300
 Transform:
   m_ObjectHideFlags: 1
@@ -3772,46 +3922,6 @@ Prefab:
   m_RootGameObject: {fileID: 700450243}
   m_IsPrefabParent: 0
   m_IsExploded: 1
---- !u!1 &1897260604
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 162616, guid: fc60ec7d1547709459b3b733d4162575, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1897260606}
-  - 114: {fileID: 1897260605}
-  m_Layer: 0
-  m_Name: Prefabs
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1897260605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11462616, guid: fc60ec7d1547709459b3b733d4162575,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1897260604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1897260606
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 462616, guid: fc60ec7d1547709459b3b733d4162575, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1897260604}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
 --- !u!1 &2006673388
 GameObject:
   m_ObjectHideFlags: 0

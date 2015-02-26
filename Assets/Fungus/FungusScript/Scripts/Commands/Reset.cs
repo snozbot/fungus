@@ -13,15 +13,12 @@ namespace Fungus
 		[Tooltip("Reset state of all commands in the script")]
 		public bool resetCommands = true;
 
-		[Tooltip("Reset local variables back to their default values")]
-		public bool resetLocalVariables = true;
-
-		[Tooltip("Reset global variables back to their default values")]
-		public bool resetGlobalVariables = true;
+		[Tooltip("Reset variables back to their default values")]
+		public bool resetVariables = true;
 
 		public override void OnEnter()
 		{
-			GetFungusScript().Reset(resetCommands, resetLocalVariables, resetGlobalVariables);
+			GetFungusScript().Reset(resetCommands, resetVariables);
 			Continue();
 		}
 

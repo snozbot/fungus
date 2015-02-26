@@ -65,6 +65,12 @@ namespace Fungus
 		public string description = "";
 
 		/**
+	 	 * Portrait Stage to use for this game.
+	 	 */
+		[Tooltip("Default stage to display portraits on")]
+		public PortraitStage defaultPortraitStage;
+
+		/**
 	 	 * Minimum time for each command to execute when runSlowInEditor is enabled.
 	 	 */
 		[Range(0f, 5f)]
@@ -83,6 +89,13 @@ namespace Fungus
 		 */
 		[Tooltip("Hides the Fungus Script sequence and command components in the inspector")]
 		public bool hideComponents = true;
+
+		/**
+		 * Saves the selected sequence and commands when saving the scene.
+		 * Helps avoid version control conflicts if you've only changed the active selection.
+		 */
+		[Tooltip("Saves the selected sequence and commands when saving the scene.")]
+		public bool saveSelection = true;
 
 		protected virtual Sequence CreateSequenceComponent(GameObject parent)
 		{
@@ -233,7 +246,7 @@ namespace Fungus
 			// No empty keys allowed
 			if (baseKey.Length == 0)
 			{
-				baseKey = "Sequence";
+				baseKey = "New Sequence";
 			}
 
 			Sequence[] sequences = GetComponentsInChildren<Sequence>();
@@ -276,7 +289,7 @@ namespace Fungus
 			// No empty keys allowed
 			if (baseKey.Length == 0)
 			{
-				baseKey = "Label";
+				baseKey = "New Label";
 			}
 			
 			Sequence sequence = ignoreLabel.parentSequence;
@@ -572,7 +585,7 @@ namespace Fungus
 			}
 		}
 
-		public virtual void Reset(bool resetCommands, bool resetLocalVariables, bool resetGlobalVariables)
+		public virtual void Reset(bool resetCommands, bool resetVariables)
 		{
 			if (resetCommands)
 			{
@@ -583,15 +596,9 @@ namespace Fungus
 				}
 			}
 
-			foreach (Variable variable in variables)
+			if (resetVariables)
 			{
-				if (resetLocalVariables &&
-				    variable.scope == VariableScope.Private)
-				{
-					variable.OnReset();
-				}
-				else if (resetGlobalVariables &&
-				         variable.scope == VariableScope.Public)
+			    foreach (Variable variable in variables)
 				{
 					variable.OnReset();
 				}

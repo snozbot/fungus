@@ -148,7 +148,7 @@ namespace Fungus
 			
 			GUILayout.Space(8);
 			
-			if (GUILayout.Button(FungusEditorResources.texAddButton))
+			if (GUILayout.Button(new GUIContent(FungusEditorResources.texAddButton, "Add a new sequence")))
 			{
 				Vector2 newNodePosition = new Vector2(50 - fungusScript.scrollPos.x, 
 				                                      50 - fungusScript.scrollPos.y);
@@ -504,6 +504,8 @@ namespace Fungus
 				}
 			}
 
+			nodeStyleCopy.normal.textColor = Color.black;
+
 			// Show event handler name, or a custom summary if one is provided
 			string nodeName = "";
 			if (sequence.eventHandler != null)
@@ -525,10 +527,14 @@ namespace Fungus
 			float width = nodeStyleCopy.CalcSize(new GUIContent(nodeName)).x;
 			sequence.nodeRect.width = Mathf.Max (sequence.nodeRect.width, width);
 
+			GUI.backgroundColor = Color.white;
 			GUILayout.Box(nodeName, nodeStyleCopy, GUILayout.Width(sequence.nodeRect.width), GUILayout.Height(sequence.nodeRect.height));
+
 			if (sequence.description.Length > 0)
 			{
-				GUILayout.Label(sequence.description, EditorStyles.whiteLabel);
+				GUIStyle descriptionStyle = new GUIStyle(EditorStyles.whiteLabel);
+				descriptionStyle.wordWrap = true;
+				GUILayout.Label(sequence.description, descriptionStyle);
 			}
 
 			if (Event.current.type == EventType.ContextClick)

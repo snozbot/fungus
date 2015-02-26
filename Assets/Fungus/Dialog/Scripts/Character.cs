@@ -12,7 +12,9 @@ namespace Fungus
 		public Color nameColor = Color.white;
 		public AudioClip soundEffect;
 		public Sprite profileSprite;
-		public List<Sprite> portraits;	
+		public List<Sprite> portraits;
+		public FacingDirection portraitsFace;	
+		public PortraitState state;		
 
 		[TextArea(5,10)]
 		public string notes;

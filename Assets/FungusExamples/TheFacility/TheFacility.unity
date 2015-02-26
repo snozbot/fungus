@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: eeb00f6cd27e9ef4d9174551b3342dec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0759085cd3cd6ca49b8a5dce40c93004, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 333ca057701a73249850670faef184dc, type: 3}
+    m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 333ca057701a73249850670faef184dc, type: 3}
+    m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 333ca057701a73249850670faef184dc, type: 3}
+    m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
@@ -581,7 +581,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: .258823544, g: .254901975, b: .262745112, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: ee3a4060b74a7fd45b0cc411c99fd8f2, type: 3}
+    m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
@@ -819,10 +819,10 @@ MonoBehaviour:
     m_ColorMultiplier: 2
     m_FadeDuration: .100000001
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 888feb4a32e3b564fb7e6f9b28cc8e10,
+    m_HighlightedSprite: {fileID: 21300000, guid: ac117d1c135cc4f4fb6fbbe28c05c4bf,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 2e33a3f531b6adc4f9d8a99c83e2ba2d, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 49d5ccdda7b99e24787c2abc3891294c, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: a9a916f59f0339e4abbdf3c2c5446e0d, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: dc18082e4696c1c4fad6a60823d029b6, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -849,7 +849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .862745106}
-  m_Sprite: {fileID: 21300000, guid: c207de86481ff7d48a2fba2fcc374723, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8da2e1cca34f3a64e8e2aa3ea8922060, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1215,7 +1215,17 @@ MonoBehaviour:
   writingSpeed: 40
   writingSound: {fileID: 8300000, guid: 5a3c8e205638142dcb8227abe5f14f1f, type: 3}
   loopWritingSound: 1
+  beepPerCharacter: 0
+  slowBeepsAt: 10
+  fastBeepsAt: 30
   punctuationPause: .200000003
+  alwaysFadeDialog: 1
+  fadeDuration: .25
+  fadeEaseType: 0
+  alwaysMoveDialog: 0
+  startPosition: {x: 0, y: 0}
+  moveSpeed: 1000
+  moveEaseType: 0
   clickAnywhere: 1
   dialogCanvas: {fileID: 676616174}
   nameText: {fileID: 315782615}
@@ -1325,7 +1335,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 333ca057701a73249850670faef184dc, type: 3}
+    m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
@@ -1428,10 +1438,10 @@ MonoBehaviour:
     m_ColorMultiplier: 2
     m_FadeDuration: .100000001
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 888feb4a32e3b564fb7e6f9b28cc8e10,
+    m_HighlightedSprite: {fileID: 21300000, guid: ac117d1c135cc4f4fb6fbbe28c05c4bf,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 2e33a3f531b6adc4f9d8a99c83e2ba2d, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 49d5ccdda7b99e24787c2abc3891294c, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: a9a916f59f0339e4abbdf3c2c5446e0d, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: dc18082e4696c1c4fad6a60823d029b6, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1458,7 +1468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .862745106}
-  m_Sprite: {fileID: 21300000, guid: c207de86481ff7d48a2fba2fcc374723, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8da2e1cca34f3a64e8e2aa3ea8922060, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1639,6 +1649,7 @@ GameObject:
   - 114: {fileID: 771014165}
   - 114: {fileID: 771014167}
   - 114: {fileID: 771014166}
+  - 114: {fileID: 771014173}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: GameController
@@ -1657,7 +1668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: -300.13031, y: 154.234299}
+  scrollPos: {x: -375.13031, y: 178.234314}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   zoom: 1
@@ -1667,16 +1678,17 @@ MonoBehaviour:
     y: -610.734985
     width: 3324.20264
     height: 2227.35059
-  selectedSequence: {fileID: 771014104}
-  selectedCommands:
-  - {fileID: 771014166}
+  selectedSequence: {fileID: 0}
+  selectedCommands: []
   variables:
   - {fileID: 771014103}
+  author: 
   description: 'This is a simple Choose Your Own Adventure
 
     style game with minimal graphics and a focus
 
     on text based story telling'
+  defaultPortraitStage: {fileID: 0}
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
@@ -1761,7 +1773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 472.814453
+    x: 473.814453
     y: -52.946228
     width: 120
     height: 40
@@ -1814,6 +1826,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014217}
+  - {fileID: 771014173}
   - {fileID: 771014116}
   - {fileID: 771014112}
   - {fileID: 771014108}
@@ -1832,8 +1845,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Inspect the desk
+  translatedText: []
   targetSequence: {fileID: 771014119}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014108
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1848,8 +1863,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Listen
+  translatedText: []
   targetSequence: {fileID: 771014109}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014109
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1905,12 +1922,17 @@ MonoBehaviour:
     hum, barely perceptible, coming from the ceiling. You think you can hear voices
     for a moment, but after holding your breath another couple of times, you hear
     nothing.
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014112
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1925,8 +1947,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Inspect the jumpsuit
+  translatedText: []
   targetSequence: {fileID: 771014113}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014113
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1991,12 +2015,17 @@ MonoBehaviour:
     The colour is a simple blue, no markings, numbers or insignia. It''s spotless
     and breathable, like you could wear it for a week. Almost certainly a uniform
     of some kind, though made to fit you and you alone.'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014116
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2011,8 +2040,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Inspect the door
+  translatedText: []
   targetSequence: {fileID: 771014117}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014117
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2051,8 +2082,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Look at the lamp
+  translatedText: []
   targetSequence: {fileID: 771014120}
   hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014119
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2163,8 +2196,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: '"End program"'
+  translatedText: []
   targetSequence: {fileID: 771014203}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014124
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2179,8 +2214,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: '"Lights On"'
+  translatedText: []
   targetSequence: {fileID: 771014141}
   hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014125
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2208,8 +2245,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 1
   text: '"Lamp Off"'
+  translatedText: []
   targetSequence: {fileID: 771014207}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014127
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2237,8 +2276,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 1
   text: '"Lamp On"'
+  translatedText: []
   targetSequence: {fileID: 771014210}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014129
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2280,8 +2321,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Ask how he's doing
+  translatedText: []
   targetSequence: {fileID: 771014148}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014131
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2296,8 +2339,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Examine Desk
+  translatedText: []
   targetSequence: {fileID: 771014132}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014132
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2351,12 +2396,17 @@ MonoBehaviour:
   indentLevel: 0
   storyText: The desk looks even cleaner and smoother in this light. There doesn't
     seem to be anything worth looking at.
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014135
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2371,8 +2421,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Examine Door
+  translatedText: []
   targetSequence: {fileID: 771014144}
   hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014136
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2387,12 +2439,17 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: What do you want to say next?
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 0
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014137
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2448,12 +2505,17 @@ MonoBehaviour:
 
     "Oh, well, that''ll all be covered in orientation tomorrow, just try to relax
     and remain calm until then."{wi}'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 0
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014138
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2468,12 +2530,17 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: What would you like to do next?
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 0
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014139
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2488,8 +2555,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Ask why you're there
+  translatedText: []
   targetSequence: {fileID: 771014140}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014140
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2580,12 +2649,17 @@ MonoBehaviour:
 
 
     "Why are {i}you{/i} being so difficult? I''m just trying to do my job, here."'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014144
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2599,8 +2673,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1152.28809
-    y: 159.344482
+    x: 1143.28809
+    y: 162.344482
     width: 125
     height: 40
   sequenceName: Examine Door
@@ -2627,8 +2701,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Ask where you are
+  translatedText: []
   targetSequence: {fileID: 771014146}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014146
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2707,8 +2783,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Say "Can you open door A147"
+  translatedText: []
   targetSequence: {fileID: 771014151}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014150
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2723,8 +2801,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Run!
+  translatedText: []
   targetSequence: {fileID: 771014231}
   hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014151
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2738,7 +2818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 745.804199
+    x: 746.804199
     y: 227.472015
     width: 120
     height: 40
@@ -2764,8 +2844,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Listen
+  translatedText: []
   targetSequence: {fileID: 771014153}
   hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014153
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2831,12 +2913,17 @@ MonoBehaviour:
 
 
     "It''s OK. It was my own fault. I just need to be more careful."'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014156
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2851,8 +2938,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Say "Truck the control room at top speed"
+  translatedText: []
   targetSequence: {fileID: 771014157}
   hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014157
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2919,8 +3008,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Sit Up
+  translatedText: []
   targetSequence: {fileID: 771014102}
   hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014161
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2935,8 +3026,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Shout
+  translatedText: []
   targetSequence: {fileID: 771014168}
   hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014162
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2974,12 +3067,17 @@ MonoBehaviour:
 
 
     "Samson! What the hell are you opening that cell for?"'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 0
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 0
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014163
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3020,12 +3118,17 @@ MonoBehaviour:
     the room rumble for a moment before the door slides open.
 
 '
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014164
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3040,12 +3143,17 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: What do you want to say?
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 0
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014165
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3060,7 +3168,7 @@ MonoBehaviour:
   parentSequence: {fileID: 771014104}
 --- !u!114 &771014166
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
@@ -3074,7 +3182,7 @@ MonoBehaviour:
   menuDialog: {fileID: 942879775}
 --- !u!114 &771014167
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771014099}
@@ -3148,12 +3256,17 @@ MonoBehaviour:
     Nothing.{wc}
 
     Weird.'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014171
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3211,12 +3324,17 @@ MonoBehaviour:
 
     "It''s bad for us in the control room, sure, but the really dangerous stuff is
     with all the automated trucks. Very nasty business."'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 0
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014172
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3238,12 +3356,42 @@ MonoBehaviour:
 
     "Oh, well, that''s complicated, you''re underground in a facility that, well,
     you know what, never mind, like I said, it''ll all be covered at tomorrow''s orientation."'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &771014173
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 771014099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  storyText: What next?
+  translatedText: []
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 0
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014178
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3258,12 +3406,17 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: Lets find out what's going on.
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014179
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3293,12 +3446,17 @@ MonoBehaviour:
     "Hello? Can anybody hear me?"
 
     You hear nothing back.'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014180
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3313,8 +3471,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: '"Open Door"'
+  translatedText: []
   targetSequence: {fileID: 771014181}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014181
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3376,12 +3536,17 @@ MonoBehaviour:
 
 
     Nothing. Oh well.'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014185
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3396,12 +3561,17 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: What would you like to do?
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 0
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014188
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3455,12 +3625,17 @@ MonoBehaviour:
 
 
     The lamp dims to a more useable level.'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014189
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3475,8 +3650,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Open the right drawer
+  translatedText: []
   targetSequence: {fileID: 771014190}
   hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014190
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3533,12 +3710,17 @@ MonoBehaviour:
 
     The lights quickly fade up. You shield your eyes for a moment but you quickly
     adapt. Everything looks more or less the way it did, just, well, brighter.'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 0
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014193
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3567,12 +3749,17 @@ MonoBehaviour:
 
 
     The words {b}this down{/b} appear after {b}With{/b}.'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014194
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3587,8 +3774,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   text: Open the left drawer
+  translatedText: []
   targetSequence: {fileID: 771014195}
   hideIfVisited: 1
+  setMenuDialog: {fileID: 0}
 --- !u!114 &771014195
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3641,12 +3830,17 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: The left drawer is as empty as your memories.
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014198
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3661,12 +3855,17 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: Underneath the lip of the desktop sit two drawers, one on either side.
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 0
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014200
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3695,12 +3894,17 @@ MonoBehaviour:
 
 
     The lamp dims to a more useable level.'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014201
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3729,12 +3933,17 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: The room echoes to the sound of nothing happening.
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014203
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3777,12 +3986,17 @@ MonoBehaviour:
 
     The lamp blinks off obediently. It''s slightly less bright in here, but still
     very bright.'
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014205
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3930,12 +4144,17 @@ MonoBehaviour:
   indentLevel: 0
   storyText: 'The desk is simple and sturdy, a little impersonal. The lamp looks like
     a solid piece of chrome and it''s currently switched off. '
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 0
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014217
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3952,12 +4171,17 @@ MonoBehaviour:
   storyText: You sit up gingerly and swing your legs off the bed. The jumpsuit includes
     neat little slippers, and you don't feel any aches or pains. If anything, you're
     incredibly well-rested.{wc} You stretch out your arms and stand up.
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 0
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014224
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3976,12 +4200,17 @@ MonoBehaviour:
     tasteful construction of dark wood and frosted glass. Beyond that lies a writing
     desk with a couple of drawers and a lamp. You\u2019re dressed in a light blue
     jumpsuit that\u2019s quite flattering and very comfy, but definitely unfamiliar."
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 0
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014225
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4059,12 +4288,17 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   storyText: You saunter through the hallway and on to your freedom. Well done!
+  translatedText: []
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
-  waitForInput: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &771014231
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4174,10 +4408,10 @@ MonoBehaviour:
     m_ColorMultiplier: 2
     m_FadeDuration: .100000001
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 888feb4a32e3b564fb7e6f9b28cc8e10,
+    m_HighlightedSprite: {fileID: 21300000, guid: ac117d1c135cc4f4fb6fbbe28c05c4bf,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 2e33a3f531b6adc4f9d8a99c83e2ba2d, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 49d5ccdda7b99e24787c2abc3891294c, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: a9a916f59f0339e4abbdf3c2c5446e0d, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: dc18082e4696c1c4fad6a60823d029b6, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -4204,7 +4438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .862745106}
-  m_Sprite: {fileID: 21300000, guid: c207de86481ff7d48a2fba2fcc374723, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8da2e1cca34f3a64e8e2aa3ea8922060, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4269,7 +4503,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 333ca057701a73249850670faef184dc, type: 3}
+    m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
@@ -4500,7 +4734,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 333ca057701a73249850670faef184dc, type: 3}
+    m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
@@ -4878,7 +5112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 226248ac6f184e448af731df91b91958, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c0f15f5f92090e94486f78b51c626ea6, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4964,7 +5198,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 333ca057701a73249850670faef184dc, type: 3}
+    m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
@@ -5307,10 +5541,10 @@ MonoBehaviour:
     m_ColorMultiplier: 2
     m_FadeDuration: .100000001
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 888feb4a32e3b564fb7e6f9b28cc8e10,
+    m_HighlightedSprite: {fileID: 21300000, guid: ac117d1c135cc4f4fb6fbbe28c05c4bf,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 2e33a3f531b6adc4f9d8a99c83e2ba2d, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 49d5ccdda7b99e24787c2abc3891294c, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: a9a916f59f0339e4abbdf3c2c5446e0d, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: dc18082e4696c1c4fad6a60823d029b6, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -5337,7 +5571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .862745106}
-  m_Sprite: {fileID: 21300000, guid: c207de86481ff7d48a2fba2fcc374723, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8da2e1cca34f3a64e8e2aa3ea8922060, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5384,7 +5618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 17166c854f4567c44aa384c9e862cf95, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5714,10 +5948,10 @@ MonoBehaviour:
     m_ColorMultiplier: 2
     m_FadeDuration: .100000001
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 888feb4a32e3b564fb7e6f9b28cc8e10,
+    m_HighlightedSprite: {fileID: 21300000, guid: ac117d1c135cc4f4fb6fbbe28c05c4bf,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 2e33a3f531b6adc4f9d8a99c83e2ba2d, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 49d5ccdda7b99e24787c2abc3891294c, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: a9a916f59f0339e4abbdf3c2c5446e0d, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: dc18082e4696c1c4fad6a60823d029b6, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -5744,7 +5978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .862745106}
-  m_Sprite: {fileID: 21300000, guid: c207de86481ff7d48a2fba2fcc374723, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8da2e1cca34f3a64e8e2aa3ea8922060, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5877,10 +6111,10 @@ MonoBehaviour:
     m_ColorMultiplier: 2
     m_FadeDuration: .100000001
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 888feb4a32e3b564fb7e6f9b28cc8e10,
+    m_HighlightedSprite: {fileID: 21300000, guid: ac117d1c135cc4f4fb6fbbe28c05c4bf,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 2e33a3f531b6adc4f9d8a99c83e2ba2d, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 49d5ccdda7b99e24787c2abc3891294c, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: a9a916f59f0339e4abbdf3c2c5446e0d, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: dc18082e4696c1c4fad6a60823d029b6, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -5907,7 +6141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: .862745106}
-  m_Sprite: {fileID: 21300000, guid: c207de86481ff7d48a2fba2fcc374723, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8da2e1cca34f3a64e8e2aa3ea8922060, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
