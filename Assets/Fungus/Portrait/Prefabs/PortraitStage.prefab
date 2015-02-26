@@ -127,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 110274}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -480.924713, y: -314.928009, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 22410274}
@@ -192,7 +192,7 @@ MonoBehaviour:
   moveSpeed: 800
   fadeEaseType: 1
   moveEaseType: 4
-  slideOffset: {x: 300, y: 0}
+  shiftOffset: {x: 0, y: 0}
   defaultPosition: {fileID: 11410280}
   positions:
   - {fileID: 22410280}
@@ -200,6 +200,7 @@ MonoBehaviour:
   - {fileID: 22410270}
   - {fileID: 22410272}
   - {fileID: 22410278}
+  charactersOnStage: []
 --- !u!114 &11410276
 MonoBehaviour:
   m_ObjectHideFlags: 1
