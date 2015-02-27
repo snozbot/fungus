@@ -212,8 +212,8 @@ namespace Fungus
 			EditorGUILayout.BeginHorizontal();
 
 			EditorGUILayout.PrefixLabel("Fade");
-			t.fadeIn = GUILayout.Toggle(t.fadeIn, "In", leftButton, GUILayout.Width(80));
-			t.fadeOut = GUILayout.Toggle(t.fadeOut, "Out", rightButton, GUILayout.Width(80));
+			t.fadeIn = GUILayout.Toggle(t.fadeIn, "In", leftButton, GUILayout.Width(60));
+			t.fadeOut = GUILayout.Toggle(t.fadeOut, "Out", rightButton, GUILayout.Width(60));
 			
 			EditorGUILayout.EndHorizontal();
 
