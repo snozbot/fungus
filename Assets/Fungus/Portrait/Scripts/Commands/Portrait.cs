@@ -204,7 +204,10 @@ namespace Fungus
 			case (DisplayType.Show):
 				Show(character,fromPosition,toPosition);
 				character.state.onScreen = true;
-				stage.charactersOnStage.Add(character);
+				if (!stage.charactersOnStage.Contains(character))
+				{
+					stage.charactersOnStage.Add(character);
+				}
 				break;
 			case (DisplayType.Hide):
 				Hide(character,fromPosition,toPosition);
