@@ -47,18 +47,18 @@ namespace Fungus
 			switch(control)
 			{
 				case controlType.PlayOnce:
-					StopAudio();
+					StopAudioWithSameTag();
 					PlayOnce();
 					break;
 				case controlType.PlayLoop:
-					StopAudio();
+					StopAudioWithSameTag();
 					PlayLoop();
 					break;
 				case controlType.PauseLoop:
 					PauseLoop();
 					break;
 				case controlType.StopLoop:
-					StopLoop();
+					StopLoop(audioSource);
 					break;
 				case controlType.ChangeVolume:
 					ChangeVolume();	
@@ -70,14 +70,21 @@ namespace Fungus
 			}
 		}
 
-		protected void StopAudio()
+		/**
+		 * If there's other music playing in the scene, assign it the same tag as the new music you want to play and
+		 * the old music will be automatically stopped.
+		 */
+		protected void StopAudioWithSameTag()
 		{
-			if (audioSource == null)
-			{
-				return;
-			}
+			AudioSource[] audioSources = GameObject.FindObjectsOfType<AudioSource>();
 
-			StopLoop();
+			foreach (AudioSource a in audioSources)
+			{
+				if ((a.audio != audioSource) && (a.tag == audioSource.tag))
+				{
+					StopLoop(a.audio);
+				}
+			}
 		}
 
 		protected void PlayOnce() 
@@ -159,23 +166,22 @@ namespace Fungus
 			else
 			{
 				audioSource.audio.Pause();
-				Continue();
 			}
 		}
 
-		protected void StopLoop()
+		protected void StopLoop(AudioSource source)
 		{
 			if (fadeDuration > 0)
 			{
-				LeanTween.value(audioSource.gameObject,audioSource.volume,0,fadeDuration
+				LeanTween.value(source.gameObject,audioSource.volume,0,fadeDuration
 				).setOnUpdate(
 					(float updateVolume)=>{
-					audioSource.volume = updateVolume;
+					source.volume = updateVolume;
 				}
 				).setOnComplete(
 					()=>{
 					
-					audioSource.audio.Stop();
+					source.audio.Stop();
 					if (waitUntilFinished)
 					{
 						Continue();
@@ -185,7 +191,7 @@ namespace Fungus
 			}
 			else
 			{
-				audioSource.audio.Stop();
+				source.audio.Stop();
 			}
 		}
 
@@ -198,7 +204,6 @@ namespace Fungus
 			}
 			);
 		}
-
 
 		// Allows ControlAudio to "Wait Until Finished" playing audio before moving onto the next command
 		public delegate void AudioCallback();
