@@ -159,6 +159,7 @@ namespace Fungus
 			else
 			{
 				audioSource.audio.Pause();
+				Continue();
 			}
 		}
 
