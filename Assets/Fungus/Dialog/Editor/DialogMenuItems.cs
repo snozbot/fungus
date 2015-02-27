@@ -59,10 +59,10 @@ namespace Fungus
 			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Portrait/Prefabs/Stage.prefab");
 		}
 		
-		[MenuItem("GameObject/Fungus/Portrait/PortraitPosition")]
-		static void CreatePortraitPosition()
+		[MenuItem("GameObject/Fungus/Portrait/StagePosition")]
+		static void CreateStagePosition()
 		{
-			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Portrait/Prefabs/PortraitPosition.prefab");
+			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Portrait/Prefabs/StagePosition.prefab");
 		}
 	}
 
