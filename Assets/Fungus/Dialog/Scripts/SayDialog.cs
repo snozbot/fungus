@@ -13,6 +13,7 @@ namespace Fungus
 		public static SayDialog activeSayDialog;
 
 		public Image continueImage;
+		public AudioClip continueSound;
 
 		public static SayDialog GetSayDialog()
 		{
@@ -51,12 +52,18 @@ namespace Fungus
 				{
 					ShowContinueImage(true);
 					StartCoroutine(WaitForInput(delegate {
+
+						if (continueSound != null)
+						{
+							AudioSource.PlayClipAtPoint(continueSound, Vector3.zero);
+						}
 						Clear();
 						StopVoiceOver();
 						if (onComplete != null)
 						{
 							onComplete();
 						}
+
 					}));
 				}
 				else
