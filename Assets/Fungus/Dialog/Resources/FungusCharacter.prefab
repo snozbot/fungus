@@ -44,6 +44,7 @@ MonoBehaviour:
   soundEffect: {fileID: 0}
   profileSprite: {fileID: 0}
   portraits: []
+  portraitsFace: 0
   notes: 
 --- !u!1001 &100100000
 Prefab:

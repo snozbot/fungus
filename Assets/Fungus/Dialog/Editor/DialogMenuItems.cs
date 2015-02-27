@@ -43,13 +43,24 @@ namespace Fungus
 		}
 
 		[MenuItem("GameObject/Fungus/Dialog/Tag")]
-		static void CreateTagDialog()
+		static void CreateTag()
 		{
 			GameObject go = Resources.Load<GameObject>("FungusTag");
 			if (go != null)
 			{
 				GameObject spawnedGO = PrefabUtility.InstantiatePrefab(go) as GameObject;
 				spawnedGO.name = "Tag";
+			}
+		}
+
+		[MenuItem("GameObject/Fungus/Dialog/AudioTag")]
+		static void CreateAudioTag()
+		{
+			GameObject go = Resources.Load<GameObject>("FungusAudioTag");
+			if (go != null)
+			{
+				GameObject spawnedGO = PrefabUtility.InstantiatePrefab(go) as GameObject;
+				spawnedGO.name = "AudioTag";
 			}
 		}
 
