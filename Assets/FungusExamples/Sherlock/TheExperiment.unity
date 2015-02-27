@@ -1008,7 +1008,6 @@ RectTransform:
   - {fileID: 501235100}
   - {fileID: 744080994}
   - {fileID: 1195464370}
-  - {fileID: 1942205822}
   m_Father: {fileID: 876464347}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
@@ -2524,94 +2523,6 @@ Transform:
   - {fileID: 684540985}
   m_Father: {fileID: 678512926}
   m_RootOrder: 1
---- !u!1001 &908220527
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 519370006}
-    m_Modifications:
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -590.733398
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 483.453583
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_AnchorMin.x
-      value: .5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_AnchorMax.x
-      value: .5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_Pivot.x
-      value: .5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 195640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-      propertyPath: m_Name
-      value: TopRight
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-  m_RootGameObject: {fileID: 1942205821}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &935669773
 GameObject:
   m_ObjectHideFlags: 0
@@ -3985,9 +3896,6 @@ GameObject:
   - 114: {fileID: 1390555295}
   - 114: {fileID: 1390555440}
   - 114: {fileID: 1390555293}
-  - 114: {fileID: 1390555300}
-  - 114: {fileID: 1390555325}
-  - 114: {fileID: 1390555301}
   - 114: {fileID: 1390555312}
   - 114: {fileID: 1390555302}
   - 114: {fileID: 1390555298}
@@ -4010,9 +3918,6 @@ GameObject:
   - 114: {fileID: 1390555309}
   - 114: {fileID: 1390555310}
   - 114: {fileID: 1390555304}
-  - 114: {fileID: 1390555307}
-  - 114: {fileID: 1390555306}
-  - 114: {fileID: 1390555305}
   - 114: {fileID: 1390555303}
   - 114: {fileID: 1390555319}
   - 114: {fileID: 1390555318}
@@ -4074,6 +3979,12 @@ GameObject:
   - 114: {fileID: 1390555344}
   - 114: {fileID: 1390555291}
   - 114: {fileID: 1390555326}
+  - 114: {fileID: 1390555300}
+  - 114: {fileID: 1390555294}
+  - 114: {fileID: 1390555292}
+  - 114: {fileID: 1390555305}
+  - 114: {fileID: 1390555301}
+  - 114: {fileID: 1390555306}
   m_Layer: 0
   m_Name: Script
   m_TagString: Untagged
@@ -4095,6 +4006,23 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetSequence: {fileID: 1390555371}
+--- !u!114 &1390555292
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  text: Don't drink the coffee
+  targetSequence: {fileID: 1390555302}
+  hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &1390555293
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4108,6 +4036,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentSequence: {fileID: 0}
+--- !u!114 &1390555294
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  text: Drink the coffee
+  targetSequence: {fileID: 1390555312}
+  hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &1390555295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4130,8 +4075,9 @@ MonoBehaviour:
     y: -1729.35046
     width: 5969.4458
     height: 2818.85034
-  selectedSequence: {fileID: 0}
-  selectedCommands: []
+  selectedSequence: {fileID: 1390555304}
+  selectedCommands:
+  - {fileID: 1390555306}
   variables: []
   description: 'Example scene from Sherlock: The Game Is On'
   runSlowDuration: 0
@@ -4189,7 +4135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -2590.33252
+    x: -2589.33252
     y: -1077.83801
     width: 120
     height: 40
@@ -4257,54 +4203,44 @@ MonoBehaviour:
 --- !u!114 &1390555300
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11499494, guid: 1a602840cc64f2a438277c078435e290,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  chooseText: '{t}(Do I really want to do this?){/t}'
+  storyText: '{t}(Do I really want to do this?){/t}'
   character: {fileID: 1880195408}
-  chooseDialog: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
-  timeoutDuration: 0
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 0
+  setSayDialog: {fileID: 0}
 --- !u!114 &1390555301
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11499496, guid: 1a602840cc64f2a438277c078435e290,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 0}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  optionText: Don't drink the coffee
-  targetSequence: {fileID: 1390555302}
-  hideOnSelected: 0
+  text: Leave
+  targetSequence: {fileID: 1390555362}
+  hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &1390555302
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4377,91 +4313,50 @@ MonoBehaviour:
   commandList:
   - {fileID: 1390555373}
   - {fileID: 1390555354}
-  - {fileID: 1390555307}
   - {fileID: 1390555306}
   - {fileID: 1390555305}
+  - {fileID: 1390555301}
 --- !u!114 &1390555305
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11499504, guid: 1a602840cc64f2a438277c078435e290,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
+  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  chooseText: (What should I do now?)
-  character: {fileID: 1880195408}
-  chooseDialog: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  timeoutDuration: 0
+  text: Talk to Sherlock.
+  targetSequence: {fileID: 1390555308}
+  hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &1390555306
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11499506, guid: 1a602840cc64f2a438277c078435e290,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 0}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  optionText: Leave
-  targetSequence: {fileID: 1390555362}
-  hideOnSelected: 0
---- !u!114 &1390555307
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11499508, guid: 1a602840cc64f2a438277c078435e290,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1390555290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 0}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  optionText: Talk to Sherlock.
-  targetSequence: {fileID: 1390555308}
-  hideOnSelected: 0
+  storyText: (What should I do now?)
+  character: {fileID: 1880195408}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 0
+  setSayDialog: {fileID: 0}
 --- !u!114 &1390555308
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4905,37 +4800,6 @@ MonoBehaviour:
   fadeOut: 0
   waitForClick: 1
   setSayDialog: {fileID: 0}
---- !u!114 &1390555325
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11499544, guid: 1a602840cc64f2a438277c078435e290,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1390555290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorMessage: 
-  indentLevel: 0
-  variable: {fileID: 0}
-  setOperator: 2
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 1
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  optionText: Drink the coffee
-  targetSequence: {fileID: 1390555312}
-  hideOnSelected: 0
 --- !u!114 &1390555326
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -6465,8 +6329,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -2600.41992
-    y: -1012.35046
+    x: -2598.41992
+    y: -1010.35046
     width: 142
     height: 40
   sequenceName: Drink the Coffee?
@@ -6475,9 +6339,9 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1390555347}
-  - {fileID: 1390555325}
-  - {fileID: 1390555301}
   - {fileID: 1390555300}
+  - {fileID: 1390555294}
+  - {fileID: 1390555292}
 --- !u!1 &1403072068
 GameObject:
   m_ObjectHideFlags: 0
@@ -7244,70 +7108,6 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
---- !u!1 &1942205821
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 195640, guid: 7a4c270a5c18f6549a7683844dbf9f22, type: 2}
-  m_PrefabInternal: {fileID: 908220527}
-  serializedVersion: 4
-  m_Component:
-  - 224: {fileID: 1942205822}
-  - 222: {fileID: 1942205824}
-  - 114: {fileID: 1942205823}
-  m_Layer: 0
-  m_Name: TopRight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1942205822
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 22495640, guid: 7a4c270a5c18f6549a7683844dbf9f22,
-    type: 2}
-  m_PrefabInternal: {fileID: 908220527}
-  m_GameObject: {fileID: 1942205821}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.31660223, y: 2.31660223, z: 2.31660223}
-  m_Children: []
-  m_Father: {fileID: 519370006}
-  m_RootOrder: 5
-  m_AnchorMin: {x: .5, y: 0}
-  m_AnchorMax: {x: .5, y: 0}
-  m_AnchoredPosition: {x: -590.733398, y: 483.453583}
-  m_SizeDelta: {x: 1000, y: 1000}
-  m_Pivot: {x: .5, y: 0}
---- !u!114 &1942205823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11495640, guid: 7a4c270a5c18f6549a7683844dbf9f22,
-    type: 2}
-  m_PrefabInternal: {fileID: 908220527}
-  m_GameObject: {fileID: 1942205821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_Sprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 1
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
---- !u!222 &1942205824
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 22295640, guid: 7a4c270a5c18f6549a7683844dbf9f22,
-    type: 2}
-  m_PrefabInternal: {fileID: 908220527}
-  m_GameObject: {fileID: 1942205821}
 --- !u!1 &1950804376
 GameObject:
   m_ObjectHideFlags: 0

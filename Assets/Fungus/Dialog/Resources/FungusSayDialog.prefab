@@ -258,7 +258,7 @@ MonoBehaviour:
   slowBeepsAt: 10
   fastBeepsAt: 30
   punctuationPause: .200000003
-  alwaysFadeDialog: 1
+  alwaysFadeDialog: 0
   fadeDuration: .25
   fadeEaseType: 0
   alwaysMoveDialog: 0
