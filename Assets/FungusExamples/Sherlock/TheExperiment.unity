@@ -2119,6 +2119,56 @@ MonoBehaviour:
   - {fileID: 744080994}
   - {fileID: 1195464370}
   charactersOnStage: []
+--- !u!1 &884427799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 884427800}
+  - 212: {fileID: 884427801}
+  m_Layer: 0
+  m_Name: SherlockTitle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &884427800
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 884427799}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .219999999, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1782167289}
+  m_RootOrder: 2
+--- !u!212 &884427801
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 884427799}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 4b0730798d1d046d19e939e0717e5704, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &898034485
 GameObject:
   m_ObjectHideFlags: 0
@@ -3274,7 +3324,6 @@ GameObject:
   - 114: {fileID: 1390555365}
   - 114: {fileID: 1390555364}
   - 114: {fileID: 1390555363}
-  - 114: {fileID: 1390555335}
   - 114: {fileID: 1390555366}
   - 114: {fileID: 1390555391}
   - 114: {fileID: 1390555392}
@@ -3299,6 +3348,15 @@ GameObject:
   - 114: {fileID: 1390555305}
   - 114: {fileID: 1390555301}
   - 114: {fileID: 1390555306}
+  - 114: {fileID: 1390555307}
+  - 114: {fileID: 1390555386}
+  - 114: {fileID: 1390555361}
+  - 114: {fileID: 1390555360}
+  - 114: {fileID: 1390555359}
+  - 114: {fileID: 1390555358}
+  - 114: {fileID: 1390555357}
+  - 114: {fileID: 1390555335}
+  - 114: {fileID: 1390555325}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: Untagged
@@ -3379,7 +3437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 2986.33252, y: 1111.83801}
+  scrollPos: {x: 2977.33252, y: 1200.83801}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   zoom: 1
@@ -3389,8 +3447,9 @@ MonoBehaviour:
     y: -1729.35046
     width: 5969.4458
     height: 2818.85034
-  selectedSequence: {fileID: 0}
-  selectedCommands: []
+  selectedSequence: {fileID: 1390555307}
+  selectedCommands:
+  - {fileID: 1390555357}
   variables: []
   description: 'Example scene from Sherlock: The Game Is On'
   runSlowDuration: 0
@@ -3448,14 +3507,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -2590.33252
-    y: -1078.83801
+    x: -2592.33252
+    y: -1082.83801
     width: 120
     height: 40
   sequenceName: START
   description: 
   runSlowInEditor: 0
-  eventHandler: {fileID: 1390555335}
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1390555392}
   - {fileID: 1390555334}
@@ -3670,6 +3729,35 @@ MonoBehaviour:
   fadeOut: 0
   waitForClick: 0
   setSayDialog: {fileID: 0}
+--- !u!114 &1390555307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: -2592.33252
+    y: -1152.83801
+    width: 120
+    height: 40
+  sequenceName: Splash
+  description: 
+  runSlowInEditor: 1
+  eventHandler: {fileID: 1390555325}
+  commandList:
+  - {fileID: 1390555359}
+  - {fileID: 1390555358}
+  - {fileID: 1390555357}
+  - {fileID: 1390555386}
+  - {fileID: 1390555360}
+  - {fileID: 1390555361}
+  - {fileID: 1390555335}
 --- !u!114 &1390555308
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4113,6 +4201,18 @@ MonoBehaviour:
   fadeOut: 0
   waitForClick: 1
   setSayDialog: {fileID: 0}
+--- !u!114 &1390555325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentSequence: {fileID: 1390555307}
 --- !u!114 &1390555326
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4340,16 +4440,18 @@ MonoBehaviour:
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555335
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 1390555298}
+  errorMessage: 
+  indentLevel: 0
+  targetSequence: {fileID: 1390555298}
 --- !u!114 &1390555336
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4916,6 +5018,85 @@ MonoBehaviour:
   move: 0
   shiftIntoPlace: 0
   waitUntilFinished: 0
+--- !u!114 &1390555357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 884427801}
+  duration: 1
+  targetColor: {r: 1, g: 1, b: 1, a: 0}
+  waitUntilFinished: 1
+--- !u!114 &1390555358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: 1
+--- !u!114 &1390555359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 884427801}
+  duration: 1
+  targetColor: {r: 1, g: 1, b: 1, a: 1}
+  waitUntilFinished: 1
+--- !u!114 &1390555360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  duration: 1
+--- !u!114 &1390555361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 1612042692}
+  duration: 1
+  targetColor: {r: 1, g: 1, b: 1, a: 0}
+  waitUntilFinished: 1
 --- !u!114 &1390555362
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5552,6 +5733,23 @@ MonoBehaviour:
   move: 0
   shiftIntoPlace: 0
   waitUntilFinished: 0
+--- !u!114 &1390555386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 1612042692}
+  duration: 1
+  targetColor: {r: 1, g: 1, b: 1, a: 1}
+  waitUntilFinished: 1
 --- !u!114 &1390555389
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5742,6 +5940,56 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!1 &1612042690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1612042691}
+  - 212: {fileID: 1612042692}
+  m_Layer: 0
+  m_Name: ImprobableStudios
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1612042691
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1612042690}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1782167289}
+  m_RootOrder: 1
+--- !u!212 &1612042692
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1612042690}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: eea3b26b25ca249f58d5659aabf1114c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &1632237022
 GameObject:
   m_ObjectHideFlags: 0
@@ -5899,6 +6147,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1789234735}
+  - {fileID: 1612042691}
+  - {fileID: 884427800}
   m_Father: {fileID: 0}
   m_RootOrder: 5
 --- !u!1 &1789234733
