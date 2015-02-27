@@ -7,6 +7,8 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
+
+	[ExecuteInEditMode]
 	public class Stage : MonoBehaviour 
 	{
 		public Canvas portraitCanvas;
@@ -23,7 +25,6 @@ namespace Fungus
 		[HideInInspector]
 		static public List<Stage> activeStages = new List<Stage>();
 
-		[ExecuteInEditMode]
 		protected virtual void OnEnable()
 		{
 			if (!activeStages.Contains(this))
@@ -31,10 +32,20 @@ namespace Fungus
 				activeStages.Add(this);
 			}
 		}
-		[ExecuteInEditMode]
+
 		protected virtual void OnDisable()
 		{
 			activeStages.Remove(this);
+		}
+
+		protected virtual void Start()
+		{
+			if (Application.isPlaying &&
+			    portraitCanvas != null)
+			{
+				// Ensure the stage canvas is active
+				portraitCanvas.gameObject.SetActive(true);
+			}
 		}
 	}
 }
