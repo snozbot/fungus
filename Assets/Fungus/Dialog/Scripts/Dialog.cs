@@ -516,7 +516,7 @@ namespace Fungus
 			cameraController.screenFadeTexture = CameraController.CreateColorTexture(new Color(1f,1f,1f,1f), 32, 32);
 			cameraController.Fade(1f, duration, delegate {
 				cameraController.screenFadeTexture = CameraController.CreateColorTexture(new Color(1f,1f,1f,1f), 32, 32);
-				cameraController.Fade(0f, duration, delegate {Destroy(cameraController);});
+				cameraController.Fade(0f, duration, null);
 			});
 		}
 		
