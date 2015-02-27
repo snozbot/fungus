@@ -3389,7 +3389,7 @@ MonoBehaviour:
     y: -1729.35046
     width: 5969.4458
     height: 2818.85034
-  selectedSequence: {fileID: 1390555298}
+  selectedSequence: {fileID: 0}
   selectedCommands: []
   variables: []
   description: 'Example scene from Sherlock: The Game Is On'
