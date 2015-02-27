@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	public class PortraitStage : MonoBehaviour 
+	public class Stage : MonoBehaviour 
 	{
 		public Canvas portraitCanvas;
 		public bool dimPortraits;
@@ -21,20 +21,20 @@ namespace Fungus
 		public List<Character> charactersOnStage = new List<Character>();
 
 		[HideInInspector]
-		static public List<PortraitStage> activePortraitStages = new List<PortraitStage>();
+		static public List<Stage> activeStages = new List<Stage>();
 
 		[ExecuteInEditMode]
 		protected virtual void OnEnable()
 		{
-			if (!activePortraitStages.Contains(this))
+			if (!activeStages.Contains(this))
 			{
-				activePortraitStages.Add(this);
+				activeStages.Add(this);
 			}
 		}
 		[ExecuteInEditMode]
 		protected virtual void OnDisable()
 		{
-			activePortraitStages.Remove(this);
+			activeStages.Remove(this);
 		}
 	}
 }

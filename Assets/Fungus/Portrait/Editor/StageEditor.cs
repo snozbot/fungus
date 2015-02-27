@@ -16,8 +16,8 @@ namespace Fungus
 	public class StageEditor : CommandEditor
 	{
 		protected SerializedProperty displayProp;
-		protected SerializedProperty portraitStageProp;
-		protected SerializedProperty replacedPortraitStageProp;
+		protected SerializedProperty stageProp;
+		protected SerializedProperty replacedStageProp;
 		protected SerializedProperty useDefaultSettingsProp;
 		protected SerializedProperty fadeDurationProp;
 		protected SerializedProperty waitUntilFinishedProp;
@@ -25,8 +25,8 @@ namespace Fungus
 		protected virtual void OnEnable()
 		{
 			displayProp = serializedObject.FindProperty("display");
-			portraitStageProp = serializedObject.FindProperty("portraitStage");
-			replacedPortraitStageProp = serializedObject.FindProperty("replacedPortraitStage");
+			stageProp = serializedObject.FindProperty("stage");
+			replacedStageProp = serializedObject.FindProperty("replacedStage");
 			useDefaultSettingsProp = serializedObject.FindProperty("useDefaultSettings");
 			fadeDurationProp = serializedObject.FindProperty("fadeDuration");
 			waitUntilFinishedProp = serializedObject.FindProperty("waitUntilFinished");
@@ -45,31 +45,31 @@ namespace Fungus
 			string replaceLabel = "Portrait Stage";
 			if (t.display == StageDisplayType.Swap)
 			{
-				CommandEditor.ObjectField<PortraitStage>(replacedPortraitStageProp, 
+				CommandEditor.ObjectField<Stage>(replacedStageProp, 
 				                                     new GUIContent("Replace", "Character to swap with"), 
 				                                     new GUIContent("<Default>"),
-				                                     PortraitStage.activePortraitStages);
+				                                     Stage.activeStages);
 				replaceLabel = "With";
 			}
 
-			if (PortraitStage.activePortraitStages.Count > 1)
+			if (Stage.activeStages.Count > 1)
 			{
-				CommandEditor.ObjectField<PortraitStage>(portraitStageProp, 
+				CommandEditor.ObjectField<Stage>(stageProp, 
 				                                         new GUIContent(replaceLabel, "Stage to display the character portraits on"), 
 				                                         new GUIContent("<Default>"),
-				                                         PortraitStage.activePortraitStages);
+				                                         Stage.activeStages);
 			}
 
 			bool showOptionalFields = true;
-			PortraitStage ps = t.portraitStage;
+			Stage s = t.stage;
 			// Only show optional portrait fields once required fields have been filled...
-			if (t.portraitStage != null)                // Character is selected
+			if (t.stage != null)                // Character is selected
 			{
-				if (t.portraitStage == null)        // If no default specified, try to get any portrait stage in the scene
+				if (t.stage == null)        // If no default specified, try to get any portrait stage in the scene
 				{
-					ps = GameObject.FindObjectOfType<PortraitStage>();
+					s = GameObject.FindObjectOfType<Stage>();
 				}
-				if (ps == null)
+				if (s == null)
 				{
 					EditorGUILayout.HelpBox("No portrait stage has been set. Please create a new portrait stage using [Game Object > Fungus > Portrait > Portrait Stage].", MessageType.Error);
 					showOptionalFields = false; 

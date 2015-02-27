@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
@@ -167,21 +167,21 @@ namespace Fungus
 				speakingCharacter = character;
 				
 				// Dim portraits of non-speaking characters
-				foreach (PortraitStage ps in PortraitStage.activePortraitStages)
+				foreach (Stage s in Stage.activeStages)
 				{
-					if (ps.dimPortraits)
+					if (s.dimPortraits)
 					{
-						foreach (Character c in ps.charactersOnStage)
+						foreach (Character c in s.charactersOnStage)
 						{
 							if (prevSpeakingCharacter != speakingCharacter)
 							{
 								if (c != speakingCharacter)
 								{
-									Portrait.Dim(c,ps);
+									Portrait.Dim(c,s);
 								}
 								else
 								{
-									Portrait.Undim(c,ps);
+									Portrait.Undim(c,s);
 								}
 							}
 						}

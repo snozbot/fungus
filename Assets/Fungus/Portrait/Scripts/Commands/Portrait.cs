@@ -46,8 +46,8 @@ namespace Fungus
 	             "Controls a character portrait. ")]
 	public class Portrait : Command 
 	{
-		[Tooltip("Display type")]
-		public PortraitStage portraitStage;
+		[Tooltip("Stage to display portrait on")]
+		public Stage stage;
 		
 		[Tooltip("Display type")]
 		public DisplayType display;
@@ -117,15 +117,15 @@ namespace Fungus
 				return;
 			}
 			// Selected "use default Portrait Stage"
-			if (portraitStage == null)            // Default portrait stage selected
+			if (stage == null)            // Default portrait stage selected
 			{
-				if (portraitStage == null)        // If no default specified, try to get any portrait stage in the scene
+				if (stage == null)        // If no default specified, try to get any portrait stage in the scene
 				{
-					portraitStage = GameObject.FindObjectOfType<PortraitStage>();
+					stage = GameObject.FindObjectOfType<Stage>();
 				}
 			}
 			// If portrait stage does not exist, do nothing
-			if (portraitStage == null)
+			if (stage == null)
 			{
 				Continue();
 				return;
@@ -133,7 +133,7 @@ namespace Fungus
 			
 			if (character.state.portraitImage == null)
 			{
-				CreatePortraitObject(character,portraitStage);
+				CreatePortraitObject(character,stage);
 			}
 			// if no previous portrait, use default portrait
 			if (character.state.portrait == null) 
@@ -148,7 +148,7 @@ namespace Fungus
 			// if no previous position, use default position
 			if (character.state.position == null)
 			{
-				character.state.position = portraitStage.defaultPosition.rectTransform;
+				character.state.position = stage.defaultPosition.rectTransform;
 			}
 			// Selected "use previous position"
 			if (toPosition == null)
@@ -160,7 +160,7 @@ namespace Fungus
 				// if no previous position, use default position
 				if (replacedCharacter.state.position == null)
 				{
-					replacedCharacter.state.position = portraitStage.defaultPosition.rectTransform;
+					replacedCharacter.state.position = stage.defaultPosition.rectTransform;
 				}
 			}
 			// If swapping, use replaced character's position
@@ -195,29 +195,29 @@ namespace Fungus
 			// Use default settings
 			if (useDefaultSettings)
 			{
-				fadeDuration = portraitStage.fadeDuration;
-				moveSpeed = portraitStage.moveSpeed;
-				shiftOffset = portraitStage.shiftOffset;
+				fadeDuration = stage.fadeDuration;
+				moveSpeed = stage.moveSpeed;
+				shiftOffset = stage.shiftOffset;
 			}
 			switch(display)
 			{
 			case (DisplayType.Show):
 				Show(character,fromPosition,toPosition);
 				character.state.onScreen = true;
-				portraitStage.charactersOnStage.Add(character);
+				stage.charactersOnStage.Add(character);
 				break;
 			case (DisplayType.Hide):
 				Hide(character,fromPosition,toPosition);
 				character.state.onScreen = false;
-				portraitStage.charactersOnStage.Remove(character);
+				stage.charactersOnStage.Remove(character);
 				break;
 			case (DisplayType.Replace):
 				Show(character,fromPosition,toPosition);
 				Hide(replacedCharacter, replacedCharacter.state.position, replacedCharacter.state.position);
 				character.state.onScreen = true;
 				replacedCharacter.state.onScreen = false;
-				portraitStage.charactersOnStage.Add(character);
-				portraitStage.charactersOnStage.Remove(replacedCharacter);
+				stage.charactersOnStage.Add(character);
+				stage.charactersOnStage.Remove(replacedCharacter);
 				break;
 			case (DisplayType.MoveToFront):
 				MoveToFront(character);
@@ -241,10 +241,10 @@ namespace Fungus
 				Continue();
 			}
 		}
-		public static void CreatePortraitObject(Character character, PortraitStage portraitStage)
+		public static void CreatePortraitObject(Character character, Stage stage)
 		{
 			GameObject portraitObj = new GameObject(character.name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
-			portraitObj.transform.SetParent(portraitStage.portraitCanvas.transform, true);
+			portraitObj.transform.SetParent(stage.portraitCanvas.transform, true);
 			Image portraitImage = portraitObj.GetComponent<Image>();
 			portraitImage.preserveAspect = true;
 			portraitImage.sprite = character.profileSprite;
@@ -337,27 +337,27 @@ namespace Fungus
 		protected void UpdateTweens(Character character, RectTransform fromPosition, RectTransform toPosition) 
 		{
 			if (fadeDuration == 0) fadeDuration = float.Epsilon;
-			LeanTween.value(character.state.portraitObj,0,1,fadeDuration).setEase(portraitStage.fadeEaseType).setOnComplete(OnComplete).setOnUpdate(
+			LeanTween.value(character.state.portraitObj,0,1,fadeDuration).setEase(stage.fadeEaseType).setOnComplete(OnComplete).setOnUpdate(
 				(float fadeAmount)=>{
 				character.state.portraitImage.material.SetFloat("_Fade", fadeAmount);
 			}
 			);
 			float moveDuration = (Vector3.Distance(fromPosition.anchoredPosition,toPosition.anchoredPosition)/moveSpeed);
 			if (moveSpeed == 0) moveDuration = float.Epsilon;
-			LeanTween.value(character.state.portraitObj,fromPosition.anchoredPosition,toPosition.anchoredPosition,moveDuration).setEase(portraitStage.moveEaseType).setOnComplete(OnComplete).setOnUpdate(
+			LeanTween.value(character.state.portraitObj,fromPosition.anchoredPosition,toPosition.anchoredPosition,moveDuration).setEase(stage.moveEaseType).setOnComplete(OnComplete).setOnUpdate(
 				(Vector3 updatePosition)=>{
 				character.state.portraitImage.rectTransform.anchoredPosition = updatePosition;
 			}
 			);
 		}
-		public static void Dim(Character character, PortraitStage portraitStage)
+		public static void Dim(Character character, Stage stage)
 		{
 			if (character.state.dimmed == false)
 			{
 				character.state.dimmed = true;
-				float fadeDuration = portraitStage.fadeDuration;
+				float fadeDuration = stage.fadeDuration;
 				if (fadeDuration == 0) fadeDuration = float.Epsilon;
-				LeanTween.value(character.state.portraitObj,1f,0.5f,fadeDuration).setEase(portraitStage.fadeEaseType).setOnUpdate(
+				LeanTween.value(character.state.portraitObj,1f,0.5f,fadeDuration).setEase(stage.fadeEaseType).setOnUpdate(
 					(float tintAmount)=>{
 					Color tint = new Color(tintAmount,tintAmount,tintAmount,1);
 					character.state.portraitImage.material.SetColor("_Color", tint);
@@ -365,14 +365,14 @@ namespace Fungus
 				);
 			}
 		}
-		public static void Undim(Character character, PortraitStage portraitStage)
+		public static void Undim(Character character, Stage stage)
 		{
 			if (character.state.dimmed == true)
 			{
 				character.state.dimmed = false;
-				float fadeDuration = portraitStage.fadeDuration;
+				float fadeDuration = stage.fadeDuration;
 				if (fadeDuration == 0) fadeDuration = float.Epsilon;
-				LeanTween.value(character.state.portraitObj,0.5f,1f,fadeDuration).setEase(portraitStage.fadeEaseType).setOnUpdate(
+				LeanTween.value(character.state.portraitObj,0.5f,1f,fadeDuration).setEase(stage.fadeEaseType).setOnUpdate(
 					(float tintAmount)=>{
 					Color tint = new Color(tintAmount,tintAmount,tintAmount,1);
 					character.state.portraitImage.material.SetColor("_Color", tint);
@@ -408,7 +408,7 @@ namespace Fungus
 			string characterSummary = "";
 			string fromPositionSummary = "";
 			string toPositionSummary = "";
-			string portraitStageSummary = "";
+			string stageSummary = "";
 			string portraitSummary = "";
 			string facingSummary = "";
 			
@@ -422,9 +422,9 @@ namespace Fungus
 				}
 			}
 			characterSummary = character.name;
-			if (portraitStage != null)
+			if (stage != null)
 			{
-				portraitStageSummary = " on \"" + portraitStage.name + "\"";
+				stageSummary = " on \"" + stage.name + "\"";
 			}
 			
 			if (portrait != null)
@@ -464,7 +464,7 @@ namespace Fungus
 				}
 				facingSummary = " facing \"" + facingSummary + "\"";
 			}
-			return displaySummary + " \"" + characterSummary + portraitSummary + "\"" + portraitStageSummary + facingSummary + fromPositionSummary + toPositionSummary;
+			return displaySummary + " \"" + characterSummary + portraitSummary + "\"" + stageSummary + facingSummary + fromPositionSummary + toPositionSummary;
 		}
 		
 		public override Color GetButtonColor()

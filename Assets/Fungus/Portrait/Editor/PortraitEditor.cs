@@ -15,7 +15,7 @@ namespace Fungus
 	[CustomEditor (typeof(Portrait))]
 	public class PortraitEditor : CommandEditor
 	{
-		protected SerializedProperty portraitStageProp;
+		protected SerializedProperty stageProp;
 		protected SerializedProperty displayProp;
 		protected SerializedProperty characterProp;
 		protected SerializedProperty replacedCharacterProp;
@@ -34,7 +34,7 @@ namespace Fungus
 		
 		protected virtual void OnEnable()
 		{
-			portraitStageProp = serializedObject.FindProperty("portraitStage");
+			stageProp = serializedObject.FindProperty("stage");
 			displayProp = serializedObject.FindProperty("display");
 			characterProp = serializedObject.FindProperty("character");
 			replacedCharacterProp = serializedObject.FindProperty("replacedCharacter");
@@ -58,16 +58,16 @@ namespace Fungus
 			
 			Portrait t = target as Portrait;
 
-			if (PortraitStage.activePortraitStages.Count > 1)
+			if (Stage.activeStages.Count > 1)
 			{
-				CommandEditor.ObjectField<PortraitStage>(portraitStageProp, 
+				CommandEditor.ObjectField<Stage>(stageProp, 
 				                                         new GUIContent("Portrait Stage", "Stage to display the character portraits on"), 
 				                                         new GUIContent("<Default>"),
-				                                         PortraitStage.activePortraitStages);
+				                                         Stage.activeStages);
 			}
 			else
 			{
-				t.portraitStage = null;
+				t.stage = null;
 			}
 			// Format Enum names
 			string[] displayLabels = StringFormatter.FormatEnumNames(t.display,"<None>");
@@ -89,7 +89,7 @@ namespace Fungus
 			                                     Character.activeCharacters);
 
 			bool showOptionalFields = true;
-			PortraitStage ps = t.portraitStage;
+			Stage s = t.stage;
 			// Only show optional portrait fields once required fields have been filled...
 			if (t.character != null)                // Character is selected
 			{
@@ -99,14 +99,14 @@ namespace Fungus
 					EditorGUILayout.HelpBox("This character has no portraits. Please add portraits to the character's prefab before using this command.", MessageType.Error);
 					showOptionalFields = false; 
 				}
-				if (t.portraitStage == null)            // If default portrait stage selected
+				if (t.stage == null)            // If default portrait stage selected
 				{
-					if (t.portraitStage == null)        // If no default specified, try to get any portrait stage in the scene
+					if (t.stage == null)        // If no default specified, try to get any portrait stage in the scene
 					{
-						ps = GameObject.FindObjectOfType<PortraitStage>();
+						s = GameObject.FindObjectOfType<Stage>();
 					}
 				}
-				if (ps == null)
+				if (s == null)
 				{
 					EditorGUILayout.HelpBox("No portrait stage has been set. Please create a new portrait stage using [Game Object > Fungus > Portrait > Portrait Stage].", MessageType.Error);
 					showOptionalFields = false; 
@@ -176,7 +176,7 @@ namespace Fungus
 							CommandEditor.ObjectField<RectTransform>(fromPositionProp, 
 							                                         new GUIContent("From Position", "Move the portrait to this position"), 
 							                                         new GUIContent("<Previous>"),
-							                                         ps.positions);
+							                                         s.positions);
 						}
 					}
 					toPositionPrefix = "To ";
@@ -193,7 +193,7 @@ namespace Fungus
 					CommandEditor.ObjectField<RectTransform>(toPositionProp, 
 					                                         new GUIContent(toPositionPrefix+"Position", "Move the portrait to this position"), 
 					                                         new GUIContent("<Previous>"),
-					                                         ps.positions);
+					                                         s.positions);
 				}
 				else
 				{

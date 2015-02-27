@@ -27,10 +27,10 @@ namespace Fungus
 		public StageDisplayType display;
 
 		[Tooltip("Stage to display characters on")]
-		public PortraitStage portraitStage;
+		public Stage stage;
 
-		[Tooltip("PortraitStage to swap with")]
-		public PortraitStage replacedPortraitStage;
+		[Tooltip("Stage to swap with")]
+		public Stage replacedStage;
 
 		[Tooltip("Use Default Settings")]
 		public bool useDefaultSettings = true;
@@ -50,15 +50,15 @@ namespace Fungus
 				return;
 			}
 			// Selected "use default Portrait Stage"
-			if (portraitStage == null)            // Default portrait stage selected
+			if (stage == null)            // Default portrait stage selected
 			{
-				if (portraitStage == null)        // If no default specified, try to get any portrait stage in the scene
+				if (stage == null)        // If no default specified, try to get any portrait stage in the scene
 				{
-					portraitStage = GameObject.FindObjectOfType<PortraitStage>();
+					stage = GameObject.FindObjectOfType<Stage>();
 				}
 			}
 			// If portrait stage does not exist, do nothing
-			if (portraitStage == null)
+			if (stage == null)
 			{
 				Continue();
 				return;
@@ -66,12 +66,12 @@ namespace Fungus
 			// Selected "use default Portrait Stage"
 			if (display == StageDisplayType.Swap)            // Default portrait stage selected
 			{
-				if (replacedPortraitStage == null)        // If no default specified, try to get any portrait stage in the scene
+				if (replacedStage == null)        // If no default specified, try to get any portrait stage in the scene
 				{
-					replacedPortraitStage = GameObject.FindObjectOfType<PortraitStage>();
+					replacedStage = GameObject.FindObjectOfType<Stage>();
 				}
 				// If portrait stage does not exist, do nothing
-				if (replacedPortraitStage == null)
+				if (replacedStage == null)
 				{
 					Continue();
 					return;
@@ -80,28 +80,28 @@ namespace Fungus
 			// Use default settings
 			if (useDefaultSettings)
 			{
-				fadeDuration = portraitStage.fadeDuration;
+				fadeDuration = stage.fadeDuration;
 			}
 			switch(display)
 			{
 			case (StageDisplayType.Show):
-				Show(portraitStage);
+				Show(stage);
 				break;
 			case (StageDisplayType.Hide):
-				Hide(portraitStage);
+				Hide(stage);
 				break;
 			case (StageDisplayType.Swap):
-				Show(portraitStage);
-				Hide(replacedPortraitStage);
+				Show(stage);
+				Hide(replacedStage);
 				break;
 			case (StageDisplayType.MoveToFront):
-				MoveToFront(portraitStage);
+				MoveToFront(stage);
 				break;
 			case (StageDisplayType.UndimAllPortraits):
-				UndimAllPortraits(portraitStage);
+				UndimAllPortraits(stage);
 				break;
 			case (StageDisplayType.DimNonSpeakingPortraits):
-				DimNonSpeakingPortraits(portraitStage);
+				DimNonSpeakingPortraits(stage);
 				break;
 			}
 
@@ -110,7 +110,8 @@ namespace Fungus
 				Continue();
 			}
 		}
-		protected void Show(PortraitStage portraitStage) 
+
+		protected void Show(Stage stage) 
 		{
 			if (fadeDuration == 0)
 			{
@@ -119,14 +120,14 @@ namespace Fungus
 
 			LeanTween.value(gameObject,0,1,fadeDuration).setOnUpdate(
 				(float fadeAmount)=>{
-				foreach ( Character c in portraitStage.charactersOnStage)
+				foreach ( Character c in stage.charactersOnStage)
 				{
 					c.state.portraitImage.material.SetFloat("_Alpha",fadeAmount);
 				}
 			}
 			).setOnComplete(
 				()=>{
-				foreach ( Character c in portraitStage.charactersOnStage)
+				foreach ( Character c in stage.charactersOnStage)
 				{
 					c.state.portraitImage.material.SetFloat("_Alpha",1);
 				}
@@ -134,7 +135,8 @@ namespace Fungus
 			}
 			);
 		}
-		protected void Hide(PortraitStage portraitStage)
+
+		protected void Hide(Stage stage)
 		{
 			if (fadeDuration == 0) 
 			{
@@ -143,14 +145,14 @@ namespace Fungus
 
 			LeanTween.value(gameObject,1,0,fadeDuration).setOnUpdate(
 				(float fadeAmount)=>{
-				foreach ( Character c in portraitStage.charactersOnStage)
+				foreach ( Character c in stage.charactersOnStage)
 				{
 					c.state.portraitImage.material.SetFloat("_Alpha",fadeAmount);
 				}
 			}
 			).setOnComplete(
 				()=>{
-				foreach ( Character c in portraitStage.charactersOnStage)
+				foreach ( Character c in stage.charactersOnStage)
 				{
 					c.state.portraitImage.material.SetFloat("_Alpha",0);
 				}
@@ -158,32 +160,36 @@ namespace Fungus
 			}
 			);
 		}
-		protected void MoveToFront(PortraitStage portraitStage)
+
+		protected void MoveToFront(Stage stage)
 		{
-			foreach (PortraitStage ps in PortraitStage.activePortraitStages)
+			foreach (Stage s in Stage.activeStages)
 			{
-				if (ps == portraitStage)
+				if (s == stage)
 				{
-					ps.portraitCanvas.sortingOrder = 1;
+					s.portraitCanvas.sortingOrder = 1;
 				}
 				else
 				{
-					ps.portraitCanvas.sortingOrder = 0;
+					s.portraitCanvas.sortingOrder = 0;
 				}
 			}
 		}
-		protected void UndimAllPortraits(PortraitStage portraitStage) 
+
+		protected void UndimAllPortraits(Stage stage) 
 		{
-			portraitStage.dimPortraits = false;
-			foreach (Character character in portraitStage.charactersOnStage)
+			stage.dimPortraits = false;
+			foreach (Character character in stage.charactersOnStage)
 			{
-				Portrait.Undim(character,portraitStage);
+				Portrait.Undim(character, stage);
 			}
 		}
-		protected void DimNonSpeakingPortraits(PortraitStage portraitStage) 
+
+		protected void DimNonSpeakingPortraits(Stage stage) 
 		{
-			portraitStage.dimPortraits = true;
+			stage.dimPortraits = true;
 		}
+
 		protected void OnComplete() 
 		{
 			if (waitUntilFinished)
@@ -191,6 +197,7 @@ namespace Fungus
 				Continue();
 			}
 		}
+
 		public override string GetSummary()
 		{
 			string displaySummary = "";
@@ -202,12 +209,12 @@ namespace Fungus
 			{
 				return "Error: No display selected";
 			}
-			string portraitStageSummary = "";
-			if (portraitStage != null)
+			string stageSummary = "";
+			if (stage != null)
 			{
-				portraitStageSummary = " \"" + portraitStage.name + "\"";
+				stageSummary = " \"" + stage.name + "\"";
 			}
-			return displaySummary + portraitStageSummary;
+			return displaySummary + stageSummary;
 		}
 		
 		public override Color GetButtonColor()

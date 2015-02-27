@@ -11,13 +11,13 @@ namespace Fungus
 	[CustomEditor (typeof(FungusScript))]
 	public class FungusScriptEditor : Editor 
 	{
-		protected SerializedProperty descriptionProp;
-		protected SerializedProperty defaultPortraitStageProp;
 		protected class AddVariableInfo
 		{
 			public FungusScript fungusScript;
 			public System.Type variableType;
 		}
+
+		protected SerializedProperty descriptionProp;
 		protected SerializedProperty colorCommandsProp;
 		protected SerializedProperty hideComponentsProp;
 		protected SerializedProperty runSlowDurationProp;

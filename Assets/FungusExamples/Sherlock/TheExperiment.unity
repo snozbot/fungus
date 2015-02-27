@@ -2403,7 +2403,7 @@ GameObject:
   - 4: {fileID: 876464347}
   - 114: {fileID: 876464348}
   m_Layer: 0
-  m_Name: PortraitStage
+  m_Name: Stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3523,6 +3523,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11410280, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
   m_RootGameObject: {fileID: 876464346}
@@ -4033,9 +4037,8 @@ MonoBehaviour:
     y: -1729.35046
     width: 5969.4458
     height: 2818.85034
-  selectedSequence: {fileID: 1390555298}
-  selectedCommands:
-  - {fileID: 1390555345}
+  selectedSequence: {fileID: 0}
+  selectedCommands: []
   variables: []
   description: 'Example scene from Sherlock: The Game Is On'
   runSlowDuration: 0
@@ -4142,7 +4145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 2
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -5106,7 +5109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -5136,7 +5139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -5202,7 +5205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -5232,7 +5235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -5262,7 +5265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -5311,7 +5314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -5341,7 +5344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -5371,7 +5374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -5401,7 +5404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -5431,7 +5434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -5486,7 +5489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -5516,7 +5519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -5545,7 +5548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 2
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -5574,7 +5577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -5627,7 +5630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 2
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -5702,7 +5705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 2
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -5731,7 +5734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -5846,8 +5849,8 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   display: 2
-  portraitStage: {fileID: 0}
-  replacedPortraitStage: {fileID: 0}
+  stage: {fileID: 0}
+  replacedStage: {fileID: 0}
   useDefaultSettings: 1
   fadeDuration: 1
   waitUntilFinished: 0
@@ -5890,7 +5893,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -5919,7 +5922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -5948,7 +5951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -5977,7 +5980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -6006,7 +6009,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -6035,7 +6038,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -6064,7 +6067,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -6093,7 +6096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -6122,7 +6125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -6176,7 +6179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -6205,7 +6208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 1880195408}
   replacedCharacter: {fileID: 0}
@@ -6234,7 +6237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
@@ -6263,7 +6266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   errorMessage: 
   indentLevel: 0
-  portraitStage: {fileID: 0}
+  stage: {fileID: 0}
   display: 1
   character: {fileID: 137130844}
   replacedCharacter: {fileID: 0}
