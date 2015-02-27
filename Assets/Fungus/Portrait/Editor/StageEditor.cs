@@ -41,23 +41,23 @@ namespace Fungus
 			// Format Enum names
 			string[] displayLabels = StringFormatter.FormatEnumNames(t.display,"<None>");
 			displayProp.enumValueIndex = EditorGUILayout.Popup("Display", (int)displayProp.enumValueIndex, displayLabels);
-			
+
 			string replaceLabel = "Portrait Stage";
 			if (t.display == StageDisplayType.Swap)
 			{
 				CommandEditor.ObjectField<Stage>(replacedStageProp, 
-				                                     new GUIContent("Replace", "Character to swap with"), 
-				                                     new GUIContent("<Default>"),
-				                                     Stage.activeStages);
+				                                 new GUIContent("Replace", "Character to swap with"), 
+				                                 new GUIContent("<Default>"),
+				                                 Stage.activeStages);
 				replaceLabel = "With";
 			}
 
-			if (Stage.activeStages.Count > 1)
+			if (Stage.activeStages.Count > 0)
 			{
 				CommandEditor.ObjectField<Stage>(stageProp, 
-				                                         new GUIContent(replaceLabel, "Stage to display the character portraits on"), 
-				                                         new GUIContent("<Default>"),
-				                                         Stage.activeStages);
+				                                 new GUIContent(replaceLabel, "Stage to display the character portraits on"), 
+				                                 new GUIContent("<Default>"),
+				                                 Stage.activeStages);
 			}
 
 			bool showOptionalFields = true;
@@ -71,7 +71,7 @@ namespace Fungus
 				}
 				if (s == null)
 				{
-					EditorGUILayout.HelpBox("No portrait stage has been set. Please create a new portrait stage using [Game Object > Fungus > Portrait > Portrait Stage].", MessageType.Error);
+					EditorGUILayout.HelpBox("No portrait stage has been set. Please create a new portrait stage using [Game Object > Fungus > Portrait > Stage].", MessageType.Error);
 					showOptionalFields = false; 
 				}
 			}
