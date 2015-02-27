@@ -26,7 +26,6 @@ namespace Fungus
 		protected virtual void OnEnable()
 		{
 			descriptionProp = serializedObject.FindProperty("description");
-			defaultPortraitStageProp = serializedObject.FindProperty("defaultPortraitStage");
 			colorCommandsProp = serializedObject.FindProperty("colorCommands");
 			hideComponentsProp = serializedObject.FindProperty("hideComponents");
 			runSlowDurationProp = serializedObject.FindProperty("runSlowDuration");
@@ -42,7 +41,6 @@ namespace Fungus
 			fungusScript.UpdateHideFlags();
 
 			EditorGUILayout.PropertyField(descriptionProp);
-			EditorGUILayout.PropertyField(defaultPortraitStageProp);
 			EditorGUILayout.PropertyField(colorCommandsProp);
 			EditorGUILayout.PropertyField(hideComponentsProp);
 			EditorGUILayout.PropertyField(runSlowDurationProp);

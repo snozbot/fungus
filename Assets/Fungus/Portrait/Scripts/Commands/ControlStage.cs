@@ -19,9 +19,9 @@ namespace Fungus
 	}
 
 	[CommandInfo("Portrait", 
-	             "Stage",
+	             "Control Stage",
 	             "Controls the stage on which character portraits are displayed.")]
-	public class Stage : Command 
+	public class ControlStage : Command 
 	{	
 		[Tooltip("Display type")]
 		public StageDisplayType display;

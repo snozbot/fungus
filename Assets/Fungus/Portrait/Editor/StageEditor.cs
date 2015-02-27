@@ -12,7 +12,7 @@ using Rotorz.ReorderableList;
 namespace Fungus
 {
 	
-	[CustomEditor (typeof(Stage))]
+	[CustomEditor (typeof(ControlStage))]
 	public class StageEditor : CommandEditor
 	{
 		protected SerializedProperty displayProp;
@@ -36,7 +36,7 @@ namespace Fungus
 		{
 			serializedObject.Update();
 			
-			Stage t = target as Stage;
+			ControlStage t = target as ControlStage;
 
 			// Format Enum names
 			string[] displayLabels = StringFormatter.FormatEnumNames(t.display,"<None>");
