@@ -31,8 +31,8 @@ namespace Fungus
 
 		protected virtual void Start()
 		{
-			audio.playOnAwake = false;
-			audio.loop = true;
+			GetComponent<AudioSource>().playOnAwake = false;
+			GetComponent<AudioSource>().loop = true;
 		}
 
 		/**
@@ -43,9 +43,9 @@ namespace Fungus
 		 */
 		public void PlayMusic(AudioClip musicClip, float atTime = 0)
 		{
-			audio.clip = musicClip;
-			audio.time = atTime;		// May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
-			audio.Play();
+			GetComponent<AudioSource>().clip = musicClip;
+			GetComponent<AudioSource>().time = atTime;		// May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
+			GetComponent<AudioSource>().Play();
 		}
 
 		/**
@@ -53,7 +53,7 @@ namespace Fungus
 		 */
 		public virtual void StopMusic()
 		{
-			audio.Stop();
+			GetComponent<AudioSource>().Stop();
 		}
 		
 		/**
@@ -74,13 +74,13 @@ namespace Fungus
 		 */
 		public virtual void PlaySound(AudioClip soundClip, float volume)
 		{
-			audio.PlayOneShot(soundClip, volume);
+			GetComponent<AudioSource>().PlayOneShot(soundClip, volume);
 		}
 		
 		public virtual void PlaySoundAtTime(AudioClip soundClip, float volume, float atTime)
 		{
-			audio.time = atTime;						// This may not work BK
-			audio.PlayOneShot(soundClip, volume);
+			GetComponent<AudioSource>().time = atTime;						// This may not work BK
+			GetComponent<AudioSource>().PlayOneShot(soundClip, volume);
 		}
 	}
 }

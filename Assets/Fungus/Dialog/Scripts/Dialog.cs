@@ -265,17 +265,17 @@ namespace Fungus
 				
 				if (characterTypingSound != null)
 				{
-					typingAudio.audio.clip = characterTypingSound;
+					typingAudio.GetComponent<AudioSource>().clip = characterTypingSound;
 				}
 				else if (writingSound != null)
 				{
-					typingAudio.audio.clip = writingSound;
+					typingAudio.GetComponent<AudioSource>().clip = writingSound;
 				}
 
-				typingAudio.audio.loop = loopWritingSound;
-				typingAudio.audio.Play();
+				typingAudio.GetComponent<AudioSource>().loop = loopWritingSound;
+				typingAudio.GetComponent<AudioSource>().Play();
 
-				dialogText.typingAudio = typingAudio.audio;
+				dialogText.typingAudio = typingAudio.GetComponent<AudioSource>();
 			}
 
 			foreach (Token token in parser.tokens)
@@ -487,7 +487,7 @@ namespace Fungus
 				return null;
 			}
 
-			return go.audio;
+			return go.GetComponent<AudioSource>();
 		}
 
 		protected virtual void VerticalPunch(float intensity)

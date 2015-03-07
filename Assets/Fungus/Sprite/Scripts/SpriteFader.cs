@@ -74,7 +74,7 @@ namespace Fungus
 
 		protected virtual void Start()
 		{
-			spriteRenderer = renderer as SpriteRenderer;
+			spriteRenderer = GetComponent<Renderer>() as SpriteRenderer;
 		}
 
 		protected virtual void Update() 

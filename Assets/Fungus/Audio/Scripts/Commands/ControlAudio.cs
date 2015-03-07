@@ -80,9 +80,9 @@ namespace Fungus
 
 			foreach (AudioSource a in audioSources)
 			{
-				if ((a.audio != audioSource) && (a.tag == audioSource.tag))
+				if ((a.GetComponent<AudioSource>() != audioSource) && (a.tag == audioSource.tag))
 				{
-					StopLoop(a.audio);
+					StopLoop(a.GetComponent<AudioSource>());
 				}
 			}
 		}
@@ -92,7 +92,7 @@ namespace Fungus
 			if (fadeDuration > 0)
 			{
 				audioSource.volume = 0;
-				PlaySoundWithCallback(audioSource.audio.clip, endVolume, AudioFinished);
+				PlaySoundWithCallback(audioSource.GetComponent<AudioSource>().clip, endVolume, AudioFinished);
 				LeanTween.value(audioSource.gameObject,0,endVolume,fadeDuration
 				).setOnUpdate(
 					(float updateVolume)=>{
@@ -110,7 +110,7 @@ namespace Fungus
 			else
 			{
 				audioSource.volume = 1;
-				PlaySoundWithCallback(audioSource.audio.clip, endVolume, AudioFinished);
+				PlaySoundWithCallback(audioSource.GetComponent<AudioSource>().clip, endVolume, AudioFinished);
 			}
 		}
 		
@@ -120,7 +120,7 @@ namespace Fungus
 			{
 				audioSource.volume = 0;
 				audioSource.loop = true;
-				audioSource.audio.Play();
+				audioSource.GetComponent<AudioSource>().Play();
 				LeanTween.value(audioSource.gameObject,0,endVolume,fadeDuration
 				).setOnUpdate(
 					(float updateVolume)=>{
@@ -139,7 +139,7 @@ namespace Fungus
 			{
 				audioSource.volume = 1;
 				audioSource.loop = true;
-				audioSource.audio.Play();
+				audioSource.GetComponent<AudioSource>().Play();
 			}
 		}
 
@@ -155,7 +155,7 @@ namespace Fungus
 				).setOnComplete(
 					()=>{
 					
-					audioSource.audio.Pause();
+					audioSource.GetComponent<AudioSource>().Pause();
 					if (waitUntilFinished)
 					{
 						Continue();
@@ -165,7 +165,7 @@ namespace Fungus
 			}
 			else
 			{
-				audioSource.audio.Pause();
+				audioSource.GetComponent<AudioSource>().Pause();
 			}
 		}
 
@@ -181,7 +181,7 @@ namespace Fungus
 				).setOnComplete(
 					()=>{
 					
-					source.audio.Stop();
+					source.GetComponent<AudioSource>().Stop();
 					if (waitUntilFinished)
 					{
 						Continue();
@@ -191,7 +191,7 @@ namespace Fungus
 			}
 			else
 			{
-				source.audio.Stop();
+				source.GetComponent<AudioSource>().Stop();
 			}
 		}
 
@@ -210,7 +210,7 @@ namespace Fungus
 
 		public void PlaySoundWithCallback(AudioClip clip, float endVolume, AudioCallback callback)
 		{
-			audioSource.audio.PlayOneShot(audioSource.clip, endVolume);
+			audioSource.GetComponent<AudioSource>().PlayOneShot(audioSource.clip, endVolume);
 			StartCoroutine(DelayedCallback(audioSource.clip.length, callback));
 		}
 

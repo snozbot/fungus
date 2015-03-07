@@ -48,9 +48,9 @@ namespace Fungus
 			Vector3 newPosition = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f));
 			newPosition.z = z;
 
-			if (rigidbody2D != null)
+			if (GetComponent<Rigidbody2D>() != null)
 			{
-				rigidbody2D.MovePosition(newPosition);
+				GetComponent<Rigidbody2D>().MovePosition(newPosition);
 			}
 			else
 			{
