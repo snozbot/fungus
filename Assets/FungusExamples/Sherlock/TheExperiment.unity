@@ -136,7 +136,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 31336593}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.91000009, y: -.649999976, z: 0}
+  m_LocalPosition: {x: 4.53999996, y: -.649999976, z: 0}
   m_LocalScale: {x: .924913228, y: .924913228, z: .924913228}
   m_Children: []
   m_Father: {fileID: 1782167289}
@@ -1992,7 +1992,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 884427799}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .150000006, y: 3.28999996, z: 0}
+  m_LocalPosition: {x: -.310000002, y: 3.88000011, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1782167289}
@@ -3179,6 +3179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 73
   errorMessage: 
   indentLevel: 0
   targetSequence: {fileID: 1390555371}
@@ -3193,6 +3194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 77
   errorMessage: 
   indentLevel: 0
   text: Don't drink the coffee
@@ -3223,6 +3225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 76
   errorMessage: 
   indentLevel: 0
   text: Drink the coffee
@@ -3241,7 +3244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 2876.33252, y: 1189.83801}
+  scrollPos: {x: 3074.33252, y: 1206.83801}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   zoom: 1
@@ -3251,14 +3254,18 @@ MonoBehaviour:
     y: -1729.35046
     width: 5969.4458
     height: 2818.85034
-  selectedSequence: {fileID: 1390555307}
-  selectedCommands: []
+  selectedSequence: {fileID: 1390555298}
+  selectedCommands:
+  - {fileID: 1390555366}
   variables: []
   description: 'Example scene from Sherlock: The Game Is On'
   runSlowDuration: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
+  showCommandId: 0
+  nextCommandId: 92
+  stringsFile: {fileID: 4900000, guid: 79f80017f3e97488ca5ddfbd71d73bce, type: 3}
 --- !u!4 &1390555296
 Transform:
   m_ObjectHideFlags: 0
@@ -3283,6 +3290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 30
   errorMessage: 
   indentLevel: 0
   storyText: ' Here, I need you to drink this.'
@@ -3357,6 +3365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 64
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -3386,6 +3395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 75
   errorMessage: 
   indentLevel: 0
   storyText: '{t}(Do I really want to do this?){/t}'
@@ -3410,6 +3420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 79
   errorMessage: 
   indentLevel: 0
   text: Leave
@@ -3460,6 +3471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 17
   errorMessage: 
   indentLevel: 0
   targetSequence: {fileID: 1390555304}
@@ -3502,6 +3514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 78
   errorMessage: 
   indentLevel: 0
   text: Talk to Sherlock.
@@ -3519,6 +3532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 80
   errorMessage: 
   indentLevel: 0
   storyText: (What should I do now?)
@@ -3604,6 +3618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 15
   errorMessage: 
   indentLevel: 0
   chooseText: '{t}Changed your mind?{/t}'
@@ -3624,6 +3639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 16
   errorMessage: 
   indentLevel: 0
   variable: {fileID: 0}
@@ -3655,6 +3671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 14
   errorMessage: 
   indentLevel: 0
   variable: {fileID: 0}
@@ -3731,6 +3748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 23
   errorMessage: 
   indentLevel: 0
   storyText: "Hmm... I'll have to revise my {clue}hypothesis\u2026"
@@ -3756,6 +3774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 22
   errorMessage: 
   indentLevel: 0
   storyText: Wait, {question}{flash=0.1}what?
@@ -3781,9 +3800,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 21
   errorMessage: 
   indentLevel: 0
-  storyText: 'No, that''s not right. '
+  storyText: No, that's not right.
   character: {fileID: 137130844}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -3806,6 +3826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 20
   errorMessage: 
   indentLevel: 0
   storyText: '{worried}Like an idiot who should stop encouraging you.'
@@ -3831,6 +3852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 1
   errorMessage: 
   indentLevel: 0
   storyText: All right. It's been 30 minutes. How do you feel?
@@ -3856,6 +3878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 19
   errorMessage: 
   indentLevel: 0
   duration: 1
@@ -3875,6 +3898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 18
   errorMessage: 
   indentLevel: 0
   duration: 1
@@ -3894,6 +3918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 0
   errorMessage: 
   indentLevel: 0
   storyText: '{answer}Excellent.'
@@ -3919,6 +3944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 5
   errorMessage: 
   indentLevel: 0
   storyText: Suit yourself.
@@ -3944,6 +3970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 4
   errorMessage: 
   indentLevel: 0
   storyText: '{shout}Still not ok{wp},{/wp} Sherlock!'
@@ -3969,6 +3996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 3
   errorMessage: 
   indentLevel: 0
   storyText: The hallucinogen was in the {answer}gas, not the coffee.
@@ -3994,6 +4022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 2
   errorMessage: 
   indentLevel: 0
   storyText: No thanks. The last time I drank your coffee, I spent the day running
@@ -4031,6 +4060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 74
   errorMessage: 
   indentLevel: 0
   storyText: Of course.
@@ -4056,9 +4086,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 12
   errorMessage: 
   indentLevel: 0
-  storyText: "Why don't you test it yourself?\r"
+  storyText: Why don't you test it yourself?
   character: {fileID: 1880195408}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -4081,6 +4112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 11
   errorMessage: 
   indentLevel: 0
   storyText: '{clue}Your words inspire such confidence.'
@@ -4106,6 +4138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 10
   errorMessage: 
   indentLevel: 0
   storyText: It's for an experiment.
@@ -4131,9 +4164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 9
   errorMessage: 
   indentLevel: 0
-  storyText: "{worried}... Why?\r\n"
+  storyText: '{worried}... Why?'
   character: {fileID: 1880195408}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -4156,6 +4190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 8
   errorMessage: 
   indentLevel: 0
   storyText: '{answer}{flash=0.1}Well you arrived at just the right time.'
@@ -4181,6 +4216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 7
   errorMessage: 
   indentLevel: 0
   storyText: '{confused}I do live here, you know.'
@@ -4206,6 +4242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 13
   errorMessage: 
   indentLevel: 0
   storyText: '{question}I can''t observe the effects of the experiment if I''m the
@@ -4232,6 +4269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 6
   errorMessage: 
   indentLevel: 0
   storyText: THE EXPERIMENT
@@ -4256,6 +4294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 86
   errorMessage: 
   indentLevel: 0
   targetSequence: {fileID: 1390555298}
@@ -4271,6 +4310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 24
   errorMessage: 
   indentLevel: 0
   targetSequence: {fileID: 1390555440}
@@ -4286,6 +4326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 29
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4316,6 +4357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 28
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4346,6 +4388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 33
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 1789234734}
@@ -4364,6 +4407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 32
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 1789234734}
@@ -4382,6 +4426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 31
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4412,6 +4457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 27
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4442,6 +4488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 26
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4471,6 +4518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 72
   errorMessage: 
   indentLevel: 0
   control: 2
@@ -4491,6 +4539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 25
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4521,6 +4570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 40
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4551,6 +4601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 39
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4581,6 +4632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 37
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4611,6 +4663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 38
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4641,6 +4694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 35
   errorMessage: 
   indentLevel: 0
   storyText: ' Don''t worry. It won''t kill you.'
@@ -4666,6 +4720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 36
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4696,6 +4751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 34
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4725,6 +4781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 63
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4754,6 +4811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 65
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4783,6 +4841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 66
   errorMessage: 
   indentLevel: 0
   storyText: Right.... Good luck with that.
@@ -4807,6 +4866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 67
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4836,6 +4896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 85
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 1612042692}
@@ -4853,6 +4914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 84
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 884427801}
@@ -4870,9 +4932,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 83
   errorMessage: 
   indentLevel: 0
-  duration: 2
+  duration: 3
 --- !u!114 &1390555361
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4884,6 +4947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 82
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 1612042692}
@@ -4929,6 +4993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 57
   errorMessage: 
   indentLevel: 0
   duration: 1
@@ -4947,6 +5012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 56
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -4976,6 +5042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 55
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5005,6 +5072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 58
   errorMessage: 
   indentLevel: 0
   storyText: Ah John, {pleased}there you are.
@@ -5029,6 +5097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 71
   errorMessage: 
   indentLevel: 0
   duration: 1
@@ -5047,6 +5116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 68
   errorMessage: 
   indentLevel: 0
   control: 2
@@ -5066,6 +5136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 70
   errorMessage: 
   indentLevel: 0
   storyText: Your {stat-up}courage{/stat-up} has increased!
@@ -5090,6 +5161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1ff0f540016ff64ab1556db6fe1e10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 69
   errorMessage: 
   indentLevel: 0
   display: 2
@@ -5135,6 +5207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 54
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5164,6 +5237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 53
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5193,6 +5267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 52
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5222,6 +5297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 51
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5251,6 +5327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 50
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5280,6 +5357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 49
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5309,6 +5387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 48
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5338,6 +5417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 47
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5367,6 +5447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 46
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5396,6 +5477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 45
   errorMessage: 
   indentLevel: 0
   storyText: '{shout}No nausea? {shout}Dizziness? {shout}Feeling of sudden and impending
@@ -5421,6 +5503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 44
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5450,6 +5533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 43
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5479,6 +5563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 42
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5508,6 +5593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 41
   errorMessage: 
   indentLevel: 0
   stage: {fileID: 0}
@@ -5537,6 +5623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 81
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 31336594}
@@ -5554,6 +5641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 91
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 884427801}
@@ -5571,6 +5659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 90
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 31336594}
@@ -5588,6 +5677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 61
   errorMessage: 
   indentLevel: 0
   control: 1
@@ -5607,6 +5697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 62
   errorMessage: 
   indentLevel: 0
   control: 0
@@ -5626,6 +5717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 59
   errorMessage: 
   indentLevel: 0
   control: 2
@@ -5645,6 +5737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 60
   errorMessage: 
   indentLevel: 0
   control: 1
@@ -5664,6 +5757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 88
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 884427801}
@@ -5679,6 +5773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 89
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 31336594}
@@ -5694,6 +5789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 87
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 1612042692}
@@ -5846,7 +5942,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1612042690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.44000006, y: -.579999983, z: 0}
+  m_LocalPosition: {x: -5, y: -.790000021, z: 0}
   m_LocalScale: {x: .737242758, y: .737242758, z: .737242758}
   m_Children: []
   m_Father: {fileID: 1782167289}
@@ -6019,6 +6115,60 @@ MonoBehaviour:
   tagEndSymbol: '{/slower}'
   replaceTagStartWith: '{s=10}'
   replaceTagEndWith: '{/s}'
+--- !u!1 &1675553597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1675553599}
+  - 212: {fileID: 1675553598}
+  m_Layer: 0
+  m_Name: background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1675553598
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1675553597}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 11c1465344d894bf0b62fe226620a7ab, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!4 &1675553599
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1675553597}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0260436535, y: -.0699744225, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
 --- !u!1 &1782167288
 GameObject:
   m_ObjectHideFlags: 0
