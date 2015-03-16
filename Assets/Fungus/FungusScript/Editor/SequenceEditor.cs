@@ -528,12 +528,15 @@ namespace Fungus
 			{
 				return;
 			}
-			
-			sequence.GetFungusScript().ClearSelectedCommands();
+
+			FungusScript fungusScript = sequence.GetFungusScript();
+
+			fungusScript.ClearSelectedCommands();
 			
 			Command newCommand = Undo.AddComponent(sequence.gameObject, commandOperation.commandType) as Command;
 			sequence.GetFungusScript().AddSelectedCommand(newCommand);
 			newCommand.parentSequence = sequence;
+			newCommand.commandId = fungusScript.NextCommandId();
 
 			// Let command know it has just been added to the sequence
 			newCommand.OnCommandAdded(sequence);
@@ -741,6 +744,7 @@ namespace Fungus
 						Command pastedCommand = commands.Last<Command>();
 						if (pastedCommand != null)
 						{
+							pastedCommand.commandId = fungusScript.NextCommandId();
 							fungusScript.selectedSequence.commandList.Insert(pasteIndex++, pastedCommand);
 						}
 					}

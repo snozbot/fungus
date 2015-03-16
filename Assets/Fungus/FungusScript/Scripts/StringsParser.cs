@@ -7,103 +7,90 @@ using Fungus;
 namespace Fungus
 {
 	/**
-	 * Parses a text file using a simple format and adds string values to the global string table.
-	 * The format is:
-	 * $FirstString
-	 * The first string text goes here
-	 * $SecondString
-	 * The second string text goes here
-	 * # This is a comment line and will be ignored by the parser
+	 * Parses an exported strings file using the Fountain file format for screenplays
+	 * See http://fountain.io for details.
+	 * We only support a small subset of Fountain markup, and use note tags to embed meta data to
+	 * bind dialogue text to the corresponding Say / Menu commands.
 	 */
-	public class StringsParser : MonoBehaviour
+	public class StringsParser
 	{
-		public TextAsset stringsFile;
-		
-		private enum ParseMode
+		public class StringItem
 		{
-			Idle,
-			Text,
-		};
-
-		public virtual void Start()
-		{
-			ProcessText(stringsFile.text);
+			public string[] parameters;
+			public string bodyText;
 		}
-		
-		protected virtual void ProcessText(string text) 
+
+		public virtual List<StringItem> ProcessText(string text) 
 		{
+			List<StringItem> items = new List<StringItem>();
+
 			// Split text into lines. Add a newline at end to ensure last command is always parsed
 			string[] lines = Regex.Split(text + "\n", "(?<=\n)");
-			
-			string blockBuffer = "";
 
-			ParseMode mode = ParseMode.Idle;
-
-			string blockTag = "";
-			for (int i = 0; i < lines.Length; ++i)
+			int i = 0;
+			while (i < lines.Length)
 			{
-				string line = lines[i];
+				string line = lines[i].Trim();
 
-				bool newBlock = line.StartsWith("$");
-
-				if (mode == ParseMode.Idle && !newBlock)
+				if (!(line.StartsWith("[[") && line.EndsWith("]]")))
 				{
-					// Ignore any text not preceded by a label tag
+					i++;
 					continue;
 				}
 
-				string newBlockTag = "";
-				if (newBlock)
-				{
-					newBlockTag = line.Replace ("\n", "");
-				}
+				string blockTag = line.Substring(2, line.Length - 4);
 
-				bool endOfFile = (i == lines.Length-1);
-
-				bool storeBlock = false;
-
-				if (newBlock)
+				// Find next empty line, #, [[ or eof
+				int start = i + 1;
+				int end = lines.Length - 1;
+				for (int j = start; j <= end; ++j)
 				{
-					storeBlock = true;
-				}
-				else if (mode == ParseMode.Text && endOfFile)
-				{
-					storeBlock = true;
-					if (!line.StartsWith("#"))
+					string line2 = lines[j].Trim();
+
+					if (line2.Length == 0 ||
+					    line2.StartsWith("#") ||
+					    line2.StartsWith("[["))
 					{
-						blockBuffer += line;
-					}
-				}
-				else
-				{
-					if (!line.StartsWith("#"))
-					{
-						blockBuffer += line;
+						end = j;
+						break;
 					}
 				}
 
-				if (storeBlock)
+				if (end > start)
 				{
-					if (blockTag.Length > 0 && blockBuffer.Length > 0)
+					string blockBuffer = "";
+					for (int j = start; j <= end; ++j)
 					{
-						// Trim off last newline
-						blockBuffer = blockBuffer.TrimEnd( '\r', '\n', ' ', '\t');
-
-						// TODO: Store in a string table class
-						// GlobalVariables.SetString(blockTag, blockBuffer);
+						blockBuffer += lines[j].Trim() + "\n";
 					}
 
-					// Prepare to parse next block
-					mode = ParseMode.Idle;
-					if (newBlock)
-					{
-						mode = ParseMode.Text;
-						blockTag = newBlockTag;
-					}
+					blockBuffer = blockBuffer.Trim();
 
-					blockBuffer = "";
+					StringItem item = CreateItem(blockTag, blockBuffer);
+					if (item != null)
+					{
+						items.Add(item);
+					}					
 				}
+
+				i = end + 1;
 			}
+
+			return items;
+		}
+
+		protected StringItem CreateItem(string commandInfo, string bodyText)
+		{
+			string[] parameters = commandInfo.Split(new char[] { ',' });
+			if (parameters.Length > 0)
+			{
+				StringItem item = new StringItem();
+				item.parameters = parameters;
+				item.bodyText = bodyText;
+				return item;
+			}
+
+			return null;
 		}
 	}
 }

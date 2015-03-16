@@ -71,6 +71,10 @@ namespace Fungus
 
 			GUILayout.FlexibleSpace();
 
+			GUILayout.Label(new GUIContent("(" + t.commandId + ")"));
+
+			GUILayout.Space(10);
+
 			GUI.backgroundColor = Color.white;
 			bool enabled = t.enabled;
 			enabled = GUILayout.Toggle(enabled, new GUIContent());

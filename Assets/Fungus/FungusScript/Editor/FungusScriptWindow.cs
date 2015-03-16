@@ -689,6 +689,7 @@ namespace Fungus
 				{
 					field.SetValue(newCommand, field.GetValue(command));
 				}
+				newCommand.commandId = fungusScript.NextCommandId();
 				newSequence.commandList.Add(newCommand);
 			}
 

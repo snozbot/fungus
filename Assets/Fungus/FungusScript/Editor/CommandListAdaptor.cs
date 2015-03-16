@@ -94,6 +94,7 @@ namespace Fungus
 			}
 			
 			Command newCommand = Undo.AddComponent<Comment>(sequence.gameObject) as Command;
+			newCommand.commandId = fungusScript.NextCommandId();
 			fungusScript.ClearSelectedCommands();
 			fungusScript.AddSelectedCommand(newCommand);
 			
@@ -109,6 +110,7 @@ namespace Fungus
 			
 			System.Type type = command.GetType();
 			Command newCommand = Undo.AddComponent(parentSequence.gameObject, type) as Command;
+			newCommand.commandId = newCommand.GetFungusScript().NextCommandId();
 			System.Reflection.FieldInfo[] fields = type.GetFields();
 			foreach (System.Reflection.FieldInfo field in fields)
 			{

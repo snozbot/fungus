@@ -12,6 +12,7 @@ namespace Fungus
 	 * Visual scripting controller for the Fungus Script programming language.
 	 * FungusScript objects may be edited visually using the Fungus Script editor window.
 	 */
+	[ExecuteInEditMode]
 	[AddComponentMenu("Fungus/Fungus Script")]
 	public class FungusScript : MonoBehaviour 
 	{
@@ -90,6 +91,38 @@ namespace Fungus
 		 */
 		[Tooltip("Saves the selected sequence and commands when saving the scene.")]
 		public bool saveSelection = true;
+
+		/**
+		 * Unique id to assign to the next created command.
+		 * Increases monotonically every time a new command is added to the sequence.
+		 */
+		[SerializeField]
+		protected int nextCommandId = 0;
+
+		/**
+		 * Returns the next command id to assign to a new command.
+		 * Command ids increase monotically so they are guaranteed to
+		 * be unique within a FungusScript.
+		 */
+		public int NextCommandId()
+		{
+			return nextCommandId++;
+		}
+
+		public virtual void OnEnable()
+		{
+			// Assign a command id to any command that doesn't have one yet.
+			// This should only happen after loading a legacy FungusScript
+			Command[] commands = GetComponentsInChildren<Command>();
+		 	foreach (Command command in commands)
+			{
+				if (command.commandId == -1)
+				{
+					command.commandId = NextCommandId();
+					Debug.Log("Assigning command id: " + command.commandId);
+				}
+			}
+		}
 
 		protected virtual Sequence CreateSequenceComponent(GameObject parent)
 		{

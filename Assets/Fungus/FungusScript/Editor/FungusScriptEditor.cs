@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Rotorz.ReorderableList;
 using System.Linq;
 using System.Reflection;
+using System.IO;
 
 namespace Fungus
 {
@@ -21,6 +22,7 @@ namespace Fungus
 		protected SerializedProperty colorCommandsProp;
 		protected SerializedProperty hideComponentsProp;
 		protected SerializedProperty runSlowDurationProp;
+		protected SerializedProperty saveSelectionProp;
 		protected SerializedProperty variablesProp;
 
 		protected virtual void OnEnable()
@@ -29,6 +31,7 @@ namespace Fungus
 			colorCommandsProp = serializedObject.FindProperty("colorCommands");
 			hideComponentsProp = serializedObject.FindProperty("hideComponents");
 			runSlowDurationProp = serializedObject.FindProperty("runSlowDuration");
+			saveSelectionProp = serializedObject.FindProperty("saveSelection");
 			variablesProp = serializedObject.FindProperty("variables");
 		}
 
@@ -44,6 +47,7 @@ namespace Fungus
 			EditorGUILayout.PropertyField(colorCommandsProp);
 			EditorGUILayout.PropertyField(hideComponentsProp);
 			EditorGUILayout.PropertyField(runSlowDurationProp);
+			EditorGUILayout.PropertyField(saveSelectionProp);
 
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
@@ -51,6 +55,15 @@ namespace Fungus
 			{
 				EditorWindow.GetWindow(typeof(FungusScriptWindow), false, "Fungus Script");
 			}
+			if (GUILayout.Button(new GUIContent("Export Text", "Export all story text in .fountain format.")))
+			{
+				FountainExporter.ExportStrings(fungusScript);
+			}
+			if (GUILayout.Button(new GUIContent("Import Text", "Import story text from a file in .fountain format.")))
+			{
+				FountainExporter.ImportStrings(fungusScript);
+			}
+
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 
@@ -213,7 +226,7 @@ namespace Fungus
 					       derivedType.IsAssignableFrom(t)
 					       ).ToList();
 			
-		} 
+		}
 	}
-	
+
 }

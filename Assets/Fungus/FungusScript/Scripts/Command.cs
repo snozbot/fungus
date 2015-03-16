@@ -32,6 +32,9 @@ namespace Fungus
 	public class Command : MonoBehaviour
 	{
 		[HideInInspector]
+		public int commandId = -1; // Invalid command id
+
+		[HideInInspector]
 		public string errorMessage = "";
 
 		[HideInInspector]
