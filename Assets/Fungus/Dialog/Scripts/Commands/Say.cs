@@ -11,7 +11,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Say : Command 
 	{
-		[Tooltip("Text to display")]
 		[TextArea(5,10)]
 		public string storyText;
 
