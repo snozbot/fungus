@@ -60,6 +60,11 @@ namespace Fungus
 		
 		protected virtual void OnMouseUp()
 		{
+			if (!dragEnabled)
+			{
+				return;
+			}
+
 			bool dragCompleted = false;
 
 			DragCompleted[] handlers = GetHandlers<DragCompleted>();
@@ -92,6 +97,11 @@ namespace Fungus
 
 		protected virtual void OnTriggerEnter2D(Collider2D other) 
 		{
+			if (!dragEnabled)
+			{
+				return;
+			}
+
 			foreach (DragEntered handler in GetHandlers<DragEntered>())
 			{
 				handler.OnDragEntered(this, other);
@@ -105,6 +115,11 @@ namespace Fungus
 
 		protected virtual void OnTriggerExit2D(Collider2D other) 
 		{
+			if (!dragEnabled)
+			{
+				return;
+			}
+
 			foreach (DragExited handler in GetHandlers<DragExited>())
 			{
 				handler.OnDragExited(this, other);
