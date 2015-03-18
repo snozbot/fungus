@@ -28,8 +28,17 @@ namespace Fungus
 		[HideInInspector]
 		public Vector2 variablesScrollPos;
 
+		/**
+		 * Show the variables pane.
+		 */
 		[HideInInspector]
 		public bool variablesExpanded = true;
+
+		/**
+		 * Height of command sequence view in inspector.
+		 */
+		[HideInInspector]
+		public float sequenceViewHeight = 400;
 
 		/**
 		 * Zoom level of Fungus Script editor window

@@ -26,6 +26,27 @@ namespace Fungus
 			public int index;
 		}
 
+		public virtual void DrawSequenceName(FungusScript fungusScript)
+		{
+			serializedObject.Update();
+
+			SerializedProperty sequenceNameProperty = serializedObject.FindProperty("sequenceName");
+			Rect sequenceLabelRect = new Rect(45, 5, 120, 16);
+			EditorGUI.LabelField(sequenceLabelRect, new GUIContent("Sequence Name"));
+			Rect sequenceNameRect = new Rect(45, 21, 180, 16);
+			EditorGUI.PropertyField(sequenceNameRect, sequenceNameProperty, new GUIContent(""));
+
+			// Ensure sequence name is unique for this Fungus Script
+			Sequence sequence = target as Sequence;
+			string uniqueName = fungusScript.GetUniqueSequenceKey(sequenceNameProperty.stringValue, sequence);
+			if (uniqueName != sequence.sequenceName)
+			{
+				sequenceNameProperty.stringValue = uniqueName;
+			}
+
+			serializedObject.ApplyModifiedProperties();
+		}
+
 		public virtual void DrawSequenceGUI(FungusScript fungusScript)
 		{
 			serializedObject.Update();
@@ -45,20 +66,7 @@ namespace Fungus
 				DrawEventHandlerGUI(fungusScript);
 				
 				UpdateIndentLevels(sequence);
-				
-				SerializedProperty sequenceNameProperty = serializedObject.FindProperty("sequenceName");
-				Rect sequenceLabelRect = new Rect(45, 5, 120, 16);
-				EditorGUI.LabelField(sequenceLabelRect, new GUIContent("Sequence Name"));
-				Rect sequenceNameRect = new Rect(45, 21, 180, 16);
-				EditorGUI.PropertyField(sequenceNameRect, sequenceNameProperty, new GUIContent(""));
-				
-				// Ensure sequence name is unique for this Fungus Script
-				string uniqueName = fungusScript.GetUniqueSequenceKey(sequenceNameProperty.stringValue, sequence);
-				if (uniqueName != sequence.sequenceName)
-				{
-					sequenceNameProperty.stringValue = uniqueName;
-				}
-				
+
 				// Make sure each command has a reference to its parent sequence
 				foreach (Command command in sequence.commandList)
 				{
@@ -82,27 +90,10 @@ namespace Fungus
 					ShowContextMenu();
 				}
 
-				GUILayout.BeginHorizontal();
-
-				// Previous Command
-				if ((Event.current.type == EventType.keyDown) && (Event.current.keyCode == KeyCode.PageUp))
-				{
-					SelectPrevious();
-					GUI.FocusControl("dummycontrol");
-					Event.current.Use();
-				}
-				// Next Command
-				if ((Event.current.type == EventType.keyDown) && (Event.current.keyCode == KeyCode.PageDown))
-				{
-					SelectNext();
-					GUI.FocusControl("dummycontrol");
-					Event.current.Use();
-				}
-
 				if (GUIUtility.keyboardControl == 0) //Only call keyboard shortcuts when not typing in a text field
 				{
 					Event e = Event.current;
-
+					
 					// Copy keyboard shortcut
 					if (e.type == EventType.ValidateCommand && e.commandName == "Copy")
 					{
@@ -111,12 +102,13 @@ namespace Fungus
 							e.Use();
 						}
 					}
+
 					if (e.type == EventType.ExecuteCommand && e.commandName == "Copy")		
 					{
 						Copy();
 						e.Use();
 					}
-
+					
 					// Cut keyboard shortcut
 					if (e.type == EventType.ValidateCommand && e.commandName == "Cut")
 					{
@@ -125,12 +117,13 @@ namespace Fungus
 							e.Use();
 						}
 					}
+
 					if (e.type == EventType.ExecuteCommand && e.commandName == "Cut")
 					{
 						Cut();
 						e.Use();
 					}
-
+					
 					// Paste keyboard shortcut
 					if (e.type == EventType.ValidateCommand && e.commandName == "Paste")
 					{
@@ -140,12 +133,13 @@ namespace Fungus
 							e.Use();
 						}
 					}
+
 					if (e.type == EventType.ExecuteCommand && e.commandName == "Paste")		
 					{
 						Paste();
 						e.Use();
 					}
-
+					
 					// Duplicate keyboard shortcut
 					if (e.type == EventType.ValidateCommand && e.commandName == "Duplicate")
 					{
@@ -154,13 +148,14 @@ namespace Fungus
 							e.Use();
 						}
 					}
+
 					if (e.type == EventType.ExecuteCommand && e.commandName == "Duplicate")		
 					{
 						Copy();
 						Paste();
 						e.Use();
 					}
-
+					
 					// Delete keyboard shortcut
 					if (e.type == EventType.ValidateCommand && e.commandName == "Delete")
 					{
@@ -169,17 +164,19 @@ namespace Fungus
 							e.Use();
 						}
 					}
+
 					if (e.type == EventType.ExecuteCommand && e.commandName == "Delete")		
 					{
 						Delete();
 						e.Use();
 					}
-
+					
 					// SelectAll keyboard shortcut
 					if (e.type == EventType.ValidateCommand && e.commandName == "SelectAll")
 					{
 						e.Use();
 					}
+				
 					if (e.type == EventType.ExecuteCommand && e.commandName == "SelectAll")		
 					{
 						SelectAll();
@@ -187,47 +184,6 @@ namespace Fungus
 					}
 				}
 
-				// Up Button
-				Texture2D upIcon = Resources.Load("Icons/up") as Texture2D;
-				if (GUILayout.Button(upIcon))
-				{
-					SelectPrevious();
-				}
-
-				// Down Button
-				Texture2D downIcon = Resources.Load("Icons/down") as Texture2D;
-				if (GUILayout.Button(downIcon))
-				{
-					SelectNext();
-				}
-				
-				GUILayout.FlexibleSpace();
-
-				GUILayout.FlexibleSpace();
-				
-				// Add Button
-				Texture2D addIcon = Resources.Load("Icons/add") as Texture2D;
-				if (GUILayout.Button(addIcon))
-				{
-					ShowCommandMenu();
-				}
-
-				// Duplicate Button
-				Texture2D duplicateIcon = Resources.Load("Icons/duplicate") as Texture2D;
-				if (GUILayout.Button(duplicateIcon))
-				{
-					Copy();
-					Paste();
-				}
-				
-				// Delete Button
-				Texture2D deleteIcon = Resources.Load("Icons/delete") as Texture2D;
-				if (GUILayout.Button(deleteIcon))
-				{
-					Delete();
-				}
-				
-				GUILayout.EndHorizontal();
 			}
 
 			// Remove any null entries in the command list.
@@ -242,6 +198,66 @@ namespace Fungus
 			}
 
 			serializedObject.ApplyModifiedProperties();
+		}
+
+		public virtual void DrawButtonToolbar()
+		{
+			GUILayout.BeginHorizontal();
+			
+			// Previous Command
+			if ((Event.current.type == EventType.keyDown) && (Event.current.keyCode == KeyCode.PageUp))
+			{
+				SelectPrevious();
+				GUI.FocusControl("dummycontrol");
+				Event.current.Use();
+			}
+			// Next Command
+			if ((Event.current.type == EventType.keyDown) && (Event.current.keyCode == KeyCode.PageDown))
+			{
+				SelectNext();
+				GUI.FocusControl("dummycontrol");
+				Event.current.Use();
+			}
+			
+			// Up Button
+			Texture2D upIcon = Resources.Load("Icons/up") as Texture2D;
+			if (GUILayout.Button(upIcon))
+			{
+				SelectPrevious();
+			}
+			
+			// Down Button
+			Texture2D downIcon = Resources.Load("Icons/down") as Texture2D;
+			if (GUILayout.Button(downIcon))
+			{
+				SelectNext();
+			}
+			
+			GUILayout.FlexibleSpace();
+			
+			// Add Button
+			Texture2D addIcon = Resources.Load("Icons/add") as Texture2D;
+			if (GUILayout.Button(addIcon))
+			{
+				ShowCommandMenu();
+			}
+			
+			// Duplicate Button
+			Texture2D duplicateIcon = Resources.Load("Icons/duplicate") as Texture2D;
+			if (GUILayout.Button(duplicateIcon))
+			{
+				Copy();
+				Paste();
+			}
+			
+			// Delete Button
+			Texture2D deleteIcon = Resources.Load("Icons/delete") as Texture2D;
+			if (GUILayout.Button(deleteIcon))
+			{
+				Delete();
+			}
+			
+			GUILayout.EndHorizontal();
 		}
 
 		protected void DrawEventHandlerGUI(FungusScript fungusScript)
@@ -454,7 +470,22 @@ namespace Fungus
 		void ShowCommandMenu()
 		{
 			Sequence sequence = target as Sequence;
-			int index = sequence.commandList.Count;
+
+			FungusScript fungusScript = sequence.GetFungusScript();
+
+			// Use index of last selected command in list, or end of list if nothing selected.
+			int index = -1;
+			foreach (Command command in fungusScript.selectedCommands)
+			{
+				if (command.commandIndex + 1 > index)
+				{
+					index = command.commandIndex + 1;
+				}
+			}
+			if (index == -1)
+			{
+				index = sequence.commandList.Count;
+			}
 
 			GenericMenu commandMenu = new GenericMenu();
 			
@@ -544,7 +575,7 @@ namespace Fungus
 			Undo.RecordObject(sequence, "Set command type");
 			if (commandOperation.index < sequence.commandList.Count - 1)
 			{
-				sequence.commandList[commandOperation.index] = newCommand;
+				sequence.commandList.Insert(commandOperation.index, newCommand);
 			}
 			else
 			{
