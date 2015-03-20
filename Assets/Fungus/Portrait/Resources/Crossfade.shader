@@ -62,11 +62,15 @@
 
             v2f vert(appdata_t IN)
             {
-                v2f OUT;
-                OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
-                OUT.texcoord = TRANSFORM_TEX(IN.texcoord, _MainTex);
-                OUT.color = IN.color * _Color;
-                return OUT;
+				v2f OUT;
+				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
+				OUT.texcoord = IN.texcoord;
+				OUT.color = IN.color * _Color;
+				#ifdef PIXELSNAP_ON
+				OUT.vertex = UnityPixelSnap (OUT.vertex);
+				#endif
+
+				return OUT;
             }
            
             fixed4 frag (v2f i) : COLOR
