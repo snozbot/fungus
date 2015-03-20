@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Dialog", 
+	[CommandInfo("Deprecated", 
 	             "Choose", 
-	             "Obsolete: This command will be removed in a future update. Please use the Option command instead.",
+	             "Obsolete: This command will be removed in a future update. Please use the Menu command instead.",
 	             -1)]
 	[AddComponentMenu("")]
 	public class Choose : Command 

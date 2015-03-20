@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Dialog", 
+	[CommandInfo("Deprecated", 
 	             "Add Option", 
 	             "Obsolete: This command will be removed in a future update. Please use the Option command instead.",
 	             -1)]
