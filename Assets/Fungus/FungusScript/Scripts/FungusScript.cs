@@ -128,7 +128,6 @@ namespace Fungus
 				if (command.commandId == -1)
 				{
 					command.commandId = NextCommandId();
-					Debug.Log("Assigning command id: " + command.commandId);
 				}
 			}
 		}
