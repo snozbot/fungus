@@ -11,18 +11,7 @@ namespace Fungus
 		[MenuItem("GameObject/Fungus/Fungus Script")]
 		static void CreateFungusScript()
 		{
-			GameObject newFungusScriptGO = new GameObject();
-			newFungusScriptGO.name = "FungusScript";
-			FungusScript fungusScript = newFungusScriptGO.AddComponent<FungusScript>();
-			Sequence sequence = Undo.AddComponent<Sequence>(newFungusScriptGO);
-			sequence.nodeRect.x += 60;
-			sequence.nodeRect.y += 60;
-			GameStarted gameStarted = Undo.AddComponent<GameStarted>(newFungusScriptGO);
-			gameStarted.parentSequence = sequence;
-			sequence.eventHandler = gameStarted;
-			fungusScript.selectedSequence = sequence;
-			fungusScript.scrollPos = Vector2.zero;
-			Undo.RegisterCreatedObjectUndo(newFungusScriptGO, "Create Fungus Script");
+			SpawnPrefab("Assets/Fungus/FungusScript/Resources/FungusScript.prefab");
 		}
 
 		public static GameObject SpawnPrefab(string prefabFile)
