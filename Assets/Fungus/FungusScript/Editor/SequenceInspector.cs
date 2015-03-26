@@ -84,7 +84,12 @@ namespace Fungus
 			// Draw the resize bar after everything else has finished drawing
 			// This is mainly to avoid incorrect indenting.
 			Rect resizeRect = new Rect(0, topPanelHeight + fungusScript.sequenceViewHeight + 1, Screen.width, 4f);
-			GUI.color = Color.grey;
+			GUI.color = new Color(0.64f, 0.64f, 0.64f);
+			GUI.DrawTexture(resizeRect, EditorGUIUtility.whiteTexture);
+			resizeRect.height = 1;
+			GUI.color = new Color32(132, 132, 132, 255);
+			GUI.DrawTexture(resizeRect, EditorGUIUtility.whiteTexture);
+			resizeRect.y += 3;
 			GUI.DrawTexture(resizeRect, EditorGUIUtility.whiteTexture);
 			GUI.color = Color.white;
 
@@ -103,16 +108,18 @@ namespace Fungus
 			{
 				resize = true;
 			}
-			
+
 			if (resize)
 			{
-				float height = Event.current.mousePosition.y;
-				height = Mathf.Max(200, height);
-				height = Mathf.Min(Screen.height - 200,height);
-
 				Undo.RecordObject(fungusScript, "Resize view");
-				fungusScript.sequenceViewHeight = height;
+				fungusScript.sequenceViewHeight = Event.current.mousePosition.y;
 			}
+
+			// Make sure sequence view is always visible
+			float height = fungusScript.sequenceViewHeight;
+			height = Mathf.Max(200, height);
+			height = Mathf.Min(Screen.height - 200,height);
+			fungusScript.sequenceViewHeight = height;
 
 			// Stop resizing if mouse is outside inspector window.
 			// This isn't standard Unity UI behavior but it is robust and safe.
