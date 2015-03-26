@@ -39,6 +39,10 @@ namespace Fungus
 			SequenceEditor sequenceEditor = Editor.CreateEditor(sequence) as SequenceEditor;
 			sequenceEditor.DrawSequenceName(fungusScript);
 
+			// Using a custom rect area to get the correct 5px indent for the scroll views
+			Rect sequenceRect = new Rect(5, topPanelHeight, Screen.width - 6, Screen.height);
+			GUILayout.BeginArea(sequenceRect);
+
 			sequenceScrollPos = GUILayout.BeginScrollView(sequenceScrollPos, GUILayout.Height(fungusScript.sequenceViewHeight));
 			sequenceEditor.DrawSequenceGUI(fungusScript);
 			GUILayout.EndScrollView();
@@ -75,6 +79,15 @@ namespace Fungus
 
 			GUILayout.EndScrollView();
 
+			GUILayout.EndArea();
+
+			// Draw the resize bar after everything else has finished drawing
+			// This is mainly to avoid incorrect indenting.
+			Rect resizeRect = new Rect(0, topPanelHeight + fungusScript.sequenceViewHeight + 1, Screen.width, 4f);
+			GUI.color = Color.grey;
+			GUI.DrawTexture(resizeRect, EditorGUIUtility.whiteTexture);
+			GUI.color = Color.white;
+
 			Repaint();
 
 			DestroyImmediate(sequenceEditor);
@@ -82,11 +95,7 @@ namespace Fungus
 
 		private void ResizeScrollView(FungusScript fungusScript)
 		{
-			Rect cursorChangeRect = new Rect(0, fungusScript.sequenceViewHeight + topPanelHeight, Screen.width, 4f);
-			
-			GUI.color = Color.grey;
-			GUI.DrawTexture(cursorChangeRect, EditorGUIUtility.whiteTexture);
-			GUI.color = Color.white;
+			Rect cursorChangeRect = new Rect(0, fungusScript.sequenceViewHeight + 1, Screen.width, 4f);
 
 			EditorGUIUtility.AddCursorRect(cursorChangeRect, MouseCursor.ResizeVertical);
 			
@@ -97,7 +106,7 @@ namespace Fungus
 			
 			if (resize)
 			{
-				float height = Event.current.mousePosition.y - topPanelHeight;
+				float height = Event.current.mousePosition.y;
 				height = Mathf.Max(200, height);
 				height = Mathf.Min(Screen.height - 200,height);
 
