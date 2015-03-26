@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Rotorz.ReorderableList;
+using System.IO;
 
 namespace Fungus
 {
@@ -465,6 +466,40 @@ namespace Fungus
 				compare = (x.Value.CommandName.CompareTo(y.Value.CommandName));
 			}
 			return compare;
+		}
+
+		[MenuItem("Tools/Fungus/Export Class Info")]
+		protected static void DumpFungusClassInfo()
+		{
+			string path = EditorUtility.SaveFilePanel("Export strings", "",
+			                                          "FungusClasses.csv", "");
+			
+			if(path.Length == 0) 
+			{
+				return;
+			}
+
+			string classInfo = "";
+
+			// Dump command info
+			List<System.Type> menuTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).ToList();
+			List<KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = GetFilteredCommandInfoAttribute(menuTypes);
+			filteredAttributes.Sort( CompareCommandAttributes );
+			foreach(var keyPair in filteredAttributes)
+			{
+				CommandInfoAttribute info = keyPair.Value;
+				classInfo += ("Command," + info.CommandName + "," + info.Category + ",\"" + info.HelpText + "\"\n");
+			}
+
+			// Dump event handler info
+			List<System.Type> eventHandlerTypes = EditorExtensions.FindDerivedTypes(typeof(EventHandler)).ToList();
+			foreach (System.Type type in eventHandlerTypes)
+			{
+				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
+				classInfo += ("EventHandler," + info.EventHandlerName + "," + info.Category + ",\"" + info.HelpText + "\"\n");
+			}
+
+			File.WriteAllText(path, classInfo);
 		}
 
 		void ShowCommandMenu()
