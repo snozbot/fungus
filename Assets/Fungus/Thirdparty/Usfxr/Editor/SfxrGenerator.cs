@@ -63,7 +63,7 @@ public class SfxrGenerator : EditorWindow {
 	// ================================================================================================================
 	// PUBLIC INTERFACE -----------------------------------------------------------------------------------------------
 
-	[MenuItem("Window/Generate usfxr Sound Effects")]
+	[MenuItem("Tools/Fungus/Utilities/Generate usfxr Sound Effects")]
 	public static void Initialize() {
 		var window = ScriptableObject.CreateInstance<SfxrGenerator>();
 		window.title = window.name = "Sound Effects";

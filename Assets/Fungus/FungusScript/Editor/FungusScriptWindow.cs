@@ -30,7 +30,7 @@ namespace Fungus
 
 		protected int forceRepaintCount;
 
-		[MenuItem("Window/Fungus Script")]
+		[MenuItem("Tools/Fungus/Show Fungus Script")]
 	    static void Init()
 	    {
 	        GetWindow(typeof(FungusScriptWindow), false, "Fungus Script");

@@ -9,43 +9,43 @@ namespace Fungus
 	public class DialogMenuItems 
 	{
 
-		[MenuItem("GameObject/Fungus/Dialog/Character")]
+		[MenuItem("Tools/Fungus/Create/Character")]
 		static void CreateCharacter()
 		{
 			FungusScriptMenuItems.SpawnPrefab("Character");
 		}
 
-		[MenuItem("GameObject/Fungus/Dialog/SayDialog")]
+		[MenuItem("Tools/Fungus/Create/Say Dialog")]
 		static void CreateSayDialog()
 		{
 			FungusScriptMenuItems.SpawnPrefab("SayDialog");
 		}
 
-		[MenuItem("GameObject/Fungus/Dialog/MenuDialog")]
+		[MenuItem("Tools/Fungus/Create/Menu Dialog")]
 		static void CreateMenuDialog()
 		{
 			FungusScriptMenuItems.SpawnPrefab("MenuDialog");
 		}
 
-		[MenuItem("GameObject/Fungus/Dialog/Tag")]
+		[MenuItem("Tools/Fungus/Create/Tag")]
 		static void CreateTag()
 		{
 			FungusScriptMenuItems.SpawnPrefab("Tag");
 		}
 
-		[MenuItem("GameObject/Fungus/Dialog/AudioTag")]
+		[MenuItem("Tools/Fungus/Create/Audio Tag")]
 		static void CreateAudioTag()
 		{
 			FungusScriptMenuItems.SpawnPrefab("AudioTag");
 		}
 
-		[MenuItem("GameObject/Fungus/Portrait/Stage")]
+		[MenuItem("Tools/Fungus/Create/Stage")]
 		static void CreateStage()
 		{
 			FungusScriptMenuItems.SpawnPrefab("Stage");
 		}
 		
-		[MenuItem("GameObject/Fungus/Portrait/StagePosition")]
+		[MenuItem("Tools/Fungus/Create/Stage Position")]
 		static void CreateStagePosition()
 		{
 			FungusScriptMenuItems.SpawnPrefab("StagePosition");

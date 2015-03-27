@@ -13,7 +13,6 @@ namespace Fungus
 	 * FungusScript objects may be edited visually using the Fungus Script editor window.
 	 */
 	[ExecuteInEditMode]
-	[AddComponentMenu("Fungus/Fungus Script")]
 	public class FungusScript : MonoBehaviour 
 	{
 		/**

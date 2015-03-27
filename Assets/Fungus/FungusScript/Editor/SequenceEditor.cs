@@ -468,7 +468,7 @@ namespace Fungus
 			return compare;
 		}
 
-		[MenuItem("Tools/Fungus/Export Class Info")]
+		[MenuItem("Tools/Fungus/Utilities/Export Class Info")]
 		protected static void DumpFungusClassInfo()
 		{
 			string path = EditorUtility.SaveFilePanel("Export strings", "",
