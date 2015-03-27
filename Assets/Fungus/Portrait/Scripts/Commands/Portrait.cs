@@ -251,6 +251,8 @@ namespace Fungus
 			Image portraitImage = portraitObj.GetComponent<Image>();
 			portraitImage.preserveAspect = true;
 			portraitImage.sprite = character.profileSprite;
+			// Workaround for bug #92. Tiled switches off an internal quad cropping optimisation.
+			portraitImage.type = Image.Type.Tiled;
 			Material portraitMaterial = Instantiate(Resources.Load("Portrait")) as Material;
 			portraitImage.material = portraitMaterial;
 			character.state.portraitObj = portraitObj;

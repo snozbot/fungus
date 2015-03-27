@@ -3161,6 +3161,7 @@ GameObject:
   - 114: {fileID: 1390555394}
   - 114: {fileID: 1390555388}
   - 114: {fileID: 1390555387}
+  - 114: {fileID: 1390555358}
   m_Layer: 0
   m_Name: FungusScript
   m_TagString: Untagged
@@ -3244,9 +3245,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 3074.33252, y: 1206.83801}
+  scrollPos: {x: 2885.33252, y: 1204.83801}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
+  sequenceViewHeight: 411
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -3254,18 +3256,16 @@ MonoBehaviour:
     y: -1729.35046
     width: 5969.4458
     height: 2818.85034
-  selectedSequence: {fileID: 1390555298}
-  selectedCommands:
-  - {fileID: 1390555366}
-  variables: []
+  selectedSequence: {fileID: 1390555307}
+  selectedCommands: []
+  variables:
+  - {fileID: 1390555358}
   description: 'Example scene from Sherlock: The Game Is On'
   runSlowDuration: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  showCommandId: 0
   nextCommandId: 92
-  stringsFile: {fileID: 4900000, guid: 79f80017f3e97488ca5ddfbd71d73bce, type: 3}
 --- !u!4 &1390555296
 Transform:
   m_ObjectHideFlags: 0
@@ -4903,6 +4903,20 @@ MonoBehaviour:
   duration: 1
   targetColor: {r: 1, g: 1, b: 1, a: 1}
   waitUntilFinished: 0
+--- !u!114 &1390555358
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d02d9822eec54c98afe95bb497211b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: Courage
+  value: 0
 --- !u!114 &1390555359
 MonoBehaviour:
   m_ObjectHideFlags: 2
