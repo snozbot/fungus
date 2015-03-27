@@ -3161,6 +3161,7 @@ GameObject:
   - 114: {fileID: 1390555394}
   - 114: {fileID: 1390555388}
   - 114: {fileID: 1390555387}
+  - 114: {fileID: 1390555396}
   - 114: {fileID: 1390555358}
   m_Layer: 0
   m_Name: FungusScript
@@ -3245,7 +3246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 2885.33252, y: 1204.83801}
+  scrollPos: {x: 2878.33252, y: 1016.83801}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   sequenceViewHeight: 411
@@ -3256,16 +3257,17 @@ MonoBehaviour:
     y: -1729.35046
     width: 5969.4458
     height: 2818.85034
-  selectedSequence: {fileID: 1390555307}
-  selectedCommands: []
-  variables:
+  selectedSequence: {fileID: 1390555371}
+  selectedCommands:
   - {fileID: 1390555358}
+  variables:
+  - {fileID: 1390555396}
   description: 'Example scene from Sherlock: The Game Is On'
   runSlowDuration: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  nextCommandId: 92
+  nextCommandId: 93
 --- !u!4 &1390555296
 Transform:
   m_ObjectHideFlags: 0
@@ -4905,18 +4907,32 @@ MonoBehaviour:
   waitUntilFinished: 0
 --- !u!114 &1390555358
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d02d9822eec54c98afe95bb497211b3, type: 3}
+  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scope: 0
-  key: Courage
-  value: 0
+  commandId: 92
+  errorMessage: 
+  indentLevel: 0
+  variable: {fileID: 1390555396}
+  setOperator: 2
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 1
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
 --- !u!114 &1390555359
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5207,6 +5223,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1390555370}
+  - {fileID: 1390555358}
   - {fileID: 1390555369}
   - {fileID: 1390555367}
   - {fileID: 1390555344}
@@ -5808,6 +5825,20 @@ MonoBehaviour:
   indentLevel: 0
   spriteRenderer: {fileID: 1612042692}
   visible: 0
+--- !u!114 &1390555396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1390555290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb91b566ceda411bad1e9d3c3243ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: CouragePoints
+  value: 0
 --- !u!114 &1390555440
 MonoBehaviour:
   m_ObjectHideFlags: 2

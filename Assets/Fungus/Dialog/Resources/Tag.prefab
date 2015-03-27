@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 477196}
   - 114: {fileID: 11477196}
   m_Layer: 0
-  m_Name: FungusTag
+  m_Name: Tag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,4 +54,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 177196}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

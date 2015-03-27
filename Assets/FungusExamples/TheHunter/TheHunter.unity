@@ -12,57 +12,70 @@ SceneSettings:
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 6
   m_Fog: 0
   m_FogColor: {r: .5, g: .5, b: .5, a: 1}
   m_FogMode: 3
   m_FogDensity: .00999999978
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientLight: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientSkyColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientEquatorColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientGroundColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 3
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
-  m_SpotCookie: {fileID: 0}
-  m_ObjectHideFlags: 0
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
 --- !u!127 &3
 LevelGameManager:
   m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  m_LightProbes: {fileID: 0}
-  m_Lightmaps: []
+  serializedVersion: 5
+  m_GIWorkflowMode: 1
   m_LightmapsMode: 1
-  m_BakedColorSpace: 0
-  m_UseDualLightmapsInForward: 0
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_TemporalCoherenceThreshold: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    m_Resolution: 50
-    m_LastUsedResolution: 0
+    serializedVersion: 3
+    m_Resolution: 1
+    m_BakeResolution: 50
     m_TextureWidth: 1024
     m_TextureHeight: 1024
-    m_BounceBoost: 1
-    m_BounceIntensity: 1
-    m_SkyLightColor: {r: .860000014, g: .930000007, b: 1, a: 1}
-    m_SkyLightIntensity: 0
-    m_Quality: 0
-    m_Bounces: 1
-    m_FinalGatherRays: 1000
-    m_FinalGatherContrastThreshold: .0500000007
-    m_FinalGatherGradientThreshold: 0
-    m_FinalGatherInterpolationPoints: 15
-    m_AOAmount: 0
-    m_AOMaxDistance: .100000001
-    m_AOContrast: 1
-    m_LODSurfaceMappingDistance: 1
-    m_Padding: 0
+    m_AOMaxDistance: 1
+    m_Padding: 2
+    m_CompAOExponent: 0
+    m_LightmapParameters: {fileID: 0}
     m_TextureCompression: 0
-    m_LockAtlas: 0
+    m_FinalGather: 0
+    m_FinalGatherRayCount: 1024
+  m_LightmapSnapshot: {fileID: 0}
+  m_RuntimeCPUUsage: 25
 --- !u!196 &5
 NavMeshSettings:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
+    serializedVersion: 2
     agentRadius: .5
     agentHeight: 2
     agentSlope: 45
@@ -71,9 +84,9 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     accuratePlacement: 0
     minRegionArea: 2
-    widthInaccuracy: 16.666666
-    heightInaccuracy: 10
-  m_NavMesh: {fileID: 0}
+    cellSize: .166666657
+    manualCellSize: 0
+  m_NavMeshData: {fileID: 0}
 --- !u!1001 &216100353
 Prefab:
   m_ObjectHideFlags: 0
@@ -165,9 +178,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_RootGameObject: {fileID: 339869592}
   m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1001 &243271138
 Prefab:
   m_ObjectHideFlags: 0
@@ -259,9 +270,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_RootGameObject: {fileID: 686889651}
   m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &307931410
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,15 +308,19 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 6b100daff28d04f69a49015f83966425, type: 3}
@@ -403,9 +416,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_RootGameObject: {fileID: 338947446}
   m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1001 &330051470
 Prefab:
   m_ObjectHideFlags: 0
@@ -522,9 +533,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_RootGameObject: {fileID: 1712414753}
   m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &330427398
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,115 +648,43 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: ed14cc18e1e37449eb670f2613314102, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!1 &338947446
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_PrefabInternal: {fileID: 308429316}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 338947447}
-  - 114: {fileID: 338947448}
-  m_Layer: 0
-  m_Name: Shay
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &338947447
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_PrefabInternal: {fileID: 308429316}
-  m_GameObject: {fileID: 338947446}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -377.012329, y: -60.5565338, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 488519165}
-  m_RootOrder: 2
 --- !u!114 &338947448
 MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
     type: 2}
   m_PrefabInternal: {fileID: 308429316}
-  m_GameObject: {fileID: 338947446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: Shay
-  nameColor: {r: .713235259, g: .405372232, b: .125865042, a: 1}
-  soundEffect: {fileID: 8300000, guid: 23e52ab29f28743309c85b6d7bdc8ad6, type: 3}
-  profileSprite: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
-  portraits:
-  - {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
-  portraitsFace: 0
-  notes: 
---- !u!1 &339869592
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_PrefabInternal: {fileID: 216100353}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 339869594}
-  - 114: {fileID: 339869593}
-  m_Layer: 0
-  m_Name: Skipper
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &339869593
 MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
     type: 2}
   m_PrefabInternal: {fileID: 216100353}
-  m_GameObject: {fileID: 339869592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: Skipper
-  nameColor: {r: .294117659, g: .650980413, b: .949019611, a: 1}
-  soundEffect: {fileID: 8300000, guid: 0dc7e509ace954462bc8ab20fcb68d60, type: 3}
-  profileSprite: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
-  portraits:
-  - {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
-  portraitsFace: 0
-  notes: 
 --- !u!4 &339869594
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_PrefabInternal: {fileID: 216100353}
-  m_GameObject: {fileID: 339869592}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -377.012329, y: -60.5565338, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 488519165}
-  m_RootOrder: 1
 --- !u!1001 &447139369
 Prefab:
   m_ObjectHideFlags: 0
@@ -805,52 +742,17 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
-  m_RootGameObject: {fileID: 1726080686}
   m_IsPrefabParent: 0
-  m_IsExploded: 1
---- !u!1 &476715956
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
-  m_PrefabInternal: {fileID: 860951967}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 476715958}
-  - 114: {fileID: 476715957}
-  m_Layer: 0
-  m_Name: IntroView
-  m_TagString: Untagged
-  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &476715957
 MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: e0d427add844a4d9faf970a3afa07583,
     type: 2}
   m_PrefabInternal: {fileID: 860951967}
-  m_GameObject: {fileID: 476715956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95c387d3e32404bcc91c60318d766bb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewSize: 1.56335306
-  primaryAspectRatio: {x: 4, y: 3}
-  secondaryAspectRatio: {x: 2, y: 1}
 --- !u!4 &476715958
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
   m_PrefabInternal: {fileID: 860951967}
-  m_GameObject: {fileID: 476715956}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.75959992, y: .993300021, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2006673389}
-  m_RootOrder: 0
 --- !u!1 &488519164
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,54 +785,10 @@ Transform:
   - {fileID: 494523727}
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!1 &494523726
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_PrefabInternal: {fileID: 1557115304}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 494523727}
-  - 114: {fileID: 494523728}
-  m_Layer: 0
-  m_Name: Ciara2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &494523727
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_PrefabInternal: {fileID: 1557115304}
-  m_GameObject: {fileID: 494523726}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -377.012329, y: -60.5565338, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 488519165}
-  m_RootOrder: 4
---- !u!114 &494523728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
-    type: 2}
-  m_PrefabInternal: {fileID: 1557115304}
-  m_GameObject: {fileID: 494523726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: Ciara
-  nameColor: {r: .925490201, g: .482352942, b: .196078435, a: 1}
-  soundEffect: {fileID: 8300000, guid: 124184555ec434aa68814be3bd116c26, type: 3}
-  profileSprite: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
-  portraits:
-  - {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
-  portraitsFace: 0
-  notes: 
 --- !u!1 &518300786
 GameObject:
   m_ObjectHideFlags: 1
@@ -1018,15 +876,19 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1844620fa148d4dc89443ca7b33205e1, type: 3}
@@ -1115,140 +977,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &686889651
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_PrefabInternal: {fileID: 243271138}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 686889653}
-  - 114: {fileID: 686889652}
-  m_Layer: 0
-  m_Name: Bear
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &686889652
 MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
     type: 2}
   m_PrefabInternal: {fileID: 243271138}
-  m_GameObject: {fileID: 686889651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: Badly Drawn Bear
-  nameColor: {r: .95588237, g: .347840369, b: .168685108, a: 1}
-  soundEffect: {fileID: 8300000, guid: 9b3be2062b59848a2bd178f5748b386d, type: 3}
-  profileSprite: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
-  portraits:
-  - {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
-  portraitsFace: 0
-  notes: 
 --- !u!4 &686889653
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_PrefabInternal: {fileID: 243271138}
-  m_GameObject: {fileID: 686889651}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -377.012329, y: -60.5565338, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 488519165}
-  m_RootOrder: 3
---- !u!1 &700450243
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
-  m_PrefabInternal: {fileID: 1849986066}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 700450245}
-  - 114: {fileID: 700450244}
-  m_Layer: 0
-  m_Name: BearView
-  m_TagString: Untagged
-  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &700450244
 MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: e0d427add844a4d9faf970a3afa07583,
     type: 2}
   m_PrefabInternal: {fileID: 1849986066}
-  m_GameObject: {fileID: 700450243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95c387d3e32404bcc91c60318d766bb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewSize: .321243912
-  primaryAspectRatio: {x: 4, y: 3}
-  secondaryAspectRatio: {x: 2, y: 1}
 --- !u!4 &700450245
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
   m_PrefabInternal: {fileID: 1849986066}
-  m_GameObject: {fileID: 700450243}
-  m_LocalRotation: {x: 0, y: 0, z: -.118530907, w: .99295038}
-  m_LocalPosition: {x: 1.51180005, y: .327270001, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1594072535}
-  m_RootOrder: 3
---- !u!1 &842161034
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
-  m_PrefabInternal: {fileID: 1208210135}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 842161035}
-  - 114: {fileID: 842161036}
-  m_Layer: 0
-  m_Name: CharacterView
-  m_TagString: Untagged
-  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &842161035
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
   m_PrefabInternal: {fileID: 1208210135}
-  m_GameObject: {fileID: 842161034}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.47079992, y: -4.92350006, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2006673389}
-  m_RootOrder: 4
 --- !u!114 &842161036
 MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: e0d427add844a4d9faf970a3afa07583,
     type: 2}
   m_PrefabInternal: {fileID: 1208210135}
-  m_GameObject: {fileID: 842161034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95c387d3e32404bcc91c60318d766bb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewSize: 1.21926904
-  primaryAspectRatio: {x: 4, y: 3}
-  secondaryAspectRatio: {x: 2, y: 1}
 --- !u!1001 &843188069
 Prefab:
   m_ObjectHideFlags: 0
@@ -1298,9 +1056,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
-  m_RootGameObject: {fileID: 2069641429}
   m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1001 &860951967
 Prefab:
   m_ObjectHideFlags: 0
@@ -1358,9 +1114,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
-  m_RootGameObject: {fileID: 476715956}
   m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &891057085
 GameObject:
   m_ObjectHideFlags: 1
@@ -1437,6 +1191,7 @@ MonoBehaviour:
   scrollPos: {x: 226.013794, y: 380.023193}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
+  sequenceViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -1448,11 +1203,11 @@ MonoBehaviour:
   selectedCommands: []
   variables: []
   description: 
-  defaultPortraitStage: {fileID: 0}
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
+  nextCommandId: 0
 --- !u!4 &891057089
 Transform:
   m_ObjectHideFlags: 1
@@ -1526,9 +1281,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
-  m_RootGameObject: {fileID: 842161034}
   m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &1218601917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1554,15 +1307,19 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: abf7ee5b818ac485980005a2e5066fb0, type: 3}
@@ -1632,6 +1389,7 @@ MonoBehaviour:
   scrollPos: {x: 0, y: 0}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
+  sequenceViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -1643,11 +1401,11 @@ MonoBehaviour:
   selectedCommands: []
   variables: []
   description: 
-  defaultPortraitStage: {fileID: 0}
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
+  nextCommandId: 0
 --- !u!4 &1247920062
 Transform:
   m_ObjectHideFlags: 1
@@ -1776,9 +1534,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_RootGameObject: {fileID: 494523726}
   m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &1594072534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1820,153 +1576,53 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d3b6d7e5887554602baab879da8171d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!1 &1628360238
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
-  m_PrefabInternal: {fileID: 1827495415}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1628360240}
-  - 114: {fileID: 1628360239}
-  m_Layer: 0
-  m_Name: ZoomOutView
-  m_TagString: Untagged
-  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &1628360239
 MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: e0d427add844a4d9faf970a3afa07583,
     type: 2}
   m_PrefabInternal: {fileID: 1827495415}
-  m_GameObject: {fileID: 1628360238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95c387d3e32404bcc91c60318d766bb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewSize: 2.55771446
-  primaryAspectRatio: {x: 4, y: 3}
-  secondaryAspectRatio: {x: 2, y: 1}
 --- !u!4 &1628360240
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
   m_PrefabInternal: {fileID: 1827495415}
-  m_GameObject: {fileID: 1628360238}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .0196889993, y: .0465729982, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1594072535}
-  m_RootOrder: 1
---- !u!1 &1712414753
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
-  m_PrefabInternal: {fileID: 330051470}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1712414754}
-  - 114: {fileID: 1712414755}
-  m_Layer: 0
-  m_Name: Ciara
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &1712414754
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
   m_PrefabInternal: {fileID: 330051470}
-  m_GameObject: {fileID: 1712414753}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -377.012329, y: -60.5565338, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 488519165}
-  m_RootOrder: 0
 --- !u!114 &1712414755
 MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
     type: 2}
   m_PrefabInternal: {fileID: 330051470}
-  m_GameObject: {fileID: 1712414753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: Ciara
-  nameColor: {r: .925490201, g: .482352942, b: .196078435, a: 1}
-  soundEffect: {fileID: 8300000, guid: 124184555ec434aa68814be3bd116c26, type: 3}
-  profileSprite: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
-  portraits:
-  - {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
-  portraitsFace: 0
-  notes: 
---- !u!1 &1726080686
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
-  m_PrefabInternal: {fileID: 447139369}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1726080687}
-  - 114: {fileID: 1726080688}
-  m_Layer: 0
-  m_Name: WaterView
-  m_TagString: Untagged
-  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &1726080687
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
   m_PrefabInternal: {fileID: 447139369}
-  m_GameObject: {fileID: 1726080686}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.74250031, y: -2.91670036, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2006673389}
-  m_RootOrder: 3
 --- !u!114 &1726080688
 MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: e0d427add844a4d9faf970a3afa07583,
     type: 2}
   m_PrefabInternal: {fileID: 447139369}
-  m_GameObject: {fileID: 1726080686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95c387d3e32404bcc91c60318d766bb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewSize: 1.57525635
-  primaryAspectRatio: {x: 4, y: 3}
-  secondaryAspectRatio: {x: 2, y: 1}
 --- !u!1001 &1827495415
 Prefab:
   m_ObjectHideFlags: 0
@@ -2016,9 +1672,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
-  m_RootGameObject: {fileID: 1628360238}
   m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &1831099566
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,6 +1793,7 @@ MonoBehaviour:
   scrollPos: {x: 343.192505, y: 552.002808}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
+  sequenceViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -2153,11 +1808,11 @@ MonoBehaviour:
   description: 'This is an example of a short Visual Novel / RPG
 
     style game'
-  defaultPortraitStage: {fileID: 0}
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
+  nextCommandId: 65
 --- !u!114 &1831099569
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2212,6 +1867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab54728d981544842843ba6609b9a80a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 64
   errorMessage: 
   indentLevel: 0
   duration: 8
@@ -2227,6 +1883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 4
   errorMessage: 
   indentLevel: 0
   targetSequence: {fileID: 1831099608}
@@ -2241,6 +1898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437f9a4e3dbc647f9bdce95308418bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 3
   errorMessage: 
   indentLevel: 0
   duration: 3
@@ -2259,6 +1917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 2
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 335445528}
@@ -2274,6 +1933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 1
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 307931412}
@@ -2289,6 +1949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 0
   errorMessage: 
   indentLevel: 0
   musicClip: {fileID: 8300000, guid: d858bb0968ae746b0a6801434b848b69, type: 3}
@@ -2331,6 +1992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 27
   errorMessage: 
   indentLevel: 0
   targetSequence: {fileID: 1831099637}
@@ -2345,6 +2007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 26
   errorMessage: 
   indentLevel: 0
   variable: {fileID: 1831099569}
@@ -2372,6 +2035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 25
   errorMessage: 
   indentLevel: 0
   storyText: 'Oh don''t mind him.{wc}
@@ -2400,6 +2064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 24
   errorMessage: 
   indentLevel: 0
   storyText: 'Hrmph!{wc}
@@ -2426,6 +2091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 23
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 335445528}
@@ -2443,6 +2109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 22
   errorMessage: 
   indentLevel: 0
   storyText: 'Ha ha! Don''t worry, you can join us for dinner.{wc}
@@ -2471,6 +2138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 21
   errorMessage: 
   indentLevel: 0
   storyText: Um...
@@ -2495,6 +2163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 20
   errorMessage: 
   indentLevel: 0
   storyText: I see! And so I guess you're not hungry either?
@@ -2519,6 +2188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 19
   errorMessage: 
   indentLevel: 0
   storyText: I'm not little and I'm not lost!
@@ -2543,6 +2213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 18
   errorMessage: 
   indentLevel: 0
   storyText: "And what do we have here?{wc}\nThe woods are a dangerous place my little
@@ -2568,6 +2239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 17
   errorMessage: 
   indentLevel: 0
   duration: 3
@@ -2584,6 +2256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 16
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 307931412}
@@ -2601,6 +2274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 15
   errorMessage: 
   indentLevel: 0
   storyText: 'HEY! Is anybody out there?!{wc}
@@ -2662,6 +2336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 14
   errorMessage: 
   indentLevel: 0
   targetSequence: {fileID: 1831099645}
@@ -2676,6 +2351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 13
   errorMessage: 
   indentLevel: 0
   storyText: No, I could not!{wc} Now be off with you!
@@ -2700,6 +2376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 12
   errorMessage: 
   indentLevel: 0
   storyText: 'I am not a thief!{wc}
@@ -2730,6 +2407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 11
   errorMessage: 
   indentLevel: 0
   storyText: 'Ah ha! I thought I heard a thief skulking about!{wc}
@@ -2758,6 +2436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 10
   errorMessage: 
   indentLevel: 0
   duration: 3
@@ -2774,6 +2453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 9
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 335445528}
@@ -2819,6 +2499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 63
   errorMessage: 
   indentLevel: 0
   text: Shout out loud
@@ -2836,6 +2517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 62
   errorMessage: 
   indentLevel: 0
   text: Check pool for fish
@@ -2853,6 +2535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 8
   errorMessage: 
   indentLevel: 0
   storyText: 'I''m starving! I wonder if there''s any fish in that pool?{wc}
@@ -2879,6 +2562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 7
   errorMessage: 
   indentLevel: 0
   storyText: Emerging from the forest, she found herself at a beautiful mountain stream.
@@ -2903,6 +2587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 6
   errorMessage: 
   indentLevel: 0
   duration: 3
@@ -2919,6 +2604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 5
   errorMessage: 
   indentLevel: 0
   storyText: 'For a day and a night, Ciara fled through the dark forest.{wc}
@@ -2977,6 +2663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 61
   errorMessage: 
   indentLevel: 0
   duration: 2
@@ -2995,6 +2682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 60
   errorMessage: 
   indentLevel: 0
   storyText: BURP!
@@ -3019,6 +2707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 59
   errorMessage: 
   indentLevel: 0
   storyText: RAAAAAAAAAARRRRRRRRRR!!!!!!
@@ -3043,6 +2732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616cd37e21c7645c58a89edf5abee56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 58
   errorMessage: 
   indentLevel: 0
   duration: 5
@@ -3059,6 +2749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 57
   errorMessage: 
   indentLevel: 0
   storyText: 'Wait... no! What are you doing!?{wc}
@@ -3087,6 +2778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 56
   errorMessage: 
   indentLevel: 0
   storyText: RAAAAAARRRRRR!!!!!!
@@ -3111,6 +2803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616cd37e21c7645c58a89edf5abee56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 55
   errorMessage: 
   indentLevel: 0
   duration: .5
@@ -3127,6 +2820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 54
   errorMessage: 
   indentLevel: 0
   storyText: 'And so, in a tragic twist of fate, everyone was eaten by a badly drawn
@@ -3154,6 +2848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 53
   errorMessage: 
   indentLevel: 0
   storyText: RAAAAAARRRRRR!
@@ -3178,6 +2873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616cd37e21c7645c58a89edf5abee56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 52
   errorMessage: 
   indentLevel: 0
   duration: .5
@@ -3194,6 +2890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 51
   errorMessage: 
   indentLevel: 0
   storyText: Noooooooo!
@@ -3218,6 +2915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 50
   errorMessage: 
   indentLevel: 0
   storyText: Ayyyyyyeeee!
@@ -3242,6 +2940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 49
   errorMessage: 
   indentLevel: 0
   storyText: Aaaaaagh!
@@ -3266,6 +2965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 48
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 577549097}
@@ -3283,6 +2983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 47
   errorMessage: 
   indentLevel: 0
   duration: 5
@@ -3299,6 +3000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 46
   errorMessage: 
   indentLevel: 0
   storyText: 'Now remember to keep quiet.{wc}
@@ -3325,6 +3027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 45
   errorMessage: 
   indentLevel: 0
   duration: 5
@@ -3341,6 +3044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437f9a4e3dbc647f9bdce95308418bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 44
   errorMessage: 
   indentLevel: 0
   duration: 2
@@ -3359,6 +3063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 43
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 577549097}
@@ -3415,6 +3120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 42
   errorMessage: 
   indentLevel: 0
   targetSequence: {fileID: 1831099628}
@@ -3429,6 +3135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 41
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 335445528}
@@ -3446,6 +3153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 40
   errorMessage: 
   indentLevel: 0
 --- !u!114 &1831099632
@@ -3459,6 +3167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 39
   errorMessage: 
   indentLevel: 1
   duration: 1
@@ -3473,6 +3182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 38
   errorMessage: 
   indentLevel: 1
   storyText: 'Move it thief! And remember...{wc}
@@ -3499,6 +3209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 37
   errorMessage: 
   indentLevel: 0
   compareOperator: 0
@@ -3526,6 +3237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 36
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 307931412}
@@ -3543,6 +3255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 35
   errorMessage: 
   indentLevel: 0
   storyText: 'Ok, let''s go get you some food!{wc}
@@ -3599,6 +3312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 34
   errorMessage: 
   indentLevel: 0
   targetSequence: {fileID: 1831099637}
@@ -3613,6 +3327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 33
   errorMessage: 
   indentLevel: 0
   variable: {fileID: 1831099569}
@@ -3640,6 +3355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 32
   errorMessage: 
   indentLevel: 0
   storyText: Oh yes please! Thank you!
@@ -3664,6 +3380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 31
   errorMessage: 
   indentLevel: 0
   storyText: 'Oh be quiet Skipper.{wc}
@@ -3690,6 +3407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 30
   errorMessage: 
   indentLevel: 0
   storyText: What! This is an outrage! Mind your own busin...
@@ -3714,6 +3432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 29
   errorMessage: 
   indentLevel: 0
   storyText: 'What''s all this racket?{wc}
@@ -3742,6 +3461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  commandId: 28
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 307931412}
@@ -3842,6 +3562,7 @@ MonoBehaviour:
   scrollPos: {x: 0, y: 0}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
+  sequenceViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -3853,11 +3574,11 @@ MonoBehaviour:
   selectedCommands: []
   variables: []
   description: 
-  defaultPortraitStage: {fileID: 0}
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
+  nextCommandId: 0
 --- !u!4 &1846387300
 Transform:
   m_ObjectHideFlags: 1
@@ -3919,9 +3640,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
-  m_RootGameObject: {fileID: 700450243}
   m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &2006673388
 GameObject:
   m_ObjectHideFlags: 0
@@ -3955,49 +3674,16 @@ Transform:
   - {fileID: 1218601919}
   m_Father: {fileID: 0}
   m_RootOrder: 2
---- !u!1 &2069641429
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
-  m_PrefabInternal: {fileID: 843188069}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2069641430}
-  - 114: {fileID: 2069641431}
-  m_Layer: 0
-  m_Name: ZoomInView
-  m_TagString: Untagged
-  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &2069641430
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: e0d427add844a4d9faf970a3afa07583, type: 2}
   m_PrefabInternal: {fileID: 843188069}
-  m_GameObject: {fileID: 2069641429}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.362309992, y: -.30814001, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1594072535}
-  m_RootOrder: 0
 --- !u!114 &2069641431
 MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: e0d427add844a4d9faf970a3afa07583,
     type: 2}
   m_PrefabInternal: {fileID: 843188069}
-  m_GameObject: {fileID: 2069641429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95c387d3e32404bcc91c60318d766bb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewSize: .647707939
-  primaryAspectRatio: {x: 4, y: 3}
-  secondaryAspectRatio: {x: 2, y: 1}
 --- !u!1 &2142927451
 GameObject:
   m_ObjectHideFlags: 1

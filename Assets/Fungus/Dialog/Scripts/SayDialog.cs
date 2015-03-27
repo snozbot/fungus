@@ -29,13 +29,13 @@ namespace Fungus
 				if (activeSayDialog == null)
 				{
 					// Auto spawn a say dialog object from the prefab
-					GameObject go = Resources.Load<GameObject>("FungusSayDialog");
-					if (go != null)
+					GameObject prefab = Resources.Load<GameObject>("SayDialog");
+					if (prefab != null)
 					{
-						GameObject spawnedGO = Instantiate(go) as GameObject;
-						spawnedGO.name = "SayDialog";
-						spawnedGO.SetActive(false);
-						activeSayDialog = spawnedGO.GetComponent<SayDialog>();
+						GameObject go = Instantiate(prefab) as GameObject;
+						go.SetActive(false);
+						go.name = "SayDialog";
+						activeSayDialog = go.GetComponent<SayDialog>();
 					}
 				}
 			}

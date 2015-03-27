@@ -12,7 +12,7 @@ GameObject:
   - 114: {fileID: 11479526}
   - 114: {fileID: 11479528}
   m_Layer: 0
-  m_Name: FungusEventSystem
+  m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,4 +84,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 179528}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

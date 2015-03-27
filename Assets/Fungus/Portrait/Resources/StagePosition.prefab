@@ -11,7 +11,7 @@ GameObject:
   - 222: {fileID: 22295640}
   - 114: {fileID: 11495640}
   m_Layer: 0
-  m_Name: FungusStagePosition
+  m_Name: StagePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

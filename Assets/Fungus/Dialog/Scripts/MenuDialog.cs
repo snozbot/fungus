@@ -30,13 +30,13 @@ namespace Fungus
 				if (activeMenuDialog == null)
 				{
 					// Auto spawn a menu dialog object from the prefab
-					GameObject go = Resources.Load<GameObject>("FungusMenuDialog");
-					if (go != null)
+					GameObject prefab = Resources.Load<GameObject>("MenuDialog");
+					if (prefab != null)
 					{
-						GameObject spawnedGO = Instantiate(go) as GameObject;
-						spawnedGO.name = "DialogMenu";
-						spawnedGO.SetActive(false);
-						activeMenuDialog = spawnedGO.GetComponent<MenuDialog>();
+						GameObject go = Instantiate(prefab) as GameObject;
+						go.SetActive(false);
+						go.name = "MenuDialog";
+						activeMenuDialog = go.GetComponent<MenuDialog>();
 					}
 				}
 			}
