@@ -57,6 +57,7 @@ namespace Fungus
 			    inspectCommand != null &&
 			    inspectCommand.parentSequence != sequence)
 			{
+				GUILayout.EndArea();
 				Repaint();
 				DestroyImmediate(sequenceEditor);
 				return;
