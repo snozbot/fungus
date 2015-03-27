@@ -11,23 +11,19 @@ namespace Fungus
 		[MenuItem("GameObject/Fungus/Fungus Script")]
 		static void CreateFungusScript()
 		{
-			SpawnPrefab("Assets/Fungus/FungusScript/Resources/FungusScript.prefab");
+			SpawnPrefab("FungusScript");
 		}
 
-		public static GameObject SpawnPrefab(string prefabFile)
+		public static GameObject SpawnPrefab(string prefabName)
 		{
-			string prefabName = Path.GetFileNameWithoutExtension(prefabFile);
-
-			// This will only succeed if Fungus is located in the root folder of the project
-			GameObject prefab = Resources.LoadAssetAtPath(prefabFile, typeof(GameObject)) as GameObject;
+			GameObject prefab = Resources.Load<GameObject>(prefabName);
 			if (prefab == null)
 			{
 				return null;
 			}
 
 			GameObject go = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
-			go.name = prefabName;
-			
+
 			Camera sceneCam = SceneView.currentDrawingSceneView.camera;
 
 			Vector3 pos = sceneCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 10f));

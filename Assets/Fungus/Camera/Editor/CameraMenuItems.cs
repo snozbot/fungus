@@ -8,9 +8,9 @@ namespace Fungus
 	public class CameraMenuItems 
 	{
 		[MenuItem("GameObject/Fungus/Camera/View")]
-		static void CreateBackground()
+		static void CreateView()
 		{
-			FungusScriptMenuItems.SpawnPrefab("Assets/Fungus/Camera/Prefabs/View.prefab");
+			FungusScriptMenuItems.SpawnPrefab("View");
 		}
 	}
 
