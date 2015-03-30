@@ -7,7 +7,7 @@ namespace Fungus
 
 	public class CameraMenuItems 
 	{
-		[MenuItem("Tools/Fungus/Create/View")]
+		[MenuItem("Tools/Fungus/Create/View", false, 100)]
 		static void CreateView()
 		{
 			FungusScriptMenuItems.SpawnPrefab("View");

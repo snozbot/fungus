@@ -8,7 +8,7 @@ namespace Fungus
 
 	public class FungusScriptMenuItems
 	{
-		[MenuItem("Tools/Fungus/Create/Fungus Script")]
+		[MenuItem("Tools/Fungus/Create/Fungus Script", false, 0)]
 		static void CreateFungusScript()
 		{
 			SpawnPrefab("FungusScript");
