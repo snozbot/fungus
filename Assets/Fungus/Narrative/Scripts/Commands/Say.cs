@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Dialog", 
+	[CommandInfo("Narrative", 
 	             "Say", 
 	             "Writes text in a dialog box.")]
 	[AddComponentMenu("")]

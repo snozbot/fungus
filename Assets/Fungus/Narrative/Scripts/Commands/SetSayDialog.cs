@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Dialog", 
+	[CommandInfo("Narrative", 
 	             "Set Say Dialog", 
 	             "Sets a custom say dialog to use when displaying story text")]
 	[AddComponentMenu("")]

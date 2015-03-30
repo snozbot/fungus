@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Dialog", 
+	[CommandInfo("Narrative", 
 	             "Menu", 
 	             "Displays a multiple choice menu")]
 	[AddComponentMenu("")]

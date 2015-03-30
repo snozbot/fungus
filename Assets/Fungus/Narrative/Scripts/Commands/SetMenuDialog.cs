@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Dialog", 
+	[CommandInfo("Narrative", 
 	             "Set Menu Dialog", 
 	             "Sets a custom menu dialog to use when displaying multiple choice menus")]
 	[AddComponentMenu("")]

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Dialog", 
+	[CommandInfo("Narrative", 
 	             "Menu Timer", 
 	             "Displays a timer bar and executes a target sequence if the player fails to select a menu option in time.")]
 	[AddComponentMenu("")]

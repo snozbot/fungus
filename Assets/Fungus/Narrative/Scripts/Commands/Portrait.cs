@@ -41,7 +41,7 @@ namespace Fungus
 		OffsetRight
 	}
 	
-	[CommandInfo("Portrait", 
+	[CommandInfo("Narrative", 
 	             "Portrait", 
 	             "Controls a character portrait. ")]
 	public class Portrait : Command 

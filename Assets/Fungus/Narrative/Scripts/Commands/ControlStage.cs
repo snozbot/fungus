@@ -18,7 +18,7 @@ namespace Fungus
 		DimNonSpeakingPortraits
 	}
 
-	[CommandInfo("Portrait", 
+	[CommandInfo("Narrative", 
 	             "Control Stage",
 	             "Controls the stage on which character portraits are displayed.")]
 	public class ControlStage : Command 
