@@ -85,8 +85,11 @@ namespace Fungus
 				ReorderableListFlags flags = ReorderableListFlags.HideAddButton | ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.DisableContextMenu;
 				
 				ReorderableListControl.DrawControlFromState(adaptor, null, flags);
-				
-				if (Event.current.type == EventType.ContextClick)
+
+				// EventType.contextClick doesn't register since we moved the Sequence Editor to be inside
+				// a GUI Area, no idea why. As a workaround we just check for right click instead.
+				if (Event.current.type == EventType.mouseUp &&
+				    Event.current.button == 1)
 				{
 					ShowContextMenu();
 				}
@@ -618,7 +621,7 @@ namespace Fungus
 			}
 		}
 
-		public void ShowContextMenu()
+		public virtual void ShowContextMenu()
 		{
 			Sequence sequence = target as Sequence;
 			FungusScript fungusScript = sequence.GetFungusScript();
