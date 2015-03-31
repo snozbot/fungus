@@ -11,22 +11,22 @@ namespace Fungus
 	public class MenuEditor : CommandEditor 
 	{
 		protected SerializedProperty textProp;
-		protected SerializedProperty targetSequenceProp;
+		protected SerializedProperty targetBlockProp;
 		protected SerializedProperty hideIfVisitedProp;
 		protected SerializedProperty setMenuDialogProp;
 
 		protected virtual void OnEnable()
 		{
 			textProp = serializedObject.FindProperty("text");
-			targetSequenceProp = serializedObject.FindProperty("targetSequence");
+			targetBlockProp = serializedObject.FindProperty("targetBlock");
 			hideIfVisitedProp = serializedObject.FindProperty("hideIfVisited");
 			setMenuDialogProp = serializedObject.FindProperty("setMenuDialog");
 		}
 		
 		public override void DrawCommandGUI()
 		{
-			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
-			if (fungusScript == null)
+			Flowchart flowchart = FlowchartWindow.GetFlowchart();
+			if (flowchart == null)
 			{
 				return;
 			}
@@ -35,10 +35,10 @@ namespace Fungus
 			
 			EditorGUILayout.PropertyField(textProp);
 			
-			SequenceEditor.SequenceField(targetSequenceProp,
-			                             new GUIContent("Target Sequence", "Sequence to call when option is selected"), 
+			BlockEditor.BlockField(targetBlockProp,
+			                             new GUIContent("Target Block", "Block to call when option is selected"), 
 			                             new GUIContent("<None>"), 
-			                             fungusScript);
+			                             flowchart);
 			
 			EditorGUILayout.PropertyField(hideIfVisitedProp);
 			EditorGUILayout.PropertyField(setMenuDialogProp);

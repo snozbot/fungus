@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
@@ -12,43 +12,43 @@ namespace Fungus
 		[MenuItem("Tools/Fungus/Create/Character", false, 50)]
 		static void CreateCharacter()
 		{
-			FungusScriptMenuItems.SpawnPrefab("Character");
+			FlowchartMenuItems.SpawnPrefab("Character");
 		}
 
 		[MenuItem("Tools/Fungus/Create/Say Dialog", false, 51)]
 		static void CreateSayDialog()
 		{
-			FungusScriptMenuItems.SpawnPrefab("SayDialog");
+			FlowchartMenuItems.SpawnPrefab("SayDialog");
 		}
 
 		[MenuItem("Tools/Fungus/Create/Menu Dialog", false, 52)]
 		static void CreateMenuDialog()
 		{
-			FungusScriptMenuItems.SpawnPrefab("MenuDialog");
+			FlowchartMenuItems.SpawnPrefab("MenuDialog");
 		}
 
 		[MenuItem("Tools/Fungus/Create/Tag", false, 53)]
 		static void CreateTag()
 		{
-			FungusScriptMenuItems.SpawnPrefab("Tag");
+			FlowchartMenuItems.SpawnPrefab("Tag");
 		}
 
 		[MenuItem("Tools/Fungus/Create/Audio Tag", false, 54)]
 		static void CreateAudioTag()
 		{
-			FungusScriptMenuItems.SpawnPrefab("AudioTag");
+			FlowchartMenuItems.SpawnPrefab("AudioTag");
 		}
 
 		[MenuItem("Tools/Fungus/Create/Stage", false, 55)]
 		static void CreateStage()
 		{
-			FungusScriptMenuItems.SpawnPrefab("Stage");
+			FlowchartMenuItems.SpawnPrefab("Stage");
 		}
 		
 		[MenuItem("Tools/Fungus/Create/Stage Position", false, 56)]
 		static void CreateStagePosition()
 		{
-			FungusScriptMenuItems.SpawnPrefab("StagePosition");
+			FlowchartMenuItems.SpawnPrefab("StagePosition");
 		}
 	}
 

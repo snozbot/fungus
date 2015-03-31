@@ -164,10 +164,10 @@ namespace Fungus
 
 			bool highlight = Selection.activeGameObject == view.gameObject;
 
-			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
-			if (fungusScript != null)
+			Flowchart flowchart = FlowchartWindow.GetFlowchart();
+			if (flowchart != null)
 			{
-				foreach (Command command in fungusScript.selectedCommands)
+				foreach (Command command in flowchart.selectedCommands)
 				{
 					MoveToView moveToViewCommand = command as MoveToView;
 					if (moveToViewCommand != null &&

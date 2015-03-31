@@ -91,7 +91,7 @@ namespace Fungus
 			}
 		}
 
-		public virtual bool AddOption(string text, Sequence targetSequence)
+		public virtual bool AddOption(string text, Block targetBlock)
 		{
 
 			bool addedOption = false;
@@ -107,7 +107,7 @@ namespace Fungus
 						textComponent.text = text;
 					}
 					
-					Sequence sequence = targetSequence;
+					Block block = targetBlock;
 					
 					button.onClick.AddListener(delegate {
 
@@ -116,17 +116,17 @@ namespace Fungus
 
 						HideSayDialog();
 
-						if (sequence != null)
+						if (block != null)
 						{
 							#if UNITY_EDITOR
-							// Select the new target sequence in the Fungus Script window
-							FungusScript fungusScript = sequence.GetFungusScript();
-							fungusScript.selectedSequence = sequence;
+							// Select the new target block in the Flowchart window
+							Flowchart flowchart = block.GetFlowchart();
+							flowchart.selectedBlock = block;
 							#endif
 
 							gameObject.SetActive(false);
 
-							sequence.ExecuteCommand(0);
+							block.ExecuteCommand(0);
 						}
 					});
 
@@ -162,18 +162,18 @@ namespace Fungus
 			}
 		}
 
-		public virtual void ShowTimer(float duration, Sequence targetSequence)
+		public virtual void ShowTimer(float duration, Block targetBlock)
 		{
 
 			if (cachedSlider != null)
 			{
 				cachedSlider.gameObject.SetActive(true);
 				StopAllCoroutines();
-				StartCoroutine(WaitForTimeout(duration, targetSequence));
+				StartCoroutine(WaitForTimeout(duration, targetBlock));
 			}
 		}
 
-		protected virtual IEnumerator WaitForTimeout(float timeoutDuration, Sequence targetSequence)
+		protected virtual IEnumerator WaitForTimeout(float timeoutDuration, Block targetBlock)
 		{
 			float elapsedTime = 0;
 			
@@ -197,9 +197,9 @@ namespace Fungus
 
 			HideSayDialog();
 
-			if (targetSequence != null)
+			if (targetBlock != null)
 			{
-				targetSequence.ExecuteCommand(0);
+				targetBlock.ExecuteCommand(0);
 			}
 		}
 	}

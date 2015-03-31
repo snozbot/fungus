@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ namespace Fungus
 		public class Option
 		{
 			public string optionText;
-			public Sequence targetSequence;
+			[FormerlySerializedAs("targetSequence")]
+			public Block targetBlock;
 			public Action action;
 		}
 		
@@ -66,10 +68,10 @@ namespace Fungus
 			}
 			else
 			{
-				FungusScript fungusScript = GetFungusScript();
+				Flowchart flowchart = GetFlowchart();
 				
 				chooseDialog.ShowDialog(true);
-				chooseDialog.SetCharacter(character, fungusScript);
+				chooseDialog.SetCharacter(character, flowchart);
 				chooseDialog.SetCharacterImage(portrait);
 				
 				List<ChooseDialog.Option> dialogOptions = new List<ChooseDialog.Option>();
@@ -79,8 +81,8 @@ namespace Fungus
 					
 					// Store these in local variables so they get closed over correctly by the delegate call
 					dialogOption.text = option.optionText;
-					dialogOption.text = fungusScript.SubstituteVariables(dialogOption.text);
-					Sequence onSelectSequence = option.targetSequence;
+					dialogOption.text = flowchart.SubstituteVariables(dialogOption.text);
+					Block onSelectBlock = option.targetBlock;
 					Action optionAction = option.action;
 					
 					dialogOption.onSelect = delegate {
@@ -92,13 +94,13 @@ namespace Fungus
 						
 						chooseDialog.ShowDialog(false);
 						
-						if (onSelectSequence == null)
+						if (onSelectBlock == null)
 						{
 							Continue ();
 						}
 						else
 						{
-							ExecuteSequence(onSelectSequence);
+							ExecuteBlock(onSelectBlock);
 						}
 					};
 					
@@ -112,7 +114,7 @@ namespace Fungus
 					chooseDialog.PlayVoiceOver(voiceOverClip);
 				}
 				
-				string subbedText = fungusScript.SubstituteVariables(chooseText);
+				string subbedText = flowchart.SubstituteVariables(chooseText);
 				
 				chooseDialog.Choose(subbedText, dialogOptions, timeoutDuration, delegate {
 					chooseDialog.ShowDialog(false);
@@ -126,16 +128,16 @@ namespace Fungus
 			return "\"" + chooseText + "\"";
 		}
 		
-		public override void GetConnectedSequences (ref List<Sequence> connectedSequences)
+		public override void GetConnectedBlocks (ref List<Block> connectedBlocks)
 		{
-			// Show connected sequences from preceding AddOption commands
+			// Show connected blocks from preceding AddOption commands
 			if (IsExecuting())
 			{
 				foreach (Option option in options)
 				{
-					if (option.targetSequence != null)
+					if (option.targetBlock != null)
 					{
-						connectedSequences.Add(option.targetSequence);
+						connectedBlocks.Add(option.targetBlock);
 					}
 				}
 			}
@@ -173,7 +175,7 @@ namespace Fungus
 				{
 					options.Clear();
 					showBasicGUI = false;
-					ExecuteSequence(option.targetSequence);
+					ExecuteBlock(option.targetBlock);
 				}
 			}
 			

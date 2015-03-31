@@ -6,7 +6,7 @@ namespace Fungus
 {
 	[CommandInfo("Camera", 
 	             "Move To View", 
-	             "Moves the camera to a location specified by a View object. Select [Game Object > Fungus > Camera > View] to create a View object.")]
+	             "Moves the camera to a location specified by a View object.")]
 	[AddComponentMenu("")]
 	public class MoveToView : Command 
 	{

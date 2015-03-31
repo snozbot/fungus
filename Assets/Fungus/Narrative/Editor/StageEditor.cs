@@ -71,7 +71,7 @@ namespace Fungus
 				}
 				if (s == null)
 				{
-					EditorGUILayout.HelpBox("No portrait stage has been set. Please create a new portrait stage using [Game Object > Fungus > Portrait > Stage].", MessageType.Error);
+					EditorGUILayout.HelpBox("No portrait stage has been set.", MessageType.Error);
 					showOptionalFields = false; 
 				}
 			}

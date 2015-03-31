@@ -8,7 +8,7 @@ namespace Fungus
 	
 	[EventHandlerInfo("Sprites",
 	                  "Drag Entered",
-	                  "The sequence will execute when the player is dragging an object which starts touching the target object.")]
+	                  "The block will execute when the player is dragging an object which starts touching the target object.")]
 	[AddComponentMenu("")]
 	public class DragEntered : EventHandler
 	{	
@@ -20,7 +20,7 @@ namespace Fungus
 			if (draggableObject == this.draggableObject &&
 			    targetObject == this.targetObject)
 			{
-				ExecuteSequence();
+				ExecuteBlock();
 			}
 		}
 	}

@@ -151,7 +151,7 @@ namespace Fungus
 			);
 		}
 		
-		public virtual void SetCharacter(Character character, FungusScript fungusScript = null)
+		public virtual void SetCharacter(Character character, Flowchart flowchart = null)
 		{
 			if (character == null)
 			{
@@ -196,9 +196,9 @@ namespace Fungus
 					characterName = character.name;
 				}
 				
-				if (fungusScript != null)
+				if (flowchart != null)
 				{
-					characterName = fungusScript.SubstituteVariables(characterName);
+					characterName = flowchart.SubstituteVariables(characterName);
 				}
 				
 				characterTypingSound = character.soundEffect;
@@ -374,7 +374,7 @@ namespace Fungus
 					yield break;
 					
 				case TokenType.Message:
-					FungusScript.BroadcastFungusMessage(token.param);
+					Flowchart.BroadcastFungusMessage(token.param);
 					break;
 				case TokenType.VerticalPunch:
 					float vPunchIntensity = 0;

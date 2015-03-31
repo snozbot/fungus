@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections;
@@ -8,42 +9,44 @@ namespace Fungus
 {
 	[CommandInfo("Narrative", 
 	             "Menu Timer", 
-	             "Displays a timer bar and executes a target sequence if the player fails to select a menu option in time.")]
+	             "Displays a timer bar and executes a target block if the player fails to select a menu option in time.")]
 	[AddComponentMenu("")]
 	public class MenuTimer : Command 
 	{		
 		public float duration;
-		public Sequence targetSequence;
+
+		[FormerlySerializedAs("targetSequence")]
+		public Block targetBlock;
 
 		public override void OnEnter()
 		{
 			MenuDialog menuDialog = MenuDialog.GetMenuDialog();
 
 			if (menuDialog != null &&
-			    targetSequence != null)
+			    targetBlock != null)
 			{
-				menuDialog.ShowTimer(duration, targetSequence);
+				menuDialog.ShowTimer(duration, targetBlock);
 			}
 
 			Continue();
 		}
 
-		public override void GetConnectedSequences(ref List<Sequence> connectedSequences)
+		public override void GetConnectedBlocks(ref List<Block> connectedBlocks)
 		{
-			if (targetSequence != null)
+			if (targetBlock != null)
 			{
-				connectedSequences.Add(targetSequence);
+				connectedBlocks.Add(targetBlock);
 			}		
 		}
 
 		public override string GetSummary()
 		{
-			if (targetSequence == null)
+			if (targetBlock == null)
 			{
-				return "Error: No target sequence selected";
+				return "Error: No target block selected";
 			}
 
-			return targetSequence.sequenceName;
+			return targetBlock.blockName;
 		}
 
 		public override Color GetButtonColor()

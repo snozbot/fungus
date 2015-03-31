@@ -70,8 +70,8 @@ namespace Fungus
 				return;
 			}
 	
-			FungusScript fungusScript = GetFungusScript();
-			sayDialog.SetCharacter(character, fungusScript);
+			Flowchart flowchart = GetFlowchart();
+			sayDialog.SetCharacter(character, flowchart);
 			sayDialog.SetCharacterImage(portrait);
 
 			bool fadingIn = false;
@@ -112,7 +112,7 @@ namespace Fungus
 				displayText = "{s=0}" + Dialog.prevStoryText + "{/s}" + displayText;
 			}
 
-			string subbedText = fungusScript.SubstituteVariables(displayText);
+			string subbedText = flowchart.SubstituteVariables(displayText);
 
 			sayDialog.Say(subbedText, waitForClick, delegate {
 				if (waitForClick)

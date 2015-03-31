@@ -477,7 +477,7 @@ namespace Fungus
 			return new Color32(230, 200, 250, 255);
 		}
 		
-		public override void OnCommandAdded(Sequence parentSequence)
+		public override void OnCommandAdded(Block parentBlock)
 		{
 			//Default to display type: show
 			display = DisplayType.Show;

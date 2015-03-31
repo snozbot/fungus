@@ -10,18 +10,18 @@ namespace Fungus
 	public class MenuTimerEditor : CommandEditor 
 	{
 		protected SerializedProperty durationProp;
-		protected SerializedProperty targetSequenceProp;
+		protected SerializedProperty targetBlockProp;
 
 		protected virtual void OnEnable()
 		{
 			durationProp = serializedObject.FindProperty("duration");
-			targetSequenceProp = serializedObject.FindProperty("targetSequence");
+			targetBlockProp = serializedObject.FindProperty("targetBlock");
 		}
 		
 		public override void DrawCommandGUI()
 		{
-			FungusScript fungusScript = FungusScriptWindow.GetFungusScript();
-			if (fungusScript == null)
+			Flowchart flowchart = FlowchartWindow.GetFlowchart();
+			if (flowchart == null)
 			{
 				return;
 			}
@@ -30,10 +30,10 @@ namespace Fungus
 			
 			EditorGUILayout.PropertyField(durationProp);
 			
-			SequenceEditor.SequenceField(targetSequenceProp,
-			                             new GUIContent("Target Sequence", "Sequence to call when timer expires"), 
+			BlockEditor.BlockField(targetBlockProp,
+			                             new GUIContent("Target Block", "Block to call when timer expires"), 
 			                             new GUIContent("<None>"), 
-			                             fungusScript);
+			                             flowchart);
 			
 			serializedObject.ApplyModifiedProperties();
 		}

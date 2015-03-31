@@ -13,14 +13,14 @@ namespace Fungus
 	{
 		protected SerializedProperty optionTextProp;
 		protected SerializedProperty hideOnSelectedProp;
-		protected SerializedProperty targetSequenceProp;
+		protected SerializedProperty targetBlockProp;
 		
 		protected override void OnEnable()
 		{
 			base.OnEnable();
 			optionTextProp = serializedObject.FindProperty("optionText");
 			hideOnSelectedProp = serializedObject.FindProperty("hideOnSelected");
-			targetSequenceProp = serializedObject.FindProperty("targetSequence");
+			targetBlockProp = serializedObject.FindProperty("targetBlock");
 		}
 		
 		public override void DrawCommandGUI() 
@@ -31,10 +31,10 @@ namespace Fungus
 			
 			EditorGUILayout.PropertyField(optionTextProp, new GUIContent("Option Text", "Text to display on the option button."));
 			
-			SequenceEditor.SequenceField(targetSequenceProp,
-			                             new GUIContent("Target Sequence", "Sequence to execute when this option is selected by the player."),
+			BlockEditor.BlockField(targetBlockProp,
+			                             new GUIContent("Target Block", "Block to execute when this option is selected by the player."),
 			                             new GUIContent("<Continue>"),
-			                             t.GetFungusScript());
+			                             t.GetFlowchart());
 
 			serializedObject.ApplyModifiedProperties();
 

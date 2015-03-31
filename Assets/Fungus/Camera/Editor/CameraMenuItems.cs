@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
@@ -10,7 +10,7 @@ namespace Fungus
 		[MenuItem("Tools/Fungus/Create/View", false, 100)]
 		static void CreateView()
 		{
-			FungusScriptMenuItems.SpawnPrefab("View");
+			FlowchartMenuItems.SpawnPrefab("View");
 		}
 	}
 

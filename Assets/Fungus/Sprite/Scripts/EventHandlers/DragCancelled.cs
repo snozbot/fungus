@@ -7,7 +7,7 @@ namespace Fungus
 {
 	[EventHandlerInfo("Sprites",
 	                  "Drag Cancelled",
-	                  "The sequence will execute when the player drags an object and releases it without dropping it on a target object.")]
+	                  "The block will execute when the player drags an object and releases it without dropping it on a target object.")]
 	[AddComponentMenu("")]
 	public class DragCancelled : EventHandler
 	{	
@@ -17,7 +17,7 @@ namespace Fungus
 		{
 			if (draggableObject == this.draggableObject)
 			{
-				ExecuteSequence();
+				ExecuteBlock();
 			}
 		}
 	}

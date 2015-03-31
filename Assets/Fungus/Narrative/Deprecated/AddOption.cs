@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,8 +16,9 @@ namespace Fungus
 		[Tooltip("Option text to display when presenting the option to the player")]
 		public string optionText;
 
-		[Tooltip("Sequence to execute when the player selects this option")]
-		public Sequence targetSequence;
+		[FormerlySerializedAs("targetSequence")]
+		[Tooltip("Block to execute when the player selects this option")]
+		public Block targetBlock;
 
 		[Tooltip("Hide this option once it has been selected so that it won't appear again even if executed again")]
 		public bool hideOnSelected;
@@ -33,7 +35,7 @@ namespace Fungus
 
 			Choose.Option option = new Choose.Option();
 			option.optionText = optionText; // Note: Variable substitution happens in the Choose command (as late as possible)
-			option.targetSequence = targetSequence;
+			option.targetBlock = targetBlock;
 
 			option.action = () => {
 				wasSelected = true;
@@ -49,23 +51,23 @@ namespace Fungus
 		{
 			string summaryText = optionText;
 
-			if (targetSequence == null)
+			if (targetBlock == null)
 			{
 				summaryText += " ( <Continue> )";
 			}
 			else
 			{
-				summaryText += " (" + targetSequence.sequenceName + ")";
+				summaryText += " (" + targetBlock.blockName + ")";
 			}
 
 			return summaryText;
 		}
 
-		public override void GetConnectedSequences(ref List<Sequence> connectedSequences)
+		public override void GetConnectedBlocks(ref List<Block> connectedBlocks)
 		{
-			if (targetSequence != null)
+			if (targetBlock != null)
 			{
-				connectedSequences.Add(targetSequence);
+				connectedBlocks.Add(targetBlock);
 			}
 		}
 

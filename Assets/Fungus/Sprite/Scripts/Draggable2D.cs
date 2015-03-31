@@ -5,7 +5,7 @@ namespace Fungus
 {
 
 	/**
-	 * Detects drag and drop interactions on a Game Object, and sends events to all Fungus Script event handlers in the scene.
+	 * Detects drag and drop interactions on a Game Object, and sends events to all Flowchart event handlers in the scene.
 	 * The Game Object must have Collider2D & RigidBody components attached. 
 	 * The Collider2D must have the Is Trigger property set to true.
 	 * The RigidBody would typically have the Is Kinematic property set to true, unless you want the object to move around using physics.

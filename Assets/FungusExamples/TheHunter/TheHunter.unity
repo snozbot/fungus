@@ -1759,7 +1759,7 @@ GameObject:
   - 114: {fileID: 1831099600}
   - 114: {fileID: 1831099572}
   m_Layer: 0
-  m_Name: FungusScript
+  m_Name: Flowchart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1801,7 +1801,7 @@ MonoBehaviour:
     y: -911.022339
     width: 1939.01758
     height: 2000.52234
-  selectedSequence: {fileID: 1831099578}
+  selectedSequence: {fileID: 0}
   selectedCommands: []
   variables:
   - {fileID: 1831099569}
@@ -3711,7 +3711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFungusScript: {fileID: 1831099568}
+  selectedFlowchart: {fileID: 1831099568}
 --- !u!4 &2142927453
 Transform:
   m_ObjectHideFlags: 1

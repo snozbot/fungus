@@ -1385,7 +1385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFungusScript: {fileID: 1390555295}
+  selectedFlowchart: {fileID: 1390555295}
 --- !u!4 &562066062
 Transform:
   m_ObjectHideFlags: 1
@@ -3164,7 +3164,7 @@ GameObject:
   - 114: {fileID: 1390555396}
   - 114: {fileID: 1390555358}
   m_Layer: 0
-  m_Name: FungusScript
+  m_Name: Flowchart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4907,7 +4907,7 @@ MonoBehaviour:
   waitUntilFinished: 0
 --- !u!114 &1390555358
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
@@ -5827,7 +5827,7 @@ MonoBehaviour:
   visible: 0
 --- !u!114 &1390555396
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}

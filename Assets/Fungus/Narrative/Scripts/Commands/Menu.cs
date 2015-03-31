@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections;
@@ -13,14 +14,17 @@ namespace Fungus
 	public class Menu : Command 
 	{
 		
-		// Menu displays a menu button which will execute the target sequence when clicked
-		// Menu Timeout executes a sequence if the timeout expires
-		// The 'Hide If Visited' option checks the execution count of the target sequence
+		// Menu displays a menu button which will execute the target block when clicked
+		// Menu Timeout executes a block if the timeout expires
+		// The 'Hide If Visited' option checks the execution count of the target block
 		// Hide Say dialog when finished? Let Say command handle that
 		// Can wrap in an If statement if you need a conditional option
 
 		public string text = "Option Text";
-		public Sequence targetSequence;
+
+		[FormerlySerializedAs("targetSequence")]
+		public Block targetBlock;
+
 		public bool hideIfVisited;
 
 		public MenuDialog setMenuDialog;
@@ -37,7 +41,7 @@ namespace Fungus
 				MenuDialog.activeMenuDialog = setMenuDialog;
 			}
 
-			bool hideOption = (hideIfVisited && targetSequence != null && targetSequence.GetExecutionCount() > 0);
+			bool hideOption = (hideIfVisited && targetBlock != null && targetBlock.GetExecutionCount() > 0);
 
 			if (!hideOption)
 			{
@@ -46,7 +50,7 @@ namespace Fungus
 				{
 					menuDialog.gameObject.SetActive(true);
 					string displayText = text;
-					menuDialog.AddOption(displayText, targetSequence);
+					menuDialog.AddOption(displayText, targetBlock);
 				}
 			}
 
@@ -77,19 +81,19 @@ namespace Fungus
 			eventSystemPresent = true;
 		}
 
-		public override void GetConnectedSequences(ref List<Sequence> connectedSequences)
+		public override void GetConnectedBlocks(ref List<Block> connectedBlocks)
 		{
-			if (targetSequence != null)
+			if (targetBlock != null)
 			{
-				connectedSequences.Add(targetSequence);
+				connectedBlocks.Add(targetBlock);
 			}		
 		}
 
 		public override string GetSummary()
 		{
-			if (targetSequence == null)
+			if (targetBlock == null)
 			{
-				return "Error: No target sequence selected";
+				return "Error: No target block selected";
 			}
 
 			if (text == "")
@@ -97,7 +101,7 @@ namespace Fungus
 				return "Error: No button text selected";
 			}
 
-			return text + " : " + targetSequence.sequenceName;
+			return text + " : " + targetBlock.blockName;
 		}
 
 		public override Color GetButtonColor()

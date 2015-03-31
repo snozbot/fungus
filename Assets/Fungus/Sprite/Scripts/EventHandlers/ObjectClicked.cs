@@ -5,7 +5,7 @@ namespace Fungus
 {
 	[EventHandlerInfo("Sprites",
 	                  "Object Clicked",
-	                  "The sequence will execute when the user clicks or taps on the clickable object.")]
+	                  "The block will execute when the user clicks or taps on the clickable object.")]
 	[AddComponentMenu("")]
 	public class ObjectClicked : EventHandler
 	{	
@@ -15,7 +15,7 @@ namespace Fungus
 		{
 			if (clickableObject == this.clickableObject)
 			{
-				ExecuteSequence();
+				ExecuteBlock();
 			}
 		}
 	}
