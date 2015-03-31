@@ -129,10 +129,19 @@ namespace Fungus
 
 		public virtual void OnEnable()
 		{
-			// Assign an item id to any command that doesn't have one yet.
+			// Assign an item id to any block or command that doesn't have one yet.
 			// This should only happen after loading a legacy Flowchart
+			Block[] blocks = GetComponentsInChildren<Block>();
+			foreach (Block block in blocks)
+			{
+				if (block.itemId == -1)
+				{
+					block.itemId = NextItemId();
+				}
+			}
+
 			Command[] commands = GetComponentsInChildren<Command>();
-		 	foreach (Command command in commands)
+			foreach (Command command in commands)
 			{
 				if (command.itemId == -1)
 				{
@@ -156,6 +165,8 @@ namespace Fungus
 			b.nodeRect.x = position.x;
 			b.nodeRect.y = position.y;
 			b.blockName = GetUniqueBlockKey(b.blockName, b);
+			b.itemId = NextItemId();
+
 			return b;
 		}
 

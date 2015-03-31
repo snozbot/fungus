@@ -21,6 +21,9 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Block : Node 
 	{
+		[HideInInspector]
+		public int itemId = -1; // Invalid flowchart item id
+
 		[FormerlySerializedAs("sequenceName")]
 		public string blockName = "New Block";
 
