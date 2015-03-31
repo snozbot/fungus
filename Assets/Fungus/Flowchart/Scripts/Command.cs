@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,8 +32,9 @@ namespace Fungus
 
 	public class Command : MonoBehaviour
 	{
+		[FormerlySerializedAs("commandId")]
 		[HideInInspector]
-		public int commandId = -1; // Invalid command id
+		public int itemId = -1; // Invalid flowchart item id
 
 		[HideInInspector]
 		public string errorMessage = "";

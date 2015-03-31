@@ -71,7 +71,7 @@ namespace Fungus
 
 			GUILayout.FlexibleSpace();
 
-			GUILayout.Label(new GUIContent("(" + t.commandId + ")"));
+			GUILayout.Label(new GUIContent("(" + t.itemId + ")"));
 
 			GUILayout.Space(10);
 

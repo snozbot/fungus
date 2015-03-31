@@ -77,7 +77,7 @@ namespace Fungus
 							exportText += say.character.nameText.ToUpper() + "\n";
 						}
 						
-						idText += "[[Say," + c.commandId + "]]\n";
+						idText += "[[Say," + c.itemId + "]]\n";
 						
 						exportText += idText;
 						
@@ -106,7 +106,7 @@ namespace Fungus
 						
 						string idText = "";
 						Menu menu = c as Menu;
-						idText += "[[Menu," + c.commandId + "]]\n";
+						idText += "[[Menu," + c.itemId + "]]\n";
 						
 						exportText += idText + menu.text.Trim() + "\n\n";
 					}
@@ -114,7 +114,7 @@ namespace Fungus
 					{
 						string idText = "";
 						Comment comment = c as Comment;
-						idText += "[[Comment," + c.commandId + "]]\n";
+						idText += "[[Comment," + c.itemId + "]]\n";
 						
 						exportText += idText + comment.commentText.Trim() + "\n\n";
 					}
@@ -142,7 +142,7 @@ namespace Fungus
 			Dictionary<int, Command> commandDict = new Dictionary<int, Command>();
 			foreach (Command c in flowchart.gameObject.GetComponentsInChildren<Command>())
 			{
-				commandDict.Add (c.commandId, c);
+				commandDict.Add (c.itemId, c);
 			}
 			
 			foreach (StringsParser.StringItem item in items)
@@ -155,8 +155,8 @@ namespace Fungus
 				string stringType = item.parameters[0];
 				if (stringType == "Say")
 				{
-					int commandId = int.Parse(item.parameters[1]);					
-					Say sayCommand = commandDict[commandId] as Say;
+					int itemId = int.Parse(item.parameters[1]);					
+					Say sayCommand = commandDict[itemId] as Say;
 					if (sayCommand != null)
 					{
 						sayCommand.storyText = item.bodyText;
@@ -164,8 +164,8 @@ namespace Fungus
 				}
 				else if (stringType == "Menu")
 				{
-					int commandId = int.Parse(item.parameters[1]);					
-					Menu menuCommand = commandDict[commandId] as Menu;
+					int itemId = int.Parse(item.parameters[1]);					
+					Menu menuCommand = commandDict[itemId] as Menu;
 					if (menuCommand != null)
 					{
 						menuCommand.text = item.bodyText;
@@ -173,8 +173,8 @@ namespace Fungus
 				}
 				else if (stringType == "Comment")
 				{
-					int commandId = int.Parse(item.parameters[1]);					
-					Comment commentCommand = commandDict[commandId] as Comment;
+					int itemId = int.Parse(item.parameters[1]);					
+					Comment commentCommand = commandDict[itemId] as Comment;
 					if (commentCommand != null)
 					{
 						commentCommand.commentText = item.bodyText;

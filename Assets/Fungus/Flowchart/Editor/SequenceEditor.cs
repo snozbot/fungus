@@ -605,7 +605,7 @@ namespace Fungus
 			Command newCommand = Undo.AddComponent(block.gameObject, commandOperation.commandType) as Command;
 			block.GetFlowchart().AddSelectedCommand(newCommand);
 			newCommand.parentBlock = block;
-			newCommand.commandId = flowchart.NextCommandId();
+			newCommand.itemId = flowchart.NextItemId();
 
 			// Let command know it has just been added to the block
 			newCommand.OnCommandAdded(block);
@@ -813,7 +813,7 @@ namespace Fungus
 						Command pastedCommand = commands.Last<Command>();
 						if (pastedCommand != null)
 						{
-							pastedCommand.commandId = flowchart.NextCommandId();
+							pastedCommand.itemId = flowchart.NextItemId();
 							flowchart.selectedBlock.commandList.Insert(pasteIndex++, pastedCommand);
 						}
 					}

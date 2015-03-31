@@ -689,7 +689,7 @@ namespace Fungus
 				{
 					field.SetValue(newCommand, field.GetValue(command));
 				}
-				newCommand.commandId = flowchart.NextCommandId();
+				newCommand.itemId = flowchart.NextItemId();
 				newBlock.commandList.Add(newCommand);
 			}
 

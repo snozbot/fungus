@@ -110,32 +110,33 @@ namespace Fungus
 		public bool saveSelection = true;
 
 		/**
-		 * Unique id to assign to the next created command.
-		 * Increases monotonically every time a new command is added to the block.
+		 * Unique id to assign to the next created item.
+		 * Increases monotonically every time a new item is added to the Flowchart.
 		 */
+		[FormerlySerializedAs("nextCommandId")]
 		[SerializeField]
-		protected int nextCommandId = 0;
+		protected int nextItemId = 0;
 
 		/**
-		 * Returns the next command id to assign to a new command.
-		 * Command ids increase monotically so they are guaranteed to
+		 * Returns the next id to assign to a new flowchart item.
+		 * Item ids increase monotically so they are guaranteed to
 		 * be unique within a Flowchart.
 		 */
-		public int NextCommandId()
+		public int NextItemId()
 		{
-			return nextCommandId++;
+			return nextItemId++;
 		}
 
 		public virtual void OnEnable()
 		{
-			// Assign a command id to any command that doesn't have one yet.
+			// Assign an item id to any command that doesn't have one yet.
 			// This should only happen after loading a legacy Flowchart
 			Command[] commands = GetComponentsInChildren<Command>();
 		 	foreach (Command command in commands)
 			{
-				if (command.commandId == -1)
+				if (command.itemId == -1)
 				{
-					command.commandId = NextCommandId();
+					command.itemId = NextItemId();
 				}
 			}
 		}

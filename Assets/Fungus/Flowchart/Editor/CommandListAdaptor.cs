@@ -94,7 +94,7 @@ namespace Fungus
 			}
 			
 			Command newCommand = Undo.AddComponent<Comment>(block.gameObject) as Command;
-			newCommand.commandId = flowchart.NextCommandId();
+			newCommand.itemId = flowchart.NextItemId();
 			flowchart.ClearSelectedCommands();
 			flowchart.AddSelectedCommand(newCommand);
 			
@@ -110,7 +110,7 @@ namespace Fungus
 			
 			System.Type type = command.GetType();
 			Command newCommand = Undo.AddComponent(parentBlock.gameObject, type) as Command;
-			newCommand.commandId = newCommand.GetFlowchart().NextCommandId();
+			newCommand.itemId = newCommand.GetFlowchart().NextItemId();
 			System.Reflection.FieldInfo[] fields = type.GetFields();
 			foreach (System.Reflection.FieldInfo field in fields)
 			{
