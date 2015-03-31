@@ -6,6 +6,16 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
+	/**
+	 * The Sequence class has been renamed to Block to be more descriptive.
+	 */
+	[ExecuteInEditMode]
+	[RequireComponent(typeof(Flowchart))]
+	[AddComponentMenu("")]
+	[Obsolete("Use Block class instead")]
+	public class Sequence : Block 
+	{}
+	
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(Flowchart))]
 	[AddComponentMenu("")]
