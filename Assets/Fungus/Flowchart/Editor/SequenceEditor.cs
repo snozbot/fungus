@@ -86,14 +86,10 @@ namespace Fungus
 				
 				ReorderableListControl.DrawControlFromState(adaptor, null, flags);
 
-<<<<<<< HEAD:Assets/Fungus/FungusScript/Editor/SequenceEditor.cs
 				// EventType.contextClick doesn't register since we moved the Sequence Editor to be inside
 				// a GUI Area, no idea why. As a workaround we just check for right click instead.
 				if (Event.current.type == EventType.mouseUp &&
 				    Event.current.button == 1)
-=======
-				if (Event.current.type == EventType.ContextClick)
->>>>>>> Rename-core-classes:Assets/Fungus/Flowchart/Editor/SequenceEditor.cs
 				{
 					ShowContextMenu();
 				}
