@@ -1,0 +1,32 @@
+"Key","Timestamp","Description","Standard","FR","DE","ES"
+"SAY.Flowchart.75","10/10/2015","Note","{t}(Do I really want to do this?){/t} Zero","One","Two","Three"
+"MENU.Flowchart.76","10/10/2015","Note","Drink the coffee","Five","Six","Seven"
+"MENU.Flowchart.77","10/10/2015","Note","Don't drink the coffee",,,
+"SAY.Flowchart.0","10/10/2015","Note","{answer}Excellent.",,,
+"SAY.Flowchart.1","10/10/2015","Note","All right. It's been 30 minutes. How do you feel?",,,
+"SAY.Flowchart.20","10/10/2015","Note","{worried}Like an idiot who should stop encouraging you.",,,
+"SAY.Flowchart.21","10/10/2015","Note","No, that's not right.",,,
+"SAY.Flowchart.45","10/10/2015","Note","{shout}No nausea? {shout}Dizziness? {shout}Feeling of sudden and impending doom?",,,
+"SAY.Flowchart.22","10/10/2015","Note","Wait, {question}{flash=0.1}what?",,,
+"SAY.Flowchart.23","10/10/2015","Note","Hmm... I'll have to revise my {clue}hypothesis…",,,
+"SAY.Flowchart.2","10/10/2015","Note","No thanks. The last time I drank your coffee, I spent the day running from an imaginary dog.",,,
+"SAY.Flowchart.3","10/10/2015","Note","The hallucinogen was in the {answer}gas, not the coffee.",,,
+"SAY.Flowchart.4","10/10/2015","Note","{shout}Still not ok{wp},{/wp} Sherlock!",,,
+"SAY.Flowchart.5","10/10/2015","Note","Suit yourself.",,,
+"SAY.Flowchart.6","10/10/2015","Note","THE EXPERIMENT œ˙é®√","Non","Nein","No"
+"SAY.Flowchart.58","10/10/2015","Note","Ah John,\n {pleased}there you are.\nI've been looking everywhere for you!","Mon frere","Mein frere","Bonjo"
+"SAY.Flowchart.7","10/10/2015","Note","{confused}I do live here, you know.",,,
+"SAY.Flowchart.8","10/10/2015","Note","{answer}{flash=0.1}Well you arrived at just the right time.",,,
+"SAY.Flowchart.30","10/10/2015","Note"," Here, I need you to drink this.",,,
+"SAY.Flowchart.9","10/10/2015","Note","{worried}... Why?",,,
+"SAY.Flowchart.10","10/10/2015","Note","It's for an experiment.",,,
+"SAY.Flowchart.35","10/10/2015","Note"," Don't worry. It won't kill you.",,,
+"SAY.Flowchart.11","10/10/2015","Note","{clue}Your words inspire such confidence.",,,
+"SAY.Flowchart.12","10/10/2015","Note","Why don't you test it yourself?",,,
+"SAY.Flowchart.13","10/10/2015","Note","{question}I can't observe the effects of the experiment if I'm the one participating.",,,
+"SAY.Flowchart.74","10/10/2015","Note","Of course.",,,
+"SAY.Flowchart.80","10/10/2015","Note","(What should I do now?)",,,
+"MENU.Flowchart.78","10/10/2015","Note","Talk to Sherlock.",,,
+"MENU.Flowchart.79","10/10/2015","Note","Leave",,,
+"SAY.Flowchart.66","10/10/2015","Note","Right.... Good luck with that.",,,
+"SAY.Flowchart.70","10/10/2015","Note","Your {stat-up}courage{/stat-up} has increased!",,,

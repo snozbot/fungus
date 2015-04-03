@@ -12,10 +12,12 @@ namespace Fungus
 	public class LanguageEditor : Editor 
 	{
 		protected SerializedProperty activeLanguageProp;
+		protected SerializedProperty localizationFileProp;
 
 		protected virtual void OnEnable()
 		{
 			activeLanguageProp = serializedObject.FindProperty("activeLanguage");
+			localizationFileProp = serializedObject.FindProperty("localizationFile");
 		}
 
 		public override void OnInspectorGUI()
@@ -25,6 +27,7 @@ namespace Fungus
 			Language t = target as Language;
 
 			EditorGUILayout.PropertyField(activeLanguageProp);
+			EditorGUILayout.PropertyField(localizationFileProp);
 
 			GUILayout.BeginHorizontal();
 
