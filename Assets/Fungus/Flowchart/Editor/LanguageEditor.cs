@@ -12,7 +12,6 @@ namespace Fungus
 	public class LanguageEditor : Editor 
 	{
 		protected SerializedProperty activeLanguageProp;
-		protected SerializedProperty localizedObjectsProp;
 
 		protected virtual void OnEnable()
 		{

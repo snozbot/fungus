@@ -39,12 +39,6 @@ namespace Fungus
 		// http://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.OnBeforeSerialize.html
 		protected Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
 
-		// Gameobjects that are being managed for localization.
-		// Each game object should have a child component that implements ISerializable
-		// As Unity doesn't provide a persistant object identifier, we use the index
-		// in this list as a way to uniquely identify string objects
-		public List<GameObject> localizedObjects = new List<GameObject>();
-
 		/**
 		 * Temp storage for a single item of standard text read from a scene object.
 		 */
@@ -78,6 +72,9 @@ namespace Fungus
 
 			// Collect all the language items present in the scene
 			Dictionary<string, LanguageItem> languageItems = FindLanguageItems();
+
+			// Update language items with localization data from CSV file
+
 
 			// Build the CSV file using collected language items and the corresponding store localized strings
 			string csvData = csvHeader + "\n";
