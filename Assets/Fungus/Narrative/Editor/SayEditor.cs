@@ -100,6 +100,7 @@ namespace Fungus
 		protected SerializedProperty characterProp;
 		protected SerializedProperty portraitProp;
 		protected SerializedProperty storyTextProp;
+		protected SerializedProperty descriptionProp;
 		protected SerializedProperty voiceOverClipProp;
 		protected SerializedProperty showAlwaysProp;
 		protected SerializedProperty showCountProp;
@@ -114,6 +115,7 @@ namespace Fungus
 			characterProp = serializedObject.FindProperty("character");
 			portraitProp = serializedObject.FindProperty("portrait");
 			storyTextProp = serializedObject.FindProperty("storyText");
+			descriptionProp = serializedObject.FindProperty("description");
 			voiceOverClipProp = serializedObject.FindProperty("voiceOverClip");
 			showAlwaysProp = serializedObject.FindProperty("showAlways");
 			showCountProp = serializedObject.FindProperty("showCount");
@@ -170,7 +172,9 @@ namespace Fungus
 			}
 			
 			EditorGUILayout.PropertyField(storyTextProp);
-			
+
+			EditorGUILayout.PropertyField(descriptionProp);
+
 			EditorGUILayout.BeginHorizontal();
 
 			EditorGUILayout.PropertyField(extendPreviousProp);

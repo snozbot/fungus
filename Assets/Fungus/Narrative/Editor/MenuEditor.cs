@@ -11,6 +11,7 @@ namespace Fungus
 	public class MenuEditor : CommandEditor 
 	{
 		protected SerializedProperty textProp;
+		protected SerializedProperty descriptionProp;
 		protected SerializedProperty targetBlockProp;
 		protected SerializedProperty hideIfVisitedProp;
 		protected SerializedProperty setMenuDialogProp;
@@ -18,6 +19,7 @@ namespace Fungus
 		protected virtual void OnEnable()
 		{
 			textProp = serializedObject.FindProperty("text");
+			descriptionProp = serializedObject.FindProperty("description");
 			targetBlockProp = serializedObject.FindProperty("targetBlock");
 			hideIfVisitedProp = serializedObject.FindProperty("hideIfVisited");
 			setMenuDialogProp = serializedObject.FindProperty("setMenuDialog");
@@ -34,6 +36,8 @@ namespace Fungus
 			serializedObject.Update();
 			
 			EditorGUILayout.PropertyField(textProp);
+
+			EditorGUILayout.PropertyField(descriptionProp);
 			
 			BlockEditor.BlockField(targetBlockProp,
 			                             new GUIContent("Target Block", "Block to call when option is selected"), 

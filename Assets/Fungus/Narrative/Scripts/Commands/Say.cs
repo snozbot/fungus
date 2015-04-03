@@ -9,10 +9,13 @@ namespace Fungus
 	             "Say", 
 	             "Writes text in a dialog box.")]
 	[AddComponentMenu("")]
-	public class Say : Command 
+	public class Say : Command, ILocalizable 
 	{
 		[TextArea(5,10)]
-		public string storyText;
+		public string storyText = "";
+
+		[Tooltip("Notes about this story text for other authors, localization, etc.")]
+		public string description = "";
 
 		[Tooltip("Character that is speaking")]
 		public Character character;
@@ -160,6 +163,33 @@ namespace Fungus
 		public override void OnReset()
 		{
 			executionCount = 0;
+		}
+
+		// ILocalizable methods
+
+		public virtual string GetLocalizationID()
+		{
+			return "SAY." + itemId.ToString(); 
+		}
+		
+		public virtual string GetStandardText()
+		{
+			return storyText; 
+		}
+
+		public virtual void SetStandardText(string standardText)
+		{
+			storyText = standardText;
+		}
+
+		public virtual string GetTimestamp()
+		{
+			return DateTime.Now.ToShortDateString();
+		}
+		
+		public virtual string GetDescription()
+		{
+			return description;
 		}
 	}
 

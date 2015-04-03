@@ -1,12 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace Fungus
 {
 
 	[ExecuteInEditMode]
-	public class Character : MonoBehaviour 
+	public class Character : MonoBehaviour, ILocalizable
 	{
 		public string nameText; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
 		public Color nameColor = Color.white;
@@ -16,8 +18,9 @@ namespace Fungus
 		public FacingDirection portraitsFace;	
 		public PortraitState state;		
 
+		[FormerlySerializedAs("notes")]
 		[TextArea(5,10)]
-		public string notes;
+		public string description;
 
 		static public List<Character> activeCharacters = new List<Character>();
 
@@ -32,6 +35,33 @@ namespace Fungus
 		protected virtual void OnDisable()
 		{
 			activeCharacters.Remove(this);
+		}
+
+		// ILocalizable methods
+		
+		public virtual string GetLocalizationID()
+		{
+			return "CHARACTER." + nameText; 
+		}
+		
+		public virtual string GetStandardText()
+		{
+			return nameText; 
+		}
+
+		public virtual void SetStandardText(string standardText)
+		{
+			nameText = standardText;
+		}
+
+		public virtual string GetTimestamp()
+		{
+			return DateTime.Now.ToShortDateString();
+		}
+		
+		public virtual string GetDescription()
+		{
+			return description;
 		}
 	}
 

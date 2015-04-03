@@ -11,7 +11,7 @@ namespace Fungus
 	             "Menu", 
 	             "Displays a multiple choice menu")]
 	[AddComponentMenu("")]
-	public class Menu : Command 
+	public class Menu : Command, ILocalizable
 	{
 		
 		// Menu displays a menu button which will execute the target block when clicked
@@ -21,6 +21,9 @@ namespace Fungus
 		// Can wrap in an If statement if you need a conditional option
 
 		public string text = "Option Text";
+
+		[Tooltip("Notes about the option text for other authors, localization, etc.")]
+		public string description = "";
 
 		[FormerlySerializedAs("targetSequence")]
 		public Block targetBlock;
@@ -112,6 +115,33 @@ namespace Fungus
 		public override bool RunSlowInEditor()
 		{
 			return false;
+		}
+
+		// ILocalizable methods
+		
+		public virtual string GetLocalizationID()
+		{
+			return "MENU." + itemId.ToString(); 
+		}
+		
+		public virtual string GetStandardText()
+		{
+			return text; 
+		}
+
+		public virtual void SetStandardText(string standardText)
+		{
+			text = standardText;
+		}
+
+		public virtual string GetTimestamp()
+		{
+			return DateTime.Now.ToShortDateString();
+		}
+		
+		public virtual string GetDescription()
+		{
+			return description;
 		}
 	}
 
