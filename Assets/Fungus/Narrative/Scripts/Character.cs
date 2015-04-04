@@ -8,7 +8,7 @@ namespace Fungus
 {
 
 	[ExecuteInEditMode]
-	public class Character : MonoBehaviour, ILocalizable
+	public class Character : MonoBehaviour
 	{
 		public string nameText; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
 		public Color nameColor = Color.white;
@@ -35,33 +35,6 @@ namespace Fungus
 		protected virtual void OnDisable()
 		{
 			activeCharacters.Remove(this);
-		}
-
-		// ILocalizable methods
-		
-		public virtual string GetLocalizationID()
-		{
-			return "CHARACTER." + nameText; 
-		}
-		
-		public virtual string GetStandardText()
-		{
-			return nameText; 
-		}
-
-		public virtual void SetStandardText(string standardText)
-		{
-			nameText = standardText;
-		}
-
-		public virtual string GetTimestamp()
-		{
-			return DateTime.Now.ToShortDateString();
-		}
-		
-		public virtual string GetDescription()
-		{
-			return description;
 		}
 	}
 

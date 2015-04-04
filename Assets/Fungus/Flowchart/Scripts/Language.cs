@@ -2,22 +2,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Ideafixxxer.CsvParser;
 
 namespace Fungus
 {
-
-	interface ILocalizable
-	{
-		string GetLocalizationID();
-
-		string GetStandardText();
-
-		void SetStandardText(string standardText);
-
-		string GetTimestamp();
-
-		string GetDescription();
-	}
 
 	/**
 	 * Multi-language localization support.
@@ -36,7 +25,6 @@ namespace Fungus
 		 */
 		protected class LanguageItem
 		{
-			public string timeStamp;
 			public string description;
 			public string standardText;
 			public Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
@@ -73,7 +61,7 @@ namespace Fungus
 			}
 
 			// Build CSV header row and a list of the language codes currently in use
-			string csvHeader = "Key,Timestamp,Description,Standard";
+			string csvHeader = "Key,Description,Standard";
 			List<string> languageCodes = new List<string>();
 			foreach (LanguageItem languageItem in languageItems.Values)
 			{
@@ -94,7 +82,6 @@ namespace Fungus
 				LanguageItem languageItem = languageItems[stringId];
 
 				string row = CSVSupport.Escape(stringId);
-				row += "," + CSVSupport.Escape(languageItem.timeStamp);
 				row += "," + CSVSupport.Escape(languageItem.description);
 				row += "," + CSVSupport.Escape(languageItem.standardText);
 
@@ -121,6 +108,7 @@ namespace Fungus
 			Dictionary<string, LanguageItem> languageItems = new Dictionary<string, LanguageItem>();
 			
 			// Export all Say and Menu commands in the scene
+			// To make it easier to localize, we preserve the command order in each exported block.
 			Flowchart[] flowcharts = GameObject.FindObjectsOfType<Flowchart>();
 			foreach (Flowchart flowchart in flowcharts)
 			{
@@ -131,19 +119,22 @@ namespace Fungus
 					{
 						string stringID = "";
 						string standardText = "";
-						
+						string description = "";
+
 						System.Type type = command.GetType();
 						if (type == typeof(Say))
 						{
 							stringID = "SAY." + flowchart.name + "." + command.itemId;
 							Say sayCommand = command as Say;
 							standardText = sayCommand.storyText;
+							description = sayCommand.description;
 						}
 						else if (type == typeof(Menu))
 						{							
 							stringID = "MENU." + flowchart.name + "." + command.itemId;
 							Menu menuCommand = command as Menu;
 							standardText = menuCommand.text;
+							description = menuCommand.description;
 						}
 						else
 						{
@@ -162,9 +153,8 @@ namespace Fungus
 						}
 						
 						// Update basic properties,leaving localised strings intact
-						languageItem.timeStamp = "10/10/2015";
-						languageItem.description = "Note";
 						languageItem.standardText = standardText;
+						languageItem.description = description;
 					}
 				}
 			}
@@ -174,33 +164,37 @@ namespace Fungus
 
 		protected virtual void AddLocalisedStrings(Dictionary<string, LanguageItem> languageItems, string csvData)
 		{
-			// Split into lines
-			// Excel on Mac exports csv files with \r line endings, so we need to support that too.
-			string[] lines = csvData.Split('\n', '\r');
+			CsvParser csvParser = new CsvParser();
+			string[][] csvTable = csvParser.Parse(csvData);
 
-			if (lines.Length == 0)
+			if (csvTable.Length <= 1)
 			{
-				// Early out if no data in file
+				// No data rows in file
 				return;
 			}
-			
+
 			// Parse header row
-			string[] columnNames = CSVSupport.SplitCSVLine(lines[0]);
+			string[] columnNames = csvTable[0];
 			
-			for (int i = 1; i < lines.Length; ++i)
+			for (int i = 1; i < csvTable.Length; ++i)
 			{
-				string line = lines[i];
-				
-				string[] fields = CSVSupport.SplitCSVLine(line);
+				string[] fields = csvTable[i];
 				if (fields.Length < 4)
 				{
+					// No localized string fields present
 					continue;
 				}
 				
 				string stringId = fields[0];
 
+				if (!languageItems.ContainsKey(stringId))
+				{
+					continue;
+				}
+
 				// Store localized strings for this string id
-				for (int j = 4; j < fields.Length; ++j)
+				LanguageItem languageItem = languageItems[stringId];
+				for (int j = 3; j < fields.Length; ++j)
 				{
 					if (j >= columnNames.Length)
 					{
@@ -211,10 +205,7 @@ namespace Fungus
 					
 					if (languageEntry.Length > 0)
 					{
-						if (languageItems.ContainsKey(stringId))
-						{
-							languageItems[stringId].localizedStrings[languageCode] = languageEntry;
-						}
+						languageItem.localizedStrings[languageCode] = languageEntry;
 					}
 				}
 			}
@@ -230,18 +221,17 @@ namespace Fungus
 
 			localizedStrings.Clear();
 
-			// Split into lines
-			// Excel on Mac exports csv files with \r line endings, so we need to support that too.
-			string[] lines = csvData.Split('\n', '\r');
-			
-			if (lines.Length == 0)
+			CsvParser csvParser = new CsvParser();
+			string[][] csvTable = csvParser.Parse(csvData);
+
+			if (csvTable.Length <= 1)
 			{
 				// No data rows in file
 				return;
 			}
-			
+
 			// Parse header row
-			string[] columnNames = CSVSupport.SplitCSVLine(lines[0]);
+			string[] columnNames = csvTable[0];
 
 			if (columnNames.Length < 5)
 			{
@@ -250,7 +240,7 @@ namespace Fungus
 			}
 
 			int languageIndex = -1;
-			for (int i = 4; i < columnNames.Length; ++i)
+			for (int i = 3; i < columnNames.Length; ++i)
 			{
 				if (columnNames[i] == languageCode)
 				{
@@ -265,11 +255,10 @@ namespace Fungus
 				return;
 			}
 
-			for (int i = 1; i < lines.Length; ++i)
+			for (int i = 1; i < csvTable.Length; ++i)
 			{
-				string line = lines[i];
-				
-				string[] fields = CSVSupport.SplitCSVLine(line);
+				string[] fields = csvTable[i];
+
 				if (fields.Length < languageIndex + 1)
 				{
 					continue;
@@ -341,64 +330,6 @@ namespace Fungus
 					}
 				}
 			}
-		}
-
-		/**
-		 * Import strings from a CSV file.
-		 * 1. Any changes to standard text items will be applied to the corresponding scene object.
-		 * 2. Any localized strings will be added to the localization dictionary.
-		 */
-		public virtual void ImportCSV(string csvData)
-		{
-			/*
-			// Split into lines
-			// Excel on Mac exports csv files with \r line endings, so we need to support that too.
-			string[] lines = csvData.Split('\n', '\r');
-
-			if (lines.Length == 0)
-			{
-				return;
-			}
-
-			localizedStrings.Clear();
-
-			// Parse header row
-			string[] columnNames = CSVSupport.SplitCSVLine(lines[0]);
-
-			for (int i = 1; i < lines.Length; ++i)
-			{
-				string line = lines[i];
-
-				string[] fields = CSVSupport.SplitCSVLine(line);
-				if (fields.Length < 4)
-				{
-					continue;
-				}
-
-				string stringId = fields[0];
-				// Ignore timestamp & notes fields
-				string standardText = CSVSupport.Unescape(fields[3]);
-
-				PopulateGameString(stringId, standardText);
-
-				// Store localized string in stringDict
-				for (int j = 4; j < fields.Length; ++j)
-				{
-					if (j >= columnNames.Length)
-					{
-						continue;
-					}
-					string languageCode = columnNames[j];
-					string languageEntry = CSVSupport.Unescape(fields[j]);
-
-					if (languageEntry.Length > 0)
-					{
-						// The dictionary key is the basic string id with .<LanguageCode> appended
-						localizedStrings[stringId + "." + languageCode] = languageEntry;
-					}
-				}
-			}
-			*/
 		}
 	}
 
