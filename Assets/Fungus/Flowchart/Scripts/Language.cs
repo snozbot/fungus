@@ -255,6 +255,13 @@ namespace Fungus
 				return;
 			}
 
+			// Cache a lookup table of flowcharts in the scene
+			Dictionary<string, Flowchart> flowchartDict = new Dictionary<string, Flowchart>();
+			foreach (Flowchart flowChart in GameObject.FindObjectsOfType<Flowchart>())
+			{
+				flowchartDict[flowChart.name] = flowChart;
+			}
+
 			for (int i = 1; i < csvTable.Length; ++i)
 			{
 				string[] fields = csvTable[i];
@@ -270,12 +277,12 @@ namespace Fungus
 				if (languageEntry.Length > 0)
 				{
 					localizedStrings[stringId] = languageEntry;
-					PopulateGameString(stringId, languageEntry);
+					PopulateGameString(stringId, languageEntry, flowchartDict);
 				}
 			}
 		}
 
-		public virtual void PopulateGameString(string stringId, string text)
+		public virtual void PopulateGameString(string stringId, string text, Dictionary<string, Flowchart> flowchartDict)
 		{
 			string[] idParts = stringId.Split('.');
 			if (idParts.Length == 0)
@@ -291,11 +298,15 @@ namespace Fungus
 					return;
 				}
 				
-				string flowchartName = idParts[1];
+				string flowchartId = idParts[1];
+				if (!flowchartDict.ContainsKey(flowchartId))
+				{
+					return;
+				}
+				Flowchart flowchart = flowchartDict[flowchartId];
+	
 				int itemId = int.Parse(idParts[2]);
 				
-				GameObject go = GameObject.Find(flowchartName);
-				Flowchart flowchart = go.GetComponentInChildren<Flowchart>();
 				if (flowchart != null)
 				{
 					foreach (Say say in flowchart.GetComponentsInChildren<Say>())
@@ -314,11 +325,15 @@ namespace Fungus
 					return;
 				}
 				
-				string flowchartName = idParts[1];
+				string flowchartId = idParts[1];
+				if (!flowchartDict.ContainsKey(flowchartId))
+				{
+					return;
+				}
+				Flowchart flowchart = flowchartDict[flowchartId];
+
 				int itemId = int.Parse(idParts[2]);
 				
-				GameObject go = GameObject.Find(flowchartName);
-				Flowchart flowchart = go.GetComponentInChildren<Flowchart>();
 				if (flowchart != null)
 				{
 					foreach (Menu menu in flowchart.GetComponentsInChildren<Menu>())
