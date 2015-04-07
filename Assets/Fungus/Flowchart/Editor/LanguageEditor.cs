@@ -29,21 +29,10 @@ namespace Fungus
 			EditorGUILayout.PropertyField(activeLanguageProp);
 			EditorGUILayout.PropertyField(localizationFileProp);
 
-			GUILayout.BeginHorizontal();
-
-			if (GUILayout.Button(new GUIContent("Export Strings File")))
+			if (GUILayout.Button(new GUIContent("Export to CSV")))
 			{
 				ExportStrings(t);
 			}
-
-			GUILayout.Space(8);
-
-			if (GUILayout.Button(new GUIContent("Import Strings File")))
-			{
-				ImportStrings(t);
-			}
-
-			GUILayout.EndHorizontal();
 
 			serializedObject.ApplyModifiedProperties();
 		}
@@ -59,18 +48,6 @@ namespace Fungus
 			
 			string csvData = language.ExportCSV();			
 			File.WriteAllText(path, csvData);
-		}
-
-		public virtual void ImportStrings(Language language)
-		{
-			string path = EditorUtility.OpenFilePanel("Import strings", "", "");
-			if (path.Length == 0) 
-			{
-				return;
-			}
-			
-			string stringsFile = File.ReadAllText(path);			
-			language.ImportCSV(stringsFile);
 		}
 	}
 
