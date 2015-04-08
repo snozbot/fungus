@@ -106,7 +106,16 @@ namespace Fungus
 		protected Dictionary<string, LanguageItem> FindLanguageItems()
 		{
 			Dictionary<string, LanguageItem> languageItems = new Dictionary<string, LanguageItem>();
-			
+
+			// Export all character names
+			foreach (Character character in GameObject.FindObjectsOfType<Character>())
+			{
+				LanguageItem languageItem = new LanguageItem();
+				languageItem.standardText = character.nameText;
+				languageItem.description = character.description;
+				languageItems["CHARACTER." + character.nameText] = languageItem;
+			}
+
 			// Export all Say and Menu commands in the scene
 			// To make it easier to localize, we preserve the command order in each exported block.
 			Flowchart[] flowcharts = GameObject.FindObjectsOfType<Flowchart>();
@@ -261,6 +270,13 @@ namespace Fungus
 				return;
 			}
 
+			// Cache a lookup table of characters in the scene
+			Dictionary<string, Character> characterDict = new Dictionary<string, Character>();
+			foreach (Character character in GameObject.FindObjectsOfType<Character>())
+			{
+				characterDict[character.nameText] = character;
+			}
+
 			// Cache a lookup table of flowcharts in the scene
 			Dictionary<string, Flowchart> flowchartDict = new Dictionary<string, Flowchart>();
 			foreach (Flowchart flowChart in GameObject.FindObjectsOfType<Flowchart>())
@@ -283,12 +299,15 @@ namespace Fungus
 				if (languageEntry.Length > 0)
 				{
 					localizedStrings[stringId] = languageEntry;
-					PopulateGameString(stringId, languageEntry, flowchartDict);
+					PopulateGameString(stringId, languageEntry, flowchartDict, characterDict);
 				}
 			}
 		}
 
-		public virtual void PopulateGameString(string stringId, string text, Dictionary<string, Flowchart> flowchartDict)
+		public virtual void PopulateGameString(string stringId, 
+		                                       string localizedText, 
+		                                       Dictionary<string, Flowchart> flowchartDict,
+		                                       Dictionary<string, Character> characterDict)
 		{
 			string[] idParts = stringId.Split('.');
 			if (idParts.Length == 0)
@@ -319,7 +338,7 @@ namespace Fungus
 					{
 						if (say.itemId == itemId)
 						{
-							say.storyText = text;
+							say.storyText = localizedText;
 						}
 					}
 				}
@@ -346,9 +365,28 @@ namespace Fungus
 					{
 						if (menu.itemId == itemId)
 						{
-							menu.text = text;
+							menu.text = localizedText;
 						}
 					}
+				}
+			}
+			else if (stringType == "CHARACTER")
+			{
+				if (idParts.Length != 2)
+				{
+					return;
+				}
+				
+				string characterName = idParts[1];
+				if (!characterDict.ContainsKey(characterName))
+				{
+					return;
+				}
+
+				Character character = characterDict[characterName];
+				if (character != null)
+				{
+					character.nameText = localizedText;
 				}
 			}
 		}
