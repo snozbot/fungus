@@ -110,6 +110,12 @@ namespace Fungus
 		public bool saveSelection = true;
 
 		/**
+		 * Unique identifier for identifying this flowchart in localized string keys.
+		 */
+		[Tooltip("Unique identifier for this flowchart in localized string keys. An id must be provided for Language string export to work.")]
+		public string localizationId = "";
+
+		/**
 		 * Unique id to assign to the next created item.
 		 * Increases monotonically every time a new item is added to the Flowchart.
 		 */

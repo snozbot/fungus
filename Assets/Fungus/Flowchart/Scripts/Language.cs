@@ -112,6 +112,12 @@ namespace Fungus
 			Flowchart[] flowcharts = GameObject.FindObjectsOfType<Flowchart>();
 			foreach (Flowchart flowchart in flowcharts)
 			{
+				// Have to set a unique localization id to export strings
+				if (flowchart.localizationId.Length == 0)
+				{
+					continue;
+				}
+
 				Block[] blocks = flowchart.GetComponentsInChildren<Block>();
 				foreach (Block block in blocks)
 				{
@@ -124,14 +130,14 @@ namespace Fungus
 						System.Type type = command.GetType();
 						if (type == typeof(Say))
 						{
-							stringID = "SAY." + flowchart.name + "." + command.itemId;
+							stringID = "SAY." + flowchart.localizationId + "." + command.itemId;
 							Say sayCommand = command as Say;
 							standardText = sayCommand.storyText;
 							description = sayCommand.description;
 						}
 						else if (type == typeof(Menu))
 						{							
-							stringID = "MENU." + flowchart.name + "." + command.itemId;
+							stringID = "MENU." + flowchart.localizationId + "." + command.itemId;
 							Menu menuCommand = command as Menu;
 							standardText = menuCommand.text;
 							description = menuCommand.description;
@@ -233,7 +239,7 @@ namespace Fungus
 			// Parse header row
 			string[] columnNames = csvTable[0];
 
-			if (columnNames.Length < 5)
+			if (columnNames.Length < 4)
 			{
 				// No languages defined in CSV file
 				return;
@@ -259,7 +265,7 @@ namespace Fungus
 			Dictionary<string, Flowchart> flowchartDict = new Dictionary<string, Flowchart>();
 			foreach (Flowchart flowChart in GameObject.FindObjectsOfType<Flowchart>())
 			{
-				flowchartDict[flowChart.name] = flowChart;
+				flowchartDict[flowChart.localizationId] = flowChart;
 			}
 
 			for (int i = 1; i < csvTable.Length; ++i)

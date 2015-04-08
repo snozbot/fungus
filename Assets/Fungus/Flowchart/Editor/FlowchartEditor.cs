@@ -23,6 +23,7 @@ namespace Fungus
 		protected SerializedProperty hideComponentsProp;
 		protected SerializedProperty runSlowDurationProp;
 		protected SerializedProperty saveSelectionProp;
+		protected SerializedProperty localizationIdProp;
 		protected SerializedProperty variablesProp;
 
 		protected virtual void OnEnable()
@@ -32,6 +33,7 @@ namespace Fungus
 			hideComponentsProp = serializedObject.FindProperty("hideComponents");
 			runSlowDurationProp = serializedObject.FindProperty("runSlowDuration");
 			saveSelectionProp = serializedObject.FindProperty("saveSelection");
+			localizationIdProp = serializedObject.FindProperty("localizationId");
 			variablesProp = serializedObject.FindProperty("variables");
 		}
 
@@ -48,6 +50,7 @@ namespace Fungus
 			EditorGUILayout.PropertyField(hideComponentsProp);
 			EditorGUILayout.PropertyField(runSlowDurationProp);
 			EditorGUILayout.PropertyField(saveSelectionProp);
+			EditorGUILayout.PropertyField(localizationIdProp);
 
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
