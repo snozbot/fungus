@@ -46,9 +46,9 @@ namespace Fungus
 		}
 
 		/**
-		 * Export all localized strings to an easy to edit CSV file.
+		 * Convert all language items and localized strings to an easy to edit CSV format.
 		 */
-		public virtual string ExportLocalizationFile()
+		public virtual string GetCSVData()
 		{
 			// Collect all the language items present in the scene
 			Dictionary<string, LanguageItem> languageItems = FindLanguageItems();
@@ -57,7 +57,7 @@ namespace Fungus
 			if (localizationFile != null &&
 			    localizationFile.text.Length > 0)
 			{
-				AddLocalisedStrings(languageItems, localizationFile.text);
+				AddLocalizedStrings(languageItems, localizationFile.text);
 			}
 
 			// Build CSV header row and a list of the language codes currently in use
@@ -103,6 +103,9 @@ namespace Fungus
 			return csvData;
 		}
 
+		/**
+		 * Buidls a dictionary of localizable objects in the scene.
+		 */
 		protected Dictionary<string, LanguageItem> FindLanguageItems()
 		{
 			Dictionary<string, LanguageItem> languageItems = new Dictionary<string, LanguageItem>();
@@ -110,10 +113,12 @@ namespace Fungus
 			// Export all character names
 			foreach (Character character in GameObject.FindObjectsOfType<Character>())
 			{
+				// String id for character names is CHARACTER.<Character Name>
 				LanguageItem languageItem = new LanguageItem();
 				languageItem.standardText = character.nameText;
 				languageItem.description = character.description;
-				languageItems["CHARACTER." + character.nameText] = languageItem;
+				string stringId = "CHARACTER." + character.nameText;
+				languageItems[stringId] = languageItem;
 			}
 
 			// Export all Say and Menu commands in the scene
@@ -132,24 +137,30 @@ namespace Fungus
 				{
 					foreach (Command command in block.commandList)
 					{
-						string stringID = "";
+						string stringId = "";
 						string standardText = "";
 						string description = "";
 
 						System.Type type = command.GetType();
 						if (type == typeof(Say))
 						{
-							stringID = "SAY." + flowchart.localizationId + "." + command.itemId;
+							// String id for Say commands is SAY.<Flowchart id>.<Command id>.<Character Name>
 							Say sayCommand = command as Say;
 							standardText = sayCommand.storyText;
 							description = sayCommand.description;
+							stringId = "SAY." + flowchart.localizationId + "." + sayCommand.itemId + ".";
+							if (sayCommand.character != null)
+							{
+								stringId += sayCommand.character.nameText;
+							}
 						}
 						else if (type == typeof(Menu))
 						{							
-							stringID = "MENU." + flowchart.localizationId + "." + command.itemId;
+							// String id for Menu commands is MENU.<Flowchart id>.<Command id>
 							Menu menuCommand = command as Menu;
 							standardText = menuCommand.text;
 							description = menuCommand.description;
+							stringId = "MENU." + flowchart.localizationId + "." + menuCommand.itemId;
 						}
 						else
 						{
@@ -157,14 +168,14 @@ namespace Fungus
 						}
 						
 						LanguageItem languageItem = null;
-						if (languageItems.ContainsKey(stringID))
+						if (languageItems.ContainsKey(stringId))
 						{
-							languageItem = languageItems[stringID];
+							languageItem = languageItems[stringId];
 						}
 						else
 						{
 							languageItem = new LanguageItem();
-							languageItems[stringID] = languageItem;
+							languageItems[stringId] = languageItem;
 						}
 						
 						// Update basic properties,leaving localised strings intact
@@ -177,7 +188,10 @@ namespace Fungus
 			return languageItems;
 		}
 
-		protected virtual void AddLocalisedStrings(Dictionary<string, LanguageItem> languageItems, string csvData)
+		/**
+		 * Adds localized strings from CSV file data to a dictionary of language items in the scene.
+		 */
+		protected virtual void AddLocalizedStrings(Dictionary<string, LanguageItem> languageItems, string csvData)
 		{
 			CsvParser csvParser = new CsvParser();
 			string[][] csvTable = csvParser.Parse(csvData);
@@ -226,6 +240,10 @@ namespace Fungus
 			}
 		}
 
+		/**
+		 * Scan a localization CSV file and copies the strings for the specified language code
+		 * into the text properties of the appropriate scene objects.
+		 */
 		public virtual void SetActiveLanguage(string languageCode, string csvData)
 		{
 			if (!Application.isPlaying)
@@ -299,15 +317,18 @@ namespace Fungus
 				if (languageEntry.Length > 0)
 				{
 					localizedStrings[stringId] = languageEntry;
-					PopulateGameString(stringId, languageEntry, flowchartDict, characterDict);
+					PopulateTextProperty(stringId, languageEntry, flowchartDict, characterDict);
 				}
 			}
 		}
 
-		public virtual void PopulateGameString(string stringId, 
-		                                       string localizedText, 
-		                                       Dictionary<string, Flowchart> flowchartDict,
-		                                       Dictionary<string, Character> characterDict)
+		/**
+		 * Populates the text property of a single scene object with localized text.
+		 */
+		public virtual void PopulateTextProperty(string stringId, 
+		                                       	 string localizedText, 
+		                                       	 Dictionary<string, Flowchart> flowchartDict,
+		                                       	 Dictionary<string, Character> characterDict)
 		{
 			string[] idParts = stringId.Split('.');
 			if (idParts.Length == 0)
@@ -318,11 +339,11 @@ namespace Fungus
 			string stringType = idParts[0];
 			if (stringType == "SAY")
 			{
-				if (idParts.Length != 3)
+				if (idParts.Length != 4)
 				{
 					return;
 				}
-				
+
 				string flowchartId = idParts[1];
 				if (!flowchartDict.ContainsKey(flowchartId))
 				{
@@ -389,6 +410,32 @@ namespace Fungus
 					character.nameText = localizedText;
 				}
 			}
+		}
+
+		/**
+		 * Returns all standard text for SAY & MENU commands in the scene using an
+		 * easy to edit custom text format.
+		 */
+		public virtual string GetStandardText()
+		{
+			// Collect all the language items present in the scene
+			Dictionary<string, LanguageItem> languageItems = FindLanguageItems();
+
+			string textData = "";
+			foreach (string stringId in languageItems.Keys)
+			{
+				if (!stringId.StartsWith("SAY.") && !(stringId.StartsWith("MENU.")))
+				{
+					continue;
+				}
+
+				LanguageItem languageItem = languageItems[stringId];
+
+				textData += "#" + stringId + "\n";
+				textData += languageItem.standardText.Trim() + "\n\n";
+			}
+
+			return textData;
 		}
 	}
 

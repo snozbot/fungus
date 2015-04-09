@@ -34,22 +34,38 @@ namespace Fungus
 				ExportLocalizationFile(t);
 			}
 
+			if (GUILayout.Button(new GUIContent("Export Standard Text")))
+			{
+				ExportStandardText(t);
+			}
+
 			serializedObject.ApplyModifiedProperties();
 		}
 
 		public virtual void ExportLocalizationFile(Language language)
 		{
-			string path = EditorUtility.SaveFilePanel("Export strings", "",
+			string path = EditorUtility.SaveFilePanel("Export Localization File", "",
 			                                          "localization.csv", "");
 			if (path.Length == 0) 
 			{
 				return;
 			}
 
-			Debug.Log(path);
-
-			string csvData = language.ExportLocalizationFile();			
+			string csvData = language.GetCSVData();			
 			File.WriteAllText(path, csvData);
+		}
+
+		public virtual void ExportStandardText(Language language)
+		{
+			string path = EditorUtility.SaveFilePanel("Export Standard Text", "",
+			                                          "standard.txt", "");
+			if (path.Length == 0) 
+			{
+				return;
+			}
+			
+			string textData = language.GetStandardText();			
+			File.WriteAllText(path, textData);
 		}
 	}
 
