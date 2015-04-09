@@ -59,6 +59,8 @@ namespace Fungus
 			string csvData = language.GetCSVData();			
 			File.WriteAllText(path, csvData);
 			AssetDatabase.Refresh();
+
+			ShowNotification(language);
 		}
 
 		public virtual void ExportStandardText(Language language)
@@ -72,8 +74,10 @@ namespace Fungus
 			string textData = language.GetStandardText();			
 			File.WriteAllText(path, textData);
 			AssetDatabase.Refresh();
-		}
 
+			ShowNotification(language);
+		}
+		
 		public virtual void ImportStandardText(Language language)
 		{
 			string path = EditorUtility.OpenFilePanel("Import Standard Text", "Assets/", "txt");
@@ -83,7 +87,19 @@ namespace Fungus
 			}
 
 			string textData = File.ReadAllText(path);
-			language.SetStandardText(textData);			
+			language.SetStandardText(textData);
+
+			ShowNotification(language);
+		}
+
+		protected virtual void ShowNotification(Language language)
+		{
+			EditorWindow window = EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart");
+			if (window != null)
+			{
+				window.ShowNotification(new GUIContent(language.notificationText));
+				language.notificationText = "";
+			}
 		}
 	}
 

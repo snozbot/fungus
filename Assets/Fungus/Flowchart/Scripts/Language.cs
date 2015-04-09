@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,6 +37,12 @@ namespace Fungus
 		 * CSV file containing localization data
 		 */
 		public TextAsset localizationFile;
+
+		/**
+		 * Stores any notification message from export / import methods.
+		 */
+		[NonSerialized]
+		public string notificationText = "";
 
 		public virtual void Start()
 		{
@@ -102,7 +111,7 @@ namespace Fungus
 				rowCount++;
 			}
 
-			Debug.Log("Exported " + rowCount + " localization text items.");
+			notificationText = "Exported " + rowCount + " localization text items.";
 
 			return csvData;
 		}
@@ -364,6 +373,10 @@ namespace Fungus
 						if (say.itemId == itemId &&
 						    say.storyText != newText)
 						{
+							#if UNITY_EDITOR
+							Undo.RecordObject(say, "Set Text");
+							#endif
+
 							say.storyText = newText;
 							return true;
 						}
@@ -393,6 +406,10 @@ namespace Fungus
 						if (menu.itemId == itemId &&
 						    menu.text != newText)
 						{
+							#if UNITY_EDITOR
+							Undo.RecordObject(menu, "Set Text");
+							#endif
+
 							menu.text = newText;
 							return true;
 						}
@@ -416,6 +433,10 @@ namespace Fungus
 				if (character != null &&
 				    character.nameText != newText)
 				{
+					#if UNITY_EDITOR
+					Undo.RecordObject(character, "Set Text");
+					#endif
+
 					character.nameText = newText;
 					return true;
 				}
@@ -449,7 +470,7 @@ namespace Fungus
 				rowCount++;
 			}
 
-			Debug.Log("Exported " + rowCount + " standard text items.");
+			notificationText = "Exported " + rowCount + " standard text items.";
 			
 			return textData;
 		}
@@ -512,7 +533,7 @@ namespace Fungus
 				}
 			}
 
-			Debug.Log("Updated " + updatedCount + " standard text items.");
+			notificationText = "Updated " + updatedCount + " standard text items.";
 		}
 	}
 
