@@ -58,14 +58,6 @@ namespace Fungus
 			{
 				EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart");
 			}
-			if (GUILayout.Button(new GUIContent("Export Text", "Export all story text in .fountain format.")))
-			{
-				FountainExporter.ExportStrings(flowchart);
-			}
-			if (GUILayout.Button(new GUIContent("Import Text", "Import story text from a file in .fountain format.")))
-			{
-				FountainExporter.ImportStrings(flowchart);
-			}
 
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
