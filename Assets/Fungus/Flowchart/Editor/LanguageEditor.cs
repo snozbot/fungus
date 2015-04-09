@@ -24,19 +24,24 @@ namespace Fungus
 		{
 			serializedObject.Update();
 
-			Language t = target as Language;
+			Language language = target as Language;
 
 			EditorGUILayout.PropertyField(activeLanguageProp);
 			EditorGUILayout.PropertyField(localizationFileProp);
 
 			if (GUILayout.Button(new GUIContent("Export Localization File")))
 			{
-				ExportLocalizationFile(t);
+				ExportLocalizationFile(language);
 			}
 
 			if (GUILayout.Button(new GUIContent("Export Standard Text")))
 			{
-				ExportStandardText(t);
+				ExportStandardText(language);
+			}
+
+			if (GUILayout.Button(new GUIContent("Import Standard Text")))
+			{
+				ImportStandardText(language);
 			}
 
 			serializedObject.ApplyModifiedProperties();
@@ -44,7 +49,7 @@ namespace Fungus
 
 		public virtual void ExportLocalizationFile(Language language)
 		{
-			string path = EditorUtility.SaveFilePanel("Export Localization File", "",
+			string path = EditorUtility.SaveFilePanel("Export Localization File", "Assets/",
 			                                          "localization.csv", "");
 			if (path.Length == 0) 
 			{
@@ -53,12 +58,12 @@ namespace Fungus
 
 			string csvData = language.GetCSVData();			
 			File.WriteAllText(path, csvData);
+			AssetDatabase.Refresh();
 		}
 
 		public virtual void ExportStandardText(Language language)
 		{
-			string path = EditorUtility.SaveFilePanel("Export Standard Text", "",
-			                                          "standard.txt", "");
+			string path = EditorUtility.SaveFilePanel("Export Standard Text", "Assets/", "standard.txt", "");
 			if (path.Length == 0) 
 			{
 				return;
@@ -66,6 +71,19 @@ namespace Fungus
 			
 			string textData = language.GetStandardText();			
 			File.WriteAllText(path, textData);
+			AssetDatabase.Refresh();
+		}
+
+		public virtual void ImportStandardText(Language language)
+		{
+			string path = EditorUtility.OpenFilePanel("Import Standard Text", "Assets/", "txt");
+			if (path.Length == 0) 
+			{
+				return;
+			}
+
+			string textData = File.ReadAllText(path);
+			language.SetStandardText(textData);			
 		}
 	}
 

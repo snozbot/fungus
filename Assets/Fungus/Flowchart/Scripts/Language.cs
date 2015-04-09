@@ -437,6 +437,57 @@ namespace Fungus
 
 			return textData;
 		}
+
+		/**
+		 * Sets standard text on scene objects by parsing a text data file.
+		 */
+		public virtual void SetStandardText(string textData)
+		{
+			// Cache a lookup table of characters in the scene
+			Dictionary<string, Character> characterDict = new Dictionary<string, Character>();
+			foreach (Character character in GameObject.FindObjectsOfType<Character>())
+			{
+				characterDict[character.nameText] = character;
+			}
+			
+			// Cache a lookup table of flowcharts in the scene
+			Dictionary<string, Flowchart> flowchartDict = new Dictionary<string, Flowchart>();
+			foreach (Flowchart flowChart in GameObject.FindObjectsOfType<Flowchart>())
+			{
+				flowchartDict[flowChart.localizationId] = flowChart;
+			}
+
+			string[] lines = textData.Split('\n');
+
+			string stringId = "";
+			string buffer = "";
+			foreach (string line in lines)
+			{
+				// Check for string id line	
+				if (line.StartsWith("#"))
+				{
+					if (stringId.Length > 0)
+					{
+						// Write buffered text to the appropriate text property
+						PopulateTextProperty(stringId, buffer.Trim(), flowchartDict, characterDict);
+					}
+
+					// Set the string id for the follow text lines
+					stringId = line.Substring(1, line.Length - 1);
+					buffer = "";
+				}
+				else
+				{
+					buffer += line;
+				}
+			}
+
+			// Handle last buffered entry
+			if (stringId.Length > 0)
+			{
+				PopulateTextProperty(stringId, buffer.Trim(), flowchartDict, characterDict);
+			}
+		}
 	}
 
 }
