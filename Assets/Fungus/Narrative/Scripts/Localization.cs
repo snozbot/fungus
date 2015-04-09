@@ -14,7 +14,7 @@ namespace Fungus
 	/**
 	 * Multi-language localization support.
 	 */
-	public class Language : MonoBehaviour
+	public class Localization : MonoBehaviour
 	{
 		/**
 		 * Currently active language, usually defined by a two letter language code (e.g DE = German)
@@ -26,7 +26,7 @@ namespace Fungus
 		/**
 		 * Temp storage for a single item of standard text and its localizations
 		 */
-		protected class LanguageItem
+		protected class TextItem
 		{
 			public string description;
 			public string standardText;
@@ -55,26 +55,26 @@ namespace Fungus
 		}
 
 		/**
-		 * Convert all language items and localized strings to an easy to edit CSV format.
+		 * Convert all text items and localized strings to an easy to edit CSV format.
 		 */
 		public virtual string GetCSVData()
 		{
-			// Collect all the language items present in the scene
-			Dictionary<string, LanguageItem> languageItems = FindLanguageItems();
+			// Collect all the text items present in the scene
+			Dictionary<string, TextItem> textItems = FindTextItems();
 
-			// Update language items with localization data from CSV file
+			// Update text items with localization data from CSV file
 			if (localizationFile != null &&
 			    localizationFile.text.Length > 0)
 			{
-				AddLocalizedStrings(languageItems, localizationFile.text);
+				AddLocalizedStrings(textItems, localizationFile.text);
 			}
 
 			// Build CSV header row and a list of the language codes currently in use
 			string csvHeader = "Key,Description,Standard";
 			List<string> languageCodes = new List<string>();
-			foreach (LanguageItem languageItem in languageItems.Values)
+			foreach (TextItem textItem in textItems.Values)
 			{
-				foreach (string languageCode in languageItem.localizedStrings.Keys)
+				foreach (string languageCode in textItem.localizedStrings.Keys)
 				{
 					if (!languageCodes.Contains(languageCode))
 					{
@@ -84,22 +84,22 @@ namespace Fungus
 				}
 			}
 
-			// Build the CSV file using collected language items
+			// Build the CSV file using collected text items
 			int rowCount = 0;
 			string csvData = csvHeader + "\n";
-			foreach (string stringId in languageItems.Keys)
+			foreach (string stringId in textItems.Keys)
 			{
-				LanguageItem languageItem = languageItems[stringId];
+				TextItem textItem = textItems[stringId];
 
 				string row = CSVSupport.Escape(stringId);
-				row += "," + CSVSupport.Escape(languageItem.description);
-				row += "," + CSVSupport.Escape(languageItem.standardText);
+				row += "," + CSVSupport.Escape(textItem.description);
+				row += "," + CSVSupport.Escape(textItem.standardText);
 
 				foreach (string languageCode in languageCodes)
 				{
-					if (languageItem.localizedStrings.ContainsKey(languageCode))
+					if (textItem.localizedStrings.ContainsKey(languageCode))
 					{
-						row += "," + CSVSupport.Escape(languageItem.localizedStrings[languageCode]);
+						row += "," + CSVSupport.Escape(textItem.localizedStrings[languageCode]);
 					}
 					else
 					{
@@ -117,21 +117,21 @@ namespace Fungus
 		}
 
 		/**
-		 * Buidls a dictionary of localizable objects in the scene.
+		 * Buidls a dictionary of localizable text items in the scene.
 		 */
-		protected Dictionary<string, LanguageItem> FindLanguageItems()
+		protected Dictionary<string, TextItem> FindTextItems()
 		{
-			Dictionary<string, LanguageItem> languageItems = new Dictionary<string, LanguageItem>();
+			Dictionary<string, TextItem> textItems = new Dictionary<string, TextItem>();
 
 			// Export all character names
 			foreach (Character character in GameObject.FindObjectsOfType<Character>())
 			{
 				// String id for character names is CHARACTER.<Character Name>
-				LanguageItem languageItem = new LanguageItem();
-				languageItem.standardText = character.nameText;
-				languageItem.description = character.description;
+				TextItem textItem = new TextItem();
+				textItem.standardText = character.nameText;
+				textItem.description = character.description;
 				string stringId = "CHARACTER." + character.nameText;
-				languageItems[stringId] = languageItem;
+				textItems[stringId] = textItem;
 			}
 
 			// Export all Say and Menu commands in the scene
@@ -180,31 +180,31 @@ namespace Fungus
 							continue;
 						}
 						
-						LanguageItem languageItem = null;
-						if (languageItems.ContainsKey(stringId))
+						TextItem textItem = null;
+						if (textItems.ContainsKey(stringId))
 						{
-							languageItem = languageItems[stringId];
+							textItem = textItems[stringId];
 						}
 						else
 						{
-							languageItem = new LanguageItem();
-							languageItems[stringId] = languageItem;
+							textItem = new TextItem();
+							textItems[stringId] = textItem;
 						}
 						
 						// Update basic properties,leaving localised strings intact
-						languageItem.standardText = standardText;
-						languageItem.description = description;
+						textItem.standardText = standardText;
+						textItem.description = description;
 					}
 				}
 			}
 			
-			return languageItems;
+			return textItems;
 		}
 
 		/**
-		 * Adds localized strings from CSV file data to a dictionary of language items in the scene.
+		 * Adds localized strings from CSV file data to a dictionary of text items in the scene.
 		 */
-		protected virtual void AddLocalizedStrings(Dictionary<string, LanguageItem> languageItems, string csvData)
+		protected virtual void AddLocalizedStrings(Dictionary<string, TextItem> textItems, string csvData)
 		{
 			CsvParser csvParser = new CsvParser();
 			string[][] csvTable = csvParser.Parse(csvData);
@@ -229,13 +229,13 @@ namespace Fungus
 				
 				string stringId = fields[0];
 
-				if (!languageItems.ContainsKey(stringId))
+				if (!textItems.ContainsKey(stringId))
 				{
 					continue;
 				}
 
 				// Store localized strings for this string id
-				LanguageItem languageItem = languageItems[stringId];
+				TextItem textItem = textItems[stringId];
 				for (int j = 3; j < fields.Length; ++j)
 				{
 					if (j >= columnNames.Length)
@@ -247,7 +247,7 @@ namespace Fungus
 					
 					if (languageEntry.Length > 0)
 					{
-						languageItem.localizedStrings[languageCode] = languageEntry;
+						textItem.localizedStrings[languageCode] = languageEntry;
 					}
 				}
 			}
@@ -451,19 +451,19 @@ namespace Fungus
 		 */
 		public virtual string GetStandardText()
 		{
-			// Collect all the language items present in the scene
-			Dictionary<string, LanguageItem> languageItems = FindLanguageItems();
+			// Collect all the text items present in the scene
+			Dictionary<string, TextItem> textItems = FindTextItems();
 
 			string textData = "";
 			int rowCount = 0;
-			foreach (string stringId in languageItems.Keys)
+			foreach (string stringId in textItems.Keys)
 			{
 				if (!stringId.StartsWith("SAY.") && !(stringId.StartsWith("MENU.")))
 				{
 					continue;
 				}
 
-				LanguageItem languageItem = languageItems[stringId];
+				TextItem languageItem = textItems[stringId];
 
 				textData += "#" + stringId + "\n";
 				textData += languageItem.standardText.Trim() + "\n\n";

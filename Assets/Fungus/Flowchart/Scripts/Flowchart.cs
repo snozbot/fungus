@@ -112,7 +112,7 @@ namespace Fungus
 		/**
 		 * Unique identifier for identifying this flowchart in localized string keys.
 		 */
-		[Tooltip("Unique identifier for this flowchart in localized string keys. An id must be provided for Language string export to work.")]
+		[Tooltip("Unique identifier for this flowchart in localized string keys. This id must be provided for localization string export to work.")]
 		public string localizationId = "";
 
 		/**

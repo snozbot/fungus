@@ -51,10 +51,10 @@ namespace Fungus
 			FlowchartMenuItems.SpawnPrefab("StagePosition");
 		}
 
-		[MenuItem("Tools/Fungus/Create/Language", false, 57)]
-		static void CreateLanguage()
+		[MenuItem("Tools/Fungus/Create/Localization", false, 57)]
+		static void CreateLocalization()
 		{
-			FlowchartMenuItems.SpawnPrefab("Language");
+			FlowchartMenuItems.SpawnPrefab("Localization");
 		}
 	}
 

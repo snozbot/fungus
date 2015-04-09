@@ -8,8 +8,8 @@ using Rotorz.ReorderableList;
 namespace Fungus
 {
 
-	[CustomEditor(typeof(Language))]
-	public class LanguageEditor : Editor 
+	[CustomEditor(typeof(Localization))]
+	public class LocalizationEditor : Editor 
 	{
 		protected SerializedProperty activeLanguageProp;
 		protected SerializedProperty localizationFileProp;
@@ -24,30 +24,30 @@ namespace Fungus
 		{
 			serializedObject.Update();
 
-			Language language = target as Language;
+			Localization localization = target as Localization;
 
 			EditorGUILayout.PropertyField(activeLanguageProp);
 			EditorGUILayout.PropertyField(localizationFileProp);
 
 			if (GUILayout.Button(new GUIContent("Export Localization File")))
 			{
-				ExportLocalizationFile(language);
+				ExportLocalizationFile(localization);
 			}
 
 			if (GUILayout.Button(new GUIContent("Export Standard Text")))
 			{
-				ExportStandardText(language);
+				ExportStandardText(localization);
 			}
 
 			if (GUILayout.Button(new GUIContent("Import Standard Text")))
 			{
-				ImportStandardText(language);
+				ImportStandardText(localization);
 			}
 
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		public virtual void ExportLocalizationFile(Language language)
+		public virtual void ExportLocalizationFile(Localization localization)
 		{
 			string path = EditorUtility.SaveFilePanel("Export Localization File", "Assets/",
 			                                          "localization.csv", "");
@@ -56,14 +56,14 @@ namespace Fungus
 				return;
 			}
 
-			string csvData = language.GetCSVData();			
+			string csvData = localization.GetCSVData();			
 			File.WriteAllText(path, csvData);
 			AssetDatabase.Refresh();
 
-			ShowNotification(language);
+			ShowNotification(localization);
 		}
 
-		public virtual void ExportStandardText(Language language)
+		public virtual void ExportStandardText(Localization localization)
 		{
 			string path = EditorUtility.SaveFilePanel("Export Standard Text", "Assets/", "standard.txt", "");
 			if (path.Length == 0) 
@@ -71,14 +71,14 @@ namespace Fungus
 				return;
 			}
 			
-			string textData = language.GetStandardText();			
+			string textData = localization.GetStandardText();			
 			File.WriteAllText(path, textData);
 			AssetDatabase.Refresh();
 
-			ShowNotification(language);
+			ShowNotification(localization);
 		}
 		
-		public virtual void ImportStandardText(Language language)
+		public virtual void ImportStandardText(Localization localization)
 		{
 			string path = EditorUtility.OpenFilePanel("Import Standard Text", "Assets/", "txt");
 			if (path.Length == 0) 
@@ -87,18 +87,18 @@ namespace Fungus
 			}
 
 			string textData = File.ReadAllText(path);
-			language.SetStandardText(textData);
+			localization.SetStandardText(textData);
 
-			ShowNotification(language);
+			ShowNotification(localization);
 		}
 
-		protected virtual void ShowNotification(Language language)
+		protected virtual void ShowNotification(Localization localization)
 		{
 			EditorWindow window = EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart");
 			if (window != null)
 			{
-				window.ShowNotification(new GUIContent(language.notificationText));
-				language.notificationText = "";
+				window.ShowNotification(new GUIContent(localization.notificationText));
+				localization.notificationText = "";
 			}
 		}
 	}
