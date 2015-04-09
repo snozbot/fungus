@@ -76,6 +76,7 @@ namespace Fungus
 			}
 
 			// Build the CSV file using collected language items
+			int rowCount = 0;
 			string csvData = csvHeader + "\n";
 			foreach (string stringId in languageItems.Keys)
 			{
@@ -98,7 +99,10 @@ namespace Fungus
 				}
 
 				csvData += row + "\n";
+				rowCount++;
 			}
+
+			Debug.Log("Exported " + rowCount + " localization text items.");
 
 			return csvData;
 		}
@@ -323,31 +327,31 @@ namespace Fungus
 		}
 
 		/**
-		 * Populates the text property of a single scene object with localized text.
+		 * Populates the text property of a single scene object with a new text value.
 		 */
-		public virtual void PopulateTextProperty(string stringId, 
-		                                       	 string localizedText, 
+		public virtual bool PopulateTextProperty(string stringId, 
+		                                       	 string newText, 
 		                                       	 Dictionary<string, Flowchart> flowchartDict,
 		                                       	 Dictionary<string, Character> characterDict)
 		{
 			string[] idParts = stringId.Split('.');
 			if (idParts.Length == 0)
 			{
-				return;
+				return false;
 			}
-			
+
 			string stringType = idParts[0];
 			if (stringType == "SAY")
 			{
 				if (idParts.Length != 4)
 				{
-					return;
+					return false;
 				}
 
 				string flowchartId = idParts[1];
 				if (!flowchartDict.ContainsKey(flowchartId))
 				{
-					return;
+					return false;
 				}
 				Flowchart flowchart = flowchartDict[flowchartId];
 	
@@ -357,9 +361,11 @@ namespace Fungus
 				{
 					foreach (Say say in flowchart.GetComponentsInChildren<Say>())
 					{
-						if (say.itemId == itemId)
+						if (say.itemId == itemId &&
+						    say.storyText != newText)
 						{
-							say.storyText = localizedText;
+							say.storyText = newText;
+							return true;
 						}
 					}
 				}
@@ -368,13 +374,13 @@ namespace Fungus
 			{
 				if (idParts.Length != 3)
 				{
-					return;
+					return false;
 				}
 				
 				string flowchartId = idParts[1];
 				if (!flowchartDict.ContainsKey(flowchartId))
 				{
-					return;
+					return false;
 				}
 				Flowchart flowchart = flowchartDict[flowchartId];
 
@@ -384,9 +390,11 @@ namespace Fungus
 				{
 					foreach (Menu menu in flowchart.GetComponentsInChildren<Menu>())
 					{
-						if (menu.itemId == itemId)
+						if (menu.itemId == itemId &&
+						    menu.text != newText)
 						{
-							menu.text = localizedText;
+							menu.text = newText;
+							return true;
 						}
 					}
 				}
@@ -395,21 +403,25 @@ namespace Fungus
 			{
 				if (idParts.Length != 2)
 				{
-					return;
+					return false;
 				}
 				
 				string characterName = idParts[1];
 				if (!characterDict.ContainsKey(characterName))
 				{
-					return;
+					return false;
 				}
 
 				Character character = characterDict[characterName];
-				if (character != null)
+				if (character != null &&
+				    character.nameText != newText)
 				{
-					character.nameText = localizedText;
+					character.nameText = newText;
+					return true;
 				}
 			}
+
+			return false;
 		}
 
 		/**
@@ -422,6 +434,7 @@ namespace Fungus
 			Dictionary<string, LanguageItem> languageItems = FindLanguageItems();
 
 			string textData = "";
+			int rowCount = 0;
 			foreach (string stringId in languageItems.Keys)
 			{
 				if (!stringId.StartsWith("SAY.") && !(stringId.StartsWith("MENU.")))
@@ -433,8 +446,11 @@ namespace Fungus
 
 				textData += "#" + stringId + "\n";
 				textData += languageItem.standardText.Trim() + "\n\n";
+				rowCount++;
 			}
 
+			Debug.Log("Exported " + rowCount + " standard text items.");
+			
 			return textData;
 		}
 
@@ -459,6 +475,8 @@ namespace Fungus
 
 			string[] lines = textData.Split('\n');
 
+			int updatedCount = 0;
+
 			string stringId = "";
 			string buffer = "";
 			foreach (string line in lines)
@@ -469,7 +487,10 @@ namespace Fungus
 					if (stringId.Length > 0)
 					{
 						// Write buffered text to the appropriate text property
-						PopulateTextProperty(stringId, buffer.Trim(), flowchartDict, characterDict);
+						if (PopulateTextProperty(stringId, buffer.Trim(), flowchartDict, characterDict))
+						{
+							updatedCount++;
+						}
 					}
 
 					// Set the string id for the follow text lines
@@ -485,8 +506,13 @@ namespace Fungus
 			// Handle last buffered entry
 			if (stringId.Length > 0)
 			{
-				PopulateTextProperty(stringId, buffer.Trim(), flowchartDict, characterDict);
+				if (PopulateTextProperty(stringId, buffer.Trim(), flowchartDict, characterDict))
+				{
+					updatedCount++;
+				}
 			}
+
+			Debug.Log("Updated " + updatedCount + " standard text items.");
 		}
 	}
 
