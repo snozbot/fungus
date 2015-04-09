@@ -29,24 +29,26 @@ namespace Fungus
 			EditorGUILayout.PropertyField(activeLanguageProp);
 			EditorGUILayout.PropertyField(localizationFileProp);
 
-			if (GUILayout.Button(new GUIContent("Export to CSV")))
+			if (GUILayout.Button(new GUIContent("Export Localization File")))
 			{
-				ExportStrings(t);
+				ExportLocalizationFile(t);
 			}
 
 			serializedObject.ApplyModifiedProperties();
 		}
 
-		public virtual void ExportStrings(Language language)
+		public virtual void ExportLocalizationFile(Language language)
 		{
 			string path = EditorUtility.SaveFilePanel("Export strings", "",
-			                                          "strings.csv", "");
+			                                          "localization.csv", "");
 			if (path.Length == 0) 
 			{
 				return;
 			}
-			
-			string csvData = language.ExportCSV();			
+
+			Debug.Log(path);
+
+			string csvData = language.ExportLocalizationFile();			
 			File.WriteAllText(path, csvData);
 		}
 	}

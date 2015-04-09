@@ -48,7 +48,7 @@ namespace Fungus
 		/**
 		 * Export all localized strings to an easy to edit CSV file.
 		 */
-		public virtual string ExportCSV()
+		public virtual string ExportLocalizationFile()
 		{
 			// Collect all the language items present in the scene
 			Dictionary<string, LanguageItem> languageItems = FindLanguageItems();
