@@ -19,8 +19,8 @@ namespace Fungus
 			if ( s.Contains( QUOTE ) )
 				s = s.Replace( QUOTE, ESCAPED_QUOTE );
 			
-			//if ( s.IndexOfAny( CHARACTERS_THAT_MUST_BE_QUOTED ) > -1 )
-			s = QUOTE + s + QUOTE;
+			if ( s.IndexOfAny( CHARACTERS_THAT_MUST_BE_QUOTED ) > -1 )
+				s = QUOTE + s + QUOTE;
 			
 			return s;
 		}
@@ -42,7 +42,7 @@ namespace Fungus
 				
 		private const string QUOTE = "\"";
 		private const string ESCAPED_QUOTE = "\"\"";
-		// private static char[] CHARACTERS_THAT_MUST_BE_QUOTED = { ',', '"', '\n' };
+		private static char[] CHARACTERS_THAT_MUST_BE_QUOTED = { ',', '"', '\n' };
 	}
 	
 }
