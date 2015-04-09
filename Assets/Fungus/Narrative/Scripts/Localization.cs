@@ -21,15 +21,15 @@ namespace Fungus
 		 */
 		public string activeLanguage = "";
 
-		protected Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
+		protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
 
 		/**
 		 * Temp storage for a single item of standard text and its localizations
 		 */
 		protected class TextItem
 		{
-			public string description;
-			public string standardText;
+			public string description = "";
+			public string standardText = "";
 			public Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
 		}
 
@@ -55,6 +55,20 @@ namespace Fungus
 		}
 
 		/**
+		 * Looks up the specified string in the localized strings table.
+		 * For this to work, a localization file and active language must have been set previously.
+		 */
+		public static string GetLocalizedString(string stringId)
+		{
+			if (localizedStrings.ContainsKey(stringId))
+			{
+				return localizedStrings[stringId];
+			}
+
+			return "";
+		}
+
+		/**
 		 * Convert all text items and localized strings to an easy to edit CSV format.
 		 */
 		public virtual string GetCSVData()
@@ -66,7 +80,7 @@ namespace Fungus
 			if (localizationFile != null &&
 			    localizationFile.text.Length > 0)
 			{
-				AddLocalizedStrings(textItems, localizationFile.text);
+				AddCSVDataItems(textItems, localizationFile.text);
 			}
 
 			// Build CSV header row and a list of the language codes currently in use
@@ -204,7 +218,7 @@ namespace Fungus
 		/**
 		 * Adds localized strings from CSV file data to a dictionary of text items in the scene.
 		 */
-		protected virtual void AddLocalizedStrings(Dictionary<string, TextItem> textItems, string csvData)
+		protected virtual void AddCSVDataItems(Dictionary<string, TextItem> textItems, string csvData)
 		{
 			CsvParser csvParser = new CsvParser();
 			string[][] csvTable = csvParser.Parse(csvData);
@@ -221,9 +235,9 @@ namespace Fungus
 			for (int i = 1; i < csvTable.Length; ++i)
 			{
 				string[] fields = csvTable[i];
-				if (fields.Length < 4)
+				if (fields.Length < 3)
 				{
-					// No localized string fields present
+					// No standard text or localized string fields present
 					continue;
 				}
 				
@@ -231,11 +245,24 @@ namespace Fungus
 
 				if (!textItems.ContainsKey(stringId))
 				{
-					continue;
+					if (stringId.StartsWith("CHARACTER.") || 
+					    stringId.StartsWith("SAY.") || 
+					    stringId.StartsWith("MENU."))
+					{
+						// If it's a 'built-in' type this probably means that item has been deleted from its flowchart,
+						// so there's no need to add a text item for it.
+						continue;
+					}
+
+					// Key not found. Assume it's a custom string that we want to retain, so add a text item for it.
+					TextItem newTextItem = new TextItem();
+					newTextItem.description = CSVSupport.Unescape(fields[1]);
+					newTextItem.standardText = CSVSupport.Unescape(fields[2]);
+					textItems[stringId] = newTextItem;
 				}
 
-				// Store localized strings for this string id
 				TextItem textItem = textItems[stringId];
+
 				for (int j = 3; j < fields.Length; ++j)
 				{
 					if (j >= columnNames.Length)
@@ -331,6 +358,10 @@ namespace Fungus
 				{
 					localizedStrings[stringId] = languageEntry;
 					PopulateTextProperty(stringId, languageEntry, flowchartDict, characterDict);
+
+					// We also store the localized string in the localized strings dictionary in
+					// case it's required later on (e.g. for a variable substitution).
+					localizedStrings[stringId] = languageEntry;
 				}
 			}
 		}
