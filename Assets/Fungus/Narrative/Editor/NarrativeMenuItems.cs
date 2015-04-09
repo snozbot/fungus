@@ -50,6 +50,12 @@ namespace Fungus
 		{
 			FlowchartMenuItems.SpawnPrefab("StagePosition");
 		}
+
+		[MenuItem("Tools/Fungus/Create/Language", false, 57)]
+		static void CreateLanguage()
+		{
+			FlowchartMenuItems.SpawnPrefab("Language");
+		}
 	}
 
 }
