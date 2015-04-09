@@ -46,8 +46,7 @@ namespace Fungus
 
 		public virtual void Start()
 		{
-			if (activeLanguage.Length > 0 &&
-			    localizationFile != null &&
+			if (localizationFile != null &&
 			    localizationFile.text.Length > 0)
 			{
 				SetActiveLanguage(activeLanguage, localizationFile.text);
@@ -57,15 +56,21 @@ namespace Fungus
 		/**
 		 * Looks up the specified string in the localized strings table.
 		 * For this to work, a localization file and active language must have been set previously.
+		 * Return null if the string is not found.
 		 */
 		public static string GetLocalizedString(string stringId)
 		{
+			if (localizedStrings == null)
+			{
+				return null;
+			}
+
 			if (localizedStrings.ContainsKey(stringId))
 			{
 				return localizedStrings[stringId];
 			}
 
-			return "";
+			return null;
 		}
 
 		/**
@@ -306,13 +311,14 @@ namespace Fungus
 			// Parse header row
 			string[] columnNames = csvTable[0];
 
-			if (columnNames.Length < 4)
+			if (columnNames.Length < 3)
 			{
 				// No languages defined in CSV file
 				return;
 			}
 
-			int languageIndex = -1;
+			// First assume standard text column and then look for a matching language column
+			int languageIndex = 2;
 			for (int i = 3; i < columnNames.Length; ++i)
 			{
 				if (columnNames[i] == languageCode)
@@ -322,11 +328,27 @@ namespace Fungus
 				}
 			}
 
-			if (languageIndex == -1)
+			if (languageIndex == 2)
 			{
-				// Language not found
+				// Using standard text column
+				// Add all strings to the localized strings dict, but don't replace standard text in the scene.
+				// This allows string substitution to work for both standard and localized text strings.
+				for (int i = 1; i < csvTable.Length; ++i)
+				{
+					string[] fields = csvTable[i];
+					if (fields.Length < 3)
+					{
+						continue;
+					}
+
+					localizedStrings[fields[0]] = fields[languageIndex];
+				}
 				return;
 			}
+
+			// Using a localized language text column
+			// 1. Add all localized text to the localized strings dict
+			// 2. Update all scene text properties with localized versions
 
 			// Cache a lookup table of characters in the scene
 			Dictionary<string, Character> characterDict = new Dictionary<string, Character>();
@@ -358,10 +380,6 @@ namespace Fungus
 				{
 					localizedStrings[stringId] = languageEntry;
 					PopulateTextProperty(stringId, languageEntry, flowchartDict, characterDict);
-
-					// We also store the localized string in the localized strings dictionary in
-					// case it's required later on (e.g. for a variable substitution).
-					localizedStrings[stringId] = languageEntry;
 				}
 			}
 		}
