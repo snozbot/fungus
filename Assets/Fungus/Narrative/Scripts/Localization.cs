@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/**
+ * CSVParser by Ideafixxxer. http://www.codeproject.com/Tips/741941/CSV-Parser-Csharp
+ * This code is licensed under the CPOL open source license.
+ * http://www.codeproject.com/info/cpol10.aspx
+ */
+
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -49,7 +55,7 @@ namespace Fungus
 			if (localizationFile != null &&
 			    localizationFile.text.Length > 0)
 			{
-				SetActiveLanguage(activeLanguage, localizationFile.text);
+				SetActiveLanguage(activeLanguage);
 			}
 		}
 
@@ -289,7 +295,7 @@ namespace Fungus
 		 * Scan a localization CSV file and copies the strings for the specified language code
 		 * into the text properties of the appropriate scene objects.
 		 */
-		public virtual void SetActiveLanguage(string languageCode, string csvData)
+		public virtual void SetActiveLanguage(string languageCode)
 		{
 			if (!Application.isPlaying)
 			{
@@ -297,10 +303,16 @@ namespace Fungus
 				return;
 			}
 
+			if (localizationFile == null)
+			{
+				// No localization file set
+				return;
+			}
+
 			localizedStrings.Clear();
 
 			CsvParser csvParser = new CsvParser();
-			string[][] csvTable = csvParser.Parse(csvData);
+			string[][] csvTable = csvParser.Parse(localizationFile.text);
 
 			if (csvTable.Length <= 1)
 			{
