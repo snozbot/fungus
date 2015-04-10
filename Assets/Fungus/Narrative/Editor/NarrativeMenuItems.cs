@@ -50,6 +50,12 @@ namespace Fungus
 		{
 			FlowchartMenuItems.SpawnPrefab("StagePosition");
 		}
+
+		[MenuItem("Tools/Fungus/Create/Localization", false, 57)]
+		static void CreateLocalization()
+		{
+			FlowchartMenuItems.SpawnPrefab("Localization");
+		}
 	}
 
 }

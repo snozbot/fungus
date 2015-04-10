@@ -110,6 +110,12 @@ namespace Fungus
 		public bool saveSelection = true;
 
 		/**
+		 * Unique identifier for identifying this flowchart in localized string keys.
+		 */
+		[Tooltip("Unique identifier for this flowchart in localized string keys. This id must be provided for localization string export to work.")]
+		public string localizationId = "";
+
+		/**
 		 * Unique id to assign to the next created item.
 		 * Increases monotonically every time a new item is added to the Flowchart.
 		 */
@@ -672,14 +678,24 @@ namespace Fungus
 			foreach (Match match in results)
 			{
 				string key = match.Value.Substring(2, match.Value.Length - 3);
+
+				// Look for matching variable first
 				foreach (Variable variable in variables)
 				{
 					if (variable.key == key)
 					{	
 						string value = variable.ToString();
 						subbedText = subbedText.Replace(match.Value, value);
-						break;
+						return subbedText;
 					}
+				}
+
+				// Next look for matching localized string
+				string localizedString = Localization.GetLocalizedString(key);
+				if (localizedString != null)
+				{
+					subbedText = subbedText.Replace(match.Value, localizedString);
+					return subbedText;
 				}
 			}
 			

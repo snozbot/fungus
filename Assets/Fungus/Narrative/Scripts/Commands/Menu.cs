@@ -11,7 +11,7 @@ namespace Fungus
 	             "Menu", 
 	             "Displays a multiple choice menu")]
 	[AddComponentMenu("")]
-	public class Menu : Command 
+	public class Menu : Command
 	{
 		
 		// Menu displays a menu button which will execute the target block when clicked
@@ -21,6 +21,9 @@ namespace Fungus
 		// Can wrap in an If statement if you need a conditional option
 
 		public string text = "Option Text";
+
+		[Tooltip("Notes about the option text for other authors, localization, etc.")]
+		public string description = "";
 
 		[FormerlySerializedAs("targetSequence")]
 		public Block targetBlock;

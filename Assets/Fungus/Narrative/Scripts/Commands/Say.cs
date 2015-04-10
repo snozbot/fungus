@@ -9,10 +9,13 @@ namespace Fungus
 	             "Say", 
 	             "Writes text in a dialog box.")]
 	[AddComponentMenu("")]
-	public class Say : Command 
+	public class Say : Command
 	{
 		[TextArea(5,10)]
-		public string storyText;
+		public string storyText = "";
+
+		[Tooltip("Notes about this story text for other authors, localization, etc.")]
+		public string description = "";
 
 		[Tooltip("Character that is speaking")]
 		public Character character;
