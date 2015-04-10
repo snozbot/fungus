@@ -281,7 +281,10 @@ namespace Fungus
 			if (currentType != null)
 			{
 				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(currentType);
-				currentHandlerName = info.EventHandlerName;
+				if (info != null)
+				{
+					currentHandlerName = info.EventHandlerName;
+				}
 			}
 
 			EditorGUILayout.BeginHorizontal();
@@ -331,8 +334,11 @@ namespace Fungus
 			if (block.eventHandler != null)
 			{
 				EventHandlerEditor eventHandlerEditor = Editor.CreateEditor(block.eventHandler) as EventHandlerEditor;
-				eventHandlerEditor.DrawInspectorGUI();
-				DestroyImmediate(eventHandlerEditor);
+				if (eventHandlerEditor != null)
+				{
+					eventHandlerEditor.DrawInspectorGUI();
+					DestroyImmediate(eventHandlerEditor);
+				}
 			}
 		}
 

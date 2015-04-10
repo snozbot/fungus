@@ -456,15 +456,15 @@ MonoBehaviour:
   scrollPos: {x: 227, y: 20}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  sequenceViewHeight: 400
+  blockViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -591
-    y: -391
+    y: -392
     width: 1887
-    height: 1019
-  selectedSequence: {fileID: 0}
+    height: 1020
+  selectedBlock: {fileID: 2019116694}
   selectedCommands: []
   variables: []
   description: 'This scene shows how to set up a drag-and-drop
@@ -474,7 +474,8 @@ MonoBehaviour:
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  nextCommandId: 13
+  localizationId: 
+  nextItemId: 20
 --- !u!114 &2019116669
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -488,11 +489,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -32
-    y: 100
-    width: 137
+    x: 178
+    y: 29
+    width: 197
     height: 40
-  sequenceName: Drag Completed
+  itemId: 17
+  blockName: Drag Completed
   description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116681}
@@ -511,7 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 1447151998}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 0
+  itemId: 0
   errorMessage: 
   indentLevel: 0
   targetGameObject: {fileID: 1081858233}
@@ -529,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4998e756a5d84f4ab55e075dad751b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 6
+  itemId: 6
   errorMessage: 
   indentLevel: 0
   targetObject: {fileID: 606394391}
@@ -550,7 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 5
+  itemId: 5
   errorMessage: 
   indentLevel: 0
   commenterName: 
@@ -566,7 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b30a6fae3a8a24fa097a262570f519ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 2019116685}
+  parentBlock: {fileID: 2019116685}
   draggableObject: {fileID: 1081858236}
 --- !u!114 &2019116674
 MonoBehaviour:
@@ -579,7 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 4
+  itemId: 4
   errorMessage: 
   indentLevel: 0
   commenterName: 
@@ -595,7 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 3
+  itemId: 3
   errorMessage: 
   indentLevel: 0
   commenterName: 
@@ -611,7 +613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4998e756a5d84f4ab55e075dad751b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 2
+  itemId: 2
   errorMessage: 
   indentLevel: 0
   targetObject: {fileID: 1081858233}
@@ -632,7 +634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4998e756a5d84f4ab55e075dad751b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 1
+  itemId: 1
   errorMessage: 
   indentLevel: 0
   targetObject: {fileID: 1081858233}
@@ -653,7 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538cc00e40e51400fb9bb5f6d8a9759c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 2019116687}
+  parentBlock: {fileID: 2019116687}
   draggableObject: {fileID: 1081858236}
 --- !u!114 &2019116679
 MonoBehaviour:
@@ -666,7 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 10
+  itemId: 10
   errorMessage: 
   indentLevel: 0
   commenterName: 
@@ -685,11 +687,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -33
-    y: 188
-    width: 120
+    x: 134
+    y: 132
+    width: 197
     height: 40
-  sequenceName: Drag Exited
+  itemId: 16
+  blockName: Drag Exited
   description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116684}
@@ -707,7 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbb95c9958f04152aa2e7a65413eb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 2019116669}
+  parentBlock: {fileID: 2019116669}
   draggableObject: {fileID: 1081858236}
   targetObject: {fileID: 606394392}
 --- !u!114 &2019116682
@@ -721,7 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 9
+  itemId: 9
   errorMessage: 
   indentLevel: 0
   commenterName: 
@@ -740,11 +743,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -33
-    y: 145
-    width: 120
+    x: -91
+    y: 133
+    width: 197
     height: 40
-  sequenceName: Drag Entered
+  itemId: 15
+  blockName: Drag Entered
   description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116686}
@@ -762,7 +766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6aad5e417a14505886d0b0307bff32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 2019116680}
+  parentBlock: {fileID: 2019116680}
   draggableObject: {fileID: 1081858236}
   targetObject: {fileID: 606394392}
 --- !u!114 &2019116685
@@ -778,11 +782,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -33
-    y: 56
-    width: 131
+    x: 25
+    y: 30
+    width: 136
     height: 40
-  sequenceName: Drag Cancelled
+  itemId: 14
+  blockName: Drag Cancelled
   description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116673}
@@ -800,7 +805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed081ad4ebea41c580e1cdd6fe65ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 2019116683}
+  parentBlock: {fileID: 2019116683}
   draggableObject: {fileID: 1081858236}
   targetObject: {fileID: 606394392}
 --- !u!114 &2019116687
@@ -816,11 +821,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -33
-    y: 11
-    width: 120
+    x: -143
+    y: 27
+    width: 136
     height: 40
-  sequenceName: Drag Start
+  itemId: 13
+  blockName: Drag Start
   description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116678}
@@ -838,7 +844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358f65040c3ef4327b70b2813cc197c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 11
+  itemId: 11
   errorMessage: 
   indentLevel: 0
   targetObject: {fileID: 1637100245}
@@ -873,7 +879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720f059c883c4402c89fcc507d5f7e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 7
+  itemId: 7
   errorMessage: 
   indentLevel: 0
   targetObject: {fileID: 606394391}
@@ -895,7 +901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1bc1400ac79424ba3c1aca77fb5d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 8
+  itemId: 8
   errorMessage: 
   indentLevel: 0
   targetObject: {fileID: 606394391}
@@ -917,7 +923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49012bdc794e429686c1eff7d9ced90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 2019116693}
+  parentBlock: {fileID: 2019116693}
   clickableObject: {fileID: 1637100246}
 --- !u!114 &2019116693
 MonoBehaviour:
@@ -932,11 +938,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 185
-    y: 14
+    x: 423
+    y: 29
     width: 137
     height: 40
-  sequenceName: Object Clicked 1
+  itemId: 18
+  blockName: Object Clicked 1
   description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116692}
@@ -955,11 +962,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 185
-    y: 56
+    x: 597
+    y: 31
     width: 137
     height: 40
-  sequenceName: Object Clicked 2
+  itemId: 19
+  blockName: Object Clicked 2
   description: 
   runSlowInEditor: 0
   eventHandler: {fileID: 2019116696}
@@ -976,7 +984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61780d2ea956492a8f59308dae6f12c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 12
+  itemId: 12
   errorMessage: 
   indentLevel: 0
   targetObject: {fileID: 591590528}
@@ -997,7 +1005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49012bdc794e429686c1eff7d9ced90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 2019116694}
+  parentBlock: {fileID: 2019116694}
   clickableObject: {fileID: 591590529}
 --- !u!1001 &2135880372
 Prefab:

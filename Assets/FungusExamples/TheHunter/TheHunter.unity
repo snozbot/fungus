@@ -567,7 +567,8 @@ MonoBehaviour:
     y: 0
     width: 100
     height: 40
-  sequenceName: New Sequence
+  itemId: -1
+  blockName: New Sequence
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
@@ -822,7 +823,8 @@ MonoBehaviour:
     y: 10
     width: 100
     height: 20
-  sequenceName: New Sequence
+  itemId: -1
+  blockName: New Sequence
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
@@ -1150,7 +1152,8 @@ MonoBehaviour:
     y: -359
     width: 240
     height: 68
-  sequenceName: New Sequence
+  itemId: 1
+  blockName: New Sequence
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
@@ -1172,7 +1175,8 @@ MonoBehaviour:
     y: 10
     width: 240
     height: 68
-  sequenceName: New Sequence
+  itemId: 0
+  blockName: New Sequence
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
@@ -1191,7 +1195,7 @@ MonoBehaviour:
   scrollPos: {x: 226.013794, y: 380.023193}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  sequenceViewHeight: 400
+  blockViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -1199,7 +1203,7 @@ MonoBehaviour:
     y: -876
     width: 1522
     height: 1354
-  selectedSequence: {fileID: 0}
+  selectedBlock: {fileID: 0}
   selectedCommands: []
   variables: []
   description: 
@@ -1207,7 +1211,8 @@ MonoBehaviour:
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  nextCommandId: 0
+  localizationId: 
+  nextItemId: 2
 --- !u!4 &891057089
 Transform:
   m_ObjectHideFlags: 1
@@ -1370,7 +1375,8 @@ MonoBehaviour:
     y: 10
     width: 240
     height: 68
-  sequenceName: New Sequence
+  itemId: 0
+  blockName: New Sequence
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
@@ -1389,7 +1395,7 @@ MonoBehaviour:
   scrollPos: {x: 0, y: 0}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  sequenceViewHeight: 400
+  blockViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -1397,7 +1403,7 @@ MonoBehaviour:
     y: -390
     width: 1040
     height: 868
-  selectedSequence: {fileID: 0}
+  selectedBlock: {fileID: 0}
   selectedCommands: []
   variables: []
   description: 
@@ -1405,7 +1411,8 @@ MonoBehaviour:
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  nextCommandId: 0
+  localizationId: 
+  nextItemId: 1
 --- !u!4 &1247920062
 Transform:
   m_ObjectHideFlags: 1
@@ -1793,15 +1800,15 @@ MonoBehaviour:
   scrollPos: {x: 343.192505, y: 552.002808}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  sequenceViewHeight: 400
+  blockViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -810.017578
-    y: -911.022339
+    y: -920.022339
     width: 1939.01758
-    height: 2000.52234
-  selectedSequence: {fileID: 0}
+    height: 2009.52234
+  selectedBlock: {fileID: 1831099578}
   selectedCommands: []
   variables:
   - {fileID: 1831099569}
@@ -1812,7 +1819,8 @@ MonoBehaviour:
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  nextCommandId: 65
+  localizationId: 
+  nextItemId: 72
 --- !u!114 &1831099569
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1867,11 +1875,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab54728d981544842843ba6609b9a80a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 64
+  itemId: 64
   errorMessage: 
   indentLevel: 0
   duration: 8
-  targetSequence: {fileID: 1831099599}
+  targetBlock: {fileID: 1831099599}
 --- !u!114 &1831099573
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1883,10 +1891,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 4
+  itemId: 4
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 1831099608}
+  targetBlock: {fileID: 1831099608}
 --- !u!114 &1831099574
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1898,7 +1906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437f9a4e3dbc647f9bdce95308418bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 3
+  itemId: 3
   errorMessage: 
   indentLevel: 0
   duration: 3
@@ -1917,7 +1925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 2
+  itemId: 2
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 335445528}
@@ -1933,7 +1941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 1
+  itemId: 1
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 307931412}
@@ -1949,7 +1957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 0
+  itemId: 0
   errorMessage: 
   indentLevel: 0
   musicClip: {fileID: 8300000, guid: d858bb0968ae746b0a6801434b848b69, type: 3}
@@ -1968,10 +1976,11 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 112.537018
-    y: -505.022339
+    y: -520.022339
     width: 120
     height: 40
-  sequenceName: Start
+  itemId: 65
+  blockName: Start
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 1831099654}
@@ -1992,10 +2001,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 27
+  itemId: 27
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 1831099637}
+  targetBlock: {fileID: 1831099637}
 --- !u!114 &1831099580
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2007,7 +2016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 26
+  itemId: 26
   errorMessage: 
   indentLevel: 0
   variable: {fileID: 1831099569}
@@ -2035,7 +2044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 25
+  itemId: 25
   errorMessage: 
   indentLevel: 0
   storyText: 'Oh don''t mind him.{wc}
@@ -2043,6 +2052,7 @@ MonoBehaviour:
     He''s a cuddly teddy bear under that grim exterior.{wc}
 
     Sort of.'
+  description: 
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2064,12 +2074,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 24
+  itemId: 24
   errorMessage: 
   indentLevel: 0
   storyText: 'Hrmph!{wc}
 
     Oh good, another mouth to feed.'
+  description: 
   character: {fileID: 339869593}
   portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2091,7 +2102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 23
+  itemId: 23
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 335445528}
@@ -2109,7 +2120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 22
+  itemId: 22
   errorMessage: 
   indentLevel: 0
   storyText: 'Ha ha! Don''t worry, you can join us for dinner.{wc}
@@ -2117,6 +2128,7 @@ MonoBehaviour:
     Hey Skipper!{wc}
 
     Come meet our new friend!'
+  description: 
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2138,10 +2150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 21
+  itemId: 21
   errorMessage: 
   indentLevel: 0
   storyText: Um...
+  description: 
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2163,10 +2176,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 20
+  itemId: 20
   errorMessage: 
   indentLevel: 0
   storyText: I see! And so I guess you're not hungry either?
+  description: 
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2188,10 +2202,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 19
+  itemId: 19
   errorMessage: 
   indentLevel: 0
   storyText: I'm not little and I'm not lost!
+  description: 
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2213,11 +2228,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 18
+  itemId: 18
   errorMessage: 
   indentLevel: 0
   storyText: "And what do we have here?{wc}\nThe woods are a dangerous place my little
     friend.{wc} \nAre you lost?"
+  description: 
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2239,7 +2255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 17
+  itemId: 17
   errorMessage: 
   indentLevel: 0
   duration: 3
@@ -2256,7 +2272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 16
+  itemId: 16
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 307931412}
@@ -2274,12 +2290,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 15
+  itemId: 15
   errorMessage: 
   indentLevel: 0
   storyText: 'HEY! Is anybody out there?!{wc}
 
     If there is, you better run!'
+  description: 
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2307,7 +2324,8 @@ MonoBehaviour:
     y: -379.533142
     width: 120
     height: 40
-  sequenceName: Shout out
+  itemId: 68
+  blockName: Shout out
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
@@ -2336,10 +2354,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 14
+  itemId: 14
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 1831099645}
+  targetBlock: {fileID: 1831099645}
 --- !u!114 &1831099594
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2351,10 +2369,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 13
+  itemId: 13
   errorMessage: 
   indentLevel: 0
   storyText: No, I could not!{wc} Now be off with you!
+  description: 
   character: {fileID: 339869593}
   portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2376,7 +2395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 12
+  itemId: 12
   errorMessage: 
   indentLevel: 0
   storyText: 'I am not a thief!{wc}
@@ -2386,6 +2405,7 @@ MonoBehaviour:
     And you do have a lot of fish.{wc}
 
     Couldn''t you spare just one? '
+  description: 
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2407,7 +2427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 11
+  itemId: 11
   errorMessage: 
   indentLevel: 0
   storyText: 'Ah ha! I thought I heard a thief skulking about!{wc}
@@ -2415,6 +2435,7 @@ MonoBehaviour:
     Trying to steal my fish eh?{wc}
 
     We''ll see about that!'
+  description: 
   character: {fileID: 339869593}
   portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2436,7 +2457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 10
+  itemId: 10
   errorMessage: 
   indentLevel: 0
   duration: 3
@@ -2453,7 +2474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 9
+  itemId: 9
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 335445528}
@@ -2477,7 +2498,8 @@ MonoBehaviour:
     y: -378.268433
     width: 125
     height: 40
-  sequenceName: Check for fish
+  itemId: 67
+  blockName: Check for fish
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
@@ -2499,11 +2521,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 63
+  itemId: 63
   errorMessage: 
   indentLevel: 0
   text: Shout out loud
-  targetSequence: {fileID: 1831099592}
+  description: 
+  targetBlock: {fileID: 1831099592}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
 --- !u!114 &1831099601
@@ -2517,11 +2540,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 62
+  itemId: 62
   errorMessage: 
   indentLevel: 0
   text: Check pool for fish
-  targetSequence: {fileID: 1831099599}
+  description: 
+  targetBlock: {fileID: 1831099599}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
 --- !u!114 &1831099604
@@ -2535,12 +2559,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 8
+  itemId: 8
   errorMessage: 
   indentLevel: 0
   storyText: 'I''m starving! I wonder if there''s any fish in that pool?{wc}
 
     I better be careful though, I might not be the only person in these woods...'
+  description: 
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2562,10 +2587,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 7
+  itemId: 7
   errorMessage: 
   indentLevel: 0
   storyText: Emerging from the forest, she found herself at a beautiful mountain stream.
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2587,7 +2613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 6
+  itemId: 6
   errorMessage: 
   indentLevel: 0
   duration: 3
@@ -2604,7 +2630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 5
+  itemId: 5
   errorMessage: 
   indentLevel: 0
   storyText: 'For a day and a night, Ciara fled through the dark forest.{wc}
@@ -2613,6 +2639,7 @@ MonoBehaviour:
     stomach told her she would need to find food soon.
 
 '
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2640,7 +2667,8 @@ MonoBehaviour:
     y: -441.890259
     width: 120
     height: 40
-  sequenceName: Intro
+  itemId: 66
+  blockName: Intro
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
@@ -2663,7 +2691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 61
+  itemId: 61
   errorMessage: 
   indentLevel: 0
   duration: 2
@@ -2682,10 +2710,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 60
+  itemId: 60
   errorMessage: 
   indentLevel: 0
   storyText: BURP!
+  description: 
   character: {fileID: 686889652}
   portrait: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2707,10 +2736,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 59
+  itemId: 59
   errorMessage: 
   indentLevel: 0
   storyText: RAAAAAAAAAARRRRRRRRRR!!!!!!
+  description: 
   character: {fileID: 686889652}
   portrait: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2732,7 +2762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616cd37e21c7645c58a89edf5abee56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 58
+  itemId: 58
   errorMessage: 
   indentLevel: 0
   duration: 5
@@ -2749,7 +2779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 57
+  itemId: 57
   errorMessage: 
   indentLevel: 0
   storyText: 'Wait... no! What are you doing!?{wc}
@@ -2757,6 +2787,7 @@ MonoBehaviour:
     You can''t eat me! I''m the narrator!{wc}
 
     Arggghh!'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2778,10 +2809,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 56
+  itemId: 56
   errorMessage: 
   indentLevel: 0
   storyText: RAAAAAARRRRRR!!!!!!
+  description: 
   character: {fileID: 686889652}
   portrait: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2803,7 +2835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616cd37e21c7645c58a89edf5abee56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 55
+  itemId: 55
   errorMessage: 
   indentLevel: 0
   duration: .5
@@ -2820,13 +2852,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 54
+  itemId: 54
   errorMessage: 
   indentLevel: 0
   storyText: 'And so, in a tragic twist of fate, everyone was eaten by a badly drawn
     bear.{wc}
 
     THE END'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2848,10 +2881,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 53
+  itemId: 53
   errorMessage: 
   indentLevel: 0
   storyText: RAAAAAARRRRRR!
+  description: 
   character: {fileID: 686889652}
   portrait: {fileID: 21300000, guid: 62955e2782fd34c5ca3e78712625ae50, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2873,7 +2907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616cd37e21c7645c58a89edf5abee56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 52
+  itemId: 52
   errorMessage: 
   indentLevel: 0
   duration: .5
@@ -2890,10 +2924,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 51
+  itemId: 51
   errorMessage: 
   indentLevel: 0
   storyText: Noooooooo!
+  description: 
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2915,10 +2950,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 50
+  itemId: 50
   errorMessage: 
   indentLevel: 0
   storyText: Ayyyyyyeeee!
+  description: 
   character: {fileID: 339869593}
   portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2940,10 +2976,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 49
+  itemId: 49
   errorMessage: 
   indentLevel: 0
   storyText: Aaaaaagh!
+  description: 
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -2965,7 +3002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 48
+  itemId: 48
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 577549097}
@@ -2983,7 +3020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 47
+  itemId: 47
   errorMessage: 
   indentLevel: 0
   duration: 5
@@ -3000,12 +3037,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 46
+  itemId: 46
   errorMessage: 
   indentLevel: 0
   storyText: 'Now remember to keep quiet.{wc}
 
     The last thing you want in this part of the woods is to run into a...'
+  description: 
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3027,7 +3065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c952ea1ad444e479b570fa242679c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 45
+  itemId: 45
   errorMessage: 
   indentLevel: 0
   duration: 5
@@ -3044,7 +3082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437f9a4e3dbc647f9bdce95308418bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 44
+  itemId: 44
   errorMessage: 
   indentLevel: 0
   duration: 2
@@ -3063,7 +3101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 43
+  itemId: 43
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 577549097}
@@ -3085,7 +3123,8 @@ MonoBehaviour:
     y: -194.124023
     width: 120
     height: 40
-  sequenceName: Bear
+  itemId: 71
+  blockName: Bear
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
@@ -3120,10 +3159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 42
+  itemId: 42
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 1831099628}
+  targetBlock: {fileID: 1831099628}
 --- !u!114 &1831099630
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3135,7 +3174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 41
+  itemId: 41
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 335445528}
@@ -3153,7 +3192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00d52e9e9dcf4493c87045f633aefa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 40
+  itemId: 40
   errorMessage: 
   indentLevel: 0
 --- !u!114 &1831099632
@@ -3167,7 +3206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 39
+  itemId: 39
   errorMessage: 
   indentLevel: 1
   duration: 1
@@ -3182,12 +3221,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 38
+  itemId: 38
   errorMessage: 
   indentLevel: 1
   storyText: 'Move it thief! And remember...{wc}
 
     I''ll be watching you!'
+  description: 
   character: {fileID: 339869593}
   portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3209,7 +3249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 37
+  itemId: 37
   errorMessage: 
   indentLevel: 0
   compareOperator: 0
@@ -3237,7 +3277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 36
+  itemId: 36
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 307931412}
@@ -3255,12 +3295,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 35
+  itemId: 35
   errorMessage: 
   indentLevel: 0
   storyText: 'Ok, let''s go get you some food!{wc}
 
     This way, follow me!'
+  description: 
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3288,7 +3329,8 @@ MonoBehaviour:
     y: -254.68811
     width: 120
     height: 40
-  sequenceName: Exit
+  itemId: 70
+  blockName: Exit
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
@@ -3312,10 +3354,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 34
+  itemId: 34
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 1831099637}
+  targetBlock: {fileID: 1831099637}
 --- !u!114 &1831099639
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3327,7 +3369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 33
+  itemId: 33
   errorMessage: 
   indentLevel: 0
   variable: {fileID: 1831099569}
@@ -3355,10 +3397,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 32
+  itemId: 32
   errorMessage: 
   indentLevel: 0
   storyText: Oh yes please! Thank you!
+  description: 
   character: {fileID: 1712414755}
   portrait: {fileID: 21300000, guid: 05ccd53483a554ca9b31f685fa76154a, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3380,12 +3423,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 31
+  itemId: 31
   errorMessage: 
   indentLevel: 0
   storyText: 'Oh be quiet Skipper.{wc}
 
     You look hungry! Do you want something to eat?'
+  description: 
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3407,10 +3451,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 30
+  itemId: 30
   errorMessage: 
   indentLevel: 0
   storyText: What! This is an outrage! Mind your own busin...
+  description: 
   character: {fileID: 339869593}
   portrait: {fileID: 21300000, guid: 3c64e30cbefbe4e768ef68d85c85061e, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3432,7 +3477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 29
+  itemId: 29
   errorMessage: 
   indentLevel: 0
   storyText: 'What''s all this racket?{wc}
@@ -3440,6 +3485,7 @@ MonoBehaviour:
     Ah! I see Skipper has found a little girl to be mean to!{wc}
 
     Pay him no attention.'
+  description: 
   character: {fileID: 338947448}
   portrait: {fileID: 21300000, guid: f7484a661774243b193bebc6e3ae5120, type: 3}
   voiceOverClip: {fileID: 0}
@@ -3461,7 +3507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 28
+  itemId: 28
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 307931412}
@@ -3485,7 +3531,8 @@ MonoBehaviour:
     y: -317.003174
     width: 120
     height: 40
-  sequenceName: Rescued
+  itemId: 69
+  blockName: Rescued
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
@@ -3508,7 +3555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 1831099578}
+  parentBlock: {fileID: 1831099578}
 --- !u!1 &1846387297
 GameObject:
   m_ObjectHideFlags: 1
@@ -3543,7 +3590,8 @@ MonoBehaviour:
     y: 10
     width: 240
     height: 68
-  sequenceName: New Sequence
+  itemId: 0
+  blockName: New Sequence
   description: 
   runSlowInEditor: 1
   eventHandler: {fileID: 0}
@@ -3562,7 +3610,7 @@ MonoBehaviour:
   scrollPos: {x: 0, y: 0}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  sequenceViewHeight: 400
+  blockViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -3570,7 +3618,7 @@ MonoBehaviour:
     y: -390
     width: 1040
     height: 868
-  selectedSequence: {fileID: 0}
+  selectedBlock: {fileID: 0}
   selectedCommands: []
   variables: []
   description: 
@@ -3578,7 +3626,8 @@ MonoBehaviour:
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  nextCommandId: 0
+  localizationId: 
+  nextItemId: 1
 --- !u!4 &1846387300
 Transform:
   m_ObjectHideFlags: 1

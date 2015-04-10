@@ -20,5 +20,15 @@ namespace Fungus
 				ExecuteBlock();
 			}
 		}
+
+		public override string GetSummary()
+		{
+			if (draggableObject != null)
+			{
+				return draggableObject.name;
+			}
+			
+			return "None";
+		}
 	}
 }

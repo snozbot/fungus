@@ -505,30 +505,35 @@ namespace Fungus
 			}
 
 			nodeStyleCopy.normal.textColor = Color.black;
-
-			// Show event handler name, or a custom summary if one is provided
-			string nodeName = "";
-			if (block.eventHandler != null)
-			{
-				string handlerSummary = block.eventHandler.GetSummary();
-				if (handlerSummary == "")
-				{
-					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(block.eventHandler.GetType());
-					if (info != null)
-					{
-						handlerSummary = info.EventHandlerName;
-					}
-				}
-				nodeName = "(" + handlerSummary + ")\n";
-			}
-			nodeName += block.blockName;
-
+	
 			// Make sure node is wide enough to fit the node name text
-			float width = nodeStyleCopy.CalcSize(new GUIContent(nodeName)).x;
+			float width = nodeStyleCopy.CalcSize(new GUIContent(block.blockName)).x;
 			block.nodeRect.width = Mathf.Max (block.nodeRect.width, width);
 
 			GUI.backgroundColor = Color.white;
-			GUILayout.Box(nodeName, nodeStyleCopy, GUILayout.Width(block.nodeRect.width), GUILayout.Height(block.nodeRect.height));
+			GUILayout.Box(block.blockName, nodeStyleCopy, GUILayout.Width(block.nodeRect.width), GUILayout.Height(block.nodeRect.height));
+
+			if (block.eventHandler != null)
+			{
+				string handlerLabel = "";
+				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(block.eventHandler.GetType());
+				if (info != null)
+				{
+					handlerLabel = "<" + info.EventHandlerName + "> ";
+				}
+
+				string handlerSummary = block.eventHandler.GetSummary();
+				if (handlerSummary.Length > 0)
+				{
+					handlerLabel += handlerSummary;
+				}
+
+				GUIStyle handlerStyle = new GUIStyle(EditorStyles.helpBox);
+				handlerStyle.wordWrap = true;
+				handlerStyle.margin.top = 0;
+				handlerStyle.margin.bottom = 0;
+				GUILayout.Label(handlerLabel, handlerStyle);
+			}
 
 			if (block.description.Length > 0)
 			{

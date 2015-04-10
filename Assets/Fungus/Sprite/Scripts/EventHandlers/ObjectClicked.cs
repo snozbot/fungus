@@ -18,5 +18,15 @@ namespace Fungus
 				ExecuteBlock();
 			}
 		}
+
+		public override string GetSummary()
+		{
+			if (clickableObject != null)
+			{
+				return clickableObject.name;
+			}
+
+			return "None";
+		}
 	}
 }

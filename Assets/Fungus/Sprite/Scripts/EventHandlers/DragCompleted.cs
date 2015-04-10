@@ -56,5 +56,25 @@ namespace Fungus
 				ExecuteBlock();
 			}
 		}
+
+		public override string GetSummary()
+		{
+			string summary = "";
+			if (draggableObject != null)
+			{
+				summary += "\nDraggable: " + draggableObject.name;
+			}
+			if (targetObject != null)
+			{
+				summary += "\nTarget: " + targetObject.name;
+			}
+
+			if (summary.Length == 0)
+			{
+				return "None";
+			}
+
+			return summary;
+		}
 	}
 }

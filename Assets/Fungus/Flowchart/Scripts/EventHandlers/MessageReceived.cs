@@ -9,7 +9,7 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class MessageReceived : EventHandler 
 	{
-		public string message;
+		public string message = "";
 
 		public void OnSendFungusMessage(string message)
 		{
@@ -17,6 +17,11 @@ namespace Fungus
 			{
 				ExecuteBlock();
 			}
+		}
+
+		public override string GetSummary()
+		{
+			return message;
 		}
 	}
 

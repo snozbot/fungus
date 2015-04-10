@@ -44,5 +44,10 @@ namespace Fungus
 				break;
 			}
 		}
+
+		public override string GetSummary()
+		{
+			return keyCode.ToString();
+		}
 	}
 }

@@ -61,8 +61,6 @@ namespace Fungus
 
 		/**
 		 * Returns a custom summary for the event handler.
-		 * If the string is empty, the editor will use the EventHandlerName property of 
-		 * the EventHandlerInfo attribute instead.
 		 */
 		public virtual string GetSummary()
 		{
