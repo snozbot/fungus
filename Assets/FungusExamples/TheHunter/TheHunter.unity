@@ -1895,6 +1895,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetBlock: {fileID: 1831099608}
+  stopParentBlock: 1
 --- !u!114 &1831099574
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2005,6 +2006,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetBlock: {fileID: 1831099637}
+  stopParentBlock: 1
 --- !u!114 &1831099580
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2358,6 +2360,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetBlock: {fileID: 1831099645}
+  stopParentBlock: 1
 --- !u!114 &1831099594
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3163,6 +3166,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetBlock: {fileID: 1831099628}
+  stopParentBlock: 1
 --- !u!114 &1831099630
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3358,6 +3362,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetBlock: {fileID: 1831099637}
+  stopParentBlock: 1
 --- !u!114 &1831099639
 MonoBehaviour:
   m_ObjectHideFlags: 2
