@@ -46,6 +46,12 @@ namespace Fungus
 		public int commandIndex;
 
 		/**
+		 * Set to true by the parent block while the command is executing.
+		 */
+		[NonSerialized]
+		public bool isExecuting;
+
+		/**
 		 * Reference to the Block object that this command belongs to.
 		 * This reference is only populated at runtime and in the editor when the 
 		 * block is selected.
@@ -64,16 +70,6 @@ namespace Fungus
 			return flowchart;
 		}
 
-		public virtual bool IsExecuting()
-		{
-			if (parentBlock == null)
-			{
-				return false;
-			}
-
-			return (parentBlock.activeCommand == this);
-		}
-
 		public virtual void Execute()
 		{
 			OnEnter();
@@ -89,7 +85,7 @@ namespace Fungus
 			OnExit();
 			if (parentBlock != null)
 			{
-				parentBlock.ExecuteCommand(nextCommandIndex);
+				parentBlock.jumpToCommandIndex = nextCommandIndex;
 			}
 		}
 
@@ -102,28 +98,30 @@ namespace Fungus
 			}
 		}
 
-		public virtual void ExecuteBlock(Block s)
+		public virtual void ExecuteBlock(Block s, bool stopParentBlock)
 		{
 			OnExit();
 			if (parentBlock != null)
 			{
 				Flowchart flowchart = parentBlock.GetFlowchart();
-
-				// Record the currently selected block because Stop() will clear it.
-				Block selectedBlock = flowchart.selectedBlock;
-
-				parentBlock.Stop();
-				if (flowchart != null)
+				if (flowchart == null)
 				{
+					return;
+				}
+
+				if (stopParentBlock)
+				{
+					parentBlock.Stop();
+
 					// If the executing block is currently selected then follow the execution 
 					// onto the next block in the inspector.
-					if (selectedBlock == parentBlock)
+					if (flowchart.selectedBlock == parentBlock)
 					{
 						flowchart.selectedBlock = s;
 					}
-
-					flowchart.ExecuteBlock(s);
 				}
+
+				flowchart.ExecuteBlock(s);
 			}
 		}
 

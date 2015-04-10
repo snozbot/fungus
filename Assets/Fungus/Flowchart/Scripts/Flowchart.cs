@@ -242,7 +242,7 @@ namespace Fungus
 			}
 
 			// Execute the first command in the command list
-			block.ExecuteCommand(0);
+			block.Execute();
 
 			return true;
 		}

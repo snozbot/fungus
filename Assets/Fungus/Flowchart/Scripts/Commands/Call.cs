@@ -13,14 +13,21 @@ namespace Fungus
 	public class Call : Command
 	{	
 		[FormerlySerializedAs("targetSequence")]
-		[Tooltip("Block to execute")]
+		[Tooltip("Block to start executing")]
 		public Block targetBlock;
 	
+		[Tooltip("Stop executing the parent block that contains this command")]
+		public bool stopParentBlock = true;
+
 		public override void OnEnter()
 		{
 			if (targetBlock != null)
 			{
-				ExecuteBlock(targetBlock);
+				ExecuteBlock(targetBlock, stopParentBlock);
+				if (!stopParentBlock)
+				{
+					Continue();
+				}
 			}
 			else
 			{		

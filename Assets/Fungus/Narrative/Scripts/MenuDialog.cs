@@ -126,7 +126,7 @@ namespace Fungus
 
 							gameObject.SetActive(false);
 
-							block.ExecuteCommand(0);
+							block.Execute();
 						}
 					});
 
@@ -199,7 +199,7 @@ namespace Fungus
 
 			if (targetBlock != null)
 			{
-				targetBlock.ExecuteCommand(0);
+				targetBlock.Execute();
 			}
 		}
 	}

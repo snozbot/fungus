@@ -21,6 +21,15 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Block : Node 
 	{
+		public enum ExecutionState
+		{
+			Idle,
+			Executing,
+		}
+
+		[NonSerialized]
+		public ExecutionState executionState;
+
 		[HideInInspector]
 		public int itemId = -1; // Invalid flowchart item id
 
@@ -54,6 +63,12 @@ namespace Fungus
 		public List<Command> commandList = new List<Command>();
 
 		protected int executionCount;
+
+		/**
+		 * Controls the next command to execute in the block execution coroutine.
+		 */
+		[NonSerialized]
+		public int jumpToCommandIndex = -1;
 
 		protected virtual void Awake()
 		{
@@ -117,13 +132,7 @@ namespace Fungus
 
 		public virtual bool IsExecuting()
 		{
-			Flowchart flowchart = GetFlowchart();
-			if (flowchart == null)
-			{
-				return false;
-			}
-
-			return (activeCommand != null);
+			return (executionState == ExecutionState.Executing);
 		}
 
 		public virtual int GetExecutionCount()
@@ -131,98 +140,99 @@ namespace Fungus
 			return executionCount;
 		}
 
-		public virtual void ExecuteCommand(int commandIndex)
+		public virtual bool Execute()
 		{
-			if (activeCommand == null)
+			if (executionState != ExecutionState.Idle)
 			{
-				previousActiveCommandIndex = -1;
-			}
-			else
-			{
-				previousActiveCommandIndex = activeCommand.commandIndex;
+				return false;
 			}
 
-			if (commandIndex >= commandList.Count)
-			{
-				Stop();
-				return;
-			}
+			executionCount++;
+			StartCoroutine(ExecuteBlock());
 
-			if (commandIndex == 0)
-			{
-				executionCount++;
-			}
+			return true;
+		}
 
+		protected virtual IEnumerator ExecuteBlock()
+		{
 			Flowchart flowchart = GetFlowchart();
+			executionState = ExecutionState.Executing;
 
-			// Skip disabled commands, comments and labels
-			while (commandIndex < commandList.Count &&
-				   (!commandList[commandIndex].enabled || 
-			 		commandList[commandIndex].GetType() == typeof(Comment) ||
-			 	    commandList[commandIndex].GetType() == typeof(Label)))
+			int i = 0;
+			while (true)
 			{
-				commandIndex = commandList[commandIndex].commandIndex + 1;
-			}
+				// Executing commands specify the next command to skip to by setting jumpToCommandIndex using Command.Continue()
+				if (jumpToCommandIndex > -1)
+				{
+					i = jumpToCommandIndex;
+					jumpToCommandIndex = -1;
+				}
 
-			if (commandIndex >= commandList.Count)
-			{
-				Stop();
-				return;
-			}
+				// Skip disabled commands, comments and labels
+				while (i < commandList.Count &&
+				       (!commandList[i].enabled || 
+				 		commandList[i].GetType() == typeof(Comment) ||
+				 		commandList[i].GetType() == typeof(Label)))
+				{
+					i = commandList[i].commandIndex + 1;
+				}
 
-			Command nextCommand = commandList[commandIndex];
+				if (i >= commandList.Count)
+				{
+					break;
+				}
 
-			activeCommand = null;
-			executingIconTimer = 0.5f;
+				// The previous active command is needed for if / else / else if commands
+				if (activeCommand == null)
+				{
+					previousActiveCommandIndex = -1;
+				}
+				else
+				{
+					previousActiveCommandIndex = activeCommand.commandIndex;
+				}
 
-			if (nextCommand == null)
-			{
-				Stop();
-			}
-			else
-			{
+				Command command = commandList[i];
+				activeCommand = command;
+				executingIconTimer = 0.5f;
+
 				if (flowchart.gameObject.activeInHierarchy)
 				{
 					// Auto select a command in some situations
-					if ((flowchart.selectedCommands.Count == 0 && commandIndex == 0) ||
+					if ((flowchart.selectedCommands.Count == 0 && i == 0) ||
 					    (flowchart.selectedCommands.Count == 1 && flowchart.selectedCommands[0].commandIndex == previousActiveCommandIndex))
 					{
 						flowchart.ClearSelectedCommands();
-						flowchart.AddSelectedCommand(nextCommand);
-					}
-
-					if (runSlowInEditor &&
-					    nextCommand.RunSlowInEditor())
-					{
-						StartCoroutine(ExecuteAfterDelay(nextCommand, flowchart.runSlowDuration));
-					}
-					else
-					{
-						activeCommand = nextCommand;
-						nextCommand.Execute();
+						flowchart.AddSelectedCommand(commandList[i]);
 					}
 				}
+
+				command.isExecuting = true;
+				command.Execute();
+
+				// Wait until the executing command sets another command to jump to via Command.Continue()
+				while (jumpToCommandIndex == -1)
+				{
+					yield return null;
+				}
+
+				if (runSlowInEditor)
+				{
+					yield return new WaitForSeconds(flowchart.runSlowDuration);
+				}
+
+				command.isExecuting = false;
 			}
 
-		}
-
-		IEnumerator ExecuteAfterDelay(Command nextCommand, float delay)
-		{
-			activeCommand = nextCommand;
-			yield return new WaitForSeconds(delay);
-			nextCommand.Execute();
+			executionState = ExecutionState.Idle;
+			activeCommand = null;
+			flowchart.ClearSelectedCommands();
 		}
 
 		public virtual void Stop()
 		{
-			Flowchart flowchart = GetFlowchart();
-			if (flowchart == null)
-			{
-				return;
-			}
-
-			activeCommand = null;
-			flowchart.ClearSelectedCommands();
+			// This will cause the execution loop to break on the next iteration
+			jumpToCommandIndex = int.MaxValue;
 		}
 
 		public virtual List<Block> GetConnectedBlocks()

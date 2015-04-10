@@ -9,10 +9,12 @@ namespace Fungus
 	public class CallEditor : CommandEditor 
 	{
 		protected SerializedProperty targetBlockProp;
+		protected SerializedProperty stopParentBlockProp;
 
 		protected virtual void OnEnable()
 		{
 			targetBlockProp = serializedObject.FindProperty("targetBlock");
+			stopParentBlockProp = serializedObject.FindProperty("stopParentBlock");
 		}
 
 		public override void DrawCommandGUI()
@@ -31,6 +33,8 @@ namespace Fungus
 			                             new GUIContent("Target Block", "Block to call"), 
 										 new GUIContent("<Continue>"), 
 										 flowchart);
+
+			EditorGUILayout.PropertyField(stopParentBlockProp);
 
 			serializedObject.ApplyModifiedProperties();
 		}

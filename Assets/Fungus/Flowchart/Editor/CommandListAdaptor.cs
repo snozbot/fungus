@@ -362,7 +362,7 @@ namespace Fungus
 				GUI.Label(commandLabelRect, commandName, commandLabelStyle);
 			}
 			
-			if (command.IsExecuting())
+			if (command.isExecuting)
 			{
 				Rect iconRect = new Rect(commandLabelRect);
 				iconRect.x += iconRect.width - commandLabelRect.width - 20;

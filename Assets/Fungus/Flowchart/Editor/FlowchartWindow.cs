@@ -581,7 +581,7 @@ namespace Fungus
 					}
 				}
 
-				bool highlight = command.IsExecuting() || (blockIsSelected && commandIsSelected);
+				bool highlight = command.isExecuting || (blockIsSelected && commandIsSelected);
 
 				if (highlightedOnly && !highlight ||
 				    !highlightedOnly && highlight)

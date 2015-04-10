@@ -100,7 +100,7 @@ namespace Fungus
 						}
 						else
 						{
-							ExecuteBlock(onSelectBlock);
+							ExecuteBlock(onSelectBlock, true);
 						}
 					};
 					
@@ -131,7 +131,7 @@ namespace Fungus
 		public override void GetConnectedBlocks (ref List<Block> connectedBlocks)
 		{
 			// Show connected blocks from preceding AddOption commands
-			if (IsExecuting())
+			if (isExecuting)
 			{
 				foreach (Option option in options)
 				{
@@ -175,7 +175,7 @@ namespace Fungus
 				{
 					options.Clear();
 					showBasicGUI = false;
-					ExecuteBlock(option.targetBlock);
+					ExecuteBlock(option.targetBlock, true);
 				}
 			}
 			
