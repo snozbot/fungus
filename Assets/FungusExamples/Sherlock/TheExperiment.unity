@@ -3078,9 +3078,6 @@ GameObject:
   - 114: {fileID: 1390555328}
   - 114: {fileID: 1390555327}
   - 114: {fileID: 1390555333}
-  - 114: {fileID: 1390555311}
-  - 114: {fileID: 1390555309}
-  - 114: {fileID: 1390555310}
   - 114: {fileID: 1390555304}
   - 114: {fileID: 1390555303}
   - 114: {fileID: 1390555319}
@@ -3163,6 +3160,9 @@ GameObject:
   - 114: {fileID: 1390555387}
   - 114: {fileID: 1390555396}
   - 114: {fileID: 1390555358}
+  - 114: {fileID: 1390555311}
+  - 114: {fileID: 1390555310}
+  - 114: {fileID: 1390555309}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -3185,6 +3185,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetBlock: {fileID: 1390555371}
+  stopParentBlock: 1
 --- !u!114 &1390555292
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3248,10 +3249,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 2977.33252, y: 1161.83801}
+  scrollPos: {x: 2978.33252, y: 1049.83801}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 400
+  blockViewHeight: 280
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -3259,9 +3260,8 @@ MonoBehaviour:
     y: -1729.35046
     width: 5969.4458
     height: 2818.85034
-  selectedBlock: {fileID: 1390555371}
-  selectedCommands:
-  - {fileID: 1390555358}
+  selectedBlock: {fileID: 1390555308}
+  selectedCommands: []
   variables:
   - {fileID: 1390555396}
   description: 'Example scene from Sherlock: The Game Is On'
@@ -3270,7 +3270,7 @@ MonoBehaviour:
   hideComponents: 1
   saveSelection: 1
   localizationId: 
-  nextItemId: 102
+  nextItemId: 105
 --- !u!4 &1390555296
 Transform:
   m_ObjectHideFlags: 0
@@ -3485,6 +3485,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetBlock: {fileID: 1390555304}
+  stopParentBlock: 1
 --- !u!114 &1390555304
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3607,7 +3608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -2441.33252
+    x: -2440.33252
     y: -800.838013
     width: 135
     height: 40
@@ -3623,89 +3624,68 @@ MonoBehaviour:
   - {fileID: 1390555309}
 --- !u!114 &1390555309
 MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11499512, guid: 1a602840cc64f2a438277c078435e290,
-    type: 2}
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1dc785fd3508440db335f3b5654c96c, type: 3}
+  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 15
+  itemId: 104
   errorMessage: 
   indentLevel: 0
-  chooseText: '{t}Changed your mind?{/t}'
-  character: {fileID: 137130844}
-  chooseDialog: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  timeoutDuration: 0
+  text: No
+  description: 
+  targetBlock: {fileID: 1390555302}
+  hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &1390555310
 MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11499514, guid: 1a602840cc64f2a438277c078435e290,
-    type: 2}
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 16
+  itemId: 103
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 0}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  optionText: No
-  targetBlock: {fileID: 1390555304}
-  hideOnSelected: 0
+  text: Yes
+  description: 
+  targetBlock: {fileID: 1390555312}
+  hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &1390555311
 MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11499516, guid: 1a602840cc64f2a438277c078435e290,
-    type: 2}
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a61ea20fbb744ca2a363c33ad65cd89, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 14
+  itemId: 102
   errorMessage: 
   indentLevel: 0
-  variable: {fileID: 0}
-  setOperator: 0
-  booleanData:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
-  integerData:
-    integerRef: {fileID: 0}
-    integerVal: 0
-  floatData:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  stringData:
-    stringRef: {fileID: 0}
-    stringVal: 
-  optionText: Yes
-  targetBlock: {fileID: 1390555312}
-  hideOnSelected: 0
+  storyText: '{t}Changed your mind?{/t}'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 0
+  setSayDialog: {fileID: 0}
 --- !u!114 &1390555312
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4333,6 +4313,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetBlock: {fileID: 1390555298}
+  stopParentBlock: 1
 --- !u!114 &1390555336
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4349,6 +4330,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetBlock: {fileID: 1390555440}
+  stopParentBlock: 1
 --- !u!114 &1390555337
 MonoBehaviour:
   m_ObjectHideFlags: 2
