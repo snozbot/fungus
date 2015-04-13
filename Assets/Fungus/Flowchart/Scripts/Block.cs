@@ -158,6 +158,22 @@ namespace Fungus
 			Flowchart flowchart = GetFlowchart();
 			executionState = ExecutionState.Executing;
 
+			#if UNITY_EDITOR
+			// If no block is currently executing, then automatically select this block for display in the inspector.
+			bool found = false;
+			foreach (Block block in flowchart.GetComponentsInChildren<Block>())
+			{
+				if (block.executionState == ExecutionState.Executing)
+				{
+					found = true;
+				}
+			}
+			if (found)
+			{
+				flowchart.selectedBlock = this;
+			}
+			#endif
+
 			int i = 0;
 			while (true)
 			{
