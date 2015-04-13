@@ -40,9 +40,6 @@ namespace Fungus
 		[Tooltip("Description text to display under the block node")]
 		public string description = "";
 
-		[Tooltip("Slow down execution in the editor to make it easier to visualise program flow")]
-		public bool runSlowInEditor = true;
-
 		public EventHandler eventHandler;
 
 		[HideInInspector]
@@ -236,10 +233,12 @@ namespace Fungus
 					yield return null;
 				}
 
-				if (runSlowInEditor)
+				#if UNITY_EDITOR
+				if (flowchart.pauseAfterCommand > 0f)
 				{
-					yield return new WaitForSeconds(flowchart.runSlowDuration);
+					yield return new WaitForSeconds(flowchart.pauseAfterCommand);
 				}
+				#endif
 
 				command.isExecuting = false;
 			}

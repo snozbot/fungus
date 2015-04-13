@@ -60,10 +60,7 @@ namespace Fungus
 			{
 				SerializedProperty descriptionProp = serializedObject.FindProperty("description");
 				EditorGUILayout.PropertyField(descriptionProp);
-				
-				SerializedProperty runSlowInEditorProp = serializedObject.FindProperty("runSlowInEditor");
-				EditorGUILayout.PropertyField(runSlowInEditorProp);
-				
+
 				DrawEventHandlerGUI(flowchart);
 				
 				UpdateIndentLevels(block);

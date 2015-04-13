@@ -193,14 +193,6 @@ namespace Fungus
 		{
 			return Color.white;
 		}
-
-		/**
-		 * Adds a delay between commands if the 'Run Slow In Editor' option is enabled.
-		 */
-		public virtual bool RunSlowInEditor()
-		{
-			return true;
-		}
 	}
 
 }

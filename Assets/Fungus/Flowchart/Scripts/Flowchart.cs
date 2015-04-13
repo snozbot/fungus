@@ -83,11 +83,11 @@ namespace Fungus
 		public string description = "";
 
 		/**
-	 	 * Minimum time for each command to execute when runSlowInEditor is enabled.
+	 	 * Slow down execution in the editor to make it easier to visualise program flow.
 	 	 */
 		[Range(0f, 5f)]
-		[Tooltip("Minimum time that each command will take to execute when Run Slow In Editor is enabled")]
-		public float runSlowDuration = 0.25f;
+		[Tooltip("Slow down execution in the editor to make it easier to visualise program flow. Does not affect platform builds.")]
+		public float pauseAfterCommand = 0f;
 
 		/**
 		 * Use command color when displaying the command list in the inspector.
