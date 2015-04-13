@@ -158,18 +158,12 @@ namespace Fungus
 			executionState = ExecutionState.Executing;
 
 			#if UNITY_EDITOR
-			// If no block is currently executing, then automatically select this block for display in the inspector.
-			bool found = false;
-			foreach (Block block in flowchart.GetComponentsInChildren<Block>())
+			// Select the executing block & the first command
+			flowchart.selectedBlock = this;
+			if (commandList.Count > 0)
 			{
-				if (block.executionState == ExecutionState.Executing)
-				{
-					found = true;
-				}
-			}
-			if (found)
-			{
-				flowchart.selectedBlock = this;
+				flowchart.ClearSelectedCommands();
+				flowchart.AddSelectedCommand(commandList[0]);
 			}
 			#endif
 
@@ -245,7 +239,6 @@ namespace Fungus
 
 			executionState = ExecutionState.Idle;
 			activeCommand = null;
-			flowchart.ClearSelectedCommands();
 		}
 
 		public virtual void Stop()
