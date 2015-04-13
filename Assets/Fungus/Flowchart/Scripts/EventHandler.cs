@@ -48,6 +48,11 @@ namespace Fungus
 				return false;
 			}
 
+			if (parentBlock.eventHandler != this)
+			{
+				return false;
+			}
+
 			Flowchart flowchart = parentBlock.GetFlowchart();
 
 			// Auto-follow the executing block if none is currently selected
