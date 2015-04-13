@@ -1141,7 +1141,7 @@ Transform:
   - {fileID: 170680004}
   m_Father: {fileID: 900000111}
   m_RootOrder: 1
---- !u!224 &501235100
+--- !u!224 &501235100 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22410270, guid: c6289d5f8fa843145a2355af9cb09719,
     type: 2}
@@ -1823,7 +1823,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1094705496}
   m_RootOrder: 1
---- !u!224 &744080994
+--- !u!224 &744080994 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22410272, guid: c6289d5f8fa843145a2355af9cb09719,
     type: 2}
@@ -2619,12 +2619,12 @@ Transform:
   - {fileID: 855733323}
   m_Father: {fileID: 1094705496}
   m_RootOrder: 2
---- !u!224 &1195464370
+--- !u!224 &1195464370 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22410278, guid: c6289d5f8fa843145a2355af9cb09719,
     type: 2}
   m_PrefabInternal: {fileID: 1297790152}
---- !u!224 &1210274190
+--- !u!224 &1210274190 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22410280, guid: c6289d5f8fa843145a2355af9cb09719,
     type: 2}
@@ -3249,7 +3249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 2978.33252, y: 1049.83801}
+  scrollPos: {x: 2985.33252, y: 1207.83801}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 280
@@ -3265,7 +3265,7 @@ MonoBehaviour:
   variables:
   - {fileID: 1390555396}
   description: 'Example scene from Sherlock: The Game Is On'
-  runSlowDuration: 0
+  pauseAfterCommand: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
@@ -3331,7 +3331,6 @@ MonoBehaviour:
   itemId: 96
   blockName: START
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1390555392}
@@ -3457,7 +3456,6 @@ MonoBehaviour:
   itemId: 95
   blockName: Don't Drink
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1390555377}
@@ -3507,7 +3505,6 @@ MonoBehaviour:
   itemId: 98
   blockName: What now?
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1390555373}
@@ -3580,7 +3577,6 @@ MonoBehaviour:
   itemId: 101
   blockName: Splash
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 1390555325}
   commandList:
   - {fileID: 1390555395}
@@ -3615,7 +3611,6 @@ MonoBehaviour:
   itemId: 97
   blockName: Talk to Sherlock
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1390555372}
@@ -3707,7 +3702,6 @@ MonoBehaviour:
   itemId: 94
   blockName: Drink
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1390555385}
@@ -5021,7 +5015,6 @@ MonoBehaviour:
   itemId: 99
   blockName: 'END: NO COURAGE'
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1390555365}
@@ -5240,7 +5233,6 @@ MonoBehaviour:
   itemId: 100
   blockName: 'END: COURAGE'
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1390555370}
@@ -5882,7 +5874,6 @@ MonoBehaviour:
   itemId: 93
   blockName: Drink the Coffee?
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1390555347}
