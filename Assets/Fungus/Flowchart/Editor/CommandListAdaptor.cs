@@ -362,13 +362,20 @@ namespace Fungus
 				GUI.Label(commandLabelRect, commandName, commandLabelStyle);
 			}
 			
-			if (command.isExecuting)
+			if (command.executingIconTimer > 0f)
 			{
 				Rect iconRect = new Rect(commandLabelRect);
 				iconRect.x += iconRect.width - commandLabelRect.width - 20;
 				iconRect.width = 20;
 				iconRect.height = 20;
+
+				Color storeColor = GUI.color;
+
+				GUI.color = new Color(1f, 1f, 1f, command.executingIconTimer / Block.executingIconFadeTime);
+				command.executingIconTimer = Mathf.Max(0, command.executingIconTimer - Time.deltaTime);
 				GUI.Label(iconRect, FungusEditorResources.texPlaySmall, new GUIStyle());
+
+				GUI.color = storeColor;
 			}
 			
 			Rect summaryRect = new Rect(commandLabelRect);

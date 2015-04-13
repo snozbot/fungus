@@ -52,6 +52,12 @@ namespace Fungus
 		public bool isExecuting;
 
 		/**
+		 * Timer used to control appearance of executing icon in inspector.
+		 */
+		[NonSerialized]
+		public float executingIconTimer;
+
+		/**
 		 * Reference to the Block object that this command belongs to.
 		 * This reference is only populated at runtime and in the editor when the 
 		 * block is selected.

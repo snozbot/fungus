@@ -64,6 +64,8 @@ namespace Fungus
 
 		protected int executionCount;
 
+		public const float executingIconFadeTime = 0.5f;
+
 		/**
 		 * Controls the next command to execute in the block execution coroutine.
 		 */
@@ -210,7 +212,7 @@ namespace Fungus
 
 				Command command = commandList[i];
 				activeCommand = command;
-				executingIconTimer = 0.5f;
+				executingIconTimer = executingIconFadeTime;
 
 				if (flowchart.gameObject.activeInHierarchy)
 				{
@@ -224,11 +226,13 @@ namespace Fungus
 				}
 
 				command.isExecuting = true;
+				command.executingIconTimer = executingIconFadeTime;
 				command.Execute();
 
 				// Wait until the executing command sets another command to jump to via Command.Continue()
 				while (jumpToCommandIndex == -1)
 				{
+					command.executingIconTimer = executingIconFadeTime;
 					yield return null;
 				}
 
