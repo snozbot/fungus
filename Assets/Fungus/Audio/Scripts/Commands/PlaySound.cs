@@ -16,14 +16,35 @@ namespace Fungus
 		[Tooltip("Volume level of the sound effect")]
 		public float volume = 1;
 
+		[Tooltip("Wait until the sound has finished playing before continuing execution.")]
+		public bool waitUntilFinished;
+
 		public override void OnEnter()
 		{
+			if (soundClip == null)
+			{
+				Continue();
+				return;
+			}
+
 			MusicController musicController = MusicController.GetInstance();
 			if (musicController != null)
 			{
 				musicController.PlaySound(soundClip, volume);
 			}
 
+			if (waitUntilFinished)
+			{
+				Invoke("DoWait", soundClip.length);
+			}
+			else
+			{
+				Continue();
+			}
+		}
+
+		protected virtual void DoWait()
+		{
 			Continue();
 		}
 
