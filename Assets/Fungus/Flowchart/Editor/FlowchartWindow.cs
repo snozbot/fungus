@@ -61,7 +61,8 @@ namespace Fungus
 				return;
 			}
 
-			if (flowchart.selectedBlock != null)
+			if (Selection.activeGameObject == null &&
+				flowchart.selectedBlock != null)
 			{
 			    if (blockInspector == null)
 				{
