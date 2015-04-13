@@ -13,13 +13,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Menu : Command
 	{
-		
-		// Menu displays a menu button which will execute the target block when clicked
-		// Menu Timeout executes a block if the timeout expires
-		// The 'Hide If Visited' option checks the execution count of the target block
-		// Hide Say dialog when finished? Let Say command handle that
-		// Can wrap in an If statement if you need a conditional option
-
 		public string text = "Option Text";
 
 		[Tooltip("Notes about the option text for other authors, localization, etc.")]
@@ -110,11 +103,6 @@ namespace Fungus
 		public override Color GetButtonColor()
 		{
 			return new Color32(184, 210, 235, 255);
-		}
-
-		public override bool RunSlowInEditor()
-		{
-			return false;
 		}
 	}
 
