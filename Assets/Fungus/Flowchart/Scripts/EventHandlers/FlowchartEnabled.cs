@@ -13,6 +13,14 @@ namespace Fungus
 	{	
 		protected virtual void OnEnable()
 		{
+			// Blocks use coroutines to schedule command execution, but Unity's coroutines are
+			// sometimes unreliable when enabling / disabling objects.
+			// To workaround this we execute the block on the next frame.
+			Invoke("DoEvent", 0);
+		}
+
+		protected virtual void DoEvent()
+		{
 			ExecuteBlock();
 		}
 	}
