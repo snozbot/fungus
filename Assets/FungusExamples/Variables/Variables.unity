@@ -197,8 +197,6 @@ GameObject:
   - 114: {fileID: 1269704332}
   - 114: {fileID: 1269704333}
   - 114: {fileID: 1269704341}
-  - 114: {fileID: 1269704340}
-  - 114: {fileID: 1269704339}
   - 114: {fileID: 1269704338}
   - 114: {fileID: 1269704337}
   - 114: {fileID: 1269704336}
@@ -209,9 +207,7 @@ GameObject:
   - 114: {fileID: 1269704343}
   - 114: {fileID: 1269704335}
   - 114: {fileID: 1269704334}
-  - 114: {fileID: 1269704346}
   - 114: {fileID: 1269704353}
-  - 114: {fileID: 1269704352}
   - 114: {fileID: 1269704351}
   - 114: {fileID: 1269704350}
   - 114: {fileID: 1269704349}
@@ -220,6 +216,16 @@ GameObject:
   - 114: {fileID: 1269704356}
   - 114: {fileID: 1269704355}
   - 114: {fileID: 1269704354}
+  - 114: {fileID: 1269704358}
+  - 114: {fileID: 1269704357}
+  - 114: {fileID: 1269704352}
+  - 114: {fileID: 1269704346}
+  - 114: {fileID: 1269704340}
+  - 114: {fileID: 1269704339}
+  - 114: {fileID: 1269704362}
+  - 114: {fileID: 1269704361}
+  - 114: {fileID: 1269704360}
+  - 114: {fileID: 1269704359}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -282,14 +288,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 137
-    y: -22
+    x: 124
+    y: -166
     width: 120
     height: 40
-  sequenceName: Test If
+  itemId: 28
+  blockName: Test If
   description: 
   runSlowInEditor: 1
-  eventHandler: {fileID: 1269704340}
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1269704324}
   - {fileID: 1269704328}
@@ -302,6 +309,7 @@ MonoBehaviour:
   - {fileID: 1269704332}
   - {fileID: 1269704327}
   - {fileID: 1269704329}
+  - {fileID: 1269704362}
 --- !u!114 &1269704319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,20 +321,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 235, y: 76}
+  scrollPos: {x: 215, y: 204}
   variablesScrollPos: {x: 0, y: 0}
-  variablesExpanded: 1
-  sequenceViewHeight: 400
+  variablesExpanded: 0
+  blockViewHeight: 467
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
-    x: -495
-    y: -443
-    width: 1460
-    height: 978
-  selectedSequence: {fileID: 1269704353}
-  selectedCommands:
-  - {fileID: 1269704354}
+    x: -565
+    y: -587
+    width: 1530
+    height: 1122
+  selectedBlock: {fileID: 1269704353}
+  selectedCommands: []
   variables:
   - {fileID: 1269704317}
   - {fileID: 1269704316}
@@ -336,12 +343,13 @@ MonoBehaviour:
 
     If, Else If, End, While, Jump & Label.
 
-    Press A, B, C or D to execute each example.'
+'
   runSlowDuration: .25
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  nextCommandId: 28
+  localizationId: 
+  nextItemId: 41
 --- !u!4 &1269704320
 Transform:
   m_ObjectHideFlags: 0
@@ -365,7 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 1
+  itemId: 1
   errorMessage: 
   indentLevel: 1
   logType: 0
@@ -383,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 0
+  itemId: 0
   errorMessage: 
   indentLevel: 1
   logType: 0
@@ -401,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 14
+  itemId: 14
   errorMessage: 
   indentLevel: 0
   logType: 0
@@ -419,7 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 2
+  itemId: 2
   errorMessage: 
   indentLevel: 0
   variable: {fileID: 1269704317}
@@ -461,7 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c5e8d46183346b59f64b820e71f97f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 7
+  itemId: 7
   errorMessage: 
   indentLevel: 0
   compareOperator: 0
@@ -489,7 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 4
+  itemId: 4
   errorMessage: 
   indentLevel: 0
 --- !u!114 &1269704328
@@ -503,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 3
+  itemId: 3
   errorMessage: 
   indentLevel: 0
   compareOperator: 0
@@ -531,7 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 5
+  itemId: 5
   errorMessage: 
   indentLevel: 0
   logType: 0
@@ -549,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 6
+  itemId: 6
   errorMessage: 
   indentLevel: 1
   logType: 0
@@ -567,7 +575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c5e8d46183346b59f64b820e71f97f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 8
+  itemId: 8
   errorMessage: 
   indentLevel: 0
   compareOperator: 0
@@ -595,7 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 9
+  itemId: 9
   errorMessage: 
   indentLevel: 1
   logType: 0
@@ -613,7 +621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa968f01a7f9496bb50e13dfe16760d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 10
+  itemId: 10
   errorMessage: 
   indentLevel: 0
 --- !u!114 &1269704334
@@ -627,7 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 19
+  itemId: 19
   errorMessage: 
   indentLevel: 0
   logType: 0
@@ -645,7 +653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 18
+  itemId: 18
   errorMessage: 
   indentLevel: 0
   logType: 0
@@ -663,7 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 13
+  itemId: 13
   errorMessage: 
   indentLevel: 1
   logType: 0
@@ -681,7 +689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 12
+  itemId: 12
   errorMessage: 
   indentLevel: 0
 --- !u!114 &1269704338
@@ -695,7 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 663c8a7831a104d16ad7078a4dc2bd10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 11
+  itemId: 11
   errorMessage: 
   indentLevel: 0
   compareOperator: 2
@@ -720,12 +728,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1269704314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 000864f8e9e1748a39807861d0e60e29, type: 3}
+  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 1269704341}
-  keyPressType: 0
-  keyCode: 98
+  itemId: 36
+  errorMessage: 
+  indentLevel: 0
+  text: Test While
+  description: 
+  targetBlock: {fileID: 1269704341}
+  hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &1269704340
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -734,12 +747,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1269704314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 000864f8e9e1748a39807861d0e60e29, type: 3}
+  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 1269704318}
-  keyPressType: 0
-  keyCode: 97
+  itemId: 35
+  errorMessage: 
+  indentLevel: 0
+  text: Test Labels
+  description: 
+  targetBlock: {fileID: 1269704345}
+  hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &1269704341
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -753,20 +771,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 287
-    y: -23
+    x: 129
+    y: -98
     width: 120
     height: 40
-  sequenceName: Test While
+  itemId: 29
+  blockName: Test While
   description: 
   runSlowInEditor: 1
-  eventHandler: {fileID: 1269704339}
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1269704338}
   - {fileID: 1269704336}
   - {fileID: 1269704342}
   - {fileID: 1269704337}
   - {fileID: 1269704323}
+  - {fileID: 1269704361}
 --- !u!114 &1269704342
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -778,7 +798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 15
+  itemId: 15
   errorMessage: 
   indentLevel: 1
   variable: {fileID: 1269704325}
@@ -806,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4da378c47144a86979765ac5e9690c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 17
+  itemId: 17
   errorMessage: 
   indentLevel: 0
   key: My Label
@@ -821,7 +841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9ac2fcbd1d542619ab0bc7549fb264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 16
+  itemId: 16
   errorMessage: 
   indentLevel: 0
   targetLabel: {fileID: 1269704343}
@@ -838,19 +858,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 135
-    y: 42
+    x: 124
+    y: -39
     width: 120
     height: 40
-  sequenceName: Sequence
+  itemId: 30
+  blockName: Test Labels
   description: 
   runSlowInEditor: 1
-  eventHandler: {fileID: 1269704346}
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1269704344}
   - {fileID: 1269704335}
   - {fileID: 1269704343}
   - {fileID: 1269704334}
+  - {fileID: 1269704360}
 --- !u!114 &1269704346
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -859,12 +881,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1269704314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 000864f8e9e1748a39807861d0e60e29, type: 3}
+  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 1269704345}
-  keyPressType: 0
-  keyCode: 99
+  itemId: 34
+  errorMessage: 
+  indentLevel: 0
+  text: Test Saving
+  description: 
+  targetBlock: {fileID: 1269704353}
+  hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &1269704347
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -876,7 +903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 24
+  itemId: 24
   errorMessage: 
   indentLevel: 0
   logType: 0
@@ -894,7 +921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c657364a3b24e16bdf5946729a8b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 23
+  itemId: 23
   errorMessage: 
   indentLevel: 0
   key: SavedFloat
@@ -910,7 +937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 22
+  itemId: 22
   errorMessage: 
   indentLevel: 0
   logType: 0
@@ -928,7 +955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 21
+  itemId: 21
   errorMessage: 
   indentLevel: 0
   variable: {fileID: 1269704316}
@@ -956,7 +983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bef7966140464bd5a3ef4da2ff236b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 20
+  itemId: 20
   errorMessage: 
   indentLevel: 0
   key: SavedFloat
@@ -969,12 +996,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1269704314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 000864f8e9e1748a39807861d0e60e29, type: 3}
+  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 1269704353}
-  keyPressType: 0
-  keyCode: 100
+  itemId: 33
+  errorMessage: 
+  indentLevel: 0
+  text: Test If
+  description: 
+  targetBlock: {fileID: 1269704318}
+  hideIfVisited: 0
+  setMenuDialog: {fileID: 0}
 --- !u!114 &1269704353
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -988,14 +1020,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 288
-    y: 45
+    x: 128
+    y: 20
     width: 120
     height: 40
-  sequenceName: Sequence1
+  itemId: 31
+  blockName: Test Saving
   description: 
   runSlowInEditor: 1
-  eventHandler: {fileID: 1269704352}
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1269704356}
   - {fileID: 1269704351}
@@ -1005,6 +1038,7 @@ MonoBehaviour:
   - {fileID: 1269704354}
   - {fileID: 1269704348}
   - {fileID: 1269704347}
+  - {fileID: 1269704359}
 --- !u!114 &1269704354
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1016,7 +1050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 27
+  itemId: 27
   errorMessage: 
   indentLevel: 0
   commenterName: 
@@ -1032,7 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 26
+  itemId: 26
   errorMessage: 
   indentLevel: 0
   commenterName: 
@@ -1048,11 +1082,114 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 25
+  itemId: 25
   errorMessage: 
   indentLevel: 0
   commenterName: 
   commentText: Save the current MyFloat value to disk
+--- !u!114 &1269704357
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269704314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 1269704358}
+--- !u!114 &1269704358
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269704314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: -84
+    y: -73
+    width: 120
+    height: 40
+  itemId: 32
+  blockName: Show Menu
+  description: 
+  runSlowInEditor: 1
+  eventHandler: {fileID: 1269704357}
+  commandList:
+  - {fileID: 1269704352}
+  - {fileID: 1269704339}
+  - {fileID: 1269704340}
+  - {fileID: 1269704346}
+--- !u!114 &1269704359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269704314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 40
+  errorMessage: 
+  indentLevel: 0
+  targetBlock: {fileID: 1269704358}
+  stopParentBlock: 1
+--- !u!114 &1269704360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269704314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 39
+  errorMessage: 
+  indentLevel: 0
+  targetBlock: {fileID: 1269704358}
+  stopParentBlock: 1
+--- !u!114 &1269704361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269704314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 38
+  errorMessage: 
+  indentLevel: 0
+  targetBlock: {fileID: 1269704358}
+  stopParentBlock: 1
+--- !u!114 &1269704362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269704314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 37
+  errorMessage: 
+  indentLevel: 0
+  targetBlock: {fileID: 1269704358}
+  stopParentBlock: 1
 --- !u!1 &1671111970
 GameObject:
   m_ObjectHideFlags: 1
