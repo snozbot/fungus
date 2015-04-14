@@ -295,7 +295,6 @@ MonoBehaviour:
   itemId: 28
   blockName: Test If
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1269704324}
@@ -344,7 +343,7 @@ MonoBehaviour:
     If, Else If, End, While, Jump & Label.
 
 '
-  runSlowDuration: .25
+  pauseAfterCommand: .25
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
@@ -778,7 +777,6 @@ MonoBehaviour:
   itemId: 29
   blockName: Test While
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1269704338}
@@ -865,7 +863,6 @@ MonoBehaviour:
   itemId: 30
   blockName: Test Labels
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1269704344}
@@ -1027,7 +1024,6 @@ MonoBehaviour:
   itemId: 31
   blockName: Test Saving
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1269704356}
@@ -1119,7 +1115,6 @@ MonoBehaviour:
   itemId: 32
   blockName: Show Menu
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 1269704357}
   commandList:
   - {fileID: 1269704352}
@@ -1128,7 +1123,7 @@ MonoBehaviour:
   - {fileID: 1269704346}
 --- !u!114 &1269704359
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1269704314}
@@ -1140,11 +1135,12 @@ MonoBehaviour:
   itemId: 40
   errorMessage: 
   indentLevel: 0
+  targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1269704358}
-  stopParentBlock: 1
+  callMode: 0
 --- !u!114 &1269704360
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1269704314}
@@ -1156,11 +1152,12 @@ MonoBehaviour:
   itemId: 39
   errorMessage: 
   indentLevel: 0
+  targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1269704358}
-  stopParentBlock: 1
+  callMode: 0
 --- !u!114 &1269704361
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1269704314}
@@ -1172,11 +1169,12 @@ MonoBehaviour:
   itemId: 38
   errorMessage: 
   indentLevel: 0
+  targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1269704358}
-  stopParentBlock: 1
+  callMode: 0
 --- !u!114 &1269704362
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1269704314}
@@ -1188,8 +1186,9 @@ MonoBehaviour:
   itemId: 37
   errorMessage: 
   indentLevel: 0
+  targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1269704358}
-  stopParentBlock: 1
+  callMode: 0
 --- !u!1 &1671111970
 GameObject:
   m_ObjectHideFlags: 1
