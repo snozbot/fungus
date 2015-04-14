@@ -74,7 +74,11 @@ namespace Fungus
 			if (dialogCanvas != null)
 			{
 				LeanTween.cancel(dialogCanvas.gameObject);
-				dialogCanvas.GetComponent<CanvasGroup>().alpha = 1;
+				CanvasGroup canvasGroup = dialogCanvas.GetComponent<CanvasGroup>();
+				if (canvasGroup != null)
+				{
+					canvasGroup.alpha = 1;
+				}
 				dialogCanvas.gameObject.SetActive(visible);
 			}
 			if (visible)
@@ -89,16 +93,26 @@ namespace Fungus
 		public virtual void FadeInDialog()
 		{
 			LeanTween.cancel(dialogCanvas.gameObject);
-			dialogCanvas.GetComponent<CanvasGroup>().alpha = 0;
+			CanvasGroup canvasGroup = dialogCanvas.GetComponent<CanvasGroup>();
+			if (canvasGroup != null)
+			{
+				canvasGroup.alpha = 0;
+			}
 			dialogCanvas.gameObject.SetActive(true);
 			if (fadeDuration == 0) fadeDuration = float.Epsilon;
 			LeanTween.value(dialogCanvas.gameObject,0,1,fadeDuration).setEase(fadeEaseType).setOnUpdate(
 				(float fadeAmount)=>{
-				dialogCanvas.GetComponent<CanvasGroup>().alpha = fadeAmount;
+				if (canvasGroup != null)
+				{
+					canvasGroup.alpha = fadeAmount;
+				}
 			}
 			).setOnComplete(
 				()=>{
-				dialogCanvas.GetComponent<CanvasGroup>().alpha = 1;
+				if (canvasGroup != null)
+				{
+					canvasGroup.alpha = 1;
+				}
 			}
 			);
 		}
@@ -121,16 +135,23 @@ namespace Fungus
 		
 		public virtual void FadeOutDialog()
 		{
+			CanvasGroup canvasGroup = dialogCanvas.GetComponent<CanvasGroup>();
 			LeanTween.cancel(dialogCanvas.gameObject);
 			if (fadeDuration == 0) fadeDuration = float.Epsilon;
 			LeanTween.value(dialogCanvas.gameObject,1,0,fadeDuration).setEase(fadeEaseType).setOnUpdate(
 				(float fadeAmount)=>{
-				dialogCanvas.GetComponent<CanvasGroup>().alpha = fadeAmount;
+				if (canvasGroup != null)
+				{
+					canvasGroup.alpha = fadeAmount;
+				}
 			}
 			).setOnComplete(
 				()=>{
 				dialogCanvas.gameObject.SetActive(false);
-				dialogCanvas.GetComponent<CanvasGroup>().alpha = 1;
+				if (canvasGroup != null)
+				{
+					canvasGroup.alpha = 1;
+				}
 			}
 			);
 		}
