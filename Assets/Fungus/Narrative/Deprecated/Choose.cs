@@ -177,7 +177,10 @@ namespace Fungus
 					options.Clear();
 					showBasicGUI = false;
 					Stop();
-					option.targetBlock.Execute();
+					if (option.targetBlock != null)
+					{
+						option.targetBlock.Execute();
+					}
 				}
 			}
 			
