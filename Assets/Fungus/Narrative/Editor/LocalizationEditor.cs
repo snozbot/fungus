@@ -29,10 +29,18 @@ namespace Fungus
 			EditorGUILayout.PropertyField(activeLanguageProp);
 			EditorGUILayout.PropertyField(localizationFileProp);
 
+			GUILayout.Space(10);
+
+			EditorGUILayout.HelpBox("Exports a localization csv file to disk. You should save this file in your project assets and then set the Localization File property above to use it.", MessageType.Info);
+
 			if (GUILayout.Button(new GUIContent("Export Localization File")))
 			{
 				ExportLocalizationFile(localization);
 			}
+
+			GUILayout.Space(10);
+
+			EditorGUILayout.HelpBox("Exports all standard text in the scene to a text file for easy editing in a text editor. Use the Import option to read the standard text back into the scene.", MessageType.Info);
 
 			if (GUILayout.Button(new GUIContent("Export Standard Text")))
 			{

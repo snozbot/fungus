@@ -23,8 +23,9 @@ namespace Fungus
 	public class Localization : MonoBehaviour
 	{
 		/**
-		 * Currently active language, usually defined by a two letter language code (e.g DE = German)
+		 * Language to use at startup, usually defined by a two letter language code (e.g DE = German)
 		 */
+		[Tooltip("Language to use at startup, usually defined by a two letter language code (e.g DE = German)")]
 		public string activeLanguage = "";
 
 		protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
@@ -40,9 +41,10 @@ namespace Fungus
 		}
 
 		/**
-		 * CSV file containing localization data
+		 * CSV file containing localization data which can be easily edited in a spreadsheet tool.
 		 */
-		public TextAsset localizationFile;
+		 [Tooltip("CSV file containing localization data which can be easily edited in a spreadsheet tool")]
+		 public TextAsset localizationFile;
 
 		/**
 		 * Stores any notification message from export / import methods.

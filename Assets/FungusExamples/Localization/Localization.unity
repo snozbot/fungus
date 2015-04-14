@@ -237,6 +237,7 @@ GameObject:
   - 114: {fileID: 1369216154}
   - 114: {fileID: 1369216153}
   - 114: {fileID: 1369216152}
+  - 114: {fileID: 1369216165}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -304,7 +305,6 @@ MonoBehaviour:
   itemId: 0
   blockName: Select Language
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 1369216147}
   commandList:
   - {fileID: 1369216146}
@@ -347,18 +347,19 @@ MonoBehaviour:
     y: -385
     width: 1297
     height: 1047
-  selectedBlock: {fileID: 0}
-  selectedCommands: []
+  selectedBlock: {fileID: 1369216156}
+  selectedCommands:
+  - {fileID: 1369216165}
   variables: []
   description: "This scene shows how to use the Fungus localization system.\nThe key
     elements are the Localization game object, the \nlocalization.csv file and the
     Set Language command."
-  runSlowDuration: .25
+  pauseAfterCommand: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
   localizationId: LocalizationDemo
-  nextItemId: 16
+  nextItemId: 17
 --- !u!4 &1369216151
 Transform:
   m_ObjectHideFlags: 0
@@ -404,8 +405,9 @@ MonoBehaviour:
   itemId: 14
   errorMessage: 
   indentLevel: 0
+  targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1369216156}
-  stopParentBlock: 1
+  callMode: 0
 --- !u!114 &1369216154
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -420,8 +422,9 @@ MonoBehaviour:
   itemId: 13
   errorMessage: 
   indentLevel: 0
+  targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1369216156}
-  stopParentBlock: 1
+  callMode: 0
 --- !u!114 &1369216155
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -468,10 +471,10 @@ MonoBehaviour:
   itemId: 11
   blockName: Story
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1369216155}
+  - {fileID: 1369216165}
 --- !u!114 &1369216157
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -523,7 +526,6 @@ MonoBehaviour:
   itemId: 8
   blockName: Spanish
   description: Set language to Spanish
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1369216158}
@@ -580,7 +582,6 @@ MonoBehaviour:
   itemId: 4
   blockName: French
   description: Set language to French
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1369216160}
@@ -624,6 +625,23 @@ MonoBehaviour:
   targetBlock: {fileID: 1369216156}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
+--- !u!114 &1369216165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1369216145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 16
+  errorMessage: 
+  indentLevel: 0
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 1369216148}
+  callMode: 0
 --- !u!1001 &1843071213
 Prefab:
   m_ObjectHideFlags: 0
