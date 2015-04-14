@@ -262,9 +262,9 @@ MonoBehaviour:
     y: 10
     width: 100
     height: 40
-  sequenceName: New Sequence
+  itemId: -1
+  blockName: New Sequence
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList: []
 --- !u!4 &1457713103
@@ -327,7 +327,7 @@ MonoBehaviour:
   scrollPos: {x: 352.51593, y: 571.148438}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  sequenceViewHeight: 400
+  blockViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -335,16 +335,18 @@ MonoBehaviour:
     y: -889
     width: 1187
     height: 1416
-  selectedSequence: {fileID: 1818246749}
-  selectedCommands: []
+  selectedBlock: {fileID: 1818246749}
+  selectedCommands:
+  - {fileID: 1818246745}
   variables: []
   description: "This scene shows how to use Usfxr to play\nprocedural sound effects.
     \nSelect: Window > Generate usfxr Sound Effects\nto edit your own procedural sounds."
-  runSlowDuration: .25
+  pauseAfterCommand: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  nextCommandId: 4
+  localizationId: 
+  nextItemId: 5
 --- !u!114 &1818246744
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -356,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 1818246749}
+  parentBlock: {fileID: 1818246749}
 --- !u!114 &1818246745
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -368,11 +370,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ff412ad89846a47a70a620a222cbf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 3
+  itemId: 3
   errorMessage: 
   indentLevel: 0
   ParentTransform: {fileID: 0}
   SettingsString: 0,.5,,.0259,.3178,.2433,.3,.7694,,,,,,,,,.4286,.673,,,,,,,,1,,,,,,
+  waitDuration: .25
 --- !u!114 &1818246746
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -384,11 +387,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ff412ad89846a47a70a620a222cbf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 2
+  itemId: 2
   errorMessage: 
   indentLevel: 0
   ParentTransform: {fileID: 0}
   SettingsString: 1,.5,,.1749,.0094,.2571,.3,.6665,.2,-.2852,,,,,,,,,,,.2159,.1001,,.1209,-.1511,1,,,,,,
+  waitDuration: .25
 --- !u!114 &1818246747
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -400,11 +404,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ff412ad89846a47a70a620a222cbf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 1
+  itemId: 1
   errorMessage: 
   indentLevel: 0
   ParentTransform: {fileID: 0}
   SettingsString: 1,.5,,.142,,.1233,.3,.4328,,,,,,,,,,,,,,,,,,1,,,.1,,,
+  waitDuration: .25
 --- !u!114 &1818246748
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -416,11 +421,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ff412ad89846a47a70a620a222cbf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 0
+  itemId: 0
   errorMessage: 
   indentLevel: 0
   ParentTransform: {fileID: 0}
   SettingsString: 0,.5,,.0004,.354,.414,.3,.731,,,,,,,,,,,,,,,,,,1,,,,,,
+  waitDuration: .25
 --- !u!114 &1818246749
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -438,9 +444,9 @@ MonoBehaviour:
     y: -489
     width: 138
     height: 40
-  sequenceName: Sound Sequence
+  itemId: 4
+  blockName: Sound Sequence
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 1818246744}
   commandList:
   - {fileID: 1818246748}
