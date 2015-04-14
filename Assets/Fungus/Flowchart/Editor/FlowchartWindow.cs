@@ -351,22 +351,65 @@ namespace Fungus
 				}
 			}
 
+			PanAndZoom(flowchart);
+
+			GLDraw.EndGroup();
+
+			EditorZoomArea.End();
+		}
+
+		protected virtual void PanAndZoom(Flowchart flowchart)
+		{
 			// Right click to drag view
-			if (Event.current.button == 1 && Event.current.type == EventType.MouseDrag)
+			bool drag = false;
+			
+			// Pan tool
+			if (Tools.current == Tool.View && Tools.viewTool == ViewTool.Pan &&
+			    Event.current.button == 0 && Event.current.type == EventType.MouseDrag)
+			{
+				drag = true;
+			}
+			
+			// Right or middle button drag
+			if (Event.current.button > 0 && Event.current.type == EventType.MouseDrag)
+			{
+				drag = true;
+			}
+			
+			// Alt + left mouse drag
+			if (Event.current.alt &&
+			    Event.current.button == 0 && Event.current.type == EventType.MouseDrag)
+			{
+				drag = true;
+			}
+			
+			if (drag)
 			{
 				flowchart.scrollPos += Event.current.delta;
 				forceRepaintCount = 6;
 			}
-			else if (Event.current.type == EventType.ScrollWheel)
+			
+			bool zoom = false;
+			
+			// Scroll wheel
+			if (Event.current.type == EventType.ScrollWheel)
+			{
+				zoom = true;
+			}
+			
+			// Zoom tool
+			if (Tools.current == Tool.View && Tools.viewTool == ViewTool.Zoom &&
+			    Event.current.button == 0 && Event.current.type == EventType.MouseDrag)
+			{
+				zoom = true;
+			}
+			
+			if (zoom)
 			{
 				flowchart.zoom -= Event.current.delta.y * 0.01f;
 				flowchart.zoom = Mathf.Clamp(flowchart.zoom, minZoomValue, maxZoomValue);
 				forceRepaintCount = 6;
 			}
-
-			GLDraw.EndGroup();
-
-			EditorZoomArea.End();
 		}
 
 		protected virtual void DrawGrid(Flowchart flowchart)
@@ -453,7 +496,8 @@ namespace Fungus
 			    !mouseOverVariables)
 			{
 				// Check if might be start of a window drag
-				if (Event.current.button == 0)
+				if (Event.current.button == 0 &&
+				    Event.current.alt == false)
 				{
 					dragWindowId = windowId;
 					startDragPosition.x = block.nodeRect.x;
