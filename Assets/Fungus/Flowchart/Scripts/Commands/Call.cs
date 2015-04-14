@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace Fungus
 {
@@ -12,25 +13,64 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Call : Command
 	{	
+		[Tooltip("Flowchart which contains the block to execute. If none is specified then the current Flowchart is used.")]
+		public Flowchart targetFlowchart;
+
 		[FormerlySerializedAs("targetSequence")]
 		[Tooltip("Block to start executing")]
 		public Block targetBlock;
 	
-		[Tooltip("Stop executing the parent block that contains this command")]
-		public bool stopParentBlock = true;
+		public enum CallMode
+		{
+			Stop,
+			Continue,
+			WaitUntilFinished
+		}
+
+		[Tooltip("Select if the calling block should stop or continue executing commands, or wait until the called block finishes.")]
+		public CallMode callMode;
 
 		public override void OnEnter()
 		{
+			Flowchart flowchart = GetFlowchart();
+
 			if (targetBlock != null)
 			{
-				ExecuteBlock(targetBlock, stopParentBlock);
-				if (!stopParentBlock)
+				// Callback action for Wait Until Finished mode
+				Action onComplete = null;
+				if (callMode == CallMode.WaitUntilFinished)
 				{
-					Continue();
+					onComplete = delegate {
+						flowchart.selectedBlock = parentBlock;
+						Continue();
+					};
+				}
+
+				if (targetFlowchart == null ||
+				    targetFlowchart == GetFlowchart())
+				{
+					// If the executing block is currently selected then follow the execution 
+					// onto the next block in the inspector.
+					if (flowchart.selectedBlock == parentBlock)
+					{
+						flowchart.selectedBlock = targetBlock;
+					}
+
+					targetBlock.Execute(onComplete);
+				}
+				else
+				{
+					// Execute block in another Flowchart
+					targetFlowchart.ExecuteBlock(targetBlock, onComplete);
 				}
 			}
-			else
-			{		
+
+			if (callMode == CallMode.Stop)
+			{
+				Stop();
+			}
+			else if (callMode == CallMode.Continue)
+			{
 				Continue();
 			}
 		}
@@ -45,12 +85,31 @@ namespace Fungus
 		
 		public override string GetSummary()
 		{
+			string summary = "";
+
 			if (targetBlock == null)
 			{
-				return "<Continue>";
+				summary = "<None>";
+			}
+			else
+			{
+				summary = targetBlock.blockName;
 			}
 
-			return targetBlock.blockName;
+			switch (callMode)
+			{
+			case CallMode.Stop:
+				summary += " : Stop";
+				break;
+			case CallMode.Continue:
+				summary += " : Continue";
+				break;
+			case CallMode.WaitUntilFinished:
+				summary += " : Wait";
+				break;
+			}
+
+			return summary;
 		}
 
 		public override Color GetButtonColor()

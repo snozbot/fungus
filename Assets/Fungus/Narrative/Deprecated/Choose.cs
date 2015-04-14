@@ -100,7 +100,8 @@ namespace Fungus
 						}
 						else
 						{
-							ExecuteBlock(onSelectBlock, true);
+							Stop();
+							onSelectBlock.Execute();
 						}
 					};
 					
@@ -175,7 +176,8 @@ namespace Fungus
 				{
 					options.Clear();
 					showBasicGUI = false;
-					ExecuteBlock(option.targetBlock, true);
+					Stop();
+					option.targetBlock.Execute();
 				}
 			}
 			

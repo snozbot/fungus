@@ -104,33 +104,6 @@ namespace Fungus
 			}
 		}
 
-		public virtual void ExecuteBlock(Block s, bool stopParentBlock)
-		{
-			OnExit();
-			if (parentBlock != null)
-			{
-				Flowchart flowchart = parentBlock.GetFlowchart();
-				if (flowchart == null)
-				{
-					return;
-				}
-
-				if (stopParentBlock)
-				{
-					parentBlock.Stop();
-
-					// If the executing block is currently selected then follow the execution 
-					// onto the next block in the inspector.
-					if (flowchart.selectedBlock == parentBlock)
-					{
-						flowchart.selectedBlock = s;
-					}
-				}
-
-				flowchart.ExecuteBlock(s);
-			}
-		}
-
 		/**
 		 * Called when the new command is added to a block in the editor.
 		 */

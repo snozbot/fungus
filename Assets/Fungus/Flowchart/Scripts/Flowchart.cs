@@ -222,11 +222,11 @@ namespace Fungus
 		}
 
 		/**
-		 * Start running another Flowchart by executing a specific child block.
+		 * Start executing a specific child block in the flowchart.
 		 * The block must be in an idle state to be executed.
 		 * Returns true if the Block started execution.
 		 */
-		public virtual bool ExecuteBlock(Block block)
+		public virtual bool ExecuteBlock(Block block, Action onComplete = null)
 		{
 			// Block must be a component of the Flowchart game object
 			if (block == null ||
@@ -242,7 +242,7 @@ namespace Fungus
 			}
 
 			// Execute the first command in the command list
-			block.Execute();
+			block.Execute(onComplete);
 
 			return true;
 		}

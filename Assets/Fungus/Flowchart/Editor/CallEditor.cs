@@ -8,13 +8,15 @@ namespace Fungus
 	[CustomEditor (typeof(Call))]
 	public class CallEditor : CommandEditor 
 	{
+		protected SerializedProperty targetFlowchartProp;
 		protected SerializedProperty targetBlockProp;
-		protected SerializedProperty stopParentBlockProp;
+		protected SerializedProperty callModeProp;
 
 		protected virtual void OnEnable()
 		{
+			targetFlowchartProp = serializedObject.FindProperty("targetFlowchart");
 			targetBlockProp = serializedObject.FindProperty("targetBlock");
-			stopParentBlockProp = serializedObject.FindProperty("stopParentBlock");
+			callModeProp = serializedObject.FindProperty("callMode");
 		}
 
 		public override void DrawCommandGUI()
@@ -23,18 +25,27 @@ namespace Fungus
 
 			Call t = target as Call;
 
-			Flowchart flowchart = t.GetFlowchart();
-			if (flowchart == null)
+			Flowchart flowchart = null;
+			if (targetFlowchartProp.objectReferenceValue == null)
 			{
-				return;
+				flowchart = t.GetFlowchart();
+			}
+			else
+			{
+				flowchart = targetFlowchartProp.objectReferenceValue as Flowchart;
 			}
 
-			BlockEditor.BlockField(targetBlockProp,
-			                             new GUIContent("Target Block", "Block to call"), 
-										 new GUIContent("<Continue>"), 
-										 flowchart);
+			EditorGUILayout.PropertyField(targetFlowchartProp);
 
-			EditorGUILayout.PropertyField(stopParentBlockProp);
+			if (flowchart != null)
+			{
+				BlockEditor.BlockField(targetBlockProp,
+				                       new GUIContent("Target Block", "Block to call"), 
+									   new GUIContent("<None>"), 
+									   flowchart);
+			}
+
+			EditorGUILayout.PropertyField(callModeProp);
 
 			serializedObject.ApplyModifiedProperties();
 		}
