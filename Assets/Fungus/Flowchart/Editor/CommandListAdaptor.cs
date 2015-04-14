@@ -362,7 +362,7 @@ namespace Fungus
 				GUI.Label(commandLabelRect, commandName, commandLabelStyle);
 			}
 			
-			if (command.executingIconTimer > 0f)
+			if (command.executingIconTimer > Time.realtimeSinceStartup)
 			{
 				Rect iconRect = new Rect(commandLabelRect);
 				iconRect.x += iconRect.width - commandLabelRect.width - 20;
@@ -371,8 +371,10 @@ namespace Fungus
 
 				Color storeColor = GUI.color;
 
-				GUI.color = new Color(1f, 1f, 1f, command.executingIconTimer / Block.executingIconFadeTime);
-				command.executingIconTimer = Mathf.Max(0, command.executingIconTimer - Time.deltaTime);
+				float alpha = (command.executingIconTimer - Time.realtimeSinceStartup) / Block.executingIconFadeTime;
+				alpha = Mathf.Clamp01(alpha);
+
+				GUI.color = new Color(1f, 1f, 1f, alpha);
 				GUI.Label(iconRect, FungusEditorResources.texPlaySmall, new GUIStyle());
 
 				GUI.color = storeColor;

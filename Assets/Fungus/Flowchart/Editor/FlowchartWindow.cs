@@ -24,8 +24,6 @@ namespace Fungus
 
 		protected static BlockInspector blockInspector;
 
-		public const float playIconFadeTime = 0.5f;
-
 		protected bool mouseOverVariables = false;
 
 		protected int forceRepaintCount;
@@ -318,34 +316,34 @@ namespace Fungus
 			// Draw play icons beside all executing blocks
 			if (Application.isPlaying)
 			{
-				foreach (Block s in blocks)
+				foreach (Block b in blocks)
 				{
-					if (s.IsExecuting())
+					if (b.IsExecuting())
 					{
-						s.executingIconTimer = playIconFadeTime;
+						b.executingIconTimer = Time.realtimeSinceStartup + Block.executingIconFadeTime;
+						b.activeCommand.executingIconTimer = Time.realtimeSinceStartup + Block.executingIconFadeTime;
 						forceRepaintCount = 6;
 					}
 
-					if (s.executingIconTimer > 0f)
+					if (b.executingIconTimer > Time.realtimeSinceStartup)
 					{
-						s.executingIconTimer = Mathf.Max(s.executingIconTimer - Time.deltaTime, 0f);
-
-						Rect rect = new Rect(s.nodeRect);
+						Rect rect = new Rect(b.nodeRect);
 
 						rect.x += flowchart.scrollPos.x - 37;
 						rect.y += flowchart.scrollPos.y + 3;
 						rect.width = 34;
 						rect.height = 34;
 
-						if (!s.IsExecuting() && s.executingIconTimer < playIconFadeTime)
+						if (!b.IsExecuting())
 						{
-							float alpha = s.executingIconTimer / playIconFadeTime;
+							float alpha = (b.executingIconTimer - Time.realtimeSinceStartup) / Block.executingIconFadeTime;
+							alpha = Mathf.Clamp01(alpha);
 							GUI.color = new Color(1f, 1f, 1f, alpha); 
 						}
 
 						if (GUI.Button(rect, FungusEditorResources.texPlayBig as Texture, new GUIStyle()))
 						{
-							SelectBlock(flowchart, s);
+							SelectBlock(flowchart, b);
 						}
 
 						GUI.color = Color.white;

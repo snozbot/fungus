@@ -61,6 +61,9 @@ namespace Fungus
 
 		protected int executionCount;
 
+		/**
+		 * Duration of fade for executing icon displayed beside blocks & commands.
+		 */
 		public const float executingIconFadeTime = 0.5f;
 
 		/**
@@ -203,7 +206,6 @@ namespace Fungus
 
 				Command command = commandList[i];
 				activeCommand = command;
-				executingIconTimer = executingIconFadeTime;
 
 				if (flowchart.gameObject.activeInHierarchy)
 				{
@@ -217,13 +219,14 @@ namespace Fungus
 				}
 
 				command.isExecuting = true;
-				command.executingIconTimer = executingIconFadeTime;
+				// This icon timer is managed by the FlowchartWindow class, but we also need to
+				// set it here in case a command starts and finishes execution before the next window update.
+				command.executingIconTimer = Time.realtimeSinceStartup + executingIconFadeTime;
 				command.Execute();
 
 				// Wait until the executing command sets another command to jump to via Command.Continue()
 				while (jumpToCommandIndex == -1)
 				{
-					command.executingIconTimer = executingIconFadeTime;
 					yield return null;
 				}
 
