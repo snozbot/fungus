@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Scripting", 
+	[CommandInfo("Flow", 
 	             "Break", 
 	             "Force a loop to terminate immediately.")]
 	[AddComponentMenu("")]

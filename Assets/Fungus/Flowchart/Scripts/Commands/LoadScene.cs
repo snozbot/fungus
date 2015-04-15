@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Scripting", 
+	[CommandInfo("Flow", 
 	             "Load Scene", 
 	             "Loads a new Unity scene and displays an optional loading image. This is useful " +
 	             "for splitting a large game across multiple scene files to reduce peak memory " +

@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Scripting", 
+	[CommandInfo("Flow", 
 	             "Send Message", 
 	             "Sends a message to either the owner Flowchart or all Flowcharts in the scene. Blocks can listen for this message to start execution.")]
 	[AddComponentMenu("")]

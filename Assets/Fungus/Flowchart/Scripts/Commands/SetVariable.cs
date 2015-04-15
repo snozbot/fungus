@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Scripting", 
+	[CommandInfo("Variables", 
 	             "Set Variable", 
 	             "Sets a Boolean, Integer, Float or String variable to a new value using a simple arithmetic operation. The value can be a constant or reference another variable of the same type.")]
 	[AddComponentMenu("")]

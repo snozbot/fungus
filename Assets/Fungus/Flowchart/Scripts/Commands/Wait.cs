@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Scripting", 
+	[CommandInfo("Flow", 
 	             "Wait", 
 	             "Waits for period of time before executing the next command in the block.")]
 

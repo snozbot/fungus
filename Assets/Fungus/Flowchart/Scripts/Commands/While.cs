@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Scripting", 
+	[CommandInfo("Flow", 
 	             "While", 
 	             "Continuously loop through a block of commands while the condition is true. Use the Break command to force the loop to terminate immediately.")]
 	[AddComponentMenu("")]

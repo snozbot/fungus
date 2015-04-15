@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Scripting", 
+	[CommandInfo("Flow", 
 	             "Else", 
 	             "Marks the start of a command block to be executed when the preceding If statement is False.")]
 	[AddComponentMenu("")]

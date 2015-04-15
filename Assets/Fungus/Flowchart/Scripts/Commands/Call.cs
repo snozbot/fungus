@@ -7,7 +7,7 @@ using System;
 namespace Fungus
 {
 
-	[CommandInfo("Scripting", 
+	[CommandInfo("Flow", 
 	             "Call", 
 	             "Execute another block in the same Flowchart.")]
 	[AddComponentMenu("")]

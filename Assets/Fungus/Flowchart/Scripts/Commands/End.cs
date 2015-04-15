@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Scripting", 
+	[CommandInfo("Flow", 
 	             "End", 
 	             "Marks the end of a conditional block.")]
 	[AddComponentMenu("")]

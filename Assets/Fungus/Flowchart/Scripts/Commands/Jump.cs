@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Scripting", 
+	[CommandInfo("Flow", 
 	             "Jump", 
 	             "Move execution to a specific Label command")]
 	[AddComponentMenu("")]

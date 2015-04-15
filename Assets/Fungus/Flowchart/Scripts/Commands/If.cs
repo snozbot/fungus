@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Fungus
 {
 
-	[CommandInfo("Scripting", 
+	[CommandInfo("Flow", 
 	             "If", 
 	             "If the test expression is true, execute the following command block.")]
 	[AddComponentMenu("")]

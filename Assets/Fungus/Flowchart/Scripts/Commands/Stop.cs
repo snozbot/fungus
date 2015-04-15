@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Scripting", 
+	[CommandInfo("Flow", 
 	             "Stop", 
 	             "Stop executing the current Flowchart.")]
 	[AddComponentMenu("")]
