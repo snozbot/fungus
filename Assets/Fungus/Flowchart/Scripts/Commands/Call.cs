@@ -36,6 +36,14 @@ namespace Fungus
 
 			if (targetBlock != null)
 			{
+				// Check if calling your own parent block
+				if (targetBlock == parentBlock)
+				{
+					// Just ignore the callmode in this case, and jump to first command in list
+					Continue(0);
+					return;
+				}
+
 				// Callback action for Wait Until Finished mode
 				Action onComplete = null;
 				if (callMode == CallMode.WaitUntilFinished)
