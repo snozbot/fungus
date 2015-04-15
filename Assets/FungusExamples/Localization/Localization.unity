@@ -298,13 +298,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 69
+    x: 63
     y: 69
     width: 136
     height: 40
   itemId: 0
   blockName: Select Language
-  description: 
+  description: 'The standard language
+
+    in this scene is English, but you can use whatever standard language you want.'
   eventHandler: {fileID: 1369216147}
   commandList:
   - {fileID: 1369216146}
@@ -347,9 +349,8 @@ MonoBehaviour:
     y: -385
     width: 1297
     height: 1047
-  selectedBlock: {fileID: 1369216156}
-  selectedCommands:
-  - {fileID: 1369216165}
+  selectedBlock: {fileID: 1369216148}
+  selectedCommands: []
   variables: []
   description: "This scene shows how to use the Fungus localization system.\nThe key
     elements are the Localization game object, the \nlocalization.csv file and the
@@ -359,7 +360,7 @@ MonoBehaviour:
   hideComponents: 1
   saveSelection: 1
   localizationId: LocalizationDemo
-  nextItemId: 17
+  nextItemId: 18
 --- !u!4 &1369216151
 Transform:
   m_ObjectHideFlags: 0
