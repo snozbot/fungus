@@ -23,6 +23,7 @@ namespace Fungus
 			}
 
 			GameObject go = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+			PrefabUtility.DisconnectPrefabInstance(go);
 
 			Camera sceneCam = SceneView.currentDrawingSceneView.camera;
 
