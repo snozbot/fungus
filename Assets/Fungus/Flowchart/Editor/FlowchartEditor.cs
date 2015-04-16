@@ -21,7 +21,7 @@ namespace Fungus
 		protected SerializedProperty descriptionProp;
 		protected SerializedProperty colorCommandsProp;
 		protected SerializedProperty hideComponentsProp;
-		protected SerializedProperty pauseAfterCommandProp;
+		protected SerializedProperty stepPauseProp;
 		protected SerializedProperty saveSelectionProp;
 		protected SerializedProperty localizationIdProp;
 		protected SerializedProperty variablesProp;
@@ -31,7 +31,7 @@ namespace Fungus
 			descriptionProp = serializedObject.FindProperty("description");
 			colorCommandsProp = serializedObject.FindProperty("colorCommands");
 			hideComponentsProp = serializedObject.FindProperty("hideComponents");
-			pauseAfterCommandProp = serializedObject.FindProperty("pauseAfterCommand");
+			stepPauseProp = serializedObject.FindProperty("stepPause");
 			saveSelectionProp = serializedObject.FindProperty("saveSelection");
 			localizationIdProp = serializedObject.FindProperty("localizationId");
 			variablesProp = serializedObject.FindProperty("variables");
@@ -48,7 +48,7 @@ namespace Fungus
 			EditorGUILayout.PropertyField(descriptionProp);
 			EditorGUILayout.PropertyField(colorCommandsProp);
 			EditorGUILayout.PropertyField(hideComponentsProp);
-			EditorGUILayout.PropertyField(pauseAfterCommandProp);
+			EditorGUILayout.PropertyField(stepPauseProp);
 			EditorGUILayout.PropertyField(saveSelectionProp);
 			EditorGUILayout.PropertyField(localizationIdProp);
 

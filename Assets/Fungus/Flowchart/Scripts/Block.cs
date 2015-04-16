@@ -231,9 +231,9 @@ namespace Fungus
 				}
 
 				#if UNITY_EDITOR
-				if (flowchart.pauseAfterCommand > 0f)
+				if (flowchart.stepPause > 0f)
 				{
-					yield return new WaitForSeconds(flowchart.pauseAfterCommand);
+					yield return new WaitForSeconds(flowchart.stepPause);
 				}
 				#endif
 

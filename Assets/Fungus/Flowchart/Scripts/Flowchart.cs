@@ -86,8 +86,8 @@ namespace Fungus
 	 	 * Slow down execution in the editor to make it easier to visualise program flow.
 	 	 */
 		[Range(0f, 5f)]
-		[Tooltip("Slow down execution in the editor to make it easier to visualise program flow. Does not affect platform builds.")]
-		public float pauseAfterCommand = 0f;
+		[Tooltip("Adds a pause after each execution step to make it easier to visualise program flow. Editor only, has no effect in platform builds.")]
+		public float stepPause = 0f;
 
 		/**
 		 * Use command color when displaying the command list in the inspector.
