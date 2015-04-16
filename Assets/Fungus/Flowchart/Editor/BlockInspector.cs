@@ -42,7 +42,7 @@ namespace Fungus
 			blockEditor.DrawBlockName(flowchart);
 
 			// Using a custom rect area to get the correct 5px indent for the scroll views
-			Rect blockRect = new Rect(5, topPanelHeight, Screen.width - 6, Screen.height);
+			Rect blockRect = new Rect(5, topPanelHeight, Screen.width - 6, Screen.height - 70);
 			GUILayout.BeginArea(blockRect);
 
 			blockScrollPos = GUILayout.BeginScrollView(blockScrollPos, GUILayout.Height(flowchart.blockViewHeight));
