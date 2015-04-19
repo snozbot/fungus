@@ -13,17 +13,46 @@ namespace Fungus
 	{
 		public override void OnEnter()
 		{
-			// Find next End statement at -1 relative indent level
-			for (int i = commandIndex + 1; i < parentBlock.commandList.Count; ++i)
+			// Find index of previous while command
+			int whileIndex = -1;
+			int whileIndentLevel = -1;
+			for (int i = commandIndex - 1; i >=0; --i)
+			{
+				While whileCommand = parentBlock.commandList[i] as While;
+				if (whileCommand != null)
+				{
+					whileIndex = i;
+					whileIndentLevel = whileCommand.indentLevel;
+					break;
+				}
+			}
+
+			if (whileIndex == -1)
+			{
+				// No enclosing While command found, just continue
+				Continue();
+				return;
+			}
+
+			// Find matching End statement at same indent level as While
+			for (int i = whileIndex + 1; i < parentBlock.commandList.Count; ++i)
 			{
 				End endCommand = parentBlock.commandList[i] as End;
 				
 				if (endCommand != null && 
-				    endCommand.indentLevel == indentLevel - 1)
+				    endCommand.indentLevel == whileIndentLevel)
 				{
-					// Continue at next command after End
-					Continue (endCommand.commandIndex + 1);
-					return;
+					// Sanity check that break command is actually between the While and End commands
+					if (commandIndex > whileIndex && commandIndex < endCommand.commandIndex)
+					{
+						// Continue at next command after End
+						Continue (endCommand.commandIndex + 1);
+						return;
+					}
+					else
+					{
+						break;
+					}
 				}
 			}
 
