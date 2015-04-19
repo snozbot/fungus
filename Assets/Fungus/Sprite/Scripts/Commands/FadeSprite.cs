@@ -17,6 +17,12 @@ namespace Fungus
 
 		public override void OnEnter()
 		{
+			if (spriteRenderer == null)
+			{
+				Continue();
+				return;
+			}
+
 			CameraController cameraController = CameraController.GetInstance();
 
 			if (waitUntilFinished)
