@@ -80,8 +80,15 @@ namespace Fungus
 				adaptor.nodeRect = block.nodeRect;
 				
 				ReorderableListFlags flags = ReorderableListFlags.HideAddButton | ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.DisableContextMenu;
-				
-				ReorderableListControl.DrawControlFromState(adaptor, null, flags);
+
+				if (block.commandList.Count == 0)
+				{
+					EditorGUILayout.HelpBox("Press the + button below to add a command to the list.", MessageType.Info);
+				}
+				else
+				{
+					ReorderableListControl.DrawControlFromState(adaptor, null, flags);
+				}
 
 				// EventType.contextClick doesn't register since we moved the Sequence Editor to be inside
 				// a GUI Area, no idea why. As a workaround we just check for right click instead.
