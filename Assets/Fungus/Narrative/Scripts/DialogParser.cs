@@ -67,11 +67,14 @@ namespace Fungus
 				position = m.Index + tagText.Length;
 				m = m.NextMatch();
 			}
-			
-			if (position < storyText.Length - 1)
+
+			if (position < storyText.Length)
 			{
 				string postText = storyText.Substring(position, storyText.Length - position);
-				AddWordsToken(tokens, postText);
+				if (postText.Length > 0)
+				{
+					AddWordsToken(tokens, postText);
+				}
 			}
 		}
 		
