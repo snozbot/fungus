@@ -27,6 +27,8 @@ namespace Fungus
 			public int index;
 		}
 
+		protected static List<Action> actionList = new List<Action>();
+
 		public virtual void DrawBlockName(Flowchart flowchart)
 		{
 			serializedObject.Update();
@@ -51,6 +53,22 @@ namespace Fungus
 		public virtual void DrawBlockGUI(Flowchart flowchart)
 		{
 			serializedObject.Update();
+
+			// Execute any queued cut, copy, paste, etc. operations from the prevous GUI update
+			// We need to defer applying these operations until the following update because
+			// the ReorderableList control emits GUI errors if you clear the list in the same frame
+			// as drawing the control (e.g. select all and then delete)
+			if (Event.current.type == EventType.Layout)
+			{
+				foreach (Action action in actionList)
+				{
+					if (action != null)
+					{
+						action();
+					}
+				}
+				actionList.Clear();
+			}
 
 			Block block = target as Block;
 
@@ -113,7 +131,7 @@ namespace Fungus
 
 					if (e.type == EventType.ExecuteCommand && e.commandName == "Copy")		
 					{
-						Copy();
+						actionList.Add(Copy);
 						e.Use();
 					}
 					
@@ -128,7 +146,7 @@ namespace Fungus
 
 					if (e.type == EventType.ExecuteCommand && e.commandName == "Cut")
 					{
-						Cut();
+						actionList.Add(Cut);
 						e.Use();
 					}
 					
@@ -144,7 +162,7 @@ namespace Fungus
 
 					if (e.type == EventType.ExecuteCommand && e.commandName == "Paste")		
 					{
-						Paste();
+						actionList.Add(Paste);
 						e.Use();
 					}
 					
@@ -159,8 +177,8 @@ namespace Fungus
 
 					if (e.type == EventType.ExecuteCommand && e.commandName == "Duplicate")		
 					{
-						Copy();
-						Paste();
+						actionList.Add(Copy);
+						actionList.Add(Paste);
 						e.Use();
 					}
 					
@@ -175,7 +193,7 @@ namespace Fungus
 
 					if (e.type == EventType.ExecuteCommand && e.commandName == "Delete")		
 					{
-						Delete();
+						actionList.Add(Delete);
 						e.Use();
 					}
 					
@@ -187,9 +205,9 @@ namespace Fungus
 				
 					if (e.type == EventType.ExecuteCommand && e.commandName == "SelectAll")		
 					{
-						SelectAll();
+						actionList.Add(SelectAll);
 						e.Use();
-					}
+					}				
 				}
 
 			}
