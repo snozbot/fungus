@@ -5,8 +5,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Rotorz.ReorderableList;
 using System.IO;
+using System.Reflection;
 
 namespace Fungus
 {
@@ -499,41 +501,138 @@ namespace Fungus
 			return compare;
 		}
 
-		[MenuItem("Tools/Fungus/Utilities/Export Class Info")]
-		protected static void DumpFungusClassInfo()
+		[MenuItem("Tools/Fungus/Utilities/Export Reference Docs")]
+		protected static void ExportReferenceDocs()
 		{
-			string path = EditorUtility.SaveFilePanel("Export strings", "",
-			                                          "FungusClasses.csv", "");
-			
+			string path = EditorUtility.SaveFolderPanel("Export Reference Docs", "", "");			
 			if(path.Length == 0) 
 			{
 				return;
 			}
 
-			string classInfo = "";
+			ExportCommandInfo(path);
+			ExportEventHandlerInfo(path);
 
+			FlowchartWindow.ShowNotification("Exported Reference Documentation");
+		}
+
+		protected static void ExportCommandInfo(string path)
+		{
 			// Dump command info
 			List<System.Type> menuTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).ToList();
 			List<KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = GetFilteredCommandInfoAttribute(menuTypes);
 			filteredAttributes.Sort( CompareCommandAttributes );
+			
+			// Build list of command categories
+			List<string> commandCategories = new List<string>();
 			foreach(var keyPair in filteredAttributes)
 			{
 				CommandInfoAttribute info = keyPair.Value;
-				classInfo += ("Command," + info.CommandName + "," + info.Category + ",\"" + info.HelpText + "\"\n");
+				if (info.Category != "" &&
+				    !commandCategories.Contains(info.Category))
+				{
+					commandCategories.Add (info.Category);
+				}
 			}
+			commandCategories.Sort();
+			
+			// Output the commands in each category
+			foreach (string category in commandCategories)
+			{
+				string markdown = "";
+				foreach(var keyPair in filteredAttributes)
+				{
+					CommandInfoAttribute info = keyPair.Value;
+					
+					if (info.Category == category ||
+					    info.Category == "" && category == "Scripting")
+					{
+						markdown += "## " + info.CommandName + "\n";
+						markdown += info.HelpText + "\n";
+						markdown += GetPropertyInfo(keyPair.Key);
+					}
+				}
+				
+				string filePath = path + "/commands/" + category + ".md";
+				
+				Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+				File.WriteAllText(filePath, markdown);
+			}
+		}
 
-			// Dump event handler info
+		protected static void ExportEventHandlerInfo(string path)
+		{
 			List<System.Type> eventHandlerTypes = EditorExtensions.FindDerivedTypes(typeof(EventHandler)).ToList();
+			List<string> eventHandlerCategories = new List<string>();
+			eventHandlerCategories.Add("Core");
 			foreach (System.Type type in eventHandlerTypes)
 			{
 				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
-				classInfo += ("EventHandler," + info.EventHandlerName + "," + info.Category + ",\"" + info.HelpText + "\"\n");
+				if (info.Category != "" &&
+				    !eventHandlerCategories.Contains(info.Category))
+				{
+					eventHandlerCategories.Add(info.Category);
+				}
 			}
+			eventHandlerCategories.Sort();
+			
+			// Output the commands in each category
+			foreach (string category in eventHandlerCategories)
+			{
+				string markdown = "";
+				
+				foreach (System.Type type in eventHandlerTypes)
+				{
+					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
 
-			File.WriteAllText(path, classInfo);
+					if (info.Category == category ||
+					    info.Category == "" && category == "Core")
+					{
+						markdown += "## " + info.EventHandlerName + "\n";
+						markdown += info.HelpText + "\n";
+						markdown += GetPropertyInfo(type);
+					}
+				}
+				
+				string filePath = path + "/event_handlers/" + category + ".md";
+				
+				Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+				File.WriteAllText(filePath, markdown);
+			}			
 		}
 
-		void ShowCommandMenu()
+		protected static string GetPropertyInfo(System.Type type)
+		{
+			string markdown = "";
+			foreach(FieldInfo field in type.GetFields() )
+			{
+				TooltipAttribute attribute = (TooltipAttribute)Attribute.GetCustomAttribute(field, typeof(TooltipAttribute));
+				if( attribute != null )
+				{
+					// Change field name to how it's displayed in the inspector
+					string propertyName = Regex.Replace(field.Name, "(\\B[A-Z])", " $1");
+					if (propertyName.Length > 1)
+					{
+						propertyName = propertyName.Substring(0,1).ToUpper() + propertyName.Substring(1);
+					}
+					else
+					{
+						propertyName = propertyName.ToUpper();
+					}
+
+					markdown += propertyName + " | " + field.FieldType + " | " + attribute.tooltip + "\n";
+				}
+			}
+
+			if (markdown.Length > 0)
+			{
+				markdown = "\nProperty | Type | Description\n --- | --- | ---\n" + markdown + "\n";
+			}
+
+			return markdown;
+		}
+
+		protected virtual void ShowCommandMenu()
 		{
 			Block block = target as Block;
 

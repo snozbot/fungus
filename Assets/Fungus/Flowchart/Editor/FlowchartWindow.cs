@@ -770,5 +770,17 @@ namespace Fungus
 
 			EditorUtility.SetDirty(blockInspector);
 		}
+
+		/**
+		 * Displays a temporary text alert in the center of the Flowchart window.
+		 */
+		public static void ShowNotification(string notificationText)
+		{
+			EditorWindow window = EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart");
+			if (window != null)
+			{
+				window.ShowNotification(new GUIContent(notificationText));
+			}
+		}
 	}
 }

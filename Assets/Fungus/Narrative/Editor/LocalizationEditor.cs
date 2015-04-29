@@ -102,12 +102,8 @@ namespace Fungus
 
 		protected virtual void ShowNotification(Localization localization)
 		{
-			EditorWindow window = EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart");
-			if (window != null)
-			{
-				window.ShowNotification(new GUIContent(localization.notificationText));
-				localization.notificationText = "";
-			}
+			FlowchartWindow.ShowNotification(localization.notificationText);
+			localization.notificationText = "";
 		}
 	}
 
