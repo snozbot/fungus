@@ -9,6 +9,7 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class ObjectClicked : EventHandler
 	{	
+		[Tooltip("Object that the user can click or tap on")]
 		public Clickable2D clickableObject;
 		
 		public virtual void OnObjectClicked(Clickable2D clickableObject)
