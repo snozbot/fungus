@@ -57,8 +57,10 @@ namespace Fungus
 
 		public virtual void ExportLocalizationFile(Localization localization)
 		{
-			string path = EditorUtility.SaveFilePanel("Export Localization File", "Assets/",
-			                                          "localization.csv", "");
+			string path = EditorUtility.SaveFilePanelInProject("Export Localization File",
+			                                                   "localization.csv",
+			                                                   "csv",
+			                                                   "Please enter a filename to save the localization file to");
 			if (path.Length == 0) 
 			{
 				return;
@@ -66,7 +68,13 @@ namespace Fungus
 
 			string csvData = localization.GetCSVData();			
 			File.WriteAllText(path, csvData);
-			AssetDatabase.Refresh();
+			AssetDatabase.ImportAsset(path);
+
+			TextAsset textAsset = AssetDatabase.LoadAssetAtPath(path, typeof(TextAsset)) as TextAsset;
+			if (textAsset != null)
+			{
+				localization.localizationFile = textAsset;
+			}
 
 			ShowNotification(localization);
 		}
