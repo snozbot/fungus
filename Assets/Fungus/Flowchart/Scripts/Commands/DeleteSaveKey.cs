@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Variables", 
+	[CommandInfo("Variable", 
 	             "Delete Save Key", 
 	             "Deletes a saved value from permanent storage.")]
 	[AddComponentMenu("")]

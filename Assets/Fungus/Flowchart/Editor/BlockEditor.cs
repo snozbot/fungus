@@ -553,7 +553,7 @@ namespace Fungus
 					}
 				}
 				
-				string filePath = path + "/commands/" + category + ".md";
+				string filePath = path + "/commands/" + category.ToLower() + "_commands.md";
 				
 				Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 				File.WriteAllText(filePath, markdown);
@@ -594,7 +594,7 @@ namespace Fungus
 					}
 				}
 				
-				string filePath = path + "/event_handlers/" + category + ".md";
+				string filePath = path + "/event_handlers/" + category.ToLower() + "_events.md";
 				
 				Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 				File.WriteAllText(filePath, markdown);

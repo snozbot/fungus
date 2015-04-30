@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Variables", 
+	[CommandInfo("Variable", 
 	             "Reset", 
 	             "Resets the state of all commands and variables in the Flowchart.")]
 	[AddComponentMenu("")]

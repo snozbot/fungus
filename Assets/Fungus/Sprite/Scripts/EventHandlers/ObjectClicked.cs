@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Fungus 
 {
-	[EventHandlerInfo("Sprites",
+	[EventHandlerInfo("Sprite",
 	                  "Object Clicked",
 	                  "The block will execute when the user clicks or taps on the clickable object.")]
 	[AddComponentMenu("")]

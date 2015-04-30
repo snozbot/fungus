@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[EventHandlerInfo("Sprites",
+	[EventHandlerInfo("Sprite",
 	                  "Drag Started",
 	                  "The block will execute when the player starts dragging an object.")]
 	[AddComponentMenu("")]

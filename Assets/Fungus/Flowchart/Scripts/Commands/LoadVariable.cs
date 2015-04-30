@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Variables", 
+	[CommandInfo("Variable", 
 	             "Load Variable", 
 	             "Loads a saved value and stores it in a Boolean, Integer, Float or String variable. If the key is not found then the variable is not modified.")]
 	[AddComponentMenu("")]

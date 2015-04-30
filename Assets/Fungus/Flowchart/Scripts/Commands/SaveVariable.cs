@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Variables", 
+	[CommandInfo("Variable", 
 	             "Save Variable", 
 	             "Save an Boolean, Integer, Float or String variable to persistent storage using a string key. " +
 	             "The value can be loaded again later using the Load Variable command. You can also " +

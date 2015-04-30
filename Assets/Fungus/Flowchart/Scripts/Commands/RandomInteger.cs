@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Variables", 
+	[CommandInfo("Variable", 
 	             "Random Integer", 
 	             "Sets an integer variable to a random value in the defined range.")]
 	[AddComponentMenu("")]
