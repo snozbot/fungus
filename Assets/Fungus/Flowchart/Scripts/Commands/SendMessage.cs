@@ -5,7 +5,7 @@ namespace Fungus
 {
 	[CommandInfo("Flow", 
 	             "Send Message", 
-	             "Sends a message to either the owner Flowchart or all Flowcharts in the scene. Blocks can listen for this message to start execution.")]
+	             "Sends a message to either the owner Flowchart or all Flowcharts in the scene. Blocks can listen for this message using a Message Received event handler.")]
 	[AddComponentMenu("")]
 	public class SendMessage : Command
 	{
@@ -15,7 +15,10 @@ namespace Fungus
 			AllFlowcharts
 		}
 
+		[Tooltip("Target flowchart(s) to send the message to")]
 		public MessageTarget messageTarget;
+
+		[Tooltip("Name of the message to send")]
 		public string message = "";
 
 		public override void OnEnter()

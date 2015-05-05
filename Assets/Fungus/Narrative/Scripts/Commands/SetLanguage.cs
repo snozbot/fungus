@@ -9,6 +9,7 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class SetLanguage : Command 
 	{
+		[Tooltip("Code of the language to set. e.g. ES, DE, JA")]
 		public string languageCode; 
 
 		public override void OnEnter()

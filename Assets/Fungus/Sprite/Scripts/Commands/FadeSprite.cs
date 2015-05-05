@@ -10,9 +10,16 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class FadeSprite : Command 
 	{
+		[Tooltip("Sprite object to be faded")]
 		public SpriteRenderer spriteRenderer;
+
+		[Tooltip("Length of time to perform the fade")]
 		public float duration = 1f;
+
+		[Tooltip("Target color to fade to. To only fade transparency level, set the color to white and set the alpha to required transparency.")]
 		public Color targetColor = Color.white;
+
+		[Tooltip("Wait until the fade has finished before executing the next command")]
 		public bool waitUntilFinished = true;
 
 		public override void OnEnter()

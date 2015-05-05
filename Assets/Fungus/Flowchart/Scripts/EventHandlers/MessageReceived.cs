@@ -9,6 +9,7 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class MessageReceived : EventHandler 
 	{
+		[Tooltip("Fungus message to listen for")]
 		public string message = "";
 
 		public void OnSendFungusMessage(string message)

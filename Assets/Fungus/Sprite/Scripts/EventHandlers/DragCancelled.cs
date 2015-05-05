@@ -11,6 +11,7 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class DragCancelled : EventHandler
 	{	
+		[Tooltip("Draggable object to listen for drag events on")]
 		public Draggable2D draggableObject;
 		
 		public virtual void OnDragCancelled(Draggable2D draggableObject)

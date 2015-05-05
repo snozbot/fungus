@@ -12,7 +12,10 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class DragExited : EventHandler
 	{	
+		[Tooltip("Draggable object to listen for drag events on")]
 		public Draggable2D draggableObject;
+
+		[Tooltip("Drag target object to listen for drag events on")]
 		public Collider2D targetObject;
 
 		public virtual void OnDragExited(Draggable2D draggableObject, Collider2D targetObject)

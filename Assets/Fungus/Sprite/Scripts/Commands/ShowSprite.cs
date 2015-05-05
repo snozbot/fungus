@@ -10,7 +10,10 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class ShowSprite : Command 
 	{
+		[Tooltip("Sprite object to be made visible / invisible")]
 		public SpriteRenderer spriteRenderer;
+
+		[Tooltip("Make the sprite visible or invisible")]
 		public bool visible = true;
 
 		public override void OnEnter()

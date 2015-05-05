@@ -10,6 +10,7 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Jump : Command
 	{
+		[Tooltip("Label to jump to")]
 		public Label targetLabel;
 
 		public override void OnEnter()

@@ -16,8 +16,10 @@ namespace Fungus
 			Error
 		}
 
+		[Tooltip("Display type of debug log info")]
 		public DebugLogType logType;
 
+		[Tooltip("Text to write to the debug log. Supports variable substitution, e.g. {$Myvar}")]
 		public StringData logMessage;
 
 		public override void OnEnter ()

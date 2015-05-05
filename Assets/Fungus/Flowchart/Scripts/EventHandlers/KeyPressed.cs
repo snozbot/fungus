@@ -16,8 +16,10 @@ namespace Fungus
 			KeyRepeat	// Execute once per frame when key is held down
 		}
 
+		[Tooltip("The type of keypress to activate on")]
 		public KeyPressType keyPressType;
 
+		[Tooltip("Keycode of the key to activate on")]
 		public KeyCode keyCode;
 
 		protected virtual void Update()

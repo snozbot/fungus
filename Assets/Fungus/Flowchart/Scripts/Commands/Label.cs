@@ -10,6 +10,7 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Label : Command
 	{
+		[Tooltip("Display name for the label")]
 		public string key = "";
 
 		public override void OnEnter()

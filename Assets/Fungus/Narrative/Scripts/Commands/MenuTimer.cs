@@ -13,9 +13,11 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class MenuTimer : Command 
 	{		
+		[Tooltip("Length of time to display the timer for")]
 		public float duration;
 
 		[FormerlySerializedAs("targetSequence")]
+		[Tooltip("Block to execute when the timer expires")]
 		public Block targetBlock;
 
 		public override void OnEnter()

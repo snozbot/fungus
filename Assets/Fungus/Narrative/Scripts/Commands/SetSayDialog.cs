@@ -10,6 +10,7 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class SetSayDialog : Command 
 	{
+		[Tooltip("The Say Dialog to use for displaying Say story text")]
 		public SayDialog sayDialog;
 
 		public override void OnEnter()
