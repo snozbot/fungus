@@ -25,6 +25,6 @@ Contributing
 ============
 
 Many thanks to everyone who has contributed code to the project.
-https://github.com/snozbot/fungus/graphs/contributors
+https://github.com/fungusgames/fungus/graphs/contributors
 
 If you would like to contribute a bug fix or new feature, please submit a pull request on github. If you are interested in contributing in some other way (art, audio, documentation, pizza) just email me at chris at snozbot.com.
