@@ -607,21 +607,23 @@ namespace Fungus
 			foreach(FieldInfo field in type.GetFields() )
 			{
 				TooltipAttribute attribute = (TooltipAttribute)Attribute.GetCustomAttribute(field, typeof(TooltipAttribute));
-				if( attribute != null )
+				if (attribute == null )
 				{
-					// Change field name to how it's displayed in the inspector
-					string propertyName = Regex.Replace(field.Name, "(\\B[A-Z])", " $1");
-					if (propertyName.Length > 1)
-					{
-						propertyName = propertyName.Substring(0,1).ToUpper() + propertyName.Substring(1);
-					}
-					else
-					{
-						propertyName = propertyName.ToUpper();
-					}
-
-					markdown += propertyName + " | " + field.FieldType + " | " + attribute.tooltip + "\n";
+					continue;
 				}
+
+				// Change field name to how it's displayed in the inspector
+				string propertyName = Regex.Replace(field.Name, "(\\B[A-Z])", " $1");
+				if (propertyName.Length > 1)
+				{
+					propertyName = propertyName.Substring(0,1).ToUpper() + propertyName.Substring(1);
+				}
+				else
+				{
+					propertyName = propertyName.ToUpper();
+				}
+
+				markdown += propertyName + " | " + field.FieldType + " | " + attribute.tooltip + "\n";
 			}
 
 			if (markdown.Length > 0)
