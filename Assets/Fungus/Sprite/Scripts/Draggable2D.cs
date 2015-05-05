@@ -22,7 +22,7 @@ namespace Fungus
 		[Tooltip("Time object takes to return to its starting position")]
 		public float returnDuration = 1f;
 
-		Vector3 startingPosition;
+		protected Vector3 startingPosition;
 
 		protected virtual void OnMouseDown()
 		{

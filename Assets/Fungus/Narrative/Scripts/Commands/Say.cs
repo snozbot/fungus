@@ -11,6 +11,7 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Say : Command
 	{
+		// Removed this tooltip as users's reported it obscures the text box
 		[TextArea(5,10)]
 		public string storyText = "";
 

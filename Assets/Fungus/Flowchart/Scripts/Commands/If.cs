@@ -11,7 +11,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class If : Condition
 	{
-
 		[Tooltip("Variable to use in expression")]
 		[VariableProperty(typeof(BooleanVariable),
 		                  typeof(IntegerVariable), 

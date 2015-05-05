@@ -34,12 +34,14 @@ namespace Fungus
 		public int itemId = -1; // Invalid flowchart item id
 
 		[FormerlySerializedAs("sequenceName")]
+		[Tooltip("The name of the block node as displayed in the Flowchart window")]
 		public string blockName = "New Block";
 
 		[TextArea(2, 5)]
 		[Tooltip("Description text to display under the block node")]
 		public string description = "";
 
+		[Tooltip("An optional Event Handler which can execute the block when an event occurs")]
 		public EventHandler eventHandler;
 
 		[HideInInspector]

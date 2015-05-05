@@ -16,6 +16,7 @@ namespace Fungus
 			StopLoop,
 			ChangeVolume
 		}
+
 		[Tooltip("What to do to audio")]
 		public controlType control;
 
@@ -33,6 +34,7 @@ namespace Fungus
 		[Tooltip("Time to fade between current volume level and target volume level.")]
 		public float fadeDuration; 
 
+		[Tooltip("Wait until this command has finished before executing the next command.")]
 		public bool waitUntilFinished = false;
 		
 		public override void OnEnter()
