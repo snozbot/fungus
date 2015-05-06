@@ -26,6 +26,7 @@ namespace Fungus
 			if (message.Length == 0)
 			{
 				Continue();
+				return;
 			}
 
 			Flowchart flowchart = GetFlowchart();
