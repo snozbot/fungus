@@ -576,6 +576,10 @@ namespace Fungus
 				handlerStyle.margin.top = 0;
 				handlerStyle.margin.bottom = 0;
 				GUILayout.Label(handlerLabel, handlerStyle);
+
+				// Move connection marker down below handler description
+				float height = 44 + handlerStyle.CalcHeight(new GUIContent(handlerLabel), block.nodeRect.width);
+				block.nodeRect.height = height;
 			}
 
 			if (block.description.Length > 0)
