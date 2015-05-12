@@ -17,7 +17,7 @@ namespace Fungus
 			Localization localization = GameObject.FindObjectOfType<Localization>();
 			if (localization != null)
 			{
-				localization.SetActiveLanguage(languageCode);
+				localization.SetActiveLanguage(languageCode, true);
 			}
 
 			Continue();

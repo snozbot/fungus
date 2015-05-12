@@ -297,7 +297,7 @@ namespace Fungus
 		 * Scan a localization CSV file and copies the strings for the specified language code
 		 * into the text properties of the appropriate scene objects.
 		 */
-		public virtual void SetActiveLanguage(string languageCode)
+		public virtual void SetActiveLanguage(string languageCode, bool forceUpdateSceneText = false)
 		{
 			if (!Application.isPlaying)
 			{
@@ -357,7 +357,13 @@ namespace Fungus
 
 					localizedStrings[fields[0]] = fields[languageIndex];
 				}
-				return;
+
+				// Early out unless we've been told to force the scene text to update.
+				// This happens when the Set Language command is used to reset back to the standard language.
+				if (!forceUpdateSceneText)
+				{
+					return;
+				}
 			}
 
 			// Using a localized language text column
