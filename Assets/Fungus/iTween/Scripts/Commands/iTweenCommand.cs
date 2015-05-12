@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 namespace Fungus
 {
@@ -14,6 +15,7 @@ namespace Fungus
 	public abstract class iTweenCommand : Command 
 	{
 		[Tooltip("Target game object to apply the Tween to")]
+		[FormerlySerializedAs("target")]
 		public GameObject targetObject;
 
 		[Tooltip("An individual name useful for stopping iTweens by name")]
