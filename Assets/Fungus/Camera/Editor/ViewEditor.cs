@@ -23,7 +23,7 @@ namespace Fungus
 			View view = objectTransform.gameObject.GetComponent<View>();
 			if (view != null)
 			{
-				DrawView(view);
+				DrawView(view, false);
 			}
 		}
 
@@ -123,7 +123,7 @@ namespace Fungus
 		{
 			View view = target as View;
 
-			DrawView(view);
+			DrawView(view, true);
 
 			Vector3 pos = view.transform.position;
 
@@ -152,7 +152,7 @@ namespace Fungus
 			}
 		}
 
-		public static void DrawView(View view)
+		public static void DrawView(View view, bool drawInterior)
 		{	
 			float height = CalculateLocalViewSize(view);
 			float widthA = height * (view.primaryAspectRatio.x / view.primaryAspectRatio.y);
@@ -199,37 +199,40 @@ namespace Fungus
 				outline.a = 0.5f;
 			}
 
-			// Draw left box
+			if (drawInterior)
 			{
-				Vector3[] verts = new Vector3[4];
-				verts[0] = view.transform.TransformPoint(new Vector3(-widthB, -height, 0));
-				verts[1] = view.transform.TransformPoint(new Vector3(-widthB, height, 0));
-				verts[2] = view.transform.TransformPoint(new Vector3(-widthA, height, 0));
-				verts[3] = view.transform.TransformPoint(new Vector3(-widthA, -height, 0));
+				// Draw left box
+				{
+					Vector3[] verts = new Vector3[4];
+					verts[0] = view.transform.TransformPoint(new Vector3(-widthB, -height, 0));
+					verts[1] = view.transform.TransformPoint(new Vector3(-widthB, height, 0));
+					verts[2] = view.transform.TransformPoint(new Vector3(-widthA, height, 0));
+					verts[3] = view.transform.TransformPoint(new Vector3(-widthA, -height, 0));
 
-				Handles.DrawSolidRectangleWithOutline(verts, fill, transparent);
-			}
+					Handles.DrawSolidRectangleWithOutline(verts, fill, transparent);
+				}
 
-			// Draw right box
-			{
-				Vector3[] verts = new Vector3[4];
-				verts[0] = view.transform.TransformPoint(new Vector3(widthA, -height, 0));
-				verts[1] = view.transform.TransformPoint(new Vector3(widthA, height, 0));
-				verts[2] = view.transform.TransformPoint(new Vector3(widthB, height, 0));
-				verts[3] = view.transform.TransformPoint(new Vector3(widthB, -height, 0));
-				
-				Handles.DrawSolidRectangleWithOutline(verts, fill, transparent);
-			}
+				// Draw right box
+				{
+					Vector3[] verts = new Vector3[4];
+					verts[0] = view.transform.TransformPoint(new Vector3(widthA, -height, 0));
+					verts[1] = view.transform.TransformPoint(new Vector3(widthA, height, 0));
+					verts[2] = view.transform.TransformPoint(new Vector3(widthB, height, 0));
+					verts[3] = view.transform.TransformPoint(new Vector3(widthB, -height, 0));
+					
+					Handles.DrawSolidRectangleWithOutline(verts, fill, transparent);
+				}
 
-			// Draw inner box
-			{
-				Vector3[] verts = new Vector3[4];
-				verts[0] = view.transform.TransformPoint(new Vector3(-widthA, -height, 0));
-				verts[1] = view.transform.TransformPoint(new Vector3(-widthA, height, 0));
-				verts[2] = view.transform.TransformPoint(new Vector3(widthA, height, 0));
-				verts[3] = view.transform.TransformPoint(new Vector3(widthA, -height, 0));
-				
-				Handles.DrawSolidRectangleWithOutline(verts, transparent, outline );
+				// Draw inner box
+				{
+					Vector3[] verts = new Vector3[4];
+					verts[0] = view.transform.TransformPoint(new Vector3(-widthA, -height, 0));
+					verts[1] = view.transform.TransformPoint(new Vector3(-widthA, height, 0));
+					verts[2] = view.transform.TransformPoint(new Vector3(widthA, height, 0));
+					verts[3] = view.transform.TransformPoint(new Vector3(widthA, -height, 0));
+					
+					Handles.DrawSolidRectangleWithOutline(verts, transparent, outline );
+				}
 			}
 
 			// Draw outer box
