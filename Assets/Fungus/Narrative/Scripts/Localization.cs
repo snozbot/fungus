@@ -1,10 +1,4 @@
-﻿/**
- * CSVParser by Ideafixxxer. http://www.codeproject.com/Tips/741941/CSV-Parser-Csharp
- * This code is licensed under the CPOL open source license.
- * http://www.codeproject.com/info/cpol10.aspx
- */
-
-using UnityEngine;
+﻿using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
