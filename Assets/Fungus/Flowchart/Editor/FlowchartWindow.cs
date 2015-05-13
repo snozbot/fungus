@@ -313,6 +313,34 @@ namespace Fungus
 
 			EndWindows();
 
+			// Draw Event Handler labels
+			foreach (Block block in blocks)
+			{
+				if (block.eventHandler != null)
+				{
+					string handlerLabel = "";
+					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(block.eventHandler.GetType());
+					if (info != null)
+					{
+						handlerLabel = "<" + info.EventHandlerName + "> ";
+					}
+
+					GUIStyle handlerStyle = new GUIStyle(EditorStyles.whiteLabel);
+					handlerStyle.wordWrap = true;
+					handlerStyle.margin.top = 0;
+					handlerStyle.margin.bottom = 0;
+					handlerStyle.alignment = TextAnchor.MiddleCenter;
+
+					Rect rect = new Rect(block.nodeRect);
+					rect.height = handlerStyle.CalcHeight(new GUIContent(handlerLabel), block.nodeRect.width);
+					rect.x += flowchart.scrollPos.x;
+					rect.y += flowchart.scrollPos.y - rect.height;
+
+					GUI.Label(rect, handlerLabel, handlerStyle);
+				}
+			}
+
+
 			// Draw play icons beside all executing blocks
 			if (Application.isPlaying)
 			{
@@ -556,35 +584,9 @@ namespace Fungus
 			GUI.backgroundColor = Color.white;
 			GUILayout.Box(block.blockName, nodeStyleCopy, GUILayout.Width(block.nodeRect.width), GUILayout.Height(block.nodeRect.height));
 
-			if (block.eventHandler != null)
-			{
-				string handlerLabel = "";
-				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(block.eventHandler.GetType());
-				if (info != null)
-				{
-					handlerLabel = "<" + info.EventHandlerName + "> ";
-				}
-
-				string handlerSummary = block.eventHandler.GetSummary();
-				if (handlerSummary.Length > 0)
-				{
-					handlerLabel += handlerSummary;
-				}
-
-				GUIStyle handlerStyle = new GUIStyle(EditorStyles.helpBox);
-				handlerStyle.wordWrap = true;
-				handlerStyle.margin.top = 0;
-				handlerStyle.margin.bottom = 0;
-				GUILayout.Label(handlerLabel, handlerStyle);
-
-				// Move connection marker down below handler description
-				float height = 44 + handlerStyle.CalcHeight(new GUIContent(handlerLabel), block.nodeRect.width);
-				block.nodeRect.height = height;
-			}
-
 			if (block.description.Length > 0)
 			{
-				GUIStyle descriptionStyle = new GUIStyle(EditorStyles.whiteLabel);
+				GUIStyle descriptionStyle = new GUIStyle(EditorStyles.helpBox);
 				descriptionStyle.wordWrap = true;
 				GUILayout.Label(block.description, descriptionStyle);
 			}
