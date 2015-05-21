@@ -17,7 +17,7 @@ namespace Fungus
 		protected SerializedProperty viewSizeProp;
 
 		// Draw Views when they're not selected
-		[DrawGizmo(GizmoType.NotSelected | GizmoType.SelectedOrChild)]
+		[DrawGizmo(GizmoType.NotInSelectionHierarchy | GizmoType.InSelectionHierarchy)]
 		static void RenderCustomGizmo(Transform objectTransform, GizmoType gizmoType)
 		{
 			View view = objectTransform.gameObject.GetComponent<View>();
