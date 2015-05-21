@@ -138,7 +138,7 @@ namespace Fungus
 		}
 
 		/**
-		 * Buidls a dictionary of localizable text items in the scene.
+		 * Builds a dictionary of localizable text items in the scene.
 		 */
 		protected Dictionary<string, TextItem> FindTextItems()
 		{
@@ -160,10 +160,11 @@ namespace Fungus
 			Flowchart[] flowcharts = GameObject.FindObjectsOfType<Flowchart>();
 			foreach (Flowchart flowchart in flowcharts)
 			{
-				// Have to set a unique localization id to export strings
-				if (flowchart.localizationId.Length == 0)
+				// If no localization id has been set then use the Flowchart name
+				string localizationId = flowchart.localizationId;
+				if (localizationId.Length == 0)
 				{
-					continue;
+					localizationId = flowchart.name;
 				}
 
 				Block[] blocks = flowchart.GetComponentsInChildren<Block>();
@@ -182,7 +183,7 @@ namespace Fungus
 							Say sayCommand = command as Say;
 							standardText = sayCommand.storyText;
 							description = sayCommand.description;
-							stringId = "SAY." + flowchart.localizationId + "." + sayCommand.itemId + ".";
+							stringId = "SAY." + localizationId + "." + sayCommand.itemId + ".";
 							if (sayCommand.character != null)
 							{
 								stringId += sayCommand.character.nameText;
@@ -194,7 +195,7 @@ namespace Fungus
 							Menu menuCommand = command as Menu;
 							standardText = menuCommand.text;
 							description = menuCommand.description;
-							stringId = "MENU." + flowchart.localizationId + "." + menuCommand.itemId;
+							stringId = "MENU." + localizationId + "." + menuCommand.itemId;
 						}
 						else
 						{
@@ -373,9 +374,16 @@ namespace Fungus
 
 			// Cache a lookup table of flowcharts in the scene
 			Dictionary<string, Flowchart> flowchartDict = new Dictionary<string, Flowchart>();
-			foreach (Flowchart flowChart in GameObject.FindObjectsOfType<Flowchart>())
+			foreach (Flowchart flowchart in GameObject.FindObjectsOfType<Flowchart>())
 			{
-				flowchartDict[flowChart.localizationId] = flowChart;
+				// If no localization id has been set then use the Flowchart name
+				string localizationId = flowchart.localizationId;
+				if (localizationId.Length == 0)
+				{
+					localizationId = flowchart.name;
+				}
+
+				flowchartDict[localizationId] = flowchart;
 			}
 
 			for (int i = 1; i < csvTable.Length; ++i)
@@ -552,9 +560,16 @@ namespace Fungus
 			
 			// Cache a lookup table of flowcharts in the scene
 			Dictionary<string, Flowchart> flowchartDict = new Dictionary<string, Flowchart>();
-			foreach (Flowchart flowChart in GameObject.FindObjectsOfType<Flowchart>())
+			foreach (Flowchart flowchart in GameObject.FindObjectsOfType<Flowchart>())
 			{
-				flowchartDict[flowChart.localizationId] = flowChart;
+				// If no localization id has been set then use the Flowchart name
+				string localizationId = flowchart.localizationId;
+				if (localizationId.Length == 0)
+				{
+					localizationId = flowchart.name;
+				}
+
+				flowchartDict[localizationId] = flowchart;
 			}
 
 			string[] lines = textData.Split('\n');
