@@ -82,6 +82,12 @@ namespace Fungus
 				{
 					t.variablesExpanded = true;
 				}
+
+				// Draw disclosure triangle
+				Rect lastRect = GUILayoutUtility.GetLastRect();
+				lastRect.x += 5;
+				lastRect.y += 5;
+				EditorGUI.Foldout(lastRect, false, "");
 			}
 			else
 			{
@@ -131,6 +137,12 @@ namespace Fungus
 				{
 					t.variablesExpanded = false;
 				}
+
+				// Draw disclosure triangle
+				Rect lastRect = buttonRect;
+				lastRect.x += 5;
+				lastRect.y += 5;
+				EditorGUI.Foldout(lastRect, true, "");
 
 				Rect plusRect = listRect;
 				plusRect.x += plusRect.width - plusWidth;
