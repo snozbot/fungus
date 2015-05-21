@@ -238,6 +238,10 @@ GameObject:
   - 114: {fileID: 1369216153}
   - 114: {fileID: 1369216152}
   - 114: {fileID: 1369216165}
+  - 114: {fileID: 1369216167}
+  - 114: {fileID: 1369216169}
+  - 114: {fileID: 1369216166}
+  - 114: {fileID: 1369216168}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -338,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 0, y: 0}
+  scrollPos: {x: 120, y: -29}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 280
@@ -348,19 +352,19 @@ MonoBehaviour:
     x: -350
     y: -385
     width: 1297
-    height: 1047
-  selectedBlock: {fileID: 1369216148}
+    height: 1114
+  selectedBlock: {fileID: 1369216159}
   selectedCommands: []
   variables: []
   description: "This scene shows how to use the Fungus localization system.\nThe key
     elements are the Localization game object, the \nlocalization.csv file and the
     Set Language command."
-  pauseAfterCommand: 0
+  stepPause: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
   localizationId: LocalizationDemo
-  nextItemId: 18
+  nextItemId: 22
 --- !u!4 &1369216151
 Transform:
   m_ObjectHideFlags: 0
@@ -520,8 +524,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 246
-    y: 135
+    x: 245
+    y: 201
     width: 120
     height: 40
   itemId: 8
@@ -576,8 +580,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 244
-    y: 220
+    x: 245
+    y: 288
     width: 120
     height: 40
   itemId: 4
@@ -623,7 +627,7 @@ MonoBehaviour:
   indentLevel: 0
   text: English
   description: 
-  targetBlock: {fileID: 1369216156}
+  targetBlock: {fileID: 1369216167}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
 --- !u!114 &1369216165
@@ -643,6 +647,79 @@ MonoBehaviour:
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1369216148}
   callMode: 0
+--- !u!114 &1369216166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1369216145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fc625e237d6048bf86f34835d8266d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 20
+  errorMessage: 
+  indentLevel: 0
+  languageCode: 
+--- !u!114 &1369216167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1369216145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 244
+    y: 114
+    width: 120
+    height: 40
+  itemId: 18
+  blockName: English
+  description: Set language to English
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1369216169}
+  - {fileID: 1369216166}
+  - {fileID: 1369216168}
+--- !u!114 &1369216168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1369216145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 21
+  errorMessage: 
+  indentLevel: 0
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 1369216156}
+  callMode: 0
+--- !u!114 &1369216169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1369216145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 19
+  errorMessage: 
+  indentLevel: 0
+  commenterName: 
+  commentText: Leave language code blank to use standard text
 --- !u!1001 &1843071213
 Prefab:
   m_ObjectHideFlags: 0
