@@ -55,8 +55,14 @@ namespace Fungus
 				if (characterTexture != null)
 					GUI.DrawTexture(previewRect,characterTexture,ScaleMode.ScaleToFit,true,aspect);
 			}
+
 			ReorderableListGUI.Title(new GUIContent("Portraits", "Character image sprites to display in the dialog"));
 			ReorderableListGUI.ListField(portraitsProp);
+
+			EditorGUILayout.HelpBox("All portrait images should use the exact same resolution to avoid positioning and tiling issues.", MessageType.Info);
+
+			EditorGUILayout.Separator();
+
 			string[] facingArrows = new string[]
 			{
 				"FRONT",
