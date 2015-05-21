@@ -9,7 +9,7 @@ namespace Fungus
 
 	[CommandInfo("Flow", 
 	             "Call", 
-	             "Execute another block in the same Flowchart.")]
+	             "Execute another block in the same Flowchart as the command, or in a different Flowchart.")]
 	[AddComponentMenu("")]
 	public class Call : Command
 	{	
@@ -22,9 +22,9 @@ namespace Fungus
 	
 		public enum CallMode
 		{
-			Stop,
-			Continue,
-			WaitUntilFinished
+			Stop,				// Stop executing the current block after calling 
+			Continue,			// Continue executing the current block after calling 
+			WaitUntilFinished	// Wait until the called block finishes executing, then continue executing current block
 		}
 
 		[Tooltip("Select if the calling block should stop or continue executing commands, or wait until the called block finishes.")]
