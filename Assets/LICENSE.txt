@@ -19,13 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-* NOT FOR USE IN COMMERCIAL LIBRARIES *
-
-The Fungus library may be used in any commercial or non-commercial game project. 
-In order to keep to the spirit of this open source project, it is expressly forbidden 
-to sell or commercially distribute any portion of the Fungus library (either as source 
-code or as a compiled library) as part of a commercial library. You are permitted to use 
-Fungus for your game projects and integrate it into other free open source libraries, but 
-you are not permitted to sell Fungus as a library (e.g. as an asset on the Unity Asset Store).
-
