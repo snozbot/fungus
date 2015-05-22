@@ -2701,7 +2701,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1535246060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.5599995, y: -1.49000001, z: -10}
+  m_LocalPosition: {x: -.0500000007, y: -1.49000001, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1128059642}
@@ -2788,6 +2788,8 @@ GameObject:
   - 114: {fileID: 1815667987}
   - 114: {fileID: 1815667988}
   - 114: {fileID: 1815667989}
+  - 114: {fileID: 1815667993}
+  - 114: {fileID: 1815667994}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -2831,6 +2833,8 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 1815667973}
   commandList:
+  - {fileID: 1815667993}
+  - {fileID: 1815667994}
   - {fileID: 1815667986}
   - {fileID: 1815667981}
   - {fileID: 1815667979}
@@ -2884,7 +2888,7 @@ MonoBehaviour:
     height: 939.190308
   selectedBlock: {fileID: 1815667974}
   selectedCommands:
-  - {fileID: 1815667989}
+  - {fileID: 1815667979}
   variables: []
   description: 'This scene shows how to create simple parallax scrolling effects
 
@@ -2894,7 +2898,7 @@ MonoBehaviour:
   hideComponents: 1
   saveSelection: 1
   localizationId: 
-  nextItemId: 21
+  nextItemId: 23
 --- !u!4 &1815667977
 Transform:
   m_ObjectHideFlags: 0
@@ -2939,6 +2943,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   duration: 1
+  fadeOut: 0
   targetView: {fileID: 1112900352}
   waitUntilFinished: 1
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
@@ -3171,6 +3176,40 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   duration: .5
+--- !u!114 &1815667993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1815667972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 21
+  errorMessage: 
+  indentLevel: 0
+  duration: 0
+  targetAlpha: 1
+  waitUntilFinished: 1
+  fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeTexture: {fileID: 0}
+--- !u!114 &1815667994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1815667972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 22
+  errorMessage: 
+  indentLevel: 0
+  duration: 1
 --- !u!4 &1832829438
 Transform:
   m_ObjectHideFlags: 0
