@@ -24,6 +24,9 @@ namespace Fungus
 
 		protected Vector3 startingPosition;
 
+		protected bool updatePosition = false;
+		protected Vector3 newPosition;
+
 		protected virtual void OnMouseDown()
 		{
 			startingPosition = transform.position;
@@ -45,12 +48,22 @@ namespace Fungus
 			float y = Input.mousePosition.y;
 			float z = transform.position.z;
 
-			Vector3 newPosition = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f));
+			newPosition = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f));
 			newPosition.z = z;
-
-			transform.position = newPosition;
+			updatePosition = true;
 		}
-		
+
+		protected virtual void LateUpdate()
+		{
+			// iTween will sometimes override the object position even if it should only be affecting the scale, rotation, etc.
+			// To make sure this doesn't happen, we force the position change to happen in LateUpdate.
+			if (updatePosition)
+			{
+				transform.position = newPosition;
+				updatePosition = false;
+			}
+		}
+
 		protected virtual void OnMouseUp()
 		{
 			if (!dragEnabled)
