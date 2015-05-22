@@ -12,37 +12,43 @@ namespace Fungus
 		[MenuItem("Tools/Fungus/Create/Character", false, 50)]
 		static void CreateCharacter()
 		{
-			FlowchartMenuItems.SpawnPrefab("Character");
+			GameObject go = FlowchartMenuItems.SpawnPrefab("Character");
+			go.transform.position = Vector3.zero;
 		}
 
 		[MenuItem("Tools/Fungus/Create/Say Dialog", false, 51)]
 		static void CreateSayDialog()
 		{
-			FlowchartMenuItems.SpawnPrefab("SayDialog");
+			GameObject go = FlowchartMenuItems.SpawnPrefab("SayDialog");
+			go.transform.position = Vector3.zero;
 		}
 
 		[MenuItem("Tools/Fungus/Create/Menu Dialog", false, 52)]
 		static void CreateMenuDialog()
 		{
-			FlowchartMenuItems.SpawnPrefab("MenuDialog");
+			GameObject go = FlowchartMenuItems.SpawnPrefab("MenuDialog");
+			go.transform.position = Vector3.zero;
 		}
 
 		[MenuItem("Tools/Fungus/Create/Tag", false, 53)]
 		static void CreateTag()
 		{
-			FlowchartMenuItems.SpawnPrefab("Tag");
+			GameObject go = FlowchartMenuItems.SpawnPrefab("Tag");
+			go.transform.position = Vector3.zero;
 		}
 
 		[MenuItem("Tools/Fungus/Create/Audio Tag", false, 54)]
 		static void CreateAudioTag()
 		{
-			FlowchartMenuItems.SpawnPrefab("AudioTag");
+			GameObject go = FlowchartMenuItems.SpawnPrefab("AudioTag");
+			go.transform.position = Vector3.zero;
 		}
 
 		[MenuItem("Tools/Fungus/Create/Stage", false, 55)]
 		static void CreateStage()
 		{
-			FlowchartMenuItems.SpawnPrefab("Stage");
+			GameObject go = FlowchartMenuItems.SpawnPrefab("Stage");
+			go.transform.position = Vector3.zero;
 		}
 		
 		[MenuItem("Tools/Fungus/Create/Stage Position", false, 56)]
@@ -54,7 +60,8 @@ namespace Fungus
 		[MenuItem("Tools/Fungus/Create/Localization", false, 57)]
 		static void CreateLocalization()
 		{
-			FlowchartMenuItems.SpawnPrefab("Localization");
+			GameObject go = FlowchartMenuItems.SpawnPrefab("Localization");
+			go.transform.position = Vector3.zero;
 		}
 	}
 

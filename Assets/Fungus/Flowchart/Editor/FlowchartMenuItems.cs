@@ -11,7 +11,8 @@ namespace Fungus
 		[MenuItem("Tools/Fungus/Create/Flowchart", false, 0)]
 		static void CreateFlowchart()
 		{
-			SpawnPrefab("Flowchart");
+			GameObject go = SpawnPrefab("Flowchart");
+			go.transform.position = Vector3.zero;
 		}
 
 		public static GameObject SpawnPrefab(string prefabName)
