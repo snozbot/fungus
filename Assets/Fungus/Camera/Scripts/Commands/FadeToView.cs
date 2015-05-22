@@ -13,6 +13,9 @@ namespace Fungus
 		[Tooltip("Time for fade effect to complete")]
 		public float duration = 1f;
 
+		[Tooltip("Fade from fully visible to opaque at start of fade")]
+		public bool fadeOut = true;
+
 		[Tooltip("View to transition to when Fade is complete")]
 		public View targetView;
 
@@ -49,7 +52,7 @@ namespace Fungus
 				cameraController.screenFadeTexture = CameraController.CreateColorTexture(fadeColor, 32, 32);
 			}
 
-			cameraController.FadeToView(targetView, duration, delegate {	
+			cameraController.FadeToView(targetView, duration, fadeOut, delegate {	
 				if (waitUntilFinished)
 				{
 					cameraController.waiting = false;

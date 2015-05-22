@@ -131,19 +131,33 @@ namespace Fungus
 		/**
 		 * Fade out, move camera to view and then fade back in.
 		 */
-		public virtual void FadeToView(View view, float fadeDuration, Action fadeAction)
+		public virtual void FadeToView(View view, float fadeDuration, bool fadeOut, Action fadeAction)
 		{
 			swipePanActive = false;
 			fadeAlpha = 0f;
-			
+
+			float outDuration;
+			float inDuration;
+
+			if (fadeOut)
+			{
+				outDuration = fadeDuration / 2f;
+				inDuration = fadeDuration / 2f;
+			}
+			else
+			{
+				outDuration = 0;
+				inDuration = fadeDuration;
+			}
+
 			// Fade out
-			Fade(1f, fadeDuration / 2f, delegate {
+			Fade(1f, outDuration, delegate {
 				
 				// Snap to new view
 				PanToPosition(view.transform.position, view.transform.rotation, view.viewSize, 0f, null);
 				
 				// Fade in
-				Fade(0f, fadeDuration / 2f, delegate {
+				Fade(0f, inDuration, delegate {
 					if (fadeAction != null)
 					{
 						fadeAction();
