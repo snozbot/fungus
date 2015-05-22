@@ -26,10 +26,10 @@ namespace Fungus
 		public string colorText { get; set; }
 		public float writingSpeed { get; set; }
 		public float punctuationPause { get; set; }
-		public AudioSource typingAudio { get; set; }
 		public float slowBeepsAt { get; set; }
 		public float fastBeepsAt { get; set; }
 		public bool beepPerCharacter { get; set; }
+		public Dialog parentDialog { get; set; }
 		
 		public virtual void Clear()
 		{
@@ -38,6 +38,8 @@ namespace Fungus
 
 		public virtual void Append(string words)
 		{
+			AudioSource typingAudio = parentDialog.GetComponent<AudioSource>();
+
 			if (beepPerCharacter && (writingSpeed <= slowBeepsAt || writingSpeed >= fastBeepsAt)) // beeps match character speed at these speeds
 				oneBeep = true;
 			else
@@ -114,6 +116,8 @@ namespace Fungus
 		 */
 		public virtual bool UpdateGlyphs(bool instantComplete)
 		{
+			AudioSource typingAudio = parentDialog.GetComponent<AudioSource>();
+
 			float elapsedTime = Time.deltaTime;
 			
 			foreach (Glyph glyph in glyphs)
@@ -129,7 +133,7 @@ namespace Fungus
 					if (typingAudio != null &&
 					    glyph.hasPunctuationPause)
 					{
-						typingAudio.volume = 0f;
+						parentDialog.SetTypingSoundVolume(false);
 					}
 
 					bool finished = false;
@@ -140,7 +144,7 @@ namespace Fungus
 						// Some elapsed time left over, so carry on to next glyph
 						if ((oneBeep && typingAudio != null))
 						{
-							if(!typingAudio.isPlaying && 
+							if (!typingAudio.isPlaying && 
 							   (glyph.character != " " && glyph.character != "\t" && glyph.character != "\n" ) )
 							{
 								typingAudio.PlayOneShot(typingAudio.clip);
@@ -156,10 +160,9 @@ namespace Fungus
 
 					// Check if we need to restore audio after a punctuation pause
 					if (typingAudio != null &&
-					    glyph.hideTimer == 0f &&
-					    typingAudio.volume == 0f)
+					    glyph.hideTimer == 0f)
 					{
-						typingAudio.volume = 1f;
+						parentDialog.SetTypingSoundVolume(true);
 					}
 
 					if (finished)
@@ -171,7 +174,7 @@ namespace Fungus
 
 			if (typingAudio != null)
 			{
-				typingAudio.Stop();
+				parentDialog.SetTypingSoundVolume(false);
 			}
 
 			return true;

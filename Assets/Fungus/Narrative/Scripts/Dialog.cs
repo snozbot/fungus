@@ -15,6 +15,8 @@ namespace Fungus
 		
 		public float writingSpeed = 60;
 		public AudioClip writingSound;
+		[Range(0,1)]
+		public float writingVolume = 1f;
 		public bool loopWritingSound = true;
 		public bool beepPerCharacter = false;
 		public float slowBeepsAt = 10f;
@@ -50,6 +52,9 @@ namespace Fungus
 
 		protected AudioSource voiceOverAudio;
 
+		// The current target writing volume to move towards 
+		protected float targetWritingVolume; 
+
 		protected virtual void LateUpdate()
 		{
 			wasPointerClicked = false;
@@ -66,6 +71,30 @@ namespace Fungus
 			{
 				wasPointerClicked = true;
 				clickCooldownTimer = 0.2f;
+			}
+
+			// Fade writing sound
+			AudioSource audio = GetComponent<AudioSource>();
+			if (audio != null)
+			{
+				if (audio.volume == 0f &&
+				    targetWritingVolume > 0)
+				{
+					audio.Play();
+				}
+	
+				if (targetWritingVolume > audio.volume)
+				{
+					audio.volume = targetWritingVolume;
+				}
+				else
+				{
+					audio.volume = Mathf.MoveTowards(audio.volume, targetWritingVolume, Time.deltaTime * 8f);
+					if (audio.volume == 0f)
+					{
+						audio.Stop();
+					}
+				}
 			}
 		}
 
@@ -89,7 +118,19 @@ namespace Fungus
 				clickCooldownTimer = 0.2f;
 			}
 		}
-		
+
+		public virtual void SetTypingSoundVolume(bool audible)
+		{
+			if (audible)
+			{
+				targetWritingVolume = writingVolume;
+			}
+			else
+			{
+				targetWritingVolume = 0f;
+			}
+		}
+
 		public virtual void FadeInDialog()
 		{
 			LeanTween.cancel(dialogCanvas.gameObject);
@@ -271,32 +312,32 @@ namespace Fungus
 			}
 
 			DialogText dialogText = new DialogText();
+			dialogText.parentDialog = this;
 			dialogText.writingSpeed = writingSpeed;
 			dialogText.punctuationPause = punctuationPause;
 			dialogText.beepPerCharacter = beepPerCharacter;
 			dialogText.slowBeepsAt = slowBeepsAt;
 			dialogText.fastBeepsAt = fastBeepsAt;
-			
-			GameObject typingAudio = null;
+
+			AudioSource typingAudio = GetComponent<AudioSource>();
 			if (characterTypingSound != null || writingSound != null)
 			{
-				typingAudio = new GameObject("WritingSound");
-				typingAudio.AddComponent<AudioSource>();
-				typingAudio.hideFlags = HideFlags.HideInHierarchy;
-				
 				if (characterTypingSound != null)
 				{
-					typingAudio.GetComponent<AudioSource>().clip = characterTypingSound;
+					typingAudio.clip = characterTypingSound;
 				}
 				else if (writingSound != null)
 				{
-					typingAudio.GetComponent<AudioSource>().clip = writingSound;
+					typingAudio.clip = writingSound;
 				}
 
-				typingAudio.GetComponent<AudioSource>().loop = loopWritingSound;
-				typingAudio.GetComponent<AudioSource>().Play();
+				typingAudio.loop = loopWritingSound;
 
-				dialogText.typingAudio = typingAudio.GetComponent<AudioSource>();
+				// Start at full volume
+				typingAudio.volume = writingVolume;
+				SetTypingSoundVolume(true);
+
+				typingAudio.Play();
 			}
 
 			foreach (Token token in parser.tokens)
@@ -489,8 +530,8 @@ namespace Fungus
 			}
 
 			prevStoryText = storyText.text;
-			
-			Destroy(typingAudio);
+
+			SetTypingSoundVolume(false);
 
 			if (onWritingComplete != null)
 			{
