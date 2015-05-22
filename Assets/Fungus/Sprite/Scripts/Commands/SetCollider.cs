@@ -13,6 +13,9 @@ namespace Fungus
 		[Tooltip("A list of gameobjects containing collider components to be set active / inactive")]
 		public List<GameObject> targetObjects = new List<GameObject>();
 
+		[Tooltip("All objects with this tag will have their collider set active / inactive")]
+		public string targetTag;
+
 		[Tooltip("Set to true to enable the collider components")]
 		public BooleanData activeState;
 
@@ -20,34 +23,48 @@ namespace Fungus
 		{
 			foreach (GameObject go in targetObjects)
 			{
-				if (go != null)		
-				{
-					// 3D objects
-					foreach (Collider c in go.GetComponentsInChildren<Collider>())
-					{
-						c.enabled = activeState.Value;
-					}
+				SetColliderActive(go);
+			}
 
-					// 2D objects
-					foreach (Collider2D c in go.GetComponentsInChildren<Collider2D>())
-					{
-						c.enabled = activeState.Value;
-					}
-				}
+			GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag(targetTag);
+			foreach (GameObject go in taggedObjects)
+			{
+				SetColliderActive(go);
 			}
 
 			Continue();
 		}
+
+		protected virtual void SetColliderActive(GameObject go)
+		{
+			if (go != null)		
+			{
+				// 3D objects
+				foreach (Collider c in go.GetComponentsInChildren<Collider>())
+				{
+					c.enabled = activeState.Value;
+				}
+				
+				// 2D objects
+				foreach (Collider2D c in go.GetComponentsInChildren<Collider2D>())
+				{
+					c.enabled = activeState.Value;
+				}
+			}
+		}
 		
 		public override string GetSummary()
 		{
+			int count = targetObjects.Count;
+			count += GameObject.FindGameObjectsWithTag(targetTag).Length;
+
 			if (activeState.Value)
 			{
-				return "Enable " + targetObjects.Count + " collider objects.";
+				return "Enable " + count + " collider objects.";
 			}
 			else
 			{
-				return "Disable " + targetObjects.Count + " collider objects.";
+				return "Disable " + count + " collider objects.";
 			}
 		}
 		
