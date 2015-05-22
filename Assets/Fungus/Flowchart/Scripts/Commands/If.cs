@@ -117,8 +117,7 @@ namespace Fungus
 				}
 				
 				System.Type type = nextCommand.GetType();
-				if (type == typeof(Else) || 
-				    type == typeof(EndIf) || // Legacy support for old EndIf command
+				if (type == typeof(Else) ||
 				    type == typeof(End))
 				{
 					if (i >= parentBlock.commandList.Count - 1)

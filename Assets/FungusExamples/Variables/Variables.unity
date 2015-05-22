@@ -324,7 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollPos: {x: 258, y: 186}
   variablesScrollPos: {x: 0, y: 0}
-  variablesExpanded: 0
+  variablesExpanded: 1
   blockViewHeight: 280
   zoom: 1
   scrollViewRect:

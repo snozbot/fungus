@@ -9,14 +9,6 @@ using System.Text.RegularExpressions;
 namespace Fungus
 {
 	/**
-	 * The FungusScript class has been renamed to Flowchart to be more descriptive.
-	 */
-	[Obsolete("Use Flowchart class instead")]
-	[ExecuteInEditMode]
-	public class FungusScript : Flowchart
-	{}
-
-	/**
 	 * Visual scripting controller for the Flowchart programming language.
 	 * Flowchart objects may be edited visually using the Flowchart editor window.
 	 */

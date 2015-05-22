@@ -6,16 +6,6 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	/**
-	 * The Sequence class has been renamed to Block to be more descriptive.
-	 */
-	[ExecuteInEditMode]
-	[RequireComponent(typeof(Flowchart))]
-	[AddComponentMenu("")]
-	[Obsolete("Use Block class instead")]
-	public class Sequence : Block 
-	{}
-	
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(Flowchart))]
 	[AddComponentMenu("")]
@@ -107,18 +97,7 @@ namespace Fungus
 
 		public virtual Flowchart GetFlowchart()
 		{
-			Flowchart flowchart = GetComponent<Flowchart>();
-
-			if (flowchart == null)
-			{
-				// Legacy support for earlier system where Blocks were children of the Flowchart
-				if (transform.parent != null)
-				{
-					flowchart = transform.parent.GetComponent<Flowchart>();
-				}
-			}
-
-			return flowchart;
+			return GetComponent<Flowchart>();
 		}
 
 		public virtual bool HasError()
