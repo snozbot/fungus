@@ -145,7 +145,10 @@ namespace Fungus
 				Remove(0);
 			}
 		}
-		
+
+		public void DrawItemBackground(Rect position, int index) {
+		}
+
 		public void DrawItem(Rect position, int index) 
 		{
 			Command command = this[index].objectReferenceValue as Command;

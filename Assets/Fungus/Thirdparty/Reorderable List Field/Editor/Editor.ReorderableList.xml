@@ -4,6 +4,141 @@
     <name>Editor.ReorderableList</name>
   </assembly>
   <members>
+    <member name="T:Rotorz.ReorderableList.AddMenuClickedEventArgs">
+      <summary>
+            Arguments which are passed to <see cref="T:Rotorz.ReorderableList.AddMenuClickedEventHandler" />.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.AddMenuClickedEventArgs.#ctor(Rotorz.ReorderableList.IReorderableListAdaptor,UnityEngine.Rect)">
+      <summary>
+            Initializes a new instance of <see cref="T:Rotorz.ReorderableList.ItemMovedEventArgs" />.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="buttonPosition">Position of the add menu button.</param>
+    </member>
+    <member name="P:Rotorz.ReorderableList.AddMenuClickedEventArgs.Adaptor">
+      <summary>
+            Gets adaptor to reorderable list container.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.AddMenuClickedEventArgs.ButtonPosition">
+      <summary>
+            Gets position of the add menu button.
+            </summary>
+    </member>
+    <member name="T:Rotorz.ReorderableList.AddMenuClickedEventHandler">
+      <summary>
+            An event handler which is invoked when the "Add Menu" button is clicked.
+            </summary>
+      <param name="sender">Object which raised event.</param>
+      <param name="args">Event arguments.</param>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ElementAdderMenuBuilder">
+      <summary>
+             Factory methods that create <see cref="T:Rotorz.ReorderableList.IElementAdderMenuBuilder`1" />
+             instances that can then be used to build element adder menus.
+             </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ElementAdderMenuBuilder.For``1">
+      <summary>
+            Gets a <see cref="T:Rotorz.ReorderableList.IElementAdderMenuBuilder`1" /> to build an element
+            adder menu for a context object of the type <typeparamref name="TContext" />.
+            </summary>
+      <typeparam name="TContext">Type of the context object that elements can be added to.</typeparam>
+      <returns>
+            A new <see cref="T:Rotorz.ReorderableList.IElementAdderMenuBuilder`1" /> instance.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ElementAdderMenuBuilder.For``1(System.Type)">
+      <summary>
+            Gets a <see cref="T:Rotorz.ReorderableList.IElementAdderMenuBuilder`1" /> to build an element
+            adder menu for a context object of the type <typeparamref name="TContext" />.
+            </summary>
+      <param name="contractType">Contract type of addable elements.</param>
+      <typeparam name="TContext">Type of the context object that elements can be added to.</typeparam>
+      <returns>
+            A new <see cref="T:Rotorz.ReorderableList.IElementAdderMenuBuilder`1" /> instance.
+            </returns>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ElementAdderMenuCommandAttribute">
+      <summary>
+             Annotate <see cref="T:Rotorz.ReorderableList.IElementAdderMenuCommand`1" /> implementations with a
+             <see cref="T:Rotorz.ReorderableList.ElementAdderMenuCommandAttribute" /> to associate it with the contract
+             type of addable elements.
+             </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ElementAdderMenuCommandAttribute.#ctor(System.Type)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Rotorz.ReorderableList.ElementAdderMenuCommandAttribute" /> class.
+            </summary>
+      <param name="contractType">Contract type of addable elements.</param>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ElementAdderMenuCommandAttribute.ContractType">
+      <summary>
+            Gets the contract type of addable elements.
+            </summary>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ElementAdderMeta">
+      <summary>
+            Provides meta information which is useful when creating new implementations of
+            the <see cref="T:Rotorz.ReorderableList.IElementAdderMenuBuilder`1" /> interface.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ElementAdderMeta.GetConcreteElementTypes(System.Type)">
+      <summary>
+            Gets an array of all the concrete element types that implement the specified
+            <paramref name="contractType" />.
+            </summary>
+      <param name="contractType">Contract type of addable elements.</param>
+      <returns>
+            An array of zero or more concrete element types.
+            </returns>
+      <exception cref="T:System.ArgumentNullException">
+            If <paramref name="contractType" /> is <c>null</c>.
+            </exception>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ElementAdderMeta.GetConcreteElementTypes(System.Type,System.Func{System.Type,System.Boolean}[])">
+      <summary>
+            Gets a filtered array of the concrete element types that implement the
+            specified <paramref name="contractType" />.
+            </summary>
+      <param name="contractType">Contract type of addable elements.</param>
+      <param name="filters">An array of zero or more filters.</param>
+      <returns>
+            An array of zero or more concrete element types.
+            </returns>
+      <exception cref="T:System.ArgumentNullException">
+            If <paramref name="contractType" /> is <c>null</c>.
+            </exception>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ElementAdderMeta.GetMenuCommands``1(System.Type)">
+      <summary>
+            Gets an array of <see cref="T:Rotorz.ReorderableList.IElementAdderMenuCommand`1" /> instances
+            that are associated with the specified <paramref name="contractType" />.
+            </summary>
+      <param name="contractType">Contract type of addable elements.</param>
+      <typeparam name="TContext">Type of the context object that elements can be added to.</typeparam>
+      <returns>
+            An array containing zero or more <see cref="T:Rotorz.ReorderableList.IElementAdderMenuCommand`1" /> instances.
+            </returns>
+      <exception cref="T:System.ArgumentNullException">
+            If <paramref name="contractType" /> is <c>null</c>.
+            </exception>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ElementAdderMeta.GetMenuCommandTypes``1(System.Type)">
+      <summary>
+            Gets an array of the <see cref="T:Rotorz.ReorderableList.IElementAdderMenuCommand`1" /> types
+            that are associated with the specified <paramref name="contractType" />.
+            </summary>
+      <param name="contractType">Contract type of addable elements.</param>
+      <typeparam name="TContext">Type of the context object that elements can be added to.</typeparam>
+      <returns>
+            An array containing zero or more <see cref="T:System.Type" />.
+            </returns>
+      <exception cref="T:System.ArgumentNullException">
+            If <paramref name="contractType" /> is <c>null</c>.
+            </exception>
+    </member>
     <member name="T:Rotorz.ReorderableList.GenericListAdaptor`1">
       <summary>
             Reorderable list adaptor for generic list.
@@ -53,9 +188,16 @@
     </member>
     <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.DrawItem(UnityEngine.Rect,System.Int32)">
       <summary>
-            Draw interface for list element.
+            Draws main interface for a list item.
             </summary>
       <param name="position">Position in GUI.</param>
+      <param name="index">Zero-based index of array element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.DrawItemBackground(UnityEngine.Rect,System.Int32)">
+      <summary>
+            Draws background of a list item.
+            </summary>
+      <param name="position">Total position of list element in GUI.</param>
       <param name="index">Zero-based index of array element.</param>
     </member>
     <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.Duplicate(System.Int32)">
@@ -64,7 +206,7 @@
             </summary>
       <param name="index">Zero-based index of list element.</param>
     </member>
-    <member name="F:Rotorz.ReorderableList.GenericListAdaptor`1.fixedItemHeight">
+    <member name="F:Rotorz.ReorderableList.GenericListAdaptor`1.FixedItemHeight">
       <summary>
             Fixed height of each list item.
             </summary>
@@ -111,6 +253,140 @@
             </summary>
       <param name="index">Zero-based index of list element.</param>
     </member>
+    <member name="T:Rotorz.ReorderableList.IElementAdder`1">
+      <summary>
+            Interface for an object which adds elements to a context object of the type
+            <typeparamref name="TContext" />.
+            </summary>
+      <typeparam name="TContext">Type of the context object that elements can be added to.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IElementAdder`1.AddElement(System.Type)">
+      <summary>
+            Adds an element of the specified <paramref name="type" /> to the associated
+            context object.
+            </summary>
+      <param name="type">Type of element to add.</param>
+      <returns>
+            The new element.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IElementAdder`1.CanAddElement(System.Type)">
+      <summary>
+            Determines whether a new element of the specified <paramref name="type" /> can
+            be added to the associated context object.
+            </summary>
+      <param name="type">Type of element to add.</param>
+      <returns>
+            A value of <c>true</c> if an element of the specified type can be added;
+            otherwise, a value of <c>false</c>.
+            </returns>
+    </member>
+    <member name="P:Rotorz.ReorderableList.IElementAdder`1.Object">
+      <summary>
+            Gets the context object.
+            </summary>
+    </member>
+    <member name="T:Rotorz.ReorderableList.IElementAdderMenu">
+      <summary>
+            Interface for a menu interface.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IElementAdderMenu.DropDown(UnityEngine.Rect)">
+      <summary>
+            Displays the drop-down menu inside an editor GUI.
+            </summary>
+      <param name="position">Position of menu button in the GUI.</param>
+    </member>
+    <member name="P:Rotorz.ReorderableList.IElementAdderMenu.IsEmpty">
+      <summary>
+            Gets a value indicating whether the menu contains any items.
+            </summary>
+    </member>
+    <member name="T:Rotorz.ReorderableList.IElementAdderMenuBuilder`1">
+      <summary>
+            Interface for building an <see cref="T:Rotorz.ReorderableList.IElementAdderMenu" />.
+            </summary>
+      <typeparam name="TContext">Type of the context object that elements can be added to.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IElementAdderMenuBuilder`1.AddCustomCommand(Rotorz.ReorderableList.IElementAdderMenuCommand{`0})">
+      <summary>
+            Adds a custom command to the menu.
+            </summary>
+      <param name="command">The custom command.</param>
+      <exception cref="T:System.ArgumentNullException">
+            If <paramref name="command" /> is <c>null</c>.
+            </exception>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IElementAdderMenuBuilder`1.AddTypeFilter(System.Func{System.Type,System.Boolean})">
+      <summary>
+            Adds a filter function which determines whether types can be included or
+            whether they need to be excluded.
+            </summary>
+      <param name="typeFilter">Filter function.</param>
+      <exception cref="T:System.ArgumentNullException">
+            If <paramref name="typeFilter" /> is <c>null</c>.
+            </exception>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IElementAdderMenuBuilder`1.GetMenu">
+      <summary>
+            Builds and returns a new <see cref="T:Rotorz.ReorderableList.IElementAdderMenu" /> instance.
+            </summary>
+      <returns>
+            A new <see cref="T:Rotorz.ReorderableList.IElementAdderMenu" /> instance each time the method is invoked.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IElementAdderMenuBuilder`1.SetContractType(System.Type)">
+      <summary>
+            Sets contract type of the elements that can be included in the <see cref="T:Rotorz.ReorderableList.IElementAdderMenu" />.
+            Only non-abstract class types that are assignable from the <paramref name="contractType" />
+            will be included in the built menu.
+            </summary>
+      <param name="contractType">Contract type of addable elements.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IElementAdderMenuBuilder`1.SetElementAdder(Rotorz.ReorderableList.IElementAdder{`0})">
+      <summary>
+            Set the <see cref="T:Rotorz.ReorderableList.IElementAdder`1" /> implementation which is used
+            when adding new elements to the context object.
+            </summary>
+      <param name="elementAdder">Element adder.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IElementAdderMenuBuilder`1.SetTypeDisplayNameFormatter(System.Func{System.Type,System.String})">
+      <summary>
+            Set the function that formats the display of type names in the user interface.
+            </summary>
+      <param name="formatter">Function that formats display name of type; or <c>null</c>.</param>
+    </member>
+    <member name="T:Rotorz.ReorderableList.IElementAdderMenuCommand`1">
+      <summary>
+            Interface for a menu command that can be included in an <see cref="T:Rotorz.ReorderableList.IElementAdderMenu" />
+            either by annotating an implementation of the <see cref="T:Rotorz.ReorderableList.IElementAdderMenuCommand`1" />
+            interface with <see cref="T:Rotorz.ReorderableList.ElementAdderMenuCommandAttribute" /> or directly by
+            calling <see cref="M:Rotorz.ReorderableList.IElementAdderMenuBuilder`1.AddCustomCommand(Rotorz.ReorderableList.IElementAdderMenuCommand{`0})" />.
+            </summary>
+      <typeparam name="TContext">Type of the context object that elements can be added to.</typeparam>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IElementAdderMenuCommand`1.CanExecute(Rotorz.ReorderableList.IElementAdder{`0})">
+      <summary>
+            Determines whether the command can be executed.
+            </summary>
+      <param name="elementAdder">The associated element adder provides access to
+            the <typeparamref name="TContext" /> instance.</param>
+      <returns>
+            A value of <c>true</c> if the command can execute; otherwise, <c>false</c>.
+            </returns>
+    </member>
+    <member name="P:Rotorz.ReorderableList.IElementAdderMenuCommand`1.Content">
+      <summary>
+            Gets the content of the menu command.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IElementAdderMenuCommand`1.Execute(Rotorz.ReorderableList.IElementAdder{`0})">
+      <summary>
+            Executes the command.
+            </summary>
+      <param name="elementAdder">The associated element adder provides access to
+            the <typeparamref name="TContext" /> instance.</param>
+    </member>
     <member name="T:Rotorz.ReorderableList.IReorderableListAdaptor">
       <summary>
             Adaptor allowing reorderable list control to interface with list data.
@@ -151,9 +427,16 @@
     </member>
     <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.DrawItem(UnityEngine.Rect,System.Int32)">
       <summary>
-            Draw interface for list element.
+            Draws main interface for a list item.
             </summary>
       <param name="position">Position in GUI.</param>
+      <param name="index">Zero-based index of array element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.DrawItemBackground(UnityEngine.Rect,System.Int32)">
+      <summary>
+            Draws background of a list item.
+            </summary>
+      <param name="position">Total position of list element in GUI.</param>
       <param name="index">Zero-based index of array element.</param>
     </member>
     <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.Duplicate(System.Int32)">
@@ -203,17 +486,17 @@
       <param name="itemIndex">Zero-based index of item.</param>
       <param name="wasDuplicated">Indicates if inserted item was duplicated from another item.</param>
     </member>
-    <member name="P:Rotorz.ReorderableList.ItemInsertedEventArgs.adaptor">
+    <member name="P:Rotorz.ReorderableList.ItemInsertedEventArgs.Adaptor">
       <summary>
             Gets adaptor to reorderable list container which contains element.
             </summary>
     </member>
-    <member name="P:Rotorz.ReorderableList.ItemInsertedEventArgs.itemIndex">
+    <member name="P:Rotorz.ReorderableList.ItemInsertedEventArgs.ItemIndex">
       <summary>
             Gets zero-based index of item which was inserted.
             </summary>
     </member>
-    <member name="P:Rotorz.ReorderableList.ItemInsertedEventArgs.wasDuplicated">
+    <member name="P:Rotorz.ReorderableList.ItemInsertedEventArgs.WasDuplicated">
       <summary>
             Indicates if inserted item was duplicated from another item.
             </summary>
@@ -225,6 +508,81 @@
       <param name="sender">Object which raised event.</param>
       <param name="args">Event arguments.</param>
     </member>
+    <member name="T:Rotorz.ReorderableList.ItemMovedEventArgs">
+      <summary>
+            Arguments which are passed to <see cref="T:Rotorz.ReorderableList.ItemMovedEventHandler" />.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ItemMovedEventArgs.#ctor(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32,System.Int32)">
+      <summary>
+            Initializes a new instance of <see cref="T:Rotorz.ReorderableList.ItemMovedEventArgs" />.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="oldItemIndex">Old zero-based index of item.</param>
+      <param name="newItemIndex">New zero-based index of item.</param>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ItemMovedEventArgs.Adaptor">
+      <summary>
+            Gets adaptor to reorderable list container which contains element.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ItemMovedEventArgs.NewItemIndex">
+      <summary>
+            Gets new zero-based index of the item which was moved.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ItemMovedEventArgs.OldItemIndex">
+      <summary>
+            Gets old zero-based index of the item which was moved.
+            </summary>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ItemMovedEventHandler">
+      <summary>
+            An event handler which is invoked after a list item is moved.
+            </summary>
+      <param name="sender">Object which raised event.</param>
+      <param name="args">Event arguments.</param>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ItemMovingEventArgs">
+      <summary>
+            Arguments which are passed to <see cref="T:Rotorz.ReorderableList.ItemMovingEventHandler" />.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ItemMovingEventArgs.#ctor(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32,System.Int32)">
+      <summary>
+            Initializes a new instance of <see cref="T:Rotorz.ReorderableList.ItemMovingEventArgs" />.
+            </summary>
+      <param name="adaptor">Reorderable list adaptor.</param>
+      <param name="itemIndex">Zero-based index of item.</param>
+      <param name="destinationItemIndex">Xero-based index of item destination.</param>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ItemMovingEventArgs.Adaptor">
+      <summary>
+            Gets adaptor to reorderable list container which contains element.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ItemMovingEventArgs.DestinationItemIndex">
+      <summary>
+            Gets the new candidate zero-based index for the item.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ItemMovingEventArgs.ItemIndex">
+      <summary>
+            Gets current zero-based index of item which is going to be moved.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ItemMovingEventArgs.NewItemIndex">
+      <summary>
+            Gets zero-based index of item <strong>after</strong> it has been moved.
+            </summary>
+    </member>
+    <member name="T:Rotorz.ReorderableList.ItemMovingEventHandler">
+      <summary>
+            An event handler which is invoked before a list item is moved.
+            </summary>
+      <param name="sender">Object which raised event.</param>
+      <param name="args">Event arguments.</param>
+    </member>
     <member name="T:Rotorz.ReorderableList.ItemRemovingEventArgs">
       <summary>
             Arguments which are passed to <see cref="T:Rotorz.ReorderableList.ItemRemovingEventHandler" />.
@@ -232,19 +590,19 @@
     </member>
     <member name="M:Rotorz.ReorderableList.ItemRemovingEventArgs.#ctor(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32)">
       <summary>
-            Initializes a new instance of <see cref="T:Rotorz.ReorderableList.ItemInsertedEventArgs" />.
+            Initializes a new instance of <see cref="T:Rotorz.ReorderableList.ItemRemovingEventArgs" />.
             </summary>
       <param name="adaptor">Reorderable list adaptor.</param>
       <param name="itemIndex">Zero-based index of item.</param>
     </member>
-    <member name="P:Rotorz.ReorderableList.ItemRemovingEventArgs.adaptor">
+    <member name="P:Rotorz.ReorderableList.ItemRemovingEventArgs.Adaptor">
       <summary>
             Gets adaptor to reorderable list container which contains element.
             </summary>
     </member>
-    <member name="P:Rotorz.ReorderableList.ItemRemovingEventArgs.itemIndex">
+    <member name="P:Rotorz.ReorderableList.ItemRemovingEventArgs.ItemIndex">
       <summary>
-            Gets zero-based index of item which was inserted.
+            Gets zero-based index of item which is being removed.
             </summary>
     </member>
     <member name="T:Rotorz.ReorderableList.ItemRemovingEventHandler">
@@ -270,11 +628,6 @@
             </summary>
       <param name="flags">Optional flags which affect behavior of control.</param>
     </member>
-    <member name="P:Rotorz.ReorderableList.ReorderableListControl.addButtonStyle">
-      <summary>
-            Gets or sets style used to draw add button.
-            </summary>
-    </member>
     <member name="M:Rotorz.ReorderableList.ReorderableListControl.AddItem(Rotorz.ReorderableList.IReorderableListAdaptor)">
       <summary>
             Add item at end of list and raises the event <see cref="E:Rotorz.ReorderableList.ReorderableListControl.ItemInserted" />.
@@ -288,6 +641,11 @@
       <param name="menu">Menu which can be populated.</param>
       <param name="itemIndex">Zero-based index of item which was right-clicked.</param>
       <param name="adaptor">Reorderable list adaptor.</param>
+    </member>
+    <member name="E:Rotorz.ReorderableList.ReorderableListControl.AddMenuClicked">
+      <summary>
+            Occurs when add menu button is clicked.
+            </summary>
     </member>
     <member name="F:Rotorz.ReorderableList.ReorderableListControl.AnchorBackgroundColor">
       <summary>
@@ -322,47 +680,47 @@
             Returns a value of <c>false</c> if operation was cancelled.
             </returns>
     </member>
-    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandClearAll">
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.CommandClearAll">
       <summary>
             Content for "Clear All" command.
             </summary>
     </member>
-    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandDuplicate">
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.CommandDuplicate">
       <summary>
             Content for "Duplicate" command.
             </summary>
     </member>
-    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandInsertAbove">
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.CommandInsertAbove">
       <summary>
             Content for "Insert Above" command.
             </summary>
     </member>
-    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandInsertBelow">
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.CommandInsertBelow">
       <summary>
             Content for "Insert Below" command.
             </summary>
     </member>
-    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandMoveToBottom">
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.CommandMoveToBottom">
       <summary>
             Content for "Move to Bottom" command.
             </summary>
     </member>
-    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandMoveToTop">
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.CommandMoveToTop">
       <summary>
             Content for "Move to Top" command.
             </summary>
     </member>
-    <member name="F:Rotorz.ReorderableList.ReorderableListControl.commandRemove">
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.CommandRemove">
       <summary>
             Content for "Remove" command.
             </summary>
     </member>
-    <member name="P:Rotorz.ReorderableList.ReorderableListControl.containerStyle">
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.ContainerStyle">
       <summary>
             Gets or sets style used to draw background of list control.
             </summary>
     </member>
-    <member name="F:Rotorz.ReorderableList.ReorderableListControl.defaultContextHandler">
+    <member name="F:Rotorz.ReorderableList.ReorderableListControl.DefaultContextHandler">
       <summary>
             Default functionality to handle context command.
             </summary>
@@ -445,9 +803,14 @@
       <param name="adaptor">Reorderable list adaptor.</param>
       <param name="itemIndex">Zero-based index of item.</param>
     </member>
-    <member name="P:Rotorz.ReorderableList.ReorderableListControl.flags">
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.Flags">
       <summary>
             Gets or sets flags which affect behavior of control.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.FooterButtonStyle">
+      <summary>
+            Gets or sets style used to draw footer buttons.
             </summary>
     </member>
     <member name="M:Rotorz.ReorderableList.ReorderableListControl.HandleCommand(System.String,System.Int32,Rotorz.ReorderableList.IReorderableListAdaptor)">
@@ -468,14 +831,29 @@
       <param name="adaptor">Reorderable list adaptor.</param>
       <param name="itemIndex">Zero-based index of item.</param>
     </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.ItemButtonStyle">
+      <summary>
+            Gets or sets style used to draw list item buttons (like the remove button).
+            </summary>
+    </member>
     <member name="E:Rotorz.ReorderableList.ReorderableListControl.ItemInserted">
       <summary>
             Occurs after list item is inserted or duplicated.
             </summary>
     </member>
+    <member name="E:Rotorz.ReorderableList.ReorderableListControl.ItemMoved">
+      <summary>
+            Occurs after list item has been moved.
+            </summary>
+    </member>
+    <member name="E:Rotorz.ReorderableList.ReorderableListControl.ItemMoving">
+      <summary>
+            Occurs immediately before list item is moved allowing for move operation to be cancelled.
+            </summary>
+    </member>
     <member name="E:Rotorz.ReorderableList.ReorderableListControl.ItemRemoving">
       <summary>
-            Occurs before list item is removed and allows removal to be cancelled.
+            Occurs before list item is removed and allowing for remove operation to be cancelled.
             </summary>
     </member>
     <member name="M:Rotorz.ReorderableList.ReorderableListControl.MoveItem(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32,System.Int32)">
@@ -486,9 +864,27 @@
       <param name="sourceIndex">Zero-based index of source item.</param>
       <param name="destIndex">Zero-based index of destination index.</param>
     </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.OnAddMenuClicked(Rotorz.ReorderableList.AddMenuClickedEventArgs)">
+      <summary>
+            Raises event when add menu button is clicked.
+            </summary>
+      <param name="args">Event arguments.</param>
+    </member>
     <member name="M:Rotorz.ReorderableList.ReorderableListControl.OnItemInserted(Rotorz.ReorderableList.ItemInsertedEventArgs)">
       <summary>
             Raises event after list item is inserted or duplicated.
+            </summary>
+      <param name="args">Event arguments.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.OnItemMoved(Rotorz.ReorderableList.ItemMovedEventArgs)">
+      <summary>
+            Raises event after list item has been moved.
+            </summary>
+      <param name="args">Event arguments.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.OnItemMoving(Rotorz.ReorderableList.ItemMovingEventArgs)">
+      <summary>
+            Raises event immediately before list item is moved and provides oppertunity to cancel.
             </summary>
       <param name="args">Event arguments.</param>
     </member>
@@ -497,11 +893,6 @@
             Raises event before list item is removed and provides oppertunity to cancel.
             </summary>
       <param name="args">Event arguments.</param>
-    </member>
-    <member name="P:Rotorz.ReorderableList.ReorderableListControl.removeButtonStyle">
-      <summary>
-            Gets or sets style used to draw remove button.
-            </summary>
     </member>
     <member name="M:Rotorz.ReorderableList.ReorderableListControl.RemoveItem(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32)">
       <summary>
@@ -674,20 +1065,10 @@
             Required list height in pixels.
             </returns>
     </member>
-    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.currentItemIndex">
+    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.CurrentItemIndex">
       <summary>
             Gets zero-based index of list item which is currently being drawn;
             or a value of -1 if no item is currently being drawn.
-            </summary>
-    </member>
-    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.defaultAddButtonStyle">
-      <summary>
-            Gets default style for add item button.
-            </summary>
-    </member>
-    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.defaultContainerStyle">
-      <summary>
-            Gets default style for background of list control.
             </summary>
     </member>
     <member name="M:Rotorz.ReorderableList.ReorderableListGUI.DefaultItemDrawer``1(UnityEngine.Rect,``0)">
@@ -706,17 +1087,7 @@
             Default list item height is 18 pixels.
             </summary>
     </member>
-    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.defaultRemoveButtonStyle">
-      <summary>
-            Gets default style for remove item button.
-            </summary>
-    </member>
-    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.defaultTitleStyle">
-      <summary>
-            Gets default style for title header.
-            </summary>
-    </member>
-    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.indexOfChangedItem">
+    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.IndexOfChangedItem">
       <summary>
             Gets or sets zero-based index of last item which was changed. A value of -1
             indicates that no item was changed by list.
@@ -1162,6 +1533,46 @@
       <param name="position">Position of control.</param>
       <param name="title">Content for title control.</param>
     </member>
+    <member name="T:Rotorz.ReorderableList.ReorderableListStyles">
+      <summary>
+            Styles for the <see cref="T:Rotorz.ReorderableList.ReorderableListControl" />.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListStyles.Container">
+      <summary>
+            Gets style for the background of list control.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListStyles.Container2">
+      <summary>
+            Gets an alternative style for the background of list control.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListStyles.FooterButton">
+      <summary>
+            Gets style for footer button.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListStyles.FooterButton2">
+      <summary>
+            Gets an alternative style for footer button.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListStyles.ItemButton">
+      <summary>
+            Gets style for remove item button.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListStyles.SelectedItem">
+      <summary>
+            Gets style for the background of a selected item.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListStyles.Title">
+      <summary>
+            Gets style for title header.
+            </summary>
+    </member>
     <member name="T:Rotorz.ReorderableList.SerializedPropertyAdaptor">
       <summary>
             Reorderable list adaptor for serialized array property.
@@ -1220,9 +1631,16 @@
     </member>
     <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.DrawItem(UnityEngine.Rect,System.Int32)">
       <summary>
-            Draw interface for list element.
+            Draws main interface for a list item.
             </summary>
       <param name="position">Position in GUI.</param>
+      <param name="index">Zero-based index of array element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.DrawItemBackground(UnityEngine.Rect,System.Int32)">
+      <summary>
+            Draws background of a list item.
+            </summary>
+      <param name="position">Total position of list element in GUI.</param>
       <param name="index">Zero-based index of array element.</param>
     </member>
     <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.Duplicate(System.Int32)">
@@ -1231,7 +1649,7 @@
             </summary>
       <param name="index">Zero-based index of list element.</param>
     </member>
-    <member name="F:Rotorz.ReorderableList.SerializedPropertyAdaptor.fixedItemHeight">
+    <member name="F:Rotorz.ReorderableList.SerializedPropertyAdaptor.FixedItemHeight">
       <summary>
             Fixed height of each list item.
             </summary>

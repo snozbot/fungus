@@ -81,7 +81,10 @@ namespace Fungus
 		public void Clear() {
 			_arrayProperty.ClearArray();
 		}
-		
+
+		public virtual void DrawItemBackground(Rect position, int index) {
+		}
+
 		public void DrawItem(Rect position, int index) 
 		{
 			Variable variable = this[index].objectReferenceValue as Variable;

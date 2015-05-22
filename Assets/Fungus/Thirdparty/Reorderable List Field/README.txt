@@ -5,8 +5,8 @@ List control for Unity allowing editor developers to add reorderable list contro
 their GUIs. Supports generic lists and serialized property arrays, though additional
 collection types can be supported by implementing `Rotorz.ReorderableList.IReorderableListAdaptor`.
 
-Use of this source code is governed by a BSD-style license that can be found in
-the LICENSE file. DO NOT contribute to this project unless you accept the terms of the
+Licensed under the MIT license. See LICENSE file in the project root for full license
+information. DO NOT contribute to this project unless you accept the terms of the
 contribution agreement.
 
 ![screenshot](https://bitbucket.org/rotorz/reorderable-list-editor-field-for-unity/raw/master/screenshot.png)
@@ -20,7 +20,7 @@ Features
 - Subscribe to add/remove item events.
 - Supports mixed item heights.
 - Disable drag and/or removal on per-item basis.
-- Styles can be overriden on per-list basis if desired.
+- Styles can be overridden on per-list basis if desired.
 - Subclass list control to override context menu.
 - User guide (Asset Path/Support/User Guide.pdf).
 - API reference documentation (Asset Path/Support/API Reference.chm).
@@ -30,9 +30,10 @@ Installing scripts
 
 This control can be added to your project by importing the Unity package which
 contains a compiled class library (DLL). This can be used by C# and UnityScript
-developers.
+developers. Minimal version of package does not include demonstration assets or
+zip archive of image source resources.
 
-[Download RotorzReorderableList_v0.2.4 Package (requires Unity 4.2.1+)](<https://bitbucket.org/rotorz/reorderable-list-editor-field-for-unity/downloads/RotorzReorderableList_v0.2.4.unitypackage>)
+- [Download RotorzReorderableList_v0.2.9 Package (requires Unity 4.3.4+)](<https://bitbucket.org/rotorz/reorderable-list-editor-field-for-unity/downloads/RotorzReorderableList_v0.2.9.unitypackage>)
 
 If you would prefer to use the non-compiled source code version in your project,
 copy the contents of this repository somewhere into your project.
@@ -118,7 +119,7 @@ Useful links
 Contribution Agreement
 ----------------------
 
-This project is licensed under the BSD license (see LICENSE). To be in the best
+This project is licensed under the MIT license (see LICENSE). To be in the best
 position to enforce these licenses the copyright status of this project needs to
 be as simple as possible. To achieve this the following terms and conditions
 must be met:
@@ -128,14 +129,8 @@ must be met:
   contributors own work.
 
 - The contributor disclaims all copyright and accepts that their contributed
-  content will be released to the [public domain](<http://en.wikipedia.org/wiki/Public_domain>).
+  content will be released to the public domain.
 
 - The act of submitting a contribution indicates that the contributor agrees
   with this agreement. This includes (but is not limited to) pull requests, issues,
   tickets, e-mails, newsgroups, blogs, forums, etc.
-
-### Disclaimer
-
-External content linked in the above text are for convienence purposes only and
-do not contribute to the agreement in any way. Linked content should be digested
-under the readers discretion.
