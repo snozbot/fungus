@@ -14,7 +14,7 @@ namespace Fungus
 		public List<GameObject> targetObjects = new List<GameObject>();
 
 		[Tooltip("All objects with this tag will have their collider set active / inactive")]
-		public string targetTag;
+		public string targetTag = "";
 
 		[Tooltip("Set to true to enable the collider components")]
 		public BooleanData activeState;
@@ -56,7 +56,6 @@ namespace Fungus
 		public override string GetSummary()
 		{
 			int count = targetObjects.Count;
-			count += GameObject.FindGameObjectsWithTag(targetTag).Length;
 
 			if (activeState.Value)
 			{
