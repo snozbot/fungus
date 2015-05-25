@@ -153,6 +153,7 @@ namespace Fungus
 				{
 					block.itemId = NextItemId();
 				}
+				usedIds.Add(block.itemId);
 			}
 
 			Command[] commands = GetComponentsInChildren<Command>();
@@ -163,6 +164,7 @@ namespace Fungus
 				{
 					command.itemId = NextItemId();
 				}
+				usedIds.Add(command.itemId);
 			}
 		}
 
