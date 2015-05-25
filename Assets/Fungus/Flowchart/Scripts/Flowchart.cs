@@ -141,9 +141,19 @@ namespace Fungus
 				cachedFlowcharts.Add(this);
 			}
 
-			// Assign an item id to any block or command that doesn't have one yet, or
-			// that has an already assigned item id.
-			// This should only happen after loading a legacy Flowchart.
+			CheckItemIds();
+			CleanupComponents();
+		}
+
+		public virtual void OnDisable()
+		{
+			cachedFlowcharts.Remove(this);
+		}
+
+		protected virtual void CheckItemIds()
+		{
+			// Make sure item ids are unique and monotonically increasing.
+			// This should always be the case, but some legacy Flowcharts may have issues.
 			List<int> usedIds = new List<int>();
 			Block[] blocks = GetComponentsInChildren<Block>();
 			foreach (Block block in blocks)
@@ -155,7 +165,7 @@ namespace Fungus
 				}
 				usedIds.Add(block.itemId);
 			}
-
+			
 			Command[] commands = GetComponentsInChildren<Command>();
 			foreach (Command command in commands)
 			{
@@ -168,9 +178,57 @@ namespace Fungus
 			}
 		}
 
-		public virtual void OnDisable()
+		protected virtual void CleanupComponents()
 		{
-			cachedFlowcharts.Remove(this);
+			// Delete any unreferenced components which shouldn't exist any more
+			// Unreferenced components don't have any effect on the flowchart behavior, but
+			// they waste memory so should be cleared out periodically.
+
+			Block[] blocks = GetComponentsInChildren<Block>();
+			
+			foreach (Variable variable in GetComponents<Variable>())
+			{
+				if (!variables.Contains(variable))
+				{
+					DestroyImmediate(variable);
+				}
+			}
+			
+			foreach (Command command in GetComponents<Command>())
+			{
+				bool found = false;
+				foreach (Block block in blocks)
+				{
+					if (block.commandList.Contains(command))
+					{
+						found = true;
+						break;
+					}
+				}
+				
+				if (!found)
+				{
+					DestroyImmediate(command);
+				}
+			}
+			
+			foreach (EventHandler eventHandler in GetComponents<EventHandler>())
+			{
+				bool found = false;
+				foreach (Block block in blocks)
+				{
+					if (block.eventHandler == eventHandler)
+					{
+						found = true;
+						break;
+					}
+				}
+				
+				if (!found)
+				{
+					DestroyImmediate(eventHandler);
+				}
+			}
 		}
 
 		protected virtual Block CreateBlockComponent(GameObject parent)
