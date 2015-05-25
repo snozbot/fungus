@@ -26,10 +26,22 @@ namespace Fungus
 				SetColliderActive(go);
 			}
 
-			GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag(targetTag);
-			foreach (GameObject go in taggedObjects)
+			GameObject[] taggedObjects = null;
+			try
 			{
-				SetColliderActive(go);
+				taggedObjects = GameObject.FindGameObjectsWithTag(targetTag);
+			}
+			catch
+			{
+				// The tag has not been declared in this scene
+			}
+
+			if (taggedObjects != null)
+			{
+				foreach (GameObject go in taggedObjects)
+				{
+					SetColliderActive(go);
+				}
 			}
 
 			Continue();
