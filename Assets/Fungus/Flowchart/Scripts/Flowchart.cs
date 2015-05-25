@@ -108,14 +108,6 @@ namespace Fungus
 		public string localizationId = "";
 
 		/**
-		 * Unique id to assign to the next created item.
-		 * Increases monotonically every time a new item is added to the Flowchart.
-		 */
-		[FormerlySerializedAs("nextCommandId")]
-		[SerializeField]
-		protected int nextItemId = 0;
-
-		/**
 		 * Cached list of flowchart objects in the scene for fast lookup
 		 */
 		public static List<Flowchart> cachedFlowcharts = new List<Flowchart>();
@@ -127,7 +119,19 @@ namespace Fungus
 		 */
 		public int NextItemId()
 		{
-			return nextItemId++;
+			int maxId = -1;
+			Block[] blocks = GetComponentsInChildren<Block>();
+			foreach (Block block in blocks)
+			{
+				maxId = Math.Max(maxId, block.itemId);
+			}
+			
+			Command[] commands = GetComponentsInChildren<Command>();
+			foreach (Command command in commands)
+			{
+				maxId = Math.Max(maxId, command.itemId);
+			}
+			return maxId + 1;
 		}
 
 		public virtual void OnEnable()
@@ -137,12 +141,15 @@ namespace Fungus
 				cachedFlowcharts.Add(this);
 			}
 
-			// Assign an item id to any block or command that doesn't have one yet.
-			// This should only happen after loading a legacy Flowchart
+			// Assign an item id to any block or command that doesn't have one yet, or
+			// that has an already assigned item id.
+			// This should only happen after loading a legacy Flowchart.
+			List<int> usedIds = new List<int>();
 			Block[] blocks = GetComponentsInChildren<Block>();
 			foreach (Block block in blocks)
 			{
-				if (block.itemId == -1)
+				if (block.itemId == -1 ||
+				    usedIds.Contains(block.itemId))
 				{
 					block.itemId = NextItemId();
 				}
@@ -151,7 +158,8 @@ namespace Fungus
 			Command[] commands = GetComponentsInChildren<Command>();
 			foreach (Command command in commands)
 			{
-				if (command.itemId == -1)
+				if (command.itemId == -1 ||
+				    usedIds.Contains(command.itemId))
 				{
 					command.itemId = NextItemId();
 				}
