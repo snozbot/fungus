@@ -430,7 +430,7 @@ namespace Fungus
 					if (onExitTag != null)
 					{
 						prevStoryText = storyText.text;
-						Destroy(typingAudio);
+						SetTypingSoundVolume(false);
 						onExitTag();
 					}
 					yield break;
