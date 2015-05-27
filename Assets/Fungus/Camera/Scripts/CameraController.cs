@@ -32,16 +32,17 @@ namespace Fungus
 		 * Fixed Z coordinate of main camera.
 		 */
 		public float cameraZ = -10f;
-		
-		[HideInInspector]
-		public bool swipePanActive;
-		
+
 		[HideInInspector]
 		public bool waiting; 
 		
 		protected float fadeAlpha = 0f;
 		
 		// Swipe panning control
+		[HideInInspector]
+		public bool swipePanActive;
+		[HideInInspector]
+		public float swipeSpeedMultiplier = 1f;
 		protected View swipePanViewA;
 		protected View swipePanViewB;
 		protected Vector3 previousMousePos;
@@ -426,7 +427,7 @@ namespace Fungus
 		 * Activates swipe panning mode.
 		 * The player can pan the camera within the area between viewA & viewB.
 		 */
-		public virtual void StartSwipePan(View viewA, View viewB, float duration, Action arriveAction)
+		public virtual void StartSwipePan(View viewA, View viewB, float duration, float speedMultiplier, Action arriveAction)
 		{
 			Camera camera = GetCamera();
 			if (camera == null)
@@ -436,6 +437,7 @@ namespace Fungus
 
 			swipePanViewA = viewA;
 			swipePanViewB = viewB;
+			swipeSpeedMultiplier = speedMultiplier;
 			
 			Vector3 cameraPos = camera.transform.position;
 			
@@ -503,8 +505,8 @@ namespace Fungus
 			if (camera != null)
 			{
 				Vector3 cameraDelta = camera.ScreenToViewportPoint(delta);
-				cameraDelta.x *= -2f;
-				cameraDelta.y *= -2f;
+				cameraDelta.x *= -2f * swipeSpeedMultiplier;
+				cameraDelta.y *= -2f * swipeSpeedMultiplier;
 				cameraDelta.z = 0f;
 				
 				Vector3 cameraPos = camera.transform.position;

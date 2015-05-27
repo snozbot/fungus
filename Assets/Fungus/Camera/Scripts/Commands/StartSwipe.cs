@@ -18,12 +18,15 @@ namespace Fungus
 
 		[Tooltip("Time to move the camera to a valid starting position between the two views")]
 		public float duration = 0.5f;
-		
+
+		[Tooltip("Multiplier factor for speed of swipe pan")]
+		public float speedMultiplier = 1f;
+
 		public override void OnEnter()
 		{
 			CameraController cameraController = CameraController.GetInstance();
 
-			cameraController.StartSwipePan(viewA, viewB, duration, () => Continue() );
+			cameraController.StartSwipePan(viewA, viewB, duration, speedMultiplier, () => Continue() );
 		}
 
 		public override string GetSummary()
