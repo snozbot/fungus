@@ -598,7 +598,7 @@ namespace Fungus
 				}
 				else
 				{
-					buffer += line;
+					buffer += line + "\n";
 				}
 			}
 
