@@ -160,6 +160,14 @@ namespace Fungus
 
 			GUILayout.FlexibleSpace();
 
+			GUILayout.BeginVertical();
+			GUILayout.Label(flowchart.name, EditorStyles.whiteBoldLabel);
+			if (flowchart.description.Length > 0)
+			{
+				GUILayout.Label(flowchart.description, EditorStyles.helpBox);
+			}
+			GUILayout.EndVertical();
+
 			GUILayout.EndHorizontal();
 
 			GUILayout.FlexibleSpace();
@@ -197,15 +205,6 @@ namespace Fungus
 			GUILayout.EndVertical();
 
 			GUILayout.FlexibleSpace();
-
-			GUILayout.BeginVertical();
-			GUILayout.FlexibleSpace();
-			GUILayout.Label(flowchart.name, EditorStyles.whiteBoldLabel);
-			if (flowchart.description.Length > 0)
-			{
-				GUILayout.Label(flowchart.description, EditorStyles.whiteLargeLabel);
-			}
-			GUILayout.EndVertical();
 
 			GUILayout.EndHorizontal();
 		}
