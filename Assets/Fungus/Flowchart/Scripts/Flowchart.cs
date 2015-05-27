@@ -252,22 +252,37 @@ namespace Fungus
 		}
 
 		/**
-		 * Start running another Flowchart by executing a specific child block.
-		 * The block must be in an idle state to be executed.
-		 * Returns true if the Block started execution.
+		 * Returns the named Block in the flowchart, or null if not found.
 		 */
-		public virtual bool ExecuteBlock(string blockName)
+		public virtual Block FindBlock(string blockName)
 		{
 			Block [] blocks = GetComponentsInChildren<Block>();
 			foreach (Block block in blocks)
 			{
 				if (block.blockName == blockName)
 				{
-					return ExecuteBlock(block);
+					return block;
 				}
 			}
+			
+			return null;
+		}
 
-			return false;
+		/**
+		 * Start running another Flowchart by executing a specific child block.
+		 * The block must be in an idle state to be executed.
+		 * You can use this method in a UI event. e.g. to handle a button click.
+		 */
+		public virtual void ExecuteBlock(string blockName)
+		{
+			Block [] blocks = GetComponentsInChildren<Block>();
+			foreach (Block block in blocks)
+			{
+				if (block.blockName == blockName)
+				{
+					ExecuteBlock(block);
+				}
+			}
 		}
 
 		/**
