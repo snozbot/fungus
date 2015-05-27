@@ -18,6 +18,9 @@ namespace Fungus
 		[Tooltip("Name of the method to call")]
 		public string methodName = "";
 
+		[Tooltip("Delay (in seconds) before the method will be called")]
+		public float delay;
+
 		public override void OnEnter()
 		{
 			if (targetObject == null ||
@@ -27,9 +30,21 @@ namespace Fungus
 				return;
 			}
 
-			targetObject.SendMessage(methodName, SendMessageOptions.DontRequireReceiver);
+			if (delay == 0f)
+			{
+				CallTheMethod();
+			}
+			else
+			{
+				Invoke("CallTheMethod", delay);
+			}
 
 			Continue();
+		}
+
+		protected virtual void CallTheMethod()
+		{
+			targetObject.SendMessage(methodName, SendMessageOptions.DontRequireReceiver);
 		}
 
 		public override string GetSummary()
