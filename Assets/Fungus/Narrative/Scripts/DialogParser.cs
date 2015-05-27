@@ -76,6 +76,29 @@ namespace Fungus
 					AddWordsToken(tokens, postText);
 				}
 			}
+
+			// Remove all leading whitespace & newlines after a {c} or {wc} tag
+			// These characters are usually added for legibility when editing, but are not 
+			// desireable when viewing the text in game.
+			bool trimLeading = false;
+			foreach (Token token in tokens)
+			{
+				if (trimLeading &&
+				    token.type == TokenType.Words)
+				{
+					token.param.TrimStart(' ', '\t', '\r', '\n');
+				}
+
+				if (token.type == TokenType.Clear || 
+				    token.type == TokenType.WaitForInputAndClear)
+				{
+					trimLeading = true;
+				}
+				else
+				{
+					trimLeading = false;
+				}
+			}
 		}
 		
 		protected static void AddWordsToken(List<Token> tokenList, string words)
