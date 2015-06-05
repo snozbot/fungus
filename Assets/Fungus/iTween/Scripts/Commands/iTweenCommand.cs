@@ -52,7 +52,7 @@ namespace Fungus
 		public virtual void DoTween()
 		{}
 
-		protected virtual void OnComplete(object param)
+		protected virtual void OniTweenComplete(object param)
 		{
 			Command command = param as Command;
 			if (command != null && command.Equals(this))

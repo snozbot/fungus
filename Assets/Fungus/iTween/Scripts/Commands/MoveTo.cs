@@ -34,7 +34,7 @@ namespace Fungus
 			tweenParams.Add("easetype", easeType);
 			tweenParams.Add("looptype", loopType);
 			tweenParams.Add("isLocal", isLocal);
-			tweenParams.Add("oncomplete", "OnComplete");
+			tweenParams.Add("oncomplete", "OniTweenComplete");
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
 			iTween.MoveTo(targetObject, tweenParams);

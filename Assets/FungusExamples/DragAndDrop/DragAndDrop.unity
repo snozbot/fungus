@@ -299,30 +299,30 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4442b79fcbcbb4aac97f42d6dc3d4e0b, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &591590528
+--- !u!1 &591590528 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 0e6bcf37a2876432fa58eff8888bf177, type: 2}
   m_PrefabInternal: {fileID: 1373034542}
---- !u!114 &591590529
+--- !u!114 &591590529 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400000, guid: 0e6bcf37a2876432fa58eff8888bf177,
     type: 2}
   m_PrefabInternal: {fileID: 1373034542}
   m_Script: {fileID: 11500000, guid: cc03961113fa349c09cb06ef2911013d, type: 3}
---- !u!1 &606394391
+--- !u!1 &606394391 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 4442b79fcbcbb4aac97f42d6dc3d4e0b, type: 2}
   m_PrefabInternal: {fileID: 442175927}
---- !u!58 &606394392
+--- !u!58 &606394392 stripped
 CircleCollider2D:
   m_PrefabParentObject: {fileID: 5800000, guid: 4442b79fcbcbb4aac97f42d6dc3d4e0b,
     type: 2}
   m_PrefabInternal: {fileID: 442175927}
---- !u!1 &1081858233
+--- !u!1 &1081858233 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 4d55f86cf3b124c8fb1158da26ffa96d, type: 2}
   m_PrefabInternal: {fileID: 2135880372}
---- !u!114 &1081858236
+--- !u!114 &1081858236 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400000, guid: 4d55f86cf3b124c8fb1158da26ffa96d,
     type: 2}
@@ -389,11 +389,11 @@ MonoScript:
   m_Namespace: Fungus
   m_AssemblyName: Assembly-CSharp.dll
   m_IsEditorScript: 0
---- !u!1 &1637100245
+--- !u!1 &1637100245 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 0e6bcf37a2876432fa58eff8888bf177, type: 2}
   m_PrefabInternal: {fileID: 228925351}
---- !u!114 &1637100246
+--- !u!114 &1637100246 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400000, guid: 0e6bcf37a2876432fa58eff8888bf177,
     type: 2}
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 227, y: 20}
+  scrollPos: {x: 226, y: 86}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
@@ -470,12 +470,11 @@ MonoBehaviour:
   description: 'This scene shows how to set up a drag-and-drop
 
     behavior and making objects clickable.'
-  runSlowDuration: .25
+  stepPause: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
   localizationId: 
-  nextItemId: 20
 --- !u!114 &2019116669
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -496,7 +495,6 @@ MonoBehaviour:
   itemId: 17
   blockName: Drag Completed
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 2019116681}
   commandList:
   - {fileID: 2019116672}
@@ -694,7 +692,6 @@ MonoBehaviour:
   itemId: 16
   blockName: Drag Exited
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 2019116684}
   commandList:
   - {fileID: 2019116679}
@@ -750,7 +747,6 @@ MonoBehaviour:
   itemId: 15
   blockName: Drag Entered
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 2019116686}
   commandList:
   - {fileID: 2019116682}
@@ -789,7 +785,6 @@ MonoBehaviour:
   itemId: 14
   blockName: Drag Cancelled
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 2019116673}
   commandList:
   - {fileID: 2019116674}
@@ -828,7 +823,6 @@ MonoBehaviour:
   itemId: 13
   blockName: Drag Start
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 2019116678}
   commandList:
   - {fileID: 2019116675}
@@ -945,7 +939,6 @@ MonoBehaviour:
   itemId: 18
   blockName: Object Clicked 1
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 2019116692}
   commandList:
   - {fileID: 2019116688}
@@ -969,7 +962,6 @@ MonoBehaviour:
   itemId: 19
   blockName: Object Clicked 2
   description: 
-  runSlowInEditor: 0
   eventHandler: {fileID: 2019116696}
   commandList:
   - {fileID: 2019116695}
