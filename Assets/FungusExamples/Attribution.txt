@@ -9,4 +9,13 @@ http://syntetyc.deviantart.com/art/Sanctuary-Forest-207795795
 http://syntetyc.deviantart.com/art/Deep-Forest-204641620
 http://commons.wikimedia.org/wiki/File:Oscar-Zero_Missile_Alert_Facility_launch_control.jpg#filelinks
 
-Special thanks to Jason Farrell for sound effects and music in The Hunter example game
+Special thanks:
+- Paul Mc Grath for the Fungus tutorial videos.
+- Matt Smith for the Fungus documentation.
+- Denman Rooke for the Fungus Town scene.
+- Jason Farrell and Steve Gregan (stevestems.com) for sound effects and music.
+- Ben Keenan for writing The Facility example.
+- John O' Kane for integrating Usfxr
+- Lynxelia Nyx and Improbable Studios for the Sherlock demo, portrait sytems and lots more.
+- And all the other wonderful people who have helped make the Fungus project possible!
+
