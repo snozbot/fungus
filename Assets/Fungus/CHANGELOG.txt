@@ -1,0 +1,31 @@
+Fungus v2.1
+===========
+
+# Added
+
+- Added Flowchart.FindBlock so you can check if a Block is executing before you try to execute it.
+- Cleanup any unreferenced components in Flowchart when scene loads
+
+# Changed
+
+- Call Method can now execute after a delay
+https://trello.com/c/a333r2QA
+
+- Can now control swipe pan speed in Start Swipe command
+https://trello.com/c/TmG9SiIa
+
+- Improved layout of Flowchart name and description
+https://trello.com/c/vwnzaOh2
+
+# Removed
+
+- Removed obsolete commands and other dead code
+
+# Fixed
+- Fixed using iTween and Portrait commands in same Flowchart causes null exception #116
+- Fixed whitespace and newlines not being trimmed after {wc} & {c} tags in story text #115
+- Fixed Standard Text import strips out newline characters #114
+- Fixed {x} text tag causing a null reference error #113
+- Fixed Flowchart.ExecuteBlock() not being usable with UI events (e.g. a UI button event) #112
+- Fixed Set Draggable command causing null exception error #111
+- Fixed conflicting Block & command item ids (was breaking localization text export) #110
