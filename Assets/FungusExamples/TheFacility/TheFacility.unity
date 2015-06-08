@@ -114,7 +114,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 771014101}
   m_RootOrder: 12
---- !u!1 &88347144
+--- !u!1 &88347144 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 188894, guid: 8a005a9e0713f4cc1b5ad29fb07657d3, type: 2}
   m_PrefabInternal: {fileID: 618014253}
@@ -186,7 +186,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 771014101}
   m_RootOrder: 1
---- !u!114 &428153884
+--- !u!114 &428153884 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400000, guid: e0d427add844a4d9faf970a3afa07583,
     type: 2}
@@ -515,7 +515,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 771014101}
   m_RootOrder: 7
---- !u!114 &676616171
+--- !u!114 &676616171 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11488894, guid: 8a005a9e0713f4cc1b5ad29fb07657d3,
     type: 2}
@@ -686,6 +686,7 @@ GameObject:
   - 114: {fileID: 771014167}
   - 114: {fileID: 771014166}
   - 114: {fileID: 771014173}
+  - 114: {fileID: 771014174}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: GameController
@@ -704,10 +705,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: -375.13031, y: 178.234314}
+  scrollPos: {x: -379.13031, y: 203.234314}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  sequenceViewHeight: 400
+  blockViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -715,7 +716,7 @@ MonoBehaviour:
     y: -610.734985
     width: 3324.20264
     height: 2227.35059
-  selectedSequence: {fileID: 0}
+  selectedBlock: {fileID: 0}
   selectedCommands: []
   variables:
   - {fileID: 771014103}
@@ -724,11 +725,11 @@ MonoBehaviour:
     style game with minimal graphics and a focus
 
     on text based story telling'
-  runSlowDuration: .25
+  stepPause: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  nextCommandId: 82
+  localizationId: 
 --- !u!4 &771014101
 Transform:
   m_ObjectHideFlags: 0
@@ -776,9 +777,9 @@ MonoBehaviour:
     y: -16.7798004
     width: 120
     height: 40
-  sequenceName: Sit up
+  itemId: 92
+  blockName: Sit up
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014178}
@@ -814,15 +815,16 @@ MonoBehaviour:
     y: -52.946228
     width: 120
     height: 40
-  sequenceName: Start
+  itemId: 82
+  blockName: Start
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 771014165}
   commandList:
   - {fileID: 771014226}
   - {fileID: 771014225}
   - {fileID: 771014167}
   - {fileID: 771014166}
+  - {fileID: 771014174}
   - {fileID: 771014224}
   - {fileID: 771014161}
   - {fileID: 771014160}
@@ -837,10 +839,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 14
+  itemId: 14
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014106}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014106}
+  callMode: 0
 --- !u!114 &771014106
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -858,9 +862,9 @@ MonoBehaviour:
     y: -53.5572128
     width: 128
     height: 40
-  sequenceName: Standing there
+  itemId: 83
+  blockName: Standing there
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014217}
@@ -880,11 +884,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 26
+  itemId: 26
   errorMessage: 
   indentLevel: 0
   text: Inspect the desk
-  targetSequence: {fileID: 771014119}
+  description: 
+  targetBlock: {fileID: 771014119}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014108
@@ -898,11 +903,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 25
+  itemId: 25
   errorMessage: 
   indentLevel: 0
   text: Listen
-  targetSequence: {fileID: 771014109}
+  description: 
+  targetBlock: {fileID: 771014109}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014109
@@ -922,9 +928,9 @@ MonoBehaviour:
     y: -53.7798004
     width: 120
     height: 40
-  sequenceName: Listen
+  itemId: 95
+  blockName: Listen
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014111}
@@ -940,10 +946,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 21
+  itemId: 21
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014106}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014106}
+  callMode: 0
 --- !u!114 &771014111
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -955,13 +963,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 22
+  itemId: 22
   errorMessage: 
   indentLevel: 0
   storyText: You hold your breath and strain to hear anything. There's a faint machine-like
     hum, barely perceptible, coming from the ceiling. You think you can hear voices
     for a moment, but after holding your breath another couple of times, you hear
     nothing.
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -983,11 +992,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 24
+  itemId: 24
   errorMessage: 
   indentLevel: 0
   text: Inspect the jumpsuit
-  targetSequence: {fileID: 771014113}
+  description: 
+  targetBlock: {fileID: 771014113}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014113
@@ -1007,9 +1017,9 @@ MonoBehaviour:
     y: -116.7798
     width: 139
     height: 40
-  sequenceName: Inspect Jumpsuit
+  itemId: 94
+  blockName: Inspect Jumpsuit
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014115}
@@ -1025,10 +1035,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 19
+  itemId: 19
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014106}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014106}
+  callMode: 0
 --- !u!114 &771014115
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1040,7 +1052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 20
+  itemId: 20
   errorMessage: 
   indentLevel: 0
   storyText: 'The fabric feels natural, like cotton, but the design and quality is
@@ -1056,6 +1068,7 @@ MonoBehaviour:
     The colour is a simple blue, no markings, numbers or insignia. It''s spotless
     and breathable, like you could wear it for a week. Almost certainly a uniform
     of some kind, though made to fit you and you alone.'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -1077,11 +1090,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 23
+  itemId: 23
   errorMessage: 
   indentLevel: 0
   text: Inspect the door
-  targetSequence: {fileID: 771014117}
+  description: 
+  targetBlock: {fileID: 771014117}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014117
@@ -1101,9 +1115,9 @@ MonoBehaviour:
     y: -183.7798
     width: 120
     height: 40
-  sequenceName: Inspect Door
+  itemId: 93
+  blockName: Inspect Door
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014179}
@@ -1119,11 +1133,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 36
+  itemId: 36
   errorMessage: 
   indentLevel: 0
   text: Look at the lamp
-  targetSequence: {fileID: 771014120}
+  description: 
+  targetBlock: {fileID: 771014120}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014119
@@ -1143,9 +1158,9 @@ MonoBehaviour:
     y: 15.7090759
     width: 120
     height: 40
-  sequenceName: Inspect Desk
+  itemId: 84
+  blockName: Inspect Desk
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014213}
@@ -1170,9 +1185,9 @@ MonoBehaviour:
     y: 75.2201996
     width: 120
     height: 40
-  sequenceName: Look at lamp
+  itemId: 98
+  blockName: Look at lamp
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014188}
@@ -1188,10 +1203,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 34
+  itemId: 34
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014122}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014122}
+  callMode: 0
 --- !u!114 &771014122
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1209,9 +1226,9 @@ MonoBehaviour:
     y: 36.5333862
     width: 120
     height: 40
-  sequenceName: Try voice
+  itemId: 85
+  blockName: Try voice
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014185}
@@ -1234,11 +1251,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 52
+  itemId: 52
   errorMessage: 
   indentLevel: 0
   text: '"End program"'
-  targetSequence: {fileID: 771014203}
+  description: 
+  targetBlock: {fileID: 771014203}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014124
@@ -1252,11 +1270,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 51
+  itemId: 51
   errorMessage: 
   indentLevel: 0
   text: '"Lights On"'
-  targetSequence: {fileID: 771014141}
+  description: 
+  targetBlock: {fileID: 771014141}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014125
@@ -1270,7 +1289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 54
+  itemId: 54
   errorMessage: 
   indentLevel: 0
 --- !u!114 &771014126
@@ -1284,11 +1303,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 50
+  itemId: 50
   errorMessage: 
   indentLevel: 1
   text: '"Lamp Off"'
-  targetSequence: {fileID: 771014207}
+  description: 
+  targetBlock: {fileID: 771014207}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014127
@@ -1302,7 +1322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa968f01a7f9496bb50e13dfe16760d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 55
+  itemId: 55
   errorMessage: 
   indentLevel: 0
 --- !u!114 &771014128
@@ -1316,11 +1336,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 49
+  itemId: 49
   errorMessage: 
   indentLevel: 1
   text: '"Lamp On"'
-  targetSequence: {fileID: 771014210}
+  description: 
+  targetBlock: {fileID: 771014210}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014129
@@ -1334,7 +1355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 53
+  itemId: 53
   errorMessage: 
   indentLevel: 0
   compareOperator: 0
@@ -1362,11 +1383,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 69
+  itemId: 69
   errorMessage: 
   indentLevel: 0
   text: Ask how he's doing
-  targetSequence: {fileID: 771014148}
+  description: 
+  targetBlock: {fileID: 771014148}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014131
@@ -1380,11 +1402,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 57
+  itemId: 57
   errorMessage: 
   indentLevel: 0
   text: Examine Desk
-  targetSequence: {fileID: 771014132}
+  description: 
+  targetBlock: {fileID: 771014132}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014132
@@ -1404,9 +1427,9 @@ MonoBehaviour:
     y: 240.239777
     width: 124
     height: 40
-  sequenceName: Examine Desk
+  itemId: 103
+  blockName: Examine Desk
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014134}
@@ -1422,10 +1445,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 59
+  itemId: 59
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014141}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014141}
+  callMode: 0
 --- !u!114 &771014134
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1437,11 +1462,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 58
+  itemId: 58
   errorMessage: 
   indentLevel: 0
   storyText: The desk looks even cleaner and smoother in this light. There doesn't
     seem to be anything worth looking at.
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -1463,11 +1489,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 61
+  itemId: 61
   errorMessage: 
   indentLevel: 0
   text: Examine Door
-  targetSequence: {fileID: 771014144}
+  description: 
+  targetBlock: {fileID: 771014144}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014136
@@ -1481,10 +1508,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 62
+  itemId: 62
   errorMessage: 
   indentLevel: 0
   storyText: What do you want to say next?
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -1506,7 +1534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 60
+  itemId: 60
   errorMessage: 
   indentLevel: 0
   storyText: 'You approach the door, looking at it more closely in the bright light
@@ -1551,6 +1579,7 @@ MonoBehaviour:
 
     "Oh, well, that''ll all be covered in orientation tomorrow, just try to relax
     and remain calm until then."{wi}'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -1572,10 +1601,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 56
+  itemId: 56
   errorMessage: 
   indentLevel: 0
   storyText: What would you like to do next?
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -1597,11 +1627,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 68
+  itemId: 68
   errorMessage: 
   indentLevel: 0
   text: Ask why you're there
-  targetSequence: {fileID: 771014140}
+  description: 
+  targetBlock: {fileID: 771014140}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014140
@@ -1621,9 +1652,9 @@ MonoBehaviour:
     y: 253.534271
     width: 120
     height: 40
-  sequenceName: Ask Why
+  itemId: 105
+  blockName: Ask Why
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014143}
@@ -1645,9 +1676,9 @@ MonoBehaviour:
     y: 159.214813
     width: 120
     height: 40
-  sequenceName: Lights on
+  itemId: 86
+  blockName: Lights on
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014192}
@@ -1665,10 +1696,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 67
+  itemId: 67
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014144}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014144}
+  callMode: 0
 --- !u!114 &771014143
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1680,7 +1713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 65
+  itemId: 65
   errorMessage: 
   indentLevel: 0
   storyText: '"Alright, but why am I here? Orientation for what?"
@@ -1696,6 +1729,7 @@ MonoBehaviour:
 
 
     "Why are {i}you{/i} being so difficult? I''m just trying to do my job, here."'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -1723,9 +1757,9 @@ MonoBehaviour:
     y: 162.344482
     width: 125
     height: 40
-  sequenceName: Examine Door
+  itemId: 87
+  blockName: Examine Door
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014137}
@@ -1744,11 +1778,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 63
+  itemId: 63
   errorMessage: 
   indentLevel: 0
   text: Ask where you are
-  targetSequence: {fileID: 771014146}
+  description: 
+  targetBlock: {fileID: 771014146}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014146
@@ -1768,9 +1803,9 @@ MonoBehaviour:
     y: 244.239777
     width: 120
     height: 40
-  sequenceName: Ask Where
+  itemId: 104
+  blockName: Ask Where
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014172}
@@ -1786,10 +1821,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 66
+  itemId: 66
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014144}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014144}
+  callMode: 0
 --- !u!114 &771014148
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1807,9 +1844,9 @@ MonoBehaviour:
     y: 119.663513
     width: 120
     height: 40
-  sequenceName: Ask How
+  itemId: 88
+  blockName: Ask How
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014171}
@@ -1827,11 +1864,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 72
+  itemId: 72
   errorMessage: 
   indentLevel: 0
   text: Say "Can you open door A147"
-  targetSequence: {fileID: 771014151}
+  description: 
+  targetBlock: {fileID: 771014151}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014150
@@ -1845,11 +1883,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 78
+  itemId: 78
   errorMessage: 
   indentLevel: 0
   text: Run!
-  targetSequence: {fileID: 771014231}
+  description: 
+  targetBlock: {fileID: 771014231}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014151
@@ -1869,9 +1908,9 @@ MonoBehaviour:
     y: 227.472015
     width: 120
     height: 40
-  sequenceName: Open A147
+  itemId: 89
+  blockName: Open A147
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014162}
@@ -1888,11 +1927,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 75
+  itemId: 75
   errorMessage: 
   indentLevel: 0
   text: Listen
-  targetSequence: {fileID: 771014153}
+  description: 
+  targetBlock: {fileID: 771014153}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014153
@@ -1912,9 +1952,9 @@ MonoBehaviour:
     y: 121.01593
     width: 130
     height: 40
-  sequenceName: Wait and Listen
+  itemId: 107
+  blockName: Wait and Listen
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014155}
@@ -1930,10 +1970,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 77
+  itemId: 77
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014148}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014148}
+  callMode: 0
 --- !u!114 &771014155
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1945,7 +1987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 76
+  itemId: 76
   errorMessage: 
   indentLevel: 0
   storyText: 'The door slides shut just as quick as it opened, before you get a chance
@@ -1962,6 +2004,7 @@ MonoBehaviour:
 
 
     "It''s OK. It was my own fault. I just need to be more careful."'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -1983,11 +2026,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 71
+  itemId: 71
   errorMessage: 
   indentLevel: 0
   text: Say "Truck the control room at top speed"
-  targetSequence: {fileID: 771014157}
+  description: 
+  targetBlock: {fileID: 771014157}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014157
@@ -2007,9 +2051,9 @@ MonoBehaviour:
     y: 60.294899
     width: 159
     height: 40
-  sequenceName: Truck Control Room
+  itemId: 106
+  blockName: Truck Control Room
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014163}
@@ -2025,10 +2069,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 74
+  itemId: 74
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014231}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014231}
+  callMode: 0
 --- !u!114 &771014159
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2040,10 +2086,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 18
+  itemId: 18
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014106}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014106}
+  callMode: 0
 --- !u!114 &771014160
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2055,11 +2103,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 16
+  itemId: 16
   errorMessage: 
   indentLevel: 0
   text: Sit Up
-  targetSequence: {fileID: 771014102}
+  description: 
+  targetBlock: {fileID: 771014102}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014161
@@ -2073,11 +2122,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 15
+  itemId: 15
   errorMessage: 
   indentLevel: 0
   text: Shout
-  targetSequence: {fileID: 771014168}
+  description: 
+  targetBlock: {fileID: 771014168}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014162
@@ -2091,7 +2141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 7
+  itemId: 7
   errorMessage: 
   indentLevel: 0
   storyText: 'You put your hand over the grille and mumble, "Can you open door A147?"
@@ -2118,6 +2168,7 @@ MonoBehaviour:
 
 
     "Samson! What the hell are you opening that cell for?"'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2139,7 +2190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 73
+  itemId: 73
   errorMessage: 
   indentLevel: 0
   storyText: '"Hey, can you truck theck on troll rum atop spede?"
@@ -2169,6 +2220,7 @@ MonoBehaviour:
     the room rumble for a moment before the door slides open.
 
 '
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2190,10 +2242,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 70
+  itemId: 70
   errorMessage: 
   indentLevel: 0
   storyText: What do you want to say?
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2215,7 +2268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 771014104}
+  parentBlock: {fileID: 771014104}
 --- !u!114 &771014166
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2227,7 +2280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b097b9790a8a1456a86bc4d322b487db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 80
+  itemId: 80
   errorMessage: 
   indentLevel: 0
   menuDialog: {fileID: 942879775}
@@ -2242,7 +2295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d65d551a201c94bc79950076ff3eaf2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 79
+  itemId: 79
   errorMessage: 
   indentLevel: 0
   sayDialog: {fileID: 676616171}
@@ -2263,9 +2316,9 @@ MonoBehaviour:
     y: -97.7798004
     width: 120
     height: 40
-  sequenceName: Shout
+  itemId: 91
+  blockName: Shout
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014170}
@@ -2281,10 +2334,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 13
+  itemId: 13
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014106}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014106}
+  callMode: 0
 --- !u!114 &771014170
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2296,7 +2351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 11
+  itemId: 11
   errorMessage: 
   indentLevel: 0
   storyText: 'You shout out as loud as you can.
@@ -2310,6 +2365,7 @@ MonoBehaviour:
     Nothing.{wc}
 
     Weird.'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2331,7 +2387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 6
+  itemId: 6
   errorMessage: 
   indentLevel: 0
   storyText: 'Time for a charm offensive.
@@ -2378,6 +2434,7 @@ MonoBehaviour:
 
     "It''s bad for us in the control room, sure, but the really dangerous stuff is
     with all the automated trucks. Very nasty business."'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2399,7 +2456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 64
+  itemId: 64
   errorMessage: 
   indentLevel: 0
   storyText: 'You decide to lead with an unambiguous question.
@@ -2410,6 +2467,7 @@ MonoBehaviour:
 
     "Oh, well, that''s complicated, you''re underground in a facility that, well,
     you know what, never mind, like I said, it''ll all be covered at tomorrow''s orientation."'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2431,10 +2489,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 81
+  itemId: 81
   errorMessage: 
   indentLevel: 0
   storyText: What next?
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2444,6 +2503,34 @@ MonoBehaviour:
   fadeIn: 0
   fadeOut: 0
   waitForClick: 0
+  setSayDialog: {fileID: 0}
+--- !u!114 &771014174
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 771014099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 108
+  errorMessage: 
+  indentLevel: 0
+  storyText: 'THE FACILITY
+
+    - by Ben Keenan'
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &771014178
 MonoBehaviour:
@@ -2456,10 +2543,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 12
+  itemId: 12
   errorMessage: 
   indentLevel: 0
   storyText: Lets find out what's going on.
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2481,7 +2569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 17
+  itemId: 17
   errorMessage: 
   indentLevel: 0
   storyText: 'You take a closer look at the door. There are no handles or controls
@@ -2500,6 +2588,7 @@ MonoBehaviour:
     "Hello? Can anybody hear me?"
 
     You hear nothing back.'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2521,11 +2610,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 38
+  itemId: 38
   errorMessage: 
   indentLevel: 0
   text: '"Open Door"'
-  targetSequence: {fileID: 771014181}
+  description: 
+  targetBlock: {fileID: 771014181}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014181
@@ -2545,9 +2635,9 @@ MonoBehaviour:
     y: -33.7797852
     width: 120
     height: 40
-  sequenceName: Open Door
+  itemId: 99
+  blockName: Open Door
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014184}
@@ -2563,10 +2653,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 40
+  itemId: 40
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014122}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014122}
+  callMode: 0
 --- !u!114 &771014184
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2578,7 +2670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 39
+  itemId: 39
   errorMessage: 
   indentLevel: 0
   storyText: '"Door open"
@@ -2591,6 +2683,7 @@ MonoBehaviour:
 
 
     Nothing. Oh well.'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2612,10 +2705,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 37
+  itemId: 37
   errorMessage: 
   indentLevel: 0
   storyText: What would you like to do?
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2637,7 +2731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 33
+  itemId: 33
   errorMessage: 
   indentLevel: 0
   storyText: 'The lamp looks like a futuristic version of a normal desk lamp. There''s
@@ -2680,6 +2774,7 @@ MonoBehaviour:
 
 
     The lamp dims to a more useable level.'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2701,11 +2796,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 35
+  itemId: 35
   errorMessage: 
   indentLevel: 0
   text: Open the right drawer
-  targetSequence: {fileID: 771014190}
+  description: 
+  targetBlock: {fileID: 771014190}
   hideIfVisited: 0
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014190
@@ -2725,9 +2821,9 @@ MonoBehaviour:
     y: 13.2201996
     width: 120
     height: 40
-  sequenceName: Right Drawer
+  itemId: 97
+  blockName: Right Drawer
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014193}
@@ -2743,10 +2839,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 32
+  itemId: 32
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014122}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014122}
+  callMode: 0
 --- !u!114 &771014192
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2758,7 +2856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 5
+  itemId: 5
   errorMessage: 
   indentLevel: 0
   storyText: '"Lights on!"
@@ -2766,6 +2864,7 @@ MonoBehaviour:
 
     The lights quickly fade up. You shield your eyes for a moment but you quickly
     adapt. Everything looks more or less the way it did, just, well, brighter.'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2787,7 +2886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 31
+  itemId: 31
   errorMessage: 
   indentLevel: 0
   storyText: 'You open the drawer and take out a thin sheaf of paper, no more than
@@ -2805,6 +2904,7 @@ MonoBehaviour:
 
 
     The words {b}this down{/b} appear after {b}With{/b}.'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2826,11 +2926,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 28
+  itemId: 28
   errorMessage: 
   indentLevel: 0
   text: Open the left drawer
-  targetSequence: {fileID: 771014195}
+  description: 
+  targetBlock: {fileID: 771014195}
   hideIfVisited: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &771014195
@@ -2850,9 +2951,9 @@ MonoBehaviour:
     y: -41.7798004
     width: 120
     height: 40
-  sequenceName: Left Drawer
+  itemId: 96
+  blockName: Left Drawer
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014197}
@@ -2868,10 +2969,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 30
+  itemId: 30
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014119}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014119}
+  callMode: 0
 --- !u!114 &771014197
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2883,10 +2986,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 29
+  itemId: 29
   errorMessage: 
   indentLevel: 0
   storyText: The left drawer is as empty as your memories.
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2908,10 +3012,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 27
+  itemId: 27
   errorMessage: 
   indentLevel: 0
   storyText: Underneath the lip of the desktop sit two drawers, one on either side.
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2933,7 +3038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 48
+  itemId: 48
   errorMessage: 
   indentLevel: 0
   storyText: '"Lamp on"
@@ -2951,6 +3056,7 @@ MonoBehaviour:
 
 
     The lamp dims to a more useable level.'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -2972,10 +3078,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 47
+  itemId: 47
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014122}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014122}
+  callMode: 0
 --- !u!114 &771014202
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2987,10 +3095,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 46
+  itemId: 46
   errorMessage: 
   indentLevel: 0
   storyText: The room echoes to the sound of nothing happening.
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -3018,9 +3127,9 @@ MonoBehaviour:
     y: 173.220215
     width: 120
     height: 40
-  sequenceName: End Program
+  itemId: 102
+  blockName: End Program
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014202}
@@ -3036,7 +3145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 45
+  itemId: 45
   errorMessage: 
   indentLevel: 0
   storyText: '"Lamp off"
@@ -3044,6 +3153,7 @@ MonoBehaviour:
 
     The lamp blinks off obediently. It''s slightly less bright in here, but still
     very bright.'
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -3065,7 +3175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 44
+  itemId: 44
   errorMessage: 
   indentLevel: 0
   variable: {fileID: 771014103}
@@ -3093,10 +3203,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 43
+  itemId: 43
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014122}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014122}
+  callMode: 0
 --- !u!114 &771014207
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3114,9 +3226,9 @@ MonoBehaviour:
     y: 103.220215
     width: 120
     height: 40
-  sequenceName: Lamp Off
+  itemId: 101
+  blockName: Lamp Off
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014205}
@@ -3133,7 +3245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 42
+  itemId: 42
   errorMessage: 
   indentLevel: 0
   variable: {fileID: 771014103}
@@ -3161,10 +3273,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 41
+  itemId: 41
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014122}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014122}
+  callMode: 0
 --- !u!114 &771014210
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3182,9 +3296,9 @@ MonoBehaviour:
     y: 36.2202148
     width: 120
     height: 40
-  sequenceName: Lamp On
+  itemId: 100
+  blockName: Lamp On
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014208}
@@ -3201,11 +3315,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 4
+  itemId: 4
   errorMessage: 
   indentLevel: 0
   storyText: 'The desk is simple and sturdy, a little impersonal. The lamp looks like
     a solid piece of chrome and it''s currently switched off. '
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -3227,12 +3342,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 3
+  itemId: 3
   errorMessage: 
   indentLevel: 0
   storyText: You sit up gingerly and swing your legs off the bed. The jumpsuit includes
     neat little slippers, and you don't feel any aches or pains. If anything, you're
     incredibly well-rested.{wc} You stretch out your arms and stand up.
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -3254,7 +3370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 2
+  itemId: 2
   errorMessage: 
   indentLevel: 0
   storyText: "You awake on a comfortable bed in a smallish room. Even though the light
@@ -3262,6 +3378,7 @@ MonoBehaviour:
     tasteful construction of dark wood and frosted glass. Beyond that lies a writing
     desk with a couple of drawers and a lamp. You\u2019re dressed in a light blue
     jumpsuit that\u2019s quite flattering and very comfy, but definitely unfamiliar."
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -3283,7 +3400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1902400ccc99b45d69ad01cb86b57d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 1
+  itemId: 1
   errorMessage: 
   indentLevel: 0
   musicClip: {fileID: 8300000, guid: 8f2a44f9988c2445aa82bed59f677134, type: 3}
@@ -3299,10 +3416,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437f9a4e3dbc647f9bdce95308418bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 0
+  itemId: 0
   errorMessage: 
   indentLevel: 0
   duration: .5
+  fadeOut: 1
   targetView: {fileID: 428153884}
   waitUntilFinished: 1
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
@@ -3318,10 +3436,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 10
+  itemId: 10
   errorMessage: 
   indentLevel: 0
-  targetSequence: {fileID: 771014104}
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 771014104}
+  callMode: 0
 --- !u!114 &771014229
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3333,7 +3453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0000066e72e484959b6a314a95d0dcd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 9
+  itemId: 9
   errorMessage: 
   indentLevel: 0
   resetCommands: 1
@@ -3349,10 +3469,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 8
+  itemId: 8
   errorMessage: 
   indentLevel: 0
   storyText: You saunter through the hallway and on to your freedom. Well done!
+  description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
@@ -3380,9 +3501,9 @@ MonoBehaviour:
     y: 60.0247955
     width: 120
     height: 40
-  sequenceName: FREEDOM!
+  itemId: 90
+  blockName: FREEDOM!
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 771014230}
@@ -3442,7 +3563,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 771014101}
   m_RootOrder: 15
---- !u!114 &942879775
+--- !u!114 &942879775 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11415124, guid: 9bb64c8df70904eecac3f71f81bf339b,
     type: 2}
