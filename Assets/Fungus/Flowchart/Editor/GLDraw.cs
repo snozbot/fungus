@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using System.Collections;
 using System;
 
@@ -105,14 +106,8 @@ public class GLDraw
         if (lineMaterial != null)
             return;
 
-        lineMaterial = new Material("Shader \"Lines/Colored Blended\" {" +
-                                    "SubShader { Pass { " +
-                                    "    Blend SrcAlpha OneMinusSrcAlpha " +
-                                    "    ZWrite Off Cull Off Fog { Mode Off } " +
-                                    "    BindChannels {" +
-                                    "      Bind \"vertex\", vertex Bind \"color\", color }" +
-                                    "} } }");
-        lineMaterial.hideFlags = HideFlags.HideAndDontSave;
+		lineMaterial = Resources.Load("GLLineDraw", typeof(Material)) as Material;
+		lineMaterial.hideFlags = HideFlags.HideAndDontSave;
         lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
     }
 
