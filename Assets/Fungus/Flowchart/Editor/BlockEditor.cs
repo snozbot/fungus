@@ -31,6 +31,21 @@ namespace Fungus
 
 		protected static List<Action> actionList = new List<Action>();
 
+		protected Texture2D upIcon;
+		protected Texture2D downIcon;
+		protected Texture2D addIcon;
+		protected Texture2D duplicateIcon;
+		protected Texture2D deleteIcon;
+
+		protected virtual void OnEnable()
+		{
+			upIcon = Resources.Load("Icons/up") as Texture2D;
+			downIcon = Resources.Load("Icons/down") as Texture2D;
+			addIcon = Resources.Load("Icons/add") as Texture2D;
+			duplicateIcon = Resources.Load("Icons/duplicate") as Texture2D;
+			deleteIcon = Resources.Load("Icons/delete") as Texture2D;
+		}
+
 		public virtual void DrawBlockName(Flowchart flowchart)
 		{
 			serializedObject.Update();
@@ -246,16 +261,13 @@ namespace Fungus
 				GUI.FocusControl("dummycontrol");
 				Event.current.Use();
 			}
-			
-			// Up Button
-			Texture2D upIcon = Resources.Load("Icons/up") as Texture2D;
+
 			if (GUILayout.Button(upIcon))
 			{
 				SelectPrevious();
 			}
 			
 			// Down Button
-			Texture2D downIcon = Resources.Load("Icons/down") as Texture2D;
 			if (GUILayout.Button(downIcon))
 			{
 				SelectNext();
@@ -264,14 +276,12 @@ namespace Fungus
 			GUILayout.FlexibleSpace();
 			
 			// Add Button
-			Texture2D addIcon = Resources.Load("Icons/add") as Texture2D;
 			if (GUILayout.Button(addIcon))
 			{
 				ShowCommandMenu();
 			}
 			
 			// Duplicate Button
-			Texture2D duplicateIcon = Resources.Load("Icons/duplicate") as Texture2D;
 			if (GUILayout.Button(duplicateIcon))
 			{
 				Copy();
@@ -279,7 +289,6 @@ namespace Fungus
 			}
 			
 			// Delete Button
-			Texture2D deleteIcon = Resources.Load("Icons/delete") as Texture2D;
 			if (GUILayout.Button(deleteIcon))
 			{
 				Delete();

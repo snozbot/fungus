@@ -28,6 +28,8 @@ namespace Fungus
 
 		protected int forceRepaintCount;
 
+		protected Texture2D addTexture;
+		
 		[MenuItem("Tools/Fungus/Flowchart Window")]
 	    static void Init()
 	    {
@@ -48,6 +50,8 @@ namespace Fungus
 			nodeStyle.contentOffset = Vector2.zero;
 			nodeStyle.alignment = TextAnchor.MiddleCenter;
 			nodeStyle.wordWrap = true;
+
+			addTexture = Resources.Load("Icons/add_small") as Texture2D;
 		}
 
 		protected virtual void OnInspectorUpdate()
@@ -146,8 +150,6 @@ namespace Fungus
 			GUILayout.BeginHorizontal();
 			
 			GUILayout.Space(8);
-
-			Texture2D addTexture = Resources.Load("Icons/add_small") as Texture2D;
 
 			if (GUILayout.Button(new GUIContent(addTexture, "Add a new block")))
 			{
