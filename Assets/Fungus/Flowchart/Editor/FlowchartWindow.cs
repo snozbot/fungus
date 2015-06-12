@@ -146,8 +146,10 @@ namespace Fungus
 			GUILayout.BeginHorizontal();
 			
 			GUILayout.Space(8);
-			
-			if (GUILayout.Button(new GUIContent(FungusEditorResources.texAddButton, "Add a new block")))
+
+			Texture2D addTexture = Resources.Load("Icons/add_small") as Texture2D;
+
+			if (GUILayout.Button(new GUIContent(addTexture, "Add a new block")))
 			{
 				Vector2 newNodePosition = new Vector2(50 - flowchart.scrollPos.x, 
 				                                      50 - flowchart.scrollPos.y);

@@ -150,8 +150,10 @@ namespace Fungus
 				plusRect.width = plusWidth;
 				plusRect.height = plusHeight;
 
+				Texture2D addTexture = Resources.Load("Icons/add_small") as Texture2D;
+
 				if (!Application.isPlaying && 
-				    GUI.Button(plusRect, FungusEditorResources.texAddButton))
+				    GUI.Button(plusRect, addTexture))
 				{
 					GenericMenu menu = new GenericMenu ();
 					List<System.Type> types = FindAllDerivedTypes<Variable>();

@@ -146,6 +146,12 @@ namespace Fungus
 			}
 		}
 
+		public void BeginGUI()
+		{}
+
+		public void EndGUI()
+		{}
+
 		public void DrawItemBackground(Rect position, int index) {
 		}
 

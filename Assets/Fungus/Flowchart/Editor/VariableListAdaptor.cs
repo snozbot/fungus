@@ -82,6 +82,12 @@ namespace Fungus
 			_arrayProperty.ClearArray();
 		}
 
+		public void BeginGUI()
+		{}
+		
+		public void EndGUI()
+		{}
+
 		public virtual void DrawItemBackground(Rect position, int index) {
 		}
 

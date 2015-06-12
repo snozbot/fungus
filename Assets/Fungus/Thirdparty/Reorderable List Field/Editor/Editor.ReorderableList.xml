@@ -158,6 +158,11 @@
             Add new element at end of list.
             </summary>
     </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.BeginGUI">
+      <summary>
+            Occurs before any list items are drawn.
+            </summary>
+    </member>
     <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.CanDrag(System.Int32)">
       <summary>
             Determines whether an item can be reordered by dragging mouse.
@@ -205,6 +210,11 @@
             Duplicate existing element.
             </summary>
       <param name="index">Zero-based index of list element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.GenericListAdaptor`1.EndGUI">
+      <summary>
+            Occurs after all list items have been drawn.
+            </summary>
     </member>
     <member name="F:Rotorz.ReorderableList.GenericListAdaptor`1.FixedItemHeight">
       <summary>
@@ -397,6 +407,11 @@
             Add new element at end of list.
             </summary>
     </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.BeginGUI">
+      <summary>
+            Occurs before any list items are drawn.
+            </summary>
+    </member>
     <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.CanDrag(System.Int32)">
       <summary>
             Determines whether an item can be reordered by dragging mouse.
@@ -445,6 +460,11 @@
             </summary>
       <param name="index">Zero-based index of list element.</param>
     </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.EndGUI">
+      <summary>
+            Occurs after all list items have been drawn.
+            </summary>
+    </member>
     <member name="M:Rotorz.ReorderableList.IReorderableListAdaptor.GetItemHeight(System.Int32)">
       <summary>
             Gets height of list item in pixels.
@@ -472,6 +492,29 @@
             Remove element at specified index.
             </summary>
       <param name="index">Zero-based index of list element.</param>
+    </member>
+    <member name="T:Rotorz.ReorderableList.IReorderableListDropTarget">
+      <summary>
+            Can be implemented along with <see cref="T:Rotorz.ReorderableList.IReorderableListAdaptor" /> when drop
+            insertion or ordering is desired.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListDropTarget.CanDropInsert(System.Int32)">
+      <summary>
+            Determines whether an item is being dragged and that it can be inserted
+            or moved by dropping somewhere into the reorderable list control.
+            </summary>
+      <param name="insertionIndex">Zero-based index of insertion.</param>
+      <returns>
+            A value of <c>true</c> if item can be dropped; otherwise <c>false</c>.
+            </returns>
+    </member>
+    <member name="M:Rotorz.ReorderableList.IReorderableListDropTarget.ProcessDropInsertion(System.Int32)">
+      <summary>
+            Processes the current drop insertion operation when <see cref="M:Rotorz.ReorderableList.IReorderableListDropTarget.CanDropInsert(System.Int32)" />
+            returns a value of <c>true</c> to process, accept or cancel.
+            </summary>
+      <param name="insertionIndex">Zero-based index of insertion.</param>
     </member>
     <member name="T:Rotorz.ReorderableList.ItemInsertedEventArgs">
       <summary>
@@ -720,6 +763,21 @@
             Gets or sets style used to draw background of list control.
             </summary>
     </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.CurrentItemTotalPosition">
+      <summary>
+            Gets the total position of the list item that is currently being drawn.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.CurrentListControlID">
+      <summary>
+            Gets the control ID of the list that is currently being drawn.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.CurrentListPosition">
+      <summary>
+            Gets the position of the list control that is currently being drawn.
+            </summary>
+    </member>
     <member name="F:Rotorz.ReorderableList.ReorderableListControl.DefaultContextHandler">
       <summary>
             Default functionality to handle context command.
@@ -796,6 +854,12 @@
       <param name="drawEmpty">Delegate for drawing empty list.</param>
       <param name="flags">Optional flags to pass into list field.</param>
     </member>
+    <member name="M:Rotorz.ReorderableList.ReorderableListControl.DrawDropIndicator(UnityEngine.Rect)">
+      <summary>
+            Draws drop insertion indicator.
+            </summary>
+      <param name="position">Position if the drop indicator.</param>
+    </member>
     <member name="M:Rotorz.ReorderableList.ReorderableListControl.DuplicateItem(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32)">
       <summary>
             Duplicate specified item and raises the event <see cref="E:Rotorz.ReorderableList.ReorderableListControl.ItemInserted" />.
@@ -823,6 +887,23 @@
       <returns>
             A value of <c>true</c> if command was known; otherwise <c>false</c>.
             </returns>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.HorizontalLineAtEnd">
+      <summary>
+            Gets or sets a boolean value indicating whether a horizontal line should be
+            shown below the last list item at the end of the list control.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.HorizontalLineAtStart">
+      <summary>
+            Gets or sets a boolean value indicating whether a horizontal line should be
+            shown above the first list item at the start of the list control.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListControl.HorizontalLineColor">
+      <summary>
+            Gets or sets the color of the horizontal lines that appear between list items.
+            </summary>
     </member>
     <member name="M:Rotorz.ReorderableList.ReorderableListControl.InsertItem(Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32)">
       <summary>
@@ -1067,8 +1148,23 @@
     </member>
     <member name="P:Rotorz.ReorderableList.ReorderableListGUI.CurrentItemIndex">
       <summary>
-            Gets zero-based index of list item which is currently being drawn;
+            Gets the zero-based index of the list item that is currently being drawn;
             or a value of -1 if no item is currently being drawn.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.CurrentItemTotalPosition">
+      <summary>
+            Gets the total position of the list item that is currently being drawn.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.CurrentListControlID">
+      <summary>
+            Gets the control ID of the list that is currently being drawn.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListGUI.CurrentListPosition">
+      <summary>
+            Gets the position of the list control that is currently being drawn.
             </summary>
     </member>
     <member name="M:Rotorz.ReorderableList.ReorderableListGUI.DefaultItemDrawer``1(UnityEngine.Rect,``0)">
@@ -1089,7 +1185,7 @@
     </member>
     <member name="P:Rotorz.ReorderableList.ReorderableListGUI.IndexOfChangedItem">
       <summary>
-            Gets or sets zero-based index of last item which was changed. A value of -1
+            Gets or sets the zero-based index of the last item that was changed. A value of -1
             indicates that no item was changed by list.
             </summary>
     </member>
@@ -1558,6 +1654,11 @@
             Gets an alternative style for footer button.
             </summary>
     </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListStyles.HorizontalLineColor">
+      <summary>
+            Gets color for the horizontal lines that appear between list items.
+            </summary>
+    </member>
     <member name="P:Rotorz.ReorderableList.ReorderableListStyles.ItemButton">
       <summary>
             Gets style for remove item button.
@@ -1566,6 +1667,11 @@
     <member name="P:Rotorz.ReorderableList.ReorderableListStyles.SelectedItem">
       <summary>
             Gets style for the background of a selected item.
+            </summary>
+    </member>
+    <member name="P:Rotorz.ReorderableList.ReorderableListStyles.SelectionBackgroundColor">
+      <summary>
+            Gets color of background for a selected list item.
             </summary>
     </member>
     <member name="P:Rotorz.ReorderableList.ReorderableListStyles.Title">
@@ -1599,6 +1705,11 @@
     <member name="P:Rotorz.ReorderableList.SerializedPropertyAdaptor.arrayProperty">
       <summary>
             Gets the underlying serialized array property.
+            </summary>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.BeginGUI">
+      <summary>
+            Occurs before any list items are drawn.
             </summary>
     </member>
     <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.CanDrag(System.Int32)">
@@ -1648,6 +1759,11 @@
             Duplicate existing element.
             </summary>
       <param name="index">Zero-based index of list element.</param>
+    </member>
+    <member name="M:Rotorz.ReorderableList.SerializedPropertyAdaptor.EndGUI">
+      <summary>
+            Occurs after all list items have been drawn.
+            </summary>
     </member>
     <member name="F:Rotorz.ReorderableList.SerializedPropertyAdaptor.FixedItemHeight">
       <summary>
