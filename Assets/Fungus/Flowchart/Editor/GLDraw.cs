@@ -106,8 +106,6 @@ public class GLDraw
             return;
 
 		lineMaterial = Resources.Load("GLLineDraw", typeof(Material)) as Material;
-		lineMaterial.hideFlags = HideFlags.HideAndDontSave;
-        lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
     }
 
     public static void DrawLine(Vector2 start, Vector2 end, Color color, float width)
