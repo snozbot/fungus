@@ -34,8 +34,6 @@ namespace Fungus
 				break;
 			}
 
-			Debug.Log("Fullscreen:" + fullscreenMode);
-			
 			Continue();
 		}
 
