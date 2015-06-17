@@ -26,11 +26,14 @@ namespace Fungus
 			GameObject go = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
 			PrefabUtility.DisconnectPrefabInstance(go);
 
-			Camera sceneCam = SceneView.currentDrawingSceneView.camera;
-
-			Vector3 pos = sceneCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 10f));
-			pos.z = 0f;
-			go.transform.position = pos;
+			SceneView view = SceneView.currentDrawingSceneView;
+			if (view != null)
+			{
+				Camera sceneCam = view.camera;
+				Vector3 pos = sceneCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 10f));
+				pos.z = 0f;
+				go.transform.position = pos;
+			}
 
 			Selection.activeGameObject = go;
 			
