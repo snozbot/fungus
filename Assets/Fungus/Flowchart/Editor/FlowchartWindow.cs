@@ -395,7 +395,7 @@ namespace Fungus
 			bool drag = false;
 			
 			// Pan tool
-			if (Tools.current == Tool.View && Tools.viewTool == ViewTool.Pan &&
+			if (UnityEditor.Tools.current == Tool.View && UnityEditor.Tools.viewTool == ViewTool.Pan &&
 			    Event.current.button == 0 && Event.current.type == EventType.MouseDrag)
 			{
 				drag = true;
@@ -429,7 +429,7 @@ namespace Fungus
 			}
 			
 			// Zoom tool
-			if (Tools.current == Tool.View && Tools.viewTool == ViewTool.Zoom &&
+			if (UnityEditor.Tools.current == Tool.View && UnityEditor.Tools.viewTool == ViewTool.Zoom &&
 			    Event.current.button == 0 && Event.current.type == EventType.MouseDrag)
 			{
 				zoom = true;
