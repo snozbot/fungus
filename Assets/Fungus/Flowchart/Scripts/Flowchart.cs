@@ -20,6 +20,11 @@ namespace Fungus
 		 */
         public const string CURRENT_VERSION = "1.0";
 
+        /**
+        * The name of the initial block in a new flowchart.
+        */
+        public const string DEFAULT_BLOCK_NAME = "New Block";
+
 		/**
 		 * Variable to track flowchart's version and if initial set up has completed.
 		 */
@@ -252,6 +257,7 @@ namespace Fungus
             {
                 // Version never set, so we are initializing on first creation or this flowchart is pre-versioning.
                 case null:
+                case "":
                     Initialize();
                     break;
             }
@@ -263,7 +269,7 @@ namespace Fungus
 	    {
             // If there are other flowcharts in the scene and the selected block has the default name, then this is probably a new block.
             // Reset the event handler of the new flowchart's default block to avoid crashes.
-            if (selectedBlock && cachedFlowcharts.Count > 1 && selectedBlock.name == "New Block")
+            if (selectedBlock && cachedFlowcharts.Count > 1 && selectedBlock.blockName == DEFAULT_BLOCK_NAME)
             {
                 selectedBlock.eventHandler = null;
             }
