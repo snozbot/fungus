@@ -261,6 +261,12 @@ namespace Fungus
 
 	    protected virtual void Initialize()
 	    {
+            // If there are other flowcharts in the scene and the selected block has the default name, then this is probably a new block.
+            // Reset the event handler of the new flowchart's default block to avoid crashes.
+            if (selectedBlock && cachedFlowcharts.Count > 1 && selectedBlock.name == "New Block")
+            {
+                selectedBlock.eventHandler = null;
+            }
         }
 
 		protected virtual Block CreateBlockComponent(GameObject parent)
