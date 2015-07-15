@@ -15,6 +15,22 @@ namespace Fungus
 	[ExecuteInEditMode]
 	public class Flowchart : MonoBehaviour 
 	{
+        /**
+		 * Current version used to compare with the previous version so older versions can be custom-updated from previous versions.
+		 */
+        public const string CURRENT_VERSION = "1.0";
+
+        /**
+        * The name of the initial block in a new flowchart.
+        */
+        public const string DEFAULT_BLOCK_NAME = "New Block";
+
+		/**
+		 * Variable to track flowchart's version and if initial set up has completed.
+		 */
+		[HideInInspector]
+		public string version;
+
 		/**
 		 * Scroll position of Flowchart editor window.
 		 */
@@ -143,6 +159,7 @@ namespace Fungus
 
 			CheckItemIds();
 			CleanupComponents();
+		    UpdateVersion();
 		}
 
 		public virtual void OnDisable()
@@ -230,6 +247,33 @@ namespace Fungus
 				}
 			}
 		}
+
+        private void UpdateVersion()
+        {
+            // If versions match, then we are already using the latest.
+            if (version == CURRENT_VERSION) return;
+
+            switch (version)
+            {
+                // Version never set, so we are initializing on first creation or this flowchart is pre-versioning.
+                case null:
+                case "":
+                    Initialize();
+                    break;
+            }
+
+            version = CURRENT_VERSION;
+        }
+
+	    protected virtual void Initialize()
+	    {
+            // If there are other flowcharts in the scene and the selected block has the default name, then this is probably a new block.
+            // Reset the event handler of the new flowchart's default block to avoid crashes.
+            if (selectedBlock && cachedFlowcharts.Count > 1 && selectedBlock.blockName == DEFAULT_BLOCK_NAME)
+            {
+                selectedBlock.eventHandler = null;
+            }
+        }
 
 		protected virtual Block CreateBlockComponent(GameObject parent)
 		{
