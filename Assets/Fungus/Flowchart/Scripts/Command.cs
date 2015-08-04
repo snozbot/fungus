@@ -166,6 +166,15 @@ namespace Fungus
 		{
 			return Color.white;
 		}
+
+		/**
+		 * Returns true if the specified property should be displayed in the inspector.
+		 * This is useful for hiding certain properties based on the value of another property.
+		 */
+		public virtual bool IsPropertyVisible(string propertyName)
+		{
+			return true;
+		}
 	}
 
 }
