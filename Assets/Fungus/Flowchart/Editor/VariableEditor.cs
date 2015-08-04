@@ -34,14 +34,15 @@ namespace Fungus
 
 		static public void VariableField(SerializedProperty property, 
 		                                 GUIContent label, 
-		                                 Flowchart flowchart, 
+		                                 Flowchart flowchart,
+		                                 string defaultText,
 		                                 Func<Variable, bool> filter, 
 		                                 Func<string, int, string[], int> drawer = null)
 		{
 			List<string> variableKeys = new List<string>();
 			List<Variable> variableObjects = new List<Variable>();
 			
-			variableKeys.Add("<None>");
+			variableKeys.Add(defaultText);
 			variableObjects.Add(null);
 			
 			List<Variable> variables = flowchart.variables;
@@ -82,6 +83,14 @@ namespace Fungus
 				List<Variable> publicVars = fs.GetPublicVariables();
 				foreach (Variable v in publicVars)
 				{
+					if (filter != null)
+					{
+						if (!filter(v))
+						{
+							continue;
+						}
+					}
+
 					variableKeys.Add(fs.name + " / " + v.key);
 					variableObjects.Add(v);
 
@@ -140,6 +149,7 @@ namespace Fungus
 			VariableEditor.VariableField(property, 
 			                             label,
 			                             FlowchartWindow.GetFlowchart(),
+			                             variableProperty.defaultText,
 			                             compare,
 			                             (s,t,u) => (EditorGUI.Popup(position, s, t, u)));
 
@@ -173,9 +183,35 @@ namespace Fungus
 				return;
 			}
 
-			const int popupWidth = 65;
+			Command command = property.serializedObject.targetObject as Command;
+			if (command == null)
+			{
+				return;
+			}
+
+			Flowchart flowchart = command.GetFlowchart() as Flowchart;
+			if (flowchart == null)
+			{
+				return;
+			}
+
+			if (EditorGUI.GetPropertyHeight(valueProp, label) > EditorGUIUtility.singleLineHeight)
+			{
+				DrawMultiLineProperty(position, label, referenceProp, valueProp, flowchart);
+			}
+			else
+			{
+				DrawSingleLineProperty(position, label, referenceProp, valueProp, flowchart);
+			}
+
+			EditorGUI.EndProperty();
+		}
+
+		protected virtual void DrawSingleLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart)
+		{
+			const int popupWidth = 100;
 			
-			Rect controlRect = EditorGUI.PrefixLabel(position, label);
+			Rect controlRect = EditorGUI.PrefixLabel(rect, label);
 			Rect valueRect = controlRect;
 			valueRect.width = controlRect.width - popupWidth - 5;
 			Rect popupRect = controlRect;
@@ -186,57 +222,53 @@ namespace Fungus
 				popupRect.x += valueRect.width + 5;
 				popupRect.width = popupWidth;
 			}
-			
-			Flowchart flowchart = property.serializedObject.targetObject as Flowchart;
-			if (flowchart == null)
-			{
-				Command command = property.serializedObject.targetObject as Command;
-				if (command != null)
-				{
-					flowchart = command.GetFlowchart();
-				}
-			}
-			
-			if (flowchart != null)
-			{
-				T selectedVariable = referenceProp.objectReferenceValue as T;
-				
-				List<string> variableKeys = new List<string>();
-				List<Variable> variableObjects = new List<Variable>();
-				
-				variableKeys.Add("<Value>");
-				variableObjects.Add(null);
-				
-				int index = 0;
-				int selectedIndex = 0;
-				foreach (Variable v in flowchart.variables)
-				{
-					if (v == null)
-					{
-						continue;
-					}
 
-					if (v.GetType() != typeof(T))
-					{
-						continue;
-					}
-					
-					variableKeys.Add(v.key);
-					variableObjects.Add(v);
-					
-					index++;
-					
-					if (v == selectedVariable)
-					{
-						selectedIndex = index;
-					}
-				}
-				
-				selectedIndex = EditorGUI.Popup(popupRect, selectedIndex, variableKeys.ToArray());
-				referenceProp.objectReferenceValue = variableObjects[selectedIndex];
+			EditorGUI.PropertyField(popupRect, referenceProp, new GUIContent(""));
+		}
+
+		protected virtual void DrawMultiLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart)
+		{
+			const int popupWidth = 100;
+			
+			Rect controlRect = rect;
+			Rect valueRect = controlRect;
+			valueRect.width = controlRect.width - 5;
+			Rect popupRect = controlRect;
+			
+			if (referenceProp.objectReferenceValue == null)
+			{
+				EditorGUI.PropertyField(valueRect, valueProp, label);
+				popupRect.x = rect.width - popupWidth + 5;
+				popupRect.width = popupWidth;
+			}
+			else
+			{
+				popupRect = EditorGUI.PrefixLabel(rect, label);
+			}
+
+			EditorGUI.PropertyField(popupRect, referenceProp, new GUIContent(""));
+		}
+
+		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+		{
+			VariableInfoAttribute typeInfo = VariableEditor.GetVariableInfo(typeof(T));
+			if (typeInfo == null)
+			{
+				return EditorGUIUtility.singleLineHeight;
 			}
 			
-			EditorGUI.EndProperty();
+			string propNameBase = typeInfo.VariableType;
+			propNameBase = Char.ToLowerInvariant(propNameBase[0]) + propNameBase.Substring(1);
+
+			SerializedProperty referenceProp = property.FindPropertyRelative(propNameBase + "Ref");
+
+			if (referenceProp.objectReferenceValue != null)
+			{
+				return EditorGUIUtility.singleLineHeight;
+			}
+
+			SerializedProperty valueProp = property.FindPropertyRelative(propNameBase + "Val");
+			return EditorGUI.GetPropertyHeight(valueProp, label);
 		}
 	}
 
