@@ -36,10 +36,22 @@ namespace Fungus
 	public struct BooleanData
 	{
 		[SerializeField]
+		[VariableProperty("<Value>", typeof(BooleanVariable))]
 		public BooleanVariable booleanRef;
 
 		[SerializeField]
 		public bool booleanVal;
+
+		public BooleanData(bool v)
+		{
+			booleanVal = v;
+			booleanRef = null;
+		}
+		
+		public static implicit operator bool(BooleanData booleanData)
+		{
+			return booleanData.Value;
+		}
 
 		public bool Value
 		{

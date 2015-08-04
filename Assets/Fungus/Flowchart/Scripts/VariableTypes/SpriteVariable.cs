@@ -12,11 +12,23 @@ namespace Fungus
 	public struct SpriteData
 	{
 		[SerializeField]
+		[VariableProperty("<Value>", typeof(SpriteVariable))]
 		public SpriteVariable spriteRef;
 		
 		[SerializeField]
 		public Sprite spriteVal;
+
+		public SpriteData(Sprite v)
+		{
+			spriteVal = v;
+			spriteRef = null;
+		}
 		
+		public static implicit operator Sprite(SpriteData spriteData)
+		{
+			return spriteData.Value;
+		}
+
 		public Sprite Value
 		{
 			get { return (spriteRef == null) ? spriteVal : spriteRef.value; }
