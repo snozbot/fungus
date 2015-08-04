@@ -71,6 +71,11 @@ namespace Fungus
 			int index = 0;
 			foreach (Command command in commandList)
 			{
+				if (command == null)
+				{
+					continue;
+				}
+
 				command.parentBlock = this;
 				command.commandIndex = index++;
 			}
