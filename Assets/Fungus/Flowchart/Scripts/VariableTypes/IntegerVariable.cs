@@ -44,10 +44,22 @@ namespace Fungus
 	public struct IntegerData
 	{
 		[SerializeField]
+		[VariableProperty("<Value>", typeof(IntegerVariable))]
 		public IntegerVariable integerRef;
 
 		[SerializeField]
 		public int integerVal;
+
+		public IntegerData(int v)
+		{
+			integerVal = v;
+			integerRef = null;
+		}
+
+		public static implicit operator int(IntegerData integerData)
+		{
+			return integerData.Value;
+		}
 
 		public int Value
 		{

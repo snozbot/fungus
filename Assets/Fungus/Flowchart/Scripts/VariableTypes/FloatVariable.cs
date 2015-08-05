@@ -44,10 +44,22 @@ namespace Fungus
 	public struct FloatData
 	{
 		[SerializeField]
+		[VariableProperty("<Value>", typeof(FloatVariable))]
 		public FloatVariable floatRef;
 
 		[SerializeField]
 		public float floatVal;
+
+		public FloatData(float v)
+		{
+			floatVal = v;
+			floatRef = null;
+		}
+
+		public static implicit operator float(FloatData floatData)
+		{
+			return floatData.Value;
+		}
 
 		public float Value
 		{

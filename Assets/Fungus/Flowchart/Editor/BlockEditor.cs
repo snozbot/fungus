@@ -29,7 +29,7 @@ namespace Fungus
 			public int index;
 		}
 
-		protected static List<Action> actionList = new List<Action>();
+		public static List<Action> actionList = new List<Action>();
 
 		protected Texture2D upIcon;
 		protected Texture2D downIcon;
@@ -131,6 +131,7 @@ namespace Fungus
 				    Event.current.button == 1)
 				{
 					ShowContextMenu();
+					Event.current.Use();
 				}
 
 				if (GUIUtility.keyboardControl == 0) //Only call keyboard shortcuts when not typing in a text field

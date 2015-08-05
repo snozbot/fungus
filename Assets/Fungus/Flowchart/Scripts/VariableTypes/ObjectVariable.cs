@@ -12,11 +12,23 @@ namespace Fungus
 	public struct ObjectData
 	{
 		[SerializeField]
+		[VariableProperty("<Value>", typeof(ObjectVariable))]
 		public ObjectVariable objectRef;
 		
 		[SerializeField]
 		public Object objectVal;
+
+		public ObjectData(Object v)
+		{
+			objectVal = v;
+			objectRef = null;
+		}
 		
+		public static implicit operator Object(ObjectData objectData)
+		{
+			return objectData.Value;
+		}
+
 		public Object Value
 		{
 			get { return (objectRef == null) ? objectVal : objectRef.value; }

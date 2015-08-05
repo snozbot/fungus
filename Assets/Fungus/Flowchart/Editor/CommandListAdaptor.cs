@@ -18,11 +18,7 @@ namespace Fungus
 		public float fixedItemHeight;
 		
 		public Rect nodeRect = new Rect();
-		
-		public static bool pinShiftToTop;
-		public static int firstSelectedIndex = 0;
-		public static int lastSelectedIndex = 0;
-		
+
 		public SerializedProperty this[int index] {
 			get { return _arrayProperty.GetArrayElementAtIndex(index); }
 		}
@@ -247,11 +243,20 @@ namespace Fungus
 			commandLabelRect.y -= 2;
 			commandLabelRect.width -= (indentSize * command.indentLevel - 22);
 			commandLabelRect.height += 5;
-			
+
+			// There's a weird incompatibility between the Reorderable list control used for the command list and 
+			// the UnityEvent list control used in some commands. In play mode, if you click on the reordering grabber
+			// for a command in the list it causes the UnityEvent list to spew null exception errors.
+			// The workaround for now is to hide the reordering grabber from mouse clicks by extending the command
+			// selection rectangle to cover it. We are planning to totally replace the command list display system.
+			Rect clickRect = position;
+			clickRect.x -= 20;
+			clickRect.width += 20;
+
 			// Select command via left click
 			if (Event.current.type == EventType.MouseDown &&
 			    Event.current.button == 0 &&
-			    position.Contains(Event.current.mousePosition))
+			    clickRect.Contains(Event.current.mousePosition))
 			{
 				if (flowchart.selectedCommands.Contains(command) && Event.current.button == 0)
 				{
@@ -259,84 +264,104 @@ namespace Fungus
 					// Command key and shift key is not pressed
 					if (!EditorGUI.actionKey && !Event.current.shift)
 					{
-						flowchart.selectedCommands.Remove(command);
-						flowchart.ClearSelectedCommands();
+						BlockEditor.actionList.Add ( delegate {
+							flowchart.selectedCommands.Remove(command);
+							flowchart.ClearSelectedCommands();
+						});
 					}
 
 					// Command key pressed
 					if (EditorGUI.actionKey)
 					{
-						flowchart.selectedCommands.Remove(command);
-					}
-					// Shift key pressed
-					if (Event.current.shift)
-					{
-						flowchart.ClearSelectedCommands();
-						if (pinShiftToTop)
-						{
-							for (int i = firstSelectedIndex; i < index+1; ++i)
-							{
-								flowchart.AddSelectedCommand(flowchart.selectedBlock.commandList[i]);
-							}
-						}
-						else
-						{
-							for (int i = index; i < lastSelectedIndex+1; ++i)
-							{
-								flowchart.AddSelectedCommand(flowchart.selectedBlock.commandList[i]);
-							}
-						}
+						BlockEditor.actionList.Add ( delegate {
+							flowchart.selectedCommands.Remove(command);
+						});
+						Event.current.Use();
 					}
 				}
 				else
 				{
+					bool shift = Event.current.shift;
+
 					// Left click and no command key
-					if (!Event.current.shift && !EditorGUI.actionKey && Event.current.button == 0)
+					if (!shift && !EditorGUI.actionKey && Event.current.button == 0)
 					{
-						flowchart.ClearSelectedCommands();
+						BlockEditor.actionList.Add ( delegate {
+							flowchart.ClearSelectedCommands();
+						});
+						Event.current.Use();
 					}
-					flowchart.AddSelectedCommand(command);
-					
-					bool firstSelectedCommandFound = false;
+
+					BlockEditor.actionList.Add ( delegate {
+						flowchart.AddSelectedCommand(command);
+					});
+
+					// Find first and last selected commands
+					int firstSelectedIndex = -1;
+					int lastSelectedIndex = -1;
 					if (flowchart.selectedCommands.Count > 0)
 					{ 
 						if ( flowchart.selectedBlock != null)
 						{
 							for (int i = 0; i < flowchart.selectedBlock.commandList.Count; i++)
 							{
-								Command commandInBlock = flowchart.selectedBlock.commandList[i];
-								
+								Command commandInBlock = flowchart.selectedBlock.commandList[i];								
 								foreach (Command selectedCommand in flowchart.selectedCommands)
 								{
 									if (commandInBlock == selectedCommand)
 									{
-										if (!firstSelectedCommandFound)
-										{
-											firstSelectedIndex = i;
-											firstSelectedCommandFound = true;
-										}
+										firstSelectedIndex = i;
+										break;
+									}
+								}
+							}
+							for (int i = flowchart.selectedBlock.commandList.Count - 1; i >=0; i--)
+							{
+								Command commandInBlock = flowchart.selectedBlock.commandList[i];								
+								foreach (Command selectedCommand in flowchart.selectedCommands)
+								{
+									if (commandInBlock == selectedCommand)
+									{
 										lastSelectedIndex = i;
+										break;
 									}
 								}
 							}
 						}
 					}
-					
-					if (Event.current.shift) 
+
+					if (shift) 
 					{
-						for (int i = firstSelectedIndex; i < lastSelectedIndex; ++i)
+						int currentIndex = command.commandIndex;
+						if (firstSelectedIndex == -1 ||
+						    lastSelectedIndex == -1)
 						{
-							flowchart.AddSelectedCommand(flowchart.selectedBlock.commandList[i]);
+							// No selected command found - select entire list
+							firstSelectedIndex = 0;
+							lastSelectedIndex = currentIndex;
+						}
+						else
+						{
+							if (currentIndex < firstSelectedIndex)
+							{
+								firstSelectedIndex = currentIndex;
+							}
+							if (currentIndex > lastSelectedIndex)
+							{
+								lastSelectedIndex = currentIndex;
+							}
+						}
+
+						for (int i = Math.Min(firstSelectedIndex, lastSelectedIndex); i < Math.Max(firstSelectedIndex, lastSelectedIndex); ++i)
+						{
+							Command selectedCommand = flowchart.selectedBlock.commandList[i];
+							BlockEditor.actionList.Add ( delegate {
+								flowchart.AddSelectedCommand(selectedCommand);
+							});
 						}
 					}
-					if (index == firstSelectedIndex)
-					{
-						pinShiftToTop = false;
-					}
-					else if (index == lastSelectedIndex)
-					{
-						pinShiftToTop = true;
-					}
+
+					Event.current.Use();
 				}
 				GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
 			}

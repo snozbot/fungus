@@ -33,7 +33,7 @@ namespace Fungus
 				return "Error: No game object selected";
 			}
 
-			return targetGameObject.name;
+			return targetGameObject.name + " = " + activeState.GetDescription();
 		}
 
 		public override Color GetButtonColor()

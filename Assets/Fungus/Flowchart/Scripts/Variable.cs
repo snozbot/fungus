@@ -32,6 +32,14 @@ namespace Fungus
 			this.VariableTypes = variableTypes;
 		}
 
+		public VariablePropertyAttribute (string defaultText, params System.Type[] variableTypes) 
+		{
+			this.defaultText = defaultText;
+			this.VariableTypes = variableTypes;
+		}
+
+		public String defaultText = "<None>";
+
 		public System.Type[] VariableTypes { get; set; }
 	}
 

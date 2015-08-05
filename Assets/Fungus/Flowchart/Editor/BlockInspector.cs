@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Fungus
 {
@@ -26,6 +27,23 @@ namespace Fungus
 		protected bool resize = false;
 		protected float topPanelHeight = 50;
 
+		// Cache the block and command editors so we only create and destroy them
+		// when a different block / command is selected.
+		protected BlockEditor activeBlockEditor;
+		protected CommandEditor activeCommandEditor;
+		protected Command activeCommand; // Command currently being inspected
+
+		// Cached command editors to avoid creating / destroying editors more than necessary
+		protected Dictionary<Command, CommandEditor> cachedCommandEditors = new Dictionary<Command, CommandEditor>();
+
+		protected void OnDisable()
+		{
+			foreach (CommandEditor commandEditor in cachedCommandEditors.Values)
+			{
+				DestroyImmediate(commandEditor);
+			}
+		}
+
 		public override void OnInspectorGUI () 
 		{
 			BlockInspector blockInspector = target as BlockInspector;
@@ -38,15 +56,21 @@ namespace Fungus
 
 			Flowchart flowchart = block.GetFlowchart();
 
-			BlockEditor blockEditor = Editor.CreateEditor(block) as BlockEditor;
-			blockEditor.DrawBlockName(flowchart);
+			if (activeBlockEditor == null ||
+			    block != activeBlockEditor.target)
+			{
+				DestroyImmediate(activeBlockEditor);
+				activeBlockEditor = Editor.CreateEditor(block) as BlockEditor;
+			}
+
+			activeBlockEditor.DrawBlockName(flowchart);
 
 			// Using a custom rect area to get the correct 5px indent for the scroll views
 			Rect blockRect = new Rect(5, topPanelHeight, Screen.width - 6, Screen.height - 70);
 			GUILayout.BeginArea(blockRect);
 
 			blockScrollPos = GUILayout.BeginScrollView(blockScrollPos, GUILayout.Height(flowchart.blockViewHeight));
-			blockEditor.DrawBlockGUI(flowchart);
+			activeBlockEditor.DrawBlockGUI(flowchart);
 			GUILayout.EndScrollView();
 
 			Command inspectCommand = null;
@@ -61,23 +85,49 @@ namespace Fungus
 			{
 				GUILayout.EndArea();
 				Repaint();
-				DestroyImmediate(blockEditor);
 				return;
 			}
 
+			// Only change the activeCommand at the start of the GUI call sequence
+			if (Event.current.type == EventType.Layout)
+			{
+				activeCommand = inspectCommand;
+			}
+
+			DrawCommandUI(flowchart, inspectCommand);
+		}
+
+		public void DrawCommandUI(Flowchart flowchart, Command inspectCommand)
+		{
 			ResizeScrollView(flowchart);
 
 			GUILayout.Space(7);
 
-			blockEditor.DrawButtonToolbar();
+			activeBlockEditor.DrawButtonToolbar();
 
 			commandScrollPos = GUILayout.BeginScrollView(commandScrollPos);
 
 			if (inspectCommand != null)
 			{
-				CommandEditor commandEditor = Editor.CreateEditor(inspectCommand) as CommandEditor;
-				commandEditor.DrawCommandInspectorGUI();
-				DestroyImmediate(commandEditor);
+				if (activeCommandEditor == null || 
+				    inspectCommand != activeCommandEditor.target)
+				{
+					// See if we have a cached version of the command editor already,
+					// if not then create a new one.
+					if (cachedCommandEditors.ContainsKey(inspectCommand))
+					{
+						activeCommandEditor = cachedCommandEditors[inspectCommand];
+					}
+					else
+					{
+						activeCommandEditor = Editor.CreateEditor(inspectCommand) as CommandEditor;
+						cachedCommandEditors[inspectCommand] = activeCommandEditor;
+					}
+				}
+				if (activeCommandEditor != null)
+				{
+					activeCommandEditor.DrawCommandInspectorGUI();
+				}
 			}
 
 			GUILayout.EndScrollView();
@@ -97,8 +147,6 @@ namespace Fungus
 			GUI.color = Color.white;
 
 			Repaint();
-
-			DestroyImmediate(blockEditor);
 		}
 
 		private void ResizeScrollView(Flowchart flowchart)

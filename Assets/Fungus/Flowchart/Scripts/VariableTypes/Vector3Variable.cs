@@ -12,11 +12,23 @@ namespace Fungus
 	public struct Vector3Data
 	{
 		[SerializeField]
+		[VariableProperty("<Value>", typeof(Vector3Variable))]
 		public Vector3Variable vector3Ref;
 		
 		[SerializeField]
 		public Vector3 vector3Val;
+
+		public Vector3Data(Vector3 v)
+		{
+			vector3Val = v;
+			vector3Ref = null;
+		}
 		
+		public static implicit operator Vector3(Vector3Data vector3Data)
+		{
+			return vector3Data.Value;
+		}
+
 		public Vector3 Value
 		{
 			get { return (vector3Ref == null) ? vector3Val : vector3Ref.value; }

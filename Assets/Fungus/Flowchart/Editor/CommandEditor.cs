@@ -3,6 +3,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Rotorz.ReorderableList;
 
 namespace Fungus
 {
@@ -113,6 +114,8 @@ namespace Fungus
 
 		public virtual void DrawCommandGUI()
 		{
+			Command t = target as Command;
+			
 			// Code below was copied from here
 			// http://answers.unity3d.com/questions/550829/how-to-add-a-script-field-in-custom-inspector.html
 
@@ -131,7 +134,21 @@ namespace Fungus
 					continue;
 				}
 
-				EditorGUILayout.PropertyField(iterator, true, new GUILayoutOption[0]);
+				if (!t.IsPropertyVisible(iterator.name))
+				{
+					continue;
+				}
+
+				if (iterator.isArray &&
+					t.IsReorderableArray(iterator.name))
+				{
+					ReorderableListGUI.Title(new GUIContent(iterator.displayName, iterator.tooltip));
+					ReorderableListGUI.ListField(iterator);
+				}
+				else
+				{
+					EditorGUILayout.PropertyField(iterator, true, new GUILayoutOption[0]);
+				}
 			}
 
 			serializedObject.ApplyModifiedProperties();

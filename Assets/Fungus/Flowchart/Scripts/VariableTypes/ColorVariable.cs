@@ -12,11 +12,23 @@ namespace Fungus
 	public struct ColorData
 	{
 		[SerializeField]
+		[VariableProperty("<Value>", typeof(ColorVariable))]
 		public ColorVariable colorRef;
 		
 		[SerializeField]
 		public Color colorVal;
+
+		public ColorData(Color v)
+		{
+			colorVal = v;
+			colorRef = null;
+		}
 		
+		public static implicit operator Color(ColorData colorData)
+		{
+			return colorData.Value;
+		}
+
 		public Color Value
 		{
 			get { return (colorRef == null) ? colorVal : colorRef.value; }

@@ -12,11 +12,23 @@ namespace Fungus
 	public struct GameObjectData
 	{
 		[SerializeField]
+		[VariableProperty("<Value>", typeof(GameObjectVariable))]
 		public GameObjectVariable gameObjectRef;
 		
 		[SerializeField]
 		public GameObject gameObjectVal;
+
+		public GameObjectData(GameObject v)
+		{
+			gameObjectVal = v;
+			gameObjectRef = null;
+		}
 		
+		public static implicit operator GameObject(GameObjectData gameObjectData)
+		{
+			return gameObjectData.Value;
+		}
+
 		public GameObject Value
 		{
 			get { return (gameObjectRef == null) ? gameObjectVal : gameObjectRef.value; }

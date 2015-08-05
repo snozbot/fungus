@@ -34,10 +34,23 @@ namespace Fungus
 	public struct StringData
 	{
 		[SerializeField]
+		[VariableProperty("<Value>", typeof(StringVariable))]
 		public StringVariable stringRef;
 
+		[TextArea(1,10)]
 		[SerializeField]
 		public string stringVal;
+
+		public StringData(string v)
+		{
+			stringVal = v;
+			stringRef = null;
+		}
+		
+		public static implicit operator string(StringData spriteData)
+		{
+			return spriteData.Value;
+		}
 
 		public string Value
 		{

@@ -166,6 +166,24 @@ namespace Fungus
 		{
 			return Color.white;
 		}
+
+		/**
+		 * Returns true if the specified property should be displayed in the inspector.
+		 * This is useful for hiding certain properties based on the value of another property.
+		 */
+		public virtual bool IsPropertyVisible(string propertyName)
+		{
+			return true;
+		}
+
+		/**
+		 * Returns true if the specified property should be displayed as a reorderable list in the inspector.
+		 * This only applies for array properties and has no effect for non-array properties.
+		 */
+		public virtual bool IsReorderableArray(string propertyName)
+		{
+			return false;
+		}
 	}
 
 }
