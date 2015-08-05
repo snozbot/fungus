@@ -175,6 +175,15 @@ namespace Fungus
 		{
 			return true;
 		}
+
+		/**
+		 * Returns true if the specified property should be displayed as a reorderable list in the inspector.
+		 * This only applies for array properties and has no effect for non-array properties.
+		 */
+		public virtual bool IsReorderableArray(string propertyName)
+		{
+			return false;
+		}
 	}
 
 }

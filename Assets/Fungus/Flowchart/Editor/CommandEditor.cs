@@ -139,7 +139,8 @@ namespace Fungus
 					continue;
 				}
 
-				if (iterator.isArray)
+				if (iterator.isArray &&
+					t.IsReorderableArray(iterator.name))
 				{
 					ReorderableListGUI.Title(new GUIContent(iterator.displayName, iterator.tooltip));
 					ReorderableListGUI.ListField(iterator);
