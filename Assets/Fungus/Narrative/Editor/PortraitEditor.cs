@@ -26,7 +26,7 @@ namespace Fungus
 		protected SerializedProperty facingProp;
 		protected SerializedProperty useDefaultSettingsProp;
 		protected SerializedProperty fadeDurationProp;
-		protected SerializedProperty moveSpeedProp;
+		protected SerializedProperty moveDurationProp;
 		protected SerializedProperty shiftOffsetProp;
 		protected SerializedProperty waitUntilFinishedProp;
 		protected SerializedProperty moveProp;
@@ -45,7 +45,7 @@ namespace Fungus
 			facingProp = serializedObject.FindProperty("facing");
 			useDefaultSettingsProp = serializedObject.FindProperty("useDefaultSettings");
 			fadeDurationProp = serializedObject.FindProperty("fadeDuration");
-			moveSpeedProp = serializedObject.FindProperty("moveSpeed");
+			moveDurationProp = serializedObject.FindProperty("moveDuration");
 			shiftOffsetProp = serializedObject.FindProperty("shiftOffset");
 			waitUntilFinishedProp = serializedObject.FindProperty("waitUntilFinished");
 			moveProp = serializedObject.FindProperty("move");
@@ -217,7 +217,7 @@ namespace Fungus
 						if (t.move)
 						{
 							// MOVE SPEED
-							EditorGUILayout.PropertyField(moveSpeedProp);
+							EditorGUILayout.PropertyField(moveDurationProp);
 						}
 						if (t.shiftIntoPlace)
 						{

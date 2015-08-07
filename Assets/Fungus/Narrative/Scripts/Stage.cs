@@ -13,8 +13,8 @@ namespace Fungus
 	{
 		public Canvas portraitCanvas;
 		public bool dimPortraits;
-		public float fadeDuration;
-		public float moveSpeed;
+		public float fadeDuration = 0.5f;
+		public float moveDuration = 1f;
 		public LeanTweenType fadeEaseType;
 		public LeanTweenType moveEaseType;
 		public Vector2 shiftOffset;

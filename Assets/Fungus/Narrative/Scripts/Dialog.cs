@@ -239,11 +239,11 @@ namespace Fungus
 							{
 								if (c != speakingCharacter)
 								{
-									Portrait.Dim(c,s);
+									Portrait.SetDimmed(c, s, true);
 								}
 								else
 								{
-									Portrait.Undim(c,s);
+									Portrait.SetDimmed(c, s, false);
 								}
 							}
 						}
@@ -621,18 +621,18 @@ namespace Fungus
 				{
 					if (c.state.portraitImage != null)
 					{
-						if (LeanTween.isTweening(c.state.portraitObj))
+						if (LeanTween.isTweening(c.state.portraitImage.gameObject))
 						{
-							LeanTween.cancel(c.state.portraitObj, true);
-							c.state.portraitImage.material.SetFloat( "_Fade", 1 );
+							LeanTween.cancel(c.state.portraitImage.gameObject, true);
+
 							Portrait.SetRectTransform(c.state.portraitImage.rectTransform, c.state.position);
 							if (c.state.dimmed == true)
 							{
-								c.state.portraitImage.material.SetColor("_Color", new Color(0.5f,0.5f,0.5f,1f));
+								c.state.portraitImage.color = new Color(0.5f,0.5f,0.5f,1f);
 							}
 							else
 							{
-								c.state.portraitImage.material.SetColor("_Color", new Color(1f,1f,1f,1f));
+								c.state.portraitImage.color = Color.white;
 							}
 						}
 					}

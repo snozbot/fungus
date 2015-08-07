@@ -85,14 +85,14 @@ namespace Fungus
 			switch(display)
 			{
 			case (StageDisplayType.Show):
-				Show(stage);
+				Show(stage, true);
 				break;
 			case (StageDisplayType.Hide):
-				Hide(stage);
+				Show(stage, false);
 				break;
 			case (StageDisplayType.Swap):
-				Show(stage);
-				Hide(replacedStage);
+				Show(stage, true);
+				Show(replacedStage, false);
 				break;
 			case (StageDisplayType.MoveToFront):
 				MoveToFront(stage);
@@ -111,54 +111,23 @@ namespace Fungus
 			}
 		}
 
-		protected void Show(Stage stage) 
+		protected void Show(Stage stage, bool visible) 
 		{
-			if (fadeDuration == 0)
+			float duration = (fadeDuration == 0) ? float.Epsilon : fadeDuration;
+			float targetAlpha = visible ? 1f : 0f;
+
+			CanvasGroup canvasGroup = stage.GetComponentInChildren<CanvasGroup>();
+			if (canvasGroup == null)
 			{
-				fadeDuration = float.Epsilon;
+				Continue();
+				return;
 			}
-
-			LeanTween.value(gameObject,0,1,fadeDuration).setOnUpdate(
-				(float fadeAmount)=>{
-				foreach ( Character c in stage.charactersOnStage)
-				{
-					c.state.portraitImage.material.SetFloat("_Alpha",fadeAmount);
-				}
-			}
-			).setOnComplete(
-				()=>{
-				foreach ( Character c in stage.charactersOnStage)
-				{
-					c.state.portraitImage.material.SetFloat("_Alpha",1);
-				}
+			
+			LeanTween.value(canvasGroup.gameObject, canvasGroup.alpha, targetAlpha, duration).setOnUpdate( (float alpha) => {
+				canvasGroup.alpha = alpha;
+			}).setOnComplete( () => {
 				OnComplete();
-			}
-			);
-		}
-
-		protected void Hide(Stage stage)
-		{
-			if (fadeDuration == 0) 
-			{
-				fadeDuration = float.Epsilon;
-			}
-
-			LeanTween.value(gameObject,1,0,fadeDuration).setOnUpdate(
-				(float fadeAmount)=>{
-				foreach ( Character c in stage.charactersOnStage)
-				{
-					c.state.portraitImage.material.SetFloat("_Alpha",fadeAmount);
-				}
-			}
-			).setOnComplete(
-				()=>{
-				foreach ( Character c in stage.charactersOnStage)
-				{
-					c.state.portraitImage.material.SetFloat("_Alpha",0);
-				}
-				OnComplete();
-			}
-			);
+			});
 		}
 
 		protected void MoveToFront(Stage stage)
@@ -181,7 +150,7 @@ namespace Fungus
 			stage.dimPortraits = false;
 			foreach (Character character in stage.charactersOnStage)
 			{
-				Portrait.Undim(character, stage);
+				Portrait.SetDimmed(character, stage, false);
 			}
 		}
 

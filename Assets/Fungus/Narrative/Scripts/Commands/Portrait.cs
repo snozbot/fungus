@@ -15,7 +15,6 @@ namespace Fungus
 		public Sprite portrait;
 		public RectTransform position;
 		public FacingDirection facing;
-		public GameObject portraitObj;
 		public Image portraitImage;
 	}
 	
@@ -27,6 +26,7 @@ namespace Fungus
 		Replace,
 		MoveToFront
 	}
+
 	public enum FacingDirection
 	{
 		None,
@@ -79,10 +79,10 @@ namespace Fungus
 		public bool useDefaultSettings = true;
 		
 		[Tooltip("Fade Duration")]
-		public float fadeDuration;
+		public float fadeDuration = 0.5f;
 		
-		[Tooltip("Movement Speed")]
-		public float moveSpeed;
+		[Tooltip("Movement Duration")]
+		public float moveDuration = 1f;
 		
 		[Tooltip("Shift Offset")]
 		public Vector2 shiftOffset;
@@ -95,7 +95,10 @@ namespace Fungus
 		
 		[Tooltip("Wait until the tween has finished before executing the next command")]
 		public bool waitUntilFinished = false;
-		
+
+		// Timer for waitUntilFinished functionality
+		protected float waitTimer;
+
 		public override void OnEnter()
 		{
 			// If no display specified, do nothing
@@ -104,18 +107,21 @@ namespace Fungus
 				Continue();
 				return;
 			}
+
 			// If no character specified, do nothing
 			if (character == null)
 			{
 				Continue();
 				return;
 			}
+
 			// If Replace and no replaced character specified, do nothing
 			if (display == DisplayType.Replace && replacedCharacter == null)
 			{
 				Continue();
 				return;
 			}
+
 			// Selected "use default Portrait Stage"
 			if (stage == null)            // Default portrait stage selected
 			{
@@ -124,37 +130,51 @@ namespace Fungus
 					stage = GameObject.FindObjectOfType<Stage>();
 				}
 			}
+
 			// If portrait stage does not exist, do nothing
 			if (stage == null)
 			{
 				Continue();
 				return;
 			}
-			
+
+			// Use default settings
+			if (useDefaultSettings)
+			{
+				fadeDuration = stage.fadeDuration;
+				moveDuration = stage.moveDuration;
+				shiftOffset = stage.shiftOffset;
+			}
+
 			if (character.state.portraitImage == null)
 			{
-				CreatePortraitObject(character,stage);
+				CreatePortraitObject(character, stage);
 			}
+
 			// if no previous portrait, use default portrait
 			if (character.state.portrait == null) 
 			{
 				character.state.portrait = character.profileSprite;
 			}
+
 			// Selected "use previous portrait"
 			if (portrait == null) 
 			{
 				portrait = character.state.portrait;
 			}
+
 			// if no previous position, use default position
 			if (character.state.position == null)
 			{
 				character.state.position = stage.defaultPosition.rectTransform;
 			}
+
 			// Selected "use previous position"
 			if (toPosition == null)
 			{
 				toPosition = character.state.position;
 			}
+
 			if (replacedCharacter != null)
 			{
 				// if no previous position, use default position
@@ -163,65 +183,68 @@ namespace Fungus
 					replacedCharacter.state.position = stage.defaultPosition.rectTransform;
 				}
 			}
+
 			// If swapping, use replaced character's position
 			if (display == DisplayType.Replace)
 			{
 				toPosition = replacedCharacter.state.position;
 			}
+
 			// Selected "use previous position"
 			if (fromPosition == null)
 			{
 				fromPosition = character.state.position;
 			}
+
 			// if portrait not moving, use from position is same as to position
 			if (!move)
 			{
 				fromPosition = toPosition;
 			}
+
 			if (display == DisplayType.Hide)
 			{
 				fromPosition = character.state.position;
 			}
+
 			// if no previous facing direction, use default facing direction
 			if (character.state.facing == FacingDirection.None) 
 			{
 				character.state.facing = character.portraitsFace;
 			}
+
 			// Selected "use previous facing direction"
 			if (facing == FacingDirection.None)
 			{
 				facing = character.state.facing;
 			}
-			// Use default settings
-			if (useDefaultSettings)
-			{
-				fadeDuration = stage.fadeDuration;
-				moveSpeed = stage.moveSpeed;
-				shiftOffset = stage.shiftOffset;
-			}
+
 			switch(display)
 			{
 			case (DisplayType.Show):
-				Show(character,fromPosition,toPosition);
+				Show(character, fromPosition, toPosition);
 				character.state.onScreen = true;
 				if (!stage.charactersOnStage.Contains(character))
 				{
 					stage.charactersOnStage.Add(character);
 				}
 				break;
+
 			case (DisplayType.Hide):
-				Hide(character,fromPosition,toPosition);
+				Hide(character, fromPosition, toPosition);
 				character.state.onScreen = false;
 				stage.charactersOnStage.Remove(character);
 				break;
+
 			case (DisplayType.Replace):
-				Show(character,fromPosition,toPosition);
+				Show(character, fromPosition, toPosition);
 				Hide(replacedCharacter, replacedCharacter.state.position, replacedCharacter.state.position);
 				character.state.onScreen = true;
 				replacedCharacter.state.onScreen = false;
 				stage.charactersOnStage.Add(character);
 				stage.charactersOnStage.Remove(replacedCharacter);
 				break;
+
 			case (DisplayType.MoveToFront):
 				MoveToFront(character);
 				break;
@@ -236,57 +259,87 @@ namespace Fungus
 			{
 				character.state.display = display;
 			}
+
 			character.state.portrait = portrait;
 			character.state.facing = facing;
 			character.state.position = toPosition;
+
+			waitTimer = 0f;
 			if (!waitUntilFinished)
 			{
 				Continue();
 			}
+			else
+			{
+				StartCoroutine(WaitUntilFinished(fadeDuration));
+			}
 		}
-		public static void CreatePortraitObject(Character character, Stage stage)
+
+		protected virtual IEnumerator WaitUntilFinished(float duration) 
 		{
-			GameObject portraitObj = new GameObject(character.name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+			// Wait until the timer has expired
+			// Any method can modify this timer variable to delay continuing.
+
+			waitTimer = duration;
+			while (waitTimer > 0f)
+			{
+				waitTimer -= Time.deltaTime;
+				yield return null;
+			}
+
+			Continue();
+		}
+
+		protected virtual void CreatePortraitObject(Character character, Stage stage)
+		{
+			// Create a new portrait object
+			GameObject portraitObj = new GameObject(character.name, 
+			                                        typeof(RectTransform), 
+			                                        typeof(CanvasRenderer), 
+			                                        typeof(Image));
+
+			// Set it to be a child of the stage
 			portraitObj.transform.SetParent(stage.portraitCanvas.transform, true);
+
+			// Configure the portrait image
 			Image portraitImage = portraitObj.GetComponent<Image>();
 			portraitImage.preserveAspect = true;
 			portraitImage.sprite = character.profileSprite;
-			// Workaround for bug #92. Tiled switches off an internal quad cropping optimisation.
-			portraitImage.type = Image.Type.Tiled;
-			Material portraitMaterial = Instantiate(Resources.Load("Portrait")) as Material;
-			portraitImage.material = portraitMaterial;
-			character.state.portraitObj = portraitObj;
+			portraitImage.color = new Color(1f, 1f, 1f, 0f);
+
+			// LeanTween doesn't handle 0 duration properly
+			float duration = (fadeDuration > 0f) ? fadeDuration : float.Epsilon;
+
+			// Fade in character image (first time)
+			LeanTween.alpha(portraitImage.transform as RectTransform, 1f, duration).setEase(stage.fadeEaseType);
+
+			// Tell character about portrait image
 			character.state.portraitImage = portraitImage;
-			character.state.portraitImage.material.SetFloat("_Alpha",0);
 		}
+		
 		protected void SetupPortrait(Character character, RectTransform fromPosition)
 		{
 			SetRectTransform(character.state.portraitImage.rectTransform, fromPosition);
-			character.state.portraitImage.material.SetFloat("_Fade",0);
-			character.state.portraitImage.material.SetTexture("_MainTex", character.profileSprite.texture);
-			Texture2D blankTexture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-			blankTexture.SetPixel(0, 0, new Color(0f,0f,0f,0f));
-			blankTexture.Apply();
-			character.state.portraitImage.material.SetTexture("_TexStart", blankTexture as Texture);
-			character.state.portraitImage.material.SetTexture("_TexEnd", blankTexture as Texture);
+
 			if (character.state.facing != character.portraitsFace)
 			{
-				character.state.portraitImage.material.SetFloat("_FlipStart",1);
+				character.state.portraitImage.rectTransform.localScale = new Vector3(-1f, 1f, 1f);
 			}
 			else
 			{
-				character.state.portraitImage.material.SetFloat("_FlipStart",0);
+				character.state.portraitImage.rectTransform.localScale = new Vector3(1f, 1f, 1f);
 			}
+
 			if (facing != character.portraitsFace)
 			{
-				character.state.portraitImage.material.SetFloat("_FlipEnd",1);
+				character.state.portraitImage.rectTransform.localScale = new Vector3(-1f, 1f, 1f);
 			}
 			else
 			{
-				character.state.portraitImage.material.SetFloat("_FlipEnd",0);
+				character.state.portraitImage.rectTransform.localScale = new Vector3(1f, 1f, 1f);
 			}
-			character.state.portraitImage.material.SetFloat("_Alpha",1);
 		}
+
 		public static void SetRectTransform(RectTransform oldRectTransform, RectTransform newRectTransform)
 		{
 			oldRectTransform.eulerAngles      = newRectTransform.eulerAngles;
@@ -299,6 +352,7 @@ namespace Fungus
 			oldRectTransform.pivot            = newRectTransform.pivot;
 			oldRectTransform.localScale       = newRectTransform.localScale;
 		}
+
 		protected void Show(Character character, RectTransform fromPosition, RectTransform toPosition) 
 		{
 			if (shiftIntoPlace)
@@ -317,84 +371,86 @@ namespace Fungus
 					fromPosition.anchoredPosition = new Vector2(fromPosition.anchoredPosition.x, fromPosition.anchoredPosition.y);
 				}
 			}
+
 			SetupPortrait(character, fromPosition);
-			if (character.state.display != DisplayType.None && character.state.display != DisplayType.Hide)
+
+			// LeanTween doesn't handle 0 duration properly
+			float duration = (fadeDuration > 0f) ? fadeDuration : float.Epsilon;
+			
+			// Fade out a duplicate of the existing portrait image
+			if (character.state.portraitImage != null)
 			{
-				character.state.portraitImage.material.SetTexture("_TexStart", character.state.portrait.texture);
+				GameObject tempGO = GameObject.Instantiate(character.state.portraitImage.gameObject);
+				tempGO.transform.SetParent(character.state.portraitImage.transform.parent, false);
+				Image tempImage = tempGO.GetComponent<Image>();
+				tempImage.sprite = character.state.portraitImage.sprite;
+				tempImage.preserveAspect = true;
+				tempImage.color = character.state.portraitImage.color;
+
+				LeanTween.alpha(tempImage.rectTransform, 0f, duration).setEase(stage.fadeEaseType).setOnComplete(() => {
+					Destroy(tempGO);
+				});
 			}
-			character.state.portraitImage.material.SetTexture("_TexEnd", portrait.texture);
-			UpdateTweens(character, fromPosition, toPosition);
+
+			// Fade in the new sprite image
+			character.state.portraitImage.sprite = portrait;
+			character.state.portraitImage.color = new Color(1f, 1f, 1f, 0f);
+			LeanTween.alpha(character.state.portraitImage.rectTransform, 1f, duration).setEase(stage.fadeEaseType);
+
+			DoMoveTween(character, fromPosition, toPosition);
 		}
+
 		protected void Hide(Character character, RectTransform fromPosition, RectTransform toPosition)
 		{
 			if (character.state.display == DisplayType.None)
 			{
 				return;
 			}
+
 			SetupPortrait(character, fromPosition);
-			character.state.portraitImage.material.SetTexture("_TexStart", character.state.portrait.texture);
-			UpdateTweens(character, fromPosition, toPosition);
+
+			// LeanTween doesn't handle 0 duration properly
+			float duration = (fadeDuration > 0f) ? fadeDuration : float.Epsilon;
+			
+			LeanTween.alpha(character.state.portraitImage.rectTransform, 0f, duration).setEase(stage.fadeEaseType);
+
+			DoMoveTween(character, fromPosition, toPosition);
 		}
+
 		protected void MoveToFront(Character character)
 		{
 			character.state.portraitImage.transform.SetSiblingIndex(character.state.portraitImage.transform.parent.childCount);
 		}
-		protected void UpdateTweens(Character character, RectTransform fromPosition, RectTransform toPosition) 
+
+		protected void DoMoveTween(Character character, RectTransform fromPosition, RectTransform toPosition) 
 		{
-			if (fadeDuration == 0) fadeDuration = float.Epsilon;
-			LeanTween.value(character.state.portraitObj,0,1,fadeDuration).setEase(stage.fadeEaseType).setOnComplete(OnComplete).setOnUpdate(
-				(float fadeAmount)=>{
-				character.state.portraitImage.material.SetFloat("_Fade", fadeAmount);
-			}
-			);
-			float moveDuration = (Vector3.Distance(fromPosition.anchoredPosition,toPosition.anchoredPosition)/moveSpeed);
-			if (moveSpeed == 0) moveDuration = float.Epsilon;
-			LeanTween.value(character.state.portraitObj,fromPosition.anchoredPosition,toPosition.anchoredPosition,moveDuration).setEase(stage.moveEaseType).setOnComplete(OnComplete).setOnUpdate(
-				(Vector3 updatePosition)=>{
-				character.state.portraitImage.rectTransform.anchoredPosition = updatePosition;
-			}
-			);
-		}
-		public static void Dim(Character character, Stage stage)
-		{
-			if (character.state.dimmed == false)
-			{
-				character.state.dimmed = true;
-				float fadeDuration = stage.fadeDuration;
-				if (fadeDuration == 0) fadeDuration = float.Epsilon;
-				LeanTween.value(character.state.portraitObj,1f,0.5f,fadeDuration).setEase(stage.fadeEaseType).setOnUpdate(
-					(float tintAmount)=>{
-					Color tint = new Color(tintAmount,tintAmount,tintAmount,1);
-					character.state.portraitImage.material.SetColor("_Color", tint);
-				}
-				);
-			}
-		}
-		public static void Undim(Character character, Stage stage)
-		{
-			if (character.state.dimmed == true)
-			{
-				character.state.dimmed = false;
-				float fadeDuration = stage.fadeDuration;
-				if (fadeDuration == 0) fadeDuration = float.Epsilon;
-				LeanTween.value(character.state.portraitObj,0.5f,1f,fadeDuration).setEase(stage.fadeEaseType).setOnUpdate(
-					(float tintAmount)=>{
-					Color tint = new Color(tintAmount,tintAmount,tintAmount,1);
-					character.state.portraitImage.material.SetColor("_Color", tint);
-				}
-				);
-			}
-		}
-		protected void OnComplete() 
-		{
+			// LeanTween doesn't handle 0 duration properly
+			float duration = (moveDuration > 0f) ? moveDuration : float.Epsilon;
+			
+			LeanTween.move(character.state.portraitImage.rectTransform, toPosition.anchoredPosition3D, duration).setEase(stage.fadeEaseType);
 			if (waitUntilFinished)
 			{
-				if (!LeanTween.isTweening (character.state.portraitObj))
-				{
-					Continue();
-				}
+				waitTimer = duration;
 			}
 		}
+
+		public static void SetDimmed(Character character, Stage stage, bool dimmedState)
+		{
+			if (character.state.dimmed == dimmedState)
+			{
+				return;
+			}
+
+			character.state.dimmed = dimmedState;
+
+			Color targetColor = dimmedState ? new Color(0.5f, 0.5f, 0.5f, 1f) : Color.white;
+
+			// LeanTween doesn't handle 0 duration properly
+			float duration = (stage.fadeDuration > 0f) ? stage.fadeDuration : float.Epsilon;
+			
+			LeanTween.color(character.state.portraitImage.rectTransform, targetColor, duration).setEase(stage.fadeEaseType);
+		}
+
 		public override string GetSummary()
 		{
 			if (display == DisplayType.None && character == null)
@@ -409,6 +465,7 @@ namespace Fungus
 			{
 				return "Error: No character selected";
 			}
+
 			string displaySummary = "";
 			string characterSummary = "";
 			string fromPositionSummary = "";
@@ -426,6 +483,7 @@ namespace Fungus
 					displaySummary += " \"" + replacedCharacter.name + "\" with";
 				}
 			}
+
 			characterSummary = character.name;
 			if (stage != null)
 			{
@@ -436,6 +494,7 @@ namespace Fungus
 			{
 				portraitSummary = " " + portrait.name;
 			}
+
 			if (shiftIntoPlace)
 			{
 				if (offset != 0)
@@ -448,27 +507,36 @@ namespace Fungus
 			{
 				fromPositionSummary = " from " + "\"" + fromPosition.name + "\"";
 			}
+
 			if (toPosition != null)
 			{
 				string toPositionPrefixSummary = "";
 				if (move)
+				{
 					toPositionPrefixSummary = " to ";
+				}
 				else
+				{
 					toPositionPrefixSummary = " at ";
+				}
+
 				toPositionSummary = toPositionPrefixSummary + "\"" + toPosition.name + "\"";
 			}
+
 			if (facing != FacingDirection.None)
 			{
-				if ( facing == FacingDirection.Left )
+				if (facing == FacingDirection.Left)
 				{
 					facingSummary = "<--";
 				}
-				if ( facing == FacingDirection.Right )
+				if (facing == FacingDirection.Right)
 				{
 					facingSummary = "-->";
 				}
+
 				facingSummary = " facing \"" + facingSummary + "\"";
 			}
+
 			return displaySummary + " \"" + characterSummary + portraitSummary + "\"" + stageSummary + facingSummary + fromPositionSummary + toPositionSummary;
 		}
 		
