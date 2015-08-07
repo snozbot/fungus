@@ -19,10 +19,10 @@ public class NarrativeTests : Command
 		Dimming,
 		ResetNoDelay
 	}
-
-	public Stage stage;
 	
 	public TestType testType;
+
+	protected Stage stage;
 
 	static string currentTestName = "";
 
@@ -44,13 +44,16 @@ public class NarrativeTests : Command
 
 	public override void OnEnter()
 	{
+		GameObject stageGO = GameObject.Find("Stage");
+		if (stageGO != null)
+		{
+			stage = stageGO.GetComponent<Stage>();
+		}
+
 		if (stage == null)
 		{
-			if (stage == null)
-			{
-				IntegrationTest.Fail("No stage object selected");
-				Continue();
-			}
+			IntegrationTest.Fail("No stage object found");
+			Continue();
 			return;
 		}
 
