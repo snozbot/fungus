@@ -66,12 +66,10 @@ namespace Fungus
 		
 		[Tooltip("Move the portrait from this position")]
 		public RectTransform fromPosition;
-		protected RectTransform fromPositionition;
-		
+
 		[Tooltip("Move the portrait to this positoin")]
 		public RectTransform toPosition;
-		protected RectTransform toPositionition;
-		
+
 		[Tooltip("Direction character is facing")]
 		public FacingDirection facing;
 		
@@ -360,11 +358,11 @@ namespace Fungus
 				fromPosition = Instantiate(toPosition) as RectTransform;
 				if (offset == PositionOffset.OffsetLeft)
 				{
-					fromPosition.anchoredPosition = new Vector2(fromPosition.anchoredPosition.x-Mathf.Abs(shiftOffset.x), fromPosition.anchoredPosition.y-Mathf.Abs(shiftOffset.y));
+					fromPosition.anchoredPosition = new Vector2(fromPosition.anchoredPosition.x - Mathf.Abs(shiftOffset.x), fromPosition.anchoredPosition.y - Mathf.Abs(shiftOffset.y));
 				}
 				else if (offset == PositionOffset.OffsetRight)
 				{
-					fromPosition.anchoredPosition = new Vector2(fromPosition.anchoredPosition.x+Mathf.Abs(shiftOffset.x), fromPosition.anchoredPosition.y+Mathf.Abs(shiftOffset.y));
+					fromPosition.anchoredPosition = new Vector2(fromPosition.anchoredPosition.x + Mathf.Abs(shiftOffset.x), fromPosition.anchoredPosition.y + Mathf.Abs(shiftOffset.y));
 				}
 				else
 				{
@@ -381,7 +379,8 @@ namespace Fungus
 			if (character.state.portraitImage != null)
 			{
 				GameObject tempGO = GameObject.Instantiate(character.state.portraitImage.gameObject);
-				tempGO.transform.SetParent(character.state.portraitImage.transform.parent, false);
+				tempGO.transform.SetParent(character.state.portraitImage.transform, false);
+				tempGO.transform.localPosition = Vector3.zero;
 				Image tempImage = tempGO.GetComponent<Image>();
 				tempImage.sprite = character.state.portraitImage.sprite;
 				tempImage.preserveAspect = true;
@@ -426,7 +425,8 @@ namespace Fungus
 		{
 			// LeanTween doesn't handle 0 duration properly
 			float duration = (moveDuration > 0f) ? moveDuration : float.Epsilon;
-			
+
+			// LeanTween.move uses the anchoredPosition, so all position images must have the same anchor position
 			LeanTween.move(character.state.portraitImage.rectTransform, toPosition.anchoredPosition3D, duration).setEase(stage.fadeEaseType);
 			if (waitUntilFinished)
 			{
