@@ -36,12 +36,29 @@ namespace Fungus
 		// Cached command editors to avoid creating / destroying editors more than necessary
 		protected Dictionary<Command, CommandEditor> cachedCommandEditors = new Dictionary<Command, CommandEditor>();
 
+		protected void OnDestroy()
+		{
+			ClearEditors();
+		}
+
+		protected void OnEnable()
+		{
+			ClearEditors();
+		}
+
 		protected void OnDisable()
+		{
+			ClearEditors();
+		}
+
+		protected void ClearEditors()
 		{
 			foreach (CommandEditor commandEditor in cachedCommandEditors.Values)
 			{
 				DestroyImmediate(commandEditor);
 			}
+			cachedCommandEditors.Clear();
+			activeCommandEditor = null;
 		}
 
 		public override void OnInspectorGUI () 
