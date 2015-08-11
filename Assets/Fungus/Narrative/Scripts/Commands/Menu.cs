@@ -57,6 +57,13 @@ namespace Fungus
 			Continue();
 		}
 
+		void OnLevelWasLoaded(int level) 
+		{
+			// Reset the flag for checking for an event system as there may not be one
+			// in the newly loaded scene.
+			eventSystemPresent = false;
+		}
+
 		// There must be an Event System in the scene for Menu input to work.
 		// This function will automatically instantiate one if none exists.
 		protected virtual void CheckEventSystem()
