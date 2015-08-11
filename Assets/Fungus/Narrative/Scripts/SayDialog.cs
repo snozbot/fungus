@@ -43,7 +43,7 @@ namespace Fungus
 			return activeSayDialog;
 		}
 
-		public virtual void Say(string text, bool waitForInput, Action onComplete)
+		public virtual void Say(string text, bool waitForInput, AudioClip voiceOverClip, Action onComplete)
 		{
 			Clear();
 
@@ -57,8 +57,10 @@ namespace Fungus
 						{
 							AudioSource.PlayClipAtPoint(continueSound, Vector3.zero);
 						}
+
 						Clear();
-						StopVoiceOver();
+						audioController.Stop();
+
 						if (onComplete != null)
 						{
 							onComplete();
@@ -83,7 +85,7 @@ namespace Fungus
 				}
 			};
 
-			StartCoroutine(WriteText(text, onWritingComplete, onExitTag));
+			StartCoroutine(WriteText(text, voiceOverClip, onWritingComplete, onExitTag));
 		}
 
 		public override void Clear()

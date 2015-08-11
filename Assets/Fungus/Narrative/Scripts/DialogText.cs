@@ -38,17 +38,13 @@ namespace Fungus
 
 		public virtual void Append(string words)
 		{
-			AudioSource typingAudio = parentDialog.GetComponent<AudioSource>();
-
 			if (beepPerCharacter && (writingSpeed <= slowBeepsAt || writingSpeed >= fastBeepsAt)) // beeps match character speed at these speeds
-				oneBeep = true;
-			else
-				oneBeep = false;
-			if (typingAudio != null)
 			{
-				typingAudio.Stop();
-				if (!oneBeep)
-					typingAudio.Play();
+				oneBeep = true;
+			}
+			else
+			{
+				oneBeep = false;
 			}
 
 			float hideTimer = 0f;
@@ -130,10 +126,10 @@ namespace Fungus
 
 				if (glyph.hideTimer > 0f)
 				{
-					if (typingAudio != null &&
-					    glyph.hasPunctuationPause)
+					// Don't pause audio on punctuation pause as it's very noticeable and distracting
+					if (glyph.hasPunctuationPause)
 					{
-						parentDialog.SetTypingSoundVolume(false);
+						parentDialog.audioController.Pause();
 					}
 
 					bool finished = false;
@@ -159,10 +155,9 @@ namespace Fungus
 					}
 
 					// Check if we need to restore audio after a punctuation pause
-					if (typingAudio != null &&
-					    glyph.hideTimer == 0f)
+					if (glyph.hideTimer == 0f)
 					{
-						parentDialog.SetTypingSoundVolume(true);
+						parentDialog.audioController.Resume();
 					}
 
 					if (finished)
@@ -172,10 +167,7 @@ namespace Fungus
 				}
 			}
 
-			if (typingAudio != null)
-			{
-				parentDialog.SetTypingSoundVolume(false);
-			}
+			parentDialog.audioController.Stop();
 
 			return true;
 		}

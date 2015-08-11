@@ -50,10 +50,7 @@ namespace Fungus
 
 		protected bool wasPointerClicked;
 
-		protected AudioSource voiceOverAudio;
-
-		// The current target writing volume to move towards 
-		protected float targetWritingVolume; 
+		public DialogAudio audioController = new DialogAudio();
 
 		protected virtual void LateUpdate()
 		{
@@ -71,30 +68,6 @@ namespace Fungus
 			{
 				wasPointerClicked = true;
 				clickCooldownTimer = 0.2f;
-			}
-
-			// Fade writing sound
-			AudioSource audio = GetComponent<AudioSource>();
-			if (audio != null)
-			{
-				if (audio.volume == 0f &&
-				    targetWritingVolume > 0)
-				{
-					audio.Play();
-				}
-	
-				if (targetWritingVolume > audio.volume)
-				{
-					audio.volume = targetWritingVolume;
-				}
-				else
-				{
-					audio.volume = Mathf.MoveTowards(audio.volume, targetWritingVolume, Time.deltaTime * 8f);
-					if (audio.volume == 0f)
-					{
-						audio.Stop();
-					}
-				}
 			}
 		}
 
@@ -116,18 +89,6 @@ namespace Fungus
 				// to make sure the previous click doesn't register on the new dialogue
 				wasPointerClicked = false;
 				clickCooldownTimer = 0.2f;
-			}
-		}
-
-		public virtual void SetTypingSoundVolume(bool audible)
-		{
-			if (audible)
-			{
-				targetWritingVolume = writingVolume;
-			}
-			else
-			{
-				targetWritingVolume = 0f;
 			}
 		}
 
@@ -294,7 +255,7 @@ namespace Fungus
 			}
 		}
 
-		protected virtual IEnumerator WriteText(string text, Action onWritingComplete, Action onExitTag)
+		protected virtual IEnumerator WriteText(string text, AudioClip voiceOverClip, Action onWritingComplete, Action onExitTag)
 		{
 			storyText.text = "";
 
@@ -319,26 +280,22 @@ namespace Fungus
 			dialogText.slowBeepsAt = slowBeepsAt;
 			dialogText.fastBeepsAt = fastBeepsAt;
 
-			AudioSource typingAudio = GetComponent<AudioSource>();
-			if (characterTypingSound != null || writingSound != null)
+			audioController.audioSource = GetComponent<AudioSource>();
+			audioController.volume = writingVolume;
+			audioController.loop = loopWritingSound;
+			if (voiceOverClip != null)
 			{
-				if (characterTypingSound != null)
-				{
-					typingAudio.clip = characterTypingSound;
-				}
-				else if (writingSound != null)
-				{
-					typingAudio.clip = writingSound;
-				}
-
-				typingAudio.loop = loopWritingSound;
-
-				// Start at full volume
-				typingAudio.volume = writingVolume;
-				SetTypingSoundVolume(true);
-
-				typingAudio.Play();
+				audioController.audioClip = voiceOverClip;
 			}
+			else if (characterTypingSound != null)
+			{
+				audioController.audioClip = characterTypingSound;
+			}
+			else if (writingSound != null)
+			{
+				audioController.audioClip = writingSound;
+			}
+			audioController.Play();
 
 			foreach (Token token in parser.tokens)
 			{
@@ -394,7 +351,7 @@ namespace Fungus
 					OnWaitForInputTag(false);
 					currentSpeed = writingSpeed;
 					dialogText.Clear();
-					StopVoiceOver();
+					audioController.Stop();
 					break;
 					
 				case TokenType.WaitOnPunctuationStart:
@@ -430,7 +387,7 @@ namespace Fungus
 					if (onExitTag != null)
 					{
 						prevStoryText = storyText.text;
-						SetTypingSoundVolume(false);
+						audioController.Stop();
 						onExitTag();
 					}
 					yield break;
@@ -531,7 +488,7 @@ namespace Fungus
 
 			prevStoryText = storyText.text;
 
-			SetTypingSoundVolume(false);
+			audioController.Stop();
 
 			if (onWritingComplete != null)
 			{
@@ -661,24 +618,6 @@ namespace Fungus
 			if (clickCooldownTimer == 0f)
 			{
 				wasPointerClicked = true;
-			}
-		}
-
-		public virtual void PlayVoiceOver(AudioClip voiceOverSound)
-		{
-			if (voiceOverAudio == null)
-			{
-				voiceOverAudio = gameObject.AddComponent<AudioSource>();
-			}
-			voiceOverAudio.clip = voiceOverSound;
-			voiceOverAudio.Play();
-		}
-
-		public virtual void StopVoiceOver()
-		{
-			if (voiceOverAudio)
-			{
-				Destroy(voiceOverAudio);
 			}
 		}
 	}

@@ -95,11 +95,6 @@ namespace Fungus
 				sayDialog.ShowDialog(true);
 			}
 
-			if (voiceOverClip != null)
-			{
-				sayDialog.PlayVoiceOver(voiceOverClip);
-			}
-
 			string displayText = storyText;
 
 			foreach (CustomTag ct in CustomTag.activeCustomTags)
@@ -118,7 +113,7 @@ namespace Fungus
 
 			string subbedText = flowchart.SubstituteVariables(displayText);
 
-			sayDialog.Say(subbedText, waitForClick, delegate {
+			sayDialog.Say(subbedText, waitForClick, voiceOverClip, delegate {
 				if (waitForClick)
 				{
 					bool fadingOut = false;
