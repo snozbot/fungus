@@ -130,6 +130,14 @@ Prefab:
       propertyPath: m_Name
       value: ClickableSprite1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0e6bcf37a2876432fa58eff8888bf177, type: 2}
+      propertyPath: hoverOverCursorTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 22eb050bacf8c401ca8503e24bff3570, type: 3}
+    - target: {fileID: 11400000, guid: 0e6bcf37a2876432fa58eff8888bf177, type: 2}
+      propertyPath: hoverCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 22eb050bacf8c401ca8503e24bff3570, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e6bcf37a2876432fa58eff8888bf177, type: 2}
   m_IsPrefabParent: 0
@@ -205,6 +213,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!4 &268187672
 Transform:
   m_ObjectHideFlags: 0
@@ -371,6 +380,14 @@ Prefab:
       propertyPath: m_Name
       value: ClickableSprite2
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0e6bcf37a2876432fa58eff8888bf177, type: 2}
+      propertyPath: hoverOverCursorTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 22eb050bacf8c401ca8503e24bff3570, type: 3}
+    - target: {fileID: 11400000, guid: 0e6bcf37a2876432fa58eff8888bf177, type: 2}
+      propertyPath: hoverCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 22eb050bacf8c401ca8503e24bff3570, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0e6bcf37a2876432fa58eff8888bf177, type: 2}
   m_IsPrefabParent: 0
@@ -435,6 +452,9 @@ GameObject:
   - 114: {fileID: 2019116694}
   - 114: {fileID: 2019116696}
   - 114: {fileID: 2019116695}
+  - 114: {fileID: 2019116698}
+  - 114: {fileID: 2019116697}
+  - 114: {fileID: 2019116699}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -453,6 +473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1.0
   scrollPos: {x: 226, y: 86}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
@@ -461,11 +482,12 @@ MonoBehaviour:
   scrollViewRect:
     serializedVersion: 2
     x: -591
-    y: -392
+    y: -452
     width: 1887
-    height: 1020
-  selectedBlock: {fileID: 2019116694}
-  selectedCommands: []
+    height: 1080
+  selectedBlock: {fileID: 2019116698}
+  selectedCommands:
+  - {fileID: 2019116697}
   variables: []
   description: 'This scene shows how to set up a drag-and-drop
 
@@ -999,6 +1021,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 2019116694}
   clickableObject: {fileID: 591590529}
+--- !u!114 &2019116697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2019116667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6f88496f37c444a91acef47749f723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 21
+  errorMessage: 
+  indentLevel: 0
+  cursorTexture: {fileID: 2800000, guid: 502e0c9b755f34db0b90bf78857d8a1c, type: 3}
+  hotSpot: {x: 0, y: 0}
+--- !u!114 &2019116698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2019116667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: -143
+    y: -50
+    width: 120
+    height: 40
+  itemId: 20
+  blockName: Start
+  description: 
+  eventHandler: {fileID: 2019116699}
+  commandList:
+  - {fileID: 2019116697}
+--- !u!114 &2019116699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2019116667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 2019116698}
 --- !u!1001 &2135880372
 Prefab:
   m_ObjectHideFlags: 0
@@ -1038,6 +1111,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 4d55f86cf3b124c8fb1158da26ffa96d, type: 2}
+      propertyPath: hoverCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 22eb050bacf8c401ca8503e24bff3570, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d55f86cf3b124c8fb1158da26ffa96d, type: 2}
   m_IsPrefabParent: 0

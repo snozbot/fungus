@@ -22,8 +22,10 @@ namespace Fungus
 		[Tooltip("Time object takes to return to its starting position")]
 		public float returnDuration = 1f;
 
-		protected Vector3 startingPosition;
+		[Tooltip("Mouse texture to use when hovering mouse over object")]
+		public Texture2D hoverCursor;
 
+		protected Vector3 startingPosition;
 		protected bool updatePosition = false;
 		protected Vector3 newPosition;
 
@@ -141,6 +143,26 @@ namespace Fungus
 		{
 			// TODO: Cache these object for faster lookup
 			return GameObject.FindObjectsOfType<T>();
+		}
+
+		protected virtual void OnMouseEnter()
+		{
+			changeCursor(hoverCursor);
+		}
+		
+		protected virtual void OnMouseExit()
+		{
+			SetMouseCursor.ResetMouseCursor();
+		}
+		
+		protected virtual void changeCursor(Texture2D cursorTexture)
+		{
+			if (!dragEnabled)
+			{
+				return;
+			}
+			
+			Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
 		}
 	}
 

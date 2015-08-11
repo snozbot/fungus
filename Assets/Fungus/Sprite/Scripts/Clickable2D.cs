@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 
@@ -9,12 +9,15 @@ namespace Fungus
 	 * The Game Object must have a Collider2D component attached.
 	 * Use in conjunction with the ObjectClicked Flowchart event handler.
 	 */
-	public class Clickable2D : MonoBehaviour 
+	public class Clickable2D : MonoBehaviour
 	{
 		[Tooltip("Is object clicking enabled")]
 		public bool clickEnabled = true;
 
-		void OnMouseDown()
+		[Tooltip("Mouse texture to use when hovering mouse over object")]
+		public Texture2D hoverCursor;
+
+		protected virtual void OnMouseDown()
 		{
 			if (!clickEnabled)
 			{
@@ -27,6 +30,26 @@ namespace Fungus
 			{
 				handler.OnObjectClicked(this);
 			}
+		}
+
+		protected virtual void OnMouseEnter()
+		{
+			changeCursor(hoverCursor);
+		}
+
+		protected virtual void OnMouseExit()
+		{
+			SetMouseCursor.ResetMouseCursor();
+		}
+
+		protected virtual void changeCursor(Texture2D cursorTexture)
+		{
+			if (!clickEnabled)
+			{
+				return;
+			}
+
+			Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
 		}
 	}
 
