@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CustomEditor (typeof(Invoke))]
-	public class InvokeEditor : CommandEditor 
+	[CustomEditor (typeof(InvokeEvent))]
+	public class InvokeEventEditor : CommandEditor 
 	{
 		protected SerializedProperty delayProp;
 		protected SerializedProperty invokeTypeProp;
@@ -42,24 +42,24 @@ namespace Fungus
 			EditorGUILayout.PropertyField(delayProp);
 			EditorGUILayout.PropertyField(invokeTypeProp);
 
-			switch ((Invoke.InvokeType)invokeTypeProp.enumValueIndex)
+			switch ((InvokeEvent.InvokeType)invokeTypeProp.enumValueIndex)
 			{
-			case Invoke.InvokeType.Static:
+			case InvokeEvent.InvokeType.Static:
 				EditorGUILayout.PropertyField(staticEventProp);
 				break;
-			case Invoke.InvokeType.DynamicBoolean:
+			case InvokeEvent.InvokeType.DynamicBoolean:
 				EditorGUILayout.PropertyField(booleanEventProp);
 				EditorGUILayout.PropertyField(booleanParameterProp);
 				break;
-			case Invoke.InvokeType.DynamicInteger:
+			case InvokeEvent.InvokeType.DynamicInteger:
 				EditorGUILayout.PropertyField(integerEventProp);
 				EditorGUILayout.PropertyField(integerParameterProp);
 				break;
-			case Invoke.InvokeType.DynamicFloat:
+			case InvokeEvent.InvokeType.DynamicFloat:
 				EditorGUILayout.PropertyField(floatEventProp);
 				EditorGUILayout.PropertyField(floatParameterProp);
 				break;
-			case Invoke.InvokeType.DynamicString:
+			case InvokeEvent.InvokeType.DynamicString:
 				EditorGUILayout.PropertyField(stringEventProp);
 				EditorGUILayout.PropertyField(stringParameterProp);
 				break;

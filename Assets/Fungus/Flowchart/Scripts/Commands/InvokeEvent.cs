@@ -6,13 +6,14 @@ using UnityEngine.Events;
 namespace Fungus
 {
 	[CommandInfo("Scripting", 
-	             "Invoke", 
-	             "Calls a list of methods via the Unity UI EventSystem.")]
+	             "Invoke Event", 
+	             "Calls a list of component methods via the Unity Event System (as used in the Unity UI). " + 
+	             "This command is more efficient than the Invoke Method command but can only pass a single parameter and doesn't support return values.")]
 	[AddComponentMenu("")]
 
 	// This command uses the UnityEvent system to call methods in script.
 	// http://docs.unity3d.com/Manual/UnityEvents.html
-	public class Invoke : Command
+	public class InvokeEvent : Command
 	{
 		[Serializable] public class BooleanEvent : UnityEvent<bool> {}
 		[Serializable] public class IntegerEvent : UnityEvent<int> {}
