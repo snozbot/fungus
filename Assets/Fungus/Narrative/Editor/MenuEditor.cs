@@ -14,6 +14,7 @@ namespace Fungus
 		protected SerializedProperty descriptionProp;
 		protected SerializedProperty targetBlockProp;
 		protected SerializedProperty hideIfVisitedProp;
+		protected SerializedProperty interactableProp;
 		protected SerializedProperty setMenuDialogProp;
 
 		protected virtual void OnEnable()
@@ -22,6 +23,7 @@ namespace Fungus
 			descriptionProp = serializedObject.FindProperty("description");
 			targetBlockProp = serializedObject.FindProperty("targetBlock");
 			hideIfVisitedProp = serializedObject.FindProperty("hideIfVisited");
+			interactableProp = serializedObject.FindProperty("interactable");
 			setMenuDialogProp = serializedObject.FindProperty("setMenuDialog");
 		}
 		
@@ -45,6 +47,7 @@ namespace Fungus
 			                             flowchart);
 			
 			EditorGUILayout.PropertyField(hideIfVisitedProp);
+			EditorGUILayout.PropertyField(interactableProp);
 			EditorGUILayout.PropertyField(setMenuDialogProp);
 
 			serializedObject.ApplyModifiedProperties();
