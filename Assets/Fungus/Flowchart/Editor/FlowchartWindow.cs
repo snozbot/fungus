@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEditorInternal;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -739,29 +741,39 @@ namespace Fungus
 
 			foreach (Command command in oldBlock.commandList)
 			{
-				System.Type type = command.GetType();
-				Command newCommand = Undo.AddComponent(flowchart.gameObject, type) as Command;
-				System.Reflection.FieldInfo[] fields = type.GetFields();
-				foreach (System.Reflection.FieldInfo field in fields)
+				if (ComponentUtility.CopyComponent(command))
 				{
-					field.SetValue(newCommand, field.GetValue(command));
+					if (ComponentUtility.PasteComponentAsNew(flowchart.gameObject))
+					{
+						Command[] commands = flowchart.GetComponents<Command>();
+						Command pastedCommand = commands.Last<Command>();
+						if (pastedCommand != null)
+						{
+							pastedCommand.itemId = flowchart.NextItemId();
+							newBlock.commandList.Add (pastedCommand);
+						}
+					}
+					
+					// This stops the user pasting the command manually into another game object.
+					ComponentUtility.CopyComponent(flowchart.transform);
 				}
-				newCommand.itemId = flowchart.NextItemId();
-				newBlock.commandList.Add(newCommand);
 			}
 
 			if (oldBlock.eventHandler != null)
 			{
-				EventHandler eventHandler = oldBlock.eventHandler;
-				System.Type type = eventHandler.GetType();
-				EventHandler newEventHandler = Undo.AddComponent(flowchart.gameObject, type) as EventHandler;
-				System.Reflection.FieldInfo[] fields = type.GetFields();
-				foreach (System.Reflection.FieldInfo field in fields)
+				if (ComponentUtility.CopyComponent(oldBlock.eventHandler))
 				{
-					field.SetValue(newEventHandler, field.GetValue(eventHandler));
+					if (ComponentUtility.PasteComponentAsNew(flowchart.gameObject))
+					{
+						EventHandler[] eventHandlers = flowchart.GetComponents<EventHandler>();
+						EventHandler pastedEventHandler = eventHandlers.Last<EventHandler>();
+						if (pastedEventHandler != null)
+						{
+							pastedEventHandler.parentBlock = newBlock;
+							newBlock.eventHandler = pastedEventHandler;
+						}
+					}
 				}
-				newEventHandler.parentBlock = newBlock;
-				newBlock.eventHandler = newEventHandler;
 			}
 		}
 
