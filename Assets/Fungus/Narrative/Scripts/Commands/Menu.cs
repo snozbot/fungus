@@ -26,6 +26,9 @@ namespace Fungus
 		[Tooltip("Hide this option if the target block has been executed previously")]
 		public bool hideIfVisited;
 
+		[Tooltip("If false, the menu option will be displayed but will not be selectable")]
+		public BooleanData interactable = new BooleanData(true);
+
 		[Tooltip("A custom Menu Dialog to use to display this menu. All subsequent Menu commands will use this dialog.")]
 		public MenuDialog setMenuDialog;
 
@@ -50,7 +53,7 @@ namespace Fungus
 				{
 					menuDialog.gameObject.SetActive(true);
 					string displayText = text;
-					menuDialog.AddOption(displayText, targetBlock);
+					menuDialog.AddOption(displayText, interactable, targetBlock);
 				}
 			}
 

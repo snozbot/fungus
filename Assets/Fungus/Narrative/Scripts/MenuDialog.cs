@@ -91,15 +91,16 @@ namespace Fungus
 			}
 		}
 
-		public virtual bool AddOption(string text, Block targetBlock)
+		public virtual bool AddOption(string text, bool interactable, Block targetBlock)
 		{
-
 			bool addedOption = false;
 			foreach (Button button in cachedButtons)
 			{
 				if (!button.gameObject.activeSelf)
 				{
 					button.gameObject.SetActive(true);
+
+					button.interactable = interactable;
 
 					Text textComponent = button.GetComponentInChildren<Text>();
 					if (textComponent != null)
