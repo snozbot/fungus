@@ -427,7 +427,7 @@ namespace Fungus
 			float duration = (moveDuration > 0f) ? moveDuration : float.Epsilon;
 
 			// LeanTween.move uses the anchoredPosition, so all position images must have the same anchor position
-			LeanTween.move(character.state.portraitImage.rectTransform, toPosition.anchoredPosition3D, duration).setEase(stage.fadeEaseType);
+			LeanTween.move(character.state.portraitImage.gameObject, toPosition.position, duration).setEase(stage.fadeEaseType);
 			if (waitUntilFinished)
 			{
 				waitTimer = duration;
