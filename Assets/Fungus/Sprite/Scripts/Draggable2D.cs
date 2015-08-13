@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 namespace Fungus
 {
@@ -16,8 +17,12 @@ namespace Fungus
 		[Tooltip("Is object dragging enabled")]
 		public bool dragEnabled = true;
 
-		[Tooltip("Move object back to its starting position when drag is released")]
-		public bool returnToStartPos = true;
+		[Tooltip("Move object back to its starting position when drag is cancelled")]
+		[FormerlySerializedAs("returnToStartPos")]
+		public bool returnOnCancelled = true;
+
+		[Tooltip("Move object back to its starting position when drag is completed")]
+		public bool returnOnCompleted = true;
 
 		[Tooltip("Time object takes to return to its starting position")]
 		public float returnDuration = 1f;
@@ -84,6 +89,11 @@ namespace Fungus
 					{
 						handler.OnDragCompleted(this);
 						dragCompleted = true;
+
+						if (returnOnCompleted)
+						{
+							iTween.MoveTo(gameObject, startingPosition, returnDuration);
+						}
 					}
 				}
 			}
@@ -95,7 +105,7 @@ namespace Fungus
 					handler.OnDragCancelled(this);
 				}
 
-				if (returnToStartPos)
+				if (returnOnCancelled)
 				{
 					iTween.MoveTo(gameObject, startingPosition, returnDuration);
 				}
