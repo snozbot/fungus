@@ -105,7 +105,12 @@ namespace Fungus
 			for (int i = commandIndex + 1; i < parentBlock.commandList.Count; ++i)
 			{
 				Command nextCommand = parentBlock.commandList[i];
-				
+
+				if (nextCommand == null)
+				{
+					continue;
+				}
+
 				// Find next command at same indent level as this If command
 				// Skip disabled commands, comments & labels
 				if (!nextCommand.enabled || 
