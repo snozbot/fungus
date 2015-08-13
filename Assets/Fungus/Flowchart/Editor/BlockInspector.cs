@@ -3,6 +3,7 @@ using UnityEngine.Serialization;
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Fungus
 {
@@ -34,7 +35,8 @@ namespace Fungus
 		protected Command activeCommand; // Command currently being inspected
 
 		// Cached command editors to avoid creating / destroying editors more than necessary
-		protected Dictionary<Command, CommandEditor> cachedCommandEditors = new Dictionary<Command, CommandEditor>();
+		// This list is static so persists between 
+		protected static List<CommandEditor> cachedCommandEditors = new List<CommandEditor>();
 
 		protected void OnDestroy()
 		{
@@ -53,10 +55,11 @@ namespace Fungus
 
 		protected void ClearEditors()
 		{
-			foreach (CommandEditor commandEditor in cachedCommandEditors.Values)
+			foreach (CommandEditor commandEditor in cachedCommandEditors)
 			{
 				DestroyImmediate(commandEditor);
 			}
+
 			cachedCommandEditors.Clear();
 			activeCommandEditor = null;
 		}
@@ -130,15 +133,18 @@ namespace Fungus
 				    inspectCommand != activeCommandEditor.target)
 				{
 					// See if we have a cached version of the command editor already,
-					// if not then create a new one.
-					if (cachedCommandEditors.ContainsKey(inspectCommand))
+					var editors = (from e in cachedCommandEditors where (e.target == inspectCommand) select e);
+
+					if (editors.Count() > 0)
 					{
-						activeCommandEditor = cachedCommandEditors[inspectCommand];
+						// Use cached editor
+						activeCommandEditor = editors.First();
 					}
 					else
 					{
+						// No cached editor, so create a new one.
 						activeCommandEditor = Editor.CreateEditor(inspectCommand) as CommandEditor;
-						cachedCommandEditors[inspectCommand] = activeCommandEditor;
+						cachedCommandEditors.Add(activeCommandEditor);
 					}
 				}
 				if (activeCommandEditor != null)
