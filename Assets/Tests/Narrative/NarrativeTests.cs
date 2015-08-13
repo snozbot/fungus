@@ -183,7 +183,7 @@ public class NarrativeTests : Command
 	{
 		Transform johnTransform = stage.transform.Find("Canvas/JohnCharacter");		
 
-		if (johnTransform.localPosition.x == 0f)
+		if (Mathf.Approximately(johnTransform.localPosition.x, 0f))
 		{
 			Pass();
 		}
