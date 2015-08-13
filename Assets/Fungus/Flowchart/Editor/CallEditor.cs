@@ -14,6 +14,9 @@ namespace Fungus
 
 		protected virtual void OnEnable()
 		{
+			if (NullTargetCheck()) // Check for an orphaned editor instance
+				return;
+
 			targetFlowchartProp = serializedObject.FindProperty("targetFlowchart");
 			targetBlockProp = serializedObject.FindProperty("targetBlock");
 			callModeProp = serializedObject.FindProperty("callMode");

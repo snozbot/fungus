@@ -112,6 +112,9 @@ namespace Fungus
 
 		protected virtual void OnEnable()
 		{
+			if (NullTargetCheck()) // Check for an orphaned editor instance
+				return;
+
 			characterProp = serializedObject.FindProperty("character");
 			portraitProp = serializedObject.FindProperty("portrait");
 			storyTextProp = serializedObject.FindProperty("storyText");
@@ -124,6 +127,7 @@ namespace Fungus
 			fadeOutProp = serializedObject.FindProperty("fadeOut");
 			waitForClickProp = serializedObject.FindProperty("waitForClick");
 			setSayDialogProp = serializedObject.FindProperty("setSayDialog");
+
 			if (blackTex == null)
 			{
 				blackTex = CustomGUI.CreateBlackTexture();

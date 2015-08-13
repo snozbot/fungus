@@ -34,6 +34,9 @@ namespace Fungus
 		
 		protected virtual void OnEnable()
 		{
+			if (NullTargetCheck()) // Check for an orphaned editor instance
+				return;
+
 			stageProp = serializedObject.FindProperty("stage");
 			displayProp = serializedObject.FindProperty("display");
 			characterProp = serializedObject.FindProperty("character");

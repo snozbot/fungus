@@ -22,6 +22,9 @@ namespace Fungus
 
 		protected virtual void OnEnable()
 		{
+			if (NullTargetCheck()) // Check for an orphaned editor instance
+				return;
+
 			delayProp = serializedObject.FindProperty("delay");
 			invokeTypeProp = serializedObject.FindProperty("invokeType");
 			staticEventProp = serializedObject.FindProperty("staticEvent");

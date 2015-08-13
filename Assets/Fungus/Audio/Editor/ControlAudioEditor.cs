@@ -24,6 +24,9 @@ namespace Fungus
 		
 		protected virtual void OnEnable()
 		{
+			if (NullTargetCheck()) // Check for an orphaned editor instance
+				return;
+
 			controlProp = serializedObject.FindProperty("control");
 			audioSourceProp = serializedObject.FindProperty("audioSource");
 			startVolumeProp = serializedObject.FindProperty("startVolume");

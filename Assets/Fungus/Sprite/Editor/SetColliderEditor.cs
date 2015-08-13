@@ -15,6 +15,9 @@ namespace Fungus
 
 		protected virtual void OnEnable()
 		{
+			if (NullTargetCheck()) // Check for an orphaned editor instance
+				return;
+
 			targetObjectsProp = serializedObject.FindProperty("targetObjects");
 			targetTagProp = serializedObject.FindProperty("targetTag");
 			activeStateProp = serializedObject.FindProperty("activeState");

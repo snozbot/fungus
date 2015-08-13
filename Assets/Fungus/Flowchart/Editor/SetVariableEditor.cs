@@ -18,6 +18,9 @@ namespace Fungus
 
 		protected virtual void OnEnable()
 		{
+			if (NullTargetCheck()) // Check for an orphaned editor instance
+				return;
+
 			variableProp = serializedObject.FindProperty("variable");
 			setOperatorProp = serializedObject.FindProperty("setOperator");
 			booleanDataProp = serializedObject.FindProperty("booleanData");
