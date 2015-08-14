@@ -391,52 +391,23 @@ namespace Fungus
 			string closeText = CloseMarkup();
 			
 			float timeAccumulator = Time.deltaTime;
-			
-			Color32 c = hiddenTextColor;
-			
-			string hiddenColor = String.Format("#{0:X2}{1:X2}{2:X2}{3:X2}", c.r, c.g, c.b, c.a);
-			
+
 			for (int i = 0; i < param.Length; ++i)
 			{
 				string left = "";
 				string right = "";
 				
-				if (writeWholeWords)
-				{
-					// Look ahead to find next whitespace or end of string
-					for (int j = i; j < param.Length; ++j)
-					{
-						if (Char.IsWhiteSpace(param[j]) ||
-						    j == param.Length - 1)
-						{
-							left = param.Substring(0, j + 1);
-							right = param.Substring(j + 1, param.Length - j - 1);
-							break;
-						}
-					}
-				}
-				else
-				{
-					left = param.Substring(0, i + 1);
-					right = param.Substring(i + 1);
-				}
-				
-				string tempText = startText + openText + left + closeText;
-				
-				// Make right hand side text invisible
-				if (right.Length > 0)
-				{
-					tempText += "<color=" + hiddenColor + ">" + right + "</color>";
-				}
-				
-				text = tempText;
-				
+				PartitionString(writeWholeWords, param, i, out left, out right);
+				text = ConcatenateString(startText, openText, closeText, left, right);
+
+				// Punctuation pause
 				if (left.Length > 0 && 
 				    IsPunctuation(left.Substring(left.Length - 1)[0]))
 				{
 					yield return new WaitForSeconds(currentPunctuationPause);
 				}
-				
+
+				// Delay between characters
 				if (currentWritingSpeed > 0f)
 				{
 					if (timeAccumulator > 0f)
@@ -450,7 +421,49 @@ namespace Fungus
 				}
 			}
 		}
+
+		protected void PartitionString(bool wholeWords, string inputString, int i, out string left, out string right)
+		{
+			left = "";
+			right = "";
+
+			if (wholeWords)
+			{
+				// Look ahead to find next whitespace or end of string
+				for (int j = i; j < inputString.Length; ++j)
+				{
+					if (Char.IsWhiteSpace(inputString[j]) ||
+					    j == inputString.Length - 1)
+					{
+						left = inputString.Substring(0, j + 1);
+						right = inputString.Substring(j + 1, inputString.Length - j - 1);
+						break;
+					}
+				}
+			}
+			else
+			{
+				left = inputString.Substring(0, i + 1);
+				right = inputString.Substring(i + 1);
+			}
+		}
+
+		protected string ConcatenateString(string startText, string openText, string closeText, string leftText, string rightText)
+		{
+			string tempText = startText + openText + leftText + closeText;
 		
+			Color32 c = hiddenTextColor;
+			string hiddenColor = String.Format("#{0:X2}{1:X2}{2:X2}{3:X2}", c.r, c.g, c.b, c.a);
+
+			// Make right hand side text hidden
+			if (rightText.Length > 0)
+			{
+				tempText += "<color=" + hiddenColor + ">" + rightText + "</color>";
+			}
+			
+			return tempText;
+		}
+
 		public virtual void SetInputFlag()
 		{
 			inputFlag = true;
