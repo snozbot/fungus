@@ -1,0 +1,109 @@
+using UnityEngine;
+using UnityEngine.UI;
+using System;
+using System.Collections;
+using UnityEngine.Serialization;
+
+namespace Fungus
+{
+	[CommandInfo("UI", 
+	             "Write", 
+	             "Writes content to a UI Text or Text Mesh object.")]
+
+	[AddComponentMenu("")]
+	public class Write : Command 
+	{
+		[Tooltip("Text object to set text on. Text, Input Field and Text Mesh objects are supported.")]
+		public GameObject textObject;
+
+		[Tooltip("String value to assign to the text object")]
+		public StringData text;
+
+		public bool clearText = true;
+
+		public bool waitUntilFinished = true;
+
+		public enum TextColor
+		{
+			Default,
+			SetVisible,
+			SetAlpha,
+			SetColor
+		}
+
+		public TextColor textColor = TextColor.Default;
+
+		public FloatData setAlpha = new FloatData(1f);
+
+		public ColorData setColor = new ColorData(Color.white);
+
+		public override void OnEnter()
+		{
+			if (textObject == null)
+			{
+				Continue();
+				return;
+			}
+		
+			Writer writer = FindWriter(textObject);
+			if (writer == null)
+			{
+				Continue();
+				return;
+			}
+
+			switch (textColor)
+			{
+			case TextColor.SetAlpha:
+				writer.SetTextAlpha(setAlpha);
+				break;
+			case TextColor.SetColor:
+				writer.SetTextColor(setColor);
+				break;
+			case TextColor.SetVisible:
+				writer.SetTextAlpha(1f);
+				break;
+			}
+
+			Flowchart flowchart = GetFlowchart();
+			string newText = flowchart.SubstituteVariables(text.Value);
+
+			if (!waitUntilFinished)
+			{
+				writer.Write(newText, clearText);
+				Continue();
+			}
+			else
+			{
+				writer.Write(newText, clearText, () => { Continue (); } );
+			}
+		}
+
+		public override string GetSummary()
+		{
+			if (textObject != null)
+			{
+				return textObject.name + " : " + text.Value;
+			}
+
+			return "Error: No text object selected";
+		}
+
+		public override Color GetButtonColor()
+		{
+			return new Color32(235, 191, 217, 255);
+		}
+
+		protected Writer FindWriter(GameObject textObject)
+		{
+			Writer writer = textObject.GetComponent<Writer>();
+			if (writer == null)
+			{
+				writer = textObject.AddComponent<Writer>() as Writer;
+			}
+
+			return writer;
+		}
+	}
+
+}
