@@ -27,8 +27,6 @@ namespace Fungus
 
 		bool ParseCSV(string text)
 		{
-			Debug.Log (text);
-
 			CsvParser csvParser = new CsvParser();
 			string[][] csvTable = csvParser.Parse(text);
 
