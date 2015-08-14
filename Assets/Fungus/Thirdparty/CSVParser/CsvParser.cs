@@ -189,7 +189,8 @@ namespace Ideafixxxer.CsvParser
         {
             var context = new ParserContext();
 
-			string[] lines = csvData.Split('\n');
+			// Handle both Winodws and Mac line endings
+			string[] lines = csvData.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             ParserState currentState = ParserState.LineStartState;
             foreach (string next in lines)
