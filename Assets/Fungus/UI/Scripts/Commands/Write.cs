@@ -19,6 +19,9 @@ namespace Fungus
 		[Tooltip("String value to assign to the text object")]
 		public StringData text;
 
+		[Tooltip("Notes about this story text for other authors, localization, etc.")]
+		public string description;
+
 		public bool clearText = true;
 
 		public bool waitUntilFinished = true;

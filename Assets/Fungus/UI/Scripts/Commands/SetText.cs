@@ -17,12 +17,16 @@ namespace Fungus
 		public GameObject targetTextObject;
 		
 		[Tooltip("String value to assign to the text object")]
-		public StringData stringData;
+		[FormerlySerializedAs("stringData")]
+		public StringData text;
+
+		[Tooltip("Notes about this story text for other authors, localization, etc.")]
+		public string description;
 		
 		public override void OnEnter()
 		{
 			Flowchart flowchart = GetFlowchart();
-			string newText = flowchart.SubstituteVariables(stringData.Value);
+			string newText = flowchart.SubstituteVariables(text.Value);
 			
 			if (targetTextObject == null)
 			{
@@ -60,7 +64,7 @@ namespace Fungus
 		{
 			if (targetTextObject != null)
 			{
-				return targetTextObject.name + " : " + stringData.Value;
+				return targetTextObject.name + " : " + text.Value;
 			}
 			
 			return "Error: No text object selected";

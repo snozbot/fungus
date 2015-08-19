@@ -179,7 +179,7 @@ namespace Fungus
 						System.Type type = command.GetType();
 						if (type == typeof(Say))
 						{
-							// String id for Say commands is SAY.<Flowchart id>.<Command id>.<Character Name>
+							// String id for Say commands is SAY.<Localization Id>.<Command id>.<Character Name>
 							Say sayCommand = command as Say;
 							standardText = sayCommand.storyText;
 							description = sayCommand.description;
@@ -191,11 +191,27 @@ namespace Fungus
 						}
 						else if (type == typeof(Menu))
 						{							
-							// String id for Menu commands is MENU.<Flowchart id>.<Command id>
+							// String id for Menu commands is MENU.<Localization Id>.<Command id>
 							Menu menuCommand = command as Menu;
 							standardText = menuCommand.text;
 							description = menuCommand.description;
 							stringId = "MENU." + localizationId + "." + menuCommand.itemId;
+						}
+						else if (type == typeof(Write))
+						{							
+							// String id for Write commands is WRITE.<Localization Id>.<Command id>
+							Write writeCommand = command as Write;
+							standardText = writeCommand.text;
+							description = writeCommand.description;
+							stringId = "WRITE." + localizationId + "." + writeCommand.itemId;
+						}
+						else if (type == typeof(SetText))
+						{							
+							// String id for Set Text commands is SETTEXT.<Localization Id>.<Command id>
+							SetText setTextCommand = command as SetText;
+							standardText = setTextCommand.text;
+							description = setTextCommand.description;
+							stringId = "SETTEXT." + localizationId + "." + setTextCommand.itemId;
 						}
 						else
 						{
@@ -510,6 +526,72 @@ namespace Fungus
 
 					character.nameText = newText;
 					return true;
+				}
+			}
+			else if (stringType == "WRITE")
+			{
+				if (idParts.Length != 3)
+				{
+					return false;
+				}
+				
+				string flowchartId = idParts[1];
+				if (!flowchartDict.ContainsKey(flowchartId))
+				{
+					return false;
+				}
+				Flowchart flowchart = flowchartDict[flowchartId];
+				
+				int itemId = int.Parse(idParts[2]);
+				
+				if (flowchart != null)
+				{
+					foreach (Write write in flowchart.GetComponentsInChildren<Write>())
+					{
+						if (write.itemId == itemId &&
+						    write.text != newText)
+						{
+							#if UNITY_EDITOR
+							Undo.RecordObject(write, "Write");
+							#endif
+							
+							write.text.Value = newText;
+							return true;
+						}
+					}
+				}
+			}
+			else if (stringType == "SETTEXT")
+			{
+				if (idParts.Length != 3)
+				{
+					return false;
+				}
+				
+				string flowchartId = idParts[1];
+				if (!flowchartDict.ContainsKey(flowchartId))
+				{
+					return false;
+				}
+				Flowchart flowchart = flowchartDict[flowchartId];
+				
+				int itemId = int.Parse(idParts[2]);
+				
+				if (flowchart != null)
+				{
+					foreach (SetText setText in flowchart.GetComponentsInChildren<SetText>())
+					{
+						if (setText.itemId == itemId &&
+						    setText.text != newText)
+						{
+							#if UNITY_EDITOR
+							Undo.RecordObject(setText, "Set Text");
+							#endif
+							
+							setText.text.Value = newText;
+							return true;
+						}
+					}
 				}
 			}
 

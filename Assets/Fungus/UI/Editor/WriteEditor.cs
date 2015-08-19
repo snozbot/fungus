@@ -15,6 +15,7 @@ namespace Fungus
 
 		protected SerializedProperty textObjectProp;
 		protected SerializedProperty textProp;
+		protected SerializedProperty descriptionProp;
 		protected SerializedProperty clearTextProp;
 		protected SerializedProperty textColorProp;
 		protected SerializedProperty setAlphaProp;
@@ -35,6 +36,7 @@ namespace Fungus
 		{
 			textObjectProp = serializedObject.FindProperty("textObject");
 			textProp = serializedObject.FindProperty("text");
+			descriptionProp = serializedObject.FindProperty("description");
 			clearTextProp = serializedObject.FindProperty("clearText");
 			textColorProp = serializedObject.FindProperty("textColor");
 			setAlphaProp = serializedObject.FindProperty("setAlpha");
@@ -48,6 +50,7 @@ namespace Fungus
 
 			EditorGUILayout.PropertyField(textObjectProp);
 			EditorGUILayout.PropertyField(textProp);
+			EditorGUILayout.PropertyField(descriptionProp);
 
 			EditorGUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
