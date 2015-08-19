@@ -11,7 +11,7 @@ namespace Fungus
 	             "Writes content to a UI Text or Text Mesh object.")]
 
 	[AddComponentMenu("")]
-	public class Write : Command 
+	public class Write : Command, ILocalizable
 	{
 		[Tooltip("Text object to set text on. Text, Input Field and Text Mesh objects are supported.")]
 		public GameObject textObject;
@@ -106,6 +106,31 @@ namespace Fungus
 			}
 
 			return writer;
+		}
+
+		//
+		// ILocalizable implementation
+		//
+
+		public virtual string GetStandardText()
+		{
+			return text;
+		}
+
+		public virtual void SetStandardText(string standardText)
+		{
+			text.Value = standardText;
+		}
+
+		public virtual string GetDescription()
+		{
+			return description;
+		}
+		
+		public virtual string GetStringId()
+		{
+			// String id for Write commands is WRITE.<Localization Id>.<Command id>
+			return "WRITE." + GetFlowchartLocalizationId() + "." + itemId;
 		}
 	}
 

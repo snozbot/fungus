@@ -184,6 +184,28 @@ namespace Fungus
 		{
 			return false;
 		}
+
+		/**
+		 * Returns the localization id for the Flowchart that contains this command.
+		 */
+		public virtual string GetFlowchartLocalizationId()
+		{
+			// If no localization id has been set then use the Flowchart name
+			Flowchart flowchart = GetFlowchart();
+			if (flowchart == null)
+			{
+				return "";
+			}
+
+			string localizationId = GetFlowchart().localizationId;
+			if (localizationId.Length == 0)
+			{
+				localizationId = flowchart.name;			
+			}
+
+			return localizationId;
+		}
+
 	}
 
 }

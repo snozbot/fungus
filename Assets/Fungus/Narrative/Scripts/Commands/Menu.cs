@@ -11,7 +11,7 @@ namespace Fungus
 	             "Menu", 
 	             "Displays a button in a multiple choice menu")]
 	[AddComponentMenu("")]
-	public class Menu : Command
+	public class Menu : Command, ILocalizable
 	{
 		[Tooltip("Text to display on the menu button")]
 		public string text = "Option Text";
@@ -117,6 +117,31 @@ namespace Fungus
 		public override Color GetButtonColor()
 		{
 			return new Color32(184, 210, 235, 255);
+		}
+
+		//
+		// ILocalizable implementation
+		//
+		
+		public virtual string GetStandardText()
+		{
+			return text;
+		}
+
+		public virtual void SetStandardText(string standardText)
+		{
+			text = standardText;
+		}
+		
+		public virtual string GetDescription()
+		{
+			return description;
+		}
+		
+		public virtual string GetStringId()
+		{
+			// String id for Menu commands is MENU.<Localization Id>.<Command id>
+			return "MENU." + GetFlowchartLocalizationId() + "." + itemId;
 		}
 	}
 

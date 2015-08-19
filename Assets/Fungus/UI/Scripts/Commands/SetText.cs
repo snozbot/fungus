@@ -11,7 +11,7 @@ namespace Fungus
 	             "Sets the text property on a UI Text object and/or an Input Field object.")]
 	
 	[AddComponentMenu("")]
-	public class SetText : Command 
+	public class SetText : Command, ILocalizable 
 	{
 		[Tooltip("Text object to set text on. Can be a UI Text, Text Field or Text Mesh object.")]
 		public GameObject targetTextObject;
@@ -85,6 +85,31 @@ namespace Fungus
 			{
 				targetTextObject = _textObjectObsolete.gameObject;
 			}
+		}
+
+		//
+		// ILocalizable implementation
+		//
+		
+		public virtual string GetStandardText()
+		{
+			return text;
+		}
+
+		public virtual void SetStandardText(string standardText)
+		{
+			text.Value = standardText;
+		}
+
+		public virtual string GetDescription()
+		{
+			return description;
+		}
+		
+		public virtual string GetStringId()
+		{
+			// String id for Set Text commands is SETTEXT.<Localization Id>.<Command id>
+			return "SETTEXT." + GetFlowchartLocalizationId() + "." + itemId;
 		}
 	}
 	

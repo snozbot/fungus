@@ -9,7 +9,7 @@ namespace Fungus
 	             "Say", 
 	             "Writes text in a dialog box.")]
 	[AddComponentMenu("")]
-	public class Say : Command
+	public class Say : Command, ILocalizable
 	{
 		// Removed this tooltip as users's reported it obscures the text box
 		[TextArea(5,10)]
@@ -159,6 +159,37 @@ namespace Fungus
 		public override void OnReset()
 		{
 			executionCount = 0;
+		}
+
+		//
+		// ILocalizable implementation
+		//
+		
+		public virtual string GetStandardText()
+		{
+			return storyText;
+		}
+
+		public virtual void SetStandardText(string standardText)
+		{
+			storyText = standardText;
+		}
+
+		public virtual string GetDescription()
+		{
+			return description;
+		}
+		
+		public virtual string GetStringId()
+		{
+			// String id for Say commands is SAY.<Localization Id>.<Command id>.[Character Name]
+			string stringId = "SAY." + GetFlowchartLocalizationId() + "." + itemId + ".";
+			if (character != null)
+			{
+				stringId += character.nameText;
+			}
+
+			return stringId;
 		}
 	}
 

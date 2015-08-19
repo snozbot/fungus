@@ -11,6 +11,14 @@ using Ideafixxxer.CsvParser;
 namespace Fungus
 {
 
+	public interface ILocalizable
+	{
+		string GetStandardText();
+		void SetStandardText(string standardText);
+		string GetDescription();
+		string GetStringId();
+	}
+
 	/**
 	 * Multi-language localization support.
 	 */
@@ -23,6 +31,8 @@ namespace Fungus
 		public string activeLanguage = "";
 
 		protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
+
+		protected Dictionary<string, ILocalizable> localizeableObjects = new Dictionary<string, ILocalizable>();
 
 		/**
 		 * Temp storage for a single item of standard text and its localizations
@@ -48,6 +58,17 @@ namespace Fungus
 
 		public virtual void Start()
 		{
+			// Build cache of localizeable objects in the scene
+			Component[] components = GameObject.FindObjectsOfType<Component>();
+			foreach (Component component in components)
+			{
+				ILocalizable localizable = component as ILocalizable;
+				if (localizable != null)
+				{
+					localizeableObjects[localizable.GetStringId()] = localizable;
+				}
+			}
+
 			if (localizationFile != null &&
 			    localizationFile.text.Length > 0)
 			{
@@ -144,98 +165,49 @@ namespace Fungus
 		{
 			Dictionary<string, TextItem> textItems = new Dictionary<string, TextItem>();
 
-			// Export all character names
-			foreach (Character character in GameObject.FindObjectsOfType<Character>())
-			{
-				// String id for character names is CHARACTER.<Character Name>
-				TextItem textItem = new TextItem();
-				textItem.standardText = character.nameText;
-				textItem.description = character.description;
-				string stringId = "CHARACTER." + character.nameText;
-				textItems[stringId] = textItem;
-			}
-
-			// Export all Say and Menu commands in the scene
-			// To make it easier to localize, we preserve the command order in each exported block.
+			// Add localizable commands in same order as command list to make it
+			// easier to localise / edit standard text.
 			Flowchart[] flowcharts = GameObject.FindObjectsOfType<Flowchart>();
 			foreach (Flowchart flowchart in flowcharts)
 			{
-				// If no localization id has been set then use the Flowchart name
-				string localizationId = flowchart.localizationId;
-				if (localizationId.Length == 0)
-				{
-					localizationId = flowchart.name;
-				}
-
 				Block[] blocks = flowchart.GetComponentsInChildren<Block>();
 				foreach (Block block in blocks)
 				{
 					foreach (Command command in block.commandList)
 					{
-						string stringId = "";
-						string standardText = "";
-						string description = "";
-
-						System.Type type = command.GetType();
-						if (type == typeof(Say))
+						ILocalizable localizable = command as ILocalizable;
+						if (localizable != null)
 						{
-							// String id for Say commands is SAY.<Localization Id>.<Command id>.<Character Name>
-							Say sayCommand = command as Say;
-							standardText = sayCommand.storyText;
-							description = sayCommand.description;
-							stringId = "SAY." + localizationId + "." + sayCommand.itemId + ".";
-							if (sayCommand.character != null)
-							{
-								stringId += sayCommand.character.nameText;
-							}
+							TextItem textItem = new TextItem();
+							textItem.standardText = localizable.GetStandardText();
+							textItem.description = localizable.GetDescription();
+							textItems[localizable.GetStringId()] = textItem;
 						}
-						else if (type == typeof(Menu))
-						{							
-							// String id for Menu commands is MENU.<Localization Id>.<Command id>
-							Menu menuCommand = command as Menu;
-							standardText = menuCommand.text;
-							description = menuCommand.description;
-							stringId = "MENU." + localizationId + "." + menuCommand.itemId;
-						}
-						else if (type == typeof(Write))
-						{							
-							// String id for Write commands is WRITE.<Localization Id>.<Command id>
-							Write writeCommand = command as Write;
-							standardText = writeCommand.text;
-							description = writeCommand.description;
-							stringId = "WRITE." + localizationId + "." + writeCommand.itemId;
-						}
-						else if (type == typeof(SetText))
-						{							
-							// String id for Set Text commands is SETTEXT.<Localization Id>.<Command id>
-							SetText setTextCommand = command as SetText;
-							standardText = setTextCommand.text;
-							description = setTextCommand.description;
-							stringId = "SETTEXT." + localizationId + "." + setTextCommand.itemId;
-						}
-						else
-						{
-							continue;
-						}
-						
-						TextItem textItem = null;
-						if (textItems.ContainsKey(stringId))
-						{
-							textItem = textItems[stringId];
-						}
-						else
-						{
-							textItem = new TextItem();
-							textItems[stringId] = textItem;
-						}
-						
-						// Update basic properties,leaving localised strings intact
-						textItem.standardText = standardText;
-						textItem.description = description;
 					}
 				}
 			}
-			
+
+			// Add everything else that's localizable
+			Component[] components = GameObject.FindObjectsOfType<Component>();
+			foreach (Component component in components)
+			{
+				ILocalizable localizable = component as ILocalizable;
+				if (localizable != null)
+				{
+					string stringId = localizable.GetStringId();
+					if (textItems.ContainsKey(stringId))
+					{
+						// Already added
+						continue;
+					}
+
+					TextItem textItem = new TextItem();
+					textItem.standardText = localizable.GetStandardText();
+					textItem.description = localizable.GetDescription();
+					textItems[stringId] = textItem;
+				}
+			}
+
 			return textItems;
 		}
 
@@ -271,7 +243,9 @@ namespace Fungus
 				{
 					if (stringId.StartsWith("CHARACTER.") || 
 					    stringId.StartsWith("SAY.") || 
-					    stringId.StartsWith("MENU."))
+					    stringId.StartsWith("MENU.") ||
+						stringId.StartsWith("WRITE.") ||
+					    stringId.StartsWith("SETTEXT."))
 					{
 						// If it's a 'built-in' type this probably means that item has been deleted from its flowchart,
 						// so there's no need to add a text item for it.
@@ -380,28 +354,6 @@ namespace Fungus
 			// Using a localized language text column
 			// 1. Add all localized text to the localized strings dict
 			// 2. Update all scene text properties with localized versions
-
-			// Cache a lookup table of characters in the scene
-			Dictionary<string, Character> characterDict = new Dictionary<string, Character>();
-			foreach (Character character in GameObject.FindObjectsOfType<Character>())
-			{
-				characterDict[character.nameText] = character;
-			}
-
-			// Cache a lookup table of flowcharts in the scene
-			Dictionary<string, Flowchart> flowchartDict = new Dictionary<string, Flowchart>();
-			foreach (Flowchart flowchart in GameObject.FindObjectsOfType<Flowchart>())
-			{
-				// If no localization id has been set then use the Flowchart name
-				string localizationId = flowchart.localizationId;
-				if (localizationId.Length == 0)
-				{
-					localizationId = flowchart.name;
-				}
-
-				flowchartDict[localizationId] = flowchart;
-			}
-
 			for (int i = 1; i < csvTable.Length; ++i)
 			{
 				string[] fields = csvTable[i];
@@ -417,7 +369,7 @@ namespace Fungus
 				if (languageEntry.Length > 0)
 				{
 					localizedStrings[stringId] = languageEntry;
-					PopulateTextProperty(stringId, languageEntry, flowchartDict, characterDict);
+					PopulateTextProperty(stringId, languageEntry);
 				}
 			}
 		}
@@ -425,181 +377,21 @@ namespace Fungus
 		/**
 		 * Populates the text property of a single scene object with a new text value.
 		 */
-		public virtual bool PopulateTextProperty(string stringId, 
-		                                       	 string newText, 
-		                                       	 Dictionary<string, Flowchart> flowchartDict,
-		                                       	 Dictionary<string, Character> characterDict)
+		public virtual bool PopulateTextProperty(string stringId, string newText)
 		{
-			string[] idParts = stringId.Split('.');
-			if (idParts.Length == 0)
+			ILocalizable localizable = null;
+			localizeableObjects.TryGetValue(stringId, out localizable);
+			if (localizable != null)
 			{
-				return false;
-			}
-
-			string stringType = idParts[0];
-			if (stringType == "SAY")
-			{
-				if (idParts.Length != 4)
-				{
-					return false;
-				}
-
-				string flowchartId = idParts[1];
-				if (!flowchartDict.ContainsKey(flowchartId))
-				{
-					return false;
-				}
-				Flowchart flowchart = flowchartDict[flowchartId];
-	
-				int itemId = int.Parse(idParts[2]);
-				
-				if (flowchart != null)
-				{
-					foreach (Say say in flowchart.GetComponentsInChildren<Say>())
-					{
-						if (say.itemId == itemId &&
-						    say.storyText != newText)
-						{
-							#if UNITY_EDITOR
-							Undo.RecordObject(say, "Set Text");
-							#endif
-
-							say.storyText = newText;
-							return true;
-						}
-					}
-				}
-			}
-			else if (stringType == "MENU")
-			{
-				if (idParts.Length != 3)
-				{
-					return false;
-				}
-				
-				string flowchartId = idParts[1];
-				if (!flowchartDict.ContainsKey(flowchartId))
-				{
-					return false;
-				}
-				Flowchart flowchart = flowchartDict[flowchartId];
-
-				int itemId = int.Parse(idParts[2]);
-				
-				if (flowchart != null)
-				{
-					foreach (Menu menu in flowchart.GetComponentsInChildren<Menu>())
-					{
-						if (menu.itemId == itemId &&
-						    menu.text != newText)
-						{
-							#if UNITY_EDITOR
-							Undo.RecordObject(menu, "Set Text");
-							#endif
-
-							menu.text = newText;
-							return true;
-						}
-					}
-				}
-			}
-			else if (stringType == "CHARACTER")
-			{
-				if (idParts.Length != 2)
-				{
-					return false;
-				}
-				
-				string characterName = idParts[1];
-				if (!characterDict.ContainsKey(characterName))
-				{
-					return false;
-				}
-
-				Character character = characterDict[characterName];
-				if (character != null &&
-				    character.nameText != newText)
-				{
-					#if UNITY_EDITOR
-					Undo.RecordObject(character, "Set Text");
-					#endif
-
-					character.nameText = newText;
-					return true;
-				}
-			}
-			else if (stringType == "WRITE")
-			{
-				if (idParts.Length != 3)
-				{
-					return false;
-				}
-				
-				string flowchartId = idParts[1];
-				if (!flowchartDict.ContainsKey(flowchartId))
-				{
-					return false;
-				}
-				Flowchart flowchart = flowchartDict[flowchartId];
-				
-				int itemId = int.Parse(idParts[2]);
-				
-				if (flowchart != null)
-				{
-					foreach (Write write in flowchart.GetComponentsInChildren<Write>())
-					{
-						if (write.itemId == itemId &&
-						    write.text != newText)
-						{
-							#if UNITY_EDITOR
-							Undo.RecordObject(write, "Write");
-							#endif
-							
-							write.text.Value = newText;
-							return true;
-						}
-					}
-				}
-			}
-			else if (stringType == "SETTEXT")
-			{
-				if (idParts.Length != 3)
-				{
-					return false;
-				}
-				
-				string flowchartId = idParts[1];
-				if (!flowchartDict.ContainsKey(flowchartId))
-				{
-					return false;
-				}
-				Flowchart flowchart = flowchartDict[flowchartId];
-				
-				int itemId = int.Parse(idParts[2]);
-				
-				if (flowchart != null)
-				{
-					foreach (SetText setText in flowchart.GetComponentsInChildren<SetText>())
-					{
-						if (setText.itemId == itemId &&
-						    setText.text != newText)
-						{
-							#if UNITY_EDITOR
-							Undo.RecordObject(setText, "Set Text");
-							#endif
-							
-							setText.text.Value = newText;
-							return true;
-						}
-					}
-				}
+				localizable.SetStandardText(newText);
+				return true;
 			}
 
 			return false;
 		}
 
 		/**
-		 * Returns all standard text for SAY & MENU commands in the scene using an
+		 * Returns all standard text for localizeable text in the scene using an
 		 * easy to edit custom text format.
 		 */
 		public virtual string GetStandardText()
@@ -611,11 +403,6 @@ namespace Fungus
 			int rowCount = 0;
 			foreach (string stringId in textItems.Keys)
 			{
-				if (!stringId.StartsWith("SAY.") && !(stringId.StartsWith("MENU.")))
-				{
-					continue;
-				}
-
 				TextItem languageItem = textItems[stringId];
 
 				textData += "#" + stringId + "\n";
@@ -633,27 +420,6 @@ namespace Fungus
 		 */
 		public virtual void SetStandardText(string textData)
 		{
-			// Cache a lookup table of characters in the scene
-			Dictionary<string, Character> characterDict = new Dictionary<string, Character>();
-			foreach (Character character in GameObject.FindObjectsOfType<Character>())
-			{
-				characterDict[character.nameText] = character;
-			}
-			
-			// Cache a lookup table of flowcharts in the scene
-			Dictionary<string, Flowchart> flowchartDict = new Dictionary<string, Flowchart>();
-			foreach (Flowchart flowchart in GameObject.FindObjectsOfType<Flowchart>())
-			{
-				// If no localization id has been set then use the Flowchart name
-				string localizationId = flowchart.localizationId;
-				if (localizationId.Length == 0)
-				{
-					localizationId = flowchart.name;
-				}
-
-				flowchartDict[localizationId] = flowchart;
-			}
-
 			string[] lines = textData.Split('\n');
 
 			int updatedCount = 0;
@@ -668,7 +434,7 @@ namespace Fungus
 					if (stringId.Length > 0)
 					{
 						// Write buffered text to the appropriate text property
-						if (PopulateTextProperty(stringId, buffer.Trim(), flowchartDict, characterDict))
+						if (PopulateTextProperty(stringId, buffer.Trim()))
 						{
 							updatedCount++;
 						}
@@ -687,7 +453,7 @@ namespace Fungus
 			// Handle last buffered entry
 			if (stringId.Length > 0)
 			{
-				if (PopulateTextProperty(stringId, buffer.Trim(), flowchartDict, characterDict))
+				if (PopulateTextProperty(stringId, buffer.Trim()))
 				{
 					updatedCount++;
 				}
