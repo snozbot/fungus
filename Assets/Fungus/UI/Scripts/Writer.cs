@@ -9,12 +9,25 @@ namespace Fungus
 
 	public class Writer : MonoBehaviour, IDialogInputListener
 	{
+		[Tooltip("Gameobject containing a Text, Inout Field or Text Mesh object to write to")]
 		public GameObject targetTextObject;
+
+		[Tooltip("Writing characters per second")]
 		public float writingSpeed = 60;
+
+		[Tooltip("Pause duration for punctuation characters")]
 		public float punctuationPause = 0.25f;
+
+		[Tooltip("Color of text that has not been revealed yet")]
 		public Color hiddenTextColor = new Color(1,1,1,0);
+
+		[Tooltip("Write one word at a time rather one character at a time")]
 		public bool writeWholeWords = false;
-		
+
+		// This property is true when the writer is waiting for user input to continue
+		[System.NonSerialized]
+		public bool isWaitingForInput;
+
 		protected float currentWritingSpeed;
 		protected float currentPunctuationPause;
 		protected Text textUI;
@@ -498,10 +511,12 @@ namespace Fungus
 		
 		protected virtual IEnumerator DoWaitForInput(bool clear)
 		{
+			isWaitingForInput = true;
 			while (!inputFlag)
 			{
 				yield return null;
 			}
+			isWaitingForInput = false;
 			
 			inputFlag = false;
 			

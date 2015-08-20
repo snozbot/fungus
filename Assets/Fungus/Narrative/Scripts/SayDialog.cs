@@ -15,6 +15,8 @@ namespace Fungus
 		public Image continueImage;
 		public AudioClip continueSound;
 
+		protected Writer writer;
+
 		public static SayDialog GetSayDialog()
 		{
 			if (activeSayDialog == null)
@@ -43,6 +45,22 @@ namespace Fungus
 			return activeSayDialog;
 		}
 
+		protected Writer GetWriter()
+		{
+			if (writer != null)
+			{
+				return writer;
+			}
+
+			writer = GetComponent<Writer>();
+			if (writer == null)
+			{
+				writer = gameObject.AddComponent<Writer>();
+			}
+
+			return writer;
+		}
+
 		protected virtual void Start()
 		{
 			CanvasGroup canvasGroup = dialogCanvas.GetComponent<CanvasGroup>();
@@ -51,33 +69,14 @@ namespace Fungus
 
 		public virtual void Say(string text, bool clearPrevious, bool waitForInput, AudioClip voiceOverClip, Action onComplete)
 		{
-			Writer writer = GetComponent<Writer>();
-			if (writer == null)
-			{
-				writer = gameObject.AddComponent<Writer>();
-			}
-
-			ShowContinueImage(false);
-
-			writer.Write(text, clearPrevious, waitForInput, onComplete);
+			GetWriter().Write(text, clearPrevious, waitForInput, onComplete);
 		}
 
-		public override void Clear()
-		{
-			base.Clear();
-			ShowContinueImage(false);
-		}
-
-		protected virtual void OnWaitForInputTag(bool waiting)
-		{
-			ShowContinueImage(waiting);
-		}
-
-		protected virtual void ShowContinueImage(bool visible)
+		protected virtual void Update()
 		{
 			if (continueImage != null)
 			{
-				continueImage.enabled = visible;
+				continueImage.enabled = GetWriter().isWaitingForInput;
 			}
 		}
 	}
