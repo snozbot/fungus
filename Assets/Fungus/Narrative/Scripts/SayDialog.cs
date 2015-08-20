@@ -45,7 +45,11 @@ namespace Fungus
 
 		public virtual void Say(string text, bool waitForInput, AudioClip voiceOverClip, Action onComplete)
 		{
-			Clear();
+			Writer writer = GetComponent<Writer>();
+			if (writer == null)
+			{
+				writer = gameObject.AddComponent<Writer>();
+			}
 
 			Action onWritingComplete = delegate {
 				if (waitForInput)
@@ -85,7 +89,9 @@ namespace Fungus
 				}
 			};
 
-			StartCoroutine(WriteText(text, voiceOverClip, onWritingComplete, onExitTag));
+			ShowContinueImage(false);
+
+			writer.Write(text, true, onWritingComplete, onExitTag);
 		}
 
 		public override void Clear()

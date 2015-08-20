@@ -7,8 +7,9 @@ using System;
 namespace Fungus
 {
 
-	public class Writer : MonoBehaviour 
+	public class Writer : MonoBehaviour, IDialogInputListener
 	{
+		public GameObject targetTextObject;
 		public float writingSpeed = 60;
 		public float punctuationPause = 0.25f;
 		public Color hiddenTextColor = new Color(1,1,1,0);
@@ -63,9 +64,15 @@ namespace Fungus
 		
 		protected virtual void Awake()
 		{
-			textUI = GetComponent<Text>();
-			inputField = GetComponent<InputField>();
-			textMesh = GetComponent<TextMesh>();
+			GameObject go = targetTextObject;
+			if (go == null)
+			{
+				go = gameObject;
+			}
+
+			textUI = go.GetComponent<Text>();
+			inputField = go.GetComponent<InputField>();
+			textMesh = go.GetComponent<TextMesh>();
 		}
 		
 		public virtual bool HasTextObject()
@@ -135,15 +142,7 @@ namespace Fungus
 			
 			return closeText;		
 		}
-		
-		protected virtual void Update()
-		{
-			if (Input.anyKeyDown)
-			{
-				SetInputFlag();
-			}
-		}
-		
+
 		public virtual void SetTextColor(Color textColor)
 		{
 			if (textUI != null)
@@ -188,7 +187,7 @@ namespace Fungus
 			}
 		}
 		
-		public virtual void Write(string content, bool clear, Action onComplete = null)
+		public virtual void Write(string content, bool clear, Action onComplete, Action onExit)
 		{
 			if (clear)
 			{
@@ -203,10 +202,10 @@ namespace Fungus
 			TextTagParser tagParser = new TextTagParser();
 			List<TextTagParser.Token> tokens = tagParser.Tokenize(content);
 			
-			StartCoroutine(ProcessTokens(tokens, onComplete));
+			StartCoroutine(ProcessTokens(tokens, onComplete, onExit));
 		}
 		
-		protected virtual IEnumerator ProcessTokens(List<TextTagParser.Token> tokens, Action onComplete)
+		protected virtual IEnumerator ProcessTokens(List<TextTagParser.Token> tokens, Action onComplete, Action onExit)
 		{
 			text = "";
 			
@@ -290,6 +289,10 @@ namespace Fungus
 					break;
 					
 				case TextTagParser.TokenType.Exit:
+					if (onExit != null)
+					{
+						onExit();
+					}
 					yield break;
 					
 				case TextTagParser.TokenType.Message:
@@ -333,44 +336,44 @@ namespace Fungus
 					break;
 					
 				case TextTagParser.TokenType.Audio:
-				{
-					AudioSource audioSource = FindAudio(token.param);
-					if (audioSource != null)
 					{
-						audioSource.PlayOneShot(audioSource.clip);
+						AudioSource audioSource = FindAudio(token.param);
+						if (audioSource != null)
+						{
+							audioSource.PlayOneShot(audioSource.clip);
+						}
 					}
-				}
 					break;
 					
 				case TextTagParser.TokenType.AudioLoop:
-				{
-					AudioSource audioSource = FindAudio(token.param);
-					if (audioSource != null)
 					{
-						audioSource.Play();
-						audioSource.loop = true;
+						AudioSource audioSource = FindAudio(token.param);
+						if (audioSource != null)
+						{
+							audioSource.Play();
+							audioSource.loop = true;
+						}
 					}
-				}
 					break;
 					
 				case TextTagParser.TokenType.AudioPause:
-				{
-					AudioSource audioSource = FindAudio(token.param);
-					if (audioSource != null)
 					{
-						audioSource.Pause();
+						AudioSource audioSource = FindAudio(token.param);
+						if (audioSource != null)
+						{
+							audioSource.Pause();
+						}
 					}
-				}
 					break;
 					
 				case TextTagParser.TokenType.AudioStop:
-				{
-					AudioSource audioSource = FindAudio(token.param);
-					if (audioSource != null)
 					{
-						audioSource.Stop();
+						AudioSource audioSource = FindAudio(token.param);
+						if (audioSource != null)
+						{
+							audioSource.Stop();
+						}
 					}
-				}
 					break;
 					
 				}
@@ -535,6 +538,14 @@ namespace Fungus
 			}
 			
 			return go.GetComponent<AudioSource>();
+		}
+
+		//
+		// IDialogInputListener implementation
+		//
+		public virtual void OnNextLineEvent()
+		{
+			SetInputFlag();
 		}
 	}
 

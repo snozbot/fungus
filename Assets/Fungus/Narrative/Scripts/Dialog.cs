@@ -7,8 +7,8 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	
-	public class Dialog : MonoBehaviour 
+
+	public class Dialog : MonoBehaviour, IDialogInputListener
 	{
 		public static Character speakingCharacter;
 		public static string prevStoryText;
@@ -30,10 +30,7 @@ namespace Fungus
 		protected Vector2 endPosition;
 		public float moveSpeed = 1000f;
 		public LeanTweenType moveEaseType;
-		
-		[Tooltip("Click anywhere on screen to continue when set to true, or only on dialog when false.")]
-		public bool clickAnywhere = true;
-		
+
 		public Canvas dialogCanvas;
 		public Text nameText;
 		public Text storyText;
@@ -46,7 +43,6 @@ namespace Fungus
 		protected bool italicActive;
 		protected bool colorActive;
 		protected string colorText;
-		protected float clickCooldownTimer;
 
 		protected bool wasPointerClicked;
 
@@ -55,20 +51,6 @@ namespace Fungus
 		protected virtual void LateUpdate()
 		{
 			wasPointerClicked = false;
-
-			if (clickCooldownTimer > 0f)
-			{
-				clickCooldownTimer -= Time.deltaTime;
-				clickCooldownTimer = Mathf.Max(0, clickCooldownTimer); 
-			}
-
-			if (clickCooldownTimer == 0f &&
-			    clickAnywhere &&
-			    Input.GetMouseButtonDown(0))
-			{
-				wasPointerClicked = true;
-				clickCooldownTimer = 0.2f;
-			}
 		}
 
 		public virtual void ShowDialog(bool visible)
@@ -88,7 +70,6 @@ namespace Fungus
 				// A new dialog is often shown as the result of a mouse click, so we need
 				// to make sure the previous click doesn't register on the new dialogue
 				wasPointerClicked = false;
-				clickCooldownTimer = 0.2f;
 			}
 		}
 
@@ -585,7 +566,7 @@ namespace Fungus
 							Portrait.SetRectTransform(c.state.portraitImage.rectTransform, c.state.position);
 							if (c.state.dimmed == true)
 							{
-								c.state.portraitImage.color = new Color(0.5f,0.5f,0.5f,1f);
+								c.state.portraitImage.color = new Color(0.5f, 0.5f, 0.5f, 1f);
 							}
 							else
 							{
@@ -613,13 +594,15 @@ namespace Fungus
 		protected virtual void OnWaitForInputTag(bool waiting)
 		{}
 
-		public virtual void OnPointerClick()
+		//
+		// IDialogInput implementation
+		//
+
+		public virtual void OnNextLineEvent()
 		{
-			if (clickCooldownTimer == 0f)
-			{
-				wasPointerClicked = true;
-			}
+			wasPointerClicked = true;
 		}
+
 	}
 	
 }
