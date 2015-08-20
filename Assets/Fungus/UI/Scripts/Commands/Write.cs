@@ -73,14 +73,13 @@ namespace Fungus
 
 			if (!waitUntilFinished)
 			{
-				writer.Write(newText, clearText, null, null);
+				writer.Write(newText, clearText, false, null);
 				Continue();
 			}
 			else
 			{
-				writer.Write(newText, clearText, 
-				    () => { Continue (); }, 
-					() => { Continue (); }
+				writer.Write(newText, clearText, false,
+				             () => { Continue (); }
 				);
 			}
 		}

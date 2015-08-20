@@ -43,7 +43,7 @@ namespace Fungus
 			return activeSayDialog;
 		}
 
-		public virtual void Say(string text, bool waitForInput, AudioClip voiceOverClip, Action onComplete)
+		public virtual void Say(string text, bool clearPrevious, bool waitForInput, AudioClip voiceOverClip, Action onComplete)
 		{
 			Writer writer = GetComponent<Writer>();
 			if (writer == null)
@@ -51,47 +51,9 @@ namespace Fungus
 				writer = gameObject.AddComponent<Writer>();
 			}
 
-			Action onWritingComplete = delegate {
-				if (waitForInput)
-				{
-					ShowContinueImage(true);
-					StartCoroutine(WaitForInput(delegate {
-
-						if (continueSound != null)
-						{
-							AudioSource.PlayClipAtPoint(continueSound, Vector3.zero);
-						}
-
-						Clear();
-						audioController.Stop();
-
-						if (onComplete != null)
-						{
-							onComplete();
-						}
-
-					}));
-				}
-				else
-				{
-					if (onComplete != null)
-					{
-						onComplete();
-					}
-				}
-			};
-
-			Action onExitTag = delegate {
-				Clear();					
-				if (onComplete != null)
-				{
-					onComplete();
-				}
-			};
-
 			ShowContinueImage(false);
 
-			writer.Write(text, true, onWritingComplete, onExitTag);
+			writer.Write(text, clearPrevious, waitForInput, onComplete);
 		}
 
 		public override void Clear()
@@ -100,7 +62,7 @@ namespace Fungus
 			ShowContinueImage(false);
 		}
 
-		protected override void OnWaitForInputTag(bool waiting)
+		protected virtual void OnWaitForInputTag(bool waiting)
 		{
 			ShowContinueImage(waiting);
 		}

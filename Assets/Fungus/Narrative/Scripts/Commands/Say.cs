@@ -79,19 +79,15 @@ namespace Fungus
 			sayDialog.SetCharacterImage(portrait);
 
 			bool fadingIn = false;
-			bool movingIn = false;
 			if (sayDialog.alwaysFadeDialog || fadeIn)
 			{
 				sayDialog.FadeInDialog();
 				fadingIn = true;
 			}
-			if (sayDialog.alwaysMoveDialog)
+
+			if (!fadingIn)
 			{
-				sayDialog.MoveInDialog();
-				movingIn = true;
-			}
-			if (!fadingIn && !movingIn)
-			{
+				// Show immediately
 				sayDialog.ShowDialog(true);
 			}
 
@@ -99,38 +95,21 @@ namespace Fungus
 
 			foreach (CustomTag ct in CustomTag.activeCustomTags)
 			{
-				displayText = displayText.Replace(ct.tagStartSymbol,ct.replaceTagStartWith);
+				displayText = displayText.Replace(ct.tagStartSymbol, ct.replaceTagStartWith);
 				if (ct.tagEndSymbol != "" && ct.replaceTagEndWith != "")
 				{
-					displayText = displayText.Replace(ct.tagEndSymbol,ct.replaceTagEndWith);
+					displayText = displayText.Replace(ct.tagEndSymbol, ct.replaceTagEndWith);
 				}
-			}
-
-			if (extendPrevious)
-			{
-				displayText = "{s=0}" + Dialog.prevStoryText + "{/s}" + displayText;
 			}
 
 			string subbedText = flowchart.SubstituteVariables(displayText);
 
-			sayDialog.Say(subbedText, waitForClick, voiceOverClip, delegate {
+			sayDialog.Say(subbedText, !extendPrevious, waitForClick, voiceOverClip, delegate {
 				if (waitForClick)
 				{
-					bool fadingOut = false;
-					bool movingOut = false;
 					if (sayDialog.alwaysFadeDialog || fadeOut)
 					{
 						sayDialog.FadeOutDialog();
-						fadingOut = true;
-					}
-					if (sayDialog.alwaysMoveDialog)
-					{
-						sayDialog.MoveOutDialog();
-						movingOut = true;
-					}
-					if (!fadingOut && !movingOut)
-					{
-						sayDialog.ShowDialog(false);
 					}
 				}
 				Continue();

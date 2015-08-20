@@ -187,7 +187,7 @@ namespace Fungus
 			}
 		}
 		
-		public virtual void Write(string content, bool clear, Action onComplete, Action onExit)
+		public virtual void Write(string content, bool clear, bool waitForInput, Action onComplete)
 		{
 			if (clear)
 			{
@@ -198,17 +198,21 @@ namespace Fungus
 			{
 				return;
 			}
-			
+
+			string tokenText = content;
+			if (waitForInput)
+			{
+				tokenText += "{wi}";
+			}
+
 			TextTagParser tagParser = new TextTagParser();
-			List<TextTagParser.Token> tokens = tagParser.Tokenize(content);
-			
-			StartCoroutine(ProcessTokens(tokens, onComplete, onExit));
+			List<TextTagParser.Token> tokens = tagParser.Tokenize(tokenText);
+
+			StartCoroutine(ProcessTokens(tokens, onComplete));
 		}
 		
-		protected virtual IEnumerator ProcessTokens(List<TextTagParser.Token> tokens, Action onComplete, Action onExit)
+		protected virtual IEnumerator ProcessTokens(List<TextTagParser.Token> tokens, Action onComplete)
 		{
-			text = "";
-			
 			// Reset control members
 			boldActive = false;
 			italicActive = false;
@@ -219,6 +223,8 @@ namespace Fungus
 			
 			foreach (TextTagParser.Token token in tokens)
 			{
+				bool exit = false;
+
 				switch (token.type)
 				{
 				case TextTagParser.TokenType.Words:
@@ -289,11 +295,8 @@ namespace Fungus
 					break;
 					
 				case TextTagParser.TokenType.Exit:
-					if (onExit != null)
-					{
-						onExit();
-					}
-					yield break;
+					exit = true;
+					break;
 					
 				case TextTagParser.TokenType.Message:
 					Flowchart.BroadcastFungusMessage(token.param);
@@ -379,6 +382,11 @@ namespace Fungus
 				}
 				
 				inputFlag = false;
+
+				if (exit)
+				{
+					break;
+				}
 			}
 			
 			if (onComplete != null)

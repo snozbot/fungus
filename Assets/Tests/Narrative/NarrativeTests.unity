@@ -151,7 +151,7 @@ GameObject:
   - 114: {fileID: 24983369}
   - 114: {fileID: 24983372}
   - 114: {fileID: 24983370}
-  - 114: {fileID: 24983371}
+  - 114: {fileID: 24983373}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -173,11 +173,11 @@ MonoBehaviour:
   itemId: 1
   errorMessage: 
   indentLevel: 0
-  storyText: 'wi test{wi}{m=DoTest}
+  storyText: 'wi test{m=DoTest}{wi}
 
-    wc test{wc}{m=DoTest}
+    wc test{m=DoTest}{wc}
 
-    exit{x}{m=DoTest}'
+    exit{m=DoTest}{x}{m=DoTest}'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -225,6 +225,7 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 24983356}
   commandList:
+  - {fileID: 24983373}
   - {fileID: 24983368}
   - {fileID: 24983355}
 --- !u!114 &24983358
@@ -251,9 +252,9 @@ MonoBehaviour:
     y: -350
     width: 1289
     height: 869
-  selectedBlock: {fileID: 24983361}
+  selectedBlock: {fileID: 24983357}
   selectedCommands:
-  - {fileID: 24983371}
+  - {fileID: 24983355}
   variables: []
   description: 
   stepPause: 0
@@ -311,7 +312,6 @@ MonoBehaviour:
   eventHandler: {fileID: 24983363}
   commandList:
   - {fileID: 24983360}
-  - {fileID: 24983371}
   - {fileID: 24983362}
   - {fileID: 24983365}
   - {fileID: 24983364}
@@ -516,24 +516,6 @@ MonoBehaviour:
   returnValueType: System.Void
   showInherited: 0
   callMode: 0
---- !u!114 &24983371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 24983354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 0
-  errorMessage: 
-  indentLevel: 0
-  logType: 0
-  logMessage:
-    stringRef: {fileID: 0}
-    stringVal: Should be a click
 --- !u!114 &24983372
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -547,6 +529,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 24983369}
   message: DoTest
+--- !u!114 &24983373
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 24983354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65d551a201c94bc79950076ff3eaf2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 14
+  errorMessage: 
+  indentLevel: 0
+  sayDialog: {fileID: 1066357895}
 --- !u!1 &41636568
 GameObject:
   m_ObjectHideFlags: 0
@@ -1610,6 +1607,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 22488902, guid: 8a005a9e0713f4cc1b5ad29fb07657d3,
     type: 2}
   m_PrefabInternal: {fileID: 1326340447}
+--- !u!114 &1066357895 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11488894, guid: 8a005a9e0713f4cc1b5ad29fb07657d3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1326340447}
+  m_Script: {fileID: 11500000, guid: 3a0bbe22c246e4c78ad8e9816cbae9d5, type: 3}
 --- !u!1 &1083481054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,7 +1673,7 @@ MonoBehaviour:
   compareToType: 1
   other: {fileID: 0}
   otherPropertyPath: 
-  constantValueGeneric: 3
+  constantValueGeneric: 4
   compareType: 0
 --- !u!1001 &1326340447
 Prefab:
@@ -1820,7 +1823,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1731000812
 Transform:
   m_ObjectHideFlags: 0
