@@ -332,6 +332,7 @@ GameObject:
   - 114: {fileID: 1618689148}
   - 114: {fileID: 1618689150}
   - 114: {fileID: 1618689140}
+  - 114: {fileID: 1618689151}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -364,7 +365,8 @@ MonoBehaviour:
     width: 1161
     height: 873
   selectedBlock: {fileID: 1618689147}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 1618689151}
   variables:
   - {fileID: 1618689138}
   - {fileID: 1618689141}
@@ -390,7 +392,6 @@ MonoBehaviour:
   itemId: 7
   errorMessage: 
   indentLevel: 0
-  delay: 0
   targetObject: {fileID: 1960615183}
   targetComponentAssemblyName: Fungus.TestInvoke, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
@@ -543,7 +544,6 @@ MonoBehaviour:
   itemId: 3
   errorMessage: 
   indentLevel: 0
-  delay: 0
   targetObject: {fileID: 1960615183}
   targetComponentAssemblyName: Fungus.TestInvoke, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
@@ -588,7 +588,6 @@ MonoBehaviour:
   itemId: 4
   errorMessage: 
   indentLevel: 0
-  delay: 0
   targetObject: {fileID: 1960615183}
   targetComponentAssemblyName: Fungus.TestInvoke, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
@@ -633,7 +632,6 @@ MonoBehaviour:
   itemId: 5
   errorMessage: 
   indentLevel: 0
-  delay: 0
   targetObject: {fileID: 1960615183}
   targetComponentAssemblyName: Fungus.TestInvoke, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
@@ -678,7 +676,6 @@ MonoBehaviour:
   itemId: 6
   errorMessage: 
   indentLevel: 0
-  delay: 0
   targetObject: {fileID: 1960615183}
   targetComponentAssemblyName: Fungus.TestInvoke, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
@@ -737,7 +734,6 @@ MonoBehaviour:
   itemId: 1
   errorMessage: 
   indentLevel: 0
-  delay: 0
   targetObject: {fileID: 1960615183}
   targetComponentAssemblyName: Fungus.TestInvoke, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
@@ -795,7 +791,6 @@ MonoBehaviour:
   itemId: 8
   errorMessage: 
   indentLevel: 0
-  delay: 0
   targetObject: {fileID: 1960615183}
   targetComponentAssemblyName: Fungus.TestInvoke, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
@@ -851,7 +846,6 @@ MonoBehaviour:
   itemId: 9
   errorMessage: 
   indentLevel: 0
-  delay: 0
   targetObject: {fileID: 1960615183}
   targetComponentAssemblyName: Fungus.TestInvoke, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
@@ -879,7 +873,6 @@ MonoBehaviour:
   itemId: 10
   errorMessage: 
   indentLevel: 0
-  delay: 0
   targetObject: {fileID: 1960615183}
   targetComponentAssemblyName: Fungus.TestInvoke, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
@@ -916,6 +909,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1618689140}
+  - {fileID: 1618689151}
   - {fileID: 1618689149}
   - {fileID: 1618689148}
 --- !u!114 &1618689148
@@ -996,7 +990,6 @@ MonoBehaviour:
   itemId: 12
   errorMessage: 
   indentLevel: 0
-  delay: 1
   targetObject: {fileID: 1960615183}
   targetComponentAssemblyName: Fungus.TestInvoke, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
@@ -1024,7 +1017,6 @@ MonoBehaviour:
   itemId: 14
   errorMessage: 
   indentLevel: 0
-  delay: 0
   targetObject: {fileID: 1618689128}
   targetComponentAssemblyName: Fungus.Flowchart, Assembly-CSharp, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
@@ -1055,6 +1047,21 @@ MonoBehaviour:
   returnValueType: System.Void
   showInherited: 0
   callMode: 0
+--- !u!114 &1618689151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1618689128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 0
+  errorMessage: 
+  indentLevel: 0
+  duration: 1
 --- !u!1 &1960615183
 GameObject:
   m_ObjectHideFlags: 0
