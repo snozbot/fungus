@@ -147,6 +147,10 @@ GameObject:
   - 114: {fileID: 24983367}
   - 114: {fileID: 24983366}
   - 114: {fileID: 24983368}
+  - 114: {fileID: 24983363}
+  - 114: {fileID: 24983369}
+  - 114: {fileID: 24983372}
+  - 114: {fileID: 24983370}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -168,11 +172,11 @@ MonoBehaviour:
   itemId: 1
   errorMessage: 
   indentLevel: 0
-  storyText: 'Wait for input and continue{wi}Wait for input and clear{wc}
+  storyText: 'wi test{wi}{m=DoTest}
 
-    More text after a wc tag.
+    wc test{wc}{m=DoTest}
 
-    Exit tag{x}'
+    exit{x}{m=DoTest}'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -212,7 +216,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 67
-    y: 69
+    y: 70
     width: 120
     height: 40
   itemId: 0
@@ -244,11 +248,11 @@ MonoBehaviour:
     serializedVersion: 2
     x: -350
     y: -350
-    width: 1121
+    width: 1288
     height: 869
-  selectedBlock: {fileID: 24983357}
+  selectedBlock: {fileID: 24983369}
   selectedCommands:
-  - {fileID: 24983368}
+  - {fileID: 24983370}
   variables: []
   description: 
   stepPause: 0
@@ -303,7 +307,7 @@ MonoBehaviour:
   itemId: 3
   blockName: Do Input
   description: 
-  eventHandler: {fileID: 0}
+  eventHandler: {fileID: 24983363}
   commandList:
   - {fileID: 24983360}
   - {fileID: 24983362}
@@ -338,6 +342,18 @@ MonoBehaviour:
   returnValueType: System.Void
   showInherited: 0
   callMode: 0
+--- !u!114 &24983363
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 24983354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 24983361}
 --- !u!114 &24983364
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -424,7 +440,7 @@ MonoBehaviour:
   duration: 2
 --- !u!114 &24983368
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 24983354}
@@ -436,7 +452,7 @@ MonoBehaviour:
   itemId: 10
   errorMessage: 
   indentLevel: 0
-  storyText: Wait for click off.
+  storyText: Wait for click off{m=DoTest}
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -448,6 +464,69 @@ MonoBehaviour:
   fadeOut: 0
   waitForClick: 0
   setSayDialog: {fileID: 0}
+--- !u!114 &24983369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 24983354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 416
+    y: 65
+    width: 120
+    height: 40
+  itemId: 11
+  blockName: DoTest
+  description: 
+  eventHandler: {fileID: 24983372}
+  commandList:
+  - {fileID: 24983370}
+--- !u!114 &24983370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 24983354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  errorMessage: 
+  indentLevel: 0
+  targetObject: {fileID: 401634244}
+  targetComponentAssemblyName: SayTest, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: SayTest
+  targetMethod: TestPassed
+  targetMethodText: 'TestPassed (): Void'
+  methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &24983372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 24983354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 24983369}
+  message: DoTest
 --- !u!1 &41636568
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,6 +718,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 401634245}
   - 114: {fileID: 401634246}
+  - 114: {fileID: 401634247}
   m_Layer: 0
   m_Name: TestAssertions
   m_TagString: Untagged
@@ -669,7 +749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkAfterTime: 7
+  checkAfterTime: 8
   repeatCheckTime: 0
   repeatEveryTime: 1
   checkAfterFrames: 1
@@ -677,8 +757,20 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   checkMethods: 1
-  m_ActionBase: {fileID: 1157191816}
+  m_ActionBase: {fileID: 1210810389}
   checksPerformed: 0
+--- !u!114 &401634247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 401634244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abf8bf8daccdf46b4afc52dcfd59a479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passCount: 0
 --- !u!1 &891159641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,7 +1634,7 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 410270, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
   m_PrefabInternal: {fileID: 1450066430}
---- !u!114 &1157191816
+--- !u!114 &1210810389
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1550,15 +1642,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
+  m_Script: {fileID: 11500000, guid: da4a3a521c5c1494aae123742ca5c8f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  go: {fileID: 1066357890}
-  thisPropertyPath: gameObject.activeSelf
+  go: {fileID: 401634244}
+  thisPropertyPath: SayTest.passCount
   compareToType: 1
   other: {fileID: 0}
   otherPropertyPath: 
-  constantValueGeneric: 0
+  constantValueGeneric: 3
+  compareType: 0
 --- !u!224 &1439815621 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22410276, guid: c6289d5f8fa843145a2355af9cb09719,
