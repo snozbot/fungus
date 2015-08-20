@@ -12,15 +12,15 @@ namespace Fungus
 	{
 		public static Character speakingCharacter;
 
-		public float writingSpeed = 60;
 		public AudioClip writingSound;
-		[Range(0,1)]
 		public float writingVolume = 1f;
 		public bool loopWritingSound = true;
 		public bool beepPerCharacter = false;
 		public float slowBeepsAt = 10f;
 		public float fastBeepsAt = 30f;
-		public float punctuationPause = 0.25f;
+		public AudioClip characterTypingSound;
+		public DialogAudio audioController = new DialogAudio();
+
 		public bool alwaysFadeDialog = false;
 		public float fadeDuration = 1f;
 		public LeanTweenType fadeEaseType;
@@ -29,18 +29,8 @@ namespace Fungus
 		public Text nameText;
 		public Text storyText;
 		public Image characterImage;
-		public AudioClip characterTypingSound;
-
-		protected float currentSpeed;
-		protected float currentPunctuationPause;
-		protected bool boldActive;
-		protected bool italicActive;
-		protected bool colorActive;
-		protected string colorText;
 
 		protected bool wasPointerClicked;
-
-		public DialogAudio audioController = new DialogAudio();
 
 		protected virtual void LateUpdate()
 		{
@@ -202,15 +192,7 @@ namespace Fungus
 		public virtual void Clear()
 		{
 			ClearStoryText();
-
-			// Reset control variables
-			currentSpeed = 60;
-			currentPunctuationPause = 0.25f;
-			boldActive = false;
-			italicActive = false;
-			colorActive = false;
-			colorText = "";
-
+	
 			// Kill any active write coroutine
 			StopAllCoroutines();
 		}
