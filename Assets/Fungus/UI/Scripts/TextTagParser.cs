@@ -118,7 +118,7 @@ namespace Fungus
 				if (trimLeading &&
 				    token.type == TokenType.Words)
 				{
-					token.param.TrimStart(' ', '\t', '\r', '\n');
+					token.param = token.param.TrimStart(' ', '\t', '\r', '\n');
 				}
 				
 				if (token.type == TokenType.Clear || 
