@@ -43,6 +43,12 @@ namespace Fungus
 			return activeSayDialog;
 		}
 
+		protected virtual void Start()
+		{
+			CanvasGroup canvasGroup = dialogCanvas.GetComponent<CanvasGroup>();
+			canvasGroup.alpha = 0f;
+		}
+
 		public virtual void Say(string text, bool clearPrevious, bool waitForInput, AudioClip voiceOverClip, Action onComplete)
 		{
 			Writer writer = GetComponent<Writer>();
