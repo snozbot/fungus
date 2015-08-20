@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using System;
 using System.Linq;
@@ -128,6 +129,8 @@ namespace Fungus
 		 */
 		public static List<Flowchart> cachedFlowcharts = new List<Flowchart>();
 
+		protected static bool eventSystemPresent;
+
 		/**
 		 * Returns the next id to assign to a new flowchart item.
 		 * Item ids increase monotically so they are guaranteed to
@@ -148,6 +151,41 @@ namespace Fungus
 				maxId = Math.Max(maxId, command.itemId);
 			}
 			return maxId + 1;
+		}
+
+		protected virtual void OnLevelWasLoaded(int level) 
+		{
+			// Reset the flag for checking for an event system as there may not be one in the newly loaded scene.
+			eventSystemPresent = false;
+		}
+
+		protected virtual void Start()
+		{
+			CheckEventSystem();
+		}
+		
+		// There must be an Event System in the scene for Say and Menu input to work.
+		// This method will automatically instantiate one if none exists.
+		protected virtual void CheckEventSystem()
+		{
+			if (eventSystemPresent)
+			{
+				return;
+			}
+			
+			EventSystem eventSystem = GameObject.FindObjectOfType<EventSystem>();
+			if (eventSystem == null)
+			{
+				// Auto spawn an Event System from the prefab
+				GameObject prefab = Resources.Load<GameObject>("EventSystem");
+				if (prefab != null)
+				{
+					GameObject go = Instantiate(prefab) as GameObject;
+					go.name = "EventSystem";
+				}
+			}
+			
+			eventSystemPresent = true;
 		}
 
 		public virtual void OnEnable()
