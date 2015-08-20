@@ -14,9 +14,6 @@ namespace Fungus
 	             "Invokes a method of a component via reflection. Supports passing multiple parameters and storing returned values in a Fungus variable.")]
 	public class InvokeMethod : Command
 	{
-		[Tooltip("Delay before invoking method")]
-		public float delay;
-
 		[Tooltip("GameObject containing the component method to be invoked")]
 	    public GameObject targetObject;
 
@@ -94,18 +91,6 @@ namespace Fungus
 	  
 	    public override void OnEnter()
 	    {
-			if (delay <= 0)
-			{
-				DoInvokeMethod();
-			}
-			else
-			{
-				Invoke("DoInvokeMethod", delay);
-			}
-	    }
-
-		protected virtual void DoInvokeMethod()
-		{
 			try
 			{
 				if (targetObject == null || string.IsNullOrEmpty(targetComponentAssemblyName) || string.IsNullOrEmpty(targetMethod))
@@ -129,7 +114,7 @@ namespace Fungus
 				{
 					StartCoroutine(ExecuteCoroutine());
 					
-					if(callMode == Call.CallMode.Continue)
+					if (callMode == Call.CallMode.Continue)
 					{
 						Continue();
 					}
