@@ -140,13 +140,13 @@ GameObject:
   - 114: {fileID: 24983356}
   - 114: {fileID: 24983355}
   - 114: {fileID: 24983361}
-  - 114: {fileID: 24983363}
   - 114: {fileID: 24983362}
   - 114: {fileID: 24983360}
   - 114: {fileID: 24983365}
   - 114: {fileID: 24983364}
   - 114: {fileID: 24983367}
   - 114: {fileID: 24983366}
+  - 114: {fileID: 24983368}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -220,6 +220,7 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 24983356}
   commandList:
+  - {fileID: 24983368}
   - {fileID: 24983355}
 --- !u!114 &24983358
 MonoBehaviour:
@@ -245,8 +246,9 @@ MonoBehaviour:
     y: -350
     width: 1121
     height: 869
-  selectedBlock: {fileID: 24983361}
-  selectedCommands: []
+  selectedBlock: {fileID: 24983357}
+  selectedCommands:
+  - {fileID: 24983368}
   variables: []
   description: 
   stepPause: 0
@@ -301,7 +303,7 @@ MonoBehaviour:
   itemId: 3
   blockName: Do Input
   description: 
-  eventHandler: {fileID: 24983363}
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 24983360}
   - {fileID: 24983362}
@@ -336,18 +338,6 @@ MonoBehaviour:
   returnValueType: System.Void
   showInherited: 0
   callMode: 0
---- !u!114 &24983363
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 24983354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentBlock: {fileID: 24983361}
 --- !u!114 &24983364
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -432,6 +422,32 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   duration: 2
+--- !u!114 &24983368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 24983354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 10
+  errorMessage: 
+  indentLevel: 0
+  storyText: Wait for click off.
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeIn: 0
+  fadeOut: 0
+  waitForClick: 0
+  setSayDialog: {fileID: 0}
 --- !u!1 &41636568
 GameObject:
   m_ObjectHideFlags: 0
