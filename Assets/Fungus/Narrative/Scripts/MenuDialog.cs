@@ -144,17 +144,7 @@ namespace Fungus
 			SayDialog sayDialog = SayDialog.GetSayDialog();
 			if (sayDialog != null)
 			{
-				bool fadingOut = false;
-				if (sayDialog.alwaysFadeDialog)
-				{
-					sayDialog.FadeOutDialog();
-					fadingOut = true;
-				}
-
-				if (!fadingOut)
-				{
-					sayDialog.ShowDialog(false);
-				}
+				sayDialog.ShowDialog(false);
 			}
 		}
 

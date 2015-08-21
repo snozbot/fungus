@@ -36,13 +36,10 @@ namespace Fungus
 		[Tooltip("Type this text in the previous dialog box.")]
 		public bool extendPrevious = false;
 
-		[Tooltip("Fade in this dialog box.")]
-		public bool fadeIn = false;
+		[Tooltip("Fade out the dialog box when writing has finished and not waiting for input.")]
+		public bool fadeWhenDone = true;
 
-		[Tooltip("Fade out this dialog box.")]
-		public bool fadeOut = false;
-
-		[Tooltip("Wait for player to click before hiding the dialog and continuing. If false then the dialog will display and execution will continue immediately.")]
+		[Tooltip("Wait for player to click before continuing.")]
 		public bool waitForClick = true;
 
 		[Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
@@ -78,18 +75,7 @@ namespace Fungus
 			sayDialog.SetCharacter(character, flowchart);
 			sayDialog.SetCharacterImage(portrait);
 
-			bool fadingIn = false;
-			if (sayDialog.alwaysFadeDialog || fadeIn)
-			{
-				sayDialog.FadeInDialog();
-				fadingIn = true;
-			}
-
-			if (!fadingIn)
-			{
-				// Show immediately
-				sayDialog.ShowDialog(true);
-			}
+			sayDialog.ShowDialog(true);
 
 			string displayText = storyText;
 
@@ -105,13 +91,6 @@ namespace Fungus
 			string subbedText = flowchart.SubstituteVariables(displayText);
 
 			sayDialog.Say(subbedText, !extendPrevious, waitForClick, voiceOverClip, delegate {
-				if (waitForClick)
-				{
-					if (sayDialog.alwaysFadeDialog || fadeOut)
-					{
-						sayDialog.FadeOutDialog();
-					}
-				}
 				Continue();
 			});
 		}

@@ -14,9 +14,7 @@ namespace Fungus
 
 		public DialogAudio audioController = new DialogAudio();
 
-		public bool alwaysFadeDialog = false;
 		public float fadeDuration = 1f;
-		public LeanTweenType fadeEaseType;
 
 		public Canvas dialogCanvas;
 		public Text nameText;
@@ -32,73 +30,14 @@ namespace Fungus
 
 		public virtual void ShowDialog(bool visible)
 		{
-			if (dialogCanvas != null)
-			{
-				LeanTween.cancel(dialogCanvas.gameObject);
-				CanvasGroup canvasGroup = dialogCanvas.GetComponent<CanvasGroup>();
-				if (canvasGroup != null)
-				{
-					canvasGroup.alpha = 1;
-				}
-				dialogCanvas.gameObject.SetActive(visible);
-			}
+			gameObject.SetActive(true);
+
 			if (visible)
 			{
 				// A new dialog is often shown as the result of a mouse click, so we need
 				// to make sure the previous click doesn't register on the new dialogue
 				wasPointerClicked = false;
 			}
-		}
-
-		public virtual void FadeInDialog()
-		{
-			LeanTween.cancel(dialogCanvas.gameObject);
-			CanvasGroup canvasGroup = dialogCanvas.GetComponent<CanvasGroup>();
-			if (canvasGroup != null)
-			{
-				canvasGroup.alpha = 0;
-			}
-			dialogCanvas.gameObject.SetActive(true);
-
-			if (fadeDuration == 0)
-			{
-				fadeDuration = float.Epsilon;
-			}
-
-			LeanTween.value(dialogCanvas.gameObject,0,1,fadeDuration).setEase(fadeEaseType).setOnUpdate( (float fadeAmount)=> {
-				if (canvasGroup != null)
-				{
-					canvasGroup.alpha = fadeAmount;
-				}
-			}).setOnComplete( ()=> {
-				if (canvasGroup != null)
-				{
-					canvasGroup.alpha = 1;
-				}
-			});
-		}
-
-		public virtual void FadeOutDialog()
-		{
-			CanvasGroup canvasGroup = dialogCanvas.GetComponent<CanvasGroup>();
-			LeanTween.cancel(dialogCanvas.gameObject);
-			if (fadeDuration == 0) 
-			{	
-				fadeDuration = float.Epsilon;
-			}
-
-			LeanTween.value(dialogCanvas.gameObject,1,0,fadeDuration).setEase(fadeEaseType).setOnUpdate( (float fadeAmount)=> {
-				if (canvasGroup != null)
-				{
-					canvasGroup.alpha = fadeAmount;
-				}
-			}).setOnComplete( ()=> {
-				dialogCanvas.gameObject.SetActive(false);
-				if (canvasGroup != null)
-				{
-					canvasGroup.alpha = 1;
-				}
-			});
 		}
 
 		public virtual void SetCharacter(Character character, Flowchart flowchart = null)
