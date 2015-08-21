@@ -16,7 +16,7 @@ namespace Fungus
 		void DoFakeInput()
 		{
 			Writer writer = GetComponent<Writer>();
-			writer.SetInputFlag();
+			writer.OnNextLineEvent();
 		}
 	}
 

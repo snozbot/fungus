@@ -397,17 +397,15 @@ namespace Fungus
 						}
 					}
 					break;
-					
 				}
 				
-				inputFlag = false;
-
 				if (exit)
 				{
 					break;
 				}
 			}
 
+			inputFlag = false;
 			isWriting = false;
 
 			if (onComplete != null)
@@ -431,6 +429,12 @@ namespace Fungus
 				
 				PartitionString(writeWholeWords, param, i, out left, out right);
 				text = ConcatenateString(startText, openText, closeText, left, right);
+
+				// No delay if user has clicked
+				if (inputFlag)
+				{
+					continue;
+				}
 
 				// Punctuation pause
 				if (left.Length > 0 && 
@@ -496,11 +500,6 @@ namespace Fungus
 			return tempText;
 		}
 
-		public virtual void SetInputFlag()
-		{
-			inputFlag = true;
-		}
-		
 		public virtual string GetTagHelp()
 		{
 			return "";
@@ -513,21 +512,28 @@ namespace Fungus
 			{
 				duration = 1f;
 			}
-			
-			yield return new WaitForSeconds(duration);
+
+			float timeRemaining = duration;
+			while (timeRemaining > 0f && !inputFlag)
+			{
+				timeRemaining -= Time.deltaTime;
+				yield return null;
+			}
 		}
 		
 		protected virtual IEnumerator DoWaitForInput(bool clear)
 		{
+			inputFlag = false;
 			isWaitingForInput = true;
+
 			while (!inputFlag)
 			{
 				yield return null;
 			}
-			isWaitingForInput = false;
-			
+
+			isWaitingForInput = false;			
 			inputFlag = false;
-			
+
 			if (clear)
 			{
 				textUI.text = "";
@@ -576,7 +582,7 @@ namespace Fungus
 		//
 		public virtual void OnNextLineEvent()
 		{
-			SetInputFlag();
+			inputFlag = true;
 		}
 	}
 
