@@ -2507,9 +2507,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b85556abd314f3f870c18c013fdcef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickMode: 2
+  clickMode: 1
   keyPressMode: 2
-  nextClickDelay: .200000003
+  nextClickDelay: 0
   keyList: 0900000020000000
 --- !u!82 &981838185
 AudioSource:
