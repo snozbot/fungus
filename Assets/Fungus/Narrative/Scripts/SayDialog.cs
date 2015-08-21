@@ -113,11 +113,11 @@ namespace Fungus
 			GetCanvasGroup().alpha = 0f;
 		}
 
-		public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip voiceOverClip, Action onComplete)
+		public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip audioClip, Action onComplete)
 		{
 			this.fadeWhenDone = fadeWhenDone;
 
-			GetWriter().Write(text, clearPrevious, waitForInput, onComplete);
+			GetWriter().Write(text, clearPrevious, waitForInput, audioClip, onComplete);
 		}
 
 		protected virtual void LateUpdate()

@@ -7,6 +7,28 @@ using System;
 namespace Fungus
 {
 
+	/**
+	 * Implement this interface to be notified about Writer events
+	 */
+	public interface IWriterListener
+	{
+		// Called when the Writer starts writing new text
+		// An optional audioClip sound effect can be supplied (e.g. for voiceover)
+		void OnStart(AudioClip audioClip);
+
+		// Called when the Writer has paused writing text (e.g. on a {wi} tag)
+		void OnPause();
+
+		// Called when the Writer has resumed writing text
+		void OnResume();
+
+		// Called when the Writer has finshed writing text
+		void OnEnd();
+
+		// Called every time the Writer writes a character
+		void OnCharacter();
+	}
+	
 	public class Writer : MonoBehaviour, IDialogInputListener
 	{
 		[Tooltip("Gameobject containing a Text, Inout Field or Text Mesh object to write to")]
@@ -42,7 +64,9 @@ namespace Fungus
 		protected bool colorActive = false;
 		protected string colorText = "";
 		protected bool inputFlag;
-		
+
+		protected List<IWriterListener> writerListeners = new List<IWriterListener>();
+
 		public string text 
 		{
 			get 
@@ -90,6 +114,16 @@ namespace Fungus
 			textUI = go.GetComponent<Text>();
 			inputField = go.GetComponent<InputField>();
 			textMesh = go.GetComponent<TextMesh>();
+
+			// Cache the list of child writer listeners
+			foreach (Component component in GetComponentsInChildren<Component>())
+			{
+				IWriterListener writerListener = component as IWriterListener;
+				if (writerListener != null)
+				{
+					writerListeners.Add(writerListener);
+				}
+			}
 		}
 		
 		public virtual bool HasTextObject()
@@ -204,7 +238,7 @@ namespace Fungus
 			}
 		}
 		
-		public virtual void Write(string content, bool clear, bool waitForInput, Action onComplete)
+		public virtual void Write(string content, bool clear, bool waitForInput, AudioClip audioClip, Action onComplete)
 		{
 			if (clear)
 			{
@@ -215,6 +249,9 @@ namespace Fungus
 			{
 				return;
 			}
+
+			// If this clip is null then DialogAudio will play the default sound effect (if any)
+			NotifyStart(audioClip);
 
 			string tokenText = content;
 			if (waitForInput)
@@ -408,6 +445,8 @@ namespace Fungus
 			inputFlag = false;
 			isWriting = false;
 
+			NotifyEnd();
+
 			if (onComplete != null)
 			{
 				onComplete();
@@ -419,7 +458,7 @@ namespace Fungus
 			string startText = text;
 			string openText = OpenMarkup();
 			string closeText = CloseMarkup();
-			
+
 			float timeAccumulator = Time.deltaTime;
 
 			for (int i = 0; i < param.Length; ++i)
@@ -440,7 +479,7 @@ namespace Fungus
 				if (left.Length > 0 && 
 				    IsPunctuation(left.Substring(left.Length - 1)[0]))
 				{
-					yield return new WaitForSeconds(currentPunctuationPause);
+					yield return StartCoroutine(DoWait(currentPunctuationPause));
 				}
 
 				// Delay between characters
@@ -513,16 +552,36 @@ namespace Fungus
 				duration = 1f;
 			}
 
+			NotifyPause();
+
 			float timeRemaining = duration;
 			while (timeRemaining > 0f && !inputFlag)
 			{
 				timeRemaining -= Time.deltaTime;
 				yield return null;
 			}
+
+			NotifyResume();
 		}
-		
+
+		protected virtual IEnumerator DoWait(float duration)
+		{
+			NotifyPause();
+
+			float timeRemaining = duration;
+			while (timeRemaining > 0f && !inputFlag)
+			{
+				timeRemaining -= Time.deltaTime;
+				yield return null;
+			}
+
+			NotifyResume();
+		}
+
 		protected virtual IEnumerator DoWaitForInput(bool clear)
 		{
+			NotifyPause();
+
 			inputFlag = false;
 			isWaitingForInput = true;
 
@@ -530,7 +589,7 @@ namespace Fungus
 			{
 				yield return null;
 			}
-
+		
 			isWaitingForInput = false;			
 			inputFlag = false;
 
@@ -538,6 +597,8 @@ namespace Fungus
 			{
 				textUI.text = "";
 			}
+
+			NotifyResume();
 		}
 		
 		protected virtual bool IsPunctuation(char character)
@@ -575,6 +636,46 @@ namespace Fungus
 			}
 			
 			return go.GetComponent<AudioSource>();
+		}
+
+		protected virtual void NotifyStart(AudioClip audioClip)
+		{
+			foreach (IWriterListener writerListener in writerListeners)
+			{
+				writerListener.OnStart(audioClip);
+			}
+		}
+
+		protected virtual void NotifyPause()
+		{
+			foreach (IWriterListener writerListener in writerListeners)
+			{
+				writerListener.OnPause();
+			}
+		}
+
+		protected virtual void NotifyResume()
+		{
+			foreach (IWriterListener writerListener in writerListeners)
+			{
+				writerListener.OnResume();
+			}
+		}
+
+		protected virtual void NotifyEnd()
+		{
+			foreach (IWriterListener writerListener in writerListeners)
+			{
+				writerListener.OnEnd();
+			}
+		}
+
+		protected virtual void NotifyCharacter()
+		{
+			foreach (IWriterListener writerListener in writerListeners)
+			{
+				writerListener.OnCharacter();
+			}
 		}
 
 		//
