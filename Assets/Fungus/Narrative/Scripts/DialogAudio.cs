@@ -5,9 +5,9 @@ namespace Fungus
 {
 
 	/*
-	 * Helper class to manage play, pause & stop operations on voiceover and writing sound effects
+	 * Manages audio effects for Dialogs
 	 */
-	public class DialogAudio
+	public class DialogAudio : MonoBehaviour
 	{
 		public AudioSource audioSource;
 		public AudioClip audioClip;

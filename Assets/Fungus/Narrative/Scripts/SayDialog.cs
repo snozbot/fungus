@@ -23,10 +23,10 @@ namespace Fungus
 		public Text storyText;
 		public Image characterImage;
 	
-		public DialogAudio audioController = new DialogAudio();
-		
+		protected DialogAudio dialogAudio;
 		protected Writer writer;
 		protected CanvasGroup canvasGroup;
+
 		protected bool fadeWhenDone = true;
 		protected float targetAlpha = 0f;
 		protected float fadeCoolDownTimer = 0f;
@@ -89,6 +89,22 @@ namespace Fungus
 			}
 			
 			return canvasGroup;
+		}
+
+		protected DialogAudio GetDialogAudio()
+		{
+			if (dialogAudio != null)
+			{
+				return dialogAudio;
+			}
+			
+			dialogAudio = GetComponent<DialogAudio>();
+			if (dialogAudio == null)
+			{
+				dialogAudio = gameObject.AddComponent<DialogAudio>();
+			}
+			
+			return dialogAudio;
 		}
 
 		protected void Start()
