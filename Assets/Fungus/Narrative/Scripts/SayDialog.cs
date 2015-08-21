@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections;
@@ -23,7 +23,7 @@ namespace Fungus
 		public Text storyText;
 		public Image characterImage;
 	
-		protected DialogAudio dialogAudio;
+		protected WriterAudio writerAudio;
 		protected Writer writer;
 		protected CanvasGroup canvasGroup;
 
@@ -91,20 +91,20 @@ namespace Fungus
 			return canvasGroup;
 		}
 
-		protected DialogAudio GetDialogAudio()
+		protected WriterAudio GetWriterAudio()
 		{
-			if (dialogAudio != null)
+			if (writerAudio != null)
 			{
-				return dialogAudio;
+				return writerAudio;
 			}
 			
-			dialogAudio = GetComponent<DialogAudio>();
-			if (dialogAudio == null)
+			writerAudio = GetComponent<WriterAudio>();
+			if (writerAudio == null)
 			{
-				dialogAudio = gameObject.AddComponent<DialogAudio>();
+				writerAudio = gameObject.AddComponent<WriterAudio>();
 			}
 			
-			return dialogAudio;
+			return writerAudio;
 		}
 
 		protected void Start()

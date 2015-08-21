@@ -7,7 +7,7 @@ namespace Fungus
 	/*
 	 * Manages audio effects for Dialogs
 	 */
-	public class DialogAudio : MonoBehaviour, IWriterListener
+	public class WriterAudio : MonoBehaviour, IWriterListener
 	{
 		// If none is specifed then we use any AudioSource on the gameobject, and if that doesn't exist we create one.
 		[Tooltip("AudioSource to use for playing sound effects.")]

@@ -250,7 +250,7 @@ namespace Fungus
 				return;
 			}
 
-			// If this clip is null then DialogAudio will play the default sound effect (if any)
+			// If this clip is null then WriterAudio will play the default sound effect (if any)
 			NotifyStart(audioClip);
 
 			string tokenText = content;
