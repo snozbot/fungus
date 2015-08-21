@@ -12,12 +12,12 @@ namespace Fungus
 		// Currently active Say Dialog used to display Say text
 		public static SayDialog activeSayDialog;
 
+		// Most recent speaking character
 		public static Character speakingCharacter;
 
-		public Image continueImage;
-		public AudioClip continueSound;
 		public float fadeDuration = 0.25f;
 		
+		public Button continueButton;
 		public Canvas dialogCanvas;
 		public Text nameText;
 		public Text storyText;
@@ -108,9 +108,9 @@ namespace Fungus
 		{
 			UpdateAlpha();
 
-			if (continueImage != null)
+			if (continueButton != null)
 			{
-				continueImage.enabled = GetWriter().isWaitingForInput;
+				continueButton.enabled = GetWriter().isWaitingForInput;
 			}
 		}
 

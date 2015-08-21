@@ -13,9 +13,10 @@ namespace Fungus
 	{
 		public enum ClickMode
 		{
-			Disabled,		// Clicking disabled
-			ClickAnywhere,	// Click anywhere on screen to advance
-			ClickOnDialog	// Click anywhere on Say Dialog to advance
+			Disabled,			// Clicking disabled
+			ClickAnywhere,		// Click anywhere on screen to advance
+			ClickOnDialog,		// Click anywhere on Say Dialog to advance
+			ClickOnButton		// Click on continue button to advance
 		}
 
 		public enum KeyPressMode
@@ -70,6 +71,15 @@ namespace Fungus
 			if (clickMode == ClickMode.ClickOnDialog)
 			{
 				dialogClickedFlag = true;
+			}
+		}
+
+		public void SetButtonClickedFlag()
+		{
+			// Only applies if clicking is not disabled
+			if (clickMode != ClickMode.Disabled)
+			{
+				SetNextLineFlag();
 			}
 		}
 
