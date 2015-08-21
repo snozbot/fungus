@@ -13,25 +13,31 @@ namespace Fungus
 	{
 		public enum ClickMode
 		{
-			Disabled,
-			ClickAnywhere,
-			ClickOnDialog
+			Disabled,		// Clicking disabled
+			ClickAnywhere,	// Click anywhere on screen to advance
+			ClickOnDialog	// Click anywhere on Say Dialog to advance
 		}
 
 		public enum KeyPressMode
 		{
-			Disabled,
-			AnyKey,
-			KeyPressed
+			Disabled,		// Key pressing disabled
+			AnyKey,			// Press any key to continue
+			KeyPressed		// Press one of specified keys to advance
 		}
 
+		[Tooltip("Click to advance story")]
 		public ClickMode clickMode;
 
+		[Tooltip("Press a key to advance story")]
 		public KeyPressMode keyPressMode;
 
-		public float nextClickDelay = 0.2f;
+		[Tooltip("Hold down shift while pressing a key to advance though story instantly")]
+		public bool shiftKeyEnabled = true;
 
-		[Tooltip("Keycode of the key to activate on")]
+		[Tooltip("Delay between consecutive clicks. Useful to prevent accidentally clicking through story.")]
+		public float nextClickDelay = 0f;
+
+		[Tooltip("Keycodes to check for key presses")]
 		public KeyCode[] keyList;
 
 		protected bool dialogClickedFlag;
@@ -82,9 +88,20 @@ namespace Fungus
 			case KeyPressMode.KeyPressed:
 				foreach (KeyCode keyCode in keyList)
 				{
-					if (Input.GetKeyDown(keyCode))
+					if (shiftKeyEnabled && 
+					    (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
 					{
-						SetNextLineFlag();
+						if (Input.GetKey(keyCode))
+						{
+							SetNextLineFlag();
+						}
+					}
+					else
+					{
+						if (Input.GetKeyDown(keyCode))
+						{
+							SetNextLineFlag();
+						}
 					}
 				}
 				break;
