@@ -12,13 +12,6 @@ namespace Fungus
 	{
 		public static Character speakingCharacter;
 
-		public AudioClip writingSound;
-		public float writingVolume = 1f;
-		public bool loopWritingSound = true;
-		public bool beepPerCharacter = false;
-		public float slowBeepsAt = 10f;
-		public float fastBeepsAt = 30f;
-		public AudioClip characterTypingSound;
 		public DialogAudio audioController = new DialogAudio();
 
 		public bool alwaysFadeDialog = false;
@@ -113,10 +106,13 @@ namespace Fungus
 			if (character == null)
 			{
 				if (characterImage != null)
+				{
 					characterImage.gameObject.SetActive(false);
+				}
 				if (nameText != null)
+				{
 					nameText.text = "";
-				characterTypingSound = null;
+				}
 			}
 			else
 			{
@@ -157,8 +153,6 @@ namespace Fungus
 				{
 					characterName = flowchart.SubstituteVariables(characterName);
 				}
-				
-				characterTypingSound = character.soundEffect;
 				
 				SetCharacterName(characterName, character.nameColor);
 			}
