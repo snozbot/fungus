@@ -82,7 +82,6 @@ GameObject:
   - 224: {fileID: 22488900}
   - 222: {fileID: 22288900}
   - 114: {fileID: 11488904}
-  - 225: {fileID: 22588894}
   - 114: {fileID: 11478524}
   m_Layer: 5
   m_Name: Panel
@@ -345,26 +344,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0bbe22c246e4c78ad8e9816cbae9d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  writingSpeed: 30
-  writingSound: {fileID: 8300000, guid: f637c5ce9d10e45c7855ed89bfc6b97e, type: 3}
-  writingVolume: 1
-  loopWritingSound: 1
-  beepPerCharacter: 0
-  slowBeepsAt: 10
-  fastBeepsAt: 30
-  punctuationPause: .200000003
   alwaysFadeDialog: 0
   fadeDuration: .25
   fadeEaseType: 0
-  alwaysMoveDialog: 0
-  startPosition: {x: 0, y: 0}
-  moveSpeed: 1000
-  moveEaseType: 0
   dialogCanvas: {fileID: 22388894}
   nameText: {fileID: 11488900}
   storyText: {fileID: 11488896}
   characterImage: {fileID: 11448914}
-  characterTypingSound: {fileID: 0}
   continueImage: {fileID: 11488898}
   continueSound: {fileID: 0}
 --- !u!114 &11488896
@@ -662,17 +648,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!225 &22588894
-CanvasGroup:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 188900}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!225 &22588896
 CanvasGroup:
   m_ObjectHideFlags: 1

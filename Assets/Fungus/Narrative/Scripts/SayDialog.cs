@@ -14,6 +14,7 @@ namespace Fungus
 
 		public Image continueImage;
 		public AudioClip continueSound;
+		public bool visibleAtStart;
 
 		protected Writer writer;
 
@@ -38,6 +39,7 @@ namespace Fungus
 						go.SetActive(false);
 						go.name = "SayDialog";
 						activeSayDialog = go.GetComponent<SayDialog>();
+						activeSayDialog.visibleAtStart = true;
 					}
 				}
 			}
@@ -63,8 +65,16 @@ namespace Fungus
 
 		protected virtual void Start()
 		{
+			// Set dialog visibilty at startup
 			CanvasGroup canvasGroup = dialogCanvas.GetComponent<CanvasGroup>();
-			canvasGroup.alpha = 0f;
+			if (visibleAtStart)
+			{
+				canvasGroup.alpha = 1f;
+			}
+			else
+			{
+				canvasGroup.alpha = 0f;
+			}
 		}
 
 		public virtual void Say(string text, bool clearPrevious, bool waitForInput, AudioClip voiceOverClip, Action onComplete)
