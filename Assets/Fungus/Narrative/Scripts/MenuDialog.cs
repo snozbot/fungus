@@ -144,7 +144,7 @@ namespace Fungus
 			SayDialog sayDialog = SayDialog.GetSayDialog();
 			if (sayDialog != null)
 			{
-				sayDialog.ShowDialog(false);
+				sayDialog.FadeOut();
 			}
 		}
 

@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 736071350}
+  selectedFlowchart: {fileID: 24983358}
 --- !u!4 &11556238
 Transform:
   m_ObjectHideFlags: 1
@@ -185,8 +185,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &24983356
@@ -216,8 +215,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 67
-    y: 70
+    x: 66
+    y: 71
     width: 120
     height: 40
   itemId: 0
@@ -254,7 +253,7 @@ MonoBehaviour:
     height: 869
   selectedBlock: {fileID: 24983357}
   selectedCommands:
-  - {fileID: 24983355}
+  - {fileID: 24983373}
   variables: []
   description: 
   stepPause: 0
@@ -462,8 +461,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 0
   setSayDialog: {fileID: 0}
 --- !u!114 &24983369
@@ -800,6 +798,7 @@ GameObject:
   - 114: {fileID: 736071349}
   - 114: {fileID: 736071348}
   - 114: {fileID: 736071347}
+  - 114: {fileID: 736071352}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -809,7 +808,7 @@ GameObject:
   m_IsActive: 1
 --- !u!114 &736071347
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -829,8 +828,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &736071348
@@ -861,7 +859,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 66
-    y: 69
+    y: 70
     width: 120
     height: 40
   itemId: 0
@@ -870,6 +868,7 @@ MonoBehaviour:
   eventHandler: {fileID: 736071348}
   commandList:
   - {fileID: 736071347}
+  - {fileID: 736071352}
 --- !u!114 &736071350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -895,8 +894,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlock: {fileID: 736071349}
-  selectedCommands:
-  - {fileID: 736071347}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -916,6 +914,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1929911610}
   m_RootOrder: 0
+--- !u!114 &736071352
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736071346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 2
+  errorMessage: 
+  indentLevel: 0
+  storyText: Play audio beeps from dialog
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeOut: 1
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!1 &891159641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,8 +1152,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &891159650
@@ -1279,8 +1301,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &891159663
@@ -2003,7 +2024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1929911610
 Transform:
   m_ObjectHideFlags: 0
@@ -2053,7 +2074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2084461895
 Transform:
   m_ObjectHideFlags: 0

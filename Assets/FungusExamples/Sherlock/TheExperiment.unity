@@ -2610,24 +2610,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0bbe22c246e4c78ad8e9816cbae9d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  writingSpeed: 30
-  writingSound: {fileID: 8300000, guid: f637c5ce9d10e45c7855ed89bfc6b97e, type: 3}
-  writingVolume: 1
-  loopWritingSound: 1
-  beepPerCharacter: 0
-  slowBeepsAt: 10
-  fastBeepsAt: 30
-  punctuationPause: .200000003
-  alwaysFadeDialog: 0
+  continueImage: {fileID: 1330472049}
+  continueSound: {fileID: 0}
   fadeDuration: .25
-  fadeEaseType: 0
   dialogCanvas: {fileID: 981838191}
   nameText: {fileID: 43764834}
   storyText: {fileID: 1116800863}
   characterImage: {fileID: 515191726}
-  characterTypingSound: {fileID: 0}
-  continueImage: {fileID: 1330472049}
-  continueSound: {fileID: 0}
 --- !u!114 &981838188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3852,9 +3841,9 @@ MonoBehaviour:
     y: -1729.35046
     width: 5969.4458
     height: 2818.85034
-  selectedBlock: {fileID: 1390555298}
+  selectedBlock: {fileID: 1390555440}
   selectedCommands:
-  - {fileID: 1390555297}
+  - {fileID: 1390555300}
   variables:
   - {fileID: 1390555396}
   description: 'Example scene from Sherlock: The Game Is On'
@@ -3898,8 +3887,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 1
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555298
@@ -4004,7 +3992,6 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
   fadeOut: 0
   waitForClick: 0
   setSayDialog: {fileID: 0}
@@ -4152,8 +4139,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 0
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555307
@@ -4282,8 +4268,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 0
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555312
@@ -4354,7 +4339,6 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
   fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
@@ -4381,8 +4365,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555315
@@ -4408,8 +4391,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555316
@@ -4435,8 +4417,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555317
@@ -4462,8 +4443,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 1
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555318
@@ -4529,7 +4509,6 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
   fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
@@ -4556,8 +4535,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555322
@@ -4583,8 +4561,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555323
@@ -4610,8 +4587,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555324
@@ -4638,8 +4614,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555325
@@ -4676,8 +4651,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555327
@@ -4703,8 +4677,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555328
@@ -4730,8 +4703,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555329
@@ -4757,8 +4729,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555330
@@ -4784,8 +4755,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555331
@@ -4811,8 +4781,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555332
@@ -4838,8 +4807,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555333
@@ -4866,8 +4834,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555334
@@ -4893,7 +4860,6 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 1
   fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
@@ -5323,8 +5289,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 1
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555351
@@ -5471,7 +5436,6 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
   fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
@@ -5731,8 +5695,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 1
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555367
@@ -5796,7 +5759,6 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
   fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
@@ -6140,8 +6102,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 1
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555382

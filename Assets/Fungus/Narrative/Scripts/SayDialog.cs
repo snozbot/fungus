@@ -16,8 +16,7 @@ namespace Fungus
 
 		public Image continueImage;
 		public AudioClip continueSound;
-		public bool visibleAtStart;
-		public float fadeDuration = 1f;
+		public float fadeDuration = 0.25f;
 		
 		public Canvas dialogCanvas;
 		public Text nameText;
@@ -27,7 +26,11 @@ namespace Fungus
 		public DialogAudio audioController = new DialogAudio();
 		
 		protected Writer writer;
+		protected CanvasGroup canvasGroup;
 		protected bool wasPointerClicked;
+		protected bool fadeWhenDone = true;
+		protected float targetAlpha = 0f;
+		protected float fadeCoolDownTimer = 0f;
 
 		public static SayDialog GetSayDialog()
 		{
@@ -50,7 +53,6 @@ namespace Fungus
 						go.SetActive(false);
 						go.name = "SayDialog";
 						activeSayDialog = go.GetComponent<SayDialog>();
-						activeSayDialog.visibleAtStart = true;
 					}
 				}
 			}
@@ -74,48 +76,89 @@ namespace Fungus
 			return writer;
 		}
 
-		protected virtual void Start()
+		protected CanvasGroup GetCanvasGroup()
 		{
-			// Set dialog visibilty at startup
-			CanvasGroup canvasGroup = dialogCanvas.GetComponent<CanvasGroup>();
-			if (visibleAtStart)
+			if (canvasGroup != null)
 			{
-				canvasGroup.alpha = 1f;
+				return canvasGroup;
 			}
-			else
+			
+			canvasGroup = GetComponent<CanvasGroup>();
+			if (canvasGroup == null)
 			{
-				canvasGroup.alpha = 0f;
+				canvasGroup = gameObject.AddComponent<CanvasGroup>();
 			}
+			
+			return canvasGroup;
 		}
 
-		public virtual void Say(string text, bool clearPrevious, bool waitForInput, AudioClip voiceOverClip, Action onComplete)
+		protected void Start()
 		{
+			// Dialog always starts invisible, will be faded in when writing starts
+			GetCanvasGroup().alpha = 0f;
+		}
+
+		public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip voiceOverClip, Action onComplete)
+		{
+			this.fadeWhenDone = fadeWhenDone;
+
 			GetWriter().Write(text, clearPrevious, waitForInput, onComplete);
-		}
-
-		protected virtual void Update()
-		{
-			if (continueImage != null)
-			{
-				continueImage.enabled = GetWriter().isWaitingForInput;
-			}
 		}
 
 		protected virtual void LateUpdate()
 		{
+			UpdateAlpha();
+
+			if (continueImage != null)
+			{
+				continueImage.enabled = GetWriter().isWaitingForInput;
+			}
+
 			wasPointerClicked = false;
 		}
-		
-		public virtual void ShowDialog(bool visible)
+
+		public virtual void FadeOut()
 		{
-			gameObject.SetActive(true);
-			
-			if (visible)
+			fadeWhenDone = true;
+		}
+
+		protected virtual void UpdateAlpha()
+		{
+			if (GetWriter().isWriting)
 			{
-				// A new dialog is often shown as the result of a mouse click, so we need
-				// to make sure the previous click doesn't register on the new dialogue
-				wasPointerClicked = false;
+				targetAlpha = 1f;
+				fadeCoolDownTimer = 0.1f;
 			}
+			else if (fadeWhenDone && fadeCoolDownTimer == 0f)
+			{
+				targetAlpha = 0f;
+			}
+			else
+			{
+				// Add a short delay before we start fading in case there's another Say command in the next frame or two.
+				// This avoids a noticeable flicker between consecutive Say commands.
+				fadeCoolDownTimer = Mathf.Max(0f, fadeCoolDownTimer - Time.deltaTime);
+			}
+
+			CanvasGroup canvasGroup = GetCanvasGroup();
+			float fadeDuration = GetSayDialog().fadeDuration;
+			if (fadeDuration <= 0f)
+			{
+				canvasGroup.alpha = targetAlpha;
+			}
+			else
+			{
+				float delta = (1f / fadeDuration) * Time.deltaTime;
+				float alpha = Mathf.MoveTowards(canvasGroup.alpha, targetAlpha, delta);
+				canvasGroup.alpha = alpha;
+			}
+		}
+
+		public virtual void ResetPointerClicked()
+		{
+			// A new dialog is often shown as the result of a mouse click, so we need
+			// to make sure the previous click doesn't register on the new dialogue
+			wasPointerClicked = false;
 		}
 		
 		public virtual void SetCharacter(Character character, Flowchart flowchart = null)

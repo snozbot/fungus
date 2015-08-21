@@ -28,6 +28,10 @@ namespace Fungus
 		[System.NonSerialized]
 		public bool isWaitingForInput;
 
+		// This property is true when the writer is writing text or waiting (i.e. still processing tokens)
+		[System.NonSerialized]
+		public bool isWriting;
+
 		protected float currentWritingSpeed;
 		protected float currentPunctuationPause;
 		protected Text textUI;
@@ -233,7 +237,9 @@ namespace Fungus
 			colorText = "";
 			currentPunctuationPause = punctuationPause;
 			currentWritingSpeed = writingSpeed;
-			
+
+			isWriting = true;
+
 			foreach (TextTagParser.Token token in tokens)
 			{
 				bool exit = false;
@@ -401,7 +407,9 @@ namespace Fungus
 					break;
 				}
 			}
-			
+
+			isWriting = false;
+
 			if (onComplete != null)
 			{
 				onComplete();
