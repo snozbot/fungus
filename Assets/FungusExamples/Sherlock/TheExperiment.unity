@@ -2594,7 +2594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTextObject: {fileID: 1116800860}
-  writingSpeed: 10
+  writingSpeed: 60
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
@@ -3842,8 +3842,7 @@ MonoBehaviour:
     width: 5969.4458
     height: 2818.85034
   selectedBlock: {fileID: 1390555440}
-  selectedCommands:
-  - {fileID: 1390555300}
+  selectedCommands: []
   variables:
   - {fileID: 1390555396}
   description: 'Example scene from Sherlock: The Game Is On'

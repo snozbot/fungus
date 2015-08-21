@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Fungus
 {
 
-	public class SayDialog : MonoBehaviour, IDialogInputListener 
+	public class SayDialog : MonoBehaviour
 	{
 		// Currently active Say Dialog used to display Say text
 		public static SayDialog activeSayDialog;
@@ -27,7 +27,6 @@ namespace Fungus
 		
 		protected Writer writer;
 		protected CanvasGroup canvasGroup;
-		protected bool wasPointerClicked;
 		protected bool fadeWhenDone = true;
 		protected float targetAlpha = 0f;
 		protected float fadeCoolDownTimer = 0f;
@@ -113,8 +112,6 @@ namespace Fungus
 			{
 				continueImage.enabled = GetWriter().isWaitingForInput;
 			}
-
-			wasPointerClicked = false;
 		}
 
 		public virtual void FadeOut()
@@ -154,13 +151,6 @@ namespace Fungus
 			}
 		}
 
-		public virtual void ResetPointerClicked()
-		{
-			// A new dialog is often shown as the result of a mouse click, so we need
-			// to make sure the previous click doesn't register on the new dialogue
-			wasPointerClicked = false;
-		}
-		
 		public virtual void SetCharacter(Character character, Flowchart flowchart = null)
 		{
 			if (character == null)
@@ -282,15 +272,6 @@ namespace Fungus
 					}
 				}
 			}
-		}
-		
-		//
-		// IDialogInput implementation
-		//
-		
-		public virtual void OnNextLineEvent()
-		{
-			wasPointerClicked = true;
 		}
 	}
 
