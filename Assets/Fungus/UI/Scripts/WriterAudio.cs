@@ -37,8 +37,9 @@ namespace Fungus
 
 		protected float targetVolume = 0f;
 
-		protected virtual void Start()
+		protected virtual void Awake()
 		{
+			// Need to do this in Awake rather than Start due to init order issues
 			if (audioSource == null)
 			{
 				audioSource = GetComponent<AudioSource>();
