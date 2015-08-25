@@ -121,6 +121,7 @@ GameObject:
   - 114: {fileID: 11486804}
   - 114: {fileID: 11488894}
   - 114: {fileID: 11487070}
+  - 114: {fileID: 11404316}
   - 114: {fileID: 11481894}
   - 82: {fileID: 8294266}
   m_Layer: 5
@@ -199,6 +200,26 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &11404316
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4782cf42f2644447b9631f6e522160b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: 1
+  loop: 1
+  targetAudioSource: {fileID: 0}
+  audioMode: 0
+  beepSounds:
+  - {fileID: 8300000, guid: 774486030b696474e8b3cf7f178123da, type: 3}
+  - {fileID: 8300000, guid: f637c5ce9d10e45c7855ed89bfc6b97e, type: 3}
+  - {fileID: 8300000, guid: c53b7c20372e444c6bd7f2ac0729bbe2, type: 3}
+  soundEffect: {fileID: 0}
 --- !u!114 &11419088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -424,7 +445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeDuration: .25
-  continueButton: {fileID: 0}
+  continueButton: {fileID: 11419088}
   dialogCanvas: {fileID: 22388894}
   nameText: {fileID: 11488900}
   storyText: {fileID: 11488896}
