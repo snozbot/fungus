@@ -18,7 +18,7 @@ namespace Fungus
 
 		// If none is specifed then we use any AudioSource on the gameobject, and if that doesn't exist we create one.
 		[Tooltip("AudioSource to use for playing sound effects. If none is selected then one will be created.")]
-		public AudioSource audioSource;
+		public AudioSource targetAudioSource;
 
 		public enum AudioMode
 		{
@@ -48,56 +48,57 @@ namespace Fungus
 		protected virtual void Awake()
 		{
 			// Need to do this in Awake rather than Start due to init order issues
-			if (audioSource == null)
+			if (targetAudioSource == null)
 			{
-				audioSource = GetComponent<AudioSource>();
-				if (audioSource == null)
+				targetAudioSource = GetComponent<AudioSource>();
+				if (targetAudioSource == null)
 				{
-					audioSource = gameObject.AddComponent<AudioSource>();
+					targetAudioSource = gameObject.AddComponent<AudioSource>();
 				}
 			}
 
-			audioSource.volume = 0f;
+			targetAudioSource.volume = 0f;
 		}
 
 		public virtual void Play(AudioClip audioClip)
 		{
-			if (audioSource == null ||
-			    (soundEffect == null && audioClip == null))
+			if (targetAudioSource == null ||
+			    (audioMode == AudioMode.SoundEffect && soundEffect == null && audioClip == null) ||
+				(audioMode == AudioMode.Beeps && beepSounds.Count == 0))
 			{
 				return;
 			}
 
-			audioSource.volume = 0f;
+			targetAudioSource.volume = 0f;
 			targetVolume = 1f;
 
 			if (audioClip != null)
 			{
 				// Voice over clip provided
-				audioSource.clip = audioClip;
-				audioSource.loop = loop;
-				audioSource.Play();
+				targetAudioSource.clip = audioClip;
+				targetAudioSource.loop = loop;
+				targetAudioSource.Play();
 			}
 			else if (audioMode == AudioMode.SoundEffect &&
 			         soundEffect != null)
 			{
 				// Use sound effects defined in WriterAudio
-				audioSource.clip = soundEffect;
-				audioSource.loop = loop;
-				audioSource.Play();
+				targetAudioSource.clip = soundEffect;
+				targetAudioSource.loop = loop;
+				targetAudioSource.Play();
 			}
 			else if (audioMode == AudioMode.Beeps)
 			{
 				// Use beeps defined in WriterAudio
-				audioSource.clip = null;
-				audioSource.loop = false;
+				targetAudioSource.clip = null;
+				targetAudioSource.loop = false;
 				playBeeps = true;
 			}
 		}
 
 		public virtual void Pause()
 		{
-			if (audioSource == null)
+			if (targetAudioSource == null)
 			{
 				return;
 			}
@@ -108,7 +109,7 @@ namespace Fungus
 
 		public virtual void Stop()
 		{
-			if (audioSource == null)
+			if (targetAudioSource == null)
 			{
 				return;
 			}
@@ -116,13 +117,13 @@ namespace Fungus
 			// There's an audible click if you call audioSource.Stop() so instead we just switch off
 			// looping and let the audio stop automatically at the end of the clip
 			targetVolume = 0f;
-			audioSource.loop = false;
+			targetAudioSource.loop = false;
 			playBeeps = false;
 		}
 
 		public virtual void Resume()
 		{
-			if (audioSource == null)
+			if (targetAudioSource == null)
 			{
 				return;
 			}
@@ -132,7 +133,7 @@ namespace Fungus
 
 		protected virtual void Update()
 		{
-			audioSource.volume = Mathf.MoveTowards(audioSource.volume, targetVolume, Time.deltaTime * 5f);
+			targetAudioSource.volume = Mathf.MoveTowards(targetAudioSource.volume, targetVolume, Time.deltaTime * 5f);
 		}
 
 		//
@@ -163,11 +164,11 @@ namespace Fungus
 		{
 			if (playBeeps && beepSounds.Count > 0)
 			{
-				if (!audioSource.isPlaying)
+				if (!targetAudioSource.isPlaying)
 				{
-					audioSource.clip = beepSounds[Random.Range(0, beepSounds.Count - 1)];
-					audioSource.loop = false;
-					audioSource.Play();
+					targetAudioSource.clip = beepSounds[Random.Range(0, beepSounds.Count - 1)];
+					targetAudioSource.loop = false;
+					targetAudioSource.Play();
 				}
 			}
 		}
