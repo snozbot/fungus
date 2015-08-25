@@ -569,7 +569,7 @@ MonoBehaviour:
     height: 859
   selectedBlock: {fileID: 332004788}
   selectedCommands:
-  - {fileID: 332004792}
+  - {fileID: 332004787}
   variables: []
   description: 
   stepPause: 0
@@ -646,7 +646,7 @@ MonoBehaviour:
   parentBlock: {fileID: 332004788}
 --- !u!114 &332004790
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 332004784}
@@ -674,7 +674,7 @@ MonoBehaviour:
     colorVal: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &332004791
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 332004784}
@@ -718,7 +718,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &332004792
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 332004784}
@@ -1141,23 +1141,6 @@ MonoBehaviour:
   compareType: 0
   comparisonType: 4
   ignoreCase: 0
---- !u!114 &738564240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  go: {fileID: 1490749230}
-  thisPropertyPath: AudioSource.isPlaying
-  compareToType: 1
-  other: {fileID: 0}
-  otherPropertyPath: 
-  constantValueGeneric: 1
 --- !u!1 &750279026
 GameObject:
   m_ObjectHideFlags: 0
@@ -2969,7 +2952,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1200195692}
-  - 114: {fileID: 1200195693}
+  - 114: {fileID: 1200195694}
   m_Layer: 0
   m_Name: TestAssertions
   m_TagString: Untagged
@@ -2989,7 +2972,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 530636036}
   m_RootOrder: 2
---- !u!114 &1200195693
+--- !u!114 &1200195694
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -3000,7 +2983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkAfterTime: .25
+  checkAfterTime: 2.25
   repeatCheckTime: 0
   repeatEveryTime: 1
   checkAfterFrames: 1
@@ -3008,7 +2991,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   checkMethods: 1
-  m_ActionBase: {fileID: 738564240}
+  m_ActionBase: {fileID: 1851602427}
   checksPerformed: 0
 --- !u!1 &1218238772
 GameObject:
@@ -3782,6 +3765,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0cec78902391f4944881c028a5bd61e2, type: 3}
   - {fileID: 8300000, guid: c40373edf37cb4a3f8b7b1103d03b1bb, type: 3}
   soundEffect: {fileID: 8300000, guid: 98d045067b3b7428c842dab1285b43a1, type: 3}
+  inputSound: {fileID: 0}
 --- !u!82 &1490749236
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4839,6 +4823,23 @@ MonoBehaviour:
     stringVal: Output text 1
   description: 
   _textObjectObsolete: {fileID: 0}
+--- !u!114 &1851602427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1490749230}
+  thisPropertyPath: AudioSource.isPlaying
+  compareToType: 1
+  other: {fileID: 0}
+  otherPropertyPath: 
+  constantValueGeneric: 1
 --- !u!114 &1866177340
 MonoBehaviour:
   m_ObjectHideFlags: 0
