@@ -823,6 +823,23 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 93721126}
+--- !u!114 &137767004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1714427702}
+  thisPropertyPath: AudioSource.isPlaying
+  compareToType: 1
+  other: {fileID: 0}
+  otherPropertyPath: 
+  constantValueGeneric: 1
 --- !u!114 &147068410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1037,6 +1054,9 @@ GameObject:
   - 4: {fileID: 594837300}
   - 114: {fileID: 594837299}
   - 114: {fileID: 594837301}
+  - 114: {fileID: 594837302}
+  - 114: {fileID: 594837303}
+  - 114: {fileID: 594837304}
   m_Layer: 0
   m_Name: TestAssertions
   m_TagString: Untagged
@@ -1097,6 +1117,69 @@ MonoBehaviour:
   hasFailed: 0
   checkMethods: 1
   m_ActionBase: {fileID: 183204959}
+  checksPerformed: 0
+--- !u!114 &594837302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 594837298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkAfterTime: 6.5
+  repeatCheckTime: 0
+  repeatEveryTime: 1
+  checkAfterFrames: 1
+  repeatCheckFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  checkMethods: 1
+  m_ActionBase: {fileID: 1300618896}
+  checksPerformed: 0
+--- !u!114 &594837303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 594837298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkAfterTime: 8.5
+  repeatCheckTime: 0
+  repeatEveryTime: 1
+  checkAfterFrames: 1
+  repeatCheckFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  checkMethods: 1
+  m_ActionBase: {fileID: 137767004}
+  checksPerformed: 0
+--- !u!114 &594837304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 594837298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkAfterTime: 10.5
+  repeatCheckTime: 0
+  repeatEveryTime: 1
+  checkAfterFrames: 1
+  repeatCheckFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  checkMethods: 1
+  m_ActionBase: {fileID: 1613545005}
   checksPerformed: 0
 --- !u!1 &658513471
 GameObject:
@@ -1207,6 +1290,11 @@ GameObject:
   - 114: {fileID: 736071354}
   - 114: {fileID: 736071357}
   - 114: {fileID: 736071356}
+  - 114: {fileID: 736071360}
+  - 114: {fileID: 736071362}
+  - 114: {fileID: 736071361}
+  - 114: {fileID: 736071364}
+  - 114: {fileID: 736071363}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1269,18 +1357,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 66
-    y: 70
+    x: 61
+    y: 69
     width: 120
     height: 40
   itemId: 0
-  blockName: Start
+  blockName: Start Saying
   description: 
   eventHandler: {fileID: 736071348}
   commandList:
   - {fileID: 736071359}
   - {fileID: 736071347}
   - {fileID: 736071352}
+  - {fileID: 736071360}
 --- !u!114 &736071350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304,10 +1393,9 @@ MonoBehaviour:
     x: -350
     y: -350
     width: 1121
-    height: 869
+    height: 870
   selectedBlock: {fileID: 736071355}
-  selectedCommands:
-  - {fileID: 736071356}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -1407,12 +1495,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 223
-    y: 66
+    x: 235
+    y: 70
     width: 120
     height: 40
   itemId: 4
-  blockName: New Block
+  blockName: Start Testing
   description: 
   eventHandler: {fileID: 736071358}
   commandList:
@@ -1420,6 +1508,10 @@ MonoBehaviour:
   - {fileID: 736071353}
   - {fileID: 736071357}
   - {fileID: 736071356}
+  - {fileID: 736071362}
+  - {fileID: 736071361}
+  - {fileID: 736071364}
+  - {fileID: 736071363}
 --- !u!114 &736071356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1461,7 +1553,7 @@ MonoBehaviour:
   itemId: 7
   errorMessage: 
   indentLevel: 0
-  duration: 2
+  duration: 4
 --- !u!114 &736071358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1489,6 +1581,115 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   sayDialog: {fileID: 1714427708}
+--- !u!114 &736071360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736071346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 9
+  errorMessage: 
+  indentLevel: 0
+  storyText: Test sound effect specified per character
+  description: 
+  character: {fileID: 2009395474}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeOut: 1
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &736071361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736071346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 11
+  errorMessage: 
+  indentLevel: 0
+  targetObject: {fileID: 1714427702}
+  targetComponentAssemblyName: Fungus.DialogInput, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogInput
+  targetMethod: SetNextLineFlag
+  targetMethodText: 'SetNextLineFlag (): Void'
+  methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &736071362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736071346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 10
+  errorMessage: 
+  indentLevel: 0
+  duration: 2
+--- !u!114 &736071363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736071346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 13
+  errorMessage: 
+  indentLevel: 0
+  targetObject: {fileID: 1714427702}
+  targetComponentAssemblyName: Fungus.DialogInput, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogInput
+  targetMethod: SetNextLineFlag
+  targetMethodText: 'SetNextLineFlag (): Void'
+  methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &736071364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736071346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  errorMessage: 
+  indentLevel: 0
+  duration: 2
 --- !u!1 &891159641
 GameObject:
   m_ObjectHideFlags: 0
@@ -2822,6 +3023,23 @@ MonoBehaviour:
   otherPropertyPath: 
   constantValueGeneric: 4
   compareType: 0
+--- !u!114 &1300618896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1714427702}
+  thisPropertyPath: AudioSource.isPlaying
+  compareToType: 1
+  other: {fileID: 0}
+  otherPropertyPath: 
+  constantValueGeneric: 1
 --- !u!1001 &1326340447
 Prefab:
   m_ObjectHideFlags: 0
@@ -2959,6 +3177,23 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1613545005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1714427702}
+  thisPropertyPath: AudioSource.isPlaying
+  compareToType: 1
+  other: {fileID: 0}
+  otherPropertyPath: 
+  constantValueGeneric: 1
 --- !u!1 &1648578756
 GameObject:
   m_ObjectHideFlags: 0
@@ -3611,6 +3846,7 @@ Transform:
   - {fileID: 736071351}
   - {fileID: 1714427703}
   - {fileID: 594837300}
+  - {fileID: 2009395473}
   m_Father: {fileID: 0}
   m_RootOrder: 5
 --- !u!114 &1929911611
@@ -3624,7 +3860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeout: 10
+  timeout: 15
   ignored: 0
   succeedAfterAllAssertionsAreExecuted: 1
   expectException: 0
@@ -3837,6 +4073,53 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1999698862}
+--- !u!1 &2009395472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2009395473}
+  - 114: {fileID: 2009395474}
+  m_Layer: 0
+  m_Name: TestCharacter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2009395473
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2009395472}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1929911610}
+  m_RootOrder: 3
+--- !u!114 &2009395474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2009395472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: Test Character
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
+  soundEffect: {fileID: 8300000, guid: 0cdfebb6349aa4b72a1d34c47935faf8, type: 3}
+  profileSprite: {fileID: 0}
+  portraits: []
+  portraitsFace: 0
+  description: 
 --- !u!1 &2082946103
 GameObject:
   m_ObjectHideFlags: 0

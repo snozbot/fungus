@@ -117,7 +117,15 @@ namespace Fungus
 		{
 			this.fadeWhenDone = fadeWhenDone;
 
-			GetWriter().Write(text, clearPrevious, waitForInput, audioClip, onComplete);
+			// Look for a character sound effect if no voice over clip is specified
+			AudioClip clip = audioClip;
+			if (speakingCharacter != null &&
+			    clip == null)
+			{
+				clip = speakingCharacter.soundEffect;
+			}
+
+			GetWriter().Write(text, clearPrevious, waitForInput, clip, onComplete);
 		}
 
 		protected virtual void LateUpdate()
