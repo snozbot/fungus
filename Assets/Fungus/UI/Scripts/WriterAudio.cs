@@ -9,8 +9,15 @@ namespace Fungus
 	 */
 	public class WriterAudio : MonoBehaviour, IWriterListener
 	{
+		[Tooltip("Volume level of writing sound effects")]
+		[Range(0,1)]
+		public float volume = 1f;
+
+		[Tooltip("Loop the audio when in Sound Effect mode. Has no effect in Beeps mode.")]
+		public bool loop = true;
+
 		// If none is specifed then we use any AudioSource on the gameobject, and if that doesn't exist we create one.
-		[Tooltip("AudioSource to use for playing sound effects.")]
+		[Tooltip("AudioSource to use for playing sound effects. If none is selected then one will be created.")]
 		public AudioSource audioSource;
 
 		public enum AudioMode
@@ -22,20 +29,21 @@ namespace Fungus
 		[Tooltip("Type of sound effect to play when writing text")]
 		public AudioMode audioMode = AudioMode.Beeps;
 
-		[Tooltip("List of beeps to randomly select when playing beep sound effects")]
-		public List<AudioClip> beeps = new List<AudioClip>();
+		[Tooltip("List of beeps to randomly select when playing beep sound effects. Will play maximum of one beep per character, with only one beep playing at a time.")]
+		public List<AudioClip> beepSounds = new List<AudioClip>();
 
 		[Tooltip("Long playing sound effect to play when writing text")]
 		public AudioClip soundEffect;
 
-		[Tooltip("Loop the sound effect")]
-		public bool loop = true;
-
-		[Tooltip("Volume level of writing sound effects")]
-		[Range(0,1)]
-		public float volume = 1f;
-
 		protected float targetVolume = 0f;
+
+		// When true, a beep will be played on every written character glyph
+		protected bool playBeeps;
+
+		public virtual void SetAudioMode(AudioMode mode)
+		{
+			audioMode = mode;
+		}
 
 		protected virtual void Awake()
 		{
@@ -60,21 +68,31 @@ namespace Fungus
 				return;
 			}
 
-			if (audioClip != null)
-			{
-				audioSource.clip = audioClip;
-			}
-			else
-			{
-				audioSource.clip = soundEffect;
-			}
-
-			audioSource.loop = loop;
-
 			audioSource.volume = 0f;
 			targetVolume = 1f;
 
-			audioSource.Play();
+			if (audioClip != null)
+			{
+				// Voice over clip provided
+				audioSource.clip = audioClip;
+				audioSource.loop = loop;
+				audioSource.Play();
+			}
+			else if (audioMode == AudioMode.SoundEffect &&
+			         soundEffect != null)
+			{
+				// Use sound effects defined in WriterAudio
+				audioSource.clip = soundEffect;
+				audioSource.loop = loop;
+				audioSource.Play();
+			}
+			else if (audioMode == AudioMode.Beeps)
+			{
+				// Use beeps defined in WriterAudio
+				audioSource.clip = null;
+				audioSource.loop = false;
+				playBeeps = true;
+			}
 		}
 
 		public virtual void Pause()
@@ -99,6 +117,7 @@ namespace Fungus
 			// looping and let the audio stop automatically at the end of the clip
 			targetVolume = 0f;
 			audioSource.loop = false;
+			playBeeps = false;
 		}
 
 		public virtual void Resume()
@@ -137,11 +156,20 @@ namespace Fungus
 		
 		public virtual void OnEnd()
 		{
-			Stop ();
+			Stop();
 		}
 		
-		public virtual void OnCharacter()
+		public virtual void OnGlyph()
 		{
+			if (playBeeps && beepSounds.Count > 0)
+			{
+				if (!audioSource.isPlaying)
+				{
+					audioSource.clip = beepSounds[Random.Range(0, beepSounds.Count - 1)];
+					audioSource.loop = false;
+					audioSource.Play();
+				}
+			}
 		}
 	}
 

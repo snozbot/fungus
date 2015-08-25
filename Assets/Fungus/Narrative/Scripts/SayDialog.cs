@@ -187,6 +187,7 @@ namespace Fungus
 				{
 					nameText.text = "";
 				}
+				speakingCharacter = null;
 			}
 			else
 			{

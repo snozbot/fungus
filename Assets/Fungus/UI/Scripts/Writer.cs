@@ -25,8 +25,8 @@ namespace Fungus
 		// Called when the Writer has finshed writing text
 		void OnEnd();
 
-		// Called every time the Writer writes a character
-		void OnCharacter();
+		// Called every time the Writer writes a new character glyph
+		void OnGlyph();
 	}
 	
 	public class Writer : MonoBehaviour, IDialogInputListener
@@ -469,6 +469,8 @@ namespace Fungus
 				PartitionString(writeWholeWords, param, i, out left, out right);
 				text = ConcatenateString(startText, openText, closeText, left, right);
 
+				NotifyGlyph();
+
 				// No delay if user has clicked
 				if (inputFlag)
 				{
@@ -670,11 +672,11 @@ namespace Fungus
 			}
 		}
 
-		protected virtual void NotifyCharacter()
+		protected virtual void NotifyGlyph()
 		{
 			foreach (IWriterListener writerListener in writerListeners)
 			{
-				writerListener.OnCharacter();
+				writerListener.OnGlyph();
 			}
 		}
 

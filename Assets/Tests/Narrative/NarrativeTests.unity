@@ -1057,6 +1057,7 @@ GameObject:
   - 114: {fileID: 594837302}
   - 114: {fileID: 594837303}
   - 114: {fileID: 594837304}
+  - 114: {fileID: 594837305}
   m_Layer: 0
   m_Name: TestAssertions
   m_TagString: Untagged
@@ -1181,6 +1182,27 @@ MonoBehaviour:
   checkMethods: 1
   m_ActionBase: {fileID: 1613545005}
   checksPerformed: 0
+--- !u!114 &594837305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 594837298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkAfterTime: 12.5
+  repeatCheckTime: 0
+  repeatEveryTime: 1
+  checkAfterFrames: 1
+  repeatCheckFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  checkMethods: 1
+  m_ActionBase: {fileID: 1216870120}
+  checksPerformed: 0
 --- !u!1 &658513471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,6 +1317,10 @@ GameObject:
   - 114: {fileID: 736071361}
   - 114: {fileID: 736071364}
   - 114: {fileID: 736071363}
+  - 114: {fileID: 736071366}
+  - 114: {fileID: 736071365}
+  - 114: {fileID: 736071368}
+  - 114: {fileID: 736071367}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1370,6 +1396,8 @@ MonoBehaviour:
   - {fileID: 736071347}
   - {fileID: 736071352}
   - {fileID: 736071360}
+  - {fileID: 736071366}
+  - {fileID: 736071365}
 --- !u!114 &736071350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,7 +1414,7 @@ MonoBehaviour:
   scrollPos: {x: 0, y: 0}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 280
+  blockViewHeight: 513
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -1395,7 +1423,8 @@ MonoBehaviour:
     width: 1121
     height: 870
   selectedBlock: {fileID: 736071355}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 736071368}
   variables: []
   description: 
   stepPause: 0
@@ -1512,6 +1541,8 @@ MonoBehaviour:
   - {fileID: 736071361}
   - {fileID: 736071364}
   - {fileID: 736071363}
+  - {fileID: 736071368}
+  - {fileID: 736071367}
 --- !u!114 &736071356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1687,6 +1718,117 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 12
+  errorMessage: 
+  indentLevel: 0
+  duration: 2
+--- !u!114 &736071365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736071346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 15
+  errorMessage: 
+  indentLevel: 0
+  storyText: Write some audio with beep sounds
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeOut: 1
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &736071366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736071346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 14
+  errorMessage: 
+  indentLevel: 0
+  targetObject: {fileID: 1714427702}
+  targetComponentAssemblyName: Fungus.WriterAudio, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: WriterAudio
+  targetMethod: SetAudioMode
+  targetMethodText: 'SetAudioMode (AudioMode): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: Fungus.WriterAudio+AudioMode, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      typeFullname: Fungus.WriterAudio+AudioMode
+      intValue: 0
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &736071367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736071346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 17
+  errorMessage: 
+  indentLevel: 0
+  targetObject: {fileID: 1714427702}
+  targetComponentAssemblyName: Fungus.DialogInput, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: DialogInput
+  targetMethod: SetNextLineFlag
+  targetMethodText: 'SetNextLineFlag (): Void'
+  methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &736071368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 736071346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 16
   errorMessage: 
   indentLevel: 0
   duration: 2
@@ -3023,6 +3165,23 @@ MonoBehaviour:
   otherPropertyPath: 
   constantValueGeneric: 4
   compareType: 0
+--- !u!114 &1216870120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1714427702}
+  thisPropertyPath: AudioSource.isPlaying
+  compareToType: 1
+  other: {fileID: 0}
+  otherPropertyPath: 
+  constantValueGeneric: 0
 --- !u!114 &1300618896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3586,12 +3745,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4782cf42f2644447b9631f6e522160b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: .538999975
+  loop: 1
   audioSource: {fileID: 0}
   audioMode: 1
-  beeps: []
+  beepSounds:
+  - {fileID: 8300000, guid: 0cec78902391f4944881c028a5bd61e2, type: 3}
+  - {fileID: 8300000, guid: e63f93fa5d357441485c639326e9e8f7, type: 3}
   soundEffect: {fileID: 8300000, guid: 98d045067b3b7428c842dab1285b43a1, type: 3}
-  loop: 1
-  volume: 1
 --- !u!114 &1714427707
 MonoBehaviour:
   m_ObjectHideFlags: 0
