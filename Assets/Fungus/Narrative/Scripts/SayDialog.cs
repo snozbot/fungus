@@ -138,9 +138,21 @@ namespace Fungus
 			}
 		}
 
+		/**
+		 * Tell dialog to fade out if it's finished writing.
+		 */
 		public virtual void FadeOut()
 		{
 			fadeWhenDone = true;
+		}
+
+		/**
+		 * Stop a Say Dialog while its writing text.
+		 */
+		public virtual void Stop()
+		{
+			fadeWhenDone = true;
+			GetWriter().Stop();
 		}
 
 		protected virtual void UpdateAlpha()

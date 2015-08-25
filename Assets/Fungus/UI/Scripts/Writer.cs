@@ -64,6 +64,7 @@ namespace Fungus
 		protected bool colorActive = false;
 		protected string colorText = "";
 		protected bool inputFlag;
+		protected bool exitFlag;
 
 		protected List<IWriterListener> writerListeners = new List<IWriterListener>();
 
@@ -237,7 +238,12 @@ namespace Fungus
 				textMesh.color = tempColor;
 			}
 		}
-		
+
+		public virtual void Stop()
+		{
+			exitFlag = true;
+		}
+
 		public virtual void Write(string content, bool clear, bool waitForInput, AudioClip audioClip, Action onComplete)
 		{
 			if (clear)
@@ -275,11 +281,11 @@ namespace Fungus
 			currentPunctuationPause = punctuationPause;
 			currentWritingSpeed = writingSpeed;
 
+			exitFlag = false;
 			isWriting = true;
 
 			foreach (TextTagParser.Token token in tokens)
 			{
-				bool exit = false;
 
 				switch (token.type)
 				{
@@ -351,7 +357,7 @@ namespace Fungus
 					break;
 					
 				case TextTagParser.TokenType.Exit:
-					exit = true;
+					exitFlag = true;
 					break;
 					
 				case TextTagParser.TokenType.Message:
@@ -436,13 +442,14 @@ namespace Fungus
 					break;
 				}
 				
-				if (exit)
+				if (exitFlag)
 				{
 					break;
 				}
 			}
 
 			inputFlag = false;
+			exitFlag = false;
 			isWriting = false;
 
 			NotifyEnd();
@@ -463,6 +470,12 @@ namespace Fungus
 
 			for (int i = 0; i < param.Length; ++i)
 			{
+				// Exit immediately if the exit flag has been set
+				if (exitFlag)
+				{
+					break;
+				}
+
 				string left = "";
 				string right = "";
 				
