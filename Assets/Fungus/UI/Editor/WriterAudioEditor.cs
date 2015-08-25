@@ -17,12 +17,14 @@ namespace Fungus
 		protected SerializedProperty audioModeProp;
 		protected SerializedProperty beepSoundsProp;
 		protected SerializedProperty soundEffectProp;
+		protected SerializedProperty inputSoundProp;
 
 		protected virtual void OnEnable()
 		{
 			volumeProp = serializedObject.FindProperty("volume");
 			loopProp = serializedObject.FindProperty("loop");
 			targetAudioSourceProp = serializedObject.FindProperty("targetAudioSource");
+			inputSoundProp = serializedObject.FindProperty("inputSound");
 			audioModeProp = serializedObject.FindProperty("audioMode");
 			beepSoundsProp = serializedObject.FindProperty("beepSounds");
 			soundEffectProp = serializedObject.FindProperty("soundEffect");
@@ -35,6 +37,7 @@ namespace Fungus
 			EditorGUILayout.PropertyField(volumeProp);
 			EditorGUILayout.PropertyField(loopProp);
 			EditorGUILayout.PropertyField(targetAudioSourceProp);
+			EditorGUILayout.PropertyField(inputSoundProp);
 
 			EditorGUILayout.PropertyField(audioModeProp);
 			if ((WriterAudio.AudioMode)audioModeProp.enumValueIndex == WriterAudio.AudioMode.Beeps)

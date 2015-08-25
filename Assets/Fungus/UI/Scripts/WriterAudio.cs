@@ -35,6 +35,9 @@ namespace Fungus
 		[Tooltip("Long playing sound effect to play when writing text")]
 		public AudioClip soundEffect;
 
+		[Tooltip("Sound effect to play on user input (e.g. a click)")]
+		public AudioClip inputSound;
+
 		protected float targetVolume = 0f;
 
 		// When true, a beep will be played on every written character glyph
@@ -139,6 +142,15 @@ namespace Fungus
 		//
 		// IWriterListener implementation
 		//
+
+		public virtual void OnInput()
+		{
+			if (inputSound != null)
+			{
+				// Assumes we're playing a 2D sound
+				AudioSource.PlayClipAtPoint(inputSound, Vector3.zero);
+			}
+		}
 
 		public virtual void OnStart(AudioClip audioClip)
 		{

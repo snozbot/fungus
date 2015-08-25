@@ -12,6 +12,9 @@ namespace Fungus
 	 */
 	public interface IWriterListener
 	{
+		// Called when a user input event (e.g. a click) has been received
+		void OnInput();
+
 		// Called when the Writer starts writing new text
 		// An optional audioClip sound effect can be supplied (e.g. for voiceover)
 		void OnStart(AudioClip audioClip);
@@ -653,6 +656,15 @@ namespace Fungus
 			return go.GetComponent<AudioSource>();
 		}
 
+		protected virtual void NotifyInput()
+		{
+			foreach (IWriterListener writerListener in writerListeners)
+			{
+				writerListener.OnInput();
+			}
+		}
+
+
 		protected virtual void NotifyStart(AudioClip audioClip)
 		{
 			foreach (IWriterListener writerListener in writerListeners)
@@ -699,6 +711,11 @@ namespace Fungus
 		public virtual void OnNextLineEvent()
 		{
 			inputFlag = true;
+
+			if (isWriting)
+			{
+				NotifyInput();
+			}
 		}
 	}
 
