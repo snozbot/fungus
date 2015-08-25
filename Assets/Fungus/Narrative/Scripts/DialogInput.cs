@@ -9,7 +9,7 @@ namespace Fungus
 		void OnNextLineEvent();
 	}
 	
-	public class DialogInput : MonoBehaviour 
+	public class DialogInput : MonoBehaviour
 	{
 		public enum ClickMode
 		{
@@ -139,6 +139,16 @@ namespace Fungus
 			if (ignoreClickTimer > 0f)
 			{
 				ignoreClickTimer = Mathf.Max (ignoreClickTimer - Time.deltaTime, 0f);
+			}
+
+			// Ignore input events if a Menu is being displayed
+			if (MenuDialog.activeMenuDialog != null)
+			{
+				if (MenuDialog.activeMenuDialog.gameObject.activeSelf)
+				{
+					dialogClickedFlag = false;
+					nextLineInputFlag = false;
+				}
 			}
 
 			// Tell any listeners to move to the next line

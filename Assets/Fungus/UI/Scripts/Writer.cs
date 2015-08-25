@@ -12,7 +12,7 @@ namespace Fungus
 	 */
 	public interface IWriterListener
 	{
-		// Called when a user input event (e.g. a click) has been received
+		// Called when a user input event (e.g. a click) has been handled by the Writer
 		void OnInput();
 
 		// Called when the Writer starts writing new text
