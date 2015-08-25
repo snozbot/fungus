@@ -134,7 +134,7 @@ namespace Fungus
 
 			if (continueButton != null)
 			{
-				continueButton.enabled = GetWriter().isWaitingForInput;
+				continueButton.gameObject.SetActive( GetWriter().isWaitingForInput );
 			}
 		}
 
