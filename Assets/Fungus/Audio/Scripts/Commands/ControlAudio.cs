@@ -5,7 +5,7 @@ namespace Fungus
 {
 	[CommandInfo("Audio", 
 	             "Control Audio",
-	             "Plays, loops, or stops an audiosource.")]
+	             "Plays, loops, or stops an audiosource. Any AudioSources with the same tag as the target Audio Source will automatically be stoped.")]
 	public class ControlAudio : Command
 	{
 		public enum controlType
@@ -78,8 +78,13 @@ namespace Fungus
 		 */
 		protected void StopAudioWithSameTag()
 		{
-			AudioSource[] audioSources = GameObject.FindObjectsOfType<AudioSource>();
+			// Don't stop audio if there's no tag assigned
+			if (audioSource.tag == "Untagged")
+			{
+				return;
+			}
 
+			AudioSource[] audioSources = GameObject.FindObjectsOfType<AudioSource>();
 			foreach (AudioSource a in audioSources)
 			{
 				if ((a.GetComponent<AudioSource>() != audioSource) && (a.tag == audioSource.tag))
