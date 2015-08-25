@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.EventSystems;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,12 +31,8 @@ namespace Fungus
 		[Tooltip("A custom Menu Dialog to use to display this menu. All subsequent Menu commands will use this dialog.")]
 		public MenuDialog setMenuDialog;
 
-		protected static bool eventSystemPresent;
-
 		public override void OnEnter()
 		{
-			CheckEventSystem();
-
 			if (setMenuDialog != null)
 			{
 				// Override the active menu dialog
@@ -58,37 +53,6 @@ namespace Fungus
 			}
 
 			Continue();
-		}
-
-		void OnLevelWasLoaded(int level) 
-		{
-			// Reset the flag for checking for an event system as there may not be one
-			// in the newly loaded scene.
-			eventSystemPresent = false;
-		}
-
-		// There must be an Event System in the scene for Menu input to work.
-		// This function will automatically instantiate one if none exists.
-		protected virtual void CheckEventSystem()
-		{
-			if (eventSystemPresent)
-			{
-				return;
-			}
-
-			EventSystem eventSystem = GameObject.FindObjectOfType<EventSystem>();
-			if (eventSystem == null)
-			{
-				// Auto spawn an Event System from the prefab
-				GameObject prefab = Resources.Load<GameObject>("EventSystem");
-				if (prefab != null)
-				{
-					GameObject go = Instantiate(prefab) as GameObject;
-					go.name = "EventSystem";
-				}
-			}
-
-			eventSystemPresent = true;
 		}
 
 		public override void GetConnectedBlocks(ref List<Block> connectedBlocks)

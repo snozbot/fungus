@@ -16,34 +16,7 @@ namespace Fungus
 		
 		static public void DrawTagHelpLabel()
 		{
-			string tagsText = "";
-			tagsText += "\n";
-			tagsText += "\t-------- DEFAULT TAGS --------\n\n" +
-				"\t{b} Bold Text {/b}\n" + 
-				"\t{i} Italic Text {/i}\n" +
-				"\t{color=red} Color Text (color){/color}\n" +
-				"\n" +
-				"\t{s}, {s=60} Writing speed (chars per sec){/s}\n" +
-				"\t{w}, {w=0.5} Wait (seconds)\n" +
-				"\t{wi} Wait for input\n" +
-				"\t{wc} Wait for input and clear\n" +
-				"\t{wp}, {wp=0.5} Wait on punctuation (seconds){/wp}\n" +
-				"\t{c} Clear\n" +
-				"\t{x} Exit, advance to the next command without waiting for input\n" +
-				"\n" +
-				"\t{vpunch=0.5} Vertically punch screen (intensity)\n" +
-				"\t{hpunch=0.5} Horizontally punch screen (intensity)\n" +
-				"\t{shake=1} Shake screen (intensity)\n" +
-				"\t{shiver=1} Shiver screen (intensity)\n" +
-				"\t{flash=0.5} Flash screen (duration)\n" +
-				"\n" +
-				"\t{audio=AudioObjectName} Play Audio Once\n" +
-				"\t{audioloop=AudioObjectName} Play Audio Loop\n" +
-				"\t{audiopause=AudioObjectName} Pause Audio\n" +
-				"\t{audiostop=AudioObjectName} Stop Audio\n" +
-				"\n" +
-				"\t{m=MessageName} Broadcast message\n" +
-				"\t{$VarName} Substitute variable";
+			string tagsText = TextTagParser.GetTagHelp();
 
 			if (CustomTag.activeCustomTags.Count > 0)
 			{
@@ -105,8 +78,7 @@ namespace Fungus
 		protected SerializedProperty showAlwaysProp;
 		protected SerializedProperty showCountProp;
 		protected SerializedProperty extendPreviousProp;
-		protected SerializedProperty fadeInProp;
-		protected SerializedProperty fadeOutProp;
+		protected SerializedProperty fadeWhenDoneProp;
 		protected SerializedProperty waitForClickProp;
 		protected SerializedProperty setSayDialogProp;
 
@@ -123,8 +95,7 @@ namespace Fungus
 			showAlwaysProp = serializedObject.FindProperty("showAlways");
 			showCountProp = serializedObject.FindProperty("showCount");
 			extendPreviousProp = serializedObject.FindProperty("extendPrevious");
-			fadeInProp = serializedObject.FindProperty("fadeIn");
-			fadeOutProp = serializedObject.FindProperty("fadeOut");
+			fadeWhenDoneProp = serializedObject.FindProperty("fadeWhenDone");
 			waitForClickProp = serializedObject.FindProperty("waitForClick");
 			setSayDialogProp = serializedObject.FindProperty("setSayDialog");
 
@@ -217,14 +188,7 @@ namespace Fungus
 			rightButton.fontSize = 10;
 			rightButton.font = EditorStyles.toolbarButton.font;
 
-			EditorGUILayout.BeginHorizontal();
-
-			EditorGUILayout.PrefixLabel("Fade");
-			t.fadeIn = GUILayout.Toggle(t.fadeIn, "In", leftButton, GUILayout.Width(60));
-			t.fadeOut = GUILayout.Toggle(t.fadeOut, "Out", rightButton, GUILayout.Width(60));
-			
-			EditorGUILayout.EndHorizontal();
-
+			EditorGUILayout.PropertyField(fadeWhenDoneProp);
 			EditorGUILayout.PropertyField(waitForClickProp);
 			EditorGUILayout.PropertyField(setSayDialogProp);
 

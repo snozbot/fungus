@@ -36,13 +36,10 @@ namespace Fungus
 		[Tooltip("Type this text in the previous dialog box.")]
 		public bool extendPrevious = false;
 
-		[Tooltip("Fade in this dialog box.")]
-		public bool fadeIn = false;
+		[Tooltip("Fade out the dialog box when writing has finished and not waiting for input.")]
+		public bool fadeWhenDone = true;
 
-		[Tooltip("Fade out this dialog box.")]
-		public bool fadeOut = false;
-
-		[Tooltip("Wait for player to click before hiding the dialog and continuing. If false then the dialog will display and execution will continue immediately.")]
+		[Tooltip("Wait for player to click before continuing.")]
 		public bool waitForClick = true;
 
 		[Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
@@ -78,61 +75,22 @@ namespace Fungus
 			sayDialog.SetCharacter(character, flowchart);
 			sayDialog.SetCharacterImage(portrait);
 
-			bool fadingIn = false;
-			bool movingIn = false;
-			if (sayDialog.alwaysFadeDialog || fadeIn)
-			{
-				sayDialog.FadeInDialog();
-				fadingIn = true;
-			}
-			if (sayDialog.alwaysMoveDialog)
-			{
-				sayDialog.MoveInDialog();
-				movingIn = true;
-			}
-			if (!fadingIn && !movingIn)
-			{
-				sayDialog.ShowDialog(true);
-			}
+			sayDialog.gameObject.SetActive(true);
 
 			string displayText = storyText;
 
 			foreach (CustomTag ct in CustomTag.activeCustomTags)
 			{
-				displayText = displayText.Replace(ct.tagStartSymbol,ct.replaceTagStartWith);
+				displayText = displayText.Replace(ct.tagStartSymbol, ct.replaceTagStartWith);
 				if (ct.tagEndSymbol != "" && ct.replaceTagEndWith != "")
 				{
-					displayText = displayText.Replace(ct.tagEndSymbol,ct.replaceTagEndWith);
+					displayText = displayText.Replace(ct.tagEndSymbol, ct.replaceTagEndWith);
 				}
-			}
-
-			if (extendPrevious)
-			{
-				displayText = "{s=0}" + Dialog.prevStoryText + "{/s}" + displayText;
 			}
 
 			string subbedText = flowchart.SubstituteVariables(displayText);
 
-			sayDialog.Say(subbedText, waitForClick, voiceOverClip, delegate {
-				if (waitForClick)
-				{
-					bool fadingOut = false;
-					bool movingOut = false;
-					if (sayDialog.alwaysFadeDialog || fadeOut)
-					{
-						sayDialog.FadeOutDialog();
-						fadingOut = true;
-					}
-					if (sayDialog.alwaysMoveDialog)
-					{
-						sayDialog.MoveOutDialog();
-						movingOut = true;
-					}
-					if (!fadingOut && !movingOut)
-					{
-						sayDialog.ShowDialog(false);
-					}
-				}
+			sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, voiceOverClip, delegate {
 				Continue();
 			});
 		}

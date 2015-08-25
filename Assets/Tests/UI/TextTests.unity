@@ -232,7 +232,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &95196512
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -508,6 +509,228 @@ MonoBehaviour:
   compareType: 0
   comparisonType: 4
   ignoreCase: 0
+--- !u!1 &332004784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 142980, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 332004785}
+  - 114: {fileID: 332004786}
+  - 114: {fileID: 332004788}
+  - 114: {fileID: 332004789}
+  - 114: {fileID: 332004787}
+  - 114: {fileID: 332004791}
+  - 114: {fileID: 332004790}
+  - 114: {fileID: 332004792}
+  m_Layer: 0
+  m_Name: Flowchart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &332004785
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 467082, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 332004784}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 530636036}
+  m_RootOrder: 0
+--- !u!114 &332004786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11430050, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 332004784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1.0
+  scrollPos: {x: 0, y: 0}
+  variablesScrollPos: {x: 0, y: 0}
+  variablesExpanded: 1
+  blockViewHeight: 400
+  zoom: 1
+  scrollViewRect:
+    serializedVersion: 2
+    x: -343
+    y: -340
+    width: 1114
+    height: 859
+  selectedBlock: {fileID: 332004788}
+  selectedCommands:
+  - {fileID: 332004787}
+  variables: []
+  description: 
+  stepPause: 0
+  colorCommands: 1
+  hideComponents: 1
+  saveSelection: 1
+  localizationId: 
+--- !u!114 &332004787
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 332004784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2261dbe44de43a980e6f7c77c88f7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1
+  errorMessage: 
+  indentLevel: 0
+  textObject: {fileID: 1490749230}
+  text:
+    stringRef: {fileID: 0}
+    stringVal: Write some text with beeps
+  description: 
+  clearText: 1
+  waitUntilFinished: 0
+  textColor: 0
+  setAlpha:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  setColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &332004788
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 11433304, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 332004784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 68
+    y: 69
+    width: 120
+    height: 40
+  itemId: 0
+  blockName: Start
+  description: 
+  eventHandler: {fileID: 332004789}
+  commandList:
+  - {fileID: 332004787}
+  - {fileID: 332004792}
+  - {fileID: 332004791}
+  - {fileID: 332004790}
+--- !u!114 &332004789
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 332004784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 332004788}
+--- !u!114 &332004790
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 332004784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2261dbe44de43a980e6f7c77c88f7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 3
+  errorMessage: 
+  indentLevel: 0
+  textObject: {fileID: 1490749230}
+  text:
+    stringRef: {fileID: 0}
+    stringVal: Write some text with sound effects
+  description: 
+  clearText: 1
+  waitUntilFinished: 1
+  textColor: 0
+  setAlpha:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  setColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &332004791
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 332004784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 2
+  errorMessage: 
+  indentLevel: 0
+  targetObject: {fileID: 1490749230}
+  targetComponentAssemblyName: Fungus.WriterAudio, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: WriterAudio
+  targetMethod: SetAudioMode
+  targetMethodText: 'SetAudioMode (AudioMode): Void'
+  methodParameters:
+  - objValue:
+      typeAssemblyname: Fungus.WriterAudio+AudioMode, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      typeFullname: Fungus.WriterAudio+AudioMode
+      intValue: 1
+      boolValue: 0
+      floatValue: 0
+      stringValue: 
+      colorValue: {r: 0, g: 0, b: 0, a: 0}
+      gameObjectValue: {fileID: 0}
+      materialValue: {fileID: 0}
+      objectValue: {fileID: 0}
+      spriteValue: {fileID: 0}
+      textureValue: {fileID: 0}
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+    variableKey: 
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &332004792
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 332004784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 4
+  errorMessage: 
+  indentLevel: 0
+  duration: 2
 --- !u!114 &419867297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,6 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 10
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -701,6 +925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -778,6 +1003,58 @@ MonoBehaviour:
   compareType: 0
   comparisonType: 4
   ignoreCase: 0
+--- !u!1 &530636034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 530636036}
+  - 114: {fileID: 530636035}
+  m_Layer: 0
+  m_Name: WriterAudioTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &530636035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 530636034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeout: 5
+  ignored: 0
+  succeedAfterAllAssertionsAreExecuted: 1
+  expectException: 0
+  expectedExceptionList: 
+  succeedWhenExceptionIsThrown: 0
+  includedPlatforms: -1
+  platformsToIgnore: []
+  dynamic: 0
+  dynamicTypeName: 
+--- !u!4 &530636036
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 530636034}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 332004785}
+  - {fileID: 1411617024}
+  - {fileID: 1200195692}
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
 --- !u!1 &640528464
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,6 +1209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -1159,6 +1437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -1234,6 +1513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 60
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -1382,6 +1662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: .500811279, g: .213235319, b: 1, a: 1}
@@ -1586,6 +1867,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Auto add Writer component
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -1655,6 +1937,7 @@ MonoBehaviour:
     stringVal: Write {color=white}colored {i}italic{/i}{/color} and {b}bold{/b}. Mixed
       {color=red} red {b} and bold {i} and italic {/i} not italic {/b} not bold {/color}
       not colored.
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -1700,6 +1983,7 @@ MonoBehaviour:
       Wait {w=0.5}works
 
       {wc}Wait for input and clear works'
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -1727,6 +2011,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: 3D text mesh
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -1829,6 +2114,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Do a vpunch{vpunch}{flash}, hpunch{hpunch} and a punch{punch}.
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -1856,6 +2142,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Broadcast message.{m=TestMessage} Write this text{x}But not this text.
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -1883,6 +2170,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Write {s=10}slow{/s}, normal, {s=1000} super fast{/s}
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -1910,6 +2198,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Write out some text over time and then clear it{c}
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -1937,6 +2226,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Test. punctuation? pause .?!,:;) works
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -1965,6 +2255,7 @@ MonoBehaviour:
     stringRef: {fileID: 0}
     stringVal: Play sound{audio=BeepSound}{w=1} Play loop{audioloop=BeepSound}{w=3}
       Stop{audiostop=BeepSound}
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -2056,6 +2347,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Default color
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -2083,6 +2375,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Set Visible
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 1
@@ -2110,6 +2403,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Set Alpha
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 2
@@ -2137,6 +2431,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Set Color
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 3
@@ -2164,6 +2459,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Highlight text as it's written out one word at a time.
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -2191,6 +2487,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Wait until finished
+  description: 
   clearText: 1
   waitUntilFinished: 1
   textColor: 0
@@ -2274,6 +2571,7 @@ MonoBehaviour:
   text:
     stringRef: {fileID: 0}
     stringVal: Substitution:{$StringVar},{$BoolVar},{$IntVar},{$FloatVar}
+  description: 
   clearText: 1
   waitUntilFinished: 0
   textColor: 0
@@ -2298,7 +2596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1032150758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2551,6 +2849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -2645,6 +2944,55 @@ MonoBehaviour:
   other: {fileID: 0}
   otherPropertyPath: 
   constantValueGeneric: 0
+--- !u!1 &1200195691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1200195692}
+  - 114: {fileID: 1200195694}
+  m_Layer: 0
+  m_Name: TestAssertions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1200195692
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1200195691}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 530636036}
+  m_RootOrder: 2
+--- !u!114 &1200195694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1200195691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkAfterTime: 2.25
+  repeatCheckTime: 0
+  repeatEveryTime: 1
+  checkAfterFrames: 1
+  repeatCheckFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  checkMethods: 1
+  m_ActionBase: {fileID: 1851602427}
+  checksPerformed: 0
 --- !u!1 &1218238772
 GameObject:
   m_ObjectHideFlags: 0
@@ -2735,6 +3083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -2818,7 +3167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1845987941}
+  selectedFlowchart: {fileID: 332004786}
 --- !u!4 &1308535842
 Transform:
   m_ObjectHideFlags: 1
@@ -2919,6 +3268,96 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1405192199}
+--- !u!1 &1411617023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1411617024}
+  - 223: {fileID: 1411617027}
+  - 114: {fileID: 1411617026}
+  - 114: {fileID: 1411617025}
+  m_Layer: 5
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1411617024
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1411617023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 1490749231}
+  m_Father: {fileID: 530636036}
+  m_RootOrder: 1
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1411617025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1411617023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1411617026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1411617023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+--- !u!223 &1411617027
+Canvas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1411617023}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!114 &1430574585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3168,6 +3607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -3221,6 +3661,180 @@ RectTransform:
   m_AnchoredPosition: {x: -333, y: -294}
   m_SizeDelta: {x: -665, y: 30}
   m_Pivot: {x: .5, y: .5}
+--- !u!1 &1490749230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1490749231}
+  - 222: {fileID: 1490749233}
+  - 114: {fileID: 1490749232}
+  - 114: {fileID: 1490749234}
+  - 114: {fileID: 1490749235}
+  - 82: {fileID: 1490749236}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1490749231
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1490749230}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1411617024}
+  m_RootOrder: 0
+  m_AnchorMin: {x: 0, y: .5}
+  m_AnchorMax: {x: 1, y: .5}
+  m_AnchoredPosition: {x: 0, y: 54.25}
+  m_SizeDelta: {x: 1, y: 108.5}
+  m_Pivot: {x: .5, y: .5}
+--- !u!114 &1490749232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1490749230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &1490749233
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1490749230}
+--- !u!114 &1490749234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1490749230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
+  writingSpeed: 60
+  punctuationPause: .25
+  hiddenTextColor: {r: .463235319, g: .463235319, b: .463235319, a: 1}
+  writeWholeWords: 0
+--- !u!114 &1490749235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1490749230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4782cf42f2644447b9631f6e522160b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: 1
+  loop: 1
+  targetAudioSource: {fileID: 0}
+  audioMode: 0
+  beepSounds:
+  - {fileID: 8300000, guid: 0cec78902391f4944881c028a5bd61e2, type: 3}
+  - {fileID: 8300000, guid: c40373edf37cb4a3f8b7b1103d03b1bb, type: 3}
+  soundEffect: {fileID: 8300000, guid: 98d045067b3b7428c842dab1285b43a1, type: 3}
+  inputSound: {fileID: 0}
+--- !u!82 &1490749236
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1490749230}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &1518184822
 GameObject:
   m_ObjectHideFlags: 0
@@ -3491,6 +4105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -3606,6 +4221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -3704,7 +4320,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1 &1719294948
 GameObject:
   m_ObjectHideFlags: 0
@@ -3751,6 +4367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: .500811279, g: .213235319, b: 1, a: 1}
@@ -4001,6 +4618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 60
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -4092,7 +4710,7 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlock: {fileID: 1845987940}
+  selectedBlock: {fileID: 0}
   selectedCommands: []
   variables:
   - {fileID: 1845987944}
@@ -4160,9 +4778,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetTextObject: {fileID: 95196512}
-  stringData:
+  text:
     stringRef: {fileID: 0}
     stringVal: Output text 3
+  description: 
   _textObjectObsolete: {fileID: 0}
 --- !u!114 &1845987949
 MonoBehaviour:
@@ -4179,9 +4798,10 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetTextObject: {fileID: 1912867843}
-  stringData:
+  text:
     stringRef: {fileID: 0}
     stringVal: Output text 2
+  description: 
   _textObjectObsolete: {fileID: 0}
 --- !u!114 &1845987950
 MonoBehaviour:
@@ -4198,10 +4818,28 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   targetTextObject: {fileID: 1612264386}
-  stringData:
+  text:
     stringRef: {fileID: 0}
     stringVal: Output text 1
+  description: 
   _textObjectObsolete: {fileID: 0}
+--- !u!114 &1851602427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1490749230}
+  thisPropertyPath: AudioSource.isPlaying
+  compareToType: 1
+  other: {fileID: 0}
+  otherPropertyPath: 
+  constantValueGeneric: 1
 --- !u!114 &1866177340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4430,6 +5068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -4549,6 +5188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
@@ -4631,6 +5271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 0}
   writingSpeed: 30
   punctuationPause: .25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}

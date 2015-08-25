@@ -2255,6 +2255,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!1 &955843138
 GameObject:
   m_ObjectHideFlags: 0
@@ -3059,7 +3060,6 @@ GameObject:
   - 4: {fileID: 1390555296}
   - 114: {fileID: 1390555295}
   - 114: {fileID: 1390555440}
-  - 114: {fileID: 1390555293}
   - 114: {fileID: 1390555312}
   - 114: {fileID: 1390555302}
   - 114: {fileID: 1390555298}
@@ -3184,8 +3184,9 @@ MonoBehaviour:
   itemId: 73
   errorMessage: 
   indentLevel: 0
+  targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1390555371}
-  stopParentBlock: 1
+  callMode: 0
 --- !u!114 &1390555292
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3204,20 +3205,10 @@ MonoBehaviour:
   description: 
   targetBlock: {fileID: 1390555302}
   hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
   setMenuDialog: {fileID: 0}
---- !u!114 &1390555293
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11499482, guid: 1a602840cc64f2a438277c078435e290,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1390555290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentBlock: {fileID: 0}
 --- !u!114 &1390555294
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3236,6 +3227,9 @@ MonoBehaviour:
   description: 
   targetBlock: {fileID: 1390555312}
   hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &1390555295
 MonoBehaviour:
@@ -3249,6 +3243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1.0
   scrollPos: {x: 2985.33252, y: 1207.83801}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
@@ -3260,17 +3255,16 @@ MonoBehaviour:
     y: -1729.35046
     width: 5969.4458
     height: 2818.85034
-  selectedBlock: {fileID: 1390555308}
+  selectedBlock: {fileID: 1390555440}
   selectedCommands: []
   variables:
   - {fileID: 1390555396}
   description: 'Example scene from Sherlock: The Game Is On'
-  pauseAfterCommand: 0
+  stepPause: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
   localizationId: 
-  nextItemId: 105
 --- !u!4 &1390555296
 Transform:
   m_ObjectHideFlags: 0
@@ -3306,8 +3300,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 1
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555298
@@ -3385,7 +3378,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -3412,7 +3405,6 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
   fadeOut: 0
   waitForClick: 0
   setSayDialog: {fileID: 0}
@@ -3434,6 +3426,9 @@ MonoBehaviour:
   description: 
   targetBlock: {fileID: 1390555362}
   hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &1390555302
 MonoBehaviour:
@@ -3482,8 +3477,9 @@ MonoBehaviour:
   itemId: 17
   errorMessage: 
   indentLevel: 0
+  targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1390555304}
-  stopParentBlock: 1
+  callMode: 0
 --- !u!114 &1390555304
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3530,6 +3526,9 @@ MonoBehaviour:
   description: 
   targetBlock: {fileID: 1390555308}
   hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &1390555306
 MonoBehaviour:
@@ -3553,8 +3552,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 0
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555307
@@ -3619,7 +3617,7 @@ MonoBehaviour:
   - {fileID: 1390555309}
 --- !u!114 &1390555309
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
@@ -3635,10 +3633,13 @@ MonoBehaviour:
   description: 
   targetBlock: {fileID: 1390555302}
   hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &1390555310
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
@@ -3654,10 +3655,13 @@ MonoBehaviour:
   description: 
   targetBlock: {fileID: 1390555312}
   hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &1390555311
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1390555290}
@@ -3677,8 +3681,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 0
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555312
@@ -3749,7 +3752,6 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
   fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
@@ -3776,8 +3778,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555315
@@ -3803,8 +3804,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555316
@@ -3830,8 +3830,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555317
@@ -3857,8 +3856,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 1
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555318
@@ -3924,7 +3922,6 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
   fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
@@ -3951,8 +3948,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555322
@@ -3978,8 +3974,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555323
@@ -4005,8 +4000,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555324
@@ -4033,8 +4027,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555325
@@ -4071,8 +4064,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555327
@@ -4098,8 +4090,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555328
@@ -4125,8 +4116,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555329
@@ -4152,8 +4142,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555330
@@ -4179,8 +4168,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555331
@@ -4206,8 +4194,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555332
@@ -4233,8 +4220,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555333
@@ -4261,8 +4247,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555334
@@ -4288,7 +4273,6 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 1
   fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
@@ -4306,8 +4290,9 @@ MonoBehaviour:
   itemId: 86
   errorMessage: 
   indentLevel: 0
+  targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1390555298}
-  stopParentBlock: 1
+  callMode: 0
 --- !u!114 &1390555336
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4323,8 +4308,9 @@ MonoBehaviour:
   itemId: 24
   errorMessage: 
   indentLevel: 0
+  targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1390555440}
-  stopParentBlock: 1
+  callMode: 0
 --- !u!114 &1390555337
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4351,7 +4337,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -4382,7 +4368,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -4451,7 +4437,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -4482,7 +4468,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -4513,7 +4499,7 @@ MonoBehaviour:
   facing: 2
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 1
   shiftIntoPlace: 0
@@ -4564,7 +4550,7 @@ MonoBehaviour:
   facing: 1
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 1
   shiftIntoPlace: 0
@@ -4595,7 +4581,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -4626,7 +4612,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -4657,7 +4643,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -4688,7 +4674,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -4716,8 +4702,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 1
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555351
@@ -4746,7 +4731,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -4777,7 +4762,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -4807,7 +4792,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -4837,7 +4822,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -4864,7 +4849,6 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
   fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
@@ -4893,7 +4877,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5067,7 +5051,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 1
   shiftIntoPlace: 0
@@ -5097,7 +5081,7 @@ MonoBehaviour:
   facing: 1
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5124,8 +5108,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 1
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555367
@@ -5189,7 +5172,6 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
   fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
@@ -5265,7 +5247,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5295,7 +5277,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5325,7 +5307,7 @@ MonoBehaviour:
   facing: 1
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5355,7 +5337,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5385,7 +5367,7 @@ MonoBehaviour:
   facing: 1
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5415,7 +5397,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5445,7 +5427,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5475,7 +5457,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5505,7 +5487,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5533,8 +5515,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 1
-  fadeIn: 0
-  fadeOut: 0
+  fadeOut: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555382
@@ -5562,7 +5543,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5592,7 +5573,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5622,7 +5603,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -5652,7 +5633,7 @@ MonoBehaviour:
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0
-  moveSpeed: 0
+  moveDuration: 1
   shiftOffset: {x: 0, y: 0}
   move: 0
   shiftIntoPlace: 0
@@ -6463,7 +6444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tagStartSymbol: '{worried}'
   tagEndSymbol: 
-  replaceTagStartWith: '{audio=worried}{shiver=4}'
+  replaceTagStartWith: '{audio=worried}{vpunch=4}'
   replaceTagEndWith: 
 --- !u!82 &1986911342
 AudioSource:

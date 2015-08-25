@@ -7,13 +7,56 @@ using System;
 namespace Fungus
 {
 
-	public class Writer : MonoBehaviour 
+	/**
+	 * Implement this interface to be notified about Writer events
+	 */
+	public interface IWriterListener
 	{
+		// Called when a user input event (e.g. a click) has been handled by the Writer
+		void OnInput();
+
+		// Called when the Writer starts writing new text
+		// An optional audioClip sound effect can be supplied (e.g. for voiceover)
+		void OnStart(AudioClip audioClip);
+
+		// Called when the Writer has paused writing text (e.g. on a {wi} tag)
+		void OnPause();
+
+		// Called when the Writer has resumed writing text
+		void OnResume();
+
+		// Called when the Writer has finshed writing text
+		void OnEnd();
+
+		// Called every time the Writer writes a new character glyph
+		void OnGlyph();
+	}
+	
+	public class Writer : MonoBehaviour, IDialogInputListener
+	{
+		[Tooltip("Gameobject containing a Text, Inout Field or Text Mesh object to write to")]
+		public GameObject targetTextObject;
+
+		[Tooltip("Writing characters per second")]
 		public float writingSpeed = 60;
+
+		[Tooltip("Pause duration for punctuation characters")]
 		public float punctuationPause = 0.25f;
+
+		[Tooltip("Color of text that has not been revealed yet")]
 		public Color hiddenTextColor = new Color(1,1,1,0);
+
+		[Tooltip("Write one word at a time rather one character at a time")]
 		public bool writeWholeWords = false;
-		
+
+		// This property is true when the writer is waiting for user input to continue
+		[System.NonSerialized]
+		public bool isWaitingForInput;
+
+		// This property is true when the writer is writing text or waiting (i.e. still processing tokens)
+		[System.NonSerialized]
+		public bool isWriting;
+
 		protected float currentWritingSpeed;
 		protected float currentPunctuationPause;
 		protected Text textUI;
@@ -24,7 +67,10 @@ namespace Fungus
 		protected bool colorActive = false;
 		protected string colorText = "";
 		protected bool inputFlag;
-		
+		protected bool exitFlag;
+
+		protected List<IWriterListener> writerListeners = new List<IWriterListener>();
+
 		public string text 
 		{
 			get 
@@ -63,9 +109,25 @@ namespace Fungus
 		
 		protected virtual void Awake()
 		{
-			textUI = GetComponent<Text>();
-			inputField = GetComponent<InputField>();
-			textMesh = GetComponent<TextMesh>();
+			GameObject go = targetTextObject;
+			if (go == null)
+			{
+				go = gameObject;
+			}
+
+			textUI = go.GetComponent<Text>();
+			inputField = go.GetComponent<InputField>();
+			textMesh = go.GetComponent<TextMesh>();
+
+			// Cache the list of child writer listeners
+			foreach (Component component in GetComponentsInChildren<Component>())
+			{
+				IWriterListener writerListener = component as IWriterListener;
+				if (writerListener != null)
+				{
+					writerListeners.Add(writerListener);
+				}
+			}
 		}
 		
 		public virtual bool HasTextObject()
@@ -135,15 +197,7 @@ namespace Fungus
 			
 			return closeText;		
 		}
-		
-		protected virtual void Update()
-		{
-			if (Input.anyKeyDown)
-			{
-				SetInputFlag();
-			}
-		}
-		
+
 		public virtual void SetTextColor(Color textColor)
 		{
 			if (textUI != null)
@@ -187,8 +241,13 @@ namespace Fungus
 				textMesh.color = tempColor;
 			}
 		}
-		
-		public virtual void Write(string content, bool clear, Action onComplete = null)
+
+		public virtual void Stop()
+		{
+			exitFlag = true;
+		}
+
+		public virtual void Write(string content, bool clear, bool waitForInput, AudioClip audioClip, Action onComplete)
 		{
 			if (clear)
 			{
@@ -199,17 +258,24 @@ namespace Fungus
 			{
 				return;
 			}
-			
+
+			// If this clip is null then WriterAudio will play the default sound effect (if any)
+			NotifyStart(audioClip);
+
+			string tokenText = content;
+			if (waitForInput)
+			{
+				tokenText += "{wi}";
+			}
+
 			TextTagParser tagParser = new TextTagParser();
-			List<TextTagParser.Token> tokens = tagParser.Tokenize(content);
-			
+			List<TextTagParser.Token> tokens = tagParser.Tokenize(tokenText);
+
 			StartCoroutine(ProcessTokens(tokens, onComplete));
 		}
 		
 		protected virtual IEnumerator ProcessTokens(List<TextTagParser.Token> tokens, Action onComplete)
 		{
-			text = "";
-			
 			// Reset control members
 			boldActive = false;
 			italicActive = false;
@@ -217,9 +283,13 @@ namespace Fungus
 			colorText = "";
 			currentPunctuationPause = punctuationPause;
 			currentWritingSpeed = writingSpeed;
-			
+
+			exitFlag = false;
+			isWriting = true;
+
 			foreach (TextTagParser.Token token in tokens)
 			{
+
 				switch (token.type)
 				{
 				case TextTagParser.TokenType.Words:
@@ -290,7 +360,8 @@ namespace Fungus
 					break;
 					
 				case TextTagParser.TokenType.Exit:
-					yield break;
+					exitFlag = true;
+					break;
 					
 				case TextTagParser.TokenType.Message:
 					Flowchart.BroadcastFungusMessage(token.param);
@@ -333,51 +404,59 @@ namespace Fungus
 					break;
 					
 				case TextTagParser.TokenType.Audio:
-				{
-					AudioSource audioSource = FindAudio(token.param);
-					if (audioSource != null)
 					{
-						audioSource.PlayOneShot(audioSource.clip);
+						AudioSource audioSource = FindAudio(token.param);
+						if (audioSource != null)
+						{
+							audioSource.PlayOneShot(audioSource.clip);
+						}
 					}
-				}
 					break;
 					
 				case TextTagParser.TokenType.AudioLoop:
-				{
-					AudioSource audioSource = FindAudio(token.param);
-					if (audioSource != null)
 					{
-						audioSource.Play();
-						audioSource.loop = true;
+						AudioSource audioSource = FindAudio(token.param);
+						if (audioSource != null)
+						{
+							audioSource.Play();
+							audioSource.loop = true;
+						}
 					}
-				}
 					break;
 					
 				case TextTagParser.TokenType.AudioPause:
-				{
-					AudioSource audioSource = FindAudio(token.param);
-					if (audioSource != null)
 					{
-						audioSource.Pause();
+						AudioSource audioSource = FindAudio(token.param);
+						if (audioSource != null)
+						{
+							audioSource.Pause();
+						}
 					}
-				}
 					break;
 					
 				case TextTagParser.TokenType.AudioStop:
-				{
-					AudioSource audioSource = FindAudio(token.param);
-					if (audioSource != null)
 					{
-						audioSource.Stop();
+						AudioSource audioSource = FindAudio(token.param);
+						if (audioSource != null)
+						{
+							audioSource.Stop();
+						}
 					}
-				}
 					break;
-					
 				}
 				
-				inputFlag = false;
+				if (exitFlag)
+				{
+					break;
+				}
 			}
-			
+
+			inputFlag = false;
+			exitFlag = false;
+			isWriting = false;
+
+			NotifyEnd();
+
 			if (onComplete != null)
 			{
 				onComplete();
@@ -389,22 +468,36 @@ namespace Fungus
 			string startText = text;
 			string openText = OpenMarkup();
 			string closeText = CloseMarkup();
-			
+
 			float timeAccumulator = Time.deltaTime;
 
 			for (int i = 0; i < param.Length; ++i)
 			{
+				// Exit immediately if the exit flag has been set
+				if (exitFlag)
+				{
+					break;
+				}
+
 				string left = "";
 				string right = "";
 				
 				PartitionString(writeWholeWords, param, i, out left, out right);
 				text = ConcatenateString(startText, openText, closeText, left, right);
 
+				NotifyGlyph();
+
+				// No delay if user has clicked
+				if (inputFlag)
+				{
+					continue;
+				}
+
 				// Punctuation pause
 				if (left.Length > 0 && 
 				    IsPunctuation(left.Substring(left.Length - 1)[0]))
 				{
-					yield return new WaitForSeconds(currentPunctuationPause);
+					yield return StartCoroutine(DoWait(currentPunctuationPause));
 				}
 
 				// Delay between characters
@@ -464,11 +557,6 @@ namespace Fungus
 			return tempText;
 		}
 
-		public virtual void SetInputFlag()
-		{
-			inputFlag = true;
-		}
-		
 		public virtual string GetTagHelp()
 		{
 			return "";
@@ -481,23 +569,54 @@ namespace Fungus
 			{
 				duration = 1f;
 			}
-			
-			yield return new WaitForSeconds(duration);
+
+			NotifyPause();
+
+			float timeRemaining = duration;
+			while (timeRemaining > 0f && !inputFlag)
+			{
+				timeRemaining -= Time.deltaTime;
+				yield return null;
+			}
+
+			NotifyResume();
 		}
-		
+
+		protected virtual IEnumerator DoWait(float duration)
+		{
+			NotifyPause();
+
+			float timeRemaining = duration;
+			while (timeRemaining > 0f && !inputFlag)
+			{
+				timeRemaining -= Time.deltaTime;
+				yield return null;
+			}
+
+			NotifyResume();
+		}
+
 		protected virtual IEnumerator DoWaitForInput(bool clear)
 		{
+			NotifyPause();
+
+			inputFlag = false;
+			isWaitingForInput = true;
+
 			while (!inputFlag)
 			{
 				yield return null;
 			}
-			
+		
+			isWaitingForInput = false;			
 			inputFlag = false;
-			
+
 			if (clear)
 			{
 				textUI.text = "";
 			}
+
+			NotifyResume();
 		}
 		
 		protected virtual bool IsPunctuation(char character)
@@ -535,6 +654,68 @@ namespace Fungus
 			}
 			
 			return go.GetComponent<AudioSource>();
+		}
+
+		protected virtual void NotifyInput()
+		{
+			foreach (IWriterListener writerListener in writerListeners)
+			{
+				writerListener.OnInput();
+			}
+		}
+
+
+		protected virtual void NotifyStart(AudioClip audioClip)
+		{
+			foreach (IWriterListener writerListener in writerListeners)
+			{
+				writerListener.OnStart(audioClip);
+			}
+		}
+
+		protected virtual void NotifyPause()
+		{
+			foreach (IWriterListener writerListener in writerListeners)
+			{
+				writerListener.OnPause();
+			}
+		}
+
+		protected virtual void NotifyResume()
+		{
+			foreach (IWriterListener writerListener in writerListeners)
+			{
+				writerListener.OnResume();
+			}
+		}
+
+		protected virtual void NotifyEnd()
+		{
+			foreach (IWriterListener writerListener in writerListeners)
+			{
+				writerListener.OnEnd();
+			}
+		}
+
+		protected virtual void NotifyGlyph()
+		{
+			foreach (IWriterListener writerListener in writerListeners)
+			{
+				writerListener.OnGlyph();
+			}
+		}
+
+		//
+		// IDialogInputListener implementation
+		//
+		public virtual void OnNextLineEvent()
+		{
+			inputFlag = true;
+
+			if (isWriting)
+			{
+				NotifyInput();
+			}
 		}
 	}
 

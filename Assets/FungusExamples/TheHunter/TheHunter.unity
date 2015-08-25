@@ -965,6 +965,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!4 &648988545
 Transform:
   m_ObjectHideFlags: 0
@@ -1188,6 +1189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1.0
   scrollPos: {x: 226.013794, y: 380.023193}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
@@ -1208,7 +1210,6 @@ MonoBehaviour:
   hideComponents: 1
   saveSelection: 1
   localizationId: 
-  nextItemId: 2
 --- !u!4 &891057089
 Transform:
   m_ObjectHideFlags: 1
@@ -1387,6 +1388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1.0
   scrollPos: {x: 0, y: 0}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
@@ -1407,7 +1409,6 @@ MonoBehaviour:
   hideComponents: 1
   saveSelection: 1
   localizationId: 
-  nextItemId: 1
 --- !u!4 &1247920062
 Transform:
   m_ObjectHideFlags: 1
@@ -1684,9 +1685,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1831099567}
   - 114: {fileID: 1831099568}
-  - 114: {fileID: 1831099570}
   - 114: {fileID: 1831099569}
-  - 114: {fileID: 1831099571}
   - 114: {fileID: 1831099578}
   - 114: {fileID: 1831099577}
   - 114: {fileID: 1831099576}
@@ -1792,19 +1791,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollPos: {x: 287.41153, y: 432.32724}
+  version: 1.0
+  scrollPos: {x: 82.0114822, y: 581.36969}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: .985999107
+  zoom: .929995656
   scrollViewRect:
     serializedVersion: 2
     x: -810.017578
     y: -920.022339
     width: 1939.01758
     height: 2009.52234
-  selectedBlock: {fileID: 1831099637}
-  selectedCommands: []
+  selectedBlock: {fileID: 1831099608}
+  selectedCommands:
+  - {fileID: 1831099604}
   variables:
   - {fileID: 1831099569}
   description: 'This is an example of a short Visual Novel / RPG
@@ -1815,7 +1816,6 @@ MonoBehaviour:
   hideComponents: 0
   saveSelection: 1
   localizationId: 
-  nextItemId: 73
 --- !u!114 &1831099569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1829,35 +1829,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: SkipperAngry
-  value: 0
---- !u!114 &1831099570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400104, guid: 4844148fce0014eedac572d6562c44d0,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1831099566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb91b566ceda411bad1e9d3c3243ecc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scope: 0
-  key: Var
-  value: 0
---- !u!114 &1831099571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1831099566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 705fa1ac97df74e3a84ff952ffd923f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scope: 0
-  key: Var
   value: 0
 --- !u!114 &1831099572
 MonoBehaviour:
@@ -2058,8 +2029,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099582
@@ -2086,8 +2056,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099583
@@ -2134,8 +2103,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099585
@@ -2160,8 +2128,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099586
@@ -2186,8 +2153,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099587
@@ -2212,8 +2178,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099588
@@ -2239,8 +2204,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099589
@@ -2302,8 +2266,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099592
@@ -2380,8 +2343,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099595
@@ -2412,8 +2374,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099596
@@ -2442,8 +2403,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099597
@@ -2494,7 +2454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 107.654449
+    x: 108.729736
     y: -378.268433
     width: 125
     height: 40
@@ -2527,6 +2487,9 @@ MonoBehaviour:
   description: 
   targetBlock: {fileID: 1831099592}
   hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &1831099601
 MonoBehaviour:
@@ -2546,6 +2509,9 @@ MonoBehaviour:
   description: 
   targetBlock: {fileID: 1831099599}
   hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &1831099602
 MonoBehaviour:
@@ -2585,8 +2551,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 0
   waitForClick: 0
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099605
@@ -2611,8 +2576,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099606
@@ -2659,8 +2623,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099608
@@ -2676,7 +2639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 112.963318
+    x: 114.038605
     y: -441.890259
     width: 120
     height: 40
@@ -2733,8 +2696,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099611
@@ -2759,8 +2721,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099612
@@ -2806,8 +2767,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099614
@@ -2832,8 +2792,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099615
@@ -2878,8 +2837,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099617
@@ -2904,8 +2862,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099618
@@ -2947,8 +2904,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099620
@@ -2973,8 +2929,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099621
@@ -2999,8 +2954,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099622
@@ -3062,8 +3016,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099625
@@ -3234,8 +3187,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099634
@@ -3308,8 +3260,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099637
@@ -3325,7 +3276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 108.007446
+    x: 106.93219
     y: -254.68811
     width: 120
     height: 40
@@ -3409,8 +3360,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099641
@@ -3437,8 +3387,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099642
@@ -3463,8 +3412,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099643
@@ -3493,8 +3441,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1831099644
@@ -3606,6 +3553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1.0
   scrollPos: {x: 0, y: 0}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
@@ -3626,7 +3574,6 @@ MonoBehaviour:
   hideComponents: 1
   saveSelection: 1
   localizationId: 
-  nextItemId: 1
 --- !u!4 &1846387300
 Transform:
   m_ObjectHideFlags: 1

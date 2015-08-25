@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections;
@@ -7,13 +7,29 @@ using System.Collections.Generic;
 namespace Fungus
 {
 
-	public class SayDialog : Dialog 
+	public class SayDialog : MonoBehaviour
 	{
 		// Currently active Say Dialog used to display Say text
 		public static SayDialog activeSayDialog;
 
-		public Image continueImage;
-		public AudioClip continueSound;
+		// Most recent speaking character
+		public static Character speakingCharacter;
+
+		public float fadeDuration = 0.25f;
+		
+		public Button continueButton;
+		public Canvas dialogCanvas;
+		public Text nameText;
+		public Text storyText;
+		public Image characterImage;
+	
+		protected WriterAudio writerAudio;
+		protected Writer writer;
+		protected CanvasGroup canvasGroup;
+
+		protected bool fadeWhenDone = true;
+		protected float targetAlpha = 0f;
+		protected float fadeCoolDownTimer = 0f;
 
 		public static SayDialog GetSayDialog()
 		{
@@ -43,67 +59,255 @@ namespace Fungus
 			return activeSayDialog;
 		}
 
-		public virtual void Say(string text, bool waitForInput, AudioClip voiceOverClip, Action onComplete)
+		protected Writer GetWriter()
 		{
-			Clear();
+			if (writer != null)
+			{
+				return writer;
+			}
 
-			Action onWritingComplete = delegate {
-				if (waitForInput)
+			writer = GetComponent<Writer>();
+			if (writer == null)
+			{
+				writer = gameObject.AddComponent<Writer>();
+			}
+
+			return writer;
+		}
+
+		protected CanvasGroup GetCanvasGroup()
+		{
+			if (canvasGroup != null)
+			{
+				return canvasGroup;
+			}
+			
+			canvasGroup = GetComponent<CanvasGroup>();
+			if (canvasGroup == null)
+			{
+				canvasGroup = gameObject.AddComponent<CanvasGroup>();
+			}
+			
+			return canvasGroup;
+		}
+
+		protected WriterAudio GetWriterAudio()
+		{
+			if (writerAudio != null)
+			{
+				return writerAudio;
+			}
+			
+			writerAudio = GetComponent<WriterAudio>();
+			if (writerAudio == null)
+			{
+				writerAudio = gameObject.AddComponent<WriterAudio>();
+			}
+			
+			return writerAudio;
+		}
+
+		protected void Start()
+		{
+			// Dialog always starts invisible, will be faded in when writing starts
+			GetCanvasGroup().alpha = 0f;
+		}
+
+		public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip audioClip, Action onComplete)
+		{
+			this.fadeWhenDone = fadeWhenDone;
+
+			// Look for a character sound effect if no voice over clip is specified
+			AudioClip clip = audioClip;
+			if (speakingCharacter != null &&
+			    clip == null)
+			{
+				clip = speakingCharacter.soundEffect;
+			}
+
+			GetWriter().Write(text, clearPrevious, waitForInput, clip, onComplete);
+		}
+
+		protected virtual void LateUpdate()
+		{
+			UpdateAlpha();
+
+			if (continueButton != null)
+			{
+				continueButton.gameObject.SetActive( GetWriter().isWaitingForInput );
+			}
+		}
+
+		/**
+		 * Tell dialog to fade out if it's finished writing.
+		 */
+		public virtual void FadeOut()
+		{
+			fadeWhenDone = true;
+		}
+
+		/**
+		 * Stop a Say Dialog while its writing text.
+		 */
+		public virtual void Stop()
+		{
+			fadeWhenDone = true;
+			GetWriter().Stop();
+		}
+
+		protected virtual void UpdateAlpha()
+		{
+			if (GetWriter().isWriting)
+			{
+				targetAlpha = 1f;
+				fadeCoolDownTimer = 0.1f;
+			}
+			else if (fadeWhenDone && fadeCoolDownTimer == 0f)
+			{
+				targetAlpha = 0f;
+			}
+			else
+			{
+				// Add a short delay before we start fading in case there's another Say command in the next frame or two.
+				// This avoids a noticeable flicker between consecutive Say commands.
+				fadeCoolDownTimer = Mathf.Max(0f, fadeCoolDownTimer - Time.deltaTime);
+			}
+
+			CanvasGroup canvasGroup = GetCanvasGroup();
+			float fadeDuration = GetSayDialog().fadeDuration;
+			if (fadeDuration <= 0f)
+			{
+				canvasGroup.alpha = targetAlpha;
+			}
+			else
+			{
+				float delta = (1f / fadeDuration) * Time.deltaTime;
+				float alpha = Mathf.MoveTowards(canvasGroup.alpha, targetAlpha, delta);
+				canvasGroup.alpha = alpha;
+			}
+		}
+
+		public virtual void SetCharacter(Character character, Flowchart flowchart = null)
+		{
+			if (character == null)
+			{
+				if (characterImage != null)
 				{
-					ShowContinueImage(true);
-					StartCoroutine(WaitForInput(delegate {
-
-						if (continueSound != null)
+					characterImage.gameObject.SetActive(false);
+				}
+				if (nameText != null)
+				{
+					nameText.text = "";
+				}
+				speakingCharacter = null;
+			}
+			else
+			{
+				Character prevSpeakingCharacter = speakingCharacter;
+				speakingCharacter = character;
+				
+				// Dim portraits of non-speaking characters
+				foreach (Stage s in Stage.activeStages)
+				{
+					if (s.dimPortraits)
+					{
+						foreach (Character c in s.charactersOnStage)
 						{
-							AudioSource.PlayClipAtPoint(continueSound, Vector3.zero);
+							if (prevSpeakingCharacter != speakingCharacter)
+							{
+								if (c != speakingCharacter)
+								{
+									Portrait.SetDimmed(c, s, true);
+								}
+								else
+								{
+									Portrait.SetDimmed(c, s, false);
+								}
+							}
 						}
-
-						Clear();
-						audioController.Stop();
-
-						if (onComplete != null)
-						{
-							onComplete();
-						}
-
-					}));
+					}
+				}
+				
+				string characterName = character.nameText;
+				
+				if (characterName == "")
+				{
+					// Use game object name as default
+					characterName = character.name;
+				}
+				
+				if (flowchart != null)
+				{
+					characterName = flowchart.SubstituteVariables(characterName);
+				}
+				
+				SetCharacterName(characterName, character.nameColor);
+			}
+		}
+		
+		public virtual void SetCharacterImage(Sprite image)
+		{
+			if (characterImage != null)
+			{
+				if (image != null)
+				{
+					characterImage.sprite = image;
+					characterImage.gameObject.SetActive(true);
 				}
 				else
 				{
-					if (onComplete != null)
+					characterImage.gameObject.SetActive(false);
+				}
+			}
+		}
+		
+		public virtual void SetCharacterName(string name, Color color)
+		{
+			if (nameText != null)
+			{
+				nameText.text = name;
+				nameText.color = color;
+			}
+		}
+		
+		public virtual void Clear()
+		{
+			ClearStoryText();
+			
+			// Kill any active write coroutine
+			StopAllCoroutines();
+		}
+		
+		protected virtual void ClearStoryText()
+		{
+			if (storyText != null)
+			{
+				storyText.text = "";
+			}
+		}
+		
+		public static void StopPortraitTweens()
+		{
+			// Stop all tweening portraits
+			foreach( Character c in Character.activeCharacters )
+			{
+				if (c.state.portraitImage != null)
+				{
+					if (LeanTween.isTweening(c.state.portraitImage.gameObject))
 					{
-						onComplete();
+						LeanTween.cancel(c.state.portraitImage.gameObject, true);
+						
+						Portrait.SetRectTransform(c.state.portraitImage.rectTransform, c.state.position);
+						if (c.state.dimmed == true)
+						{
+							c.state.portraitImage.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+						}
+						else
+						{
+							c.state.portraitImage.color = Color.white;
+						}
 					}
 				}
-			};
-
-			Action onExitTag = delegate {
-				Clear();					
-				if (onComplete != null)
-				{
-					onComplete();
-				}
-			};
-
-			StartCoroutine(WriteText(text, voiceOverClip, onWritingComplete, onExitTag));
-		}
-
-		public override void Clear()
-		{
-			base.Clear();
-			ShowContinueImage(false);
-		}
-
-		protected override void OnWaitForInputTag(bool waiting)
-		{
-			ShowContinueImage(waiting);
-		}
-
-		protected virtual void ShowContinueImage(bool visible)
-		{
-			if (continueImage != null)
-			{
-				continueImage.enabled = visible;
 			}
 		}
 	}

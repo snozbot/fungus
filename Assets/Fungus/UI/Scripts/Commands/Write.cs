@@ -22,8 +22,10 @@ namespace Fungus
 		[Tooltip("Notes about this story text for other authors, localization, etc.")]
 		public string description;
 
+		[Tooltip("Clear existing text before writing new text")]
 		public bool clearText = true;
 
+		[Tooltip("Wait until this command finishes before executing the next command")]
 		public bool waitUntilFinished = true;
 
 		public enum TextColor
@@ -73,12 +75,14 @@ namespace Fungus
 
 			if (!waitUntilFinished)
 			{
-				writer.Write(newText, clearText);
+				writer.Write(newText, clearText, false, null, null);
 				Continue();
 			}
 			else
 			{
-				writer.Write(newText, clearText, () => { Continue (); } );
+				writer.Write(newText, clearText, false, null,
+				             () => { Continue (); }
+				);
 			}
 		}
 
