@@ -37,7 +37,7 @@ namespace Fungus
 		public bool extendPrevious = false;
 
 		[Tooltip("Fade out the dialog box when writing has finished and not waiting for input.")]
-		public bool fadeOut = true;
+		public bool fadeWhenDone = true;
 
 		[Tooltip("Wait for player to click before continuing.")]
 		public bool waitForClick = true;
@@ -90,7 +90,7 @@ namespace Fungus
 
 			string subbedText = flowchart.SubstituteVariables(displayText);
 
-			sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeOut, voiceOverClip, delegate {
+			sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, voiceOverClip, delegate {
 				Continue();
 			});
 		}

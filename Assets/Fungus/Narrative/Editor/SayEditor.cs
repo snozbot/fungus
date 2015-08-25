@@ -78,7 +78,7 @@ namespace Fungus
 		protected SerializedProperty showAlwaysProp;
 		protected SerializedProperty showCountProp;
 		protected SerializedProperty extendPreviousProp;
-		protected SerializedProperty fadeOutProp;
+		protected SerializedProperty fadeWhenDoneProp;
 		protected SerializedProperty waitForClickProp;
 		protected SerializedProperty setSayDialogProp;
 
@@ -95,7 +95,7 @@ namespace Fungus
 			showAlwaysProp = serializedObject.FindProperty("showAlways");
 			showCountProp = serializedObject.FindProperty("showCount");
 			extendPreviousProp = serializedObject.FindProperty("extendPrevious");
-			fadeOutProp = serializedObject.FindProperty("fadeOut");
+			fadeWhenDoneProp = serializedObject.FindProperty("fadeWhenDone");
 			waitForClickProp = serializedObject.FindProperty("waitForClick");
 			setSayDialogProp = serializedObject.FindProperty("setSayDialog");
 
@@ -188,7 +188,7 @@ namespace Fungus
 			rightButton.fontSize = 10;
 			rightButton.font = EditorStyles.toolbarButton.font;
 
-			EditorGUILayout.PropertyField(fadeOutProp);
+			EditorGUILayout.PropertyField(fadeWhenDoneProp);
 			EditorGUILayout.PropertyField(waitForClickProp);
 			EditorGUILayout.PropertyField(setSayDialogProp);
 
