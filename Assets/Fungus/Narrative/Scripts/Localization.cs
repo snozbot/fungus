@@ -58,7 +58,18 @@ namespace Fungus
 
 		public virtual void Start()
 		{
-			// Build cache of localizeable objects in the scene
+			CacheLocalizeableObjects();
+
+			if (localizationFile != null &&
+			    localizationFile.text.Length > 0)
+			{
+				SetActiveLanguage(activeLanguage);
+			}
+		}
+
+		// Build a cache of all the localizeable objects in the scene
+		protected virtual void CacheLocalizeableObjects()
+		{
 			Component[] components = GameObject.FindObjectsOfType<Component>();
 			foreach (Component component in components)
 			{
@@ -67,12 +78,6 @@ namespace Fungus
 				{
 					localizeableObjects[localizable.GetStringId()] = localizable;
 				}
-			}
-
-			if (localizationFile != null &&
-			    localizationFile.text.Length > 0)
-			{
-				SetActiveLanguage(activeLanguage);
 			}
 		}
 
@@ -379,6 +384,12 @@ namespace Fungus
 		 */
 		public virtual bool PopulateTextProperty(string stringId, string newText)
 		{
+			// Ensure that all localizeable objects have been cached
+			if (localizeableObjects.Count == 0)
+			{
+				CacheLocalizeableObjects();
+			}
+
 			ILocalizable localizable = null;
 			localizeableObjects.TryGetValue(stringId, out localizable);
 			if (localizable != null)
