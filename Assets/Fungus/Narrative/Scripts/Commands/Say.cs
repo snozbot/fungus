@@ -72,10 +72,11 @@ namespace Fungus
 			}
 	
 			Flowchart flowchart = GetFlowchart();
-			sayDialog.SetCharacter(character, flowchart);
-			sayDialog.SetCharacterImage(portrait);
 
 			sayDialog.gameObject.SetActive(true);
+
+			sayDialog.SetCharacter(character, flowchart);
+			sayDialog.SetCharacterImage(portrait);
 
 			string displayText = storyText;
 
