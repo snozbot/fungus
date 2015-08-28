@@ -120,6 +120,13 @@ namespace Fungus
 		{
 			// Dialog always starts invisible, will be faded in when writing starts
 			GetCanvasGroup().alpha = 0f;
+
+			// Add a raycaster if none already exists so we can handle dialog input
+			GraphicRaycaster raycaster = GetComponent<GraphicRaycaster>();
+			if (raycaster == null)
+			{
+				gameObject.AddComponent<GraphicRaycaster>();	
+			}
 		}
 
 		public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip audioClip, Action onComplete)
