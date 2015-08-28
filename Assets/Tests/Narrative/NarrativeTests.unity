@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1913435020}
+  selectedFlowchart: {fileID: 736071350}
 --- !u!4 &11556238
 Transform:
   m_ObjectHideFlags: 1
@@ -1910,7 +1910,6 @@ GameObject:
   - 114: {fileID: 594837302}
   - 114: {fileID: 594837303}
   - 114: {fileID: 594837304}
-  - 114: {fileID: 594837305}
   m_Layer: 0
   m_Name: TestAssertions
   m_TagString: Untagged
@@ -2034,27 +2033,6 @@ MonoBehaviour:
   hasFailed: 0
   checkMethods: 1
   m_ActionBase: {fileID: 1613545005}
-  checksPerformed: 0
---- !u!114 &594837305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 594837298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkAfterTime: 12.5
-  repeatCheckTime: 0
-  repeatEveryTime: 1
-  checkAfterFrames: 1
-  repeatCheckFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  checkMethods: 1
-  m_ActionBase: {fileID: 1216870120}
   checksPerformed: 0
 --- !u!1 &620765065
 GameObject:
@@ -2268,7 +2246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &685425359
 Transform:
   m_ObjectHideFlags: 0
@@ -2550,9 +2528,9 @@ MonoBehaviour:
     y: -350
     width: 1121
     height: 870
-  selectedBlock: {fileID: 736071355}
+  selectedBlock: {fileID: 736071349}
   selectedCommands:
-  - {fileID: 736071368}
+  - {fileID: 736071366}
   variables: []
   description: 
   stepPause: 0
@@ -2599,7 +2577,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 0}
 --- !u!114 &736071353
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2626,7 +2604,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &736071354
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2641,7 +2619,7 @@ MonoBehaviour:
   duration: 2
 --- !u!114 &736071355
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2673,7 +2651,7 @@ MonoBehaviour:
   - {fileID: 736071367}
 --- !u!114 &736071356
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2700,7 +2678,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &736071357
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2715,7 +2693,7 @@ MonoBehaviour:
   duration: 4
 --- !u!114 &736071358
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2742,7 +2720,7 @@ MonoBehaviour:
   sayDialog: {fileID: 1714427708}
 --- !u!114 &736071360
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2767,7 +2745,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 0}
 --- !u!114 &736071361
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2794,7 +2772,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &736071362
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2809,7 +2787,7 @@ MonoBehaviour:
   duration: 2
 --- !u!114 &736071363
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2836,7 +2814,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &736071364
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2851,7 +2829,7 @@ MonoBehaviour:
   duration: 2
 --- !u!114 &736071365
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2876,7 +2854,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 0}
 --- !u!114 &736071366
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2920,7 +2898,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &736071367
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -2947,7 +2925,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &736071368
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 736071346}
@@ -5050,23 +5028,6 @@ MonoBehaviour:
   otherPropertyPath: 
   constantValueGeneric: 4
   compareType: 0
---- !u!114 &1216870120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  go: {fileID: 1714427702}
-  thisPropertyPath: AudioSource.isPlaying
-  compareToType: 1
-  other: {fileID: 0}
-  otherPropertyPath: 
-  constantValueGeneric: 0
 --- !u!114 &1300618896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6298,8 +6259,8 @@ MonoBehaviour:
   indentLevel: 0
   storyText: A long block of text that runs all the way to the end of the text box{w=1}{x}
   description: 
-  character: {fileID: 1045375690}
-  portrait: {fileID: 21300000, guid: 10cc2fec4b8aa4db983981588b06b591, type: 3}
+  character: {fileID: 0}
+  portrait: {fileID: 0}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -6337,7 +6298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1929911610
 Transform:
   m_ObjectHideFlags: 0
