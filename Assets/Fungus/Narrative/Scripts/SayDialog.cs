@@ -23,6 +23,15 @@ namespace Fungus
 		public Text storyText;
 		public Image characterImage;
 	
+		[Tooltip("Adjust width of story text when Character Image is displayed (to avoid overlapping)")]
+		public bool fitTextWithImage = true;
+
+		[Tooltip("Scale factor to apply to story text width when Character Image is displayed")]
+		public float textWidthScale = 0.8f;
+
+		protected float startStoryTextWidth; 
+		protected float startStoryTextInset;
+
 		protected WriterAudio writerAudio;
 		protected Writer writer;
 		protected CanvasGroup canvasGroup;
@@ -184,6 +193,12 @@ namespace Fungus
 				float delta = (1f / fadeDuration) * Time.deltaTime;
 				float alpha = Mathf.MoveTowards(canvasGroup.alpha, targetAlpha, delta);
 				canvasGroup.alpha = alpha;
+
+				if (alpha <= 0f)
+				{					
+					// Deactivate dialog object once invisible
+					gameObject.SetActive(false);
+				}
 			}
 		}
 
@@ -247,16 +262,44 @@ namespace Fungus
 		
 		public virtual void SetCharacterImage(Sprite image)
 		{
-			if (characterImage != null)
+			if (characterImage == null)
 			{
-				if (image != null)
+				return;
+			}
+
+			if (image != null)
+			{
+				characterImage.sprite = image;
+				characterImage.gameObject.SetActive(true);
+			}
+			else
+			{
+				characterImage.gameObject.SetActive(false);
+			}
+
+			// Adjust story text box to not overlap image rect
+			if (fitTextWithImage && 
+			    storyText != null &&
+			    characterImage.gameObject.activeSelf)
+			{
+				if (startStoryTextWidth == 0)
 				{
-					characterImage.sprite = image;
-					characterImage.gameObject.SetActive(true);
+					startStoryTextWidth = storyText.rectTransform.rect.width;
+					startStoryTextInset = storyText.rectTransform.offsetMin.x; 
+				}
+
+				// Clamp story text to left or right depending on relative position of the character image
+				if (storyText.rectTransform.position.x < characterImage.rectTransform.position.x)
+				{
+					storyText.rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 
+					                                                      startStoryTextInset, 
+					                                                      startStoryTextWidth - characterImage.rectTransform.rect.width);
 				}
 				else
 				{
-					characterImage.gameObject.SetActive(false);
+					storyText.rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right, 
+					                                                      startStoryTextInset, 
+					                                                      startStoryTextWidth - characterImage.rectTransform.rect.width);
 				}
 			}
 		}
