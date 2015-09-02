@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 736071350}
+  selectedFlowchart: {fileID: 1913435020}
 --- !u!4 &11556238
 Transform:
   m_ObjectHideFlags: 1
@@ -1153,6 +1153,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 188902, guid: 8a005a9e0713f4cc1b5ad29fb07657d3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a005a9e0713f4cc1b5ad29fb07657d3, type: 2}
   m_IsPrefabParent: 0
@@ -1515,9 +1519,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 392887985}
   - 114: {fileID: 392887986}
-  - 114: {fileID: 392887987}
   m_Layer: 0
-  m_Name: TestAssertions
+  m_Name: TestChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1543,40 +1546,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 392887984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
+  m_Script: {fileID: 11500000, guid: dfa0c65e278214560ba42bc8fef024e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkAfterTime: .5
-  repeatCheckTime: 0
-  repeatEveryTime: 1
-  checkAfterFrames: 1
-  repeatCheckFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  checkMethods: 1
-  m_ActionBase: {fileID: 1408819084}
-  checksPerformed: 0
---- !u!114 &392887987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 392887984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkAfterTime: 3.5
-  repeatCheckTime: 0
-  repeatEveryTime: 1
-  checkAfterFrames: 1
-  repeatCheckFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  checkMethods: 1
-  m_ActionBase: {fileID: 665418248}
-  checksPerformed: 0
+  sayDialog_LeftImage: {fileID: 538232720}
+  sayDialog_RightImage: {fileID: 1508308453}
 --- !u!1 &401634244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,23 +2188,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 658513471}
---- !u!114 &665418248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  go: {fileID: 1382140668}
-  thisPropertyPath: gameObject.activeSelf
-  compareToType: 1
-  other: {fileID: 0}
-  otherPropertyPath: 
-  constantValueGeneric: 1
 --- !u!1 &685425358
 GameObject:
   m_ObjectHideFlags: 0
@@ -2246,7 +2203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &685425359
 Transform:
   m_ObjectHideFlags: 0
@@ -2275,9 +2232,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeout: 5
+  timeout: 15
   ignored: 0
-  succeedAfterAllAssertionsAreExecuted: 1
+  succeedAfterAllAssertionsAreExecuted: 0
   expectException: 0
   expectedExceptionList: 
   succeedWhenExceptionIsThrown: 0
@@ -2529,8 +2486,7 @@ MonoBehaviour:
     width: 1121
     height: 870
   selectedBlock: {fileID: 736071349}
-  selectedCommands:
-  - {fileID: 736071366}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -5200,27 +5156,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a005a9e0713f4cc1b5ad29fb07657d3, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1382140668 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 148914, guid: 8a005a9e0713f4cc1b5ad29fb07657d3, type: 2}
-  m_PrefabInternal: {fileID: 141635719}
---- !u!114 &1408819084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  go: {fileID: 1382140668}
-  thisPropertyPath: gameObject.activeSelf
-  compareToType: 1
-  other: {fileID: 0}
-  otherPropertyPath: 
-  constantValueGeneric: 1
 --- !u!224 &1439815621 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22410276, guid: c6289d5f8fa843145a2355af9cb09719,
@@ -6111,6 +6046,12 @@ GameObject:
   - 114: {fileID: 1913435024}
   - 114: {fileID: 1913435026}
   - 114: {fileID: 1913435025}
+  - 114: {fileID: 1913435027}
+  - 114: {fileID: 1913435028}
+  - 114: {fileID: 1913435032}
+  - 114: {fileID: 1913435031}
+  - 114: {fileID: 1913435030}
+  - 114: {fileID: 1913435029}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -6156,7 +6097,7 @@ MonoBehaviour:
     height: 859
   selectedBlock: {fileID: 1913435022}
   selectedCommands:
-  - {fileID: 1913435025}
+  - {fileID: 1913435029}
   variables: []
   description: 
   stepPause: 0
@@ -6214,8 +6155,14 @@ MonoBehaviour:
   commandList:
   - {fileID: 1913435024}
   - {fileID: 1913435021}
+  - {fileID: 1913435032}
+  - {fileID: 1913435027}
+  - {fileID: 1913435031}
   - {fileID: 1913435026}
   - {fileID: 1913435025}
+  - {fileID: 1913435030}
+  - {fileID: 1913435028}
+  - {fileID: 1913435029}
 --- !u!114 &1913435023
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -6259,8 +6206,8 @@ MonoBehaviour:
   indentLevel: 0
   storyText: A long block of text that runs all the way to the end of the text box{w=1}{x}
   description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
+  character: {fileID: 1045375690}
+  portrait: {fileID: 21300000, guid: 10cc2fec4b8aa4db983981588b06b591, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -6283,6 +6230,166 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   sayDialog: {fileID: 538232720}
+--- !u!114 &1913435027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1913435018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 5
+  errorMessage: 
+  indentLevel: 0
+  storyText: No character. A long block of text that runs all the way to the end of
+    the text box{w=1}{x}
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &1913435028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1913435018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 6
+  errorMessage: 
+  indentLevel: 0
+  storyText: No character. A long block of text that runs all the way to the end of
+    the text box{w=1}{x}
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &1913435029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1913435018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 10
+  errorMessage: 
+  indentLevel: 0
+  targetObject: {fileID: 392887984}
+  targetComponentAssemblyName: OverlapTests, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: OverlapTests
+  targetMethod: Step4
+  targetMethodText: 'Step4 (): Void'
+  methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &1913435030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1913435018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 9
+  errorMessage: 
+  indentLevel: 0
+  targetObject: {fileID: 392887984}
+  targetComponentAssemblyName: OverlapTests, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: OverlapTests
+  targetMethod: Step3
+  targetMethodText: 'Step3 (): Void'
+  methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &1913435031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1913435018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 8
+  errorMessage: 
+  indentLevel: 0
+  targetObject: {fileID: 392887984}
+  targetComponentAssemblyName: OverlapTests, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: OverlapTests
+  targetMethod: Step2
+  targetMethodText: 'Step2 (): Void'
+  methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &1913435032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1913435018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 7
+  errorMessage: 
+  indentLevel: 0
+  targetObject: {fileID: 392887984}
+  targetComponentAssemblyName: OverlapTests, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: OverlapTests
+  targetMethod: Step1
+  targetMethodText: 'Step1 (): Void'
+  methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
 --- !u!1 &1929911609
 GameObject:
   m_ObjectHideFlags: 0
@@ -6298,7 +6405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1929911610
 Transform:
   m_ObjectHideFlags: 0

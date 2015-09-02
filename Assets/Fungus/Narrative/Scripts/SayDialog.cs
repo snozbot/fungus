@@ -282,6 +282,13 @@ namespace Fungus
 			else
 			{
 				characterImage.gameObject.SetActive(false);
+
+				if (startStoryTextWidth != 0)
+				{
+					storyText.rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 
+					                                                      startStoryTextInset, 
+					                                                      startStoryTextWidth);
+				}
 			}
 
 			// Adjust story text box to not overlap image rect
