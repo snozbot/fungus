@@ -75,6 +75,12 @@ namespace Fungus
 			return "a string"; 
 		}
 
+		// Test the Call Method command
+		public void TestCallMethod()
+		{
+			passCount++;
+		}
+
 		public void DelayedInvokeEvent()
 		{
 			passCount++;
@@ -99,7 +105,7 @@ namespace Fungus
 			}
 
 			// Check the right number of methods were invoked successfully
-			if (passCount == 10)
+			if (passCount == 11)
 			{
 				IntegrationTest.Pass();
 			}
