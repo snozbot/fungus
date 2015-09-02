@@ -26,6 +26,7 @@ namespace Fungus
 		protected Vector2 blockScrollPos;
 		protected Vector2 commandScrollPos;
 		protected bool resize = false;
+		protected bool clamp = false;
 		protected float topPanelHeight = 50;
 
 		// Cache the block and command editors so we only create and destroy them
@@ -188,13 +189,9 @@ namespace Fungus
 				Undo.RecordObject(flowchart, "Resize view");
 				flowchart.blockViewHeight = Event.current.mousePosition.y;
 			}
-
-			// Make sure block view is always visible
-			float height = flowchart.blockViewHeight;
-			height = Mathf.Max(200, height);
-			height = Mathf.Min(Screen.height - 200,height);
-			flowchart.blockViewHeight = height;
-
+			
+			ClampBlockViewHeight(flowchart);
+			
 			// Stop resizing if mouse is outside inspector window.
 			// This isn't standard Unity UI behavior but it is robust and safe.
 			if (resize && Event.current.type == EventType.mouseDrag)
@@ -209,6 +206,31 @@ namespace Fungus
 			if (Event.current.type == EventType.MouseUp)
 			{
 				resize = false;
+			}
+		}
+		
+		protected virtual void ClampBlockViewHeight(Flowchart flowchart)
+		{
+			// Screen.height seems to temporarily reset to 480 for a single frame whenever a command like 
+			// Copy, Paste, etc. happens. Only clamp the block view height when one of these operations is not occuring.
+
+			if (Event.current.commandName != "")
+			{
+				clamp = false;
+			}
+			
+			if (clamp)
+			{
+				// Make sure block view is always clamped to visible area
+				float height = flowchart.blockViewHeight;
+				height = Mathf.Max(200, height);
+				height = Mathf.Min(Screen.height - 200,height);
+				flowchart.blockViewHeight = height;
+			}
+			
+			if (Event.current.type == EventType.Repaint)
+			{
+				clamp = true;
 			}
 		}
 	}
