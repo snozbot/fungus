@@ -15,6 +15,12 @@ namespace Fungus
 			go.transform.position = Vector3.zero;
 		}
 
+		[MenuItem("Tools/Fungus/Create/Fungus Logo", false, 1000)]
+		static void CreateFungusLogo()
+		{
+			SpawnPrefab("FungusLogo");
+		}
+
 		public static GameObject SpawnPrefab(string prefabName)
 		{
 			GameObject prefab = Resources.Load<GameObject>(prefabName);
@@ -26,7 +32,7 @@ namespace Fungus
 			GameObject go = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
 			PrefabUtility.DisconnectPrefabInstance(go);
 
-			SceneView view = SceneView.currentDrawingSceneView;
+			SceneView view = SceneView.lastActiveSceneView;
 			if (view != null)
 			{
 				Camera sceneCam = view.camera;
