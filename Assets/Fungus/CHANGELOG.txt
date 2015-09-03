@@ -1,5 +1,89 @@
-Fungus v2.1
-===========
+Fungus v2.2.0
+=============
+
+# Added
+
+- Write command for writing text to any text object
+- Writer, Writer Audio components for writing text to any text object with lots of new configuration options.
+- Say Dialog class has been split into Say Dialog, Dialog Input components
+- Dialog Input supports multiple input types; clicks & key presses
+- Can hold down shift while pressing a key to fast forward through dialog text
+- Say Dialog now adjusts Story Text rect when character image is visible.
+- Added Stop() method to Say Dialog and Writer to cancel writing immediately
+- Fullscreen command. https://trello.com/c/aA5GQlua
+- InputText example in FungusExamples
+- Localization support for the Set Text and Write commands.
+- Custom commands can integrate with the localisation system by implementing the ILocalizable interface.
+- Invoke Event command for calling script methods with a parameter using Unity's EventSystem.
+- Invoke Method command for calling script methods with multiple parameters using reflection.
+- Can now use UnityEvent variables in custom commands
+- Flowchart versioning and initialization
+- Menu command now has an Interactable property to add disabled menu options. https://trello.com/c/bFjmGfBc
+- Set Sprite Order command. https://trello.com/c/5yZ88Rh0
+- Added Set Sorting Layer command to set renderer sorting layer
+- Set Mouse Cursor command and drag and drop support
+- Constructors and implicit operators for all Fungus variable types
+- Quit command to quit application - https://trello.com/c/qIVLgrDx
+- New Fungus/UI command category
+- Added ComboBox to Thirdparty folder
+- Added Tools > Fungus > Create > Fungus Logo menu option
+
+# Changed
+
+- Simplifed Say Dialog hierarchy structure to be easier to customise
+- Say Dialog continue image is now a UI button
+- Say Dialog automatically fades in / out when writing
+- Updated The Facility example to work with new Say Dialog design
+- Updated Drag And Drop example to use new Set Mouse Cursor command
+- Improved rendering efficiency of Block inspector window.
+- Improved shift-selecting commands in Block inspector.
+- Portrait command now moves portraits using world position instead of anchored position    
+- Portrait cross fading is now done using image alpha instead of a custom shader
+- Stage Show / Hide is now done by tweening the CanvasGroup alpha.
+- Portrait MoveSpeed is now MoveDuration
+- Portrait WaitUntilFinished option now works robustly
+- Additional flowcharts added to the scene no longer have their initial block start with the default 'Game Started' event.
+- Command array properties can now be flagged to use the reorderable list control
+- Custom commands can override IsPropertyVisible() to hide specific properties as needed.
+- SetActive command shows state in summary
+- Block Event Handler for additional Flowcharts now defaults to none.
+- Can assign default values to public Fungus variable properties 
+- Can access Fungus variable values directly without using .Value accessor.
+- Say Command fade in / out replaced with automatic fading and Fade When Done property
+- Get Text and Set Text command now work on any text object (UI text, UI input fields & 3D text mesh)
+
+# Fixed
+
+- Shake Camera command timing issue #137
+- CSV parser doesn't handle Windows-style line endings #131
+- Intermittent init order issue with caching localizeable objects
+- Control Audio stopping all untagged audiosources #132
+- Intermittent null reference error from command editors
+- Draggable objects don't return to start pos if drag completes #130
+- Moving and fading portraits at the same time
+- Character portrait images have display artefacts #92
+- Duplicate Block option does not do a deep copy #129
+- Event System not created after Load Scene #121
+- Voice over audio only works every second time #126
+- Editing multiline command properties in block inspector.
+- Compile error when Fungus is used with "Draw On Screen" asset #120
+- Null reference exception when spawning Fungus objects in Unity 5.1
+- Story text box width is restored when using a character with no portrait #141 
+- Block inspector window resizes when using cut, copy, paste shortcuts #145
+- Objects spawned from Tools > Fungus > Create menu center correctly in Unity 5.1.3f
+
+# Process Changes
+
+We are now using the Unity Test Tools framework for unit and integration testing.
+All new features and bug fixes now have automated tests where possible.
+
+# Upgrade Notes
+
+We made a LOT of improvements to the Say Dialogs in this release. Unfortunately these changes are likely to break existing customised Say Dialogs. If you upgrade an existing Fungus project and find the Say Dialog are no longer working you will need to delete your Say Dialogs and create new ones.
+
+
+Fungus v2.1.0
+=============
 
 # Added
 
