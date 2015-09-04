@@ -125,7 +125,7 @@ namespace Fungus
 					ReorderableListControl.DrawControlFromState(adaptor, null, flags);
 				}
 
-				// EventType.contextClick doesn't register since we moved the Sequence Editor to be inside
+				// EventType.contextClick doesn't register since we moved the Block Editor to be inside
 				// a GUI Area, no idea why. As a workaround we just check for right click instead.
 				if (Event.current.type == EventType.mouseUp &&
 				    Event.current.button == 1)
