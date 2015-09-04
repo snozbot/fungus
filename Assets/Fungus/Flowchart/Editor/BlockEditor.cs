@@ -298,7 +298,7 @@ namespace Fungus
 			GUILayout.EndHorizontal();
 		}
 
-		protected void DrawEventHandlerGUI(Flowchart flowchart)
+		protected virtual void DrawEventHandlerGUI(Flowchart flowchart)
 		{
 			// Show available Event Handlers in a drop down list with type of current
 			// event handler selected.
