@@ -674,6 +674,12 @@ namespace Fungus
 
 			foreach(var keyPair in filteredAttributes)
 			{
+				// Skip command type if the Flowchart doesn't support it
+				if (!flowchart.IsCommandSupported(keyPair.Value))
+				{
+					continue;
+				}		
+
 				AddCommandOperation commandOperation = new AddCommandOperation();
 				
 				commandOperation.block = block;

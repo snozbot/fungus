@@ -522,7 +522,12 @@ namespace Fungus
 		{
 			Block block = windowBlockMap[windowId];
 			Flowchart flowchart = block.GetFlowchart();
-								
+							
+			if (flowchart == null)
+			{
+				return;
+			}
+
 			// Select block when node is clicked
 			if (Event.current.button == 0 && 
 		    	Event.current.type == EventType.MouseDown &&
