@@ -838,6 +838,14 @@ namespace Fungus
 			}
 		}
 
+		/**
+		 * Override this in a Flowchart subclass to filter which commands are shown in the Add Command list.
+		 */
+		public virtual bool IsCommandSupported(CommandInfoAttribute commandInfo)
+		{
+			return true;
+		}
+
 		public virtual string SubstituteVariables(string text)
 		{
 			string subbedText = text;
