@@ -131,6 +131,21 @@ namespace Fungus
 
 		public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip audioClip, Action onComplete)
 		{
+			StartCoroutine(SayInternal(text, clearPrevious, waitForInput, fadeWhenDone, audioClip, onComplete));
+		}
+
+		protected virtual IEnumerator SayInternal(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip audioClip, Action onComplete)
+		{
+			Writer writer = GetWriter();
+
+			// Stop any existing Say Command and write this one instead
+			// This will probably take a frame or two to complete
+			while (writer.isWriting || writer.isWaitingForInput)
+			{
+				writer.Stop();
+				yield return null;
+			}
+
 			this.fadeWhenDone = fadeWhenDone;
 
 			// Look for a character sound effect if no voice over clip is specified
@@ -141,7 +156,7 @@ namespace Fungus
 				clip = speakingCharacter.soundEffect;
 			}
 
-			GetWriter().Write(text, clearPrevious, waitForInput, clip, onComplete);
+			writer.Write(text, clearPrevious, waitForInput, clip, onComplete);
 		}
 
 		protected virtual void LateUpdate()
