@@ -49,11 +49,15 @@ namespace Fungus
 		[Tooltip("Write one word at a time rather one character at a time")]
 		public bool writeWholeWords = false;
 
-		// This property is true when the writer is waiting for user input to continue
+		/**
+		 * This property is true when the writer is waiting for user input to continue
+		 */
 		[System.NonSerialized]
 		public bool isWaitingForInput;
 
-		// This property is true when the writer is writing text or waiting (i.e. still processing tokens)
+		/** 
+		 * This property is true when the writer is writing text or waiting (i.e. still processing tokens)
+		 */
 		[System.NonSerialized]
 		public bool isWriting;
 
@@ -453,6 +457,7 @@ namespace Fungus
 
 			inputFlag = false;
 			exitFlag = false;
+			isWaitingForInput = false;
 			isWriting = false;
 
 			NotifyEnd();
@@ -587,7 +592,7 @@ namespace Fungus
 			NotifyPause();
 
 			float timeRemaining = duration;
-			while (timeRemaining > 0f && !inputFlag)
+			while (timeRemaining > 0f && !inputFlag && !exitFlag)
 			{
 				timeRemaining -= Time.deltaTime;
 				yield return null;
@@ -603,7 +608,7 @@ namespace Fungus
 			inputFlag = false;
 			isWaitingForInput = true;
 
-			while (!inputFlag)
+			while (!inputFlag && !exitFlag)
 			{
 				yield return null;
 			}
