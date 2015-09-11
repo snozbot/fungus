@@ -229,7 +229,10 @@ namespace Fungus
 
 		void AudioFinished()
 		{
-			Continue();
+		    if (waitUntilFinished)
+		    {
+				Continue();
+			}
 		}
 
 		public override string GetSummary()
