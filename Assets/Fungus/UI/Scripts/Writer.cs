@@ -500,6 +500,7 @@ namespace Fungus
 
 				// Punctuation pause
 				if (left.Length > 0 && 
+				    right.Length > 0 &&
 				    IsPunctuation(left.Substring(left.Length - 1)[0]))
 				{
 					yield return StartCoroutine(DoWait(currentPunctuationPause));
