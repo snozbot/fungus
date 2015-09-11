@@ -37,9 +37,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
---- !u!127 &3
-LevelGameManager:
-  m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -68,6 +65,7 @@ LightmapSettings:
     m_TextureCompression: 0
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
+    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
@@ -155,10 +153,12 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!4 &614879920
 Transform:
   m_ObjectHideFlags: 0
@@ -322,6 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1.0
   scrollPos: {x: 258, y: 186}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
@@ -351,7 +352,6 @@ MonoBehaviour:
   hideComponents: 1
   saveSelection: 1
   localizationId: 
-  nextItemId: 54
 --- !u!4 &1269704320
 Transform:
   m_ObjectHideFlags: 0
@@ -386,8 +386,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704322
@@ -412,8 +411,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704323
@@ -438,8 +436,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704324
@@ -576,8 +573,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704330
@@ -602,8 +598,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704331
@@ -656,8 +651,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704333
@@ -696,8 +690,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704335
@@ -722,8 +715,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704336
@@ -748,8 +740,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704337
@@ -812,6 +803,9 @@ MonoBehaviour:
   description: 
   targetBlock: {fileID: 1269704341}
   hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &1269704340
 MonoBehaviour:
@@ -831,6 +825,9 @@ MonoBehaviour:
   description: 
   targetBlock: {fileID: 1269704345}
   hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &1269704341
 MonoBehaviour:
@@ -963,6 +960,9 @@ MonoBehaviour:
   description: 
   targetBlock: {fileID: 1269704353}
   hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &1269704347
 MonoBehaviour:
@@ -986,8 +986,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704348
@@ -1028,8 +1027,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704350
@@ -1094,6 +1092,9 @@ MonoBehaviour:
   description: 
   targetBlock: {fileID: 1269704318}
   hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
   setMenuDialog: {fileID: 0}
 --- !u!114 &1269704353
 MonoBehaviour:
@@ -1304,8 +1305,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704364
@@ -1330,8 +1330,7 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeIn: 0
-  fadeOut: 0
+  fadeWhenDone: 1
   waitForClick: 1
   setSayDialog: {fileID: 0}
 --- !u!1 &1671111970
