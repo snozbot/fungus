@@ -138,6 +138,11 @@ namespace Fungus
 				{
 					foreach (Command selectedCommand in flowchart.selectedCommands)
 					{
+						if (selectedCommand == null)
+						{
+							continue;
+						}
+
 						if (selectedCommand.HasReference(variable))
 						{
 							highlight = true;

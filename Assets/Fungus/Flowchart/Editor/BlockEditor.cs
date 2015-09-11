@@ -990,25 +990,29 @@ namespace Fungus
 					if (command == selectedCommand)
 					{
 						command.OnCommandRemoved(block);
-						
+
+						// Order of destruction is important here for undo to work
+						Undo.DestroyObjectImmediate(command);
+
 						Undo.RecordObject(flowchart.selectedBlock, "Delete");
 						flowchart.selectedBlock.commandList.RemoveAt(i);
-						Undo.DestroyObjectImmediate(command);
+
 						lastSelectedIndex = i;
+
 						break;
 					}
 				}
 			}
-			
+
 			Undo.RecordObject(flowchart, "Delete");
 			flowchart.ClearSelectedCommands();
-			
+
 			if (lastSelectedIndex < flowchart.selectedBlock.commandList.Count)
 			{
 				Command nextCommand = flowchart.selectedBlock.commandList[lastSelectedIndex];
 				block.GetFlowchart().AddSelectedCommand(nextCommand);
 			}
-			
+
 			Repaint();
 		}
 		
