@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 2043226671}
+  selectedFlowchart: {fileID: 736071350}
 --- !u!4 &11556238
 Transform:
   m_ObjectHideFlags: 1
@@ -2341,7 +2341,6 @@ GameObject:
   - 114: {fileID: 594837301}
   - 114: {fileID: 594837302}
   - 114: {fileID: 594837303}
-  - 114: {fileID: 594837304}
   m_Layer: 0
   m_Name: TestAssertions
   m_TagString: Untagged
@@ -2444,27 +2443,6 @@ MonoBehaviour:
   hasFailed: 0
   checkMethods: 1
   m_ActionBase: {fileID: 137767004}
-  checksPerformed: 0
---- !u!114 &594837304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 594837298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkAfterTime: 10.5
-  repeatCheckTime: 0
-  repeatEveryTime: 1
-  checkAfterFrames: 1
-  repeatCheckFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  checkMethods: 1
-  m_ActionBase: {fileID: 1613545005}
   checksPerformed: 0
 --- !u!1 &620765065
 GameObject:
@@ -2961,10 +2939,12 @@ MonoBehaviour:
     y: -350
     width: 1121
     height: 870
-  selectedBlock: {fileID: 736071349}
+  selectedBlock: {fileID: 0}
   selectedCommands: []
   variables: []
-  description: 
+  description: 'Manual test to check if portrait images that are
+
+    taller than the stage position rect move as expected.'
   stepPause: 0
   colorCommands: 1
   hideComponents: 1
@@ -6938,23 +6918,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 141635719}
   m_Script: {fileID: 11500000, guid: 3a0bbe22c246e4c78ad8e9816cbae9d5, type: 3}
---- !u!114 &1613545005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  go: {fileID: 1714427702}
-  thisPropertyPath: AudioSource.isPlaying
-  compareToType: 1
-  other: {fileID: 0}
-  otherPropertyPath: 
-  constantValueGeneric: 1
 --- !u!1 &1648578756
 GameObject:
   m_ObjectHideFlags: 0
@@ -7288,7 +7251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1708812487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8259,7 +8222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1929911610
 Transform:
   m_ObjectHideFlags: 0
@@ -8667,6 +8630,8 @@ GameObject:
   - 114: {fileID: 2043226676}
   - 114: {fileID: 2043226678}
   - 114: {fileID: 2043226677}
+  - 114: {fileID: 2043226679}
+  - 114: {fileID: 2043226680}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -8710,9 +8675,8 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlock: {fileID: 2043226673}
-  selectedCommands:
-  - {fileID: 2043226677}
+  selectedBlock: {fileID: 0}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -8722,7 +8686,7 @@ MonoBehaviour:
   localizationId: 
 --- !u!114 &2043226672
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2043226669}
@@ -8778,6 +8742,8 @@ MonoBehaviour:
   - {fileID: 2043226675}
   - {fileID: 2043226678}
   - {fileID: 2043226677}
+  - {fileID: 2043226680}
+  - {fileID: 2043226679}
 --- !u!114 &2043226674
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -8793,7 +8759,7 @@ MonoBehaviour:
   parentBlock: {fileID: 2043226673}
 --- !u!114 &2043226675
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2043226669}
@@ -8823,7 +8789,7 @@ MonoBehaviour:
   waitUntilFinished: 0
 --- !u!114 &2043226676
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2043226669}
@@ -8838,7 +8804,7 @@ MonoBehaviour:
   duration: 1
 --- !u!114 &2043226677
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2043226669}
@@ -8868,7 +8834,7 @@ MonoBehaviour:
   waitUntilFinished: 0
 --- !u!114 &2043226678
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2043226669}
@@ -8878,6 +8844,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 4
+  errorMessage: 
+  indentLevel: 0
+  duration: 1
+--- !u!114 &2043226679
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2043226669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4920f47cde1a84b11ad07b7317568494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 6
+  errorMessage: 
+  indentLevel: 0
+--- !u!114 &2043226680
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2043226669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 7
   errorMessage: 
   indentLevel: 0
   duration: 1
