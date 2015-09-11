@@ -62,7 +62,6 @@ namespace Fungus
 				"\t{vpunch=0.5} Vertically punch screen (intensity)\n" +
 				"\t{hpunch=0.5} Horizontally punch screen (intensity)\n" +
 				"\t{shake=1} Shake screen (intensity)\n" +
-				"\t{shiver=1} Shiver screen (intensity)\n" +
 				"\t{flash=0.5} Flash screen (duration)\n" +
 				"\n" +
 				"\t{audio=AudioObjectName} Play Audio Once\n" +
