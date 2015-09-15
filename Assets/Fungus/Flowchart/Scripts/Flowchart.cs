@@ -125,6 +125,12 @@ namespace Fungus
 		public string localizationId = "";
 
 		/**
+		 * List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.
+		 */
+		[Tooltip("List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.")]
+		public List<string> hideCommands = new List<string>();
+
+		/**
 		 * Cached list of flowchart objects in the scene for fast lookup
 		 */
 		public static List<Flowchart> cachedFlowcharts = new List<Flowchart>();
@@ -843,6 +849,16 @@ namespace Fungus
 		 */
 		public virtual bool IsCommandSupported(CommandInfoAttribute commandInfo)
 		{
+			foreach (string key in hideCommands)
+			{
+				// Match on category or command name (case insensitive)
+				if (String.Compare(commandInfo.Category, key, StringComparison.OrdinalIgnoreCase) == 0 ||
+				    String.Compare(commandInfo.CommandName, key, StringComparison.OrdinalIgnoreCase) == 0)
+				{
+					return false;
+				}
+			}
+
 			return true;
 		}
 
