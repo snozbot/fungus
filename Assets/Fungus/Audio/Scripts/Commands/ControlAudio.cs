@@ -98,29 +98,37 @@ namespace Fungus
 		{
 			if (fadeDuration > 0)
 			{
-				audioSource.volume = 0;
-				PlaySoundWithCallback(audioSource.GetComponent<AudioSource>().clip, endVolume, AudioFinished);
-				LeanTween.value(audioSource.gameObject,0,endVolume,fadeDuration
+				// Fade volume in
+				LeanTween.value(audioSource.gameObject, 
+				                audioSource.volume, 
+				                endVolume,
+				                fadeDuration
 				).setOnUpdate(
 					(float updateVolume)=>{
 					audioSource.volume = updateVolume;
-				}
-				).setOnComplete(
-					()=>{
-					if (waitUntilFinished)
-					{
-						Continue();
-					}
-				}
-				);
+				});
 			}
-			else
+
+			audioSource.PlayOneShot(audioSource.clip);
+
+			if (waitUntilFinished)
 			{
-				audioSource.volume = 1;
-				PlaySoundWithCallback(audioSource.GetComponent<AudioSource>().clip, endVolume, AudioFinished);
+				StartCoroutine(WaitAndContinue());
 			}
 		}
-		
+
+		protected virtual IEnumerator WaitAndContinue()
+		{
+			// Poll the audiosource until playing has finished
+			// This allows for things like effects added to the audiosource.
+			while (audioSource.isPlaying)
+			{
+				yield return null;
+			}
+
+			Continue();
+		}
+
 		protected void PlayLoop()
 		{
 			if (fadeDuration > 0)
@@ -210,21 +218,6 @@ namespace Fungus
 				audioSource.volume = updateVolume;
 			}
 			);
-		}
-
-		// Allows ControlAudio to "Wait Until Finished" playing audio before moving onto the next command
-		public delegate void AudioCallback();
-
-		public void PlaySoundWithCallback(AudioClip clip, float endVolume, AudioCallback callback)
-		{
-			audioSource.GetComponent<AudioSource>().PlayOneShot(audioSource.clip, endVolume);
-			StartCoroutine(DelayedCallback(audioSource.clip.length, callback));
-		}
-
-		private IEnumerator DelayedCallback(float time, AudioCallback callback)
-		{
-			yield return new WaitForSeconds(time);
-			callback();
 		}
 
 		void AudioFinished()
