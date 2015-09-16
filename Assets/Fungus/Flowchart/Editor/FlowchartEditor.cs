@@ -31,6 +31,9 @@ namespace Fungus
 				
 		protected virtual void OnEnable()
 		{
+			if (NullTargetCheck()) // Check for an orphaned editor instance
+				return;
+
 			descriptionProp = serializedObject.FindProperty("description");
 			colorCommandsProp = serializedObject.FindProperty("colorCommands");
 			hideComponentsProp = serializedObject.FindProperty("hideComponents");
@@ -243,6 +246,30 @@ namespace Fungus
 					       derivedType.IsAssignableFrom(t)
 					       ).ToList();
 			
+		}
+
+		/**
+		 * When modifying custom editor code you can occasionally end up with orphaned editor instances.
+		 * When this happens, you'll get a null exception error every time the scene serializes / deserialized.
+		 * Once this situation occurs, the only way to fix it is to restart the Unity editor.
+		 * As a workaround, this function detects if this editor is an orphan and deletes it. 
+		 */
+		protected virtual bool NullTargetCheck()
+		{
+			try
+			{
+				// The serializedObject accessor creates a new SerializedObject if needed.
+				// However, this will fail with a null exception if the target object no longer exists.
+				#pragma warning disable 0219
+				SerializedObject so = serializedObject;
+			}
+			catch (System.NullReferenceException)
+			{
+				DestroyImmediate(this);
+				return true;
+			}
+			
+			return false;
 		}
 	}
 
