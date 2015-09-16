@@ -426,6 +426,21 @@ namespace Fungus
 		}
 
 		/**
+		 * Stop all executing Blocks in this Flowchart.
+		 */
+		public virtual void StopAllBlocks()
+		{
+			Block [] blocks = GetComponentsInChildren<Block>();
+			foreach (Block block in blocks)
+			{
+				if (block.IsExecuting())
+				{
+					block.Stop();
+				}
+			}
+		}
+
+		/**
 		 * Returns a new variable key that is guaranteed not to clash with any existing variable in the list.
 		 */
 		public virtual string GetUniqueVariableKey(string originalKey, Variable ignoreVariable = null)

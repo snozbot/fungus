@@ -31,7 +31,7 @@ namespace Fungus
 				// Stop if this is the last command in the list
 				if (commandIndex >= parentBlock.commandList.Count - 1)
 				{
-					Stop();
+					StopParentBlock();
 					return;
 				}
 
@@ -54,7 +54,7 @@ namespace Fungus
 				}
 
 				// No End command found
-				Stop();
+				StopParentBlock();
 			}
 		}
 

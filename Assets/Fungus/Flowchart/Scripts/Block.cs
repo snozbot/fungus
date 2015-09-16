@@ -237,6 +237,12 @@ namespace Fungus
 
 		public virtual void Stop()
 		{
+			// Tell the executing command to stop immediately
+			if (activeCommand != null)
+			{
+				activeCommand.OnStopExecuting();
+			}
+
 			// This will cause the execution loop to break on the next iteration
 			jumpToCommandIndex = int.MaxValue;
 		}
