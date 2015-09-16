@@ -13,6 +13,7 @@ Fungus v2.2.1
 - Improved Enter Name example to demonstrate the new Write, Get Text, Set Text, Set Interactable, etc. commands.
 - Removed punctuation pause for last character in a sentence #168
 - Removed unsupported 'shiver' item from tag help description in Say and Write commands
+- Moved LICENSE and README inside the Fungus folder #185
 
 # Fixed
             
