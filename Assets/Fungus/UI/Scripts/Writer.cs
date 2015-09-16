@@ -49,6 +49,9 @@ namespace Fungus
 		[Tooltip("Write one word at a time rather one character at a time")]
 		public bool writeWholeWords = false;
 
+		[Tooltip("Force the target text object to use Rich Text mode so text color and alpha appears correctly")]
+		public bool forceRichText = true;
+
 		/**
 		 * This property is true when the writer is waiting for user input to continue
 		 */
@@ -130,6 +133,24 @@ namespace Fungus
 				if (writerListener != null)
 				{
 					writerListeners.Add(writerListener);
+				}
+			}
+		}
+
+		protected virtual void Start()
+		{
+			if (forceRichText)
+			{
+				if (textUI != null)
+				{
+					textUI.supportRichText = true;
+				}
+
+				// Input Field does not support rich text
+
+				if (textMesh != null)
+				{
+					textMesh.richText = true;
 				}
 			}
 		}
@@ -599,11 +620,12 @@ namespace Fungus
 			string hiddenColor = String.Format("#{0:X2}{1:X2}{2:X2}{3:X2}", c.r, c.g, c.b, c.a);
 
 			// Make right hand side text hidden
-			if (rightText.Length > 0)
+			if (SupportsRichText() &&
+			    rightText.Length > 0)
 			{
 				tempText += "<color=" + hiddenColor + ">" + rightText + "</color>";
 			}
-			
+
 			return tempText;
 		}
 
