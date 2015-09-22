@@ -1,6 +1,6 @@
 # Contributing
 
-We welcome pull requests from everyone. By contributing to this project, you agree to abide by the Fungus [code of conduct]. You also agree that by submitting a pull request for this project, *your contribution will be licensed under the MIT license for this project*.
+We welcome pull requests from everyone. By contributing to this project, you agree to abide by the Fungus [code of conduct]. You also agree that by submitting a pull request for this project, **[your contribution will be licensed under the MIT license for this project][fungus license]**.
 
 Fork and clone the Fungus repo (see [fork a repo] )
 
@@ -23,3 +23,4 @@ Your pull request will have a better chance of being accepted if you do the foll
 [code of conduct]: https://fungusgames.com/code-of-conduct
 [commit]: http://chris.beams.io/posts/git-commit/
 [fork a repo]: https://help.github.com/articles/fork-a-repo/
+[fungus license]: https://github.com/FungusGames/Fungus/blob/master/LICENSE
