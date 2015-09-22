@@ -298,7 +298,34 @@ namespace Fungus
 
 			StartCoroutine(ProcessTokens(tokens, onComplete));
 		}
-		
+
+	    virtual protected bool CheckParamCount(List<string> paramList, int count) 
+        {
+	        if (paramList == null)
+	        {
+                Debug.LogError("paramList is null");
+	            return false;
+	        }
+            if (paramList.Count != count)
+            {
+                Debug.LogError("There must be exactly " + paramList.Count + " parameters.");
+                return false;
+            }
+	        return true;
+        }
+
+
+	    protected virtual bool TryGetSingleParam(List<string> paramList, int index, float defaultValue, out float value) 
+        {
+	        value = defaultValue;
+	        if (paramList.Count > index) 
+            {
+	            Single.TryParse(paramList[index], out value);
+	            return true;
+	        }
+	        return false;
+	    }
+
 		protected virtual IEnumerator ProcessTokens(List<TextTagParser.Token> tokens, Action onComplete)
 		{
 			// Reset control members
@@ -318,7 +345,7 @@ namespace Fungus
 				switch (token.type)
 				{
 				case TextTagParser.TokenType.Words:
-					yield return StartCoroutine(DoWords(token.param));
+                    yield return StartCoroutine(DoWords(token.paramList));
 					break;
 					
 				case TextTagParser.TokenType.BoldStart:
@@ -338,8 +365,11 @@ namespace Fungus
 					break;
 					
 				case TextTagParser.TokenType.ColorStart:
+			        if (CheckParamCount(token.paramList, 1)) 
+                    {
 					colorActive = true;
-					colorText = token.param;
+			            colorText = token.paramList[0];
+			        }
 					break;
 					
 				case TextTagParser.TokenType.ColorEnd:
@@ -347,7 +377,7 @@ namespace Fungus
 					break;
 					
 				case TextTagParser.TokenType.Wait:
-					yield return StartCoroutine(DoWait(token.param));
+                    yield return StartCoroutine(DoWait(token.paramList));
 					break;
 					
 				case TextTagParser.TokenType.WaitForInputNoClear:
@@ -359,10 +389,7 @@ namespace Fungus
 					break;
 					
 				case TextTagParser.TokenType.WaitOnPunctuationStart:
-					if (!Single.TryParse(token.param, out currentPunctuationPause))
-					{
-						currentPunctuationPause = punctuationPause;
-					}
+                    TryGetSingleParam(token.paramList, 0, punctuationPause, out currentPunctuationPause);
 					break;
 					
 				case TextTagParser.TokenType.WaitOnPunctuationEnd:
@@ -374,10 +401,7 @@ namespace Fungus
 					break;
 					
 				case TextTagParser.TokenType.SpeedStart:
-					if (!Single.TryParse(token.param, out currentWritingSpeed))
-					{
-						currentWritingSpeed = writingSpeed;
-					}
+                    TryGetSingleParam(token.paramList, 0, writingSpeed, out currentWritingSpeed);
 					break;
 					
 				case TextTagParser.TokenType.SpeedEnd:
@@ -389,48 +413,54 @@ namespace Fungus
 					break;
 					
 				case TextTagParser.TokenType.Message:
-					Flowchart.BroadcastFungusMessage(token.param);
+                    if (CheckParamCount(token.paramList, 1)) {
+                        Flowchart.BroadcastFungusMessage(token.paramList[0]);
+                    }
 					break;
 					
-				case TextTagParser.TokenType.VerticalPunch:
+				case TextTagParser.TokenType.VerticalPunch: 
+                    {
 					float vintensity;
-					if (!Single.TryParse(token.param, out vintensity))
-					{
-						vintensity = 10f;
+    				    float time;
+    				    TryGetSingleParam(token.paramList, 0, 10.0f, out vintensity);
+    				    TryGetSingleParam(token.paramList, 1, 0.5f, out time);
+    				    Punch(new Vector3(0, vintensity, 0), time);
 					}
-					Punch(new Vector3(0, vintensity, 0), 0.5f);
 					break;
 					
-				case TextTagParser.TokenType.HorizontalPunch:
+				case TextTagParser.TokenType.HorizontalPunch: 
+                    {
 					float hintensity;
-					if (!Single.TryParse(token.param, out hintensity))
-					{
-						hintensity = 10f;
+    				    float time;
+    				    TryGetSingleParam(token.paramList, 0, 10.0f, out hintensity);
+    				    TryGetSingleParam(token.paramList, 1, 0.5f, out time);
+    				    Punch(new Vector3(hintensity, 0, 0), time);
 					}
-					Punch(new Vector3(hintensity, 0, 0), 0.5f);
 					break;
 					
-				case TextTagParser.TokenType.Punch:
+				case TextTagParser.TokenType.Punch: 
+                    {
 					float intensity;
-					if (!Single.TryParse(token.param, out intensity))
-					{
-						intensity = 10f;
+    				    float time;
+    				    TryGetSingleParam(token.paramList, 0, 10.0f, out intensity);
+    				    TryGetSingleParam(token.paramList, 1, 0.5f, out time);
+    				    Punch(new Vector3(intensity, intensity, 0), time);
 					}
-					Punch(new Vector3(intensity, intensity, 0), 0.5f);
 					break;
 					
 				case TextTagParser.TokenType.Flash:
 					float flashDuration;
-					if (!Single.TryParse(token.param, out flashDuration))
-					{
-						flashDuration = 0.2f;
-					}
+                    TryGetSingleParam(token.paramList, 0, 0.2f, out flashDuration);
 					Flash(flashDuration);
 					break;
-					
-				case TextTagParser.TokenType.Audio:
+
+                case TextTagParser.TokenType.Audio: 
+                    {
+                        AudioSource audioSource = null;
+                        if (CheckParamCount(token.paramList, 1))
 					{
-						AudioSource audioSource = FindAudio(token.param);
+                            audioSource = FindAudio(token.paramList[0]);
+                        }
 						if (audioSource != null)
 						{
 							audioSource.PlayOneShot(audioSource.clip);
@@ -440,7 +470,10 @@ namespace Fungus
 					
 				case TextTagParser.TokenType.AudioLoop:
 					{
-						AudioSource audioSource = FindAudio(token.param);
+                        AudioSource audioSource = null;
+					    if (CheckParamCount(token.paramList, 1)) {
+					        audioSource = FindAudio(token.paramList[0]);
+					    }
 						if (audioSource != null)
 						{
 							audioSource.Play();
@@ -451,7 +484,11 @@ namespace Fungus
 					
 				case TextTagParser.TokenType.AudioPause:
 					{
-						AudioSource audioSource = FindAudio(token.param);
+                        AudioSource audioSource = null;
+					    if (CheckParamCount(token.paramList, 1)) {
+					        audioSource = FindAudio(token.paramList[0]);
+					    }
+
 						if (audioSource != null)
 						{
 							audioSource.Pause();
@@ -461,7 +498,10 @@ namespace Fungus
 					
 				case TextTagParser.TokenType.AudioStop:
 					{
-						AudioSource audioSource = FindAudio(token.param);
+                        AudioSource audioSource = null;
+					    if (CheckParamCount(token.paramList, 1)) {
+					        audioSource = FindAudio(token.paramList[0]);
+					    }
 						if (audioSource != null)
 						{
 							audioSource.Stop();
@@ -488,9 +528,12 @@ namespace Fungus
 				onComplete();
 			}
 		}
-		
-		protected virtual IEnumerator DoWords(string param)
+
+	    protected virtual IEnumerator DoWords(List<string> paramList)
+	    {
+	        if (CheckParamCount(paramList, 1))
 		{
+	            string param = paramList[0];
 			string startText = text;
 			string openText = OpenMarkup();
 			string closeText = CloseMarkup();
@@ -507,7 +550,7 @@ namespace Fungus
 
 				string left = "";
 				string right = "";
-				
+
 				PartitionString(writeWholeWords, param, i, out left, out right);
 				text = ConcatenateString(startText, openText, closeText, left, right);
 
@@ -533,7 +576,7 @@ namespace Fungus
 					if (timeAccumulator > 0f)
 					{
 						timeAccumulator -= 1f / currentWritingSpeed;
-					}
+	                    } 
 					else
 					{
 						yield return new WaitForSeconds(1f / currentWritingSpeed);
@@ -541,6 +584,7 @@ namespace Fungus
 				}
 			}
 		}
+	    }
 
 		protected void PartitionString(bool wholeWords, string inputString, int i, out string left, out string right)
 		{
@@ -590,8 +634,14 @@ namespace Fungus
 			return "";
 		}
 		
-		protected virtual IEnumerator DoWait(string param)
+		protected virtual IEnumerator DoWait(List<string> paramList)
 		{
+            var param = "";
+            if (paramList.Count == 1)
+		{
+                param = paramList[0];
+            }
+
 			float duration = 1f;
 			if (!Single.TryParse(param, out duration))
 			{
