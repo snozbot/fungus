@@ -878,6 +878,9 @@ namespace Fungus
 				// Look for any matching variables in this Flowchart first (public or private)
 				foreach (Variable variable in variables)
 				{
+					if (variable == null)
+						continue;
+
 					if (variable.key == key)
 					{	
 						string value = variable.ToString();
@@ -896,6 +899,9 @@ namespace Fungus
 
 					foreach (Variable variable in flowchart.variables)
 					{
+						if (variable == null)
+							continue;
+						
 						if (variable.scope == VariableScope.Public &&
 							variable.key == key)
 						{	
