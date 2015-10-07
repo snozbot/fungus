@@ -47,7 +47,10 @@ namespace Fungus
 				if (menuDialog != null)
 				{
 					menuDialog.gameObject.SetActive(true);
-					string displayText = text;
+
+					Flowchart flowchart = GetFlowchart();
+					string displayText = flowchart.SubstituteVariables(text);
+
 					menuDialog.AddOption(displayText, interactable, targetBlock);
 				}
 			}
