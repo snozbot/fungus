@@ -381,6 +381,8 @@ namespace Fungus
 				GameObject tempGO = GameObject.Instantiate(character.state.portraitImage.gameObject);
 				tempGO.transform.SetParent(character.state.portraitImage.transform, false);
 				tempGO.transform.localPosition = Vector3.zero;
+				tempGO.transform.localScale = character.state.position.localScale;
+
 				Image tempImage = tempGO.GetComponent<Image>();
 				tempImage.sprite = character.state.portraitImage.sprite;
 				tempImage.preserveAspect = true;
