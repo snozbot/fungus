@@ -129,12 +129,12 @@ namespace Fungus
 			}
 		}
 
-		public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip audioClip, Action onComplete)
+		public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip voiceOverClip, Action onComplete)
 		{
-			StartCoroutine(SayInternal(text, clearPrevious, waitForInput, fadeWhenDone, audioClip, onComplete));
+			StartCoroutine(SayInternal(text, clearPrevious, waitForInput, fadeWhenDone, voiceOverClip, onComplete));
 		}
 
-		protected virtual IEnumerator SayInternal(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip audioClip, Action onComplete)
+		protected virtual IEnumerator SayInternal(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip voiceOverClip, Action onComplete)
 		{
 			Writer writer = GetWriter();
 
@@ -148,15 +148,20 @@ namespace Fungus
 
 			this.fadeWhenDone = fadeWhenDone;
 
-			// Look for a character sound effect if no voice over clip is specified
-			AudioClip clip = audioClip;
-			if (speakingCharacter != null &&
-			    clip == null)
-			{
-				clip = speakingCharacter.soundEffect;
-			}
+			// Voice over clip takes precedence over a character sound effect if provided
 
-			writer.Write(text, clearPrevious, waitForInput, clip, onComplete);
+			AudioClip soundEffectClip = null;
+			if (voiceOverClip != null)
+			{
+				WriterAudio writerAudio = GetWriterAudio();
+				writerAudio.PlayVoiceover(voiceOverClip);
+			}
+			else if (speakingCharacter != null)
+			{
+				soundEffectClip = speakingCharacter.soundEffect;
+			}
+			writer.Write(text, clearPrevious, waitForInput, soundEffectClip, onComplete);
+
 		}
 
 		protected virtual void LateUpdate()
