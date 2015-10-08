@@ -246,7 +246,11 @@ namespace Fungus
 			// they waste memory so should be cleared out periodically.
 
 			Block[] blocks = GetComponentsInChildren<Block>();
-			
+
+			// Remove any null entries in the variables list
+			// It shouldn't happen but it seemed to occur for a user on the forum 
+			variables.RemoveAll(item => item == null);
+
 			foreach (Variable variable in GetComponents<Variable>())
 			{
 				if (!variables.Contains(variable))
@@ -310,14 +314,7 @@ namespace Fungus
         }
 
 	    protected virtual void Initialize()
-	    {
-            // If there are other flowcharts in the scene and the selected block has the default name, then this is probably a new block.
-            // Reset the event handler of the new flowchart's default block to avoid crashes.
-            if (selectedBlock && cachedFlowcharts.Count > 1 && selectedBlock.blockName == DEFAULT_BLOCK_NAME)
-            {
-                selectedBlock.eventHandler = null;
-            }
-        }
+	    {}
 
 		protected virtual Block CreateBlockComponent(GameObject parent)
 		{
