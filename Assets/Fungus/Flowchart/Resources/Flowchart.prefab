@@ -11,6 +11,7 @@ GameObject:
   - 114: {fileID: 11430050}
   - 114: {fileID: 11433304}
   - 114: {fileID: 11462346}
+  - 114: {fileID: 11456218}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -77,14 +78,40 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 67
-    y: 69
+    y: 70
     width: 120
     height: 40
   itemId: 0
   blockName: New Block
   description: 
   eventHandler: {fileID: 11462346}
-  commandList: []
+  commandList:
+  - {fileID: 11456218}
+--- !u!114 &11456218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1
+  errorMessage: 
+  indentLevel: 0
+  storyText: Hi
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &11462346
 MonoBehaviour:
   m_ObjectHideFlags: 1
