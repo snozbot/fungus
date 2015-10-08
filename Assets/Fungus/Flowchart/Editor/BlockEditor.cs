@@ -399,6 +399,9 @@ namespace Fungus
 				newHandler.parentBlock = block;
 				block.eventHandler = newHandler;
 			}
+
+			// Because this is an async call, we need to force prefab instances to record changes
+			PrefabUtility.RecordPrefabInstancePropertyModifications(block);
 		}
 
 		protected virtual void UpdateIndentLevels(Block block)
@@ -764,6 +767,9 @@ namespace Fungus
 			{
 				block.commandList.Add(newCommand);
 			}
+
+			// Because this is an async call, we need to force prefab instances to record changes
+			PrefabUtility.RecordPrefabInstancePropertyModifications(block);
 		}
 
 		public virtual void ShowContextMenu()
@@ -968,6 +974,9 @@ namespace Fungus
 				}
 			}
 
+			// Because this is an async call, we need to force prefab instances to record changes
+			PrefabUtility.RecordPrefabInstancePropertyModifications(block);
+			
 			Repaint();
 		}
 		
