@@ -120,6 +120,17 @@ namespace Fungus
 			executionCount = 0;
 		}
 
+		public override void OnStopExecuting()
+		{
+			SayDialog sayDialog = SayDialog.GetSayDialog();
+			if (sayDialog == null)
+			{
+				return;
+			}
+
+			sayDialog.Stop();
+		}
+
 		//
 		// ILocalizable implementation
 		//

@@ -75,7 +75,7 @@ namespace Fungus
 
 			if (callMode == CallMode.Stop)
 			{
-				Stop();
+				StopParentBlock();
 			}
 			else if (callMode == CallMode.Continue)
 			{

@@ -83,7 +83,11 @@ namespace Fungus
 
 		public virtual void Continue()
 		{
-			Continue(commandIndex + 1);
+			// This is a noop if the Block has already been stopped
+			if (isExecuting)
+			{
+				Continue(commandIndex + 1);
+			}
 		}
 
 		public virtual void Continue(int nextCommandIndex)
@@ -95,7 +99,7 @@ namespace Fungus
 			}
 		}
 
-		public virtual void Stop()
+		public virtual void StopParentBlock()
 		{
 			OnExit();
 			if (parentBlock != null)
@@ -103,6 +107,15 @@ namespace Fungus
 				parentBlock.Stop();
 			}
 		}
+
+		/**
+		 * Called when the parent block has been requested to stop executing, and
+		 * this command is the currently executing command.
+		 * Use this callback to terminate any asynchronous operations and 
+		 * cleanup state so that the command is ready to execute again later on.
+		 */
+		public virtual void OnStopExecuting()
+		{}
 
 		/**
 		 * Called when the new command is added to a block in the editor.

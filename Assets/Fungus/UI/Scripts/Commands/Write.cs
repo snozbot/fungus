@@ -42,6 +42,17 @@ namespace Fungus
 
 		public ColorData setColor = new ColorData(Color.white);
 
+		protected Writer GetWriter()
+		{
+			Writer writer = textObject.GetComponent<Writer>();
+			if (writer == null)
+			{
+				writer = textObject.AddComponent<Writer>() as Writer;
+			}
+			
+			return writer;
+		}
+
 		public override void OnEnter()
 		{
 			if (textObject == null)
@@ -50,7 +61,7 @@ namespace Fungus
 				return;
 			}
 		
-			Writer writer = FindWriter(textObject);
+			Writer writer = GetWriter();
 			if (writer == null)
 			{
 				Continue();
@@ -101,15 +112,9 @@ namespace Fungus
 			return new Color32(235, 191, 217, 255);
 		}
 
-		protected Writer FindWriter(GameObject textObject)
+		public override void OnStopExecuting()
 		{
-			Writer writer = textObject.GetComponent<Writer>();
-			if (writer == null)
-			{
-				writer = textObject.AddComponent<Writer>() as Writer;
-			}
-
-			return writer;
+			GetWriter().Stop();
 		}
 
 		//

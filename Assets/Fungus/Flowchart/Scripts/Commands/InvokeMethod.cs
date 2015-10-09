@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Reflection;
 using System.Linq;
@@ -120,7 +120,7 @@ namespace Fungus
 					}
 					else if(callMode == Call.CallMode.Stop)
 					{
-						Stop();
+						StopParentBlock();
 					}
 				}
 			}

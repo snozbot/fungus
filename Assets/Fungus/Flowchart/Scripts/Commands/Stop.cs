@@ -6,13 +6,13 @@ namespace Fungus
 {
 	[CommandInfo("Flow", 
 	             "Stop", 
-	             "Stop executing the current Flowchart.")]
+	             "Stop executing the Block that contains this command.")]
 	[AddComponentMenu("")]
 	public class Stop : Command
 	{		
 		public override void OnEnter()
 		{
-			Stop();
+			StopParentBlock();
 		}
 
 		public override Color GetButtonColor()

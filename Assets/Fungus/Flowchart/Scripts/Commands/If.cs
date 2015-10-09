@@ -97,7 +97,7 @@ namespace Fungus
 			// Last command in block
 			if (commandIndex >= parentBlock.commandList.Count)
 			{
-				Stop();
+				StopParentBlock();
 				return;
 			}
 
@@ -128,7 +128,7 @@ namespace Fungus
 					if (i >= parentBlock.commandList.Count - 1)
 					{
 						// Last command in Block, so stop
-						Stop();
+						StopParentBlock();
 					}
 					else
 					{
@@ -147,7 +147,7 @@ namespace Fungus
 			}
 
 			// No matching End command found, so just stop the block
-			Stop();
+			StopParentBlock();
 		}
 
 		public override string GetSummary()
