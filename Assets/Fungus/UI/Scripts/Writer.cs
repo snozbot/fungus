@@ -269,7 +269,10 @@ namespace Fungus
 
 		public virtual void Stop()
 		{
-			exitFlag = true;
+			if (isWriting || isWaitingForInput)
+			{
+				exitFlag = true;
+			}
 		}
 
 		public virtual void Write(string content, bool clear, bool waitForInput, AudioClip audioClip, Action onComplete)

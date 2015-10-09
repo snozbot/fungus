@@ -66,6 +66,11 @@ namespace Fungus
 			}
 		}
 
+		public override void OnStopExecuting()
+		{
+			CameraController.GetInstance().StopAllCoroutines();
+		}
+
 		public override string GetSummary()
 		{
 			if (targetView == null)

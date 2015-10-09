@@ -240,6 +240,7 @@ namespace Fungus
 			// Tell the executing command to stop immediately
 			if (activeCommand != null)
 			{
+				activeCommand.isExecuting = false;
 				activeCommand.OnStopExecuting();
 			}
 

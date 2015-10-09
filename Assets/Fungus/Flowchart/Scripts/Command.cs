@@ -83,7 +83,11 @@ namespace Fungus
 
 		public virtual void Continue()
 		{
-			Continue(commandIndex + 1);
+			// This is a noop if the Block has already been stopped
+			if (isExecuting)
+			{
+				Continue(commandIndex + 1);
+			}
 		}
 
 		public virtual void Continue(int nextCommandIndex)
