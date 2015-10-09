@@ -13,6 +13,14 @@ namespace Fungus
 		{
 			GameObject go = SpawnPrefab("Flowchart");
 			go.transform.position = Vector3.zero;
+
+			// Only the first created Flowchart in the scene should have a default GameStarted block
+			if (GameObject.FindObjectsOfType<Flowchart>().Length > 1)
+			{
+				Block block = go.GetComponent<Block>();
+				block.eventHandler = null;
+				GameObject.DestroyImmediate(block.eventHandler);
+			}
 		}
 
 		[MenuItem("Tools/Fungus/Create/Fungus Logo", false, 1000)]

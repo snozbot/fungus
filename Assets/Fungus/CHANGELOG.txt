@@ -1,3 +1,31 @@
+Fungus v2.2.1
+=============
+
+# Added
+
+- Set Interactable command to control UI button, input field, etc. interactivity #178
+- Button Clicked event handler to execute a block when a UI button is clicked
+- End Edit event handler to execute a block when user presses enter in an input field
+- Hide specific commands & categories in the Add Command menu by setting the Hide Commands property on Flowchart
+
+# Changed
+
+- Improved Enter Name example to demonstrate the new Write, Get Text, Set Text, Set Interactable, etc. commands.
+- Removed punctuation pause for last character in a sentence #168
+- Removed unsupported 'shiver' item from tag help description in Say and Write commands
+- Moved LICENSE and README inside the Fungus folder #185
+
+# Fixed
+            
+- Concurrent Say calls cause Say Dialog to freeze up #156
+- Null reference error after editing Flowchart code #181
+- Markup text visible if rich text not enabled when using Write command #176    
+- ControlAudio waitUntilFinished property doesn't wait for correct time #174
+- Removed legacy hidden objects in example scenes #159
+- Undo for delete command doesn't work #161
+- Flowchart in The Hunter example has Hide Components set to false #150
+
+
 Fungus v2.2.0
 =============
 

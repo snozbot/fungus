@@ -12,12 +12,18 @@ namespace Fungus
 		[Tooltip("Code of the language to set. e.g. ES, DE, JA")]
 		public string languageCode; 
 
+		public static string mostRecentLanguage = "";
+
 		public override void OnEnter()
 		{
 			Localization localization = GameObject.FindObjectOfType<Localization>();
 			if (localization != null)
 			{
 				localization.SetActiveLanguage(languageCode, true);
+
+				// Cache the most recently set language code so we can continue to 
+				// use the same language in subsequent scenes.
+				mostRecentLanguage = languageCode;
 			}
 
 			Continue();

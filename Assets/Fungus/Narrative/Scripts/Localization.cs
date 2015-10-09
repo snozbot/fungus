@@ -56,6 +56,16 @@ namespace Fungus
 		[NonSerialized]
 		public string notificationText = "";
 
+		public virtual void OnLevelWasLoaded(int level) 
+		{
+			// Check if a language has been selected using the Set Language command in a previous scene.
+			if (SetLanguage.mostRecentLanguage != "")
+			{
+				// This language will be used when Start() is called
+				activeLanguage = SetLanguage.mostRecentLanguage;
+			}
+		}
+
 		public virtual void Start()
 		{
 			CacheLocalizeableObjects();

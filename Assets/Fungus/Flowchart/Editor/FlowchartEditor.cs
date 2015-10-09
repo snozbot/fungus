@@ -229,6 +229,9 @@ namespace Fungus
 			Variable newVariable = flowchart.gameObject.AddComponent(variableType) as Variable;
 			newVariable.key = flowchart.GetUniqueVariableKey("");
 			flowchart.variables.Add(newVariable);
+
+			// Because this is an async call, we need to force prefab instances to record changes
+			PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
 		}
 
 		public static List<System.Type> FindAllDerivedTypes<T>()
