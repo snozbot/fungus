@@ -407,6 +407,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &185519275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -924,6 +925,57 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!1 &396899562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 396899564}
+  - 114: {fileID: 396899563}
+  m_Layer: 0
+  m_Name: GenericTextTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &396899563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 396899562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeout: 5
+  ignored: 0
+  succeedAfterAllAssertionsAreExecuted: 0
+  expectException: 0
+  expectedExceptionList: 
+  succeedWhenExceptionIsThrown: 0
+  includedPlatforms: -1
+  platformsToIgnore: []
+  dynamic: 0
+  dynamicTypeName: 
+--- !u!4 &396899564
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 396899562}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1619905204}
+  - {fileID: 954527802}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!114 &419867297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1001,6 +1053,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &497932659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1131,6 +1184,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &501693569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1349,7 +1403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &717214672
 Transform:
   m_ObjectHideFlags: 0
@@ -1480,6 +1534,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &750279030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1916,6 +1971,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &899652413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2071,6 +2127,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!1 &945055421
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,6 +2243,138 @@ MonoBehaviour:
   other: {fileID: 0}
   otherPropertyPath: 
   constantValueGeneric: 0
+--- !u!1 &954527801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 142980, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 954527802}
+  - 114: {fileID: 954527806}
+  - 114: {fileID: 954527805}
+  - 114: {fileID: 954527804}
+  - 114: {fileID: 954527803}
+  m_Layer: 0
+  m_Name: Flowchart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &954527802
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 467082, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 954527801}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 396899564}
+  m_RootOrder: 1
+--- !u!114 &954527803
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 954527801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2261dbe44de43a980e6f7c77c88f7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1
+  errorMessage: 
+  indentLevel: 0
+  textObject: {fileID: 1619905202}
+  text:
+    stringRef: {fileID: 0}
+    stringVal: Test text
+  description: 
+  clearText: 1
+  waitUntilFinished: 1
+  textColor: 0
+  setAlpha:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  setColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &954527804
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 11462346, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 954527801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 954527805}
+--- !u!114 &954527805
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 11433304, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 954527801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 67
+    y: 72
+    width: 120
+    height: 40
+  itemId: 0
+  blockName: Start
+  description: 
+  eventHandler: {fileID: 954527804}
+  commandList:
+  - {fileID: 954527803}
+--- !u!114 &954527806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11430050, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 954527801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1.0
+  scrollPos: {x: 0, y: 0}
+  variablesScrollPos: {x: 0, y: 0}
+  variablesExpanded: 1
+  blockViewHeight: 400
+  zoom: 1
+  scrollViewRect:
+    serializedVersion: 2
+    x: -343
+    y: -340
+    width: 1114
+    height: 859
+  selectedBlock: {fileID: 0}
+  selectedCommands: []
+  variables: []
+  description: "Tests using the Write command with a \ncomponent that exposes the
+    'text' property.\nThis allows Write to work with TextMeshPro or any other\ntext
+    object that uses the 'text' property."
+  stepPause: 0
+  colorCommands: 1
+  hideComponents: 1
+  saveSelection: 1
+  localizationId: 
+  hideCommands: []
 --- !u!1 &988367244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2239,6 +2428,7 @@ MonoBehaviour:
   hiddenTextColor: {r: .500811279, g: .213235319, b: 1, a: 1}
   writeWholeWords: 1
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &988367247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3633,6 +3823,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &1121374953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3946,6 +4137,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &1218238777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4031,7 +4223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1106313368}
+  selectedFlowchart: {fileID: 954527806}
 --- !u!4 &1308535842
 Transform:
   m_ObjectHideFlags: 1
@@ -4692,6 +4884,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &1476144416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4839,6 +5032,7 @@ MonoBehaviour:
   hiddenTextColor: {r: .463235319, g: .463235319, b: .463235319, a: 1}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &1490749235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5217,6 +5411,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &1614606400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5255,6 +5450,45 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1614606397}
+--- !u!1 &1619905202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1619905204}
+  - 114: {fileID: 1619905203}
+  m_Layer: 0
+  m_Name: DummyText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1619905203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1619905202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef3ddda75e9a4813ae8e0764d2b7880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1619905204
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1619905202}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 396899564}
+  m_RootOrder: 0
 --- !u!1 &1649786890
 GameObject:
   m_ObjectHideFlags: 0
@@ -5418,6 +5652,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &1651293178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5582,6 +5817,7 @@ MonoBehaviour:
   hiddenTextColor: {r: .500811279, g: .213235319, b: 1, a: 1}
   writeWholeWords: 1
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &1719294952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5893,6 +6129,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!1 &1783342057
 GameObject:
   m_ObjectHideFlags: 0
@@ -6480,6 +6717,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &1920590684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6607,6 +6845,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &2004095631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6697,6 +6936,7 @@ MonoBehaviour:
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
   forceRichText: 1
+  instantComplete: 1
 --- !u!114 &2015818683
 MonoBehaviour:
   m_ObjectHideFlags: 0

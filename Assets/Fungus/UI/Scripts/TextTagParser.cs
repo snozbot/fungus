@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -30,7 +29,7 @@ namespace Fungus
 			Message,				// m=MessageName
 			VerticalPunch,       	// {vpunch=0.5}
 			HorizontalPunch,        // {hpunch=0.5}
-			Punch,					// {shake=0.5}
+			Punch,					// {punch=0.5}
 			Flash,					// {flash=0.5}
 			Audio,					// {audio=Sound}
 			AudioLoop,				// {audioloop=Sound}
@@ -41,7 +40,7 @@ namespace Fungus
 		public class Token
 		{
 			public TokenType type = TokenType.Invalid;
-			public string param = "";
+			public List<string> paramList;
 		}
 
 		public static string GetTagHelp()
@@ -59,9 +58,9 @@ namespace Fungus
 				"\t{c} Clear\n" +
 				"\t{x} Exit, advance to the next command without waiting for input\n" +
 				"\n" +
-				"\t{vpunch=0.5} Vertically punch screen (intensity)\n" +
-				"\t{hpunch=0.5} Horizontally punch screen (intensity)\n" +
-				"\t{shake=1} Shake screen (intensity)\n" +
+				"\t{vpunch=10,0.5} Vertically punch screen (intensity,time)\n" +
+				"\t{hpunch=10,0.5} Horizontally punch screen (intensity,time)\n" +
+				"\t{punch=10,0.5} Punch screen (intensity,time)\n" +
 				"\t{flash=0.5} Flash screen (duration)\n" +
 				"\n" +
 				"\t{audio=AudioObjectName} Play Audio Once\n" +
@@ -117,7 +116,7 @@ namespace Fungus
 				if (trimLeading &&
 				    token.type == TokenType.Words)
 				{
-					token.param = token.param.TrimStart(' ', '\t', '\r', '\n');
+					token.paramList[0] = token.paramList[0].TrimStart(' ', '\t', '\r', '\n');
 				}
 				
 				if (token.type == TokenType.Clear || 
@@ -138,7 +137,8 @@ namespace Fungus
 		{
 			Token token = new Token();
 			token.type = TokenType.Words;
-			token.param = words;
+			token.paramList = new List<string>(); 
+            token.paramList.Add(words);
 			tokenList.Add(token);
 		}
 		
@@ -154,7 +154,7 @@ namespace Fungus
 			string tag = tagText.Substring(1, tagText.Length - 2);
 			
 			TokenType type = TokenType.Invalid;
-			string paramText = ExtractParameter(tag);
+			List<string> parameters = ExtractParameters(tag);
 			
 			if (tag == "b")
 			{
@@ -273,7 +273,7 @@ namespace Fungus
 			{
 				Token token = new Token();
 				token.type = type;
-				token.param = paramText.Trim();			
+				token.paramList = parameters;			
 				tokenList.Add(token);
 			}
 			else
@@ -281,16 +281,23 @@ namespace Fungus
 				Debug.LogWarning("Invalid text tag " + tag);
 			}
 		}
-		
-		protected virtual string ExtractParameter(string input)
+
+		protected virtual List<string> ExtractParameters(string input)
 		{
+            List<string> paramsList = new List<string>();
 			int index = input.IndexOf('=');
 			if (index == -1)
 			{
-				return "";
+				return paramsList;
 			}
-			
-			return input.Substring(index +1);
+
+		    string paramsStr = input.Substring(index + 1);
+		    var splits = paramsStr.Split(',');
+		    foreach (var p in splits) 
+            {
+                paramsList.Add(p.Trim());
+		    }
+		    return paramsList;
 		}
 	}
 	
