@@ -66,7 +66,7 @@ namespace Fungus
 			Canvas.ForceUpdateCanvases();
 		}
 
-		protected virtual void Clear()
+		public virtual void Clear()
 		{
 			StopAllCoroutines();
 
