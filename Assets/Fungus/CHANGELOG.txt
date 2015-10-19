@@ -1,3 +1,26 @@
+Fungus v2.2.2
+=============
+
+# Added
+
+- Stop Flowchart command and Flowchart.StopAllBlocks() method #288
+
+# Changed
+
+- Only the first Flowchart added to a scene will have a default GameStarted event handler.
+- Null items in variable list are cleaned up on enable.
+
+# Fixed
+
+- Flowchart objects break when made into a prefab #275
+- Localization language does not persist between scenes #271
+- Voiceover clips not playing correctly in Say command #273
+- Changing portrait facing flips incorrectly #190
+- Variable substitution in Menu command #263
+- Null variable reference when substituting variables #278    
+- Removed empty gameobject in sherlock demo
+- Removed unused GameStarted component from built-in Flowchart prefab
+
 Fungus v2.2.1
 =============
 
