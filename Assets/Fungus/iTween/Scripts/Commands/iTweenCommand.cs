@@ -40,7 +40,14 @@ namespace Fungus
 				Continue();
 				return;
 			}
-			
+
+			// Force any existing iTweens on this target object to complete immediately
+			iTween[] tweens = targetObject.GetComponents<iTween>();
+			foreach (iTween tween in tweens) {
+				tween.time = 0;
+				tween.SendMessage("Update");
+			}
+
 			DoTween();
 			
 			if (!waitUntilFinished)
