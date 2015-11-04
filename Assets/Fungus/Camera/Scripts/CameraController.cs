@@ -341,10 +341,19 @@ namespace Fungus
 				}
 				
 				// Apply smoothed lerp to camera position and orthographic size
-				float t = timer / duration;
-				camera.orthographicSize = Mathf.Lerp(startSize, endSize, Mathf.SmoothStep(0f, 1f, t));
-				camera.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, t));
-				camera.transform.rotation = Quaternion.Lerp(startRot, endRot, Mathf.SmoothStep(0f, 1f, t));
+				float t = 1f;
+				if (duration > 0f)
+				{
+					t = timer / duration;
+				}
+
+				if (camera != null)
+				{
+					camera.orthographicSize = Mathf.Lerp(startSize, endSize, Mathf.SmoothStep(0f, 1f, t));
+					camera.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, t));
+					camera.transform.rotation = Quaternion.Lerp(startRot, endRot, Mathf.SmoothStep(0f, 1f, t));
+				}
+
 				SetCameraZ();
 				
 				if (arrived &&
@@ -468,7 +477,7 @@ namespace Fungus
 		protected virtual void SetCameraZ()
 		{
 			Camera camera = GetCamera();
-			if (camera)
+			if (camera != null)
 			{
 				camera.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y, cameraZ);
 			}
