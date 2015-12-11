@@ -16,9 +16,12 @@ namespace Fungus
 		public Sprite profileSprite;
 		public List<Sprite> portraits;
 		public FacingDirection portraitsFace;	
-		public PortraitState state;		
+		public PortraitState state;
+        
+        [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
+        public SayDialog setSayDialog;
 
-		[FormerlySerializedAs("notes")]
+        [FormerlySerializedAs("notes")]
 		[TextArea(5,10)]
 		public string description;
 
