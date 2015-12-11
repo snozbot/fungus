@@ -15,13 +15,13 @@ namespace Fungus
 		public AudioClip soundEffect;
 		public Sprite profileSprite;
 		public List<Sprite> portraits;
-		public FacingDirection portraitsFace;	
+		public FacingDirection portraitsFace;
 		public PortraitState state;
-        
-        [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
-        public SayDialog setSayDialog;
 
-        [FormerlySerializedAs("notes")]
+		[Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
+		public SayDialog setSayDialog;
+
+		[FormerlySerializedAs("notes")]
 		[TextArea(5,10)]
 		public string description;
 
@@ -34,7 +34,7 @@ namespace Fungus
 				activeCharacters.Add(this);
 			}
 		}
-		
+
 		protected virtual void OnDisable()
 		{
 			activeCharacters.Remove(this);
@@ -43,7 +43,7 @@ namespace Fungus
 		//
 		// ILocalizable implementation
 		//
-		
+
 		public virtual string GetStandardText()
 		{
 			return nameText;
@@ -58,7 +58,7 @@ namespace Fungus
 		{
 			return description;
 		}
-		
+
 		public virtual string GetStringId()
 		{
 			// String id for character names is CHARACTER.<Character Name>
