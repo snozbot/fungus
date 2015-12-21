@@ -10,7 +10,8 @@ using UnityEngine;
 [Serializable]
 public class PlatformRunnerConfiguration
 {
-    public string[] scenes = new string[0];
+    public List<string> buildScenes;
+    public List<string> testScenes;
     public BuildTarget buildTarget;
     public bool runInEditor;
     public string projectName = EditorApplication.currentScene;

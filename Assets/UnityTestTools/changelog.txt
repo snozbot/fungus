@@ -1,3 +1,17 @@
+Version 1.5.7
+
+- Updated tools for Unity 5.3
+
+Version 1.5.6
+
+- Updated Mono.Cecil.dll and Mono.Cecil.Mdb.dll libraries
+
+Version 1.5.5
+
+- Unit Tests Runner rendering improvments
+- Platform runner can include auxiliary scenes
+- other improvments and bugfixes  
+
 Version 1.5.4
 
 - APIs updates
