@@ -28,9 +28,25 @@ namespace Fungus
 		[Tooltip("Optional texture to use when rendering the fullscreen fade effect.")]
 		public Texture2D fadeTexture;
 
+		[Tooltip("Camera to use for the fade. Will use main camera if set to none.")]
+		public Camera targetCamera;
+
+		public virtual void Start()
+		{
+			if (targetCamera == null)
+			{
+				targetCamera = Camera.main;
+			}
+			if (targetCamera == null)
+			{
+				targetCamera = GameObject.FindObjectOfType<Camera>();
+			}
+		}
+
 		public override void OnEnter()
 		{
-			if (targetView == null)
+			if (targetCamera == null ||
+			    targetView == null)
 			{
 				Continue();
 				return;
@@ -52,7 +68,7 @@ namespace Fungus
 				cameraController.screenFadeTexture = CameraController.CreateColorTexture(fadeColor, 32, 32);
 			}
 
-			cameraController.FadeToView(targetView, duration, fadeOut, delegate {	
+			cameraController.FadeToView(targetCamera, targetView, duration, fadeOut, delegate {	
 				if (waitUntilFinished)
 				{
 					cameraController.waiting = false;

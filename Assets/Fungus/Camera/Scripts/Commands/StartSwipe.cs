@@ -22,11 +22,34 @@ namespace Fungus
 		[Tooltip("Multiplier factor for speed of swipe pan")]
 		public float speedMultiplier = 1f;
 
+		[Tooltip("Camera to use for the pan. Will use main camera if set to none.")]
+		public Camera targetCamera;
+		
+		public virtual void Start()
+		{
+			if (targetCamera == null)
+			{
+				targetCamera = Camera.main;
+			}
+			if (targetCamera == null)
+			{
+				targetCamera = GameObject.FindObjectOfType<Camera>();
+			}
+		}
+
 		public override void OnEnter()
 		{
+			if (targetCamera == null ||
+			    viewA == null ||
+			    viewB == null)
+			{
+				Continue();
+				return;
+			}
+
 			CameraController cameraController = CameraController.GetInstance();
 
-			cameraController.StartSwipePan(viewA, viewB, duration, speedMultiplier, () => Continue() );
+			cameraController.StartSwipePan(targetCamera, viewA, viewB, duration, speedMultiplier, () => Continue() );
 		}
 
 		public override string GetSummary()

@@ -19,8 +19,30 @@ namespace Fungus
 		[Tooltip("Wait until the fade has finished before executing next command")]
 		public bool waitUntilFinished = true;
 
+		[Tooltip("Camera to use for the pan. Will use main camera if set to none.")]
+		public Camera targetCamera;
+		
+		public virtual void Start()
+		{
+			if (targetCamera == null)
+			{
+				targetCamera = Camera.main;
+			}
+			if (targetCamera == null)
+			{
+				targetCamera = GameObject.FindObjectOfType<Camera>();
+			}
+		}
+
 		public override void OnEnter()
 		{
+			if (targetCamera == null ||
+			    targetView == null)
+			{
+				Continue();
+				return;
+			}
+
 			CameraController cameraController = CameraController.GetInstance();
 
 			if (waitUntilFinished)
@@ -32,7 +54,7 @@ namespace Fungus
 			Quaternion targetRotation = targetView.transform.rotation;
 			float targetSize = targetView.viewSize;
 
-			cameraController.PanToPosition(targetPosition, targetRotation, targetSize, duration, delegate {
+			cameraController.PanToPosition(targetCamera, targetPosition, targetRotation, targetSize, duration, delegate {
 				if (waitUntilFinished)
 				{
 					cameraController.waiting = false;
