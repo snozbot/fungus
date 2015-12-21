@@ -30,7 +30,8 @@ namespace UnityTest
             RunFinished,
             TestStarted,
             TestFinished,
-            RunInterrupted
+            RunInterrupted,
+            AllScenesFinished
         }
 
         public static ResultDTO CreatePing()
@@ -64,6 +65,12 @@ namespace UnityTest
             var dto = new ResultDTO(MessageType.TestFinished);
             dto.testName = test.FullName;
             dto.testResult = GetSerializableTestResult(test);
+            return dto;
+        }
+
+        public static ResultDTO CreateAllScenesFinished()
+        {
+            var dto = new ResultDTO(MessageType.AllScenesFinished);
             return dto;
         }
 

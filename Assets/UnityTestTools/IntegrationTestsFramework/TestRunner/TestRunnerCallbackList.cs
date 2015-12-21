@@ -34,6 +34,14 @@ namespace UnityTest.IntegrationTestRunner
             }
         }
 
+        public void AllScenesFinished()
+        {
+            foreach (var unitTestRunnerCallback in m_CallbackList)
+            {
+                unitTestRunnerCallback.AllScenesFinished();
+            }
+        }
+
         public void TestStarted(TestResult test)
         {
             foreach (var unitTestRunnerCallback in m_CallbackList)

@@ -53,14 +53,14 @@ public static class IntegrationTest
 
     public static void Assert(bool condition, string message)
     {
-        if (condition) Pass();
-        else Fail(message);
+        if (!condition) 
+            Fail(message);
     }
 
     public static void Assert(GameObject go, bool condition, string message)
     {
-        if (condition) Pass(go);
-        else Fail(go, message);
+        if (!condition) 
+            Fail(go, message);
     }
 
     private static void LogResult(string message)

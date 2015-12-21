@@ -1,6 +1,8 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Text;
+using UnityEngine;
 
 namespace UnityTest
 {
@@ -41,7 +43,7 @@ namespace UnityTest
             
             public void Transfer(ref string val) 
             {
-                var bytes = System.Text.Encoding.BigEndianUnicode.GetBytes(val);
+                var bytes = Encoding.BigEndianUnicode.GetBytes(val);
                 int length = bytes.Length;
                 Transfer(ref length);
                 _stream.Write(bytes, 0, bytes.Length);
@@ -75,8 +77,14 @@ namespace UnityTest
                 int length = 0;
                 Transfer (ref length);
                 var bytes = new byte[length];
-                _stream.Read(bytes, 0, length);
-                val = System.Text.Encoding.BigEndianUnicode.GetString(bytes);
+                int remain = length;
+                int index = 0;
+                do {
+                    int bytesRead = _stream.Read(bytes, index, remain);
+                    remain -= bytesRead;
+                    index += bytesRead;
+                } while (remain > 0);
+                val = Encoding.BigEndianUnicode.GetString(bytes);
             }
         }
         
@@ -88,20 +96,21 @@ namespace UnityTest
             transfer.Transfer(ref dto.loadedLevel);
             transfer.Transfer(ref dto.loadedLevelName);
             
-			if(dto.messageType == ResultDTO.MessageType.Ping
+            if(dto.messageType == ResultDTO.MessageType.Ping
                || dto.messageType == ResultDTO.MessageType.RunStarted
                || dto.messageType == ResultDTO.MessageType.RunFinished
-               || dto.messageType == ResultDTO.MessageType.RunInterrupted)
+               || dto.messageType == ResultDTO.MessageType.RunInterrupted
+               || dto.messageType == ResultDTO.MessageType.AllScenesFinished)
                 return;
                 
             transfer.Transfer(ref dto.testName);
             transfer.Transfer(ref dto.testTimeout);
             
-			if(dto.messageType == ResultDTO.MessageType.TestStarted)
-				return;
-			
-			if(transfer is Reader)
-				dto.testResult = new SerializableTestResult();
+            if(dto.messageType == ResultDTO.MessageType.TestStarted)
+                return;
+            
+            if(transfer is Reader)
+                dto.testResult = new SerializableTestResult();
             SerializableTestResult str = (SerializableTestResult)dto.testResult;
             
             transfer.Transfer(ref str.resultState);
@@ -115,14 +124,14 @@ namespace UnityTest
             transfer.Transfer(ref str.stackTrace);
         }
     
-        public void Serialize (System.IO.Stream stream, ResultDTO dto)
+        public void Serialize (Stream stream, ResultDTO dto)
         {
             Transfer(dto, new Writer(stream));
         }
         
-        public object Deserialize (System.IO.Stream stream)
+        public object Deserialize (Stream stream)
         {
-            var result = (ResultDTO)System.Runtime.Serialization.FormatterServices.GetSafeUninitializedObject(typeof(ResultDTO));
+            var result = (ResultDTO)FormatterServices.GetSafeUninitializedObject(typeof(ResultDTO));
             Transfer (result, new Reader(stream));
             return result;
         }

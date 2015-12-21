@@ -99,6 +99,11 @@ namespace UnityTest
             SendDTO(ResultDTO.CreateTestFinished(test));
         }
 
+        public void AllScenesFinished()
+        {
+            SendDTO (ResultDTO.CreateAllScenesFinished ());
+        }
+
         public void TestRunInterrupted(List<ITestComponent> testsNotRun)
         {
             RunFinished(new List<TestResult>());
