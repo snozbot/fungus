@@ -1,4 +1,8 @@
 ﻿using UnityEngine;
+#if UNITY_5_0 || UNITY_5_1 || UNITY_5_2
+#else
+using UnityEngine.SceneManagement;
+#endif
 using System.Collections;
 using System;
 
@@ -70,7 +74,11 @@ namespace Fungus
 			}
 
 			// Load the scene (happens at end of frame)
+#if UNITY_5_0 || UNITY_5_1 || UNITY_5_2
 			Application.LoadLevel(sceneToLoad);
+#else
+			SceneManager.LoadScene(sceneToLoad);
+#endif
 
 			yield return new WaitForEndOfFrame();
 
