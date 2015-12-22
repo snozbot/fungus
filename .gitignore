@@ -10,3 +10,6 @@
 
 *.userprefs
 *.csv#
+
+.vs/*
+UWP/*
