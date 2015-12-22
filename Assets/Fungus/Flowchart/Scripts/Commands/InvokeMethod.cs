@@ -1,10 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
 using System;
 using UnityEngine.Events;
+using MarkerMetro.Unity.WinLegacy.Reflection;
 
 namespace Fungus
 {
@@ -120,7 +121,7 @@ namespace Fungus
 					}
 					else if(callMode == Call.CallMode.Stop)
 					{
-						StopParentBlock();
+                        StopParentBlock();
 					}
 				}
 			}
@@ -356,11 +357,11 @@ namespace Fungus
 	            default:
 	                var objType = ReflectionHelper.GetType(typeAssemblyname);
 
-	                if (objType.IsSubclassOf(typeof(UnityEngine.Object)))
-	                {
+                    if (objType.IsSubclassOf(typeof(UnityEngine.Object)))
+                    {
 	                    return objectValue;
 	                }
-	                else if (objType.IsEnum)
+	                else if (objType.IsEnum())
 	                    return System.Enum.ToObject(objType, intValue);
 
 	                break;
