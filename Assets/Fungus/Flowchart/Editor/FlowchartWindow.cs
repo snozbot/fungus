@@ -19,8 +19,8 @@ namespace Fungus
 		protected int dragWindowId = -1;
 		protected Vector2 startDragPosition;
 
-		protected const float minZoomValue = 0.25f;
-		protected const float maxZoomValue = 1f;
+		public const float minZoomValue = 0.25f;
+		public const float maxZoomValue = 1f;
 
 		protected GUIStyle nodeStyle = new GUIStyle();
 
@@ -248,6 +248,10 @@ namespace Fungus
 				Selection.activeGameObject = flowchart.gameObject;
 			}
 
+			// The center of the Flowchart depends on the block positions and window dimensions, so we calculate it 
+			// here in the FlowchartWindow class and store it on the Flowchart object for use later.
+			CalcFlowchartCenter(flowchart, blocks);
+
 			// Draw connections
 			foreach (Block block in blocks)
 			{
@@ -389,6 +393,33 @@ namespace Fungus
 			GLDraw.EndGroup();
 
 			EditorZoomArea.End();
+		}
+
+		public virtual void CalcFlowchartCenter(Flowchart flowchart, Block[] blocks)
+		{
+			if (flowchart == null ||
+				blocks.Count() == 0)
+			{
+				return;
+			}
+
+			Vector2 min = blocks[0].nodeRect.min;
+			Vector2 max = blocks[0].nodeRect.max;
+
+			foreach (Block block in blocks)
+			{
+				min.x = Mathf.Min(min.x, block.nodeRect.center.x);
+				min.y = Mathf.Min(min.y, block.nodeRect.center.y);
+				max.x = Mathf.Max(max.x, block.nodeRect.center.x);
+				max.y = Mathf.Max(max.y, block.nodeRect.center.y);
+			}
+
+			Vector2 center = (min + max) * -0.5f;
+
+			center.x += position.width * 0.5f;
+			center.y += position.height * 0.5f;
+
+			flowchart.centerPosition = center;
 		}
 
 		protected virtual void PanAndZoom(Flowchart flowchart)
