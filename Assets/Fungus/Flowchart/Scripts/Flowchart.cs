@@ -131,6 +131,12 @@ namespace Fungus
 		public List<string> hideCommands = new List<string>();
 
 		/**
+		 * Position in the center of all blocks in the flowchart.
+		 */
+		[NonSerialized]
+		public Vector2 centerPosition = Vector2.zero;
+
+		/**
 		 * Cached list of flowchart objects in the scene for fast lookup
 		 */
 		public static List<Flowchart> cachedFlowcharts = new List<Flowchart>();
