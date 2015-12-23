@@ -77,13 +77,18 @@ namespace Fungus
 			}
 		}
 
+		public virtual void ClearLocalizeableCache()
+		{
+			localizeableObjects.Clear();
+		}
+
 		// Build a cache of all the localizeable objects in the scene
 		protected virtual void CacheLocalizeableObjects()
 		{
-			Component[] components = GameObject.FindObjectsOfType<Component>();
-			foreach (Component component in components)
+			UnityEngine.Object[] objects = Resources.FindObjectsOfTypeAll(typeof(Component));
+			foreach (UnityEngine.Object o in objects)
 			{
-				ILocalizable localizable = component as ILocalizable;
+				ILocalizable localizable = o as ILocalizable;
 				if (localizable != null)
 				{
 					localizeableObjects[localizable.GetStringId()] = localizable;
@@ -202,11 +207,11 @@ namespace Fungus
 				}
 			}
 
-			// Add everything else that's localizable
-			Component[] components = GameObject.FindObjectsOfType<Component>();
-			foreach (Component component in components)
+			// Add everything else that's localizable (including inactive objects)
+			UnityEngine.Object[] objects = Resources.FindObjectsOfTypeAll(typeof(Component));
+			foreach (UnityEngine.Object o in objects)
 			{
-				ILocalizable localizable = component as ILocalizable;
+				ILocalizable localizable = o as ILocalizable;
 				if (localizable != null)
 				{
 					string stringId = localizable.GetStringId();
