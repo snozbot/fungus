@@ -86,7 +86,9 @@ namespace Fungus
 			{
 				return;
 			}
-			
+
+			localization.ClearLocalizeableCache();
+
 			string textData = localization.GetStandardText();			
 			File.WriteAllText(path, textData);
 			AssetDatabase.Refresh();
@@ -101,6 +103,8 @@ namespace Fungus
 			{
 				return;
 			}
+
+			localization.ClearLocalizeableCache();
 
 			string textData = File.ReadAllText(path);
 			localization.SetStandardText(textData);
