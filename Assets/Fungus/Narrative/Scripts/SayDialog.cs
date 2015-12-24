@@ -26,9 +26,6 @@ namespace Fungus
 		[Tooltip("Adjust width of story text when Character Image is displayed (to avoid overlapping)")]
 		public bool fitTextWithImage = true;
 
-		[Tooltip("Scale factor to apply to story text width when Character Image is displayed")]
-		public float textWidthScale = 0.8f;
-
 		protected float startStoryTextWidth; 
 		protected float startStoryTextInset;
 
