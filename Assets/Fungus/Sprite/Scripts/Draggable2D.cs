@@ -92,7 +92,7 @@ namespace Fungus
 
 						if (returnOnCompleted)
 						{
-							iTween.MoveTo(gameObject, startingPosition, returnDuration);
+							LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
 						}
 					}
 				}
@@ -107,7 +107,7 @@ namespace Fungus
 
 				if (returnOnCancelled)
 				{
-					iTween.MoveTo(gameObject, startingPosition, returnDuration);
+					LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
 				}
 			}
 
