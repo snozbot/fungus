@@ -134,7 +134,7 @@ namespace Fungus
 				    inspectCommand != activeCommandEditor.target)
 				{
 					// See if we have a cached version of the command editor already,
-					var editors = (from e in cachedCommandEditors where (e.target == inspectCommand) select e);
+					var editors = (from e in cachedCommandEditors where (e != null && e.target == inspectCommand) select e);
 
 					if (editors.Count() > 0)
 					{
