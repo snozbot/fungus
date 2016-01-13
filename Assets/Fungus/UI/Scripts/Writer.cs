@@ -368,13 +368,15 @@ namespace Fungus
 			exitFlag = false;
 			isWriting = true;
 
+			TextTagParser.TokenType previousTokenType = TextTagParser.TokenType.Invalid;
+
 			foreach (TextTagParser.Token token in tokens)
 			{
 
 				switch (token.type)
 				{
 				case TextTagParser.TokenType.Words:
-                    yield return StartCoroutine(DoWords(token.paramList));
+                    yield return StartCoroutine(DoWords(token.paramList, previousTokenType));
 			        break;
 					
 				case TextTagParser.TokenType.BoldStart:
@@ -541,7 +543,9 @@ namespace Fungus
 					}
 					break;
 				}
-				
+
+				previousTokenType = token.type;
+
 				if (exitFlag)
 				{
 					break;
@@ -561,14 +565,22 @@ namespace Fungus
 			}
 		}
 
-	    protected virtual IEnumerator DoWords(List<string> paramList)
+		protected virtual IEnumerator DoWords(List<string> paramList, TextTagParser.TokenType previousTokenType)
 	    {
 	        if (!CheckParamCount(paramList, 1))
 	        {
 				yield break;
 			}
 
-			string param = paramList[0].TrimStart(' ', '\t', '\r', '\n');
+			string param = paramList[0];
+
+			// Trim whitespace after a {wc} or {c} tag
+			if (previousTokenType == TextTagParser.TokenType.WaitForInputAndClear ||
+				previousTokenType == TextTagParser.TokenType.Clear)
+			{
+				param = param.TrimStart(' ', '\t', '\r', '\n');
+			}
+				
             string startText = text;
             string openText = OpenMarkup();
             string closeText = CloseMarkup();
