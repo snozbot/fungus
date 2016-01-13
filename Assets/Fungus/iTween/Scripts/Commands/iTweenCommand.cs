@@ -11,7 +11,7 @@ namespace Fungus
 		Y,
 		Z
 	}
-	
+
 	public abstract class iTweenCommand : Command 
 	{
 		[Tooltip("Target game object to apply the Tween to")]
@@ -30,6 +30,9 @@ namespace Fungus
 		[Tooltip("The type of loop to apply once the animation has completed")]
 		public iTween.LoopType loopType = iTween.LoopType.none;
 
+		[Tooltip("Stop any previously added iTweens on this object before adding this iTween")]
+		public bool stopPreviousTweens = false;
+
 		[Tooltip("Wait until the tween has finished before executing the next command")]
 		public bool waitUntilFinished = true;
 
@@ -41,15 +44,18 @@ namespace Fungus
 				return;
 			}
 
-			// Force any existing iTweens on this target object to complete immediately
-			iTween[] tweens = targetObject.GetComponents<iTween>();
-			foreach (iTween tween in tweens) {
-				tween.time = 0;
-				tween.SendMessage("Update");
+			if (stopPreviousTweens)
+			{
+				// Force any existing iTweens on this target object to complete immediately
+				iTween[] tweens = targetObject.GetComponents<iTween>();
+				foreach (iTween tween in tweens) {
+					tween.time = 0;
+					tween.SendMessage("Update");
+				}
 			}
 
 			DoTween();
-			
+
 			if (!waitUntilFinished)
 			{
 				Continue();
@@ -80,7 +86,7 @@ namespace Fungus
 
 			return targetObject.name + " over " + duration + " seconds";
 		}
-		
+
 		public override Color GetButtonColor()
 		{
 			return new Color32(233, 163, 180, 255);
