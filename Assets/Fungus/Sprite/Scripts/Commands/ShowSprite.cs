@@ -16,16 +16,34 @@ namespace Fungus
 		[Tooltip("Make the sprite visible or invisible")]
 		public bool visible = true;
 
+		public bool affectChildren = true;
+
 		public override void OnEnter()
 		{
 			if (spriteRenderer != null)
 			{
-				Color spriteColor = spriteRenderer.color;
-				spriteColor.a = visible ? 1f : 0f;
-				spriteRenderer.color = spriteColor;
+				if (affectChildren)
+				{
+					SpriteRenderer[] children = spriteRenderer.gameObject.GetComponentsInChildren<SpriteRenderer>();
+					foreach (SpriteRenderer sr in children)
+					{
+						SetSpriteAlpha(sr, visible);
+					}
+				}
+				else
+				{
+					SetSpriteAlpha(spriteRenderer, visible);
+				}
 			}
 
 			Continue();
+		}
+
+		protected virtual void SetSpriteAlpha(SpriteRenderer renderer, bool visible)
+		{
+			Color spriteColor = renderer.color;
+			spriteColor.a = visible ? 1f : 0f;
+			renderer.color = spriteColor;
 		}
 
 		public override string GetSummary()
