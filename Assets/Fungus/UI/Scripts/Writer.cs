@@ -568,7 +568,7 @@ namespace Fungus
 				yield break;
 			}
 
-            string param = paramList[0];
+			string param = paramList[0].TrimStart(' ', '\t', '\r', '\n');
             string startText = text;
             string openText = OpenMarkup();
             string closeText = CloseMarkup();
