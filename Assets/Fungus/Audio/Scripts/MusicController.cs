@@ -55,7 +55,7 @@ namespace Fungus
 		{
 			GetComponent<AudioSource>().Stop();
 		}
-		
+
 		/**
 		 * Fades the game music volume to required level over a period of time.
 		 * @param volume The new music volume value [0..1]
@@ -63,7 +63,49 @@ namespace Fungus
 		 */
 		public virtual void SetAudioVolume(float volume, float duration)
 		{
-			iTween.AudioTo(gameObject, volume, 1f, duration);
+			AudioSource audio = GetComponent<AudioSource>();
+
+			if (duration == 0f)
+			{
+				audio.volume = volume;
+				return;
+			}
+
+			LeanTween.value(gameObject, 
+				audio.volume, 
+				volume, 
+				duration).setOnUpdate( (v) => {
+					audio.volume = v;
+				});
+		}
+
+		/**
+		 * Shifts the game music pitch to required value over a period of time.
+		 * @param volume The new music pitch value
+		 * @param duration The length of time in seconds needed to complete the pitch change.
+		 * @param onComplete A delegate method to call when the pitch shift has completed.
+		 */
+		public virtual void SetAudioPitch(float pitch, float duration, System.Action onComplete)
+		{
+			AudioSource audio = GetComponent<AudioSource>();
+
+			if (duration == 0f)
+			{
+				audio.pitch = pitch;
+				return;
+			}
+
+			LeanTween.value(gameObject, 
+				audio.pitch, 
+				pitch, 
+				duration).setOnUpdate( (p) => {
+					audio.pitch = p;
+				}).setOnComplete( () => {
+					if (onComplete != null)
+					{
+						onComplete();
+					}
+				});
 		}
 
 		/**
@@ -76,7 +118,7 @@ namespace Fungus
 		{
 			GetComponent<AudioSource>().PlayOneShot(soundClip, volume);
 		}
-		
+
 		public virtual void PlaySoundAtTime(AudioClip soundClip, float volume, float atTime)
 		{
 			GetComponent<AudioSource>().time = atTime;						// This may not work BK
