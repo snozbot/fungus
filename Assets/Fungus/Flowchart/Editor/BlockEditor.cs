@@ -418,7 +418,11 @@ namespace Fungus
 				{
 					indentLevel--;
 				}
-				command.indentLevel = Math.Max(indentLevel, 0);
+
+				// Negative indent level is not permitted
+				indentLevel = Math.Max(indentLevel, 0);
+
+				command.indentLevel = indentLevel;
 
 				if (command.OpenBlock())
 				{
