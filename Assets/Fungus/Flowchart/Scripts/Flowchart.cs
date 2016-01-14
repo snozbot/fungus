@@ -880,6 +880,41 @@ namespace Fungus
 			return true;
 		}
 
+		/**
+		 * Returns true if there are any executing blocks in this Flowchart.
+		 */
+		public virtual bool HasExecutingBlocks()
+		{
+			Block[] blocks = GetComponentsInChildren<Block>();
+			foreach (Block block in blocks)
+			{
+				if (block.IsExecuting())
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/**
+		 * Returns a list of all executing blocks in this Flowchart.
+		 */
+		public virtual List<Block> GetExecutingBlocks()
+		{
+			List<Block> executingBlocks = new List<Block>();
+
+			Block[] blocks = GetComponentsInChildren<Block>();
+			foreach (Block block in blocks)
+			{
+				if (block.IsExecuting())
+				{
+					executingBlocks.Add(block);
+				}
+			}
+
+			return executingBlocks;
+		}
+
 		public virtual string SubstituteVariables(string text)
 		{
 			string subbedText = text;
