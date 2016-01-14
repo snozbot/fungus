@@ -15,7 +15,10 @@ namespace Fungus
 		
 		public virtual void Start()
 		{
-			targetButton.onClick.AddListener(OnButtonClick);
+			if (targetButton != null)
+			{
+				targetButton.onClick.AddListener(OnButtonClick);
+			}
 		}
 		
 		protected virtual void OnButtonClick()
