@@ -135,12 +135,13 @@ namespace Fungus
 		{
 			Writer writer = GetWriter();
 
-			// Stop any existing Say Command and write this one instead
-			// This will probably take a frame or two to complete
-			while (writer.isWriting || writer.isWaitingForInput)
+			if (writer.isWriting || writer.isWaitingForInput)
 			{
 				writer.Stop();
-				yield return null;
+				while (writer.isWriting || writer.isWaitingForInput)
+				{
+					yield return null;
+				}
 			}
 
 			this.fadeWhenDone = fadeWhenDone;
