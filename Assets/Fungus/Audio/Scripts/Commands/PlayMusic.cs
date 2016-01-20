@@ -15,13 +15,16 @@ namespace Fungus
 		[Tooltip("Time to begin playing in seconds. If the audio file is compressed, the time index may be inaccurate.")]
 		public float atTime;
 
+		[Tooltip("The music will start playing again at end.")]
+		public bool loop = true;
+
 		public override void OnEnter()
 		{
 			MusicController musicController = MusicController.GetInstance();
 			if (musicController != null)
 			{
 				float startTime = Mathf.Max (0, atTime);
-				musicController.PlayMusic(musicClip, startTime);
+				musicController.PlayMusic(musicClip, loop, startTime);
 			}
 
 			Continue();
