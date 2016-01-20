@@ -41,11 +41,17 @@ namespace Fungus
 		 * @param musicClip The music clip to play
 		 * @param atTime Time in the music clip to start at
 		 */
-		public void PlayMusic(AudioClip musicClip, float atTime = 0)
+		public void PlayMusic(AudioClip musicClip, bool loop, float atTime = 0)
 		{
-			GetComponent<AudioSource>().clip = musicClip;
-			GetComponent<AudioSource>().time = atTime;		// May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
-			GetComponent<AudioSource>().Play();
+			AudioSource audioSource = GetComponent<AudioSource>();
+			if (audioSource != null &&
+				audioSource.clip != musicClip)
+			{
+				audioSource.clip = musicClip;
+				audioSource.loop = loop;
+				audioSource.time = atTime;	// May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
+				audioSource.Play();
+			}
 		}
 
 		/**
