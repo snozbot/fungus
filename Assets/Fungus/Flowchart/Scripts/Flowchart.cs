@@ -589,7 +589,7 @@ namespace Fungus
 		{
 			foreach (Variable variable in variables)
 			{
-				if (variable.key == key)
+				if (variable != null && variable.key == key)
 				{
 					return variable as T;
 				}
@@ -606,7 +606,7 @@ namespace Fungus
 			List<Variable> publicVariables = new List<Variable>();
 			foreach (Variable v in variables)
 			{
-				if (v.scope == VariableScope.Public)
+				if (v != null && v.scope == VariableScope.Public)
 				{
 					publicVariables.Add(v);
 				}
@@ -644,7 +644,7 @@ namespace Fungus
 		{
 			foreach (Variable v in variables)
 			{
-				if (v.key == key)
+				if (v != null && v.key == key)
 				{
 					BooleanVariable variable = v as BooleanVariable;
 					if (variable != null)
@@ -665,7 +665,7 @@ namespace Fungus
 		{
 			foreach (Variable v in variables)
 			{
-				if (v.key == key)
+				if (v != null && v.key == key)
 				{
 					IntegerVariable variable = v as IntegerVariable;
 					if (variable != null)
@@ -686,7 +686,7 @@ namespace Fungus
 		{
 			foreach (Variable v in variables)
 			{
-				if (v.key == key)
+				if (v != null && v.key == key)
 				{
 					IntegerVariable variable = v as IntegerVariable;
 					if (variable != null)
@@ -707,7 +707,7 @@ namespace Fungus
 		{
 			foreach (Variable v in variables)
 			{
-				if (v.key == key)
+				if (v != null && v.key == key)
 				{
 					FloatVariable variable = v as FloatVariable;
 					if (variable != null)
@@ -728,7 +728,7 @@ namespace Fungus
 		{
 			foreach (Variable v in variables)
 			{
-				if (v.key == key)
+				if (v != null && v.key == key)
 				{
 					FloatVariable variable = v as FloatVariable;
 					if (variable != null)
@@ -749,7 +749,7 @@ namespace Fungus
 		{
 			foreach (Variable v in variables)
 			{
-				if (v.key == key)
+				if (v != null && v.key == key)
 				{
 					StringVariable variable = v as StringVariable;
 					if (variable != null)
@@ -770,7 +770,7 @@ namespace Fungus
 		{
 			foreach (Variable v in variables)
 			{
-				if (v.key == key)
+				if (v != null && v.key == key)
 				{
 					StringVariable variable = v as StringVariable;
 					if (variable != null)
