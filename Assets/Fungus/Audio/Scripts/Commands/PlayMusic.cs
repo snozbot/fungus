@@ -17,19 +17,22 @@ namespace Fungus
 
 		[Tooltip("The music will start playing again at end.")]
 		public bool loop = true;
+	
+		[Tooltip("Length of time to fade out previous playing music.")]
+		public float fadeDuration = 1f;
 
 		public override void OnEnter()
 		{
 			MusicController musicController = MusicController.GetInstance();
 			if (musicController != null)
 			{
-				float startTime = Mathf.Max (0, atTime);
-				musicController.PlayMusic(musicClip, loop, startTime);
+				float startTime = Mathf.Max(0, atTime);
+				musicController.PlayMusic(musicClip, loop, fadeDuration, startTime);
 			}
-
+				
 			Continue();
 		}
-
+					
 		public override string GetSummary()
 		{
 			if (musicClip == null)
