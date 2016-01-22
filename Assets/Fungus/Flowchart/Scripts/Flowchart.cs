@@ -623,7 +623,7 @@ namespace Fungus
 		{
 			foreach (Variable v in variables)
 			{
-				if (v.key == key)
+				if (v != null && v.key == key)
 				{
 					BooleanVariable variable = v as BooleanVariable;
 					if (variable != null)
