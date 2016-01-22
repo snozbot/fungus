@@ -29,6 +29,7 @@ namespace Fungus
 				    command.indentLevel == indentLevel)
 				{
 					endCommand = command;
+					break;
 				}
 			}
 
