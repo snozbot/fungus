@@ -64,7 +64,14 @@ namespace Fungus
 		[NonSerialized]
 		public int jumpToCommandIndex = -1;
 
+		protected bool executionInfoSet = false;
+
 		protected virtual void Awake()
+		{
+			SetExecutionInfo();
+		}
+
+		protected virtual void SetExecutionInfo()
 		{
 			// Give each child command a reference back to its parent block
 			// and tell each command its index in the list.
@@ -79,6 +86,8 @@ namespace Fungus
 				command.parentBlock = this;
 				command.commandIndex = index++;
 			}
+
+			executionInfoSet = true;
 		}
 
 #if UNITY_EDITOR
@@ -133,6 +142,11 @@ namespace Fungus
 			if (executionState != ExecutionState.Idle)
 			{
 				return false;
+			}
+
+			if (!executionInfoSet)
+			{
+				SetExecutionInfo();
 			}
 
 			executionCount++;
