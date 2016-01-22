@@ -58,6 +58,11 @@ namespace Fungus
 			executionCount++;
 
 			// Override the active say dialog if needed
+			if (character != null && character.setSayDialog != null)
+			{
+				SayDialog.activeSayDialog = character.setSayDialog;
+			}
+
 			if (setSayDialog != null)
 			{
 				SayDialog.activeSayDialog = setSayDialog;
