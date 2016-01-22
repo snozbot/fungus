@@ -41,16 +41,37 @@ namespace Fungus
 		 * @param musicClip The music clip to play
 		 * @param atTime Time in the music clip to start at
 		 */
-		public void PlayMusic(AudioClip musicClip, bool loop, float atTime = 0)
+		public void PlayMusic(AudioClip musicClip, bool loop, float fadeDuration, float atTime)
 		{
 			AudioSource audioSource = GetComponent<AudioSource>();
-			if (audioSource != null &&
-				audioSource.clip != musicClip)
+			if (audioSource == null || audioSource.clip == musicClip)
+			{
+				return;
+			}
+
+			if (fadeDuration == 0f)
 			{
 				audioSource.clip = musicClip;
 				audioSource.loop = loop;
 				audioSource.time = atTime;	// May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
 				audioSource.Play();
+			}
+			else
+			{
+				float startVolume = audioSource.volume;
+
+				LeanTween.value(gameObject, startVolume, 0f, fadeDuration)
+					.setOnUpdate( (v) => {
+						// Fade out current music
+						audioSource.volume = v;
+					}).setOnComplete( () => {
+						// Play new music
+						audioSource.volume = startVolume;
+						audioSource.clip = musicClip;
+						audioSource.loop = loop;
+						audioSource.time = atTime;	// May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
+						audioSource.Play();
+					});
 			}
 		}
 
