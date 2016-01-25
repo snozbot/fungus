@@ -1,3 +1,53 @@
+Fungus v2.3.0
+=============
+
+# Added
+- SetDraggable2D command #191
+- WaitInput command #276
+- Fade UI command to fade UI objects #349
+- Read Text File command to read a text file into a string variable #344
+- Added Set Audio Pitch command #340
+- 'Center View' button to center Flowchart window on all Blocks #302
+- Added Clear Menu command #300
+- Set Slider Value command #297
+- Stop Flowchart command #289
+
+# Changed
+- Added null checks in Flowchart variable accessors
+- Set Say Dialog property for characters
+- Can now specify the gameobject to shake for punch tag in Writer component
+- PlayMusic command has a loop property
+- Updated reorderable list control to v0.4.3
+- Updated to LeanTween 2.30
+- Added HasExecutingBlocks() and GetExecutingBlocks() to Flowchart class
+- Remove unused Text Width Scale property on Say Dialog
+- Can now specify a camera to use with Camera command (not just main) #319 #307
+- Can now disable Camera Z being forced by View commands #319
+- Text tags now support multiple parameters.
+- Write command now works with Text Mesh Pro text objects.
+- Writer.InstantComplete property controls click-to-complete writing.
+- Shake tag shakes camera instead of Writer game object.
+
+# Fixed
+- Ensure parentBlock is set when block executes #320
+- While loop with following If doesn't loop correctly #354
+- Auto cross fade music in Play Music command #199
+- Play Music call doesn't restart if same music already playing
+- Play Music call doesn't restart if same music already playing
+- Concurrent Say commands on same Say Dialog should interrupt #356
+- CustomGUI class not in Fungus namespace #353
+- Whitespace trimming after {wc} & {c} tags #346
+- iTween commands on the same gameobject can conflict #342 #303
+- Show Sprite should affect child sprites #338
+- Null reference if command classes have same name #312
+- End command indents when not matched with an If #308
+- Draggable objects behaving incorrectly #310
+- Inactive localizeable game objects are now also cached #322
+- SceneManager warnings in Unity 5.3
+- Fixed Windows store build 268
+- Fixed Writer beep timing issues in WebGL #295
+- Removed say command from Flowchart prefab
+
 Fungus v2.2.2
 =============
 
