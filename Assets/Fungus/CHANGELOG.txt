@@ -11,6 +11,7 @@ Fungus v2.3.0
 - Added Clear Menu command #300
 - Set Slider Value command #297
 - Stop Flowchart command #289
+- Integration with Esoteric Spine animation system (available in Fungus/Integrations/Spine folder)
 
 # Changed
 - Added null checks in Flowchart variable accessors
