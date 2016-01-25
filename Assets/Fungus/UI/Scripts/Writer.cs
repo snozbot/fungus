@@ -38,6 +38,9 @@ namespace Fungus
 		[Tooltip("Gameobject containing a Text, Inout Field or Text Mesh object to write to")]
 		public GameObject targetTextObject;
 
+		[Tooltip("Gameobject to punch when the punch tags are displayed. If none is set, the main camera will shake instead.")]
+		public GameObject punchObject;
+
 		[Tooltip("Writing characters per second")]
 		public float writingSpeed = 60;
 
@@ -752,11 +755,16 @@ namespace Fungus
 		
 		protected virtual void Punch(Vector3 axis, float time)
 		{
-			if (Camera.main == null)
+			GameObject go = punchObject;
+			if (go == null)
 			{
-				return;
+				go = Camera.main.gameObject;
 			}
-			iTween.ShakePosition(Camera.main.gameObject, axis, time);
+
+			if (go != null)
+			{
+				iTween.ShakePosition(go, axis, time);
+			}
 		}
 		
 		protected virtual void Flash(float duration)
