@@ -29,6 +29,20 @@ namespace Fungus
 			SpawnPrefab("FungusLogo");
 		}
 
+		[MenuItem("Tools/Fungus/Utilities/Export Fungus Package")]
+		static void ExportFungusPackage()
+		{
+			string path = EditorUtility.SaveFilePanel("Export Fungus Package", "", "Fungus", "unitypackage");			
+			if(path.Length == 0) 
+			{
+				return;
+			}
+
+			string[] folders = new string[] {"Assets/Fungus", "Assets/FungusExamples" };
+
+			AssetDatabase.ExportPackage(folders, path, ExportPackageOptions.Recurse);
+		}
+
 		public static GameObject SpawnPrefab(string prefabName)
 		{
 			GameObject prefab = Resources.Load<GameObject>(prefabName);
