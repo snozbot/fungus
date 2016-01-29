@@ -1,3 +1,11 @@
+Fungus v2.3.1
+=============
+
+# Fixed
+- Can't click on Say Dialog when a Menu Dialog is active #374
+- Set Audio Pitch: OnComplete not called when duration = 0 #369
+- Fade To View can sometimes not work in Unity 5.3 #370
+
 Fungus v2.3.0
 =============
 
