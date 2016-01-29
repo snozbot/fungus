@@ -31,20 +31,28 @@ namespace Fungus
 		[Tooltip("Camera to use for the fade. Will use main camera if set to none.")]
 		public Camera targetCamera;
 
-		public virtual void Start()
+		protected virtual void AcquireCamera()
 		{
-			if (targetCamera == null)
+			if (targetCamera != null)
 			{
-				targetCamera = Camera.main;
+				return;
 			}
+
+			targetCamera = Camera.main;
 			if (targetCamera == null)
 			{
 				targetCamera = GameObject.FindObjectOfType<Camera>();
 			}
 		}
 
+		public virtual void Start()
+		{
+			AcquireCamera();
+		}
+
 		public override void OnEnter()
 		{
+			AcquireCamera();
 			if (targetCamera == null ||
 			    targetView == null)
 			{
