@@ -14,6 +14,7 @@ namespace Fungus
 		protected SerializedProperty nextClickDelayProp;
 		protected SerializedProperty keyPressModeProp;
 		protected SerializedProperty shiftKeyEnabledProp;
+		protected SerializedProperty ignoreMenuClicksProp;
 		protected SerializedProperty keyListProp;
 
 		protected virtual void OnEnable()
@@ -22,6 +23,7 @@ namespace Fungus
 			nextClickDelayProp = serializedObject.FindProperty ("nextClickDelay");
 			keyPressModeProp = serializedObject.FindProperty ("keyPressMode");
 			shiftKeyEnabledProp = serializedObject.FindProperty ("shiftKeyEnabled");
+			ignoreMenuClicksProp = serializedObject.FindProperty ("ignoreMenuClicks");
 			keyListProp = serializedObject.FindProperty ("keyList");
 		}
 		
@@ -33,6 +35,7 @@ namespace Fungus
 
 			EditorGUILayout.PropertyField(clickModeProp);
 			EditorGUILayout.PropertyField(nextClickDelayProp);
+			EditorGUILayout.PropertyField(ignoreMenuClicksProp);
 
 			EditorGUILayout.PropertyField(keyPressModeProp);
 			if (t.keyPressMode == DialogInput.KeyPressMode.KeyPressed)
@@ -41,7 +44,7 @@ namespace Fungus
 				ReorderableListGUI.Title(new GUIContent("Key List", "Keycodes to check for user input"));
 				ReorderableListGUI.ListField(keyListProp);			
 			}
-
+				
 			serializedObject.ApplyModifiedProperties();
 		}		
 	}
