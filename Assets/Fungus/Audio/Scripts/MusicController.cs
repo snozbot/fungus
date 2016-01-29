@@ -119,6 +119,10 @@ namespace Fungus
 			if (duration == 0f)
 			{
 				audio.pitch = pitch;
+				if (onComplete != null)
+				{
+					onComplete();
+				}
 				return;
 			}
 
