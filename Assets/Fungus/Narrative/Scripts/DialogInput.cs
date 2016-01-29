@@ -41,6 +41,9 @@ namespace Fungus
 		[Tooltip("Keycodes to check for key presses")]
 		public KeyCode[] keyList;
 
+		[Tooltip("Ignore input if a Menu dialog is currently active")]
+		public bool ignoreMenuClicks = true;
+
 		protected bool dialogClickedFlag;
 
 		protected bool nextLineInputFlag;
@@ -141,13 +144,16 @@ namespace Fungus
 				ignoreClickTimer = Mathf.Max (ignoreClickTimer - Time.deltaTime, 0f);
 			}
 
-			// Ignore input events if a Menu is being displayed
-			if (MenuDialog.activeMenuDialog != null)
+			if (ignoreMenuClicks)
 			{
-				if (MenuDialog.activeMenuDialog.gameObject.activeInHierarchy)
+				// Ignore input events if a Menu is being displayed
+				if (MenuDialog.activeMenuDialog != null)
 				{
-					dialogClickedFlag = false;
-					nextLineInputFlag = false;
+					if (MenuDialog.activeMenuDialog.gameObject.activeInHierarchy)
+					{
+						dialogClickedFlag = false;
+						nextLineInputFlag = false;
+					}
 				}
 			}
 
