@@ -10,16 +10,26 @@ using System.Text.RegularExpressions;
 namespace Fungus
 {
 	/**
+	 * Interface for Flowchart components which can be updated when the 
+	 * scene loads in the editor. This is used to maintain backwards 
+	 * compatibility with earlier versions of Fungus.
+	 */
+	interface IUpdateable
+	{
+		void UpdateToVersion(int oldVersion, int newVersion);		
+	}
+
+	/**
 	 * Visual scripting controller for the Flowchart programming language.
 	 * Flowchart objects may be edited visually using the Flowchart editor window.
 	 */
 	[ExecuteInEditMode]
 	public class Flowchart : MonoBehaviour 
 	{
-        /**
-		 * Current version used to compare with the previous version so older versions can be custom-updated from previous versions.
-		 */
-        public const string CURRENT_VERSION = "1.0";
+		/**
+        * The current version of the Flowchart. Used for updating components.
+        */
+		public const int CURRENT_VERSION = 1;
 
         /**
         * The name of the initial block in a new flowchart.
@@ -27,10 +37,10 @@ namespace Fungus
         public const string DEFAULT_BLOCK_NAME = "New Block";
 
 		/**
-		 * Variable to track flowchart's version and if initial set up has completed.
+		 * Variable to track flowchart's version so components can update to new versions.
 		 */
 		[HideInInspector]
-		public string version;
+		public int version = 0; // Default to 0 to always trigger an update for older versions of Fungus.
 
 		/**
 		 * Scroll position of Flowchart editor window.
@@ -209,7 +219,28 @@ namespace Fungus
 
 			CheckItemIds();
 			CleanupComponents();
-		    UpdateVersion();
+			UpdateVersion();
+		}
+
+		protected virtual void UpdateVersion()
+		{
+			if (version == CURRENT_VERSION)
+			{
+				// No need to update
+				return;
+			}
+
+			// Tell all components that implement IUpdateable to update to the new version
+			foreach (Component component in GetComponents<Component>())
+			{
+				IUpdateable u = component as IUpdateable;
+				if (u != null)
+				{
+					u.UpdateToVersion(version, CURRENT_VERSION);
+				}
+			}
+
+			version = CURRENT_VERSION;
 		}
 
 		public virtual void OnDisable()
@@ -301,26 +332,6 @@ namespace Fungus
 				}
 			}
 		}
-
-        private void UpdateVersion()
-        {
-            // If versions match, then we are already using the latest.
-            if (version == CURRENT_VERSION) return;
-
-            switch (version)
-            {
-                // Version never set, so we are initializing on first creation or this flowchart is pre-versioning.
-                case null:
-                case "":
-                    Initialize();
-                    break;
-            }
-
-            version = CURRENT_VERSION;
-        }
-
-	    protected virtual void Initialize()
-	    {}
 
 		protected virtual Block CreateBlockComponent(GameObject parent)
 		{
