@@ -23,7 +23,7 @@ namespace Fungus
 			tweenParams.Add("oncomplete", "OniTweenComplete");
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
-			iTween.ShakeScale(targetObject, tweenParams);
+			iTween.ShakeScale(_targetObject.Value, tweenParams);
 		}		
 	}
 	

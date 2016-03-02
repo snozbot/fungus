@@ -27,7 +27,7 @@ namespace Fungus
 			tweenParams.Add("oncomplete", "OniTweenComplete");
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
-			iTween.PunchRotation(targetObject, tweenParams);
+			iTween.PunchRotation(_targetObject.Value, tweenParams);
 		}
 	}
 

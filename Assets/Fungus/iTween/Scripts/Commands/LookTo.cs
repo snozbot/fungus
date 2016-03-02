@@ -48,7 +48,7 @@ namespace Fungus
 			tweenParams.Add("oncomplete", "OniTweenComplete");
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
-			iTween.LookTo(targetObject, tweenParams);
+			iTween.LookTo(_targetObject.Value, tweenParams);
 		}		
 	}
 
