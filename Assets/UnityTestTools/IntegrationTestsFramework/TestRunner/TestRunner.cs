@@ -8,6 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityTest.IntegrationTestRunner;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 namespace UnityTest
 {
@@ -74,7 +75,7 @@ namespace UnityTest
             }
 
             TestComponent.DestroyAllDynamicTests();
-            var dynamicTestTypes = TestComponent.GetTypesWithHelpAttribute(Application.loadedLevelName);
+            var dynamicTestTypes = TestComponent.GetTypesWithHelpAttribute(SceneManager.GetActiveScene().name);
             foreach (var dynamicTestType in dynamicTestTypes)
                 TestComponent.CreateDynamicTest(dynamicTestType);
 
@@ -309,7 +310,7 @@ namespace UnityTest
             string testScene = m_Configurator.GetIntegrationTestScenes (TestSceneNumber);
 
             if (testScene != null)
-                Application.LoadLevel(Path.GetFileNameWithoutExtension(testScene));
+                SceneManager.LoadScene(Path.GetFileNameWithoutExtension(testScene));
             else
             {
                 TestRunnerCallback.AllScenesFinished();
@@ -363,7 +364,7 @@ namespace UnityTest
             currentTest = null;
             if (!testResult.IsSuccess
                 && testResult.Executed
-                && !testResult.IsIgnored) k_ResultRenderer.AddResults(Application.loadedLevelName, testResult);
+                && !testResult.IsIgnored) k_ResultRenderer.AddResults(SceneManager.GetActiveScene().name, testResult);
         }
 
         #region Test Runner Helpers

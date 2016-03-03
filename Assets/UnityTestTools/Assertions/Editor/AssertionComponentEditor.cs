@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using UnityEditor.SceneManagement;
 
 namespace UnityTest
 {
@@ -81,6 +82,8 @@ namespace UnityTest
                     DrawCompareToType(script.Action as ComparerBase);
                 }
             }
+            if(GUI.changed)
+                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
 
         private void DrawOptionsForAfterPeriodOfTime(AssertionComponent script)

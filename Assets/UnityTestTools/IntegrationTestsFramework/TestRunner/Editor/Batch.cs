@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityTest.IntegrationTests;
+using UnityEditor.SceneManagement;
 
 namespace UnityTest
 {
@@ -89,7 +90,7 @@ namespace UnityTest
                 return;
             }
             EditorBuildSettings.scenes = (testScenes.Concat(otherBuildScenes).ToList()).Select(s => new EditorBuildSettingsScene(s, true)).ToArray();
-            EditorApplication.OpenScene(testScenes.First());
+            EditorSceneManager.OpenScene(testScenes.First());
             GuiHelper.SetConsoleErrorPause(false);
 
             var config = new PlatformRunnerConfiguration
