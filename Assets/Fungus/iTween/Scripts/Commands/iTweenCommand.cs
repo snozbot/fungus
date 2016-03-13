@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.Serialization;
+using System.Collections;
 
 namespace Fungus
 {
@@ -13,18 +13,18 @@ namespace Fungus
 		Z
 	}
 
-	public abstract class iTweenCommand : Command, IUpdateable 
+	public abstract class iTweenCommand : Command, ISerializationCallbackReceiver
 	{
-		// Obsolete: Use _targetObject instead.
-		[HideInInspector]
-		[FormerlySerializedAs("target")]
-		public GameObject targetObject;
+		#region Obsolete Properties
+		[HideInInspector] [FormerlySerializedAs("target")] [FormerlySerializedAs("targetObject")] public GameObject targetObjectOLD;
+		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD;
+		#endregion
 
 		[Tooltip("Target game object to apply the Tween to")]
 		public GameObjectData _targetObject;
 
 		[Tooltip("An individual name useful for stopping iTweens by name")]
-		public string tweenName;
+		public StringData _tweenName;
 
 		[Tooltip("The time in seconds the animation will take to complete")]
 		public float duration = 1f;
@@ -98,17 +98,18 @@ namespace Fungus
 		}
 
 		//
-		// IUpdateable implementation
+		// ISerializationCallbackReceiver implementation
 		//
 
-		public virtual void UpdateToVersion(int oldVersion, int newVersion)
+		public void OnBeforeSerialize()
+		{}
+
+		public void OnAfterDeserialize()
 		{
-			if (oldVersion == 0 &&
-				targetObject != null)
+			if (targetObjectOLD != null)
 			{
-				_targetObject.gameObjectVal = targetObject;
-				_targetObject.gameObjectRef = null;
-				targetObject = null;
+				_targetObject.Value = targetObjectOLD;
+				targetObjectOLD = null;
 			}
 		}
 	}

@@ -18,7 +18,7 @@ namespace Fungus
 		public override void DoTween()
 		{
 			Hashtable tweenParams = new Hashtable();
-			tweenParams.Add("name", tweenName);
+			tweenParams.Add("name", _tweenName.Value);
 			if (fromTransform == null)
 			{
 				tweenParams.Add("scale", fromScale);

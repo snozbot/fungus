@@ -15,7 +15,7 @@ namespace Fungus
 		public override void DoTween()
 		{
 			Hashtable tweenParams = new Hashtable();
-			tweenParams.Add("name", tweenName);
+			tweenParams.Add("name", _tweenName.Value);
 			tweenParams.Add("amount", amount);
 			tweenParams.Add("time", duration);
 			tweenParams.Add("easetype", easeType);

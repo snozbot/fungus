@@ -8,25 +8,25 @@ SceneSettings:
   m_PVSPortalsArray: []
   m_OcclusionBakeSettings:
     smallestOccluder: 5
-    smallestHole: .25
+    smallestHole: 0.25
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
   m_Fog: 0
-  m_FogColor: {r: .5, g: .5, b: .5, a: 1}
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: .00999999978
+  m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
-  m_AmbientEquatorColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
-  m_AmbientGroundColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientSkyColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_AmbientEquatorColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_AmbientGroundColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SkyboxMaterial: {fileID: 0}
-  m_HaloStrength: .5
+  m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -37,13 +37,10 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
---- !u!127 &3
-LevelGameManager:
-  m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 5
+  serializedVersion: 6
   m_GIWorkflowMode: 1
   m_LightmapsMode: 1
   m_GISettings:
@@ -68,7 +65,8 @@ LightmapSettings:
     m_TextureCompression: 0
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
-  m_LightmapSnapshot: {fileID: 0}
+    m_ReflectionCompression: 2
+  m_LightingDataAsset: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
 NavMeshSettings:
@@ -76,15 +74,15 @@ NavMeshSettings:
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
-    agentRadius: .5
+    agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: .400000006
+    agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     accuratePlacement: 0
     minRegionArea: 2
-    cellSize: .166666657
+    cellSize: 0.16666666
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &131346341
@@ -136,14 +134,14 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: .300000012
+  near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -155,10 +153,12 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
-  m_StereoSeparation: .0219999999
+  m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
 --- !u!4 &131346346
 Transform:
   m_ObjectHideFlags: 0
@@ -202,14 +202,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598f181ee459641a9b0a5849fbc3240c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 0
+  itemId: 0
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 470391086}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 470391086}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 3
   easeType: 2
   loopType: 2
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   offset: {x: 7, y: 0, z: 0}
   space: 1
@@ -224,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 470391089}
+  parentBlock: {fileID: 470391089}
   message: StartMoving
 --- !u!114 &470391089
 MonoBehaviour:
@@ -243,9 +250,9 @@ MonoBehaviour:
     y: 122
     width: 120
     height: 30
-  sequenceName: Do Tween
+  itemId: 1
+  blockName: Do Tween
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 470391088}
   commandList:
   - {fileID: 470391087}
@@ -260,10 +267,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
   scrollPos: {x: 0, y: 0}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  sequenceViewHeight: 400
+  blockViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -271,16 +279,17 @@ MonoBehaviour:
     y: -350
     width: 1213
     height: 902
-  selectedSequence: {fileID: 470391089}
+  selectedBlock: {fileID: 470391089}
   selectedCommands:
   - {fileID: 470391087}
   variables: []
   description: 
-  runSlowDuration: .25
+  stepPause: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  nextCommandId: 1
+  localizationId: 
+  hideCommands: []
 --- !u!212 &470391091
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -299,14 +308,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!4 &470391092
 Transform:
   m_ObjectHideFlags: 0
@@ -314,12 +327,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 470391086}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.61409998, y: -1.94229996, z: 0}
-  m_LocalScale: {x: .456456065, y: .456456065, z: .456456065}
+  m_LocalPosition: {x: -3.6141, y: -1.9423, z: 0}
+  m_LocalScale: {x: 0.45645607, y: 0.45645607, z: 0.45645607}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
---- !u!114 &497781872
+  m_RootOrder: 7
+--- !u!114 &497781872 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400000, guid: e0d427add844a4d9faf970a3afa07583,
     type: 2}
@@ -357,10 +370,7 @@ GameObject:
   - 114: {fileID: 868139013}
   - 114: {fileID: 868139014}
   - 114: {fileID: 868139016}
-  - 114: {fileID: 868139015}
   - 114: {fileID: 868139017}
-  - 114: {fileID: 868139021}
-  - 114: {fileID: 868139019}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -379,14 +389,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445c07472dafe4e0ead0e88c4b757401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 0
+  itemId: 0
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1090256565}
-  tweenName: MoveIt
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: MoveIt
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1090256565}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 0
   toTransform: {fileID: 1621124270}
   toPosition: {x: 0, y: 0, z: 0}
@@ -408,9 +425,9 @@ MonoBehaviour:
     y: 193
     width: 120
     height: 40
-  sequenceName: Test iTween
+  itemId: 23
+  blockName: Test iTween
   description: 
-  runSlowInEditor: 1
   eventHandler: {fileID: 868139016}
   commandList:
   - {fileID: 868138995}
@@ -446,10 +463,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
   scrollPos: {x: 133, y: -117}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  sequenceViewHeight: 400
+  blockViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -457,17 +475,19 @@ MonoBehaviour:
     y: -350
     width: 1213
     height: 1284
-  selectedSequence: {fileID: 868138992}
-  selectedCommands: []
+  selectedBlock: {fileID: 868138992}
+  selectedCommands:
+  - {fileID: 868139009}
   variables: []
   description: 'This scene shows how to use the iTween commands
 
     to apply simple animation effects to objects'
-  runSlowDuration: .25
+  stepPause: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
-  nextCommandId: 23
+  localizationId: 
+  hideCommands: []
 --- !u!4 &868138994
 Transform:
   m_ObjectHideFlags: 0
@@ -479,7 +499,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!114 &868138995
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -491,14 +511,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437f9a4e3dbc647f9bdce95308418bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 1
+  itemId: 1
   errorMessage: 
   indentLevel: 0
   duration: 1
+  fadeOut: 1
   targetView: {fileID: 497781872}
   waitUntilFinished: 1
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
   fadeTexture: {fileID: 0}
+  targetCamera: {fileID: 0}
 --- !u!114 &868138996
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -510,14 +532,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445c07472dafe4e0ead0e88c4b757401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 2
+  itemId: 2
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1621124268}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1621124268}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   toTransform: {fileID: 1090256567}
   toPosition: {x: 0, y: 0, z: 0}
@@ -533,16 +562,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4591c01defd496586e9b7237c966c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 4
+  itemId: 4
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1621124268}
-  tweenName: 
-  duration: .5
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1621124268}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
+  duration: 0.5
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 0
-  amount: {x: .200000003, y: .200000003, z: 0}
+  amount: {x: 0.2, y: 0.2, z: 0}
 --- !u!114 &868138998
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -554,16 +590,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720f059c883c4402c89fcc507d5f7e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 3
+  itemId: 3
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1090256565}
-  tweenName: 
-  duration: .5
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1090256565}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
+  duration: 0.5
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 0
-  amount: {x: .5, y: .5, z: 0}
+  amount: {x: 0.5, y: 0.5, z: 0}
   space: 1
 --- !u!114 &868138999
 MonoBehaviour:
@@ -576,14 +619,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2dd111db90064d2cb85e3370cdfe3ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 6
+  itemId: 6
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1621124268}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1621124268}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   toTransform: {fileID: 1090256567}
   toRotation: {x: 0, y: 0, z: 0}
@@ -599,14 +649,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2dd111db90064d2cb85e3370cdfe3ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 5
+  itemId: 5
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1090256565}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1090256565}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   toTransform: {fileID: 0}
   toRotation: {x: 0, y: 0, z: 45}
@@ -622,17 +679,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665e8847cab3749f597622c6c52997ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 8
+  itemId: 8
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1621124268}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1621124268}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   toTransform: {fileID: 1090256567}
-  toScale: {x: .5, y: .5, z: 0}
+  toScale: {x: 0.5, y: 0.5, z: 0}
 --- !u!114 &868139002
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -644,17 +708,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665e8847cab3749f597622c6c52997ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 7
+  itemId: 7
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1090256565}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1090256565}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   toTransform: {fileID: 0}
-  toScale: {x: .5, y: .5, z: 0}
+  toScale: {x: 0.5, y: 0.5, z: 0}
 --- !u!114 &868139003
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -666,14 +737,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d47cc719ae0d4d62a30b3cfa72b5785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 11
+  itemId: 11
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1955612099}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1955612099}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   fromTransform: {fileID: 0}
   fromScale: {x: 2, y: 1, z: 0}
@@ -688,14 +766,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cfc8560cbecd48adb3950b9dd7f2b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 10
+  itemId: 10
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1621124268}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1621124268}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   fromTransform: {fileID: 0}
   fromRotation: {x: 0, y: 0, z: 180}
@@ -711,14 +796,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ca001b90bd14834b7268b48a44c6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 9
+  itemId: 9
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1090256565}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1090256565}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   fromTransform: {fileID: 0}
   fromPosition: {x: 0, y: 1, z: 0}
@@ -734,14 +826,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433657382cf894ff2973ee118eed40ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 13
+  itemId: 13
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1621124268}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1621124268}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   fromTransform: {fileID: 1090256567}
   fromPosition: {x: 0, y: 0, z: 0}
@@ -757,14 +856,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec82c445301b4e9fb9b89cb2eb6a666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 12
+  itemId: 12
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1090256565}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1090256565}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   toTransform: {fileID: 1955612100}
   toPosition: {x: 0, y: 0, z: 0}
@@ -780,14 +886,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358f65040c3ef4327b70b2813cc197c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 14
+  itemId: 14
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1090256565}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1090256565}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   amount: {x: 1, y: 1, z: 0}
   isLocal: 0
@@ -803,14 +916,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c753a90aa184bd88472f4589167f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 15
+  itemId: 15
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1621124268}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1621124268}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   amount: {x: 0, y: 0, z: 45}
   space: 1
@@ -825,16 +945,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61780d2ea956492a8f59308dae6f12c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 16
+  itemId: 16
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1955612099}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1955612099}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
-  amount: {x: .5, y: .5, z: 0}
+  amount: {x: 0.5, y: 0.5, z: 0}
 --- !u!114 &868139011
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -846,14 +973,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720f059c883c4402c89fcc507d5f7e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 17
+  itemId: 17
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1090256565}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1090256565}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   amount: {x: 0, y: 1, z: 0}
   space: 1
@@ -868,14 +1002,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1bc1400ac79424ba3c1aca77fb5d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 18
+  itemId: 18
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1621124268}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1621124268}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   amount: {x: 0, y: 0, z: 45}
   space: 1
@@ -890,14 +1031,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4591c01defd496586e9b7237c966c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 19
+  itemId: 19
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1955612099}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1955612099}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   amount: {x: 1, y: 1, z: 0}
 --- !u!114 &868139014
@@ -911,34 +1059,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433657382cf894ff2973ee118eed40ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 20
+  itemId: 20
   errorMessage: 
   indentLevel: 0
-  targetObject: {fileID: 1955612099}
-  tweenName: 
+  targetObjectOLD: {fileID: 0}
+  tweenNameOLD: 
+  _targetObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1955612099}
+  _tweenName:
+    stringRef: {fileID: 0}
+    stringVal: 
   duration: 1
   easeType: 2
   loopType: 0
+  stopPreviousTweens: 0
   waitUntilFinished: 1
   fromTransform: {fileID: 1090256567}
   fromPosition: {x: 0, y: 0, z: 0}
   axis: 3
---- !u!114 &868139015
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 868138990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c43743931d28f43f89eced820d907351, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  commandId: 21
-  errorMessage: 
-  indentLevel: 0
-  messageTarget: 0
-  message: 
 --- !u!114 &868139016
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -950,7 +1089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentSequence: {fileID: 868138992}
+  parentBlock: {fileID: 868138992}
 --- !u!114 &868139017
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -962,37 +1101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43743931d28f43f89eced820d907351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandId: 22
+  itemId: 22
   errorMessage: 
   indentLevel: 0
   messageTarget: 1
   message: StartMoving
---- !u!114 &868139019
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 868138990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentSequence: {fileID: 0}
-  message: StartMoving
---- !u!114 &868139021
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 868138990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentSequence: {fileID: 0}
-  message: 
 --- !u!1 &1090256565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,14 +1140,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!4 &1090256567
 Transform:
   m_ObjectHideFlags: 0
@@ -1042,11 +1159,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1090256565}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.02740002, y: -.0844760016, z: 0}
+  m_LocalPosition: {x: -2.0274, y: -0.084476, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1001 &1288462056
 Prefab:
   m_ObjectHideFlags: 0
@@ -1127,14 +1244,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!4 &1621124270
 Transform:
   m_ObjectHideFlags: 0
@@ -1142,11 +1263,85 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1621124268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.15409994, y: -.0422369987, z: 0}
+  m_LocalPosition: {x: 2.1541, y: -0.042237, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
+--- !u!1 &1749438602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1749438606}
+  - 114: {fileID: 1749438605}
+  - 114: {fileID: 1749438604}
+  - 114: {fileID: 1749438603}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1749438603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1749438602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ForceModuleActive: 0
+--- !u!114 &1749438604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1749438602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1749438605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1749438602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
+--- !u!4 &1749438606
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1749438602}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &1955612099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1170,11 +1365,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1955612099}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.119999997, y: 2.32999992, z: 0}
-  m_LocalScale: {x: .456456065, y: .456456065, z: .456456065}
+  m_LocalPosition: {x: -0.12, y: 2.33, z: 0}
+  m_LocalScale: {x: 0.45645607, y: 0.45645607, z: 0.45645607}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!212 &1955612101
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1193,14 +1388,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!1 &1971204863
 GameObject:
   m_ObjectHideFlags: 1
@@ -1240,4 +1439,4 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
