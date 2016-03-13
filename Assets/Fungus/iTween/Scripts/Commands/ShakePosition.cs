@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,10 +8,14 @@ namespace Fungus
 	             "Shake Position", 
 	             "Randomly shakes a GameObject's position by a diminishing amount over time.")]
 	[AddComponentMenu("")]
-	public class ShakePosition : iTweenCommand 
+	public class ShakePosition : iTweenCommand, ISerializationCallbackReceiver 
 	{
+		#region Obsolete Properties
+		[HideInInspector] [FormerlySerializedAs("amount")] public Vector3 amountOLD;
+		#endregion
+
 		[Tooltip("A translation offset in space the GameObject will animate to")]
-		public Vector3 amount;
+		public Vector3Data _amount;
 
 		[Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
 		public bool isLocal;
@@ -22,7 +27,7 @@ namespace Fungus
 		{
 			Hashtable tweenParams = new Hashtable();
 			tweenParams.Add("name", _tweenName.Value);
-			tweenParams.Add("amount", amount);
+			tweenParams.Add("amount", _amount.Value);
 			switch (axis)
 			{
 			case iTweenAxis.X:
@@ -43,7 +48,23 @@ namespace Fungus
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
 			iTween.ShakePosition(_targetObject.Value, tweenParams);
-		}		
+		}
+
+		//
+		// ISerializationCallbackReceiver implementation
+		//
+
+		public void OnBeforeSerialize()
+		{}
+
+		public void OnAfterDeserialize()
+		{
+			if (amountOLD != default(Vector3))
+			{
+				_amount.Value = amountOLD;
+				amountOLD = default(Vector3);
+			}
+		}
 	}
 	
 }

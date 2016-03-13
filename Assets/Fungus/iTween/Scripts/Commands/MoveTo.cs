@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,13 +8,18 @@ namespace Fungus
 	             "Move To", 
 	             "Moves a game object to a specified position over time. The position can be defined by a transform in another object (using To Transform) or by setting an absolute position (using To Position, if To Transform is set to None).")]
 	[AddComponentMenu("")]
-	public class MoveTo : iTweenCommand 
+	public class MoveTo : iTweenCommand, ISerializationCallbackReceiver 
 	{
+		#region Obsolete Properties
+		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("toPosition")] public Vector3 toPositionOLD;
+		#endregion
+
 		[Tooltip("Target transform that the GameObject will move to")]
-		public Transform toTransform;
+		public TransformData _toTransform;
 
 		[Tooltip("Target world position that the GameObject will move to, if no From Transform is set")]
-		public Vector3 toPosition;
+		public Vector3Data _toPosition;
 
 		[Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
 		public bool isLocal;
@@ -22,13 +28,13 @@ namespace Fungus
 		{
 			Hashtable tweenParams = new Hashtable();
 			tweenParams.Add("name", _tweenName.Value);
-			if (toTransform == null)
+			if (_toTransform.Value == null)
 			{
-				tweenParams.Add("position", toPosition);
+				tweenParams.Add("position", _toPosition.Value);
 			}
 			else
 			{
-				tweenParams.Add("position", toTransform);
+				tweenParams.Add("position", _toTransform.Value);
 			}
 			tweenParams.Add("time", duration);
 			tweenParams.Add("easetype", easeType);
@@ -38,7 +44,29 @@ namespace Fungus
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
 			iTween.MoveTo(_targetObject.Value, tweenParams);
-		}		
+		}
+
+		//
+		// ISerializationCallbackReceiver implementation
+		//
+
+		public void OnBeforeSerialize()
+		{}
+
+		public void OnAfterDeserialize()
+		{
+			if (toTransformOLD != null)
+			{
+				_toTransform.Value = toTransformOLD;
+				toTransformOLD = null;
+			}
+
+			if (toPositionOLD != default(Vector3))
+			{
+				_toPosition.Value = toPositionOLD;
+				toPositionOLD = default(Vector3);
+			}
+		}
 	}
 
 }

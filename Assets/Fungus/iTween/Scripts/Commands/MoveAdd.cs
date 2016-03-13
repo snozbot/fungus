@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,10 +8,14 @@ namespace Fungus
 	             "Move Add", 
 	             "Moves a game object by a specified offset over time.")]
 	[AddComponentMenu("")]
-	public class MoveAdd : iTweenCommand 
+	public class MoveAdd : iTweenCommand, ISerializationCallbackReceiver
 	{
+		#region Obsolete Properties
+		[HideInInspector] [FormerlySerializedAs("offset")] public Vector3 offsetOLD;
+		#endregion
+
 		[Tooltip("A translation offset in space the GameObject will animate to")]
-		public Vector3 offset;
+		public Vector3Data _offset;
 
 		[Tooltip("Apply the transformation in either the world coordinate or local cordinate system")]
 		public Space space = Space.Self;
@@ -19,7 +24,7 @@ namespace Fungus
 		{
 			Hashtable tweenParams = new Hashtable();
 			tweenParams.Add("name", _tweenName.Value);
-			tweenParams.Add("amount", offset);
+			tweenParams.Add("amount", _offset.Value);
 			tweenParams.Add("space", space);
 			tweenParams.Add("time", duration);
 			tweenParams.Add("easetype", easeType);
@@ -28,6 +33,22 @@ namespace Fungus
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
 			iTween.MoveAdd(_targetObject.Value, tweenParams);
+		}
+
+		//
+		// ISerializationCallbackReceiver implementation
+		//
+
+		public void OnBeforeSerialize()
+		{}
+
+		public void OnAfterDeserialize()
+		{
+			if (offsetOLD != default(Vector3))
+			{
+				_offset.Value = offsetOLD;
+				offsetOLD = default(Vector3);
+			}
 		}
 	}
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,13 +8,18 @@ namespace Fungus
 	             "Rotate From", 
 	             "Rotates a game object from the specified angles back to its starting orientation over time.")]
 	[AddComponentMenu("")]
-	public class RotateFrom : iTweenCommand 
+	public class RotateFrom : iTweenCommand, ISerializationCallbackReceiver 
 	{
+		#region Obsolete Properties
+		[HideInInspector] [FormerlySerializedAs("fromTransform")] public Transform fromTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("fromRotation")] public Vector3 fromRotationOLD;
+		#endregion
+
 		[Tooltip("Target transform that the GameObject will rotate from")]
-		public Transform fromTransform;
+		public TransformData _fromTransform;
 
 		[Tooltip("Target rotation that the GameObject will rotate from, if no From Transform is set")]
-		public Vector3 fromRotation;
+		public Vector3Data _fromRotation;
 
 		[Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
 		public bool isLocal;
@@ -22,13 +28,13 @@ namespace Fungus
 		{
 			Hashtable tweenParams = new Hashtable();
 			tweenParams.Add("name", _tweenName.Value);
-			if (fromTransform == null)
+			if (_fromTransform.Value == null)
 			{
-				tweenParams.Add("rotation", fromRotation);
+				tweenParams.Add("rotation", _fromRotation.Value);
 			}
 			else
 			{
-				tweenParams.Add("rotation", fromTransform);
+				tweenParams.Add("rotation", _fromTransform.Value);
 			}
 			tweenParams.Add("time", duration);
 			tweenParams.Add("easetype", easeType);
@@ -38,7 +44,29 @@ namespace Fungus
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
 			iTween.RotateFrom(_targetObject.Value, tweenParams);
-		}		
+		}
+
+		//
+		// ISerializationCallbackReceiver implementation
+		//
+
+		public void OnBeforeSerialize()
+		{}
+
+		public void OnAfterDeserialize()
+		{
+			if (fromTransformOLD != null)
+			{
+				_fromTransform.Value = fromTransformOLD;
+				fromTransformOLD = null;
+			}
+
+			if (fromRotationOLD != default(Vector3))
+			{
+				_fromRotation.Value = fromRotationOLD;
+				fromRotationOLD = default(Vector3);
+			}
+		}
 	}
 
 }

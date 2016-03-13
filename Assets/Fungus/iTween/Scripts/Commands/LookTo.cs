@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,13 +8,18 @@ namespace Fungus
 	             "Look To", 
 	             "Rotates a GameObject to look at a supplied Transform or Vector3 over time.")]
 	[AddComponentMenu("")]
-	public class LookTo : iTweenCommand 
+	public class LookTo : iTweenCommand, ISerializationCallbackReceiver
 	{
+		#region Obsolete Properties
+		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("toPosition")] public Vector3 toPositionOLD;
+		#endregion
+
 		[Tooltip("Target transform that the GameObject will look at")]
-		public Transform toTransform;
+		public TransformData _toTransform;
 
 		[Tooltip("Target world position that the GameObject will look at, if no From Transform is set")]
-		public Vector3 toPosition;
+		public Vector3Data _toPosition;
 
 		[Tooltip("Restricts rotation to the supplied axis only")]
 		public iTweenAxis axis;
@@ -22,13 +28,13 @@ namespace Fungus
 		{
 			Hashtable tweenParams = new Hashtable();
 			tweenParams.Add("name", _tweenName.Value);
-			if (toTransform == null)
+			if (_toTransform.Value == null)
 			{
-				tweenParams.Add("looktarget", toPosition);
+				tweenParams.Add("looktarget", _toPosition.Value);
 			}
 			else
 			{
-				tweenParams.Add("looktarget", toTransform);
+				tweenParams.Add("looktarget", _toTransform.Value);
 			}
 			switch (axis)
 			{
@@ -49,7 +55,29 @@ namespace Fungus
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
 			iTween.LookTo(_targetObject.Value, tweenParams);
-		}		
+		}
+
+		//
+		// ISerializationCallbackReceiver implementation
+		//
+
+		public void OnBeforeSerialize()
+		{}
+
+		public void OnAfterDeserialize()
+		{
+			if (toTransformOLD != null)
+			{
+				_toTransform.Value = toTransformOLD;
+				toTransformOLD = null;
+			}
+
+			if (toPositionOLD != default(Vector3))
+			{
+				_toPosition.Value = toPositionOLD;
+				toPositionOLD = default(Vector3);
+			}
+		}
 	}
 
 }

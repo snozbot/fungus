@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,10 +8,14 @@ namespace Fungus
 	             "Punch Rotation", 
 	             "Applies a jolt of force to a GameObject's rotation and wobbles it back to its initial rotation.")]
 	[AddComponentMenu("")]
-	public class PunchRotation : iTweenCommand 
+	public class PunchRotation : iTweenCommand, ISerializationCallbackReceiver 
 	{
+		#region Obsolete Properties
+		[HideInInspector] [FormerlySerializedAs("amount")] public Vector3 amountOLD;
+		#endregion
+
 		[Tooltip("A rotation offset in space the GameObject will animate to")]
-		public Vector3 amount;
+		public Vector3Data _amount;
 
 		[Tooltip("Apply the transformation in either the world coordinate or local cordinate system")]
 		public Space space = Space.Self;
@@ -19,7 +24,7 @@ namespace Fungus
 		{
 			Hashtable tweenParams = new Hashtable();
 			tweenParams.Add("name", _tweenName.Value);
-			tweenParams.Add("amount", amount);
+			tweenParams.Add("amount", _amount.Value);
 			tweenParams.Add("space", space);
 			tweenParams.Add("time", duration);
 			tweenParams.Add("easetype", easeType);
@@ -28,6 +33,22 @@ namespace Fungus
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
 			iTween.PunchRotation(_targetObject.Value, tweenParams);
+		}
+
+		//
+		// ISerializationCallbackReceiver implementation
+		//
+
+		public void OnBeforeSerialize()
+		{}
+
+		public void OnAfterDeserialize()
+		{
+			if (amountOLD != default(Vector3))
+			{
+				_amount.Value = amountOLD;
+				amountOLD = default(Vector3);
+			}
 		}
 	}
 

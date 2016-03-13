@@ -323,4 +323,8 @@ namespace Fungus
 	[CustomPropertyDrawer (typeof(AnimatorData))]
 	public class AnimatorDataDrawer : VariableDataDrawer<AnimatorVariable>
 	{}
+
+	[CustomPropertyDrawer (typeof(TransformData))]
+	public class TransformDataDrawer : VariableDataDrawer<TransformVariable>
+	{}
 }

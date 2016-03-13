@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,25 +8,30 @@ namespace Fungus
 	             "Scale To", 
 	             "Changes a game object's scale to a specified value over time.")]
 	[AddComponentMenu("")]
-	public class ScaleTo : iTweenCommand 
+	public class ScaleTo : iTweenCommand, ISerializationCallbackReceiver 
 	{
+		#region Obsolete Properties
+		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("toScale")] public Vector3 toScaleOLD;
+		#endregion
+
 		[Tooltip("Target transform that the GameObject will scale to")]
-		public Transform toTransform;
+		public TransformData _toTransform;
 
 		[Tooltip("Target scale that the GameObject will scale to, if no To Transform is set")]
-		public Vector3 toScale = new Vector3(1f, 1f, 1f);
+		public Vector3Data _toScale = new Vector3Data(Vector3.one);
 
 		public override void DoTween()
 		{
 			Hashtable tweenParams = new Hashtable();
 			tweenParams.Add("name", _tweenName.Value);
-			if (toTransform == null)
+			if (_toTransform.Value == null)
 			{
-				tweenParams.Add("scale", toScale);
+				tweenParams.Add("scale", _toScale.Value);
 			}
 			else
 			{
-				tweenParams.Add("scale", toTransform);
+				tweenParams.Add("scale", _toTransform.Value);
 			}
 			tweenParams.Add("time", duration);
 			tweenParams.Add("easetype", easeType);
@@ -34,7 +40,29 @@ namespace Fungus
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
 			iTween.ScaleTo(_targetObject.Value, tweenParams);
-		}		
+		}
+
+		//
+		// ISerializationCallbackReceiver implementation
+		//
+
+		public void OnBeforeSerialize()
+		{}
+
+		public void OnAfterDeserialize()
+		{
+			if (toTransformOLD != null)
+			{
+				_toTransform.Value = toTransformOLD;
+				toTransformOLD = null;
+			}
+
+			if (toScaleOLD != default(Vector3))
+			{
+				_toScale.Value = toScaleOLD;
+				toScaleOLD = default(Vector3);
+			}
+		}
 	}
 
 }

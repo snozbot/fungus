@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,13 +8,18 @@ namespace Fungus
 	             "Look From", 
 	             "Instantly rotates a GameObject to look at the supplied Vector3 then returns it to it's starting rotation over time.")]
 	[AddComponentMenu("")]
-	public class LookFrom : iTweenCommand 
+	public class LookFrom : iTweenCommand, ISerializationCallbackReceiver
 	{
+		#region Obsolete Properties
+		[HideInInspector] [FormerlySerializedAs("fromTransform")] public Transform fromTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("fromPosition")] public Vector3 fromPositionOLD;
+		#endregion
+
 		[Tooltip("Target transform that the GameObject will look at")]
-		public Transform fromTransform;
+		public TransformData _fromTransform;
 
 		[Tooltip("Target world position that the GameObject will look at, if no From Transform is set")]
-		public Vector3 fromPosition;
+		public Vector3Data _fromPosition;
 
 		[Tooltip("Restricts rotation to the supplied axis only")]
 		public iTweenAxis axis;
@@ -22,13 +28,13 @@ namespace Fungus
 		{
 			Hashtable tweenParams = new Hashtable();
 			tweenParams.Add("name", _tweenName.Value);
-			if (fromTransform == null)
+			if (_fromTransform.Value == null)
 			{
-				tweenParams.Add("looktarget", fromPosition);
+				tweenParams.Add("looktarget", _fromPosition.Value);
 			}
 			else
 			{
-				tweenParams.Add("looktarget", fromTransform);
+				tweenParams.Add("looktarget", _fromTransform.Value);
 			}
 			switch (axis)
 			{
@@ -49,7 +55,29 @@ namespace Fungus
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
 			iTween.LookFrom(_targetObject.Value, tweenParams);
-		}		
+		}	
+
+		//
+		// ISerializationCallbackReceiver implementation
+		//
+
+		public void OnBeforeSerialize()
+		{}
+
+		public void OnAfterDeserialize()
+		{
+			if (fromTransformOLD != null)
+			{
+				_fromTransform.Value = fromTransformOLD;
+				fromTransformOLD = null;
+			}
+
+			if (fromPositionOLD != default(Vector3))
+			{
+				_fromPosition.Value = fromPositionOLD;
+				fromPositionOLD = default(Vector3);
+			}
+		}
 	}
 
 }
