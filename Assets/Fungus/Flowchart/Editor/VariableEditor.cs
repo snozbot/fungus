@@ -209,7 +209,7 @@ namespace Fungus
 
 		protected virtual void DrawSingleLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart)
 		{
-			const int popupWidth = 100;
+			const int popupWidth = 60;
 			
 			Rect controlRect = EditorGUI.PrefixLabel(rect, label);
 			Rect valueRect = controlRect;
@@ -318,5 +318,9 @@ namespace Fungus
 	
 	[CustomPropertyDrawer (typeof(ObjectData))]
 	public class ObjectDataDrawer : VariableDataDrawer<ObjectVariable>
+	{}
+
+	[CustomPropertyDrawer (typeof(AnimatorData))]
+	public class AnimatorDataDrawer : VariableDataDrawer<AnimatorVariable>
 	{}
 }
