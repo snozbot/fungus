@@ -327,4 +327,8 @@ namespace Fungus
 	[CustomPropertyDrawer (typeof(TransformData))]
 	public class TransformDataDrawer : VariableDataDrawer<TransformVariable>
 	{}
+
+	[CustomPropertyDrawer (typeof(AudioSourceData))]
+	public class AudioSourceDrawer : VariableDataDrawer<AudioSourceVariable>
+	{}
 }

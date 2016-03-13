@@ -1,28 +1,33 @@
 ﻿namespace Fungus {
     using System;
     using UnityEngine;
+	using UnityEngine.Serialization;
 
     [CommandInfo("Audio", 
 	             "Play Usfxr Sound", 
 	             "Plays a usfxr synth sound. Use the usfxr editor [Tools > Fungus > Utilities > Generate usfxr Sound Effects] to create the SettingsString. Set a ParentTransform if using positional sound. See https://github.com/zeh/usfxr for more information about usfxr.")]
 	[AddComponentMenu("")]
-	public class PlayUsfxrSound : Command 
+	public class PlayUsfxrSound : Command, ISerializationCallbackReceiver 
 	{
+		#region Obsolete Properties
+		[HideInInspector] [FormerlySerializedAs("SettingsString")] public String SettingsStringOLD;
+		#endregion
+
         protected SfxrSynth _synth = new SfxrSynth();
 
 		[Tooltip("Transform to use for positional audio")]
         public Transform ParentTransform = null;
 
 		[Tooltip("Settings string which describes the audio")]
-		public String SettingsString = "";
+		public StringData _SettingsString = new StringData("");
 
 		[Tooltip("Time to wait before executing the next command")]
 		public float waitDuration = 0;
 
         //Call this if the settings have changed
         protected void UpdateCache() {
-            if (SettingsString != null) {
-                _synth.parameters.SetSettingsString(SettingsString);
+            if (_SettingsString.Value != null) {
+                _synth.parameters.SetSettingsString(_SettingsString.Value);
                 _synth.CacheSound();
             }
         }
@@ -51,17 +56,34 @@
 		}
 
         public override string GetSummary() {
-            if (String.IsNullOrEmpty(SettingsString)) {
+            if (String.IsNullOrEmpty(_SettingsString.Value)) {
                 return "Settings String hasn't been set!";
             }
             if (ParentTransform != null) {
-                return "" + ParentTransform.name + ": " + SettingsString;
+                return "" + ParentTransform.name + ": " + _SettingsString.Value;
             }
-            return "Camera.main: " + SettingsString;
+            return "Camera.main: " + _SettingsString.Value;
         }
 
         public override Color GetButtonColor() {
             return new Color32(128, 200, 200, 255);
         }
+
+		//
+		// ISerializationCallbackReceiver implementation
+		//
+
+		public virtual void OnBeforeSerialize()
+		{}
+
+		public virtual void OnAfterDeserialize()
+		{
+			if (SettingsStringOLD != "")
+			{
+				_SettingsString.Value = SettingsStringOLD;
+				SettingsStringOLD = "";
+			}
+		}
+
     }
 }

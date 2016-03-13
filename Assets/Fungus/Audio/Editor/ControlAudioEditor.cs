@@ -28,7 +28,7 @@ namespace Fungus
 				return;
 
 			controlProp = serializedObject.FindProperty("control");
-			audioSourceProp = serializedObject.FindProperty("audioSource");
+			audioSourceProp = serializedObject.FindProperty("_audioSource");
 			startVolumeProp = serializedObject.FindProperty("startVolume");
 			endVolumeProp = serializedObject.FindProperty("endVolume");
 			fadeDurationProp = serializedObject.FindProperty("fadeDuration");
