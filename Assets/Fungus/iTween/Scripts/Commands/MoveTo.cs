@@ -36,7 +36,7 @@ namespace Fungus
 			{
 				tweenParams.Add("position", _toTransform.Value);
 			}
-			tweenParams.Add("time", duration);
+			tweenParams.Add("time", _duration.Value);
 			tweenParams.Add("easetype", easeType);
 			tweenParams.Add("looptype", loopType);
 			tweenParams.Add("isLocal", isLocal);
@@ -50,11 +50,13 @@ namespace Fungus
 		// ISerializationCallbackReceiver implementation
 		//
 
-		public void OnBeforeSerialize()
+		public override void OnBeforeSerialize()
 		{}
 
-		public void OnAfterDeserialize()
+		public override void OnAfterDeserialize()
 		{
+			base.OnAfterDeserialize();
+
 			if (toTransformOLD != null)
 			{
 				_toTransform.Value = toTransformOLD;

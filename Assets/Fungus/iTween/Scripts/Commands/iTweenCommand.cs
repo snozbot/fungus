@@ -18,6 +18,7 @@ namespace Fungus
 		#region Obsolete Properties
 		[HideInInspector] [FormerlySerializedAs("target")] [FormerlySerializedAs("targetObject")] public GameObject targetObjectOLD;
 		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD;
+		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
 		#endregion
 
 		[Tooltip("Target game object to apply the Tween to")]
@@ -27,7 +28,7 @@ namespace Fungus
 		public StringData _tweenName;
 
 		[Tooltip("The time in seconds the animation will take to complete")]
-		public float duration = 1f;
+		public FloatData _duration = new FloatData(1f);
 
 		[Tooltip("The shape of the easing curve applied to the animation")]
 		public iTween.EaseType easeType = iTween.EaseType.easeInOutQuad;
@@ -89,7 +90,7 @@ namespace Fungus
 				return "Error: No target object selected";
 			}
 
-			return _targetObject.Value.name + " over " + duration + " seconds";
+			return _targetObject.Value.name + " over " + _duration.Value + " seconds";
 		}
 
 		public override Color GetButtonColor()
@@ -101,15 +102,21 @@ namespace Fungus
 		// ISerializationCallbackReceiver implementation
 		//
 
-		public void OnBeforeSerialize()
+		public virtual void OnBeforeSerialize()
 		{}
 
-		public void OnAfterDeserialize()
+		public virtual void OnAfterDeserialize()
 		{
 			if (targetObjectOLD != null)
 			{
 				_targetObject.Value = targetObjectOLD;
 				targetObjectOLD = null;
+			}
+
+			if (durationOLD == default(float))
+			{
+				_duration.Value = durationOLD;
+				durationOLD = default(float);
 			}
 		}
 	}

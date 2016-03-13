@@ -26,7 +26,7 @@ namespace Fungus
 			tweenParams.Add("name", _tweenName.Value);
 			tweenParams.Add("amount", _amount.Value);
 			tweenParams.Add("space", space);
-			tweenParams.Add("time", duration);
+			tweenParams.Add("time", _duration.Value);
 			tweenParams.Add("easetype", easeType);
 			tweenParams.Add("looptype", loopType);
 			tweenParams.Add("oncomplete", "OniTweenComplete");
@@ -39,11 +39,13 @@ namespace Fungus
 		// ISerializationCallbackReceiver implementation
 		//
 
-		public void OnBeforeSerialize()
+		public override void OnBeforeSerialize()
 		{}
 
-		public void OnAfterDeserialize()
+		public override void OnAfterDeserialize()
 		{
+			base.OnAfterDeserialize();
+
 			if (amountOLD != default(Vector3))
 			{
 				_amount.Value = amountOLD;

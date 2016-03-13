@@ -27,10 +27,10 @@ namespace Fungus
 		// ISerializationCallbackReceiver implementation
 		//
 
-		public void OnBeforeSerialize()
+		public virtual void OnBeforeSerialize()
 		{}
 
-		public void OnAfterDeserialize()
+		public virtual void OnAfterDeserialize()
 		{
 			if (tweenNameOLD != "")
 			{
