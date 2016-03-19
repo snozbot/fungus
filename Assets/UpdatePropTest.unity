@@ -309,6 +309,7 @@ GameObject:
   - 114: {fileID: 979963255}
   - 114: {fileID: 979963254}
   - 114: {fileID: 979963253}
+  - 114: {fileID: 979963256}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -342,7 +343,7 @@ MonoBehaviour:
     height: 859
   selectedBlock: {fileID: 979963241}
   selectedCommands:
-  - {fileID: 979963253}
+  - {fileID: 979963256}
   variables:
   - {fileID: 979963244}
   - {fileID: 979963252}
@@ -412,6 +413,7 @@ MonoBehaviour:
   - {fileID: 979963251}
   - {fileID: 979963254}
   - {fileID: 979963253}
+  - {fileID: 979963256}
 --- !u!114 &979963242
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -673,6 +675,36 @@ MonoBehaviour:
     stringRef: {fileID: 0}
     stringVal: 
   loadingImage: {fileID: 0}
+--- !u!114 &979963256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 979963238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb3e86f556e074b84af1cc7eb8f8e5e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  errorMessage: 
+  indentLevel: 0
+  sourceObjectOLD: {fileID: 0}
+  parentTransformOLD: {fileID: 0}
+  spawnPositionOLD: {x: 0, y: 0, z: 0}
+  spawnRotationOLD: {x: 0, y: 0, z: 0}
+  _sourceObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 1197120973}
+  _parentTransform:
+    transformRef: {fileID: 0}
+    transformVal: {fileID: 837453088}
+  _spawnPosition:
+    vector3Ref: {fileID: 0}
+    vector3Val: {x: 5, y: 2, z: 1}
+  _spawnRotation:
+    vector3Ref: {fileID: 0}
+    vector3Val: {x: 3, y: 2, z: 4}
 --- !u!1 &1197120973
 GameObject:
   m_ObjectHideFlags: 0
