@@ -209,7 +209,7 @@ namespace Fungus
 
 		protected virtual void DrawSingleLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart)
 		{
-			const int popupWidth = 60;
+			const int popupWidth = 17;
 			
 			Rect controlRect = EditorGUI.PrefixLabel(rect, label);
 			Rect valueRect = controlRect;
