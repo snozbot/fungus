@@ -11,10 +11,14 @@ namespace Fungus
 	             "Menu Timer", 
 	             "Displays a timer bar and executes a target block if the player fails to select a menu option in time.")]
 	[AddComponentMenu("")]
-	public class MenuTimer : Command 
+	public class MenuTimer : Command, ISerializationCallbackReceiver 
 	{		
+		#region Obsolete Properties
+		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
+		#endregion
+
 		[Tooltip("Length of time to display the timer for")]
-		public float duration;
+		public FloatData _duration = new FloatData(1);
 
 		[FormerlySerializedAs("targetSequence")]
 		[Tooltip("Block to execute when the timer expires")]
@@ -27,7 +31,7 @@ namespace Fungus
 			if (menuDialog != null &&
 			    targetBlock != null)
 			{
-				menuDialog.ShowTimer(duration, targetBlock);
+				menuDialog.ShowTimer(_duration.Value, targetBlock);
 			}
 
 			Continue();
@@ -54,6 +58,22 @@ namespace Fungus
 		public override Color GetButtonColor()
 		{
 			return new Color32(184, 210, 235, 255);
+		}
+
+		//
+		// ISerializationCallbackReceiver implementation
+		//
+
+		public virtual void OnBeforeSerialize()
+		{}
+
+		public virtual void OnAfterDeserialize()
+		{
+			if (durationOLD != default(float))
+			{
+				_duration.Value = durationOLD;
+				durationOLD = default(float);
+			}
 		}
 	}
 
