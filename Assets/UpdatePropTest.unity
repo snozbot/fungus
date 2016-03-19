@@ -305,6 +305,7 @@ GameObject:
   - 114: {fileID: 979963249}
   - 114: {fileID: 979963250}
   - 114: {fileID: 979963251}
+  - 114: {fileID: 979963252}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -337,9 +338,11 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlock: {fileID: 979963241}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 979963250}
   variables:
   - {fileID: 979963244}
+  - {fileID: 979963252}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -591,6 +594,20 @@ MonoBehaviour:
   indentLevel: 0
   stopParentFlowchart: 0
   targetFlowcharts: []
+--- !u!114 &979963252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 979963238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1941e052c0ed4280b25507cd2e6ad8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: Var1
+  value: {fileID: 0}
 --- !u!1 &1197120973
 GameObject:
   m_ObjectHideFlags: 0
