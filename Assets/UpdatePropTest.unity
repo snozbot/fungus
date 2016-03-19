@@ -313,6 +313,8 @@ GameObject:
   - 114: {fileID: 979963257}
   - 114: {fileID: 979963258}
   - 114: {fileID: 979963259}
+  - 114: {fileID: 979963261}
+  - 114: {fileID: 979963260}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -346,7 +348,7 @@ MonoBehaviour:
     height: 859
   selectedBlock: {fileID: 979963241}
   selectedCommands:
-  - {fileID: 979963259}
+  - {fileID: 979963260}
   variables:
   - {fileID: 979963244}
   - {fileID: 979963252}
@@ -420,6 +422,8 @@ MonoBehaviour:
   - {fileID: 979963257}
   - {fileID: 979963258}
   - {fileID: 979963259}
+  - {fileID: 979963261}
+  - {fileID: 979963260}
 --- !u!114 &979963242
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -765,7 +769,48 @@ MonoBehaviour:
   languageCodeOLD: 
   _languageCode:
     stringRef: {fileID: 0}
-    stringVal: ES
+    stringVal: 
+--- !u!114 &979963260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 979963238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10cd462c89cb047158ccfb8a8df3f60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 17
+  errorMessage: 
+  indentLevel: 0
+  spriteRenderer: {fileID: 0}
+  visible: 0
+  affectChildren: 1
+--- !u!114 &979963261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 979963238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accc065c3e9a6457496f075b1bd49adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 16
+  errorMessage: 
+  indentLevel: 0
+  durationOLD: 0
+  targetColorOLD: {r: 0, g: 0, b: 0, a: 0}
+  spriteRenderer: {fileID: 0}
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 5
+  _targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 0.7205882, g: 0.10067042, b: 0.10067042, a: 1}
+  waitUntilFinished: 1
 --- !u!1 &1197120973
 GameObject:
   m_ObjectHideFlags: 0
