@@ -312,6 +312,7 @@ GameObject:
   - 114: {fileID: 979963256}
   - 114: {fileID: 979963257}
   - 114: {fileID: 979963258}
+  - 114: {fileID: 979963259}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -345,7 +346,7 @@ MonoBehaviour:
     height: 859
   selectedBlock: {fileID: 979963241}
   selectedCommands:
-  - {fileID: 979963258}
+  - {fileID: 979963259}
   variables:
   - {fileID: 979963244}
   - {fileID: 979963252}
@@ -418,6 +419,7 @@ MonoBehaviour:
   - {fileID: 979963256}
   - {fileID: 979963257}
   - {fileID: 979963258}
+  - {fileID: 979963259}
 --- !u!114 &979963242
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -741,8 +743,29 @@ MonoBehaviour:
   itemId: 14
   errorMessage: 
   indentLevel: 0
-  duration: 6
+  durationOLD: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 6
   targetBlock: {fileID: 979963241}
+--- !u!114 &979963259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 979963238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fc625e237d6048bf86f34835d8266d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 15
+  errorMessage: 
+  indentLevel: 0
+  languageCodeOLD: 
+  _languageCode:
+    stringRef: {fileID: 0}
+    stringVal: ES
 --- !u!1 &1197120973
 GameObject:
   m_ObjectHideFlags: 0
