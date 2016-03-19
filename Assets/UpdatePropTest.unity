@@ -306,6 +306,9 @@ GameObject:
   - 114: {fileID: 979963250}
   - 114: {fileID: 979963251}
   - 114: {fileID: 979963252}
+  - 114: {fileID: 979963255}
+  - 114: {fileID: 979963254}
+  - 114: {fileID: 979963253}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -339,7 +342,7 @@ MonoBehaviour:
     height: 859
   selectedBlock: {fileID: 979963241}
   selectedCommands:
-  - {fileID: 979963250}
+  - {fileID: 979963253}
   variables:
   - {fileID: 979963244}
   - {fileID: 979963252}
@@ -405,7 +408,10 @@ MonoBehaviour:
   - {fileID: 979963249}
   - {fileID: 979963248}
   - {fileID: 979963250}
+  - {fileID: 979963255}
   - {fileID: 979963251}
+  - {fileID: 979963254}
+  - {fileID: 979963253}
 --- !u!114 &979963242
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -607,7 +613,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: Var1
-  value: {fileID: 0}
+  value: {fileID: 1766204518}
+--- !u!114 &979963253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 979963238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd8c931f22994b9d90e2037fffaa770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 11
+  errorMessage: 
+  indentLevel: 0
+  targetGameObjectOLD: {fileID: 0}
+  _targetGameObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 837453083}
+  activeState:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+--- !u!114 &979963254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 979963238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43743931d28f43f89eced820d907351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 10
+  errorMessage: 
+  indentLevel: 0
+  messageOLD: 
+  messageTarget: 0
+  _message:
+    stringRef: {fileID: 0}
+    stringVal: 
+--- !u!114 &979963255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 979963238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d03ae0919f04264b018681ed534177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 9
+  errorMessage: 
+  indentLevel: 0
+  sceneNameOLD: 
+  _sceneName:
+    stringRef: {fileID: 0}
+    stringVal: 
+  loadingImage: {fileID: 0}
 --- !u!1 &1197120973
 GameObject:
   m_ObjectHideFlags: 0
