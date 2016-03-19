@@ -16,6 +16,7 @@ namespace Fungus
 		[Tooltip("Make the sprite visible or invisible")]
 		public bool visible = true;
 
+		[Tooltip("Affect the visibility of child sprites")]
 		public bool affectChildren = true;
 
 		public override void OnEnter()
