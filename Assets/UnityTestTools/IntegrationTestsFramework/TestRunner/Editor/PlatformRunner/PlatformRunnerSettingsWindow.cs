@@ -248,8 +248,10 @@ namespace UnityTest.IntegrationTests
                     else if (m_Settings.port < IPEndPoint.MinPort)
                         m_Settings.port = IPEndPoint.MinPort;
                 }
-                EditorGUI.EndDisabledGroup();
             }
+
+			EditorGUI.EndDisabledGroup();
+
             if (EditorGUI.EndChangeCheck())
             {
                 m_Settings.Save();
