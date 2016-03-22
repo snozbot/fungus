@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,13 +8,13 @@ namespace Fungus
 	             "Look To", 
 	             "Rotates a GameObject to look at a supplied Transform or Vector3 over time.")]
 	[AddComponentMenu("")]
-	public class LookTo : iTweenCommand 
+	public class LookTo : iTweenCommand, ISerializationCallbackReceiver
 	{
 		[Tooltip("Target transform that the GameObject will look at")]
-		public Transform toTransform;
+		public TransformData _toTransform;
 
 		[Tooltip("Target world position that the GameObject will look at, if no From Transform is set")]
-		public Vector3 toPosition;
+		public Vector3Data _toPosition;
 
 		[Tooltip("Restricts rotation to the supplied axis only")]
 		public iTweenAxis axis;
@@ -21,14 +22,14 @@ namespace Fungus
 		public override void DoTween()
 		{
 			Hashtable tweenParams = new Hashtable();
-			tweenParams.Add("name", tweenName);
-			if (toTransform == null)
+			tweenParams.Add("name", _tweenName.Value);
+			if (_toTransform.Value == null)
 			{
-				tweenParams.Add("looktarget", toPosition);
+				tweenParams.Add("looktarget", _toPosition.Value);
 			}
 			else
 			{
-				tweenParams.Add("looktarget", toTransform);
+				tweenParams.Add("looktarget", _toTransform.Value);
 			}
 			switch (axis)
 			{
@@ -42,14 +43,41 @@ namespace Fungus
 				tweenParams.Add("axis", "z");
 				break;
 			}
-			tweenParams.Add("time", duration);
+			tweenParams.Add("time", _duration.Value);
 			tweenParams.Add("easetype", easeType);
 			tweenParams.Add("looptype", loopType);
 			tweenParams.Add("oncomplete", "OniTweenComplete");
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
-			iTween.LookTo(targetObject, tweenParams);
-		}		
+			iTween.LookTo(_targetObject.Value, tweenParams);
+		}
+
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("toPosition")] public Vector3 toPositionOLD;
+
+		public override void OnBeforeSerialize()
+		{}
+
+		public override void OnAfterDeserialize()
+		{
+			base.OnAfterDeserialize();
+
+			if (toTransformOLD != null)
+			{
+				_toTransform.Value = toTransformOLD;
+				toTransformOLD = null;
+			}
+
+			if (toPositionOLD != default(Vector3))
+			{
+				_toPosition.Value = toPositionOLD;
+				toPositionOLD = default(Vector3);
+			}
+		}
+
+		#endregion
 	}
 
 }

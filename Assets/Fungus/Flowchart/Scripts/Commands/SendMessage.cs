@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,7 +8,7 @@ namespace Fungus
 	             "Send Message", 
 	             "Sends a message to either the owner Flowchart or all Flowcharts in the scene. Blocks can listen for this message using a Message Received event handler.")]
 	[AddComponentMenu("")]
-	public class SendMessage : Command
+	public class SendMessage : Command, ISerializationCallbackReceiver
 	{
 		public enum MessageTarget
 		{
@@ -19,11 +20,11 @@ namespace Fungus
 		public MessageTarget messageTarget;
 
 		[Tooltip("Name of the message to send")]
-		public string message = "";
+		public StringData _message = new StringData("");
 
 		public override void OnEnter()
 		{
-			if (message.Length == 0)
+			if (_message.Value.Length == 0)
 			{
 				Continue();
 				return;
@@ -45,7 +46,7 @@ namespace Fungus
 			{
 				foreach (MessageReceived receiver in receivers)
 				{
-					receiver.OnSendFungusMessage(message);
+					receiver.OnSendFungusMessage(_message.Value);
 				}
 			}
 
@@ -54,18 +55,36 @@ namespace Fungus
 
 		public override string GetSummary()
 		{
-			if (message.Length == 0)
+			if (_message.Value.Length == 0)
 			{
 				return "Error: No message specified";
 			}
 			
-			return message;
+			return _message.Value;
 		}
 		
 		public override Color GetButtonColor()
 		{
 			return new Color32(235, 191, 217, 255);
 		}
+
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("message")] public string messageOLD;
+
+		public virtual void OnBeforeSerialize()
+		{}
+
+		public virtual void OnAfterDeserialize()
+		{
+			if (messageOLD != "")
+			{
+				_message.Value = messageOLD;
+				messageOLD = "";
+			}
+		}
+
+		#endregion
 	}
 
 }

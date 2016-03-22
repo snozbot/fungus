@@ -8,25 +8,25 @@ SceneSettings:
   m_PVSPortalsArray: []
   m_OcclusionBakeSettings:
     smallestOccluder: 5
-    smallestHole: .25
+    smallestHole: 0.25
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
   m_Fog: 0
-  m_FogColor: {r: .5, g: .5, b: .5, a: 1}
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: .00999999978
+  m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
-  m_AmbientEquatorColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
-  m_AmbientGroundColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientSkyColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_AmbientEquatorColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_AmbientGroundColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SkyboxMaterial: {fileID: 0}
-  m_HaloStrength: .5
+  m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -40,7 +40,7 @@ RenderSettings:
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 5
+  serializedVersion: 6
   m_GIWorkflowMode: 1
   m_LightmapsMode: 1
   m_GISettings:
@@ -66,7 +66,7 @@ LightmapSettings:
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
-  m_LightmapSnapshot: {fileID: 0}
+  m_LightingDataAsset: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
 NavMeshSettings:
@@ -74,15 +74,15 @@ NavMeshSettings:
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
-    agentRadius: .5
+    agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: .400000006
+    agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     accuratePlacement: 0
     minRegionArea: 2
-    cellSize: .166666657
+    cellSize: 0.16666666
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &31932611
@@ -234,11 +234,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 31932612}
   m_RootOrder: 0
-  m_AnchorMin: {x: .0907797143, y: .125833333}
-  m_AnchorMax: {x: .911751449, y: .872500062}
+  m_AnchorMin: {x: 0.090779714, y: 0.12583333}
+  m_AnchorMax: {x: 0.91175145, y: 0.87250006}
   m_AnchoredPosition: {x: 0, y: -1}
   m_SizeDelta: {x: 12, y: -3}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &88347146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,6 +267,7 @@ MonoBehaviour:
     m_MinSize: 10
     m_MaxSize: 50
     m_Alignment: 0
+    m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -302,7 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: .5}
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 1
 --- !u!222 &88347149
@@ -346,7 +347,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &235686027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,7 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .196078435, g: .196078435, b: .196078435, a: 1}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -375,6 +376,7 @@ MonoBehaviour:
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
+    m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -428,6 +430,7 @@ MonoBehaviour:
   shiftKeyEnabled: 1
   nextClickDelay: 0
   keyList: 0900000020000000
+  ignoreMenuClicks: 1
 --- !u!224 &243104469
 RectTransform:
   m_ObjectHideFlags: 0
@@ -441,7 +444,7 @@ RectTransform:
   m_Children:
   - {fileID: 31932612}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -488,6 +491,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 4
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -498,6 +502,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -508,6 +513,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -518,6 +524,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &243104471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,10 +560,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTextObject: {fileID: 88347144}
-  writingSpeed: 60
-  punctuationPause: .25
+  punchObject: {fileID: 0}
+  writingSpeed: 100
+  punctuationPause: 0.25
   hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
   writeWholeWords: 0
+  forceRichText: 1
+  instantComplete: 1
 --- !u!114 &243104473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,8 +634,10 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 1
+  m_TargetDisplay: 0
 --- !u!114 &428153884 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400000, guid: e0d427add844a4d9faf970a3afa07583,
@@ -671,11 +683,11 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: .960784316, g: .960784316, b: .960784316, a: 1}
-    m_PressedColor: {r: .784313738, g: .784313738, b: .784313738, a: 1}
-    m_DisabledColor: {r: .784313738, g: .784313738, b: .784313738, a: .501960814}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: .100000001
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -754,9 +766,9 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1888.90002, y: 212}
+  m_AnchoredPosition: {x: 1888.9, y: 212}
   m_SizeDelta: {x: 123, y: 121}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &552372303
 GameObject:
   m_ObjectHideFlags: 1
@@ -809,14 +821,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0bbe22c246e4c78ad8e9816cbae9d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDuration: .25
+  fadeDuration: 0.25
   continueButton: {fileID: 510870838}
   dialogCanvas: {fileID: 243104476}
   nameText: {fileID: 0}
   storyText: {fileID: 88347146}
   characterImage: {fileID: 0}
   fitTextWithImage: 1
-  textWidthScale: .800000012
 --- !u!1001 &768791691
 Prefab:
   m_ObjectHideFlags: 0
@@ -1001,21 +1012,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 1.0
-  scrollPos: {x: -313.13031, y: 97.234314}
+  version: 1
+  scrollPos: {x: -313.1303, y: 97.234314}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
-    x: -1118.14856
-    y: -610.734985
-    width: 3324.20264
-    height: 2227.35059
-  selectedBlock: {fileID: 771014151}
+    x: -1118.1486
+    y: -610.735
+    width: 3324.2026
+    height: 2227.3506
+  selectedBlock: {fileID: 771014104}
   selectedCommands:
-  - {fileID: 771014162}
+  - {fileID: 771014167}
   variables:
   - {fileID: 771014103}
   description: 'This is a simple Choose Your Own Adventure
@@ -1028,6 +1039,7 @@ MonoBehaviour:
   hideComponents: 1
   saveSelection: 1
   localizationId: 
+  hideCommands: []
 --- !u!4 &771014101
 Transform:
   m_ObjectHideFlags: 0
@@ -1039,7 +1051,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!114 &771014102
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1053,8 +1065,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 623.054199
-    y: -16.7798004
+    x: 623.0542
+    y: -16.7798
     width: 120
     height: 40
   itemId: 92
@@ -1091,7 +1103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 471.814453
+    x: 471.81445
     y: -52.946228
     width: 120
     height: 40
@@ -1138,8 +1150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 780.351135
-    y: -53.5572128
+    x: 780.35114
+    y: -53.557213
     width: 128
     height: 40
   itemId: 83
@@ -1210,8 +1222,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 983.054199
-    y: -53.7798004
+    x: 983.0542
+    y: -53.7798
     width: 120
     height: 40
   itemId: 95
@@ -1301,7 +1313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 984.054199
+    x: 984.0542
     y: -116.7798
     width: 139
     height: 40
@@ -1401,7 +1413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 984.054199
+    x: 984.0542
     y: -183.7798
     width: 120
     height: 40
@@ -1447,8 +1459,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 983.223145
-    y: 15.7090759
+    x: 983.22314
+    y: 15.709076
     width: 120
     height: 40
   itemId: 84
@@ -1475,7 +1487,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 1181.0542
-    y: 75.2201996
+    y: 75.2202
     width: 120
     height: 40
   itemId: 98
@@ -1515,8 +1527,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1371.35596
-    y: 36.5333862
+    x: 1371.356
+    y: 36.533386
     width: 120
     height: 40
   itemId: 85
@@ -1734,8 +1746,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1369.75391
-    y: 240.239777
+    x: 1369.7539
+    y: 240.23978
     width: 124
     height: 40
   itemId: 103
@@ -1961,8 +1973,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1147.18604
-    y: 253.534271
+    x: 1147.186
+    y: 253.53427
     width: 120
     height: 40
   itemId: 105
@@ -1985,8 +1997,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1368.09448
-    y: 159.214813
+    x: 1368.0945
+    y: 159.21481
     width: 120
     height: 40
   itemId: 86
@@ -2065,8 +2077,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1145.28809
-    y: 163.344482
+    x: 1145.2881
+    y: 163.34448
     width: 125
     height: 40
   itemId: 87
@@ -2114,8 +2126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 940.753906
-    y: 244.239777
+    x: 940.7539
+    y: 244.23978
     width: 120
     height: 40
   itemId: 104
@@ -2155,8 +2167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 935.837646
-    y: 119.663513
+    x: 935.83765
+    y: 119.66351
     width: 120
     height: 40
   itemId: 88
@@ -2225,8 +2237,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 746.804199
-    y: 227.472015
+    x: 746.8042
+    y: 227.47202
     width: 120
     height: 40
   itemId: 89
@@ -2272,7 +2284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 740.978638
+    x: 740.97864
     y: 121.01593
     width: 130
     height: 40
@@ -2373,8 +2385,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 737.102661
-    y: 60.294899
+    x: 737.10266
+    y: 60.2949
     width: 159
     height: 40
   itemId: 106
@@ -2641,8 +2653,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 625.054199
-    y: -97.7798004
+    x: 625.0542
+    y: -97.7798
     width: 120
     height: 40
   itemId: 91
@@ -2957,7 +2969,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 1514.0542
-    y: -33.7797852
+    y: -33.779785
     width: 120
     height: 40
   itemId: 99
@@ -3143,7 +3155,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 1185.0542
-    y: 13.2201996
+    y: 13.2202
     width: 120
     height: 40
   itemId: 97
@@ -3274,7 +3286,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 1185.0542
-    y: -41.7798004
+    y: -41.7798
     width: 120
     height: 40
   itemId: 96
@@ -3446,7 +3458,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 1517.0542
-    y: 173.220215
+    y: 173.22021
     width: 120
     height: 40
   itemId: 102
@@ -3614,7 +3626,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 1529.0542
-    y: 36.2202148
+    y: 36.220215
     width: 120
     height: 40
   itemId: 100
@@ -3723,6 +3735,8 @@ MonoBehaviour:
   indentLevel: 0
   musicClip: {fileID: 8300000, guid: 8f2a44f9988c2445aa82bed59f677134, type: 3}
   atTime: 0
+  loop: 1
+  fadeDuration: 1
 --- !u!114 &771014226
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3737,12 +3751,13 @@ MonoBehaviour:
   itemId: 0
   errorMessage: 
   indentLevel: 0
-  duration: .5
+  duration: 0.5
   fadeOut: 1
   targetView: {fileID: 428153884}
   waitUntilFinished: 1
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
   fadeTexture: {fileID: 0}
+  targetCamera: {fileID: 0}
 --- !u!114 &771014228
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3814,8 +3829,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 553.554871
-    y: 60.0247955
+    x: 553.5549
+    y: 60.024796
     width: 120
     height: 40
   itemId: 90
@@ -3881,14 +3896,14 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: .300000012
+  near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -3904,7 +3919,7 @@ Camera:
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
-  m_StereoSeparation: .0219999999
+  m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
 --- !u!4 &1020378998
 Transform:
@@ -3913,11 +3928,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1020378993}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.8929996, y: .701359987, z: -10}
+  m_LocalPosition: {x: -19.893, y: 0.70136, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!1 &1033075835
 GameObject:
   m_ObjectHideFlags: 0
@@ -3964,7 +3979,7 @@ MonoBehaviour:
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
-  m_RepeatDelay: .5
+  m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
 --- !u!114 &1033075838
 MonoBehaviour:
@@ -3991,7 +4006,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1 &1176957117
 GameObject:
   m_ObjectHideFlags: 0
@@ -4026,14 +4041,18 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 252b5a6bfbbc64f5184461a9150031bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
 --- !u!4 &1176957119
 Transform:
   m_ObjectHideFlags: 0
@@ -4045,7 +4064,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
 --- !u!1001 &1660535032
 Prefab:
   m_ObjectHideFlags: 0

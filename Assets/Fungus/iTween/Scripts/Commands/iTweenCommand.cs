@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.Serialization;
+using System.Collections;
 
 namespace Fungus
 {
+	
 	public enum iTweenAxis
 	{
 		None,
@@ -12,17 +13,16 @@ namespace Fungus
 		Z
 	}
 
-	public abstract class iTweenCommand : Command 
+	public abstract class iTweenCommand : Command, ISerializationCallbackReceiver
 	{
 		[Tooltip("Target game object to apply the Tween to")]
-		[FormerlySerializedAs("target")]
-		public GameObject targetObject;
+		public GameObjectData _targetObject;
 
 		[Tooltip("An individual name useful for stopping iTweens by name")]
-		public string tweenName;
+		public StringData _tweenName;
 
 		[Tooltip("The time in seconds the animation will take to complete")]
-		public float duration = 1f;
+		public FloatData _duration = new FloatData(1f);
 
 		[Tooltip("The shape of the easing curve applied to the animation")]
 		public iTween.EaseType easeType = iTween.EaseType.easeInOutQuad;
@@ -38,7 +38,7 @@ namespace Fungus
 
 		public override void OnEnter()
 		{
-			if (targetObject == null)
+			if (_targetObject.Value == null)
 			{
 				Continue();
 				return;
@@ -47,7 +47,7 @@ namespace Fungus
 			if (stopPreviousTweens)
 			{
 				// Force any existing iTweens on this target object to complete immediately
-				iTween[] tweens = targetObject.GetComponents<iTween>();
+				iTween[] tweens = _targetObject.Value.GetComponents<iTween>();
 				foreach (iTween tween in tweens) {
 					tween.time = 0;
 					tween.SendMessage("Update");
@@ -79,18 +79,44 @@ namespace Fungus
 
 		public override string GetSummary()
 		{
-			if (targetObject == null)
+			if (_targetObject.Value == null)
 			{
 				return "Error: No target object selected";
 			}
 
-			return targetObject.name + " over " + duration + " seconds";
+			return _targetObject.Value.name + " over " + _duration.Value + " seconds";
 		}
 
 		public override Color GetButtonColor()
 		{
 			return new Color32(233, 163, 180, 255);
 		}
+
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("target")] [FormerlySerializedAs("targetObject")] public GameObject targetObjectOLD;
+		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD;
+		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
+
+		public virtual void OnBeforeSerialize()
+		{}
+
+		public virtual void OnAfterDeserialize()
+		{
+			if (targetObjectOLD != null)
+			{
+				_targetObject.Value = targetObjectOLD;
+				targetObjectOLD = null;
+			}
+
+			if (durationOLD == default(float))
+			{
+				_duration.Value = durationOLD;
+				durationOLD = default(float);
+			}
+		}
+
+		#endregion
 	}
 
 }

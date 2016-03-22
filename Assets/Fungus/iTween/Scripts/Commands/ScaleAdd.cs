@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,24 +8,44 @@ namespace Fungus
 	             "Scale Add", 
 	             "Changes a game object's scale by a specified offset over time.")]
 	[AddComponentMenu("")]
-	public class ScaleAdd : iTweenCommand 
+	public class ScaleAdd : iTweenCommand, ISerializationCallbackReceiver 
 	{
 		[Tooltip("A scale offset in space the GameObject will animate to")]
-		public Vector3 offset;
+		public Vector3Data _offset;
 
 		public override void DoTween()
 		{
 			Hashtable tweenParams = new Hashtable();
-			tweenParams.Add("name", tweenName);
-			tweenParams.Add("amount", offset);
-			tweenParams.Add("time", duration);
+			tweenParams.Add("name", _tweenName.Value);
+			tweenParams.Add("amount", _offset.Value);
+			tweenParams.Add("time", _duration.Value);
 			tweenParams.Add("easetype", easeType);
 			tweenParams.Add("looptype", loopType);
 			tweenParams.Add("oncomplete", "OniTweenComplete");
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
-			iTween.ScaleAdd(targetObject, tweenParams);
+			iTween.ScaleAdd(_targetObject.Value, tweenParams);
 		}
+
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("offset")] public Vector3 offsetOLD;
+
+		public override void OnBeforeSerialize()
+		{}
+
+		public override void OnAfterDeserialize()
+		{
+			base.OnAfterDeserialize();
+
+			if (offsetOLD != default(Vector3))
+			{
+				_offset.Value = offsetOLD;
+				offsetOLD = default(Vector3);
+			}
+		}
+
+		#endregion
 	}
 
 }

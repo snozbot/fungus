@@ -7,7 +7,7 @@ namespace Fungus
 	             "Stop Tweens", 
 	             "Stop all active iTweens in the current scene.")]
 	[AddComponentMenu("")]
-	public class StopTweens : Command 
+	public class StopTweens : Command
 	{
 		public override void OnEnter()
 		{

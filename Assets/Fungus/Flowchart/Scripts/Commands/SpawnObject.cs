@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -10,54 +11,90 @@ namespace Fungus
 	             "Spawn Object", 
 	             "Spawns a new object based on a reference to a scene or prefab game object.")]
 	[AddComponentMenu("")]
-	public class SpawnObject : Command
+	public class SpawnObject : Command, ISerializationCallbackReceiver
 	{
 		[Tooltip("Game object to copy when spawning. Can be a scene object or a prefab.")]
-		public GameObject sourceObject;
+		public GameObjectData _sourceObject;
 
 		[Tooltip("Transform to use for position of newly spawned object.")]
-		public Transform parentTransform;
+		public TransformData _parentTransform;
 
 		[Tooltip("Local position of newly spawned object.")]
-		public Vector3 spawnPosition;
+		public Vector3Data _spawnPosition;
 
 		[Tooltip("Local rotation of newly spawned object.")]
-		public Vector3 spawnRotation;
+		public Vector3Data _spawnRotation;
 
 		public override void OnEnter()
 		{
-			if (sourceObject == null)
+			if (_sourceObject.Value == null)
 			{
 				Continue();
 				return;
 			}
 
-			GameObject newObject = GameObject.Instantiate(sourceObject);
-			if (parentTransform != null)
+			GameObject newObject = GameObject.Instantiate(_sourceObject.Value);
+			if (_parentTransform.Value != null)
 			{
-				newObject.transform.parent = parentTransform;
+				newObject.transform.parent = _parentTransform.Value;
 			}
 
-			newObject.transform.localPosition = spawnPosition;
-			newObject.transform.localRotation = Quaternion.Euler(spawnRotation);
+			newObject.transform.localPosition = _spawnPosition.Value;
+			newObject.transform.localRotation = Quaternion.Euler(_spawnRotation.Value);
 
 			Continue();
 		}
 
 		public override string GetSummary()
 		{
-			if (sourceObject == null)
+			if (_sourceObject.Value == null)
 			{
 				return "Error: No source GameObject specified";
 			}
 
-			return sourceObject.name;
+			return _sourceObject.Value.name;
 		}
 		
 		public override Color GetButtonColor()
 		{
 			return new Color32(235, 191, 217, 255);
 		}
+
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("sourceObject")] public GameObject sourceObjectOLD;
+		[HideInInspector] [FormerlySerializedAs("parentTransform")] public Transform parentTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("spawnPosition")] public Vector3 spawnPositionOLD;
+		[HideInInspector] [FormerlySerializedAs("spawnRotation")] public Vector3 spawnRotationOLD;
+
+		public virtual void OnBeforeSerialize()
+		{}
+
+		public virtual void OnAfterDeserialize()
+		{
+			if (sourceObjectOLD != null)
+			{
+				_sourceObject.Value = sourceObjectOLD;
+				sourceObjectOLD = null;
+			}
+			if (parentTransformOLD != null)
+			{
+				_parentTransform.Value = parentTransformOLD;
+				parentTransformOLD = null;
+			}
+			if (spawnPositionOLD != default(Vector3))
+			{
+				_spawnPosition.Value = spawnPositionOLD;
+				spawnPositionOLD = default(Vector3);
+			}
+			if (spawnRotationOLD != default(Vector3))
+			{
+				_spawnRotation.Value = spawnRotationOLD;
+				spawnRotationOLD = default(Vector3);
+			}
+		}
+
+		#endregion
 	}
 
 }

@@ -11,18 +11,18 @@ namespace Fungus
 	public class LinkToWebsite : Command
 	{
 		[Tooltip("URL to open in the browser")]
-		public string url;
+		public StringData url = new StringData();
 
 		public override void OnEnter()
 		{
-			Application.OpenURL(url);
+			Application.OpenURL(url.Value);
 
 			Continue();
 		}
 
 		public override string GetSummary()
 		{
-			return url;
+			return url.Value;
 		}
 
 		public override Color GetButtonColor()

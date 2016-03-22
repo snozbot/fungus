@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System;
 using System.Collections;
 
@@ -8,22 +9,22 @@ namespace Fungus
 	             "Set Anim Float", 
 	             "Sets a float parameter on an Animator component to control a Unity animation")]
 	[AddComponentMenu("")]
-	public class SetAnimFloat : Command 
+	public class SetAnimFloat : Command, ISerializationCallbackReceiver
 	{
 		[Tooltip("Reference to an Animator component in a game object")]
-		public Animator animator;
+		public AnimatorData _animator;
 
 		[Tooltip("Name of the float Animator parameter that will have its value changed")]
-		public string parameterName;
+		public StringData _parameterName;
 
 		[Tooltip("The float value to set the parameter to")]
 		public FloatData value;
 
 		public override void OnEnter()
 		{
-			if (animator != null)
+			if (_animator.Value != null)
 			{
-				animator.SetFloat(parameterName, value.Value);
+				_animator.Value.SetFloat(_parameterName.Value, value.Value);
 			}
 
 			Continue();
@@ -31,18 +32,43 @@ namespace Fungus
 
 		public override string GetSummary()
 		{
-			if (animator == null)
+			if (_animator.Value == null)
 			{
 				return "Error: No animator selected";
 			}
 
-			return animator.name + " (" + parameterName + ")";
+			return _animator.Value.name + " (" + _parameterName.Value + ")";
 		}
 
 		public override Color GetButtonColor()
 		{
 			return new Color32(170, 204, 169, 255);
 		}
+
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("animator")] public Animator animatorOLD;
+		[HideInInspector] [FormerlySerializedAs("parameterName")] public string parameterNameOLD;
+
+		public void OnBeforeSerialize()
+		{}
+
+		public void OnAfterDeserialize()
+		{
+			if (animatorOLD != null)
+			{
+				_animator.Value = animatorOLD;
+				animatorOLD = null;
+			}
+
+			if (parameterNameOLD != null)
+			{
+				_parameterName.Value = parameterNameOLD;
+				parameterNameOLD = null;
+			}
+		}
+
+		#endregion
 	}
 
 }

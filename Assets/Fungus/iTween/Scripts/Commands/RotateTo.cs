@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,13 +8,13 @@ namespace Fungus
 	             "Rotate To", 
 	             "Rotates a game object to the specified angles over time.")]
 	[AddComponentMenu("")]
-	public class RotateTo : iTweenCommand 
+	public class RotateTo : iTweenCommand, ISerializationCallbackReceiver 
 	{
 		[Tooltip("Target transform that the GameObject will rotate to")]
-		public Transform toTransform;
+		public TransformData _toTransform;
 
 		[Tooltip("Target rotation that the GameObject will rotate to, if no To Transform is set")]
-		public Vector3 toRotation;
+		public Vector3Data _toRotation;
 
 		[Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
 		public bool isLocal;
@@ -21,24 +22,51 @@ namespace Fungus
 		public override void DoTween()
 		{
 			Hashtable tweenParams = new Hashtable();
-			tweenParams.Add("name", tweenName);
-			if (toTransform == null)
+			tweenParams.Add("name", _tweenName.Value);
+			if (_toTransform.Value == null)
 			{
-				tweenParams.Add("rotation", toRotation);
+				tweenParams.Add("rotation", _toRotation.Value);
 			}
 			else
 			{
-				tweenParams.Add("rotation", toTransform);
+				tweenParams.Add("rotation", _toTransform.Value);
 			}
-			tweenParams.Add("time", duration);
+			tweenParams.Add("time", _duration.Value);
 			tweenParams.Add("easetype", easeType);
 			tweenParams.Add("looptype", loopType);
 			tweenParams.Add("isLocal", isLocal);
 			tweenParams.Add("oncomplete", "OniTweenComplete");
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
-			iTween.RotateTo(targetObject, tweenParams);
-		}		
+			iTween.RotateTo(_targetObject.Value, tweenParams);
+		}
+
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("toRotation")] public Vector3 toRotationOLD;
+
+		public override void OnBeforeSerialize()
+		{}
+
+		public override void OnAfterDeserialize()
+		{
+			base.OnAfterDeserialize();
+
+			if (toTransformOLD != null)
+			{
+				_toTransform.Value = toTransformOLD;
+				toTransformOLD = null;
+			}
+
+			if (toRotationOLD != default(Vector3))
+			{
+				_toRotation.Value = toRotationOLD;
+				toRotationOLD = default(Vector3);
+			}
+		}
+
+		#endregion
 	}
 
 }

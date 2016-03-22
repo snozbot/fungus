@@ -17,7 +17,7 @@ namespace Fungus
 			if (NullTargetCheck()) // Check for an orphaned editor instance
 				return;
 
-			durationProp = serializedObject.FindProperty("duration");
+			durationProp = serializedObject.FindProperty("_duration");
 			targetBlockProp = serializedObject.FindProperty("targetBlock");
 		}
 		

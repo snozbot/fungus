@@ -14,6 +14,13 @@ namespace Fungus
 			GameObject go = SpawnPrefab("Flowchart");
 			go.transform.position = Vector3.zero;
 
+			// This is the latest version of Flowchart, so no need to update.
+			Flowchart flowchart = go.GetComponent<Flowchart>();
+			if (flowchart != null)
+			{
+				flowchart.version = Flowchart.CURRENT_VERSION;
+			}
+
 			// Only the first created Flowchart in the scene should have a default GameStarted block
 			if (GameObject.FindObjectsOfType<Flowchart>().Length > 1)
 			{

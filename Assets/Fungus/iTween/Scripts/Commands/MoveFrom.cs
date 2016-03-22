@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
@@ -7,13 +8,13 @@ namespace Fungus
 	             "Move From", 
 	             "Moves a game object from a specified position back to its starting position over time. The position can be defined by a transform in another object (using To Transform) or by setting an absolute position (using To Position, if To Transform is set to None).")]
 	[AddComponentMenu("")]
-	public class MoveFrom : iTweenCommand 
+	public class MoveFrom : iTweenCommand, ISerializationCallbackReceiver 
 	{
 		[Tooltip("Target transform that the GameObject will move from")]
-		public Transform fromTransform;
+		public TransformData _fromTransform;
 
 		[Tooltip("Target world position that the GameObject will move from, if no From Transform is set")]
-		public Vector3 fromPosition;
+		public Vector3Data _fromPosition;
 
 		[Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
 		public bool isLocal;
@@ -21,24 +22,51 @@ namespace Fungus
 		public override void DoTween()
 		{
 			Hashtable tweenParams = new Hashtable();
-			tweenParams.Add("name", tweenName);
-			if (fromTransform == null)
+			tweenParams.Add("name", _tweenName.Value);
+			if (_fromTransform.Value == null)
 			{
-				tweenParams.Add("position", fromPosition);
+				tweenParams.Add("position", _fromPosition.Value);
 			}
 			else
 			{
-				tweenParams.Add("position", fromTransform);
+				tweenParams.Add("position", _fromTransform.Value);
 			}
-			tweenParams.Add("time", duration);
+			tweenParams.Add("time", _duration.Value);
 			tweenParams.Add("easetype", easeType);
 			tweenParams.Add("looptype", loopType);
 			tweenParams.Add("isLocal", isLocal);
 			tweenParams.Add("oncomplete", "OniTweenComplete");
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
-			iTween.MoveFrom(targetObject, tweenParams);
-		}		
+			iTween.MoveFrom(_targetObject.Value, tweenParams);
+		}
+
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("fromTransform")] public Transform fromTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("fromPosition")] public Vector3 fromPositionOLD;
+
+		public override void OnBeforeSerialize()
+		{}
+
+		public override void OnAfterDeserialize()
+		{
+			base.OnAfterDeserialize();
+
+			if (fromTransformOLD != null)
+			{
+				_fromTransform.Value = fromTransformOLD;
+				fromTransformOLD = null;
+			}
+
+			if (fromPositionOLD != default(Vector3))
+			{
+				_fromPosition.Value = fromPositionOLD;
+				fromPositionOLD = default(Vector3);
+			}
+		}
+
+		#endregion
 	}
 
 }
