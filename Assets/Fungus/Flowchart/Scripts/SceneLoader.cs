@@ -50,17 +50,6 @@ namespace Fungus
 				yield return new WaitForEndOfFrame();
 			}
 
-			// Sprites tend to take up most of the memory in a Fungus game, so destroy all sprite objects
-			// first to free up memory for loading in the next scene.
-			SpriteRenderer[] renderers = GameObject.FindObjectsOfType<SpriteRenderer>();
-			foreach (SpriteRenderer renderer in renderers)
-			{
-				if (renderer != null)
-				{
-					DestroyImmediate(renderer.gameObject);
-				}
-			}
-
 			// Wait for objects to actually be destroyed at end of run loop
 			yield return new WaitForEndOfFrame();
 
