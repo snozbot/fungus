@@ -79,6 +79,8 @@ namespace Fungus
 		protected bool italicActive = false;
 		protected bool colorActive = false;
 		protected string colorText = "";
+		protected bool sizeActive = false;
+		protected float sizeValue = 16f;
 		protected bool inputFlag;
 		protected bool exitFlag;
 
@@ -212,6 +214,10 @@ namespace Fungus
 			
 			if (SupportsRichText())
 			{
+				if (sizeActive)
+				{
+					tagText += "<size=" + sizeValue + ">"; 
+				}
 				if (colorActive)
 				{
 					tagText += "<color=" + colorText + ">"; 
@@ -246,6 +252,10 @@ namespace Fungus
 				if (colorActive)
 				{
 					closeText += "</color>"; 
+				}
+				if (sizeActive)
+				{
+					closeText += "</size>"; 
 				}
 			}
 			
@@ -364,7 +374,9 @@ namespace Fungus
 			boldActive = false;
 			italicActive = false;
 			colorActive = false;
+			sizeActive = false;
 			colorText = "";
+			sizeValue = 16f;
 			currentPunctuationPause = punctuationPause;
 			currentWritingSpeed = writingSpeed;
 
@@ -409,7 +421,18 @@ namespace Fungus
 				case TextTagParser.TokenType.ColorEnd:
 					colorActive = false;
 					break;
-					
+
+				case TextTagParser.TokenType.SizeStart:
+					if (TryGetSingleParam(token.paramList, 0, 16f, out sizeValue))
+					{
+						sizeActive = true;
+					}
+					break;
+
+				case TextTagParser.TokenType.SizeEnd:
+					sizeActive = false;
+					break;
+
 				case TextTagParser.TokenType.Wait:
                     yield return StartCoroutine(DoWait(token.paramList));
 			        break;

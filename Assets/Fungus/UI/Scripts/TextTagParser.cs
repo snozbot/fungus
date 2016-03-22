@@ -17,6 +17,8 @@ namespace Fungus
 			ItalicEnd,				// /i
 			ColorStart,				// color=red
 			ColorEnd,				// /color
+			SizeStart,				// size=20
+			SizeEnd,				// /size
 			Wait, 					// w, w=0.5
 			WaitForInputNoClear, 	// wi
 			WaitForInputAndClear, 	// wc
@@ -49,6 +51,7 @@ namespace Fungus
 				"\t{b} Bold Text {/b}\n" + 
 				"\t{i} Italic Text {/i}\n" +
 				"\t{color=red} Color Text (color){/color}\n" +
+				"\t{size=30} Text size {/size}\n" +
 				"\n" +
 				"\t{s}, {s=60} Writing speed (chars per sec){/s}\n" +
 				"\t{w}, {w=0.5} Wait (seconds)\n" +
@@ -179,6 +182,14 @@ namespace Fungus
 			else if (tag == "/color")
 			{
 				type = TokenType.ColorEnd;
+			}
+			else if (tag.StartsWith("size="))
+			{
+				type = TokenType.SizeStart;
+			}
+			else if (tag == "/size")
+			{
+				type = TokenType.SizeEnd;
 			}
 			else if (tag == "wi")
 			{

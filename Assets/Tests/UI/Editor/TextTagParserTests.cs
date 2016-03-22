@@ -18,6 +18,7 @@ public class TextTagParserTests
 		                                                          "{b}bold test{/b}" +
 		                                                          "{i}italic test{/i}" +
 		                                                          "{color=red}color test{/color}" +
+																  "{size=30}size test{/size}" +
 		                                                          "{w}{w=0.5}" +
 		                                                          "{wi}{wc}" +
 		                                                          "{wp}{wp=0.5}{/wp}" +
@@ -71,6 +72,18 @@ public class TextTagParserTests
 		
 		i++;
 		Assert.That(tokens[i].type == TextTagParser.TokenType.ColorEnd);
+		Assert.That(tokens[i].paramList.Count == 0);
+
+		i++;
+		Assert.That(tokens[i].type == TextTagParser.TokenType.SizeStart);
+		Assert.That(tokens[i].paramList[0] == "30");
+
+		i++;
+		Assert.That(tokens[i].type == TextTagParser.TokenType.Words);
+		Assert.That(tokens[i].paramList[0] == "size test");
+
+		i++;
+		Assert.That(tokens[i].type == TextTagParser.TokenType.SizeEnd);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
@@ -157,7 +170,7 @@ public class TextTagParserTests
 		Assert.That(tokens[i].type == TextTagParser.TokenType.AudioStop);
 		Assert.That(tokens[i].paramList[0] == "Sound");
 
-		Assert.That(tokens.Count == 31);
+		Assert.That(tokens.Count == 34);
 	}
 
 	[Test]
