@@ -13,13 +13,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class SpawnObject : Command, ISerializationCallbackReceiver
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("sourceObject")] public GameObject sourceObjectOLD;
-		[HideInInspector] [FormerlySerializedAs("parentTransform")] public Transform parentTransformOLD;
-		[HideInInspector] [FormerlySerializedAs("spawnPosition")] public Vector3 spawnPositionOLD;
-		[HideInInspector] [FormerlySerializedAs("spawnRotation")] public Vector3 spawnRotationOLD;
-		#endregion
-
 		[Tooltip("Game object to copy when spawning. Can be a scene object or a prefab.")]
 		public GameObjectData _sourceObject;
 
@@ -67,9 +60,12 @@ namespace Fungus
 			return new Color32(235, 191, 217, 255);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("sourceObject")] public GameObject sourceObjectOLD;
+		[HideInInspector] [FormerlySerializedAs("parentTransform")] public Transform parentTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("spawnPosition")] public Vector3 spawnPositionOLD;
+		[HideInInspector] [FormerlySerializedAs("spawnRotation")] public Vector3 spawnRotationOLD;
 
 		public virtual void OnBeforeSerialize()
 		{}
@@ -97,6 +93,8 @@ namespace Fungus
 				spawnRotationOLD = default(Vector3);
 			}
 		}
+
+		#endregion
 	}
 
 }

@@ -11,10 +11,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Destroy : Command, ISerializationCallbackReceiver
 	{	
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("targetGameObject")] public GameObject targetGameObjectOLD;
-		#endregion
-
 		[Tooltip("Reference to game object to destroy")]
 		public GameObjectData _targetGameObject;
 
@@ -43,9 +39,9 @@ namespace Fungus
 			return new Color32(235, 191, 217, 255);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("targetGameObject")] public GameObject targetGameObjectOLD;
 
 		public virtual void OnBeforeSerialize()
 		{}
@@ -58,6 +54,8 @@ namespace Fungus
 				targetGameObjectOLD = null;
 			}
 		}
+
+		#endregion
 	}
 
 }

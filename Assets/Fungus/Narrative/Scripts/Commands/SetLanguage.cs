@@ -10,10 +10,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class SetLanguage : Command, ISerializationCallbackReceiver
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("languageCode")] public string languageCodeOLD;
-		#endregion
-
 		[Tooltip("Code of the language to set. e.g. ES, DE, JA")]
 		public StringData _languageCode = new StringData(); 
 
@@ -44,9 +40,9 @@ namespace Fungus
 			return new Color32(184, 210, 235, 255);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("languageCode")] public string languageCodeOLD;
 
 		public virtual void OnBeforeSerialize()
 		{}
@@ -59,5 +55,7 @@ namespace Fungus
 				languageCodeOLD = default(string);
 			}
 		}
+
+		#endregion
 	}
 }

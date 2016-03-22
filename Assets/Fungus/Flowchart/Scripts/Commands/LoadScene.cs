@@ -14,10 +14,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class LoadScene : Command, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("sceneName")] public string sceneNameOLD;
-		#endregion
-
 		[Tooltip("Name of the scene to load. The scene must also be added to the build settings.")]
 		public StringData _sceneName = new StringData("");
 
@@ -44,9 +40,9 @@ namespace Fungus
 			return new Color32(235, 191, 217, 255);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("sceneName")] public string sceneNameOLD;
 
 		public virtual void OnBeforeSerialize()
 		{}
@@ -59,6 +55,8 @@ namespace Fungus
 				sceneNameOLD = default(string);
 			}
 		}
+
+		#endregion
 	}
 
 }

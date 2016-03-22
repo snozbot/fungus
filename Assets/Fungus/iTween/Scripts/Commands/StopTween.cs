@@ -10,10 +10,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class StopTween : Command, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD;
-		#endregion
-
 		[Tooltip("Stop and destroy any Tweens in current scene with the supplied name")]
 		public StringData _tweenName;
 
@@ -23,9 +19,9 @@ namespace Fungus
 			Continue();
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD;
 
 		public virtual void OnBeforeSerialize()
 		{}
@@ -38,6 +34,8 @@ namespace Fungus
 				tweenNameOLD = "";
 			}
 		}
+
+		#endregion
 	}
 
 }

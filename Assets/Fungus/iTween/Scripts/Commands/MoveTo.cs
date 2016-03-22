@@ -10,11 +10,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class MoveTo : iTweenCommand, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
-		[HideInInspector] [FormerlySerializedAs("toPosition")] public Vector3 toPositionOLD;
-		#endregion
-
 		[Tooltip("Target transform that the GameObject will move to")]
 		public TransformData _toTransform;
 
@@ -46,9 +41,10 @@ namespace Fungus
 			iTween.MoveTo(_targetObject.Value, tweenParams);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("toPosition")] public Vector3 toPositionOLD;
 
 		public override void OnBeforeSerialize()
 		{}
@@ -69,6 +65,8 @@ namespace Fungus
 				toPositionOLD = default(Vector3);
 			}
 		}
+
+		#endregion
 	}
 
 }

@@ -9,10 +9,6 @@ namespace Fungus
 	             "Plays, loops, or stops an audiosource. Any AudioSources with the same tag as the target Audio Source will automatically be stoped.")]
 	public class ControlAudio : Command, ISerializationCallbackReceiver
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("audioSource")] public AudioSource audioSourceOLD;
-		#endregion
-
 		public enum controlType
 		{
 			PlayOnce,
@@ -262,9 +258,9 @@ namespace Fungus
 			return new Color32(242, 209, 176, 255);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("audioSource")] public AudioSource audioSourceOLD;
 
 		public virtual void OnBeforeSerialize()
 		{}
@@ -277,6 +273,8 @@ namespace Fungus
 				audioSourceOLD = null;
 			}
 		}
+
+		#endregion
 	}
 	
 }

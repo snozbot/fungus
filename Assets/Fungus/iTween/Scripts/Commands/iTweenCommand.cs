@@ -15,12 +15,6 @@ namespace Fungus
 
 	public abstract class iTweenCommand : Command, ISerializationCallbackReceiver
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("target")] [FormerlySerializedAs("targetObject")] public GameObject targetObjectOLD;
-		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD;
-		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
-		#endregion
-
 		[Tooltip("Target game object to apply the Tween to")]
 		public GameObjectData _targetObject;
 
@@ -98,9 +92,11 @@ namespace Fungus
 			return new Color32(233, 163, 180, 255);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("target")] [FormerlySerializedAs("targetObject")] public GameObject targetObjectOLD;
+		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD;
+		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
 
 		public virtual void OnBeforeSerialize()
 		{}
@@ -119,6 +115,8 @@ namespace Fungus
 				durationOLD = default(float);
 			}
 		}
+
+		#endregion
 	}
 
 }

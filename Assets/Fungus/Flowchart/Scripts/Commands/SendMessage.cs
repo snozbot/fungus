@@ -10,10 +10,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class SendMessage : Command, ISerializationCallbackReceiver
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("message")] public string messageOLD;
-		#endregion
-
 		public enum MessageTarget
 		{
 			SameFlowchart,
@@ -72,9 +68,9 @@ namespace Fungus
 			return new Color32(235, 191, 217, 255);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("message")] public string messageOLD;
 
 		public virtual void OnBeforeSerialize()
 		{}
@@ -87,6 +83,8 @@ namespace Fungus
 				messageOLD = default(string);
 			}
 		}
+
+		#endregion
 	}
 
 }

@@ -11,11 +11,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class SetAnimTrigger : Command, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("animator")] public Animator animatorOLD;
-		[HideInInspector] [FormerlySerializedAs("parameterName")] public string parameterNameOLD;
-		#endregion
-
 		[Tooltip("Reference to an Animator component in a game object")]
 		public AnimatorData _animator;
 
@@ -47,9 +42,10 @@ namespace Fungus
 			return new Color32(170, 204, 169, 255);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("animator")] public Animator animatorOLD;
+		[HideInInspector] [FormerlySerializedAs("parameterName")] public string parameterNameOLD;
 
 		public void OnBeforeSerialize()
 		{}
@@ -68,6 +64,8 @@ namespace Fungus
 				parameterNameOLD = null;
 			}
 		}
+
+		#endregion
 	}
 
 }

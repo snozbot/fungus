@@ -10,10 +10,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class PunchRotation : iTweenCommand, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("amount")] public Vector3 amountOLD;
-		#endregion
-
 		[Tooltip("A rotation offset in space the GameObject will animate to")]
 		public Vector3Data _amount;
 
@@ -35,9 +31,9 @@ namespace Fungus
 			iTween.PunchRotation(_targetObject.Value, tweenParams);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("amount")] public Vector3 amountOLD;
 
 		public override void OnBeforeSerialize()
 		{}
@@ -52,6 +48,8 @@ namespace Fungus
 				amountOLD = default(Vector3);
 			}
 		}
+
+		#endregion
 	}
 
 }

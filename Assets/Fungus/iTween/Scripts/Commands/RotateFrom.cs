@@ -10,11 +10,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class RotateFrom : iTweenCommand, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("fromTransform")] public Transform fromTransformOLD;
-		[HideInInspector] [FormerlySerializedAs("fromRotation")] public Vector3 fromRotationOLD;
-		#endregion
-
 		[Tooltip("Target transform that the GameObject will rotate from")]
 		public TransformData _fromTransform;
 
@@ -46,9 +41,10 @@ namespace Fungus
 			iTween.RotateFrom(_targetObject.Value, tweenParams);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("fromTransform")] public Transform fromTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("fromRotation")] public Vector3 fromRotationOLD;
 
 		public override void OnBeforeSerialize()
 		{}
@@ -69,6 +65,8 @@ namespace Fungus
 				fromRotationOLD = default(Vector3);
 			}
 		}
+
+		#endregion
 	}
 
 }

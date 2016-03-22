@@ -10,11 +10,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class ScaleFrom : iTweenCommand, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("fromTransform")] public Transform fromTransformOLD;
-		[HideInInspector] [FormerlySerializedAs("fromScale")] public Vector3 fromScaleOLD;
-		#endregion
-
 		[Tooltip("Target transform that the GameObject will scale from")]
 		public TransformData _fromTransform;
 
@@ -42,9 +37,10 @@ namespace Fungus
 			iTween.ScaleFrom(_targetObject.Value, tweenParams);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("fromTransform")] public Transform fromTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("fromScale")] public Vector3 fromScaleOLD;
 
 		public override void OnBeforeSerialize()
 		{}
@@ -65,6 +61,8 @@ namespace Fungus
 				fromScaleOLD = default(Vector3);
 			}
 		}
+
+		#endregion
 	}
 
 }

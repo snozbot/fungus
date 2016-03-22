@@ -11,10 +11,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class Wait : Command, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
-		#endregion
-
 		[Tooltip("Duration to wait for")]
 		public FloatData _duration = new FloatData(1);
 
@@ -38,9 +34,9 @@ namespace Fungus
 			return new Color32(235, 191, 217, 255);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
 
 		public virtual void OnBeforeSerialize()
 		{}
@@ -53,6 +49,8 @@ namespace Fungus
 				durationOLD = default(float);
 			}
 		}
+
+		#endregion
 	}
 
 }

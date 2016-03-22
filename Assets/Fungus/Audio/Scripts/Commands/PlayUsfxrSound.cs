@@ -9,10 +9,6 @@
 	[AddComponentMenu("")]
 	public class PlayUsfxrSound : Command, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("SettingsString")] public String SettingsStringOLD;
-		#endregion
-
         protected SfxrSynth _synth = new SfxrSynth();
 
 		[Tooltip("Transform to use for positional audio")]
@@ -69,9 +65,9 @@
             return new Color32(128, 200, 200, 255);
         }
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("SettingsString")] public String SettingsStringOLD;
 
 		public virtual void OnBeforeSerialize()
 		{}
@@ -85,5 +81,6 @@
 			}
 		}
 
+		#endregion
     }
 }

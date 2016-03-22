@@ -11,11 +11,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class FadeSprite : Command, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
-		[HideInInspector] [FormerlySerializedAs("targetColor")] public Color targetColorOLD;
-		#endregion
-
 		[Tooltip("Sprite object to be faded")]
 		public SpriteRenderer spriteRenderer;
 
@@ -72,9 +67,10 @@ namespace Fungus
 			return new Color32(221, 184, 169, 255);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
+		[HideInInspector] [FormerlySerializedAs("targetColor")] public Color targetColorOLD;
 
 		public virtual void OnBeforeSerialize()
 		{}
@@ -92,6 +88,8 @@ namespace Fungus
 				targetColorOLD = default(Color);
 			}
 		}
+
+		#endregion
 	}
 
 }

@@ -11,10 +11,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class ShowSprite : Command, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("visible")] public bool visibleOLD;
-		#endregion
-
 		[Tooltip("Sprite object to be made visible / invisible")]
 		public SpriteRenderer spriteRenderer;
 
@@ -67,10 +63,9 @@ namespace Fungus
 			return new Color32(221, 184, 169, 255);
 		}
 
+		#region Backwards compatibility
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		[HideInInspector] [FormerlySerializedAs("visible")] public bool visibleOLD;
 
 		public virtual void OnBeforeSerialize()
 		{}
@@ -83,6 +78,8 @@ namespace Fungus
 				visibleOLD = default(bool);
 			}
 		}
+
+		#endregion
 	}
 
 }

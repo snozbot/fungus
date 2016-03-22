@@ -10,11 +10,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class LookTo : iTweenCommand, ISerializationCallbackReceiver
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
-		[HideInInspector] [FormerlySerializedAs("toPosition")] public Vector3 toPositionOLD;
-		#endregion
-
 		[Tooltip("Target transform that the GameObject will look at")]
 		public TransformData _toTransform;
 
@@ -57,9 +52,10 @@ namespace Fungus
 			iTween.LookTo(_targetObject.Value, tweenParams);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("toPosition")] public Vector3 toPositionOLD;
 
 		public override void OnBeforeSerialize()
 		{}
@@ -80,6 +76,8 @@ namespace Fungus
 				toPositionOLD = default(Vector3);
 			}
 		}
+
+		#endregion
 	}
 
 }

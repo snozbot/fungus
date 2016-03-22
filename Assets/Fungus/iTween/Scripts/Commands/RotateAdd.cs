@@ -10,10 +10,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class RotateAdd : iTweenCommand, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("offset")] public Vector3 offsetOLD;
-		#endregion
-
 		[Tooltip("A rotation offset in space the GameObject will animate to")]
 		public Vector3Data _offset;
 
@@ -35,9 +31,9 @@ namespace Fungus
 			iTween.RotateAdd(_targetObject.Value, tweenParams);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("offset")] public Vector3 offsetOLD;
 
 		public override void OnBeforeSerialize()
 		{}
@@ -52,6 +48,8 @@ namespace Fungus
 				offsetOLD = default(Vector3);
 			}
 		}
+
+		#endregion
 	}
 
 }

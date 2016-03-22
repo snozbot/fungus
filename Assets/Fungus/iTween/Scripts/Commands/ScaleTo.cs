@@ -10,11 +10,6 @@ namespace Fungus
 	[AddComponentMenu("")]
 	public class ScaleTo : iTweenCommand, ISerializationCallbackReceiver 
 	{
-		#region Obsolete Properties
-		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
-		[HideInInspector] [FormerlySerializedAs("toScale")] public Vector3 toScaleOLD;
-		#endregion
-
 		[Tooltip("Target transform that the GameObject will scale to")]
 		public TransformData _toTransform;
 
@@ -42,9 +37,10 @@ namespace Fungus
 			iTween.ScaleTo(_targetObject.Value, tweenParams);
 		}
 
-		//
-		// ISerializationCallbackReceiver implementation
-		//
+		#region Backwards compatibility
+
+		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
+		[HideInInspector] [FormerlySerializedAs("toScale")] public Vector3 toScaleOLD;
 
 		public override void OnBeforeSerialize()
 		{}
@@ -65,6 +61,8 @@ namespace Fungus
 				toScaleOLD = default(Vector3);
 			}
 		}
+
+		#endregion
 	}
 
 }
