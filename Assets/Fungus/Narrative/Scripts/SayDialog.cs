@@ -126,12 +126,12 @@ namespace Fungus
 			}
 		}
 
-		public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip voiceOverClip, Action onComplete)
+		public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip voiceOverClip, bool stopVoiceover, Action onComplete)
 		{
-			StartCoroutine(SayInternal(text, clearPrevious, waitForInput, fadeWhenDone, voiceOverClip, onComplete));
+			StartCoroutine(SayInternal(text, clearPrevious, waitForInput, fadeWhenDone, voiceOverClip, stopVoiceover, onComplete));
 		}
 
-		protected virtual IEnumerator SayInternal(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip voiceOverClip, Action onComplete)
+		protected virtual IEnumerator SayInternal(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, AudioClip voiceOverClip, bool stopVoiceover, Action onComplete)
 		{
 			Writer writer = GetWriter();
 
@@ -158,7 +158,7 @@ namespace Fungus
 			{
 				soundEffectClip = speakingCharacter.soundEffect;
 			}
-			writer.Write(text, clearPrevious, waitForInput, soundEffectClip, onComplete);
+			writer.Write(text, clearPrevious, waitForInput, stopVoiceover, soundEffectClip, onComplete);
 
 		}
 

@@ -209,9 +209,12 @@ namespace Fungus
 			Resume();
 		}
 		
-		public virtual void OnEnd()
+		public virtual void OnEnd(bool stopAudio)
 		{
-			Stop();
+			if (stopAudio)
+			{
+				Stop();
+			}
 		}
 
 		public virtual void OnGlyph()

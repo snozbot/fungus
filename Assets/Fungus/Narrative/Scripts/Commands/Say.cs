@@ -42,6 +42,9 @@ namespace Fungus
 		[Tooltip("Wait for player to click before continuing.")]
 		public bool waitForClick = true;
 
+		[Tooltip("Stop playing voiceover when text finishes writing.")]
+		public bool stopVoiceover = true;
+
 		[Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
 		public SayDialog setSayDialog;
 
@@ -96,7 +99,7 @@ namespace Fungus
 
 			string subbedText = flowchart.SubstituteVariables(displayText);
 
-			sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, voiceOverClip, delegate {
+			sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, voiceOverClip, stopVoiceover, delegate {
 				Continue();
 			});
 		}
