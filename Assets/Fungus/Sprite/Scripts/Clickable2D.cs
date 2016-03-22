@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 namespace Fungus
@@ -24,6 +25,11 @@ namespace Fungus
 				return;
 			}
 
+			if (EventSystem.current.IsPointerOverGameObject())
+			{
+				return; // Ignore this mouse event, pointer is over UI
+			}
+
 			// TODO: Cache these object for faster lookup
 			ObjectClicked[] handlers = GameObject.FindObjectsOfType<ObjectClicked>();
 			foreach (ObjectClicked handler in handlers)
@@ -34,11 +40,17 @@ namespace Fungus
 
 		protected virtual void OnMouseEnter()
 		{
+			if (EventSystem.current.IsPointerOverGameObject())
+			{
+				return; // Ignore this mouse event, pointer is over UI
+			}
+
 			changeCursor(hoverCursor);
 		}
 
 		protected virtual void OnMouseExit()
 		{
+			// Always reset the mouse cursor to be on the safe side
 			SetMouseCursor.ResetMouseCursor();
 		}
 
