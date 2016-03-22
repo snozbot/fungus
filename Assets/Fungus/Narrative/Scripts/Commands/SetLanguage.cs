@@ -49,10 +49,10 @@ namespace Fungus
 
 		public virtual void OnAfterDeserialize()
 		{
-			if (languageCodeOLD != default(string))
+			if (languageCodeOLD != "")
 			{
 				_languageCode.Value = languageCodeOLD;
-				languageCodeOLD = default(string);
+				languageCodeOLD = "";
 			}
 		}
 

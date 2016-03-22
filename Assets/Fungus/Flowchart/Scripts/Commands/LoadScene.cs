@@ -49,10 +49,10 @@ namespace Fungus
 
 		public virtual void OnAfterDeserialize()
 		{
-			if (sceneNameOLD != default(string))
+			if (sceneNameOLD != "")
 			{
 				_sceneName.Value = sceneNameOLD;
-				sceneNameOLD = default(string);
+				sceneNameOLD = "";
 			}
 		}
 

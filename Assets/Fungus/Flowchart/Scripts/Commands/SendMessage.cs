@@ -46,7 +46,7 @@ namespace Fungus
 			{
 				foreach (MessageReceived receiver in receivers)
 				{
-					receiver.OnSendFungusMessage(_message);
+					receiver.OnSendFungusMessage(_message.Value);
 				}
 			}
 
@@ -60,7 +60,7 @@ namespace Fungus
 				return "Error: No message specified";
 			}
 			
-			return _message;
+			return _message.Value;
 		}
 		
 		public override Color GetButtonColor()
@@ -77,10 +77,10 @@ namespace Fungus
 
 		public virtual void OnAfterDeserialize()
 		{
-			if (messageOLD != default(string))
+			if (messageOLD != "")
 			{
 				_message.Value = messageOLD;
-				messageOLD = default(string);
+				messageOLD = "";
 			}
 		}
 
