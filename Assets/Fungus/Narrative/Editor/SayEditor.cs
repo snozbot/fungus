@@ -80,6 +80,7 @@ namespace Fungus
 		protected SerializedProperty extendPreviousProp;
 		protected SerializedProperty fadeWhenDoneProp;
 		protected SerializedProperty waitForClickProp;
+		protected SerializedProperty stopVoiceoverProp;
 		protected SerializedProperty setSayDialogProp;
 
 		protected virtual void OnEnable()
@@ -97,6 +98,7 @@ namespace Fungus
 			extendPreviousProp = serializedObject.FindProperty("extendPrevious");
 			fadeWhenDoneProp = serializedObject.FindProperty("fadeWhenDone");
 			waitForClickProp = serializedObject.FindProperty("waitForClick");
+			stopVoiceoverProp = serializedObject.FindProperty("stopVoiceover");
 			setSayDialogProp = serializedObject.FindProperty("setSayDialog");
 
 			if (blackTex == null)
@@ -190,6 +192,7 @@ namespace Fungus
 
 			EditorGUILayout.PropertyField(fadeWhenDoneProp);
 			EditorGUILayout.PropertyField(waitForClickProp);
+			EditorGUILayout.PropertyField(stopVoiceoverProp);
 			EditorGUILayout.PropertyField(setSayDialogProp);
 
 			if (showPortraits && t.portrait != null)

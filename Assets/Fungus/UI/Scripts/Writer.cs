@@ -13,23 +13,26 @@ namespace Fungus
 	 */
 	public interface IWriterListener
 	{
-		// Called when a user input event (e.g. a click) has been handled by the Writer
+		///
+		/// Called when a user input event (e.g. a click) has been handled by the Writer.
+		///
 		void OnInput();
 
-		// Called when the Writer starts writing new text
-		// An optional audioClip sound effect can be supplied (e.g. for voiceover)
+		/// Called when the Writer starts writing new text
+		/// <param name="audioClip">An optional audioClip sound effect can be supplied (e.g. for voiceover)</param>
 		void OnStart(AudioClip audioClip);
 
-		// Called when the Writer has paused writing text (e.g. on a {wi} tag)
+		/// Called when the Writer has paused writing text (e.g. on a {wi} tag).
 		void OnPause();
 
-		// Called when the Writer has resumed writing text
+		/// Called when the Writer has resumed writing text.
 		void OnResume();
 
-		// Called when the Writer has finshed writing text
-		void OnEnd();
+		/// Called when the Writer has finshed writing text.
+		/// <param name="stopAudio">Controls whether audio should be stopped when writing ends.</param>
+		void OnEnd(bool stopAudio);
 
-		// Called every time the Writer writes a new character glyph
+		/// Called every time the Writer writes a new character glyph.
 		void OnGlyph();
 	}
 	
@@ -314,7 +317,7 @@ namespace Fungus
 			}
 		}
 
-		public virtual void Write(string content, bool clear, bool waitForInput, AudioClip audioClip, Action onComplete)
+		public virtual void Write(string content, bool clear, bool waitForInput, bool stopAudio, AudioClip audioClip, Action onComplete)
 		{
 			if (clear)
 			{
@@ -338,7 +341,7 @@ namespace Fungus
 			TextTagParser tagParser = new TextTagParser();
 			List<TextTagParser.Token> tokens = tagParser.Tokenize(tokenText);
 
-			StartCoroutine(ProcessTokens(tokens, onComplete));
+			StartCoroutine(ProcessTokens(tokens, stopAudio, onComplete));
 		}
 
 	    virtual protected bool CheckParamCount(List<string> paramList, int count) 
@@ -368,7 +371,7 @@ namespace Fungus
 	        return false;
 	    }
 
-	    protected virtual IEnumerator ProcessTokens(List<TextTagParser.Token> tokens, Action onComplete)
+		protected virtual IEnumerator ProcessTokens(List<TextTagParser.Token> tokens, bool stopAudio, Action onComplete)
 		{
 			// Reset control members
 			boldActive = false;
@@ -583,7 +586,7 @@ namespace Fungus
 			isWaitingForInput = false;
 			isWriting = false;
 
-			NotifyEnd();
+			NotifyEnd(stopAudio);
 
 			if (onComplete != null)
 			{
@@ -844,11 +847,11 @@ namespace Fungus
 			}
 		}
 
-		protected virtual void NotifyEnd()
+		protected virtual void NotifyEnd(bool stopAudio)
 		{
 			foreach (IWriterListener writerListener in writerListeners)
 			{
-				writerListener.OnEnd();
+				writerListener.OnEnd(stopAudio);
 			}
 		}
 
