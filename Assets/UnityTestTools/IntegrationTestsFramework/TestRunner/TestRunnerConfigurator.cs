@@ -25,6 +25,7 @@ namespace UnityTest
         public static string integrationTestsNetwork = "networkconfig.txt";
         public static string batchRunFileMarker = "batchrun.txt";
         public static string testScenesToRun = "testscenes.txt";
+        public static string previousScenes = "previousScenes.txt";
 
         public bool isBatchRun { get; private set; }
 
@@ -39,6 +40,36 @@ namespace UnityTest
             CheckForBatchMode();
             CheckForSendingResultsOverNetwork();
         }
+
+#if UNITY_EDITOR
+        public UnityEditor.EditorBuildSettingsScene[] GetPreviousScenesToRestore()
+        {
+            string text = null;
+            if (Application.isEditor)
+            {
+                text = GetTextFromTempFile(previousScenes);
+            }
+                
+            if(text != null)
+            {
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(UnityEditor.EditorBuildSettingsScene[]));
+                using(var textReader = new StringReader(text))
+                {
+                    try 
+                    {
+                        return (UnityEditor.EditorBuildSettingsScene[] )serializer.Deserialize(textReader);
+                    }
+                    catch (System.Xml.XmlException e)
+                    {
+						Debug.Log(e);
+                        return null;
+                    }
+                }
+            }
+                
+            return null;
+        }
+#endif
 
         public string GetIntegrationTestScenes(int testSceneNum)
         {

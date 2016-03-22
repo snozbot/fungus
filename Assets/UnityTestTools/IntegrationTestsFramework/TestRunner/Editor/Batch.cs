@@ -89,6 +89,15 @@ namespace UnityTest
                 EditorApplication.Exit(returnCodeRunError);
                 return;
             }
+             
+            string previousScenesXml = "";
+            var serializer = new System.Xml.Serialization.XmlSerializer(typeof(EditorBuildSettingsScene[]));
+            using(StringWriter textWriter = new StringWriter())
+            {
+                serializer.Serialize(textWriter, EditorBuildSettings.scenes);
+                previousScenesXml = textWriter.ToString();
+            }
+                
             EditorBuildSettings.scenes = (testScenes.Concat(otherBuildScenes).ToList()).Select(s => new EditorBuildSettingsScene(s, true)).ToArray();
             EditorSceneManager.OpenScene(testScenes.First());
             GuiHelper.SetConsoleErrorPause(false);
@@ -100,10 +109,12 @@ namespace UnityTest
                 port = PlatformRunnerConfiguration.TryToGetFreePort(),
                 runInEditor = true
             };
-
+                    
             var settings = new PlayerSettingConfigurator(true);
             settings.AddConfigurationFile(TestRunnerConfigurator.integrationTestsNetwork, string.Join("\n", config.GetConnectionIPs()));
-
+            settings.AddConfigurationFile(TestRunnerConfigurator.testScenesToRun, string.Join ("\n", testScenes.ToArray()));
+            settings.AddConfigurationFile(TestRunnerConfigurator.previousScenes, previousScenesXml);
+         
             NetworkResultsReceiver.StartReceiver(config);
 
             EditorApplication.isPlaying = true;

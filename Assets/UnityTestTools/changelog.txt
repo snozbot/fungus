@@ -1,3 +1,7 @@
+Version 1.5.8
+
+- Bugfixes
+
 Version 1.5.7
 
 - Updated tools for Unity 5.3
