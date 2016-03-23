@@ -87,6 +87,11 @@ namespace Fungus
 				command.commandIndex = index++;
 			}
 
+			// Ensure all commands are at their correct indent level
+			// This should have already happened in the editor, but may be necessary
+			// if commands are added to the Block at runtime.
+			UpdateIndentLevels();
+
 			executionInfoSet = true;
 		}
 
@@ -284,6 +289,33 @@ namespace Fungus
 			}
 
 			return null;
+		}
+
+		public virtual void UpdateIndentLevels()
+		{
+			int indentLevel = 0;
+			foreach(Command command in commandList)
+			{
+				if (command == null)
+				{
+					continue;
+				}
+
+				if (command.CloseBlock())
+				{
+					indentLevel--;
+				}
+
+				// Negative indent level is not permitted
+				indentLevel = Math.Max(indentLevel, 0);
+
+				command.indentLevel = indentLevel;
+
+				if (command.OpenBlock())
+				{
+					indentLevel++;
+				}
+			}
 		}
 	}
 }
