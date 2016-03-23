@@ -136,6 +136,14 @@ namespace Fungus
 				return;
 			}
 
+			// Early out if hiding a character that's already hidden
+			if (display == DisplayType.Hide &&
+				!character.state.onScreen)
+			{
+				Continue();
+				return;
+			}
+
 			// Use default settings
 			if (useDefaultSettings)
 			{
