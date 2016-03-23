@@ -51,6 +51,17 @@ namespace Fungus
 
 			Variable selectedVariable = property.objectReferenceValue as Variable;
 
+			// When there are multiple Flowcharts in a scene with variables, switching
+			// between the Flowcharts can cause the wrong variable property
+			// to be inspected for a single frame. This has the effect of causing private
+			// variable references to be set to null when inspected. When this condition 
+			// occurs we just skip displaying the property for this frame.
+			if (selectedVariable != null &&
+				selectedVariable.gameObject != flowchart.gameObject)
+			{
+				return;
+			}
+
 			foreach (Variable v in variables)
 			{
 				if (filter != null)
