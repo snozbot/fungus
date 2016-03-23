@@ -98,7 +98,7 @@ namespace Fungus
 
 				DrawEventHandlerGUI(flowchart);
 				
-				UpdateIndentLevels(block);
+				block.UpdateIndentLevels();
 
 				// Make sure each command has a reference to its parent block
 				foreach (Command command in block.commandList)
@@ -402,33 +402,6 @@ namespace Fungus
 
 			// Because this is an async call, we need to force prefab instances to record changes
 			PrefabUtility.RecordPrefabInstancePropertyModifications(block);
-		}
-
-		protected virtual void UpdateIndentLevels(Block block)
-		{
-			int indentLevel = 0;
-			foreach(Command command in block.commandList)
-			{
-				if (command == null)
-				{
-					continue;
-				}
-
-				if (command.CloseBlock())
-				{
-					indentLevel--;
-				}
-
-				// Negative indent level is not permitted
-				indentLevel = Math.Max(indentLevel, 0);
-
-				command.indentLevel = indentLevel;
-
-				if (command.OpenBlock())
-				{
-					indentLevel++;
-				}
-			}
 		}
 
 		static public void BlockField(SerializedProperty property, GUIContent label, GUIContent nullLabel, Flowchart flowchart)
