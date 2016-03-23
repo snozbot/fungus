@@ -335,8 +335,9 @@ namespace Fungus
 				// Add event handlers with no category first
 				foreach (System.Type type in eventHandlerTypes)
 				{
-					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);					
-					if (info.Category.Length == 0)
+					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
+					if (info != null &&
+						info.Category.Length == 0)
 					{
 						SetEventHandlerOperation operation = new SetEventHandlerOperation();
 						operation.block = block;
@@ -350,7 +351,8 @@ namespace Fungus
 				foreach (System.Type type in eventHandlerTypes)
 				{
 					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);					
-					if (info.Category.Length > 0)
+					if (info != null && 
+						info.Category.Length > 0)
 					{			
 						SetEventHandlerOperation operation = new SetEventHandlerOperation();
 						operation.block = block;
@@ -558,7 +560,8 @@ namespace Fungus
 			foreach (System.Type type in eventHandlerTypes)
 			{
 				EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
-				if (info.Category != "" &&
+				if (info != null &&
+					info.Category != "" &&
 				    !eventHandlerCategories.Contains(info.Category))
 				{
 					eventHandlerCategories.Add(info.Category);
@@ -575,7 +578,8 @@ namespace Fungus
 				{
 					EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
 
-					if (info.Category == category ||
+					if (info != null &&
+						info.Category == category ||
 					    info.Category == "" && category == "Core")
 					{
 						markdown += "## " + info.EventHandlerName + "\n";
