@@ -8,25 +8,25 @@ SceneSettings:
   m_PVSPortalsArray: []
   m_OcclusionBakeSettings:
     smallestOccluder: 5
-    smallestHole: .25
+    smallestHole: 0.25
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
   m_Fog: 0
-  m_FogColor: {r: .5, g: .5, b: .5, a: 1}
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: .00999999978
+  m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
-  m_AmbientEquatorColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
-  m_AmbientGroundColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientSkyColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_AmbientEquatorColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_AmbientGroundColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SkyboxMaterial: {fileID: 0}
-  m_HaloStrength: .5
+  m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -40,7 +40,7 @@ RenderSettings:
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 5
+  serializedVersion: 6
   m_GIWorkflowMode: 1
   m_LightmapsMode: 1
   m_GISettings:
@@ -66,7 +66,7 @@ LightmapSettings:
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
-  m_LightmapSnapshot: {fileID: 0}
+  m_LightingDataAsset: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
 NavMeshSettings:
@@ -74,15 +74,15 @@ NavMeshSettings:
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
-    agentRadius: .5
+    agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: .400000006
+    agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     accuratePlacement: 0
     minRegionArea: 2
-    cellSize: .166666657
+    cellSize: 0.16666666
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &614879915
@@ -134,14 +134,14 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: .300000012
+  near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -157,7 +157,7 @@ Camera:
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
-  m_StereoSeparation: .0219999999
+  m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
 --- !u!4 &614879920
 Transform:
@@ -171,6 +171,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1 &871863636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 871863639}
+  - 212: {fileID: 871863638}
+  - 95: {fileID: 871863637}
+  m_Layer: 0
+  m_Name: TestSprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!95 &871863637
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 871863636}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 52480fd5e49ac436e8b70194efe2b709, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!212 &871863638
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 871863636}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 061fcd6caac25954287291fffde7cd2c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+--- !u!4 &871863639
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 871863636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 178.0346, y: 66.80416, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
 --- !u!1 &1269704314
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +282,6 @@ GameObject:
   - 114: {fileID: 1269704355}
   - 114: {fileID: 1269704354}
   - 114: {fileID: 1269704358}
-  - 114: {fileID: 1269704357}
   - 114: {fileID: 1269704352}
   - 114: {fileID: 1269704346}
   - 114: {fileID: 1269704340}
@@ -228,6 +303,7 @@ GameObject:
   - 114: {fileID: 1269704349}
   - 114: {fileID: 1269704347}
   - 114: {fileID: 1269704364}
+  - 114: {fileID: 1269704357}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -322,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 1.0
+  version: 1
   scrollPos: {x: 258, y: 186}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
@@ -334,9 +410,8 @@ MonoBehaviour:
     y: -587
     width: 1530
     height: 1122
-  selectedBlock: {fileID: 1269704353}
-  selectedCommands:
-  - {fileID: 1269704364}
+  selectedBlock: {fileID: 1269704358}
+  selectedCommands: []
   variables:
   - {fileID: 1269704317}
   - {fileID: 1269704316}
@@ -352,6 +427,7 @@ MonoBehaviour:
   hideComponents: 1
   saveSelection: 1
   localizationId: 
+  hideCommands: []
 --- !u!4 &1269704320
 Transform:
   m_ObjectHideFlags: 0
@@ -363,7 +439,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!114 &1269704321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,6 +464,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704322
 MonoBehaviour:
@@ -413,6 +490,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704323
 MonoBehaviour:
@@ -438,6 +516,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704324
 MonoBehaviour:
@@ -575,6 +654,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704330
 MonoBehaviour:
@@ -600,6 +680,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704331
 MonoBehaviour:
@@ -653,6 +734,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704333
 MonoBehaviour:
@@ -692,6 +774,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704335
 MonoBehaviour:
@@ -717,6 +800,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704336
 MonoBehaviour:
@@ -742,6 +826,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704337
 MonoBehaviour:
@@ -988,6 +1073,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704348
 MonoBehaviour:
@@ -1029,6 +1115,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704350
 MonoBehaviour:
@@ -1179,7 +1266,7 @@ MonoBehaviour:
   commentText: Save the current MyFloat value to disk
 --- !u!114 &1269704357
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1269704314}
@@ -1307,6 +1394,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1269704364
 MonoBehaviour:
@@ -1332,6 +1420,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!1 &1671111970
 GameObject:
@@ -1372,4 +1461,4 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
