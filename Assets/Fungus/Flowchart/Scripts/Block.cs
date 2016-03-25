@@ -142,26 +142,25 @@ namespace Fungus
 			return executionCount;
 		}
 
-		public virtual bool Execute(Action onComplete = null)
+        /// <summary>
+        /// Execute the Block in a coroutine. Only one running instance of each Block is permitted.
+        /// </summary>
+        /// <param name="commandIndex">Index of command to start execution at</param>
+        /// <param name="onComplete">Delegate function to call when execution completes</param>
+        public virtual IEnumerator Execute(int commandIndex = 0, Action onComplete = null)
 		{
-			if (executionState != ExecutionState.Idle)
-			{
-				return false;
-			}
+            if (executionState != ExecutionState.Idle)
+            {
+                yield break;
+            }
 
-			if (!executionInfoSet)
-			{
-				SetExecutionInfo();
-			}
+            if (!executionInfoSet)
+            {
+                SetExecutionInfo();
+            }
 
-			executionCount++;
-			StartCoroutine(ExecuteBlock(onComplete));
+            executionCount++;
 
-			return true;
-		}
-
-		protected virtual IEnumerator ExecuteBlock(Action onComplete = null)
-		{
 			Flowchart flowchart = GetFlowchart();
 			executionState = ExecutionState.Executing;
 
@@ -174,6 +173,8 @@ namespace Fungus
 				flowchart.AddSelectedCommand(commandList[0]);
 			}
 			#endif
+
+            jumpToCommandIndex = commandIndex;
 
 			int i = 0;
 			while (true)
@@ -248,10 +249,10 @@ namespace Fungus
 			executionState = ExecutionState.Idle;
 			activeCommand = null;
 
-			if (onComplete != null)
-			{
-				onComplete();
-			}
+            if (onComplete != null)
+            {
+                onComplete();
+            }
 		}
 
 		public virtual void Stop()

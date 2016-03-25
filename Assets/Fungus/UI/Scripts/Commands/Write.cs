@@ -86,14 +86,14 @@ namespace Fungus
 
 			if (!waitUntilFinished)
 			{
-				writer.Write(newText, clearText, false, true, null, null);
+				StartCoroutine(writer.Write(newText, clearText, false, true, null, null));
 				Continue();
 			}
 			else
 			{
-				writer.Write(newText, clearText, false, true, null,
+				StartCoroutine(writer.Write(newText, clearText, false, true, null,
 				             () => { Continue (); }
-				);
+				));
 			}
 		}
 

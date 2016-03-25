@@ -11,87 +11,87 @@ namespace Fungus
 {
 
 	[CommandInfo("Scripting", 
-	             "Invoke Method", 
-	             "Invokes a method of a component via reflection. Supports passing multiple parameters and storing returned values in a Fungus variable.")]
+		"Invoke Method", 
+		"Invokes a method of a component via reflection. Supports passing multiple parameters and storing returned values in a Fungus variable.")]
 	public class InvokeMethod : Command
 	{
 		[Tooltip("GameObject containing the component method to be invoked")]
-	    public GameObject targetObject;
+		public GameObject targetObject;
 
 		[HideInInspector]
 		[Tooltip("Name of assembly containing the target component")]
 		public string targetComponentAssemblyName;
 
-	    [HideInInspector]
+		[HideInInspector]
 		[Tooltip("Full name of the target component")]
 		public string targetComponentFullname;
 
-	    [HideInInspector]
+		[HideInInspector]
 		[Tooltip("Display name of the target component")]
 		public string targetComponentText;
 
-	    [HideInInspector]
+		[HideInInspector]
 		[Tooltip("Name of target method to invoke on the target component")]
 		public string targetMethod;
 
-	    [HideInInspector]
+		[HideInInspector]
 		[Tooltip("Display name of target method to invoke on the target component")]
 		public string targetMethodText;
 
-	    [HideInInspector]
+		[HideInInspector]
 		[Tooltip("List of parameters to pass to the invoked method")]
 		public InvokeMethodParameter[] methodParameters;
 
-	    [HideInInspector]
+		[HideInInspector]
 		[Tooltip("If true, store the return value in a flowchart variable of the same type.")]
 		public bool saveReturnValue;
 
-	    [HideInInspector]
+		[HideInInspector]
 		[Tooltip("Name of Fungus variable to store the return value in")]
 		public string returnValueVariableKey;
 
-	    [HideInInspector]
+		[HideInInspector]
 		[Tooltip("The type of the return value")]
 		public string returnValueType;
 
-	    [HideInInspector]
+		[HideInInspector]
 		[Tooltip("If true, list all inherited methods for the component")]
-	    public bool showInherited;
+		public bool showInherited;
 
-	    [HideInInspector]
+		[HideInInspector]
 		[Tooltip("The coroutine call behavior for methods that return IEnumerator")]
-	    public Fungus.Call.CallMode callMode;
+		public Fungus.Call.CallMode callMode;
 
-	    protected Type componentType;
+		protected Type componentType;
 		protected Component objComponent;
 		protected Type[] parameterTypes = null;
 		protected MethodInfo objMethod;
 
-	    protected virtual void Awake()
-	    {
+		protected virtual void Awake()
+		{
 			if (componentType == null)
 			{
 				componentType = ReflectionHelper.GetType(targetComponentAssemblyName);
 			}
-			
+
 			if (objComponent == null)
 			{
 				objComponent = targetObject.GetComponent(componentType);
 			}
-			
+
 			if (parameterTypes == null)
 			{
 				parameterTypes = GetParameterTypes();
 			}
-			
+
 			if (objMethod == null)
 			{
 				objMethod = UnityEvent.GetValidMethodInfo(objComponent, targetMethod, parameterTypes);
 			}
-	    }
-	  
-	    public override void OnEnter()
-	    {
+		}
+
+		public override void OnEnter()
+		{
 			try
 			{
 				if (targetObject == null || string.IsNullOrEmpty(targetComponentAssemblyName) || string.IsNullOrEmpty(targetMethod))
@@ -99,29 +99,29 @@ namespace Fungus
 					Continue();
 					return;
 				}
-				
+
 				if (returnValueType != "System.Collections.IEnumerator")
 				{
 					var objReturnValue = objMethod.Invoke(objComponent, GetParameterValues());
-					
+
 					if (saveReturnValue)
 					{
 						SetVariable(returnValueVariableKey, objReturnValue, returnValueType);
 					}
-					
+
 					Continue();
 				}
 				else
 				{
 					StartCoroutine(ExecuteCoroutine());
-					
+
 					if (callMode == Call.CallMode.Continue)
 					{
 						Continue();
 					}
 					else if(callMode == Call.CallMode.Stop)
 					{
-                        StopParentBlock();
+						StopParentBlock();
 					}
 				}
 			}
@@ -131,45 +131,45 @@ namespace Fungus
 			}      
 		}
 
-	    protected virtual IEnumerator ExecuteCoroutine()
-	    {
-	        yield return StartCoroutine((IEnumerator)objMethod.Invoke(objComponent, GetParameterValues()));
+		protected virtual IEnumerator ExecuteCoroutine()
+		{
+			yield return StartCoroutine((IEnumerator)objMethod.Invoke(objComponent, GetParameterValues()));
 
-	        if (callMode == Call.CallMode.WaitUntilFinished)
-	        {
-	            Continue();
-	        }
-	    }
+			if (callMode == Call.CallMode.WaitUntilFinished)
+			{
+				Continue();
+			}
+		}
 
 		public override Color GetButtonColor()
 		{
 			return new Color32(235, 191, 217, 255);
 		}
 
-	    public override string GetSummary()
-	    {
-	        if (targetObject == null)
-	        {
-	            return "Error: targetObject is not assigned";
-	        }
+		public override string GetSummary()
+		{
+			if (targetObject == null)
+			{
+				return "Error: targetObject is not assigned";
+			}
 
-	        return targetObject.name + "." + targetComponentText + "." + targetMethodText;
-	    }
+			return targetObject.name + "." + targetComponentText + "." + targetMethodText;
+		}
 
 		protected System.Type[] GetParameterTypes()
-	    {
-	        System.Type[] types = new System.Type[methodParameters.Length];
+		{
+			System.Type[] types = new System.Type[methodParameters.Length];
 
-	        for (int i = 0; i < methodParameters.Length; i++)
-	        {
-	            var item = methodParameters[i];
-	            var objType = ReflectionHelper.GetType(item.objValue.typeAssemblyname);
+			for (int i = 0; i < methodParameters.Length; i++)
+			{
+				var item = methodParameters[i];
+				var objType = ReflectionHelper.GetType(item.objValue.typeAssemblyname);
 
-	            types[i] = objType;
-	        }
+				types[i] = objType;
+			}
 
-	        return types;
-	    }
+			return types;
+		}
 
 		protected object[] GetParameterValues()
 	    {
@@ -308,90 +308,90 @@ namespace Fungus
 	[System.Serializable]
 	public class InvokeMethodParameter
 	{
-	    [SerializeField]
-	    public ObjectValue objValue;
+		[SerializeField]
+		public ObjectValue objValue;
 
 
-	    [SerializeField]
-	    public string variableKey;
+		[SerializeField]
+		public string variableKey;
 	}
 
 	[System.Serializable]
 	public class ObjectValue
 	{
-	    public string typeAssemblyname;
-	    public string typeFullname;
+		public string typeAssemblyname;
+		public string typeFullname;
 
-	    public int intValue;
-	    public bool boolValue;
-	    public float floatValue;
-	    public string stringValue;
+		public int intValue;
+		public bool boolValue;
+		public float floatValue;
+		public string stringValue;
 
-	    public Color colorValue;
-	    public GameObject gameObjectValue;
-	    public Material materialValue;
-	    public UnityEngine.Object objectValue;
-	    public Sprite spriteValue;
-	    public Texture textureValue;
-	    public Vector2 vector2Value;
-	    public Vector3 vector3Value;
+		public Color colorValue;
+		public GameObject gameObjectValue;
+		public Material materialValue;
+		public UnityEngine.Object objectValue;
+		public Sprite spriteValue;
+		public Texture textureValue;
+		public Vector2 vector2Value;
+		public Vector3 vector3Value;
 
-	    public object GetValue()
-	    {
-	        switch (typeFullname)
-	        {
-	            case "System.Int32":
-	                return intValue;
-	            case "System.Boolean":
-	                return boolValue;
-	            case "System.Single":
-	                return floatValue;
-	            case "System.String":
-	                return stringValue;
-	            case "UnityEngine.Color":
-	                return colorValue;
-	            case "UnityEngine.GameObject":
-	                return gameObjectValue;
-	            case "UnityEngine.Material":
-	                return materialValue;
-	            case "UnityEngine.Sprite":
-	                return spriteValue;
-	            case "UnityEngine.Texture":
-	                return textureValue;
-	            case "UnityEngine.Vector2":
-	                return vector2Value;
-	            case "UnityEngine.Vector3":
-	                return vector3Value;
-	            default:
-	                var objType = ReflectionHelper.GetType(typeAssemblyname);
+		public object GetValue()
+		{
+			switch (typeFullname)
+			{
+			case "System.Int32":
+				return intValue;
+			case "System.Boolean":
+				return boolValue;
+			case "System.Single":
+				return floatValue;
+			case "System.String":
+				return stringValue;
+			case "UnityEngine.Color":
+				return colorValue;
+			case "UnityEngine.GameObject":
+				return gameObjectValue;
+			case "UnityEngine.Material":
+				return materialValue;
+			case "UnityEngine.Sprite":
+				return spriteValue;
+			case "UnityEngine.Texture":
+				return textureValue;
+			case "UnityEngine.Vector2":
+				return vector2Value;
+			case "UnityEngine.Vector3":
+				return vector3Value;
+			default:
+				var objType = ReflectionHelper.GetType(typeAssemblyname);
 
-                    if (objType.IsSubclassOf(typeof(UnityEngine.Object)))
-                    {
-	                    return objectValue;
-	                }
-	                else if (objType.IsEnum())
-	                    return System.Enum.ToObject(objType, intValue);
+				if (objType.IsSubclassOf(typeof(UnityEngine.Object)))
+				{
+					return objectValue;
+				}
+				else if (objType.IsEnum())
+					return System.Enum.ToObject(objType, intValue);
 
-	                break;
-	        }
+				break;
+			}
 
-	        return null;
-	    }
+			return null;
+		}
 	}
 
 	public static class ReflectionHelper
 	{
-	    static Dictionary<string, System.Type> types = new Dictionary<string, System.Type>();
+		static Dictionary<string, System.Type> types = new Dictionary<string, System.Type>();
 
-	    public static System.Type GetType(string typeName)
-	    {
-	        if (types.ContainsKey(typeName))
-	            return types[typeName];
+		public static System.Type GetType(string typeName)
+		{
+			if (types.ContainsKey(typeName))
+				return types[typeName];
 
-	        types[typeName] = System.Type.GetType(typeName);
+			types[typeName] = System.Type.GetType(typeName);
 
-	        return types[typeName];
-	    }
+			return types[typeName];
+		}
 	}
 
 }

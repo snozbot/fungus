@@ -371,61 +371,50 @@ namespace Fungus
 		}
 
 		/**
-		 * Start running another Flowchart by executing a specific child block.
-		 * The block must be in an idle state to be executed.
+		 * Execute a child block in the Flowchart.
 		 * You can use this method in a UI event. e.g. to handle a button click.
-		 */
-		public virtual void ExecuteBlock(string blockName)
-		{
-			Block [] blocks = GetComponentsInChildren<Block>();
-			foreach (Block block in blocks)
-			{
-				if (block.blockName == blockName)
-				{
-					ExecuteBlock(block);
-				}
-			}
-		}
-
-		/**
-		 * Sends a message to this Flowchart only.
-		 * Any block with a matching MessageReceived event handler will start executing.
-		 */
-		public virtual void SendFungusMessage(string messageName)
-		{
-			MessageReceived[] eventHandlers = GetComponentsInChildren<MessageReceived>();
-			foreach (MessageReceived eventHandler in eventHandlers)
-			{
-				eventHandler.OnSendFungusMessage(messageName);
-			}
-		}
-
-		/**
-		 * Sends a message to all Flowchart objects in the current scene.
-		 * Any block with a matching MessageReceived event handler will start executing.
-		 */
-		public static void BroadcastFungusMessage(string messageName)
-		{
-			MessageReceived[] eventHandlers = GameObject.FindObjectsOfType<MessageReceived>();
-			foreach (MessageReceived eventHandler in eventHandlers)
-			{
-				eventHandler.OnSendFungusMessage(messageName);
-			}
-		}
-
-		/**
-		 * Start executing a specific child block in the flowchart.
-		 * The block must be in an idle state to be executed.
 		 * Returns true if the Block started execution.
 		 */
-		public virtual bool ExecuteBlock(Block block, Action onComplete = null)
+        public virtual bool ExecuteBlock(string blockName)
 		{
-			// Block must be a component of the Flowchart game object
-			if (block == null ||
-			    block.gameObject != gameObject) 
-			{
-				return false;
-			}
+            Block block = null;
+            foreach (Block b in GetComponentsInChildren<Block>())
+            {
+                if (b.blockName == blockName)
+                {
+                    block = b;
+                    break;
+                }
+            }
+
+            if (block == null)
+            {
+                Debug.LogError("Block " + blockName  + "does not exist");
+                return false;
+            }
+
+            return ExecuteBlock(block);
+		}
+
+		/**
+		 * Execute a child block in the flowchart.
+		 * The block must be in an idle state to be executed.
+		 * This version provides extra options to control how the block is executed.
+		 * Returns true if the Block started execution.
+		 */
+        public virtual bool ExecuteBlock(Block block, int commandIndex = 0, Action onComplete = null)
+		{
+            if (block == null)
+            {
+                Debug.LogError("Block must not be null");
+                return false;
+            }
+
+            if (block.gameObject != gameObject)
+            {
+                Debug.LogError("Block must belong to the same gameobject as this Flowchart");
+                return false;                
+            }
 
 			// Can't restart a running block, have to wait until it's idle again
 			if (block.IsExecuting())
@@ -433,10 +422,10 @@ namespace Fungus
 				return false;
 			}
 
-			// Execute the first command in the command list
-			block.Execute(onComplete);
+            // Start executing the Block as a new coroutine
+            StartCoroutine(block.Execute(commandIndex, onComplete));
 
-			return true;
+            return true;
 		}
 
 		/**
@@ -453,6 +442,32 @@ namespace Fungus
 				}
 			}
 		}
+
+        /**
+         * Sends a message to this Flowchart only.
+         * Any block with a matching MessageReceived event handler will start executing.
+         */
+        public virtual void SendFungusMessage(string messageName)
+        {
+            MessageReceived[] eventHandlers = GetComponentsInChildren<MessageReceived>();
+            foreach (MessageReceived eventHandler in eventHandlers)
+            {
+                eventHandler.OnSendFungusMessage(messageName);
+            }
+        }
+
+        /**
+         * Sends a message to all Flowchart objects in the current scene.
+         * Any block with a matching MessageReceived event handler will start executing.
+         */
+        public static void BroadcastFungusMessage(string messageName)
+        {
+            MessageReceived[] eventHandlers = GameObject.FindObjectsOfType<MessageReceived>();
+            foreach (MessageReceived eventHandler in eventHandlers)
+            {
+                eventHandler.OnSendFungusMessage(messageName);
+            }
+        }
 
 		/**
 		 * Returns a new variable key that is guaranteed not to clash with any existing variable in the list.
@@ -589,6 +604,26 @@ namespace Fungus
 				}
 			}
 		}
+
+        /**
+         * Returns the variable with the specified key, or null if the key is not found.
+         * You will need to cast the returned variable to the correct sub-type.
+         * You can then access the variable's value using the Value property. e.g.
+         *  BooleanVariable boolVar = flowchart.GetVariable("MyBool") as BooleanVariable;
+         *  boolVar.Value = false;
+         */
+        public Variable GetVariable(string key)
+        {
+            foreach (Variable variable in variables)
+            {
+                if (variable != null && variable.key == key)
+                {
+                    return variable;
+                }
+            }
+
+            return null;
+        }
 
 		/**
 		 * Returns the variable with the specified key, or null if the key is not found.
