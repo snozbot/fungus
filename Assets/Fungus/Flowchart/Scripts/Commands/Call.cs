@@ -64,12 +64,12 @@ namespace Fungus
 						flowchart.selectedBlock = targetBlock;
 					}
 
-					targetBlock.Execute(onComplete);
+                    StartCoroutine(targetBlock.Execute(0, onComplete));
 				}
 				else
 				{
 					// Execute block in another Flowchart
-					targetFlowchart.ExecuteBlock(targetBlock, onComplete);
+					targetFlowchart.ExecuteBlock(targetBlock, 0, onComplete);
 				}
 			}
 

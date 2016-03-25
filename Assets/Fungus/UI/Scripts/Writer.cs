@@ -317,7 +317,7 @@ namespace Fungus
 			}
 		}
 
-		public virtual void Write(string content, bool clear, bool waitForInput, bool stopAudio, AudioClip audioClip, Action onComplete)
+		public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, AudioClip audioClip, Action onComplete)
 		{
 			if (clear)
 			{
@@ -326,7 +326,7 @@ namespace Fungus
 			
 			if (!HasTextObject())
 			{
-				return;
+                yield break;
 			}
 
 			// If this clip is null then WriterAudio will play the default sound effect (if any)
@@ -341,7 +341,9 @@ namespace Fungus
 			TextTagParser tagParser = new TextTagParser();
 			List<TextTagParser.Token> tokens = tagParser.Tokenize(tokenText);
 
-			StartCoroutine(ProcessTokens(tokens, stopAudio, onComplete));
+            gameObject.SetActive(true);
+
+			yield return StartCoroutine(ProcessTokens(tokens, stopAudio, onComplete));
 		}
 
 	    virtual protected bool CheckParamCount(List<string> paramList, int count) 

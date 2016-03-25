@@ -13,8 +13,11 @@ namespace Fungus
 		// Currently active Menu Dialog used to display Menu options
 		public static MenuDialog activeMenuDialog;
 
-		protected Button[] cachedButtons;
-		protected Slider cachedSlider;
+        [NonSerialized]
+		public Button[] cachedButtons;
+
+        [NonSerialized]
+        public Slider cachedSlider;
 
 		public static MenuDialog GetMenuDialog()
 		{
@@ -139,7 +142,7 @@ namespace Fungus
 			return addedOption;
 		}
 
-		protected virtual void HideSayDialog()
+		public virtual void HideSayDialog()
 		{
 			SayDialog sayDialog = SayDialog.GetSayDialog();
 			if (sayDialog != null)
@@ -150,7 +153,6 @@ namespace Fungus
 
 		public virtual void ShowTimer(float duration, Block targetBlock)
 		{
-
 			if (cachedSlider != null)
 			{
 				cachedSlider.gameObject.SetActive(true);
