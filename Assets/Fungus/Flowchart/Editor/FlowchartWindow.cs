@@ -559,8 +559,8 @@ namespace Fungus
 				return;
 			}
 
-			// Select block when node is clicked
-			if (Event.current.button == 0 && 
+            // Select block when node is clicked
+            if (Event.current.button == 0 && 
 		    	Event.current.type == EventType.MouseDown &&
 			    !mouseOverVariables)
 			{

@@ -421,8 +421,8 @@ namespace Fungus
 			}
 			else
 			{
-				summaryRect.x += commandNameWidth;
-				summaryRect.width -= commandNameWidth;
+				summaryRect.x += commandNameWidth + 20;
+				summaryRect.width -= commandNameWidth + 20;
 				summaryRect.width -= 5;
 			}
 			
