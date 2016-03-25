@@ -389,11 +389,11 @@ namespace Fungus
 			
 			if (isComment)
 			{
-				GUI.Label(commandLabelRect, command.commandIndex + ": ", commandLabelStyle);
+				GUI.Label(commandLabelRect, "", commandLabelStyle);
 			}
 			else
 			{
-				GUI.Label(commandLabelRect, command.commandIndex + ": " + commandName, commandLabelStyle);
+				GUI.Label(commandLabelRect, commandName, commandLabelStyle);
 			}
 			
 			if (command.executingIconTimer > Time.realtimeSinceStartup)
@@ -433,7 +433,7 @@ namespace Fungus
 			summaryStyle.wordWrap = false;
 			summaryStyle.clipping = TextClipping.Clip;
 			commandLabelStyle.alignment = TextAnchor.MiddleLeft;
-			GUI.Label(summaryRect, summary, summaryStyle);
+			GUI.Label(summaryRect, command.commandIndex + ": " + summary, summaryStyle);
 			
 			if (error)
 			{

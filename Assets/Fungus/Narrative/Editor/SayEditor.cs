@@ -117,7 +117,10 @@ namespace Fungus
 			serializedObject.Update();
 
 			bool showPortraits = false;
-
+            CommandEditor.ObjectField<Character>(characterProp,
+                                                new GUIContent("Character", "Character that is speaking"),
+                                                new GUIContent("<None>"),
+                                                Character.activeCharacters);
             characterProp.objectReferenceValue = (Character) EditorGUILayout.ObjectField(characterProp.objectReferenceValue, typeof(Character), true);
 
 			Say t = target as Say;
