@@ -191,18 +191,26 @@ namespace Fungus
 	                switch (item.objValue.typeFullname)
 	                {
 	                    case "System.Int32":
-	                        objValue = flowChart.GetIntegerVariable(item.variableKey);
-	                        break;
-	                    case "System.Boolean":
-	                        objValue = flowChart.GetBooleanVariable(item.variableKey);
-	                        break;
+                            var intvalue = flowChart.GetVariable<IntegerVariable>(item.variableKey);
+                            if (intvalue != null)
+                                objValue = intvalue.value;
+                            break;
+                        case "System.Boolean":
+                            var boolean = flowChart.GetVariable<BooleanVariable>(item.variableKey);
+                            if (boolean != null)
+                                objValue = boolean.value;
+                            break;
 	                    case "System.Single":
-	                        objValue = flowChart.GetFloatVariable(item.variableKey);
-	                        break;
-	                    case "System.String":
-	                        objValue = flowChart.GetStringVariable(item.variableKey);
-	                        break;
-	                    case "UnityEngine.Color":
+                            var floatvalue = flowChart.GetVariable<FloatVariable>(item.variableKey);
+                            if (floatvalue != null)
+                                objValue = floatvalue.value;
+                            break;
+                        case "System.String":
+                            var stringvalue = flowChart.GetVariable<StringVariable>(item.variableKey);
+                            if (stringvalue != null)
+                                objValue = stringvalue.value;
+                            break;
+                        case "UnityEngine.Color":
 	                        var color = flowChart.GetVariable<ColorVariable>(item.variableKey);
 	                        if (color != null)
 	                            objValue = color.value;
@@ -258,17 +266,17 @@ namespace Fungus
 	        switch (returnType)
 	        {
 	            case "System.Int32":
-	                flowChart.SetIntegerVariable(key, (int)value);
-	                break;
+                    flowChart.GetVariable<IntegerVariable>(key).value = (int)value;
+                    break;
 	            case "System.Boolean":
-	                flowChart.SetBooleanVariable(key, (bool)value);
+                    flowChart.GetVariable<BooleanVariable>(key).value = (bool)value;
 	                break;
 	            case "System.Single":
-	                flowChart.SetFloatVariable(key, (float)value);
-	                break;
+                    flowChart.GetVariable<FloatVariable>(key).value = (float)value;
+                    break;
 	            case "System.String":
-	                flowChart.SetStringVariable(key, (string)value);
-	                break;
+                    flowChart.GetVariable<StringVariable>(key).value = (string)value;
+                    break;
 	            case "UnityEngine.Color":
 	                flowChart.GetVariable<ColorVariable>(key).value = (UnityEngine.Color)value;
 	                break;
