@@ -389,11 +389,11 @@ namespace Fungus
 			
 			if (isComment)
 			{
-				GUI.Label(commandLabelRect, "", commandLabelStyle);
+				GUI.Label(commandLabelRect, command.commandIndex + ": ", commandLabelStyle);
 			}
 			else
 			{
-				GUI.Label(commandLabelRect, commandName, commandLabelStyle);
+				GUI.Label(commandLabelRect, command.commandIndex + ": " + commandName, commandLabelStyle);
 			}
 			
 			if (command.executingIconTimer > Time.realtimeSinceStartup)
