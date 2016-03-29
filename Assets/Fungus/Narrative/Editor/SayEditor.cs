@@ -111,17 +111,21 @@ namespace Fungus
 		{
 			DestroyImmediate(blackTex);
 		}
-		
+
 		public override void DrawCommandGUI() 
 		{
 			serializedObject.Update();
 
 			bool showPortraits = false;
+            CommandEditor.ObjectField<Character>(characterProp,
+                                                new GUIContent("Character", "Character that is speaking"),
+                                                new GUIContent("<None>"),
+                                                Character.activeCharacters);
 
-			CommandEditor.ObjectField<Character>(characterProp, 
-			                                     new GUIContent("Character", "Character that is speaking"), 
-			                                     new GUIContent("<None>"),
-			                                     Character.activeCharacters);
+			EditorGUILayout.BeginHorizontal();
+			EditorGUILayout.PrefixLabel(" ");
+            characterProp.objectReferenceValue = (Character) EditorGUILayout.ObjectField(characterProp.objectReferenceValue, typeof(Character), true);
+			EditorGUILayout.EndHorizontal();
 
 			Say t = target as Say;
 

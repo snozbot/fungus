@@ -172,129 +172,137 @@ namespace Fungus
 		}
 
 		protected object[] GetParameterValues()
-		{
-			object[] values = new object[methodParameters.Length];
-			var flowChart = GetFlowchart();
+	    {
+	        object[] values = new object[methodParameters.Length];
+	        var flowChart = GetFlowchart();
 
-			for (int i = 0; i < methodParameters.Length; i++)
-			{
-				var item = methodParameters[i];
+	        for (int i = 0; i < methodParameters.Length; i++)
+	        {
+	            var item = methodParameters[i];
 
-				if (string.IsNullOrEmpty(item.variableKey))
-				{
-					values[i] = item.objValue.GetValue();
-				}
-				else
-				{
-					object objValue = null;
+	            if (string.IsNullOrEmpty(item.variableKey))
+	            {
+	                values[i] = item.objValue.GetValue();
+	            }
+	            else
+	            {
+	                object objValue = null;
 
-					switch (item.objValue.typeFullname)
-					{
-					case "System.Int32":
-						objValue = flowChart.GetIntegerVariable(item.variableKey);
-						break;
-					case "System.Boolean":
-						objValue = flowChart.GetBooleanVariable(item.variableKey);
-						break;
-					case "System.Single":
-						objValue = flowChart.GetFloatVariable(item.variableKey);
-						break;
-					case "System.String":
-						objValue = flowChart.GetStringVariable(item.variableKey);
-						break;
-					case "UnityEngine.Color":
-						var color = flowChart.GetVariable<ColorVariable>(item.variableKey);
-						if (color != null)
-							objValue = color.value;
-						break;
-					case "UnityEngine.GameObject":
-						var gameObject = flowChart.GetVariable<GameObjectVariable>(item.variableKey);
-						if (gameObject != null)
-							objValue = gameObject.value;
-						break;
-					case "UnityEngine.Material":
-						var material = flowChart.GetVariable<MaterialVariable>(item.variableKey);
-						if (material != null)
-							objValue = material.value;
-						break;
-					case "UnityEngine.Sprite":
-						var sprite = flowChart.GetVariable<SpriteVariable>(item.variableKey);
-						if (sprite != null)
-							objValue = sprite.value;
-						break;
-					case "UnityEngine.Texture":
-						var texture = flowChart.GetVariable<TextureVariable>(item.variableKey);
-						if (texture != null)
-							objValue = texture.value;
-						break;
-					case "UnityEngine.Vector2":
-						var vector2 = flowChart.GetVariable<Vector2Variable>(item.variableKey);
-						if (vector2 != null)
-							objValue = vector2.value;
-						break;
-					case "UnityEngine.Vector3":
-						var vector3 = flowChart.GetVariable<Vector3Variable>(item.variableKey);
-						if (vector3 != null)
-							objValue = vector3.value;
-						break;
-					default:
-						var obj = flowChart.GetVariable<ObjectVariable>(item.variableKey);
-						if (obj != null)
-							objValue = obj.value;
-						break;
-					}
+	                switch (item.objValue.typeFullname)
+	                {
+	                    case "System.Int32":
+                            var intvalue = flowChart.GetVariable<IntegerVariable>(item.variableKey);
+                            if (intvalue != null)
+                                objValue = intvalue.value;
+                            break;
+                        case "System.Boolean":
+                            var boolean = flowChart.GetVariable<BooleanVariable>(item.variableKey);
+                            if (boolean != null)
+                                objValue = boolean.value;
+                            break;
+	                    case "System.Single":
+                            var floatvalue = flowChart.GetVariable<FloatVariable>(item.variableKey);
+                            if (floatvalue != null)
+                                objValue = floatvalue.value;
+                            break;
+                        case "System.String":
+                            var stringvalue = flowChart.GetVariable<StringVariable>(item.variableKey);
+                            if (stringvalue != null)
+                                objValue = stringvalue.value;
+                            break;
+                        case "UnityEngine.Color":
+	                        var color = flowChart.GetVariable<ColorVariable>(item.variableKey);
+	                        if (color != null)
+	                            objValue = color.value;
+	                        break;
+	                    case "UnityEngine.GameObject":
+	                        var gameObject = flowChart.GetVariable<GameObjectVariable>(item.variableKey);
+	                        if (gameObject != null)
+	                            objValue = gameObject.value;
+	                        break;
+	                    case "UnityEngine.Material":
+	                        var material = flowChart.GetVariable<MaterialVariable>(item.variableKey);
+	                        if (material != null)
+	                            objValue = material.value;
+	                        break;
+	                    case "UnityEngine.Sprite":
+	                        var sprite = flowChart.GetVariable<SpriteVariable>(item.variableKey);
+	                        if (sprite != null)
+	                            objValue = sprite.value;
+	                        break;
+	                    case "UnityEngine.Texture":
+	                        var texture = flowChart.GetVariable<TextureVariable>(item.variableKey);
+	                        if (texture != null)
+	                            objValue = texture.value;
+	                        break;
+	                    case "UnityEngine.Vector2":
+	                        var vector2 = flowChart.GetVariable<Vector2Variable>(item.variableKey);
+	                        if (vector2 != null)
+	                            objValue = vector2.value;
+	                        break;
+	                    case "UnityEngine.Vector3":
+	                        var vector3 = flowChart.GetVariable<Vector3Variable>(item.variableKey);
+	                        if (vector3 != null)
+	                            objValue = vector3.value;
+	                        break;
+	                    default:
+	                        var obj = flowChart.GetVariable<ObjectVariable>(item.variableKey);
+	                        if (obj != null)
+	                            objValue = obj.value;
+	                        break;
+	                }
 
-					values[i] = objValue;
-				}
-			}
+	                values[i] = objValue;
+	            }
+	        }
 
-			return values;
-		}
+	        return values;
+	    }
 
 		protected void SetVariable(string key, object value, string returnType)
-		{
-			var flowChart = GetFlowchart();
+	    {
+	        var flowChart = GetFlowchart();
 
-			switch (returnType)
-			{
-			case "System.Int32":
-				flowChart.SetIntegerVariable(key, (int)value);
-				break;
-			case "System.Boolean":
-				flowChart.SetBooleanVariable(key, (bool)value);
-				break;
-			case "System.Single":
-				flowChart.SetFloatVariable(key, (float)value);
-				break;
-			case "System.String":
-				flowChart.SetStringVariable(key, (string)value);
-				break;
-			case "UnityEngine.Color":
-				flowChart.GetVariable<ColorVariable>(key).value = (UnityEngine.Color)value;
-				break;
-			case "UnityEngine.GameObject":
-				flowChart.GetVariable<GameObjectVariable>(key).value = (UnityEngine.GameObject)value;
-				break;
-			case "UnityEngine.Material":
-				flowChart.GetVariable<MaterialVariable>(key).value = (UnityEngine.Material)value;
-				break;
-			case "UnityEngine.Sprite":
-				flowChart.GetVariable<SpriteVariable>(key).value = (UnityEngine.Sprite)value;
-				break;
-			case "UnityEngine.Texture":
-				flowChart.GetVariable<TextureVariable>(key).value = (UnityEngine.Texture)value;
-				break;
-			case "UnityEngine.Vector2":
-				flowChart.GetVariable<Vector2Variable>(key).value = (UnityEngine.Vector2)value;
-				break;
-			case "UnityEngine.Vector3":
-				flowChart.GetVariable<Vector3Variable>(key).value = (UnityEngine.Vector3)value;
-				break;
-			default:
-				flowChart.GetVariable<ObjectVariable>(key).value = (UnityEngine.Object)value;
-				break;
-			}
-		}
+	        switch (returnType)
+	        {
+	            case "System.Int32":
+                    flowChart.GetVariable<IntegerVariable>(key).value = (int)value;
+                    break;
+	            case "System.Boolean":
+                    flowChart.GetVariable<BooleanVariable>(key).value = (bool)value;
+	                break;
+	            case "System.Single":
+                    flowChart.GetVariable<FloatVariable>(key).value = (float)value;
+                    break;
+	            case "System.String":
+                    flowChart.GetVariable<StringVariable>(key).value = (string)value;
+                    break;
+	            case "UnityEngine.Color":
+	                flowChart.GetVariable<ColorVariable>(key).value = (UnityEngine.Color)value;
+	                break;
+	            case "UnityEngine.GameObject":
+	                flowChart.GetVariable<GameObjectVariable>(key).value = (UnityEngine.GameObject)value;
+	                break;
+	            case "UnityEngine.Material":
+	                flowChart.GetVariable<MaterialVariable>(key).value = (UnityEngine.Material)value;
+	                break;
+	            case "UnityEngine.Sprite":
+	                flowChart.GetVariable<SpriteVariable>(key).value = (UnityEngine.Sprite)value;
+	                break;
+	            case "UnityEngine.Texture":
+	                flowChart.GetVariable<TextureVariable>(key).value = (UnityEngine.Texture)value;
+	                break;
+	            case "UnityEngine.Vector2":
+	                flowChart.GetVariable<Vector2Variable>(key).value = (UnityEngine.Vector2)value;
+	                break;
+	            case "UnityEngine.Vector3":
+	                flowChart.GetVariable<Vector3Variable>(key).value = (UnityEngine.Vector3)value;
+	                break;
+	            default:
+	                flowChart.GetVariable<ObjectVariable>(key).value = (UnityEngine.Object)value;
+	                break;
+	        }
+	    }
 	}
 
 	[System.Serializable]

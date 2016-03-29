@@ -95,10 +95,10 @@ namespace Fungus
 			}
 
 			// Check Fungus variables are populated with expected values
-			if (flowchart.GetBooleanVariable("BoolVar") != true ||
-			    flowchart.GetIntegerVariable("IntVar") != 5 ||
-			    flowchart.GetFloatVariable("FloatVar") != 22.1f ||
-			    flowchart.GetStringVariable("StringVar") != "a string")
+			if (flowchart.GetVariable<BooleanVariable>("BoolVar").value != true ||
+                flowchart.GetVariable<IntegerVariable>("IntVar").value != 5 ||
+                flowchart.GetVariable<FloatVariable>("FloatVar").value != 22.1f ||
+                flowchart.GetVariable<StringVariable>("StringVar").value != "a string")
 			{
 				IntegrationTest.Fail("Fungus variables do not match expected values");
 				return;

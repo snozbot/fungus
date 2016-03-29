@@ -393,7 +393,17 @@ namespace Fungus
 			}
 			else
 			{
-				GUI.Label(commandLabelRect, commandName, commandLabelStyle);
+				string commandNameLabel;
+				if (flowchart.showLineNumbers)
+				{
+					commandNameLabel = command.commandIndex.ToString() + ": " + commandName;
+				}
+				else
+				{
+					commandNameLabel = commandName;
+				}
+
+				GUI.Label(commandLabelRect, commandNameLabel, commandLabelStyle);
 			}
 			
 			if (command.executingIconTimer > Time.realtimeSinceStartup)
@@ -421,8 +431,8 @@ namespace Fungus
 			}
 			else
 			{
-				summaryRect.x += commandNameWidth;
-				summaryRect.width -= commandNameWidth;
+				summaryRect.x += commandNameWidth + 20;
+				summaryRect.width -= commandNameWidth + 20;
 				summaryRect.width -= 5;
 			}
 			

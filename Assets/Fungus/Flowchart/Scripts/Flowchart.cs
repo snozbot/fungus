@@ -135,6 +135,12 @@ namespace Fungus
 		public string localizationId = "";
 
 		/**
+		 * Display line numbers in the command list in the Block inspector.
+		 */ 
+		[Tooltip("Display line numbers in the command list in the Block inspector.")]
+		public bool showLineNumbers = false;
+
+		/**
 		 * List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.
 		 */
 		[Tooltip("List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.")]
@@ -641,13 +647,36 @@ namespace Fungus
 				}
 			}
 
-			return null;
+            Debug.LogWarning("Variable " + key + " not found.");
+            return null;
 		}
 
 		/**
+		 * Register a new variable with the Flowchart at runtime. 
+		 * The variable should be added as a component on the Flowchart game object.
+		 */
+        public void SetVariable<T>(string key, T newvariable) where T : Variable
+        {
+            foreach (Variable v in variables)
+            {
+                if (v != null && v.key == key)
+                {
+                    T variable = v as T;
+                    if (variable != null)
+                    {
+                        variable = newvariable;
+                        return;
+                    }
+                }
+            }
+
+            Debug.LogWarning("Variable " + key + " not found.");
+        }
+
+        /**
 		 * Gets a list of all variables with public scope in this Flowchart.
 		 */
-		public virtual List<Variable> GetPublicVariables()
+        public virtual List<Variable> GetPublicVariables()
 		{
 			List<Variable> publicVariables = new List<Variable>();
 			foreach (Variable v in variables)
@@ -661,178 +690,134 @@ namespace Fungus
 			return publicVariables;
 		}
 
-		/**
+        /**
 		 * Gets the value of a boolean variable.
 		 * Returns false if the variable key does not exist.
 		 */
-		public virtual bool GetBooleanVariable(string key)
-		{
-			foreach (Variable v in variables)
-			{
-				if (v != null && v.key == key)
-				{
-					BooleanVariable variable = v as BooleanVariable;
-					if (variable != null)
-					{
-						return variable.value;
-					}
-				}
-			}
-			Debug.LogWarning("Boolean variable " + key + " not found.");
-			return false;
-		}
-					
-		/**
+        public virtual bool GetBooleanVariable(string key)
+        {
+            BooleanVariable variable = GetVariable<BooleanVariable>(key);
+
+            if(variable != null)
+            {
+                return GetVariable<BooleanVariable>(key).value;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /**
 		 * Sets the value of a boolean variable.
 		 * The variable must already be added to the list of variables for this Flowchart.
 		 */
-		public virtual void SetBooleanVariable(string key, bool value)
-		{
-			foreach (Variable v in variables)
-			{
-				if (v != null && v.key == key)
-				{
-					BooleanVariable variable = v as BooleanVariable;
-					if (variable != null)
-					{
-						variable.value = value;
-						return;
-					}
-				}
-			}
-			Debug.LogWarning("Boolean variable " + key + " not found.");
-		}
+        public virtual void SetBooleanVariable(string key, bool value)
+        {
+            BooleanVariable variable = GetVariable<BooleanVariable>(key);
+            if(variable != null)
+            {
+                variable.value = value;
+            }
+        }
 
-		/**
+        /**
 		 * Gets the value of an integer variable.
 		 * Returns 0 if the variable key does not exist.
 		 */
-		public virtual int GetIntegerVariable(string key)
-		{
-			foreach (Variable v in variables)
-			{
-				if (v != null && v.key == key)
-				{
-					IntegerVariable variable = v as IntegerVariable;
-					if (variable != null)
-					{
-						return variable.value;
-					}
-				}
-			}
-			Debug.LogWarning("Integer variable " + key + " not found.");
-			return 0;
-		}
+        public virtual int GetIntegerVariable(string key)
+        {
+            IntegerVariable variable = GetVariable<IntegerVariable>(key);
 
-		/**
+            if (variable != null)
+            {
+                return GetVariable<IntegerVariable>(key).value;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        /**
 		 * Sets the value of an integer variable.
 		 * The variable must already be added to the list of variables for this Flowchart.
 		 */
-		public virtual void SetIntegerVariable(string key, int value)
-		{
-			foreach (Variable v in variables)
-			{
-				if (v != null && v.key == key)
-				{
-					IntegerVariable variable = v as IntegerVariable;
-					if (variable != null)
-					{
-						variable.value = value;
-						return;
-					}
-				}
-			}
-			Debug.LogWarning("Integer variable " + key + " not found.");
-		}
+        public virtual void SetIntegerVariable(string key, int value)
+        {
+            IntegerVariable variable = GetVariable<IntegerVariable>(key);
+            if (variable != null)
+            {
+                variable.value = value;
+            }
+        }
 
-		/**
+        /**
 		 * Gets the value of a float variable.
 		 * Returns 0 if the variable key does not exist.
 		 */
-		public virtual float GetFloatVariable(string key)
-		{
-			foreach (Variable v in variables)
-			{
-				if (v != null && v.key == key)
-				{
-					FloatVariable variable = v as FloatVariable;
-					if (variable != null)
-					{
-						return variable.value;
-					}
-				}
-			}
-			Debug.LogWarning("Float variable " + key + " not found.");
-			return 0f;
-		}
-				
-		/**
+        public virtual float GetFloatVariable(string key)
+        {
+            FloatVariable variable = GetVariable<FloatVariable>(key);
+
+            if (variable != null)
+            {
+                return GetVariable<FloatVariable>(key).value;
+            }
+            else
+            {
+                return 0f;
+            }
+        }
+
+        /**
 		 * Sets the value of a float variable.
 		 * The variable must already be added to the list of variables for this Flowchart.
 		 */
-		public virtual void SetFloatVariable(string key, float value)
-		{
-			foreach (Variable v in variables)
-			{
-				if (v != null && v.key == key)
-				{
-					FloatVariable variable = v as FloatVariable;
-					if (variable != null)
-					{
-						variable.value = value;
-						return;
-					}
-				}
-			}
-			Debug.LogWarning("Float variable " + key + " not found.");
-		}
+        public virtual void SetFloatVariable(string key, float value)
+        {
+            FloatVariable variable = GetVariable<FloatVariable>(key);
+            if (variable != null)
+            {
+                variable.value = value;
+            }
+        }
 
-		/**
+        /**
 		 * Gets the value of a string variable.
 		 * Returns the empty string if the variable key does not exist.
 		 */
-		public virtual string GetStringVariable(string key)
-		{
-			foreach (Variable v in variables)
-			{
-				if (v != null && v.key == key)
-				{
-					StringVariable variable = v as StringVariable;
-					if (variable != null)
-					{
-						return variable.value;
-					}
-				}
-			}
-			Debug.LogWarning("String variable " + key + " not found.");
-			return "";
-		}
+        public virtual string GetStringVariable(string key)
+        {
+            StringVariable variable = GetVariable<StringVariable>(key);
 
-		/**
+            if (variable != null)
+            {
+                return GetVariable<StringVariable>(key).value;
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        /**
 		 * Sets the value of a string variable.
 		 * The variable must already be added to the list of variables for this Flowchart.
 		 */
-		public virtual void SetStringVariable(string key, string value)
-		{
-			foreach (Variable v in variables)
-			{
-				if (v != null && v.key == key)
-				{
-					StringVariable variable = v as StringVariable;
-					if (variable != null)
-					{
-						variable.value = value;
-						return;
-					}
-				}
-			}
-			Debug.LogWarning("String variable " + key + " not found.");
-		}
+        public virtual void SetStringVariable(string key, string value)
+        {
+            StringVariable variable = GetVariable<StringVariable>(key);
+            if (variable != null)
+            {
+                variable.value = value;
+            }
+        }
 
-		/**
+        /**
 		 * Set the block objects to be hidden or visible depending on the hideComponents property.
 		 */
-		public virtual void UpdateHideFlags()
+        public virtual void UpdateHideFlags()
 		{
 			if (hideComponents)
 			{
