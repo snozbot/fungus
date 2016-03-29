@@ -651,6 +651,10 @@ namespace Fungus
             return null;
 		}
 
+		/**
+		 * Register a new variable with the Flowchart at runtime. 
+		 * The variable should be added as a component on the Flowchart game object.
+		 */
         public void SetVariable<T>(string key, T newvariable) where T : Variable
         {
             foreach (Variable v in variables)
@@ -665,6 +669,7 @@ namespace Fungus
                     }
                 }
             }
+
             Debug.LogWarning("Variable " + key + " not found.");
         }
 
