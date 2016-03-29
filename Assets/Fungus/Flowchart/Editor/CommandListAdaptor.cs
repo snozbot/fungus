@@ -431,9 +431,8 @@ namespace Fungus
 			}
 			else
 			{
-				summaryRect.x += commandNameWidth + 20;
-				summaryRect.width -= commandNameWidth + 20;
-				summaryRect.width -= 5;
+				summaryRect.x += commandNameWidth + 5;
+				summaryRect.width -= commandNameWidth;
 			}
 			
 			GUIStyle summaryStyle = new GUIStyle();
