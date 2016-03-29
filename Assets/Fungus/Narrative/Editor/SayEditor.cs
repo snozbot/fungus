@@ -121,7 +121,11 @@ namespace Fungus
                                                 new GUIContent("Character", "Character that is speaking"),
                                                 new GUIContent("<None>"),
                                                 Character.activeCharacters);
+
+			EditorGUILayout.BeginHorizontal();
+			EditorGUILayout.PrefixLabel(" ");
             characterProp.objectReferenceValue = (Character) EditorGUILayout.ObjectField(characterProp.objectReferenceValue, typeof(Character), true);
+			EditorGUILayout.EndHorizontal();
 
 			Say t = target as Say;
 
