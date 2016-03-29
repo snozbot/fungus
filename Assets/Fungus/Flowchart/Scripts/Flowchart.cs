@@ -135,6 +135,12 @@ namespace Fungus
 		public string localizationId = "";
 
 		/**
+		 * Display line numbers in the command list in the Block inspector.
+		 */ 
+		[Tooltip("Display line numbers in the command list in the Block inspector.")]
+		public bool showLineNumbers = false;
+
+		/**
 		 * List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.
 		 */
 		[Tooltip("List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.")]

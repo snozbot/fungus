@@ -393,7 +393,17 @@ namespace Fungus
 			}
 			else
 			{
-				GUI.Label(commandLabelRect, commandName, commandLabelStyle);
+				string commandNameLabel;
+				if (flowchart.showLineNumbers)
+				{
+					commandNameLabel = command.commandIndex.ToString() + ": " + commandName;
+				}
+				else
+				{
+					commandNameLabel = commandName;
+				}
+
+				GUI.Label(commandLabelRect, commandNameLabel, commandLabelStyle);
 			}
 			
 			if (command.executingIconTimer > Time.realtimeSinceStartup)
@@ -433,7 +443,7 @@ namespace Fungus
 			summaryStyle.wordWrap = false;
 			summaryStyle.clipping = TextClipping.Clip;
 			commandLabelStyle.alignment = TextAnchor.MiddleLeft;
-			GUI.Label(summaryRect, command.commandIndex + ": " + summary, summaryStyle);
+			GUI.Label(summaryRect, summary, summaryStyle);
 			
 			if (error)
 			{

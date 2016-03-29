@@ -25,6 +25,7 @@ namespace Fungus
 		protected SerializedProperty saveSelectionProp;
 		protected SerializedProperty localizationIdProp;
 		protected SerializedProperty variablesProp;
+		protected SerializedProperty showLineNumbersProp;
 		protected SerializedProperty hideCommandsProp;
 
 		protected Texture2D addTexture;
@@ -41,6 +42,7 @@ namespace Fungus
 			saveSelectionProp = serializedObject.FindProperty("saveSelection");
 			localizationIdProp = serializedObject.FindProperty("localizationId");
 			variablesProp = serializedObject.FindProperty("variables");
+			showLineNumbersProp = serializedObject.FindProperty("showLineNumbers");
 			hideCommandsProp = serializedObject.FindProperty("hideCommands");
 
 			addTexture = Resources.Load("Icons/add_small") as Texture2D;
@@ -60,6 +62,7 @@ namespace Fungus
 			EditorGUILayout.PropertyField(stepPauseProp);
 			EditorGUILayout.PropertyField(saveSelectionProp);
 			EditorGUILayout.PropertyField(localizationIdProp);
+			EditorGUILayout.PropertyField(showLineNumbersProp);
 
 			// Show list of commands to hide in Add Command menu
 			ReorderableListGUI.Title(new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip));
