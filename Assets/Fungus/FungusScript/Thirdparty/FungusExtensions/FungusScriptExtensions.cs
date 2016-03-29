@@ -1,0 +1,97 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using Fungus;
+using MoonSharp.Interpreter;
+
+namespace Fungus
+{
+
+    public static class FungusScriptExtensions 
+    {
+
+        /// <summary>
+        /// Extension for MenuDialog that allows AddOption to call a Lua function when an option is selected.
+        /// </summary>
+        public static bool AddOption(this MenuDialog menuDialog, string text, bool interactable, FungusScript fungusScript, Closure callBack)
+        {
+            bool addedOption = false;
+            foreach (Button button in menuDialog.cachedButtons)
+            {
+                if (!button.gameObject.activeSelf)
+                {
+                    button.gameObject.SetActive(true);
+
+                    button.interactable = interactable;
+
+                    Text textComponent = button.GetComponentInChildren<Text>();
+                    if (textComponent != null)
+                    {
+                        textComponent.text = text;
+                    }
+
+                    button.onClick.AddListener(delegate {
+
+                        menuDialog.StopAllCoroutines(); // Stop timeout
+                        menuDialog.Clear();
+
+                        menuDialog.HideSayDialog();
+
+                        menuDialog.gameObject.SetActive(false);
+
+                        if (callBack != null)
+                        {
+                            fungusScript.RunLuaCoroutine(callBack, text);
+                        }
+                    });
+
+                    addedOption = true;
+                    break;
+                }
+            }
+
+            return addedOption;
+        }
+
+        /// <summary>
+        /// Extension for MenuDialog that allows ShowTimer to call a Lua function when the timer expires.
+        /// </summary>
+        public static IEnumerator ShowTimer(this MenuDialog menuDialog, float duration, FungusScript fungusScript, Closure callBack)
+        {
+            if (menuDialog.cachedSlider == null ||
+                duration <= 0f)
+            {
+                yield break;
+            }
+
+            menuDialog.cachedSlider.gameObject.SetActive(true);
+            menuDialog.StopAllCoroutines();
+
+            float elapsedTime = 0;
+            Slider timeoutSlider = menuDialog.GetComponentInChildren<Slider>();
+
+            while (elapsedTime < duration)
+            {
+                if (timeoutSlider != null)
+                {
+                    float t = 1f - elapsedTime / duration;
+                    timeoutSlider.value = t;
+                }
+
+                elapsedTime += Time.deltaTime;
+
+                yield return null;
+            }
+
+            menuDialog.Clear();
+            menuDialog.gameObject.SetActive(false);
+            menuDialog.HideSayDialog();
+
+            if (callBack != null)
+            {
+                fungusScript.RunLuaCoroutine(callBack, "menutimer");
+            }
+        }
+    }
+
+}

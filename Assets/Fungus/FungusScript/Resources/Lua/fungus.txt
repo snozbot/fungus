@@ -1,0 +1,258 @@
+local inspect = require('inspect')
+
+-- Utility functions for working with Lua in Fungus
+local M = {}
+
+------------
+-- Debugging
+------------
+
+function M.inspect(v)
+	print (inspect.inspect(v))
+end
+
+-------
+-- Time
+-------
+
+-- Returns the absolute time
+-- Use this timing function to work correctly with the FungusScript timeScale property
+function M.time()
+	return unity.fungusscript.getTime()
+end
+
+-- Returns the delta time this frame
+-- Use this timing function to work correctly with the FungusScript timeScale property
+function M.deltatime()
+	return unity.fungusscript.getDeltaTime()
+end
+
+-------------
+-- Coroutines
+-------------
+
+-- Waits for a number of seconds
+function M.wait(duration)
+	local t = M.time()
+	while (M.time() - t < duration) do
+		coroutine.yield()
+	end
+end
+
+-- Waits until the lamda function provided returns true, or the timeout expires.
+-- Returns true if the function succeeded, or false if the timeout expired
+-- 
+function M.waitfor(fn, timeoutDuration)
+	local t = M.time()
+	while (not fn()) do
+		coroutine.yield()
+		if (M.time() - t > timeoutDuration) then
+			return false
+		end
+	end
+	return true
+end
+
+-- Starts a C# coroutine method
+function M.run(enumerator)
+	-- If the parameter isn't an enumerator then CreateTask will fail
+	local status, err = pcall( function() 
+		local task = unity.fungusscript.RunUnityCoroutine(enumerator)
+	end)
+
+	if (not status) then
+		print(debug.traceback("Can't start a coroutine with a c# method that doesn't return IEnumerator", 2))
+		error(err)
+	end
+end
+
+-- Starts a C# coroutine method and waits until it's finished
+function M.runwait(enumerator)
+	-- If the parameter isn't an enumerator then CreateTask will fail
+	local status, err = pcall( function() 
+		local task = unity.fungusscript.RunUnityCoroutine(enumerator)
+		while (task != nil and task.Running) do
+    		coroutine.yield();
+		end
+	end)
+
+	if (not status) then
+		print(debug.traceback("Can't start a coroutine with a c# method that doesn't return IEnumerator", 2))
+		error(err)
+	end
+end
+
+---------------
+-- String table
+---------------
+
+-- Set active language for string table
+function M.setlanguage(languageCode)
+	unity.fungusscript.activeLanguage = languageCode
+end
+
+-- Get a named string from the string table
+function M.getstring(key)
+	return unity.fungusscript.GetString(key)
+end
+
+-- Substitutes variables and localisation strings into a piece of text
+-- e.g. v = 10, "Subbed value is [$v]" => "Subbed value is 10"
+function M.sub(text)
+	return unity.fungusscript.substitute(text)
+end
+
+--------------------
+-- Integration tests
+--------------------
+
+-- Assert a condition is true (requires Unity Test Tools)
+function M.assert(c, reason)
+	if (not c) then
+		-- Output a traceback to help track down source
+		error( debug.traceback("Assert failed", 2) )
+	end
+	unity.test.assert(c, reason)
+end
+
+-- Pass an integration test (requires Unity Test Tools)
+function M.pass()
+	unity.test.pass()
+end
+
+-- Fail an integration test (requires Unity Test Tools)
+function M.fail(reason)
+	error( debug.traceback("Test failed", 2) )
+	unity.test.fail(reason)
+end
+
+---------------
+-- Fungus Prefs
+---------------
+
+-- prefs is a handy short alias to the real fungusprefs
+M.prefs = unity.fungusprefs
+
+-------------
+-- Say Dialog
+-------------
+
+-- Options for configuring Say Dialog behaviour
+M.sayoptions = {}
+M.sayoptions.saydialog = nil
+M.sayoptions.clearprevious = true 
+M.sayoptions.waitforinput = true
+M.sayoptions.fadewhendone = true
+M.sayoptions.stopvoiceover = true
+
+-- Set the active saydialog to use with the say function
+function M.setsaydialog(saydialog)
+	M.sayoptions.saydialog = saydialog
+end
+
+-- Set the active character on the Say Dialog
+-- character: A Fungus.Character component
+-- portrait: The name of a sprite in the character's portrait list
+function M.setcharacter(character, portrait)
+	assert(character, "character must not be nil")
+	assert(M.sayoptions.saydialog, "saydialog must not be nil")
+	M.sayoptions.saydialog.SetCharacter(character)
+
+	-- Do substitution on character name
+	local subbed = fungus.sub(character.nameText)
+	M.sayoptions.saydialog.SetCharacterName(subbed, character.nameColor)
+
+	-- Try to set the portrait sprite
+	if (portrait) then
+		if (portrait == "") then
+			M.sayoptions.saydialog.SetCharacterImage(nill)
+		else
+			for i,v in ipairs(character.portraits) do
+				-- Use a case insensitive comparison
+				if (string.lower(v.name) == string.lower(portrait)) then
+					M.sayoptions.saydialog.SetCharacterImage(v)
+				end
+			end
+		end
+	end
+end
+
+-- Write text to the active Say Dialog
+-- text: A string to write to the say dialog
+-- voice: A voiceover audioclip to play
+function M.say(text, voiceclip)
+   assert(M.sayoptions.saydialog, "saydialog must not be nil")
+
+   -- Do variable substitution before displaying text
+   local subbed = fungus.sub(text)
+   local e = M.sayoptions.saydialog.SayInternal(subbed, M.sayoptions.clearprevious, M.sayoptions.waitforinput, M.sayoptions.fadewhendone, M.sayoptions.stopvoiceover, voiceclip)
+
+   fungus.runwait(e)
+end
+
+--------------
+-- Menu Dialog
+--------------
+
+-- Options for configuring Menu Dialog behaviour
+M.menuoptions = {}
+
+-- Set the active menudialog to use with the menu function
+function M.setmenudialog(menudialog)
+	M.menuoptions.menudialog = menudialog
+end
+
+-- Display a menu button
+-- text: text to display on the button
+-- callback: function to call when this option is selected
+-- interactive (optional): if false, displays the option as disabled
+function M.menu(text, callback, interactive)
+	assert(M.menuoptions.menudialog, "menudialog must not be nil")
+
+	-- Do variable substitution before displaying text
+	local subbed = fungus.sub(text)
+	M.menuoptions.menudialog.AddOption(subbed, interactive or true, unity.fungusscript, callback)
+end
+
+-- Display a timer during which the player has to choose an option.
+-- duration: The length of time to display the timer.
+-- callback: Function to call if the timer expires before an option is selected.
+function M.menutimer(duration, callback)
+	assert(M.menuoptions.menudialog, "menudialog must not be nil")
+	local e = M.menuoptions.menudialog.ShowTimer(duration, unity.fungusscript, callback)
+	fungus.runwait(e)
+end
+
+-- Clear all currently displayed menu options
+function M.clearmenu()
+	assert(M.menuoptions.menudialog, "menudialog must not be nil")
+	M.menuoptions.menudialog.Clear()
+end
+
+------------
+-- Flowchart
+------------
+
+-- Runs the specified Block in a Flowchart
+-- flowchart: The Fungus Flowchart containing the Block to run.
+-- blockname: The name of the Block to run.
+-- nowait: If false, will yield until the Block finishes execution. If true will continue immediately.
+function M.runblock(flowchart, blockname, nowait)
+	assert(flowchart, "flowchart must not be nil")
+	assert(blockname, "blockname must not be nil")
+	local block = flowchart.FindBlock(blockname)
+	if (not block) then
+		error("Block " .. blockname .. " not found")
+		return
+	end
+
+	local e = block.Execute();
+
+	if (nowait) then
+		M.run( e )
+	else
+		M.runwait( e )
+	end
+end
+
+return M
