@@ -3415,12 +3415,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 1.0
+  version: 1
   scrollPos: {x: 2985.3325, y: 1207.838}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 280
-  zoom: 0.98599917
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -4071.385
@@ -3428,8 +3428,7 @@ MonoBehaviour:
     width: 5969.446
     height: 2818.8503
   selectedBlock: {fileID: 1390555440}
-  selectedCommands:
-  - {fileID: 1390555300}
+  selectedCommands: []
   variables:
   - {fileID: 1390555396}
   description: 'Example scene from Sherlock: The Game Is On'
@@ -3438,6 +3437,7 @@ MonoBehaviour:
   hideComponents: 1
   saveSelection: 1
   localizationId: 
+  showLineNumbers: 0
   hideCommands: []
 --- !u!4 &1390555296
 Transform:
@@ -3476,6 +3476,7 @@ MonoBehaviour:
   extendPrevious: 1
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555298
 MonoBehaviour:
@@ -3581,6 +3582,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 0
   waitForClick: 0
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555301
 MonoBehaviour:
@@ -3619,7 +3621,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -2429.3325
-    y: -947.838
+    y: -948.8522
     width: 120
     height: 40
   itemId: 95
@@ -3668,7 +3670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -2430.3325
+    x: -2429.3184
     y: -879.838
     width: 120
     height: 40
@@ -3728,6 +3730,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 0
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555307
 MonoBehaviour:
@@ -3857,6 +3860,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 0
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555312
 MonoBehaviour:
@@ -3928,6 +3932,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555314
 MonoBehaviour:
@@ -3954,6 +3959,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555315
 MonoBehaviour:
@@ -3980,6 +3986,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555316
 MonoBehaviour:
@@ -4006,6 +4013,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555317
 MonoBehaviour:
@@ -4032,6 +4040,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555318
 MonoBehaviour:
@@ -4098,6 +4107,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555321
 MonoBehaviour:
@@ -4124,6 +4134,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555322
 MonoBehaviour:
@@ -4150,6 +4161,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555323
 MonoBehaviour:
@@ -4176,6 +4188,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555324
 MonoBehaviour:
@@ -4203,6 +4216,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555325
 MonoBehaviour:
@@ -4240,6 +4254,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555327
 MonoBehaviour:
@@ -4266,6 +4281,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555328
 MonoBehaviour:
@@ -4292,6 +4308,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555329
 MonoBehaviour:
@@ -4318,6 +4335,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555330
 MonoBehaviour:
@@ -4344,6 +4362,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555331
 MonoBehaviour:
@@ -4370,6 +4389,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555332
 MonoBehaviour:
@@ -4396,6 +4416,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555333
 MonoBehaviour:
@@ -4423,6 +4444,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555334
 MonoBehaviour:
@@ -4449,6 +4471,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555335
 MonoBehaviour:
@@ -4563,9 +4586,15 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 1789234734}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 0}
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  _targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 0}
   waitUntilFinished: 0
+  durationOLD: 0
+  targetColorOLD: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1390555340
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4582,9 +4611,15 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 1789234734}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 1}
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  _targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 1}
   waitUntilFinished: 0
+  durationOLD: 0
+  targetColorOLD: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1390555341
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4693,11 +4728,14 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   control: 2
-  audioSource: {fileID: 236204401}
+  _audioSource:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 236204401}
   startVolume: 1
   endVolume: 1
   fadeDuration: 1
   waitUntilFinished: 0
+  audioSourceOLD: {fileID: 0}
 --- !u!114 &1390555345
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4878,6 +4916,7 @@ MonoBehaviour:
   extendPrevious: 1
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555351
 MonoBehaviour:
@@ -5025,6 +5064,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555356
 MonoBehaviour:
@@ -5071,9 +5111,15 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 1612042692}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 1}
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  _targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 1}
   waitUntilFinished: 0
+  durationOLD: 0
+  targetColorOLD: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1390555358
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5117,9 +5163,15 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 884427801}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 1}
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  _targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 1}
   waitUntilFinished: 0
+  durationOLD: 0
+  targetColorOLD: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1390555360
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5134,7 +5186,10 @@ MonoBehaviour:
   itemId: 83
   errorMessage: 
   indentLevel: 0
-  duration: 3
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 3
+  durationOLD: 0
 --- !u!114 &1390555361
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5150,9 +5205,15 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 1612042692}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 0}
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  _targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 0}
   waitUntilFinished: 0
+  durationOLD: 0
+  targetColorOLD: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1390555362
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5284,6 +5345,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555367
 MonoBehaviour:
@@ -5319,11 +5381,14 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   control: 2
-  audioSource: {fileID: 236204401}
+  _audioSource:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 236204401}
   startVolume: 1
   endVolume: 1
   fadeDuration: 1
   waitUntilFinished: 0
+  audioSourceOLD: {fileID: 0}
 --- !u!114 &1390555369
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5348,6 +5413,7 @@ MonoBehaviour:
   extendPrevious: 0
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555370
 MonoBehaviour:
@@ -5691,6 +5757,7 @@ MonoBehaviour:
   extendPrevious: 1
   fadeWhenDone: 1
   waitForClick: 1
+  stopVoiceover: 1
   setSayDialog: {fileID: 0}
 --- !u!114 &1390555382
 MonoBehaviour:
@@ -5827,9 +5894,15 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 31336594}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 1}
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  _targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 1}
   waitUntilFinished: 0
+  durationOLD: 0
+  targetColorOLD: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1390555387
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5845,9 +5918,15 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 884427801}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 0}
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  _targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 0}
   waitUntilFinished: 0
+  durationOLD: 0
+  targetColorOLD: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1390555388
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5863,9 +5942,15 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 31336594}
-  duration: 1
-  targetColor: {r: 1, g: 1, b: 1, a: 0}
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 1
+  _targetColor:
+    colorRef: {fileID: 0}
+    colorVal: {r: 1, g: 1, b: 1, a: 0}
   waitUntilFinished: 0
+  durationOLD: 0
+  targetColorOLD: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1390555389
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5881,11 +5966,14 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   control: 1
-  audioSource: {fileID: 236204401}
+  _audioSource:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 236204401}
   startVolume: 1
   endVolume: 1
   fadeDuration: 1
   waitUntilFinished: 0
+  audioSourceOLD: {fileID: 0}
 --- !u!114 &1390555390
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5901,11 +5989,14 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   control: 0
-  audioSource: {fileID: 720879693}
+  _audioSource:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 720879693}
   startVolume: 1
   endVolume: 1
   fadeDuration: 0
   waitUntilFinished: 1
+  audioSourceOLD: {fileID: 0}
 --- !u!114 &1390555391
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5921,11 +6012,14 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   control: 2
-  audioSource: {fileID: 236204401}
+  _audioSource:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 236204401}
   startVolume: 1
   endVolume: 1
   fadeDuration: 1
   waitUntilFinished: 1
+  audioSourceOLD: {fileID: 0}
 --- !u!114 &1390555392
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5941,11 +6035,14 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   control: 1
-  audioSource: {fileID: 236204401}
+  _audioSource:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 236204401}
   startVolume: 1
   endVolume: 1
   fadeDuration: 0
   waitUntilFinished: 0
+  audioSourceOLD: {fileID: 0}
 --- !u!114 &1390555393
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5961,8 +6058,11 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 884427801}
-  visible: 0
+  _visible:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
   affectChildren: 1
+  visibleOLD: 0
 --- !u!114 &1390555394
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5978,8 +6078,11 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 31336594}
-  visible: 0
+  _visible:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
   affectChildren: 1
+  visibleOLD: 0
 --- !u!114 &1390555395
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -5995,8 +6098,11 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   spriteRenderer: {fileID: 1612042692}
-  visible: 0
+  _visible:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
   affectChildren: 1
+  visibleOLD: 0
 --- !u!114 &1390555396
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -6025,8 +6131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: -2599.42
-    y: -1010.35046
+    x: -2598.4058
+    y: -1009.3363
     width: 142
     height: 40
   itemId: 93

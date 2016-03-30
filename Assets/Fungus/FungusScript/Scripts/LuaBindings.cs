@@ -13,7 +13,7 @@ namespace Fungus
     /// Component which manages a list of bound objects to be accessed in Lua scripts.
     /// </summary>
     [ExecuteInEditMode]
-    public class FungusBindings : MonoBehaviour 
+    public class LuaBindings : MonoBehaviour 
     {
         /// <summary>
         /// Represents a single Unity object (+ optional component) bound to a string key.
