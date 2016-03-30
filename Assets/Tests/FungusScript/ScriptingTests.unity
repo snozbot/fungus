@@ -135,65 +135,6 @@ Transform:
   - {fileID: 385045793}
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!1001 &225242604
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1432843345}
-    m_Modifications:
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: customScript
-      value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_RootGameObject: {fileID: 1118128940}
-  m_IsPrefabParent: 0
---- !u!4 &225242605
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 225242604}
-  m_GameObject: {fileID: 1118128940}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1432843345}
-  m_RootOrder: 0
 --- !u!1 &236999593
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,6 +209,7 @@ MonoBehaviour:
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
+  typeRegistries: []
 --- !u!1001 &364012152
 Prefab:
   m_ObjectHideFlags: 0
@@ -313,37 +255,15 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_RootGameObject: {fileID: 364012154}
   m_IsPrefabParent: 0
---- !u!4 &364012153
+--- !u!4 &364012153 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 364012152}
-  m_GameObject: {fileID: 364012154}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1900871526}
-  m_RootOrder: 0
---- !u!1 &364012154
+--- !u!1 &364012154 stripped
 GameObject:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 364012152}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 364012153}
-  - 114: {fileID: 364012156}
-  - 114: {fileID: 364012155}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &364012155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,34 +331,10 @@ MonoBehaviour:
     fungus.pass()'
   runAsCoroutine: 1
   useFungusModule: 1
---- !u!114 &364012156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 364012152}
-  m_GameObject: {fileID: 364012154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
---- !u!4 &385045793
+--- !u!4 &385045793 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 1073733979}
-  m_GameObject: {fileID: 1111820868}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 47556549}
-  m_RootOrder: 0
 --- !u!1 &637150167
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +384,7 @@ Transform:
   m_Children:
   - {fileID: 236999594}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!1 &715881501
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,7 +434,7 @@ Transform:
   m_Children:
   - {fileID: 2093904138}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!1 &1052730009
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,41 +474,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
---- !u!1 &1058559143
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 178698, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
-  m_PrefabInternal: {fileID: 2076961667}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1500823905}
-  - 114: {fileID: 1058559144}
-  m_Layer: 0
-  m_Name: FungusBindings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1058559144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b,
-    type: 2}
-  m_PrefabInternal: {fileID: 2076961667}
-  m_GameObject: {fileID: 1058559143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cc8a659e950044b69d7c62696c36962, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tableName: 
-  boundObjects:
-  - key: dummy
-    obj: {fileID: 2101848760}
-    component: {fileID: 0}
-  boundTypes: []
+  m_RootOrder: 6
 --- !u!1001 &1073733979
 Prefab:
   m_ObjectHideFlags: 0
@@ -664,25 +526,11 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_RootGameObject: {fileID: 1111820868}
   m_IsPrefabParent: 0
---- !u!1 &1111820868
+--- !u!1 &1111820868 stripped
 GameObject:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 1073733979}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 385045793}
-  - 114: {fileID: 1111820870}
-  - 114: {fileID: 1111820869}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &1111820869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,99 +559,10 @@ MonoBehaviour:
     f.pass()'
   runAsCoroutine: 1
   useFungusModule: 1
---- !u!114 &1111820870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 1073733979}
-  m_GameObject: {fileID: 1111820868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
---- !u!1 &1118128940
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 225242604}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 225242605}
-  - 114: {fileID: 1118128942}
-  - 114: {fileID: 1118128941}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1118128941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1118128940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: '-- Test instantiating a CLR type from Lua
-
-    local c = unity.color.__new()
-
-    unity.test.assert(c != nil)
-
-    unity.test.pass()
-
-'
-  runAsCoroutine: 1
-  useFungusModule: 1
---- !u!114 &1118128942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 225242604}
-  m_GameObject: {fileID: 1118128940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
---- !u!4 &1272779136
+--- !u!4 &1272779136 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 1501132865}
-  m_GameObject: {fileID: 1860855006}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1960220032}
-  m_RootOrder: 0
 --- !u!1 &1394431693
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,68 +649,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &1432843343
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1432843345}
-  - 114: {fileID: 1432843344}
-  m_Layer: 0
-  m_Name: ClassNewTest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1432843344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1432843343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeout: 5
-  ignored: 0
-  succeedAfterAllAssertionsAreExecuted: 0
-  expectException: 0
-  expectedExceptionList: 
-  succeedWhenExceptionIsThrown: 0
-  includedPlatforms: -1
-  platformsToIgnore: []
-  dynamic: 0
-  dynamicTypeName: 
---- !u!4 &1432843345
+--- !u!4 &1500823905 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1432843343}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 225242605}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
---- !u!4 &1500823905
-Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 403334, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
   m_PrefabInternal: {fileID: 2076961667}
-  m_GameObject: {fileID: 1058559143}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1960220032}
-  m_RootOrder: 1
 --- !u!1001 &1501132865
 Prefab:
   m_ObjectHideFlags: 0
@@ -997,7 +698,6 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_RootGameObject: {fileID: 1860855006}
   m_IsPrefabParent: 0
 --- !u!1 &1532103952
 GameObject:
@@ -1014,7 +714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1532103953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1048,7 +748,7 @@ Transform:
   m_Children:
   - {fileID: 1855619326}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1 &1549270604
 GameObject:
   m_ObjectHideFlags: 1
@@ -1088,7 +788,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!1 &1734188738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,7 +862,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!1001 &1855619325
 Prefab:
   m_ObjectHideFlags: 0
@@ -1209,37 +909,15 @@ Prefab:
     m_RemovedComponents:
     - {fileID: 11403674, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_RootGameObject: {fileID: 1855619327}
   m_IsPrefabParent: 0
---- !u!4 &1855619326
+--- !u!4 &1855619326 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 1855619325}
-  m_GameObject: {fileID: 1855619327}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1532103954}
-  m_RootOrder: 0
---- !u!1 &1855619327
+--- !u!1 &1855619327 stripped
 GameObject:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 1855619325}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1855619326}
-  - 114: {fileID: 1855619329}
-  - 114: {fileID: 1855619328}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &1855619328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1309,39 +987,10 @@ MonoBehaviour:
     fungus.pass()'
   runAsCoroutine: 1
   useFungusModule: 1
---- !u!114 &1855619329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 1855619325}
-  m_GameObject: {fileID: 1855619327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 4900000, guid: 9900570d789fa4b29957e4b897af9e3b, type: 3}
-  activeLanguage: en
-  timeScale: -1
---- !u!1 &1860855006
+--- !u!1 &1860855006 stripped
 GameObject:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 1501132865}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1272779136}
-  - 114: {fileID: 1860855008}
-  - 114: {fileID: 1860855007}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &1860855007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1372,22 +1021,6 @@ MonoBehaviour:
 '
   runAsCoroutine: 1
   useFungusModule: 1
---- !u!114 &1860855008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 1501132865}
-  m_GameObject: {fileID: 1860855006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
 --- !u!1 &1900871524
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,7 +1070,7 @@ Transform:
   m_Children:
   - {fileID: 364012153}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!1 &1960220030
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,7 +1176,6 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
-  m_RootGameObject: {fileID: 1058559143}
   m_IsPrefabParent: 0
 --- !u!1001 &2093904137
 Prefab:
@@ -1586,37 +1218,15 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_RootGameObject: {fileID: 2093904139}
   m_IsPrefabParent: 0
---- !u!4 &2093904138
+--- !u!4 &2093904138 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 2093904137}
-  m_GameObject: {fileID: 2093904139}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 715881503}
-  m_RootOrder: 0
---- !u!1 &2093904139
+--- !u!1 &2093904139 stripped
 GameObject:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 2093904137}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2093904138}
-  - 114: {fileID: 2093904141}
-  - 114: {fileID: 2093904140}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &2093904140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1659,22 +1269,6 @@ MonoBehaviour:
 '
   runAsCoroutine: 1
   useFungusModule: 1
---- !u!114 &2093904141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 2093904137}
-  m_GameObject: {fileID: 2093904139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
 --- !u!1 &2101848760
 GameObject:
   m_ObjectHideFlags: 0

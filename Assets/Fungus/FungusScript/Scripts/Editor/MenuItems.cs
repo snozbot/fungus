@@ -45,7 +45,7 @@ namespace Fungus
                 EditorGUIUtility.PingObject(asset);
             }            
         }
-            
+
         /// <summary>
         /// Spawns a prefab in the scene based on it's filename in a Resources folder in the project.
         /// If centerInScene is true then the object will be placed centered in the view window with z = 0.
@@ -84,6 +84,17 @@ namespace Fungus
 
             return go;
         }
+
+		/// <summary>
+		/// Create new asset from <see cref="ScriptableObject"/> type with unique name at
+		/// selected folder in project window. Asset creation can be cancelled by pressing
+		/// escape key when asset is initially being named.
+		/// </summary>
+		/// <typeparam name="T">Type of scriptable object.</typeparam>
+		public static void CreateAsset<T>() where T : ScriptableObject {
+			var asset = ScriptableObject.CreateInstance<T>();
+			ProjectWindowUtil.CreateAsset(asset, typeof(T).Name + ".asset");
+		}
     }
 
 }
