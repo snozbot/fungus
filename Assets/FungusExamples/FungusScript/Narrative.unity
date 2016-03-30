@@ -1764,7 +1764,7 @@ GameObject:
   - 4: {fileID: 1265440902}
   - 114: {fileID: 1265440901}
   m_Layer: 0
-  m_Name: FungusBindings
+  m_Name: LuaBindings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
