@@ -14,10 +14,10 @@ namespace Fungus
             SpawnPrefab("Prefabs/FungusScript", false);
         }
 
-        [MenuItem("Tools/Fungus/Create/Fungus Bindings", false, 2001)]
-        static void CreateFungusBindings()
+        [MenuItem("Tools/Fungus/Create/Lua Bindings", false, 2001)]
+        static void CreateLuaBindings()
         {
-            SpawnPrefab("Prefabs/FungusBindings", false);
+            SpawnPrefab("Prefabs/LuaBindings", false);
         }
 
         [MenuItem("Tools/Fungus/Create/Fungus Invoke", false, 2002)]

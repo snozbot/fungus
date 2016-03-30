@@ -11,8 +11,8 @@ using System.IO;
 namespace Fungus
 {
     
-    [CustomEditor (typeof(FungusBindings))]
-    public class FungusBindingsEditor : Editor 
+    [CustomEditor (typeof(LuaBindings))]
+    public class LuaBindingsEditor : Editor 
     {
         protected ReorderableList boundObjectsList;
 
@@ -54,8 +54,8 @@ namespace Fungus
                 if (EditorGUI.EndChangeCheck())
                 {
                     // Force the key to be a valid Lua variable name
-                    FungusBindings fungusBindings = target as FungusBindings;
-                    keyProp.stringValue = GetUniqueKey(fungusBindings, keyProp.stringValue, index);
+					LuaBindings luaBindings = target as LuaBindings;
+                    keyProp.stringValue = GetUniqueKey(luaBindings, keyProp.stringValue, index);
                 }
 
                 EditorGUI.BeginChangeCheck();
@@ -68,8 +68,8 @@ namespace Fungus
                 {
                     // Use the object name as the key
                     string keyName = objectProp.objectReferenceValue.name;
-                    FungusBindings fungusBindings = target as FungusBindings;
-                    element.FindPropertyRelative("key").stringValue = GetUniqueKey(fungusBindings, keyName.ToLower(), index);
+					LuaBindings luaBindings = target as LuaBindings;
+                    element.FindPropertyRelative("key").stringValue = GetUniqueKey(luaBindings, keyName.ToLower(), index);
                 }
 
                 if (objectProp.objectReferenceValue != null)
@@ -165,8 +165,8 @@ namespace Fungus
             List<string> details = new List<string>();
             details.Add("");
 
-            FungusBindings fungusBindings = target as FungusBindings;
-            foreach (FungusBindings.BoundObject boundObject in fungusBindings.boundObjects)
+			LuaBindings luaBindings = target as LuaBindings;
+            foreach (LuaBindings.BoundObject boundObject in luaBindings.boundObjects)
             {
                 UnityEngine.Object inspectObject = boundObject.obj;
                 if (boundObject.component != null)
@@ -301,7 +301,7 @@ namespace Fungus
         /// Returns a new binding key that is guaranteed to be a valid Lua variable name and
         /// not to clash with any existing binding in the list.
         /// </summary>
-        protected virtual string GetUniqueKey(FungusBindings fungusBindings, string originalKey, int ignoreIndex = -1)
+        protected virtual string GetUniqueKey(LuaBindings luaBindings, string originalKey, int ignoreIndex = -1)
         {
             string baseKey = originalKey;
 
@@ -320,14 +320,14 @@ namespace Fungus
 
             // Build a hash of all keys currently in use
             HashSet<string> keyhash = new HashSet<string>();
-            for (int i = 0; i < fungusBindings.boundObjects.Count; ++i)
+            for (int i = 0; i < luaBindings.boundObjects.Count; ++i)
             {
                 if (i == ignoreIndex)
                 {
                     continue;
                 }
 
-                keyhash.Add(fungusBindings.boundObjects[i].key);
+                keyhash.Add(luaBindings.boundObjects[i].key);
             }
 
             // Append a suffix to make the key unique
@@ -343,16 +343,16 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Update the list of bound types on the FungusBindings object.
+        /// Update the list of bound types on the LuaBindings object.
         /// </summary>
         protected virtual void PopulateBoundTypes()
         {
-            FungusBindings fungusBindings = target as FungusBindings;
+			LuaBindings luaBindings = target as LuaBindings;
 
             // Use a temp HashSet to store the list of types.
             // The final list is stored as a list of type strings.
             HashSet<System.Type> typeSet = new HashSet<System.Type>();
-            foreach (FungusBindings.BoundObject boundObject in fungusBindings.boundObjects)
+            foreach (LuaBindings.BoundObject boundObject in luaBindings.boundObjects)
             {
                 if (boundObject.obj == null)
                 {
@@ -367,7 +367,7 @@ namespace Fungus
                 }
             }
 
-            // Store the final list of types in the fungusBindings object 
+            // Store the final list of types in the luaBindings object 
             SerializedProperty boundTypesProp = serializedObject.FindProperty("boundTypes");
             boundTypesProp.ClearArray();
             int index = 0;

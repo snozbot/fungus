@@ -287,7 +287,7 @@ GameObject:
   - 4: {fileID: 775333279}
   - 114: {fileID: 775333278}
   m_Layer: 0
-  m_Name: FungusBindings
+  m_Name: LuaBindings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,6 +411,7 @@ MonoBehaviour:
   hideComponents: 1
   saveSelection: 1
   localizationId: 
+  showLineNumbers: 0
   hideCommands: []
 --- !u!114 &913136540
 MonoBehaviour:

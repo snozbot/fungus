@@ -245,8 +245,8 @@ namespace Fungus
         /// </summary>
         protected virtual void RegisterBindings()
         {
-            FungusBindings[] bindings = GameObject.FindObjectsOfType<FungusBindings>();
-            foreach (FungusBindings binding in bindings)
+            LuaBindings[] bindings = GameObject.FindObjectsOfType<LuaBindings>();
+            foreach (LuaBindings binding in bindings)
             {
                 binding.AddBindings(interpreter.Globals);
             }
