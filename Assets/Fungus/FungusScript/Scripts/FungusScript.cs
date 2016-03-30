@@ -97,6 +97,18 @@ namespace Fungus
         [Tooltip("Time scale factor to apply when running Lua scripts. If negative then uses the same values as the standard Time class.")]
         public float timeScale = -1f;
 
+		/// <summary>
+		/// A text file listing the c# types that can be accessed from Lua.
+		/// </summary>
+		[HideInInspector]
+		public List<TextAsset> registerTypes = new List<TextAsset>();
+
+		/// <summary>
+		/// A text file listing the c# extension types that can be accessed from Lua.
+		/// </summary>
+		[HideInInspector]
+		public List<TextAsset> registerExtensionTypes = new List<TextAsset>();
+
         /// <summary>
         /// Instance of remote debugging service when debugging option is enabled.
         /// </summary>
@@ -134,12 +146,11 @@ namespace Fungus
             // See the MoonSharp documentation for details.
             interpreter = new Script(CoreModules.Preset_Complete);
 
-            RegisterLuaScriptFiles();
-            RegisterCLRTypes();
-            RegisterFungus();
-            RegisterCLRClassObjects();
-            RegisterBindings();
-            LoadStringTable();
+            InitLuaScriptFiles();
+            InitTypes();
+            InitCustomObjects();
+            InitBindings();
+            InitStringTable();
 
             if (remoteDebugger)
             {
@@ -152,75 +163,98 @@ namespace Fungus
         /// <summary>
         /// Register all Lua files in the project so they can be accessed at runtime.
         /// </summary>
-        protected virtual void RegisterLuaScriptFiles()
+        protected virtual void InitLuaScriptFiles()
         {
             object[] result = Resources.LoadAll("Lua", typeof(TextAsset));
             interpreter.Options.ScriptLoader = new FungusScriptLoader(result.OfType<TextAsset>());
         }
 
         /// <summary>
-        /// Registers a commonly used subset of Unity types for Lua interop.
-        /// To register more types externally to this class, register them in the Awake method of any 
-        /// monobehavior in your scene.
+        /// Registers all listed c# types for interop with Lua.
+        /// You can also register types directly in the Awake method of any 
+		/// monobehavior in your scene using UserData.RegisterType() directly.
         /// </summary>
-        protected virtual void RegisterCLRTypes()
+        protected virtual void InitTypes()
         {
-            // Core types needed by FungusScript
-            UserData.RegisterType<GameObject>();
-            UserData.RegisterType<Component>();
-            UserData.RegisterType<MonoBehaviour>();
-            UserData.RegisterType<ScriptableObject>();
-            UserData.RegisterType<IEnumerator>();
-            UserData.RegisterType<UnityEngine.Coroutine>();
-            UserData.RegisterType<Task>();
+			// Register types
+			foreach (TextAsset textFile in registerTypes)
+			{
+				if (textFile == null)
+				{
+					continue;
+				}
 
-            // Monobehaviors and other Unity.Objects
-            UserData.RegisterType<FungusScript>();
-            UserData.RegisterType<Transform>();
-            UserData.RegisterType<RectTransform>();
-            UserData.RegisterType<Material>();
-            UserData.RegisterType<Texture>();
-            UserData.RegisterType<Sprite>();
-            UserData.RegisterType<AudioClip>();
-            UserData.RegisterType<AudioSource>();
+				char[] separators = { '\r', '\n' };
+				foreach (string typeName in textFile.text.Split(separators, StringSplitOptions.RemoveEmptyEntries))
+				{
+					RegisterType(typeName.Trim());
+				}
+			}
 
-            // Value types
-            UserData.RegisterType<Vector2>();
-            UserData.RegisterType<Vector3>();
-            UserData.RegisterType<Rect>();
-            UserData.RegisterType<Quaternion>();
-            UserData.RegisterType<Color>();
-            UserData.RegisterType<Time>();
-            UserData.RegisterType<FungusPrefs>();
+			// Register extension types
+			foreach (TextAsset textFile in registerExtensionTypes)
+			{
+				if (textFile == null)
+				{
+					continue;
+				}
+
+				char[] separators = { '\r', '\n' };
+				foreach (string typeName in textFile.text.Split(separators, StringSplitOptions.RemoveEmptyEntries))
+				{
+					RegisterExtensionType(typeName.Trim());
+				}
+			}
         }
 
-        /// <summary>
-        /// Registers the most common types used by Fungus.
-        /// </summary>
-        protected virtual void RegisterFungus()
-        {
-            RegisterFungusTypes.Register();
-        }
+		/// <summary>
+		/// Register a type given it's assembly qualified name.
+		/// </summary>
+		public virtual void RegisterType(string typeName)
+		{
+			System.Type t = System.Type.GetType(typeName);
+			if (t == null)
+			{
+				UnityEngine.Debug.LogWarning("Type not found: " + typeName);
+				return;
+			}
+
+			if (!UserData.IsTypeRegistered(t))
+			{
+				UserData.RegisterType(t);
+			}
+		}
+
+		/// <summary>
+		/// Register an extension type given it's assembly qualified name.
+		/// </summary>
+		public virtual void RegisterExtensionType(string typeName)
+		{
+			System.Type t = System.Type.GetType(typeName);
+			if (t == null)
+			{
+				UnityEngine.Debug.LogWarning("Extension type not found: " + typeName);
+				return;
+			}
+
+			if (!UserData.IsTypeRegistered(t))
+			{
+				UserData.RegisterExtensionType(t);
+			}
+		}
 
         /// <summary>
-        /// Registers a commonly used subset of Unity class objects for Lua interop.
+        /// Register some commonly used Unity classes and objects for Lua interop.
         /// To register more class objects externally to this class, register them in the Awake method of any 
         /// monobehavior in your scene.
         /// </summary>
-        protected virtual void RegisterCLRClassObjects()
+        protected virtual void InitCustomObjects()
         {
             // Add the CLR class objects to a global unity table
             Table unityTable = new Table(interpreter);
             interpreter.Globals["unity"] = unityTable;
 
-            // Instances of these types can be created in Lua using e.g. c = unity.color.__new()
-            unityTable["vector2"] = typeof(Vector2);
-            unityTable["vector3"] = typeof(Vector3);
-            unityTable["rect"] = typeof(Rect);
-            unityTable["quaternion"] = typeof(Quaternion);
-            unityTable["color"] = typeof(Color);
-
-            // Static classes
+			// Static classes
             unityTable["time"] = UserData.CreateStatic(typeof(Time));
             unityTable["fungusprefs"] = UserData.CreateStatic(typeof(FungusPrefs));
 
@@ -243,7 +277,7 @@ namespace Fungus
         /// <summary>
         /// Binds all gameobjects and components defined in FungusBinding objects to the global scene table.
         /// </summary>
-        protected virtual void RegisterBindings()
+        protected virtual void InitBindings()
         {
             LuaBindings[] bindings = GameObject.FindObjectsOfType<LuaBindings>();
             foreach (LuaBindings binding in bindings)
@@ -255,7 +289,7 @@ namespace Fungus
         /// <summary>
         /// Loads the global string table used for localisation.
         /// </summary>
-        protected virtual void LoadStringTable()
+        protected virtual void InitStringTable()
         {
             if (stringTable != null)
             {

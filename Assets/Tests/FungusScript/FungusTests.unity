@@ -142,52 +142,7 @@ MonoBehaviour:
   - key: voiceover
     obj: {fileID: 8300000, guid: d2ab1fbe555d44e9e870311657856bdc, type: 3}
     component: {fileID: 0}
-  boundTypes:
-  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.SayDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.AudioClip, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.Character, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Flowchart, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Sprite, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Color, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Canvas, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.FacingDirection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.PortraitState, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.TextGenerator, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Texture, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Font, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.TextAnchor, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.HorizontalWrapMode, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.VerticalWrapMode, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.FontStyle, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.TextGenerationSettings, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.AudioClipLoadType, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.AudioDataLoadState, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.AudioClip+PCMReaderCallback, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.AudioClip+PCMSetPositionCallback, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
+  typeRegistry: {fileID: 0}
 --- !u!1 &13683311
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,94 +715,11 @@ MonoBehaviour:
   - key: menudialog
     obj: {fileID: 560555132}
     component: {fileID: 560555134}
-  boundTypes:
-  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.MenuDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Block, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.UI.Slider, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!1 &36455798
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 36455799}
-  - 114: {fileID: 36455800}
-  - 114: {fileID: 36455801}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &36455799
+  typeRegistry: {fileID: 0}
+--- !u!4 &36455799 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 36455798}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1069098975}
-  m_RootOrder: 2
---- !u!114 &36455800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 36455798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
---- !u!114 &36455801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 36455798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: "fungus.menuoptions.menudialog = menudialog\n\nfunction option1()\n   fungus.fail()\nend\n\nfungus.menu(\"Option
-    1\", option1)\n\nfungus.assert(optionbutton0.activeSelf)\nfungus.clearmenu()\nfungus.assert(not
-    optionbutton0.activeSelf)\n\nfungus.pass()"
-  runAsCoroutine: 1
-  useFungusModule: 1
+  m_PrefabInternal: {fileID: 1320193925}
 --- !u!1 &56584888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,6 +1014,83 @@ MonoBehaviour:
   localizationId: 
   showLineNumbers: 0
   hideCommands: []
+--- !u!1 &116891408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 116891409}
+  - 114: {fileID: 116891410}
+  m_Layer: 0
+  m_Name: FungusInvoke
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &116891409
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 116891408}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.3701353, y: -9.273218, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1647235604}
+  m_RootOrder: 3
+--- !u!114 &116891410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 116891408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  fungusScript: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: '-- Check the starting value of StringVar
+
+    s = flowchart.GetVariable("StringVar")
+
+    fungus.assert (s.value == "a string")
+
+
+    t = fungus.time()
+
+
+    -- Execute a block to change the variable
+
+    b = flowchart.FindBlock("Test Block")
+
+    fungus.runwait( b.Execute() )
+
+
+    fungus.assert(fungus.time() - t >= 1)
+
+
+    -- Check the new value of StringVar
+
+    fungus.assert (s.value == "something")
+
+
+    fungus.pass()'
+  runAsCoroutine: 1
+  useFungusModule: 1
 --- !u!1 &158657321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,30 +1274,7 @@ MonoBehaviour:
   - key: optionbutton0
     obj: {fileID: 876352038}
     component: {fileID: 876352041}
-  boundTypes:
-  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.MenuDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Block, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.UI.Slider, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.EventSystems.PointerEventData, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.EventSystems.BaseEventData, UnityEngine.UI, Version=1.0.0.0, Culture=neutral,
-    PublicKeyToken=null
+  typeRegistry: {fileID: 0}
 --- !u!1 &190681717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1824,108 +1750,10 @@ MonoBehaviour:
   - {fileID: 401213763}
   - {fileID: 1562268133}
   charactersOnStage: []
---- !u!1 &293853617
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 293853618}
-  - 114: {fileID: 293853620}
-  - 114: {fileID: 293853619}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &293853618
+--- !u!4 &293853618 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 293853617}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1109996701}
-  m_RootOrder: 0
---- !u!114 &293853619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 293853617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: '-- Test Say Dialog integration
-
-
-    score = 10
-
-
-    -- Make say dialog active
-
-    fungus.setsaydialog(saydialog)
-
-    fungus.sayoptions.waitforinput = false
-
-
-    -- Select active character
-
-    fungus.setcharacter(john, "Mushroom")
-
-
-    fungus.say ("voiceover{w=3}", voiceover)
-
-
-    -- Test say command with a tag and global variable substitution
-
-    fungus.say "Alrighty{w=1} how do [$score]?"
-
-
-    fungus.assert(nametext.text == "John 10")
-
-    fungus.assert(storytext.text == "Alrighty how do 10?")
-
-    fungus.pass()
-
-
-'
-  runAsCoroutine: 1
-  useFungusModule: 1
---- !u!114 &293853620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 293853617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
+  m_PrefabInternal: {fileID: 766973975}
 --- !u!1 &294355415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1971,6 +1799,8 @@ MonoBehaviour:
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
+  registerTypes: []
+  registerExtensionTypes: []
 --- !u!114 &294355418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2077,6 +1907,8 @@ MonoBehaviour:
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
+  registerTypes: []
+  registerExtensionTypes: []
 --- !u!1 &328064332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,6 +2497,125 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 405820708}
+--- !u!1 &448016416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 448016417}
+  - 114: {fileID: 448016418}
+  m_Layer: 0
+  m_Name: FungusInvoke
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &448016417
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 448016416}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.3701353, y: -9.273218, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1641285458}
+  m_RootOrder: 4
+--- !u!114 &448016418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 448016416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  fungusScript: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: '-- The "Do Test" block in the flowchart sets a bunch of flowchart variables
+
+    fungus.runblock(flowchart, "Do Test")
+
+
+    -- Check if the variables contain the expected values
+
+    local bo = flowchart.GetVariable("BoolVar")
+
+    fungus.assert(bo.value)
+
+
+    local f = flowchart.GetVariable("FloatVar")
+
+    fungus.assert(f.value == 1.0)
+
+
+    local i = flowchart.GetVariable("IntVar")
+
+    fungus.assert(i.value == 2)
+
+
+    local s = flowchart.GetVariable("StringVar")
+
+    fungus.assert(s.value == "a string")
+
+
+    local c = flowchart.GetVariable("ColorVar")
+
+    fungus.assert(c.value.r == 1)
+
+
+    local go = flowchart.GetVariable("GameObjectVar")
+
+    fungus.assert(go.value == testgameobject)
+
+
+    local m = flowchart.GetVariable("MaterialVar")
+
+    fungus.assert(m.value == testmaterial)
+
+
+    local o = flowchart.GetVariable("ObjectVar")
+
+    fungus.assert(o.value == testgameobject)
+
+
+    local sp = flowchart.GetVariable("SpriteVar")
+
+    fungus.assert(sp.value == mushroom)
+
+
+    local t = flowchart.GetVariable("TextureVar")
+
+    fungus.assert(t.value == mousepointer)
+
+
+    local v2 = flowchart.GetVariable("Vector2Var")
+
+    fungus.assert(v2.value.y == 1)
+
+
+    local v3 = flowchart.GetVariable("Vector3Var")
+
+    fungus.assert(v3.value.z == 1)
+
+
+    fungus.pass()'
+  runAsCoroutine: 1
+  useFungusModule: 1
 --- !u!1 &465829169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2787,30 +2738,7 @@ MonoBehaviour:
   - key: flowchart
     obj: {fileID: 1983492490}
     component: {fileID: 1983492495}
-  boundTypes:
-  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.Flowchart, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Block, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.Variable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Label, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Command, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.CommandInfoAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  typeRegistry: {fileID: 0}
 --- !u!1 &507572619
 GameObject:
   m_ObjectHideFlags: 0
@@ -2952,6 +2880,60 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 507572619}
+--- !u!1 &508615588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 508615589}
+  - 114: {fileID: 508615590}
+  m_Layer: 0
+  m_Name: FungusInvoke
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &508615589
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 508615588}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.3701353, y: -9.273218, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1069098975}
+  m_RootOrder: 3
+--- !u!114 &508615590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 508615588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  fungusScript: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: "fungus.menuoptions.menudialog = menudialog\n\nfunction option1()\n   fungus.fail()\nend\n\nfungus.menu(\"Option
+    1\", option1)\n\nfungus.assert(optionbutton0.activeSelf)\nfungus.clearmenu()\nfungus.assert(not
+    optionbutton0.activeSelf)\n\nfungus.pass()"
+  runAsCoroutine: 1
+  useFungusModule: 1
 --- !u!1 &560555132
 GameObject:
   m_ObjectHideFlags: 0
@@ -3442,143 +3424,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1738857302}
   m_RootOrder: 1
---- !u!1 &715246545
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 715246546}
-  - 114: {fileID: 715246548}
-  - 114: {fileID: 715246547}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &715246546
+--- !u!4 &715246546 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 715246545}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1641285458}
-  m_RootOrder: 0
---- !u!114 &715246547
+  m_PrefabInternal: {fileID: 726346786}
+--- !u!114 &715246548 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11403674, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 715246545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: '-- The "Do Test" block in the flowchart sets a bunch of flowchart variables
-
-    fungus.runblock(flowchart, "Do Test")
-
-
-    -- Check if the variables contain the expected values
-
-    local bo = flowchart.GetVariable("BoolVar")
-
-    fungus.assert(bo.value)
-
-
-    local f = flowchart.GetVariable("FloatVar")
-
-    fungus.assert(f.value == 1.0)
-
-
-    local i = flowchart.GetVariable("IntVar")
-
-    fungus.assert(i.value == 2)
-
-
-    local s = flowchart.GetVariable("StringVar")
-
-    fungus.assert(s.value == "a string")
-
-
-    local c = flowchart.GetVariable("ColorVar")
-
-    fungus.assert(c.value.r == 1)
-
-
-    local go = flowchart.GetVariable("GameObjectVar")
-
-    fungus.assert(go.value == testgameobject)
-
-
-    local m = flowchart.GetVariable("MaterialVar")
-
-    fungus.assert(m.value == testmaterial)
-
-
-    local o = flowchart.GetVariable("ObjectVar")
-
-    fungus.assert(o.value == testgameobject)
-
-
-    local sp = flowchart.GetVariable("SpriteVar")
-
-    fungus.assert(sp.value == mushroom)
-
-
-    local t = flowchart.GetVariable("TextureVar")
-
-    fungus.assert(t.value == mousepointer)
-
-
-    local v2 = flowchart.GetVariable("Vector2Var")
-
-    fungus.assert(v2.value.y == 1)
-
-
-    local v3 = flowchart.GetVariable("Vector3Var")
-
-    fungus.assert(v3.value.z == 1)
-
-
-    fungus.pass()'
-  runAsCoroutine: 1
-  useFungusModule: 1
---- !u!114 &715246548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
     type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 715246545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
+  m_PrefabInternal: {fileID: 726346786}
   m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
 --- !u!1 &715595886
 GameObject:
   m_ObjectHideFlags: 0
@@ -3762,37 +3617,65 @@ MonoBehaviour:
   - key: transform
     obj: {fileID: 328064332}
     component: {fileID: 328064333}
-  boundTypes:
-  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.Flowchart, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Block, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.Variable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Label, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Command, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.CommandInfoAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.RectTransform+ReapplyDrivenProperties, UnityEngine, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Vector3, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.RectTransform+Edge, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.RectTransform+Axis, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
+  typeRegistry: {fileID: 0}
+--- !u!1001 &726346786
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1641285458}
+    m_Modifications:
+    - target: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: registerTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: registerExtensionTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: registerExtensionTypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 2978c0ed6806b42629d2bf7d0d1f220c, type: 3}
+    - target: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: registerTypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &761668838
 GameObject:
   m_ObjectHideFlags: 0
@@ -3869,6 +3752,48 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 761668838}
+--- !u!1001 &766973975
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1109996701}
+    m_Modifications:
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &786428650
 GameObject:
   m_ObjectHideFlags: 0
@@ -4824,23 +4749,7 @@ MonoBehaviour:
   - key: 
     obj: {fileID: 0}
     component: {fileID: 0}
-  boundTypes:
-  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.MenuDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Block, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.UI.Slider, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  typeRegistry: {fileID: 0}
 --- !u!1 &928936324
 GameObject:
   m_ObjectHideFlags: 0
@@ -5153,7 +5062,7 @@ MonoBehaviour:
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 1
+  zoom: 0.9129947
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -6004,6 +5913,7 @@ Transform:
   - {fileID: 1077682788}
   - {fileID: 919432342}
   - {fileID: 36455799}
+  - {fileID: 508615589}
   m_Father: {fileID: 0}
   m_RootOrder: 5
 --- !u!1 &1077682782
@@ -6219,7 +6129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1109996700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6255,6 +6165,7 @@ Transform:
   - {fileID: 6102669}
   - {fileID: 2087053784}
   - {fileID: 605829511}
+  - {fileID: 1845639738}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!1 &1142920804
@@ -6502,6 +6413,48 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1312420724}
+--- !u!1001 &1320193925
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1069098975}
+    m_Modifications:
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1320911855
 GameObject:
   m_ObjectHideFlags: 0
@@ -7190,6 +7143,8 @@ MonoBehaviour:
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
+  registerTypes: []
+  registerExtensionTypes: []
 --- !u!114 &1526161872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7411,6 +7366,8 @@ MonoBehaviour:
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
+  registerTypes: []
+  registerExtensionTypes: []
 --- !u!114 &1625702972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7473,7 +7430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1641285457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7509,6 +7466,7 @@ Transform:
   - {fileID: 942227024}
   - {fileID: 2108324589}
   - {fileID: 95979349}
+  - {fileID: 448016417}
   m_Father: {fileID: 0}
   m_RootOrder: 10
 --- !u!1 &1647235602
@@ -7561,6 +7519,7 @@ Transform:
   - {fileID: 500244462}
   - {fileID: 1983492491}
   - {fileID: 2004121212}
+  - {fileID: 116891409}
   m_Father: {fileID: 0}
   m_RootOrder: 12
 --- !u!1 &1652835880
@@ -8174,30 +8133,7 @@ MonoBehaviour:
   - key: flowchart
     obj: {fileID: 807616582}
     component: {fileID: 807616590}
-  boundTypes:
-  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.Flowchart, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Block, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.Variable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Label, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Command, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.CommandInfoAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  typeRegistry: {fileID: 0}
 --- !u!1 &1738857300
 GameObject:
   m_ObjectHideFlags: 0
@@ -8638,6 +8574,91 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!1 &1845639737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1845639738}
+  - 114: {fileID: 1845639739}
+  m_Layer: 0
+  m_Name: FungusInvoke
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1845639738
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1845639737}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.3701353, y: -9.273218, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1109996701}
+  m_RootOrder: 4
+--- !u!114 &1845639739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1845639737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  fungusScript: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: '-- Test Say Dialog integration
+
+
+    score = 10
+
+
+    -- Make say dialog active
+
+    fungus.setsaydialog(saydialog)
+
+    fungus.sayoptions.waitforinput = false
+
+
+    -- Select active character
+
+    fungus.setcharacter(john, "Mushroom")
+
+
+    fungus.say ("voiceover{w=3}", voiceover)
+
+
+    -- Test say command with a tag and global variable substitution
+
+    fungus.say "Alrighty{w=1} how do [$score]?"
+
+
+    fungus.assert(nametext.text == "John 10")
+
+    fungus.assert(storytext.text == "Alrighty how do 10?")
+
+    fungus.pass()
+
+
+'
+  runAsCoroutine: 1
+  useFungusModule: 1
 --- !u!1 &1880266302
 GameObject:
   m_ObjectHideFlags: 0
@@ -9148,101 +9169,10 @@ Transform:
   - {fileID: 20972057}
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!1 &2004121211
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2004121212}
-  - 114: {fileID: 2004121214}
-  - 114: {fileID: 2004121213}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2004121212
+--- !u!4 &2004121212 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2004121211}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1647235604}
-  m_RootOrder: 2
---- !u!114 &2004121213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11403674, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2004121211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: '-- Check the starting value of StringVar
-
-    s = flowchart.GetVariable("StringVar")
-
-    fungus.assert (s.value == "a string")
-
-
-    t = fungus.time()
-
-
-    -- Execute a block to change the variable
-
-    b = flowchart.FindBlock("Test Block")
-
-    fungus.runwait( b.Execute() )
-
-
-    fungus.assert(fungus.time() - t >= 1)
-
-
-    -- Check the new value of StringVar
-
-    fungus.assert (s.value == "something")
-
-
-    fungus.pass()'
-  runAsCoroutine: 1
-  useFungusModule: 1
---- !u!114 &2004121214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2004121211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
+  m_PrefabInternal: {fileID: 2092185197}
 --- !u!1 &2017132418
 GameObject:
   m_ObjectHideFlags: 0
@@ -9597,6 +9527,48 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!1001 &2092185197
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1647235604}
+    m_Modifications:
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &2108324588
 GameObject:
   m_ObjectHideFlags: 0
@@ -9654,50 +9626,7 @@ MonoBehaviour:
   - key: mousepointer
     obj: {fileID: 2800000, guid: efe8aa62cc87f4b70b9272e4e8e06668, type: 3}
     component: {fileID: 0}
-  boundTypes:
-  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.Flowchart, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Block, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - Fungus.Variable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Label, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.Command, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.CommandInfoAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Material, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Shader, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Color, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Texture, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Vector4, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Matrix4x4, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.ComputeBuffer, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.MaterialGlobalIlluminationFlags, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Sprite, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.UInt32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - UnityEngine.SpriteMeshType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Bounds, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.SpritePackingMode, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.SpritePackingRotation, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.TextureFormat, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.IntPtr, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  typeRegistry: {fileID: 0}
 --- !u!1 &2119731355
 GameObject:
   m_ObjectHideFlags: 0
@@ -10038,3 +9967,5 @@ MonoBehaviour:
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
+  registerTypes: []
+  registerExtensionTypes: []

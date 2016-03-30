@@ -39,13 +39,6 @@ namespace Fungus
         public List<BoundObject> boundObjects = new List<BoundObject>();
 
         /// <summary>
-        /// The complete list of types used by the currently bound objects.
-        /// This includes the bound object types themselves, plus all the other types they use in public properties, fields and methods.
-        /// </summary>
-        [HideInInspector]
-        public List<string> boundTypes = new List<string>();
-
-        /// <summary>
         /// Always ensure there is at least one row in the bound objects list.
         /// </summary>
         protected virtual void Update() 
@@ -89,8 +82,6 @@ namespace Fungus
                 Debug.LogError("Bindings table must not be null");
             }
 
-            RegisterBoundTypes();
-
             for (int i = 0; i < boundObjects.Count; ++i)
             {
                 // Ignore empty keys
@@ -129,22 +120,6 @@ namespace Fungus
                 {
                     // Register as other UnityEngine.Object type
                     bindingsTable[key] = boundObjects[i].obj;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Registers the list of bound types with MoonSharp.
-        /// </summary>
-        protected virtual void RegisterBoundTypes()
-        {
-            foreach (string typeName in boundTypes)
-            {
-                System.Type t = System.Type.GetType(typeName);
-                if (t != null &&
-                    !UserData.IsTypeRegistered(t))
-                {
-                    UserData.RegisterType(t);
                 }
             }
         }
