@@ -9,11 +9,24 @@ using MoonSharp.Interpreter;
 namespace Fungus
 {
 
+	/// <summary>
+	/// Base class for a component which registers Lua Bindings.
+	/// When FungusScript initialises, it finds all components in the scene that inherit
+	/// from LuaBindingsBase and calls them to add their bindings.
+	/// </summary>
+	public abstract class LuaBindingsBase : MonoBehaviour
+	{
+		/// <summary>
+		/// Add all declared bindings to the globals table.
+		/// </summary>
+		public abstract void AddBindings(Table globals);
+	}
+
     /// <summary>
     /// Component which manages a list of bound objects to be accessed in Lua scripts.
     /// </summary>
     [ExecuteInEditMode]
-    public class LuaBindings : MonoBehaviour 
+	public class LuaBindings : LuaBindingsBase 
     {
         /// <summary>
         /// Represents a single Unity object (+ optional component) bound to a string key.
@@ -53,7 +66,7 @@ namespace Fungus
         /// <summary>
         /// Add all declared bindings to the globals table.
         /// </summary>
-        public virtual void AddBindings(Table globals)
+        public override void AddBindings(Table globals)
         {
             Table bindingsTable = null;
             if (tableName == "")
