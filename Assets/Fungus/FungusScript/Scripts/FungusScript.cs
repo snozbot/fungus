@@ -103,12 +103,6 @@ namespace Fungus
 		[HideInInspector]
 		public List<TextAsset> registerTypes = new List<TextAsset>();
 
-		/// <summary>
-		/// A text file listing the c# extension types that can be accessed from Lua.
-		/// </summary>
-		[HideInInspector]
-		public List<TextAsset> registerExtensionTypes = new List<TextAsset>();
-
         /// <summary>
         /// Instance of remote debugging service when debugging option is enabled.
         /// </summary>
@@ -187,22 +181,13 @@ namespace Fungus
 				char[] separators = { '\r', '\n' };
 				foreach (string typeName in textFile.text.Split(separators, StringSplitOptions.RemoveEmptyEntries))
 				{
-					RegisterType(typeName.Trim(), false);
-				}
-			}
+					// Skip comments and empty lines
+					if (typeName.StartsWith("#") || typeName.Trim() == "")
+					{
+						continue;
+					}
 
-			// Register extension types
-			foreach (TextAsset textFile in registerExtensionTypes)
-			{
-				if (textFile == null)
-				{
-					continue;
-				}
-
-				char[] separators = { '\r', '\n' };
-				foreach (string typeName in textFile.text.Split(separators, StringSplitOptions.RemoveEmptyEntries))
-				{
-					RegisterType(typeName.Trim(), true);
+					RegisterType(typeName);
 				}
 			}
         }
@@ -210,9 +195,17 @@ namespace Fungus
 		/// <summary>
 		/// Register a type given it's assembly qualified name.
 		/// </summary>
-		public virtual void RegisterType(string typeName, bool extensionType)
+		public static void RegisterType(string typeName)
 		{
-			System.Type t = System.Type.GetType(typeName);
+			bool extensionType = false;
+			string registerName = typeName;
+			if (typeName.StartsWith("E:"))
+			{
+				extensionType = true;
+				registerName = registerName.Substring(2);
+			}
+
+			System.Type t = System.Type.GetType(registerName);
 			if (t == null)
 			{
 				UnityEngine.Debug.LogWarning("Type not found: " + typeName);
