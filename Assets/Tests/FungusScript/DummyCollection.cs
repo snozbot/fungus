@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using MoonSharp.Interpreter;
 
 namespace Fungus
 {
@@ -10,6 +11,12 @@ namespace Fungus
 		public List<string> stringList = new List<string>();
 
 		public List<Sprite> spriteList = new List<Sprite>();
+
+		void Awake()
+		{
+			// Register this type with MoonSharp
+			UserData.RegisterType(GetType());
+		}
 	}
 
 }

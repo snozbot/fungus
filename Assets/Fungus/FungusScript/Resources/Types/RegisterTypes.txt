@@ -21,6 +21,7 @@ Fungus.PortraitState, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicK
 Fungus.SayDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 Fungus.SpriteVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 Fungus.StringVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Fungus.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 Fungus.TextureVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 Fungus.TransformVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 Fungus.Variable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -34,7 +35,6 @@ System.IntPtr, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c
 System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
 System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
 System.UInt32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 UnityEngine.AudioClip, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 UnityEngine.AudioClipLoadType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 UnityEngine.AudioDataLoadState, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
