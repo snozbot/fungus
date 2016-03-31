@@ -273,12 +273,12 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Binds all gameobjects and components defined in FungusBinding objects to the global scene table.
+        /// Binds all gameobjects and components defined in scene LuaBindings to the global table.
         /// </summary>
         protected virtual void InitBindings()
         {
-            LuaBindings[] bindings = GameObject.FindObjectsOfType<LuaBindings>();
-            foreach (LuaBindings binding in bindings)
+			LuaBindingsBase[] bindings = GameObject.FindObjectsOfType<LuaBindingsBase>();
+			foreach (LuaBindingsBase binding in bindings)
             {
                 binding.AddBindings(interpreter.Globals);
             }
