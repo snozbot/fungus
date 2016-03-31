@@ -145,9 +145,9 @@ namespace Fungus
 		/// <summary>
 		/// Start a coroutine which executes all commands in the Block. Only one running instance of each Block is permitted.
 		/// </summary>
-		public virtual void Execute()
+		public virtual void StartExecution()
 		{
-			StartCoroutine(Execute(0, null));
+			StartCoroutine(Execute());
 		}
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace Fungus
         /// </summary>
         /// <param name="commandIndex">Index of command to start execution at</param>
         /// <param name="onComplete">Delegate function to call when execution completes</param>
-        public virtual IEnumerator Execute(int commandIndex, Action onComplete)
+        public virtual IEnumerator Execute(int commandIndex = 0, Action onComplete = null)
 		{
             if (executionState != ExecutionState.Idle)
             {
