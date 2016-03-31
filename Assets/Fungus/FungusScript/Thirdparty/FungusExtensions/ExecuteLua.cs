@@ -6,7 +6,7 @@ using MoonSharp.Interpreter;
 namespace Fungus
 {
 
-    [CommandInfo("FungusScript",
+    [CommandInfo("Scripting",
                  "Execute Lua",
                  "Executes a Lua code chunk using a FungusScript object.")]
     public class ExecuteLua : Command 
