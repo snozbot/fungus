@@ -187,7 +187,7 @@ namespace Fungus
 				char[] separators = { '\r', '\n' };
 				foreach (string typeName in textFile.text.Split(separators, StringSplitOptions.RemoveEmptyEntries))
 				{
-					RegisterType(typeName.Trim());
+					RegisterType(typeName.Trim(), false);
 				}
 			}
 
@@ -202,7 +202,7 @@ namespace Fungus
 				char[] separators = { '\r', '\n' };
 				foreach (string typeName in textFile.text.Split(separators, StringSplitOptions.RemoveEmptyEntries))
 				{
-					RegisterExtensionType(typeName.Trim());
+					RegisterType(typeName.Trim(), true);
 				}
 			}
         }
@@ -210,7 +210,7 @@ namespace Fungus
 		/// <summary>
 		/// Register a type given it's assembly qualified name.
 		/// </summary>
-		public virtual void RegisterType(string typeName)
+		public virtual void RegisterType(string typeName, bool extensionType)
 		{
 			System.Type t = System.Type.GetType(typeName);
 			if (t == null)
@@ -219,27 +219,22 @@ namespace Fungus
 				return;
 			}
 
-			if (!UserData.IsTypeRegistered(t))
+			// Registering System.Object breaks MoonSharp's automated conversion of Lists and Dictionaries to Lua tables.
+			if (t == typeof(System.Object))
 			{
-				UserData.RegisterType(t);
-			}
-		}
-
-		/// <summary>
-		/// Register an extension type given it's assembly qualified name.
-		/// </summary>
-		public virtual void RegisterExtensionType(string typeName)
-		{
-			System.Type t = System.Type.GetType(typeName);
-			if (t == null)
-			{
-				UnityEngine.Debug.LogWarning("Extension type not found: " + typeName);
 				return;
 			}
 
 			if (!UserData.IsTypeRegistered(t))
 			{
-				UserData.RegisterExtensionType(t);
+				if (extensionType)
+				{
+					UserData.RegisterExtensionType(t);
+				}
+				else
+				{
+					UserData.RegisterType(t);
+				}
 			}
 		}
 
