@@ -142,7 +142,6 @@ MonoBehaviour:
   - key: voiceover
     obj: {fileID: 8300000, guid: d2ab1fbe555d44e9e870311657856bdc, type: 3}
     component: {fileID: 0}
-  typeRegistry: {fileID: 0}
 --- !u!1 &13683311
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +714,6 @@ MonoBehaviour:
   - key: menudialog
     obj: {fileID: 560555132}
     component: {fileID: 560555134}
-  typeRegistry: {fileID: 0}
 --- !u!4 &36455799 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -1274,7 +1272,6 @@ MonoBehaviour:
   - key: optionbutton0
     obj: {fileID: 876352038}
     component: {fileID: 876352041}
-  typeRegistry: {fileID: 0}
 --- !u!1 &190681717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2738,7 +2735,6 @@ MonoBehaviour:
   - key: flowchart
     obj: {fileID: 1983492490}
     component: {fileID: 1983492495}
-  typeRegistry: {fileID: 0}
 --- !u!1 &507572619
 GameObject:
   m_ObjectHideFlags: 0
@@ -3617,7 +3613,6 @@ MonoBehaviour:
   - key: transform
     obj: {fileID: 328064332}
     component: {fileID: 328064333}
-  typeRegistry: {fileID: 0}
 --- !u!1001 &726346786
 Prefab:
   m_ObjectHideFlags: 0
@@ -4749,7 +4744,6 @@ MonoBehaviour:
   - key: 
     obj: {fileID: 0}
     component: {fileID: 0}
-  typeRegistry: {fileID: 0}
 --- !u!1 &928936324
 GameObject:
   m_ObjectHideFlags: 0
@@ -5024,7 +5018,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 100
+    x: 98.90469
     y: 61
     width: 120
     height: 40
@@ -5060,8 +5054,8 @@ MonoBehaviour:
   version: 1
   scrollPos: {x: 32, y: -30}
   variablesScrollPos: {x: 0, y: 0}
-  variablesExpanded: 1
-  blockViewHeight: 400
+  variablesExpanded: 0
+  blockViewHeight: 251
   zoom: 0.9129947
   scrollViewRect:
     serializedVersion: 2
@@ -5071,7 +5065,7 @@ MonoBehaviour:
     height: 859
   selectedBlock: {fileID: 942227027}
   selectedCommands:
-  - {fileID: 942227038}
+  - {fileID: 942227053}
   variables:
   - {fileID: 942227029}
   - {fileID: 942227035}
@@ -5238,15 +5232,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   fungusScript: {fileID: 715246548}
-  luaScript: 'local c = unity.color.__new()
-
-    c.r = 1
-
-    c.g = 0.5
-
-    c.b = 1
-
-    c.a = 1
+  luaScript: 'local c = unity.factory.color(1, 0.5, 1, 1)
 
 
     return c'
@@ -5419,11 +5405,8 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   fungusScript: {fileID: 715246548}
-  luaScript: 'local v = unity.vector2.__new()
+  luaScript: 'local v = unity.factory.vector2(1,1)
 
-    v.x = 1
-
-    v.y =1
 
     return v'
   useFungusModule: 1
@@ -5493,13 +5476,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   fungusScript: {fileID: 715246548}
-  luaScript: 'local v = unity.vector3.__new()
-
-    v.x = 1
-
-    v.y =1
-
-    v.z = 1
+  luaScript: 'local v = unity.factory.vector3(1,1,1)
 
     return v'
   useFungusModule: 1
@@ -6129,7 +6106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1109996700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8133,7 +8110,6 @@ MonoBehaviour:
   - key: flowchart
     obj: {fileID: 807616582}
     component: {fileID: 807616590}
-  typeRegistry: {fileID: 0}
 --- !u!1 &1738857300
 GameObject:
   m_ObjectHideFlags: 0
@@ -9626,7 +9602,6 @@ MonoBehaviour:
   - key: mousepointer
     obj: {fileID: 2800000, guid: efe8aa62cc87f4b70b9272e4e8e06668, type: 3}
     component: {fileID: 0}
-  typeRegistry: {fileID: 0}
 --- !u!1 &2119731355
 GameObject:
   m_ObjectHideFlags: 0
