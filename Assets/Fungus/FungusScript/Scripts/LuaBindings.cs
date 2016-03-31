@@ -51,6 +51,8 @@ namespace Fungus
         [Tooltip("The list of Unity objects to be bound to make them accessible in Lua script.")]
         public List<BoundObject> boundObjects = new List<BoundObject>();
 
+		public List<string> boundTypes = new List<string>();
+
         /// <summary>
         /// Always ensure there is at least one row in the bound objects list.
         /// </summary>
@@ -94,6 +96,12 @@ namespace Fungus
             {
                 Debug.LogError("Bindings table must not be null");
             }
+
+			// Register types of bound object with MoonSharp
+			foreach (string typeName in boundTypes)
+			{
+				FungusScript.RegisterType(typeName);
+			}
 
             for (int i = 0; i < boundObjects.Count; ++i)
             {

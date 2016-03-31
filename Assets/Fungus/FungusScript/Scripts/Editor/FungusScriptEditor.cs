@@ -16,9 +16,6 @@ namespace Fungus
 		protected SerializedProperty registerTypesProp;
 		protected ReorderableList registerTypeList;
 
-		protected SerializedProperty registerExtensionTypesProp;
-		protected ReorderableList registerExtensionTypesList;
-
         protected virtual void OnEnable()
         {
 			registerTypesProp = serializedObject.FindProperty("registerTypes");
@@ -33,20 +30,6 @@ namespace Fungus
 				SerializedProperty element = registerTypesProp.GetArrayElementAtIndex(index);
 				EditorGUI.PropertyField(r, element, new GUIContent(""));
 			};
-
-			registerExtensionTypesProp = serializedObject.FindProperty("registerExtensionTypes");
-
-			registerExtensionTypesList = new ReorderableList(serializedObject, registerExtensionTypesProp, true, true, true, true);
-
-			registerExtensionTypesList.drawHeaderCallback = (Rect rect) => {  
-				EditorGUI.LabelField(rect, "Register Extension Types");
-			};
-
-			registerExtensionTypesList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) => { 
-				Rect r = new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight);
-				SerializedProperty element = registerExtensionTypesProp.GetArrayElementAtIndex(index);
-				EditorGUI.PropertyField(r, element, new GUIContent(""));
-			};
         }
 
         public override void OnInspectorGUI() 
@@ -56,7 +39,6 @@ namespace Fungus
             serializedObject.Update();
 
 			registerTypeList.DoLayoutList();
-			registerExtensionTypesList.DoLayoutList();
 
             serializedObject.ApplyModifiedProperties();
         }

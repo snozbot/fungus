@@ -1,32 +1,40 @@
-﻿Fungus.AnimatorVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.AudioSourceVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.Block, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.BooleanVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.Character, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.ColorVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.Command, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.CommandInfoAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.FacingDirection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.FloatVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.Flowchart, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.FungusPrefs, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.FungusScript, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.GameObjectVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.IntegerVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.Label, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.MaterialVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.MenuDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.ObjectVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.PortraitState, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.SayDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.SpriteVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.StringVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.Task, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.TextureVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.TransformVariable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.Variable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.Vector2Variable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-Fungus.Vector3Variable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+﻿# List of c# types to register with MoonSharp
+# LuaBindings usually takes care of registering the types of bound objects, but in some
+# cases you'll need to register a type manually by adding it to this list.
+# You can also register types using MoonSharp's UserData class in the Awake method of a component.
+# To register an extension type, add the E: prefix 
+# If the type is defined in the main assembly then you can just use namespace.typename
+# If the type is defined in any other assembly you need to use the full assembly qualified type name.
+
+Fungus.AnimatorVariable
+Fungus.AudioSourceVariable
+Fungus.Block
+Fungus.BooleanVariable
+Fungus.Character
+Fungus.ColorVariable
+Fungus.Command
+Fungus.CommandInfoAttribute
+Fungus.FacingDirection
+Fungus.FloatVariable
+Fungus.Flowchart
+Fungus.FungusPrefs
+Fungus.FungusScript
+Fungus.GameObjectVariable
+Fungus.IntegerVariable
+Fungus.Label
+Fungus.MaterialVariable
+Fungus.MenuDialog
+Fungus.ObjectVariable
+Fungus.PortraitState
+Fungus.SayDialog
+Fungus.SpriteVariable
+Fungus.StringVariable
+Fungus.Task
+Fungus.TextureVariable
+Fungus.TransformVariable
+Fungus.Variable
+Fungus.Vector2Variable
+Fungus.Vector3Variable
 System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
 System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
 System.Collections.IEnumerator, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -84,3 +92,7 @@ UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyTok
 UnityEngine.Vector3, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 UnityEngine.Vector4, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 UnityEngine.VerticalWrapMode, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+
+# Extension types
+
+E:Fungus.FungusScriptExtensions
