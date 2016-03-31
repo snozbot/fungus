@@ -85,6 +85,48 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &32811161
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 637150169}
+    m_Modifications:
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &47556547
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +175,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 385045793}
+  - {fileID: 1309386183}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!1 &113453955
@@ -145,7 +188,7 @@ GameObject:
   - 4: {fileID: 113453956}
   - 114: {fileID: 113453957}
   m_Layer: 0
-  m_Name: FungusInvoke
+  m_Name: RunLua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -200,82 +243,10 @@ MonoBehaviour:
 '
   runAsCoroutine: 1
   useFungusModule: 1
---- !u!1 &236999593
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 236999594}
-  - 114: {fileID: 236999596}
-  - 114: {fileID: 236999595}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &236999594
+--- !u!4 &236999594 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 236999593}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 637150169}
-  m_RootOrder: 0
---- !u!114 &236999595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11403674, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 236999593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: "-- Test the timeout works in fungus.waitfor\nlocal value = false\n\nfunction
-    fn()\n   return value\nend\n\nt = fungus.time()\nfungus.waitfor(fn, 1)\nfungus.assert
-    (fungus.time() - t >= 1)\n\n-- Test fungus.waitfor() exits if the function returns
-    true\n-- If this doesn't work the test will timeout and fail\nvalue = true\nfungus.waitfor(fn,
-    1)\n\nfungus.pass()"
-  runAsCoroutine: 1
-  useFungusModule: 1
---- !u!114 &236999596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 236999593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
-  registerTypes: []
-  registerExtensionTypes: []
+  m_PrefabInternal: {fileID: 32811161}
 --- !u!1 &304626605
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,6 +292,62 @@ MonoBehaviour:
   - key: dummycollection
     obj: {fileID: 367860753}
     component: {fileID: 367860754}
+--- !u!1 &305346650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 305346651}
+  - 114: {fileID: 305346652}
+  m_Layer: 0
+  m_Name: RunLua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &305346651
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 305346650}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 637150169}
+  m_RootOrder: 1
+--- !u!114 &305346652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 305346650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  fungusScript: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: "-- Test the timeout works in fungus.waitfor\nlocal value = false\n\nfunction
+    fn()\n   return value\nend\n\nt = fungus.time()\nfungus.waitfor(fn, 1)\nfungus.assert
+    (fungus.time() - t >= 1)\n\n-- Test fungus.waitfor() exits if the function returns
+    true\n-- If this doesn't work the test will timeout and fail\nvalue = true\nfungus.waitfor(fn,
+    1)\n\nfungus.pass()"
+  runAsCoroutine: 1
+  useFungusModule: 1
 --- !u!1001 &364012152
 Prefab:
   m_ObjectHideFlags: 0
@@ -371,77 +398,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 364012152}
---- !u!1 &364012154 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 364012152}
---- !u!114 &364012155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 364012154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: '-- Test time functions and time scaling
-
-
-    local t = 0
-
-    local timer = unity.time.time
-
-
-    -- Wait with timeScale = -1
-
-    -- Should take 1 second in realtime to wait for 1 second
-
-    t= fungus.time()
-
-    fungus.wait(1)
-
-    t = fungus.time() - t
-
-    fungus.assert(t >= 1)
-
-
-    -- Wait with timeScale = 0.5
-
-    -- Should take 2 seconds in realtime to wait for 1 second
-
-    unity.fungusscript.timeScale = 0.5
-
-    t= fungus.time()
-
-    fungus.wait(1)
-
-    t = fungus.time() - t
-
-    fungus.assert(t >= 1)
-
-
-    -- The real elapsed time should be 3 seconds
-
-    elapsed = (unity.time.time - timer)
-
-    assert(elapsed >= 3)
-
-
-    fungus.pass()'
-  runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &367860753
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +495,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 236999594}
+  - {fileID: 305346651}
   m_Father: {fileID: 0}
   m_RootOrder: 9
 --- !u!1001 &652121444
@@ -583,6 +540,76 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &681659773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 681659774}
+  - 114: {fileID: 681659775}
+  m_Layer: 0
+  m_Name: RunLua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &681659774
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 681659773}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 715881503}
+  m_RootOrder: 1
+--- !u!114 &681659775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 681659773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  fungusScript: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: '-- Test storing persistant data
+
+    fungus.prefs.DeleteAll()
+
+    fungus.prefs.SetFloat(0, "speed", 10)
+
+
+    local speed = fungus.prefs.GetFloat(0, "speed")
+
+    fungus.prefs.DeleteAll()
+
+
+    fungus.assert(speed == 10)
+
+
+    fungus.pass()
+
+
+'
+  runAsCoroutine: 1
+  useFungusModule: 1
 --- !u!1 &715881501
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,6 +658,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2093904138}
+  - {fileID: 681659774}
   m_Father: {fileID: 0}
   m_RootOrder: 5
 --- !u!1 &1052730009
@@ -725,16 +753,40 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1111820868 stripped
+--- !u!1 &1124932171
 GameObject:
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 1073733979}
---- !u!114 &1111820869
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1124932172}
+  - 114: {fileID: 1124932173}
+  m_Layer: 0
+  m_Name: RunLua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1124932172
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1124932171}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1900871526}
+  m_RootOrder: 1
+--- !u!114 &1124932173
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1111820868}
+  m_GameObject: {fileID: 1124932171}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
@@ -750,11 +802,50 @@ MonoBehaviour:
   executeMethods: 2
   fungusScript: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: '-- Test if module importing via require works
+  luaScript: '-- Test time functions and time scaling
 
-    local f = require(''fungus'')
 
-    f.pass()'
+    local t = 0
+
+    local timer = unity.time.time
+
+
+    -- Wait with timeScale = -1
+
+    -- Should take 1 second in realtime to wait for 1 second
+
+    t= fungus.time()
+
+    fungus.wait(1)
+
+    t = fungus.time() - t
+
+    fungus.assert(t >= 1)
+
+
+    -- Wait with timeScale = 0.5
+
+    -- Should take 2 seconds in realtime to wait for 1 second
+
+    unity.fungusscript.timeScale = 0.5
+
+    t= fungus.time()
+
+    fungus.wait(1)
+
+    t = fungus.time() - t
+
+    fungus.assert(t >= 1)
+
+
+    -- The real elapsed time should be 3 seconds
+
+    elapsed = (unity.time.time - timer)
+
+    assert(elapsed >= 3)
+
+
+    fungus.pass()'
   runAsCoroutine: 1
   useFungusModule: 1
 --- !u!4 &1167396341 stripped
@@ -818,6 +909,62 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 1501132865}
+--- !u!1 &1309386182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1309386183}
+  - 114: {fileID: 1309386184}
+  m_Layer: 0
+  m_Name: RunLua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1309386183
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1309386182}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.8587983, y: -2.6257849, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 47556549}
+  m_RootOrder: 1
+--- !u!114 &1309386184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1309386182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  fungusScript: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: '-- Test if module importing via require works
+
+    local f = require(''fungus'')
+
+    f.pass()'
+  runAsCoroutine: 1
+  useFungusModule: 1
 --- !u!1 &1394431693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,6 +1149,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1855619326}
+  - {fileID: 1738134228}
   m_Father: {fileID: 0}
   m_RootOrder: 3
 --- !u!1 &1549270604
@@ -1118,67 +1266,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
---- !u!1001 &1855619325
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1532103954}
-    m_Modifications:
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: stringTable
-      value: 
-      objectReference: {fileID: 4900000, guid: 9900570d789fa4b29957e4b897af9e3b, type: 3}
-    m_RemovedComponents:
-    - {fileID: 11403674, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &1855619326 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 1855619325}
---- !u!1 &1855619327 stripped
+--- !u!1 &1738134227
 GameObject:
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 1855619325}
---- !u!114 &1855619328
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1738134228}
+  - 114: {fileID: 1738134229}
+  m_Layer: 0
+  m_Name: RunLua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1738134228
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1738134227}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1532103954}
+  m_RootOrder: 1
+--- !u!114 &1738134229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1855619327}
+  m_GameObject: {fileID: 1738134227}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
@@ -1242,16 +1363,40 @@ MonoBehaviour:
     fungus.pass()'
   runAsCoroutine: 1
   useFungusModule: 1
---- !u!1 &1860855006 stripped
+--- !u!1 &1818482578
 GameObject:
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 1501132865}
---- !u!114 &1860855007
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1818482579}
+  - 114: {fileID: 1818482580}
+  m_Layer: 0
+  m_Name: RunLua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1818482579
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818482578}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1960220032}
+  m_RootOrder: 3
+--- !u!114 &1818482580
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1860855006}
+  m_GameObject: {fileID: 1818482578}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
@@ -1276,6 +1421,57 @@ MonoBehaviour:
 '
   runAsCoroutine: 1
   useFungusModule: 1
+--- !u!1001 &1855619325
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1532103954}
+    m_Modifications:
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: stringTable
+      value: 
+      objectReference: {fileID: 4900000, guid: 9900570d789fa4b29957e4b897af9e3b, type: 3}
+    m_RemovedComponents:
+    - {fileID: 11403674, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &1855619326 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_PrefabInternal: {fileID: 1855619325}
 --- !u!1 &1900871524
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,6 +1520,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 364012153}
+  - {fileID: 1124932172}
   m_Father: {fileID: 0}
   m_RootOrder: 4
 --- !u!1 &1960220030
@@ -1376,6 +1573,7 @@ Transform:
   - {fileID: 1272779136}
   - {fileID: 1500823905}
   - {fileID: 2101848761}
+  - {fileID: 1818482579}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!1001 &2076961667
@@ -1478,52 +1676,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 2093904137}
---- !u!1 &2093904139 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 2093904137}
---- !u!114 &2093904140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2093904139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: '-- Test storing persistant data
-
-    fungus.prefs.DeleteAll()
-
-    fungus.prefs.SetFloat(0, "speed", 10)
-
-
-    local speed = fungus.prefs.GetFloat(0, "speed")
-
-    fungus.prefs.DeleteAll()
-
-
-    fungus.assert(speed == 10)
-
-
-    fungus.pass()
-
-
-'
-  runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &2101848760
 GameObject:
   m_ObjectHideFlags: 0

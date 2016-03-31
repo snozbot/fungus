@@ -14,7 +14,7 @@ namespace Fungus
 {
     
     [Serializable]
-    public class FungusInvoke : MonoBehaviour, IFungusInvokeConfigurator
+    public class RunLua : MonoBehaviour, IRunLuaConfigurator
     {
         [Flags]
         public enum ExecuteMethod
@@ -114,7 +114,7 @@ namespace Fungus
             }
                 
             // Cache a descriptive name to use in Lua error messages
-            friendlyName = GetPath(transform) + ".FungusInvoke";
+            friendlyName = GetPath(transform) + ".RunLua";
 
             Execute(ExecuteMethod.Start);
 
@@ -321,11 +321,11 @@ namespace Fungus
         public float TimeExecuteStartAfter { set { executeAfterTime = value; } }
         public float TimeExecuteRepeatFrequency { set { repeatEveryTime = value; } }
         public bool TimeExecuteRepeat { set { repeatExecuteTime = value; } }
-        public FungusInvoke Component { get { return this; } }
+        public RunLua Component { get { return this; } }
         #endregion
     }
 
-    public interface IFungusInvokeConfigurator
+    public interface IRunLuaConfigurator
     {
         /// <summary>
         /// If the assertion is evaluated in Update, after how many frame should the evaluation start. Defult is 1 (first frame)
@@ -353,7 +353,7 @@ namespace Fungus
         /// </summary>
         bool TimeExecuteRepeat { set; }
 
-        FungusInvoke Component { get; }
+        RunLua Component { get; }
     }
 
 }

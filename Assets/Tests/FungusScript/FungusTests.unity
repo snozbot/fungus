@@ -827,7 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 0
+  version: 1
   scrollPos: {x: 0, y: 0}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
@@ -893,6 +893,48 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1641285458}
   m_RootOrder: 3
+--- !u!1001 &110499668
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1993284459}
+    m_Modifications:
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &115186231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,7 +1064,7 @@ GameObject:
   - 4: {fileID: 116891409}
   - 114: {fileID: 116891410}
   m_Layer: 0
-  m_Name: FungusInvoke
+  m_Name: RunLua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1089,6 +1131,48 @@ MonoBehaviour:
     fungus.pass()'
   runAsCoroutine: 1
   useFungusModule: 1
+--- !u!1001 &130678264
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1676590049}
+    m_Modifications:
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &158657321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,6 +1557,48 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 227179347}
+--- !u!1001 &240013780
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1738857302}
+    m_Modifications:
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &256905100
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,161 +1877,20 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 766973975}
---- !u!1 &294355415
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 294355416}
-  - 114: {fileID: 294355417}
-  - 114: {fileID: 294355418}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &294355416
+--- !u!4 &294355416 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 294355415}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1993284459}
-  m_RootOrder: 1
---- !u!114 &294355417
+  m_PrefabInternal: {fileID: 110499668}
+--- !u!114 &294355417 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
     type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 294355415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
+  m_PrefabInternal: {fileID: 110499668}
   m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
-  registerTypes: []
-  registerExtensionTypes: []
---- !u!114 &294355418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 294355415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: "-- Display a menu dialog with 2 buttons\n-- The button is activated
-    from a separate Lua coroutine\n\n-- This function will be called when the button
-    is pressed\nfunction option1()\n   -- Test coroutine is ok\n   fungus.wait(1)\n
-    \  fungus.pass()\nend\n\nfunction option2()\nend\n\n-- Display a menu option\nfungus.setmenudialog(menudialog)\nfungus.menu
-    (\"Option 1\", option1)\nfungus.menu (\"Option 2\", option2)\n\n\n"
-  runAsCoroutine: 1
-  useFungusModule: 1
---- !u!1 &316730977
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 316730978}
-  - 114: {fileID: 316730980}
-  - 114: {fileID: 316730979}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &316730978
+--- !u!4 &316730978 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 316730977}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1738857302}
-  m_RootOrder: 3
---- !u!114 &316730979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11403674, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 316730977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: '-- Use a Fungus flowchart to show a character portrait
-
-    flowchart.ExecuteBlock("ShowMushroom")
-
-    go = transform.FindChild("Mushroom")
-
-    fungus.assert(go.name == "Mushroom")
-
-    fungus.pass()'
-  runAsCoroutine: 1
-  useFungusModule: 1
---- !u!114 &316730980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 316730977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
-  registerTypes: []
-  registerExtensionTypes: []
+  m_PrefabInternal: {fileID: 240013780}
 --- !u!1 &328064332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2187,10 +2172,10 @@ RectTransform:
   - {fileID: 913989833}
   m_Father: {fileID: 465829170}
   m_RootOrder: 3
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -365}
-  m_SizeDelta: {x: 1300, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &398057889
 MonoBehaviour:
@@ -2392,10 +2377,10 @@ RectTransform:
   - {fileID: 1088283066}
   m_Father: {fileID: 465829170}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -155}
-  m_SizeDelta: {x: 1300, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &405820710
 MonoBehaviour:
@@ -2504,7 +2489,7 @@ GameObject:
   - 4: {fileID: 448016417}
   - 114: {fileID: 448016418}
   m_Layer: 0
-  m_Name: FungusInvoke
+  m_Name: RunLua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2653,7 +2638,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000018477, y: 191}
-  m_SizeDelta: {x: 1300, y: 680}
+  m_SizeDelta: {x: 1300, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &465829171
 MonoBehaviour:
@@ -2768,10 +2753,10 @@ RectTransform:
   - {fileID: 1446085149}
   m_Father: {fileID: 465829170}
   m_RootOrder: 6
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -655}
-  m_SizeDelta: {x: 1300, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &507572621
 MonoBehaviour:
@@ -2886,7 +2871,7 @@ GameObject:
   - 4: {fileID: 508615589}
   - 114: {fileID: 508615590}
   m_Layer: 0
-  m_Name: FungusInvoke
+  m_Name: RunLua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2928,6 +2913,63 @@ MonoBehaviour:
   luaScript: "fungus.menuoptions.menudialog = menudialog\n\nfunction option1()\n   fungus.fail()\nend\n\nfungus.menu(\"Option
     1\", option1)\n\nfungus.assert(optionbutton0.activeSelf)\nfungus.clearmenu()\nfungus.assert(not
     optionbutton0.activeSelf)\n\nfungus.pass()"
+  runAsCoroutine: 1
+  useFungusModule: 1
+--- !u!1 &511430244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 511430245}
+  - 114: {fileID: 511430246}
+  m_Layer: 0
+  m_Name: RunLua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &511430245
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 511430244}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 811464737}
+  m_RootOrder: 3
+--- !u!114 &511430246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 511430244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  fungusScript: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: "-- Test the Menu Timer functionality\n\nfungus.menuoptions.menudialog
+    = menudialog\n\n-- Called if user clicks on menu option\nfunction option1()\n
+    \  fungus.pass()\nend\n\n-- Called if timeout expires\nfunction timeout()\n   --
+    Test coroutine is ok\n   fungus.wait(1)\n   fungus.pass()\nend\n\n-- Display a
+    menu option with a timer\nfungus.menu(\"Option 1\", option1)\nfungus.menutimer(1,
+    timeout)\n"
   runAsCoroutine: 1
   useFungusModule: 1
 --- !u!1 &560555132
@@ -3134,10 +3176,10 @@ RectTransform:
   - {fileID: 913529610}
   m_Father: {fileID: 465829170}
   m_RootOrder: 2
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -260}
-  m_SizeDelta: {x: 1300, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &625261051
 MonoBehaviour:
@@ -3463,10 +3505,10 @@ RectTransform:
   - {fileID: 863130403}
   m_Father: {fileID: 465829170}
   m_RootOrder: 4
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -470}
-  m_SizeDelta: {x: 1300, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &715595888
 MonoBehaviour:
@@ -3620,14 +3662,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1641285458}
     m_Modifications:
-    - target: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: registerTypes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: registerExtensionTypes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3660,14 +3694,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: registerExtensionTypes.Array.data[0]
-      value: 
-      objectReference: {fileID: 4900000, guid: 2978c0ed6806b42629d2bf7d0d1f220c, type: 3}
-    - target: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: registerTypes.Array.data[0]
-      value: 
-      objectReference: {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_IsPrefabParent: 0
@@ -4142,6 +4168,7 @@ Transform:
   - {fileID: 35482412}
   - {fileID: 1526161870}
   - {fileID: 560555133}
+  - {fileID: 511430245}
   m_Father: {fileID: 0}
   m_RootOrder: 4
 --- !u!1 &851680338
@@ -4214,6 +4241,81 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 851680338}
+--- !u!1 &851718691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 851718692}
+  - 114: {fileID: 851718693}
+  m_Layer: 0
+  m_Name: RunLua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &851718692
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 851718691}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1676590049}
+  m_RootOrder: 3
+--- !u!114 &851718693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 851718691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  fungusScript: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: '-- Test getting and setting Fungus variables
+
+
+    flowchart.SetBooleanVariable("BoolVar", true)
+
+    fungus.assert(flowchart.GetBooleanVariable("BoolVar"))
+
+
+    flowchart.SetFloatVariable("FloatVar", 1)
+
+    fungus.assert(flowchart.GetFloatVariable("FloatVar") == 1)
+
+
+    flowchart.SetIntegerVariable("IntVar", 1)
+
+    fungus.assert(flowchart.GetIntegerVariable("IntVar") == 1)
+
+
+    flowchart.SetStringVariable("StringVar", "a")
+
+    fungus.assert(flowchart.GetStringVariable("StringVar") == "a")
+
+
+    fungus.pass()'
+  runAsCoroutine: 1
+  useFungusModule: 1
 --- !u!1 &863130402
 GameObject:
   m_ObjectHideFlags: 0
@@ -4323,10 +4425,10 @@ RectTransform:
   - {fileID: 884473401}
   m_Father: {fileID: 465829170}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -50}
-  m_SizeDelta: {x: 1300, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &876352040
 MonoBehaviour:
@@ -6507,6 +6609,48 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1320911855}
+--- !u!1001 &1323063798
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 811464737}
+    m_Modifications:
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1343291048
 GameObject:
   m_ObjectHideFlags: 0
@@ -6794,7 +6938,7 @@ RectTransform:
   m_Father: {fileID: 1446085149}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7074,82 +7218,10 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1449816145}
---- !u!1 &1526161869
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1526161870}
-  - 114: {fileID: 1526161871}
-  - 114: {fileID: 1526161872}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1526161870
+--- !u!4 &1526161870 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1526161869}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 811464737}
-  m_RootOrder: 1
---- !u!114 &1526161871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1526161869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
-  registerTypes: []
-  registerExtensionTypes: []
---- !u!114 &1526161872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1526161869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: "-- Test the Menu Timer functionality\n\nfungus.menuoptions.menudialog
-    = menudialog\n\n-- Called if user clicks on menu option\nfunction option1()\n
-    \  fungus.pass()\nend\n\n-- Called if timeout expires\nfunction timeout()\n   --
-    Test coroutine is ok\n   fungus.wait(1)\n   fungus.pass()\nend\n\n-- Display a
-    menu option with a timer\nfungus.menu(\"Option 1\", option1)\nfungus.menutimer(1,
-    timeout)\n"
-  runAsCoroutine: 1
-  useFungusModule: 1
+  m_PrefabInternal: {fileID: 1323063798}
 --- !u!1 &1544529319
 GameObject:
   m_ObjectHideFlags: 0
@@ -7297,100 +7369,10 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1562268132}
---- !u!1 &1625702969
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1625702970}
-  - 114: {fileID: 1625702971}
-  - 114: {fileID: 1625702972}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1625702970
+--- !u!4 &1625702970 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1625702969}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1676590049}
-  m_RootOrder: 2
---- !u!114 &1625702971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1625702969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
-  registerTypes: []
-  registerExtensionTypes: []
---- !u!114 &1625702972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1625702969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: '-- Test getting and setting Fungus variables
-
-
-    flowchart.SetBooleanVariable("BoolVar", true)
-
-    fungus.assert(flowchart.GetBooleanVariable("BoolVar"))
-
-
-    flowchart.SetFloatVariable("FloatVar", 1)
-
-    fungus.assert(flowchart.GetFloatVariable("FloatVar") == 1)
-
-
-    flowchart.SetIntegerVariable("IntVar", 1)
-
-    fungus.assert(flowchart.GetIntegerVariable("IntVar") == 1)
-
-
-    flowchart.SetStringVariable("StringVar", "a")
-
-    fungus.assert(flowchart.GetStringVariable("StringVar") == "a")
-
-
-    fungus.pass()'
-  runAsCoroutine: 1
-  useFungusModule: 1
+  m_PrefabInternal: {fileID: 130678264}
 --- !u!1 &1641285456
 GameObject:
   m_ObjectHideFlags: 0
@@ -7445,6 +7427,48 @@ Transform:
   - {fileID: 448016417}
   m_Father: {fileID: 0}
   m_RootOrder: 10
+--- !u!1001 &1646090254
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1730192710}
+    m_Modifications:
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1647235602
 GameObject:
   m_ObjectHideFlags: 0
@@ -7508,7 +7532,7 @@ GameObject:
   - 4: {fileID: 1652835881}
   - 114: {fileID: 1652835882}
   m_Layer: 0
-  m_Name: FungusInvoke
+  m_Name: RunLua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7548,12 +7572,10 @@ MonoBehaviour:
   executeMethods: 2
   fungusScript: {fileID: 294355417}
   luaFile: {fileID: 0}
-  luaScript: '-- Simulate pressing the menu button
-
-
-    fungus.wait(2)
-
-    optionbutton0.onClick.Invoke()'
+  luaScript: "-- Test the Menu Timer functionality\n\nfungus.menuoptions.menudialog
+    = menudialog\n\n-- Called if user clicks on menu option\nfunction option1()\n
+    \  fungus.pass()\nend\n\n-- Display a menu option with a timer\nfungus.menu(\"Option
+    1\", option1)\n\noptionbutton0.onClick.Invoke()\n"
   runAsCoroutine: 1
   useFungusModule: 1
 --- !u!1 &1667495163
@@ -7704,6 +7726,7 @@ Transform:
   - {fileID: 807616583}
   - {fileID: 1736454667}
   - {fileID: 1625702970}
+  - {fileID: 851718692}
   m_Father: {fileID: 0}
   m_RootOrder: 8
 --- !u!1 &1695321529
@@ -8062,6 +8085,7 @@ Transform:
   m_Children:
   - {fileID: 56584889}
   - {fileID: 2134815026}
+  - {fileID: 2090444089}
   m_Father: {fileID: 0}
   m_RootOrder: 11
 --- !u!1 &1736454666
@@ -8161,6 +8185,7 @@ Transform:
   - {fileID: 115186232}
   - {fileID: 316730978}
   - {fileID: 724447888}
+  - {fileID: 2049586852}
   m_Father: {fileID: 0}
   m_RootOrder: 9
 --- !u!1 &1757610588
@@ -8407,10 +8432,10 @@ RectTransform:
   - {fileID: 761668839}
   m_Father: {fileID: 465829170}
   m_RootOrder: 5
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -575}
-  m_SizeDelta: {x: 1300, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1762200959
 MonoBehaviour:
@@ -8559,7 +8584,7 @@ GameObject:
   - 4: {fileID: 1845639738}
   - 114: {fileID: 1845639739}
   m_Layer: 0
-  m_Name: FungusInvoke
+  m_Name: RunLua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9106,7 +9131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1993284458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9234,6 +9259,66 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1 &2049586851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2049586852}
+  - 114: {fileID: 2049586853}
+  m_Layer: 0
+  m_Name: RunLua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2049586852
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2049586851}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1738857302}
+  m_RootOrder: 5
+--- !u!114 &2049586853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2049586851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  fungusScript: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: '-- Use a Fungus flowchart to show a character portrait
+
+    flowchart.ExecuteBlock("ShowMushroom")
+
+    go = transform.FindChild("Mushroom")
+
+    fungus.assert(go.name == "Mushroom")
+
+    fungus.pass()'
+  runAsCoroutine: 1
+  useFungusModule: 1
 --- !u!1 &2087053783
 GameObject:
   m_ObjectHideFlags: 0
@@ -9502,6 +9587,58 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!1 &2090444088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2090444089}
+  - 114: {fileID: 2090444090}
+  m_Layer: 0
+  m_Name: RunLua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2090444089
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2090444088}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1730192710}
+  m_RootOrder: 2
+--- !u!114 &2090444090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2090444088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  fungusScript: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: 
+  runAsCoroutine: 1
+  useFungusModule: 1
 --- !u!1001 &2092185197
 Prefab:
   m_ObjectHideFlags: 0
@@ -9871,75 +10008,13 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2128758551}
---- !u!1 &2134815025
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2134815026}
-  - 114: {fileID: 2134815028}
-  - 114: {fileID: 2134815027}
-  m_Layer: 0
-  m_Name: FungusScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2134815026
+--- !u!4 &2134815026 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2134815025}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1730192710}
-  m_RootOrder: 1
---- !u!114 &2134815027
+  m_PrefabInternal: {fileID: 1646090254}
+--- !u!114 &2134815028 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11403674, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2134815025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  fungusScript: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: 
-  runAsCoroutine: 1
-  useFungusModule: 1
---- !u!114 &2134815028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
     type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2134815025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
+  m_PrefabInternal: {fileID: 1646090254}
   m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
-  registerTypes: []
-  registerExtensionTypes: []

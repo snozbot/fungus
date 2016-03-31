@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 449874}
   - 114: {fileID: 11472914}
   m_Layer: 0
-  m_Name: FungusInvoke
+  m_Name: RunLua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
