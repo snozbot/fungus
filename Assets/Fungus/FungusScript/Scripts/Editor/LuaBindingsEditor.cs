@@ -148,6 +148,12 @@ namespace Fungus
 
             ShowBindingMemberInfo();
 
+			// Update the bound types on every tick to make sure they're up to date.
+			// This could be a bit heavy on performance if the bound object list is long, but
+			// I couldn't get it to work reliably by only updating when the list has changed.
+			// This only happens when inspecting a Fungus Bindings component so I think it'll be ok.
+			PopulateBoundTypes();
+
             serializedObject.ApplyModifiedProperties();
         }
 
@@ -339,7 +345,7 @@ namespace Fungus
         /// <summary>
         /// Update the list of bound types on the LuaBindings object.
         /// </summary>
-        protected virtual void PopulateUserDataTypes()
+		protected virtual void PopulateBoundTypes()
         {
 			LuaBindings luaBindings = target as LuaBindings;
 
@@ -361,12 +367,17 @@ namespace Fungus
                 }
             }
 
-			string s = "";
+			// Store the final list of types in the luaBindings object 
+			SerializedProperty boundTypesProp = serializedObject.FindProperty("boundTypes");
+			boundTypesProp.ClearArray();
+			int index = 0;
 			foreach (System.Type t in typeSet)
 			{
-				s += t.AssemblyQualifiedName + "\n";
+				boundTypesProp.InsertArrayElementAtIndex(index);
+				SerializedProperty element = boundTypesProp.GetArrayElementAtIndex(index);
+				element.stringValue = t.AssemblyQualifiedName;
+				index++;
 			}
-			Debug.Log(s);
         }
 
         /// <summary>
@@ -432,7 +443,7 @@ namespace Fungus
                     AddSubType(typeSet, containedType);
                 }
             }
-            else
+			else if (t != typeof(System.Object))
             {
                 // Non-IEnumerable/IEnumerator types will be registered.
                 typeSet.Add(t);
