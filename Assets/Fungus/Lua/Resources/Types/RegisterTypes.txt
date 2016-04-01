@@ -19,6 +19,7 @@ Fungus.FloatVariable
 Fungus.Flowchart
 Fungus.FungusPrefs
 Fungus.LuaEnvironment
+Fungus.LuaUtils
 Fungus.GameObjectVariable
 Fungus.IntegerVariable
 Fungus.Label

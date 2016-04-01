@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 495584}
   - 114: {fileID: 11493126}
+  - 114: {fileID: 11486636}
   m_Layer: 0
   m_Name: LuaEnvironment
   m_TagString: Untagged
@@ -28,6 +29,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11486636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stringTable: {fileID: 0}
+  activeLanguage: en
+  timeScale: -1
+  registerTypes:
+  - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
 --- !u!114 &11493126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -40,11 +57,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   remoteDebugger: 0
-  stringTable: {fileID: 0}
-  activeLanguage: en
-  timeScale: -1
-  registerTypes:
-  - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

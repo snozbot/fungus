@@ -17,14 +17,18 @@ end
 
 -- Returns the absolute time
 -- Use this timing function to work correctly with the Lua Environment's timeScale property
-function M.time()
-	return unity.luaenvironment.getTime()
+function M.gettime()
+	return unity.luautils.getTime()
 end
 
 -- Returns the delta time this frame
 -- Use this timing function to work correctly with the Lua Environment's timeScale property
-function M.deltatime()
-	return unity.luaenvironment.getDeltaTime()
+function M.getdeltatime()
+	return unity.luautils.getDeltaTime()
+end
+
+function M.settimescale(s)
+	unity.luautils.timeScale = s
 end
 
 -------------
@@ -33,8 +37,8 @@ end
 
 -- Waits for a number of seconds
 function M.wait(duration)
-	local t = M.time()
-	while (M.time() - t < duration) do
+	local t = M.gettime()
+	while (M.gettime() - t < duration) do
 		coroutine.yield()
 	end
 end
@@ -43,10 +47,10 @@ end
 -- Returns true if the function succeeded, or false if the timeout expired
 -- 
 function M.waitfor(fn, timeoutDuration)
-	local t = M.time()
+	local t = M.gettime()
 	while (not fn()) do
 		coroutine.yield()
-		if (M.time() - t > timeoutDuration) then
+		if (M.gettime() - t > timeoutDuration) then
 			return false
 		end
 	end
@@ -88,18 +92,18 @@ end
 
 -- Set active language for string table
 function M.setlanguage(languageCode)
-	unity.luaenvironment.activeLanguage = languageCode
+	unity.luautils.activeLanguage = languageCode
 end
 
 -- Get a named string from the string table
 function M.getstring(key)
-	return unity.luaenvironment.GetString(key)
+	return unity.luautils.GetString(key)
 end
 
 -- Substitutes variables and localisation strings into a piece of text
 -- e.g. v = 10, "Subbed value is [$v]" => "Subbed value is 10"
 function M.sub(text)
-	return unity.luaenvironment.substitute(text)
+	return unity.luautils.substitute(text)
 end
 
 --------------------
