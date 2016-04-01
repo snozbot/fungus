@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 449874}
   - 114: {fileID: 11472914}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  fungusScript: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: 
   runAsCoroutine: 1

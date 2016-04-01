@@ -14,7 +14,7 @@ namespace Fungus
 {
     
     [Serializable]
-    public class RunLua : MonoBehaviour, IRunLuaConfigurator
+    public class LuaScript : MonoBehaviour, ILuaScriptConfigurator
     {
         [Flags]
         public enum ExecuteMethod
@@ -116,7 +116,7 @@ namespace Fungus
 			}
 					                
             // Cache a descriptive name to use in Lua error messages
-            friendlyName = GetPath(transform) + ".RunLua";
+            friendlyName = GetPath(transform) + ".LuaScript";
 
             Execute(ExecuteMethod.Start);
 
@@ -323,11 +323,11 @@ namespace Fungus
         public float TimeExecuteStartAfter { set { executeAfterTime = value; } }
         public float TimeExecuteRepeatFrequency { set { repeatEveryTime = value; } }
         public bool TimeExecuteRepeat { set { repeatExecuteTime = value; } }
-        public RunLua Component { get { return this; } }
+        public LuaScript Component { get { return this; } }
         #endregion
     }
 
-    public interface IRunLuaConfigurator
+    public interface ILuaScriptConfigurator
     {
         /// <summary>
         /// If the assertion is evaluated in Update, after how many frame should the evaluation start. Defult is 1 (first frame)
@@ -355,7 +355,7 @@ namespace Fungus
         /// </summary>
         bool TimeExecuteRepeat { set; }
 
-        RunLua Component { get; }
+        LuaScript Component { get; }
     }
 
 }

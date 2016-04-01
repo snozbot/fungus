@@ -11,8 +11,8 @@ using UnityEngine;
 namespace Fungus
 {
     
-    [CustomEditor(typeof(RunLua))]
-    public class RunLuaEditor : Editor
+    [CustomEditor(typeof(LuaScript))]
+    public class LuaScriptEditor : Editor
     {
         private readonly DropDownControl<Type> m_ComparerDropDown = new DropDownControl<Type>();
 
@@ -32,7 +32,7 @@ namespace Fungus
 
         protected List<TextAsset> luaFiles = new List<TextAsset>();
 
-		public RunLuaEditor()
+		public LuaScriptEditor()
         {
             m_ComparerDropDown.convertForButtonLabel = type => type.Name;
             m_ComparerDropDown.convertForGUIContent = type => type.Name;
@@ -69,20 +69,20 @@ namespace Fungus
 
         public override void OnInspectorGUI()
         {
-            var fungusInvoke = (RunLua)target;
+            var fungusInvoke = (LuaScript)target;
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel(new GUIContent("On Event"));
-            fungusInvoke.executeMethods = (RunLua.ExecuteMethod)EditorGUILayout.EnumMaskField(fungusInvoke.executeMethods,
+            fungusInvoke.executeMethods = (LuaScript.ExecuteMethod)EditorGUILayout.EnumMaskField(fungusInvoke.executeMethods,
                                                                                                     EditorStyles.popup,
                                                                                                     GUILayout.ExpandWidth(false));
             EditorGUILayout.EndHorizontal();
 
-            if (fungusInvoke.IsExecuteMethodSelected(RunLua.ExecuteMethod.AfterPeriodOfTime))
+            if (fungusInvoke.IsExecuteMethodSelected(LuaScript.ExecuteMethod.AfterPeriodOfTime))
             {
                 DrawOptionsForAfterPeriodOfTime(fungusInvoke);
             }
 
-            if (fungusInvoke.IsExecuteMethodSelected(RunLua.ExecuteMethod.Update))
+            if (fungusInvoke.IsExecuteMethodSelected(LuaScript.ExecuteMethod.Update))
             {
                 DrawOptionsForOnUpdate(fungusInvoke);
             }
@@ -158,7 +158,7 @@ namespace Fungus
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void DrawOptionsForAfterPeriodOfTime(RunLua script)
+        private void DrawOptionsForAfterPeriodOfTime(LuaScript script)
         {
             EditorGUILayout.Space();
             script.executeAfterTime = EditorGUILayout.FloatField(m_GUIExecuteAfterTimeGuiContent,
@@ -176,7 +176,7 @@ namespace Fungus
             }
         }
 
-        private void DrawOptionsForOnUpdate(RunLua script)
+        private void DrawOptionsForOnUpdate(LuaScript script)
         {
             EditorGUILayout.Space();
             script.executeAfterFrames = EditorGUILayout.IntField(m_GUIExecuteAfterFramesGuiContent,

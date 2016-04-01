@@ -188,7 +188,7 @@ GameObject:
   - 4: {fileID: 113453956}
   - 114: {fileID: 113453957}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  lua: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: 'fungus.assert(dummycollection.stringList[1] == "hi")
 
@@ -317,7 +317,7 @@ GameObject:
   - 4: {fileID: 305346651}
   - 114: {fileID: 305346652}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  lua: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "-- Test the timeout works in fungus.waitfor\nlocal value = false\n\nfunction
     fn()\n   return value\nend\n\nt = fungus.time()\nfungus.waitfor(fn, 1)\nfungus.assert
@@ -565,7 +565,7 @@ GameObject:
   - 4: {fileID: 681659774}
   - 114: {fileID: 681659775}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -602,7 +602,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  lua: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test storing persistant data
 
@@ -778,7 +778,7 @@ GameObject:
   - 4: {fileID: 1124932172}
   - 114: {fileID: 1124932173}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -815,7 +815,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  lua: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test time functions and time scaling
 
@@ -934,7 +934,7 @@ GameObject:
   - 4: {fileID: 1309386183}
   - 114: {fileID: 1309386184}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -971,7 +971,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  lua: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test if module importing via require works
 
@@ -1291,7 +1291,7 @@ GameObject:
   - 4: {fileID: 1738134228}
   - 114: {fileID: 1738134229}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1328,7 +1328,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  lua: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test string table localisation system
 
@@ -1388,7 +1388,7 @@ GameObject:
   - 4: {fileID: 1818482579}
   - 114: {fileID: 1818482580}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1425,7 +1425,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  lua: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test if object binding works
 

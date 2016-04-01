@@ -627,7 +627,7 @@ GameObject:
   - 4: {fileID: 519026841}
   - 114: {fileID: 519026840}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -653,7 +653,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  fungusScript: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "fungus.setsaydialog(saydialog)\nfungus.setmenudialog(menudialog)\n\nfunction
     start()\n   fungus.say \"Select an option\"\n\n   fungus.menu(\"Option A\", optiona)\n
@@ -1788,6 +1788,7 @@ MonoBehaviour:
   - key: menudialog
     obj: {fileID: 1851713324}
     component: {fileID: 1851713325}
+  boundTypes: []
 --- !u!4 &1265440902
 Transform:
   m_ObjectHideFlags: 0
