@@ -8,10 +8,10 @@ namespace Fungus
 
     public class MenuItems 
     {
-        [MenuItem("Tools/Fungus/Create/Fungus Script", false, 2000)]
-        static void CreateFungusScript()
+        [MenuItem("Tools/Fungus/Create/Lua", false, 2000)]
+        static void CreateLua()
         {
-            SpawnPrefab("Prefabs/FungusScript", false);
+            SpawnPrefab("Prefabs/Lua", false);
         }
 
         [MenuItem("Tools/Fungus/Create/Lua Bindings", false, 2001)]

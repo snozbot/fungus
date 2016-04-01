@@ -24,7 +24,7 @@ namespace Fungus
         private readonly GUIContent m_GUIRepeatExecuteFrameGuiContent = new GUIContent("Repeat execution", "Should the execution be repeated.");
         #endregion
 
-        protected SerializedProperty fungusScriptProp;
+        protected SerializedProperty luaEnvironmentProp;
         protected SerializedProperty runAsCoroutineProp;
         protected SerializedProperty luaFileProp;
         protected SerializedProperty luaScriptProp;
@@ -42,7 +42,7 @@ namespace Fungus
 
         public virtual void OnEnable()
         {
-            fungusScriptProp = serializedObject.FindProperty("fungusScript");
+            luaEnvironmentProp = serializedObject.FindProperty("luaEnvironment");
             runAsCoroutineProp = serializedObject.FindProperty("runAsCoroutine");
             luaFileProp = serializedObject.FindProperty("luaFile");
             luaScriptProp = serializedObject.FindProperty("luaScript");
@@ -103,7 +103,7 @@ namespace Fungus
 
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(fungusScriptProp);
+            EditorGUILayout.PropertyField(luaEnvironmentProp);
             EditorGUILayout.PropertyField(runAsCoroutineProp);
             EditorGUILayout.PropertyField(useFungusModuleProp);
 

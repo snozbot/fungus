@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 495584}
   - 114: {fileID: 11493126}
   m_Layer: 0
-  m_Name: FungusScript
+  m_Name: Lua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,8 +45,6 @@ MonoBehaviour:
   timeScale: -1
   registerTypes:
   - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
-  registerExtensionTypes:
-  - {fileID: 4900000, guid: 2978c0ed6806b42629d2bf7d0d1f220c, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

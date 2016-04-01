@@ -313,6 +313,7 @@ MonoBehaviour:
   - key: saydialog
     obj: {fileID: 974098819}
     component: {fileID: 974098824}
+  boundTypes: []
 --- !u!4 &775333279
 Transform:
   m_ObjectHideFlags: 0
@@ -368,11 +369,12 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlock: {fileID: 913136541}
-  selectedCommands:
-  - {fileID: 913136542}
+  selectedBlock: {fileID: 0}
+  selectedCommands: []
   variables: []
-  description: 
+  description: 'This example shows how to execute a Block in a Flowchart via a
+
+    Lua script executed by a trigger.'
   stepPause: 0
   colorCommands: 1
   hideComponents: 1
@@ -433,7 +435,7 @@ MonoBehaviour:
   - {fileID: 913136542}
 --- !u!114 &913136542
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 913136538}
@@ -949,12 +951,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1073217510}
---- !u!114 &1124933057 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 1575311449}
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
 --- !u!1 &1248777639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,7 +1220,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 8192
-  fungusScript: {fileID: 1124933057}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: 'fungus.runblock(flowchart, "Start")
 

@@ -11,7 +11,7 @@ namespace Fungus
 
 	/// <summary>
 	/// Base class for a component which registers Lua Bindings.
-	/// When FungusScript initialises, it finds all components in the scene that inherit
+	/// When the Lua component initialises, it finds all components in the scene that inherit
 	/// from LuaBindingsBase and calls them to add their bindings.
 	/// </summary>
 	public abstract class LuaBindingsBase : MonoBehaviour
@@ -100,7 +100,7 @@ namespace Fungus
 			// Register types of bound object with MoonSharp
 			foreach (string typeName in boundTypes)
 			{
-				FungusScript.RegisterType(typeName);
+				Lua.RegisterType(typeName);
 			}
 
             for (int i = 0; i < boundObjects.Count; ++i)
