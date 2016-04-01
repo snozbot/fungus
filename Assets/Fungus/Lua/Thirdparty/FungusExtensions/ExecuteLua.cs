@@ -8,11 +8,11 @@ namespace Fungus
 
     [CommandInfo("Scripting",
                  "Execute Lua",
-                 "Executes a Lua code chunk using a Lua component.")]
+                 "Executes a Lua code chunk using a Lua Environment.")]
     public class ExecuteLua : Command 
     {
-        [Tooltip("Lua environment to use to execute this Lua script")]
-        public Lua luaEnvironment;
+        [Tooltip("Lua Environment to use to execute this Lua script")]
+        public LuaEnvironment luaEnvironment;
 
         [TextArea(10,100)]
         [Tooltip("Lua script to execute. Use {$VarName} to insert a Flowchart variable in the Lua script.")]
@@ -43,22 +43,22 @@ namespace Fungus
 
 			if (luaEnvironment == null)        
 			{
-				luaEnvironment = Lua.GetLua();
+				luaEnvironment = LuaEnvironment.GetLua();
 			}
 		}
 
         public override void OnEnter()
         {
 			// This command could be executed from the Start of another component, so we
-			// need to check the Lua environment here and in Start.
+			// need to check the Lua Environment here and in Start.
 			if (luaEnvironment == null)        
 			{
-				luaEnvironment = Lua.GetLua();
+				luaEnvironment = LuaEnvironment.GetLua();
 			}
 
 			if (luaEnvironment == null)        
 			{
-                Debug.LogError("No Lua environment found");
+                Debug.LogError("No Lua Environment found");
                 Continue();
                 return;
             }

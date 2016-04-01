@@ -16,15 +16,15 @@ end
 -------
 
 -- Returns the absolute time
--- Use this timing function to work correctly with the Lua component's timeScale property
+-- Use this timing function to work correctly with the Lua Environment's timeScale property
 function M.time()
-	return unity.lua.getTime()
+	return unity.luaenvironment.getTime()
 end
 
 -- Returns the delta time this frame
--- Use this timing function to work correctly with the Lua component's timeScale property
+-- Use this timing function to work correctly with the Lua Environment's timeScale property
 function M.deltatime()
-	return unity.lua.getDeltaTime()
+	return unity.luaenvironment.getDeltaTime()
 end
 
 -------------
@@ -57,7 +57,7 @@ end
 function M.run(enumerator)
 	-- If the parameter isn't an enumerator then CreateTask will fail
 	local status, err = pcall( function() 
-		local task = unity.lua.RunUnityCoroutine(enumerator)
+		local task = unity.luaenvironment.RunUnityCoroutine(enumerator)
 	end)
 
 	if (not status) then
@@ -70,7 +70,7 @@ end
 function M.runwait(enumerator)
 	-- If the parameter isn't an enumerator then CreateTask will fail
 	local status, err = pcall( function() 
-		local task = unity.lua.RunUnityCoroutine(enumerator)
+		local task = unity.luaenvironment.RunUnityCoroutine(enumerator)
 		while (task != nil and task.Running) do
     		coroutine.yield();
 		end
@@ -88,18 +88,18 @@ end
 
 -- Set active language for string table
 function M.setlanguage(languageCode)
-	unity.lua.activeLanguage = languageCode
+	unity.luaenvironment.activeLanguage = languageCode
 end
 
 -- Get a named string from the string table
 function M.getstring(key)
-	return unity.lua.GetString(key)
+	return unity.luaenvironment.GetString(key)
 end
 
 -- Substitutes variables and localisation strings into a piece of text
 -- e.g. v = 10, "Subbed value is [$v]" => "Subbed value is 10"
 function M.sub(text)
-	return unity.lua.substitute(text)
+	return unity.luaenvironment.substitute(text)
 end
 
 --------------------
@@ -211,7 +211,7 @@ function M.menu(text, callback, interactive)
 
 	-- Do variable substitution before displaying text
 	local subbed = fungus.sub(text)
-	M.menuoptions.menudialog.AddOption(subbed, interactive or true, unity.lua, callback)
+	M.menuoptions.menudialog.AddOption(subbed, interactive or true, unity.luaenvironment, callback)
 end
 
 -- Display a timer during which the player has to choose an option.
@@ -219,7 +219,7 @@ end
 -- callback: Function to call if the timer expires before an option is selected.
 function M.menutimer(duration, callback)
 	assert(M.menuoptions.menudialog, "menudialog must not be nil")
-	local e = M.menuoptions.menudialog.ShowTimer(duration, unity.lua, callback)
+	local e = M.menuoptions.menudialog.ShowTimer(duration, unity.luaenvironment, callback)
 	fungus.runwait(e)
 end
 

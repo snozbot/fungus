@@ -18,7 +18,7 @@ Fungus.FacingDirection
 Fungus.FloatVariable
 Fungus.Flowchart
 Fungus.FungusPrefs
-Fungus.Lua
+Fungus.LuaEnvironment
 Fungus.GameObjectVariable
 Fungus.IntegerVariable
 Fungus.Label
