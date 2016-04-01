@@ -222,7 +222,7 @@ namespace Fungus
             }
             catch (InterpreterException ex)
             {
-                UnityEngine.Debug.LogError(ex.DecoratedMessage + "\n" + luaString);
+				LogException(ex.DecoratedMessage, luaString);
             }
 
             if (res == null)
@@ -249,7 +249,7 @@ namespace Fungus
                 }
                 catch (InterpreterException ex)
                 {
-                    UnityEngine.Debug.LogError(ex.DecoratedMessage + "\n" + luaString);
+					LogException(ex.DecoratedMessage, luaString);
                 }
 
                 if (onComplete != null)
@@ -289,7 +289,7 @@ namespace Fungus
                 }
                 catch (InterpreterException ex)
                 {
-                    UnityEngine.Debug.LogError(ex.DecoratedMessage + "\n" + debugInfo);
+					LogException(ex.DecoratedMessage, debugInfo);
                 }
 
                 yield return null;
@@ -347,6 +347,29 @@ namespace Fungus
             // pass the url to the user in some way.
             Process.Start(remoteDebuggerService.HttpUrlStringLocalHost);
         }
+
+		/// <summary>
+		/// Writes a MoonSharp exception to the debug log in a helpful format.
+		/// </summary>
+		/// <param name="decoratedMessage">Decorated message from a MoonSharp exception</param>
+		/// <param name="debugInfo">Debug info, usually the Lua script that was running.</param>
+		public static void LogException(string decoratedMessage, string debugInfo)
+		{
+			string output = decoratedMessage + "\n";
+
+			char[] separators = { '\r', '\n' };
+			string[] lines = debugInfo.Split(separators, StringSplitOptions.None);
+
+			// Show line numbers for script listing
+			int count = 1;
+			foreach (string line in lines)
+			{
+				output += count.ToString() + ": " + line + "\n";
+				count++;
+			}
+				
+			UnityEngine.Debug.LogError(output);
+		}
     }
 
 }

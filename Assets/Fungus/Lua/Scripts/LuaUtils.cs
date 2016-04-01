@@ -180,11 +180,11 @@ namespace Fungus
                 }
                 catch (ScriptRuntimeException ex)
                 {
-                    UnityEngine.Debug.LogError("Lua runtime error: " + ex.DecoratedMessage);
+					LuaEnvironment.LogException(ex.DecoratedMessage, stringTable.text);
                 }
                 catch (InterpreterException ex)
                 {
-                    UnityEngine.Debug.LogError(ex.DecoratedMessage);
+					LuaEnvironment.LogException(ex.DecoratedMessage, stringTable.text);
                 }
             }
         }
