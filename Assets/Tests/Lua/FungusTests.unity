@@ -1066,7 +1066,7 @@ GameObject:
   - 4: {fileID: 116891409}
   - 114: {fileID: 116891410}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2486,7 +2486,7 @@ GameObject:
   - 4: {fileID: 448016417}
   - 114: {fileID: 448016418}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2869,7 +2869,7 @@ GameObject:
   - 4: {fileID: 508615589}
   - 114: {fileID: 508615590}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2923,7 +2923,7 @@ GameObject:
   - 4: {fileID: 511430245}
   - 114: {fileID: 511430246}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4244,7 +4244,7 @@ GameObject:
   - 4: {fileID: 851718692}
   - 114: {fileID: 851718693}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7479,7 +7479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1647235603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7527,7 +7527,7 @@ GameObject:
   - 4: {fileID: 1652835881}
   - 114: {fileID: 1652835882}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8580,7 +8580,7 @@ GameObject:
   - 4: {fileID: 1845639738}
   - 114: {fileID: 1845639739}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9265,7 +9265,7 @@ GameObject:
   - 4: {fileID: 2049586852}
   - 114: {fileID: 2049586853}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9593,7 +9593,7 @@ GameObject:
   - 4: {fileID: 2090444089}
   - 114: {fileID: 2090444090}
   m_Layer: 0
-  m_Name: RunLua
+  m_Name: LuaScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

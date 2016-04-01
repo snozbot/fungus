@@ -20,10 +20,10 @@ namespace Fungus
             SpawnPrefab("Prefabs/LuaBindings", false);
         }
 
-        [MenuItem("Tools/Fungus/Create/Run Lua", false, 2002)]
+        [MenuItem("Tools/Fungus/Create/Lua Script", false, 2002)]
         static void CreateFungusInvoke()
         {
-            SpawnPrefab("Prefabs/RunLua", false);
+            SpawnPrefab("Prefabs/LuaScript", false);
         }
 
         [MenuItem("Tools/Fungus/Create/Lua File", false, 2100)]
