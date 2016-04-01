@@ -842,7 +842,7 @@ MonoBehaviour:
 
     -- Should take 2 seconds in realtime to wait for 1 second
 
-    unity.lua.timeScale = 0.5
+    unity.luaenvironment.timeScale = 0.5
 
     t= fungus.time()
 
@@ -882,7 +882,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1228088164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1502,7 +1502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1900871525
 MonoBehaviour:
   m_ObjectHideFlags: 0

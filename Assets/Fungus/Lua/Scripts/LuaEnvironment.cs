@@ -13,7 +13,7 @@ using MoonSharp.RemoteDebugger;
 namespace Fungus
 {
 
-    public class Lua : MonoBehaviour 
+    public class LuaEnvironment : MonoBehaviour 
     {
         /// <summary>
         /// Custom file loader for MoonSharp that loads in all Lua scripts in the project.
@@ -64,23 +64,23 @@ namespace Fungus
         }
 
 		/// <summary>
-		/// Returns the first Lua component found in the scene, or creates one if none exists.
+		/// Returns the first Lua Environment found in the scene, or creates one if none exists.
 		/// This is a slow operation, call it once at startup and cache the returned value.
 		/// </summary>
-		public static Lua GetLua()
+		public static LuaEnvironment GetLua()
 		{
-			Lua lua = GameObject.FindObjectOfType<Lua>();
-			if (lua == null)
+			LuaEnvironment luaEnvironment = GameObject.FindObjectOfType<LuaEnvironment>();
+			if (luaEnvironment == null)
 			{
-				GameObject prefab = Resources.Load<GameObject>("Prefabs/Lua");
+				GameObject prefab = Resources.Load<GameObject>("Prefabs/LuaEnvironment");
 				if (prefab != null)
 				{
 					GameObject go = Instantiate(prefab) as GameObject;
-					go.name = "Lua";
-					lua = go.GetComponent<Lua>();
+					go.name = "LuaEnvironment";
+					luaEnvironment = go.GetComponent<LuaEnvironment>();
 				}
 			}
-			return lua;
+			return luaEnvironment;
 		}
 
         protected Script interpreter;
@@ -156,8 +156,7 @@ namespace Fungus
             Script.DefaultOptions.DebugPrint = (s) => { UnityEngine.Debug.Log(s); };
 
             // In some use cases (e.g. downloadable Lua files) some Lua modules can pose a potential security risk.
-            // You can restrict which core lua modules are available here if needed.
-            // See the MoonSharp documentation for details.
+            // You can restrict which core lua modules are available here if needed. See the MoonSharp documentation for details.
             interpreter = new Script(CoreModules.Preset_Complete);
 
             InitLuaScriptFiles();
@@ -269,8 +268,8 @@ namespace Fungus
 			UserData.RegisterType(typeof(PODTypeFactory));
 			unityTable["factory"] = UserData.CreateStatic(typeof(PODTypeFactory));
 
-            // This Lua object
-            unityTable["lua"] = this;
+            // This Lua Environment component
+            unityTable["luaenvironment"] = this;
 
             // Provide access to the Unity Test Tools (if available).
             Type testType = Type.GetType("IntegrationTest");
@@ -538,7 +537,7 @@ namespace Fungus
 
         /// <summary>
         /// Starts a standard Unity coroutine.
-        /// The coroutine is managed by the Lua monobehavior, so you can call StopAllCoroutines to
+        /// The coroutine is managed by the LuaEnvironment monobehavior, so you can call StopAllCoroutines to
         /// stop all active coroutines later.
         /// </summary>
         protected virtual IEnumerator RunUnityCoroutineImpl(IEnumerator coroutine)

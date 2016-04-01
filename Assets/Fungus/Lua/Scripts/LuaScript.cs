@@ -57,10 +57,10 @@ namespace Fungus
         [SerializeField] public ExecuteMethod executeMethods = ExecuteMethod.Start;
 
         /// <summary>
-        /// The Lua script environment to use when executing.
+        /// The Lua Environment to use when executing Lua script.
         /// </summary>
-        [Tooltip("The Lua environment to use when executing.")]
-        public Lua luaEnvironment;
+		[Tooltip("The Lua Environment to use when executing Lua script.")]
+        public LuaEnvironment luaEnvironment;
 
         /// <summary>
         /// Lua script file to execute.
@@ -105,13 +105,13 @@ namespace Fungus
         {
 			if (luaEnvironment == null)        
 			{
-				// Create a Lua environment if none exists yet
-				luaEnvironment = Lua.GetLua();
+				// Create a Lua Environment if none exists yet
+				luaEnvironment = LuaEnvironment.GetLua();
 			}
 
 			if (luaEnvironment == null)        
 			{
-				Debug.LogError("No Lua environment found");
+				Debug.LogError("No Lua Environment found");
 				return;
 			}
 					                
@@ -293,7 +293,7 @@ namespace Fungus
         {
             if (luaEnvironment == null)
             {
-                Debug.LogWarning("No Lua component selected");
+                Debug.LogWarning("No Lua Environment found");
             }
             else
             {
