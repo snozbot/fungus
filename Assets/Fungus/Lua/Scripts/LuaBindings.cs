@@ -45,13 +45,17 @@ namespace Fungus
         [Tooltip("Name of global table variable to store bindings in. If left blank then each binding will be added as a global variable.")]
         public string tableName = "";
 
+		[Tooltip("Register all CLR types used by the bound objects so that they can be accessed from Lua. If you don't use this option you will need to register these types yourself.")]
+		public bool registerTypes = true;
+
+		[HideInInspector]
+		public List<string> boundTypes = new List<string>();
+
         /// <summary>
         /// The list of Unity objects to be bound for access in Lua.
         /// </summary>
         [Tooltip("The list of Unity objects to be bound to make them accessible in Lua script.")]
         public List<BoundObject> boundObjects = new List<BoundObject>();
-
-		public List<string> boundTypes = new List<string>();
 
         /// <summary>
         /// Always ensure there is at least one row in the bound objects list.
@@ -97,10 +101,13 @@ namespace Fungus
                 Debug.LogError("Bindings table must not be null");
             }
 
-			// Register types of bound object with MoonSharp
-			foreach (string typeName in boundTypes)
+			// Register types of bound objects with MoonSharp
+			if (registerTypes)
 			{
-				LuaEnvironment.RegisterType(typeName);
+				foreach (string typeName in boundTypes)
+				{
+					LuaEnvironment.RegisterType(typeName);
+				}
 			}
 
             for (int i = 0; i < boundObjects.Count; ++i)

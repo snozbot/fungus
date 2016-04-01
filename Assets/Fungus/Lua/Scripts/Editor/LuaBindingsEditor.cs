@@ -17,6 +17,7 @@ namespace Fungus
         protected ReorderableList boundObjectsList;
 
         protected SerializedProperty tableNameProp;
+		protected SerializedProperty registerTypesProp;
         protected SerializedProperty boundObjectsProp;
 
         protected string bindingHelpItem = ""; 
@@ -25,6 +26,7 @@ namespace Fungus
         protected virtual void OnEnable()
         {
             tableNameProp = serializedObject.FindProperty("tableName");
+			registerTypesProp = serializedObject.FindProperty("registerTypes");
             boundObjectsProp = serializedObject.FindProperty("boundObjects");
             CreateBoundObjectsList();
         }
@@ -140,6 +142,7 @@ namespace Fungus
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(tableNameProp);
+			EditorGUILayout.PropertyField(registerTypesProp);
 
             EditorGUILayout.LabelField("Object Bindings");
 
