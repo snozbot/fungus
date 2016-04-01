@@ -46,11 +46,11 @@ end
 -- Waits until the lamda function provided returns true, or the timeout expires.
 -- Returns true if the function succeeded, or false if the timeout expired
 -- 
-function M.waitfor(fn, timeoutDuration)
+function M.waitfor(fn, timeoutduration)
 	local t = M.gettime()
 	while (not fn()) do
 		coroutine.yield()
-		if (M.gettime() - t > timeoutDuration) then
+		if (M.gettime() - t > timeoutduration) then
 			return false
 		end
 	end
@@ -91,8 +91,8 @@ end
 ---------------
 
 -- Set active language for string table
-function M.setlanguage(languageCode)
-	unity.luautils.activeLanguage = languageCode
+function M.setlanguage(languagecode)
+	unity.luautils.activeLanguage = languagecode
 end
 
 -- Get a named string from the string table
