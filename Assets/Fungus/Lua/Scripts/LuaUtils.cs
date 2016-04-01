@@ -13,7 +13,7 @@ using MoonSharp.RemoteDebugger;
 namespace Fungus
 {
 
-    public class LuaUtils : MonoBehaviour 
+    public class LuaUtils : LuaEnvironment.Initializer 
     {
         /// <summary>
         /// Lua script file which defines the global string table used for localisation.
@@ -57,7 +57,10 @@ namespace Fungus
 		/// </summary>
 		protected LuaEnvironment luaEnvironment;
 
-        public virtual void Initialise()
+		/// <summary>
+		/// Called by LuaEnvironment when initializing.
+		/// </summary>
+		public override void Initialize()
         {   
 			luaEnvironment = GetComponent<LuaEnvironment>();
 			if (luaEnvironment == null)
