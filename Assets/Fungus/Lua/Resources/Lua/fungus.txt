@@ -16,15 +16,15 @@ end
 -------
 
 -- Returns the absolute time
--- Use this timing function to work correctly with the FungusScript timeScale property
+-- Use this timing function to work correctly with the Lua component's timeScale property
 function M.time()
-	return unity.fungusscript.getTime()
+	return unity.lua.getTime()
 end
 
 -- Returns the delta time this frame
--- Use this timing function to work correctly with the FungusScript timeScale property
+-- Use this timing function to work correctly with the Lua component's timeScale property
 function M.deltatime()
-	return unity.fungusscript.getDeltaTime()
+	return unity.lua.getDeltaTime()
 end
 
 -------------
@@ -57,7 +57,7 @@ end
 function M.run(enumerator)
 	-- If the parameter isn't an enumerator then CreateTask will fail
 	local status, err = pcall( function() 
-		local task = unity.fungusscript.RunUnityCoroutine(enumerator)
+		local task = unity.lua.RunUnityCoroutine(enumerator)
 	end)
 
 	if (not status) then
@@ -70,7 +70,7 @@ end
 function M.runwait(enumerator)
 	-- If the parameter isn't an enumerator then CreateTask will fail
 	local status, err = pcall( function() 
-		local task = unity.fungusscript.RunUnityCoroutine(enumerator)
+		local task = unity.lua.RunUnityCoroutine(enumerator)
 		while (task != nil and task.Running) do
     		coroutine.yield();
 		end
@@ -88,18 +88,18 @@ end
 
 -- Set active language for string table
 function M.setlanguage(languageCode)
-	unity.fungusscript.activeLanguage = languageCode
+	unity.lua.activeLanguage = languageCode
 end
 
 -- Get a named string from the string table
 function M.getstring(key)
-	return unity.fungusscript.GetString(key)
+	return unity.lua.GetString(key)
 end
 
 -- Substitutes variables and localisation strings into a piece of text
 -- e.g. v = 10, "Subbed value is [$v]" => "Subbed value is 10"
 function M.sub(text)
-	return unity.fungusscript.substitute(text)
+	return unity.lua.substitute(text)
 end
 
 --------------------
@@ -211,7 +211,7 @@ function M.menu(text, callback, interactive)
 
 	-- Do variable substitution before displaying text
 	local subbed = fungus.sub(text)
-	M.menuoptions.menudialog.AddOption(subbed, interactive or true, unity.fungusscript, callback)
+	M.menuoptions.menudialog.AddOption(subbed, interactive or true, unity.lua, callback)
 end
 
 -- Display a timer during which the player has to choose an option.
@@ -219,7 +219,7 @@ end
 -- callback: Function to call if the timer expires before an option is selected.
 function M.menutimer(duration, callback)
 	assert(M.menuoptions.menudialog, "menudialog must not be nil")
-	local e = M.menuoptions.menudialog.ShowTimer(duration, unity.fungusscript, callback)
+	local e = M.menuoptions.menudialog.ShowTimer(duration, unity.lua, callback)
 	fungus.runwait(e)
 end
 

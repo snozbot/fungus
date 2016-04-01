@@ -10,8 +10,8 @@ using System.IO;
 namespace Fungus
 {
     
-    [CustomEditor (typeof(FungusScript))]
-	public class FungusScriptEditor : Editor 
+    [CustomEditor (typeof(Lua))]
+	public class LuaEditor : Editor 
     {
 		protected SerializedProperty registerTypesProp;
 		protected ReorderableList registerTypeList;

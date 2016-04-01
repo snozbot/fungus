@@ -13,17 +13,17 @@ using MoonSharp.RemoteDebugger;
 namespace Fungus
 {
 
-    public class FungusScript : MonoBehaviour 
+    public class Lua : MonoBehaviour 
     {
         /// <summary>
         /// Custom file loader for MoonSharp that loads in all Lua scripts in the project.
         /// Scripts must be placed in a Resources/Lua directory.
         /// </summary>
-        protected class FungusScriptLoader : ScriptLoaderBase
+        protected class LuaScriptLoader : ScriptLoaderBase
         {
             // Give the script loader access to the list of accessible Lua Modules.
             private IEnumerable<TextAsset> luaScripts;
-            public FungusScriptLoader(IEnumerable<TextAsset> luaScripts)
+            public LuaScriptLoader(IEnumerable<TextAsset> luaScripts)
             {
                 this.luaScripts = luaScripts;
             }
@@ -63,6 +63,26 @@ namespace Fungus
             }
         }
 
+		/// <summary>
+		/// Returns the first Lua component found in the scene, or creates one if none exists.
+		/// This is a slow operation, call it once at startup and cache the returned value.
+		/// </summary>
+		public static Lua GetLua()
+		{
+			Lua lua = GameObject.FindObjectOfType<Lua>();
+			if (lua == null)
+			{
+				GameObject prefab = Resources.Load<GameObject>("Prefabs/Lua");
+				if (prefab != null)
+				{
+					GameObject go = Instantiate(prefab) as GameObject;
+					go.name = "Lua";
+					lua = go.GetComponent<Lua>();
+				}
+			}
+			return lua;
+		}
+
         protected Script interpreter;
 
         /// <summary>
@@ -90,7 +110,7 @@ namespace Fungus
 
         /// <summary>
         /// Time scale factor to apply when running Lua scripts.
-        /// This allows pausing of a FungusScript by setting timescale to 0.
+        /// This allows pausing of time based operations by setting timescale to 0.
         /// Use the GetTime() and GetDeltaTime() functions to get scaled time values.
         /// If negative, then GetTime() and GetDeltaTime() return the same values as the standard Time class.
         /// </summary>
@@ -160,7 +180,7 @@ namespace Fungus
         protected virtual void InitLuaScriptFiles()
         {
             object[] result = Resources.LoadAll("Lua", typeof(TextAsset));
-            interpreter.Options.ScriptLoader = new FungusScriptLoader(result.OfType<TextAsset>());
+            interpreter.Options.ScriptLoader = new LuaScriptLoader(result.OfType<TextAsset>());
         }
 
         /// <summary>
@@ -249,8 +269,8 @@ namespace Fungus
 			UserData.RegisterType(typeof(PODTypeFactory));
 			unityTable["factory"] = UserData.CreateStatic(typeof(PODTypeFactory));
 
-            // This FungusScript object
-            unityTable["fungusscript"] = this;
+            // This Lua object
+            unityTable["lua"] = this;
 
             // Provide access to the Unity Test Tools (if available).
             Type testType = Type.GetType("IntegrationTest");
@@ -518,7 +538,7 @@ namespace Fungus
 
         /// <summary>
         /// Starts a standard Unity coroutine.
-        /// The coroutine is managed by the FungusScript monobehavior, so you can call StopAllCoroutines to
+        /// The coroutine is managed by the Lua monobehavior, so you can call StopAllCoroutines to
         /// stop all active coroutines later.
         /// </summary>
         protected virtual IEnumerator RunUnityCoroutineImpl(IEnumerator coroutine)

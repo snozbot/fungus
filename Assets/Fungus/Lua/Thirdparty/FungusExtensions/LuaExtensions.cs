@@ -7,13 +7,13 @@ using MoonSharp.Interpreter;
 namespace Fungus
 {
 
-    public static class FungusScriptExtensions 
+    public static class LuaExtensions 
     {
 
         /// <summary>
         /// Extension for MenuDialog that allows AddOption to call a Lua function when an option is selected.
         /// </summary>
-        public static bool AddOption(this MenuDialog menuDialog, string text, bool interactable, FungusScript fungusScript, Closure callBack)
+        public static bool AddOption(this MenuDialog menuDialog, string text, bool interactable, Lua lua, Closure callBack)
         {
             bool addedOption = false;
             foreach (Button button in menuDialog.cachedButtons)
@@ -41,7 +41,7 @@ namespace Fungus
 
                         if (callBack != null)
                         {
-                            fungusScript.RunLuaCoroutine(callBack, text);
+                            lua.RunLuaCoroutine(callBack, text);
                         }
                     });
 
@@ -56,7 +56,7 @@ namespace Fungus
         /// <summary>
         /// Extension for MenuDialog that allows ShowTimer to call a Lua function when the timer expires.
         /// </summary>
-        public static IEnumerator ShowTimer(this MenuDialog menuDialog, float duration, FungusScript fungusScript, Closure callBack)
+        public static IEnumerator ShowTimer(this MenuDialog menuDialog, float duration, Lua lua, Closure callBack)
         {
             if (menuDialog.cachedSlider == null ||
                 duration <= 0f)
@@ -89,7 +89,7 @@ namespace Fungus
 
             if (callBack != null)
             {
-                fungusScript.RunLuaCoroutine(callBack, "menutimer");
+                lua.RunLuaCoroutine(callBack, "menutimer");
             }
         }
     }

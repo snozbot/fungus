@@ -8,11 +8,11 @@ namespace Fungus
 
     [CommandInfo("Scripting",
                  "Execute Lua",
-                 "Executes a Lua code chunk using a FungusScript object.")]
+                 "Executes a Lua code chunk using a Lua component.")]
     public class ExecuteLua : Command 
     {
-        [Tooltip("FungusScript to use to execute this Lua script")]
-        public FungusScript fungusScript;
+        [Tooltip("Lua environment to use to execute this Lua script")]
+        public Lua luaEnvironment;
 
         [TextArea(10,100)]
         [Tooltip("Lua script to execute. Use {$VarName} to insert a Flowchart variable in the Lua script.")]
@@ -40,13 +40,25 @@ namespace Fungus
         {
             // Cache a descriptive name to use in Lua error messages
             friendlyName = gameObject.name + "." + parentBlock.blockName + "." + "ExecuteLua #" + commandIndex.ToString();
-        }
+
+			if (luaEnvironment == null)        
+			{
+				luaEnvironment = Lua.GetLua();
+			}
+		}
 
         public override void OnEnter()
         {
-            if (fungusScript == null)        
-            {
-                Debug.LogWarning("No FungusScript object selected");            
+			// This command could be executed from the Start of another component, so we
+			// need to check the Lua environment here and in Start.
+			if (luaEnvironment == null)        
+			{
+				luaEnvironment = Lua.GetLua();
+			}
+
+			if (luaEnvironment == null)        
+			{
+                Debug.LogError("No Lua environment found");
                 Continue();
                 return;
             }
@@ -59,7 +71,7 @@ namespace Fungus
 
             string subbed = s + GetFlowchart().SubstituteVariables(luaScript);
 
-            fungusScript.DoLuaString(subbed, friendlyName, runAsCoroutine, (returnValue) => {
+            luaEnvironment.DoLuaString(subbed, friendlyName, runAsCoroutine, (returnValue) => {
                 StoreReturnVariable(returnValue);
                 if (waitUntilFinished)
                 {
@@ -138,11 +150,6 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            if (fungusScript == null)
-            {
-                return "Error: No FungusScript object selected";
-            }
-
             return luaScript;
         }
 

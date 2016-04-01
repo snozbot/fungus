@@ -59,8 +59,8 @@ namespace Fungus
         /// <summary>
         /// The Lua script environment to use when executing.
         /// </summary>
-        [Tooltip("The Lua script environment to use when executing.")]
-        public FungusScript fungusScript;
+        [Tooltip("The Lua environment to use when executing.")]
+        public Lua luaEnvironment;
 
         /// <summary>
         /// Lua script file to execute.
@@ -103,16 +103,18 @@ namespace Fungus
 
         public void Start()
         {
-            // If no FungusScript has been explicitly set then try to get one in the scene
-            if (fungusScript == null)
-            {
-                fungusScript = GetComponentInParent<FungusScript>();
-            }
-            if (fungusScript == null)
-            {
-                fungusScript = GameObject.FindObjectOfType<FungusScript>();
-            }
-                
+			if (luaEnvironment == null)        
+			{
+				// Create a Lua environment if none exists yet
+				luaEnvironment = Lua.GetLua();
+			}
+
+			if (luaEnvironment == null)        
+			{
+				Debug.LogError("No Lua environment found");
+				return;
+			}
+					                
             // Cache a descriptive name to use in Lua error messages
             friendlyName = GetPath(transform) + ".RunLua";
 
@@ -289,9 +291,9 @@ namespace Fungus
         /// </summary>
         public virtual void Execute()
         {
-            if (fungusScript == null)
+            if (luaEnvironment == null)
             {
-                Debug.LogWarning("No FungusScript selected");
+                Debug.LogWarning("No Lua component selected");
             }
             else
             {
@@ -310,7 +312,7 @@ namespace Fungus
                     s += luaScript;
                 }
 
-                fungusScript.DoLuaString(s, friendlyName, runAsCoroutine);
+                luaEnvironment.DoLuaString(s, friendlyName, runAsCoroutine);
             }
         }
             

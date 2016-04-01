@@ -142,6 +142,7 @@ MonoBehaviour:
   - key: voiceover
     obj: {fileID: 8300000, guid: d2ab1fbe555d44e9e870311657856bdc, type: 3}
     component: {fileID: 0}
+  boundTypes: []
 --- !u!1 &13683311
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,6 +715,7 @@ MonoBehaviour:
   - key: menudialog
     obj: {fileID: 560555132}
     component: {fileID: 560555134}
+  boundTypes: []
 --- !u!4 &36455799 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -764,7 +766,7 @@ MonoBehaviour:
   itemId: 1
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 2134815028}
+  luaEnvironment: {fileID: 0}
   luaScript: '-- Test executing Lua script from a Fungus command
 
 
@@ -1101,7 +1103,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  fungusScript: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Check the starting value of StringVar
 
@@ -1356,6 +1358,7 @@ MonoBehaviour:
   - key: optionbutton0
     obj: {fileID: 876352038}
     component: {fileID: 876352041}
+  boundTypes: []
 --- !u!1 &190681717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1881,12 +1884,6 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 110499668}
---- !u!114 &294355417 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 110499668}
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
 --- !u!4 &316730978 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -2172,10 +2169,10 @@ RectTransform:
   - {fileID: 913989833}
   m_Father: {fileID: 465829170}
   m_RootOrder: 3
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -365}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &398057889
 MonoBehaviour:
@@ -2377,10 +2374,10 @@ RectTransform:
   - {fileID: 1088283066}
   m_Father: {fileID: 465829170}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -155}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &405820710
 MonoBehaviour:
@@ -2526,7 +2523,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  fungusScript: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- The "Do Test" block in the flowchart sets a bunch of flowchart variables
 
@@ -2638,7 +2635,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000018477, y: 191}
-  m_SizeDelta: {x: 1300, y: 0}
+  m_SizeDelta: {x: 1300, y: 680}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &465829171
 MonoBehaviour:
@@ -2720,6 +2717,7 @@ MonoBehaviour:
   - key: flowchart
     obj: {fileID: 1983492490}
     component: {fileID: 1983492495}
+  boundTypes: []
 --- !u!1 &507572619
 GameObject:
   m_ObjectHideFlags: 0
@@ -2753,10 +2751,10 @@ RectTransform:
   - {fileID: 1446085149}
   m_Father: {fileID: 465829170}
   m_RootOrder: 6
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -655}
+  m_SizeDelta: {x: 1300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &507572621
 MonoBehaviour:
@@ -2908,7 +2906,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  fungusScript: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "fungus.menuoptions.menudialog = menudialog\n\nfunction option1()\n   fungus.fail()\nend\n\nfungus.menu(\"Option
     1\", option1)\n\nfungus.assert(optionbutton0.activeSelf)\nfungus.clearmenu()\nfungus.assert(not
@@ -2962,7 +2960,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  fungusScript: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "-- Test the Menu Timer functionality\n\nfungus.menuoptions.menudialog
     = menudialog\n\n-- Called if user clicks on menu option\nfunction option1()\n
@@ -3176,10 +3174,10 @@ RectTransform:
   - {fileID: 913529610}
   m_Father: {fileID: 465829170}
   m_RootOrder: 2
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -260}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &625261051
 MonoBehaviour:
@@ -3466,12 +3464,6 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 726346786}
---- !u!114 &715246548 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 726346786}
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
 --- !u!1 &715595886
 GameObject:
   m_ObjectHideFlags: 0
@@ -3505,10 +3497,10 @@ RectTransform:
   - {fileID: 863130403}
   m_Father: {fileID: 465829170}
   m_RootOrder: 4
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -470}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &715595888
 MonoBehaviour:
@@ -3655,6 +3647,7 @@ MonoBehaviour:
   - key: transform
     obj: {fileID: 328064332}
     component: {fileID: 328064333}
+  boundTypes: []
 --- !u!1001 &726346786
 Prefab:
   m_ObjectHideFlags: 0
@@ -4288,7 +4281,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  fungusScript: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test getting and setting Fungus variables
 
@@ -4425,10 +4418,10 @@ RectTransform:
   - {fileID: 884473401}
   m_Father: {fileID: 465829170}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -50}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &876352040
 MonoBehaviour:
@@ -4846,6 +4839,7 @@ MonoBehaviour:
   - key: 
     obj: {fileID: 0}
     component: {fileID: 0}
+  boundTypes: []
 --- !u!1 &928936324
 GameObject:
   m_ObjectHideFlags: 0
@@ -5100,7 +5094,7 @@ MonoBehaviour:
   itemId: 1
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 715246548}
+  luaEnvironment: {fileID: 0}
   luaScript: return true
   useFungusModule: 1
   runAsCoroutine: 0
@@ -5166,7 +5160,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlock: {fileID: 942227027}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 942227025}
   variables:
   - {fileID: 942227029}
   - {fileID: 942227035}
@@ -5216,7 +5211,7 @@ MonoBehaviour:
   itemId: 4
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 715246548}
+  luaEnvironment: {fileID: 0}
   luaScript: return 1.0
   useFungusModule: 1
   runAsCoroutine: 0
@@ -5236,7 +5231,7 @@ MonoBehaviour:
   itemId: 3
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 715246548}
+  luaEnvironment: {fileID: 0}
   luaScript: return 2
   useFungusModule: 1
   runAsCoroutine: 0
@@ -5256,7 +5251,7 @@ MonoBehaviour:
   itemId: 2
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 715246548}
+  luaEnvironment: {fileID: 0}
   luaScript: return "a string"
   useFungusModule: 1
   runAsCoroutine: 0
@@ -5332,7 +5327,7 @@ MonoBehaviour:
   itemId: 6
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 715246548}
+  luaEnvironment: {fileID: 0}
   luaScript: 'local c = unity.factory.color(1, 0.5, 1, 1)
 
 
@@ -5355,7 +5350,7 @@ MonoBehaviour:
   itemId: 7
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 715246548}
+  luaEnvironment: {fileID: 0}
   luaScript: return testgameobject
   useFungusModule: 1
   runAsCoroutine: 0
@@ -5403,7 +5398,7 @@ MonoBehaviour:
   itemId: 9
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 715246548}
+  luaEnvironment: {fileID: 0}
   luaScript: return testmaterial
   useFungusModule: 1
   runAsCoroutine: 0
@@ -5437,7 +5432,7 @@ MonoBehaviour:
   itemId: 10
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 715246548}
+  luaEnvironment: {fileID: 0}
   luaScript: return testgameobject
   useFungusModule: 1
   runAsCoroutine: 0
@@ -5471,7 +5466,7 @@ MonoBehaviour:
   itemId: 11
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 715246548}
+  luaEnvironment: {fileID: 0}
   luaScript: return mushroom
   useFungusModule: 1
   runAsCoroutine: 0
@@ -5505,7 +5500,7 @@ MonoBehaviour:
   itemId: 12
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 715246548}
+  luaEnvironment: {fileID: 0}
   luaScript: 'local v = unity.factory.vector2(1,1)
 
 
@@ -5542,7 +5537,7 @@ MonoBehaviour:
   itemId: 13
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 715246548}
+  luaEnvironment: {fileID: 0}
   luaScript: return mousepointer
   useFungusModule: 1
   runAsCoroutine: 0
@@ -5576,7 +5571,7 @@ MonoBehaviour:
   itemId: 14
   errorMessage: 
   indentLevel: 0
-  fungusScript: {fileID: 715246548}
+  luaEnvironment: {fileID: 0}
   luaScript: 'local v = unity.factory.vector3(1,1,1)
 
     return v'
@@ -6938,7 +6933,7 @@ RectTransform:
   m_Father: {fileID: 1446085149}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7570,7 +7565,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  fungusScript: {fileID: 294355417}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "-- Test the Menu Timer functionality\n\nfungus.menuoptions.menudialog
     = menudialog\n\n-- Called if user clicks on menu option\nfunction option1()\n
@@ -8133,6 +8128,7 @@ MonoBehaviour:
   - key: flowchart
     obj: {fileID: 807616582}
     component: {fileID: 807616590}
+  boundTypes: []
 --- !u!1 &1738857300
 GameObject:
   m_ObjectHideFlags: 0
@@ -8432,10 +8428,10 @@ RectTransform:
   - {fileID: 761668839}
   m_Father: {fileID: 465829170}
   m_RootOrder: 5
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -575}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1762200959
 MonoBehaviour:
@@ -8561,7 +8557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 942227028}
+  selectedFlowchart: {fileID: 56584893}
 --- !u!4 &1791050794
 Transform:
   m_ObjectHideFlags: 1
@@ -8621,7 +8617,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  fungusScript: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test Say Dialog integration
 
@@ -9131,7 +9127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1993284458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9306,7 +9302,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  fungusScript: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Use a Fungus flowchart to show a character portrait
 
@@ -9634,7 +9630,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  fungusScript: {fileID: 0}
+  luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: 
   runAsCoroutine: 1
@@ -9738,6 +9734,49 @@ MonoBehaviour:
   - key: mousepointer
     obj: {fileID: 2800000, guid: efe8aa62cc87f4b70b9272e4e8e06668, type: 3}
     component: {fileID: 0}
+  boundTypes:
+  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - Fungus.Flowchart, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.Block, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - Fungus.Variable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.Label, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.Command, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.CommandInfoAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Material, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Shader, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Color, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Texture, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Vector4, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Matrix4x4, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.ComputeBuffer, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.MaterialGlobalIlluminationFlags, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.Sprite, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.UInt32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - UnityEngine.SpriteMeshType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Bounds, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.SpritePackingMode, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.SpritePackingRotation, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.TextureFormat, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.IntPtr, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
 --- !u!1 &2119731355
 GameObject:
   m_ObjectHideFlags: 0
@@ -10012,9 +10051,3 @@ CanvasRenderer:
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 1646090254}
---- !u!114 &2134815028 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 1646090254}
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}

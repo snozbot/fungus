@@ -18,7 +18,7 @@ Fungus.FacingDirection
 Fungus.FloatVariable
 Fungus.Flowchart
 Fungus.FungusPrefs
-Fungus.FungusScript
+Fungus.Lua
 Fungus.GameObjectVariable
 Fungus.IntegerVariable
 Fungus.Label
@@ -95,4 +95,4 @@ UnityEngine.VerticalWrapMode, UnityEngine, Version=0.0.0.0, Culture=neutral, Pub
 
 # Extension types
 
-E:Fungus.FungusScriptExtensions
+E:Fungus.LuaExtensions
