@@ -22,7 +22,7 @@ namespace Fungus
 			registerTypeList = new ReorderableList(serializedObject, registerTypesProp, true, true, true, true);
 
 			registerTypeList.drawHeaderCallback = (Rect rect) => {  
-				EditorGUI.LabelField(rect, "Register Types");
+				EditorGUI.LabelField(rect, "Type Lists");
 			};
 
 			registerTypeList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) => { 
@@ -38,6 +38,7 @@ namespace Fungus
 
             serializedObject.Update();
 
+			EditorGUILayout.PrefixLabel(new GUIContent("Register Types", "Text files which list the CLR types that should be registered with this Lua environment."));
 			registerTypeList.DoLayoutList();
 
             serializedObject.ApplyModifiedProperties();
