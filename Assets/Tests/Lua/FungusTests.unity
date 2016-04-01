@@ -126,6 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableName: 
+  registerTypes: 1
+  boundTypes: []
   boundObjects:
   - key: saydialog
     obj: {fileID: 2087053783}
@@ -142,7 +144,6 @@ MonoBehaviour:
   - key: voiceover
     obj: {fileID: 8300000, guid: d2ab1fbe555d44e9e870311657856bdc, type: 3}
     component: {fileID: 0}
-  boundTypes: []
 --- !u!1 &13683311
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,11 +712,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableName: 
+  registerTypes: 1
+  boundTypes: []
   boundObjects:
   - key: menudialog
     obj: {fileID: 560555132}
     component: {fileID: 560555134}
-  boundTypes: []
 --- !u!4 &36455799 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -1351,6 +1353,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableName: 
+  registerTypes: 1
+  boundTypes: []
   boundObjects:
   - key: menudialog
     obj: {fileID: 20972056}
@@ -1358,7 +1362,6 @@ MonoBehaviour:
   - key: optionbutton0
     obj: {fileID: 876352038}
     component: {fileID: 876352041}
-  boundTypes: []
 --- !u!1 &190681717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2713,11 +2716,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableName: 
+  registerTypes: 1
+  boundTypes: []
   boundObjects:
   - key: flowchart
     obj: {fileID: 1983492490}
     component: {fileID: 1983492495}
-  boundTypes: []
 --- !u!1 &507572619
 GameObject:
   m_ObjectHideFlags: 0
@@ -3640,6 +3644,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableName: 
+  registerTypes: 1
+  boundTypes:
+  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - Fungus.Flowchart, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.Block, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - Fungus.Variable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.Label, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.Command, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.CommandInfoAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.RectTransform+ReapplyDrivenProperties, UnityEngine, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Vector3, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.RectTransform+Edge, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.RectTransform+Axis, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
   boundObjects:
   - key: flowchart
     obj: {fileID: 115186231}
@@ -3647,7 +3682,6 @@ MonoBehaviour:
   - key: transform
     obj: {fileID: 328064332}
     component: {fileID: 328064333}
-  boundTypes: []
 --- !u!1001 &726346786
 Prefab:
   m_ObjectHideFlags: 0
@@ -4829,6 +4863,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableName: 
+  registerTypes: 1
+  boundTypes: []
   boundObjects:
   - key: menudialog
     obj: {fileID: 1077682782}
@@ -4839,7 +4875,6 @@ MonoBehaviour:
   - key: 
     obj: {fileID: 0}
     component: {fileID: 0}
-  boundTypes: []
 --- !u!1 &928936324
 GameObject:
   m_ObjectHideFlags: 0
@@ -7479,7 +7514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1647235603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8124,11 +8159,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableName: 
+  registerTypes: 1
+  boundTypes:
+  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - Fungus.Flowchart, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.Block, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - Fungus.Variable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.Label, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.Command, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.CommandInfoAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   boundObjects:
   - key: flowchart
     obj: {fileID: 807616582}
     component: {fileID: 807616590}
-  boundTypes: []
 --- !u!1 &1738857300
 GameObject:
   m_ObjectHideFlags: 0
@@ -8144,7 +8202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1738857301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9718,22 +9776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableName: 
-  boundObjects:
-  - key: flowchart
-    obj: {fileID: 942227023}
-    component: {fileID: 942227028}
-  - key: testgameobject
-    obj: {fileID: 95979348}
-    component: {fileID: 0}
-  - key: testmaterial
-    obj: {fileID: 2100000, guid: 97a4dac23b6bb49888243026c50076a9, type: 2}
-    component: {fileID: 0}
-  - key: mushroom
-    obj: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
-    component: {fileID: 0}
-  - key: mousepointer
-    obj: {fileID: 2800000, guid: efe8aa62cc87f4b70b9272e4e8e06668, type: 3}
-    component: {fileID: 0}
+  registerTypes: 1
   boundTypes:
   - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -9777,6 +9820,22 @@ MonoBehaviour:
     PublicKeyToken=null
   - UnityEngine.TextureFormat, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - System.IntPtr, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  boundObjects:
+  - key: flowchart
+    obj: {fileID: 942227023}
+    component: {fileID: 942227028}
+  - key: testgameobject
+    obj: {fileID: 95979348}
+    component: {fileID: 0}
+  - key: testmaterial
+    obj: {fileID: 2100000, guid: 97a4dac23b6bb49888243026c50076a9, type: 2}
+    component: {fileID: 0}
+  - key: mushroom
+    obj: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
+    component: {fileID: 0}
+  - key: mousepointer
+    obj: {fileID: 2800000, guid: efe8aa62cc87f4b70b9272e4e8e06668, type: 3}
+    component: {fileID: 0}
 --- !u!1 &2119731355
 GameObject:
   m_ObjectHideFlags: 0
