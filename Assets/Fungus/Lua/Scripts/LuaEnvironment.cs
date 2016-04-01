@@ -12,9 +12,19 @@ using MoonSharp.RemoteDebugger;
 
 namespace Fungus
 {
-
     public class LuaEnvironment : MonoBehaviour 
     {
+		/// <summary>
+		/// Helper class used to extend the initialization behavior of LuaEnvironment.
+		/// </summary>
+		public abstract class Initializer : MonoBehaviour
+		{
+			/// <summary>
+			/// Called when the LuaEnvironment is initializing.
+			/// </summary>
+			public abstract void Initialize();			
+		}
+
         /// <summary>
         /// Custom file loader for MoonSharp that loads in all Lua scripts in the project.
         /// Scripts must be placed in a Resources/Lua directory.
@@ -127,13 +137,14 @@ namespace Fungus
             // You can restrict which core lua modules are available here if needed. See the MoonSharp documentation for details.
             interpreter = new Script(CoreModules.Preset_Complete);
 
+			// Load all Lua scripts in the project
             InitLuaScriptFiles();
 
-			// TODO: Use an interface here instead
-			LuaUtils luaUtils = GetComponent<LuaUtils>();
-			if (luaUtils != null)
+			// Initialize any attached initializer components (e.g. LuaUtils)
+			Initializer[] initializers = GetComponentsInChildren<Initializer>();
+			foreach (Initializer initializer in initializers)
 			{
-				luaUtils.Initialise();
+				initializer.Initialize();
 			}
 
             if (remoteDebugger)
