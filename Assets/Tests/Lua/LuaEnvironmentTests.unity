@@ -288,10 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableName: 
-  boundObjects:
-  - key: dummycollection
-    obj: {fileID: 367860753}
-    component: {fileID: 367860754}
+  registerTypes: 1
   boundTypes:
   - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -307,6 +304,10 @@ MonoBehaviour:
   - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
   - Fungus.DummyCollection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.Sprite, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  boundObjects:
+  - key: dummycollection
+    obj: {fileID: 367860753}
+    component: {fileID: 367860754}
 --- !u!1 &305346650
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,10 +358,10 @@ MonoBehaviour:
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "-- Test the timeout works in fungus.waitfor\nlocal value = false\n\nfunction
-    fn()\n   return value\nend\n\nt = fungus.time()\nfungus.waitfor(fn, 1)\nfungus.assert
-    (fungus.time() - t >= 1)\n\n-- Test fungus.waitfor() exits if the function returns
-    true\n-- If this doesn't work the test will timeout and fail\nvalue = true\nfungus.waitfor(fn,
-    1)\n\nfungus.pass()"
+    fn()\n   return value\nend\n\nt = fungus.gettime()\nfungus.waitfor(fn, 1)\nfungus.assert
+    (fungus.gettime() - t >= 1)\n\n-- Test fungus.waitfor() exits if the function
+    returns true\n-- If this doesn't work the test will timeout and fail\nvalue =
+    true\nfungus.waitfor(fn, 1)\n\nfungus.pass()"
   runAsCoroutine: 1
   useFungusModule: 1
 --- !u!1001 &364012152
@@ -477,7 +478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &637150168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,11 +830,11 @@ MonoBehaviour:
 
     -- Should take 1 second in realtime to wait for 1 second
 
-    t= fungus.time()
+    t = fungus.gettime()
 
     fungus.wait(1)
 
-    t = fungus.time() - t
+    t = fungus.gettime() - t
 
     fungus.assert(t >= 1)
 
@@ -842,13 +843,13 @@ MonoBehaviour:
 
     -- Should take 2 seconds in realtime to wait for 1 second
 
-    unity.luaenvironment.timeScale = 0.5
+    fungus.settimescale(0.5)
 
-    t= fungus.time()
+    t = fungus.gettime()
 
     fungus.wait(1)
 
-    t = fungus.time() - t
+    t = fungus.gettime() - t
 
     fungus.assert(t >= 1)
 
@@ -1332,6 +1333,7 @@ MonoBehaviour:
   luaFile: {fileID: 0}
   luaScript: '-- Test string table localisation system
 
+    print(stringtable)
 
     fungus.assert(stringtable != nil)
 
@@ -1479,6 +1481,10 @@ Prefab:
       propertyPath: stringTable
       value: 
       objectReference: {fileID: 4900000, guid: 9900570d789fa4b29957e4b897af9e3b, type: 3}
+    - target: {fileID: 11486636, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: stringTable
+      value: 
+      objectReference: {fileID: 4900000, guid: 9900570d789fa4b29957e4b897af9e3b, type: 3}
     m_RemovedComponents:
     - {fileID: 11403674, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -1502,7 +1508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1900871525
 MonoBehaviour:
   m_ObjectHideFlags: 0
