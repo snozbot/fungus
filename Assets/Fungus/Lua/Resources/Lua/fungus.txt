@@ -134,8 +134,8 @@ end
 -- Fungus Prefs
 ---------------
 
--- prefs is a handy short alias to the real fungusprefs
-M.prefs = unity.fungusprefs
+-- Handy short alias to the real prefs object
+M.prefs = unity.prefs
 
 -------------
 -- Say Dialog

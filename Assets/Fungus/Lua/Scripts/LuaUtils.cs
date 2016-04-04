@@ -138,7 +138,7 @@ namespace Fungus
 
 			// Static classes
 			unityTable["time"] = UserData.CreateStatic(typeof(Time));
-			unityTable["fungusprefs"] = UserData.CreateStatic(typeof(FungusPrefs));
+			unityTable["prefs"] = UserData.CreateStatic(typeof(FungusPrefs));
 
 			UserData.RegisterType(typeof(PODTypeFactory));
 			unityTable["factory"] = UserData.CreateStatic(typeof(PODTypeFactory));
