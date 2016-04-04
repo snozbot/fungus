@@ -342,6 +342,23 @@ namespace Fungus
 		{
 			GameObject.Destroy(go);
 		}
+
+		/// <summary>
+		/// Spawns an instance of a named prefab resource.
+		/// The prefab must exist in a Resources folder in the project.
+		/// </summary>
+		public virtual GameObject Spawn(string resourceName)
+		{
+			// Auto spawn a say dialog object from the prefab
+			GameObject prefab = Resources.Load<GameObject>(resourceName);
+			if (prefab != null)
+			{
+				GameObject go = Instantiate(prefab) as GameObject;
+				go.name = resourceName;
+				return go;
+			}
+			return null;
+		}
    }
 
 }
