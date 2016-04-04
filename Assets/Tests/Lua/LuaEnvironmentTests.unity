@@ -814,7 +814,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1537199682}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!1 &1052730009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,65 +1245,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &1436236943
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 178698, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1436236944}
-  - 114: {fileID: 1436236945}
-  m_Layer: 0
-  m_Name: LuaBindings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1436236944
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 403334, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1436236943}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1537199682}
-  m_RootOrder: 2
---- !u!114 &1436236945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1436236943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cc8a659e950044b69d7c62696c36962, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tableName: 
-  registerTypes: 1
-  boundTypes:
-  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  boundObjects:
-  - key: testgameobject
-    obj: {fileID: 804588883}
-    component: {fileID: 0}
 --- !u!1 &1463630762
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,7 +1420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1537199681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1513,7 +1454,6 @@ Transform:
   m_Children:
   - {fileID: 550607924}
   - {fileID: 1932132174}
-  - {fileID: 1436236944}
   - {fileID: 804588884}
   m_Father: {fileID: 0}
   m_RootOrder: 12
@@ -1829,8 +1769,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlock: {fileID: 1828947834}
-  selectedCommands:
-  - {fileID: 1828947833}
+  selectedCommands: []
   variables: []
   description: "Check if the LuaStore prime table is created \nand registered as fungus.store,
     and if we can write and read values to it."
@@ -2072,7 +2011,7 @@ MonoBehaviour:
   executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: '-- Test cloning and renaming a game object
+  luaScript: '-- Test GameObject methods like find, instantiate, spawn, etc.
 
 
     testgo = unity.luautils.find("TestGameObject")
@@ -2091,6 +2030,16 @@ MonoBehaviour:
 
 
     unity.luautils.destroy(go)
+
+
+    -- Spawn an object from a prefab in a Resources folder
+
+    saydialog = unity.luautils.spawn("SayDialog")
+
+    fungus.assert(saydialog != nil)
+
+
+    unity.luautils.destroy(saydialog)
 
 
     fungus.pass()'
