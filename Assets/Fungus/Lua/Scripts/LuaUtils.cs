@@ -132,27 +132,29 @@ namespace Fungus
 		{
 			MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
 
-			// Add the CLR class objects to a global unity table
-			Table unityTable = new Table(interpreter);
-			interpreter.Globals["unity"] = unityTable;
+			// Add the CLR class objects to a temp unity table called _fungus.
+			// When the fungus module is required, all the entries from _fungus are copied over.
+
+			Table fungusTable = new Table(interpreter);
+			interpreter.Globals["_fungus"] = fungusTable;
 
 			// Static classes
-			unityTable["time"] = UserData.CreateStatic(typeof(Time));
-			unityTable["prefs"] = UserData.CreateStatic(typeof(FungusPrefs));
+			fungusTable["time"] = UserData.CreateStatic(typeof(Time));
+			fungusTable["prefs"] = UserData.CreateStatic(typeof(FungusPrefs));
 
 			UserData.RegisterType(typeof(PODTypeFactory));
-			unityTable["factory"] = UserData.CreateStatic(typeof(PODTypeFactory));
+			fungusTable["factory"] = UserData.CreateStatic(typeof(PODTypeFactory));
 
 			// Lua Environment and Lua Utils components
-			unityTable["luaenvironment"] = luaEnvironment;
-			unityTable["luautils"] = this;
+			fungusTable["luaenvironment"] = luaEnvironment;
+			fungusTable["luautils"] = this;
 
 			// Provide access to the Unity Test Tools (if available).
 			Type testType = Type.GetType("IntegrationTest");
 			if (testType != null)
 			{
 				UserData.RegisterType(testType);
-				unityTable["test"] = UserData.CreateStatic(testType);
+				fungusTable["test"] = UserData.CreateStatic(testType);
 			}
 
 			// Example of how to register an enum
@@ -175,10 +177,10 @@ namespace Fungus
                     if (stringTableRes.Type == DataType.Table)
                     {
                         stringTableCached = stringTableRes.Table;
-						Table unityTable = interpreter.Globals.Get("unity").Table;
-						if (unityTable != null)
+						Table fungusTable = interpreter.Globals.Get("_fungus").Table;
+						if (fungusTable != null)
 						{
-							unityTable["stringtable"] = stringTableCached;
+							fungusTable["stringtable"] = stringTableCached;
 						}
                     }
                 }

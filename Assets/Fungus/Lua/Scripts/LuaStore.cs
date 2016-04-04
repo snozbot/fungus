@@ -82,14 +82,14 @@ namespace Fungus
 				return;
 			}
 
-			Table unityTable = globals.Get("unity").Table;
-			if (unityTable == null)
+			Table fungusTable = globals.Get("_fungus").Table;
+			if (fungusTable == null)
 			{
-				Debug.LogError("Unity table not found");
+				Debug.LogError("_fungus table not found");
 				return;
 			}
 
-			unityTable["store"] = primeTable;
+			fungusTable["store"] = primeTable;
 		}
 	}
 
