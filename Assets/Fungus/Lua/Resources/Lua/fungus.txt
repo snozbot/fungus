@@ -161,13 +161,22 @@ function M.setsaydialog(saydialog)
 	M.sayoptions.saydialog = saydialog
 end
 
+-- Gets the active say dialog, or creates one if none exists yet
+function M.getsaydialog()
+	if (M.sayoptions.saydialog == nil) then
+		local sd = unity.luautils.spawn("SayDialog").GetComponent("SayDialog")
+		M.setsaydialog(sd)
+	end
+	return M.sayoptions.saydialog
+end
+
 -- Set the active character on the Say Dialog
 -- character: A Fungus.Character component
 -- portrait: The name of a sprite in the character's portrait list
 function M.setcharacter(character, portrait)
 	assert(character, "character must not be nil")
-	assert(M.sayoptions.saydialog, "saydialog must not be nil")
-	M.sayoptions.saydialog.SetCharacter(character)
+	local sd = M.getsaydialog()
+	sd.SetCharacter(character)
 
 	-- Do substitution on character name
 	local subbed = fungus.sub(character.nameText)
@@ -192,11 +201,11 @@ end
 -- text: A string to write to the say dialog
 -- voice: A voiceover audioclip to play
 function M.say(text, voiceclip)
-   assert(M.sayoptions.saydialog, "saydialog must not be nil")
+   local sd = M.getsaydialog()
 
    -- Do variable substitution before displaying text
    local subbed = fungus.sub(text)
-   local e = M.sayoptions.saydialog.SayInternal(subbed, M.sayoptions.clearprevious, M.sayoptions.waitforinput, M.sayoptions.fadewhendone, M.sayoptions.stopvoiceover, voiceclip)
+   local e = sd.SayInternal(subbed, M.sayoptions.clearprevious, M.sayoptions.waitforinput, M.sayoptions.fadewhendone, M.sayoptions.stopvoiceover, voiceclip)
 
    fungus.runwait(e)
 end
@@ -213,24 +222,34 @@ function M.setmenudialog(menudialog)
 	M.menuoptions.menudialog = menudialog
 end
 
+-- Gets the active menu dialog, or creates one if none exists yet
+function M.getmenudialog()
+	if (M.menuoptions.menudialog == nil) then
+		local md = unity.luautils.spawn("MenuDialog").GetComponent("MenuDialog")
+		M.setmenudialog(md)
+	end
+	return M.menuoptions.menudialog
+end
+
 -- Display a menu button
 -- text: text to display on the button
 -- callback: function to call when this option is selected
 -- interactive (optional): if false, displays the option as disabled
 function M.menu(text, callback, interactive)
-	assert(M.menuoptions.menudialog, "menudialog must not be nil")
+	local md = M.getmenudialog()
 
 	-- Do variable substitution before displaying text
 	local subbed = fungus.sub(text)
-	M.menuoptions.menudialog.AddOption(subbed, interactive or true, unity.luaenvironment, callback)
+	md.AddOption(subbed, interactive or true, unity.luaenvironment, callback)
 end
 
 -- Display a timer during which the player has to choose an option.
 -- duration: The length of time to display the timer.
 -- callback: Function to call if the timer expires before an option is selected.
 function M.menutimer(duration, callback)
-	assert(M.menuoptions.menudialog, "menudialog must not be nil")
-	local e = M.menuoptions.menudialog.ShowTimer(duration, unity.luaenvironment, callback)
+	local md = M.getmenudialog()
+
+	local e = md.ShowTimer(duration, unity.luaenvironment, callback)
 	fungus.runwait(e)
 end
 
