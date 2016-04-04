@@ -302,6 +302,46 @@ namespace Fungus
             }
         }
 
+		/// <summary>
+		/// Find a game object by name and returns it.
+		/// </summary>
+		public virtual GameObject Find(string name)
+		{
+			return GameObject.Find(name);
+		}
+
+		/// <summary>
+		/// Returns one active GameObject tagged tag. Returns null if no GameObject was found.
+		/// </summary>
+		public virtual GameObject FindWithTag(string tag)
+		{
+			return GameObject.FindGameObjectWithTag(tag);
+		}
+
+		/// <summary>
+		/// Returns a list of active GameObjects tagged tag. Returns empty array if no GameObject was found.
+		/// </summary>
+		public virtual GameObject[] FindGameObjectsWithTag(string tag)
+		{
+			return GameObject.FindGameObjectsWithTag(tag);
+		}
+			
+		/// <summary>
+		/// Create a copy of a GameObject.
+		/// Can be used to instantiate prefabs.
+		/// </summary>
+		public virtual GameObject Instantiate(GameObject go)
+		{
+			return GameObject.Instantiate(go);
+		}
+
+		/// <summary>
+		/// Destroys an instance of a GameObject.
+		/// </summary>
+		public virtual void Destroy(GameObject go)
+		{
+			GameObject.Destroy(go);
+		}
    }
 
 }
