@@ -134,8 +134,15 @@ end
 -- Fungus Prefs
 ---------------
 
--- Handy short alias to the real prefs object
+-- Handy alias to the real prefs object
 M.prefs = unity.prefs
+
+---------------
+-- Lua Store
+---------------
+
+-- Handy alias to the real store object
+M.store = unity.store
 
 -------------
 -- Say Dialog
