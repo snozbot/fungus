@@ -3,6 +3,15 @@ local inspect = require('inspect')
 -- Utility functions for working with Lua in Fungus
 local M = {}
 
+-- Merge everything in the temp _fungus table into this module
+local function mergefungustable()
+	for k,v in pairs(_fungus) do
+		M[k] = v
+	end
+	_fungus = nil
+end
+mergefungustable()
+
 ------------
 -- Debugging
 ------------
@@ -18,17 +27,17 @@ end
 -- Returns the absolute time
 -- Use this timing function to work correctly with the Lua Environment's timeScale property
 function M.gettime()
-	return unity.luautils.getTime()
+	return fungus.luautils.getTime()
 end
 
 -- Returns the delta time this frame
 -- Use this timing function to work correctly with the Lua Environment's timeScale property
 function M.getdeltatime()
-	return unity.luautils.getDeltaTime()
+	return fungus.luautils.getDeltaTime()
 end
 
 function M.settimescale(s)
-	unity.luautils.timeScale = s
+	fungus.luautils.timeScale = s
 end
 
 -------------
@@ -61,7 +70,7 @@ end
 function M.run(enumerator)
 	-- If the parameter isn't an enumerator then CreateTask will fail
 	local status, err = pcall( function() 
-		local task = unity.luaenvironment.RunUnityCoroutine(enumerator)
+		local task = fungus.luaenvironment.RunUnityCoroutine(enumerator)
 	end)
 
 	if (not status) then
@@ -74,7 +83,7 @@ end
 function M.runwait(enumerator)
 	-- If the parameter isn't an enumerator then CreateTask will fail
 	local status, err = pcall( function() 
-		local task = unity.luaenvironment.RunUnityCoroutine(enumerator)
+		local task = fungus.luaenvironment.RunUnityCoroutine(enumerator)
 		while (task != nil and task.Running) do
     		coroutine.yield();
 		end
@@ -92,18 +101,18 @@ end
 
 -- Set active language for string table
 function M.setlanguage(languagecode)
-	unity.luautils.activeLanguage = languagecode
+	fungus.luautils.activeLanguage = languagecode
 end
 
 -- Get a named string from the string table
 function M.getstring(key)
-	return unity.luautils.GetString(key)
+	return fungus.luautils.GetString(key)
 end
 
 -- Substitutes variables and localisation strings into a piece of text
 -- e.g. v = 10, "Subbed value is [$v]" => "Subbed value is 10"
 function M.sub(text)
-	return unity.luautils.substitute(text)
+	return fungus.luautils.substitute(text)
 end
 
 --------------------
@@ -116,33 +125,19 @@ function M.assert(c, reason)
 		-- Output a traceback to help track down source
 		error( debug.traceback("Assert failed", 2) )
 	end
-	unity.test.assert(c, reason)
+	fungus.test.assert(c, reason)
 end
 
 -- Pass an integration test (requires Unity Test Tools)
 function M.pass()
-	unity.test.pass()
+	fungus.test.pass()
 end
 
 -- Fail an integration test (requires Unity Test Tools)
 function M.fail(reason)
 	error( debug.traceback("Test failed", 2) )
-	unity.test.fail(reason)
+	fungus.test.fail(reason)
 end
-
----------------
--- Fungus Prefs
----------------
-
--- Handy alias to the real prefs object
-M.prefs = unity.prefs
-
----------------
--- Lua Store
----------------
-
--- Handy alias to the real store object
-M.store = unity.store
 
 -------------
 -- Say Dialog
@@ -164,7 +159,7 @@ end
 -- Gets the active say dialog, or creates one if none exists yet
 function M.getsaydialog()
 	if (M.sayoptions.saydialog == nil) then
-		local sd = unity.luautils.spawn("SayDialog").GetComponent("SayDialog")
+		local sd = fungus.luautils.spawn("SayDialog").GetComponent("SayDialog")
 		M.setsaydialog(sd)
 	end
 	return M.sayoptions.saydialog
@@ -225,7 +220,7 @@ end
 -- Gets the active menu dialog, or creates one if none exists yet
 function M.getmenudialog()
 	if (M.menuoptions.menudialog == nil) then
-		local md = unity.luautils.spawn("MenuDialog").GetComponent("MenuDialog")
+		local md = fungus.luautils.spawn("MenuDialog").GetComponent("MenuDialog")
 		M.setmenudialog(md)
 	end
 	return M.menuoptions.menudialog
@@ -240,7 +235,7 @@ function M.menu(text, callback, interactive)
 
 	-- Do variable substitution before displaying text
 	local subbed = fungus.sub(text)
-	md.AddOption(subbed, interactive or true, unity.luaenvironment, callback)
+	md.AddOption(subbed, interactive or true, fungus.luaenvironment, callback)
 end
 
 -- Display a timer during which the player has to choose an option.
@@ -249,7 +244,7 @@ end
 function M.menutimer(duration, callback)
 	local md = M.getmenudialog()
 
-	local e = md.ShowTimer(duration, unity.luaenvironment, callback)
+	local e = md.ShowTimer(duration, fungus.luaenvironment, callback)
 	fungus.runwait(e)
 end
 

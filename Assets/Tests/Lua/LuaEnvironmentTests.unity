@@ -961,7 +961,7 @@ MonoBehaviour:
 
     local t = 0
 
-    local timer = unity.time.time
+    local timer = fungus.time.time
 
 
     -- Wait with timeScale = -1
@@ -994,7 +994,7 @@ MonoBehaviour:
 
     -- The real elapsed time should be 3 seconds
 
-    elapsed = (unity.time.time - timer)
+    elapsed = (fungus.time.time - timer)
 
     assert(elapsed >= 3)
 
@@ -1622,14 +1622,16 @@ MonoBehaviour:
   luaFile: {fileID: 0}
   luaScript: '-- Test string table localisation system
 
-    fungus.assert(unity.stringtable != nil)
+    print (fungus.stringtable)
+
+    fungus.assert(fungus.stringtable != nil)
 
 
     -- Check string table loaded ok
 
-    fungus.assert(unity.stringtable.hello.en == "Hi there")
+    fungus.assert(fungus.stringtable.hello.en == "Hi there")
 
-    fungus.assert(unity.stringtable.hello.fr == "Bonjour")
+    fungus.assert(fungus.stringtable.hello.fr == "Bonjour")
 
 
     -- Check getstring()
@@ -1718,9 +1720,9 @@ MonoBehaviour:
   luaFile: {fileID: 0}
   luaScript: '-- Test if object binding works
 
-    unity.test.assert (dummy != nil)
+    fungus.assert (dummy != nil)
 
-    unity.test.pass()
+    fungus.pass()
 
 '
   runAsCoroutine: 1
@@ -1769,7 +1771,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlock: {fileID: 1828947834}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 1828947833}
   variables: []
   description: "Check if the LuaStore prime table is created \nand registered as fungus.store,
     and if we can write and read values to it."
@@ -2014,12 +2017,12 @@ MonoBehaviour:
   luaScript: '-- Test GameObject methods like find, instantiate, spawn, etc.
 
 
-    testgo = unity.luautils.find("TestGameObject")
+    testgo = fungus.luautils.find("TestGameObject")
 
     fungus.assert(testgo != null)
 
 
-    go = unity.luautils.instantiate(testgo)
+    go = fungus.luautils.instantiate(testgo)
 
     fungus.assert(go != null)
 
@@ -2029,17 +2032,17 @@ MonoBehaviour:
     fungus.assert(go.name == "fred")
 
 
-    unity.luautils.destroy(go)
+    fungus.luautils.destroy(go)
 
 
     -- Spawn an object from a prefab in a Resources folder
 
-    saydialog = unity.luautils.spawn("SayDialog")
+    saydialog = fungus.luautils.spawn("SayDialog")
 
     fungus.assert(saydialog != nil)
 
 
-    unity.luautils.destroy(saydialog)
+    fungus.luautils.destroy(saydialog)
 
 
     fungus.pass()'
@@ -2106,6 +2109,10 @@ Prefab:
     m_TransformParent: {fileID: 1960220032}
     m_Modifications:
     - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+      propertyPath: boundTypes.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
       propertyPath: boundObjects.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2148,6 +2155,51 @@ Prefab:
     - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
       propertyPath: boundObjects.Array.data[0].key
       value: dummy
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+      propertyPath: boundTypes.Array.data[0]
+      value: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+      propertyPath: boundTypes.Array.data[1]
+      value: UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+      propertyPath: boundTypes.Array.data[2]
+      value: UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+      propertyPath: boundTypes.Array.data[3]
+      value: System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+      propertyPath: boundTypes.Array.data[4]
+      value: System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+      propertyPath: boundTypes.Array.data[5]
+      value: System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+      propertyPath: boundTypes.Array.data[6]
+      value: UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+      propertyPath: boundTypes.Array.data[7]
+      value: UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+      propertyPath: boundTypes.Array.data[8]
+      value: UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+      propertyPath: boundTypes.Array.data[9]
+      value: System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}

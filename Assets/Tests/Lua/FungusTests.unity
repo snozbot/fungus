@@ -4403,10 +4403,10 @@ MonoBehaviour:
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "-- Test Say creating a SayDialog when none already exists\n\nfungus.sayoptions.waitforinput
-    = false\nfungus.say(\"test\")\n\ngo = unity.luautils.find(\"SayDialog\")\nfungus.assert(go
+    = false\nfungus.say(\"test\")\n\ngo = fungus.luautils.find(\"SayDialog\")\nfungus.assert(go
     != nil)\n\n-- Test Menu creating a MenuDialog when none already exists\nfunction
     choose_a()\n   fungus.pass()\nend\n\nfungus.menu(\"Option A\",  choose_a)\n\nlocal
-    go = unity.luautils.find(\"OptionButton0\")\nfungus.assert(go != nil)\n\nlocal
+    go = fungus.luautils.find(\"OptionButton0\")\nfungus.assert(go != nil)\n\nlocal
     button = go.GetComponent(\"Button\")\nfungus.assert(button != nil)\n\nbutton.onClick.Invoke()"
   runAsCoroutine: 1
   useFungusModule: 1
@@ -5408,7 +5408,7 @@ MonoBehaviour:
     height: 859
   selectedBlock: {fileID: 942227027}
   selectedCommands:
-  - {fileID: 942227025}
+  - {fileID: 942227053}
   variables:
   - {fileID: 942227029}
   - {fileID: 942227035}
@@ -5575,7 +5575,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
-  luaScript: 'local c = unity.factory.color(1, 0.5, 1, 1)
+  luaScript: 'local c = fungus.factory.color(1, 0.5, 1, 1)
 
 
     return c'
@@ -5748,7 +5748,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
-  luaScript: 'local v = unity.factory.vector2(1,1)
+  luaScript: 'local v = fungus.factory.vector2(1,1)
 
 
     return v'
@@ -5819,7 +5819,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
-  luaScript: 'local v = unity.factory.vector3(1,1,1)
+  luaScript: 'local v = fungus.factory.vector3(1,1,1)
 
     return v'
   useFungusModule: 1
@@ -7630,7 +7630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1641285457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8827,7 +8827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 56584893}
+  selectedFlowchart: {fileID: 942227028}
 --- !u!4 &1791050794
 Transform:
   m_ObjectHideFlags: 1
@@ -9329,7 +9329,7 @@ MonoBehaviour:
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.9729984
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -9337,8 +9337,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlock: {fileID: 1983492494}
-  selectedCommands:
-  - {fileID: 1983492498}
+  selectedCommands: []
   variables:
   - {fileID: 1983492492}
   - {fileID: 1983492497}
