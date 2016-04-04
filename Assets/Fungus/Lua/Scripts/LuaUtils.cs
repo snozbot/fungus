@@ -76,8 +76,8 @@ namespace Fungus
 			}
 
 			InitTypes();
-			InitBindings();
             InitCustomObjects();
+			InitBindings();
 			InitStringTable();
         }
 
