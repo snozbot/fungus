@@ -1369,7 +1369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1532103953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,14 +1622,14 @@ MonoBehaviour:
   luaFile: {fileID: 0}
   luaScript: '-- Test string table localisation system
 
-    fungus.assert(stringtable != nil)
+    fungus.assert(unity.stringtable != nil)
 
 
     -- Check string table loaded ok
 
-    fungus.assert(stringtable.hello.en == "Hi there")
+    fungus.assert(unity.stringtable.hello.en == "Hi there")
 
-    fungus.assert(stringtable.hello.fr == "Bonjour")
+    fungus.assert(unity.stringtable.hello.fr == "Bonjour")
 
 
     -- Check getstring()

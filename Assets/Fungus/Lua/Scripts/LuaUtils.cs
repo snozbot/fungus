@@ -175,7 +175,11 @@ namespace Fungus
                     if (stringTableRes.Type == DataType.Table)
                     {
                         stringTableCached = stringTableRes.Table;
-                        interpreter.Globals["stringtable"] = stringTableCached;
+						Table unityTable = interpreter.Globals.Get("unity").Table;
+						if (unityTable != null)
+						{
+							unityTable["stringtable"] = stringTableCached;
+						}
                     }
                 }
                 catch (ScriptRuntimeException ex)
