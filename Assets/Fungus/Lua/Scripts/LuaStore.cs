@@ -90,6 +90,12 @@ namespace Fungus
 			}
 
 			fungusTable["store"] = primeTable;
+
+			// If we're using the fungus module in globals mode then add the store to globals as well.
+			if (globals.Get("luaenvironment") != DynValue.Nil)
+			{
+				globals["store"] = primeTable;
+			}
 		}
 	}
 

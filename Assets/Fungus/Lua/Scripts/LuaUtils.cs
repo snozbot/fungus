@@ -15,12 +15,19 @@ namespace Fungus
 
 	public class LuaUtils : LuaEnvironment.Initializer, StringSubstituter.ISubstitutionHandler
     {
+		public enum FungusModuleOptions
+		{
+			UseGlobalVariables,	// Fungus helper items will be available as global variables.
+			UseFungusVariable,	// Fungus helper items will be available in the 'fungus' global variable.
+			NoFungusModule		// The fungus helper module will not be loaded.
+		}
+
 		/// <summary>
-		/// Create an instance of the 'fungus' utility Lua module.
-		/// This module provides useful utilities that can be accessed via the 'fungus' global table.
+		/// Controls if the fungus utilities are accessed from globals (e.g. say) or via a fungus variable (e.g. fungus.say)"
+		/// You can also choose to disable loading the fungus module if it's not required by your script.
 		/// </summary>
-		[Tooltip("Create an instance of the 'fungus' utility Lua module.")]
-		public bool useFungusModule = true;
+		[Tooltip("Controls if the fungus utilities are accessed from globals (e.g. say) or via a fungus variable (e.g. fungus.say)")]
+		public FungusModuleOptions fungusModule = FungusModuleOptions.UseGlobalVariables;
 
         /// <summary>
         /// Lua script file which defines the global string table used for localisation.
@@ -139,7 +146,7 @@ namespace Fungus
 		/// </summary>
 		protected virtual void InitFungusModule()
 		{
-			if (!useFungusModule)
+			if (fungusModule == FungusModuleOptions.NoFungusModule)
 			{
 				return;
 			}
@@ -178,9 +185,23 @@ namespace Fungus
 				fungusTable["test"] = UserData.CreateStatic(testType);
 			}
 
-			// Example of how to register an enum
-			// UserData.RegisterType<MyClass.MyEnum>();
-			// interpreter.Globals.Set("MyEnum", UserData.CreateStatic<MyClass.MyEnum>());
+			if (fungusModule == FungusModuleOptions.UseGlobalVariables)
+			{				
+				// Copy all items from the Fungus table to global variables
+				foreach (TablePair p in fungusTable.Pairs)
+				{
+					if (interpreter.Globals.Keys.Contains(p.Key))
+					{
+						UnityEngine.Debug.LogError("Lua globals already contains a variable " + p.Key);
+					}
+					else
+					{
+						interpreter.Globals[p.Key] = p.Value;
+					}
+				}
+
+				// Note: We can't remove the fungus table itself because of dependencies between functions
+			}
 		}
 
         /// <summary>

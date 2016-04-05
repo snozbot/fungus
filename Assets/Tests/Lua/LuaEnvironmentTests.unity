@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &47556548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +177,7 @@ Transform:
   - {fileID: 385045793}
   - {fileID: 1309386183}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
 --- !u!1 &113453955
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,17 +228,17 @@ MonoBehaviour:
   executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: 'fungus.assert(dummycollection.stringList[1] == "hi")
+  luaScript: 'check(dummycollection.stringList[1] == "hi")
 
-    fungus.assert(dummycollection.stringList[2] == "there")
-
-
-    fungus.assert(dummycollection.spriteList[1].name == "angry")
-
-    fungus.assert(dummycollection.spriteList[2].name == "annoyed")
+    check(dummycollection.stringList[2] == "there")
 
 
-    fungus.pass()
+    check(dummycollection.spriteList[1].name == "angry")
+
+    check(dummycollection.spriteList[2].name == "annoyed")
+
+
+    pass()
 
 '
   runAsCoroutine: 1
@@ -409,10 +409,9 @@ MonoBehaviour:
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "-- Test the timeout works in fungus.waitfor\nlocal value = false\n\nfunction
-    fn()\n   return value\nend\n\nt = fungus.gettime()\nfungus.waitfor(fn, 1)\nfungus.assert
-    (fungus.gettime() - t >= 1)\n\n-- Test fungus.waitfor() exits if the function
-    returns true\n-- If this doesn't work the test will timeout and fail\nvalue =
-    true\nfungus.waitfor(fn, 1)\n\nfungus.pass()"
+    fn()\n   return value\nend\n\nt = gettime()\nwaitfor(fn, 1)\ncheck(gettime() -
+    t >= 1)\n\n-- Test fungus.waitfor() exits if the function returns true\n-- If
+    this doesn't work the test will timeout and fail\nvalue = true\nwaitfor(fn, 1)\n\npass()"
   runAsCoroutine: 1
 --- !u!1001 &364012152
 Prefab:
@@ -554,7 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useFungusModule: 1
+  fungusModule: 0
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
@@ -717,20 +716,20 @@ MonoBehaviour:
   luaFile: {fileID: 0}
   luaScript: '-- Test storing persistant data
 
-    fungus.prefs.DeleteAll()
+    prefs.DeleteAll()
 
-    fungus.prefs.SetFloat(0, "speed", 10)
-
-
-    local speed = fungus.prefs.GetFloat(0, "speed")
-
-    fungus.prefs.DeleteAll()
+    prefs.SetFloat(0, "speed", 10)
 
 
-    fungus.assert(speed == 10)
+    local speed = prefs.GetFloat(0, "speed")
+
+    prefs.DeleteAll()
 
 
-    fungus.pass()
+    check(speed == 10)
+
+
+    pass()
 
 
 '
@@ -785,7 +784,7 @@ Transform:
   - {fileID: 2093904138}
   - {fileID: 681659774}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
 --- !u!1 &804588883
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,7 +851,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 1
 --- !u!1001 &1073733979
 Prefab:
   m_ObjectHideFlags: 0
@@ -966,38 +965,38 @@ MonoBehaviour:
 
     -- Should take 1 second in realtime to wait for 1 second
 
-    t = fungus.gettime()
+    t = gettime()
 
-    fungus.wait(1)
+    wait(1)
 
-    t = fungus.gettime() - t
+    t = gettime() - t
 
-    fungus.assert(t >= 1)
+    check(t >= 1)
 
 
     -- Wait with timeScale = 0.5
 
     -- Should take 2 seconds in realtime to wait for 1 second
 
-    fungus.settimescale(0.5)
+    settimescale(0.5)
 
-    t = fungus.gettime()
+    t = gettime()
 
-    fungus.wait(1)
+    wait(1)
 
-    t = fungus.gettime() - t
+    t = gettime() - t
 
-    fungus.assert(t >= 1)
+    check(t >= 1)
 
 
     -- The real elapsed time should be 3 seconds
 
-    elapsed = (fungus.time.time - timer)
+    elapsed = (time.time - timer)
 
-    assert(elapsed >= 3)
+    check(elapsed >= 3)
 
 
-    fungus.pass()'
+    pass()'
   runAsCoroutine: 1
 --- !u!4 &1167396341 stripped
 Transform:
@@ -1153,7 +1152,9 @@ MonoBehaviour:
 
     local f = require(''fungus'')
 
-    f.pass()'
+    check(f.say != nil)
+
+    pass()'
   runAsCoroutine: 1
 --- !u!1 &1394431693
 GameObject:
@@ -1282,7 +1283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useFungusModule: 1
+  fungusModule: 0
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
@@ -1366,7 +1367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1532103953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1401,7 +1402,7 @@ Transform:
   - {fileID: 1855619326}
   - {fileID: 1738134228}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
 --- !u!1 &1537199680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,7 +1568,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 2
 --- !u!1 &1738134227
 GameObject:
   m_ObjectHideFlags: 0
@@ -1619,21 +1620,21 @@ MonoBehaviour:
   luaFile: {fileID: 0}
   luaScript: '-- Test string table localisation system
 
-    fungus.assert(fungus.stringtable != nil)
+    check(fungus.stringtable != nil)
 
 
     -- Check string table loaded ok
 
-    fungus.assert(fungus.stringtable.hello.en == "Hi there")
+    check(fungus.stringtable.hello.en == "Hi there")
 
-    fungus.assert(fungus.stringtable.hello.fr == "Bonjour")
+    check(fungus.stringtable.hello.fr == "Bonjour")
 
 
     -- Check getstring()
 
     local g = fungus.getstring("hello")
 
-    fungus.assert(g == "Hi there")
+    check(g == "Hi there")
 
 
     -- Test substituting a global value
@@ -1642,26 +1643,26 @@ MonoBehaviour:
 
     local s = fungus.sub("should be {$t}")
 
-    fungus.assert(s == "should be 3")
+    check(s == "should be 3")
 
 
     -- Test substituting a string table value (en)
 
     s = fungus.sub("say {$hello}")
 
-    fungus.assert(s == "say Hi there")
+    check(s == "say Hi there")
 
 
     -- Test substituting a string table value (fr)
 
-    fungus.setlanguage("fr")
+    setlanguage("fr")
 
-    s = fungus.sub("say {$hello}")
+    s = sub("say {$hello}")
 
-    fungus.assert(s == "say Bonjour")
+    check(s == "say Bonjour")
 
 
-    fungus.pass()'
+    pass()'
   runAsCoroutine: 1
 --- !u!1 &1818482578
 GameObject:
@@ -1714,9 +1715,9 @@ MonoBehaviour:
   luaFile: {fileID: 0}
   luaScript: '-- Test if object binding works
 
-    fungus.assert (dummy != nil)
+    assert (dummy != nil)
 
-    fungus.pass()
+    pass()
 
 '
   runAsCoroutine: 1
@@ -1756,7 +1757,7 @@ MonoBehaviour:
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.983999
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -1791,13 +1792,13 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
-  luaScript: 'fungus.store.test = "ok"
+  luaScript: 'store.test = "ok"
 
 
-    fungus.assert(fungus.store.test == "ok")
+    check(store.test == "ok")
 
 
-    fungus.pass()'
+    pass()'
   runAsCoroutine: 1
   waitUntilFinished: 1
   returnVariable: {fileID: 0}
@@ -1955,7 +1956,7 @@ Transform:
   - {fileID: 364012153}
   - {fileID: 1124932172}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
 --- !u!1 &1932132173
 GameObject:
   m_ObjectHideFlags: 0
@@ -2009,35 +2010,35 @@ MonoBehaviour:
   luaScript: '-- Test GameObject methods like find, instantiate, spawn, etc.
 
 
-    testgo = fungus.luautils.find("TestGameObject")
+    testgo = luautils.find("TestGameObject")
 
-    fungus.assert(testgo != null)
+    check(testgo != null)
 
 
-    go = fungus.luautils.instantiate(testgo)
+    go = luautils.instantiate(testgo)
 
-    fungus.assert(go != null)
+    check(go != null)
 
 
     go.name = "fred"
 
-    fungus.assert(go.name == "fred")
+    check(go.name == "fred")
 
 
-    fungus.luautils.destroy(go)
+    luautils.destroy(go)
 
 
     -- Spawn an object from a prefab in a Resources folder
 
-    saydialog = fungus.luautils.spawn("SayDialog")
+    saydialog = luautils.spawn("SayDialog")
 
-    fungus.assert(saydialog != nil)
-
-
-    fungus.luautils.destroy(saydialog)
+    check(saydialog != nil)
 
 
-    fungus.pass()'
+    luautils.destroy(saydialog)
+
+
+    pass()'
   runAsCoroutine: 1
 --- !u!1 &1960220030
 GameObject:
@@ -2091,7 +2092,7 @@ Transform:
   - {fileID: 2101848761}
   - {fileID: 1818482579}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
 --- !u!1001 &2076961667
 Prefab:
   m_ObjectHideFlags: 0
