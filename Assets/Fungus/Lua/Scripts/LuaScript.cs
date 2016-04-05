@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
+using MoonSharp.Interpreter;
 using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
@@ -81,12 +82,6 @@ namespace Fungus
         [Tooltip("Run the script as a Lua coroutine so execution can be yielded for asynchronous operations.")]
         public bool runAsCoroutine = true;
 
-        /// <summary>
-        /// Require the fungus Lua module at the start of the script. Equivalent to 'local fungus = require('fungus')
-        /// </summary>
-        [Tooltip("Require the fungus Lua module at the start of the script. Equivalent to 'local fungus = require('fungus')")]
-        public bool useFungusModule = true;
-
         private int m_ExecuteOnFrame;
 
         protected string friendlyName = "";
@@ -114,6 +109,9 @@ namespace Fungus
 				Debug.LogError("No Lua Environment found");
 				return;
 			}
+
+			// Ensure the LuaEnvironment is initialized before trying to execute code
+			luaEnvironment.InitEnvironment();
 					                
             // Cache a descriptive name to use in Lua error messages
             friendlyName = GetPath(transform) + ".LuaScript";
@@ -297,19 +295,17 @@ namespace Fungus
             }
             else
             {
+				// Ensure the Lua Environment is initialised first.
+				luaEnvironment.InitEnvironment();
+
                 string s = "";
-                if (useFungusModule)
-                {
-                    s = "fungus = require('fungus')\n";
-                }
- 
                 if (luaFile != null)
                 {
-                    s += luaFile.text;
+                    s = luaFile.text;
                 }
                 else if (luaScript.Length > 0)
                 {
-                    s += luaScript;
+                    s = luaScript;
                 }
 
                 luaEnvironment.DoLuaString(s, friendlyName, runAsCoroutine);

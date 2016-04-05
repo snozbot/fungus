@@ -15,6 +15,13 @@ namespace Fungus
 
 	public class LuaUtils : LuaEnvironment.Initializer, StringSubstituter.ISubstitutionHandler
     {
+		/// <summary>
+		/// Create an instance of the 'fungus' utility Lua module.
+		/// This module provides useful utilities that can be accessed via the 'fungus' global table.
+		/// </summary>
+		[Tooltip("Create an instance of the 'fungus' utility Lua module.")]
+		public bool useFungusModule = true;
+
         /// <summary>
         /// Lua script file which defines the global string table used for localisation.
         /// </summary>
@@ -78,7 +85,7 @@ namespace Fungus
 			}
 
 			InitTypes();
-            InitCustomObjects();
+            InitFungusModule();
 			InitBindings();
 			InitStringTable();
         }
@@ -130,21 +137,33 @@ namespace Fungus
 		/// To register more class objects externally to this class, register them in the Awake method of any 
 		/// monobehavior in your scene.
 		/// </summary>
-		protected virtual void InitCustomObjects()
+		protected virtual void InitFungusModule()
 		{
+			if (!useFungusModule)
+			{
+				return;
+			}
+
 			MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
 
-			// Add the CLR class objects to a temp unity table called _fungus.
-			// When the fungus module is required, all the entries from _fungus are copied over.
-
-			Table fungusTable = new Table(interpreter);
-			interpreter.Globals["_fungus"] = fungusTable;
+			// Require the Fungus module and assign it to the global 'fungus'
+			Table fungusTable = null;
+			MoonSharp.Interpreter.DynValue value = interpreter.RequireModule("fungus");
+			if (value != null &&
+				value.Type == DataType.Function)
+			{
+				fungusTable = value.Function.Call().Table;
+			}
+			if (fungusTable == null)
+			{
+				UnityEngine.Debug.LogError("Failed to create Fungus table");
+				return;
+			}
+			interpreter.Globals["fungus"] = fungusTable;
 
 			// Static classes
 			fungusTable["time"] = UserData.CreateStatic(typeof(Time));
 			fungusTable["prefs"] = UserData.CreateStatic(typeof(FungusPrefs));
-
-			UserData.RegisterType(typeof(PODTypeFactory));
 			fungusTable["factory"] = UserData.CreateStatic(typeof(PODTypeFactory));
 
 			// Lua Environment and Lua Utils components
@@ -179,7 +198,7 @@ namespace Fungus
                     if (stringTableRes.Type == DataType.Table)
                     {
                         stringTableCached = stringTableRes.Table;
-						Table fungusTable = interpreter.Globals.Get("_fungus").Table;
+						Table fungusTable = interpreter.Globals.Get("fungus").Table;
 						if (fungusTable != null)
 						{
 							fungusTable["stringtable"] = stringTableCached;
@@ -230,8 +249,19 @@ namespace Fungus
 		[MoonSharpHidden]
 		public virtual string SubstituteStrings(string input)
         {
+			// This method could be called from the Start of another component, so
+			// we need to ensure that the LuaEnvironment has been initialized.
 			if (luaEnvironment == null)
 			{
+				luaEnvironment = GetComponent<LuaEnvironment>();
+				if (luaEnvironment != null)
+				{
+					luaEnvironment.InitEnvironment();
+				}
+			}
+					
+			if (luaEnvironment == null)
+				{
 				UnityEngine.Debug.LogError("No Lua Environment found");
 				return input;
 			}

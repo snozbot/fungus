@@ -242,7 +242,6 @@ MonoBehaviour:
 
 '
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!4 &236999594 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -415,7 +414,6 @@ MonoBehaviour:
     returns true\n-- If this doesn't work the test will timeout and fail\nvalue =
     true\nfungus.waitfor(fn, 1)\n\nfungus.pass()"
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1001 &364012152
 Prefab:
   m_ObjectHideFlags: 0
@@ -556,6 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useFungusModule: 1
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
@@ -736,7 +735,6 @@ MonoBehaviour:
 
 '
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &715881501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,7 +999,6 @@ MonoBehaviour:
 
     fungus.pass()'
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!4 &1167396341 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -1158,7 +1155,6 @@ MonoBehaviour:
 
     f.pass()'
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &1394431693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,6 +1282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useFungusModule: 1
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
@@ -1622,8 +1619,6 @@ MonoBehaviour:
   luaFile: {fileID: 0}
   luaScript: '-- Test string table localisation system
 
-    print (fungus.stringtable)
-
     fungus.assert(fungus.stringtable != nil)
 
 
@@ -1645,14 +1640,14 @@ MonoBehaviour:
 
     t = 3
 
-    local s = fungus.sub("should be [$t]")
+    local s = fungus.sub("should be {$t}")
 
     fungus.assert(s == "should be 3")
 
 
     -- Test substituting a string table value (en)
 
-    s = fungus.sub("say [$hello]")
+    s = fungus.sub("say {$hello}")
 
     fungus.assert(s == "say Hi there")
 
@@ -1661,14 +1656,13 @@ MonoBehaviour:
 
     fungus.setlanguage("fr")
 
-    s = fungus.sub("say [$hello]")
+    s = fungus.sub("say {$hello}")
 
     fungus.assert(s == "say Bonjour")
 
 
     fungus.pass()'
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &1818482578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,7 +1720,6 @@ MonoBehaviour:
 
 '
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &1828947831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,7 +1798,6 @@ MonoBehaviour:
 
 
     fungus.pass()'
-  useFungusModule: 1
   runAsCoroutine: 1
   waitUntilFinished: 1
   returnVariable: {fileID: 0}
@@ -2047,7 +2039,6 @@ MonoBehaviour:
 
     fungus.pass()'
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &1960220030
 GameObject:
   m_ObjectHideFlags: 0

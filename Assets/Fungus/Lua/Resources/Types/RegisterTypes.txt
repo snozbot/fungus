@@ -26,6 +26,7 @@ Fungus.Label
 Fungus.MaterialVariable
 Fungus.MenuDialog
 Fungus.ObjectVariable
+Fungus.PODTypeFactory
 Fungus.PortraitState
 Fungus.SayDialog
 Fungus.SpriteVariable
