@@ -3,15 +3,6 @@ local inspect = require('inspect')
 -- Utility functions for working with Lua in Fungus
 local M = {}
 
--- Merge everything in the temp _fungus table into this module
-local function mergefungustable()
-	for k,v in pairs(_fungus) do
-		M[k] = v
-	end
-	_fungus = nil
-end
-mergefungustable()
-
 ------------
 -- Debugging
 ------------

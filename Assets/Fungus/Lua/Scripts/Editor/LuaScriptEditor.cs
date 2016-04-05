@@ -28,7 +28,6 @@ namespace Fungus
         protected SerializedProperty runAsCoroutineProp;
         protected SerializedProperty luaFileProp;
         protected SerializedProperty luaScriptProp;
-        protected SerializedProperty useFungusModuleProp;
 
         protected List<TextAsset> luaFiles = new List<TextAsset>();
 
@@ -46,7 +45,6 @@ namespace Fungus
             runAsCoroutineProp = serializedObject.FindProperty("runAsCoroutine");
             luaFileProp = serializedObject.FindProperty("luaFile");
             luaScriptProp = serializedObject.FindProperty("luaScript");
-            useFungusModuleProp = serializedObject.FindProperty("useFungusModule");
 
             // Make a note of all Lua files in the project resources
             object[] result = Resources.LoadAll("Lua", typeof(TextAsset));
@@ -105,7 +103,6 @@ namespace Fungus
 
             EditorGUILayout.PropertyField(luaEnvironmentProp);
             EditorGUILayout.PropertyField(runAsCoroutineProp);
-            EditorGUILayout.PropertyField(useFungusModuleProp);
 
             int selected = 0;
             List<GUIContent> options = new List<GUIContent>();

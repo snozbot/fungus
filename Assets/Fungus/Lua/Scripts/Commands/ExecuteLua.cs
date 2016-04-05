@@ -18,12 +18,6 @@ namespace Fungus
         [Tooltip("Lua script to execute. Use {$VarName} to insert a Flowchart variable in the Lua script.")]
         public string luaScript;
 
-        /// <summary>
-        /// Require the fungus Lua module at the start of the script. Equivalent to 'local fungus = require('fungus')
-        /// </summary>
-        [Tooltip("Require the fungus Lua module at the start of the script. Equivalent to 'local fungus = require('fungus')")]
-        public bool useFungusModule = true;
-
         [Tooltip("Execute this Lua script as a Lua coroutine")]
         public bool runAsCoroutine = true;
 
@@ -63,13 +57,7 @@ namespace Fungus
                 return;
             }
                 
-            string s = "";
-            if (useFungusModule)
-            {
-                s = "fungus = require('fungus')\n";
-            }
-
-            string subbed = s + GetFlowchart().SubstituteVariables(luaScript);
+            string subbed = GetFlowchart().SubstituteVariables(luaScript);
 
             luaEnvironment.DoLuaString(subbed, friendlyName, runAsCoroutine, (returnValue) => {
                 StoreReturnVariable(returnValue);

@@ -118,13 +118,13 @@ namespace Fungus
 
 		protected virtual void Start() 
         {
-            InitInterpreter();
+            InitEnvironment();
         }
 
         /// <summary>
         /// Initialise the Lua interpreter so we can start running Lua code.
         /// </summary>
-        public virtual void InitInterpreter()
+        public virtual void InitEnvironment()
         {   
             if (initialised)
             {
@@ -212,7 +212,7 @@ namespace Fungus
         /// </summary>
         public void DoLuaString(string luaString, string friendlyName, bool runAsCoroutine, Action<DynValue> onComplete = null)
         {
-            InitInterpreter();
+            InitEnvironment();
 
             // Load the Lua script
             DynValue res = null;

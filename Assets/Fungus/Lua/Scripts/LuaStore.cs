@@ -82,10 +82,10 @@ namespace Fungus
 				return;
 			}
 
-			Table fungusTable = globals.Get("_fungus").Table;
+			Table fungusTable = globals.Get("fungus").Table;
 			if (fungusTable == null)
 			{
-				Debug.LogError("_fungus table not found");
+				Debug.LogError("fungus table not found");
 				return;
 			}
 

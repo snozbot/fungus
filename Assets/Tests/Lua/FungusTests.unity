@@ -822,7 +822,6 @@ MonoBehaviour:
 
 
     fungus.pass()'
-  useFungusModule: 1
   runAsCoroutine: 1
   waitUntilFinished: 1
   returnVariable: {fileID: 0}
@@ -880,7 +879,7 @@ MonoBehaviour:
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.8889934
+  zoom: 0.9199953
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -1229,7 +1228,6 @@ MonoBehaviour:
 
     fungus.pass()'
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1001 &130678264
 Prefab:
   m_ObjectHideFlags: 0
@@ -2275,6 +2273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useFungusModule: 1
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
@@ -2751,7 +2750,6 @@ MonoBehaviour:
 
     fungus.pass()'
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &465829169
 GameObject:
   m_ObjectHideFlags: 0
@@ -3070,7 +3068,6 @@ MonoBehaviour:
     1\", option1)\n\nfungus.assert(optionbutton0.activeSelf)\nfungus.clearmenu()\nfungus.assert(not
     optionbutton0.activeSelf)\n\nfungus.pass()"
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &511430244
 GameObject:
   m_ObjectHideFlags: 0
@@ -3127,7 +3124,6 @@ MonoBehaviour:
     menu option with a timer\nfungus.menu(\"Option 1\", option1)\nfungus.menutimer(1,
     timeout)\n"
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &560555132
 GameObject:
   m_ObjectHideFlags: 0
@@ -3290,7 +3286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: John [$score]
+  nameText: John {$score}
   nameColor: {r: 0.034482718, g: 1, b: 0, a: 1}
   soundEffect: {fileID: 0}
   profileSprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
@@ -4409,7 +4405,6 @@ MonoBehaviour:
     go = fungus.luautils.find(\"OptionButton0\")\nfungus.assert(go != nil)\n\nlocal
     button = go.GetComponent(\"Button\")\nfungus.assert(button != nil)\n\nbutton.onClick.Invoke()"
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &851680338
 GameObject:
   m_ObjectHideFlags: 0
@@ -4554,7 +4549,6 @@ MonoBehaviour:
 
     fungus.pass()'
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &863130402
 GameObject:
   m_ObjectHideFlags: 0
@@ -5343,7 +5337,6 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaScript: return true
-  useFungusModule: 1
   runAsCoroutine: 0
   waitUntilFinished: 1
   returnVariable: {fileID: 942227029}
@@ -5460,7 +5453,6 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaScript: return 1.0
-  useFungusModule: 1
   runAsCoroutine: 0
   waitUntilFinished: 1
   returnVariable: {fileID: 942227035}
@@ -5480,7 +5472,6 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaScript: return 2
-  useFungusModule: 1
   runAsCoroutine: 0
   waitUntilFinished: 1
   returnVariable: {fileID: 942227034}
@@ -5500,7 +5491,6 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaScript: return "a string"
-  useFungusModule: 1
   runAsCoroutine: 0
   waitUntilFinished: 1
   returnVariable: {fileID: 942227033}
@@ -5579,7 +5569,6 @@ MonoBehaviour:
 
 
     return c'
-  useFungusModule: 1
   runAsCoroutine: 0
   waitUntilFinished: 1
   returnVariable: {fileID: 942227037}
@@ -5599,7 +5588,6 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaScript: return testgameobject
-  useFungusModule: 1
   runAsCoroutine: 0
   waitUntilFinished: 1
   returnVariable: {fileID: 942227040}
@@ -5647,7 +5635,6 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaScript: return testmaterial
-  useFungusModule: 1
   runAsCoroutine: 0
   waitUntilFinished: 1
   returnVariable: {fileID: 942227042}
@@ -5681,7 +5668,6 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaScript: return testgameobject
-  useFungusModule: 1
   runAsCoroutine: 0
   waitUntilFinished: 1
   returnVariable: {fileID: 942227044}
@@ -5715,7 +5701,6 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaScript: return mushroom
-  useFungusModule: 1
   runAsCoroutine: 0
   waitUntilFinished: 1
   returnVariable: {fileID: 942227046}
@@ -5752,7 +5737,6 @@ MonoBehaviour:
 
 
     return v'
-  useFungusModule: 1
   runAsCoroutine: 0
   waitUntilFinished: 1
   returnVariable: {fileID: 942227050}
@@ -5786,7 +5770,6 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaScript: return mousepointer
-  useFungusModule: 1
   runAsCoroutine: 0
   waitUntilFinished: 1
   returnVariable: {fileID: 942227048}
@@ -5822,7 +5805,6 @@ MonoBehaviour:
   luaScript: 'local v = fungus.factory.vector3(1,1,1)
 
     return v'
-  useFungusModule: 1
   runAsCoroutine: 0
   waitUntilFinished: 1
   returnVariable: {fileID: 942227052}
@@ -6449,7 +6431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1109996700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7630,7 +7612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1641285457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7819,7 +7801,6 @@ MonoBehaviour:
     \  fungus.pass()\nend\n\n-- Display a menu option with a timer\nfungus.menu(\"Option
     1\", option1)\n\noptionbutton0.onClick.Invoke()\n"
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &1667495163
 GameObject:
   m_ObjectHideFlags: 0
@@ -8827,7 +8808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 942227028}
+  selectedFlowchart: {fileID: 56584893}
 --- !u!4 &1791050794
 Transform:
   m_ObjectHideFlags: 1
@@ -8912,7 +8893,7 @@ MonoBehaviour:
 
     -- Test say command with a tag and global variable substitution
 
-    fungus.say "Alrighty{w=1} how do [$score]?"
+    fungus.say "Alrighty{w=1} how do {$score}?"
 
 
     fungus.assert(nametext.text == "John 10")
@@ -8924,7 +8905,6 @@ MonoBehaviour:
 
 '
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &1880266302
 GameObject:
   m_ObjectHideFlags: 0
@@ -9583,7 +9563,6 @@ MonoBehaviour:
 
     fungus.pass()'
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &2087053783
 GameObject:
   m_ObjectHideFlags: 0
@@ -9903,7 +9882,6 @@ MonoBehaviour:
   luaFile: {fileID: 0}
   luaScript: 
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1001 &2092185197
 Prefab:
   m_ObjectHideFlags: 0
