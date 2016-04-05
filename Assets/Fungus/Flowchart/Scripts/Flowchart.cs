@@ -24,7 +24,7 @@ namespace Fungus
 	 * Flowchart objects may be edited visually using the Flowchart editor window.
 	 */
 	[ExecuteInEditMode]
-	public class Flowchart : MonoBehaviour 
+	public class Flowchart : MonoBehaviour, StringSubstituter.ISubstitutionHandler 
 	{
 		/**
         * The current version of the Flowchart. Used for updating components.
@@ -159,6 +159,8 @@ namespace Fungus
 
 		protected static bool eventSystemPresent;
 
+		protected StringSubstituter stringSubstituer;
+
 		/**
 		 * Returns the next id to assign to a new flowchart item.
 		 * Item ids increase monotically so they are guaranteed to
@@ -191,7 +193,7 @@ namespace Fungus
 		{
 			CheckEventSystem();
 		}
-		
+
 		// There must be an Event System in the scene for Say and Menu input to work.
 		// This method will automatically instantiate one if none exists.
 		protected virtual void CheckEventSystem()
@@ -946,64 +948,84 @@ namespace Fungus
 			return executingBlocks;
 		}
 
-		public virtual string SubstituteVariables(string text)
+		/**
+		 * Implementation of StringSubstituter.ISubstitutionHandler which matches any public variable in the Flowchart.
+		 * To perform full variable substitution with all substitution handlers in the scene, you should
+		 * use the SubstituteVariables() method instead.
+		 */
+		[MoonSharp.Interpreter.MoonSharpHidden]
+		public virtual string SubstituteStrings(string input)
 		{
-			string subbedText = text;
-			
+			string subbedText = input;
+
 			// Instantiate the regular expression object.
 			Regex r = new Regex("{\\$.*?}");
-			
+
 			// Match the regular expression pattern against a text string.
-			var results = r.Matches(text);
+			var results = r.Matches(input);
 			foreach (Match match in results)
 			{
 				string key = match.Value.Substring(2, match.Value.Length - 3);
 
-				// Look for any matching variables in this Flowchart first (public or private)
+				// Look for any matching public variables in this Flowchart
 				foreach (Variable variable in variables)
 				{
 					if (variable == null)
 						continue;
 
-					if (variable.key == key)
+					if (variable.scope == VariableScope.Public &&
+						variable.key == key)
 					{	
 						string value = variable.ToString();
 						subbedText = subbedText.Replace(match.Value, value);
 					}
 				}
+			}
 
-				// Now search all public variables in all scene Flowcharts in the scene
-				foreach (Flowchart flowchart in cachedFlowcharts)
+			return subbedText;
+		}
+
+		/**
+		 * Substitute variables in the input text with the format {$VarName}
+		 * This will first match with private variables in this Flowchart, and then
+		 * with public variables in all Flowcharts in the scene (and any component
+		 * in the scene that implements StringSubstituter.ISubstitutionHandler).
+		 */
+		public virtual string SubstituteVariables(string input)
+		{
+			if (stringSubstituer == null)
+			{
+				stringSubstituer = new StringSubstituter();
+			}
+
+			string subbedText = input;
+			
+			// Instantiate the regular expression object.
+			Regex r = new Regex("{\\$.*?}");
+			
+			// Match the regular expression pattern against a text string.
+			var results = r.Matches(input);
+			foreach (Match match in results)
+			{
+				string key = match.Value.Substring(2, match.Value.Length - 3);
+
+				// Look for any matching private variables in this Flowchart first
+				foreach (Variable variable in variables)
 				{
-					if (flowchart == this)
-					{
-						// We've already searched this flowchart
+					if (variable == null)
 						continue;
-					}
 
-					foreach (Variable variable in flowchart.variables)
-					{
-						if (variable == null)
-							continue;
-						
-						if (variable.scope == VariableScope.Public &&
-							variable.key == key)
-						{	
-							string value = variable.ToString();
-							subbedText = subbedText.Replace(match.Value, value);
-						}
+					if (variable.scope == VariableScope.Private &&
+						variable.key == key)
+					{	
+						string value = variable.ToString();
+						subbedText = subbedText.Replace(match.Value, value);
 					}
-				}
-
-				// Next look for matching localized string
-				string localizedString = Localization.GetLocalizedString(key);
-				if (localizedString != null)
-				{
-					subbedText = subbedText.Replace(match.Value, localizedString);
 				}
 			}
-			
-			return subbedText;
+
+			// Now do all other substitutions in the scene
+			return stringSubstituer.SubstituteStrings(subbedText);
 		}
 	}
 
