@@ -13,7 +13,7 @@ using MoonSharp.RemoteDebugger;
 namespace Fungus
 {
 
-    public class LuaUtils : LuaEnvironment.Initializer 
+	public class LuaUtils : LuaEnvironment.Initializer, StringSubstituter.ISubstitutionHandler
     {
         /// <summary>
         /// Lua script file which defines the global string table used for localisation.
@@ -56,6 +56,8 @@ namespace Fungus
 		/// Cached reference to the Lua Environment component.
 		/// </summary>
 		protected LuaEnvironment luaEnvironment;
+
+		protected StringSubstituter stringSubstituter;
 
 		/// <summary>
 		/// Called by LuaEnvironment when initializing.
@@ -193,6 +195,8 @@ namespace Fungus
 					LuaEnvironment.LogException(ex.DecoratedMessage, stringTable.text);
                 }
             }
+
+			stringSubstituter = new StringSubstituter();
         }
 
         /// <summary>
@@ -219,32 +223,34 @@ namespace Fungus
         }
 
         /// <summary>
+		/// Implementation of StringSubstituter.ISubstitutionHandler
         /// Substitutes specially formatted tokens in the text with global variables and string table values.
         /// The string table value used depends on the currently loaded string table and active language.
         /// </summary>
-        public virtual string Substitute(string text)
+		[MoonSharpHidden]
+		public virtual string SubstituteStrings(string input)
         {
 			if (luaEnvironment == null)
 			{
 				UnityEngine.Debug.LogError("No Lua Environment found");
-				return text;
+				return input;
 			}
 
 			if (luaEnvironment.Interpreter == null)
 			{
 				UnityEngine.Debug.LogError("No Lua interpreter found");
-				return text;
+				return input;
 			}
 				
 			MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
 
-            string subbedText = text;
+            string subbedText = input;
 
             // Instantiate the regular expression object.
-            Regex r = new Regex("\\[\\$.*?\\]");
+			Regex r = new Regex("\\{\\$.*?\\}");
 
             // Match the regular expression pattern against a text string.
-            var results = r.Matches(text);
+			var results = r.Matches(input);
             foreach (Match match in results)
             {
                 string key = match.Value.Substring(2, match.Value.Length - 3);
@@ -275,6 +281,15 @@ namespace Fungus
 
             return subbedText;
         }
+
+		/// <summary>
+		/// Performs string substitution on the input string, replacing tokens of the form {$VarName} with 
+		/// matching variables, localised strings, etc. in the scene.
+		/// </summary>
+		public virtual string Substitute(string input)
+		{
+			return stringSubstituter.SubstituteStrings(input);
+		}
 
         /// <summary>
         /// Returns the time since level load, multiplied by timeScale.

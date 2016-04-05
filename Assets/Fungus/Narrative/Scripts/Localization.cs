@@ -5,6 +5,7 @@ using UnityEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.IO;
 using Ideafixxxer.CsvParser;
 
@@ -22,7 +23,7 @@ namespace Fungus
 	/**
 	 * Multi-language localization support.
 	 */
-	public class Localization : MonoBehaviour
+	public class Localization : MonoBehaviour, StringSubstituter.ISubstitutionHandler
 	{
 		/**
 		 * Language to use at startup, usually defined by a two letter language code (e.g DE = German)
@@ -56,6 +57,8 @@ namespace Fungus
 		[NonSerialized]
 		public string notificationText = "";
 
+		protected bool initialized;
+
 		public virtual void OnLevelWasLoaded(int level) 
 		{
 			// Check if a language has been selected using the Set Language command in a previous scene.
@@ -68,13 +71,29 @@ namespace Fungus
 
 		public virtual void Start()
 		{
+			Init();
+		}
+
+		/**
+		 * String subsitution can happen during the Start of another component, so we
+		 * may need to call Init() from other methods.
+		 */
+		protected virtual void Init()
+		{
+			if (initialized)
+			{
+				return;
+			}
+
 			CacheLocalizeableObjects();
 
 			if (localizationFile != null &&
-			    localizationFile.text.Length > 0)
+				localizationFile.text.Length > 0)
 			{
 				SetActiveLanguage(activeLanguage);
 			}
+
+			initialized = true;
 		}
 
 		public virtual void ClearLocalizeableCache()
@@ -486,6 +505,38 @@ namespace Fungus
 			}
 
 			notificationText = "Updated " + updatedCount + " standard text items.";
+		}
+
+		/**
+		 * Implementation of StringSubstituter.ISubstitutionHandler.
+		 * Relaces tokens of the form {$KeyName} with the localized value corresponding to that key.
+		 */
+		public virtual string SubstituteStrings(string input)
+		{
+			// This method could be called from the Start method of another component, so we
+			// may need to initilize the localization system.
+			Init();
+
+			string subbedText = input;
+
+			// Instantiate the regular expression object.
+			Regex r = new Regex("{\\$.*?}");
+
+			// Match the regular expression pattern against a text string.
+			var results = r.Matches(input);
+			foreach (Match match in results)
+			{
+				string key = match.Value.Substring(2, match.Value.Length - 3);
+
+				// Next look for matching localized string
+				string localizedString = Localization.GetLocalizedString(key);
+				if (localizedString != null)
+				{
+					subbedText = subbedText.Replace(match.Value, localizedString);
+				}
+			}
+
+			return subbedText;
 		}
 	}
 
