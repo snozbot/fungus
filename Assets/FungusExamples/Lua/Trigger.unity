@@ -369,7 +369,6 @@ GameObject:
   - 114: {fileID: 913136539}
   - 114: {fileID: 913136541}
   - 114: {fileID: 913136540}
-  - 114: {fileID: 913136542}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -401,7 +400,7 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlock: {fileID: 0}
+  selectedBlock: {fileID: 913136541}
   selectedCommands: []
   variables: []
   description: 'This example shows how to execute a Block in a Flowchart via a
@@ -464,30 +463,6 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 913136540}
-  - {fileID: 913136542}
---- !u!114 &913136542
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 913136538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 2
-  errorMessage: 
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 0}
-  startVolume: 1
-  endVolume: 1
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
 --- !u!4 &913136543
 Transform:
   m_ObjectHideFlags: 0
@@ -1254,14 +1229,13 @@ MonoBehaviour:
   executeMethods: 8192
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: 'fungus.runblock(flowchart, "Start")
+  luaScript: 'runblock(flowchart, "Start")
 
 
-    fungus.setsaydialog(saydialog)
+    setsaydialog(saydialog)
 
-    fungus.say("Block is finished");'
+    say("Block is finished");'
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1001 &1575311449
 Prefab:
   m_ObjectHideFlags: 0

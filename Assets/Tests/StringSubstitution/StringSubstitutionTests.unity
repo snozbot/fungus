@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fungusModule: 0
   stringTable: {fileID: 4900000, guid: 9900570d789fa4b29957e4b897af9e3b, type: 3}
   activeLanguage: en
   timeScale: -1
@@ -321,18 +322,14 @@ MonoBehaviour:
 
     -- Test localisation value subsitution
 
-    subbed = fungus.sub("{$SETTEXT.Flowchart.6}")
+    subbed = sub("{$SETTEXT.Flowchart.6}")
 
-    print (subbed)
+    check (subbed == "English text")
 
-    fungus.assert (subbed == "English text")
-
-
-    fungus.pass()
+    pass()
 
 '
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &545923887
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,6 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fungusModule: 0
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
@@ -1101,6 +1099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fungusModule: 0
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
@@ -1174,21 +1173,20 @@ MonoBehaviour:
 
     -- Private variable should not substitute
 
-    subbed = fungus.sub("{$StringVarA}")
+    subbed = sub("{$StringVarA}")
 
-    fungus.assert(subbed == "{$StringVarA}")
+    check(subbed == "{$StringVarA}")
 
 
     -- Public variable should substitute
 
-    subbed = fungus.sub("{$StringVarB}")
+    subbed = sub("{$StringVarB}")
 
-    fungus.assert (subbed == "Ok")
+    check (subbed == "Ok")
 
 
     fungus.pass()'
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &1532141878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,13 +1311,11 @@ MonoBehaviour:
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "local subbed = \"\"\n\n-- Test global variable subsitution\nglobalname
-    = \"Fred\"\nsubbed = fungus.sub(\"{$globalname}\")\nfungus.assert (subbed == \"Fred\")\n\n--
-    Test English string table entry\nsubbed = fungus.sub(\"{$hello}\")\nfungus.assert(subbed
-    == \"Hi there\")\n\n-- Test French string table entry\nfungus.setlanguage(\"fr\")\nsubbed
-    = fungus.sub(\"{$hello}\")\nfungus.assert(subbed == \"Bonjour\")\n\n-- Global
-    \n\nfungus.pass()\n"
+    = \"Fred\"\nsubbed = sub(\"{$globalname}\")\ncheck (subbed == \"Fred\")\n\n--
+    Test English string table entry\nsubbed = sub(\"{$hello}\")\ncheck(subbed == \"Hi
+    there\")\n\n-- Test French string table entry\nsetlanguage(\"fr\")\nsubbed = sub(\"{$hello}\")\ncheck(subbed
+    == \"Bonjour\")\n\n-- Global \n\npass()\n"
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &1563984262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,6 +1488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fungusModule: 0
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
@@ -1648,15 +1645,14 @@ MonoBehaviour:
 
     -- Wait for the Write command to complete
 
-    fungus.wait(0.5)
+    wait(0.5)
 
 
-    fungus.assert(text.text == "ABC")
+    check(text.text == "ABC")
 
 
-    fungus.pass()'
+    pass()'
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1 &2135590527
 GameObject:
   m_ObjectHideFlags: 0

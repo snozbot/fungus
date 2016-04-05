@@ -655,13 +655,11 @@ MonoBehaviour:
   executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: "fungus.setsaydialog(saydialog)\nfungus.setmenudialog(menudialog)\n\nfunction
-    start()\n   fungus.say \"Select an option\"\n\n   fungus.menu(\"Option A\", optiona)\n
-    \  fungus.menu(\"Option B\", optionb)\nend\n\nfunction optiona()\n   fungus.say(\"You
-    chose option a\")\nend\n\nfunction optionb()\n   fungus.say(\"You chose option
-    b\")\nend\n\nstart()\n"
+  luaScript: "setsaydialog(saydialog)\nsetmenudialog(menudialog)\n\nfunction start()\n
+    \  say \"Select an option\"\n\n   menu(\"Option A\", optiona)\n   menu(\"Option
+    B\", optionb)\nend\n\nfunction optiona()\n   say(\"You chose option a\")\nend\n\nfunction
+    optionb()\n   say(\"You chose option b\")\nend\n\nstart()\n"
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!4 &519026841
 Transform:
   m_ObjectHideFlags: 0
@@ -1434,6 +1432,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11486636, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: fungusModule
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_IsPrefabParent: 0
@@ -1781,6 +1783,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableName: 
+  registerTypes: 1
+  boundTypes: []
   boundObjects:
   - key: saydialog
     obj: {fileID: 1531220777}
@@ -1788,7 +1792,6 @@ MonoBehaviour:
   - key: menudialog
     obj: {fileID: 1851713324}
     component: {fileID: 1851713325}
-  boundTypes: []
 --- !u!4 &1265440902
 Transform:
   m_ObjectHideFlags: 0

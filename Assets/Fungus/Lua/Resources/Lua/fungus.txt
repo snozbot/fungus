@@ -110,24 +110,25 @@ end
 -- Integration tests
 --------------------
 
--- Assert a condition is true (requires Unity Test Tools)
-function M.assert(c, reason)
+-- Checks if a condition is true (requires Unity Test Tools)
+-- Lua has a built in assert function, so we called this check to avoid conflicting.
+function M.check(c, reason)
 	if (not c) then
 		-- Output a traceback to help track down source
 		error( debug.traceback("Assert failed", 2) )
 	end
-	fungus.test.assert(c, reason)
+	M.test.assert(c, reason)
 end
 
 -- Pass an integration test (requires Unity Test Tools)
 function M.pass()
-	fungus.test.pass()
+	M.test.pass()
 end
 
 -- Fail an integration test (requires Unity Test Tools)
 function M.fail(reason)
 	error( debug.traceback("Test failed", 2) )
-	fungus.test.fail(reason)
+	M.test.fail(reason)
 end
 
 -------------

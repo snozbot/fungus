@@ -818,10 +818,10 @@ MonoBehaviour:
 
     -- Test Flowchart variable substitution
 
-    fungus.assert("{$StringVar}" == "it worked")
+    check("{$StringVar}" == "it worked")
 
 
-    fungus.pass()'
+    pass()'
   runAsCoroutine: 1
   waitUntilFinished: 1
   returnVariable: {fileID: 0}
@@ -879,7 +879,7 @@ MonoBehaviour:
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.9199953
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -1205,28 +1205,28 @@ MonoBehaviour:
 
     s = flowchart.GetVariable("StringVar")
 
-    fungus.assert (s.value == "a string")
+    check (s.value == "a string")
 
 
-    t = fungus.gettime()
+    t = gettime()
 
 
     -- Execute a block to change the variable
 
     b = flowchart.FindBlock("Test Block")
 
-    fungus.runwait( b.Execute() )
+    runwait( b.Execute() )
 
 
-    fungus.assert(fungus.gettime() - t >= 1)
+    check(fungus.gettime() - t >= 1)
 
 
     -- Check the new value of StringVar
 
-    fungus.assert (s.value == "something")
+    check (s.value == "something")
 
 
-    fungus.pass()'
+    pass()'
   runAsCoroutine: 1
 --- !u!1001 &130678264
 Prefab:
@@ -2273,7 +2273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useFungusModule: 1
+  fungusModule: 0
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
@@ -2683,69 +2683,69 @@ MonoBehaviour:
   luaFile: {fileID: 0}
   luaScript: '-- The "Do Test" block in the flowchart sets a bunch of flowchart variables
 
-    fungus.runblock(flowchart, "Do Test")
+    runblock(flowchart, "Do Test")
 
 
     -- Check if the variables contain the expected values
 
     local bo = flowchart.GetVariable("BoolVar")
 
-    fungus.assert(bo.value)
+    check(bo.value)
 
 
     local f = flowchart.GetVariable("FloatVar")
 
-    fungus.assert(f.value == 1.0)
+    check(f.value == 1.0)
 
 
     local i = flowchart.GetVariable("IntVar")
 
-    fungus.assert(i.value == 2)
+    check(i.value == 2)
 
 
     local s = flowchart.GetVariable("StringVar")
 
-    fungus.assert(s.value == "a string")
+    check(s.value == "a string")
 
 
     local c = flowchart.GetVariable("ColorVar")
 
-    fungus.assert(c.value.r == 1)
+    check(c.value.r == 1)
 
 
     local go = flowchart.GetVariable("GameObjectVar")
 
-    fungus.assert(go.value == testgameobject)
+    check(go.value == testgameobject)
 
 
     local m = flowchart.GetVariable("MaterialVar")
 
-    fungus.assert(m.value == testmaterial)
+    check(m.value == testmaterial)
 
 
     local o = flowchart.GetVariable("ObjectVar")
 
-    fungus.assert(o.value == testgameobject)
+    check(o.value == testgameobject)
 
 
     local sp = flowchart.GetVariable("SpriteVar")
 
-    fungus.assert(sp.value == mushroom)
+    check(sp.value == mushroom)
 
 
     local t = flowchart.GetVariable("TextureVar")
 
-    fungus.assert(t.value == mousepointer)
+    check(t.value == mousepointer)
 
 
     local v2 = flowchart.GetVariable("Vector2Var")
 
-    fungus.assert(v2.value.y == 1)
+    check(v2.value.y == 1)
 
 
     local v3 = flowchart.GetVariable("Vector3Var")
 
-    fungus.assert(v3.value.z == 1)
+    check(v3.value.z == 1)
 
 
     fungus.pass()'
@@ -3064,9 +3064,8 @@ MonoBehaviour:
   executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: "fungus.menuoptions.menudialog = menudialog\n\nfunction option1()\n   fungus.fail()\nend\n\nfungus.menu(\"Option
-    1\", option1)\n\nfungus.assert(optionbutton0.activeSelf)\nfungus.clearmenu()\nfungus.assert(not
-    optionbutton0.activeSelf)\n\nfungus.pass()"
+  luaScript: "menuoptions.menudialog = menudialog\n\nfunction option1()\n   fail()\nend\n\nmenu(\"Option
+    1\", option1)\n\ncheck(optionbutton0.activeSelf)\nclearmenu()\nassert(not optionbutton0.activeSelf)\n\npass()"
   runAsCoroutine: 1
 --- !u!1 &511430244
 GameObject:
@@ -3117,11 +3116,10 @@ MonoBehaviour:
   executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: "-- Test the Menu Timer functionality\n\nfungus.menuoptions.menudialog
-    = menudialog\n\n-- Called if user clicks on menu option\nfunction option1()\n
-    \  fungus.pass()\nend\n\n-- Called if timeout expires\nfunction timeout()\n   --
-    Test coroutine is ok\n   fungus.wait(1)\n   fungus.pass()\nend\n\n-- Display a
-    menu option with a timer\nfungus.menu(\"Option 1\", option1)\nfungus.menutimer(1,
+  luaScript: "-- Test the Menu Timer functionality\n\nmenuoptions.menudialog = menudialog\n\n--
+    Called if user clicks on menu option\nfunction option1()\n   pass()\nend\n\n--
+    Called if timeout expires\nfunction timeout()\n   -- Test coroutine is ok\n   wait(1)\n
+    \  pass()\nend\n\n-- Display a menu option with a timer\nmenu(\"Option 1\", option1)\nmenutimer(1,
     timeout)\n"
   runAsCoroutine: 1
 --- !u!1 &560555132
@@ -4398,12 +4396,11 @@ MonoBehaviour:
   executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: "-- Test Say creating a SayDialog when none already exists\n\nfungus.sayoptions.waitforinput
-    = false\nfungus.say(\"test\")\n\ngo = fungus.luautils.find(\"SayDialog\")\nfungus.assert(go
-    != nil)\n\n-- Test Menu creating a MenuDialog when none already exists\nfunction
-    choose_a()\n   fungus.pass()\nend\n\nfungus.menu(\"Option A\",  choose_a)\n\nlocal
-    go = fungus.luautils.find(\"OptionButton0\")\nfungus.assert(go != nil)\n\nlocal
-    button = go.GetComponent(\"Button\")\nfungus.assert(button != nil)\n\nbutton.onClick.Invoke()"
+  luaScript: "-- Test Say creating a SayDialog when none already exists\n\nsayoptions.waitforinput
+    = false\nsay(\"test\")\n\ngo = luautils.find(\"SayDialog\")\ncheck(go != nil)\n\n--
+    Test Menu creating a MenuDialog when none already exists\nfunction choose_a()\n
+    \  pass()\nend\n\nmenu(\"Option A\",  choose_a)\n\nlocal go = luautils.find(\"OptionButton0\")\ncheck(go
+    != nil)\n\nlocal button = go.GetComponent(\"Button\")\ncheck(button != nil)\n\nbutton.onClick.Invoke()"
   runAsCoroutine: 1
 --- !u!1 &851680338
 GameObject:
@@ -4529,25 +4526,25 @@ MonoBehaviour:
 
     flowchart.SetBooleanVariable("BoolVar", true)
 
-    fungus.assert(flowchart.GetBooleanVariable("BoolVar"))
+    check(flowchart.GetBooleanVariable("BoolVar"))
 
 
     flowchart.SetFloatVariable("FloatVar", 1)
 
-    fungus.assert(flowchart.GetFloatVariable("FloatVar") == 1)
+    check(flowchart.GetFloatVariable("FloatVar") == 1)
 
 
     flowchart.SetIntegerVariable("IntVar", 1)
 
-    fungus.assert(flowchart.GetIntegerVariable("IntVar") == 1)
+    check(flowchart.GetIntegerVariable("IntVar") == 1)
 
 
     flowchart.SetStringVariable("StringVar", "a")
 
-    fungus.assert(flowchart.GetStringVariable("StringVar") == "a")
+    check(flowchart.GetStringVariable("StringVar") == "a")
 
 
-    fungus.pass()'
+    pass()'
   runAsCoroutine: 1
 --- !u!1 &863130402
 GameObject:
@@ -5070,16 +5067,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tableName: 
   registerTypes: 1
-  boundTypes: []
+  boundTypes:
+  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - Fungus.MenuDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.Block, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.UI.Slider, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   boundObjects:
   - key: menudialog
     obj: {fileID: 1077682782}
     component: {fileID: 1077682783}
   - key: optionbutton0
     obj: {fileID: 1312420724}
-    component: {fileID: 0}
-  - key: 
-    obj: {fileID: 0}
     component: {fileID: 0}
 --- !u!1 &928936324
 GameObject:
@@ -6431,7 +6440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1109996700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7796,10 +7805,9 @@ MonoBehaviour:
   executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: "-- Test the Menu Timer functionality\n\nfungus.menuoptions.menudialog
-    = menudialog\n\n-- Called if user clicks on menu option\nfunction option1()\n
-    \  fungus.pass()\nend\n\n-- Display a menu option with a timer\nfungus.menu(\"Option
-    1\", option1)\n\noptionbutton0.onClick.Invoke()\n"
+  luaScript: "-- Test the Menu Timer functionality\n\nmenuoptions.menudialog = menudialog\n\n--
+    Called if user clicks on menu option\nfunction option1()\n   pass()\nend\n\n--
+    Display a menu option with a timer\nmenu(\"Option 1\", option1)\n\noptionbutton0.onClick.Invoke()\n"
   runAsCoroutine: 1
 --- !u!1 &1667495163
 GameObject:
@@ -8878,29 +8886,30 @@ MonoBehaviour:
 
     -- Make say dialog active
 
-    fungus.setsaydialog(saydialog)
+    setsaydialog(saydialog)
 
-    fungus.sayoptions.waitforinput = false
+    sayoptions.waitforinput = false
 
 
     -- Select active character
 
-    fungus.setcharacter(john, "Mushroom")
+    setcharacter(john, "Mushroom")
 
 
-    fungus.say ("voiceover{w=3}", voiceover)
+    say ("voiceover{w=3}", voiceover)
 
 
     -- Test say command with a tag and global variable substitution
 
-    fungus.say "Alrighty{w=1} how do {$score}?"
+    say "Alrighty{w=1} how do {$score}?"
 
 
-    fungus.assert(nametext.text == "John 10")
+    check(nametext.text == "John 10")
 
-    fungus.assert(storytext.text == "Alrighty how do 10?")
+    check(storytext.text == "Alrighty how do 10?")
 
-    fungus.pass()
+
+    pass()
 
 
 '
@@ -9559,9 +9568,9 @@ MonoBehaviour:
 
     go = transform.FindChild("Mushroom")
 
-    fungus.assert(go.name == "Mushroom")
+    check(go.name == "Mushroom")
 
-    fungus.pass()'
+    pass()'
   runAsCoroutine: 1
 --- !u!1 &2087053783
 GameObject:
