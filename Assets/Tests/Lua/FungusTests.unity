@@ -1218,7 +1218,7 @@ MonoBehaviour:
     runwait( b.Execute() )
 
 
-    check(fungus.gettime() - t >= 1)
+    check(gettime() - t >= 1)
 
 
     -- Check the new value of StringVar
@@ -2748,7 +2748,7 @@ MonoBehaviour:
     check(v3.value.z == 1)
 
 
-    fungus.pass()'
+    pass()'
   runAsCoroutine: 1
 --- !u!1 &465829169
 GameObject:
@@ -5397,11 +5397,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 32, y: -30}
+  scrollPos: {x: 163, y: 77}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 0
   blockViewHeight: 251
-  zoom: 0.9129947
+  zoom: 1
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -5409,8 +5409,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlock: {fileID: 942227027}
-  selectedCommands:
-  - {fileID: 942227053}
+  selectedCommands: []
   variables:
   - {fileID: 942227029}
   - {fileID: 942227035}
@@ -5574,7 +5573,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
-  luaScript: 'local c = fungus.factory.color(1, 0.5, 1, 1)
+  luaScript: 'local c = factory.color(1, 0.5, 1, 1)
 
 
     return c'
@@ -5742,7 +5741,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
-  luaScript: 'local v = fungus.factory.vector2(1,1)
+  luaScript: 'local v = factory.vector2(1,1)
 
 
     return v'
@@ -5811,7 +5810,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
-  luaScript: 'local v = fungus.factory.vector3(1,1,1)
+  luaScript: 'local v = factory.vector3(1,1,1)
 
     return v'
   runAsCoroutine: 0
@@ -7621,7 +7620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1641285457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8816,7 +8815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 56584893}
+  selectedFlowchart: {fileID: 942227028}
 --- !u!4 &1791050794
 Transform:
   m_ObjectHideFlags: 1

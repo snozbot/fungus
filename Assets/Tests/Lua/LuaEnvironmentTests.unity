@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &47556548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -958,7 +958,7 @@ MonoBehaviour:
 
     local t = 0
 
-    local timer = fungus.time.time
+    local timer = time.time
 
 
     -- Wait with timeScale = -1
@@ -1620,19 +1620,19 @@ MonoBehaviour:
   luaFile: {fileID: 0}
   luaScript: '-- Test string table localisation system
 
-    check(fungus.stringtable != nil)
+    check(stringtable != nil)
 
 
     -- Check string table loaded ok
 
-    check(fungus.stringtable.hello.en == "Hi there")
+    check(stringtable.hello.en == "Hi there")
 
-    check(fungus.stringtable.hello.fr == "Bonjour")
+    check(stringtable.hello.fr == "Bonjour")
 
 
     -- Check getstring()
 
-    local g = fungus.getstring("hello")
+    local g = getstring("hello")
 
     check(g == "Hi there")
 
@@ -1641,14 +1641,14 @@ MonoBehaviour:
 
     t = 3
 
-    local s = fungus.sub("should be {$t}")
+    local s = sub("should be {$t}")
 
     check(s == "should be 3")
 
 
     -- Test substituting a string table value (en)
 
-    s = fungus.sub("say {$hello}")
+    s = sub("say {$hello}")
 
     check(s == "say Hi there")
 
@@ -1921,7 +1921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1900871525
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -82,18 +82,15 @@ namespace Fungus
 				return;
 			}
 
+			// If the fungus global table is defined then add the store to it
 			Table fungusTable = globals.Get("fungus").Table;
-			if (fungusTable == null)
+			if (fungusTable != null)
 			{
-				Debug.LogError("fungus table not found");
-				return;
+				fungusTable["store"] = primeTable;
 			}
-
-			fungusTable["store"] = primeTable;
-
-			// If we're using the fungus module in globals mode then add the store to globals as well.
-			if (globals.Get("luaenvironment") != DynValue.Nil)
+			else
 			{
+				// Add the store as a global
 				globals["store"] = primeTable;
 			}
 		}
