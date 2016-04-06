@@ -6,37 +6,6 @@
 # If the type is defined in the main assembly then you can just use namespace.typename
 # If the type is defined in any other assembly you need to use the full assembly qualified type name.
 
-Fungus.AnimatorVariable
-Fungus.AudioSourceVariable
-Fungus.Block
-Fungus.BooleanVariable
-Fungus.Character
-Fungus.ColorVariable
-Fungus.Command
-Fungus.CommandInfoAttribute
-Fungus.FacingDirection
-Fungus.FloatVariable
-Fungus.Flowchart
-Fungus.FungusPrefs
-Fungus.LuaEnvironment
-Fungus.LuaUtils
-Fungus.GameObjectVariable
-Fungus.IntegerVariable
-Fungus.Label
-Fungus.MaterialVariable
-Fungus.MenuDialog
-Fungus.ObjectVariable
-Fungus.PODTypeFactory
-Fungus.PortraitState
-Fungus.SayDialog
-Fungus.SpriteVariable
-Fungus.StringVariable
-Fungus.Task
-Fungus.TextureVariable
-Fungus.TransformVariable
-Fungus.Variable
-Fungus.Vector2Variable
-Fungus.Vector3Variable
 System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
 System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
 System.Collections.IEnumerator, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -96,5 +65,3 @@ UnityEngine.Vector4, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyTok
 UnityEngine.VerticalWrapMode, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 
 # Extension types
-
-E:Fungus.LuaExtensions
