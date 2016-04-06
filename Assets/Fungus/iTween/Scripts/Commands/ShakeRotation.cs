@@ -8,7 +8,8 @@ namespace Fungus
 	             "Shake Rotation", 
 	             "Randomly shakes a GameObject's rotation by a diminishing amount over time.")]
 	[AddComponentMenu("")]
-	public class ShakeRotation : iTweenCommand, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class ShakeRotation : iTweenCommand
 	{
 		[Tooltip("A rotation offset in space the GameObject will animate to")]
 		public Vector3Data _amount;
@@ -35,12 +36,9 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("amount")] public Vector3 amountOLD;
 
-		public override void OnBeforeSerialize()
-		{}
-
-		public override void OnAfterDeserialize()
+		protected override void OnEnable()
 		{
-			base.OnAfterDeserialize();
+			base.OnEnable();
 
 			if (amountOLD != default(Vector3))
 			{

@@ -8,7 +8,8 @@ namespace Fungus
 	             "Rotate Add", 
 	             "Rotates a game object by the specified angles over time.")]
 	[AddComponentMenu("")]
-	public class RotateAdd : iTweenCommand, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class RotateAdd : iTweenCommand
 	{
 		[Tooltip("A rotation offset in space the GameObject will animate to")]
 		public Vector3Data _offset;
@@ -35,12 +36,9 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("offset")] public Vector3 offsetOLD;
 
-		public override void OnBeforeSerialize()
-		{}
-
-		public override void OnAfterDeserialize()
+		protected override void OnEnable()
 		{
-			base.OnAfterDeserialize();
+			base.OnEnable();
 
 			if (offsetOLD != default(Vector3))
 			{

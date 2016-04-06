@@ -11,7 +11,8 @@ namespace Fungus
 	             "Menu Timer", 
 	             "Displays a timer bar and executes a target block if the player fails to select a menu option in time.")]
 	[AddComponentMenu("")]
-	public class MenuTimer : Command, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class MenuTimer : Command
 	{
 		[Tooltip("Length of time to display the timer for")]
 		public FloatData _duration = new FloatData(1);
@@ -60,10 +61,7 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (durationOLD != default(float))
 			{

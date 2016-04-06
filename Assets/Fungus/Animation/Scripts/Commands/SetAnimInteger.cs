@@ -9,7 +9,8 @@ namespace Fungus
 	             "Set Anim Integer", 
 	             "Sets an integer parameter on an Animator component to control a Unity animation")]
 	[AddComponentMenu("")]
-	public class SetAnimInteger : Command, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class SetAnimInteger : Command
 	{
 		[Tooltip("Reference to an Animator component in a game object")]
 		public AnimatorData _animator;
@@ -50,10 +51,7 @@ namespace Fungus
 		[HideInInspector] [FormerlySerializedAs("animator")] public Animator animatorOLD;
 		[HideInInspector] [FormerlySerializedAs("parameterName")] public string parameterNameOLD;
 
-		public void OnBeforeSerialize()
-		{}
-
-		public void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (animatorOLD != null)
 			{

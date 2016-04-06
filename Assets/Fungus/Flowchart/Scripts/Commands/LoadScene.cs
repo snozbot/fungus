@@ -12,7 +12,8 @@ namespace Fungus
 		"usage. Previously loaded assets will be released before loading the scene to free up memory." +
 		"The scene to be loaded must be added to the scene list in Build Settings.")]
 	[AddComponentMenu("")]
-	public class LoadScene : Command, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class LoadScene : Command
 	{
 		[Tooltip("Name of the scene to load. The scene must also be added to the build settings.")]
 		public StringData _sceneName = new StringData("");
@@ -44,10 +45,7 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("sceneName")] public string sceneNameOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (sceneNameOLD != "")
 			{

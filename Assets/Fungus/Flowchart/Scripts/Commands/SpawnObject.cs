@@ -11,7 +11,8 @@ namespace Fungus
 	             "Spawn Object", 
 	             "Spawns a new object based on a reference to a scene or prefab game object.")]
 	[AddComponentMenu("")]
-	public class SpawnObject : Command, ISerializationCallbackReceiver
+	[ExecuteInEditMode]
+	public class SpawnObject : Command
 	{
 		[Tooltip("Game object to copy when spawning. Can be a scene object or a prefab.")]
 		public GameObjectData _sourceObject;
@@ -67,10 +68,7 @@ namespace Fungus
 		[HideInInspector] [FormerlySerializedAs("spawnPosition")] public Vector3 spawnPositionOLD;
 		[HideInInspector] [FormerlySerializedAs("spawnRotation")] public Vector3 spawnRotationOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (sourceObjectOLD != null)
 			{

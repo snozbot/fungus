@@ -9,7 +9,8 @@ namespace Fungus
 	             "Destroy", 
 	             "Destroys a specified game object in the scene.")]
 	[AddComponentMenu("")]
-	public class Destroy : Command, ISerializationCallbackReceiver
+	[ExecuteInEditMode]
+	public class Destroy : Command
 	{	
 		[Tooltip("Reference to game object to destroy")]
 		public GameObjectData _targetGameObject;
@@ -43,10 +44,7 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("targetGameObject")] public GameObject targetGameObjectOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (targetGameObjectOLD != null)
 			{

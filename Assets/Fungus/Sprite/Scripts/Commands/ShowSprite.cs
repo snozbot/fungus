@@ -9,7 +9,8 @@ namespace Fungus
 	             "Show Sprite", 
 	             "Makes a sprite visible / invisible by setting the color alpha.")]
 	[AddComponentMenu("")]
-	public class ShowSprite : Command, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class ShowSprite : Command
 	{
 		[Tooltip("Sprite object to be made visible / invisible")]
 		public SpriteRenderer spriteRenderer;
@@ -67,10 +68,7 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("visible")] public bool visibleOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (visibleOLD != default(bool))
 			{

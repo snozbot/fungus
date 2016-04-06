@@ -1346,7 +1346,21 @@ public void Update(){
 	LeanTween.update();
 }
 
-public void OnLevelWasLoaded( int lvl ){
+#if UNITY_5_4_OR_NEWER
+protected void Awake()
+{
+	UnityEngine.SceneManagement.SceneManager.activeSceneChanged += (A, B) => {
+		LevelWasLoaded();
+	};
+}
+#else
+protected void OnLevelWasLoaded(int level)
+{
+	LevelWasLoaded();
+}
+#endif
+
+public void LevelWasLoaded(){
 	// Debug.Log("reseting gui");
 	LTGUI.reset();
 }

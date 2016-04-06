@@ -8,7 +8,8 @@ namespace Fungus
 	             "Scale To", 
 	             "Changes a game object's scale to a specified value over time.")]
 	[AddComponentMenu("")]
-	public class ScaleTo : iTweenCommand, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class ScaleTo : iTweenCommand
 	{
 		[Tooltip("Target transform that the GameObject will scale to")]
 		public TransformData _toTransform;
@@ -42,12 +43,9 @@ namespace Fungus
 		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
 		[HideInInspector] [FormerlySerializedAs("toScale")] public Vector3 toScaleOLD;
 
-		public override void OnBeforeSerialize()
-		{}
-
-		public override void OnAfterDeserialize()
+		protected override void OnEnable()
 		{
-			base.OnAfterDeserialize();
+			base.OnEnable();
 
 			if (toTransformOLD != null)
 			{

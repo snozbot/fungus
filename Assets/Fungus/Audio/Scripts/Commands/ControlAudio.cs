@@ -7,7 +7,8 @@ namespace Fungus
 	[CommandInfo("Audio", 
 	             "Control Audio",
 	             "Plays, loops, or stops an audiosource. Any AudioSources with the same tag as the target Audio Source will automatically be stoped.")]
-	public class ControlAudio : Command, ISerializationCallbackReceiver
+	[ExecuteInEditMode]
+	public class ControlAudio : Command
 	{
 		public enum controlType
 		{
@@ -262,10 +263,7 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("audioSource")] public AudioSource audioSourceOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (audioSourceOLD != null)
 			{

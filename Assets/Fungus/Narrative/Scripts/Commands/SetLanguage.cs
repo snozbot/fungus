@@ -8,7 +8,8 @@ namespace Fungus
 	             "Set Language", 
 	             "Set the active language for the scene. A Localization object with a localization file must be present in the scene.")]
 	[AddComponentMenu("")]
-	public class SetLanguage : Command, ISerializationCallbackReceiver
+	[ExecuteInEditMode]
+	public class SetLanguage : Command
 	{
 		[Tooltip("Code of the language to set. e.g. ES, DE, JA")]
 		public StringData _languageCode = new StringData(); 
@@ -44,10 +45,7 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("languageCode")] public string languageCodeOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (languageCodeOLD != "")
 			{

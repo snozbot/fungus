@@ -8,7 +8,8 @@ namespace Fungus
 	             "Stop Tween", 
 	             "Stops an active iTween by name.")]
 	[AddComponentMenu("")]
-	public class StopTween : Command, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class StopTween : Command
 	{
 		[Tooltip("Stop and destroy any Tweens in current scene with the supplied name")]
 		public StringData _tweenName;
@@ -23,10 +24,7 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (tweenNameOLD != "")
 			{

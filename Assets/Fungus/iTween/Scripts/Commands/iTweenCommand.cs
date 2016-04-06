@@ -13,7 +13,8 @@ namespace Fungus
 		Z
 	}
 
-	public abstract class iTweenCommand : Command, ISerializationCallbackReceiver
+	[ExecuteInEditMode]
+	public abstract class iTweenCommand : Command
 	{
 		[Tooltip("Target game object to apply the Tween to")]
 		public GameObjectData _targetObject;
@@ -98,10 +99,7 @@ namespace Fungus
 		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD;
 		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (targetObjectOLD != null)
 			{
@@ -113,7 +111,7 @@ namespace Fungus
 			{
 				_duration.Value = durationOLD;
 				durationOLD = default(float);
-			}
+			}		
 		}
 
 		#endregion

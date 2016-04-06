@@ -8,7 +8,8 @@ namespace Fungus
 	             "Move Add", 
 	             "Moves a game object by a specified offset over time.")]
 	[AddComponentMenu("")]
-	public class MoveAdd : iTweenCommand, ISerializationCallbackReceiver
+	[ExecuteInEditMode]
+	public class MoveAdd : iTweenCommand
 	{
 		[Tooltip("A translation offset in space the GameObject will animate to")]
 		public Vector3Data _offset;
@@ -35,12 +36,9 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("offset")] public Vector3 offsetOLD;
 
-		public override void OnBeforeSerialize()
-		{}
-
-		public override void OnAfterDeserialize()
+		protected override void OnEnable()
 		{
-			base.OnAfterDeserialize();
+			base.OnEnable();
 
 			if (offsetOLD != default(Vector3))
 			{

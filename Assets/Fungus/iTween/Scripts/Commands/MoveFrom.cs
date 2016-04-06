@@ -8,7 +8,8 @@ namespace Fungus
 	             "Move From", 
 	             "Moves a game object from a specified position back to its starting position over time. The position can be defined by a transform in another object (using To Transform) or by setting an absolute position (using To Position, if To Transform is set to None).")]
 	[AddComponentMenu("")]
-	public class MoveFrom : iTweenCommand, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class MoveFrom : iTweenCommand
 	{
 		[Tooltip("Target transform that the GameObject will move from")]
 		public TransformData _fromTransform;
@@ -46,12 +47,9 @@ namespace Fungus
 		[HideInInspector] [FormerlySerializedAs("fromTransform")] public Transform fromTransformOLD;
 		[HideInInspector] [FormerlySerializedAs("fromPosition")] public Vector3 fromPositionOLD;
 
-		public override void OnBeforeSerialize()
-		{}
-
-		public override void OnAfterDeserialize()
+		protected override void OnEnable()
 		{
-			base.OnAfterDeserialize();
+			base.OnEnable();
 
 			if (fromTransformOLD != null)
 			{

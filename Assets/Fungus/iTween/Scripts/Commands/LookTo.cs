@@ -8,7 +8,8 @@ namespace Fungus
 	             "Look To", 
 	             "Rotates a GameObject to look at a supplied Transform or Vector3 over time.")]
 	[AddComponentMenu("")]
-	public class LookTo : iTweenCommand, ISerializationCallbackReceiver
+	[ExecuteInEditMode]
+	public class LookTo : iTweenCommand
 	{
 		[Tooltip("Target transform that the GameObject will look at")]
 		public TransformData _toTransform;
@@ -57,12 +58,9 @@ namespace Fungus
 		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
 		[HideInInspector] [FormerlySerializedAs("toPosition")] public Vector3 toPositionOLD;
 
-		public override void OnBeforeSerialize()
-		{}
-
-		public override void OnAfterDeserialize()
+		protected override void OnEnable()
 		{
-			base.OnAfterDeserialize();
+			base.OnEnable();
 
 			if (toTransformOLD != null)
 			{
