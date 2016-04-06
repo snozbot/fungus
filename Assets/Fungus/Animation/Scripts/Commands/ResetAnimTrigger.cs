@@ -9,7 +9,8 @@ namespace Fungus
 	             "Reset Anim Trigger", 
 	             "Resets a trigger parameter on an Animator component.")]
 	[AddComponentMenu("")]
-	public class ResetAnimTrigger : Command, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class ResetAnimTrigger : Command
 	{
 		[Tooltip("Reference to an Animator component in a game object")]
 		public AnimatorData _animator;
@@ -47,10 +48,7 @@ namespace Fungus
 		[HideInInspector] [FormerlySerializedAs("animator")] public Animator animatorOLD;
 		[HideInInspector] [FormerlySerializedAs("parameterName")] public string parameterNameOLD;
 
-		public void OnBeforeSerialize()
-		{}
-
-		public void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (animatorOLD != null)
 			{

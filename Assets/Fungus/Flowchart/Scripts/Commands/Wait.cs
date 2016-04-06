@@ -9,7 +9,8 @@ namespace Fungus
 	             "Wait", 
 	             "Waits for period of time before executing the next command in the block.")]
 	[AddComponentMenu("")]
-	public class Wait : Command, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class Wait : Command
 	{
 		[Tooltip("Duration to wait for")]
 		public FloatData _duration = new FloatData(1);
@@ -38,10 +39,7 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (durationOLD != default(float))
 			{

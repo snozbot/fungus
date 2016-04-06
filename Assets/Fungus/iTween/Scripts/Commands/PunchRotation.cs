@@ -8,7 +8,8 @@ namespace Fungus
 	             "Punch Rotation", 
 	             "Applies a jolt of force to a GameObject's rotation and wobbles it back to its initial rotation.")]
 	[AddComponentMenu("")]
-	public class PunchRotation : iTweenCommand, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class PunchRotation : iTweenCommand
 	{
 		[Tooltip("A rotation offset in space the GameObject will animate to")]
 		public Vector3Data _amount;
@@ -35,12 +36,9 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("amount")] public Vector3 amountOLD;
 
-		public override void OnBeforeSerialize()
-		{}
-
-		public override void OnAfterDeserialize()
+		protected override void OnEnable()
 		{
-			base.OnAfterDeserialize();
+			base.OnEnable();
 
 			if (amountOLD != default(Vector3))
 			{

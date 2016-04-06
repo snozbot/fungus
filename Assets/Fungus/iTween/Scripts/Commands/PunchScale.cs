@@ -8,7 +8,8 @@ namespace Fungus
 	             "Punch Scale", 
 	             "Applies a jolt of force to a GameObject's scale and wobbles it back to its initial scale.")]
 	[AddComponentMenu("")]
-	public class PunchScale : iTweenCommand, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class PunchScale : iTweenCommand
 	{
 		[Tooltip("A scale offset in space the GameObject will animate to")]
 		public Vector3Data _amount;
@@ -31,12 +32,9 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("amount")] public Vector3 amountOLD;
 
-		public override void OnBeforeSerialize()
-		{}
-
-		public override void OnAfterDeserialize()
+		protected override void OnEnable()
 		{
-			base.OnAfterDeserialize();
+			base.OnEnable();
 
 			if (amountOLD != default(Vector3))
 			{

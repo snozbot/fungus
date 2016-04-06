@@ -8,7 +8,8 @@ namespace Fungus
 	             "Scale Add", 
 	             "Changes a game object's scale by a specified offset over time.")]
 	[AddComponentMenu("")]
-	public class ScaleAdd : iTweenCommand, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class ScaleAdd : iTweenCommand
 	{
 		[Tooltip("A scale offset in space the GameObject will animate to")]
 		public Vector3Data _offset;
@@ -31,12 +32,9 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("offset")] public Vector3 offsetOLD;
 
-		public override void OnBeforeSerialize()
-		{}
-
-		public override void OnAfterDeserialize()
+		protected override void OnEnable()
 		{
-			base.OnAfterDeserialize();
+			base.OnEnable();
 
 			if (offsetOLD != default(Vector3))
 			{

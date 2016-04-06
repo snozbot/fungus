@@ -7,7 +7,8 @@
 	             "Play Usfxr Sound", 
 	             "Plays a usfxr synth sound. Use the usfxr editor [Tools > Fungus > Utilities > Generate usfxr Sound Effects] to create the SettingsString. Set a ParentTransform if using positional sound. See https://github.com/zeh/usfxr for more information about usfxr.")]
 	[AddComponentMenu("")]
-	public class PlayUsfxrSound : Command, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class PlayUsfxrSound : Command
 	{
         protected SfxrSynth _synth = new SfxrSynth();
 
@@ -69,10 +70,7 @@
 
 		[HideInInspector] [FormerlySerializedAs("SettingsString")] public String SettingsStringOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (SettingsStringOLD != "")
 			{

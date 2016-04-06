@@ -9,7 +9,8 @@ namespace Fungus
 	             "Set Active", 
 	             "Sets a game object in the scene to be active / inactive.")]
 	[AddComponentMenu("")]
-	public class SetActive : Command, ISerializationCallbackReceiver
+	[ExecuteInEditMode]
+	public class SetActive : Command
 	{
 		[Tooltip("Reference to game object to enable / disable")]
 		public GameObjectData _targetGameObject;
@@ -46,10 +47,7 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("targetGameObject")] public GameObject targetGameObjectOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (targetGameObjectOLD != null)
 			{

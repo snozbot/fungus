@@ -8,7 +8,8 @@ namespace Fungus
 	             "Move To", 
 	             "Moves a game object to a specified position over time. The position can be defined by a transform in another object (using To Transform) or by setting an absolute position (using To Position, if To Transform is set to None).")]
 	[AddComponentMenu("")]
-	public class MoveTo : iTweenCommand, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class MoveTo : iTweenCommand
 	{
 		[Tooltip("Target transform that the GameObject will move to")]
 		public TransformData _toTransform;
@@ -46,12 +47,9 @@ namespace Fungus
 		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
 		[HideInInspector] [FormerlySerializedAs("toPosition")] public Vector3 toPositionOLD;
 
-		public override void OnBeforeSerialize()
-		{}
-
-		public override void OnAfterDeserialize()
+		protected override void OnEnable()
 		{
-			base.OnAfterDeserialize();
+			base.OnEnable();
 
 			if (toTransformOLD != null)
 			{

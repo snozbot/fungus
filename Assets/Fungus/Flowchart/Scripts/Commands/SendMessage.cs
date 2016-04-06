@@ -8,7 +8,8 @@ namespace Fungus
 	             "Send Message", 
 	             "Sends a message to either the owner Flowchart or all Flowcharts in the scene. Blocks can listen for this message using a Message Received event handler.")]
 	[AddComponentMenu("")]
-	public class SendMessage : Command, ISerializationCallbackReceiver
+	[ExecuteInEditMode]
+	public class SendMessage : Command
 	{
 		public enum MessageTarget
 		{
@@ -72,10 +73,7 @@ namespace Fungus
 
 		[HideInInspector] [FormerlySerializedAs("message")] public string messageOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (messageOLD != "")
 			{

@@ -9,7 +9,8 @@ namespace Fungus
 	             "Fade Sprite", 
 	             "Fades a sprite to a target color over a period of time.")]
 	[AddComponentMenu("")]
-	public class FadeSprite : Command, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class FadeSprite : Command
 	{
 		[Tooltip("Sprite object to be faded")]
 		public SpriteRenderer spriteRenderer;
@@ -72,10 +73,7 @@ namespace Fungus
 		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
 		[HideInInspector] [FormerlySerializedAs("targetColor")] public Color targetColorOLD;
 
-		public virtual void OnBeforeSerialize()
-		{}
-
-		public virtual void OnAfterDeserialize()
+		protected virtual void OnEnable()
 		{
 			if (durationOLD != default(float))
 			{

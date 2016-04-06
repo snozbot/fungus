@@ -8,7 +8,8 @@ namespace Fungus
 	             "Rotate To", 
 	             "Rotates a game object to the specified angles over time.")]
 	[AddComponentMenu("")]
-	public class RotateTo : iTweenCommand, ISerializationCallbackReceiver 
+	[ExecuteInEditMode]
+	public class RotateTo : iTweenCommand
 	{
 		[Tooltip("Target transform that the GameObject will rotate to")]
 		public TransformData _toTransform;
@@ -46,12 +47,9 @@ namespace Fungus
 		[HideInInspector] [FormerlySerializedAs("toTransform")] public Transform toTransformOLD;
 		[HideInInspector] [FormerlySerializedAs("toRotation")] public Vector3 toRotationOLD;
 
-		public override void OnBeforeSerialize()
-		{}
-
-		public override void OnAfterDeserialize()
+		protected override void OnEnable()
 		{
-			base.OnAfterDeserialize();
+			base.OnEnable();
 
 			if (toTransformOLD != null)
 			{
