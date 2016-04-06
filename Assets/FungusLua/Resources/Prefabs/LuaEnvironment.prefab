@@ -40,11 +40,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fungusModule: 0
   stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
   registerTypes:
   - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
+  - {fileID: 4900000, guid: 93fddea8208764a2dbb189cc238aed40, type: 3}
 --- !u!114 &11493126
 MonoBehaviour:
   m_ObjectHideFlags: 1

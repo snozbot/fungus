@@ -103,6 +103,8 @@ namespace Fungus
 		/// </summary>
 		protected virtual void InitTypes()
 		{
+			bool isFungusInstalled = (Type.GetType("Fungus.Flowchart") != null);
+
 			foreach (TextAsset textFile in registerTypes)
 			{
 				if (textFile == null)
@@ -119,6 +121,13 @@ namespace Fungus
 						continue;
 					}
 
+					// Don't register fungus types if the Fungus library is not present
+					if (!isFungusInstalled &&
+						typeName.StartsWith("Fungus."))
+					{
+						continue;
+					}
+						
 					LuaEnvironment.RegisterType(typeName);
 				}
 			}
