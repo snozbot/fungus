@@ -183,12 +183,26 @@ namespace Fungus
 			return maxId + 1;
 		}
 
-		protected virtual void OnLevelWasLoaded(int level) 
+		#if UNITY_5_4_OR_NEWER
+		protected virtual void Awake()
+		{
+			UnityEngine.SceneManagement.SceneManager.activeSceneChanged += (A, B) => {
+				LevelWasLoaded();
+			};
+		}
+		#else
+		public virtual void OnLevelWasLoaded(int level) 
+		{
+			LevelWasLoaded();
+		}
+		#endif
+
+		protected virtual void LevelWasLoaded()
 		{
 			// Reset the flag for checking for an event system as there may not be one in the newly loaded scene.
 			eventSystemPresent = false;
 		}
-
+			
 		protected virtual void Start()
 		{
 			CheckEventSystem();
