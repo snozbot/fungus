@@ -123,7 +123,7 @@ namespace Fungus
 
 					// Don't register fungus types if the Fungus library is not present
 					if (!isFungusInstalled &&
-						typeName.StartsWith("Fungus."))
+						typeName.Contains("Fungus."))
 					{
 						continue;
 					}
