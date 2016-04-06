@@ -18,17 +18,17 @@ end
 -- Returns the absolute time
 -- Use this timing function to work correctly with the Lua Environment's timeScale property
 function M.gettime()
-	return fungus.luautils.getTime()
+	return M.luautils.getTime()
 end
 
 -- Returns the delta time this frame
 -- Use this timing function to work correctly with the Lua Environment's timeScale property
 function M.getdeltatime()
-	return fungus.luautils.getDeltaTime()
+	return M.luautils.getDeltaTime()
 end
 
 function M.settimescale(s)
-	fungus.luautils.timeScale = s
+	M.luautils.timeScale = s
 end
 
 -------------
@@ -61,7 +61,7 @@ end
 function M.run(enumerator)
 	-- If the parameter isn't an enumerator then CreateTask will fail
 	local status, err = pcall( function() 
-		local task = fungus.luaenvironment.RunUnityCoroutine(enumerator)
+		local task = M.luaenvironment.RunUnityCoroutine(enumerator)
 	end)
 
 	if (not status) then
@@ -74,7 +74,7 @@ end
 function M.runwait(enumerator)
 	-- If the parameter isn't an enumerator then CreateTask will fail
 	local status, err = pcall( function() 
-		local task = fungus.luaenvironment.RunUnityCoroutine(enumerator)
+		local task = M.luaenvironment.RunUnityCoroutine(enumerator)
 		while (task != nil and task.Running) do
     		coroutine.yield();
 		end
@@ -92,18 +92,18 @@ end
 
 -- Set active language for string table
 function M.setlanguage(languagecode)
-	fungus.luautils.activeLanguage = languagecode
+	M.luautils.activeLanguage = languagecode
 end
 
 -- Get a named string from the string table
 function M.getstring(key)
-	return fungus.luautils.GetString(key)
+	return M.luautils.GetString(key)
 end
 
 -- Substitutes variables and localisation strings into a piece of text
 -- e.g. v = 10, "Subbed value is [$v]" => "Subbed value is 10"
 function M.sub(text)
-	return fungus.luautils.substitute(text)
+	return M.luautils.substitute(text)
 end
 
 --------------------
@@ -151,7 +151,7 @@ end
 -- Gets the active say dialog, or creates one if none exists yet
 function M.getsaydialog()
 	if (M.sayoptions.saydialog == nil) then
-		local sd = fungus.luautils.spawn("SayDialog").GetComponent("SayDialog")
+		local sd = M.luautils.spawn("SayDialog").GetComponent("SayDialog")
 		M.setsaydialog(sd)
 	end
 	return M.sayoptions.saydialog
@@ -166,7 +166,7 @@ function M.setcharacter(character, portrait)
 	sd.SetCharacter(character)
 
 	-- Do substitution on character name
-	local subbed = fungus.sub(character.nameText)
+	local subbed = M.sub(character.nameText)
 	M.sayoptions.saydialog.SetCharacterName(subbed, character.nameColor)
 
 	-- Try to set the portrait sprite
@@ -191,10 +191,10 @@ function M.say(text, voiceclip)
    local sd = M.getsaydialog()
 
    -- Do variable substitution before displaying text
-   local subbed = fungus.sub(text)
+   local subbed = M.sub(text)
    local e = sd.SayInternal(subbed, M.sayoptions.clearprevious, M.sayoptions.waitforinput, M.sayoptions.fadewhendone, M.sayoptions.stopvoiceover, voiceclip)
 
-   fungus.runwait(e)
+   M.runwait(e)
 end
 
 --------------
@@ -212,7 +212,7 @@ end
 -- Gets the active menu dialog, or creates one if none exists yet
 function M.getmenudialog()
 	if (M.menuoptions.menudialog == nil) then
-		local md = fungus.luautils.spawn("MenuDialog").GetComponent("MenuDialog")
+		local md = M.luautils.spawn("MenuDialog").GetComponent("MenuDialog")
 		M.setmenudialog(md)
 	end
 	return M.menuoptions.menudialog
@@ -226,8 +226,8 @@ function M.menu(text, callback, interactive)
 	local md = M.getmenudialog()
 
 	-- Do variable substitution before displaying text
-	local subbed = fungus.sub(text)
-	md.AddOption(subbed, interactive or true, fungus.luaenvironment, callback)
+	local subbed = M.sub(text)
+	md.AddOption(subbed, interactive or true, M.luaenvironment, callback)
 end
 
 -- Display a timer during which the player has to choose an option.
@@ -236,8 +236,8 @@ end
 function M.menutimer(duration, callback)
 	local md = M.getmenudialog()
 
-	local e = md.ShowTimer(duration, fungus.luaenvironment, callback)
-	fungus.runwait(e)
+	local e = md.ShowTimer(duration, M.luaenvironment, callback)
+	M.runwait(e)
 end
 
 -- Clear all currently displayed menu options

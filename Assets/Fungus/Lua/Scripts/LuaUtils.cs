@@ -94,7 +94,6 @@ namespace Fungus
 			InitTypes();
             InitFungusModule();
 			InitBindings();
-			InitStringTable();
         }
 
 		/// <summary>
@@ -185,6 +184,33 @@ namespace Fungus
 				fungusTable["test"] = UserData.CreateStatic(testType);
 			}
 
+			// Register the stringtable (if one is set)
+			if (stringTable != null)
+			{
+				try
+				{                
+					DynValue stringTableRes = interpreter.DoString(stringTable.text);
+					if (stringTableRes.Type == DataType.Table)
+					{
+						stringTableCached = stringTableRes.Table;
+						if (fungusTable != null)
+						{
+							fungusTable["stringtable"] = stringTableCached;
+						}
+					}
+				}
+				catch (ScriptRuntimeException ex)
+				{
+					LuaEnvironment.LogException(ex.DecoratedMessage, stringTable.text);
+				}
+				catch (InterpreterException ex)
+				{
+					LuaEnvironment.LogException(ex.DecoratedMessage, stringTable.text);
+				}
+			}
+
+			stringSubstituter = new StringSubstituter();
+
 			if (fungusModule == FungusModuleOptions.UseGlobalVariables)
 			{				
 				// Copy all items from the Fungus table to global variables
@@ -200,44 +226,11 @@ namespace Fungus
 					}
 				}
 
+				interpreter.Globals["fungus"] = DynValue.Nil;
+
 				// Note: We can't remove the fungus table itself because of dependencies between functions
 			}
 		}
-
-        /// <summary>
-        /// Loads the global string table used for localisation.
-        /// </summary>
-        protected virtual void InitStringTable()
-        {
-			MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
-
-            if (stringTable != null)
-            {
-                try
-                {                
-                    DynValue stringTableRes = interpreter.DoString(stringTable.text);
-                    if (stringTableRes.Type == DataType.Table)
-                    {
-                        stringTableCached = stringTableRes.Table;
-						Table fungusTable = interpreter.Globals.Get("fungus").Table;
-						if (fungusTable != null)
-						{
-							fungusTable["stringtable"] = stringTableCached;
-						}
-                    }
-                }
-                catch (ScriptRuntimeException ex)
-                {
-					LuaEnvironment.LogException(ex.DecoratedMessage, stringTable.text);
-                }
-                catch (InterpreterException ex)
-                {
-					LuaEnvironment.LogException(ex.DecoratedMessage, stringTable.text);
-                }
-            }
-
-			stringSubstituter = new StringSubstituter();
-        }
 
         /// <summary>
         /// Returns a string from the string table for this key.
