@@ -106,9 +106,10 @@ function M.sub(text)
 	return M.luautils.substitute(text)
 end
 
---------------------
+--------------------------------------------------------------
 -- Integration tests
---------------------
+-- These functions require the Unity Test Tools to work.
+--------------------------------------------------------------
 
 -- Checks if a condition is true (requires Unity Test Tools)
 -- Lua has a built in assert function, so we called this check to avoid conflicting.
@@ -130,6 +131,10 @@ function M.fail(reason)
 	error( debug.traceback("Test failed", 2) )
 	M.test.fail(reason)
 end
+
+---------------------------------------------
+-- All functions below require Fungus to work
+---------------------------------------------
 
 -------------
 -- Say Dialog
