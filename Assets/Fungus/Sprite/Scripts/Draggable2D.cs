@@ -33,9 +33,16 @@ namespace Fungus
 		protected Vector3 startingPosition;
 		protected bool updatePosition = false;
 		protected Vector3 newPosition;
-
+        protected Vector3 delta = Vector3.zero;
+            
 		protected virtual void OnMouseDown()
 		{
+            // Offset the object so that the drag is anchored to the exact point where the user clicked it
+            float x = Input.mousePosition.x;
+            float y = Input.mousePosition.y;
+            delta = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f)) - transform.position;
+            delta.z = 0f;
+
 			startingPosition = transform.position;
 
 			foreach (DragStarted handler in GetHandlers<DragStarted>())
@@ -55,7 +62,7 @@ namespace Fungus
 			float y = Input.mousePosition.y;
 			float z = transform.position.z;
 
-			newPosition = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f));
+			newPosition = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f)) - delta;
 			newPosition.z = z;
 			updatePosition = true;
 		}
