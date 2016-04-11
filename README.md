@@ -6,7 +6,7 @@ The goal of Fungus is to provide a free, open source tool for creating interacti
 - Author: Chris Gregan
 - Website: fungusgames.com
 - Email: chris@fungusgames.com
-- Twtter: @gofungus
+- Twitter: @gofungus
 - Facebook: facebook.com/fungusgames
 
 Installation
