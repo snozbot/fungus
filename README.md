@@ -5,7 +5,7 @@ The goal of Fungus is to provide a free, open source tool for creating interacti
 
 - Author: Chris Gregan
 - Website: fungusgames.com
-- Email: chris@fungusgames.com
+- Email: chris@snozbot.com
 - Twitter: @gofungus
 - Facebook: facebook.com/fungusgames
 
@@ -26,8 +26,8 @@ Contributing
 
 To contribute code to Fungus, please see [CONTRIBUTING][contributing]. If you are interested in contributing in some other way (art, audio, documentation, pizza) just email me at chris at fungusgames.com.
 
-[contributing]: https://github.com/FungusGames/Fungus/blob/master/CONTRIBUTING.md
+[contributing]: https://github.com/snozbot/fungus/blob/master/CONTRIBUTING.md
 
 Many thanks to everyone who has contributed code to the project.
-https://github.com/fungusgames/fungus/graphs/contributors
+https://github.com/snozbot/fungus/graphs/contributors
 
