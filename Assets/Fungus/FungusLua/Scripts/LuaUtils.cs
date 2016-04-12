@@ -112,24 +112,62 @@ namespace Fungus
 					continue;
 				}
 
-				char[] separators = { '\r', '\n' };
-				foreach (string typeName in textFile.text.Split(separators, StringSplitOptions.RemoveEmptyEntries))
-				{
-					// Skip comments and empty lines
-					if (typeName.StartsWith("#") || typeName.Trim() == "")
-					{
-						continue;
-					}
+                // Parse JSON file
+                JSONObject jsonObject = new JSONObject(textFile.text);
+                if (jsonObject == null ||
+                    jsonObject.type != JSONObject.Type.OBJECT)
+                {
+                    UnityEngine.Debug.LogError("Error parsing JSON file " + textFile.name);
+                    continue;
+                }
 
-					// Don't register fungus types if the Fungus library is not present
-					if (!isFungusInstalled &&
-						typeName.Contains("Fungus."))
-					{
-						continue;
-					}
-						
-					LuaEnvironment.RegisterType(typeName);
-				}
+                // Register types with MoonSharp
+                JSONObject registerTypesArray = jsonObject.GetField("registerTypes");
+                if (registerTypesArray != null &&
+                    registerTypesArray.type == JSONObject.Type.ARRAY)
+                {
+                    foreach (JSONObject entry in registerTypesArray.list)
+                    {
+                        if (entry != null &&
+                            entry.type == JSONObject.Type.STRING)
+                        {
+                            string typeName = entry.str.Trim();
+
+                            // Don't register fungus types if the Fungus library is not present
+                            if (!isFungusInstalled &&
+                                typeName.StartsWith("Fungus."))
+                            {
+                                continue;
+                            }
+
+                            LuaEnvironment.RegisterType(typeName);
+                        }
+                    }
+                }
+
+                // Register extension types with MoonSharp
+                JSONObject extensionTypesArray = jsonObject.GetField("extensionTypes");
+                if (extensionTypesArray != null &&
+                    extensionTypesArray.type == JSONObject.Type.ARRAY)
+                {
+                    foreach (JSONObject entry in extensionTypesArray.list)
+                    {
+                        if (entry != null &&
+                            entry.type == JSONObject.Type.STRING)
+                        {
+                            string typeName = entry.str.Trim();
+
+                            // Don't register fungus types if the Fungus library is not present
+                            if (!isFungusInstalled &&
+                                typeName.StartsWith("Fungus."))
+                            {
+                                continue;
+                            }
+
+                            LuaEnvironment.RegisterType(typeName, true);
+                        }
+                    }
+                }
 			}
 		}
 

@@ -1,67 +1,63 @@
-﻿# List of c# types to register with MoonSharp
-# LuaBindings usually takes care of registering the types of bound objects, but in some
-# cases you'll need to register a type manually by adding it to this list.
-# You can also register types using MoonSharp's UserData class in the Awake method of a component.
-# To register an extension type, add the E: prefix 
-# If the type is defined in the main assembly then you can just use namespace.typename
-# If the type is defined in any other assembly you need to use the full assembly qualified type name.
-
-System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-System.Collections.IEnumerator, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-System.IntPtr, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-System.UInt32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-UnityEngine.AudioClip, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.AudioClipLoadType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.AudioDataLoadState, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.AudioSource, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Bounds, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Canvas, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Color, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.ComputeBuffer, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Coroutine, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.EventSystems.BaseEventData, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.EventSystems.PointerEventData, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Font, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.FontStyle, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.HorizontalWrapMode, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Material, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.MaterialGlobalIlluminationFlags, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Matrix4x4, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.MonoBehaviour, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Quaternion, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.RectTransform, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.ScriptableObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Shader, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Sprite, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.SpriteMeshType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.SpritePackingMode, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.SpritePackingRotation, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.TextAnchor, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.TextGenerationSettings, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.TextGenerator, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Texture, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.TextureFormat, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Time, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.UI.Slider, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Vector3, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.Vector4, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-UnityEngine.VerticalWrapMode, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-
-# Extension types
+﻿{
+	"registerTypes" : [
+		"System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"System.Collections.IEnumerator, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"System.IntPtr, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"System.UInt32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"UnityEngine.AudioClip, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.AudioClipLoadType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.AudioDataLoadState, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.AudioSource, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Bounds, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Canvas, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Color, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.ComputeBuffer, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Coroutine, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.EventSystems.BaseEventData, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.EventSystems.PointerEventData, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Font, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.FontStyle, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.HorizontalWrapMode, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Material, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.MaterialGlobalIlluminationFlags, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Matrix4x4, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.MonoBehaviour, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Quaternion, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.RectTransform, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.ScriptableObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Shader, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Sprite, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.SpriteMeshType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.SpritePackingMode, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.SpritePackingRotation, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.TextAnchor, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.TextGenerationSettings, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.TextGenerator, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Texture, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Texture2D, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.TextureFormat, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Time, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Transform, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.UI.Slider, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Vector3, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Vector4, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.VerticalWrapMode, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+	],
+	"extensionTypes" : [
+	]
+}

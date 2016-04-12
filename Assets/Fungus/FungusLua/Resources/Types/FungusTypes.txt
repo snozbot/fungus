@@ -1,43 +1,38 @@
-﻿# List of c# types to register with MoonSharp
-# LuaBindings usually takes care of registering the types of bound objects, but in some
-# cases you'll need to register a type manually by adding it to this list.
-# You can also register types using MoonSharp's UserData class in the Awake method of a component.
-# To register an extension type, add the E: prefix 
-# If the type is defined in the main assembly then you can just use namespace.typename
-# If the type is defined in any other assembly you need to use the full assembly qualified type name.
-
-Fungus.AnimatorVariable
-Fungus.AudioSourceVariable
-Fungus.Block
-Fungus.BooleanVariable
-Fungus.Character
-Fungus.ColorVariable
-Fungus.Command
-Fungus.CommandInfoAttribute
-Fungus.FacingDirection
-Fungus.FloatVariable
-Fungus.Flowchart
-Fungus.FungusPrefs
-Fungus.LuaEnvironment
-Fungus.LuaUtils
-Fungus.GameObjectVariable
-Fungus.IntegerVariable
-Fungus.Label
-Fungus.MaterialVariable
-Fungus.MenuDialog
-Fungus.ObjectVariable
-Fungus.PODTypeFactory
-Fungus.PortraitState
-Fungus.SayDialog
-Fungus.SpriteVariable
-Fungus.StringVariable
-Fungus.Task
-Fungus.TextureVariable
-Fungus.TransformVariable
-Fungus.Variable
-Fungus.Vector2Variable
-Fungus.Vector3Variable
-
-# Extension types
-
-E:Fungus.LuaExtensions
+﻿{
+	"registerTypes" : [
+		"Fungus.AnimatorVariable",
+		"Fungus.AudioSourceVariable",
+		"Fungus.Block",
+		"Fungus.BooleanVariable",
+		"Fungus.Character",
+		"Fungus.ColorVariable",
+		"Fungus.Command",
+		"Fungus.CommandInfoAttribute",
+		"Fungus.FacingDirection",
+		"Fungus.FloatVariable",
+		"Fungus.Flowchart",
+		"Fungus.FungusPrefs",
+		"Fungus.LuaEnvironment",
+		"Fungus.LuaUtils",
+		"Fungus.GameObjectVariable",
+		"Fungus.IntegerVariable",
+		"Fungus.Label",
+		"Fungus.MaterialVariable",
+		"Fungus.MenuDialog",
+		"Fungus.ObjectVariable",
+		"Fungus.PODTypeFactory",
+		"Fungus.PortraitState",
+		"Fungus.SayDialog",
+		"Fungus.SpriteVariable",
+		"Fungus.StringVariable",
+		"Fungus.Task",
+		"Fungus.TextureVariable",
+		"Fungus.TransformVariable",
+		"Fungus.Variable",
+		"Fungus.Vector2Variable",
+		"Fungus.Vector3Variable"
+	],
+	"extensionTypes" : [
+		"Fungus.LuaExtensions"
+	]
+}

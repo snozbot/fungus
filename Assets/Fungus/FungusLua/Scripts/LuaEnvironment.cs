@@ -167,17 +167,9 @@ namespace Fungus
 		/// <summary>
 		/// Register a type given it's assembly qualified name.
 		/// </summary>
-		public static void RegisterType(string typeName)
+        public static void RegisterType(string typeName, bool extensionType = false)
 		{
-			bool extensionType = false;
-			string registerName = typeName;
-			if (typeName.StartsWith("E:"))
-			{
-				extensionType = true;
-				registerName = registerName.Substring(2);
-			}
-
-			System.Type t = System.Type.GetType(registerName);
+            System.Type t = System.Type.GetType(typeName);
 			if (t == null)
 			{
 				UnityEngine.Debug.LogWarning("Type not found: " + typeName);
