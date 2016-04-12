@@ -1143,6 +1143,7 @@ GameObject:
   - 33: {fileID: 1437227278}
   - 65: {fileID: 1437227277}
   - 23: {fileID: 1437227276}
+  - 114: {fileID: 1437227281}
   - 114: {fileID: 1437227280}
   m_Layer: 0
   m_Name: CubeTrigger
@@ -1219,14 +1220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 8192
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: 'runblock(flowchart, "Start")
@@ -1236,6 +1229,25 @@ MonoBehaviour:
 
     say("Block is finished");'
   runAsCoroutine: 1
+--- !u!114 &1437227281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1437227275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 8192
 --- !u!1001 &1575311449
 Prefab:
   m_ObjectHideFlags: 0

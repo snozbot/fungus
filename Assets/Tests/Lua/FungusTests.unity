@@ -955,7 +955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &110417826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1160,6 +1160,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 116891409}
+  - 114: {fileID: 116891411}
   - 114: {fileID: 116891410}
   m_Layer: 0
   m_Name: LuaScript
@@ -1191,14 +1192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Check the starting value of StringVar
@@ -1228,6 +1221,25 @@ MonoBehaviour:
 
     pass()'
   runAsCoroutine: 1
+--- !u!114 &116891411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 116891408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1001 &130678264
 Prefab:
   m_ObjectHideFlags: 0
@@ -2269,10 +2281,10 @@ RectTransform:
   - {fileID: 913989833}
   m_Father: {fileID: 465829170}
   m_RootOrder: 3
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -365}
-  m_SizeDelta: {x: 1300, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &398057889
 MonoBehaviour:
@@ -2474,10 +2486,10 @@ RectTransform:
   - {fileID: 1088283066}
   m_Father: {fileID: 465829170}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -155}
-  m_SizeDelta: {x: 1300, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &405820710
 MonoBehaviour:
@@ -2584,6 +2596,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 448016417}
+  - 114: {fileID: 448016419}
   - 114: {fileID: 448016418}
   m_Layer: 0
   m_Name: LuaScript
@@ -2615,14 +2628,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- The "Do Test" block in the flowchart sets a bunch of flowchart variables
@@ -2694,6 +2699,25 @@ MonoBehaviour:
 
     pass()'
   runAsCoroutine: 1
+--- !u!114 &448016419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 448016416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &465829169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2734,7 +2758,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000018477, y: 191}
-  m_SizeDelta: {x: 1300, y: 680}
+  m_SizeDelta: {x: 1300, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &465829171
 MonoBehaviour:
@@ -2851,10 +2875,10 @@ RectTransform:
   - {fileID: 1446085149}
   m_Father: {fileID: 465829170}
   m_RootOrder: 6
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -655}
-  m_SizeDelta: {x: 1300, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &507572621
 MonoBehaviour:
@@ -2967,6 +2991,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 508615589}
+  - 114: {fileID: 508615591}
   - 114: {fileID: 508615590}
   m_Layer: 0
   m_Name: LuaScript
@@ -2998,6 +3023,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: "menuoptions.menudialog = menudialog\n\nfunction option1()\n   fail()\nend\n\nmenu(\"Option
+    1\", option1)\n\ncheck(optionbutton0.activeSelf)\nclearmenu()\nassert(not optionbutton0.activeSelf)\n\npass()"
+  runAsCoroutine: 1
+--- !u!114 &508615591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 508615588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   executeAfterTime: 1
   repeatExecuteTime: 1
   repeatEveryTime: 1
@@ -3006,11 +3047,6 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  luaEnvironment: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: "menuoptions.menudialog = menudialog\n\nfunction option1()\n   fail()\nend\n\nmenu(\"Option
-    1\", option1)\n\ncheck(optionbutton0.activeSelf)\nclearmenu()\nassert(not optionbutton0.activeSelf)\n\npass()"
-  runAsCoroutine: 1
 --- !u!1 &511430244
 GameObject:
   m_ObjectHideFlags: 0
@@ -3019,6 +3055,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 511430245}
+  - 114: {fileID: 511430247}
   - 114: {fileID: 511430246}
   m_Layer: 0
   m_Name: LuaScript
@@ -3050,14 +3087,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "-- Test the Menu Timer functionality\n\nmenuoptions.menudialog = menudialog\n\n--
@@ -3066,6 +3095,25 @@ MonoBehaviour:
     \  pass()\nend\n\n-- Display a menu option with a timer\nmenu(\"Option 1\", option1)\nmenutimer(1,
     timeout)\n"
   runAsCoroutine: 1
+--- !u!114 &511430247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 511430244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &560555132
 GameObject:
   m_ObjectHideFlags: 0
@@ -3270,10 +3318,10 @@ RectTransform:
   - {fileID: 913529610}
   m_Father: {fileID: 465829170}
   m_RootOrder: 2
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -260}
-  m_SizeDelta: {x: 1300, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &625261051
 MonoBehaviour:
@@ -3593,10 +3641,10 @@ RectTransform:
   - {fileID: 863130403}
   m_Father: {fileID: 465829170}
   m_RootOrder: 4
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -470}
-  m_SizeDelta: {x: 1300, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &715595888
 MonoBehaviour:
@@ -4289,7 +4337,7 @@ Transform:
   - {fileID: 560555133}
   - {fileID: 511430245}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1 &828158145
 GameObject:
   m_ObjectHideFlags: 0
@@ -4298,6 +4346,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 828158146}
+  - 114: {fileID: 828158148}
   - 114: {fileID: 828158147}
   m_Layer: 0
   m_Name: LuaScript
@@ -4330,14 +4379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "-- Test Say creating a SayDialog when none already exists\n\nsayoptions.waitforinput
@@ -4346,6 +4387,25 @@ MonoBehaviour:
     \  pass()\nend\n\nmenu(\"Option A\",  choose_a)\n\nlocal go = luautils.find(\"OptionButton0\")\ncheck(go
     != nil)\n\nlocal button = go.GetComponent(\"Button\")\ncheck(button != nil)\n\nbutton.onClick.Invoke()"
   runAsCoroutine: 1
+--- !u!114 &828158148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 828158145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &851680338
 GameObject:
   m_ObjectHideFlags: 0
@@ -4424,6 +4484,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 851718692}
+  - 114: {fileID: 851718694}
   - 114: {fileID: 851718693}
   m_Layer: 0
   m_Name: LuaScript
@@ -4455,14 +4516,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test getting and setting Fungus variables
@@ -4490,6 +4543,25 @@ MonoBehaviour:
 
     pass()'
   runAsCoroutine: 1
+--- !u!114 &851718694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 851718691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &863130402
 GameObject:
   m_ObjectHideFlags: 0
@@ -4599,10 +4671,10 @@ RectTransform:
   - {fileID: 884473401}
   m_Father: {fileID: 465829170}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -50}
-  m_SizeDelta: {x: 1300, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &876352040
 MonoBehaviour:
@@ -4816,7 +4888,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1 &913529609
 GameObject:
   m_ObjectHideFlags: 0
@@ -6169,7 +6241,7 @@ Transform:
   - {fileID: 36455799}
   - {fileID: 508615589}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1 &1077682782
 GameObject:
   m_ObjectHideFlags: 0
@@ -6421,7 +6493,7 @@ Transform:
   - {fileID: 605829511}
   - {fileID: 1845639738}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
 --- !u!1 &1142920804
 GameObject:
   m_ObjectHideFlags: 0
@@ -7114,7 +7186,7 @@ RectTransform:
   m_Father: {fileID: 1446085149}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7213,7 +7285,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
 --- !u!1 &1446085148
 GameObject:
   m_ObjectHideFlags: 0
@@ -7706,6 +7778,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1652835881}
+  - 114: {fileID: 1652835883}
   - 114: {fileID: 1652835882}
   m_Layer: 0
   m_Name: LuaScript
@@ -7738,20 +7811,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 2
-  repeatExecuteTime: 0
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "-- Test the Menu Timer functionality\n\nmenuoptions.menudialog = menudialog\n\n--
     Called if user clicks on menu option\nfunction option1()\n   pass()\nend\n\n--
     Display a menu option with a timer\nmenu(\"Option 1\", option1)\n\noptionbutton0.onClick.Invoke()\n"
   runAsCoroutine: 1
+--- !u!114 &1652835883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1652835880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &1667495163
 GameObject:
   m_ObjectHideFlags: 0
@@ -8630,10 +8714,10 @@ RectTransform:
   - {fileID: 761668839}
   m_Father: {fileID: 465829170}
   m_RootOrder: 5
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 650, y: -575}
-  m_SizeDelta: {x: 1300, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1762200959
 MonoBehaviour:
@@ -8780,6 +8864,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1845639738}
+  - 114: {fileID: 1845639740}
   - 114: {fileID: 1845639739}
   m_Layer: 0
   m_Name: LuaScript
@@ -8811,14 +8896,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test Say Dialog integration
@@ -8857,6 +8934,25 @@ MonoBehaviour:
 
 '
   runAsCoroutine: 1
+--- !u!114 &1845639740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1845639737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &1880266302
 GameObject:
   m_ObjectHideFlags: 0
@@ -9370,7 +9466,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1993284458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9407,7 +9503,7 @@ Transform:
   - {fileID: 1652835881}
   - {fileID: 20972057}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &2004121212 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -9506,6 +9602,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2049586852}
+  - 114: {fileID: 2049586854}
   - 114: {fileID: 2049586853}
   m_Layer: 0
   m_Name: LuaScript
@@ -9537,14 +9634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Use a Fungus flowchart to show a character portrait
@@ -9557,6 +9646,25 @@ MonoBehaviour:
 
     pass()'
   runAsCoroutine: 1
+--- !u!114 &2049586854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2049586851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &2087053783
 GameObject:
   m_ObjectHideFlags: 0
@@ -9864,14 +9972,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: 

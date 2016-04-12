@@ -8,6 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 449874}
+  - 114: {fileID: 11446228}
   - 114: {fileID: 11472914}
   m_Layer: 0
   m_Name: LuaScript
@@ -28,6 +29,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11446228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!114 &11472914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -39,19 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: 
   runAsCoroutine: 1
-  useFungusModule: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

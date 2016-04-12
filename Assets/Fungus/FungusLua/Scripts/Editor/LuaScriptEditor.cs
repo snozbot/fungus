@@ -14,30 +14,12 @@ namespace Fungus
     [CustomEditor(typeof(LuaScript))]
     public class LuaScriptEditor : Editor
     {
-        private readonly DropDownControl<Type> m_ComparerDropDown = new DropDownControl<Type>();
-
-        #region GUI Contents
-        private readonly GUIContent m_GUIExecuteAfterTimeGuiContent = new GUIContent("Execute after (seconds)", "After how many seconds the script should be executed");
-        private readonly GUIContent m_GUIRepeatExecuteTimeGuiContent = new GUIContent("Repeat execute", "Should the execution be repeated.");
-        private readonly GUIContent m_GUIRepeatEveryTimeGuiContent = new GUIContent("Frequency of repetitions", "How often should the execution be done");
-        private readonly GUIContent m_GUIExecuteAfterFramesGuiContent = new GUIContent("Execute after (frames)", "After how many frames the script should be executed");
-        private readonly GUIContent m_GUIRepeatExecuteFrameGuiContent = new GUIContent("Repeat execution", "Should the execution be repeated.");
-        #endregion
-
         protected SerializedProperty luaEnvironmentProp;
         protected SerializedProperty runAsCoroutineProp;
         protected SerializedProperty luaFileProp;
         protected SerializedProperty luaScriptProp;
 
         protected List<TextAsset> luaFiles = new List<TextAsset>();
-
-		public LuaScriptEditor()
-        {
-            m_ComparerDropDown.convertForButtonLabel = type => type.Name;
-            m_ComparerDropDown.convertForGUIContent = type => type.Name;
-            m_ComparerDropDown.ignoreConvertForGUIContent = types => false;
-            m_ComparerDropDown.tooltip = "Comparer that will be used to compare values and determine the result of assertion.";
-        }
 
         public virtual void OnEnable()
         {
@@ -67,38 +49,6 @@ namespace Fungus
 
         public override void OnInspectorGUI()
         {
-            var fungusInvoke = (LuaScript)target;
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PrefixLabel(new GUIContent("On Event"));
-            fungusInvoke.executeMethods = (LuaScript.ExecuteMethod)EditorGUILayout.EnumMaskField(fungusInvoke.executeMethods,
-                                                                                                    EditorStyles.popup,
-                                                                                                    GUILayout.ExpandWidth(false));
-            EditorGUILayout.EndHorizontal();
-
-            if (fungusInvoke.IsExecuteMethodSelected(LuaScript.ExecuteMethod.AfterPeriodOfTime))
-            {
-                DrawOptionsForAfterPeriodOfTime(fungusInvoke);
-            }
-
-            if (fungusInvoke.IsExecuteMethodSelected(LuaScript.ExecuteMethod.Update))
-            {
-                DrawOptionsForOnUpdate(fungusInvoke);
-            }
-
-            if (Application.isPlaying)
-            {
-                EditorGUILayout.BeginHorizontal();
-                GUILayout.FlexibleSpace();
-
-                if (GUILayout.Button(new GUIContent("Execute Now", "Execute the Lua script immediately.")))
-                {
-                    fungusInvoke.Execute();
-                }
-
-                GUILayout.FlexibleSpace();
-                EditorGUILayout.EndHorizontal();
-            }
-
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(luaEnvironmentProp);
@@ -153,42 +103,6 @@ namespace Fungus
             }
 
             serializedObject.ApplyModifiedProperties();
-        }
-
-        private void DrawOptionsForAfterPeriodOfTime(LuaScript script)
-        {
-            EditorGUILayout.Space();
-            script.executeAfterTime = EditorGUILayout.FloatField(m_GUIExecuteAfterTimeGuiContent,
-                                                               script.executeAfterTime);
-            if (script.executeAfterTime < 0)
-                script.executeAfterTime = 0;
-            script.repeatExecuteTime = EditorGUILayout.Toggle(m_GUIRepeatExecuteTimeGuiContent,
-                                                            script.repeatExecuteTime);
-            if (script.repeatExecuteTime)
-            {
-                script.repeatEveryTime = EditorGUILayout.FloatField(m_GUIRepeatEveryTimeGuiContent,
-                                                                    script.repeatEveryTime);
-                if (script.repeatEveryTime < 0)
-                    script.repeatEveryTime = 0;
-            }
-        }
-
-        private void DrawOptionsForOnUpdate(LuaScript script)
-        {
-            EditorGUILayout.Space();
-            script.executeAfterFrames = EditorGUILayout.IntField(m_GUIExecuteAfterFramesGuiContent,
-                                                               script.executeAfterFrames);
-            if (script.executeAfterFrames < 1)
-                script.executeAfterFrames = 1;
-            script.repeatExecuteFrame = EditorGUILayout.Toggle(m_GUIRepeatExecuteFrameGuiContent,
-                                                             script.repeatExecuteFrame);
-            if (script.repeatExecuteFrame)
-            {
-                script.repeatEveryFrame = EditorGUILayout.IntField(m_GUIRepeatEveryTimeGuiContent,
-                                                                   script.repeatEveryFrame);
-                if (script.repeatEveryFrame < 1)
-                    script.repeatEveryFrame = 1;
-            }
         }
     }
 }

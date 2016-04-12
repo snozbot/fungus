@@ -625,6 +625,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 519026841}
+  - 114: {fileID: 519026842}
   - 114: {fileID: 519026840}
   m_Layer: 0
   m_Name: LuaScript
@@ -645,14 +646,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "setsaydialog(saydialog)\nsetmenudialog(menudialog)\n\nfunction start()\n
@@ -672,6 +665,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!114 &519026842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 519026839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &614649408
 GameObject:
   m_ObjectHideFlags: 0

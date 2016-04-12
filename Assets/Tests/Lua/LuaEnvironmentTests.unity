@@ -186,6 +186,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 113453956}
+  - 114: {fileID: 113453958}
   - 114: {fileID: 113453957}
   m_Layer: 0
   m_Name: LuaScript
@@ -218,14 +219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: 'check(dummycollection.stringList[1] == "hi")
@@ -242,6 +235,25 @@ MonoBehaviour:
 
 '
   runAsCoroutine: 1
+--- !u!114 &113453958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 113453955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &156811089
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +262,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 156811091}
+  - 114: {fileID: 156811092}
   - 114: {fileID: 156811090}
   m_Layer: 0
   m_Name: LuaScript
@@ -270,17 +283,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: pass()
+  luaScript: '-- Basic test to check that the Lua environment inits ok
+
+    pass()'
   runAsCoroutine: 1
 --- !u!4 &156811091
 Transform:
@@ -294,6 +301,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1887843215}
   m_RootOrder: 1
+--- !u!114 &156811092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 156811089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!4 &236999594 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -419,6 +445,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 305346651}
+  - 114: {fileID: 305346653}
   - 114: {fileID: 305346652}
   m_Layer: 0
   m_Name: LuaScript
@@ -450,6 +477,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: "-- Test the timeout works in fungus.waitfor\nlocal value = false\n\nfunction
+    fn()\n   return value\nend\n\nt = gettime()\nwaitfor(fn, 1)\ncheck(gettime() -
+    t >= 1)\n\n-- Test fungus.waitfor() exits if the function returns true\n-- If
+    this doesn't work the test will timeout and fail\nvalue = true\nwaitfor(fn, 1)\n\npass()"
+  runAsCoroutine: 1
+--- !u!114 &305346653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 305346650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   executeAfterTime: 1
   repeatExecuteTime: 1
   repeatEveryTime: 1
@@ -458,13 +503,6 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
-  luaEnvironment: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: "-- Test the timeout works in fungus.waitfor\nlocal value = false\n\nfunction
-    fn()\n   return value\nend\n\nt = gettime()\nwaitfor(fn, 1)\ncheck(gettime() -
-    t >= 1)\n\n-- Test fungus.waitfor() exits if the function returns true\n-- If
-    this doesn't work the test will timeout and fail\nvalue = true\nwaitfor(fn, 1)\n\npass()"
-  runAsCoroutine: 1
 --- !u!1001 &364012152
 Prefab:
   m_ObjectHideFlags: 0
@@ -725,6 +763,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 681659774}
+  - 114: {fileID: 681659776}
   - 114: {fileID: 681659775}
   m_Layer: 0
   m_Name: LuaScript
@@ -756,14 +795,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test storing persistant data
@@ -786,6 +817,25 @@ MonoBehaviour:
 
 '
   runAsCoroutine: 1
+--- !u!114 &681659776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 681659773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &715881501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,6 +1075,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1124932172}
+  - 114: {fileID: 1124932174}
   - 114: {fileID: 1124932173}
   m_Layer: 0
   m_Name: LuaScript
@@ -1056,14 +1107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test time functions and time scaling
@@ -1111,6 +1154,25 @@ MonoBehaviour:
 
     pass()'
   runAsCoroutine: 1
+--- !u!114 &1124932174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1124932171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!4 &1167396341 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -1220,6 +1282,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1309386183}
+  - 114: {fileID: 1309386185}
   - 114: {fileID: 1309386184}
   m_Layer: 0
   m_Name: LuaScript
@@ -1251,14 +1314,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test if module importing via require works
@@ -1269,6 +1324,25 @@ MonoBehaviour:
 
     pass()'
   runAsCoroutine: 1
+--- !u!114 &1309386185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1309386182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &1394431693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,6 +1764,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1738134228}
+  - 114: {fileID: 1738134230}
   - 114: {fileID: 1738134229}
   m_Layer: 0
   m_Name: LuaScript
@@ -1721,14 +1796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test string table localisation system
@@ -1777,6 +1844,25 @@ MonoBehaviour:
 
     pass()'
   runAsCoroutine: 1
+--- !u!114 &1738134230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1738134227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &1818482578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1785,6 +1871,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1818482579}
+  - 114: {fileID: 1818482581}
   - 114: {fileID: 1818482580}
   m_Layer: 0
   m_Name: LuaScript
@@ -1816,14 +1903,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test if object binding works
@@ -1834,6 +1913,25 @@ MonoBehaviour:
 
 '
   runAsCoroutine: 1
+--- !u!114 &1818482581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1818482578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &1828947831
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,6 +2227,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1932132174}
+  - 114: {fileID: 1932132176}
   - 114: {fileID: 1932132175}
   m_Layer: 0
   m_Name: LuaScript
@@ -2161,14 +2260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Test GameObject methods like find, instantiate, spawn, etc.
@@ -2204,6 +2295,25 @@ MonoBehaviour:
 
     pass()'
   runAsCoroutine: 1
+--- !u!114 &1932132176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1932132173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
 --- !u!1 &1960220030
 GameObject:
   m_ObjectHideFlags: 0
