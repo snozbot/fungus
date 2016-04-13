@@ -23,15 +23,15 @@ namespace Fungus
         public LuaEnvironment luaEnvironment;
 
         /// <summary>
-        /// Lua script file to execute.
+        /// Text file containing Lua script to be executed.
         /// </summary>
-        [Tooltip("Lua script file to execute.")]
+        [Tooltip("Text file containing Lua script to be executed.")]
         public TextAsset luaFile;
 
         /// <summary>
         /// Lua script to execute.
         /// </summary>
-        [Tooltip("Lua script to execute.")]
+        [Tooltip("A Lua string to execute, appended to the contents of Lua File (if one is specified).")]
         [TextArea(5, 50)]
         public string luaScript = "";
 
@@ -103,7 +103,8 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Returns the Lua string to be executed.
+        /// Returns the Lua string to be executed. 
+        /// This is the contents of the Lua script appended to the contents of the Lua file.
         /// </summary>
         /// <returns>The lua string.</returns>
         protected virtual string GetLuaString()
@@ -113,9 +114,10 @@ namespace Fungus
             {
                 s = luaFile.text;
             }
-            else if (luaScript.Length > 0)
+
+            if (luaScript.Length > 0)
             {
-                s = luaScript;
+                s += luaScript;
             }
 
             return s;
