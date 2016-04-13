@@ -30,33 +30,41 @@ namespace Fungus
 
         protected string friendlyName = "";
 
+        protected bool initialised ;
+ 
         protected virtual void Start()
         {
+            InitExecuteLua();
+		}
+
+        /// <summary>
+        /// Initialises the Lua environment and compiles the Lua string for execution later on.
+        /// </summary>
+        protected virtual void InitExecuteLua()
+        {
+            if (initialised)
+            {
+                return;
+            }
+
             // Cache a descriptive name to use in Lua error messages
             friendlyName = gameObject.name + "." + parentBlock.blockName + "." + "ExecuteLua #" + commandIndex.ToString();
 
-			if (luaEnvironment == null)        
-			{
-				luaEnvironment = LuaEnvironment.GetLua();
-			}
-		}
+            if (luaEnvironment == null)        
+            {
+                luaEnvironment = LuaEnvironment.GetLua();
+            }
+
+            initialised = true;
+        }
 
         public override void OnEnter()
         {
-			// This command could be executed from the Start of another component, so we
-			// need to check the Lua Environment here and in Start.
-			if (luaEnvironment == null)        
-			{
-				luaEnvironment = LuaEnvironment.GetLua();
-			}
-
-			if (luaEnvironment == null)        
-			{
-                Debug.LogError("No Lua Environment found");
-                Continue();
-                return;
-            }
+            InitExecuteLua();
                 
+            // Note: We can't pre compile the Lua script in this command because we want to
+            // support variable substitution in the Lua string.
+            // If this is too slow, consider using a LuaScript object and calling OnExecute() on it instead.
             string subbed = GetFlowchart().SubstituteVariables(luaScript);
 
             luaEnvironment.DoLuaString(subbed, friendlyName, runAsCoroutine, (returnValue) => {
