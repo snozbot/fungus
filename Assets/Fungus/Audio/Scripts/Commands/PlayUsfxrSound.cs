@@ -16,7 +16,7 @@
         public Transform ParentTransform = null;
 
 		[Tooltip("Settings string which describes the audio")]
-		public StringData _SettingsString = new StringData("");
+		public StringDataMulti _SettingsString = new StringDataMulti("");
 
 		[Tooltip("Time to wait before executing the next command")]
 		public float waitDuration = 0;

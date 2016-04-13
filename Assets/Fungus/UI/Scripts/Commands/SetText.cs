@@ -18,7 +18,7 @@ namespace Fungus
 		
 		[Tooltip("String value to assign to the text object")]
 		[FormerlySerializedAs("stringData")]
-		public StringData text;
+		public StringDataMulti text;
 
 		[Tooltip("Notes about this story text for other authors, localization, etc.")]
 		public string description;

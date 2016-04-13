@@ -30,6 +30,11 @@ namespace Fungus
 		}
 	}
 
+    /// <summary>
+    /// Can contain a reference to a StringVariable or a string constant.
+    /// Appears as a single line property in the inspector.
+    /// For a multi-line property, use StringDataMulti.
+    /// </summary>
 	[System.Serializable]
 	public struct StringData
 	{
@@ -37,7 +42,6 @@ namespace Fungus
 		[VariableProperty("<Value>", typeof(StringVariable))]
 		public StringVariable stringRef;
 
-		[TextArea(1,10)]
 		[SerializeField]
 		public string stringVal;
 
@@ -71,4 +75,50 @@ namespace Fungus
 		}
 	}
 
+    /// <summary>
+    /// Can contain a reference to a StringVariable or a string constant.
+    /// Appears as a multi-line property in the inspector.
+    /// For a single-line property, use StringData.
+    /// </summary>
+    [System.Serializable]
+    public struct StringDataMulti
+    {
+        [SerializeField]
+        [VariableProperty("<Value>", typeof(StringVariable))]
+        public StringVariable stringRef;
+
+        [TextArea(1,10)]
+        [SerializeField]
+        public string stringVal;
+
+        public StringDataMulti(string v)
+        {
+            stringVal = v;
+            stringRef = null;
+        }
+
+        public static implicit operator string(StringDataMulti spriteData)
+        {
+            return spriteData.Value;
+        }
+
+        public string Value
+        {
+            get { return (stringRef == null) ? stringVal : stringRef.value; }
+            set { if (stringRef == null) { stringVal = value; } else { stringRef.value = value; } }
+        }
+
+        public string GetDescription()
+        {
+            if (stringRef == null)
+            {
+                return stringVal;
+            }
+            else
+            {
+                return stringRef.key;
+            }
+        }
+    }
+        
 }
