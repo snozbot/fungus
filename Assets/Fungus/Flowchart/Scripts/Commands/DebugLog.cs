@@ -20,7 +20,7 @@ namespace Fungus
 		public DebugLogType logType;
 
 		[Tooltip("Text to write to the debug log. Supports variable substitution, e.g. {$Myvar}")]
-		public StringData logMessage;
+		public StringDataMulti logMessage;
 
 		public override void OnEnter ()
 		{

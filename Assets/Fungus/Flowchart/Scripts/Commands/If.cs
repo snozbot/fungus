@@ -28,7 +28,7 @@ namespace Fungus
 		public FloatData floatData;
 
 		[Tooltip("String value to compare against")]
-		public StringData stringData;
+		public StringDataMulti stringData;
 		
 		public override void OnEnter()
 		{

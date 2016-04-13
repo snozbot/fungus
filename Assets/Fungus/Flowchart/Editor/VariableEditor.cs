@@ -295,9 +295,13 @@ namespace Fungus
 	public class FloatDataDrawer : VariableDataDrawer<FloatVariable>
 	{}
 
-	[CustomPropertyDrawer (typeof(StringData))]
-	public class StringDataDrawer : VariableDataDrawer<StringVariable>
-	{}
+    [CustomPropertyDrawer (typeof(StringData))]
+    public class StringDataDrawer : VariableDataDrawer<StringVariable>
+    {}
+
+    [CustomPropertyDrawer (typeof(StringDataMulti))]
+    public class StringDataMultiDrawer : VariableDataDrawer<StringVariable>
+    {}
 
 	[CustomPropertyDrawer (typeof(ColorData))]
 	public class ColorDataDrawer : VariableDataDrawer<ColorVariable>

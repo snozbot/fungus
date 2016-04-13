@@ -56,7 +56,7 @@ namespace Fungus
 		public FloatEvent floatEvent = new FloatEvent();
 
 		[Tooltip("String parameter to pass to the invoked methods.")]
-		public StringData stringParameter;
+		public StringDataMulti stringParameter;
 
 		[Tooltip("List of methods to call. Supports methods with one string parameter.")]
 		public StringEvent stringEvent = new StringEvent();

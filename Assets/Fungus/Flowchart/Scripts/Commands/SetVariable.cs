@@ -39,7 +39,7 @@ namespace Fungus
 		public FloatData floatData;
 
 		[Tooltip("String value to set with")]
-		public StringData stringData;
+		public StringDataMulti stringData;
 		
 		public override void OnEnter()
 		{
