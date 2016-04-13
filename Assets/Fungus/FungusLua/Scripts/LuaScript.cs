@@ -13,13 +13,13 @@ using Object = UnityEngine.Object;
 
 namespace Fungus
 {
-    
+
     public class LuaScript : MonoBehaviour
     {
         /// <summary>
         /// The Lua Environment to use when executing Lua script.
         /// </summary>
-		[Tooltip("The Lua Environment to use when executing Lua script.")]
+        [Tooltip("The Lua Environment to use when executing Lua script.")]
         public LuaEnvironment luaEnvironment;
 
         /// <summary>
@@ -45,6 +45,9 @@ namespace Fungus
 
         protected bool initialised;
 
+        // Stores the compiled Lua code for fast execution later.
+        protected Closure luaFunction;
+
         // Recursively build the full hierarchy path to this game object
         private static string GetPath(Transform current) 
         {
@@ -60,6 +63,9 @@ namespace Fungus
             InitLuaScript();
         }
 
+        /// <summary>
+        /// Initialises the Lua environment and compiles the Lua string for execution later on.
+        /// </summary>
         protected virtual void InitLuaScript()
         {
             if (initialised)
@@ -85,7 +91,34 @@ namespace Fungus
             // Cache a descriptive name to use in Lua error messages
             friendlyName = GetPath(transform) + ".LuaScript";
 
-            initialised = true;
+            string s = GetLuaString();
+            luaFunction = luaEnvironment.LoadLuaString(s, friendlyName);
+
+            // Always initialise when playing in the editor.
+            // Allows the user to edit the Lua script while the game is playing.
+            if ( !(Application.isPlaying && Application.isEditor) )
+            {
+                initialised = true;
+            }
+        }
+
+        /// <summary>
+        /// Returns the Lua string to be executed.
+        /// </summary>
+        /// <returns>The lua string.</returns>
+        protected virtual string GetLuaString()
+        {
+            string s = "";
+            if (luaFile != null)
+            {
+                s = luaFile.text;
+            }
+            else if (luaScript.Length > 0)
+            {
+                s = luaScript;
+            }
+
+            return s;
         }
 
         /// <summary>
@@ -94,7 +127,7 @@ namespace Fungus
         /// </summary>
         public virtual void OnExecute()
         {
-            // Make sure the environment is initialised before executing
+            // Make sure the script and Lua environment are initialised before executing
             InitLuaScript();
 
             if (luaEnvironment == null)
@@ -103,20 +136,7 @@ namespace Fungus
             }
             else
             {
-				// Ensure the Lua Environment is initialised first.
-				luaEnvironment.InitEnvironment();
-
-                string s = "";
-                if (luaFile != null)
-                {
-                    s = luaFile.text;
-                }
-                else if (luaScript.Length > 0)
-                {
-                    s = luaScript;
-                }
-
-                luaEnvironment.DoLuaString(s, friendlyName, runAsCoroutine);
+                luaEnvironment.RunLuaCoroutine(luaFunction, friendlyName);
             }
         }
     }
