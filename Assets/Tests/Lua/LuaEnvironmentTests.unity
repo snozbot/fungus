@@ -254,6 +254,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &156811089
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,6 +321,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &159008372
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,6 +391,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!4 &236999594 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -572,6 +575,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1001 &364012152
 Prefab:
   m_ObjectHideFlags: 0
@@ -713,9 +717,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fungusModule: 0
-  stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
+  stringTables: []
   registerTypes:
   - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
 --- !u!114 &550607926
@@ -905,6 +909,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &715881501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,9 +1030,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fungusModule: 0
-  stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
+  stringTables: []
   registerTypes:
   - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
   - {fileID: 4900000, guid: 93fddea8208764a2dbb189cc238aed40, type: 3}
@@ -1178,9 +1183,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fungusModule: 0
-  stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
+  stringTables: []
   registerTypes:
   - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
   - {fileID: 4900000, guid: 93fddea8208764a2dbb189cc238aed40, type: 3}
@@ -1303,6 +1308,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!4 &1167396341 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -1473,6 +1479,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &1394431693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,9 +1608,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fungusModule: 0
-  stringTable: {fileID: 0}
   activeLanguage: en
   timeScale: -1
+  stringTables: []
   registerTypes:
   - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
 --- !u!114 &1463630765
@@ -2044,6 +2051,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &1818482578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2113,6 +2121,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &1828947831
 GameObject:
   m_ObjectHideFlags: 0
@@ -2250,6 +2259,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1532103954}
     m_Modifications:
+    - target: {fileID: 11486636, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: stringTables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2288,6 +2301,10 @@ Prefab:
       objectReference: {fileID: 4900000, guid: 9900570d789fa4b29957e4b897af9e3b, type: 3}
     - target: {fileID: 11486636, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
       propertyPath: stringTable
+      value: 
+      objectReference: {fileID: 4900000, guid: 9900570d789fa4b29957e4b897af9e3b, type: 3}
+    - target: {fileID: 11486636, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: stringTables.Array.data[0]
       value: 
       objectReference: {fileID: 4900000, guid: 9900570d789fa4b29957e4b897af9e3b, type: 3}
     m_RemovedComponents:
@@ -2495,6 +2512,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &1960220030
 GameObject:
   m_ObjectHideFlags: 0

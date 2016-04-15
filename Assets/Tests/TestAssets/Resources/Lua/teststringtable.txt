@@ -1,9 +1,0 @@
-local M = {}
-
-M.hello = 
-{
-	en = "Hi there",
-	fr = "Bonjour"
-}
-
-return M;
