@@ -57,6 +57,9 @@ namespace Fungus
 
         [SerializeField] public ExecuteMethod executeMethods = ExecuteMethod.Start;
 
+        [Tooltip("Name of the method on a component in this gameobject to call when executing.")]
+        public string executeMethodName = "OnExecute";
+
         private int m_ExecuteOnFrame;
 
         // Recursively build the full hierarchy path to this game object
@@ -245,7 +248,10 @@ namespace Fungus
         public virtual void Execute()
         {
             // Call any OnExecute methods in components on this gameobject
-            SendMessage("OnExecute", SendMessageOptions.DontRequireReceiver);
+			if (executeMethodName != "")
+			{
+				SendMessage(executeMethodName, SendMessageOptions.DontRequireReceiver);
+			}
         }
             
         #region AssertionComponentConfigurator
