@@ -138,7 +138,7 @@ namespace Fungus
             }
             else
             {
-                luaEnvironment.RunLuaCoroutine(luaFunction, friendlyName);
+                luaEnvironment.RunLuaCoroutine(luaFunction, luaScript);
             }
         }
     }
