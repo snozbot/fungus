@@ -6,7 +6,10 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityTest.IntegrationTests;
+
+#if UNITY_5_3_OR_NEWER
 using UnityEditor.SceneManagement;
+#endif
 
 namespace UnityTest
 {
@@ -99,7 +102,12 @@ namespace UnityTest
             }
                 
             EditorBuildSettings.scenes = (testScenes.Concat(otherBuildScenes).ToList()).Select(s => new EditorBuildSettingsScene(s, true)).ToArray();
+
+#if UNITY_5_3_OR_NEWER
             EditorSceneManager.OpenScene(testScenes.First());
+#else
+			EditorApplication.LoadLevelInPlayMode(testScenes.First());
+#endif
             GuiHelper.SetConsoleErrorPause(false);
 
             var config = new PlatformRunnerConfiguration

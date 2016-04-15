@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
-
 using Fungus;
+
+#if UNITY_5_3_OR_NEWER
+
+using NUnit.Framework;
+
 
 [TestFixture]
 public class TextTagParserTests
@@ -217,3 +220,5 @@ public class TextTagParserTests
 	}
 	
 }
+
+#endif

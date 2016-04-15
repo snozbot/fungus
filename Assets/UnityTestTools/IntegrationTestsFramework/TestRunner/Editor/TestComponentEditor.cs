@@ -4,7 +4,9 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
+#if UNITY_5_3_OR_NEWER
 using UnityEditor.SceneManagement;
+#endif
 
 namespace UnityTest
 {
@@ -103,7 +105,11 @@ namespace UnityTest
             if (!component.dynamic)
                 serializedObject.ApplyModifiedProperties();
             if (GUI.changed)
+#if UNITY_5_3_OR_NEWER
                 EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+#else
+				EditorApplication.MarkSceneDirty();
+#endif
         }
 
         private string[] GetListOfIgnoredPlatforms(string[] enumList, int flags)

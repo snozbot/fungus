@@ -161,7 +161,7 @@ namespace Fungus
 				soundEffectClip = speakingCharacter.soundEffect;
 			}
 
-			yield return writer.Write(text, clearPrevious, waitForInput, stopVoiceover, soundEffectClip, onComplete);         
+			yield return StartCoroutine(writer.Write(text, clearPrevious, waitForInput, stopVoiceover, soundEffectClip, onComplete));
 		}
 
 		protected virtual void LateUpdate()

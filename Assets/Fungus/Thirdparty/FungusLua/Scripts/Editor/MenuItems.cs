@@ -44,8 +44,12 @@ namespace Fungus
             File.WriteAllText(path, "");
             AssetDatabase.Refresh();
 
+#if UNITY_5_3_OR_NEWER
             Object asset = AssetDatabase.LoadAssetAtPath<Object>(path);
-            if (asset != null)
+#else
+			Object asset = AssetDatabase.LoadAssetAtPath(path, typeof(Object));
+#endif            
+			if (asset != null)
             {
                 EditorUtility.FocusProjectWindow();
                 EditorGUIUtility.PingObject(asset);

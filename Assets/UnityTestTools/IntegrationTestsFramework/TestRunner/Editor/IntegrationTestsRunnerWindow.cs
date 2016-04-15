@@ -6,7 +6,9 @@ using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 using UnityTest.IntegrationTestRunner;
+#if UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
+#endif
 
 namespace UnityTest
 {
@@ -84,7 +86,11 @@ namespace UnityTest
         private static void BackgroundSceneChangeWatch()
         {
             if (!s_Instance) return;
+#if UNITY_5_3_OR_NEWER
             var currentScene = SceneManager.GetActiveScene().path;
+#else
+			var currentScene = Application.loadedLevelName;
+#endif
             if (s_Instance.m_CurrectSceneName != null && s_Instance.m_CurrectSceneName == currentScene) return;
             if (EditorApplication.isPlayingOrWillChangePlaymode) return;
             TestComponent.DestroyAllDynamicTests();
@@ -95,7 +101,11 @@ namespace UnityTest
 
         public void OnEnable()
         {
-            titleContent = new GUIContent("Integration Tests");
+#if UNITY_5_3_OR_NEWER
+			titleContent = new GUIContent("Integration Tests");
+#else
+			title = "Integration Tests";
+#endif
             s_Instance = this;
 
             m_Settings = ProjectSettingsBase.Load<IntegrationTestsRunnerSettings>();
@@ -241,7 +251,11 @@ namespace UnityTest
             if (!EditorApplication.isPlayingOrWillChangePlaymode)
             {
                 var dynamicTestsOnScene = TestComponent.FindAllDynamicTestsOnScene();
+#if UNITY_5_3_OR_NEWER
                 var dynamicTestTypes = TestComponent.GetTypesWithHelpAttribute(SceneManager.GetActiveScene().path);
+#else
+				var dynamicTestTypes = TestComponent.GetTypesWithHelpAttribute(Application.loadedLevelName);
+#endif
 
                 foreach (var dynamicTestType in dynamicTestTypes)
                 {
