@@ -6,7 +6,9 @@ using System.Net;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
+#if UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
+#endif
 
 namespace UnityTest.IntegrationTests
 {
@@ -43,12 +45,21 @@ namespace UnityTest.IntegrationTests
             if (m_IntegrationTestScenes == null)
                 m_IntegrationTestScenes = new List<string> ();
 
-            titleContent = new GUIContent("Platform runner");
+#if UNITY_5_3_OR_NEWER
+			titleContent = new GUIContent("Platform runner");
+#else
+			title = "Platform runner";
+#endif
             m_BuildTarget = PlatformRunner.defaultBuildTarget;
             position.Set(position.xMin, position.yMin, 200, position.height);
             m_AllScenesInProject = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.unity", SearchOption.AllDirectories).ToList();
             m_AllScenesInProject.Sort();
-            var currentScene = (Directory.GetCurrentDirectory() + SceneManager.GetActiveScene().path).Replace("\\", "").Replace("/", "");
+
+#if UNITY_5_3_OR_NEWER
+			var currentScene = (Directory.GetCurrentDirectory() + SceneManager.GetActiveScene().path).Replace("\\", "").Replace("/", "");
+#else
+			var currentScene = (Directory.GetCurrentDirectory() + Application.loadedLevelName).Replace("\\", "").Replace("/", "");
+#endif
             var currentScenePath = m_AllScenesInProject.Where(s => s.Replace("\\", "").Replace("/", "") == currentScene);
             m_SelectedScenes.AddRange(currentScenePath);
 
@@ -267,7 +278,11 @@ namespace UnityTest.IntegrationTests
                 buildTarget = m_BuildTarget,
                 buildScenes = m_OtherScenesToBuild,
                 testScenes = m_IntegrationTestScenes,
+#if UNITY_5_3_OR_NEWER
                 projectName = m_IntegrationTestScenes.Count > 1 ? "IntegrationTests" : Path.GetFileNameWithoutExtension(SceneManager.GetActiveScene().path),
+#else
+				projectName = m_IntegrationTestScenes.Count > 1 ? "IntegrationTests" : Path.GetFileNameWithoutExtension(Application.loadedLevelName),
+#endif
                 resultsDir = m_Settings.resultsPath,
                 sendResultsOverNetwork = m_Settings.sendResultsOverNetwork,
                 ipList = m_Interfaces.Skip(1).ToList(),

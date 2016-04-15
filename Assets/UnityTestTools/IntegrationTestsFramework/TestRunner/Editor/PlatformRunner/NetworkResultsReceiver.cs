@@ -177,7 +177,11 @@ namespace UnityTest
         public void OnEnable()
         {
             minSize = new Vector2(300, 100);
+#if UNITY_5_3_OR_NEWER
             titleContent = new GUIContent("Test run monitor");
+#else
+			title = "Test run monitor";
+#endif
             Instance = this;
             m_StatusLabel = "Initializing...";
             if (EditorApplication.isCompiling) return;

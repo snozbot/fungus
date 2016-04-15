@@ -8,7 +8,9 @@ using System.Reflection;
 using UnityEngine;
 using UnityTest.IntegrationTestRunner;
 using System.IO;
+#if UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
+#endif
 
 namespace UnityTest
 {
@@ -75,7 +77,11 @@ namespace UnityTest
             }
 
             TestComponent.DestroyAllDynamicTests();
+#if UNITY_5_3_OR_NEWER
             var dynamicTestTypes = TestComponent.GetTypesWithHelpAttribute(SceneManager.GetActiveScene().name);
+#else
+			var dynamicTestTypes = TestComponent.GetTypesWithHelpAttribute("");
+#endif
             foreach (var dynamicTestType in dynamicTestTypes)
                 TestComponent.CreateDynamicTest(dynamicTestType);
 
@@ -310,7 +316,11 @@ namespace UnityTest
             string testScene = m_Configurator.GetIntegrationTestScenes(TestSceneNumber);
 
             if (testScene != null)
+			{
+#if UNITY_5_3_OR_NEWER
                 SceneManager.LoadScene(Path.GetFileNameWithoutExtension(testScene));
+#endif
+			}
             else
             {
                 TestRunnerCallback.AllScenesFinished();
@@ -373,7 +383,14 @@ namespace UnityTest
             currentTest = null;
             if (!testResult.IsSuccess
                 && testResult.Executed
-                && !testResult.IsIgnored) k_ResultRenderer.AddResults(SceneManager.GetActiveScene().name, testResult);
+                && !testResult.IsIgnored) 
+			{
+#if UNITY_5_3_OR_NEWER
+				k_ResultRenderer.AddResults(SceneManager.GetActiveScene().name, testResult);
+#else
+				k_ResultRenderer.AddResults(Application.loadedLevelName, testResult);
+#endif
+			}
         }
 
         #region Test Runner Helpers

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_5_3_OR_NEWER
 using UnityEngine.SceneManagement;
+#endif
 
 namespace UnityTest
 {
@@ -19,9 +21,15 @@ namespace UnityTest
         private ResultDTO(MessageType messageType)
         {
             this.messageType = messageType;
-            levelCount = UnityEngine.SceneManagement.SceneManager.sceneCount;
+#if UNITY_5_3_OR_NEWER
+			levelCount = UnityEngine.SceneManagement.SceneManager.sceneCount;
             loadedLevel = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
             loadedLevelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+#else
+			levelCount = Application.levelCount;
+			loadedLevel = Application.loadedLevel;
+			loadedLevelName = Application.loadedLevelName;
+#endif
         }
 
         public enum MessageType : byte
