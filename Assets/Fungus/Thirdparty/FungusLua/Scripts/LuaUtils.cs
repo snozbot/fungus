@@ -30,12 +30,6 @@ namespace Fungus
 		public FungusModuleOptions fungusModule = FungusModuleOptions.UseGlobalVariables;
 
         /// <summary>
-        /// Lua script file which defines the global string table used for localisation.
-        /// </summary>
-        [Tooltip("Lua script file which defines the global string table used for localisation.")]
-        public TextAsset stringTable;
-
-        /// <summary>
         /// The currently selected language in the string table. Affects variable substitution.
         /// </summary>
         [Tooltip("The currently selected language in the string table. Affects variable substitution.")]
@@ -50,10 +44,18 @@ namespace Fungus
         [Tooltip("Time scale factor to apply when running Lua scripts. If negative then uses the same values as the standard Time class.")]
         public float timeScale = -1f;
 
+        /// <summary>
+        /// Lua script file which defines the global string table used for localisation.
+        /// </summary>
+        [HideInInspector]
+        [Tooltip("List of JSON text files which contain localized strings. These strings are added to the 'stringTable' table in the Lua environment at startup.")]
+        public List<TextAsset> stringTables = new List<TextAsset>();
+
 		/// <summary>
-		/// A text file listing the c# types that can be accessed from Lua.
+		/// JSON text files listing the c# types that can be accessed from Lua.
 		/// </summary>
 		[HideInInspector]
+        [Tooltip("JSON text files listing the c# types that can be accessed from Lua.")]
 		public List<TextAsset> registerTypes = new List<TextAsset>();
 
         /// <summary>
@@ -64,7 +66,7 @@ namespace Fungus
         /// <summary>
         /// Cached reference to the string table (if loaded).
         /// </summary>
-        protected Table stringTableCached;
+        protected Table stringTable;
 
 		/// <summary>
 		/// Cached reference to the Lua Environment component.
@@ -231,30 +233,49 @@ namespace Fungus
 				fungusTable["test"] = UserData.CreateStatic(testType);
 			}
 
-			// Register the stringtable (if one is set)
-			if (stringTable != null)
-			{
-				try
-				{                
-					DynValue stringTableRes = interpreter.DoString(stringTable.text);
-					if (stringTableRes.Type == DataType.Table)
-					{
-						stringTableCached = stringTableRes.Table;
-						if (fungusTable != null)
-						{
-							fungusTable["stringtable"] = stringTableCached;
-						}
-					}
-				}
-				catch (ScriptRuntimeException ex)
-				{
-					LuaEnvironment.LogException(ex.DecoratedMessage, stringTable.text);
-				}
-				catch (InterpreterException ex)
-				{
-					LuaEnvironment.LogException(ex.DecoratedMessage, stringTable.text);
-				}
-			}
+			// Populate the string table by parsing the string table JSON files
+            stringTable = new Table(interpreter); 
+            fungusTable["stringtable"] = stringTable;
+            foreach (TextAsset stringFile in stringTables)
+            {
+                if (stringFile.text == "")
+                {
+                    continue;
+                }
+
+                JSONObject stringsJSON = new JSONObject(stringFile.text);
+                if (stringsJSON == null ||
+                    stringsJSON.type != JSONObject.Type.OBJECT)
+                {
+                    UnityEngine.Debug.LogError("String table JSON format is not correct " + stringFile.name);
+                    continue;
+                }
+
+                foreach (string stringKey in stringsJSON.keys)
+                {
+                    if (stringKey == "")
+                    {
+                        UnityEngine.Debug.LogError("String table JSON format is not correct " + stringFile.name);
+                        continue;
+                    }
+
+                    Table entriesTable = new Table(interpreter);
+                    stringTable[stringKey] = entriesTable;
+
+                    JSONObject entries = stringsJSON.GetField(stringKey);
+                    if (entries.type != JSONObject.Type.OBJECT)
+                    {
+                        UnityEngine.Debug.LogError("String table JSON format is not correct " + stringFile.name);
+                        continue;
+                    }
+
+                    foreach (string language in entries.keys)
+                    {
+                        string translation = entries.GetField(language).str;
+                        entriesTable[language] = translation;
+                    }
+                }
+            }
 
 			stringSubstituter = new StringSubstituter();
 
@@ -285,10 +306,10 @@ namespace Fungus
         /// </summary>
         public virtual string GetString(string key)
         {
-            if (stringTableCached != null)
+            if (stringTable != null)
             {
                 // Match against string table and active language
-                DynValue stringTableVar = stringTableCached.Get(key);
+                DynValue stringTableVar = stringTable.Get(key);
                 if (stringTableVar.Type == DataType.Table)
                 {
                     DynValue languageEntry = stringTableVar.Table.Get(activeLanguage);
@@ -347,9 +368,9 @@ namespace Fungus
                 string key = match.Value.Substring(2, match.Value.Length - 3);
 
 				// Match against string table and active language (if specified)
-				if (stringTableCached != null)
+				if (stringTable != null)
 				{
-	                DynValue stringTableVar = stringTableCached.Get(key);
+	                DynValue stringTableVar = stringTable.Get(key);
 	                if (stringTableVar.Type == DataType.Table)
 	                {
 	                    DynValue languageEntry = stringTableVar.Table.Get(activeLanguage);
