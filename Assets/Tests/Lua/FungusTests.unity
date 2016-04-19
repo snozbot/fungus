@@ -1240,6 +1240,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1001 &130678264
 Prefab:
   m_ObjectHideFlags: 0
@@ -2281,10 +2282,10 @@ RectTransform:
   - {fileID: 913989833}
   m_Father: {fileID: 465829170}
   m_RootOrder: 3
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -365}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &398057889
 MonoBehaviour:
@@ -2486,10 +2487,10 @@ RectTransform:
   - {fileID: 1088283066}
   m_Father: {fileID: 465829170}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -155}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &405820710
 MonoBehaviour:
@@ -2718,6 +2719,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &465829169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2758,7 +2760,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000018477, y: 191}
-  m_SizeDelta: {x: 1300, y: 0}
+  m_SizeDelta: {x: 1300, y: 680}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &465829171
 MonoBehaviour:
@@ -2875,10 +2877,10 @@ RectTransform:
   - {fileID: 1446085149}
   m_Father: {fileID: 465829170}
   m_RootOrder: 6
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -655}
+  m_SizeDelta: {x: 1300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &507572621
 MonoBehaviour:
@@ -3047,6 +3049,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &511430244
 GameObject:
   m_ObjectHideFlags: 0
@@ -3114,6 +3117,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &560555132
 GameObject:
   m_ObjectHideFlags: 0
@@ -3318,10 +3322,10 @@ RectTransform:
   - {fileID: 913529610}
   m_Father: {fileID: 465829170}
   m_RootOrder: 2
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -260}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &625261051
 MonoBehaviour:
@@ -3641,10 +3645,10 @@ RectTransform:
   - {fileID: 863130403}
   m_Father: {fileID: 465829170}
   m_RootOrder: 4
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -470}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &715595888
 MonoBehaviour:
@@ -4406,6 +4410,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &851680338
 GameObject:
   m_ObjectHideFlags: 0
@@ -4521,24 +4526,33 @@ MonoBehaviour:
   luaScript: '-- Test getting and setting Fungus variables
 
 
-    flowchart.SetBooleanVariable("BoolVar", true)
+    local boolvar = flowchart.GetVariable("BoolVar")
 
-    check(flowchart.GetBooleanVariable("BoolVar"))
+    local floatvar = flowchart.GetVariable("FloatVar")
 
+    local intvar = flowchart.GetVariable("IntVar")
 
-    flowchart.SetFloatVariable("FloatVar", 1)
-
-    check(flowchart.GetFloatVariable("FloatVar") == 1)
-
-
-    flowchart.SetIntegerVariable("IntVar", 1)
-
-    check(flowchart.GetIntegerVariable("IntVar") == 1)
+    local stringvar = flowchart.GetVariable("StringVar")
 
 
-    flowchart.SetStringVariable("StringVar", "a")
+    boolvar.value = true
 
-    check(flowchart.GetStringVariable("StringVar") == "a")
+    check(boolvar.value == true)
+
+
+    floatvar.value = 1
+
+    check(floatvar.value == 1)
+
+
+    intvar.value = 1
+
+    check(intvar.value == 1)
+
+
+    stringvar.value = "a"
+
+    check(stringvar.value == "a")
 
 
     pass()'
@@ -4562,6 +4576,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &863130402
 GameObject:
   m_ObjectHideFlags: 0
@@ -4671,10 +4686,10 @@ RectTransform:
   - {fileID: 884473401}
   m_Father: {fileID: 465829170}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -50}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &876352040
 MonoBehaviour:
@@ -7186,7 +7201,7 @@ RectTransform:
   m_Father: {fileID: 1446085149}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7836,6 +7851,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &1667495163
 GameObject:
   m_ObjectHideFlags: 0
@@ -7949,7 +7965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1676590048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8714,10 +8730,10 @@ RectTransform:
   - {fileID: 761668839}
   m_Father: {fileID: 465829170}
   m_RootOrder: 5
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -575}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1762200959
 MonoBehaviour:
@@ -8843,7 +8859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 942227028}
+  selectedFlowchart: {fileID: 807616590}
 --- !u!4 &1791050794
 Transform:
   m_ObjectHideFlags: 1
@@ -8953,6 +8969,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &1880266302
 GameObject:
   m_ObjectHideFlags: 0
@@ -9466,7 +9483,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1993284458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9665,6 +9682,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &2087053783
 GameObject:
   m_ObjectHideFlags: 0

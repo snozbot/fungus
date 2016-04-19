@@ -7,6 +7,7 @@ local M = {}
 -- Debugging
 ------------
 
+-- Prints a summary of object v in a human readable format.
 function M.inspect(v)
 	print (inspect.inspect(v))
 end
@@ -254,6 +255,19 @@ end
 ------------
 -- Flowchart
 ------------
+
+-- Returns the specified Variable in a Flowchart.
+-- To access the value of the variable, use its .value property. e.g.
+-- 	v = getvar(flowchart, "FloatVar") 
+--	v.value = 10 	-- Sets the value of the variable to 10
+--  f = v.value 	-- f now contains 10
+-- flowchart: The Fungus Flowchart containing the Block to run.
+-- varname: The name of the Variable to get.
+function M.getvar(flowchart, varname)
+	assert(flowchart, "flowchart must not be nil")
+	assert(blockname, "varname must not be nil")
+	return flowchart.GetVariable(varname)
+end
 
 -- Runs the specified Block in a Flowchart
 -- flowchart: The Fungus Flowchart containing the Block to run.
