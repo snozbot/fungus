@@ -8,25 +8,25 @@ SceneSettings:
   m_PVSPortalsArray: []
   m_OcclusionBakeSettings:
     smallestOccluder: 5
-    smallestHole: .25
+    smallestHole: 0.25
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
   m_Fog: 0
-  m_FogColor: {r: .5, g: .5, b: .5, a: 1}
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: .00999999978
+  m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: .211999997, g: .226999998, b: .259000003, a: 1}
-  m_AmbientEquatorColor: {r: .114, g: .125, b: .133000001, a: 1}
-  m_AmbientGroundColor: {r: .0469999984, g: .0430000015, b: .0350000001, a: 1}
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SkyboxMaterial: {fileID: 0}
-  m_HaloStrength: .5
+  m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -40,7 +40,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 5
+  serializedVersion: 6
   m_GIWorkflowMode: 1
   m_LightmapsMode: 1
   m_GISettings:
@@ -65,7 +65,8 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
-  m_LightmapSnapshot: {fileID: 0}
+    m_ReflectionCompression: 2
+  m_LightingDataAsset: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
 NavMeshSettings:
@@ -73,20 +74,17 @@ NavMeshSettings:
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
-    agentRadius: .5
+    agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: .400000006
+    agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     accuratePlacement: 0
     minRegionArea: 2
-    cellSize: .166666672
+    cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!127 &5
-LevelGameManager:
-  m_ObjectHideFlags: 0
 --- !u!1001 &30477053
 Prefab:
   m_ObjectHideFlags: 0
@@ -94,6 +92,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 982964957}
     m_Modifications:
+    - target: {fileID: 11486636, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: stringTables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -130,14 +132,18 @@ Prefab:
       propertyPath: stringTable
       value: 
       objectReference: {fileID: 4900000, guid: 9900570d789fa4b29957e4b897af9e3b, type: 3}
+    - target: {fileID: 11486636, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: stringTables.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 9900570d789fa4b29957e4b897af9e3b, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &32012240
+--- !u!4 &32012240 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 30477053}
---- !u!114 &32012242
+--- !u!114 &32012242 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
     type: 2}
@@ -224,7 +230,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &167744853
 GameObject:
   m_ObjectHideFlags: 1
@@ -252,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1563984266}
+  selectedFlowchart: {fileID: 951347112}
 --- !u!4 &167744855
 Transform:
   m_ObjectHideFlags: 1
@@ -399,7 +405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &545923888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,7 +444,7 @@ Transform:
   - {fileID: 1373360854}
   - {fileID: 701857887}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1 &567521726
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AllowActivationOnStandalone: 0
+  m_ForceModuleActive: 0
 --- !u!114 &567521728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,7 +491,8 @@ MonoBehaviour:
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
-  m_AllowActivationOnMobileDevice: 0
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
 --- !u!114 &567521729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,7 +518,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1 &684307462
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &684307463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,8 +571,8 @@ Transform:
   - {fileID: 1633325651}
   - {fileID: 1249712163}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
---- !u!4 &695468075
+  m_RootOrder: 6
+--- !u!4 &695468075 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 1967693978}
@@ -884,7 +891,7 @@ MonoBehaviour:
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
-    floatVal: .100000001
+    floatVal: 0.1
   durationOLD: 0
 --- !u!114 &875535390
 MonoBehaviour:
@@ -1031,7 +1038,7 @@ Transform:
   - {fileID: 32012240}
   - {fileID: 791892758}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &1106846132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,8 +1127,10 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &1249712160
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,7 +1214,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 684307464}
   m_RootOrder: 3
---- !u!4 &1373360854
+--- !u!4 &1373360854 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 529362524}
@@ -1238,11 +1247,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1106846133}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 30, y: 0}
   m_SizeDelta: {x: 199, y: 63}
-  m_Pivot: {x: .5, y: .5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1532141880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1256,6 +1265,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 30
@@ -1264,6 +1279,7 @@ MonoBehaviour:
     m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 0
+    m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -1405,12 +1421,12 @@ Transform:
   - {fileID: 436484126}
   - {fileID: 695468075}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
---- !u!4 &1633325651
+  m_RootOrder: 5
+--- !u!4 &1633325651 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_PrefabInternal: {fileID: 1755607537}
---- !u!114 &1633325653
+--- !u!114 &1633325653 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
     type: 2}
@@ -1708,14 +1724,14 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: .300000012
+  near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -1727,10 +1743,12 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
-  m_StereoSeparation: .0219999999
+  m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
 --- !u!4 &2135590532
 Transform:
   m_ObjectHideFlags: 0
@@ -1742,4 +1760,4 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
