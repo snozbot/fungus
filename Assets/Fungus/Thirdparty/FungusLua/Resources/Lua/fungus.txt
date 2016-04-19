@@ -12,26 +12,6 @@ function M.inspect(v)
 	print (inspect.inspect(v))
 end
 
--------
--- Time
--------
-
--- Returns the absolute time
--- Use this timing function to work correctly with the Lua Environment's timeScale property
-function M.gettime()
-	return M.luautils.getTime()
-end
-
--- Returns the delta time this frame
--- Use this timing function to work correctly with the Lua Environment's timeScale property
-function M.getdeltatime()
-	return M.luautils.getDeltaTime()
-end
-
-function M.settimescale(s)
-	M.luautils.timeScale = s
-end
-
 -------------
 -- Coroutines
 -------------
@@ -46,7 +26,6 @@ end
 
 -- Waits until the lamda function provided returns true, or the timeout expires.
 -- Returns true if the function succeeded, or false if the timeout expired
--- 
 function M.waitfor(fn, timeoutduration)
 	local t = M.gettime()
 	while (not fn()) do
@@ -128,6 +107,7 @@ function M.pass()
 end
 
 -- Fail an integration test (requires Unity Test Tools)
+-- reason: Option string explaining why the test failed.
 function M.fail(reason)
 	error( debug.traceback("Test failed", 2) )
 	M.test.fail(reason)
