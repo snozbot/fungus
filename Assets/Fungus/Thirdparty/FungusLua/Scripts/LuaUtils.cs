@@ -36,15 +36,6 @@ namespace Fungus
         public string activeLanguage = "en";
 
         /// <summary>
-        /// Time scale factor to apply when running Lua scripts.
-        /// This allows pausing of time based operations by setting timescale to 0.
-        /// Use the GetTime() and GetDeltaTime() functions to get scaled time values.
-        /// If negative, then GetTime() and GetDeltaTime() return the same values as the standard Time class.
-        /// </summary>
-        [Tooltip("Time scale factor to apply when running Lua scripts. If negative then uses the same values as the standard Time class.")]
-        public float timeScale = -1f;
-
-        /// <summary>
         /// Lua script file which defines the global string table used for localisation.
         /// </summary>
         [HideInInspector]
