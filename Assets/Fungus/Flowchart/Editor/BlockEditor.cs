@@ -790,13 +790,20 @@ namespace Fungus
 			bool showCopy = false;
 			bool showDelete = false;
 			bool showPaste = false;
-			
+            bool showPlay = false;
+
 			if (flowchart.selectedCommands.Count > 0)
 			{
 				showCut = true;
 				showCopy = true;
 				showDelete = true;
-			}
+                if (flowchart.selectedCommands.Count == 1)
+                {
+                    showPlay = true;
+                }
+            } 
+            
+            
 			
 			CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
 			
@@ -842,13 +849,22 @@ namespace Fungus
 			{
 				commandMenu.AddDisabledItem(new GUIContent ("Delete"));
 			}
-			
+
+            if (showPlay)
+            {
+                commandMenu.AddItem(new GUIContent("Play from Selected Command"), false, PlayCommand);
+            }
+            else
+            {
+                commandMenu.AddDisabledItem(new GUIContent("Play from Selected Command"));
+            }
+
 			commandMenu.AddSeparator("");
 			
 			commandMenu.AddItem (new GUIContent ("Select All"), false, SelectAll);
 			commandMenu.AddItem (new GUIContent ("Select None"), false, SelectNone);
-			
-			commandMenu.ShowAsContext();
+
+            commandMenu.ShowAsContext();
 		}
 		
 		protected void SelectAll()
@@ -1029,7 +1045,15 @@ namespace Fungus
 			Repaint();
 		}
 		
-		protected void SelectPrevious()
+		protected void PlayCommand()
+        {
+            Block block = target as Block;
+            Flowchart flowchart = block.GetFlowchart();
+            Command command = flowchart.selectedCommands[0];
+            //block.Execute(null, command.commandIndex);
+        }
+
+        protected void SelectPrevious()
 		{
 			Block block = target as Block;
 			Flowchart flowchart = block.GetFlowchart();
