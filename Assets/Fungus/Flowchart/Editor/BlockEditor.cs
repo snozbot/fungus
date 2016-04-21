@@ -797,7 +797,7 @@ namespace Fungus
 				showCut = true;
 				showCopy = true;
 				showDelete = true;
-                if (flowchart.selectedCommands.Count == 1)
+                if (flowchart.selectedCommands.Count == 1 && Application.isPlaying)
                 {
                     showPlay = true;
                 }
@@ -859,7 +859,7 @@ namespace Fungus
                 commandMenu.AddDisabledItem(new GUIContent("Play from Selected Command"));
             }
 
-			commandMenu.AddSeparator("");
+            commandMenu.AddSeparator("");
 			
 			commandMenu.AddItem (new GUIContent ("Select All"), false, SelectAll);
 			commandMenu.AddItem (new GUIContent ("Select None"), false, SelectNone);
@@ -1047,10 +1047,23 @@ namespace Fungus
 		
 		protected void PlayCommand()
         {
-            Block block = target as Block;
-            Flowchart flowchart = block.GetFlowchart();
+            Block targetBlock = target as Block;
+            Flowchart flowchart = targetBlock.GetFlowchart();
             Command command = flowchart.selectedCommands[0];
-            //block.Execute(null, command.commandIndex);
+            targetBlock.jumpToCommandIndex = command.commandIndex;
+            if (!targetBlock.IsExecuting())
+            {
+                Block[] blocks = flowchart.GetComponentsInChildren<Block>(true);
+                foreach (Block b in blocks)
+                {
+                    if (b.IsExecuting())
+                    {
+                        b.Stop();
+                    }
+                }
+                flowchart.ExecuteBlock(targetBlock.blockName);
+            }
+            
         }
 
         protected void SelectPrevious()
