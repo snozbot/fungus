@@ -1027,20 +1027,16 @@ namespace Fungus
             Block targetBlock = target as Block;
             Flowchart flowchart = targetBlock.GetFlowchart();
             Command command = flowchart.selectedCommands[0];
-            targetBlock.jumpToCommandIndex = command.commandIndex;
             if (!targetBlock.IsExecuting())
             {
-                Block[] blocks = flowchart.GetComponentsInChildren<Block>(true);
-                foreach (Block b in blocks)
-                {
-                    if (b.IsExecuting())
-                    {
-                        b.Stop();
-                    }
-                }
-                flowchart.ExecuteBlock(targetBlock.blockName);
+                flowchart.ExecuteBlock(targetBlock, command.commandIndex);
             }
-            
+            else
+            {
+                targetBlock.jumpToCommandIndex = command.commandIndex;
+                flowchart.ExecuteBlock(targetBlock);
+            }
+
         }
 
         protected void SelectPrevious()
