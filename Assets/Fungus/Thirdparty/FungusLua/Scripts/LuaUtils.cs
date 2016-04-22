@@ -393,39 +393,7 @@ namespace Fungus
 		{
 			return stringSubstituter.SubstituteStrings(input);
 		}
-
-        /// <summary>
-        /// Returns the time since level load, multiplied by timeScale.
-        /// If timeScale is negative then returns the same as Time.timeSinceLevelLoaded.
-        /// </summary>
-        public float GetTime()
-        {
-            if (timeScale < 0f)
-            {
-                return Time.timeSinceLevelLoad;
-            }
-            else
-            {
-                return Time.unscaledTime * timeScale;
-            }
-        }
-
-        /// <summary>
-        /// Returns the delta time this frame, multiplied by timeScale.
-        /// If timeScale is negative then returns the same as Time.deltaTime.
-        /// </summary>
-        public float GetDeltaTime()
-        {
-            if (timeScale < 0f)
-            {
-                return Time.deltaTime;
-            }
-            else
-            {
-                return Time.deltaTime * timeScale;
-            }
-        }
-
+            
 		/// <summary>
 		/// Find a game object by name and returns it.
 		/// </summary>
