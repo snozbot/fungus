@@ -767,13 +767,20 @@ namespace Fungus
 			bool showCopy = false;
 			bool showDelete = false;
 			bool showPaste = false;
-			
+            bool showPlay = false;
+
 			if (flowchart.selectedCommands.Count > 0)
 			{
 				showCut = true;
 				showCopy = true;
 				showDelete = true;
-			}
+                if (flowchart.selectedCommands.Count == 1 && Application.isPlaying)
+                {
+                    showPlay = true;
+                }
+            } 
+            
+            
 			
 			CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
 			
@@ -819,13 +826,18 @@ namespace Fungus
 			{
 				commandMenu.AddDisabledItem(new GUIContent ("Delete"));
 			}
-			
-			commandMenu.AddSeparator("");
+
+            if (showPlay)
+            {
+                commandMenu.AddItem(new GUIContent("Play from selected"), false, PlayCommand);
+            }
+
+            commandMenu.AddSeparator("");
 			
 			commandMenu.AddItem (new GUIContent ("Select All"), false, SelectAll);
 			commandMenu.AddItem (new GUIContent ("Select None"), false, SelectNone);
-			
-			commandMenu.ShowAsContext();
+
+            commandMenu.ShowAsContext();
 		}
 		
 		protected void SelectAll()
@@ -1006,7 +1018,33 @@ namespace Fungus
 			Repaint();
 		}
 		
-		protected void SelectPrevious()
+		protected void PlayCommand()
+        {
+            Block targetBlock = target as Block;
+            Flowchart flowchart = targetBlock.GetFlowchart();
+            Command command = flowchart.selectedCommands[0];
+            if (targetBlock.IsExecuting())
+            {
+                // The Block is already executing.
+                // Tell the Block to stop, wait a little while so the executing command has a 
+                // chance to stop, and then start execution again from the new command. 
+                targetBlock.Stop();
+                flowchart.StartCoroutine(RunBlock(flowchart, targetBlock, command.commandIndex, 0.2f));
+            }
+            else
+            {
+                // Block isn't executing yet so can start it now.
+                flowchart.ExecuteBlock(targetBlock, command.commandIndex);
+            }
+        }
+
+        protected IEnumerator RunBlock(Flowchart flowchart, Block targetBlock, int commandIndex, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            flowchart.ExecuteBlock(targetBlock, commandIndex);
+        }
+
+        protected void SelectPrevious()
 		{
 			Block block = target as Block;
 			Flowchart flowchart = block.GetFlowchart();
