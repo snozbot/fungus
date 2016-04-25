@@ -830,6 +830,7 @@ namespace Fungus
             if (showPlay)
             {
                 commandMenu.AddItem(new GUIContent("Play from selected"), false, PlayCommand);
+                commandMenu.AddItem(new GUIContent("Stop all and play"), false, StopAllPlayCommand);
             }
 
             commandMenu.AddSeparator("");
@@ -1036,6 +1037,17 @@ namespace Fungus
                 // Block isn't executing yet so can start it now.
                 flowchart.ExecuteBlock(targetBlock, command.commandIndex);
             }
+        }
+
+        protected void StopAllPlayCommand()
+        {
+            Block targetBlock = target as Block;
+            Flowchart flowchart = targetBlock.GetFlowchart();
+            Command command = flowchart.selectedCommands[0];
+
+            // Stop all active blocks then run the selected block.
+            flowchart.StopAllBlocks();
+            flowchart.StartCoroutine(RunBlock(flowchart, targetBlock, command.commandIndex, 0.2f));
         }
 
         protected IEnumerator RunBlock(Flowchart flowchart, Block targetBlock, int commandIndex, float delay)
