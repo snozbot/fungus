@@ -1,0 +1,3 @@
+-- Check that Lua in a file executes ok in ExecuteLua command
+local v = 10
+check(v == 10)

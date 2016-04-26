@@ -196,51 +196,6 @@ namespace Fungus
 		}
 
         /// <summary>
-        /// Load and run a string containing Lua script. May be run as a coroutine.
-        /// <param name="luaString">The Lua code to be run.</param>
-        /// <param name="friendlyName">A descriptive name to be used in error reports.</param>
-        /// <param name="runAsCoroutine">Run the Lua code as a coroutine to support asynchronous operations.</param>
-        /// <param name="onComplete">Method to callback when the Lua code finishes exection. Supports return parameters.</param>
-        /// </summary>
-        public virtual void DoLuaString(string luaString, string friendlyName, bool runAsCoroutine, Action<DynValue> onComplete = null)
-        {
-            Closure fn = LoadLuaString(luaString, friendlyName);
-
-            if (fn == null)
-            {
-                if (onComplete != null)
-                {
-                    onComplete(null);
-                }
-
-                return;
-            }
-
-            // Execute the Lua script
-            if (runAsCoroutine)
-            {
-                StartCoroutine(RunLuaCoroutineInternal(fn, luaString, onComplete));
-            }
-            else
-            {
-                DynValue returnValue = null;
-                try
-                {                
-                    returnValue = fn.Call();                
-                }
-                catch (InterpreterException ex)
-                {
-					LogException(ex.DecoratedMessage, luaString);
-                }
-
-                if (onComplete != null)
-                {
-                    onComplete(returnValue);
-                }
-            }
-        }
-
-        /// <summary>
         /// Loads and compiles a string containing Lua script, returning a closure (Lua function) which can be executed later.
         /// <param name="luaString">The Lua code to be run.</param>
         /// <param name="friendlyName">A descriptive name to be used in error reports.</param>
@@ -268,16 +223,61 @@ namespace Fungus
 
             return res.Function;
         }
+            
+        /// <summary>
+        /// Load and run a previously compiled Lua script. May be run as a coroutine.
+        /// <param name="fn">A previously compiled Lua function.</param>
+        /// <param name="luaString">The Lua code to display in case of an error.</param>
+        /// <param name="runAsCoroutine">Run the Lua code as a coroutine to support asynchronous operations.</param>
+        /// <param name="onComplete">Method to callback when the Lua code finishes exection. Supports return parameters.</param>
+        /// </summary>
+        public virtual void RunLuaFunction(Closure fn, string luaString, bool runAsCoroutine, Action<DynValue> onComplete = null)
+        {            
+            if (fn == null)
+            {
+                if (onComplete != null)
+                {
+                    onComplete(null);
+                }
+
+                return;
+            }
+
+            // Execute the Lua script
+            if (runAsCoroutine)
+            {
+                StartCoroutine(RunLuaCoroutine(fn, luaString, onComplete));
+            }
+            else
+            {
+                DynValue returnValue = null;
+                try
+                {                
+                    returnValue = fn.Call();                
+                }
+                catch (InterpreterException ex)
+                {
+					LogException(ex.DecoratedMessage, luaString);
+                }
+
+                if (onComplete != null)
+                {
+                    onComplete(returnValue);
+                }
+            }
+        }
 
         /// <summary>
-        /// Starts a Unity coroutine which updates a Lua coroutine each frame.
-        /// <param name="closure">A MoonSharp closure object representing a function.</param>
-        /// <param name="debugInfo">Debug text to display if an exception occurs (usually the Lua code that is being executed).</param>
-        /// <param name="onComplete">A delegate method that is called when the coroutine completes. Includes return parameter.</param>
+        /// Load and run a string containing Lua script. May be run as a coroutine.
+        /// <param name="luaString">The Lua code to be run.</param>
+        /// <param name="friendlyName">A descriptive name to be used in error reports.</param>
+        /// <param name="runAsCoroutine">Run the Lua code as a coroutine to support asynchronous operations.</param>
+        /// <param name="onComplete">Method to callback when the Lua code finishes exection. Supports return parameters.</param>
         /// </summary>
-        public virtual void RunLuaCoroutine(Closure closure, string debugInfo, Action<DynValue> onComplete = null)
+        public virtual void DoLuaString(string luaString, string friendlyName, bool runAsCoroutine, Action<DynValue> onComplete = null)
         {
-            StartCoroutine(RunLuaCoroutineInternal(closure, debugInfo, onComplete));
+            Closure fn = LoadLuaString(luaString, friendlyName);
+            RunLuaFunction(fn, luaString, runAsCoroutine, onComplete);
         }
             
         /// <summary>
@@ -286,7 +286,7 @@ namespace Fungus
         /// <param name="debugInfo">Debug text to display if an exception occurs (usually the Lua code that is being executed).</param>
         /// <param name="onComplete">A delegate method that is called when the coroutine completes. Includes return parameter.</param>
         /// </summary>
-        protected virtual IEnumerator RunLuaCoroutineInternal(Closure closure, string debugInfo, Action<DynValue> onComplete = null)
+        protected virtual IEnumerator RunLuaCoroutine(Closure closure, string debugInfo, Action<DynValue> onComplete = null)
         {
             DynValue co = interpreter.CreateCoroutine(closure);
 
