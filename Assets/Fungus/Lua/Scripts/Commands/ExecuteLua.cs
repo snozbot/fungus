@@ -14,8 +14,11 @@ namespace Fungus
         [Tooltip("Lua Environment to use to execute this Lua script")]
         public LuaEnvironment luaEnvironment;
 
+        [Tooltip("A text file containing Lua script to execute.")]
+        public TextAsset luaFile;
+
         [TextArea(10,100)]
-        [Tooltip("Lua script to execute. Use {$VarName} to insert a Flowchart variable in the Lua script.")]
+        [Tooltip("Lua script to execute. This text is appended to the contents of Lua file (if one is specified).")]
         public string luaScript;
 
         [Tooltip("Execute this Lua script as a Lua coroutine")]
@@ -30,7 +33,10 @@ namespace Fungus
 
         protected string friendlyName = "";
 
-        protected bool initialised ;
+        protected bool initialised;
+
+        // Stores the compiled Lua code for fast execution later.
+        protected Closure luaFunction;
  
         protected virtual void Start()
         {
@@ -55,19 +61,38 @@ namespace Fungus
                 luaEnvironment = LuaEnvironment.GetLua();
             }
 
-            initialised = true;
+            string s = GetLuaString();
+            luaFunction = luaEnvironment.LoadLuaString(s, friendlyName);
+
+            // Always initialise when playing in the editor.
+            // Allows the user to edit the Lua script while the game is playing.
+            if ( !(Application.isPlaying && Application.isEditor) )
+            {
+                initialised = true;
+            }
+
+        }
+
+        protected virtual string GetLuaString()
+        {
+            if (luaFile == null)
+            {
+                return luaScript;
+            }
+
+            return luaFile.text + "\n" + luaScript;
         }
 
         public override void OnEnter()
         {
             InitExecuteLua();
-                
-            // Note: We can't pre compile the Lua script in this command because we want to
-            // support variable substitution in the Lua string.
-            // If this is too slow, consider using a LuaScript object and calling OnExecute() on it instead.
-            string subbed = GetFlowchart().SubstituteVariables(luaScript);
 
-            luaEnvironment.DoLuaString(subbed, friendlyName, runAsCoroutine, (returnValue) => {
+            if (luaFunction == null)
+            {
+                Continue();
+            }
+
+            luaEnvironment.RunLuaFunction(luaFunction, GetLuaString(), runAsCoroutine, (returnValue) => {
                 StoreReturnVariable(returnValue);
                 if (waitUntilFinished)
                 {

@@ -447,7 +447,7 @@ Transform:
   - {fileID: 1828947836}
   - {fileID: 1463630763}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
 --- !u!1 &304626605
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,8 +552,8 @@ MonoBehaviour:
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: "-- Test the timeout works in fungus.waitfor\nlocal value = false\n\nfunction
-    fn()\n   return value\nend\n\nt = gettime()\nwaitfor(fn, 1)\ncheck(gettime() -
-    t >= 1)\n\n-- Test fungus.waitfor() exits if the function returns true\n-- If
+    fn()\n   return value\nend\n\nt = time.timeSinceLevelLoad\nwaitfor(fn, 1)\ncheck(time.timeSinceLevelLoad
+    - t >= 1)\n\n-- Test fungus.waitfor() exits if the function returns true\n-- If
     this doesn't work the test will timeout and fail\nvalue = true\nwaitfor(fn, 1)\n\npass()"
   runAsCoroutine: 1
 --- !u!114 &305346653
@@ -576,56 +576,6 @@ MonoBehaviour:
   hasFailed: 0
   executeMethods: 2
   executeMethodName: OnExecute
---- !u!1001 &364012152
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1900871526}
-    m_Modifications:
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: timeScale
-      value: -1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &364012153 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 364012152}
 --- !u!1 &367860753
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +668,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fungusModule: 0
   activeLanguage: en
-  timeScale: -1
   stringTables: []
   registerTypes:
   - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
@@ -750,7 +699,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &637150168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,7 +734,7 @@ Transform:
   - {fileID: 236999594}
   - {fileID: 305346651}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!1001 &652121444
 Prefab:
   m_ObjectHideFlags: 0
@@ -960,7 +909,7 @@ Transform:
   - {fileID: 2093904138}
   - {fileID: 681659774}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!1 &804588883
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,7 +980,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fungusModule: 0
   activeLanguage: en
-  timeScale: -1
   stringTables: []
   registerTypes:
   - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
@@ -1184,7 +1132,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fungusModule: 0
   activeLanguage: en
-  timeScale: -1
   stringTables: []
   registerTypes:
   - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
@@ -1202,113 +1149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   remoteDebugger: 0
---- !u!1 &1124932171
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1124932172}
-  - 114: {fileID: 1124932174}
-  - 114: {fileID: 1124932173}
-  m_Layer: 0
-  m_Name: LuaScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1124932172
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1124932171}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1900871526}
-  m_RootOrder: 1
---- !u!114 &1124932173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1124932171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  luaEnvironment: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: '-- Test time functions and time scaling
-
-
-    local t = 0
-
-    local timer = time.time
-
-
-    -- Wait with timeScale = -1
-
-    -- Should take 1 second in realtime to wait for 1 second
-
-    t = gettime()
-
-    wait(1)
-
-    t = gettime() - t
-
-    check(t >= 1)
-
-
-    -- Wait with timeScale = 0.5
-
-    -- Should take 2 seconds in realtime to wait for 1 second
-
-    settimescale(0.5)
-
-    t = gettime()
-
-    wait(1)
-
-    t = gettime() - t
-
-    check(t >= 1)
-
-
-    -- The real elapsed time should be 3 seconds
-
-    elapsed = (time.time - timer)
-
-    check(elapsed >= 3)
-
-
-    pass()'
-  runAsCoroutine: 1
---- !u!114 &1124932174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1124932171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  executeMethodName: OnExecute
 --- !u!4 &1167396341 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -1365,7 +1205,7 @@ Transform:
   - {fileID: 304626606}
   - {fileID: 113453956}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!1 &1258610945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1609,7 +1449,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fungusModule: 0
   activeLanguage: en
-  timeScale: -1
   stringTables: []
   registerTypes:
   - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
@@ -1778,7 +1617,7 @@ Transform:
   - {fileID: 1932132174}
   - {fileID: 804588884}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
 --- !u!1 &1549270604
 GameObject:
   m_ObjectHideFlags: 1
@@ -1818,7 +1657,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!1 &1575922005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,7 +1708,7 @@ Transform:
   - {fileID: 159008373}
   - {fileID: 1073989295}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
 --- !u!1 &1734188738
 GameObject:
   m_ObjectHideFlags: 0
@@ -2193,6 +2032,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: 'store.test = "ok"
 
 
@@ -2365,58 +2205,7 @@ Transform:
   - {fileID: 870653407}
   - {fileID: 156811091}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
---- !u!1 &1900871524
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1900871526}
-  - 114: {fileID: 1900871525}
-  m_Layer: 0
-  m_Name: TimeTest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1900871525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1900871524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeout: 5
-  ignored: 0
-  succeedAfterAllAssertionsAreExecuted: 0
-  expectException: 0
-  expectedExceptionList: 
-  succeedWhenExceptionIsThrown: 0
-  includedPlatforms: -1
-  platformsToIgnore: []
-  dynamic: 0
-  dynamicTypeName: 
---- !u!4 &1900871526
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1900871524}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 364012153}
-  - {fileID: 1124932172}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 12
 --- !u!1 &1932132173
 GameObject:
   m_ObjectHideFlags: 0

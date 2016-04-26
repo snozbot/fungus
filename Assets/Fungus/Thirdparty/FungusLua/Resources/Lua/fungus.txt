@@ -18,8 +18,8 @@ end
 
 -- Waits for a number of seconds
 function M.wait(duration)
-	local t = M.gettime()
-	while (M.gettime() - t < duration) do
+	local t = M.time.timeSinceLevelLoad
+	while (M.time.timeSinceLevelLoad - t < duration) do
 		coroutine.yield()
 	end
 end
@@ -27,10 +27,10 @@ end
 -- Waits until the lamda function provided returns true, or the timeout expires.
 -- Returns true if the function succeeded, or false if the timeout expired
 function M.waitfor(fn, timeoutduration)
-	local t = M.gettime()
+	local t = M.time.timeSinceLevelLoad
 	while (not fn()) do
 		coroutine.yield()
-		if (M.gettime() - t > timeoutduration) then
+		if (M.time.timeSinceLevelLoad - t > timeoutduration) then
 			return false
 		end
 	end

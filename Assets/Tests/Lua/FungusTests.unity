@@ -813,12 +813,15 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 4900000, guid: 6cbce76ae849c40cb86ed0bb1b6e1a95, type: 3}
   luaScript: '-- Test executing Lua script from a Fungus command
 
 
-    -- Test Flowchart variable substitution
+    -- Test Flowchart public variable substitution
 
-    check("{$StringVar}" == "it worked")
+    local s = sub("{$StringVar}")
+
+    check(s == "it worked")
 
 
     pass()'
@@ -852,7 +855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 67
+    x: 68
     y: 70
     width: 120
     height: 40
@@ -910,7 +913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4580f28dd8581476b810b38eea2f1316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scope: 0
+  scope: 1
   key: StringVar
   value: it worked
 --- !u!1 &95979348
@@ -1201,7 +1204,7 @@ MonoBehaviour:
     check (s.value == "a string")
 
 
-    t = gettime()
+    t = time.timeSinceLevelLoad
 
 
     -- Execute a block to change the variable
@@ -1211,7 +1214,7 @@ MonoBehaviour:
     runwait( b.Execute() )
 
 
-    check(gettime() - t >= 1)
+    check(time.timeSinceLevelLoad - t >= 1)
 
 
     -- Check the new value of StringVar
@@ -5376,6 +5379,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: return true
   runAsCoroutine: 0
   waitUntilFinished: 1
@@ -5491,6 +5495,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: return 1.0
   runAsCoroutine: 0
   waitUntilFinished: 1
@@ -5510,6 +5515,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: return 2
   runAsCoroutine: 0
   waitUntilFinished: 1
@@ -5529,6 +5535,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: return "a string"
   runAsCoroutine: 0
   waitUntilFinished: 1
@@ -5604,6 +5611,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: 'local c = factory.color(1, 0.5, 1, 1)
 
 
@@ -5626,6 +5634,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: return testgameobject
   runAsCoroutine: 0
   waitUntilFinished: 1
@@ -5673,6 +5682,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: return testmaterial
   runAsCoroutine: 0
   waitUntilFinished: 1
@@ -5706,6 +5716,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: return testgameobject
   runAsCoroutine: 0
   waitUntilFinished: 1
@@ -5739,6 +5750,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: return mushroom
   runAsCoroutine: 0
   waitUntilFinished: 1
@@ -5772,6 +5784,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: 'local v = factory.vector2(1,1)
 
 
@@ -5808,6 +5821,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: return mousepointer
   runAsCoroutine: 0
   waitUntilFinished: 1
@@ -5841,6 +5855,7 @@ MonoBehaviour:
   errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
   luaScript: 'local v = factory.vector3(1,1,1)
 
     return v'
@@ -7965,7 +7980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1676590048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8325,7 +8340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1730192709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8359,7 +8374,6 @@ Transform:
   m_Children:
   - {fileID: 56584889}
   - {fileID: 2134815026}
-  - {fileID: 2090444089}
   m_Father: {fileID: 0}
   m_RootOrder: 11
 --- !u!1 &1736454666
@@ -8859,7 +8873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 807616590}
+  selectedFlowchart: {fileID: 56584893}
 --- !u!4 &1791050794
 Transform:
   m_ObjectHideFlags: 1
@@ -9951,49 +9965,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!1 &2090444088
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2090444089}
-  - 114: {fileID: 2090444090}
-  m_Layer: 0
-  m_Name: LuaScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2090444089
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2090444088}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1730192710}
-  m_RootOrder: 2
---- !u!114 &2090444090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2090444088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  luaEnvironment: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: 
-  runAsCoroutine: 1
 --- !u!1001 &2092185197
 Prefab:
   m_ObjectHideFlags: 0
