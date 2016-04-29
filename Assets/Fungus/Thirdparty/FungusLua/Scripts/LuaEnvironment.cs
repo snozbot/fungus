@@ -103,7 +103,7 @@ namespace Fungus
         /// <summary>
         /// Launches the remote Lua debugger in your browser and breaks execution at the first executed Lua command.
         /// </summary>
-        [Tooltip("Launches the remote Lua debugger in your browser and breaks execution at the first executed Lua command.")]
+        [Tooltip("Launches the remote Lua debugger in your browser and breaks execution at the first executed Lua command. Standalone platform only.")]
         public bool remoteDebugger = false;
 
         /// <summary>
@@ -344,6 +344,7 @@ namespace Fungus
 
         protected virtual void ActivateRemoteDebugger(Script script)
         {
+            #if UNITY_STANDALONE
             if (remoteDebuggerService == null)
             {
                 remoteDebuggerService = new RemoteDebuggerService();
@@ -356,6 +357,7 @@ namespace Fungus
             // start the web-browser at the correct url. Replace this or just
             // pass the url to the user in some way.
             Process.Start(remoteDebuggerService.HttpUrlStringLocalHost);
+            #endif
         }
 
 		/// <summary>
