@@ -84,7 +84,7 @@ namespace Fungus
 
 			playingVoiceover = true;
 
-			targetAudioSource.volume = 1f;
+			targetAudioSource.volume = volume;
 			targetVolume = volume;
 			targetAudioSource.loop = false;
 			targetAudioSource.clip = voiceOverClip;
