@@ -84,8 +84,8 @@ namespace Fungus
 
 			playingVoiceover = true;
 
-			targetAudioSource.volume = 1f;
-			targetVolume = 1f;
+			targetAudioSource.volume = volume;
+			targetVolume = volume;
 			targetAudioSource.loop = false;
 			targetAudioSource.clip = voiceOverClip;
 			targetAudioSource.Play();
@@ -102,7 +102,7 @@ namespace Fungus
 
 			playingVoiceover = false;
 			targetAudioSource.volume = 0f;
-			targetVolume = 1f;
+			targetVolume = volume;
 
 			if (audioClip != null)
 			{
@@ -161,7 +161,7 @@ namespace Fungus
 				return;
 			}
 
-			targetVolume = 1f;
+			targetVolume = volume;
 		}
 
 		protected virtual void Update()
