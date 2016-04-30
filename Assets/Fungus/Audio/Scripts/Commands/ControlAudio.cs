@@ -47,7 +47,11 @@ namespace Fungus
 				return;
 			}
 
-			_audioSource.Value.volume = endVolume;
+            if (control != controlType.ChangeVolume)
+            {
+			    _audioSource.Value.volume = endVolume;
+            }
+
 			switch(control)
 			{
 				case controlType.PlayOnce:
@@ -219,8 +223,13 @@ namespace Fungus
 			).setOnUpdate(
 				(float updateVolume)=>{
 				_audioSource.Value.volume = updateVolume;
-			}
-			);
+            }).setOnComplete(
+                ()=>{
+                if (waitUntilFinished)
+                {
+                    Continue();
+                }
+            });
 		}
 
 		void AudioFinished()
