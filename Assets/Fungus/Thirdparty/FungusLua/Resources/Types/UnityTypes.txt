@@ -29,6 +29,7 @@
 		"UnityEngine.Matrix4x4, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
 		"UnityEngine.MonoBehaviour, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
 		"UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.PlayerPrefs, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
 		"UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
 		"UnityEngine.Quaternion, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
 		"UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",

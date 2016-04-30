@@ -209,6 +209,7 @@ namespace Fungus
 
 			// Static classes
 			fungusTable["time"] = UserData.CreateStatic(typeof(Time));
+            fungusTable["playerprefs"] = UserData.CreateStatic(typeof(PlayerPrefs));
 			fungusTable["prefs"] = UserData.CreateStatic(typeof(FungusPrefs));
 			fungusTable["factory"] = UserData.CreateStatic(typeof(PODTypeFactory));
 
