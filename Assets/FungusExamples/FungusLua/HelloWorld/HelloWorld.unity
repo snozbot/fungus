@@ -85,6 +85,54 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1314575962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1314575964}
+  - 114: {fileID: 1314575963}
+  m_Layer: 0
+  m_Name: InfoText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1314575963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1314575962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0cbb63e218a4414a796a60ffe37dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info: 'A simple example of using a LuaScript object to display "Hello World" by
+    printing to the console and also by using the say() function.
+
+
+    Create a LuaScript object via Tools > Fungus > Create > LuaScript
+
+
+    Notice that Fungus automatically creates the LuaEnvironment and SayDialog objects
+    automatically if none are already present in the scene when you run it.'
+--- !u!4 &1314575964
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1314575962}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
 --- !u!1 &1524657877
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +145,6 @@ GameObject:
   - 92: {fileID: 1524657880}
   - 124: {fileID: 1524657879}
   - 81: {fileID: 1524657878}
-  - 114: {fileID: 1524657883}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -172,27 +219,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &1524657883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1524657877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0cbb63e218a4414a796a60ffe37dd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  info: 'A simple example of using a LuaScript object
-
-    to display "Hello World" by printing to the
-
-    console and also by using the say() function.
-
-
-    Notice that Fungus automatically creates the
-
-    LuaEnvironment, SayDialog objects automatically if none are already present.'
 --- !u!1 &1590446708
 GameObject:
   m_ObjectHideFlags: 0
