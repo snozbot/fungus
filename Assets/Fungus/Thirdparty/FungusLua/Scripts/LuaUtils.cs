@@ -165,16 +165,14 @@ namespace Fungus
 		}
 
         /// <summary>
-        /// Binds all gameobjects and components defined in scene LuaBindings to the global table.
+        /// Binds all gameobjects and components defined in LuaBindings components to LuaEnvironments.
         /// </summary>
         protected virtual void InitBindings()
         {
-			MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
-
 			LuaBindingsBase[] bindings = GameObject.FindObjectsOfType<LuaBindingsBase>();
 			foreach (LuaBindingsBase binding in bindings)
             {
-                binding.AddBindings(interpreter.Globals);
+                binding.AddBindings(luaEnvironment);
             }
         }
 

@@ -19,7 +19,7 @@ namespace Fungus
 		/// <summary>
 		/// Add all declared bindings to the globals table.
 		/// </summary>
-		public abstract void AddBindings(Table globals);
+		public abstract void AddBindings(LuaEnvironment luaEnvironment);
 	}
 
     /// <summary>
@@ -38,6 +38,12 @@ namespace Fungus
             public UnityEngine.Object obj;
             public Component component;
         }
+
+        [Tooltip("Add bindings to every Lua Environment in the scene. If false, only add bindings to a specific Lua Environment.")]
+        public bool allEnvironments = true;
+
+        [Tooltip("The specific LuaEnvironment to register the bindings in.")]
+        public LuaEnvironment luaEnvironment;
 
         /// <summary>
         /// Name of global table variable to store bindings in. If left blank then each binding will be added as a global variable.
@@ -72,8 +78,18 @@ namespace Fungus
         /// <summary>
         /// Add all declared bindings to the globals table.
         /// </summary>
-        public override void AddBindings(Table globals)
+        public override void AddBindings(LuaEnvironment _luaEnvironment)
         {
+            if (!allEnvironments && 
+                luaEnvironment != _luaEnvironment)
+            {
+                // Don't add bindings to this environment
+                return;
+            }
+
+            MoonSharp.Interpreter.Script interpreter = _luaEnvironment.Interpreter;
+            Table globals = interpreter.Globals;
+
             Table bindingsTable = null;
             if (tableName == "")
             {

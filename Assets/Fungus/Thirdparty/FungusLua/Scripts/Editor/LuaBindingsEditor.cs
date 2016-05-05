@@ -15,8 +15,10 @@ namespace Fungus
     {
         protected ReorderableList boundObjectsList;
 
+        protected SerializedProperty allLuaEnvironmentsProp;
+        protected SerializedProperty luaEnvironmentProp;
         protected SerializedProperty tableNameProp;
-		protected SerializedProperty registerTypesProp;
+        protected SerializedProperty registerTypesProp;
         protected SerializedProperty boundObjectsProp;
 
         protected string bindingHelpItem = ""; 
@@ -24,6 +26,8 @@ namespace Fungus
 
         protected virtual void OnEnable()
         {
+            allLuaEnvironmentsProp = serializedObject.FindProperty("allEnvironments");
+            luaEnvironmentProp = serializedObject.FindProperty("luaEnvironment");
             tableNameProp = serializedObject.FindProperty("tableName");
 			registerTypesProp = serializedObject.FindProperty("registerTypes");
             boundObjectsProp = serializedObject.FindProperty("boundObjects");
@@ -139,6 +143,12 @@ namespace Fungus
         public override void OnInspectorGUI() 
         {
             serializedObject.Update();
+
+            EditorGUILayout.PropertyField(allLuaEnvironmentsProp);
+            if (!allLuaEnvironmentsProp.boolValue)
+            {
+                EditorGUILayout.PropertyField(luaEnvironmentProp);
+            }
 
             EditorGUILayout.PropertyField(tableNameProp);
 			EditorGUILayout.PropertyField(registerTypesProp);

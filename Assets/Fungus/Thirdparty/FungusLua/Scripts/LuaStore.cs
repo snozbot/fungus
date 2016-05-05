@@ -69,12 +69,15 @@ namespace Fungus
 		/// <summary>
 		/// Callback to bind this LuaStore component with the "unity" table in a LuaEnvironment component.
 		/// </summary>
-		public override void AddBindings(Table globals)
+        public override void AddBindings(LuaEnvironment luaEnvironment)
 		{
 			if (!Init())
 			{
 				return;
 			}
+
+            MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
+            Table globals = interpreter.Globals;
 
 			if (globals == null)
 			{
