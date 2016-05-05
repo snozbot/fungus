@@ -12,6 +12,20 @@ function M.inspect(v)
 	print (inspect.inspect(v))
 end
 
+------------
+-- Math
+------------
+
+-- rounds a number to the nearest decimal places
+-- e.g. round(1.523, 100) -- 1.52
+function round(val, decimal)
+  if (decimal) then
+    return math.floor( (val * 10^decimal) + 0.5) / (10^decimal)
+  else
+    return math.floor(val+0.5)
+  end
+end
+
 -------------
 -- Coroutines
 -------------
