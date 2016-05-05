@@ -10,7 +10,7 @@ namespace Fungus
     public class InfoText : MonoBehaviour 
     {
         [Tooltip("The information text to display")]
-        [TextArea(10, 10)]
+        [TextArea(20, 20)]
         public string info = "";
     	
     	void OnGUI() 
