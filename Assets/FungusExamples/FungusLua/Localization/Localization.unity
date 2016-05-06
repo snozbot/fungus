@@ -171,67 +171,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &295881417
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 295881420}
-  - 114: {fileID: 295881419}
-  - 114: {fileID: 295881418}
-  m_Layer: 0
-  m_Name: LuaEnvironment
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &295881418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11486636, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 295881417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fungusModule: 0
-  activeLanguage: en
-  stringTables:
-  - {fileID: 4900000, guid: 2b873932e07a74706a6b54d7ce17a53b, type: 3}
-  registerTypes:
-  - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
-  - {fileID: 4900000, guid: 93fddea8208764a2dbb189cc238aed40, type: 3}
---- !u!114 &295881419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 295881417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remoteDebugger: 0
---- !u!4 &295881420
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 295881417}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
 --- !u!1 &869541708
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +244,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!1 &931488961
 GameObject:
   m_ObjectHideFlags: 1
@@ -345,7 +284,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!1 &1000755630
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,8 +329,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlock: {fileID: 1000755633}
-  selectedCommands:
-  - {fileID: 1000755632}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -467,94 +405,93 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
---- !u!1 &1304857493
+  m_RootOrder: 2
+--- !u!1 &1205061378
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 179118, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00, type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1304857494}
-  - 114: {fileID: 1304857495}
+  - 4: {fileID: 1205061384}
+  - 114: {fileID: 1205061383}
+  - 114: {fileID: 1205061382}
+  - 114: {fileID: 1205061381}
+  - 114: {fileID: 1205061380}
+  - 114: {fileID: 1205061379}
   m_Layer: 0
-  m_Name: InfoText
+  m_Name: Lua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1304857494
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1304857493}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
---- !u!114 &1304857495
+--- !u!114 &1205061379
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1304857493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0cbb63e218a4414a796a60ffe37dd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  info: 'This example shows how to use a string table to localize text for different
-    languages.
-
-
-    A string table JSON file has been added to the LuaUtils component in the LuaEnvironment
-    object.
-
-
-    The LuaScript object shows how to substitute in a localization string key and
-    change the active language in Lua.
-
-
-    The Flowchart object demonstrates using the same {$VarName} syntax in Fungus commands
-    like Say, Menu, Debug Log, etc. to substitute in localized strings.
-
-
-
-'
---- !u!1 &1834004033
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 139298, guid: c356764ac08ce4af2806a601a4f1e6e9, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1834004036}
-  - 114: {fileID: 1834004035}
-  - 114: {fileID: 1834004034}
-  m_Layer: 0
-  m_Name: LuaScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1834004034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11472914, guid: c356764ac08ce4af2806a601a4f1e6e9,
+  m_PrefabParentObject: {fileID: 11437776, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
     type: 2}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1834004033}
+  m_GameObject: {fileID: 1205061378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fungusModule: 0
+  activeLanguage: en
+  stringTables:
+  - {fileID: 4900000, guid: 2b873932e07a74706a6b54d7ce17a53b, type: 3}
+  registerTypes:
+  - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
+  - {fileID: 4900000, guid: 93fddea8208764a2dbb189cc238aed40, type: 3}
+--- !u!114 &1205061380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11483650, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1205061378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  remoteDebugger: 0
+--- !u!114 &1205061381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11499092, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1205061378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc8a659e950044b69d7c62696c36962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allEnvironments: 0
+  luaEnvironment: {fileID: 1205061380}
+  tableName: 
+  registerTypes: 1
+  boundTypes: []
+  boundObjects:
+  - key: 
+    obj: {fileID: 0}
+    component: {fileID: 0}
+--- !u!114 &1205061382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11417560, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1205061378}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  luaEnvironment: {fileID: 0}
+  luaEnvironment: {fileID: 1205061380}
   luaFile: {fileID: 0}
   luaScript: '-- First we use variable substitution to
 
@@ -590,20 +527,15 @@ MonoBehaviour:
 
     local s = sub("{$hello_world}")
 
-    say(s)
-
-
-
-
-'
+    say(s)'
   runAsCoroutine: 1
---- !u!114 &1834004035
+--- !u!114 &1205061383
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11446228, guid: c356764ac08ce4af2806a601a4f1e6e9,
+  m_PrefabParentObject: {fileID: 11415008, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
     type: 2}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1834004033}
+  m_GameObject: {fileID: 1205061378}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
@@ -618,15 +550,72 @@ MonoBehaviour:
   hasFailed: 0
   executeMethods: 2
   executeMethodName: OnExecute
---- !u!4 &1834004036
+--- !u!4 &1205061384
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 449874, guid: c356764ac08ce4af2806a601a4f1e6e9, type: 2}
+  m_PrefabParentObject: {fileID: 466848, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00, type: 2}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1834004033}
+  m_GameObject: {fileID: 1205061378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
+--- !u!1 &1304857493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1304857494}
+  - 114: {fileID: 1304857495}
+  m_Layer: 0
+  m_Name: InfoText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1304857494
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1304857493}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+--- !u!114 &1304857495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1304857493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0cbb63e218a4414a796a60ffe37dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info: 'This example shows how to use a string table to localize text for different
+    languages.
+
+
+    A string table JSON file has been added to the LuaUtils component in the Lua object.
+
+
+    The script shows how to substitute in a localization string key and change the
+    active language in Lua.
+
+
+    The Flowchart object demonstrates using the same {$VarName} syntax in Fungus commands
+    like Say, Menu, Debug Log, etc. to substitute in localized strings from the string
+    table.
+
+
+
+'

@@ -85,6 +85,159 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &201313715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 179118, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 201313721}
+  - 114: {fileID: 201313720}
+  - 114: {fileID: 201313719}
+  - 114: {fileID: 201313718}
+  - 114: {fileID: 201313717}
+  - 114: {fileID: 201313716}
+  m_Layer: 0
+  m_Name: Lua
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &201313716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11437776, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 201313715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fungusModule: 0
+  activeLanguage: en
+  stringTables: []
+  registerTypes:
+  - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
+  - {fileID: 4900000, guid: 93fddea8208764a2dbb189cc238aed40, type: 3}
+--- !u!114 &201313717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11483650, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 201313715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  remoteDebugger: 0
+--- !u!114 &201313718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11499092, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 201313715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc8a659e950044b69d7c62696c36962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allEnvironments: 0
+  luaEnvironment: {fileID: 201313717}
+  tableName: 
+  registerTypes: 1
+  boundTypes:
+  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - CustomScript, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  boundObjects:
+  - key: customscript
+    obj: {fileID: 1496574807}
+    component: {fileID: 1496574809}
+--- !u!114 &201313719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11417560, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 201313715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  luaEnvironment: {fileID: 201313717}
+  luaFile: {fileID: 0}
+  luaScript: '
+
+    -- Getting a public property
+
+    local s = customscript.myString;
+
+    print (s)
+
+
+    -- Running a public method
+
+    customscript.MyFunction()
+
+
+    -- Running public method as a coroutine
+
+    runwait( customscript.MyCoroutine() )
+
+
+    print ("Lua Script Finished!")'
+  runAsCoroutine: 1
+--- !u!114 &201313720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11415008, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 201313715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  executeMethodName: OnExecute
+--- !u!4 &201313721
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 466848, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 201313715}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
 --- !u!1 &588179116
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,66 +324,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &613885368
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 178698, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 613885370}
-  - 114: {fileID: 613885369}
-  m_Layer: 0
-  m_Name: LuaBindings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &613885369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 613885368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cc8a659e950044b69d7c62696c36962, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tableName: 
-  registerTypes: 1
-  boundTypes:
-  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-  - CustomScript, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  boundObjects:
-  - key: customscript
-    obj: {fileID: 1496574807}
-    component: {fileID: 1496574809}
---- !u!4 &613885370
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 403334, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 613885368}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
 --- !u!1 &629527467
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,14 +351,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0cbb63e218a4414a796a60ffe37dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: "This example shows how to access properties and call methods on a c# script
+  info: 'This example shows how to access properties and call methods on a c# script
     from Lua. When you run this scene, look at the Console window to see the messages
-    output as the script runs.\n\nThe CustomScript object has a custom c# script attached.
-    The LuaBindings object has a binding which links to this CustomScript component.\n\nThe
-    LuaScript object uses this binding to get the value of a public property and run
-    a method on the CustomScript component. A coroutine method (i.e. one that returns
-    IEnumerator) is also run. \n\nLuaScript uses the runwait() command to execute
-    coroutine methods asynchronously.\n"
+    output as the script runs.
+
+
+    The CustomScript object has a custom c# script attached. The LuaBindings component
+    in the Lua object has a binding which links to this CustomScript component.
+
+
+    The LuaScript object uses this binding to get the value of a public property and
+    run a method on the CustomScript component. A coroutine method (i.e. one that
+    returns IEnumerator) is also run. The runwait() command executes coroutine methods
+    asynchronously.
+
+'
 --- !u!4 &629527469
 Transform:
   m_ObjectHideFlags: 0
@@ -277,94 +377,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
---- !u!1 &701069093
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 139298, guid: c356764ac08ce4af2806a601a4f1e6e9, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 701069096}
-  - 114: {fileID: 701069095}
-  - 114: {fileID: 701069094}
-  m_Layer: 0
-  m_Name: LuaScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &701069094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11472914, guid: c356764ac08ce4af2806a601a4f1e6e9,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 701069093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  luaEnvironment: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: '
-
-    -- Getting a public property
-
-    local s = customscript.myString;
-
-    print (s)
-
-
-    -- Running a public method
-
-    customscript.MyFunction()
-
-
-    -- Running public method as a coroutine
-
-    runwait( customscript.MyCoroutine() )
-
-
-    print ("Lua Script Finished!")
-
-'
-  runAsCoroutine: 1
---- !u!114 &701069095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11446228, guid: c356764ac08ce4af2806a601a4f1e6e9,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 701069093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  executeMethodName: OnExecute
---- !u!4 &701069096
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 449874, guid: c356764ac08ce4af2806a601a4f1e6e9, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 701069093}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
 --- !u!1 &1496574807
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +405,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!114 &1496574809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,4 +458,4 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2

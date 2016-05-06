@@ -124,7 +124,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &269274605
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,75 +617,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 461615209}
---- !u!1 &519026839
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 139298, guid: c356764ac08ce4af2806a601a4f1e6e9, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 519026841}
-  - 114: {fileID: 519026842}
-  - 114: {fileID: 519026840}
-  m_Layer: 0
-  m_Name: LuaScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &519026840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11472914, guid: c356764ac08ce4af2806a601a4f1e6e9,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 519026839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  luaEnvironment: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: "-- Lua functions are the equivalent of Blocks \n-- in a Fungus flowchart.\n\nsetsaydialog(saydialog)\nsetmenudialog(menudialog)\n\nfunction
-    start()\n\n\n   say \"Welcome!\"\n\n   sayoptions.waitforinput = false\n   sayoptions.fadewhendone
-    = false\n\n   say \"Select an option\"\n\n   menu(\"Option A\", optiona)\n   menu(\"Option
-    B\", optionb)\nend\n\nfunction optiona()\n   say(\"You chose option a\")\nend\n\nfunction
-    optionb()\n   say(\"You chose option b\")\nend\n\nstart()\n"
-  runAsCoroutine: 1
---- !u!4 &519026841
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 449874, guid: c356764ac08ce4af2806a601a4f1e6e9, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 519026839}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
---- !u!114 &519026842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 519026839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executeAfterTime: 1
-  repeatExecuteTime: 1
-  repeatEveryTime: 1
-  executeAfterFrames: 1
-  repeatExecuteFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  executeMethods: 2
-  executeMethodName: OnExecute
 --- !u!1 &614649408
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,7 +1257,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!1 &1225017617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1777,34 +1708,71 @@ MonoBehaviour:
   m_Spacing: 5
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
---- !u!1 &1265440900
+--- !u!1 &1308476103
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 178698, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+  m_PrefabParentObject: {fileID: 179118, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00, type: 2}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1265440902}
-  - 114: {fileID: 1265440901}
+  - 4: {fileID: 1308476109}
+  - 114: {fileID: 1308476108}
+  - 114: {fileID: 1308476107}
+  - 114: {fileID: 1308476106}
+  - 114: {fileID: 1308476105}
+  - 114: {fileID: 1308476104}
   m_Layer: 0
-  m_Name: LuaBindings
+  m_Name: Lua
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1265440901
+--- !u!114 &1308476104
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b,
+  m_PrefabParentObject: {fileID: 11437776, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
     type: 2}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1265440900}
+  m_GameObject: {fileID: 1308476103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fungusModule: 0
+  activeLanguage: en
+  stringTables: []
+  registerTypes:
+  - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
+  - {fileID: 4900000, guid: 93fddea8208764a2dbb189cc238aed40, type: 3}
+--- !u!114 &1308476105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11483650, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1308476103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  remoteDebugger: 0
+--- !u!114 &1308476106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11499092, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1308476103}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cc8a659e950044b69d7c62696c36962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allEnvironments: 0
+  luaEnvironment: {fileID: 1308476105}
   tableName: 
   registerTypes: 1
   boundTypes:
@@ -1841,18 +1809,60 @@ MonoBehaviour:
   - key: menudialog
     obj: {fileID: 1851713324}
     component: {fileID: 1851713325}
---- !u!4 &1265440902
+--- !u!114 &1308476107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11417560, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1308476103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  luaEnvironment: {fileID: 1308476105}
+  luaFile: {fileID: 0}
+  luaScript: "-- Lua functions are the equivalent of Blocks \n-- in a Fungus flowchart.\n\nsetsaydialog(saydialog)\nsetmenudialog(menudialog)\n\nfunction
+    start()\n   say \"Welcome!\"\n\n   sayoptions.waitforinput = false\n   sayoptions.fadewhendone
+    = false\n\n   say \"Select an option\"\n\n   sayoptions.waitforinput = true\n
+    \  sayoptions.fadewhendone = true\n\n   menu(\"Option A\", optiona)\n   menu(\"Option
+    B\", optionb)\nend\n\nfunction optiona()\n   say(\"You chose option a\")\nend\n\nfunction
+    optionb()\n   say(\"You chose option b\")\nend\n\nstart()"
+  runAsCoroutine: 1
+--- !u!114 &1308476108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11415008, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1308476103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  executeMethodName: OnExecute
+--- !u!4 &1308476109
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 403334, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+  m_PrefabParentObject: {fileID: 466848, guid: 3ddf9f33ba98e4b31ba4d2b9722bea00, type: 2}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1265440900}
+  m_GameObject: {fileID: 1308476103}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1 &1531220777
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,7 +2809,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!1 &1851713324
 GameObject:
   m_ObjectHideFlags: 0
