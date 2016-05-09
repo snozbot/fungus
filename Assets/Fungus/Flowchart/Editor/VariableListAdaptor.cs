@@ -5,6 +5,7 @@
 using UnityEngine;
 using UnityEditor;
 using System;
+using Fungus.Extentions;
 using Rotorz.ReorderableList;
 
 namespace Fungus
@@ -51,12 +52,12 @@ namespace Fungus
 		public void Add() {
 			int newIndex = _arrayProperty.arraySize;
 			++_arrayProperty.arraySize;
-			ResetValue(_arrayProperty.GetArrayElementAtIndex(newIndex));
+		    _arrayProperty.GetArrayElementAtIndex(newIndex).ResetValue();
 		}
 
 		public void Insert(int index) {
 			_arrayProperty.InsertArrayElementAtIndex(index);
-			ResetValue(_arrayProperty.GetArrayElementAtIndex(index));
+		    _arrayProperty.GetArrayElementAtIndex(index).ResetValue();
 		}
 
 		public void Duplicate(int index) {
@@ -191,43 +192,6 @@ namespace Fungus
 					: EditorGUI.GetPropertyHeight(this[index], GUIContent.none, false)
 					;
 		}
-		
-		private void ResetValue(SerializedProperty element) {
-			switch (element.type) {
-			case "string":
-				element.stringValue = "";
-				break;
-			case "Vector2f":
-				element.vector2Value = Vector2.zero;
-				break;
-			case "Vector3f":
-				element.vector3Value = Vector3.zero;
-				break;
-			case "Rectf":
-				element.rectValue = new Rect();
-				break;
-			case "Quaternionf":
-				element.quaternionValue = Quaternion.identity;
-				break;
-			case "int":
-				element.intValue = 0;
-				break;
-			case "float":
-				element.floatValue = 0f;
-				break;
-			case "UInt8":
-				element.boolValue = false;
-				break;
-			case "ColorRGBA":
-				element.colorValue = Color.black;
-				break;
-				
-			default:
-				if (element.type.StartsWith("PPtr"))
-					element.objectReferenceValue = null;
-				break;
-			}
-		}		
 	}
 }
 
