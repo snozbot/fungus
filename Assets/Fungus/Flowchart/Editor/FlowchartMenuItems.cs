@@ -50,6 +50,12 @@ namespace Fungus
 			AssetDatabase.ExportPackage(folders, path, ExportPackageOptions.Recurse);
 		}
 
+        [MenuItem("Tools/Fungus/Utilities/Info Text")]
+        static void SpawnInfoText()
+        {
+            SpawnPrefab("InfoText");
+        }
+            
 		public static GameObject SpawnPrefab(string prefabName)
 		{
 			GameObject prefab = Resources.Load<GameObject>(prefabName);

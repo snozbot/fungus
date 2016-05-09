@@ -259,7 +259,6 @@ end
 -- varname: The name of the Variable to get.
 function M.getvar(flowchart, varname)
 	assert(flowchart, "flowchart must not be nil")
-	assert(blockname, "varname must not be nil")
 	return flowchart.GetVariable(varname)
 end
 
