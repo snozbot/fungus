@@ -221,7 +221,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!54 &141306355
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -237,6 +237,50 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &229439457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 229439459}
+  - 114: {fileID: 229439458}
+  m_Layer: 0
+  m_Name: InfoText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &229439458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 229439457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0cbb63e218a4414a796a60ffe37dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info: "This example shows how to execute a Lua script form a trigger event.\n\nThe
+    CubeTrigger object has ExecuteHandler and LuaScript components attached. The ExecuteHandler
+    has been set to execute the LuaScript component when a trigger enter event happens.
+    \n\nThe LuaBindings object looks after registering the Flowchart and SayDialog
+    objects so we can access them from Lua."
+--- !u!4 &229439459
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 229439457}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &517355049
 GameObject:
   m_ObjectHideFlags: 1
@@ -276,7 +320,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!1 &775333277
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc8a659e950044b69d7c62696c36962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allEnvironments: 1
+  luaEnvironment: {fileID: 0}
   tableName: 
   registerTypes: 1
   boundTypes:
@@ -357,7 +403,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1 &913136538
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +520,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!1 &974098819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,7 +1254,7 @@ Transform:
   m_LocalScale: {x: 1.1810303, y: 1.1810303, z: 1.1810303}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!114 &1437227280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1248,48 +1294,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   executeMethods: 8192
---- !u!1001 &1575311449
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
-  m_IsPrefabParent: 0
+  executeMethodName: OnExecute
 --- !u!1 &1882312847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,7 +1368,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!1 &1918243061
 GameObject:
   m_ObjectHideFlags: 0
