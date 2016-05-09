@@ -8,31 +8,13 @@ namespace Fungus
 
     public class MenuItems 
     {
-        [MenuItem("Tools/Fungus/Create/Lua Environment", false, 2000)]
-        static void CreateLuaEnvironment()
+        [MenuItem("Tools/Fungus/Create/Lua", false, 2000)]
+        static void CreateLua()
         {
-            SpawnPrefab("Prefabs/LuaEnvironment", false);
+            SpawnPrefab("Prefabs/Lua", false);
         }
 
-        [MenuItem("Tools/Fungus/Create/Lua Bindings", false, 2001)]
-        static void CreateLuaBindings()
-        {
-            SpawnPrefab("Prefabs/LuaBindings", false);
-        }
-
-		[MenuItem("Tools/Fungus/Create/Lua Script", false, 2002)]
-		static void CreateLuaScript()
-		{
-			SpawnPrefab("Prefabs/LuaScript", false);
-		}
-
-		[MenuItem("Tools/Fungus/Create/Lua Store", false, 2003)]
-		static void CreateLuaStore()
-		{
-			SpawnPrefab("Prefabs/LuaStore", false);
-		}
-
-        [MenuItem("Tools/Fungus/Create/Lua File", false, 2100)]
+        [MenuItem("Tools/Fungus/Create/Lua File", false, 2001)]
         static void CreateLuaFile()
         {
             string path = EditorUtility.SaveFilePanelInProject("Create Lua File", "script.txt", "txt", "Please select a file name for the new Lua script. Note: Lua files in Unity use the .txt extension.");
@@ -54,6 +36,30 @@ namespace Fungus
                 EditorUtility.FocusProjectWindow();
                 EditorGUIUtility.PingObject(asset);
             }            
+        }
+
+        [MenuItem("Tools/Fungus/Create/Lua Environment", false, 2100)]
+        static void CreateLuaEnvironment()
+        {
+            SpawnPrefab("Prefabs/LuaEnvironment", false);
+        }
+
+        [MenuItem("Tools/Fungus/Create/Lua Bindings", false, 2101)]
+        static void CreateLuaBindings()
+        {
+            SpawnPrefab("Prefabs/LuaBindings", false);
+        }
+
+        [MenuItem("Tools/Fungus/Create/Lua Script", false, 2102)]
+        static void CreateLuaScript()
+        {
+            SpawnPrefab("Prefabs/LuaScript", false);
+        }
+
+        [MenuItem("Tools/Fungus/Create/Lua Store", false, 2103)]
+        static void CreateLuaStore()
+        {
+            SpawnPrefab("Prefabs/LuaStore", false);
         }
 
         /// <summary>
@@ -105,6 +111,15 @@ namespace Fungus
 			var asset = ScriptableObject.CreateInstance<T>();
 			ProjectWindowUtil.CreateAsset(asset, typeof(T).Name + ".asset");
 		}
+
+        /// <summary>
+        /// Create an info text object which displays help info in the top left of the sceen.
+        /// </summary>
+        [MenuItem("Tools/Fungus/Utilities/Info Text")]
+        static void SpawnInfoText()
+        {
+            SpawnPrefab("Prefabs/InfoText", false);
+        }
     }
 
 }

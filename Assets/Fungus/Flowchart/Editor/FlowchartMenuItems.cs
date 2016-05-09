@@ -49,7 +49,7 @@ namespace Fungus
 
 			AssetDatabase.ExportPackage(folders, path, ExportPackageOptions.Recurse);
 		}
-
+            
 		public static GameObject SpawnPrefab(string prefabName)
 		{
 			GameObject prefab = Resources.Load<GameObject>(prefabName);

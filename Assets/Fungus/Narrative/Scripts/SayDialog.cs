@@ -37,6 +37,8 @@ namespace Fungus
 		protected float targetAlpha = 0f;
 		protected float fadeCoolDownTimer = 0f;
 
+        protected Sprite currentCharacterImage;
+
 		public static SayDialog GetSayDialog()
 		{
 			if (activeSayDialog == null)
@@ -124,6 +126,14 @@ namespace Fungus
 			{
 				gameObject.AddComponent<GraphicRaycaster>();	
 			}
+
+            // It's possible that SetCharacterImage() has already been called from the
+            // Start method of another component, so check that no image has been set yet.
+            if (currentCharacterImage == null)
+            {                
+                // Character image is hidden by default.
+                SetCharacterImage(null);
+            }
 		}
 
         public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
@@ -298,6 +308,7 @@ namespace Fungus
 			{
 				characterImage.sprite = image;
 				characterImage.gameObject.SetActive(true);
+                currentCharacterImage = image;
 			}
 			else
 			{

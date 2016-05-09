@@ -47,6 +47,7 @@ namespace Fungus
 
 			// Destroy any existing fader component
 			SpriteFader oldSpriteFader = spriteRenderer.GetComponent<SpriteFader>();
+            if (oldSpriteFader != null)
 			{
 				Destroy(oldSpriteFader);
 			}
