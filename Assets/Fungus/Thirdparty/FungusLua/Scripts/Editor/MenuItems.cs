@@ -118,7 +118,7 @@ namespace Fungus
         [MenuItem("Tools/Fungus/Utilities/Info Text")]
         static void SpawnInfoText()
         {
-            SpawnPrefab("InfoText", false);
+            SpawnPrefab("Prefabs/InfoText", false);
         }
     }
 
