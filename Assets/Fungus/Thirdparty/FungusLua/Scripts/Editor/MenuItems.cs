@@ -111,6 +111,15 @@ namespace Fungus
 			var asset = ScriptableObject.CreateInstance<T>();
 			ProjectWindowUtil.CreateAsset(asset, typeof(T).Name + ".asset");
 		}
+
+        /// <summary>
+        /// Create an info text object which displays help info in the top left of the sceen.
+        /// </summary>
+        [MenuItem("Tools/Fungus/Utilities/Info Text")]
+        static void SpawnInfoText()
+        {
+            SpawnPrefab("InfoText", false);
+        }
     }
 
 }
