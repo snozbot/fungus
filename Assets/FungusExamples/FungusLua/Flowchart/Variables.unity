@@ -465,7 +465,7 @@ MonoBehaviour:
     to the Flowchart.
 
 
-    The Lua script uses the getvar() function to get a reference to the 2 FLowchart
+    The Lua script uses the getvar() function to get a reference to the 2 Flowchart
     variables, and then uses the .value property accessor to access the values of
     the variables.
 
