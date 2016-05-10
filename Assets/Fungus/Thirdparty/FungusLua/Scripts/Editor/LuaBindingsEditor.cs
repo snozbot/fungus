@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.IO;
+using UnityEditor.Callbacks;
 
 namespace Fungus
 {
@@ -160,11 +161,11 @@ namespace Fungus
 
             ShowBindingMemberInfo();
 
-			// Update the bound types on every tick to make sure they're up to date.
-			// This could be a bit heavy on performance if the bound object list is long, but
-			// I couldn't get it to work reliably by only updating when the list has changed.
-			// This only happens when inspecting a Fungus Bindings component so I think it'll be ok.
-			PopulateBoundTypes();
+            // Update the bound types on every tick to make sure they're up to date.
+            // This could be a bit heavy on performance if the bound object list is long, but
+            // I couldn't get it to work reliably by only updating when the list has changed.
+            // This only happens when inspecting a Fungus Bindings component so I think it'll be ok.
+            PopulateBoundTypes(target as LuaBindings, serializedObject);
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -354,13 +355,26 @@ namespace Fungus
             return key;
         }
 
+        [DidReloadScripts()]
+        protected static void DidReloadScripts()
+        {
+            LuaBindings[] luaBindingsList = GameObject.FindObjectsOfType<LuaBindings>();
+            foreach (LuaBindings luaBindings in luaBindingsList)
+            {
+                SerializedObject so = new SerializedObject(luaBindings);
+                so.Update();
+
+                PopulateBoundTypes(luaBindings, so);
+
+                so.ApplyModifiedProperties();
+            }
+        }
+
         /// <summary>
         /// Update the list of bound types on the LuaBindings object.
         /// </summary>
-		protected virtual void PopulateBoundTypes()
+		protected static void PopulateBoundTypes(LuaBindings luaBindings, SerializedObject so)
         {
-			LuaBindings luaBindings = target as LuaBindings;
-
             // Use a temp HashSet to store the list of types.
             // The final list is stored as a list of type strings.
             HashSet<System.Type> typeSet = new HashSet<System.Type>();
@@ -378,9 +392,9 @@ namespace Fungus
                     AddAllSubTypes(typeSet, boundObject.component.GetType());
                 }
             }
-
+                
 			// Store the final list of types in the luaBindings object 
-			SerializedProperty boundTypesProp = serializedObject.FindProperty("boundTypes");
+			SerializedProperty boundTypesProp = so.FindProperty("boundTypes");
 			boundTypesProp.ClearArray();
 			int index = 0;
 			foreach (System.Type t in typeSet)
@@ -396,7 +410,7 @@ namespace Fungus
         /// Adds the type to the set of types, and then uses reflection to add
         /// all public fields, properties and methods to the set of types.
         /// </summary>
-        protected virtual void AddAllSubTypes(HashSet<System.Type> typeSet, System.Type t)
+        protected static void AddAllSubTypes(HashSet<System.Type> typeSet, System.Type t)
         {
             AddSubType(typeSet, t);
 
@@ -438,7 +452,7 @@ namespace Fungus
         /// Adds a single type to the type set.
         /// IEnumerable and IEnumerator types are handled specially.
         /// </summary>
-        protected virtual void AddSubType(HashSet<System.Type> typeSet, System.Type t)
+        protected static void AddSubType(HashSet<System.Type> typeSet, System.Type t)
         {
             // MoonSharp handles IEnumerator and IEnumerable types automatically, so just
             // register the generic type used.
