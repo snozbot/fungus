@@ -184,14 +184,21 @@ namespace Fungus
 
 			if (!UserData.IsTypeRegistered(t))
 			{
-				if (extensionType)
-				{
-					UserData.RegisterExtensionType(t);
-				}
-				else
-				{
-					UserData.RegisterType(t);
-				}
+                try
+                {
+    				if (extensionType)
+    				{
+    					UserData.RegisterExtensionType(t);
+    				}
+    				else
+    				{
+    					UserData.RegisterType(t);
+    				}
+                }
+                catch (ArgumentException ex)
+                {
+                    UnityEngine.Debug.LogWarning(ex.Message);
+                }
 			}
 		}
 
@@ -215,7 +222,8 @@ namespace Fungus
                 LogException(ex.DecoratedMessage, luaString);
             }
 
-            if (res.Type != DataType.Function)
+            if (res == null ||
+                res.Type != DataType.Function)
             {
                 UnityEngine.Debug.LogError("Failed to create Lua function from Lua string");
                 return null;
