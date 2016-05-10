@@ -98,6 +98,13 @@ namespace Fungus
                                 selected = count;
                             }
 
+                            if (component == null ||
+                                component.GetType() == null)
+                            {
+                                // Missing script?
+                                continue;
+                            }
+
                             string componentName = component.GetType().ToString().Replace("UnityEngine.", "");
                             options.Add(componentName);
 
