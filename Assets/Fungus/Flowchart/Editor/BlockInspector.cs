@@ -28,6 +28,7 @@ namespace Fungus
 		protected bool resize = false;
 		protected bool clamp = false;
 		protected float topPanelHeight = 50;
+        protected float windowHeight = 0f;
 
 		// Cache the block and command editors so we only create and destroy them
 		// when a different block / command is selected.
@@ -86,8 +87,13 @@ namespace Fungus
 
 			activeBlockEditor.DrawBlockName(flowchart);
 
+            UpdateWindowHeight();
+
+            float width = EditorGUIUtility.currentViewWidth;
+            float height = windowHeight;
+
 			// Using a custom rect area to get the correct 5px indent for the scroll views
-			Rect blockRect = new Rect(5, topPanelHeight, Screen.width - 6, Screen.height - 70);
+			Rect blockRect = new Rect(5, topPanelHeight, width - 5, height + 10);
 			GUILayout.BeginArea(blockRect);
 
 			blockScrollPos = GUILayout.BeginScrollView(blockScrollPos, GUILayout.Height(flowchart.blockViewHeight));
@@ -117,6 +123,24 @@ namespace Fungus
 
 			DrawCommandUI(flowchart, inspectCommand);
 		}
+
+        /// <summary>
+        /// In Unity 5.4, Screen.height returns the pixel height instead of the point height
+        /// of the inspector window. We can use EditorGUIUtility.currentViewWidth to get the window width
+        /// but we have to use this horrible hack to find the window height.
+        /// For one frame the windowheight will be 0, but it doesn't seem to be noticeable.
+        /// </summary>
+        protected void UpdateWindowHeight()
+        {
+            EditorGUILayout.BeginVertical();
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndVertical();
+            Rect tempRect = GUILayoutUtility.GetLastRect();
+            if (Event.current.type == EventType.Repaint)
+            {
+                windowHeight = tempRect.height;
+            }
+        }
 
 		public void DrawCommandUI(Flowchart flowchart, Command inspectCommand)
 		{
