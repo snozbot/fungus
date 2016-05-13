@@ -76,6 +76,18 @@ namespace Fungus
                     string keyName = objectProp.objectReferenceValue.name;
 					LuaBindings luaBindings = target as LuaBindings;
                     element.FindPropertyRelative("key").stringValue = GetUniqueKey(luaBindings, keyName.ToLower(), index);
+
+                    // Auto select any Flowchart component in the object
+                    GameObject go = objectProp.objectReferenceValue as GameObject;
+                    if (go != null)
+                    {
+                        Component flowchart = go.GetComponent("Fungus.Flowchart");
+                        if (flowchart != null)
+                        {
+                            SerializedProperty componentProp = element.FindPropertyRelative("component");
+                            componentProp.objectReferenceValue = flowchart;
+                        }
+                    }
                 }
 
                 if (objectProp.objectReferenceValue != null)
