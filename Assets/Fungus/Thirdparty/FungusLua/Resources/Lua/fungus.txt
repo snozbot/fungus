@@ -265,8 +265,9 @@ end
 -- Runs the specified Block in a Flowchart
 -- flowchart: The Fungus Flowchart containing the Block to run.
 -- blockname: The name of the Block to run.
+-- commandindex: Index of the command to start execution at
 -- nowait: If false, will yield until the Block finishes execution. If true will continue immediately.
-function M.runblock(flowchart, blockname, nowait)
+function M.runblock(flowchart, blockname, commandindex, nowait)
 	assert(flowchart, "flowchart must not be nil")
 	assert(blockname, "blockname must not be nil")
 	local block = flowchart.FindBlock(blockname)
@@ -275,7 +276,7 @@ function M.runblock(flowchart, blockname, nowait)
 		return
 	end
 
-	local e = block.Execute();
+	local e = block.Execute(commandindex or 0);
 
 	if (nowait) then
 		M.run( e )
