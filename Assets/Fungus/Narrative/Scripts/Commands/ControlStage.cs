@@ -49,20 +49,21 @@ namespace Fungus
 				Continue();
 				return;
 			}
+
 			// Selected "use default Portrait Stage"
-			if (stage == null)            // Default portrait stage selected
+			if (stage == null)           
 			{
-				if (stage == null)        // If no default specified, try to get any portrait stage in the scene
-				{
-					stage = GameObject.FindObjectOfType<Stage>();
-				}
-			}
-			// If portrait stage does not exist, do nothing
-			if (stage == null)
-			{
-				Continue();
-				return;
-			}
+			    // If no default specified, try to get any portrait stage in the scene
+			    stage = FindObjectOfType<Stage>();
+
+                // If portrait stage does not exist, do nothing
+                if (stage == null)
+                {
+                    Continue();
+                    return;
+                }
+            }
+		   
 			// Selected "use default Portrait Stage"
 			if (display == StageDisplayType.Swap)            // Default portrait stage selected
 			{
