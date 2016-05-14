@@ -1,0 +1,56 @@
+-- This Lua script defines a module which can be imported in any Lua script using:
+-- local junglestory = require('junglestory')
+-- You can then call any function on the module, e.g. junglestory.start()
+-- In FungusLua, module files must be contained in a Resources/Lua folder somewhere in your project.
+
+-- Lua modules are typically declared using an empty table called M.
+-- All members of the module must have the M. prefix, and the M table is returned at the end of the script.
+-- N.B. If you want to reference another function in the module, you must use the M.prefix.
+
+M = {}
+
+function M.start()
+	runblock(flowchart, "Intro") -- Runs the Intro Block on the flowchart
+
+	setcharacter(sherlockcharacter, "annoyed") -- Sets the speaking character and portrait
+	say "Hello John."
+
+	setcharacter(johncharacter, "eyeroll")
+	say "Hello Sherlock."
+	say "We appear to be in a tropical rain forest."
+	wait(1)
+	say "Again."
+
+	runblock(flowchart, "ZoomIn", 0, true) -- Runs the ZoomIn Block, but doesn't wait for it to finish
+
+	say "While we're here, I suggest we fill our canteens from this waterfall."
+
+	menu("Agreed", M.canteenyes) -- Show menu option, call M.canteenyes() if selected
+	menu("No, we don't have time", M.canteenno)
+end
+
+function M.canteenyes()
+	runblock(flowchart, "PlayPourSound")
+	setcharacter(sherlockcharacter, "annoyed")
+	say "There, that's better"
+
+	M.moveon() -- Call another function in the module
+end
+
+function M.canteenno()
+	setcharacter(sherlockcharacter, "annoyed")
+	say "Let's get moving"
+	
+	M.moveon()
+end
+
+function M.moveon()
+	setcharacter(sherlockcharacter, "annoyed")
+	say("There must be some way out of this cursed place.")
+end
+
+return M
+
+
+
+
