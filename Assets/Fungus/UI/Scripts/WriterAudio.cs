@@ -231,13 +231,16 @@ namespace Fungus
 					if (nextBeepTime < Time.realtimeSinceStartup)
 					{
 						targetAudioSource.clip = beepSounds[Random.Range(0, beepSounds.Count - 1)];
-						targetAudioSource.loop = false;
-						targetVolume = volume;
-						targetAudioSource.Play();
 
-						float extend = targetAudioSource.clip.length;
+						if (targetAudioSource.clip != null)
+						{
+							targetAudioSource.loop = false;
+							targetVolume = volume;
+							targetAudioSource.Play();
 
-						nextBeepTime = Time.realtimeSinceStartup + extend;
+							float extend = targetAudioSource.clip.length;
+							nextBeepTime = Time.realtimeSinceStartup + extend;
+						}
 					}
 				}
 			}
