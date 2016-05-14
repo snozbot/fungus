@@ -92,7 +92,7 @@ namespace Fungus
                 Continue();
             }
 
-            luaEnvironment.RunLuaFunction(luaFunction, GetLuaString(), runAsCoroutine, (returnValue) => {
+            luaEnvironment.RunLuaFunction(luaFunction, runAsCoroutine, (returnValue) => {
                 StoreReturnVariable(returnValue);
                 if (waitUntilFinished)
                 {

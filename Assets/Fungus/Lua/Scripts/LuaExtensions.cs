@@ -41,7 +41,7 @@ namespace Fungus
 
                         if (callBack != null)
                         {
-                            luaEnvironment.RunLuaFunction(callBack, text, true);
+                            luaEnvironment.RunLuaFunction(callBack, true);
                         }
                     });
 
@@ -89,7 +89,7 @@ namespace Fungus
 
             if (callBack != null)
             {
-                luaEnvironment.RunLuaFunction(callBack, "menutimer", true);
+                luaEnvironment.RunLuaFunction(callBack, true);
             }
         }
     }
