@@ -44,13 +44,10 @@ namespace Fungus
 	[CommandInfo("Narrative", 
 	             "Portrait", 
 	             "Controls a character portrait. ")]
-	public class Portrait : Command 
-	{
+	public class Portrait : ControlWithDisplay<DisplayType>
+    {
 		[Tooltip("Stage to display portrait on")]
 		public Stage stage;
-		
-		[Tooltip("Display type")]
-		public DisplayType display;
 		
 		[Tooltip("Character to display")]
 		public Character character;
@@ -100,7 +97,7 @@ namespace Fungus
 		public override void OnEnter()
 		{
 			// If no display specified, do nothing
-			if (display == DisplayType.None)
+			if (IsDisplayNone(display))
 			{
 				Continue();
 				return;

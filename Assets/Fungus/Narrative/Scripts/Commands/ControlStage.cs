@@ -21,12 +21,9 @@ namespace Fungus
 	[CommandInfo("Narrative", 
 	             "Control Stage",
 	             "Controls the stage on which character portraits are displayed.")]
-	public class ControlStage : Command 
-	{	
-		[Tooltip("Display type")]
-		public StageDisplayType display;
-
-		[Tooltip("Stage to display characters on")]
+	public class ControlStage : ControlWithDisplay<StageDisplayType> 
+	{
+	    [Tooltip("Stage to display characters on")]
 		public Stage stage;
 
 		[Tooltip("Stage to swap with")]
@@ -43,8 +40,8 @@ namespace Fungus
 		
 		public override void OnEnter()
 		{
-			// If no display specified, do nothing
-			if (display == StageDisplayType.None)
+            // If no display specified, do nothing
+			if (IsDisplayNone(display))
 			{
 				Continue();
 				return;
@@ -112,7 +109,7 @@ namespace Fungus
 			}
 		}
 
-		protected void Show(Stage stage, bool visible) 
+	    protected void Show(Stage stage, bool visible) 
 		{
 			float duration = (fadeDuration == 0) ? float.Epsilon : fadeDuration;
 			float targetAlpha = visible ? 1f : 0f;
