@@ -44,13 +44,10 @@ namespace Fungus
 	[CommandInfo("Narrative", 
 	             "Portrait", 
 	             "Controls a character portrait. ")]
-	public class Portrait : Command 
-	{
+	public class Portrait : ControlWithDisplay<DisplayType>
+    {
 		[Tooltip("Stage to display portrait on")]
 		public Stage stage;
-		
-		[Tooltip("Display type")]
-		public DisplayType display;
 		
 		[Tooltip("Character to display")]
 		public Character character;
@@ -100,7 +97,7 @@ namespace Fungus
 		public override void OnEnter()
 		{
 			// If no display specified, do nothing
-			if (display == DisplayType.None)
+			if (IsDisplayNone(display))
 			{
 				Continue();
 				return;
@@ -120,21 +117,18 @@ namespace Fungus
 				return;
 			}
 
-			// Selected "use default Portrait Stage"
-			if (stage == null)            // Default portrait stage selected
-			{
-				if (stage == null)        // If no default specified, try to get any portrait stage in the scene
-				{
-					stage = GameObject.FindObjectOfType<Stage>();
-				}
-			}
-
-			// If portrait stage does not exist, do nothing
-			if (stage == null)
-			{
-				Continue();
-				return;
-			}
+		    // Selected "use default Portrait Stage"
+		    if (stage == null)
+            {
+                // If no default specified, try to get any portrait stage in the scene
+                stage = FindObjectOfType<Stage>();
+                // If portrait stage does not exist, do nothing
+                if (stage == null)
+                {
+                    Continue();
+                    return;
+                }
+            }
 
 			// Early out if hiding a character that's already hidden
 			if (display == DisplayType.Hide &&
