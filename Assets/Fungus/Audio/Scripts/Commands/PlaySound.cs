@@ -52,7 +52,7 @@ namespace Fungus
 		{
 			if (soundClip == null)
 			{
-				return "Error: No music clip selected";
+				return "Error: No sound clip selected";
 			}
 
 			return soundClip.name;
