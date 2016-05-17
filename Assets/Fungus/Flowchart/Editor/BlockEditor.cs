@@ -420,7 +420,7 @@ namespace Fungus
 			
 			int selectedIndex = 0;
 			blockNames.Add(nullLabel);
-			Block[] blocks = flowchart.GetComponentsInChildren<Block>(true);
+			Block[] blocks = flowchart.GetComponents<Block>();
 			for (int i = 0; i < blocks.Length; ++i)
 			{
 				blockNames.Add(new GUIContent(blocks[i].blockName));
@@ -458,7 +458,7 @@ namespace Fungus
 			
 			int selectedIndex = 0;
 			blockNames.Add(nullLabel);
-			Block[] blocks = flowchart.GetComponentsInChildren<Block>();
+			Block[] blocks = flowchart.GetComponents<Block>();
 			for (int i = 0; i < blocks.Length; ++i)
 			{
 				blockNames.Add(new GUIContent(blocks[i].name));

@@ -141,7 +141,7 @@ namespace Fungus
             InitLuaScriptFiles();
 
 			// Initialize any attached initializer components (e.g. LuaUtils)
-			Initializer[] initializers = GetComponentsInChildren<Initializer>();
+			Initializer[] initializers = GetComponents<Initializer>();
 			foreach (Initializer initializer in initializers)
 			{
 				initializer.Initialize();
