@@ -36,7 +36,7 @@ namespace Fungus
 			MessageReceived[] receivers = null;
 			if (messageTarget == MessageTarget.SameFlowchart)
 			{
-				receivers = flowchart.GetComponentsInChildren<MessageReceived>();
+				receivers = flowchart.GetComponents<MessageReceived>();
 			}
 			else
 			{

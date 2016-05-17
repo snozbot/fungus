@@ -169,13 +169,13 @@ namespace Fungus
 		public int NextItemId()
 		{
 			int maxId = -1;
-			Block[] blocks = GetComponentsInChildren<Block>();
+			Block[] blocks = GetComponents<Block>();
 			foreach (Block block in blocks)
 			{
 				maxId = Math.Max(maxId, block.itemId);
 			}
 			
-			Command[] commands = GetComponentsInChildren<Command>();
+			Command[] commands = GetComponents<Command>();
 			foreach (Command command in commands)
 			{
 				maxId = Math.Max(maxId, command.itemId);
@@ -275,7 +275,7 @@ namespace Fungus
 			// Make sure item ids are unique and monotonically increasing.
 			// This should always be the case, but some legacy Flowcharts may have issues.
 			List<int> usedIds = new List<int>();
-			Block[] blocks = GetComponentsInChildren<Block>();
+			Block[] blocks = GetComponents<Block>();
 			foreach (Block block in blocks)
 			{
 				if (block.itemId == -1 ||
@@ -286,7 +286,7 @@ namespace Fungus
 				usedIds.Add(block.itemId);
 			}
 			
-			Command[] commands = GetComponentsInChildren<Command>();
+			Command[] commands = GetComponents<Command>();
 			foreach (Command command in commands)
 			{
 				if (command.itemId == -1 ||
@@ -304,7 +304,7 @@ namespace Fungus
 			// Unreferenced components don't have any effect on the flowchart behavior, but
 			// they waste memory so should be cleared out periodically.
 
-			Block[] blocks = GetComponentsInChildren<Block>();
+			Block[] blocks = GetComponents<Block>();
 
 			// Remove any null entries in the variables list
 			// It shouldn't happen but it seemed to occur for a user on the forum 
@@ -380,7 +380,7 @@ namespace Fungus
 		 */
 		public virtual Block FindBlock(string blockName)
 		{
-			Block [] blocks = GetComponentsInChildren<Block>();
+			Block [] blocks = GetComponents<Block>();
 			foreach (Block block in blocks)
 			{
 				if (block.blockName == blockName)
@@ -400,7 +400,7 @@ namespace Fungus
         public virtual bool ExecuteBlock(string blockName)
 		{
             Block block = null;
-            foreach (Block b in GetComponentsInChildren<Block>())
+            foreach (Block b in GetComponents<Block>())
             {
                 if (b.blockName == blockName)
                 {
@@ -455,7 +455,7 @@ namespace Fungus
 		 */
 		public virtual void StopAllBlocks()
 		{
-			Block [] blocks = GetComponentsInChildren<Block>();
+			Block [] blocks = GetComponents<Block>();
 			foreach (Block block in blocks)
 			{
 				if (block.IsExecuting())
@@ -471,7 +471,7 @@ namespace Fungus
          */
         public virtual void SendFungusMessage(string messageName)
         {
-            MessageReceived[] eventHandlers = GetComponentsInChildren<MessageReceived>();
+            MessageReceived[] eventHandlers = GetComponents<MessageReceived>();
             foreach (MessageReceived eventHandler in eventHandlers)
             {
                 eventHandler.OnSendFungusMessage(messageName);
@@ -554,7 +554,7 @@ namespace Fungus
 				baseKey = "New Block";
 			}
 
-			Block[] blocks = GetComponentsInChildren<Block>();
+			Block[] blocks = GetComponents<Block>();
 
 			string key = baseKey;
 			while (true)
@@ -837,7 +837,7 @@ namespace Fungus
 		{
 			if (hideComponents)
 			{
-				Block[] blocks = GetComponentsInChildren<Block>();
+				Block[] blocks = GetComponents<Block>();
 				foreach (Block block in blocks)
 				{
 					block.hideFlags = HideFlags.HideInInspector;
@@ -847,13 +847,13 @@ namespace Fungus
 					}
 				}
 
-				Command[] commands = GetComponentsInChildren<Command>();
+				Command[] commands = GetComponents<Command>();
 				foreach (Command command in commands)
 				{
 					command.hideFlags = HideFlags.HideInInspector;
 				}
 
-				EventHandler[] eventHandlers = GetComponentsInChildren<EventHandler>();
+				EventHandler[] eventHandlers = GetComponents<EventHandler>();
 				foreach (EventHandler eventHandler in eventHandlers)
 				{
 					eventHandler.hideFlags = HideFlags.HideInInspector;
@@ -861,7 +861,7 @@ namespace Fungus
 			}
 			else
 			{
-				MonoBehaviour[] monoBehaviours = GetComponentsInChildren<MonoBehaviour>();
+				MonoBehaviour[] monoBehaviours = GetComponents<MonoBehaviour>();
 				foreach (MonoBehaviour monoBehaviour in monoBehaviours)
 				{
 					if (monoBehaviour == null)
@@ -893,7 +893,7 @@ namespace Fungus
 		{
 			if (resetCommands)
 			{
-				Command[] commands = GetComponentsInChildren<Command>();
+				Command[] commands = GetComponents<Command>();
 				foreach (Command command in commands)
 				{
 					command.OnReset();
@@ -932,7 +932,7 @@ namespace Fungus
 		 */
 		public virtual bool HasExecutingBlocks()
 		{
-			Block[] blocks = GetComponentsInChildren<Block>();
+			Block[] blocks = GetComponents<Block>();
 			foreach (Block block in blocks)
 			{
 				if (block.IsExecuting())
@@ -950,7 +950,7 @@ namespace Fungus
 		{
 			List<Block> executingBlocks = new List<Block>();
 
-			Block[] blocks = GetComponentsInChildren<Block>();
+			Block[] blocks = GetComponents<Block>();
 			foreach (Block block in blocks)
 			{
 				if (block.IsExecuting())

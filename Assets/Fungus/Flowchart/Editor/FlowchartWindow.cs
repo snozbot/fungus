@@ -217,7 +217,7 @@ namespace Fungus
 		
 		protected virtual void DrawFlowchartView(Flowchart flowchart)
 		{
-			Block[] blocks = flowchart.GetComponentsInChildren<Block>(true);
+			Block[] blocks = flowchart.GetComponents<Block>();
 
 			foreach (Block block in blocks)
 			{
