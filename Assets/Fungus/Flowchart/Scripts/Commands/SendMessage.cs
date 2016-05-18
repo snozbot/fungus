@@ -56,7 +56,7 @@ namespace Fungus
 
 		public override string GetSummary()
 		{
-			if (_message.Value.Length == 0)
+			if (_message.Value == null || _message.Value.Length == 0)
 			{
 				return "Error: No message specified";
 			}
