@@ -19,6 +19,9 @@ namespace Fungus
 		[FormerlySerializedAs("targetSequence")]
 		[Tooltip("Block to start executing")]
 		public Block targetBlock;
+
+		[Tooltip("Command index to start executing")]
+		public int commandIndex;
 	
 		public enum CallMode
 		{
@@ -64,12 +67,12 @@ namespace Fungus
 						flowchart.selectedBlock = targetBlock;
 					}
 
-                    StartCoroutine(targetBlock.Execute(0, onComplete));
+					StartCoroutine(targetBlock.Execute(commandIndex, onComplete));
 				}
 				else
 				{
 					// Execute block in another Flowchart
-					targetFlowchart.ExecuteBlock(targetBlock, 0, onComplete);
+					targetFlowchart.ExecuteBlock(targetBlock, commandIndex, onComplete);
 				}
 			}
 
