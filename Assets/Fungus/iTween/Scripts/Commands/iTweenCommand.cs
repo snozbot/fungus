@@ -107,7 +107,7 @@ namespace Fungus
 				targetObjectOLD = null;
 			}
 
-			if (durationOLD == default(float))
+			if (durationOLD != default(float))
 			{
 				_duration.Value = durationOLD;
 				durationOLD = default(float);
