@@ -43,7 +43,9 @@ namespace Fungus
 
         protected string friendlyName = "";
 
-        protected bool initialised;
+		// This is public so the editor code can force the component to reinitialise
+		[NonSerialized]
+        public bool initialised;
 
         // Stores the compiled Lua code for fast execution later.
         protected Closure luaFunction;
@@ -94,12 +96,7 @@ namespace Fungus
             string s = GetLuaString();
             luaFunction = luaEnvironment.LoadLuaString(s, friendlyName);
 
-            // Always initialise when playing in the editor.
-            // Allows the user to edit the Lua script while the game is playing.
-            if ( !(Application.isPlaying && Application.isEditor) )
-            {
-                initialised = true;
-            }
+            initialised = true;
         }
 
         /// <summary>
