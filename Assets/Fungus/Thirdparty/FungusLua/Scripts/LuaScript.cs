@@ -94,12 +94,7 @@ namespace Fungus
             string s = GetLuaString();
             luaFunction = luaEnvironment.LoadLuaString(s, friendlyName);
 
-            // Always initialise when playing in the editor.
-            // Allows the user to edit the Lua script while the game is playing.
-            if ( !(Application.isPlaying && Application.isEditor) )
-            {
-                initialised = true;
-            }
+            initialised = true;
         }
 
         /// <summary>
