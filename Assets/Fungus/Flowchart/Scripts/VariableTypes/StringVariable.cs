@@ -58,7 +58,11 @@ namespace Fungus
 
 		public string Value
 		{
-			get { return (stringRef == null) ? stringVal : stringRef.value; }
+			get 
+            { 
+                if (stringVal == null) stringVal = "";
+                return (stringRef == null) ? stringVal : stringRef.value; 
+            }
 			set { if (stringRef == null) { stringVal = value; } else { stringRef.value = value; } }
 		}
 
@@ -104,7 +108,11 @@ namespace Fungus
 
         public string Value
         {
-            get { return (stringRef == null) ? stringVal : stringRef.value; }
+            get 
+            {
+                if (stringVal == null) stringVal = "";
+                return (stringRef == null) ? stringVal : stringRef.value; 
+            }
             set { if (stringRef == null) { stringVal = value; } else { stringRef.value = value; } }
         }
 
