@@ -88,7 +88,7 @@ namespace Fungus
 				{
 					return "Error: No targetObjects selected";
 				}
-				return targetObjects[0].name + " = " + GetSummaryValue() + " alpha";
+				return targetObjects[0].name + " = " + GetSummaryValue();
 			}
 			
 			string objectList = "";
@@ -109,7 +109,7 @@ namespace Fungus
 				}
 			}
 			
-			return objectList + " = " + GetSummaryValue() + " alpha";
+			return objectList + " = " + GetSummaryValue();
 		}
 		
 		public override Color GetButtonColor()
