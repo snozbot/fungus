@@ -119,7 +119,16 @@ namespace Fungus
 
 		protected override string GetSummaryValue()
 		{
-			return targetAlpha.Value.ToString();
+            if (fadeMode == FadeMode.Alpha)
+            {
+                return targetAlpha.Value.ToString() + " alpha";
+            }
+            else if (fadeMode == FadeMode.Color)
+            {
+                return targetColor.Value.ToString()  + " color";
+            }
+
+            return "";
 		}
 
 		public override bool IsPropertyVisible(string propertyName)
