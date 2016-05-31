@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Reflection;
+using System.Text;
 
 namespace Fungus
 {
@@ -89,6 +90,15 @@ namespace Fungus
 
 		protected List<IWriterListener> writerListeners = new List<IWriterListener>();
 
+        protected StringBuilder openString = new StringBuilder(256);
+        protected StringBuilder closeString = new StringBuilder(256);
+        protected StringBuilder leftString = new StringBuilder(1024);
+        protected StringBuilder rightString = new StringBuilder(1024);
+        protected StringBuilder outputString = new StringBuilder(1024);
+
+        protected string hiddenColorOpen = "";
+        protected string hiddenColorClose = "";
+
 		public string text 
 		{
 			get 
@@ -173,6 +183,11 @@ namespace Fungus
 
 		protected virtual void Start()
 		{
+            // Cache the hidden color string
+            Color32 c = hiddenTextColor;
+            hiddenColorOpen = String.Format("<color=#{0:X2}{1:X2}{2:X2}{3:X2}>", c.r, c.g, c.b, c.a);
+            hiddenColorClose = "</color>";
+
 			if (forceRichText)
 			{
 				if (textUI != null)
@@ -211,58 +226,58 @@ namespace Fungus
 			return false;
 		}
 		
-		protected virtual string OpenMarkup()
+		protected virtual void UpdateOpenMarkup()
 		{
-			string tagText = "";
+            openString.Length = 0;
 			
 			if (SupportsRichText())
 			{
 				if (sizeActive)
 				{
-					tagText += "<size=" + sizeValue + ">"; 
+                    openString.Append("<size=");
+                    openString.Append(sizeValue);
+                    openString.Append(">"); 
 				}
 				if (colorActive)
 				{
-					tagText += "<color=" + colorText + ">"; 
+                    openString.Append("<color=");
+                    openString.Append(colorText);
+                    openString.Append(">"); 
 				}
 				if (boldActive)
 				{
-					tagText += "<b>"; 
+                    openString.Append("<b>"); 
 				}
 				if (italicActive)
 				{
-					tagText += "<i>"; 
+                    openString.Append("<i>"); 
 				}			
 			}
-			
-			return tagText;
 		}
 		
-		protected virtual string CloseMarkup()
+		protected virtual void UpdateCloseMarkup()
 		{
-			string closeText = "";
+            closeString.Length = 0;
 			
 			if (SupportsRichText())
 			{
 				if (italicActive)
 				{
-					closeText += "</i>"; 
+                    closeString.Append("</i>"); 
 				}			
 				if (boldActive)
 				{
-					closeText += "</b>"; 
+                    closeString.Append("</b>"); 
 				}
 				if (colorActive)
 				{
-					closeText += "</color>"; 
+                    closeString.Append("</color>"); 
 				}
 				if (sizeActive)
 				{
-					closeText += "</size>"; 
+                    closeString.Append("</size>"); 
 				}
 			}
-			
-			return closeText;		
 		}
 
 		public virtual void SetTextColor(Color textColor)
@@ -473,7 +488,8 @@ namespace Fungus
 				case TextTagParser.TokenType.Exit:
 					exitFlag = true;
 					break;
-					
+
+
 				case TextTagParser.TokenType.Message:
                     if (CheckParamCount(token.paramList, 1)) 
 					{
@@ -611,14 +627,14 @@ namespace Fungus
 			{
 				param = param.TrimStart(' ', '\t', '\r', '\n');
 			}
-				
+			
             string startText = text;
-            string openText = OpenMarkup();
-            string closeText = CloseMarkup();
+            UpdateOpenMarkup();
+            UpdateCloseMarkup();
 
             float timeAccumulator = Time.deltaTime;
 
-            for (int i = 0; i < param.Length; ++i)
+            for (int i = 0; i <= param.Length; ++i)
             {
                 // Exit immediately if the exit flag has been set
                 if (exitFlag)
@@ -626,11 +642,9 @@ namespace Fungus
                     break;
                 }
 
-                string left = "";
-                string right = "";
-
-                PartitionString(writeWholeWords, param, i, out left, out right);
-                text = ConcatenateString(startText, openText, closeText, left, right);
+                PartitionString(writeWholeWords, param, i);
+                ConcatenateString(startText);
+                text = outputString.ToString();
 
                 NotifyGlyph();
 
@@ -641,9 +655,9 @@ namespace Fungus
                 }
 
                 // Punctuation pause
-                if (left.Length > 0 && 
-                	right.Length > 0 &&
-                	IsPunctuation(left.Substring(left.Length - 1)[0]))
+                if (leftString.Length > 0 && 
+                	rightString.Length > 0 &&
+                    IsPunctuation(leftString.ToString(leftString.Length - 1, 1)[0]))
                 {
                     yield return StartCoroutine(DoWait(currentPunctuationPause));
                 }
@@ -663,10 +677,13 @@ namespace Fungus
             }
 	    }
 
-	    protected void PartitionString(bool wholeWords, string inputString, int i, out string left, out string right)
+	    protected void PartitionString(bool wholeWords, string inputString, int i)
 		{
-			left = "";
-			right = "";
+            leftString.Length = 0;
+            leftString.Append(inputString);
+
+            rightString.Length = 0;
+            rightString.Append(inputString);
 
 			if (wholeWords)
 			{
@@ -676,34 +693,37 @@ namespace Fungus
 					if (Char.IsWhiteSpace(inputString[j]) ||
 					    j == inputString.Length - 1)
 					{
-						left = inputString.Substring(0, j + 1);
-						right = inputString.Substring(j + 1, inputString.Length - j - 1);
+                        leftString.Remove(j, inputString.Length - j);
+                        rightString.Remove(0, j);
 						break;
 					}
 				}
 			}
 			else
 			{
-				left = inputString.Substring(0, i + 1);
-				right = inputString.Substring(i + 1);
+                leftString.Remove(i, inputString.Length - i);
+                rightString.Remove(0, i);
 			}
 		}
 
-		protected string ConcatenateString(string startText, string openText, string closeText, string leftText, string rightText)
+		protected void ConcatenateString(string startText)
 		{
-			string tempText = startText + openText + leftText + closeText;
-		
-			Color32 c = hiddenTextColor;
-			string hiddenColor = String.Format("#{0:X2}{1:X2}{2:X2}{3:X2}", c.r, c.g, c.b, c.a);
+            outputString.Length = 0;
+
+            // string tempText = startText + openText + leftText + closeText;
+            outputString.Append(startText);
+            outputString.Append(openString);
+            outputString.Append(leftString);
+            outputString.Append(closeString);
 
 			// Make right hand side text hidden
 			if (SupportsRichText() &&
-			    rightText.Length > 0)
+			    rightString.Length > 0)
 			{
-				tempText += "<color=" + hiddenColor + ">" + rightText + "</color>";
+                outputString.Append(hiddenColorOpen);
+                outputString.Append(rightString);
+                outputString.Append(hiddenColorClose);
 			}
-
-			return tempText;
 		}
 
 		public virtual string GetTagHelp()
@@ -791,7 +811,7 @@ namespace Fungus
 
 			if (go != null)
 			{
-				iTween.ShakePosition(go, axis, time);
+                iTween.ShakePosition(go, axis, time);
 			}
 		}
 		
