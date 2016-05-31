@@ -127,6 +127,8 @@ namespace Fungus
 				gameObject.AddComponent<GraphicRaycaster>();	
 			}
 
+            SetCharacterName("", Color.white);
+
             // It's possible that SetCharacterImage() has already been called from the
             // Start method of another component, so check that no image has been set yet.
             if (currentCharacterImage == null)
