@@ -634,7 +634,7 @@ namespace Fungus
 
             float timeAccumulator = Time.deltaTime;
 
-            for (int i = 0; i <= param.Length; ++i)
+            for (int i = 0; i < param.Length + 1; ++i)
             {
                 // Exit immediately if the exit flag has been set
                 if (exitFlag)
@@ -680,20 +680,25 @@ namespace Fungus
 	    protected void PartitionString(bool wholeWords, string inputString, int i)
 		{
             leftString.Length = 0;
-            leftString.Append(inputString);
-
             rightString.Length = 0;
+
+            // Reached last character
+            leftString.Append(inputString);
+            if (i >= inputString.Length)
+            {
+                return;
+            }
+
             rightString.Append(inputString);
 
 			if (wholeWords)
 			{
 				// Look ahead to find next whitespace or end of string
-				for (int j = i; j < inputString.Length; ++j)
+				for (int j = i; j < inputString.Length + 1; ++j)
 				{
-					if (Char.IsWhiteSpace(inputString[j]) ||
-					    j == inputString.Length - 1)
+                    if (j == inputString.Length || Char.IsWhiteSpace(inputString[j]))
 					{
-                        leftString.Remove(j, inputString.Length - j);
+                        leftString.Length = j;
                         rightString.Remove(0, j);
 						break;
 					}
