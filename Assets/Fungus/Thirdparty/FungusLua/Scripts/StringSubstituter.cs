@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Fungus
 {
@@ -63,11 +64,25 @@ namespace Fungus
 		/// </summary>
 		public virtual string SubstituteStrings(string input)
 		{
-			string newString = input;
-			foreach (ISubstitutionHandler handler in substitutionHandlers)
-			{
-				newString = handler.SubstituteStrings(newString);
-			}
+            string newString = input;
+
+            // Perform the substitution multiple times to expand nested keys
+            int lasthash = 0;
+            int currenthash = -1;
+            int loopCount = 0; // Avoid infinite recursion loops
+
+            while (lasthash != currenthash && 
+                   loopCount < 5)
+            {
+                lasthash = newString.GetHashCode();
+    			foreach (ISubstitutionHandler handler in substitutionHandlers)
+    			{
+    				newString = handler.SubstituteStrings(newString);
+    			}
+                currenthash = newString.GetHashCode();
+
+                loopCount++;
+            }
 
 			return newString;
 		}
