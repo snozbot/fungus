@@ -43,6 +43,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 410270}
   - 114: {fileID: 11410274}
+  - 114: {fileID: 11453434}
   m_Layer: 0
   m_Name: Stage
   m_TagString: Untagged
@@ -331,6 +332,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11453434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7c4e379c0d3bb4eb7537ad653ea7f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &22210270
 CanvasRenderer:
   m_ObjectHideFlags: 1

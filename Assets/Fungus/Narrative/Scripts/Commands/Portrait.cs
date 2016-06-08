@@ -42,10 +42,10 @@ namespace Fungus
 	}
 	
 	[CommandInfo("Narrative", 
-	             "Portrait", 
-	             "Controls a character portrait. ")]
+				 "Portrait", 
+				 "Controls a character portrait. ")]
 	public class Portrait : ControlWithDisplay<DisplayType>
-    {
+	{
 		[Tooltip("Stage to display portrait on")]
 		public Stage stage;
 		
@@ -91,8 +91,8 @@ namespace Fungus
 		[Tooltip("Wait until the tween has finished before executing the next command")]
 		public bool waitUntilFinished = false;
 
-		// Timer for waitUntilFinished functionality
-		protected float waitTimer;
+		// Abstracted controller logic for portraits
+		private PortraitController portraitController;
 
 		public override void OnEnter()
 		{
@@ -117,18 +117,21 @@ namespace Fungus
 				return;
 			}
 
-		    // Selected "use default Portrait Stage"
-		    if (stage == null)
-            {
-                // If no default specified, try to get any portrait stage in the scene
-                stage = FindObjectOfType<Stage>();
-                // If portrait stage does not exist, do nothing
-                if (stage == null)
-                {
-                    Continue();
-                    return;
-                }
-            }
+			// Selected "use default Portrait Stage"
+			if (stage == null)
+			{
+				// If no default specified, try to get any portrait stage in the scene
+				stage = FindObjectOfType<Stage>();
+				// If portrait stage does not exist, do nothing
+				if (stage == null)
+				{
+					Continue();
+					return;
+				}
+
+				//Get the Stage's Portrait Controller
+				portraitController = stage.GetComponent<PortraitController>();
+			}
 
 			// Early out if hiding a character that's already hidden
 			if (display == DisplayType.Hide &&
@@ -148,7 +151,7 @@ namespace Fungus
 
 			if (character.state.portraitImage == null)
 			{
-				CreatePortraitObject(character, stage);
+				portraitController.CreatePortraitObject(character, fadeDuration);
 			}
 
 			// if no previous portrait, use default portrait
@@ -246,7 +249,7 @@ namespace Fungus
 				break;
 
 			case (DisplayType.MoveToFront):
-				MoveToFront(character);
+				portraitController.MoveToFront(character);
 				break;
 			}
 			
@@ -263,95 +266,20 @@ namespace Fungus
 			character.state.portrait = portrait;
 			character.state.facing = facing;
 			character.state.position = toPosition;
-
-			waitTimer = 0f;
+			
 			if (!waitUntilFinished)
 			{
 				Continue();
 			}
 			else
 			{
-				StartCoroutine(WaitUntilFinished(fadeDuration));
+				StartCoroutine(portraitController.WaitUntilFinished(fadeDuration, Continue));
 			}
 		}
 
-		protected virtual IEnumerator WaitUntilFinished(float duration) 
-		{
-			// Wait until the timer has expired
-			// Any method can modify this timer variable to delay continuing.
-
-			waitTimer = duration;
-			while (waitTimer > 0f)
-			{
-				waitTimer -= Time.deltaTime;
-				yield return null;
-			}
-
-			Continue();
-		}
-
-		protected virtual void CreatePortraitObject(Character character, Stage stage)
-		{
-			// Create a new portrait object
-			GameObject portraitObj = new GameObject(character.name, 
-			                                        typeof(RectTransform), 
-			                                        typeof(CanvasRenderer), 
-			                                        typeof(Image));
-
-			// Set it to be a child of the stage
-			portraitObj.transform.SetParent(stage.portraitCanvas.transform, true);
-
-			// Configure the portrait image
-			Image portraitImage = portraitObj.GetComponent<Image>();
-			portraitImage.preserveAspect = true;
-			portraitImage.sprite = character.profileSprite;
-			portraitImage.color = new Color(1f, 1f, 1f, 0f);
-
-			// LeanTween doesn't handle 0 duration properly
-			float duration = (fadeDuration > 0f) ? fadeDuration : float.Epsilon;
-
-			// Fade in character image (first time)
-			LeanTween.alpha(portraitImage.transform as RectTransform, 1f, duration).setEase(stage.fadeEaseType);
-
-			// Tell character about portrait image
-			character.state.portraitImage = portraitImage;
-		}
 		
-		protected void SetupPortrait(Character character, RectTransform fromPosition)
-		{
-			SetRectTransform(character.state.portraitImage.rectTransform, fromPosition);
+//-------------------------------------------
 
-			if (character.state.facing != character.portraitsFace)
-			{
-				character.state.portraitImage.rectTransform.localScale = new Vector3(-1f, 1f, 1f);
-			}
-			else
-			{
-				character.state.portraitImage.rectTransform.localScale = new Vector3(1f, 1f, 1f);
-			}
-
-			if (facing != character.portraitsFace)
-			{
-				character.state.portraitImage.rectTransform.localScale = new Vector3(-1f, 1f, 1f);
-			}
-			else
-			{
-				character.state.portraitImage.rectTransform.localScale = new Vector3(1f, 1f, 1f);
-			}
-		}
-
-		public static void SetRectTransform(RectTransform oldRectTransform, RectTransform newRectTransform)
-		{
-			oldRectTransform.eulerAngles      = newRectTransform.eulerAngles;
-			oldRectTransform.position         = newRectTransform.position;
-			oldRectTransform.rotation         = newRectTransform.rotation;
-			oldRectTransform.anchoredPosition = newRectTransform.anchoredPosition;
-			oldRectTransform.sizeDelta        = newRectTransform.sizeDelta;
-			oldRectTransform.anchorMax        = newRectTransform.anchorMax;
-			oldRectTransform.anchorMin        = newRectTransform.anchorMin;
-			oldRectTransform.pivot            = newRectTransform.pivot;
-			oldRectTransform.localScale       = newRectTransform.localScale;
-		}
 
 		protected void Show(Character character, RectTransform fromPosition, RectTransform toPosition) 
 		{
@@ -372,7 +300,7 @@ namespace Fungus
 				}
 			}
 
-			SetupPortrait(character, fromPosition);
+			portraitController.SetupPortrait(character, fromPosition, facing);
 
 			// LeanTween doesn't handle 0 duration properly
 			float duration = (fadeDuration > 0f) ? fadeDuration : float.Epsilon;
@@ -400,7 +328,7 @@ namespace Fungus
 			character.state.portraitImage.color = new Color(1f, 1f, 1f, 0f);
 			LeanTween.alpha(character.state.portraitImage.rectTransform, 1f, duration).setEase(stage.fadeEaseType);
 
-			DoMoveTween(character, fromPosition, toPosition);
+			portraitController.DoMoveTween(character, fromPosition, toPosition, moveDuration, waitUntilFinished);
 		}
 
 		protected void Hide(Character character, RectTransform fromPosition, RectTransform toPosition)
@@ -410,33 +338,17 @@ namespace Fungus
 				return;
 			}
 
-			SetupPortrait(character, fromPosition);
+			portraitController.SetupPortrait(character, fromPosition, facing);
 
 			// LeanTween doesn't handle 0 duration properly
 			float duration = (fadeDuration > 0f) ? fadeDuration : float.Epsilon;
 			
 			LeanTween.alpha(character.state.portraitImage.rectTransform, 0f, duration).setEase(stage.fadeEaseType);
 
-			DoMoveTween(character, fromPosition, toPosition);
+			portraitController.DoMoveTween(character, fromPosition, toPosition, moveDuration, waitUntilFinished);
 		}
 
-		protected void MoveToFront(Character character)
-		{
-			character.state.portraitImage.transform.SetSiblingIndex(character.state.portraitImage.transform.parent.childCount);
-		}
 
-		protected void DoMoveTween(Character character, RectTransform fromPosition, RectTransform toPosition) 
-		{
-			// LeanTween doesn't handle 0 duration properly
-			float duration = (moveDuration > 0f) ? moveDuration : float.Epsilon;
-
-			// LeanTween.move uses the anchoredPosition, so all position images must have the same anchor position
-			LeanTween.move(character.state.portraitImage.gameObject, toPosition.position, duration).setEase(stage.fadeEaseType);
-			if (waitUntilFinished)
-			{
-				waitTimer = duration;
-			}
-		}
 
 		public static void SetDimmed(Character character, Stage stage, bool dimmedState)
 		{

@@ -387,7 +387,7 @@ namespace Fungus
 					{
 						LeanTween.cancel(c.state.portraitImage.gameObject, true);
 						
-						Portrait.SetRectTransform(c.state.portraitImage.rectTransform, c.state.position);
+						PortraitController.SetRectTransform(c.state.portraitImage.rectTransform, c.state.position);
 						if (c.state.dimmed == true)
 						{
 							c.state.portraitImage.color = new Color(0.5f, 0.5f, 0.5f, 1f);

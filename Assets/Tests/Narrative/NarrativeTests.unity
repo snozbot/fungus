@@ -3629,6 +3629,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 462273690}
   - 114: {fileID: 462273691}
+  - 114: {fileID: 462273692}
   m_Layer: 0
   m_Name: Stage
   m_TagString: Untagged
@@ -3676,6 +3677,17 @@ MonoBehaviour:
   - {fileID: 1049860613}
   - {fileID: 813974793}
   charactersOnStage: []
+--- !u!114 &462273692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 462273689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7c4e379c0d3bb4eb7537ad653ea7f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &499706539
 GameObject:
   m_ObjectHideFlags: 0
@@ -3725,7 +3737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &528531414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5547,10 +5559,10 @@ RectTransform:
   - {fileID: 2143346849}
   m_Father: {fileID: 760607770}
   m_RootOrder: 4
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -470}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &674815460
 MonoBehaviour:
@@ -5996,8 +6008,8 @@ MonoBehaviour:
   itemId: 1
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 1
+  stage: {fileID: 0}
   character: {fileID: 1635768761}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 21300000, guid: 450277e404c2d4d1e87c5bd4012283bb, type: 3}
@@ -6040,8 +6052,8 @@ MonoBehaviour:
   itemId: 3
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 1
+  stage: {fileID: 0}
   character: {fileID: 1635768761}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 21300000, guid: c779e34c6eb8e45da98c70cf2802a54c, type: 3}
@@ -6184,10 +6196,10 @@ RectTransform:
   - {fileID: 1186288425}
   m_Father: {fileID: 760607770}
   m_RootOrder: 3
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -365}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &726991599
 MonoBehaviour:
@@ -7040,7 +7052,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000018477, y: 191}
-  m_SizeDelta: {x: 1300, y: 0}
+  m_SizeDelta: {x: 1300, y: 680}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &760607771
 MonoBehaviour:
@@ -7820,6 +7832,7 @@ GameObject:
   - 4: {fileID: 825247592}
   - 114: {fileID: 825247591}
   - 114: {fileID: 825247593}
+  - 114: {fileID: 825247594}
   m_Layer: 0
   m_Name: Stage
   m_TagString: Untagged
@@ -7878,6 +7891,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd9f5c93d50b44e9ba1b822ff6993500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &825247594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 825247590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7c4e379c0d3bb4eb7537ad653ea7f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &852567084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7931,10 +7955,10 @@ RectTransform:
   - {fileID: 2095206454}
   m_Father: {fileID: 760607770}
   m_RootOrder: 5
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -575}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &854322377
 MonoBehaviour:
@@ -8739,6 +8763,7 @@ MonoBehaviour:
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 891159676}
+  commandIndex: 0
   callMode: 2
 --- !u!114 &891159647
 MonoBehaviour:
@@ -8771,6 +8796,7 @@ MonoBehaviour:
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 891159676}
+  commandIndex: 0
   callMode: 2
 --- !u!114 &891159649
 MonoBehaviour:
@@ -8906,6 +8932,7 @@ MonoBehaviour:
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 891159644}
+  commandIndex: 0
   callMode: 2
 --- !u!114 &891159656
 MonoBehaviour:
@@ -8992,8 +9019,8 @@ MonoBehaviour:
   itemId: 29
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 1
+  stage: {fileID: 0}
   character: {fileID: 362523163}
   replacedCharacter: {fileID: 290123700}
   portrait: {fileID: 0}
@@ -9022,8 +9049,8 @@ MonoBehaviour:
   itemId: 28
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 1
+  stage: {fileID: 0}
   character: {fileID: 362523163}
   replacedCharacter: {fileID: 290123700}
   portrait: {fileID: 21300000, guid: f0a480312d1664a9d9c7749fed3eb1b5, type: 3}
@@ -9067,8 +9094,8 @@ MonoBehaviour:
   itemId: 26
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 4
+  stage: {fileID: 0}
   character: {fileID: 362523163}
   replacedCharacter: {fileID: 290123700}
   portrait: {fileID: 0}
@@ -9097,8 +9124,8 @@ MonoBehaviour:
   itemId: 25
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 1
+  stage: {fileID: 0}
   character: {fileID: 290123700}
   replacedCharacter: {fileID: 290123700}
   portrait: {fileID: 0}
@@ -9142,8 +9169,8 @@ MonoBehaviour:
   itemId: 23
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 3
+  stage: {fileID: 0}
   character: {fileID: 362523163}
   replacedCharacter: {fileID: 290123700}
   portrait: {fileID: 21300000, guid: daa5ae3d727b143f0b42aaa4e6b1e2a5, type: 3}
@@ -9187,8 +9214,8 @@ MonoBehaviour:
   itemId: 21
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 2
+  stage: {fileID: 0}
   character: {fileID: 362523163}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 0}
@@ -9232,8 +9259,8 @@ MonoBehaviour:
   itemId: 19
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 1
+  stage: {fileID: 0}
   character: {fileID: 290123700}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 21300000, guid: 10cc2fec4b8aa4db983981588b06b591, type: 3}
@@ -9262,8 +9289,8 @@ MonoBehaviour:
   itemId: 18
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 1
+  stage: {fileID: 0}
   character: {fileID: 362523163}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 21300000, guid: b498a62f179e149be9515ba5614ccfa3, type: 3}
@@ -10428,10 +10455,10 @@ RectTransform:
   - {fileID: 1399333576}
   m_Father: {fileID: 760607770}
   m_RootOrder: 2
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -260}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1037116039
 MonoBehaviour:
@@ -12507,6 +12534,7 @@ MonoBehaviour:
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1196429433}
+  commandIndex: 0
   callMode: 1
 --- !u!114 &1196429433
 MonoBehaviour:
@@ -13225,10 +13253,10 @@ RectTransform:
   - {fileID: 1360071173}
   m_Father: {fileID: 760607770}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -155}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1389373603
 MonoBehaviour:
@@ -15579,10 +15607,10 @@ RectTransform:
   - {fileID: 1325423831}
   m_Father: {fileID: 760607770}
   m_RootOrder: 6
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -655}
+  m_SizeDelta: {x: 1300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1711682873
 MonoBehaviour:
@@ -17899,10 +17927,10 @@ RectTransform:
   - {fileID: 1077696039}
   m_Father: {fileID: 760607770}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -50}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1959629232
 MonoBehaviour:
@@ -18685,7 +18713,7 @@ RectTransform:
   m_Father: {fileID: 1325423831}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -19010,8 +19038,8 @@ MonoBehaviour:
   itemId: 1
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 1
+  stage: {fileID: 0}
   character: {fileID: 1065579872}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 21300000, guid: 820bab66bb5a044ec961ba8ee3b045cc, type: 3}
@@ -19083,8 +19111,8 @@ MonoBehaviour:
   itemId: 2
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 1
+  stage: {fileID: 0}
   character: {fileID: 1065579872}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 21300000, guid: 5b776e5296df54952a07a367943f5c7c, type: 3}
@@ -19131,8 +19159,8 @@ MonoBehaviour:
   itemId: 5
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 1
+  stage: {fileID: 0}
   character: {fileID: 1065579872}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 21300000, guid: 820bab66bb5a044ec961ba8ee3b045cc, type: 3}
