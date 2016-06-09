@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using System;
+using System.Text;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -968,15 +969,15 @@ namespace Fungus
 		 * use the SubstituteVariables() method instead.
 		 */
 		[MoonSharp.Interpreter.MoonSharpHidden]
-		public virtual string SubstituteStrings(string input)
+		public virtual bool SubstituteStrings(StringBuilder input)
 		{
-			string subbedText = input;
-
 			// Instantiate the regular expression object.
 			Regex r = new Regex("{\\$.*?}");
 
+            bool modified = false;
+
 			// Match the regular expression pattern against a text string.
-			var results = r.Matches(input);
+            var results = r.Matches(input.ToString());
 			foreach (Match match in results)
 			{
 				string key = match.Value.Substring(2, match.Value.Length - 3);
@@ -991,12 +992,14 @@ namespace Fungus
 						variable.key == key)
 					{	
 						string value = variable.ToString();
-						subbedText = subbedText.Replace(match.Value, value);
+						input.Replace(match.Value, value);
+
+                        modified = true;
 					}
 				}
 			}
 
-			return subbedText;
+            return modified;
 		}
 
 		/**
@@ -1012,8 +1015,11 @@ namespace Fungus
 				stringSubstituer = new StringSubstituter();
 			}
 
-			string subbedText = input;
-			
+            // Use the string builder from StringSubstituter for efficiency.
+            StringBuilder sb = stringSubstituer.stringBuilder;
+            sb.Length = 0;
+            sb.Append(input);
+           			
 			// Instantiate the regular expression object.
 			Regex r = new Regex("{\\$.*?}");
 			
@@ -1033,13 +1039,20 @@ namespace Fungus
 						variable.key == key)
 					{	
 						string value = variable.ToString();
-						subbedText = subbedText.Replace(match.Value, value);
+                        sb.Replace(match.Value, value);
 					}
 				}
 			}
 
 			// Now do all other substitutions in the scene
-			return stringSubstituer.SubstituteStrings(subbedText);
+            if (stringSubstituer.SubstituteStrings(sb))
+            {
+                return sb.ToString();
+            }
+            else
+            {
+                return input;
+            }
 		}
 	}
 
