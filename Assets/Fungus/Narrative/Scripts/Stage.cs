@@ -24,7 +24,8 @@ namespace Fungus
 
 		[HideInInspector]
 		static public List<Stage> activeStages = new List<Stage>();
-		public PortraitController portraitController;
+
+		private PortraitController portraitController;
 
 		protected virtual void OnEnable()
 		{

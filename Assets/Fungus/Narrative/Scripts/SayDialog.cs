@@ -272,11 +272,11 @@ namespace Fungus
 							{
 								if (c != speakingCharacter)
 								{
-									stage.portraitController.SetDimmed(c, true);
+									stage.getPortraitController().SetDimmed(c, true);
 								}
 								else
 								{
-									stage.portraitController.SetDimmed(c, false);
+									stage.getPortraitController().SetDimmed(c, false);
 								}
 							}
 						}
