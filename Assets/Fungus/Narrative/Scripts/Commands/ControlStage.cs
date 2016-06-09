@@ -148,7 +148,7 @@ namespace Fungus
 			stage.dimPortraits = false;
 			foreach (Character character in stage.charactersOnStage)
 			{
-				Portrait.SetDimmed(character, stage, false);
+				stage.getPortraitController().SetDimmed(character, false);
 			}
 		}
 

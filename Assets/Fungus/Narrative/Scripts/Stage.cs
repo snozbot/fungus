@@ -24,6 +24,7 @@ namespace Fungus
 
 		[HideInInspector]
 		static public List<Stage> activeStages = new List<Stage>();
+		public PortraitController portraitController;
 
 		protected virtual void OnEnable()
 		{
@@ -46,6 +47,15 @@ namespace Fungus
 				// Ensure the stage canvas is active
 				portraitCanvas.gameObject.SetActive(true);
 			}
+		}
+
+		public PortraitController getPortraitController()
+		{
+			if( portraitController == null)
+			{
+				portraitController = GetComponent<PortraitController>();
+			}
+			return portraitController;
 		}
 	}
 }

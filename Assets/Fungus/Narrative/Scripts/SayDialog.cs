@@ -261,21 +261,22 @@ namespace Fungus
 				speakingCharacter = character;
 				
 				// Dim portraits of non-speaking characters
-				foreach (Stage s in Stage.activeStages)
+				foreach (Stage stage in Stage.activeStages)
 				{
-					if (s.dimPortraits)
+
+					if (stage.dimPortraits)
 					{
-						foreach (Character c in s.charactersOnStage)
+						foreach (Character c in stage.charactersOnStage)
 						{
 							if (prevSpeakingCharacter != speakingCharacter)
 							{
 								if (c != speakingCharacter)
 								{
-									Portrait.SetDimmed(c, s, true);
+									stage.portraitController.SetDimmed(c, true);
 								}
 								else
 								{
-									Portrait.SetDimmed(c, s, false);
+									stage.portraitController.SetDimmed(c, false);
 								}
 							}
 						}
