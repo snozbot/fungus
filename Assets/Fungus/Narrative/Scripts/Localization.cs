@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Text;
 using System.IO;
 using Ideafixxxer.CsvParser;
 
@@ -525,19 +526,19 @@ namespace Fungus
 		 * Implementation of StringSubstituter.ISubstitutionHandler.
 		 * Relaces tokens of the form {$KeyName} with the localized value corresponding to that key.
 		 */
-		public virtual string SubstituteStrings(string input)
+		public virtual bool SubstituteStrings(StringBuilder input)
 		{
 			// This method could be called from the Start method of another component, so we
 			// may need to initilize the localization system.
 			Init();
 
-			string subbedText = input;
-
 			// Instantiate the regular expression object.
 			Regex r = new Regex("{\\$.*?}");
 
+            bool modified = false;
+
 			// Match the regular expression pattern against a text string.
-			var results = r.Matches(input);
+            var results = r.Matches(input.ToString());
 			foreach (Match match in results)
 			{
 				string key = match.Value.Substring(2, match.Value.Length - 3);
@@ -546,11 +547,12 @@ namespace Fungus
 				string localizedString = Localization.GetLocalizedString(key);
 				if (localizedString != null)
 				{
-					subbedText = subbedText.Replace(match.Value, localizedString);
+					input.Replace(match.Value, localizedString);
+                    modified = true;
 				}
 			}
 
-			return subbedText;
+            return modified;
 		}
 	}
 

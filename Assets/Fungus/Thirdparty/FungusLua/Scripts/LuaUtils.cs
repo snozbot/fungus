@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Text;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using MoonSharp.Interpreter;
@@ -319,7 +320,7 @@ namespace Fungus
         /// The string table value used depends on the currently loaded string table and active language.
         /// </summary>
 		[MoonSharpHidden]
-		public virtual string SubstituteStrings(string input)
+		public virtual bool SubstituteStrings(StringBuilder input)
         {
 			// This method could be called from the Start of another component, so
 			// we need to ensure that the LuaEnvironment has been initialized.
@@ -333,26 +334,26 @@ namespace Fungus
 			}
 					
 			if (luaEnvironment == null)
-				{
+			{
 				UnityEngine.Debug.LogError("No Lua Environment found");
-				return input;
+				return false;
 			}
 
 			if (luaEnvironment.Interpreter == null)
 			{
 				UnityEngine.Debug.LogError("No Lua interpreter found");
-				return input;
+				return false;
 			}
 				
 			MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
 
-            string subbedText = input;
-
             // Instantiate the regular expression object.
 			Regex r = new Regex("\\{\\$.*?\\}");
 
+            bool modified = false;
+
             // Match the regular expression pattern against a text string.
-			var results = r.Matches(input);
+            var results = r.Matches(input.ToString());
             foreach (Match match in results)
             {
                 string key = match.Value.Substring(2, match.Value.Length - 3);
@@ -366,7 +367,8 @@ namespace Fungus
 	                    DynValue languageEntry = stringTableVar.Table.Get(activeLanguage);
 	                    if (languageEntry.Type == DataType.String)
 	                    {
-	                        subbedText = subbedText.Replace(match.Value, languageEntry.String);
+	                        input.Replace(match.Value, languageEntry.String);
+                            modified = true;
 	                    }
 	                    continue;
 	                }
@@ -376,12 +378,13 @@ namespace Fungus
                 DynValue globalVar = interpreter.Globals.Get(key);
                 if (globalVar.Type != DataType.Nil)
                 {
-                    subbedText = subbedText.Replace(match.Value, globalVar.ToPrintString());
+                    input.Replace(match.Value, globalVar.ToPrintString());
+                    modified = true;
                     continue;
                 }
             }
 
-            return subbedText;
+            return modified;
         }
 
 		/// <summary>
@@ -390,7 +393,7 @@ namespace Fungus
 		/// </summary>
 		public virtual string Substitute(string input)
 		{
-			return stringSubstituter.SubstituteStrings(input);
+            return stringSubstituter.SubstituteStrings(input);
 		}
             
 		/// <summary>

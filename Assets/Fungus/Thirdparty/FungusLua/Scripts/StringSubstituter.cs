@@ -17,21 +17,33 @@ namespace Fungus
 		public interface ISubstitutionHandler
 		{
 			/// <summary>
-			/// Returns a new string with tokens replaced by subsituted values.
+			/// Modifies a StringBuilder so that tokens are replaced by subsituted values.
 			/// It's up to clients how to implement substitution but the convention looks like:
 			/// "Hi {$VarName}" => "Hi John" where VarName == "John"
+            /// <returns>True if the input was modified</returns>
 			/// </summary>
-			string SubstituteStrings(string input);
+			bool SubstituteStrings(StringBuilder input);
 		}
 
 		protected List<ISubstitutionHandler> substitutionHandlers = new List<ISubstitutionHandler>();
 
+        /**
+         * The StringBuilder instance used to substitute strings optimally.
+         * This property is public to support client code optimisations.
+         */
+        public StringBuilder stringBuilder;
+
+        private int recursionDepth;
+
 		/// <summary>
 		/// Constructor which caches all components in the scene that implement ISubstitutionHandler.
+        /// <param name="recursionDepth">Number of levels of recursively embedded keys to resolve.</param>
 		/// </summary>
-		public StringSubstituter()
+        public StringSubstituter(int recursionDepth = 5)
 		{
 			CacheSubstitutionHandlers();
+            stringBuilder = new StringBuilder(1024);
+            this.recursionDepth = recursionDepth;
 		}
 
 		/// <summary>
@@ -64,28 +76,48 @@ namespace Fungus
 		/// </summary>
 		public virtual string SubstituteStrings(string input)
 		{
-            string newString = input;
+            stringBuilder.Length = 0;
+            stringBuilder.Append(input);
+
+            if (SubstituteStrings(stringBuilder))
+            {
+                return stringBuilder.ToString();
+            }
+            else
+            {
+                return input; // String wasn't modified
+            }
+		}
+
+        public virtual bool SubstituteStrings(StringBuilder input)
+        {
+            bool result = false;
 
             // Perform the substitution multiple times to expand nested keys
-            int lasthash = 0;
-            int currenthash = -1;
             int loopCount = 0; // Avoid infinite recursion loops
-
-            while (lasthash != currenthash && 
-                   loopCount < 5)
+            while (loopCount < recursionDepth)
             {
-                lasthash = newString.GetHashCode();
-    			foreach (ISubstitutionHandler handler in substitutionHandlers)
-    			{
-    				newString = handler.SubstituteStrings(newString);
-    			}
-                currenthash = newString.GetHashCode();
+                bool modified = false;
+                foreach (ISubstitutionHandler handler in substitutionHandlers)
+                {
+                    if (handler.SubstituteStrings(input))
+                    {
+                        modified = true;
+                        result = true;
+                    }
+                }
+
+                if (!modified)
+                {
+                    break;
+                }
 
                 loopCount++;
             }
 
-			return newString;
-		}
+            return result;
+        }
+
 	}
 
 }
