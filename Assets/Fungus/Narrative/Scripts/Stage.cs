@@ -9,7 +9,7 @@ namespace Fungus
 {
 
 	[ExecuteInEditMode]
-	public class Stage : MonoBehaviour 
+	public class Stage : PortraitController
 	{
 		public Canvas portraitCanvas;
 		public bool dimPortraits;
@@ -25,7 +25,7 @@ namespace Fungus
 		[HideInInspector]
 		static public List<Stage> activeStages = new List<Stage>();
 
-		private PortraitController portraitController;
+		//private PortraitController portraitController;
 
 		protected virtual void OnEnable()
 		{
@@ -50,14 +50,14 @@ namespace Fungus
 			}
 		}
 
-		public PortraitController getPortraitController()
+		/*public PortraitController getPortraitController()
 		{
 			if( portraitController == null)
 			{
 				portraitController = GetComponent<PortraitController>();
 			}
 			return portraitController;
-		}
+		}*/
 	}
 }
 

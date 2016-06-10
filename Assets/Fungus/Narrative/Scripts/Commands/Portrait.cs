@@ -99,7 +99,7 @@ namespace Fungus
 			options.shiftIntoPlace = shiftIntoPlace;
 			options.waitUntilFinished = waitUntilFinished;
 
-			stage.getPortraitController().RunPortraitCommand(options, Continue);
+			stage.RunPortraitCommand(options, Continue);
 			
 		}
 		
