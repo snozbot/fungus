@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1555865767}
+  selectedFlowchart: {fileID: 2043226671}
 --- !u!4 &11556238
 Transform:
   m_ObjectHideFlags: 1
@@ -7831,7 +7831,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 825247592}
   - 114: {fileID: 825247591}
-  - 114: {fileID: 825247593}
   - 114: {fileID: 825247594}
   m_Layer: 0
   m_Name: Stage
@@ -7880,17 +7879,6 @@ Transform:
   - {fileID: 131087274}
   m_Father: {fileID: 1667572790}
   m_RootOrder: 2
---- !u!114 &825247593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 825247590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd9f5c93d50b44e9ba1b822ff6993500, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &825247594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19013,8 +19001,9 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlock: {fileID: 0}
-  selectedCommands: []
+  selectedBlock: {fileID: 2043226673}
+  selectedCommands:
+  - {fileID: 2043226677}
   variables: []
   description: 
   stepPause: 0

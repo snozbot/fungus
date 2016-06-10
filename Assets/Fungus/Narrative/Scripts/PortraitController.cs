@@ -77,7 +77,7 @@ namespace Fungus
 			stage = GetComponentInParent<Stage>();
 		}
 
-		public void RunPortraitCommand(PortraitOptions options)
+		public void RunPortraitCommand(PortraitOptions options, Action onComplete)
 		{
 			this.options = options;
 			// Use default settings
@@ -92,14 +92,14 @@ namespace Fungus
 			// If no character specified, do nothing
 			if (options.character == null)
 			{
-				//Continue();
+				onComplete();
 				return;
 			}
 
 			// If Replace and no replaced character specified, do nothing
 			if (options.display == DisplayType.Replace && options.replacedCharacter == null)
 			{
-				//Continue();
+				onComplete();
 				return;
 			}
 			
@@ -107,7 +107,7 @@ namespace Fungus
 			if (options.display == DisplayType.Hide &&
 				!options.character.state.onScreen)
 			{
-				//Continue();
+				onComplete();
 				return;
 			}
 			
@@ -231,11 +231,11 @@ namespace Fungus
 
 			if (!options.waitUntilFinished)
 			{
-				//Continue();
+				onComplete();
 			}
 			else
 			{
-				StartCoroutine(WaitUntilFinished(options.fadeDuration));
+				StartCoroutine(WaitUntilFinished(options.fadeDuration, onComplete));
 			}
 		}
 
@@ -266,7 +266,7 @@ namespace Fungus
 			character.state.portraitImage = portraitImage;
 		}
 
-		public virtual IEnumerator WaitUntilFinished(float duration)
+		public virtual IEnumerator WaitUntilFinished(float duration, Action onComplete)
 		{
 			// Wait until the timer has expired
 			// Any method can modify this timer variable to delay continuing.
@@ -278,7 +278,7 @@ namespace Fungus
 				yield return null;
 			}
 
-			//Continue();
+			onComplete();
 		}
 
 		public void SetupPortrait(Character character, RectTransform fromPosition, FacingDirection facing)
