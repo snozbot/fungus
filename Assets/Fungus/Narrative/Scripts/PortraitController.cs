@@ -62,8 +62,6 @@ namespace Fungus
 
 	public class PortraitController : MonoBehaviour
 	{
-		
-
 		// Timer for waitUntilFinished functionality
 		protected float waitTimer;
 
@@ -77,11 +75,12 @@ namespace Fungus
 			stage = GetComponentInParent<Stage>();
 		}
 
-		public void RunPortraitCommand(PortraitOptions options, Action onComplete)
+		// Using this function, run any portriat command available
+		public void RunPortraitCommand(PortraitOptions options_in, Action onComplete)
 		{
-			this.options = options;
-			// Use default settings
+			options = options_in;
 
+			// Use default stage settings
 			if (options.useDefaultSettings)
 			{
 				options.fadeDuration = stage.fadeDuration;
