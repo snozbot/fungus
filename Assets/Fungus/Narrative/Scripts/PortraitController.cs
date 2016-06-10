@@ -101,67 +101,44 @@ namespace Fungus
 
             options = CleanPortraitOptions(options);
 
-			if (options.character.state.portraitImage == null)
-			{
-				CreatePortraitObject(options.character, options.fadeDuration);
-			}
-
 			switch (options.display)
 			{
 				case (DisplayType.Show):
 					Show(options);
-					options.character.state.onScreen = true;
-					if (!stage.charactersOnStage.Contains(options.character))
-					{
-						stage.charactersOnStage.Add(options.character);
-					}
 					break;
 
 				case (DisplayType.Hide):
 					Hide(options);
-					options.character.state.onScreen = false;
-					stage.charactersOnStage.Remove(options.character);
 					break;
 
 				case (DisplayType.Replace):
 					Show(options);
                     Hide(options.replacedCharacter, options.replacedCharacter.state.position, options.replacedCharacter.state.position);
-                    options.character.state.onScreen = true;
-					options.replacedCharacter.state.onScreen = false;
-					stage.charactersOnStage.Add(options.character);
-					stage.charactersOnStage.Remove(options.replacedCharacter);
-					break;
+				    break;
 
 				case (DisplayType.MoveToFront):
 					MoveToFront(options.character);
 					break;
 			}
-
-            //Update states after running command
-			if (options.display == DisplayType.Replace)
-			{
-				options.character.state.display = DisplayType.Show;
-				options.replacedCharacter.state.display = DisplayType.Hide;
-			}
-			else
-			{
-				options.character.state.display = options.display;
-			}
-
-			options.character.state.portrait = options.portrait;
-			options.character.state.facing = options.facing;
-			options.character.state.position = options.toPosition;
-
-			if (!options.waitUntilFinished)
-			{
-				onComplete();
-			}
-			else
-			{
-				StartCoroutine(WaitUntilFinished(options.fadeDuration, onComplete));
-			}
-		}
+            FinishPortraitCommand(options, onComplete);
+        }
         
+        private void FinishPortraitCommand(PortraitOptions options, Action onComplete)
+        {
+            options.character.state.portrait = options.portrait;
+            options.character.state.facing = options.facing;
+            options.character.state.position = options.toPosition;
+
+            if (!options.waitUntilFinished)
+            {
+                onComplete();
+            }
+            else
+            {
+                StartCoroutine(WaitUntilFinished(options.fadeDuration, onComplete));
+            }
+        }
+
         private PortraitOptions CleanPortraitOptions(PortraitOptions options)
         {
             // Use default stage settings
@@ -238,6 +215,11 @@ namespace Fungus
             if (options.facing == FacingDirection.None)
             {
                 options.facing = options.character.state.facing;
+            }
+
+            if (options.character.state.portraitImage == null)
+            {
+                CreatePortraitObject(options.character, options.fadeDuration);
             }
 
             return options;
@@ -324,6 +306,7 @@ namespace Fungus
 		public void MoveToFront(Character character)
 		{
 			character.state.portraitImage.transform.SetSiblingIndex(character.state.portraitImage.transform.parent.childCount);
+            character.state.display = DisplayType.MoveToFront;
 		}
 
         public void DoMoveTween(Character character, RectTransform fromPosition, RectTransform toPosition, float moveDuration, Boolean waitUntilFinished)
@@ -351,7 +334,7 @@ namespace Fungus
 			}
 		}
 
-        protected void Show(Character character, RectTransform fromPosition, RectTransform toPosition)
+        public void Show(Character character, RectTransform fromPosition, RectTransform toPosition)
         {
             PortraitOptions options = new PortraitOptions();
             options.character = character;
@@ -361,7 +344,7 @@ namespace Fungus
             Show(CleanPortraitOptions(options));
         }
         
-        protected void Show(PortraitOptions options)
+        public void Show(PortraitOptions options)
         {
             if (options.shiftIntoPlace)
 			{
@@ -413,9 +396,26 @@ namespace Fungus
 			LeanTween.alpha(options.character.state.portraitImage.rectTransform, 1f, duration).setEase(stage.fadeEaseType);
 
 			DoMoveTween(options);
-		}
 
-        protected void Hide(Character character, RectTransform fromPosition, RectTransform toPosition)
+            options.character.state.onScreen = true;
+            if (!stage.charactersOnStage.Contains(options.character))
+            {
+                stage.charactersOnStage.Add(options.character);
+            }
+
+            options.character.state.display = DisplayType.Show;
+        }
+        
+        public void Hide(Character character)
+        {
+            PortraitOptions options = new PortraitOptions();
+            options.character = character;
+            options.fromPosition = character.state.position;
+            options.toPosition = character.state.position;
+            Hide(CleanPortraitOptions(options));
+        }
+
+        public void Hide(Character character, RectTransform fromPosition, RectTransform toPosition)
         {
             PortraitOptions options = new PortraitOptions();
             options.character = character;
@@ -425,7 +425,7 @@ namespace Fungus
             Hide(CleanPortraitOptions(options));
         }
 
-        protected void Hide(PortraitOptions options)
+        public void Hide(PortraitOptions options)
 		{
 			if (options.character.state.display == DisplayType.None)
 			{
@@ -440,7 +440,13 @@ namespace Fungus
 			LeanTween.alpha(options.character.state.portraitImage.rectTransform, 0f, duration).setEase(stage.fadeEaseType);
 
 			DoMoveTween(options);
-		}
+
+            options.character.state.onScreen = false;
+            stage.charactersOnStage.Remove(options.character);
+
+            options.character.state.display = DisplayType.Hide;
+
+        }
 
 		public void SetDimmed(Character character, bool dimmedState)
 		{
