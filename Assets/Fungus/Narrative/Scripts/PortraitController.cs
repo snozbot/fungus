@@ -24,6 +24,33 @@ namespace Fungus
 		public bool move;
 		public bool shiftIntoPlace;
 		public bool waitUntilFinished;
+
+		public PortraitOptions(bool useDefaultSettings = true)
+		{
+			// Defaults usually assigned on constructing a struct
+			character = null;
+			replacedCharacter = null;
+			portrait = null;
+			display = DisplayType.None;
+			offset = PositionOffset.None;
+			fromPosition = null;
+			toPosition = null;
+			facing = FacingDirection.None;
+			shiftOffset = new Vector2(0,0);
+			move = false;
+			shiftIntoPlace = false;
+			waitUntilFinished = false;
+
+			// Special values that can be overriden
+			fadeDuration = 0.5f;
+			moveDuration = 1f;
+			this.useDefaultSettings = useDefaultSettings;
+		}
+
+		public override string ToString()
+		{
+			return base.ToString();
+		}
 	}
 
 	public struct PortraitState
@@ -120,28 +147,20 @@ namespace Fungus
 					MoveToFront(options.character);
 					break;
 			}
-            FinishPortraitCommand(options, onComplete);
-        }
-        
-        private void FinishPortraitCommand(PortraitOptions options, Action onComplete)
-        {
-            options.character.state.portrait = options.portrait;
-            options.character.state.facing = options.facing;
-            options.character.state.position = options.toPosition;
 
-            if (!options.waitUntilFinished)
-            {
-                onComplete();
-            }
-            else
-            {
-                StartCoroutine(WaitUntilFinished(options.fadeDuration, onComplete));
-            }
-        }
+			if (!options.waitUntilFinished)
+			{
+				onComplete();
+			}
+			else
+			{
+				StartCoroutine(WaitUntilFinished(options.fadeDuration, onComplete));
+			}
+		}
 
         private PortraitOptions CleanPortraitOptions(PortraitOptions options)
         {
-            // Use default stage settings
+			// Use default stage settings
             if (options.useDefaultSettings)
             {
                 options.fadeDuration = stage.fadeDuration;
@@ -314,7 +333,7 @@ namespace Fungus
 
         public void DoMoveTween(Character character, RectTransform fromPosition, RectTransform toPosition, float moveDuration, Boolean waitUntilFinished)
         {
-            PortraitOptions options = new PortraitOptions();
+            PortraitOptions options = new PortraitOptions(true);
             options.character = character;
             options.fromPosition = fromPosition;
             options.toPosition = toPosition;
@@ -340,7 +359,7 @@ namespace Fungus
 
         public void Show(Character character, RectTransform fromPosition, RectTransform toPosition)
         {
-            PortraitOptions options = new PortraitOptions();
+            PortraitOptions options = new PortraitOptions(true);
             options.character = character;
             options.fromPosition = fromPosition;
             options.toPosition = toPosition;
@@ -401,18 +420,27 @@ namespace Fungus
 
 			DoMoveTween(options);
 
-            options.character.state.onScreen = true;
-            if (!stage.charactersOnStage.Contains(options.character))
+			if (options.waitUntilFinished)
+			{ 
+				StartCoroutine(WaitUntilFinished(options.fadeDuration));
+			}
+
+			if (!stage.charactersOnStage.Contains(options.character))
             {
                 stage.charactersOnStage.Add(options.character);
             }
 
-            options.character.state.display = DisplayType.Show;
-        }
+			// Update character state after showing
+			options.character.state.onScreen = true;
+			options.character.state.display = DisplayType.Show;
+			options.character.state.portrait = options.portrait;
+			options.character.state.facing = options.facing;
+			options.character.state.position = options.toPosition;
+		}
         
         public void Hide(Character character)
         {
-            PortraitOptions options = new PortraitOptions();
+            PortraitOptions options = new PortraitOptions(true);
             options.character = character;
             options.fromPosition = character.state.position;
             options.toPosition = character.state.position;
@@ -421,7 +449,7 @@ namespace Fungus
 
         public void Hide(Character character, RectTransform fromPosition, RectTransform toPosition)
         {
-            PortraitOptions options = new PortraitOptions();
+            PortraitOptions options = new PortraitOptions(true);
             options.character = character;
             options.fromPosition = fromPosition;
             options.toPosition = toPosition;
@@ -444,19 +472,20 @@ namespace Fungus
 			LeanTween.alpha(options.character.state.portraitImage.rectTransform, 0f, duration).setEase(stage.fadeEaseType);
 
 			DoMoveTween(options);
-
-            options.character.state.onScreen = false;
-			options.character.state.portrait = options.portrait;
-			options.character.state.facing = options.facing;
-			options.character.state.position = options.toPosition;
-
+			
 			stage.charactersOnStage.Remove(options.character);
 
 			if (options.waitUntilFinished)
 			{
 				StartCoroutine(WaitUntilFinished(options.fadeDuration));
 			}
-        }
+
+			//update character state after hiding
+			options.character.state.onScreen = false;
+			options.character.state.portrait = options.portrait;
+			options.character.state.facing = options.facing;
+			options.character.state.position = options.toPosition;
+		}
 
 		public void SetDimmed(Character character, bool dimmedState)
 		{
