@@ -252,7 +252,7 @@ namespace Fungus
 			character.state.portraitImage = portraitImage;
 		}
 
-		public virtual IEnumerator WaitUntilFinished(float duration, Action onComplete)
+		public virtual IEnumerator WaitUntilFinished(float duration, Action onComplete = null)
 		{
 			// Wait until the timer has expired
 			// Any method can modify this timer variable to delay continuing.
@@ -264,7 +264,10 @@ namespace Fungus
 				yield return null;
 			}
 
-			onComplete();
+			if (onComplete != null)
+			{
+				onComplete();
+			}
 		}
 
 		private void SetupPortrait(PortraitOptions options)
@@ -328,6 +331,7 @@ namespace Fungus
 
 			// LeanTween.move uses the anchoredPosition, so all position images must have the same anchor position
 			LeanTween.move(options.character.state.portraitImage.gameObject, options.toPosition.position, duration).setEase(stage.fadeEaseType);
+
 			if (options.waitUntilFinished)
 			{
 				waitTimer = duration;
@@ -442,10 +446,16 @@ namespace Fungus
 			DoMoveTween(options);
 
             options.character.state.onScreen = false;
-            stage.charactersOnStage.Remove(options.character);
+			options.character.state.portrait = options.portrait;
+			options.character.state.facing = options.facing;
+			options.character.state.position = options.toPosition;
 
-            options.character.state.display = DisplayType.Hide;
+			stage.charactersOnStage.Remove(options.character);
 
+			if (options.waitUntilFinished)
+			{
+				StartCoroutine(WaitUntilFinished(options.fadeDuration));
+			}
         }
 
 		public void SetDimmed(Character character, bool dimmedState)

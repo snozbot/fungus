@@ -300,18 +300,34 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: 'stage.show(watson, left, left)
+  luaScript: 'stage.show(watson, middle, left)
+
+    setcharacter(watson)
 
     say "Sherlock....."
 
+
+    --make it look like sherlock is walking up with a tween
+
     stage.show(sherlock, right, right)
+
+    setcharacter(sherlock)
 
     say "{i}what?{/i}"
 
 
+    setcharacter(watson)
+
+    say "You don''t understand how I feel! I''m leaving!"
+
     stage.hide(watson)
 
-    say "Look at me~! I''m watson~! I get embarrassed too easily for my own gooo~~d"
+
+    --stage.show(sherlock, bored)
+
+    setcharacter(sherlock)
+
+    say "Look at me~! I''m watson~! I''m grumpy all the tii~me."
 
     stage.hide(sherlock)'
   runAsCoroutine: 1
