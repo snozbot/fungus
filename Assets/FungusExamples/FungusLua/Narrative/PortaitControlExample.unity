@@ -261,8 +261,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlock: {fileID: 574033268}
-  selectedCommands:
-  - {fileID: 574033272}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -327,7 +326,7 @@ MonoBehaviour:
 
     setcharacter(sherlock)
 
-    say "Look at me~! I''m watson~! I''m grumpy all the tii~me."
+    say "Look at me~! I''m Watson~! I''m grumpy all the tii~me."
 
     stage.hide(sherlock)'
   runAsCoroutine: 1
@@ -424,6 +423,9 @@ MonoBehaviour:
   - key: right
     obj: {fileID: 1596500585}
     component: {fileID: 1596500586}
+  - key: middle
+    obj: {fileID: 1723039281}
+    component: {fileID: 1723039282}
 --- !u!4 &682432117
 Transform:
   m_ObjectHideFlags: 0
@@ -443,6 +445,15 @@ GameObject:
 --- !u!224 &1596500586 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22410270, guid: c6289d5f8fa843145a2355af9cb09719,
+    type: 2}
+  m_PrefabInternal: {fileID: 2059718440}
+--- !u!1 &1723039281 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 110278, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+  m_PrefabInternal: {fileID: 2059718440}
+--- !u!224 &1723039282 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 22410276, guid: c6289d5f8fa843145a2355af9cb09719,
     type: 2}
   m_PrefabInternal: {fileID: 2059718440}
 --- !u!1 &1756024128
@@ -563,7 +574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: 
+  nameText: Sherlock
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   profileSprite: {fileID: 21300000, guid: 8f5b5b110e73a414eb229eeead86200f, type: 3}

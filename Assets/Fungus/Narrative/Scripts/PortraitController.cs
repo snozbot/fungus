@@ -24,6 +24,7 @@ namespace Fungus
 		public bool move;
 		public bool shiftIntoPlace;
 		public bool waitUntilFinished;
+		public Action onComplete;
 
 		public PortraitOptions(bool useDefaultSettings = true)
 		{
@@ -40,6 +41,7 @@ namespace Fungus
 			move = false;
 			shiftIntoPlace = false;
 			waitUntilFinished = false;
+			onComplete = null;
 
 			// Special values that can be overriden
 			fadeDuration = 0.5f;
@@ -127,6 +129,7 @@ namespace Fungus
 			}
 
             options = CleanPortraitOptions(options);
+			options.onComplete = onComplete;
 
 			switch (options.display)
 			{
@@ -140,21 +143,32 @@ namespace Fungus
 
 				case (DisplayType.Replace):
 					Show(options);
-                    Hide(options.replacedCharacter, options.replacedCharacter.state.position, options.replacedCharacter.state.position);
+					Hide(options.replacedCharacter, options.replacedCharacter.state.position, options.replacedCharacter.state.position);
 				    break;
 
 				case (DisplayType.MoveToFront):
-					MoveToFront(options.character);
+					MoveToFront(options);
 					break;
 			}
+			
+		}
 
-			if (!options.waitUntilFinished)
+		private void FinishCommand(PortraitOptions options)
+		{
+			if (options.onComplete != null)
 			{
-				onComplete();
+				if (!options.waitUntilFinished)
+				{
+					options.onComplete();
+				}
+				else
+				{
+					StartCoroutine(WaitUntilFinished(options.fadeDuration, options.onComplete));
+				}
 			}
 			else
 			{
-				StartCoroutine(WaitUntilFinished(options.fadeDuration, onComplete));
+				StartCoroutine(WaitUntilFinished(options.fadeDuration));
 			}
 		}
 
@@ -327,8 +341,17 @@ namespace Fungus
 
 		public void MoveToFront(Character character)
 		{
-			character.state.portraitImage.transform.SetSiblingIndex(character.state.portraitImage.transform.parent.childCount);
-            character.state.display = DisplayType.MoveToFront;
+			PortraitOptions options = new PortraitOptions(true);
+			options.character = character;
+			
+			MoveToFront(CleanPortraitOptions(options));
+		}
+
+		public void MoveToFront(PortraitOptions options)
+		{
+			options.character.state.portraitImage.transform.SetSiblingIndex(options.character.state.portraitImage.transform.parent.childCount);
+            options.character.state.display = DisplayType.MoveToFront;
+			FinishCommand(options);
 		}
 
         public void DoMoveTween(Character character, RectTransform fromPosition, RectTransform toPosition, float moveDuration, Boolean waitUntilFinished)
@@ -420,10 +443,7 @@ namespace Fungus
 
 			DoMoveTween(options);
 
-			if (options.waitUntilFinished)
-			{ 
-				StartCoroutine(WaitUntilFinished(options.fadeDuration));
-			}
+			FinishCommand(options);
 
 			if (!stage.charactersOnStage.Contains(options.character))
             {
@@ -475,16 +495,13 @@ namespace Fungus
 			
 			stage.charactersOnStage.Remove(options.character);
 
-			if (options.waitUntilFinished)
-			{
-				StartCoroutine(WaitUntilFinished(options.fadeDuration));
-			}
-
 			//update character state after hiding
 			options.character.state.onScreen = false;
 			options.character.state.portrait = options.portrait;
 			options.character.state.facing = options.facing;
 			options.character.state.position = options.toPosition;
+
+			FinishCommand(options);
 		}
 
 		public void SetDimmed(Character character, bool dimmedState)
