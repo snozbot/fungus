@@ -261,7 +261,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlock: {fileID: 574033268}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 574033272}
   variables: []
   description: 
   stepPause: 0
@@ -299,7 +300,7 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: 'stage.show(watson, middle, left)
+  luaScript: 'stage.show(watson, left)
 
     setcharacter(watson)
 
@@ -308,7 +309,7 @@ MonoBehaviour:
 
     --make it look like sherlock is walking up with a tween
 
-    stage.show(sherlock, right, right)
+    stage.show(sherlock, right)
 
     setcharacter(sherlock)
 

@@ -88,7 +88,7 @@ namespace Fungus
 		OffsetLeft,
 		OffsetRight
 	}
-
+	
 	public class PortraitController : MonoBehaviour
 	{
 		// Timer for waitUntilFinished functionality
@@ -380,7 +380,12 @@ namespace Fungus
 			}
 		}
 
-        public void Show(Character character, RectTransform fromPosition, RectTransform toPosition)
+		public void Show(Character character, RectTransform position)
+		{
+			Show(character, position, position);
+		}
+
+		public void Show(Character character, RectTransform fromPosition, RectTransform toPosition)
         {
             PortraitOptions options = new PortraitOptions(true);
             options.character = character;
