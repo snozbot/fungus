@@ -171,15 +171,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &432979318 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 110282, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
-  m_PrefabInternal: {fileID: 2059718440}
---- !u!224 &432979319 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 22410280, guid: c6289d5f8fa843145a2355af9cb09719,
-    type: 2}
-  m_PrefabInternal: {fileID: 2059718440}
 --- !u!1 &574033265
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,16 +291,14 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: 'stage.show(watson, left)
+  luaScript: 'stage.show(watson, "left")
 
     setcharacter(watson)
 
     say "Sherlock....."
 
 
-    --make it look like sherlock is walking up with a tween
-
-    stage.show(sherlock, left, right)
+    stage.show(sherlock, "offscreen right", "right")
 
     setcharacter(sherlock)
 
@@ -323,7 +312,7 @@ MonoBehaviour:
     stage.hide(watson)
 
 
-    --stage.show(sherlock, bored)
+    stage.show(sherlock, "bored")
 
     setcharacter(sherlock)
 
@@ -400,14 +389,6 @@ MonoBehaviour:
   - LeanTweenType, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.RectTransform+ReapplyDrivenProperties, UnityEngine, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Vector3, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.RectTransform+Edge, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - UnityEngine.RectTransform+Axis, UnityEngine, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
   boundObjects:
   - key: sherlock
     obj: {fileID: 1876668763}
@@ -418,15 +399,6 @@ MonoBehaviour:
   - key: stage
     obj: {fileID: 653560666}
     component: {fileID: 653560667}
-  - key: left
-    obj: {fileID: 432979318}
-    component: {fileID: 432979319}
-  - key: right
-    obj: {fileID: 1596500585}
-    component: {fileID: 1596500586}
-  - key: middle
-    obj: {fileID: 1723039281}
-    component: {fileID: 1723039282}
 --- !u!4 &682432117
 Transform:
   m_ObjectHideFlags: 0
@@ -513,24 +485,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
---- !u!1 &1596500585 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 110270, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
-  m_PrefabInternal: {fileID: 2059718440}
---- !u!224 &1596500586 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 22410270, guid: c6289d5f8fa843145a2355af9cb09719,
-    type: 2}
-  m_PrefabInternal: {fileID: 2059718440}
---- !u!1 &1723039281 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 110278, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
-  m_PrefabInternal: {fileID: 2059718440}
---- !u!224 &1723039282 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 22410276, guid: c6289d5f8fa843145a2355af9cb09719,
-    type: 2}
-  m_PrefabInternal: {fileID: 2059718440}
 --- !u!1 &1756024128
 GameObject:
   m_ObjectHideFlags: 1

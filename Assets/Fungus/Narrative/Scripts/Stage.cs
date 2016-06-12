@@ -47,6 +47,19 @@ namespace Fungus
 				portraitCanvas.gameObject.SetActive(true);
 			}
 		}
+
+        public RectTransform GetPosition(String position_string)
+        {
+            foreach (RectTransform position in positions)
+            {
+                if (position.name.ToLower() == position_string.ToLower())
+                {
+                    return position;
+                }
+            }
+            Debug.LogError("Unidentified stage position: " + position_string);
+            return new RectTransform();
+        }
     }
 }
 

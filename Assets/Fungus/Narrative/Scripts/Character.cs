@@ -54,6 +54,19 @@ namespace Fungus
 			nameText = standardText;
 		}
 
+        public virtual Sprite GetPortrait(string portrait_string)
+        {
+            foreach (Sprite portrait in portraits)
+            {
+                if (portrait.name.ToLower() == portrait_string.ToLower())
+                {
+                    return portrait;
+                }
+            }
+            Debug.LogError("No portrait \"" + portrait_string + "\" found for character \"" + name + "\"");
+            return new Sprite();
+        }
+
 		public virtual string GetDescription()
 		{
 			return description;

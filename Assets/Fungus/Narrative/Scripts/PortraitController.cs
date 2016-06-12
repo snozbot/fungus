@@ -380,8 +380,13 @@ namespace Fungus
 			}
 		}
 
-		public void Show(Character character, RectTransform position)
-		{
+        public void Show(Character character, string position)
+        {
+            Show(character, stage.GetPosition(position));
+        }
+
+        public void Show(Character character, RectTransform position)
+        {
             PortraitOptions options = new PortraitOptions(true);
             options.character = character;
             options.fromPosition = position;
@@ -389,6 +394,11 @@ namespace Fungus
 
             Show(CleanPortraitOptions(options));
 		}
+
+        public void Show(Character character, string fromPosition, string toPosition)
+        {
+            Show(character, stage.GetPosition(fromPosition), stage.GetPosition(toPosition));
+        }
 
 		public void Show(Character character, RectTransform fromPosition, RectTransform toPosition)
         {
