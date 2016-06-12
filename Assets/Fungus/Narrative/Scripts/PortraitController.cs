@@ -382,7 +382,12 @@ namespace Fungus
 
 		public void Show(Character character, RectTransform position)
 		{
-			Show(character, position, position);
+            PortraitOptions options = new PortraitOptions(true);
+            options.character = character;
+            options.fromPosition = position;
+            options.toPosition = position;
+
+            Show(CleanPortraitOptions(options));
 		}
 
 		public void Show(Character character, RectTransform fromPosition, RectTransform toPosition)
@@ -391,6 +396,7 @@ namespace Fungus
             options.character = character;
             options.fromPosition = fromPosition;
             options.toPosition = toPosition;
+            options.move = true;
 
             Show(CleanPortraitOptions(options));
         }
@@ -467,8 +473,7 @@ namespace Fungus
         {
             PortraitOptions options = new PortraitOptions(true);
             options.character = character;
-            options.fromPosition = character.state.position;
-            options.toPosition = character.state.position;
+            
             Hide(CleanPortraitOptions(options));
         }
 
@@ -478,6 +483,7 @@ namespace Fungus
             options.character = character;
             options.fromPosition = fromPosition;
             options.toPosition = toPosition;
+            options.move = true;
 
             Hide(CleanPortraitOptions(options));
         }
