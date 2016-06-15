@@ -298,7 +298,7 @@ MonoBehaviour:
     say "Sherlock....."
 
 
-    stage.show(sherlock, "offscreen right", "right")
+    stage.show(sherlock, "angry", "offscreen right", "right")
 
     setcharacter(sherlock)
 
@@ -309,16 +309,25 @@ MonoBehaviour:
 
     say "You don''t understand how I feel! I''m leaving!"
 
-    stage.hide(watson)
+    stage.hide(watson, "offscreen left")
 
 
-    stage.show(sherlock, "bored")
+    stage.showPortrait(sherlock, "bored")
 
     setcharacter(sherlock)
 
     say "Look at me~! I''m Watson~! I''m grumpy all the tii~me."
 
-    stage.hide(sherlock)'
+    stage.hide(sherlock, "offscreen right")
+
+
+    stage.show(watson, "confident", "offscreen left", "left")
+
+    setcharacter(watson)
+
+    say "I showed him!"
+
+    stage.hide(watson)'
   runAsCoroutine: 1
   waitUntilFinished: 1
   returnVariable: {fileID: 0}
@@ -378,9 +387,9 @@ MonoBehaviour:
   - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
   - Fungus.Character, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Sprite, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.Color, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.AudioClip, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Sprite, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Fungus.FacingDirection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Fungus.PortraitState, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Fungus.SayDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -399,6 +408,7 @@ MonoBehaviour:
   - key: stage
     obj: {fileID: 653560666}
     component: {fileID: 653560667}
+  showInherited: 1
 --- !u!4 &682432117
 Transform:
   m_ObjectHideFlags: 0
@@ -559,7 +569,7 @@ MonoBehaviour:
   profileSprite: {fileID: 21300000, guid: a92b08a118b7d46f59dd091acb2e4102, type: 3}
   portraits:
   - {fileID: 21300000, guid: a92b08a118b7d46f59dd091acb2e4102, type: 3}
-  - {fileID: 21300000, guid: f0a480312d1664a9d9c7749fed3eb1b5, type: 3}
+  - {fileID: 21300000, guid: 03bc547cc0049594bae51f00903eedef, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 0}
   description: 

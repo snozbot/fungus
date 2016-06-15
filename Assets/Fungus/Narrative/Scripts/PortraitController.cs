@@ -143,7 +143,7 @@ namespace Fungus
 
 				case (DisplayType.Replace):
 					Show(options);
-					Hide(options.replacedCharacter, options.replacedCharacter.state.position, options.replacedCharacter.state.position);
+					Hide(options.replacedCharacter, options.replacedCharacter.state.position);
 				    break;
 
 				case (DisplayType.MoveToFront):
@@ -382,30 +382,20 @@ namespace Fungus
 
         public void Show(Character character, string position)
         {
-            Show(character, stage.GetPosition(position));
-        }
-
-        public void Show(Character character, RectTransform position)
-        {
             PortraitOptions options = new PortraitOptions(true);
             options.character = character;
-            options.fromPosition = position;
-            options.toPosition = position;
+            options.fromPosition = options.toPosition = stage.GetPosition(position);
 
             Show(CleanPortraitOptions(options));
 		}
-
-        public void Show(Character character, string fromPosition, string toPosition)
-        {
-            Show(character, stage.GetPosition(fromPosition), stage.GetPosition(toPosition));
-        }
-
-		public void Show(Character character, RectTransform fromPosition, RectTransform toPosition)
+        
+        public void Show(Character character, string portrait, string fromPosition, string toPosition)
         {
             PortraitOptions options = new PortraitOptions(true);
             options.character = character;
-            options.fromPosition = fromPosition;
-            options.toPosition = toPosition;
+            options.portrait = character.GetPortrait(portrait);
+            options.fromPosition = stage.GetPosition(fromPosition);
+            options.toPosition = stage.GetPosition(toPosition);
             options.move = true;
 
             Show(CleanPortraitOptions(options));
@@ -478,7 +468,25 @@ namespace Fungus
 			options.character.state.facing = options.facing;
 			options.character.state.position = options.toPosition;
 		}
-        
+
+        public void ShowPortrait(Character character, string portrait)
+        {
+            PortraitOptions options = new PortraitOptions(true);
+            options.character = character;
+            options.portrait = character.GetPortrait(portrait);
+            
+            if(character.state.position == null)
+            {
+                options.toPosition = options.fromPosition = stage.GetPosition("middle");
+            }
+            else
+            {
+                options.fromPosition = options.toPosition = character.state.position;
+            }
+            
+            Show(CleanPortraitOptions(options));
+        }
+
         public void Hide(Character character)
         {
             PortraitOptions options = new PortraitOptions(true);
@@ -487,12 +495,11 @@ namespace Fungus
             Hide(CleanPortraitOptions(options));
         }
 
-        public void Hide(Character character, RectTransform fromPosition, RectTransform toPosition)
+        public void Hide(Character character, string toPosition)
         {
             PortraitOptions options = new PortraitOptions(true);
             options.character = character;
-            options.fromPosition = fromPosition;
-            options.toPosition = toPosition;
+            options.toPosition = stage.GetPosition(toPosition);
             options.move = true;
 
             Hide(CleanPortraitOptions(options));
