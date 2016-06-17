@@ -50,6 +50,12 @@ namespace Fungus
 
         public RectTransform GetPosition(String position_string)
         {
+            if (position_string == null)
+            {
+                Debug.LogWarning("Missing stage position.");
+                return new RectTransform();
+            }
+
             foreach (RectTransform position in positions)
             {
                 if (position.name.ToLower() == position_string.ToLower())
@@ -57,7 +63,7 @@ namespace Fungus
                     return position;
                 }
             }
-            Debug.LogError("Unidentified stage position: " + position_string);
+            Debug.LogWarning("Unidentified stage position: " + position_string);
             return new RectTransform();
         }
     }

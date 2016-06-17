@@ -183,6 +183,7 @@ GameObject:
   - 114: {fileID: 574033268}
   - 114: {fileID: 574033267}
   - 114: {fileID: 574033272}
+  - 114: {fileID: 574033266}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -190,6 +191,62 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &574033266
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 574033265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f455683d4ba4405b8dbba457159620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 4
+  errorMessage: 
+  indentLevel: 0
+  luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: 'stage.show(watson, "left")
+
+    setcharacter(watson)
+
+    say "Sherlock....."
+
+
+    stage.show(sherlock, "angry", "offscreen right", "right")
+
+    setcharacter(sherlock)
+
+    say "{i}what?{/i}"
+
+
+    setcharacter(watson)
+
+    say "You don''t understand how I feel! I''m leaving!"
+
+    stage.hide(watson, "offscreen left")
+
+
+    stage.showPortrait(sherlock, "bored")
+
+    setcharacter(sherlock)
+
+    say "Look at me~! I''m Watson~! I''m grumpy all the tii~me."
+
+    stage.hide(sherlock, "offscreen right")
+
+
+    stage.show(watson, "confident", "offscreen left", "left")
+
+    setcharacter(watson)
+
+    say "I showed him!"
+
+    stage.hide(watson)'
+  runAsCoroutine: 1
+  waitUntilFinished: 1
+  returnVariable: {fileID: 0}
 --- !u!114 &574033267
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -227,6 +284,7 @@ MonoBehaviour:
   eventHandler: {fileID: 574033267}
   commandList:
   - {fileID: 574033272}
+  - {fileID: 574033266}
 --- !u!114 &574033269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,43 +349,25 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: 'stage.show(watson, "left")
+  luaScript: 'stage.show{character=watson, fromPosition="left", toPosition="right",
+    waitUntilFinished=true}
 
-    setcharacter(watson)
-
-    say "Sherlock....."
-
-
-    stage.show(sherlock, "angry", "offscreen right", "right")
-
-    setcharacter(sherlock)
-
-    say "{i}what?{/i}"
+    wait(1)
 
 
-    setcharacter(watson)
+    stage.show{character=sherlock, portrait="angry"}
 
-    say "You don''t understand how I feel! I''m leaving!"
-
-    stage.hide(watson, "offscreen left")
+    wait(1)
 
 
-    stage.showPortrait(sherlock, "bored")
+    stage.hide{character=sherlock}
 
-    setcharacter(sherlock)
-
-    say "Look at me~! I''m Watson~! I''m grumpy all the tii~me."
-
-    stage.hide(sherlock, "offscreen right")
+    wait(1)
 
 
-    stage.show(watson, "confident", "offscreen left", "left")
+    stage.hide{character=watson}
 
-    setcharacter(watson)
-
-    say "I showed him!"
-
-    stage.hide(watson)'
+    wait(1)'
   runAsCoroutine: 1
   waitUntilFinished: 1
   returnVariable: {fileID: 0}
