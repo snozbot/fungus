@@ -10,7 +10,7 @@ namespace Fungus
 	{
 		protected SerializedProperty targetFlowchartProp;
 		protected SerializedProperty targetBlockProp;
-		protected SerializedProperty commandIndexProp;
+		protected SerializedProperty startIndexProp;
 		protected SerializedProperty callModeProp;
 
 		protected virtual void OnEnable()
@@ -20,7 +20,7 @@ namespace Fungus
 
 			targetFlowchartProp = serializedObject.FindProperty("targetFlowchart");
 			targetBlockProp = serializedObject.FindProperty("targetBlock");
-			commandIndexProp = serializedObject.FindProperty("commandIndex");
+			startIndexProp = serializedObject.FindProperty("startIndex");
 			callModeProp = serializedObject.FindProperty("callMode");
 		}
 
@@ -49,7 +49,7 @@ namespace Fungus
 									   new GUIContent("<None>"), 
 									   flowchart);
 
-				EditorGUILayout.PropertyField(commandIndexProp);
+				EditorGUILayout.PropertyField(startIndexProp);
 			}
 
 			EditorGUILayout.PropertyField(callModeProp);
