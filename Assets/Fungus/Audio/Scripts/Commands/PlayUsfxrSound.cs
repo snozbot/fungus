@@ -68,7 +68,7 @@
 
 		#region Backwards compatibility
 
-		[HideInInspector] [FormerlySerializedAs("SettingsString")] public String SettingsStringOLD;
+		[HideInInspector] [FormerlySerializedAs("SettingsString")] public String SettingsStringOLD = "";
 
 		protected virtual void OnEnable()
 		{

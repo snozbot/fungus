@@ -43,7 +43,7 @@ namespace Fungus
 
 		#region Backwards compatibility
 
-		[HideInInspector] [FormerlySerializedAs("languageCode")] public string languageCodeOLD;
+		[HideInInspector] [FormerlySerializedAs("languageCode")] public string languageCodeOLD = "";
 
 		protected virtual void OnEnable()
 		{

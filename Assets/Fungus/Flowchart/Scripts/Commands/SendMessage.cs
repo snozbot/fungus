@@ -71,7 +71,7 @@ namespace Fungus
 
 		#region Backwards compatibility
 
-		[HideInInspector] [FormerlySerializedAs("message")] public string messageOLD;
+		[HideInInspector] [FormerlySerializedAs("message")] public string messageOLD = "";
 
 		protected virtual void OnEnable()
 		{

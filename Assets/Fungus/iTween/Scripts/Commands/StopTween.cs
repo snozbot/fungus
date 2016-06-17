@@ -22,7 +22,7 @@ namespace Fungus
 
 		#region Backwards compatibility
 
-		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD;
+		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD = "";
 
 		protected virtual void OnEnable()
 		{
