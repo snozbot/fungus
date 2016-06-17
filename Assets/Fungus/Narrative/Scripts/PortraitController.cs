@@ -27,6 +27,10 @@ namespace Fungus
 		public bool waitUntilFinished;
 		public Action onComplete;
 
+		/// <summary>
+		/// Contains all options to run a portrait command.
+		/// </summary>
+		/// <param name="useDefaultSettings">Will use stage default times for animation and fade</param>
 		public PortraitOptions(bool useDefaultSettings = true)
 		{
 			// Defaults usually assigned on constructing a struct
@@ -90,6 +94,9 @@ namespace Fungus
 		OffsetRight
 	}
 
+	/// <summary>
+	/// Controls the Portrait sprites on stage
+	/// </summary>
 	public class PortraitController : MonoBehaviour
 	{
 		// Timer for waitUntilFinished functionality
@@ -102,7 +109,11 @@ namespace Fungus
 			stage = GetComponentInParent<Stage>();
 		}
 
-		// Using this function, run any portriat command available
+		/// <summary>
+		/// Using all portrait options available, run any portrait command.
+		/// </summary>
+		/// <param name="options">Portrait Options</param>
+		/// <param name="onComplete">The function that will run once the portrait command finishes</param>
 		public void RunPortraitCommand(PortraitOptions options, Action onComplete)
 		{
 			waitTimer = 0f;
@@ -173,6 +184,11 @@ namespace Fungus
 			}
 		}
 
+		/// <summary>
+		/// Makes sure all options are set correctly so it won't break whatever command it's sent to
+		/// </summary>
+		/// <param name="options"></param>
+		/// <returns></returns>
 		private PortraitOptions CleanPortraitOptions(PortraitOptions options)
 		{
 			// Use default stage settings
@@ -259,6 +275,11 @@ namespace Fungus
 			return options;
 		}
 
+		/// <summary>
+		/// Creates and sets the portrait image for a character
+		/// </summary>
+		/// <param name="character"></param>
+		/// <param name="fadeDuration"></param>
 		private void CreatePortraitObject(Character character, float fadeDuration)
 		{
 			// Create a new portrait object
@@ -286,7 +307,7 @@ namespace Fungus
 			character.state.portraitImage = portraitImage;
 		}
 
-		public virtual IEnumerator WaitUntilFinished(float duration, Action onComplete = null)
+		private IEnumerator WaitUntilFinished(float duration, Action onComplete = null)
 		{
 			// Wait until the timer has expired
 			// Any method can modify this timer variable to delay continuing.
@@ -340,6 +361,10 @@ namespace Fungus
 			oldRectTransform.localScale = newRectTransform.localScale;
 		}
 
+		/// <summary>
+		/// Moves Character in front of other characters on stage
+		/// </summary>
+		/// <param name="character"></param>
 		public void MoveToFront(Character character)
 		{
 			PortraitOptions options = new PortraitOptions(true);
@@ -381,6 +406,11 @@ namespace Fungus
 			}
 		}
 
+		/// <summary>
+		/// Shows character at a named position in the stage
+		/// </summary>
+		/// <param name="character"></param>
+		/// <param name="position">Named position on stage</param>
 		public void Show(Character character, string position)
 		{
 			PortraitOptions options = new PortraitOptions(true);
@@ -390,6 +420,13 @@ namespace Fungus
 			Show(CleanPortraitOptions(options));
 		}
 
+		/// <summary>
+		/// Shows character moving from a position to a position
+		/// </summary>
+		/// <param name="character"></param>
+		/// <param name="portrait"></param>
+		/// <param name="fromPosition">Where the character will appear</param>
+		/// <param name="toPosition">Where the character will move to</param>
 		public void Show(Character character, string portrait, string fromPosition, string toPosition)
 		{
 			PortraitOptions options = new PortraitOptions(true);
@@ -402,11 +439,22 @@ namespace Fungus
 			Show(CleanPortraitOptions(options));
 		}
 
+		/// <summary>
+		/// From lua, you can pass an options table with named arguments
+		/// example:
+		///		stage.show{character=jill, portrait="happy", fromPosition="right", toPosition="left"}
+		///	Any option available in the PortraitOptions is available from Lua
+		/// </summary>
+		/// <param name="optionsTable">Moonsharp Table</param>
 		public void Show(Table optionsTable)
 		{
 			Show(CleanPortraitOptions(PortraitUtil.ConvertTableToPortraitOptions(optionsTable, stage)));
 		}
 
+		/// <summary>
+		/// Show portrait with the supplied portrait options
+		/// </summary>
+		/// <param name="options"></param>
 		public void Show(PortraitOptions options)
 		{
 			if (options.shiftIntoPlace)
@@ -475,6 +523,11 @@ namespace Fungus
 			options.character.state.position = options.toPosition;
 		}
 
+		/// <summary>
+		/// Simple show command that shows the character with an available named portrait
+		/// </summary>
+		/// <param name="character">Character to show</param>
+		/// <param name="portrait">Named portrait to show for the character, i.e. "angry", "happy", etc</param>
 		public void ShowPortrait(Character character, string portrait)
 		{
 			PortraitOptions options = new PortraitOptions(true);
@@ -493,6 +546,10 @@ namespace Fungus
 			Show(CleanPortraitOptions(options));
 		}
 
+		/// <summary>
+		/// Simple character hide command
+		/// </summary>
+		/// <param name="character">Character to hide</param>
 		public void Hide(Character character)
 		{
 			PortraitOptions options = new PortraitOptions(true);
@@ -501,6 +558,11 @@ namespace Fungus
 			Hide(CleanPortraitOptions(options));
 		}
 
+		/// <summary>
+		/// Move the character to a position then hide it
+		/// </summary>
+		/// <param name="character"></param>
+		/// <param name="toPosition">Where the character will disapear to</param>
 		public void Hide(Character character, string toPosition)
 		{
 			PortraitOptions options = new PortraitOptions(true);
@@ -511,11 +573,22 @@ namespace Fungus
 			Hide(CleanPortraitOptions(options));
 		}
 
+		/// <summary>
+		/// From lua, you can pass an options table with named arguments
+		/// example:
+		///		stage.hide{character=jill, toPosition="left"}
+		///	Any option available in the PortraitOptions is available from Lua
+		/// </summary>
+		/// <param name="optionsTable">Moonsharp Table</param>
 		public void Hide(Table optionsTable)
 		{
 			Hide(CleanPortraitOptions(PortraitUtil.ConvertTableToPortraitOptions(optionsTable, stage)));
 		}
 
+		/// <summary>
+		/// Hide portrait with provided options
+		/// </summary>
+		/// <param name="options"></param>
 		public void Hide(PortraitOptions options)
 		{
 			if (options.character.state.display == DisplayType.None)
@@ -561,8 +634,18 @@ namespace Fungus
 		}
 	}
 
+	/// <summary>
+	/// Util functions that I wanted to keep the main class clean of
+	/// </summary>
 	public class PortraitUtil {
 
+		/// <summary>
+		/// Convert a Moonsharp table to portrait options
+		/// If the table returns a null for any of the parameters, it should keep the defaults
+		/// </summary>
+		/// <param name="table">Moonsharp Table</param>
+		/// <param name="stage">Stage</param>
+		/// <returns></returns>
 		public static PortraitOptions ConvertTableToPortraitOptions(Table table, Stage stage)
 		{
 			PortraitOptions options = new PortraitOptions(true);

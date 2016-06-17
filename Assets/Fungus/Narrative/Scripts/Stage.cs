@@ -48,6 +48,12 @@ namespace Fungus
 			}
 		}
 
+		/// <summary>
+		/// Searches the stage's named positions
+		/// If none matches the string provided, give a warning and return a new RectTransform
+		/// </summary>
+		/// <param name="position_string">Position name to search for</param>
+		/// <returns></returns>
         public RectTransform GetPosition(String position_string)
         {
             if (position_string == null)

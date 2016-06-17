@@ -54,6 +54,12 @@ namespace Fungus
 			nameText = standardText;
 		}
 
+		/// <summary>
+		/// Looks for a portrait by name on a character
+		/// If none is found, give a warning and return a blank sprite
+		/// </summary>
+		/// <param name="portrait_string"></param>
+		/// <returns>Character portrait sprite</returns>
         public virtual Sprite GetPortrait(string portrait_string)
         {
             if (portrait_string == null)
