@@ -398,7 +398,7 @@ namespace Fungus
 		 * You can use this method in a UI event. e.g. to handle a button click.
 		 * Returns true if the Block started execution.
 		 */
-        public virtual bool ExecuteBlock(string blockName)
+        public virtual void ExecuteBlock(string blockName)
 		{
             Block block = null;
             foreach (Block b in GetComponents<Block>())
@@ -413,10 +413,13 @@ namespace Fungus
             if (block == null)
             {
                 Debug.LogError("Block " + blockName  + "does not exist");
-                return false;
+                return;
             }
 
-            return ExecuteBlock(block);
+            if (!ExecuteBlock(block))
+            {
+                Debug.LogWarning("Block " + blockName  + "failed to execute");
+            }
 		}
 
 		/**
