@@ -22,7 +22,7 @@ namespace Fungus
 		public float fadeDuration;
 		public float moveDuration;
 		public Vector2 shiftOffset;
-		public bool move;
+		public bool move; //sets to position to be the same as from
 		public bool shiftIntoPlace;
 		public bool waitUntilFinished;
 		public Action onComplete;
@@ -706,12 +706,17 @@ namespace Fungus
 			{
 				options.move = table.Get("move").CastToBool();
 			}
+			else if (options.fromPosition != options.toPosition)
+			{
+				options.move = true;
+			}
 
 			if (!table.Get("shiftIntoPlace").IsNil())
 			{
 				options.shiftIntoPlace = table.Get("shiftIntoPlace").CastToBool();
 			}
 
+			//TODO: Make the next lua command wait when this options is true
 			if (!table.Get("waitUntilFinished").IsNil())
 			{
 				options.waitUntilFinished = table.Get("waitUntilFinished").CastToBool();

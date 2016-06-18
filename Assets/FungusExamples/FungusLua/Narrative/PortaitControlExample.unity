@@ -349,13 +349,15 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: 'stage.show{character=watson, fromPosition="left", toPosition="right",
-    waitUntilFinished=true}
+  luaScript: 'stage.show{character=watson, fromPosition="offscreen right", toPosition="right"}
+
+
+    stage.show{character=sherlock, portrait="angry"}
 
     wait(1)
 
 
-    stage.show{character=sherlock, portrait="angry"}
+    stage.show{character=sherlock, portrait="bored"}
 
     wait(1)
 
