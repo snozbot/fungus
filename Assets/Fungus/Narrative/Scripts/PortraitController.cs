@@ -612,6 +612,7 @@ namespace Fungus
 			options.character.state.portrait = options.portrait;
 			options.character.state.facing = options.facing;
 			options.character.state.position = options.toPosition;
+			options.character.state.display = DisplayType.Hide;
 
 			FinishCommand(options);
 		}
