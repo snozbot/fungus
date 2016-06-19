@@ -86,13 +86,14 @@ namespace Fungus
 		/**
 		 * Fades the game music volume to required level over a period of time.
 		 * @param volume The new music volume value [0..1]
-		 * @param duration The length of time in seconds needed to complete the volume change.
+         * @param duration The length of time in seconds needed to complete the volume change.
+         * @param onComplete Delegate function to call when fade completes.
 		 */
-		public virtual void SetAudioVolume(float volume, float duration)
+		public virtual void SetAudioVolume(float volume, float duration, System.Action onComplete)
 		{
 			AudioSource audio = GetComponent<AudioSource>();
 
-			if (duration == 0f)
+            if (Mathf.Approximately(duration, 0f))
 			{
 				audio.volume = volume;
 				return;
@@ -103,7 +104,12 @@ namespace Fungus
 				volume, 
 				duration).setOnUpdate( (v) => {
 					audio.volume = v;
-				});
+                }).setOnComplete( () => {
+                    if (onComplete != null)
+                    {
+                        onComplete();
+                    }
+                });
 		}
 
 		/**
