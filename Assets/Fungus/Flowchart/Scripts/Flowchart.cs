@@ -1,10 +1,14 @@
+/**
+ * This code is part of the Fungus library (http://fungusgames.com) created by Chris Gregan (http://twitter.com/gofungus).
+ * It is released for free under the MIT open source license (https://opensource.org/licenses/MIT)
+ */
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using System;
 using System.Text;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -488,7 +492,7 @@ namespace Fungus
          */
         public static void BroadcastFungusMessage(string messageName)
         {
-            MessageReceived[] eventHandlers = GameObject.FindObjectsOfType<MessageReceived>();
+            MessageReceived[] eventHandlers = UnityEngine.Object.FindObjectsOfType<MessageReceived>();
             foreach (MessageReceived eventHandler in eventHandlers)
             {
                 eventHandler.OnSendFungusMessage(messageName);
