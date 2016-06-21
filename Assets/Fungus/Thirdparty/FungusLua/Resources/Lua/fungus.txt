@@ -227,7 +227,13 @@ function M.menu(text, callback, interactive)
 
 	-- Do variable substitution before displaying text
 	local subbed = M.sub(text)
-	md.AddOption(subbed, interactive or true, M.luaenvironment, callback)
+
+	-- Default bool parameters are tricksy
+	if (interactive == nil) then
+		interactive = true
+	end
+
+	md.AddOption(subbed, interactive, M.luaenvironment, callback)
 end
 
 -- Display a timer during which the player has to choose an option.
