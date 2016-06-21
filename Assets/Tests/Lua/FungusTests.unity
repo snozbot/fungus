@@ -190,6 +190,7 @@ MonoBehaviour:
   - key: voiceover
     obj: {fileID: 8300000, guid: d2ab1fbe555d44e9e870311657856bdc, type: 3}
     component: {fileID: 0}
+  showInherited: 0
 --- !u!1 &13683311
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +767,7 @@ MonoBehaviour:
   - key: menudialog
     obj: {fileID: 560555132}
     component: {fileID: 560555134}
+  showInherited: 0
 --- !u!4 &36455799 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -785,7 +787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &49402498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -820,7 +822,7 @@ Transform:
   - {fileID: 1669001930}
   - {fileID: 1516562100}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
 --- !u!1 &56584888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,7 +1050,7 @@ Transform:
   - {fileID: 828158146}
   - {fileID: 375366500}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
 --- !u!1001 &110499668
 Prefab:
   m_ObjectHideFlags: 0
@@ -1135,8 +1137,8 @@ MonoBehaviour:
   itemId: 1
   errorMessage: 
   indentLevel: 0
-  stage: {fileID: 0}
   display: 1
+  stage: {fileID: 0}
   character: {fileID: 708166646}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
@@ -1167,7 +1169,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 67
     y: 70
-    width: 136
+    width: 140
     height: 40
   itemId: 0
   blockName: ShowMushroom
@@ -1528,6 +1530,7 @@ MonoBehaviour:
   - key: optionbutton0
     obj: {fileID: 876352038}
     component: {fileID: 876352041}
+  showInherited: 0
 --- !u!1 &190681717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2906,6 +2909,7 @@ MonoBehaviour:
   - key: flowchart
     obj: {fileID: 1983492490}
     component: {fileID: 1983492495}
+  showInherited: 0
 --- !u!1 &507572619
 GameObject:
   m_ObjectHideFlags: 0
@@ -3875,6 +3879,7 @@ MonoBehaviour:
   - Fungus.Command, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Fungus.CommandInfoAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
     PublicKeyToken=null
+  - System.Text.StringBuilder, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
   - UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.RectTransform+ReapplyDrivenProperties, UnityEngine, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
@@ -3890,6 +3895,7 @@ MonoBehaviour:
   - key: transform
     obj: {fileID: 328064332}
     component: {fileID: 328064333}
+  showInherited: 0
 --- !u!1001 &726346786
 Prefab:
   m_ObjectHideFlags: 0
@@ -3932,6 +3938,132 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &760008551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 760008552}
+  - 114: {fileID: 760008554}
+  - 114: {fileID: 760008553}
+  m_Layer: 0
+  m_Name: LuaScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &760008552
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 760008551}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 909304912}
+  m_RootOrder: 2
+--- !u!114 &760008553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 760008551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: 'stage.show{character=watson, fromPosition="offscreen right", toPosition="right",
+    portrait="confident"}
+
+    check(watson.state.portrait.name == "confident")
+
+    check(watson.state.position.name == "Right")
+
+
+    stage.show{character=sherlock, portrait="angry"}
+
+    check(sherlock.state.portrait.name == "angry")
+
+    check(sherlock.state.position.name == "Middle")
+
+
+    stage.show{character=sherlock, portrait="bored"}
+
+    check(sherlock.state.portrait.name == "bored")
+
+
+    stage.hide{character=sherlock}
+
+    check(sherlock.state.display == 2)
+
+
+    stage.hide{character=watson}
+
+    check(watson.state.display == 2)
+
+    ------------------------------------------------------
+
+    stage.show(watson, "left")
+
+    check(watson.state.position.name == "Left")
+
+
+    stage.show(sherlock, "angry", "offscreen right", "right")
+
+    check(sherlock.state.position.name == "Right")
+
+
+    stage.hide(watson, "offscreen left")
+
+
+    stage.showPortrait(sherlock, "bored")
+
+    check(sherlock.state.portrait.name == "bored")
+
+
+    stage.hide(sherlock, "offscreen right")
+
+
+    stage.show(watson, "confident", "offscreen left", "left")
+
+    check(watson.state.portrait.name == "confident")
+
+    check(watson.state.position.name == "Left")
+
+
+    stage.hide(watson)
+
+
+    pass()'
+  runAsCoroutine: 1
+--- !u!114 &760008554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 760008551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee79785811ba49399c1b56d7309e3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executeAfterTime: 1
+  repeatExecuteTime: 1
+  repeatEveryTime: 1
+  executeAfterFrames: 1
+  repeatExecuteFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  executeMethods: 2
+  executeMethodName: OnExecute
 --- !u!1 &761668838
 GameObject:
   m_ObjectHideFlags: 0
@@ -4475,6 +4607,16 @@ MonoBehaviour:
   hasFailed: 0
   executeMethods: 2
   executeMethodName: OnExecute
+--- !u!1 &831376437 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 110274, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+  m_PrefabInternal: {fileID: 1482328387}
+--- !u!114 &831376438 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11410274, guid: c6289d5f8fa843145a2355af9cb09719,
+    type: 2}
+  m_PrefabInternal: {fileID: 1482328387}
+  m_Script: {fileID: 11500000, guid: 6f6478b25a400c642b2dee75f022ab12, type: 3}
 --- !u!1 &851680338
 GameObject:
   m_ObjectHideFlags: 0
@@ -4968,6 +5110,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!1 &909304910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 909304912}
+  - 114: {fileID: 909304911}
+  m_Layer: 0
+  m_Name: PortraitControllerTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &909304911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 909304910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeout: 5
+  ignored: 0
+  succeedAfterAllAssertionsAreExecuted: 0
+  expectException: 0
+  expectedExceptionList: 
+  succeedWhenExceptionIsThrown: 0
+  includedPlatforms: -1
+  platformsToIgnore: []
+  dynamic: 0
+  dynamicTypeName: 
+--- !u!4 &909304912
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 909304910}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1664481499}
+  - {fileID: 2107371518}
+  - {fileID: 760008552}
+  - {fileID: 1913824590}
+  - {fileID: 1315825959}
+  - {fileID: 1019492923}
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
 --- !u!1 &913529609
 GameObject:
   m_ObjectHideFlags: 0
@@ -5187,6 +5384,7 @@ MonoBehaviour:
   - key: optionbutton0
     obj: {fileID: 1312420724}
     component: {fileID: 0}
+  showInherited: 0
 --- !u!1 &928936324
 GameObject:
   m_ObjectHideFlags: 0
@@ -6282,6 +6480,56 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1018378831}
+--- !u!1 &1019492922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1019492923}
+  - 114: {fileID: 1019492924}
+  m_Layer: 0
+  m_Name: Character_sherlock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1019492923
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1019492922}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 909304912}
+  m_RootOrder: 5
+--- !u!114 &1019492924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1019492922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: Sherlock
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
+  soundEffect: {fileID: 0}
+  profileSprite: {fileID: 21300000, guid: 8f5b5b110e73a414eb229eeead86200f, type: 3}
+  portraits:
+  - {fileID: 21300000, guid: 8f5b5b110e73a414eb229eeead86200f, type: 3}
+  - {fileID: 21300000, guid: c779e34c6eb8e45da98c70cf2802a54c, type: 3}
+  portraitsFace: 0
+  setSayDialog: {fileID: 0}
+  description: 
 --- !u!1 &1069098973
 GameObject:
   m_ObjectHideFlags: 0
@@ -6832,6 +7080,56 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1312420724}
+--- !u!1 &1315825958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1315825959}
+  - 114: {fileID: 1315825960}
+  m_Layer: 0
+  m_Name: Character_watson
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1315825959
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1315825958}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 909304912}
+  m_RootOrder: 4
+--- !u!114 &1315825960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1315825958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: Watson
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
+  soundEffect: {fileID: 0}
+  profileSprite: {fileID: 21300000, guid: a92b08a118b7d46f59dd091acb2e4102, type: 3}
+  portraits:
+  - {fileID: 21300000, guid: a92b08a118b7d46f59dd091acb2e4102, type: 3}
+  - {fileID: 21300000, guid: 03bc547cc0049594bae51f00903eedef, type: 3}
+  portraitsFace: 0
+  setSayDialog: {fileID: 0}
+  description: 
 --- !u!1001 &1320193925
 Prefab:
   m_ObjectHideFlags: 0
@@ -7559,6 +7857,48 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1449816145}
+--- !u!1001 &1482328387
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 909304912}
+    m_Modifications:
+    - target: {fileID: 410270, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410270, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410270, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410270, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410270, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410270, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 410270, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 410270, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1516562099
 GameObject:
   m_ObjectHideFlags: 0
@@ -7665,6 +8005,7 @@ MonoBehaviour:
   - key: flowchart
     obj: {fileID: 1669001929}
     component: {fileID: 1669001934}
+  showInherited: 0
 --- !u!114 &1516562104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7917,7 +8258,7 @@ Transform:
   - {fileID: 95979349}
   - {fileID: 448016417}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!1001 &1646090254
 Prefab:
   m_ObjectHideFlags: 0
@@ -8012,7 +8353,7 @@ Transform:
   - {fileID: 2004121212}
   - {fileID: 116891409}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
 --- !u!1 &1652835880
 GameObject:
   m_ObjectHideFlags: 0
@@ -8080,6 +8421,52 @@ MonoBehaviour:
   hasFailed: 0
   executeMethods: 2
   executeMethodName: OnExecute
+--- !u!1001 &1659443707
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 909304912}
+    m_Modifications:
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &1664481499 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_PrefabInternal: {fileID: 1659443707}
 --- !u!1 &1667495163
 GameObject:
   m_ObjectHideFlags: 0
@@ -8256,7 +8643,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 241
     y: 51
-    width: 141
+    width: 148
     height: 40
   itemId: 0
   blockName: RunBlockAtIndex
@@ -8751,7 +9138,7 @@ Transform:
   - {fileID: 56584889}
   - {fileID: 2134815026}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!1 &1736454666
 GameObject:
   m_ObjectHideFlags: 0
@@ -8823,6 +9210,7 @@ MonoBehaviour:
   - key: flowchart
     obj: {fileID: 807616582}
     component: {fileID: 807616590}
+  showInherited: 0
 --- !u!1 &1738857300
 GameObject:
   m_ObjectHideFlags: 0
@@ -9251,7 +9639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1669001934}
+  selectedFlowchart: {fileID: 0}
 --- !u!4 &1791050794
 Transform:
   m_ObjectHideFlags: 1
@@ -9691,6 +10079,10 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1903340736}
+--- !u!4 &1913824590 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 410270, guid: c6289d5f8fa843145a2355af9cb09719, type: 2}
+  m_PrefabInternal: {fileID: 1482328387}
 --- !u!1 &1983492490
 GameObject:
   m_ObjectHideFlags: 0
@@ -10385,6 +10777,86 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2107371517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 178698, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2107371518}
+  - 114: {fileID: 2107371519}
+  m_Layer: 0
+  m_Name: LuaBindings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2107371518
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 403334, guid: e0c2b90c058ff43f4a56a266d4fa721b, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2107371517}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 909304912}
+  m_RootOrder: 1
+--- !u!114 &2107371519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11414792, guid: e0c2b90c058ff43f4a56a266d4fa721b,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2107371517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc8a659e950044b69d7c62696c36962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allEnvironments: 1
+  luaEnvironment: {fileID: 0}
+  tableName: 
+  registerTypes: 1
+  boundTypes:
+  - UnityEngine.GameObject, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.PrimitiveType, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Component, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Type, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - UnityEngine.SendMessageOptions, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.SceneManagement.Scene, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+  - Fungus.Character, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Sprite, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Color, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.AudioClip, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.FacingDirection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.PortraitState, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.SayDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.Stage, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Canvas, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - LeanTweenType, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Vector2, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  boundObjects:
+  - key: sherlock
+    obj: {fileID: 1019492922}
+    component: {fileID: 1019492924}
+  - key: watson
+    obj: {fileID: 1315825958}
+    component: {fileID: 1315825960}
+  - key: stage
+    obj: {fileID: 831376437}
+    component: {fileID: 831376438}
+  showInherited: 1
 --- !u!1 &2108324588
 GameObject:
   m_ObjectHideFlags: 0
@@ -10488,6 +10960,7 @@ MonoBehaviour:
   - key: mousepointer
     obj: {fileID: 2800000, guid: efe8aa62cc87f4b70b9272e4e8e06668, type: 3}
     component: {fileID: 0}
+  showInherited: 0
 --- !u!1 &2119731355
 GameObject:
   m_ObjectHideFlags: 0
