@@ -1,10 +1,15 @@
+/**
+ * Copyright (c) 2014 Fungus Ltd
+ * This code is part of the Fungus library (http://fungusgames.com) created by Chris Gregan (http://twitter.com/gofungus).
+ * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+ */
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using System;
 using System.Text;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -398,7 +403,7 @@ namespace Fungus
 		 * You can use this method in a UI event. e.g. to handle a button click.
 		 * Returns true if the Block started execution.
 		 */
-        public virtual bool ExecuteBlock(string blockName)
+        public virtual void ExecuteBlock(string blockName)
 		{
             Block block = null;
             foreach (Block b in GetComponents<Block>())
@@ -413,10 +418,13 @@ namespace Fungus
             if (block == null)
             {
                 Debug.LogError("Block " + blockName  + "does not exist");
-                return false;
+                return;
             }
 
-            return ExecuteBlock(block);
+            if (!ExecuteBlock(block))
+            {
+                Debug.LogWarning("Block " + blockName  + "failed to execute");
+            }
 		}
 
 		/**
@@ -485,7 +493,7 @@ namespace Fungus
          */
         public static void BroadcastFungusMessage(string messageName)
         {
-            MessageReceived[] eventHandlers = GameObject.FindObjectsOfType<MessageReceived>();
+            MessageReceived[] eventHandlers = UnityEngine.Object.FindObjectsOfType<MessageReceived>();
             foreach (MessageReceived eventHandler in eventHandlers)
             {
                 eventHandler.OnSendFungusMessage(messageName);

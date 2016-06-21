@@ -96,7 +96,7 @@ namespace Fungus
 		#region Backwards compatibility
 
 		[HideInInspector] [FormerlySerializedAs("target")] [FormerlySerializedAs("targetObject")] public GameObject targetObjectOLD;
-		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD;
+		[HideInInspector] [FormerlySerializedAs("tweenName")] public string tweenNameOLD = "";
 		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
 
 		protected virtual void OnEnable()
@@ -106,6 +106,12 @@ namespace Fungus
 				_targetObject.Value = targetObjectOLD;
 				targetObjectOLD = null;
 			}
+
+            if (tweenNameOLD != "")
+            {
+                _tweenName.Value = tweenNameOLD;
+                tweenNameOLD = "";
+            }
 
 			if (durationOLD != default(float))
 			{

@@ -49,7 +49,7 @@ namespace Fungus
 		#region Backwards compatibility
 
 		[HideInInspector] [FormerlySerializedAs("animator")] public Animator animatorOLD;
-		[HideInInspector] [FormerlySerializedAs("parameterName")] public string parameterNameOLD;
+		[HideInInspector] [FormerlySerializedAs("parameterName")] public string parameterNameOLD = "";
 
 		protected virtual void OnEnable()
 		{
@@ -59,10 +59,10 @@ namespace Fungus
 				animatorOLD = null;
 			}
 
-			if (parameterNameOLD != null)
+			if (parameterNameOLD != "")
 			{
 				_parameterName.Value = parameterNameOLD;
-				parameterNameOLD = null;
+				parameterNameOLD = "";
 			}
 		}
 

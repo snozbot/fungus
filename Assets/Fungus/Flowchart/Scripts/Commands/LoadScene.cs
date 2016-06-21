@@ -43,7 +43,7 @@ namespace Fungus
 
 		#region Backwards compatibility
 
-		[HideInInspector] [FormerlySerializedAs("sceneName")] public string sceneNameOLD;
+		[HideInInspector] [FormerlySerializedAs("sceneName")] public string sceneNameOLD = "";
 
 		protected virtual void OnEnable()
 		{
