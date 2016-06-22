@@ -63,6 +63,9 @@ namespace Fungus
         [Tooltip("The list of Unity objects to be bound to make them accessible in Lua script.")]
         public List<BoundObject> boundObjects = new List<BoundObject>();
 
+        [Tooltip("Show inherited public members.")]
+        public bool showInherited;
+
         /// <summary>
         /// Always ensure there is at least one row in the bound objects list.
         /// </summary>

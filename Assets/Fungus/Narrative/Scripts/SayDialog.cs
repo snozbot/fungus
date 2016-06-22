@@ -261,21 +261,22 @@ namespace Fungus
 				speakingCharacter = character;
 				
 				// Dim portraits of non-speaking characters
-				foreach (Stage s in Stage.activeStages)
+				foreach (Stage stage in Stage.activeStages)
 				{
-					if (s.dimPortraits)
+
+					if (stage.dimPortraits)
 					{
-						foreach (Character c in s.charactersOnStage)
+						foreach (Character c in stage.charactersOnStage)
 						{
 							if (prevSpeakingCharacter != speakingCharacter)
 							{
 								if (c != speakingCharacter)
 								{
-									Portrait.SetDimmed(c, s, true);
+									stage.SetDimmed(c, true);
 								}
 								else
 								{
-									Portrait.SetDimmed(c, s, false);
+									stage.SetDimmed(c, false);
 								}
 							}
 						}
@@ -387,7 +388,7 @@ namespace Fungus
 					{
 						LeanTween.cancel(c.state.portraitImage.gameObject, true);
 						
-						Portrait.SetRectTransform(c.state.portraitImage.rectTransform, c.state.position);
+						PortraitController.SetRectTransform(c.state.portraitImage.rectTransform, c.state.position);
 						if (c.state.dimmed == true)
 						{
 							c.state.portraitImage.color = new Color(0.5f, 0.5f, 0.5f, 1f);

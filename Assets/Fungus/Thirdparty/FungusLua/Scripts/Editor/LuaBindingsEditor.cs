@@ -21,6 +21,7 @@ namespace Fungus
         protected SerializedProperty tableNameProp;
         protected SerializedProperty registerTypesProp;
         protected SerializedProperty boundObjectsProp;
+        protected SerializedProperty showInheritedProp;
 
         protected string bindingHelpItem = ""; 
         protected string bindingHelpDetail = "";
@@ -32,6 +33,7 @@ namespace Fungus
             tableNameProp = serializedObject.FindProperty("tableName");
 			registerTypesProp = serializedObject.FindProperty("registerTypes");
             boundObjectsProp = serializedObject.FindProperty("boundObjects");
+            showInheritedProp = serializedObject.FindProperty("showInherited");
             CreateBoundObjectsList();
         }
 
@@ -213,8 +215,14 @@ namespace Fungus
                     continue;
                 }
 
+                BindingFlags flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public; 
+                if (!showInheritedProp.boolValue)
+                {
+                    flags |= BindingFlags.DeclaredOnly;
+                }
+
                 // Show info for fields and properties
-                MemberInfo[] memberInfos = inspectObject.GetType().GetMembers(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.DeclaredOnly);
+                MemberInfo[] memberInfos = inspectObject.GetType().GetMembers(flags);
                 foreach (MemberInfo memberInfo in memberInfos)
                 {
                     if (memberInfo.MemberType != MemberTypes.Field &&
@@ -314,6 +322,8 @@ namespace Fungus
             }
                 
             EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.PropertyField(showInheritedProp);
 
             // Show help info for currently selected item
             if (bindingHelpItem != "")
