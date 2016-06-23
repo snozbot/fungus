@@ -1,3 +1,8 @@
+/**
+ * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+ * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+ */
+
 #define PRETTY		//Comment out when you no longer need to read JSON to disable pretty Print system-wide
 //Using doubles will cause errors in VectorTemplates.cs; Unity speaks floats
 #define USEFLOAT	//Use floats for numbers instead of doubles	(enable if you're getting too many significant digits in string output)
