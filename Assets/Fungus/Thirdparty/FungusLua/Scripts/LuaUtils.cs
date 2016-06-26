@@ -466,6 +466,36 @@ namespace Fungus
 			}
 			return null;
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="conv"></param>
+		public virtual void Conversation(string conv)
+		{
+			if (string.IsNullOrEmpty(conv)) return;
+
+			char[] delimiters = new char[] { '\r', '\n' };
+			string[] rawLines = conv.Split(delimiters,
+							 StringSplitOptions.RemoveEmptyEntries);
+			
+			//find SimpleScript say strings with portrait options
+			//You can test regex matches here: http://regexstorm.net/tester
+			var sayRegex = new Regex(@"(?<character>\w*)( ?(?<mood>\w*)( ?(?<location>\w*)))?:(?<text>.*)");
+			var sayMatches = sayRegex.Matches(conv);
+
+			foreach (Match match in sayMatches)
+			{
+				string characterkey = match.Groups["character"].Value;
+				string mood = match.Groups["mood"].Value;
+				string location = match.Groups["location"].Value;
+				string text = match.Groups["text"].Value;
+
+				UnityEngine.Debug.Log(text);
+			}
+
+			return;
+		}
    }
 
 }
