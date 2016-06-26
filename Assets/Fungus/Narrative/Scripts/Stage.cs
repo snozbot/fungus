@@ -69,7 +69,7 @@ namespace Fungus
 
             foreach (RectTransform position in positions)
             {
-                if ( String.Compare(position.name, position_string, true) == 0 )
+                if ( String.Compare(position.name.Replace(" ", ""), position_string.Replace(" ", ""), true) == 0 )
                 {
                     return position;
                 }

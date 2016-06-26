@@ -197,6 +197,13 @@ function M.say(text, voiceclip)
    M.runwait(e)
 end
 
+-- Say series of lines
+-- conv: A string of conversational lines
+function M.conversation(conv)
+	local e = luautils.Conversation(conv)
+	M.runwait(e)
+end
+
 --------------
 -- Menu Dialog
 --------------
