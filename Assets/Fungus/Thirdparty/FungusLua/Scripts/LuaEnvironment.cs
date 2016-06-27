@@ -27,7 +27,12 @@ namespace Fungus
 			/// <summary>
 			/// Called when the LuaEnvironment is initializing.
 			/// </summary>
-			public abstract void Initialize();			
+			public abstract void Initialize();
+
+            /// <summary>
+            /// Applies transformations to the input script prior to execution.
+            /// </summary>
+            public abstract string PreprocessScript(string input);
 		}
 
         /// <summary>
@@ -216,11 +221,22 @@ namespace Fungus
         {
             InitEnvironment();
 
+            string processedString;
+            Initializer initializer = GetComponent<Initializer>();
+            if (initializer != null)
+            {
+                processedString = initializer.PreprocessScript(luaString);
+            }
+            else
+            {
+                processedString = luaString;
+            }
+
             // Load the Lua script
             DynValue res = null;
             try
             {
-                res = interpreter.LoadString(luaString, null, friendlyName);
+                res = interpreter.LoadString(processedString, null, friendlyName);
             }
             catch (InterpreterException ex)
             {

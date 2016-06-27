@@ -95,6 +95,14 @@ namespace Fungus
 			InitBindings();
         }
 
+        /// <summary>
+        /// Called by LuaEnvironment prior to executing a script.
+        /// </summary>
+        public override string PreprocessScript(string input)
+        {
+            return input;
+        }
+
 		/// <summary>
 		/// Registers all listed c# types for interop with Lua.
 		/// You can also register types directly in the Awake method of any 
