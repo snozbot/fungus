@@ -416,10 +416,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickMode: 1
-  keyPressMode: 2
   shiftKeyEnabled: 1
   nextClickDelay: 0
-  keyList: 0900000020000000
+  cancelEnabled: 1
+  ignoreMenuClicks: 1
 --- !u!114 &11486804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -665,6 +665,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
