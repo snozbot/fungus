@@ -20,14 +20,14 @@ namespace Fungus
 		// Currently active Menu Dialog used to display Menu options
 		public static MenuDialog activeMenuDialog;
 
-        [Tooltip("Automatically select the first interactable button when the menu is shown.")]
-        public bool autoSelectFirstButton = false;
+		[Tooltip("Automatically select the first interactable button when the menu is shown.")]
+		public bool autoSelectFirstButton = false;
 
-        [NonSerialized]
+		[NonSerialized]
 		public Button[] cachedButtons;
 
-        [NonSerialized]
-        public Slider cachedSlider;
+		[NonSerialized]
+		public Slider cachedSlider;
 
 		public static MenuDialog GetMenuDialog()
 		{
@@ -73,10 +73,10 @@ namespace Fungus
 		}
 
 		public virtual void OnEnable()
-        {
+		{
 			// The canvas may fail to update if the menu dialog is enabled in the first game frame.
 			// To fix this we just need to force a canvas update when the object is enabled.
-            Canvas.ForceUpdateCanvases();
+			Canvas.ForceUpdateCanvases();
 		}
 
 		public virtual void Clear()
@@ -115,10 +115,10 @@ namespace Fungus
 
 					button.interactable = interactable;
 
-                    if (interactable && autoSelectFirstButton && !cachedButtons.Select((x) => x.gameObject).Contains(EventSystem.current.currentSelectedGameObject))
-                    {
-                        EventSystem.current.SetSelectedGameObject(button.gameObject);
-                    }
+					if (interactable && autoSelectFirstButton && !cachedButtons.Select((x) => x.gameObject).Contains(EventSystem.current.currentSelectedGameObject))
+					{
+						EventSystem.current.SetSelectedGameObject(button.gameObject);
+					}
 
 					Text textComponent = button.GetComponentInChildren<Text>();
 					if (textComponent != null)
@@ -130,7 +130,7 @@ namespace Fungus
 					
 					button.onClick.AddListener(delegate {
 
-                        EventSystem.current.SetSelectedGameObject(null);
+						EventSystem.current.SetSelectedGameObject(null);
 
 						StopAllCoroutines(); // Stop timeout
 						Clear();
@@ -173,7 +173,7 @@ namespace Fungus
 			if (cachedSlider != null)
 			{
 				cachedSlider.gameObject.SetActive(true);
-                gameObject.SetActive(true);
+				gameObject.SetActive(true);
 				StopAllCoroutines();
 				StartCoroutine(WaitForTimeout(duration, targetBlock));
 			}
