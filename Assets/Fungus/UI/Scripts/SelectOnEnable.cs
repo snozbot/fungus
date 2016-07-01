@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Fungus
 {
-    [RequireComponent(typeof(Selectable))]
+	[RequireComponent(typeof(Selectable))]
 	public class SelectOnEnable : MonoBehaviour
 	{
 		private Selectable selectable;
