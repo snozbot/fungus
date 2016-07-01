@@ -4,23 +4,23 @@
  */
 
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 namespace Fungus
 {
 	[CommandInfo("Flow", 
 	             "Jump", 
-	             "Move execution to a specific Label command")]
+	             "Move execution to a specific Label command in the same block")]
 	[AddComponentMenu("")]
+    [ExecuteInEditMode]
 	public class Jump : Command
 	{
-		[Tooltip("Label to jump to")]
-		public Label targetLabel;
+        [Tooltip("Name of a label in this block to jump to")]
+        public StringData _targetLabel = new StringData("");
 
 		public override void OnEnter()
 		{
-			if (targetLabel == null)
+			if (_targetLabel.Value == "")
 			{
 				Continue();
 				return;
@@ -30,28 +30,47 @@ namespace Fungus
 			{
 				Label label = command as Label;
 				if (label != null &&
-				    label == targetLabel)
+				    label.key == _targetLabel.Value)
 				{
 					Continue(label.commandIndex + 1);
-					break;
+					return;
 				}
 			}
+
+            // Label not found
+            Debug.LogWarning("Label not found: " + _targetLabel.Value);
+            Continue();
 		}
 
 		public override string GetSummary()
 		{
-			if (targetLabel == null)
+			if (_targetLabel.Value == "")
 			{
 				return "Error: No label selected";
 			}
 
-			return targetLabel.key;
+			return _targetLabel.Value;
 		}
 
 		public override Color GetButtonColor()
 		{
 			return new Color32(253, 253, 150, 255);
 		}
+
+        #region Backwards compatibility
+
+        [HideInInspector] [FormerlySerializedAs("targetLabel")] public Label targetLabelOLD;
+
+        protected virtual void OnEnable()
+        {
+            if (targetLabelOLD != null)
+            {
+                _targetLabel.Value = targetLabelOLD.key;
+                targetLabelOLD = null;
+            }
+        }
+
+        #endregion
 	}
 
 }
