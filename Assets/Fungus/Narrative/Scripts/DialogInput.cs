@@ -42,6 +42,8 @@ namespace Fungus
 
 		protected float ignoreClickTimer;
 
+        protected StandaloneInputModule currentStandaloneInputModule;
+
 		/**
 		 * Trigger next line input event from script.
 		 */
@@ -80,9 +82,11 @@ namespace Fungus
 
 		protected virtual void Update()
 		{
-            StandaloneInputModule currentInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
-            if (Input.GetButtonDown(currentInputModule.submitButton) ||
-                (cancelEnabled && Input.GetButton(currentInputModule.cancelButton)))
+            if (currentStandaloneInputModule == null)
+                currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
+
+            if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
+                (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
             {
                 SetNextLineFlag();
             }
