@@ -27,9 +27,6 @@ namespace Fungus
 		[Tooltip("Click to advance story")]
 		public ClickMode clickMode;
 
-		[Tooltip("Hold down shift while pressing a key to advance though story instantly")]
-		public bool shiftKeyEnabled = true;
-
 		[Tooltip("Delay between consecutive clicks. Useful to prevent accidentally clicking through story.")]
 		public float nextClickDelay = 0f;
 
