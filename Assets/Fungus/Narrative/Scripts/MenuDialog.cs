@@ -9,6 +9,8 @@ using UnityEngine.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
+using System.Linq;
 
 namespace Fungus
 {
@@ -18,11 +20,14 @@ namespace Fungus
 		// Currently active Menu Dialog used to display Menu options
 		public static MenuDialog activeMenuDialog;
 
-        [NonSerialized]
+		[Tooltip("Automatically select the first interactable button when the menu is shown.")]
+		public bool autoSelectFirstButton = false;
+
+		[NonSerialized]
 		public Button[] cachedButtons;
 
-        [NonSerialized]
-        public Slider cachedSlider;
+		[NonSerialized]
+		public Slider cachedSlider;
 
 		public static MenuDialog GetMenuDialog()
 		{
@@ -110,6 +115,11 @@ namespace Fungus
 
 					button.interactable = interactable;
 
+					if (interactable && autoSelectFirstButton && !cachedButtons.Select((x) => x.gameObject).Contains(EventSystem.current.currentSelectedGameObject))
+					{
+						EventSystem.current.SetSelectedGameObject(button.gameObject);
+					}
+
 					Text textComponent = button.GetComponentInChildren<Text>();
 					if (textComponent != null)
 					{
@@ -119,6 +129,8 @@ namespace Fungus
 					Block block = targetBlock;
 					
 					button.onClick.AddListener(delegate {
+
+						EventSystem.current.SetSelectedGameObject(null);
 
 						StopAllCoroutines(); // Stop timeout
 						Clear();
@@ -161,7 +173,7 @@ namespace Fungus
 			if (cachedSlider != null)
 			{
 				cachedSlider.gameObject.SetActive(true);
-                gameObject.SetActive(true);
+				gameObject.SetActive(true);
 				StopAllCoroutines();
 				StartCoroutine(WaitForTimeout(duration, targetBlock));
 			}
