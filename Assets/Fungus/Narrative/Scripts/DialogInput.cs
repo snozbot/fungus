@@ -24,27 +24,14 @@ namespace Fungus
 			ClickOnButton		// Click on continue button to advance
 		}
 
-		public enum KeyPressMode
-		{
-			Disabled,		// Key pressing disabled
-			AnyKey,			// Press any key to continue
-			KeyPressed		// Press one of specified keys to advance
-		}
-
 		[Tooltip("Click to advance story")]
 		public ClickMode clickMode;
-
-		[Tooltip("Press a key to advance story")]
-		public KeyPressMode keyPressMode;
-
-		[Tooltip("Hold down shift while pressing a key to advance though story instantly")]
-		public bool shiftKeyEnabled = true;
 
 		[Tooltip("Delay between consecutive clicks. Useful to prevent accidentally clicking through story.")]
 		public float nextClickDelay = 0f;
 
-		[Tooltip("Keycodes to check for key presses")]
-		public KeyCode[] keyList;
+        [Tooltip("Allow holding Cancel to fast forward text")]
+        public bool cancelEnabled = true;
 
 		[Tooltip("Ignore input if a Menu dialog is currently active")]
 		public bool ignoreMenuClicks = true;
@@ -54,6 +41,8 @@ namespace Fungus
 		protected bool nextLineInputFlag;
 
 		protected float ignoreClickTimer;
+
+        protected StandaloneInputModule currentStandaloneInputModule;
 
 		/**
 		 * Trigger next line input event from script.
@@ -93,37 +82,14 @@ namespace Fungus
 
 		protected virtual void Update()
 		{
-			switch (keyPressMode)
-			{
-			case KeyPressMode.Disabled:
-				break;
-			case KeyPressMode.AnyKey:
-				if (Input.anyKeyDown)
-				{
-					SetNextLineFlag();
-				}
-				break;
-			case KeyPressMode.KeyPressed:
-				foreach (KeyCode keyCode in keyList)
-				{
-					if (shiftKeyEnabled && 
-					    (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
-					{
-						if (Input.GetKey(keyCode))
-						{
-							SetNextLineFlag();
-						}
-					}
-					else
-					{
-						if (Input.GetKeyDown(keyCode))
-						{
-							SetNextLineFlag();
-						}
-					}
-				}
-				break;
-			}
+            if (currentStandaloneInputModule == null)
+                currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
+
+            if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
+                (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
+            {
+                SetNextLineFlag();
+            }
 
 			switch (clickMode)
 			{
