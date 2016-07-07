@@ -2,7 +2,7 @@ Fungus 3.0.0
 ============
 
 Major release with powerful new Lua scripting support and many small improvements and fixes.
-Should be backwards compatible with projects created using Fungus 2. If you have any upgrading issues let us know on the forum.
+This release should be backwards compatible with projects created using Fungus 2. If you have any upgrading issues let us know on the forum.
 
 Many thanks to the amazing Fungus community for all the suggestions, bug reports and encouragement!
 
