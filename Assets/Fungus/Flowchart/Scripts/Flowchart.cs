@@ -1029,7 +1029,9 @@ namespace Fungus
            			
 			// Instantiate the regular expression object.
 			Regex r = new Regex("{\\$.*?}");
-			
+
+			bool changed = false;
+
 			// Match the regular expression pattern against a text string.
 			var results = r.Matches(input);
 			foreach (Match match in results)
@@ -1047,13 +1049,16 @@ namespace Fungus
 					{	
 						string value = variable.ToString();
                         sb.Replace(match.Value, value);
+						changed = true;
 					}
 				}
 			}
 
 			// Now do all other substitutions in the scene
-            if (stringSubstituer.SubstituteStrings(sb))
-            {
+			changed |= stringSubstituer.SubstituteStrings(sb);
+
+			if (changed)
+			{
                 return sb.ToString();
             }
             else
