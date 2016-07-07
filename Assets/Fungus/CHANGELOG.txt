@@ -1,3 +1,97 @@
+Fungus 3.0.0
+============
+
+Major release with powerful new Lua scripting support and many small improvements and fixes.
+Should be backwards compatible with projects created using Fungus 2. If you have any upgrading issues let us know on the forum.
+
+Many thanks to the amazing Fungus community for all the suggestions, bug reports and encouragement!
+
+Awesome github contributors:
+- Leah Lee: https://github.com/lealeelu
+- Gerardo Marset: https://github.com/ideka
+- Konrad Gadzina: https://github.com/FeniXb3
+- Kal O' Brien: https://github.com/kalenobrien15
+- Hawmalt: https://github.com/hawmalt
+
+# Added
+- FungusLua: Lua scripting support for Fungus via wrapper components for using MoonSharp in Unity. #281, #317, #334, #237, #235, #232, #224
+	- LuaEnvironment component: Execution environment for running Lua scripts.
+	- LuaUtils component: Extends LuaEnvironment with lots of useful features.
+	- LuaBindings: Maps Unity objects & components to Lua variables for use in Lua scripts.
+	- LuaScript: Runs Lua code from a text file or from a string property.
+	- LuaStore: Stores variables in a global table which persists across scene loads.
+	- FungusModule: A set of utility functions for scripting Unity and Fungus from Lua.
+	- FungusPrefs: An improved version of PlayerPrefs that can be easily used from Lua.
+	- ExecuteHandler: Listens for any standard Unity event and calls a method on a component in the gameobject. #247
+	- ExecuteLua command: Run some Lua script in a Fungus command. Return values can be stored in Fungus variables.
+	- PODTypeFactory: Utility factory class for instantiating Plain-Old-Data (POD) types like Color, Vector3, etc.
+    - Lots of FungusLua example scenes
+    - Fungus documentation now has an extensive section on LuaScripting.
+- StringDataMulti: Like StringData, but uses a multi-line textbox in the inspector.
+- StopBlock command: Stop executing the named block.
+- Improved string substitution system. Now works with Lua global variables and Lua string table, as well as Flowchart variables.
+- Extend the string substitution system yourself using the new ISubstitutionHandler interface.
+- Added TaskManager library to Thirdparty folder. Allows better control over coroutine execution.
+- Show Line Numbers option in Flowchart. Shows the command index in the inspector (off by default). #231
+- Play Animation State command. Plays an animation state directly without a transition. #378
+- Open URL command #382
+- Links to community articles in the help docs #385
+- InfoText.cs component for displaying help information in the top-left of screen
+- "Play from Selected" and "Stop All and Play" context menu options in Block command list
+- Added Command Index property to Call command
+- LuaStore example scene to demonstrate persisting Lua variables between scene loads
+- Use stage.show(), stage.showPortrait & stage.hide() to control stage & portraits from Lua #490
+  See FungusExamples/FungusLua/Narrative/PortraitController.unity example scene
+- Portrait functionality moved to new PortraitController utility class for easier scripting.
+- Say and Menu Dialogs now support standard input manager (joystick / controller support) #507 #210
+- Menu options can now be picked with keyboard only
+- Fast forward using Shift in Say Dialogs is now done using the Cancel input (Escape key by default).
+
+# Changed
+- Draggable sprite anchors at exact point user clicked.
+- Replaced string with StringData, int with IntegerData, etc. in many command properties. Use variables or constants.
+- Block.Execute renamed to Block.StartExecute, can now specify a command index to start at.
+- Say command: Set the Character using an object field or the dropdown menu. Can now select Character prefabs.
+- Improved Flowchart UpdateVersion system
+- Portrait image is now hidden at startup in SayDialog
+- Use DialogAudio volume property for starting volume on voiceover audio
+- WriterAudio now respects the volume property in all cases
+- Added short open source license info header to all source files
+- SetAudioVolume.waitUntilFinished property #495
+- String substitution uses StringBuilder to avoid string allocations (reduce garbage collection) #490
+- Embed string substitution keys in substitution text (recursive substitution up to 5 levels) #488
+
+# Fixed
+- SetDraggable2D filename now matches class name.
+- Unity 5.4 beta errors & warnings
+- CsvParser.cs and InvokeMethod lineendings should be consistent with rest of project.
+- Faulty indent levels when inspector is not displayed #380
+- Hide Portrait before Show Portrait breaks portrait system #384
+- Private variable values being reset with multiple flowcharts #389
+- Stage objects blocking raycasts #391
+- Writer voiceover clip always stops when text stops #393
+- Size tag in UI text is not supported #400
+- Clickable sprites can be clicked through UI objects #377
+- Don't destroy sprite objects in Scene Loader #386
+- Add links to community articles in the help docs #385
+- Control volume bug #464
+- Unity Test Tools compile errors in Unity 5.0
+- Edge of inspector window clipped incorreclty in Unity 5.4 beta #425
+- Child Object gets deleted when having a flowchart on parent and child. #475
+- Fixed command summary incorrect for Fade UI command #486
+- No Music clip selected error summary in Play Sound command
+- Jump command properties incorrect when block duplicated #504
+- menu() Lua command interactable param has no effect #493
+- Set Anim Integer/Float/Bool lose property settings #492
+- Can't select ExecuteBlock from Unity Event #496
+- Fixed aliased commandIndex property in Call command.
+
+
+# Other closed issues
+- GameObjects get duplicated when flowchart is on a different scene #373
+- TextMesh Pro integration #214
+- Clickable3D component #195
+
 Fungus 2.4.0
 ============
 
