@@ -27,6 +27,14 @@ namespace Fungus
 				}
 			}
 
+			//TODO spawn a new chat block (prob make this a prefab) containing avatar, name and dialog text 
+
+			//TODO move previous chat blocks up with smooth animation
+
+			//TODO Get the most recent chat block spawned and find it's dialog text for the writer
+
+			//TODO Set Writer.targetTextObject to that spawned text
+			
 			gameObject.SetActive(true);
 
 			this.fadeWhenDone = fadeWhenDone;
