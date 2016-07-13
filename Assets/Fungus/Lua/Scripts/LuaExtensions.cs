@@ -39,10 +39,7 @@ namespace Fungus
 
                         menuDialog.StopAllCoroutines(); // Stop timeout
                         menuDialog.Clear();
-
                         menuDialog.HideSayDialog();
-
-                        menuDialog.gameObject.SetActive(false);
 
                         if (callBack != null)
                         {
