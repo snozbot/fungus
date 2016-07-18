@@ -399,9 +399,10 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 1332690758}
   luaFile: {fileID: 0}
-  luaScript: "conversation [[\r\nWhat is that smell??\nsherlock: Ugh.\r\nS bored:ew!\r\nwatson
-    annoyed left: That was me.\r\nW confident right: I'm not Sorry!\r\nW confident
-    offscreenright: GOOD DAY!\n]]"
+  luaScript: "conversation [[\r\nsherlock right: Character+position.\r\nThis is a
+    continuation of the last line.\nS bored left:All three options with name shortened.\nwatson
+    annoyed right: Adding a new character on the right.\r\nW, confident, offscreen
+    right: Move Watson offscreen using commas.\r\n]]"
   runAsCoroutine: 1
   waitUntilFinished: 1
   returnVariable: {fileID: 0}
@@ -716,6 +717,9 @@ MonoBehaviour:
   portraits:
   - {fileID: 21300000, guid: a92b08a118b7d46f59dd091acb2e4102, type: 3}
   - {fileID: 21300000, guid: 03bc547cc0049594bae51f00903eedef, type: 3}
+  cachedPortraits:
+  - {fileID: 21300000, guid: a92b08a118b7d46f59dd091acb2e4102, type: 3}
+  - {fileID: 21300000, guid: 03bc547cc0049594bae51f00903eedef, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 0}
   description: 
@@ -764,6 +768,9 @@ MonoBehaviour:
   soundEffect: {fileID: 0}
   profileSprite: {fileID: 21300000, guid: 8f5b5b110e73a414eb229eeead86200f, type: 3}
   portraits:
+  - {fileID: 21300000, guid: 8f5b5b110e73a414eb229eeead86200f, type: 3}
+  - {fileID: 21300000, guid: c779e34c6eb8e45da98c70cf2802a54c, type: 3}
+  cachedPortraits:
   - {fileID: 21300000, guid: 8f5b5b110e73a414eb229eeead86200f, type: 3}
   - {fileID: 21300000, guid: c779e34c6eb8e45da98c70cf2802a54c, type: 3}
   portraitsFace: 0

@@ -20,6 +20,7 @@ namespace Fungus
 		public AudioClip soundEffect;
 		public Sprite profileSprite;
 		public List<Sprite> portraits;
+		public Sprite[] cachedPortraits;
 		public FacingDirection portraitsFace;
 		public PortraitState state;
 
@@ -37,6 +38,12 @@ namespace Fungus
 			if (!activeCharacters.Contains(this))
 			{
 				activeCharacters.Add(this);
+			}
+
+			if (cachedPortraits == null)
+			{
+				cachedPortraits = new Sprite[portraits.Count];
+				portraits.CopyTo(cachedPortraits);
 			}
 		}
 
@@ -59,30 +66,33 @@ namespace Fungus
 			nameText = standardText;
 		}
 
+		public bool NameStartsWith(string matchString)
+		{
+			return name.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture)
+				|| nameText.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture);
+		}
+
 		/// <summary>
 		/// Looks for a portrait by name on a character
 		/// If none is found, give a warning and return a blank sprite
 		/// </summary>
 		/// <param name="portrait_string"></param>
 		/// <returns>Character portrait sprite</returns>
-        public virtual Sprite GetPortrait(string portrait_string)
+		public virtual Sprite GetPortrait(string portrait_string)
         {
-            if (portrait_string == null)
+            if (String.IsNullOrEmpty(portrait_string))
             {
-                Debug.LogWarning("No portrait specifed for character " + name);
-                //Would be nice to have a <picture missing> sprite show up instead 
-                return new Sprite();
+                return null;
             }
 
-            foreach (Sprite portrait in portraits)
+            for (int i = 0; i < cachedPortraits.Length; i++)
             {
-                if ( String.Compare(portrait.name, portrait_string, true) == 0)
+                if ( String.Compare(cachedPortraits[i].name, portrait_string, true) == 0)
                 {
-                    return portrait;
+                    return cachedPortraits[i];
                 }
             }
-            Debug.LogWarning("No portrait \"" + portrait_string + "\" found for character \"" + name + "\"");
-            return new Sprite();
+            return null;
         }
 
 		public virtual string GetDescription()

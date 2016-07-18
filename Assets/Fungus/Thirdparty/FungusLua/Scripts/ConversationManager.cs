@@ -9,36 +9,24 @@ namespace Fungus
 	public class ConversationManager
 	{
 		protected Stage stage;
+		protected Character[] characters;
 
-		protected CharacterItem[] characters;
+		protected Character currentCharacter;
+		protected Sprite currentPortrait;
+		protected RectTransform currentPosition;
 
-		protected struct CharacterItem
-		{
-			public string name;
-			public string nameText;
-			public Character character;
-
-			public bool CharacterMatch(string matchString)
-			{
-				return name.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture)
-					|| nameText.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture);
-			}
-		}
+		protected Character previousCharacter;
+		protected Sprite previousPortrait;
+		protected RectTransform previousPosition;
 
 		protected bool exitSayWait;
 
-		public ConversationManager () {
+		public ConversationManager ()
+		{
 			stage = Stage.activeStages[0];
-		
-			Character[] characterObjects = GameObject.FindObjectsOfType<Fungus.Character>();
-			characters = new CharacterItem[characterObjects.Length];
-
-			for (int i = 0; i < characterObjects.Length; i++)
-			{
-				characters[i].name = characterObjects[i].name;
-				characters[i].nameText = characterObjects[i].nameText;
-				characters[i].character = characterObjects[i];
-			}
+			
+			// cache characters for faster lookup
+			characters = GameObject.FindObjectsOfType<Fungus.Character>();
 		}
 
 		/// <summary>
@@ -61,40 +49,59 @@ namespace Fungus
 
 			//find SimpleScript say strings with portrait options
 			//You can test regex matches here: http://regexstorm.net/tester
-			var sayRegex = new Regex(@"((?<character>\w*)( ?(?<portrait>\w*)( ?(?<position>\w*)))?:)?(?<text>.*\r*\n)");
-			var sayMatches = sayRegex.Matches(conv);
+			Regex sayRegex = new Regex(@"((?<sayParams>[\w ,]*):)?(?<text>.*\r*\n)");
+			MatchCollection sayMatches = sayRegex.Matches(conv);
 
-			foreach (Match match in sayMatches)
+			for (int i = 0; i < sayMatches.Count; i++)
 			{
-				string characterKey = match.Groups["character"].Value;
-				string portrait = match.Groups["portrait"].Value;
-				string position = match.Groups["position"].Value;
-				string text = match.Groups["text"].Value;
-				Character character = null;
+				previousCharacter = currentCharacter;
+				previousPortrait = currentPortrait;
+				previousPosition = currentPosition;
+
+				string sayParams = sayMatches[i].Groups["sayParams"].Value;
+				if (!string.IsNullOrEmpty(sayParams))
+				{
+					string[] separateParams;
+					if (sayParams.Contains(","))
+					{
+						separateParams = sayParams.Split(',');
+						for (int j = 0; j < separateParams.Length; j++)
+						{
+							separateParams[j] = separateParams[j].Trim();
+						}
+					}
+					else
+					{
+						separateParams = sayParams.Split(' ');
+					}
+
+					SetParams(separateParams);
+				}
+				else
+				{
+					//no params! Use previous settings?
+				}
+
+				string text = sayMatches[i].Groups["text"].Value;
 
 				sayDialog.gameObject.SetActive(true);
 
-				if (!string.IsNullOrEmpty(characterKey))
+				if (currentCharacter != null && currentCharacter != previousCharacter)
 				{
-					for (int i = 0; i < characters.Length; i++)
-					{
-						if( characters[i].CharacterMatch(characterKey)) {
-							character = characters[i].character;
-							break;
-						}
-					}
-				}
-				//We'll assume that if no character is specified, we'll leave it as the last one.
-				//It's probably a continuation of the last character's dialog
-				if (character != null)
-				{
-					sayDialog.SetCharacter(character);
-
-					string currentPosition = null;
-					if (character.state.position != null) currentPosition = character.state.position.name;
-					if (stage != null) stage.Show(character, portrait, currentPosition ?? position, position);
+					sayDialog.SetCharacter(currentCharacter);
 				}
 
+				if (stage != null && currentCharacter != null && (currentPortrait != previousPortrait || currentPosition != previousPosition))
+				{
+					PortraitOptions portraitOptions = new PortraitOptions(true);
+					portraitOptions.character = currentCharacter;
+					portraitOptions.fromPosition = currentCharacter.state.position ?? previousPosition;
+					portraitOptions.toPosition = currentPosition;
+					portraitOptions.portrait = currentPortrait;
+
+					stage.Show(portraitOptions);
+				}
+				
 				exitSayWait = false;
 				sayDialog.Say(text, true, true, true, false, null, () => {
 					exitSayWait = true;
@@ -106,7 +113,39 @@ namespace Fungus
 				}
 				exitSayWait = false;
 			}
+			
+		}
+		
+		/// <summary>
+		/// Using the string of say parameters before the ':',
+		/// set the current character, position and portrait if provided.
+		/// </summary>
+		/// <param name="sayParams">The list of say parameters</param>
+		private void SetParams(string[] sayParams)
+		{
+			Sprite portrait = null;
+			RectTransform position = null;
+
+			//find the character first, since we need to get its portrait
+			for (int i = 0; i < sayParams.Length; i++)
+			{
+				for (int j = 0; j < characters.Length; j++)
+				{
+					if (characters[j].NameStartsWith(sayParams[i]))
+					{
+						currentCharacter = characters[j];
+						break;
+					}
+				}
+			}
+
+			for (int i = 0; i < sayParams.Length; i++)
+			{
+				if (portrait == null) portrait = currentCharacter.GetPortrait(sayParams[i]);
+				if (position == null) position = stage.GetPosition(sayParams[i]);
+			}
+			currentPosition = position;
+			currentPortrait = portrait;
 		}
 	}
 }
-	
