@@ -20,9 +20,8 @@ namespace Fungus
 		public AudioClip soundEffect;
 		public Sprite profileSprite;
 		public List<Sprite> portraits;
-		public Sprite[] cachedPortraits;
 		public FacingDirection portraitsFace;
-		public PortraitState state;
+        public PortraitState state = new PortraitState();
 
 		[Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
 		public SayDialog setSayDialog;
@@ -38,12 +37,6 @@ namespace Fungus
 			if (!activeCharacters.Contains(this))
 			{
 				activeCharacters.Add(this);
-			}
-
-			if (cachedPortraits == null)
-			{
-				cachedPortraits = new Sprite[portraits.Count];
-				portraits.CopyTo(cachedPortraits);
 			}
 		}
 
@@ -85,11 +78,11 @@ namespace Fungus
                 return null;
             }
 
-            for (int i = 0; i < cachedPortraits.Length; i++)
+            for (int i = 0; i < portraits.Count; i++)
             {
-                if ( String.Compare(cachedPortraits[i].name, portrait_string, true) == 0)
+                if ( String.Compare(portraits[i].name, portrait_string, true) == 0)
                 {
-                    return cachedPortraits[i];
+                    return portraits[i];
                 }
             }
             return null;
