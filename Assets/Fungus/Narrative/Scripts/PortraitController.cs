@@ -13,7 +13,7 @@ using MoonSharp.Interpreter;
 
 namespace Fungus
 {
-	public struct PortraitOptions
+	public class PortraitOptions
 	{
 		public Character character;
 		public Character replacedCharacter;
@@ -38,7 +38,6 @@ namespace Fungus
 		/// <param name="useDefaultSettings">Will use stage default times for animation and fade</param>
 		public PortraitOptions(bool useDefaultSettings = true)
 		{
-			// Defaults usually assigned on constructing a struct
 			character = null;
 			replacedCharacter = null;
 			portrait = null;
@@ -65,7 +64,7 @@ namespace Fungus
 		}
 	}
 
-	public struct PortraitState
+	public class PortraitState
 	{
 		public bool onScreen;
 		public bool dimmed;
