@@ -8,7 +8,6 @@ namespace Fungus
 {
 	public class ConversationManager
 	{
-		protected Stage stage;
 		protected Character[] characters;
 
 		protected Character currentCharacter;
@@ -23,11 +22,20 @@ namespace Fungus
 
 		public ConversationManager ()
 		{
-			stage = Stage.activeStages[0];
-			
 			// cache characters for faster lookup
 			characters = GameObject.FindObjectsOfType<Fungus.Character>();
 		}
+
+        protected Stage GetActiveStage()
+        {
+            if (Stage.activeStages == null ||
+                Stage.activeStages.Count == 0)
+            {
+                return null;
+            }
+
+            return Stage.activeStages[0];
+        }
 
 		/// <summary>
 		/// Parse and execute a conversation string
@@ -91,6 +99,8 @@ namespace Fungus
 					sayDialog.SetCharacter(currentCharacter);
 				}
 
+                Stage stage = GetActiveStage();
+
 				if (stage != null && currentCharacter != null && (currentPortrait != previousPortrait || currentPosition != previousPosition))
 				{
 					PortraitOptions portraitOptions = new PortraitOptions(true);
@@ -102,6 +112,12 @@ namespace Fungus
 					stage.Show(portraitOptions);
 				}
 				
+                // Ignore Lua style comments and blank lines
+                if (text.StartsWith("--") || text.Trim() == "")
+                {
+                    continue;
+                }
+
 				exitSayWait = false;
 				sayDialog.Say(text, true, true, true, false, null, () => {
 					exitSayWait = true;
@@ -123,29 +139,81 @@ namespace Fungus
 		/// <param name="sayParams">The list of say parameters</param>
 		private void SetParams(string[] sayParams)
 		{
+            Character character = null;
 			Sprite portrait = null;
 			RectTransform position = null;
 
-			//find the character first, since we need to get its portrait
-			for (int i = 0; i < sayParams.Length; i++)
+			// try to find the character first, since we need to get its portrait
+            int characterIndex = -1;
+			for (int i = 0; character == null && i < sayParams.Length; i++)
 			{
 				for (int j = 0; j < characters.Length; j++)
 				{
 					if (characters[j].NameStartsWith(sayParams[i]))
 					{
-						currentCharacter = characters[j];
+                        characterIndex = i;
+                        character = characters[j];
 						break;
 					}
 				}
 			}
 
-			for (int i = 0; i < sayParams.Length; i++)
-			{
-				if (portrait == null) portrait = currentCharacter.GetPortrait(sayParams[i]);
-				if (position == null) position = stage.GetPosition(sayParams[i]);
-			}
-			currentPosition = position;
-			currentPortrait = portrait;
+            // Assume last used character if none is specified now
+            if (character == null)
+            {
+                character = currentCharacter;
+            }
+
+            // Next see if we can find a portrait for this character
+            int portraitIndex = -1;
+            if (character != null)
+            {
+                for (int i = 0; i < sayParams.Length; i++)
+                {
+                    if (portrait == null && 
+                        character != null &&
+                        i != characterIndex) 
+                    {
+                        Sprite s = character.GetPortrait(sayParams[i]);
+                        if (s != null)
+                        {
+                            portraitIndex = i;
+                            portrait = s;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Next check if there's a position parameter
+            Stage stage = GetActiveStage();
+            if (stage != null)
+            {
+                for (int i = 0; i < sayParams.Length; i++)
+                {
+                    if (i != characterIndex &&
+                        i != portraitIndex)
+                    {
+                        position = stage.GetPosition(sayParams[i]);
+                        break;
+                    }
+                }
+            }
+
+            if (character != null)
+            {
+                currentCharacter = character;
+            }
+                
+            if (portrait != null)
+            {
+			    currentPortrait = portrait;
+            }
+
+            if (position != null)
+            {
+                currentPosition = position;
+            }
 		}
 	}
 }
