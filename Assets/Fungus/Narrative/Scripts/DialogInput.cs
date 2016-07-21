@@ -83,7 +83,20 @@ namespace Fungus
 		protected virtual void Update()
 		{
             if (currentStandaloneInputModule == null)
+            {
+                if (EventSystem.current == null)
+                {
+                    // Auto spawn an Event System from the prefab
+                    GameObject prefab = Resources.Load<GameObject>("EventSystem");
+                    if (prefab != null)
+                    {
+                        GameObject go = Instantiate(prefab) as GameObject;
+                        go.name = "EventSystem";
+                    }
+                }
+
                 currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
+            }
 
             if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
                 (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
