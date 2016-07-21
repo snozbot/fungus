@@ -61,6 +61,16 @@ namespace Fungus
             // Cache a descriptive name to use in Lua error messages
             friendlyName = gameObject.name + "." + parentBlock.blockName + "." + "ExecuteLua #" + commandIndex.ToString();
 
+            Flowchart flowchart = GetFlowchart();
+            Debug.Assert(flowchart != null);
+
+            // See if a Lua Environment has been assigned to this Flowchart
+            if (luaEnvironment == null)        
+            {
+                luaEnvironment = flowchart.luaEnvironment;
+            }
+
+            // No Lua Environment specified so just use any available or create one.
             if (luaEnvironment == null)        
             {
                 luaEnvironment = LuaEnvironment.GetLua();
@@ -68,6 +78,15 @@ namespace Fungus
 
             string s = GetLuaString();
             luaFunction = luaEnvironment.LoadLuaString(s, friendlyName);
+
+            // Add a binding to the parent flowchart
+            if (flowchart.luaBindingName != "")
+            {
+                Table globals = luaEnvironment.Interpreter.Globals;
+                Debug.Assert(globals != null);
+
+                globals[flowchart.luaBindingName] = flowchart;
+            }
 
             // Always initialise when playing in the editor.
             // Allows the user to edit the Lua script while the game is playing.

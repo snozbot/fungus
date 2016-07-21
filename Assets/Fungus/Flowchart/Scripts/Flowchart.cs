@@ -151,6 +151,15 @@ namespace Fungus
 		[Tooltip("List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.")]
 		public List<string> hideCommands = new List<string>();
 
+        [Tooltip("Lua Environment to be used by default for all Execute Lua commands in this Flowchart")]
+        public LuaEnvironment luaEnvironment;
+
+        /**
+         * The ExecuteLua command adds a global Lua variable with this name bound to the flowchart prior to executing.
+         */
+        [Tooltip("The ExecuteLua command adds a global Lua variable with this name bound to the flowchart prior to executing.")]
+        public string luaBindingName = "flowchart";
+
 		/**
 		 * Position in the center of all blocks in the flowchart.
 		 */

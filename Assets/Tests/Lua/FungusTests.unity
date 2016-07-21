@@ -1093,6 +1093,8 @@ MonoBehaviour:
   localizationId: 
   showLineNumbers: 0
   hideCommands: []
+  luaEnvironment: {fileID: 0}
+  luaBindingName: flowchart
 --- !u!114 &56584894
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1426,6 +1428,8 @@ MonoBehaviour:
   localizationId: 
   showLineNumbers: 0
   hideCommands: []
+  luaEnvironment: {fileID: 0}
+  luaBindingName: flowchart
 --- !u!1 &116891408
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,6 +2173,67 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 190681717}
+--- !u!1 &208803355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100640, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 208803356}
+  - 114: {fileID: 208803358}
+  - 114: {fileID: 208803357}
+  m_Layer: 0
+  m_Name: LuaEnvironment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &208803356
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 208803355}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 2135597004}
+  m_RootOrder: 1
+--- !u!114 &208803357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11486636, guid: 49031c561e16d4fcf91c12153f8e0b25,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 208803355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10f0b861365b42b0928858f7b086ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fungusModule: 0
+  activeLanguage: en
+  stringTables: []
+  registerTypes:
+  - {fileID: 4900000, guid: 9c3ab7a98d51241bbb499643399fa761, type: 3}
+  - {fileID: 4900000, guid: 93fddea8208764a2dbb189cc238aed40, type: 3}
+--- !u!114 &208803358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 208803355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  remoteDebugger: 0
 --- !u!1 &227179347
 GameObject:
   m_ObjectHideFlags: 0
@@ -3137,10 +3202,10 @@ RectTransform:
   - {fileID: 1562445927}
   m_Father: {fileID: 664101364}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -50}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &373227066
 MonoBehaviour:
@@ -3627,7 +3692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446caeace65234baaacd52095d24f101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  luaEnvironment: {fileID: 0}
+  luaEnvironment: {fileID: 926714349}
   luaFile: {fileID: 0}
   luaScript: '-- The "Do Test" block in the flowchart sets a bunch of flowchart variables
 
@@ -3752,10 +3817,10 @@ RectTransform:
   - {fileID: 336652463}
   m_Father: {fileID: 664101364}
   m_RootOrder: 2
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -260}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &450503109
 MonoBehaviour:
@@ -4864,7 +4929,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000018477, y: 191}
-  m_SizeDelta: {x: 1300, y: 0}
+  m_SizeDelta: {x: 1300, y: 680}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &664101365
 MonoBehaviour:
@@ -5387,10 +5452,10 @@ RectTransform:
   - {fileID: 1737956915}
   m_Father: {fileID: 664101364}
   m_RootOrder: 6
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -655}
+  m_SizeDelta: {x: 1300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &740249865
 MonoBehaviour:
@@ -6047,6 +6112,8 @@ MonoBehaviour:
   localizationId: 
   showLineNumbers: 0
   hideCommands: []
+  luaEnvironment: {fileID: 0}
+  luaBindingName: flowchart
 --- !u!1 &811464735
 GameObject:
   m_ObjectHideFlags: 0
@@ -6959,6 +7026,12 @@ MonoBehaviour:
     obj: {fileID: 1312420724}
     component: {fileID: 0}
   showInherited: 0
+--- !u!114 &926714349 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11493126, guid: 49031c561e16d4fcf91c12153f8e0b25,
+    type: 2}
+  m_PrefabInternal: {fileID: 726346786}
+  m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
 --- !u!1 &928936324
 GameObject:
   m_ObjectHideFlags: 0
@@ -7183,7 +7256,7 @@ GameObject:
   - 114: {fileID: 942227052}
   - 114: {fileID: 942227053}
   m_Layer: 0
-  m_Name: Flowchart
+  m_Name: FlowchartA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7272,7 +7345,7 @@ MonoBehaviour:
   version: 1
   scrollPos: {x: 163, y: 77}
   variablesScrollPos: {x: 0, y: 0}
-  variablesExpanded: 0
+  variablesExpanded: 1
   blockViewHeight: 251
   zoom: 1
   scrollViewRect:
@@ -7282,7 +7355,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlock: {fileID: 942227027}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 942227025}
   variables:
   - {fileID: 942227029}
   - {fileID: 942227035}
@@ -7304,6 +7378,8 @@ MonoBehaviour:
   localizationId: 
   showLineNumbers: 0
   hideCommands: []
+  luaEnvironment: {fileID: 0}
+  luaBindingName: 
 --- !u!114 &942227029
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -7854,6 +7930,138 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 991312077}
+--- !u!1 &999440645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 142980, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 999440646}
+  - 114: {fileID: 999440650}
+  - 114: {fileID: 999440649}
+  - 114: {fileID: 999440648}
+  - 114: {fileID: 999440647}
+  m_Layer: 0
+  m_Name: MyFlowchart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &999440646
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 467082, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 999440645}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 2135597004}
+  m_RootOrder: 0
+--- !u!114 &999440647
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 999440645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f455683d4ba4405b8dbba457159620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1
+  errorMessage: 
+  indentLevel: 0
+  luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: 'check (myflowchart != nil)
+
+    check (myflowchart.name == "MyFlowchart")
+
+
+    pass()'
+  runAsCoroutine: 1
+  waitUntilFinished: 1
+  returnVariable: {fileID: 0}
+--- !u!114 &999440648
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 11462346, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 999440645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 999440649}
+--- !u!114 &999440649
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 11433304, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 999440645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 67
+    y: 70
+    width: 120
+    height: 40
+  itemId: 0
+  blockName: Start
+  description: 
+  eventHandler: {fileID: 999440648}
+  commandList:
+  - {fileID: 999440647}
+--- !u!114 &999440650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11430050, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 999440645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  scrollPos: {x: 0, y: 0}
+  variablesScrollPos: {x: 0, y: 0}
+  variablesExpanded: 1
+  blockViewHeight: 400
+  zoom: 1
+  scrollViewRect:
+    serializedVersion: 2
+    x: -343
+    y: -340
+    width: 1114
+    height: 859
+  selectedBlock: {fileID: 999440649}
+  selectedCommands:
+  - {fileID: 999440647}
+  variables: []
+  description: Check if ExecuteLua command registers the owner Flowchart automatically
+  stepPause: 0
+  colorCommands: 1
+  hideComponents: 1
+  saveSelection: 1
+  localizationId: 
+  showLineNumbers: 0
+  hideCommands: []
+  luaEnvironment: {fileID: 208803358}
+  luaBindingName: myflowchart
 --- !u!1 &1017561410
 GameObject:
   m_ObjectHideFlags: 0
@@ -8701,10 +8909,10 @@ RectTransform:
   - {fileID: 75703376}
   m_Father: {fileID: 664101364}
   m_RootOrder: 3
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -365}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1125210930
 MonoBehaviour:
@@ -9329,10 +9537,10 @@ RectTransform:
   - {fileID: 132571020}
   m_Father: {fileID: 664101364}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -155}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1315429534
 MonoBehaviour:
@@ -10361,7 +10569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1483294421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11271,6 +11479,8 @@ MonoBehaviour:
   localizationId: 
   showLineNumbers: 0
   hideCommands: []
+  luaEnvironment: {fileID: 0}
+  luaBindingName: flowchart
 --- !u!114 &1669001935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12273,7 +12483,7 @@ RectTransform:
   m_Father: {fileID: 1737956915}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12339,7 +12549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 0}
+  selectedFlowchart: {fileID: 999440650}
 --- !u!4 &1791050794
 Transform:
   m_ObjectHideFlags: 1
@@ -13153,6 +13363,8 @@ MonoBehaviour:
   localizationId: 
   showLineNumbers: 0
   hideCommands: []
+  luaEnvironment: {fileID: 0}
+  luaBindingName: flowchart
 --- !u!114 &1983492497
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -13219,10 +13431,10 @@ RectTransform:
   - {fileID: 553579778}
   m_Father: {fileID: 664101364}
   m_RootOrder: 4
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -470}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1992236914
 MonoBehaviour:
@@ -14023,8 +14235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc8a659e950044b69d7c62696c36962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allEnvironments: 1
-  luaEnvironment: {fileID: 0}
+  allEnvironments: 0
+  luaEnvironment: {fileID: 926714349}
   tableName: 
   registerTypes: 1
   boundTypes:
@@ -14049,6 +14261,7 @@ MonoBehaviour:
   - Fungus.Command, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Fungus.CommandInfoAttribute, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
     PublicKeyToken=null
+  - System.Text.StringBuilder, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
   - UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.Material, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.Shader, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -14397,10 +14610,10 @@ RectTransform:
   - {fileID: 1104569108}
   m_Father: {fileID: 664101364}
   m_RootOrder: 5
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 650, y: -575}
+  m_SizeDelta: {x: 1300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2135364183
 MonoBehaviour:
@@ -14499,3 +14712,55 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2135364181}
+--- !u!1 &2135597002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2135597004}
+  - 114: {fileID: 2135597003}
+  m_Layer: 0
+  m_Name: RegisterFlowchartTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2135597003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2135597002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeout: 5
+  ignored: 0
+  succeedAfterAllAssertionsAreExecuted: 0
+  expectException: 0
+  expectedExceptionList: 
+  succeedWhenExceptionIsThrown: 0
+  includedPlatforms: -1
+  platformsToIgnore: []
+  dynamic: 0
+  dynamicTypeName: 
+--- !u!4 &2135597004
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2135597002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 999440646}
+  - {fileID: 208803356}
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
