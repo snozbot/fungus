@@ -4,8 +4,9 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+
 
 namespace Fungus
 {
@@ -17,7 +18,7 @@ namespace Fungus
 	 * The RigidBody would typically have the Is Kinematic property set to true, unless you want the object to move around using physics.
 	 * Use in conjunction with the Drag Started, Drag Completed, Drag Cancelled, Drag Entered & Drag Exited event handlers.
 	 */
-	public class Draggable2D : MonoBehaviour 
+    public class Draggable2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 	{
 		[Tooltip("Is object dragging enabled")]
 		public bool dragEnabled = true;
@@ -39,38 +40,20 @@ namespace Fungus
 		protected bool updatePosition = false;
 		protected Vector3 newPosition;
         protected Vector3 delta = Vector3.zero;
-            
-		protected virtual void OnMouseDown()
-		{
-            // Offset the object so that the drag is anchored to the exact point where the user clicked it
-            float x = Input.mousePosition.x;
-            float y = Input.mousePosition.y;
-            delta = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f)) - transform.position;
-            delta.z = 0f;
 
-			startingPosition = transform.position;
+        protected virtual void Start()
+        {
+            // If the main camera doesn't already have a Physics2DRaycaster then add one automatically to
+            // use UI raycasts for hit detection. This allows UI to block clicks on objects behind.
+            if (Camera.main == null)
+                return;
 
-			foreach (DragStarted handler in GetHandlers<DragStarted>())
-			{
-				handler.OnDragStarted(this);
-			}
-		}
-
-		protected virtual void OnMouseDrag()
-		{
-			if (!dragEnabled)
-			{
-				return;
-			}
-
-			float x = Input.mousePosition.x;
-			float y = Input.mousePosition.y;
-			float z = transform.position.z;
-
-			newPosition = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f)) - delta;
-			newPosition.z = z;
-			updatePosition = true;
-		}
+            var raycast = Camera.main.GetComponent<Physics2DRaycaster>();
+            if (raycast == null)
+            {
+                Camera.main.gameObject.AddComponent<Physics2DRaycaster>();
+            }
+        }
 
 		protected virtual void LateUpdate()
 		{
@@ -81,48 +64,6 @@ namespace Fungus
 				transform.position = newPosition;
 				updatePosition = false;
 			}
-		}
-
-		protected virtual void OnMouseUp()
-		{
-			if (!dragEnabled)
-			{
-				return;
-			}
-
-			bool dragCompleted = false;
-
-			DragCompleted[] handlers = GetHandlers<DragCompleted>();
-			foreach (DragCompleted handler in handlers)
-			{
-				if (handler.draggableObject == this)
-				{
-					if (handler.IsOverTarget())
-					{
-						handler.OnDragCompleted(this);
-						dragCompleted = true;
-
-						if (returnOnCompleted)
-						{
-							LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
-						}
-					}
-				}
-			}
-
-			if (!dragCompleted)
-			{
-				foreach (DragCancelled handler in GetHandlers<DragCancelled>())
-				{
-					handler.OnDragCancelled(this);
-				}
-
-				if (returnOnCancelled)
-				{
-					LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
-				}
-			}
-
 		}
 
 		protected virtual void OnTriggerEnter2D(Collider2D other) 
@@ -186,6 +127,86 @@ namespace Fungus
 			
 			Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
 		}
+
+        #region IBeginDragHandler implementation
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            // Offset the object so that the drag is anchored to the exact point where the user clicked it
+            float x = Input.mousePosition.x;
+            float y = Input.mousePosition.y;
+            delta = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f)) - transform.position;
+            delta.z = 0f;
+
+            startingPosition = transform.position;
+
+            foreach (DragStarted handler in GetHandlers<DragStarted>())
+            {
+                handler.OnDragStarted(this);
+            }
+        }
+        #endregion
+
+        #region IDragHandler implementation
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (!dragEnabled)
+            {
+                return;
+            }
+
+            float x = Input.mousePosition.x;
+            float y = Input.mousePosition.y;
+            float z = transform.position.z;
+
+            newPosition = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f)) - delta;
+            newPosition.z = z;
+            updatePosition = true;
+        }
+        #endregion
+
+        #region IEndHandler implementation
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (!dragEnabled)
+            {
+                return;
+            }
+
+            bool dragCompleted = false;
+
+            DragCompleted[] handlers = GetHandlers<DragCompleted>();
+            foreach (DragCompleted handler in handlers)
+            {
+                if (handler.draggableObject == this)
+                {
+                    if (handler.IsOverTarget())
+                    {
+                        handler.OnDragCompleted(this);
+                        dragCompleted = true;
+
+                        if (returnOnCompleted)
+                        {
+                            LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
+                        }
+                    }
+                }
+            }
+
+            if (!dragCompleted)
+            {
+                foreach (DragCancelled handler in GetHandlers<DragCancelled>())
+                {
+                    handler.OnDragCancelled(this);
+                }
+
+                if (returnOnCancelled)
+                {
+                    LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
+                }
+            }
+        }
+        #endregion
+
 	}
 
 }
