@@ -1,3 +1,23 @@
+Fungus 3.1.0
+============
+
+# Added
+
+- Flowchart automatically registers with LuaEnvironment for ExecuteLua commands #485
+
+# Changed
+
+- Default dialog image is now sliced, so can be resized to any width / height required.
+
+# Fixed
+
+- Default dialog box now fits in a 5:4 ratio display #515
+- Dialog input causing an exception if no Event System is present in scene.
+- Clickable2D and Draggable2D components now use event system to correctly block clicks on UI elements. Updated drag and drop demo scene.
+- Missing module variable on round() function
+- Menu() Lua function only works once #511
+- Compile error for folks upgrading using the Fungus 3 unitypackage
+
 Fungus 3.0.0
 ============
 
