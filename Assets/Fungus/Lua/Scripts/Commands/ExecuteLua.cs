@@ -62,7 +62,6 @@ namespace Fungus
             friendlyName = gameObject.name + "." + parentBlock.blockName + "." + "ExecuteLua #" + commandIndex.ToString();
 
             Flowchart flowchart = GetFlowchart();
-            Debug.Assert(flowchart != null);
 
             // See if a Lua Environment has been assigned to this Flowchart
             if (luaEnvironment == null)        
@@ -83,9 +82,10 @@ namespace Fungus
             if (flowchart.luaBindingName != "")
             {
                 Table globals = luaEnvironment.Interpreter.Globals;
-                Debug.Assert(globals != null);
-
-                globals[flowchart.luaBindingName] = flowchart;
+                if (globals != null)
+				{
+                	globals[flowchart.luaBindingName] = flowchart;
+				}
             }
 
             // Always initialise when playing in the editor.

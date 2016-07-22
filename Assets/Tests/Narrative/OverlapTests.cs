@@ -32,7 +32,8 @@ public class OverlapTests : MonoBehaviour
 			IntegrationTest.Fail("Character image should not be active");
 		}
 
-		if (sayDialog_RightImage.storyText.rectTransform.rect.width != 1531)
+		float width = sayDialog_RightImage.storyText.rectTransform.rect.width;
+		if (!Mathf.Approximately(width, 1439))
 		{
 			IntegrationTest.Fail("Story text width not correct");
 		}
@@ -44,7 +45,7 @@ public class OverlapTests : MonoBehaviour
 		{
 			IntegrationTest.Fail("Character image not active");
 		}
-		
+
 		if (sayDialog_LeftImage.characterImage.transform.position.x > sayDialog_LeftImage.storyText.transform.position.x)
 		{
 			IntegrationTest.Fail("Character image not on left hand side");
@@ -57,8 +58,9 @@ public class OverlapTests : MonoBehaviour
 		{
 			IntegrationTest.Fail("Character image should not be active");
 		}
-		
-		if (sayDialog_LeftImage.storyText.rectTransform.rect.width != 1531)
+
+		float width = sayDialog_LeftImage.storyText.rectTransform.rect.width;
+		if (!Mathf.Approximately(width, 1439))
 		{
 			IntegrationTest.Fail("Story text width not correct");
 		}
