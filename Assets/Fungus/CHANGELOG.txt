@@ -8,6 +8,7 @@ Fungus 3.1.0
 # Changed
 
 - Default dialog image is now sliced, so can be resized to any width / height required.
+- Upgraded MoonSharp to v1.6.0.0
 
 # Fixed
 
