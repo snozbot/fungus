@@ -4403,6 +4403,12 @@
             </summary>
             <param name="ex">The ex.</param>
         </member>
+        <member name="M:MoonSharp.Interpreter.ScriptRuntimeException.#ctor(MoonSharp.Interpreter.ScriptRuntimeException)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MoonSharp.Interpreter.ScriptRuntimeException"/> class.
+            </summary>
+            <param name="ex">The ex.</param>
+        </member>
         <member name="M:MoonSharp.Interpreter.ScriptRuntimeException.#ctor(System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:MoonSharp.Interpreter.ScriptRuntimeException"/> class.
@@ -4415,11 +4421,6 @@
             </summary>
             <param name="format">The format.</param>
             <param name="args">The arguments.</param>
-        </member>
-        <member name="P:MoonSharp.Interpreter.ScriptRuntimeException.DoNotDecorateMessage">
-            <summary>
-            Gets or sets a value indicating whether the message should not be decorated
-            </summary>
         </member>
         <member name="M:MoonSharp.Interpreter.ScriptRuntimeException.ArithmeticOnNonNumber(MoonSharp.Interpreter.DynValue,MoonSharp.Interpreter.DynValue)">
             <summary>
@@ -4737,6 +4738,12 @@
             <param name="desc">The member descriptor.</param>
             <returns></returns>
         </member>
+        <member name="M:MoonSharp.Interpreter.ScriptRuntimeException.Rethrow">
+            <summary>
+            Rethrows this instance if 
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:MoonSharp.Interpreter.InternalErrorException">
             <summary>
             Exception thrown when an inconsistent state is reached in the interpreter
@@ -4746,6 +4753,12 @@
             <summary>
             Base type of all exceptions thrown in MoonSharp
             </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.InterpreterException.#ctor(System.Exception,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MoonSharp.Interpreter.InterpreterException"/> class.
+            </summary>
+            <param name="ex">The ex.</param>
         </member>
         <member name="M:MoonSharp.Interpreter.InterpreterException.#ctor(System.Exception)">
             <summary>
@@ -4781,6 +4794,17 @@
             Gets the decorated message (error message plus error location in script) if possible.
             </summary>
         </member>
+        <member name="P:MoonSharp.Interpreter.InterpreterException.DoNotDecorateMessage">
+            <summary>
+            Gets or sets a value indicating whether the message should not be decorated
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.InterpreterException.Rethrow">
+            <summary>
+            Rethrows this instance if 
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:MoonSharp.Interpreter.SyntaxErrorException">
             <summary>
             Exception for all parsing/lexing errors. 
@@ -4791,6 +4815,12 @@
             Gets or sets a value indicating whether this exception was caused by premature stream termination (that is, unexpected EOF).
             This can be used in REPL interfaces to tell between unrecoverable errors and those which can be recovered by extra input.
             </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.SyntaxErrorException.Rethrow">
+            <summary>
+            Rethrows this instance if 
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:MoonSharp.Interpreter.CallbackArguments">
             <summary>
@@ -5442,6 +5472,11 @@
         <member name="M:MoonSharp.Interpreter.DynValue.ToObject">
             <summary>
             Converts this MoonSharp DynValue to a CLR object.
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.DynValue.ToObject(System.Type)">
+            <summary>
+            Converts this MoonSharp DynValue to a CLR object of the specified type.
             </summary>
         </member>
         <member name="M:MoonSharp.Interpreter.DynValue.ToObject``1">
@@ -7186,12 +7221,6 @@
             </returns>
             <exception cref="T:System.ArgumentException">Thrown if function is not of DataType.Function or DataType.ClrFunction</exception>
         </member>
-        <member name="M:MoonSharp.Interpreter.Script.GetMainChunk">
-            <summary>
-            Gets the main chunk function.
-            </summary>
-            <returns>A DynValue containing a function which executes the first chunk that has been loaded.</returns>
-        </member>
         <member name="P:MoonSharp.Interpreter.Script.DebuggerEnabled">
             <summary>
             Gets or sets a value indicating whether the debugger is enabled.
@@ -7316,7 +7345,7 @@
             Gets the integral key from a double.
             </summary>
         </member>
-        <member name="P:MoonSharp.Interpreter.Table.Item(System.Object,System.Object[])">
+        <member name="P:MoonSharp.Interpreter.Table.Item(System.Object[])">
             <summary>
             Gets or sets the 
             <see cref="T:System.Object" /> with the specified key(s).
@@ -7326,9 +7355,7 @@
             <value>
             The <see cref="T:System.Object" />.
             </value>
-            <param name="key">The key.</param>
-            <param name="subkeys">Optional subkeys to access subtables</param>
-            <returns></returns>
+            <param name="keys">The keys to access the table and subtables</param>
         </member>
         <member name="P:MoonSharp.Interpreter.Table.Item(System.Object)">
             <summary>
@@ -7341,23 +7368,22 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
-        <member name="M:MoonSharp.Interpreter.Table.GetWithObjectKey(System.Object)">
+        <member name="M:MoonSharp.Interpreter.Table.Append(MoonSharp.Interpreter.DynValue)">
             <summary>
-            Gets the dynvalue associated with the specified key (expressed as a System.Object)
+            Append the value to the table using the next available integer index.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.Set(System.String,MoonSharp.Interpreter.DynValue)">
+            <summary>
+            Sets the value associated to the specified key.
             </summary>
             <param name="key">The key.</param>
-            <returns></returns>
+            <param name="value">The value.</param>
         </member>
-        <member name="M:MoonSharp.Interpreter.Table.GetAsObject(System.Object)">
+        <member name="M:MoonSharp.Interpreter.Table.Set(System.Int32,MoonSharp.Interpreter.DynValue)">
             <summary>
-            Gets the dynvalue associated with the specified key (expressed as a System.Object) as a System.Object.
-            </summary>
-            <param name="key">The key.</param>
-            <returns></returns>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Table.SetAsObject(System.Object,System.Object)">
-            <summary>
-            Sets the dynvalue associated with the specified key. Both expressed as System.Object.
+            Sets the value associated to the specified key.
             </summary>
             <param name="key">The key.</param>
             <param name="value">The value.</param>
@@ -7369,18 +7395,19 @@
             <param name="key">The key.</param>
             <param name="value">The value.</param>
         </member>
-        <member name="M:MoonSharp.Interpreter.Table.Get(MoonSharp.Interpreter.DynValue)">
+        <member name="M:MoonSharp.Interpreter.Table.Set(System.Object,MoonSharp.Interpreter.DynValue)">
             <summary>
-            Gets the value associated with the specified key.
+            Sets the value associated with the specified key.
             </summary>
             <param name="key">The key.</param>
-            <returns></returns>
+            <param name="value">The value.</param>
         </member>
-        <member name="M:MoonSharp.Interpreter.Table.Set(System.String,MoonSharp.Interpreter.DynValue)">
+        <member name="M:MoonSharp.Interpreter.Table.Set(System.Object[],MoonSharp.Interpreter.DynValue)">
             <summary>
-             Sets the value associated to the specified key.
+            Sets the value associated with the specified keys.
+            Multiple keys can be used to access subtables.
             </summary>
-            <param name="key">The key.</param>
+            <param name="key">The keys.</param>
             <param name="value">The value.</param>
         </member>
         <member name="M:MoonSharp.Interpreter.Table.Get(System.String)">
@@ -7388,28 +7415,107 @@
             Gets the value associated with the specified key.
             </summary>
             <param name="key">The key.</param>
-            <returns></returns>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Table.RawGet(System.String)">
-            <summary>
-            Gets the value associated with the specified key, without bringing to Nil the non-existant values.
-            </summary>
-            <param name="key">The key.</param>
-            <returns></returns>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Table.Set(System.Int32,MoonSharp.Interpreter.DynValue)">
-            <summary>
-            Sets the value associated to the specified key.
-            </summary>
-            <param name="key">The key.</param>
-            <param name="value">The value.</param>
         </member>
         <member name="M:MoonSharp.Interpreter.Table.Get(System.Int32)">
             <summary>
             Gets the value associated with the specified key.
             </summary>
             <param name="key">The key.</param>
-            <returns></returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.Get(MoonSharp.Interpreter.DynValue)">
+            <summary>
+            Gets the value associated with the specified key.
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.Get(System.Object)">
+            <summary>
+            Gets the value associated with the specified key.
+            (expressed as a <see cref="T:System.Object"/>).
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.Get(System.Object[])">
+            <summary>
+            Gets the value associated with the specified keys (expressed as an 
+            array of <see cref="T:System.Object"/>).
+            This will marshall CLR and MoonSharp objects in the best possible way.
+            Multiple keys can be used to access subtables.
+            </summary>
+            <param name="keys">The keys to access the table and subtables</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.RawGet(System.String)">
+            <summary>
+            Gets the value associated with the specified key,
+            without bringing to Nil the non-existant values.
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.RawGet(System.Int32)">
+            <summary>
+            Gets the value associated with the specified key,
+            without bringing to Nil the non-existant values.
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.RawGet(MoonSharp.Interpreter.DynValue)">
+            <summary>
+            Gets the value associated with the specified key,
+            without bringing to Nil the non-existant values.
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.RawGet(System.Object)">
+            <summary>
+            Gets the value associated with the specified key,
+            without bringing to Nil the non-existant values.
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.RawGet(System.Object[])">
+            <summary>
+            Gets the value associated with the specified keys (expressed as an
+            array of <see cref="T:System.Object"/>).
+            This will marshall CLR and MoonSharp objects in the best possible way.
+            Multiple keys can be used to access subtables.
+            </summary>
+            <param name="keys">The keys to access the table and subtables</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.Remove(System.String)">
+            <summary>
+            Remove the value associated with the specified key from the table.
+            </summary>
+            <param name="key">The key.</param>
+            <returns><c>true</c> if values was successfully removed; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.Remove(System.Int32)">
+            <summary>
+            Remove the value associated with the specified key from the table.
+            </summary>
+            <param name="key">The key.</param>
+            <returns><c>true</c> if values was successfully removed; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.Remove(MoonSharp.Interpreter.DynValue)">
+            <summary>
+            Remove the value associated with the specified key from the table.
+            </summary>
+            <param name="key">The key.</param>
+            <returns><c>true</c> if values was successfully removed; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.Remove(System.Object)">
+            <summary>
+            Remove the value associated with the specified key from the table.
+            </summary>
+            <param name="key">The key.</param>
+            <returns><c>true</c> if values was successfully removed; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Table.Remove(System.Object[])">
+            <summary>
+            Remove the value associated with the specified keys from the table.
+            Multiple keys can be used to access subtables.
+            </summary>
+            <param name="key">The key.</param>
+            <returns><c>true</c> if values was successfully removed; otherwise, <c>false</c>.</returns>
         </member>
         <member name="M:MoonSharp.Interpreter.Table.CollectDeadKeys">
             <summary>
@@ -7656,6 +7762,12 @@
             <value>
             The current platform abstraction.
             </value>
+        </member>
+        <member name="P:MoonSharp.Interpreter.ScriptGlobalOptions.RethrowExceptionNested">
+            <summary>
+            Gets or sets a value indicating whether interpreter exceptions should be 
+            re-thrown as nested exceptions.
+            </summary>
         </member>
         <member name="T:MoonSharp.Interpreter.ScriptOptions">
             <summary>
