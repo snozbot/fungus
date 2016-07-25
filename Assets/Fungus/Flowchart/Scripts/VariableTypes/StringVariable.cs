@@ -11,6 +11,7 @@ namespace Fungus
 
 	[VariableInfo("", "String")]
 	[AddComponentMenu("")]
+    [System.Serializable]
 	public class StringVariable : VariableBase<string>
 	{
 		public virtual bool Evaluate(CompareOperator compareOperator, string stringValue)

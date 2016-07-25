@@ -10,6 +10,7 @@ namespace Fungus
 {
 	[VariableInfo("Other", "Material")]
 	[AddComponentMenu("")]
+    [System.Serializable]
 	public class MaterialVariable : VariableBase<Material>
 	{}
 

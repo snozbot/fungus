@@ -10,6 +10,7 @@ namespace Fungus
 {
 	[VariableInfo("", "Integer")]
 	[AddComponentMenu("")]
+    [System.Serializable]
 	public class IntegerVariable : VariableBase<int> 
 	{
 		public virtual bool Evaluate(CompareOperator compareOperator, int integerValue)

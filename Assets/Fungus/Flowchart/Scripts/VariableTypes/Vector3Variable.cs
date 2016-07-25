@@ -10,6 +10,7 @@ namespace Fungus
 {
 	[VariableInfo("Other", "Vector3")]
 	[AddComponentMenu("")]
+    [System.Serializable]
 	public class Vector3Variable : VariableBase<Vector3>
 	{}
 

@@ -10,6 +10,7 @@ namespace Fungus
 {
 	[VariableInfo("Other", "AudioSource")]
 	[AddComponentMenu("")]
+    [System.Serializable]
 	public class AudioSourceVariable : VariableBase<AudioSource>
 	{}
 

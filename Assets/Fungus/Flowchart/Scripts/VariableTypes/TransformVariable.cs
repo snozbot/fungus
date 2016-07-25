@@ -10,6 +10,7 @@ namespace Fungus
 {
 	[VariableInfo("Other", "Transform")]
 	[AddComponentMenu("")]
+    [System.Serializable]
 	public class TransformVariable : VariableBase<Transform>
 	{}
 

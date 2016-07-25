@@ -10,6 +10,7 @@ namespace Fungus
 {
 	[VariableInfo("", "Float")]
 	[AddComponentMenu("")]
+    [System.Serializable]
 	public class FloatVariable : VariableBase<float>
 	{
 		public virtual bool Evaluate(CompareOperator compareOperator, float floatValue)

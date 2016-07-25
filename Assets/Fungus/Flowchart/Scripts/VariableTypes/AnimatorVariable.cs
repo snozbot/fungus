@@ -10,6 +10,7 @@ namespace Fungus
 {
 	[VariableInfo("Other", "Animator")]
 	[AddComponentMenu("")]
+    [System.Serializable]
 	public class AnimatorVariable : VariableBase<Animator>
 	{}
 

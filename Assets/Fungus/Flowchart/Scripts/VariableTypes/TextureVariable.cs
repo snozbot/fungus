@@ -10,6 +10,7 @@ namespace Fungus
 {
 	[VariableInfo("Other", "Texture")]
 	[AddComponentMenu("")]
+    [System.Serializable]
 	public class TextureVariable : VariableBase<Texture>
 	{}
 

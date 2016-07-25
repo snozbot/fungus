@@ -10,6 +10,7 @@ namespace Fungus
 {
 	[VariableInfo("Other", "Color")]
 	[AddComponentMenu("")]
+    [System.Serializable]
 	public class ColorVariable : VariableBase<Color>
 	{}
 

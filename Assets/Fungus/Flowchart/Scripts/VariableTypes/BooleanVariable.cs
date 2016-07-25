@@ -12,6 +12,7 @@ namespace Fungus
 
 	[VariableInfo("", "Boolean")]
 	[AddComponentMenu("")]
+    [System.Serializable]
 	public class BooleanVariable : VariableBase<bool>
 	{
 		public virtual bool Evaluate(CompareOperator compareOperator, bool booleanValue)

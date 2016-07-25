@@ -10,6 +10,7 @@ namespace Fungus
 {
 	[VariableInfo("Other", "Sprite")]
 	[AddComponentMenu("")]
+    [System.Serializable]
 	public class SpriteVariable : VariableBase<Sprite>
 	{}
 
