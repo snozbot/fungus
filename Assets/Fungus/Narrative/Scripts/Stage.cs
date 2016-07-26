@@ -82,6 +82,17 @@ namespace Fungus
             }
             return null;
         }
+
+        public static Stage GetActiveStage()
+        {
+            if (Stage.activeStages == null ||
+                Stage.activeStages.Count == 0)
+            {
+                return null;
+            }
+
+            return Stage.activeStages[0];
+        }
     }
 }
 

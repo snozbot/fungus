@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-	public class Conversation
+	public class ConversationManager
 	{
         protected struct ConversationItem
         {
@@ -20,7 +20,7 @@ namespace Fungus
 
 		protected bool exitSayWait;
 
-		public Conversation ()
+		public void PopulateCharacterCache()
 		{
 			// cache characters for faster lookup
 			characters = UnityEngine.Object.FindObjectsOfType<Character>();

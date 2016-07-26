@@ -423,7 +423,7 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: 'conversation[[
+  luaScript: 'conversation [[
 
 
     watson annoyed left: What the deuce!
@@ -507,7 +507,7 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: "conversation [[\r\nsherlock right: Character+position.\r\nThis is a
+  luaScript: "conversation  [[\r\nsherlock right: Character+position.\r\nThis is a
     continuation of the last line.\nS bored left:All three options with name shortened.\nwatson
     annoyed right: Adding a new character on the right.\r\nW, confident, offscreen
     right: Move Watson offscreen using commas.\r\n]]"

@@ -197,10 +197,14 @@ function M.say(text, voiceclip)
    M.runwait(e)
 end
 
--- Say series of lines
--- conv: A string of conversational lines
+-- Say a series of lines, setting speakign character, portrait or stage position on each line.
+-- All parameters may be ommitted. The first three parameters can appear in any order.
+-- The story text starts with a ':' and runs to the next newline character.
+-- conv: A string of conversational lines using the following format.
+-- [character] [portrait] [position] <: Story text>
+-- e.g. john happy left: Hi, I'm happy.
 function M.conversation(conv)
-	local e = luautils.Conversation(conv)
+	local e = luautils.DoConversation(conv)
 	M.runwait(e)
 end
 

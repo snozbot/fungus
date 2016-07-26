@@ -72,7 +72,7 @@ namespace Fungus
 
 		protected StringSubstituter stringSubstituter;
 
-		protected Conversation conversation;
+		protected ConversationManager conversationManager;
 		
 		/// <summary>
 		/// Called by LuaEnvironment when initializing.
@@ -285,7 +285,8 @@ namespace Fungus
 
 			stringSubstituter = new StringSubstituter();
 
-			conversation = new Conversation();
+			conversationManager = new ConversationManager();
+            conversationManager.PopulateCharacterCache();
 
 			if (fungusModule == FungusModuleOptions.UseGlobalVariables)
 			{				
@@ -475,9 +476,9 @@ namespace Fungus
 		/// Use the conversation manager to play out a conversation
 		/// </summary>
 		/// <param name="conv"></param>
-		public virtual IEnumerator Conversation(string conv)
+		public virtual IEnumerator DoConversation(string conv)
 		{
-			return conversation.DoConversation(conv);
+			return conversationManager.DoConversation(conv);
 		}
    }
 
