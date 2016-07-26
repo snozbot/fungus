@@ -76,15 +76,8 @@ namespace Fungus
                     currentCharacter = item.Character;
                 }
 
-                if (item.Portrait != null)
-                {
-                    currentPortrait = item.Portrait;
-                }
-
-                if (item.Position != null)
-                {
-                    currentPosition = item.Position;
-                }
+                currentPortrait = item.Portrait;
+                currentPosition = item.Position;
 
                 SayDialog sayDialog = GetSayDialog(currentCharacter);
 
@@ -110,7 +103,7 @@ namespace Fungus
                 {
                     PortraitOptions portraitOptions = new PortraitOptions(true);
                     portraitOptions.character = currentCharacter;
-                    portraitOptions.fromPosition = currentCharacter.state.position ?? previousPosition;
+                    portraitOptions.fromPosition = currentCharacter.state.position;
                     portraitOptions.toPosition = currentPosition;
                     portraitOptions.portrait = currentPortrait;
 
