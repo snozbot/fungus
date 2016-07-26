@@ -477,7 +477,7 @@ namespace Fungus
 		/// <param name="conv"></param>
 		public virtual IEnumerator Conversation(string conv)
 		{
-			return conversationManager.Conversation(conv);
+			return conversationManager.DoConversation(conv);
 		}
    }
 
