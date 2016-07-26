@@ -114,6 +114,14 @@ namespace Fungus
                     portraitOptions.toPosition = currentPosition;
                     portraitOptions.portrait = currentPortrait;
 
+                    // Do a move tween if the same character as before is moving to a new position
+                    // In all other cases snap to the new position.
+                    if (previousCharacter == currentCharacter &&
+                        previousPosition != currentPosition)
+                    {
+                        portraitOptions.move = true;
+                    }
+
                     stage.Show(portraitOptions);
                 }
                     
