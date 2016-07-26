@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-	public class ConversationManager
+	public class Conversation
 	{
         protected struct ConversationItem
         {
@@ -20,7 +20,7 @@ namespace Fungus
 
 		protected bool exitSayWait;
 
-		public ConversationManager ()
+		public Conversation ()
 		{
 			// cache characters for faster lookup
 			characters = UnityEngine.Object.FindObjectsOfType<Character>();
@@ -55,7 +55,7 @@ namespace Fungus
 				yield break;
 			}
 
-            var conversationItems = ParseConversation(conv);
+            var conversationItems = Parse(conv);
 
             // Play the conversation
 
@@ -132,7 +132,7 @@ namespace Fungus
             }
 		}
 
-        protected virtual List<ConversationItem> ParseConversation(string conv)
+        protected virtual List<ConversationItem> Parse(string conv)
         {
             //find SimpleScript say strings with portrait options
             //You can test regex matches here: http://regexstorm.net/tester
