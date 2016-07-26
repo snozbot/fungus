@@ -13,7 +13,7 @@ using MoonSharp.Interpreter;
 
 namespace Fungus
 {
-	public struct PortraitOptions
+	public class PortraitOptions
 	{
 		public Character character;
 		public Character replacedCharacter;
@@ -38,7 +38,6 @@ namespace Fungus
 		/// <param name="useDefaultSettings">Will use stage default times for animation and fade</param>
 		public PortraitOptions(bool useDefaultSettings = true)
 		{
-			// Defaults usually assigned on constructing a struct
 			character = null;
 			replacedCharacter = null;
 			portrait = null;
@@ -53,7 +52,7 @@ namespace Fungus
 			waitUntilFinished = false;
 			onComplete = null;
 
-			// Special values that can be overriden
+			// Special values that can be overridden
 			fadeDuration = 0.5f;
 			moveDuration = 1f;
 			this.useDefaultSettings = useDefaultSettings;
@@ -65,7 +64,7 @@ namespace Fungus
 		}
 	}
 
-	public struct PortraitState
+	public class PortraitState
 	{
 		public bool onScreen;
 		public bool dimmed;
@@ -112,6 +111,7 @@ namespace Fungus
 		void Awake()
 		{
 			stage = GetComponentInParent<Stage>();
+			stage.CachePositions();
 		}
 
 		/// <summary>
@@ -394,11 +394,13 @@ namespace Fungus
 			options.moveDuration = moveDuration;
 			options.waitUntilFinished = waitUntilFinished;
 
-			DoMoveTween(CleanPortraitOptions(options));
+			DoMoveTween(options);
 		}
 
 		public void DoMoveTween(PortraitOptions options)
 		{
+			CleanPortraitOptions(options);
+
 			// LeanTween doesn't handle 0 duration properly
 			float duration = (options.moveDuration > 0f) ? options.moveDuration : float.Epsilon;
 
@@ -422,7 +424,7 @@ namespace Fungus
 			options.character = character;
 			options.fromPosition = options.toPosition = stage.GetPosition(position);
 
-			Show(CleanPortraitOptions(options));
+			Show(options);
 		}
 
 		/// <summary>
@@ -441,7 +443,7 @@ namespace Fungus
 			options.toPosition = stage.GetPosition(toPosition);
 			options.move = true;
 
-			Show(CleanPortraitOptions(options));
+			Show(options);
 		}
 
 		/// <summary>
@@ -453,7 +455,7 @@ namespace Fungus
 		/// <param name="optionsTable">Moonsharp Table</param>
 		public void Show(Table optionsTable)
 		{
-			Show(CleanPortraitOptions(PortraitUtil.ConvertTableToPortraitOptions(optionsTable, stage)));
+			Show(PortraitUtil.ConvertTableToPortraitOptions(optionsTable, stage));
 		}
 
 		/// <summary>
@@ -462,6 +464,8 @@ namespace Fungus
 		/// <param name="options"></param>
 		public void Show(PortraitOptions options)
 		{
+			options = CleanPortraitOptions(options);
+
 			if (options.shiftIntoPlace)
 			{
 				options.fromPosition = Instantiate(options.toPosition) as RectTransform;
@@ -507,9 +511,12 @@ namespace Fungus
 			}
 
 			// Fade in the new sprite image
-			options.character.state.portraitImage.sprite = options.portrait;
-			options.character.state.portraitImage.color = new Color(1f, 1f, 1f, 0f);
-			LeanTween.alpha(options.character.state.portraitImage.rectTransform, 1f, duration).setEase(stage.fadeEaseType);
+			if (options.character.state.portraitImage.sprite != options.portrait)
+			{
+				options.character.state.portraitImage.sprite = options.portrait;
+				options.character.state.portraitImage.color = new Color(1f, 1f, 1f, 0f);
+				LeanTween.alpha(options.character.state.portraitImage.rectTransform, 1f, duration).setEase(stage.fadeEaseType);
+			}
 
 			DoMoveTween(options);
 
@@ -548,7 +555,7 @@ namespace Fungus
 				options.fromPosition = options.toPosition = character.state.position;
 			}
 
-			Show(CleanPortraitOptions(options));
+			Show(options);
 		}
 
 		/// <summary>
@@ -560,7 +567,7 @@ namespace Fungus
 			PortraitOptions options = new PortraitOptions(true);
 			options.character = character;
 
-			Hide(CleanPortraitOptions(options));
+			Hide(options);
 		}
 
 		/// <summary>
@@ -575,7 +582,7 @@ namespace Fungus
 			options.toPosition = stage.GetPosition(toPosition);
 			options.move = true;
 
-			Hide(CleanPortraitOptions(options));
+			Hide(options);
 		}
 
 		/// <summary>
@@ -587,7 +594,7 @@ namespace Fungus
 		/// <param name="optionsTable">Moonsharp Table</param>
 		public void Hide(Table optionsTable)
 		{
-			Hide(CleanPortraitOptions(PortraitUtil.ConvertTableToPortraitOptions(optionsTable, stage)));
+			Hide(PortraitUtil.ConvertTableToPortraitOptions(optionsTable, stage));
 		}
 
 		/// <summary>
@@ -596,6 +603,8 @@ namespace Fungus
 		/// <param name="options"></param>
 		public void Hide(PortraitOptions options)
 		{
+			CleanPortraitOptions(options);
+
 			if (options.character.state.display == DisplayType.None)
 			{
 				return;

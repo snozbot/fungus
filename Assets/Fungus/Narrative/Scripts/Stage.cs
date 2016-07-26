@@ -25,6 +25,7 @@ namespace Fungus
 		public Vector2 shiftOffset;
 		public Image defaultPosition;
 		public List<RectTransform> positions;
+		public RectTransform[] cachedPositions;
 		public List<Character> charactersOnStage = new List<Character>();
 
 		[HideInInspector]
@@ -36,6 +37,12 @@ namespace Fungus
 			{
 				activeStages.Add(this);
 			}
+		}
+
+		public void CachePositions()
+		{
+			cachedPositions = new RectTransform[positions.Count];
+			positions.CopyTo(cachedPositions);
 		}
 
 		protected virtual void OnDisable()
@@ -61,21 +68,19 @@ namespace Fungus
 		/// <returns></returns>
         public RectTransform GetPosition(String position_string)
         {
-            if (position_string == null)
+            if (string.IsNullOrEmpty(position_string))
             {
-                Debug.LogWarning("Missing stage position.");
-                return new RectTransform();
+                return null;
             }
 
-            foreach (RectTransform position in positions)
+            for (int i = 0; i < cachedPositions.Length; i++)
             {
-                if ( String.Compare(position.name, position_string, true) == 0 )
+                if ( String.Compare(cachedPositions[i].name, position_string, true) == 0 )
                 {
-                    return position;
+                    return cachedPositions[i];
                 }
             }
-            Debug.LogWarning("Unidentified stage position: " + position_string);
-            return new RectTransform();
+            return null;
         }
     }
 }

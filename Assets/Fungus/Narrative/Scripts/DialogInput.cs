@@ -82,6 +82,11 @@ namespace Fungus
 
 		protected virtual void Update()
 		{
+            if (EventSystem.current == null)
+            {
+                return;
+            }
+
             if (currentStandaloneInputModule == null)
             {
                 if (EventSystem.current == null)
