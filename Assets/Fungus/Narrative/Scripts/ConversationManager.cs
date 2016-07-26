@@ -26,15 +26,23 @@ namespace Fungus
 			characters = UnityEngine.Object.FindObjectsOfType<Character>();
 		}
 
-        protected Stage GetActiveStage()
+        protected SayDialog GetSayDialog(Character character)
         {
-            if (Stage.activeStages == null ||
-                Stage.activeStages.Count == 0)
+            SayDialog sayDialog = null;
+            if (character != null)
             {
-                return null;
+                if (character.setSayDialog != null)
+                {
+                    sayDialog = character.setSayDialog;
+                }
             }
 
-            return Stage.activeStages[0];
+            if (sayDialog == null)
+            {
+                sayDialog = SayDialog.GetSayDialog();
+            }
+
+            return sayDialog;
         }
 
 		/// <summary>
@@ -48,25 +56,17 @@ namespace Fungus
 				yield break;
 			}
 			
-			SayDialog sayDialog = SayDialog.GetSayDialog();
-
-			if (sayDialog == null)
-			{
-				yield break;
-			}
-
             var conversationItems = Parse(conv);
 
-            // Play the conversation
-
+            // Track the current and previous parameter values
             Character currentCharacter = null;
             Sprite currentPortrait = null;
             RectTransform currentPosition = null;
-
             Character previousCharacter = null;
             Sprite previousPortrait = null;
             RectTransform previousPosition = null;
 
+            // Play the conversation
             for (int i = 0; i < conversationItems.Count; ++i)
             {
                 ConversationItem item = conversationItems[i];
@@ -86,6 +86,14 @@ namespace Fungus
                     currentPosition = item.Position;
                 }
 
+                SayDialog sayDialog = GetSayDialog(currentCharacter);
+
+                if (sayDialog == null)
+                {
+                    // Should never happen
+                    yield break;
+                }
+
                 sayDialog.gameObject.SetActive(true);
 
                 if (currentCharacter != null && 
@@ -94,7 +102,7 @@ namespace Fungus
                     sayDialog.SetCharacter(currentCharacter);
                 }
 
-                Stage stage = GetActiveStage();
+                Stage stage = Stage.GetActiveStage();
 
                 if (stage != null && 
                     currentCharacter != null && 
@@ -236,7 +244,7 @@ namespace Fungus
             }
 
             // Next check if there's a position parameter
-            Stage stage = GetActiveStage();
+            Stage stage = Stage.GetActiveStage();
             if (stage != null)
             {
                 for (int i = 0; i < sayParams.Length; i++)
