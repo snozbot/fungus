@@ -593,7 +593,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &215354033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1145,17 +1145,14 @@ GameObject:
   - 114: {fileID: 1286795360}
   - 114: {fileID: 1286795366}
   - 114: {fileID: 1286795365}
-  - 114: {fileID: 1286795364}
   - 114: {fileID: 1286795363}
   - 114: {fileID: 1286795362}
   - 114: {fileID: 1286795361}
-  - 114: {fileID: 1286795359}
   - 114: {fileID: 1286795358}
   - 114: {fileID: 1286795357}
   - 114: {fileID: 1286795356}
   - 114: {fileID: 1286795352}
   - 114: {fileID: 1286795371}
-  - 114: {fileID: 1286795370}
   - 114: {fileID: 1286795369}
   - 114: {fileID: 1286795368}
   - 114: {fileID: 1286795367}
@@ -1166,17 +1163,21 @@ GameObject:
   - 114: {fileID: 1286795376}
   - 114: {fileID: 1286795375}
   - 114: {fileID: 1286795381}
-  - 114: {fileID: 1286795380}
   - 114: {fileID: 1286795379}
   - 114: {fileID: 1286795378}
   - 114: {fileID: 1286795382}
   - 114: {fileID: 1286795387}
-  - 114: {fileID: 1286795386}
   - 114: {fileID: 1286795385}
   - 114: {fileID: 1286795384}
   - 114: {fileID: 1286795383}
   - 114: {fileID: 1286795388}
   - 114: {fileID: 1286795389}
+  - 114: {fileID: 1286795390}
+  - 114: {fileID: 1286795370}
+  - 114: {fileID: 1286795364}
+  - 114: {fileID: 1286795359}
+  - 114: {fileID: 1286795380}
+  - 114: {fileID: 1286795391}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1243,7 +1244,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 172
-    y: 78
+    y: 76.96158
     width: 120
     height: 40
   itemId: 0
@@ -1257,6 +1258,7 @@ MonoBehaviour:
   - {fileID: 1286795383}
   - {fileID: 1286795352}
   - {fileID: 1286795367}
+  - {fileID: 1286795364}
   - {fileID: 1286795360}
 --- !u!114 &1286795355
 MonoBehaviour:
@@ -1271,7 +1273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 0, y: 0}
+  scrollPos: {x: -3.115326, y: 2.0768204}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
@@ -1281,11 +1283,12 @@ MonoBehaviour:
     x: -351
     y: -385.42166
     width: 1563
-    height: 1058.1113
-  selectedBlock: {fileID: 1286795387}
+    height: 1097.6444
+  selectedBlock: {fileID: 1286795365}
   selectedCommands:
-  - {fileID: 1286795389}
-  variables: []
+  - {fileID: 1286795363}
+  variables:
+  - {fileID: 1286795390}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -1372,14 +1375,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1286795350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
+  m_Script: {fileID: 11500000, guid: f608b8c9fb3044200aac956492d8d586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 14
+  itemId: 42
   errorMessage: 
   indentLevel: 0
-  commenterName: 
-  commentText: Single conversation line, no newline test
+  conversationText:
+    stringRef: {fileID: 0}
+    stringVal: 'john bored left: {$StringVar}{w=1}{x}'
 --- !u!114 &1286795360
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1416,7 +1420,6 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 1286795359}
   - {fileID: 1286795358}
   - {fileID: 1286795357}
 --- !u!114 &1286795362
@@ -1467,14 +1470,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1286795350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 10
+  itemId: 41
   errorMessage: 
   indentLevel: 0
-  commenterName: 
-  commentText: Empty string test
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 1286795370}
+  startIndex: 0
+  callMode: 2
 --- !u!114 &1286795365
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1497,7 +1502,6 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 1286795364}
   - {fileID: 1286795363}
   - {fileID: 1286795362}
 --- !u!114 &1286795366
@@ -1595,14 +1599,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1286795350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 20
-  errorMessage: 
-  indentLevel: 0
-  commenterName: 
-  commentText: Single conversation line, no newline test
+  nodeRect:
+    serializedVersion: 2
+    x: 341.79718
+    y: 269.10748
+    width: 120
+    height: 40
+  itemId: 40
+  blockName: Substitution
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1286795359}
+  - {fileID: 1286795380}
 --- !u!114 &1286795371
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1616,7 +1628,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 339.07684
+    x: 340.11526
     y: 215.03644
     width: 120
     height: 40
@@ -1625,7 +1637,6 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 1286795370}
   - {fileID: 1286795369}
   - {fileID: 1286795368}
 --- !u!114 &1286795372
@@ -1657,10 +1668,7 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
-  luaScript: 'print ("#" .. storytext.text .. "#")
-
-
-    check (nametext.text == "John")
+  luaScript: 'check (nametext.text == "John")
 
     check (storytext.text == "John line 1")'
   runAsCoroutine: 1
@@ -1679,7 +1687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 481.6208
+    x: 482.65918
     y: 214.0749
     width: 131
     height: 40
@@ -1737,7 +1745,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 624.3468
+    x: 626.42365
     y: 214.0749
     width: 153
     height: 40
@@ -1763,7 +1771,9 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
-  luaScript: 'check (storytext.text == "Just story text")
+  luaScript: 'print (storytext.text)
+
+    check (storytext.text == "Just story text")
 
 '
   runAsCoroutine: 1
@@ -1796,14 +1806,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1286795350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 71f455683d4ba4405b8dbba457159620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 29
+  itemId: 43
   errorMessage: 
   indentLevel: 0
-  commenterName: 
-  commentText: Empty string test
+  luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: check (storytext.text == "TestString")
+  runAsCoroutine: 1
+  waitUntilFinished: 1
+  returnVariable: {fileID: 0}
 --- !u!114 &1286795381
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1817,8 +1831,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 339.0433
-    y: 61.307415
+    x: 334.88962
+    y: 64.4227
     width: 120
     height: 40
   itemId: 28
@@ -1826,7 +1840,7 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 1286795380}
+  - {fileID: 1286795391}
   - {fileID: 1286795379}
   - {fileID: 1286795378}
 --- !u!114 &1286795382
@@ -1849,7 +1863,7 @@ MonoBehaviour:
   callMode: 2
 --- !u!114 &1286795383
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1286795350}
@@ -1867,7 +1881,7 @@ MonoBehaviour:
   callMode: 2
 --- !u!114 &1286795384
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1286795350}
@@ -1889,7 +1903,7 @@ MonoBehaviour:
   returnVariable: {fileID: 0}
 --- !u!114 &1286795385
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1286795350}
@@ -1904,25 +1918,9 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: 'john bored left:'
---- !u!114 &1286795386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1286795350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 34
-  errorMessage: 
-  indentLevel: 0
-  commenterName: 
-  commentText: Empty string test
 --- !u!114 &1286795387
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1286795350}
@@ -1942,14 +1940,13 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 1286795386}
   - {fileID: 1286795385}
   - {fileID: 1286795388}
   - {fileID: 1286795384}
   - {fileID: 1286795389}
 --- !u!114 &1286795388
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1286795350}
@@ -1967,7 +1964,7 @@ MonoBehaviour:
   durationOLD: 0
 --- !u!114 &1286795389
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1286795350}
@@ -1981,7 +1978,7 @@ MonoBehaviour:
   indentLevel: 0
   display: 2
   stage: {fileID: 0}
-  character: {fileID: 2146958086}
+  character: {fileID: 0}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 0}
   offset: 0
@@ -1995,6 +1992,40 @@ MonoBehaviour:
   move: 0
   shiftIntoPlace: 0
   waitUntilFinished: 1
+--- !u!114 &1286795390
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1286795350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4580f28dd8581476b810b38eea2f1316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: StringVar
+  value: TestString
+--- !u!114 &1286795391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1286795350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f455683d4ba4405b8dbba457159620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 45
+  errorMessage: 
+  indentLevel: 0
+  luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: storytext.text = ""
+  runAsCoroutine: 1
+  waitUntilFinished: 1
+  returnVariable: {fileID: 0}
 --- !u!1 &1349948625
 GameObject:
   m_ObjectHideFlags: 0
