@@ -1178,6 +1178,9 @@ GameObject:
   - 114: {fileID: 1286795359}
   - 114: {fileID: 1286795380}
   - 114: {fileID: 1286795391}
+  - 114: {fileID: 1286795392}
+  - 114: {fileID: 1286795386}
+  - 114: {fileID: 1286795393}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1284,11 +1287,12 @@ MonoBehaviour:
     y: -385.42166
     width: 1563
     height: 1097.6444
-  selectedBlock: {fileID: 1286795365}
+  selectedBlock: {fileID: 1286795370}
   selectedCommands:
-  - {fileID: 1286795363}
+  - {fileID: 1286795392}
   variables:
   - {fileID: 1286795390}
+  - {fileID: 1286795386}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -1383,7 +1387,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: 'john bored left: {$StringVar}{w=1}{x}'
+    stringVal: 'john bored left: {$StringVar1}{w=1}{x}'
 --- !u!114 &1286795360
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1615,6 +1619,8 @@ MonoBehaviour:
   commandList:
   - {fileID: 1286795359}
   - {fileID: 1286795380}
+  - {fileID: 1286795392}
+  - {fileID: 1286795393}
 --- !u!114 &1286795371
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1812,9 +1818,9 @@ MonoBehaviour:
   itemId: 43
   errorMessage: 
   indentLevel: 0
-  luaEnvironment: {fileID: 0}
+  luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
-  luaScript: check (storytext.text == "TestString")
+  luaScript: check (storytext.text == "TestString1")
   runAsCoroutine: 1
   waitUntilFinished: 1
   returnVariable: {fileID: 0}
@@ -1831,7 +1837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 334.88962
+    x: 335.92807
     y: 64.4227
     width: 120
     height: 40
@@ -1918,6 +1924,20 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: 'john bored left:'
+--- !u!114 &1286795386
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1286795350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4580f28dd8581476b810b38eea2f1316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 1
+  key: StringVar2
+  value: TestString2
 --- !u!114 &1286795387
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2004,11 +2024,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scope: 0
-  key: StringVar
-  value: TestString
+  key: StringVar1
+  value: TestString1
 --- !u!114 &1286795391
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1286795350}
@@ -2020,9 +2040,58 @@ MonoBehaviour:
   itemId: 45
   errorMessage: 
   indentLevel: 0
-  luaEnvironment: {fileID: 0}
+  luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
   luaScript: storytext.text = ""
+  runAsCoroutine: 1
+  waitUntilFinished: 1
+  returnVariable: {fileID: 0}
+--- !u!114 &1286795392
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1286795350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f455683d4ba4405b8dbba457159620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 46
+  errorMessage: 
+  indentLevel: 0
+  luaEnvironment: {fileID: 66556862}
+  luaFile: {fileID: 0}
+  luaScript: 'storytext.text = ""
+
+
+    conversation [[
+
+    sherlock bored right: {$StringVar2}{w=1}{x}
+
+    ]]
+
+'
+  runAsCoroutine: 1
+  waitUntilFinished: 1
+  returnVariable: {fileID: 0}
+--- !u!114 &1286795393
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1286795350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f455683d4ba4405b8dbba457159620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 47
+  errorMessage: 
+  indentLevel: 0
+  luaEnvironment: {fileID: 66556862}
+  luaFile: {fileID: 0}
+  luaScript: check (storytext.text == "TestString2")
   runAsCoroutine: 1
   waitUntilFinished: 1
   returnVariable: {fileID: 0}

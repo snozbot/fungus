@@ -203,8 +203,9 @@ end
 -- conv: A string of conversational lines using the following format.
 -- [character] [portrait] [position] <: Story text>
 -- e.g. john happy left: Hi, I'm happy.
-function M.conversation(conv)
-	local e = luautils.DoConversation(conv)
+function M.conversation(text)
+	local subbed = M.sub(text)
+	local e = luautils.DoConversation(subbed)
 	M.runwait(e)
 end
 
