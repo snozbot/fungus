@@ -136,7 +136,7 @@ namespace Fungus
             // Start method of another component, so check that no image has been set yet.
             // Same for nameText.
 
-            if (nameText.text == "")
+            if (nameText != null && nameText.text == "")
             {
                 SetCharacterName("", Color.white);
             }
