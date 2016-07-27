@@ -58,6 +58,11 @@ namespace Fungus
 			
             var conversationItems = Parse(conv);
 
+            if (conversationItems.Count == 0)
+            {
+                yield break;
+            }
+
             // Track the current and previous parameter values
             Character currentCharacter = null;
             Sprite currentPortrait = null;
@@ -145,7 +150,7 @@ namespace Fungus
         {
             //find SimpleScript say strings with portrait options
             //You can test regex matches here: http://regexstorm.net/tester
-            Regex sayRegex = new Regex(@"((?<sayParams>[\w ,]*):)?(?<text>.*\r*\n)");
+            Regex sayRegex = new Regex(@"((?<sayParams>[\w ,]*):)?(?<text>.*)\r*(\n|$)");
             MatchCollection sayMatches = sayRegex.Matches(conv);
 
             var items = new List<ConversationItem>(sayMatches.Count);
@@ -155,6 +160,14 @@ namespace Fungus
             {
                 string text = sayMatches[i].Groups["text"].Value;
                 string sayParams = sayMatches[i].Groups["sayParams"].Value;
+
+                // As text and SayParams are both optional, an empty string will match the regex.
+                // We can ignore any matches were both are empty.
+                if (text.Length == 0 && sayParams.Length == 0)
+                {
+                    continue;
+                }
+
                 string[] separateParams = null;
 
                 if (!string.IsNullOrEmpty(sayParams))
@@ -194,7 +207,7 @@ namespace Fungus
             var item = new ConversationItem();
 
             // Populate the story text to be written
-            item.Text = text;
+            item.Text = text.Trim();
 
             if (sayParams == null || sayParams.Length == 0)
             {
