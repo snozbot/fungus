@@ -217,6 +217,11 @@ namespace Fungus
 
 			// try to find the character param first, since we need to get its portrait
             int characterIndex = -1;
+            if (characters == null)
+            {
+                PopulateCharacterCache();
+            }
+
             for (int i = 0; item.Character == null && i < sayParams.Length; i++)
 			{
 				for (int j = 0; j < characters.Length; j++)
