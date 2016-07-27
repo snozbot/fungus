@@ -122,6 +122,12 @@ namespace Fungus
 
                     stage.Show(portraitOptions);
                 }
+
+                if (stage == null &&
+                    currentPortrait != null)
+                {
+                    sayDialog.SetCharacterImage(currentPortrait);
+                }
                     
                 previousCharacter = currentCharacter;
                 previousPortrait = currentPortrait;
