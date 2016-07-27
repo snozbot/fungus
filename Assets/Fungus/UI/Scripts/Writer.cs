@@ -164,7 +164,7 @@ namespace Fungus
 			// Try to find any component with a text property
 			if (textUI == null && inputField == null && textMesh == null)
 			{
-				foreach (Component c in GetComponents<Component>())
+				foreach (Component c in go.GetComponents<Component>())
 				{
 					textProperty = c.GetType().GetProperty("text");
 					if (textProperty != null)
