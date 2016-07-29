@@ -2158,7 +2158,12 @@ MonoBehaviour:
     stringRef: {fileID: 0}
     stringVal: 'john bored left: Wow, I''ve got my own SayDialog!
 
-      sherlock bored right: Big whoop, so do I.'
+      sherlock bored right: Big whoop, so do I.
+
+
+      john hide:
+
+      sherlock hide:'
 --- !u!114 &1755499608
 MonoBehaviour:
   m_ObjectHideFlags: 2
