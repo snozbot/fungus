@@ -246,8 +246,6 @@ GameObject:
   - 114: {fileID: 574033267}
   - 114: {fileID: 574033272}
   - 114: {fileID: 574033266}
-  - 114: {fileID: 574033273}
-  - 114: {fileID: 574033271}
   - 114: {fileID: 574033274}
   m_Layer: 0
   m_Name: Flowchart
@@ -353,8 +351,6 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 574033267}
   commandList:
-  - {fileID: 574033271}
-  - {fileID: 574033273}
   - {fileID: 574033272}
   - {fileID: 574033274}
   - {fileID: 574033266}
@@ -383,7 +379,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlock: {fileID: 574033268}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 574033272}
   variables: []
   description: 
   stepPause: 0
@@ -408,50 +405,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
---- !u!114 &574033271
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 574033265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71f455683d4ba4405b8dbba457159620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 7
-  errorMessage: 
-  indentLevel: 0
-  luaEnvironment: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: 'conversation [[
-
-
-    watson annoyed left: What the deuce!
-
-    confident middle: I say!
-
-    annoyed: Well I never!
-
-    I exclaim!
-
-
-    sherlock bored right: ahem!
-
-    right: I concur.
-
-    angry: Wait, no I don''t!
-
-
-    watson: Whatever man.
-
-
-    ]]
-
-'
-  runAsCoroutine: 1
-  waitUntilFinished: 1
-  returnVariable: {fileID: 0}
 --- !u!114 &574033272
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -492,29 +445,6 @@ MonoBehaviour:
     stage.hide{character=watson}
 
     wait(1)'
-  runAsCoroutine: 1
-  waitUntilFinished: 1
-  returnVariable: {fileID: 0}
---- !u!114 &574033273
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 574033265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71f455683d4ba4405b8dbba457159620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 6
-  errorMessage: 
-  indentLevel: 0
-  luaEnvironment: {fileID: 0}
-  luaFile: {fileID: 0}
-  luaScript: "conversation  [[\r\nsherlock right: Character+position.\r\nThis is a
-    continuation of the last line.\nS bored left:All three options with name shortened.\nwatson
-    annoyed right: Adding a new character on the right.\r\nW, confident, offscreen
-    right: Move Watson offscreen using commas.\r\n]]"
   runAsCoroutine: 1
   waitUntilFinished: 1
   returnVariable: {fileID: 0}
