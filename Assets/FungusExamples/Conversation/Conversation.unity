@@ -907,7 +907,7 @@ MonoBehaviour:
     height: 859
   selectedBlock: {fileID: 1755499608}
   selectedCommands:
-  - {fileID: 1755499607}
+  - {fileID: 1755499611}
   variables: []
   description: 
   stepPause: 0
@@ -1023,13 +1023,18 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
-  luaScript: 'conversation [[
+  luaScript: '-- Gobal variables can be embedded using the {$VarName} syntax.
+
+    adjective = "riveting"
+
+
+    conversation [[
 
     sherlock excited: AHA! So that''s how you do a conversation from Lua!
 
     Fascinating.
 
-    john bored left: Yes, riveting.
+    john bored left: Yes, {$adjective}.
 
 
     john hide:
