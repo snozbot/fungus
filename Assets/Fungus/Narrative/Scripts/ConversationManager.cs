@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using System.Text;
 
 namespace Fungus
 {
@@ -69,8 +70,6 @@ namespace Fungus
             Sprite currentPortrait = null;
             RectTransform currentPosition = null;
             Character previousCharacter = null;
-            Sprite previousPortrait = null;
-            RectTransform previousPosition = null;
 
             // Play the conversation
             for (int i = 0; i < conversationItems.Count; ++i)
@@ -101,32 +100,32 @@ namespace Fungus
                     sayDialog.SetCharacter(currentCharacter);
                 }
 
-                Stage stage = Stage.GetActiveStage();
+                var stage = Stage.GetActiveStage();
 
-                if (stage != null && 
-                    currentCharacter != null)
-                {  
+                if (stage != null && currentCharacter != null &&
+                    (currentPortrait != currentCharacter.state.portrait || 
+                     currentPosition != currentCharacter.state.position))
+                {
+                    var portraitOptions = new PortraitOptions(true);
+                    portraitOptions.display = item.Hide ? DisplayType.Hide : DisplayType.Show;
+                    portraitOptions.character = currentCharacter;
+                    portraitOptions.fromPosition = currentCharacter.state.position;
+                    portraitOptions.toPosition = currentPosition;
+                    portraitOptions.portrait = currentPortrait;
+
+                    // Do a move tween if the character is already on screen and not yet at the specified position
+                    if (currentCharacter.state.onScreen &&
+                        currentPosition != currentCharacter.state.position)
+                    {
+                        portraitOptions.move = true;
+                    }
+
                     if (item.Hide)
                     {
-                        // Other params like portrait and position are ignored
-                        stage.Hide(currentCharacter);
+                        stage.Hide(portraitOptions);
                     }
-                    else if (currentPortrait != currentCharacter.state.portrait || currentPosition != currentCharacter.state.position)
+                    else
                     {
-                        PortraitOptions portraitOptions = new PortraitOptions(true);
-                        portraitOptions.display = DisplayType.Show;
-                        portraitOptions.character = currentCharacter;
-                        portraitOptions.fromPosition = currentCharacter.state.position;
-                        portraitOptions.toPosition = currentPosition;
-                        portraitOptions.portrait = currentPortrait;
-
-                        // Do a move tween if the character is already on screen and not yet at the specified position
-                        if (currentCharacter.state.onScreen &&
-                            currentPosition != currentCharacter.state.position)
-                        {
-                            portraitOptions.move = true;
-                        }
-
                         stage.Show(portraitOptions);
                     }
                 }
@@ -138,8 +137,6 @@ namespace Fungus
                 }
                     
                 previousCharacter = currentCharacter;
-                previousPortrait = currentPortrait;
-                previousPosition = currentPosition;
 
                 // Ignore Lua style comments and blank lines
                 if (item.Text.StartsWith("--") || item.Text.Trim() == "")
@@ -164,7 +161,7 @@ namespace Fungus
         {
             //find SimpleScript say strings with portrait options
             //You can test regex matches here: http://regexstorm.net/tester
-            Regex sayRegex = new Regex(@"((?<sayParams>[\w ,]*):)?(?<text>.*)\r*(\n|$)");
+            var sayRegex = new Regex(@"((?<sayParams>[\w ""]*):)?(?<text>.*)\r*(\n|$)");
             MatchCollection sayMatches = sayRegex.Matches(conv);
 
             var items = new List<ConversationItem>(sayMatches.Count);
@@ -186,18 +183,7 @@ namespace Fungus
 
                 if (!string.IsNullOrEmpty(sayParams))
                 {
-                    if (sayParams.Contains(","))
-                    {
-                        separateParams = sayParams.Split(',');
-                        for (int j = 0; j < separateParams.Length; j++)
-                        {
-                            separateParams[j] = separateParams[j].Trim();
-                        }
-                    }
-                    else
-                    {
-                        separateParams = sayParams.Split(' ');
-                    }
+                    separateParams = Split(sayParams);
                 }
 
                 var item = CreateConversationItem(separateParams, text, currentCharacter);
@@ -256,6 +242,7 @@ namespace Fungus
             }
 
             // Check if there's a Hide parameter
+            int hideIndex = -1;
             if (item.Character != null)
             {
                 for (int i = 0; i < sayParams.Length; i++)
@@ -263,7 +250,9 @@ namespace Fungus
                     if (i != characterIndex &&
                         string.Compare(sayParams[i], "hide", true) == 0 )
                     {
+                        hideIndex = i;
                         item.Hide = true;
+                        break;
                     }
                 }
             }
@@ -276,7 +265,8 @@ namespace Fungus
                 {
                     if (item.Portrait == null && 
                         item.Character != null &&
-                        i != characterIndex) 
+                        i != characterIndex && 
+                        i != hideIndex) 
                     {
                         Sprite s = item.Character.GetPortrait(sayParams[i]);
                         if (s != null)
@@ -296,15 +286,67 @@ namespace Fungus
                 for (int i = 0; i < sayParams.Length; i++)
                 {
                     if (i != characterIndex &&
-                        i != portraitIndex)
+                        i != portraitIndex &&
+                        i != hideIndex)
                     {
-                        item.Position = stage.GetPosition(sayParams[i]);
-                        break;
+                        RectTransform r = stage.GetPosition(sayParams[i]);
+                        if (r != null)
+                        {
+                            item.Position = r;
+                            break;
+                        }
                     }
                 }
             }
 
             return item;
 		}
+
+        /// <summary>
+        /// Splits the string passed in by the delimiters passed in.
+        /// Quoted sections are not split, and all tokens have whitespace
+        /// trimmed from the start and end.
+        protected static string[] Split(string stringToSplit)
+        {
+            var results = new List<string>();
+
+            bool inQuote = false;
+            var currentToken = new StringBuilder();
+            for (int index = 0; index < stringToSplit.Length; ++index)
+            {
+                char currentCharacter = stringToSplit[index];
+                if (currentCharacter == '"')
+                {
+                    // When we see a ", we need to decide whether we are
+                    // at the start or send of a quoted section...
+                    inQuote = !inQuote;
+                }
+                else if (char.IsWhiteSpace(currentCharacter) && !inQuote)
+                {
+                    // We've come to the end of a token, so we find the token,
+                    // trim it and add it to the collection of results...
+                    string result = currentToken.ToString().Trim( new [] { ' ', '\n', '\t', '\"'} );
+                    if (result != "") results.Add(result);
+
+                    // We start a new token...
+                    currentToken = new StringBuilder();
+                }
+                else
+                {
+                    // We've got a 'normal' character, so we add it to
+                    // the curent token...
+                    currentToken.Append(currentCharacter);
+                }
+            }
+
+            // We've come to the end of the string, so we add the last token...
+            string lastResult = currentToken.ToString().Trim();
+            if (lastResult != "") 
+            {
+                results.Add(lastResult);
+            }
+
+            return results.ToArray();
+        }
 	}
 }
