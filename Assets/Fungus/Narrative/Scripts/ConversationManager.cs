@@ -14,6 +14,7 @@ namespace Fungus
             public Character Character { get; set; }
             public Sprite Portrait { get; set; }
             public RectTransform Position { get; set; }
+            public bool Hide { get; set; }
         }
 
 		protected Character[] characters;
@@ -103,24 +104,31 @@ namespace Fungus
                 Stage stage = Stage.GetActiveStage();
 
                 if (stage != null && 
-                    currentCharacter != null && 
-                    (currentPortrait != previousPortrait || currentPosition != previousPosition))
-                {
-                    PortraitOptions portraitOptions = new PortraitOptions(true);
-                    portraitOptions.character = currentCharacter;
-                    portraitOptions.fromPosition = currentCharacter.state.position;
-                    portraitOptions.toPosition = currentPosition;
-                    portraitOptions.portrait = currentPortrait;
-
-                    // Do a move tween if the same character as before is moving to a new position
-                    // In all other cases snap to the new position.
-                    if (previousCharacter == currentCharacter &&
-                        previousPosition != currentPosition)
+                    currentCharacter != null)
+                {  
+                    if (item.Hide)
                     {
-                        portraitOptions.move = true;
+                        // Other params like portrait and position are ignored
+                        stage.Hide(currentCharacter);
                     }
+                    else if (currentPortrait != currentCharacter.state.portrait || currentPosition != currentCharacter.state.position)
+                    {
+                        PortraitOptions portraitOptions = new PortraitOptions(true);
+                        portraitOptions.display = DisplayType.Show;
+                        portraitOptions.character = currentCharacter;
+                        portraitOptions.fromPosition = currentCharacter.state.position;
+                        portraitOptions.toPosition = currentPosition;
+                        portraitOptions.portrait = currentPortrait;
 
-                    stage.Show(portraitOptions);
+                        // Do a move tween if the character is already on screen and not yet at the specified position
+                        if (currentCharacter.state.onScreen &&
+                            currentPosition != currentCharacter.state.position)
+                        {
+                            portraitOptions.move = true;
+                        }
+
+                        stage.Show(portraitOptions);
+                    }
                 }
 
                 if (stage == null &&
@@ -164,7 +172,7 @@ namespace Fungus
             Character currentCharacter = null;
             for (int i = 0; i < sayMatches.Count; i++)
             {
-                string text = sayMatches[i].Groups["text"].Value;
+                string text = sayMatches[i].Groups["text"].Value.Trim();
                 string sayParams = sayMatches[i].Groups["sayParams"].Value;
 
                 // As text and SayParams are both optional, an empty string will match the regex.
@@ -213,7 +221,7 @@ namespace Fungus
             var item = new ConversationItem();
 
             // Populate the story text to be written
-            item.Text = text.Trim();
+            item.Text = text;
 
             if (sayParams == null || sayParams.Length == 0)
             {
@@ -247,6 +255,19 @@ namespace Fungus
                 item.Character = currentCharacter;
             }
 
+            // Check if there's a Hide parameter
+            if (item.Character != null)
+            {
+                for (int i = 0; i < sayParams.Length; i++)
+                {
+                    if (i != characterIndex &&
+                        string.Compare(sayParams[i], "hide", true) == 0 )
+                    {
+                        item.Hide = true;
+                    }
+                }
+            }
+                
             // Next see if we can find a portrait for this character
             int portraitIndex = -1;
             if (item.Character != null)
