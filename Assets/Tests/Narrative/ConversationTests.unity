@@ -1024,7 +1024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &650544893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2127,9 +2127,9 @@ MonoBehaviour:
     y: -385.42166
     width: 1563
     height: 1097.6444
-  selectedBlock: {fileID: 1286795354}
+  selectedBlock: {fileID: 1286795387}
   selectedCommands:
-  - {fileID: 1286795366}
+  - {fileID: 1286795389}
   variables:
   - {fileID: 1286795390}
   - {fileID: 1286795386}
@@ -2338,7 +2338,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 337.1537
-    y: 16.65519
+    y: 15.616764
     width: 120
     height: 40
   itemId: 9
@@ -2350,7 +2350,7 @@ MonoBehaviour:
   - {fileID: 1286795362}
 --- !u!114 &1286795366
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1286795350}
@@ -2614,9 +2614,7 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
-  luaScript: 'print (storytext.text)
-
-    check (storytext.text == "Just story text")
+  luaScript: 'check (storytext.text == "Just story text")
 
 '
   runAsCoroutine: 1
@@ -2683,9 +2681,9 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 1286795391}
   - {fileID: 1286795379}
   - {fileID: 1286795378}
+  - {fileID: 1286795391}
 --- !u!114 &1286795382
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3376,7 +3374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1143151456}
+  selectedFlowchart: {fileID: 1286795355}
 --- !u!4 &1658702952
 Transform:
   m_ObjectHideFlags: 1

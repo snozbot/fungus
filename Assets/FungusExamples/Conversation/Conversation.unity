@@ -461,6 +461,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!1 &1290383786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1290383790}
+  - 114: {fileID: 1290383789}
+  - 114: {fileID: 1290383788}
+  - 114: {fileID: 1290383787}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1290383787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1290383786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ForceModuleActive: 0
+--- !u!114 &1290383788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1290383786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1290383789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1290383786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
+--- !u!4 &1290383790
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1290383786}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 179.999, y: 179.999, z: 179.999}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
 --- !u!1 &1311069593
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,7 +907,7 @@ MonoBehaviour:
     height: 859
   selectedBlock: {fileID: 1755499608}
   selectedCommands:
-  - {fileID: 1755499612}
+  - {fileID: 1755499607}
   variables: []
   description: 
   stepPause: 0
@@ -864,6 +939,19 @@ MonoBehaviour:
 
       sherlock eyeroll right: Yes, well done John.
 
+      You catch on quickly don''t you?
+
+      hide john "offscreen left": I sure do.
+
+
+      -- This is a comment, it doesn''t appear in the conversation
+
+
+      john angry middle: Wait, what!
+
+      left: There''s no need to be rude Sherlock!
+
+      bored: Not like that would stop you.
 
 '
 --- !u!114 &1755499608
@@ -880,7 +968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 68
+    x: 69
     y: 70
     width: 120
     height: 40
@@ -937,13 +1025,16 @@ MonoBehaviour:
   luaFile: {fileID: 0}
   luaScript: 'conversation [[
 
-    john angry middle: There''s no need to be rude Sherlock!
-
-    sherlock excited: AH! So that''s how you do a conversation from Lua!
+    sherlock excited: AHA! So that''s how you do a conversation from Lua!
 
     Fascinating.
 
-    john left: Yes, riveting.
+    john bored left: Yes, riveting.
+
+
+    john hide:
+
+    sherlock hide:
 
     ]]'
   runAsCoroutine: 1
@@ -951,7 +1042,7 @@ MonoBehaviour:
   returnVariable: {fileID: 0}
 --- !u!114 &1755499612
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1755499605}
@@ -967,7 +1058,7 @@ MonoBehaviour:
   commentText: Example using Conversation function in Lua
 --- !u!114 &1755499613
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1755499605}
