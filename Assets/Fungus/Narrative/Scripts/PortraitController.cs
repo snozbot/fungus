@@ -511,7 +511,8 @@ namespace Fungus
 			}
 
 			// Fade in the new sprite image
-			if (options.character.state.portraitImage.sprite != options.portrait)
+			if (options.character.state.portraitImage.sprite != options.portrait ||
+                options.character.state.portraitImage.color.a < 1f)
 			{
 				options.character.state.portraitImage.sprite = options.portrait;
 				options.character.state.portraitImage.color = new Color(1f, 1f, 1f, 0f);
