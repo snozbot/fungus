@@ -80,7 +80,7 @@ namespace Fungus
 
             for (int i = 0; i < portraits.Count; i++)
             {
-                if ( String.Compare(portraits[i].name, portrait_string, true) == 0)
+                if (portraits[i] != null && String.Compare(portraits[i].name, portrait_string, true) == 0)
                 {
                     return portraits[i];
                 }
