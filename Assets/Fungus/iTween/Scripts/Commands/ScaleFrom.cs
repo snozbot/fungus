@@ -37,7 +37,8 @@ namespace Fungus
 			tweenParams.Add("time", _duration.Value);
 			tweenParams.Add("easetype", easeType);
 			tweenParams.Add("looptype", loopType);
-			tweenParams.Add("oncomplete", "OniTweenComplete");
+            tweenParams.Add("ignoretimescale", ignoreTimeScale);
+            tweenParams.Add("oncomplete", "OniTweenComplete");
 			tweenParams.Add("oncompletetarget", gameObject);
 			tweenParams.Add("oncompleteparams", this);
 			iTween.ScaleFrom(_targetObject.Value, tweenParams);

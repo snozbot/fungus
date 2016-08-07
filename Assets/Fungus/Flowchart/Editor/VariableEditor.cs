@@ -199,19 +199,30 @@ namespace Fungus
 				return;
 			}
 
-			Command command = property.serializedObject.targetObject as Command;
-			if (command == null)
-			{
-				return;
-			}
+            Command command = property.serializedObject.targetObject as Command;
+            EventHandler eventHandler = property.serializedObject.targetObject as EventHandler;
+            if (command == null && eventHandler == null)
+            {
+                return;
+            }
 
-			Flowchart flowchart = command.GetFlowchart() as Flowchart;
-			if (flowchart == null)
-			{
-				return;
-			}
+            Flowchart flowchart = null;
 
-			if (EditorGUI.GetPropertyHeight(valueProp, label) > EditorGUIUtility.singleLineHeight)
+            if (command != null)
+            {
+                flowchart = command.GetFlowchart() as Flowchart;
+            }
+            else if (eventHandler != null && eventHandler.parentBlock != null)
+            {
+                flowchart = eventHandler.parentBlock.GetFlowchart();
+            }
+
+            if (flowchart == null)
+            {
+                return;
+            }
+
+            if (EditorGUI.GetPropertyHeight(valueProp, label) > EditorGUIUtility.singleLineHeight)
 			{
 				DrawMultiLineProperty(position, label, referenceProp, valueProp, flowchart);
 			}

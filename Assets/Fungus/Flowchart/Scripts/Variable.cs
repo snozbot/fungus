@@ -56,7 +56,11 @@ namespace Fungus
 		public string key = "";
 
 		public abstract void OnReset();
-	}
+
+        public abstract object GetValue();
+
+        public abstract void SetValue(object objValue);
+    }
 
 	public abstract class VariableBase<T> : Variable
 	{
@@ -68,8 +72,22 @@ namespace Fungus
 		{
 			value = startValue;
 		}
-		
-		public override string ToString()
+
+        public override object GetValue()
+        {
+            return value;
+        }
+
+        public override void SetValue(object objValue)
+        {
+            // if object value is supported by generic type, then it can be overriden
+            if (objValue is T)
+            {
+                value = (T)Convert.ChangeType(objValue, typeof(T));
+            }
+        }
+
+        public override string ToString()
 		{
 			return value.ToString();
 		}

@@ -36,7 +36,10 @@ namespace Fungus
 		[Tooltip("The type of loop to apply once the animation has completed")]
 		public iTween.LoopType loopType = iTween.LoopType.none;
 
-		[Tooltip("Stop any previously added iTweens on this object before adding this iTween")]
+        [Tooltip("Ignores the timeScale value and uses realTime")]
+        public bool ignoreTimeScale = false;
+
+        [Tooltip("Stop any previously added iTweens on this object before adding this iTween")]
 		public bool stopPreviousTweens = false;
 
 		[Tooltip("Wait until the tween has finished before executing the next command")]

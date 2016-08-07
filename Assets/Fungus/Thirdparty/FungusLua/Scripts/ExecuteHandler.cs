@@ -61,6 +61,7 @@ namespace Fungus
         [SerializeField] public bool hasFailed;
 
         [SerializeField] public ExecuteMethod executeMethods = ExecuteMethod.Start;
+        [SerializeField] public Action<object[]> onExecute;
 
         [Tooltip("Name of the method on a component in this gameobject to call when executing.")]
         public string executeMethodName = "OnExecute";
@@ -250,10 +251,18 @@ namespace Fungus
         /// Execute the Lua script immediately.
         /// This is the function to call if you want to trigger execution from an external script.
         /// </summary>
-        public virtual void Execute()
+        public virtual void Execute(params object[] args)
         {
+            
+            // Call specific event handler
+            if(onExecute != null)
+            {
+                // could be called with event targets (e.g. triggered collider)
+                onExecute(args);
+            }
+
             // Call any OnExecute methods in components on this gameobject
-			if (executeMethodName != "")
+            if (executeMethodName != "")
 			{
 				SendMessage(executeMethodName, SendMessageOptions.DontRequireReceiver);
 			}
