@@ -176,9 +176,10 @@ namespace Fungus
 			}
 
 			// Cache the list of child writer listeners
-			foreach (Component component in GetComponentsInChildren<Component>())
+			Component[] components = GetComponentsInChildren<Component>();
+			for (int i = 0; i < components.Length; i++)
 			{
-				IWriterListener writerListener = component as IWriterListener;
+				IWriterListener writerListener = components[i] as IWriterListener;
 				if (writerListener != null)
 				{
 					writerListeners.Add(writerListener);
