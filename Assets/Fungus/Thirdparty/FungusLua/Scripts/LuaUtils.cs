@@ -480,6 +480,15 @@ namespace Fungus
 		{
 			return conversationManager.DoConversation(conv);
 		}
+
+		/// <summary>
+		/// Sync the active say dialog with what Lua thinks the SayDialog should be
+		/// </summary>
+		/// <param name="sayDialog"></param>
+		public void SyncSayDialog(SayDialog sayDialog)
+		{
+			SayDialog.activeSayDialog = sayDialog;
+		}
    }
 
 }

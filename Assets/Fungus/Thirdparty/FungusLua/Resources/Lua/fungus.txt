@@ -146,6 +146,7 @@ M.sayoptions.stopvoiceover = true
 -- Set the active saydialog to use with the say function
 function M.setsaydialog(saydialog)
 	M.sayoptions.saydialog = saydialog
+	luautils.SyncSayDialog(saydialog)
 end
 
 -- Gets the active say dialog, or creates one if none exists yet
