@@ -76,7 +76,13 @@ namespace Fungus
             {
                 ConversationItem item = conversationItems[i];
 
-                if (item.Character != null)
+				// Ignore Lua style comments and blank lines
+				if (item.Text.StartsWith("--") || item.Text.Trim() == "")
+				{
+					continue;
+				}
+
+				if (item.Character != null)
                 {
                     currentCharacter = item.Character;
                 }
@@ -137,13 +143,7 @@ namespace Fungus
                 }
                     
                 previousCharacter = currentCharacter;
-
-                // Ignore Lua style comments and blank lines
-                if (item.Text.StartsWith("--") || item.Text.Trim() == "")
-                {
-                    continue;
-                }
-
+				
                 exitSayWait = false;
                 sayDialog.Say(item.Text, true, true, true, false, null, () => {
                     exitSayWait = true;
