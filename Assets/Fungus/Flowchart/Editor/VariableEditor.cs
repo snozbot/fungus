@@ -62,8 +62,10 @@ namespace Fungus
 			// variable references to be set to null when inspected. When this condition 
 			// occurs we just skip displaying the property for this frame.
 			if (selectedVariable != null &&
-				selectedVariable.gameObject != flowchart.gameObject)
+                selectedVariable.gameObject != flowchart.gameObject &&
+                selectedVariable.scope == VariableScope.Private)
 			{
+                property.objectReferenceValue = null;
 				return;
 			}
 
