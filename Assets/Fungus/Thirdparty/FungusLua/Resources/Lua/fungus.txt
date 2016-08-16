@@ -143,10 +143,10 @@ M.sayoptions.waitforinput = true
 M.sayoptions.fadewhendone = true
 M.sayoptions.stopvoiceover = true
 
--- Set the active saydialog to use with the say function
+-- Set the active saydialog to use with the say and conversation functions
 function M.setsaydialog(saydialog)
 	M.sayoptions.saydialog = saydialog
-	luautils.SyncSayDialog(saydialog)
+	luautils.SetSayDialog(saydialog)
 end
 
 -- Gets the active say dialog, or creates one if none exists yet
