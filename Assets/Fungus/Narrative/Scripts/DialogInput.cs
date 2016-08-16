@@ -136,13 +136,12 @@ namespace Fungus
 			if (ignoreMenuClicks)
 			{
 				// Ignore input events if a Menu is being displayed
-				if (MenuDialog.activeMenuDialog != null)
+				if (MenuDialog.activeMenuDialog != null && 
+                    MenuDialog.activeMenuDialog.gameObject.activeInHierarchy &&
+                    MenuDialog.activeMenuDialog.DisplayedOptionsCount > 0)
 				{
-					if (MenuDialog.activeMenuDialog.gameObject.activeInHierarchy)
-					{
-						dialogClickedFlag = false;
-						nextLineInputFlag = false;
-					}
+					dialogClickedFlag = false;
+					nextLineInputFlag = false;
 				}
 			}
 

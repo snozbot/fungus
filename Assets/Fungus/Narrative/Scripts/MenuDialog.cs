@@ -159,6 +159,21 @@ namespace Fungus
 			return addedOption;
 		}
 
+        public int DisplayedOptionsCount
+        {
+            get {
+                int count = 0;
+                foreach (Button button in cachedButtons)
+                {
+                    if (button.gameObject.activeSelf)
+                    {
+                        count++;
+                    }
+                }
+                return count;
+            }
+        }
+
 		public virtual void HideSayDialog()
 		{
 			SayDialog sayDialog = SayDialog.GetSayDialog();
