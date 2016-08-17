@@ -20,6 +20,11 @@ namespace Fungus
         /// </summary>
         public static bool AddOption(this MenuDialog menuDialog, string text, bool interactable, LuaEnvironment luaEnvironment, Closure callBack)
         {
+            if (!menuDialog.gameObject.activeSelf)
+            {
+                menuDialog.gameObject.SetActive(true);
+            }
+
             bool addedOption = false;
             foreach (Button button in menuDialog.cachedButtons)
             {
