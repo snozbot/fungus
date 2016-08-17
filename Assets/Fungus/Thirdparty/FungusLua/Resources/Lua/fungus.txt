@@ -249,6 +249,58 @@ function M.menu(text, callback, interactive)
     md.AddOption(subbed, interactive, M.luaenvironment, callback)
 end
 
+-- Display a list of menu options and wait for user to choose one.
+-- Returns the index of the selected option.
+-- Returns 0 if options list is empty. Note: Lua array indices start at 1, not 0).
+-- args: an array of option strings. e.g. choose{ "Option 1", "Option 2" }
+function M.choose(args)
+    return M.choosetimer(args, 0, 0)
+end
+
+-- Display a list of menu options and wait for user to choose one, or for a timer to expire.
+-- Returns the index of the selected option, or the defaultoption if the timer expires.
+-- Returns 0 if options list is empty. Note: Lua array indices start at 1, not 0).
+-- args: an array of option strings. e.g. choose{ "Option 1", "Option 2" }
+-- duration: Time player has to pick an option.
+-- defaultoption: Option index to return if the timer expires.
+function M.choosetimer(args, duration, defaultoption)
+    if (args == nil or #args == 0) then
+        return 0
+    end
+
+    local md = M.getmenudialog()
+
+    -- Do variable substitution before displaying text
+    local subbed = M.sub(text)
+
+    local selection = 0
+
+    for i, name in ipairs(args) do
+
+        local callback = function ()
+            selection = i;
+        end
+
+        md.AddOption(name, true, M.luaenvironment, callback)
+    end
+
+    if (duration > 0) then
+        local callback = function ()
+            selection = defaultoption
+        end
+
+        local e = md.ShowTimer(duration, M.luaenvironment, callback)
+        M.run(e)
+    end
+
+    -- Wait until one of the callbacks is called by the user selecting an option
+    while (selection == 0) do
+        coroutine.yield()
+    end
+
+    return selection
+end
+
 -- Display a timer during which the player has to choose an option.
 -- duration: The length of time to display the timer.
 -- callback: Function to call if the timer expires before an option is selected.
