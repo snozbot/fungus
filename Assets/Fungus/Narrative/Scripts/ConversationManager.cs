@@ -75,13 +75,7 @@ namespace Fungus
             for (int i = 0; i < conversationItems.Count; ++i)
             {
                 ConversationItem item = conversationItems[i];
-
-				// Ignore Lua style comments and blank lines
-				if (item.Text.StartsWith("--") || item.Text.Trim() == "")
-				{
-					continue;
-				}
-
+				
 				if (item.Character != null)
                 {
                     currentCharacter = item.Character;
@@ -143,17 +137,19 @@ namespace Fungus
                 }
                     
                 previousCharacter = currentCharacter;
-				
-                exitSayWait = false;
-                sayDialog.Say(item.Text, true, true, true, false, null, () => {
-                    exitSayWait = true;
-                });
+                
+                if (!string.IsNullOrEmpty(item.Text)) { 
+                    exitSayWait = false;
+                    sayDialog.Say(item.Text, true, true, true, false, null, () => {
+                        exitSayWait = true;
+                    });
 
-                while (!exitSayWait)
-                {
-                    yield return null;
+                    while (!exitSayWait)
+                    {
+                        yield return null;
+                    }
+                    exitSayWait = false;
                 }
-                exitSayWait = false;
             }
 		}
 
@@ -173,8 +169,9 @@ namespace Fungus
                 string sayParams = sayMatches[i].Groups["sayParams"].Value;
 
                 // As text and SayParams are both optional, an empty string will match the regex.
-                // We can ignore any matches were both are empty.
-                if (text.Length == 0 && sayParams.Length == 0)
+                // We can ignore any matches where both are empty
+                // or if they're Lua style comments
+                if ((text.Length == 0 && sayParams.Length == 0) || text.StartsWith("--"))
                 {
                     continue;
                 }
