@@ -9,7 +9,7 @@ local M = {}
 
 -- Prints a summary of object v in a human readable format.
 function M.inspect(v)
-	print (inspect.inspect(v))
+    print (inspect.inspect(v))
 end
 
 ------------
@@ -32,52 +32,52 @@ end
 
 -- Waits for a number of seconds
 function M.wait(duration)
-	local t = M.time.timeSinceLevelLoad
-	while (M.time.timeSinceLevelLoad - t < duration) do
-		coroutine.yield()
-	end
+    local t = M.time.timeSinceLevelLoad
+    while (M.time.timeSinceLevelLoad - t < duration) do
+        coroutine.yield()
+    end
 end
 
 -- Waits until the lamda function provided returns true, or the timeout expires.
 -- Returns true if the function succeeded, or false if the timeout expired
 function M.waitfor(fn, timeoutduration)
-	local t = M.time.timeSinceLevelLoad
-	while (not fn()) do
-		coroutine.yield()
-		if (M.time.timeSinceLevelLoad - t > timeoutduration) then
-			return false
-		end
-	end
-	return true
+    local t = M.time.timeSinceLevelLoad
+    while (not fn()) do
+        coroutine.yield()
+        if (M.time.timeSinceLevelLoad - t > timeoutduration) then
+            return false
+        end
+    end
+    return true
 end
 
 -- Starts a C# coroutine method
 function M.run(enumerator)
-	-- If the parameter isn't an enumerator then CreateTask will fail
-	local status, err = pcall( function() 
-		local task = M.luaenvironment.RunUnityCoroutine(enumerator)
-	end)
+    -- If the parameter isn't an enumerator then CreateTask will fail
+    local status, err = pcall( function() 
+        local task = M.luaenvironment.RunUnityCoroutine(enumerator)
+    end)
 
-	if (not status) then
-		print(debug.traceback("Can't start a coroutine with a c# method that doesn't return IEnumerator", 2))
-		error(err)
-	end
+    if (not status) then
+        print(debug.traceback("Can't start a coroutine with a c# method that doesn't return IEnumerator", 2))
+        error(err)
+    end
 end
 
 -- Starts a C# coroutine method and waits until it's finished
 function M.runwait(enumerator)
-	-- If the parameter isn't an enumerator then CreateTask will fail
-	local status, err = pcall( function() 
-		local task = M.luaenvironment.RunUnityCoroutine(enumerator)
-		while (task != nil and task.Running) do
-    		coroutine.yield();
-		end
-	end)
+    -- If the parameter isn't an enumerator then CreateTask will fail
+    local status, err = pcall( function() 
+        local task = M.luaenvironment.RunUnityCoroutine(enumerator)
+        while (task != nil and task.Running) do
+            coroutine.yield();
+        end
+    end)
 
-	if (not status) then
-		print(debug.traceback("Can't start a coroutine with a c# method that doesn't return IEnumerator", 2))
-		error(err)
-	end
+    if (not status) then
+        print(debug.traceback("Can't start a coroutine with a c# method that doesn't return IEnumerator", 2))
+        error(err)
+    end
 end
 
 ---------------
@@ -86,18 +86,18 @@ end
 
 -- Set active language for string table
 function M.setlanguage(languagecode)
-	M.luautils.activeLanguage = languagecode
+    M.luautils.activeLanguage = languagecode
 end
 
 -- Get a named string from the string table
 function M.getstring(key)
-	return M.luautils.GetString(key)
+    return M.luautils.GetString(key)
 end
 
 -- Substitutes variables and localisation strings into a piece of text
 -- e.g. v = 10, "Subbed value is [$v]" => "Subbed value is 10"
 function M.sub(text)
-	return M.luautils.substitute(text)
+    return M.luautils.substitute(text)
 end
 
 --------------------------------------------------------------
@@ -108,23 +108,23 @@ end
 -- Checks if a condition is true (requires Unity Test Tools)
 -- Lua has a built in assert function, so we called this check to avoid conflicting.
 function M.check(c, reason)
-	if (not c) then
-		-- Output a traceback to help track down source
-		error( debug.traceback("Assert failed", 2) )
-	end
-	M.test.assert(c, reason)
+    if (not c) then
+        -- Output a traceback to help track down source
+        error( debug.traceback("Assert failed", 2) )
+    end
+    M.test.assert(c, reason)
 end
 
 -- Pass an integration test (requires Unity Test Tools)
 function M.pass()
-	M.test.pass()
+    M.test.pass()
 end
 
 -- Fail an integration test (requires Unity Test Tools)
 -- reason: Option string explaining why the test failed.
 function M.fail(reason)
-	error( debug.traceback("Test failed", 2) )
-	M.test.fail(reason)
+    error( debug.traceback("Test failed", 2) )
+    M.test.fail(reason)
 end
 
 ---------------------------------------------
@@ -145,44 +145,44 @@ M.sayoptions.stopvoiceover = true
 
 -- Set the active saydialog to use with the say and conversation functions
 function M.setsaydialog(saydialog)
-	M.sayoptions.saydialog = saydialog
-	luautils.SetSayDialog(saydialog)
+    M.sayoptions.saydialog = saydialog
+    luautils.SetSayDialog(saydialog)
 end
 
 -- Gets the active say dialog, or creates one if none exists yet
 function M.getsaydialog()
-	if (M.sayoptions.saydialog == nil) then
-		local sd = M.luautils.spawn("SayDialog").GetComponent("SayDialog")
-		M.setsaydialog(sd)
-	end
-	return M.sayoptions.saydialog
+    if (M.sayoptions.saydialog == nil) then
+        local sd = M.luautils.spawn("SayDialog").GetComponent("SayDialog")
+        M.setsaydialog(sd)
+    end
+    return M.sayoptions.saydialog
 end
 
 -- Set the active character on the Say Dialog
 -- character: A Fungus.Character component
 -- portrait: The name of a sprite in the character's portrait list
 function M.setcharacter(character, portrait)
-	assert(character, "character must not be nil")
-	local sd = M.getsaydialog()
-	sd.SetCharacter(character)
+    assert(character, "character must not be nil")
+    local sd = M.getsaydialog()
+    sd.SetCharacter(character)
 
-	-- Do substitution on character name
-	local subbed = M.sub(character.nameText)
-	M.sayoptions.saydialog.SetCharacterName(subbed, character.nameColor)
+    -- Do substitution on character name
+    local subbed = M.sub(character.nameText)
+    M.sayoptions.saydialog.SetCharacterName(subbed, character.nameColor)
 
-	-- Try to set the portrait sprite
-	if (portrait) then
-		if (portrait == "") then
-			M.sayoptions.saydialog.SetCharacterImage(nill)
-		else
-			for i,v in ipairs(character.portraits) do
-				-- Use a case insensitive comparison
-				if (string.lower(v.name) == string.lower(portrait)) then
-					M.sayoptions.saydialog.SetCharacterImage(v)
-				end
-			end
-		end
-	end
+    -- Try to set the portrait sprite
+    if (portrait) then
+        if (portrait == "") then
+            M.sayoptions.saydialog.SetCharacterImage(nill)
+        else
+            for i,v in ipairs(character.portraits) do
+                -- Use a case insensitive comparison
+                if (string.lower(v.name) == string.lower(portrait)) then
+                    M.sayoptions.saydialog.SetCharacterImage(v)
+                end
+            end
+        end
+    end
 end
 
 -- Write text to the active Say Dialog
@@ -205,9 +205,9 @@ end
 -- [character] [portrait] [position] <: Story text>
 -- e.g. john happy left: Hi, I'm happy.
 function M.conversation(text)
-	local subbed = M.sub(text)
-	local e = luautils.DoConversation(subbed)
-	M.runwait(e)
+    local subbed = M.sub(text)
+    local e = luautils.DoConversation(subbed)
+    M.runwait(e)
 end
 
 --------------
@@ -219,16 +219,16 @@ M.menuoptions = {}
 
 -- Set the active menudialog to use with the menu function
 function M.setmenudialog(menudialog)
-	M.menuoptions.menudialog = menudialog
+    M.menuoptions.menudialog = menudialog
 end
 
 -- Gets the active menu dialog, or creates one if none exists yet
 function M.getmenudialog()
-	if (M.menuoptions.menudialog == nil) then
-		local md = M.luautils.spawn("MenuDialog").GetComponent("MenuDialog")
-		M.setmenudialog(md)
-	end
-	return M.menuoptions.menudialog
+    if (M.menuoptions.menudialog == nil) then
+        local md = M.luautils.spawn("MenuDialog").GetComponent("MenuDialog")
+        M.setmenudialog(md)
+    end
+    return M.menuoptions.menudialog
 end
 
 -- Display a menu button
@@ -236,33 +236,33 @@ end
 -- callback: function to call when this option is selected
 -- interactive (optional): if false, displays the option as disabled
 function M.menu(text, callback, interactive)
-	local md = M.getmenudialog()
+    local md = M.getmenudialog()
 
-	-- Do variable substitution before displaying text
-	local subbed = M.sub(text)
+    -- Do variable substitution before displaying text
+    local subbed = M.sub(text)
 
-	-- Default bool parameters are tricksy
-	if (interactive == nil) then
-		interactive = true
-	end
+    -- Default bool parameters are tricksy
+    if (interactive == nil) then
+        interactive = true
+    end
 
-	md.AddOption(subbed, interactive, M.luaenvironment, callback)
+    md.AddOption(subbed, interactive, M.luaenvironment, callback)
 end
 
 -- Display a timer during which the player has to choose an option.
 -- duration: The length of time to display the timer.
 -- callback: Function to call if the timer expires before an option is selected.
 function M.menutimer(duration, callback)
-	local md = M.getmenudialog()
+    local md = M.getmenudialog()
 
-	local e = md.ShowTimer(duration, M.luaenvironment, callback)
-	M.runwait(e)
+    local e = md.ShowTimer(duration, M.luaenvironment, callback)
+    M.runwait(e)
 end
 
 -- Clear all currently displayed menu options
 function M.clearmenu()
-	assert(M.menuoptions.menudialog, "menudialog must not be nil")
-	M.menuoptions.menudialog.Clear()
+    assert(M.menuoptions.menudialog, "menudialog must not be nil")
+    M.menuoptions.menudialog.Clear()
 end
 
 ------------
@@ -271,14 +271,14 @@ end
 
 -- Returns the specified Variable in a Flowchart.
 -- To access the value of the variable, use its .value property. e.g.
--- 	v = getvar(flowchart, "FloatVar") 
---	v.value = 10 	-- Sets the value of the variable to 10
---  f = v.value 	-- f now contains 10
+--  v = getvar(flowchart, "FloatVar") 
+--  v.value = 10    -- Sets the value of the variable to 10
+--  f = v.value     -- f now contains 10
 -- flowchart: The Fungus Flowchart containing the Block to run.
 -- varname: The name of the Variable to get.
 function M.getvar(flowchart, varname)
-	assert(flowchart, "flowchart must not be nil")
-	return flowchart.GetVariable(varname)
+    assert(flowchart, "flowchart must not be nil")
+    return flowchart.GetVariable(varname)
 end
 
 -- Runs the specified Block in a Flowchart
@@ -287,21 +287,21 @@ end
 -- commandindex: Index of the command to start execution at
 -- nowait: If false, will yield until the Block finishes execution. If true will continue immediately.
 function M.runblock(flowchart, blockname, commandindex, nowait)
-	assert(flowchart, "flowchart must not be nil")
-	assert(blockname, "blockname must not be nil")
-	local block = flowchart.FindBlock(blockname)
-	if (not block) then
-		error("Block " .. blockname .. " not found")
-		return
-	end
+    assert(flowchart, "flowchart must not be nil")
+    assert(blockname, "blockname must not be nil")
+    local block = flowchart.FindBlock(blockname)
+    if (not block) then
+        error("Block " .. blockname .. " not found")
+        return
+    end
 
-	local e = block.Execute(commandindex or 0);
+    local e = block.Execute(commandindex or 0);
 
-	if (nowait) then
-		M.run( e )
-	else
-		M.runwait( e )
-	end
+    if (nowait) then
+        M.run( e )
+    else
+        M.runwait( e )
+    end
 end
 
 return M
