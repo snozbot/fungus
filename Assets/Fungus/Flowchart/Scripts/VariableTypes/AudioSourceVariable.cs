@@ -8,50 +8,50 @@ using System.Collections;
 
 namespace Fungus
 {
-	[VariableInfo("Other", "AudioSource")]
-	[AddComponentMenu("")]
+    [VariableInfo("Other", "AudioSource")]
+    [AddComponentMenu("")]
     [System.Serializable]
-	public class AudioSourceVariable : VariableBase<AudioSource>
-	{}
+    public class AudioSourceVariable : VariableBase<AudioSource>
+    {}
 
-	[System.Serializable]
-	public struct AudioSourceData
-	{
-		[SerializeField]
-		[VariableProperty("<Value>", typeof(AudioSourceVariable))]
-		public AudioSourceVariable audioSourceRef;
-		
-		[SerializeField]
-		public AudioSource audioSourceVal;
+    [System.Serializable]
+    public struct AudioSourceData
+    {
+        [SerializeField]
+        [VariableProperty("<Value>", typeof(AudioSourceVariable))]
+        public AudioSourceVariable audioSourceRef;
+        
+        [SerializeField]
+        public AudioSource audioSourceVal;
 
-		public AudioSourceData(AudioSource v)
-		{
-			audioSourceVal = v;
-			audioSourceRef = null;
-		}
-		
-		public static implicit operator AudioSource(AudioSourceData audioSourceData)
-		{
-			return audioSourceData.Value;
-		}
+        public AudioSourceData(AudioSource v)
+        {
+            audioSourceVal = v;
+            audioSourceRef = null;
+        }
+        
+        public static implicit operator AudioSource(AudioSourceData audioSourceData)
+        {
+            return audioSourceData.Value;
+        }
 
-		public AudioSource Value
-		{
-			get { return (audioSourceRef == null) ? audioSourceVal : audioSourceRef.value; }
-			set { if (audioSourceRef == null) { audioSourceVal = value; } else { audioSourceRef.value = value; } }
-		}
+        public AudioSource Value
+        {
+            get { return (audioSourceRef == null) ? audioSourceVal : audioSourceRef.value; }
+            set { if (audioSourceRef == null) { audioSourceVal = value; } else { audioSourceRef.value = value; } }
+        }
 
-		public string GetDescription()
-		{
-			if (audioSourceRef == null)
-			{
-				return audioSourceVal.ToString();
-			}
-			else
-			{
-				return audioSourceRef.key;
-			}
-		}
-	}
+        public string GetDescription()
+        {
+            if (audioSourceRef == null)
+            {
+                return audioSourceVal.ToString();
+            }
+            else
+            {
+                return audioSourceRef.key;
+            }
+        }
+    }
 
 }

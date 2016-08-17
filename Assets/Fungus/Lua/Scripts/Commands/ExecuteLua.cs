@@ -46,7 +46,7 @@ namespace Fungus
         protected virtual void Start()
         {
             InitExecuteLua();
-		}
+        }
 
         /// <summary>
         /// Initialises the Lua environment and compiles the Lua string for execution later on.
@@ -83,9 +83,9 @@ namespace Fungus
             {
                 Table globals = luaEnvironment.Interpreter.Globals;
                 if (globals != null)
-				{
-                	globals[flowchart.luaBindingName] = flowchart;
-				}
+                {
+                    globals[flowchart.luaBindingName] = flowchart;
+                }
             }
 
             // Always initialise when playing in the editor.

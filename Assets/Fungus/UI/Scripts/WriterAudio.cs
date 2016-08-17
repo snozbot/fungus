@@ -9,247 +9,247 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	/*
-	 * Manages audio effects for Dialogs
-	 */
-	public class WriterAudio : MonoBehaviour, IWriterListener
-	{
-		[Tooltip("Volume level of writing sound effects")]
-		[Range(0,1)]
-		public float volume = 1f;
+    /*
+     * Manages audio effects for Dialogs
+     */
+    public class WriterAudio : MonoBehaviour, IWriterListener
+    {
+        [Tooltip("Volume level of writing sound effects")]
+        [Range(0,1)]
+        public float volume = 1f;
 
-		[Tooltip("Loop the audio when in Sound Effect mode. Has no effect in Beeps mode.")]
-		public bool loop = true;
+        [Tooltip("Loop the audio when in Sound Effect mode. Has no effect in Beeps mode.")]
+        public bool loop = true;
 
-		// If none is specifed then we use any AudioSource on the gameobject, and if that doesn't exist we create one.
-		[Tooltip("AudioSource to use for playing sound effects. If none is selected then one will be created.")]
-		public AudioSource targetAudioSource;
+        // If none is specifed then we use any AudioSource on the gameobject, and if that doesn't exist we create one.
+        [Tooltip("AudioSource to use for playing sound effects. If none is selected then one will be created.")]
+        public AudioSource targetAudioSource;
 
-		public enum AudioMode
-		{
-			Beeps,			// Use short beep sound effects
-			SoundEffect,	// Use long looping sound effect
-		}
+        public enum AudioMode
+        {
+            Beeps,          // Use short beep sound effects
+            SoundEffect,    // Use long looping sound effect
+        }
 
-		[Tooltip("Type of sound effect to play when writing text")]
-		public AudioMode audioMode = AudioMode.Beeps;
+        [Tooltip("Type of sound effect to play when writing text")]
+        public AudioMode audioMode = AudioMode.Beeps;
 
-		[Tooltip("List of beeps to randomly select when playing beep sound effects. Will play maximum of one beep per character, with only one beep playing at a time.")]
-		public List<AudioClip> beepSounds = new List<AudioClip>();
+        [Tooltip("List of beeps to randomly select when playing beep sound effects. Will play maximum of one beep per character, with only one beep playing at a time.")]
+        public List<AudioClip> beepSounds = new List<AudioClip>();
 
-		[Tooltip("Long playing sound effect to play when writing text")]
-		public AudioClip soundEffect;
+        [Tooltip("Long playing sound effect to play when writing text")]
+        public AudioClip soundEffect;
 
-		[Tooltip("Sound effect to play on user input (e.g. a click)")]
-		public AudioClip inputSound;
+        [Tooltip("Sound effect to play on user input (e.g. a click)")]
+        public AudioClip inputSound;
 
-		protected float targetVolume = 0f;
+        protected float targetVolume = 0f;
 
-		// When true, a beep will be played on every written character glyph
-		protected bool playBeeps;
+        // When true, a beep will be played on every written character glyph
+        protected bool playBeeps;
 
-		// True when a voiceover clip is playing
-		protected bool playingVoiceover = false;
+        // True when a voiceover clip is playing
+        protected bool playingVoiceover = false;
 
-		// Time when current beep will have finished playing
-		protected float nextBeepTime;
+        // Time when current beep will have finished playing
+        protected float nextBeepTime;
 
-		public virtual void SetAudioMode(AudioMode mode)
-		{
-			audioMode = mode;
-		}
+        public virtual void SetAudioMode(AudioMode mode)
+        {
+            audioMode = mode;
+        }
 
-		protected virtual void Awake()
-		{
-			// Need to do this in Awake rather than Start due to init order issues
-			if (targetAudioSource == null)
-			{
-				targetAudioSource = GetComponent<AudioSource>();
-				if (targetAudioSource == null)
-				{
-					targetAudioSource = gameObject.AddComponent<AudioSource>();
-				}
-			}
+        protected virtual void Awake()
+        {
+            // Need to do this in Awake rather than Start due to init order issues
+            if (targetAudioSource == null)
+            {
+                targetAudioSource = GetComponent<AudioSource>();
+                if (targetAudioSource == null)
+                {
+                    targetAudioSource = gameObject.AddComponent<AudioSource>();
+                }
+            }
 
-			targetAudioSource.volume = 0f;
-		}
+            targetAudioSource.volume = 0f;
+        }
 
-		/**
-		 * Plays a voiceover audio clip.
-		 * Voiceover behaves differently than speaking sound effects because it 
-		 * should keep on playing after the text has finished writing. It also
-		 * does not pause for wait tags, punctuation, etc.
-		 */
-		public virtual void PlayVoiceover(AudioClip voiceOverClip)
-		{
-			if (targetAudioSource == null)
-			{
-				return;
-			}
+        /**
+         * Plays a voiceover audio clip.
+         * Voiceover behaves differently than speaking sound effects because it 
+         * should keep on playing after the text has finished writing. It also
+         * does not pause for wait tags, punctuation, etc.
+         */
+        public virtual void PlayVoiceover(AudioClip voiceOverClip)
+        {
+            if (targetAudioSource == null)
+            {
+                return;
+            }
 
-			playingVoiceover = true;
+            playingVoiceover = true;
 
-			targetAudioSource.volume = volume;
-			targetVolume = volume;
-			targetAudioSource.loop = false;
-			targetAudioSource.clip = voiceOverClip;
-			targetAudioSource.Play();
-		}
+            targetAudioSource.volume = volume;
+            targetVolume = volume;
+            targetAudioSource.loop = false;
+            targetAudioSource.clip = voiceOverClip;
+            targetAudioSource.Play();
+        }
 
-		public virtual void Play(AudioClip audioClip)
-		{
-			if (targetAudioSource == null ||
-			    (audioMode == AudioMode.SoundEffect && soundEffect == null && audioClip == null) ||
-				(audioMode == AudioMode.Beeps && beepSounds.Count == 0))
-			{
-				return;
-			}
+        public virtual void Play(AudioClip audioClip)
+        {
+            if (targetAudioSource == null ||
+                (audioMode == AudioMode.SoundEffect && soundEffect == null && audioClip == null) ||
+                (audioMode == AudioMode.Beeps && beepSounds.Count == 0))
+            {
+                return;
+            }
 
-			playingVoiceover = false;
-			targetAudioSource.volume = 0f;
-			targetVolume = volume;
+            playingVoiceover = false;
+            targetAudioSource.volume = 0f;
+            targetVolume = volume;
 
-			if (audioClip != null)
-			{
-				// Voice over clip provided
-				targetAudioSource.clip = audioClip;
-				targetAudioSource.loop = loop;
-				targetAudioSource.Play();
-			}
-			else if (audioMode == AudioMode.SoundEffect &&
-			         soundEffect != null)
-			{
-				// Use sound effects defined in WriterAudio
-				targetAudioSource.clip = soundEffect;
-				targetAudioSource.loop = loop;
-				targetAudioSource.Play();
-			}
-			else if (audioMode == AudioMode.Beeps)
-			{
-				// Use beeps defined in WriterAudio
-				targetAudioSource.clip = null;
-				targetAudioSource.loop = false;
-				playBeeps = true;
-			}
-		}
+            if (audioClip != null)
+            {
+                // Voice over clip provided
+                targetAudioSource.clip = audioClip;
+                targetAudioSource.loop = loop;
+                targetAudioSource.Play();
+            }
+            else if (audioMode == AudioMode.SoundEffect &&
+                     soundEffect != null)
+            {
+                // Use sound effects defined in WriterAudio
+                targetAudioSource.clip = soundEffect;
+                targetAudioSource.loop = loop;
+                targetAudioSource.Play();
+            }
+            else if (audioMode == AudioMode.Beeps)
+            {
+                // Use beeps defined in WriterAudio
+                targetAudioSource.clip = null;
+                targetAudioSource.loop = false;
+                playBeeps = true;
+            }
+        }
 
-		public virtual void Pause()
-		{
-			if (targetAudioSource == null)
-			{
-				return;
-			}
+        public virtual void Pause()
+        {
+            if (targetAudioSource == null)
+            {
+                return;
+            }
 
-			// There's an audible click if you call audioSource.Pause() so instead just drop the volume to 0.
-			targetVolume = 0f;
-		}
+            // There's an audible click if you call audioSource.Pause() so instead just drop the volume to 0.
+            targetVolume = 0f;
+        }
 
-		public virtual void Stop()
-		{
-			if (targetAudioSource == null)
-			{
-				return;
-			}
+        public virtual void Stop()
+        {
+            if (targetAudioSource == null)
+            {
+                return;
+            }
 
-			// There's an audible click if you call audioSource.Stop() so instead we just switch off
-			// looping and let the audio stop automatically at the end of the clip
-			targetVolume = 0f;
-			targetAudioSource.loop = false;
-			playBeeps = false;
-			playingVoiceover = false;
-		}
+            // There's an audible click if you call audioSource.Stop() so instead we just switch off
+            // looping and let the audio stop automatically at the end of the clip
+            targetVolume = 0f;
+            targetAudioSource.loop = false;
+            playBeeps = false;
+            playingVoiceover = false;
+        }
 
-		public virtual void Resume()
-		{
-			if (targetAudioSource == null)
-			{
-				return;
-			}
+        public virtual void Resume()
+        {
+            if (targetAudioSource == null)
+            {
+                return;
+            }
 
-			targetVolume = volume;
-		}
+            targetVolume = volume;
+        }
 
-		protected virtual void Update()
-		{
-			targetAudioSource.volume = Mathf.MoveTowards(targetAudioSource.volume, targetVolume, Time.deltaTime * 5f);
-		}
+        protected virtual void Update()
+        {
+            targetAudioSource.volume = Mathf.MoveTowards(targetAudioSource.volume, targetVolume, Time.deltaTime * 5f);
+        }
 
-		//
-		// IWriterListener implementation
-		//
+        //
+        // IWriterListener implementation
+        //
 
-		public virtual void OnInput()
-		{
-			if (inputSound != null)
-			{
-				// Assumes we're playing a 2D sound
-				AudioSource.PlayClipAtPoint(inputSound, Vector3.zero);
-			}
-		}
+        public virtual void OnInput()
+        {
+            if (inputSound != null)
+            {
+                // Assumes we're playing a 2D sound
+                AudioSource.PlayClipAtPoint(inputSound, Vector3.zero);
+            }
+        }
 
-		public virtual void OnStart(AudioClip audioClip)
-		{
-			if (playingVoiceover)
-			{
-				return;
-			}
-			Play(audioClip);
-		}
-		
-		public virtual void OnPause()
-		{
-			if (playingVoiceover)
-			{
-				return;
-			}
-			Pause();
-		}
-		
-		public virtual void OnResume()
-		{
-			if (playingVoiceover)
-			{
-				return;
-			}
-			Resume();
-		}
-		
-		public virtual void OnEnd(bool stopAudio)
-		{
-			if (stopAudio)
-			{
-				Stop();
-			}
-		}
+        public virtual void OnStart(AudioClip audioClip)
+        {
+            if (playingVoiceover)
+            {
+                return;
+            }
+            Play(audioClip);
+        }
+        
+        public virtual void OnPause()
+        {
+            if (playingVoiceover)
+            {
+                return;
+            }
+            Pause();
+        }
+        
+        public virtual void OnResume()
+        {
+            if (playingVoiceover)
+            {
+                return;
+            }
+            Resume();
+        }
+        
+        public virtual void OnEnd(bool stopAudio)
+        {
+            if (stopAudio)
+            {
+                Stop();
+            }
+        }
 
-		public virtual void OnGlyph()
-		{
-			if (playingVoiceover)
-			{
-				return;
-			}
+        public virtual void OnGlyph()
+        {
+            if (playingVoiceover)
+            {
+                return;
+            }
 
-			if (playBeeps && beepSounds.Count > 0)
-			{
-				if (!targetAudioSource.isPlaying)
-				{
-					if (nextBeepTime < Time.realtimeSinceStartup)
-					{
-						targetAudioSource.clip = beepSounds[Random.Range(0, beepSounds.Count - 1)];
+            if (playBeeps && beepSounds.Count > 0)
+            {
+                if (!targetAudioSource.isPlaying)
+                {
+                    if (nextBeepTime < Time.realtimeSinceStartup)
+                    {
+                        targetAudioSource.clip = beepSounds[Random.Range(0, beepSounds.Count - 1)];
 
-						if (targetAudioSource.clip != null)
-						{
-							targetAudioSource.loop = false;
-							targetVolume = volume;
-							targetAudioSource.Play();
+                        if (targetAudioSource.clip != null)
+                        {
+                            targetAudioSource.loop = false;
+                            targetVolume = volume;
+                            targetAudioSource.Play();
 
-							float extend = targetAudioSource.clip.length;
-							nextBeepTime = Time.realtimeSinceStartup + extend;
-						}
-					}
-				}
-			}
-		}
-	}
+                            float extend = targetAudioSource.clip.length;
+                            nextBeepTime = Time.realtimeSinceStartup + extend;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }

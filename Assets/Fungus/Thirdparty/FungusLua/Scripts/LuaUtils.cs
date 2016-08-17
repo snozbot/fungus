@@ -19,21 +19,21 @@ using MoonSharp.RemoteDebugger;
 namespace Fungus
 {
 
-	public class LuaUtils : LuaEnvironment.Initializer, StringSubstituter.ISubstitutionHandler
+    public class LuaUtils : LuaEnvironment.Initializer, StringSubstituter.ISubstitutionHandler
     {
-		public enum FungusModuleOptions
-		{
-			UseGlobalVariables,	// Fungus helper items will be available as global variables.
-			UseFungusVariable,	// Fungus helper items will be available in the 'fungus' global variable.
-			NoFungusModule		// The fungus helper module will not be loaded.
-		}
+        public enum FungusModuleOptions
+        {
+            UseGlobalVariables, // Fungus helper items will be available as global variables.
+            UseFungusVariable,  // Fungus helper items will be available in the 'fungus' global variable.
+            NoFungusModule      // The fungus helper module will not be loaded.
+        }
 
-		/// <summary>
-		/// Controls if the fungus utilities are accessed from globals (e.g. say) or via a fungus variable (e.g. fungus.say)"
-		/// You can also choose to disable loading the fungus module if it's not required by your script.
-		/// </summary>
-		[Tooltip("Controls if the fungus utilities are accessed from globals (e.g. say) or via a fungus variable (e.g. fungus.say)")]
-		public FungusModuleOptions fungusModule = FungusModuleOptions.UseGlobalVariables;
+        /// <summary>
+        /// Controls if the fungus utilities are accessed from globals (e.g. say) or via a fungus variable (e.g. fungus.say)"
+        /// You can also choose to disable loading the fungus module if it's not required by your script.
+        /// </summary>
+        [Tooltip("Controls if the fungus utilities are accessed from globals (e.g. say) or via a fungus variable (e.g. fungus.say)")]
+        public FungusModuleOptions fungusModule = FungusModuleOptions.UseGlobalVariables;
 
         /// <summary>
         /// The currently selected language in the string table. Affects variable substitution.
@@ -48,12 +48,12 @@ namespace Fungus
         [Tooltip("List of JSON text files which contain localized strings. These strings are added to the 'stringTable' table in the Lua environment at startup.")]
         public List<TextAsset> stringTables = new List<TextAsset>();
 
-		/// <summary>
-		/// JSON text files listing the c# types that can be accessed from Lua.
-		/// </summary>
-		[HideInInspector]
+        /// <summary>
+        /// JSON text files listing the c# types that can be accessed from Lua.
+        /// </summary>
+        [HideInInspector]
         [Tooltip("JSON text files listing the c# types that can be accessed from Lua.")]
-		public List<TextAsset> registerTypes = new List<TextAsset>();
+        public List<TextAsset> registerTypes = new List<TextAsset>();
 
         /// <summary>
         /// Flag used to avoid startup dependency issues.
@@ -65,36 +65,36 @@ namespace Fungus
         /// </summary>
         protected Table stringTable;
 
-		/// <summary>
-		/// Cached reference to the Lua Environment component.
-		/// </summary>
-		protected LuaEnvironment luaEnvironment;
+        /// <summary>
+        /// Cached reference to the Lua Environment component.
+        /// </summary>
+        protected LuaEnvironment luaEnvironment;
 
-		protected StringSubstituter stringSubstituter;
+        protected StringSubstituter stringSubstituter;
 
-		protected ConversationManager conversationManager;
-		
-		/// <summary>
-		/// Called by LuaEnvironment when initializing.
-		/// </summary>
-		public override void Initialize()
+        protected ConversationManager conversationManager;
+        
+        /// <summary>
+        /// Called by LuaEnvironment when initializing.
+        /// </summary>
+        public override void Initialize()
         {   
-			luaEnvironment = GetComponent<LuaEnvironment>();
-			if (luaEnvironment == null)
-			{
-				UnityEngine.Debug.LogError("No Lua Environment found");
-				return;
-			}
+            luaEnvironment = GetComponent<LuaEnvironment>();
+            if (luaEnvironment == null)
+            {
+                UnityEngine.Debug.LogError("No Lua Environment found");
+                return;
+            }
 
-			if (luaEnvironment.Interpreter == null)
-			{
-				UnityEngine.Debug.LogError("No Lua interpreter found");
-				return;
-			}
+            if (luaEnvironment.Interpreter == null)
+            {
+                UnityEngine.Debug.LogError("No Lua interpreter found");
+                return;
+            }
 
-			InitTypes();
+            InitTypes();
             InitFungusModule();
-			InitBindings();
+            InitBindings();
         }
 
         /// <summary>
@@ -105,21 +105,21 @@ namespace Fungus
             return input;
         }
 
-		/// <summary>
-		/// Registers all listed c# types for interop with Lua.
-		/// You can also register types directly in the Awake method of any 
-		/// monobehavior in your scene using UserData.RegisterType().
-		/// </summary>
-		protected virtual void InitTypes()
-		{
-			bool isFungusInstalled = (Type.GetType("Fungus.Flowchart") != null);
+        /// <summary>
+        /// Registers all listed c# types for interop with Lua.
+        /// You can also register types directly in the Awake method of any 
+        /// monobehavior in your scene using UserData.RegisterType().
+        /// </summary>
+        protected virtual void InitTypes()
+        {
+            bool isFungusInstalled = (Type.GetType("Fungus.Flowchart") != null);
 
-			foreach (TextAsset textFile in registerTypes)
-			{
-				if (textFile == null)
-				{
-					continue;
-				}
+            foreach (TextAsset textFile in registerTypes)
+            {
+                if (textFile == null)
+                {
+                    continue;
+                }
 
                 // Parse JSON file
                 JSONObject jsonObject = new JSONObject(textFile.text);
@@ -177,69 +177,69 @@ namespace Fungus
                         }
                     }
                 }
-			}
-		}
+            }
+        }
 
         /// <summary>
         /// Binds all gameobjects and components defined in LuaBindings components to LuaEnvironments.
         /// </summary>
         protected virtual void InitBindings()
         {
-			LuaBindingsBase[] bindings = GameObject.FindObjectsOfType<LuaBindingsBase>();
-			foreach (LuaBindingsBase binding in bindings)
+            LuaBindingsBase[] bindings = GameObject.FindObjectsOfType<LuaBindingsBase>();
+            foreach (LuaBindingsBase binding in bindings)
             {
                 binding.AddBindings(luaEnvironment);
             }
         }
 
-		/// <summary>
-		/// Register some commonly used Unity classes and objects for Lua interop.
-		/// To register more class objects externally to this class, register them in the Awake method of any 
-		/// monobehavior in your scene.
-		/// </summary>
-		protected virtual void InitFungusModule()
-		{
-			if (fungusModule == FungusModuleOptions.NoFungusModule)
-			{
-				return;
-			}
+        /// <summary>
+        /// Register some commonly used Unity classes and objects for Lua interop.
+        /// To register more class objects externally to this class, register them in the Awake method of any 
+        /// monobehavior in your scene.
+        /// </summary>
+        protected virtual void InitFungusModule()
+        {
+            if (fungusModule == FungusModuleOptions.NoFungusModule)
+            {
+                return;
+            }
 
-			MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
+            MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
 
-			// Require the Fungus module and assign it to the global 'fungus'
-			Table fungusTable = null;
-			MoonSharp.Interpreter.DynValue value = interpreter.RequireModule("fungus");
-			if (value != null &&
-				value.Type == DataType.Function)
-			{
-				fungusTable = value.Function.Call().Table;
-			}
-			if (fungusTable == null)
-			{
-				UnityEngine.Debug.LogError("Failed to create Fungus table");
-				return;
-			}
-			interpreter.Globals["fungus"] = fungusTable;
+            // Require the Fungus module and assign it to the global 'fungus'
+            Table fungusTable = null;
+            MoonSharp.Interpreter.DynValue value = interpreter.RequireModule("fungus");
+            if (value != null &&
+                value.Type == DataType.Function)
+            {
+                fungusTable = value.Function.Call().Table;
+            }
+            if (fungusTable == null)
+            {
+                UnityEngine.Debug.LogError("Failed to create Fungus table");
+                return;
+            }
+            interpreter.Globals["fungus"] = fungusTable;
 
-			// Static classes
-			fungusTable["time"] = UserData.CreateStatic(typeof(Time));
+            // Static classes
+            fungusTable["time"] = UserData.CreateStatic(typeof(Time));
             fungusTable["playerprefs"] = UserData.CreateStatic(typeof(PlayerPrefs));
-			fungusTable["prefs"] = UserData.CreateStatic(typeof(FungusPrefs));
-			fungusTable["factory"] = UserData.CreateStatic(typeof(PODTypeFactory));
+            fungusTable["prefs"] = UserData.CreateStatic(typeof(FungusPrefs));
+            fungusTable["factory"] = UserData.CreateStatic(typeof(PODTypeFactory));
 
-			// Lua Environment and Lua Utils components
-			fungusTable["luaenvironment"] = luaEnvironment;
-			fungusTable["luautils"] = this;
+            // Lua Environment and Lua Utils components
+            fungusTable["luaenvironment"] = luaEnvironment;
+            fungusTable["luautils"] = this;
 
-			// Provide access to the Unity Test Tools (if available).
-			Type testType = Type.GetType("IntegrationTest");
-			if (testType != null)
-			{
-				UserData.RegisterType(testType);
-				fungusTable["test"] = UserData.CreateStatic(testType);
-			}
+            // Provide access to the Unity Test Tools (if available).
+            Type testType = Type.GetType("IntegrationTest");
+            if (testType != null)
+            {
+                UserData.RegisterType(testType);
+                fungusTable["test"] = UserData.CreateStatic(testType);
+            }
 
-			// Populate the string table by parsing the string table JSON files
+            // Populate the string table by parsing the string table JSON files
             stringTable = new Table(interpreter); 
             fungusTable["stringtable"] = stringTable;
             foreach (TextAsset stringFile in stringTables)
@@ -283,31 +283,31 @@ namespace Fungus
                 }
             }
 
-			stringSubstituter = new StringSubstituter();
+            stringSubstituter = new StringSubstituter();
 
-			conversationManager = new ConversationManager();
+            conversationManager = new ConversationManager();
             conversationManager.PopulateCharacterCache();
 
-			if (fungusModule == FungusModuleOptions.UseGlobalVariables)
-			{				
-				// Copy all items from the Fungus table to global variables
-				foreach (TablePair p in fungusTable.Pairs)
-				{
-					if (interpreter.Globals.Keys.Contains(p.Key))
-					{
-						UnityEngine.Debug.LogError("Lua globals already contains a variable " + p.Key);
-					}
-					else
-					{
-						interpreter.Globals[p.Key] = p.Value;
-					}
-				}
+            if (fungusModule == FungusModuleOptions.UseGlobalVariables)
+            {               
+                // Copy all items from the Fungus table to global variables
+                foreach (TablePair p in fungusTable.Pairs)
+                {
+                    if (interpreter.Globals.Keys.Contains(p.Key))
+                    {
+                        UnityEngine.Debug.LogError("Lua globals already contains a variable " + p.Key);
+                    }
+                    else
+                    {
+                        interpreter.Globals[p.Key] = p.Value;
+                    }
+                }
 
-				interpreter.Globals["fungus"] = DynValue.Nil;
+                interpreter.Globals["fungus"] = DynValue.Nil;
 
-				// Note: We can't remove the fungus table itself because of dependencies between functions
-			}
-		}
+                // Note: We can't remove the fungus table itself because of dependencies between functions
+            }
+        }
 
         /// <summary>
         /// Returns a string from the string table for this key.
@@ -333,40 +333,40 @@ namespace Fungus
         }
 
         /// <summary>
-		/// Implementation of StringSubstituter.ISubstitutionHandler
+        /// Implementation of StringSubstituter.ISubstitutionHandler
         /// Substitutes specially formatted tokens in the text with global variables and string table values.
         /// The string table value used depends on the currently loaded string table and active language.
         /// </summary>
-		[MoonSharpHidden]
-		public virtual bool SubstituteStrings(StringBuilder input)
+        [MoonSharpHidden]
+        public virtual bool SubstituteStrings(StringBuilder input)
         {
-			// This method could be called from the Start of another component, so
-			// we need to ensure that the LuaEnvironment has been initialized.
-			if (luaEnvironment == null)
-			{
-				luaEnvironment = GetComponent<LuaEnvironment>();
-				if (luaEnvironment != null)
-				{
-					luaEnvironment.InitEnvironment();
-				}
-			}
-					
-			if (luaEnvironment == null)
-			{
-				UnityEngine.Debug.LogError("No Lua Environment found");
-				return false;
-			}
+            // This method could be called from the Start of another component, so
+            // we need to ensure that the LuaEnvironment has been initialized.
+            if (luaEnvironment == null)
+            {
+                luaEnvironment = GetComponent<LuaEnvironment>();
+                if (luaEnvironment != null)
+                {
+                    luaEnvironment.InitEnvironment();
+                }
+            }
+                    
+            if (luaEnvironment == null)
+            {
+                UnityEngine.Debug.LogError("No Lua Environment found");
+                return false;
+            }
 
-			if (luaEnvironment.Interpreter == null)
-			{
-				UnityEngine.Debug.LogError("No Lua interpreter found");
-				return false;
-			}
-				
-			MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
+            if (luaEnvironment.Interpreter == null)
+            {
+                UnityEngine.Debug.LogError("No Lua interpreter found");
+                return false;
+            }
+                
+            MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
 
             // Instantiate the regular expression object.
-			Regex r = new Regex("\\{\\$.*?\\}");
+            Regex r = new Regex("\\{\\$.*?\\}");
 
             bool modified = false;
 
@@ -376,21 +376,21 @@ namespace Fungus
             {
                 string key = match.Value.Substring(2, match.Value.Length - 3);
 
-				// Match against string table and active language (if specified)
-				if (stringTable != null)
-				{
-	                DynValue stringTableVar = stringTable.Get(key);
-	                if (stringTableVar.Type == DataType.Table)
-	                {
-	                    DynValue languageEntry = stringTableVar.Table.Get(activeLanguage);
-	                    if (languageEntry.Type == DataType.String)
-	                    {
-	                        input.Replace(match.Value, languageEntry.String);
+                // Match against string table and active language (if specified)
+                if (stringTable != null)
+                {
+                    DynValue stringTableVar = stringTable.Get(key);
+                    if (stringTableVar.Type == DataType.Table)
+                    {
+                        DynValue languageEntry = stringTableVar.Table.Get(activeLanguage);
+                        if (languageEntry.Type == DataType.String)
+                        {
+                            input.Replace(match.Value, languageEntry.String);
                             modified = true;
-	                    }
-	                    continue;
-	                }
-				}
+                        }
+                        continue;
+                    }
+                }
 
                 // Match against global variables
                 DynValue globalVar = interpreter.Globals.Get(key);
@@ -405,90 +405,90 @@ namespace Fungus
             return modified;
         }
 
-		/// <summary>
-		/// Performs string substitution on the input string, replacing tokens of the form {$VarName} with 
-		/// matching variables, localised strings, etc. in the scene.
-		/// </summary>
-		public virtual string Substitute(string input)
-		{
+        /// <summary>
+        /// Performs string substitution on the input string, replacing tokens of the form {$VarName} with 
+        /// matching variables, localised strings, etc. in the scene.
+        /// </summary>
+        public virtual string Substitute(string input)
+        {
             return stringSubstituter.SubstituteStrings(input);
-		}
+        }
             
-		/// <summary>
-		/// Find a game object by name and returns it.
-		/// </summary>
-		public virtual GameObject Find(string name)
-		{
-			return GameObject.Find(name);
-		}
+        /// <summary>
+        /// Find a game object by name and returns it.
+        /// </summary>
+        public virtual GameObject Find(string name)
+        {
+            return GameObject.Find(name);
+        }
 
-		/// <summary>
-		/// Returns one active GameObject tagged tag. Returns null if no GameObject was found.
-		/// </summary>
-		public virtual GameObject FindWithTag(string tag)
-		{
-			return GameObject.FindGameObjectWithTag(tag);
-		}
+        /// <summary>
+        /// Returns one active GameObject tagged tag. Returns null if no GameObject was found.
+        /// </summary>
+        public virtual GameObject FindWithTag(string tag)
+        {
+            return GameObject.FindGameObjectWithTag(tag);
+        }
 
-		/// <summary>
-		/// Returns a list of active GameObjects tagged tag. Returns empty array if no GameObject was found.
-		/// </summary>
-		public virtual GameObject[] FindGameObjectsWithTag(string tag)
-		{
-			return GameObject.FindGameObjectsWithTag(tag);
-		}
-			
-		/// <summary>
-		/// Create a copy of a GameObject.
-		/// Can be used to instantiate prefabs.
-		/// </summary>
-		public virtual GameObject Instantiate(GameObject go)
-		{
-			return GameObject.Instantiate(go);
-		}
+        /// <summary>
+        /// Returns a list of active GameObjects tagged tag. Returns empty array if no GameObject was found.
+        /// </summary>
+        public virtual GameObject[] FindGameObjectsWithTag(string tag)
+        {
+            return GameObject.FindGameObjectsWithTag(tag);
+        }
+            
+        /// <summary>
+        /// Create a copy of a GameObject.
+        /// Can be used to instantiate prefabs.
+        /// </summary>
+        public virtual GameObject Instantiate(GameObject go)
+        {
+            return GameObject.Instantiate(go);
+        }
 
-		/// <summary>
-		/// Destroys an instance of a GameObject.
-		/// </summary>
-		public virtual void Destroy(GameObject go)
-		{
-			GameObject.Destroy(go);
-		}
+        /// <summary>
+        /// Destroys an instance of a GameObject.
+        /// </summary>
+        public virtual void Destroy(GameObject go)
+        {
+            GameObject.Destroy(go);
+        }
 
-		/// <summary>
-		/// Spawns an instance of a named prefab resource.
-		/// The prefab must exist in a Resources folder in the project.
-		/// </summary>
-		public virtual GameObject Spawn(string resourceName)
-		{
-			// Auto spawn a say dialog object from the prefab
-			GameObject prefab = Resources.Load<GameObject>(resourceName);
-			if (prefab != null)
-			{
-				GameObject go = Instantiate(prefab) as GameObject;
-				go.name = resourceName;
-				return go;
-			}
-			return null;
-		}
+        /// <summary>
+        /// Spawns an instance of a named prefab resource.
+        /// The prefab must exist in a Resources folder in the project.
+        /// </summary>
+        public virtual GameObject Spawn(string resourceName)
+        {
+            // Auto spawn a say dialog object from the prefab
+            GameObject prefab = Resources.Load<GameObject>(resourceName);
+            if (prefab != null)
+            {
+                GameObject go = Instantiate(prefab) as GameObject;
+                go.name = resourceName;
+                return go;
+            }
+            return null;
+        }
 
-		/// <summary>
-		/// Use the conversation manager to play out a conversation
-		/// </summary>
-		/// <param name="conv"></param>
-		public virtual IEnumerator DoConversation(string conv)
-		{
-			return conversationManager.DoConversation(conv);
-		}
+        /// <summary>
+        /// Use the conversation manager to play out a conversation
+        /// </summary>
+        /// <param name="conv"></param>
+        public virtual IEnumerator DoConversation(string conv)
+        {
+            return conversationManager.DoConversation(conv);
+        }
 
-		/// <summary>
-		/// Sync the active say dialog with what Lua thinks the SayDialog should be
-		/// </summary>
-		/// <param name="sayDialog"></param>
-		public void SetSayDialog(SayDialog sayDialog)
-		{
-			SayDialog.activeSayDialog = sayDialog;
-		}
+        /// <summary>
+        /// Sync the active say dialog with what Lua thinks the SayDialog should be
+        /// </summary>
+        /// <param name="sayDialog"></param>
+        public void SetSayDialog(SayDialog sayDialog)
+        {
+            SayDialog.activeSayDialog = sayDialog;
+        }
    }
 
 }

@@ -48,8 +48,8 @@ namespace Fungus
 
         protected string friendlyName = "";
 
-		// This is public so the editor code can force the component to reinitialise
-		[NonSerialized]
+        // This is public so the editor code can force the component to reinitialise
+        [NonSerialized]
         public bool initialised;
 
         // Stores the compiled Lua code for fast execution later.

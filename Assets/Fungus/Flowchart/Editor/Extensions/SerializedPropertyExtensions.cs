@@ -39,7 +39,7 @@ namespace Fungus
                 case "ColorRGBA":
                     element.colorValue = Color.black;
                     break;
-				
+                
                 default:
                     if (element.type.StartsWith("PPtr"))
                         element.objectReferenceValue = null;

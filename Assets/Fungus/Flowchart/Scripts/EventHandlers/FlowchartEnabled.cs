@@ -10,23 +10,23 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[EventHandlerInfo("",
-	                  "Flowchart Enabled",
-	                  "The block will execute when the Flowchart game object is enabled.")]
-	[AddComponentMenu("")]
-	public class FlowchartEnabled : EventHandler
-	{	
-		protected virtual void OnEnable()
-		{
-			// Blocks use coroutines to schedule command execution, but Unity's coroutines are
-			// sometimes unreliable when enabling / disabling objects.
-			// To workaround this we execute the block on the next frame.
-			Invoke("DoEvent", 0);
-		}
+    [EventHandlerInfo("",
+                      "Flowchart Enabled",
+                      "The block will execute when the Flowchart game object is enabled.")]
+    [AddComponentMenu("")]
+    public class FlowchartEnabled : EventHandler
+    {   
+        protected virtual void OnEnable()
+        {
+            // Blocks use coroutines to schedule command execution, but Unity's coroutines are
+            // sometimes unreliable when enabling / disabling objects.
+            // To workaround this we execute the block on the next frame.
+            Invoke("DoEvent", 0);
+        }
 
-		protected virtual void DoEvent()
-		{
-			ExecuteBlock();
-		}
-	}
+        protected virtual void DoEvent()
+        {
+            ExecuteBlock();
+        }
+    }
 }

@@ -36,7 +36,7 @@ namespace Fungus
             allLuaEnvironmentsProp = serializedObject.FindProperty("allEnvironments");
             luaEnvironmentProp = serializedObject.FindProperty("luaEnvironment");
             tableNameProp = serializedObject.FindProperty("tableName");
-			registerTypesProp = serializedObject.FindProperty("registerTypes");
+            registerTypesProp = serializedObject.FindProperty("registerTypes");
             boundObjectsProp = serializedObject.FindProperty("boundObjects");
             showInheritedProp = serializedObject.FindProperty("showInherited");
             CreateBoundObjectsList();
@@ -67,7 +67,7 @@ namespace Fungus
                 if (EditorGUI.EndChangeCheck())
                 {
                     // Force the key to be a valid Lua variable name
-					LuaBindings luaBindings = target as LuaBindings;
+                    LuaBindings luaBindings = target as LuaBindings;
                     keyProp.stringValue = GetUniqueKey(luaBindings, keyProp.stringValue, index);
                 }
 
@@ -81,7 +81,7 @@ namespace Fungus
                 {
                     // Use the object name as the key
                     string keyName = objectProp.objectReferenceValue.name;
-					LuaBindings luaBindings = target as LuaBindings;
+                    LuaBindings luaBindings = target as LuaBindings;
                     element.FindPropertyRelative("key").stringValue = GetUniqueKey(luaBindings, keyName.ToLower(), index);
 
                     // Auto select any Flowchart component in the object
@@ -178,7 +178,7 @@ namespace Fungus
             }
 
             EditorGUILayout.PropertyField(tableNameProp);
-			EditorGUILayout.PropertyField(registerTypesProp);
+            EditorGUILayout.PropertyField(registerTypesProp);
 
             EditorGUILayout.LabelField("Object Bindings");
 
@@ -204,7 +204,7 @@ namespace Fungus
             List<string> details = new List<string>();
             details.Add("");
 
-			LuaBindings luaBindings = target as LuaBindings;
+            LuaBindings luaBindings = target as LuaBindings;
             foreach (LuaBindings.BoundObject boundObject in luaBindings.boundObjects)
             {
                 UnityEngine.Object inspectObject = boundObject.obj;
@@ -407,7 +407,7 @@ namespace Fungus
         /// <summary>
         /// Update the list of bound types on the LuaBindings object.
         /// </summary>
-		protected static void PopulateBoundTypes(LuaBindings luaBindings, SerializedObject so)
+        protected static void PopulateBoundTypes(LuaBindings luaBindings, SerializedObject so)
         {
             // Use a temp HashSet to store the list of types.
             // The final list is stored as a list of type strings.
@@ -427,17 +427,17 @@ namespace Fungus
                 }
             }
                 
-			// Store the final list of types in the luaBindings object 
-			SerializedProperty boundTypesProp = so.FindProperty("boundTypes");
-			boundTypesProp.ClearArray();
-			int index = 0;
-			foreach (System.Type t in typeSet)
-			{
-				boundTypesProp.InsertArrayElementAtIndex(index);
-				SerializedProperty element = boundTypesProp.GetArrayElementAtIndex(index);
-				element.stringValue = t.AssemblyQualifiedName;
-				index++;
-			}
+            // Store the final list of types in the luaBindings object 
+            SerializedProperty boundTypesProp = so.FindProperty("boundTypes");
+            boundTypesProp.ClearArray();
+            int index = 0;
+            foreach (System.Type t in typeSet)
+            {
+                boundTypesProp.InsertArrayElementAtIndex(index);
+                SerializedProperty element = boundTypesProp.GetArrayElementAtIndex(index);
+                element.stringValue = t.AssemblyQualifiedName;
+                index++;
+            }
         }
 
         /// <summary>
@@ -503,7 +503,7 @@ namespace Fungus
                     AddSubType(typeSet, containedType);
                 }
             }
-			else if (t != typeof(System.Object))
+            else if (t != typeof(System.Object))
             {
                 // Non-IEnumerable/IEnumerator types will be registered.
                 typeSet.Add(t);

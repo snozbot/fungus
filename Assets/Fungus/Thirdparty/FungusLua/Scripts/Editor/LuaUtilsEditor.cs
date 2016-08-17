@@ -15,13 +15,13 @@ using System.IO;
 namespace Fungus
 {   
     [CustomEditor (typeof(LuaUtils))]
-	public class LuaUtilsEditor : Editor 
+    public class LuaUtilsEditor : Editor 
     {
         protected SerializedProperty stringTablesProp;
         protected ReorderableList stringTablesList;
 
-		protected SerializedProperty registerTypesProp;
-		protected ReorderableList registerTypeList;
+        protected SerializedProperty registerTypesProp;
+        protected ReorderableList registerTypeList;
 
         protected virtual void OnEnable()
         {
@@ -56,7 +56,7 @@ namespace Fungus
 
         public override void OnInspectorGUI() 
         {
-			base.OnInspectorGUI();
+            base.OnInspectorGUI();
 
             serializedObject.Update();
 

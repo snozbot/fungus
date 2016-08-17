@@ -34,9 +34,9 @@ namespace Fungus
 #if UNITY_5_3_OR_NEWER
             Object asset = AssetDatabase.LoadAssetAtPath<Object>(path);
 #else
-			Object asset = AssetDatabase.LoadAssetAtPath(path, typeof(Object));
+            Object asset = AssetDatabase.LoadAssetAtPath(path, typeof(Object));
 #endif            
-			if (asset != null)
+            if (asset != null)
             {
                 EditorUtility.FocusProjectWindow();
                 EditorGUIUtility.PingObject(asset);
@@ -106,16 +106,16 @@ namespace Fungus
             return go;
         }
 
-		/// <summary>
-		/// Create new asset from <see cref="ScriptableObject"/> type with unique name at
-		/// selected folder in project window. Asset creation can be cancelled by pressing
-		/// escape key when asset is initially being named.
-		/// </summary>
-		/// <typeparam name="T">Type of scriptable object.</typeparam>
-		public static void CreateAsset<T>() where T : ScriptableObject {
-			var asset = ScriptableObject.CreateInstance<T>();
-			ProjectWindowUtil.CreateAsset(asset, typeof(T).Name + ".asset");
-		}
+        /// <summary>
+        /// Create new asset from <see cref="ScriptableObject"/> type with unique name at
+        /// selected folder in project window. Asset creation can be cancelled by pressing
+        /// escape key when asset is initially being named.
+        /// </summary>
+        /// <typeparam name="T">Type of scriptable object.</typeparam>
+        public static void CreateAsset<T>() where T : ScriptableObject {
+            var asset = ScriptableObject.CreateInstance<T>();
+            ProjectWindowUtil.CreateAsset(asset, typeof(T).Name + ".asset");
+        }
 
         /// <summary>
         /// Create an info text object which displays help info in the top left of the sceen.

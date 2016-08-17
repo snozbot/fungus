@@ -7,8 +7,8 @@ using System.Text;
 
 namespace Fungus
 {
-	public class ConversationManager
-	{
+    public class ConversationManager
+    {
         protected struct ConversationItem
         {
             public string Text { get; set; }
@@ -18,15 +18,15 @@ namespace Fungus
             public bool Hide { get; set; }
         }
 
-		protected Character[] characters;
+        protected Character[] characters;
 
-		protected bool exitSayWait;
+        protected bool exitSayWait;
 
-		public void PopulateCharacterCache()
-		{
-			// cache characters for faster lookup
-			characters = UnityEngine.Object.FindObjectsOfType<Character>();
-		}
+        public void PopulateCharacterCache()
+        {
+            // cache characters for faster lookup
+            characters = UnityEngine.Object.FindObjectsOfType<Character>();
+        }
 
         protected SayDialog GetSayDialog(Character character)
         {
@@ -47,17 +47,17 @@ namespace Fungus
             return sayDialog;
         }
 
-		/// <summary>
-		/// Parse and execute a conversation string
-		/// </summary>
-		/// <param name="conv"></param>
-		public IEnumerator DoConversation(string conv)
-		{
-			if (string.IsNullOrEmpty(conv))
-			{
-				yield break;
-			}
-			
+        /// <summary>
+        /// Parse and execute a conversation string
+        /// </summary>
+        /// <param name="conv"></param>
+        public IEnumerator DoConversation(string conv)
+        {
+            if (string.IsNullOrEmpty(conv))
+            {
+                yield break;
+            }
+            
             var conversationItems = Parse(conv);
 
             if (conversationItems.Count == 0)
@@ -75,8 +75,8 @@ namespace Fungus
             for (int i = 0; i < conversationItems.Count; ++i)
             {
                 ConversationItem item = conversationItems[i];
-				
-				if (item.Character != null)
+                
+                if (item.Character != null)
                 {
                     currentCharacter = item.Character;
                 }
@@ -151,7 +151,7 @@ namespace Fungus
                     exitSayWait = false;
                 }
             }
-		}
+        }
 
         protected virtual List<ConversationItem> Parse(string conv)
         {
@@ -193,14 +193,14 @@ namespace Fungus
 
             return items;
         }
-                        		
-		/// <summary>
-		/// Using the string of say parameters before the ':',
-		/// set the current character, position and portrait if provided.
-		/// </summary>
-		/// <param name="sayParams">The list of say parameters</param>
+                                
+        /// <summary>
+        /// Using the string of say parameters before the ':',
+        /// set the current character, position and portrait if provided.
+        /// </summary>
+        /// <param name="sayParams">The list of say parameters</param>
         protected virtual ConversationItem CreateConversationItem(string[] sayParams, string text, Character currentCharacter)
-		{
+        {
             var item = new ConversationItem();
 
             // Populate the story text to be written
@@ -212,7 +212,7 @@ namespace Fungus
                 return item;
             }
 
-			// try to find the character param first, since we need to get its portrait
+            // try to find the character param first, since we need to get its portrait
             int characterIndex = -1;
             if (characters == null)
             {
@@ -220,17 +220,17 @@ namespace Fungus
             }
 
             for (int i = 0; item.Character == null && i < sayParams.Length; i++)
-			{
-				for (int j = 0; j < characters.Length; j++)
-				{
-					if (characters[j].NameStartsWith(sayParams[i]))
-					{
+            {
+                for (int j = 0; j < characters.Length; j++)
+                {
+                    if (characters[j].NameStartsWith(sayParams[i]))
+                    {
                         characterIndex = i;
                         item.Character = characters[j];
-						break;
-					}
-				}
-			}
+                        break;
+                    }
+                }
+            }
 
             // Assume last used character if none is specified now
             if (item.Character == null)
@@ -297,7 +297,7 @@ namespace Fungus
             }
 
             return item;
-		}
+        }
 
         /// <summary>
         /// Splits the string passed in by the delimiters passed in.
@@ -345,5 +345,5 @@ namespace Fungus
 
             return results.ToArray();
         }
-	}
+    }
 }

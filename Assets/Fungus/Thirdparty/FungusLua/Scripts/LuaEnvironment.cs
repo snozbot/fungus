@@ -19,21 +19,21 @@ namespace Fungus
 {
     public class LuaEnvironment : MonoBehaviour 
     {
-		/// <summary>
-		/// Helper class used to extend the initialization behavior of LuaEnvironment.
-		/// </summary>
-		public abstract class Initializer : MonoBehaviour
-		{
-			/// <summary>
-			/// Called when the LuaEnvironment is initializing.
-			/// </summary>
-			public abstract void Initialize();
+        /// <summary>
+        /// Helper class used to extend the initialization behavior of LuaEnvironment.
+        /// </summary>
+        public abstract class Initializer : MonoBehaviour
+        {
+            /// <summary>
+            /// Called when the LuaEnvironment is initializing.
+            /// </summary>
+            public abstract void Initialize();
 
             /// <summary>
             /// Applies transformations to the input script prior to execution.
             /// </summary>
             public abstract string PreprocessScript(string input);
-		}
+        }
 
         /// <summary>
         /// Custom file loader for MoonSharp that loads in all Lua scripts in the project.
@@ -83,25 +83,25 @@ namespace Fungus
             }
         }
 
-		/// <summary>
-		/// Returns the first Lua Environment found in the scene, or creates one if none exists.
-		/// This is a slow operation, call it once at startup and cache the returned value.
-		/// </summary>
-		public static LuaEnvironment GetLua()
-		{
-			LuaEnvironment luaEnvironment = GameObject.FindObjectOfType<LuaEnvironment>();
-			if (luaEnvironment == null)
-			{
-				GameObject prefab = Resources.Load<GameObject>("Prefabs/LuaEnvironment");
-				if (prefab != null)
-				{
-					GameObject go = Instantiate(prefab) as GameObject;
-					go.name = "LuaEnvironment";
-					luaEnvironment = go.GetComponent<LuaEnvironment>();
-				}
-			}
-			return luaEnvironment;
-		}
+        /// <summary>
+        /// Returns the first Lua Environment found in the scene, or creates one if none exists.
+        /// This is a slow operation, call it once at startup and cache the returned value.
+        /// </summary>
+        public static LuaEnvironment GetLua()
+        {
+            LuaEnvironment luaEnvironment = GameObject.FindObjectOfType<LuaEnvironment>();
+            if (luaEnvironment == null)
+            {
+                GameObject prefab = Resources.Load<GameObject>("Prefabs/LuaEnvironment");
+                if (prefab != null)
+                {
+                    GameObject go = Instantiate(prefab) as GameObject;
+                    go.name = "LuaEnvironment";
+                    luaEnvironment = go.GetComponent<LuaEnvironment>();
+                }
+            }
+            return luaEnvironment;
+        }
 
         protected Script interpreter;
 
@@ -126,7 +126,7 @@ namespace Fungus
         /// </summary>
         protected bool initialised = false;
 
-		protected virtual void Start() 
+        protected virtual void Start() 
         {
             InitEnvironment();
         }
@@ -147,15 +147,15 @@ namespace Fungus
             // You can restrict which core lua modules are available here if needed. See the MoonSharp documentation for details.
             interpreter = new Script(CoreModules.Preset_Complete);
 
-			// Load all Lua scripts in the project
+            // Load all Lua scripts in the project
             InitLuaScriptFiles();
 
-			// Initialize any attached initializer components (e.g. LuaUtils)
-			Initializer[] initializers = GetComponents<Initializer>();
-			foreach (Initializer initializer in initializers)
-			{
-				initializer.Initialize();
-			}
+            // Initialize any attached initializer components (e.g. LuaUtils)
+            Initializer[] initializers = GetComponents<Initializer>();
+            foreach (Initializer initializer in initializers)
+            {
+                initializer.Initialize();
+            }
 
             if (remoteDebugger)
             {
@@ -174,43 +174,43 @@ namespace Fungus
             interpreter.Options.ScriptLoader = new LuaScriptLoader(result.OfType<TextAsset>());
         }
 
-		/// <summary>
-		/// Register a type given it's assembly qualified name.
-		/// </summary>
+        /// <summary>
+        /// Register a type given it's assembly qualified name.
+        /// </summary>
         public static void RegisterType(string typeName, bool extensionType = false)
-		{
+        {
             System.Type t = System.Type.GetType(typeName);
-			if (t == null)
-			{
-				UnityEngine.Debug.LogWarning("Type not found: " + typeName);
-				return;
-			}
+            if (t == null)
+            {
+                UnityEngine.Debug.LogWarning("Type not found: " + typeName);
+                return;
+            }
 
-			// Registering System.Object breaks MoonSharp's automated conversion of Lists and Dictionaries to Lua tables.
-			if (t == typeof(System.Object))
-			{
-				return;
-			}
+            // Registering System.Object breaks MoonSharp's automated conversion of Lists and Dictionaries to Lua tables.
+            if (t == typeof(System.Object))
+            {
+                return;
+            }
 
-			if (!UserData.IsTypeRegistered(t))
-			{
+            if (!UserData.IsTypeRegistered(t))
+            {
                 try
                 {
-    				if (extensionType)
-    				{
-    					UserData.RegisterExtensionType(t);
-    				}
-    				else
-    				{
-    					UserData.RegisterType(t);
-    				}
+                    if (extensionType)
+                    {
+                        UserData.RegisterExtensionType(t);
+                    }
+                    else
+                    {
+                        UserData.RegisterType(t);
+                    }
                 }
                 catch (ArgumentException ex)
                 {
                     UnityEngine.Debug.LogWarning(ex.Message);
                 }
-			}
-		}
+            }
+        }
 
         /// <summary>
         /// Loads and compiles a string containing Lua script, returning a closure (Lua function) which can be executed later.
@@ -285,7 +285,7 @@ namespace Fungus
                 }
                 catch (InterpreterException ex)
                 {
-					LogException(ex.DecoratedMessage, GetSourceCode());
+                    LogException(ex.DecoratedMessage, GetSourceCode());
                 }
 
                 if (onComplete != null)
@@ -326,7 +326,7 @@ namespace Fungus
                 }
                 catch (InterpreterException ex)
                 {
-					LogException(ex.DecoratedMessage, GetSourceCode());
+                    LogException(ex.DecoratedMessage, GetSourceCode());
                 }
 
                 yield return null;
@@ -338,20 +338,20 @@ namespace Fungus
             }
         }
 
-		protected virtual string GetSourceCode()
-		{
-			// Get most recently executed source code
-			string sourceCode = "";
-			if (interpreter.SourceCodeCount > 0)
-			{
-				MoonSharp.Interpreter.Debugging.SourceCode sc = interpreter.GetSourceCode(interpreter.SourceCodeCount - 1);
-				if (sc != null)
-				{
-					sourceCode = sc.Code;
-				}
-			}
-			return sourceCode;
-		}
+        protected virtual string GetSourceCode()
+        {
+            // Get most recently executed source code
+            string sourceCode = "";
+            if (interpreter.SourceCodeCount > 0)
+            {
+                MoonSharp.Interpreter.Debugging.SourceCode sc = interpreter.GetSourceCode(interpreter.SourceCodeCount - 1);
+                if (sc != null)
+                {
+                    sourceCode = sc.Code;
+                }
+            }
+            return sourceCode;
+        }
 
         /// <summary>
         /// Start a Unity coroutine from a Lua call.
@@ -402,28 +402,28 @@ namespace Fungus
             #endif
         }
 
-		/// <summary>
-		/// Writes a MoonSharp exception to the debug log in a helpful format.
-		/// </summary>
-		/// <param name="decoratedMessage">Decorated message from a MoonSharp exception</param>
-		/// <param name="debugInfo">Debug info, usually the Lua script that was running.</param>
-		public static void LogException(string decoratedMessage, string debugInfo)
-		{
-			string output = decoratedMessage + "\n";
+        /// <summary>
+        /// Writes a MoonSharp exception to the debug log in a helpful format.
+        /// </summary>
+        /// <param name="decoratedMessage">Decorated message from a MoonSharp exception</param>
+        /// <param name="debugInfo">Debug info, usually the Lua script that was running.</param>
+        public static void LogException(string decoratedMessage, string debugInfo)
+        {
+            string output = decoratedMessage + "\n";
 
-			char[] separators = { '\r', '\n' };
-			string[] lines = debugInfo.Split(separators, StringSplitOptions.None);
+            char[] separators = { '\r', '\n' };
+            string[] lines = debugInfo.Split(separators, StringSplitOptions.None);
 
-			// Show line numbers for script listing
-			int count = 1;
-			foreach (string line in lines)
-			{
-				output += count.ToString() + ": " + line + "\n";
-				count++;
-			}
-				
-			UnityEngine.Debug.LogError(output);
-		}
+            // Show line numbers for script listing
+            int count = 1;
+            foreach (string line in lines)
+            {
+                output += count.ToString() + ": " + line + "\n";
+                count++;
+            }
+                
+            UnityEngine.Debug.LogError(output);
+        }
     }
 
 }

@@ -9,67 +9,67 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("iTween", 
-	             "Move From", 
-	             "Moves a game object from a specified position back to its starting position over time. The position can be defined by a transform in another object (using To Transform) or by setting an absolute position (using To Position, if To Transform is set to None).")]
-	[AddComponentMenu("")]
-	[ExecuteInEditMode]
-	public class MoveFrom : iTweenCommand
-	{
-		[Tooltip("Target transform that the GameObject will move from")]
-		public TransformData _fromTransform;
+    [CommandInfo("iTween", 
+                 "Move From", 
+                 "Moves a game object from a specified position back to its starting position over time. The position can be defined by a transform in another object (using To Transform) or by setting an absolute position (using To Position, if To Transform is set to None).")]
+    [AddComponentMenu("")]
+    [ExecuteInEditMode]
+    public class MoveFrom : iTweenCommand
+    {
+        [Tooltip("Target transform that the GameObject will move from")]
+        public TransformData _fromTransform;
 
-		[Tooltip("Target world position that the GameObject will move from, if no From Transform is set")]
-		public Vector3Data _fromPosition;
+        [Tooltip("Target world position that the GameObject will move from, if no From Transform is set")]
+        public Vector3Data _fromPosition;
 
-		[Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
-		public bool isLocal;
+        [Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
+        public bool isLocal;
 
-		public override void DoTween()
-		{
-			Hashtable tweenParams = new Hashtable();
-			tweenParams.Add("name", _tweenName.Value);
-			if (_fromTransform.Value == null)
-			{
-				tweenParams.Add("position", _fromPosition.Value);
-			}
-			else
-			{
-				tweenParams.Add("position", _fromTransform.Value);
-			}
-			tweenParams.Add("time", _duration.Value);
-			tweenParams.Add("easetype", easeType);
-			tweenParams.Add("looptype", loopType);
-			tweenParams.Add("isLocal", isLocal);
-			tweenParams.Add("oncomplete", "OniTweenComplete");
-			tweenParams.Add("oncompletetarget", gameObject);
-			tweenParams.Add("oncompleteparams", this);
-			iTween.MoveFrom(_targetObject.Value, tweenParams);
-		}
+        public override void DoTween()
+        {
+            Hashtable tweenParams = new Hashtable();
+            tweenParams.Add("name", _tweenName.Value);
+            if (_fromTransform.Value == null)
+            {
+                tweenParams.Add("position", _fromPosition.Value);
+            }
+            else
+            {
+                tweenParams.Add("position", _fromTransform.Value);
+            }
+            tweenParams.Add("time", _duration.Value);
+            tweenParams.Add("easetype", easeType);
+            tweenParams.Add("looptype", loopType);
+            tweenParams.Add("isLocal", isLocal);
+            tweenParams.Add("oncomplete", "OniTweenComplete");
+            tweenParams.Add("oncompletetarget", gameObject);
+            tweenParams.Add("oncompleteparams", this);
+            iTween.MoveFrom(_targetObject.Value, tweenParams);
+        }
 
-		#region Backwards compatibility
+        #region Backwards compatibility
 
-		[HideInInspector] [FormerlySerializedAs("fromTransform")] public Transform fromTransformOLD;
-		[HideInInspector] [FormerlySerializedAs("fromPosition")] public Vector3 fromPositionOLD;
+        [HideInInspector] [FormerlySerializedAs("fromTransform")] public Transform fromTransformOLD;
+        [HideInInspector] [FormerlySerializedAs("fromPosition")] public Vector3 fromPositionOLD;
 
-		protected override void OnEnable()
-		{
-			base.OnEnable();
+        protected override void OnEnable()
+        {
+            base.OnEnable();
 
-			if (fromTransformOLD != null)
-			{
-				_fromTransform.Value = fromTransformOLD;
-				fromTransformOLD = null;
-			}
+            if (fromTransformOLD != null)
+            {
+                _fromTransform.Value = fromTransformOLD;
+                fromTransformOLD = null;
+            }
 
-			if (fromPositionOLD != default(Vector3))
-			{
-				_fromPosition.Value = fromPositionOLD;
-				fromPositionOLD = default(Vector3);
-			}
-		}
+            if (fromPositionOLD != default(Vector3))
+            {
+                _fromPosition.Value = fromPositionOLD;
+                fromPositionOLD = default(Vector3);
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 
 }

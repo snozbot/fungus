@@ -13,74 +13,74 @@ using System.Linq;
 
 namespace Fungus
 {
-	[CustomEditor (typeof(Label))]
-	public class LabelEditor : CommandEditor
-	{
-		protected SerializedProperty keyProp;
-		
-		static public void LabelField(SerializedProperty property, 
-		                              GUIContent labelText, 
-		                              Block block)
-		{
-			List<string> labelKeys = new List<string>();
-			List<Label> labelObjects = new List<Label>();
-			
-			labelKeys.Add("<None>");
-			labelObjects.Add(null);
-			
-			Label selectedLabel = property.objectReferenceValue as Label;
+    [CustomEditor (typeof(Label))]
+    public class LabelEditor : CommandEditor
+    {
+        protected SerializedProperty keyProp;
+        
+        static public void LabelField(SerializedProperty property, 
+                                      GUIContent labelText, 
+                                      Block block)
+        {
+            List<string> labelKeys = new List<string>();
+            List<Label> labelObjects = new List<Label>();
+            
+            labelKeys.Add("<None>");
+            labelObjects.Add(null);
+            
+            Label selectedLabel = property.objectReferenceValue as Label;
 
-			int index = 0;
-			int selectedIndex = 0;
-			foreach (Command command in block.commandList)
-			{
-				Label label = command as Label;
-				if (label == null)
-				{
-					continue;
-				}
+            int index = 0;
+            int selectedIndex = 0;
+            foreach (Command command in block.commandList)
+            {
+                Label label = command as Label;
+                if (label == null)
+                {
+                    continue;
+                }
 
-				labelKeys.Add(label.key);
-				labelObjects.Add(label);
-				
-				index++;
-				
-				if (label == selectedLabel)
-				{
-					selectedIndex = index;
-				}
-			}
+                labelKeys.Add(label.key);
+                labelObjects.Add(label);
+                
+                index++;
+                
+                if (label == selectedLabel)
+                {
+                    selectedIndex = index;
+                }
+            }
 
-			selectedIndex = EditorGUILayout.Popup(labelText.text, selectedIndex, labelKeys.ToArray());
+            selectedIndex = EditorGUILayout.Popup(labelText.text, selectedIndex, labelKeys.ToArray());
 
-			property.objectReferenceValue = labelObjects[selectedIndex];
-		}
+            property.objectReferenceValue = labelObjects[selectedIndex];
+        }
 
-		protected virtual void OnEnable()
-		{
-			if (NullTargetCheck()) // Check for an orphaned editor instance
-				return;
+        protected virtual void OnEnable()
+        {
+            if (NullTargetCheck()) // Check for an orphaned editor instance
+                return;
 
-			keyProp = serializedObject.FindProperty("key");
-		}
-		
-		public override void DrawCommandGUI()
-		{
-			Label t = target as Label;
+            keyProp = serializedObject.FindProperty("key");
+        }
+        
+        public override void DrawCommandGUI()
+        {
+            Label t = target as Label;
 
-			Flowchart flowchart = t.GetFlowchart();
-			if (flowchart == null)
-			{
-				return;
-			}
-		
-			serializedObject.Update();
+            Flowchart flowchart = t.GetFlowchart();
+            if (flowchart == null)
+            {
+                return;
+            }
+        
+            serializedObject.Update();
 
-			EditorGUILayout.PropertyField(keyProp);
-			keyProp.stringValue = flowchart.GetUniqueLabelKey(keyProp.stringValue, t);
+            EditorGUILayout.PropertyField(keyProp);
+            keyProp.stringValue = flowchart.GetUniqueLabelKey(keyProp.stringValue, t);
 
-			serializedObject.ApplyModifiedProperties();
-		}
-	}
-	
+            serializedObject.ApplyModifiedProperties();
+        }
+    }
+    
 }

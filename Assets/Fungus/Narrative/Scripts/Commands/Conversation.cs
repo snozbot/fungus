@@ -9,13 +9,13 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Narrative", 
-	             "Conversation", 
-	             "Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text]")]
-	[AddComponentMenu("")]
-	[ExecuteInEditMode]
-	public class Conversation : Command
-	{
+    [CommandInfo("Narrative", 
+                 "Conversation", 
+                 "Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text]")]
+    [AddComponentMenu("")]
+    [ExecuteInEditMode]
+    public class Conversation : Command
+    {
         public StringDataMulti conversationText;
 
         public ConversationManager conversationManager = new ConversationManager();
@@ -25,10 +25,10 @@ namespace Fungus
             conversationManager.PopulateCharacterCache();
         }
 
-		public override void OnEnter()
-		{
+        public override void OnEnter()
+        {
             StartCoroutine(DoConversation());
-		}
+        }
 
         protected virtual IEnumerator DoConversation()
         {
@@ -40,14 +40,14 @@ namespace Fungus
             Continue();
         }
 
-		public override string GetSummary()
-		{
+        public override string GetSummary()
+        {
             return conversationText.Value;
-		}
+        }
 
-		public override Color GetButtonColor()
-		{
-			return new Color32(184, 210, 235, 255);
-		}
-	}
+        public override Color GetButtonColor()
+        {
+            return new Color32(184, 210, 235, 255);
+        }
+    }
 }

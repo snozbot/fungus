@@ -11,26 +11,26 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	
-	[CustomEditor (typeof(LuaScript))]
-	public class LuaScriptEditor : Editor
-	{
+    
+    [CustomEditor (typeof(LuaScript))]
+    public class LuaScriptEditor : Editor
+    {
         protected SerializedProperty luaEnvironmentProp;
         protected SerializedProperty luaFileProp;
         protected SerializedProperty luaScriptProp;
         protected SerializedProperty runAsCoroutineProp;
 
-		protected virtual void OnEnable()
-		{
+        protected virtual void OnEnable()
+        {
             luaEnvironmentProp = serializedObject.FindProperty("luaEnvironment");
             luaFileProp = serializedObject.FindProperty("luaFile");
             luaScriptProp = serializedObject.FindProperty("luaScript");
             runAsCoroutineProp = serializedObject.FindProperty("runAsCoroutine");
-		}
-		
-		public override void OnInspectorGUI() 
-		{
-			serializedObject.Update();
+        }
+        
+        public override void OnInspectorGUI() 
+        {
+            serializedObject.Update();
 
             EditorGUILayout.PropertyField(luaEnvironmentProp);
             EditorGUILayout.PropertyField(luaFileProp);
@@ -49,8 +49,8 @@ namespace Fungus
 
             EditorGUILayout.PropertyField(runAsCoroutineProp);
 
-			serializedObject.ApplyModifiedProperties();
-		}
-	}
-	
+            serializedObject.ApplyModifiedProperties();
+        }
+    }
+    
 }

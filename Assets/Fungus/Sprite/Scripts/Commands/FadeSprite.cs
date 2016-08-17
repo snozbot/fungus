@@ -10,89 +10,89 @@ using System.Collections;
 
 namespace Fungus
 {
-	[CommandInfo("Sprite", 
-	             "Fade Sprite", 
-	             "Fades a sprite to a target color over a period of time.")]
-	[AddComponentMenu("")]
-	[ExecuteInEditMode]
-	public class FadeSprite : Command
-	{
-		[Tooltip("Sprite object to be faded")]
-		public SpriteRenderer spriteRenderer;
+    [CommandInfo("Sprite", 
+                 "Fade Sprite", 
+                 "Fades a sprite to a target color over a period of time.")]
+    [AddComponentMenu("")]
+    [ExecuteInEditMode]
+    public class FadeSprite : Command
+    {
+        [Tooltip("Sprite object to be faded")]
+        public SpriteRenderer spriteRenderer;
 
-		[Tooltip("Length of time to perform the fade")]
-		public FloatData _duration = new FloatData(1f);
+        [Tooltip("Length of time to perform the fade")]
+        public FloatData _duration = new FloatData(1f);
 
-		[Tooltip("Target color to fade to. To only fade transparency level, set the color to white and set the alpha to required transparency.")]
-		public ColorData _targetColor = new ColorData(Color.white);
+        [Tooltip("Target color to fade to. To only fade transparency level, set the color to white and set the alpha to required transparency.")]
+        public ColorData _targetColor = new ColorData(Color.white);
 
-		[Tooltip("Wait until the fade has finished before executing the next command")]
-		public bool waitUntilFinished = true;
+        [Tooltip("Wait until the fade has finished before executing the next command")]
+        public bool waitUntilFinished = true;
 
-		public override void OnEnter()
-		{
-			if (spriteRenderer == null)
-			{
-				Continue();
-				return;
-			}
+        public override void OnEnter()
+        {
+            if (spriteRenderer == null)
+            {
+                Continue();
+                return;
+            }
 
-			CameraController cameraController = CameraController.GetInstance();
+            CameraController cameraController = CameraController.GetInstance();
 
-			if (waitUntilFinished)
-			{
-				cameraController.waiting = true;
-			}
+            if (waitUntilFinished)
+            {
+                cameraController.waiting = true;
+            }
 
-			SpriteFader.FadeSprite(spriteRenderer, _targetColor.Value, _duration.Value, Vector2.zero, delegate {
-				if (waitUntilFinished)
-				{
-					cameraController.waiting = false;
-					Continue();
-				}
-			});
+            SpriteFader.FadeSprite(spriteRenderer, _targetColor.Value, _duration.Value, Vector2.zero, delegate {
+                if (waitUntilFinished)
+                {
+                    cameraController.waiting = false;
+                    Continue();
+                }
+            });
 
-			if (!waitUntilFinished)
-			{
-				Continue();
-			}
-		}
+            if (!waitUntilFinished)
+            {
+                Continue();
+            }
+        }
 
-		public override string GetSummary()
-		{
-			if (spriteRenderer == null)
-			{
-				return "Error: No sprite renderer selected";
-			}
+        public override string GetSummary()
+        {
+            if (spriteRenderer == null)
+            {
+                return "Error: No sprite renderer selected";
+            }
 
-			return spriteRenderer.name + " to " + _targetColor.Value.ToString();
-		}
+            return spriteRenderer.name + " to " + _targetColor.Value.ToString();
+        }
 
-		public override Color GetButtonColor()
-		{
-			return new Color32(221, 184, 169, 255);
-		}
+        public override Color GetButtonColor()
+        {
+            return new Color32(221, 184, 169, 255);
+        }
 
-		#region Backwards compatibility
+        #region Backwards compatibility
 
-		[HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
-		[HideInInspector] [FormerlySerializedAs("targetColor")] public Color targetColorOLD;
+        [HideInInspector] [FormerlySerializedAs("duration")] public float durationOLD;
+        [HideInInspector] [FormerlySerializedAs("targetColor")] public Color targetColorOLD;
 
-		protected virtual void OnEnable()
-		{
-			if (durationOLD != default(float))
-			{
-				_duration.Value = durationOLD;
-				durationOLD = default(float);
-			}
-			if (targetColorOLD != default(Color))
-			{
-				_targetColor.Value = targetColorOLD;
-				targetColorOLD = default(Color);
-			}
-		}
+        protected virtual void OnEnable()
+        {
+            if (durationOLD != default(float))
+            {
+                _duration.Value = durationOLD;
+                durationOLD = default(float);
+            }
+            if (targetColorOLD != default(Color))
+            {
+                _targetColor.Value = targetColorOLD;
+                targetColorOLD = default(Color);
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 
 }

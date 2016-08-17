@@ -253,10 +253,10 @@ namespace Fungus
         public virtual void Execute()
         {
             // Call any OnExecute methods in components on this gameobject
-			if (executeMethodName != "")
-			{
-				SendMessage(executeMethodName, SendMessageOptions.DontRequireReceiver);
-			}
+            if (executeMethodName != "")
+            {
+                SendMessage(executeMethodName, SendMessageOptions.DontRequireReceiver);
+            }
         }
             
         #region AssertionComponentConfigurator

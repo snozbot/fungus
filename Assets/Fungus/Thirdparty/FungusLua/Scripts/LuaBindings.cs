@@ -14,24 +14,24 @@ using MoonSharp.Interpreter;
 namespace Fungus
 {
 
-	/// <summary>
-	/// Base class for a component which registers Lua Bindings.
-	/// When the Lua Environment initialises, it finds all components in the scene that inherit
-	/// from LuaBindingsBase and calls them to add their bindings.
-	/// </summary>
-	public abstract class LuaBindingsBase : MonoBehaviour
-	{
-		/// <summary>
-		/// Add all declared bindings to the globals table.
-		/// </summary>
-		public abstract void AddBindings(LuaEnvironment luaEnvironment);
-	}
+    /// <summary>
+    /// Base class for a component which registers Lua Bindings.
+    /// When the Lua Environment initialises, it finds all components in the scene that inherit
+    /// from LuaBindingsBase and calls them to add their bindings.
+    /// </summary>
+    public abstract class LuaBindingsBase : MonoBehaviour
+    {
+        /// <summary>
+        /// Add all declared bindings to the globals table.
+        /// </summary>
+        public abstract void AddBindings(LuaEnvironment luaEnvironment);
+    }
 
     /// <summary>
     /// Component which manages a list of bound objects to be accessed in Lua scripts.
     /// </summary>
     [ExecuteInEditMode]
-	public class LuaBindings : LuaBindingsBase 
+    public class LuaBindings : LuaBindingsBase 
     {
         /// <summary>
         /// Represents a single Unity object (+ optional component) bound to a string key.
@@ -56,11 +56,11 @@ namespace Fungus
         [Tooltip("Name of global table variable to store bindings in. If left blank then each binding will be added as a global variable.")]
         public string tableName = "";
 
-		[Tooltip("Register all CLR types used by the bound objects so that they can be accessed from Lua. If you don't use this option you will need to register these types yourself.")]
-		public bool registerTypes = true;
+        [Tooltip("Register all CLR types used by the bound objects so that they can be accessed from Lua. If you don't use this option you will need to register these types yourself.")]
+        public bool registerTypes = true;
 
-		[HideInInspector]
-		public List<string> boundTypes = new List<string>();
+        [HideInInspector]
+        public List<string> boundTypes = new List<string>();
 
         /// <summary>
         /// The list of Unity objects to be bound for access in Lua.
@@ -125,14 +125,14 @@ namespace Fungus
                 Debug.LogError("Bindings table must not be null");
             }
 
-			// Register types of bound objects with MoonSharp
-			if (registerTypes)
-			{
-				foreach (string typeName in boundTypes)
-				{
-					LuaEnvironment.RegisterType(typeName);
-				}
-			}
+            // Register types of bound objects with MoonSharp
+            if (registerTypes)
+            {
+                foreach (string typeName in boundTypes)
+                {
+                    LuaEnvironment.RegisterType(typeName);
+                }
+            }
 
             for (int i = 0; i < boundObjects.Count; ++i)
             {

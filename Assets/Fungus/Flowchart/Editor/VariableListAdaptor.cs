@@ -14,188 +14,188 @@ using Rotorz.ReorderableList;
 
 namespace Fungus
 {
-	public class VariableListAdaptor : IReorderableListAdaptor {
-		
-		protected SerializedProperty _arrayProperty;
+    public class VariableListAdaptor : IReorderableListAdaptor {
+        
+        protected SerializedProperty _arrayProperty;
 
-		public float fixedItemHeight;
-		
-		public SerializedProperty this[int index] {
-			get { return _arrayProperty.GetArrayElementAtIndex(index); }
-		}
-		
-		public SerializedProperty arrayProperty {
-			get { return _arrayProperty; }
-		}
-		
-		public VariableListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight) {
-			if (arrayProperty == null)
-				throw new ArgumentNullException("Array property was null.");
-			if (!arrayProperty.isArray)
-				throw new InvalidOperationException("Specified serialized propery is not an array.");
-			
-			this._arrayProperty = arrayProperty;
-			this.fixedItemHeight = fixedItemHeight;
-		}
-		
-		public VariableListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f) {
-		}
-				
-		public int Count {
-			get { return _arrayProperty.arraySize; }
-		}
-		
-		public virtual bool CanDrag(int index) {
-			return true;
-		}
+        public float fixedItemHeight;
+        
+        public SerializedProperty this[int index] {
+            get { return _arrayProperty.GetArrayElementAtIndex(index); }
+        }
+        
+        public SerializedProperty arrayProperty {
+            get { return _arrayProperty; }
+        }
+        
+        public VariableListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight) {
+            if (arrayProperty == null)
+                throw new ArgumentNullException("Array property was null.");
+            if (!arrayProperty.isArray)
+                throw new InvalidOperationException("Specified serialized propery is not an array.");
+            
+            this._arrayProperty = arrayProperty;
+            this.fixedItemHeight = fixedItemHeight;
+        }
+        
+        public VariableListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f) {
+        }
+                
+        public int Count {
+            get { return _arrayProperty.arraySize; }
+        }
+        
+        public virtual bool CanDrag(int index) {
+            return true;
+        }
 
-		public virtual bool CanRemove(int index) {
-			return true;
-		}
-		
-		public void Add() {
-			int newIndex = _arrayProperty.arraySize;
-			++_arrayProperty.arraySize;
-		    _arrayProperty.GetArrayElementAtIndex(newIndex).ResetValue();
-		}
+        public virtual bool CanRemove(int index) {
+            return true;
+        }
+        
+        public void Add() {
+            int newIndex = _arrayProperty.arraySize;
+            ++_arrayProperty.arraySize;
+            _arrayProperty.GetArrayElementAtIndex(newIndex).ResetValue();
+        }
 
-		public void Insert(int index) {
-			_arrayProperty.InsertArrayElementAtIndex(index);
-		    _arrayProperty.GetArrayElementAtIndex(index).ResetValue();
-		}
+        public void Insert(int index) {
+            _arrayProperty.InsertArrayElementAtIndex(index);
+            _arrayProperty.GetArrayElementAtIndex(index).ResetValue();
+        }
 
-		public void Duplicate(int index) {
-			_arrayProperty.InsertArrayElementAtIndex(index);
-		}
+        public void Duplicate(int index) {
+            _arrayProperty.InsertArrayElementAtIndex(index);
+        }
 
-		public void Remove(int index) {
-			// Remove the Fungus Variable component
-			Variable variable = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as Variable;
-			Undo.DestroyObjectImmediate(variable);
+        public void Remove(int index) {
+            // Remove the Fungus Variable component
+            Variable variable = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as Variable;
+            Undo.DestroyObjectImmediate(variable);
 
-			_arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = null;
-			_arrayProperty.DeleteArrayElementAtIndex(index);
-		}
+            _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = null;
+            _arrayProperty.DeleteArrayElementAtIndex(index);
+        }
 
-		public void Move(int sourceIndex, int destIndex) {
-			if (destIndex > sourceIndex)
-				--destIndex;
-			_arrayProperty.MoveArrayElement(sourceIndex, destIndex);
-		}
+        public void Move(int sourceIndex, int destIndex) {
+            if (destIndex > sourceIndex)
+                --destIndex;
+            _arrayProperty.MoveArrayElement(sourceIndex, destIndex);
+        }
 
-		public void Clear() {
-			_arrayProperty.ClearArray();
-		}
+        public void Clear() {
+            _arrayProperty.ClearArray();
+        }
 
-		public void BeginGUI()
-		{}
-		
-		public void EndGUI()
-		{}
+        public void BeginGUI()
+        {}
+        
+        public void EndGUI()
+        {}
 
-		public virtual void DrawItemBackground(Rect position, int index) {
-		}
+        public virtual void DrawItemBackground(Rect position, int index) {
+        }
 
-		public void DrawItem(Rect position, int index) 
-		{
-			Variable variable = this[index].objectReferenceValue as Variable;
+        public void DrawItem(Rect position, int index) 
+        {
+            Variable variable = this[index].objectReferenceValue as Variable;
 
-			if (variable == null)
-			{
-				return;
-			}
+            if (variable == null)
+            {
+                return;
+            }
 
-			float[] widths = { 80, 100, 140, 60 };
-			Rect[] rects = new Rect[4];
+            float[] widths = { 80, 100, 140, 60 };
+            Rect[] rects = new Rect[4];
 
-			for (int i = 0; i < 4; ++i)
-			{
-				rects[i] = position;
-				rects[i].width = widths[i] - 5;
+            for (int i = 0; i < 4; ++i)
+            {
+                rects[i] = position;
+                rects[i].width = widths[i] - 5;
 
-				for (int j = 0; j < i; ++j)
-				{
-					rects[i].x += widths[j];
-				}
-			}
+                for (int j = 0; j < i; ++j)
+                {
+                    rects[i].x += widths[j];
+                }
+            }
 
-			VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(variable.GetType());
-			if (variableInfo == null)
-			{
-				return;
-			}
+            VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(variable.GetType());
+            if (variableInfo == null)
+            {
+                return;
+            }
 
-			Flowchart flowchart = FlowchartWindow.GetFlowchart();
-			if (flowchart == null)
-			{
-				return;
-			}
-							
-			// Highlight if an active or selected command is referencing this variable
-			bool highlight = false;
-			if (flowchart.selectedBlock != null)
-			{
-				if (Application.isPlaying && flowchart.selectedBlock.IsExecuting())
-				{
-					highlight = flowchart.selectedBlock.activeCommand.HasReference(variable);
-				}
-				else if (!Application.isPlaying && flowchart.selectedCommands.Count > 0)
-				{
-					foreach (Command selectedCommand in flowchart.selectedCommands)
-					{
-						if (selectedCommand == null)
-						{
-							continue;
-						}
+            Flowchart flowchart = FlowchartWindow.GetFlowchart();
+            if (flowchart == null)
+            {
+                return;
+            }
+                            
+            // Highlight if an active or selected command is referencing this variable
+            bool highlight = false;
+            if (flowchart.selectedBlock != null)
+            {
+                if (Application.isPlaying && flowchart.selectedBlock.IsExecuting())
+                {
+                    highlight = flowchart.selectedBlock.activeCommand.HasReference(variable);
+                }
+                else if (!Application.isPlaying && flowchart.selectedCommands.Count > 0)
+                {
+                    foreach (Command selectedCommand in flowchart.selectedCommands)
+                    {
+                        if (selectedCommand == null)
+                        {
+                            continue;
+                        }
 
-						if (selectedCommand.HasReference(variable))
-						{
-							highlight = true;
-							break;
-						}
-					}
-				}
-			}
+                        if (selectedCommand.HasReference(variable))
+                        {
+                            highlight = true;
+                            break;
+                        }
+                    }
+                }
+            }
 
-			if (highlight)
-			{
-				GUI.backgroundColor = Color.green;
-				GUI.Box(position, "");
-			}
+            if (highlight)
+            {
+                GUI.backgroundColor = Color.green;
+                GUI.Box(position, "");
+            }
 
-			string key = variable.key;
-			VariableScope scope = variable.scope;
+            string key = variable.key;
+            VariableScope scope = variable.scope;
 
-			// To access properties in a monobehavior, you have to new a SerializedObject
-			// http://answers.unity3d.com/questions/629803/findrelativeproperty-never-worked-for-me-how-does.html
-			SerializedObject variableObject = new SerializedObject(this[index].objectReferenceValue);
+            // To access properties in a monobehavior, you have to new a SerializedObject
+            // http://answers.unity3d.com/questions/629803/findrelativeproperty-never-worked-for-me-how-does.html
+            SerializedObject variableObject = new SerializedObject(this[index].objectReferenceValue);
 
-			variableObject.Update();
+            variableObject.Update();
 
-			GUI.Label(rects[0], variableInfo.VariableType);
+            GUI.Label(rects[0], variableInfo.VariableType);
 
-			key = EditorGUI.TextField(rects[1], variable.key);
-			SerializedProperty keyProp = variableObject.FindProperty("key");
-			keyProp.stringValue = flowchart.GetUniqueVariableKey(key, variable);
+            key = EditorGUI.TextField(rects[1], variable.key);
+            SerializedProperty keyProp = variableObject.FindProperty("key");
+            keyProp.stringValue = flowchart.GetUniqueVariableKey(key, variable);
 
-			SerializedProperty defaultProp = variableObject.FindProperty("value");
-			EditorGUI.PropertyField(rects[2], defaultProp, new GUIContent(""));
+            SerializedProperty defaultProp = variableObject.FindProperty("value");
+            EditorGUI.PropertyField(rects[2], defaultProp, new GUIContent(""));
 
-			SerializedProperty scopeProp = variableObject.FindProperty("scope");
-			scope = (VariableScope)EditorGUI.EnumPopup(rects[3], variable.scope);
-			scopeProp.enumValueIndex = (int)scope;
+            SerializedProperty scopeProp = variableObject.FindProperty("scope");
+            scope = (VariableScope)EditorGUI.EnumPopup(rects[3], variable.scope);
+            scopeProp.enumValueIndex = (int)scope;
 
-			variableObject.ApplyModifiedProperties();
+            variableObject.ApplyModifiedProperties();
 
-			GUI.backgroundColor = Color.white;
-		}
+            GUI.backgroundColor = Color.white;
+        }
 
-		public virtual float GetItemHeight(int index) {
-			return fixedItemHeight != 0f
-				? fixedItemHeight
-					: EditorGUI.GetPropertyHeight(this[index], GUIContent.none, false)
-					;
-		}
-	}
+        public virtual float GetItemHeight(int index) {
+            return fixedItemHeight != 0f
+                ? fixedItemHeight
+                    : EditorGUI.GetPropertyHeight(this[index], GUIContent.none, false)
+                    ;
+        }
+    }
 }
 
