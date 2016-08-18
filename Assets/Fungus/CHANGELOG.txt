@@ -1,3 +1,37 @@
+Fungus 3.2.0
+============
+
+# Known Issues
+- FungusLua does not work in WebGL builds due to issues in MoonSharp 1.6.0.0
+   Forum thread: http://fungusgames.com/forum/#!/general:fungus-lua-and-web-gl-uni
+
+# Added
+- Added choose() and choosetimer() Lua functions for displaying list of menu options.
+- Added Conversation command and Lua function to perform long dialogue exchanges in a single command.
+- Added new Conversation examples
+
+# Changed
+- Clickable2D and Dragable2D components can now use legacy input or EventSystem events / raycasts. 
+- Added DragAndDrop(EventSystem) example scene to show how to use the EventSystem option.
+- Made it easier to resize the default SayDialog
+- Updated Narrative examples to use the easier choose() function instead of menu()
+- Force MenuDialog to become active when using AddOption from Lua.
+- Converted tabs to spaces in all source files
+- Ensure the character cache is populated before accessing it
+- Added Serializable attribute to all variable classes.
+
+# Fixed
+- Added link.xml file to fix FungusLua not running on iOS builds
+- Portrait hide bug in Conversation Function #526
+- Unresponsive SayDialog after ClearMenu or *.StopAllBlocks(); #518
+- Can't select a Public variable from another flowchart #522
+- NullReferenceException with nameText in SayDialog #517
+- StackOverflowException in Writer with customized text object #516
+- stage.Show() not fading in a previously faded out character if portrait hasn't changed.
+- Missing .Value on _parameterName property.
+- Fixed missing component warnings
+- Updated MoonSharp to v1.6.0.0 (this time without changing the meta files).
+
 Fungus 3.1.0
 ============
 
