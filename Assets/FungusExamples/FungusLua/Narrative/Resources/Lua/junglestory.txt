@@ -25,28 +25,21 @@ function M.start()
 
 	say "While we're here, I suggest we fill our canteens from this waterfall."
 
-	menu("Agreed", M.canteenyes) -- Show menu option, call M.canteenyes() if selected
-	menu("No, we don't have time", M.canteenno)
-end
+    -- Show multiple options to the player
+    -- Note the last option is disabled but not selectable because of the ~ character.
+	local choice = choose { "Agreed", "No, we don't have time", "~Not interested" }
 
-function M.canteenyes()
-	runblock(flowchart, "PlayPourSound")
-	setcharacter(sherlockcharacter, "annoyed")
-	say "There, that's better"
+    if choice == 1 then
+        runblock(flowchart, "PlayPourSound")
+        setcharacter(sherlockcharacter, "annoyed")
+        say "There, that's better"
+    elseif choice == 2 then
+        setcharacter(sherlockcharacter, "annoyed")
+        say "Let's get moving"    
+    end
 
-	M.moveon() -- Call another function in the module
-end
-
-function M.canteenno()
-	setcharacter(sherlockcharacter, "annoyed")
-	say "Let's get moving"
-	
-	M.moveon()
-end
-
-function M.moveon()
-	setcharacter(sherlockcharacter, "annoyed")
-	say("There must be some way out of this cursed place.")
+    setcharacter(sherlockcharacter, "annoyed")
+    say("There must be some way out of this cursed place.")
 end
 
 return M
