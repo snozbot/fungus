@@ -250,6 +250,7 @@ function M.menu(text, callback, interactive)
 end
 
 -- Display a list of menu options and wait for user to choose one.
+-- When an option starts with the ~ character it will be displayed but not be selectable.
 -- Returns the index of the selected option.
 -- Returns 0 if options list is empty. Note: Lua array indices start at 1, not 0).
 -- options: an array of option strings. e.g. { "Option 1", "Option 2" }
@@ -258,6 +259,7 @@ function M.choose(options)
 end
 
 -- Display a list of menu options and wait for user to choose one, or for a timer to expire.
+-- When an option starts with the ~ character it will be displayed but not be selectable.
 -- Returns the index of the selected option, or the defaultoption if the timer expires.
 -- Returns 0 if options list is empty. Note: Lua array indices start at 1, not 0).
 -- options: an array of option strings. e.g. { "Option 1", "Option 2" }
@@ -281,7 +283,15 @@ function M.choosetimer(options, duration, defaultoption)
         -- Do variable substitution before displaying text
         local subbed = M.sub(text)
 
-        md.AddOption(subbed, true, M.luaenvironment, callback)
+        -- Check if option has been flagged as not interactive
+        local interactive = true
+
+        if string.sub(subbed, 1, 1) == "~" then
+            interactive = false
+            subbed = string.sub(subbed, 2)
+        end
+
+        md.AddOption(subbed, interactive, M.luaenvironment, callback)
     end
 
     if (duration > 0) then
