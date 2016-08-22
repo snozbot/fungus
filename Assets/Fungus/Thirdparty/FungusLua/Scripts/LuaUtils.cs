@@ -42,6 +42,12 @@ namespace Fungus
         [SerializeField] protected string activeLanguage = "en";
 
         /// <summary>
+        /// Gets or sets the active language.
+        /// </summary>
+        /// <value>The active language.</value>
+        public string ActiveLanguage { get { return activeLanguage; } set { activeLanguage = value; } }
+
+        /// <summary>
         /// Lua script file which defines the global string table used for localisation.
         /// </summary>
         [HideInInspector]
