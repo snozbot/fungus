@@ -14,7 +14,9 @@ namespace Fungus
     [AddComponentMenu("")]
     public class FungusState : MonoBehaviour 
     {
-        public Flowchart selectedFlowchart;
+        [SerializeField] protected Flowchart selectedFlowchart;
+
+        public Flowchart SelectedFlowchart { get { return selectedFlowchart; } set { selectedFlowchart = value; } }
     }
 
 }

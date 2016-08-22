@@ -91,8 +91,8 @@ namespace Fungus
             if (GUILayout.Button(new GUIContent("Center View", "Centers the window view at the center of all blocks in the Flowchart")))
             {
                 // Reset the zoom so we don't have adjust the center position depending on zoom
-                flowchart.scrollPos = flowchart.centerPosition;
-                flowchart.zoom = FlowchartWindow.maxZoomValue;
+                flowchart.ScrollPos = flowchart.CenterPosition;
+                flowchart.Zoom = FlowchartWindow.maxZoomValue;
             }
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
@@ -106,16 +106,16 @@ namespace Fungus
 
             Flowchart t = target as Flowchart;
 
-            if (t.variables.Count == 0)
+            if (t.Variables.Count == 0)
             {
-                t.variablesExpanded = true;
+                t.VariablesExpanded = true;
             }
 
-            if (!t.variablesExpanded)
+            if (!t.VariablesExpanded)
             {
-                if (GUILayout.Button ("Variables (" + t.variables.Count + ")", GUILayout.Height(24)))
+                if (GUILayout.Button ("Variables (" + t.Variables.Count + ")", GUILayout.Height(24)))
                 {
-                    t.variablesExpanded = true;
+                    t.VariablesExpanded = true;
                 }
 
                 // Draw disclosure triangle
@@ -128,15 +128,15 @@ namespace Fungus
             {
                 Rect listRect = new Rect();
 
-                if (t.variables.Count > 0)
+                if (t.Variables.Count > 0)
                 {
                     // Remove any null variables from the list
                     // Can sometimes happen when upgrading to a new version of Fungus (if .meta GUID changes for a variable class)
-                    for (int i = t.variables.Count - 1; i >= 0; i--)
+                    for (int i = t.Variables.Count - 1; i >= 0; i--)
                     {
-                        if (t.variables[i] == null)
+                        if (t.Variables[i] == null)
                         {
-                            t.variables.RemoveAt(i);
+                            t.Variables.RemoveAt(i);
                         }
                     }
 
@@ -170,7 +170,7 @@ namespace Fungus
 
                 if (GUI.Button (buttonRect, "Variables"))
                 {
-                    t.variablesExpanded = false;
+                    t.VariablesExpanded = false;
                 }
 
                 // Draw disclosure triangle
@@ -249,8 +249,8 @@ namespace Fungus
 
             Undo.RecordObject(flowchart, "Add Variable");
             Variable newVariable = flowchart.gameObject.AddComponent(variableType) as Variable;
-            newVariable.key = flowchart.GetUniqueVariableKey("");
-            flowchart.variables.Add(newVariable);
+            newVariable.Key = flowchart.GetUniqueVariableKey("");
+            flowchart.Variables.Add(newVariable);
 
             // Because this is an async call, we need to force prefab instances to record changes
             PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);

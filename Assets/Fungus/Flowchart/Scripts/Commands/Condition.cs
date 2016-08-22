@@ -23,7 +23,7 @@ namespace Fungus
     public abstract class Condition : Command
     {
         [Tooltip("The type of comparison to be performed")]
-        public CompareOperator compareOperator;
+        [SerializeField] protected CompareOperator compareOperator;
 
         public static string GetOperatorDescription(CompareOperator compareOperator)
         {

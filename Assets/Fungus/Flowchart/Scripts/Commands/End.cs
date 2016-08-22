@@ -16,16 +16,15 @@ namespace Fungus
     [AddComponentMenu("")]
     public class End : Command
     {
-        [NonSerialized]
-        public bool loop = false;
+        public bool Loop { get; set; }
 
         public override void OnEnter()
         {
-            if (loop)
+            if (Loop)
             {
-                for (int i = commandIndex - 1; i >= 0; --i)
+                for (int i = CommandIndex - 1; i >= 0; --i)
                 {
-                    System.Type commandType = parentBlock.commandList[i].GetType();
+                    System.Type commandType = ParentBlock.CommandList[i].GetType();
                     if (commandType == typeof(While))
                     {
                         Continue(i);

@@ -33,27 +33,27 @@ namespace Fungus
         /// You can also choose to disable loading the fungus module if it's not required by your script.
         /// </summary>
         [Tooltip("Controls if the fungus utilities are accessed from globals (e.g. say) or via a fungus variable (e.g. fungus.say)")]
-        public FungusModuleOptions fungusModule = FungusModuleOptions.UseGlobalVariables;
+        [SerializeField] protected FungusModuleOptions fungusModule = FungusModuleOptions.UseGlobalVariables;
 
         /// <summary>
         /// The currently selected language in the string table. Affects variable substitution.
         /// </summary>
         [Tooltip("The currently selected language in the string table. Affects variable substitution.")]
-        public string activeLanguage = "en";
+        [SerializeField] protected string activeLanguage = "en";
 
         /// <summary>
         /// Lua script file which defines the global string table used for localisation.
         /// </summary>
         [HideInInspector]
         [Tooltip("List of JSON text files which contain localized strings. These strings are added to the 'stringTable' table in the Lua environment at startup.")]
-        public List<TextAsset> stringTables = new List<TextAsset>();
+        [SerializeField] protected List<TextAsset> stringTables = new List<TextAsset>();
 
         /// <summary>
         /// JSON text files listing the c# types that can be accessed from Lua.
         /// </summary>
         [HideInInspector]
         [Tooltip("JSON text files listing the c# types that can be accessed from Lua.")]
-        public List<TextAsset> registerTypes = new List<TextAsset>();
+        [SerializeField] protected List<TextAsset> registerTypes = new List<TextAsset>();
 
         /// <summary>
         /// Flag used to avoid startup dependency issues.

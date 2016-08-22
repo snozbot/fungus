@@ -17,42 +17,36 @@ namespace Fungus
     public class FadeScreen : Command 
     {
         [Tooltip("Time for fade effect to complete")]
-        public float duration = 1f;
+        [SerializeField] protected float duration = 1f;
 
         [Tooltip("Current target alpha transparency value. The fade gradually adjusts the alpha to approach this target value.")]
-        public float targetAlpha = 1f;
+        [SerializeField] protected float targetAlpha = 1f;
 
         [Tooltip("Wait until the fade has finished before executing next command")]
-        public bool waitUntilFinished = true;
+        [SerializeField] protected bool waitUntilFinished = true;
 
         [Tooltip("Color to render fullscreen fade texture with when screen is obscured.")]
-        public Color fadeColor = Color.black;
+        [SerializeField] protected Color fadeColor = Color.black;
 
         [Tooltip("Optional texture to use when rendering the fullscreen fade effect.")]
-        public Texture2D fadeTexture;
+        [SerializeField] protected Texture2D fadeTexture;
         
         public override void OnEnter()
         {
             CameraController cameraController = CameraController.GetInstance();
             
-            if (waitUntilFinished)
-            {
-                cameraController.waiting = true;
-            }
-            
             if (fadeTexture)
             {
-                cameraController.screenFadeTexture = fadeTexture;
+                cameraController.ScreenFadeTexture = fadeTexture;
             }
             else
             {
-                cameraController.screenFadeTexture = CameraController.CreateColorTexture(fadeColor, 32, 32);
+                cameraController.ScreenFadeTexture = CameraController.CreateColorTexture(fadeColor, 32, 32);
             }
             
             cameraController.Fade(targetAlpha, duration, delegate { 
                 if (waitUntilFinished)
                 {
-                    cameraController.waiting = false;
                     Continue();
                 }
             });

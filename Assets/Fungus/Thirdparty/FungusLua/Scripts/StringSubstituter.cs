@@ -36,7 +36,9 @@ namespace Fungus
          * The StringBuilder instance used to substitute strings optimally.
          * This property is public to support client code optimisations.
          */
-        public StringBuilder stringBuilder;
+        protected StringBuilder stringBuilder;
+
+        public StringBuilder _StringBuilder { get { return stringBuilder; } }
 
         private int recursionDepth;
 

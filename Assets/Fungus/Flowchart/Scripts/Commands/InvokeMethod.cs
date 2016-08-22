@@ -21,51 +21,53 @@ namespace Fungus
     public class InvokeMethod : Command
     {
         [Tooltip("GameObject containing the component method to be invoked")]
-        public GameObject targetObject;
+        [SerializeField] protected GameObject targetObject;
+
+        public GameObject TargetObject { get { return targetObject; } }
 
         [HideInInspector]
         [Tooltip("Name of assembly containing the target component")]
-        public string targetComponentAssemblyName;
+        [SerializeField] protected string targetComponentAssemblyName;
 
         [HideInInspector]
         [Tooltip("Full name of the target component")]
-        public string targetComponentFullname;
+        [SerializeField] protected string targetComponentFullname;
 
         [HideInInspector]
         [Tooltip("Display name of the target component")]
-        public string targetComponentText;
+        [SerializeField] protected string targetComponentText;
 
         [HideInInspector]
         [Tooltip("Name of target method to invoke on the target component")]
-        public string targetMethod;
+        [SerializeField] protected string targetMethod;
 
         [HideInInspector]
         [Tooltip("Display name of target method to invoke on the target component")]
-        public string targetMethodText;
+        [SerializeField] protected string targetMethodText;
 
         [HideInInspector]
         [Tooltip("List of parameters to pass to the invoked method")]
-        public InvokeMethodParameter[] methodParameters;
+        [SerializeField] protected InvokeMethodParameter[] methodParameters;
 
         [HideInInspector]
         [Tooltip("If true, store the return value in a flowchart variable of the same type.")]
-        public bool saveReturnValue;
+        [SerializeField] protected bool saveReturnValue;
 
         [HideInInspector]
         [Tooltip("Name of Fungus variable to store the return value in")]
-        public string returnValueVariableKey;
+        [SerializeField] protected string returnValueVariableKey;
 
         [HideInInspector]
         [Tooltip("The type of the return value")]
-        public string returnValueType;
+        [SerializeField] protected string returnValueType;
 
         [HideInInspector]
         [Tooltip("If true, list all inherited methods for the component")]
-        public bool showInherited;
+        [SerializeField] protected bool showInherited;
 
         [HideInInspector]
         [Tooltip("The coroutine call behavior for methods that return IEnumerator")]
-        public Fungus.Call.CallMode callMode;
+        [SerializeField] protected Call.CallMode callMode;
 
         protected Type componentType;
         protected Component objComponent;

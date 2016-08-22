@@ -114,7 +114,7 @@ namespace Fungus
         /// Launches the remote Lua debugger in your browser and breaks execution at the first executed Lua command.
         /// </summary>
         [Tooltip("Launches the remote Lua debugger in your browser and breaks execution at the first executed Lua command. Standalone platform only.")]
-        public bool remoteDebugger = false;
+        [SerializeField] protected bool remoteDebugger = false;
 
         /// <summary>
         /// Instance of remote debugging service when debugging option is enabled.

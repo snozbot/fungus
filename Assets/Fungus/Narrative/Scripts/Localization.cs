@@ -232,7 +232,7 @@ namespace Fungus
                 Block[] blocks = flowchart.GetComponents<Block>();
                 foreach (Block block in blocks)
                 {
-                    foreach (Command command in block.commandList)
+                    foreach (Command command in block.CommandList)
                     {
                         ILocalizable localizable = command as ILocalizable;
                         if (localizable != null)

@@ -25,32 +25,33 @@ namespace Fungus
         /// The Lua Environment to use when executing Lua script.
         /// </summary>
         [Tooltip("The Lua Environment to use when executing Lua script.")]
-        public LuaEnvironment luaEnvironment;
+        [SerializeField] protected LuaEnvironment luaEnvironment;
 
         /// <summary>
         /// Text file containing Lua script to be executed.
         /// </summary>
         [Tooltip("Text file containing Lua script to be executed.")]
-        public TextAsset luaFile;
+        [SerializeField] protected TextAsset luaFile;
 
         /// <summary>
         /// Lua script to execute.
         /// </summary>
         [Tooltip("A Lua string to execute, appended to the contents of Lua File (if one is specified).")]
         [TextArea(5, 50)]
-        public string luaScript = "";
+        [SerializeField] protected string luaScript = "";
 
         /// <summary>
         /// Run the script as a Lua coroutine so execution can be yielded for asynchronous operations.
         /// </summary>
         [Tooltip("Run the script as a Lua coroutine so execution can be yielded for asynchronous operations.")]
-        public bool runAsCoroutine = true;
+        [SerializeField] protected bool runAsCoroutine = true;
 
         protected string friendlyName = "";
 
+        protected bool initialised;
+
         // This is public so the editor code can force the component to reinitialise
-        [NonSerialized]
-        public bool initialised;
+        public bool Initialised { set { initialised = value; } }
 
         // Stores the compiled Lua code for fast execution later.
         protected Closure luaFunction;

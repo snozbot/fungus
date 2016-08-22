@@ -22,10 +22,10 @@ namespace Fungus
         }
 
         [Tooltip("Display type of debug log info")]
-        public DebugLogType logType;
+        [SerializeField] protected DebugLogType logType;
 
         [Tooltip("Text to write to the debug log. Supports variable substitution, e.g. {$Myvar}")]
-        public StringDataMulti logMessage;
+        [SerializeField] protected StringDataMulti logMessage;
 
         public override void OnEnter ()
         {

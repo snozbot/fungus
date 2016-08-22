@@ -15,10 +15,10 @@ namespace Fungus
     public class SetMouseCursor : Command 
     {
         [Tooltip("Texture to use for cursor. Will use default mouse cursor if no sprite is specified")]
-        public Texture2D cursorTexture;
+        [SerializeField] protected Texture2D cursorTexture;
 
         [Tooltip("The offset from the top left of the texture to use as the target point")]
-        public Vector2 hotSpot;
+        [SerializeField] protected Vector2 hotSpot;
 
         // Cached static cursor settings
         protected static Texture2D activeCursorTexture;

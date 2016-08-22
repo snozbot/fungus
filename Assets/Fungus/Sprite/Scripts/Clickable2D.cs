@@ -16,13 +16,15 @@ namespace Fungus
     public class Clickable2D : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Tooltip("Is object clicking enabled")]
-        public bool clickEnabled = true;
+        [SerializeField] protected bool clickEnabled = true;
+
+        public bool ClickEnabled { set { clickEnabled = value; } }
 
         [Tooltip("Mouse texture to use when hovering mouse over object")]
-        public Texture2D hoverCursor;
+        [SerializeField] protected Texture2D hoverCursor;
 
         [Tooltip("Use the UI Event System to check for clicks. Clicks that hit an overlapping UI object will be ignored. Camera must have a PhysicsRaycaster component, or a Physics2DRaycaster for 2D colliders.")]
-        public bool useEventSystem;
+        [SerializeField] protected bool useEventSystem;
 
         #region Legacy OnMouseX methods
         protected virtual void OnMouseDown()

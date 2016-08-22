@@ -16,10 +16,10 @@ namespace Fungus
     public class SetSortingLayer : Command 
     {
         [Tooltip("Root Object that will have the Sorting Layer set. Any children will also be affected")]
-        public GameObject targetObject;
+        [SerializeField] protected GameObject targetObject;
         
         [Tooltip("The New Layer Name to apply")]
-        public string sortingLayer;
+        [SerializeField] protected string sortingLayer;
         
         public override void OnEnter()
         {

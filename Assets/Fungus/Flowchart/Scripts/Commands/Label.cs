@@ -16,7 +16,9 @@ namespace Fungus
     public class Label : Command
     {
         [Tooltip("Display name for the label")]
-        public string key = "";
+        [SerializeField] protected string key = "";
+
+        public string Key { get { return key; } }
 
         public override void OnEnter()
         {

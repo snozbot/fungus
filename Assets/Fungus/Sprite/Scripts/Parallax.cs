@@ -20,18 +20,18 @@ namespace Fungus
          * The background sprite which this sprite is layered on top of.
          * The position of this sprite is used to calculate the parallax offset.
          */
-        public SpriteRenderer backgroundSprite;
+        [SerializeField] protected SpriteRenderer backgroundSprite;
 
         /**
          * Scale factor for calculating the parallax offset.
          */
-        public Vector2 parallaxScale = new Vector2(0.25f, 0f);
+        [SerializeField] protected Vector2 parallaxScale = new Vector2(0.25f, 0f);
 
         /**
          * Scale factor for calculating parallax offset based on device accelerometer tilt angle.
          * Set this to 0 to disable the accelerometer parallax effect.
          */
-        public float accelerometerScale = 0.5f;
+        [SerializeField] protected float accelerometerScale = 0.5f;
 
         protected Vector3 startPosition;
         protected Vector3 acceleration;

@@ -21,10 +21,10 @@ namespace Fungus
 
             // Use the Serialization extension to display the contents of the prime table.
             LuaStore luaStore = target as LuaStore;
-            if (luaStore.primeTable != null)
+            if (luaStore.PrimeTable != null)
             {
                 EditorGUILayout.PrefixLabel(new GUIContent("Inspect Table", "Displays the contents of the fungus.store prime table."));
-                string serialized = luaStore.primeTable.Serialize();
+                string serialized = luaStore.PrimeTable.Serialize();
                 EditorGUILayout.SelectableLabel(serialized, GUILayout.ExpandHeight(true));
             }
         }

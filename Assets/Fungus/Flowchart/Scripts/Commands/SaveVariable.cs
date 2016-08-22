@@ -18,7 +18,7 @@ namespace Fungus
     public class SaveVariable : Command
     {
         [Tooltip("Name of the saved value. Supports variable substition e.g. \"player_{$PlayerNumber}")]
-        public string key = "";
+        [SerializeField] protected string key = "";
         
         [Tooltip("Variable to read the value from. Only Boolean, Integer, Float and String are supported.")]
         [VariableProperty(typeof(BooleanVariable),
@@ -92,7 +92,7 @@ namespace Fungus
                 return "Error: No variable selected";
             }
             
-            return variable.key + " into '" + key + "'";
+            return variable.Key + " into '" + key + "'";
         }
         
         public override Color GetButtonColor()

@@ -22,7 +22,9 @@ namespace Fungus
         /// <summary>
         /// A Lua table that can be shared between multiple LuaEnvironments.
         /// </summary>
-        public Table primeTable;
+        protected Table primeTable;
+
+        public Table PrimeTable { get { return primeTable; } }
 
         protected bool initialized;
 

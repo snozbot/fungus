@@ -39,36 +39,37 @@ namespace Fungus
     {
         [FormerlySerializedAs("commandId")]
         [HideInInspector]
-        public int itemId = -1; // Invalid flowchart item id
+        [SerializeField] protected int itemId = -1; // Invalid flowchart item id
+
+        public int ItemId { get { return itemId; } set { itemId = value; } }
+
+        protected string errorMessage = "";
+
+        public string ErrorMessage { get { return errorMessage; } }
 
         [HideInInspector]
-        public string errorMessage = "";
+        [SerializeField] protected int indentLevel;
 
-        [HideInInspector]
-        public int indentLevel;
+        public int IndentLevel { get { return indentLevel; } set { indentLevel = value; } }
 
-        [NonSerialized]
-        public int commandIndex;
+        public int CommandIndex { get; set; }
 
         /**
          * Set to true by the parent block while the command is executing.
          */
-        [NonSerialized]
-        public bool isExecuting;
+        public bool IsExecuting { get; set; }
 
         /**
          * Timer used to control appearance of executing icon in inspector.
          */
-        [NonSerialized]
-        public float executingIconTimer;
+        public float ExecutingIconTimer { get; set; }
 
         /**
          * Reference to the Block object that this command belongs to.
          * This reference is only populated at runtime and in the editor when the 
          * block is selected.
          */
-        [NonSerialized]
-        public Block parentBlock;
+        public Block ParentBlock { get; set; }
 
         public virtual Flowchart GetFlowchart()
         {
@@ -89,27 +90,27 @@ namespace Fungus
         public virtual void Continue()
         {
             // This is a noop if the Block has already been stopped
-            if (isExecuting)
+            if (IsExecuting)
             {
-                Continue(commandIndex + 1);
+                Continue(CommandIndex + 1);
             }
         }
 
         public virtual void Continue(int nextCommandIndex)
         {
             OnExit();
-            if (parentBlock != null)
+            if (ParentBlock != null)
             {
-                parentBlock.jumpToCommandIndex = nextCommandIndex;
+                ParentBlock.JumpToCommandIndex = nextCommandIndex;
             }
         }
 
         public virtual void StopParentBlock()
         {
             OnExit();
-            if (parentBlock != null)
+            if (ParentBlock != null)
             {
-                parentBlock.Stop();
+                ParentBlock.Stop();
             }
         }
 
@@ -215,7 +216,7 @@ namespace Fungus
                 return "";
             }
 
-            string localizationId = GetFlowchart().localizationId;
+            string localizationId = GetFlowchart().LocalizationId;
             if (localizationId.Length == 0)
             {
                 localizationId = flowchart.name;            

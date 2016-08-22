@@ -21,7 +21,7 @@ namespace Fungus
         public static string saveProfile = "";
 
         [Tooltip("Name of save profile to make active.")]
-        public string saveProfileName = "";
+        [SerializeField] protected string saveProfileName = "";
 
         public override void OnEnter()
         {

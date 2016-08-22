@@ -18,13 +18,13 @@
         protected SfxrSynth _synth = new SfxrSynth();
 
         [Tooltip("Transform to use for positional audio")]
-        public Transform ParentTransform = null;
+        [SerializeField] protected Transform ParentTransform = null;
 
         [Tooltip("Settings string which describes the audio")]
-        public StringDataMulti _SettingsString = new StringDataMulti("");
+        [SerializeField] protected StringDataMulti _SettingsString = new StringDataMulti("");
 
         [Tooltip("Time to wait before executing the next command")]
-        public float waitDuration = 0;
+        [SerializeField] protected float waitDuration = 0;
 
         //Call this if the settings have changed
         protected void UpdateCache() {

@@ -49,7 +49,7 @@ namespace Fungus
             }
             else
             {
-                return audioSourceRef.key;
+                return audioSourceRef.Key;
             }
         }
     }

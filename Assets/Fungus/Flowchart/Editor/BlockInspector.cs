@@ -101,19 +101,19 @@ namespace Fungus
             Rect blockRect = new Rect(5, topPanelHeight, width - 5, height + 10);
             GUILayout.BeginArea(blockRect);
 
-            blockScrollPos = GUILayout.BeginScrollView(blockScrollPos, GUILayout.Height(flowchart.blockViewHeight));
+            blockScrollPos = GUILayout.BeginScrollView(blockScrollPos, GUILayout.Height(flowchart.BlockViewHeight));
             activeBlockEditor.DrawBlockGUI(flowchart);
             GUILayout.EndScrollView();
 
             Command inspectCommand = null;
-            if (flowchart.selectedCommands.Count == 1)
+            if (flowchart.SelectedCommands.Count == 1)
             {
-                inspectCommand = flowchart.selectedCommands[0];
+                inspectCommand = flowchart.SelectedCommands[0];
             }
 
             if (Application.isPlaying &&
                 inspectCommand != null &&
-                inspectCommand.parentBlock != block)
+                inspectCommand.ParentBlock != block)
             {
                 GUILayout.EndArea();
                 Repaint();
@@ -189,7 +189,7 @@ namespace Fungus
 
             // Draw the resize bar after everything else has finished drawing
             // This is mainly to avoid incorrect indenting.
-            Rect resizeRect = new Rect(0, topPanelHeight + flowchart.blockViewHeight + 1, Screen.width, 4f);
+            Rect resizeRect = new Rect(0, topPanelHeight + flowchart.BlockViewHeight + 1, Screen.width, 4f);
             GUI.color = new Color(0.64f, 0.64f, 0.64f);
             GUI.DrawTexture(resizeRect, EditorGUIUtility.whiteTexture);
             resizeRect.height = 1;
@@ -204,7 +204,7 @@ namespace Fungus
 
         private void ResizeScrollView(Flowchart flowchart)
         {
-            Rect cursorChangeRect = new Rect(0, flowchart.blockViewHeight + 1, Screen.width, 4f);
+            Rect cursorChangeRect = new Rect(0, flowchart.BlockViewHeight + 1, Screen.width, 4f);
 
             EditorGUIUtility.AddCursorRect(cursorChangeRect, MouseCursor.ResizeVertical);
             
@@ -216,7 +216,7 @@ namespace Fungus
             if (resize)
             {
                 Undo.RecordObject(flowchart, "Resize view");
-                flowchart.blockViewHeight = Event.current.mousePosition.y;
+                flowchart.BlockViewHeight = Event.current.mousePosition.y;
             }
             
             ClampBlockViewHeight(flowchart);
@@ -251,10 +251,10 @@ namespace Fungus
             if (clamp)
             {
                 // Make sure block view is always clamped to visible area
-                float height = flowchart.blockViewHeight;
+                float height = flowchart.BlockViewHeight;
                 height = Mathf.Max(200, height);
                 height = Mathf.Min(Screen.height - 200,height);
-                flowchart.blockViewHeight = height;
+                flowchart.BlockViewHeight = height;
             }
             
             if (Event.current.type == EventType.Repaint)

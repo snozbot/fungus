@@ -16,7 +16,7 @@ namespace Fungus
     [AddComponentMenu("")]
     public class DragStarted : EventHandler
     {   
-        public Draggable2D draggableObject;
+        [SerializeField] protected Draggable2D draggableObject;
 
         public virtual void OnDragStarted(Draggable2D draggableObject)
         {

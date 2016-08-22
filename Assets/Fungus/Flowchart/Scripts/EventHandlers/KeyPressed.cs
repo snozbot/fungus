@@ -22,10 +22,10 @@ namespace Fungus
         }
 
         [Tooltip("The type of keypress to activate on")]
-        public KeyPressType keyPressType;
+        [SerializeField] protected KeyPressType keyPressType;
 
         [Tooltip("Keycode of the key to activate on")]
-        public KeyCode keyCode;
+        [SerializeField] protected KeyCode keyCode;
 
         protected virtual void Update()
         {

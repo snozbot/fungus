@@ -16,16 +16,18 @@ namespace Fungus
     public class MoveToView : Command 
     {
         [Tooltip("Time for move effect to complete")]
-        public float duration = 1;
+        [SerializeField] protected float duration = 1;
 
         [Tooltip("View to transition to when move is complete")]
-        public Fungus.View targetView;
+        [SerializeField] protected View targetView;
+
+        public View TargetView { get { return targetView; } }
 
         [Tooltip("Wait until the fade has finished before executing next command")]
-        public bool waitUntilFinished = true;
+        [SerializeField] protected bool waitUntilFinished = true;
 
         [Tooltip("Camera to use for the pan. Will use main camera if set to none.")]
-        public Camera targetCamera;
+        [SerializeField] protected Camera targetCamera;
         
         protected virtual void AcquireCamera()
         {
@@ -58,11 +60,6 @@ namespace Fungus
 
             CameraController cameraController = CameraController.GetInstance();
 
-            if (waitUntilFinished)
-            {
-                cameraController.waiting = true;
-            }
-
             Vector3 targetPosition = targetView.transform.position;
             Quaternion targetRotation = targetView.transform.rotation;
             float targetSize = targetView.viewSize;
@@ -70,7 +67,6 @@ namespace Fungus
             cameraController.PanToPosition(targetCamera, targetPosition, targetRotation, targetSize, duration, delegate {
                 if (waitUntilFinished)
                 {
-                    cameraController.waiting = false;
                     Continue();
                 }
             });

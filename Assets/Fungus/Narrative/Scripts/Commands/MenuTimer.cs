@@ -54,7 +54,7 @@ namespace Fungus
                 return "Error: No target block selected";
             }
 
-            return targetBlock.blockName;
+            return targetBlock.BlockName;
         }
 
         public override Color GetButtonColor()

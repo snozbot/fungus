@@ -16,7 +16,7 @@ namespace Fungus
     {
         [Tooltip("The information text to display")]
         [TextArea(20, 20)]
-        public string info = "";
+        [SerializeField] protected string info = "";
         
         void OnGUI() 
         {

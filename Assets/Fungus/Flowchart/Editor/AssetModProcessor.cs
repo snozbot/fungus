@@ -38,9 +38,9 @@ namespace Fungus
             Flowchart[] flowcharts = UnityEngine.Object.FindObjectsOfType<Flowchart>();
             foreach (Flowchart f in flowcharts)
             {
-                if (!f.saveSelection)
+                if (!f.SaveSelection)
                 {
-                    f.selectedBlock = null;
+                    f.SelectedBlock = null;
                     f.ClearSelectedCommands();
                 }
             }

@@ -16,10 +16,10 @@ namespace Fungus
     public class StopFlowchart : Command
     {       
         [Tooltip("Stop all executing Blocks in the Flowchart that contains this command")]
-        public bool stopParentFlowchart;
+        [SerializeField] protected bool stopParentFlowchart;
 
         [Tooltip("Stop all executing Blocks in a list of target Flowcharts")]
-        public List<Flowchart> targetFlowcharts = new List<Flowchart>();
+        [SerializeField] protected List<Flowchart> targetFlowcharts = new List<Flowchart>();
 
         public override void OnEnter()
         {

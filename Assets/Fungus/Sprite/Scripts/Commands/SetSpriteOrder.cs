@@ -16,10 +16,10 @@ namespace Fungus
     public class SetSpriteOrder : Command 
     {
         [Tooltip("List of sprites to set the order in layer property on")]
-        public List<SpriteRenderer> targetSprites = new List<SpriteRenderer>();
+        [SerializeField] protected List<SpriteRenderer> targetSprites = new List<SpriteRenderer>();
 
         [Tooltip("The order in layer value to set on the target sprites")]
-        public IntegerData orderInLayer;
+        [SerializeField] protected IntegerData orderInLayer;
 
         public override void OnEnter()
         {

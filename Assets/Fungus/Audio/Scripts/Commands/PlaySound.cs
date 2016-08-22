@@ -15,14 +15,14 @@ namespace Fungus
     public class PlaySound : Command
     {
         [Tooltip("Sound effect clip to play")]
-        public AudioClip soundClip;
+        [SerializeField] protected AudioClip soundClip;
 
         [Range(0,1)]
         [Tooltip("Volume level of the sound effect")]
-        public float volume = 1;
+        [SerializeField] protected float volume = 1;
 
         [Tooltip("Wait until the sound has finished playing before continuing execution.")]
-        public bool waitUntilFinished;
+        [SerializeField] protected bool waitUntilFinished;
 
         public override void OnEnter()
         {

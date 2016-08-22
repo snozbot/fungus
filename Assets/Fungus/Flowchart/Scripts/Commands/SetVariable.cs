@@ -29,22 +29,24 @@ namespace Fungus
                           typeof(IntegerVariable), 
                           typeof(FloatVariable), 
                           typeof(StringVariable))]
-        public Variable variable;
+        [SerializeField] protected Variable variable;
 
         [Tooltip("The type of math operation to be performed")]
-        public SetOperator setOperator;
+        [SerializeField] protected SetOperator setOperator;
+
+        public SetOperator _SetOperator { get { return setOperator; } }
 
         [Tooltip("Boolean value to set with")]
-        public BooleanData booleanData;
+        [SerializeField] protected BooleanData booleanData;
 
         [Tooltip("Integer value to set with")]
-        public IntegerData integerData;
+        [SerializeField] protected IntegerData integerData;
 
         [Tooltip("Float value to set with")]
-        public FloatData floatData;
+        [SerializeField] protected FloatData floatData;
 
         [Tooltip("String value to set with")]
-        public StringDataMulti stringData;
+        [SerializeField] protected StringDataMulti stringData;
         
         public override void OnEnter()
         {
@@ -60,7 +62,7 @@ namespace Fungus
                 return "Error: Variable not selected";
             }
 
-            string description = variable.key;
+            string description = variable.Key;
 
             switch (setOperator)
             {

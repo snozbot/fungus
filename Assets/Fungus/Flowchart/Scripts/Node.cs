@@ -12,7 +12,9 @@ namespace Fungus
     [AddComponentMenu("")]
     public class Node : MonoBehaviour 
     {
-        public Rect nodeRect = new Rect(0, 0, 120, 30);
+        [SerializeField] protected Rect nodeRect = new Rect(0, 0, 120, 30);
+
+        public Rect _NodeRect { get { return nodeRect; } set { nodeRect = value; } }
     }
 
 }

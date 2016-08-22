@@ -16,16 +16,16 @@ namespace Fungus
     public class SetDraggable2D : Command
     {      
         [Tooltip("Reference to Draggable2D component on a gameobject")]
-        public Draggable2D targetDraggable2D;
+        [SerializeField] protected Draggable2D targetDraggable2D;
 
         [Tooltip("Set to true to enable the component")]
-        public BooleanData activeState;
+        [SerializeField] protected BooleanData activeState;
 
         public override void OnEnter() 
         {
             if (targetDraggable2D != null)         
             {
-                targetDraggable2D.dragEnabled = activeState.Value;     
+                targetDraggable2D.DragEnabled = activeState.Value;     
             }
 
             Continue();

@@ -18,13 +18,13 @@ namespace Fungus
     public class CallMethod : Command
     {
         [Tooltip("Target monobehavior which contains the method we want to call")]
-        public GameObject targetObject;
+        [SerializeField] protected GameObject targetObject;
 
         [Tooltip("Name of the method to call")]
-        public string methodName = "";
+        [SerializeField] protected string methodName = "";
 
         [Tooltip("Delay (in seconds) before the method will be called")]
-        public float delay;
+        [SerializeField] protected float delay;
 
         public override void OnEnter()
         {

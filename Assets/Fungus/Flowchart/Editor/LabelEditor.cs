@@ -32,7 +32,7 @@ namespace Fungus
 
             int index = 0;
             int selectedIndex = 0;
-            foreach (Command command in block.commandList)
+            foreach (Command command in block.CommandList)
             {
                 Label label = command as Label;
                 if (label == null)
@@ -40,7 +40,7 @@ namespace Fungus
                     continue;
                 }
 
-                labelKeys.Add(label.key);
+                labelKeys.Add(label.Key);
                 labelObjects.Add(label);
                 
                 index++;

@@ -16,7 +16,7 @@ namespace Fungus
     public class LoadVariable : Command
     {
         [Tooltip("Name of the saved value. Supports variable substition e.g. \"player_{$PlayerNumber}\"")]
-        public string key = "";
+        [SerializeField] protected string key = "";
 
         [Tooltip("Variable to store the value in.")]
         [VariableProperty(typeof(BooleanVariable),
@@ -90,7 +90,7 @@ namespace Fungus
                 return "Error: No variable selected";
             }
 
-            return "'" + key + "' into " + variable.key;
+            return "'" + key + "' into " + variable.Key;
         }
 
         public override Color GetButtonColor()

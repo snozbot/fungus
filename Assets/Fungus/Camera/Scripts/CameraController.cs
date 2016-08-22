@@ -20,41 +20,39 @@ namespace Fungus
         /**
          * Full screen texture used for screen fade effect.
          */
-        public Texture2D screenFadeTexture;
-        
+        [SerializeField] protected Texture2D screenFadeTexture;
+
+        public Texture2D ScreenFadeTexture { set { screenFadeTexture = value; } }
+
         /**
          * Icon to display when swipe pan mode is active.
          */
-        public Texture2D swipePanIcon;
+        [SerializeField] protected Texture2D swipePanIcon;
         
         /**
          * Position of continue and swipe icons in normalized screen space coords.
          * (0,0) = top left, (1,1) = bottom right
          */
-        public Vector2 swipeIconPosition = new Vector2(1,0);
+        [SerializeField] protected Vector2 swipeIconPosition = new Vector2(1,0);
 
         /**
          * Set the camera z coordinate to a fixed value every frame.
          */
-        public bool setCameraZ = true;
+        [SerializeField] protected bool setCameraZ = true;
 
         /**
          * Fixed Z coordinate of main camera.
          */
-        public float cameraZ = -10f;
+        [SerializeField] protected float cameraZ = -10f;
 
-        [HideInInspector]
-        public bool waiting; 
-        
+        [SerializeField] protected Camera swipeCamera;
+
         protected float fadeAlpha = 0f;
         
         // Swipe panning control
-        [HideInInspector]
-        public bool swipePanActive;
-        public Camera swipeCamera;
+        protected bool swipePanActive;
 
-        [HideInInspector]
-        public float swipeSpeedMultiplier = 1f;
+        protected float swipeSpeedMultiplier = 1f;
         protected View swipePanViewA;
         protected View swipePanViewB;
         protected Vector3 previousMousePos;

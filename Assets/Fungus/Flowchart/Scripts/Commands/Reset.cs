@@ -16,10 +16,10 @@ namespace Fungus
     public class Reset : Command
     {   
         [Tooltip("Reset state of all commands in the script")]
-        public bool resetCommands = true;
+        [SerializeField] protected bool resetCommands = true;
 
         [Tooltip("Reset variables back to their default values")]
-        public bool resetVariables = true;
+        [SerializeField] protected bool resetVariables = true;
 
         public override void OnEnter()
         {

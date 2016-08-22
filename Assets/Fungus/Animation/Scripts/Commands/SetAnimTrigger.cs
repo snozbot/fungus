@@ -18,10 +18,10 @@ namespace Fungus
     public class SetAnimTrigger : Command
     {
         [Tooltip("Reference to an Animator component in a game object")]
-        public AnimatorData _animator;
+        [SerializeField] protected AnimatorData _animator;
 
         [Tooltip("Name of the trigger Animator parameter that will have its value changed")]
-        public StringData _parameterName;
+        [SerializeField] protected StringData _parameterName;
 
         public override void OnEnter()
         {

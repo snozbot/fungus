@@ -21,23 +21,25 @@ namespace Fungus
     public class Draggable2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Tooltip("Is object dragging enabled")]
-        public bool dragEnabled = true;
+        [SerializeField] protected bool dragEnabled = true;
+
+        public bool DragEnabled { set { dragEnabled = value; } }
 
         [Tooltip("Move object back to its starting position when drag is cancelled")]
         [FormerlySerializedAs("returnToStartPos")]
-        public bool returnOnCancelled = true;
+        [SerializeField] protected bool returnOnCancelled = true;
 
         [Tooltip("Move object back to its starting position when drag is completed")]
-        public bool returnOnCompleted = true;
+        [SerializeField] protected bool returnOnCompleted = true;
 
         [Tooltip("Time object takes to return to its starting position")]
-        public float returnDuration = 1f;
+        [SerializeField] protected float returnDuration = 1f;
 
         [Tooltip("Mouse texture to use when hovering mouse over object")]
-        public Texture2D hoverCursor;
+        [SerializeField] protected Texture2D hoverCursor;
 
         [Tooltip("Use the UI Event System to check for drag events. Clicks that hit an overlapping UI object will be ignored. Camera must have a PhysicsRaycaster component, or a Physics2DRaycaster for 2D colliders.")]
-        public bool useEventSystem;
+        [SerializeField] protected bool useEventSystem;
 
         protected Vector3 startingPosition;
         protected bool updatePosition = false;
@@ -225,7 +227,7 @@ namespace Fungus
             DragCompleted[] handlers = GetHandlers<DragCompleted>();
             foreach (DragCompleted handler in handlers)
             {
-                if (handler.draggableObject == this)
+                if (handler.DraggableObject == this)
                 {
                     if (handler.IsOverTarget())
                     {

@@ -50,7 +50,7 @@ namespace Fungus
             variableKeys.Add(defaultText);
             variableObjects.Add(null);
             
-            List<Variable> variables = flowchart.variables;
+            List<Variable> variables = flowchart.Variables;
             int index = 0;
             int selectedIndex = 0;
 
@@ -63,7 +63,7 @@ namespace Fungus
             // occurs we just skip displaying the property for this frame.
             if (selectedVariable != null &&
                 selectedVariable.gameObject != flowchart.gameObject &&
-                selectedVariable.scope == VariableScope.Private)
+                selectedVariable.Scope == VariableScope.Private)
             {
                 property.objectReferenceValue = null;
                 return;
@@ -79,7 +79,7 @@ namespace Fungus
                     }
                 }
                 
-                variableKeys.Add(v.key);
+                variableKeys.Add(v.Key);
                 variableObjects.Add(v);
                 
                 index++;
@@ -109,7 +109,7 @@ namespace Fungus
                         }
                     }
 
-                    variableKeys.Add(fs.name + " / " + v.key);
+                    variableKeys.Add(fs.name + " / " + v.Key);
                     variableObjects.Add(v);
 
                     index++;

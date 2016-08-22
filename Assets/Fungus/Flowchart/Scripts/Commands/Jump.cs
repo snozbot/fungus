@@ -16,7 +16,7 @@ namespace Fungus
     public class Jump : Command
     {
         [Tooltip("Name of a label in this block to jump to")]
-        public StringData _targetLabel = new StringData("");
+        [SerializeField] protected StringData _targetLabel = new StringData("");
 
         public override void OnEnter()
         {
@@ -26,13 +26,13 @@ namespace Fungus
                 return;
             }
 
-            foreach (Command command in parentBlock.commandList)
+            foreach (Command command in ParentBlock.CommandList)
             {
                 Label label = command as Label;
                 if (label != null &&
-                    label.key == _targetLabel.Value)
+                    label.Key == _targetLabel.Value)
                 {
-                    Continue(label.commandIndex + 1);
+                    Continue(label.CommandIndex + 1);
                     return;
                 }
             }
@@ -65,7 +65,7 @@ namespace Fungus
         {
             if (targetLabelOLD != null)
             {
-                _targetLabel.Value = targetLabelOLD.key;
+                _targetLabel.Value = targetLabelOLD.Key;
                 targetLabelOLD = null;
             }
         }

@@ -18,7 +18,7 @@ namespace Fungus
     public class Destroy : Command
     {   
         [Tooltip("Reference to game object to destroy")]
-        public GameObjectData _targetGameObject;
+        [SerializeField] protected GameObjectData _targetGameObject;
 
         public override void OnEnter()
         {

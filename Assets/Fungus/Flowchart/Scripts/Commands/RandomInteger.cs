@@ -16,13 +16,13 @@ namespace Fungus
     {
         [Tooltip("The variable whos value will be set")]
         [VariableProperty(typeof(IntegerVariable))]
-        public IntegerVariable variable;
+        [SerializeField] protected IntegerVariable variable;
 
         [Tooltip("Minimum value for random range")]
-        public IntegerData minValue;
+        [SerializeField] protected IntegerData minValue;
 
         [Tooltip("Maximum value for random range")]
-        public IntegerData maxValue;
+        [SerializeField] protected IntegerData maxValue;
 
         public override void OnEnter()
         {
@@ -41,7 +41,7 @@ namespace Fungus
                 return "Error: Variable not selected";
             }
 
-            return variable.key;
+            return variable.Key;
         }
 
         public override bool HasReference(Variable variable)

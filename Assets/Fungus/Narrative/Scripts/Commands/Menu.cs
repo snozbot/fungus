@@ -83,7 +83,7 @@ namespace Fungus
                 return "Error: No button text selected";
             }
 
-            return text + " : " + targetBlock.blockName;
+            return text + " : " + targetBlock.BlockName;
         }
 
         public override Color GetButtonColor()

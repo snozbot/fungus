@@ -15,7 +15,7 @@ namespace Fungus
     public class MessageReceived : EventHandler 
     {
         [Tooltip("Fungus message to listen for")]
-        public string message = "";
+        [SerializeField] protected string message = "";
 
         public void OnSendFungusMessage(string message)
         {

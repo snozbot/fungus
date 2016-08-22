@@ -18,13 +18,13 @@ namespace Fungus
     public class ShowSprite : Command
     {
         [Tooltip("Sprite object to be made visible / invisible")]
-        public SpriteRenderer spriteRenderer;
+        [SerializeField] protected SpriteRenderer spriteRenderer;
 
         [Tooltip("Make the sprite visible or invisible")]
-        public BooleanData _visible = new BooleanData(false);
+        [SerializeField] protected BooleanData _visible = new BooleanData(false);
 
         [Tooltip("Affect the visibility of child sprites")]
-        public bool affectChildren = true;
+        [SerializeField] protected bool affectChildren = true;
 
         public override void OnEnter()
         {

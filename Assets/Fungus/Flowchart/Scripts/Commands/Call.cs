@@ -19,15 +19,15 @@ namespace Fungus
     public class Call : Command
     {   
         [Tooltip("Flowchart which contains the block to execute. If none is specified then the current Flowchart is used.")]
-        public Flowchart targetFlowchart;
+        [SerializeField] protected Flowchart targetFlowchart;
 
         [FormerlySerializedAs("targetSequence")]
         [Tooltip("Block to start executing")]
-        public Block targetBlock;
+        [SerializeField] protected Block targetBlock;
 
         [Tooltip("Command index to start executing")]
         [FormerlySerializedAs("commandIndex")]
-        public int startIndex;
+        [SerializeField] protected int startIndex;
     
         public enum CallMode
         {
@@ -37,7 +37,7 @@ namespace Fungus
         }
 
         [Tooltip("Select if the calling block should stop or continue executing commands, or wait until the called block finishes.")]
-        public CallMode callMode;
+        [SerializeField] protected CallMode callMode;
 
         public override void OnEnter()
         {
@@ -46,7 +46,7 @@ namespace Fungus
             if (targetBlock != null)
             {
                 // Check if calling your own parent block
-                if (targetBlock == parentBlock)
+                if (targetBlock == ParentBlock)
                 {
                     // Just ignore the callmode in this case, and jump to first command in list
                     Continue(0);
@@ -58,7 +58,7 @@ namespace Fungus
                 if (callMode == CallMode.WaitUntilFinished)
                 {
                     onComplete = delegate {
-                        flowchart.selectedBlock = parentBlock;
+                        flowchart.SelectedBlock = ParentBlock;
                         Continue();
                     };
                 }
@@ -68,9 +68,9 @@ namespace Fungus
                 {
                     // If the executing block is currently selected then follow the execution 
                     // onto the next block in the inspector.
-                    if (flowchart.selectedBlock == parentBlock)
+                    if (flowchart.SelectedBlock == ParentBlock)
                     {
-                        flowchart.selectedBlock = targetBlock;
+                        flowchart.SelectedBlock = targetBlock;
                     }
 
                     StartCoroutine(targetBlock.Execute(startIndex, onComplete));
@@ -110,7 +110,7 @@ namespace Fungus
             }
             else
             {
-                summary = targetBlock.blockName;
+                summary = targetBlock.BlockName;
             }
 
             switch (callMode)

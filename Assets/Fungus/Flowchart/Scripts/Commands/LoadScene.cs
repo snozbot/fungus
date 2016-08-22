@@ -21,10 +21,10 @@ namespace Fungus
     public class LoadScene : Command
     {
         [Tooltip("Name of the scene to load. The scene must also be added to the build settings.")]
-        public StringData _sceneName = new StringData("");
+        [SerializeField] protected StringData _sceneName = new StringData("");
 
         [Tooltip("Image to display while loading the scene")]
-        public Texture2D loadingImage;
+        [SerializeField] protected Texture2D loadingImage;
 
         public override void OnEnter()
         {

@@ -44,7 +44,7 @@ namespace Fungus
             {
                 // Reinitialise if the Lua script is changed while running in editor
                 LuaScript luaScript = target as LuaScript;
-                luaScript.initialised = false;
+                luaScript.Initialised = false;
             }
 
             EditorGUILayout.PropertyField(runAsCoroutineProp);

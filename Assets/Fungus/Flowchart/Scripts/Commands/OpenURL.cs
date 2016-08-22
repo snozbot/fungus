@@ -16,7 +16,7 @@ namespace Fungus
     public class LinkToWebsite : Command
     {
         [Tooltip("URL to open in the browser")]
-        public StringData url = new StringData();
+        [SerializeField] protected StringData url = new StringData();
 
         public override void OnEnter()
         {

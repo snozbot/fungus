@@ -26,12 +26,12 @@ namespace Fungus
 
             // Find next End statement at same indent level
             End endCommand = null;
-            for (int i = commandIndex + 1; i < parentBlock.commandList.Count; ++i)
+            for (int i = CommandIndex + 1; i < ParentBlock.CommandList.Count; ++i)
             {
-                End command = parentBlock.commandList[i] as End;
+                End command = ParentBlock.CommandList[i] as End;
                 
                 if (command != null && 
-                    command.indentLevel == indentLevel)
+                    command.IndentLevel == indentLevel)
                 {
                     endCommand = command;
                     break;
@@ -41,13 +41,13 @@ namespace Fungus
             if (execute)
             {
                 // Tell the following end command to loop back
-                endCommand.loop = true;
+                endCommand.Loop = true;
                 Continue();
             }
             else
             {
                 // Continue at next command after End
-                Continue (endCommand.commandIndex + 1);
+                Continue (endCommand.CommandIndex + 1);
             }
         }
 

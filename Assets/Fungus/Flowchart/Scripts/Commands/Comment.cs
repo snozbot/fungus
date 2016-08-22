@@ -16,11 +16,11 @@ namespace Fungus
     public class Comment : Command
     {   
         [Tooltip("Name of Commenter")]
-        public string commenterName = "";
+        [SerializeField] protected string commenterName = "";
 
         [Tooltip("Text to display for this comment")]
         [TextArea(2,4)]
-        public string commentText = "";
+        [SerializeField] protected string commentText = "";
 
         public override void OnEnter()
         {

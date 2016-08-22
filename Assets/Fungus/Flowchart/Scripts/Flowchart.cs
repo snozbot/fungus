@@ -45,126 +45,161 @@ namespace Fungus
          * Variable to track flowchart's version so components can update to new versions.
          */
         [HideInInspector]
-        public int version = 0; // Default to 0 to always trigger an update for older versions of Fungus.
+        [SerializeField] protected int version = 0; // Default to 0 to always trigger an update for older versions of Fungus.
+
+        public int Version { set { version = value; } }
 
         /**
          * Scroll position of Flowchart editor window.
          */
         [HideInInspector]
-        public Vector2 scrollPos;
+        [SerializeField] protected Vector2 scrollPos;
+
+        public Vector2 ScrollPos { get { return scrollPos; } set { scrollPos = value; } }
 
         /**
          * Scroll position of Flowchart variables window.
          */
         [HideInInspector]
-        public Vector2 variablesScrollPos;
+        [SerializeField] protected Vector2 variablesScrollPos;
+
+        public Vector2 VariablesScrollPos { get { return variablesScrollPos; } set { variablesScrollPos = value; } }
 
         /**
          * Show the variables pane.
          */
         [HideInInspector]
-        public bool variablesExpanded = true;
+        [SerializeField] protected bool variablesExpanded = true;
+
+        public bool VariablesExpanded { get { return variablesExpanded; } set { variablesExpanded = value; } }
 
         /**
          * Height of command block view in inspector.
          */
         [HideInInspector]
-        public float blockViewHeight = 400;
+        [SerializeField] protected float blockViewHeight = 400;
+
+        public float BlockViewHeight { get { return blockViewHeight; } set { blockViewHeight = value; } }
 
         /**
          * Zoom level of Flowchart editor window
          */
         [HideInInspector]
-        public float zoom = 1f;
+        [SerializeField] protected float zoom = 1f;
+
+        public float Zoom { get { return zoom; } set { zoom = value; } }
 
         /**
          * Scrollable area for Flowchart editor window.
          */
         [HideInInspector]
-        public Rect scrollViewRect;
+        [SerializeField] protected Rect scrollViewRect;
+
+        public Rect ScrollViewRect { get { return scrollViewRect; } set { scrollViewRect = value; } }
 
         /**
          * Currently selected block in the Flowchart editor.
          */
         [HideInInspector]
         [FormerlySerializedAs("selectedSequence")]
-        public Block selectedBlock;
+        [SerializeField] protected Block selectedBlock;
+
+        public Block SelectedBlock { get { return selectedBlock; } set { selectedBlock = value; } }
         
         /**
          * Currently selected command in the Flowchart editor.
          */
         [HideInInspector]
-        public List<Command> selectedCommands = new List<Command>();
+        [SerializeField] protected List<Command> selectedCommands = new List<Command>();
+
+        public List<Command> SelectedCommands { get { return selectedCommands; } }
 
         /**
          * The list of variables that can be accessed by the Flowchart.
          */
         [HideInInspector]
-        public List<Variable> variables = new List<Variable>();
+        [SerializeField] protected List<Variable> variables = new List<Variable>();
+
+        public List<Variable> Variables { get { return variables; } }
 
         [TextArea(3, 5)]
         [Tooltip("Description text displayed in the Flowchart editor window")]
-        public string description = "";
+        [SerializeField] protected string description = "";
+
+        public string Description { get { return description; } }
 
         /**
          * Slow down execution in the editor to make it easier to visualise program flow.
          */
         [Range(0f, 5f)]
         [Tooltip("Adds a pause after each execution step to make it easier to visualise program flow. Editor only, has no effect in platform builds.")]
-        public float stepPause = 0f;
+        [SerializeField] protected float stepPause = 0f;
+
+        public float StepPause { get { return stepPause; } }
 
         /**
          * Use command color when displaying the command list in the inspector.
          */
         [Tooltip("Use command color when displaying the command list in the Fungus Editor window")]
-        public bool colorCommands = true;
+        [SerializeField] protected bool colorCommands = true;
+
+        public bool ColorCommands { get { return colorCommands; } }
         
         /**
          * Hides the Flowchart block and command components in the inspector.
          * Deselect to inspect the block and command components that make up the Flowchart.
          */
         [Tooltip("Hides the Flowchart block and command components in the inspector")]
-        public bool hideComponents = true;
+        [SerializeField] protected bool hideComponents = true;
 
         /**
          * Saves the selected block and commands when saving the scene.
          * Helps avoid version control conflicts if you've only changed the active selection.
          */
         [Tooltip("Saves the selected block and commands when saving the scene.")]
-        public bool saveSelection = true;
+        [SerializeField] protected bool saveSelection = true;
+
+        public bool SaveSelection { get { return saveSelection; } }
 
         /**
          * Unique identifier for identifying this flowchart in localized string keys.
          */
         [Tooltip("Unique identifier for this flowchart in localized string keys. If no id is specified then the name of the Flowchart object will be used.")]
-        public string localizationId = "";
+        [SerializeField] protected string localizationId = "";
+
+        public string LocalizationId { get { return localizationId; } }
 
         /**
          * Display line numbers in the command list in the Block inspector.
          */ 
         [Tooltip("Display line numbers in the command list in the Block inspector.")]
-        public bool showLineNumbers = false;
+        [SerializeField] protected bool showLineNumbers = false;
+
+        public bool ShowLineNumbers { get { return showLineNumbers; } }
 
         /**
          * List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.
          */
         [Tooltip("List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.")]
-        public List<string> hideCommands = new List<string>();
+        [SerializeField] protected List<string> hideCommands = new List<string>();
 
         [Tooltip("Lua Environment to be used by default for all Execute Lua commands in this Flowchart")]
-        public LuaEnvironment luaEnvironment;
+        [SerializeField] protected LuaEnvironment luaEnvironment;
+
+        public LuaEnvironment _LuaEnvironment { get { return luaEnvironment; } }
 
         /**
          * The ExecuteLua command adds a global Lua variable with this name bound to the flowchart prior to executing.
          */
         [Tooltip("The ExecuteLua command adds a global Lua variable with this name bound to the flowchart prior to executing.")]
-        public string luaBindingName = "flowchart";
+        [SerializeField] protected string luaBindingName = "flowchart";
+
+        public string LuaBindingName { get { return luaBindingName; } }
 
         /**
          * Position in the center of all blocks in the flowchart.
          */
-        [NonSerialized]
-        public Vector2 centerPosition = Vector2.zero;
+        public Vector2 CenterPosition { set; get; }
 
         /**
          * Cached list of flowchart objects in the scene for fast lookup
@@ -186,13 +221,13 @@ namespace Fungus
             Block[] blocks = GetComponents<Block>();
             foreach (Block block in blocks)
             {
-                maxId = Math.Max(maxId, block.itemId);
+                maxId = Math.Max(maxId, block.ItemId);
             }
             
             Command[] commands = GetComponents<Command>();
             foreach (Command command in commands)
             {
-                maxId = Math.Max(maxId, command.itemId);
+                maxId = Math.Max(maxId, command.ItemId);
             }
             return maxId + 1;
         }
@@ -292,23 +327,23 @@ namespace Fungus
             Block[] blocks = GetComponents<Block>();
             foreach (Block block in blocks)
             {
-                if (block.itemId == -1 ||
-                    usedIds.Contains(block.itemId))
+                if (block.ItemId == -1 ||
+                    usedIds.Contains(block.ItemId))
                 {
-                    block.itemId = NextItemId();
+                    block.ItemId = NextItemId();
                 }
-                usedIds.Add(block.itemId);
+                usedIds.Add(block.ItemId);
             }
             
             Command[] commands = GetComponents<Command>();
             foreach (Command command in commands)
             {
-                if (command.itemId == -1 ||
-                    usedIds.Contains(command.itemId))
+                if (command.ItemId == -1 ||
+                    usedIds.Contains(command.ItemId))
                 {
-                    command.itemId = NextItemId();
+                    command.ItemId = NextItemId();
                 }
-                usedIds.Add(command.itemId);
+                usedIds.Add(command.ItemId);
             }
         }
 
@@ -337,7 +372,7 @@ namespace Fungus
                 bool found = false;
                 foreach (Block block in blocks)
                 {
-                    if (block.commandList.Contains(command))
+                    if (block.CommandList.Contains(command))
                     {
                         found = true;
                         break;
@@ -355,7 +390,7 @@ namespace Fungus
                 bool found = false;
                 foreach (Block block in blocks)
                 {
-                    if (block.eventHandler == eventHandler)
+                    if (block._EventHandler == eventHandler)
                     {
                         found = true;
                         break;
@@ -381,10 +416,9 @@ namespace Fungus
         public virtual Block CreateBlock(Vector2 position)
         {
             Block b = CreateBlockComponent(gameObject);
-            b.nodeRect.x = position.x;
-            b.nodeRect.y = position.y;
-            b.blockName = GetUniqueBlockKey(b.blockName, b);
-            b.itemId = NextItemId();
+            b._NodeRect = new Rect(position.x, position.y, 0, 0);
+            b.BlockName = GetUniqueBlockKey(b.BlockName, b);
+            b.ItemId = NextItemId();
 
             return b;
         }
@@ -397,7 +431,7 @@ namespace Fungus
             Block [] blocks = GetComponents<Block>();
             foreach (Block block in blocks)
             {
-                if (block.blockName == blockName)
+                if (block.BlockName == blockName)
                 {
                     return block;
                 }
@@ -416,7 +450,7 @@ namespace Fungus
             Block block = null;
             foreach (Block b in GetComponents<Block>())
             {
-                if (b.blockName == blockName)
+                if (b.BlockName == blockName)
                 {
                     block = b;
                     break;
@@ -537,12 +571,12 @@ namespace Fungus
                 {
                     if (variable == null ||
                         variable == ignoreVariable ||
-                        variable.key == null)
+                        variable.Key == null)
                     {
                         continue;
                     }
 
-                    if (variable.key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
+                    if (variable.Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                     {
                         collision = true;
                         suffix++;
@@ -580,12 +614,12 @@ namespace Fungus
                 foreach(Block block in blocks)
                 {
                     if (block == ignoreBlock ||
-                        block.blockName == null)
+                        block.BlockName == null)
                     {
                         continue;
                     }
                     
-                    if (block.blockName.Equals(key, StringComparison.CurrentCultureIgnoreCase))
+                    if (block.BlockName.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                     {
                         collision = true;
                         suffix++;
@@ -614,13 +648,13 @@ namespace Fungus
                 baseKey = "New Label";
             }
             
-            Block block = ignoreLabel.parentBlock;
+            Block block = ignoreLabel.ParentBlock;
             
             string key = baseKey;
             while (true)
             {
                 bool collision = false;
-                foreach(Command command in block.commandList)
+                foreach(Command command in block.CommandList)
                 {
                     Label label = command as Label;
                     if (label == null ||
@@ -629,7 +663,7 @@ namespace Fungus
                         continue;
                     }
                     
-                    if (label.key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
+                    if (label.Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                     {
                         collision = true;
                         suffix++;
@@ -655,7 +689,7 @@ namespace Fungus
         {
             foreach (Variable variable in variables)
             {
-                if (variable != null && variable.key == key)
+                if (variable != null && variable.Key == key)
                 {
                     return variable;
                 }
@@ -674,7 +708,7 @@ namespace Fungus
         {
             foreach (Variable variable in variables)
             {
-                if (variable != null && variable.key == key)
+                if (variable != null && variable.Key == key)
                 {
                     return variable as T;
                 }
@@ -692,7 +726,7 @@ namespace Fungus
         {
             foreach (Variable v in variables)
             {
-                if (v != null && v.key == key)
+                if (v != null && v.Key == key)
                 {
                     T variable = v as T;
                     if (variable != null)
@@ -714,7 +748,7 @@ namespace Fungus
             List<Variable> publicVariables = new List<Variable>();
             foreach (Variable v in variables)
             {
-                if (v != null && v.scope == VariableScope.Public)
+                if (v != null && v.Scope == VariableScope.Public)
                 {
                     publicVariables.Add(v);
                 }
@@ -1004,8 +1038,8 @@ namespace Fungus
                     if (variable == null)
                         continue;
 
-                    if (variable.scope == VariableScope.Public &&
-                        variable.key == key)
+                    if (variable.Scope == VariableScope.Public &&
+                        variable.Key == key)
                     {   
                         string value = variable.ToString();
                         input.Replace(match.Value, value);
@@ -1032,7 +1066,7 @@ namespace Fungus
             }
 
             // Use the string builder from StringSubstituter for efficiency.
-            StringBuilder sb = stringSubstituer.stringBuilder;
+            StringBuilder sb = stringSubstituer._StringBuilder;
             sb.Length = 0;
             sb.Append(input);
                     
@@ -1053,8 +1087,8 @@ namespace Fungus
                     if (variable == null)
                         continue;
 
-                    if (variable.scope == VariableScope.Private &&
-                        variable.key == key)
+                    if (variable.Scope == VariableScope.Private &&
+                        variable.Key == key)
                     {   
                         string value = variable.ToString();
                         sb.Replace(match.Value, value);

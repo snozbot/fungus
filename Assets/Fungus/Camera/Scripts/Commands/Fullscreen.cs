@@ -22,7 +22,7 @@ namespace Fungus
             Windowed
         }
 
-        public FullscreenMode fullscreenMode;
+        [SerializeField] protected FullscreenMode fullscreenMode;
 
         public override void OnEnter()
         {

@@ -16,7 +16,7 @@ namespace Fungus
     public class DeleteSaveKey : Command
     {
         [Tooltip("Name of the saved value. Supports variable substition e.g. \"player_{$PlayerNumber}")]
-        public string key = "";
+        [SerializeField] protected string key = "";
 
         public override void OnEnter()
         {

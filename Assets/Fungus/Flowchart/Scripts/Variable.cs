@@ -51,9 +51,13 @@ namespace Fungus
     [RequireComponent(typeof(Flowchart))]
     public abstract class Variable : MonoBehaviour
     {
-        public VariableScope scope;
+        [SerializeField] protected VariableScope scope;
 
-        public string key = "";
+        public VariableScope Scope { get { return scope; } }
+
+        [SerializeField] protected string key = "";
+
+        public string Key { get { return key; } set { key = value; } }
 
         public abstract void OnReset();
     }

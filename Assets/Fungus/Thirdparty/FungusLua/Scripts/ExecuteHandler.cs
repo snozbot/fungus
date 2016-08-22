@@ -63,7 +63,7 @@ namespace Fungus
         [SerializeField] public ExecuteMethod executeMethods = ExecuteMethod.Start;
 
         [Tooltip("Name of the method on a component in this gameobject to call when executing.")]
-        public string executeMethodName = "OnExecute";
+        [SerializeField] protected string executeMethodName = "OnExecute";
 
         private int m_ExecuteOnFrame;
 

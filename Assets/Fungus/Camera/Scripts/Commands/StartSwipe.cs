@@ -16,19 +16,19 @@ namespace Fungus
     public class StartSwipe : Command 
     {
         [Tooltip("Defines one extreme of the scrollable area that the player can pan around")]
-        public View viewA;
+        [SerializeField] protected View viewA;
 
         [Tooltip("Defines one extreme of the scrollable area that the player can pan around")]
-        public View viewB;
+        [SerializeField] protected View viewB;
 
         [Tooltip("Time to move the camera to a valid starting position between the two views")]
-        public float duration = 0.5f;
+        [SerializeField] protected float duration = 0.5f;
 
         [Tooltip("Multiplier factor for speed of swipe pan")]
-        public float speedMultiplier = 1f;
+        [SerializeField] protected float speedMultiplier = 1f;
 
         [Tooltip("Camera to use for the pan. Will use main camera if set to none.")]
-        public Camera targetCamera;
+        [SerializeField] protected Camera targetCamera;
         
         public virtual void Start()
         {

@@ -18,13 +18,13 @@ namespace Fungus
     public class SetAnimBool : Command
     {
         [Tooltip("Reference to an Animator component in a game object")]
-        public AnimatorData _animator;
+        [SerializeField] protected AnimatorData _animator;
 
         [Tooltip("Name of the boolean Animator parameter that will have its value changed")]
-        public StringData _parameterName;
+        [SerializeField] protected StringData _parameterName;
 
         [Tooltip("The boolean value to set the parameter to")]
-        public BooleanData value;
+        [SerializeField] protected BooleanData value;
 
         public override void OnEnter()
         {

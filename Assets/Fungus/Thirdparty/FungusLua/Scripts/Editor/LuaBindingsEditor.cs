@@ -205,7 +205,7 @@ namespace Fungus
             details.Add("");
 
             LuaBindings luaBindings = target as LuaBindings;
-            foreach (LuaBindings.BoundObject boundObject in luaBindings.boundObjects)
+            foreach (LuaBindings.BoundObject boundObject in luaBindings.BoundObjects)
             {
                 UnityEngine.Object inspectObject = boundObject.obj;
                 if (boundObject.component != null)
@@ -367,14 +367,14 @@ namespace Fungus
 
             // Build a hash of all keys currently in use
             HashSet<string> keyhash = new HashSet<string>();
-            for (int i = 0; i < luaBindings.boundObjects.Count; ++i)
+            for (int i = 0; i < luaBindings.BoundObjects.Count; ++i)
             {
                 if (i == ignoreIndex)
                 {
                     continue;
                 }
 
-                keyhash.Add(luaBindings.boundObjects[i].key);
+                keyhash.Add(luaBindings.BoundObjects[i].key);
             }
 
             // Append a suffix to make the key unique
@@ -412,7 +412,7 @@ namespace Fungus
             // Use a temp HashSet to store the list of types.
             // The final list is stored as a list of type strings.
             HashSet<System.Type> typeSet = new HashSet<System.Type>();
-            foreach (LuaBindings.BoundObject boundObject in luaBindings.boundObjects)
+            foreach (LuaBindings.BoundObject boundObject in luaBindings.BoundObjects)
             {
                 if (boundObject.obj == null)
                 {

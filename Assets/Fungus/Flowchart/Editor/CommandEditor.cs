@@ -1,3 +1,4 @@
+
 /**
  * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
  * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
@@ -57,7 +58,7 @@ namespace Fungus
 
             if (t.enabled)
             {
-                if (flowchart.colorCommands)
+                if (flowchart.ColorCommands)
                 {
                     GUI.backgroundColor = t.GetButtonColor();
                 }
@@ -77,7 +78,7 @@ namespace Fungus
 
             GUILayout.FlexibleSpace();
 
-            GUILayout.Label(new GUIContent("(" + t.itemId + ")"));
+            GUILayout.Label(new GUIContent("(" + t.ItemId + ")"));
 
             GUILayout.Space(10);
 
@@ -100,11 +101,11 @@ namespace Fungus
 
             EditorGUILayout.Separator();
 
-            if (t.errorMessage.Length > 0)
+            if (t.ErrorMessage.Length > 0)
             {
                 GUIStyle style = new GUIStyle(GUI.skin.label);
                 style.normal.textColor = new Color(1,0,0);
-                EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
+                EditorGUILayout.LabelField(new GUIContent("Error: " + t.ErrorMessage), style);
             }
 
             GUILayout.EndVertical();

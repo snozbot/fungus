@@ -16,16 +16,16 @@ namespace Fungus
     public class PlayAnimState : Command 
     {
         [Tooltip("Reference to an Animator component in a game object")]
-        public AnimatorData animator = new AnimatorData();
+        [SerializeField] protected AnimatorData animator = new AnimatorData();
 
         [Tooltip("Name of the state you want to play")]
-        public StringData stateName = new StringData();
+        [SerializeField] protected StringData stateName = new StringData();
 
         [Tooltip("Layer to play animation on")]
-        public IntegerData layer = new IntegerData(-1);
+        [SerializeField] protected IntegerData layer = new IntegerData(-1);
 
         [Tooltip("Start time of animation")]
-        public FloatData time = new FloatData(0f);
+        [SerializeField] protected FloatData time = new FloatData(0f);
 
         public override void OnEnter()
         {

@@ -142,7 +142,7 @@ namespace Fungus
                             #if UNITY_EDITOR
                             // Select the new target block in the Flowchart window
                             Flowchart flowchart = block.GetFlowchart();
-                            flowchart.selectedBlock = block;
+                            flowchart.SelectedBlock = block;
                             #endif
 
                             gameObject.SetActive(false);

@@ -49,7 +49,7 @@ namespace Fungus
             }
             else
             {
-                return animatorRef.key;
+                return animatorRef.Key;
             }
         }
     }

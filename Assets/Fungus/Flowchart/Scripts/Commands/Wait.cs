@@ -18,7 +18,7 @@ namespace Fungus
     public class Wait : Command
     {
         [Tooltip("Duration to wait for")]
-        public FloatData _duration = new FloatData(1);
+        [SerializeField] protected FloatData _duration = new FloatData(1);
 
         public override void OnEnter()
         {

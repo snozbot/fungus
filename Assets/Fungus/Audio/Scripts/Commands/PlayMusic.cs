@@ -15,16 +15,16 @@ namespace Fungus
     public class PlayMusic : Command
     {
         [Tooltip("Music sound clip to play")]
-        public AudioClip musicClip;
+        [SerializeField] protected AudioClip musicClip;
 
         [Tooltip("Time to begin playing in seconds. If the audio file is compressed, the time index may be inaccurate.")]
-        public float atTime;
+        [SerializeField] protected float atTime;
 
         [Tooltip("The music will start playing again at end.")]
-        public bool loop = true;
+        [SerializeField] protected bool loop = true;
     
         [Tooltip("Length of time to fade out previous playing music.")]
-        public float fadeDuration = 1f;
+        [SerializeField] protected float fadeDuration = 1f;
 
         public override void OnEnter()
         {

@@ -23,10 +23,10 @@ namespace Fungus
         }
 
         [Tooltip("Target flowchart(s) to send the message to")]
-        public MessageTarget messageTarget;
+        [SerializeField] protected MessageTarget messageTarget;
 
         [Tooltip("Name of the message to send")]
-        public StringData _message = new StringData("");
+        [SerializeField] protected StringData _message = new StringData("");
 
         public override void OnEnter()
         {

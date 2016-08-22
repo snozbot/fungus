@@ -80,7 +80,7 @@ namespace Fungus
             }
             else
             {
-                return stringRef.key;
+                return stringRef.Key;
             }
         }
     }
@@ -130,7 +130,7 @@ namespace Fungus
             }
             else
             {
-                return stringRef.key;
+                return stringRef.Key;
             }
         }
     }

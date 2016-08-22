@@ -17,10 +17,12 @@ namespace Fungus
     public class DragCompleted : EventHandler
     {   
         [Tooltip("Draggable object to listen for drag events on")]
-        public Draggable2D draggableObject;
+        [SerializeField] protected Draggable2D draggableObject;
+
+        public Draggable2D DraggableObject { get { return draggableObject; } }
 
         [Tooltip("Drag target object to listen for drag events on")]
-        public Collider2D targetObject;
+        [SerializeField] protected Collider2D targetObject;
         
         // There's no way to poll if an object is touching another object, so
         // we have to listen to the callbacks and track the touching state ourselves.

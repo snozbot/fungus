@@ -41,7 +41,9 @@ namespace Fungus
     {   
         [HideInInspector]
         [FormerlySerializedAs("parentSequence")]
-        public Block parentBlock;
+        [SerializeField] protected Block parentBlock;
+
+        public Block ParentBlock { get { return parentBlock; } set { parentBlock = value; } }
 
         /**
          * The Event Handler should call this method when the event is detected.
@@ -53,7 +55,7 @@ namespace Fungus
                 return false;
             }
 
-            if (parentBlock.eventHandler != this)
+            if (parentBlock._EventHandler != this)
             {
                 return false;
             }
@@ -61,9 +63,9 @@ namespace Fungus
             Flowchart flowchart = parentBlock.GetFlowchart();
 
             // Auto-follow the executing block if none is currently selected
-            if (flowchart.selectedBlock == null)
+            if (flowchart.SelectedBlock == null)
             {
-                flowchart.selectedBlock = parentBlock;
+                flowchart.SelectedBlock = parentBlock;
             }
 
             return flowchart.ExecuteBlock(parentBlock);

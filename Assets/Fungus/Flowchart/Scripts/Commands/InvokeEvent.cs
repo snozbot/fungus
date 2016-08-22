@@ -35,36 +35,36 @@ namespace Fungus
         }
 
         [Tooltip("Delay (in seconds) before the methods will be called")]
-        public float delay;
+        [SerializeField] protected float delay;
 
-        public InvokeType invokeType;
+        [SerializeField] protected InvokeType invokeType;
 
         [Tooltip("List of methods to call. Supports methods with no parameters or exactly one string, int, float or object parameter.")]
-        public UnityEvent staticEvent = new UnityEvent();
+        [SerializeField] protected UnityEvent staticEvent = new UnityEvent();
 
         [Tooltip("Boolean parameter to pass to the invoked methods.")]
-        public BooleanData booleanParameter;
+        [SerializeField] protected BooleanData booleanParameter;
 
         [Tooltip("List of methods to call. Supports methods with one boolean parameter.")]
-        public BooleanEvent booleanEvent = new BooleanEvent();
+        [SerializeField] protected BooleanEvent booleanEvent = new BooleanEvent();
 
         [Tooltip("Integer parameter to pass to the invoked methods.")]
-        public IntegerData integerParameter;
+        [SerializeField] protected IntegerData integerParameter;
         
         [Tooltip("List of methods to call. Supports methods with one integer parameter.")]
-        public IntegerEvent integerEvent = new IntegerEvent();
+        [SerializeField] protected IntegerEvent integerEvent = new IntegerEvent();
 
         [Tooltip("Float parameter to pass to the invoked methods.")]
-        public FloatData floatParameter;
+        [SerializeField] protected FloatData floatParameter;
         
         [Tooltip("List of methods to call. Supports methods with one float parameter.")]
-        public FloatEvent floatEvent = new FloatEvent();
+        [SerializeField] protected FloatEvent floatEvent = new FloatEvent();
 
         [Tooltip("String parameter to pass to the invoked methods.")]
-        public StringDataMulti stringParameter;
+        [SerializeField] protected StringDataMulti stringParameter;
 
         [Tooltip("List of methods to call. Supports methods with one string parameter.")]
-        public StringEvent stringEvent = new StringEvent();
+        [SerializeField] protected StringEvent stringEvent = new StringEvent();
 
         public override void OnEnter()
         {
@@ -89,16 +89,16 @@ namespace Fungus
                 staticEvent.Invoke();
                 break;
             case InvokeType.DynamicBoolean:
-                booleanEvent.Invoke(booleanParameter);
+                booleanEvent.Invoke(booleanParameter.Value);
                 break;
             case InvokeType.DynamicInteger:
-                integerEvent.Invoke(integerParameter);
+                integerEvent.Invoke(integerParameter.Value);
                 break;
             case InvokeType.DynamicFloat:
-                floatEvent.Invoke(floatParameter);
+                floatEvent.Invoke(floatParameter.Value);
                 break;
             case InvokeType.DynamicString:
-                stringEvent.Invoke(stringParameter);
+                stringEvent.Invoke(stringParameter.Value);
                 break;
             }
         }

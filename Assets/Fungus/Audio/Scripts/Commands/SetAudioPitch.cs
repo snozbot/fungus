@@ -16,14 +16,14 @@ namespace Fungus
     {
         [Range(0,1)]
         [Tooltip("Global pitch level for audio played using the Play Music and Play Sound commands")]
-        public float pitch = 1;
+        [SerializeField] protected float pitch = 1;
 
         [Range(0,30)]
         [Tooltip("Time to fade between current pitch level and target pitch level.")]
-        public float fadeDuration; 
+        [SerializeField] protected float fadeDuration; 
 
         [Tooltip("Wait until the pitch change has finished before executing next command")]
-        public bool waitUntilFinished = true;
+        [SerializeField] protected bool waitUntilFinished = true;
 
         public override void OnEnter()
         {

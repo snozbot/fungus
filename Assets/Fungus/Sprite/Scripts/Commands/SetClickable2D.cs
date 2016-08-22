@@ -16,16 +16,16 @@ namespace Fungus
     public class SetClickable2D : Command
     {       
         [Tooltip("Reference to Clickable2D component on a gameobject")]
-        public Clickable2D targetClickable2D;
+        [SerializeField] protected Clickable2D targetClickable2D;
 
         [Tooltip("Set to true to enable the component")]
-        public BooleanData activeState;
+        [SerializeField] protected BooleanData activeState;
 
         public override void OnEnter()  
         {
             if (targetClickable2D != null)      
             {
-                targetClickable2D.clickEnabled = activeState.Value; 
+                targetClickable2D.ClickEnabled = activeState.Value; 
             }
             
             Continue();

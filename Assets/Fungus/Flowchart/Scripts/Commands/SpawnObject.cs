@@ -20,16 +20,16 @@ namespace Fungus
     public class SpawnObject : Command
     {
         [Tooltip("Game object to copy when spawning. Can be a scene object or a prefab.")]
-        public GameObjectData _sourceObject;
+        [SerializeField] protected GameObjectData _sourceObject;
 
         [Tooltip("Transform to use for position of newly spawned object.")]
-        public TransformData _parentTransform;
+        [SerializeField] protected TransformData _parentTransform;
 
         [Tooltip("Local position of newly spawned object.")]
-        public Vector3Data _spawnPosition;
+        [SerializeField] protected Vector3Data _spawnPosition;
 
         [Tooltip("Local rotation of newly spawned object.")]
-        public Vector3Data _spawnRotation;
+        [SerializeField] protected Vector3Data _spawnRotation;
 
         public override void OnEnter()
         {

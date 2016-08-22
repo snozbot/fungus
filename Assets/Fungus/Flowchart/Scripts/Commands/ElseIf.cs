@@ -20,7 +20,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            System.Type previousCommandType = parentBlock.GetPreviousActiveCommandType();
+            System.Type previousCommandType = ParentBlock.GetPreviousActiveCommandType();
 
             if (previousCommandType == typeof(If) ||
                 previousCommandType == typeof(ElseIf) )
@@ -34,7 +34,7 @@ namespace Fungus
                 // but will also jump to a following Else command.
 
                 // Stop if this is the last command in the list
-                if (commandIndex >= parentBlock.commandList.Count - 1)
+                if (CommandIndex >= ParentBlock.CommandList.Count - 1)
                 {
                     StopParentBlock();
                     return;
@@ -42,17 +42,17 @@ namespace Fungus
 
                 // Find the next End command at the same indent level as this Else If command
                 int indent = indentLevel;
-                for (int i = commandIndex + 1; i < parentBlock.commandList.Count; ++i)
+                for (int i = CommandIndex + 1; i < ParentBlock.CommandList.Count; ++i)
                 {
-                    Command command = parentBlock.commandList[i];
+                    Command command = ParentBlock.CommandList[i];
 
-                    if (command.indentLevel == indent)
+                    if (command.IndentLevel == indent)
                     {
                         System.Type type = command.GetType();
                         if (type == typeof(End))
                         {
                             // Execute command immediately after the Else or End command
-                            Continue(command.commandIndex + 1);
+                            Continue(command.CommandIndex + 1);
                             return;
                         }
                     }

@@ -23,15 +23,15 @@ namespace Fungus
             Flowchart flowchart = go.GetComponent<Flowchart>();
             if (flowchart != null)
             {
-                flowchart.version = Flowchart.CURRENT_VERSION;
+                flowchart.Version = Flowchart.CURRENT_VERSION;
             }
 
             // Only the first created Flowchart in the scene should have a default GameStarted block
             if (GameObject.FindObjectsOfType<Flowchart>().Length > 1)
             {
                 Block block = go.GetComponent<Block>();
-                block.eventHandler = null;
-                GameObject.DestroyImmediate(block.eventHandler);
+                block._EventHandler = null;
+                GameObject.DestroyImmediate(block._EventHandler);
             }
         }
 

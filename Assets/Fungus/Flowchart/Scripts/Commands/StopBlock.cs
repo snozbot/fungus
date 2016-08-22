@@ -15,10 +15,10 @@ namespace Fungus
     public class StopBlock : Command 
     {
         [Tooltip("Flowchart containing the Block. If none is specified, the parent Flowchart is used.")]
-        public Flowchart flowchart;
+        [SerializeField] protected Flowchart flowchart;
 
         [Tooltip("Name of the Block to stop")]
-        public StringData blockName = new StringData("");
+        [SerializeField] protected StringData blockName = new StringData("");
 
         public override void OnEnter()
         {

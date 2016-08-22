@@ -828,9 +828,9 @@ namespace Fungus
         protected virtual void Flash(float duration)
         {
             CameraController cameraController = CameraController.GetInstance();
-            cameraController.screenFadeTexture = CameraController.CreateColorTexture(new Color(1f,1f,1f,1f), 32, 32);
+            cameraController.ScreenFadeTexture = CameraController.CreateColorTexture(new Color(1f,1f,1f,1f), 32, 32);
             cameraController.Fade(1f, duration, delegate {
-                cameraController.screenFadeTexture = CameraController.CreateColorTexture(new Color(1f,1f,1f,1f), 32, 32);
+                cameraController.ScreenFadeTexture = CameraController.CreateColorTexture(new Color(1f,1f,1f,1f), 32, 32);
                 cameraController.Fade(0f, duration, null);
             });
         }

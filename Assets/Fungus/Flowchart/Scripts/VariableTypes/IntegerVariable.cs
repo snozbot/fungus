@@ -81,7 +81,7 @@ namespace Fungus
             }
             else
             {
-                return integerRef.key;
+                return integerRef.Key;
             }
         }
     }

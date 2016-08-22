@@ -16,13 +16,13 @@ namespace Fungus
     public class SetCollider : Command
     {       
         [Tooltip("A list of gameobjects containing collider components to be set active / inactive")]
-        public List<GameObject> targetObjects = new List<GameObject>();
+        [SerializeField] protected List<GameObject> targetObjects = new List<GameObject>();
 
         [Tooltip("All objects with this tag will have their collider set active / inactive")]
-        public string targetTag = "";
+        [SerializeField] protected string targetTag = "";
 
         [Tooltip("Set to true to enable the collider components")]
-        public BooleanData activeState;
+        [SerializeField] protected BooleanData activeState;
 
         public override void OnEnter()  
         {

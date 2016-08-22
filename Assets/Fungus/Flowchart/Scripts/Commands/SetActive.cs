@@ -18,10 +18,10 @@ namespace Fungus
     public class SetActive : Command
     {
         [Tooltip("Reference to game object to enable / disable")]
-        public GameObjectData _targetGameObject;
+        [SerializeField] protected GameObjectData _targetGameObject;
 
         [Tooltip("Set to true to enable the game object")]
-        public BooleanData activeState;
+        [SerializeField] protected BooleanData activeState;
     
         public override void OnEnter()
         {

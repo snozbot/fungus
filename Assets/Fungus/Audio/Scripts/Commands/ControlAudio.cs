@@ -25,24 +25,26 @@ namespace Fungus
         }
 
         [Tooltip("What to do to audio")]
-        public controlType control;
+        [SerializeField] protected controlType control;
+
+        public controlType Control { get { return control; } }
 
         [Tooltip("Audio clip to play")]
-        public AudioSourceData _audioSource;
+        [SerializeField] protected AudioSourceData _audioSource;
 
         [Range(0,1)]
         [Tooltip("Start audio at this volume")]
-        public float startVolume = 1;
+        [SerializeField] protected float startVolume = 1;
 
         [Range(0,1)]
         [Tooltip("End audio at this volume")]
-        public float endVolume = 1;
+        [SerializeField] protected float endVolume = 1;
         
         [Tooltip("Time to fade between current volume level and target volume level.")]
-        public float fadeDuration; 
+        [SerializeField] protected float fadeDuration; 
 
         [Tooltip("Wait until this command has finished before executing the next command.")]
-        public bool waitUntilFinished = false;
+        [SerializeField] protected bool waitUntilFinished = false;
         
         public override void OnEnter()
         {

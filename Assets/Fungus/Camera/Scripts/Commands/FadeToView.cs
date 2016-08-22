@@ -16,25 +16,27 @@ namespace Fungus
     public class FadeToView : Command 
     {
         [Tooltip("Time for fade effect to complete")]
-        public float duration = 1f;
+        [SerializeField] protected float duration = 1f;
 
         [Tooltip("Fade from fully visible to opaque at start of fade")]
-        public bool fadeOut = true;
+        [SerializeField] protected bool fadeOut = true;
 
         [Tooltip("View to transition to when Fade is complete")]
-        public View targetView;
+        [SerializeField] protected View targetView;
+
+        public View TargetView { get { return targetView; } }
 
         [Tooltip("Wait until the fade has finished before executing next command")]
-        public bool waitUntilFinished = true;
+        [SerializeField] protected bool waitUntilFinished = true;
 
         [Tooltip("Color to render fullscreen fade texture with when screen is obscured.")]
-        public Color fadeColor = Color.black;
+        [SerializeField] protected Color fadeColor = Color.black;
 
         [Tooltip("Optional texture to use when rendering the fullscreen fade effect.")]
-        public Texture2D fadeTexture;
+        [SerializeField] protected Texture2D fadeTexture;
 
         [Tooltip("Camera to use for the fade. Will use main camera if set to none.")]
-        public Camera targetCamera;
+        [SerializeField] protected Camera targetCamera;
 
         protected virtual void AcquireCamera()
         {
@@ -67,24 +69,18 @@ namespace Fungus
 
             CameraController cameraController = CameraController.GetInstance();
 
-            if (waitUntilFinished)
-            {
-                cameraController.waiting = true;
-            }
-
             if (fadeTexture)
             {
-                cameraController.screenFadeTexture = fadeTexture;
+                cameraController.ScreenFadeTexture = fadeTexture;
             }
             else
             {
-                cameraController.screenFadeTexture = CameraController.CreateColorTexture(fadeColor, 32, 32);
+                cameraController.ScreenFadeTexture = CameraController.CreateColorTexture(fadeColor, 32, 32);
             }
 
             cameraController.FadeToView(targetCamera, targetView, duration, fadeOut, delegate { 
                 if (waitUntilFinished)
                 {
-                    cameraController.waiting = false;
                     Continue();
                 }
             });

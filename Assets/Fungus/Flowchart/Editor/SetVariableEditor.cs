@@ -73,7 +73,7 @@ namespace Fungus
             }
             
             int selectedIndex = 0;
-            switch (t.setOperator)
+            switch (t._SetOperator)
             {
                 default:
                 case SetVariable.SetOperator.Assign:

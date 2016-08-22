@@ -176,11 +176,11 @@ namespace Fungus
             Flowchart flowchart = FlowchartWindow.GetFlowchart();
             if (flowchart != null)
             {
-                foreach (Command command in flowchart.selectedCommands)
+                foreach (Command command in flowchart.SelectedCommands)
                 {
                     MoveToView moveToViewCommand = command as MoveToView;
                     if (moveToViewCommand != null &&
-                        moveToViewCommand.targetView == view)
+                        moveToViewCommand.TargetView == view)
                     {
                         highlight = true;
                     }
@@ -188,7 +188,7 @@ namespace Fungus
                     {
                         FadeToView fadeToViewCommand = command as FadeToView;
                         if (fadeToViewCommand != null &&
-                            fadeToViewCommand.targetView == view)
+                            fadeToViewCommand.TargetView == view)
                         {
                             highlight = true;
                         }

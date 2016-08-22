@@ -73,7 +73,7 @@ namespace Fungus
             }
             else
             {
-                return booleanRef.key;
+                return booleanRef.Key;
             }
         }
     }

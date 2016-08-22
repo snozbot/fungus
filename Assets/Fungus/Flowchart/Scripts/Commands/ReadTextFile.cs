@@ -16,11 +16,11 @@ namespace Fungus
     public class ReadTextFile : Command
     {
         [Tooltip("Text file to read into the string variable")]
-        public TextAsset textFile;
+        [SerializeField] protected TextAsset textFile;
 
         [Tooltip("String variable to store the tex file contents in")]
         [VariableProperty(typeof(StringVariable))]
-        public StringVariable stringVariable;
+        [SerializeField] protected StringVariable stringVariable;
 
         public override void OnEnter() 
         {
@@ -48,7 +48,7 @@ namespace Fungus
                 return "Error: Text file not selected";
             }
 
-            return stringVariable.key;
+            return stringVariable.Key;
         }
         
         public override bool HasReference(Variable variable)

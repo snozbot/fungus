@@ -21,13 +21,13 @@ namespace Fungus
             // Find index of previous while command
             int whileIndex = -1;
             int whileIndentLevel = -1;
-            for (int i = commandIndex - 1; i >=0; --i)
+            for (int i = CommandIndex - 1; i >=0; --i)
             {
-                While whileCommand = parentBlock.commandList[i] as While;
+                While whileCommand = ParentBlock.CommandList[i] as While;
                 if (whileCommand != null)
                 {
                     whileIndex = i;
-                    whileIndentLevel = whileCommand.indentLevel;
+                    whileIndentLevel = whileCommand.IndentLevel;
                     break;
                 }
             }
@@ -40,18 +40,18 @@ namespace Fungus
             }
 
             // Find matching End statement at same indent level as While
-            for (int i = whileIndex + 1; i < parentBlock.commandList.Count; ++i)
+            for (int i = whileIndex + 1; i < ParentBlock.CommandList.Count; ++i)
             {
-                End endCommand = parentBlock.commandList[i] as End;
+                End endCommand = ParentBlock.CommandList[i] as End;
                 
                 if (endCommand != null && 
-                    endCommand.indentLevel == whileIndentLevel)
+                    endCommand.IndentLevel == whileIndentLevel)
                 {
                     // Sanity check that break command is actually between the While and End commands
-                    if (commandIndex > whileIndex && commandIndex < endCommand.commandIndex)
+                    if (CommandIndex > whileIndex && CommandIndex < endCommand.CommandIndex)
                     {
                         // Continue at next command after End
-                        Continue (endCommand.commandIndex + 1);
+                        Continue (endCommand.CommandIndex + 1);
                         return;
                     }
                     else

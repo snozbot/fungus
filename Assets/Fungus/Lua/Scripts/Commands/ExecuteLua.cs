@@ -59,14 +59,14 @@ namespace Fungus
             }
 
             // Cache a descriptive name to use in Lua error messages
-            friendlyName = gameObject.name + "." + parentBlock.blockName + "." + "ExecuteLua #" + commandIndex.ToString();
+            friendlyName = gameObject.name + "." + ParentBlock.BlockName + "." + "ExecuteLua #" + CommandIndex.ToString();
 
             Flowchart flowchart = GetFlowchart();
 
             // See if a Lua Environment has been assigned to this Flowchart
             if (luaEnvironment == null)        
             {
-                luaEnvironment = flowchart.luaEnvironment;
+                luaEnvironment = flowchart._LuaEnvironment;
             }
 
             // No Lua Environment specified so just use any available or create one.
@@ -79,12 +79,12 @@ namespace Fungus
             luaFunction = luaEnvironment.LoadLuaString(s, friendlyName);
 
             // Add a binding to the parent flowchart
-            if (flowchart.luaBindingName != "")
+            if (flowchart.LuaBindingName != "")
             {
                 Table globals = luaEnvironment.Interpreter.Globals;
                 if (globals != null)
                 {
-                    globals[flowchart.luaBindingName] = flowchart;
+                    globals[flowchart.LuaBindingName] = flowchart;
                 }
             }
 
