@@ -17,24 +17,24 @@ namespace Fungus
     public class ExecuteLua : Command 
     {
         [Tooltip("Lua Environment to use to execute this Lua script")]
-        public LuaEnvironment luaEnvironment;
+        [SerializeField] protected LuaEnvironment luaEnvironment;
 
         [Tooltip("A text file containing Lua script to execute.")]
-        public TextAsset luaFile;
+        [SerializeField] protected TextAsset luaFile;
 
         [TextArea(10,100)]
         [Tooltip("Lua script to execute. This text is appended to the contents of Lua file (if one is specified).")]
-        public string luaScript;
+        [SerializeField] protected string luaScript;
 
         [Tooltip("Execute this Lua script as a Lua coroutine")]
-        public bool runAsCoroutine = true;
+        [SerializeField] protected bool runAsCoroutine = true;
 
         [Tooltip("Pause command execution until the Lua script has finished execution")]
-        public bool waitUntilFinished = true;
+        [SerializeField] protected bool waitUntilFinished = true;
 
         [Tooltip("A Flowchart variable to store the returned value in.")]
         [VariableProperty()]
-        public Variable returnVariable;
+        [SerializeField] protected Variable returnVariable;
 
         protected string friendlyName = "";
 
