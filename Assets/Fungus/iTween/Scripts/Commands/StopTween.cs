@@ -17,7 +17,7 @@ namespace Fungus
     public class StopTween : Command
     {
         [Tooltip("Stop and destroy any Tweens in current scene with the supplied name")]
-        public StringData _tweenName;
+        [SerializeField] protected StringData _tweenName;
 
         public override void OnEnter()
         {

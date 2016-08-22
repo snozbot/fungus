@@ -17,7 +17,7 @@ namespace Fungus
     public class ShakeScale : iTweenCommand
     {
         [Tooltip("A scale offset in space the GameObject will animate to")]
-        public Vector3Data _amount;
+        [SerializeField] protected Vector3Data _amount;
         
         public override void DoTween()
         {

@@ -17,13 +17,13 @@ namespace Fungus
     public class RotateTo : iTweenCommand
     {
         [Tooltip("Target transform that the GameObject will rotate to")]
-        public TransformData _toTransform;
+        [SerializeField] protected TransformData _toTransform;
 
         [Tooltip("Target rotation that the GameObject will rotate to, if no To Transform is set")]
-        public Vector3Data _toRotation;
+        [SerializeField] protected Vector3Data _toRotation;
 
         [Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
-        public bool isLocal;
+        [SerializeField] protected bool isLocal;
 
         public override void DoTween()
         {

@@ -17,7 +17,7 @@ namespace Fungus
     public class ScaleAdd : iTweenCommand
     {
         [Tooltip("A scale offset in space the GameObject will animate to")]
-        public Vector3Data _offset;
+        [SerializeField] protected Vector3Data _offset;
 
         public override void DoTween()
         {

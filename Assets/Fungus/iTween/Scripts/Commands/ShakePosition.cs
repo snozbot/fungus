@@ -17,13 +17,13 @@ namespace Fungus
     public class ShakePosition : iTweenCommand
     {
         [Tooltip("A translation offset in space the GameObject will animate to")]
-        public Vector3Data _amount;
+        [SerializeField] protected Vector3Data _amount;
 
         [Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
-        public bool isLocal;
+        [SerializeField] protected bool isLocal;
 
         [Tooltip("Restricts rotation to the supplied axis only")]
-        public iTweenAxis axis;
+        [SerializeField] protected iTweenAxis axis;
         
         public override void DoTween()
         {

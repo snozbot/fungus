@@ -17,13 +17,13 @@ namespace Fungus
     public class LookFrom : iTweenCommand
     {
         [Tooltip("Target transform that the GameObject will look at")]
-        public TransformData _fromTransform;
+        [SerializeField] protected TransformData _fromTransform;
 
         [Tooltip("Target world position that the GameObject will look at, if no From Transform is set")]
-        public Vector3Data _fromPosition;
+        [SerializeField] protected Vector3Data _fromPosition;
 
         [Tooltip("Restricts rotation to the supplied axis only")]
-        public iTweenAxis axis;
+        [SerializeField] protected iTweenAxis axis;
 
         public override void DoTween()
         {

@@ -17,10 +17,10 @@ namespace Fungus
     public class RotateAdd : iTweenCommand
     {
         [Tooltip("A rotation offset in space the GameObject will animate to")]
-        public Vector3Data _offset;
+        [SerializeField] protected Vector3Data _offset;
 
         [Tooltip("Apply the transformation in either the world coordinate or local cordinate system")]
-        public Space space = Space.Self;
+        [SerializeField] protected Space space = Space.Self;
 
         public override void DoTween()
         {

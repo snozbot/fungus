@@ -17,10 +17,10 @@ namespace Fungus
     public class ScaleFrom : iTweenCommand
     {
         [Tooltip("Target transform that the GameObject will scale from")]
-        public TransformData _fromTransform;
+        [SerializeField] protected TransformData _fromTransform;
 
         [Tooltip("Target scale that the GameObject will scale from, if no From Transform is set")]
-        public Vector3Data _fromScale;
+        [SerializeField] protected Vector3Data _fromScale;
 
         public override void DoTween()
         {

@@ -22,25 +22,25 @@ namespace Fungus
     public abstract class iTweenCommand : Command
     {
         [Tooltip("Target game object to apply the Tween to")]
-        public GameObjectData _targetObject;
+        [SerializeField] protected GameObjectData _targetObject;
 
         [Tooltip("An individual name useful for stopping iTweens by name")]
-        public StringData _tweenName;
+        [SerializeField] protected StringData _tweenName;
 
         [Tooltip("The time in seconds the animation will take to complete")]
-        public FloatData _duration = new FloatData(1f);
+        [SerializeField] protected FloatData _duration = new FloatData(1f);
 
         [Tooltip("The shape of the easing curve applied to the animation")]
-        public iTween.EaseType easeType = iTween.EaseType.easeInOutQuad;
+        [SerializeField] protected iTween.EaseType easeType = iTween.EaseType.easeInOutQuad;
 
         [Tooltip("The type of loop to apply once the animation has completed")]
-        public iTween.LoopType loopType = iTween.LoopType.none;
+        [SerializeField] protected iTween.LoopType loopType = iTween.LoopType.none;
 
         [Tooltip("Stop any previously added iTweens on this object before adding this iTween")]
-        public bool stopPreviousTweens = false;
+        [SerializeField] protected bool stopPreviousTweens = false;
 
         [Tooltip("Wait until the tween has finished before executing the next command")]
-        public bool waitUntilFinished = true;
+        [SerializeField] protected bool waitUntilFinished = true;
 
         public override void OnEnter()
         {
