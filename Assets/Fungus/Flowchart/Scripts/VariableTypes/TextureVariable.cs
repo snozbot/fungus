@@ -37,8 +37,8 @@ namespace Fungus
 
         public Texture Value
         {
-            get { return (textureRef == null) ? textureVal : textureRef.value; }
-            set { if (textureRef == null) { textureVal = value; } else { textureRef.value = value; } }
+            get { return (textureRef == null) ? textureVal : textureRef.Value; }
+            set { if (textureRef == null) { textureVal = value; } else { textureRef.Value = value; } }
         }
 
         public string GetDescription()

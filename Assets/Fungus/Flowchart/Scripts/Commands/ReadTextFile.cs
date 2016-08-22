@@ -31,7 +31,7 @@ namespace Fungus
                 return;
             }
 
-            stringVariable.value = textFile.text;
+            stringVariable.Value = textFile.text;
 
             Continue();
         }

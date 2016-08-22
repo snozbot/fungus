@@ -141,51 +141,51 @@ namespace Fungus
             System.Type variableType = returnVariable.GetType();
             if (variableType == typeof(BooleanVariable) && returnValue.Type == DataType.Boolean)
             {
-                (returnVariable as BooleanVariable).value = returnValue.Boolean;
+                (returnVariable as BooleanVariable).Value = returnValue.Boolean;
             }
             else if (variableType == typeof(IntegerVariable) && returnValue.Type == DataType.Number)
             {
-                (returnVariable as IntegerVariable).value = (int)returnValue.Number;
+                (returnVariable as IntegerVariable).Value = (int)returnValue.Number;
             }
             else if (variableType == typeof(FloatVariable) && returnValue.Type == DataType.Number)
             {
-                (returnVariable as FloatVariable).value = (float)returnValue.Number;
+                (returnVariable as FloatVariable).Value = (float)returnValue.Number;
             }
             else if (variableType == typeof(StringVariable) && returnValue.Type == DataType.String)
             {
-                (returnVariable as StringVariable).value = returnValue.String;
+                (returnVariable as StringVariable).Value = returnValue.String;
             }
             else if (variableType == typeof(ColorVariable) && returnValue.Type == DataType.UserData)
             {
-                (returnVariable as ColorVariable).value = returnValue.CheckUserDataType<Color>("ExecuteLua.StoreReturnVariable");
+                (returnVariable as ColorVariable).Value = returnValue.CheckUserDataType<Color>("ExecuteLua.StoreReturnVariable");
             }
             else if (variableType == typeof(GameObjectVariable) && returnValue.Type == DataType.UserData)
             {
-                (returnVariable as GameObjectVariable).value = returnValue.CheckUserDataType<GameObject>("ExecuteLua.StoreReturnVariable");
+                (returnVariable as GameObjectVariable).Value = returnValue.CheckUserDataType<GameObject>("ExecuteLua.StoreReturnVariable");
             }
             else if (variableType == typeof(MaterialVariable) && returnValue.Type == DataType.UserData)
             {
-                (returnVariable as MaterialVariable).value = returnValue.CheckUserDataType<Material>("ExecuteLua.StoreReturnVariable");
+                (returnVariable as MaterialVariable).Value = returnValue.CheckUserDataType<Material>("ExecuteLua.StoreReturnVariable");
             }
             else if (variableType == typeof(ObjectVariable) && returnValue.Type == DataType.UserData)
             {
-                (returnVariable as ObjectVariable).value = returnValue.CheckUserDataType<Object>("ExecuteLua.StoreReturnVariable");
+                (returnVariable as ObjectVariable).Value = returnValue.CheckUserDataType<Object>("ExecuteLua.StoreReturnVariable");
             }
             else if (variableType == typeof(SpriteVariable) && returnValue.Type == DataType.UserData)
             {
-                (returnVariable as SpriteVariable).value = returnValue.CheckUserDataType<Sprite>("ExecuteLua.StoreReturnVariable");
+                (returnVariable as SpriteVariable).Value = returnValue.CheckUserDataType<Sprite>("ExecuteLua.StoreReturnVariable");
             }
             else if (variableType == typeof(TextureVariable) && returnValue.Type == DataType.UserData)
             {
-                (returnVariable as TextureVariable).value = returnValue.CheckUserDataType<Texture>("ExecuteLua.StoreReturnVariable");
+                (returnVariable as TextureVariable).Value = returnValue.CheckUserDataType<Texture>("ExecuteLua.StoreReturnVariable");
             }
             else if (variableType == typeof(Vector2Variable) && returnValue.Type == DataType.UserData)
             {
-                (returnVariable as Vector2Variable).value = returnValue.CheckUserDataType<Vector2>("ExecuteLua.StoreReturnVariable");
+                (returnVariable as Vector2Variable).Value = returnValue.CheckUserDataType<Vector2>("ExecuteLua.StoreReturnVariable");
             }
             else if (variableType == typeof(Vector3Variable) && returnValue.Type == DataType.UserData)
             {
-                (returnVariable as Vector3Variable).value = returnValue.CheckUserDataType<Vector3>("ExecuteLua.StoreReturnVariable");
+                (returnVariable as Vector3Variable).Value = returnValue.CheckUserDataType<Vector3>("ExecuteLua.StoreReturnVariable");
             }
             else
             {

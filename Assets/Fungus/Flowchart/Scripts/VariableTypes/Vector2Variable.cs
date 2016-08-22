@@ -37,8 +37,8 @@ namespace Fungus
 
         public Vector2 Value
         {
-            get { return (vector2Ref == null) ? vector2Val : vector2Ref.value; }
-            set { if (vector2Ref == null) { vector2Val = value; } else { vector2Ref.value = value; } }
+            get { return (vector2Ref == null) ? vector2Val : vector2Ref.Value; }
+            set { if (vector2Ref == null) { vector2Val = value; } else { vector2Ref.Value = value; } }
         }
 
         public string GetDescription()

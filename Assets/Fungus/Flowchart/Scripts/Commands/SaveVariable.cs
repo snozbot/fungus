@@ -49,7 +49,7 @@ namespace Fungus
                 if (booleanVariable != null)
                 {
                     // PlayerPrefs does not have bool accessors, so just use int
-                    PlayerPrefs.SetInt(prefsKey, booleanVariable.value ? 1 : 0);
+                    PlayerPrefs.SetInt(prefsKey, booleanVariable.Value ? 1 : 0);
                 }
             }
             else if (variableType == typeof(IntegerVariable))
@@ -57,7 +57,7 @@ namespace Fungus
                 IntegerVariable integerVariable = variable as IntegerVariable;
                 if (integerVariable != null)
                 {
-                    PlayerPrefs.SetInt(prefsKey, integerVariable.value);
+                    PlayerPrefs.SetInt(prefsKey, integerVariable.Value);
                 }
             }
             else if (variableType == typeof(FloatVariable))
@@ -65,7 +65,7 @@ namespace Fungus
                 FloatVariable floatVariable = variable as FloatVariable;
                 if (floatVariable != null)
                 {
-                    PlayerPrefs.SetFloat(prefsKey, floatVariable.value);
+                    PlayerPrefs.SetFloat(prefsKey, floatVariable.Value);
                 }
             }
             else if (variableType == typeof(StringVariable))
@@ -73,7 +73,7 @@ namespace Fungus
                 StringVariable stringVariable = variable as StringVariable;
                 if (stringVariable != null)
                 {
-                    PlayerPrefs.SetString(prefsKey, stringVariable.value);
+                    PlayerPrefs.SetString(prefsKey, stringVariable.Value);
                 }
             }
             

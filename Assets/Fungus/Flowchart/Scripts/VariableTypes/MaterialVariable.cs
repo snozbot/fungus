@@ -37,8 +37,8 @@ namespace Fungus
 
         public Material Value
         {
-            get { return (materialRef == null) ? materialVal : materialRef.value; }
-            set { if (materialRef == null) { materialVal = value; } else { materialRef.value = value; } }
+            get { return (materialRef == null) ? materialVal : materialRef.Value; }
+            set { if (materialRef == null) { materialVal = value; } else { materialRef.Value = value; } }
         }
 
         public string GetDescription()

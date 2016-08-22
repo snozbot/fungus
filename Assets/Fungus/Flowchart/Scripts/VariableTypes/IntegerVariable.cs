@@ -15,7 +15,7 @@ namespace Fungus
     {
         public virtual bool Evaluate(CompareOperator compareOperator, int integerValue)
         {
-            int lhs = value;
+            int lhs = Value;
             int rhs = integerValue;
 
             bool condition = false;
@@ -69,8 +69,8 @@ namespace Fungus
 
         public int Value
         {
-            get { return (integerRef == null) ? integerVal : integerRef.value; }
-            set { if (integerRef == null) { integerVal = value; } else { integerRef.value = value; } }
+            get { return (integerRef == null) ? integerVal : integerRef.Value; }
+            set { if (integerRef == null) { integerVal = value; } else { integerRef.Value = value; } }
         }
 
         public string GetDescription()

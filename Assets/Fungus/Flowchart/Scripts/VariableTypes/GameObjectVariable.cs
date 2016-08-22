@@ -37,8 +37,8 @@ namespace Fungus
 
         public GameObject Value
         {
-            get { return (gameObjectRef == null) ? gameObjectVal : gameObjectRef.value; }
-            set { if (gameObjectRef == null) { gameObjectVal = value; } else { gameObjectRef.value = value; } }
+            get { return (gameObjectRef == null) ? gameObjectVal : gameObjectRef.Value; }
+            set { if (gameObjectRef == null) { gameObjectVal = value; } else { gameObjectRef.Value = value; } }
         }
 
         public string GetDescription()

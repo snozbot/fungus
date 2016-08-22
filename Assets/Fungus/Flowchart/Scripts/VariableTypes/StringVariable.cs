@@ -16,7 +16,7 @@ namespace Fungus
     {
         public virtual bool Evaluate(CompareOperator compareOperator, string stringValue)
         {
-            string lhs = value;
+            string lhs = Value;
             string rhs = stringValue;
 
             bool condition = false;
@@ -67,9 +67,9 @@ namespace Fungus
             get 
             { 
                 if (stringVal == null) stringVal = "";
-                return (stringRef == null) ? stringVal : stringRef.value; 
+                return (stringRef == null) ? stringVal : stringRef.Value; 
             }
-            set { if (stringRef == null) { stringVal = value; } else { stringRef.value = value; } }
+            set { if (stringRef == null) { stringVal = value; } else { stringRef.Value = value; } }
         }
 
         public string GetDescription()
@@ -117,9 +117,9 @@ namespace Fungus
             get 
             {
                 if (stringVal == null) stringVal = "";
-                return (stringRef == null) ? stringVal : stringRef.value; 
+                return (stringRef == null) ? stringVal : stringRef.Value; 
             }
-            set { if (stringRef == null) { stringVal = value; } else { stringRef.value = value; } }
+            set { if (stringRef == null) { stringVal = value; } else { stringRef.Value = value; } }
         }
 
         public string GetDescription()

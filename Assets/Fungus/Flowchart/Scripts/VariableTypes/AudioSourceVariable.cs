@@ -37,8 +37,8 @@ namespace Fungus
 
         public AudioSource Value
         {
-            get { return (audioSourceRef == null) ? audioSourceVal : audioSourceRef.value; }
-            set { if (audioSourceRef == null) { audioSourceVal = value; } else { audioSourceRef.value = value; } }
+            get { return (audioSourceRef == null) ? audioSourceVal : audioSourceRef.Value; }
+            set { if (audioSourceRef == null) { audioSourceVal = value; } else { audioSourceRef.Value = value; } }
         }
 
         public string GetDescription()

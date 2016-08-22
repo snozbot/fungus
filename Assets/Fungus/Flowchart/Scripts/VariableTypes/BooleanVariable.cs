@@ -19,7 +19,7 @@ namespace Fungus
         {
             bool condition = false;
             
-            bool lhs = value;
+            bool lhs = Value;
             bool rhs = booleanValue;
             
             switch (compareOperator)
@@ -61,8 +61,8 @@ namespace Fungus
 
         public bool Value
         {
-            get { return (booleanRef == null) ? booleanVal : booleanRef.value; }
-            set { if (booleanRef == null) { booleanVal = value; } else { booleanRef.value = value; } }
+            get { return (booleanRef == null) ? booleanVal : booleanRef.Value; }
+            set { if (booleanRef == null) { booleanVal = value; } else { booleanRef.Value = value; } }
         }
 
         public string GetDescription()

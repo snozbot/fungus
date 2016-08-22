@@ -39,21 +39,21 @@ namespace Fungus
                 Text uiText = targetTextObject.GetComponent<Text>();
                 if (uiText != null)
                 {
-                    stringVariable.value = uiText.text;
+                    stringVariable.Value = uiText.text;
                 }
                 else
                 {
                     InputField inputField = targetTextObject.GetComponent<InputField>();
                     if (inputField != null)
                     {
-                        stringVariable.value = inputField.text;
+                        stringVariable.Value = inputField.text;
                     }
                     else
                     {
                         TextMesh textMesh = targetTextObject.GetComponent<TextMesh>();
                         if (textMesh != null)
                         {
-                            stringVariable.value = textMesh.text;
+                            stringVariable.Value = textMesh.text;
                         }
                     }
                 }

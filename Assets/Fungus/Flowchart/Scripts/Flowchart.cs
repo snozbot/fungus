@@ -767,7 +767,7 @@ namespace Fungus
 
             if(variable != null)
             {
-                return GetVariable<BooleanVariable>(key).value;
+                return GetVariable<BooleanVariable>(key).Value;
             }
             else
             {
@@ -784,7 +784,7 @@ namespace Fungus
             BooleanVariable variable = GetVariable<BooleanVariable>(key);
             if(variable != null)
             {
-                variable.value = value;
+                variable.Value = value;
             }
         }
 
@@ -798,7 +798,7 @@ namespace Fungus
 
             if (variable != null)
             {
-                return GetVariable<IntegerVariable>(key).value;
+                return GetVariable<IntegerVariable>(key).Value;
             }
             else
             {
@@ -815,7 +815,7 @@ namespace Fungus
             IntegerVariable variable = GetVariable<IntegerVariable>(key);
             if (variable != null)
             {
-                variable.value = value;
+                variable.Value = value;
             }
         }
 
@@ -829,7 +829,7 @@ namespace Fungus
 
             if (variable != null)
             {
-                return GetVariable<FloatVariable>(key).value;
+                return GetVariable<FloatVariable>(key).Value;
             }
             else
             {
@@ -846,7 +846,7 @@ namespace Fungus
             FloatVariable variable = GetVariable<FloatVariable>(key);
             if (variable != null)
             {
-                variable.value = value;
+                variable.Value = value;
             }
         }
 
@@ -860,7 +860,7 @@ namespace Fungus
 
             if (variable != null)
             {
-                return GetVariable<StringVariable>(key).value;
+                return GetVariable<StringVariable>(key).Value;
             }
             else
             {
@@ -877,7 +877,7 @@ namespace Fungus
             StringVariable variable = GetVariable<StringVariable>(key);
             if (variable != null)
             {
-                variable.value = value;
+                variable.Value = value;
             }
         }
 

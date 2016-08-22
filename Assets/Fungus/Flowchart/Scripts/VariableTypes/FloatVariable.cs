@@ -15,7 +15,7 @@ namespace Fungus
     {
         public virtual bool Evaluate(CompareOperator compareOperator, float floatValue)
         {
-            float lhs = value;
+            float lhs = Value;
             float rhs = floatValue;
             
             bool condition = false;
@@ -69,8 +69,8 @@ namespace Fungus
 
         public float Value
         {
-            get { return (floatRef == null) ? floatVal : floatRef.value; }
-            set { if (floatRef == null) { floatVal = value; } else { floatRef.value = value; } }
+            get { return (floatRef == null) ? floatVal : floatRef.Value; }
+            set { if (floatRef == null) { floatVal = value; } else { floatRef.Value = value; } }
         }
 
         public string GetDescription()

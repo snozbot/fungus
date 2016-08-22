@@ -37,8 +37,8 @@ namespace Fungus
 
         public Sprite Value
         {
-            get { return (spriteRef == null) ? spriteVal : spriteRef.value; }
-            set { if (spriteRef == null) { spriteVal = value; } else { spriteRef.value = value; } }
+            get { return (spriteRef == null) ? spriteVal : spriteRef.Value; }
+            set { if (spriteRef == null) { spriteVal = value; } else { spriteRef.Value = value; } }
         }
 
         public string GetDescription()

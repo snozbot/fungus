@@ -37,8 +37,8 @@ namespace Fungus
 
         public Animator Value
         {
-            get { return (animatorRef == null) ? animatorVal : animatorRef.value; }
-            set { if (animatorRef == null) { animatorVal = value; } else { animatorRef.value = value; } }
+            get { return (animatorRef == null) ? animatorVal : animatorRef.Value; }
+            set { if (animatorRef == null) { animatorVal = value; } else { animatorRef.Value = value; } }
         }
 
         public string GetDescription()

@@ -64,24 +64,26 @@ namespace Fungus
 
     public abstract class VariableBase<T> : Variable
     {
-        public T value;
+        [SerializeField] protected T value;
+
+        public T Value { get { return this.value; } set { this.value = value; } }
         
         protected T startValue;
 
         public override void OnReset()
         {
-            value = startValue;
+            Value = startValue;
         }
         
         public override string ToString()
         {
-            return value.ToString();
+            return Value.ToString();
         }
         
         protected virtual void Start()
         {
             // Remember the initial value so we can reset later on
-            startValue = value;
+            startValue = Value;
         }
     }
 }

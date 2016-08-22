@@ -28,7 +28,7 @@ namespace Fungus
         {
             if (variable != null)
             {
-                variable.value = Random.Range(minValue.Value, maxValue.Value);
+                variable.Value = Random.Range(minValue.Value, maxValue.Value);
             }
 
             Continue();

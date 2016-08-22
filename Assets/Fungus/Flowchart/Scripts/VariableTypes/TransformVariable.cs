@@ -37,8 +37,8 @@ namespace Fungus
 
         public Transform Value
         {
-            get { return (transformRef == null) ? transformVal : transformRef.value; }
-            set { if (transformRef == null) { transformVal = value; } else { transformRef.value = value; } }
+            get { return (transformRef == null) ? transformVal : transformRef.Value; }
+            set { if (transformRef == null) { transformVal = value; } else { transformRef.Value = value; } }
         }
 
         public string GetDescription()

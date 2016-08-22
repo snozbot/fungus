@@ -133,10 +133,10 @@ namespace Fungus
                 {
                 default:
                 case SetOperator.Assign:
-                    lhs.value = rhs;
+                    lhs.Value = rhs;
                     break;
                 case SetOperator.Negate:
-                    lhs.value = !rhs;
+                    lhs.Value = !rhs;
                     break;
                 }
             }
@@ -149,19 +149,19 @@ namespace Fungus
                 {
                 default:
                 case SetOperator.Assign:
-                    lhs.value = rhs;
+                    lhs.Value = rhs;
                     break;
                 case SetOperator.Add:
-                    lhs.value += rhs;
+                    lhs.Value += rhs;
                     break;
                 case SetOperator.Subtract:
-                    lhs.value -= rhs;
+                    lhs.Value -= rhs;
                     break;
                 case SetOperator.Multiply:
-                    lhs.value *= rhs;
+                    lhs.Value *= rhs;
                     break;
                 case SetOperator.Divide:
-                    lhs.value /= rhs;
+                    lhs.Value /= rhs;
                     break;
                 }
             }
@@ -174,19 +174,19 @@ namespace Fungus
                 {
                 default:
                 case SetOperator.Assign:
-                    lhs.value = rhs;
+                    lhs.Value = rhs;
                     break;
                 case SetOperator.Add:
-                    lhs.value += rhs;
+                    lhs.Value += rhs;
                     break;
                 case SetOperator.Subtract:
-                    lhs.value -= rhs;
+                    lhs.Value -= rhs;
                     break;
                 case SetOperator.Multiply:
-                    lhs.value *= rhs;
+                    lhs.Value *= rhs;
                     break;
                 case SetOperator.Divide:
-                    lhs.value /= rhs;
+                    lhs.Value /= rhs;
                     break;
                 }
             }
@@ -199,7 +199,7 @@ namespace Fungus
                 {
                 default:
                 case SetOperator.Assign:
-                    lhs.value = rhs;
+                    lhs.Value = rhs;
                     break;
                 }
             }

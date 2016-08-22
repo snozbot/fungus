@@ -37,8 +37,8 @@ namespace Fungus
 
         public Object Value
         {
-            get { return (objectRef == null) ? objectVal : objectRef.value; }
-            set { if (objectRef == null) { objectVal = value; } else { objectRef.value = value; } }
+            get { return (objectRef == null) ? objectVal : objectRef.Value; }
+            set { if (objectRef == null) { objectVal = value; } else { objectRef.Value = value; } }
         }
 
         public string GetDescription()

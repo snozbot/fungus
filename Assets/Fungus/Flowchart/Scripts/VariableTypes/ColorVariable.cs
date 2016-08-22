@@ -37,8 +37,8 @@ namespace Fungus
 
         public Color Value
         {
-            get { return (colorRef == null) ? colorVal : colorRef.value; }
-            set { if (colorRef == null) { colorVal = value; } else { colorRef.value = value; } }
+            get { return (colorRef == null) ? colorVal : colorRef.Value; }
+            set { if (colorRef == null) { colorVal = value; } else { colorRef.Value = value; } }
         }
 
         public string GetDescription()
