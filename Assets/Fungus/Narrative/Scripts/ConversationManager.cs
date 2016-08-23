@@ -16,6 +16,8 @@ namespace Fungus
             public Sprite Portrait { get; set; }
             public RectTransform Position { get; set; }
             public bool Hide { get; set; }
+            public FacingDirection FacingDirection { get; set; }
+            public bool Flip { get; set; }
         }
 
         protected Character[] characters;
@@ -104,7 +106,8 @@ namespace Fungus
 
                 if (stage != null && currentCharacter != null &&
                     (currentPortrait != currentCharacter.state.portrait || 
-                     currentPosition != currentCharacter.state.position))
+                     currentPosition != currentCharacter.state.position ||
+                     item.Flip))
                 {
                     var portraitOptions = new PortraitOptions(true);
                     portraitOptions.display = item.Hide ? DisplayType.Hide : DisplayType.Show;
@@ -113,6 +116,9 @@ namespace Fungus
                     portraitOptions.toPosition = currentPosition;
                     portraitOptions.portrait = currentPortrait;
 
+                    //Flip option - Flip the opposite direction the character is currently facing
+                    if (item.Flip) portraitOptions.facing = item.FacingDirection;
+                    
                     // Do a move tween if the character is already on screen and not yet at the specified position
                     if (currentCharacter.state.onScreen &&
                         currentPosition != currentCharacter.state.position)
@@ -157,7 +163,7 @@ namespace Fungus
         {
             //find SimpleScript say strings with portrait options
             //You can test regex matches here: http://regexstorm.net/tester
-            var sayRegex = new Regex(@"((?<sayParams>[\w ""]*):)?(?<text>.*)\r*(\n|$)");
+            var sayRegex = new Regex(@"((?<sayParams>[\w ""><]*):)?(?<text>.*)\r*(\n|$)");
             MatchCollection sayMatches = sayRegex.Matches(conv);
 
             var items = new List<ConversationItem>(sayMatches.Count);
@@ -253,6 +259,25 @@ namespace Fungus
                     }
                 }
             }
+
+            int flipIndex = -1;
+            if (item.Character != null)
+            {
+                for (int i = 0; i < sayParams.Length; i++)
+                {
+                    if (i != characterIndex &&
+                        i != hideIndex &&
+                        (string.Compare(sayParams[i], ">>>", true) == 0
+                         || string.Compare(sayParams[i], "<<<", true) == 0))
+                    {
+                        if (string.Compare(sayParams[i], ">>>", true) == 0) item.FacingDirection = FacingDirection.Right;
+                        if (string.Compare(sayParams[i], "<<<", true) == 0) item.FacingDirection = FacingDirection.Left;
+                        flipIndex = i;
+                        item.Flip = true;
+                        break;
+                    }
+                }
+            }
                 
             // Next see if we can find a portrait for this character
             int portraitIndex = -1;
@@ -263,7 +288,8 @@ namespace Fungus
                     if (item.Portrait == null && 
                         item.Character != null &&
                         i != characterIndex && 
-                        i != hideIndex) 
+                        i != hideIndex &&
+                        i != flipIndex) 
                     {
                         Sprite s = item.Character.GetPortrait(sayParams[i]);
                         if (s != null)
