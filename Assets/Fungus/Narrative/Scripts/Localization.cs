@@ -35,7 +35,9 @@ namespace Fungus
          * Language to use at startup, usually defined by a two letter language code (e.g DE = German)
          */
         [Tooltip("Language to use at startup, usually defined by a two letter language code (e.g DE = German)")]
-        public string activeLanguage = "";
+        [SerializeField] protected string activeLanguage = "";
+
+        public string ActiveLanguage { get { return activeLanguage; } }
 
         protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
 
@@ -55,13 +57,16 @@ namespace Fungus
          * CSV file containing localization data which can be easily edited in a spreadsheet tool.
          */
          [Tooltip("CSV file containing localization data which can be easily edited in a spreadsheet tool")]
-         public TextAsset localizationFile;
+        [SerializeField] protected TextAsset localizationFile;
+
+        public TextAsset LocalizationFile { get { return localizationFile; } set { localizationFile = value; } }
 
         /**
          * Stores any notification message from export / import methods.
          */
-        [NonSerialized]
-        public string notificationText = "";
+        protected string notificationText = "";
+
+        public string NotificationText { get { return notificationText; } set { notificationText = value; } }
 
         protected bool initialized;
 

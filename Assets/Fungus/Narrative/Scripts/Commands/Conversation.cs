@@ -16,9 +16,9 @@ namespace Fungus
     [ExecuteInEditMode]
     public class Conversation : Command
     {
-        public StringDataMulti conversationText;
+        [SerializeField] protected StringDataMulti conversationText;
 
-        public ConversationManager conversationManager = new ConversationManager();
+        protected ConversationManager conversationManager = new ConversationManager();
 
         protected virtual void Start()
         {

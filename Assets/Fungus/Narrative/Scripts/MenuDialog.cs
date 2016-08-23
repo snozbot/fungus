@@ -21,13 +21,15 @@ namespace Fungus
         public static MenuDialog activeMenuDialog;
 
         [Tooltip("Automatically select the first interactable button when the menu is shown.")]
-        public bool autoSelectFirstButton = false;
+        [SerializeField] protected bool autoSelectFirstButton = false;
 
-        [NonSerialized]
-        public Button[] cachedButtons;
+        protected Button[] cachedButtons;
 
-        [NonSerialized]
-        public Slider cachedSlider;
+        public Button[] CachedButtons { get { return cachedButtons; } }
+
+        protected Slider cachedSlider;
+
+        public Slider CachedSlider { get { return cachedSlider; } }
 
         public static MenuDialog GetMenuDialog()
         {

@@ -18,40 +18,46 @@ namespace Fungus
     {
         // Removed this tooltip as users's reported it obscures the text box
         [TextArea(5,10)]
-        public string storyText = "";
+        [SerializeField] protected string storyText = "";
 
         [Tooltip("Notes about this story text for other authors, localization, etc.")]
-        public string description = "";
+        [SerializeField] protected string description = "";
 
         [Tooltip("Character that is speaking")]
-        public Character character;
+        [SerializeField] protected Character character;
+
+        public Character _Character { get { return character; } }
 
         [Tooltip("Portrait that represents speaking character")]
-        public Sprite portrait;
+        [SerializeField] protected Sprite portrait;
+
+        public Sprite Portrait { get { return portrait; } set { portrait = value; } }
 
         [Tooltip("Voiceover audio to play when writing the text")]
-        public AudioClip voiceOverClip;
+        [SerializeField] protected AudioClip voiceOverClip;
 
         [Tooltip("Always show this Say text when the command is executed multiple times")]
-        public bool showAlways = true;
+        [SerializeField] protected bool showAlways = true;
 
         [Tooltip("Number of times to show this Say text when the command is executed multiple times")]
-        public int showCount = 1;
+        [SerializeField] protected int showCount = 1;
 
         [Tooltip("Type this text in the previous dialog box.")]
-        public bool extendPrevious = false;
+        [SerializeField] protected bool extendPrevious = false;
+
+        public bool ExtendPrevious { get { return extendPrevious; } }
 
         [Tooltip("Fade out the dialog box when writing has finished and not waiting for input.")]
-        public bool fadeWhenDone = true;
+        [SerializeField] protected bool fadeWhenDone = true;
 
         [Tooltip("Wait for player to click before continuing.")]
-        public bool waitForClick = true;
+        [SerializeField] protected bool waitForClick = true;
 
         [Tooltip("Stop playing voiceover when text finishes writing.")]
-        public bool stopVoiceover = true;
+        [SerializeField] protected bool stopVoiceover = true;
 
         [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
-        public SayDialog setSayDialog;
+        [SerializeField] protected SayDialog setSayDialog;
 
         protected int executionCount;
 
@@ -66,9 +72,9 @@ namespace Fungus
             executionCount++;
 
             // Override the active say dialog if needed
-            if (character != null && character.setSayDialog != null)
+            if (character != null && character.SetSayDialog != null)
             {
-                SayDialog.activeSayDialog = character.setSayDialog;
+                SayDialog.activeSayDialog = character.SetSayDialog;
             }
 
             if (setSayDialog != null)
@@ -95,10 +101,10 @@ namespace Fungus
 
             foreach (CustomTag ct in CustomTag.activeCustomTags)
             {
-                displayText = displayText.Replace(ct.tagStartSymbol, ct.replaceTagStartWith);
-                if (ct.tagEndSymbol != "" && ct.replaceTagEndWith != "")
+                displayText = displayText.Replace(ct.TagStartSymbol, ct.ReplaceTagStartWith);
+                if (ct.TagEndSymbol != "" && ct.ReplaceTagEndWith != "")
                 {
-                    displayText = displayText.Replace(ct.tagEndSymbol, ct.replaceTagEndWith);
+                    displayText = displayText.Replace(ct.TagEndSymbol, ct.ReplaceTagEndWith);
                 }
             }
 
@@ -114,7 +120,7 @@ namespace Fungus
             string namePrefix = "";
             if (character != null) 
             {
-                namePrefix = character.nameText + ": ";
+                namePrefix = character.NameText + ": ";
             }
             if (extendPrevious)
             {
@@ -169,7 +175,7 @@ namespace Fungus
             string stringId = "SAY." + GetFlowchartLocalizationId() + "." + itemId + ".";
             if (character != null)
             {
-                stringId += character.nameText;
+                stringId += character.NameText;
             }
 
             return stringId;

@@ -33,9 +33,9 @@ namespace Fungus
             SayDialog sayDialog = null;
             if (character != null)
             {
-                if (character.setSayDialog != null)
+                if (character.SetSayDialog != null)
                 {
-                    sayDialog = character.setSayDialog;
+                    sayDialog = character.SetSayDialog;
                 }
             }
 
@@ -103,19 +103,19 @@ namespace Fungus
                 var stage = Stage.GetActiveStage();
 
                 if (stage != null && currentCharacter != null &&
-                    (currentPortrait != currentCharacter.state.portrait || 
-                     currentPosition != currentCharacter.state.position))
+                    (currentPortrait != currentCharacter.State.portrait || 
+                     currentPosition != currentCharacter.State.position))
                 {
                     var portraitOptions = new PortraitOptions(true);
                     portraitOptions.display = item.Hide ? DisplayType.Hide : DisplayType.Show;
                     portraitOptions.character = currentCharacter;
-                    portraitOptions.fromPosition = currentCharacter.state.position;
+                    portraitOptions.fromPosition = currentCharacter.State.position;
                     portraitOptions.toPosition = currentPosition;
                     portraitOptions.portrait = currentPortrait;
 
                     // Do a move tween if the character is already on screen and not yet at the specified position
-                    if (currentCharacter.state.onScreen &&
-                        currentPosition != currentCharacter.state.position)
+                    if (currentCharacter.State.onScreen &&
+                        currentPosition != currentCharacter.State.position)
                     {
                         portraitOptions.move = true;
                     }

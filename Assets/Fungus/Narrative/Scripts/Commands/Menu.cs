@@ -18,23 +18,23 @@ namespace Fungus
     public class Menu : Command, ILocalizable
     {
         [Tooltip("Text to display on the menu button")]
-        public string text = "Option Text";
+        [SerializeField] protected string text = "Option Text";
 
         [Tooltip("Notes about the option text for other authors, localization, etc.")]
-        public string description = "";
+        [SerializeField] protected string description = "";
 
         [FormerlySerializedAs("targetSequence")]
         [Tooltip("Block to execute when this option is selected")]
-        public Block targetBlock;
+        [SerializeField] protected Block targetBlock;
 
         [Tooltip("Hide this option if the target block has been executed previously")]
-        public bool hideIfVisited;
+        [SerializeField] protected bool hideIfVisited;
 
         [Tooltip("If false, the menu option will be displayed but will not be selectable")]
-        public BooleanData interactable = new BooleanData(true);
+        [SerializeField] protected BooleanData interactable = new BooleanData(true);
 
         [Tooltip("A custom Menu Dialog to use to display this menu. All subsequent Menu commands will use this dialog.")]
-        public MenuDialog setMenuDialog;
+        [SerializeField] protected MenuDialog setMenuDialog;
 
         public override void OnEnter()
         {

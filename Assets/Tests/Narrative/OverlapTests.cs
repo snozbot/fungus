@@ -14,12 +14,12 @@ public class OverlapTests : MonoBehaviour
 
 	public void Step1()
 	{
-		if (!sayDialog_RightImage.characterImage.IsActive())
+		if (!sayDialog_RightImage.CharacterImage.IsActive())
 		{
 			IntegrationTest.Fail("Character image not active");
 		}
 
-		if (sayDialog_RightImage.characterImage.transform.position.x < sayDialog_RightImage.storyText.transform.position.x)
+		if (sayDialog_RightImage.CharacterImage.transform.position.x < sayDialog_RightImage.StoryText.transform.position.x)
 		{
 			IntegrationTest.Fail("Character image not on right hand side");
 		}
@@ -27,12 +27,12 @@ public class OverlapTests : MonoBehaviour
 
 	public void Step2()
 	{		
-		if (sayDialog_RightImage.characterImage.IsActive())
+		if (sayDialog_RightImage.CharacterImage.IsActive())
 		{
 			IntegrationTest.Fail("Character image should not be active");
 		}
 
-		float width = sayDialog_RightImage.storyText.rectTransform.rect.width;
+		float width = sayDialog_RightImage.StoryText.rectTransform.rect.width;
 		if (!Mathf.Approximately(width, 1439))
 		{
 			IntegrationTest.Fail("Story text width not correct");
@@ -41,12 +41,12 @@ public class OverlapTests : MonoBehaviour
 
 	public void Step3()
 	{		
-		if (!sayDialog_LeftImage.characterImage.IsActive())
+		if (!sayDialog_LeftImage.CharacterImage.IsActive())
 		{
 			IntegrationTest.Fail("Character image not active");
 		}
 
-		if (sayDialog_LeftImage.characterImage.transform.position.x > sayDialog_LeftImage.storyText.transform.position.x)
+		if (sayDialog_LeftImage.CharacterImage.transform.position.x > sayDialog_LeftImage.StoryText.transform.position.x)
 		{
 			IntegrationTest.Fail("Character image not on left hand side");
 		}
@@ -54,12 +54,12 @@ public class OverlapTests : MonoBehaviour
 
 	public void Step4()
 	{		
-		if (sayDialog_LeftImage.characterImage.IsActive())
+		if (sayDialog_LeftImage.CharacterImage.IsActive())
 		{
 			IntegrationTest.Fail("Character image should not be active");
 		}
 
-		float width = sayDialog_LeftImage.storyText.rectTransform.rect.width;
+		float width = sayDialog_LeftImage.StoryText.rectTransform.rect.width;
 		if (!Mathf.Approximately(width, 1439))
 		{
 			IntegrationTest.Fail("Story text width not correct");

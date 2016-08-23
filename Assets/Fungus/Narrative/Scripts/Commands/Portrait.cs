@@ -19,49 +19,69 @@ namespace Fungus
     public class Portrait : ControlWithDisplay<DisplayType>
     {
         [Tooltip("Stage to display portrait on")]
-        public Stage stage;
-        
+        [SerializeField] protected Stage stage;
+
+        public Stage _Stage { get { return stage; } set { stage = value; } }
+
         [Tooltip("Character to display")]
-        public Character character;
-        
+        [SerializeField] protected Character character;
+
+        public Character _Character { get { return character; } set { character = value; } }
+
         [Tooltip("Character to swap with")]
-        public Character replacedCharacter;
+        [SerializeField] protected Character replacedCharacter;
         
         [Tooltip("Portrait to display")]
-        public Sprite portrait;
-        
+        [SerializeField] protected Sprite portrait;
+
+        public Sprite _Portrait { get { return portrait; } set { portrait = value; } }
+
         [Tooltip("Move the portrait from/to this offset position")]
-        public PositionOffset offset;
-        
+        [SerializeField] protected PositionOffset offset;
+
+        public PositionOffset Offset { get { return offset; } set { offset = value; } }
+
         [Tooltip("Move the portrait from this position")]
-        public RectTransform fromPosition;
+        [SerializeField] protected RectTransform fromPosition;
+
+        public RectTransform FromPosition { get { return fromPosition; } set { fromPosition = value;} }
 
         [Tooltip("Move the portrait to this positoin")]
-        public RectTransform toPosition;
+        [SerializeField] protected RectTransform toPosition;
+
+        public RectTransform ToPosition { get { return toPosition; } set { toPosition = value;} }
 
         [Tooltip("Direction character is facing")]
-        public FacingDirection facing;
-        
+        [SerializeField] protected FacingDirection facing;
+
+        public FacingDirection Facing { get { return facing; } set { facing = value; } }
+
         [Tooltip("Use Default Settings")]
-        public bool useDefaultSettings = true;
-        
+        [SerializeField] protected bool useDefaultSettings = true;
+
+        public bool UseDefaultSettings { get { return useDefaultSettings; } set { useDefaultSettings = value; } }
+
         [Tooltip("Fade Duration")]
-        public float fadeDuration = 0.5f;
+        [SerializeField] protected float fadeDuration = 0.5f;
         
         [Tooltip("Movement Duration")]
-        public float moveDuration = 1f;
+        [SerializeField] protected float moveDuration = 1f;
         
         [Tooltip("Shift Offset")]
-        public Vector2 shiftOffset;
+        [SerializeField] protected Vector2 shiftOffset;
         
         [Tooltip("Move")]
-        public bool move;
-        
+        [SerializeField] protected bool move;
+
+        public bool Move { get { return move; } set { move = value; } }
+
         [Tooltip("Start from offset")]
-        public bool shiftIntoPlace;
-        
+        [SerializeField] protected bool shiftIntoPlace;
+
+        public bool ShiftIntoPlace { get { return shiftIntoPlace; } set { shiftIntoPlace = value; } }
+
         [Tooltip("Wait until the tween has finished before executing the next command")]
-        public bool waitUntilFinished = false;
+        [SerializeField] protected bool waitUntilFinished = false;
 
         public override void OnEnter()
         {

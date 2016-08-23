@@ -139,7 +139,7 @@ namespace Fungus
 
             // Early out if hiding a character that's already hidden
             if (options.display == DisplayType.Hide &&
-                !options.character.state.onScreen)
+                !options.character.State.onScreen)
             {
                 onComplete();
                 return;
@@ -160,7 +160,7 @@ namespace Fungus
 
                 case (DisplayType.Replace):
                     Show(options);
-                    Hide(options.replacedCharacter, options.replacedCharacter.state.position.name);
+                    Hide(options.replacedCharacter, options.replacedCharacter.State.position.name);
                     break;
 
                 case (DisplayType.MoveToFront):
@@ -199,54 +199,54 @@ namespace Fungus
             // Use default stage settings
             if (options.useDefaultSettings)
             {
-                options.fadeDuration = stage.fadeDuration;
-                options.moveDuration = stage.moveDuration;
-                options.shiftOffset = stage.shiftOffset;
+                options.fadeDuration = stage.FadeDuration;
+                options.moveDuration = stage.MoveDuration;
+                options.shiftOffset = stage.ShiftOffset;
             }
 
             // if no previous portrait, use default portrait
-            if (options.character.state.portrait == null)
+            if (options.character.State.portrait == null)
             {
-                options.character.state.portrait = options.character.profileSprite;
+                options.character.State.portrait = options.character.ProfileSprite;
             }
 
             // Selected "use previous portrait"
             if (options.portrait == null)
             {
-                options.portrait = options.character.state.portrait;
+                options.portrait = options.character.State.portrait;
             }
 
             // if no previous position, use default position
-            if (options.character.state.position == null)
+            if (options.character.State.position == null)
             {
-                options.character.state.position = stage.defaultPosition.rectTransform;
+                options.character.State.position = stage.DefaultPosition.rectTransform;
             }
 
             // Selected "use previous position"
             if (options.toPosition == null)
             {
-                options.toPosition = options.character.state.position;
+                options.toPosition = options.character.State.position;
             }
 
             if (options.replacedCharacter != null)
             {
                 // if no previous position, use default position
-                if (options.replacedCharacter.state.position == null)
+                if (options.replacedCharacter.State.position == null)
                 {
-                    options.replacedCharacter.state.position = stage.defaultPosition.rectTransform;
+                    options.replacedCharacter.State.position = stage.DefaultPosition.rectTransform;
                 }
             }
 
             // If swapping, use replaced character's position
             if (options.display == DisplayType.Replace)
             {
-                options.toPosition = options.replacedCharacter.state.position;
+                options.toPosition = options.replacedCharacter.State.position;
             }
 
             // Selected "use previous position"
             if (options.fromPosition == null)
             {
-                options.fromPosition = options.character.state.position;
+                options.fromPosition = options.character.State.position;
             }
 
             // if portrait not moving, use from position is same as to position
@@ -257,22 +257,22 @@ namespace Fungus
 
             if (options.display == DisplayType.Hide)
             {
-                options.fromPosition = options.character.state.position;
+                options.fromPosition = options.character.State.position;
             }
 
             // if no previous facing direction, use default facing direction
-            if (options.character.state.facing == FacingDirection.None)
+            if (options.character.State.facing == FacingDirection.None)
             {
-                options.character.state.facing = options.character.portraitsFace;
+                options.character.State.facing = options.character.PortraitsFace;
             }
 
             // Selected "use previous facing direction"
             if (options.facing == FacingDirection.None)
             {
-                options.facing = options.character.state.facing;
+                options.facing = options.character.State.facing;
             }
 
-            if (options.character.state.portraitImage == null)
+            if (options.character.State.portraitImage == null)
             {
                 CreatePortraitObject(options.character, options.fadeDuration);
             }
@@ -294,22 +294,22 @@ namespace Fungus
                                                     typeof(Image));
 
             // Set it to be a child of the stage
-            portraitObj.transform.SetParent(stage.portraitCanvas.transform, true);
+            portraitObj.transform.SetParent(stage.PortraitCanvas.transform, true);
 
             // Configure the portrait image
             Image portraitImage = portraitObj.GetComponent<Image>();
             portraitImage.preserveAspect = true;
-            portraitImage.sprite = character.profileSprite;
+            portraitImage.sprite = character.ProfileSprite;
             portraitImage.color = new Color(1f, 1f, 1f, 0f);
 
             // LeanTween doesn't handle 0 duration properly
             float duration = (fadeDuration > 0f) ? fadeDuration : float.Epsilon;
 
             // Fade in character image (first time)
-            LeanTween.alpha(portraitImage.transform as RectTransform, 1f, duration).setEase(stage.fadeEaseType);
+            LeanTween.alpha(portraitImage.transform as RectTransform, 1f, duration).setEase(stage.FadeEaseType);
 
             // Tell character about portrait image
-            character.state.portraitImage = portraitImage;
+            character.State.portraitImage = portraitImage;
         }
 
         private IEnumerator WaitUntilFinished(float duration, Action onComplete = null)
@@ -332,24 +332,24 @@ namespace Fungus
 
         private void SetupPortrait(PortraitOptions options)
         {
-            SetRectTransform(options.character.state.portraitImage.rectTransform, options.fromPosition);
+            SetRectTransform(options.character.State.portraitImage.rectTransform, options.fromPosition);
 
-            if (options.character.state.facing != options.character.portraitsFace)
+            if (options.character.State.facing != options.character.PortraitsFace)
             {
-                options.character.state.portraitImage.rectTransform.localScale = new Vector3(-1f, 1f, 1f);
+                options.character.State.portraitImage.rectTransform.localScale = new Vector3(-1f, 1f, 1f);
             }
             else
             {
-                options.character.state.portraitImage.rectTransform.localScale = new Vector3(1f, 1f, 1f);
+                options.character.State.portraitImage.rectTransform.localScale = new Vector3(1f, 1f, 1f);
             }
 
-            if (options.facing != options.character.portraitsFace)
+            if (options.facing != options.character.PortraitsFace)
             {
-                options.character.state.portraitImage.rectTransform.localScale = new Vector3(-1f, 1f, 1f);
+                options.character.State.portraitImage.rectTransform.localScale = new Vector3(-1f, 1f, 1f);
             }
             else
             {
-                options.character.state.portraitImage.rectTransform.localScale = new Vector3(1f, 1f, 1f);
+                options.character.State.portraitImage.rectTransform.localScale = new Vector3(1f, 1f, 1f);
             }
         }
 
@@ -380,8 +380,8 @@ namespace Fungus
 
         public void MoveToFront(PortraitOptions options)
         {
-            options.character.state.portraitImage.transform.SetSiblingIndex(options.character.state.portraitImage.transform.parent.childCount);
-            options.character.state.display = DisplayType.MoveToFront;
+            options.character.State.portraitImage.transform.SetSiblingIndex(options.character.State.portraitImage.transform.parent.childCount);
+            options.character.State.display = DisplayType.MoveToFront;
             FinishCommand(options);
         }
 
@@ -405,7 +405,7 @@ namespace Fungus
             float duration = (options.moveDuration > 0f) ? options.moveDuration : float.Epsilon;
 
             // LeanTween.move uses the anchoredPosition, so all position images must have the same anchor position
-            LeanTween.move(options.character.state.portraitImage.gameObject, options.toPosition.position, duration).setEase(stage.fadeEaseType);
+            LeanTween.move(options.character.State.portraitImage.gameObject, options.toPosition.position, duration).setEase(stage.FadeEaseType);
 
             if (options.waitUntilFinished)
             {
@@ -493,47 +493,47 @@ namespace Fungus
             float duration = (options.fadeDuration > 0f) ? options.fadeDuration : float.Epsilon;
 
             // Fade out a duplicate of the existing portrait image
-            if (options.character.state.portraitImage != null)
+            if (options.character.State.portraitImage != null)
             {
-                GameObject tempGO = GameObject.Instantiate(options.character.state.portraitImage.gameObject);
-                tempGO.transform.SetParent(options.character.state.portraitImage.transform, false);
+                GameObject tempGO = GameObject.Instantiate(options.character.State.portraitImage.gameObject);
+                tempGO.transform.SetParent(options.character.State.portraitImage.transform, false);
                 tempGO.transform.localPosition = Vector3.zero;
-                tempGO.transform.localScale = options.character.state.position.localScale;
+                tempGO.transform.localScale = options.character.State.position.localScale;
 
                 Image tempImage = tempGO.GetComponent<Image>();
-                tempImage.sprite = options.character.state.portraitImage.sprite;
+                tempImage.sprite = options.character.State.portraitImage.sprite;
                 tempImage.preserveAspect = true;
-                tempImage.color = options.character.state.portraitImage.color;
+                tempImage.color = options.character.State.portraitImage.color;
 
-                LeanTween.alpha(tempImage.rectTransform, 0f, duration).setEase(stage.fadeEaseType).setOnComplete(() => {
+                LeanTween.alpha(tempImage.rectTransform, 0f, duration).setEase(stage.FadeEaseType).setOnComplete(() => {
                     Destroy(tempGO);
                 });
             }
 
             // Fade in the new sprite image
-            if (options.character.state.portraitImage.sprite != options.portrait ||
-                options.character.state.portraitImage.color.a < 1f)
+            if (options.character.State.portraitImage.sprite != options.portrait ||
+                options.character.State.portraitImage.color.a < 1f)
             {
-                options.character.state.portraitImage.sprite = options.portrait;
-                options.character.state.portraitImage.color = new Color(1f, 1f, 1f, 0f);
-                LeanTween.alpha(options.character.state.portraitImage.rectTransform, 1f, duration).setEase(stage.fadeEaseType);
+                options.character.State.portraitImage.sprite = options.portrait;
+                options.character.State.portraitImage.color = new Color(1f, 1f, 1f, 0f);
+                LeanTween.alpha(options.character.State.portraitImage.rectTransform, 1f, duration).setEase(stage.FadeEaseType);
             }
 
             DoMoveTween(options);
 
             FinishCommand(options);
 
-            if (!stage.charactersOnStage.Contains(options.character))
+            if (!stage.CharactersOnStage.Contains(options.character))
             {
-                stage.charactersOnStage.Add(options.character);
+                stage.CharactersOnStage.Add(options.character);
             }
 
             // Update character state after showing
-            options.character.state.onScreen = true;
-            options.character.state.display = DisplayType.Show;
-            options.character.state.portrait = options.portrait;
-            options.character.state.facing = options.facing;
-            options.character.state.position = options.toPosition;
+            options.character.State.onScreen = true;
+            options.character.State.display = DisplayType.Show;
+            options.character.State.portrait = options.portrait;
+            options.character.State.facing = options.facing;
+            options.character.State.position = options.toPosition;
         }
 
         /// <summary>
@@ -547,13 +547,13 @@ namespace Fungus
             options.character = character;
             options.portrait = character.GetPortrait(portrait);
 
-            if (character.state.position == null)
+            if (character.State.position == null)
             {
                 options.toPosition = options.fromPosition = stage.GetPosition("middle");
             }
             else
             {
-                options.fromPosition = options.toPosition = character.state.position;
+                options.fromPosition = options.toPosition = character.State.position;
             }
 
             Show(options);
@@ -606,7 +606,7 @@ namespace Fungus
         {
             CleanPortraitOptions(options);
 
-            if (options.character.state.display == DisplayType.None)
+            if (options.character.State.display == DisplayType.None)
             {
                 return;
             }
@@ -616,37 +616,37 @@ namespace Fungus
             // LeanTween doesn't handle 0 duration properly
             float duration = (options.fadeDuration > 0f) ? options.fadeDuration : float.Epsilon;
 
-            LeanTween.alpha(options.character.state.portraitImage.rectTransform, 0f, duration).setEase(stage.fadeEaseType);
+            LeanTween.alpha(options.character.State.portraitImage.rectTransform, 0f, duration).setEase(stage.FadeEaseType);
 
             DoMoveTween(options);
 
-            stage.charactersOnStage.Remove(options.character);
+            stage.CharactersOnStage.Remove(options.character);
 
             //update character state after hiding
-            options.character.state.onScreen = false;
-            options.character.state.portrait = options.portrait;
-            options.character.state.facing = options.facing;
-            options.character.state.position = options.toPosition;
-            options.character.state.display = DisplayType.Hide;
+            options.character.State.onScreen = false;
+            options.character.State.portrait = options.portrait;
+            options.character.State.facing = options.facing;
+            options.character.State.position = options.toPosition;
+            options.character.State.display = DisplayType.Hide;
 
             FinishCommand(options);
         }
 
         public void SetDimmed(Character character, bool dimmedState)
         {
-            if (character.state.dimmed == dimmedState)
+            if (character.State.dimmed == dimmedState)
             {
                 return;
             }
 
-            character.state.dimmed = dimmedState;
+            character.State.dimmed = dimmedState;
 
             Color targetColor = dimmedState ? new Color(0.5f, 0.5f, 0.5f, 1f) : Color.white;
 
             // LeanTween doesn't handle 0 duration properly
-            float duration = (stage.fadeDuration > 0f) ? stage.fadeDuration : float.Epsilon;
+            float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
 
-            LeanTween.color(character.state.portraitImage.rectTransform, targetColor, duration).setEase(stage.fadeEaseType);
+            LeanTween.color(character.State.portraitImage.rectTransform, targetColor, duration).setEase(stage.FadeEaseType);
         }
     }
 

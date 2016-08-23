@@ -16,7 +16,7 @@ namespace Fungus
     public class SetSayDialog : Command 
     {
         [Tooltip("The Say Dialog to use for displaying Say story text")]
-        public SayDialog sayDialog;
+        [SerializeField] protected SayDialog sayDialog;
 
         public override void OnEnter()
         {

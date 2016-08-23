@@ -20,11 +20,11 @@ namespace Fungus
     public class MenuTimer : Command
     {
         [Tooltip("Length of time to display the timer for")]
-        public FloatData _duration = new FloatData(1);
+        [SerializeField] protected FloatData _duration = new FloatData(1);
 
         [FormerlySerializedAs("targetSequence")]
         [Tooltip("Block to execute when the timer expires")]
-        public Block targetBlock;
+        [SerializeField] protected Block targetBlock;
 
         public override void OnEnter()
         {

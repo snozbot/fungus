@@ -11,7 +11,9 @@ namespace Fungus
     public class ControlWithDisplay<TDisplayEnum> : Command
     {
         [Tooltip("Display type")]
-        public TDisplayEnum display;
+        [SerializeField] protected TDisplayEnum display;
+
+        public TDisplayEnum Display { get { return display; } }
 
         protected bool IsDisplayNone<TEnum>(TEnum enumValue)
         {

@@ -46,19 +46,19 @@ namespace Fungus
             EditorGUILayout.PropertyField(setSayDialogProp);
             EditorGUILayout.PropertyField(descriptionProp, new GUIContent("Description", "Notes about this story character (personality, attibutes, etc.)"));
 
-            if (t.portraits != null &&
-                t.portraits.Count > 0)
+            if (t.Portraits != null &&
+                t.Portraits.Count > 0)
             {
-                t.profileSprite = t.portraits[0];
+                t.ProfileSprite = t.Portraits[0];
             }
             else
             {
-                t.profileSprite = null;
+                t.ProfileSprite = null;
             }
             
-            if (t.profileSprite != null)
+            if (t.ProfileSprite != null)
             {
-                Texture2D characterTexture = t.profileSprite.texture;
+                Texture2D characterTexture = t.ProfileSprite.texture;
                 float aspect = (float)characterTexture.width / (float)characterTexture.height;
                 Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(100), GUILayout.ExpandWidth(true));
                 if (characterTexture != null)

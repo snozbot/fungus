@@ -14,11 +14,22 @@ namespace Fungus
     [ExecuteInEditMode]
     public class CustomTag : MonoBehaviour 
     {
-        public string tagStartSymbol;
-        public string tagEndSymbol;
-        public string replaceTagStartWith;
-        public string replaceTagEndWith;
-        
+        [SerializeField] protected string tagStartSymbol;
+
+        public string TagStartSymbol { get { return tagStartSymbol; } }
+
+        [SerializeField] protected string tagEndSymbol;
+
+        public string TagEndSymbol { get { return tagEndSymbol; } }
+
+        [SerializeField] protected string replaceTagStartWith;
+
+        public string ReplaceTagStartWith { get { return replaceTagStartWith; } }
+
+        [SerializeField] protected string replaceTagEndWith;
+
+        public string ReplaceTagEndWith { get { return replaceTagEndWith; } }
+
         static public List<CustomTag> activeCustomTags = new List<CustomTag>();
         
         protected virtual void OnEnable()

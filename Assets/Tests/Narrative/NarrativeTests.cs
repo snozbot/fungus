@@ -103,7 +103,7 @@ public class NarrativeTests : Command
 	// Test showing multiple characters
 	protected virtual void TestShow()
 	{
-		bool found = (stage.charactersOnStage.Count == 2);
+		bool found = (stage.CharactersOnStage.Count == 2);
 
 		GameObject johnGO = stage.transform.Find("Canvas/JohnCharacter").gameObject;
 		GameObject sherlockGO = stage.transform.Find("Canvas/SherlockCharacter").gameObject;
@@ -116,7 +116,7 @@ public class NarrativeTests : Command
 		}
 		else
 		{
-			Fail("Characters not found on stage" + stage.charactersOnStage.Count);
+			Fail("Characters not found on stage" + stage.CharactersOnStage.Count);
 		}
 	}
 
@@ -143,8 +143,8 @@ public class NarrativeTests : Command
 
 		Character johnCharacter = johnGO.GetComponent<Character>();
 		Character sherlockCharacter = sherlockGO.GetComponent<Character>();
-		if (johnCharacter.portraitsFace == FacingDirection.Right &&
-		    sherlockCharacter.portraitsFace == FacingDirection.Left)
+		if (johnCharacter.PortraitsFace == FacingDirection.Right &&
+		    sherlockCharacter.PortraitsFace == FacingDirection.Left)
 		{
 			Pass();
 		}
@@ -222,8 +222,8 @@ public class NarrativeTests : Command
 	protected virtual void TestResetNoDelay()
 	{
 		// Set the stage durations to 0 so we can rerun the tests in this case
-		stage.fadeDuration = 0f;
-		stage.moveDuration = 0f;
+		stage.FadeDuration = 0f;
+		stage.MoveDuration = 0f;
 	}
 
 	public override string GetSummary()

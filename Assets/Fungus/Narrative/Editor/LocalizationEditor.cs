@@ -78,7 +78,7 @@ namespace Fungus
             TextAsset textAsset = AssetDatabase.LoadAssetAtPath(path, typeof(TextAsset)) as TextAsset;
             if (textAsset != null)
             {
-                localization.localizationFile = textAsset;
+                localization.LocalizationFile = textAsset;
             }
 
             ShowNotification(localization);
@@ -119,8 +119,8 @@ namespace Fungus
 
         protected virtual void ShowNotification(Localization localization)
         {
-            FlowchartWindow.ShowNotification(localization.notificationText);
-            localization.notificationText = "";
+            FlowchartWindow.ShowNotification(localization.NotificationText);
+            localization.NotificationText = "";
         }
     }
 

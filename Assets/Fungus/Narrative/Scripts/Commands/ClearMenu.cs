@@ -15,7 +15,7 @@ namespace Fungus
     public class ClearMenu : Command 
     {
         [Tooltip("Menu Dialog to clear the options on")]
-        public MenuDialog menuDialog;
+        [SerializeField] protected MenuDialog menuDialog;
 
         public override void OnEnter()
         {

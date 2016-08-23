@@ -25,16 +25,16 @@ namespace Fungus
         }
 
         [Tooltip("Click to advance story")]
-        public ClickMode clickMode;
+        [SerializeField] protected ClickMode clickMode;
 
         [Tooltip("Delay between consecutive clicks. Useful to prevent accidentally clicking through story.")]
-        public float nextClickDelay = 0f;
+        [SerializeField] protected float nextClickDelay = 0f;
 
         [Tooltip("Allow holding Cancel to fast forward text")]
-        public bool cancelEnabled = true;
+        [SerializeField] protected bool cancelEnabled = true;
 
         [Tooltip("Ignore input if a Menu dialog is currently active")]
-        public bool ignoreMenuClicks = true;
+        [SerializeField] protected bool ignoreMenuClicks = true;
 
         protected bool dialogClickedFlag;
 

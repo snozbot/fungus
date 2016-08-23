@@ -16,7 +16,7 @@ namespace Fungus
     public class SetMenuDialog : Command 
     {
         [Tooltip("The Menu Dialog to use for displaying menu buttons")]
-        public MenuDialog menuDialog;
+        [SerializeField] protected MenuDialog menuDialog;
 
         public override void OnEnter()
         {

@@ -29,19 +29,23 @@ namespace Fungus
     public class ControlStage : ControlWithDisplay<StageDisplayType> 
     {
         [Tooltip("Stage to display characters on")]
-        public Stage stage;
+        [SerializeField] protected Stage stage;
+
+        public Stage _Stage { get { return stage; } }
 
         [Tooltip("Stage to swap with")]
-        public Stage replacedStage;
+        [SerializeField] protected Stage replacedStage;
 
         [Tooltip("Use Default Settings")]
-        public bool useDefaultSettings = true;
+        [SerializeField] protected bool useDefaultSettings = true;
+
+        public bool UseDefaultSettings { get { return useDefaultSettings; } }
 
         [Tooltip("Fade Duration")]
-        public float fadeDuration;
+        [SerializeField] protected float fadeDuration;
         
         [Tooltip("Wait until the tween has finished before executing the next command")]
-        public bool waitUntilFinished = false;
+        [SerializeField] protected bool waitUntilFinished = false;
         
         public override void OnEnter()
         {
@@ -83,7 +87,7 @@ namespace Fungus
             // Use default settings
             if (useDefaultSettings)
             {
-                fadeDuration = stage.fadeDuration;
+                fadeDuration = stage.FadeDuration;
             }
             switch(display)
             {
@@ -139,19 +143,19 @@ namespace Fungus
             {
                 if (s == stage)
                 {
-                    s.portraitCanvas.sortingOrder = 1;
+                    s.PortraitCanvas.sortingOrder = 1;
                 }
                 else
                 {
-                    s.portraitCanvas.sortingOrder = 0;
+                    s.PortraitCanvas.sortingOrder = 0;
                 }
             }
         }
 
         protected void UndimAllPortraits(Stage stage) 
         {
-            stage.dimPortraits = false;
-            foreach (Character character in stage.charactersOnStage)
+            stage.DimPortraits = false;
+            foreach (Character character in stage.CharactersOnStage)
             {
                 stage.SetDimmed(character, false);
             }
@@ -159,7 +163,7 @@ namespace Fungus
 
         protected void DimNonSpeakingPortraits(Stage stage) 
         {
-            stage.dimPortraits = true;
+            stage.DimPortraits = true;
         }
 
         protected void OnComplete() 

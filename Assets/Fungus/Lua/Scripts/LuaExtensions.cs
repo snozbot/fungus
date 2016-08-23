@@ -26,7 +26,7 @@ namespace Fungus
             }
 
             bool addedOption = false;
-            foreach (Button button in menuDialog.cachedButtons)
+            foreach (Button button in menuDialog.CachedButtons)
             {
                 if (!button.gameObject.activeSelf)
                 {
@@ -65,13 +65,13 @@ namespace Fungus
         /// </summary>
         public static IEnumerator ShowTimer(this MenuDialog menuDialog, float duration, LuaEnvironment luaEnvironment, Closure callBack)
         {
-            if (menuDialog.cachedSlider == null ||
+            if (menuDialog.CachedSlider == null ||
                 duration <= 0f)
             {
                 yield break;
             }
 
-            menuDialog.cachedSlider.gameObject.SetActive(true);
+            menuDialog.CachedSlider.gameObject.SetActive(true);
             menuDialog.StopAllCoroutines();
 
             float elapsedTime = 0;

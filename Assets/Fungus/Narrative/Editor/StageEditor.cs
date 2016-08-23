@@ -47,11 +47,11 @@ namespace Fungus
             ControlStage t = target as ControlStage;
 
             // Format Enum names
-            string[] displayLabels = StringFormatter.FormatEnumNames(t.display,"<None>");
+            string[] displayLabels = StringFormatter.FormatEnumNames(t.Display,"<None>");
             displayProp.enumValueIndex = EditorGUILayout.Popup("Display", (int)displayProp.enumValueIndex, displayLabels);
 
             string replaceLabel = "Portrait Stage";
-            if (t.display == StageDisplayType.Swap)
+            if (t.Display == StageDisplayType.Swap)
             {
                 CommandEditor.ObjectField<Stage>(replacedStageProp, 
                                                  new GUIContent("Replace", "Character to swap with"), 
@@ -69,11 +69,11 @@ namespace Fungus
             }
 
             bool showOptionalFields = true;
-            Stage s = t.stage;
+            Stage s = t._Stage;
             // Only show optional portrait fields once required fields have been filled...
-            if (t.stage != null)                // Character is selected
+            if (t._Stage != null)                // Character is selected
             {
-                if (t.stage == null)        // If no default specified, try to get any portrait stage in the scene
+                if (t._Stage == null)        // If no default specified, try to get any portrait stage in the scene
                 {
                     s = GameObject.FindObjectOfType<Stage>();
                 }
@@ -83,10 +83,10 @@ namespace Fungus
                     showOptionalFields = false; 
                 }
             }
-            if (t.display != StageDisplayType.None && showOptionalFields) 
+            if (t.Display != StageDisplayType.None && showOptionalFields) 
             {
                 EditorGUILayout.PropertyField(useDefaultSettingsProp);
-                if (!t.useDefaultSettings)
+                if (!t.UseDefaultSettings)
                 {
                     EditorGUILayout.PropertyField(fadeDurationProp);
                 }

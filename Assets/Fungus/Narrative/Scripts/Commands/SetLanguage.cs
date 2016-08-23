@@ -17,7 +17,7 @@ namespace Fungus
     public class SetLanguage : Command
     {
         [Tooltip("Code of the language to set. e.g. ES, DE, JA")]
-        public StringData _languageCode = new StringData(); 
+        [SerializeField] protected StringData _languageCode = new StringData(); 
 
         public static string mostRecentLanguage = "";
 
