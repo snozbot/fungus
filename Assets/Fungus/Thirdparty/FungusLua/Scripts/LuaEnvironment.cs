@@ -9,14 +9,15 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Interop;
 using MoonSharp.Interpreter.Loaders;
 using MoonSharp.RemoteDebugger;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Wrapper for a MoonSharp Lua Script instance.
+    /// </summary>
     public class LuaEnvironment : MonoBehaviour 
     {
         /// <summary>

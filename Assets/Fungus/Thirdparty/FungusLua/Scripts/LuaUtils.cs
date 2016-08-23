@@ -9,16 +9,14 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Text;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
 using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Interop;
-using MoonSharp.Interpreter.Loaders;
-using MoonSharp.RemoteDebugger;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// A collection of utilites to use in Lua for common Unity / Fungus tasks.
+    /// </summary>
     public class LuaUtils : LuaEnvironment.Initializer, StringSubstituter.ISubstitutionHandler
     {
         public enum FungusModuleOptions
@@ -496,5 +494,4 @@ namespace Fungus
             SayDialog.activeSayDialog = sayDialog;
         }
    }
-
 }

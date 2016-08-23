@@ -8,18 +8,15 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using UnityEngine;
-using MoonSharp.Interpreter;
 using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
 namespace Fungus
 {
-    
-    [Serializable]
+    /// <summary>
+    /// Executes an LuaScript component in the same gameobject when a condition occurs.
+    /// </summary>
     public class ExecuteHandler : MonoBehaviour, IExecuteHandlerConfigurator
     {
         [Flags]
@@ -53,33 +50,26 @@ namespace Fungus
         }
             
         [SerializeField] protected float executeAfterTime = 1f;
-
         public float ExecuteAfterTime { get { return executeAfterTime; } set { executeAfterTime = value; } }
 
         [SerializeField] protected bool repeatExecuteTime = true;
-
         public bool RepeatExecuteTime { get { return repeatExecuteTime; } set { repeatExecuteTime = value; } }
 
         [SerializeField] protected float repeatEveryTime = 1f;
-
         public float RepeatEveryTime { get { return repeatEveryTime; } set { repeatEveryTime = value; } }
 
         [SerializeField] protected int executeAfterFrames = 1;
-
         public int ExecuteAfterFrames { get { return executeAfterFrames; } set { executeAfterFrames = value; } }
 
         [SerializeField] protected bool repeatExecuteFrame = true;
-
         public bool RepeatExecuteFrame { get { return repeatExecuteFrame; } set { repeatExecuteFrame = value; } }
 
         [SerializeField] protected int repeatEveryFrame = 1;
-
         public int RepeatEveryFrame { get { return repeatEveryFrame; } set { repeatEveryFrame = value; } }
 
         [SerializeField] protected bool hasFailed;
 
         [SerializeField] protected ExecuteMethod executeMethods = ExecuteMethod.Start;
-
         public ExecuteMethod ExecuteMethods { get { return executeMethods; } set { executeMethods = value; } }
 
         [Tooltip("Name of the method on a component in this gameobject to call when executing.")]

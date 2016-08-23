@@ -4,14 +4,10 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Serialization;
 
 namespace Fungus
 {
-
     /// <summary>
     /// Wrapper for a prime Lua table that persists across scene loads. 
     /// This is useful for transferring values from one scene to another. One one LuaStore component may exist 
@@ -105,5 +101,4 @@ namespace Fungus
             }
         }
     }
-
 }

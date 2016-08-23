@@ -6,11 +6,6 @@
 // Adapted from the Unity Test Tools project (MIT license)
 // https://bitbucket.org/Unity-Technologies/unitytesttools/src/a30d562427e9/Assets/UnityTestTools/
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using UnityEngine;
 using MoonSharp.Interpreter;
 using Debug = UnityEngine.Debug;
@@ -18,7 +13,9 @@ using Object = UnityEngine.Object;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Executes Lua script defined in a string property or in an external file.
+    /// </summary>
     public class LuaScript : MonoBehaviour
     {
         /// <summary>

@@ -5,15 +5,11 @@
 
 ﻿using UnityEngine;
 using System;
-using System.Reflection;
-using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using MoonSharp.Interpreter;
 
 namespace Fungus
 {
-
     /// <summary>
     /// Base class for a component which registers Lua Bindings.
     /// When the Lua Environment initialises, it finds all components in the scene that inherit
@@ -178,5 +174,4 @@ namespace Fungus
             }
         }
     }
-
 }
