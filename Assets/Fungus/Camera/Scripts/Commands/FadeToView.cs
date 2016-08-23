@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Fades the camera out and in again at a position specified by a View object.
+    /// </summary>
     [CommandInfo("Camera", 
                  "Fade To View", 
                  "Fades the camera out and in again at a position specified by a View object.")]
@@ -23,7 +24,6 @@ namespace Fungus
 
         [Tooltip("View to transition to when Fade is complete")]
         [SerializeField] protected View targetView;
-
         public View TargetView { get { return targetView; } }
 
         [Tooltip("Wait until the fade has finished before executing next command")]

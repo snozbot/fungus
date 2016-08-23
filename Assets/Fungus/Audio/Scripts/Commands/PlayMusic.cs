@@ -4,10 +4,12 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Plays looping game music. If any game music is already playing, it is stopped. Game music will continue playing across scene loads.
+    /// </summary>
     [CommandInfo("Audio",
                  "Play Music",
                  "Plays looping game music. If any game music is already playing, it is stopped. Game music will continue playing across scene loads.")]

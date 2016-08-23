@@ -4,11 +4,13 @@
  */
 
 using UnityEngine;
-using System;
 using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Applies a camera shake effect to the main camera.
+    /// </summary>
     [CommandInfo("Camera", 
                  "Shake Camera", 
                  "Applies a camera shake effect to the main camera.")]

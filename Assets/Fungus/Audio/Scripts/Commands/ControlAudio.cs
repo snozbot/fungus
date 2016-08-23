@@ -9,6 +9,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Plays, loops, or stops an audiosource. Any AudioSources with the same tag as the target Audio Source will automatically be stoped.
+    /// </summary>
     [CommandInfo("Audio", 
                  "Control Audio",
                  "Plays, loops, or stops an audiosource. Any AudioSources with the same tag as the target Audio Source will automatically be stoped.")]
@@ -26,7 +29,6 @@ namespace Fungus
 
         [Tooltip("What to do to audio")]
         [SerializeField] protected controlType control;
-
         public controlType Control { get { return control; } }
 
         [Tooltip("Audio clip to play")]

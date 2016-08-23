@@ -154,7 +154,7 @@ namespace Fungus
                 if (newPos != handles[i])
                 {
                     Undo.RecordObject(view, "Set View Size");
-                    view.viewSize = (newPos - pos).magnitude;
+                    view.ViewSize = (newPos - pos).magnitude;
                     EditorUtility.SetDirty(view);
                     break;
                 }
@@ -164,8 +164,8 @@ namespace Fungus
         public static void DrawView(View view, bool drawInterior)
         {   
             float height = CalculateLocalViewSize(view);
-            float widthA = height * (view.primaryAspectRatio.x / view.primaryAspectRatio.y);
-            float widthB = height * (view.secondaryAspectRatio.x / view.secondaryAspectRatio.y);
+            float widthA = height * (view.PrimaryAspectRatio.x / view.PrimaryAspectRatio.y);
+            float widthB = height * (view.SecondaryAspectRatio.x / view.SecondaryAspectRatio.y);
 
             Color transparent = new Color(1,1,1,0f);
             Color fill = viewColor;
@@ -260,7 +260,7 @@ namespace Fungus
         // Kinda expensive, but accurate and only called in editor.
         static float CalculateLocalViewSize(View view)
         {
-            return view.transform.InverseTransformPoint(view.transform.position + new Vector3(0, view.viewSize, 0)).magnitude;
+            return view.transform.InverseTransformPoint(view.transform.position + new Vector3(0, view.ViewSize, 0)).magnitude;
         }
     }
 

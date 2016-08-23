@@ -4,10 +4,12 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Stops the currently playing game music.
+    /// </summary>
     [CommandInfo("Audio", 
                  "Stop Music", 
                  "Stops the currently playing game music.")]

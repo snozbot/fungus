@@ -11,40 +11,28 @@ using Fungus;
 
 namespace Fungus
 {
-    /**
-     * Controller for main camera.
-     * Supports several types of camera transition including snap, pan & fade.
-     */
+    /// <summary>
+    /// Controller for main camera.Supports several types of camera transition including snap, pan & fade.
+    /// </summary>
     public class CameraController : MonoBehaviour 
     {
-        /**
-         * Full screen texture used for screen fade effect.
-         */
+        [Tooltip("Full screen texture used for screen fade effect.")]
         [SerializeField] protected Texture2D screenFadeTexture;
-
         public Texture2D ScreenFadeTexture { set { screenFadeTexture = value; } }
 
-        /**
-         * Icon to display when swipe pan mode is active.
-         */
+        [Tooltip("Icon to display when swipe pan mode is active.")]
         [SerializeField] protected Texture2D swipePanIcon;
-        
-        /**
-         * Position of continue and swipe icons in normalized screen space coords.
-         * (0,0) = top left, (1,1) = bottom right
-         */
+
+        [Tooltip("Position of continue and swipe icons in normalized screen space coords. (0,0) = top left, (1,1) = bottom right")]
         [SerializeField] protected Vector2 swipeIconPosition = new Vector2(1,0);
 
-        /**
-         * Set the camera z coordinate to a fixed value every frame.
-         */
+        [Tooltip("Set the camera z coordinate to a fixed value every frame.")]
         [SerializeField] protected bool setCameraZ = true;
 
-        /**
-         * Fixed Z coordinate of main camera.
-         */
+        [Tooltip("Fixed Z coordinate of main camera.")]
         [SerializeField] protected float cameraZ = -10f;
 
+        [Tooltip("Camera to use when in swipe mode")]
         [SerializeField] protected Camera swipeCamera;
 
         protected float fadeAlpha = 0f;
@@ -165,7 +153,7 @@ namespace Fungus
             Fade(1f, outDuration, delegate {
                 
                 // Snap to new view
-                PanToPosition(camera, view.transform.position, view.transform.rotation, view.viewSize, 0f, null);
+                PanToPosition(camera, view.transform.position, view.transform.rotation, view.ViewSize, 0f, null);
                 
                 // Fade in
                 Fade(0f, inDuration, delegate {
@@ -242,7 +230,7 @@ namespace Fungus
         
         public virtual void PanToView(Camera camera, View view, float duration, Action arriveAction)
         {
-            PanToPosition(camera, view.transform.position, view.transform.rotation, view.viewSize, duration, arriveAction);
+            PanToPosition(camera, view.transform.position, view.transform.rotation, view.ViewSize, duration, arriveAction);
         }
         
         /**
@@ -422,7 +410,7 @@ namespace Fungus
                 
                 Vector3 viewPos = new Vector3(view.transform.position.x, 
                                               view.transform.position.y, 
-                                              view.viewSize);
+                                              view.ViewSize);
                 pathList.Add(viewPos);
             }
             
@@ -597,7 +585,7 @@ namespace Fungus
             float t = Vector3.Dot(toViewB, localPos);
             t = Mathf.Clamp01(t); // Not really necessary but no harm
             
-            float cameraSize = Mathf.Lerp(viewA.viewSize, viewB.viewSize, t);
+            float cameraSize = Mathf.Lerp(viewA.ViewSize, viewB.ViewSize, t);
             
             return cameraSize;
         }

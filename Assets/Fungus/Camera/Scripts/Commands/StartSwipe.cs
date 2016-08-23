@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Activates swipe panning mode where the player can pan the camera within the area between viewA & viewB.
+    /// </summary>
     [CommandInfo("Camera", 
                  "Start Swipe", 
                  "Activates swipe panning mode where the player can pan the camera within the area between viewA & viewB.")]

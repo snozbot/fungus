@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Moves the camera to a location specified by a View object.
+    /// </summary>
     [CommandInfo("Camera", 
                  "Move To View", 
                  "Moves the camera to a location specified by a View object.")]
@@ -20,7 +21,6 @@ namespace Fungus
 
         [Tooltip("View to transition to when move is complete")]
         [SerializeField] protected View targetView;
-
         public View TargetView { get { return targetView; } }
 
         [Tooltip("Wait until the fade has finished before executing next command")]
@@ -62,7 +62,7 @@ namespace Fungus
 
             Vector3 targetPosition = targetView.transform.position;
             Quaternion targetRotation = targetView.transform.rotation;
-            float targetSize = targetView.viewSize;
+            float targetSize = targetView.ViewSize;
 
             cameraController.PanToPosition(targetCamera, targetPosition, targetRotation, targetSize, duration, delegate {
                 if (waitUntilFinished)

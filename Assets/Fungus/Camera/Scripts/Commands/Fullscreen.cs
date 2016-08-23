@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets the application to fullscreen, windowed or toggles the current state.
+    /// </summary>
     [CommandInfo("Camera", 
                  "Fullscreen", 
                  "Sets the application to fullscreen, windowed or toggles the current state.")]

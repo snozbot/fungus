@@ -5,11 +5,12 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets an integer parameter on an Animator component to control a Unity animation.
+    /// </summary>
     [CommandInfo("Animation", 
                  "Set Anim Integer", 
                  "Sets an integer parameter on an Animator component to control a Unity animation")]

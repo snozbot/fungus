@@ -4,10 +4,12 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets the global pitch level for audio played with Play Music and Play Sound commands.
+    /// </summary>
     [CommandInfo("Audio",
                  "Set Audio Pitch",
                  "Sets the global pitch level for audio played with Play Music and Play Sound commands.")]

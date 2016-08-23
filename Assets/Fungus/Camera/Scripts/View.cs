@@ -4,37 +4,36 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
-    /** 
-     * Defines a camera view point.
-     * The position and rotation are specified using the game object's transform, so this class
-     * only needs to specify the ortographic view size.
-     */
+    /// <summary>
+    /// Defines a camera view point.
+    /// The position and rotation are specified using the game object's transform, so this class only needs to specify the ortographic view size.
+    /// </summary>
     [ExecuteInEditMode]
     public class View : MonoBehaviour 
     {
-        /**
-         * Orthographic size of the camera view in world units.
-         */
+        /// <summary>
+        /// Orthographic size of the camera view in world units.
+        /// </summary>
         [Tooltip("Orthographic size of the camera view in world units.")]
-        public float viewSize = 0.5f;
+        [SerializeField] protected float viewSize = 0.5f;
+        public float ViewSize { get { return viewSize; } set { viewSize = value; } }
 
-        /**
-         * Aspect ratio of the primary view rectangle.
-         * e.g. a 4:3 aspect ratio = 1.333
-         */
+        /// <summary>
+        /// Aspect ratio of the primary view rectangle. e.g. a 4:3 aspect ratio = 1.333.
+        /// </summary>
         [Tooltip("Aspect ratio of the primary view rectangle. (e.g. 4:3 aspect ratio = 1.333)")]
-        public Vector2 primaryAspectRatio = new Vector2(4, 3);
+        [SerializeField] protected Vector2 primaryAspectRatio = new Vector2(4, 3);
+        public Vector2 PrimaryAspectRatio { get { return primaryAspectRatio; } set { primaryAspectRatio = value; } }
 
-        /**
-         * Aspect ratio of the secondary view rectangle.
-         * e.g. a 2:1 aspect ratio = 2/1 = 2.0
-         */
+        /// <summary>
+        /// Aspect ratio of the secondary view rectangle. e.g. a 2:1 aspect ratio = 2/1 = 2.0.
+        /// </summary>
         [Tooltip("Aspect ratio of the secondary view rectangle. (e.g. 2:1 aspect ratio = 2.0)")]
-        public Vector2 secondaryAspectRatio = new Vector2(2, 1);
+        [SerializeField] protected Vector2 secondaryAspectRatio = new Vector2(2, 1);
+        public Vector2 SecondaryAspectRatio { get { return secondaryAspectRatio; } set { secondaryAspectRatio = value; } }
 
         protected virtual void Update()
         {

@@ -4,10 +4,12 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Plays a once-off sound effect. Multiple sound effects can be played at the same time.
+    /// </summary>
     [CommandInfo("Audio", 
                  "Play Sound",
                  "Plays a once-off sound effect. Multiple sound effects can be played at the same time.")]

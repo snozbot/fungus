@@ -5,11 +5,12 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Resets a trigger parameter on an Animator component.
+    /// </summary>
     [CommandInfo("Animation", 
                  "Reset Anim Trigger", 
                  "Resets a trigger parameter on an Animator component.")]

@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Deactivates swipe panning mode.
+    /// </summary>
     [CommandInfo("Camera", 
                  "Stop Swipe", 
                  "Deactivates swipe panning mode.")]
