@@ -16,7 +16,7 @@ namespace Fungus
     public class ButtonClicked : EventHandler
     {   
         [Tooltip("The UI Button that the user can click on")]
-        public Button targetButton;
+        [SerializeField] protected Button targetButton;
         
         public virtual void Start()
         {

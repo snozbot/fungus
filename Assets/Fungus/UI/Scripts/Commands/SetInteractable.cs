@@ -17,10 +17,10 @@ namespace Fungus
     public class SetInteractable : Command 
     {
         [Tooltip("List of objects to be affected by the command")]
-        public List<GameObject> targetObjects = new List<GameObject>();
+        [SerializeField] protected List<GameObject> targetObjects = new List<GameObject>();
 
         [Tooltip("Controls if the selectable UI object be interactable or not")]
-        public BooleanData interactableState = new BooleanData(true);
+        [SerializeField] protected BooleanData interactableState = new BooleanData(true);
 
         public override void OnEnter()
         {

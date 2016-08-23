@@ -45,36 +45,38 @@ namespace Fungus
     public class Writer : MonoBehaviour, IDialogInputListener
     {
         [Tooltip("Gameobject containing a Text, Inout Field or Text Mesh object to write to")]
-        public GameObject targetTextObject;
+        [SerializeField] protected GameObject targetTextObject;
 
         [Tooltip("Gameobject to punch when the punch tags are displayed. If none is set, the main camera will shake instead.")]
-        public GameObject punchObject;
+        [SerializeField] protected GameObject punchObject;
 
         [Tooltip("Writing characters per second")]
-        public float writingSpeed = 60;
+        [SerializeField] protected float writingSpeed = 60;
 
         [Tooltip("Pause duration for punctuation characters")]
-        public float punctuationPause = 0.25f;
+        [SerializeField] protected float punctuationPause = 0.25f;
 
         [Tooltip("Color of text that has not been revealed yet")]
-        public Color hiddenTextColor = new Color(1,1,1,0);
+        [SerializeField] protected Color hiddenTextColor = new Color(1,1,1,0);
 
         [Tooltip("Write one word at a time rather one character at a time")]
-        public bool writeWholeWords = false;
+        [SerializeField] protected bool writeWholeWords = false;
 
         [Tooltip("Force the target text object to use Rich Text mode so text color and alpha appears correctly")]
-        public bool forceRichText = true;
+        [SerializeField] protected bool forceRichText = true;
 
         [Tooltip("Click while text is writing to finish writing immediately")]
-        public bool instantComplete = true;
+        [SerializeField] protected bool instantComplete = true;
 
         // This property is true when the writer is waiting for user input to continue
-        [System.NonSerialized]
-        public bool isWaitingForInput;
+        protected bool isWaitingForInput;
+
+        public bool IsWaitingForInput { get { return isWaitingForInput; } }
 
         // This property is true when the writer is writing text or waiting (i.e. still processing tokens)
-        [System.NonSerialized]
-        public bool isWriting;
+        protected bool isWriting;
+
+        public bool IsWriting { get { return isWriting; } }
 
         protected float currentWritingSpeed;
         protected float currentPunctuationPause;

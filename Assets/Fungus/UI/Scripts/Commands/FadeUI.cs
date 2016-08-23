@@ -23,11 +23,11 @@ namespace Fungus
             Color
         }
 
-        public FadeMode fadeMode = FadeMode.Alpha;
+        [SerializeField] protected FadeMode fadeMode = FadeMode.Alpha;
 
-        public ColorData targetColor = new ColorData(Color.white);
+        [SerializeField] protected ColorData targetColor = new ColorData(Color.white);
 
-        public FloatData targetAlpha = new FloatData(1f);
+        [SerializeField] protected FloatData targetAlpha = new FloatData(1f);
 
         protected override void ApplyTween(GameObject go)
         {

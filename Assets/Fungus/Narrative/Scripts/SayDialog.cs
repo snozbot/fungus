@@ -161,10 +161,10 @@ namespace Fungus
         {
             Writer writer = GetWriter();
 
-            if (writer.isWriting || writer.isWaitingForInput)
+            if (writer.IsWriting || writer.IsWaitingForInput)
             {
                 writer.Stop();
-                while (writer.isWriting || writer.isWaitingForInput)
+                while (writer.IsWriting || writer.IsWaitingForInput)
                 {
                     yield return null;
                 }
@@ -196,7 +196,7 @@ namespace Fungus
 
             if (continueButton != null)
             {
-                continueButton.gameObject.SetActive( GetWriter().isWaitingForInput );
+                continueButton.gameObject.SetActive( GetWriter().IsWaitingForInput );
             }
         }
 
@@ -219,7 +219,7 @@ namespace Fungus
 
         protected virtual void UpdateAlpha()
         {
-            if (GetWriter().isWriting)
+            if (GetWriter().IsWriting)
             {
                 targetAlpha = 1f;
                 fadeCoolDownTimer = 0.1f;

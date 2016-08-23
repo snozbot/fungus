@@ -19,11 +19,11 @@ namespace Fungus
     public class GetText : Command 
     {
         [Tooltip("Text object to get text value from")]
-        public GameObject targetTextObject;
+        [SerializeField] protected GameObject targetTextObject;
         
         [Tooltip("String variable to store the text value in")]
         [VariableProperty(typeof(StringVariable))]
-        public StringVariable stringVariable;
+        [SerializeField] protected StringVariable stringVariable;
         
         public override void OnEnter()
         {

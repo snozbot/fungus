@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 736071350}
+  selectedFlowchart: {fileID: 861253873}
 --- !u!4 &11556238
 Transform:
   m_ObjectHideFlags: 1
@@ -7787,7 +7787,7 @@ MonoBehaviour:
   parentBlock: {fileID: 861253875}
 --- !u!114 &861253878
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 861253871}
@@ -7811,7 +7811,7 @@ MonoBehaviour:
   - {fileID: 861253879}
 --- !u!114 &861253879
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 861253871}
@@ -7837,7 +7837,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &861253880
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 861253871}
@@ -7854,7 +7854,7 @@ MonoBehaviour:
   durationOLD: 0
 --- !u!114 &861253881
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 861253871}
@@ -17014,7 +17014,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1929911610
 Transform:
   m_ObjectHideFlags: 0
@@ -17065,7 +17065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   go: {fileID: 1125936939}
-  thisPropertyPath: Writer.isWriting
+  thisPropertyPath: Writer.IsWriting
   compareToType: 1
   other: {fileID: 0}
   otherPropertyPath: 

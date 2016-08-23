@@ -15,16 +15,16 @@ namespace Fungus
     public abstract class TweenUI : Command 
     {
         [Tooltip("List of objects to be affected by the tween")]
-        public List<GameObject> targetObjects = new List<GameObject>();
+        [SerializeField] protected List<GameObject> targetObjects = new List<GameObject>();
         
         [Tooltip("Type of tween easing to apply")]
-        public LeanTweenType tweenType = LeanTweenType.easeOutQuad;
+        [SerializeField] protected LeanTweenType tweenType = LeanTweenType.easeOutQuad;
         
         [Tooltip("Wait until this command completes before continuing execution")]
-        public BooleanData waitUntilFinished = new BooleanData(true);
+        [SerializeField] protected BooleanData waitUntilFinished = new BooleanData(true);
         
         [Tooltip("Time for the tween to complete")]
-        public FloatData duration = new FloatData(1f);
+        [SerializeField] protected FloatData duration = new FloatData(1f);
         
         public override void OnEnter()
         {

@@ -16,7 +16,7 @@ namespace Fungus
     public class EndEdit : EventHandler
     {   
         [Tooltip("The UI Input Field that the user can enter text into")]
-        public InputField targetInputField;
+        [SerializeField] protected InputField targetInputField;
         
         public virtual void Start()
         {

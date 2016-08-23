@@ -19,14 +19,14 @@ namespace Fungus
     public class SetText : Command, ILocalizable 
     {
         [Tooltip("Text object to set text on. Can be a UI Text, Text Field or Text Mesh object.")]
-        public GameObject targetTextObject;
+        [SerializeField] protected GameObject targetTextObject;
         
         [Tooltip("String value to assign to the text object")]
         [FormerlySerializedAs("stringData")]
-        public StringDataMulti text;
+        [SerializeField] protected StringDataMulti text;
 
         [Tooltip("Notes about this story text for other authors, localization, etc.")]
-        public string description;
+        [SerializeField] protected string description;
         
         public override void OnEnter()
         {

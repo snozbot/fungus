@@ -16,10 +16,10 @@ namespace Fungus
     public class SetSliderValue : Command 
     {
         [Tooltip("Target slider object to set the value on")]
-        public Slider slider;
+        [SerializeField] protected Slider slider;
 
         [Tooltip("Float value to set the slider value to.")]
-        public FloatData value;
+        [SerializeField] protected FloatData value;
 
         public override void OnEnter() 
         {
