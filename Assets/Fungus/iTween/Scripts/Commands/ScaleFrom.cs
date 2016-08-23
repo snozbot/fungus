@@ -9,6 +9,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Changes a game object's scale to the specified value and back to its original scale over time.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Scale From", 
                  "Changes a game object's scale to the specified value and back to its original scale over time.")]

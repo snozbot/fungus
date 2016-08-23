@@ -9,6 +9,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Instantly rotates a GameObject to look at the supplied Vector3 then returns it to it's starting rotation over time.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Look From", 
                  "Instantly rotates a GameObject to look at the supplied Vector3 then returns it to it's starting rotation over time.")]

@@ -9,6 +9,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Applies a jolt of force to a GameObject's position and wobbles it back to its initial position.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Punch Position", 
                  "Applies a jolt of force to a GameObject's position and wobbles it back to its initial position.")]

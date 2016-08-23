@@ -9,6 +9,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Randomly shakes a GameObject's position by a diminishing amount over time.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Shake Position", 
                  "Randomly shakes a GameObject's position by a diminishing amount over time.")]

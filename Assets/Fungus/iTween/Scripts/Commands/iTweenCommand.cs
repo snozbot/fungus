@@ -5,7 +5,6 @@
 
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
-using System.Collections;
 
 namespace Fungus
 {
@@ -18,6 +17,9 @@ namespace Fungus
         Z
     }
 
+    /// <summary>
+    /// Abstract base class for iTween commands.
+    /// </summary>
     [ExecuteInEditMode]
     public abstract class iTweenCommand : Command
     {

@@ -4,10 +4,12 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Stop all active iTweens in the current scene.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Stop Tweens", 
                  "Stop all active iTweens in the current scene.")]

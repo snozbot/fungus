@@ -9,6 +9,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Moves a game object by a specified offset over time.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Move Add", 
                  "Moves a game object by a specified offset over time.")]

@@ -9,6 +9,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Rotates a GameObject to look at a supplied Transform or Vector3 over time.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Look To", 
                  "Rotates a GameObject to look at a supplied Transform or Vector3 over time.")]

@@ -5,10 +5,12 @@
 
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Stops an active iTween by name.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Stop Tween", 
                  "Stops an active iTween by name.")]

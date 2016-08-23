@@ -9,6 +9,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Rotates a game object by the specified angles over time.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Rotate Add", 
                  "Rotates a game object by the specified angles over time.")]

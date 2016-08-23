@@ -9,6 +9,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Applies a jolt of force to a GameObject's scale and wobbles it back to its initial scale.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Punch Scale", 
                  "Applies a jolt of force to a GameObject's scale and wobbles it back to its initial scale.")]
