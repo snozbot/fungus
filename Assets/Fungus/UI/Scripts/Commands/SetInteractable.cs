@@ -5,12 +5,13 @@
 
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Set the interactable sate of selectable objects.
+    /// </summary>
     [CommandInfo("UI", 
                  "Set Interactable", 
                  "Set the interactable sate of selectable objects.")]
@@ -97,5 +98,4 @@ namespace Fungus
             return false;
         }
     }
-
 }

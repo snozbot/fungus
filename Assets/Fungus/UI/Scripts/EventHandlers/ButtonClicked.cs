@@ -5,10 +5,12 @@
 
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 namespace Fungus 
 {
+    /// <summary>
+    /// The block will execute when the user clicks on the target UI button object.
+    /// </summary>
     [EventHandlerInfo("UI",
                       "Button Clicked",
                       "The block will execute when the user clicks on the target UI button object.")]

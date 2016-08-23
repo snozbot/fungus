@@ -4,14 +4,14 @@
  */
 
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 using Fungus;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Abstract base class for TweenUI commands.
+    /// </summary>
     public abstract class TweenUI : Command 
     {
         [Tooltip("List of objects to be affected by the tween")]

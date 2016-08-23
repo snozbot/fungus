@@ -5,16 +5,16 @@
 
 using UnityEngine;
 using UnityEngine.UI;
-using System;
-using System.Collections;
 using UnityEngine.Serialization;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Gets the text property from a UI Text object and stores it in a string variable.
+    /// </summary>
     [CommandInfo("UI", 
                  "Get Text", 
                  "Gets the text property from a UI Text object and stores it in a string variable.")]
-    
     [AddComponentMenu("")]
     public class GetText : Command 
     {
@@ -94,5 +94,4 @@ namespace Fungus
             }
         }
     }
-    
 }

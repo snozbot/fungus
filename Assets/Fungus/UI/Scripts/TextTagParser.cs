@@ -9,7 +9,9 @@ using System.Text.RegularExpressions;
 
 namespace Fungus
 {
-    
+    /// <summary>
+    /// Parses a string for special Fungus text tags.
+    /// </summary>
     public class TextTagParser
     {
         public enum TokenType

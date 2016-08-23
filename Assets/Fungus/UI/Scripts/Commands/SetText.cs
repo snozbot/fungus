@@ -5,16 +5,16 @@
 
 using UnityEngine;
 using UnityEngine.UI;
-using System;
-using System.Collections;
 using UnityEngine.Serialization;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets the text property on a UI Text object and/or an Input Field object.
+    /// </summary>
     [CommandInfo("UI", 
                  "Set Text", 
                  "Sets the text property on a UI Text object and/or an Input Field object.")]
-    
     [AddComponentMenu("")]
     public class SetText : Command, ILocalizable 
     {

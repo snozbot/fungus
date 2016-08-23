@@ -5,10 +5,12 @@
 
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 namespace Fungus 
 {
+    /// <summary>
+    /// The block will execute when the user finishes editing the text in the input field.
+    /// </summary>
     [EventHandlerInfo("UI",
                       "End Edit",
                       "The block will execute when the user finishes editing the text in the input field.")]

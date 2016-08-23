@@ -4,17 +4,15 @@
  */
 
 using UnityEngine;
-using UnityEngine.UI;
-using System;
-using System.Collections;
-using UnityEngine.Serialization;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Writes content to a UI Text or Text Mesh object.
+    /// </summary>
     [CommandInfo("UI", 
                  "Write", 
                  "Writes content to a UI Text or Text Mesh object.")]
-
     [AddComponentMenu("")]
     public class Write : Command, ILocalizable
     {

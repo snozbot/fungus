@@ -5,11 +5,12 @@
 
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Sets the value property of a slider object.
+    /// </summary>
     [CommandInfo("UI",
                  "Set Slider Value",
                  "Sets the value property of a slider object")]

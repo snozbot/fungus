@@ -13,10 +13,9 @@ using System.Text;
 
 namespace Fungus
 {
-
-    /**
-     * Implement this interface to be notified about Writer events
-     */
+    /// <summary>
+    /// Implement this interface to be notified about Writer events.
+    /// </summary>
     public interface IWriterListener
     {
         ///
@@ -41,7 +40,10 @@ namespace Fungus
         /// Called every time the Writer writes a new character glyph.
         void OnGlyph();
     }
-    
+
+    /// <summary>
+    /// Writes text using a typewriter effect to a UI text object.
+    /// </summary>
     public class Writer : MonoBehaviour, IDialogInputListener
     {
         [Tooltip("Gameobject containing a Text, Inout Field or Text Mesh object to write to")]
@@ -70,12 +72,10 @@ namespace Fungus
 
         // This property is true when the writer is waiting for user input to continue
         protected bool isWaitingForInput;
-
         public bool IsWaitingForInput { get { return isWaitingForInput; } }
 
         // This property is true when the writer is writing text or waiting (i.e. still processing tokens)
         protected bool isWriting;
-
         public bool IsWriting { get { return isWriting; } }
 
         protected float currentWritingSpeed;

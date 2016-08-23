@@ -5,13 +5,13 @@
 
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
 using Fungus;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Fades a UI object.
+    /// </summary>
     [CommandInfo("UI",
                  "Fade UI",
                  "Fades a UI object")]
@@ -153,5 +153,4 @@ namespace Fungus
             return true;
         }
     }
-
 }
