@@ -317,6 +317,5 @@ namespace Fungus
             }
             return paramsList;
         }
-    }
-    
+    }    
 }
