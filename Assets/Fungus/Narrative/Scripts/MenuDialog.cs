@@ -222,6 +222,5 @@ namespace Fungus
                 targetBlock.StartExecution();
             }
         }
-    }
-    
+    }    
 }

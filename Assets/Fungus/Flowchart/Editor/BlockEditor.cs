@@ -1130,6 +1130,5 @@ namespace Fungus
             
             Repaint();
         }
-    }
-    
+    }    
 }

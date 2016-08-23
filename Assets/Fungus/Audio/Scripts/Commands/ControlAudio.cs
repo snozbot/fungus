@@ -291,6 +291,5 @@ namespace Fungus
         }
 
         #endregion
-    }
-    
+    }    
 }
