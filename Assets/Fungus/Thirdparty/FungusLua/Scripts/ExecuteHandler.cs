@@ -52,15 +52,35 @@ namespace Fungus
             OnCollisionStay2D       = 1 << 24,
         }
             
-        [SerializeField] public float executeAfterTime = 1f;
-        [SerializeField] public bool repeatExecuteTime = true;
-        [SerializeField] public float repeatEveryTime = 1f;
-        [SerializeField] public int executeAfterFrames = 1;
-        [SerializeField] public bool repeatExecuteFrame = true;
-        [SerializeField] public int repeatEveryFrame = 1;
-        [SerializeField] public bool hasFailed;
+        [SerializeField] protected float executeAfterTime = 1f;
 
-        [SerializeField] public ExecuteMethod executeMethods = ExecuteMethod.Start;
+        public float ExecuteAfterTime { get { return executeAfterTime; } set { executeAfterTime = value; } }
+
+        [SerializeField] protected bool repeatExecuteTime = true;
+
+        public bool RepeatExecuteTime { get { return repeatExecuteTime; } set { repeatExecuteTime = value; } }
+
+        [SerializeField] protected float repeatEveryTime = 1f;
+
+        public float RepeatEveryTime { get { return repeatEveryTime; } set { repeatEveryTime = value; } }
+
+        [SerializeField] protected int executeAfterFrames = 1;
+
+        public int ExecuteAfterFrames { get { return executeAfterFrames; } set { executeAfterFrames = value; } }
+
+        [SerializeField] protected bool repeatExecuteFrame = true;
+
+        public bool RepeatExecuteFrame { get { return repeatExecuteFrame; } set { repeatExecuteFrame = value; } }
+
+        [SerializeField] protected int repeatEveryFrame = 1;
+
+        public int RepeatEveryFrame { get { return repeatEveryFrame; } set { repeatEveryFrame = value; } }
+
+        [SerializeField] protected bool hasFailed;
+
+        [SerializeField] protected ExecuteMethod executeMethods = ExecuteMethod.Start;
+
+        public ExecuteMethod ExecuteMethods { get { return executeMethods; } set { executeMethods = value; } }
 
         [Tooltip("Name of the method on a component in this gameobject to call when executing.")]
         [SerializeField] protected string executeMethodName = "OnExecute";

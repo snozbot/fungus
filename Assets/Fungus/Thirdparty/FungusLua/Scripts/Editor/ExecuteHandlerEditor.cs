@@ -42,7 +42,7 @@ namespace Fungus
             var executeHandler = (ExecuteHandler)target;
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel(new GUIContent("On Event"));
-            executeHandler.executeMethods = (ExecuteHandler.ExecuteMethod)EditorGUILayout.EnumMaskField(executeHandler.executeMethods,
+            executeHandler.ExecuteMethods = (ExecuteHandler.ExecuteMethod)EditorGUILayout.EnumMaskField(executeHandler.ExecuteMethods,
                                                                                                     EditorStyles.popup,
                                                                                                     GUILayout.ExpandWidth(false));
             EditorGUILayout.EndHorizontal();
@@ -75,36 +75,36 @@ namespace Fungus
         private void DrawOptionsForAfterPeriodOfTime(ExecuteHandler executeHandler)
         {
             EditorGUILayout.Space();
-            executeHandler.executeAfterTime = EditorGUILayout.FloatField(m_GUIExecuteAfterTimeGuiContent,
-                                                               executeHandler.executeAfterTime);
-            if (executeHandler.executeAfterTime < 0)
-                executeHandler.executeAfterTime = 0;
-            executeHandler.repeatExecuteTime = EditorGUILayout.Toggle(m_GUIRepeatExecuteTimeGuiContent,
-                                                            executeHandler.repeatExecuteTime);
-            if (executeHandler.repeatExecuteTime)
+            executeHandler.ExecuteAfterTime = EditorGUILayout.FloatField(m_GUIExecuteAfterTimeGuiContent,
+                                                               executeHandler.ExecuteAfterTime);
+            if (executeHandler.ExecuteAfterTime < 0)
+                executeHandler.ExecuteAfterTime = 0;
+            executeHandler.RepeatExecuteTime = EditorGUILayout.Toggle(m_GUIRepeatExecuteTimeGuiContent,
+                                                            executeHandler.RepeatExecuteTime);
+            if (executeHandler.RepeatExecuteTime)
             {
-                executeHandler.repeatEveryTime = EditorGUILayout.FloatField(m_GUIRepeatEveryTimeGuiContent,
-                                                                    executeHandler.repeatEveryTime);
-                if (executeHandler.repeatEveryTime < 0)
-                    executeHandler.repeatEveryTime = 0;
+                executeHandler.RepeatEveryTime = EditorGUILayout.FloatField(m_GUIRepeatEveryTimeGuiContent,
+                                                                    executeHandler.RepeatEveryTime);
+                if (executeHandler.RepeatEveryTime < 0)
+                    executeHandler.RepeatEveryTime = 0;
             }
         }
 
         private void DrawOptionsForOnUpdate(ExecuteHandler executeHandler)
         {
             EditorGUILayout.Space();
-            executeHandler.executeAfterFrames = EditorGUILayout.IntField(m_GUIExecuteAfterFramesGuiContent,
-                                                               executeHandler.executeAfterFrames);
-            if (executeHandler.executeAfterFrames < 1)
-                executeHandler.executeAfterFrames = 1;
-            executeHandler.repeatExecuteFrame = EditorGUILayout.Toggle(m_GUIRepeatExecuteFrameGuiContent,
-                                                             executeHandler.repeatExecuteFrame);
-            if (executeHandler.repeatExecuteFrame)
+            executeHandler.ExecuteAfterFrames = EditorGUILayout.IntField(m_GUIExecuteAfterFramesGuiContent,
+                                                               executeHandler.ExecuteAfterFrames);
+            if (executeHandler.ExecuteAfterFrames < 1)
+                executeHandler.ExecuteAfterFrames = 1;
+            executeHandler.RepeatExecuteFrame = EditorGUILayout.Toggle(m_GUIRepeatExecuteFrameGuiContent,
+                                                             executeHandler.RepeatExecuteFrame);
+            if (executeHandler.RepeatExecuteFrame)
             {
-                executeHandler.repeatEveryFrame = EditorGUILayout.IntField(m_GUIRepeatEveryTimeGuiContent,
-                                                                   executeHandler.repeatEveryFrame);
-                if (executeHandler.repeatEveryFrame < 1)
-                    executeHandler.repeatEveryFrame = 1;
+                executeHandler.RepeatEveryFrame = EditorGUILayout.IntField(m_GUIRepeatEveryTimeGuiContent,
+                                                                   executeHandler.RepeatEveryFrame);
+                if (executeHandler.RepeatEveryFrame < 1)
+                    executeHandler.RepeatEveryFrame = 1;
             }
         }
     }
