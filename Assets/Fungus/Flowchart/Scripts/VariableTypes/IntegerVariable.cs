@@ -8,6 +8,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Integer variable type.
+    /// </summary>
     [VariableInfo("", "Integer")]
     [AddComponentMenu("")]
     [System.Serializable]
@@ -46,6 +49,9 @@ namespace Fungus
         }
     }
 
+    /// <summary>
+    /// Container for an integer variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct IntegerData
     {

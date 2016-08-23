@@ -9,7 +9,9 @@ using System.Collections;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Boolean variable type.
+    /// </summary>
     [VariableInfo("", "Boolean")]
     [AddComponentMenu("")]
     [System.Serializable]
@@ -38,6 +40,9 @@ namespace Fungus
 
     }
 
+    /// <summary>
+    /// Container for a Boolean variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct BooleanData
     {

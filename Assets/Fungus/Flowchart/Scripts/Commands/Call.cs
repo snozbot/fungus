@@ -5,13 +5,14 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System.Collections;
 using System.Collections.Generic;
 using System;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Execute another block in the same Flowchart as the command, or in a different Flowchart.
+    /// </summary>
     [CommandInfo("Flow", 
                  "Call", 
                  "Execute another block in the same Flowchart as the command, or in a different Flowchart.")]

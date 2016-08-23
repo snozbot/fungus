@@ -4,10 +4,12 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// The block will execute when the specified message is received from a Send Message command.
+    /// </summary>
     [EventHandlerInfo("",
                       "Message Received",
                       "The block will execute when the specified message is received from a Send Message command.")]

@@ -4,20 +4,21 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Temporary buffer object used when copying and pasting commands.
+    /// </summary>
     [AddComponentMenu("")]
     public class CommandCopyBuffer : Block 
     {
         protected static CommandCopyBuffer instance;
         
-        /**
-         * Returns the CommandCopyBuffer singleton instance.
-         * Will create a CommandCopyBuffer game object if none currently exists.
-         */
+        /// <summary>
+        /// Returns the CommandCopyBuffer singleton instance.
+        /// Will create a CommandCopyBuffer game object if none currently exists.
+        /// </summary>
         static public CommandCopyBuffer GetInstance()
         {
             if (instance == null)

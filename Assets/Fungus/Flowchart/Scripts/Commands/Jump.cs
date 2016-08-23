@@ -8,6 +8,9 @@ using UnityEngine.Serialization;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Move execution to a specific Label command in the same block.
+    /// </summary>
     [CommandInfo("Flow", 
                  "Jump", 
                  "Move execution to a specific Label command in the same block")]

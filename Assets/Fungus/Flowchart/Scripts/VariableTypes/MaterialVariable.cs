@@ -8,12 +8,18 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Material variable type.
+    /// </summary>
     [VariableInfo("Other", "Material")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class MaterialVariable : VariableBase<Material>
     {}
 
+    /// <summary>
+    /// Container for a Material variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct MaterialData
     {

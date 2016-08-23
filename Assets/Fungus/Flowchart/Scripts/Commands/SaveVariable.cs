@@ -4,11 +4,14 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Save an Boolean, Integer, Float or String variable to persistent storage using a string key.
+    /// The value can be loaded again later using the Load Variable command. You can also 
+    /// use the Set Save Profile command to manage separate save profiles for multiple players.
+    /// </summary>
     [CommandInfo("Variable", 
                  "Save Variable", 
                  "Save an Boolean, Integer, Float or String variable to persistent storage using a string key. " +

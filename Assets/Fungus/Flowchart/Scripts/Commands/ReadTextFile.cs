@@ -4,12 +4,13 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
 using Fungus;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Reads in a text file and stores the contents in a string variable.
+    /// </summary>
     [CommandInfo("Variable",
                  "Read Text File",
                  "Reads in a text file and stores the contents in a string variable")]

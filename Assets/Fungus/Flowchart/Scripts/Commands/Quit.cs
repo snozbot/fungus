@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Quits the application. Does not work in Editor or Webplayer builds. Shouldn't generally be used on iOS.
+    /// </summary>
     [CommandInfo("Flow", 
                  "Quit", 
                  "Quits the application. Does not work in Editor or Webplayer builds. Shouldn't generally be used on iOS.")]

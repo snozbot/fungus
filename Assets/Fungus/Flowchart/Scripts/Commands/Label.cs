@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Marks a position in the command list for execution to jump to.
+    /// </summary>
     [CommandInfo("Flow", 
                  "Label", 
                  "Marks a position in the command list for execution to jump to.")]

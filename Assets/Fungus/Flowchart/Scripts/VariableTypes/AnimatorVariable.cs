@@ -4,16 +4,21 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Animator variable type.
+    /// </summary>
     [VariableInfo("Other", "Animator")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class AnimatorVariable : VariableBase<Animator>
     {}
 
+    /// <summary>
+    /// Container for an Animator variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct AnimatorData
     {

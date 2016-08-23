@@ -6,7 +6,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Reflection;
-using System.Linq;
 using System.Collections.Generic;
 using System;
 using UnityEngine.Events;
@@ -14,10 +13,12 @@ using MarkerMetro.Unity.WinLegacy.Reflection;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Invokes a method of a component via reflection. Supports passing multiple parameters and storing returned values in a Fungus variable.
+    /// </summary>
     [CommandInfo("Scripting", 
-        "Invoke Method", 
-        "Invokes a method of a component via reflection. Supports passing multiple parameters and storing returned values in a Fungus variable.")]
+                 "Invoke Method", 
+                 "Invokes a method of a component via reflection. Supports passing multiple parameters and storing returned values in a Fungus variable.")]
     public class InvokeMethod : Command
     {
         [Tooltip("GameObject containing the component method to be invoked")]

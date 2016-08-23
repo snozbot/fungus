@@ -4,17 +4,16 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Base class for Flowchart nodes.
+    /// </summary>
     [AddComponentMenu("")]
     public class Node : MonoBehaviour 
     {
         [SerializeField] protected Rect nodeRect = new Rect(0, 0, 120, 30);
-
         public Rect _NodeRect { get { return nodeRect; } set { nodeRect = value; } }
     }
-
 }

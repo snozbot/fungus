@@ -5,11 +5,12 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Destroys a specified game object in the scene.
+    /// </summary>
     [CommandInfo("Scripting", 
                  "Destroy", 
                  "Destroys a specified game object in the scene.")]

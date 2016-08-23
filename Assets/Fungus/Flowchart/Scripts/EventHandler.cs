@@ -6,12 +6,12 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
-    
+    /// <summary>
+    /// Attribute class for Fungus event handlers.
+    /// </summary>
     public class EventHandlerInfoAttribute : Attribute
     {
         public EventHandlerInfoAttribute(string category, string eventHandlerName, string helpText)
@@ -26,28 +26,31 @@ namespace Fungus
         public string HelpText { get; set; }
     }
 
-    /**
-     * A Block may have an associated Event Handler which starts executing commands when
-     * a specific event occurs. 
-     * To create a custom Event Handler, simply subclass EventHandler and call the ExecuteBlock() method
-     * when the event occurs. 
-     * Add an EventHandlerInfo attibute and your new EventHandler class will automatically appear in the
-     * 'Execute On Event' dropdown menu when a block is selected.
-     */
+    /// <summary>
+    /// A Block may have an associated Event Handler which starts executing commands when
+    /// a specific event occurs. 
+    /// To create a custom Event Handler, simply subclass EventHandler and call the ExecuteBlock() method
+    /// when the event occurs. 
+    /// Add an EventHandlerInfo attibute and your new EventHandler class will automatically appear in the
+    /// 'Execute On Event' dropdown menu when a block is selected.
+    /// </summary>
     [RequireComponent(typeof(Block))]
     [RequireComponent(typeof(Flowchart))]
     [AddComponentMenu("")]
     public class EventHandler : MonoBehaviour
     {   
+        /// <summary>
+        /// Returns the parent Block which owns this Event Handler.
+        /// </summary>
+        /// <value>The parent block.</value>
         [HideInInspector]
         [FormerlySerializedAs("parentSequence")]
         [SerializeField] protected Block parentBlock;
-
         public Block ParentBlock { get { return parentBlock; } set { parentBlock = value; } }
 
-        /**
-         * The Event Handler should call this method when the event is detected.
-         */
+        /// <summary>
+        /// The Event Handler should call this method when the event is detected.
+        /// </summary>
         public virtual bool ExecuteBlock()
         {
             if (parentBlock == null)
@@ -71,9 +74,9 @@ namespace Fungus
             return flowchart.ExecuteBlock(parentBlock);
         }
 
-        /**
-         * Returns a custom summary for the event handler.
-         */
+        /// <summary>
+        /// Returns custom summary text for the event handler.
+        /// </summary>
         public virtual string GetSummary()
         {
             return "";

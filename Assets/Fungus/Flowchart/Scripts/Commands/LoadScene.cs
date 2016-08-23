@@ -5,17 +5,21 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Loads a new Unity scene and displays an optional loading image. This is useful
+    /// for splitting a large game across multiple scene files to reduce peak memory
+    /// usage. Previously loaded assets will be released before loading the scene to free up memory.
+    /// The scene to be loaded must be added to the scene list in Build Settings.")]
+    /// </summary>
     [CommandInfo("Flow", 
-        "Load Scene", 
-        "Loads a new Unity scene and displays an optional loading image. This is useful " +
-        "for splitting a large game across multiple scene files to reduce peak memory " +
-        "usage. Previously loaded assets will be released before loading the scene to free up memory." +
-        "The scene to be loaded must be added to the scene list in Build Settings.")]
+                 "Load Scene", 
+                 "Loads a new Unity scene and displays an optional loading image. This is useful " +
+                 "for splitting a large game across multiple scene files to reduce peak memory " +
+                 "usage. Previously loaded assets will be released before loading the scene to free up memory." +
+                 "The scene to be loaded must be added to the scene list in Build Settings.")]
     [AddComponentMenu("")]
     [ExecuteInEditMode]
     public class LoadScene : Command
@@ -38,7 +42,7 @@ namespace Fungus
                 return "Error: No scene name selected";
             }
 
-            return _sceneName;
+            return _sceneName.Value;
         }
 
         public override Color GetButtonColor()

@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Deletes a saved value from permanent storage.
+    /// </summary>
     [CommandInfo("Variable", 
                  "Delete Save Key", 
                  "Deletes a saved value from permanent storage.")]

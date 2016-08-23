@@ -5,11 +5,12 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets a game object in the scene to be active / inactive.
+    /// </summary>
     [CommandInfo("Scripting", 
                  "Set Active", 
                  "Sets a game object in the scene to be active / inactive.")]

@@ -8,12 +8,18 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Color variable type.
+    /// </summary>
     [VariableInfo("Other", "Color")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class ColorVariable : VariableBase<Color>
     {}
 
+    /// <summary>
+    /// Container for a Color variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct ColorData
     {

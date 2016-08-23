@@ -4,10 +4,12 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets an float variable to a random value in the defined range.
+    /// </summary>
     [CommandInfo("Variable", 
                  "Random Float", 
                  "Sets an float variable to a random value in the defined range.")]

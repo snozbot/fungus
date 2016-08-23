@@ -4,18 +4,17 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
-
-    // Used by the Flowchart window to serialize the currently active Flowchart object
-    // so that the same Flowchart can be displayed while editing & playing.
+    /// <summary>
+    /// Used by the Flowchart window to serialize the currently active Flowchart object
+    /// so that the same Flowchart can be displayed while editing & playing.
+    /// </summary>
     [AddComponentMenu("")]
     public class FungusState : MonoBehaviour 
     {
         [SerializeField] protected Flowchart selectedFlowchart;
-
         public Flowchart SelectedFlowchart { get { return selectedFlowchart; } set { selectedFlowchart = value; } }
     }
 

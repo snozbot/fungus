@@ -4,12 +4,12 @@
  */
 
 ﻿using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// The block will execute when the game starts playing.
+    /// </summary>
     [EventHandlerInfo("",
                       "Game Started",
                       "The block will execute when the game starts playing.")]

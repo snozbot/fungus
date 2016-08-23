@@ -4,12 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Force a loop to terminate immediately.
+    /// </summary>
     [CommandInfo("Flow", 
                  "Break", 
                  "Force a loop to terminate immediately.")]

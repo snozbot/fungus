@@ -8,12 +8,18 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Object variable type.
+    /// </summary>
     [VariableInfo("Other", "Object")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class ObjectVariable : VariableBase<Object>
     {}
 
+    /// <summary>
+    /// Container for an Object variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct ObjectData
     {

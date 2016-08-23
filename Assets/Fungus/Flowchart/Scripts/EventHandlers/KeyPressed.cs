@@ -4,10 +4,12 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// The block will execute when a key press event occurs.
+    /// </summary>
     [EventHandlerInfo("Input",
                       "Key Pressed",
                       "The block will execute when a key press event occurs.")]

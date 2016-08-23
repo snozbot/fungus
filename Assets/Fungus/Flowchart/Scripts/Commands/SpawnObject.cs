@@ -5,13 +5,12 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System.Collections;
 
 namespace Fungus
 {
-    // This command is called "Call Method" because a) it's more descriptive than Send Message and we're already have
-    // a Send Message command for sending messages to trigger block execution.
-
+    /// <summary>
+    /// Spawns a new object based on a reference to a scene or prefab game object.
+    /// </summary>
     [CommandInfo("Scripting", 
                  "Spawn Object", 
                  "Spawns a new object based on a reference to a scene or prefab game object.")]

@@ -11,6 +11,9 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// A container for a sequence of Fungus comands.
+    /// </summary>
     [ExecuteInEditMode]
     [RequireComponent(typeof(Flowchart))]
     [AddComponentMenu("")]
@@ -22,58 +25,72 @@ namespace Fungus
             Executing,
         }
 
+        /// <summary>
+        /// The execution state of the Block.
+        /// </summary>
         protected ExecutionState executionState;
-
         public ExecutionState State { get { return executionState; } }
 
+        /// <summary>
+        /// Unique identifier for the Block.
+        /// </summary>
         [SerializeField] protected int itemId = -1; // Invalid flowchart item id
-
         public int ItemId { get { return itemId; } set { itemId = value; } }
 
+        /// <summary>
+        /// The name of the block node as displayed in the Flowchart window.
+        /// </summary>
         [FormerlySerializedAs("sequenceName")]
         [Tooltip("The name of the block node as displayed in the Flowchart window")]
         [SerializeField] protected string blockName = "New Block";
-
         public string BlockName { get { return blockName; } set { blockName = value; } }
 
+        /// <summary>
+        /// Description text to display under the block node
+        /// </summary>
         [TextArea(2, 5)]
         [Tooltip("Description text to display under the block node")]
         [SerializeField] protected string description = "";
-
         public string Description { get { return description; } }
 
+        /// <summary>
+        /// An optional Event Handler which can execute the block when an event occurs.
+        /// </summary>
         [Tooltip("An optional Event Handler which can execute the block when an event occurs")]
         [SerializeField] protected EventHandler eventHandler;
-
         public EventHandler _EventHandler { get { return eventHandler; } set { eventHandler = value; } }
 
+        /// <summary>
+        /// The currently executing command.
+        /// </summary>
         protected Command activeCommand;
-
         public Command ActiveCommand { get { return activeCommand; } }
 
-        // Index of last command executed before the current one
-        // -1 indicates no previous command
+        /// <summary>
+        // Index of last command executed before the current one.
+        // -1 indicates no previous command.
+        /// </summary>
         protected int previousActiveCommandIndex = -1;
-
         public float ExecutingIconTimer { get; set; }
 
+        /// <summary>
+        /// The list of commands in the sequence.
+        /// </summary>
         [SerializeField] protected List<Command> commandList = new List<Command>();
-
         public List<Command> CommandList { get { return commandList; } }
 
-        protected int executionCount;
+        /// <summary>
+        /// Controls the next command to execute in the block execution coroutine.
+        /// </summary>
+        protected int jumpToCommandIndex = -1;
+        public int JumpToCommandIndex { set { jumpToCommandIndex = value; } }
 
-        /**
-         * Duration of fade for executing icon displayed beside blocks & commands.
-         */
+        /// <summary>
+        /// Duration of fade for executing icon displayed beside blocks & commands.
+        /// </summary>
         public const float executingIconFadeTime = 0.5f;
 
-        /**
-         * Controls the next command to execute in the block execution coroutine.
-         */
-        protected int jumpToCommandIndex = -1;
-
-        public int JumpToCommandIndex { set { jumpToCommandIndex = value; } }
+        protected int executionCount;
 
         protected bool executionInfoSet = false;
 
@@ -82,6 +99,9 @@ namespace Fungus
             SetExecutionInfo();
         }
 
+        /// <summary>
+        /// Populate the command metadata used to control execution.
+        /// </summary>
         protected virtual void SetExecutionInfo()
         {
             // Give each child command a reference back to its parent block
@@ -125,16 +145,25 @@ namespace Fungus
         }
 #endif
 
+        /// <summary>
+        /// Returns the parent Flowchart for this Block.
+        /// </summary>
         public virtual Flowchart GetFlowchart()
         {
             return GetComponent<Flowchart>();
         }
 
+        /// <summary>
+        /// Returns true if the Block is executing a command.
+        /// </summary>
         public virtual bool IsExecuting()
         {
             return (executionState == ExecutionState.Executing);
         }
 
+        /// <summary>
+        /// Returns the number of times this Block has executed.
+        /// </summary>
         public virtual int GetExecutionCount()
         {
             return executionCount;
@@ -261,6 +290,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Stop executing commands in this Block.
+        /// </summary>
         public virtual void Stop()
         {
             // Tell the executing command to stop immediately
@@ -274,6 +306,9 @@ namespace Fungus
             jumpToCommandIndex = int.MaxValue;
         }
 
+        /// <summary>
+        /// Returns a list of all Blocks connected to this one.
+        /// </summary>
         public virtual List<Block> GetConnectedBlocks()
         {
             List<Block> connectedBlocks = new List<Block>();
@@ -287,6 +322,10 @@ namespace Fungus
             return connectedBlocks;
         }
 
+        /// <summary>
+        /// Returns the type of the previously executing command.
+        /// </summary>
+        /// <returns>The previous active command type.</returns>
         public virtual System.Type GetPreviousActiveCommandType()
         {
             if (previousActiveCommandIndex >= 0 &&
@@ -298,6 +337,9 @@ namespace Fungus
             return null;
         }
 
+        /// <summary>
+        /// Recalculate the indent levels for all commands in the list.
+        /// </summary>
         public virtual void UpdateIndentLevels()
         {
             int indentLevel = 0;

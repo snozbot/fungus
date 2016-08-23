@@ -4,12 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Continuously loop through a block of commands while the condition is true. Use the Break command to force the loop to terminate immediately.
+    /// </summary>
     [CommandInfo("Flow", 
                  "While", 
                  "Continuously loop through a block of commands while the condition is true. Use the Break command to force the loop to terminate immediately.")]

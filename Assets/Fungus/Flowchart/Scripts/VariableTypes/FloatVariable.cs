@@ -8,6 +8,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Float variable type.
+    /// </summary>
     [VariableInfo("", "Float")]
     [AddComponentMenu("")]
     [System.Serializable]
@@ -46,6 +49,9 @@ namespace Fungus
         }
     }
 
+    /// <summary>
+    /// Container for an float variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct FloatData
     {

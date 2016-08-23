@@ -8,12 +8,18 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sprite variable type.
+    /// </summary>
     [VariableInfo("Other", "Sprite")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class SpriteVariable : VariableBase<Sprite>
     {}
 
+    /// <summary>
+    /// Container for a Sprite variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct SpriteData
     {

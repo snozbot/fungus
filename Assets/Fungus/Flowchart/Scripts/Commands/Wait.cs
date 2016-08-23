@@ -5,11 +5,12 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Waits for period of time before executing the next command in the block.
+    /// </summary>
     [CommandInfo("Flow", 
                  "Wait", 
                  "Waits for period of time before executing the next command in the block.")]

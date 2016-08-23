@@ -8,12 +8,18 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Transform variable type.
+    /// </summary>
     [VariableInfo("Other", "Transform")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class TransformVariable : VariableBase<Transform>
     {}
 
+    /// <summary>
+    /// Container for a Transform variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct TransformData
     {

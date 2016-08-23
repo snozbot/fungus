@@ -4,11 +4,13 @@
  */
 
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Stops execution of all Blocks in a Flowchart.
+    /// </summary>
     [CommandInfo("Flow", 
                  "Stop Flowchart", 
                  "Stops execution of all Blocks in a Flowchart")]

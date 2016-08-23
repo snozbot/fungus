@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Use comments to record design notes and reminders about your game.
+    /// </summary>
     [CommandInfo("", 
                  "Comment", 
                  "Use comments to record design notes and reminders about your game.")]

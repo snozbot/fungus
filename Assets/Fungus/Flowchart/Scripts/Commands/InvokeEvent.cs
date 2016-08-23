@@ -4,20 +4,21 @@
  */
 
 using UnityEngine;
-using System.Collections;
 using System;
 using UnityEngine.Events;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Calls a list of component methods via the Unity Event System (as used in the Unity UI)
+    /// This command is more efficient than the Invoke Method command but can only pass a single parameter and doesn't support return values.
+    /// This command uses the UnityEvent system to call methods in script. http://docs.unity3d.com/Manual/UnityEvents.html
+    /// </summary>
     [CommandInfo("Scripting", 
                  "Invoke Event", 
                  "Calls a list of component methods via the Unity Event System (as used in the Unity UI). " + 
                  "This command is more efficient than the Invoke Method command but can only pass a single parameter and doesn't support return values.")]
     [AddComponentMenu("")]
-
-    // This command uses the UnityEvent system to call methods in script.
-    // http://docs.unity3d.com/Manual/UnityEvents.html
     public class InvokeEvent : Command
     {
         [Serializable] public class BooleanEvent : UnityEvent<bool> {}

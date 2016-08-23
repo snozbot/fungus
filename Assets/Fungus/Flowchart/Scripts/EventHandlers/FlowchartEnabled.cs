@@ -4,12 +4,12 @@
  */
 
 ﻿using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// The block will execute when the Flowchart game object is enabled.
+    /// </summary>
     [EventHandlerInfo("",
                       "Flowchart Enabled",
                       "The block will execute when the Flowchart game object is enabled.")]

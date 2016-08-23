@@ -8,7 +8,9 @@ using System.Collections;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// String variable type.
+    /// </summary>
     [VariableInfo("", "String")]
     [AddComponentMenu("")]
     [System.Serializable]
@@ -37,7 +39,7 @@ namespace Fungus
     }
 
     /// <summary>
-    /// Can contain a reference to a StringVariable or a string constant.
+    /// Container for a string variable reference or constant value.
     /// Appears as a single line property in the inspector.
     /// For a multi-line property, use StringDataMulti.
     /// </summary>
@@ -86,7 +88,7 @@ namespace Fungus
     }
 
     /// <summary>
-    /// Can contain a reference to a StringVariable or a string constant.
+    /// Container for a string variable reference or constant value.
     /// Appears as a multi-line property in the inspector.
     /// For a single-line property, use StringData.
     /// </summary>

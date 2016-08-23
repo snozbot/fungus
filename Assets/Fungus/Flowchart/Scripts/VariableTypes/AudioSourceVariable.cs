@@ -4,16 +4,21 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// AudioSource variable type.
+    /// </summary>
     [VariableInfo("Other", "AudioSource")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class AudioSourceVariable : VariableBase<AudioSource>
     {}
 
+    /// <summary>
+    /// Container for an AudioSource variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct AudioSourceData
     {

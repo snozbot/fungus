@@ -4,12 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Marks the end of a conditional block.
+    /// </summary>
     [CommandInfo("Flow", 
                  "End", 
                  "Marks the end of a conditional block.")]

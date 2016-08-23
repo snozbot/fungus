@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Marks the start of a command block to be executed when the preceding If statement is False.
+    /// </summary>
     [CommandInfo("Flow", 
                  "Else", 
                  "Marks the start of a command block to be executed when the preceding If statement is False.")]

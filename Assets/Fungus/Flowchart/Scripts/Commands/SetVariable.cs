@@ -4,10 +4,12 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets a Boolean, Integer, Float or String variable to a new value using a simple arithmetic operation. The value can be a constant or reference another variable of the same type.
+    /// </summary>
     [CommandInfo("Variable", 
                  "Set Variable", 
                  "Sets a Boolean, Integer, Float or String variable to a new value using a simple arithmetic operation. The value can be a constant or reference another variable of the same type.")]
@@ -33,7 +35,6 @@ namespace Fungus
 
         [Tooltip("The type of math operation to be performed")]
         [SerializeField] protected SetOperator setOperator;
-
         public SetOperator _SetOperator { get { return setOperator; } }
 
         [Tooltip("Boolean value to set with")]

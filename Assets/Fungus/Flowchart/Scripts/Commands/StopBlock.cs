@@ -4,11 +4,12 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Stops executing the named Block.
+    /// </summary>
     [CommandInfo("Flow", 
                  "Stop Block", 
                  "Stops executing the named Block")]

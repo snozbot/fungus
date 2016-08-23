@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Resets the state of all commands and variables in the Flowchart.
+    /// </summary>
     [CommandInfo("Variable", 
                  "Reset", 
                  "Resets the state of all commands and variables in the Flowchart.")]

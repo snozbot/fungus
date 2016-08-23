@@ -4,12 +4,13 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
 using Fungus;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Opens the specified URL in the browser.
+    /// </summary>
     [CommandInfo("Scripting",
                  "Open URL",
                  "Opens the specified URL in the browser.")]

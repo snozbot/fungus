@@ -8,12 +8,18 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// GameObject variable type.
+    /// </summary>
     [VariableInfo("Other", "GameObject")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class GameObjectVariable : VariableBase<GameObject>
     {}
 
+    /// <summary>
+    /// Container for a GameObject variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct GameObjectData
     {

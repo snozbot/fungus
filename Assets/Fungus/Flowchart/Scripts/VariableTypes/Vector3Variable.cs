@@ -8,12 +8,18 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Vector3 variable type.
+    /// </summary>
     [VariableInfo("Other", "Vector3")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class Vector3Variable : VariableBase<Vector3>
     {}
 
+    /// <summary>
+    /// Container for a Vector3 variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct Vector3Data
     {

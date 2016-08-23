@@ -4,13 +4,14 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
-    // This command is called "Call Method" because a) it's more descriptive than Send Message and we're already have
-    // a Send Message command for sending messages to trigger block execution.
-
+    /// <summary>
+    /// Calls a named method on a GameObject using the GameObject.SendMessage() system.
+    /// This command is called "Call Method" because a) it's more descriptive than Send Message and we're already have
+    /// a Send Message command for sending messages to trigger block execution.
+    /// </summary>
     [CommandInfo("Scripting", 
                  "Call Method", 
                  "Calls a named method on a GameObject using the GameObject.SendMessage() system.")]

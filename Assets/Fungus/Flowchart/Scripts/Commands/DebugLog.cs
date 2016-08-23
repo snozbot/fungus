@@ -4,10 +4,12 @@
  */
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Writes a log message to the debug console.
+    /// </summary>
     [CommandInfo("Scripting", 
                  "Debug Log", 
                  "Writes a log message to the debug console.")]
