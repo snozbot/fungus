@@ -5,15 +5,20 @@
 
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Interface for listening for dialogue input events.
+    /// </summary>
     public interface IDialogInputListener
     {
         void OnNextLineEvent();
     }
-    
+
+    /// <summary>
+    /// Input handler for say dialogues.
+    /// </summary>
     public class DialogInput : MonoBehaviour
     {
         public enum ClickMode
@@ -44,17 +49,17 @@ namespace Fungus
 
         protected StandaloneInputModule currentStandaloneInputModule;
 
-        /**
-         * Trigger next line input event from script.
-         */
+        /// <summary>
+        /// Trigger next line input event from script.
+        /// </summary>
         public void SetNextLineFlag()
         {
             nextLineInputFlag = true;
         }
 
-        /**
-         * Set the dialog clicked flag (usually from an Event Trigger component in the dialog UI)
-         */
+        /// <summary>
+        /// Set the dialog clicked flag (usually from an Event Trigger component in the dialog UI).
+        /// </summary>
         public void SetDialogClickedFlag()
         {
             // Ignore repeat clicks for a short time to prevent accidentally clicking through the character dialogue
@@ -157,6 +162,4 @@ namespace Fungus
             }
         }
     }
-
 }
-    

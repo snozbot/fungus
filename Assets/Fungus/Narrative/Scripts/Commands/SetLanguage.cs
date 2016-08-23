@@ -5,10 +5,12 @@
 
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Set the active language for the scene. A Localization object with a localization file must be present in the scene.
+    /// </summary>
     [CommandInfo("Narrative", 
                  "Set Language", 
                  "Set the active language for the scene. A Localization object with a localization file must be present in the scene.")]

@@ -5,12 +5,13 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Displays a button in a multiple choice menu.
+    /// </summary>
     [CommandInfo("Narrative", 
                  "Menu", 
                  "Displays a button in a multiple choice menu")]

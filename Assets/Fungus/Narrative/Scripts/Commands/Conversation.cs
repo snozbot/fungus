@@ -4,11 +4,13 @@
  */
 
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text].
+    /// </summary>
     [CommandInfo("Narrative", 
                  "Conversation", 
                  "Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text]")]

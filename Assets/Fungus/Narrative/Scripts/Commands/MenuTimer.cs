@@ -5,13 +5,13 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.EventSystems;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Displays a timer bar and executes a target block if the player fails to select a menu option in time.
+    /// </summary>
     [CommandInfo("Narrative", 
                  "Menu Timer", 
                  "Displays a timer bar and executes a target block if the player fails to select a menu option in time.")]

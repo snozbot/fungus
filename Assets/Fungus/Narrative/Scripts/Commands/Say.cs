@@ -4,12 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Writes text in a dialog box.
+    /// </summary>
     [CommandInfo("Narrative", 
                  "Say", 
                  "Writes text in a dialog box.")]
@@ -25,12 +25,10 @@ namespace Fungus
 
         [Tooltip("Character that is speaking")]
         [SerializeField] protected Character character;
-
         public Character _Character { get { return character; } }
 
         [Tooltip("Portrait that represents speaking character")]
         [SerializeField] protected Sprite portrait;
-
         public Sprite Portrait { get { return portrait; } set { portrait = value; } }
 
         [Tooltip("Voiceover audio to play when writing the text")]
@@ -44,7 +42,6 @@ namespace Fungus
 
         [Tooltip("Type this text in the previous dialog box.")]
         [SerializeField] protected bool extendPrevious = false;
-
         public bool ExtendPrevious { get { return extendPrevious; } }
 
         [Tooltip("Fade out the dialog box when writing has finished and not waiting for input.")]

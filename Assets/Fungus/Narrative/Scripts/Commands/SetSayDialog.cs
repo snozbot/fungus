@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets a custom say dialog to use when displaying story text.
+    /// </summary>
     [CommandInfo("Narrative", 
                  "Set Say Dialog", 
                  "Sets a custom say dialog to use when displaying story text")]

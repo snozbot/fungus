@@ -4,30 +4,26 @@
  */
 
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Create custom tags for use in Say text.
+    /// </summary>
     [ExecuteInEditMode]
     public class CustomTag : MonoBehaviour 
     {
         [SerializeField] protected string tagStartSymbol;
-
         public string TagStartSymbol { get { return tagStartSymbol; } }
 
         [SerializeField] protected string tagEndSymbol;
-
         public string TagEndSymbol { get { return tagEndSymbol; } }
 
         [SerializeField] protected string replaceTagStartWith;
-
         public string ReplaceTagStartWith { get { return replaceTagStartWith; } }
 
         [SerializeField] protected string replaceTagEndWith;
-
         public string ReplaceTagEndWith { get { return replaceTagEndWith; } }
 
         static public List<CustomTag> activeCustomTags = new List<CustomTag>();
@@ -45,5 +41,4 @@ namespace Fungus
             activeCustomTags.Remove(this);
         }
     }
-    
 }

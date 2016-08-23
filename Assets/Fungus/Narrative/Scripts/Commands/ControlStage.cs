@@ -23,6 +23,9 @@ namespace Fungus
         DimNonSpeakingPortraits
     }
 
+    /// <summary>
+    /// Controls the stage on which character portraits are displayed.
+    /// </summary>
     [CommandInfo("Narrative", 
                  "Control Stage",
                  "Controls the stage on which character portraits are displayed.")]
@@ -30,7 +33,6 @@ namespace Fungus
     {
         [Tooltip("Stage to display characters on")]
         [SerializeField] protected Stage stage;
-
         public Stage _Stage { get { return stage; } }
 
         [Tooltip("Stage to swap with")]
@@ -38,7 +40,6 @@ namespace Fungus
 
         [Tooltip("Use Default Settings")]
         [SerializeField] protected bool useDefaultSettings = true;
-
         public bool UseDefaultSettings { get { return useDefaultSettings; } }
 
         [Tooltip("Fade Duration")]

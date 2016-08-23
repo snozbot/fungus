@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets a custom menu dialog to use when displaying multiple choice menus.
+    /// </summary>
     [CommandInfo("Narrative", 
                  "Set Menu Dialog", 
                  "Sets a custom menu dialog to use when displaying multiple choice menus")]

@@ -7,11 +7,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Presents story text to the player in a dialogue box.
+    /// </summary>
     public class SayDialog : MonoBehaviour
     {
         // Currently active Say Dialog used to display Say text
@@ -20,17 +21,24 @@ namespace Fungus
         // Most recent speaking character
         public static Character speakingCharacter;
 
+        [Tooltip("Duration to fade dialogue in/out")]
         [SerializeField] protected float fadeDuration = 0.25f;
-        
-        [SerializeField] protected Button continueButton;
-        [SerializeField] protected Canvas dialogCanvas;
-        [SerializeField] protected Text nameText;
-        [SerializeField] protected Text storyText;
 
+        [Tooltip("The continue button UI object")]
+        [SerializeField] protected Button continueButton;
+
+        [Tooltip("The canvas UI object")]
+        [SerializeField] protected Canvas dialogCanvas;
+
+        [Tooltip("The name text UI object")]
+        [SerializeField] protected Text nameText;
+
+        [Tooltip("The story text UI object")]
+        [SerializeField] protected Text storyText;
         public Text StoryText { get { return storyText; } }
 
+        [Tooltip("The character UI object")]
         [SerializeField] protected Image characterImage;
-
         public Image CharacterImage { get { return characterImage; } }
     
         [Tooltip("Adjust width of story text when Character Image is displayed (to avoid overlapping)")]

@@ -4,11 +4,12 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Clears the options from a menu dialogue.
+    /// </summary>
     [CommandInfo("Narrative",
                  "Clear Menu",
                  "Clears the options from a menu dialogue")]

@@ -7,17 +7,13 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Text;
-using System.IO;
 using Ideafixxxer.CsvParser;
 
 namespace Fungus
 {
-
     public interface ILocalizable
     {
         string GetStandardText();
@@ -26,26 +22,25 @@ namespace Fungus
         string GetStringId();
     }
 
-    /**
-     * Multi-language localization support.
-     */
+    /// <summary>
+    /// Multi-language localization support.
+    /// </summary>
     public class Localization : MonoBehaviour, StringSubstituter.ISubstitutionHandler
     {
-        /**
-         * Language to use at startup, usually defined by a two letter language code (e.g DE = German)
-         */
+        /// <summary>
+        /// Language to use at startup, usually defined by a two letter language code (e.g DE = German).
+        /// </summary>
         [Tooltip("Language to use at startup, usually defined by a two letter language code (e.g DE = German)")]
         [SerializeField] protected string activeLanguage = "";
-
         public string ActiveLanguage { get { return activeLanguage; } }
 
         protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
 
         protected Dictionary<string, ILocalizable> localizeableObjects = new Dictionary<string, ILocalizable>();
 
-        /**
-         * Temp storage for a single item of standard text and its localizations
-         */
+        /// <summary>
+        /// Temp storage for a single item of standard text and its localizations.
+        /// </summary>
         protected class TextItem
         {
             public string description = "";
@@ -53,17 +48,17 @@ namespace Fungus
             public Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
         }
 
-        /**
-         * CSV file containing localization data which can be easily edited in a spreadsheet tool.
-         */
-         [Tooltip("CSV file containing localization data which can be easily edited in a spreadsheet tool")]
+        /// <summary>
+        /// CSV file containing localization data which can be easily edited in a spreadsheet tool.
+        /// </summary>
+        [Tooltip("CSV file containing localization data which can be easily edited in a spreadsheet tool")]
         [SerializeField] protected TextAsset localizationFile;
 
         public TextAsset LocalizationFile { get { return localizationFile; } set { localizationFile = value; } }
 
-        /**
-         * Stores any notification message from export / import methods.
-         */
+        /// <summary>
+        /// Stores any notification message from export / import methods.
+        /// </summary>
         protected string notificationText = "";
 
         public string NotificationText { get { return notificationText; } set { notificationText = value; } }
@@ -99,10 +94,10 @@ namespace Fungus
             Init();
         }
 
-        /**
-         * String subsitution can happen during the Start of another component, so we
-         * may need to call Init() from other methods.
-         */
+        /// <summary>
+        /// String subsitution can happen during the Start of another component, so we
+        /// may need to call Init() from other methods.
+        /// </summary>
         protected virtual void Init()
         {
             if (initialized)
@@ -140,11 +135,11 @@ namespace Fungus
             }
         }
 
-        /**
-         * Looks up the specified string in the localized strings table.
-         * For this to work, a localization file and active language must have been set previously.
-         * Return null if the string is not found.
-         */
+        /// <summary>
+        /// Looks up the specified string in the localized strings table.
+        /// For this to work, a localization file and active language must have been set previously.
+        /// Return null if the string is not found.            
+        /// </summary>
         public static string GetLocalizedString(string stringId)
         {
             if (localizedStrings == null)
@@ -160,9 +155,9 @@ namespace Fungus
             return null;
         }
 
-        /**
-         * Convert all text items and localized strings to an easy to edit CSV format.
-         */
+        /// <summary>
+        /// Convert all text items and localized strings to an easy to edit CSV format.
+        /// </summary>
         public virtual string GetCSVData()
         {
             // Collect all the text items present in the scene
@@ -222,9 +217,9 @@ namespace Fungus
             return csvData;
         }
 
-        /**
-         * Builds a dictionary of localizable text items in the scene.
-         */
+        /// <summary>
+        /// Builds a dictionary of localizable text items in the scene.
+        /// </summary>
         protected Dictionary<string, TextItem> FindTextItems()
         {
             Dictionary<string, TextItem> textItems = new Dictionary<string, TextItem>();
@@ -275,9 +270,9 @@ namespace Fungus
             return textItems;
         }
 
-        /**
-         * Adds localized strings from CSV file data to a dictionary of text items in the scene.
-         */
+        /// <summary>
+        /// Adds localized strings from CSV file data to a dictionary of text items in the scene.
+        /// </summary>
         protected virtual void AddCSVDataItems(Dictionary<string, TextItem> textItems, string csvData)
         {
             CsvParser csvParser = new CsvParser();
@@ -342,10 +337,10 @@ namespace Fungus
             }
         }
 
-        /**
-         * Scan a localization CSV file and copies the strings for the specified language code
-         * into the text properties of the appropriate scene objects.
-         */
+        /// <summary>
+        /// Scan a localization CSV file and copies the strings for the specified language code
+        /// into the text properties of the appropriate scene objects.
+        /// </summary>
         public virtual void SetActiveLanguage(string languageCode, bool forceUpdateSceneText = false)
         {
             if (!Application.isPlaying)
@@ -438,9 +433,9 @@ namespace Fungus
             }
         }
 
-        /**
-         * Populates the text property of a single scene object with a new text value.
-         */
+        /// <summary>
+        /// Populates the text property of a single scene object with a new text value.
+        /// </summary>
         public virtual bool PopulateTextProperty(string stringId, string newText)
         {
             // Ensure that all localizeable objects have been cached
@@ -460,10 +455,10 @@ namespace Fungus
             return false;
         }
 
-        /**
-         * Returns all standard text for localizeable text in the scene using an
-         * easy to edit custom text format.
-         */
+        /// <summary>
+        /// Returns all standard text for localizeable text in the scene using an
+        /// easy to edit custom text format.
+        /// </summary>
         public virtual string GetStandardText()
         {
             // Collect all the text items present in the scene
@@ -485,9 +480,9 @@ namespace Fungus
             return textData;
         }
 
-        /**
-         * Sets standard text on scene objects by parsing a text data file.
-         */
+        /// <summary>
+        /// Sets standard text on scene objects by parsing a text data file.
+        /// </summary>
         public virtual void SetStandardText(string textData)
         {
             string[] lines = textData.Split('\n');
@@ -532,10 +527,10 @@ namespace Fungus
             notificationText = "Updated " + updatedCount + " standard text items.";
         }
 
-        /**
-         * Implementation of StringSubstituter.ISubstitutionHandler.
-         * Relaces tokens of the form {$KeyName} with the localized value corresponding to that key.
-         */
+        /// <summary>
+        /// Implementation of StringSubstituter.ISubstitutionHandler.
+        /// Replaces tokens of the form {$KeyName} with the localized value corresponding to that key.
+        /// </summary>
         public virtual bool SubstituteStrings(StringBuilder input)
         {
             // This method could be called from the Start method of another component, so we
@@ -565,5 +560,4 @@ namespace Fungus
             return modified;
         }
     }
-
 }

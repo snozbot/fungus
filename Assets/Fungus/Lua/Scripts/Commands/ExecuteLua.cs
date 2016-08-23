@@ -4,13 +4,14 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
 using Fungus;
 using MoonSharp.Interpreter;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Executes a Lua code chunk using a Lua Environment.
+    /// </summary>
     [CommandInfo("Scripting",
                  "Execute Lua",
                  "Executes a Lua code chunk using a Lua Environment.")]

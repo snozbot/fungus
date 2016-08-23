@@ -4,11 +4,9 @@
  */
 
 ﻿using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using MoonSharp.Interpreter;
 
 namespace Fungus
@@ -56,11 +54,6 @@ namespace Fungus
             fadeDuration = 0.5f;
             moveDuration = 1f;
             this.useDefaultSettings = useDefaultSettings;
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
         }
     }
 
@@ -170,7 +163,7 @@ namespace Fungus
 
         }
 
-        private void FinishCommand(PortraitOptions options)
+        protected void FinishCommand(PortraitOptions options)
         {
             if (options.onComplete != null)
             {
@@ -194,7 +187,7 @@ namespace Fungus
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        private PortraitOptions CleanPortraitOptions(PortraitOptions options)
+        protected PortraitOptions CleanPortraitOptions(PortraitOptions options)
         {
             // Use default stage settings
             if (options.useDefaultSettings)
@@ -285,7 +278,7 @@ namespace Fungus
         /// </summary>
         /// <param name="character"></param>
         /// <param name="fadeDuration"></param>
-        private void CreatePortraitObject(Character character, float fadeDuration)
+        protected void CreatePortraitObject(Character character, float fadeDuration)
         {
             // Create a new portrait object
             GameObject portraitObj = new GameObject(character.name,
@@ -312,7 +305,7 @@ namespace Fungus
             character.State.portraitImage = portraitImage;
         }
 
-        private IEnumerator WaitUntilFinished(float duration, Action onComplete = null)
+        protected IEnumerator WaitUntilFinished(float duration, Action onComplete = null)
         {
             // Wait until the timer has expired
             // Any method can modify this timer variable to delay continuing.
@@ -330,7 +323,7 @@ namespace Fungus
             }
         }
 
-        private void SetupPortrait(PortraitOptions options)
+        protected void SetupPortrait(PortraitOptions options)
         {
             SetRectTransform(options.character.State.portraitImage.rectTransform, options.fromPosition);
 
@@ -653,8 +646,8 @@ namespace Fungus
     /// <summary>
     /// Util functions that I wanted to keep the main class clean of
     /// </summary>
-    public class PortraitUtil {
-
+    public class PortraitUtil 
+    {
         /// <summary>
         /// Convert a Moonsharp table to portrait options
         /// If the table returns a null for any of the parameters, it should keep the defaults
@@ -732,7 +725,6 @@ namespace Fungus
                 options.shiftIntoPlace = table.Get("shiftIntoPlace").CastToBool();
             }
 
-            //TODO: Make the next lua command wait when this options is true
             if (!table.Get("waitUntilFinished").IsNil())
             {
                 options.waitUntilFinished = table.Get("waitUntilFinished").CastToBool();
@@ -740,6 +732,5 @@ namespace Fungus
 
             return options;
         }
-        
     }
 }

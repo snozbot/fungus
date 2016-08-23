@@ -4,28 +4,23 @@
  */
 
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
-    
+    /// <summary>
+    /// Controls a character portrait.
+    /// </summary>
     [CommandInfo("Narrative", 
                  "Portrait", 
-                 "Controls a character portrait. ")]
+                 "Controls a character portrait.")]
     public class Portrait : ControlWithDisplay<DisplayType>
     {
         [Tooltip("Stage to display portrait on")]
         [SerializeField] protected Stage stage;
-
         public Stage _Stage { get { return stage; } set { stage = value; } }
 
         [Tooltip("Character to display")]
         [SerializeField] protected Character character;
-
         public Character _Character { get { return character; } set { character = value; } }
 
         [Tooltip("Character to swap with")]
@@ -33,32 +28,26 @@ namespace Fungus
         
         [Tooltip("Portrait to display")]
         [SerializeField] protected Sprite portrait;
-
         public Sprite _Portrait { get { return portrait; } set { portrait = value; } }
 
         [Tooltip("Move the portrait from/to this offset position")]
         [SerializeField] protected PositionOffset offset;
-
         public PositionOffset Offset { get { return offset; } set { offset = value; } }
 
         [Tooltip("Move the portrait from this position")]
         [SerializeField] protected RectTransform fromPosition;
-
         public RectTransform FromPosition { get { return fromPosition; } set { fromPosition = value;} }
 
         [Tooltip("Move the portrait to this positoin")]
         [SerializeField] protected RectTransform toPosition;
-
         public RectTransform ToPosition { get { return toPosition; } set { toPosition = value;} }
 
         [Tooltip("Direction character is facing")]
         [SerializeField] protected FacingDirection facing;
-
         public FacingDirection Facing { get { return facing; } set { facing = value; } }
 
         [Tooltip("Use Default Settings")]
         [SerializeField] protected bool useDefaultSettings = true;
-
         public bool UseDefaultSettings { get { return useDefaultSettings; } set { useDefaultSettings = value; } }
 
         [Tooltip("Fade Duration")]
@@ -72,12 +61,10 @@ namespace Fungus
         
         [Tooltip("Move")]
         [SerializeField] protected bool move;
-
         public bool Move { get { return move; } set { move = value; } }
 
         [Tooltip("Start from offset")]
         [SerializeField] protected bool shiftIntoPlace;
-
         public bool ShiftIntoPlace { get { return shiftIntoPlace; } set { shiftIntoPlace = value; } }
 
         [Tooltip("Wait until the tween has finished before executing the next command")]

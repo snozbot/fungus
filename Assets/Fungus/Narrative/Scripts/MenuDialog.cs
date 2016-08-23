@@ -5,16 +5,15 @@
 
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using System.Linq;
 
 namespace Fungus
 {
-    
+    /// <summary>
+    /// Presents multiple choice buttons to the players.
+    /// </summary>
     public class MenuDialog : MonoBehaviour
     {
         // Currently active Menu Dialog used to display Menu options
@@ -24,11 +23,9 @@ namespace Fungus
         [SerializeField] protected bool autoSelectFirstButton = false;
 
         protected Button[] cachedButtons;
-
         public Button[] CachedButtons { get { return cachedButtons; } }
 
         protected Slider cachedSlider;
-
         public Slider CachedSlider { get { return cachedSlider; } }
 
         public static MenuDialog GetMenuDialog()

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -7,6 +6,9 @@ using System.Text;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Helper class to manage parsing and executing the conversation format.
+    /// </summary>
     public class ConversationManager
     {
         protected struct ConversationItem
