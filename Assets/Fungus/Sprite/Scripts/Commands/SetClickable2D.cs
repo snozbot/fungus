@@ -4,11 +4,12 @@
  */
 
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets a Clickable2D component to be clickable / non-clickable.
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Set Clickable 2D", 
                  "Sets a Clickable2D component to be clickable / non-clickable.")]

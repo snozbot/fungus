@@ -4,11 +4,12 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets the Renderer sorting layer of every child of a game object. Applies to all Renderers (including mesh, skinned mesh, and sprite).
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Set Sorting Layer", 
                  "Sets the Renderer sorting layer of every child of a game object. Applies to all Renderers (including mesh, skinned mesh, and sprite).")]

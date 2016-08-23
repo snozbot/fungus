@@ -4,10 +4,12 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Fungus 
 {
+    /// <summary>
+    /// The block will execute when the user clicks or taps on the clickable object.
+    /// </summary>
     [EventHandlerInfo("Sprite",
                       "Object Clicked",
                       "The block will execute when the user clicks or taps on the clickable object.")]

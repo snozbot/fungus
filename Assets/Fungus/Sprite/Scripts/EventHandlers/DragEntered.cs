@@ -10,7 +10,9 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-    
+    /// <summary>
+    /// The block will execute when the player is dragging an object which starts touching the target object.
+    /// </summary>
     [EventHandlerInfo("Sprite",
                       "Drag Entered",
                       "The block will execute when the player is dragging an object which starts touching the target object.")]

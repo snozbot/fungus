@@ -4,11 +4,12 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets a Draggable2D component to be draggable / non-draggable.
+    /// </summary>
     [CommandInfo("Sprite",
                  "Set Draggable 2D",
                  "Sets a Draggable2D component to be draggable / non-draggable.")]

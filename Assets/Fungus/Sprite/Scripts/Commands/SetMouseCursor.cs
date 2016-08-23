@@ -4,10 +4,12 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets the mouse cursor sprite.
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Set Mouse Cursor", 
                  "Sets the mouse cursor sprite.")]

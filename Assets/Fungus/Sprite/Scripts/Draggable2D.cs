@@ -10,19 +10,17 @@ using UnityEngine.Serialization;
 
 namespace Fungus
 {
-
-    /**
-     * Detects drag and drop interactions on a Game Object, and sends events to all Flowchart event handlers in the scene.
-     * The Game Object must have Collider2D & RigidBody components attached. 
-     * The Collider2D must have the Is Trigger property set to true.
-     * The RigidBody would typically have the Is Kinematic property set to true, unless you want the object to move around using physics.
-     * Use in conjunction with the Drag Started, Drag Completed, Drag Cancelled, Drag Entered & Drag Exited event handlers.
-     */
+    /// <summary>
+    /// Detects drag and drop interactions on a Game Object, and sends events to all Flowchart event handlers in the scene.
+    /// The Game Object must have Collider2D & RigidBody components attached. 
+    /// The Collider2D must have the Is Trigger property set to true.
+    /// The RigidBody would typically have the Is Kinematic property set to true, unless you want the object to move around using physics.
+    /// Use in conjunction with the Drag Started, Drag Completed, Drag Cancelled, Drag Entered & Drag Exited event handlers.
+    /// </summary>
     public class Draggable2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Tooltip("Is object dragging enabled")]
         [SerializeField] protected bool dragEnabled = true;
-
         public bool DragEnabled { get { return dragEnabled; } set { dragEnabled = value; } }
 
         [Tooltip("Move object back to its starting position when drag is cancelled")]

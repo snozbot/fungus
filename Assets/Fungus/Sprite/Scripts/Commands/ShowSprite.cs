@@ -5,11 +5,12 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Makes a sprite visible / invisible by setting the color alpha.
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Show Sprite", 
                  "Makes a sprite visible / invisible by setting the color alpha.")]

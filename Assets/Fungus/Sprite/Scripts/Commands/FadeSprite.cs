@@ -5,11 +5,12 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Fades a sprite to a target color over a period of time.
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Fade Sprite", 
                  "Fades a sprite to a target color over a period of time.")]

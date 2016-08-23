@@ -4,12 +4,12 @@
  */
 
 ﻿using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// The block will execute when the player starts dragging an object.
+    /// </summary>
     [EventHandlerInfo("Sprite",
                       "Drag Started",
                       "The block will execute when the player starts dragging an object.")]

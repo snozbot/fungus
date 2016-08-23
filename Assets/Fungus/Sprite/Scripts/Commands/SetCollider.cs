@@ -4,11 +4,13 @@
  */
 
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets all collider (2d or 3d) components on the target objects to be active / inactive.
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Set Collider", 
                  "Sets all collider (2d or 3d) components on the target objects to be active / inactive")]

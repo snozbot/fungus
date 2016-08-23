@@ -4,11 +4,13 @@
  */
 
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Controls the render order of sprites by setting the Order In Layer property of a list of sprites.
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Set Sprite Order", 
                  "Controls the render order of sprites by setting the Order In Layer property of a list of sprites.")]
