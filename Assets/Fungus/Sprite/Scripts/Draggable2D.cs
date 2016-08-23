@@ -23,7 +23,7 @@ namespace Fungus
         [Tooltip("Is object dragging enabled")]
         [SerializeField] protected bool dragEnabled = true;
 
-        public bool DragEnabled { set { dragEnabled = value; } }
+        public bool DragEnabled { get { return dragEnabled; } set { dragEnabled = value; } }
 
         [Tooltip("Move object back to its starting position when drag is cancelled")]
         [FormerlySerializedAs("returnToStartPos")]
