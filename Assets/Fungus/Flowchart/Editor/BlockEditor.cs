@@ -229,7 +229,6 @@ namespace Fungus
                         e.Use();
                     }               
                 }
-
             }
 
             // Remove any null entries in the command list.
@@ -600,7 +599,7 @@ namespace Fungus
         protected static string GetPropertyInfo(System.Type type)
         {
             string markdown = "";
-            foreach(FieldInfo field in type.GetFields() )
+            foreach(FieldInfo field in type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 TooltipAttribute attribute = (TooltipAttribute)Attribute.GetCustomAttribute(field, typeof(TooltipAttribute));
                 if (attribute == null )
