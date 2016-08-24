@@ -7,7 +7,6 @@ using System;
 
 namespace Fungus 
 {
-    
     internal static class FungusEditorResources 
     {
 

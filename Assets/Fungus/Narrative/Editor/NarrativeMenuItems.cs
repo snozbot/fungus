@@ -3,11 +3,9 @@
 
 using UnityEngine;
 using UnityEditor;
-using System.Collections;
 
 namespace Fungus
 {
-
     // The prefab names are prefixed with Fungus to avoid clashes with any other prefabs in the project
     public class NarrativeMenuItems 
     {

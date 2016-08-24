@@ -5,15 +5,12 @@
 // https://bitbucket.org/Unity-Technologies/unitytesttools/src/a30d562427e9/Assets/UnityTestTools/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
 namespace Fungus
 {
-    
     [CustomEditor(typeof(ExecuteHandler))]
     public class ExecuteHandlerEditor : Editor
     {

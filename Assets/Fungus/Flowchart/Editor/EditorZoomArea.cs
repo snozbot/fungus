@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace Fungus
 {
-
     // Helper Rect extension methods
     public static class RectExtensions
     {

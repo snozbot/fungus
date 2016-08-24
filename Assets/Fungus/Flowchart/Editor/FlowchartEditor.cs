@@ -3,12 +3,10 @@
 
 using UnityEditor;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using Rotorz.ReorderableList;
 using System.Linq;
 using System.Reflection;
-using System.IO;
 
 namespace Fungus
 {

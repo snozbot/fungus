@@ -5,7 +5,6 @@
 // https://bitbucket.org/Unity-Technologies/unitytesttools/src/a30d562427e9/Assets/UnityTestTools/
 
 using System;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 

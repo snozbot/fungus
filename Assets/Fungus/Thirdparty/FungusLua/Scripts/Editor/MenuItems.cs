@@ -4,11 +4,9 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.IO;
-using System.Collections;
 
 namespace Fungus
 {
-
     public class MenuItems 
     {
         [MenuItem("Tools/Fungus/Create/Lua", false, 2000)]

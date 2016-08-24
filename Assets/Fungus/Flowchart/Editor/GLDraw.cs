@@ -2,12 +2,9 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
-using System;
 
 namespace Fungus
 {
-
     /// <summary>
     /// Clipping code: http://forum.unity3d.com/threads/17066-How-to-draw-a-GUI-2D-quot-line-quot?p=230386#post230386
     /// Thick line drawing code: http://unifycommunity.com/wiki/index.php?title=VectorLine

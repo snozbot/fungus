@@ -3,13 +3,10 @@
 
 using UnityEditor;
 using UnityEngine;
-using System.Collections;
 using Rotorz.ReorderableList;
-using System.Collections.Generic;
 
 namespace Fungus
 {
-
     [CustomEditor (typeof(Character))]
     public class CharacterEditor : Editor
     {

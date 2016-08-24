@@ -6,7 +6,6 @@ using UnityEditor;
 using UnityEditorInternal;
 using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus

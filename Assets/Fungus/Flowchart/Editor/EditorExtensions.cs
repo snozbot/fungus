@@ -2,13 +2,11 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Fungus
 {
-
     public static class EditorExtensions
     {
         /// <summary>

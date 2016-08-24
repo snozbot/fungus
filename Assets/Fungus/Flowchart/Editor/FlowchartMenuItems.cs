@@ -3,12 +3,9 @@
 
 ﻿using UnityEngine;
 using UnityEditor;
-using System.IO;
-using System.Collections;
 
 namespace Fungus
 {
-
     public class FlowchartMenuItems
     {
         [MenuItem("Tools/Fungus/Create/Flowchart", false, 0)]

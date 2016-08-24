@@ -15,7 +15,6 @@ using System.Reflection;
 
 namespace Fungus
 {
-
     [CustomEditor (typeof(Block))]
     public class BlockEditor : Editor 
     {

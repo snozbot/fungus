@@ -3,13 +3,10 @@
 
 ﻿using UnityEngine;
 using UnityEditor;
-using System.Collections;
-using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Serialization;
 
 namespace Fungus
 {
-
     [CustomEditor(typeof(LuaStore))]
     public class LuaStoreEditor : Editor
     {
