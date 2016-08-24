@@ -308,5 +308,4 @@ namespace Fungus
 
         ExecuteHandler Component { get; }
     }
-
 }

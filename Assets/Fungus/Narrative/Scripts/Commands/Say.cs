@@ -176,5 +176,4 @@ namespace Fungus
             return stringId;
         }
     }
-
 }

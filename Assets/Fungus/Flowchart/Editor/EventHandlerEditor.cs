@@ -13,9 +13,9 @@ namespace Fungus
     [CustomEditor (typeof(EventHandler), true)]
     public class EventHandlerEditor : Editor 
     {
-        /**
-         * Returns the class attribute info for an event handler class.
-         */
+        /// <summary>
+        /// Returns the class attribute info for an event handler class.
+        /// </summary>
         public static EventHandlerInfoAttribute GetEventHandlerInfo(System.Type eventHandlerType)
         {
             object[] attributes = eventHandlerType.GetCustomAttributes(typeof(EventHandlerInfoAttribute), false);
@@ -62,5 +62,4 @@ namespace Fungus
             serializedObject.ApplyModifiedProperties();
         }
     }
-
 }

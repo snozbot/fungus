@@ -20,5 +20,4 @@ namespace Fungus
             Continue();
         }
     }
-
 }

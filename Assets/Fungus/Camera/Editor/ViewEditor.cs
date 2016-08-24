@@ -261,5 +261,4 @@ namespace Fungus
             return view.transform.InverseTransformPoint(view.transform.position + new Vector3(0, view.ViewSize, 0)).magnitude;
         }
     }
-
 }

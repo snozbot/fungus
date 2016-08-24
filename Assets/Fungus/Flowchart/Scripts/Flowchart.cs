@@ -1102,5 +1102,4 @@ namespace Fungus
             }
         }
     }
-
 }

@@ -143,5 +143,4 @@ namespace Fungus
             return "WRITE." + GetFlowchartLocalizationId() + "." + itemId;
         }
     }
-
 }

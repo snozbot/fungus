@@ -201,14 +201,12 @@ namespace Fungus
         }
         
 
-        /**
-         * When modifying custom editor code you can occasionally end up with orphaned editor instances.
-         * When this happens, you'll get a null exception error every time the scene serializes / deserialized.
-         * Once this situation occurs, the only way to fix it is to restart the Unity editor.
-         * 
-         * As a workaround, this function detects if this command editor is an orphan and deletes it. 
-         * To use it, just call this function at the top of the OnEnable() method in your custom editor.
-         */
+        // When modifying custom editor code you can occasionally end up with orphaned editor instances.
+        // When this happens, you'll get a null exception error every time the scene serializes / deserialized.
+        // Once this situation occurs, the only way to fix it is to restart the Unity editor.
+        // 
+        // As a workaround, this function detects if this command editor is an orphan and deletes it. 
+        // To use it, just call this function at the top of the OnEnable() method in your custom editor.
         protected virtual bool NullTargetCheck()
         {
             try

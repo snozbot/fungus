@@ -80,5 +80,4 @@ namespace Fungus
             }
         }
     }
-
 }

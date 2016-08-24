@@ -16,9 +16,9 @@ namespace Fungus
     [AddComponentMenu("")]
     public class SetSaveProfile : Command
     {
-        /**
-         * Shared save profile name used by SaveVariable and LoadVariable.
-         */
+        /// <summary>
+        /// Shared save profile name used by SaveVariable and LoadVariable.
+        /// </summary>
         public static string saveProfile = "";
 
         [Tooltip("Name of save profile to make active.")]

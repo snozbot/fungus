@@ -124,5 +124,4 @@ namespace Fungus
             SpawnPrefab("Prefabs/InfoText", false);
         }
     }
-
 }

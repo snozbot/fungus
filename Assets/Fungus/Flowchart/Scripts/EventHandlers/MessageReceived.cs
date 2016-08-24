@@ -30,5 +30,4 @@ namespace Fungus
             return message;
         }
     }
-
 }

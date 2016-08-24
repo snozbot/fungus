@@ -22,5 +22,4 @@ namespace Fungus
             GUI.Label(rect, info);
         }
     }
-
 }

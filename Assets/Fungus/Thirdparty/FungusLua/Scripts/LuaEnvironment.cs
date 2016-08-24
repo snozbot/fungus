@@ -424,5 +424,4 @@ namespace Fungus
             UnityEngine.Debug.LogError(output);
         }
     }
-
 }

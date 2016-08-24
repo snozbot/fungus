@@ -115,5 +115,4 @@ namespace Fungus
             return "MENU." + GetFlowchartLocalizationId() + "." + itemId;
         }
     }
-
 }

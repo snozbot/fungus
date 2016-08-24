@@ -34,5 +34,4 @@ namespace Fungus
             FlowchartMenuItems.SpawnPrefab("ParallaxSprite");
         }
     }
-
 }

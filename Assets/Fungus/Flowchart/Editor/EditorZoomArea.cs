@@ -85,5 +85,4 @@ namespace Fungus
             GUI.BeginGroup(new Rect(0.0f, kEditorWindowTabHeight, Screen.width, Screen.height));
         }
     }
-
 }

@@ -60,5 +60,4 @@ namespace Fungus
             serializedObject.ApplyModifiedProperties();
         }
     }
-
 }

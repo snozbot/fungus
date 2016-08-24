@@ -66,5 +66,4 @@ namespace Fungus
             return FindDerivedTypesFromAssembly(System.Reflection.Assembly.GetAssembly(baseType), baseType, classOnly);
         }
     }
-
 }

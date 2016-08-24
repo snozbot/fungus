@@ -185,5 +185,4 @@ namespace Fungus
             return (imageData[offset] << 8) | imageData[offset + 1];
         }
     }
-
 }

@@ -10,19 +10,18 @@ using System.Linq;
 
 namespace Fungus
 {
-    /**
-     * Temp hidden object which lets us use the entire inspector window to inspect
-     * the block command list.
-     */
+    /// <summary>
+    /// Temp hidden object which lets us use the entire inspector window to inspect the block command list.
+    /// </summary>
     public class BlockInspector : ScriptableObject 
     {
         [FormerlySerializedAs("sequence")]
         public Block block;
     }
 
-    /**
-     * Custom editor for the temp hidden object.
-     */
+    /// <summary>
+    /// Custom editor for the temp hidden object.
+    /// </summary>
     [CustomEditor (typeof(BlockInspector), true)]
     public class BlockInspectorEditor : Editor
     {
@@ -261,5 +260,4 @@ namespace Fungus
             }
         }
     }
-
 }

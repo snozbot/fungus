@@ -121,5 +121,4 @@ namespace Fungus
             localization.NotificationText = "";
         }
     }
-
 }

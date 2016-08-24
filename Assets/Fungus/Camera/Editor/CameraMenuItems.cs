@@ -16,5 +16,4 @@ namespace Fungus
             FlowchartMenuItems.SpawnPrefab("View");
         }
     }
-
 }

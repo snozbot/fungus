@@ -23,5 +23,4 @@ public class CustomScript : MonoBehaviour
 
         Debug.Log("Coroutine finished");
     }
-
 }

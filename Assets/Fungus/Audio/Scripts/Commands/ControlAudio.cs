@@ -85,10 +85,8 @@ namespace Fungus
             }
         }
 
-        /**
-         * If there's other music playing in the scene, assign it the same tag as the new music you want to play and
-         * the old music will be automatically stopped.
-         */
+        // If there's other music playing in the scene, assign it the same tag as the new music you want to play and
+        // the old music will be automatically stopped.
         protected void StopAudioWithSameTag()
         {
             // Don't stop audio if there's no tag assigned

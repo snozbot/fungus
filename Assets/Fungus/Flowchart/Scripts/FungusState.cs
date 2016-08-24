@@ -15,5 +15,4 @@ namespace Fungus
         [SerializeField] protected Flowchart selectedFlowchart;
         public Flowchart SelectedFlowchart { get { return selectedFlowchart; } set { selectedFlowchart = value; } }
     }
-
 }

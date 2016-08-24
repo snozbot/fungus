@@ -54,10 +54,10 @@ namespace Fungus
         
         protected static CameraController instance;
         
-        /**
-         * Returns the CameraController singleton instance.
-         * Will create a CameraController game object if none currently exists.
-         */
+        /// <summary>
+        /// Returns the CameraController singleton instance.
+        /// Will create a CameraController game object if none currently exists.
+        /// </summary>
         static public CameraController GetInstance()
         {
             if (instance == null)
@@ -116,18 +116,18 @@ namespace Fungus
                 GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), screenFadeTexture);
             }
         }
-        
-        /**
-         * Perform a fullscreen fade over a duration.
-         */
+
+        /// <summary>
+        /// Perform a fullscreen fade over a duration.
+        /// </summary>
         public virtual void Fade(float targetAlpha, float fadeDuration, Action fadeAction)
         {
             StartCoroutine(FadeInternal(targetAlpha, fadeDuration, fadeAction));
         }
-        
-        /**
-         * Fade out, move camera to view and then fade back in.
-         */
+
+        /// <summary>
+        /// Fade out, move camera to view and then fade back in.
+        /// </summary>
         public virtual void FadeToView(Camera camera, View view, float fadeDuration, bool fadeOut, Action fadeAction)
         {
             swipePanActive = false;
@@ -194,11 +194,10 @@ namespace Fungus
                 fadeAction();
             }
         }
-        
-        /**
-         * Positions camera so sprite is centered and fills the screen.
-         * @param spriteRenderer The sprite to center the camera on
-         */
+
+        /// <summary>
+        /// Positions camera so sprite is centered and fills the screen.
+        /// </summary>
         public virtual void CenterOnSprite(Camera camera, SpriteRenderer spriteRenderer)
         {
             if (camera == null)
@@ -230,10 +229,10 @@ namespace Fungus
         {
             PanToPosition(camera, view.transform.position, view.transform.rotation, view.ViewSize, duration, arriveAction);
         }
-        
-        /**
-         * Moves camera from current position to a target position over a period of time.
-         */
+
+        /// <summary>
+        /// Moves camera from current position to a target position over a period of time.
+        /// </summary>
         public virtual void PanToPosition(Camera camera, Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, Action arriveAction)
         {
             if (camera == null)
@@ -266,10 +265,10 @@ namespace Fungus
                 StartCoroutine(PanInternal(camera, targetPosition, targetRotation, targetSize, duration, arriveAction));
             }
         }
-        
-        /**
-         * Stores the current camera view using a name.
-         */
+
+        /// <summary>
+        /// Stores the current camera view using a name.
+        /// </summary>
         public virtual void StoreView(Camera camera, string viewName)
         {
             if (camera != null)
@@ -284,10 +283,10 @@ namespace Fungus
             currentView.cameraSize = camera.orthographicSize;
             storedViews[viewName] = currentView;
         }
-        
-        /**
-         * Moves the camera to a previously stored camera view over a period of time.
-         */
+
+        /// <summary>
+        /// Moves the camera to a previously stored camera view over a period of time.
+        /// </summary>
         public virtual void PanToStoredView(Camera camera, string viewName, float duration, Action arriveAction)
         {
             if (camera == null)
@@ -379,10 +378,10 @@ namespace Fungus
                 yield return null;
             }
         }
-        
-        /**
-         * Moves camera smoothly through a sequence of Views over a period of time
-         */
+
+        /// <summary>
+        /// Moves camera smoothly through a sequence of Views over a period of time.
+        /// </summary>
         public virtual void PanToPath(Camera camera, View[] viewList, float duration, Action arriveAction)
         {
             if (camera == null)
@@ -446,11 +445,10 @@ namespace Fungus
                 arriveAction();
             }
         }
-        
-        /**
-         * Activates swipe panning mode.
-         * The player can pan the camera within the area between viewA & viewB.
-         */
+
+        /// <summary>
+        /// Activates swipe panning mode. The player can pan the camera within the area between viewA & viewB.
+        /// </summary>
         public virtual void StartSwipePan(Camera camera, View viewA, View viewB, float duration, float speedMultiplier, Action arriveAction)
         {
             if (camera == null)
@@ -479,10 +477,10 @@ namespace Fungus
                 }
             }); 
         }
-        
-        /**
-         * Deactivates swipe panning mode.
-         */
+
+        /// <summary>
+        /// Deactivates swipe panning mode.
+        /// </summary>
         public virtual void StopSwipePan()
         {
             swipePanActive = false;

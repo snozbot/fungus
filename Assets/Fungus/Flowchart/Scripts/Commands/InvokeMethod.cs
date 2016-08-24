@@ -399,5 +399,4 @@ namespace Fungus
             return types[typeName];
         }
     }
-
 }

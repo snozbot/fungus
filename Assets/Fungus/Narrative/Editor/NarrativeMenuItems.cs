@@ -67,5 +67,4 @@ namespace Fungus
             go.transform.position = Vector3.zero;
         }
     }
-
 }

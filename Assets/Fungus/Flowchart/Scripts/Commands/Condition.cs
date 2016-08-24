@@ -49,5 +49,4 @@ namespace Fungus
             return summary;
         }
     }
-
 }

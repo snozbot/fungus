@@ -42,5 +42,4 @@ namespace Fungus
             return slider.name + " = " + value.GetDescription();
         }
     }
-
 }

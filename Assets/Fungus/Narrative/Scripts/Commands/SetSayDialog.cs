@@ -42,5 +42,4 @@ namespace Fungus
             return new Color32(184, 210, 235, 255);
         }
     }
-
 }

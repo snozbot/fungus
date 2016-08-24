@@ -108,5 +108,4 @@ namespace Fungus
             return slot.ToString() + ":" + key;
         }
     }
-
 }

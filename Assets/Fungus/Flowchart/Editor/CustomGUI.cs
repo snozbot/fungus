@@ -9,10 +9,9 @@ using System.Reflection;
 
 namespace Fungus
 {
-
-    /**
-     * Utility functions for drawing custom UI in the editor
-     */
+    /// <summary>
+    /// Utility functions for drawing custom UI in the editor.
+    /// </summary>
     public static class CustomGUI
     {   
         public static Texture2D CreateBlackTexture()
@@ -44,5 +43,4 @@ namespace Fungus
             GUILayout.Box(blackTex,separatorStyle);
         }
     }
-
 }

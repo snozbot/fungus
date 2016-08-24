@@ -113,5 +113,4 @@ namespace Fungus
             return "CHARACTER." + nameText;
         }
     }
-
 }

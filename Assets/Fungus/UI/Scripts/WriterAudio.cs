@@ -248,5 +248,4 @@ namespace Fungus
             }
         }
     }
-
 }
