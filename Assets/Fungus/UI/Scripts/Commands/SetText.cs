@@ -90,10 +90,8 @@ namespace Fungus
             }
         }
 
-        //
-        // ILocalizable implementation
-        //
-        
+        #region ILocalizable implementation
+
         public virtual string GetStandardText()
         {
             return text;
@@ -114,5 +112,7 @@ namespace Fungus
             // String id for Set Text commands is SETTEXT.<Localization Id>.<Command id>
             return "SETTEXT." + GetFlowchartLocalizationId() + "." + itemId;
         }
+
+        #endregion
     }    
 }

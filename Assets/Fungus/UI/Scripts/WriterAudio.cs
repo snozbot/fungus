@@ -171,9 +171,7 @@ namespace Fungus
             targetAudioSource.volume = Mathf.MoveTowards(targetAudioSource.volume, targetVolume, Time.deltaTime * 5f);
         }
 
-        //
-        // IWriterListener implementation
-        //
+        #region IWriterListener implementation
 
         public virtual void OnInput()
         {
@@ -247,5 +245,7 @@ namespace Fungus
                 }
             }
         }
+
+        #endregion
     }
 }

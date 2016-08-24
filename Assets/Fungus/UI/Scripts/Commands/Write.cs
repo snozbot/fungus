@@ -118,9 +118,7 @@ namespace Fungus
             GetWriter().Stop();
         }
 
-        //
-        // ILocalizable implementation
-        //
+        #region ILocalizable implementation
 
         public virtual string GetStandardText()
         {
@@ -142,5 +140,7 @@ namespace Fungus
             // String id for Write commands is WRITE.<Localization Id>.<Command id>
             return "WRITE." + GetFlowchartLocalizationId() + "." + itemId;
         }
+
+        #endregion
     }
 }

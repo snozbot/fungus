@@ -145,10 +145,8 @@ namespace Fungus
             sayDialog.Stop();
         }
 
-        //
-        // ILocalizable implementation
-        //
-        
+        #region ILocalizable implementation
+
         public virtual string GetStandardText()
         {
             return storyText;
@@ -175,5 +173,7 @@ namespace Fungus
 
             return stringId;
         }
+
+        #endregion
     }
 }

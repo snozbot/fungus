@@ -90,10 +90,8 @@ namespace Fungus
             return new Color32(184, 210, 235, 255);
         }
 
-        //
-        // ILocalizable implementation
-        //
-        
+        #region ILocalizable implementation
+
         public virtual string GetStandardText()
         {
             return text;
@@ -114,5 +112,7 @@ namespace Fungus
             // String id for Menu commands is MENU.<Localization Id>.<Command id>
             return "MENU." + GetFlowchartLocalizationId() + "." + itemId;
         }
+
+        #endregion
     }
 }

@@ -59,9 +59,7 @@ namespace Fungus
             activeCharacters.Remove(this);
         }
 
-        //
-        // ILocalizable implementation
-        //
+        #region ILocalizable implementation
 
         public virtual string GetStandardText()
         {
@@ -112,5 +110,7 @@ namespace Fungus
             // String id for character names is CHARACTER.<Character Name>
             return "CHARACTER." + nameText;
         }
+
+        #endregion
     }
 }

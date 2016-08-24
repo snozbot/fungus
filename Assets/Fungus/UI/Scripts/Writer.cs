@@ -895,9 +895,8 @@ namespace Fungus
             }
         }
 
-        //
-        // IDialogInputListener implementation
-        //
+        #region IDialogInputListener implementation
+
         public virtual void OnNextLineEvent()
         {
             inputFlag = true;
@@ -907,5 +906,7 @@ namespace Fungus
                 NotifyInput();
             }
         }
+
+        #endregion
     }
 }
