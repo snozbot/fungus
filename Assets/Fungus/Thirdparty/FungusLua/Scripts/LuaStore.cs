@@ -13,11 +13,11 @@ namespace Fungus
     /// </summary>
     public class LuaStore : LuaBindingsBase 
     {
+        protected Table primeTable;
+
         /// <summary>
         /// A Lua table that can be shared between multiple LuaEnvironments.
         /// </summary>
-        protected Table primeTable;
-
         public Table PrimeTable { get { return primeTable; } }
 
         protected bool initialized;

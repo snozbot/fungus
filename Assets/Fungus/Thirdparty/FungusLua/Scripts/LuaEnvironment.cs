@@ -105,7 +105,7 @@ namespace Fungus
         protected Script interpreter;
 
         /// <summary>
-        /// Returns the MoonSharp interpreter instance used to run Lua code.
+        /// The MoonSharp interpreter instance used to run Lua code.
         /// </summary>
         public Script Interpreter { get { return interpreter; } }
 

@@ -36,11 +36,6 @@ namespace Fungus
         /// </summary>
         [Tooltip("The currently selected language in the string table. Affects variable substitution.")]
         [SerializeField] protected string activeLanguage = "en";
-
-        /// <summary>
-        /// Gets or sets the active language.
-        /// </summary>
-        /// <value>The active language.</value>
         public string ActiveLanguage { get { return activeLanguage; } set { activeLanguage = value; } }
 
         /// <summary>

@@ -5,7 +5,6 @@
 
 namespace Fungus
 {
-
     /// <summary>
     /// Wrapper class for PlayerPrefs that adds the concept of multiple save slots.
     /// Save slots allow you to store multiple player save profiles.

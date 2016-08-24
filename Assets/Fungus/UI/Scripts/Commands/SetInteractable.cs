@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Fungus
 {
     /// <summary>
-    /// Set the interactable sate of selectable objects.
+    /// Set the interactable state of selectable objects.
     /// </summary>
     [CommandInfo("UI", 
                  "Set Interactable", 

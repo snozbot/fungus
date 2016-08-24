@@ -5,7 +5,6 @@
 
 namespace Fungus
 {
-
     /// <summary>
     /// Displays information text at the top left of the screen.
     /// </summary>
