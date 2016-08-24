@@ -1,17 +1,12 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
 using UnityEngine;
-using System.Collections;
 using Rotorz.ReorderableList;
-using System.Collections.Generic;
 
 namespace Fungus
 {
-
     [CustomEditor (typeof(Character))]
     public class CharacterEditor : Editor
     {
@@ -46,19 +41,19 @@ namespace Fungus
             EditorGUILayout.PropertyField(setSayDialogProp);
             EditorGUILayout.PropertyField(descriptionProp, new GUIContent("Description", "Notes about this story character (personality, attibutes, etc.)"));
 
-            if (t.portraits != null &&
-                t.portraits.Count > 0)
+            if (t.Portraits != null &&
+                t.Portraits.Count > 0)
             {
-                t.profileSprite = t.portraits[0];
+                t.ProfileSprite = t.Portraits[0];
             }
             else
             {
-                t.profileSprite = null;
+                t.ProfileSprite = null;
             }
             
-            if (t.profileSprite != null)
+            if (t.ProfileSprite != null)
             {
-                Texture2D characterTexture = t.profileSprite.texture;
+                Texture2D characterTexture = t.ProfileSprite.texture;
                 float aspect = (float)characterTexture.width / (float)characterTexture.height;
                 Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(100), GUILayout.ExpandWidth(true));
                 if (characterTexture != null)
@@ -88,5 +83,4 @@ namespace Fungus
         }
 
     }
-
 }

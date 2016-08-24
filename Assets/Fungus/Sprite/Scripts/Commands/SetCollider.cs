@@ -1,14 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets all collider (2d or 3d) components on the target objects to be active / inactive.
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Set Collider", 
                  "Sets all collider (2d or 3d) components on the target objects to be active / inactive")]
@@ -16,13 +16,13 @@ namespace Fungus
     public class SetCollider : Command
     {       
         [Tooltip("A list of gameobjects containing collider components to be set active / inactive")]
-        public List<GameObject> targetObjects = new List<GameObject>();
+        [SerializeField] protected List<GameObject> targetObjects = new List<GameObject>();
 
         [Tooltip("All objects with this tag will have their collider set active / inactive")]
-        public string targetTag = "";
+        [SerializeField] protected string targetTag = "";
 
         [Tooltip("Set to true to enable the collider components")]
-        public BooleanData activeState;
+        [SerializeField] protected BooleanData activeState;
 
         public override void OnEnter()  
         {

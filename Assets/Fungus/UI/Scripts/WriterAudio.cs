@@ -1,17 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
 {
-    /*
-     * Manages audio effects for Dialogs
-     */
+    /// <summary>
+    /// Manages audio effects for Dialogs.
+    /// </summary>
     public class WriterAudio : MonoBehaviour, IWriterListener
     {
         [Tooltip("Volume level of writing sound effects")]
@@ -74,12 +71,12 @@ namespace Fungus
             targetAudioSource.volume = 0f;
         }
 
-        /**
-         * Plays a voiceover audio clip.
-         * Voiceover behaves differently than speaking sound effects because it 
-         * should keep on playing after the text has finished writing. It also
-         * does not pause for wait tags, punctuation, etc.
-         */
+        /// <summary>
+        /// Plays a voiceover audio clip.
+        /// Voiceover behaves differently than speaking sound effects because it 
+        /// should keep on playing after the text has finished writing. It also
+        /// does not pause for wait tags, punctuation, etc.
+        /// </summary>
         public virtual void PlayVoiceover(AudioClip voiceOverClip)
         {
             if (targetAudioSource == null)
@@ -174,9 +171,7 @@ namespace Fungus
             targetAudioSource.volume = Mathf.MoveTowards(targetAudioSource.volume, targetVolume, Time.deltaTime * 5f);
         }
 
-        //
-        // IWriterListener implementation
-        //
+        #region IWriterListener implementation
 
         public virtual void OnInput()
         {
@@ -250,6 +245,7 @@ namespace Fungus
                 }
             }
         }
-    }
 
+        #endregion
+    }
 }

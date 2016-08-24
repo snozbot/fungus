@@ -1,15 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Makes a sprite visible / invisible by setting the color alpha.
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Show Sprite", 
                  "Makes a sprite visible / invisible by setting the color alpha.")]
@@ -18,13 +17,13 @@ namespace Fungus
     public class ShowSprite : Command
     {
         [Tooltip("Sprite object to be made visible / invisible")]
-        public SpriteRenderer spriteRenderer;
+        [SerializeField] protected SpriteRenderer spriteRenderer;
 
         [Tooltip("Make the sprite visible or invisible")]
-        public BooleanData _visible = new BooleanData(false);
+        [SerializeField] protected BooleanData _visible = new BooleanData(false);
 
         [Tooltip("Affect the visibility of child sprites")]
-        public bool affectChildren = true;
+        [SerializeField] protected bool affectChildren = true;
 
         public override void OnEnter()
         {
@@ -84,5 +83,4 @@ namespace Fungus
 
         #endregion
     }
-
 }

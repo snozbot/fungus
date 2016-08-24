@@ -1,14 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sends a message to either the owner Flowchart or all Flowcharts in the scene. Blocks can listen for this message using a Message Received event handler.
+    /// </summary>
     [CommandInfo("Flow", 
                  "Send Message", 
                  "Sends a message to either the owner Flowchart or all Flowcharts in the scene. Blocks can listen for this message using a Message Received event handler.")]
@@ -23,10 +23,10 @@ namespace Fungus
         }
 
         [Tooltip("Target flowchart(s) to send the message to")]
-        public MessageTarget messageTarget;
+        [SerializeField] protected MessageTarget messageTarget;
 
         [Tooltip("Name of the message to send")]
-        public StringData _message = new StringData("");
+        [SerializeField] protected StringData _message = new StringData("");
 
         public override void OnEnter()
         {
@@ -89,5 +89,4 @@ namespace Fungus
 
         #endregion
     }
-
 }

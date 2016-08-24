@@ -1,13 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Float variable type.
+    /// </summary>
     [VariableInfo("", "Float")]
     [AddComponentMenu("")]
     [System.Serializable]
@@ -15,7 +16,7 @@ namespace Fungus
     {
         public virtual bool Evaluate(CompareOperator compareOperator, float floatValue)
         {
-            float lhs = value;
+            float lhs = Value;
             float rhs = floatValue;
             
             bool condition = false;
@@ -46,6 +47,9 @@ namespace Fungus
         }
     }
 
+    /// <summary>
+    /// Container for an float variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct FloatData
     {
@@ -69,8 +73,8 @@ namespace Fungus
 
         public float Value
         {
-            get { return (floatRef == null) ? floatVal : floatRef.value; }
-            set { if (floatRef == null) { floatVal = value; } else { floatRef.value = value; } }
+            get { return (floatRef == null) ? floatVal : floatRef.Value; }
+            set { if (floatRef == null) { floatVal = value; } else { floatRef.Value = value; } }
         }
 
         public string GetDescription()
@@ -81,9 +85,8 @@ namespace Fungus
             }
             else
             {
-                return floatRef.key;
+                return floatRef.Key;
             }
         }
     }
-
 }

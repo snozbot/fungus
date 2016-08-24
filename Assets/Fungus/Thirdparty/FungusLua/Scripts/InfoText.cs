@@ -1,14 +1,10 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
-
     /// <summary>
     /// Displays information text at the top left of the screen.
     /// </summary>
@@ -16,7 +12,7 @@ namespace Fungus
     {
         [Tooltip("The information text to display")]
         [TextArea(20, 20)]
-        public string info = "";
+        [SerializeField] protected string info = "";
         
         void OnGUI() 
         {
@@ -25,5 +21,4 @@ namespace Fungus
             GUI.Label(rect, info);
         }
     }
-
 }

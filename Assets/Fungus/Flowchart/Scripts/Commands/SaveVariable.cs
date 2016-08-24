@@ -1,14 +1,15 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Save an Boolean, Integer, Float or String variable to persistent storage using a string key.
+    /// The value can be loaded again later using the Load Variable command. You can also 
+    /// use the Set Save Profile command to manage separate save profiles for multiple players.
+    /// </summary>
     [CommandInfo("Variable", 
                  "Save Variable", 
                  "Save an Boolean, Integer, Float or String variable to persistent storage using a string key. " +
@@ -18,7 +19,7 @@ namespace Fungus
     public class SaveVariable : Command
     {
         [Tooltip("Name of the saved value. Supports variable substition e.g. \"player_{$PlayerNumber}")]
-        public string key = "";
+        [SerializeField] protected string key = "";
         
         [Tooltip("Variable to read the value from. Only Boolean, Integer, Float and String are supported.")]
         [VariableProperty(typeof(BooleanVariable),
@@ -49,7 +50,7 @@ namespace Fungus
                 if (booleanVariable != null)
                 {
                     // PlayerPrefs does not have bool accessors, so just use int
-                    PlayerPrefs.SetInt(prefsKey, booleanVariable.value ? 1 : 0);
+                    PlayerPrefs.SetInt(prefsKey, booleanVariable.Value ? 1 : 0);
                 }
             }
             else if (variableType == typeof(IntegerVariable))
@@ -57,7 +58,7 @@ namespace Fungus
                 IntegerVariable integerVariable = variable as IntegerVariable;
                 if (integerVariable != null)
                 {
-                    PlayerPrefs.SetInt(prefsKey, integerVariable.value);
+                    PlayerPrefs.SetInt(prefsKey, integerVariable.Value);
                 }
             }
             else if (variableType == typeof(FloatVariable))
@@ -65,7 +66,7 @@ namespace Fungus
                 FloatVariable floatVariable = variable as FloatVariable;
                 if (floatVariable != null)
                 {
-                    PlayerPrefs.SetFloat(prefsKey, floatVariable.value);
+                    PlayerPrefs.SetFloat(prefsKey, floatVariable.Value);
                 }
             }
             else if (variableType == typeof(StringVariable))
@@ -73,7 +74,7 @@ namespace Fungus
                 StringVariable stringVariable = variable as StringVariable;
                 if (stringVariable != null)
                 {
-                    PlayerPrefs.SetString(prefsKey, stringVariable.value);
+                    PlayerPrefs.SetString(prefsKey, stringVariable.Value);
                 }
             }
             
@@ -92,13 +93,12 @@ namespace Fungus
                 return "Error: No variable selected";
             }
             
-            return variable.key + " into '" + key + "'";
+            return variable.Key + " into '" + key + "'";
         }
         
         public override Color GetButtonColor()
         {
             return new Color32(235, 191, 217, 255);
         }
-    }
-    
+    }    
 }

@@ -1,19 +1,22 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// AudioSource variable type.
+    /// </summary>
     [VariableInfo("Other", "AudioSource")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class AudioSourceVariable : VariableBase<AudioSource>
     {}
 
+    /// <summary>
+    /// Container for an AudioSource variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct AudioSourceData
     {
@@ -37,8 +40,8 @@ namespace Fungus
 
         public AudioSource Value
         {
-            get { return (audioSourceRef == null) ? audioSourceVal : audioSourceRef.value; }
-            set { if (audioSourceRef == null) { audioSourceVal = value; } else { audioSourceRef.value = value; } }
+            get { return (audioSourceRef == null) ? audioSourceVal : audioSourceRef.Value; }
+            set { if (audioSourceRef == null) { audioSourceVal = value; } else { audioSourceRef.Value = value; } }
         }
 
         public string GetDescription()
@@ -49,9 +52,8 @@ namespace Fungus
             }
             else
             {
-                return audioSourceRef.key;
+                return audioSourceRef.Key;
             }
         }
     }
-
 }

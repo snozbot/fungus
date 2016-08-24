@@ -1,13 +1,13 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Writes a log message to the debug console.
+    /// </summary>
     [CommandInfo("Scripting", 
                  "Debug Log", 
                  "Writes a log message to the debug console.")]
@@ -22,10 +22,10 @@ namespace Fungus
         }
 
         [Tooltip("Display type of debug log info")]
-        public DebugLogType logType;
+        [SerializeField] protected DebugLogType logType;
 
         [Tooltip("Text to write to the debug log. Supports variable substitution, e.g. {$Myvar}")]
-        public StringDataMulti logMessage;
+        [SerializeField] protected StringDataMulti logMessage;
 
         public override void OnEnter ()
         {
@@ -58,5 +58,4 @@ namespace Fungus
             return new Color32(235, 191, 217, 255);
         }
     }
-
 }

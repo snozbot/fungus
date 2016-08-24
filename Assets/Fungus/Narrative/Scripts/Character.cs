@@ -1,34 +1,48 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System.Collections;
 using System.Collections.Generic;
 using System;
 
 namespace Fungus
 {
 
+    /// <summary>
+    /// A Character that can be used in dialogue via the Say, Conversation and Portrait commands.
+    /// </summary>
     [ExecuteInEditMode]
     public class Character : MonoBehaviour, ILocalizable
     {
-        public string nameText; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
-        public Color nameColor = Color.white;
-        public AudioClip soundEffect;
-        public Sprite profileSprite;
-        public List<Sprite> portraits;
-        public FacingDirection portraitsFace;
-        public PortraitState state = new PortraitState();
+        [SerializeField] protected string nameText; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
+        public string NameText { get { return nameText; } }
+
+        [SerializeField] protected Color nameColor = Color.white;
+        public Color NameColor { get { return nameColor; } }
+
+        [SerializeField] protected AudioClip soundEffect;
+        public AudioClip SoundEffect { get { return soundEffect; } }
+
+        [SerializeField] protected Sprite profileSprite;
+        public Sprite ProfileSprite { get { return profileSprite; } set { profileSprite = value; } }
+
+        [SerializeField] protected List<Sprite> portraits;
+        public List<Sprite> Portraits { get { return portraits; } }
+
+        [SerializeField] protected FacingDirection portraitsFace;
+        public FacingDirection PortraitsFace { get { return portraitsFace; } }
+
+        [SerializeField] protected PortraitState state = new PortraitState();
+        public PortraitState State { get { return state; } }
 
         [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
-        public SayDialog setSayDialog;
+        [SerializeField] protected SayDialog setSayDialog;
+        public SayDialog SetSayDialog { get { return setSayDialog; } }
 
         [FormerlySerializedAs("notes")]
         [TextArea(5,10)]
-        public string description;
+        [SerializeField] protected string description;
 
         static public List<Character> activeCharacters = new List<Character>();
 
@@ -45,9 +59,7 @@ namespace Fungus
             activeCharacters.Remove(this);
         }
 
-        //
-        // ILocalizable implementation
-        //
+        #region ILocalizable implementation
 
         public virtual string GetStandardText()
         {
@@ -98,6 +110,7 @@ namespace Fungus
             // String id for character names is CHARACTER.<Character Name>
             return "CHARACTER." + nameText;
         }
-    }
 
+        #endregion
+    }
 }

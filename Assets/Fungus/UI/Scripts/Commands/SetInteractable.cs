@@ -1,26 +1,25 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Set the interactable state of selectable objects.
+    /// </summary>
     [CommandInfo("UI", 
                  "Set Interactable", 
                  "Set the interactable sate of selectable objects.")]
     public class SetInteractable : Command 
     {
         [Tooltip("List of objects to be affected by the command")]
-        public List<GameObject> targetObjects = new List<GameObject>();
+        [SerializeField] protected List<GameObject> targetObjects = new List<GameObject>();
 
         [Tooltip("Controls if the selectable UI object be interactable or not")]
-        public BooleanData interactableState = new BooleanData(true);
+        [SerializeField] protected BooleanData interactableState = new BooleanData(true);
 
         public override void OnEnter()
         {
@@ -97,5 +96,4 @@ namespace Fungus
             return false;
         }
     }
-
 }

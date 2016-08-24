@@ -1,14 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System;
 using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Applies a camera shake effect to the main camera.
+    /// </summary>
     [CommandInfo("Camera", 
                  "Shake Camera", 
                  "Applies a camera shake effect to the main camera.")]
@@ -16,13 +16,13 @@ namespace Fungus
     public class ShakeCamera : Command 
     {
         [Tooltip("Time for camera shake effect to complete")]
-        public float duration = 0.5f;
+        [SerializeField] protected float duration = 0.5f;
         
         [Tooltip("Magnitude of shake effect in x & y axes")]
-        public Vector2 amount = new Vector2(1, 1);
+        [SerializeField] protected Vector2 amount = new Vector2(1, 1);
         
         [Tooltip("Wait until the shake effect has finished before executing next command")]
-        public bool waitUntilFinished;
+        [SerializeField] protected bool waitUntilFinished;
         
         public override void OnEnter()
         {
@@ -64,6 +64,5 @@ namespace Fungus
         {
             return new Color32(216, 228, 170, 255);
         }
-    }
-    
+    }    
 }

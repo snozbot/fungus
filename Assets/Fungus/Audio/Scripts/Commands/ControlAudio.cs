@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,6 +7,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Plays, loops, or stops an audiosource. Any AudioSources with the same tag as the target Audio Source will automatically be stoped.
+    /// </summary>
     [CommandInfo("Audio", 
                  "Control Audio",
                  "Plays, loops, or stops an audiosource. Any AudioSources with the same tag as the target Audio Source will automatically be stoped.")]
@@ -25,24 +26,25 @@ namespace Fungus
         }
 
         [Tooltip("What to do to audio")]
-        public controlType control;
+        [SerializeField] protected controlType control;
+        public controlType Control { get { return control; } }
 
         [Tooltip("Audio clip to play")]
-        public AudioSourceData _audioSource;
+        [SerializeField] protected AudioSourceData _audioSource;
 
         [Range(0,1)]
         [Tooltip("Start audio at this volume")]
-        public float startVolume = 1;
+        [SerializeField] protected float startVolume = 1;
 
         [Range(0,1)]
         [Tooltip("End audio at this volume")]
-        public float endVolume = 1;
+        [SerializeField] protected float endVolume = 1;
         
         [Tooltip("Time to fade between current volume level and target volume level.")]
-        public float fadeDuration; 
+        [SerializeField] protected float fadeDuration; 
 
         [Tooltip("Wait until this command has finished before executing the next command.")]
-        public bool waitUntilFinished = false;
+        [SerializeField] protected bool waitUntilFinished = false;
         
         public override void OnEnter()
         {
@@ -83,10 +85,8 @@ namespace Fungus
             }
         }
 
-        /**
-         * If there's other music playing in the scene, assign it the same tag as the new music you want to play and
-         * the old music will be automatically stopped.
-         */
+        // If there's other music playing in the scene, assign it the same tag as the new music you want to play and
+        // the old music will be automatically stopped.
         protected void StopAudioWithSameTag()
         {
             // Don't stop audio if there's no tag assigned
@@ -287,6 +287,5 @@ namespace Fungus
         }
 
         #endregion
-    }
-    
+    }    
 }

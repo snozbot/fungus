@@ -1,20 +1,13 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using UnityEngine.Internal;
-using UnityEditor;
-using System;
-using System.Reflection;
 
 namespace Fungus
 {
-
-    /**
-     * Utility functions for drawing custom UI in the editor
-     */
+    /// <summary>
+    /// Utility functions for drawing custom UI in the editor.
+    /// </summary>
     public static class CustomGUI
     {   
         public static Texture2D CreateBlackTexture()
@@ -46,5 +39,4 @@ namespace Fungus
             GUILayout.Box(blackTex,separatorStyle);
         }
     }
-
 }

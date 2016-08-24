@@ -1,17 +1,11 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Serialization;
 
 namespace Fungus
 {
-
     /// <summary>
     /// Wrapper for a prime Lua table that persists across scene loads. 
     /// This is useful for transferring values from one scene to another. One one LuaStore component may exist 
@@ -19,10 +13,12 @@ namespace Fungus
     /// </summary>
     public class LuaStore : LuaBindingsBase 
     {
+        protected Table primeTable;
+
         /// <summary>
         /// A Lua table that can be shared between multiple LuaEnvironments.
         /// </summary>
-        public Table primeTable;
+        public Table PrimeTable { get { return primeTable; } }
 
         protected bool initialized;
 
@@ -103,5 +99,4 @@ namespace Fungus
             }
         }
     }
-
 }

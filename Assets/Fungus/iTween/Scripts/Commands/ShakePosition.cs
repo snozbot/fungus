@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,6 +7,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Randomly shakes a GameObject's position by a diminishing amount over time.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Shake Position", 
                  "Randomly shakes a GameObject's position by a diminishing amount over time.")]
@@ -17,13 +18,13 @@ namespace Fungus
     public class ShakePosition : iTweenCommand
     {
         [Tooltip("A translation offset in space the GameObject will animate to")]
-        public Vector3Data _amount;
+        [SerializeField] protected Vector3Data _amount;
 
         [Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
-        public bool isLocal;
+        [SerializeField] protected bool isLocal;
 
         [Tooltip("Restricts rotation to the supplied axis only")]
-        public iTweenAxis axis;
+        [SerializeField] protected iTweenAxis axis;
         
         public override void DoTween()
         {
@@ -68,6 +69,5 @@ namespace Fungus
         }
 
         #endregion
-    }
-    
+    }    
 }

@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using System;
@@ -9,7 +7,9 @@ using System.Collections;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Boolean variable type.
+    /// </summary>
     [VariableInfo("", "Boolean")]
     [AddComponentMenu("")]
     [System.Serializable]
@@ -19,7 +19,7 @@ namespace Fungus
         {
             bool condition = false;
             
-            bool lhs = value;
+            bool lhs = Value;
             bool rhs = booleanValue;
             
             switch (compareOperator)
@@ -38,6 +38,9 @@ namespace Fungus
 
     }
 
+    /// <summary>
+    /// Container for a Boolean variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct BooleanData
     {
@@ -61,8 +64,8 @@ namespace Fungus
 
         public bool Value
         {
-            get { return (booleanRef == null) ? booleanVal : booleanRef.value; }
-            set { if (booleanRef == null) { booleanVal = value; } else { booleanRef.value = value; } }
+            get { return (booleanRef == null) ? booleanVal : booleanRef.Value; }
+            set { if (booleanRef == null) { booleanVal = value; } else { booleanRef.Value = value; } }
         }
 
         public string GetDescription()
@@ -73,9 +76,8 @@ namespace Fungus
             }
             else
             {
-                return booleanRef.key;
+                return booleanRef.Key;
             }
         }
     }
-
 }

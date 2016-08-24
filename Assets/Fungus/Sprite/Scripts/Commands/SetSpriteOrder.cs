@@ -1,14 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Controls the render order of sprites by setting the Order In Layer property of a list of sprites.
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Set Sprite Order", 
                  "Controls the render order of sprites by setting the Order In Layer property of a list of sprites.")]
@@ -16,10 +16,10 @@ namespace Fungus
     public class SetSpriteOrder : Command 
     {
         [Tooltip("List of sprites to set the order in layer property on")]
-        public List<SpriteRenderer> targetSprites = new List<SpriteRenderer>();
+        [SerializeField] protected List<SpriteRenderer> targetSprites = new List<SpriteRenderer>();
 
         [Tooltip("The order in layer value to set on the target sprites")]
-        public IntegerData orderInLayer;
+        [SerializeField] protected IntegerData orderInLayer;
 
         public override void OnEnter()
         {

@@ -1,13 +1,13 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets a Boolean, Integer, Float or String variable to a new value using a simple arithmetic operation. The value can be a constant or reference another variable of the same type.
+    /// </summary>
     [CommandInfo("Variable", 
                  "Set Variable", 
                  "Sets a Boolean, Integer, Float or String variable to a new value using a simple arithmetic operation. The value can be a constant or reference another variable of the same type.")]
@@ -29,22 +29,23 @@ namespace Fungus
                           typeof(IntegerVariable), 
                           typeof(FloatVariable), 
                           typeof(StringVariable))]
-        public Variable variable;
+        [SerializeField] protected Variable variable;
 
         [Tooltip("The type of math operation to be performed")]
-        public SetOperator setOperator;
+        [SerializeField] protected SetOperator setOperator;
+        public SetOperator _SetOperator { get { return setOperator; } }
 
         [Tooltip("Boolean value to set with")]
-        public BooleanData booleanData;
+        [SerializeField] protected BooleanData booleanData;
 
         [Tooltip("Integer value to set with")]
-        public IntegerData integerData;
+        [SerializeField] protected IntegerData integerData;
 
         [Tooltip("Float value to set with")]
-        public FloatData floatData;
+        [SerializeField] protected FloatData floatData;
 
         [Tooltip("String value to set with")]
-        public StringDataMulti stringData;
+        [SerializeField] protected StringDataMulti stringData;
         
         public override void OnEnter()
         {
@@ -60,7 +61,7 @@ namespace Fungus
                 return "Error: Variable not selected";
             }
 
-            string description = variable.key;
+            string description = variable.Key;
 
             switch (setOperator)
             {
@@ -131,10 +132,10 @@ namespace Fungus
                 {
                 default:
                 case SetOperator.Assign:
-                    lhs.value = rhs;
+                    lhs.Value = rhs;
                     break;
                 case SetOperator.Negate:
-                    lhs.value = !rhs;
+                    lhs.Value = !rhs;
                     break;
                 }
             }
@@ -147,19 +148,19 @@ namespace Fungus
                 {
                 default:
                 case SetOperator.Assign:
-                    lhs.value = rhs;
+                    lhs.Value = rhs;
                     break;
                 case SetOperator.Add:
-                    lhs.value += rhs;
+                    lhs.Value += rhs;
                     break;
                 case SetOperator.Subtract:
-                    lhs.value -= rhs;
+                    lhs.Value -= rhs;
                     break;
                 case SetOperator.Multiply:
-                    lhs.value *= rhs;
+                    lhs.Value *= rhs;
                     break;
                 case SetOperator.Divide:
-                    lhs.value /= rhs;
+                    lhs.Value /= rhs;
                     break;
                 }
             }
@@ -172,19 +173,19 @@ namespace Fungus
                 {
                 default:
                 case SetOperator.Assign:
-                    lhs.value = rhs;
+                    lhs.Value = rhs;
                     break;
                 case SetOperator.Add:
-                    lhs.value += rhs;
+                    lhs.Value += rhs;
                     break;
                 case SetOperator.Subtract:
-                    lhs.value -= rhs;
+                    lhs.Value -= rhs;
                     break;
                 case SetOperator.Multiply:
-                    lhs.value *= rhs;
+                    lhs.Value *= rhs;
                     break;
                 case SetOperator.Divide:
-                    lhs.value /= rhs;
+                    lhs.Value /= rhs;
                     break;
                 }
             }
@@ -197,11 +198,10 @@ namespace Fungus
                 {
                 default:
                 case SetOperator.Assign:
-                    lhs.value = rhs;
+                    lhs.Value = rhs;
                     break;
                 }
             }
         }
     }
-
 }

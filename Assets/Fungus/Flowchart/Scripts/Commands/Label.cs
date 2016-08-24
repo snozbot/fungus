@@ -1,14 +1,13 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Marks a position in the command list for execution to jump to.
+    /// </summary>
     [CommandInfo("Flow", 
                  "Label", 
                  "Marks a position in the command list for execution to jump to.")]
@@ -16,7 +15,9 @@ namespace Fungus
     public class Label : Command
     {
         [Tooltip("Display name for the label")]
-        public string key = "";
+        [SerializeField] protected string key = "";
+
+        public string Key { get { return key; } }
 
         public override void OnEnter()
         {
@@ -33,5 +34,4 @@ namespace Fungus
             return new Color32(200, 200, 253, 255);
         }
     }
-
 }

@@ -1,19 +1,23 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Transform variable type.
+    /// </summary>
     [VariableInfo("Other", "Transform")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class TransformVariable : VariableBase<Transform>
     {}
 
+    /// <summary>
+    /// Container for a Transform variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct TransformData
     {
@@ -37,8 +41,8 @@ namespace Fungus
 
         public Transform Value
         {
-            get { return (transformRef == null) ? transformVal : transformRef.value; }
-            set { if (transformRef == null) { transformVal = value; } else { transformRef.value = value; } }
+            get { return (transformRef == null) ? transformVal : transformRef.Value; }
+            set { if (transformRef == null) { transformVal = value; } else { transformRef.Value = value; } }
         }
 
         public string GetDescription()
@@ -49,9 +53,8 @@ namespace Fungus
             }
             else
             {
-                return transformRef.key;
+                return transformRef.Key;
             }
         }
     }
-
 }

@@ -1,24 +1,29 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Create custom tags for use in Say text.
+    /// </summary>
     [ExecuteInEditMode]
     public class CustomTag : MonoBehaviour 
     {
-        public string tagStartSymbol;
-        public string tagEndSymbol;
-        public string replaceTagStartWith;
-        public string replaceTagEndWith;
-        
+        [SerializeField] protected string tagStartSymbol;
+        public string TagStartSymbol { get { return tagStartSymbol; } }
+
+        [SerializeField] protected string tagEndSymbol;
+        public string TagEndSymbol { get { return tagEndSymbol; } }
+
+        [SerializeField] protected string replaceTagStartWith;
+        public string ReplaceTagStartWith { get { return replaceTagStartWith; } }
+
+        [SerializeField] protected string replaceTagEndWith;
+        public string ReplaceTagEndWith { get { return replaceTagEndWith; } }
+
         static public List<CustomTag> activeCustomTags = new List<CustomTag>();
         
         protected virtual void OnEnable()
@@ -34,5 +39,4 @@ namespace Fungus
             activeCustomTags.Remove(this);
         }
     }
-    
 }

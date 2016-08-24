@@ -1,17 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System.Collections;
 
 namespace Fungus
 {
-    // This command is called "Call Method" because a) it's more descriptive than Send Message and we're already have
-    // a Send Message command for sending messages to trigger block execution.
-
+    /// <summary>
+    /// Spawns a new object based on a reference to a scene or prefab game object.
+    /// </summary>
     [CommandInfo("Scripting", 
                  "Spawn Object", 
                  "Spawns a new object based on a reference to a scene or prefab game object.")]
@@ -20,16 +17,16 @@ namespace Fungus
     public class SpawnObject : Command
     {
         [Tooltip("Game object to copy when spawning. Can be a scene object or a prefab.")]
-        public GameObjectData _sourceObject;
+        [SerializeField] protected GameObjectData _sourceObject;
 
         [Tooltip("Transform to use for position of newly spawned object.")]
-        public TransformData _parentTransform;
+        [SerializeField] protected TransformData _parentTransform;
 
         [Tooltip("Local position of newly spawned object.")]
-        public Vector3Data _spawnPosition;
+        [SerializeField] protected Vector3Data _spawnPosition;
 
         [Tooltip("Local rotation of newly spawned object.")]
-        public Vector3Data _spawnRotation;
+        [SerializeField] protected Vector3Data _spawnRotation;
 
         public override void OnEnter()
         {
@@ -99,5 +96,4 @@ namespace Fungus
 
         #endregion
     }
-
 }

@@ -1,19 +1,23 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sprite variable type.
+    /// </summary>
     [VariableInfo("Other", "Sprite")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class SpriteVariable : VariableBase<Sprite>
     {}
 
+    /// <summary>
+    /// Container for a Sprite variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct SpriteData
     {
@@ -37,8 +41,8 @@ namespace Fungus
 
         public Sprite Value
         {
-            get { return (spriteRef == null) ? spriteVal : spriteRef.value; }
-            set { if (spriteRef == null) { spriteVal = value; } else { spriteRef.value = value; } }
+            get { return (spriteRef == null) ? spriteVal : spriteRef.Value; }
+            set { if (spriteRef == null) { spriteVal = value; } else { spriteRef.Value = value; } }
         }
 
         public string GetDescription()
@@ -49,9 +53,8 @@ namespace Fungus
             }
             else
             {
-                return spriteRef.key;
+                return spriteRef.Key;
             }
         }
     }
-
 }

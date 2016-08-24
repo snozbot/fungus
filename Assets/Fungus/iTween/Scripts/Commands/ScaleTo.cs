@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,6 +7,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Changes a game object's scale to a specified value over time.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Scale To", 
                  "Changes a game object's scale to a specified value over time.")]
@@ -17,10 +18,10 @@ namespace Fungus
     public class ScaleTo : iTweenCommand
     {
         [Tooltip("Target transform that the GameObject will scale to")]
-        public TransformData _toTransform;
+        [SerializeField] protected TransformData _toTransform;
 
         [Tooltip("Target scale that the GameObject will scale to, if no To Transform is set")]
-        public Vector3Data _toScale = new Vector3Data(Vector3.one);
+        [SerializeField] protected Vector3Data _toScale = new Vector3Data(Vector3.one);
 
         public override void DoTween()
         {
@@ -67,5 +68,4 @@ namespace Fungus
 
         #endregion
     }
-
 }

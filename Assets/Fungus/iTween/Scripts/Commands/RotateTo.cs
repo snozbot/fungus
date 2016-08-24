@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,6 +7,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Rotates a game object to the specified angles over time.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Rotate To", 
                  "Rotates a game object to the specified angles over time.")]
@@ -17,13 +18,13 @@ namespace Fungus
     public class RotateTo : iTweenCommand
     {
         [Tooltip("Target transform that the GameObject will rotate to")]
-        public TransformData _toTransform;
+        [SerializeField] protected TransformData _toTransform;
 
         [Tooltip("Target rotation that the GameObject will rotate to, if no To Transform is set")]
-        public Vector3Data _toRotation;
+        [SerializeField] protected Vector3Data _toRotation;
 
         [Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
-        public bool isLocal;
+        [SerializeField] protected bool isLocal;
 
         public override void DoTween()
         {
@@ -71,5 +72,4 @@ namespace Fungus
 
         #endregion
     }
-
 }

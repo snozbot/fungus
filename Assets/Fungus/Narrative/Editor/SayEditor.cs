@@ -1,18 +1,12 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using Rotorz.ReorderableList;
 
 namespace Fungus
 {
-    
     [CustomEditor (typeof(Say))]
     public class SayEditor : CommandEditor
     {
@@ -50,8 +44,8 @@ namespace Fungus
                     if (parentTag != null)
                     {
                         tagName = parentTag.name;
-                        tagStartSymbol = parentTag.tagStartSymbol;
-                        tagEndSymbol = parentTag.tagEndSymbol;
+                        tagStartSymbol = parentTag.TagStartSymbol;
+                        tagEndSymbol = parentTag.TagEndSymbol;
                     }
                     tagsText += "\n\n\t" + tagStartSymbol + " " + tagName + " " + tagEndSymbol;
                     foreach(Transform child in parent)
@@ -63,8 +57,8 @@ namespace Fungus
                         if (childTag != null)
                         {
                             tagName = childTag.name;
-                            tagStartSymbol = childTag.tagStartSymbol;
-                            tagEndSymbol = childTag.tagEndSymbol;
+                            tagStartSymbol = childTag.TagStartSymbol;
+                            tagEndSymbol = childTag.TagEndSymbol;
                         }
                             tagsText += "\n\t      " + tagStartSymbol + " " + tagName + " " + tagEndSymbol;
                     }
@@ -135,9 +129,9 @@ namespace Fungus
             Say t = target as Say;
 
             // Only show portrait selection if...
-            if (t.character != null &&              // Character is selected
-                t.character.portraits != null &&    // Character has a portraits field
-                t.character.portraits.Count > 0 )   // Selected Character has at least 1 portrait
+            if (t._Character != null &&              // Character is selected
+                t._Character.Portraits != null &&    // Character has a portraits field
+                t._Character.Portraits.Count > 0 )   // Selected Character has at least 1 portrait
             {
                 showPortraits = true;    
             }
@@ -145,15 +139,15 @@ namespace Fungus
             if (showPortraits) 
             {
                 CommandEditor.ObjectField<Sprite>(portraitProp, 
-                                                     new GUIContent("Portrait", "Portrait representing speaking character"), 
-                                                     new GUIContent("<None>"),
-                                                    t.character.portraits);
+                                                  new GUIContent("Portrait", "Portrait representing speaking character"), 
+                                                  new GUIContent("<None>"),
+                                                  t._Character.Portraits);
             }
             else
             {
-                if (!t.extendPrevious)
+                if (!t.ExtendPrevious)
                 {
-                    t.portrait = null;
+                    t.Portrait = null;
                 }
             }
             
@@ -204,9 +198,9 @@ namespace Fungus
             EditorGUILayout.PropertyField(stopVoiceoverProp);
             EditorGUILayout.PropertyField(setSayDialogProp);
 
-            if (showPortraits && t.portrait != null)
+            if (showPortraits && t.Portrait != null)
             {
-                Texture2D characterTexture = t.portrait.texture;
+                Texture2D characterTexture = t.Portrait.texture;
                 float aspect = (float)characterTexture.width / (float)characterTexture.height;
                 Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(100), GUILayout.ExpandWidth(true));
                 if (characterTexture != null)
@@ -217,6 +211,5 @@ namespace Fungus
             
             serializedObject.ApplyModifiedProperties();
         }
-    }
-    
+    }    
 }

@@ -1,25 +1,20 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 // Adapted from the Unity Test Tools project (MIT license)
 // https://bitbucket.org/Unity-Technologies/unitytesttools/src/a30d562427e9/Assets/UnityTestTools/
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using UnityEngine;
-using MoonSharp.Interpreter;
 using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
 namespace Fungus
 {
-    
-    [Serializable]
+    /// <summary>
+    /// Executes an LuaScript component in the same gameobject when a condition occurs.
+    /// </summary>
     public class ExecuteHandler : MonoBehaviour, IExecuteHandlerConfigurator
     {
         [Flags]
@@ -52,18 +47,31 @@ namespace Fungus
             OnCollisionStay2D       = 1 << 24,
         }
             
-        [SerializeField] public float executeAfterTime = 1f;
-        [SerializeField] public bool repeatExecuteTime = true;
-        [SerializeField] public float repeatEveryTime = 1f;
-        [SerializeField] public int executeAfterFrames = 1;
-        [SerializeField] public bool repeatExecuteFrame = true;
-        [SerializeField] public int repeatEveryFrame = 1;
-        [SerializeField] public bool hasFailed;
+        [SerializeField] protected float executeAfterTime = 1f;
+        public float ExecuteAfterTime { get { return executeAfterTime; } set { executeAfterTime = value; } }
 
-        [SerializeField] public ExecuteMethod executeMethods = ExecuteMethod.Start;
+        [SerializeField] protected bool repeatExecuteTime = true;
+        public bool RepeatExecuteTime { get { return repeatExecuteTime; } set { repeatExecuteTime = value; } }
+
+        [SerializeField] protected float repeatEveryTime = 1f;
+        public float RepeatEveryTime { get { return repeatEveryTime; } set { repeatEveryTime = value; } }
+
+        [SerializeField] protected int executeAfterFrames = 1;
+        public int ExecuteAfterFrames { get { return executeAfterFrames; } set { executeAfterFrames = value; } }
+
+        [SerializeField] protected bool repeatExecuteFrame = true;
+        public bool RepeatExecuteFrame { get { return repeatExecuteFrame; } set { repeatExecuteFrame = value; } }
+
+        [SerializeField] protected int repeatEveryFrame = 1;
+        public int RepeatEveryFrame { get { return repeatEveryFrame; } set { repeatEveryFrame = value; } }
+
+        [SerializeField] protected bool hasFailed;
+
+        [SerializeField] protected ExecuteMethod executeMethods = ExecuteMethod.Start;
+        public ExecuteMethod ExecuteMethods { get { return executeMethods; } set { executeMethods = value; } }
 
         [Tooltip("Name of the method on a component in this gameobject to call when executing.")]
-        public string executeMethodName = "OnExecute";
+        [SerializeField] protected string executeMethodName = "OnExecute";
 
         private int m_ExecuteOnFrame;
 
@@ -300,5 +308,4 @@ namespace Fungus
 
         ExecuteHandler Component { get; }
     }
-
 }

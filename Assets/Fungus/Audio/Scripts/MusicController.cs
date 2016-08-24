@@ -1,27 +1,22 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
-    /**
-     * Singleton music manager component.
-     * Provides basic music and sound effect functionality.
-     * Music playback persists across scene loads.
-     */
+    /// <summary>
+    /// Singleton music manager component.
+    /// Provides basic music and sound effect functionality.
+    /// Music playback persists across scene loads.
+    /// </summary>
     [RequireComponent(typeof(AudioSource))]
     public class MusicController : MonoBehaviour 
     {
         static MusicController instance;
 
-        /**
-         * Returns the MusicController singleton instance.
-         * Will create a MusicController game object if none currently exists.
-         */
+        // Returns the MusicController singleton instance.
+        // Will create a MusicController game object if none currently exists.
         static public MusicController GetInstance()
         {
             if (instance == null)
@@ -40,12 +35,10 @@ namespace Fungus
             GetComponent<AudioSource>().loop = true;
         }
 
-        /**
-         * Plays game music using an audio clip.
-         * One music clip may be played at a time.
-         * @param musicClip The music clip to play
-         * @param atTime Time in the music clip to start at
-         */
+        /// <summary>
+        /// // Plays game music using an audio clip.
+        /// One music clip may be played at a time.
+        /// </summary>
         public void PlayMusic(AudioClip musicClip, bool loop, float fadeDuration, float atTime)
         {
             AudioSource audioSource = GetComponent<AudioSource>();
@@ -79,21 +72,21 @@ namespace Fungus
                     });
             }
         }
-
-        /**
-         * Stops playing game music.
-         */
+            
+        /// <summary>
+        /// Stops playing game music.
+        /// </summary>
         public virtual void StopMusic()
         {
             GetComponent<AudioSource>().Stop();
         }
 
-        /**
-         * Fades the game music volume to required level over a period of time.
-         * @param volume The new music volume value [0..1]
-         * @param duration The length of time in seconds needed to complete the volume change.
-         * @param onComplete Delegate function to call when fade completes.
-         */
+        /// <summary>
+        /// Fades the game music volume to required level over a period of time.
+        /// </summary>
+        /// <param name="volume">The new music volume value [0..1]</param>
+        /// <param name="duration">The length of time in seconds needed to complete the volume change.</param>
+        /// <param name="onComplete">Delegate function to call when fade completes.</param>
         public virtual void SetAudioVolume(float volume, float duration, System.Action onComplete)
         {
             AudioSource audio = GetComponent<AudioSource>();
@@ -117,12 +110,12 @@ namespace Fungus
                 });
         }
 
-        /**
-         * Shifts the game music pitch to required value over a period of time.
-         * @param volume The new music pitch value
-         * @param duration The length of time in seconds needed to complete the pitch change.
-         * @param onComplete A delegate method to call when the pitch shift has completed.
-         */
+        /// <summary>
+        /// Shifts the game music pitch to required value over a period of time.
+        /// </summary>
+        /// <param name="pitch">The new music pitch value.</param>
+        /// <param name="duration">The length of time in seconds needed to complete the pitch change.</param>
+        /// <param name="onComplete">A delegate method to call when the pitch shift has completed.</param>
         public virtual void SetAudioPitch(float pitch, float duration, System.Action onComplete)
         {
             AudioSource audio = GetComponent<AudioSource>();
@@ -150,12 +143,11 @@ namespace Fungus
                 });
         }
 
-        /**
-         * Plays a sound effect once, at the specified volume.
-         * Multiple sound effects can be played at the same time.
-         * @param soundClip The sound effect clip to play
-         * @param volume The volume level of the sound effect
-         */
+        /// <summary>
+        /// Plays a sound effect once, at the specified volume.
+        /// </summary>
+        /// <param name="soundClip">The sound effect clip to play.</param>
+        /// <param name="volume">The volume level of the sound effect.</param>
         public virtual void PlaySound(AudioClip soundClip, float volume)
         {
             GetComponent<AudioSource>().PlayOneShot(soundClip, volume);

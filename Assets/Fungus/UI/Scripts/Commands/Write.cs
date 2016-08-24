@@ -1,37 +1,33 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using UnityEngine.UI;
-using System;
-using System.Collections;
-using UnityEngine.Serialization;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Writes content to a UI Text or Text Mesh object.
+    /// </summary>
     [CommandInfo("UI", 
                  "Write", 
                  "Writes content to a UI Text or Text Mesh object.")]
-
     [AddComponentMenu("")]
     public class Write : Command, ILocalizable
     {
         [Tooltip("Text object to set text on. Text, Input Field and Text Mesh objects are supported.")]
-        public GameObject textObject;
+        [SerializeField] protected GameObject textObject;
 
         [Tooltip("String value to assign to the text object")]
-        public StringDataMulti text;
+        [SerializeField] protected StringDataMulti text;
 
         [Tooltip("Notes about this story text for other authors, localization, etc.")]
-        public string description;
+        [SerializeField] protected string description;
 
         [Tooltip("Clear existing text before writing new text")]
-        public bool clearText = true;
+        [SerializeField] protected bool clearText = true;
 
         [Tooltip("Wait until this command finishes before executing the next command")]
-        public bool waitUntilFinished = true;
+        [SerializeField] protected bool waitUntilFinished = true;
 
         public enum TextColor
         {
@@ -41,11 +37,11 @@ namespace Fungus
             SetColor
         }
 
-        public TextColor textColor = TextColor.Default;
+        [SerializeField] protected TextColor textColor = TextColor.Default;
 
-        public FloatData setAlpha = new FloatData(1f);
+        [SerializeField] protected FloatData setAlpha = new FloatData(1f);
 
-        public ColorData setColor = new ColorData(Color.white);
+        [SerializeField] protected ColorData setColor = new ColorData(Color.white);
 
         protected Writer GetWriter()
         {
@@ -122,9 +118,7 @@ namespace Fungus
             GetWriter().Stop();
         }
 
-        //
-        // ILocalizable implementation
-        //
+        #region ILocalizable implementation
 
         public virtual string GetStandardText()
         {
@@ -146,6 +140,7 @@ namespace Fungus
             // String id for Write commands is WRITE.<Localization Id>.<Command id>
             return "WRITE." + GetFlowchartLocalizationId() + "." + itemId;
         }
-    }
 
+        #endregion
+    }
 }

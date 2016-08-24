@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 // Copyright (c) 2012-2013 Rotorz Limited. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
@@ -10,8 +8,6 @@
 using UnityEngine;
 using UnityEditor;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Rotorz.ReorderableList;
 
 namespace Fungus
@@ -88,14 +84,14 @@ namespace Fungus
                 return null;
             }
             
-            Block block = flowchart.selectedBlock;
+            Block block = flowchart.SelectedBlock;
             if (block == null)
             {
                 return null;
             }
             
             Command newCommand = Undo.AddComponent<Comment>(block.gameObject) as Command;
-            newCommand.itemId = flowchart.NextItemId();
+            newCommand.ItemId = flowchart.NextItemId();
             flowchart.ClearSelectedCommands();
             flowchart.AddSelectedCommand(newCommand);
             
@@ -111,7 +107,7 @@ namespace Fungus
             
             System.Type type = command.GetType();
             Command newCommand = Undo.AddComponent(parentBlock.gameObject, type) as Command;
-            newCommand.itemId = newCommand.GetFlowchart().NextItemId();
+            newCommand.ItemId = newCommand.GetFlowchart().NextItemId();
             System.Reflection.FieldInfo[] fields = type.GetFields();
             foreach (System.Reflection.FieldInfo field in fields)
             {
@@ -205,7 +201,7 @@ namespace Fungus
             }
 
             bool commandIsSelected = false;
-            foreach (Command selectedCommand in flowchart.selectedCommands)
+            foreach (Command selectedCommand in flowchart.SelectedCommands)
             {
                 if (selectedCommand == command)
                 {
@@ -229,7 +225,7 @@ namespace Fungus
             commandLabelStyle.padding.top -= 1;
             
             float indentSize = 20;          
-            for (int i = 0; i < command.indentLevel; ++i)
+            for (int i = 0; i < command.IndentLevel; ++i)
             {
                 Rect indentRect = position;
                 indentRect.x += i * indentSize - 21;
@@ -241,12 +237,12 @@ namespace Fungus
             }
             
             float commandNameWidth = Mathf.Max(commandLabelStyle.CalcSize(new GUIContent(commandName)).x, 90f);
-            float indentWidth = command.indentLevel * indentSize;
+            float indentWidth = command.IndentLevel * indentSize;
             
             Rect commandLabelRect = position;
             commandLabelRect.x += indentWidth - 21;
             commandLabelRect.y -= 2;
-            commandLabelRect.width -= (indentSize * command.indentLevel - 22);
+            commandLabelRect.width -= (indentSize * command.IndentLevel - 22);
             commandLabelRect.height += 5;
 
             // There's a weird incompatibility between the Reorderable list control used for the command list and 
@@ -263,14 +259,14 @@ namespace Fungus
                 Event.current.button == 0 &&
                 clickRect.Contains(Event.current.mousePosition))
             {
-                if (flowchart.selectedCommands.Contains(command) && Event.current.button == 0)
+                if (flowchart.SelectedCommands.Contains(command) && Event.current.button == 0)
                 {
                     // Left click on already selected command
                     // Command key and shift key is not pressed
                     if (!EditorGUI.actionKey && !Event.current.shift)
                     {
                         BlockEditor.actionList.Add ( delegate {
-                            flowchart.selectedCommands.Remove(command);
+                            flowchart.SelectedCommands.Remove(command);
                             flowchart.ClearSelectedCommands();
                         });
                     }
@@ -279,7 +275,7 @@ namespace Fungus
                     if (EditorGUI.actionKey)
                     {
                         BlockEditor.actionList.Add ( delegate {
-                            flowchart.selectedCommands.Remove(command);
+                            flowchart.SelectedCommands.Remove(command);
                         });
                         Event.current.Use();
                     }
@@ -304,14 +300,14 @@ namespace Fungus
                     // Find first and last selected commands
                     int firstSelectedIndex = -1;
                     int lastSelectedIndex = -1;
-                    if (flowchart.selectedCommands.Count > 0)
+                    if (flowchart.SelectedCommands.Count > 0)
                     { 
-                        if ( flowchart.selectedBlock != null)
+                        if ( flowchart.SelectedBlock != null)
                         {
-                            for (int i = 0; i < flowchart.selectedBlock.commandList.Count; i++)
+                            for (int i = 0; i < flowchart.SelectedBlock.CommandList.Count; i++)
                             {
-                                Command commandInBlock = flowchart.selectedBlock.commandList[i];                                
-                                foreach (Command selectedCommand in flowchart.selectedCommands)
+                                Command commandInBlock = flowchart.SelectedBlock.CommandList[i];                                
+                                foreach (Command selectedCommand in flowchart.SelectedCommands)
                                 {
                                     if (commandInBlock == selectedCommand)
                                     {
@@ -320,10 +316,10 @@ namespace Fungus
                                     }
                                 }
                             }
-                            for (int i = flowchart.selectedBlock.commandList.Count - 1; i >=0; i--)
+                            for (int i = flowchart.SelectedBlock.CommandList.Count - 1; i >=0; i--)
                             {
-                                Command commandInBlock = flowchart.selectedBlock.commandList[i];                                
-                                foreach (Command selectedCommand in flowchart.selectedCommands)
+                                Command commandInBlock = flowchart.SelectedBlock.CommandList[i];                                
+                                foreach (Command selectedCommand in flowchart.SelectedCommands)
                                 {
                                     if (commandInBlock == selectedCommand)
                                     {
@@ -337,7 +333,7 @@ namespace Fungus
 
                     if (shift) 
                     {
-                        int currentIndex = command.commandIndex;
+                        int currentIndex = command.CommandIndex;
                         if (firstSelectedIndex == -1 ||
                             lastSelectedIndex == -1)
                         {
@@ -359,7 +355,7 @@ namespace Fungus
 
                         for (int i = Math.Min(firstSelectedIndex, lastSelectedIndex); i < Math.Max(firstSelectedIndex, lastSelectedIndex); ++i)
                         {
-                            Command selectedCommand = flowchart.selectedBlock.commandList[i];
+                            Command selectedCommand = flowchart.SelectedBlock.CommandList[i];
                             BlockEditor.actionList.Add ( delegate {
                                 flowchart.AddSelectedCommand(selectedCommand);
                             });
@@ -372,7 +368,7 @@ namespace Fungus
             }
             
             Color commandLabelColor = Color.white;
-            if (flowchart.colorCommands)
+            if (flowchart.ColorCommands)
             {
                 commandLabelColor = command.GetButtonColor();
             }
@@ -399,9 +395,9 @@ namespace Fungus
             else
             {
                 string commandNameLabel;
-                if (flowchart.showLineNumbers)
+                if (flowchart.ShowLineNumbers)
                 {
-                    commandNameLabel = command.commandIndex.ToString() + ": " + commandName;
+                    commandNameLabel = command.CommandIndex.ToString() + ": " + commandName;
                 }
                 else
                 {
@@ -411,7 +407,7 @@ namespace Fungus
                 GUI.Label(commandLabelRect, commandNameLabel, commandLabelStyle);
             }
             
-            if (command.executingIconTimer > Time.realtimeSinceStartup)
+            if (command.ExecutingIconTimer > Time.realtimeSinceStartup)
             {
                 Rect iconRect = new Rect(commandLabelRect);
                 iconRect.x += iconRect.width - commandLabelRect.width - 20;
@@ -420,7 +416,7 @@ namespace Fungus
 
                 Color storeColor = GUI.color;
 
-                float alpha = (command.executingIconTimer - Time.realtimeSinceStartup) / Block.executingIconFadeTime;
+                float alpha = (command.ExecutingIconTimer - Time.realtimeSinceStartup) / Block.executingIconFadeTime;
                 alpha = Mathf.Clamp01(alpha);
 
                 GUI.color = new Color(1f, 1f, 1f, alpha);

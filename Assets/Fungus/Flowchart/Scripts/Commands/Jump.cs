@@ -1,13 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Move execution to a specific Label command in the same block.
+    /// </summary>
     [CommandInfo("Flow", 
                  "Jump", 
                  "Move execution to a specific Label command in the same block")]
@@ -16,7 +17,7 @@ namespace Fungus
     public class Jump : Command
     {
         [Tooltip("Name of a label in this block to jump to")]
-        public StringData _targetLabel = new StringData("");
+        [SerializeField] protected StringData _targetLabel = new StringData("");
 
         public override void OnEnter()
         {
@@ -26,13 +27,13 @@ namespace Fungus
                 return;
             }
 
-            foreach (Command command in parentBlock.commandList)
+            foreach (Command command in ParentBlock.CommandList)
             {
                 Label label = command as Label;
                 if (label != null &&
-                    label.key == _targetLabel.Value)
+                    label.Key == _targetLabel.Value)
                 {
-                    Continue(label.commandIndex + 1);
+                    Continue(label.CommandIndex + 1);
                     return;
                 }
             }
@@ -65,12 +66,11 @@ namespace Fungus
         {
             if (targetLabelOLD != null)
             {
-                _targetLabel.Value = targetLabelOLD.key;
+                _targetLabel.Value = targetLabelOLD.Key;
                 targetLabelOLD = null;
             }
         }
 
         #endregion
     }
-
 }

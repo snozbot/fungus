@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
 using System.Collections;
@@ -9,14 +7,15 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Interop;
 using MoonSharp.Interpreter.Loaders;
 using MoonSharp.RemoteDebugger;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Wrapper for a MoonSharp Lua Script instance.
+    /// </summary>
     public class LuaEnvironment : MonoBehaviour 
     {
         /// <summary>
@@ -106,7 +105,7 @@ namespace Fungus
         protected Script interpreter;
 
         /// <summary>
-        /// Returns the MoonSharp interpreter instance used to run Lua code.
+        /// The MoonSharp interpreter instance used to run Lua code.
         /// </summary>
         public Script Interpreter { get { return interpreter; } }
 
@@ -114,7 +113,7 @@ namespace Fungus
         /// Launches the remote Lua debugger in your browser and breaks execution at the first executed Lua command.
         /// </summary>
         [Tooltip("Launches the remote Lua debugger in your browser and breaks execution at the first executed Lua command. Standalone platform only.")]
-        public bool remoteDebugger = false;
+        [SerializeField] protected bool remoteDebugger = false;
 
         /// <summary>
         /// Instance of remote debugging service when debugging option is enabled.
@@ -425,5 +424,4 @@ namespace Fungus
             UnityEngine.Debug.LogError(output);
         }
     }
-
 }

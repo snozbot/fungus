@@ -1,16 +1,11 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
 using UnityEditor;
-using System.IO;
-using System.Collections;
 
 namespace Fungus
 {
-
     public class FlowchartMenuItems
     {
         [MenuItem("Tools/Fungus/Create/Flowchart", false, 0)]
@@ -23,15 +18,15 @@ namespace Fungus
             Flowchart flowchart = go.GetComponent<Flowchart>();
             if (flowchart != null)
             {
-                flowchart.version = Flowchart.CURRENT_VERSION;
+                flowchart.Version = Flowchart.CURRENT_VERSION;
             }
 
             // Only the first created Flowchart in the scene should have a default GameStarted block
             if (GameObject.FindObjectsOfType<Flowchart>().Length > 1)
             {
                 Block block = go.GetComponent<Block>();
-                block.eventHandler = null;
-                GameObject.DestroyImmediate(block.eventHandler);
+                block._EventHandler = null;
+                GameObject.DestroyImmediate(block._EventHandler);
             }
         }
 
@@ -82,5 +77,4 @@ namespace Fungus
             return go;
         }
     }
-
 }

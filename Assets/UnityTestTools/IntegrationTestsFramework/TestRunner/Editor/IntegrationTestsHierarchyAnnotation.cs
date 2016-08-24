@@ -40,5 +40,4 @@ namespace UnityTest
             EditorGUIUtility.SetIconSize(Vector2.zero);
         }
     }
-
 }

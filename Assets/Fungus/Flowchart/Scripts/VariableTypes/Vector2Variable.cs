@@ -1,19 +1,23 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Vector2 variable type.
+    /// </summary>
     [VariableInfo("Other", "Vector2")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class Vector2Variable : VariableBase<Vector2>
     {}
 
+    /// <summary>
+    /// Container for a Vector2 variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct Vector2Data
     {
@@ -37,8 +41,8 @@ namespace Fungus
 
         public Vector2 Value
         {
-            get { return (vector2Ref == null) ? vector2Val : vector2Ref.value; }
-            set { if (vector2Ref == null) { vector2Val = value; } else { vector2Ref.value = value; } }
+            get { return (vector2Ref == null) ? vector2Val : vector2Ref.Value; }
+            set { if (vector2Ref == null) { vector2Val = value; } else { vector2Ref.Value = value; } }
         }
 
         public string GetDescription()
@@ -49,9 +53,8 @@ namespace Fungus
             }
             else
             {
-                return vector2Ref.key;
+                return vector2Ref.Key;
             }
         }
     }
-
 }

@@ -1,10 +1,7 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,11 +29,12 @@ namespace Fungus
 
         protected List<ISubstitutionHandler> substitutionHandlers = new List<ISubstitutionHandler>();
 
-        /**
-         * The StringBuilder instance used to substitute strings optimally.
-         * This property is public to support client code optimisations.
-         */
-        public StringBuilder stringBuilder;
+        /// <summary>
+        /// The StringBuilder instance used to substitute strings optimally.
+        /// This property is public to support client code optimisations.
+        /// </summary>
+        protected StringBuilder stringBuilder;
+        public StringBuilder _StringBuilder { get { return stringBuilder; } }
 
         private int recursionDepth;
 
@@ -122,7 +120,5 @@ namespace Fungus
 
             return result;
         }
-
     }
-
 }

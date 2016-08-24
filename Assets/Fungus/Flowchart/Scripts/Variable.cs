@@ -1,21 +1,23 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Scope types for Variables.
+    /// </summary>
     public enum VariableScope
     {
         Private,
         Public
     }
 
+    /// <summary>
+    /// Attribute class for variables.
+    /// </summary>
     public class VariableInfoAttribute : Attribute
     {
         public VariableInfoAttribute(string category, string variableType, int order = 0)
@@ -30,6 +32,9 @@ namespace Fungus
         public int Order { get; set; }
     }
 
+    /// <summary>
+    /// Attribute class for variable properties.
+    /// </summary>
     public class VariablePropertyAttribute : PropertyAttribute 
     {
         public VariablePropertyAttribute (params System.Type[] variableTypes) 
@@ -48,36 +53,45 @@ namespace Fungus
         public System.Type[] VariableTypes { get; set; }
     }
 
+    /// <summary>
+    /// Abstract base class for variables.
+    /// </summary>
     [RequireComponent(typeof(Flowchart))]
     public abstract class Variable : MonoBehaviour
     {
-        public VariableScope scope;
+        [SerializeField] protected VariableScope scope;
+        public VariableScope Scope { get { return scope; } }
 
-        public string key = "";
+        [SerializeField] protected string key = "";
+        public string Key { get { return key; } set { key = value; } }
 
         public abstract void OnReset();
     }
 
+    /// <summary>
+    /// Generic concrete base class for variables.
+    /// </summary>
     public abstract class VariableBase<T> : Variable
     {
-        public T value;
+        [SerializeField] protected T value;
+        public T Value { get { return this.value; } set { this.value = value; } }
         
         protected T startValue;
 
         public override void OnReset()
         {
-            value = startValue;
+            Value = startValue;
         }
         
         public override string ToString()
         {
-            return value.ToString();
+            return Value.ToString();
         }
         
         protected virtual void Start()
         {
             // Remember the initial value so we can reset later on
-            startValue = value;
+            startValue = Value;
         }
     }
 }

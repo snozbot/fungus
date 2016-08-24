@@ -1,19 +1,22 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Interface for listening for dialogue input events.
+    /// </summary>
     public interface IDialogInputListener
     {
         void OnNextLineEvent();
     }
-    
+
+    /// <summary>
+    /// Input handler for say dialogues.
+    /// </summary>
     public class DialogInput : MonoBehaviour
     {
         public enum ClickMode
@@ -25,16 +28,16 @@ namespace Fungus
         }
 
         [Tooltip("Click to advance story")]
-        public ClickMode clickMode;
+        [SerializeField] protected ClickMode clickMode;
 
         [Tooltip("Delay between consecutive clicks. Useful to prevent accidentally clicking through story.")]
-        public float nextClickDelay = 0f;
+        [SerializeField] protected float nextClickDelay = 0f;
 
         [Tooltip("Allow holding Cancel to fast forward text")]
-        public bool cancelEnabled = true;
+        [SerializeField] protected bool cancelEnabled = true;
 
         [Tooltip("Ignore input if a Menu dialog is currently active")]
-        public bool ignoreMenuClicks = true;
+        [SerializeField] protected bool ignoreMenuClicks = true;
 
         protected bool dialogClickedFlag;
 
@@ -44,17 +47,17 @@ namespace Fungus
 
         protected StandaloneInputModule currentStandaloneInputModule;
 
-        /**
-         * Trigger next line input event from script.
-         */
+        /// <summary>
+        /// Trigger next line input event from script.
+        /// </summary>
         public void SetNextLineFlag()
         {
             nextLineInputFlag = true;
         }
 
-        /**
-         * Set the dialog clicked flag (usually from an Event Trigger component in the dialog UI)
-         */
+        /// <summary>
+        /// Set the dialog clicked flag (usually from an Event Trigger component in the dialog UI).
+        /// </summary>
         public void SetDialogClickedFlag()
         {
             // Ignore repeat clicks for a short time to prevent accidentally clicking through the character dialogue
@@ -157,6 +160,4 @@ namespace Fungus
             }
         }
     }
-
 }
-    

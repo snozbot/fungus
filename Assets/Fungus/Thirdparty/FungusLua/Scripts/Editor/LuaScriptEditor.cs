@@ -1,17 +1,10 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
-using UnityEditorInternal;
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
-    
     [CustomEditor (typeof(LuaScript))]
     public class LuaScriptEditor : Editor
     {
@@ -44,13 +37,12 @@ namespace Fungus
             {
                 // Reinitialise if the Lua script is changed while running in editor
                 LuaScript luaScript = target as LuaScript;
-                luaScript.initialised = false;
+                luaScript.Initialised = false;
             }
 
             EditorGUILayout.PropertyField(runAsCoroutineProp);
 
             serializedObject.ApplyModifiedProperties();
         }
-    }
-    
+    }    
 }

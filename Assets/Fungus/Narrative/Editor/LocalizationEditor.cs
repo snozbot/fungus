@@ -1,18 +1,12 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using Rotorz.ReorderableList;
 
 namespace Fungus
 {
-
     [CustomEditor(typeof(Localization))]
     public class LocalizationEditor : Editor 
     {
@@ -78,7 +72,7 @@ namespace Fungus
             TextAsset textAsset = AssetDatabase.LoadAssetAtPath(path, typeof(TextAsset)) as TextAsset;
             if (textAsset != null)
             {
-                localization.localizationFile = textAsset;
+                localization.LocalizationFile = textAsset;
             }
 
             ShowNotification(localization);
@@ -119,9 +113,8 @@ namespace Fungus
 
         protected virtual void ShowNotification(Localization localization)
         {
-            FlowchartWindow.ShowNotification(localization.notificationText);
-            localization.notificationText = "";
+            FlowchartWindow.ShowNotification(localization.NotificationText);
+            localization.NotificationText = "";
         }
     }
-
 }

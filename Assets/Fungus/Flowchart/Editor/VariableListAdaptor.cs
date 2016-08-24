@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 // Copyright (c) 2012-2013 Rotorz Limited. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
@@ -133,15 +131,15 @@ namespace Fungus
                             
             // Highlight if an active or selected command is referencing this variable
             bool highlight = false;
-            if (flowchart.selectedBlock != null)
+            if (flowchart.SelectedBlock != null)
             {
-                if (Application.isPlaying && flowchart.selectedBlock.IsExecuting())
+                if (Application.isPlaying && flowchart.SelectedBlock.IsExecuting())
                 {
-                    highlight = flowchart.selectedBlock.activeCommand.HasReference(variable);
+                    highlight = flowchart.SelectedBlock.ActiveCommand.HasReference(variable);
                 }
-                else if (!Application.isPlaying && flowchart.selectedCommands.Count > 0)
+                else if (!Application.isPlaying && flowchart.SelectedCommands.Count > 0)
                 {
-                    foreach (Command selectedCommand in flowchart.selectedCommands)
+                    foreach (Command selectedCommand in flowchart.SelectedCommands)
                     {
                         if (selectedCommand == null)
                         {
@@ -163,8 +161,8 @@ namespace Fungus
                 GUI.Box(position, "");
             }
 
-            string key = variable.key;
-            VariableScope scope = variable.scope;
+            string key = variable.Key;
+            VariableScope scope = variable.Scope;
 
             // To access properties in a monobehavior, you have to new a SerializedObject
             // http://answers.unity3d.com/questions/629803/findrelativeproperty-never-worked-for-me-how-does.html
@@ -174,7 +172,7 @@ namespace Fungus
 
             GUI.Label(rects[0], variableInfo.VariableType);
 
-            key = EditorGUI.TextField(rects[1], variable.key);
+            key = EditorGUI.TextField(rects[1], variable.Key);
             SerializedProperty keyProp = variableObject.FindProperty("key");
             keyProp.stringValue = flowchart.GetUniqueVariableKey(key, variable);
 
@@ -182,7 +180,7 @@ namespace Fungus
             EditorGUI.PropertyField(rects[2], defaultProp, new GUIContent(""));
 
             SerializedProperty scopeProp = variableObject.FindProperty("scope");
-            scope = (VariableScope)EditorGUI.EnumPopup(rects[3], variable.scope);
+            scope = (VariableScope)EditorGUI.EnumPopup(rects[3], variable.Scope);
             scopeProp.enumValueIndex = (int)scope;
 
             variableObject.ApplyModifiedProperties();

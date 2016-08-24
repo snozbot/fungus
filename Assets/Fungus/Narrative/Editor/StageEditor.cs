@@ -1,22 +1,11 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Rotorz.ReorderableList;
-
 
 namespace Fungus
 {
-    
     [CustomEditor (typeof(ControlStage))]
     public class StageEditor : CommandEditor
     {
@@ -47,11 +36,11 @@ namespace Fungus
             ControlStage t = target as ControlStage;
 
             // Format Enum names
-            string[] displayLabels = StringFormatter.FormatEnumNames(t.display,"<None>");
+            string[] displayLabels = StringFormatter.FormatEnumNames(t.Display,"<None>");
             displayProp.enumValueIndex = EditorGUILayout.Popup("Display", (int)displayProp.enumValueIndex, displayLabels);
 
             string replaceLabel = "Portrait Stage";
-            if (t.display == StageDisplayType.Swap)
+            if (t.Display == StageDisplayType.Swap)
             {
                 CommandEditor.ObjectField<Stage>(replacedStageProp, 
                                                  new GUIContent("Replace", "Character to swap with"), 
@@ -69,11 +58,11 @@ namespace Fungus
             }
 
             bool showOptionalFields = true;
-            Stage s = t.stage;
+            Stage s = t._Stage;
             // Only show optional portrait fields once required fields have been filled...
-            if (t.stage != null)                // Character is selected
+            if (t._Stage != null)                // Character is selected
             {
-                if (t.stage == null)        // If no default specified, try to get any portrait stage in the scene
+                if (t._Stage == null)        // If no default specified, try to get any portrait stage in the scene
                 {
                     s = GameObject.FindObjectOfType<Stage>();
                 }
@@ -83,10 +72,10 @@ namespace Fungus
                     showOptionalFields = false; 
                 }
             }
-            if (t.display != StageDisplayType.None && showOptionalFields) 
+            if (t.Display != StageDisplayType.None && showOptionalFields) 
             {
                 EditorGUILayout.PropertyField(useDefaultSettingsProp);
-                if (!t.useDefaultSettings)
+                if (!t.UseDefaultSettings)
                 {
                     EditorGUILayout.PropertyField(fadeDurationProp);
                 }

@@ -1,19 +1,22 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Animator variable type.
+    /// </summary>
     [VariableInfo("Other", "Animator")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class AnimatorVariable : VariableBase<Animator>
     {}
 
+    /// <summary>
+    /// Container for an Animator variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct AnimatorData
     {
@@ -37,8 +40,8 @@ namespace Fungus
 
         public Animator Value
         {
-            get { return (animatorRef == null) ? animatorVal : animatorRef.value; }
-            set { if (animatorRef == null) { animatorVal = value; } else { animatorRef.value = value; } }
+            get { return (animatorRef == null) ? animatorVal : animatorRef.Value; }
+            set { if (animatorRef == null) { animatorVal = value; } else { animatorRef.Value = value; } }
         }
 
         public string GetDescription()
@@ -49,9 +52,8 @@ namespace Fungus
             }
             else
             {
-                return animatorRef.key;
+                return animatorRef.Key;
             }
         }
     }
-
 }

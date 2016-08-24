@@ -86,7 +86,7 @@ end
 
 -- Set active language for string table
 function M.setlanguage(languagecode)
-    M.luautils.activeLanguage = languagecode
+    M.luautils.ActiveLanguage = languagecode
 end
 
 -- Get a named string from the string table

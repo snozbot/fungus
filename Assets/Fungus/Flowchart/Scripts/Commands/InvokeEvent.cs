@@ -1,23 +1,22 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
 using System;
 using UnityEngine.Events;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Calls a list of component methods via the Unity Event System (as used in the Unity UI)
+    /// This command is more efficient than the Invoke Method command but can only pass a single parameter and doesn't support return values.
+    /// This command uses the UnityEvent system to call methods in script. http://docs.unity3d.com/Manual/UnityEvents.html
+    /// </summary>
     [CommandInfo("Scripting", 
                  "Invoke Event", 
                  "Calls a list of component methods via the Unity Event System (as used in the Unity UI). " + 
                  "This command is more efficient than the Invoke Method command but can only pass a single parameter and doesn't support return values.")]
     [AddComponentMenu("")]
-
-    // This command uses the UnityEvent system to call methods in script.
-    // http://docs.unity3d.com/Manual/UnityEvents.html
     public class InvokeEvent : Command
     {
         [Serializable] public class BooleanEvent : UnityEvent<bool> {}
@@ -35,36 +34,36 @@ namespace Fungus
         }
 
         [Tooltip("Delay (in seconds) before the methods will be called")]
-        public float delay;
+        [SerializeField] protected float delay;
 
-        public InvokeType invokeType;
+        [SerializeField] protected InvokeType invokeType;
 
         [Tooltip("List of methods to call. Supports methods with no parameters or exactly one string, int, float or object parameter.")]
-        public UnityEvent staticEvent = new UnityEvent();
+        [SerializeField] protected UnityEvent staticEvent = new UnityEvent();
 
         [Tooltip("Boolean parameter to pass to the invoked methods.")]
-        public BooleanData booleanParameter;
+        [SerializeField] protected BooleanData booleanParameter;
 
         [Tooltip("List of methods to call. Supports methods with one boolean parameter.")]
-        public BooleanEvent booleanEvent = new BooleanEvent();
+        [SerializeField] protected BooleanEvent booleanEvent = new BooleanEvent();
 
         [Tooltip("Integer parameter to pass to the invoked methods.")]
-        public IntegerData integerParameter;
+        [SerializeField] protected IntegerData integerParameter;
         
         [Tooltip("List of methods to call. Supports methods with one integer parameter.")]
-        public IntegerEvent integerEvent = new IntegerEvent();
+        [SerializeField] protected IntegerEvent integerEvent = new IntegerEvent();
 
         [Tooltip("Float parameter to pass to the invoked methods.")]
-        public FloatData floatParameter;
+        [SerializeField] protected FloatData floatParameter;
         
         [Tooltip("List of methods to call. Supports methods with one float parameter.")]
-        public FloatEvent floatEvent = new FloatEvent();
+        [SerializeField] protected FloatEvent floatEvent = new FloatEvent();
 
         [Tooltip("String parameter to pass to the invoked methods.")]
-        public StringDataMulti stringParameter;
+        [SerializeField] protected StringDataMulti stringParameter;
 
         [Tooltip("List of methods to call. Supports methods with one string parameter.")]
-        public StringEvent stringEvent = new StringEvent();
+        [SerializeField] protected StringEvent stringEvent = new StringEvent();
 
         public override void OnEnter()
         {
@@ -89,16 +88,16 @@ namespace Fungus
                 staticEvent.Invoke();
                 break;
             case InvokeType.DynamicBoolean:
-                booleanEvent.Invoke(booleanParameter);
+                booleanEvent.Invoke(booleanParameter.Value);
                 break;
             case InvokeType.DynamicInteger:
-                integerEvent.Invoke(integerParameter);
+                integerEvent.Invoke(integerParameter.Value);
                 break;
             case InvokeType.DynamicFloat:
-                floatEvent.Invoke(floatParameter);
+                floatEvent.Invoke(floatParameter.Value);
                 break;
             case InvokeType.DynamicString:
-                stringEvent.Invoke(stringParameter);
+                stringEvent.Invoke(stringParameter.Value);
                 break;
             }
         }
@@ -135,5 +134,4 @@ namespace Fungus
             return new Color32(235, 191, 217, 255);
         }
     }
-
 }

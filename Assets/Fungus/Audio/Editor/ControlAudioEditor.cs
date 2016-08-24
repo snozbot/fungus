@@ -1,18 +1,8 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Rotorz.ReorderableList;
-
 
 namespace Fungus
 {
@@ -49,11 +39,11 @@ namespace Fungus
             EditorGUILayout.PropertyField(controlProp);
             EditorGUILayout.PropertyField(audioSourceProp);
             string fadeLabel = "Fade Out Duration";
-            if (t.control != ControlAudio.controlType.StopLoop && t.control != ControlAudio.controlType.PauseLoop)
+            if (t.Control != ControlAudio.controlType.StopLoop && t.Control != ControlAudio.controlType.PauseLoop)
             {
                 fadeLabel = "Fade In Duration";
                 string volumeLabel = "End Volume";
-                if (t.control == ControlAudio.controlType.ChangeVolume)
+                if (t.Control == ControlAudio.controlType.ChangeVolume)
                 {
                     fadeLabel = "Fade Duration";
                     volumeLabel = "New Volume";

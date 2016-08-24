@@ -1,19 +1,23 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// GameObject variable type.
+    /// </summary>
     [VariableInfo("Other", "GameObject")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class GameObjectVariable : VariableBase<GameObject>
     {}
 
+    /// <summary>
+    /// Container for a GameObject variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct GameObjectData
     {
@@ -37,8 +41,8 @@ namespace Fungus
 
         public GameObject Value
         {
-            get { return (gameObjectRef == null) ? gameObjectVal : gameObjectRef.value; }
-            set { if (gameObjectRef == null) { gameObjectVal = value; } else { gameObjectRef.value = value; } }
+            get { return (gameObjectRef == null) ? gameObjectVal : gameObjectRef.Value; }
+            set { if (gameObjectRef == null) { gameObjectVal = value; } else { gameObjectRef.Value = value; } }
         }
 
         public string GetDescription()
@@ -49,9 +53,8 @@ namespace Fungus
             }
             else
             {
-                return gameObjectRef.key;
+                return gameObjectRef.Key;
             }
         }
     }
-
 }

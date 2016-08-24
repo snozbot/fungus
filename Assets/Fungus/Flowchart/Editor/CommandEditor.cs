@@ -1,12 +1,8 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using Rotorz.ReorderableList;
 
@@ -57,7 +53,7 @@ namespace Fungus
 
             if (t.enabled)
             {
-                if (flowchart.colorCommands)
+                if (flowchart.ColorCommands)
                 {
                     GUI.backgroundColor = t.GetButtonColor();
                 }
@@ -77,7 +73,7 @@ namespace Fungus
 
             GUILayout.FlexibleSpace();
 
-            GUILayout.Label(new GUIContent("(" + t.itemId + ")"));
+            GUILayout.Label(new GUIContent("(" + t.ItemId + ")"));
 
             GUILayout.Space(10);
 
@@ -100,11 +96,11 @@ namespace Fungus
 
             EditorGUILayout.Separator();
 
-            if (t.errorMessage.Length > 0)
+            if (t.ErrorMessage.Length > 0)
             {
                 GUIStyle style = new GUIStyle(GUI.skin.label);
                 style.normal.textColor = new Color(1,0,0);
-                EditorGUILayout.LabelField(new GUIContent("Error: " + t.errorMessage), style);
+                EditorGUILayout.LabelField(new GUIContent("Error: " + t.ErrorMessage), style);
             }
 
             GUILayout.EndVertical();
@@ -202,14 +198,12 @@ namespace Fungus
         }
         
 
-        /**
-         * When modifying custom editor code you can occasionally end up with orphaned editor instances.
-         * When this happens, you'll get a null exception error every time the scene serializes / deserialized.
-         * Once this situation occurs, the only way to fix it is to restart the Unity editor.
-         * 
-         * As a workaround, this function detects if this command editor is an orphan and deletes it. 
-         * To use it, just call this function at the top of the OnEnable() method in your custom editor.
-         */
+        // When modifying custom editor code you can occasionally end up with orphaned editor instances.
+        // When this happens, you'll get a null exception error every time the scene serializes / deserialized.
+        // Once this situation occurs, the only way to fix it is to restart the Unity editor.
+        // 
+        // As a workaround, this function detects if this command editor is an orphan and deletes it. 
+        // To use it, just call this function at the top of the OnEnable() method in your custom editor.
         protected virtual bool NullTargetCheck()
         {
             try

@@ -1,13 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Integer variable type.
+    /// </summary>
     [VariableInfo("", "Integer")]
     [AddComponentMenu("")]
     [System.Serializable]
@@ -15,7 +16,7 @@ namespace Fungus
     {
         public virtual bool Evaluate(CompareOperator compareOperator, int integerValue)
         {
-            int lhs = value;
+            int lhs = Value;
             int rhs = integerValue;
 
             bool condition = false;
@@ -46,6 +47,9 @@ namespace Fungus
         }
     }
 
+    /// <summary>
+    /// Container for an integer variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct IntegerData
     {
@@ -69,8 +73,8 @@ namespace Fungus
 
         public int Value
         {
-            get { return (integerRef == null) ? integerVal : integerRef.value; }
-            set { if (integerRef == null) { integerVal = value; } else { integerRef.value = value; } }
+            get { return (integerRef == null) ? integerVal : integerRef.Value; }
+            set { if (integerRef == null) { integerVal = value; } else { integerRef.Value = value; } }
         }
 
         public string GetDescription()
@@ -81,9 +85,8 @@ namespace Fungus
             }
             else
             {
-                return integerRef.key;
+                return integerRef.Key;
             }
         }
     }
-
 }

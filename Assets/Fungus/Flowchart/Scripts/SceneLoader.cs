@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
 #if UNITY_5_0 || UNITY_5_1 || UNITY_5_2
@@ -9,27 +7,26 @@
 using UnityEngine.SceneManagement;
 #endif
 using System.Collections;
-using System;
 
 namespace Fungus
 {
-    /**
-     * Helper component for loading a new scene.
-     * A fullscreen loading image is displayed while loading the new scene.
-     * All Rooms are destroyed and unused assets are released from memory before loading the new scene to minimize memory footprint.
-     * For streaming Web Player builds, the loading image will be displayed until the requested level has finished downloading.
-     */
+    /// <summary>
+    /// Helper component for loading a new scene.
+    /// A fullscreen loading image is displayed while loading the new scene.
+    /// All Rooms are destroyed and unused assets are released from memory before loading the new scene to minimize memory footprint.
+    /// For streaming Web Player builds, the loading image will be displayed until the requested level has finished downloading.
+    /// </summary>
     public class SceneLoader : MonoBehaviour
     {
         protected Texture2D loadingTexture;
         protected string sceneToLoad;
         protected bool displayedImage;
 
-        /**
-         * Asynchronously load a new scene.
-         * @param _sceneToLoad The name of the scene to load. Scenes must be added in project build settings.
-         * @param _loadingTexture Loading image to display while loading the new scene.
-         */
+        /// <summary>
+        /// Asynchronously load a new scene.
+        /// </summary>
+        /// <param name="_sceneToLoad">The name of the scene to load. Scenes must be added in project build settings.</param>
+        /// <param name="_loadingTexture">Loading image to display while loading the new scene.</param>
         static public void LoadScene(string _sceneToLoad, Texture2D _loadingTexture)
         {
             // Unity does not provide a way to check if the named scene actually exists in the project.

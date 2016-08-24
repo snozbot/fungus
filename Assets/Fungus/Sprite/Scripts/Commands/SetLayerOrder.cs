@@ -1,14 +1,13 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets the Renderer sorting layer of every child of a game object. Applies to all Renderers (including mesh, skinned mesh, and sprite).
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Set Sorting Layer", 
                  "Sets the Renderer sorting layer of every child of a game object. Applies to all Renderers (including mesh, skinned mesh, and sprite).")]
@@ -16,10 +15,10 @@ namespace Fungus
     public class SetSortingLayer : Command 
     {
         [Tooltip("Root Object that will have the Sorting Layer set. Any children will also be affected")]
-        public GameObject targetObject;
+        [SerializeField] protected GameObject targetObject;
         
         [Tooltip("The New Layer Name to apply")]
-        public string sortingLayer;
+        [SerializeField] protected string sortingLayer;
         
         public override void OnEnter()
         {

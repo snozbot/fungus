@@ -1,13 +1,13 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Plays a once-off sound effect. Multiple sound effects can be played at the same time.
+    /// </summary>
     [CommandInfo("Audio", 
                  "Play Sound",
                  "Plays a once-off sound effect. Multiple sound effects can be played at the same time.")]
@@ -15,14 +15,14 @@ namespace Fungus
     public class PlaySound : Command
     {
         [Tooltip("Sound effect clip to play")]
-        public AudioClip soundClip;
+        [SerializeField] protected AudioClip soundClip;
 
         [Range(0,1)]
         [Tooltip("Volume level of the sound effect")]
-        public float volume = 1;
+        [SerializeField] protected float volume = 1;
 
         [Tooltip("Wait until the sound has finished playing before continuing execution.")]
-        public bool waitUntilFinished;
+        [SerializeField] protected bool waitUntilFinished;
 
         public override void OnEnter()
         {
@@ -68,5 +68,4 @@ namespace Fungus
             return new Color32(242, 209, 176, 255);
         }
     }
-
 }

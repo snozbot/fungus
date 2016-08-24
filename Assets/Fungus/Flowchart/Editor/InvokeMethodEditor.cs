@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
 using System.Collections;
@@ -10,11 +8,9 @@ using System.Linq;
 using System.Reflection;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Fungus
 {
-
     [CustomEditor(typeof(InvokeMethod))]
     public class InvokeMethodEditor : CommandEditor
     {
@@ -26,23 +22,23 @@ namespace Fungus
 
             targetMethod = target as InvokeMethod;
 
-            if (targetMethod == null || targetMethod.targetObject == null)
+            if (targetMethod == null || targetMethod.TargetObject == null)
                 return;
 
             SerializedObject objSerializedTarget = new SerializedObject(targetMethod);
 
-            string component = ShowComponents(objSerializedTarget, targetMethod.targetObject);
+            string component = ShowComponents(objSerializedTarget, targetMethod.TargetObject);
 
             // show component methods if selected
             if (!string.IsNullOrEmpty(component))
             {
-                var method = ShowMethods(objSerializedTarget, targetMethod.targetObject, component);
+                var method = ShowMethods(objSerializedTarget, targetMethod.TargetObject, component);
 
                 // show method parameters if selected
                 if (method != null)
                 {
                     objSerializedTarget.ApplyModifiedProperties();
-                    ShowParameters(objSerializedTarget, targetMethod.targetObject, method);
+                    ShowParameters(objSerializedTarget, targetMethod.TargetObject, method);
                     ShowReturnValue(objSerializedTarget, method);
                 }
             }
@@ -172,7 +168,7 @@ namespace Fungus
 
                     if (isDrawn)
                     {
-                        var vars = GetFungusVariablesByType(targetMethod.GetFlowchart().variables, objParam.ParameterType);
+                        var vars = GetFungusVariablesByType(targetMethod.GetFlowchart().Variables, objParam.ParameterType);
                         var values = new string[] { "<Value>" };
                         var displayValue = values.Concat(vars).ToList();
 
@@ -241,7 +237,7 @@ namespace Fungus
 
                 if (saveReturnValueProp.boolValue)
                 {
-                    var vars = GetFungusVariablesByType(targetMethod.GetFlowchart().variables, method.ReturnType).ToList();
+                    var vars = GetFungusVariablesByType(targetMethod.GetFlowchart().Variables, method.ReturnType).ToList();
                     int index = vars.IndexOf(returnValueKeyProp.stringValue);
                     index = EditorGUILayout.Popup(method.ReturnType.Name, index, vars.ToArray());
 
@@ -367,51 +363,51 @@ namespace Fungus
 
             if (type == typeof(int))
             {
-                result = (from v in variables where v.GetType() == typeof(IntegerVariable) select v.key).ToArray();
+                result = (from v in variables where v.GetType() == typeof(IntegerVariable) select v.Key).ToArray();
             }
             else if (type == typeof(bool))
             {
-                result = (from v in variables where v.GetType() == typeof(BooleanVariable) select v.key).ToArray();
+                result = (from v in variables where v.GetType() == typeof(BooleanVariable) select v.Key).ToArray();
             }
             else if (type == typeof(float))
             {
-                result = (from v in variables where v.GetType() == typeof(FloatVariable) select v.key).ToArray();
+                result = (from v in variables where v.GetType() == typeof(FloatVariable) select v.Key).ToArray();
             }
             else if (type == typeof(string))
             {
-                result = (from v in variables where v.GetType() == typeof(StringVariable) select v.key).ToArray();
+                result = (from v in variables where v.GetType() == typeof(StringVariable) select v.Key).ToArray();
             }
             else if (type == typeof(Color))
             {
-                result = (from v in variables where v.GetType() == typeof(ColorVariable) select v.key).ToArray();
+                result = (from v in variables where v.GetType() == typeof(ColorVariable) select v.Key).ToArray();
             }
             else if (type == typeof(UnityEngine.GameObject))
             {
-                result = (from v in variables where v.GetType() == typeof(GameObjectVariable) select v.key).ToArray();
+                result = (from v in variables where v.GetType() == typeof(GameObjectVariable) select v.Key).ToArray();
             }
             else if (type == typeof(UnityEngine.Material))
             {
-                result = (from v in variables where v.GetType() == typeof(MaterialVariable) select v.key).ToArray();
+                result = (from v in variables where v.GetType() == typeof(MaterialVariable) select v.Key).ToArray();
             }
             else if (type == typeof(UnityEngine.Sprite))
             {
-                result = (from v in variables where v.GetType() == typeof(SpriteVariable) select v.key).ToArray();
+                result = (from v in variables where v.GetType() == typeof(SpriteVariable) select v.Key).ToArray();
             }
             else if (type == typeof(UnityEngine.Texture))
             {
-                result = (from v in variables where v.GetType() == typeof(TextureVariable) select v.key).ToArray();
+                result = (from v in variables where v.GetType() == typeof(TextureVariable) select v.Key).ToArray();
             }
             else if (type == typeof(UnityEngine.Vector2))
             {
-                result = (from v in variables where v.GetType() == typeof(Vector2Variable) select v.key).ToArray();
+                result = (from v in variables where v.GetType() == typeof(Vector2Variable) select v.Key).ToArray();
             }
             else if (type == typeof(UnityEngine.Vector3))
             {
-                result = (from v in variables where v.GetType() == typeof(Vector3Variable) select v.key).ToArray();
+                result = (from v in variables where v.GetType() == typeof(Vector3Variable) select v.Key).ToArray();
             }
             else if (type.IsSubclassOf(typeof(UnityEngine.Object)))
             {
-                result = (from v in variables where v.GetType() == typeof(ObjectVariable) select v.key).ToArray();
+                result = (from v in variables where v.GetType() == typeof(ObjectVariable) select v.Key).ToArray();
             }
 
             return result;
@@ -443,5 +439,4 @@ namespace Fungus
             return null;
         }
     }
-
 }

@@ -1,17 +1,16 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Presents story text to the player in a dialogue box.
+    /// </summary>
     public class SayDialog : MonoBehaviour
     {
         // Currently active Say Dialog used to display Say text
@@ -20,16 +19,28 @@ namespace Fungus
         // Most recent speaking character
         public static Character speakingCharacter;
 
-        public float fadeDuration = 0.25f;
-        
-        public Button continueButton;
-        public Canvas dialogCanvas;
-        public Text nameText;
-        public Text storyText;
-        public Image characterImage;
+        [Tooltip("Duration to fade dialogue in/out")]
+        [SerializeField] protected float fadeDuration = 0.25f;
+
+        [Tooltip("The continue button UI object")]
+        [SerializeField] protected Button continueButton;
+
+        [Tooltip("The canvas UI object")]
+        [SerializeField] protected Canvas dialogCanvas;
+
+        [Tooltip("The name text UI object")]
+        [SerializeField] protected Text nameText;
+
+        [Tooltip("The story text UI object")]
+        [SerializeField] protected Text storyText;
+        public Text StoryText { get { return storyText; } }
+
+        [Tooltip("The character UI object")]
+        [SerializeField] protected Image characterImage;
+        public Image CharacterImage { get { return characterImage; } }
     
         [Tooltip("Adjust width of story text when Character Image is displayed (to avoid overlapping)")]
-        public bool fitTextWithImage = true;
+        [SerializeField] protected bool fitTextWithImage = true;
 
         protected float startStoryTextWidth; 
         protected float startStoryTextInset;
@@ -156,10 +167,10 @@ namespace Fungus
         {
             Writer writer = GetWriter();
 
-            if (writer.isWriting || writer.isWaitingForInput)
+            if (writer.IsWriting || writer.IsWaitingForInput)
             {
                 writer.Stop();
-                while (writer.isWriting || writer.isWaitingForInput)
+                while (writer.IsWriting || writer.IsWaitingForInput)
                 {
                     yield return null;
                 }
@@ -179,7 +190,7 @@ namespace Fungus
             }
             else if (speakingCharacter != null)
             {
-                soundEffectClip = speakingCharacter.soundEffect;
+                soundEffectClip = speakingCharacter.SoundEffect;
             }
 
             yield return StartCoroutine(writer.Write(text, clearPrevious, waitForInput, stopVoiceover, soundEffectClip, onComplete));
@@ -191,21 +202,17 @@ namespace Fungus
 
             if (continueButton != null)
             {
-                continueButton.gameObject.SetActive( GetWriter().isWaitingForInput );
+                continueButton.gameObject.SetActive( GetWriter().IsWaitingForInput );
             }
         }
 
-        /**
-         * Tell dialog to fade out if it's finished writing.
-         */
+        // Tell dialog to fade out if it's finished writing.
         public virtual void FadeOut()
         {
             fadeWhenDone = true;
         }
 
-        /**
-         * Stop a Say Dialog while its writing text.
-         */
+        // Stop a Say Dialog while its writing text.
         public virtual void Stop()
         {
             fadeWhenDone = true;
@@ -214,7 +221,7 @@ namespace Fungus
 
         protected virtual void UpdateAlpha()
         {
-            if (GetWriter().isWriting)
+            if (GetWriter().IsWriting)
             {
                 targetAlpha = 1f;
                 fadeCoolDownTimer = 0.1f;
@@ -273,9 +280,9 @@ namespace Fungus
                 foreach (Stage stage in Stage.activeStages)
                 {
 
-                    if (stage.dimPortraits)
+                    if (stage.DimPortraits)
                     {
-                        foreach (Character c in stage.charactersOnStage)
+                        foreach (Character c in stage.CharactersOnStage)
                         {
                             if (prevSpeakingCharacter != speakingCharacter)
                             {
@@ -292,7 +299,7 @@ namespace Fungus
                     }
                 }
                 
-                string characterName = character.nameText;
+                string characterName = character.NameText;
                 
                 if (characterName == "")
                 {
@@ -305,7 +312,7 @@ namespace Fungus
                     characterName = flowchart.SubstituteVariables(characterName);
                 }
                 
-                SetCharacterName(characterName, character.nameColor);
+                SetCharacterName(characterName, character.NameColor);
             }
         }
         
@@ -391,25 +398,24 @@ namespace Fungus
             // Stop all tweening portraits
             foreach( Character c in Character.activeCharacters )
             {
-                if (c.state.portraitImage != null)
+                if (c.State.portraitImage != null)
                 {
-                    if (LeanTween.isTweening(c.state.portraitImage.gameObject))
+                    if (LeanTween.isTweening(c.State.portraitImage.gameObject))
                     {
-                        LeanTween.cancel(c.state.portraitImage.gameObject, true);
+                        LeanTween.cancel(c.State.portraitImage.gameObject, true);
                         
-                        PortraitController.SetRectTransform(c.state.portraitImage.rectTransform, c.state.position);
-                        if (c.state.dimmed == true)
+                        PortraitController.SetRectTransform(c.State.portraitImage.rectTransform, c.State.position);
+                        if (c.State.dimmed == true)
                         {
-                            c.state.portraitImage.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+                            c.State.portraitImage.color = new Color(0.5f, 0.5f, 0.5f, 1f);
                         }
                         else
                         {
-                            c.state.portraitImage.color = Color.white;
+                            c.State.portraitImage.color = Color.white;
                         }
                     }
                 }
             }
         }
     }
-
 }

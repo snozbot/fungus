@@ -1,33 +1,30 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using System.Linq;
 
 namespace Fungus
 {
-    
+    /// <summary>
+    /// Presents multiple choice buttons to the players.
+    /// </summary>
     public class MenuDialog : MonoBehaviour
     {
         // Currently active Menu Dialog used to display Menu options
         public static MenuDialog activeMenuDialog;
 
         [Tooltip("Automatically select the first interactable button when the menu is shown.")]
-        public bool autoSelectFirstButton = false;
+        [SerializeField] protected bool autoSelectFirstButton = false;
 
-        [NonSerialized]
-        public Button[] cachedButtons;
+        protected Button[] cachedButtons;
+        public Button[] CachedButtons { get { return cachedButtons; } }
 
-        [NonSerialized]
-        public Slider cachedSlider;
+        protected Slider cachedSlider;
+        public Slider CachedSlider { get { return cachedSlider; } }
 
         public static MenuDialog GetMenuDialog()
         {
@@ -142,7 +139,7 @@ namespace Fungus
                             #if UNITY_EDITOR
                             // Select the new target block in the Flowchart window
                             Flowchart flowchart = block.GetFlowchart();
-                            flowchart.selectedBlock = block;
+                            flowchart.SelectedBlock = block;
                             #endif
 
                             gameObject.SetActive(false);
@@ -223,6 +220,5 @@ namespace Fungus
                 targetBlock.StartExecution();
             }
         }
-    }
-    
+    }    
 }

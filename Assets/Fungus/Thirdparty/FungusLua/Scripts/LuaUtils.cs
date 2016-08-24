@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
 using System.Collections;
@@ -9,16 +7,14 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Text;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
 using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Interop;
-using MoonSharp.Interpreter.Loaders;
-using MoonSharp.RemoteDebugger;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// A collection of utilites to use in Lua for common Unity / Fungus tasks.
+    /// </summary>
     public class LuaUtils : LuaEnvironment.Initializer, StringSubstituter.ISubstitutionHandler
     {
         public enum FungusModuleOptions
@@ -33,27 +29,28 @@ namespace Fungus
         /// You can also choose to disable loading the fungus module if it's not required by your script.
         /// </summary>
         [Tooltip("Controls if the fungus utilities are accessed from globals (e.g. say) or via a fungus variable (e.g. fungus.say)")]
-        public FungusModuleOptions fungusModule = FungusModuleOptions.UseGlobalVariables;
+        [SerializeField] protected FungusModuleOptions fungusModule = FungusModuleOptions.UseGlobalVariables;
 
         /// <summary>
         /// The currently selected language in the string table. Affects variable substitution.
         /// </summary>
         [Tooltip("The currently selected language in the string table. Affects variable substitution.")]
-        public string activeLanguage = "en";
+        [SerializeField] protected string activeLanguage = "en";
+        public string ActiveLanguage { get { return activeLanguage; } set { activeLanguage = value; } }
 
         /// <summary>
         /// Lua script file which defines the global string table used for localisation.
         /// </summary>
         [HideInInspector]
         [Tooltip("List of JSON text files which contain localized strings. These strings are added to the 'stringTable' table in the Lua environment at startup.")]
-        public List<TextAsset> stringTables = new List<TextAsset>();
+        [SerializeField] protected List<TextAsset> stringTables = new List<TextAsset>();
 
         /// <summary>
         /// JSON text files listing the c# types that can be accessed from Lua.
         /// </summary>
         [HideInInspector]
         [Tooltip("JSON text files listing the c# types that can be accessed from Lua.")]
-        public List<TextAsset> registerTypes = new List<TextAsset>();
+        [SerializeField] protected List<TextAsset> registerTypes = new List<TextAsset>();
 
         /// <summary>
         /// Flag used to avoid startup dependency issues.
@@ -490,5 +487,4 @@ namespace Fungus
             SayDialog.activeSayDialog = sayDialog;
         }
    }
-
 }

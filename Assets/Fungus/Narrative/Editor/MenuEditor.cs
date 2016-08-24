@@ -1,17 +1,11 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
 using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
-
     [CustomEditor (typeof(Fungus.Menu))]
     public class MenuEditor : CommandEditor 
     {
@@ -60,6 +54,5 @@ namespace Fungus
 
             serializedObject.ApplyModifiedProperties();
         }
-    }
-    
+    }    
 }

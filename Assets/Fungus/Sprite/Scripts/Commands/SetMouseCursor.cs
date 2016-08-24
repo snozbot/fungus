@@ -1,13 +1,13 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets the mouse cursor sprite.
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Set Mouse Cursor", 
                  "Sets the mouse cursor sprite.")]
@@ -15,10 +15,10 @@ namespace Fungus
     public class SetMouseCursor : Command 
     {
         [Tooltip("Texture to use for cursor. Will use default mouse cursor if no sprite is specified")]
-        public Texture2D cursorTexture;
+        [SerializeField] protected Texture2D cursorTexture;
 
         [Tooltip("The offset from the top left of the texture to use as the target point")]
-        public Vector2 hotSpot;
+        [SerializeField] protected Vector2 hotSpot;
 
         // Cached static cursor settings
         protected static Texture2D activeCursorTexture;

@@ -1,26 +1,21 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
-using System;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// Clipping code: http://forum.unity3d.com/threads/17066-How-to-draw-a-GUI-2D-quot-line-quot?p=230386#post230386
+    /// Thick line drawing code: http://unifycommunity.com/wiki/index.php?title=VectorLine
+    /// Credit: "http://cs-people.bu.edu/jalon/cs480/Oct11Lab/clip.c"
+    /// </summary>
     public class GLDraw
     {
-        /*
-         * Clipping code: http://forum.unity3d.com/threads/17066-How-to-draw-a-GUI-2D-quot-line-quot?p=230386#post230386
-         * Thick line drawing code: http://unifycommunity.com/wiki/index.php?title=VectorLine
-         */
         protected static bool clippingEnabled;
         protected static Rect clippingBounds;
         public static Material lineMaterial = null;
 
-        /* @ Credit: "http://cs-people.bu.edu/jalon/cs480/Oct11Lab/clip.c" */
         protected static bool clip_test(float p, float q, ref float u1, ref float u2)
         {
             float r;
@@ -294,5 +289,4 @@ namespace Fungus
             return rt * rt * rt * s + 3 * rt * rtt * st + 3 * rtt * t * et + t * t * t * e;
         }
     }
-
 }

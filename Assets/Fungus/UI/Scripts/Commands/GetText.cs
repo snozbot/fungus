@@ -1,29 +1,27 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.UI;
-using System;
-using System.Collections;
 using UnityEngine.Serialization;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Gets the text property from a UI Text object and stores it in a string variable.
+    /// </summary>
     [CommandInfo("UI", 
                  "Get Text", 
                  "Gets the text property from a UI Text object and stores it in a string variable.")]
-    
     [AddComponentMenu("")]
     public class GetText : Command 
     {
         [Tooltip("Text object to get text value from")]
-        public GameObject targetTextObject;
+        [SerializeField] protected GameObject targetTextObject;
         
         [Tooltip("String variable to store the text value in")]
         [VariableProperty(typeof(StringVariable))]
-        public StringVariable stringVariable;
+        [SerializeField] protected StringVariable stringVariable;
         
         public override void OnEnter()
         {
@@ -39,21 +37,21 @@ namespace Fungus
                 Text uiText = targetTextObject.GetComponent<Text>();
                 if (uiText != null)
                 {
-                    stringVariable.value = uiText.text;
+                    stringVariable.Value = uiText.text;
                 }
                 else
                 {
                     InputField inputField = targetTextObject.GetComponent<InputField>();
                     if (inputField != null)
                     {
-                        stringVariable.value = inputField.text;
+                        stringVariable.Value = inputField.text;
                     }
                     else
                     {
                         TextMesh textMesh = targetTextObject.GetComponent<TextMesh>();
                         if (textMesh != null)
                         {
-                            stringVariable.value = textMesh.text;
+                            stringVariable.Value = textMesh.text;
                         }
                     }
                 }
@@ -94,5 +92,4 @@ namespace Fungus
             }
         }
     }
-    
 }

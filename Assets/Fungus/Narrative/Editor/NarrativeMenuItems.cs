@@ -1,15 +1,11 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEditor;
-using System.Collections;
 
 namespace Fungus
 {
-
     // The prefab names are prefixed with Fungus to avoid clashes with any other prefabs in the project
     public class NarrativeMenuItems 
     {
@@ -69,5 +65,4 @@ namespace Fungus
             go.transform.position = Vector3.zero;
         }
     }
-
 }

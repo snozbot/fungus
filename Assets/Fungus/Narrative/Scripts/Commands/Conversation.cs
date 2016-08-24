@@ -1,14 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text].
+    /// </summary>
     [CommandInfo("Narrative", 
                  "Conversation", 
                  "Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text]")]
@@ -16,9 +16,9 @@ namespace Fungus
     [ExecuteInEditMode]
     public class Conversation : Command
     {
-        public StringDataMulti conversationText;
+        [SerializeField] protected StringDataMulti conversationText;
 
-        public ConversationManager conversationManager = new ConversationManager();
+        protected ConversationManager conversationManager = new ConversationManager();
 
         protected virtual void Start()
         {

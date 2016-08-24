@@ -3,17 +3,20 @@ using UnityEngine.UI;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Select the UI element when the gameobject is enabled.
+    /// </summary>
     [RequireComponent(typeof(Selectable))]
     public class SelectOnEnable : MonoBehaviour
     {
-        private Selectable selectable;
+        protected Selectable selectable;
 
-        private void Awake()
+        protected void Awake()
         {
             selectable = GetComponent<Selectable>();
         }
 
-        private void OnEnable()
+        protected void OnEnable()
         {
             selectable.Select();
         }

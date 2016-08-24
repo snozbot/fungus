@@ -1,15 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Fades a sprite to a target color over a period of time.
+    /// </summary>
     [CommandInfo("Sprite", 
                  "Fade Sprite", 
                  "Fades a sprite to a target color over a period of time.")]
@@ -37,17 +36,9 @@ namespace Fungus
                 return;
             }
 
-            CameraController cameraController = CameraController.GetInstance();
-
-            if (waitUntilFinished)
-            {
-                cameraController.waiting = true;
-            }
-
             SpriteFader.FadeSprite(spriteRenderer, _targetColor.Value, _duration.Value, Vector2.zero, delegate {
                 if (waitUntilFinished)
                 {
-                    cameraController.waiting = false;
                     Continue();
                 }
             });
@@ -94,5 +85,4 @@ namespace Fungus
 
         #endregion
     }
-
 }

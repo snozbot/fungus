@@ -1,19 +1,23 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Texture variable type.
+    /// </summary>
     [VariableInfo("Other", "Texture")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class TextureVariable : VariableBase<Texture>
     {}
 
+    /// <summary>
+    /// Container for a Texture variable reference or constant value.
+    /// </summary>
     [System.Serializable]
     public struct TextureData
     {
@@ -37,8 +41,8 @@ namespace Fungus
 
         public Texture Value
         {
-            get { return (textureRef == null) ? textureVal : textureRef.value; }
-            set { if (textureRef == null) { textureVal = value; } else { textureRef.value = value; } }
+            get { return (textureRef == null) ? textureVal : textureRef.Value; }
+            set { if (textureRef == null) { textureVal = value; } else { textureRef.Value = value; } }
         }
 
         public string GetDescription()
@@ -49,9 +53,8 @@ namespace Fungus
             }
             else
             {
-                return textureRef.key;
+                return textureRef.Key;
             }
         }
     }
-
 }

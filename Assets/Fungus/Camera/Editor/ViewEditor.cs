@@ -1,16 +1,11 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
-
     [CanEditMultipleObjects]
     [CustomEditor (typeof(View))]
     public class ViewEditor : Editor 
@@ -154,7 +149,7 @@ namespace Fungus
                 if (newPos != handles[i])
                 {
                     Undo.RecordObject(view, "Set View Size");
-                    view.viewSize = (newPos - pos).magnitude;
+                    view.ViewSize = (newPos - pos).magnitude;
                     EditorUtility.SetDirty(view);
                     break;
                 }
@@ -164,8 +159,8 @@ namespace Fungus
         public static void DrawView(View view, bool drawInterior)
         {   
             float height = CalculateLocalViewSize(view);
-            float widthA = height * (view.primaryAspectRatio.x / view.primaryAspectRatio.y);
-            float widthB = height * (view.secondaryAspectRatio.x / view.secondaryAspectRatio.y);
+            float widthA = height * (view.PrimaryAspectRatio.x / view.PrimaryAspectRatio.y);
+            float widthB = height * (view.SecondaryAspectRatio.x / view.SecondaryAspectRatio.y);
 
             Color transparent = new Color(1,1,1,0f);
             Color fill = viewColor;
@@ -176,11 +171,11 @@ namespace Fungus
             Flowchart flowchart = FlowchartWindow.GetFlowchart();
             if (flowchart != null)
             {
-                foreach (Command command in flowchart.selectedCommands)
+                foreach (Command command in flowchart.SelectedCommands)
                 {
                     MoveToView moveToViewCommand = command as MoveToView;
                     if (moveToViewCommand != null &&
-                        moveToViewCommand.targetView == view)
+                        moveToViewCommand.TargetView == view)
                     {
                         highlight = true;
                     }
@@ -188,7 +183,7 @@ namespace Fungus
                     {
                         FadeToView fadeToViewCommand = command as FadeToView;
                         if (fadeToViewCommand != null &&
-                            fadeToViewCommand.targetView == view)
+                            fadeToViewCommand.TargetView == view)
                         {
                             highlight = true;
                         }
@@ -260,8 +255,7 @@ namespace Fungus
         // Kinda expensive, but accurate and only called in editor.
         static float CalculateLocalViewSize(View view)
         {
-            return view.transform.InverseTransformPoint(view.transform.position + new Vector3(0, view.viewSize, 0)).magnitude;
+            return view.transform.InverseTransformPoint(view.transform.position + new Vector3(0, view.ViewSize, 0)).magnitude;
         }
     }
-
 }

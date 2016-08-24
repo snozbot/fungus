@@ -1,14 +1,13 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets a custom say dialog to use when displaying story text.
+    /// </summary>
     [CommandInfo("Narrative", 
                  "Set Say Dialog", 
                  "Sets a custom say dialog to use when displaying story text")]
@@ -16,7 +15,7 @@ namespace Fungus
     public class SetSayDialog : Command 
     {
         [Tooltip("The Say Dialog to use for displaying Say story text")]
-        public SayDialog sayDialog;
+        [SerializeField] protected SayDialog sayDialog;
 
         public override void OnEnter()
         {
@@ -43,5 +42,4 @@ namespace Fungus
             return new Color32(184, 210, 235, 255);
         }
     }
-
 }

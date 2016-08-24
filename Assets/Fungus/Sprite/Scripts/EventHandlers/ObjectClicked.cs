@@ -1,13 +1,13 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Fungus 
 {
+    /// <summary>
+    /// The block will execute when the user clicks or taps on the clickable object.
+    /// </summary>
     [EventHandlerInfo("Sprite",
                       "Object Clicked",
                       "The block will execute when the user clicks or taps on the clickable object.")]
@@ -15,7 +15,7 @@ namespace Fungus
     public class ObjectClicked : EventHandler
     {   
         [Tooltip("Object that the user can click or tap on")]
-        public Clickable2D clickableObject;
+        [SerializeField] protected Clickable2D clickableObject;
         
         public virtual void OnObjectClicked(Clickable2D clickableObject)
         {

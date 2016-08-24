@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
 using System.Collections;
@@ -100,10 +98,10 @@ namespace Fungus
 			}
 
 			// Check Fungus variables are populated with expected values
-			if (flowchart.GetVariable<BooleanVariable>("BoolVar").value != true ||
-                flowchart.GetVariable<IntegerVariable>("IntVar").value != 5 ||
-                flowchart.GetVariable<FloatVariable>("FloatVar").value != 22.1f ||
-                flowchart.GetVariable<StringVariable>("StringVar").value != "a string")
+			if (flowchart.GetVariable<BooleanVariable>("BoolVar").Value != true ||
+                flowchart.GetVariable<IntegerVariable>("IntVar").Value != 5 ||
+                flowchart.GetVariable<FloatVariable>("FloatVar").Value != 22.1f ||
+                flowchart.GetVariable<StringVariable>("StringVar").Value != "a string")
 			{
 				IntegrationTest.Fail("Fungus variables do not match expected values");
 				return;

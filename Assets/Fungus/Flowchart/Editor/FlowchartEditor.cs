@@ -1,16 +1,12 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using Rotorz.ReorderableList;
 using System.Linq;
 using System.Reflection;
-using System.IO;
 
 namespace Fungus
 {
@@ -91,8 +87,8 @@ namespace Fungus
             if (GUILayout.Button(new GUIContent("Center View", "Centers the window view at the center of all blocks in the Flowchart")))
             {
                 // Reset the zoom so we don't have adjust the center position depending on zoom
-                flowchart.scrollPos = flowchart.centerPosition;
-                flowchart.zoom = FlowchartWindow.maxZoomValue;
+                flowchart.ScrollPos = flowchart.CenterPosition;
+                flowchart.Zoom = FlowchartWindow.maxZoomValue;
             }
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
@@ -106,16 +102,16 @@ namespace Fungus
 
             Flowchart t = target as Flowchart;
 
-            if (t.variables.Count == 0)
+            if (t.Variables.Count == 0)
             {
-                t.variablesExpanded = true;
+                t.VariablesExpanded = true;
             }
 
-            if (!t.variablesExpanded)
+            if (!t.VariablesExpanded)
             {
-                if (GUILayout.Button ("Variables (" + t.variables.Count + ")", GUILayout.Height(24)))
+                if (GUILayout.Button ("Variables (" + t.Variables.Count + ")", GUILayout.Height(24)))
                 {
-                    t.variablesExpanded = true;
+                    t.VariablesExpanded = true;
                 }
 
                 // Draw disclosure triangle
@@ -128,15 +124,15 @@ namespace Fungus
             {
                 Rect listRect = new Rect();
 
-                if (t.variables.Count > 0)
+                if (t.Variables.Count > 0)
                 {
                     // Remove any null variables from the list
                     // Can sometimes happen when upgrading to a new version of Fungus (if .meta GUID changes for a variable class)
-                    for (int i = t.variables.Count - 1; i >= 0; i--)
+                    for (int i = t.Variables.Count - 1; i >= 0; i--)
                     {
-                        if (t.variables[i] == null)
+                        if (t.Variables[i] == null)
                         {
-                            t.variables.RemoveAt(i);
+                            t.Variables.RemoveAt(i);
                         }
                     }
 
@@ -170,7 +166,7 @@ namespace Fungus
 
                 if (GUI.Button (buttonRect, "Variables"))
                 {
-                    t.variablesExpanded = false;
+                    t.VariablesExpanded = false;
                 }
 
                 // Draw disclosure triangle
@@ -249,8 +245,8 @@ namespace Fungus
 
             Undo.RecordObject(flowchart, "Add Variable");
             Variable newVariable = flowchart.gameObject.AddComponent(variableType) as Variable;
-            newVariable.key = flowchart.GetUniqueVariableKey("");
-            flowchart.variables.Add(newVariable);
+            newVariable.Key = flowchart.GetUniqueVariableKey("");
+            flowchart.Variables.Add(newVariable);
 
             // Because this is an async call, we need to force prefab instances to record changes
             PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
@@ -273,12 +269,12 @@ namespace Fungus
             
         }
 
-        /**
-         * When modifying custom editor code you can occasionally end up with orphaned editor instances.
-         * When this happens, you'll get a null exception error every time the scene serializes / deserialized.
-         * Once this situation occurs, the only way to fix it is to restart the Unity editor.
-         * As a workaround, this function detects if this editor is an orphan and deletes it. 
-         */
+        /// <summary>
+        /// When modifying custom editor code you can occasionally end up with orphaned editor instances.
+        /// When this happens, you'll get a null exception error every time the scene serializes / deserialized.
+        /// Once this situation occurs, the only way to fix it is to restart the Unity editor.
+        /// As a workaround, this function detects if this editor is an orphan and deletes it. 
+        /// </summary>
         protected virtual bool NullTargetCheck()
         {
             try
@@ -297,5 +293,4 @@ namespace Fungus
             return false;
         }
     }
-
 }

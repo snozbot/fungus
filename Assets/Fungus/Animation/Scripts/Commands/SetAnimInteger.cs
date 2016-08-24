@@ -1,15 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using System;
-using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Sets an integer parameter on an Animator component to control a Unity animation.
+    /// </summary>
     [CommandInfo("Animation", 
                  "Set Anim Integer", 
                  "Sets an integer parameter on an Animator component to control a Unity animation")]
@@ -18,13 +17,13 @@ namespace Fungus
     public class SetAnimInteger : Command
     {
         [Tooltip("Reference to an Animator component in a game object")]
-        public AnimatorData _animator;
+        [SerializeField] protected AnimatorData _animator;
 
         [Tooltip("Name of the integer Animator parameter that will have its value changed")]
-        public StringData _parameterName;
+        [SerializeField] protected StringData _parameterName;
 
         [Tooltip("The integer value to set the parameter to")]
-        public IntegerData value;
+        [SerializeField] protected IntegerData value;
 
         public override void OnEnter()
         {
@@ -73,5 +72,4 @@ namespace Fungus
 
         #endregion
     }
-
 }

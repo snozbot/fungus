@@ -1,20 +1,13 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using UnityEngine;
-using UnityEditor;
-using System;
 using System.IO;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
-    /**
-     * Prevents saving of selected blocks and commands to avoid version control conflicts
-     */
+    /// <summary>
+    /// Prevents saving of selected blocks and commands to avoid version control conflicts.
+    /// </summary>
     public class AssetModProcessor : UnityEditor.AssetModificationProcessor
     {
         public static string[] OnWillSaveAssets(string[] paths)
@@ -38,15 +31,14 @@ namespace Fungus
             Flowchart[] flowcharts = UnityEngine.Object.FindObjectsOfType<Flowchart>();
             foreach (Flowchart f in flowcharts)
             {
-                if (!f.saveSelection)
+                if (!f.SaveSelection)
                 {
-                    f.selectedBlock = null;
+                    f.SelectedBlock = null;
                     f.ClearSelectedCommands();
                 }
             }
 
             return paths;
         }
-
     }
 }

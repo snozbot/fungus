@@ -1,14 +1,14 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using System.Collections;
 
 namespace Fungus
 {
-
+    /// <summary>
+    /// String variable type.
+    /// </summary>
     [VariableInfo("", "String")]
     [AddComponentMenu("")]
     [System.Serializable]
@@ -16,7 +16,7 @@ namespace Fungus
     {
         public virtual bool Evaluate(CompareOperator compareOperator, string stringValue)
         {
-            string lhs = value;
+            string lhs = Value;
             string rhs = stringValue;
 
             bool condition = false;
@@ -37,7 +37,7 @@ namespace Fungus
     }
 
     /// <summary>
-    /// Can contain a reference to a StringVariable or a string constant.
+    /// Container for a string variable reference or constant value.
     /// Appears as a single line property in the inspector.
     /// For a multi-line property, use StringDataMulti.
     /// </summary>
@@ -67,9 +67,9 @@ namespace Fungus
             get 
             { 
                 if (stringVal == null) stringVal = "";
-                return (stringRef == null) ? stringVal : stringRef.value; 
+                return (stringRef == null) ? stringVal : stringRef.Value; 
             }
-            set { if (stringRef == null) { stringVal = value; } else { stringRef.value = value; } }
+            set { if (stringRef == null) { stringVal = value; } else { stringRef.Value = value; } }
         }
 
         public string GetDescription()
@@ -80,13 +80,13 @@ namespace Fungus
             }
             else
             {
-                return stringRef.key;
+                return stringRef.Key;
             }
         }
     }
 
     /// <summary>
-    /// Can contain a reference to a StringVariable or a string constant.
+    /// Container for a string variable reference or constant value.
     /// Appears as a multi-line property in the inspector.
     /// For a single-line property, use StringData.
     /// </summary>
@@ -117,9 +117,9 @@ namespace Fungus
             get 
             {
                 if (stringVal == null) stringVal = "";
-                return (stringRef == null) ? stringVal : stringRef.value; 
+                return (stringRef == null) ? stringVal : stringRef.Value; 
             }
-            set { if (stringRef == null) { stringVal = value; } else { stringRef.value = value; } }
+            set { if (stringRef == null) { stringVal = value; } else { stringRef.Value = value; } }
         }
 
         public string GetDescription()
@@ -130,7 +130,7 @@ namespace Fungus
             }
             else
             {
-                return stringRef.key;
+                return stringRef.Key;
             }
         }
     }

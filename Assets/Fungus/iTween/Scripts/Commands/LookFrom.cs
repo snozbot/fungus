@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,6 +7,9 @@ using System.Collections;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Instantly rotates a GameObject to look at the supplied Vector3 then returns it to it's starting rotation over time.
+    /// </summary>
     [CommandInfo("iTween", 
                  "Look From", 
                  "Instantly rotates a GameObject to look at the supplied Vector3 then returns it to it's starting rotation over time.")]
@@ -17,13 +18,13 @@ namespace Fungus
     public class LookFrom : iTweenCommand
     {
         [Tooltip("Target transform that the GameObject will look at")]
-        public TransformData _fromTransform;
+        [SerializeField] protected TransformData _fromTransform;
 
         [Tooltip("Target world position that the GameObject will look at, if no From Transform is set")]
-        public Vector3Data _fromPosition;
+        [SerializeField] protected Vector3Data _fromPosition;
 
         [Tooltip("Restricts rotation to the supplied axis only")]
-        public iTweenAxis axis;
+        [SerializeField] protected iTweenAxis axis;
 
         public override void DoTween()
         {
@@ -82,5 +83,4 @@ namespace Fungus
 
         #endregion
     }
-
 }

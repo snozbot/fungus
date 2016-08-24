@@ -1,7 +1,5 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using System;
@@ -11,50 +9,36 @@ using Fungus;
 
 namespace Fungus
 {
-    /**
-     * Controller for main camera.
-     * Supports several types of camera transition including snap, pan & fade.
-     */
+    /// <summary>
+    /// Controller for main camera.Supports several types of camera transition including snap, pan & fade.
+    /// </summary>
     public class CameraController : MonoBehaviour 
     {
-        /**
-         * Full screen texture used for screen fade effect.
-         */
-        public Texture2D screenFadeTexture;
-        
-        /**
-         * Icon to display when swipe pan mode is active.
-         */
-        public Texture2D swipePanIcon;
-        
-        /**
-         * Position of continue and swipe icons in normalized screen space coords.
-         * (0,0) = top left, (1,1) = bottom right
-         */
-        public Vector2 swipeIconPosition = new Vector2(1,0);
+        [Tooltip("Full screen texture used for screen fade effect.")]
+        [SerializeField] protected Texture2D screenFadeTexture;
+        public Texture2D ScreenFadeTexture { set { screenFadeTexture = value; } }
 
-        /**
-         * Set the camera z coordinate to a fixed value every frame.
-         */
-        public bool setCameraZ = true;
+        [Tooltip("Icon to display when swipe pan mode is active.")]
+        [SerializeField] protected Texture2D swipePanIcon;
 
-        /**
-         * Fixed Z coordinate of main camera.
-         */
-        public float cameraZ = -10f;
+        [Tooltip("Position of continue and swipe icons in normalized screen space coords. (0,0) = top left, (1,1) = bottom right")]
+        [SerializeField] protected Vector2 swipeIconPosition = new Vector2(1,0);
 
-        [HideInInspector]
-        public bool waiting; 
-        
+        [Tooltip("Set the camera z coordinate to a fixed value every frame.")]
+        [SerializeField] protected bool setCameraZ = true;
+
+        [Tooltip("Fixed Z coordinate of main camera.")]
+        [SerializeField] protected float cameraZ = -10f;
+
+        [Tooltip("Camera to use when in swipe mode")]
+        [SerializeField] protected Camera swipeCamera;
+
         protected float fadeAlpha = 0f;
         
         // Swipe panning control
-        [HideInInspector]
-        public bool swipePanActive;
-        public Camera swipeCamera;
+        protected bool swipePanActive;
 
-        [HideInInspector]
-        public float swipeSpeedMultiplier = 1f;
+        protected float swipeSpeedMultiplier = 1f;
         protected View swipePanViewA;
         protected View swipePanViewB;
         protected Vector3 previousMousePos;
@@ -70,10 +54,10 @@ namespace Fungus
         
         protected static CameraController instance;
         
-        /**
-         * Returns the CameraController singleton instance.
-         * Will create a CameraController game object if none currently exists.
-         */
+        /// <summary>
+        /// Returns the CameraController singleton instance.
+        /// Will create a CameraController game object if none currently exists.
+        /// </summary>
         static public CameraController GetInstance()
         {
             if (instance == null)
@@ -132,18 +116,18 @@ namespace Fungus
                 GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), screenFadeTexture);
             }
         }
-        
-        /**
-         * Perform a fullscreen fade over a duration.
-         */
+
+        /// <summary>
+        /// Perform a fullscreen fade over a duration.
+        /// </summary>
         public virtual void Fade(float targetAlpha, float fadeDuration, Action fadeAction)
         {
             StartCoroutine(FadeInternal(targetAlpha, fadeDuration, fadeAction));
         }
-        
-        /**
-         * Fade out, move camera to view and then fade back in.
-         */
+
+        /// <summary>
+        /// Fade out, move camera to view and then fade back in.
+        /// </summary>
         public virtual void FadeToView(Camera camera, View view, float fadeDuration, bool fadeOut, Action fadeAction)
         {
             swipePanActive = false;
@@ -167,7 +151,7 @@ namespace Fungus
             Fade(1f, outDuration, delegate {
                 
                 // Snap to new view
-                PanToPosition(camera, view.transform.position, view.transform.rotation, view.viewSize, 0f, null);
+                PanToPosition(camera, view.transform.position, view.transform.rotation, view.ViewSize, 0f, null);
                 
                 // Fade in
                 Fade(0f, inDuration, delegate {
@@ -210,11 +194,10 @@ namespace Fungus
                 fadeAction();
             }
         }
-        
-        /**
-         * Positions camera so sprite is centered and fills the screen.
-         * @param spriteRenderer The sprite to center the camera on
-         */
+
+        /// <summary>
+        /// Positions camera so sprite is centered and fills the screen.
+        /// </summary>
         public virtual void CenterOnSprite(Camera camera, SpriteRenderer spriteRenderer)
         {
             if (camera == null)
@@ -244,12 +227,12 @@ namespace Fungus
         
         public virtual void PanToView(Camera camera, View view, float duration, Action arriveAction)
         {
-            PanToPosition(camera, view.transform.position, view.transform.rotation, view.viewSize, duration, arriveAction);
+            PanToPosition(camera, view.transform.position, view.transform.rotation, view.ViewSize, duration, arriveAction);
         }
-        
-        /**
-         * Moves camera from current position to a target position over a period of time.
-         */
+
+        /// <summary>
+        /// Moves camera from current position to a target position over a period of time.
+        /// </summary>
         public virtual void PanToPosition(Camera camera, Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, Action arriveAction)
         {
             if (camera == null)
@@ -282,10 +265,10 @@ namespace Fungus
                 StartCoroutine(PanInternal(camera, targetPosition, targetRotation, targetSize, duration, arriveAction));
             }
         }
-        
-        /**
-         * Stores the current camera view using a name.
-         */
+
+        /// <summary>
+        /// Stores the current camera view using a name.
+        /// </summary>
         public virtual void StoreView(Camera camera, string viewName)
         {
             if (camera != null)
@@ -300,10 +283,10 @@ namespace Fungus
             currentView.cameraSize = camera.orthographicSize;
             storedViews[viewName] = currentView;
         }
-        
-        /**
-         * Moves the camera to a previously stored camera view over a period of time.
-         */
+
+        /// <summary>
+        /// Moves the camera to a previously stored camera view over a period of time.
+        /// </summary>
         public virtual void PanToStoredView(Camera camera, string viewName, float duration, Action arriveAction)
         {
             if (camera == null)
@@ -395,10 +378,10 @@ namespace Fungus
                 yield return null;
             }
         }
-        
-        /**
-         * Moves camera smoothly through a sequence of Views over a period of time
-         */
+
+        /// <summary>
+        /// Moves camera smoothly through a sequence of Views over a period of time.
+        /// </summary>
         public virtual void PanToPath(Camera camera, View[] viewList, float duration, Action arriveAction)
         {
             if (camera == null)
@@ -424,7 +407,7 @@ namespace Fungus
                 
                 Vector3 viewPos = new Vector3(view.transform.position.x, 
                                               view.transform.position.y, 
-                                              view.viewSize);
+                                              view.ViewSize);
                 pathList.Add(viewPos);
             }
             
@@ -462,11 +445,10 @@ namespace Fungus
                 arriveAction();
             }
         }
-        
-        /**
-         * Activates swipe panning mode.
-         * The player can pan the camera within the area between viewA & viewB.
-         */
+
+        /// <summary>
+        /// Activates swipe panning mode. The player can pan the camera within the area between viewA & viewB.
+        /// </summary>
         public virtual void StartSwipePan(Camera camera, View viewA, View viewB, float duration, float speedMultiplier, Action arriveAction)
         {
             if (camera == null)
@@ -495,10 +477,10 @@ namespace Fungus
                 }
             }); 
         }
-        
-        /**
-         * Deactivates swipe panning mode.
-         */
+
+        /// <summary>
+        /// Deactivates swipe panning mode.
+        /// </summary>
         public virtual void StopSwipePan()
         {
             swipePanActive = false;
@@ -599,7 +581,7 @@ namespace Fungus
             float t = Vector3.Dot(toViewB, localPos);
             t = Mathf.Clamp01(t); // Not really necessary but no harm
             
-            float cameraSize = Mathf.Lerp(viewA.viewSize, viewB.viewSize, t);
+            float cameraSize = Mathf.Lerp(viewA.ViewSize, viewB.ViewSize, t);
             
             return cameraSize;
         }

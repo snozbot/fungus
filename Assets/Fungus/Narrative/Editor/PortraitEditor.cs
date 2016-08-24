@@ -1,22 +1,11 @@
-/**
- * This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
- * It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
- */
+// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Rotorz.ReorderableList;
-
 
 namespace Fungus
 {
-    
     [CustomEditor (typeof(Portrait))]
     public class PortraitEditor : CommandEditor
     {
@@ -75,14 +64,14 @@ namespace Fungus
             }
             else
             {
-                t.stage = null;
+                t._Stage = null;
             }
             // Format Enum names
-            string[] displayLabels = StringFormatter.FormatEnumNames(t.display,"<None>");
+            string[] displayLabels = StringFormatter.FormatEnumNames(t.Display,"<None>");
             displayProp.enumValueIndex = EditorGUILayout.Popup("Display", (int)displayProp.enumValueIndex, displayLabels);
 
             string characterLabel = "Character";
-            if (t.display == DisplayType.Replace)
+            if (t.Display == DisplayType.Replace)
             {
                 CommandEditor.ObjectField<Character>(replacedCharacterProp, 
                                                      new GUIContent("Replace", "Character to replace"), 
@@ -97,19 +86,19 @@ namespace Fungus
                                                  Character.activeCharacters);
 
             bool showOptionalFields = true;
-            Stage s = t.stage;
+            Stage s = t._Stage;
             // Only show optional portrait fields once required fields have been filled...
-            if (t.character != null)                // Character is selected
+            if (t._Character != null)                // Character is selected
             {
-                if (t.character.portraits == null ||    // Character has a portraits field
-                    t.character.portraits.Count <= 0 )   // Character has at least one portrait
+                if (t._Character.Portraits == null ||    // Character has a portraits field
+                    t._Character.Portraits.Count <= 0 )   // Character has at least one portrait
                 {
                     EditorGUILayout.HelpBox("This character has no portraits. Please add portraits to the character's prefab before using this command.", MessageType.Error);
                     showOptionalFields = false; 
                 }
-                if (t.stage == null)            // If default portrait stage selected
+                if (t._Stage == null)            // If default portrait stage selected
                 {
-                    if (t.stage == null)        // If no default specified, try to get any portrait stage in the scene
+                    if (t._Stage == null)        // If no default specified, try to get any portrait stage in the scene
                     {
                         s = GameObject.FindObjectOfType<Stage>();
                     }
@@ -120,16 +109,16 @@ namespace Fungus
                     showOptionalFields = false; 
                 }
             }
-            if (t.display != DisplayType.None && t.character != null && showOptionalFields) 
+            if (t.Display != DisplayType.None && t._Character != null && showOptionalFields) 
             {
-                if (t.display != DisplayType.Hide && t.display != DisplayType.MoveToFront) 
+                if (t.Display != DisplayType.Hide && t.Display != DisplayType.MoveToFront) 
                 {
                     // PORTRAIT
                     CommandEditor.ObjectField<Sprite>(portraitProp, 
                                                       new GUIContent("Portrait", "Portrait representing character"), 
                                                       new GUIContent("<Previous>"),
-                                                      t.character.portraits);
-                    if (t.character.portraitsFace != FacingDirection.None)
+                                                      t._Character.Portraits);
+                    if (t._Character.PortraitsFace != FacingDirection.None)
                     {
                         // FACING
                         // Display the values of the facing enum as <-- and --> arrows to avoid confusion with position field
@@ -143,91 +132,91 @@ namespace Fungus
                     }
                     else
                     {
-                        t.facing = FacingDirection.None;
+                        t.Facing = FacingDirection.None;
                     }
                 }
                 else
                 {
-                    t.portrait = null;
-                    t.facing = FacingDirection.None;
+                    t._Portrait = null;
+                    t.Facing = FacingDirection.None;
                 }
                 string toPositionPrefix = "";
-                if (t.move)
+                if (t.Move)
                 {
                     // MOVE
                     EditorGUILayout.PropertyField(moveProp);
                 }
-                if (t.move)
+                if (t.Move)
                 {
-                    if (t.display != DisplayType.Hide) 
+                    if (t.Display != DisplayType.Hide) 
                     {
                         // START FROM OFFSET
                         EditorGUILayout.PropertyField(shiftIntoPlaceProp);
                     }
                 }
-                if (t.move)
+                if (t.Move)
                 {
-                    if (t.display != DisplayType.Hide) 
+                    if (t.Display != DisplayType.Hide) 
                     {
-                        if (t.shiftIntoPlace)
+                        if (t.ShiftIntoPlace)
                         {
-                            t.fromPosition = null;
+                            t.FromPosition = null;
                             // OFFSET
                             // Format Enum names
-                            string[] offsetLabels = StringFormatter.FormatEnumNames(t.offset,"<Previous>");
+                            string[] offsetLabels = StringFormatter.FormatEnumNames(t.Offset,"<Previous>");
                             offsetProp.enumValueIndex = EditorGUILayout.Popup("From Offset", (int)offsetProp.enumValueIndex, offsetLabels);
                         }
                         else
                         {
-                            t.offset = PositionOffset.None;
+                            t.Offset = PositionOffset.None;
                             // FROM POSITION
                             CommandEditor.ObjectField<RectTransform>(fromPositionProp, 
                                                                      new GUIContent("From Position", "Move the portrait to this position"), 
                                                                      new GUIContent("<Previous>"),
-                                                                     s.positions);
+                                                                     s.Positions);
                         }
                     }
                     toPositionPrefix = "To ";
                 }
                 else
                 {
-                    t.shiftIntoPlace = false;
-                    t.fromPosition = null;
+                    t.ShiftIntoPlace = false;
+                    t.FromPosition = null;
                     toPositionPrefix = "At ";
                 }
-                if (t.display == DisplayType.Show || (t.display == DisplayType.Hide && t.move) )
+                if (t.Display == DisplayType.Show || (t.Display == DisplayType.Hide && t.Move) )
                 {
                     // TO POSITION
                     CommandEditor.ObjectField<RectTransform>(toPositionProp, 
                                                              new GUIContent(toPositionPrefix+"Position", "Move the portrait to this position"), 
                                                              new GUIContent("<Previous>"),
-                                                             s.positions);
+                                                             s.Positions);
                 }
                 else
                 {
-                    t.toPosition = null;
+                    t.ToPosition = null;
                 }
-                if (!t.move && t.display != DisplayType.MoveToFront)
+                if (!t.Move && t.Display != DisplayType.MoveToFront)
                 {
                     // MOVE
                     EditorGUILayout.PropertyField(moveProp);
                 }
-                if (t.display != DisplayType.MoveToFront)
+                if (t.Display != DisplayType.MoveToFront)
                 {
                 
                     EditorGUILayout.Separator();
 
                     // USE DEFAULT SETTINGS
                     EditorGUILayout.PropertyField(useDefaultSettingsProp);
-                    if (!t.useDefaultSettings) {
+                    if (!t.UseDefaultSettings) {
                         // FADE DURATION
                         EditorGUILayout.PropertyField(fadeDurationProp);
-                        if (t.move)
+                        if (t.Move)
                         {
                             // MOVE SPEED
                             EditorGUILayout.PropertyField(moveDurationProp);
                         }
-                        if (t.shiftIntoPlace)
+                        if (t.ShiftIntoPlace)
                         {
                             // SHIFT OFFSET
                             EditorGUILayout.PropertyField(shiftOffsetProp);
@@ -236,17 +225,17 @@ namespace Fungus
                 }
                 else
                 {
-                    t.move = false;
-                    t.useDefaultSettings = true;
+                    t.Move = false;
+                    t.UseDefaultSettings = true;
                     EditorGUILayout.Separator();
                 }
 
                 EditorGUILayout.PropertyField(waitUntilFinishedProp);
 
 
-                if (t.portrait != null && t.display != DisplayType.Hide)
+                if (t._Portrait != null && t.Display != DisplayType.Hide)
                 {
-                    Texture2D characterTexture = t.portrait.texture;
+                    Texture2D characterTexture = t._Portrait.texture;
 
                     float aspect = (float)characterTexture.width / (float)characterTexture.height;
                     Rect previewRect = GUILayoutUtility.GetAspectRect(aspect, GUILayout.Width(100), GUILayout.ExpandWidth(true));
@@ -257,12 +246,12 @@ namespace Fungus
                     }
                 }
 
-                if (t.display != DisplayType.Hide)
+                if (t.Display != DisplayType.Hide)
                 {
                     string portraitName = "<Previous>";
-                    if (t.portrait != null)
+                    if (t._Portrait != null)
                     {
-                        portraitName = t.portrait.name;
+                        portraitName = t._Portrait.name;
                     }
                     string portraitSummary = " " + portraitName;
                     int toolbarInt = 1;
@@ -272,8 +261,8 @@ namespace Fungus
 
                     if (toolbarInt != 1)
                     {
-                        for(int i=0; i<t.character.portraits.Count; i++){
-                            if(portraitName == t.character.portraits[i].name) 
+                        for(int i=0; i<t._Character.Portraits.Count; i++){
+                            if(portraitName == t._Character.Portraits[i].name) 
                             {
                                 portraitIndex = i;
                             }
@@ -284,18 +273,18 @@ namespace Fungus
                     {
                         if(portraitIndex > 0)
                         {
-                            t.portrait = t.character.portraits[--portraitIndex];
+                            t._Portrait = t._Character.Portraits[--portraitIndex];
                         }
                         else
                         {
-                            t.portrait = null;
+                            t._Portrait = null;
                         }
                     }
                     if (toolbarInt == 2)
                     {
-                        if(portraitIndex < t.character.portraits.Count-1)
+                        if(portraitIndex < t._Character.Portraits.Count-1)
                         {
-                            t.portrait = t.character.portraits[++portraitIndex];
+                            t._Portrait = t._Character.Portraits[++portraitIndex];
                         }
                     }
                 }
