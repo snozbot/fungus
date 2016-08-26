@@ -2620,7 +2620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   luaEnvironment: {fileID: 1656475080}
   luaFile: {fileID: 0}
-  luaScript: "-- Check if SayDialog input still works \n-- after a ClearMenu command\nwait(3)\ncontinue.onClick.Invoke()\n\nwait(0.5)\ncheck(saydialog.activeSelf
+  luaScript: "-- Check if SayDialog input still works \n-- after a ClearMenu command\nwait(4)\ncontinue.onClick.Invoke()\n\nwait(1)\ncheck(saydialog.activeSelf
     == false)\npass()"
   runAsCoroutine: 1
 --- !u!114 &1656475083
@@ -2722,7 +2722,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 4
-  errorMessage: 
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
@@ -2752,7 +2751,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 3
-  errorMessage: 
   indentLevel: 0
   stopParentFlowchart: 1
   targetFlowcharts: []
@@ -2793,7 +2791,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
-  errorMessage: 
   indentLevel: 0
   storyText: Some sample SayDialog text to be interrupted
   description: 
@@ -2907,7 +2904,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 5
-  errorMessage: 
   indentLevel: 0
   text: Menu Option 1
   description: 
@@ -2929,7 +2925,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 6
-  errorMessage: 
   indentLevel: 0
   menuDialog: {fileID: 1304242694}
 --- !u!1 &1789643125
@@ -3018,7 +3013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeout: 5
+  timeout: 10
   ignored: 0
   succeedAfterAllAssertionsAreExecuted: 0
   expectException: 0
@@ -3270,7 +3265,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 2
-  errorMessage: 
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
@@ -3288,7 +3282,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
-  errorMessage: 
   indentLevel: 0
   storyText: Now try to click this SayDialog
   description: 
@@ -3333,7 +3326,7 @@ MonoBehaviour:
     width: 120
     height: 40
   itemId: 0
-  blockName: New Block
+  blockName: Start
   description: 
   eventHandler: {fileID: 2035728971}
   commandList:
@@ -3356,7 +3349,7 @@ MonoBehaviour:
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 1
+  zoom: 0.98799926
   scrollViewRect:
     serializedVersion: 2
     x: -343

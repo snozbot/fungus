@@ -1219,7 +1219,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 4900000, guid: 6cbce76ae849c40cb86ed0bb1b6e1a95, type: 3}
@@ -1569,7 +1568,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
-  errorMessage: 
   indentLevel: 0
   display: 1
   stage: {fileID: 0}
@@ -3037,7 +3035,6 @@ MonoBehaviour:
   fadeDuration: 0.75
   moveDuration: 1
   fadeEaseType: 4
-  moveEaseType: 4
   shiftOffset: {x: 0, y: 0}
   defaultPosition: {fileID: 1018378833}
   positions:
@@ -3047,7 +3044,6 @@ MonoBehaviour:
   - {fileID: 401213763}
   - {fileID: 1562268133}
   cachedPositions: []
-  charactersOnStage: []
 --- !u!4 &293853618 stripped
 Transform:
   m_PrefabParentObject: {fileID: 495584, guid: 49031c561e16d4fcf91c12153f8e0b25, type: 2}
@@ -8390,7 +8386,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -8509,7 +8504,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 4
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -8529,7 +8523,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 3
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -8549,7 +8542,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 2
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -8625,7 +8617,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 6
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -8648,7 +8639,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 7
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -8696,7 +8686,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 9
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -8730,7 +8719,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 10
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -8764,7 +8752,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 11
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -8798,7 +8785,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 12
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -8835,7 +8821,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 13
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -8869,7 +8854,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 14
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -9077,7 +9061,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -9770,7 +9753,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1109996700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9782,7 +9765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeout: 5
+  timeout: 10
   ignored: 0
   succeedAfterAllAssertionsAreExecuted: 0
   expectException: 0
@@ -12931,7 +12914,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 2
-  errorMessage: 
   indentLevel: 0
 --- !u!114 &1669001932
 MonoBehaviour:
@@ -12945,7 +12927,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
-  errorMessage: 
   indentLevel: 0
   failMessage: 
 --- !u!114 &1669001933
@@ -13047,7 +13028,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 4
-  errorMessage: 
   indentLevel: 0
   commenterName: 
   commentText: This block does nothing
@@ -13120,7 +13100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1679234142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15474,7 +15454,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
-  errorMessage: 
   indentLevel: 0
   variable: {fileID: 1983492497}
   setOperator: 0
@@ -15580,7 +15559,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 2
-  errorMessage: 
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
