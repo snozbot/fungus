@@ -164,7 +164,7 @@ namespace Fungus
         {
             //find SimpleScript say strings with portrait options
             //You can test regex matches here: http://regexstorm.net/tester
-            var sayRegex = new Regex(@"((?<sayParams>[\w ""><]*):)?(?<text>.*)\r*(\n|$)");
+            var sayRegex = new Regex(@"((?<sayParams>[\w ""><.']*):)?(?<text>.*)\r*(\n|$)");
             MatchCollection sayMatches = sayRegex.Matches(conv);
 
             var items = new List<ConversationItem>(sayMatches.Count);
