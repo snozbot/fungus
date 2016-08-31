@@ -13,7 +13,7 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -37,12 +37,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_GIWorkflowMode: 1
-  m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -53,17 +53,22 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 3
+    serializedVersion: 4
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
     m_TextureHeight: 1024
+    m_AO: 0
     m_AOMaxDistance: 1
-    m_Padding: 2
     m_CompAOExponent: 0
+    m_CompAOExponentDirect: 0
+    m_Padding: 2
     m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
     m_TextureCompression: 1
+    m_DirectLightInLightProbes: 1
     m_FinalGather: 0
+    m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
   m_LightingDataAsset: {fileID: 0}
@@ -179,16 +184,14 @@ MonoBehaviour:
   - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
   - Fungus.SayDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.AudioClip, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - System.Action, System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
   - Fungus.Character, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Fungus.Flowchart, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.Sprite, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.Color, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Canvas, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.RectTransform+ReapplyDrivenProperties, UnityEngine, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
   - UnityEngine.Rect, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -256,7 +259,6 @@ MonoBehaviour:
   executeAfterFrames: 1
   repeatExecuteFrame: 1
   repeatEveryFrame: 1
-  hasFailed: 0
   executeMethods: 2
   executeMethodName: OnExecute
 --- !u!1 &88082916
@@ -735,7 +737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &215354033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,7 +749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeout: 10
+  timeout: 15
   ignored: 0
   succeedAfterAllAssertionsAreExecuted: 0
   expectException: 0
@@ -1684,7 +1686,6 @@ MonoBehaviour:
   executeAfterFrames: 1
   repeatExecuteFrame: 1
   repeatEveryFrame: 1
-  hasFailed: 0
   executeMethods: 2
   executeMethodName: OnExecute
 --- !u!1 &1143151451
@@ -1739,7 +1740,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -1842,7 +1842,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 3
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 1086658921}
   luaFile: {fileID: 0}
@@ -1911,7 +1910,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 5
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 1086658921}
   luaFile: {fileID: 0}
@@ -1954,7 +1952,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 6
-  errorMessage: 
   indentLevel: 0
 --- !u!114 &1143151464
 MonoBehaviour:
@@ -1968,7 +1965,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 7
-  errorMessage: 
   indentLevel: 0
   sayDialog: {fileID: 1479280637}
 --- !u!1 &1286795350
@@ -2053,7 +2049,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 18
-  errorMessage: 
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1286795361}
@@ -2155,7 +2150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 17
-  errorMessage: 
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1286795365}
@@ -2173,7 +2167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 16
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
@@ -2204,7 +2197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 15
-  errorMessage: 
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
@@ -2223,7 +2215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 42
-  errorMessage: 
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
@@ -2240,7 +2231,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 6
-  errorMessage: 
   indentLevel: 0
 --- !u!114 &1286795361
 MonoBehaviour:
@@ -2278,7 +2268,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 12
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
@@ -2299,7 +2288,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 11
-  errorMessage: 
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
@@ -2318,7 +2306,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 41
-  errorMessage: 
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1286795370}
@@ -2360,7 +2347,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 48
-  errorMessage: 
   indentLevel: 0
   sayDialog: {fileID: 1740854164}
 --- !u!114 &1286795367
@@ -2375,7 +2361,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 23
-  errorMessage: 
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1286795371}
@@ -2393,7 +2378,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 22
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
@@ -2425,7 +2409,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 21
-  errorMessage: 
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
@@ -2507,7 +2490,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 25
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
@@ -2565,7 +2547,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 27
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
@@ -2610,7 +2591,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 31
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
@@ -2632,7 +2612,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 30
-  errorMessage: 
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
@@ -2651,7 +2630,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 43
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
@@ -2696,7 +2674,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 32
-  errorMessage: 
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1286795381}
@@ -2714,7 +2691,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 37
-  errorMessage: 
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1286795387}
@@ -2732,7 +2708,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 36
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
@@ -2754,7 +2729,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 35
-  errorMessage: 
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
@@ -2811,7 +2785,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 38
-  errorMessage: 
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
@@ -2829,7 +2802,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 39
-  errorMessage: 
   indentLevel: 0
   display: 2
   stage: {fileID: 0}
@@ -2873,7 +2845,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 45
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
@@ -2893,7 +2864,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 46
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
@@ -2922,7 +2892,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 47
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
@@ -3976,7 +3945,6 @@ MonoBehaviour:
   fadeDuration: 0.75
   moveDuration: 1
   fadeEaseType: 4
-  moveEaseType: 4
   shiftOffset: {x: 0, y: 0}
   defaultPosition: {fileID: 227028112}
   positions:
@@ -3991,7 +3959,6 @@ MonoBehaviour:
   - {fileID: 286144663}
   - {fileID: 1916701316}
   - {fileID: 1781085154}
-  charactersOnStage: []
 --- !u!1 &1825659052
 GameObject:
   m_ObjectHideFlags: 0
