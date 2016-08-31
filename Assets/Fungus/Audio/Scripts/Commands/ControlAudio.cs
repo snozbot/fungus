@@ -16,7 +16,7 @@ namespace Fungus
     [ExecuteInEditMode]
     public class ControlAudio : Command
     {
-        public enum controlType
+        public enum ControlType
         {
             PlayOnce,
             PlayLoop,
@@ -26,8 +26,8 @@ namespace Fungus
         }
 
         [Tooltip("What to do to audio")]
-        [SerializeField] protected controlType control;
-        public virtual controlType Control { get { return control; } }
+        [SerializeField] protected ControlType control;
+        public virtual ControlType Control { get { return control; } }
 
         [Tooltip("Audio clip to play")]
         [SerializeField] protected AudioSourceData _audioSource;
@@ -54,28 +54,28 @@ namespace Fungus
                 return;
             }
 
-            if (control != controlType.ChangeVolume)
+            if (control != ControlType.ChangeVolume)
             {
                 _audioSource.Value.volume = endVolume;
             }
 
             switch(control)
             {
-                case controlType.PlayOnce:
+                case ControlType.PlayOnce:
                     StopAudioWithSameTag();
                     PlayOnce();
                     break;
-                case controlType.PlayLoop:
+                case ControlType.PlayLoop:
                     StopAudioWithSameTag();
                     PlayLoop();
                     break;
-                case controlType.PauseLoop:
+                case ControlType.PauseLoop:
                     PauseLoop();
                     break;
-                case controlType.StopLoop:
+                case ControlType.StopLoop:
                     StopLoop(_audioSource.Value);
                     break;
-                case controlType.ChangeVolume:
+                case ControlType.ChangeVolume:
                     ChangeVolume(); 
                     break;
             }
@@ -255,11 +255,11 @@ namespace Fungus
             if (fadeDuration > 0)
             {
                 fadeType = " Fade out";
-                if (control != controlType.StopLoop)
+                if (control != ControlType.StopLoop)
                 {
                     fadeType = " Fade in volume to " + endVolume;
                 }
-                if (control == controlType.ChangeVolume)
+                if (control == ControlType.ChangeVolume)
                 {
                     fadeType = " to " + endVolume;
                 }

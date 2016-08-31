@@ -39,11 +39,11 @@ namespace Fungus
             EditorGUILayout.PropertyField(controlProp);
             EditorGUILayout.PropertyField(audioSourceProp);
             string fadeLabel = "Fade Out Duration";
-            if (t.Control != ControlAudio.controlType.StopLoop && t.Control != ControlAudio.controlType.PauseLoop)
+            if (t.Control != ControlAudio.ControlType.StopLoop && t.Control != ControlAudio.ControlType.PauseLoop)
             {
                 fadeLabel = "Fade In Duration";
                 string volumeLabel = "End Volume";
-                if (t.Control == ControlAudio.controlType.ChangeVolume)
+                if (t.Control == ControlAudio.ControlType.ChangeVolume)
                 {
                     fadeLabel = "Fade Duration";
                     volumeLabel = "New Volume";
