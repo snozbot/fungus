@@ -31,14 +31,14 @@ namespace Fungus
     {
         [Tooltip("Stage to display characters on")]
         [SerializeField] protected Stage stage;
-        public Stage _Stage { get { return stage; } }
+        public virtual Stage _Stage { get { return stage; } }
 
         [Tooltip("Stage to swap with")]
         [SerializeField] protected Stage replacedStage;
 
         [Tooltip("Use Default Settings")]
         [SerializeField] protected bool useDefaultSettings = true;
-        public bool UseDefaultSettings { get { return useDefaultSettings; } }
+        public virtual bool UseDefaultSettings { get { return useDefaultSettings; } }
 
         [Tooltip("Fade Duration")]
         [SerializeField] protected float fadeDuration;

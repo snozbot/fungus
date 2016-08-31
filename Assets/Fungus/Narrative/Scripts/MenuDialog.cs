@@ -21,10 +21,10 @@ namespace Fungus
         [SerializeField] protected bool autoSelectFirstButton = false;
 
         protected Button[] cachedButtons;
-        public Button[] CachedButtons { get { return cachedButtons; } }
+        public virtual Button[] CachedButtons { get { return cachedButtons; } }
 
         protected Slider cachedSlider;
-        public Slider CachedSlider { get { return cachedSlider; } }
+        public virtual Slider CachedSlider { get { return cachedSlider; } }
 
         public static MenuDialog GetMenuDialog()
         {
@@ -156,7 +156,7 @@ namespace Fungus
             return addedOption;
         }
 
-        public int DisplayedOptionsCount
+        public virtual int DisplayedOptionsCount
         {
             get {
                 int count = 0;

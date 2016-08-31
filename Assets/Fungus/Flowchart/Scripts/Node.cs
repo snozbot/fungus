@@ -12,6 +12,6 @@ namespace Fungus
     public class Node : MonoBehaviour 
     {
         [SerializeField] protected Rect nodeRect = new Rect(0, 0, 120, 30);
-        public Rect _NodeRect { get { return nodeRect; } set { nodeRect = value; } }
+        public virtual Rect _NodeRect { get { return nodeRect; } set { nodeRect = value; } }
     }
 }

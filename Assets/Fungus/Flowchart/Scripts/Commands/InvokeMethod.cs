@@ -21,8 +21,7 @@ namespace Fungus
     {
         [Tooltip("GameObject containing the component method to be invoked")]
         [SerializeField] protected GameObject targetObject;
-
-        public GameObject TargetObject { get { return targetObject; } }
+        public virtual GameObject TargetObject { get { return targetObject; } }
 
         [HideInInspector]
         [Tooltip("Name of assembly containing the target component")]

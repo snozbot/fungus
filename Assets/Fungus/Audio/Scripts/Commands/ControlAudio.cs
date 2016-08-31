@@ -27,7 +27,7 @@ namespace Fungus
 
         [Tooltip("What to do to audio")]
         [SerializeField] protected controlType control;
-        public controlType Control { get { return control; } }
+        public virtual controlType Control { get { return control; } }
 
         [Tooltip("Audio clip to play")]
         [SerializeField] protected AudioSourceData _audioSource;

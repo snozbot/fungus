@@ -70,11 +70,11 @@ namespace Fungus
 
         // This property is true when the writer is waiting for user input to continue
         protected bool isWaitingForInput;
-        public bool IsWaitingForInput { get { return isWaitingForInput; } }
+        public virtual bool IsWaitingForInput { get { return isWaitingForInput; } }
 
         // This property is true when the writer is writing text or waiting (i.e. still processing tokens)
         protected bool isWriting;
-        public bool IsWriting { get { return isWriting; } }
+        public virtual bool IsWriting { get { return isWriting; } }
 
         protected float currentWritingSpeed;
         protected float currentPunctuationPause;
@@ -104,7 +104,7 @@ namespace Fungus
         protected string hiddenColorOpen = "";
         protected string hiddenColorClose = "";
 
-        public string text 
+        public virtual string text 
         {
             get 
             {

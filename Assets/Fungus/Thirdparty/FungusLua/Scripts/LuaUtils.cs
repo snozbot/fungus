@@ -36,7 +36,7 @@ namespace Fungus
         /// </summary>
         [Tooltip("The currently selected language in the string table. Affects variable substitution.")]
         [SerializeField] protected string activeLanguage = "en";
-        public string ActiveLanguage { get { return activeLanguage; } set { activeLanguage = value; } }
+        public virtual string ActiveLanguage { get { return activeLanguage; } set { activeLanguage = value; } }
 
         /// <summary>
         /// Lua script file which defines the global string table used for localisation.

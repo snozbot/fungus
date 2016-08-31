@@ -107,7 +107,7 @@ namespace Fungus
         /// <summary>
         /// The MoonSharp interpreter instance used to run Lua code.
         /// </summary>
-        public Script Interpreter { get { return interpreter; } }
+        public virtual Script Interpreter { get { return interpreter; } }
 
         /// <summary>
         /// Launches the remote Lua debugger in your browser and breaks execution at the first executed Lua command.

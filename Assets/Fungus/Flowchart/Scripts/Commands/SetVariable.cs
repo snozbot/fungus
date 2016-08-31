@@ -33,7 +33,7 @@ namespace Fungus
 
         [Tooltip("The type of math operation to be performed")]
         [SerializeField] protected SetOperator setOperator;
-        public SetOperator _SetOperator { get { return setOperator; } }
+        public virtual SetOperator _SetOperator { get { return setOperator; } }
 
         [Tooltip("Boolean value to set with")]
         [SerializeField] protected BooleanData booleanData;

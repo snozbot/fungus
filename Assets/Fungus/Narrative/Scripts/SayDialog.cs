@@ -33,11 +33,11 @@ namespace Fungus
 
         [Tooltip("The story text UI object")]
         [SerializeField] protected Text storyText;
-        public Text StoryText { get { return storyText; } }
+        public virtual Text StoryText { get { return storyText; } }
 
         [Tooltip("The character UI object")]
         [SerializeField] protected Image characterImage;
-        public Image CharacterImage { get { return characterImage; } }
+        public virtual Image CharacterImage { get { return characterImage; } }
     
         [Tooltip("Adjust width of story text when Character Image is displayed (to avoid overlapping)")]
         [SerializeField] protected bool fitTextWithImage = true;

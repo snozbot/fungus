@@ -51,42 +51,42 @@ namespace Fungus
         /// </summary>
         [HideInInspector]
         [SerializeField] protected Vector2 scrollPos;
-        public Vector2 ScrollPos { get { return scrollPos; } set { scrollPos = value; } }
+        public virtual Vector2 ScrollPos { get { return scrollPos; } set { scrollPos = value; } }
 
         /// <summary>
         /// Scroll position of Flowchart variables window.
         /// </summary>
         [HideInInspector]
         [SerializeField] protected Vector2 variablesScrollPos;
-        public Vector2 VariablesScrollPos { get { return variablesScrollPos; } set { variablesScrollPos = value; } }
+        public virtual Vector2 VariablesScrollPos { get { return variablesScrollPos; } set { variablesScrollPos = value; } }
 
         /// <summary>
         /// Show the variables pane.
         /// </summary>
         [HideInInspector]
         [SerializeField] protected bool variablesExpanded = true;
-        public bool VariablesExpanded { get { return variablesExpanded; } set { variablesExpanded = value; } }
+        public virtual bool VariablesExpanded { get { return variablesExpanded; } set { variablesExpanded = value; } }
 
         /// <summary>
         /// Height of command block view in inspector.
         /// </summary>
         [HideInInspector]
         [SerializeField] protected float blockViewHeight = 400;
-        public float BlockViewHeight { get { return blockViewHeight; } set { blockViewHeight = value; } }
+        public virtual float BlockViewHeight { get { return blockViewHeight; } set { blockViewHeight = value; } }
 
         /// <summary>
         /// Zoom level of Flowchart editor window.
         /// </summary>
         [HideInInspector]
         [SerializeField] protected float zoom = 1f;
-        public float Zoom { get { return zoom; } set { zoom = value; } }
+        public virtual float Zoom { get { return zoom; } set { zoom = value; } }
 
         /// <summary>
         /// Scrollable area for Flowchart editor window.
         /// </summary>
         [HideInInspector]
         [SerializeField] protected Rect scrollViewRect;
-        public Rect ScrollViewRect { get { return scrollViewRect; } set { scrollViewRect = value; } }
+        public virtual Rect ScrollViewRect { get { return scrollViewRect; } set { scrollViewRect = value; } }
 
         /// <summary>
         /// Currently selected block in the Flowchart editor.
@@ -94,21 +94,21 @@ namespace Fungus
         [HideInInspector]
         [FormerlySerializedAs("selectedSequence")]
         [SerializeField] protected Block selectedBlock;
-        public Block SelectedBlock { get { return selectedBlock; } set { selectedBlock = value; } }
+        public virtual Block SelectedBlock { get { return selectedBlock; } set { selectedBlock = value; } }
 
         /// <summary>
         /// Currently selected command in the Flowchart editor.
         /// </summary>
         [HideInInspector]
         [SerializeField] protected List<Command> selectedCommands = new List<Command>();
-        public List<Command> SelectedCommands { get { return selectedCommands; } }
+        public virtual List<Command> SelectedCommands { get { return selectedCommands; } }
 
         /// <summary>
         /// The list of variables that can be accessed by the Flowchart.
         /// </summary>
         [HideInInspector]
         [SerializeField] protected List<Variable> variables = new List<Variable>();
-        public List<Variable> Variables { get { return variables; } }
+        public virtual List<Variable> Variables { get { return variables; } }
 
         /// <summary>
         /// Description text displayed in the Flowchart editor window
@@ -116,7 +116,7 @@ namespace Fungus
         [TextArea(3, 5)]
         [Tooltip("Description text displayed in the Flowchart editor window")]
         [SerializeField] protected string description = "";
-        public string Description { get { return description; } }
+        public virtual string Description { get { return description; } }
 
         /// <summary>
         /// Slow down execution in the editor to make it easier to visualise program flow.
@@ -124,14 +124,14 @@ namespace Fungus
         [Range(0f, 5f)]
         [Tooltip("Adds a pause after each execution step to make it easier to visualise program flow. Editor only, has no effect in platform builds.")]
         [SerializeField] protected float stepPause = 0f;
-        public float StepPause { get { return stepPause; } }
+        public virtual float StepPause { get { return stepPause; } }
 
         /// <summary>
         /// Use command color when displaying the command list in the inspector.
         /// </summary>
         [Tooltip("Use command color when displaying the command list in the Fungus Editor window")]
         [SerializeField] protected bool colorCommands = true;
-        public bool ColorCommands { get { return colorCommands; } }
+        public virtual bool ColorCommands { get { return colorCommands; } }
         
         /// <summary>
         /// Hides the Flowchart block and command components in the inspector.
@@ -145,21 +145,21 @@ namespace Fungus
         /// </summary>
         [Tooltip("Saves the selected block and commands when saving the scene. Helps avoid version control conflicts if you've only changed the active selection.")]
         [SerializeField] protected bool saveSelection = true;
-        public bool SaveSelection { get { return saveSelection; } }
+        public virtual bool SaveSelection { get { return saveSelection; } }
 
         /// <summary>
         /// Unique identifier for identifying this flowchart in localized string keys.
         /// </summary>
         [Tooltip("Unique identifier for this flowchart in localized string keys. If no id is specified then the name of the Flowchart object will be used.")]
         [SerializeField] protected string localizationId = "";
-        public string LocalizationId { get { return localizationId; } }
+        public virtual string LocalizationId { get { return localizationId; } }
 
         /// <summary>
         /// Display line numbers in the command list in the Block inspector.
         /// </summary>
         [Tooltip("Display line numbers in the command list in the Block inspector.")]
         [SerializeField] protected bool showLineNumbers = false;
-        public bool ShowLineNumbers { get { return showLineNumbers; } }
+        public virtual bool ShowLineNumbers { get { return showLineNumbers; } }
 
         /// <summary>
         /// List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.
@@ -172,19 +172,19 @@ namespace Fungus
         /// </summary>
         [Tooltip("Lua Environment to be used by default for all Execute Lua commands in this Flowchart")]
         [SerializeField] protected LuaEnvironment luaEnvironment;
-        public LuaEnvironment _LuaEnvironment { get { return luaEnvironment; } }
+        public virtual LuaEnvironment _LuaEnvironment { get { return luaEnvironment; } }
 
         /// <summary>
         /// The ExecuteLua command adds a global Lua variable with this name bound to the flowchart prior to executing.
         /// </summary>
         [Tooltip("The ExecuteLua command adds a global Lua variable with this name bound to the flowchart prior to executing.")]
         [SerializeField] protected string luaBindingName = "flowchart";
-        public string LuaBindingName { get { return luaBindingName; } }
+        public virtual string LuaBindingName { get { return luaBindingName; } }
 
         /// <summary>
         /// Position in the center of all blocks in the flowchart.
         /// </summary>
-        public Vector2 CenterPosition { set; get; }
+        public virtual Vector2 CenterPosition { set; get; }
 
         /// <summary>
         /// Cached list of flowchart objects in the scene for fast lookup.

@@ -16,8 +16,7 @@ namespace Fungus
     {   
         [Tooltip("Draggable object to listen for drag events on")]
         [SerializeField] protected Draggable2D draggableObject;
-
-        public Draggable2D DraggableObject { get { return draggableObject; } }
+        public virtual Draggable2D DraggableObject { get { return draggableObject; } }
 
         [Tooltip("Drag target object to listen for drag events on")]
         [SerializeField] protected Collider2D targetObject;

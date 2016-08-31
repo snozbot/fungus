@@ -50,7 +50,7 @@ namespace Fungus
 
         public String defaultText = "<None>";
 
-        public System.Type[] VariableTypes { get; set; }
+        public Type[] VariableTypes { get; set; }
     }
 
     /// <summary>
@@ -60,10 +60,10 @@ namespace Fungus
     public abstract class Variable : MonoBehaviour
     {
         [SerializeField] protected VariableScope scope;
-        public VariableScope Scope { get { return scope; } }
+        public virtual VariableScope Scope { get { return scope; } }
 
         [SerializeField] protected string key = "";
-        public string Key { get { return key; } set { key = value; } }
+        public virtual string Key { get { return key; } set { key = value; } }
 
         public abstract void OnReset();
     }
@@ -74,7 +74,7 @@ namespace Fungus
     public abstract class VariableBase<T> : Variable
     {
         [SerializeField] protected T value;
-        public T Value { get { return this.value; } set { this.value = value; } }
+        public virtual T Value { get { return this.value; } set { this.value = value; } }
         
         protected T startValue;
 

@@ -61,7 +61,7 @@ namespace Fungus
         /// </summary>
         [Tooltip("The list of Unity objects to be bound to make them accessible in Lua script.")]
         [SerializeField] protected List<BoundObject> boundObjects = new List<BoundObject>();
-        public List<BoundObject> BoundObjects { get { return boundObjects; } }
+        public virtual List<BoundObject> BoundObjects { get { return boundObjects; } }
 
         [Tooltip("Show inherited public members.")]
         [SerializeField] protected bool showInherited;

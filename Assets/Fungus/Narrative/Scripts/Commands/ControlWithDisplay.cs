@@ -11,7 +11,7 @@ namespace Fungus
         [Tooltip("Display type")]
         [SerializeField] protected TDisplayEnum display;
 
-        public TDisplayEnum Display { get { return display; } }
+        public virtual TDisplayEnum Display { get { return display; } }
 
         protected bool IsDisplayNone<TEnum>(TEnum enumValue)
         {

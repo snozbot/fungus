@@ -27,13 +27,13 @@ namespace Fungus
         /// The execution state of the Block.
         /// </summary>
         protected ExecutionState executionState;
-        public ExecutionState State { get { return executionState; } }
+        public virtual ExecutionState State { get { return executionState; } }
 
         /// <summary>
         /// Unique identifier for the Block.
         /// </summary>
         [SerializeField] protected int itemId = -1; // Invalid flowchart item id
-        public int ItemId { get { return itemId; } set { itemId = value; } }
+        public virtual int ItemId { get { return itemId; } set { itemId = value; } }
 
         /// <summary>
         /// The name of the block node as displayed in the Flowchart window.
@@ -41,7 +41,7 @@ namespace Fungus
         [FormerlySerializedAs("sequenceName")]
         [Tooltip("The name of the block node as displayed in the Flowchart window")]
         [SerializeField] protected string blockName = "New Block";
-        public string BlockName { get { return blockName; } set { blockName = value; } }
+        public virtual string BlockName { get { return blockName; } set { blockName = value; } }
 
         /// <summary>
         /// Description text to display under the block node
@@ -49,33 +49,33 @@ namespace Fungus
         [TextArea(2, 5)]
         [Tooltip("Description text to display under the block node")]
         [SerializeField] protected string description = "";
-        public string Description { get { return description; } }
+        public virtual string Description { get { return description; } }
 
         /// <summary>
         /// An optional Event Handler which can execute the block when an event occurs.
         /// </summary>
         [Tooltip("An optional Event Handler which can execute the block when an event occurs")]
         [SerializeField] protected EventHandler eventHandler;
-        public EventHandler _EventHandler { get { return eventHandler; } set { eventHandler = value; } }
+        public virtual EventHandler _EventHandler { get { return eventHandler; } set { eventHandler = value; } }
 
         /// <summary>
         /// The currently executing command.
         /// </summary>
         protected Command activeCommand;
-        public Command ActiveCommand { get { return activeCommand; } }
+        public virtual Command ActiveCommand { get { return activeCommand; } }
 
         /// <summary>
         // Index of last command executed before the current one.
         // -1 indicates no previous command.
         /// </summary>
         protected int previousActiveCommandIndex = -1;
-        public float ExecutingIconTimer { get; set; }
+        public virtual float ExecutingIconTimer { get; set; }
 
         /// <summary>
         /// The list of commands in the sequence.
         /// </summary>
         [SerializeField] protected List<Command> commandList = new List<Command>();
-        public List<Command> CommandList { get { return commandList; } }
+        public virtual List<Command> CommandList { get { return commandList; } }
 
         /// <summary>
         /// Controls the next command to execute in the block execution coroutine.

@@ -16,29 +16,29 @@ namespace Fungus
     public class Character : MonoBehaviour, ILocalizable
     {
         [SerializeField] protected string nameText; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
-        public string NameText { get { return nameText; } }
+        public virtual string NameText { get { return nameText; } }
 
         [SerializeField] protected Color nameColor = Color.white;
-        public Color NameColor { get { return nameColor; } }
+        public virtual Color NameColor { get { return nameColor; } }
 
         [SerializeField] protected AudioClip soundEffect;
-        public AudioClip SoundEffect { get { return soundEffect; } }
+        public virtual AudioClip SoundEffect { get { return soundEffect; } }
 
         [SerializeField] protected Sprite profileSprite;
-        public Sprite ProfileSprite { get { return profileSprite; } set { profileSprite = value; } }
+        public virtual Sprite ProfileSprite { get { return profileSprite; } set { profileSprite = value; } }
 
         [SerializeField] protected List<Sprite> portraits;
-        public List<Sprite> Portraits { get { return portraits; } }
+        public virtual List<Sprite> Portraits { get { return portraits; } }
 
         [SerializeField] protected FacingDirection portraitsFace;
-        public FacingDirection PortraitsFace { get { return portraitsFace; } }
+        public virtual FacingDirection PortraitsFace { get { return portraitsFace; } }
 
         [SerializeField] protected PortraitState state = new PortraitState();
-        public PortraitState State { get { return state; } }
+        public virtual PortraitState State { get { return state; } }
 
         [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
         [SerializeField] protected SayDialog setSayDialog;
-        public SayDialog SetSayDialog { get { return setSayDialog; } }
+        public virtual SayDialog SetSayDialog { get { return setSayDialog; } }
 
         [FormerlySerializedAs("notes")]
         [TextArea(5,10)]

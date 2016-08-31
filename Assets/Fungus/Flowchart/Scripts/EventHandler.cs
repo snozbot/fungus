@@ -44,7 +44,7 @@ namespace Fungus
         [HideInInspector]
         [FormerlySerializedAs("parentSequence")]
         [SerializeField] protected Block parentBlock;
-        public Block ParentBlock { get { return parentBlock; } set { parentBlock = value; } }
+        public virtual Block ParentBlock { get { return parentBlock; } set { parentBlock = value; } }
 
         /// <summary>
         /// The Event Handler should call this method when the event is detected.

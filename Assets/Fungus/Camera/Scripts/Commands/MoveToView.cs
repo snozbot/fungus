@@ -19,7 +19,7 @@ namespace Fungus
 
         [Tooltip("View to transition to when move is complete")]
         [SerializeField] protected View targetView;
-        public View TargetView { get { return targetView; } }
+        public virtual View TargetView { get { return targetView; } }
 
         [Tooltip("Wait until the fade has finished before executing next command")]
         [SerializeField] protected bool waitUntilFinished = true;

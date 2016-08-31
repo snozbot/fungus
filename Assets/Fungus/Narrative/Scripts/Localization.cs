@@ -30,7 +30,7 @@ namespace Fungus
         /// </summary>
         [Tooltip("Language to use at startup, usually defined by a two letter language code (e.g DE = German)")]
         [SerializeField] protected string activeLanguage = "";
-        public string ActiveLanguage { get { return activeLanguage; } }
+        public virtual string ActiveLanguage { get { return activeLanguage; } }
 
         protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
 
@@ -51,15 +51,13 @@ namespace Fungus
         /// </summary>
         [Tooltip("CSV file containing localization data which can be easily edited in a spreadsheet tool")]
         [SerializeField] protected TextAsset localizationFile;
-
-        public TextAsset LocalizationFile { get { return localizationFile; } set { localizationFile = value; } }
+        public virtual TextAsset LocalizationFile { get { return localizationFile; } set { localizationFile = value; } }
 
         /// <summary>
         /// Stores any notification message from export / import methods.
         /// </summary>
         protected string notificationText = "";
-
-        public string NotificationText { get { return notificationText; } set { notificationText = value; } }
+        public virtual string NotificationText { get { return notificationText; } set { notificationText = value; } }
 
         protected bool initialized;
 

@@ -16,8 +16,7 @@ namespace Fungus
     {
         [Tooltip("Display name for the label")]
         [SerializeField] protected string key = "";
-
-        public string Key { get { return key; } }
+        public virtual string Key { get { return key; } }
 
         public override void OnEnter()
         {

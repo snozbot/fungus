@@ -46,13 +46,13 @@ namespace Fungus
         [FormerlySerializedAs("commandId")]
         [HideInInspector]
         [SerializeField] protected int itemId = -1; // Invalid flowchart item id
-        public int ItemId { get { return itemId; } set { itemId = value; } }
+        public virtual int ItemId { get { return itemId; } set { itemId = value; } }
 
         /// <summary>
         /// Error message to display in the command inspector.
         /// </summary>
         protected string errorMessage = "";
-        public string ErrorMessage { get { return errorMessage; } }
+        public virtual string ErrorMessage { get { return errorMessage; } }
 
         /// <summary>
         /// Indent depth of the current commands.
@@ -60,29 +60,29 @@ namespace Fungus
         /// </summary>
         [HideInInspector]
         [SerializeField] protected int indentLevel;
-        public int IndentLevel { get { return indentLevel; } set { indentLevel = value; } }
+        public virtual int IndentLevel { get { return indentLevel; } set { indentLevel = value; } }
 
         /// <summary>
         /// Index of the command in the parent block's command list.
         /// </summary>
-        public int CommandIndex { get; set; }
+        public virtual int CommandIndex { get; set; }
 
         /// <summary>
         /// Set to true by the parent block while the command is executing.
         /// </summary>
-        public bool IsExecuting { get; set; }
+        public virtual bool IsExecuting { get; set; }
 
         /// <summary>
         /// Timer used to control appearance of executing icon in inspector.
         /// </summary>
-        public float ExecutingIconTimer { get; set; }
+        public virtual float ExecutingIconTimer { get; set; }
 
         /// <summary>
         /// Reference to the Block object that this command belongs to.
         /// This reference is only populated at runtime and in the editor when the 
         /// block is selected.
         /// </summary>
-        public Block ParentBlock { get; set; }
+        public virtual Block ParentBlock { get; set; }
 
         /// <summary>
         /// Returns the Flowchart that this command belongs to.

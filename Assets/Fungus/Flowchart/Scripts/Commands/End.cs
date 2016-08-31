@@ -14,7 +14,7 @@ namespace Fungus
     [AddComponentMenu("")]
     public class End : Command
     {
-        public bool Loop { get; set; }
+        public virtual bool Loop { get; set; }
 
         public override void OnEnter()
         {

@@ -48,27 +48,25 @@ namespace Fungus
         }
             
         [SerializeField] protected float executeAfterTime = 1f;
-        public float ExecuteAfterTime { get { return executeAfterTime; } set { executeAfterTime = value; } }
+        public virtual float ExecuteAfterTime { get { return executeAfterTime; } set { executeAfterTime = value; } }
 
         [SerializeField] protected bool repeatExecuteTime = true;
-        public bool RepeatExecuteTime { get { return repeatExecuteTime; } set { repeatExecuteTime = value; } }
+        public virtual bool RepeatExecuteTime { get { return repeatExecuteTime; } set { repeatExecuteTime = value; } }
 
         [SerializeField] protected float repeatEveryTime = 1f;
-        public float RepeatEveryTime { get { return repeatEveryTime; } set { repeatEveryTime = value; } }
+        public virtual float RepeatEveryTime { get { return repeatEveryTime; } set { repeatEveryTime = value; } }
 
         [SerializeField] protected int executeAfterFrames = 1;
-        public int ExecuteAfterFrames { get { return executeAfterFrames; } set { executeAfterFrames = value; } }
+        public virtual int ExecuteAfterFrames { get { return executeAfterFrames; } set { executeAfterFrames = value; } }
 
         [SerializeField] protected bool repeatExecuteFrame = true;
-        public bool RepeatExecuteFrame { get { return repeatExecuteFrame; } set { repeatExecuteFrame = value; } }
+        public virtual bool RepeatExecuteFrame { get { return repeatExecuteFrame; } set { repeatExecuteFrame = value; } }
 
         [SerializeField] protected int repeatEveryFrame = 1;
-        public int RepeatEveryFrame { get { return repeatEveryFrame; } set { repeatEveryFrame = value; } }
-
-        [SerializeField] protected bool hasFailed;
+        public virtual int RepeatEveryFrame { get { return repeatEveryFrame; } set { repeatEveryFrame = value; } }
 
         [SerializeField] protected ExecuteMethod executeMethods = ExecuteMethod.Start;
-        public ExecuteMethod ExecuteMethods { get { return executeMethods; } set { executeMethods = value; } }
+        public virtual ExecuteMethod ExecuteMethods { get { return executeMethods; } set { executeMethods = value; } }
 
         [Tooltip("Name of the method on a component in this gameobject to call when executing.")]
         [SerializeField] protected string executeMethodName = "OnExecute";

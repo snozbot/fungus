@@ -13,16 +13,16 @@ namespace Fungus
     public class CustomTag : MonoBehaviour 
     {
         [SerializeField] protected string tagStartSymbol;
-        public string TagStartSymbol { get { return tagStartSymbol; } }
+        public virtual string TagStartSymbol { get { return tagStartSymbol; } }
 
         [SerializeField] protected string tagEndSymbol;
-        public string TagEndSymbol { get { return tagEndSymbol; } }
+        public virtual string TagEndSymbol { get { return tagEndSymbol; } }
 
         [SerializeField] protected string replaceTagStartWith;
-        public string ReplaceTagStartWith { get { return replaceTagStartWith; } }
+        public virtual string ReplaceTagStartWith { get { return replaceTagStartWith; } }
 
         [SerializeField] protected string replaceTagEndWith;
-        public string ReplaceTagEndWith { get { return replaceTagEndWith; } }
+        public virtual string ReplaceTagEndWith { get { return replaceTagEndWith; } }
 
         static public List<CustomTag> activeCustomTags = new List<CustomTag>();
         

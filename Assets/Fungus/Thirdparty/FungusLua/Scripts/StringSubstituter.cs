@@ -34,7 +34,7 @@ namespace Fungus
         /// This property is public to support client code optimisations.
         /// </summary>
         protected StringBuilder stringBuilder;
-        public StringBuilder _StringBuilder { get { return stringBuilder; } }
+        public virtual StringBuilder _StringBuilder { get { return stringBuilder; } }
 
         private int recursionDepth;
 
