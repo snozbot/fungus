@@ -27,7 +27,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            MusicController musicController = MusicController.GetInstance();
+            IMusicController musicController = MusicController.GetInstance();
             if (musicController != null)
             {
                 musicController.SetAudioVolume(volume, fadeDuration, () => {

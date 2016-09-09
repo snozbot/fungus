@@ -34,7 +34,7 @@ namespace Fungus
                 }
             };
 
-            MusicController musicController = MusicController.GetInstance();
+            IMusicController musicController = MusicController.GetInstance();
             if (musicController != null)
             {
                 musicController.SetAudioPitch(pitch, fadeDuration, onComplete);
