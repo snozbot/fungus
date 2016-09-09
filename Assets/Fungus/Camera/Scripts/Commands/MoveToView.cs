@@ -56,7 +56,7 @@ namespace Fungus
                 return;
             }
 
-            CameraController cameraController = CameraController.GetInstance();
+            ICameraController cameraController = CameraController.GetInstance();
 
             Vector3 targetPosition = targetView.transform.position;
             Quaternion targetRotation = targetView.transform.rotation;
@@ -77,7 +77,7 @@ namespace Fungus
 
         public override void OnStopExecuting()
         {
-            CameraController.GetInstance().StopAllCoroutines();
+            CameraController.GetInstance().Stop();
         }
 
         public override string GetSummary()

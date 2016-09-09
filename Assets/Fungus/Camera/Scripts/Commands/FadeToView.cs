@@ -65,7 +65,7 @@ namespace Fungus
                 return;
             }
 
-            CameraController cameraController = CameraController.GetInstance();
+            ICameraController cameraController = CameraController.GetInstance();
 
             if (fadeTexture)
             {
@@ -91,7 +91,7 @@ namespace Fungus
 
         public override void OnStopExecuting()
         {
-            CameraController.GetInstance().StopAllCoroutines();
+            CameraController.GetInstance().Stop();
         }
 
         public override string GetSummary()

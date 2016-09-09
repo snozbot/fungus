@@ -9,14 +9,10 @@ using Fungus;
 
 namespace Fungus
 {
-    /// <summary>
-    /// Controller for main camera.Supports several types of camera transition including snap, pan & fade.
-    /// </summary>
-    public class CameraController : MonoBehaviour 
+    public class CameraController : MonoBehaviour, ICameraController 
     {
         [Tooltip("Full screen texture used for screen fade effect.")]
         [SerializeField] protected Texture2D screenFadeTexture;
-        public Texture2D ScreenFadeTexture { set { screenFadeTexture = value; } }
 
         [Tooltip("Icon to display when swipe pan mode is active.")]
         [SerializeField] protected Texture2D swipePanIcon;
@@ -52,13 +48,13 @@ namespace Fungus
         
         protected Dictionary<string, CameraView> storedViews = new Dictionary<string, CameraView>();
         
-        protected static CameraController instance;
+        protected static ICameraController instance;
         
         /// <summary>
         /// Returns the CameraController singleton instance.
         /// Will create a CameraController game object if none currently exists.
         /// </summary>
-        static public CameraController GetInstance()
+        static public ICameraController GetInstance()
         {
             if (instance == null)
             {
@@ -117,59 +113,13 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Perform a fullscreen fade over a duration.
-        /// </summary>
-        public virtual void Fade(float targetAlpha, float fadeDuration, Action fadeAction)
-        {
-            StartCoroutine(FadeInternal(targetAlpha, fadeDuration, fadeAction));
-        }
-
-        /// <summary>
-        /// Fade out, move camera to view and then fade back in.
-        /// </summary>
-        public virtual void FadeToView(Camera camera, View view, float fadeDuration, bool fadeOut, Action fadeAction)
-        {
-            swipePanActive = false;
-            fadeAlpha = 0f;
-
-            float outDuration;
-            float inDuration;
-
-            if (fadeOut)
-            {
-                outDuration = fadeDuration / 2f;
-                inDuration = fadeDuration / 2f;
-            }
-            else
-            {
-                outDuration = 0;
-                inDuration = fadeDuration;
-            }
-
-            // Fade out
-            Fade(1f, outDuration, delegate {
-                
-                // Snap to new view
-                PanToPosition(camera, view.transform.position, view.transform.rotation, view.ViewSize, 0f, null);
-                
-                // Fade in
-                Fade(0f, inDuration, delegate {
-                    if (fadeAction != null)
-                    {
-                        fadeAction();
-                    }
-                });
-            });
-        }
-        
         protected virtual IEnumerator FadeInternal(float targetAlpha, float fadeDuration, Action fadeAction)
         {
             float startAlpha = fadeAlpha;
             float timer = 0;
             
             // If already at the target alpha then complete immediately
-            if (startAlpha == targetAlpha)
+            if (Mathf.Approximately(startAlpha, targetAlpha))
             {
                 yield return null;
             }
@@ -195,138 +145,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Positions camera so sprite is centered and fills the screen.
-        /// </summary>
-        public virtual void CenterOnSprite(Camera camera, SpriteRenderer spriteRenderer)
-        {
-            if (camera == null)
-            {
-                Debug.LogWarning("Camera is null");
-                return;
-            }
-
-            if (spriteRenderer == null)
-            {
-                Debug.LogWarning("Sprite renderer is null");
-                return;
-            }
-
-            swipePanActive = false;
-            
-            Sprite sprite = spriteRenderer.sprite;
-            Vector3 extents = sprite.bounds.extents;
-            float localScaleY = spriteRenderer.transform.localScale.y;
-
-            camera.orthographicSize = extents.y * localScaleY;
-            Vector3 pos = spriteRenderer.transform.position;
-            camera.transform.position = new Vector3(pos.x, pos.y, 0);
-    
-            SetCameraZ(camera);
-        }
-        
-        public virtual void PanToView(Camera camera, View view, float duration, Action arriveAction)
-        {
-            PanToPosition(camera, view.transform.position, view.transform.rotation, view.ViewSize, duration, arriveAction);
-        }
-
-        /// <summary>
-        /// Moves camera from current position to a target position over a period of time.
-        /// </summary>
-        public virtual void PanToPosition(Camera camera, Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, Action arriveAction)
-        {
-            if (camera == null)
-            {
-                Debug.LogWarning("Camera is null");
-                return;
-            }
-
-            // Stop any pan that is currently active
-            StopAllCoroutines();
-            
-            swipePanActive = false;
-            
-            if (duration == 0f)
-            {
-                // Move immediately
-                camera.orthographicSize = targetSize;
-                camera.transform.position = targetPosition;
-                camera.transform.rotation = targetRotation;
-
-                SetCameraZ(camera);
-
-                if (arriveAction != null)
-                {
-                    arriveAction();
-                }
-            }
-            else
-            {
-                StartCoroutine(PanInternal(camera, targetPosition, targetRotation, targetSize, duration, arriveAction));
-            }
-        }
-
-        /// <summary>
-        /// Stores the current camera view using a name.
-        /// </summary>
-        public virtual void StoreView(Camera camera, string viewName)
-        {
-            if (camera != null)
-            {
-                Debug.LogWarning("Camera is null");
-                return;
-            }
-
-            CameraView currentView = new CameraView();
-            currentView.cameraPos = camera.transform.position;
-            currentView.cameraRot = camera.transform.rotation;
-            currentView.cameraSize = camera.orthographicSize;
-            storedViews[viewName] = currentView;
-        }
-
-        /// <summary>
-        /// Moves the camera to a previously stored camera view over a period of time.
-        /// </summary>
-        public virtual void PanToStoredView(Camera camera, string viewName, float duration, Action arriveAction)
-        {
-            if (camera == null)
-            {
-                Debug.LogWarning("Camera is null");
-                return;
-            }
-
-            if (!storedViews.ContainsKey(viewName))
-            {
-                // View has not previously been stored
-                if (arriveAction != null)
-                {
-                    arriveAction();
-                }
-                return;
-            }
-            
-            CameraView cameraView = storedViews[viewName];
-            
-            if (duration == 0f)
-            {
-                // Move immediately
-                camera.transform.position = cameraView.cameraPos;
-                camera.transform.rotation = cameraView.cameraRot;
-                camera.orthographicSize = cameraView.cameraSize;
-
-                SetCameraZ(camera);
-
-                if (arriveAction != null)
-                {
-                    arriveAction();
-                }
-            }
-            else
-            {
-                StartCoroutine(PanInternal(camera, cameraView.cameraPos, cameraView.cameraRot, cameraView.cameraSize, duration, arriveAction));
-            }
-        }
-        
         protected virtual IEnumerator PanInternal(Camera camera, Vector3 targetPos, Quaternion targetRot, float targetSize, float duration, Action arriveAction)
         {
             if (camera == null)
@@ -446,49 +264,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Activates swipe panning mode. The player can pan the camera within the area between viewA & viewB.
-        /// </summary>
-        public virtual void StartSwipePan(Camera camera, View viewA, View viewB, float duration, float speedMultiplier, Action arriveAction)
-        {
-            if (camera == null)
-            {
-                Debug.LogWarning("Camera is null");
-                return;
-            }
-
-            swipePanViewA = viewA;
-            swipePanViewB = viewB;
-            swipeSpeedMultiplier = speedMultiplier;
-            
-            Vector3 cameraPos = camera.transform.position;
-            
-            Vector3 targetPosition = CalcCameraPosition(cameraPos, swipePanViewA, swipePanViewB);
-            float targetSize = CalcCameraSize(cameraPos, swipePanViewA, swipePanViewB); 
-            
-            PanToPosition(camera, targetPosition, Quaternion.identity, targetSize, duration, delegate {
-                
-                swipePanActive = true;
-                swipeCamera = camera;
-                
-                if (arriveAction != null)
-                {
-                    arriveAction();
-                }
-            }); 
-        }
-
-        /// <summary>
-        /// Deactivates swipe panning mode.
-        /// </summary>
-        public virtual void StopSwipePan()
-        {
-            swipePanActive = false;
-            swipePanViewA = null;
-            swipePanViewB = null;
-            swipeCamera = null;
-        }
-        
         protected virtual void SetCameraZ(Camera camera)
         {
             if (!setCameraZ)
@@ -585,5 +360,126 @@ namespace Fungus
             
             return cameraSize;
         }
+
+        #region ICameraController implementation
+
+        public Texture2D ScreenFadeTexture { set { screenFadeTexture = value; } }
+
+        public virtual void Fade(float targetAlpha, float fadeDuration, Action fadeAction)
+        {
+            StartCoroutine(FadeInternal(targetAlpha, fadeDuration, fadeAction));
+        }
+
+        public virtual void FadeToView(Camera camera, View view, float fadeDuration, bool fadeOut, Action fadeAction)
+        {
+            swipePanActive = false;
+            fadeAlpha = 0f;
+
+            float outDuration;
+            float inDuration;
+
+            if (fadeOut)
+            {
+                outDuration = fadeDuration / 2f;
+                inDuration = fadeDuration / 2f;
+            }
+            else
+            {
+                outDuration = 0;
+                inDuration = fadeDuration;
+            }
+
+            // Fade out
+            Fade(1f, outDuration, delegate {
+
+                // Snap to new view
+                PanToPosition(camera, view.transform.position, view.transform.rotation, view.ViewSize, 0f, null);
+
+                // Fade in
+                Fade(0f, inDuration, delegate {
+                    if (fadeAction != null)
+                    {
+                        fadeAction();
+                    }
+                });
+            });
+        }
+
+        public virtual void Stop()
+        {
+            StopAllCoroutines();
+        }
+
+        public virtual void PanToPosition(Camera camera, Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, Action arriveAction)
+        {
+            if (camera == null)
+            {
+                Debug.LogWarning("Camera is null");
+                return;
+            }
+
+            // Stop any pan that is currently active
+            StopAllCoroutines();
+
+            swipePanActive = false;
+
+            if (duration == 0f)
+            {
+                // Move immediately
+                camera.orthographicSize = targetSize;
+                camera.transform.position = targetPosition;
+                camera.transform.rotation = targetRotation;
+
+                SetCameraZ(camera);
+
+                if (arriveAction != null)
+                {
+                    arriveAction();
+                }
+            }
+            else
+            {
+                StartCoroutine(PanInternal(camera, targetPosition, targetRotation, targetSize, duration, arriveAction));
+            }
+        }
+
+        public virtual void StartSwipePan(Camera camera, View viewA, View viewB, float duration, float speedMultiplier, Action arriveAction)
+        {
+            if (camera == null)
+            {
+                Debug.LogWarning("Camera is null");
+                return;
+            }
+
+            swipePanViewA = viewA;
+            swipePanViewB = viewB;
+            swipeSpeedMultiplier = speedMultiplier;
+
+            Vector3 cameraPos = camera.transform.position;
+
+            Vector3 targetPosition = CalcCameraPosition(cameraPos, swipePanViewA, swipePanViewB);
+            float targetSize = CalcCameraSize(cameraPos, swipePanViewA, swipePanViewB); 
+
+            PanToPosition(camera, targetPosition, Quaternion.identity, targetSize, duration, delegate {
+
+                swipePanActive = true;
+                swipeCamera = camera;
+
+                if (arriveAction != null)
+                {
+                    arriveAction();
+                }
+            }); 
+        }
+
+        public virtual void StopSwipePan()
+        {
+            swipePanActive = false;
+            swipePanViewA = null;
+            swipePanViewB = null;
+            swipeCamera = null;
+        }
+
+        #endregion
     }
 }
