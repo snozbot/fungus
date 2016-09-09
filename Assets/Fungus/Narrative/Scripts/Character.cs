@@ -8,7 +8,6 @@ using System;
 
 namespace Fungus
 {
-
     /// <summary>
     /// A Character that can be used in dialogue via the Say, Conversation and Portrait commands.
     /// </summary>
