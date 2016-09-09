@@ -9,13 +9,10 @@ using System.Linq;
 
 namespace Fungus
 {
-    /// <summary>
-    /// Presents multiple choice buttons to the players.
-    /// </summary>
-    public class MenuDialog : MonoBehaviour
+    public class MenuDialog : MonoBehaviour, IMenuDialog
     {
         // Currently active Menu Dialog used to display Menu options
-        public static MenuDialog activeMenuDialog;
+        public static IMenuDialog activeMenuDialog;
 
         [Tooltip("Automatically select the first interactable button when the menu is shown.")]
         [SerializeField] protected bool autoSelectFirstButton = false;
@@ -26,12 +23,12 @@ namespace Fungus
         protected Slider cachedSlider;
         public virtual Slider CachedSlider { get { return cachedSlider; } }
 
-        public static MenuDialog GetMenuDialog()
+        public static IMenuDialog GetMenuDialog()
         {
             if (activeMenuDialog == null)
             {
                 // Use first Menu Dialog found in the scene (if any)
-                MenuDialog md = GameObject.FindObjectOfType<MenuDialog>();
+                IMenuDialog md = GameObject.FindObjectOfType<MenuDialog>();
                 if (md != null)
                 {
                     activeMenuDialog = md;
@@ -46,11 +43,11 @@ namespace Fungus
                         GameObject go = Instantiate(prefab) as GameObject;
                         go.SetActive(false);
                         go.name = "MenuDialog";
-                        activeMenuDialog = go.GetComponent<MenuDialog>();
+                        activeMenuDialog = go.GetComponent<IMenuDialog>();
                     }
                 }
             }
-            
+
             return activeMenuDialog;
         }
 
@@ -101,93 +98,12 @@ namespace Fungus
             }
         }
 
-        public virtual bool AddOption(string text, bool interactable, Block targetBlock)
-        {
-            bool addedOption = false;
-            foreach (Button button in cachedButtons)
-            {
-                if (!button.gameObject.activeSelf)
-                {
-                    button.gameObject.SetActive(true);
-
-                    button.interactable = interactable;
-
-                    if (interactable && autoSelectFirstButton && !cachedButtons.Select((x) => x.gameObject).Contains(EventSystem.current.currentSelectedGameObject))
-                    {
-                        EventSystem.current.SetSelectedGameObject(button.gameObject);
-                    }
-
-                    Text textComponent = button.GetComponentInChildren<Text>();
-                    if (textComponent != null)
-                    {
-                        textComponent.text = text;
-                    }
-                    
-                    Block block = targetBlock;
-                    
-                    button.onClick.AddListener(delegate {
-
-                        EventSystem.current.SetSelectedGameObject(null);
-
-                        StopAllCoroutines(); // Stop timeout
-                        Clear();
-
-                        HideSayDialog();
-
-                        if (block != null)
-                        {
-                            #if UNITY_EDITOR
-                            // Select the new target block in the Flowchart window
-                            Flowchart flowchart = block.GetFlowchart();
-                            flowchart.SelectedBlock = block;
-                            #endif
-
-                            gameObject.SetActive(false);
-
-                            block.StartExecution();
-                        }
-                    });
-
-                    addedOption = true;
-                    break;
-                }
-            }
-            
-            return addedOption;
-        }
-
-        public virtual int DisplayedOptionsCount
-        {
-            get {
-                int count = 0;
-                foreach (Button button in cachedButtons)
-                {
-                    if (button.gameObject.activeSelf)
-                    {
-                        count++;
-                    }
-                }
-                return count;
-            }
-        }
-
         public virtual void HideSayDialog()
         {
             ISayDialog sayDialog = SayDialog.GetSayDialog();
             if (sayDialog != null)
             {
                 sayDialog.FadeWhenDone = true;
-            }
-        }
-
-        public virtual void ShowTimer(float duration, Block targetBlock)
-        {
-            if (cachedSlider != null)
-            {
-                cachedSlider.gameObject.SetActive(true);
-                gameObject.SetActive(true);
-                StopAllCoroutines();
-                StartCoroutine(WaitForTimeout(duration, targetBlock));
             }
         }
 
@@ -220,5 +136,100 @@ namespace Fungus
                 targetBlock.StartExecution();
             }
         }
+
+        #region IMenuDialog implementation
+
+        public virtual void SetActive(bool state)
+        {
+            gameObject.SetActive(state);
+        }
+
+        public virtual bool AddOption(string text, bool interactable, Block targetBlock)
+        {
+            bool addedOption = false;
+            foreach (Button button in cachedButtons)
+            {
+                if (!button.gameObject.activeSelf)
+                {
+                    button.gameObject.SetActive(true);
+
+                    button.interactable = interactable;
+
+                    if (interactable && autoSelectFirstButton && !cachedButtons.Select((x) => x.gameObject).Contains(EventSystem.current.currentSelectedGameObject))
+                    {
+                        EventSystem.current.SetSelectedGameObject(button.gameObject);
+                    }
+
+                    Text textComponent = button.GetComponentInChildren<Text>();
+                    if (textComponent != null)
+                    {
+                        textComponent.text = text;
+                    }
+
+                    Block block = targetBlock;
+
+                    button.onClick.AddListener(delegate {
+
+                        EventSystem.current.SetSelectedGameObject(null);
+
+                        StopAllCoroutines(); // Stop timeout
+                        Clear();
+
+                        HideSayDialog();
+
+                        if (block != null)
+                        {
+                            #if UNITY_EDITOR
+                            // Select the new target block in the Flowchart window
+                            Flowchart flowchart = block.GetFlowchart();
+                            flowchart.SelectedBlock = block;
+                            #endif
+
+                            gameObject.SetActive(false);
+
+                            block.StartExecution();
+                        }
+                    });
+
+                    addedOption = true;
+                    break;
+                }
+            }
+
+            return addedOption;
+        }
+
+        public virtual void ShowTimer(float duration, Block targetBlock)
+        {
+            if (cachedSlider != null)
+            {
+                cachedSlider.gameObject.SetActive(true);
+                gameObject.SetActive(true);
+                StopAllCoroutines();
+                StartCoroutine(WaitForTimeout(duration, targetBlock));
+            }
+        }
+
+        public virtual bool IsActive()
+        {
+            return gameObject.activeInHierarchy;
+        }
+
+        public virtual int DisplayedOptionsCount
+        {
+            get {
+                int count = 0;
+                foreach (Button button in cachedButtons)
+                {
+                    if (button.gameObject.activeSelf)
+                    {
+                        count++;
+                    }
+                }
+                return count;
+            }
+        }
+
+        #endregion
     }    
 }

@@ -26,7 +26,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            MenuDialog menuDialog = MenuDialog.GetMenuDialog();
+            IMenuDialog menuDialog = MenuDialog.GetMenuDialog();
 
             if (menuDialog != null &&
                 targetBlock != null)

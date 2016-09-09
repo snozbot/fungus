@@ -140,7 +140,7 @@ namespace Fungus
             {
                 // Ignore input events if a Menu is being displayed
                 if (MenuDialog.activeMenuDialog != null && 
-                    MenuDialog.activeMenuDialog.gameObject.activeInHierarchy &&
+                    MenuDialog.activeMenuDialog.IsActive() &&
                     MenuDialog.activeMenuDialog.DisplayedOptionsCount > 0)
                 {
                     dialogClickedFlag = false;
