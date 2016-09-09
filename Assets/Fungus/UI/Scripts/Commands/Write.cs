@@ -43,12 +43,12 @@ namespace Fungus
 
         [SerializeField] protected ColorData setColor = new ColorData(Color.white);
 
-        protected Writer GetWriter()
+        protected IWriter GetWriter()
         {
-            Writer writer = textObject.GetComponent<Writer>();
+            IWriter writer = textObject.GetComponent<IWriter>();
             if (writer == null)
             {
-                writer = textObject.AddComponent<Writer>() as Writer;
+                writer = textObject.AddComponent<Writer>();
             }
             
             return writer;
@@ -62,7 +62,7 @@ namespace Fungus
                 return;
             }
         
-            Writer writer = GetWriter();
+            IWriter writer = GetWriter();
             if (writer == null)
             {
                 Continue();

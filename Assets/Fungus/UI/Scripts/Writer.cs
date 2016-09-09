@@ -12,37 +12,9 @@ using System.Text;
 namespace Fungus
 {
     /// <summary>
-    /// Implement this interface to be notified about Writer events.
-    /// </summary>
-    public interface IWriterListener
-    {
-        ///
-        /// Called when a user input event (e.g. a click) has been handled by the Writer.
-        ///
-        void OnInput();
-
-        /// Called when the Writer starts writing new text
-        /// <param name="audioClip">An optional audioClip sound effect can be supplied (e.g. for voiceover)</param>
-        void OnStart(AudioClip audioClip);
-
-        /// Called when the Writer has paused writing text (e.g. on a {wi} tag).
-        void OnPause();
-
-        /// Called when the Writer has resumed writing text.
-        void OnResume();
-
-        /// Called when the Writer has finshed writing text.
-        /// <param name="stopAudio">Controls whether audio should be stopped when writing ends.</param>
-        void OnEnd(bool stopAudio);
-
-        /// Called every time the Writer writes a new character glyph.
-        void OnGlyph();
-    }
-
-    /// <summary>
     /// Writes text using a typewriter effect to a UI text object.
     /// </summary>
-    public class Writer : MonoBehaviour, IDialogInputListener
+    public class Writer : MonoBehaviour, IWriter, IDialogInputListener
     {
         [Tooltip("Gameobject containing a Text, Inout Field or Text Mesh object to write to")]
         [SerializeField] protected GameObject targetTextObject;
@@ -70,11 +42,9 @@ namespace Fungus
 
         // This property is true when the writer is waiting for user input to continue
         protected bool isWaitingForInput;
-        public virtual bool IsWaitingForInput { get { return isWaitingForInput; } }
 
         // This property is true when the writer is writing text or waiting (i.e. still processing tokens)
         protected bool isWriting;
-        public virtual bool IsWriting { get { return isWriting; } }
 
         protected float currentWritingSpeed;
         protected float currentPunctuationPause;
@@ -285,87 +255,6 @@ namespace Fungus
             }
         }
 
-        public virtual void SetTextColor(Color textColor)
-        {
-            if (textUI != null)
-            {
-                textUI.color = textColor;
-            }
-            else if (inputField != null)
-            {
-                if (inputField.textComponent != null)
-                {
-                    inputField.textComponent.color = textColor;
-                }
-            }
-            else if (textMesh != null)
-            {
-                textMesh.color = textColor;
-            }
-        }
-        
-        public virtual void SetTextAlpha(float textAlpha)
-        {
-            if (textUI != null)
-            {
-                Color tempColor = textUI.color;
-                tempColor.a = textAlpha;
-                textUI.color = tempColor;
-            }
-            else if (inputField != null)
-            {
-                if (inputField.textComponent != null)
-                {
-                    Color tempColor = inputField.textComponent.color;
-                    tempColor.a = textAlpha;
-                    inputField.textComponent.color = tempColor;
-                }
-            }
-            else if (textMesh != null)
-            {
-                Color tempColor = textMesh.color;
-                tempColor.a = textAlpha;
-                textMesh.color = tempColor;
-            }
-        }
-
-        public virtual void Stop()
-        {
-            if (isWriting || isWaitingForInput)
-            {
-                exitFlag = true;
-            }
-        }
-
-        public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, AudioClip audioClip, Action onComplete)
-        {
-            if (clear)
-            {
-                this.text = "";
-            }
-            
-            if (!HasTextObject())
-            {
-                yield break;
-            }
-
-            // If this clip is null then WriterAudio will play the default sound effect (if any)
-            NotifyStart(audioClip);
-
-            string tokenText = content;
-            if (waitForInput)
-            {
-                tokenText += "{wi}";
-            }
-
-            TextTagParser tagParser = new TextTagParser();
-            List<TextTagParser.Token> tokens = tagParser.Tokenize(tokenText);
-
-            gameObject.SetActive(true);
-
-            yield return StartCoroutine(ProcessTokens(tokens, stopAudio, onComplete));
-        }
-
         virtual protected bool CheckParamCount(List<string> paramList, int count) 
         {
             if (paramList == null)
@@ -380,7 +269,6 @@ namespace Fungus
             }
             return true;
         }
-
 
         protected virtual bool TryGetSingleParam(List<string> paramList, int index, float defaultValue, out float value) 
         {
@@ -904,6 +792,95 @@ namespace Fungus
             if (isWriting)
             {
                 NotifyInput();
+            }
+        }
+
+        #endregion
+
+        #region IWriter implementation
+
+        public virtual bool IsWriting { get { return isWriting; } }
+
+        public virtual bool IsWaitingForInput { get { return isWaitingForInput; } }
+
+        public virtual void Stop()
+        {
+            if (isWriting || isWaitingForInput)
+            {
+                exitFlag = true;
+            }
+        }
+
+        public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, AudioClip audioClip, Action onComplete)
+        {
+            if (clear)
+            {
+                this.text = "";
+            }
+
+            if (!HasTextObject())
+            {
+                yield break;
+            }
+
+            // If this clip is null then WriterAudio will play the default sound effect (if any)
+            NotifyStart(audioClip);
+
+            string tokenText = content;
+            if (waitForInput)
+            {
+                tokenText += "{wi}";
+            }
+
+            TextTagParser tagParser = new TextTagParser();
+            List<TextTagParser.Token> tokens = tagParser.Tokenize(tokenText);
+
+            gameObject.SetActive(true);
+
+            yield return StartCoroutine(ProcessTokens(tokens, stopAudio, onComplete));
+        }
+
+        public virtual void SetTextColor(Color textColor)
+        {
+            if (textUI != null)
+            {
+                textUI.color = textColor;
+            }
+            else if (inputField != null)
+            {
+                if (inputField.textComponent != null)
+                {
+                    inputField.textComponent.color = textColor;
+                }
+            }
+            else if (textMesh != null)
+            {
+                textMesh.color = textColor;
+            }
+        }
+
+        public virtual void SetTextAlpha(float textAlpha)
+        {
+            if (textUI != null)
+            {
+                Color tempColor = textUI.color;
+                tempColor.a = textAlpha;
+                textUI.color = tempColor;
+            }
+            else if (inputField != null)
+            {
+                if (inputField.textComponent != null)
+                {
+                    Color tempColor = inputField.textComponent.color;
+                    tempColor.a = textAlpha;
+                    inputField.textComponent.color = tempColor;
+                }
+            }
+            else if (textMesh != null)
+            {
+                Color tempColor = textMesh.color;
+                tempColor.a = textAlpha;
+                textMesh.color = tempColor;
             }
         }
 

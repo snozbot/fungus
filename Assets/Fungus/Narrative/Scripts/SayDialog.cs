@@ -46,7 +46,7 @@ namespace Fungus
         protected float startStoryTextInset;
 
         protected WriterAudio writerAudio;
-        protected Writer writer;
+        protected IWriter writer;
         protected CanvasGroup canvasGroup;
 
         protected bool fadeWhenDone = true;
@@ -83,14 +83,14 @@ namespace Fungus
             return activeSayDialog;
         }
             
-        protected Writer GetWriter()
+        protected IWriter GetWriter()
         {
             if (writer != null)
             {
                 return writer;
             }
 
-            writer = GetComponent<Writer>();
+            writer = GetComponent<IWriter>();
             if (writer == null)
             {
                 writer = gameObject.AddComponent<Writer>();
@@ -160,7 +160,7 @@ namespace Fungus
 
         public virtual IEnumerator SayInternal(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
         {
-            Writer writer = GetWriter();
+            IWriter writer = GetWriter();
 
             if (writer.IsWriting || writer.IsWaitingForInput)
             {
