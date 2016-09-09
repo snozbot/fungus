@@ -38,7 +38,7 @@ namespace Fungus
 
         [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
         [SerializeField] protected SayDialog setSayDialog;
-        public virtual SayDialog SetSayDialog { get { return setSayDialog; } }
+        public virtual ISayDialog SetSayDialog { get { return setSayDialog; } }
 
         [FormerlySerializedAs("notes")]
         [TextArea(5,10)]

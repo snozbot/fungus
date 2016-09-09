@@ -77,7 +77,7 @@ namespace Fungus
                 SayDialog.activeSayDialog = setSayDialog;
             }
 
-            SayDialog sayDialog = SayDialog.GetSayDialog();
+            ISayDialog sayDialog = SayDialog.GetSayDialog();
 
             if (sayDialog == null)
             {
@@ -87,7 +87,7 @@ namespace Fungus
     
             Flowchart flowchart = GetFlowchart();
 
-            sayDialog.gameObject.SetActive(true);
+            sayDialog.SetActive(true);
 
             sayDialog.SetCharacter(character, flowchart);
             sayDialog.SetCharacterImage(portrait);
@@ -136,7 +136,7 @@ namespace Fungus
 
         public override void OnStopExecuting()
         {
-            SayDialog sayDialog = SayDialog.GetSayDialog();
+            ISayDialog sayDialog = SayDialog.GetSayDialog();
             if (sayDialog == null)
             {
                 return;

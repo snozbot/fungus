@@ -32,9 +32,9 @@ namespace Fungus
             characters = UnityEngine.Object.FindObjectsOfType<Character>();
         }
 
-        protected SayDialog GetSayDialog(Character character)
+        protected ISayDialog GetSayDialog(Character character)
         {
-            SayDialog sayDialog = null;
+            ISayDialog sayDialog = null;
             if (character != null)
             {
                 if (character.SetSayDialog != null)
@@ -88,7 +88,7 @@ namespace Fungus
                 currentPortrait = item.Portrait;
                 currentPosition = item.Position;
 
-                SayDialog sayDialog = GetSayDialog(currentCharacter);
+                ISayDialog sayDialog = GetSayDialog(currentCharacter);
 
                 if (sayDialog == null)
                 {
@@ -96,7 +96,7 @@ namespace Fungus
                     yield break;
                 }
 
-                sayDialog.gameObject.SetActive(true);
+                sayDialog.SetActive(true);
 
                 if (currentCharacter != null && 
                     currentCharacter != previousCharacter)

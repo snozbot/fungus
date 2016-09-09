@@ -11,10 +11,10 @@ namespace Fungus
     /// <summary>
     /// Presents story text to the player in a dialogue box.
     /// </summary>
-    public class SayDialog : MonoBehaviour
+    public class SayDialog : MonoBehaviour, ISayDialog
     {
         // Currently active Say Dialog used to display Say text
-        public static SayDialog activeSayDialog;
+        public static ISayDialog activeSayDialog;
 
         // Most recent speaking character
         public static Character speakingCharacter;
@@ -55,7 +55,7 @@ namespace Fungus
 
         protected Sprite currentCharacterImage;
 
-        public static SayDialog GetSayDialog()
+        public static ISayDialog GetSayDialog()
         {
             if (activeSayDialog == null)
             {
@@ -75,14 +75,14 @@ namespace Fungus
                         GameObject go = Instantiate(prefab) as GameObject;
                         go.SetActive(false);
                         go.name = "SayDialog";
-                        activeSayDialog = go.GetComponent<SayDialog>();
+                        activeSayDialog = go.GetComponent<ISayDialog>();
                     }
                 }
             }
             
             return activeSayDialog;
         }
-
+            
         protected Writer GetWriter()
         {
             if (writer != null)
@@ -158,11 +158,6 @@ namespace Fungus
             }
         }
 
-        public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
-        {
-            StartCoroutine(SayInternal(text, clearPrevious, waitForInput, fadeWhenDone, stopVoiceover, voiceOverClip, onComplete));
-        }
-
         public virtual IEnumerator SayInternal(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
         {
             Writer writer = GetWriter();
@@ -206,19 +201,6 @@ namespace Fungus
             }
         }
 
-        // Tell dialog to fade out if it's finished writing.
-        public virtual void FadeOut()
-        {
-            fadeWhenDone = true;
-        }
-
-        // Stop a Say Dialog while its writing text.
-        public virtual void Stop()
-        {
-            fadeWhenDone = true;
-            GetWriter().Stop();
-        }
-
         protected virtual void UpdateAlpha()
         {
             if (GetWriter().IsWriting)
@@ -238,7 +220,6 @@ namespace Fungus
             }
 
             CanvasGroup canvasGroup = GetCanvasGroup();
-            float fadeDuration = GetSayDialog().fadeDuration;
             if (fadeDuration <= 0f)
             {
                 canvasGroup.alpha = targetAlpha;
@@ -257,117 +238,6 @@ namespace Fungus
             }
         }
 
-        public virtual void SetCharacter(Character character, Flowchart flowchart = null)
-        {
-            if (character == null)
-            {
-                if (characterImage != null)
-                {
-                    characterImage.gameObject.SetActive(false);
-                }
-                if (nameText != null)
-                {
-                    nameText.text = "";
-                }
-                speakingCharacter = null;
-            }
-            else
-            {
-                Character prevSpeakingCharacter = speakingCharacter;
-                speakingCharacter = character;
-                
-                // Dim portraits of non-speaking characters
-                foreach (Stage stage in Stage.activeStages)
-                {
-
-                    if (stage.DimPortraits)
-                    {
-                        foreach (Character c in stage.CharactersOnStage)
-                        {
-                            if (prevSpeakingCharacter != speakingCharacter)
-                            {
-                                if (c != speakingCharacter)
-                                {
-                                    stage.SetDimmed(c, true);
-                                }
-                                else
-                                {
-                                    stage.SetDimmed(c, false);
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                string characterName = character.NameText;
-                
-                if (characterName == "")
-                {
-                    // Use game object name as default
-                    characterName = character.name;
-                }
-                
-                if (flowchart != null)
-                {
-                    characterName = flowchart.SubstituteVariables(characterName);
-                }
-                
-                SetCharacterName(characterName, character.NameColor);
-            }
-        }
-        
-        public virtual void SetCharacterImage(Sprite image)
-        {
-            if (characterImage == null)
-            {
-                return;
-            }
-
-            if (image != null)
-            {
-                characterImage.sprite = image;
-                characterImage.gameObject.SetActive(true);
-                currentCharacterImage = image;
-            }
-            else
-            {
-                characterImage.gameObject.SetActive(false);
-
-                if (startStoryTextWidth != 0)
-                {
-                    storyText.rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 
-                                                                          startStoryTextInset, 
-                                                                          startStoryTextWidth);
-                }
-            }
-
-            // Adjust story text box to not overlap image rect
-            if (fitTextWithImage && 
-                storyText != null &&
-                characterImage.gameObject.activeSelf)
-            {
-                if (startStoryTextWidth == 0)
-                {
-                    startStoryTextWidth = storyText.rectTransform.rect.width;
-                    startStoryTextInset = storyText.rectTransform.offsetMin.x; 
-                }
-
-                // Clamp story text to left or right depending on relative position of the character image
-                if (storyText.rectTransform.position.x < characterImage.rectTransform.position.x)
-                {
-                    storyText.rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 
-                                                                          startStoryTextInset, 
-                                                                          startStoryTextWidth - characterImage.rectTransform.rect.width);
-                }
-                else
-                {
-                    storyText.rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right, 
-                                                                          startStoryTextInset, 
-                                                                          startStoryTextWidth - characterImage.rectTransform.rect.width);
-                }
-            }
-        }
-        
         public virtual void SetCharacterName(string name, Color color)
         {
             if (nameText != null)
@@ -417,5 +287,138 @@ namespace Fungus
                 }
             }
         }
+
+        #region ISayDialog implementation
+
+        public virtual void SetActive(bool state)
+        {
+            gameObject.SetActive(state);
+        }
+
+        public virtual void SetCharacter(Character character, Flowchart flowchart = null)
+        {
+            if (character == null)
+            {
+                if (characterImage != null)
+                {
+                    characterImage.gameObject.SetActive(false);
+                }
+                if (nameText != null)
+                {
+                    nameText.text = "";
+                }
+                speakingCharacter = null;
+            }
+            else
+            {
+                Character prevSpeakingCharacter = speakingCharacter;
+                speakingCharacter = character;
+
+                // Dim portraits of non-speaking characters
+                foreach (Stage stage in Stage.activeStages)
+                {
+
+                    if (stage.DimPortraits)
+                    {
+                        foreach (Character c in stage.CharactersOnStage)
+                        {
+                            if (prevSpeakingCharacter != speakingCharacter)
+                            {
+                                if (c != speakingCharacter)
+                                {
+                                    stage.SetDimmed(c, true);
+                                }
+                                else
+                                {
+                                    stage.SetDimmed(c, false);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                string characterName = character.NameText;
+
+                if (characterName == "")
+                {
+                    // Use game object name as default
+                    characterName = character.name;
+                }
+
+                if (flowchart != null)
+                {
+                    characterName = flowchart.SubstituteVariables(characterName);
+                }
+
+                SetCharacterName(characterName, character.NameColor);
+            }
+        }
+
+        public virtual void SetCharacterImage(Sprite image)
+        {
+            if (characterImage == null)
+            {
+                return;
+            }
+
+            if (image != null)
+            {
+                characterImage.sprite = image;
+                characterImage.gameObject.SetActive(true);
+                currentCharacterImage = image;
+            }
+            else
+            {
+                characterImage.gameObject.SetActive(false);
+
+                if (startStoryTextWidth != 0)
+                {
+                    storyText.rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 
+                        startStoryTextInset, 
+                        startStoryTextWidth);
+                }
+            }
+
+            // Adjust story text box to not overlap image rect
+            if (fitTextWithImage && 
+                storyText != null &&
+                characterImage.gameObject.activeSelf)
+            {
+                if (startStoryTextWidth == 0)
+                {
+                    startStoryTextWidth = storyText.rectTransform.rect.width;
+                    startStoryTextInset = storyText.rectTransform.offsetMin.x; 
+                }
+
+                // Clamp story text to left or right depending on relative position of the character image
+                if (storyText.rectTransform.position.x < characterImage.rectTransform.position.x)
+                {
+                    storyText.rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 
+                        startStoryTextInset, 
+                        startStoryTextWidth - characterImage.rectTransform.rect.width);
+                }
+                else
+                {
+                    storyText.rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right, 
+                        startStoryTextInset, 
+                        startStoryTextWidth - characterImage.rectTransform.rect.width);
+                }
+            }
+        }
+
+        public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
+        {
+            StartCoroutine(SayInternal(text, clearPrevious, waitForInput, fadeWhenDone, stopVoiceover, voiceOverClip, onComplete));
+        }
+
+        public virtual bool FadeWhenDone { set { fadeWhenDone = value; } }
+
+        public virtual void Stop()
+        {
+            fadeWhenDone = true;
+            GetWriter().Stop();
+        }
+
+        #endregion
     }
 }
