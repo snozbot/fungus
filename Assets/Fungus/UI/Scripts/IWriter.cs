@@ -65,11 +65,16 @@ namespace Fungus
         /// Called when the Writer has resumed writing text.
         void OnResume();
 
-        /// Called when the Writer has finshed writing text.
+        /// Called when the Writer has finished writing text.
         /// <param name="stopAudio">Controls whether audio should be stopped when writing ends.</param>
         void OnEnd(bool stopAudio);
 
         /// Called every time the Writer writes a new character glyph.
         void OnGlyph();
+
+        /// <summary>
+        /// Called when voiceover should start.
+        /// </summary>
+        void OnVoiceover(AudioClip voiceOverClip);
     }
 }

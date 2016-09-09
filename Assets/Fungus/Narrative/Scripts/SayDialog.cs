@@ -181,7 +181,7 @@ namespace Fungus
             if (voiceOverClip != null)
             {
                 WriterAudio writerAudio = GetWriterAudio();
-                writerAudio.PlayVoiceover(voiceOverClip);
+                writerAudio.OnVoiceover(voiceOverClip);
             }
             else if (speakingCharacter != null)
             {

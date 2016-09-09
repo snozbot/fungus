@@ -51,7 +51,7 @@ namespace Fungus
         // Time when current beep will have finished playing
         protected float nextBeepTime;
 
-        public virtual void SetAudioMode(AudioMode mode)
+        protected virtual void SetAudioMode(AudioMode mode)
         {
             audioMode = mode;
         }
@@ -71,29 +71,7 @@ namespace Fungus
             targetAudioSource.volume = 0f;
         }
 
-        /// <summary>
-        /// Plays a voiceover audio clip.
-        /// Voiceover behaves differently than speaking sound effects because it 
-        /// should keep on playing after the text has finished writing. It also
-        /// does not pause for wait tags, punctuation, etc.
-        /// </summary>
-        public virtual void PlayVoiceover(AudioClip voiceOverClip)
-        {
-            if (targetAudioSource == null)
-            {
-                return;
-            }
-
-            playingVoiceover = true;
-
-            targetAudioSource.volume = volume;
-            targetVolume = volume;
-            targetAudioSource.loop = false;
-            targetAudioSource.clip = voiceOverClip;
-            targetAudioSource.Play();
-        }
-
-        public virtual void Play(AudioClip audioClip)
+        protected virtual void Play(AudioClip audioClip)
         {
             if (targetAudioSource == null ||
                 (audioMode == AudioMode.SoundEffect && soundEffect == null && audioClip == null) ||
@@ -130,7 +108,7 @@ namespace Fungus
             }
         }
 
-        public virtual void Pause()
+        protected virtual void Pause()
         {
             if (targetAudioSource == null)
             {
@@ -141,7 +119,7 @@ namespace Fungus
             targetVolume = 0f;
         }
 
-        public virtual void Stop()
+        protected virtual void Stop()
         {
             if (targetAudioSource == null)
             {
@@ -156,7 +134,7 @@ namespace Fungus
             playingVoiceover = false;
         }
 
-        public virtual void Resume()
+        protected virtual void Resume()
         {
             if (targetAudioSource == null)
             {
@@ -246,6 +224,22 @@ namespace Fungus
             }
         }
 
+        public virtual void OnVoiceover(AudioClip voiceOverClip)
+        {
+            if (targetAudioSource == null)
+            {
+                return;
+            }
+
+            playingVoiceover = true;
+
+            targetAudioSource.volume = volume;
+            targetVolume = volume;
+            targetAudioSource.loop = false;
+            targetAudioSource.clip = voiceOverClip;
+            targetAudioSource.Play();
+        }
+            
         #endregion
     }
 }
