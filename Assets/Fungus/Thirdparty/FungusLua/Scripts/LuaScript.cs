@@ -62,7 +62,7 @@ namespace Fungus
             return GetPath(current.parent) + "." + current.name;
         }
 
-        public void Start()
+        protected virtual void Start()
         {
             InitLuaScript();
         }
@@ -128,6 +128,8 @@ namespace Fungus
             return s;
         }
 
+        #region ILuaScript implementation
+
         /// <summary>
         /// Execute the Lua script.
         /// This is the function to call if you want to trigger execution from an external script.
@@ -146,5 +148,7 @@ namespace Fungus
                 LuaEnv.RunLuaFunction(luaFunction, runAsCoroutine);
             }
         }
+
+        #endregion
     }
 }
