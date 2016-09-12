@@ -7,17 +7,9 @@ using UnityEngine.EventSystems;
 namespace Fungus
 {
     /// <summary>
-    /// Interface for listening for dialogue input events.
+    /// Input handler for say dialogs.
     /// </summary>
-    public interface IDialogInputListener
-    {
-        void OnNextLineEvent();
-    }
-
-    /// <summary>
-    /// Input handler for say dialogues.
-    /// </summary>
-    public class DialogInput : MonoBehaviour
+    public class DialogInput : MonoBehaviour, IDialogInput
     {
         public enum ClickMode
         {
@@ -46,42 +38,6 @@ namespace Fungus
         protected float ignoreClickTimer;
 
         protected StandaloneInputModule currentStandaloneInputModule;
-
-        /// <summary>
-        /// Trigger next line input event from script.
-        /// </summary>
-        public void SetNextLineFlag()
-        {
-            nextLineInputFlag = true;
-        }
-
-        /// <summary>
-        /// Set the dialog clicked flag (usually from an Event Trigger component in the dialog UI).
-        /// </summary>
-        public void SetDialogClickedFlag()
-        {
-            // Ignore repeat clicks for a short time to prevent accidentally clicking through the character dialogue
-            if (ignoreClickTimer > 0f)
-            {
-                return;
-            }
-            ignoreClickTimer = nextClickDelay;
-
-            // Only applies in Click On Dialog mode
-            if (clickMode == ClickMode.ClickOnDialog)
-            {
-                dialogClickedFlag = true;
-            }
-        }
-
-        public void SetButtonClickedFlag()
-        {
-            // Only applies if clicking is not disabled
-            if (clickMode != ClickMode.Disabled)
-            {
-                SetNextLineFlag();
-            }
-        }
 
         protected virtual void Update()
         {
@@ -159,5 +115,39 @@ namespace Fungus
                 nextLineInputFlag = false;
             }
         }
+
+        #region IDialogInput
+
+        public void SetNextLineFlag()
+        {
+            nextLineInputFlag = true;
+        }
+
+        public void SetDialogClickedFlag()
+        {
+            // Ignore repeat clicks for a short time to prevent accidentally clicking through the character dialogue
+            if (ignoreClickTimer > 0f)
+            {
+                return;
+            }
+            ignoreClickTimer = nextClickDelay;
+
+            // Only applies in Click On Dialog mode
+            if (clickMode == ClickMode.ClickOnDialog)
+            {
+                dialogClickedFlag = true;
+            }
+        }
+
+        public void SetButtonClickedFlag()
+        {
+            // Only applies if clicking is not disabled
+            if (clickMode != ClickMode.Disabled)
+            {
+                SetNextLineFlag();
+            }
+        }
+
+        #endregion
     }
 }
