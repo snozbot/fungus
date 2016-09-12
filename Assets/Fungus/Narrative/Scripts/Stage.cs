@@ -12,36 +12,33 @@ namespace Fungus
     /// Define a set of screen positions where character sprites can be displayed.
     /// </summary>
     [ExecuteInEditMode]
-    public class Stage : PortraitController
+    public class Stage : PortraitController, IStage
     {
+        [Tooltip("Canvas object containing the stage positions.")]
         [SerializeField] protected Canvas portraitCanvas;
-        public virtual Canvas PortraitCanvas { get { return portraitCanvas; } }
 
+        [Tooltip("Dim portraits when a character is not speaking.")]
         [SerializeField] protected bool dimPortraits;
-        public virtual bool DimPortraits { get { return dimPortraits; } set { dimPortraits = value; } }
 
+        [Tooltip("Duration for fading character portraits in / out.")]
         [SerializeField] protected float fadeDuration = 0.5f;
-        public virtual float FadeDuration { get { return fadeDuration; } set { fadeDuration = value; } }
 
+        [Tooltip("Duration for moving characters to a new position")]
         [SerializeField] protected float moveDuration = 1f;
-        public virtual float MoveDuration { get { return moveDuration; } set { moveDuration = value; } }
 
+        [Tooltip("Ease type for the fade tween.")]
         [SerializeField] protected LeanTweenType fadeEaseType;
-        public virtual LeanTweenType FadeEaseType { get { return fadeEaseType; } }
 
+        [Tooltip("Constant offset to apply to portrait position.")]
         [SerializeField] protected Vector2 shiftOffset;
-        public virtual Vector2 ShiftOffset { get { return shiftOffset; } }
 
+        [Tooltip("The position object where characters appear by default.")]
         [SerializeField] protected Image defaultPosition;
-        public virtual Image DefaultPosition { get { return defaultPosition; } }
 
+        [Tooltip("List of stage position rect transforms in the stage.")]
         [SerializeField] protected List<RectTransform> positions;
-        public virtual List<RectTransform> Positions { get { return positions; } }
-
-        [SerializeField] protected RectTransform[] cachedPositions;
 
         protected List<Character> charactersOnStage = new List<Character>();
-        public virtual List<Character> CharactersOnStage { get { return charactersOnStage; } }
 
         static public List<Stage> activeStages = new List<Stage>();
 
@@ -51,12 +48,6 @@ namespace Fungus
             {
                 activeStages.Add(this);
             }
-        }
-
-        public void CachePositions()
-        {
-            cachedPositions = new RectTransform[positions.Count];
-            positions.CopyTo(cachedPositions);
         }
 
         protected virtual void OnDisable()
@@ -74,29 +65,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Searches the stage's named positions
-        /// If none matches the string provided, give a warning and return a new RectTransform
-        /// </summary>
-        /// <param name="position_string">Position name to search for</param>
-        /// <returns></returns>
-        public RectTransform GetPosition(String position_string)
-        {
-            if (string.IsNullOrEmpty(position_string))
-            {
-                return null;
-            }
-
-            for (int i = 0; i < cachedPositions.Length; i++)
-            {
-                if ( String.Compare(cachedPositions[i].name, position_string, true) == 0 )
-                {
-                    return cachedPositions[i];
-                }
-            }
-            return null;
-        }
-
         public static Stage GetActiveStage()
         {
             if (Stage.activeStages == null ||
@@ -107,6 +75,45 @@ namespace Fungus
 
             return Stage.activeStages[0];
         }
+
+        #region IStage implementation
+
+        public virtual Canvas PortraitCanvas { get { return portraitCanvas; } }
+
+        public virtual bool DimPortraits { get { return dimPortraits; } set { dimPortraits = value; } }
+
+        public virtual float FadeDuration { get { return fadeDuration; } set { fadeDuration = value; } }
+
+        public virtual float MoveDuration { get { return moveDuration; } set { moveDuration = value; } }
+
+        public virtual LeanTweenType FadeEaseType { get { return fadeEaseType; } }
+
+        public virtual Vector2 ShiftOffset { get { return shiftOffset; } }
+
+        public virtual Image DefaultPosition { get { return defaultPosition; } }
+
+        public virtual List<RectTransform> Positions { get { return positions; } }
+
+        public virtual List<Character> CharactersOnStage { get { return charactersOnStage; } }
+
+        public RectTransform GetPosition(string positionString)
+        {
+            if (string.IsNullOrEmpty(positionString))
+            {
+                return null;
+            }
+
+            for (int i = 0; i < positions.Count; i++)
+            {
+                if ( String.Compare(positions[i].name, positionString, true) == 0 )
+                {
+                    return positions[i];
+                }
+            }
+            return null;
+        }
+
+        #endregion
     }
 }
 

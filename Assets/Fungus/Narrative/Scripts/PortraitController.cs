@@ -22,7 +22,6 @@ namespace Fungus
         protected virtual void Awake()
         {
             stage = GetComponentInParent<Stage>();
-            stage.CachePositions();
         }
 
         protected virtual void FinishCommand(PortraitOptions options)
