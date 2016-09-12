@@ -12,17 +12,17 @@ namespace Fungus
     [ExecuteInEditMode]
     public class CustomTag : MonoBehaviour 
     {
+        [Tooltip("String that defines the start of the tag.")]
         [SerializeField] protected string tagStartSymbol;
-        public virtual string TagStartSymbol { get { return tagStartSymbol; } }
 
+        [Tooltip("String that defines the end of the tag.")]
         [SerializeField] protected string tagEndSymbol;
-        public virtual string TagEndSymbol { get { return tagEndSymbol; } }
 
+        [Tooltip("String to replace the start tag with.")]
         [SerializeField] protected string replaceTagStartWith;
-        public virtual string ReplaceTagStartWith { get { return replaceTagStartWith; } }
 
+        [Tooltip("String to replace the end tag with.")]
         [SerializeField] protected string replaceTagEndWith;
-        public virtual string ReplaceTagEndWith { get { return replaceTagEndWith; } }
 
         static public List<CustomTag> activeCustomTags = new List<CustomTag>();
         
@@ -38,5 +38,17 @@ namespace Fungus
         {
             activeCustomTags.Remove(this);
         }
+
+        #region ICustomTag implementation
+
+        public virtual string TagStartSymbol { get { return tagStartSymbol; } }
+
+        public virtual string TagEndSymbol { get { return tagEndSymbol; } }
+
+        public virtual string ReplaceTagStartWith { get { return replaceTagStartWith; } }
+
+        public virtual string ReplaceTagEndWith { get { return replaceTagEndWith; } }
+
+        #endregion
     }
 }
