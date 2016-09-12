@@ -17,6 +17,7 @@ namespace Fungus
     {
         [Tooltip("Lua Environment to use to execute this Lua script")]
         [SerializeField] protected LuaEnvironment luaEnvironment;
+        public ILuaEnvironment LuaEnv { set; get; }
 
         [Tooltip("A text file containing Lua script to execute.")]
         [SerializeField] protected TextAsset luaFile;
@@ -65,22 +66,22 @@ namespace Fungus
             // See if a Lua Environment has been assigned to this Flowchart
             if (luaEnvironment == null)        
             {
-                luaEnvironment = flowchart._LuaEnvironment;
+                LuaEnv = flowchart.LuaEnv;
             }
 
             // No Lua Environment specified so just use any available or create one.
-            if (luaEnvironment == null)        
+            if (LuaEnv == null)        
             {
-                luaEnvironment = LuaEnvironment.GetLua();
+                LuaEnv = LuaEnvironment.GetLua();
             }
 
             string s = GetLuaString();
-            luaFunction = luaEnvironment.LoadLuaString(s, friendlyName);
+            luaFunction = LuaEnv.LoadLuaFunction(s, friendlyName);
 
             // Add a binding to the parent flowchart
             if (flowchart.LuaBindingName != "")
             {
-                Table globals = luaEnvironment.Interpreter.Globals;
+                Table globals = LuaEnv.Interpreter.Globals;
                 if (globals != null)
                 {
                     globals[flowchart.LuaBindingName] = flowchart;
@@ -115,7 +116,7 @@ namespace Fungus
                 Continue();
             }
 
-            luaEnvironment.RunLuaFunction(luaFunction, runAsCoroutine, (returnValue) => {
+            LuaEnv.RunLuaFunction(luaFunction, runAsCoroutine, (returnValue) => {
                 StoreReturnVariable(returnValue);
                 if (waitUntilFinished)
                 {

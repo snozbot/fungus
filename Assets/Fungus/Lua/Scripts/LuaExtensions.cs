@@ -16,7 +16,7 @@ namespace Fungus
         /// <summary>
         /// Extension for MenuDialog that allows AddOption to call a Lua function when an option is selected.
         /// </summary>
-        public static bool AddOption(this MenuDialog menuDialog, string text, bool interactable, LuaEnvironment luaEnvironment, Closure callBack)
+        public static bool AddOption(this MenuDialog menuDialog, string text, bool interactable, ILuaEnvironment luaEnv, Closure callBack)
         {
             if (!menuDialog.gameObject.activeSelf)
             {
@@ -46,7 +46,7 @@ namespace Fungus
 
                         if (callBack != null)
                         {
-                            luaEnvironment.RunLuaFunction(callBack, true);
+                            luaEnv.RunLuaFunction(callBack, true);
                         }
                     });
 
@@ -61,7 +61,7 @@ namespace Fungus
         /// <summary>
         /// Extension for MenuDialog that allows ShowTimer to call a Lua function when the timer expires.
         /// </summary>
-        public static IEnumerator ShowTimer(this MenuDialog menuDialog, float duration, LuaEnvironment luaEnvironment, Closure callBack)
+        public static IEnumerator ShowTimer(this MenuDialog menuDialog, float duration, ILuaEnvironment luaEnv, Closure callBack)
         {
             if (menuDialog.CachedSlider == null ||
                 duration <= 0f)
@@ -94,7 +94,7 @@ namespace Fungus
 
             if (callBack != null)
             {
-                luaEnvironment.RunLuaFunction(callBack, true);
+                luaEnv.RunLuaFunction(callBack, true);
             }
         }
     }

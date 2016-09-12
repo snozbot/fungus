@@ -21,6 +21,7 @@ namespace Fungus
         /// </summary>
         [Tooltip("The Lua Environment to use when executing Lua script.")]
         [SerializeField] protected LuaEnvironment luaEnvironment;
+        protected ILuaEnvironment LuaEnv { get; set; }
 
         /// <summary>
         /// Text file containing Lua script to be executed.
@@ -76,26 +77,32 @@ namespace Fungus
                 return;
             }
 
-            if (luaEnvironment == null)        
+            if (LuaEnv == null &&
+                luaEnvironment != null)
             {
-                // Create a Lua Environment if none exists yet
-                luaEnvironment = LuaEnvironment.GetLua();
+                LuaEnv = luaEnvironment as ILuaEnvironment;
             }
 
-            if (luaEnvironment == null)        
+            if (LuaEnv == null)        
+            {
+                // Create a Lua Environment if none exists yet
+                LuaEnv = LuaEnvironment.GetLua();
+            }
+
+            if (LuaEnv == null)        
             {
                 Debug.LogError("No Lua Environment found");
                 return;
             }
 
             // Ensure the LuaEnvironment is initialized before trying to execute code
-            luaEnvironment.InitEnvironment();
+            LuaEnv.InitEnvironment();
 
             // Cache a descriptive name to use in Lua error messages
             friendlyName = GetPath(transform) + ".LuaScript";
 
             string s = GetLuaString();
-            luaFunction = luaEnvironment.LoadLuaString(s, friendlyName);
+            luaFunction = LuaEnv.LoadLuaFunction(s, friendlyName);
 
             initialised = true;
         }
@@ -130,13 +137,13 @@ namespace Fungus
             // Make sure the script and Lua environment are initialised before executing
             InitLuaScript();
 
-            if (luaEnvironment == null)
+            if (LuaEnv == null)
             {
                 Debug.LogWarning("No Lua Environment found");
             }
             else
             {
-                luaEnvironment.RunLuaFunction(luaFunction, runAsCoroutine);
+                LuaEnv.RunLuaFunction(luaFunction, runAsCoroutine);
             }
         }
     }

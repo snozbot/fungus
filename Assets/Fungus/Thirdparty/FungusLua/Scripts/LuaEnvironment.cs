@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using System.Diagnostics;
 using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
 using MoonSharp.RemoteDebugger;
@@ -16,7 +15,7 @@ namespace Fungus
     /// <summary>
     /// Wrapper for a MoonSharp Lua Script instance.
     /// </summary>
-    public class LuaEnvironment : MonoBehaviour 
+    public class LuaEnvironment : MonoBehaviour, ILuaEnvironment 
     {
         /// <summary>
         /// Helper class used to extend the initialization behavior of LuaEnvironment.
@@ -86,28 +85,23 @@ namespace Fungus
         /// Returns the first Lua Environment found in the scene, or creates one if none exists.
         /// This is a slow operation, call it once at startup and cache the returned value.
         /// </summary>
-        public static LuaEnvironment GetLua()
+        public static ILuaEnvironment GetLua()
         {
-            LuaEnvironment luaEnvironment = GameObject.FindObjectOfType<LuaEnvironment>();
-            if (luaEnvironment == null)
+            ILuaEnvironment luaEnv = GameObject.FindObjectOfType<LuaEnvironment>();
+            if (luaEnv == null)
             {
                 GameObject prefab = Resources.Load<GameObject>("Prefabs/LuaEnvironment");
                 if (prefab != null)
                 {
                     GameObject go = Instantiate(prefab) as GameObject;
                     go.name = "LuaEnvironment";
-                    luaEnvironment = go.GetComponent<LuaEnvironment>();
+                    luaEnv = go.GetComponent<ILuaEnvironment>();
                 }
             }
-            return luaEnvironment;
+            return luaEnv;
         }
 
         protected Script interpreter;
-
-        /// <summary>
-        /// The MoonSharp interpreter instance used to run Lua code.
-        /// </summary>
-        public virtual Script Interpreter { get { return interpreter; } }
 
         /// <summary>
         /// Launches the remote Lua debugger in your browser and breaks execution at the first executed Lua command.
@@ -128,40 +122,6 @@ namespace Fungus
         protected virtual void Start() 
         {
             InitEnvironment();
-        }
-
-        /// <summary>
-        /// Initialise the Lua interpreter so we can start running Lua code.
-        /// </summary>
-        public virtual void InitEnvironment()
-        {   
-            if (initialised)
-            {
-                return;
-            }
-
-            Script.DefaultOptions.DebugPrint = (s) => { UnityEngine.Debug.Log(s); };
-
-            // In some use cases (e.g. downloadable Lua files) some Lua modules can pose a potential security risk.
-            // You can restrict which core lua modules are available here if needed. See the MoonSharp documentation for details.
-            interpreter = new Script(CoreModules.Preset_Complete);
-
-            // Load all Lua scripts in the project
-            InitLuaScriptFiles();
-
-            // Initialize any attached initializer components (e.g. LuaUtils)
-            Initializer[] initializers = GetComponents<Initializer>();
-            foreach (Initializer initializer in initializers)
-            {
-                initializer.Initialize();
-            }
-
-            if (remoteDebugger)
-            {
-                ActivateRemoteDebugger(interpreter);
-            }
-
-            initialised = true;
         }
 
         /// <summary>
@@ -211,102 +171,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Loads and compiles a string containing Lua script, returning a closure (Lua function) which can be executed later.
-        /// <param name="luaString">The Lua code to be run.</param>
-        /// <param name="friendlyName">A descriptive name to be used in error reports.</param>
-        /// </summary>
-        public virtual Closure LoadLuaString(string luaString, string friendlyName)
-        {
-            InitEnvironment();
-
-            string processedString;
-            Initializer initializer = GetComponent<Initializer>();
-            if (initializer != null)
-            {
-                processedString = initializer.PreprocessScript(luaString);
-            }
-            else
-            {
-                processedString = luaString;
-            }
-
-            // Load the Lua script
-            DynValue res = null;
-            try
-            {
-                res = interpreter.LoadString(processedString, null, friendlyName);
-            }
-            catch (InterpreterException ex)
-            {
-                LogException(ex.DecoratedMessage, luaString);
-            }
-
-            if (res == null ||
-                res.Type != DataType.Function)
-            {
-                UnityEngine.Debug.LogError("Failed to create Lua function from Lua string");
-                return null;
-            }
-
-            return res.Function;
-        }
-            
-        /// <summary>
-        /// Load and run a previously compiled Lua script. May be run as a coroutine.
-        /// <param name="fn">A previously compiled Lua function.</param>
-        /// <param name="runAsCoroutine">Run the Lua code as a coroutine to support asynchronous operations.</param>
-        /// <param name="onComplete">Method to callback when the Lua code finishes exection. Supports return parameters.</param>
-        /// </summary>
-        public virtual void RunLuaFunction(Closure fn, bool runAsCoroutine, Action<DynValue> onComplete = null)
-        {            
-            if (fn == null)
-            {
-                if (onComplete != null)
-                {
-                    onComplete(null);
-                }
-
-                return;
-            }
-
-            // Execute the Lua script
-            if (runAsCoroutine)
-            {
-                StartCoroutine(RunLuaCoroutine(fn, onComplete));
-            }
-            else
-            {
-                DynValue returnValue = null;
-                try
-                {                
-                    returnValue = fn.Call();                
-                }
-                catch (InterpreterException ex)
-                {
-                    LogException(ex.DecoratedMessage, GetSourceCode());
-                }
-
-                if (onComplete != null)
-                {
-                    onComplete(returnValue);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Load and run a string containing Lua script. May be run as a coroutine.
-        /// <param name="luaString">The Lua code to be run.</param>
-        /// <param name="friendlyName">A descriptive name to be used in error reports.</param>
-        /// <param name="runAsCoroutine">Run the Lua code as a coroutine to support asynchronous operations.</param>
-        /// <param name="onComplete">Method to callback when the Lua code finishes exection. Supports return parameters.</param>
-        /// </summary>
-        public virtual void DoLuaString(string luaString, string friendlyName, bool runAsCoroutine, Action<DynValue> onComplete = null)
-        {
-            Closure fn = LoadLuaString(luaString, friendlyName);
-            RunLuaFunction(fn, runAsCoroutine, onComplete);
-        }
-            
         /// <summary>
         /// A Unity coroutine method which updates a Lua coroutine each frame.
         /// <param name="closure">A MoonSharp closure object representing a function.</param>
@@ -406,7 +270,7 @@ namespace Fungus
         /// </summary>
         /// <param name="decoratedMessage">Decorated message from a MoonSharp exception</param>
         /// <param name="debugInfo">Debug info, usually the Lua script that was running.</param>
-        public static void LogException(string decoratedMessage, string debugInfo)
+        protected static void LogException(string decoratedMessage, string debugInfo)
         {
             string output = decoratedMessage + "\n";
 
@@ -423,5 +287,120 @@ namespace Fungus
                 
             UnityEngine.Debug.LogError(output);
         }
+
+        #region ILuaEnvironment implementation
+
+        public virtual void InitEnvironment()
+        {   
+            if (initialised)
+            {
+                return;
+            }
+
+            Script.DefaultOptions.DebugPrint = (s) => { UnityEngine.Debug.Log(s); };
+
+            // In some use cases (e.g. downloadable Lua files) some Lua modules can pose a potential security risk.
+            // You can restrict which core lua modules are available here if needed. See the MoonSharp documentation for details.
+            interpreter = new Script(CoreModules.Preset_Complete);
+
+            // Load all Lua scripts in the project
+            InitLuaScriptFiles();
+
+            // Initialize any attached initializer components (e.g. LuaUtils)
+            Initializer[] initializers = GetComponents<Initializer>();
+            foreach (Initializer initializer in initializers)
+            {
+                initializer.Initialize();
+            }
+
+            if (remoteDebugger)
+            {
+                ActivateRemoteDebugger(interpreter);
+            }
+
+            initialised = true;
+        }
+
+        public virtual Script Interpreter { get { return interpreter; } }
+
+        public virtual Closure LoadLuaFunction(string luaString, string friendlyName)
+        {
+            InitEnvironment();
+
+            string processedString;
+            Initializer initializer = GetComponent<Initializer>();
+            if (initializer != null)
+            {
+                processedString = initializer.PreprocessScript(luaString);
+            }
+            else
+            {
+                processedString = luaString;
+            }
+
+            // Load the Lua script
+            DynValue res = null;
+            try
+            {
+                res = interpreter.LoadString(processedString, null, friendlyName);
+            }
+            catch (InterpreterException ex)
+            {
+                LogException(ex.DecoratedMessage, luaString);
+            }
+
+            if (res == null ||
+                res.Type != DataType.Function)
+            {
+                UnityEngine.Debug.LogError("Failed to create Lua function from Lua string");
+                return null;
+            }
+
+            return res.Function;
+        }
+
+        public virtual void RunLuaFunction(Closure fn, bool runAsCoroutine, Action<DynValue> onComplete = null)
+        {            
+            if (fn == null)
+            {
+                if (onComplete != null)
+                {
+                    onComplete(null);
+                }
+
+                return;
+            }
+
+            // Execute the Lua script
+            if (runAsCoroutine)
+            {
+                StartCoroutine(RunLuaCoroutine(fn, onComplete));
+            }
+            else
+            {
+                DynValue returnValue = null;
+                try
+                {                
+                    returnValue = fn.Call();                
+                }
+                catch (InterpreterException ex)
+                {
+                    LogException(ex.DecoratedMessage, GetSourceCode());
+                }
+
+                if (onComplete != null)
+                {
+                    onComplete(returnValue);
+                }
+            }
+        }
+
+        public virtual void DoLuaString(string luaString, string friendlyName, bool runAsCoroutine, Action<DynValue> onComplete = null)
+        {
+            Closure fn = LoadLuaFunction(luaString, friendlyName);
+            RunLuaFunction(fn, runAsCoroutine, onComplete);
+        }
+
+        #endregion
     }
 }
