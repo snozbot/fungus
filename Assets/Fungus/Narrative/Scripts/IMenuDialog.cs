@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Fungus
 {
@@ -8,9 +9,31 @@ namespace Fungus
     public interface IMenuDialog
     {
         /// <summary>
+        /// A cached list of button objects in the menu dialog.
+        /// </summary>
+        /// <value>The cached buttons.</value>
+        Button[] CachedButtons { get; }
+
+        /// <summary>
+        /// A cached slider object used for the timer in the menu dialog.
+        /// </summary>
+        /// <value>The cached slider.</value>
+        Slider CachedSlider { get; }
+
+        /// <summary>
         /// Sets the active state of the Menu Dialog gameobject.
         /// </summary>
         void SetActive(bool state);
+
+        /// <summary>
+        /// Clear all displayed options in the Menu Dialog.
+        /// </summary>
+        void Clear();
+
+        /// <summary>
+        /// Hides any currently displayed Say Dialog.
+        /// </summary>
+        void HideSayDialog();
 
         /// <summary>
         /// Adds the option to the list of displayed options.

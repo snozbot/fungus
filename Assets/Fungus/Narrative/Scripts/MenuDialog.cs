@@ -18,10 +18,8 @@ namespace Fungus
         [SerializeField] protected bool autoSelectFirstButton = false;
 
         protected Button[] cachedButtons;
-        public virtual Button[] CachedButtons { get { return cachedButtons; } }
 
         protected Slider cachedSlider;
-        public virtual Slider CachedSlider { get { return cachedSlider; } }
 
         public static IMenuDialog GetMenuDialog()
         {
@@ -51,7 +49,7 @@ namespace Fungus
             return activeMenuDialog;
         }
 
-        public virtual void Awake()
+        protected virtual void Awake()
         {
             Button[] optionButtons = GetComponentsInChildren<Button>();
             cachedButtons = optionButtons;
@@ -66,45 +64,11 @@ namespace Fungus
             }
         }
 
-        public virtual void OnEnable()
+        protected virtual void OnEnable()
         {
             // The canvas may fail to update if the menu dialog is enabled in the first game frame.
             // To fix this we just need to force a canvas update when the object is enabled.
             Canvas.ForceUpdateCanvases();
-        }
-
-        public virtual void Clear()
-        {
-            StopAllCoroutines();
-
-            Button[] optionButtons = GetComponentsInChildren<Button>();                     
-            foreach (UnityEngine.UI.Button button in optionButtons)
-            {
-                button.onClick.RemoveAllListeners();
-            }
-            
-            foreach (UnityEngine.UI.Button button in optionButtons)
-            {
-                if (button != null)
-                {
-                    button.gameObject.SetActive(false);
-                }
-            }
-
-            Slider timeoutSlider = GetComponentInChildren<Slider>();
-            if (timeoutSlider != null)
-            {
-                timeoutSlider.gameObject.SetActive(false);
-            }
-        }
-
-        public virtual void HideSayDialog()
-        {
-            ISayDialog sayDialog = SayDialog.GetSayDialog();
-            if (sayDialog != null)
-            {
-                sayDialog.FadeWhenDone = true;
-            }
         }
 
         protected virtual IEnumerator WaitForTimeout(float timeoutDuration, Block targetBlock)
@@ -139,11 +103,49 @@ namespace Fungus
 
         #region IMenuDialog implementation
 
+        public virtual Button[] CachedButtons { get { return cachedButtons; } }
+
+        public virtual Slider CachedSlider { get { return cachedSlider; } }
+
         public virtual void SetActive(bool state)
         {
             gameObject.SetActive(state);
         }
 
+        public virtual void Clear()
+        {
+            StopAllCoroutines();
+
+            Button[] optionButtons = GetComponentsInChildren<Button>();                     
+            foreach (UnityEngine.UI.Button button in optionButtons)
+            {
+                button.onClick.RemoveAllListeners();
+            }
+
+            foreach (UnityEngine.UI.Button button in optionButtons)
+            {
+                if (button != null)
+                {
+                    button.gameObject.SetActive(false);
+                }
+            }
+
+            Slider timeoutSlider = GetComponentInChildren<Slider>();
+            if (timeoutSlider != null)
+            {
+                timeoutSlider.gameObject.SetActive(false);
+            }
+        }
+
+        public virtual void HideSayDialog()
+        {
+            ISayDialog sayDialog = SayDialog.GetSayDialog();
+            if (sayDialog != null)
+            {
+                sayDialog.FadeWhenDone = true;
+            }
+        }
+            
         public virtual bool AddOption(string text, bool interactable, Block targetBlock)
         {
             bool addedOption = false;
