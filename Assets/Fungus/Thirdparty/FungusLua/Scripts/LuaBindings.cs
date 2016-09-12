@@ -13,7 +13,7 @@ namespace Fungus
     /// When the Lua Environment initialises, it finds all components in the scene that inherit
     /// from LuaBindingsBase and calls them to add their bindings.
     /// </summary>
-    public abstract class LuaBindingsBase : MonoBehaviour
+    public abstract class LuaBindingsBase : MonoBehaviour, ILuaBindings
     {
         /// <summary>
         /// Add all declared bindings to the globals table.
@@ -43,7 +43,6 @@ namespace Fungus
 
         [Tooltip("The specific LuaEnvironment to register the bindings in.")]
         [SerializeField] protected LuaEnvironment luaEnvironment;
-        public ILuaEnvironment LuaEnv { get; set; }
 
         /// <summary>
         /// Name of global table variable to store bindings in. If left blank then each binding will be added as a global variable.
