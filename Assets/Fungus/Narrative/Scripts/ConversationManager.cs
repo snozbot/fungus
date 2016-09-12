@@ -6,10 +6,7 @@ using System.Text;
 
 namespace Fungus
 {
-    /// <summary>
-    /// Helper class to manage parsing and executing the conversation format.
-    /// </summary>
-    public class ConversationManager
+    public class ConversationManager : IConversationManager
     {
         protected struct ConversationItem
         {
@@ -25,12 +22,6 @@ namespace Fungus
         protected Character[] characters;
 
         protected bool exitSayWait;
-
-        public void PopulateCharacterCache()
-        {
-            // cache characters for faster lookup
-            characters = UnityEngine.Object.FindObjectsOfType<Character>();
-        }
 
         protected ISayDialog GetSayDialog(Character character)
         {
@@ -49,115 +40,6 @@ namespace Fungus
             }
 
             return sayDialog;
-        }
-
-        /// <summary>
-        /// Parse and execute a conversation string
-        /// </summary>
-        /// <param name="conv"></param>
-        public IEnumerator DoConversation(string conv)
-        {
-            if (string.IsNullOrEmpty(conv))
-            {
-                yield break;
-            }
-            
-            var conversationItems = Parse(conv);
-
-            if (conversationItems.Count == 0)
-            {
-                yield break;
-            }
-
-            // Track the current and previous parameter values
-            Character currentCharacter = null;
-            Sprite currentPortrait = null;
-            RectTransform currentPosition = null;
-            Character previousCharacter = null;
-
-            // Play the conversation
-            for (int i = 0; i < conversationItems.Count; ++i)
-            {
-                ConversationItem item = conversationItems[i];
-                
-                if (item.Character != null)
-                {
-                    currentCharacter = item.Character;
-                }
-
-                currentPortrait = item.Portrait;
-                currentPosition = item.Position;
-
-                ISayDialog sayDialog = GetSayDialog(currentCharacter);
-
-                if (sayDialog == null)
-                {
-                    // Should never happen
-                    yield break;
-                }
-
-                sayDialog.SetActive(true);
-
-                if (currentCharacter != null && 
-                    currentCharacter != previousCharacter)
-                {
-                    sayDialog.SetCharacter(currentCharacter);
-                }
-
-                var stage = Stage.GetActiveStage();
-
-                if (stage != null && currentCharacter != null &&
-                    (currentPortrait != currentCharacter.State.portrait || 
-                     currentPosition != currentCharacter.State.position))
-                {
-                    var portraitOptions = new PortraitOptions(true);
-                    portraitOptions.display = item.Hide ? DisplayType.Hide : DisplayType.Show;
-                    portraitOptions.character = currentCharacter;
-                    portraitOptions.fromPosition = currentCharacter.State.position;
-                    portraitOptions.toPosition = currentPosition;
-                    portraitOptions.portrait = currentPortrait;
-
-                    //Flip option - Flip the opposite direction the character is currently facing
-                    if (item.Flip) portraitOptions.facing = item.FacingDirection;
-                    
-                    // Do a move tween if the character is already on screen and not yet at the specified position
-                    if (currentCharacter.State.onScreen &&
-                        currentPosition != currentCharacter.State.position)
-                    {
-                        portraitOptions.move = true;
-                    }
-
-                    if (item.Hide)
-                    {
-                        stage.Hide(portraitOptions);
-                    }
-                    else
-                    {
-                        stage.Show(portraitOptions);
-                    }
-                }
-
-                if (stage == null &&
-                    currentPortrait != null)
-                {
-                    sayDialog.SetCharacterImage(currentPortrait);
-                }
-                    
-                previousCharacter = currentCharacter;
-                
-                if (!string.IsNullOrEmpty(item.Text)) { 
-                    exitSayWait = false;
-                    sayDialog.Say(item.Text, true, true, true, false, null, () => {
-                        exitSayWait = true;
-                    });
-
-                    while (!exitSayWait)
-                    {
-                        yield return null;
-                    }
-                    exitSayWait = false;
-                }
-            }
         }
 
         protected virtual List<ConversationItem> Parse(string conv)
@@ -372,5 +254,120 @@ namespace Fungus
 
             return results.ToArray();
         }
+
+        #region IConversationManager
+
+        public void PopulateCharacterCache()
+        {
+            // cache characters for faster lookup
+            characters = UnityEngine.Object.FindObjectsOfType<Character>();
+        }
+
+        public IEnumerator DoConversation(string conv)
+        {
+            if (string.IsNullOrEmpty(conv))
+            {
+                yield break;
+            }
+
+            var conversationItems = Parse(conv);
+
+            if (conversationItems.Count == 0)
+            {
+                yield break;
+            }
+
+            // Track the current and previous parameter values
+            Character currentCharacter = null;
+            Sprite currentPortrait = null;
+            RectTransform currentPosition = null;
+            Character previousCharacter = null;
+
+            // Play the conversation
+            for (int i = 0; i < conversationItems.Count; ++i)
+            {
+                ConversationItem item = conversationItems[i];
+
+                if (item.Character != null)
+                {
+                    currentCharacter = item.Character;
+                }
+
+                currentPortrait = item.Portrait;
+                currentPosition = item.Position;
+
+                ISayDialog sayDialog = GetSayDialog(currentCharacter);
+
+                if (sayDialog == null)
+                {
+                    // Should never happen
+                    yield break;
+                }
+
+                sayDialog.SetActive(true);
+
+                if (currentCharacter != null && 
+                    currentCharacter != previousCharacter)
+                {
+                    sayDialog.SetCharacter(currentCharacter);
+                }
+
+                var stage = Stage.GetActiveStage();
+
+                if (stage != null && currentCharacter != null &&
+                    (currentPortrait != currentCharacter.State.portrait || 
+                        currentPosition != currentCharacter.State.position))
+                {
+                    var portraitOptions = new PortraitOptions(true);
+                    portraitOptions.display = item.Hide ? DisplayType.Hide : DisplayType.Show;
+                    portraitOptions.character = currentCharacter;
+                    portraitOptions.fromPosition = currentCharacter.State.position;
+                    portraitOptions.toPosition = currentPosition;
+                    portraitOptions.portrait = currentPortrait;
+
+                    //Flip option - Flip the opposite direction the character is currently facing
+                    if (item.Flip) portraitOptions.facing = item.FacingDirection;
+
+                    // Do a move tween if the character is already on screen and not yet at the specified position
+                    if (currentCharacter.State.onScreen &&
+                        currentPosition != currentCharacter.State.position)
+                    {
+                        portraitOptions.move = true;
+                    }
+
+                    if (item.Hide)
+                    {
+                        stage.Hide(portraitOptions);
+                    }
+                    else
+                    {
+                        stage.Show(portraitOptions);
+                    }
+                }
+
+                if (stage == null &&
+                    currentPortrait != null)
+                {
+                    sayDialog.SetCharacterImage(currentPortrait);
+                }
+
+                previousCharacter = currentCharacter;
+
+                if (!string.IsNullOrEmpty(item.Text)) { 
+                    exitSayWait = false;
+                    sayDialog.Say(item.Text, true, true, true, false, null, () => {
+                        exitSayWait = true;
+                    });
+
+                    while (!exitSayWait)
+                    {
+                        yield return null;
+                    }
+                    exitSayWait = false;
+                }
+            }
+        }
+
+        #endregion
     }
 }
