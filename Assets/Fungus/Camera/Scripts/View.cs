@@ -10,33 +10,31 @@ namespace Fungus
     /// The position and rotation are specified using the game object's transform, so this class only needs to specify the ortographic view size.
     /// </summary>
     [ExecuteInEditMode]
-    public class View : MonoBehaviour 
+    public class View : MonoBehaviour, IView
     {
-        /// <summary>
-        /// Orthographic size of the camera view in world units.
-        /// </summary>
         [Tooltip("Orthographic size of the camera view in world units.")]
         [SerializeField] protected float viewSize = 0.5f;
-        public virtual float ViewSize { get { return viewSize; } set { viewSize = value; } }
 
-        /// <summary>
-        /// Aspect ratio of the primary view rectangle. e.g. a 4:3 aspect ratio = 1.333.
-        /// </summary>
         [Tooltip("Aspect ratio of the primary view rectangle. (e.g. 4:3 aspect ratio = 1.333)")]
         [SerializeField] protected Vector2 primaryAspectRatio = new Vector2(4, 3);
-        public virtual Vector2 PrimaryAspectRatio { get { return primaryAspectRatio; } set { primaryAspectRatio = value; } }
 
-        /// <summary>
-        /// Aspect ratio of the secondary view rectangle. e.g. a 2:1 aspect ratio = 2/1 = 2.0.
-        /// </summary>
         [Tooltip("Aspect ratio of the secondary view rectangle. (e.g. 2:1 aspect ratio = 2.0)")]
         [SerializeField] protected Vector2 secondaryAspectRatio = new Vector2(2, 1);
-        public virtual Vector2 SecondaryAspectRatio { get { return secondaryAspectRatio; } set { secondaryAspectRatio = value; } }
 
         protected virtual void Update()
         {
             // Disable scaling to avoid complicating the orthographic size calculations
             transform.localScale = new Vector3(1,1,1);
         }
+
+        #region IView implementation
+
+        public virtual float ViewSize { get { return viewSize; } set { viewSize = value; } }
+
+        public virtual Vector2 PrimaryAspectRatio { get { return primaryAspectRatio; } set { primaryAspectRatio = value; } }
+
+        public virtual Vector2 SecondaryAspectRatio { get { return secondaryAspectRatio; } set { secondaryAspectRatio = value; } }
+
+        #endregion
     }
 }
