@@ -10,7 +10,7 @@ namespace Fungus
     /// Create custom tags for use in Say text.
     /// </summary>
     [ExecuteInEditMode]
-    public class CustomTag : MonoBehaviour 
+    public class CustomTag : MonoBehaviour, ICustomTag 
     {
         [Tooltip("String that defines the start of the tag.")]
         [SerializeField] protected string tagStartSymbol;
