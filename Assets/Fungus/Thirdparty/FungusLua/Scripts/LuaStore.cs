@@ -24,7 +24,7 @@ namespace Fungus
 
         protected static LuaStore instance;
 
-        public void Start()
+        protected virtual void Start()
         {
             Init();
         }
