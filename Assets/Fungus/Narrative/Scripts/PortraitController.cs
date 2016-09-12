@@ -9,159 +9,23 @@ using MoonSharp.Interpreter;
 
 namespace Fungus
 {
-    public class PortraitOptions
-    {
-        public Character character;
-        public Character replacedCharacter;
-        public Sprite portrait;
-        public DisplayType display;
-        public PositionOffset offset;
-        public RectTransform fromPosition;
-        public RectTransform toPosition;
-        public FacingDirection facing;
-        public bool useDefaultSettings;
-        public float fadeDuration;
-        public float moveDuration;
-        public Vector2 shiftOffset;
-        public bool move; //sets to position to be the same as from
-        public bool shiftIntoPlace;
-        public bool waitUntilFinished;
-        public Action onComplete;
-
-        /// <summary>
-        /// Contains all options to run a portrait command.
-        /// </summary>
-        /// <param name="useDefaultSettings">Will use stage default times for animation and fade</param>
-        public PortraitOptions(bool useDefaultSettings = true)
-        {
-            character = null;
-            replacedCharacter = null;
-            portrait = null;
-            display = DisplayType.None;
-            offset = PositionOffset.None;
-            fromPosition = null;
-            toPosition = null;
-            facing = FacingDirection.None;
-            shiftOffset = new Vector2(0, 0);
-            move = false;
-            shiftIntoPlace = false;
-            waitUntilFinished = false;
-            onComplete = null;
-
-            // Special values that can be overridden
-            fadeDuration = 0.5f;
-            moveDuration = 1f;
-            this.useDefaultSettings = useDefaultSettings;
-        }
-    }
-
-    public class PortraitState
-    {
-        public bool onScreen;
-        public bool dimmed;
-        public DisplayType display;
-        public Sprite portrait;
-        public RectTransform position;
-        public FacingDirection facing;
-        public Image portraitImage;
-    }
-
-    public enum DisplayType
-    {
-        None,
-        Show,
-        Hide,
-        Replace,
-        MoveToFront
-    }
-
-    public enum FacingDirection
-    {
-        None,
-        Left,
-        Right
-    }
-
-    public enum PositionOffset
-    {
-        None,
-        OffsetLeft,
-        OffsetRight
-    }
-
     /// <summary>
     /// Controls the Portrait sprites on stage
     /// </summary>
-    public class PortraitController : MonoBehaviour
+    public class PortraitController : MonoBehaviour, IPortraitController
     {
         // Timer for waitUntilFinished functionality
         protected float waitTimer;
 
         protected Stage stage;
 
-        void Awake()
+        protected virtual void Awake()
         {
             stage = GetComponentInParent<Stage>();
             stage.CachePositions();
         }
 
-        /// <summary>
-        /// Using all portrait options available, run any portrait command.
-        /// </summary>
-        /// <param name="options">Portrait Options</param>
-        /// <param name="onComplete">The function that will run once the portrait command finishes</param>
-        public void RunPortraitCommand(PortraitOptions options, Action onComplete)
-        {
-            waitTimer = 0f;
-
-            // If no character specified, do nothing
-            if (options.character == null)
-            {
-                onComplete();
-                return;
-            }
-
-            // If Replace and no replaced character specified, do nothing
-            if (options.display == DisplayType.Replace && options.replacedCharacter == null)
-            {
-                onComplete();
-                return;
-            }
-
-            // Early out if hiding a character that's already hidden
-            if (options.display == DisplayType.Hide &&
-                !options.character.State.onScreen)
-            {
-                onComplete();
-                return;
-            }
-
-            options = CleanPortraitOptions(options);
-            options.onComplete = onComplete;
-
-            switch (options.display)
-            {
-                case (DisplayType.Show):
-                    Show(options);
-                    break;
-
-                case (DisplayType.Hide):
-                    Hide(options);
-                    break;
-
-                case (DisplayType.Replace):
-                    Show(options);
-                    Hide(options.replacedCharacter, options.replacedCharacter.State.position.name);
-                    break;
-
-                case (DisplayType.MoveToFront):
-                    MoveToFront(options);
-                    break;
-            }
-
-        }
-
-        protected void FinishCommand(PortraitOptions options)
+        protected virtual void FinishCommand(PortraitOptions options)
         {
             if (options.onComplete != null)
             {
@@ -185,7 +49,7 @@ namespace Fungus
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        protected PortraitOptions CleanPortraitOptions(PortraitOptions options)
+        protected virtual PortraitOptions CleanPortraitOptions(PortraitOptions options)
         {
             // Use default stage settings
             if (options.useDefaultSettings)
@@ -276,7 +140,7 @@ namespace Fungus
         /// </summary>
         /// <param name="character"></param>
         /// <param name="fadeDuration"></param>
-        protected void CreatePortraitObject(Character character, float fadeDuration)
+        protected virtual void CreatePortraitObject(Character character, float fadeDuration)
         {
             // Create a new portrait object
             GameObject portraitObj = new GameObject(character.name,
@@ -303,7 +167,7 @@ namespace Fungus
             character.State.portraitImage = portraitImage;
         }
 
-        protected IEnumerator WaitUntilFinished(float duration, Action onComplete = null)
+        protected virtual IEnumerator WaitUntilFinished(float duration, Action onComplete = null)
         {
             // Wait until the timer has expired
             // Any method can modify this timer variable to delay continuing.
@@ -321,7 +185,7 @@ namespace Fungus
             }
         }
 
-        protected void SetupPortrait(PortraitOptions options)
+        protected virtual void SetupPortrait(PortraitOptions options)
         {
             SetRectTransform(options.character.State.portraitImage.rectTransform, options.fromPosition);
 
@@ -357,26 +221,7 @@ namespace Fungus
             oldRectTransform.localScale = newRectTransform.localScale;
         }
 
-        /// <summary>
-        /// Moves Character in front of other characters on stage
-        /// </summary>
-        /// <param name="character"></param>
-        public void MoveToFront(Character character)
-        {
-            PortraitOptions options = new PortraitOptions(true);
-            options.character = character;
-
-            MoveToFront(CleanPortraitOptions(options));
-        }
-
-        public void MoveToFront(PortraitOptions options)
-        {
-            options.character.State.portraitImage.transform.SetSiblingIndex(options.character.State.portraitImage.transform.parent.childCount);
-            options.character.State.display = DisplayType.MoveToFront;
-            FinishCommand(options);
-        }
-
-        public void DoMoveTween(Character character, RectTransform fromPosition, RectTransform toPosition, float moveDuration, Boolean waitUntilFinished)
+        protected virtual void DoMoveTween(Character character, RectTransform fromPosition, RectTransform toPosition, float moveDuration, Boolean waitUntilFinished)
         {
             PortraitOptions options = new PortraitOptions(true);
             options.character = character;
@@ -388,7 +233,7 @@ namespace Fungus
             DoMoveTween(options);
         }
 
-        public void DoMoveTween(PortraitOptions options)
+        protected virtual void DoMoveTween(PortraitOptions options)
         {
             CleanPortraitOptions(options);
 
@@ -404,12 +249,74 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Shows character at a named position in the stage
-        /// </summary>
-        /// <param name="character"></param>
-        /// <param name="position">Named position on stage</param>
-        public void Show(Character character, string position)
+        #region IPortraitController implentation
+
+        public virtual void RunPortraitCommand(PortraitOptions options, Action onComplete)
+        {
+            waitTimer = 0f;
+
+            // If no character specified, do nothing
+            if (options.character == null)
+            {
+                onComplete();
+                return;
+            }
+
+            // If Replace and no replaced character specified, do nothing
+            if (options.display == DisplayType.Replace && options.replacedCharacter == null)
+            {
+                onComplete();
+                return;
+            }
+
+            // Early out if hiding a character that's already hidden
+            if (options.display == DisplayType.Hide &&
+                !options.character.State.onScreen)
+            {
+                onComplete();
+                return;
+            }
+
+            options = CleanPortraitOptions(options);
+            options.onComplete = onComplete;
+
+            switch (options.display)
+            {
+                case (DisplayType.Show):
+                    Show(options);
+                    break;
+
+                case (DisplayType.Hide):
+                    Hide(options);
+                    break;
+
+                case (DisplayType.Replace):
+                    Show(options);
+                    Hide(options.replacedCharacter, options.replacedCharacter.State.position.name);
+                    break;
+
+                case (DisplayType.MoveToFront):
+                    MoveToFront(options);
+                    break;
+            }
+        }
+
+        public virtual void MoveToFront(Character character)
+        {
+            PortraitOptions options = new PortraitOptions(true);
+            options.character = character;
+
+            MoveToFront(CleanPortraitOptions(options));
+        }
+
+        public virtual void MoveToFront(PortraitOptions options)
+        {
+            options.character.State.portraitImage.transform.SetSiblingIndex(options.character.State.portraitImage.transform.parent.childCount);
+            options.character.State.display = DisplayType.MoveToFront;
+            FinishCommand(options);
+        }
+
+        public virtual void Show(Character character, string position)
         {
             PortraitOptions options = new PortraitOptions(true);
             options.character = character;
@@ -418,14 +325,7 @@ namespace Fungus
             Show(options);
         }
 
-        /// <summary>
-        /// Shows character moving from a position to a position
-        /// </summary>
-        /// <param name="character"></param>
-        /// <param name="portrait"></param>
-        /// <param name="fromPosition">Where the character will appear</param>
-        /// <param name="toPosition">Where the character will move to</param>
-        public void Show(Character character, string portrait, string fromPosition, string toPosition)
+        public virtual void Show(Character character, string portrait, string fromPosition, string toPosition)
         {
             PortraitOptions options = new PortraitOptions(true);
             options.character = character;
@@ -437,23 +337,12 @@ namespace Fungus
             Show(options);
         }
 
-        /// <summary>
-        /// From lua, you can pass an options table with named arguments
-        /// example:
-        ///     stage.show{character=jill, portrait="happy", fromPosition="right", toPosition="left"}
-        /// Any option available in the PortraitOptions is available from Lua
-        /// </summary>
-        /// <param name="optionsTable">Moonsharp Table</param>
-        public void Show(Table optionsTable)
+        public virtual void Show(Table optionsTable)
         {
             Show(PortraitUtil.ConvertTableToPortraitOptions(optionsTable, stage));
         }
 
-        /// <summary>
-        /// Show portrait with the supplied portrait options
-        /// </summary>
-        /// <param name="options"></param>
-        public void Show(PortraitOptions options)
+        public virtual void Show(PortraitOptions options)
         {
             options = CleanPortraitOptions(options);
 
@@ -464,13 +353,13 @@ namespace Fungus
                 {
                     options.fromPosition.anchoredPosition =
                         new Vector2(options.fromPosition.anchoredPosition.x - Mathf.Abs(options.shiftOffset.x),
-                        options.fromPosition.anchoredPosition.y - Mathf.Abs(options.shiftOffset.y));
+                            options.fromPosition.anchoredPosition.y - Mathf.Abs(options.shiftOffset.y));
                 }
                 else if (options.offset == PositionOffset.OffsetRight)
                 {
                     options.fromPosition.anchoredPosition =
                         new Vector2(options.fromPosition.anchoredPosition.x + Mathf.Abs(options.shiftOffset.x),
-                        options.fromPosition.anchoredPosition.y + Mathf.Abs(options.shiftOffset.y));
+                            options.fromPosition.anchoredPosition.y + Mathf.Abs(options.shiftOffset.y));
                 }
                 else
                 {
@@ -527,12 +416,7 @@ namespace Fungus
             options.character.State.position = options.toPosition;
         }
 
-        /// <summary>
-        /// Simple show command that shows the character with an available named portrait
-        /// </summary>
-        /// <param name="character">Character to show</param>
-        /// <param name="portrait">Named portrait to show for the character, i.e. "angry", "happy", etc</param>
-        public void ShowPortrait(Character character, string portrait)
+        public virtual void ShowPortrait(Character character, string portrait)
         {
             PortraitOptions options = new PortraitOptions(true);
             options.character = character;
@@ -550,11 +434,7 @@ namespace Fungus
             Show(options);
         }
 
-        /// <summary>
-        /// Simple character hide command
-        /// </summary>
-        /// <param name="character">Character to hide</param>
-        public void Hide(Character character)
+        public virtual void Hide(Character character)
         {
             PortraitOptions options = new PortraitOptions(true);
             options.character = character;
@@ -562,12 +442,7 @@ namespace Fungus
             Hide(options);
         }
 
-        /// <summary>
-        /// Move the character to a position then hide it
-        /// </summary>
-        /// <param name="character"></param>
-        /// <param name="toPosition">Where the character will disapear to</param>
-        public void Hide(Character character, string toPosition)
+        public virtual void Hide(Character character, string toPosition)
         {
             PortraitOptions options = new PortraitOptions(true);
             options.character = character;
@@ -577,23 +452,12 @@ namespace Fungus
             Hide(options);
         }
 
-        /// <summary>
-        /// From lua, you can pass an options table with named arguments
-        /// example:
-        ///     stage.hide{character=jill, toPosition="left"}
-        /// Any option available in the PortraitOptions is available from Lua
-        /// </summary>
-        /// <param name="optionsTable">Moonsharp Table</param>
-        public void Hide(Table optionsTable)
+        public virtual void Hide(Table optionsTable)
         {
             Hide(PortraitUtil.ConvertTableToPortraitOptions(optionsTable, stage));
         }
 
-        /// <summary>
-        /// Hide portrait with provided options
-        /// </summary>
-        /// <param name="options"></param>
-        public void Hide(PortraitOptions options)
+        public virtual void Hide(PortraitOptions options)
         {
             CleanPortraitOptions(options);
 
@@ -623,7 +487,7 @@ namespace Fungus
             FinishCommand(options);
         }
 
-        public void SetDimmed(Character character, bool dimmedState)
+        public virtual void SetDimmed(Character character, bool dimmedState)
         {
             if (character.State.dimmed == dimmedState)
             {
@@ -639,96 +503,7 @@ namespace Fungus
 
             LeanTween.color(character.State.portraitImage.rectTransform, targetColor, duration).setEase(stage.FadeEaseType);
         }
-    }
-
-    /// <summary>
-    /// Util functions that I wanted to keep the main class clean of
-    /// </summary>
-    public class PortraitUtil 
-    {
-        /// <summary>
-        /// Convert a Moonsharp table to portrait options
-        /// If the table returns a null for any of the parameters, it should keep the defaults
-        /// </summary>
-        /// <param name="table">Moonsharp Table</param>
-        /// <param name="stage">Stage</param>
-        /// <returns></returns>
-        public static PortraitOptions ConvertTableToPortraitOptions(Table table, Stage stage)
-        {
-            PortraitOptions options = new PortraitOptions(true);
-
-            // If the table supplies a nil, keep the default
-            options.character = table.Get("character").ToObject<Character>() 
-                ?? options.character;
-
-            options.replacedCharacter = table.Get("replacedCharacter").ToObject<Character>()
-                ?? options.replacedCharacter;
-
-            if (!table.Get("portrait").IsNil())
-            {
-                options.portrait = options.character.GetPortrait(table.Get("portrait").CastToString());
-            }
-
-            if (!table.Get("display").IsNil())
-            {
-                options.display = table.Get("display").ToObject<DisplayType>();
-            }
             
-            if (!table.Get("offset").IsNil())
-            {
-                options.offset = table.Get("offset").ToObject<PositionOffset>();
-            }
-
-            if (!table.Get("fromPosition").IsNil())
-            {
-                options.fromPosition = stage.GetPosition(table.Get("fromPosition").CastToString());
-            }
-
-            if (!table.Get("toPosition").IsNil())
-            {
-                options.toPosition = stage.GetPosition(table.Get("toPosition").CastToString());
-            }
-
-            if (!table.Get("facing").IsNil())
-            {
-                options.facing = table.Get("facing").ToObject<FacingDirection>();
-            }
-
-            if (!table.Get("useDefaultSettings").IsNil())
-            {
-                options.useDefaultSettings = table.Get("useDefaultSettings").CastToBool();
-            }
-
-            if (!table.Get("fadeDuration").IsNil())
-            {
-                options.fadeDuration = table.Get("fadeDuration").ToObject<float>();
-            }
-
-            if (!table.Get("moveDuration").IsNil())
-            {
-                options.moveDuration = table.Get("moveDuration").ToObject<float>();
-            }
-
-            if (!table.Get("move").IsNil())
-            {
-                options.move = table.Get("move").CastToBool();
-            }
-            else if (options.fromPosition != options.toPosition)
-            {
-                options.move = true;
-            }
-
-            if (!table.Get("shiftIntoPlace").IsNil())
-            {
-                options.shiftIntoPlace = table.Get("shiftIntoPlace").CastToBool();
-            }
-
-            if (!table.Get("waitUntilFinished").IsNil())
-            {
-                options.waitUntilFinished = table.Get("waitUntilFinished").CastToBool();
-            }
-
-            return options;
-        }
+        #endregion
     }
 }
