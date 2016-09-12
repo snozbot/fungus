@@ -14,7 +14,7 @@ namespace Fungus
         [TextArea(20, 20)]
         [SerializeField] protected string info = "";
         
-        void OnGUI() 
+        protected virtual void OnGUI() 
         {
             Rect rect = new Rect(0,0, Screen.width / 2, Screen.height);
 

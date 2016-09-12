@@ -11,14 +11,9 @@ namespace Fungus
     /// This is useful for transferring values from one scene to another. One one LuaStore component may exist 
     /// in a scene at a time.
     /// </summary>
-    public class LuaStore : LuaBindingsBase 
+    public class LuaStore : LuaBindingsBase, ILuaStore
     {
         protected Table primeTable;
-
-        /// <summary>
-        /// A Lua table that can be shared between multiple LuaEnvironments.
-        /// </summary>
-        public virtual Table PrimeTable { get { return primeTable; } }
 
         protected bool initialized;
 
@@ -67,9 +62,8 @@ namespace Fungus
             return true;
         }
 
-        /// <summary>
-        /// Callback to bind this LuaStore component with the "unity" table in a LuaEnvironment component.
-        /// </summary>
+        #region LuaBindingsBase implementation
+
         public override void AddBindings(ILuaEnvironment luaEnv)
         {
             if (!Init())
@@ -98,5 +92,16 @@ namespace Fungus
                 globals["store"] = primeTable;
             }
         }
+
+        #endregion
+
+        #region ILuaStore implementation
+
+        /// <summary>
+        /// A Lua table that can be shared between multiple LuaEnvironments.
+        /// </summary>
+        public virtual Table PrimeTable { get { return primeTable; } }
+
+        #endregion
     }
 }
