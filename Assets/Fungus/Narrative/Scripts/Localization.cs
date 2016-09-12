@@ -12,25 +12,13 @@ using Ideafixxxer.CsvParser;
 
 namespace Fungus
 {
-    public interface ILocalizable
-    {
-        string GetStandardText();
-        void SetStandardText(string standardText);
-        string GetDescription();
-        string GetStringId();
-    }
-
     /// <summary>
     /// Multi-language localization support.
     /// </summary>
-    public class Localization : MonoBehaviour, StringSubstituter.ISubstitutionHandler
+    public class Localization : MonoBehaviour, ILocalization, StringSubstituter.ISubstitutionHandler
     {
-        /// <summary>
-        /// Language to use at startup, usually defined by a two letter language code (e.g DE = German).
-        /// </summary>
         [Tooltip("Language to use at startup, usually defined by a two letter language code (e.g DE = German)")]
         [SerializeField] protected string activeLanguage = "";
-        public virtual string ActiveLanguage { get { return activeLanguage; } }
 
         protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
 
@@ -46,18 +34,10 @@ namespace Fungus
             public Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
         }
 
-        /// <summary>
-        /// CSV file containing localization data which can be easily edited in a spreadsheet tool.
-        /// </summary>
         [Tooltip("CSV file containing localization data which can be easily edited in a spreadsheet tool")]
         [SerializeField] protected TextAsset localizationFile;
-        public virtual TextAsset LocalizationFile { get { return localizationFile; } set { localizationFile = value; } }
 
-        /// <summary>
-        /// Stores any notification message from export / import methods.
-        /// </summary>
         protected string notificationText = "";
-        public virtual string NotificationText { get { return notificationText; } set { notificationText = value; } }
 
         protected bool initialized;
 
@@ -85,7 +65,7 @@ namespace Fungus
             }
         }
 
-        public virtual void Start()
+        protected virtual void Start()
         {
             Init();
         }
@@ -112,25 +92,6 @@ namespace Fungus
             initialized = true;
         }
 
-        public virtual void ClearLocalizeableCache()
-        {
-            localizeableObjects.Clear();
-        }
-
-        // Build a cache of all the localizeable objects in the scene
-        protected virtual void CacheLocalizeableObjects()
-        {
-            UnityEngine.Object[] objects = Resources.FindObjectsOfTypeAll(typeof(Component));
-            foreach (UnityEngine.Object o in objects)
-            {
-                ILocalizable localizable = o as ILocalizable;
-                if (localizable != null)
-                {
-                    localizeableObjects[localizable.GetStringId()] = localizable;
-                }
-            }
-        }
-
         /// <summary>
         /// Looks up the specified string in the localized strings table.
         /// For this to work, a localization file and active language must have been set previously.
@@ -151,66 +112,18 @@ namespace Fungus
             return null;
         }
 
-        /// <summary>
-        /// Convert all text items and localized strings to an easy to edit CSV format.
-        /// </summary>
-        public virtual string GetCSVData()
+        // Build a cache of all the localizeable objects in the scene
+        protected virtual void CacheLocalizeableObjects()
         {
-            // Collect all the text items present in the scene
-            Dictionary<string, TextItem> textItems = FindTextItems();
-
-            // Update text items with localization data from CSV file
-            if (localizationFile != null &&
-                localizationFile.text.Length > 0)
+            UnityEngine.Object[] objects = Resources.FindObjectsOfTypeAll(typeof(Component));
+            foreach (UnityEngine.Object o in objects)
             {
-                AddCSVDataItems(textItems, localizationFile.text);
-            }
-
-            // Build CSV header row and a list of the language codes currently in use
-            string csvHeader = "Key,Description,Standard";
-            List<string> languageCodes = new List<string>();
-            foreach (TextItem textItem in textItems.Values)
-            {
-                foreach (string languageCode in textItem.localizedStrings.Keys)
+                ILocalizable localizable = o as ILocalizable;
+                if (localizable != null)
                 {
-                    if (!languageCodes.Contains(languageCode))
-                    {
-                        languageCodes.Add(languageCode);
-                        csvHeader += "," + languageCode;
-                    }
+                    localizeableObjects[localizable.GetStringId()] = localizable;
                 }
             }
-
-            // Build the CSV file using collected text items
-            int rowCount = 0;
-            string csvData = csvHeader + "\n";
-            foreach (string stringId in textItems.Keys)
-            {
-                TextItem textItem = textItems[stringId];
-
-                string row = CSVSupport.Escape(stringId);
-                row += "," + CSVSupport.Escape(textItem.description);
-                row += "," + CSVSupport.Escape(textItem.standardText);
-
-                foreach (string languageCode in languageCodes)
-                {
-                    if (textItem.localizedStrings.ContainsKey(languageCode))
-                    {
-                        row += "," + CSVSupport.Escape(textItem.localizedStrings[languageCode]);
-                    }
-                    else
-                    {
-                        row += ","; // Empty field
-                    }
-                }
-
-                csvData += row + "\n";
-                rowCount++;
-            }
-
-            notificationText = "Exported " + rowCount + " localization text items.";
-
-            return csvData;
         }
 
         /// <summary>
@@ -333,10 +246,78 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Scan a localization CSV file and copies the strings for the specified language code
-        /// into the text properties of the appropriate scene objects.
-        /// </summary>
+        #region ILocalization interface
+
+        public virtual string ActiveLanguage { get { return activeLanguage; } }
+
+        public virtual TextAsset LocalizationFile { get { return localizationFile; } set { localizationFile = value; } }
+
+        public virtual string NotificationText { get { return notificationText; } set { notificationText = value; } }
+
+        public virtual void ClearLocalizeableCache()
+        {
+            localizeableObjects.Clear();
+        }
+
+        public virtual string GetCSVData()
+        {
+            // Collect all the text items present in the scene
+            Dictionary<string, TextItem> textItems = FindTextItems();
+
+            // Update text items with localization data from CSV file
+            if (localizationFile != null &&
+                localizationFile.text.Length > 0)
+            {
+                AddCSVDataItems(textItems, localizationFile.text);
+            }
+
+            // Build CSV header row and a list of the language codes currently in use
+            string csvHeader = "Key,Description,Standard";
+            List<string> languageCodes = new List<string>();
+            foreach (TextItem textItem in textItems.Values)
+            {
+                foreach (string languageCode in textItem.localizedStrings.Keys)
+                {
+                    if (!languageCodes.Contains(languageCode))
+                    {
+                        languageCodes.Add(languageCode);
+                        csvHeader += "," + languageCode;
+                    }
+                }
+            }
+
+            // Build the CSV file using collected text items
+            int rowCount = 0;
+            string csvData = csvHeader + "\n";
+            foreach (string stringId in textItems.Keys)
+            {
+                TextItem textItem = textItems[stringId];
+
+                string row = CSVSupport.Escape(stringId);
+                row += "," + CSVSupport.Escape(textItem.description);
+                row += "," + CSVSupport.Escape(textItem.standardText);
+
+                foreach (string languageCode in languageCodes)
+                {
+                    if (textItem.localizedStrings.ContainsKey(languageCode))
+                    {
+                        row += "," + CSVSupport.Escape(textItem.localizedStrings[languageCode]);
+                    }
+                    else
+                    {
+                        row += ","; // Empty field
+                    }
+                }
+
+                csvData += row + "\n";
+                rowCount++;
+            }
+
+            notificationText = "Exported " + rowCount + " localization text items.";
+
+            return csvData;
+        }
+
         public virtual void SetActiveLanguage(string languageCode, bool forceUpdateSceneText = false)
         {
             if (!Application.isPlaying)
@@ -417,10 +398,10 @@ namespace Fungus
                 {
                     continue;
                 }
-                
+
                 string stringId = fields[0];
                 string languageEntry = CSVSupport.Unescape(fields[languageIndex]);
-                    
+
                 if (languageEntry.Length > 0)
                 {
                     localizedStrings[stringId] = languageEntry;
@@ -429,9 +410,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Populates the text property of a single scene object with a new text value.
-        /// </summary>
         public virtual bool PopulateTextProperty(string stringId, string newText)
         {
             // Ensure that all localizeable objects have been cached
@@ -451,10 +429,6 @@ namespace Fungus
             return false;
         }
 
-        /// <summary>
-        /// Returns all standard text for localizeable text in the scene using an
-        /// easy to edit custom text format.
-        /// </summary>
         public virtual string GetStandardText()
         {
             // Collect all the text items present in the scene
@@ -472,13 +446,10 @@ namespace Fungus
             }
 
             notificationText = "Exported " + rowCount + " standard text items.";
-            
+
             return textData;
         }
 
-        /// <summary>
-        /// Sets standard text on scene objects by parsing a text data file.
-        /// </summary>
         public virtual void SetStandardText(string textData)
         {
             string[] lines = textData.Split('\n');
@@ -523,10 +494,10 @@ namespace Fungus
             notificationText = "Updated " + updatedCount + " standard text items.";
         }
 
-        /// <summary>
-        /// Implementation of StringSubstituter.ISubstitutionHandler.
-        /// Replaces tokens of the form {$KeyName} with the localized value corresponding to that key.
-        /// </summary>
+        #endregion
+
+        #region StringSubstituter.ISubstitutionHandler imlpementation
+
         public virtual bool SubstituteStrings(StringBuilder input)
         {
             // This method could be called from the Start method of another component, so we
@@ -555,5 +526,7 @@ namespace Fungus
 
             return modified;
         }
+
+        #endregion
     }
 }
