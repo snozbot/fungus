@@ -158,7 +158,7 @@ namespace Fungus
             }
         }
 
-        public virtual IEnumerator SayInternal(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
+        protected virtual IEnumerator SayInternal(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
         {
             IWriter writer = GetWriter();
 
@@ -238,23 +238,6 @@ namespace Fungus
             }
         }
 
-        public virtual void SetCharacterName(string name, Color color)
-        {
-            if (nameText != null)
-            {
-                nameText.text = name;
-                nameText.color = color;
-            }
-        }
-        
-        public virtual void Clear()
-        {
-            ClearStoryText();
-            
-            // Kill any active write coroutine
-            StopAllCoroutines();
-        }
-        
         protected virtual void ClearStoryText()
         {
             if (storyText != null)
@@ -262,7 +245,7 @@ namespace Fungus
                 storyText.text = "";
             }
         }
-        
+
         public static void StopPortraitTweens()
         {
             // Stop all tweening portraits
@@ -406,6 +389,15 @@ namespace Fungus
             }
         }
 
+        public virtual void SetCharacterName(string name, Color color)
+        {
+            if (nameText != null)
+            {
+                nameText.text = name;
+                nameText.color = color;
+            }
+        }
+
         public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
         {
             StartCoroutine(SayInternal(text, clearPrevious, waitForInput, fadeWhenDone, stopVoiceover, voiceOverClip, onComplete));
@@ -417,6 +409,14 @@ namespace Fungus
         {
             fadeWhenDone = true;
             GetWriter().Stop();
+        }
+
+        public virtual void Clear()
+        {
+            ClearStoryText();
+
+            // Kill any active write coroutine
+            StopAllCoroutines();
         }
 
         #endregion

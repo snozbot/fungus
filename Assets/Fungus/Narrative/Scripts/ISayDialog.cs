@@ -22,8 +22,12 @@ namespace Fungus
         /// <summary>
         /// Sets the character image to display on the Say Dialog.
         /// </summary>
-        /// <param name="image">Image.</param>
         void SetCharacterImage(Sprite image);
+
+        /// <summary>
+        /// Sets the character name to display on the Say Dialog.
+        /// </summary>
+        void SetCharacterName(string name, Color color);
 
         /// <summary>
         /// Write a line of story text to the Say Dialog.
@@ -46,5 +50,10 @@ namespace Fungus
         /// Stop the Say Dialog while its writing text.
         /// </summary>
         void Stop();
+
+        /// <summary>
+        /// Stops writing text and clears the Say Dialog.
+        /// </summary>
+        void Clear();
     }
 }
