@@ -15,7 +15,6 @@ namespace Fungus
     {
         [Tooltip("Is object clicking enabled")]
         [SerializeField] protected bool clickEnabled = true;
-        public bool ClickEnabled { set { clickEnabled = value; } }
 
         [Tooltip("Mouse texture to use when hovering mouse over object")]
         [SerializeField] protected Texture2D hoverCursor;
@@ -23,7 +22,44 @@ namespace Fungus
         [Tooltip("Use the UI Event System to check for clicks. Clicks that hit an overlapping UI object will be ignored. Camera must have a PhysicsRaycaster component, or a Physics2DRaycaster for 2D colliders.")]
         [SerializeField] protected bool useEventSystem;
 
+        protected virtual void ChangeCursor(Texture2D cursorTexture)
+        {
+            if (!clickEnabled)
+            {
+                return;
+            }
+
+            Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        }
+
+        protected virtual void DoPointerClick()
+        {
+            if (!clickEnabled)
+            {
+                return;
+            }
+
+            // TODO: Cache these objects for faster lookup
+            ObjectClicked[] handlers = GameObject.FindObjectsOfType<ObjectClicked>();
+            foreach (ObjectClicked handler in handlers)
+            {
+                handler.OnObjectClicked(this);
+            }
+        }
+
+        protected virtual void DoPointerEnter()
+        {
+            ChangeCursor(hoverCursor);
+        }
+
+        protected virtual void DoPointerExit()
+        {
+            // Always reset the mouse cursor to be on the safe side
+            SetMouseCursor.ResetMouseCursor();
+        }
+
         #region Legacy OnMouseX methods
+
         protected virtual void OnMouseDown()
         {
             if (!useEventSystem)
@@ -47,9 +83,17 @@ namespace Fungus
                 DoPointerExit();
             }
         }
+
         #endregion
 
-        #region IPointerXHandler implementations
+        #region IClickable2D implementation
+
+        public bool ClickEnabled { set { clickEnabled = value; } }
+
+        #endregion
+
+        #region IPointerClickHandler implementation
+
         public void OnPointerClick(PointerEventData eventData)
         {
             if (useEventSystem)
@@ -57,6 +101,10 @@ namespace Fungus
                 DoPointerClick();
             }
         }
+
+        #endregion
+
+        #region IPointerEnterHandler implementation
 
         public void OnPointerEnter(PointerEventData eventData)
         {
@@ -66,6 +114,10 @@ namespace Fungus
             }
         }
 
+        #endregion
+
+        #region IPointerExitHandler implementation
+
         public void OnPointerExit(PointerEventData eventData)
         {
             if (useEventSystem)
@@ -74,41 +126,6 @@ namespace Fungus
             }
         }
 
-        protected virtual void DoPointerClick()
-        {
-            if (!clickEnabled)
-            {
-                return;
-            }
-            
-            // TODO: Cache these objects for faster lookup
-            ObjectClicked[] handlers = GameObject.FindObjectsOfType<ObjectClicked>();
-            foreach (ObjectClicked handler in handlers)
-            {
-                handler.OnObjectClicked(this);
-            }
-        }
-
-        protected virtual void DoPointerEnter()
-        {
-            ChangeCursor(hoverCursor);
-        }
-
-        protected virtual void DoPointerExit()
-        {
-            // Always reset the mouse cursor to be on the safe side
-            SetMouseCursor.ResetMouseCursor();
-        }
         #endregion
-
-        protected virtual void ChangeCursor(Texture2D cursorTexture)
-        {
-            if (!clickEnabled)
-            {
-                return;
-            }
-            
-            Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
-        }
     }
 }
