@@ -281,7 +281,7 @@ namespace Fungus
             return false;
         }
 
-        protected virtual IEnumerator ProcessTokens(List<TextTagParser.Token> tokens, bool stopAudio, Action onComplete)
+        protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio, Action onComplete)
         {
             // Reset control members
             boldActive = false;
@@ -296,34 +296,34 @@ namespace Fungus
             exitFlag = false;
             isWriting = true;
 
-            TextTagParser.TokenType previousTokenType = TextTagParser.TokenType.Invalid;
+            TextTagToken.TokenType previousTokenType = TextTagToken.TokenType.Invalid;
 
-            foreach (TextTagParser.Token token in tokens)
+            foreach (TextTagToken token in tokens)
             {
 
                 switch (token.type)
                 {
-                case TextTagParser.TokenType.Words:
+                case TextTagToken.TokenType.Words:
                     yield return StartCoroutine(DoWords(token.paramList, previousTokenType));
                     break;
                     
-                case TextTagParser.TokenType.BoldStart:
+                case TextTagToken.TokenType.BoldStart:
                     boldActive = true;
                     break;
                     
-                case TextTagParser.TokenType.BoldEnd:
+                case TextTagToken.TokenType.BoldEnd:
                     boldActive = false;
                     break;
                     
-                case TextTagParser.TokenType.ItalicStart:
+                case TextTagToken.TokenType.ItalicStart:
                     italicActive = true;
                     break;
                     
-                case TextTagParser.TokenType.ItalicEnd:
+                case TextTagToken.TokenType.ItalicEnd:
                     italicActive = false;
                     break;
                     
-                case TextTagParser.TokenType.ColorStart:
+                case TextTagToken.TokenType.ColorStart:
                     if (CheckParamCount(token.paramList, 1)) 
                     {
                         colorActive = true;
@@ -331,66 +331,66 @@ namespace Fungus
                     }
                     break;
                     
-                case TextTagParser.TokenType.ColorEnd:
+                case TextTagToken.TokenType.ColorEnd:
                     colorActive = false;
                     break;
 
-                case TextTagParser.TokenType.SizeStart:
+                case TextTagToken.TokenType.SizeStart:
                     if (TryGetSingleParam(token.paramList, 0, 16f, out sizeValue))
                     {
                         sizeActive = true;
                     }
                     break;
 
-                case TextTagParser.TokenType.SizeEnd:
+                case TextTagToken.TokenType.SizeEnd:
                     sizeActive = false;
                     break;
 
-                case TextTagParser.TokenType.Wait:
+                case TextTagToken.TokenType.Wait:
                     yield return StartCoroutine(DoWait(token.paramList));
                     break;
                     
-                case TextTagParser.TokenType.WaitForInputNoClear:
+                case TextTagToken.TokenType.WaitForInputNoClear:
                     yield return StartCoroutine(DoWaitForInput(false));
                     break;
                     
-                case TextTagParser.TokenType.WaitForInputAndClear:
+                case TextTagToken.TokenType.WaitForInputAndClear:
                     yield return StartCoroutine(DoWaitForInput(true));
                     break;
                     
-                case TextTagParser.TokenType.WaitOnPunctuationStart:
+                case TextTagToken.TokenType.WaitOnPunctuationStart:
                     TryGetSingleParam(token.paramList, 0, punctuationPause, out currentPunctuationPause);
                     break;
                     
-                case TextTagParser.TokenType.WaitOnPunctuationEnd:
+                case TextTagToken.TokenType.WaitOnPunctuationEnd:
                     currentPunctuationPause = punctuationPause;
                     break;
                     
-                case TextTagParser.TokenType.Clear:
+                case TextTagToken.TokenType.Clear:
                     text = "";
                     break;
                     
-                case TextTagParser.TokenType.SpeedStart:
+                case TextTagToken.TokenType.SpeedStart:
                     TryGetSingleParam(token.paramList, 0, writingSpeed, out currentWritingSpeed);
                     break;
                     
-                case TextTagParser.TokenType.SpeedEnd:
+                case TextTagToken.TokenType.SpeedEnd:
                     currentWritingSpeed = writingSpeed;
                     break;
                     
-                case TextTagParser.TokenType.Exit:
+                case TextTagToken.TokenType.Exit:
                     exitFlag = true;
                     break;
 
 
-                case TextTagParser.TokenType.Message:
+                case TextTagToken.TokenType.Message:
                     if (CheckParamCount(token.paramList, 1)) 
                     {
                         Flowchart.BroadcastFungusMessage(token.paramList[0]);
                     }
                     break;
                     
-                case TextTagParser.TokenType.VerticalPunch: 
+                case TextTagToken.TokenType.VerticalPunch: 
                     {
                         float vintensity;
                         float time;
@@ -400,7 +400,7 @@ namespace Fungus
                     }
                     break;
                     
-                case TextTagParser.TokenType.HorizontalPunch: 
+                case TextTagToken.TokenType.HorizontalPunch: 
                     {
                         float hintensity;
                         float time;
@@ -410,7 +410,7 @@ namespace Fungus
                     }
                     break;
                     
-                case TextTagParser.TokenType.Punch: 
+                case TextTagToken.TokenType.Punch: 
                     {
                         float intensity;
                         float time;
@@ -420,13 +420,13 @@ namespace Fungus
                     }
                     break;
                     
-                case TextTagParser.TokenType.Flash:
+                case TextTagToken.TokenType.Flash:
                     float flashDuration;
                     TryGetSingleParam(token.paramList, 0, 0.2f, out flashDuration);
                     Flash(flashDuration);
                     break;
 
-                case TextTagParser.TokenType.Audio: 
+                case TextTagToken.TokenType.Audio: 
                     {
                         AudioSource audioSource = null;
                         if (CheckParamCount(token.paramList, 1))
@@ -440,7 +440,7 @@ namespace Fungus
                     }
                     break;
                     
-                case TextTagParser.TokenType.AudioLoop:
+                case TextTagToken.TokenType.AudioLoop:
                     {
                         AudioSource audioSource = null;
                         if (CheckParamCount(token.paramList, 1)) 
@@ -455,7 +455,7 @@ namespace Fungus
                     }
                     break;
                     
-                case TextTagParser.TokenType.AudioPause:
+                case TextTagToken.TokenType.AudioPause:
                     {
                         AudioSource audioSource = null;
                         if (CheckParamCount(token.paramList, 1)) 
@@ -469,7 +469,7 @@ namespace Fungus
                     }
                     break;
                     
-                case TextTagParser.TokenType.AudioStop:
+                case TextTagToken.TokenType.AudioStop:
                     {
                         AudioSource audioSource = null;
                         if (CheckParamCount(token.paramList, 1)) 
@@ -505,7 +505,7 @@ namespace Fungus
             }
         }
 
-        protected virtual IEnumerator DoWords(List<string> paramList, TextTagParser.TokenType previousTokenType)
+        protected virtual IEnumerator DoWords(List<string> paramList, TextTagToken.TokenType previousTokenType)
         {
             if (!CheckParamCount(paramList, 1))
             {
@@ -515,8 +515,8 @@ namespace Fungus
             string param = paramList[0];
 
             // Trim whitespace after a {wc} or {c} tag
-            if (previousTokenType == TextTagParser.TokenType.WaitForInputAndClear ||
-                previousTokenType == TextTagParser.TokenType.Clear)
+            if (previousTokenType == TextTagToken.TokenType.WaitForInputAndClear ||
+                previousTokenType == TextTagToken.TokenType.Clear)
             {
                 param = param.TrimStart(' ', '\t', '\r', '\n');
             }
@@ -832,8 +832,8 @@ namespace Fungus
                 tokenText += "{wi}";
             }
 
-            TextTagParser tagParser = new TextTagParser();
-            List<TextTagParser.Token> tokens = tagParser.Tokenize(tokenText);
+            ITextTagParser tagParser = new TextTagParser();
+            List<TextTagToken> tokens = tagParser.Tokenize(tokenText);
 
             gameObject.SetActive(true);
 

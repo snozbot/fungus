@@ -10,46 +10,8 @@ namespace Fungus
     /// <summary>
     /// Parses a string for special Fungus text tags.
     /// </summary>
-    public class TextTagParser
+    public class TextTagParser : ITextTagParser
     {
-        public enum TokenType
-        {
-            Invalid,
-            Words,                  // A string of words
-            BoldStart,              // b
-            BoldEnd,                // /b
-            ItalicStart,            // i
-            ItalicEnd,              // /i
-            ColorStart,             // color=red
-            ColorEnd,               // /color
-            SizeStart,              // size=20
-            SizeEnd,                // /size
-            Wait,                   // w, w=0.5
-            WaitForInputNoClear,    // wi
-            WaitForInputAndClear,   // wc
-            WaitOnPunctuationStart, // wp, wp=0.5
-            WaitOnPunctuationEnd,   // /wp
-            Clear,                  // c
-            SpeedStart,             // s, s=60
-            SpeedEnd,               // /s
-            Exit,                   // x
-            Message,                // m=MessageName
-            VerticalPunch,          // {vpunch=0.5}
-            HorizontalPunch,        // {hpunch=0.5}
-            Punch,                  // {punch=0.5}
-            Flash,                  // {flash=0.5}
-            Audio,                  // {audio=Sound}
-            AudioLoop,              // {audioloop=Sound}
-            AudioPause,             // {audiopause=Sound}
-            AudioStop               // {audiostop=Sound}
-        }
-        
-        public class Token
-        {
-            public TokenType type = TokenType.Invalid;
-            public List<string> paramList;
-        }
-
         public static string GetTagHelp()
         {
             return "" +
@@ -80,77 +42,16 @@ namespace Fungus
                 "\t{$VarName} Substitute variable";
         }
 
-        public virtual List<Token> Tokenize(string storyText)
+        protected virtual void AddWordsToken(List<TextTagToken> tokenList, string words)
         {
-            List<Token> tokens = new List<Token>();
-            
-            string pattern = @"\{.*?\}";
-            Regex myRegex = new Regex(pattern);
-            
-            Match m = myRegex.Match(storyText);   // m is the first match
-            
-            int position = 0;
-            while (m.Success)
-            {
-                // Get bit leading up to tag
-                string preText = storyText.Substring(position, m.Index - position);
-                string tagText = m.Value;
-                
-                if (preText != "")
-                {
-                    AddWordsToken(tokens, preText);
-                }
-                AddTagToken(tokens, tagText);
-                
-                position = m.Index + tagText.Length;
-                m = m.NextMatch();
-            }
-            
-            if (position < storyText.Length)
-            {
-                string postText = storyText.Substring(position, storyText.Length - position);
-                if (postText.Length > 0)
-                {
-                    AddWordsToken(tokens, postText);
-                }
-            }
-            
-            // Remove all leading whitespace & newlines after a {c} or {wc} tag
-            // These characters are usually added for legibility when editing, but are not 
-            // desireable when viewing the text in game.
-            bool trimLeading = false;
-            foreach (Token token in tokens)
-            {
-                if (trimLeading &&
-                    token.type == TokenType.Words)
-                {
-                    token.paramList[0] = token.paramList[0].TrimStart(' ', '\t', '\r', '\n');
-                }
-                
-                if (token.type == TokenType.Clear || 
-                    token.type == TokenType.WaitForInputAndClear)
-                {
-                    trimLeading = true;
-                }
-                else
-                {
-                    trimLeading = false;
-                }
-            }
-            
-            return tokens;
-        }
-        
-        protected virtual void AddWordsToken(List<Token> tokenList, string words)
-        {
-            Token token = new Token();
-            token.type = TokenType.Words;
+            TextTagToken token = new TextTagToken();
+            token.type = TextTagToken.TokenType.Words;
             token.paramList = new List<string>(); 
             token.paramList.Add(words);
             tokenList.Add(token);
         }
         
-        protected virtual void AddTagToken(List<Token> tokenList, string tagText)
+        protected virtual void AddTagToken(List<TextTagToken> tokenList, string tagText)
         {
             if (tagText.Length < 3 ||
                 tagText.Substring(0,1) != "{" ||
@@ -161,133 +62,133 @@ namespace Fungus
             
             string tag = tagText.Substring(1, tagText.Length - 2);
             
-            TokenType type = TokenType.Invalid;
+            var type = TextTagToken.TokenType.Invalid;
             List<string> parameters = ExtractParameters(tag);
             
             if (tag == "b")
             {
-                type = TokenType.BoldStart;
+                type = TextTagToken.TokenType.BoldStart;
             }
             else if (tag == "/b")
             {
-                type = TokenType.BoldEnd;
+                type = TextTagToken.TokenType.BoldEnd;
             }
             else if (tag == "i")
             {
-                type = TokenType.ItalicStart;
+                type = TextTagToken.TokenType.ItalicStart;
             }
             else if (tag == "/i")
             {
-                type = TokenType.ItalicEnd;
+                type = TextTagToken.TokenType.ItalicEnd;
             }
             else if (tag.StartsWith("color="))
             {
-                type = TokenType.ColorStart;
+                type = TextTagToken.TokenType.ColorStart;
             }
             else if (tag == "/color")
             {
-                type = TokenType.ColorEnd;
+                type = TextTagToken.TokenType.ColorEnd;
             }
             else if (tag.StartsWith("size="))
             {
-                type = TokenType.SizeStart;
+                type = TextTagToken.TokenType.SizeStart;
             }
             else if (tag == "/size")
             {
-                type = TokenType.SizeEnd;
+                type = TextTagToken.TokenType.SizeEnd;
             }
             else if (tag == "wi")
             {
-                type = TokenType.WaitForInputNoClear;
+                type = TextTagToken.TokenType.WaitForInputNoClear;
             }
             if (tag == "wc")
             {
-                type = TokenType.WaitForInputAndClear;
+                type = TextTagToken.TokenType.WaitForInputAndClear;
             }
             else if (tag.StartsWith("wp="))
             {
-                type = TokenType.WaitOnPunctuationStart;
+                type = TextTagToken.TokenType.WaitOnPunctuationStart;
             }
             else if (tag == "wp")
             {
-                type = TokenType.WaitOnPunctuationStart;
+                type = TextTagToken.TokenType.WaitOnPunctuationStart;
             }
             else if (tag == "/wp")
             {
-                type = TokenType.WaitOnPunctuationEnd;
+                type = TextTagToken.TokenType.WaitOnPunctuationEnd;
             }
             else if (tag.StartsWith("w="))
             {
-                type = TokenType.Wait;
+                type = TextTagToken.TokenType.Wait;
             }
             else if (tag == "w")
             {
-                type = TokenType.Wait;
+                type = TextTagToken.TokenType.Wait;
             }
             else if (tag == "c")
             {
-                type = TokenType.Clear;
+                type = TextTagToken.TokenType.Clear;
             }
             else if (tag.StartsWith("s="))
             {
-                type = TokenType.SpeedStart;
+                type = TextTagToken.TokenType.SpeedStart;
             }
             else if (tag == "s")
             {
-                type = TokenType.SpeedStart;
+                type = TextTagToken.TokenType.SpeedStart;
             }
             else if (tag == "/s")
             {
-                type = TokenType.SpeedEnd;
+                type = TextTagToken.TokenType.SpeedEnd;
             }
             else if (tag == "x")
             {
-                type = TokenType.Exit;
+                type = TextTagToken.TokenType.Exit;
             }
             else if (tag.StartsWith("m="))
             {
-                type = TokenType.Message;
+                type = TextTagToken.TokenType.Message;
             }
             else if (tag.StartsWith("vpunch") ||
                      tag.StartsWith("vpunch="))
             {
-                type = TokenType.VerticalPunch;
+                type = TextTagToken.TokenType.VerticalPunch;
             }
             else if (tag.StartsWith("hpunch") ||
                      tag.StartsWith("hpunch="))
             {
-                type = TokenType.HorizontalPunch;
+                type = TextTagToken.TokenType.HorizontalPunch;
             }
             else if (tag.StartsWith("punch") ||
                      tag.StartsWith("punch="))
             {
-                type = TokenType.Punch;
+                type = TextTagToken.TokenType.Punch;
             }
             else if (tag.StartsWith("flash") ||
                      tag.StartsWith("flash="))
             {
-                type = TokenType.Flash;
+                type = TextTagToken.TokenType.Flash;
             }
             else if (tag.StartsWith("audio="))
             {
-                type = TokenType.Audio;
+                type = TextTagToken.TokenType.Audio;
             }
             else if (tag.StartsWith("audioloop="))
             {
-                type = TokenType.AudioLoop;
+                type = TextTagToken.TokenType.AudioLoop;
             }
             else if (tag.StartsWith("audiopause="))
             {
-                type = TokenType.AudioPause;
+                type = TextTagToken.TokenType.AudioPause;
             }
             else if (tag.StartsWith("audiostop="))
             {
-                type = TokenType.AudioStop;
+                type = TextTagToken.TokenType.AudioStop;
             }
             
-            if (type != TokenType.Invalid)
+            if (type != TextTagToken.TokenType.Invalid)
             {
-                Token token = new Token();
+                TextTagToken token = new TextTagToken();
                 token.type = type;
                 token.paramList = parameters;           
                 tokenList.Add(token);
@@ -315,5 +216,70 @@ namespace Fungus
             }
             return paramsList;
         }
+
+        #region ITextTagParser implementation
+
+        public virtual List<TextTagToken> Tokenize(string storyText)
+        {
+            List<TextTagToken> tokens = new List<TextTagToken>();
+
+            string pattern = @"\{.*?\}";
+            Regex myRegex = new Regex(pattern);
+
+            Match m = myRegex.Match(storyText);   // m is the first match
+
+            int position = 0;
+            while (m.Success)
+            {
+                // Get bit leading up to tag
+                string preText = storyText.Substring(position, m.Index - position);
+                string tagText = m.Value;
+
+                if (preText != "")
+                {
+                    AddWordsToken(tokens, preText);
+                }
+                AddTagToken(tokens, tagText);
+
+                position = m.Index + tagText.Length;
+                m = m.NextMatch();
+            }
+
+            if (position < storyText.Length)
+            {
+                string postText = storyText.Substring(position, storyText.Length - position);
+                if (postText.Length > 0)
+                {
+                    AddWordsToken(tokens, postText);
+                }
+            }
+
+            // Remove all leading whitespace & newlines after a {c} or {wc} tag
+            // These characters are usually added for legibility when editing, but are not 
+            // desireable when viewing the text in game.
+            bool trimLeading = false;
+            foreach (TextTagToken token in tokens)
+            {
+                if (trimLeading &&
+                    token.type == TextTagToken.TokenType.Words)
+                {
+                    token.paramList[0] = token.paramList[0].TrimStart(' ', '\t', '\r', '\n');
+                }
+
+                if (token.type == TextTagToken.TokenType.Clear || 
+                    token.type == TextTagToken.TokenType.WaitForInputAndClear)
+                {
+                    trimLeading = true;
+                }
+                else
+                {
+                    trimLeading = false;
+                }
+            }
+
+            return tokens;
+        }
+
+        #endregion
     }    
 }
