@@ -15,7 +15,7 @@ namespace Fungus
     /// <summary>
     /// A collection of utilites to use in Lua for common Unity / Fungus tasks.
     /// </summary>
-    public class LuaUtils : LuaEnvironment.Initializer, StringSubstituter.ISubstitutionHandler, ILuaUtils
+    public class LuaUtils : LuaEnvironment.Initializer, ISubstitutionHandler, ILuaUtils
     {
         public enum FungusModuleOptions
         {
@@ -250,6 +250,7 @@ namespace Fungus
             }
 
             stringSubstituter = new StringSubstituter();
+            stringSubstituter.CacheSubstitutionHandlers();
 
             conversationManager = new ConversationManager();
             conversationManager.PopulateCharacterCache();

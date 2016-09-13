@@ -15,7 +15,7 @@ namespace Fungus
     /// <summary>
     /// Multi-language localization support.
     /// </summary>
-    public class Localization : MonoBehaviour, ILocalization, StringSubstituter.ISubstitutionHandler
+    public class Localization : MonoBehaviour, ILocalization, ISubstitutionHandler
     {
         [Tooltip("Language to use at startup, usually defined by a two letter language code (e.g DE = German)")]
         [SerializeField] protected string activeLanguage = "";

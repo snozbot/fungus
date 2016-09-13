@@ -11,32 +11,16 @@ namespace Fungus
     /// <summary>
     /// Replaces special tokens in a string with substituted values (typically variables or localisation strings).
     /// </summary>
-    public class StringSubstituter
+    public class StringSubstituter : IStringSubstituter
     {
-        /// <summary>
-        /// Interface for components that support substituting strings.
-        /// </summary>
-        public interface ISubstitutionHandler
-        {
-            /// <summary>
-            /// Modifies a StringBuilder so that tokens are replaced by subsituted values.
-            /// It's up to clients how to implement substitution but the convention looks like:
-            /// "Hi {$VarName}" => "Hi John" where VarName == "John"
-            /// <returns>True if the input was modified</returns>
-            /// </summary>
-            bool SubstituteStrings(StringBuilder input);
-        }
-
         protected List<ISubstitutionHandler> substitutionHandlers = new List<ISubstitutionHandler>();
 
         /// <summary>
         /// The StringBuilder instance used to substitute strings optimally.
-        /// This property is public to support client code optimisations.
         /// </summary>
         protected StringBuilder stringBuilder;
-        public virtual StringBuilder _StringBuilder { get { return stringBuilder; } }
 
-        private int recursionDepth;
+        protected int recursionDepth;
 
         /// <summary>
         /// Constructor which caches all components in the scene that implement ISubstitutionHandler.
@@ -44,14 +28,14 @@ namespace Fungus
         /// </summary>
         public StringSubstituter(int recursionDepth = 5)
         {
-            CacheSubstitutionHandlers();
             stringBuilder = new StringBuilder(1024);
             this.recursionDepth = recursionDepth;
         }
+            
+        #region IStringSubstituter implementation
 
-        /// <summary>
-        /// Populates a cache of all components in the scene that implement ISubstitutionHandler.
-        /// </summary>
+        public virtual StringBuilder _StringBuilder { get { return stringBuilder; } }
+
         public virtual void CacheSubstitutionHandlers()
         {
             // Use reflection to find all components in the scene that implement ISubstitutionHandler
@@ -74,9 +58,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Returns a new string that has been processed by all substitution handlers in the scene.
-        /// </summary>
         public virtual string SubstituteStrings(string input)
         {
             stringBuilder.Length = 0;
@@ -120,5 +101,7 @@ namespace Fungus
 
             return result;
         }
+
+        #endregion
     }
 }

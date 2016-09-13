@@ -27,7 +27,7 @@ namespace Fungus
     /// Flowchart objects may be edited visually using the Flowchart editor window.
     /// </summary>
     [ExecuteInEditMode]
-    public class Flowchart : MonoBehaviour, StringSubstituter.ISubstitutionHandler 
+    public class Flowchart : MonoBehaviour, ISubstitutionHandler 
     {
         /// <summary>
         /// The current version of the Flowchart. Used for updating components.
@@ -1055,6 +1055,7 @@ namespace Fungus
             if (stringSubstituer == null)
             {
                 stringSubstituer = new StringSubstituter();
+                stringSubstituer.CacheSubstitutionHandlers();
             }
 
             // Use the string builder from StringSubstituter for efficiency.

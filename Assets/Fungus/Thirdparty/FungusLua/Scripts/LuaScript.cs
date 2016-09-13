@@ -14,7 +14,7 @@ namespace Fungus
     /// <summary>
     /// Executes Lua script defined in a string property or in an external file.
     /// </summary>
-    public class LuaScript : MonoBehaviour
+    public class LuaScript : MonoBehaviour, ILuaScript
     {
         /// <summary>
         /// The Lua Environment to use when executing Lua script.
