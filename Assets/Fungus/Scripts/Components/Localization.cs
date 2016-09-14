@@ -138,8 +138,8 @@ namespace Fungus
             Flowchart[] flowcharts = GameObject.FindObjectsOfType<Flowchart>();
             foreach (Flowchart flowchart in flowcharts)
             {
-                Block[] blocks = flowchart.GetComponents<Block>();
-                foreach (Block block in blocks)
+                IBlock[] blocks = flowchart.GetComponents<IBlock>();
+                foreach (IBlock block in blocks)
                 {
                     foreach (Command command in block.CommandList)
                     {

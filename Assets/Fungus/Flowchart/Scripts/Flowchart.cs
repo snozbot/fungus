@@ -94,7 +94,7 @@ namespace Fungus
         [HideInInspector]
         [FormerlySerializedAs("selectedSequence")]
         [SerializeField] protected Block selectedBlock;
-        public virtual Block SelectedBlock { get { return selectedBlock; } set { selectedBlock = value; } }
+        public virtual IBlock SelectedBlock { get { return selectedBlock; } set { selectedBlock = (Block)value; } }
 
         /// <summary>
         /// Currently selected command in the Flowchart editor.
@@ -203,8 +203,8 @@ namespace Fungus
         public int NextItemId()
         {
             int maxId = -1;
-            Block[] blocks = GetComponents<Block>();
-            foreach (Block block in blocks)
+            IBlock[] blocks = GetComponents<IBlock>();
+            foreach (IBlock block in blocks)
             {
                 maxId = Math.Max(maxId, block.ItemId);
             }
@@ -309,8 +309,8 @@ namespace Fungus
             // Make sure item ids are unique and monotonically increasing.
             // This should always be the case, but some legacy Flowcharts may have issues.
             List<int> usedIds = new List<int>();
-            Block[] blocks = GetComponents<Block>();
-            foreach (Block block in blocks)
+            IBlock[] blocks = GetComponents<IBlock>();
+            foreach (IBlock block in blocks)
             {
                 if (block.ItemId == -1 ||
                     usedIds.Contains(block.ItemId))
@@ -338,7 +338,7 @@ namespace Fungus
             // Unreferenced components don't have any effect on the flowchart behavior, but
             // they waste memory so should be cleared out periodically.
 
-            Block[] blocks = GetComponents<Block>();
+            IBlock[] blocks = GetComponents<IBlock>();
 
             // Remove any null entries in the variables list
             // It shouldn't happen but it seemed to occur for a user on the forum 
@@ -355,7 +355,7 @@ namespace Fungus
             foreach (Command command in GetComponents<Command>())
             {
                 bool found = false;
-                foreach (Block block in blocks)
+                foreach (IBlock block in blocks)
                 {
                     if (block.CommandList.Contains(command))
                     {
@@ -373,7 +373,7 @@ namespace Fungus
             foreach (EventHandler eventHandler in GetComponents<EventHandler>())
             {
                 bool found = false;
-                foreach (Block block in blocks)
+                foreach (IBlock block in blocks)
                 {
                     if (block._EventHandler == eventHandler)
                     {
@@ -411,9 +411,9 @@ namespace Fungus
         /// <summary>
         /// Returns the named Block in the flowchart, or null if not found.
         /// </summary>
-        public virtual Block FindBlock(string blockName)
+        public virtual IBlock FindBlock(string blockName)
         {
-            Block [] blocks = GetComponents<Block>();
+            IBlock [] blocks = GetComponents<IBlock>();
             foreach (Block block in blocks)
             {
                 if (block.BlockName == blockName)
@@ -430,8 +430,8 @@ namespace Fungus
         /// You can use this method in a UI event. e.g. to handle a button click.
         public virtual void ExecuteBlock(string blockName)
         {
-            Block block = null;
-            foreach (Block b in GetComponents<Block>())
+            IBlock block = null;
+            foreach (IBlock b in GetComponents<IBlock>())
             {
                 if (b.BlockName == blockName)
                 {
@@ -458,7 +458,7 @@ namespace Fungus
         /// This version provides extra options to control how the block is executed.
         /// Returns true if the Block started execution.            
         /// </summary>
-        public virtual bool ExecuteBlock(Block block, int commandIndex = 0, Action onComplete = null)
+        public virtual bool ExecuteBlock(IBlock block, int commandIndex = 0, Action onComplete = null)
         {
             if (block == null)
             {
@@ -466,7 +466,7 @@ namespace Fungus
                 return false;
             }
 
-            if (block.gameObject != gameObject)
+            if (((Block)block).gameObject != gameObject)
             {
                 Debug.LogError("Block must belong to the same gameobject as this Flowchart");
                 return false;                
@@ -489,8 +489,8 @@ namespace Fungus
         /// </summary>
         public virtual void StopAllBlocks()
         {
-            Block [] blocks = GetComponents<Block>();
-            foreach (Block block in blocks)
+            IBlock [] blocks = GetComponents<IBlock>();
+            foreach (IBlock block in blocks)
             {
                 if (block.IsExecuting())
                 {
@@ -577,7 +577,7 @@ namespace Fungus
         /// <summary>
         /// Returns a new Block key that is guaranteed not to clash with any existing Block in the Flowchart.
         /// </summary>
-        public virtual string GetUniqueBlockKey(string originalKey, Block ignoreBlock = null)
+        public virtual string GetUniqueBlockKey(string originalKey, IBlock ignoreBlock = null)
         {
             int suffix = 0;
             string baseKey = originalKey.Trim();
@@ -588,13 +588,13 @@ namespace Fungus
                 baseKey = "New Block";
             }
 
-            Block[] blocks = GetComponents<Block>();
+            IBlock[] blocks = GetComponents<IBlock>();
 
             string key = baseKey;
             while (true)
             {
                 bool collision = false;
-                foreach(Block block in blocks)
+                foreach(IBlock block in blocks)
                 {
                     if (block == ignoreBlock ||
                         block.BlockName == null)
@@ -631,7 +631,7 @@ namespace Fungus
                 baseKey = "New Label";
             }
             
-            Block block = ignoreLabel.ParentBlock;
+            IBlock block = ignoreLabel.ParentBlock;
             
             string key = baseKey;
             while (true)
@@ -871,13 +871,15 @@ namespace Fungus
         {
             if (hideComponents)
             {
-                Block[] blocks = GetComponents<Block>();
-                foreach (Block block in blocks)
+                IBlock[] blocks = GetComponents<IBlock>();
+                foreach (IBlock block in blocks)
                 {
-                    block.hideFlags = HideFlags.HideInInspector;
-                    if (block.gameObject != gameObject)
+                    GameObject go = ((Block)block).gameObject;
+
+                    go.hideFlags = HideFlags.HideInInspector;
+                    if (go != gameObject)
                     {
-                        block.gameObject.hideFlags = HideFlags.HideInHierarchy;
+                        go.hideFlags = HideFlags.HideInHierarchy;
                     }
                 }
 
@@ -975,8 +977,8 @@ namespace Fungus
         /// </summary>
         public virtual bool HasExecutingBlocks()
         {
-            Block[] blocks = GetComponents<Block>();
-            foreach (Block block in blocks)
+            IBlock[] blocks = GetComponents<IBlock>();
+            foreach (IBlock block in blocks)
             {
                 if (block.IsExecuting())
                 {
@@ -989,12 +991,12 @@ namespace Fungus
         /// <summary>
         /// Returns a list of all executing blocks in this Flowchart.
         /// </summary>
-        public virtual List<Block> GetExecutingBlocks()
+        public virtual List<IBlock> GetExecutingBlocks()
         {
-            List<Block> executingBlocks = new List<Block>();
+            List<IBlock> executingBlocks = new List<IBlock>();
 
-            Block[] blocks = GetComponents<Block>();
-            foreach (Block block in blocks)
+            IBlock[] blocks = GetComponents<IBlock>();
+            foreach (IBlock block in blocks)
             {
                 if (block.IsExecuting())
                 {

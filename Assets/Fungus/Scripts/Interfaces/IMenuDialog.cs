@@ -44,7 +44,7 @@ namespace Fungus
         /// <param name="text">The option text to display on the button.</param>
         /// <param name="interactable">If false, the option is displayed but is not selectable.</param>
         /// <param name="targetBlock">Block to execute when the option is selected.</param>
-        bool AddOption(string text, bool interactable, Block targetBlock);
+        bool AddOption(string text, bool interactable, IBlock targetBlock);
 
         /// <summary>
         /// Adds the option to the list of displayed options, calls a Lua function when selected.
@@ -58,7 +58,7 @@ namespace Fungus
         /// </summary>
         /// <param name="duration">The duration during which the player can select an option.</param>
         /// <param name="targetBlock">Block to execute if the player does not select an option in time.</param>
-        void ShowTimer(float duration, Block targetBlock);
+        void ShowTimer(float duration, IBlock targetBlock);
 
         /// <summary>
         /// Show a timer during which the player can select an option. Calls a Lua function when the timer expires.

@@ -70,20 +70,20 @@ namespace Fungus
         public override void OnInspectorGUI () 
         {
             BlockInspector blockInspector = target as BlockInspector;
-            Block block = blockInspector.block;
-
-            if (block == null)
+            if (blockInspector.block == null)
             {
                 return;
             }
 
+            IBlock block = blockInspector.block;
+
             Flowchart flowchart = block.GetFlowchart();
 
             if (activeBlockEditor == null ||
-                block != activeBlockEditor.target)
+                !block.Equals(activeBlockEditor.target))
             {
                 DestroyImmediate(activeBlockEditor);
-                activeBlockEditor = Editor.CreateEditor(block) as BlockEditor;
+                activeBlockEditor = Editor.CreateEditor((Block)block) as BlockEditor;
             }
 
             activeBlockEditor.DrawBlockName(flowchart);

@@ -45,7 +45,7 @@ namespace Fungus
             if (targetBlock != null)
             {
                 // Check if calling your own parent block
-                if (targetBlock == ParentBlock)
+                if (ParentBlock.Equals(targetBlock))
                 {
                     // Just ignore the callmode in this case, and jump to first command in list
                     Continue(0);
@@ -91,7 +91,7 @@ namespace Fungus
             }
         }
 
-        public override void GetConnectedBlocks(ref List<Block> connectedBlocks)
+        public override void GetConnectedBlocks(ref List<IBlock> connectedBlocks)
         {
             if (targetBlock != null)
             {

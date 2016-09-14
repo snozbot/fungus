@@ -72,7 +72,7 @@ namespace Fungus
             return false;
         }
 
-        public override void OnCommandAdded(Block parentBlock)
+        public override void OnCommandAdded(IBlock parentBlock)
         {
             // Add a default empty entry
             targetSprites.Add(null);

@@ -24,7 +24,7 @@ namespace Fungus
             // Only the first created Flowchart in the scene should have a default GameStarted block
             if (GameObject.FindObjectsOfType<Flowchart>().Length > 1)
             {
-                Block block = go.GetComponent<Block>();
+                IBlock block = go.GetComponent<IBlock>();
                 block._EventHandler = null;
                 GameObject.DestroyImmediate(block._EventHandler);
             }

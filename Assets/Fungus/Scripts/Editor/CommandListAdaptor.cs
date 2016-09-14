@@ -84,13 +84,13 @@ namespace Fungus
                 return null;
             }
             
-            Block block = flowchart.SelectedBlock;
+            IBlock block = flowchart.SelectedBlock;
             if (block == null)
             {
                 return null;
             }
             
-            Command newCommand = Undo.AddComponent<Comment>(block.gameObject) as Command;
+            Command newCommand = Undo.AddComponent<Comment>(((Block)block).gameObject) as Command;
             newCommand.ItemId = flowchart.NextItemId();
             flowchart.ClearSelectedCommands();
             flowchart.AddSelectedCommand(newCommand);
@@ -103,10 +103,10 @@ namespace Fungus
             Command command = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as Command;
             
             // Add the command as a new component
-            Block parentBlock = command.GetComponent<Block>();
+            IBlock parentBlock = command.GetComponent<IBlock>();
             
             System.Type type = command.GetType();
-            Command newCommand = Undo.AddComponent(parentBlock.gameObject, type) as Command;
+            Command newCommand = Undo.AddComponent(((Block)parentBlock).gameObject, type) as Command;
             newCommand.ItemId = newCommand.GetFlowchart().NextItemId();
             System.Reflection.FieldInfo[] fields = type.GetFields();
             foreach (System.Reflection.FieldInfo field in fields)

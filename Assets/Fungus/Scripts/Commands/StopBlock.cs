@@ -31,7 +31,7 @@ namespace Fungus
                 flowchart = GetFlowchart();
             }
 
-            Block block = flowchart.FindBlock(blockName.Value);
+            IBlock block = flowchart.FindBlock(blockName.Value);
             if (block == null ||
                 !block.IsExecuting())
             {

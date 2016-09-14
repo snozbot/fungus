@@ -72,7 +72,7 @@ namespace Fungus
             Canvas.ForceUpdateCanvases();
         }
 
-        protected virtual IEnumerator WaitForTimeout(float timeoutDuration, Block targetBlock)
+        protected virtual IEnumerator WaitForTimeout(float timeoutDuration, IBlock targetBlock)
         {
             float elapsedTime = 0;
             
@@ -147,7 +147,7 @@ namespace Fungus
             }
         }
             
-        public virtual bool AddOption(string text, bool interactable, Block targetBlock)
+        public virtual bool AddOption(string text, bool interactable, IBlock targetBlock)
         {
             bool addedOption = false;
             foreach (Button button in cachedButtons)
@@ -169,7 +169,7 @@ namespace Fungus
                         textComponent.text = text;
                     }
 
-                    Block block = targetBlock;
+                    IBlock block = targetBlock;
 
                     button.onClick.AddListener(delegate {
 
@@ -244,7 +244,7 @@ namespace Fungus
             return addedOption;
         }
 
-        public virtual void ShowTimer(float duration, Block targetBlock)
+        public virtual void ShowTimer(float duration, IBlock targetBlock)
         {
             if (cachedSlider != null)
             {
