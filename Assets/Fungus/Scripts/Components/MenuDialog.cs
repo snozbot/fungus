@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.EventSystems;
 using System.Linq;
+using MoonSharp.Interpreter;
 
 namespace Fungus
 {
@@ -201,6 +202,48 @@ namespace Fungus
             return addedOption;
         }
 
+        public bool AddOption(string text, bool interactable, ILuaEnvironment luaEnv, Closure callBack)
+        {
+            if (!gameObject.activeSelf)
+            {
+                gameObject.SetActive(true);
+            }
+
+            bool addedOption = false;
+            foreach (Button button in CachedButtons)
+            {
+                if (!button.gameObject.activeSelf)
+                {
+                    button.gameObject.SetActive(true);
+
+                    button.interactable = interactable;
+
+                    Text textComponent = button.GetComponentInChildren<Text>();
+                    if (textComponent != null)
+                    {
+                        textComponent.text = text;
+                    }
+
+                    button.onClick.AddListener(delegate {
+
+                        StopAllCoroutines(); // Stop timeout
+                        Clear();
+                        HideSayDialog();
+
+                        if (callBack != null)
+                        {
+                            luaEnv.RunLuaFunction(callBack, true);
+                        }
+                    });
+
+                    addedOption = true;
+                    break;
+                }
+            }
+
+            return addedOption;
+        }
+
         public virtual void ShowTimer(float duration, Block targetBlock)
         {
             if (cachedSlider != null)
@@ -209,6 +252,43 @@ namespace Fungus
                 gameObject.SetActive(true);
                 StopAllCoroutines();
                 StartCoroutine(WaitForTimeout(duration, targetBlock));
+            }
+        }
+
+        public IEnumerator ShowTimer(float duration, ILuaEnvironment luaEnv, Closure callBack)
+        {
+            if (CachedSlider == null ||
+                duration <= 0f)
+            {
+                yield break;
+            }
+
+            CachedSlider.gameObject.SetActive(true);
+            StopAllCoroutines();
+
+            float elapsedTime = 0;
+            Slider timeoutSlider = GetComponentInChildren<Slider>();
+
+            while (elapsedTime < duration)
+            {
+                if (timeoutSlider != null)
+                {
+                    float t = 1f - elapsedTime / duration;
+                    timeoutSlider.value = t;
+                }
+
+                elapsedTime += Time.deltaTime;
+
+                yield return null;
+            }
+
+            Clear();
+            gameObject.SetActive(false);
+            HideSayDialog();
+
+            if (callBack != null)
+            {
+                luaEnv.RunLuaFunction(callBack, true);
             }
         }
 
