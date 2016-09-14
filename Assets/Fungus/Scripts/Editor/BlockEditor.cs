@@ -103,7 +103,7 @@ namespace Fungus
                 block.UpdateIndentLevels();
 
                 // Make sure each command has a reference to its parent block
-                foreach (Command command in block.CommandList)
+                foreach (ICommand command in block.CommandList)
                 {
                     if (command == null) // Will be deleted from the list later on
                     {
@@ -637,7 +637,7 @@ namespace Fungus
 
             // Use index of last selected command in list, or end of list if nothing selected.
             int index = -1;
-            foreach (Command command in flowchart.SelectedCommands)
+            foreach (ICommand command in flowchart.SelectedCommands)
             {
                 if (command.CommandIndex + 1 > index)
                 {
@@ -732,7 +732,7 @@ namespace Fungus
 
             flowchart.ClearSelectedCommands();
             
-            Command newCommand = Undo.AddComponent(((Block)block).gameObject, commandOperation.commandType) as Command;
+            ICommand newCommand = Undo.AddComponent(((Block)block).gameObject, commandOperation.commandType) as Command;
             block.GetFlowchart().AddSelectedCommand(newCommand);
             newCommand.ParentBlock = block;
             newCommand.ItemId = flowchart.NextItemId();
@@ -743,11 +743,11 @@ namespace Fungus
             Undo.RecordObject((Block)block, "Set command type");
             if (commandOperation.index < block.CommandList.Count - 1)
             {
-                block.CommandList.Insert(commandOperation.index, newCommand);
+                block.CommandList.Insert(commandOperation.index, (Command)newCommand);
             }
             else
             {
-                block.CommandList.Add(newCommand);
+                block.CommandList.Add((Command)newCommand);
             }
 
             // Because this is an async call, we need to force prefab instances to record changes

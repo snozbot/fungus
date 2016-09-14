@@ -107,7 +107,7 @@ namespace Fungus
             // Find the next Else, ElseIf or End command at the same indent level as this If command
             for (int i = CommandIndex + 1; i < ParentBlock.CommandList.Count; ++i)
             {
-                Command nextCommand = ParentBlock.CommandList[i];
+                ICommand nextCommand = ParentBlock.CommandList[i];
 
                 if (nextCommand == null)
                 {
@@ -116,7 +116,7 @@ namespace Fungus
 
                 // Find next command at same indent level as this If command
                 // Skip disabled commands, comments & labels
-                if (!nextCommand.enabled || 
+                if (!((Command)nextCommand).enabled || 
                     nextCommand.GetType() == typeof(Comment) ||
                     nextCommand.GetType() == typeof(Label) ||
                     nextCommand.IndentLevel != indentLevel)

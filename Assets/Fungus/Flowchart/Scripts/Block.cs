@@ -34,7 +34,7 @@ namespace Fungus
 
         protected ExecutionState executionState;
 
-        protected Command activeCommand;
+        protected ICommand activeCommand;
 
         /// <summary>
         // Index of last command executed before the current one.
@@ -66,7 +66,7 @@ namespace Fungus
             // Give each child command a reference back to its parent block
             // and tell each command its index in the list.
             int index = 0;
-            foreach (Command command in commandList)
+            foreach (ICommand command in commandList)
             {
                 if (command == null)
                 {
@@ -92,7 +92,7 @@ namespace Fungus
         protected virtual void Update()
         {
             int index = 0;
-            foreach (Command command in commandList)
+            foreach (ICommand command in commandList)
             {
                 if (command == null) // Null entry will be deleted automatically later
                 {
@@ -116,7 +116,7 @@ namespace Fungus
 
         public virtual EventHandler _EventHandler { get { return eventHandler; } set { eventHandler = value; } }
 
-        public virtual Command ActiveCommand { get { return activeCommand; } }
+        public virtual ICommand ActiveCommand { get { return activeCommand; } }
 
         public virtual float ExecutingIconTimer { get; set; }
 
@@ -207,7 +207,7 @@ namespace Fungus
                     previousActiveCommandIndex = activeCommand.CommandIndex;
                 }
 
-                Command command = commandList[i];
+                ICommand command = commandList[i];
                 activeCommand = command;
 
                 if (flowchart.gameObject.activeInHierarchy)
@@ -268,7 +268,7 @@ namespace Fungus
         public virtual List<IBlock> GetConnectedBlocks()
         {
             var connectedBlocks = new List<IBlock>();
-            foreach (Command command in commandList)
+            foreach (ICommand command in commandList)
             {
                 if (command != null)
                 {
@@ -292,7 +292,7 @@ namespace Fungus
         public virtual void UpdateIndentLevels()
         {
             int indentLevel = 0;
-            foreach(Command command in commandList)
+            foreach (ICommand command in commandList)
             {
                 if (command == null)
                 {

@@ -35,7 +35,7 @@ namespace Fungus
         // when a different block / command is selected.
         protected BlockEditor activeBlockEditor;
         protected CommandEditor activeCommandEditor;
-        protected Command activeCommand; // Command currently being inspected
+        protected ICommand activeCommand; // Command currently being inspected
 
         // Cached command editors to avoid creating / destroying editors more than necessary
         // This list is static so persists between 
@@ -101,7 +101,7 @@ namespace Fungus
             activeBlockEditor.DrawBlockGUI(flowchart);
             GUILayout.EndScrollView();
 
-            Command inspectCommand = null;
+            ICommand inspectCommand = null;
             if (flowchart.SelectedCommands.Count == 1)
             {
                 inspectCommand = flowchart.SelectedCommands[0];
@@ -143,7 +143,7 @@ namespace Fungus
             }
         }
 
-        public void DrawCommandUI(Flowchart flowchart, Command inspectCommand)
+        public void DrawCommandUI(Flowchart flowchart, ICommand inspectCommand)
         {
             ResizeScrollView(flowchart);
 
@@ -156,10 +156,10 @@ namespace Fungus
             if (inspectCommand != null)
             {
                 if (activeCommandEditor == null || 
-                    inspectCommand != activeCommandEditor.target)
+                    !inspectCommand.Equals(activeCommandEditor.target))
                 {
                     // See if we have a cached version of the command editor already,
-                    var editors = (from e in cachedCommandEditors where (e != null && e.target == inspectCommand) select e);
+                    var editors = (from e in cachedCommandEditors where (e != null && (e.target.Equals(inspectCommand))) select e);
 
                     if (editors.Count() > 0)
                     {
@@ -169,7 +169,7 @@ namespace Fungus
                     else
                     {
                         // No cached editor, so create a new one.
-                        activeCommandEditor = Editor.CreateEditor(inspectCommand) as CommandEditor;
+                        activeCommandEditor = Editor.CreateEditor((Command)inspectCommand) as CommandEditor;
                         cachedCommandEditors.Add(activeCommandEditor);
                     }
                 }

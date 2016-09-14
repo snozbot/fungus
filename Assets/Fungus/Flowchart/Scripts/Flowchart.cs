@@ -209,8 +209,8 @@ namespace Fungus
                 maxId = Math.Max(maxId, block.ItemId);
             }
             
-            Command[] commands = GetComponents<Command>();
-            foreach (Command command in commands)
+            var commands = GetComponents<ICommand>();
+            foreach (var command in commands)
             {
                 maxId = Math.Max(maxId, command.ItemId);
             }
@@ -320,8 +320,8 @@ namespace Fungus
                 usedIds.Add(block.ItemId);
             }
             
-            Command[] commands = GetComponents<Command>();
-            foreach (Command command in commands)
+            var commands = GetComponents<ICommand>();
+            foreach (var command in commands)
             {
                 if (command.ItemId == -1 ||
                     usedIds.Contains(command.ItemId))
@@ -352,7 +352,7 @@ namespace Fungus
                 }
             }
             
-            foreach (Command command in GetComponents<Command>())
+            foreach (var command in GetComponents<Command>())
             {
                 bool found = false;
                 foreach (IBlock block in blocks)
@@ -637,7 +637,7 @@ namespace Fungus
             while (true)
             {
                 bool collision = false;
-                foreach(Command command in block.CommandList)
+                foreach (ICommand command in block.CommandList)
                 {
                     Label label = command as Label;
                     if (label == null ||
@@ -884,7 +884,7 @@ namespace Fungus
                 }
 
                 Command[] commands = GetComponents<Command>();
-                foreach (Command command in commands)
+                foreach (var command in commands)
                 {
                     command.hideFlags = HideFlags.HideInInspector;
                 }
@@ -923,11 +923,11 @@ namespace Fungus
         /// <summary>
         /// Adds a command to the list of selected commands.
         /// </summary>
-        public virtual void AddSelectedCommand(Command command)
+        public virtual void AddSelectedCommand(ICommand command)
         {
-            if (!selectedCommands.Contains(command))
+            if (!selectedCommands.Contains((Command)command))
             {
-                selectedCommands.Add(command);
+                selectedCommands.Add((Command)command);
             }
         }
 
@@ -938,8 +938,8 @@ namespace Fungus
         {
             if (resetCommands)
             {
-                Command[] commands = GetComponents<Command>();
-                foreach (Command command in commands)
+                ICommand[] commands = GetComponents<ICommand>();
+                foreach (var command in commands)
                 {
                     command.OnReset();
                 }

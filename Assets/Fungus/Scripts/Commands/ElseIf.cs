@@ -40,7 +40,7 @@ namespace Fungus
                 int indent = indentLevel;
                 for (int i = CommandIndex + 1; i < ParentBlock.CommandList.Count; ++i)
                 {
-                    Command command = ParentBlock.CommandList[i];
+                    ICommand command = ParentBlock.CommandList[i];
 
                     if (command.IndentLevel == indent)
                     {

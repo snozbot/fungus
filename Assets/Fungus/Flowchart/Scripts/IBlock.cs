@@ -46,7 +46,7 @@ namespace Fungus
         /// <summary>
         /// The currently executing command.
         /// </summary>
-        Command ActiveCommand { get; }
+        ICommand ActiveCommand { get; }
 
         /// <summary>
         /// Timer for fading Block execution icon.
