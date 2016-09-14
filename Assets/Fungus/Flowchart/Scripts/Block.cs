@@ -229,7 +229,7 @@ namespace Fungus
 
                 // Skip disabled commands, comments and labels
                 while (i < commandList.Count &&
-                    (!commandList[i].enabled || 
+                      (!commandList[i].enabled || 
                         commandList[i].GetType() == typeof(Comment) ||
                         commandList[i].GetType() == typeof(Label)))
                 {
