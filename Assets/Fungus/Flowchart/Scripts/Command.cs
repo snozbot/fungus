@@ -37,29 +37,34 @@ namespace Fungus
     /// <summary>
     /// Base class for Commands. Commands can be added to Blocks to create an execution sequence.
     /// </summary>
-    public class Command : MonoBehaviour
+    public class Command : MonoBehaviour, ICommand
     {
+        [FormerlySerializedAs("commandId")]
+        [HideInInspector]
+        [SerializeField] protected int itemId = -1; // Invalid flowchart item id
+
+        [HideInInspector]
+        [SerializeField] protected int indentLevel;
+
+        protected string errorMessage = "";
+
+        #region ICommand implementation
+
         /// <summary>
         /// Unique identifier for this command.
         /// Unique for this Flowchart.
         /// </summary>
-        [FormerlySerializedAs("commandId")]
-        [HideInInspector]
-        [SerializeField] protected int itemId = -1; // Invalid flowchart item id
         public virtual int ItemId { get { return itemId; } set { itemId = value; } }
 
         /// <summary>
         /// Error message to display in the command inspector.
         /// </summary>
-        protected string errorMessage = "";
         public virtual string ErrorMessage { get { return errorMessage; } }
 
         /// <summary>
         /// Indent depth of the current commands.
         /// Commands are indented inside If, While, etc. sections.
         /// </summary>
-        [HideInInspector]
-        [SerializeField] protected int indentLevel;
         public virtual int IndentLevel { get { return indentLevel; } set { indentLevel = value; } }
 
         /// <summary>
@@ -276,5 +281,7 @@ namespace Fungus
 
             return localizationId;
         }
+
+        #endregion
     }
 }
