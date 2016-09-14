@@ -434,7 +434,7 @@ namespace Fungus
             if (prefab != null)
             {
                 GameObject go = Instantiate(prefab) as GameObject;
-                go.name = resourceName;
+                go.name = resourceName.Replace("Prefabs/", "");
                 return go;
             }
             return null;

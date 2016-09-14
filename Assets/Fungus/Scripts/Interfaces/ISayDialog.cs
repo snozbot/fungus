@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 namespace Fungus
 {
@@ -30,7 +31,7 @@ namespace Fungus
         void SetCharacterName(string name, Color color);
 
         /// <summary>
-        /// Write a line of story text to the Say Dialog.
+        /// Write a line of story text to the Say Dialog. Starts coroutine automatically.
         /// </summary>
         /// <param name="text">The text to display.</param>
         /// <param name="clearPrevious">Clear any previous text in the Say Dialog.</param>
@@ -40,6 +41,18 @@ namespace Fungus
         /// <param name="voiceOverClip">Voice over audio clip to play.</param>
         /// <param name="onComplete">Callback to execute when writing and player input have finished.</param>
         void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, System.Action onComplete);
+
+        /// <summary>
+        /// Write a line of story text to the Say Dialog. Must be started as a coroutine.
+        /// </summary>
+        /// <param name="text">The text to display.</param>
+        /// <param name="clearPrevious">Clear any previous text in the Say Dialog.</param>
+        /// <param name="waitForInput">Wait for player input before continuing once text is written.</param>
+        /// <param name="fadeWhenDone">Fade out the Say Dialog when writing and player input has finished.</param>
+        /// <param name="stopVoiceover">Stop any existing voiceover audio before writing starts.</param>
+        /// <param name="voiceOverClip">Voice over audio clip to play.</param>
+        /// <param name="onComplete">Callback to execute when writing and player input have finished.</param>
+        IEnumerator DoSay(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, System.Action onComplete);
 
         /// <summary>
         /// Tell the Say Dialog to fade out once writing and player input have finished.

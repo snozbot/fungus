@@ -69,7 +69,7 @@ namespace Fungus
                 if (activeSayDialog == null)
                 {
                     // Auto spawn a say dialog object from the prefab
-                    GameObject prefab = Resources.Load<GameObject>("SayDialog");
+                    GameObject prefab = Resources.Load<GameObject>("Prefabs/SayDialog");
                     if (prefab != null)
                     {
                         GameObject go = Instantiate(prefab) as GameObject;
@@ -156,39 +156,6 @@ namespace Fungus
                 // Character image is hidden by default.
                 SetCharacterImage(null);
             }
-        }
-
-        protected virtual IEnumerator SayInternal(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
-        {
-            IWriter writer = GetWriter();
-
-            if (writer.IsWriting || writer.IsWaitingForInput)
-            {
-                writer.Stop();
-                while (writer.IsWriting || writer.IsWaitingForInput)
-                {
-                    yield return null;
-                }
-            }
-
-            gameObject.SetActive(true);
-
-            this.fadeWhenDone = fadeWhenDone;
-
-            // Voice over clip takes precedence over a character sound effect if provided
-
-            AudioClip soundEffectClip = null;
-            if (voiceOverClip != null)
-            {
-                WriterAudio writerAudio = GetWriterAudio();
-                writerAudio.OnVoiceover(voiceOverClip);
-            }
-            else if (speakingCharacter != null)
-            {
-                soundEffectClip = speakingCharacter.SoundEffect;
-            }
-
-            yield return StartCoroutine(writer.Write(text, clearPrevious, waitForInput, stopVoiceover, soundEffectClip, onComplete));
         }
 
         protected virtual void LateUpdate()
@@ -400,7 +367,40 @@ namespace Fungus
 
         public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
         {
-            StartCoroutine(SayInternal(text, clearPrevious, waitForInput, fadeWhenDone, stopVoiceover, voiceOverClip, onComplete));
+            StartCoroutine(DoSay(text, clearPrevious, waitForInput, fadeWhenDone, stopVoiceover, voiceOverClip, onComplete));
+        }
+
+        public virtual IEnumerator DoSay(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
+        {
+            IWriter writer = GetWriter();
+
+            if (writer.IsWriting || writer.IsWaitingForInput)
+            {
+                writer.Stop();
+                while (writer.IsWriting || writer.IsWaitingForInput)
+                {
+                    yield return null;
+                }
+            }
+
+            gameObject.SetActive(true);
+
+            this.fadeWhenDone = fadeWhenDone;
+
+            // Voice over clip takes precedence over a character sound effect if provided
+
+            AudioClip soundEffectClip = null;
+            if (voiceOverClip != null)
+            {
+                WriterAudio writerAudio = GetWriterAudio();
+                writerAudio.OnVoiceover(voiceOverClip);
+            }
+            else if (speakingCharacter != null)
+            {
+                soundEffectClip = speakingCharacter.SoundEffect;
+            }
+
+            yield return StartCoroutine(writer.Write(text, clearPrevious, waitForInput, stopVoiceover, soundEffectClip, onComplete));
         }
 
         public virtual bool FadeWhenDone { set { fadeWhenDone = value; } }

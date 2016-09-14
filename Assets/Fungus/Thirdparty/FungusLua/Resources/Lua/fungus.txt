@@ -152,7 +152,7 @@ end
 -- Gets the active say dialog, or creates one if none exists yet
 function M.getsaydialog()
     if (M.sayoptions.saydialog == nil) then
-        local sd = M.luautils.spawn("SayDialog").GetComponent("SayDialog")
+        local sd = M.luautils.spawn("Prefabs/SayDialog").GetComponent("SayDialog")
         M.setsaydialog(sd)
     end
     return M.sayoptions.saydialog
@@ -193,7 +193,7 @@ function M.say(text, voiceclip)
 
    -- Do variable substitution before displaying text
    local subbed = M.sub(text)
-   local e = sd.SayInternal(subbed, M.sayoptions.clearprevious, M.sayoptions.waitforinput, M.sayoptions.fadewhendone, M.sayoptions.stopvoiceover, voiceclip)
+   local e = sd.DoSay(subbed, M.sayoptions.clearprevious, M.sayoptions.waitforinput, M.sayoptions.fadewhendone, M.sayoptions.stopvoiceover, voiceclip)
 
    M.runwait(e)
 end
@@ -225,7 +225,7 @@ end
 -- Gets the active menu dialog, or creates one if none exists yet
 function M.getmenudialog()
     if (M.menuoptions.menudialog == nil) then
-        local md = M.luautils.spawn("MenuDialog").GetComponent("MenuDialog")
+        local md = M.luautils.spawn("Prefabs/MenuDialog").GetComponent("MenuDialog")
         M.setmenudialog(md)
     end
     return M.menuoptions.menudialog
