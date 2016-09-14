@@ -43,7 +43,7 @@ namespace Fungus
             StartCoroutine(DoLoadBlock());
         }
 
-        IEnumerator DoLoadBlock()
+        protected virtual IEnumerator DoLoadBlock()
         {
             // Wait until loading image has been displayed in OnGUI
             while (loadingTexture != null && 
