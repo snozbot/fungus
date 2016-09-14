@@ -890,7 +890,7 @@ namespace Fungus
                 }
 
                 EventHandler[] eventHandlers = GetComponents<EventHandler>();
-                foreach (EventHandler eventHandler in eventHandlers)
+                foreach (var eventHandler in eventHandlers)
                 {
                     eventHandler.hideFlags = HideFlags.HideInInspector;
                 }

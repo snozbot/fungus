@@ -25,8 +25,8 @@ namespace Fungus
             if (GameObject.FindObjectsOfType<Flowchart>().Length > 1)
             {
                 IBlock block = go.GetComponent<IBlock>();
-                block._EventHandler = null;
                 GameObject.DestroyImmediate(block._EventHandler);
+                block._EventHandler = null;
             }
         }
 

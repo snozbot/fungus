@@ -40,6 +40,7 @@ namespace Fungus
 
         /// <summary>
         /// An optional Event Handler which can execute the block when an event occurs.
+        /// Note: Using the concrete class instead of the interface here because of weird editor behaviour.
         /// </summary>
         EventHandler _EventHandler { get; set; }
 

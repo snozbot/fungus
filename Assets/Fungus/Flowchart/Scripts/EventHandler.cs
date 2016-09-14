@@ -32,23 +32,19 @@ namespace Fungus
     /// Add an EventHandlerInfo attibute and your new EventHandler class will automatically appear in the
     /// 'Execute On Event' dropdown menu when a block is selected.
     /// </summary>
-    [RequireComponent(typeof(IBlock))]
+    [RequireComponent(typeof(Block))]
     [RequireComponent(typeof(Flowchart))]
     [AddComponentMenu("")]
-    public class EventHandler : MonoBehaviour
+    public class EventHandler : MonoBehaviour, IEventHandler
     {   
-        /// <summary>
-        /// Returns the parent Block which owns this Event Handler.
-        /// </summary>
-        /// <value>The parent block.</value>
         [HideInInspector]
         [FormerlySerializedAs("parentSequence")]
         [SerializeField] protected Block parentBlock;
+
+        #region IEventHandler
+
         public virtual IBlock ParentBlock { get { return parentBlock; } set { parentBlock = (Block)value; } }
 
-        /// <summary>
-        /// The Event Handler should call this method when the event is detected.
-        /// </summary>
         public virtual bool ExecuteBlock()
         {
             if (parentBlock == null)
@@ -72,12 +68,11 @@ namespace Fungus
             return flowchart.ExecuteBlock(parentBlock);
         }
 
-        /// <summary>
-        /// Returns custom summary text for the event handler.
-        /// </summary>
         public virtual string GetSummary()
         {
             return "";
         }
+
+        #endregion
     }
 }
