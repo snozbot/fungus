@@ -15,73 +15,34 @@ namespace Fungus
     [ExecuteInEditMode]
     [RequireComponent(typeof(Flowchart))]
     [AddComponentMenu("")]
-    public class Block : Node 
+    public class Block : Node, IBlock 
     {
-        public enum ExecutionState
-        {
-            Idle,
-            Executing,
-        }
-
-        /// <summary>
-        /// The execution state of the Block.
-        /// </summary>
-        protected ExecutionState executionState;
-        public virtual ExecutionState State { get { return executionState; } }
-
-        /// <summary>
-        /// Unique identifier for the Block.
-        /// </summary>
         [SerializeField] protected int itemId = -1; // Invalid flowchart item id
-        public virtual int ItemId { get { return itemId; } set { itemId = value; } }
 
-        /// <summary>
-        /// The name of the block node as displayed in the Flowchart window.
-        /// </summary>
         [FormerlySerializedAs("sequenceName")]
         [Tooltip("The name of the block node as displayed in the Flowchart window")]
         [SerializeField] protected string blockName = "New Block";
-        public virtual string BlockName { get { return blockName; } set { blockName = value; } }
 
-        /// <summary>
-        /// Description text to display under the block node
-        /// </summary>
         [TextArea(2, 5)]
         [Tooltip("Description text to display under the block node")]
         [SerializeField] protected string description = "";
-        public virtual string Description { get { return description; } }
 
-        /// <summary>
-        /// An optional Event Handler which can execute the block when an event occurs.
-        /// </summary>
         [Tooltip("An optional Event Handler which can execute the block when an event occurs")]
         [SerializeField] protected EventHandler eventHandler;
-        public virtual EventHandler _EventHandler { get { return eventHandler; } set { eventHandler = value; } }
 
-        /// <summary>
-        /// The currently executing command.
-        /// </summary>
+        [SerializeField] protected List<Command> commandList = new List<Command>();
+
+        protected ExecutionState executionState;
+
         protected Command activeCommand;
-        public virtual Command ActiveCommand { get { return activeCommand; } }
 
         /// <summary>
         // Index of last command executed before the current one.
         // -1 indicates no previous command.
         /// </summary>
         protected int previousActiveCommandIndex = -1;
-        public virtual float ExecutingIconTimer { get; set; }
 
-        /// <summary>
-        /// The list of commands in the sequence.
-        /// </summary>
-        [SerializeField] protected List<Command> commandList = new List<Command>();
-        public virtual List<Command> CommandList { get { return commandList; } }
-
-        /// <summary>
-        /// Controls the next command to execute in the block execution coroutine.
-        /// </summary>
         protected int jumpToCommandIndex = -1;
-        public int JumpToCommandIndex { set { jumpToCommandIndex = value; } }
 
         /// <summary>
         /// Duration of fade for executing icon displayed beside blocks & commands.
@@ -128,7 +89,7 @@ namespace Fungus
         // The user can modify the command list order while playing in the editor,
         // so we keep the command indices updated every frame. There's no need to
         // do this in player builds so we compile this bit out for those builds.
-        void Update()
+        protected virtual void Update()
         {
             int index = 0;
             foreach (Command command in commandList)
@@ -142,6 +103,53 @@ namespace Fungus
             }
         }
 #endif
+
+        #region IBlock implementation
+
+        /// <summary>
+        /// The execution state of the Block.
+        /// </summary>
+        public virtual ExecutionState State { get { return executionState; } }
+
+        /// <summary>
+        /// Unique identifier for the Block.
+        /// </summary>
+        public virtual int ItemId { get { return itemId; } set { itemId = value; } }
+
+        /// <summary>
+        /// The name of the block node as displayed in the Flowchart window.
+        /// </summary>
+        public virtual string BlockName { get { return blockName; } set { blockName = value; } }
+
+        /// <summary>
+        /// Description text to display under the block node
+        /// </summary>
+        public virtual string Description { get { return description; } }
+
+        /// <summary>
+        /// An optional Event Handler which can execute the block when an event occurs.
+        /// </summary>
+        public virtual EventHandler _EventHandler { get { return eventHandler; } set { eventHandler = value; } }
+
+        /// <summary>
+        /// The currently executing command.
+        /// </summary>
+        public virtual Command ActiveCommand { get { return activeCommand; } }
+
+        /// <summary>
+        /// Timer for fading Block execution icon.
+        /// </summary>
+        public virtual float ExecutingIconTimer { get; set; }
+
+        /// <summary>
+        /// The list of commands in the sequence.
+        /// </summary>
+        public virtual List<Command> CommandList { get { return commandList; } }
+
+        /// <summary>
+        /// Controls the next command to execute in the block execution coroutine.
+        /// </summary>
+        public virtual int JumpToCommandIndex { set { jumpToCommandIndex = value; } }
 
         /// <summary>
         /// Returns the parent Flowchart for this Block.
@@ -221,7 +229,7 @@ namespace Fungus
 
                 // Skip disabled commands, comments and labels
                 while (i < commandList.Count &&
-                       (!commandList[i].enabled || 
+                    (!commandList[i].enabled || 
                         commandList[i].GetType() == typeof(Comment) ||
                         commandList[i].GetType() == typeof(Label)))
                 {
@@ -364,5 +372,7 @@ namespace Fungus
                 }
             }
         }
+
+        #endregion
     }
 }
