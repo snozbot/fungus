@@ -871,15 +871,13 @@ namespace Fungus
         {
             if (hideComponents)
             {
-                IBlock[] blocks = GetComponents<IBlock>();
-                foreach (IBlock block in blocks)
+                Block[] blocks = GetComponents<Block>();
+                foreach (Block block in blocks)
                 {
-                    GameObject go = ((Block)block).gameObject;
-
-                    go.hideFlags = HideFlags.HideInInspector;
-                    if (go != gameObject)
+                    block.hideFlags = HideFlags.HideInInspector;
+                    if (block.gameObject != gameObject)
                     {
-                        go.hideFlags = HideFlags.HideInHierarchy;
+                        block.hideFlags = HideFlags.HideInHierarchy;
                     }
                 }
 
