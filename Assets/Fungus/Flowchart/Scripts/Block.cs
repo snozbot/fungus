@@ -210,7 +210,7 @@ namespace Fungus
                 ICommand command = commandList[i];
                 activeCommand = command;
 
-                if (flowchart.gameObject.activeInHierarchy)
+                if (flowchart.IsActive())
                 {
                     // Auto select a command in some situations
                     if ((flowchart.SelectedCommands.Count == 0 && i == 0) ||

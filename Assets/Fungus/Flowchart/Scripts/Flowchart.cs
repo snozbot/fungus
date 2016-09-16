@@ -13,21 +13,11 @@ using System.Text.RegularExpressions;
 namespace Fungus
 {
     /// <summary>
-    /// Interface for Flowchart components which can be updated when the 
-    /// scene loads in the editor. This is used to maintain backwards 
-    /// compatibility with earlier versions of Fungus.
-    /// </summary>
-    interface IUpdateable
-    {
-        void UpdateToVersion(int oldVersion, int newVersion);       
-    }
-
-    /// <summary>
     /// Visual scripting controller for the Flowchart programming language.
     /// Flowchart objects may be edited visually using the Flowchart editor window.
     /// </summary>
     [ExecuteInEditMode]
-    public class Flowchart : MonoBehaviour, ISubstitutionHandler 
+    public class Flowchart : MonoBehaviour, IFlowchart, ISubstitutionHandler
     {
         /// <summary>
         /// The current version of the Flowchart. Used for updating components.
@@ -39,183 +29,90 @@ namespace Fungus
         /// </summary>
         public const string DEFAULT_BLOCK_NAME = "New Block";
 
-        /// <summary>
-        /// Variable to track flowchart's version so components can update to new versions.
-        /// </summary>
         [HideInInspector]
         [SerializeField] protected int version = 0; // Default to 0 to always trigger an update for older versions of Fungus.
-        public int Version { set { version = value; } }
 
-        /// <summary>
-        /// Scroll position of Flowchart editor window.
-        /// </summary>
         [HideInInspector]
         [SerializeField] protected Vector2 scrollPos;
-        public virtual Vector2 ScrollPos { get { return scrollPos; } set { scrollPos = value; } }
 
-        /// <summary>
-        /// Scroll position of Flowchart variables window.
-        /// </summary>
         [HideInInspector]
         [SerializeField] protected Vector2 variablesScrollPos;
-        public virtual Vector2 VariablesScrollPos { get { return variablesScrollPos; } set { variablesScrollPos = value; } }
 
-        /// <summary>
-        /// Show the variables pane.
-        /// </summary>
         [HideInInspector]
         [SerializeField] protected bool variablesExpanded = true;
-        public virtual bool VariablesExpanded { get { return variablesExpanded; } set { variablesExpanded = value; } }
 
-        /// <summary>
-        /// Height of command block view in inspector.
-        /// </summary>
         [HideInInspector]
         [SerializeField] protected float blockViewHeight = 400;
-        public virtual float BlockViewHeight { get { return blockViewHeight; } set { blockViewHeight = value; } }
 
-        /// <summary>
-        /// Zoom level of Flowchart editor window.
-        /// </summary>
         [HideInInspector]
         [SerializeField] protected float zoom = 1f;
-        public virtual float Zoom { get { return zoom; } set { zoom = value; } }
 
-        /// <summary>
-        /// Scrollable area for Flowchart editor window.
-        /// </summary>
         [HideInInspector]
         [SerializeField] protected Rect scrollViewRect;
-        public virtual Rect ScrollViewRect { get { return scrollViewRect; } set { scrollViewRect = value; } }
 
-        /// <summary>
-        /// Currently selected block in the Flowchart editor.
-        /// </summary>
         [HideInInspector]
         [FormerlySerializedAs("selectedSequence")]
         [SerializeField] protected Block selectedBlock;
-        public virtual IBlock SelectedBlock { get { return selectedBlock; } set { selectedBlock = (Block)value; } }
 
-        /// <summary>
-        /// Currently selected command in the Flowchart editor.
-        /// </summary>
         [HideInInspector]
         [SerializeField] protected List<Command> selectedCommands = new List<Command>();
-        public virtual List<Command> SelectedCommands { get { return selectedCommands; } }
 
-        /// <summary>
-        /// The list of variables that can be accessed by the Flowchart.
-        /// </summary>
         [HideInInspector]
         [SerializeField] protected List<Variable> variables = new List<Variable>();
-        public virtual List<Variable> Variables { get { return variables; } }
 
-        /// <summary>
-        /// Description text displayed in the Flowchart editor window
-        /// </summary>
         [TextArea(3, 5)]
         [Tooltip("Description text displayed in the Flowchart editor window")]
         [SerializeField] protected string description = "";
-        public virtual string Description { get { return description; } }
 
-        /// <summary>
-        /// Slow down execution in the editor to make it easier to visualise program flow.
-        /// </summary>
         [Range(0f, 5f)]
         [Tooltip("Adds a pause after each execution step to make it easier to visualise program flow. Editor only, has no effect in platform builds.")]
         [SerializeField] protected float stepPause = 0f;
-        public virtual float StepPause { get { return stepPause; } }
 
-        /// <summary>
-        /// Use command color when displaying the command list in the inspector.
-        /// </summary>
         [Tooltip("Use command color when displaying the command list in the Fungus Editor window")]
         [SerializeField] protected bool colorCommands = true;
-        public virtual bool ColorCommands { get { return colorCommands; } }
-        
-        /// <summary>
-        /// Hides the Flowchart block and command components in the inspector.
-        /// Deselect to inspect the block and command components that make up the Flowchart.
-        /// </summary>
+
         [Tooltip("Hides the Flowchart block and command components in the inspector. Deselect to inspect the block and command components that make up the Flowchart.")]
         [SerializeField] protected bool hideComponents = true;
 
-        /// <summary>
-        /// Saves the selected block and commands when saving the scene. Helps avoid version control conflicts if you've only changed the active selection.
-        /// </summary>
         [Tooltip("Saves the selected block and commands when saving the scene. Helps avoid version control conflicts if you've only changed the active selection.")]
         [SerializeField] protected bool saveSelection = true;
-        public virtual bool SaveSelection { get { return saveSelection; } }
 
-        /// <summary>
-        /// Unique identifier for identifying this flowchart in localized string keys.
-        /// </summary>
         [Tooltip("Unique identifier for this flowchart in localized string keys. If no id is specified then the name of the Flowchart object will be used.")]
         [SerializeField] protected string localizationId = "";
-        public virtual string LocalizationId { get { return localizationId; } }
 
-        /// <summary>
-        /// Display line numbers in the command list in the Block inspector.
-        /// </summary>
         [Tooltip("Display line numbers in the command list in the Block inspector.")]
         [SerializeField] protected bool showLineNumbers = false;
-        public virtual bool ShowLineNumbers { get { return showLineNumbers; } }
 
-        /// <summary>
-        /// List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.
-        /// </summary>
         [Tooltip("List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.")]
         [SerializeField] protected List<string> hideCommands = new List<string>();
 
-        /// <summary>
-        /// Lua Environment to be used by default for all Execute Lua commands in this Flowchart.
-        /// </summary>
         [Tooltip("Lua Environment to be used by default for all Execute Lua commands in this Flowchart")]
         [SerializeField] protected LuaEnvironment luaEnvironment;
-        public virtual ILuaEnvironment LuaEnv { get { return luaEnvironment; } }
 
-        /// <summary>
-        /// The ExecuteLua command adds a global Lua variable with this name bound to the flowchart prior to executing.
-        /// </summary>
         [Tooltip("The ExecuteLua command adds a global Lua variable with this name bound to the flowchart prior to executing.")]
         [SerializeField] protected string luaBindingName = "flowchart";
-        public virtual string LuaBindingName { get { return luaBindingName; } }
-
-        /// <summary>
-        /// Position in the center of all blocks in the flowchart.
-        /// </summary>
-        public virtual Vector2 CenterPosition { set; get; }
 
         /// <summary>
         /// Cached list of flowchart objects in the scene for fast lookup.
         /// </summary>
         public static List<Flowchart> cachedFlowcharts = new List<Flowchart>();
 
+        /// <summary>
+        /// Sends a message to all Flowchart objects in the current scene.
+        /// Any block with a matching MessageReceived event handler will start executing.
+        /// </summary>
+        public static void BroadcastFungusMessage(string messageName)
+        {
+            MessageReceived[] eventHandlers = UnityEngine.Object.FindObjectsOfType<MessageReceived>();
+            foreach (MessageReceived eventHandler in eventHandlers)
+            {
+                eventHandler.OnSendFungusMessage(messageName);
+            }
+        }
+
         protected static bool eventSystemPresent;
 
         protected StringSubstituter stringSubstituer;
-
-        /// <summary>
-        /// Returns the next id to assign to a new flowchart item.
-        /// Item ids increase monotically so they are guaranteed to
-        /// be unique within a Flowchart.
-        /// </summary>
-        public int NextItemId()
-        {
-            int maxId = -1;
-            IBlock[] blocks = GetComponents<IBlock>();
-            foreach (IBlock block in blocks)
-            {
-                maxId = Math.Max(maxId, block.ItemId);
-            }
-            
-            var commands = GetComponents<ICommand>();
-            foreach (var command in commands)
-            {
-                maxId = Math.Max(maxId, command.ItemId);
-            }
-            return maxId + 1;
-        }
 
         #if UNITY_5_4_OR_NEWER
         protected virtual void Awake()
@@ -266,7 +163,7 @@ namespace Fungus
             eventSystemPresent = true;
         }
 
-        public virtual void OnEnable()
+        protected virtual void OnEnable()
         {
             if (!cachedFlowcharts.Contains(this))
             {
@@ -299,7 +196,7 @@ namespace Fungus
             version = CURRENT_VERSION;
         }
 
-        public virtual void OnDisable()
+        protected virtual void OnDisable()
         {
             cachedFlowcharts.Remove(this);
         }
@@ -395,9 +292,68 @@ namespace Fungus
             return block;
         }
 
-        /// <summary>
-        /// Create a new block node which you can then add commands to.
-        /// </summary>
+        #region IFlowchart implementation
+
+        public virtual Vector2 ScrollPos { get { return scrollPos; } set { scrollPos = value; } }
+
+        public virtual Vector2 VariablesScrollPos { get { return variablesScrollPos; } set { variablesScrollPos = value; } }
+
+        public virtual bool VariablesExpanded { get { return variablesExpanded; } set { variablesExpanded = value; } }
+
+        public virtual float BlockViewHeight { get { return blockViewHeight; } set { blockViewHeight = value; } }
+
+        public virtual float Zoom { get { return zoom; } set { zoom = value; } }
+
+        public virtual Rect ScrollViewRect { get { return scrollViewRect; } set { scrollViewRect = value; } }
+
+        public virtual IBlock SelectedBlock { get { return selectedBlock; } set { selectedBlock = (Block)value; } }
+
+        public virtual List<Command> SelectedCommands { get { return selectedCommands; } }
+
+        public virtual List<Variable> Variables { get { return variables; } }
+
+        public virtual string Description { get { return description; } }
+
+        public virtual float StepPause { get { return stepPause; } }
+
+        public virtual bool ColorCommands { get { return colorCommands; } }
+
+        public virtual bool SaveSelection { get { return saveSelection; } }
+
+        public virtual string LocalizationId { get { return localizationId; } }
+
+        public virtual bool ShowLineNumbers { get { return showLineNumbers; } }
+
+        public virtual ILuaEnvironment LuaEnv { get { return luaEnvironment; } }
+
+        public virtual string LuaBindingName { get { return luaBindingName; } }
+
+        public virtual Vector2 CenterPosition { set; get; }
+
+        public int Version { set { version = value; } }
+
+        public bool IsActive()
+        {
+            return gameObject.activeInHierarchy;
+        }
+
+        public int NextItemId()
+        {
+            int maxId = -1;
+            IBlock[] blocks = GetComponents<IBlock>();
+            foreach (IBlock block in blocks)
+            {
+                maxId = Math.Max(maxId, block.ItemId);
+            }
+
+            var commands = GetComponents<ICommand>();
+            foreach (var command in commands)
+            {
+                maxId = Math.Max(maxId, command.ItemId);
+            }
+            return maxId + 1;
+        }
+
         public virtual Block CreateBlock(Vector2 position)
         {
             Block b = CreateBlockComponent(gameObject);
@@ -408,9 +364,6 @@ namespace Fungus
             return b;
         }
 
-        /// <summary>
-        /// Returns the named Block in the flowchart, or null if not found.
-        /// </summary>
         public virtual IBlock FindBlock(string blockName)
         {
             IBlock [] blocks = GetComponents<IBlock>();
@@ -421,13 +374,10 @@ namespace Fungus
                     return block;
                 }
             }
-            
+
             return null;
         }
 
-        /// <summary>
-        /// Execute a child block in the Flowchart.
-        /// You can use this method in a UI event. e.g. to handle a button click.
         public virtual void ExecuteBlock(string blockName)
         {
             IBlock block = null;
@@ -452,12 +402,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Execute a child block in the flowchart.
-        /// The block must be in an idle state to be executed.
-        /// This version provides extra options to control how the block is executed.
-        /// Returns true if the Block started execution.            
-        /// </summary>
         public virtual bool ExecuteBlock(IBlock block, int commandIndex = 0, Action onComplete = null)
         {
             if (block == null)
@@ -484,9 +428,6 @@ namespace Fungus
             return true;
         }
 
-        /// <summary>
-        /// Stop all executing Blocks in this Flowchart.
-        /// </summary>
         public virtual void StopAllBlocks()
         {
             IBlock [] blocks = GetComponents<IBlock>();
@@ -499,10 +440,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Sends a message to this Flowchart only.
-        /// Any block with a matching MessageReceived event handler will start executing.
-        /// </summary>
         public virtual void SendFungusMessage(string messageName)
         {
             MessageReceived[] eventHandlers = GetComponents<MessageReceived>();
@@ -512,22 +449,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Sends a message to all Flowchart objects in the current scene.
-        /// Any block with a matching MessageReceived event handler will start executing.
-        /// </summary>
-        public static void BroadcastFungusMessage(string messageName)
-        {
-            MessageReceived[] eventHandlers = UnityEngine.Object.FindObjectsOfType<MessageReceived>();
-            foreach (MessageReceived eventHandler in eventHandlers)
-            {
-                eventHandler.OnSendFungusMessage(messageName);
-            }
-        }
-
-        /// <summary>
-        /// Returns a new variable key that is guaranteed not to clash with any existing variable in the list.
-        /// </summary>
         public virtual string GetUniqueVariableKey(string originalKey, Variable ignoreVariable = null)
         {
             int suffix = 0;
@@ -566,7 +487,7 @@ namespace Fungus
                         key = baseKey + suffix;
                     }
                 }
-                
+
                 if (!collision)
                 {
                     return key;
@@ -574,14 +495,11 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Returns a new Block key that is guaranteed not to clash with any existing Block in the Flowchart.
-        /// </summary>
         public virtual string GetUniqueBlockKey(string originalKey, IBlock ignoreBlock = null)
         {
             int suffix = 0;
             string baseKey = originalKey.Trim();
-            
+
             // No empty keys allowed
             if (baseKey.Length == 0)
             {
@@ -601,7 +519,7 @@ namespace Fungus
                     {
                         continue;
                     }
-                    
+
                     if (block.BlockName.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                     {
                         collision = true;
@@ -609,7 +527,7 @@ namespace Fungus
                         key = baseKey + suffix;
                     }
                 }
-                
+
                 if (!collision)
                 {
                     return key;
@@ -617,22 +535,19 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Returns a new Label key that is guaranteed not to clash with any existing Label in the Block.
-        /// </summary>
         public virtual string GetUniqueLabelKey(string originalKey, Label ignoreLabel)
         {
             int suffix = 0;
             string baseKey = originalKey.Trim();
-            
+
             // No empty keys allowed
             if (baseKey.Length == 0)
             {
                 baseKey = "New Label";
             }
-            
+
             IBlock block = ignoreLabel.ParentBlock;
-            
+
             string key = baseKey;
             while (true)
             {
@@ -645,7 +560,7 @@ namespace Fungus
                     {
                         continue;
                     }
-                    
+
                     if (label.Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                     {
                         collision = true;
@@ -653,21 +568,14 @@ namespace Fungus
                         key = baseKey + suffix;
                     }
                 }
-                
+
                 if (!collision)
                 {
                     return key;
                 }
             }
         }
-            
-        /// <summary>
-        /// Returns the variable with the specified key, or null if the key is not found.
-        /// You will need to cast the returned variable to the correct sub-type.
-        /// You can then access the variable's value using the Value property. e.g.
-        /// BooleanVariable boolVar = flowchart.GetVariable("MyBool") as BooleanVariable;
-        /// boolVar.Value = false;
-        /// </summary>
+
         public Variable GetVariable(string key)
         {
             foreach (Variable variable in variables)
@@ -681,12 +589,6 @@ namespace Fungus
             return null;
         }
 
-        /// <summary>
-        /// Returns the variable with the specified key, or null if the key is not found.
-        /// You can then access the variable's value using the Value property. e.g.
-        /// BooleanVariable boolVar = flowchart.GetVariable<BooleanVariable>("MyBool");
-        /// boolVar.Value = false;
-        /// </summary>
         public T GetVariable<T>(string key) where T : Variable
         {
             foreach (Variable variable in variables)
@@ -701,10 +603,6 @@ namespace Fungus
             return null;
         }
 
-        /// <summary>
-        /// Register a new variable with the Flowchart at runtime. 
-        /// The variable should be added as a component on the Flowchart game object.
-        /// </summary>
         public void SetVariable<T>(string key, T newvariable) where T : Variable
         {
             foreach (Variable v in variables)
@@ -723,9 +621,6 @@ namespace Fungus
             Debug.LogWarning("Variable " + key + " not found.");
         }
 
-        /// <summary>
-        /// Gets a list of all variables with public scope in this Flowchart.
-        /// </summary>
         public virtual List<Variable> GetPublicVariables()
         {
             List<Variable> publicVariables = new List<Variable>();
@@ -740,10 +635,6 @@ namespace Fungus
             return publicVariables;
         }
 
-        /// <summary>
-        /// Gets the value of a boolean variable.
-        /// Returns false if the variable key does not exist.
-        /// </summary>
         public virtual bool GetBooleanVariable(string key)
         {
             BooleanVariable variable = GetVariable<BooleanVariable>(key);
@@ -758,10 +649,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Sets the value of a boolean variable.
-        /// The variable must already be added to the list of variables for this Flowchart.
-        /// </summary>
         public virtual void SetBooleanVariable(string key, bool value)
         {
             BooleanVariable variable = GetVariable<BooleanVariable>(key);
@@ -771,10 +658,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Gets the value of an integer variable.
-        /// Returns 0 if the variable key does not exist.
-        /// </summary>
         public virtual int GetIntegerVariable(string key)
         {
             IntegerVariable variable = GetVariable<IntegerVariable>(key);
@@ -789,10 +672,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Sets the value of an integer variable.
-        /// The variable must already be added to the list of variables for this Flowchart.
-        /// </summary>
         public virtual void SetIntegerVariable(string key, int value)
         {
             IntegerVariable variable = GetVariable<IntegerVariable>(key);
@@ -802,10 +681,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Gets the value of a float variable.
-        /// Returns 0 if the variable key does not exist.
-        /// </summary>
         public virtual float GetFloatVariable(string key)
         {
             FloatVariable variable = GetVariable<FloatVariable>(key);
@@ -820,10 +695,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Sets the value of a float variable.
-        /// The variable must already be added to the list of variables for this Flowchart.
-        /// </summary>
         public virtual void SetFloatVariable(string key, float value)
         {
             FloatVariable variable = GetVariable<FloatVariable>(key);
@@ -833,10 +704,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Gets the value of a string variable.
-        /// Returns the empty string if the variable key does not exist.
-        /// </summary>
         public virtual string GetStringVariable(string key)
         {
             StringVariable variable = GetVariable<StringVariable>(key);
@@ -851,10 +718,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Sets the value of a string variable.
-        /// The variable must already be added to the list of variables for this Flowchart.
-        /// </summary>
         public virtual void SetStringVariable(string key, string value)
         {
             StringVariable variable = GetVariable<StringVariable>(key);
@@ -864,9 +727,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Set the block objects to be hidden or visible depending on the hideComponents property.
-        /// </summary>
         public virtual void UpdateHideFlags()
         {
             if (hideComponents)
@@ -910,17 +770,11 @@ namespace Fungus
 
         }
 
-        /// <summary>
-        /// Clears the list of selected commands.
-        /// </summary>
         public virtual void ClearSelectedCommands()
         {
             selectedCommands.Clear();
         }
-            
-        /// <summary>
-        /// Adds a command to the list of selected commands.
-        /// </summary>
+
         public virtual void AddSelectedCommand(ICommand command)
         {
             if (!selectedCommands.Contains((Command)command))
@@ -929,9 +783,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Reset the commands and variables in the Flowchart.
-        /// </summary>
         public virtual void Reset(bool resetCommands, bool resetVariables)
         {
             if (resetCommands)
@@ -952,9 +803,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Override this in a Flowchart subclass to filter which commands are shown in the Add Command list.
-        /// </summary>
         public virtual bool IsCommandSupported(CommandInfoAttribute commandInfo)
         {
             foreach (string key in hideCommands)
@@ -970,9 +818,6 @@ namespace Fungus
             return true;
         }
 
-        /// <summary>
-        /// Returns true if there are any executing blocks in this Flowchart.
-        /// </summary>
         public virtual bool HasExecutingBlocks()
         {
             IBlock[] blocks = GetComponents<IBlock>();
@@ -986,9 +831,6 @@ namespace Fungus
             return false;
         }
 
-        /// <summary>
-        /// Returns a list of all executing blocks in this Flowchart.
-        /// </summary>
         public virtual List<IBlock> GetExecutingBlocks()
         {
             List<IBlock> executingBlocks = new List<IBlock>();
@@ -1004,6 +846,63 @@ namespace Fungus
 
             return executingBlocks;
         }
+
+        public virtual string SubstituteVariables(string input)
+        {
+            if (stringSubstituer == null)
+            {
+                stringSubstituer = new StringSubstituter();
+                stringSubstituer.CacheSubstitutionHandlers();
+            }
+
+            // Use the string builder from StringSubstituter for efficiency.
+            StringBuilder sb = stringSubstituer._StringBuilder;
+            sb.Length = 0;
+            sb.Append(input);
+
+            // Instantiate the regular expression object.
+            Regex r = new Regex("{\\$.*?}");
+
+            bool changed = false;
+
+            // Match the regular expression pattern against a text string.
+            var results = r.Matches(input);
+            foreach (Match match in results)
+            {
+                string key = match.Value.Substring(2, match.Value.Length - 3);
+
+                // Look for any matching private variables in this Flowchart first
+                foreach (Variable variable in variables)
+                {
+                    if (variable == null)
+                        continue;
+
+                    if (variable.Scope == VariableScope.Private &&
+                        variable.Key == key)
+                    {   
+                        string value = variable.ToString();
+                        sb.Replace(match.Value, value);
+                        changed = true;
+                    }
+                }
+            }
+
+            // Now do all other substitutions in the scene
+            changed |= stringSubstituer.SubstituteStrings(sb);
+
+            if (changed)
+            {
+                return sb.ToString();
+            }
+            else
+            {
+                return input;
+            }
+        }
+
+        #endregion
+
+        #region IStringSubstituter implementation
 
         /// <summary>
         /// Implementation of StringSubstituter.ISubstitutionHandler which matches any public variable in the Flowchart.
@@ -1044,63 +943,6 @@ namespace Fungus
             return modified;
         }
 
-        /// <summary>
-        /// Substitute variables in the input text with the format {$VarName}
-        /// This will first match with private variables in this Flowchart, and then
-        /// with public variables in all Flowcharts in the scene (and any component
-        /// in the scene that implements StringSubstituter.ISubstitutionHandler).
-        /// </summary>
-        public virtual string SubstituteVariables(string input)
-        {
-            if (stringSubstituer == null)
-            {
-                stringSubstituer = new StringSubstituter();
-                stringSubstituer.CacheSubstitutionHandlers();
-            }
-
-            // Use the string builder from StringSubstituter for efficiency.
-            StringBuilder sb = stringSubstituer._StringBuilder;
-            sb.Length = 0;
-            sb.Append(input);
-                    
-            // Instantiate the regular expression object.
-            Regex r = new Regex("{\\$.*?}");
-
-            bool changed = false;
-
-            // Match the regular expression pattern against a text string.
-            var results = r.Matches(input);
-            foreach (Match match in results)
-            {
-                string key = match.Value.Substring(2, match.Value.Length - 3);
-
-                // Look for any matching private variables in this Flowchart first
-                foreach (Variable variable in variables)
-                {
-                    if (variable == null)
-                        continue;
-
-                    if (variable.Scope == VariableScope.Private &&
-                        variable.Key == key)
-                    {   
-                        string value = variable.ToString();
-                        sb.Replace(match.Value, value);
-                        changed = true;
-                    }
-                }
-            }
-
-            // Now do all other substitutions in the scene
-            changed |= stringSubstituer.SubstituteStrings(sb);
-
-            if (changed)
-            {
-                return sb.ToString();
-            }
-            else
-            {
-                return input;
-            }
-        }
+        #endregion
     }
 }
