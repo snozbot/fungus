@@ -13,6 +13,11 @@ namespace Fungus
     public class FungusState : MonoBehaviour 
     {
         [SerializeField] protected Flowchart selectedFlowchart;
+
+        #region IFungusState implementation
+
         public virtual Flowchart SelectedFlowchart { get { return selectedFlowchart; } set { selectedFlowchart = value; } }
+
+        #endregion
     }
 }
