@@ -9,7 +9,7 @@ namespace Fungus
     /// <summary>
     /// Misc string formatting functions.
     /// </summary>
-    public class StringFormatter
+    public static class StringFormatter
     {
         public static string[] FormatEnumNames(Enum e, string firstLabel)
         {
