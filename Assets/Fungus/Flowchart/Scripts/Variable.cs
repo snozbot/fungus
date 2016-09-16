@@ -57,15 +57,21 @@ namespace Fungus
     /// Abstract base class for variables.
     /// </summary>
     [RequireComponent(typeof(Flowchart))]
-    public abstract class Variable : MonoBehaviour
+    public abstract class Variable : MonoBehaviour, IVariable
     {
         [SerializeField] protected VariableScope scope;
-        public virtual VariableScope Scope { get { return scope; } }
 
         [SerializeField] protected string key = "";
+
+        #region IVariable implementation
+
+        public virtual VariableScope Scope { get { return scope; } }
+
         public virtual string Key { get { return key; } set { key = value; } }
 
         public abstract void OnReset();
+
+        #endregion
     }
 
     /// <summary>
