@@ -77,7 +77,7 @@ namespace Fungus
 
             IBlock block = blockInspector.block;
 
-            Flowchart flowchart = block.GetFlowchart();
+            var flowchart = (Flowchart)block.GetFlowchart();
 
             if (activeBlockEditor == null ||
                 !block.Equals(activeBlockEditor.target))

@@ -36,7 +36,7 @@ namespace Fungus
 
             If t = target as If;
 
-            Flowchart flowchart = t.GetFlowchart();
+            var flowchart = (Flowchart)t.GetFlowchart();
             if (flowchart == null)
             {
                 return;

@@ -36,12 +36,10 @@ namespace Fungus
                 return;
             }
 
-            Flowchart flowchart = GetFlowchart();
-
             MessageReceived[] receivers = null;
             if (messageTarget == MessageTarget.SameFlowchart)
             {
-                receivers = flowchart.GetComponents<MessageReceived>();
+                receivers = GetComponents<MessageReceived>();
             }
             else
             {

@@ -25,7 +25,7 @@ namespace Fungus
                 return;
             }
             
-            Flowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
             
             // Prepend the current save profile (if any)
             string prefsKey = SetSaveProfile.saveProfile + "_" + flowchart.SubstituteVariables(key);

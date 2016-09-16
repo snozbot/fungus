@@ -57,7 +57,7 @@ namespace Fungus
                 return false;
             }
 
-            Flowchart flowchart = parentBlock.GetFlowchart();
+            var flowchart = parentBlock.GetFlowchart();
 
             // Auto-follow the executing block if none is currently selected
             if (flowchart.SelectedBlock == null)

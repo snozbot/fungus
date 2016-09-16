@@ -124,9 +124,9 @@ namespace Fungus
 
         public virtual int JumpToCommandIndex { set { jumpToCommandIndex = value; } }
 
-        public virtual Flowchart GetFlowchart()
+        public virtual IFlowchart GetFlowchart()
         {
-            return GetComponent<Flowchart>();
+            return GetComponent<IFlowchart>();
         }
 
         public virtual bool IsExecuting()
@@ -158,7 +158,7 @@ namespace Fungus
 
             executionCount++;
 
-            Flowchart flowchart = GetFlowchart();
+            IFlowchart flowchart = GetFlowchart();
             executionState = ExecutionState.Executing;
 
             #if UNITY_EDITOR

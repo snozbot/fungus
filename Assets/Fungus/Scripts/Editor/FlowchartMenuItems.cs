@@ -15,7 +15,7 @@ namespace Fungus
             go.transform.position = Vector3.zero;
 
             // This is the latest version of Flowchart, so no need to update.
-            Flowchart flowchart = go.GetComponent<Flowchart>();
+            var flowchart = go.GetComponent<Flowchart>();
             if (flowchart != null)
             {
                 flowchart.Version = Flowchart.CURRENT_VERSION;

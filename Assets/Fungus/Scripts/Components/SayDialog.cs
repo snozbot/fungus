@@ -245,7 +245,7 @@ namespace Fungus
             gameObject.SetActive(state);
         }
 
-        public virtual void SetCharacter(Character character, Flowchart flowchart = null)
+        public virtual void SetCharacter(Character character, IFlowchart flowchart = null)
         {
             if (character == null)
             {

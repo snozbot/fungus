@@ -23,7 +23,7 @@ namespace Fungus
         
         public override void DrawCommandGUI()
         {
-            Flowchart flowchart = FlowchartWindow.GetFlowchart();
+            var flowchart = FlowchartWindow.GetFlowchart();
             if (flowchart == null)
             {
                 return;

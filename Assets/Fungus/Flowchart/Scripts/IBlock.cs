@@ -67,7 +67,7 @@ namespace Fungus
         /// <summary>
         /// Returns the parent Flowchart for this Block.
         /// </summary>
-        Flowchart GetFlowchart();
+        IFlowchart GetFlowchart();
 
         /// <summary>
         /// Returns true if the Block is executing a command.

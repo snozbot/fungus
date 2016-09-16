@@ -85,7 +85,7 @@ namespace Fungus
                 return;
             }
     
-            Flowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
 
             sayDialog.SetActive(true);
 

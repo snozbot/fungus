@@ -62,7 +62,7 @@ namespace Fungus
         {
             Label t = target as Label;
 
-            Flowchart flowchart = t.GetFlowchart();
+            var flowchart = (Flowchart)t.GetFlowchart();
             if (flowchart == null)
             {
                 return;

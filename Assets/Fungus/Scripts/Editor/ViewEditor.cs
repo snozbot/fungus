@@ -168,7 +168,7 @@ namespace Fungus
 
             bool highlight = Selection.activeGameObject == view.gameObject;
 
-            Flowchart flowchart = FlowchartWindow.GetFlowchart();
+            var flowchart = FlowchartWindow.GetFlowchart();
             if (flowchart != null)
             {
                 foreach (Command command in flowchart.SelectedCommands)

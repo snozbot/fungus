@@ -37,7 +37,7 @@ namespace Fungus
 
             SetVariable t = target as SetVariable;
 
-            Flowchart flowchart = t.GetFlowchart();
+            var flowchart = (Flowchart)t.GetFlowchart();
             if (flowchart == null)
             {
                 return;

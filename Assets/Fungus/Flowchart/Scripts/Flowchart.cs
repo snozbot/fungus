@@ -337,6 +337,11 @@ namespace Fungus
             return gameObject.activeInHierarchy;
         }
 
+        public string GetName()
+        {
+            return gameObject.name;
+        }
+
         public int NextItemId()
         {
             int maxId = -1;

@@ -50,7 +50,7 @@ namespace Fungus
         /// <summary>
         /// Returns the Flowchart that this command belongs to.
         /// </summary>
-        Flowchart GetFlowchart();
+        IFlowchart GetFlowchart();
 
         /// <summary>
         /// Execute the command.

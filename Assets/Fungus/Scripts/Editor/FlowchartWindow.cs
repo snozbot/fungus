@@ -61,7 +61,7 @@ namespace Fungus
         protected virtual void OnInspectorUpdate()
         {
             // Ensure the Block Inspector is always showing the currently selected block
-            Flowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
             if (flowchart == null)
             {
                 return;
@@ -97,7 +97,7 @@ namespace Fungus
 
             if (Selection.activeGameObject != null)
             {
-                Flowchart fs = Selection.activeGameObject.GetComponent<Flowchart>();
+                var fs = Selection.activeGameObject.GetComponent<Flowchart>();
                 if (fs != null)
                 {
                     fungusState.SelectedFlowchart = fs;
@@ -109,7 +109,7 @@ namespace Fungus
 
         protected virtual void OnGUI()
         {
-            Flowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
             if (flowchart == null)
             {
                 GUILayout.Label("No Flowchart scene object selected");
@@ -573,7 +573,7 @@ namespace Fungus
         protected virtual void DrawWindow(int windowId)
         {
             IBlock block = windowBlockMap[windowId];
-            Flowchart flowchart = block.GetFlowchart();
+            var flowchart = (Flowchart)block.GetFlowchart();
                             
             if (flowchart == null)
             {
@@ -713,7 +713,7 @@ namespace Fungus
                 {
                     if (blockB == null ||
                         block == blockB ||
-                        blockB.GetFlowchart() != flowchart)
+                        !blockB.GetFlowchart().Equals(flowchart))
                     {
                         continue;
                     }
@@ -788,7 +788,7 @@ namespace Fungus
         
         protected static void DuplicateBlock(object obj)
         {
-            Flowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
             Block block = obj as Block;
 
             Vector2 newPosition = new Vector2(block._NodeRect.position.x + 

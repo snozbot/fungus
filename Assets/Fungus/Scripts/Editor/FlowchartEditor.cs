@@ -57,7 +57,7 @@ namespace Fungus
         {
             serializedObject.Update();
 
-            Flowchart flowchart = target as Flowchart;
+            var flowchart = target as Flowchart;
 
             flowchart.UpdateHideFlags();
 
@@ -100,7 +100,7 @@ namespace Fungus
         {
             serializedObject.Update();
 
-            Flowchart t = target as Flowchart;
+            var t = target as Flowchart;
 
             if (t.Variables.Count == 0)
             {
@@ -240,7 +240,7 @@ namespace Fungus
                 return;
             }
 
-            Flowchart flowchart = addVariableInfo.flowchart;
+            var flowchart = addVariableInfo.flowchart;
             System.Type variableType = addVariableInfo.variableType;
 
             Undo.RecordObject(flowchart, "Add Variable");

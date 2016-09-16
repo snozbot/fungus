@@ -115,8 +115,12 @@ namespace Fungus
         /// <summary>
         /// Returns true if the Flowchart gameobject is active.
         /// </summary>
-        /// <returns><c>true</c> if this instance is active; otherwise, <c>false</c>.</returns>
         bool IsActive();
+
+        /// <summary>
+        /// Returns the Flowchart gameobject name.
+        /// </summary>
+        string GetName();
 
         /// <summary>
         /// Create a new block node which you can then add commands to.

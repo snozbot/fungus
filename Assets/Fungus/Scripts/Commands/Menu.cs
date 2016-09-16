@@ -52,7 +52,7 @@ namespace Fungus
                 {
                     menuDialog.SetActive(true);
 
-                    Flowchart flowchart = GetFlowchart();
+                    var flowchart = GetFlowchart();
                     string displayText = flowchart.SubstituteVariables(text);
 
                     menuDialog.AddOption(displayText, interactable, targetBlock);

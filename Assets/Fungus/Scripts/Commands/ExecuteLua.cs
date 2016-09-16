@@ -61,7 +61,7 @@ namespace Fungus
             // Cache a descriptive name to use in Lua error messages
             friendlyName = gameObject.name + "." + ParentBlock.BlockName + "." + "ExecuteLua #" + CommandIndex.ToString();
 
-            Flowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
 
             // See if a Lua Environment has been assigned to this Flowchart
             if (luaEnvironment == null)        

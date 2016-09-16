@@ -633,7 +633,7 @@ namespace Fungus
         {
             IBlock block = target as IBlock;
 
-            Flowchart flowchart = block.GetFlowchart();
+            var flowchart = (Flowchart)block.GetFlowchart();
 
             // Use index of last selected command in list, or end of list if nothing selected.
             int index = -1;
@@ -728,7 +728,7 @@ namespace Fungus
                 return;
             }
 
-            Flowchart flowchart = block.GetFlowchart();
+            var flowchart = (Flowchart)block.GetFlowchart();
 
             flowchart.ClearSelectedCommands();
             
@@ -757,7 +757,7 @@ namespace Fungus
         public virtual void ShowContextMenu()
         {
             IBlock block = target as IBlock;
-            Flowchart flowchart = block.GetFlowchart();
+            var flowchart = (Flowchart)block.GetFlowchart();
 
             if (flowchart == null)
             {
@@ -845,7 +845,7 @@ namespace Fungus
         protected void SelectAll()
         {
             IBlock block = target as IBlock;
-            Flowchart flowchart = block.GetFlowchart();
+            var flowchart = (Flowchart)block.GetFlowchart();
 
             if (flowchart == null ||
                 flowchart.SelectedBlock == null)
@@ -866,7 +866,7 @@ namespace Fungus
         protected void SelectNone()
         {
             IBlock block = target as IBlock;
-            Flowchart flowchart = block.GetFlowchart();
+            var flowchart = (Flowchart)block.GetFlowchart();
 
             if (flowchart == null ||
                 flowchart.SelectedBlock == null)
@@ -889,7 +889,7 @@ namespace Fungus
         protected void Copy()
         {
             IBlock block = target as IBlock;
-            Flowchart flowchart = block.GetFlowchart();
+            var flowchart = (Flowchart)block.GetFlowchart();
 
             if (flowchart == null ||
                 flowchart.SelectedBlock == null)
@@ -919,7 +919,7 @@ namespace Fungus
         protected void Paste()
         {
             IBlock block = target as IBlock;
-            Flowchart flowchart = block.GetFlowchart();
+            var flowchart = (Flowchart)block.GetFlowchart();
 
             if (flowchart == null ||
                 flowchart.SelectedBlock == null)
@@ -978,7 +978,7 @@ namespace Fungus
         protected void Delete()
         {
             IBlock block = target as IBlock;
-            Flowchart flowchart = block.GetFlowchart();
+            var flowchart = (Flowchart)block.GetFlowchart();
 
             if (flowchart == null ||
                 flowchart.SelectedBlock == null)
@@ -1023,7 +1023,7 @@ namespace Fungus
         protected void PlayCommand()
         {
             IBlock targetBlock = target as IBlock;
-            Flowchart flowchart = targetBlock.GetFlowchart();
+            var flowchart = (Flowchart)targetBlock.GetFlowchart();
             Command command = flowchart.SelectedCommands[0];
             if (targetBlock.IsExecuting())
             {
@@ -1043,7 +1043,7 @@ namespace Fungus
         protected void StopAllPlayCommand()
         {
             IBlock targetBlock = target as IBlock;
-            Flowchart flowchart = targetBlock.GetFlowchart();
+            var flowchart = (Flowchart)targetBlock.GetFlowchart();
             Command command = flowchart.SelectedCommands[0];
 
             // Stop all active blocks then run the selected block.
@@ -1060,7 +1060,7 @@ namespace Fungus
         protected void SelectPrevious()
         {
             IBlock block = target as IBlock;
-            Flowchart flowchart = block.GetFlowchart();
+            var flowchart = (Flowchart)block.GetFlowchart();
             
             int firstSelectedIndex = flowchart.SelectedBlock.CommandList.Count;
             bool firstSelectedCommandFound = false;
@@ -1100,7 +1100,7 @@ namespace Fungus
         protected void SelectNext()
         {
             IBlock block = target as IBlock;
-            Flowchart flowchart = block.GetFlowchart();
+            var flowchart = (Flowchart)block.GetFlowchart();
             
             int lastSelectedIndex = -1;
             if (flowchart.SelectedCommands.Count > 0)

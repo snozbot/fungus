@@ -82,7 +82,7 @@ namespace Fungus
                 break;
             }
 
-            Flowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
             string newText = flowchart.SubstituteVariables(text.Value);
 
             if (!waitUntilFinished)

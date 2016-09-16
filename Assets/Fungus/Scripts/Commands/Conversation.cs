@@ -32,7 +32,7 @@ namespace Fungus
 
         protected virtual IEnumerator DoConversation()
         {
-            Flowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
             string subbedText = flowchart.SubstituteVariables(conversationText.Value);
 
             yield return StartCoroutine(conversationManager.DoConversation(subbedText));

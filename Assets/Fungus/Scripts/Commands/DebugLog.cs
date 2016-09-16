@@ -29,7 +29,7 @@ namespace Fungus
 
         public override void OnEnter ()
         {
-            Flowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
             string message = flowchart.SubstituteVariables(logMessage.Value);
 
             switch (logType)

@@ -37,7 +37,7 @@ namespace Fungus
                 return;
             }
 
-            Flowchart flowchart = t.GetFlowchart();
+            var flowchart = (Flowchart)t.GetFlowchart();
             if (flowchart == null)
             {
                 return;

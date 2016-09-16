@@ -34,7 +34,7 @@ namespace Fungus
             Flowchart flowchart = null;
             if (targetFlowchartProp.objectReferenceValue == null)
             {
-                flowchart = t.GetFlowchart();
+                flowchart = (Flowchart)t.GetFlowchart();
             }
             else
             {

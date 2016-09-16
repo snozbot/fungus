@@ -135,8 +135,8 @@ namespace Fungus
 
             // Add localizable commands in same order as command list to make it
             // easier to localise / edit standard text.
-            Flowchart[] flowcharts = GameObject.FindObjectsOfType<Flowchart>();
-            foreach (Flowchart flowchart in flowcharts)
+            var flowcharts = GameObject.FindObjectsOfType<Flowchart>();
+            foreach (var flowchart in flowcharts)
             {
                 IBlock[] blocks = flowchart.GetComponents<IBlock>();
                 foreach (IBlock block in blocks)

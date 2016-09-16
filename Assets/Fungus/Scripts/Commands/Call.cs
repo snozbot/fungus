@@ -40,7 +40,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            Flowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
 
             if (targetBlock != null)
             {
@@ -63,7 +63,7 @@ namespace Fungus
                 }
 
                 if (targetFlowchart == null ||
-                    targetFlowchart == GetFlowchart())
+                    targetFlowchart.Equals(GetFlowchart()))
                 {
                     // If the executing block is currently selected then follow the execution 
                     // onto the next block in the inspector.
