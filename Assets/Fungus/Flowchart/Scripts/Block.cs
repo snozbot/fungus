@@ -158,7 +158,7 @@ namespace Fungus
 
             executionCount++;
 
-            IFlowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
             executionState = ExecutionState.Executing;
 
             #if UNITY_EDITOR
