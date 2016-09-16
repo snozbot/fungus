@@ -732,7 +732,7 @@ namespace Fungus
 
             flowchart.ClearSelectedCommands();
             
-            ICommand newCommand = Undo.AddComponent(((Block)block).gameObject, commandOperation.commandType) as Command;
+            var newCommand = Undo.AddComponent(((Block)block).gameObject, commandOperation.commandType) as Command;
             block.GetFlowchart().AddSelectedCommand(newCommand);
             newCommand.ParentBlock = block;
             newCommand.ItemId = flowchart.NextItemId();
@@ -1013,7 +1013,7 @@ namespace Fungus
 
             if (lastSelectedIndex < flowchart.SelectedBlock.CommandList.Count)
             {
-                Command nextCommand = flowchart.SelectedBlock.CommandList[lastSelectedIndex];
+                var nextCommand = flowchart.SelectedBlock.CommandList[lastSelectedIndex];
                 block.GetFlowchart().AddSelectedCommand(nextCommand);
             }
 

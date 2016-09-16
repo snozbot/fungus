@@ -260,7 +260,7 @@ namespace Fungus
         /// <summary>
         /// Adds a command to the list of selected commands.
         /// </summary>
-        void AddSelectedCommand(ICommand command);
+        void AddSelectedCommand(Command command);
 
         /// <summary>
         /// Reset the commands and variables in the Flowchart.

@@ -90,7 +90,7 @@ namespace Fungus
                 return null;
             }
             
-            Command newCommand = Undo.AddComponent<Comment>(((Block)block).gameObject) as Command;
+            var newCommand = Undo.AddComponent<Comment>(((Block)block).gameObject) as Command;
             newCommand.ItemId = flowchart.NextItemId();
             flowchart.ClearSelectedCommands();
             flowchart.AddSelectedCommand(newCommand);
@@ -355,7 +355,7 @@ namespace Fungus
 
                         for (int i = Math.Min(firstSelectedIndex, lastSelectedIndex); i < Math.Max(firstSelectedIndex, lastSelectedIndex); ++i)
                         {
-                            Command selectedCommand = flowchart.SelectedBlock.CommandList[i];
+                            var selectedCommand = flowchart.SelectedBlock.CommandList[i];
                             BlockEditor.actionList.Add ( delegate {
                                 flowchart.AddSelectedCommand(selectedCommand);
                             });

@@ -780,11 +780,11 @@ namespace Fungus
             selectedCommands.Clear();
         }
 
-        public virtual void AddSelectedCommand(ICommand command)
+        public virtual void AddSelectedCommand(Command command)
         {
-            if (!selectedCommands.Contains((Command)command))
+            if (!selectedCommands.Contains(command))
             {
-                selectedCommands.Add((Command)command);
+                selectedCommands.Add(command);
             }
         }
 

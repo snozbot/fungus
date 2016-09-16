@@ -34,7 +34,7 @@ namespace Fungus
 
         protected ExecutionState executionState;
 
-        protected ICommand activeCommand;
+        protected Command activeCommand;
 
         /// <summary>
         // Index of last command executed before the current one.
@@ -116,7 +116,7 @@ namespace Fungus
 
         public virtual EventHandler _EventHandler { get { return eventHandler; } set { eventHandler = value; } }
 
-        public virtual ICommand ActiveCommand { get { return activeCommand; } }
+        public virtual Command ActiveCommand { get { return activeCommand; } }
 
         public virtual float ExecutingIconTimer { get; set; }
 
@@ -207,7 +207,7 @@ namespace Fungus
                     previousActiveCommandIndex = activeCommand.CommandIndex;
                 }
 
-                ICommand command = commandList[i];
+                var command = commandList[i];
                 activeCommand = command;
 
                 if (flowchart.IsActive())
