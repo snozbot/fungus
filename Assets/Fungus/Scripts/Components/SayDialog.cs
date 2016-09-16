@@ -13,12 +13,6 @@ namespace Fungus
     /// </summary>
     public class SayDialog : MonoBehaviour, ISayDialog
     {
-        // Currently active Say Dialog used to display Say text
-        public static ISayDialog activeSayDialog;
-
-        // Most recent speaking character
-        public static ICharacter speakingCharacter;
-
         [Tooltip("Duration to fade dialogue in/out")]
         [SerializeField] protected float fadeDuration = 0.25f;
 
@@ -54,6 +48,12 @@ namespace Fungus
         protected float fadeCoolDownTimer = 0f;
 
         protected Sprite currentCharacterImage;
+
+        // Currently active Say Dialog used to display Say text
+        public static ISayDialog activeSayDialog;
+
+        // Most recent speaking character
+        public static ICharacter speakingCharacter;
 
         public static ISayDialog GetSayDialog()
         {
