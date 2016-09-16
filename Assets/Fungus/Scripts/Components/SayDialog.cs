@@ -17,7 +17,7 @@ namespace Fungus
         public static ISayDialog activeSayDialog;
 
         // Most recent speaking character
-        public static Character speakingCharacter;
+        public static ICharacter speakingCharacter;
 
         [Tooltip("Duration to fade dialogue in/out")]
         [SerializeField] protected float fadeDuration = 0.25f;
@@ -245,7 +245,7 @@ namespace Fungus
             gameObject.SetActive(state);
         }
 
-        public virtual void SetCharacter(Character character, IFlowchart flowchart = null)
+        public virtual void SetCharacter(ICharacter character, IFlowchart flowchart = null)
         {
             if (character == null)
             {
@@ -261,7 +261,7 @@ namespace Fungus
             }
             else
             {
-                Character prevSpeakingCharacter = speakingCharacter;
+                ICharacter prevSpeakingCharacter = speakingCharacter;
                 speakingCharacter = character;
 
                 // Dim portraits of non-speaking characters
@@ -270,11 +270,11 @@ namespace Fungus
 
                     if (stage.DimPortraits)
                     {
-                        foreach (Character c in stage.CharactersOnStage)
+                        foreach (var c in stage.CharactersOnStage)
                         {
                             if (prevSpeakingCharacter != speakingCharacter)
                             {
-                                if (c != speakingCharacter)
+                                if (c != null && !c.Equals(speakingCharacter))
                                 {
                                     stage.SetDimmed(c, true);
                                 }
@@ -292,7 +292,7 @@ namespace Fungus
                 if (characterName == "")
                 {
                     // Use game object name as default
-                    characterName = character.name;
+                    characterName = character.GetObjectName();
                 }
 
                 if (flowchart != null)

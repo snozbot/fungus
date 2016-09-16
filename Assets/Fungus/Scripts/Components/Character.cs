@@ -71,19 +71,14 @@ namespace Fungus
 
         public virtual ISayDialog SetSayDialog { get { return setSayDialog; } }
 
-        /// <summary>
-        /// Returns true if the character name starts with the specified string. Case insensitive.
-        /// </summary>
-        public bool NameStartsWith(string matchString)
+        public string GetObjectName() { return gameObject.name; }
+
+        public virtual bool NameStartsWith(string matchString)
         {
             return name.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture)
                 || nameText.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture);
         }
 
-        /// <summary>
-        /// Looks for a portrait by name on a character
-        /// If none is found, give a warning and return a blank sprite
-        /// </summary>
         public virtual Sprite GetPortrait(string portraitString)
         {
             if (String.IsNullOrEmpty(portraitString))

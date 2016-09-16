@@ -53,6 +53,11 @@ namespace Fungus
         ISayDialog SetSayDialog { get; }
 
         /// <summary>
+        /// Returns the name of the game object.
+        /// </summary>
+        string GetObjectName();
+
+        /// <summary>
         /// Returns true if the character name starts with the specified string. Case insensitive.
         /// </summary>
         bool NameStartsWith(string matchString);
