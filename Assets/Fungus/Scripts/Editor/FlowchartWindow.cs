@@ -369,8 +369,8 @@ namespace Fungus
                 {
                     if (b.IsExecuting())
                     {
-                        b.ExecutingIconTimer = Time.realtimeSinceStartup + Block.executingIconFadeTime;
-                        b.ActiveCommand.ExecutingIconTimer = Time.realtimeSinceStartup + Block.executingIconFadeTime;
+                        b.ExecutingIconTimer = Time.realtimeSinceStartup + FungusConstants.ExecutingIconFadeTime;
+                        b.ActiveCommand.ExecutingIconTimer = Time.realtimeSinceStartup + FungusConstants.ExecutingIconFadeTime;
                         forceRepaintCount = 6;
                     }
 
@@ -385,7 +385,7 @@ namespace Fungus
 
                         if (!b.IsExecuting())
                         {
-                            float alpha = (b.ExecutingIconTimer - Time.realtimeSinceStartup) / Block.executingIconFadeTime;
+                            float alpha = (b.ExecutingIconTimer - Time.realtimeSinceStartup) / FungusConstants.ExecutingIconFadeTime;
                             alpha = Mathf.Clamp01(alpha);
                             GUI.color = new Color(1f, 1f, 1f, alpha); 
                         }

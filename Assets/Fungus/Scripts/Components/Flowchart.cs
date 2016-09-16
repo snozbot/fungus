@@ -19,16 +19,6 @@ namespace Fungus
     [ExecuteInEditMode]
     public class Flowchart : MonoBehaviour, IFlowchart, ISubstitutionHandler
     {
-        /// <summary>
-        /// The current version of the Flowchart. Used for updating components.
-        /// </summary>
-        public const int CURRENT_VERSION = 1;
-
-        /// <summary>
-        /// The name of the initial block in a new flowchart.
-        /// </summary>
-        public const string DEFAULT_BLOCK_NAME = "New Block";
-
         [HideInInspector]
         [SerializeField] protected int version = 0; // Default to 0 to always trigger an update for older versions of Fungus.
 
@@ -177,7 +167,7 @@ namespace Fungus
 
         protected virtual void UpdateVersion()
         {
-            if (version == CURRENT_VERSION)
+            if (version == FungusConstants.CurrentVersion)
             {
                 // No need to update
                 return;
@@ -189,11 +179,11 @@ namespace Fungus
                 IUpdateable u = component as IUpdateable;
                 if (u != null)
                 {
-                    u.UpdateToVersion(version, CURRENT_VERSION);
+                    u.UpdateToVersion(version, FungusConstants.CurrentVersion);
                 }
             }
 
-            version = CURRENT_VERSION;
+            version = FungusConstants.CurrentVersion;
         }
 
         protected virtual void OnDisable()
@@ -500,7 +490,7 @@ namespace Fungus
             // No empty keys allowed
             if (baseKey.Length == 0)
             {
-                baseKey = "New Block";
+                baseKey = FungusConstants.DefaultBlockName;
             }
 
             var blocks = GetComponents<IBlock>();

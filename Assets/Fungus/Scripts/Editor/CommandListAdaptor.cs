@@ -416,7 +416,7 @@ namespace Fungus
 
                 Color storeColor = GUI.color;
 
-                float alpha = (command.ExecutingIconTimer - Time.realtimeSinceStartup) / Block.executingIconFadeTime;
+                float alpha = (command.ExecutingIconTimer - Time.realtimeSinceStartup) / FungusConstants.ExecutingIconFadeTime;
                 alpha = Mathf.Clamp01(alpha);
 
                 GUI.color = new Color(1f, 1f, 1f, alpha);

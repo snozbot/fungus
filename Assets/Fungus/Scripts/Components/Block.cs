@@ -44,11 +44,6 @@ namespace Fungus
 
         protected int jumpToCommandIndex = -1;
 
-        /// <summary>
-        /// Duration of fade for executing icon displayed beside blocks & commands.
-        /// </summary>
-        public const float executingIconFadeTime = 0.5f;
-
         protected int executionCount;
 
         protected bool executionInfoSet = false;
@@ -224,7 +219,7 @@ namespace Fungus
                 command.IsExecuting = true;
                 // This icon timer is managed by the FlowchartWindow class, but we also need to
                 // set it here in case a command starts and finishes execution before the next window update.
-                command.ExecutingIconTimer = Time.realtimeSinceStartup + executingIconFadeTime;
+                command.ExecutingIconTimer = Time.realtimeSinceStartup + FungusConstants.ExecutingIconFadeTime;
                 command.Execute();
 
                 // Wait until the executing command sets another command to jump to via Command.Continue()
