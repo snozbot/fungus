@@ -9,11 +9,11 @@ namespace Fungus
     /// Base class for Flowchart nodes.
     /// </summary>
     [AddComponentMenu("")]
-    public class Node : MonoBehaviour, INode 
+    public class Node : MonoBehaviour
     {
         [SerializeField] protected Rect nodeRect = new Rect(0, 0, 120, 30);
 
-        #region INode implementation
+        #region Public methods
 
         public virtual Rect _NodeRect { get { return nodeRect; } set { nodeRect = value; } }
 

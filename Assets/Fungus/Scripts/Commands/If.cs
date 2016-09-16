@@ -107,7 +107,7 @@ namespace Fungus
             // Find the next Else, ElseIf or End command at the same indent level as this If command
             for (int i = CommandIndex + 1; i < ParentBlock.CommandList.Count; ++i)
             {
-                ICommand nextCommand = ParentBlock.CommandList[i];
+                Command nextCommand = ParentBlock.CommandList[i];
 
                 if (nextCommand == null)
                 {

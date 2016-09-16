@@ -81,7 +81,7 @@ namespace Fungus
             return new Color32(180, 250, 250, 255);
         }
 
-        public override void OnCommandAdded(IBlock parentBlock)
+        public override void OnCommandAdded(Block parentBlock)
         {
             targetObjects.Add(null);
         }

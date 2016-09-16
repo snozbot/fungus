@@ -99,7 +99,7 @@ namespace Fungus
         /// <summary>
         /// Returns a list of all Blocks connected to this one.
         /// </summary>
-        List<IBlock> GetConnectedBlocks();
+        List<Block> GetConnectedBlocks();
 
         /// <summary>
         /// Returns the type of the previously executing command.

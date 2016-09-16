@@ -43,7 +43,7 @@ namespace Fungus
         /// <summary>
         /// Currently selected block in the Flowchart editor.
         /// </summary>
-        IBlock SelectedBlock { get; set; }
+        Block SelectedBlock { get; set; }
 
         /// <summary>
         /// Currently selected command in the Flowchart editor.

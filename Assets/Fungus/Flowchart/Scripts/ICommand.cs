@@ -45,7 +45,7 @@ namespace Fungus
         /// This reference is only populated at runtime and in the editor when the 
         /// block is selected.
         /// </summary>
-        IBlock ParentBlock { get; set; }
+        Block ParentBlock { get; set; }
 
         /// <summary>
         /// Returns the Flowchart that this command belongs to.
@@ -84,12 +84,12 @@ namespace Fungus
         /// <summary>
         /// Called when the new command is added to a block in the editor.
         /// </summary>
-        void OnCommandAdded(IBlock parentBlock);
+        void OnCommandAdded(Block parentBlock);
 
         /// <summary>
         /// Called when the command is deleted from a block in the editor.
         /// </summary>
-        void OnCommandRemoved(IBlock parentBlock);
+        void OnCommandRemoved(Block parentBlock);
 
         /// <summary>
         /// Called when this command starts execution.
@@ -109,7 +109,7 @@ namespace Fungus
         /// <summary>
         /// Populates a list with the Blocks that this command references.
         /// </summary>
-        void GetConnectedBlocks(ref List<IBlock> connectedBlocks);
+        void GetConnectedBlocks(ref List<Block> connectedBlocks);
 
         /// <summary>
         /// Returns true if this command references the variable.

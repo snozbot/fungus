@@ -138,10 +138,10 @@ namespace Fungus
             var flowcharts = GameObject.FindObjectsOfType<Flowchart>();
             foreach (var flowchart in flowcharts)
             {
-                IBlock[] blocks = flowchart.GetComponents<IBlock>();
-                foreach (IBlock block in blocks)
+                var blocks = flowchart.GetComponents<IBlock>();
+                foreach (var block in blocks)
                 {
-                    foreach (Command command in block.CommandList)
+                    foreach (var command in block.CommandList)
                     {
                         ILocalizable localizable = command as ILocalizable;
                         if (localizable != null)

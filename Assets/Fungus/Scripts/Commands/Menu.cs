@@ -62,7 +62,7 @@ namespace Fungus
             Continue();
         }
 
-        public override void GetConnectedBlocks(ref List<IBlock> connectedBlocks)
+        public override void GetConnectedBlocks(ref List<Block> connectedBlocks)
         {
             if (targetBlock != null)
             {

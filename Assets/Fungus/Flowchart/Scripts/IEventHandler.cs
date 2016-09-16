@@ -15,7 +15,7 @@ namespace Fungus
         /// <summary>
         /// The parent Block which owns this Event Handler.
         /// </summary>
-        IBlock ParentBlock { get; set; }
+        Block ParentBlock { get; set; }
 
         /// <summary>
         /// The Event Handler should call this method when the event is detected to start executing the Block.

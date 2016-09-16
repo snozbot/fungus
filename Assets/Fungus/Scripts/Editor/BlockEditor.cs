@@ -20,13 +20,13 @@ namespace Fungus
     {
         protected class SetEventHandlerOperation
         {
-            public IBlock block;
+            public Block block;
             public Type eventHandlerType;
         }
 
         protected class AddCommandOperation
         {
-            public IBlock block;
+            public Block block;
             public Type commandType;
             public int index;
         }
@@ -59,7 +59,7 @@ namespace Fungus
             EditorGUI.PropertyField(blockNameRect, blockNameProperty, new GUIContent(""));
 
             // Ensure block name is unique for this Flowchart
-            IBlock block = target as IBlock;
+            var block = target as Block;
             string uniqueName = flowchart.GetUniqueBlockKey(blockNameProperty.stringValue, block);
             if (uniqueName != block.BlockName)
             {
@@ -89,7 +89,7 @@ namespace Fungus
                 actionList.Clear();
             }
 
-            IBlock block = target as IBlock;
+            var block = target as Block;
 
             SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
             
@@ -103,7 +103,7 @@ namespace Fungus
                 block.UpdateIndentLevels();
 
                 // Make sure each command has a reference to its parent block
-                foreach (ICommand command in block.CommandList)
+                foreach (var command in block.CommandList)
                 {
                     if (command == null) // Will be deleted from the list later on
                     {
@@ -114,7 +114,7 @@ namespace Fungus
 
                 ReorderableListGUI.Title("Commands");
                 CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
-                adaptor.nodeRect = (block as INode)._NodeRect;
+                adaptor.nodeRect = block._NodeRect;
                 
                 ReorderableListFlags flags = ReorderableListFlags.HideAddButton | ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.DisableContextMenu;
 
@@ -305,7 +305,7 @@ namespace Fungus
             // event handler selected.
             List<System.Type> eventHandlerTypes = EditorExtensions.FindDerivedTypes(typeof(EventHandler)).ToList();
 
-            IBlock block = target as IBlock;
+            Block block = target as Block;
             System.Type currentType = null;
             if (block._EventHandler != null)
             {
@@ -382,14 +382,14 @@ namespace Fungus
         protected void OnSelectEventHandler(object obj)
         {
             SetEventHandlerOperation operation = obj as SetEventHandlerOperation;
-            IBlock block = operation.block;
+            Block block = operation.block;
             System.Type selectedType = operation.eventHandlerType;
             if (block == null)
             {
                 return;
             }
 
-            Undo.RecordObject((Block)block, "Set Event Handler");
+            Undo.RecordObject(block, "Set Event Handler");
 
             if (block._EventHandler != null)
             {
@@ -398,13 +398,13 @@ namespace Fungus
 
             if (selectedType != null)
             {
-                EventHandler newHandler = Undo.AddComponent(((Block)block).gameObject, selectedType) as EventHandler;
+                EventHandler newHandler = Undo.AddComponent(block.gameObject, selectedType) as EventHandler;
                 newHandler.ParentBlock = block;
                 block._EventHandler = newHandler;
             }
 
             // Because this is an async call, we need to force prefab instances to record changes
-            PrefabUtility.RecordPrefabInstancePropertyModifications((Block)block);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(block);
         }
 
         static public void BlockField(SerializedProperty property, GUIContent label, GUIContent nullLabel, Flowchart flowchart)
@@ -414,14 +414,14 @@ namespace Fungus
                 return;
             }
 
-            IBlock block = property.objectReferenceValue as IBlock;
+            var block = property.objectReferenceValue as Block;
         
             // Build dictionary of child blocks
             List<GUIContent> blockNames = new List<GUIContent>();
             
             int selectedIndex = 0;
             blockNames.Add(nullLabel);
-            IBlock[] blocks = flowchart.GetComponents<IBlock>();
+            var blocks = flowchart.GetComponents<Block>();
             for (int i = 0; i < blocks.Length; ++i)
             {
                 blockNames.Add(new GUIContent(blocks[i].BlockName));
@@ -442,7 +442,7 @@ namespace Fungus
                 block = blocks[selectedIndex - 1];
             }
             
-            property.objectReferenceValue = (Block)block;
+            property.objectReferenceValue = block;
         }
 
         static public Block BlockField(Rect position, GUIContent nullLabel, Flowchart flowchart, Block block)
@@ -631,13 +631,13 @@ namespace Fungus
 
         protected virtual void ShowCommandMenu()
         {
-            IBlock block = target as IBlock;
+            var block = target as Block;
 
             var flowchart = (Flowchart)block.GetFlowchart();
 
             // Use index of last selected command in list, or end of list if nothing selected.
             int index = -1;
-            foreach (ICommand command in flowchart.SelectedCommands)
+            foreach (var command in flowchart.SelectedCommands)
             {
                 if (command.CommandIndex + 1 > index)
                 {
@@ -722,7 +722,7 @@ namespace Fungus
         {
             AddCommandOperation commandOperation = obj as AddCommandOperation;
             
-            IBlock block = commandOperation.block;
+            var block = commandOperation.block;
             if (block == null)
             {
                 return;
@@ -732,7 +732,7 @@ namespace Fungus
 
             flowchart.ClearSelectedCommands();
             
-            var newCommand = Undo.AddComponent(((Block)block).gameObject, commandOperation.commandType) as Command;
+            var newCommand = Undo.AddComponent(block.gameObject, commandOperation.commandType) as Command;
             block.GetFlowchart().AddSelectedCommand(newCommand);
             newCommand.ParentBlock = block;
             newCommand.ItemId = flowchart.NextItemId();
@@ -740,23 +740,23 @@ namespace Fungus
             // Let command know it has just been added to the block
             newCommand.OnCommandAdded(block);
 
-            Undo.RecordObject((Block)block, "Set command type");
+            Undo.RecordObject(block, "Set command type");
             if (commandOperation.index < block.CommandList.Count - 1)
             {
-                block.CommandList.Insert(commandOperation.index, (Command)newCommand);
+                block.CommandList.Insert(commandOperation.index, newCommand);
             }
             else
             {
-                block.CommandList.Add((Command)newCommand);
+                block.CommandList.Add(newCommand);
             }
 
             // Because this is an async call, we need to force prefab instances to record changes
-            PrefabUtility.RecordPrefabInstancePropertyModifications((Block)block);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(block);
         }
 
         public virtual void ShowContextMenu()
         {
-            IBlock block = target as IBlock;
+            var block = target as Block;
             var flowchart = (Flowchart)block.GetFlowchart();
 
             if (flowchart == null)
@@ -844,7 +844,7 @@ namespace Fungus
         
         protected void SelectAll()
         {
-            IBlock block = target as IBlock;
+            var block = target as Block;
             var flowchart = (Flowchart)block.GetFlowchart();
 
             if (flowchart == null ||
@@ -865,7 +865,7 @@ namespace Fungus
         
         protected void SelectNone()
         {
-            IBlock block = target as IBlock;
+            var block = target as Block;
             var flowchart = (Flowchart)block.GetFlowchart();
 
             if (flowchart == null ||
@@ -888,7 +888,7 @@ namespace Fungus
         
         protected void Copy()
         {
-            IBlock block = target as IBlock;
+            var block = target as Block;
             var flowchart = (Flowchart)block.GetFlowchart();
 
             if (flowchart == null ||
@@ -918,7 +918,7 @@ namespace Fungus
         
         protected void Paste()
         {
-            IBlock block = target as IBlock;
+            var block = target as Block;
             var flowchart = (Flowchart)block.GetFlowchart();
 
             if (flowchart == null ||
@@ -970,14 +970,14 @@ namespace Fungus
             }
 
             // Because this is an async call, we need to force prefab instances to record changes
-            PrefabUtility.RecordPrefabInstancePropertyModifications((Block)block);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(block);
             
             Repaint();
         }
         
         protected void Delete()
         {
-            IBlock block = target as IBlock;
+            var block = target as Block;
             var flowchart = (Flowchart)block.GetFlowchart();
 
             if (flowchart == null ||
@@ -1022,7 +1022,7 @@ namespace Fungus
         
         protected void PlayCommand()
         {
-            IBlock targetBlock = target as IBlock;
+            var targetBlock = target as Block;
             var flowchart = (Flowchart)targetBlock.GetFlowchart();
             Command command = flowchart.SelectedCommands[0];
             if (targetBlock.IsExecuting())
@@ -1042,7 +1042,7 @@ namespace Fungus
 
         protected void StopAllPlayCommand()
         {
-            IBlock targetBlock = target as IBlock;
+            var targetBlock = target as Block;
             var flowchart = (Flowchart)targetBlock.GetFlowchart();
             Command command = flowchart.SelectedCommands[0];
 
@@ -1051,7 +1051,7 @@ namespace Fungus
             flowchart.StartCoroutine(RunBlock(flowchart, targetBlock, command.CommandIndex, 0.2f));
         }
 
-        protected IEnumerator RunBlock(Flowchart flowchart, IBlock targetBlock, int commandIndex, float delay)
+        protected IEnumerator RunBlock(Flowchart flowchart, Block targetBlock, int commandIndex, float delay)
         {
             yield return new WaitForSeconds(delay);
             flowchart.ExecuteBlock(targetBlock, commandIndex);
@@ -1059,7 +1059,7 @@ namespace Fungus
 
         protected void SelectPrevious()
         {
-            IBlock block = target as IBlock;
+            var block = target as Block;
             var flowchart = (Flowchart)block.GetFlowchart();
             
             int firstSelectedIndex = flowchart.SelectedBlock.CommandList.Count;
@@ -1099,7 +1099,7 @@ namespace Fungus
 
         protected void SelectNext()
         {
-            IBlock block = target as IBlock;
+            var block = target as Block;
             var flowchart = (Flowchart)block.GetFlowchart();
             
             int lastSelectedIndex = -1;

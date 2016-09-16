@@ -35,7 +35,7 @@ namespace Fungus
         // when a different block / command is selected.
         protected BlockEditor activeBlockEditor;
         protected CommandEditor activeCommandEditor;
-        protected ICommand activeCommand; // Command currently being inspected
+        protected Command activeCommand; // Command currently being inspected
 
         // Cached command editors to avoid creating / destroying editors more than necessary
         // This list is static so persists between 
@@ -75,7 +75,11 @@ namespace Fungus
                 return;
             }
 
-            IBlock block = blockInspector.block;
+            var block = blockInspector.block;
+            if (block == null)
+            {
+                return;
+            }
 
             var flowchart = (Flowchart)block.GetFlowchart();
 
@@ -83,7 +87,7 @@ namespace Fungus
                 !block.Equals(activeBlockEditor.target))
             {
                 DestroyImmediate(activeBlockEditor);
-                activeBlockEditor = Editor.CreateEditor((Block)block) as BlockEditor;
+                activeBlockEditor = Editor.CreateEditor(block) as BlockEditor;
             }
 
             activeBlockEditor.DrawBlockName(flowchart);
@@ -101,7 +105,7 @@ namespace Fungus
             activeBlockEditor.DrawBlockGUI(flowchart);
             GUILayout.EndScrollView();
 
-            ICommand inspectCommand = null;
+            Command inspectCommand = null;
             if (flowchart.SelectedCommands.Count == 1)
             {
                 inspectCommand = flowchart.SelectedCommands[0];
@@ -109,7 +113,7 @@ namespace Fungus
 
             if (Application.isPlaying &&
                 inspectCommand != null &&
-                inspectCommand.ParentBlock != block)
+                !inspectCommand.ParentBlock.Equals(block))
             {
                 GUILayout.EndArea();
                 Repaint();
@@ -143,7 +147,7 @@ namespace Fungus
             }
         }
 
-        public void DrawCommandUI(Flowchart flowchart, ICommand inspectCommand)
+        public void DrawCommandUI(Flowchart flowchart, Command inspectCommand)
         {
             ResizeScrollView(flowchart);
 

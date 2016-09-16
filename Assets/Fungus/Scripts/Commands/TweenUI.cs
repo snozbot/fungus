@@ -65,7 +65,7 @@ namespace Fungus
             Continue();
         }
 
-        public override void OnCommandAdded(IBlock parentBlock)
+        public override void OnCommandAdded(Block parentBlock)
         {
             // Add an empty slot by default. Saves an unnecessary user click.
             if (targetObjects.Count == 0)

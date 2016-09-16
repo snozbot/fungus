@@ -43,29 +43,29 @@ namespace Fungus
 
         #region IEventHandler
 
-        public virtual IBlock ParentBlock { get { return parentBlock; } set { parentBlock = (Block)value; } }
+        public virtual Block ParentBlock { get { return parentBlock; } set { parentBlock = value; } }
 
         public virtual bool ExecuteBlock()
         {
-            if (parentBlock == null)
+            if (ParentBlock == null)
             {
                 return false;
             }
 
-            if (parentBlock._EventHandler != this)
+            if (ParentBlock._EventHandler != this)
             {
                 return false;
             }
 
-            var flowchart = parentBlock.GetFlowchart();
+            var flowchart = ParentBlock.GetFlowchart();
 
             // Auto-follow the executing block if none is currently selected
             if (flowchart.SelectedBlock == null)
             {
-                flowchart.SelectedBlock = parentBlock;
+                flowchart.SelectedBlock = ParentBlock;
             }
 
-            return flowchart.ExecuteBlock(parentBlock);
+            return flowchart.ExecuteBlock(ParentBlock);
         }
 
         public virtual string GetSummary()

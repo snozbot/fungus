@@ -265,10 +265,10 @@ namespace Fungus
             jumpToCommandIndex = int.MaxValue;
         }
 
-        public virtual List<IBlock> GetConnectedBlocks()
+        public virtual List<Block> GetConnectedBlocks()
         {
-            var connectedBlocks = new List<IBlock>();
-            foreach (ICommand command in commandList)
+            var connectedBlocks = new List<Block>();
+            foreach (var command in commandList)
             {
                 if (command != null)
                 {

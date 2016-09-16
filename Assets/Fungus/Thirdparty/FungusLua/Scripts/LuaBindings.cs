@@ -84,7 +84,7 @@ namespace Fungus
         public override void AddBindings(ILuaEnvironment luaEnv)
         {
             if (!allEnvironments && 
-                !luaEnvironment.Equals(luaEnv))
+                (luaEnvironment != null && !luaEnvironment.Equals(luaEnv)))
             {
                 // Don't add bindings to this environment
                 return;

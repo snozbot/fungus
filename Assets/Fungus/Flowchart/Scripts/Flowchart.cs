@@ -206,8 +206,8 @@ namespace Fungus
             // Make sure item ids are unique and monotonically increasing.
             // This should always be the case, but some legacy Flowcharts may have issues.
             List<int> usedIds = new List<int>();
-            IBlock[] blocks = GetComponents<IBlock>();
-            foreach (IBlock block in blocks)
+            var blocks = GetComponents<IBlock>();
+            foreach (var block in blocks)
             {
                 if (block.ItemId == -1 ||
                     usedIds.Contains(block.ItemId))
@@ -235,8 +235,6 @@ namespace Fungus
             // Unreferenced components don't have any effect on the flowchart behavior, but
             // they waste memory so should be cleared out periodically.
 
-            IBlock[] blocks = GetComponents<IBlock>();
-
             // Remove any null entries in the variables list
             // It shouldn't happen but it seemed to occur for a user on the forum 
             variables.RemoveAll(item => item == null);
@@ -249,10 +247,12 @@ namespace Fungus
                 }
             }
             
+            var blocks = GetComponents<IBlock>();
+
             foreach (var command in GetComponents<Command>())
             {
                 bool found = false;
-                foreach (IBlock block in blocks)
+                foreach (var block in blocks)
                 {
                     if (block.CommandList.Contains(command))
                     {
@@ -270,7 +270,7 @@ namespace Fungus
             foreach (EventHandler eventHandler in GetComponents<EventHandler>())
             {
                 bool found = false;
-                foreach (IBlock block in blocks)
+                foreach (var block in blocks)
                 {
                     if (block._EventHandler == eventHandler)
                     {
@@ -306,7 +306,7 @@ namespace Fungus
 
         public virtual Rect ScrollViewRect { get { return scrollViewRect; } set { scrollViewRect = value; } }
 
-        public virtual IBlock SelectedBlock { get { return selectedBlock; } set { selectedBlock = (Block)value; } }
+        public virtual Block SelectedBlock { get { return selectedBlock; } set { selectedBlock = value; } }
 
         public virtual List<Command> SelectedCommands { get { return selectedCommands; } }
 
@@ -345,8 +345,8 @@ namespace Fungus
         public int NextItemId()
         {
             int maxId = -1;
-            IBlock[] blocks = GetComponents<IBlock>();
-            foreach (IBlock block in blocks)
+            var blocks = GetComponents<IBlock>();
+            foreach (var block in blocks)
             {
                 maxId = Math.Max(maxId, block.ItemId);
             }
@@ -371,8 +371,8 @@ namespace Fungus
 
         public virtual IBlock FindBlock(string blockName)
         {
-            IBlock [] blocks = GetComponents<IBlock>();
-            foreach (Block block in blocks)
+            var blocks = GetComponents<IBlock>();
+            foreach (var block in blocks)
             {
                 if (block.BlockName == blockName)
                 {
@@ -385,15 +385,7 @@ namespace Fungus
 
         public virtual void ExecuteBlock(string blockName)
         {
-            IBlock block = null;
-            foreach (IBlock b in GetComponents<IBlock>())
-            {
-                if (b.BlockName == blockName)
-                {
-                    block = b;
-                    break;
-                }
-            }
+            var block = FindBlock(blockName);
 
             if (block == null)
             {
@@ -435,7 +427,7 @@ namespace Fungus
 
         public virtual void StopAllBlocks()
         {
-            IBlock [] blocks = GetComponents<IBlock>();
+            var blocks = GetComponents<IBlock>();
             foreach (IBlock block in blocks)
             {
                 if (block.IsExecuting())
@@ -511,13 +503,13 @@ namespace Fungus
                 baseKey = "New Block";
             }
 
-            IBlock[] blocks = GetComponents<IBlock>();
+            var blocks = GetComponents<IBlock>();
 
             string key = baseKey;
             while (true)
             {
                 bool collision = false;
-                foreach(IBlock block in blocks)
+                foreach (var block in blocks)
                 {
                     if (block == ignoreBlock ||
                         block.BlockName == null)
@@ -557,7 +549,7 @@ namespace Fungus
             while (true)
             {
                 bool collision = false;
-                foreach (ICommand command in block.CommandList)
+                foreach (var command in block.CommandList)
                 {
                     Label label = command as Label;
                     if (label == null ||
@@ -825,7 +817,7 @@ namespace Fungus
 
         public virtual bool HasExecutingBlocks()
         {
-            IBlock[] blocks = GetComponents<IBlock>();
+            var blocks = GetComponents<IBlock>();
             foreach (IBlock block in blocks)
             {
                 if (block.IsExecuting())
@@ -838,10 +830,9 @@ namespace Fungus
 
         public virtual List<IBlock> GetExecutingBlocks()
         {
-            List<IBlock> executingBlocks = new List<IBlock>();
-
-            IBlock[] blocks = GetComponents<IBlock>();
-            foreach (IBlock block in blocks)
+            var executingBlocks = new List<IBlock>();
+            var blocks = GetComponents<IBlock>();
+            foreach (var block in blocks)
             {
                 if (block.IsExecuting())
                 {
