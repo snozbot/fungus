@@ -19,6 +19,19 @@ namespace Fungus
 
         protected Stage stage;
 
+        public static void SetRectTransform(RectTransform oldRectTransform, RectTransform newRectTransform)
+        {
+            oldRectTransform.eulerAngles = newRectTransform.eulerAngles;
+            oldRectTransform.position = newRectTransform.position;
+            oldRectTransform.rotation = newRectTransform.rotation;
+            oldRectTransform.anchoredPosition = newRectTransform.anchoredPosition;
+            oldRectTransform.sizeDelta = newRectTransform.sizeDelta;
+            oldRectTransform.anchorMax = newRectTransform.anchorMax;
+            oldRectTransform.anchorMin = newRectTransform.anchorMin;
+            oldRectTransform.pivot = newRectTransform.pivot;
+            oldRectTransform.localScale = newRectTransform.localScale;
+        }
+
         protected virtual void Awake()
         {
             stage = GetComponentInParent<Stage>();
@@ -205,19 +218,6 @@ namespace Fungus
             {
                 options.character.State.portraitImage.rectTransform.localScale = new Vector3(1f, 1f, 1f);
             }
-        }
-
-        public static void SetRectTransform(RectTransform oldRectTransform, RectTransform newRectTransform)
-        {
-            oldRectTransform.eulerAngles = newRectTransform.eulerAngles;
-            oldRectTransform.position = newRectTransform.position;
-            oldRectTransform.rotation = newRectTransform.rotation;
-            oldRectTransform.anchoredPosition = newRectTransform.anchoredPosition;
-            oldRectTransform.sizeDelta = newRectTransform.sizeDelta;
-            oldRectTransform.anchorMax = newRectTransform.anchorMax;
-            oldRectTransform.anchorMin = newRectTransform.anchorMin;
-            oldRectTransform.pivot = newRectTransform.pivot;
-            oldRectTransform.localScale = newRectTransform.localScale;
         }
 
         protected virtual void DoMoveTween(Character character, RectTransform fromPosition, RectTransform toPosition, float moveDuration, Boolean waitUntilFinished)

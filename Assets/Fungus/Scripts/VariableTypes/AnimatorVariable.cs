@@ -27,17 +27,17 @@ namespace Fungus
         [SerializeField]
         public Animator animatorVal;
 
-        public AnimatorData(Animator v)
-        {
-            animatorVal = v;
-            animatorRef = null;
-        }
-        
         public static implicit operator Animator(AnimatorData animatorData)
         {
             return animatorData.Value;
         }
 
+        public AnimatorData(Animator v)
+        {
+            animatorVal = v;
+            animatorRef = null;
+        }
+            
         public Animator Value
         {
             get { return (animatorRef == null) ? animatorVal : animatorRef.Value; }

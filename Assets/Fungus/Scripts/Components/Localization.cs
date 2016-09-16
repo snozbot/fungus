@@ -17,13 +17,6 @@ namespace Fungus
     /// </summary>
     public class Localization : MonoBehaviour, ILocalization, ISubstitutionHandler
     {
-        [Tooltip("Language to use at startup, usually defined by a two letter language code (e.g DE = German)")]
-        [SerializeField] protected string activeLanguage = "";
-
-        protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
-
-        protected Dictionary<string, ILocalizable> localizeableObjects = new Dictionary<string, ILocalizable>();
-
         /// <summary>
         /// Temp storage for a single item of standard text and its localizations.
         /// </summary>
@@ -34,12 +27,19 @@ namespace Fungus
             public Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
         }
 
+        [Tooltip("Language to use at startup, usually defined by a two letter language code (e.g DE = German)")]
+        [SerializeField] protected string activeLanguage = "";
+
         [Tooltip("CSV file containing localization data which can be easily edited in a spreadsheet tool")]
         [SerializeField] protected TextAsset localizationFile;
+
+        protected Dictionary<string, ILocalizable> localizeableObjects = new Dictionary<string, ILocalizable>();
 
         protected string notificationText = "";
 
         protected bool initialized;
+
+        protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
 
         #if UNITY_5_4_OR_NEWER
         protected virtual void Awake()

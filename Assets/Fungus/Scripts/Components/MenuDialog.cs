@@ -12,15 +12,15 @@ namespace Fungus
 {
     public class MenuDialog : MonoBehaviour, IMenuDialog
     {
-        // Currently active Menu Dialog used to display Menu options
-        public static IMenuDialog activeMenuDialog;
-
         [Tooltip("Automatically select the first interactable button when the menu is shown.")]
         [SerializeField] protected bool autoSelectFirstButton = false;
 
         protected Button[] cachedButtons;
 
         protected Slider cachedSlider;
+
+        // Currently active Menu Dialog used to display Menu options
+        public static IMenuDialog activeMenuDialog;
 
         public static IMenuDialog GetMenuDialog()
         {

@@ -92,6 +92,10 @@ namespace Fungus
         [Tooltip("The ExecuteLua command adds a global Lua variable with this name bound to the flowchart prior to executing.")]
         [SerializeField] protected string luaBindingName = "flowchart";
 
+        protected static bool eventSystemPresent;
+
+        protected StringSubstituter stringSubstituer;
+
         /// <summary>
         /// Cached list of flowchart objects in the scene for fast lookup.
         /// </summary>
@@ -109,10 +113,6 @@ namespace Fungus
                 eventHandler.OnSendFungusMessage(messageName);
             }
         }
-
-        protected static bool eventSystemPresent;
-
-        protected StringSubstituter stringSubstituer;
 
         #if UNITY_5_4_OR_NEWER
         protected virtual void Awake()

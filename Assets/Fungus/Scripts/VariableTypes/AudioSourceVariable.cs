@@ -27,15 +27,15 @@ namespace Fungus
         [SerializeField]
         public AudioSource audioSourceVal;
 
+        public static implicit operator AudioSource(AudioSourceData audioSourceData)
+        {
+            return audioSourceData.Value;
+        }
+
         public AudioSourceData(AudioSource v)
         {
             audioSourceVal = v;
             audioSourceRef = null;
-        }
-        
-        public static implicit operator AudioSource(AudioSourceData audioSourceData)
-        {
-            return audioSourceData.Value;
         }
 
         public AudioSource Value
