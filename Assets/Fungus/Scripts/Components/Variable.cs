@@ -7,15 +7,6 @@ using System;
 namespace Fungus
 {
     /// <summary>
-    /// Scope types for Variables.
-    /// </summary>
-    public enum VariableScope
-    {
-        Private,
-        Public
-    }
-
-    /// <summary>
     /// Attribute class for variables.
     /// </summary>
     public class VariableInfoAttribute : Attribute

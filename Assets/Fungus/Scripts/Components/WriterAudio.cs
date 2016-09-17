@@ -11,6 +11,12 @@ namespace Fungus
     /// </summary>
     public class WriterAudio : MonoBehaviour, IWriterListener
     {
+        public enum AudioMode
+        {
+            Beeps,          // Use short beep sound effects
+            SoundEffect,    // Use long looping sound effect
+        }
+
         [Tooltip("Volume level of writing sound effects")]
         [Range(0,1)]
         [SerializeField] protected float volume = 1f;
@@ -21,12 +27,6 @@ namespace Fungus
         // If none is specifed then we use any AudioSource on the gameobject, and if that doesn't exist we create one.
         [Tooltip("AudioSource to use for playing sound effects. If none is selected then one will be created.")]
         [SerializeField] protected AudioSource targetAudioSource;
-
-        public enum AudioMode
-        {
-            Beeps,          // Use short beep sound effects
-            SoundEffect,    // Use long looping sound effect
-        }
 
         [Tooltip("Type of sound effect to play when writing text")]
         [SerializeField] protected AudioMode audioMode = AudioMode.Beeps;

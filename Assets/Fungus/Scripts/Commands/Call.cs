@@ -16,7 +16,14 @@ namespace Fungus
                  "Execute another block in the same Flowchart as the command, or in a different Flowchart.")]
     [AddComponentMenu("")]
     public class Call : Command
-    {   
+    {
+        public enum CallMode
+        {
+            Stop,               // Stop executing the current block after calling 
+            Continue,           // Continue executing the current block after calling 
+            WaitUntilFinished   // Wait until the called block finishes executing, then continue executing current block
+        }
+
         [Tooltip("Flowchart which contains the block to execute. If none is specified then the current Flowchart is used.")]
         [SerializeField] protected Flowchart targetFlowchart;
 
@@ -28,13 +35,6 @@ namespace Fungus
         [FormerlySerializedAs("commandIndex")]
         [SerializeField] protected int startIndex;
     
-        public enum CallMode
-        {
-            Stop,               // Stop executing the current block after calling 
-            Continue,           // Continue executing the current block after calling 
-            WaitUntilFinished   // Wait until the called block finishes executing, then continue executing current block
-        }
-
         [Tooltip("Select if the calling block should stop or continue executing commands, or wait until the called block finishes.")]
         [SerializeField] protected CallMode callMode;
 
