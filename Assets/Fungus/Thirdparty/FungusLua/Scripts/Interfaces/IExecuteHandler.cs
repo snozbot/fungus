@@ -32,8 +32,65 @@ namespace Fungus
         OnCollisionStay2D       = 1 << 24,
     }
 
+    /// <summary>
+    /// Executes an LuaScript component in the same gameobject when a condition occurs.
+    /// </summary>
     public interface IExecuteHandler
     {
-        
+        float ExecuteAfterTime { get; set; }
+
+        bool RepeatExecuteTime { get; set; }
+
+        float RepeatEveryTime { get; set; }
+
+        int ExecuteAfterFrames { get; set; }
+
+        bool RepeatExecuteFrame { get; set; }
+
+        int RepeatEveryFrame { get; set; }
+
+        ExecuteMethod ExecuteMethods { get; set; }
+
+        /// <summary>
+        /// Returns true if the specified execute method option has been enabled.
+        /// </summary>
+        bool IsExecuteMethodSelected(ExecuteMethod method);
+
+        /// <summary>
+        /// Execute the Lua script immediately.
+        /// This is the function to call if you want to trigger execution from an external script.
+        /// </summary>
+        void Execute();
+    }
+
+    public interface IExecuteHandlerConfigurator
+    {
+        /// <summary>
+        /// If the assertion is evaluated in Update, after how many frame should the evaluation start. Defult is 1 (first frame)
+        /// </summary>
+        int UpdateExecuteStartOnFrame { set; }
+        /// <summary>
+        /// If the assertion is evaluated in Update and UpdateExecuteRepeat is true, how many frame should pass between evaluations
+        /// </summary>
+        int UpdateExecuteRepeatFrequency { set; }
+        /// <summary>
+        /// If the assertion is evaluated in Update, should the evaluation be repeated after UpdateExecuteRepeatFrequency frames
+        /// </summary>
+        bool UpdateExecuteRepeat { set; }
+
+        /// <summary>
+        /// If the assertion is evaluated after a period of time, after how many seconds the first evaluation should be done
+        /// </summary>
+        float TimeExecuteStartAfter { set; }
+        /// <summary>
+        /// If the assertion is evaluated after a period of time and TimeExecuteRepeat is true, after how many seconds should the next evaluation happen
+        /// </summary>
+        float TimeExecuteRepeatFrequency { set; }
+        /// <summary>
+        /// If the assertion is evaluated after a period, should the evaluation happen again after TimeExecuteRepeatFrequency seconds
+        /// </summary>
+        bool TimeExecuteRepeat { set; }
+
+        ExecuteHandler Component { get; }
     }
 }

@@ -18,33 +18,26 @@ namespace Fungus
     public class ExecuteHandler : MonoBehaviour, IExecuteHandler, IExecuteHandlerConfigurator
     {
         [SerializeField] protected float executeAfterTime = 1f;
-        public virtual float ExecuteAfterTime { get { return executeAfterTime; } set { executeAfterTime = value; } }
 
         [SerializeField] protected bool repeatExecuteTime = true;
-        public virtual bool RepeatExecuteTime { get { return repeatExecuteTime; } set { repeatExecuteTime = value; } }
 
         [SerializeField] protected float repeatEveryTime = 1f;
-        public virtual float RepeatEveryTime { get { return repeatEveryTime; } set { repeatEveryTime = value; } }
 
         [SerializeField] protected int executeAfterFrames = 1;
-        public virtual int ExecuteAfterFrames { get { return executeAfterFrames; } set { executeAfterFrames = value; } }
 
         [SerializeField] protected bool repeatExecuteFrame = true;
-        public virtual bool RepeatExecuteFrame { get { return repeatExecuteFrame; } set { repeatExecuteFrame = value; } }
 
         [SerializeField] protected int repeatEveryFrame = 1;
-        public virtual int RepeatEveryFrame { get { return repeatEveryFrame; } set { repeatEveryFrame = value; } }
 
         [SerializeField] protected ExecuteMethod executeMethods = ExecuteMethod.Start;
-        public virtual ExecuteMethod ExecuteMethods { get { return executeMethods; } set { executeMethods = value; } }
 
         [Tooltip("Name of the method on a component in this gameobject to call when executing.")]
         [SerializeField] protected string executeMethodName = "OnExecute";
 
-        private int m_ExecuteOnFrame;
+        protected int m_ExecuteOnFrame;
 
         // Recursively build the full hierarchy path to this game object
-        private static string GetPath(Transform current) 
+        protected static string GetPath(Transform current) 
         {
             if (current.parent == null)
             {
@@ -53,7 +46,7 @@ namespace Fungus
             return GetPath(current.parent) + "." + current.name;
         }
 
-        public void Start()
+        protected void Start()
         {
             Execute(ExecuteMethod.Start);
 
@@ -67,7 +60,7 @@ namespace Fungus
             }
         }
 
-        public IEnumerator ExecutePeriodically()
+        protected IEnumerator ExecutePeriodically()
         {
             yield return new WaitForSeconds(executeAfterTime);
             Execute(ExecuteMethod.AfterPeriodOfTime);
@@ -78,7 +71,7 @@ namespace Fungus
             }
         }
 
-        public bool ShouldExecuteOnFrame()
+        protected bool ShouldExecuteOnFrame()
         {
             if (Time.frameCount > m_ExecuteOnFrame)
             {
@@ -91,22 +84,22 @@ namespace Fungus
             return false;
         }
 
-        public void OnDisable()
+        protected void OnDisable()
         {
             Execute(ExecuteMethod.OnDisable);
         }
 
-        public void OnEnable()
+        protected void OnEnable()
         {
             Execute(ExecuteMethod.OnEnable);
         }
 
-        public void OnDestroy()
+        protected void OnDestroy()
         {
             Execute(ExecuteMethod.OnDestroy);
         }
 
-        public void Update()
+        protected void Update()
         {
             if (IsExecuteMethodSelected(ExecuteMethod.Update) && ShouldExecuteOnFrame())
             {
@@ -114,102 +107,102 @@ namespace Fungus
             }
         }
 
-        public void FixedUpdate()
+        protected void FixedUpdate()
         {
             Execute(ExecuteMethod.FixedUpdate);
         }
 
-        public void LateUpdate()
+        protected void LateUpdate()
         {
             Execute(ExecuteMethod.LateUpdate);
         }
 
-        public void OnControllerColliderHit()
+        protected void OnControllerColliderHit()
         {
             Execute(ExecuteMethod.OnControllerColliderHit);
         }
 
-        public void OnParticleCollision()
+        protected void OnParticleCollision()
         {
             Execute(ExecuteMethod.OnParticleCollision);
         }
 
-        public void OnJointBreak()
+        protected void OnJointBreak()
         {
             Execute(ExecuteMethod.OnJointBreak);
         }
 
-        public void OnBecameInvisible()
+        protected void OnBecameInvisible()
         {
             Execute(ExecuteMethod.OnBecameInvisible);
         }
 
-        public void OnBecameVisible()
+        protected void OnBecameVisible()
         {
             Execute(ExecuteMethod.OnBecameVisible);
         }
 
-        public void OnTriggerEnter()
+        protected void OnTriggerEnter()
         {
             Execute(ExecuteMethod.OnTriggerEnter);
         }
 
-        public void OnTriggerExit()
+        protected void OnTriggerExit()
         {
             Execute(ExecuteMethod.OnTriggerExit);
         }
 
-        public void OnTriggerStay()
+        protected void OnTriggerStay()
         {
             Execute(ExecuteMethod.OnTriggerStay);
         }
 
-        public void OnCollisionEnter()
+        protected void OnCollisionEnter()
         {
             Execute(ExecuteMethod.OnCollisionEnter);
         }
 
-        public void OnCollisionExit()
+        protected void OnCollisionExit()
         {
             Execute(ExecuteMethod.OnCollisionExit);
         }
 
-        public void OnCollisionStay()
+        protected void OnCollisionStay()
         {
             Execute(ExecuteMethod.OnCollisionStay);
         }
 
-        public void OnTriggerEnter2D()
+        protected void OnTriggerEnter2D()
         {
             Execute(ExecuteMethod.OnTriggerEnter2D);
         }
 
-        public void OnTriggerExit2D()
+        protected void OnTriggerExit2D()
         {
             Execute(ExecuteMethod.OnTriggerExit2D);
         }
 
-        public void OnTriggerStay2D()
+        protected void OnTriggerStay2D()
         {
             Execute(ExecuteMethod.OnTriggerStay2D);
         }
 
-        public void OnCollisionEnter2D()
+        protected void OnCollisionEnter2D()
         {
             Execute(ExecuteMethod.OnCollisionEnter2D);
         }
 
-        public void OnCollisionExit2D()
+        protected void OnCollisionExit2D()
         {
             Execute(ExecuteMethod.OnCollisionExit2D);
         }
 
-        public void OnCollisionStay2D()
+        protected void OnCollisionStay2D()
         {
             Execute(ExecuteMethod.OnCollisionStay2D);
         }
 
-        private void Execute(ExecuteMethod executeMethod)
+        protected void Execute(ExecuteMethod executeMethod)
         {
             if (IsExecuteMethodSelected(executeMethod))
             {
@@ -217,15 +210,45 @@ namespace Fungus
             }
         }
 
-        public bool IsExecuteMethodSelected(ExecuteMethod method)
+        #region AssertionComponentConfigurator
+
+        public int UpdateExecuteStartOnFrame { set { executeAfterFrames = value; } }
+
+        public int UpdateExecuteRepeatFrequency { set { repeatEveryFrame = value; } }
+
+        public bool UpdateExecuteRepeat { set { repeatExecuteFrame = value; } }
+
+        public float TimeExecuteStartAfter { set { executeAfterTime = value; } }
+
+        public float TimeExecuteRepeatFrequency { set { repeatEveryTime = value; } }
+
+        public bool TimeExecuteRepeat { set { repeatExecuteTime = value; } }
+
+        public ExecuteHandler Component { get { return this; } }
+
+        #endregion
+
+        #region IExecuteHandler implementation
+
+        public virtual float ExecuteAfterTime { get { return executeAfterTime; } set { executeAfterTime = value; } }
+
+        public virtual bool RepeatExecuteTime { get { return repeatExecuteTime; } set { repeatExecuteTime = value; } }
+
+        public virtual float RepeatEveryTime { get { return repeatEveryTime; } set { repeatEveryTime = value; } }
+
+        public virtual int ExecuteAfterFrames { get { return executeAfterFrames; } set { executeAfterFrames = value; } }
+
+        public virtual bool RepeatExecuteFrame { get { return repeatExecuteFrame; } set { repeatExecuteFrame = value; } }
+
+        public virtual int RepeatEveryFrame { get { return repeatEveryFrame; } set { repeatEveryFrame = value; } }
+
+        public virtual ExecuteMethod ExecuteMethods { get { return executeMethods; } set { executeMethods = value; } }
+
+        public virtual bool IsExecuteMethodSelected(ExecuteMethod method)
         {
             return method == (executeMethods & method);
         }
 
-        /// <summary>
-        /// Execute the Lua script immediately.
-        /// This is the function to call if you want to trigger execution from an external script.
-        /// </summary>
         public virtual void Execute()
         {
             // Call any OnExecute methods in components on this gameobject
@@ -234,46 +257,7 @@ namespace Fungus
                 SendMessage(executeMethodName, SendMessageOptions.DontRequireReceiver);
             }
         }
-            
-        #region AssertionComponentConfigurator
-        public int UpdateExecuteStartOnFrame { set { executeAfterFrames = value; } }
-        public int UpdateExecuteRepeatFrequency { set { repeatEveryFrame = value; } }
-        public bool UpdateExecuteRepeat { set { repeatExecuteFrame = value; } }
-        public float TimeExecuteStartAfter { set { executeAfterTime = value; } }
-        public float TimeExecuteRepeatFrequency { set { repeatEveryTime = value; } }
-        public bool TimeExecuteRepeat { set { repeatExecuteTime = value; } }
-        public ExecuteHandler Component { get { return this; } }
+
         #endregion
-    }
-
-    public interface IExecuteHandlerConfigurator
-    {
-        /// <summary>
-        /// If the assertion is evaluated in Update, after how many frame should the evaluation start. Defult is 1 (first frame)
-        /// </summary>
-        int UpdateExecuteStartOnFrame { set; }
-        /// <summary>
-        /// If the assertion is evaluated in Update and UpdateExecuteRepeat is true, how many frame should pass between evaluations
-        /// </summary>
-        int UpdateExecuteRepeatFrequency { set; }
-        /// <summary>
-        /// If the assertion is evaluated in Update, should the evaluation be repeated after UpdateExecuteRepeatFrequency frames
-        /// </summary>
-        bool UpdateExecuteRepeat { set; }
-
-        /// <summary>
-        /// If the assertion is evaluated after a period of time, after how many seconds the first evaluation should be done
-        /// </summary>
-        float TimeExecuteStartAfter { set; }
-        /// <summary>
-        /// If the assertion is evaluated after a period of time and TimeExecuteRepeat is true, after how many seconds should the next evaluation happen
-        /// </summary>
-        float TimeExecuteRepeatFrequency { set; }
-        /// <summary>
-        /// If the assertion is evaluated after a period, should the evaluation happen again after TimeExecuteRepeatFrequency seconds
-        /// </summary>
-        bool TimeExecuteRepeat { set; }
-
-        ExecuteHandler Component { get; }
     }
 }
