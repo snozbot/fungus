@@ -6,7 +6,6 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityTest.IntegrationTests;
-
 #if UNITY_5_3_OR_NEWER
 using UnityEditor.SceneManagement;
 #endif
@@ -14,8 +13,8 @@ using UnityEditor.SceneManagement;
 namespace UnityTest
 {
     public static partial class Batch
-	{
-		const string k_ResultFilePathParam = "-resultFilePath=";
+    {
+        const string k_ResultFilePathParam = "-resultFilePath=";
         private const string k_TestScenesParam = "-testscenes=";
         private const string k_OtherBuildScenesParam = "-includeBuildScenes=";
         const string k_TargetPlatformParam = "-targetPlatform=";

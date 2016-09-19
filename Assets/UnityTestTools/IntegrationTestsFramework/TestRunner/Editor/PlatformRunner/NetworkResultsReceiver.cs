@@ -167,9 +167,9 @@ namespace UnityTest
             }
             if (m_RunFinished)
             {
+                Close();
                 if (InternalEditorUtility.inBatchMode)
                     EditorApplication.Exit(m_TestFailed ? Batch.returnCodeTestsFailed : Batch.returnCodeTestsOk);
-                Close();
             }
             if (m_Repaint) Repaint();
         }
@@ -254,12 +254,12 @@ namespace UnityTest
         public static void StopReceiver()
         {
             if (Instance == null) return;
-			try{
-            	Instance.Close();
-			}catch(Exception e){
-				Debug.LogException(e);
-				DestroyImmediate(Instance);
-			}
+            try{
+                Instance.Close();
+            }catch(Exception e){
+                Debug.LogException(e);
+                DestroyImmediate(Instance);
+            }
         }
     }
 }

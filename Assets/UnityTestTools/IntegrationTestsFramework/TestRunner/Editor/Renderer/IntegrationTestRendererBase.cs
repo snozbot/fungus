@@ -77,13 +77,13 @@ namespace UnityTest
 
         protected void OnSelect()
         {
-			if (!Event.current.control && !Event.current.command) 
-			{
-				Selection.objects = new Object[0];
-				GUIUtility.keyboardControl = 0;
-			}
+            if (!Event.current.control && !Event.current.command) 
+            {
+                Selection.objects = new Object[0];
+                GUIUtility.keyboardControl = 0;
+            }
 
-			if ((Event.current.control || Event.current.command) && Selection.gameObjects.Contains(test.gameObject))
+            if ((Event.current.control || Event.current.command) && Selection.gameObjects.Contains(test.gameObject))
                 Selection.objects = Selection.gameObjects.Where(o => o != test.gameObject).ToArray();
             else
                 Selection.objects = Selection.gameObjects.Concat(new[] { test.gameObject }).ToArray();

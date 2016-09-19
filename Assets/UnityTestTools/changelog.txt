@@ -1,3 +1,8 @@
+Version 1.5.9
+
+- Updated tools for Unity 5.4
+- Bugfixes
+
 Version 1.5.8
 
 - Bugfixes

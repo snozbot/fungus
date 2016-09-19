@@ -21,7 +21,9 @@ namespace UnityTest.IntegrationTests
         private List<string> m_OtherScenesToBuild;
         private List<string> m_AllScenesInProject;
 
-        private Vector2 m_ScrollPosition;
+        private Vector2 m_ScrollPositionIntegrationTests;
+        private Vector2 m_ScrollPositionOtherScenes;
+        private Vector2 m_ScrollPositionAllScenes;
         private readonly List<string> m_Interfaces = new List<string>();
         private readonly List<string> m_SelectedScenes = new List<string>();
 
@@ -37,7 +39,7 @@ namespace UnityTest.IntegrationTests
 
         readonly GUIContent m_Label = new GUIContent("Results target directory", "Directory where the results will be saved. If no value is specified, the results will be generated in project's data folder.");
         
-        public PlatformRunnerSettingsWindow()
+        void Awake()
         {
             if (m_OtherScenesToBuild == null)
                 m_OtherScenesToBuild = new List<string> ();
@@ -103,7 +105,7 @@ namespace UnityTest.IntegrationTests
                     }
                     EditorGUI.EndDisabledGroup();
 
-                    DrawVerticalSceneList (ref m_IntegrationTestScenes, ref m_SelectedSceneInTest);
+                    DrawVerticalSceneList (ref m_IntegrationTestScenes, ref m_SelectedSceneInTest, ref m_ScrollPositionIntegrationTests);
                     EditorGUILayout.EndVertical ();
         
                     // Extra scenes to include in build
@@ -119,14 +121,14 @@ namespace UnityTest.IntegrationTests
                     }
                     EditorGUI.EndDisabledGroup();
 
-                    DrawVerticalSceneList (ref m_OtherScenesToBuild, ref m_SelectedSceneInBuild);
+                    DrawVerticalSceneList (ref m_OtherScenesToBuild, ref m_SelectedSceneInBuild, ref m_ScrollPositionOtherScenes);
                     EditorGUILayout.EndVertical ();
 
                     EditorGUILayout.Separator ();
 
                     // All Scenes
                     EditorGUILayout.BeginVertical ();
-                    label = new GUIContent("Availble Scenes", "These are all the scenes within your project, please select some to run tests");
+                    label = new GUIContent("Available Scenes", "These are all the scenes within your project, please select some to run tests");
                     EditorGUILayout.LabelField(label, EditorStyles.boldLabel, GUILayout.Height(20f));
 
             
@@ -147,7 +149,7 @@ namespace UnityTest.IntegrationTests
 
                     EditorGUILayout.EndHorizontal ();
 
-                    DrawVerticalSceneList (ref m_AllScenesInProject, ref m_SelectedSceneInAll);
+                    DrawVerticalSceneList (ref m_AllScenesInProject, ref m_SelectedSceneInAll, ref m_ScrollPositionAllScenes);
                     EditorGUILayout.EndVertical ();
                     
             // ButtoNetworkResultsReceiverns to edit scenes in lists
@@ -180,9 +182,9 @@ namespace UnityTest.IntegrationTests
             }
         }
 
-        private void DrawVerticalSceneList(ref List<string> sourceList, ref string selectString)
+        private void DrawVerticalSceneList(ref List<string> sourceList, ref string selectString, ref Vector2 scrollPosition)
         {
-            m_ScrollPosition = EditorGUILayout.BeginScrollView(m_ScrollPosition, Styles.testList);
+			scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, Styles.testList);
             EditorGUI.indentLevel++;
             foreach (var scenePath in sourceList)
             {
@@ -209,7 +211,7 @@ namespace UnityTest.IntegrationTests
 
         public static List<string> GetScenesWithTestComponents(List<string> allScenes)
         {
-            List<Object> results = EditorReferencesUtil.FindScenesWhichContainAsset("TestComponent.cs");	
+            List<Object> results = EditorReferencesUtil.FindScenesWhichContainAsset("TestComponent.cs");    
             List<string> integrationTestScenes = new List<string>();
             
             foreach (Object obj in results) {
@@ -261,7 +263,7 @@ namespace UnityTest.IntegrationTests
                 }
             }
 
-			EditorGUI.EndDisabledGroup();
+            EditorGUI.EndDisabledGroup();
 
             if (EditorGUI.EndChangeCheck())
             {

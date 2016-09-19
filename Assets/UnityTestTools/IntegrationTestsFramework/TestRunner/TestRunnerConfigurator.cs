@@ -59,9 +59,8 @@ namespace UnityTest
                     {
                         return (UnityEditor.EditorBuildSettingsScene[] )serializer.Deserialize(textReader);
                     }
-                    catch (System.Xml.XmlException e)
+                    catch (System.Xml.XmlException)
                     {
-						Debug.Log(e);
                         return null;
                     }
                 }
