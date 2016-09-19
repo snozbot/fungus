@@ -13,7 +13,7 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -37,12 +37,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_GIWorkflowMode: 1
-  m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -53,17 +53,22 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 3
+    serializedVersion: 4
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
     m_TextureHeight: 1024
+    m_AO: 0
     m_AOMaxDistance: 1
-    m_Padding: 2
     m_CompAOExponent: 0
+    m_CompAOExponentDirect: 0
+    m_Padding: 2
     m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
     m_TextureCompression: 1
+    m_DirectLightInLightProbes: 1
     m_FinalGather: 0
+    m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
   m_LightingDataAsset: {fileID: 0}
@@ -266,7 +271,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 4
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
@@ -417,14 +421,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 3
-  errorMessage: 
   indentLevel: 0
   luaEnvironment: {fileID: 0}
   luaFile: {fileID: 0}
   luaScript: '-- Shows how to use stage.show with named arguments
 
 
-    stage.show{character=watson, fromPosition="offscreen right", toPosition="right"}
+    stage.show{character=watson, portrait="annoyed", fromPosition="offscreen right",
+    toPosition="right"}
 
 
     stage.show{character=sherlock, portrait="angry"}
@@ -450,7 +454,7 @@ MonoBehaviour:
   returnVariable: {fileID: 0}
 --- !u!114 &574033274
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 574033265}
@@ -460,7 +464,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 8
-  errorMessage: 
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
@@ -513,7 +516,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22488902, guid: 8a005a9e0713f4cc1b5ad29fb07657d3, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 22488902, guid: 8a005a9e0713f4cc1b5ad29fb07657d3, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -617,12 +620,12 @@ MonoBehaviour:
   - UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - System.Single, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
   - Fungus.Character, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - UnityEngine.Sprite, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.Color, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.AudioClip, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - UnityEngine.Sprite, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Fungus.FacingDirection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Fungus.PortraitState, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Fungus.SayDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Fungus.ISayDialog, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Fungus.Stage, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - UnityEngine.Canvas, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - LeanTweenType, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -900,7 +903,6 @@ MonoBehaviour:
   nameText: Watson
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
-  profileSprite: {fileID: 21300000, guid: a92b08a118b7d46f59dd091acb2e4102, type: 3}
   portraits:
   - {fileID: 21300000, guid: a92b08a118b7d46f59dd091acb2e4102, type: 3}
   - {fileID: 21300000, guid: 03bc547cc0049594bae51f00903eedef, type: 3}
@@ -951,7 +953,6 @@ MonoBehaviour:
   nameText: Sherlock
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
-  profileSprite: {fileID: 21300000, guid: 8f5b5b110e73a414eb229eeead86200f, type: 3}
   portraits:
   - {fileID: 21300000, guid: 8f5b5b110e73a414eb229eeead86200f, type: 3}
   - {fileID: 21300000, guid: c779e34c6eb8e45da98c70cf2802a54c, type: 3}
