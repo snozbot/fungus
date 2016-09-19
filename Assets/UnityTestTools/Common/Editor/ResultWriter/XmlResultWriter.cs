@@ -280,7 +280,7 @@ namespace UnityTest
         private void WriteCData(string text)
         {
             if (string.IsNullOrEmpty(text)) 
-				return;
+                return;
             m_ResultWriter.AppendFormat("<![CDATA[{0}]]>", text);
             m_ResultWriter.AppendLine();
         }

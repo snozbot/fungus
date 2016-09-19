@@ -109,10 +109,6 @@ namespace UnityTest.IntegrationTests
             {
                 case BuildTargetGroup.Android:
                     return BuildTarget.Android;
-				#if !UNITY_5_4_OR_NEWER
-                case BuildTargetGroup.WebPlayer:
-                    return BuildTarget.WebPlayer;
-				#endif
                 default:
                 {
                     switch (Application.platform)
@@ -124,11 +120,7 @@ namespace UnityTest.IntegrationTests
                         case RuntimePlatform.LinuxPlayer:
                             return BuildTarget.StandaloneLinux;
                     }
-					#if UNITY_5_4_OR_NEWER
-					return BuildTarget.WebGL;
-					#else
-                    return BuildTarget.WebPlayer;
-					#endif
+                    return BuildTarget.WebGL;
                 }
             }
         }

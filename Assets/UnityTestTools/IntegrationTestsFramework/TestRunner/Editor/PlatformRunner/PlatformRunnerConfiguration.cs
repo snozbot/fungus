@@ -56,12 +56,12 @@ public class PlatformRunnerConfiguration
             case BuildTarget.StandaloneWindows64:
                 return path + ".exe";
             case BuildTarget.StandaloneOSXIntel:
+            case BuildTarget.StandaloneOSXIntel64:
+            case BuildTarget.StandaloneLinuxUniversal:
                 return path + ".app";
             case BuildTarget.Android:
                 return path + ".apk";
             default:
-                if (buildTarget.ToString() == "BlackBerry" || buildTarget.ToString() == "BB10")
-                    return path + ".bar";
                 return path;
         }
     }

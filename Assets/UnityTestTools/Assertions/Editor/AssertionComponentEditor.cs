@@ -26,7 +26,7 @@ namespace UnityTest
         private readonly GUIContent m_GUIRepeatCheckFrameGuiContent = new GUIContent("Repeat check", "Should the check be repeated.");
         #endregion
 
-		private static List<Type> allComparersList = null;
+        private static List<Type> allComparersList = null;
 
         public AssertionComponentEditor()
         {
