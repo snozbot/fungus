@@ -19,22 +19,6 @@ namespace Fungus
     public class LuaEnvironment : MonoBehaviour, ILuaEnvironment 
     {
         /// <summary>
-        /// Helper class used to extend the initialization behavior of LuaEnvironment.
-        /// </summary>
-        public abstract class Initializer : MonoBehaviour
-        {
-            /// <summary>
-            /// Called when the LuaEnvironment is initializing.
-            /// </summary>
-            public abstract void Initialize();
-
-            /// <summary>
-            /// Applies transformations to the input script prior to execution.
-            /// </summary>
-            public abstract string PreprocessScript(string input);
-        }
-
-        /// <summary>
         /// Custom file loader for MoonSharp that loads in all Lua scripts in the project.
         /// Scripts must be placed in a Resources/Lua directory.
         /// </summary>
@@ -308,8 +292,8 @@ namespace Fungus
             InitLuaScriptFiles();
 
             // Initialize any attached initializer components (e.g. LuaUtils)
-            Initializer[] initializers = GetComponents<Initializer>();
-            foreach (Initializer initializer in initializers)
+            LuaEnvironmentInitializer[] initializers = GetComponents<LuaEnvironmentInitializer>();
+            foreach (LuaEnvironmentInitializer initializer in initializers)
             {
                 initializer.Initialize();
             }
@@ -329,7 +313,7 @@ namespace Fungus
             InitEnvironment();
 
             string processedString;
-            Initializer initializer = GetComponent<Initializer>();
+            var initializer = GetComponent<LuaEnvironmentInitializer>();
             if (initializer != null)
             {
                 processedString = initializer.PreprocessScript(luaString);

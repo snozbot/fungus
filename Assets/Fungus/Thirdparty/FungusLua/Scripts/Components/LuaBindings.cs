@@ -2,7 +2,6 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using System;
 using System.Collections.Generic;
 using MoonSharp.Interpreter;
 
@@ -15,10 +14,9 @@ namespace Fungus
     /// </summary>
     public abstract class LuaBindingsBase : MonoBehaviour, ILuaBindings
     {
-        /// <summary>
-        /// Add all declared bindings to the globals table.
-        /// </summary>
         public abstract void AddBindings(ILuaEnvironment luaEnv);
+
+        public abstract List<BoundObject> BoundObjects { get; }
     }
 
     /// <summary>
@@ -27,26 +25,12 @@ namespace Fungus
     [ExecuteInEditMode]
     public class LuaBindings : LuaBindingsBase 
     {
-        /// <summary>
-        /// Represents a single Unity object (+ optional component) bound to a string key.
-        /// </summary>
-        [Serializable]
-        public class BoundObject
-        {
-            public string key;
-            public UnityEngine.Object obj;
-            public Component component;
-        }
-
         [Tooltip("Add bindings to every Lua Environment in the scene. If false, only add bindings to a specific Lua Environment.")]
         [SerializeField] protected bool allEnvironments = true;
 
         [Tooltip("The specific LuaEnvironment to register the bindings in.")]
         [SerializeField] protected LuaEnvironment luaEnvironment;
 
-        /// <summary>
-        /// Name of global table variable to store bindings in. If left blank then each binding will be added as a global variable.
-        /// </summary>
         [Tooltip("Name of global table variable to store bindings in. If left blank then each binding will be added as a global variable.")]
         [SerializeField] protected string tableName = "";
 
@@ -56,19 +40,12 @@ namespace Fungus
         [HideInInspector]
         [SerializeField] protected List<string> boundTypes = new List<string>();
 
-        /// <summary>
-        /// The list of Unity objects to be bound for access in Lua.
-        /// </summary>
         [Tooltip("The list of Unity objects to be bound to make them accessible in Lua script.")]
         [SerializeField] protected List<BoundObject> boundObjects = new List<BoundObject>();
-        public virtual List<BoundObject> BoundObjects { get { return boundObjects; } }
 
         [Tooltip("Show inherited public members.")]
         [SerializeField] protected bool showInherited;
 
-        /// <summary>
-        /// Always ensure there is at least one row in the bound objects list.
-        /// </summary>
         protected virtual void Update() 
         {
             // Add in a single empty line at start
@@ -78,9 +55,8 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Add all declared bindings to the globals table.
-        /// </summary>
+        #region ILuaBindings implementation
+
         public override void AddBindings(ILuaEnvironment luaEnv)
         {
             if (!allEnvironments && 
@@ -170,5 +146,9 @@ namespace Fungus
                 }
             }
         }
+
+        public override List<BoundObject> BoundObjects { get { return boundObjects; } }
+
+        #endregion
     }
 }

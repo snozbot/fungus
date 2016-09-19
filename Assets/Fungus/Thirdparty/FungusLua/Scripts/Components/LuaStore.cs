@@ -3,6 +3,7 @@
 
 ﻿using UnityEngine;
 using MoonSharp.Interpreter;
+using System.Collections.Generic;
 
 namespace Fungus
 {
@@ -92,6 +93,8 @@ namespace Fungus
                 globals["store"] = primeTable;
             }
         }
+
+        public override List<BoundObject> BoundObjects { get { return null; } }
 
         #endregion
 

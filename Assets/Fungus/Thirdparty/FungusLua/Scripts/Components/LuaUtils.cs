@@ -15,28 +15,13 @@ namespace Fungus
     /// <summary>
     /// A collection of utilites to use in Lua for common Unity / Fungus tasks.
     /// </summary>
-    public class LuaUtils : LuaEnvironment.Initializer, ISubstitutionHandler, ILuaUtils
+    public class LuaUtils : LuaEnvironmentInitializer, ISubstitutionHandler, ILuaUtils
     {
-        public enum FungusModuleOptions
-        {
-            UseGlobalVariables, // Fungus helper items will be available as global variables.
-            UseFungusVariable,  // Fungus helper items will be available in the 'fungus' global variable.
-            NoFungusModule      // The fungus helper module will not be loaded.
-        }
-
-        /// <summary>
-        /// Controls if the fungus utilities are accessed from globals (e.g. say) or via a fungus variable (e.g. fungus.say)"
-        /// You can also choose to disable loading the fungus module if it's not required by your script.
-        /// </summary>
-        [Tooltip("Controls if the fungus utilities are accessed from globals (e.g. say) or via a fungus variable (e.g. fungus.say)")]
+        [Tooltip("Controls if the fungus utilities are accessed from globals (e.g. say) or via a fungus variable (e.g. fungus.say). You can also choose to disable loading the fungus module if it's not required by your script.")]
         [SerializeField] protected FungusModuleOptions fungusModule = FungusModuleOptions.UseGlobalVariables;
 
-        /// <summary>
-        /// The currently selected language in the string table. Affects variable substitution.
-        /// </summary>
         [Tooltip("The currently selected language in the string table. Affects variable substitution.")]
         [SerializeField] protected string activeLanguage = "en";
-        public virtual string ActiveLanguage { get { return activeLanguage; } set { activeLanguage = value; } }
 
         /// <summary>
         /// Lua script file which defines the global string table used for localisation.
@@ -298,9 +283,6 @@ namespace Fungus
             InitBindings();
         }
 
-        /// <summary>
-        /// Called by LuaEnvironment prior to executing a script.
-        /// </summary>
         public override string PreprocessScript(string input)
         {
             return input;
@@ -309,6 +291,8 @@ namespace Fungus
         #endregion
 
         #region ILuaUtils implementation
+
+        public virtual string ActiveLanguage { get { return activeLanguage; } set { activeLanguage = value; } }
 
         public virtual string GetString(string key)
         {

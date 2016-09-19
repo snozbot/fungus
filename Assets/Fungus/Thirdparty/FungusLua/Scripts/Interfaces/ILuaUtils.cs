@@ -1,11 +1,29 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 using System.Collections;
 using System.Text;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Options for using the Lua FungusModule.
+    /// </summary>
+    public enum FungusModuleOptions
+    {
+        UseGlobalVariables, // Fungus helper items will be available as global variables.
+        UseFungusVariable,  // Fungus helper items will be available in the 'fungus' global variable.
+        NoFungusModule      // The fungus helper module will not be loaded.
+    }
+
     public interface ILuaUtils
     {
+        /// <summary>
+        /// The currently selected language in the string table. Affects variable substitution.
+        /// </summary>
+        string ActiveLanguage { get; set; }
+
         /// <summary>
         /// Returns a string from the string table for this key.
         /// The string returned depends on the active language.
