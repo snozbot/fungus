@@ -201,7 +201,7 @@ namespace Fungus
             details.Add("");
 
             LuaBindings luaBindings = target as LuaBindings;
-            foreach (LuaBindings.BoundObject boundObject in luaBindings.BoundObjects)
+            foreach (BoundObject boundObject in luaBindings.BoundObjects)
             {
                 UnityEngine.Object inspectObject = boundObject.obj;
                 if (boundObject.component != null)
@@ -408,7 +408,7 @@ namespace Fungus
             // Use a temp HashSet to store the list of types.
             // The final list is stored as a list of type strings.
             HashSet<System.Type> typeSet = new HashSet<System.Type>();
-            foreach (LuaBindings.BoundObject boundObject in luaBindings.BoundObjects)
+            foreach (BoundObject boundObject in luaBindings.BoundObjects)
             {
                 if (boundObject.obj == null)
                 {
