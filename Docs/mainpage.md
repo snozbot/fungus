@@ -5,6 +5,7 @@ Welcome to the documentation website for Fungus, the open source visual storytel
 The main website for Fungus and [community forum](http://fungusgames.com/forum) are available at [FungusGames.com](http://fungusgames.com).
 
 * @subpage about
+* @subpage training_course
 * @subpage download
 * @subpage getting_started
 * @subpage flowcharts
@@ -13,9 +14,10 @@ The main website for Fungus and [community forum](http://fungusgames.com/forum) 
 * @subpage playing_audio
 * @subpage conversation
 * @subpage articles
+* @subpage narrative_tags
 * @subpage glossary
 * @subpage faq
-* @subpage narrative_tags
+* @subpage code_of_conduct
 
 # Overview
 
