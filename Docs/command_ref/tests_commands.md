@@ -1,3 +1,5 @@
+# Tests commands {#tests_commands}
+
 ## Fail
 Fails the current integration test
 ## Pass

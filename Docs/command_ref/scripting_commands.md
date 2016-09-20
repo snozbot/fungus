@@ -1,3 +1,5 @@
+# Scripting commands {#scripting_commands}
+
 ## Comment
 Use comments to record design notes and reminders about your game.
 
@@ -20,15 +22,15 @@ Writes a log message to the debug console.
 
 Property | Type | Description
  --- | --- | ---
-Log Type | Fungus.DebugLog+DebugLogType | Display type of debug log info
-Log Message | Fungus.StringDataMulti | Text to write to the debug log. Supports variable substitution, e.g. {$Myvar}
+Log Type | Fungus.Commands.DebugLogType | Display type of debug log info
+Log Message | Fungus.Variables.StringDataMulti | Text to write to the debug log. Supports variable substitution, e.g. {$Myvar}
 
 ## Destroy
 Destroys a specified game object in the scene.
 
 Property | Type | Description
  --- | --- | ---
-_target Game Object | Fungus.GameObjectData | Reference to game object to destroy
+_target Game Object | Fungus.Variables.GameObjectData | Reference to game object to destroy
 
 ## Execute Lua
 Executes a Lua code chunk using a Lua Environment.
@@ -49,14 +51,14 @@ Property | Type | Description
  --- | --- | ---
 Delay | System.Single | Delay (in seconds) before the methods will be called
 Static Event | UnityEngine.Events.UnityEvent | List of methods to call. Supports methods with no parameters or exactly one string, int, float or object parameter.
-Boolean Parameter | Fungus.BooleanData | Boolean parameter to pass to the invoked methods.
-Boolean Event | Fungus.InvokeEvent+BooleanEvent | List of methods to call. Supports methods with one boolean parameter.
-Integer Parameter | Fungus.IntegerData | Integer parameter to pass to the invoked methods.
-Integer Event | Fungus.InvokeEvent+IntegerEvent | List of methods to call. Supports methods with one integer parameter.
-Float Parameter | Fungus.FloatData | Float parameter to pass to the invoked methods.
-Float Event | Fungus.InvokeEvent+FloatEvent | List of methods to call. Supports methods with one float parameter.
-String Parameter | Fungus.StringDataMulti | String parameter to pass to the invoked methods.
-String Event | Fungus.InvokeEvent+StringEvent | List of methods to call. Supports methods with one string parameter.
+Boolean Parameter | Fungus.Variables.BooleanData | Boolean parameter to pass to the invoked methods.
+Boolean Event | Fungus.Commands.InvokeEvent+BooleanEvent | List of methods to call. Supports methods with one boolean parameter.
+Integer Parameter | Fungus.Variables.IntegerData | Integer parameter to pass to the invoked methods.
+Integer Event | Fungus.Commands.InvokeEvent+IntegerEvent | List of methods to call. Supports methods with one integer parameter.
+Float Parameter | Fungus.Variables.FloatData | Float parameter to pass to the invoked methods.
+Float Event | Fungus.Commands.InvokeEvent+FloatEvent | List of methods to call. Supports methods with one float parameter.
+String Parameter | Fungus.Variables.StringDataMulti | String parameter to pass to the invoked methods.
+String Event | Fungus.Commands.InvokeEvent+StringEvent | List of methods to call. Supports methods with one string parameter.
 
 ## Invoke Method
 Invokes a method of a component via reflection. Supports passing multiple parameters and storing returned values in a Fungus variable.
@@ -69,35 +71,35 @@ Target Component Fullname | System.String | Full name of the target component
 Target Component Text | System.String | Display name of the target component
 Target Method | System.String | Name of target method to invoke on the target component
 Target Method Text | System.String | Display name of target method to invoke on the target component
-Method Parameters | Fungus.InvokeMethodParameter[] | List of parameters to pass to the invoked method
+Method Parameters | Fungus.Commands.InvokeMethodParameter[] | List of parameters to pass to the invoked method
 Save Return Value | System.Boolean | If true, store the return value in a flowchart variable of the same type.
 Return Value Variable Key | System.String | Name of Fungus variable to store the return value in
 Return Value Type | System.String | The type of the return value
 Show Inherited | System.Boolean | If true, list all inherited methods for the component
-Call Mode | Fungus.Call+CallMode | The coroutine call behavior for methods that return IEnumerator
+Call Mode | Fungus.Commands.CallMode | The coroutine call behavior for methods that return IEnumerator
 
 ## Open URL
 Opens the specified URL in the browser.
 
 Property | Type | Description
  --- | --- | ---
-Url | Fungus.StringData | URL to open in the browser
+Url | Fungus.Variables.StringData | URL to open in the browser
 
 ## Set Active
 Sets a game object in the scene to be active / inactive.
 
 Property | Type | Description
  --- | --- | ---
-_target Game Object | Fungus.GameObjectData | Reference to game object to enable / disable
-Active State | Fungus.BooleanData | Set to true to enable the game object
+_target Game Object | Fungus.Variables.GameObjectData | Reference to game object to enable / disable
+Active State | Fungus.Variables.BooleanData | Set to true to enable the game object
 
 ## Spawn Object
 Spawns a new object based on a reference to a scene or prefab game object.
 
 Property | Type | Description
  --- | --- | ---
-_source Object | Fungus.GameObjectData | Game object to copy when spawning. Can be a scene object or a prefab.
-_parent Transform | Fungus.TransformData | Transform to use for position of newly spawned object.
-_spawn Position | Fungus.Vector3Data | Local position of newly spawned object.
-_spawn Rotation | Fungus.Vector3Data | Local rotation of newly spawned object.
+_source Object | Fungus.Variables.GameObjectData | Game object to copy when spawning. Can be a scene object or a prefab.
+_parent Transform | Fungus.Variables.TransformData | Transform to use for position of newly spawned object.
+_spawn Position | Fungus.Variables.Vector3Data | Local position of newly spawned object.
+_spawn Rotation | Fungus.Variables.Vector3Data | Local rotation of newly spawned object.
 

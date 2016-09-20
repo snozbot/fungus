@@ -1,3 +1,5 @@
+# Narrative commands {#narrative_commands}
+
 ## Clear Menu
 Clears the options from a menu dialogue
 
@@ -15,7 +17,7 @@ Replaced Stage | Fungus.Stage | Stage to swap with
 Use Default Settings | System.Boolean | Use Default Settings
 Fade Duration | System.Single | Fade Duration
 Wait Until Finished | System.Boolean | Wait until the tween has finished before executing the next command
-Display | Fungus.StageDisplayType | Display type
+Display | Fungus.Commands.StageDisplayType | Display type
 
 ## Conversation
 Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text]
@@ -28,7 +30,7 @@ Text | System.String | Text to display on the menu button
 Description | System.String | Notes about the option text for other authors, localization, etc.
 Target Block | Fungus.Block | Block to execute when this option is selected
 Hide If Visited | System.Boolean | Hide this option if the target block has been executed previously
-Interactable | Fungus.BooleanData | If false, the menu option will be displayed but will not be selectable
+Interactable | Fungus.Variables.BooleanData | If false, the menu option will be displayed but will not be selectable
 Set Menu Dialog | Fungus.MenuDialog | A custom Menu Dialog to use to display this menu. All subsequent Menu commands will use this dialog.
 
 ## Menu Timer
@@ -36,7 +38,7 @@ Displays a timer bar and executes a target block if the player fails to select a
 
 Property | Type | Description
  --- | --- | ---
-_duration | Fungus.FloatData | Length of time to display the timer for
+_duration | Fungus.Variables.FloatData | Length of time to display the timer for
 Target Block | Fungus.Block | Block to execute when the timer expires
 
 ## Portrait
@@ -83,7 +85,7 @@ Set the active language for the scene. A Localization object with a localization
 
 Property | Type | Description
  --- | --- | ---
-_language Code | Fungus.StringData | Code of the language to set. e.g. ES, DE, JA
+_language Code | Fungus.Variables.StringData | Code of the language to set. e.g. ES, DE, JA
 
 ## Set Menu Dialog
 Sets a custom menu dialog to use when displaying multiple choice menus

@@ -532,7 +532,7 @@ namespace Fungus.EditorUtils
             // Output the commands in each category
             foreach (string category in commandCategories)
             {
-                string markdown = "";
+                string markdown = "# " + category + " commands {#" + category.ToLower() + "_commands}\n\n";
                 foreach(var keyPair in filteredAttributes)
                 {
                     CommandInfoAttribute info = keyPair.Value;
@@ -546,7 +546,7 @@ namespace Fungus.EditorUtils
                     }
                 }
                 
-                string filePath = path + "/commands/" + category.ToLower() + "_commands.md";
+                string filePath = path + "/command_ref/" + category.ToLower() + "_commands.md";
                 
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 File.WriteAllText(filePath, markdown);
@@ -573,8 +573,8 @@ namespace Fungus.EditorUtils
             // Output the commands in each category
             foreach (string category in eventHandlerCategories)
             {
-                string markdown = "";
-                
+                string markdown = "# " + category + " event handlers {#" + category.ToLower() + "_events}\n\n";
+
                 foreach (System.Type type in eventHandlerTypes)
                 {
                     EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
@@ -589,7 +589,7 @@ namespace Fungus.EditorUtils
                     }
                 }
                 
-                string filePath = path + "/event_handlers/" + category.ToLower() + "_events.md";
+                string filePath = path + "/command_ref/" + category.ToLower() + "_events.md";
                 
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 File.WriteAllText(filePath, markdown);

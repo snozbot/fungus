@@ -1,3 +1,5 @@
+# Flow commands {#flow_commands}
+
 ## Break
 Force a loop to terminate immediately.
 ## Call
@@ -8,7 +10,7 @@ Property | Type | Description
 Target Flowchart | Fungus.Flowchart | Flowchart which contains the block to execute. If none is specified then the current Flowchart is used.
 Target Block | Fungus.Block | Block to start executing
 Start Index | System.Int32 | Command index to start executing
-Call Mode | Fungus.Call+CallMode | Select if the calling block should stop or continue executing commands, or wait until the called block finishes.
+Call Mode | Fungus.Commands.CallMode | Select if the calling block should stop or continue executing commands, or wait until the called block finishes.
 
 ## Else
 Marks the start of a command block to be executed when the preceding If statement is False.
@@ -18,10 +20,10 @@ Marks the start of a command block to be executed when the preceding If statemen
 Property | Type | Description
  --- | --- | ---
 Variable | Fungus.Variable | Variable to use in expression
-Boolean Data | Fungus.BooleanData | Boolean value to compare against
-Integer Data | Fungus.IntegerData | Integer value to compare against
-Float Data | Fungus.FloatData | Float value to compare against
-String Data | Fungus.StringDataMulti | String value to compare against
+Boolean Data | Fungus.Variables.BooleanData | Boolean value to compare against
+Integer Data | Fungus.Variables.IntegerData | Integer value to compare against
+Float Data | Fungus.Variables.FloatData | Float value to compare against
+String Data | Fungus.Variables.StringDataMulti | String value to compare against
 Compare Operator | Fungus.CompareOperator | The type of comparison to be performed
 
 ## End
@@ -32,10 +34,10 @@ If the test expression is true, execute the following command block.
 Property | Type | Description
  --- | --- | ---
 Variable | Fungus.Variable | Variable to use in expression
-Boolean Data | Fungus.BooleanData | Boolean value to compare against
-Integer Data | Fungus.IntegerData | Integer value to compare against
-Float Data | Fungus.FloatData | Float value to compare against
-String Data | Fungus.StringDataMulti | String value to compare against
+Boolean Data | Fungus.Variables.BooleanData | Boolean value to compare against
+Integer Data | Fungus.Variables.IntegerData | Integer value to compare against
+Float Data | Fungus.Variables.FloatData | Float value to compare against
+String Data | Fungus.Variables.StringDataMulti | String value to compare against
 Compare Operator | Fungus.CompareOperator | The type of comparison to be performed
 
 ## Jump
@@ -43,7 +45,7 @@ Move execution to a specific Label command in the same block
 
 Property | Type | Description
  --- | --- | ---
-_target Label | Fungus.StringData | Name of a label in this block to jump to
+_target Label | Fungus.Variables.StringData | Name of a label in this block to jump to
 
 ## Label
 Marks a position in the command list for execution to jump to.
@@ -57,7 +59,7 @@ Loads a new Unity scene and displays an optional loading image. This is useful f
 
 Property | Type | Description
  --- | --- | ---
-_scene Name | Fungus.StringData | Name of the scene to load. The scene must also be added to the build settings.
+_scene Name | Fungus.Variables.StringData | Name of the scene to load. The scene must also be added to the build settings.
 Loading Image | UnityEngine.Texture2D | Image to display while loading the scene
 
 ## Quit
@@ -67,8 +69,8 @@ Sends a message to either the owner Flowchart or all Flowcharts in the scene. Bl
 
 Property | Type | Description
  --- | --- | ---
-Message Target | Fungus.SendMessage+MessageTarget | Target flowchart(s) to send the message to
-_message | Fungus.StringData | Name of the message to send
+Message Target | Fungus.Commands.MessageTarget | Target flowchart(s) to send the message to
+_message | Fungus.Variables.StringData | Name of the message to send
 
 ## Stop
 Stop executing the Block that contains this command.
@@ -78,7 +80,7 @@ Stops executing the named Block
 Property | Type | Description
  --- | --- | ---
 Flowchart | Fungus.Flowchart | Flowchart containing the Block. If none is specified, the parent Flowchart is used.
-Block Name | Fungus.StringData | Name of the Block to stop
+Block Name | Fungus.Variables.StringData | Name of the Block to stop
 
 ## Stop Flowchart
 Stops execution of all Blocks in a Flowchart
@@ -93,7 +95,7 @@ Waits for period of time before executing the next command in the block.
 
 Property | Type | Description
  --- | --- | ---
-_duration | Fungus.FloatData | Duration to wait for
+_duration | Fungus.Variables.FloatData | Duration to wait for
 
 ## WaitInput
 Waits for a period of time or for player input before executing the next command in the block.
@@ -108,9 +110,9 @@ Continuously loop through a block of commands while the condition is true. Use t
 Property | Type | Description
  --- | --- | ---
 Variable | Fungus.Variable | Variable to use in expression
-Boolean Data | Fungus.BooleanData | Boolean value to compare against
-Integer Data | Fungus.IntegerData | Integer value to compare against
-Float Data | Fungus.FloatData | Float value to compare against
-String Data | Fungus.StringDataMulti | String value to compare against
+Boolean Data | Fungus.Variables.BooleanData | Boolean value to compare against
+Integer Data | Fungus.Variables.IntegerData | Integer value to compare against
+Float Data | Fungus.Variables.FloatData | Float value to compare against
+String Data | Fungus.Variables.StringDataMulti | String value to compare against
 Compare Operator | Fungus.CompareOperator | The type of comparison to be performed
 

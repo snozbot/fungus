@@ -1,3 +1,5 @@
+# Core event handlers {#core_events}
+
 ## Flowchart Enabled
 The block will execute when the Flowchart game object is enabled.
 ## Game Started

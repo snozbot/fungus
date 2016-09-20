@@ -1,10 +1,12 @@
+# Audio commands {#audio_commands}
+
 ## Control Audio
 Plays, loops, or stops an audiosource. Any AudioSources with the same tag as the target Audio Source will automatically be stoped.
 
 Property | Type | Description
  --- | --- | ---
-Control | Fungus.ControlAudio+ControlType | What to do to audio
-_audio Source | Fungus.AudioSourceData | Audio clip to play
+Control | Fungus.Commands.ControlAudioType | What to do to audio
+_audio Source | Fungus.Variables.AudioSourceData | Audio clip to play
 Start Volume | System.Single | Start audio at this volume
 End Volume | System.Single | End audio at this volume
 Fade Duration | System.Single | Time to fade between current volume level and target volume level.
@@ -35,7 +37,7 @@ Plays a usfxr synth sound. Use the usfxr editor [Tools > Fungus > Utilities > Ge
 Property | Type | Description
  --- | --- | ---
 Parent Transform | UnityEngine.Transform | Transform to use for positional audio
-_ Settings String | Fungus.StringDataMulti | Settings string which describes the audio
+_ Settings String | Fungus.Variables.StringDataMulti | Settings string which describes the audio
 Wait Duration | System.Single | Time to wait before executing the next command
 
 ## Set Audio Pitch

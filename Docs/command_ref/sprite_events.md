@@ -1,3 +1,5 @@
+# Sprite event handlers {#sprite_events}
+
 ## Drag Cancelled
 The block will execute when the player drags an object and releases it without dropping it on a target object.
 

@@ -1,3 +1,5 @@
+# Variable commands {#variable_commands}
+
 ## Delete Save Key
 Deletes a saved value from permanent storage.
 
@@ -18,18 +20,18 @@ Sets an float variable to a random value in the defined range.
 
 Property | Type | Description
  --- | --- | ---
-Variable | Fungus.FloatVariable | The variable whos value will be set
-Min Value | Fungus.FloatData | Minimum value for random range
-Max Value | Fungus.FloatData | Maximum value for random range
+Variable | Fungus.Variables.FloatVariable | The variable whos value will be set
+Min Value | Fungus.Variables.FloatData | Minimum value for random range
+Max Value | Fungus.Variables.FloatData | Maximum value for random range
 
 ## Random Integer
 Sets an integer variable to a random value in the defined range.
 
 Property | Type | Description
  --- | --- | ---
-Variable | Fungus.IntegerVariable | The variable whos value will be set
-Min Value | Fungus.IntegerData | Minimum value for random range
-Max Value | Fungus.IntegerData | Maximum value for random range
+Variable | Fungus.Variables.IntegerVariable | The variable whos value will be set
+Min Value | Fungus.Variables.IntegerData | Minimum value for random range
+Max Value | Fungus.Variables.IntegerData | Maximum value for random range
 
 ## Read Text File
 Reads in a text file and stores the contents in a string variable
@@ -37,7 +39,7 @@ Reads in a text file and stores the contents in a string variable
 Property | Type | Description
  --- | --- | ---
 Text File | UnityEngine.TextAsset | Text file to read into the string variable
-String Variable | Fungus.StringVariable | String variable to store the tex file contents in
+String Variable | Fungus.Variables.StringVariable | String variable to store the tex file contents in
 
 ## Reset
 Resets the state of all commands and variables in the Flowchart.
@@ -68,9 +70,9 @@ Sets a Boolean, Integer, Float or String variable to a new value using a simple 
 Property | Type | Description
  --- | --- | ---
 Variable | Fungus.Variable | The variable whos value will be set
-Set Operator | Fungus.SetVariable+SetOperator | The type of math operation to be performed
-Boolean Data | Fungus.BooleanData | Boolean value to set with
-Integer Data | Fungus.IntegerData | Integer value to set with
-Float Data | Fungus.FloatData | Float value to set with
-String Data | Fungus.StringDataMulti | String value to set with
+Set Operator | Fungus.Commands.SetOperator | The type of math operation to be performed
+Boolean Data | Fungus.Variables.BooleanData | Boolean value to set with
+Integer Data | Fungus.Variables.IntegerData | Integer value to set with
+Float Data | Fungus.Variables.FloatData | Float value to set with
+String Data | Fungus.Variables.StringDataMulti | String value to set with
 
