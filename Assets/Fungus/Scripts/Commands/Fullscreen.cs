@@ -6,6 +6,19 @@ using UnityEngine;
 namespace Fungus.Commands
 {
     /// <summary>
+    /// Fullscreen mode options.
+    /// </summary>
+    public enum FullscreenMode
+    {
+        /// <summary> Toggle the current mode between fullscreen and windowed. </summary>
+        Toggle,
+        /// <summary> Switch to fullscreen mode. </summary>
+        Fullscreen,
+        /// <summary> Switch to windowed mode. </summary>
+        Windowed
+    }
+
+    /// <summary>
     /// Sets the application to fullscreen, windowed or toggles the current state.
     /// </summary>
     [CommandInfo("Camera", 
@@ -14,13 +27,6 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class Fullscreen : Command 
     {
-        public enum FullscreenMode
-        {
-            Toggle,
-            Fullscreen,
-            Windowed
-        }
-
         [SerializeField] protected FullscreenMode fullscreenMode;
 
         public override void OnEnter()

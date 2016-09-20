@@ -7,16 +7,21 @@ using System.Collections.Generic;
 namespace Fungus
 {
     /// <summary>
+    /// Type of audio effect to play.
+    /// </summary>
+    public enum AudioMode
+    {
+        /// <summary> Use short beep sound effects. </summary>
+        Beeps,
+        /// <summary> Use long looping sound effect. </summary>
+        SoundEffect,
+    }
+
+    /// <summary>
     /// Manages audio effects for Dialogs.
     /// </summary>
     public class WriterAudio : MonoBehaviour, IWriterListener
     {
-        public enum AudioMode
-        {
-            Beeps,          // Use short beep sound effects
-            SoundEffect,    // Use long looping sound effect
-        }
-
         [Tooltip("Volume level of writing sound effects")]
         [Range(0,1)]
         [SerializeField] protected float volume = 1f;

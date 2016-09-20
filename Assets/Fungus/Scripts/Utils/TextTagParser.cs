@@ -45,7 +45,7 @@ namespace Fungus.Utils
         protected virtual void AddWordsToken(List<TextTagToken> tokenList, string words)
         {
             TextTagToken token = new TextTagToken();
-            token.type = TextTagToken.TokenType.Words;
+            token.type = TokenType.Words;
             token.paramList = new List<string>(); 
             token.paramList.Add(words);
             tokenList.Add(token);
@@ -62,131 +62,131 @@ namespace Fungus.Utils
             
             string tag = tagText.Substring(1, tagText.Length - 2);
             
-            var type = TextTagToken.TokenType.Invalid;
+            var type = TokenType.Invalid;
             List<string> parameters = ExtractParameters(tag);
             
             if (tag == "b")
             {
-                type = TextTagToken.TokenType.BoldStart;
+                type = TokenType.BoldStart;
             }
             else if (tag == "/b")
             {
-                type = TextTagToken.TokenType.BoldEnd;
+                type = TokenType.BoldEnd;
             }
             else if (tag == "i")
             {
-                type = TextTagToken.TokenType.ItalicStart;
+                type = TokenType.ItalicStart;
             }
             else if (tag == "/i")
             {
-                type = TextTagToken.TokenType.ItalicEnd;
+                type = TokenType.ItalicEnd;
             }
             else if (tag.StartsWith("color="))
             {
-                type = TextTagToken.TokenType.ColorStart;
+                type = TokenType.ColorStart;
             }
             else if (tag == "/color")
             {
-                type = TextTagToken.TokenType.ColorEnd;
+                type = TokenType.ColorEnd;
             }
             else if (tag.StartsWith("size="))
             {
-                type = TextTagToken.TokenType.SizeStart;
+                type = TokenType.SizeStart;
             }
             else if (tag == "/size")
             {
-                type = TextTagToken.TokenType.SizeEnd;
+                type = TokenType.SizeEnd;
             }
             else if (tag == "wi")
             {
-                type = TextTagToken.TokenType.WaitForInputNoClear;
+                type = TokenType.WaitForInputNoClear;
             }
             if (tag == "wc")
             {
-                type = TextTagToken.TokenType.WaitForInputAndClear;
+                type = TokenType.WaitForInputAndClear;
             }
             else if (tag.StartsWith("wp="))
             {
-                type = TextTagToken.TokenType.WaitOnPunctuationStart;
+                type = TokenType.WaitOnPunctuationStart;
             }
             else if (tag == "wp")
             {
-                type = TextTagToken.TokenType.WaitOnPunctuationStart;
+                type = TokenType.WaitOnPunctuationStart;
             }
             else if (tag == "/wp")
             {
-                type = TextTagToken.TokenType.WaitOnPunctuationEnd;
+                type = TokenType.WaitOnPunctuationEnd;
             }
             else if (tag.StartsWith("w="))
             {
-                type = TextTagToken.TokenType.Wait;
+                type = TokenType.Wait;
             }
             else if (tag == "w")
             {
-                type = TextTagToken.TokenType.Wait;
+                type = TokenType.Wait;
             }
             else if (tag == "c")
             {
-                type = TextTagToken.TokenType.Clear;
+                type = TokenType.Clear;
             }
             else if (tag.StartsWith("s="))
             {
-                type = TextTagToken.TokenType.SpeedStart;
+                type = TokenType.SpeedStart;
             }
             else if (tag == "s")
             {
-                type = TextTagToken.TokenType.SpeedStart;
+                type = TokenType.SpeedStart;
             }
             else if (tag == "/s")
             {
-                type = TextTagToken.TokenType.SpeedEnd;
+                type = TokenType.SpeedEnd;
             }
             else if (tag == "x")
             {
-                type = TextTagToken.TokenType.Exit;
+                type = TokenType.Exit;
             }
             else if (tag.StartsWith("m="))
             {
-                type = TextTagToken.TokenType.Message;
+                type = TokenType.Message;
             }
             else if (tag.StartsWith("vpunch") ||
                      tag.StartsWith("vpunch="))
             {
-                type = TextTagToken.TokenType.VerticalPunch;
+                type = TokenType.VerticalPunch;
             }
             else if (tag.StartsWith("hpunch") ||
                      tag.StartsWith("hpunch="))
             {
-                type = TextTagToken.TokenType.HorizontalPunch;
+                type = TokenType.HorizontalPunch;
             }
             else if (tag.StartsWith("punch") ||
                      tag.StartsWith("punch="))
             {
-                type = TextTagToken.TokenType.Punch;
+                type = TokenType.Punch;
             }
             else if (tag.StartsWith("flash") ||
                      tag.StartsWith("flash="))
             {
-                type = TextTagToken.TokenType.Flash;
+                type = TokenType.Flash;
             }
             else if (tag.StartsWith("audio="))
             {
-                type = TextTagToken.TokenType.Audio;
+                type = TokenType.Audio;
             }
             else if (tag.StartsWith("audioloop="))
             {
-                type = TextTagToken.TokenType.AudioLoop;
+                type = TokenType.AudioLoop;
             }
             else if (tag.StartsWith("audiopause="))
             {
-                type = TextTagToken.TokenType.AudioPause;
+                type = TokenType.AudioPause;
             }
             else if (tag.StartsWith("audiostop="))
             {
-                type = TextTagToken.TokenType.AudioStop;
+                type = TokenType.AudioStop;
             }
             
-            if (type != TextTagToken.TokenType.Invalid)
+            if (type != TokenType.Invalid)
             {
                 TextTagToken token = new TextTagToken();
                 token.type = type;
@@ -261,13 +261,13 @@ namespace Fungus.Utils
             foreach (TextTagToken token in tokens)
             {
                 if (trimLeading &&
-                    token.type == TextTagToken.TokenType.Words)
+                    token.type == TokenType.Words)
                 {
                     token.paramList[0] = token.paramList[0].TrimStart(' ', '\t', '\r', '\n');
                 }
 
-                if (token.type == TextTagToken.TokenType.Clear || 
-                    token.type == TextTagToken.TokenType.WaitForInputAndClear)
+                if (token.type == TokenType.Clear || 
+                    token.type == TokenType.WaitForInputAndClear)
                 {
                     trimLeading = true;
                 }

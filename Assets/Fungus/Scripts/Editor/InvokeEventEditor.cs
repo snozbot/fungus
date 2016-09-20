@@ -46,24 +46,24 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(delayProp);
             EditorGUILayout.PropertyField(invokeTypeProp);
 
-            switch ((InvokeEvent.InvokeType)invokeTypeProp.enumValueIndex)
+            switch ((InvokeType)invokeTypeProp.enumValueIndex)
             {
-            case InvokeEvent.InvokeType.Static:
+            case InvokeType.Static:
                 EditorGUILayout.PropertyField(staticEventProp);
                 break;
-            case InvokeEvent.InvokeType.DynamicBoolean:
+            case InvokeType.DynamicBoolean:
                 EditorGUILayout.PropertyField(booleanEventProp);
                 EditorGUILayout.PropertyField(booleanParameterProp);
                 break;
-            case InvokeEvent.InvokeType.DynamicInteger:
+            case InvokeType.DynamicInteger:
                 EditorGUILayout.PropertyField(integerEventProp);
                 EditorGUILayout.PropertyField(integerParameterProp);
                 break;
-            case InvokeEvent.InvokeType.DynamicFloat:
+            case InvokeType.DynamicFloat:
                 EditorGUILayout.PropertyField(floatEventProp);
                 EditorGUILayout.PropertyField(floatParameterProp);
                 break;
-            case InvokeEvent.InvokeType.DynamicString:
+            case InvokeType.DynamicString:
                 EditorGUILayout.PropertyField(stringEventProp);
                 EditorGUILayout.PropertyField(stringParameterProp);
                 break;

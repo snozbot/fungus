@@ -3,14 +3,23 @@
 
 namespace Fungus
 {
+    /// <summary>
+    /// Standard comparison operators.
+    /// </summary>
     public enum CompareOperator
     {
-        Equals,                 // ==
-        NotEquals,              // !=
-        LessThan,               // <
-        GreaterThan,            // >
-        LessThanOrEquals,       // <=
-        GreaterThanOrEquals     // >=
+        /// <summary> == mathematical operator.</summary>
+        Equals,
+        /// <summary> != mathematical operator.</summary>
+        NotEquals,
+        /// <summary> < mathematical operator.</summary>
+        LessThan,
+        /// <summary> > mathematical operator.</summary>
+        GreaterThan,
+        /// <summary> <= mathematical operator.</summary>
+        LessThanOrEquals,
+        /// <summary> >= mathematical operator.</summary>
+        GreaterThanOrEquals
     }
 
     /// <summary>
@@ -18,7 +27,9 @@ namespace Fungus
     /// </summary>
     public enum VariableScope
     {
+        /// <summary> Can only be accessed by commands in the same Flowchart. </summary>
         Private,
+        /// <summary> Can be accessed from any command in any Flowchart. </summary>
         Public
     }
 

@@ -7,6 +7,25 @@ using Fungus.Variables;
 namespace Fungus.Commands
 {
     /// <summary>
+    /// Mathematical operations that can be performed on variables.
+    /// </summary>
+    public enum SetOperator
+    {
+        /// <summary> = operator. </summary>
+        Assign,     // 
+        /// <summary> =! operator. </summary>
+        Negate,
+        /// <summary> += operator. </summary>
+        Add,
+        /// <summary> -= operator. </summary>
+        Subtract,
+        /// <summary> *= operator. </summary>
+        Multiply,
+        /// <summary> /= operator. </summary>
+        Divide
+    }
+
+    /// <summary>
     /// Sets a Boolean, Integer, Float or String variable to a new value using a simple arithmetic operation. The value can be a constant or reference another variable of the same type.
     /// </summary>
     [CommandInfo("Variable", 
@@ -15,16 +34,6 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class SetVariable : Command 
     {
-        public enum SetOperator
-        {
-            Assign,     // =
-            Negate,     // =!
-            Add,        // +=
-            Subtract,   // -=
-            Multiply,   // *=
-            Divide      // /=
-        }
-
         [Tooltip("The variable whos value will be set")]
         [VariableProperty(typeof(BooleanVariable),
                           typeof(IntegerVariable), 

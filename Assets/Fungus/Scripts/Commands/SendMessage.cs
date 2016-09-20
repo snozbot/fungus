@@ -9,6 +9,21 @@ using Fungus.EventHandlers;
 namespace Fungus.Commands
 {
     /// <summary>
+    /// Supported target types for messages.
+    /// </summary>
+    public enum MessageTarget
+    {
+        /// <summary>
+        /// Send message to the Flowchart containing the SendMessage command.
+        /// </summary>
+        SameFlowchart,
+        /// <summary>
+        /// Broadcast message to all Flowcharts.
+        /// </summary>
+        AllFlowcharts
+    }
+
+    /// <summary>
     /// Sends a message to either the owner Flowchart or all Flowcharts in the scene. Blocks can listen for this message using a Message Received event handler.
     /// </summary>
     [CommandInfo("Flow", 
@@ -18,12 +33,6 @@ namespace Fungus.Commands
     [ExecuteInEditMode]
     public class SendMessage : Command
     {
-        public enum MessageTarget
-        {
-            SameFlowchart,
-            AllFlowcharts
-        }
-
         [Tooltip("Target flowchart(s) to send the message to")]
         [SerializeField] protected MessageTarget messageTarget;
 

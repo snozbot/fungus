@@ -11,7 +11,9 @@ namespace Fungus
     /// </summary>
     public enum ExecutionState
     {
-        Idle,
+        /// <summary> No command executing </summary>
+        Idle,       
+        /// <summary> Executing a command </summary>
         Executing,
     }
 

@@ -7,14 +7,19 @@ using Fungus.Utils;
 namespace Fungus
 {
     /// <summary>
-    /// Types of display operations supported by portraits
+    /// Types of display operations supported by portraits.
     /// </summary>
     public enum DisplayType
     {
+        /// <summary> Do nothing. </summary>
         None,
+        /// <summary> Show the portrait. </summary>
         Show,
+        /// <summary> Hide the portrait. </summary>
         Hide,
+        /// <summary> Replace the existing portrait. </summary>
         Replace,
+        /// <summary> Move portrait to the front. </summary>
         MoveToFront
     }
 
@@ -23,8 +28,11 @@ namespace Fungus
     /// </summary>
     public enum FacingDirection
     {
-        None,
+        /// <summary> Unknown direction </summary>
+        None, 
+        /// <summary> Facing left. </summary>
         Left,
+        /// <summary> Facing right. </summary>
         Right
     }
 
@@ -33,8 +41,11 @@ namespace Fungus
     /// </summary>
     public enum PositionOffset
     {
+        /// <summary> Unknown offset direction. </summary>
         None,
+        /// <summary> Offset applies to the left. </summary>
         OffsetLeft,
+        /// <summary> Offset applies to the right. </summary>
         OffsetRight
     }
 

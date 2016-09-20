@@ -40,139 +40,139 @@ public class TextTagParserTests
 		                                                          "{audiostop=Sound}");
 
 		int i = 0;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Words);
+		Assert.That(tokens[i].type == TokenType.Words);
 		Assert.That(tokens[i].paramList[0] == "Words ");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.BoldStart);
+		Assert.That(tokens[i].type == TokenType.BoldStart);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Words);
+		Assert.That(tokens[i].type == TokenType.Words);
 		Assert.That(tokens[i].paramList[0] == "bold test");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.BoldEnd);
+		Assert.That(tokens[i].type == TokenType.BoldEnd);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.ItalicStart);
+		Assert.That(tokens[i].type == TokenType.ItalicStart);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Words);
+		Assert.That(tokens[i].type == TokenType.Words);
 		Assert.That(tokens[i].paramList[0] == "italic test");
 		
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.ItalicEnd);
+		Assert.That(tokens[i].type == TokenType.ItalicEnd);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.ColorStart);
+		Assert.That(tokens[i].type == TokenType.ColorStart);
 		Assert.That(tokens[i].paramList[0] == "red");
 		
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Words);
+		Assert.That(tokens[i].type == TokenType.Words);
 		Assert.That(tokens[i].paramList[0] == "color test");
 		
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.ColorEnd);
+		Assert.That(tokens[i].type == TokenType.ColorEnd);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.SizeStart);
+		Assert.That(tokens[i].type == TokenType.SizeStart);
 		Assert.That(tokens[i].paramList[0] == "30");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Words);
+		Assert.That(tokens[i].type == TokenType.Words);
 		Assert.That(tokens[i].paramList[0] == "size test");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.SizeEnd);
+		Assert.That(tokens[i].type == TokenType.SizeEnd);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Wait);
+		Assert.That(tokens[i].type == TokenType.Wait);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Wait);
+		Assert.That(tokens[i].type == TokenType.Wait);
 		Assert.That(tokens[i].paramList[0] == "0.5");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.WaitForInputNoClear);
+		Assert.That(tokens[i].type == TokenType.WaitForInputNoClear);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.WaitForInputAndClear);
+		Assert.That(tokens[i].type == TokenType.WaitForInputAndClear);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.WaitOnPunctuationStart);
+		Assert.That(tokens[i].type == TokenType.WaitOnPunctuationStart);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.WaitOnPunctuationStart);
+		Assert.That(tokens[i].type == TokenType.WaitOnPunctuationStart);
 		Assert.That(tokens[i].paramList[0] == "0.5");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.WaitOnPunctuationEnd);
+		Assert.That(tokens[i].type == TokenType.WaitOnPunctuationEnd);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Clear);
+		Assert.That(tokens[i].type == TokenType.Clear);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.SpeedStart);
+		Assert.That(tokens[i].type == TokenType.SpeedStart);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.SpeedStart);
+		Assert.That(tokens[i].type == TokenType.SpeedStart);
 		Assert.That(tokens[i].paramList[0] == "60");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.SpeedEnd);
+		Assert.That(tokens[i].type == TokenType.SpeedEnd);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Exit);
+		Assert.That(tokens[i].type == TokenType.Exit);
 		Assert.That(tokens[i].paramList.Count == 0);
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Message);
+		Assert.That(tokens[i].type == TokenType.Message);
 		Assert.That(tokens[i].paramList[0] == "Message");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.VerticalPunch);
+		Assert.That(tokens[i].type == TokenType.VerticalPunch);
 		Assert.That(tokens[i].paramList[0] == "0.5");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.HorizontalPunch);
+		Assert.That(tokens[i].type == TokenType.HorizontalPunch);
 		Assert.That(tokens[i].paramList[0] == "0.5");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Punch);
+		Assert.That(tokens[i].type == TokenType.Punch);
 		Assert.That(tokens[i].paramList[0] == "0.5");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Flash);
+		Assert.That(tokens[i].type == TokenType.Flash);
 		Assert.That(tokens[i].paramList[0] == "0.5");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Audio);
+		Assert.That(tokens[i].type == TokenType.Audio);
 		Assert.That(tokens[i].paramList[0] == "Sound");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.AudioLoop);
+		Assert.That(tokens[i].type == TokenType.AudioLoop);
 		Assert.That(tokens[i].paramList[0] == "Sound");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.AudioPause);
+		Assert.That(tokens[i].type == TokenType.AudioPause);
 		Assert.That(tokens[i].paramList[0] == "Sound");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.AudioStop);
+		Assert.That(tokens[i].type == TokenType.AudioStop);
 		Assert.That(tokens[i].paramList[0] == "Sound");
 
 		Assert.That(tokens.Count == 34);
@@ -187,35 +187,35 @@ public class TextTagParserTests
 		List<TextTagToken> tokens = textTagParser.Tokenize("Play sound{audio=BeepSound}{w=1} Play loop{audioloop=BeepSound}{w=3} Stop{audiostop=BeepSound}");
 		
 		int i = 0;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Words);
+		Assert.That(tokens[i].type == TokenType.Words);
 		Assert.That(tokens[i].paramList[0] == "Play sound");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Audio);
+		Assert.That(tokens[i].type == TokenType.Audio);
 		Assert.That(tokens[i].paramList[0] == "BeepSound");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Wait);
+		Assert.That(tokens[i].type == TokenType.Wait);
 		Assert.That(tokens[i].paramList[0] == "1");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Words);
+		Assert.That(tokens[i].type == TokenType.Words);
 		Assert.That(tokens[i].paramList[0] == " Play loop");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.AudioLoop);
+		Assert.That(tokens[i].type == TokenType.AudioLoop);
 		Assert.That(tokens[i].paramList[0] == "BeepSound");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Wait);
+		Assert.That(tokens[i].type == TokenType.Wait);
 		Assert.That(tokens[i].paramList[0] == "3");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.Words);
+		Assert.That(tokens[i].type == TokenType.Words);
 		Assert.That(tokens[i].paramList[0] == " Stop");
 
 		i++;
-		Assert.That(tokens[i].type == TextTagToken.TokenType.AudioStop);
+		Assert.That(tokens[i].type == TokenType.AudioStop);
 		Assert.That(tokens[i].paramList[0] == "BeepSound");
 
 		Assert.That(tokens.Count == 8);

@@ -9,6 +9,19 @@ using System;
 namespace Fungus.Commands
 {
     /// <summary>
+    /// Supported modes for calling a block.
+    /// </summary>
+    public enum CallMode
+    {
+        /// <summary> Stop executing the current block after calling. </summary>
+        Stop,
+        /// <summary> Continue executing the current block after calling  </summary>
+        Continue,
+        /// <summary> Wait until the called block finishes executing, then continue executing current block. </summary>
+        WaitUntilFinished
+    }
+
+    /// <summary>
     /// Execute another block in the same Flowchart as the command, or in a different Flowchart.
     /// </summary>
     [CommandInfo("Flow", 
@@ -17,13 +30,6 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class Call : Command
     {
-        public enum CallMode
-        {
-            Stop,               // Stop executing the current block after calling 
-            Continue,           // Continue executing the current block after calling 
-            WaitUntilFinished   // Wait until the called block finishes executing, then continue executing current block
-        }
-
         [Tooltip("Flowchart which contains the block to execute. If none is specified then the current Flowchart is used.")]
         [SerializeField] protected Flowchart targetFlowchart;
 

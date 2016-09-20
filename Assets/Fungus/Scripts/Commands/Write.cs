@@ -7,6 +7,21 @@ using Fungus.Variables;
 namespace Fungus.Commands
 {
     /// <summary>
+    /// Text coloring mode for Write command.
+    /// </summary>
+    public enum TextColor
+    {
+        /// <summary> Don't change the text color. </summary>
+        Default,
+        /// <summary> Set the text alpha to 1. </summary>
+        SetVisible,
+        /// <summary> Set the text alpha to a value. </summary>
+        SetAlpha,
+        /// <summary> Set the text color to a value. </summary>
+        SetColor
+    }
+
+    /// <summary>
     /// Writes content to a UI Text or Text Mesh object.
     /// </summary>
     [CommandInfo("UI", 
@@ -29,14 +44,6 @@ namespace Fungus.Commands
 
         [Tooltip("Wait until this command finishes before executing the next command")]
         [SerializeField] protected bool waitUntilFinished = true;
-
-        public enum TextColor
-        {
-            Default,
-            SetVisible,
-            SetAlpha,
-            SetColor
-        }
 
         [SerializeField] protected TextColor textColor = TextColor.Default;
 

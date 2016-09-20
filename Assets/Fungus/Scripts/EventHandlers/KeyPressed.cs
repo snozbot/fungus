@@ -6,6 +6,19 @@
 namespace Fungus.EventHandlers
 {
     /// <summary>
+    /// Key press modes supported by Key Pressed event handler.
+    /// </summary>
+    public enum KeyPressType
+    {
+        /// <summary> Execute once when the key is pressed down. </summary>
+        KeyDown,
+        /// <summary> Execute once when the key is released </summary>
+        KeyUp,
+        /// <summary> Execute once per frame when key is held down. </summary>
+        KeyRepeat
+    }
+
+    /// <summary>
     /// The block will execute when a key press event occurs.
     /// </summary>
     [EventHandlerInfo("Input",
@@ -14,13 +27,6 @@ namespace Fungus.EventHandlers
     [AddComponentMenu("")]
     public class KeyPressed : EventHandler
     {   
-        public enum KeyPressType
-        {
-            KeyDown,    // Execute once when the key is pressed down
-            KeyUp,      // Execute once when the key is released
-            KeyRepeat   // Execute once per frame when key is held down
-        }
-
         [Tooltip("The type of keypress to activate on")]
         [SerializeField] protected KeyPressType keyPressType;
 

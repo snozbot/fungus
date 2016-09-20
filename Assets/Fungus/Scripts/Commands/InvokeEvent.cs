@@ -9,6 +9,23 @@ using Fungus.Variables;
 namespace Fungus.Commands
 {
     /// <summary>
+    /// Supported types of method invocation.
+    /// </summary>
+    public enum InvokeType
+    {
+        /// <summary> Call a method with an optional constant value parameter. </summary>
+        Static,         // 
+        /// <summary> Call a method with an optional boolean constant / variable parameter. </summary>
+        DynamicBoolean,
+        /// <summary> Call a method with an optional integer constant / variable parameter. </summary>
+        DynamicInteger,
+        /// <summary> Call a method with an optional float constant / variable parameter. </summary>
+        DynamicFloat,
+        /// <summary> Call a method with an optional string constant / variable parameter. </summary>
+        DynamicString
+    }
+
+    /// <summary>
     /// Calls a list of component methods via the Unity Event System (as used in the Unity UI)
     /// This command is more efficient than the Invoke Method command but can only pass a single parameter and doesn't support return values.
     /// This command uses the UnityEvent system to call methods in script. http://docs.unity3d.com/Manual/UnityEvents.html
@@ -24,15 +41,6 @@ namespace Fungus.Commands
         [Serializable] public class IntegerEvent : UnityEvent<int> {}
         [Serializable] public class FloatEvent : UnityEvent<float> {}
         [Serializable] public class StringEvent : UnityEvent<string> {}
-
-        public enum InvokeType
-        {
-            Static,         // Call a method with an optional constant value parameter
-            DynamicBoolean, // Call a method with an optional boolean constant / variable parameter
-            DynamicInteger, // Call a method with an optional integer constant / variable parameter
-            DynamicFloat,   // Call a method with an optional float constant / variable parameter
-            DynamicString   // Call a method with an optional string constant / variable parameter
-        }
 
         [Tooltip("Delay (in seconds) before the methods will be called")]
         [SerializeField] protected float delay;

@@ -9,6 +9,23 @@ using Fungus.Variables;
 namespace Fungus.Commands
 {
     /// <summary>
+    /// The type of audio control to perform.
+    /// </summary>
+    public enum ControlAudioType
+    {
+        /// <summary> Play the audiosource once. </summary>
+        PlayOnce,
+        /// <summary> Play the audiosource in a loop. </summary>
+        PlayLoop,
+        /// <summary> Pause a looping audiosource. </summary>
+        PauseLoop,
+        /// <summary> Stop a looping audiosource. </summary>
+        StopLoop,
+        /// <summary> Change the volume level of an audiosource. </summary>
+        ChangeVolume
+    }
+
+    /// <summary>
     /// Plays, loops, or stops an audiosource. Any AudioSources with the same tag as the target Audio Source will automatically be stoped.
     /// </summary>
     [CommandInfo("Audio", 
@@ -17,18 +34,9 @@ namespace Fungus.Commands
     [ExecuteInEditMode]
     public class ControlAudio : Command
     {
-        public enum ControlType
-        {
-            PlayOnce,
-            PlayLoop,
-            PauseLoop,
-            StopLoop,
-            ChangeVolume
-        }
-
         [Tooltip("What to do to audio")]
-        [SerializeField] protected ControlType control;
-        public virtual ControlType Control { get { return control; } }
+        [SerializeField] protected ControlAudioType control;
+        public virtual ControlAudioType Control { get { return control; } }
 
         [Tooltip("Audio clip to play")]
         [SerializeField] protected AudioSourceData _audioSource;
@@ -55,28 +63,28 @@ namespace Fungus.Commands
                 return;
             }
 
-            if (control != ControlType.ChangeVolume)
+            if (control != ControlAudioType.ChangeVolume)
             {
                 _audioSource.Value.volume = endVolume;
             }
 
             switch(control)
             {
-                case ControlType.PlayOnce:
+                case ControlAudioType.PlayOnce:
                     StopAudioWithSameTag();
                     PlayOnce();
                     break;
-                case ControlType.PlayLoop:
+                case ControlAudioType.PlayLoop:
                     StopAudioWithSameTag();
                     PlayLoop();
                     break;
-                case ControlType.PauseLoop:
+                case ControlAudioType.PauseLoop:
                     PauseLoop();
                     break;
-                case ControlType.StopLoop:
+                case ControlAudioType.StopLoop:
                     StopLoop(_audioSource.Value);
                     break;
-                case ControlType.ChangeVolume:
+                case ControlAudioType.ChangeVolume:
                     ChangeVolume(); 
                     break;
             }
@@ -256,11 +264,11 @@ namespace Fungus.Commands
             if (fadeDuration > 0)
             {
                 fadeType = " Fade out";
-                if (control != ControlType.StopLoop)
+                if (control != ControlAudioType.StopLoop)
                 {
                     fadeType = " Fade in volume to " + endVolume;
                 }
-                if (control == ControlType.ChangeVolume)
+                if (control == ControlAudioType.ChangeVolume)
                 {
                     fadeType = " to " + endVolume;
                 }

@@ -71,16 +71,16 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(clearTextProp);
 
             EditorGUILayout.PropertyField(textColorProp);
-            switch ((Write.TextColor)textColorProp.enumValueIndex)
+            switch ((TextColor)textColorProp.enumValueIndex)
             {
-            case Write.TextColor.Default:
+            case TextColor.Default:
                 break;
-            case Write.TextColor.SetVisible:
+            case TextColor.SetVisible:
                 break;
-            case Write.TextColor.SetAlpha:
+            case TextColor.SetAlpha:
                 EditorGUILayout.PropertyField(setAlphaProp);
                 break;
-            case Write.TextColor.SetColor:
+            case TextColor.SetColor:
                 EditorGUILayout.PropertyField(setColorProp);
                 break;
             }

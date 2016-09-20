@@ -7,6 +7,19 @@ using Fungus.Variables;
 namespace Fungus.Commands
 {
     /// <summary>
+    /// Type of log message. Maps directly to Unity's log types.
+    /// </summary>
+    public enum DebugLogType
+    {
+        /// <summary> Informative log message. </summary>
+        Info,
+        /// <summary> Warning log message. </summary>
+        Warning,
+        /// <summary> Error log message. </summary>
+        Error
+    }
+
+    /// <summary>
     /// Writes a log message to the debug console.
     /// </summary>
     [CommandInfo("Scripting", 
@@ -15,13 +28,6 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class DebugLog : Command 
     {
-        public enum DebugLogType
-        {
-            Info,
-            Warning,
-            Error
-        }
-
         [Tooltip("Display type of debug log info")]
         [SerializeField] protected DebugLogType logType;
 

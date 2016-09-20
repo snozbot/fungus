@@ -9,6 +9,17 @@ using Fungus.Variables;
 namespace Fungus.Commands
 {
     /// <summary>
+    /// Select which type of fade will be applied.
+    /// </summary>
+    public enum FadeMode
+    {
+        /// <summary> Fade the alpha color component only. </summary>
+        Alpha,
+        /// <summary> Fade all color components (RGBA). </summary>
+        Color
+    }
+
+    /// <summary>
     /// Fades a UI object.
     /// </summary>
     [CommandInfo("UI",
@@ -16,12 +27,6 @@ namespace Fungus.Commands
                  "Fades a UI object")]
     public class FadeUI : TweenUI 
     {
-        public enum FadeMode
-        {
-            Alpha,
-            Color
-        }
-
         [SerializeField] protected FadeMode fadeMode = FadeMode.Alpha;
 
         [SerializeField] protected ColorData targetColor = new ColorData(Color.white);

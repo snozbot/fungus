@@ -7,18 +7,25 @@ using UnityEngine.EventSystems;
 namespace Fungus
 {
     /// <summary>
+    /// Supported modes for clicking through a Say Dialog.
+    /// </summary>
+    public enum ClickMode
+    {
+        /// <summary> Clicking disabled. </summary>
+        Disabled,
+        /// <summary> Click anywhere on screen to advance. </summary>
+        ClickAnywhere,
+        /// <summary> Click anywhere on Say Dialog to advance. </summary>
+        ClickOnDialog,
+        /// <summary> Click on continue button to advance. </summary>
+        ClickOnButton
+    }
+
+    /// <summary>
     /// Input handler for say dialogs.
     /// </summary>
     public class DialogInput : MonoBehaviour, IDialogInput
     {
-        public enum ClickMode
-        {
-            Disabled,           // Clicking disabled
-            ClickAnywhere,      // Click anywhere on screen to advance
-            ClickOnDialog,      // Click anywhere on Say Dialog to advance
-            ClickOnButton       // Click on continue button to advance
-        }
-
         [Tooltip("Click to advance story")]
         [SerializeField] protected ClickMode clickMode;
 

@@ -66,7 +66,7 @@ namespace Fungus.Commands
 
         [HideInInspector]
         [Tooltip("The coroutine call behavior for methods that return IEnumerator")]
-        [SerializeField] protected Call.CallMode callMode;
+        [SerializeField] protected CallMode callMode;
 
         protected Type componentType;
         protected Component objComponent;
@@ -121,11 +121,11 @@ namespace Fungus.Commands
                 {
                     StartCoroutine(ExecuteCoroutine());
 
-                    if (callMode == Call.CallMode.Continue)
+                    if (callMode == CallMode.Continue)
                     {
                         Continue();
                     }
-                    else if(callMode == Call.CallMode.Stop)
+                    else if(callMode == CallMode.Stop)
                     {
                         StopParentBlock();
                     }
@@ -141,7 +141,7 @@ namespace Fungus.Commands
         {
             yield return StartCoroutine((IEnumerator)objMethod.Invoke(objComponent, GetParameterValues()));
 
-            if (callMode == Call.CallMode.WaitUntilFinished)
+            if (callMode == CallMode.WaitUntilFinished)
             {
                 Continue();
             }
