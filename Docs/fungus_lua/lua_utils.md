@@ -1,4 +1,4 @@
-# LuaUtils
+# LuaUtils {#lua_utils}
 
 LuaUtils is a component that extends the Lua environment with some commonly used functionality. 
 

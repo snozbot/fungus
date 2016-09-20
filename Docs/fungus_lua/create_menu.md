@@ -1,4 +1,4 @@
-# The Create Menu
+# The Create Menu {#lua_create_menu}
 
 The easiest way to add Lua scripting to your scene is via the Tools > Fungus > Create menu. This allows you to quickly instantiate one of the Lua prefabs that comes with FungusLua. The FungusLua prefabs all begin with 'Lua'.
 

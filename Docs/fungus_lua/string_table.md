@@ -1,4 +1,4 @@
-# String Table
+# String Table {#lua_string_table}
 
 The LuaUtils component provides support for simple text localisation.
 

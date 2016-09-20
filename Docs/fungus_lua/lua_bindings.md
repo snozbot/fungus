@@ -1,4 +1,4 @@
-# LuaBindings component
+# LuaBindings component {#lua_bindings}
 
 The LuaBindings component allows you map gameobjects and components in your scenes to Lua variables which you can then access in your Lua scripts. You can bind to any component, including standard Unity components, components from the Unity Asset Store and your own custom scripts.
 

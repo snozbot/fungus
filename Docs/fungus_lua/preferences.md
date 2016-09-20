@@ -1,4 +1,4 @@
-# PlayerPrefs
+# PlayerPrefs {#lua_preferences}
 
 The [Unity PlayerPrefs](http://docs.unity3d.com/ScriptReference/PlayerPrefs.html) system stores and accesses player preferences between game sessions.
 

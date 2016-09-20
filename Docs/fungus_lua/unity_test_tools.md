@@ -1,4 +1,4 @@
-# Unity Test Tools
+# Unity Test Tools {#lua_unity_test_tools}
 
 If you are using the [Unity Test Tools](http://u3d.as/65h), FungusLua is a powerful and fast way to create integration tests using Lua scripting.
 

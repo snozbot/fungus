@@ -1,4 +1,4 @@
-# What is FungusLua?
+# What is FungusLua? {#lua_overview}
 
 FungusLua is a simple way to embed Lua scripting into your Unity project. Lua is an easy to learn scripting language so it's a great way to empower artists, writers and designers to use more of the power of Unity.
 

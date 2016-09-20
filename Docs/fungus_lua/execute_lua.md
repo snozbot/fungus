@@ -1,4 +1,4 @@
-# The ExecuteLua Command
+# The ExecuteLua Command {#execute_lua}
 
 This command allows you to embed a Lua script to be executed as part of a command sequence in a Block. The Lua script to be executed can be specified in the inspector or in a text file, in the same way as in the [Lua Script component](lua_script.md#lua-script-and-files).
 

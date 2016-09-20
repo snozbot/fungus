@@ -1,4 +1,4 @@
-# Fungus Module
+# Fungus Module {#lua_fungus_module}
 
 This Lua module provides handy functions for working with Lua, Unity and Fungus. 
 

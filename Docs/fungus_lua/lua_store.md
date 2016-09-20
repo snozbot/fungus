@@ -1,4 +1,4 @@
-# LuaStore
+# LuaStore {#lua_store}
 
 A common issue when working with multiple scenes in Unity is how to persist variable values from one scene to the next. By default, all scene objects and their properties are destroyed when you load another scene.
 

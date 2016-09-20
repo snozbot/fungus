@@ -1,4 +1,4 @@
-# LuaScript
+# LuaScript {#lua_script}
 
 The LuaScript component provides an easy way to run Lua scripts in your scene. You can create a LuaScript object via (Tools > Fungus > Create > LuaScript).
 
