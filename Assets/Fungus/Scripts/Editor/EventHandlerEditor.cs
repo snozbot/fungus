@@ -4,7 +4,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(EventHandler), true)]
     public class EventHandlerEditor : Editor 

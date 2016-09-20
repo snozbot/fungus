@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Fungus.Commands;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(Label))]
     public class LabelEditor : CommandEditor

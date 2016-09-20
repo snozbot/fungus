@@ -7,7 +7,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     /// <summary>
     /// Temp hidden object which lets us use the entire inspector window to inspect the block command list.

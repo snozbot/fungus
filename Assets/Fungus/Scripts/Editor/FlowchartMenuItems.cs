@@ -5,7 +5,7 @@
 using UnityEditor;
 using Fungus.Utils;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     public class FlowchartMenuItems
     {

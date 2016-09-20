@@ -4,7 +4,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     public static class SerializedPropertyExtensions
     {

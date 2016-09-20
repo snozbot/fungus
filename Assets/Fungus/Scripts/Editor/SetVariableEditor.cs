@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Fungus.Commands;
 using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
 
     [CustomEditor (typeof(SetVariable))]

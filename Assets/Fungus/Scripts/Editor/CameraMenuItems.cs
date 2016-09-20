@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     public class CameraMenuItems 
     {

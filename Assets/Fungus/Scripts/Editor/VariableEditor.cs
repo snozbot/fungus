@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(Variable), true)]
     public class VariableEditor : CommandEditor

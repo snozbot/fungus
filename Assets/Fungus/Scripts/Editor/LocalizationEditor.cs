@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using System.IO;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor(typeof(Localization))]
     public class LocalizationEditor : Editor 

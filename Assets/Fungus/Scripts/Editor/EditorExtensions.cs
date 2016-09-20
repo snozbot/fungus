@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     public static class EditorExtensions
     {

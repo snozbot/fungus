@@ -6,7 +6,7 @@ using UnityEngine;
 using Rotorz.ReorderableList;
 using Fungus.Commands;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(SetCollider))]
     public class SetColliderEditor : CommandEditor 

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Fungus.Utils;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     public class FlowchartWindow : EditorWindow
     {

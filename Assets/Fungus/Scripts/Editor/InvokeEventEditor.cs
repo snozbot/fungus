@@ -4,7 +4,7 @@
 using UnityEditor;
 using Fungus.Commands;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(InvokeEvent))]
     public class InvokeEventEditor : CommandEditor 

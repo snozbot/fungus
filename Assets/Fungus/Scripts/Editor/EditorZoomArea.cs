@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     // Helper Rect extension methods
     public static class RectExtensions

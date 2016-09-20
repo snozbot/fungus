@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Fungus.Commands;
 using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(If), true)]
     public class IfEditor : CommandEditor 

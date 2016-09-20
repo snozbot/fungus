@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Rotorz.ReorderableList;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
 
     [CustomEditor (typeof(Command), true)]

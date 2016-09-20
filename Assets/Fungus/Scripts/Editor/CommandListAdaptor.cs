@@ -12,7 +12,7 @@ using Rotorz.ReorderableList;
 using Fungus.Commands;
 using Fungus.Utils;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     public class CommandListAdaptor : IReorderableListAdaptor {
         

@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using Fungus.Commands;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     
     [CustomEditor (typeof(ControlAudio))]

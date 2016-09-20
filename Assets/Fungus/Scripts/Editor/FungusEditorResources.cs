@@ -5,7 +5,7 @@
 using UnityEditor;
 using System;
 
-namespace Fungus 
+namespace Fungus.EditorUtils 
 {
     internal static class FungusEditorResources 
     {

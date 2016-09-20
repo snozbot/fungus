@@ -6,7 +6,7 @@ using UnityEngine;
 using Fungus.Commands;
 using Fungus.Utils;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(Write))]
     public class WriteEditor : CommandEditor

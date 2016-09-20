@@ -10,7 +10,7 @@ using UnityEditor;
 using System;
 using Rotorz.ReorderableList;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     public class VariableListAdaptor : IReorderableListAdaptor {
         

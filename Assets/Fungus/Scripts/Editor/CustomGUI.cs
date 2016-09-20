@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     /// <summary>
     /// Utility functions for drawing custom UI in the editor.

@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using Rotorz.ReorderableList;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(WriterAudio))]
     public class WriterAudioEditor : Editor

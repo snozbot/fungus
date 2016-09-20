@@ -8,7 +8,7 @@ using Rotorz.ReorderableList;
 using System.Linq;
 using System.Reflection;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(Flowchart))]
     public class FlowchartEditor : Editor 

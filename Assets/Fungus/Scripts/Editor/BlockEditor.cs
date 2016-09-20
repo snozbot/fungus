@@ -13,7 +13,7 @@ using Rotorz.ReorderableList;
 using System.IO;
 using System.Reflection;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(Block))]
     public class BlockEditor : Editor 

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Fungus.Commands;
 using Fungus.Utils;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(Say))]
     public class SayEditor : CommandEditor

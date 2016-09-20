@@ -4,7 +4,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     // The prefab names are prefixed with Fungus to avoid clashes with any other prefabs in the project
     public class NarrativeMenuItems 

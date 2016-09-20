@@ -6,7 +6,7 @@ using UnityEngine;
 using Fungus.Commands;
 using Fungus.Utils;
 
-namespace Fungus
+namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(ControlStage))]
     public class StageEditor : CommandEditor
