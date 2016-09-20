@@ -15,6 +15,7 @@ The main website for Fungus and [community forum](http://fungusgames.com/forum) 
 * @subpage articles
 * @subpage glossary
 * @subpage faq
+* @subpage narrative_tags
 
 # Overview
 

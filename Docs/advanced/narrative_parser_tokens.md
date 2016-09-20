@@ -1,4 +1,4 @@
-# Narrative Parser Tags
+# Narrative Parser Tags {#narrative_tags}
 
 The following tokens can be used within Story Text to do things such as change the styling of text or clear the contents of a dialog area on input and much more.
 
