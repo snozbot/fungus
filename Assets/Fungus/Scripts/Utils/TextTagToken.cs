@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Fungus
+namespace Fungus.Utils
 {
     public class TextTagToken
     {

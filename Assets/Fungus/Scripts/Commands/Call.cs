@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 using System.Collections.Generic;
 using System;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Execute another block in the same Flowchart as the command, or in a different Flowchart.

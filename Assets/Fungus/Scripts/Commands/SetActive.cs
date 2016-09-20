@@ -3,8 +3,9 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Sets a game object in the scene to be active / inactive.

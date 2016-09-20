@@ -4,8 +4,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Set the interactable state of selectable objects.

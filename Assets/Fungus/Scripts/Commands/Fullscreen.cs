@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Sets the application to fullscreen, windowed or toggles the current state.

@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using Fungus.Utils;
 
 namespace Fungus
 {

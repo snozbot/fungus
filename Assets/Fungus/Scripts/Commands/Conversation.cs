@@ -3,8 +3,10 @@
 
 ﻿using UnityEngine;
 using System.Collections;
+using Fungus.Variables;
+using Fungus.Utils;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text].

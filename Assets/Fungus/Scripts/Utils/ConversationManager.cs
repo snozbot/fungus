@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using System.Text;
 
-namespace Fungus
+namespace Fungus.Utils
 {
     public class ConversationManager : IConversationManager
     {

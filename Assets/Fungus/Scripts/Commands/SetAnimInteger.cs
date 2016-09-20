@@ -3,8 +3,9 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Sets an integer parameter on an Animator component to control a Unity animation.

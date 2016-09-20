@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using MoonSharp.Interpreter;
+using Fungus.Utils;
 
 namespace Fungus
 {

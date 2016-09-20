@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Stop executing the Block that contains this command.

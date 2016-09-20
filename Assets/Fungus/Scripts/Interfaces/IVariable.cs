@@ -3,6 +3,16 @@
 
 namespace Fungus
 {
+    public enum CompareOperator
+    {
+        Equals,                 // ==
+        NotEquals,              // !=
+        LessThan,               // <
+        GreaterThan,            // >
+        LessThanOrEquals,       // <=
+        GreaterThanOrEquals     // >=
+    }
+
     /// <summary>
     /// Scope types for Variables.
     /// </summary>

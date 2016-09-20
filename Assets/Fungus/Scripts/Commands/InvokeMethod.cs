@@ -8,8 +8,9 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.Events;
 using MarkerMetro.Unity.WinLegacy.Reflection;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Invokes a method of a component via reflection. Supports passing multiple parameters and storing returned values in a Fungus variable.

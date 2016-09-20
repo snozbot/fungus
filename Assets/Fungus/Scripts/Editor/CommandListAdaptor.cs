@@ -9,6 +9,8 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using Rotorz.ReorderableList;
+using Fungus.Commands;
+using Fungus.Utils;
 
 namespace Fungus
 {

@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Fungus
+namespace Fungus.Variables
 {
     /// <summary>
     /// AudioSource variable type.

@@ -5,7 +5,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Sets the active profile that the Save Variable and Load Variable commands will use. This is useful to crete multiple player save games. Once set, the profile applies across all Flowcharts and will also persist across scene loads.

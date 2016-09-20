@@ -3,7 +3,7 @@
 
 ﻿using UnityEngine;
 
-namespace Fungus
+namespace Fungus.EventHandlers
 {
     /// <summary>
     /// The block will execute when the player drags an object and successfully drops it on a target object.

@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Sets a custom say dialog to use when displaying story text.

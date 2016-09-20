@@ -4,6 +4,7 @@
 using UnityEditor;
 using UnityEngine;
 using Rotorz.ReorderableList;
+using Fungus.Commands;
 
 namespace Fungus
 {

@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Writes text in a dialog box.

@@ -2,10 +2,11 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using Fungus;
 using MoonSharp.Interpreter;
+using Fungus;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Executes a Lua code chunk using a Lua Environment.

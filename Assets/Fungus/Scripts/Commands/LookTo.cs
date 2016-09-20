@@ -4,8 +4,9 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Rotates a GameObject to look at a supplied Transform or Vector3 over time.

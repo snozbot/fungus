@@ -3,7 +3,7 @@
 
 ﻿using UnityEngine;
 
-namespace Fungus
+namespace Fungus.EventHandlers
 {
     /// <summary>
     /// The block will execute when a key press event occurs.

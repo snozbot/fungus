@@ -4,8 +4,9 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Applies a jolt of force to a GameObject's scale and wobbles it back to its initial scale.

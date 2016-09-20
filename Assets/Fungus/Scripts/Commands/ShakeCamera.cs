@@ -4,7 +4,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Applies a camera shake effect to the main camera.

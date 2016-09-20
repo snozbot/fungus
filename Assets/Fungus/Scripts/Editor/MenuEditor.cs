@@ -3,10 +3,11 @@
 
 using UnityEditor;
 using UnityEngine;
+using Fungus.Commands;
 
 namespace Fungus
 {
-    [CustomEditor (typeof(Fungus.Menu))]
+    [CustomEditor (typeof(Fungus.Commands.Menu))]
     public class MenuEditor : CommandEditor 
     {
         protected SerializedProperty textProp;

@@ -4,8 +4,9 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Instantly rotates a GameObject to look at the supplied Vector3 then returns it to it's starting rotation over time.

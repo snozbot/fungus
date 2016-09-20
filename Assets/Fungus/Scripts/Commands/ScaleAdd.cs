@@ -4,8 +4,9 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Changes a game object's scale by a specified offset over time.

@@ -3,8 +3,9 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Move execution to a specific Label command in the same block.

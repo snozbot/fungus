@@ -4,8 +4,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Fungus;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Abstract base class for TweenUI commands.

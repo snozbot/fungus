@@ -4,8 +4,9 @@
 using UnityEngine;
 using System;
 using UnityEngine.Events;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Calls a list of component methods via the Unity Event System (as used in the Unity UI)

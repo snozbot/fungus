@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     public class ControlWithDisplay<TDisplayEnum> : Command
     {

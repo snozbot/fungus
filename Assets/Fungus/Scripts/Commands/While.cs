@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Continuously loop through a block of commands while the condition is true. Use the Break command to force the loop to terminate immediately.

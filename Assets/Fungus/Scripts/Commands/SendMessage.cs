@@ -3,8 +3,10 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
+using Fungus.Variables;
+using Fungus.EventHandlers;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Sends a message to either the owner Flowchart or all Flowcharts in the scene. Blocks can listen for this message using a Message Received event handler.

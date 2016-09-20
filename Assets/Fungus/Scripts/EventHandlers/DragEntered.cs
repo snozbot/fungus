@@ -6,7 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Fungus
+namespace Fungus.EventHandlers
 {
     /// <summary>
     /// The block will execute when the player is dragging an object which starts touching the target object.

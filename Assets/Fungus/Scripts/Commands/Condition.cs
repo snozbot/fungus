@@ -3,18 +3,8 @@
 
 using UnityEngine;
 
-namespace Fungus
+namespace Fungus.Commands
 {
-    public enum CompareOperator
-    {
-        Equals,                 // ==
-        NotEquals,              // !=
-        LessThan,               // <
-        GreaterThan,            // >
-        LessThanOrEquals,       // <=
-        GreaterThanOrEquals     // >=
-    }
-    
     [AddComponentMenu("")]
     public abstract class Condition : Command
     {

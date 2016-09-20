@@ -3,8 +3,9 @@
 
 ﻿using UnityEngine;
 using Fungus;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Opens the specified URL in the browser.

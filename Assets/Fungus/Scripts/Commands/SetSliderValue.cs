@@ -3,8 +3,9 @@
 
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Sets the value property of a slider object.

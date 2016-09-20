@@ -3,6 +3,8 @@
 
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Fungus.EventHandlers;
+using Fungus.Commands;
 
 namespace Fungus
 {

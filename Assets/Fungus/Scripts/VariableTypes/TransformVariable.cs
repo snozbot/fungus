@@ -4,7 +4,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Fungus
+namespace Fungus.Variables
 {
     /// <summary>
     /// Transform variable type.

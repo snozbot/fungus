@@ -3,8 +3,9 @@
 
 ﻿using UnityEngine;
 using Fungus;
+using Fungus.Variables;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     /// <summary>
     /// Reads in a text file and stores the contents in a string variable.

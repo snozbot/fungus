@@ -2,13 +2,9 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Fungus.Utils;
 
-namespace Fungus
+namespace Fungus.Commands
 {
     public enum StageDisplayType
     {
