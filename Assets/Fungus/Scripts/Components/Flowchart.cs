@@ -116,7 +116,7 @@ namespace Fungus
             };
         }
         #else
-        public virtual void OnLevelWasLoaded(int level) 
+        protected virtual void OnLevelWasLoaded(int level) 
         {
             LevelWasLoaded();
         }
