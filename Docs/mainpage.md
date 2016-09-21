@@ -24,7 +24,9 @@ The main website for Fungus and [community forum](http://fungusgames.com/forum) 
 
 There's a wide range of training material available here, suitable for both beginner and experienced game developers. 
 
-- [What is Fungus?](about/index.md)
+TODO: Fix these links
+
+- [What is Fungus?](fungus-docs/index.md)
 - [Download and install instructions](download/index.md)
 - [Tutorial videos](tutorial_videos/index.md)
 - [Fungus Training Course](training_course/index.md)
