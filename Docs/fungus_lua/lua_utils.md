@@ -45,7 +45,7 @@ The most important function of the LuaUtils component is registering C# types so
 
 In order to access the members of a C# type from Lua, the type first has to be registered with MoonSharp. Note that for objects added using the LuaBindings component, the relevant types are registered automatically.
 
-In some cases however, you will need to register a type explicitly. The easiest way to do this is by adding the type's name to the FungusTypes.txt or UnityTypes.txt JSON files referenced by the LuaUtils component. You can also create your own JSON files to register additional types. Note that types that are not contained in the main application DLL will need to use the [namespace qualified type name](https://msdn.microsoft.com/en-us/library/system.type.assemblyqualifiedname(v=vs.110).aspx) in the JSON file.
+In some cases however, you will need to register a type explicitly. The easiest way to do this is by adding the type's name to the FungusTypes.txt or UnityTypes.txt JSON files referenced by the LuaUtils component. You can also create your own JSON files to register additional types. Note that types that are not contained in the main application DLL will need to use the [namespace qualified type name] in the JSON file.
 
 # Example JSON Type File
 
@@ -71,14 +71,14 @@ LuaUtils creates bindings for several useful C# classes and components so that y
 
 | Binding name 		| Description |
 | ----------------- | ----------- |
-| time 				| The [Unity Time class](http://docs.unity3d.com/ScriptReference/Time.html). e.g. 'time.deltaTime' returns the delta time for this frame |
-| playerprefs		| The [Unity PlayerPrefs](preferences.md#playerprefs) class. Used for saving data to disk. |
-| prefs 			| The [FungusPrefs class](preferences.md#fungusprefs), our own wrapper around PlayerPrefs that adds a slots systems. |
-| factory 			| The [PODTypeFactory](lua_utils.md#podfactory) class for creating common plain-old-data types |
+| time 				| The [Unity Time class]. e.g. 'time.deltaTime' returns the delta time for this frame |
+| playerprefs		| The @ref lua_preferences "Lua Preferences" class. Used for saving data to disk. |
+| prefs 			| The @ref lua_preferences "Fungus Prefs" class, our own wrapper around PlayerPrefs that adds a slots systems. |
+| factory 			| The @ref lua_utils "PODTypeFactory" class for creating common plain-old-data types |
 | luaenvironment 	| The LuaEnvironment component used to execute Lua scripts |
 | luautils 			| A reference to the LuaUtils component itself |
-| test 				| Support for [Unity Test Tools](unity_test_tools.md) (if installed) |
-| stringtable 		| The FungusLua localisation [string table](string_table.md) |
+| test 				| Support for @ref unity_test_tools (if installed) |
+| stringtable 		| The FungusLua localisation @ref string_table |
 
 # PODFactory
 
@@ -105,3 +105,6 @@ local q = luautils.factory.quaternion(float x, float y, float z) -- Rotation in 
 -- Returns a new Rect object
 local r = luautils.factory.rect(float x, float y, float width, float height)
 ```
+
+[namespace qualified type name]: https://msdn.microsoft.com/en-us/library/system.type.assemblyqualifiedname(v=vs.110).aspx
+[Unity Time class]: http://docs.unity3d.com/ScriptReference/Time.html

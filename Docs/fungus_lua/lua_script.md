@@ -2,7 +2,7 @@
 
 The LuaScript component provides an easy way to run Lua scripts in your scene. You can create a LuaScript object via (Tools > Fungus > Create > LuaScript).
 
-![LuaScript](images/lua_script.png)
+![LuaScript](fungus_lua/lua_script.png)
 
 # ExecuteHandler component
 
@@ -18,7 +18,7 @@ You can also use both options at the same time. In this case, the Lua File conte
 
 # Lua modules and require()
 
-The Lua module system allows you to create reusable packages of Lua code and include these in your Lua scripts. [This tutorial](http://www.tutorialspoint.com/lua/lua_modules.htm) explains how to write Lua modules. Module files in FungusLua need to be put into a special folder structure so that the Lua require() function is able to locate them.
+The Lua module system allows you to create reusable packages of Lua code and include these in your Lua scripts. [This tutorial] explains how to write Lua modules. Module files in FungusLua need to be put into a special folder structure so that the Lua require() function is able to locate them.
 
 To use a Lua module:
 
@@ -68,7 +68,7 @@ To resolve this type of error, carefully check that the variable you want to acc
 
 For runtime errors, a useful technique is to add print() calls in your code just before where the error occurs, and run it again. This way you can print out information to the console to help track down the cause of the error.
 
-MoonSharp includes a remote debugger tool which you can use to step through Lua code and inspect variables. See the [LuaEnvironment documentation](lua_environment.md) for more information.
+MoonSharp includes a remote debugger tool which you can use to step through Lua code and inspect variables. See the @ref lua_environment for more information.
 
 # Setting the LuaEnvironment
 
@@ -77,3 +77,6 @@ By default the LuaScript component will use the first LuaEnvironment it finds in
 # RunAsCoroutine option
 
 This option will run the Lua script as a Lua coroutine which is useful for writing asynchronous code via the coroutine.yield() function in Lua. If you don't need to execute your Lua script asynchronously, deselecting this option will avoid the overhead of running as a coroutine. Recommended for advanced users only!
+
+[This tutorial]: http://www.tutorialspoint.com/lua/lua_modules.htm
+
