@@ -3,6 +3,8 @@
 ## Comment
 Use comments to record design notes and reminders about your game.
 
+Defined in Fungus.Commands.Comment
+
 Property | Type | Description
  --- | --- | ---
 Commenter Name | System.String | Name of Commenter
@@ -10,6 +12,8 @@ Comment Text | System.String | Text to display for this comment
 
 ## Call Method
 Calls a named method on a GameObject using the GameObject.SendMessage() system.
+
+Defined in Fungus.Commands.CallMethod
 
 Property | Type | Description
  --- | --- | ---
@@ -20,6 +24,8 @@ Delay | System.Single | Delay (in seconds) before the method will be called
 ## Debug Log
 Writes a log message to the debug console.
 
+Defined in Fungus.Commands.DebugLog
+
 Property | Type | Description
  --- | --- | ---
 Log Type | Fungus.Commands.DebugLogType | Display type of debug log info
@@ -28,12 +34,16 @@ Log Message | Fungus.Variables.StringDataMulti | Text to write to the debug log.
 ## Destroy
 Destroys a specified game object in the scene.
 
+Defined in Fungus.Commands.Destroy
+
 Property | Type | Description
  --- | --- | ---
 _target Game Object | Fungus.Variables.GameObjectData | Reference to game object to destroy
 
 ## Execute Lua
 Executes a Lua code chunk using a Lua Environment.
+
+Defined in Fungus.Commands.ExecuteLua
 
 Property | Type | Description
  --- | --- | ---
@@ -46,6 +56,8 @@ Return Variable | Fungus.Variable | A Flowchart variable to store the returned v
 
 ## Invoke Event
 Calls a list of component methods via the Unity Event System (as used in the Unity UI). This command is more efficient than the Invoke Method command but can only pass a single parameter and doesn't support return values.
+
+Defined in Fungus.Commands.InvokeEvent
 
 Property | Type | Description
  --- | --- | ---
@@ -62,6 +74,8 @@ String Event | Fungus.Commands.InvokeEvent+StringEvent | List of methods to call
 
 ## Invoke Method
 Invokes a method of a component via reflection. Supports passing multiple parameters and storing returned values in a Fungus variable.
+
+Defined in Fungus.Commands.InvokeMethod
 
 Property | Type | Description
  --- | --- | ---
@@ -81,12 +95,16 @@ Call Mode | Fungus.Commands.CallMode | The coroutine call behavior for methods t
 ## Open URL
 Opens the specified URL in the browser.
 
+Defined in Fungus.Commands.LinkToWebsite
+
 Property | Type | Description
  --- | --- | ---
 Url | Fungus.Variables.StringData | URL to open in the browser
 
 ## Set Active
 Sets a game object in the scene to be active / inactive.
+
+Defined in Fungus.Commands.SetActive
 
 Property | Type | Description
  --- | --- | ---
@@ -95,6 +113,8 @@ Active State | Fungus.Variables.BooleanData | Set to true to enable the game obj
 
 ## Spawn Object
 Spawns a new object based on a reference to a scene or prefab game object.
+
+Defined in Fungus.Commands.SpawnObject
 
 Property | Type | Description
  --- | --- | ---

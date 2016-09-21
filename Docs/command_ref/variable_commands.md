@@ -3,12 +3,16 @@
 ## Delete Save Key
 Deletes a saved value from permanent storage.
 
+Defined in Fungus.Commands.DeleteSaveKey
+
 Property | Type | Description
  --- | --- | ---
 Key | System.String | Name of the saved value. Supports variable substition e.g. "player_{$PlayerNumber}
 
 ## Load Variable
 Loads a saved value and stores it in a Boolean, Integer, Float or String variable. If the key is not found then the variable is not modified.
+
+Defined in Fungus.Commands.LoadVariable
 
 Property | Type | Description
  --- | --- | ---
@@ -17,6 +21,8 @@ Variable | Fungus.Variable | Variable to store the value in.
 
 ## Random Float
 Sets an float variable to a random value in the defined range.
+
+Defined in Fungus.Commands.RandomFloat
 
 Property | Type | Description
  --- | --- | ---
@@ -27,6 +33,8 @@ Max Value | Fungus.Variables.FloatData | Maximum value for random range
 ## Random Integer
 Sets an integer variable to a random value in the defined range.
 
+Defined in Fungus.Commands.RandomInteger
+
 Property | Type | Description
  --- | --- | ---
 Variable | Fungus.Variables.IntegerVariable | The variable whos value will be set
@@ -36,6 +44,8 @@ Max Value | Fungus.Variables.IntegerData | Maximum value for random range
 ## Read Text File
 Reads in a text file and stores the contents in a string variable
 
+Defined in Fungus.Commands.ReadTextFile
+
 Property | Type | Description
  --- | --- | ---
 Text File | UnityEngine.TextAsset | Text file to read into the string variable
@@ -43,6 +53,8 @@ String Variable | Fungus.Variables.StringVariable | String variable to store the
 
 ## Reset
 Resets the state of all commands and variables in the Flowchart.
+
+Defined in Fungus.Commands.Reset
 
 Property | Type | Description
  --- | --- | ---
@@ -52,6 +64,8 @@ Reset Variables | System.Boolean | Reset variables back to their default values
 ## Save Variable
 Save an Boolean, Integer, Float or String variable to persistent storage using a string key. The value can be loaded again later using the Load Variable command. You can also use the Set Save Profile command to manage separate save profiles for multiple players.
 
+Defined in Fungus.Commands.SaveVariable
+
 Property | Type | Description
  --- | --- | ---
 Key | System.String | Name of the saved value. Supports variable substition e.g. "player_{$PlayerNumber}
@@ -60,12 +74,16 @@ Variable | Fungus.Variable | Variable to read the value from. Only Boolean, Inte
 ## Set Save Profile
 Sets the active profile that the Save Variable and Load Variable commands will use. This is useful to crete multiple player save games. Once set, the profile applies across all Flowcharts and will also persist across scene loads.
 
+Defined in Fungus.Commands.SetSaveProfile
+
 Property | Type | Description
  --- | --- | ---
 Save Profile Name | System.String | Name of save profile to make active.
 
 ## Set Variable
 Sets a Boolean, Integer, Float or String variable to a new value using a simple arithmetic operation. The value can be a constant or reference another variable of the same type.
+
+Defined in Fungus.Commands.SetVariable
 
 Property | Type | Description
  --- | --- | ---

@@ -3,6 +3,8 @@
 ## Control Audio
 Plays, loops, or stops an audiosource. Any AudioSources with the same tag as the target Audio Source will automatically be stoped.
 
+Defined in Fungus.Commands.ControlAudio
+
 Property | Type | Description
  --- | --- | ---
 Control | Fungus.Commands.ControlAudioType | What to do to audio
@@ -15,6 +17,8 @@ Wait Until Finished | System.Boolean | Wait until this command has finished befo
 ## Play Music
 Plays looping game music. If any game music is already playing, it is stopped. Game music will continue playing across scene loads.
 
+Defined in Fungus.Commands.PlayMusic
+
 Property | Type | Description
  --- | --- | ---
 Music Clip | UnityEngine.AudioClip | Music sound clip to play
@@ -25,6 +29,8 @@ Fade Duration | System.Single | Length of time to fade out previous playing musi
 ## Play Sound
 Plays a once-off sound effect. Multiple sound effects can be played at the same time.
 
+Defined in Fungus.Commands.PlaySound
+
 Property | Type | Description
  --- | --- | ---
 Sound Clip | UnityEngine.AudioClip | Sound effect clip to play
@@ -33,6 +39,8 @@ Wait Until Finished | System.Boolean | Wait until the sound has finished playing
 
 ## Play Usfxr Sound
 Plays a usfxr synth sound. Use the usfxr editor [Tools > Fungus > Utilities > Generate usfxr Sound Effects] to create the SettingsString. Set a ParentTransform if using positional sound. See https://github.com/zeh/usfxr for more information about usfxr.
+
+Defined in Fungus.Commands.PlayUsfxrSound
 
 Property | Type | Description
  --- | --- | ---
@@ -43,6 +51,8 @@ Wait Duration | System.Single | Time to wait before executing the next command
 ## Set Audio Pitch
 Sets the global pitch level for audio played with Play Music and Play Sound commands.
 
+Defined in Fungus.Commands.SetAudioPitch
+
 Property | Type | Description
  --- | --- | ---
 Pitch | System.Single | Global pitch level for audio played using the Play Music and Play Sound commands
@@ -52,6 +62,8 @@ Wait Until Finished | System.Boolean | Wait until the pitch change has finished 
 ## Set Audio Volume
 Sets the global volume level for audio played with Play Music and Play Sound commands.
 
+Defined in Fungus.Commands.SetAudioVolume
+
 Property | Type | Description
  --- | --- | ---
 Volume | System.Single | Global volume level for audio played using Play Music and Play Sound
@@ -60,3 +72,5 @@ Wait Until Finished | System.Boolean | Wait until the volume fade has completed 
 
 ## Stop Music
 Stops the currently playing game music.
+
+Defined in Fungus.Commands.StopMusic

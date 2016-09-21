@@ -3,6 +3,8 @@
 ## Look From
 Instantly rotates a GameObject to look at the supplied Vector3 then returns it to it's starting rotation over time.
 
+Defined in Fungus.Commands.LookFrom
+
 Property | Type | Description
  --- | --- | ---
 _from Transform | Fungus.Variables.TransformData | Target transform that the GameObject will look at
@@ -18,6 +20,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 
 ## Look To
 Rotates a GameObject to look at a supplied Transform or Vector3 over time.
+
+Defined in Fungus.Commands.LookTo
 
 Property | Type | Description
  --- | --- | ---
@@ -35,6 +39,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 ## Move Add
 Moves a game object by a specified offset over time.
 
+Defined in Fungus.Commands.MoveAdd
+
 Property | Type | Description
  --- | --- | ---
 _offset | Fungus.Variables.Vector3Data | A translation offset in space the GameObject will animate to
@@ -49,6 +55,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 
 ## Move From
 Moves a game object from a specified position back to its starting position over time. The position can be defined by a transform in another object (using To Transform) or by setting an absolute position (using To Position, if To Transform is set to None).
+
+Defined in Fungus.Commands.MoveFrom
 
 Property | Type | Description
  --- | --- | ---
@@ -66,6 +74,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 ## Move To
 Moves a game object to a specified position over time. The position can be defined by a transform in another object (using To Transform) or by setting an absolute position (using To Position, if To Transform is set to None).
 
+Defined in Fungus.Commands.MoveTo
+
 Property | Type | Description
  --- | --- | ---
 _to Transform | Fungus.Variables.TransformData | Target transform that the GameObject will move to
@@ -82,6 +92,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 ## Punch Position
 Applies a jolt of force to a GameObject's position and wobbles it back to its initial position.
 
+Defined in Fungus.Commands.PunchPosition
+
 Property | Type | Description
  --- | --- | ---
 _amount | Fungus.Variables.Vector3Data | A translation offset in space the GameObject will animate to
@@ -96,6 +108,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 
 ## Punch Rotation
 Applies a jolt of force to a GameObject's rotation and wobbles it back to its initial rotation.
+
+Defined in Fungus.Commands.PunchRotation
 
 Property | Type | Description
  --- | --- | ---
@@ -112,6 +126,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 ## Punch Scale
 Applies a jolt of force to a GameObject's scale and wobbles it back to its initial scale.
 
+Defined in Fungus.Commands.PunchScale
+
 Property | Type | Description
  --- | --- | ---
 _amount | Fungus.Variables.Vector3Data | A scale offset in space the GameObject will animate to
@@ -125,6 +141,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 
 ## Rotate Add
 Rotates a game object by the specified angles over time.
+
+Defined in Fungus.Commands.RotateAdd
 
 Property | Type | Description
  --- | --- | ---
@@ -140,6 +158,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 
 ## Rotate From
 Rotates a game object from the specified angles back to its starting orientation over time.
+
+Defined in Fungus.Commands.RotateFrom
 
 Property | Type | Description
  --- | --- | ---
@@ -157,6 +177,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 ## Rotate To
 Rotates a game object to the specified angles over time.
 
+Defined in Fungus.Commands.RotateTo
+
 Property | Type | Description
  --- | --- | ---
 _to Transform | Fungus.Variables.TransformData | Target transform that the GameObject will rotate to
@@ -173,6 +195,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 ## Scale Add
 Changes a game object's scale by a specified offset over time.
 
+Defined in Fungus.Commands.ScaleAdd
+
 Property | Type | Description
  --- | --- | ---
 _offset | Fungus.Variables.Vector3Data | A scale offset in space the GameObject will animate to
@@ -186,6 +210,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 
 ## Scale From
 Changes a game object's scale to the specified value and back to its original scale over time.
+
+Defined in Fungus.Commands.ScaleFrom
 
 Property | Type | Description
  --- | --- | ---
@@ -202,6 +228,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 ## Scale To
 Changes a game object's scale to a specified value over time.
 
+Defined in Fungus.Commands.ScaleTo
+
 Property | Type | Description
  --- | --- | ---
 _to Transform | Fungus.Variables.TransformData | Target transform that the GameObject will scale to
@@ -216,6 +244,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 
 ## Shake Position
 Randomly shakes a GameObject's position by a diminishing amount over time.
+
+Defined in Fungus.Commands.ShakePosition
 
 Property | Type | Description
  --- | --- | ---
@@ -233,6 +263,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 ## Shake Rotation
 Randomly shakes a GameObject's rotation by a diminishing amount over time.
 
+Defined in Fungus.Commands.ShakeRotation
+
 Property | Type | Description
  --- | --- | ---
 _amount | Fungus.Variables.Vector3Data | A rotation offset in space the GameObject will animate to
@@ -248,6 +280,8 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 ## Shake Scale
 Randomly shakes a GameObject's rotation by a diminishing amount over time.
 
+Defined in Fungus.Commands.ShakeScale
+
 Property | Type | Description
  --- | --- | ---
 _amount | Fungus.Variables.Vector3Data | A scale offset in space the GameObject will animate to
@@ -262,9 +296,13 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 ## Stop Tween
 Stops an active iTween by name.
 
+Defined in Fungus.Commands.StopTween
+
 Property | Type | Description
  --- | --- | ---
 _tween Name | Fungus.Variables.StringData | Stop and destroy any Tweens in current scene with the supplied name
 
 ## Stop Tweens
 Stop all active iTweens in the current scene.
+
+Defined in Fungus.Commands.StopTweens

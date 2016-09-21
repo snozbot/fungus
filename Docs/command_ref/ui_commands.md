@@ -3,6 +3,8 @@
 ## Fade UI
 Fades a UI object
 
+Defined in Fungus.Commands.FadeUI
+
 Property | Type | Description
  --- | --- | ---
 Target Objects | System.Collections.Generic.List`1[UnityEngine.GameObject] | List of objects to be affected by the tween
@@ -13,6 +15,8 @@ Duration | Fungus.Variables.FloatData | Time for the tween to complete
 ## Get Text
 Gets the text property from a UI Text object and stores it in a string variable.
 
+Defined in Fungus.Commands.GetText
+
 Property | Type | Description
  --- | --- | ---
 Target Text Object | UnityEngine.GameObject | Text object to get text value from
@@ -20,6 +24,8 @@ String Variable | Fungus.Variables.StringVariable | String variable to store the
 
 ## Set Interactable
 Set the interactable sate of selectable objects.
+
+Defined in Fungus.Commands.SetInteractable
 
 Property | Type | Description
  --- | --- | ---
@@ -29,6 +35,8 @@ Interactable State | Fungus.Variables.BooleanData | Controls if the selectable U
 ## Set Slider Value
 Sets the value property of a slider object
 
+Defined in Fungus.Commands.SetSliderValue
+
 Property | Type | Description
  --- | --- | ---
 Slider | UnityEngine.UI.Slider | Target slider object to set the value on
@@ -36,6 +44,8 @@ Value | Fungus.Variables.FloatData | Float value to set the slider value to.
 
 ## Set Text
 Sets the text property on a UI Text object and/or an Input Field object.
+
+Defined in Fungus.Commands.SetText
 
 Property | Type | Description
  --- | --- | ---
@@ -45,6 +55,8 @@ Description | System.String | Notes about this story text for other authors, loc
 
 ## Write
 Writes content to a UI Text or Text Mesh object.
+
+Defined in Fungus.Commands.Write
 
 Property | Type | Description
  --- | --- | ---

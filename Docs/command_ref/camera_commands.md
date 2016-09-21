@@ -3,6 +3,8 @@
 ## Fade Screen
 Draws a fullscreen texture over the scene to give a fade effect. Setting Target Alpha to 1 will obscure the screen, alpha 0 will reveal the screen. If no Fade Texture is provided then a default flat color texture is used.
 
+Defined in Fungus.Commands.FadeScreen
+
 Property | Type | Description
  --- | --- | ---
 Duration | System.Single | Time for fade effect to complete
@@ -13,6 +15,8 @@ Fade Texture | UnityEngine.Texture2D | Optional texture to use when rendering th
 
 ## Fade To View
 Fades the camera out and in again at a position specified by a View object.
+
+Defined in Fungus.Commands.FadeToView
 
 Property | Type | Description
  --- | --- | ---
@@ -26,8 +30,12 @@ Target Camera | UnityEngine.Camera | Camera to use for the fade. Will use main c
 
 ## Fullscreen
 Sets the application to fullscreen, windowed or toggles the current state.
+
+Defined in Fungus.Commands.Fullscreen
 ## Move To View
 Moves the camera to a location specified by a View object.
+
+Defined in Fungus.Commands.MoveToView
 
 Property | Type | Description
  --- | --- | ---
@@ -39,6 +47,8 @@ Target Camera | UnityEngine.Camera | Camera to use for the pan. Will use main ca
 ## Shake Camera
 Applies a camera shake effect to the main camera.
 
+Defined in Fungus.Commands.ShakeCamera
+
 Property | Type | Description
  --- | --- | ---
 Duration | System.Single | Time for camera shake effect to complete
@@ -47,6 +57,8 @@ Wait Until Finished | System.Boolean | Wait until the shake effect has finished 
 
 ## Start Swipe
 Activates swipe panning mode where the player can pan the camera within the area between viewA & viewB.
+
+Defined in Fungus.Commands.StartSwipe
 
 Property | Type | Description
  --- | --- | ---
@@ -58,3 +70,5 @@ Target Camera | UnityEngine.Camera | Camera to use for the pan. Will use main ca
 
 ## Stop Swipe
 Deactivates swipe panning mode.
+
+Defined in Fungus.Commands.StopSwipe

@@ -3,6 +3,8 @@
 ## Fade Sprite
 Fades a sprite to a target color over a period of time.
 
+Defined in Fungus.Commands.FadeSprite
+
 Property | Type | Description
  --- | --- | ---
 Sprite Renderer | UnityEngine.SpriteRenderer | Sprite object to be faded
@@ -13,6 +15,8 @@ Wait Until Finished | System.Boolean | Wait until the fade has finished before e
 ## Set Clickable 2D
 Sets a Clickable2D component to be clickable / non-clickable.
 
+Defined in Fungus.Commands.SetClickable2D
+
 Property | Type | Description
  --- | --- | ---
 Target Clickable2 D | Fungus.Clickable2D | Reference to Clickable2D component on a gameobject
@@ -20,6 +24,8 @@ Active State | Fungus.Variables.BooleanData | Set to true to enable the componen
 
 ## Set Collider
 Sets all collider (2d or 3d) components on the target objects to be active / inactive
+
+Defined in Fungus.Commands.SetCollider
 
 Property | Type | Description
  --- | --- | ---
@@ -30,6 +36,8 @@ Active State | Fungus.Variables.BooleanData | Set to true to enable the collider
 ## Set Draggable 2D
 Sets a Draggable2D component to be draggable / non-draggable.
 
+Defined in Fungus.Commands.SetDraggable2D
+
 Property | Type | Description
  --- | --- | ---
 Target Draggable2 D | Fungus.Draggable2D | Reference to Draggable2D component on a gameobject
@@ -37,6 +45,8 @@ Active State | Fungus.Variables.BooleanData | Set to true to enable the componen
 
 ## Set Mouse Cursor
 Sets the mouse cursor sprite.
+
+Defined in Fungus.Commands.SetMouseCursor
 
 Property | Type | Description
  --- | --- | ---
@@ -46,6 +56,8 @@ Hot Spot | UnityEngine.Vector2 | The offset from the top left of the texture to 
 ## Set Sorting Layer
 Sets the Renderer sorting layer of every child of a game object. Applies to all Renderers (including mesh, skinned mesh, and sprite).
 
+Defined in Fungus.Commands.SetSortingLayer
+
 Property | Type | Description
  --- | --- | ---
 Target Object | UnityEngine.GameObject | Root Object that will have the Sorting Layer set. Any children will also be affected
@@ -54,6 +66,8 @@ Sorting Layer | System.String | The New Layer Name to apply
 ## Set Sprite Order
 Controls the render order of sprites by setting the Order In Layer property of a list of sprites.
 
+Defined in Fungus.Commands.SetSpriteOrder
+
 Property | Type | Description
  --- | --- | ---
 Target Sprites | System.Collections.Generic.List`1[UnityEngine.SpriteRenderer] | List of sprites to set the order in layer property on
@@ -61,6 +75,8 @@ Order In Layer | Fungus.Variables.IntegerData | The order in layer value to set 
 
 ## Show Sprite
 Makes a sprite visible / invisible by setting the color alpha.
+
+Defined in Fungus.Commands.ShowSprite
 
 Property | Type | Description
  --- | --- | ---

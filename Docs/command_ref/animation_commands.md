@@ -3,6 +3,8 @@
 ## Play Anim State
 Plays a state of an animator according to the state name
 
+Defined in Fungus.Commands.PlayAnimState
+
 Property | Type | Description
  --- | --- | ---
 Animator | Fungus.Variables.AnimatorData | Reference to an Animator component in a game object
@@ -13,6 +15,8 @@ Time | Fungus.Variables.FloatData | Start time of animation
 ## Reset Anim Trigger
 Resets a trigger parameter on an Animator component.
 
+Defined in Fungus.Commands.ResetAnimTrigger
+
 Property | Type | Description
  --- | --- | ---
 _animator | Fungus.Variables.AnimatorData | Reference to an Animator component in a game object
@@ -20,6 +24,8 @@ _parameter Name | Fungus.Variables.StringData | Name of the trigger Animator par
 
 ## Set Anim Bool
 Sets a boolean parameter on an Animator component to control a Unity animation
+
+Defined in Fungus.Commands.SetAnimBool
 
 Property | Type | Description
  --- | --- | ---
@@ -30,6 +36,8 @@ Value | Fungus.Variables.BooleanData | The boolean value to set the parameter to
 ## Set Anim Float
 Sets a float parameter on an Animator component to control a Unity animation
 
+Defined in Fungus.Commands.SetAnimFloat
+
 Property | Type | Description
  --- | --- | ---
 _animator | Fungus.Variables.AnimatorData | Reference to an Animator component in a game object
@@ -39,6 +47,8 @@ Value | Fungus.Variables.FloatData | The float value to set the parameter to
 ## Set Anim Integer
 Sets an integer parameter on an Animator component to control a Unity animation
 
+Defined in Fungus.Commands.SetAnimInteger
+
 Property | Type | Description
  --- | --- | ---
 _animator | Fungus.Variables.AnimatorData | Reference to an Animator component in a game object
@@ -47,6 +57,8 @@ Value | Fungus.Variables.IntegerData | The integer value to set the parameter to
 
 ## Set Anim Trigger
 Sets a trigger parameter on an Animator component to control a Unity animation
+
+Defined in Fungus.Commands.SetAnimTrigger
 
 Property | Type | Description
  --- | --- | ---

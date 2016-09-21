@@ -3,12 +3,16 @@
 ## Clear Menu
 Clears the options from a menu dialogue
 
+Defined in Fungus.Commands.ClearMenu
+
 Property | Type | Description
  --- | --- | ---
 Menu Dialog | Fungus.MenuDialog | Menu Dialog to clear the options on
 
 ## Control Stage
 Controls the stage on which character portraits are displayed.
+
+Defined in Fungus.Commands.ControlStage
 
 Property | Type | Description
  --- | --- | ---
@@ -21,8 +25,12 @@ Display | Fungus.Commands.StageDisplayType | Display type
 
 ## Conversation
 Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text]
+
+Defined in Fungus.Commands.Conversation
 ## Menu
 Displays a button in a multiple choice menu
+
+Defined in Fungus.Commands.Menu
 
 Property | Type | Description
  --- | --- | ---
@@ -36,6 +44,8 @@ Set Menu Dialog | Fungus.MenuDialog | A custom Menu Dialog to use to display thi
 ## Menu Timer
 Displays a timer bar and executes a target block if the player fails to select a menu option in time.
 
+Defined in Fungus.Commands.MenuTimer
+
 Property | Type | Description
  --- | --- | ---
 _duration | Fungus.Variables.FloatData | Length of time to display the timer for
@@ -43,6 +53,8 @@ Target Block | Fungus.Block | Block to execute when the timer expires
 
 ## Portrait
 Controls a character portrait.
+
+Defined in Fungus.Commands.Portrait
 
 Property | Type | Description
  --- | --- | ---
@@ -66,6 +78,8 @@ Display | Fungus.DisplayType | Display type
 ## Say
 Writes text in a dialog box.
 
+Defined in Fungus.Commands.Say
+
 Property | Type | Description
  --- | --- | ---
 Description | System.String | Notes about this story text for other authors, localization, etc.
@@ -83,6 +97,8 @@ Set Say Dialog | Fungus.SayDialog | Sets the active Say dialog with a reference 
 ## Set Language
 Set the active language for the scene. A Localization object with a localization file must be present in the scene.
 
+Defined in Fungus.Commands.SetLanguage
+
 Property | Type | Description
  --- | --- | ---
 _language Code | Fungus.Variables.StringData | Code of the language to set. e.g. ES, DE, JA
@@ -90,12 +106,16 @@ _language Code | Fungus.Variables.StringData | Code of the language to set. e.g.
 ## Set Menu Dialog
 Sets a custom menu dialog to use when displaying multiple choice menus
 
+Defined in Fungus.Commands.SetMenuDialog
+
 Property | Type | Description
  --- | --- | ---
 Menu Dialog | Fungus.MenuDialog | The Menu Dialog to use for displaying menu buttons
 
 ## Set Say Dialog
 Sets a custom say dialog to use when displaying story text
+
+Defined in Fungus.Commands.SetSayDialog
 
 Property | Type | Description
  --- | --- | ---
