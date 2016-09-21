@@ -497,11 +497,7 @@ namespace Fungus.EditorUtils
         [MenuItem("Tools/Fungus/Utilities/Export Reference Docs")]
         protected static void ExportReferenceDocs()
         {
-            string path = EditorUtility.SaveFolderPanel("Export Reference Docs", "", "");           
-            if(path.Length == 0) 
-            {
-                return;
-            }
+            const string path = "./Docs";
 
             ExportCommandInfo(path);
             ExportEventHandlerInfo(path);
@@ -541,7 +537,8 @@ namespace Fungus.EditorUtils
                         info.Category == "" && category == "Scripting")
                     {
                         markdown += "## " + info.CommandName + "\n";
-                        markdown += info.HelpText + "\n";
+                        markdown += info.HelpText + "\n\n";
+                        markdown += "Defined in " + keyPair.Key.FullName + "\n";
                         markdown += GetPropertyInfo(keyPair.Key);
                     }
                 }
@@ -584,7 +581,8 @@ namespace Fungus.EditorUtils
                         info.Category == "" && category == "Core")
                     {
                         markdown += "## " + info.EventHandlerName + "\n";
-                        markdown += info.HelpText + "\n";
+                        markdown += info.HelpText + "\n\n";
+                        markdown += "Defined in " + type.FullName + "\n";
                         markdown += GetPropertyInfo(type);
                     }
                 }
