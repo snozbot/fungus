@@ -4,7 +4,7 @@
 
 Fungus is a tool which makes it easy to add colourful characters and craft gripping storylines in your game, even if you have never used <a href="http://unity3d.com" target="_blank">Unity</a> before. Our intuitive interface lets everyone create beautiful story games easily - <b>for free and with no coding</b>!
 
-![img community]
+![img fungus_town]
 
 ## Who's it for?
 Fungus is popular with writers, illustrators, animators and game designers, especially visual novel & interactive fiction authors. Many people using Fungus are creating games in Unity for the very first time. It is a popular choice for game jams and game design courses.
@@ -13,11 +13,11 @@ Fungus is popular with writers, illustrators, animators and game designers, espe
 
 We believe that interactive storytelling should be accessible to everyone, so Fungus is <b>100% free & open source</b>. It works great with both the free and pro versions of Unity 3D. Fungus is inspired by other great open source storytelling tools like [Twine], [Ren'Py] and [Scratch].
 
-![img fungus_town]
-
 ## Community
 
 The Fungus community is very welcoming and helpful to newcomers. Many people using Fungus have never used Unity or even made a game before, so feel free to ask questions on our [community forum]. Helping other people with their questions is a fantastic and very welcome way to contribute back to the community.
+
+![img community]
 
 ## Features
 
