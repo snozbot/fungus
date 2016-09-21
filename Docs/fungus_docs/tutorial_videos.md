@@ -3,11 +3,9 @@
 These free tutorial videos cover most of the functionality available in Fungus. Many thanks to [Paul Mc Grath](http://whackala.com) for contributing the videos, and [Eric Chen](https://twitter.com/Eric_hjk) for Chinese subtitles.
 
 @htmlonly
-
 <div align="center" style="float:right;">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/F1vmEtQ7k6M?list=PLiMlyObJfJmUohJ_M2pJhtrNKuNECo2Uk" frameborder="0" allowfullscreen></iframe>
 </div>
-
 @endhtmlonly
 
 * [Fungus Overview]

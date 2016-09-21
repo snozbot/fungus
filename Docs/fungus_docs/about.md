@@ -22,11 +22,9 @@ The Fungus community is very welcoming and helpful to newcomers. Many people usi
 ## Features
 
 @htmlonly
-
 <div align="center" style="float:right;">
 <iframe width="400" height="225" src="https://youtube.com/embed/kP767dFQaCU?t=5m20s" frameborder="0" allowfullscreen></iframe>
 </div>
-
 @endhtmlonly
 
 Fungus allows you to easily add storytelling features to your Unity games with no coding, via an intuitive visual scripting system.
