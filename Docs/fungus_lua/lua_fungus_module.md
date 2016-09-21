@@ -18,7 +18,7 @@ inspect(v)
 
 # Running Unity coroutines
 
-When you bind to a C# component using Lua Bindings, you can access any public method in the class. If a method returns IEnumerator then that method can be executed as a [Unity coroutine], which is a powerful way to run asynchronous code. 
+When you bind to a C# component using Lua Bindings, you can access any public method in the class. If a method returns IEnumerator then that method can be executed [as a coroutine](http://docs.unity3d.com/Manual/Coroutines.html), which is a powerful way to run asynchronous code. 
 
 The runwait() function allows you to call a C# coroutine method from Lua which may take multiple frames to finish its work, and then carry on with the rest of the Lua code once that C# method has finished executing. This is how the say() function works for example.
 
@@ -59,5 +59,3 @@ sub('a string')
 -- Use Fungus Variable
 fungus.sub('a string')
 ```
-
-[Unity coroutine]: http://docs.unity3d.com/Manual/Coroutines.html

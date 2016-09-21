@@ -95,7 +95,7 @@ end
 say "End options"
 ```
 
-A useful pattern is to use choose() together with Lua's goto statement and labels. This can be handy for 'flattening out' nested menu options. The [goto statement](http://lua-users.org/wiki/GotoStatement) doesn't support jumping into the scope of a local variable, but it's easy to work around this by declaring the local variable in the outer scope. You could also use a global variable (by not using the local keyword).
+A useful pattern is to use choose() together with Lua's goto statement and labels. This can be handy for 'flattening out' nested menu options. The [goto statement] doesn't support jumping into the scope of a local variable, but it's easy to work around this by declaring the local variable in the outer scope. You could also use a global variable (by not using the local keyword).
 
 ```lua
 local choice = 0
@@ -174,7 +174,7 @@ Stage portraits can be controlled by using the stage.
 
 First, add your characters and stage to the LuaBindings list.
 
-![Lua Stage Binding](images/lua_stage_binding.png)
+![Lua Stage Binding]
 
 Then, in a lua script, use the stage commands show, showPortrait and hide to control the portraits on stage.
 
@@ -216,7 +216,7 @@ sherlock: Greetings.
 ]]
 ```
 
-The conversation system is [documented here](../conversation/index.html#lua).
+See the docs for the @ref conversation "Conversation System".
 
 # Flowchart functions
 
@@ -264,3 +264,8 @@ getvar(flowchart, varname)
 -- nowait: If false, will yield until the Block finishes execution. If true will continue immediately.
 runblock(flowchart, blockname, commandindex, nowait)
 ```
+
+[goto statement]: http://lua-users.org/wiki/GotoStatement
+
+[Lua Stage Binding]: fungus_lua/lua_stage_binding.png
+
