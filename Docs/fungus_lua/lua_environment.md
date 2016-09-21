@@ -4,7 +4,7 @@ The LuaEnvironment component manages all the variables, functions, executing cod
 
 You can create one via (Tools > Fungus > Create > LuaEnvironment). You usually don't need to explicitly create a LuaEnvironment though because FungusLua will create one automatically when there isn't one in the scene at startup.
 
-![LuaEnvironment](images/lua_environment.png)
+![LuaEnvironment](fungus_lua/lua_environment.png)
 
 # Multiple Environments
 
@@ -16,5 +16,5 @@ The 'Remote Debugger' option activates the built-in MoonSharp remote debugger to
  
 # LuaUtils
 
-When you create a LuaEnvironment object via (Tools > Fungus > Create > LuaEnvironment), the created gameobject has another component called LuaUtils which adds many useful features to the basic LuaEnvironment setup. See the [Lua Utils](lua_utils.md) section for more info.
+When you create a LuaEnvironment object via (Tools > Fungus > Create > LuaEnvironment), the created gameobject has another component called LuaUtils which adds many useful features to the basic LuaEnvironment setup. See the @ref lua_utils "Lua Utils" section for more info.
 
