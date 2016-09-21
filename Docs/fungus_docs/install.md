@@ -1,6 +1,6 @@
-# Download {#download}
+# Install {#install}
 
-This page desribes how to download and install Unity and Fungus.
+This page explains how to download and install Unity and Fungus.
 
 # Video Tutorial 
 

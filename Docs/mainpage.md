@@ -1,35 +1,24 @@
 # Fungus Documentation
 
-Welcome to the documentation website for Fungus, the open source visual storytelling tool for [Unity](http://unity3d.com).
+Welcome to the documentation website for Fungus, the open source visual storytelling tool for [Unity](http://unity3d.com). The main website for Fungus and our [community forum] are available at [FungusGames.com].
 
-The main website for Fungus and [community forum](http://fungusgames.com/forum) are available at [FungusGames.com](http://fungusgames.com).
+There's a wide range of training material available here, suitable for both beginner and experienced game developers. 
 
-* @subpage about
-* @subpage training_course
-* @subpage tutorial_videos
-* @subpage download
+* @subpage about "What is Fungus?"
+* @subpage training_course "Fungus Training Course"
+* @subpage tutorial_videos "Tutorial videos"
+* @subpage install "Installation instructions"
 * @subpage getting_started
 * @subpage flowcharts
 * @subpage blocks
 * @subpage telling_a_story
 * @subpage playing_audio
 * @subpage conversation
-* @subpage articles
+* @subpage articles "Community tutorials"
 * @subpage narrative_tags
 * @subpage glossary
-* @subpage faq
+* @subpage faq Frequently Asked Questions
 * @subpage code_of_conduct
 
-# Overview
-
-There's a wide range of training material available here, suitable for both beginner and experienced game developers. 
-
-TODO: Fix these links
-
-- [What is Fungus?](fungus-docs/index.md)
-- [Download and install instructions](download/index.md)
-- [Tutorial videos](tutorial_videos/index.md)
-- [Fungus Training Course](training_course/index.md)
-- [FungusLua scripting system](fungus_lua/index.md)
-- [Articles by the Fungus community](articles/index.md)
-- [Frequently Asked Questions](faq/index.md)
+[community forum]: http://fungusgames.com/forum
+[FungusGames.com]: http://fungusgames.com
