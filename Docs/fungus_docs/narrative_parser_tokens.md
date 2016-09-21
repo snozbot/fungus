@@ -1,6 +1,6 @@
 # Narrative Parser Tags {#narrative_tags}
 
-The following tokens can be used within Story Text to do things such as change the styling of text or clear the contents of a dialog area on input and much more.
+The following tokens can be used within Story Text to do things such as change the styling of text or clear the contents of a dialog area on input and much more. You can see this list in the editor by pressing the Tag Help button in the Say command.
 
 * {b} Bold Text {/b}
 * {i} Italic Text {/i}
