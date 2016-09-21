@@ -6,13 +6,17 @@ At its core, FungusLua allows you to control any Unity object from Lua script. I
 
 We made FungusLua in response to requests from the Fungus community for a way to script Fungus commands from a text file or spreadsheet. We figured that if people are going to be writing commands in text files, why not go all the way and add a powerful embedded scripting language?
 
-FungusLua comes as part of the [Fungus asset](http://u3d.as/f0T) available on the Unity Asset Store.
+FungusLua comes as part of the [Fungus asset] available on the Unity Asset Store.
 
 # Tutorial Video
 
 This video shows how to use many of the features available in FungusLua. It's more of a demonstration than a step-by-step tutorial, but hopefully between this video, the docs and the forums you'll have enough to figure it all out :)
 
+@htmlonly
+<div align="center">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/M_Oo9FpVTos" frameborder="0" allowfullscreen></iframe>
+</div>
+@endhtmlonly
 
 # Using FungusLua On Its Own
 
@@ -25,16 +29,26 @@ The Tools > Fungus menu will now only show options for creating FungusLua object
 
 # About Lua
 
-![Lua logo](images/lua.png)
+[Lua] is a powerful, fast, lightweight, embeddable scripting language. It is a popular language for game development and supporting user modding. The standard resource for learning Lua is [Programming in Lua].
 
-[Lua](http://www.lua.org/about.html) is a powerful, fast, lightweight, embeddable scripting language. It is a popular language for game development and supporting user modding. The standard resource for learning Lua is [Programming in Lua](http://www.lua.org/pil/1.html).
+![Lua logo]
 
 # About MoonSharp
 
-![MoonSharp Logo](images/moonsharp.png)
+[MoonSharp] is an open source implementation of the Lua scripting language written entirely in C#. 
 
-[MoonSharp](http://www.moonsharp.org) is an open source implementation of the Lua scripting language written entirely in C#. 
+![MoonSharp Logo]
 
 FungusLua is essentially a set of wrapper components built on top of MoonSharp which make it easier to use Lua scripting directly in the Unity editor. MoonSharp does all the hard work really and is a completely awesome project :)
 
-The [MoonSharp tutorials](http://www.moonsharp.org/getting_started.html) and [MoonSharp forum](https://groups.google.com/forum/#!forum/moonsharp) are great resources to learn how MoonSharp works, especially for more advanced usage.
+The [MoonSharp tutorials] and [MoonSharp forum] are great resources to learn how MoonSharp works, especially for more advanced usage.
+
+[Lua]: http://www.lua.org/about.html
+[Fungus asset]: http://u3d.as/f0T
+[Programming in Lua]: http://www.lua.org/pil/1.html
+[MoonSharp]: http://www.moonsharp.org
+[MoonSharp tutorials]: http://www.moonsharp.org/getting_started.html
+[MoonSharp forum]: https://groups.google.com/forum/#!forum/moonsharp
+
+[Lua logo]: ./fungus_lua/lua.png
+[MoonSharp Logo]: ./fungus_lua/moonsharp.png
