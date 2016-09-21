@@ -4,7 +4,7 @@ The LuaBindings component allows you map gameobjects and components in your scen
 
 As well as scene GameObjects and components, you can bind to any Unity object in your project. This includes things like Prefabs, Materials, TextAssets, Textures, ScriptableObjects, etc. 
 
-![LuaBinding](images/lua_bindings.png)
+![LuaBinding](fungus_lua/lua_bindings.png)
 
 # Adding LuaBindings
 
