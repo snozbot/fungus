@@ -57,10 +57,10 @@ john: Hi there {$PlayerName}.
 
 # Localization
 
-You can use the string substitution feature above with a [Lua string table](../fungus_lua/string_table.md) to localize the conversation for multiple languages.
+You can use the string substitution feature above with a @ref lua_string_table "Lua string table" to localize the conversation for multiple languages.
 
 The Conversation system does not work with the Localization component in Fungus because the syntax makes it difficult to localize that way. 
 
 # Lua
 
-The conversation system can also be used [from Lua](../fungus_lua/controlling_fungus.md#conversation-function).
+The conversation system can also be used @ref lua_controlling_fungus "from Lua".
