@@ -1,6 +1,6 @@
 # Unity Test Tools {#lua_unity_test_tools}
 
-If you are using the [Unity Test Tools](http://u3d.as/65h), FungusLua is a powerful and fast way to create integration tests using Lua scripting.
+If you are using the [Unity Test Tools], FungusLua is a powerful and fast way to create integration tests using Lua scripting.
 
 # Example
 
@@ -37,4 +37,5 @@ pass()
 fail(reason)
 ```
 
+[Unity Test Tools]: http://u3d.as/65h
 

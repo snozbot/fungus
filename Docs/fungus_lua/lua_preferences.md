@@ -1,6 +1,6 @@
 # PlayerPrefs {#lua_preferences}
 
-The [Unity PlayerPrefs](http://docs.unity3d.com/ScriptReference/PlayerPrefs.html) system stores and accesses player preferences between game sessions.
+The [Unity PlayerPrefs] system stores and accesses player preferences between game sessions.
 
 Here's an example of using PlayerPrefs from Lua.
 
@@ -54,3 +54,5 @@ prefs.SetString(slot, key, value)
 -- Returns the combined key used to identify a key within a save slot.
 prefs.GetSlotKey(slot, key)
 ```
+
+[Unity PlayerPrefs]: http://docs.unity3d.com/ScriptReference/PlayerPrefs.html
