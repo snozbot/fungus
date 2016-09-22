@@ -1,6 +1,6 @@
-# Fungus Documentation
+# %Fungus Documentation #
 
-Welcome to the documentation website for Fungus, the open source visual storytelling tool for [Unity](http://unity3d.com). The main website for Fungus and our [community forum] are available at [FungusGames.com].
+Welcome to the documentation website for %Fungus, the open source visual storytelling tool for [Unity]. The main website for %Fungus and our [community forum] are available at [FungusGames.com].
 
 There's a wide range of training material available here, suitable for both beginner and experienced game developers. 
 
@@ -20,5 +20,6 @@ There's a wide range of training material available here, suitable for both begi
 * @subpage faq
 * @subpage code_of_conduct
 
+[Unity]: http://unity3d.com
 [community forum]: http://fungusgames.com/forum
 [FungusGames.com]: http://fungusgames.com
