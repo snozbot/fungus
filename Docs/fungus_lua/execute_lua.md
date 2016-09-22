@@ -1,4 +1,5 @@
-# ExecuteLua Command {#execute_lua}
+# ExecuteLua Command # {#execute_lua}
+[TOC]
 
 This command allows you to embed a Lua script to be executed as part of a command sequence in a Block. The Lua script to be executed can be specified in the inspector or in a text file, in the same way as the @ref lua_script component.
 
@@ -8,7 +9,7 @@ The parent Flowchart will be bound to a global Lua variable prior to executing t
 
 You can also store the return value from the Lua script in a Flowchart variable.
 
-#  Evaluating expressions
+# Evaluating expressions # {#evaluating}
 
 The %Fungus If command can only compare 2 variables at a time. For more complex expressions involving multiple variables or [math functions], you can use Lua to evaluate the expression and store the result in a Flowchart variable.
 
@@ -21,7 +22,7 @@ The %Fungus If command can only compare 2 variables at a time. For more complex 
 In the Execute Lua command, you can use the getvar() function to get any Flowchart variables to be used in the expression. 
 Note: getvar() returns a reference to the %Fungus variable object. To access the value of this variable use the .value property.
 
-# Example
+# Example code # {#example_code}
 
 Here's an example Lua script which evaluates a complex expression involving 3 integer variables defined on a bound Flowchart.
 

@@ -1,4 +1,5 @@
 # LuaEnvironment {#lua_environment}
+[TOC]
 
 The LuaEnvironment component manages all the variables, functions, executing code, etc. for a single Lua context, and provides handy functions for loading and running Lua scripts. In order to run Lua code there must be at least one LuaEnvironment component present in the scene. 
 

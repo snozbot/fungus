@@ -1,9 +1,10 @@
-# Telling a story {#telling_a_story}
+# Telling a story # {#telling_a_story}
+[TOC]
 
 Having got up and running, here are some next steps to get you familiar with the storytelling features in %Fungus.
 
 <!-- **************************************** -->
-## Adding Characters, for use in Say commands
+# Adding Characters # {#characters}
 
 We can associated words spoken by the Say Command with a particular Character. Consider the following Tom and Jerry scene:
 
@@ -41,7 +42,7 @@ Assigning the appropriate Character for each Say Command from the menu of Charac
 ![tom jerry conversation output]
 
 <!-- **************************************** -->
-## Listing portrait image(s) for use by Characters
+# Character portrait images # {#portraits}
 
 If you add one or more portrait images to a character, then each Say command for that character can define which of those portrait images should be displayed, alongside the (colored) name of the Character.
 
@@ -67,7 +68,7 @@ As you can see in some of the %Fungus Example projects, many games will have a w
 ![sherlock image list]
 
 <!-- **************************************** -->
-## Add a Stage
+# Character Stage # {#stage}
 
 Portrait images can be used in two ways in %Fungus.
 
@@ -89,7 +90,7 @@ Create a simple stage that covers the whole game Window as follows:
 Now you have added a %Fungus Stage to your scene, you will be able to make large Portrait images appear / move in-out of the screen using the **Portrait** Command in %Fungus Flowchart Blocks...
 
 <!-- **************************************** -->
-## Displaying Portrait images on stages with the Portrait command
+# Portrait command # {#portrait_command}
 
 Once you have a %Fungus Stage, and a character then you can instruct %Fungus to display / move onscreen the Character Portrait images. To make character images appear as part of a scene do the following:
 
@@ -131,7 +132,7 @@ Here we see the Play Mode user experience of the output of running such a workfl
 ![john portrait then say]
 
 <!-- **************************************** -->
-## Play some music
+# Playing music # {#playing_music}
 Music sound clips loop, so they are restarted once they have finished playing. Often the first Command in a Block is a **Play Music** Command. Add music to a Block as follows:
 
 1. (setup) Create a new scene, add a %Fungus Flowchart to the scene, and select the Block in the Flowchart.
@@ -145,7 +146,7 @@ Music sound clips loop, so they are restarted once they have finished playing. O
 NOTE: If you wish to start playing the music clip from a known time-point (rather than from the beginning), then enter the desired time-point in the Inspector property "At Time" for your Play Music command.
 
 <!-- **************************************** -->
-## Add menu commands to branch to other blocks
+# Branching narrative # {#branching}
 Let's use a Say command above to ask a tricky mathematical question, and demonstrate the Menu command by offering the user a choice been "correct' and "incorrect" answers.  Menu commands transfer control to another block - so we'll need to add 2 new blocks to correspond to the 2 answers.
 Do the following:
 
@@ -176,7 +177,7 @@ Do the following:
 ![wrong screen]
 
 <!-- **************************************** -->
-## Change Camera background colour
+# Change background colour # {#background_color}
 
 Unity cameras determine what the user sees when a scene is running. When nothing is present in all or part of the camera's rectangle a solid "Background" colour is displayed. Unity cameras have a default Background of a medium dark blue colour. You can change this as follows:
 
@@ -187,7 +188,7 @@ Unity cameras determine what the user sees when a scene is running. When nothing
 4. Now when any part of the camera rectangle (frustrum) shows no gameOjects then your custom Background colour will be what the user sees.
 
 <!-- **************************************** -->
-## Add a background sprite
+# Background sprite # {#background_sprite}
 
 To add any sprite image file from your Unity Project folder into the current scene, simply drag a reference to the sprite image file from the Project window onto the Scene window, and rotate / resize desired. The sprite will appear as a new gameObject (with same name as Sprite Project image file) in the Hierarchy window:
 
@@ -196,7 +197,7 @@ To add any sprite image file from your Unity Project folder into the current sce
 NOTE: You may not be able to see the sprite, because what we see depends on the current settings for the camera. What the camera shows, how it moves etc. can be controlled by %Fungus Views and Commmands relating to Views.
 
 <!-- **************************************** -->
-## Adding and customising a view
+# Using Views # {#view}
 
 What the main camera of a scene displays to the user, and how it moves etc. can be controlled by %Fungus Views and %Fungus Commmands relating to Views. A %Fungus View is a special gameObject in the Hierarchy, it appears as a green outlined inner rectangle, with two filled green rectangles on the left and the right. The ratio of the outlined inner rectangle is 4:3. The ratio of the outer rectangle (which includes the two filled green left and right rectangles) is 16:9. These two ratios cover almost every common phone, tablet and computer screen width-to-height ratio. So arranging the view so that a background Sprite image looks good for both inner- and outer- rectangles of a view, pretty much ensures your game will look good on any device. Setting the background color of the camera to something like black also means on the rare device that has an odd ratio showing content outside of the view outer rectangle, the game should still look perfectly acceptable.
 
@@ -214,10 +215,10 @@ To add a view to the current scene do the following:
 ![resize view]
 7. Note: You can also rotate the view with the Unity Rotate tool
 
-NOTE: Utnil you add a "Fade To View" %Fungus command, you still may not see the Sprite in the Game window when the scene plays, since the Main Camera has not been oriented to resize and align with the view.
+NOTE: Until you add a "Fade To View" %Fungus command, you still may not see the Sprite in the Game window when the scene plays, since the Main Camera has not been oriented to resize and align with the view.
 
 <!-- **************************************** -->
-## Add a Fade To View command
+# Fade To View command # {#fade_to_view}
 
 Once you have a Scene that contains some background Sprites and %Fungus Views, you are ready to use the %Fungus camera related Commands to control what the user sees. The simplest camera control is to make the Game window fade from a solid colour to the Main Camera being sized, positioned (and if necessary rotated) to show a specified %Fungus View. Do the following:
 

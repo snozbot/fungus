@@ -1,8 +1,9 @@
-# Install {#install}
+# Installation # {#install}
+[TOC]
 
 This page explains how to download and install Unity and %Fungus.
 
-# Video Tutorial 
+# Video Tutorial # {#video}
 
 @htmlonly
 <div align="center">
@@ -10,7 +11,7 @@ This page explains how to download and install Unity and %Fungus.
 </div>
 @endhtmlonly
 
-# How do I install %Fungus?
+# How do I install Fungus? # {#how_install}
 
 1. Install the latest version of [Unity].
 3. Launch Unity and create a new Project by selecting File > New Project.
@@ -27,7 +28,7 @@ This page explains how to download and install Unity and %Fungus.
 1. Download the latest %Fungus .unitypackage from [Github]
 2. Import %Fungus into the new project by selecting Assets > Import Package > Custom Package.
 
-# First steps
+# First steps # {#first_steps}
 
 1. Display the Flowchart editor window by selecting Window > Tools > %Fungus > Flowchart Window.
 2. For convenience, you should dock the Flowchart window somewhere in the editor window.
@@ -36,7 +37,7 @@ This page explains how to download and install Unity and %Fungus.
 
 Try playing the other example scenes and watch how the gameplay is controlled by the flowchart in the %Fungus Script window.
 
-# How do I upgrade an existing %Fungus project ?
+# How do I upgrade? # {#upgrade}
 
 To upgrade an existing project to the latest version of %Fungus.
 
@@ -47,7 +48,7 @@ To upgrade an existing project to the latest version of %Fungus.
 
 We try to maintain backwards compatibility between releases but sometimes breaking changes are necessary. If you're having trouble upgrading your project just ask for assistance on the forum.
 
-# %Fungus System Requirements
+# System Requirements # {#system_requirements}
 
 - We recommend installing the latest version of [Unity].
 - %Fungus requires at least Unity 5.0 and is not compatible with Unity 4.x or earlier.

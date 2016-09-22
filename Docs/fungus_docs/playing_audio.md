@@ -1,4 +1,5 @@
-# Playing Audio {#playing_audio}
+# Playing Audio # {#playing_audio}
+[TOC]
 
 Almost every game benefits from some sound! Often we categorise audio clips into three kinds:
 
@@ -9,7 +10,7 @@ Almost every game benefits from some sound! Often we categorise audio clips into
 %Fungus provides straightforward ways to include all 3 kinds of audio clip in your game, using the techniques presented here.
 
 <!-- **************************************** -->
-# Sources of free to use audio clips and music
+# Sources of free audio # {#free_audio}
 Before you can **add** audio clips to a game you need to get some audio clips. Here are some sources of audio clips to use when learning about audio in %Fungus, in case you don't have some of your own to hand.
 
 The following are some good places online to fine music and sound effects for games. Some are free for any use (including commerical), some are just free for personal use. As always, check the licence of media assets before using them for any commerical products ...
@@ -23,7 +24,7 @@ You'll find a range of audio clips included inside the %Fungus Examples folders:
 
 ![%Fungus Examples audio]
 
-# Adding audio assets to your project
+# Adding audio to your project # {#adding}
 Once you have some audio clips on your computer, you need to import them into your Unity project.
 
 ## Method 1 (menu)
@@ -35,13 +36,13 @@ Alternatively you can **drag** files or entire folders into your Unity Project w
 ![drag audio folder into Unity]
 
 <!-- **************************************** -->
-# Three ways to work with audio in %Fungus games
+# Working with audio # {#working}
 There are 3 main ways to work with audio in %Fungus games. These are the Audio commands, the Say command, and gameObjects containing Unity Audio Source components. All three are discussed below:
 
 ![audio big picture]
 
 <!-- **************************************** -->
-## List of %Fungus audio commands
+# Fungus audio commands # {#commands}
 The range of audio **Commands** you can add to a Block are as follows:
 
 ![%Fungus audio commands]
@@ -162,7 +163,7 @@ We'll learn about this with a simple Unity gameObject that plays a bear sound tw
 13. Now when you play the scene, first the bear sound linked to in the Audio Source component of gameObject "GameObject - bear sound"  should play at full volume, then (after having its volume reduced to 25%) it should play a second time at a much reduced volume.
 
 <!-- **************************************** -->
-## Audio Tags (in Say Commands)
+# Audio Tags # {#tags}
 
 Since often dialog authors will know just what sound effects or music they wish to associate with their characters utterances, %Fungus allows audio-related 'tags' to be embedded in the text of Say Commands. There are four audio related tags:
 

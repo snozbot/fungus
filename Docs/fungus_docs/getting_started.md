@@ -1,9 +1,10 @@
-# Getting Started {#getting_started}
+# Getting Started # {#getting_started}
+[TOC]
 
 Follow these steps to get up and running with %Fungus quickly, then learn more about what %Fungus can do and how to do it from the other documentation pages and videos.
 
 <!-- **************************************************** -->
-## Opening and docking the Flowchart window
+# The Flowchart window # {#flowchart_window}
 You'll need the %Fungus Flowchart window when working with %Fungus. Open and dock this window somewhere handy by following these steps:
 
 1. Choose menu: ``Tools | %Fungus | Flowchart Window``
@@ -19,7 +20,7 @@ You'll need the %Fungus Flowchart window when working with %Fungus. Open and doc
 ![Docked %Fungus window]
 
 <!-- **************************************************** -->
-## Finding the example folders and scene files
+# Example scenes # {#examples}
 Two folders are created when you install %Fungus, the %Fungus features themslves (in folder '%Fungus') and a set of examples (in folder 'FungusExamples').
 
 Examples include Drag and Drop, Sherlock and %Fungus Town:
@@ -39,7 +40,7 @@ You can cancel the filter by clicking the 'x' in the search bar:
 ![%Fungus Examples Project window filter scenes cancel]
 
 <!-- **************************************************** -->
-## Loading and playing the example scenes
+# Running the examples # {#running_examples}
 To **load** an example scene, double click the desired example's scene object in the Project window, and the scene should load. For example, this screenshot shows the scene and Flowchart windows when the DragAndDrop example scene has been loaded:
 
 ![%Fungus Examples Drag Drop]
@@ -51,7 +52,7 @@ To **run** the currently loaded scene (i.e. to enter **Play-mode**), click the U
 Note: you click the 'play' button a second time to end **Play-mode**.
 
 <!-- **************************************************** -->
-## Changes made during playmode don't persist
+# Playmode changes # {#playmode}
 As with all Unity projects, you can **change** the properties of gameObjects while a scene is running, but these changes are 'ephemeral' - they only last while the scene is running. As soon as you end play mode the properties of all objects in the Hierarchy will revert to those saved in the Scene file.
 
 This makes it easy to 'tweak' values of objects in **Play-mode**, and then when the desired behaviour is achieved, those values can be set for the saved scene properties.
@@ -59,7 +60,7 @@ This makes it easy to 'tweak' values of objects in **Play-mode**, and then when 
 Values set when Unity is in **Edit-mode** will be saved when you saved your scene (``CTRL-S`` / ``Command-S``, or menu: ``File | Save Scene``).
 
 <!-- **************************************************** -->
-## Change your preferences to highlight Play-mode
+# Playmode tint # {#playmode_tint}
 Sometimes we can forget we are in Unity **Play-mode**, and then make changes to Hierarchy gameObject values that are then 'fogotton' when we do stop playing the scene. A good way to avoid this problem is to to set a 'tint' to the Unity editor to make it visually very clear to us when we are in **Play-mode**. To add a tint to **Play-mode** do the following:
 
 1. Open the Unity preferences dialog by choosing menu: ```File | Preferences ...```
@@ -75,7 +76,7 @@ Sometimes we can forget we are in Unity **Play-mode**, and then make changes to 
 ![Unity Play Mode tinted]
 
 <!-- **************************************************** -->
-## Creating, naming and saving a new scene from scratch
+# Creating a new scene # {#new_scene}
 To create a new scene in Unity do the following:
 
 1. Choose menu: ```File | New Scene```
@@ -97,7 +98,7 @@ To create a new scene in Unity do the following:
 ![Editing newly saved scene]
 
 <!-- **************************************************** -->
-## Menu: Tools | %Fungus
+# Menu: Tools | Fungus # {#fungus_menu}
 The core %Fungus operations are available from the Unity ```Tools``` menu.
 
 Choose menu: ```Tools | %Fungus``` to see the options available:
@@ -107,19 +108,19 @@ Choose menu: ```Tools | %Fungus``` to see the options available:
 As can be seen, there are 2 submenus, ```Create``` and ```Utilities```, plus the ```Flowchart Window``` action (which reveals the window if already open, or opens a new window if the Flowchart window was not previously opened).
 
 <!-- *********** -->
-### Menu: Tools | %Fungus | Create
+# Menu: Tools | Fungus | Create # {#create_menu}
 The %Fungus Tools ```Create``` submenu offers the following actions:
 
 ![%Fungus Tools Create menu]
 
 <!-- *********** -->
-### Menu: Tools |  %Fungus | Utilities
+# Menu: Tools | Fungus | Utilities # {#utilities_menu}
 The %Fungus Tools ```Utilties``` submenu offers the following actions:
 
 ![%Fungus Tools Utilties menu]
 
 <!-- **************************************************** -->
-## Create a Flowchart
+# Create a Flowchart # {#create_flowchart}
 To create a %Fungus Flowchart do the following:
 
 1. Choose menu: ```Tools | %Fungus | Create Flowchart```
@@ -139,7 +140,7 @@ To create a %Fungus Flowchart do the following:
 5. As you can see, when a new Flowchat is created a single command Block named "New Block" is automatically created, with the Event handler "Game Started" (so it will start executing %Fungus commands as soon as the scene goes into **Play Mode**).
 
 <!-- **************************************************** -->
-## Flowchart Block property viewing and editing
+# Block properties # {#block_properties}
 Let's change the name of the default command Block of a new Flowchart in the Flowchart window to "hello". Do the following:
 
 1. Create a new %Fungus Flowchart (if you haven't already done so).
@@ -151,7 +152,7 @@ Let's change the name of the default command Block of a new Flowchart in the Flo
 ![rename Block]
 
 <!-- **************************************************** -->
-## Add a Say command
+# Add a command # {#add_command}
 To add a "Say" command to a Block do the following:
 
 1. (setup) Create a new scene, add a %Fungus Flowchart to the scene.

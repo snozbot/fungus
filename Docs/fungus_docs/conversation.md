@@ -1,4 +1,5 @@
-# The Conversation system {#conversation}
+# Conversation system # {#conversation}
+[TOC]
 
 The Say and Portrait commands are a powerful way to build character dialogue, but it can be tedious to add large amounts of dialogue this way.
 
@@ -11,7 +12,7 @@ The Conversation system provides a simplified format that allows you to quickly 
 
 To create a conversation, add the Conversation command (Narrative > Conversation) to a Block and enter the conversation text. 
 
-# Example
+# Example # {#example}
 
 ```text
 john bored left: Oh, so that's how you use the Conversation command.
@@ -33,7 +34,7 @@ john hide:
 sherlock hide:
 ```
 
-# Format
+# Format # {#format}
 
 The format for conversation text is:
 ```text
@@ -47,7 +48,7 @@ The format for conversation text is:
 
 Parameters go on the left of the colon and the dialogue text goes on the right. You can omit any parameter and specify them in any order. Parameters are separated by spaces. If you need to use a name which contains spaces, wrap it in quotation marks e.g. "John Watson". Parameters are case insensitive. Blank lines and comment lines starting with -- are ignored. A line of dialogue text on its own will be spoken by the most recent character. You can omit dialogue text, but remember you still need to add the : character at the end of the line.
 
-# String substitution
+# String substitution # {#string_substitution}
 
 You can use the normal string subsitution syntax {$VarName} anywhere in the conversation text. For example if you have a string Flowchart variable called PlayerName you can embed this in a conversation like this:
 
@@ -55,12 +56,12 @@ You can use the normal string subsitution syntax {$VarName} anywhere in the conv
 john: Hi there {$PlayerName}.
 ```
 
-# Localization
+# Localization # {#localization}
 
 You can use the string substitution feature above with a @ref lua_string_table "Lua string table" to localize the conversation for multiple languages.
 
 The Conversation system does not work with the Localization component in %Fungus because the syntax makes it difficult to localize that way. 
 
-# Lua
+# Lua # {#lua}
 
 The conversation system can also be used @ref lua_controlling_fungus "from Lua".

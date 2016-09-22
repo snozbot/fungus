@@ -1,9 +1,10 @@
-# Flowcharts {#flowcharts}
+# Flowcharts # {#flowcharts}
+[TOC]
 
 A fundamental concept of %Fungus is the **Flowchart**. Scenes can contain a single Flowchart or multiple Flowcharts.
 
 <!-- **************************************************** -->
-## What is a Flowchart?
+# What is a Flowchart? # {#flowchart}
 
 A %Fungus **Flowchart** contains the Blocks in which all your %Fungus Commands are located. A Unity scene can contain multiple Flowcharts, and commands can be executing simultaneously in different Flowcharts. However, for many games it is sufficient for one Block in one Flowcart to be executing at any one time.
 
@@ -12,7 +13,7 @@ Here is an example of a %Fungus Flowchart:
 ![flowchart example]
 
 <!-- **************************************************** -->
-## Opening and docking the Flowchart window
+# The Flowchart window # {#flowchart_window}
 You'll need the %Fungus Flowchart window when working with %Fungus. Open and dock this window somewhere handy by following these steps:
 
 1. Choose menu: ``Tools | %Fungus | Flowchart Window``
@@ -28,7 +29,7 @@ You'll need the %Fungus Flowchart window when working with %Fungus. Open and doc
 ![Docked %Fungus window]
 
 <!-- **************************************************** -->
-## Creating a Flowchart
+# Creating a Flowchart # {#creating_flowchart}
 To create a %Fungus Flowchart do the following:
 
 1. Choose menu: ```Tools | %Fungus | Create Flowchart```
@@ -48,7 +49,7 @@ To create a %Fungus Flowchart do the following:
 5. As you can see, when a new Flowchat is created a single command Block named "New Block" is automatically created, with the Event handler "Game Started" (so it will start executing %Fungus commands as soon as the scene goes into **Play Mode**).
 
 <!-- **************************************************** -->
-## Panning the Flowchart window
+# Panning the Flowchart # {#panning}
 Panning means moving the contents of the Flowchart window as if they are on a piece of paper. Click and drag with the RIGHT mouse button to pan the contents of the Flowchart window.
 
 ![pan flowchart 1]
@@ -58,7 +59,7 @@ Panning means moving the contents of the Flowchart window as if they are on a pi
 ![pan flowchart animated]
 
 <!-- **************************************************** -->
-## Zooming the Flowchart window
+# Zooming the Flowchart # {#zooming}
 Zooming refers to making the contents larger or smaller. To zoom the Flowchart window contents either click and drag the UI slider, or use the mouse wheel (or trackpad).
 
 ![zoom flowchart 1]

@@ -1,9 +1,10 @@
-# Blocks {#blocks}
+# Blocks # {#blocks}
+[TOC]
 
 A fundamental concept of %Fungus is the **Block**. Blocks contain your %Fungus Commands, and reside inside Flowcharts.
 
 <!-- **************************************************** -->
-## Blocks (and how to inspect Block properties)
+# Inspecting Block properties # {#inspect_block}
 
 Blocks are found inside Flowcharts. Blocks are where your %Fungus Commands are stored. Each Block can contain 1 or more %Fungus Commands:
 
@@ -17,7 +18,7 @@ To inspect the properties of a Block do the following:
 ![block properties]
 
 <!-- **************************************************** -->
-## Setting Block name and description
+# Setting Block name # {#set_block_name}
 
 When working with more than one Block, its important to name each Block in a meaningful way. To rename a Block do the following:
 
@@ -32,7 +33,7 @@ When working with more than one Block, its important to name each Block in a mea
 ![block description]
 
 <!-- **************************************************** -->
-## Creating a block
+# Creating a Block # {#create_block}
 
 To create a new Block do the following:
 
@@ -45,7 +46,7 @@ To create a new Block do the following:
 Note - a good time to choose a meaningful name a Block is immediately after creating a new Block ...
 
 <!-- **************************************************** -->
-## Delete a Block
+# Delete a Block # {#delete_block}
 
 To delete a Block from the current Flowchart, do the following:
 
@@ -56,7 +57,7 @@ To delete a Block from the current Flowchart, do the following:
 ![deleted block]
 
 <!-- **************************************************** -->
-## Duplicate a Block
+# Duplicate a Block # {#duplicate_block}
 
 To duplicate (clone / make an exact copy of) a Block from the current Flowchart, do the following:
 
@@ -69,7 +70,7 @@ To duplicate (clone / make an exact copy of) a Block from the current Flowchart,
 Note - a good time to choose a meaningful name a Block is immediately after duplicating one ...
 
 <!-- **************************************************** -->
-## Moving blocks
+# Moving blocks # {#move_block}
 
 To move / rearrange Blocks in the Flowchart window do the following:
 
@@ -83,7 +84,7 @@ To move / rearrange Blocks in the Flowchart window do the following:
 ![animated move block]
 
 <!-- **************************************************** -->
-## The 3 types of Block (Event Block, Branching Block, Standard Block)
+# The 3 types of Block # {#three_types}
 
 %Fungus Flowcharts visually differentiate three differents kinds of Block behavior:
 
@@ -91,7 +92,7 @@ To move / rearrange Blocks in the Flowchart window do the following:
 2. Branching Block - orange polygon (passes control to 2 or more other Blocks, and not and Event Block)
 3. Standard Block - yellow rectangle (no event, passes control to 0 or 1 other blocks)
 
-### 1: Event Block - blue rounded rectangle
+## 1: Event Block - blue rounded rectangle ##
 One way %Fungus decides when to start executing the Commands inside a Block is if a Block has defined an Execute On Event. If a Block has any of the possible Execute On Events chosen (such as Game Started, Message Received, Sprite Drag Completed, Key Pressed etc.) then this Block will be displayed as a **blue rounded rectangle**:
 
 ![event block]
@@ -100,18 +101,18 @@ As we can see, the default Block created with every new Flowchart automatically 
 
 NOTE: A Block with an Execute On Event will always appear as an Event Block in the Flowchart, regardless of whether its Commands contain menus or calls to 2 or more Blocks). In other words, in terms of Flowchart appearance, display of an Event Block overrides display of a Branching Block.
 
-### 2: Branching Block - orange polygon
+## 2: Branching Block - orange polygon ##
 If a Block is *not* an Event Block, and its Commands include Calls and/or Menu commands to execute Commands in 2 or more other Blocks, then in the Flowchart window this Block will be displayed as a Branching Block, visually appearing as an **orange polygon**.
 
 ![branching block]
 
-### 3: Standard Block - yellow rectangle
+## 3: Standard Block - yellow rectangle ##
 If a Block is *neither* an Event Block *nor* a Command Block, then it is a Standard Block, and will be displayed as an **yellow rectangle**.
 
 ![standard block]
 
 <!-- **************************************************** -->
-## Connections between Blocks: Flow of Execution
+# Connections between Blocks # {#block_connections}
 
 A whole scene's logic can rarely fit all into a single Block, therefore we need ways for one Block to pass execution control to other Blocks. There are several ways to do this, the most common being:
 
@@ -142,7 +143,7 @@ To pass control to another Block, and stop executing Commands in the current Blo
 ![arrow between blocks]
 
 <!-- **************************************** -->
-## Executing Commands in another Block with Menu Commands
+# Executing another Block # {#executing_block}
 
 Let's use a Say command above to ask a tricky mathematical question, and demonstrate the Menu command by offering the user a choice been "correct' and "incorrect" answers.  Menu commands transfer control to another block - so we'll need to add 2 new blocks to correspond to the 2 answers.
 Do the following:
@@ -174,14 +175,14 @@ Do the following:
 ![wrong screen]
 
 <!-- **************************************************** -->
-## Highlighting connection between blocks by selecting command
+# Highlighting connections # {#highlighting_connections}
 
 In the Inspector window, if you select a Call or Menu Command (executing Commands in another Block in **the same Flowchart**), then you'll see the arrow between the 2 Blocks highlighted in GREEN:
 
 ![green arrow highlight]
 
 <!-- **************************************************** -->
-## Setting a Block event handler
+# Setting an Event Handler # {#set_event_handler}
 
 Events are one way to declare when you want execution of the Commands in a Block to begin. Typical events include:
 

@@ -1,4 +1,5 @@
 # Controlling %Fungus {#lua_controlling_fungus}
+[TOC]
 
 The %Fungus module provides several functions for working with the standard %Fungus narrative features and flowcharts.
 

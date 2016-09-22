@@ -1,25 +1,26 @@
 # About %Fungus {#about}
+[TOC]
 
-## What is %Fungus?
+# What is Fungus? # {#what_is_fungus}
 
 %Fungus is a tool which makes it easy to add colourful characters and craft gripping storylines in your game, even if you have never used <a href="http://unity3d.com" target="_blank">Unity</a> before. Our intuitive interface lets everyone create beautiful story games easily - <b>for free and with no coding</b>!
 
 ![img fungus_town]
 
-## Who's it for?
+# Who's it for? # {#whos_it_for}
 %Fungus is popular with writers, illustrators, animators and game designers, especially visual novel & interactive fiction authors. Many people using %Fungus are creating games in Unity for the very first time. It is a popular choice for game jams and game design courses.
 
-## Free & Open Source
+# Free & Open Source # {#open_source}
 
 We believe that interactive storytelling should be accessible to everyone, so %Fungus is <b>100% free & open source</b>. It works great with both the free and pro versions of Unity 3D. %Fungus is inspired by other great open source storytelling tools like [Twine], [Ren'Py] and [Scratch].
 
-## Community
+# Community # {#community}
 
 The %Fungus community is very welcoming and helpful to newcomers. Many people using %Fungus have never used Unity or even made a game before, so feel free to ask questions on our [community forum]. Helping other people with their questions is a fantastic and very welcome way to contribute back to the community.
 
 ![img community]
 
-## Features
+# Features # {#features}
 
 @htmlonly
 <div align="center" style="float:right;">
@@ -38,14 +39,14 @@ The %Fungus community is very welcoming and helpful to newcomers. Many people us
 - Powerful Lua scripting support for more experienced users
 - 100% free and open source
 
-## Contribute
+# Contribute # {#contribute}
 
 We welcome all sorts of contributions to %Fungus. You can report bugs, suggest new features, contribute source code, write an article, help answer questions on the forums or even just tell your friends about the project!
 
 - Issue Tracker: [GitHub issue tracker]
 - Source Code: [GitHub code repository]
 
-## Credits
+# Credits # {#credits}
 
 [Chris Gregan] is the main author and maintainer of %Fungus. He's co-founder of [Snozbot], along with [John O' Kane] and [Ronan Pearce].
 
@@ -57,7 +58,7 @@ We welcome all sorts of contributions to %Fungus. You can report bugs, suggest n
 
 %Fungus wouldn't be possible without all the awesome people in our community who have contributed to the project and supported us in myriad ways. Thank you all!
 
-## License
+# License # {#license}
 
 The %Fungus software is licensed under the [Open Source MIT License].
 
