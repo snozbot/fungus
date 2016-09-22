@@ -58,7 +58,7 @@ PROJECT_LOGO           = /Users/Gregan/github/fungus/Docs/resources/header/logo_
 # entered, it will be relative to the location where doxygen was started. If
 # left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = ../Build/Doxygen
+OUTPUT_DIRECTORY       = ../Build/Docs
 
 # If the CREATE_SUBDIRS tag is set to YES then doxygen will create 4096 sub-
 # directories (in 2 levels) under the output directory of each output format and
@@ -782,8 +782,8 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = ../Assets/Fungus/Scripts \
-                         fungus_lua.md \
-                         command_reference.md \
+                         top_pages/fungus_lua.md \
+                         top_pages/command_reference.md \
                          ./
 
 # This tag can be used to specify the character encoding of the source files
