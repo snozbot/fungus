@@ -1,6 +1,7 @@
-# Input event handlers {#input_events}
+# Input event handlers # {#input_events}
 
-## Key Pressed
+[TOC]
+# Key Pressed # {#KeyPressed}
 The block will execute when a key press event occurs.
 
 Defined in Fungus.EventHandlers.KeyPressed

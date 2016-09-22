@@ -1,14 +1,15 @@
-# Tests commands {#tests_commands}
+# Tests commands # {#tests_commands}
 
-## Fail
+[TOC]
+# Fail # {#Fail}
 Fails the current integration test
 
 Defined in Fungus.FailTest
-## Pass
+# Pass # {#Pass}
 Passes the current integration test
 
 Defined in Fungus.PassTest
-## TestNarrative
+# TestNarrative # {#TestNarrative}
 Test command for narrative integration tests
 
 Defined in NarrativeTests

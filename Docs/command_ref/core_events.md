@@ -1,14 +1,15 @@
-# Core event handlers {#core_events}
+# Core event handlers # {#core_events}
 
-## Flowchart Enabled
+[TOC]
+# Flowchart Enabled # {#FlowchartEnabled}
 The block will execute when the Flowchart game object is enabled.
 
 Defined in Fungus.EventHandlers.FlowchartEnabled
-## Game Started
+# Game Started # {#GameStarted}
 The block will execute when the game starts playing.
 
 Defined in Fungus.EventHandlers.GameStarted
-## Message Received
+# Message Received # {#MessageReceived}
 The block will execute when the specified message is received from a Send Message command.
 
 Defined in Fungus.EventHandlers.MessageReceived

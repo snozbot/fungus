@@ -1,6 +1,7 @@
-# Camera commands {#camera_commands}
+# Camera commands # {#camera_commands}
 
-## Fade Screen
+[TOC]
+# Fade Screen # {#FadeScreen}
 Draws a fullscreen texture over the scene to give a fade effect. Setting Target Alpha to 1 will obscure the screen, alpha 0 will reveal the screen. If no Fade Texture is provided then a default flat color texture is used.
 
 Defined in Fungus.Commands.FadeScreen
@@ -13,7 +14,7 @@ Wait Until Finished | System.Boolean | Wait until the fade has finished before e
 Fade Color | UnityEngine.Color | Color to render fullscreen fade texture with when screen is obscured.
 Fade Texture | UnityEngine.Texture2D | Optional texture to use when rendering the fullscreen fade effect.
 
-## Fade To View
+# Fade To View # {#FadeToView}
 Fades the camera out and in again at a position specified by a View object.
 
 Defined in Fungus.Commands.FadeToView
@@ -28,11 +29,11 @@ Fade Color | UnityEngine.Color | Color to render fullscreen fade texture with wh
 Fade Texture | UnityEngine.Texture2D | Optional texture to use when rendering the fullscreen fade effect.
 Target Camera | UnityEngine.Camera | Camera to use for the fade. Will use main camera if set to none.
 
-## Fullscreen
+# Fullscreen # {#Fullscreen}
 Sets the application to fullscreen, windowed or toggles the current state.
 
 Defined in Fungus.Commands.Fullscreen
-## Move To View
+# Move To View # {#MoveToView}
 Moves the camera to a location specified by a View object.
 
 Defined in Fungus.Commands.MoveToView
@@ -44,7 +45,7 @@ Target View | Fungus.View | View to transition to when move is complete
 Wait Until Finished | System.Boolean | Wait until the fade has finished before executing next command
 Target Camera | UnityEngine.Camera | Camera to use for the pan. Will use main camera if set to none.
 
-## Shake Camera
+# Shake Camera # {#ShakeCamera}
 Applies a camera shake effect to the main camera.
 
 Defined in Fungus.Commands.ShakeCamera
@@ -55,7 +56,7 @@ Duration | System.Single | Time for camera shake effect to complete
 Amount | UnityEngine.Vector2 | Magnitude of shake effect in x & y axes
 Wait Until Finished | System.Boolean | Wait until the shake effect has finished before executing next command
 
-## Start Swipe
+# Start Swipe # {#StartSwipe}
 Activates swipe panning mode where the player can pan the camera within the area between viewA & viewB.
 
 Defined in Fungus.Commands.StartSwipe
@@ -68,7 +69,7 @@ Duration | System.Single | Time to move the camera to a valid starting position 
 Speed Multiplier | System.Single | Multiplier factor for speed of swipe pan
 Target Camera | UnityEngine.Camera | Camera to use for the pan. Will use main camera if set to none.
 
-## Stop Swipe
+# Stop Swipe # {#StopSwipe}
 Deactivates swipe panning mode.
 
 Defined in Fungus.Commands.StopSwipe

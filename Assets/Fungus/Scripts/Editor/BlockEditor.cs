@@ -528,7 +528,9 @@ namespace Fungus.EditorUtils
             // Output the commands in each category
             foreach (string category in commandCategories)
             {
-                string markdown = "# " + category + " commands {#" + category.ToLower() + "_commands}\n\n";
+                string markdown = "# " + category + " commands # {#" + category.ToLower() + "_commands}\n\n";
+                markdown += "[TOC]\n";
+
                 foreach(var keyPair in filteredAttributes)
                 {
                     CommandInfoAttribute info = keyPair.Value;
@@ -536,7 +538,7 @@ namespace Fungus.EditorUtils
                     if (info.Category == category ||
                         info.Category == "" && category == "Scripting")
                     {
-                        markdown += "## " + info.CommandName + "\n";
+                        markdown += "# " + info.CommandName + " # {#" + info.CommandName.Replace(" ", "") + "}\n";
                         markdown += info.HelpText + "\n\n";
                         markdown += "Defined in " + keyPair.Key.FullName + "\n";
                         markdown += GetPropertyInfo(keyPair.Key);
@@ -570,7 +572,8 @@ namespace Fungus.EditorUtils
             // Output the commands in each category
             foreach (string category in eventHandlerCategories)
             {
-                string markdown = "# " + category + " event handlers {#" + category.ToLower() + "_events}\n\n";
+                string markdown = "# " + category + " event handlers # {#" + category.ToLower() + "_events}\n\n";
+                markdown += "[TOC]\n";
 
                 foreach (System.Type type in eventHandlerTypes)
                 {
@@ -580,7 +583,7 @@ namespace Fungus.EditorUtils
                         info.Category == category ||
                         info.Category == "" && category == "Core")
                     {
-                        markdown += "## " + info.EventHandlerName + "\n";
+                        markdown += "# " + info.EventHandlerName + " # {#" + info.EventHandlerName.Replace(" ", "") + "}\n";
                         markdown += info.HelpText + "\n\n";
                         markdown += "Defined in " + type.FullName + "\n";
                         markdown += GetPropertyInfo(type);
