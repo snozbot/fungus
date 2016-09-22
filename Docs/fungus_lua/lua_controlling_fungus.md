@@ -217,7 +217,7 @@ sherlock: Greetings.
 ]]
 ```
 
-See the docs for the @ref conversation "Conversation System".
+See the docs for the @ref conversation_system.
 
 # Flowchart functions # {#flowchart_functions}
 

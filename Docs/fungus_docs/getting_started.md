@@ -4,7 +4,7 @@
 Follow these steps to get up and running with %Fungus quickly, then learn more about what %Fungus can do and how to do it from the other documentation pages and videos.
 
 <!-- **************************************************** -->
-# The Flowchart window # {#flowchart_window}
+# The Flowchart window # {#getting_started_flowchart_window}
 You'll need the %Fungus Flowchart window when working with %Fungus. Open and dock this window somewhere handy by following these steps:
 
 1. Choose menu: ``Tools | %Fungus | Flowchart Window``

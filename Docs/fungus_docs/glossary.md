@@ -92,10 +92,9 @@ Build settings include the target platform, screen resolution, input devices, sc
 
 ## C
 
-
 <!-- ******************************* -->
-**Csharp (C&sharp;)**:
-A computer programming language developed by Microsoft, similar to Java. C&sharp; is one of the programming languages that can be used to write scripts for controlling Unity games.
+**Csharp (C#)**:
+A computer programming language developed by Microsoft, similar to Java. C# is one of the programming languages that can be used to write scripts for controlling Unity games.
 
 <!-- ******************************* -->
 **Character**:

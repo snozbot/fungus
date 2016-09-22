@@ -78,8 +78,8 @@ LuaUtils creates bindings for several useful C# classes and components so that y
 | factory 			| The @ref lua_utils "PODTypeFactory" class for creating common plain-old-data types |
 | luaenvironment 	| The LuaEnvironment component used to execute Lua scripts |
 | luautils 			| A reference to the LuaUtils component itself |
-| test 				| Support for @ref unity_test_tools (if installed) |
-| stringtable 		| The FungusLua localisation @ref string_table |
+| test 				| Support for @ref lua_unity_test_tools (if installed) |
+| stringtable 		| The FungusLua localisation @ref lua_string_table |
 
 # PODFactory # {#pod_factory}
 

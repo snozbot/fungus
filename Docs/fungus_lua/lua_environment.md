@@ -15,7 +15,7 @@ You can use multiple LuaEnvironments in your scene to ’sandbox’ the variable
 
 The 'Remote Debugger' option activates the built-in MoonSharp remote debugger tool. The application will halt execution on the first executed line of Lua code and open a MoonSharp debugger window in your browser. See the [MoonSharp documentation](http://www.moonsharp.org/debugger.html) for more information on using this debugger.
  
-# LuaUtils # {#lua_utils}
+# LuaUtils # {#lua_environment_lua_utils}
 
 When you create a LuaEnvironment object via (Tools > %Fungus > Create > LuaEnvironment), the created gameobject has another component called LuaUtils which adds many useful features to the basic LuaEnvironment setup. See the @ref lua_utils "Lua Utils" section for more info.
 

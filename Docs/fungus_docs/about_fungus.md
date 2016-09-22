@@ -54,7 +54,7 @@ We welcome all sorts of contributions to %Fungus. You can report bugs, suggest n
 
 ![img cookbook]
 
-[Paul Mc Grath] is Animator / Designer / Film-maker at Whackala. He contributed the [tutorial videos] for this site as well as creating the [%Fungus Training Course]. Special thanks also to [Vicky Lee] and [Coding Grace] who have helped us to organise loads of %Fungus workshops,
+[Paul Mc Grath] is Animator / Designer / Film-maker at Whackala. He contributed the @ref tutorial_videos for this site as well as creating the @ref training_course. Special thanks also to [Vicky Lee] and [Coding Grace] who have helped us to organise loads of %Fungus workshops,
 
 %Fungus wouldn't be possible without all the awesome people in our community who have contributed to the project and supported us in myriad ways. Thank you all!
 
@@ -71,8 +71,6 @@ The %Fungus documentation is licensed under the [Creative Commons Attribution-No
 [Vicky Lee]: https://twitter.com/whykay
 [Paul Mc Grath]: http://whackala.com
 [Coding Grace]: https://www.codinggrace.com
-[tutorial videos]: tutorial_videos/index.md
-[%Fungus Training Course]: training_course/index.md
 [FungusGames.com]: http://www.fungusgames.com
 [community forum]: http://fungusgames.com/forum
 [Twine]: http://twinery.org
