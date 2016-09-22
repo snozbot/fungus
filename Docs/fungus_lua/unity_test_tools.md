@@ -1,8 +1,9 @@
-# Unity Test Tools {#lua_unity_test_tools}
+# Unity Test Tools # {#lua_unity_test_tools}
+[TOC]
 
 If you are using the [Unity Test Tools], FungusLua is a powerful and fast way to create integration tests using Lua scripting.
 
-# Example
+# Example # {#utt_example}
 
 1. Create a new test in the scene.
 2. Add a Lua object (Tools > %Fungus > Create > Lua) as a child of the test object.
@@ -22,7 +23,7 @@ pass()
 
 If any of the checks fail, then the test fails immediately.
 
-# Lua Functions
+# Lua Functions # {#utt_lua_functions}
 
 ```lua
 -- Checks if a condition is true
@@ -38,4 +39,3 @@ fail(reason)
 ```
 
 [Unity Test Tools]: http://u3d.as/65h
-

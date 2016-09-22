@@ -1,22 +1,23 @@
-# LuaScript {#lua_script}
+# LuaScript # {#lua_script}
+[TOC]
 
 The LuaScript component provides an easy way to run Lua scripts in your scene. You can create a LuaScript object via (Tools > %Fungus > Create > LuaScript).
 
 ![LuaScript](fungus_lua/lua_script.png)
 
-# ExecuteHandler component
+# ExecuteHandler component # {#execute_handler}
 
 When you create a LuaScript object, you'll see that it contains a component called 'ExecuteHandler'. This component allows you to specify options for when the Lua script should execute. By default it executes the Lua script when the scene starts, but you can change this to execute after a delay, on every update, on trigger events, etc.
 
 If you want to execute a LuaScript from a custom C# script, set On Event to 'Nothing' and instead call the LuaScript.OnExecute() method directly. You can also call the OnExecute() method from a UI event, e.g. a UI Button 'On Click' event.
 
-#  Lua script and files
+#  Lua script and files # {#lua_script_files}
 
 You can enter the Lua code you wish to execute directly into the 'Lua Script' text box. You can also put Lua code into a text file in your project and use the Lua File property to execute it. 
 
 You can also use both options at the same time. In this case, the Lua File contents are loaded first and the Lua Script text is appended to that. This is a handy feature for code reuse and configuration, e.g. create a Lua text file with Lua functions to control your game, and then call those functions from the Lua Script text box.
 
-# Lua modules and require()
+# Lua modules and require() # {#lua_require}
 
 The Lua module system allows you to create reusable packages of Lua code and include these in your Lua scripts. [This tutorial] explains how to write Lua modules. Module files in FungusLua need to be put into a special folder structure so that the Lua require() function is able to locate them.
 
@@ -33,7 +34,7 @@ local mymodule = require("mymodule")
 mymodule.myfunction()
 ```
 
-# Error messages
+# Error messages # {#error_messages}
 
 When a script contains errors there are a few techniques you can use to track down the source. 
 
@@ -70,11 +71,11 @@ For runtime errors, a useful technique is to add print() calls in your code just
 
 MoonSharp includes a remote debugger tool which you can use to step through Lua code and inspect variables. See the @ref lua_environment for more information.
 
-# Setting the LuaEnvironment
+# Setting the LuaEnvironment # {#setting_lua_environment}
 
 By default the LuaScript component will use the first LuaEnvironment it finds in the scene to execute, or create one if none exists. If you want to use a specific LuaEnvironment, set it in the Lua Environment property. This is a good way to keep unrelated sets of Lua scripts sandboxed from each other.
 
-# RunAsCoroutine option
+# RunAsCoroutine option # {#runascoroutine_option}
 
 This option will run the Lua script as a Lua coroutine which is useful for writing asynchronous code via the coroutine.yield() function in Lua. If you don't need to execute your Lua script asynchronously, deselecting this option will avoid the overhead of running as a coroutine. Recommended for advanced users only!
 

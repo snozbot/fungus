@@ -1,4 +1,4 @@
-# Controlling %Fungus {#lua_controlling_fungus}
+# Controlling Fungus # {#lua_controlling_fungus}
 [TOC]
 
 The %Fungus module provides several functions for working with the standard %Fungus narrative features and flowcharts.
@@ -7,7 +7,7 @@ You can control Say and Menu dialogs in much the same way you use Say and Menu c
 
 When you use the menu() function, you supply another Lua function to call when that menu option is selected. Make sure to define the function higher up in the file before referencing it in a menu() call. If you don't explicitly set a SayDialog or MenuDialog object to use default ones are created automatically.
 
-# Narrative example
+# Narrative example # {#narrative_example}
 
 This example Lua script demonstrates some of the Say and Menu dialog functions. To try it out, add a Lua object to the scene (Tools > %Fungus > Create > Lua) and copy this script into the Lua Script text box. You may also need to add an EventSystem object in the scene (GameObject > UI > Event System) so that the menu buttons will respond to user input.
 
@@ -32,7 +32,7 @@ Note: The curly braces syntax means that the list of options is passed as a sing
 local choice = choose( {"Go left", "Go right"} )
 ```
 
-# Say Dialog functions
+# Say Dialog functions # {#say_dialog_functions}
 
 To use a custom SayDialog:
 
@@ -75,7 +75,7 @@ setcharacter(character, portrait)
 say(text, voiceclip)
 ```
 
-# Menu Dialog functions
+# Menu Dialog functions # {#menu_dialog_functions}
 
 You setup custom MenuDialogs in the same manner as SayDialogs, use the setmenudialog() function to set the active MenuDialog.
 
@@ -169,7 +169,7 @@ menutimer(duration, callback)
 clearmenu()
 ```
 
-# Portrait functions
+# Portrait functions # {#portrait_functions}
 
 Stage portraits can be controlled by using the stage.
 
@@ -206,7 +206,7 @@ stage.show{character=character, portrait="angry"}
 stage.hide{character=character}
 ```
 
-# Conversation function
+# Conversation function # {#conversation_function}
 
 The conversation() function allows you to perform long dialogue exchanges with a single function call. Lua's multiline string syntax [[ ]] is handy here. As the conversation() function takes a single string parameter you can also omit the usual function parentheses.
 
@@ -219,7 +219,7 @@ sherlock: Greetings.
 
 See the docs for the @ref conversation "Conversation System".
 
-# Flowchart functions
+# Flowchart functions # {#flowchart_functions}
 
 We've added special functions for say() and menu() because these are so common in %Fungus games. To execute any other commands in %Fungus from Lua, you must do it in conjunction with a Flowchart & Block, like this:
 

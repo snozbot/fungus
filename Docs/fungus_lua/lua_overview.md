@@ -1,4 +1,5 @@
-# What is FungusLua? {#lua_overview}
+# What is FungusLua? # {#lua_overview}
+[TOC]
 
 FungusLua is a simple way to embed Lua scripting into your Unity project. Lua is an easy to learn scripting language so it's a great way to empower artists, writers and designers to use more of the power of Unity.
 
@@ -8,7 +9,7 @@ We made FungusLua in response to requests from the %Fungus community for a way t
 
 FungusLua comes as part of the [%Fungus asset] available on the Unity Asset Store.
 
-# Tutorial Video
+# Tutorial Video # {#lua_tutorial_video}
 
 This video shows how to use many of the features available in FungusLua. It's more of a demonstration than a step-by-step tutorial, but hopefully between this video, the docs and the forums you'll have enough to figure it all out :)
 
@@ -18,7 +19,7 @@ This video shows how to use many of the features available in FungusLua. It's mo
 </div>
 @endhtmlonly
 
-# Using FungusLua On Its Own
+# FungusLua without Fungus # {#funguslua_without_fungus}
 
 FungusLua can easily be used on its own if you don't need the rest of the functionality in %Fungus.
 
@@ -27,13 +28,13 @@ FungusLua can easily be used on its own if you don't need the rest of the functi
 
 The Tools > %Fungus menu will now only show options for creating FungusLua objects. Obviously you won't be able to use %Fungus functions like say(), menu(), etc. anymore, but you can still use LuaEnvironment, LuaBindings, LuaScript to add Lua scripting to your game.
 
-# About Lua
+# About Lua # {#about_lua}
 
 [Lua] is a powerful, fast, lightweight, embeddable scripting language. It is a popular language for game development and supporting user modding. The standard resource for learning Lua is [Programming in Lua].
 
 ![Lua logo]
 
-# About MoonSharp
+# About MoonSharp # {#about_moonsharp}
 
 [MoonSharp] is an open source implementation of the Lua scripting language written entirely in C#. 
 

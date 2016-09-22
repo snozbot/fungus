@@ -1,4 +1,7 @@
-# String Table {#lua_string_table}
+# String Table # {#lua_string_table}
+[TOC]
+
+# Text localisation # {#lua_text_localisation}
 
 The LuaUtils component provides support for simple text localisation.
 
@@ -26,7 +29,7 @@ You can use the {$VarName} syntax anywhere that variable subsitution is supporte
 
 You can also extend the %Fungus string substitution system with your own components. Implement the StringSubstituter.ISubstitutionHandler interface in a Monobehavior subclass and then return the modified string from SubstituteStrings().
 
-# JSON Format
+# JSON Format # {#json_format}
 
 This is an example of the JSON format for the string table. To use this localised string, you would use the {$hello_world} tag.
 
@@ -45,7 +48,7 @@ This is an example of the JSON format for the string table. To use this localise
 }
 ```
 
-# Lua Functions
+# Lua Functions # {#stringtable_lua_functions}
 
 These Lua functions are available for working with the string table.
 

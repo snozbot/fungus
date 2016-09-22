@@ -1,6 +1,9 @@
-# PlayerPrefs {#lua_preferences}
+# PlayerPrefs # {#lua_preferences}
+[TOC]
 
 The [Unity PlayerPrefs] system stores and accesses player preferences between game sessions.
+
+# PlayerPrefs example # {#playerprefs_example}
 
 Here's an example of using PlayerPrefs from Lua.
 

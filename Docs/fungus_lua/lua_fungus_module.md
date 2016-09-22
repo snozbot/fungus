@@ -1,7 +1,7 @@
 # Fungus Lua Module # {#lua_fungus_module}
 [TOC]
 
-This Lua module provides handy functions for working with Lua, Unity and %Fungus. 
+The Fungus Lua module provides handy functions for working with Lua, Unity and %Fungus. It is located in FungusLua/Resources/Lua/Fungus.txt and is loaded automatically when you use the Lua Script component.
 
 In this page we cover some of the more generic functionality in the module, other major features are described elsewhere in the documentation.
 

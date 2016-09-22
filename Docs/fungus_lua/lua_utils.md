@@ -1,10 +1,11 @@
-# LuaUtils {#lua_utils}
+# LuaUtils # {#lua_utils}
+[TOC]
 
 LuaUtils is a component that extends the Lua environment with some commonly used functionality. 
 
 It can be accessed from Lua scripts via the 'luautils' global variable. This component mostly does a lot of setup work in the background, but it also provides some handy functions for instantiating, finding and destroying gameobjects in the scene.
 
-# Example
+# Example # {#lua_utils_example}
 
 Here's an example of the kind of thing you can do:
 
@@ -13,7 +14,7 @@ local go = luautils.Find("MyObject") -- Find a game object by name
 luautils.Destroy(go) -- Destroy it
 ```
 
-# GameObject Functions
+# GameObject Functions # {#gameobject_functions}
 
 This is the list of GameObject functions provided in luautils.
 
@@ -39,7 +40,7 @@ Destroy(GameObject go)
 GameObject Spawn(string resourceName)
 ```
 
-# Registering C# Types
+# Registering C# Types # {#registering_types}
 
 The most important function of the LuaUtils component is registering C# types so that instances of those types can be accessed from Lua scripts. 
 
@@ -47,7 +48,7 @@ In order to access the members of a C# type from Lua, the type first has to be r
 
 In some cases however, you will need to register a type explicitly. The easiest way to do this is by adding the type's name to the FungusTypes.txt or UnityTypes.txt JSON files referenced by the LuaUtils component. You can also create your own JSON files to register additional types. Note that types that are not contained in the main application DLL will need to use the [namespace qualified type name] in the JSON file.
 
-# Example JSON Type File
+# Example JSON Type File # {#example_json_file}
 
 Example of a types JSON file:
 ```json
@@ -61,11 +62,11 @@ Example of a types JSON file:
 }
 ```
 
-# Registering Types Directly
+# Registering Types Directly # {#register_types_directly}
 
 If you need to register types directly from C#, or do a more complex type of registration, you can use the MoonSharp UserData class to do this. See the MoonSharp documentation for a list of supported registration methods. A good place to register C# types is in the Awake method of a custom component.
 
-# Other Utilities
+# Other Utilities # {#lua_utils_other}
 
 LuaUtils creates bindings for several useful C# classes and components so that you can access them from Lua script.
 
@@ -80,7 +81,7 @@ LuaUtils creates bindings for several useful C# classes and components so that y
 | test 				| Support for @ref unity_test_tools (if installed) |
 | stringtable 		| The FungusLua localisation @ref string_table |
 
-# PODFactory
+# PODFactory # {#pod_factory}
 
 Due to limitations in C# / Mono, MoonSharp has limited support for working with Plain-Old-Data (struct) types like [Vector3](http://docs.unity3d.com/ScriptReference/Vector3.html), [Color](http://docs.unity3d.com/ScriptReference/Color.html), etc. 
 
