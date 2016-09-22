@@ -40,7 +40,7 @@ A special component of Unity objects that can refer to a particular audio clip f
 
 <!-- ******************************* -->
 **Block**:
-A Fungus Block is a sequence of Commands that have been created inside a Fungus Flowchart.
+A %Fungus Block is a sequence of Commands that have been created inside a %Fungus Flowchart.
 
 <!-- ******************************* -->
 **Block connection**:
@@ -99,7 +99,7 @@ A computer programming language developed by Microsoft, similar to Java. C&sharp
 
 <!-- ******************************* -->
 **Character**:
-A Fungus gameObject allowing the personalisation of narrative, allowing characters to have names, special colours for their text on screen, and a range of different named images so character images can be displayed corresponding to the content of their dialog.
+A %Fungus gameObject allowing the personalisation of narrative, allowing characters to have names, special colours for their text on screen, and a range of different named images so character images can be displayed corresponding to the content of their dialog.
 
 <!-- ******************************* -->
 **Clickable Sprite**:
@@ -107,7 +107,7 @@ A 2D image on screen that has been code to do something when clicked with the mo
 
 <!-- ******************************* -->
 **Coding / Scripting**:
-Writing lines of computer code to control execution of a computer program, such as a Unity game (as opposed to using a visual language such as Fungus Flowcharts).
+Writing lines of computer code to control execution of a computer program, such as a Unity game (as opposed to using a visual language such as %Fungus Flowcharts).
 
 <!-- ******************************* -->
 **Command**:
@@ -115,16 +115,16 @@ An instruction for the Unity game engine to do something, examples are to play o
 
 <!-- ******************************* -->
 **Command category**:
-THe Fungus commands are grouped according to what kind of action they will lead to.
+THe %Fungus commands are grouped according to what kind of action they will lead to.
 
 <!-- ******************************* -->
 **Command property panel**:
-When a Block is selected in a Fungus Flowchart, the top-half of the Inspector window will show the properties and list of Commands for that Block. When one of the Commands is selected, that its properties are displayed in the bottom-half of the Inspector window.
+When a Block is selected in a %Fungus Flowchart, the top-half of the Inspector window will show the properties and list of Commands for that Block. When one of the Commands is selected, that its properties are displayed in the bottom-half of the Inspector window.
 
 
 <!-- ******************************* -->
 **Condition**:
-Conditions are tests that are either "TRUE" or "FALSE" at a particular point in time. Different Commands can be defined to be executed depending on the value of a condition test in a Fungus Block.
+Conditions are tests that are either "TRUE" or "FALSE" at a particular point in time. Different Commands can be defined to be executed depending on the value of a condition test in a %Fungus Block.
 
 
 <!-- ******************************* -->
@@ -164,7 +164,7 @@ An application allowing the editing of game resources. The Unity Editor has mult
 
 <!-- ******************************* -->
 **Event Handler**:
-A Fungus Block or a Unity coded "method" that will be executed when a particular "Event" occurs. For example when the "SPACE" key is pressed the game should respond to the user having executed a spell or fired a gun or whatever.
+A %Fungus Block or a Unity coded "method" that will be executed when a particular "Event" occurs. For example when the "SPACE" key is pressed the game should respond to the user having executed a spell or fired a gun or whatever.
 
 <!-- ******************************* -->
 **Event block**:
@@ -198,11 +198,11 @@ A variable that stores decimal numbers, such as 5.5, -0.11 etc.
 
 <!-- ******************************* -->
 **Flowchart**:
-A Fungus Flowchart contains a set of Blocks, each containing Commands to be executed.
+A %Fungus Flowchart contains a set of Blocks, each containing Commands to be executed.
 
 <!-- ******************************* -->
 **Flow control**:
-A general term referring to how a computer decides what to do next. So it is deciding which Fungus Command or Unity code statement to execute next. Typical Flow commands include decision choices such as loops or IF-conditions etc.
+A general term referring to how a computer decides what to do next. So it is deciding which %Fungus Command or Unity code statement to execute next. Typical Flow commands include decision choices such as loops or IF-conditions etc.
 
 <!-- ******************************* -->
 **Flowchart item id**:
@@ -210,7 +210,7 @@ The unique number that is created for each Block of a Flowchart. This ID is used
 
 <!-- *************************** -->
 **Flowchart Localization id**:
-A special, unique name, used for associating language localization data for each Fungus game project.
+A special, unique name, used for associating language localization data for each %Fungus game project.
 
 <!-- ******************************* -->
 **Flowchart Message**:
@@ -220,7 +220,7 @@ Messages can be sent (via the ```Flow | Send Message``` Command), either to the 
 
 <!-- ******************************* -->
 **Flowchart Window**:
-A special window available in the Unity Editor for editing and working with Fungus Flowcharts and their Blocks.
+A special window available in the Unity Editor for editing and working with %Fungus Flowcharts and their Blocks.
 
 <!-- ------------------------ -->
 <!-- ---------- I ----------- -->
@@ -247,7 +247,7 @@ An orientation of an image or computer screen, where the width is greater than t
 When you first export the localization .csv (Comma-Separated-Variable) file it has 3 columns (Key, Description, Standard).
 When you want to add a new language to the file you add a new column for that language. You can use whatever column name you like, though it's typical to use two letter language codes (FR, ES, DE, etc.).
 
-The Set Language command is provided with the name of the column for the language you wish to use in Fungus.
+The Set Language command is provided with the name of the column for the language you wish to use in %Fungus.
 
 <!-- ******************************* -->
 **Libre Office**:
@@ -283,7 +283,7 @@ The UI elements (background / lines / text) that define the visual style of how 
 
 ![menu running](./images/011_menu_maths/9_menu_running.png "menu running")
 
-Fungus provides a default Menu Dialog, but custom variations can be defined, for different games / scenes / characters etc.
+%Fungus provides a default Menu Dialog, but custom variations can be defined, for different games / scenes / characters etc.
 
 <!-- ------------------------ -->
 <!-- ---------- O ----------- -->
@@ -313,7 +313,7 @@ Refers to the device and type of application that the Unity editor will create. 
 
 <!-- ******************************* -->
 **Portrait**:
-The Fungus Portrait Command is used to make the game display one of the Character Portrait images on the Stage. A particular image can be selected, and it can be made to move on/off stage.
+The %Fungus Portrait Command is used to make the game display one of the Character Portrait images on the Stage. A particular image can be selected, and it can be made to move on/off stage.
 
 <!-- ******************************* -->
 **Portrait orientation**:
@@ -355,7 +355,7 @@ The UI elements (background / lines / text) that define the visual style of how 
 ![story text output](./images/010_say_command/4_scene_running.png "story text output")
 
 
-Fungus provides a default Say Dialog, but custom variations can be defined, for different games / scenes / characters etc.
+%Fungus provides a default Say Dialog, but custom variations can be defined, for different games / scenes / characters etc.
 
 <!-- ******************************* -->
 **Scenes**:
@@ -379,21 +379,21 @@ Spine is a third-party 2D animation system from [EsotericSoftware.com].
 
 <!-- ******************************* -->
 **Spine Animation**:
-Animation clip based on the Spine 2D system, that can be controlled from Fungus Commands (once  the Unity Spine and Fungus Spine add-on packages have been installed).
+Animation clip based on the Spine 2D system, that can be controlled from %Fungus Commands (once  the Unity Spine and %Fungus Spine add-on packages have been installed).
 
 
 <!-- ******************************* -->
 **Sprites**:
-2D Images, that may be hidden / revealed. Sprite may be moved through Fungus Commands, or Unity code. Sprites can also be defined to be "draggable" by the users computer mouse pointer or mobile device touch gestures.
+2D Images, that may be hidden / revealed. Sprite may be moved through %Fungus Commands, or Unity code. Sprites can also be defined to be "draggable" by the users computer mouse pointer or mobile device touch gestures.
 
 
 <!-- ******************************* -->
 **Stage**:
-A Fungus gameObject in the scene, used to define the position and start-end movements of Character Portrait images controlled by Fungus Portrait Commands.
+A %Fungus gameObject in the scene, used to define the position and start-end movements of Character Portrait images controlled by %Fungus Portrait Commands.
 
 <!-- ******************************* -->
 **Standard block**:
-A Fungus Block whose execution is **not** triggered by an event (so it is not an Event Block), and which does **not** cause the execution of 2 or more other Blocks (so is **not** a Branching Block).
+A %Fungus Block whose execution is **not** triggered by an event (so it is not an Event Block), and which does **not** cause the execution of 2 or more other Blocks (so is **not** a Branching Block).
 
 Note: Standard Blocks are displayed as yellow rectangles in the Flowchart window.
 
@@ -404,7 +404,7 @@ Note: Standard Blocks are displayed as yellow rectangles in the Flowchart window
 **Standard Text**:
 When you export the localization file, there is a Standard Text field. This is populated with the text that has been entered into the Say, Menu, etc. text fields in the Unity editor. In normal usage, this field is in the localisation file for reference so localizers know what text needs to be translated. For example, if the project is drafted using English, then the text in Say, Menu Commands etc. would be in English, and in the exported localization file this text would appear in the Standard Text fields.
 
-Note, if you use the Set Language command with an empty language string then the values in the Standard Text field will be used when Fungus runs.
+Note, if you use the Set Language command with an empty language string then the values in the Standard Text field will be used when %Fungus runs.
 
 
 <!-- ******************************* -->
@@ -434,7 +434,7 @@ A variable that stores text characters, such as the player's name, or colour of 
 
 <!-- ******************************* -->
 **Tag**:
-Special characters that can be inserted into Fungus Say Commands, to control other aspects of the scene, such as the playing of a sound, or the shaking of the camera, or the sending of a message to cause other Blocks to start executing.
+Special characters that can be inserted into %Fungus Say Commands, to control other aspects of the scene, such as the playing of a sound, or the shaking of the camera, or the sending of a message to cause other Blocks to start executing.
 
 
 <!-- ------------------------ -->
@@ -456,7 +456,7 @@ The building of visual interfaces for computer programs deployed by Unity.
 **Usfxr**:
 A system for generating sound effects from mathematical parameters.
 
-Built into Fungus and based on the open source project at: [Usfxr at GitHub]
+Built into %Fungus and based on the open source project at: [Usfxr at GitHub]
 
 <!-- ------------------------ -->
 <!-- ---------- V ----------- -->
@@ -476,7 +476,7 @@ A "default" value refers to the value given to a variable automatically, if no p
 
 <!-- ******************************* -->
 **Variables Panel**:
-The very bottom section of the Flowchart window is where variables (such as score, playerName, carryingGreenKey etc.) can be defined for use in Fungus Commands.
+The very bottom section of the Flowchart window is where variables (such as score, playerName, carryingGreenKey etc.) can be defined for use in %Fungus Commands.
 
 <!-- ******************************* -->
 **Variable saving**:
@@ -495,7 +495,7 @@ The core tools offered in the Unity editor for changing basic properties of 2D a
 
 <!-- ******************************* -->
 **View**:
-A Fungus gameObject that helps ensure good visual experience regardless of device aspect ration, and used for camera movements and control by Fungus Commands.
+A %Fungus gameObject that helps ensure good visual experience regardless of device aspect ration, and used for camera movements and control by %Fungus Commands.
 
 <!-- ******************************* -->
 **Voice over**:

@@ -1,6 +1,6 @@
 # Community Articles {#articles}
 
-If you've created an article or video about Fungus let us know on the forum and we'll add it here.
+If you've created an article or video about %Fungus let us know on the forum and we'll add it here.
 
 ## Morning Fun Games
 
@@ -22,14 +22,14 @@ If you've created an article or video about Fungus let us know on the forum and 
 - [Creating Revision Apps as Text Adventures](http://davidsherlock.co.uk/creating-revision-apps-as-text-adventures/)
 - [More attempts to create revision apps using free resources](http://davidsherlock.co.uk/more-attempts-to-create-revision-apps-using-free-resources)
 - [Creating your own hidden object game](http://davidsherlock.co.uk/starting-your-own-hidden-object-game)
-- [Setting up Unity and Fungus to make #appliedgames](https://youtu.be/t1zf4Qq_GS8)
+- [Setting up Unity and %Fungus to make #appliedgames](https://youtu.be/t1zf4Qq_GS8)
 
 ## Leah Lee
 
 [http://leahlee.studio](http://leahlee.studio)
 
-- [Fungus Research](http://leahlee.studio/fungus-research-week-1)
-- [Contributing to Fungus](http://leahlee.studio/contributing-to-fungus-for-unity-week-2/)
+- [%Fungus Research](http://leahlee.studio/fungus-research-week-1)
+- [Contributing to %Fungus](http://leahlee.studio/contributing-to-fungus-for-unity-week-2/)
 - [Using a video as a texture](http://leahlee.studio/using-a-video-as-a-texture)
 
 ## Konrad Gadzina

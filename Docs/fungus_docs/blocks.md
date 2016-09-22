@@ -1,17 +1,17 @@
 # Blocks {#blocks}
 
-A fundamental concept of Fungus is the **Block**. Blocks contain your Fungus Commands, and reside inside Flowcharts.
+A fundamental concept of %Fungus is the **Block**. Blocks contain your %Fungus Commands, and reside inside Flowcharts.
 
 <!-- **************************************************** -->
 ## Blocks (and how to inspect Block properties)
 
-Blocks are found inside Flowcharts. Blocks are where your Fungus Commands are stored. Each Block can contain 1 or more Fungus Commands:
+Blocks are found inside Flowcharts. Blocks are where your %Fungus Commands are stored. Each Block can contain 1 or more %Fungus Commands:
 
 ![block]
 
 To inspect the properties of a Block do the following:
 
-1. (setup) Create a Fungus Flowchart.
+1. (setup) Create a %Fungus Flowchart.
 2. Click to select the default Block in the new Flowchart. You should see the Block's properties displayed in the Inspector window:
 
 ![block properties]
@@ -21,7 +21,7 @@ To inspect the properties of a Block do the following:
 
 When working with more than one Block, its important to name each Block in a meaningful way. To rename a Block do the following:
 
-1. (setup) Create a Fungus Flowchart.
+1. (setup) Create a %Fungus Flowchart.
 2. Click to select the default Block in the new Flowchart. The selected block has a green outline.
 3. You should see the Block's properties displayed in the Inspector window:
 ![block name]
@@ -36,8 +36,8 @@ When working with more than one Block, its important to name each Block in a mea
 
 To create a new Block do the following:
 
-1. (setup) Create a Fungus Flowchart (or be viewing the Flowchart for your current project).
-2. Click the Add New Block button (the plus-sign "+") in the top-left of the Fungus Flowchart window:
+1. (setup) Create a %Fungus Flowchart (or be viewing the Flowchart for your current project).
+2. Click the Add New Block button (the plus-sign "+") in the top-left of the %Fungus Flowchart window:
 ![add block button]
 3. A new Block should have been added to your Flowchart (with the default name "New Block", or "New Block1/2/3 etc." so each name is unique)
 ![new block]
@@ -49,7 +49,7 @@ Note - a good time to choose a meaningful name a Block is immediately after crea
 
 To delete a Block from the current Flowchart, do the following:
 
-1. (setup) Create a Fungus Flowchart (or be viewing the Flowchart for your current project).
+1. (setup) Create a %Fungus Flowchart (or be viewing the Flowchart for your current project).
 2. Right-mouse-click over the Block you wish to delete, and choose menu: ```Delete```:
 ![delete block]
 3. The Block should now have been removed from the Flowchart:
@@ -60,7 +60,7 @@ To delete a Block from the current Flowchart, do the following:
 
 To duplicate (clone / make an exact copy of) a Block from the current Flowchart, do the following:
 
-1. (setup) Create a Fungus Flowchart (or be viewing the Flowchart for your current project).
+1. (setup) Create a %Fungus Flowchart (or be viewing the Flowchart for your current project).
 2. Right-mouse-click over the Block you wish to duplicate, and choose menu: ```Duplicate```:
 ![duplicate block]
 3. A copy of the Block should now have been added to the Flowchart (with "(copy)" appended the name of the duplicate):
@@ -73,7 +73,7 @@ Note - a good time to choose a meaningful name a Block is immediately after dupl
 
 To move / rearrange Blocks in the Flowchart window do the following:
 
-1. (setup) Create a Fungus Flowchart (or be viewing the Flowchart for your current project).
+1. (setup) Create a %Fungus Flowchart (or be viewing the Flowchart for your current project).
 2. Move a Block by clicking-and-dragging with the left mouse button:
 ![move block]
 3. When you release the mouse button the Block will remain where it was dragged:
@@ -85,14 +85,14 @@ To move / rearrange Blocks in the Flowchart window do the following:
 <!-- **************************************************** -->
 ## The 3 types of Block (Event Block, Branching Block, Standard Block)
 
-Fungus Flowcharts visually differentiate three differents kinds of Block behavior:
+%Fungus Flowcharts visually differentiate three differents kinds of Block behavior:
 
 1. Event Block - blue rounded rectangle (Block execution triggered by an event)
 2. Branching Block - orange polygon (passes control to 2 or more other Blocks, and not and Event Block)
 3. Standard Block - yellow rectangle (no event, passes control to 0 or 1 other blocks)
 
 ### 1: Event Block - blue rounded rectangle
-One way Fungus decides when to start executing the Commands inside a Block is if a Block has defined an Execute On Event. If a Block has any of the possible Execute On Events chosen (such as Game Started, Message Received, Sprite Drag Completed, Key Pressed etc.) then this Block will be displayed as a **blue rounded rectangle**:
+One way %Fungus decides when to start executing the Commands inside a Block is if a Block has defined an Execute On Event. If a Block has any of the possible Execute On Events chosen (such as Game Started, Message Received, Sprite Drag Completed, Key Pressed etc.) then this Block will be displayed as a **blue rounded rectangle**:
 
 ![event block]
 
@@ -120,11 +120,11 @@ A whole scene's logic can rarely fit all into a single Block, therefore we need 
 
 <!-- **************************************************** -->
 ## Executing Commands in another Block with the Call Command
-The Call Command tells Fungus to go and start executing the Commands in named Block. There are several ways to do this, we can tell Fungus to Stop execution completely in the current Block, and just pass control to named Block. We can also tell Fungus to go and completed all Commands in the named Block, and when they are finished, to then continue executing any remaining commands in the current Block. Finally, and perhaps the most complicated/sophisticated technique, we can tell Fungus to both started executing Commands in a named Block WHILE simultaneously continuing to execute remaining Commands in the current Block.
+The Call Command tells %Fungus to go and start executing the Commands in named Block. There are several ways to do this, we can tell %Fungus to Stop execution completely in the current Block, and just pass control to named Block. We can also tell %Fungus to go and completed all Commands in the named Block, and when they are finished, to then continue executing any remaining commands in the current Block. Finally, and perhaps the most complicated/sophisticated technique, we can tell %Fungus to both started executing Commands in a named Block WHILE simultaneously continuing to execute remaining Commands in the current Block.
 
 To pass control to another Block, and stop executing Commands in the current Block, do the following:
 
-1. (setup) If you have not already done so: Create a new scene, add a Fungus Flowchart to the scene, and select the Block in the Flowchart.
+1. (setup) If you have not already done so: Create a new scene, add a %Fungus Flowchart to the scene, and select the Block in the Flowchart.
 2. Rename this Block "Start".
 3. Add to Block "Start" a Say Command with the Story Text "I am in Start".
 ![block start]
@@ -137,7 +137,7 @@ To pass control to another Block, and stop executing Commands in the current Blo
 ![call block menu]
 8. Note: We will keep the default of **Target Flowchart** (None), which means the current Flowchart.
 9. Note: We will keep the default of **Call Mode** Stop, which means that execution in the current Block (Start) will stop once execution of the called Block has begun.
-10. You should now see an arrow in the Flowchart window, connecting Block "Start" with Block "Block2". This visually tells us (the game developer) that a Call or Menu Command is present inside Block "Start" that tells Fungus to execute commands in Block "Block2":
+10. You should now see an arrow in the Flowchart window, connecting Block "Start" with Block "Block2". This visually tells us (the game developer) that a Call or Menu Command is present inside Block "Start" that tells %Fungus to execute commands in Block "Block2":
 
 ![arrow between blocks]
 
@@ -147,7 +147,7 @@ To pass control to another Block, and stop executing Commands in the current Blo
 Let's use a Say command above to ask a tricky mathematical question, and demonstrate the Menu command by offering the user a choice been "correct' and "incorrect" answers.  Menu commands transfer control to another block - so we'll need to add 2 new blocks to correspond to the 2 answers.
 Do the following:
 
-1. (setup) Create a new scene, add a Fungus Flowchart to the scene, and select the Block in the Flowchart.
+1. (setup) Create a new scene, add a %Fungus Flowchart to the scene, and select the Block in the Flowchart.
 2. Rename the Block in the Flowchart to "Question".
 3. Create a Say command, with **Story Text** to ask the question: "Is 2 + 2?".
 4. Uncheck the "Wait For Click" checkbox (this is so we see the menu options immediately after the Say command has displayed the question):

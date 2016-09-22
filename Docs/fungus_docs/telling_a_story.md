@@ -1,6 +1,6 @@
 # Telling a story {#telling_a_story}
 
-Having got up and running, here are some next steps to get you familiar with the storytelling features in Fungus.
+Having got up and running, here are some next steps to get you familiar with the storytelling features in %Fungus.
 
 <!-- **************************************** -->
 ## Adding Characters, for use in Say commands
@@ -14,12 +14,12 @@ We can associated words spoken by the Say Command with a particular Character. C
 [Jerry] Arrrrggggggg!!!!!!!
 ```
 
-To implement the above in Fungus we need to create and name two Characters. Do the following:
+To implement the above in %Fungus we need to create and name two Characters. Do the following:
 
-1. (setup) Create a new scene, add a Fungus Flowchart to the scene, and select the Block in the Flowchart.
+1. (setup) Create a new scene, add a %Fungus Flowchart to the scene, and select the Block in the Flowchart.
 2. Rename the Flowchart Block "cat and mouse".
 3. Choose menu:
-```Tools | Fungus | Create | Character```:
+```Tools | %Fungus | Create | Character```:
 ![Menu create character]
 4. You should now see a new gameObject "Character" in the Hierarchy window, named Character.
 ![new character]
@@ -47,7 +47,7 @@ If you add one or more portrait images to a character, then each Say command for
 
 To add portrait images to a character do the following:
 
-1. (setup) Create a new scene, add a Fungus Flowchart to the scene, and select the Block in the Flowchart.
+1. (setup) Create a new scene, add a %Fungus Flowchart to the scene, and select the Block in the Flowchart.
 2. Rename the Flowchart Block "The case of the missing violin".
 3. Create a character, and in the Inspector give your character Name Text (we chose "Sherlock") and a name color.
 4. Now in the Inspector click the Add Portrait button (the plus-sign "+"), to get a 'slot' into which to add a portrait image:
@@ -55,7 +55,7 @@ To add portrait images to a character do the following:
 5. Drag the appropriate image into your new portrait image slot (in this screenshot we used the 'condident' image from the Sherlock example project). Also set the direction that the image is facing (left / front / right):
 ![sherlock image]
 6. Create a second character (e.g. John, using Name Color blue, and portrait image 'annoyed').
-7. Now select your Block in the Fungus Flowchart, so you can add some Commands to be executed...
+7. Now select your Block in the %Fungus Flowchart, so you can add some Commands to be executed...
 8. Create a Say command, for your Sherlock Character, saying "Watson, have you seen my violin?" and choosing portrait 'confident' (since this is the only we added to the Character):
 ![sherlock Say command]
 9. Add a second Say command, this time for Character John, saying "No, why don't you find it yourself using your amazing powers of deduction..." and choosing the 'annoyed' portrait for John.
@@ -63,41 +63,41 @@ To add portrait images to a character do the following:
 10. When you run the scene you should see a sequence of statements, clearly showing who is saying both with (colored) name text AND also the portrait image you selected for each Say command:
 ![sherlock output]
 ![john output]
-As you can see in some of the Fungus Example projects, many games will have a wide range of different portrait images for each character, to allow a full range of visual expression of emotion to support the text of Say commands:
+As you can see in some of the %Fungus Example projects, many games will have a wide range of different portrait images for each character, to allow a full range of visual expression of emotion to support the text of Say commands:
 ![sherlock image list]
 
 <!-- **************************************** -->
 ## Add a Stage
 
-Portrait images can be used in two ways in Fungus.
+Portrait images can be used in two ways in %Fungus.
 
 - They can be shown as part of the **Say** commands in the Say Dialog.
-- Alternatively Portraits can be displayed and moved around the screen inside Fungus **Stages**, using the Portrait Command.
+- Alternatively Portraits can be displayed and moved around the screen inside %Fungus **Stages**, using the Portrait Command.
 
 Create a simple stage that covers the whole game Window as follows:
 
-1. (setup) Create a new scene, add a Fungus Flowchart to the scene, and select the Block in the Flowchart.
+1. (setup) Create a new scene, add a %Fungus Flowchart to the scene, and select the Block in the Flowchart.
 2. Rename the Flowchart Block "stage demo".
-3. Create a Fungus Stage gameObject in the scene by choosing menu:
-```Tools | Fungus | Create | Stage```:
+3. Create a %Fungus Stage gameObject in the scene by choosing menu:
+```Tools | %Fungus | Create | Stage```:
 ![menu add stage]
 4. You should now see a new gameObject "Stage" added to the scene Hierarchy.
 5. If you select it you will see its properties in the Inspector. We can leave the default settings, since these are for the stage to cover the whole Game window. There are some child gameObjects inside the Stage, but you don't need to worry about these unless you are doing some advanced customisation of stages for a particular game effect.
 
 ![stage gameObject]
 
-Now you have added a Fungus Stage to your scene, you will be able to make large Portrait images appear / move in-out of the screen using the **Portrait** Command in Fungus Flowchart Blocks...
+Now you have added a %Fungus Stage to your scene, you will be able to make large Portrait images appear / move in-out of the screen using the **Portrait** Command in %Fungus Flowchart Blocks...
 
 <!-- **************************************** -->
 ## Displaying Portrait images on stages with the Portrait command
 
-Once you have a Fungus Stage, and a character then you can instruct Fungus to display / move onscreen the Character Portrait images. To make character images appear as part of a scene do the following:
+Once you have a %Fungus Stage, and a character then you can instruct %Fungus to display / move onscreen the Character Portrait images. To make character images appear as part of a scene do the following:
 
-1. (setup) Create a new scene, add a Fungus Flowchart to the scene, and select the Block in the Flowchart.
+1. (setup) Create a new scene, add a %Fungus Flowchart to the scene, and select the Block in the Flowchart.
 2. Rename the Flowchart Block "sherlock enters dramatically".
-3. Create a Fungus Stage gameObject in the scene by choosing menu:
-```Tools | Fungus | Create | Stage```.
-4. Create a new character, name the gameObject "Character1 - Sherlock", set the Name Text to "sherlock" and the Name Color to green. Add to this character a portrait (we used the sherlock-confident image from the Fungus Example project "Sherlock"). And set the image facing to the appropriate side (in our case: left):
+3. Create a %Fungus Stage gameObject in the scene by choosing menu:
+```Tools | %Fungus | Create | Stage```.
+4. Create a new character, name the gameObject "Character1 - Sherlock", set the Name Text to "sherlock" and the Name Color to green. Add to this character a portrait (we used the sherlock-confident image from the %Fungus Example project "Sherlock"). And set the image facing to the appropriate side (in our case: left):
 ![sherlock image]
 5. Add a Portrait Command by clicking the Add Command button (the plus-sign "+"), then choosing menu:
 ```Narrative | Portrait```:
@@ -121,7 +121,7 @@ Note, a common Command flow sequence is:
 - then have another character enter the screen (Portrait command),
 - and then that second character says something (Say command).
 
-Here is just such a sequence for the "Case of the missing violin" two-sentence scenario explored in the recipe to learning how to create Fungus Characters (recipe: Listing portrait image(s) for use by Characters):
+Here is just such a sequence for the "Case of the missing violin" two-sentence scenario explored in the recipe to learning how to create %Fungus Characters (recipe: Listing portrait image(s) for use by Characters):
 ![sherlock portrait output]
 
 Here we see the Play Mode user experience of the output of running such a workflow:
@@ -134,7 +134,7 @@ Here we see the Play Mode user experience of the output of running such a workfl
 ## Play some music
 Music sound clips loop, so they are restarted once they have finished playing. Often the first Command in a Block is a **Play Music** Command. Add music to a Block as follows:
 
-1. (setup) Create a new scene, add a Fungus Flowchart to the scene, and select the Block in the Flowchart.
+1. (setup) Create a new scene, add a %Fungus Flowchart to the scene, and select the Block in the Flowchart.
 2. Add a Play Music Command to the current Block by clicking the Add Command (plus-sign "+" button) in the Inspector, and then choosing menu: ```Audio | Play Music```.
 3. Ensure the Play Music command is selected (green highlight) in the top of the Inspector, and then drag the desired music clip file into the "Music Clip" property in the bottom half of the Inspector:
 ![Add Play Music command]
@@ -149,7 +149,7 @@ NOTE: If you wish to start playing the music clip from a known time-point (rathe
 Let's use a Say command above to ask a tricky mathematical question, and demonstrate the Menu command by offering the user a choice been "correct' and "incorrect" answers.  Menu commands transfer control to another block - so we'll need to add 2 new blocks to correspond to the 2 answers.
 Do the following:
 
-1. (setup) Create a new scene, add a Fungus Flowchart to the scene, and select the Block in the Flowchart.
+1. (setup) Create a new scene, add a %Fungus Flowchart to the scene, and select the Block in the Flowchart.
 2. Rename the Block in the Flowchart to "Question".
 3. Create a Say command, with **Story Text** to ask the question: "Is 2 + 2?".
 4. Uncheck the "Wait For Click" checkbox (this is so we see the menu options immediately after the Say command has displayed the question):
@@ -193,17 +193,17 @@ To add any sprite image file from your Unity Project folder into the current sce
 
 ![sprite into scene]
 
-NOTE: You may not be able to see the sprite, because what we see depends on the current settings for the camera. What the camera shows, how it moves etc. can be controlled by Fungus Views and Commmands relating to Views.
+NOTE: You may not be able to see the sprite, because what we see depends on the current settings for the camera. What the camera shows, how it moves etc. can be controlled by %Fungus Views and Commmands relating to Views.
 
 <!-- **************************************** -->
 ## Adding and customising a view
 
-What the main camera of a scene displays to the user, and how it moves etc. can be controlled by Fungus Views and Fungus Commmands relating to Views. A Fungus View is a special gameObject in the Hierarchy, it appears as a green outlined inner rectangle, with two filled green rectangles on the left and the right. The ratio of the outlined inner rectangle is 4:3. The ratio of the outer rectangle (which includes the two filled green left and right rectangles) is 16:9. These two ratios cover almost every common phone, tablet and computer screen width-to-height ratio. So arranging the view so that a background Sprite image looks good for both inner- and outer- rectangles of a view, pretty much ensures your game will look good on any device. Setting the background color of the camera to something like black also means on the rare device that has an odd ratio showing content outside of the view outer rectangle, the game should still look perfectly acceptable.
+What the main camera of a scene displays to the user, and how it moves etc. can be controlled by %Fungus Views and %Fungus Commmands relating to Views. A %Fungus View is a special gameObject in the Hierarchy, it appears as a green outlined inner rectangle, with two filled green rectangles on the left and the right. The ratio of the outlined inner rectangle is 4:3. The ratio of the outer rectangle (which includes the two filled green left and right rectangles) is 16:9. These two ratios cover almost every common phone, tablet and computer screen width-to-height ratio. So arranging the view so that a background Sprite image looks good for both inner- and outer- rectangles of a view, pretty much ensures your game will look good on any device. Setting the background color of the camera to something like black also means on the rare device that has an odd ratio showing content outside of the view outer rectangle, the game should still look perfectly acceptable.
 
 To add a view to the current scene do the following:
 
 1. (setup) Create / Edit a scene that has a Sprite background image gameObject
-2. Choose menu: ```Tools | Fungus | Create | View```:
+2. Choose menu: ```Tools | %Fungus | Create | View```:
 ![menu new view]
 3. Rename this View as "View1".
 4. Use the two white squares to resize the view (it maintains its proportions). Use the center square outline, or vertical and horizontal arrows to move the View around the Scene window.
@@ -214,15 +214,15 @@ To add a view to the current scene do the following:
 ![resize view]
 7. Note: You can also rotate the view with the Unity Rotate tool
 
-NOTE: Utnil you add a "Fade To View" Fungus command, you still may not see the Sprite in the Game window when the scene plays, since the Main Camera has not been oriented to resize and align with the view.
+NOTE: Utnil you add a "Fade To View" %Fungus command, you still may not see the Sprite in the Game window when the scene plays, since the Main Camera has not been oriented to resize and align with the view.
 
 <!-- **************************************** -->
 ## Add a Fade To View command
 
-Once you have a Scene that contains some background Sprites and Fungus Views, you are ready to use the Fungus camera related Commands to control what the user sees. The simplest camera control is to make the Game window fade from a solid colour to the Main Camera being sized, positioned (and if necessary rotated) to show a specified Fungus View. Do the following:
+Once you have a Scene that contains some background Sprites and %Fungus Views, you are ready to use the %Fungus camera related Commands to control what the user sees. The simplest camera control is to make the Game window fade from a solid colour to the Main Camera being sized, positioned (and if necessary rotated) to show a specified %Fungus View. Do the following:
 
-1. (setup) Create / being editing a Scene containing a background Sprite image, and a Fungus View that has been positioned to show all / some of the Sprite.
-2. In the Fungus Flowchart rename the Block "Camera Control".
+1. (setup) Create / being editing a Scene containing a background Sprite image, and a %Fungus View that has been positioned to show all / some of the Sprite.
+2. In the %Fungus Flowchart rename the Block "Camera Control".
 3. Add a new "Fade to View" Command to the Block. First click the Plus button in the bottom half of the Inspector window, to add a new Command, then choose menu: ```Camera | Fade To View```:
 ![menu Fade to View]
 4. Now Drag "View1" from the Hierarchy window into the "Target View" property of the Fade to View Command  in the Inspector:

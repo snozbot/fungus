@@ -1,6 +1,6 @@
 # Tutorial Videos {#tutorial_videos}
 
-These free tutorial videos cover most of the functionality available in Fungus. Many thanks to [Paul Mc Grath](http://whackala.com) for contributing the videos, and [Eric Chen](https://twitter.com/Eric_hjk) for Chinese subtitles.
+These free tutorial videos cover most of the functionality available in %Fungus. Many thanks to [Paul Mc Grath](http://whackala.com) for contributing the videos, and [Eric Chen](https://twitter.com/Eric_hjk) for Chinese subtitles.
 
 @htmlonly
 <div align="center" style="float:right;">
@@ -8,9 +8,9 @@ These free tutorial videos cover most of the functionality available in Fungus. 
 </div>
 @endhtmlonly
 
-* [Fungus Overview]
-* [Installing Fungus in your project]
-* [Basics of using Fungus]
+* [%Fungus Overview]
+* [Installing %Fungus in your project]
+* [Basics of using %Fungus]
 * [Using Event Handlers]
 * [Controlling the camera]
 * [2D graphics with Sprites]
@@ -27,13 +27,13 @@ These free tutorial videos cover most of the functionality available in Fungus. 
 * [Custom commands and event handlers]
 * [Controlling Unity UI objects]
 * [Unite Europe 2015 talk]
-* [Fungus Live Stream #1]
-* [Fungus Live Stream #2]
-* [Fungus Live Stream #3]
+* [%Fungus Live Stream #1]
+* [%Fungus Live Stream #2]
+* [%Fungus Live Stream #3]
 
-[Fungus Overview]: https://www.youtube.com/watch?v=F1vmEtQ7k6M
-[Installing Fungus in your project]: https://www.youtube.com/watch?v=BQRdRz9Q5VY
-[Basics of using Fungus]: https://www.youtube.com/watch?v=u5fhU7xAz2o
+[%Fungus Overview]: https://www.youtube.com/watch?v=F1vmEtQ7k6M
+[Installing %Fungus in your project]: https://www.youtube.com/watch?v=BQRdRz9Q5VY
+[Basics of using %Fungus]: https://www.youtube.com/watch?v=u5fhU7xAz2o
 [Using Event Handlers]: https://www.youtube.com/watch?v=-rtnk9OGCQY
 [Controlling the camera]: https://www.youtube.com/watch?v=BTJpWheqTLA
 [2D graphics with Sprites]: https://www.youtube.com/watch?v=SLcJkKblqhE
@@ -50,6 +50,6 @@ These free tutorial videos cover most of the functionality available in Fungus. 
 [Custom commands and event handlers]: https://www.youtube.com/watch?v=WFEGnS7MU74
 [Controlling Unity UI objects]: https://www.youtube.com/watch?v=S3TKQ86xsJM
 [Unite Europe 2015 talk]: https://www.youtube.com/watch?v=9zqUx0xZBv4
-[Fungus Live Stream #1]: https://www.youtube.com/watch?v=W_lcfZS5REU
-[Fungus Live Stream #2]: https://www.youtube.com/watch?v=skxTOqvif3g
-[Fungus Live Stream #3]: https://www.youtube.com/watch?v=LTSHaxPsB-M
+[%Fungus Live Stream #1]: https://www.youtube.com/watch?v=W_lcfZS5REU
+[%Fungus Live Stream #2]: https://www.youtube.com/watch?v=skxTOqvif3g
+[%Fungus Live Stream #3]: https://www.youtube.com/watch?v=LTSHaxPsB-M
