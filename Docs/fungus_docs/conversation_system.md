@@ -1,4 +1,4 @@
-# Conversation system # {#conversation}
+# Conversation system # {#conversation_system}
 [TOC]
 
 The Say and Portrait commands are a powerful way to build character dialogue, but it can be tedious to add large amounts of dialogue this way.

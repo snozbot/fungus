@@ -1,4 +1,4 @@
-# About %Fungus {#about}
+# About %Fungus # {#about_fungus}
 [TOC]
 
 # What is Fungus? # {#what_is_fungus}

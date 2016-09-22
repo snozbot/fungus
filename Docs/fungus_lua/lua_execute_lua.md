@@ -1,4 +1,4 @@
-# ExecuteLua Command # {#execute_lua}
+# ExecuteLua Command # {#lua_execute_lua}
 [TOC]
 
 This command allows you to embed a Lua script to be executed as part of a command sequence in a Block. The Lua script to be executed can be specified in the inspector or in a text file, in the same way as the @ref lua_script component.

@@ -1,4 +1,4 @@
-# Community Articles # {#articles}
+# Community tutorials # {#community_tutorials}
 [TOC]
 
 If you've created an article or video about %Fungus let us know on the forum and we'll add it here.

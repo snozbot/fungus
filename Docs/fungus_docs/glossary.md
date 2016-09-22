@@ -1,4 +1,4 @@
-# Glossary of terms {#glossary}
+# Glossary {#glossary}
 
 <!-- ------------------------ -->
 <!-- ---------- A ----------- -->
