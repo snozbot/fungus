@@ -10,16 +10,16 @@ You can also store the return value from the Lua script in a Flowchart variable.
 
 #  Evaluating expressions
 
-The Fungus If command can only compare 2 variables at a time. For more complex expressions involving multiple variables or [math functions], you can use Lua to evaluate the expression and store the result in a Flowchart variable.
+The %Fungus If command can only compare 2 variables at a time. For more complex expressions involving multiple variables or [math functions], you can use Lua to evaluate the expression and store the result in a Flowchart variable.
 
-1. Add a Flowchart object (Tools > Fungus > Create > Flowchart). Add some variables to the Flowchart.
-2. Add a LuaBindings object (Tools > Fungus > Create > LuaBindings)
+1. Add a Flowchart object (Tools > %Fungus > Create > Flowchart). Add some variables to the Flowchart.
+2. Add a LuaBindings object (Tools > %Fungus > Create > LuaBindings)
 3. Add a binding to the Flowchart gameobject, and select the Flowchart component.
 4. In the Flowchart, add an ExecuteLua command in a block to evaluate the complex expression. Store the return value in a Boolean Flowchart variable.
 5. Add an If command which checks the value of the Boolean variable.
 
 In the Execute Lua command, you can use the getvar() function to get any Flowchart variables to be used in the expression. 
-Note: getvar() returns a reference to the Fungus variable object. To access the value of this variable use the .value property.
+Note: getvar() returns a reference to the %Fungus variable object. To access the value of this variable use the .value property.
 
 # Example
 

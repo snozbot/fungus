@@ -1,14 +1,14 @@
-# Controlling Fungus {#lua_controlling_fungus}
+# Controlling %Fungus {#lua_controlling_fungus}
 
-The Fungus module provides several functions for working with the standard Fungus narrative features and flowcharts.
+The %Fungus module provides several functions for working with the standard %Fungus narrative features and flowcharts.
 
-You can control Say and Menu dialogs in much the same way you use Say and Menu commands in a normal Fungus flowchart.
+You can control Say and Menu dialogs in much the same way you use Say and Menu commands in a normal %Fungus flowchart.
 
 When you use the menu() function, you supply another Lua function to call when that menu option is selected. Make sure to define the function higher up in the file before referencing it in a menu() call. If you don't explicitly set a SayDialog or MenuDialog object to use default ones are created automatically.
 
 # Narrative example
 
-This example Lua script demonstrates some of the Say and Menu dialog functions. To try it out, add a Lua object to the scene (Tools > Fungus > Create > Lua) and copy this script into the Lua Script text box. You may also need to add an EventSystem object in the scene (GameObject > UI > Event System) so that the menu buttons will respond to user input.
+This example Lua script demonstrates some of the Say and Menu dialog functions. To try it out, add a Lua object to the scene (Tools > %Fungus > Create > Lua) and copy this script into the Lua Script text box. You may also need to add an EventSystem object in the scene (GameObject > UI > Event System) so that the menu buttons will respond to user input.
 
 ```lua
 -- Display text in a SayDialog
@@ -35,7 +35,7 @@ local choice = choose( {"Go left", "Go right"} )
 
 To use a custom SayDialog:
 
-1. Add as SayDialog to the scene (Tools > Fungus > Create > SayDialog)
+1. Add as SayDialog to the scene (Tools > %Fungus > Create > SayDialog)
 2. Select the Lua object in the hierarchy and find the LuaBindings component.
 3. Add a binding to the SayDialog game object, and select the SayDialog component. N.B. Make sure to select the correct component!
 4. In Lua script, you can now activate this SayDialog using the setsaydialog() function, by passing the key of the SayDialog binding.
@@ -220,11 +220,11 @@ See the docs for the @ref conversation "Conversation System".
 
 # Flowchart functions
 
-We've added special functions for say() and menu() because these are so common in Fungus games. To execute any other commands in Fungus from Lua, you must do it in conjunction with a Flowchart & Block, like this:
+We've added special functions for say() and menu() because these are so common in %Fungus games. To execute any other commands in %Fungus from Lua, you must do it in conjunction with a Flowchart & Block, like this:
 
 1. Add a Flowchart and a Block (e.g. "MyBlock") in the scene.
-2. Add the Fungus commands you want to execute from Lua in the Block. (e.g Play Sound)
-3. Add a Lua object to the scene (Tools > Fungus > Create > Lua)
+2. Add the %Fungus commands you want to execute from Lua in the Block. (e.g Play Sound)
+3. Add a Lua object to the scene (Tools > %Fungus > Create > Lua)
 4. In the LuaBindings component, add a binding to the Flowchart gameobject, and select the Flowchart component.
 5. In the LuaScript component, use the runblock() function to execute the Block, passing the bound flowchart and name of the block as parameters.
 

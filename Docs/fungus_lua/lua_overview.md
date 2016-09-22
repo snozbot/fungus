@@ -2,11 +2,11 @@
 
 FungusLua is a simple way to embed Lua scripting into your Unity project. Lua is an easy to learn scripting language so it's a great way to empower artists, writers and designers to use more of the power of Unity.
 
-At its core, FungusLua allows you to control any Unity object from Lua script. It has useful utilities for using Fungus flowcharts and dialogs, persisting variables between scene loads, localization, and working with the Unity Test Tools. 
+At its core, FungusLua allows you to control any Unity object from Lua script. It has useful utilities for using %Fungus flowcharts and dialogs, persisting variables between scene loads, localization, and working with the Unity Test Tools. 
 
-We made FungusLua in response to requests from the Fungus community for a way to script Fungus commands from a text file or spreadsheet. We figured that if people are going to be writing commands in text files, why not go all the way and add a powerful embedded scripting language?
+We made FungusLua in response to requests from the %Fungus community for a way to script %Fungus commands from a text file or spreadsheet. We figured that if people are going to be writing commands in text files, why not go all the way and add a powerful embedded scripting language?
 
-FungusLua comes as part of the [Fungus asset] available on the Unity Asset Store.
+FungusLua comes as part of the [%Fungus asset] available on the Unity Asset Store.
 
 # Tutorial Video
 
@@ -20,12 +20,12 @@ This video shows how to use many of the features available in FungusLua. It's mo
 
 # Using FungusLua On Its Own
 
-FungusLua can easily be used on its own if you don't need the rest of the functionality in Fungus.
+FungusLua can easily be used on its own if you don't need the rest of the functionality in %Fungus.
 
-1. In the project window, move the Fungus/Thirdparty/FungusLua folder up to the root of the project.
-2. Delete the Fungus and FungusExamples folders.
+1. In the project window, move the %Fungus/Thirdparty/FungusLua folder up to the root of the project.
+2. Delete the %Fungus and FungusExamples folders.
 
-The Tools > Fungus menu will now only show options for creating FungusLua objects. Obviously you won't be able to use Fungus functions like say(), menu(), etc. anymore, but you can still use LuaEnvironment, LuaBindings, LuaScript to add Lua scripting to your game.
+The Tools > %Fungus menu will now only show options for creating FungusLua objects. Obviously you won't be able to use %Fungus functions like say(), menu(), etc. anymore, but you can still use LuaEnvironment, LuaBindings, LuaScript to add Lua scripting to your game.
 
 # About Lua
 
@@ -44,7 +44,7 @@ FungusLua is essentially a set of wrapper components built on top of MoonSharp w
 The [MoonSharp tutorials] and [MoonSharp forum] are great resources to learn how MoonSharp works, especially for more advanced usage.
 
 [Lua]: http://www.lua.org/about.html
-[Fungus asset]: http://u3d.as/f0T
+[%Fungus asset]: http://u3d.as/f0T
 [Programming in Lua]: http://www.lua.org/pil/1.html
 [MoonSharp]: http://www.moonsharp.org
 [MoonSharp tutorials]: http://www.moonsharp.org/getting_started.html

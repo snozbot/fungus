@@ -10,7 +10,7 @@ As well as scene GameObjects and components, you can bind to any Unity object in
 
 To setup LuaBindings in your scene:
 
-1. Create a LuaBindings object (Tools > Fungus > Create > LuaBindings)
+1. Create a LuaBindings object (Tools > %Fungus > Create > LuaBindings)
 2. Drag the Unity object you want to access to the Object field in the Object Bindings list.
 3. The Key field is automatically populated based on the object name. This will be the variable name you use to access the bound object from Lua script. You can change this key to whatever string you prefer.
 4. If the bound object is a GameObject, you can optionally select a component within it to bind to.

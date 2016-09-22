@@ -1,6 +1,6 @@
 # Command Reference {#command_reference}
 
-Reference documentation for all Fungus commands and event handlers.
+This is the reference documentation for all %Fungus commands and event handlers.
 
 ## Commands
 

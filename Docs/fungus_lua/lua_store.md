@@ -6,7 +6,7 @@ The Lua Store component provides an easy way around this when using Lua scriptin
 
 # Example
 
-- Add a LuaStore to the first scene in your game (Tools >Fungus > Create > LuaStore). 
+- Add a LuaStore to the first scene in your game (Tools >%Fungus > Create > LuaStore). 
 - Set variables in the store in Lua, e.g. 
 
 ```lua

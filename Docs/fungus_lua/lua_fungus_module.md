@@ -1,6 +1,6 @@
-# Fungus Module {#lua_fungus_module}
+# %Fungus Module {#lua_fungus_module}
 
-This Lua module provides handy functions for working with Lua, Unity and Fungus. 
+This Lua module provides handy functions for working with Lua, Unity and %Fungus. 
 
 In this page we cover some of the more generic functionality in the module, other major features are described elsewhere in the documentation.
 
@@ -42,11 +42,11 @@ runwait(co)
 
 # Globals vs Table mode
 
-The Fungus module can be used in three modes, controlled by the Fungus Module option in the LuaUtils component.  
+The %Fungus module can be used in three modes, controlled by the %Fungus Module option in the LuaUtils component.  
 
-1. Use Global Variables: all module functions are mapped to global functions. This allows for convenient access, but it runs the risk that you might accidentally declare a variable with the same name as a Fungus module function.
-2. Use Fungus Variable: all module functions are accessed through a global table called 'fungus'. This gives a degree of namespace safety at the cost of more typing. 
-3. No Fungus Module: the Fungus module will not be registered. Used if you don't want to use the Fungus module.
+1. Use Global Variables: all module functions are mapped to global functions. This allows for convenient access, but it runs the risk that you might accidentally declare a variable with the same name as a %Fungus module function.
+2. Use %Fungus Variable: all module functions are accessed through a global table called 'fungus'. This gives a degree of namespace safety at the cost of more typing. 
+3. No %Fungus Module: the %Fungus module will not be registered. Used if you don't want to use the %Fungus module.
 
 Options 1 and 2 are functionaly equivalent, it's just a matter of personal preference which you want to use.
 

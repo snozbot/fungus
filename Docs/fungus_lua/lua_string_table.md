@@ -3,7 +3,7 @@
 The LuaUtils component provides support for simple text localisation.
 
 1. Define your language strings in a JSON file and save it in the project assets folder.
-2. Add a LuaEnvironment component to your scene - e.g. Tools > Fungus > Create > LuaEnvironment 
+2. Add a LuaEnvironment component to your scene - e.g. Tools > %Fungus > Create > LuaEnvironment 
 3. In the LuaUtils component, set the String Table property to reference your JSON file asset.
 4. Use the {$VarName} syntax to subsitute a localised string anywhere that string substitution is supported. e.g. in a Lua script:
 
@@ -24,7 +24,7 @@ You can use the {$VarName} syntax anywhere that variable subsitution is supporte
 - Save Variable command - save key
 - Delete Save Key command
 
-You can also extend the Fungus string substitution system with your own components. Implement the StringSubstituter.ISubstitutionHandler interface in a Monobehavior subclass and then return the modified string from SubstituteStrings().
+You can also extend the %Fungus string substitution system with your own components. Implement the StringSubstituter.ISubstitutionHandler interface in a Monobehavior subclass and then return the modified string from SubstituteStrings().
 
 # JSON Format
 

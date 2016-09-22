@@ -5,7 +5,7 @@ If you are using the [Unity Test Tools], FungusLua is a powerful and fast way to
 # Example
 
 1. Create a new test in the scene.
-2. Add a Lua object (Tools > Fungus > Create > Lua) as a child of the test object.
+2. Add a Lua object (Tools > %Fungus > Create > Lua) as a child of the test object.
 4. In the LuaScript component, use the check() function to assert whatever conditions you need for the test. At the end, call pass().
 
 Example test script:

@@ -1,10 +1,10 @@
 # The Create Menu {#lua_create_menu}
 
-The easiest way to add Lua scripting to your scene is via the Tools > Fungus > Create menu. This allows you to quickly instantiate one of the Lua prefabs that comes with FungusLua. The FungusLua prefabs all begin with 'Lua'.
+The easiest way to add Lua scripting to your scene is via the Tools > %Fungus > Create menu. This allows you to quickly instantiate one of the Lua prefabs that comes with FungusLua. The FungusLua prefabs all begin with 'Lua'.
 
-You can also access these prefabs from Fungus/Thirdparty/FungusLua/Resources/Prefabs.
+You can also access these prefabs from %Fungus/Thirdparty/FungusLua/Resources/Prefabs.
 
-![Fungus Create Menu](fungus_lua/create_menu.png)
+![%Fungus Create Menu](fungus_lua/create_menu.png)
 
 # Lua Prefab
 
@@ -22,7 +22,7 @@ When you create a Lua file, add your Lua script to it in a text editor, and then
 
 # Lua Environment Prefab
 
-This prefab provides a @ref lua_environment "LuaEnvironment" component for executing Lua script, and the @ref lua_utils "LuaUtils" component which provides useful utilities for working with Lua, Unity and Fungus.
+This prefab provides a @ref lua_environment "LuaEnvironment" component for executing Lua script, and the @ref lua_utils "LuaUtils" component which provides useful utilities for working with Lua, Unity and %Fungus.
 
 FungusLua will automatically create a default LuaEnvironment if none exists when the scene starts, so you really only need to create a Lua Environment in your scene when you want to customize the default environment setup (e.g. Adding a string table file or registering additional c# types).
 
