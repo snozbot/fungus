@@ -133,7 +133,7 @@ namespace Fungus
         /// <summary>
         /// Returns the named Block in the flowchart, or null if not found.
         /// </summary>
-        IBlock FindBlock(string blockName);
+        Block FindBlock(string blockName);
 
         /// <summary>
         /// Execute a child block in the Flowchart.
@@ -146,7 +146,7 @@ namespace Fungus
         /// This version provides extra options to control how the block is executed.
         /// Returns true if the Block started execution.            
         /// </summary>
-        bool ExecuteBlock(IBlock block, int commandIndex = 0, System.Action onComplete = null);
+        bool ExecuteBlock(Block block, int commandIndex = 0, System.Action onComplete = null);
 
         /// <summary>
         /// Stop all executing Blocks in this Flowchart.
@@ -167,7 +167,7 @@ namespace Fungus
         /// <summary>
         /// Returns a new Block key that is guaranteed not to clash with any existing Block in the Flowchart.
         /// </summary>
-        string GetUniqueBlockKey(string originalKey, IBlock ignoreBlock = null);
+        string GetUniqueBlockKey(string originalKey, Block ignoreBlock = null);
 
         /// <summary>
         /// Returns a new Label key that is guaranteed not to clash with any existing Label in the Block.
@@ -283,7 +283,7 @@ namespace Fungus
         /// <summary>
         /// Returns a list of all executing blocks in this Flowchart.
         /// </summary>
-        List<IBlock> GetExecutingBlocks();
+        List<Block> GetExecutingBlocks();
 
         /// <summary>
         /// Substitute variables in the input text with the format {$VarName}

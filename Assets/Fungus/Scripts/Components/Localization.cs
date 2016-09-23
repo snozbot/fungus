@@ -139,7 +139,7 @@ namespace Fungus
             var flowcharts = GameObject.FindObjectsOfType<Flowchart>();
             foreach (var flowchart in flowcharts)
             {
-                var blocks = flowchart.GetComponents<IBlock>();
+                var blocks = flowchart.GetComponents<Block>();
                 foreach (var block in blocks)
                 {
                     foreach (var command in block.CommandList)

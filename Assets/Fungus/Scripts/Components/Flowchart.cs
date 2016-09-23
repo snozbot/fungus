@@ -200,7 +200,7 @@ namespace Fungus
             // Make sure item ids are unique and monotonically increasing.
             // This should always be the case, but some legacy Flowcharts may have issues.
             List<int> usedIds = new List<int>();
-            var blocks = GetComponents<IBlock>();
+            var blocks = GetComponents<Block>();
             foreach (var block in blocks)
             {
                 if (block.ItemId == -1 ||
@@ -241,7 +241,7 @@ namespace Fungus
                 }
             }
             
-            var blocks = GetComponents<IBlock>();
+            var blocks = GetComponents<Block>();
 
             foreach (var command in GetComponents<Command>())
             {
@@ -339,7 +339,7 @@ namespace Fungus
         public int NextItemId()
         {
             int maxId = -1;
-            var blocks = GetComponents<IBlock>();
+            var blocks = GetComponents<Block>();
             foreach (var block in blocks)
             {
                 maxId = Math.Max(maxId, block.ItemId);
@@ -363,9 +363,9 @@ namespace Fungus
             return b;
         }
 
-        public virtual IBlock FindBlock(string blockName)
+        public virtual Block FindBlock(string blockName)
         {
-            var blocks = GetComponents<IBlock>();
+            var blocks = GetComponents<Block>();
             foreach (var block in blocks)
             {
                 if (block.BlockName == blockName)
@@ -393,7 +393,7 @@ namespace Fungus
             }
         }
 
-        public virtual bool ExecuteBlock(IBlock block, int commandIndex = 0, Action onComplete = null)
+        public virtual bool ExecuteBlock(Block block, int commandIndex = 0, Action onComplete = null)
         {
             if (block == null)
             {
@@ -421,8 +421,8 @@ namespace Fungus
 
         public virtual void StopAllBlocks()
         {
-            var blocks = GetComponents<IBlock>();
-            foreach (IBlock block in blocks)
+            var blocks = GetComponents<Block>();
+            foreach (Block block in blocks)
             {
                 if (block.IsExecuting())
                 {
@@ -486,7 +486,7 @@ namespace Fungus
             }
         }
 
-        public virtual string GetUniqueBlockKey(string originalKey, IBlock ignoreBlock = null)
+        public virtual string GetUniqueBlockKey(string originalKey, Block ignoreBlock = null)
         {
             int suffix = 0;
             string baseKey = originalKey.Trim();
@@ -497,7 +497,7 @@ namespace Fungus
                 baseKey = FungusConstants.DefaultBlockName;
             }
 
-            var blocks = GetComponents<IBlock>();
+            var blocks = GetComponents<Block>();
 
             string key = baseKey;
             while (true)
@@ -537,7 +537,7 @@ namespace Fungus
                 baseKey = "New Label";
             }
 
-            IBlock block = ignoreLabel.ParentBlock;
+            var block = ignoreLabel.ParentBlock;
 
             string key = baseKey;
             while (true)
@@ -811,8 +811,8 @@ namespace Fungus
 
         public virtual bool HasExecutingBlocks()
         {
-            var blocks = GetComponents<IBlock>();
-            foreach (IBlock block in blocks)
+            var blocks = GetComponents<Block>();
+            foreach (var block in blocks)
             {
                 if (block.IsExecuting())
                 {
@@ -822,10 +822,10 @@ namespace Fungus
             return false;
         }
 
-        public virtual List<IBlock> GetExecutingBlocks()
+        public virtual List<Block> GetExecutingBlocks()
         {
-            var executingBlocks = new List<IBlock>();
-            var blocks = GetComponents<IBlock>();
+            var executingBlocks = new List<Block>();
+            var blocks = GetComponents<Block>();
             foreach (var block in blocks)
             {
                 if (block.IsExecuting())
