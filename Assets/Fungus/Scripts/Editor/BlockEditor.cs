@@ -497,11 +497,7 @@ namespace Fungus.EditorUtils
         [MenuItem("Tools/Fungus/Utilities/Export Reference Docs")]
         protected static void ExportReferenceDocs()
         {
-            string path = EditorUtility.SaveFolderPanel("Export Reference Docs", "", "");           
-            if(path.Length == 0) 
-            {
-                return;
-            }
+            const string path = "./Docs";
 
             ExportCommandInfo(path);
             ExportEventHandlerInfo(path);
@@ -532,7 +528,9 @@ namespace Fungus.EditorUtils
             // Output the commands in each category
             foreach (string category in commandCategories)
             {
-                string markdown = "";
+                string markdown = "# " + category + " commands # {#" + category.ToLower() + "_commands}\n\n";
+                markdown += "[TOC]\n";
+
                 foreach(var keyPair in filteredAttributes)
                 {
                     CommandInfoAttribute info = keyPair.Value;
@@ -540,13 +538,14 @@ namespace Fungus.EditorUtils
                     if (info.Category == category ||
                         info.Category == "" && category == "Scripting")
                     {
-                        markdown += "## " + info.CommandName + "\n";
-                        markdown += info.HelpText + "\n";
+                        markdown += "# " + info.CommandName + " # {#" + info.CommandName.Replace(" ", "") + "}\n";
+                        markdown += info.HelpText + "\n\n";
+                        markdown += "Defined in " + keyPair.Key.FullName + "\n";
                         markdown += GetPropertyInfo(keyPair.Key);
                     }
                 }
                 
-                string filePath = path + "/commands/" + category.ToLower() + "_commands.md";
+                string filePath = path + "/command_ref/" + category.ToLower() + "_commands.md";
                 
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 File.WriteAllText(filePath, markdown);
@@ -573,8 +572,9 @@ namespace Fungus.EditorUtils
             // Output the commands in each category
             foreach (string category in eventHandlerCategories)
             {
-                string markdown = "";
-                
+                string markdown = "# " + category + " event handlers # {#" + category.ToLower() + "_events}\n\n";
+                markdown += "[TOC]\n";
+
                 foreach (System.Type type in eventHandlerTypes)
                 {
                     EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
@@ -583,13 +583,14 @@ namespace Fungus.EditorUtils
                         info.Category == category ||
                         info.Category == "" && category == "Core")
                     {
-                        markdown += "## " + info.EventHandlerName + "\n";
-                        markdown += info.HelpText + "\n";
+                        markdown += "# " + info.EventHandlerName + " # {#" + info.EventHandlerName.Replace(" ", "") + "}\n";
+                        markdown += info.HelpText + "\n\n";
+                        markdown += "Defined in " + type.FullName + "\n";
                         markdown += GetPropertyInfo(type);
                     }
                 }
                 
-                string filePath = path + "/event_handlers/" + category.ToLower() + "_events.md";
+                string filePath = path + "/command_ref/" + category.ToLower() + "_events.md";
                 
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 File.WriteAllText(filePath, markdown);

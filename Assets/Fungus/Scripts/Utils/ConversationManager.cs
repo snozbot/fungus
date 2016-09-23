@@ -132,12 +132,15 @@ namespace Fungus.Utils
 
             return items;
         }
-                                
+
         /// <summary>
         /// Using the string of say parameters before the ':',
         /// set the current character, position and portrait if provided.
         /// </summary>
-        /// <param name="sayParams">The list of say parameters</param>
+        /// <returns>The conversation item.</returns>
+        /// <param name="sayParams">The list of say parameters.</param>
+        /// <param name="text">The text for the character to say.</param>
+        /// <param name="currentCharacter">The currently speaking character.</param>
         protected virtual ConversationItem CreateConversationItem(string[] sayParams, string text, Character currentCharacter)
         {
             var item = new ConversationItem();

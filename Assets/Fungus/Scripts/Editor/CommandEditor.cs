@@ -167,25 +167,36 @@ namespace Fungus.EditorUtils
 
             T selectedObject = property.objectReferenceValue as T;
 
-            int selectedIndex = 0;
+            int selectedIndex = -1; // Invalid index
+
+            // First option in list is <None>
             objectNames.Add(nullLabel);
+            if (selectedObject == null)
+            {
+                selectedIndex = 0;
+            }
+
             for (int i = 0; i < objectList.Count; ++i)
             {
                 if (objectList[i] == null) continue;
                 objectNames.Add(new GUIContent(objectList[i].name));
-                
-                
+
                 if (selectedObject == objectList[i])
                 {
                     selectedIndex = i + 1;
                 }
-                
             }
 
             T result;
             
             selectedIndex = EditorGUILayout.Popup(label, selectedIndex, objectNames.ToArray());
-            if (selectedIndex == 0)
+
+            if (selectedIndex == -1)
+            {
+                // Currently selected object is not in list, but nothing else was selected so no change.
+                return;
+            }
+            else if (selectedIndex == 0)
             {
                 result = null; // Null option
             }
@@ -196,7 +207,6 @@ namespace Fungus.EditorUtils
 
             property.objectReferenceValue = result;
         }
-        
 
         // When modifying custom editor code you can occasionally end up with orphaned editor instances.
         // When this happens, you'll get a null exception error every time the scene serializes / deserialized.

@@ -58,7 +58,9 @@ namespace Fungus
         ///
         void OnInput();
 
-        /// Called when the Writer starts writing new text
+        /// <summary>
+        /// Called when the Writer starts writing new text.
+        /// </summary>
         /// <param name="audioClip">An optional audioClip sound effect can be supplied (e.g. for voiceover)</param>
         void OnStart(AudioClip audioClip);
 
