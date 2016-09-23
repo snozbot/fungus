@@ -85,6 +85,6 @@ namespace Fungus
         /// Sync the active say dialog with what Lua thinks the SayDialog should be
         /// </summary>
         /// <param name="sayDialog"></param>
-        void SetSayDialog(ISayDialog sayDialog);
+        void SetSayDialog(SayDialog sayDialog);
     }
 }

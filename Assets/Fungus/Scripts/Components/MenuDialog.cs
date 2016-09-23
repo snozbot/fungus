@@ -140,7 +140,7 @@ namespace Fungus
 
         public virtual void HideSayDialog()
         {
-            ISayDialog sayDialog = SayDialog.GetSayDialog();
+            var sayDialog = SayDialog.GetSayDialog();
             if (sayDialog != null)
             {
                 sayDialog.FadeWhenDone = true;

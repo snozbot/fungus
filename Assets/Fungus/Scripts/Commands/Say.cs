@@ -77,8 +77,7 @@ namespace Fungus.Commands
                 SayDialog.activeSayDialog = setSayDialog;
             }
 
-            ISayDialog sayDialog = SayDialog.GetSayDialog();
-
+            var sayDialog = SayDialog.GetSayDialog();
             if (sayDialog == null)
             {
                 Continue();
@@ -136,7 +135,7 @@ namespace Fungus.Commands
 
         public override void OnStopExecuting()
         {
-            ISayDialog sayDialog = SayDialog.GetSayDialog();
+            var sayDialog = SayDialog.GetSayDialog();
             if (sayDialog == null)
             {
                 return;

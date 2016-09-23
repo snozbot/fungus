@@ -73,9 +73,9 @@ namespace Fungus.Utils
             return results.ToArray();
         }
 
-        protected ISayDialog GetSayDialog(Character character)
+        protected SayDialog GetSayDialog(Character character)
         {
-            ISayDialog sayDialog = null;
+            SayDialog sayDialog = null;
             if (character != null)
             {
                 if (character.SetSayDialog != null)
@@ -302,7 +302,7 @@ namespace Fungus.Utils
                 currentPortrait = item.Portrait;
                 currentPosition = item.Position;
 
-                ISayDialog sayDialog = GetSayDialog(currentCharacter);
+                var sayDialog = GetSayDialog(currentCharacter);
 
                 if (sayDialog == null)
                 {

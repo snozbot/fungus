@@ -9,9 +9,9 @@ using System.Collections;
 namespace Fungus
 {
     /// <summary>
-    /// Presents story text to the player in a dialogue box.
+    /// Display story text in a visual novel style dialog box.
     /// </summary>
-    public class SayDialog : MonoBehaviour, ISayDialog
+    public class SayDialog : MonoBehaviour
     {
         [Tooltip("Duration to fade dialogue in/out")]
         [SerializeField] protected float fadeDuration = 0.25f;
@@ -50,12 +50,12 @@ namespace Fungus
         protected Sprite currentCharacterImage;
 
         // Currently active Say Dialog used to display Say text
-        public static ISayDialog activeSayDialog;
+        public static SayDialog activeSayDialog;
 
         // Most recent speaking character
         public static Character speakingCharacter;
 
-        public static ISayDialog GetSayDialog()
+        public static SayDialog GetSayDialog()
         {
             if (activeSayDialog == null)
             {
@@ -75,7 +75,7 @@ namespace Fungus
                         GameObject go = Instantiate(prefab) as GameObject;
                         go.SetActive(false);
                         go.name = "SayDialog";
-                        activeSayDialog = go.GetComponent<ISayDialog>();
+                        activeSayDialog = go.GetComponent<SayDialog>();
                     }
                 }
             }
@@ -238,13 +238,21 @@ namespace Fungus
             }
         }
 
-        #region ISayDialog implementation
+        #region Public methods
 
+        /// <summary>
+        /// Sets the active state of the Say Dialog gameobject.
+        /// </summary>
         public virtual void SetActive(bool state)
         {
             gameObject.SetActive(state);
         }
 
+        /// <summary>
+        /// Sets the active speaking character.
+        /// </summary>
+        /// <param name="character">The active speaking character.</param>
+        /// <param name="flowchart">An optional Flowchart to use for variable substitution in the character name string.</param>
         public virtual void SetCharacter(Character character, IFlowchart flowchart = null)
         {
             if (character == null)
@@ -304,6 +312,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Sets the character image to display on the Say Dialog.
+        /// </summary>
         public virtual void SetCharacterImage(Sprite image)
         {
             if (characterImage == null)
@@ -356,6 +367,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Sets the character name to display on the Say Dialog.
+        /// </summary>
         public virtual void SetCharacterName(string name, Color color)
         {
             if (nameText != null)
@@ -365,11 +379,31 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Write a line of story text to the Say Dialog. Starts coroutine automatically.
+        /// </summary>
+        /// <param name="text">The text to display.</param>
+        /// <param name="clearPrevious">Clear any previous text in the Say Dialog.</param>
+        /// <param name="waitForInput">Wait for player input before continuing once text is written.</param>
+        /// <param name="fadeWhenDone">Fade out the Say Dialog when writing and player input has finished.</param>
+        /// <param name="stopVoiceover">Stop any existing voiceover audio before writing starts.</param>
+        /// <param name="voiceOverClip">Voice over audio clip to play.</param>
+        /// <param name="onComplete">Callback to execute when writing and player input have finished.</param>
         public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
         {
             StartCoroutine(DoSay(text, clearPrevious, waitForInput, fadeWhenDone, stopVoiceover, voiceOverClip, onComplete));
         }
 
+        /// <summary>
+        /// Write a line of story text to the Say Dialog. Must be started as a coroutine.
+        /// </summary>
+        /// <param name="text">The text to display.</param>
+        /// <param name="clearPrevious">Clear any previous text in the Say Dialog.</param>
+        /// <param name="waitForInput">Wait for player input before continuing once text is written.</param>
+        /// <param name="fadeWhenDone">Fade out the Say Dialog when writing and player input has finished.</param>
+        /// <param name="stopVoiceover">Stop any existing voiceover audio before writing starts.</param>
+        /// <param name="voiceOverClip">Voice over audio clip to play.</param>
+        /// <param name="onComplete">Callback to execute when writing and player input have finished.</param>
         public virtual IEnumerator DoSay(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
         {
             IWriter writer = GetWriter();
@@ -403,14 +437,23 @@ namespace Fungus
             yield return StartCoroutine(writer.Write(text, clearPrevious, waitForInput, stopVoiceover, soundEffectClip, onComplete));
         }
 
+        /// <summary>
+        /// Tell the Say Dialog to fade out once writing and player input have finished.
+        /// </summary>
         public virtual bool FadeWhenDone { set { fadeWhenDone = value; } }
 
+        /// <summary>
+        /// Stop the Say Dialog while its writing text.
+        /// </summary>
         public virtual void Stop()
         {
             fadeWhenDone = true;
             GetWriter().Stop();
         }
 
+        /// <summary>
+        /// Stops writing text and clears the Say Dialog.
+        /// </summary>
         public virtual void Clear()
         {
             ClearStoryText();
