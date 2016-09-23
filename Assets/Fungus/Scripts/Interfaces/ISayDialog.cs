@@ -21,7 +21,7 @@ namespace Fungus
         /// </summary>
         /// <param name="character">The active speaking character.</param>
         /// <param name="flowchart">An optional Flowchart to use for variable substitution in the character name string.</param>
-        void SetCharacter(ICharacter character, IFlowchart flowchart = null);
+        void SetCharacter(Character character, IFlowchart flowchart = null);
 
         /// <summary>
         /// Sets the character image to display on the Say Dialog.

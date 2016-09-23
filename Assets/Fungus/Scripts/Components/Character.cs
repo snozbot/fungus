@@ -13,7 +13,7 @@ namespace Fungus
     /// A Character that can be used in dialogue via the Say, Conversation and Portrait commands.
     /// </summary>
     [ExecuteInEditMode]
-    public class Character : MonoBehaviour, ICharacter, ILocalizable
+    public class Character : MonoBehaviour, ILocalizable
     {
         [Tooltip("Character name as displayed in Say Dialog.")]
         [SerializeField] protected string nameText; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
@@ -54,32 +54,69 @@ namespace Fungus
             activeCharacters.Remove(this);
         }
 
-        #region ICharacter implementation
+        #region Public methods
 
+        /// <summary>
+        /// Character name as displayed in Say Dialog.
+        /// </summary>
         public virtual string NameText { get { return nameText; } }
 
+        /// <summary>
+        /// Color to display the character name in Say Dialog.
+        /// </summary>
         public virtual Color NameColor { get { return nameColor; } }
 
+        /// <summary>
+        /// Sound effect to play when this character is speaking.
+        /// </summary>
+        /// <value>The sound effect.</value>
         public virtual AudioClip SoundEffect { get { return soundEffect; } }
 
-        public virtual Sprite ProfileSprite { get; set; }
-
+        /// <summary>
+        /// List of portrait images that can be displayed for this character.
+        /// </summary>
         public virtual List<Sprite> Portraits { get { return portraits; } }
 
+        /// <summary>
+        /// Direction that portrait sprites face.
+        /// </summary>
         public virtual FacingDirection PortraitsFace { get { return portraitsFace; } }
 
+        /// <summary>
+        /// Currently display profile sprite for this character.
+        /// </summary>
+        /// <value>The profile sprite.</value>
+        public virtual Sprite ProfileSprite { get; set; }
+
+        /// <summary>
+        /// Current display state of this character's portrait.
+        /// </summary>
+        /// <value>The state.</value>
         public virtual PortraitState State { get { return portaitState; } }
 
+        /// <summary>
+        /// Sets the active Say dialog with a reference to a Say Dialog object in the scene. This Say Dialog will be used whenever the character speaks.
+        /// </summary>
         public virtual ISayDialog SetSayDialog { get { return setSayDialog; } }
 
+        /// <summary>
+        /// Returns the name of the game object.
+        /// </summary>
         public string GetObjectName() { return gameObject.name; }
 
+        /// <summary>
+        /// Returns true if the character name starts with the specified string. Case insensitive.
+        /// </summary>
         public virtual bool NameStartsWith(string matchString)
         {
             return name.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture)
                 || nameText.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture);
         }
 
+        /// <summary>
+        /// Looks for a portrait by name on a character
+        /// If none is found, give a warning and return a blank sprite
+        /// </summary>
         public virtual Sprite GetPortrait(string portraitString)
         {
             if (String.IsNullOrEmpty(portraitString))

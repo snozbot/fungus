@@ -53,7 +53,7 @@ namespace Fungus
         public static ISayDialog activeSayDialog;
 
         // Most recent speaking character
-        public static ICharacter speakingCharacter;
+        public static Character speakingCharacter;
 
         public static ISayDialog GetSayDialog()
         {
@@ -245,7 +245,7 @@ namespace Fungus
             gameObject.SetActive(state);
         }
 
-        public virtual void SetCharacter(ICharacter character, IFlowchart flowchart = null)
+        public virtual void SetCharacter(Character character, IFlowchart flowchart = null)
         {
             if (character == null)
             {
@@ -261,7 +261,7 @@ namespace Fungus
             }
             else
             {
-                ICharacter prevSpeakingCharacter = speakingCharacter;
+                var prevSpeakingCharacter = speakingCharacter;
                 speakingCharacter = character;
 
                 // Dim portraits of non-speaking characters
