@@ -92,13 +92,13 @@ namespace Fungus
         /// <summary>
         /// Returns the Flowchart that this command belongs to.
         /// </summary>
-        public virtual IFlowchart GetFlowchart()
+        public virtual Flowchart GetFlowchart()
         {
-            IFlowchart flowchart = GetComponent<IFlowchart>();
+            var flowchart = GetComponent<Flowchart>();
             if (flowchart == null &&
                 transform.parent != null)
             {
-                flowchart = transform.parent.GetComponent<IFlowchart>();
+                flowchart = transform.parent.GetComponent<Flowchart>();
             }
             return flowchart;
         }
@@ -267,7 +267,7 @@ namespace Fungus
         public virtual string GetFlowchartLocalizationId()
         {
             // If no localization id has been set then use the Flowchart name
-            IFlowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
             if (flowchart == null)
             {
                 return "";

@@ -53,7 +53,7 @@ namespace Fungus
         /// <summary>
         /// Returns the Flowchart that this command belongs to.
         /// </summary>
-        IFlowchart GetFlowchart();
+        Flowchart GetFlowchart();
 
         /// <summary>
         /// Execute the command.

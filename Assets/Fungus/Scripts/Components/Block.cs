@@ -163,9 +163,9 @@ namespace Fungus
         /// <summary>
         /// Returns the parent Flowchart for this Block.
         /// </summary>
-        public virtual IFlowchart GetFlowchart()
+        public virtual Flowchart GetFlowchart()
         {
-            return GetComponent<IFlowchart>();
+            return GetComponent<Flowchart>();
         }
 
         /// <summary>

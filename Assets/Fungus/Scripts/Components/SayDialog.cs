@@ -253,7 +253,7 @@ namespace Fungus
         /// </summary>
         /// <param name="character">The active speaking character.</param>
         /// <param name="flowchart">An optional Flowchart to use for variable substitution in the character name string.</param>
-        public virtual void SetCharacter(Character character, IFlowchart flowchart = null)
+        public virtual void SetCharacter(Character character, Flowchart flowchart = null)
         {
             if (character == null)
             {
