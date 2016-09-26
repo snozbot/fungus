@@ -9,7 +9,10 @@ using System.Text;
 
 namespace Fungus.Utils
 {
-    public class ConversationManager : IConversationManager
+    /// <summary>
+    /// Helper class to manage parsing and executing the conversation format.
+    /// </summary>
+    public class ConversationManager
     {
         protected struct ConversationItem
         {
@@ -261,14 +264,20 @@ namespace Fungus.Utils
             return item;
         }
 
-        #region IConversationManager
+        #region Public methods
 
+        /// <summary>
+        /// Caches the character objects in the scene for fast lookup during conversations.
+        /// </summary>
         public void PopulateCharacterCache()
         {
             // cache characters for faster lookup
             characters = UnityEngine.Object.FindObjectsOfType<Character>();
         }
 
+        /// <summary>
+        /// Parse and execute a conversation string.
+        /// </summary>
         public IEnumerator DoConversation(string conv)
         {
             if (string.IsNullOrEmpty(conv))
