@@ -16,7 +16,7 @@ namespace Fungus.Commands
     {
         public override void OnEnter()
         {
-            ICameraController cameraController = CameraController.GetInstance();
+            var cameraController = CameraController.GetInstance();
 
             cameraController.StopSwipePan();
 

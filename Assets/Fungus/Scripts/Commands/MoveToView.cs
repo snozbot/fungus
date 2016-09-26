@@ -56,7 +56,7 @@ namespace Fungus.Commands
                 return;
             }
 
-            ICameraController cameraController = CameraController.GetInstance();
+            var cameraController = CameraController.GetInstance();
 
             Vector3 targetPosition = targetView.transform.position;
             Quaternion targetRotation = targetView.transform.rotation;
