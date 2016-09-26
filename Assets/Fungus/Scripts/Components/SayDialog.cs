@@ -40,7 +40,7 @@ namespace Fungus
         protected float startStoryTextInset;
 
         protected WriterAudio writerAudio;
-        protected IWriter writer;
+        protected Writer writer;
         protected CanvasGroup canvasGroup;
 
         protected bool fadeWhenDone = true;
@@ -83,14 +83,14 @@ namespace Fungus
             return activeSayDialog;
         }
             
-        protected IWriter GetWriter()
+        protected Writer GetWriter()
         {
             if (writer != null)
             {
                 return writer;
             }
 
-            writer = GetComponent<IWriter>();
+            writer = GetComponent<Writer>();
             if (writer == null)
             {
                 writer = gameObject.AddComponent<Writer>();
@@ -406,7 +406,7 @@ namespace Fungus
         /// <param name="onComplete">Callback to execute when writing and player input have finished.</param>
         public virtual IEnumerator DoSay(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
         {
-            IWriter writer = GetWriter();
+            var writer = GetWriter();
 
             if (writer.IsWriting || writer.IsWaitingForInput)
             {
