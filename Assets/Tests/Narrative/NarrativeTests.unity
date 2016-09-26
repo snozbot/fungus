@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1913435020}
+  selectedFlowchart: {fileID: 736071350}
 --- !u!4 &11556238
 Transform:
   m_ObjectHideFlags: 1
@@ -2899,7 +2899,6 @@ MonoBehaviour:
   nameText: Sherlock
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
-  profileSprite: {fileID: 21300000, guid: 10cc2fec4b8aa4db983981588b06b591, type: 3}
   portraits:
   - {fileID: 21300000, guid: 10cc2fec4b8aa4db983981588b06b591, type: 3}
   - {fileID: 21300000, guid: 450277e404c2d4d1e87c5bd4012283bb, type: 3}
@@ -3455,7 +3454,6 @@ MonoBehaviour:
   nameText: John
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
-  profileSprite: {fileID: 21300000, guid: 820bab66bb5a044ec961ba8ee3b045cc, type: 3}
   portraits:
   - {fileID: 21300000, guid: 820bab66bb5a044ec961ba8ee3b045cc, type: 3}
   - {fileID: 21300000, guid: a92b08a118b7d46f59dd091acb2e4102, type: 3}
@@ -3730,7 +3728,6 @@ MonoBehaviour:
   - {fileID: 297056950}
   - {fileID: 1049860613}
   - {fileID: 813974793}
-  cachedPositions: []
 --- !u!1 &499706539
 GameObject:
   m_ObjectHideFlags: 0
@@ -5424,7 +5421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &685425359
 Transform:
   m_ObjectHideFlags: 0
@@ -6466,26 +6463,9 @@ MonoBehaviour:
     Culture=neutral, PublicKeyToken=null
   targetComponentFullname: UnityEngine.Component[]
   targetComponentText: WriterAudio
-  targetMethod: SetAudioMode
-  targetMethodText: 'SetAudioMode (AudioMode): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: Fungus.WriterAudio+AudioMode, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      typeFullname: Fungus.WriterAudio+AudioMode
-      intValue: 0
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
+  targetMethod: OnInput
+  targetMethodText: 'OnInput (): Void'
+  methodParameters: []
   saveReturnValue: 0
   returnValueVariableKey: 
   returnValueType: System.Void
@@ -7413,7 +7393,6 @@ MonoBehaviour:
   - {fileID: 1968482742}
   - {fileID: 1336986580}
   - {fileID: 1754947673}
-  cachedPositions: []
 --- !u!4 &825247592
 Transform:
   m_ObjectHideFlags: 0
@@ -10356,7 +10335,6 @@ MonoBehaviour:
   nameText: Somebody
   nameColor: {r: 0.2352941, g: 0.2352941, b: 0.2352941, a: 1}
   soundEffect: {fileID: 0}
-  profileSprite: {fileID: 21300000, guid: 10cc2fec4b8aa4db983981588b06b591, type: 3}
   portraits:
   - {fileID: 21300000, guid: 10cc2fec4b8aa4db983981588b06b591, type: 3}
   portraitsFace: 0
@@ -10477,7 +10455,6 @@ MonoBehaviour:
   nameText: TestCharacter
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
-  profileSprite: {fileID: 21300000, guid: 5b776e5296df54952a07a367943f5c7c, type: 3}
   portraits:
   - {fileID: 21300000, guid: 5b776e5296df54952a07a367943f5c7c, type: 3}
   - {fileID: 21300000, guid: 820bab66bb5a044ec961ba8ee3b045cc, type: 3}
@@ -13702,7 +13679,6 @@ MonoBehaviour:
   nameText: Character Name
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
-  profileSprite: {fileID: 21300000, guid: 450277e404c2d4d1e87c5bd4012283bb, type: 3}
   portraits:
   - {fileID: 21300000, guid: 450277e404c2d4d1e87c5bd4012283bb, type: 3}
   - {fileID: 21300000, guid: c779e34c6eb8e45da98c70cf2802a54c, type: 3}
@@ -17982,7 +17958,6 @@ MonoBehaviour:
   nameText: Test Character
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 8300000, guid: 0cdfebb6349aa4b72a1d34c47935faf8, type: 3}
-  profileSprite: {fileID: 0}
   portraits: []
   portraitsFace: 0
   setSayDialog: {fileID: 0}
