@@ -69,12 +69,12 @@ namespace Fungus.Commands
             // Override the active say dialog if needed
             if (character != null && character.SetSayDialog != null)
             {
-                SayDialog.activeSayDialog = character.SetSayDialog;
+                SayDialog.ActiveSayDialog = character.SetSayDialog;
             }
 
             if (setSayDialog != null)
             {
-                SayDialog.activeSayDialog = setSayDialog;
+                SayDialog.ActiveSayDialog = setSayDialog;
             }
 
             var sayDialog = SayDialog.GetSayDialog();

@@ -21,7 +21,7 @@ namespace Fungus.Commands
         {
             if (menuDialog != null)
             {
-                MenuDialog.activeMenuDialog = menuDialog;
+                MenuDialog.ActiveMenuDialog = menuDialog;
             }
 
             Continue();

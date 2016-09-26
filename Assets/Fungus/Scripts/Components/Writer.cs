@@ -75,51 +75,6 @@ namespace Fungus
         protected string hiddenColorOpen = "";
         protected string hiddenColorClose = "";
 
-        public virtual string text 
-        {
-            get 
-            {
-                if (textUI != null)
-                {
-                    return textUI.text;
-                }
-                else if (inputField != null)
-                {
-                    return inputField.text;
-                }
-                else if (textMesh != null)
-                {
-                    return textMesh.text;
-                }
-                else if (textProperty != null)
-                {
-                    return textProperty.GetValue(textComponent, null) as string;
-                }
-
-                return "";
-            }
-            
-            set 
-            {
-                if (textUI != null)
-                {
-                    textUI.text = value;
-                }
-                else if (inputField != null)
-                {
-                    inputField.text = value;
-                }
-                else if (textMesh != null)
-                {
-                    textMesh.text = value;
-                }
-                else if (textProperty != null)
-                {
-                    textProperty.SetValue(textComponent, value, null);
-                }
-            }
-        }
-        
         protected virtual void Awake()
         {
             GameObject go = targetTextObject;
@@ -346,7 +301,7 @@ namespace Fungus
                     break;
                     
                 case TokenType.Clear:
-                    text = "";
+                    Text = "";
                     break;
                     
                 case TokenType.SpeedStart:
@@ -500,7 +455,7 @@ namespace Fungus
                 param = param.TrimStart(' ', '\t', '\r', '\n');
             }
             
-            string startText = text;
+            string startText = Text;
             UpdateOpenMarkup();
             UpdateCloseMarkup();
 
@@ -516,7 +471,7 @@ namespace Fungus
 
                 PartitionString(writeWholeWords, param, i);
                 ConcatenateString(startText);
-                text = outputString.ToString();
+                Text = outputString.ToString();
 
                 NotifyGlyph();
 
@@ -716,7 +671,6 @@ namespace Fungus
             }
         }
 
-
         protected virtual void NotifyStart(AudioClip audioClip)
         {
             foreach (IWriterListener writerListener in writerListeners)
@@ -760,6 +714,54 @@ namespace Fungus
         #region Public methods
 
         /// <summary>
+        /// Gets or sets the text property of the attached text object.
+        /// </summary>
+        public virtual string Text
+        {
+            get 
+            {
+                if (textUI != null)
+                {
+                    return textUI.text;
+                }
+                else if (inputField != null)
+                {
+                    return inputField.text;
+                }
+                else if (textMesh != null)
+                {
+                    return textMesh.text;
+                }
+                else if (textProperty != null)
+                {
+                    return textProperty.GetValue(textComponent, null) as string;
+                }
+
+                return "";
+            }
+
+            set 
+            {
+                if (textUI != null)
+                {
+                    textUI.text = value;
+                }
+                else if (inputField != null)
+                {
+                    inputField.text = value;
+                }
+                else if (textMesh != null)
+                {
+                    textMesh.text = value;
+                }
+                else if (textProperty != null)
+                {
+                    textProperty.SetValue(textComponent, value, null);
+                }
+            }
+        }
+
+        /// <summary>
         /// This property is true when the writer is writing text or waiting (i.e. still processing tokens).
         /// </summary>
         public virtual bool IsWriting { get { return isWriting; } }
@@ -793,7 +795,7 @@ namespace Fungus
         {
             if (clear)
             {
-                this.text = "";
+                this.Text = "";
             }
 
             if (!HasTextObject())

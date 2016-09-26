@@ -93,26 +93,6 @@ namespace Fungus
             initialized = true;
         }
 
-        /// <summary>
-        /// Looks up the specified string in the localized strings table.
-        /// For this to work, a localization file and active language must have been set previously.
-        /// Return null if the string is not found.            
-        /// </summary>
-        public static string GetLocalizedString(string stringId)
-        {
-            if (localizedStrings == null)
-            {
-                return null;
-            }
-
-            if (localizedStrings.ContainsKey(stringId))
-            {
-                return localizedStrings[stringId];
-            }
-
-            return null;
-        }
-
         // Build a cache of all the localizeable objects in the scene
         protected virtual void CacheLocalizeableObjects()
         {
@@ -248,6 +228,26 @@ namespace Fungus
         }
 
         #region Public methods
+
+        /// <summary>
+        /// Looks up the specified string in the localized strings table.
+        /// For this to work, a localization file and active language must have been set previously.
+        /// Return null if the string is not found.            
+        /// </summary>
+        public static string GetLocalizedString(string stringId)
+        {
+            if (localizedStrings == null)
+            {
+                return null;
+            }
+
+            if (localizedStrings.ContainsKey(stringId))
+            {
+                return localizedStrings[stringId];
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// Language to use at startup, usually defined by a two letter language code (e.g DE = German).

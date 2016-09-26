@@ -21,7 +21,7 @@ namespace Fungus.Commands
         {
             if (sayDialog != null)
             {
-                SayDialog.activeSayDialog = sayDialog;
+                SayDialog.ActiveSayDialog = sayDialog;
             }
 
             Continue();

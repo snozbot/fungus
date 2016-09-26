@@ -49,40 +49,9 @@ namespace Fungus
 
         protected Sprite currentCharacterImage;
 
-        // Currently active Say Dialog used to display Say text
-        public static SayDialog activeSayDialog;
-
         // Most recent speaking character
-        public static Character speakingCharacter;
+        protected static Character speakingCharacter;
 
-        public static SayDialog GetSayDialog()
-        {
-            if (activeSayDialog == null)
-            {
-                // Use first Say Dialog found in the scene (if any)
-                SayDialog sd = GameObject.FindObjectOfType<SayDialog>();
-                if (sd != null)
-                {
-                    activeSayDialog = sd;
-                }
-                
-                if (activeSayDialog == null)
-                {
-                    // Auto spawn a say dialog object from the prefab
-                    GameObject prefab = Resources.Load<GameObject>("Prefabs/SayDialog");
-                    if (prefab != null)
-                    {
-                        GameObject go = Instantiate(prefab) as GameObject;
-                        go.SetActive(false);
-                        go.name = "SayDialog";
-                        activeSayDialog = go.GetComponent<SayDialog>();
-                    }
-                }
-            }
-            
-            return activeSayDialog;
-        }
-            
         protected Writer GetWriter()
         {
             if (writer != null)
@@ -213,6 +182,47 @@ namespace Fungus
             }
         }
 
+        #region Public methods
+
+        /// <summary>
+        /// Currently active Say Dialog used to display Say text
+        /// </summary>
+        public static SayDialog ActiveSayDialog { get; set; }
+
+        /// <summary>
+        /// Returns a SayDialog by searching for one in the scene or creating one if none exists.
+        /// </summary>
+        public static SayDialog GetSayDialog()
+        {
+            if (ActiveSayDialog == null)
+            {
+                // Use first Say Dialog found in the scene (if any)
+                SayDialog sd = GameObject.FindObjectOfType<SayDialog>();
+                if (sd != null)
+                {
+                    ActiveSayDialog = sd;
+                }
+
+                if (ActiveSayDialog == null)
+                {
+                    // Auto spawn a say dialog object from the prefab
+                    GameObject prefab = Resources.Load<GameObject>("Prefabs/SayDialog");
+                    if (prefab != null)
+                    {
+                        GameObject go = Instantiate(prefab) as GameObject;
+                        go.SetActive(false);
+                        go.name = "SayDialog";
+                        ActiveSayDialog = go.GetComponent<SayDialog>();
+                    }
+                }
+            }
+
+            return ActiveSayDialog;
+        }
+
+        /// <summary>
+        /// Stops all active portrait tweens.
+        /// </summary>
         public static void StopPortraitTweens()
         {
             // Stop all tweening portraits
@@ -223,7 +233,7 @@ namespace Fungus
                     if (LeanTween.isTweening(c.State.portraitImage.gameObject))
                     {
                         LeanTween.cancel(c.State.portraitImage.gameObject, true);
-                        
+
                         PortraitController.SetRectTransform(c.State.portraitImage.rectTransform, c.State.position);
                         if (c.State.dimmed == true)
                         {
@@ -237,8 +247,6 @@ namespace Fungus
                 }
             }
         }
-
-        #region Public methods
 
         /// <summary>
         /// Sets the active state of the Say Dialog gameobject.

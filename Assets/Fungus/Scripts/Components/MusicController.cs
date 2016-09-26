@@ -35,7 +35,7 @@ namespace Fungus
             GetComponent<AudioSource>().playOnAwake = false;
             GetComponent<AudioSource>().loop = true;
         }
-            
+
         #region Public methods
 
         /// <summary>

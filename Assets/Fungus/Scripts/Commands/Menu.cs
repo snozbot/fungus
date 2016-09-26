@@ -41,7 +41,7 @@ namespace Fungus.Commands
             if (setMenuDialog != null)
             {
                 // Override the active menu dialog
-                MenuDialog.activeMenuDialog = setMenuDialog;
+                MenuDialog.ActiveMenuDialog = setMenuDialog;
             }
 
             bool hideOption = (hideIfVisited && targetBlock != null && targetBlock.GetExecutionCount() > 0);

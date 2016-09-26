@@ -11,6 +11,8 @@ namespace Fungus
     /// </summary>
     public static class FungusPrefs
     {
+        #region Public methods
+
         /// <summary>
         /// Deletes all saved values for all slots.
         /// </summary>
@@ -106,5 +108,7 @@ namespace Fungus
         {
             return slot.ToString() + ":" + key;
         }
+
+        #endregion
     }
 }

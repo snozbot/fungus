@@ -63,19 +63,6 @@ namespace Fungus
 
         protected Stage stage;
 
-        public static void SetRectTransform(RectTransform oldRectTransform, RectTransform newRectTransform)
-        {
-            oldRectTransform.eulerAngles = newRectTransform.eulerAngles;
-            oldRectTransform.position = newRectTransform.position;
-            oldRectTransform.rotation = newRectTransform.rotation;
-            oldRectTransform.anchoredPosition = newRectTransform.anchoredPosition;
-            oldRectTransform.sizeDelta = newRectTransform.sizeDelta;
-            oldRectTransform.anchorMax = newRectTransform.anchorMax;
-            oldRectTransform.anchorMin = newRectTransform.anchorMin;
-            oldRectTransform.pivot = newRectTransform.pivot;
-            oldRectTransform.localScale = newRectTransform.localScale;
-        }
-
         protected virtual void Awake()
         {
             stage = GetComponentInParent<Stage>();
@@ -293,6 +280,22 @@ namespace Fungus
         }
 
         #region Public methods
+
+        /// <summary>
+        /// Performs a deep copy of all values from one RectTransform to another.
+        /// </summary>
+        public static void SetRectTransform(RectTransform oldRectTransform, RectTransform newRectTransform)
+        {
+            oldRectTransform.eulerAngles = newRectTransform.eulerAngles;
+            oldRectTransform.position = newRectTransform.position;
+            oldRectTransform.rotation = newRectTransform.rotation;
+            oldRectTransform.anchoredPosition = newRectTransform.anchoredPosition;
+            oldRectTransform.sizeDelta = newRectTransform.sizeDelta;
+            oldRectTransform.anchorMax = newRectTransform.anchorMax;
+            oldRectTransform.anchorMin = newRectTransform.anchorMin;
+            oldRectTransform.pivot = newRectTransform.pivot;
+            oldRectTransform.localScale = newRectTransform.localScale;
+        }
 
         /// <summary>
         /// Using all portrait options available, run any portrait command.

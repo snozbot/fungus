@@ -22,37 +22,6 @@ namespace Fungus
 
         protected Slider cachedSlider;
 
-        // Currently active Menu Dialog used to display Menu options
-        public static MenuDialog activeMenuDialog;
-
-        public static MenuDialog GetMenuDialog()
-        {
-            if (activeMenuDialog == null)
-            {
-                // Use first Menu Dialog found in the scene (if any)
-                var md = GameObject.FindObjectOfType<MenuDialog>();
-                if (md != null)
-                {
-                    activeMenuDialog = md;
-                }
-                
-                if (activeMenuDialog == null)
-                {
-                    // Auto spawn a menu dialog object from the prefab
-                    GameObject prefab = Resources.Load<GameObject>("Prefabs/MenuDialog");
-                    if (prefab != null)
-                    {
-                        GameObject go = Instantiate(prefab) as GameObject;
-                        go.SetActive(false);
-                        go.name = "MenuDialog";
-                        activeMenuDialog = go.GetComponent<MenuDialog>();
-                    }
-                }
-            }
-
-            return activeMenuDialog;
-        }
-
         protected virtual void Awake()
         {
             Button[] optionButtons = GetComponentsInChildren<Button>();
@@ -106,6 +75,42 @@ namespace Fungus
         }
 
         #region Public methods
+
+        /// <summary>
+        /// Currently active Menu Dialog used to display Menu options
+        /// </summary>
+        public static MenuDialog ActiveMenuDialog { get; set; }
+
+        /// <summary>
+        /// Returns a menu dialog by searching for one in the scene or creating one if none exists.
+        /// </summary>
+        public static MenuDialog GetMenuDialog()
+        {
+            if (ActiveMenuDialog == null)
+            {
+                // Use first Menu Dialog found in the scene (if any)
+                var md = GameObject.FindObjectOfType<MenuDialog>();
+                if (md != null)
+                {
+                    ActiveMenuDialog = md;
+                }
+
+                if (ActiveMenuDialog == null)
+                {
+                    // Auto spawn a menu dialog object from the prefab
+                    GameObject prefab = Resources.Load<GameObject>("Prefabs/MenuDialog");
+                    if (prefab != null)
+                    {
+                        GameObject go = Instantiate(prefab) as GameObject;
+                        go.SetActive(false);
+                        go.name = "MenuDialog";
+                        ActiveMenuDialog = go.GetComponent<MenuDialog>();
+                    }
+                }
+            }
+
+            return ActiveMenuDialog;
+        }
 
         /// <summary>
         /// A cached list of button objects in the menu dialog.

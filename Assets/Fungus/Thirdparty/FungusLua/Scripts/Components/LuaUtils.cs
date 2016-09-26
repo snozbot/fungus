@@ -432,7 +432,7 @@ namespace Fungus
 
         public void SetSayDialog(SayDialog sayDialog)
         {
-            SayDialog.activeSayDialog = sayDialog;
+            SayDialog.ActiveSayDialog = sayDialog;
         }
 
         #endregion

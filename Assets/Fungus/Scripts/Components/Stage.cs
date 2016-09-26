@@ -65,6 +65,11 @@ namespace Fungus
             }
         }
 
+        #region Public methods
+
+        /// <summary>
+        /// Returns the currently active stage.
+        /// </summary>
         public static Stage GetActiveStage()
         {
             if (Stage.activeStages == null ||
@@ -75,8 +80,6 @@ namespace Fungus
 
             return Stage.activeStages[0];
         }
-
-        #region Public methods
 
         /// <summary>
         /// Canvas object containing the stage positions.

@@ -102,9 +102,9 @@ namespace Fungus
             if (ignoreMenuClicks)
             {
                 // Ignore input events if a Menu is being displayed
-                if (MenuDialog.activeMenuDialog != null && 
-                    MenuDialog.activeMenuDialog.IsActive() &&
-                    MenuDialog.activeMenuDialog.DisplayedOptionsCount > 0)
+                if (MenuDialog.ActiveMenuDialog != null && 
+                    MenuDialog.ActiveMenuDialog.IsActive() &&
+                    MenuDialog.ActiveMenuDialog.DisplayedOptionsCount > 0)
                 {
                     dialogClickedFlag = false;
                     nextLineInputFlag = false;

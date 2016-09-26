@@ -86,27 +86,11 @@ namespace Fungus
         [Tooltip("The ExecuteLua command adds a global Lua variable with this name bound to the flowchart prior to executing.")]
         [SerializeField] protected string luaBindingName = "flowchart";
 
+        protected static List<Flowchart> cachedFlowcharts = new List<Flowchart>();
+
         protected static bool eventSystemPresent;
 
         protected StringSubstituter stringSubstituer;
-
-        /// <summary>
-        /// Cached list of flowchart objects in the scene for fast lookup.
-        /// </summary>
-        public static List<Flowchart> cachedFlowcharts = new List<Flowchart>();
-
-        /// <summary>
-        /// Sends a message to all Flowchart objects in the current scene.
-        /// Any block with a matching MessageReceived event handler will start executing.
-        /// </summary>
-        public static void BroadcastFungusMessage(string messageName)
-        {
-            MessageReceived[] eventHandlers = UnityEngine.Object.FindObjectsOfType<MessageReceived>();
-            foreach (MessageReceived eventHandler in eventHandlers)
-            {
-                eventHandler.OnSendFungusMessage(messageName);
-            }
-        }
 
         #if UNITY_5_4_OR_NEWER
         protected virtual void Awake()
@@ -287,6 +271,24 @@ namespace Fungus
         }
 
         #region Public methods
+
+        /// <summary>
+        /// Cached list of flowchart objects in the scene for fast lookup.
+        /// </summary>
+        public static List<Flowchart> CachedFlowcharts { get { return cachedFlowcharts; } }
+
+        /// <summary>
+        /// Sends a message to all Flowchart objects in the current scene.
+        /// Any block with a matching MessageReceived event handler will start executing.
+        /// </summary>
+        public static void BroadcastFungusMessage(string messageName)
+        {
+            MessageReceived[] eventHandlers = UnityEngine.Object.FindObjectsOfType<MessageReceived>();
+            foreach (MessageReceived eventHandler in eventHandlers)
+            {
+                eventHandler.OnSendFungusMessage(messageName);
+            }
+        }
 
         /// <summary>
         /// Scroll position of Flowchart editor window.

@@ -68,20 +68,6 @@ namespace Fungus
             return instance;
         }
         
-        public static Texture2D CreateColorTexture(Color color, int width, int height)
-        {
-            Color[] pixels = new Color[width * height];
-            for (int i = 0; i < pixels.Length; i++) 
-            {
-                pixels[i] = color;
-            }
-            Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
-            texture.SetPixels(pixels);
-            texture.Apply();
-            
-            return texture;     
-        }
-        
         protected virtual void OnGUI()
         {
             if (swipePanActive)
@@ -366,6 +352,23 @@ namespace Fungus
 
         #region Public methods
 
+        /// <summary>
+        /// Creates a flat colored texture.
+        /// </summary>
+        public static Texture2D CreateColorTexture(Color color, int width, int height)
+        {
+            Color[] pixels = new Color[width * height];
+            for (int i = 0; i < pixels.Length; i++) 
+            {
+                pixels[i] = color;
+            }
+            Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
+            texture.SetPixels(pixels);
+            texture.Apply();
+
+            return texture;     
+        }
+            
         /// <summary>
         /// Full screen texture used for screen fade effect.
         /// </summary>
