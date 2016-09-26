@@ -15,7 +15,7 @@ namespace Fungus
     /// <summary>
     /// Writes text using a typewriter effect to a UI text object.
     /// </summary>
-    public class Writer : MonoBehaviour, IWriter, IDialogInputListener
+    public class Writer : MonoBehaviour, IDialogInputListener
     {
         [Tooltip("Gameobject containing a Text, Inout Field or Text Mesh object to write to")]
         [SerializeField] protected GameObject targetTextObject;
@@ -75,51 +75,6 @@ namespace Fungus
         protected string hiddenColorOpen = "";
         protected string hiddenColorClose = "";
 
-        public virtual string text 
-        {
-            get 
-            {
-                if (textUI != null)
-                {
-                    return textUI.text;
-                }
-                else if (inputField != null)
-                {
-                    return inputField.text;
-                }
-                else if (textMesh != null)
-                {
-                    return textMesh.text;
-                }
-                else if (textProperty != null)
-                {
-                    return textProperty.GetValue(textComponent, null) as string;
-                }
-
-                return "";
-            }
-            
-            set 
-            {
-                if (textUI != null)
-                {
-                    textUI.text = value;
-                }
-                else if (inputField != null)
-                {
-                    inputField.text = value;
-                }
-                else if (textMesh != null)
-                {
-                    textMesh.text = value;
-                }
-                else if (textProperty != null)
-                {
-                    textProperty.SetValue(textComponent, value, null);
-                }
-            }
-        }
-        
         protected virtual void Awake()
         {
             GameObject go = targetTextObject;
@@ -180,28 +135,6 @@ namespace Fungus
             }
         }
         
-        public virtual bool HasTextObject()
-        {
-            return (textUI != null || inputField != null || textMesh != null || textComponent != null);
-        }
-        
-        public virtual bool SupportsRichText()
-        {
-            if (textUI != null)
-            {
-                return textUI.supportRichText;
-            }
-            if (inputField != null)
-            {
-                return false;
-            }
-            if (textMesh != null)
-            {
-                return textMesh.richText;
-            }
-            return false;
-        }
-        
         protected virtual void UpdateOpenMarkup()
         {
             openString.Length = 0;
@@ -256,7 +189,7 @@ namespace Fungus
             }
         }
 
-        virtual protected bool CheckParamCount(List<string> paramList, int count) 
+        protected virtual bool CheckParamCount(List<string> paramList, int count) 
         {
             if (paramList == null)
             {
@@ -368,7 +301,7 @@ namespace Fungus
                     break;
                     
                 case TokenType.Clear:
-                    text = "";
+                    Text = "";
                     break;
                     
                 case TokenType.SpeedStart:
@@ -522,7 +455,7 @@ namespace Fungus
                 param = param.TrimStart(' ', '\t', '\r', '\n');
             }
             
-            string startText = text;
+            string startText = Text;
             UpdateOpenMarkup();
             UpdateCloseMarkup();
 
@@ -538,7 +471,7 @@ namespace Fungus
 
                 PartitionString(writeWholeWords, param, i);
                 ConcatenateString(startText);
-                text = outputString.ToString();
+                Text = outputString.ToString();
 
                 NotifyGlyph();
 
@@ -571,7 +504,7 @@ namespace Fungus
             }
         }
 
-        protected void PartitionString(bool wholeWords, string inputString, int i)
+        protected virtual void PartitionString(bool wholeWords, string inputString, int i)
         {
             leftString.Length = 0;
             rightString.Length = 0;
@@ -605,7 +538,7 @@ namespace Fungus
             }
         }
 
-        protected void ConcatenateString(string startText)
+        protected virtual void ConcatenateString(string startText)
         {
             outputString.Length = 0;
 
@@ -625,11 +558,6 @@ namespace Fungus
             }
         }
 
-        public virtual string GetTagHelp()
-        {
-            return "";
-        }
-        
         protected virtual IEnumerator DoWait(List<string> paramList)
         {
             var param = "";
@@ -716,7 +644,7 @@ namespace Fungus
         
         protected virtual void Flash(float duration)
         {
-            ICameraController cameraController = CameraController.GetInstance();
+            var cameraController = CameraController.GetInstance();
             cameraController.ScreenFadeTexture = CameraController.CreateColorTexture(new Color(1f,1f,1f,1f), 32, 32);
             cameraController.Fade(1f, duration, delegate {
                 cameraController.ScreenFadeTexture = CameraController.CreateColorTexture(new Color(1f,1f,1f,1f), 32, 32);
@@ -742,7 +670,6 @@ namespace Fungus
                 writerListener.OnInput();
             }
         }
-
 
         protected virtual void NotifyStart(AudioClip audioClip)
         {
@@ -784,26 +711,69 @@ namespace Fungus
             }
         }
 
-        #region IDialogInputListener implementation
+        #region Public methods
 
-        public virtual void OnNextLineEvent()
+        /// <summary>
+        /// Gets or sets the text property of the attached text object.
+        /// </summary>
+        public virtual string Text
         {
-            inputFlag = true;
-
-            if (isWriting)
+            get 
             {
-                NotifyInput();
+                if (textUI != null)
+                {
+                    return textUI.text;
+                }
+                else if (inputField != null)
+                {
+                    return inputField.text;
+                }
+                else if (textMesh != null)
+                {
+                    return textMesh.text;
+                }
+                else if (textProperty != null)
+                {
+                    return textProperty.GetValue(textComponent, null) as string;
+                }
+
+                return "";
+            }
+
+            set 
+            {
+                if (textUI != null)
+                {
+                    textUI.text = value;
+                }
+                else if (inputField != null)
+                {
+                    inputField.text = value;
+                }
+                else if (textMesh != null)
+                {
+                    textMesh.text = value;
+                }
+                else if (textProperty != null)
+                {
+                    textProperty.SetValue(textComponent, value, null);
+                }
             }
         }
 
-        #endregion
-
-        #region IWriter implementation
-
+        /// <summary>
+        /// This property is true when the writer is writing text or waiting (i.e. still processing tokens).
+        /// </summary>
         public virtual bool IsWriting { get { return isWriting; } }
 
+        /// <summary>
+        /// This property is true when the writer is waiting for user input to continue.
+        /// </summary>
         public virtual bool IsWaitingForInput { get { return isWaitingForInput; } }
 
+        /// <summary>
+        /// Stop writing text.
+        /// </summary>
         public virtual void Stop()
         {
             if (isWriting || isWaitingForInput)
@@ -812,11 +782,20 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Writes text using a typewriter effect to a UI text object.
+        /// </summary>
+        /// <param name="content">Text to be written</param>
+        /// <param name="clear">If true clears the previous text.</param>
+        /// <param name="waitForInput">Writes the text and then waits for player input before calling onComplete.</param>
+        /// <param name="stopAudio">Stops any currently playing audioclip.</param>
+        /// <param name="audioClip">Audio clip to play when text starts writing.</param>
+        /// <param name="onComplete">Callback to call when writing is finished.</param>
         public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, AudioClip audioClip, Action onComplete)
         {
             if (clear)
             {
-                this.text = "";
+                this.Text = "";
             }
 
             if (!HasTextObject())
@@ -833,14 +812,16 @@ namespace Fungus
                 tokenText += "{wi}";
             }
 
-            ITextTagParser tagParser = new TextTagParser();
-            List<TextTagToken> tokens = tagParser.Tokenize(tokenText);
+            List<TextTagToken> tokens = TextTagParser.Tokenize(tokenText);
 
             gameObject.SetActive(true);
 
             yield return StartCoroutine(ProcessTokens(tokens, stopAudio, onComplete));
         }
 
+        /// <summary>
+        /// Sets the color property of the text UI object.
+        /// </summary>
         public virtual void SetTextColor(Color textColor)
         {
             if (textUI != null)
@@ -860,6 +841,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Sets the alpha component of the color property of the text UI object.
+        /// </summary>
         public virtual void SetTextAlpha(float textAlpha)
         {
             if (textUI != null)
@@ -882,6 +866,48 @@ namespace Fungus
                 Color tempColor = textMesh.color;
                 tempColor.a = textAlpha;
                 textMesh.color = tempColor;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if there is a supported text object attached to this writer.
+        /// </summary>
+        public virtual bool HasTextObject()
+        {
+            return (textUI != null || inputField != null || textMesh != null || textComponent != null);
+        }
+
+        /// <summary>
+        /// Returns true if the text object has rich text support.
+        /// </summary>
+        public virtual bool SupportsRichText()
+        {
+            if (textUI != null)
+            {
+                return textUI.supportRichText;
+            }
+            if (inputField != null)
+            {
+                return false;
+            }
+            if (textMesh != null)
+            {
+                return textMesh.richText;
+            }
+            return false;
+        }
+
+        #endregion
+
+        #region IDialogInputListener implementation
+
+        public virtual void OnNextLineEvent()
+        {
+            inputFlag = true;
+
+            if (isWriting)
+            {
+                NotifyInput();
             }
         }
 

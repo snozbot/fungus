@@ -551,7 +551,7 @@ namespace Fungus.EditorUtils
             return newBlock;
         }
 
-        protected virtual void DeleteBlock(Flowchart flowchart, IBlock block)
+        protected virtual void DeleteBlock(Flowchart flowchart, Block block)
         {
             foreach (var command in block.CommandList)
             {

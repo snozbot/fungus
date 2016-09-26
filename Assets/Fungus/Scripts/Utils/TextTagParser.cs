@@ -10,39 +10,9 @@ namespace Fungus.Utils
     /// <summary>
     /// Parses a string for special Fungus text tags.
     /// </summary>
-    public class TextTagParser : ITextTagParser
+    public static class TextTagParser
     {
-        public static string GetTagHelp()
-        {
-            return "" +
-                "\t{b} Bold Text {/b}\n" + 
-                "\t{i} Italic Text {/i}\n" +
-                "\t{color=red} Color Text (color){/color}\n" +
-                "\t{size=30} Text size {/size}\n" +
-                "\n" +
-                "\t{s}, {s=60} Writing speed (chars per sec){/s}\n" +
-                "\t{w}, {w=0.5} Wait (seconds)\n" +
-                "\t{wi} Wait for input\n" +
-                "\t{wc} Wait for input and clear\n" +
-                "\t{wp}, {wp=0.5} Wait on punctuation (seconds){/wp}\n" +
-                "\t{c} Clear\n" +
-                "\t{x} Exit, advance to the next command without waiting for input\n" +
-                "\n" +
-                "\t{vpunch=10,0.5} Vertically punch screen (intensity,time)\n" +
-                "\t{hpunch=10,0.5} Horizontally punch screen (intensity,time)\n" +
-                "\t{punch=10,0.5} Punch screen (intensity,time)\n" +
-                "\t{flash=0.5} Flash screen (duration)\n" +
-                "\n" +
-                "\t{audio=AudioObjectName} Play Audio Once\n" +
-                "\t{audioloop=AudioObjectName} Play Audio Loop\n" +
-                "\t{audiopause=AudioObjectName} Pause Audio\n" +
-                "\t{audiostop=AudioObjectName} Stop Audio\n" +
-                "\n" +
-                "\t{m=MessageName} Broadcast message\n" +
-                "\t{$VarName} Substitute variable";
-        }
-
-        protected virtual void AddWordsToken(List<TextTagToken> tokenList, string words)
+        private static void AddWordsToken(List<TextTagToken> tokenList, string words)
         {
             TextTagToken token = new TextTagToken();
             token.type = TokenType.Words;
@@ -51,7 +21,7 @@ namespace Fungus.Utils
             tokenList.Add(token);
         }
         
-        protected virtual void AddTagToken(List<TextTagToken> tokenList, string tagText)
+        private static void AddTagToken(List<TextTagToken> tokenList, string tagText)
         {
             if (tagText.Length < 3 ||
                 tagText.Substring(0,1) != "{" ||
@@ -199,7 +169,7 @@ namespace Fungus.Utils
             }
         }
 
-        protected virtual List<string> ExtractParameters(string input)
+        private static List<string> ExtractParameters(string input)
         {
             List<string> paramsList = new List<string>();
             int index = input.IndexOf('=');
@@ -217,9 +187,45 @@ namespace Fungus.Utils
             return paramsList;
         }
 
-        #region ITextTagParser implementation
+        #region Public methods
 
-        public virtual List<TextTagToken> Tokenize(string storyText)
+        /// <summary>
+        /// Returns a description of the supported tags.
+        /// </summary>
+        public static string GetTagHelp()
+        {
+            return "" +
+                "\t{b} Bold Text {/b}\n" + 
+                "\t{i} Italic Text {/i}\n" +
+                "\t{color=red} Color Text (color){/color}\n" +
+                "\t{size=30} Text size {/size}\n" +
+                "\n" +
+                "\t{s}, {s=60} Writing speed (chars per sec){/s}\n" +
+                "\t{w}, {w=0.5} Wait (seconds)\n" +
+                "\t{wi} Wait for input\n" +
+                "\t{wc} Wait for input and clear\n" +
+                "\t{wp}, {wp=0.5} Wait on punctuation (seconds){/wp}\n" +
+                "\t{c} Clear\n" +
+                "\t{x} Exit, advance to the next command without waiting for input\n" +
+                "\n" +
+                "\t{vpunch=10,0.5} Vertically punch screen (intensity,time)\n" +
+                "\t{hpunch=10,0.5} Horizontally punch screen (intensity,time)\n" +
+                "\t{punch=10,0.5} Punch screen (intensity,time)\n" +
+                "\t{flash=0.5} Flash screen (duration)\n" +
+                "\n" +
+                "\t{audio=AudioObjectName} Play Audio Once\n" +
+                "\t{audioloop=AudioObjectName} Play Audio Loop\n" +
+                "\t{audiopause=AudioObjectName} Pause Audio\n" +
+                "\t{audiostop=AudioObjectName} Stop Audio\n" +
+                "\n" +
+                "\t{m=MessageName} Broadcast message\n" +
+                "\t{$VarName} Substitute variable";
+        }
+
+        /// <summary>
+        /// Processes a block of story text and converts it to a list of tokens.
+        /// </summary>
+        public static List<TextTagToken> Tokenize(string storyText)
         {
             List<TextTagToken> tokens = new List<TextTagToken>();
 

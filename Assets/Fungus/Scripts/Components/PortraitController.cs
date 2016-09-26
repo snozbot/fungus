@@ -11,27 +11,57 @@ using Fungus.Utils;
 namespace Fungus
 {
     /// <summary>
+    /// Types of display operations supported by portraits.
+    /// </summary>
+    public enum DisplayType
+    {
+        /// <summary> Do nothing. </summary>
+        None,
+        /// <summary> Show the portrait. </summary>
+        Show,
+        /// <summary> Hide the portrait. </summary>
+        Hide,
+        /// <summary> Replace the existing portrait. </summary>
+        Replace,
+        /// <summary> Move portrait to the front. </summary>
+        MoveToFront
+    }
+
+    /// <summary>
+    /// Directions that character portraits can face.
+    /// </summary>
+    public enum FacingDirection
+    {
+        /// <summary> Unknown direction </summary>
+        None, 
+        /// <summary> Facing left. </summary>
+        Left,
+        /// <summary> Facing right. </summary>
+        Right
+    }
+
+    /// <summary>
+    /// Offset direction for position.
+    /// </summary>
+    public enum PositionOffset
+    {
+        /// <summary> Unknown offset direction. </summary>
+        None,
+        /// <summary> Offset applies to the left. </summary>
+        OffsetLeft,
+        /// <summary> Offset applies to the right. </summary>
+        OffsetRight
+    }
+
+    /// <summary>
     /// Controls the Portrait sprites on stage
     /// </summary>
-    public class PortraitController : MonoBehaviour, IPortraitController
+    public class PortraitController : MonoBehaviour
     {
         // Timer for waitUntilFinished functionality
         protected float waitTimer;
 
         protected Stage stage;
-
-        public static void SetRectTransform(RectTransform oldRectTransform, RectTransform newRectTransform)
-        {
-            oldRectTransform.eulerAngles = newRectTransform.eulerAngles;
-            oldRectTransform.position = newRectTransform.position;
-            oldRectTransform.rotation = newRectTransform.rotation;
-            oldRectTransform.anchoredPosition = newRectTransform.anchoredPosition;
-            oldRectTransform.sizeDelta = newRectTransform.sizeDelta;
-            oldRectTransform.anchorMax = newRectTransform.anchorMax;
-            oldRectTransform.anchorMin = newRectTransform.anchorMin;
-            oldRectTransform.pivot = newRectTransform.pivot;
-            oldRectTransform.localScale = newRectTransform.localScale;
-        }
 
         protected virtual void Awake()
         {
@@ -249,8 +279,29 @@ namespace Fungus
             }
         }
 
-        #region IPortraitController implentation
+        #region Public methods
 
+        /// <summary>
+        /// Performs a deep copy of all values from one RectTransform to another.
+        /// </summary>
+        public static void SetRectTransform(RectTransform oldRectTransform, RectTransform newRectTransform)
+        {
+            oldRectTransform.eulerAngles = newRectTransform.eulerAngles;
+            oldRectTransform.position = newRectTransform.position;
+            oldRectTransform.rotation = newRectTransform.rotation;
+            oldRectTransform.anchoredPosition = newRectTransform.anchoredPosition;
+            oldRectTransform.sizeDelta = newRectTransform.sizeDelta;
+            oldRectTransform.anchorMax = newRectTransform.anchorMax;
+            oldRectTransform.anchorMin = newRectTransform.anchorMin;
+            oldRectTransform.pivot = newRectTransform.pivot;
+            oldRectTransform.localScale = newRectTransform.localScale;
+        }
+
+        /// <summary>
+        /// Using all portrait options available, run any portrait command.
+        /// </summary>
+        /// <param name="options">Portrait Options</param>
+        /// <param name="onComplete">The function that will run once the portrait command finishes</param>
         public virtual void RunPortraitCommand(PortraitOptions options, Action onComplete)
         {
             waitTimer = 0f;
@@ -301,6 +352,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Moves Character in front of other characters on stage
+        /// </summary>
         public virtual void MoveToFront(Character character)
         {
             PortraitOptions options = new PortraitOptions(true);
@@ -309,6 +363,9 @@ namespace Fungus
             MoveToFront(CleanPortraitOptions(options));
         }
 
+        /// <summary>
+        /// Moves Character in front of other characters on stage
+        /// </summary>
         public virtual void MoveToFront(PortraitOptions options)
         {
             options.character.State.portraitImage.transform.SetSiblingIndex(options.character.State.portraitImage.transform.parent.childCount);
@@ -316,6 +373,11 @@ namespace Fungus
             FinishCommand(options);
         }
 
+        /// <summary>
+        /// Shows character at a named position in the stage
+        /// </summary>
+        /// <param name="character"></param>
+        /// <param name="position">Named position on stage</param>
         public virtual void Show(Character character, string position)
         {
             PortraitOptions options = new PortraitOptions(true);
@@ -325,6 +387,13 @@ namespace Fungus
             Show(options);
         }
 
+        /// <summary>
+        /// Shows character moving from a position to a position
+        /// </summary>
+        /// <param name="character"></param>
+        /// <param name="portrait"></param>
+        /// <param name="fromPosition">Where the character will appear</param>
+        /// <param name="toPosition">Where the character will move to</param>
         public virtual void Show(Character character, string portrait, string fromPosition, string toPosition)
         {
             PortraitOptions options = new PortraitOptions(true);
@@ -337,11 +406,22 @@ namespace Fungus
             Show(options);
         }
 
+        /// <summary>
+        /// From lua, you can pass an options table with named arguments
+        /// example:
+        ///     stage.show{character=jill, portrait="happy", fromPosition="right", toPosition="left"}
+        /// Any option available in the PortraitOptions is available from Lua
+        /// </summary>
+        /// <param name="optionsTable">Moonsharp Table</param>
         public virtual void Show(Table optionsTable)
         {
             Show(PortraitUtil.ConvertTableToPortraitOptions(optionsTable, stage));
         }
 
+        /// <summary>
+        /// Show portrait with the supplied portrait options
+        /// </summary>
+        /// <param name="options"></param>
         public virtual void Show(PortraitOptions options)
         {
             options = CleanPortraitOptions(options);
@@ -416,6 +496,11 @@ namespace Fungus
             options.character.State.position = options.toPosition;
         }
 
+        /// <summary>
+        /// Simple show command that shows the character with an available named portrait
+        /// </summary>
+        /// <param name="character">Character to show</param>
+        /// <param name="portrait">Named portrait to show for the character, i.e. "angry", "happy", etc</param>
         public virtual void ShowPortrait(Character character, string portrait)
         {
             PortraitOptions options = new PortraitOptions(true);
@@ -434,6 +519,10 @@ namespace Fungus
             Show(options);
         }
 
+        /// <summary>
+        /// Simple character hide command
+        /// </summary>
+        /// <param name="character">Character to hide</param>
         public virtual void Hide(Character character)
         {
             PortraitOptions options = new PortraitOptions(true);
@@ -442,6 +531,11 @@ namespace Fungus
             Hide(options);
         }
 
+        /// <summary>
+        /// Move the character to a position then hide it
+        /// </summary>
+        /// <param name="character">Character to hide</param>
+        /// <param name="toPosition">Where the character will disapear to</param>
         public virtual void Hide(Character character, string toPosition)
         {
             PortraitOptions options = new PortraitOptions(true);
@@ -452,11 +546,21 @@ namespace Fungus
             Hide(options);
         }
 
+        /// <summary>
+        /// From lua, you can pass an options table with named arguments
+        /// example:
+        ///     stage.hide{character=jill, toPosition="left"}
+        /// Any option available in the PortraitOptions is available from Lua
+        /// </summary>
+        /// <param name="optionsTable">Moonsharp Table</param>
         public virtual void Hide(Table optionsTable)
         {
             Hide(PortraitUtil.ConvertTableToPortraitOptions(optionsTable, stage));
         }
 
+        /// <summary>
+        /// Hide portrait with provided options
+        /// </summary>
         public virtual void Hide(PortraitOptions options)
         {
             CleanPortraitOptions(options);
@@ -487,6 +591,9 @@ namespace Fungus
             FinishCommand(options);
         }
 
+        /// <summary>
+        /// Sets the dimmed state of a character on the stage.
+        /// </summary>
         public virtual void SetDimmed(Character character, bool dimmedState)
         {
             if (character.State.dimmed == dimmedState)

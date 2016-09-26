@@ -16,7 +16,7 @@ namespace Fungus
     /// <summary>
     /// Multi-language localization support.
     /// </summary>
-    public class Localization : MonoBehaviour, ILocalization, ISubstitutionHandler
+    public class Localization : MonoBehaviour, ISubstitutionHandler
     {
         /// <summary>
         /// Temp storage for a single item of standard text and its localizations.
@@ -93,26 +93,6 @@ namespace Fungus
             initialized = true;
         }
 
-        /// <summary>
-        /// Looks up the specified string in the localized strings table.
-        /// For this to work, a localization file and active language must have been set previously.
-        /// Return null if the string is not found.            
-        /// </summary>
-        public static string GetLocalizedString(string stringId)
-        {
-            if (localizedStrings == null)
-            {
-                return null;
-            }
-
-            if (localizedStrings.ContainsKey(stringId))
-            {
-                return localizedStrings[stringId];
-            }
-
-            return null;
-        }
-
         // Build a cache of all the localizeable objects in the scene
         protected virtual void CacheLocalizeableObjects()
         {
@@ -139,7 +119,7 @@ namespace Fungus
             var flowcharts = GameObject.FindObjectsOfType<Flowchart>();
             foreach (var flowchart in flowcharts)
             {
-                var blocks = flowchart.GetComponents<IBlock>();
+                var blocks = flowchart.GetComponents<Block>();
                 foreach (var block in blocks)
                 {
                     foreach (var command in block.CommandList)
@@ -247,19 +227,54 @@ namespace Fungus
             }
         }
 
-        #region ILocalization interface
+        #region Public methods
 
+        /// <summary>
+        /// Looks up the specified string in the localized strings table.
+        /// For this to work, a localization file and active language must have been set previously.
+        /// Return null if the string is not found.            
+        /// </summary>
+        public static string GetLocalizedString(string stringId)
+        {
+            if (localizedStrings == null)
+            {
+                return null;
+            }
+
+            if (localizedStrings.ContainsKey(stringId))
+            {
+                return localizedStrings[stringId];
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Language to use at startup, usually defined by a two letter language code (e.g DE = German).
+        /// </summary>
         public virtual string ActiveLanguage { get { return activeLanguage; } }
 
+        /// <summary>
+        /// CSV file containing localization data which can be easily edited in a spreadsheet tool.
+        /// </summary>
         public virtual TextAsset LocalizationFile { get { return localizationFile; } set { localizationFile = value; } }
 
+        /// <summary>
+        /// Stores any notification message from export / import methods.
+        /// </summary>
         public virtual string NotificationText { get { return notificationText; } set { notificationText = value; } }
 
+        /// <summary>
+        /// Clears the cache of localizeable objects.
+        /// </summary>
         public virtual void ClearLocalizeableCache()
         {
             localizeableObjects.Clear();
         }
 
+        /// <summary>
+        /// Convert all text items and localized strings to an easy to edit CSV format.
+        /// </summary>
         public virtual string GetCSVData()
         {
             // Collect all the text items present in the scene
@@ -319,6 +334,10 @@ namespace Fungus
             return csvData;
         }
 
+        /// <summary>
+        /// Scan a localization CSV file and copies the strings for the specified language code
+        /// into the text properties of the appropriate scene objects.
+        /// </summary>
         public virtual void SetActiveLanguage(string languageCode, bool forceUpdateSceneText = false)
         {
             if (!Application.isPlaying)
@@ -411,6 +430,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Populates the text property of a single scene object with a new text value.
+        /// </summary>
         public virtual bool PopulateTextProperty(string stringId, string newText)
         {
             // Ensure that all localizeable objects have been cached
@@ -430,6 +452,10 @@ namespace Fungus
             return false;
         }
 
+        /// <summary>
+        /// Returns all standard text for localizeable text in the scene using an
+        /// easy to edit custom text format.
+        /// </summary>
         public virtual string GetStandardText()
         {
             // Collect all the text items present in the scene
@@ -451,6 +477,9 @@ namespace Fungus
             return textData;
         }
 
+        /// <summary>
+        /// Sets standard text on scene objects by parsing a text data file.
+        /// </summary>
         public virtual void SetStandardText(string textData)
         {
             string[] lines = textData.Split('\n');

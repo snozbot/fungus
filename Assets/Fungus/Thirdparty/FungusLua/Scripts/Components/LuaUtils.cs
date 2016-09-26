@@ -430,9 +430,9 @@ namespace Fungus
             return conversationManager.DoConversation(conv);
         }
 
-        public void SetSayDialog(ISayDialog sayDialog)
+        public void SetSayDialog(SayDialog sayDialog)
         {
-            SayDialog.activeSayDialog = sayDialog;
+            SayDialog.ActiveSayDialog = sayDialog;
         }
 
         #endregion

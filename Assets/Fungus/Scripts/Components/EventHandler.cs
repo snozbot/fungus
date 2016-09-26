@@ -35,16 +35,22 @@ namespace Fungus
     [RequireComponent(typeof(Block))]
     [RequireComponent(typeof(Flowchart))]
     [AddComponentMenu("")]
-    public class EventHandler : MonoBehaviour, IEventHandler
+    public class EventHandler : MonoBehaviour
     {   
         [HideInInspector]
         [FormerlySerializedAs("parentSequence")]
         [SerializeField] protected Block parentBlock;
 
-        #region IEventHandler
+        #region Public methods
 
+        /// <summary>
+        /// The parent Block which owns this Event Handler.
+        /// </summary>
         public virtual Block ParentBlock { get { return parentBlock; } set { parentBlock = value; } }
 
+        /// <summary>
+        /// The Event Handler should call this method when the event is detected to start executing the Block.
+        /// </summary>
         public virtual bool ExecuteBlock()
         {
             if (ParentBlock == null)
@@ -68,6 +74,9 @@ namespace Fungus
             return flowchart.ExecuteBlock(ParentBlock);
         }
 
+        /// <summary>
+        /// Returns custom summary text for the event handler.
+        /// </summary>
         public virtual string GetSummary()
         {
             return "";

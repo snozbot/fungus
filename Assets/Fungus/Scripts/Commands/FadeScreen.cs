@@ -33,7 +33,7 @@ namespace Fungus.Commands
         
         public override void OnEnter()
         {
-            ICameraController cameraController = CameraController.GetInstance();
+            var cameraController = CameraController.GetInstance();
             
             if (fadeTexture)
             {

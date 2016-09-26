@@ -10,7 +10,10 @@ using MoonSharp.Interpreter;
 
 namespace Fungus
 {
-    public class MenuDialog : MonoBehaviour, IMenuDialog
+    /// <summary>
+    /// Presents multiple choice buttons to the players.
+    /// </summary>
+    public class MenuDialog : MonoBehaviour
     {
         [Tooltip("Automatically select the first interactable button when the menu is shown.")]
         [SerializeField] protected bool autoSelectFirstButton = false;
@@ -18,37 +21,6 @@ namespace Fungus
         protected Button[] cachedButtons;
 
         protected Slider cachedSlider;
-
-        // Currently active Menu Dialog used to display Menu options
-        public static IMenuDialog activeMenuDialog;
-
-        public static IMenuDialog GetMenuDialog()
-        {
-            if (activeMenuDialog == null)
-            {
-                // Use first Menu Dialog found in the scene (if any)
-                IMenuDialog md = GameObject.FindObjectOfType<MenuDialog>();
-                if (md != null)
-                {
-                    activeMenuDialog = md;
-                }
-                
-                if (activeMenuDialog == null)
-                {
-                    // Auto spawn a menu dialog object from the prefab
-                    GameObject prefab = Resources.Load<GameObject>("Prefabs/MenuDialog");
-                    if (prefab != null)
-                    {
-                        GameObject go = Instantiate(prefab) as GameObject;
-                        go.SetActive(false);
-                        go.name = "MenuDialog";
-                        activeMenuDialog = go.GetComponent<IMenuDialog>();
-                    }
-                }
-            }
-
-            return activeMenuDialog;
-        }
 
         protected virtual void Awake()
         {
@@ -102,17 +74,67 @@ namespace Fungus
             }
         }
 
-        #region IMenuDialog implementation
+        #region Public methods
 
+        /// <summary>
+        /// Currently active Menu Dialog used to display Menu options
+        /// </summary>
+        public static MenuDialog ActiveMenuDialog { get; set; }
+
+        /// <summary>
+        /// Returns a menu dialog by searching for one in the scene or creating one if none exists.
+        /// </summary>
+        public static MenuDialog GetMenuDialog()
+        {
+            if (ActiveMenuDialog == null)
+            {
+                // Use first Menu Dialog found in the scene (if any)
+                var md = GameObject.FindObjectOfType<MenuDialog>();
+                if (md != null)
+                {
+                    ActiveMenuDialog = md;
+                }
+
+                if (ActiveMenuDialog == null)
+                {
+                    // Auto spawn a menu dialog object from the prefab
+                    GameObject prefab = Resources.Load<GameObject>("Prefabs/MenuDialog");
+                    if (prefab != null)
+                    {
+                        GameObject go = Instantiate(prefab) as GameObject;
+                        go.SetActive(false);
+                        go.name = "MenuDialog";
+                        ActiveMenuDialog = go.GetComponent<MenuDialog>();
+                    }
+                }
+            }
+
+            return ActiveMenuDialog;
+        }
+
+        /// <summary>
+        /// A cached list of button objects in the menu dialog.
+        /// </summary>
+        /// <value>The cached buttons.</value>
         public virtual Button[] CachedButtons { get { return cachedButtons; } }
 
+        /// <summary>
+        /// A cached slider object used for the timer in the menu dialog.
+        /// </summary>
+        /// <value>The cached slider.</value>
         public virtual Slider CachedSlider { get { return cachedSlider; } }
 
+        /// <summary>
+        /// Sets the active state of the Menu Dialog gameobject.
+        /// </summary>
         public virtual void SetActive(bool state)
         {
             gameObject.SetActive(state);
         }
 
+        /// <summary>
+        /// Clear all displayed options in the Menu Dialog.
+        /// </summary>
         public virtual void Clear()
         {
             StopAllCoroutines();
@@ -138,15 +160,26 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Hides any currently displayed Say Dialog.
+        /// </summary>
         public virtual void HideSayDialog()
         {
-            ISayDialog sayDialog = SayDialog.GetSayDialog();
+            var sayDialog = SayDialog.GetSayDialog();
             if (sayDialog != null)
             {
                 sayDialog.FadeWhenDone = true;
             }
         }
-            
+
+        /// <summary>
+        /// Adds the option to the list of displayed options. Calls a Block when selected.
+        /// Will cause the Menu dialog to become visible if it is not already visible.
+        /// </summary>
+        /// <returns><c>true</c>, if the option was added successfully.</returns>
+        /// <param name="text">The option text to display on the button.</param>
+        /// <param name="interactable">If false, the option is displayed but is not selectable.</param>
+        /// <param name="targetBlock">Block to execute when the option is selected.</param>
         public virtual bool AddOption(string text, bool interactable, Block targetBlock)
         {
             bool addedOption = false;
@@ -202,6 +235,11 @@ namespace Fungus
             return addedOption;
         }
 
+        /// <summary>
+        /// Adds the option to the list of displayed options, calls a Lua function when selected.
+        /// Will cause the Menu dialog to become visible if it is not already visible.
+        /// </summary>
+        /// <returns><c>true</c>, if the option was added successfully.</returns>
         public bool AddOption(string text, bool interactable, ILuaEnvironment luaEnv, Closure callBack)
         {
             if (!gameObject.activeSelf)
@@ -244,6 +282,11 @@ namespace Fungus
             return addedOption;
         }
 
+        /// <summary>
+        /// Show a timer during which the player can select an option. Calls a Block when the timer expires.
+        /// </summary>
+        /// <param name="duration">The duration during which the player can select an option.</param>
+        /// <param name="targetBlock">Block to execute if the player does not select an option in time.</param>
         public virtual void ShowTimer(float duration, Block targetBlock)
         {
             if (cachedSlider != null)
@@ -255,6 +298,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Show a timer during which the player can select an option. Calls a Lua function when the timer expires.
+        /// </summary>
         public IEnumerator ShowTimer(float duration, ILuaEnvironment luaEnv, Closure callBack)
         {
             if (CachedSlider == null ||
@@ -292,11 +338,17 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Returns true if the Menu Dialog is currently displayed.
+        /// </summary>
         public virtual bool IsActive()
         {
             return gameObject.activeInHierarchy;
         }
 
+        /// <summary>
+        /// Returns the number of currently displayed options.
+        /// </summary>
         public virtual int DisplayedOptionsCount
         {
             get {

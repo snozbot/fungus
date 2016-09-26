@@ -9,7 +9,10 @@ using Fungus;
 
 namespace Fungus
 {
-    public class CameraController : MonoBehaviour, ICameraController 
+    /// <summary>
+    /// Controller for main camera.Supports several types of camera transition including snap, pan & fade.
+    /// </summary>
+    public class CameraController : MonoBehaviour
     {
         [Tooltip("Full screen texture used for screen fade effect.")]
         [SerializeField] protected Texture2D screenFadeTexture;
@@ -48,13 +51,13 @@ namespace Fungus
         
         protected Dictionary<string, CameraView> storedViews = new Dictionary<string, CameraView>();
         
-        protected static ICameraController instance;
+        protected static CameraController instance;
         
         /// <summary>
         /// Returns the CameraController singleton instance.
         /// Will create a CameraController game object if none currently exists.
         /// </summary>
-        static public ICameraController GetInstance()
+        static public CameraController GetInstance()
         {
             if (instance == null)
             {
@@ -63,20 +66,6 @@ namespace Fungus
             }
             
             return instance;
-        }
-        
-        public static Texture2D CreateColorTexture(Color color, int width, int height)
-        {
-            Color[] pixels = new Color[width * height];
-            for (int i = 0; i < pixels.Length; i++) 
-            {
-                pixels[i] = color;
-            }
-            Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
-            texture.SetPixels(pixels);
-            texture.Apply();
-            
-            return texture;     
         }
         
         protected virtual void OnGUI()
@@ -361,15 +350,42 @@ namespace Fungus
             return cameraSize;
         }
 
-        #region ICameraController implementation
+        #region Public methods
 
+        /// <summary>
+        /// Creates a flat colored texture.
+        /// </summary>
+        public static Texture2D CreateColorTexture(Color color, int width, int height)
+        {
+            Color[] pixels = new Color[width * height];
+            for (int i = 0; i < pixels.Length; i++) 
+            {
+                pixels[i] = color;
+            }
+            Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
+            texture.SetPixels(pixels);
+            texture.Apply();
+
+            return texture;     
+        }
+            
+        /// <summary>
+        /// Full screen texture used for screen fade effect.
+        /// </summary>
+        /// <value>The screen fade texture.</value>
         public Texture2D ScreenFadeTexture { set { screenFadeTexture = value; } }
 
+        /// <summary>
+        /// Perform a fullscreen fade over a duration.
+        /// </summary>
         public virtual void Fade(float targetAlpha, float fadeDuration, Action fadeAction)
         {
             StartCoroutine(FadeInternal(targetAlpha, fadeDuration, fadeAction));
         }
 
+        /// <summary>
+        /// Fade out, move camera to view and then fade back in.
+        /// </summary>
         public virtual void FadeToView(Camera camera, View view, float fadeDuration, bool fadeOut, Action fadeAction)
         {
             swipePanActive = false;
@@ -405,11 +421,17 @@ namespace Fungus
             });
         }
 
+        /// <summary>
+        /// Stop all camera tweening.
+        /// </summary>
         public virtual void Stop()
         {
             StopAllCoroutines();
         }
 
+        /// <summary>
+        /// Moves camera from current position to a target position over a period of time.
+        /// </summary>
         public virtual void PanToPosition(Camera camera, Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, Action arriveAction)
         {
             if (camera == null)
@@ -443,6 +465,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Activates swipe panning mode. The player can pan the camera within the area between viewA & viewB.
+        /// </summary>
         public virtual void StartSwipePan(Camera camera, View viewA, View viewB, float duration, float speedMultiplier, Action arriveAction)
         {
             if (camera == null)
@@ -472,6 +497,9 @@ namespace Fungus
             }); 
         }
 
+        /// <summary>
+        /// Deactivates swipe panning mode.
+        /// </summary>
         public virtual void StopSwipePan()
         {
             swipePanActive = false;

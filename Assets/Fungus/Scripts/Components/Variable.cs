@@ -7,6 +7,36 @@ using System;
 namespace Fungus
 {
     /// <summary>
+    /// Standard comparison operators.
+    /// </summary>
+    public enum CompareOperator
+    {
+        /// <summary> == mathematical operator.</summary>
+        Equals,
+        /// <summary> != mathematical operator.</summary>
+        NotEquals,
+        /// <summary> < mathematical operator.</summary>
+        LessThan,
+        /// <summary> > mathematical operator.</summary>
+        GreaterThan,
+        /// <summary> <= mathematical operator.</summary>
+        LessThanOrEquals,
+        /// <summary> >= mathematical operator.</summary>
+        GreaterThanOrEquals
+    }
+
+    /// <summary>
+    /// Scope types for Variables.
+    /// </summary>
+    public enum VariableScope
+    {
+        /// <summary> Can only be accessed by commands in the same Flowchart. </summary>
+        Private,
+        /// <summary> Can be accessed from any command in any Flowchart. </summary>
+        Public
+    }
+
+    /// <summary>
     /// Attribute class for variables.
     /// </summary>
     public class VariableInfoAttribute : Attribute
@@ -48,18 +78,27 @@ namespace Fungus
     /// Abstract base class for variables.
     /// </summary>
     [RequireComponent(typeof(Flowchart))]
-    public abstract class Variable : MonoBehaviour, IVariable
+    public abstract class Variable : MonoBehaviour
     {
         [SerializeField] protected VariableScope scope;
 
         [SerializeField] protected string key = "";
 
-        #region IVariable implementation
+        #region Public methods
 
+        /// <summary>
+        /// Visibility scope for the variable.
+        /// </summary>
         public virtual VariableScope Scope { get { return scope; } }
 
+        /// <summary>
+        /// String identifier for the variable.
+        /// </summary>
         public virtual string Key { get { return key; } set { key = value; } }
 
+        /// <summary>
+        /// Callback to reset the variable if the Flowchart is reset.
+        /// </summary>
         public abstract void OnReset();
 
         #endregion

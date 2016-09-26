@@ -51,9 +51,9 @@ namespace Fungus.Commands
 
         [SerializeField] protected ColorData setColor = new ColorData(Color.white);
 
-        protected IWriter GetWriter()
+        protected Writer GetWriter()
         {
-            IWriter writer = textObject.GetComponent<IWriter>();
+            var writer = textObject.GetComponent<Writer>();
             if (writer == null)
             {
                 writer = textObject.AddComponent<Writer>();
@@ -70,7 +70,7 @@ namespace Fungus.Commands
                 return;
             }
         
-            IWriter writer = GetWriter();
+            var writer = GetWriter();
             if (writer == null)
             {
                 Continue();

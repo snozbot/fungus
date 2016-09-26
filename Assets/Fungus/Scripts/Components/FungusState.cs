@@ -10,12 +10,15 @@ namespace Fungus
     /// so that the same Flowchart can be displayed while editing & playing.
     /// </summary>
     [AddComponentMenu("")]
-    public class FungusState : MonoBehaviour, IFungusState 
+    public class FungusState : MonoBehaviour
     {
         [SerializeField] protected Flowchart selectedFlowchart;
 
-        #region IFungusState implementation
+        #region Public methods
 
+        /// <summary>
+        /// The currently selected Flowchart.
+        /// </summary>
         public virtual Flowchart SelectedFlowchart { get { return selectedFlowchart; } set { selectedFlowchart = value; } }
 
         #endregion

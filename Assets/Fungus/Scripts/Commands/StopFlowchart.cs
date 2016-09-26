@@ -23,14 +23,14 @@ namespace Fungus.Commands
 
         public override void OnEnter()
         {
-            IFlowchart flowchart = GetFlowchart();
+            var flowchart = GetFlowchart();
 
             if (stopParentFlowchart)
             {
                 flowchart.StopAllBlocks();
             }
 
-            foreach (IFlowchart f in targetFlowcharts)
+            foreach (var f in targetFlowcharts)
             {
                 if (f == flowchart)
                 {

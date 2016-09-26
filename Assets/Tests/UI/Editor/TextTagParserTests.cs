@@ -16,10 +16,8 @@ public class TextTagParserTests
 	[Test]
 	public void TextTagParser_Parser()
 	{
-		var textTagParser = new TextTagParser();
-
 		// Parse an example string, generate correct sequence of tags
-		List<TextTagToken> tokens = textTagParser.Tokenize("Words " + 
+        List<TextTagToken> tokens = TextTagParser.Tokenize("Words " + 
 		                                                          "{b}bold test{/b}" +
 		                                                          "{i}italic test{/i}" +
 		                                                          "{color=red}color test{/color}" +
@@ -181,10 +179,8 @@ public class TextTagParserTests
 	[Test]
 	public void TextTagParser_AudioWaitBug()
 	{
-		var textTagParser = new TextTagParser();
-		
 		// Parse an example string, generate correct sequence of tags
-		List<TextTagToken> tokens = textTagParser.Tokenize("Play sound{audio=BeepSound}{w=1} Play loop{audioloop=BeepSound}{w=3} Stop{audiostop=BeepSound}");
+        List<TextTagToken> tokens = TextTagParser.Tokenize("Play sound{audio=BeepSound}{w=1} Play loop{audioloop=BeepSound}{w=3} Stop{audiostop=BeepSound}");
 		
 		int i = 0;
 		Assert.That(tokens[i].type == TokenType.Words);

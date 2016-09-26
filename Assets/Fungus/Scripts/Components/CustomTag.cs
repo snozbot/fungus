@@ -10,7 +10,7 @@ namespace Fungus
     /// Create custom tags for use in Say text.
     /// </summary>
     [ExecuteInEditMode]
-    public class CustomTag : MonoBehaviour, ICustomTag 
+    public class CustomTag : MonoBehaviour
     {
         [Tooltip("String that defines the start of the tag.")]
         [SerializeField] protected string tagStartSymbol;
@@ -39,14 +39,26 @@ namespace Fungus
             activeCustomTags.Remove(this);
         }
 
-        #region ICustomTag implementation
+        #region Public methods
 
+        /// <summary>
+        /// String that defines the start of the tag.
+        /// </summary>
         public virtual string TagStartSymbol { get { return tagStartSymbol; } }
 
+        /// <summary>
+        /// String that defines the end of the tag.
+        /// </summary>
         public virtual string TagEndSymbol { get { return tagEndSymbol; } }
 
+        /// <summary>
+        /// String to replace the start tag with.
+        /// </summary>
         public virtual string ReplaceTagStartWith { get { return replaceTagStartWith; } }
 
+        /// <summary>
+        /// String to replace the end tag with.
+        /// </summary>
         public virtual string ReplaceTagEndWith { get { return replaceTagEndWith; } }
 
         #endregion
