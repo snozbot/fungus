@@ -74,7 +74,7 @@ namespace Fungus
             // Give each child command a reference back to its parent block
             // and tell each command its index in the list.
             int index = 0;
-            foreach (ICommand command in commandList)
+            foreach (var command in commandList)
             {
                 if (command == null)
                 {
@@ -100,7 +100,7 @@ namespace Fungus
         protected virtual void Update()
         {
             int index = 0;
-            foreach (ICommand command in commandList)
+            foreach (var command in commandList)
             {
                 if (command == null) // Null entry will be deleted automatically later
                 {
@@ -358,7 +358,7 @@ namespace Fungus
         public virtual void UpdateIndentLevels()
         {
             int indentLevel = 0;
-            foreach (ICommand command in commandList)
+            foreach (var command in commandList)
             {
                 if (command == null)
                 {

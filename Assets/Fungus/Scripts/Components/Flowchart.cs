@@ -211,7 +211,7 @@ namespace Fungus
                 usedIds.Add(block.ItemId);
             }
             
-            var commands = GetComponents<ICommand>();
+            var commands = GetComponents<Command>();
             foreach (var command in commands)
             {
                 if (command.ItemId == -1 ||
@@ -413,7 +413,7 @@ namespace Fungus
                 maxId = Math.Max(maxId, block.ItemId);
             }
 
-            var commands = GetComponents<ICommand>();
+            var commands = GetComponents<Command>();
             foreach (var command in commands)
             {
                 maxId = Math.Max(maxId, command.ItemId);
@@ -940,7 +940,7 @@ namespace Fungus
         {
             if (resetCommands)
             {
-                ICommand[] commands = GetComponents<ICommand>();
+                var commands = GetComponents<Command>();
                 foreach (var command in commands)
                 {
                     command.OnReset();

@@ -37,7 +37,7 @@ namespace Fungus
     /// <summary>
     /// Base class for Commands. Commands can be added to Blocks to create an execution sequence.
     /// </summary>
-    public class Command : MonoBehaviour, ICommand
+    public abstract class Command : MonoBehaviour
     {
         [FormerlySerializedAs("commandId")]
         [HideInInspector]
@@ -48,7 +48,7 @@ namespace Fungus
 
         protected string errorMessage = "";
 
-        #region ICommand implementation
+        #region Public methods
 
         /// <summary>
         /// Unique identifier for this command.

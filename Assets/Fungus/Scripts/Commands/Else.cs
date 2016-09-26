@@ -32,8 +32,8 @@ namespace Fungus.Commands
             int indent = indentLevel;
             for (int i = CommandIndex + 1; i < ParentBlock.CommandList.Count; ++i)
             {
-                ICommand command = ParentBlock.CommandList[i];
-                
+                var command = ParentBlock.CommandList[i];
+
                 if (command.IndentLevel == indent)
                 {
                     System.Type type = command.GetType();
