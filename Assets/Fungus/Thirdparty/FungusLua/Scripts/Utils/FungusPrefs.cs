@@ -9,7 +9,7 @@ namespace Fungus
     /// Wrapper class for PlayerPrefs that adds the concept of multiple save slots.
     /// Save slots allow you to store multiple player save profiles.
     /// </summary>
-    public class FungusPrefs
+    public static class FungusPrefs
     {
         /// <summary>
         /// Deletes all saved values for all slots.
