@@ -16,7 +16,7 @@ namespace Fungus
     /// The RigidBody would typically have the Is Kinematic property set to true, unless you want the object to move around using physics.
     /// Use in conjunction with the Drag Started, Drag Completed, Drag Cancelled, Drag Entered & Drag Exited event handlers.
     /// </summary>
-    public class Draggable2D : MonoBehaviour, IDraggable2D, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+    public class Draggable2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Tooltip("Is object dragging enabled")]
         [SerializeField] protected bool dragEnabled = true;
@@ -232,8 +232,12 @@ namespace Fungus
 
         #endregion
 
-        #region IDraggable2D implementation
+        #region Public methods
 
+        /// <summary>
+        /// Is object drag and drop enabled.
+        /// </summary>
+        /// <value><c>true</c> if drag enabled; otherwise, <c>false</c>.</value>
         public virtual bool DragEnabled { get { return dragEnabled; } set { dragEnabled = value; } }
 
         #endregion
