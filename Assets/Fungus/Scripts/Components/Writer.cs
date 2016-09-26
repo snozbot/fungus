@@ -833,7 +833,7 @@ namespace Fungus
                 tokenText += "{wi}";
             }
 
-            ITextTagParser tagParser = new TextTagParser();
+            var tagParser = new TextTagParser();
             List<TextTagToken> tokens = tagParser.Tokenize(tokenText);
 
             gameObject.SetActive(true);

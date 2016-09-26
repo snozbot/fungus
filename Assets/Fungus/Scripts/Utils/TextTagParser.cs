@@ -10,7 +10,7 @@ namespace Fungus.Utils
     /// <summary>
     /// Parses a string for special Fungus text tags.
     /// </summary>
-    public class TextTagParser : ITextTagParser
+    public class TextTagParser
     {
         public static string GetTagHelp()
         {
@@ -217,8 +217,11 @@ namespace Fungus.Utils
             return paramsList;
         }
 
-        #region ITextTagParser implementation
+        #region Public methods
 
+        /// <summary>
+        /// Processes a block of story text and converts it to a list of tokens.
+        /// </summary>
         public virtual List<TextTagToken> Tokenize(string storyText)
         {
             List<TextTagToken> tokens = new List<TextTagToken>();
