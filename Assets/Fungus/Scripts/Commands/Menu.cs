@@ -48,7 +48,7 @@ namespace Fungus.Commands
 
             if (!hideOption)
             {
-                IMenuDialog menuDialog = MenuDialog.GetMenuDialog();
+                var menuDialog = MenuDialog.GetMenuDialog();
                 if (menuDialog != null)
                 {
                     menuDialog.SetActive(true);
