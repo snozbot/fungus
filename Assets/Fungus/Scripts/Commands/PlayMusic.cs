@@ -28,7 +28,7 @@ namespace Fungus.Commands
 
         public override void OnEnter()
         {
-            IMusicController musicController = MusicController.GetInstance();
+            var musicController = MusicController.GetInstance();
             if (musicController != null)
             {
                 float startTime = Mathf.Max(0, atTime);

@@ -32,7 +32,7 @@ namespace Fungus.Commands
                 return;
             }
 
-            IMusicController musicController = MusicController.GetInstance();
+            var musicController = MusicController.GetInstance();
             if (musicController != null)
             {
                 musicController.PlaySound(soundClip, volume);
