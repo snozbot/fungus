@@ -24,7 +24,7 @@ namespace Fungus
     /// <summary>
     /// Input handler for say dialogs.
     /// </summary>
-    public class DialogInput : MonoBehaviour, IDialogInput
+    public class DialogInput : MonoBehaviour
     {
         [Tooltip("Click to advance story")]
         [SerializeField] protected ClickMode clickMode;
@@ -123,14 +123,20 @@ namespace Fungus
             }
         }
 
-        #region IDialogInput
+        #region Public methods
 
-        public void SetNextLineFlag()
+        /// <summary>
+        /// Trigger next line input event from script.
+        /// </summary>
+        public virtual void SetNextLineFlag()
         {
             nextLineInputFlag = true;
         }
 
-        public void SetDialogClickedFlag()
+        /// <summary>
+        /// Set the dialog clicked flag (usually from an Event Trigger component in the dialog UI).
+        /// </summary>
+        public virtual void SetDialogClickedFlag()
         {
             // Ignore repeat clicks for a short time to prevent accidentally clicking through the character dialogue
             if (ignoreClickTimer > 0f)
@@ -146,7 +152,10 @@ namespace Fungus
             }
         }
 
-        public void SetButtonClickedFlag()
+        /// <summary>
+        /// Sets the button clicked flag.
+        /// </summary>
+        public virtual void SetButtonClickedFlag()
         {
             // Only applies if clicking is not disabled
             if (clickMode != ClickMode.Disabled)
