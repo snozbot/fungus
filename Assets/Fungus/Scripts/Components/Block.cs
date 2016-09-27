@@ -213,6 +213,7 @@ namespace Fungus
 
             var flowchart = GetFlowchart();
             executionState = ExecutionState.Executing;
+            BlockSignals.DoBlockStart(this);
 
             #if UNITY_EDITOR
             // Select the executing block & the first command
@@ -278,6 +279,7 @@ namespace Fungus
                 // This icon timer is managed by the FlowchartWindow class, but we also need to
                 // set it here in case a command starts and finishes execution before the next window update.
                 command.ExecutingIconTimer = Time.realtimeSinceStartup + FungusConstants.ExecutingIconFadeTime;
+                BlockSignals.DoCommandExecute(this, command, i, commandList.Count);
                 command.Execute();
 
                 // Wait until the executing command sets another command to jump to via Command.Continue()
@@ -298,6 +300,7 @@ namespace Fungus
 
             executionState = ExecutionState.Idle;
             activeCommand = null;
+            BlockSignals.DoBlockEnd(this);
 
             if (onComplete != null)
             {

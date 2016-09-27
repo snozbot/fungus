@@ -15,22 +15,22 @@ namespace Fungus
         /// <summary>
         /// TextTagToken signal. Sent for each unique token when writing text.
         /// </summary>
-        public delegate void TextTagTokenHandler(Writer writer, TextTagToken token, int index, int maxIndex);
         public static event TextTagTokenHandler OnTextTagToken;
+        public delegate void TextTagTokenHandler(Writer writer, TextTagToken token, int index, int maxIndex);
         public static void DoTextTagToken(Writer writer, TextTagToken token, int index, int maxIndex) { if(OnTextTagToken != null) OnTextTagToken(writer, token, index, maxIndex); }
 
         /// <summary>
         /// WriterState signal. Sent when the writer changes state.
         /// </summary>
-        public delegate void WriterStateHandler(Writer writer, WriterState writerState);
         public static event WriterStateHandler OnWriterState;
+        public delegate void WriterStateHandler(Writer writer, WriterState writerState);
         public static void DoWriterState(Writer writer, WriterState writerState) { if (OnWriterState != null) OnWriterState(writer, writerState); }
 
         /// <summary>
         /// WriterInput signal. Sent when the writer receives player input.
         /// </summary>
-        public delegate void WriterInputHandler(Writer writer);
         public static event WriterInputHandler OnWriterInput;
+        public delegate void WriterInputHandler(Writer writer);
         public static void DoWriterInput(Writer writer) { if (OnWriterInput != null) OnWriterInput(writer); }
 
         /// <summary>
