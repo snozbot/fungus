@@ -736,6 +736,8 @@ namespace Fungus
 
         protected virtual void NotifyGlyph()
         {
+            WriterSignals.DoWriterGlyph(this); 
+
             foreach (IWriterListener writerListener in writerListeners)
             {
                 writerListener.OnGlyph();

@@ -32,6 +32,13 @@ namespace Fungus
         public static event WriterInputHandler OnWriterInput;
         public static void DoWriterInput(Writer writer) { if (OnWriterInput != null) OnWriterInput(writer); }
 
+        /// <summary>
+        /// WriterGlyph signal. Sent when the writer writes out a glyph.
+        /// </summary>
+        public delegate void WriterGlyphHandler(Writer writer);
+        public static event WriterGlyphHandler OnWriterGlyph;
+        public static void DoWriterGlyph(Writer writer) { if (OnWriterGlyph != null) OnWriterGlyph(writer); }
+
         #endregion
     }
 }

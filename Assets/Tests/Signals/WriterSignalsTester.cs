@@ -11,12 +11,14 @@ namespace Fungus
     {
         int correctTagCount = 0;
         bool receivedInput = false;
+        int glyphCount = 0;
 
         void OnEnable() 
         {
             WriterSignals.OnTextTagToken += OnTextTagToken;
             WriterSignals.OnWriterState += OnWriterState;
             WriterSignals.OnWriterInput += OnWriterInput;
+            WriterSignals.OnWriterGlyph += OnWriterGlyph;
     	}
     	
         void OnDisable()
@@ -24,6 +26,7 @@ namespace Fungus
             WriterSignals.OnTextTagToken -= OnTextTagToken;
             WriterSignals.OnWriterState -= OnWriterState;
             WriterSignals.OnWriterInput -= OnWriterInput;
+            WriterSignals.OnWriterGlyph -= OnWriterGlyph;
         }
 
         void OnTextTagToken(Writer writer, TextTagToken token, int index, int maxIndex)
@@ -72,6 +75,11 @@ namespace Fungus
                     IntegrationTest.Fail();
                 }
 
+                if (glyphCount != 6)
+                {
+                    IntegrationTest.Fail();
+                }
+
                 IntegrationTest.Pass();
             }
         }
@@ -79,6 +87,11 @@ namespace Fungus
         void OnWriterInput(Writer writer)
         {
             receivedInput = true;
+        }
+
+        void OnWriterGlyph(Writer writer)
+        {
+            glyphCount++;
         }
     }
 }
