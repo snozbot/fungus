@@ -306,7 +306,7 @@ MonoBehaviour:
   textObject: {fileID: 41796120}
   text:
     stringRef: {fileID: 0}
-    stringVal: '{b}hello{/b}'
+    stringVal: '{b}{w=0.5}hello{/b}'
   description: 
   clearText: 1
   waitUntilFinished: 1
@@ -378,8 +378,9 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlock: {fileID: 0}
-  selectedCommands: []
+  selectedBlock: {fileID: 411939903}
+  selectedCommands:
+  - {fileID: 411939901}
   variables: []
   description: Check that Writer signals are sending correctly
   stepPause: 0
