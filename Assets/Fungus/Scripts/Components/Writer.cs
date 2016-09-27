@@ -686,6 +686,8 @@ namespace Fungus
 
         protected virtual void NotifyInput()
         {
+            WriterSignals.DoWriterInput(this);
+
             foreach (IWriterListener writerListener in writerListeners)
             {
                 writerListener.OnInput();

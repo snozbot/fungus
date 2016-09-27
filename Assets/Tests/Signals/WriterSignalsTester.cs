@@ -10,16 +10,20 @@ namespace Fungus
     public class WriterSignalsTester : MonoBehaviour 
     {
         int correctTagCount = 0;
+        bool receivedInput = false;
 
         void OnEnable() 
         {
             WriterSignals.OnTextTagToken += OnTextTagToken;
             WriterSignals.OnWriterState += OnWriterState;
+            WriterSignals.OnWriterInput += OnWriterInput;
     	}
     	
         void OnDisable()
         {
             WriterSignals.OnTextTagToken -= OnTextTagToken;
+            WriterSignals.OnWriterState -= OnWriterState;
+            WriterSignals.OnWriterInput -= OnWriterInput;
         }
 
         void OnTextTagToken(Writer writer, TextTagToken token, int index, int maxIndex)
@@ -63,8 +67,18 @@ namespace Fungus
 
             if (writerState == WriterState.End)
             {
+                if (!receivedInput)
+                {
+                    IntegrationTest.Fail();
+                }
+
                 IntegrationTest.Pass();
             }
+        }
+
+        void OnWriterInput(Writer writer)
+        {
+            receivedInput = true;
         }
     }
 }

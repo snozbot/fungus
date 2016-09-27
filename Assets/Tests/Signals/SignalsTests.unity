@@ -100,6 +100,7 @@ GameObject:
   - 224: {fileID: 41796123}
   - 222: {fileID: 41796122}
   - 114: {fileID: 41796121}
+  - 114: {fileID: 41796124}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -164,6 +165,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 96}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &41796124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 41796120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a676940fce6344af1a70043b089a6c14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTextObject: {fileID: 41796120}
+  punchObject: {fileID: 41796120}
+  writingSpeed: 60
+  punctuationPause: 0.25
+  hiddenTextColor: {r: 1, g: 1, b: 1, a: 0}
+  writeWholeWords: 0
+  forceRichText: 1
+  instantComplete: 1
 --- !u!1 &147434164
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &147434165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,6 +290,10 @@ GameObject:
   - 114: {fileID: 411939903}
   - 114: {fileID: 411939902}
   - 114: {fileID: 411939901}
+  - 114: {fileID: 411939908}
+  - 114: {fileID: 411939907}
+  - 114: {fileID: 411939906}
+  - 114: {fileID: 411939905}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -306,7 +330,7 @@ MonoBehaviour:
   textObject: {fileID: 41796120}
   text:
     stringRef: {fileID: 0}
-    stringVal: '{b}{w=0.5}hello{/b}'
+    stringVal: '{b}{w=1}hello{/b}'
   description: 
   clearText: 1
   waitUntilFinished: 1
@@ -350,7 +374,7 @@ MonoBehaviour:
     height: 40
   itemId: 0
   blockName: Start
-  description: 
+  description: Starts writing text using a Writer
   eventHandler: {fileID: 411939902}
   commandList:
   - {fileID: 411939901}
@@ -374,13 +398,12 @@ MonoBehaviour:
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
-    x: -343
-    y: -340
-    width: 1114
-    height: 859
+    x: -350
+    y: -350
+    width: 1121
+    height: 869
   selectedBlock: {fileID: 411939903}
-  selectedCommands:
-  - {fileID: 411939901}
+  selectedCommands: []
   variables: []
   description: Check that Writer signals are sending correctly
   stepPause: 0
@@ -392,6 +415,85 @@ MonoBehaviour:
   hideCommands: []
   luaEnvironment: {fileID: 0}
   luaBindingName: flowchart
+--- !u!114 &411939905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 411939899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688e35811870d403f9e2b1ab2a699d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 4
+  indentLevel: 0
+  targetObject: {fileID: 41796120}
+  targetComponentAssemblyName: Fungus.Writer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  targetComponentFullname: UnityEngine.Component[]
+  targetComponentText: Writer
+  targetMethod: OnNextLineEvent
+  targetMethodText: 'OnNextLineEvent (): Void'
+  methodParameters: []
+  saveReturnValue: 0
+  returnValueVariableKey: 
+  returnValueType: System.Void
+  showInherited: 0
+  callMode: 0
+--- !u!114 &411939906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 411939899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 3
+  indentLevel: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 0.5
+  durationOLD: 0
+--- !u!114 &411939907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 411939899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 411939908}
+--- !u!114 &411939908
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 411939899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 249
+    y: 69
+    width: 120
+    height: 40
+  itemId: 2
+  blockName: DoInput
+  description: Sends an input event to the Writer after a short delay
+  eventHandler: {fileID: 411939907}
+  commandList:
+  - {fileID: 411939906}
+  - {fileID: 411939905}
 --- !u!1 &597475644
 GameObject:
   m_ObjectHideFlags: 0

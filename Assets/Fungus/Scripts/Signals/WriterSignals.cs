@@ -25,6 +25,13 @@ namespace Fungus
         public static event WriterStateHandler OnWriterState;
         public static void DoWriterState(Writer writer, WriterState writerState) { if (OnWriterState != null) OnWriterState(writer, writerState); }
 
+        /// <summary>
+        /// WriterInput signal. Sent when the writer receives player input.
+        /// </summary>
+        public delegate void WriterInputHandler(Writer writer);
+        public static event WriterInputHandler OnWriterInput;
+        public static void DoWriterInput(Writer writer) { if (OnWriterInput != null) OnWriterInput(writer); }
+
         #endregion
     }
 }
