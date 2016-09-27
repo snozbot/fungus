@@ -13,6 +13,23 @@ using Fungus.Utils;
 namespace Fungus
 {
     /// <summary>
+    /// Current state of the writing process.
+    /// </summary>
+    public enum WriterState
+    {
+        /// <summary> Invalid state. </summary>
+        Invalid,
+        /// <summary> Writer has started writing. </summary>
+        Start,
+        /// <summary> Writing has been paused. </summary>
+        Pause,
+        /// <summary> Writing has resumed after a pause. </summary>
+        Resume,
+        /// <summary> Writing has ended. </summary>
+        End
+    }
+
+    /// <summary>
     /// Writes text using a typewriter effect to a UI text object.
     /// </summary>
     public class Writer : MonoBehaviour, IDialogInputListener
@@ -232,8 +249,12 @@ namespace Fungus
 
             TokenType previousTokenType = TokenType.Invalid;
 
-            foreach (TextTagToken token in tokens)
+            for (int i = 0; i < tokens.Count; ++i)
             {
+                var token = tokens[i];
+
+                // Notify listeners about new token
+                WriterSignals.DoTextTagToken(this, token, i, tokens.Count);
 
                 switch (token.type)
                 {
@@ -665,6 +686,8 @@ namespace Fungus
 
         protected virtual void NotifyInput()
         {
+            WriterSignals.DoWriterInput(this);
+
             foreach (IWriterListener writerListener in writerListeners)
             {
                 writerListener.OnInput();
@@ -673,6 +696,8 @@ namespace Fungus
 
         protected virtual void NotifyStart(AudioClip audioClip)
         {
+            WriterSignals.DoWriterState(this, WriterState.Start);
+
             foreach (IWriterListener writerListener in writerListeners)
             {
                 writerListener.OnStart(audioClip);
@@ -681,6 +706,8 @@ namespace Fungus
 
         protected virtual void NotifyPause()
         {
+            WriterSignals.DoWriterState(this, WriterState.Pause);
+
             foreach (IWriterListener writerListener in writerListeners)
             {
                 writerListener.OnPause();
@@ -689,6 +716,8 @@ namespace Fungus
 
         protected virtual void NotifyResume()
         {
+            WriterSignals.DoWriterState(this, WriterState.Resume);
+
             foreach (IWriterListener writerListener in writerListeners)
             {
                 writerListener.OnResume();
@@ -697,6 +726,8 @@ namespace Fungus
 
         protected virtual void NotifyEnd(bool stopAudio)
         {
+            WriterSignals.DoWriterState(this, WriterState.End);
+
             foreach (IWriterListener writerListener in writerListeners)
             {
                 writerListener.OnEnd(stopAudio);
@@ -705,6 +736,8 @@ namespace Fungus
 
         protected virtual void NotifyGlyph()
         {
+            WriterSignals.DoWriterGlyph(this); 
+
             foreach (IWriterListener writerListener in writerListeners)
             {
                 writerListener.OnGlyph();
