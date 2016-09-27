@@ -234,6 +234,7 @@ namespace Fungus
 
             foreach (TextTagToken token in tokens)
             {
+                WriterSignals.DoTextTagToken(this, token);
 
                 switch (token.type)
                 {

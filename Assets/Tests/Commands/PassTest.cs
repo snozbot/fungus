@@ -6,10 +6,10 @@ using System.Collections;
 
 namespace Fungus
 {
-
 	[CommandInfo("Tests",
 	             "Pass",
 	             "Passes the current integration test")]
+    [AddComponentMenu("")]
 	public class PassTest : Command
 	{
 		public override void OnEnter()
@@ -19,5 +19,4 @@ namespace Fungus
 			Continue();
 		}
 	}
-
 }

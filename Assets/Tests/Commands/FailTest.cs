@@ -6,10 +6,10 @@ using System.Collections;
 
 namespace Fungus
 {
-
 	[CommandInfo("Tests",
 	             "Fail",
 	             "Fails the current integration test")]
+    [AddComponentMenu("")]
 	public class FailTest : Command
 	{
 		public string failMessage;
@@ -21,5 +21,4 @@ namespace Fungus
 			Continue();
 		}
 	}
-
 }
