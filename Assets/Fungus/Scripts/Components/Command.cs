@@ -48,7 +48,7 @@ namespace Fungus
 
         protected string errorMessage = "";
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Unique identifier for this command.

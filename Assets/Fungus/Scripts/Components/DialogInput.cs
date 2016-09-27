@@ -123,7 +123,7 @@ namespace Fungus
             }
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Trigger next line input event from script.

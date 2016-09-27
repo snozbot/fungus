@@ -41,7 +41,7 @@ namespace Fungus
         [FormerlySerializedAs("parentSequence")]
         [SerializeField] protected Block parentBlock;
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// The parent Block which owns this Event Handler.

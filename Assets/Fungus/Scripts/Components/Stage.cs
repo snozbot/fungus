@@ -65,7 +65,7 @@ namespace Fungus
             }
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Returns the currently active stage.

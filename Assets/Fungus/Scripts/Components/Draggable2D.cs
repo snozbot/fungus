@@ -232,7 +232,7 @@ namespace Fungus
 
         #endregion
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Is object drag and drop enabled.

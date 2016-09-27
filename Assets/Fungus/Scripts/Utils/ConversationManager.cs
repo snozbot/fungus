@@ -264,7 +264,7 @@ namespace Fungus.Utils
             return item;
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Caches the character objects in the scene for fast lookup during conversations.

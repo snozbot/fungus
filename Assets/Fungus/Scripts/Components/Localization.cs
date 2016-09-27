@@ -227,7 +227,7 @@ namespace Fungus
             }
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Looks up the specified string in the localized strings table.

@@ -39,7 +39,7 @@ namespace Fungus
             activeCustomTags.Remove(this);
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// String that defines the start of the tag.

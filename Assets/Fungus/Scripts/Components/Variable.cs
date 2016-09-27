@@ -84,7 +84,7 @@ namespace Fungus
 
         [SerializeField] protected string key = "";
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Visibility scope for the variable.

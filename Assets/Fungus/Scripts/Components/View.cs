@@ -27,7 +27,7 @@ namespace Fungus
             transform.localScale = new Vector3(1,1,1);
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Orthographic size of the camera view in world units.

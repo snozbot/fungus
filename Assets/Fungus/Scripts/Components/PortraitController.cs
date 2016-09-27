@@ -279,7 +279,7 @@ namespace Fungus
             }
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Performs a deep copy of all values from one RectTransform to another.

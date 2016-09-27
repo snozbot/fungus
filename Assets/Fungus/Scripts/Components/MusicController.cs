@@ -36,7 +36,7 @@ namespace Fungus
             GetComponent<AudioSource>().loop = true;
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Plays game music using an audio clip.

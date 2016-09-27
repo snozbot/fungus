@@ -744,7 +744,7 @@ namespace Fungus
             }
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Gets or sets the text property of the attached text object.

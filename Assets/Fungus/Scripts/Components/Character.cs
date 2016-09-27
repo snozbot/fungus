@@ -54,7 +54,7 @@ namespace Fungus
             activeCharacters.Remove(this);
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Character name as displayed in Say Dialog.

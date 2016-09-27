@@ -11,7 +11,7 @@ namespace Fungus
     /// </summary>
     public static class FungusPrefs
     {
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Deletes all saved values for all slots.

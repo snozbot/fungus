@@ -187,7 +187,7 @@ namespace Fungus.Utils
             return paramsList;
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Returns a description of the supported tags.

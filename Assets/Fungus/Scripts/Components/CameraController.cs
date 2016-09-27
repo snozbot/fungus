@@ -350,7 +350,7 @@ namespace Fungus
             return cameraSize;
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Creates a flat colored texture.

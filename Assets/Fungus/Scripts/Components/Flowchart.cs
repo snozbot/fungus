@@ -270,7 +270,7 @@ namespace Fungus
             return block;
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Cached list of flowchart objects in the scene for fast lookup.

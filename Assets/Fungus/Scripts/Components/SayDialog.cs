@@ -182,7 +182,7 @@ namespace Fungus
             }
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Currently active Say Dialog used to display Say text

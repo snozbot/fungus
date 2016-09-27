@@ -14,7 +14,7 @@ namespace Fungus
     {
         [SerializeField] protected Flowchart selectedFlowchart;
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// The currently selected Flowchart.

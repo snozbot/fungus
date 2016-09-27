@@ -88,7 +88,7 @@ namespace Fungus
 
         #endregion
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Is object clicking enabled.

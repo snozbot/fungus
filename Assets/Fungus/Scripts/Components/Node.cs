@@ -13,7 +13,7 @@ namespace Fungus
     {
         [SerializeField] protected Rect nodeRect = new Rect(0, 0, 120, 30);
 
-        #region Public methods
+        #region Public members
 
         public virtual Rect _NodeRect { get { return nodeRect; } set { nodeRect = value; } }
 

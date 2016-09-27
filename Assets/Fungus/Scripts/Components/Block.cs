@@ -112,7 +112,7 @@ namespace Fungus
         }
 #endif
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// The execution state of the Block.

@@ -74,7 +74,7 @@ namespace Fungus
             }
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Currently active Menu Dialog used to display Menu options
