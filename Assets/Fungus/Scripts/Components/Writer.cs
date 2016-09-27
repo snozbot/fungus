@@ -232,9 +232,12 @@ namespace Fungus
 
             TokenType previousTokenType = TokenType.Invalid;
 
-            foreach (TextTagToken token in tokens)
+            for (int i = 0; i < tokens.Count; ++i)
             {
-                WriterSignals.DoTextTagToken(this, token);
+                var token = tokens[i];
+
+                // Notify listeners about new token
+                WriterSignals.DoTextTagToken(this, token, i, tokens.Count);
 
                 switch (token.type)
                 {

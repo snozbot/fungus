@@ -9,8 +9,6 @@ namespace Fungus
     [AddComponentMenu("")]
     public class WriterSignalsTester : MonoBehaviour 
     {
-        int step = 0;
-
         void OnEnable() 
         {
             WriterSignals.OnTextTagToken += OnTextTagToken;
@@ -21,17 +19,17 @@ namespace Fungus
             WriterSignals.OnTextTagToken -= OnTextTagToken;
         }
 
-        void OnTextTagToken(Writer writer, TextTagToken token)
+        void OnTextTagToken(Writer writer, TextTagToken token, int index, int maxIndex)
         {
-            if (step == 0 && token.type == TokenType.BoldStart)
+            if (index == 0 && token.type != TokenType.BoldStart)
             {
-                step = 1;
+                IntegrationTest.Fail();
             }
-            else if (step == 1 && token.type == TokenType.Words)
+            else if (index == 1 && token.type != TokenType.Words)
             {
-                step = 2;
+                IntegrationTest.Fail();
             }
-            else if (step == 2 && token.type == TokenType.BoldEnd)
+            else if (index == 2 && token.type == TokenType.BoldEnd)
             {
                 IntegrationTest.Pass();
             }
