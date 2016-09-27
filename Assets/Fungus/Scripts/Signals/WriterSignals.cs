@@ -6,6 +6,7 @@ namespace Fungus
 {
     /// <summary>
     /// Writer event signalling system.
+    /// You can use this to be notified about various events in the writing process.
     /// </summary>
     public static class WriterSignals
     {
