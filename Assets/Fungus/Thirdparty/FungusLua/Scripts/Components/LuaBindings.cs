@@ -73,7 +73,7 @@ namespace Fungus
             }
         }
 
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Add all declared bindings to the globals table.

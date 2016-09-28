@@ -30,7 +30,8 @@
 		"Fungus.Variables.TransformVariable",
 		"Fungus.Variable",
 		"Fungus.Variables.Vector2Variable",
-		"Fungus.Variables.Vector3Variable"
+		"Fungus.Variables.Vector3Variable",
+        "Fungus.Commands.Label"
 	],
 	"extensionTypes" : [
 	]

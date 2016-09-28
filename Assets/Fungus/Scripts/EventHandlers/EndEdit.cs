@@ -28,7 +28,7 @@ namespace Fungus.EventHandlers
             ExecuteBlock();
         }
 
-        #region Public methods
+        #region Public members
 
         public override string GetSummary()
         {

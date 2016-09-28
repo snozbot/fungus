@@ -247,7 +247,7 @@ namespace Fungus
             }
         }
             
-        #region Public methods
+        #region Public members
 
         /// <summary>
         /// Execute after a period of time.

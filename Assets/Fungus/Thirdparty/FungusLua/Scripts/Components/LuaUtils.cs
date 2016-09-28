@@ -14,9 +14,19 @@ using Fungus.Utils;
 namespace Fungus
 {
     /// <summary>
+    /// Options for using the Lua FungusModule.
+    /// </summary>
+    public enum FungusModuleOptions
+    {
+        UseGlobalVariables, // Fungus helper items will be available as global variables.
+        UseFungusVariable,  // Fungus helper items will be available in the 'fungus' global variable.
+        NoFungusModule      // The fungus helper module will not be loaded.
+    }
+
+    /// <summary>
     /// A collection of utilites to use in Lua for common Unity / Fungus tasks.
     /// </summary>
-    public class LuaUtils : LuaEnvironmentInitializer, ISubstitutionHandler, ILuaUtils
+    public class LuaUtils : LuaEnvironmentInitializer, ISubstitutionHandler
     {
         [Tooltip("Controls if the fungus utilities are accessed from globals (e.g. say) or via a fungus variable (e.g. fungus.say). You can also choose to disable loading the fungus module if it's not required by your script.")]
         [SerializeField] protected FungusModuleOptions fungusModule = FungusModuleOptions.UseGlobalVariables;
@@ -262,39 +272,17 @@ namespace Fungus
             }
         }
 
-        #region LuaEnvironment.Initializer implementation
+        #region Public members
 
-        public override void Initialize()
-        {   
-            luaEnvironment = GetComponent<LuaEnvironment>();
-            if (luaEnvironment == null)
-            {
-                Debug.LogError("No Lua Environment found");
-                return;
-            }
-
-            if (luaEnvironment.Interpreter == null)
-            {
-                Debug.LogError("No Lua interpreter found");
-                return;
-            }
-
-            InitTypes();
-            InitFungusModule();
-            InitBindings();
-        }
-
-        public override string PreprocessScript(string input)
-        {
-            return input;
-        }
-
-        #endregion
-
-        #region ILuaUtils implementation
-
+        /// <summary>
+        /// The currently selected language in the string table. Affects variable substitution.
+        /// </summary>
         public virtual string ActiveLanguage { get { return activeLanguage; } set { activeLanguage = value; } }
 
+        /// <summary>
+        /// Returns a string from the string table for this key.
+        /// The string returned depends on the active language.
+        /// </summary>
         public virtual string GetString(string key)
         {
             if (stringTable != null)
@@ -314,6 +302,11 @@ namespace Fungus
             return "";
         }
 
+        /// <summary>
+        /// Implementation of StringSubstituter.ISubstitutionHandler
+        /// Substitutes specially formatted tokens in the text with global variables and string table values.
+        /// The string table value used depends on the currently loaded string table and active language.
+        /// </summary>
         [MoonSharpHidden]
         public virtual bool SubstituteStrings(StringBuilder input)
         {
@@ -382,36 +375,60 @@ namespace Fungus
             return modified;
         }
 
+        /// <summary>
+        /// Performs string substitution on the input string, replacing tokens of the form {$VarName} with 
+        /// matching variables, localised strings, etc. in the scene.
+        /// </summary>
         public virtual string Substitute(string input)
         {
             return stringSubstituter.SubstituteStrings(input);
         }
-            
+
+        /// <summary>
+        /// Find a game object by name and returns it.
+        /// </summary>
         public virtual GameObject Find(string name)
         {
             return GameObject.Find(name);
         }
 
+        /// <summary>
+        /// Returns one active GameObject tagged tag. Returns null if no GameObject was found.
+        /// </summary>
         public virtual GameObject FindWithTag(string tag)
         {
             return GameObject.FindGameObjectWithTag(tag);
         }
 
+        /// <summary>
+        /// Returns a list of active GameObjects tagged tag. Returns empty array if no GameObject was found.
+        /// </summary>
         public virtual GameObject[] FindGameObjectsWithTag(string tag)
         {
             return GameObject.FindGameObjectsWithTag(tag);
         }
-            
+
+        /// <summary>
+        /// Create a copy of a GameObject.
+        /// Can be used to instantiate prefabs.
+        /// </summary>
         public virtual GameObject Instantiate(GameObject go)
         {
             return GameObject.Instantiate(go);
         }
 
+        /// <summary>
+        /// Destroys an instance of a GameObject.
+        /// </summary>
         public virtual void Destroy(GameObject go)
         {
             GameObject.Destroy(go);
         }
 
+        /// <summary>
+        /// Spawns an instance of a named prefab resource.
+        /// The prefab must exist in a Resources folder in the project.
+        /// </summary>
         public virtual GameObject Spawn(string resourceName)
         {
             // Auto spawn a say dialog object from the prefab
@@ -425,14 +442,49 @@ namespace Fungus
             return null;
         }
 
+        /// <summary>
+        /// Use the conversation manager to play out a conversation
+        /// </summary>
         public virtual IEnumerator DoConversation(string conv)
         {
             return conversationManager.DoConversation(conv);
         }
 
+        /// <summary>
+        /// Sync the active say dialog with what Lua thinks the SayDialog should be
+        /// </summary>
         public void SetSayDialog(SayDialog sayDialog)
         {
             SayDialog.ActiveSayDialog = sayDialog;
+        }
+
+        #endregion
+
+        #region LuaEnvironmentInitializer implementation
+
+        public override void Initialize()
+        {   
+            luaEnvironment = GetComponent<LuaEnvironment>();
+            if (luaEnvironment == null)
+            {
+                Debug.LogError("No Lua Environment found");
+                return;
+            }
+
+            if (luaEnvironment.Interpreter == null)
+            {
+                Debug.LogError("No Lua interpreter found");
+                return;
+            }
+
+            InitTypes();
+            InitFungusModule();
+            InitBindings();
+        }
+
+        public override string PreprocessScript(string input)
+        {
+            return input;
         }
 
         #endregion
