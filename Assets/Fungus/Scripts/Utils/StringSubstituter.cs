@@ -22,6 +22,8 @@ namespace Fungus
 
         protected int recursionDepth;
 
+        #region Public members
+
         /// <summary>
         /// Constructor which caches all components in the scene that implement ISubstitutionHandler.
         /// <param name="recursionDepth">Number of levels of recursively embedded keys to resolve.</param>
@@ -31,6 +33,8 @@ namespace Fungus
             stringBuilder = new StringBuilder(1024);
             this.recursionDepth = recursionDepth;
         }
+
+        #endregion
             
         #region IStringSubstituter implementation
 
