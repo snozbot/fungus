@@ -226,7 +226,7 @@ namespace Fungus
         public static void StopPortraitTweens()
         {
             // Stop all tweening portraits
-            foreach( Character c in Character.activeCharacters )
+            foreach( Character c in Character.ActiveCharacters )
             {
                 if (c.State.portraitImage != null)
                 {
@@ -281,7 +281,7 @@ namespace Fungus
                 speakingCharacter = character;
 
                 // Dim portraits of non-speaking characters
-                foreach (Stage stage in Stage.activeStages)
+                foreach (Stage stage in Stage.ActiveStages)
                 {
 
                     if (stage.DimPortraits)

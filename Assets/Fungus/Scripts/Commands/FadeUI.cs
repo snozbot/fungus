@@ -140,6 +140,8 @@ namespace Fungus.Commands
             return "";
         }
 
+        #region Public members
+
         public override bool IsPropertyVisible(string propertyName)
         {
             if (fadeMode == FadeMode.Alpha &&
@@ -156,5 +158,7 @@ namespace Fungus.Commands
 
             return true;
         }
+
+        #endregion
     }
 }

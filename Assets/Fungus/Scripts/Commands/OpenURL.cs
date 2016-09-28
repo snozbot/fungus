@@ -18,6 +18,8 @@ namespace Fungus.Commands
         [Tooltip("URL to open in the browser")]
         [SerializeField] protected StringData url = new StringData();
 
+        #region Public members
+
         public override void OnEnter()
         {
             Application.OpenURL(url.Value);
@@ -34,5 +36,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
     }
 }

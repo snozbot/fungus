@@ -23,6 +23,8 @@ namespace Fungus.Commands
         [Tooltip("Name of the trigger Animator parameter that will have its value changed")]
         [SerializeField] protected StringData _parameterName;
 
+        #region Public members
+
         public override void OnEnter()
         {
             if (_animator.Value != null)
@@ -47,6 +49,8 @@ namespace Fungus.Commands
         {
             return new Color32(170, 204, 169, 255);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

@@ -24,8 +24,6 @@ namespace Fungus
         [Tooltip("String to replace the end tag with.")]
         [SerializeField] protected string replaceTagEndWith;
 
-        static public List<CustomTag> activeCustomTags = new List<CustomTag>();
-        
         protected virtual void OnEnable()
         {
             if (!activeCustomTags.Contains(this))
@@ -40,6 +38,8 @@ namespace Fungus
         }
 
         #region Public members
+
+        public static List<CustomTag> activeCustomTags = new List<CustomTag>();
 
         /// <summary>
         /// String that defines the start of the tag.

@@ -26,6 +26,8 @@ namespace Fungus.Commands
         [Tooltip("Length of time to fade out previous playing music.")]
         [SerializeField] protected float fadeDuration = 1f;
 
+        #region Public members
+
         public override void OnEnter()
         {
             var musicController = MusicController.GetInstance();
@@ -52,5 +54,7 @@ namespace Fungus.Commands
         {
             return new Color32(242, 209, 176, 255);
         }
+
+        #endregion
     }
 }

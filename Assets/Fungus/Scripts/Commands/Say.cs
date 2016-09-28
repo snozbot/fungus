@@ -23,11 +23,9 @@ namespace Fungus.Commands
 
         [Tooltip("Character that is speaking")]
         [SerializeField] protected Character character;
-        public virtual Character _Character { get { return character; } }
 
         [Tooltip("Portrait that represents speaking character")]
         [SerializeField] protected Sprite portrait;
-        public virtual Sprite Portrait { get { return portrait; } set { portrait = value; } }
 
         [Tooltip("Voiceover audio to play when writing the text")]
         [SerializeField] protected AudioClip voiceOverClip;
@@ -40,7 +38,6 @@ namespace Fungus.Commands
 
         [Tooltip("Type this text in the previous dialog box.")]
         [SerializeField] protected bool extendPrevious = false;
-        public virtual bool ExtendPrevious { get { return extendPrevious; } }
 
         [Tooltip("Fade out the dialog box when writing has finished and not waiting for input.")]
         [SerializeField] protected bool fadeWhenDone = true;
@@ -55,6 +52,23 @@ namespace Fungus.Commands
         [SerializeField] protected SayDialog setSayDialog;
 
         protected int executionCount;
+
+        #region Public members
+
+        /// <summary>
+        /// Character that is speaking.
+        /// </summary>
+        public virtual Character _Character { get { return character; } }
+
+        /// <summary>
+        /// Portrait that represents speaking character.
+        /// </summary>
+        public virtual Sprite Portrait { get { return portrait; } set { portrait = value; } }
+
+        /// <summary>
+        /// Type this text in the previous dialog box.
+        /// </summary>
+        public virtual bool ExtendPrevious { get { return extendPrevious; } }
 
         public override void OnEnter()
         {
@@ -143,6 +157,8 @@ namespace Fungus.Commands
 
             sayDialog.Stop();
         }
+
+        #endregion
 
         #region ILocalizable implementation
 

@@ -22,7 +22,6 @@ namespace Fungus.Commands
 
         [Tooltip("View to transition to when Fade is complete")]
         [SerializeField] protected View targetView;
-        public virtual View TargetView { get { return targetView; } }
 
         [Tooltip("Wait until the fade has finished before executing next command")]
         [SerializeField] protected bool waitUntilFinished = true;
@@ -35,6 +34,11 @@ namespace Fungus.Commands
 
         [Tooltip("Camera to use for the fade. Will use main camera if set to none.")]
         [SerializeField] protected Camera targetCamera;
+
+        protected virtual void Start()
+        {
+            AcquireCamera();
+        }
 
         protected virtual void AcquireCamera()
         {
@@ -50,10 +54,12 @@ namespace Fungus.Commands
             }
         }
 
-        public virtual void Start()
-        {
-            AcquireCamera();
-        }
+        #region Public members
+
+        /// <summary>
+        /// View to transition to when Fade is complete
+        /// </summary>
+        public virtual View TargetView { get { return targetView; } }
 
         public override void OnEnter()
         {
@@ -110,5 +116,7 @@ namespace Fungus.Commands
         {
             return new Color32(216, 228, 170, 255);
         }
+
+        #endregion
     }
 }

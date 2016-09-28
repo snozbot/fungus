@@ -25,6 +25,8 @@ namespace Fungus.Commands
         [Tooltip("Maximum value for random range")]
         [SerializeField] protected FloatData maxValue;
 
+        #region Public members
+
         public override void OnEnter()
         {
             if (variable != null)
@@ -54,5 +56,7 @@ namespace Fungus.Commands
         {
             return new Color32(253, 253, 150, 255);
         }
+
+        #endregion
     }
 }

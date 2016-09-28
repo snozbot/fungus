@@ -25,6 +25,13 @@ namespace Fungus.Commands
         [Tooltip("Delay (in seconds) before the method will be called")]
         [SerializeField] protected float delay;
 
+        protected virtual void CallTheMethod()
+        {
+            targetObject.SendMessage(methodName, SendMessageOptions.DontRequireReceiver);
+        }
+
+        #region Public members
+
         public override void OnEnter()
         {
             if (targetObject == null ||
@@ -46,11 +53,6 @@ namespace Fungus.Commands
             Continue();
         }
 
-        protected virtual void CallTheMethod()
-        {
-            targetObject.SendMessage(methodName, SendMessageOptions.DontRequireReceiver);
-        }
-
         public override string GetSummary()
         {
             if (targetObject == null)
@@ -70,5 +72,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
     }
 }

@@ -21,6 +21,8 @@ namespace Fungus.Commands
         [TextArea(2,4)]
         [SerializeField] protected string commentText = "";
 
+        #region Public members
+
         public override void OnEnter()
         {
             Continue();
@@ -39,5 +41,7 @@ namespace Fungus.Commands
         {
             return new Color32(220, 220, 220, 255);
         }
+
+        #endregion
     }
 }

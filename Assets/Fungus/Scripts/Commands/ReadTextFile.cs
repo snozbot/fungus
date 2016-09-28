@@ -22,6 +22,8 @@ namespace Fungus.Commands
         [VariableProperty(typeof(StringVariable))]
         [SerializeField] protected StringVariable stringVariable;
 
+        #region Public members
+
         public override void OnEnter() 
         {
             if (textFile == null || 
@@ -60,5 +62,7 @@ namespace Fungus.Commands
         {
             return new Color32(253, 253, 150, 255);
         }
+
+        #endregion
     }
 }

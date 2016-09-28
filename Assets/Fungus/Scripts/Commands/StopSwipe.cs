@@ -14,6 +14,8 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class StopSwipe : Command 
     {
+        #region Public members
+
         public override void OnEnter()
         {
             var cameraController = CameraController.GetInstance();
@@ -27,5 +29,7 @@ namespace Fungus.Commands
         {
             return new Color32(216, 228, 170, 255);
         }
+
+        #endregion
     }
 }

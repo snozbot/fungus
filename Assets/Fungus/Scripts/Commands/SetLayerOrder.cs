@@ -19,7 +19,24 @@ namespace Fungus.Commands
         
         [Tooltip("The New Layer Name to apply")]
         [SerializeField] protected string sortingLayer;
-        
+
+        protected void ApplySortingLayer(Transform target, string layerName) 
+        {
+            Renderer renderer = target.gameObject.GetComponent<Renderer>();
+            if (renderer)
+            {
+                renderer.sortingLayerName = layerName;
+                Debug.Log(target.name);
+            }
+
+            foreach (Transform child in target.transform) 
+            {
+                ApplySortingLayer(child, layerName);
+            }
+        }       
+
+        #region Public members
+
         public override void OnEnter()
         {
             if (targetObject != null)
@@ -44,20 +61,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
-        
-        protected void ApplySortingLayer(Transform target, string layerName) 
-        {
-            Renderer renderer = target.gameObject.GetComponent<Renderer>();
-            if (renderer)
-            {
-                renderer.sortingLayerName = layerName;
-                Debug.Log(target.name);
-            }
 
-            foreach (Transform child in target.transform) 
-            {
-                ApplySortingLayer(child, layerName);
-            }
-        }       
+        #endregion
     }
 }

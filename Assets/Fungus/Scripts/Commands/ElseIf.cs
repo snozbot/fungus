@@ -14,6 +14,8 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class ElseIf : If
     {
+        #region Public members
+
         public override void OnEnter()
         {
             System.Type previousCommandType = ParentBlock.GetPreviousActiveCommandType();
@@ -73,5 +75,7 @@ namespace Fungus.Commands
         {
             return new Color32(253, 253, 150, 255);
         }
+
+        #endregion
     }
 }

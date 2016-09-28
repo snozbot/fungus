@@ -22,6 +22,8 @@ namespace Fungus.Commands
         [Tooltip("The order in layer value to set on the target sprites")]
         [SerializeField] protected IntegerData orderInLayer;
 
+        #region Public members
+
         public override void OnEnter()
         {
             foreach (SpriteRenderer spriteRenderer in targetSprites)
@@ -78,5 +80,7 @@ namespace Fungus.Commands
             // Add a default empty entry
             targetSprites.Add(null);
         }
+
+        #endregion
     }
 }

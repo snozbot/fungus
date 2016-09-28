@@ -21,6 +21,8 @@ namespace Fungus.Commands
         [Tooltip("Float value to set the slider value to.")]
         [SerializeField] protected FloatData value;
 
+        #region Public members
+
         public override void OnEnter() 
         {
             slider.value = value;
@@ -42,5 +44,7 @@ namespace Fungus.Commands
 
             return slider.name + " = " + value.GetDescription();
         }
+
+        #endregion
     }
 }

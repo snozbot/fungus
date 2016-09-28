@@ -27,6 +27,8 @@ namespace Fungus.Commands
         [Tooltip("Whether to animate in world space or relative to the parent. False by default.")]
         [SerializeField] protected bool isLocal;
 
+        #region Public members
+
         public override void DoTween()
         {
             Hashtable tweenParams = new Hashtable();
@@ -48,6 +50,8 @@ namespace Fungus.Commands
             tweenParams.Add("oncompleteparams", this);
             iTween.RotateTo(_targetObject.Value, tweenParams);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

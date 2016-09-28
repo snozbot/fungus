@@ -11,7 +11,7 @@ namespace Fungus.EditorUtils
     [CustomEditor (typeof(Write))]
     public class WriteEditor : CommandEditor
     {
-        static public bool showTagHelp;
+        public static bool showTagHelp;
 
         protected SerializedProperty textObjectProp;
         protected SerializedProperty textProp;
@@ -22,7 +22,7 @@ namespace Fungus.EditorUtils
         protected SerializedProperty setColorProp;
         protected SerializedProperty waitUntilFinishedProp;
 
-        static public void DrawTagHelpLabel()
+        public static void DrawTagHelpLabel()
         {
             string tagsText = "";
             tagsText += "\n";

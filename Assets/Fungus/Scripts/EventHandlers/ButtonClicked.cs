@@ -17,7 +17,9 @@ namespace Fungus.EventHandlers
     {   
         [Tooltip("The UI Button that the user can click on")]
         [SerializeField] protected Button targetButton;
-        
+
+        #region Public members
+
         public virtual void Start()
         {
             if (targetButton != null)
@@ -40,5 +42,7 @@ namespace Fungus.EventHandlers
 
             return "None";
         }
+
+        #endregion
     }
 }

@@ -23,7 +23,9 @@ namespace Fungus.Commands
                           typeof(IntegerVariable), 
                           typeof(FloatVariable), 
                           typeof(StringVariable))]
-        public Variable variable;
+        [SerializeField] protected Variable variable;
+
+        #region Public members
 
         public override void OnEnter()
         {
@@ -97,5 +99,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
     }    
 }

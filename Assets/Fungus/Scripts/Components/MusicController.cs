@@ -12,13 +12,21 @@ namespace Fungus
     [RequireComponent(typeof(AudioSource))]
     public class MusicController : MonoBehaviour
     {
-        static MusicController instance;
+        protected static MusicController instance;
+
+        protected virtual void Start()
+        {
+            GetComponent<AudioSource>().playOnAwake = false;
+            GetComponent<AudioSource>().loop = true;
+        }
+
+        #region Public members
 
         /// <summary>
         /// Returns the MusicController singleton instance.
         /// Will create a MusicController game object if none currently exists.
         /// </summary>
-        static public MusicController GetInstance()
+        public static MusicController GetInstance()
         {
             if (instance == null)
             {
@@ -29,14 +37,6 @@ namespace Fungus
 
             return instance;
         }
-
-        protected virtual void Start()
-        {
-            GetComponent<AudioSource>().playOnAwake = false;
-            GetComponent<AudioSource>().loop = true;
-        }
-
-        #region Public members
 
         /// <summary>
         /// Plays game music using an audio clip.

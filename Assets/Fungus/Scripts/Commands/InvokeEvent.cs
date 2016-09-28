@@ -37,14 +37,10 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class InvokeEvent : Command
     {
-        [Serializable] public class BooleanEvent : UnityEvent<bool> {}
-        [Serializable] public class IntegerEvent : UnityEvent<int> {}
-        [Serializable] public class FloatEvent : UnityEvent<float> {}
-        [Serializable] public class StringEvent : UnityEvent<string> {}
-
         [Tooltip("Delay (in seconds) before the methods will be called")]
         [SerializeField] protected float delay;
 
+        [Tooltip("Selects type of method parameter to pass")]
         [SerializeField] protected InvokeType invokeType;
 
         [Tooltip("List of methods to call. Supports methods with no parameters or exactly one string, int, float or object parameter.")]
@@ -74,9 +70,39 @@ namespace Fungus.Commands
         [Tooltip("List of methods to call. Supports methods with one string parameter.")]
         [SerializeField] protected StringEvent stringEvent = new StringEvent();
 
+        protected virtual void DoInvoke()
+        {
+            switch (invokeType)
+            {
+                default:
+                case InvokeType.Static:
+                    staticEvent.Invoke();
+                    break;
+                case InvokeType.DynamicBoolean:
+                    booleanEvent.Invoke(booleanParameter.Value);
+                    break;
+                case InvokeType.DynamicInteger:
+                    integerEvent.Invoke(integerParameter.Value);
+                    break;
+                case InvokeType.DynamicFloat:
+                    floatEvent.Invoke(floatParameter.Value);
+                    break;
+                case InvokeType.DynamicString:
+                    stringEvent.Invoke(stringParameter.Value);
+                    break;
+            }
+        }
+
+        #region Public members
+
+        [Serializable] public class BooleanEvent : UnityEvent<bool> {}
+        [Serializable] public class IntegerEvent : UnityEvent<int> {}
+        [Serializable] public class FloatEvent : UnityEvent<float> {}
+        [Serializable] public class StringEvent : UnityEvent<string> {}
+
         public override void OnEnter()
         {
-            if (delay == 0f)
+            if (Mathf.Approximately(delay, 0f))
             {
                 DoInvoke();
             }
@@ -86,29 +112,6 @@ namespace Fungus.Commands
             }
 
             Continue();
-        }
-
-        protected virtual void DoInvoke()
-        {
-            switch (invokeType)
-            {
-            default:
-            case InvokeType.Static:
-                staticEvent.Invoke();
-                break;
-            case InvokeType.DynamicBoolean:
-                booleanEvent.Invoke(booleanParameter.Value);
-                break;
-            case InvokeType.DynamicInteger:
-                integerEvent.Invoke(integerParameter.Value);
-                break;
-            case InvokeType.DynamicFloat:
-                floatEvent.Invoke(floatParameter.Value);
-                break;
-            case InvokeType.DynamicString:
-                stringEvent.Invoke(stringParameter.Value);
-                break;
-            }
         }
 
         public override string GetSummary()
@@ -142,5 +145,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
     }
 }

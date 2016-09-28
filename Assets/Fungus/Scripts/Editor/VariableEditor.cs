@@ -34,7 +34,7 @@ namespace Fungus.EditorUtils
             return null;
         }
 
-        static public void VariableField(SerializedProperty property, 
+        public static void VariableField(SerializedProperty property, 
                                          GUIContent label, 
                                          Flowchart flowchart,
                                          string defaultText,

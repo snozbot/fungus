@@ -18,7 +18,7 @@ namespace Fungus.EventHandlers
         [Tooltip("The UI Input Field that the user can enter text into")]
         [SerializeField] protected InputField targetInputField;
         
-        public virtual void Start()
+        protected virtual void Start()
         {
             targetInputField.onEndEdit.AddListener(OnEndEdit);
         }
@@ -27,6 +27,8 @@ namespace Fungus.EventHandlers
         {
             ExecuteBlock();
         }
+
+        #region Public methods
 
         public override string GetSummary()
         {
@@ -37,5 +39,7 @@ namespace Fungus.EventHandlers
 
             return "None";
         }
+
+        #endregion
     }
 }

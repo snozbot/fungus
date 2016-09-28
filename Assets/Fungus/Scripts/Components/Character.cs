@@ -39,7 +39,7 @@ namespace Fungus
 
         protected PortraitState portaitState = new PortraitState();
 
-        static public List<Character> activeCharacters = new List<Character>();
+        protected static List<Character> activeCharacters = new List<Character>();
 
         protected virtual void OnEnable()
         {
@@ -55,6 +55,11 @@ namespace Fungus
         }
 
         #region Public members
+
+        /// <summary>
+        /// Gets the list of active characters.
+        /// </summary>
+        public static List<Character> ActiveCharacters { get { return activeCharacters; } }
 
         /// <summary>
         /// Character name as displayed in Say Dialog.

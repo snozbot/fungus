@@ -23,7 +23,21 @@ namespace Fungus.Commands
         
         [Tooltip("Wait until the shake effect has finished before executing next command")]
         [SerializeField] protected bool waitUntilFinished;
-        
+
+        protected virtual void OniTweenComplete(object param)
+        {
+            Command command = param as Command;
+            if (command != null && command.Equals(this))
+            {
+                if (waitUntilFinished)
+                {
+                    Continue();
+                }
+            }
+        }
+
+        #region Public members
+
         public override void OnEnter()
         {
             Vector3 v = new Vector3();
@@ -42,19 +56,7 @@ namespace Fungus.Commands
                 Continue();
             }
         }
-        
-        protected virtual void OniTweenComplete(object param)
-        {
-            Command command = param as Command;
-            if (command != null && command.Equals(this))
-            {
-                if (waitUntilFinished)
-                {
-                    Continue();
-                }
-            }
-        }
-        
+
         public override string GetSummary()
         {
             return "For " + duration + " seconds.";
@@ -64,5 +66,7 @@ namespace Fungus.Commands
         {
             return new Color32(216, 228, 170, 255);
         }
+
+        #endregion
     }    
 }

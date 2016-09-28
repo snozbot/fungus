@@ -24,6 +24,13 @@ namespace Fungus.Commands
         [Tooltip("Wait until the sound has finished playing before continuing execution.")]
         [SerializeField] protected bool waitUntilFinished;
 
+        protected virtual void DoWait()
+        {
+            Continue();
+        }
+
+        #region Public members
+
         public override void OnEnter()
         {
             if (soundClip == null)
@@ -48,11 +55,6 @@ namespace Fungus.Commands
             }
         }
 
-        protected virtual void DoWait()
-        {
-            Continue();
-        }
-
         public override string GetSummary()
         {
             if (soundClip == null)
@@ -67,5 +69,7 @@ namespace Fungus.Commands
         {
             return new Color32(242, 209, 176, 255);
         }
+
+        #endregion
     }
 }

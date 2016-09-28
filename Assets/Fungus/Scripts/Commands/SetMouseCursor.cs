@@ -24,6 +24,8 @@ namespace Fungus.Commands
         protected static Texture2D activeCursorTexture;
         protected static Vector2 activeHotspot;
 
+        #region Public members
+
         public static void ResetMouseCursor()
         {
             // Change mouse cursor back to most recent settings
@@ -54,5 +56,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
     }
 }

@@ -20,11 +20,15 @@ namespace Fungus.Commands
         [Tooltip("Stop and destroy any Tweens in current scene with the supplied name")]
         [SerializeField] protected StringData _tweenName;
 
+        #region Public members
+
         public override void OnEnter()
         {
             iTween.StopByName(_tweenName.Value);
             Continue();
         }
+
+        #endregion
 
         #region Backwards compatibility
 

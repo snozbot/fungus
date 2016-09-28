@@ -22,7 +22,6 @@ namespace Fungus.Commands
     {
         [Tooltip("GameObject containing the component method to be invoked")]
         [SerializeField] protected GameObject targetObject;
-        public virtual GameObject TargetObject { get { return targetObject; } }
 
         [HideInInspector]
         [Tooltip("Name of assembly containing the target component")]
@@ -96,47 +95,6 @@ namespace Fungus.Commands
             }
         }
 
-        public override void OnEnter()
-        {
-            try
-            {
-                if (targetObject == null || string.IsNullOrEmpty(targetComponentAssemblyName) || string.IsNullOrEmpty(targetMethod))
-                {
-                    Continue();
-                    return;
-                }
-
-                if (returnValueType != "System.Collections.IEnumerator")
-                {
-                    var objReturnValue = objMethod.Invoke(objComponent, GetParameterValues());
-
-                    if (saveReturnValue)
-                    {
-                        SetVariable(returnValueVariableKey, objReturnValue, returnValueType);
-                    }
-
-                    Continue();
-                }
-                else
-                {
-                    StartCoroutine(ExecuteCoroutine());
-
-                    if (callMode == CallMode.Continue)
-                    {
-                        Continue();
-                    }
-                    else if(callMode == CallMode.Stop)
-                    {
-                        StopParentBlock();
-                    }
-                }
-            }
-            catch (System.Exception ex)
-            {
-                Debug.LogError("Error: " + ex.Message);
-            }      
-        }
-
         protected virtual IEnumerator ExecuteCoroutine()
         {
             yield return StartCoroutine((IEnumerator)objMethod.Invoke(objComponent, GetParameterValues()));
@@ -147,22 +105,7 @@ namespace Fungus.Commands
             }
         }
 
-        public override Color GetButtonColor()
-        {
-            return new Color32(235, 191, 217, 255);
-        }
-
-        public override string GetSummary()
-        {
-            if (targetObject == null)
-            {
-                return "Error: targetObject is not assigned";
-            }
-
-            return targetObject.name + "." + targetComponentText + "." + targetMethodText;
-        }
-
-        protected System.Type[] GetParameterTypes()
+        protected virtual System.Type[] GetParameterTypes()
         {
             System.Type[] types = new System.Type[methodParameters.Length];
 
@@ -177,7 +120,7 @@ namespace Fungus.Commands
             return types;
         }
 
-        protected object[] GetParameterValues()
+        protected virtual object[] GetParameterValues()
         {
             object[] values = new object[methodParameters.Length];
             var flowChart = GetFlowchart();
@@ -265,7 +208,7 @@ namespace Fungus.Commands
             return values;
         }
 
-        protected void SetVariable(string key, object value, string returnType)
+        protected virtual void SetVariable(string key, object value, string returnType)
         {
             var flowChart = GetFlowchart();
 
@@ -309,6 +252,71 @@ namespace Fungus.Commands
                     break;
             }
         }
+
+        #region Public members
+
+        /// <summary>
+        /// GameObject containing the component method to be invoked.
+        /// </summary>
+        public virtual GameObject TargetObject { get { return targetObject; } }
+
+        public override void OnEnter()
+        {
+            try
+            {
+                if (targetObject == null || string.IsNullOrEmpty(targetComponentAssemblyName) || string.IsNullOrEmpty(targetMethod))
+                {
+                    Continue();
+                    return;
+                }
+
+                if (returnValueType != "System.Collections.IEnumerator")
+                {
+                    var objReturnValue = objMethod.Invoke(objComponent, GetParameterValues());
+
+                    if (saveReturnValue)
+                    {
+                        SetVariable(returnValueVariableKey, objReturnValue, returnValueType);
+                    }
+
+                    Continue();
+                }
+                else
+                {
+                    StartCoroutine(ExecuteCoroutine());
+
+                    if (callMode == CallMode.Continue)
+                    {
+                        Continue();
+                    }
+                    else if(callMode == CallMode.Stop)
+                    {
+                        StopParentBlock();
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError("Error: " + ex.Message);
+            }      
+        }
+
+        public override Color GetButtonColor()
+        {
+            return new Color32(235, 191, 217, 255);
+        }
+
+        public override string GetSummary()
+        {
+            if (targetObject == null)
+            {
+                return "Error: targetObject is not assigned";
+            }
+
+            return targetObject.name + "." + targetComponentText + "." + targetMethodText;
+        }
+
+        #endregion
     }
 
     [System.Serializable]
@@ -316,7 +324,6 @@ namespace Fungus.Commands
     {
         [SerializeField]
         public ObjectValue objValue;
-
 
         [SerializeField]
         public string variableKey;

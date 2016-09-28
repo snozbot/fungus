@@ -27,6 +27,8 @@ namespace Fungus.Commands
         [Tooltip("Start time of animation")]
         [SerializeField] protected FloatData time = new FloatData(0f);
 
+        #region Public members
+
         public override void OnEnter()
         {
             if (animator.Value != null)
@@ -51,6 +53,8 @@ namespace Fungus.Commands
         {
             return new Color32(170, 204, 169, 255);
         }
+
+        #endregion
     }    
 }
 

@@ -13,7 +13,9 @@ namespace Fungus.Commands
                  "Stop executing the Block that contains this command.")]
     [AddComponentMenu("")]
     public class Stop : Command
-    {       
+    {
+        #region Public members
+
         public override void OnEnter()
         {
             StopParentBlock();
@@ -23,5 +25,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
     }
 }

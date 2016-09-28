@@ -29,6 +29,8 @@ namespace Fungus.Commands
         [Tooltip("Local rotation of newly spawned object.")]
         [SerializeField] protected Vector3Data _spawnRotation;
 
+        #region Public members
+
         public override void OnEnter()
         {
             if (_sourceObject.Value == null)
@@ -63,6 +65,8 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

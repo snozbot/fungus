@@ -22,6 +22,8 @@ namespace Fungus.Commands
         [Tooltip("Controls if the selectable UI object be interactable or not")]
         [SerializeField] protected BooleanData interactableState = new BooleanData(true);
 
+        #region Public members
+
         public override void OnEnter()
         {
             if (targetObjects.Count == 0)
@@ -96,5 +98,7 @@ namespace Fungus.Commands
 
             return false;
         }
+
+        #endregion
     }
 }

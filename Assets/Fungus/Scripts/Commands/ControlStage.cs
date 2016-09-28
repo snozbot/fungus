@@ -51,7 +51,65 @@ namespace Fungus.Commands
         
         [Tooltip("Wait until the tween has finished before executing the next command")]
         [SerializeField] protected bool waitUntilFinished = false;
-        
+
+        protected virtual void Show(Stage stage, bool visible) 
+        {
+            float duration = (fadeDuration == 0) ? float.Epsilon : fadeDuration;
+            float targetAlpha = visible ? 1f : 0f;
+
+            CanvasGroup canvasGroup = stage.GetComponentInChildren<CanvasGroup>();
+            if (canvasGroup == null)
+            {
+                Continue();
+                return;
+            }
+
+            LeanTween.value(canvasGroup.gameObject, canvasGroup.alpha, targetAlpha, duration).setOnUpdate( (float alpha) => {
+                canvasGroup.alpha = alpha;
+            }).setOnComplete( () => {
+                OnComplete();
+            });
+        }
+
+        protected virtual void MoveToFront(Stage stage)
+        {
+            foreach (Stage s in Stage.ActiveStages)
+            {
+                if (s == stage)
+                {
+                    s.PortraitCanvas.sortingOrder = 1;
+                }
+                else
+                {
+                    s.PortraitCanvas.sortingOrder = 0;
+                }
+            }
+        }
+
+        protected virtual void UndimAllPortraits(Stage stage) 
+        {
+            stage.DimPortraits = false;
+            foreach (Character character in stage.CharactersOnStage)
+            {
+                stage.SetDimmed(character, false);
+            }
+        }
+
+        protected virtual void DimNonSpeakingPortraits(Stage stage) 
+        {
+            stage.DimPortraits = true;
+        }
+
+        protected virtual void OnComplete() 
+        {
+            if (waitUntilFinished)
+            {
+                Continue();
+            }
+        }
+
+        #region Public members
+
         public override void OnEnter()
         {
             // If no display specified, do nothing
@@ -123,62 +181,6 @@ namespace Fungus.Commands
             }
         }
 
-        protected void Show(Stage stage, bool visible) 
-        {
-            float duration = (fadeDuration == 0) ? float.Epsilon : fadeDuration;
-            float targetAlpha = visible ? 1f : 0f;
-
-            CanvasGroup canvasGroup = stage.GetComponentInChildren<CanvasGroup>();
-            if (canvasGroup == null)
-            {
-                Continue();
-                return;
-            }
-            
-            LeanTween.value(canvasGroup.gameObject, canvasGroup.alpha, targetAlpha, duration).setOnUpdate( (float alpha) => {
-                canvasGroup.alpha = alpha;
-            }).setOnComplete( () => {
-                OnComplete();
-            });
-        }
-
-        protected void MoveToFront(Stage stage)
-        {
-            foreach (Stage s in Stage.activeStages)
-            {
-                if (s == stage)
-                {
-                    s.PortraitCanvas.sortingOrder = 1;
-                }
-                else
-                {
-                    s.PortraitCanvas.sortingOrder = 0;
-                }
-            }
-        }
-
-        protected void UndimAllPortraits(Stage stage) 
-        {
-            stage.DimPortraits = false;
-            foreach (Character character in stage.CharactersOnStage)
-            {
-                stage.SetDimmed(character, false);
-            }
-        }
-
-        protected void DimNonSpeakingPortraits(Stage stage) 
-        {
-            stage.DimPortraits = true;
-        }
-
-        protected void OnComplete() 
-        {
-            if (waitUntilFinished)
-            {
-                Continue();
-            }
-        }
-
         public override string GetSummary()
         {
             string displaySummary = "";
@@ -208,5 +210,7 @@ namespace Fungus.Commands
             //Default to display type: show
             display = StageDisplayType.Show;
         }
+
+        #endregion
     }
 }

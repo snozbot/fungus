@@ -16,7 +16,9 @@ namespace Fungus.EventHandlers
     {   
         [Tooltip("Draggable object to listen for drag events on")]
         [SerializeField] protected Draggable2D draggableObject;
-        
+
+        #region Public members
+
         public virtual void OnDragCancelled(Draggable2D draggableObject)
         {
             if (draggableObject == this.draggableObject)
@@ -34,5 +36,7 @@ namespace Fungus.EventHandlers
             
             return "None";
         }
+
+        #endregion
     }
 }

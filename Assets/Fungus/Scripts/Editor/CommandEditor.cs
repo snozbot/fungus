@@ -156,7 +156,7 @@ namespace Fungus.EditorUtils
         }
 
         
-        static public void ObjectField<T>(SerializedProperty property, GUIContent label, GUIContent nullLabel, List<T> objectList) where T : Object 
+        public static void ObjectField<T>(SerializedProperty property, GUIContent label, GUIContent nullLabel, List<T> objectList) where T : Object 
         {
             if (property == null)
             {

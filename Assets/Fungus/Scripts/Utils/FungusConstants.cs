@@ -8,6 +8,8 @@ namespace Fungus.Utils
     /// </summary>
     public static class FungusConstants
     {
+        #region Public members
+
         /// <summary>
         /// Duration of fade for executing icon displayed beside blocks & commands.
         /// </summary>
@@ -22,5 +24,7 @@ namespace Fungus.Utils
         /// The name of the initial block in a new flowchart.
         /// </summary>
         public const string DefaultBlockName = "New Block";
+
+        #endregion
     }
 }

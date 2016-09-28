@@ -39,6 +39,8 @@ namespace Fungus.Commands
         [Tooltip("Name of the message to send")]
         [SerializeField] protected StringData _message = new StringData("");
 
+        #region Public members
+
         public override void OnEnter()
         {
             if (_message.Value.Length == 0)
@@ -82,6 +84,8 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

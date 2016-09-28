@@ -33,53 +33,8 @@ namespace Fungus.Commands
 
         [Tooltip("String value to compare against")]
         [SerializeField] protected StringDataMulti stringData;
-        
-        public override void OnEnter()
-        {
-            if (ParentBlock == null)
-            {
-                return;
-            }
 
-            if (variable == null)
-            {
-                Continue();
-                return;
-            }
-
-            EvaluateAndContinue();
-        }
-
-        public bool EvaluateCondition()
-        {
-            BooleanVariable booleanVariable = variable as BooleanVariable;
-            IntegerVariable integerVariable = variable as IntegerVariable;
-            FloatVariable floatVariable = variable as FloatVariable;
-            StringVariable stringVariable = variable as StringVariable;
-            
-            bool condition = false;
-            
-            if (booleanVariable != null)
-            {
-                condition = booleanVariable.Evaluate(compareOperator, booleanData.Value);
-            }
-            else if (integerVariable != null)
-            {
-                condition = integerVariable.Evaluate(compareOperator, integerData.Value);
-            }
-            else if (floatVariable != null)
-            {
-                condition = floatVariable.Evaluate(compareOperator, floatData.Value);
-            }
-            else if (stringVariable != null)
-            {
-                condition = stringVariable.Evaluate(compareOperator, stringData.Value);
-            }
-
-            return condition;
-        }
-
-        protected void EvaluateAndContinue()
+        protected virtual void EvaluateAndContinue()
         {
             if (EvaluateCondition())
             {
@@ -124,7 +79,7 @@ namespace Fungus.Commands
                 {
                     continue;
                 }
-                
+
                 System.Type type = nextCommand.GetType();
                 if (type == typeof(Else) ||
                     type == typeof(End))
@@ -152,6 +107,53 @@ namespace Fungus.Commands
 
             // No matching End command found, so just stop the block
             StopParentBlock();
+        }
+
+        protected virtual bool EvaluateCondition()
+        {
+            BooleanVariable booleanVariable = variable as BooleanVariable;
+            IntegerVariable integerVariable = variable as IntegerVariable;
+            FloatVariable floatVariable = variable as FloatVariable;
+            StringVariable stringVariable = variable as StringVariable;
+            
+            bool condition = false;
+            
+            if (booleanVariable != null)
+            {
+                condition = booleanVariable.Evaluate(compareOperator, booleanData.Value);
+            }
+            else if (integerVariable != null)
+            {
+                condition = integerVariable.Evaluate(compareOperator, integerData.Value);
+            }
+            else if (floatVariable != null)
+            {
+                condition = floatVariable.Evaluate(compareOperator, floatData.Value);
+            }
+            else if (stringVariable != null)
+            {
+                condition = stringVariable.Evaluate(compareOperator, stringData.Value);
+            }
+
+            return condition;
+        }
+
+        #region Public members
+
+        public override void OnEnter()
+        {
+            if (ParentBlock == null)
+            {
+                return;
+            }
+
+            if (variable == null)
+            {
+                Continue();
+                return;
+            }
+
+            EvaluateAndContinue();
         }
 
         public override string GetSummary()
@@ -198,5 +200,7 @@ namespace Fungus.Commands
         {
             return new Color32(253, 253, 150, 255);
         }
+
+        #endregion
     }
 }

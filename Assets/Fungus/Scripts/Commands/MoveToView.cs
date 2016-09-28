@@ -46,6 +46,8 @@ namespace Fungus.Commands
             AcquireCamera();
         }
 
+        #region Public members
+
         public override void OnEnter()
         {
             AcquireCamera();
@@ -96,5 +98,7 @@ namespace Fungus.Commands
         {
             return new Color32(216, 228, 170, 255);
         }
+
+        #endregion
     }
 }

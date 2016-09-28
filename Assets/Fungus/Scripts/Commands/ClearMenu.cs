@@ -16,6 +16,8 @@ namespace Fungus.Commands
         [Tooltip("Menu Dialog to clear the options on")]
         [SerializeField] protected MenuDialog menuDialog;
 
+        #region Public members
+
         public override void OnEnter()
         {
             menuDialog.Clear();
@@ -37,5 +39,7 @@ namespace Fungus.Commands
         {
             return new Color32(184, 210, 235, 255);
         }
+
+        #endregion
     }
 }

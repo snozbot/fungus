@@ -20,6 +20,8 @@ namespace Fungus.Commands
         [Tooltip("Name of a label in this block to jump to")]
         [SerializeField] protected StringData _targetLabel = new StringData("");
 
+        #region Public members
+
         public override void OnEnter()
         {
             if (_targetLabel.Value == "")
@@ -58,6 +60,8 @@ namespace Fungus.Commands
         {
             return new Color32(253, 253, 150, 255);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

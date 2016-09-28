@@ -14,10 +14,14 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class StopTweens : Command
     {
+        #region Public members
+
         public override void OnEnter()
         {
             iTween.Stop();
             Continue();
         }
+
+        #endregion
     }
 }

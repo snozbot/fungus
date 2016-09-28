@@ -58,9 +58,13 @@ namespace Fungus.EventHandlers
             }
         }
 
+        #region Public members
+
         public override string GetSummary()
         {
             return keyCode.ToString();
         }
+
+        #endregion
     }
 }

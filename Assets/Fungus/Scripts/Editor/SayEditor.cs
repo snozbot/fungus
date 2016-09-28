@@ -12,10 +12,10 @@ namespace Fungus.EditorUtils
     [CustomEditor (typeof(Say))]
     public class SayEditor : CommandEditor
     {
-        static public bool showTagHelp;
+        public static bool showTagHelp;
         public Texture2D blackTex;
         
-        static public void DrawTagHelpLabel()
+        public static void DrawTagHelpLabel()
         {
             string tagsText = TextTagParser.GetTagHelp();
 
@@ -121,7 +121,7 @@ namespace Fungus.EditorUtils
             CommandEditor.ObjectField<Character>(characterProp,
                                                 new GUIContent("Character", "Character that is speaking"),
                                                 new GUIContent("<None>"),
-                                                Character.activeCharacters);
+                                                Character.ActiveCharacters);
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel(" ");

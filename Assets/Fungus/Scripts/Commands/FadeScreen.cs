@@ -30,7 +30,9 @@ namespace Fungus.Commands
 
         [Tooltip("Optional texture to use when rendering the fullscreen fade effect.")]
         [SerializeField] protected Texture2D fadeTexture;
-        
+
+        #region Public members
+
         public override void OnEnter()
         {
             var cameraController = CameraController.GetInstance();
@@ -66,5 +68,7 @@ namespace Fungus.Commands
         {
             return new Color32(216, 228, 170, 255);
         }
+
+        #endregion
     }    
 }

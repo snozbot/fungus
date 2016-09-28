@@ -23,6 +23,11 @@ namespace Fungus.EventHandlers
         [Tooltip("Drag target object to listen for drag events on")]
         [SerializeField] protected Collider2D targetObject;
 
+        #region Public members
+
+        /// <summary>
+        /// Called by the Draggable2D object when the drag exits from the targetObject.
+        /// </summary>
         public virtual void OnDragExited(Draggable2D draggableObject, Collider2D targetObject)
         {
             if (draggableObject == this.draggableObject &&
@@ -51,5 +56,7 @@ namespace Fungus.EventHandlers
             
             return summary;
         }
+
+        #endregion
     }
 }

@@ -16,20 +16,32 @@ namespace Fungus.EventHandlers
     {   
         [Tooltip("Draggable object to listen for drag events on")]
         [SerializeField] protected Draggable2D draggableObject;
-        public virtual Draggable2D DraggableObject { get { return draggableObject; } }
 
         [Tooltip("Drag target object to listen for drag events on")]
         [SerializeField] protected Collider2D targetObject;
         
         // There's no way to poll if an object is touching another object, so
         // we have to listen to the callbacks and track the touching state ourselves.
-        bool overTarget = false;
-        
+        protected bool overTarget = false;
+
+        #region Public members
+
+        /// <summary>
+        /// Gets the draggable object.
+        /// </summary>
+        public virtual Draggable2D DraggableObject { get { return draggableObject; } }
+
+        /// <summary>
+        /// Returns true if the draggable object is over the drag target object.
+        /// </summary>
         public virtual bool IsOverTarget()
         {
             return overTarget;
         }
-        
+
+        /// <summary>
+        /// Called by the Draggable2D object when the it enters the drag target.
+        /// </summary>
         public virtual void OnDragEntered(Draggable2D draggableObject, Collider2D targetObject)
         {
             if (this.targetObject != null &&
@@ -40,6 +52,9 @@ namespace Fungus.EventHandlers
             }
         }
         
+        /// <summary>
+        /// Called by the Draggable2D object when the it exits the drag target.
+        /// </summary>
         public virtual void OnDragExited(Draggable2D draggableObject, Collider2D targetObject)
         {
             if (this.targetObject != null &&
@@ -50,6 +65,9 @@ namespace Fungus.EventHandlers
             }
         }
         
+        /// <summary>
+        /// Called by the Draggable2D object when the the drag ends over the drag target.
+        /// </summary>
         public virtual void OnDragCompleted(Draggable2D draggableObject)
         {
             if (draggableObject == this.draggableObject &&
@@ -83,5 +101,7 @@ namespace Fungus.EventHandlers
 
             return summary;
         }
+
+        #endregion
     }
 }

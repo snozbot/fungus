@@ -20,6 +20,8 @@ namespace Fungus.Commands
         [Tooltip("Reference to game object to destroy")]
         [SerializeField] protected GameObjectData _targetGameObject;
 
+        #region Public members
+
         public override void OnEnter()
         {
             if (_targetGameObject.Value != null)
@@ -44,6 +46,8 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

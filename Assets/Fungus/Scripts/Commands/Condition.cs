@@ -11,6 +11,8 @@ namespace Fungus.Commands
         [Tooltip("The type of comparison to be performed")]
         [SerializeField] protected CompareOperator compareOperator;
 
+        #region Public members
+
         public static string GetOperatorDescription(CompareOperator compareOperator)
         {
             string summary = "";
@@ -38,5 +40,7 @@ namespace Fungus.Commands
 
             return summary;
         }
+
+        #endregion
     }
 }

@@ -25,6 +25,8 @@ namespace Fungus.Commands
         [Tooltip("Wait until the volume fade has completed before continuing.")]
         [SerializeField] protected bool waitUntilFinished = true;
 
+        #region Public members
+
         public override void OnEnter()
         {
             var musicController = MusicController.GetInstance();
@@ -53,5 +55,7 @@ namespace Fungus.Commands
         {
             return new Color32(242, 209, 176, 255);
         }
+
+        #endregion
     }
 }

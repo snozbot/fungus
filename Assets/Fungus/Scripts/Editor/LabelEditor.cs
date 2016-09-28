@@ -13,7 +13,7 @@ namespace Fungus.EditorUtils
     {
         protected SerializedProperty keyProp;
         
-        static public void LabelField(SerializedProperty property, 
+        public static void LabelField(SerializedProperty property, 
                                       GUIContent labelText, 
                                       Block block)
         {

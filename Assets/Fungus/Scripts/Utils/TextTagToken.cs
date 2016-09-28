@@ -73,6 +73,8 @@ namespace Fungus.Utils
     /// </summary>
     public class TextTagToken
     {
+        #region Public members
+
         /// <summary>
         /// The type of the token.
         /// </summary>
@@ -82,5 +84,7 @@ namespace Fungus.Utils
         /// List of comma separated parameters.
         /// </summary>
         public List<string> paramList;
+
+        #endregion
     }
 }

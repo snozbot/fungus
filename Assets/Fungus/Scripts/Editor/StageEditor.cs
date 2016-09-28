@@ -47,16 +47,16 @@ namespace Fungus.EditorUtils
                 CommandEditor.ObjectField<Stage>(replacedStageProp, 
                                                  new GUIContent("Replace", "Character to swap with"), 
                                                  new GUIContent("<Default>"),
-                                                 Stage.activeStages);
+                                                 Stage.ActiveStages);
                 replaceLabel = "With";
             }
 
-            if (Stage.activeStages.Count > 0)
+            if (Stage.ActiveStages.Count > 0)
             {
                 CommandEditor.ObjectField<Stage>(stageProp, 
                                                  new GUIContent(replaceLabel, "Stage to display the character portraits on"), 
                                                  new GUIContent("<Default>"),
-                                                 Stage.activeStages);
+                                                 Stage.ActiveStages);
             }
 
             bool showOptionalFields = true;

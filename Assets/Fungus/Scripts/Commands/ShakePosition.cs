@@ -26,7 +26,9 @@ namespace Fungus.Commands
 
         [Tooltip("Restricts rotation to the supplied axis only")]
         [SerializeField] protected iTweenAxis axis;
-        
+
+        #region Public members
+
         public override void DoTween()
         {
             Hashtable tweenParams = new Hashtable();
@@ -53,6 +55,8 @@ namespace Fungus.Commands
             tweenParams.Add("oncompleteparams", this);
             iTween.ShakePosition(_targetObject.Value, tweenParams);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

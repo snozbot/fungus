@@ -16,7 +16,12 @@ namespace Fungus.EventHandlers
     {   
         [Tooltip("Object that the user can click or tap on")]
         [SerializeField] protected Clickable2D clickableObject;
-        
+
+        #region Public members
+
+        /// <summary>
+        /// Called by the Clickable2D object when it is clicked.
+        /// </summary>
         public virtual void OnObjectClicked(Clickable2D clickableObject)
         {
             if (clickableObject == this.clickableObject)
@@ -34,5 +39,7 @@ namespace Fungus.EventHandlers
 
             return "None";
         }
+
+        #endregion
     }
 }

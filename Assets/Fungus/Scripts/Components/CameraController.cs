@@ -52,22 +52,7 @@ namespace Fungus
         protected Dictionary<string, CameraView> storedViews = new Dictionary<string, CameraView>();
         
         protected static CameraController instance;
-        
-        /// <summary>
-        /// Returns the CameraController singleton instance.
-        /// Will create a CameraController game object if none currently exists.
-        /// </summary>
-        static public CameraController GetInstance()
-        {
-            if (instance == null)
-            {
-                GameObject go = new GameObject("CameraController");
-                instance = go.AddComponent<CameraController>();
-            }
-            
-            return instance;
-        }
-        
+
         protected virtual void OnGUI()
         {
             if (swipePanActive)
@@ -186,41 +171,6 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Moves camera smoothly through a sequence of Views over a period of time.
-        /// </summary>
-        public virtual void PanToPath(Camera camera, View[] viewList, float duration, Action arriveAction)
-        {
-            if (camera == null)
-            {
-                Debug.LogWarning("Camera is null");
-                return;
-            }
-
-            swipePanActive = false;
-            
-            List<Vector3> pathList = new List<Vector3>();
-            
-            // Add current camera position as first point in path
-            // Note: We use the z coord to tween the camera orthographic size
-            Vector3 startPos = new Vector3(camera.transform.position.x,
-                                           camera.transform.position.y,
-                                           camera.orthographicSize);
-            pathList.Add(startPos);
-            
-            for (int i = 0; i < viewList.Length; ++i)
-            {
-                View view = viewList[i];
-                
-                Vector3 viewPos = new Vector3(view.transform.position.x, 
-                                              view.transform.position.y, 
-                                              view.ViewSize);
-                pathList.Add(viewPos);
-            }
-            
-            StartCoroutine(PanToPathInternal(camera, duration, arriveAction, pathList.ToArray()));
-        }
-        
         protected virtual IEnumerator PanToPathInternal(Camera camera, float duration, Action arriveAction, Vector3[] path)
         {
             if (camera == null)
@@ -351,6 +301,56 @@ namespace Fungus
         }
 
         #region Public members
+
+        /// <summary>
+        /// Returns the CameraController singleton instance.
+        /// Will create a CameraController game object if none currently exists.
+        /// </summary>
+        public static CameraController GetInstance()
+        {
+            if (instance == null)
+            {
+                GameObject go = new GameObject("CameraController");
+                instance = go.AddComponent<CameraController>();
+            }
+
+            return instance;
+        }
+
+        /// <summary>
+        /// Moves camera smoothly through a sequence of Views over a period of time.
+        /// </summary>
+        public virtual void PanToPath(Camera camera, View[] viewList, float duration, Action arriveAction)
+        {
+            if (camera == null)
+            {
+                Debug.LogWarning("Camera is null");
+                return;
+            }
+
+            swipePanActive = false;
+
+            List<Vector3> pathList = new List<Vector3>();
+
+            // Add current camera position as first point in path
+            // Note: We use the z coord to tween the camera orthographic size
+            Vector3 startPos = new Vector3(camera.transform.position.x,
+                camera.transform.position.y,
+                camera.orthographicSize);
+            pathList.Add(startPos);
+
+            for (int i = 0; i < viewList.Length; ++i)
+            {
+                View view = viewList[i];
+
+                Vector3 viewPos = new Vector3(view.transform.position.x, 
+                    view.transform.position.y, 
+                    view.ViewSize);
+                pathList.Add(viewPos);
+            }
+
+            StartCoroutine(PanToPathInternal(camera, duration, arriveAction, pathList.ToArray()));
+        }
 
         /// <summary>
         /// Creates a flat colored texture.

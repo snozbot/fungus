@@ -11,12 +11,16 @@ namespace Fungus.Commands
         [Tooltip("Display type")]
         [SerializeField] protected TDisplayEnum display;
 
-        public virtual TDisplayEnum Display { get { return display; } }
-
-        protected bool IsDisplayNone<TEnum>(TEnum enumValue)
+        protected virtual bool IsDisplayNone<TEnum>(TEnum enumValue)
         {
             string displayTypeStr = Enum.GetName(typeof (TEnum), enumValue);
             return displayTypeStr == "None";
         }
+
+        #region Public members
+
+        public virtual TDisplayEnum Display { get { return display; } }
+
+        #endregion
     }
 }

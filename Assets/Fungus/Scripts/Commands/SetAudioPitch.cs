@@ -25,6 +25,8 @@ namespace Fungus.Commands
         [Tooltip("Wait until the pitch change has finished before executing next command")]
         [SerializeField] protected bool waitUntilFinished = true;
 
+        #region Public members
+
         public override void OnEnter()
         {
             System.Action onComplete = () => {
@@ -55,5 +57,7 @@ namespace Fungus.Commands
         {
             return new Color32(242, 209, 176, 255);
         }
+
+        #endregion
     }
 }

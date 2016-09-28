@@ -12,12 +12,22 @@ namespace Fungus
     public class CommandCopyBuffer : Block 
     {
         protected static CommandCopyBuffer instance;
-        
+
+        protected virtual void Start()
+        {
+            if (Application.isPlaying)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
+        #region Public members
+
         /// <summary>
         /// Returns the CommandCopyBuffer singleton instance.
         /// Will create a CommandCopyBuffer game object if none currently exists.
         /// </summary>
-        static public CommandCopyBuffer GetInstance()
+        public static CommandCopyBuffer GetInstance()
         {
             if (instance == null)
             {
@@ -36,16 +46,8 @@ namespace Fungus
                     instance = go.AddComponent<CommandCopyBuffer>();
                 }
             }
-            
-            return instance;
-        }
 
-        protected virtual void Start()
-        {
-            if (Application.isPlaying)
-            {
-                Destroy(this.gameObject);
-            }
+            return instance;
         }
 
         public virtual bool HasCommands()
@@ -65,5 +67,7 @@ namespace Fungus
                 DestroyImmediate(command);
             }
         }
+
+        #endregion
     }
 }

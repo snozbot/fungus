@@ -21,6 +21,8 @@ namespace Fungus.Commands
         [Tooltip("Stop all executing Blocks in a list of target Flowcharts")]
         [SerializeField] protected List<Flowchart> targetFlowcharts = new List<Flowchart>();
 
+        #region Public members
+
         public override void OnEnter()
         {
             var flowchart = GetFlowchart();
@@ -56,5 +58,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
     }
 }

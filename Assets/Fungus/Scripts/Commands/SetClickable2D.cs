@@ -21,6 +21,8 @@ namespace Fungus.Commands
         [Tooltip("Set to true to enable the component")]
         [SerializeField] protected BooleanData activeState;
 
+        #region Public members
+
         public override void OnEnter()  
         {
             if (targetClickable2D != null)      
@@ -45,6 +47,8 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255); 
         }
+
+        #endregion
     }
         
 }

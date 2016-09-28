@@ -36,6 +36,8 @@ namespace Fungus.Commands
         [Tooltip("A custom Menu Dialog to use to display this menu. All subsequent Menu commands will use this dialog.")]
         [SerializeField] protected MenuDialog setMenuDialog;
 
+        #region Public member
+
         public override void OnEnter()
         {
             if (setMenuDialog != null)
@@ -90,6 +92,8 @@ namespace Fungus.Commands
         {
             return new Color32(184, 210, 235, 255);
         }
+
+        #endregion
 
         #region ILocalizable implementation
 

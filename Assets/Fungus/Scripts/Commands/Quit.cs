@@ -14,6 +14,8 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class Quit : Command 
     {
+        #region Public members
+
         public override void OnEnter()
         {
             Application.Quit();
@@ -26,5 +28,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
     }
 }

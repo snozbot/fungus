@@ -24,6 +24,8 @@ namespace Fungus.Commands
         [Tooltip("Target scale that the GameObject will scale from, if no From Transform is set")]
         [SerializeField] protected Vector3Data _fromScale;
 
+        #region Public members
+
         public override void DoTween()
         {
             Hashtable tweenParams = new Hashtable();
@@ -44,6 +46,8 @@ namespace Fungus.Commands
             tweenParams.Add("oncompleteparams", this);
             iTween.ScaleFrom(_targetObject.Value, tweenParams);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

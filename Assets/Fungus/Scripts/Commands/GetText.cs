@@ -23,7 +23,9 @@ namespace Fungus.Commands
         [Tooltip("String variable to store the text value in")]
         [VariableProperty(typeof(StringVariable))]
         [SerializeField] protected StringVariable stringVariable;
-        
+
+        #region Public members
+
         public override void OnEnter()
         {
             if (stringVariable == null)
@@ -81,6 +83,10 @@ namespace Fungus.Commands
             return new Color32(235, 191, 217, 255);
         }
 
+        #endregion
+
+        #region Backwards compatibility
+
         // Backwards compatibility with Fungus v2.1.2
         [HideInInspector]
         [FormerlySerializedAs("textObject")]
@@ -92,5 +98,7 @@ namespace Fungus.Commands
                 targetTextObject = _textObjectObsolete.gameObject;
             }
         }
+
+        #endregion
     }
 }

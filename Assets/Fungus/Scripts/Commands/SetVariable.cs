@@ -43,7 +43,6 @@ namespace Fungus.Commands
 
         [Tooltip("The type of math operation to be performed")]
         [SerializeField] protected SetOperator setOperator;
-        public virtual SetOperator _SetOperator { get { return setOperator; } }
 
         [Tooltip("Boolean value to set with")]
         [SerializeField] protected BooleanData booleanData;
@@ -56,7 +55,102 @@ namespace Fungus.Commands
 
         [Tooltip("String value to set with")]
         [SerializeField] protected StringDataMulti stringData;
-        
+
+        protected virtual void DoSetOperation()
+        {
+            if (variable == null)
+            {
+                return;
+            }
+
+            if (variable.GetType() == typeof(BooleanVariable))
+            {
+                BooleanVariable lhs = (variable as BooleanVariable);
+                bool rhs = booleanData.Value;
+
+                switch (setOperator)
+                {
+                    default:
+                    case SetOperator.Assign:
+                        lhs.Value = rhs;
+                        break;
+                    case SetOperator.Negate:
+                        lhs.Value = !rhs;
+                        break;
+                }
+            }
+            else if (variable.GetType() == typeof(IntegerVariable))
+            {
+                IntegerVariable lhs = (variable as IntegerVariable);
+                int rhs = integerData.Value;
+
+                switch (setOperator)
+                {
+                    default:
+                    case SetOperator.Assign:
+                        lhs.Value = rhs;
+                        break;
+                    case SetOperator.Add:
+                        lhs.Value += rhs;
+                        break;
+                    case SetOperator.Subtract:
+                        lhs.Value -= rhs;
+                        break;
+                    case SetOperator.Multiply:
+                        lhs.Value *= rhs;
+                        break;
+                    case SetOperator.Divide:
+                        lhs.Value /= rhs;
+                        break;
+                }
+            }
+            else if (variable.GetType() == typeof(FloatVariable))
+            {
+                FloatVariable lhs = (variable as FloatVariable);
+                float rhs = floatData.Value;
+
+                switch (setOperator)
+                {
+                    default:
+                    case SetOperator.Assign:
+                        lhs.Value = rhs;
+                        break;
+                    case SetOperator.Add:
+                        lhs.Value += rhs;
+                        break;
+                    case SetOperator.Subtract:
+                        lhs.Value -= rhs;
+                        break;
+                    case SetOperator.Multiply:
+                        lhs.Value *= rhs;
+                        break;
+                    case SetOperator.Divide:
+                        lhs.Value /= rhs;
+                        break;
+                }
+            }
+            else if (variable.GetType() == typeof(StringVariable))
+            {
+                StringVariable lhs = (variable as StringVariable);
+                string rhs = stringData.Value;
+
+                switch (setOperator)
+                {
+                    default:
+                    case SetOperator.Assign:
+                        lhs.Value = rhs;
+                        break;
+                }
+            }
+        }
+
+        #region Public members
+
+        /// <summary>
+        /// The type of math operation to be performed.
+        /// </summary>
+        public virtual SetOperator _SetOperator { get { return setOperator; } }
+
         public override void OnEnter()
         {
             DoSetOperation();
@@ -126,92 +220,6 @@ namespace Fungus.Commands
             return new Color32(253, 253, 150, 255);
         }
 
-        protected virtual void DoSetOperation()
-        {
-            if (variable == null)
-            {
-                return;
-            }
-
-            if (variable.GetType() == typeof(BooleanVariable))
-            {
-                BooleanVariable lhs = (variable as BooleanVariable);
-                bool rhs = booleanData.Value;
-                
-                switch (setOperator)
-                {
-                default:
-                case SetOperator.Assign:
-                    lhs.Value = rhs;
-                    break;
-                case SetOperator.Negate:
-                    lhs.Value = !rhs;
-                    break;
-                }
-            }
-            else if (variable.GetType() == typeof(IntegerVariable))
-            {
-                IntegerVariable lhs = (variable as IntegerVariable);
-                int rhs = integerData.Value;
-                
-                switch (setOperator)
-                {
-                default:
-                case SetOperator.Assign:
-                    lhs.Value = rhs;
-                    break;
-                case SetOperator.Add:
-                    lhs.Value += rhs;
-                    break;
-                case SetOperator.Subtract:
-                    lhs.Value -= rhs;
-                    break;
-                case SetOperator.Multiply:
-                    lhs.Value *= rhs;
-                    break;
-                case SetOperator.Divide:
-                    lhs.Value /= rhs;
-                    break;
-                }
-            }
-            else if (variable.GetType() == typeof(FloatVariable))
-            {
-                FloatVariable lhs = (variable as FloatVariable);
-                float rhs = floatData.Value;
-                
-                switch (setOperator)
-                {
-                default:
-                case SetOperator.Assign:
-                    lhs.Value = rhs;
-                    break;
-                case SetOperator.Add:
-                    lhs.Value += rhs;
-                    break;
-                case SetOperator.Subtract:
-                    lhs.Value -= rhs;
-                    break;
-                case SetOperator.Multiply:
-                    lhs.Value *= rhs;
-                    break;
-                case SetOperator.Divide:
-                    lhs.Value /= rhs;
-                    break;
-                }
-            }
-            else if (variable.GetType() == typeof(StringVariable))
-            {
-                StringVariable lhs = (variable as StringVariable);
-                string rhs = stringData.Value;
-                
-                switch (setOperator)
-                {
-                default:
-                case SetOperator.Assign:
-                    lhs.Value = rhs;
-                    break;
-                }
-            }
-        }
+        #endregion
     }
 }

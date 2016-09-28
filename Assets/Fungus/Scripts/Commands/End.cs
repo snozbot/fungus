@@ -14,6 +14,8 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class End : Command
     {
+        #region Public members
+
         public virtual bool Loop { get; set; }
 
         public override void OnEnter()
@@ -43,5 +45,7 @@ namespace Fungus.Commands
         {
             return new Color32(253, 253, 150, 255);
         }
+
+        #endregion
     }
 }

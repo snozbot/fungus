@@ -20,6 +20,8 @@ namespace Fungus.Commands
         [Tooltip("Code of the language to set. e.g. ES, DE, JA")]
         [SerializeField] protected StringData _languageCode = new StringData(); 
 
+        #region Public members
+
         public static string mostRecentLanguage = "";
 
         public override void OnEnter()
@@ -46,6 +48,8 @@ namespace Fungus.Commands
         {
             return new Color32(184, 210, 235, 255);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

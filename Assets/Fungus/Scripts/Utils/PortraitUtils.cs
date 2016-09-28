@@ -71,6 +71,8 @@ namespace Fungus.Utils
     /// </summary>
     public static class PortraitUtil 
     {
+        #region Public members
+
         /// <summary>
         /// Convert a Moonsharp table to portrait options
         /// If the table returns a null for any of the parameters, it should keep the defaults
@@ -155,5 +157,7 @@ namespace Fungus.Utils
 
             return options;
         }
+
+        #endregion
     }
 }

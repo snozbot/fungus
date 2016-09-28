@@ -25,6 +25,8 @@ namespace Fungus.Commands
         [Tooltip("Block to execute when the timer expires")]
         [SerializeField] protected Block targetBlock;
 
+        #region Public members
+
         public override void OnEnter()
         {
             var menuDialog = MenuDialog.GetMenuDialog();
@@ -60,6 +62,8 @@ namespace Fungus.Commands
         {
             return new Color32(184, 210, 235, 255);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

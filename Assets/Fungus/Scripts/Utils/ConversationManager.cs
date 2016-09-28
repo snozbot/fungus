@@ -76,7 +76,7 @@ namespace Fungus.Utils
             return results.ToArray();
         }
 
-        protected SayDialog GetSayDialog(Character character)
+        protected virtual SayDialog GetSayDialog(Character character)
         {
             SayDialog sayDialog = null;
             if (character != null)
@@ -269,7 +269,7 @@ namespace Fungus.Utils
         /// <summary>
         /// Caches the character objects in the scene for fast lookup during conversations.
         /// </summary>
-        public void PopulateCharacterCache()
+        public virtual void PopulateCharacterCache()
         {
             // cache characters for faster lookup
             characters = UnityEngine.Object.FindObjectsOfType<Character>();
@@ -278,7 +278,7 @@ namespace Fungus.Utils
         /// <summary>
         /// Parse and execute a conversation string.
         /// </summary>
-        public IEnumerator DoConversation(string conv)
+        public virtual IEnumerator DoConversation(string conv)
         {
             if (string.IsNullOrEmpty(conv))
             {

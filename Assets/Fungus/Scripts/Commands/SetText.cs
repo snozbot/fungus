@@ -26,7 +26,9 @@ namespace Fungus.Commands
 
         [Tooltip("Notes about this story text for other authors, localization, etc.")]
         [SerializeField] protected string description;
-        
+
+        #region Public members
+
         public override void OnEnter()
         {
             var flowchart = GetFlowchart();
@@ -79,17 +81,7 @@ namespace Fungus.Commands
             return new Color32(235, 191, 217, 255);
         }
 
-        // Backwards compatibility with Fungus v2.1.2
-        [HideInInspector]
-        [FormerlySerializedAs("textObject")]
-        public Text _textObjectObsolete;
-        protected virtual void OnEnable()
-        {
-            if (_textObjectObsolete != null)
-            {
-                targetTextObject = _textObjectObsolete.gameObject;
-            }
-        }
+        #endregion
 
         #region ILocalizable implementation
 
@@ -112,6 +104,22 @@ namespace Fungus.Commands
         {
             // String id for Set Text commands is SETTEXT.<Localization Id>.<Command id>
             return "SETTEXT." + GetFlowchartLocalizationId() + "." + itemId;
+        }
+
+        #endregion
+
+        #region Backwards compatibility
+
+        // Backwards compatibility with Fungus v2.1.2
+        [HideInInspector]
+        [FormerlySerializedAs("textObject")]
+        public Text _textObjectObsolete;
+        protected virtual void OnEnable()
+        {
+            if (_textObjectObsolete != null)
+            {
+                targetTextObject = _textObjectObsolete.gameObject;
+            }
         }
 
         #endregion

@@ -29,6 +29,8 @@ namespace Fungus.Commands
     {
         [SerializeField] protected FullscreenMode fullscreenMode;
 
+        #region Public members
+
         public override void OnEnter()
         {
             switch (fullscreenMode)
@@ -56,5 +58,7 @@ namespace Fungus.Commands
         {
             return new Color32(216, 228, 170, 255);
         }
+
+        #endregion
     }
 }

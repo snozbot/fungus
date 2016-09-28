@@ -18,16 +18,18 @@ namespace Fungus.Commands
     public class FadeSprite : Command
     {
         [Tooltip("Sprite object to be faded")]
-        public SpriteRenderer spriteRenderer;
+        [SerializeField] protected SpriteRenderer spriteRenderer;
 
         [Tooltip("Length of time to perform the fade")]
-        public FloatData _duration = new FloatData(1f);
+        [SerializeField] protected FloatData _duration = new FloatData(1f);
 
         [Tooltip("Target color to fade to. To only fade transparency level, set the color to white and set the alpha to required transparency.")]
-        public ColorData _targetColor = new ColorData(Color.white);
+        [SerializeField] protected ColorData _targetColor = new ColorData(Color.white);
 
         [Tooltip("Wait until the fade has finished before executing the next command")]
-        public bool waitUntilFinished = true;
+        [SerializeField] protected bool waitUntilFinished = true;
+
+        #region Public members
 
         public override void OnEnter()
         {
@@ -64,6 +66,8 @@ namespace Fungus.Commands
         {
             return new Color32(221, 184, 169, 255);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

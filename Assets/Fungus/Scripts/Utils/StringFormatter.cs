@@ -11,6 +11,8 @@ namespace Fungus.Utils
     /// </summary>
     public static class StringFormatter
     {
+        #region Public members
+
         public static string[] FormatEnumNames(Enum e, string firstLabel)
         {
             string[] enumLabels = Enum.GetNames(e.GetType());
@@ -56,5 +58,7 @@ namespace Fungus.Utils
             }
             return true;
         }
+
+        #endregion
     }    
 }

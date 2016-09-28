@@ -14,6 +14,8 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class StopMusic : Command
     {
+        #region Public members
+
         public override void OnEnter()
         {
             var musicController = MusicController.GetInstance();
@@ -29,5 +31,7 @@ namespace Fungus.Commands
         {
             return new Color32(242, 209, 176, 255);
         }
+
+        #endregion
     }
 }

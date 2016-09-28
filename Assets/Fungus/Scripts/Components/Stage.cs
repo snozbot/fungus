@@ -40,7 +40,7 @@ namespace Fungus
 
         protected List<Character> charactersOnStage = new List<Character>();
 
-        static public List<Stage> activeStages = new List<Stage>();
+        protected static List<Stage> activeStages = new List<Stage>();
 
         protected virtual void OnEnable()
         {
@@ -66,6 +66,11 @@ namespace Fungus
         }
 
         #region Public members
+
+        /// <summary>
+        /// Gets the list of active stages.
+        /// </summary>
+        public static List<Stage> ActiveStages { get { return activeStages; } }
 
         /// <summary>
         /// Returns the currently active stage.

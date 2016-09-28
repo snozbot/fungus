@@ -28,7 +28,9 @@ namespace Fungus.Commands
 
         [Tooltip("Camera to use for the pan. Will use main camera if set to none.")]
         [SerializeField] protected Camera targetCamera;
-        
+
+        #region Public members
+
         public virtual void Start()
         {
             if (targetCamera == null)
@@ -75,5 +77,7 @@ namespace Fungus.Commands
         {
             return new Color32(216, 228, 170, 255);
         }
+
+        #endregion
     }
 }

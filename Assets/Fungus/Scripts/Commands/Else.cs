@@ -14,6 +14,8 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class Else : Command
     {
+        #region Public members
+
         public override void OnEnter()
         {
             if (ParentBlock == null)
@@ -64,5 +66,7 @@ namespace Fungus.Commands
         {
             return new Color32(253, 253, 150, 255);
         }
+
+        #endregion
     }
 }

@@ -45,10 +45,13 @@ namespace Fungus.Commands
         [Tooltip("Wait until this command finishes before executing the next command")]
         [SerializeField] protected bool waitUntilFinished = true;
 
+        [Tooltip("Color mode to apply to the text.")]
         [SerializeField] protected TextColor textColor = TextColor.Default;
 
+        [Tooltip("Alpha to apply to the text.")]
         [SerializeField] protected FloatData setAlpha = new FloatData(1f);
 
+        [Tooltip("Color to apply to the text.")]
         [SerializeField] protected ColorData setColor = new ColorData(Color.white);
 
         protected Writer GetWriter()
@@ -61,6 +64,8 @@ namespace Fungus.Commands
             
             return writer;
         }
+
+        #region Public members
 
         public override void OnEnter()
         {
@@ -125,6 +130,8 @@ namespace Fungus.Commands
         {
             GetWriter().Stop();
         }
+
+        #endregion
 
         #region ILocalizable implementation
 

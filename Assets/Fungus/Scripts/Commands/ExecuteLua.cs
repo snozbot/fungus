@@ -108,29 +108,6 @@ namespace Fungus.Commands
             return luaFile.text + "\n" + luaScript;
         }
 
-        public override void OnEnter()
-        {
-            InitExecuteLua();
-
-            if (luaFunction == null)
-            {
-                Continue();
-            }
-
-            LuaEnv.RunLuaFunction(luaFunction, runAsCoroutine, (returnValue) => {
-                StoreReturnVariable(returnValue);
-                if (waitUntilFinished)
-                {
-                    Continue();
-                }
-            });
-
-            if (!waitUntilFinished)
-            {
-                Continue();
-            }
-        }
-
         protected virtual void StoreReturnVariable(DynValue returnValue)
         {
             if (returnVariable == null || returnValue == null)
@@ -194,6 +171,31 @@ namespace Fungus.Commands
             }
         }
 
+        #region Public members
+
+        public override void OnEnter()
+        {
+            InitExecuteLua();
+
+            if (luaFunction == null)
+            {
+                Continue();
+            }
+
+            LuaEnv.RunLuaFunction(luaFunction, runAsCoroutine, (returnValue) => {
+                StoreReturnVariable(returnValue);
+                if (waitUntilFinished)
+                {
+                    Continue();
+                }
+            });
+
+            if (!waitUntilFinished)
+            {
+                Continue();
+            }
+        }
+
         public override string GetSummary()
         {
             return luaScript;
@@ -203,5 +205,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
     }
 }

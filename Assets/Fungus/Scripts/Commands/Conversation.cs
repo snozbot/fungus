@@ -27,11 +27,6 @@ namespace Fungus.Commands
             conversationManager.PopulateCharacterCache();
         }
 
-        public override void OnEnter()
-        {
-            StartCoroutine(DoConversation());
-        }
-
         protected virtual IEnumerator DoConversation()
         {
             var flowchart = GetFlowchart();
@@ -40,6 +35,13 @@ namespace Fungus.Commands
             yield return StartCoroutine(conversationManager.DoConversation(subbedText));
 
             Continue();
+        }
+
+        #region Public members
+
+        public override void OnEnter()
+        {
+            StartCoroutine(DoConversation());
         }
 
         public override string GetSummary()
@@ -51,5 +53,7 @@ namespace Fungus.Commands
         {
             return new Color32(184, 210, 235, 255);
         }
+
+        #endregion
     }
 }

@@ -16,6 +16,12 @@ namespace Fungus.Commands
     {
         [Tooltip("Display name for the label")]
         [SerializeField] protected string key = "";
+
+        #region Public members
+
+        /// <summary>
+        /// Display name for the label
+        /// </summary>
         public virtual string Key { get { return key; } }
 
         public override void OnEnter()
@@ -32,5 +38,7 @@ namespace Fungus.Commands
         {
             return new Color32(200, 200, 253, 255);
         }
+
+        #endregion
     }
 }

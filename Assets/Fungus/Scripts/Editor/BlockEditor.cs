@@ -407,7 +407,7 @@ namespace Fungus.EditorUtils
             PrefabUtility.RecordPrefabInstancePropertyModifications(block);
         }
 
-        static public void BlockField(SerializedProperty property, GUIContent label, GUIContent nullLabel, Flowchart flowchart)
+        public static void BlockField(SerializedProperty property, GUIContent label, GUIContent nullLabel, Flowchart flowchart)
         {
             if (flowchart == null)
             {
@@ -445,7 +445,7 @@ namespace Fungus.EditorUtils
             property.objectReferenceValue = block;
         }
 
-        static public Block BlockField(Rect position, GUIContent nullLabel, Flowchart flowchart, Block block)
+        public static Block BlockField(Rect position, GUIContent nullLabel, Flowchart flowchart, Block block)
         {
             if (flowchart == null)
             {

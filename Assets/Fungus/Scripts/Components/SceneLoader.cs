@@ -22,22 +22,6 @@ namespace Fungus
         protected string sceneToLoad;
         protected bool displayedImage;
 
-        /// <summary>
-        /// Asynchronously load a new scene.
-        /// </summary>
-        /// <param name="_sceneToLoad">The name of the scene to load. Scenes must be added in project build settings.</param>
-        /// <param name="_loadingTexture">Loading image to display while loading the new scene.</param>
-        static public void LoadScene(string _sceneToLoad, Texture2D _loadingTexture)
-        {
-            // Unity does not provide a way to check if the named scene actually exists in the project.
-            GameObject go = new GameObject("SceneLoader");
-            DontDestroyOnLoad(go);
-
-            SceneLoader sceneLoader = go.AddComponent<SceneLoader>();
-            sceneLoader.sceneToLoad = _sceneToLoad;
-            sceneLoader.loadingTexture = _loadingTexture;
-        }
-
         protected virtual void Start()
         {
             StartCoroutine(DoLoadBlock());
@@ -105,5 +89,25 @@ namespace Fungus
                 displayedImage = true;
             }
         }
+
+        #region Public members
+
+        /// <summary>
+        /// Asynchronously load a new scene.
+        /// </summary>
+        /// <param name="_sceneToLoad">The name of the scene to load. Scenes must be added in project build settings.</param>
+        /// <param name="_loadingTexture">Loading image to display while loading the new scene.</param>
+        public static void LoadScene(string _sceneToLoad, Texture2D _loadingTexture)
+        {
+            // Unity does not provide a way to check if the named scene actually exists in the project.
+            GameObject go = new GameObject("SceneLoader");
+            DontDestroyOnLoad(go);
+
+            SceneLoader sceneLoader = go.AddComponent<SceneLoader>();
+            sceneLoader.sceneToLoad = _sceneToLoad;
+            sceneLoader.loadingTexture = _loadingTexture;
+        }
+
+        #endregion
     }
 }

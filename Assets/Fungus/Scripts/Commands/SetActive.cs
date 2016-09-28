@@ -23,6 +23,8 @@ namespace Fungus.Commands
         [Tooltip("Set to true to enable the game object")]
         [SerializeField] protected BooleanData activeState;
     
+        #region Public members
+
         public override void OnEnter()
         {
             if (_targetGameObject.Value != null)
@@ -47,6 +49,8 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

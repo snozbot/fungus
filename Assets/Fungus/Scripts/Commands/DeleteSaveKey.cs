@@ -17,6 +17,8 @@ namespace Fungus.Commands
         [Tooltip("Name of the saved value. Supports variable substition e.g. \"player_{$PlayerNumber}")]
         [SerializeField] protected string key = "";
 
+        #region Public members
+
         public override void OnEnter()
         {
             if (key == "")
@@ -49,5 +51,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
     }    
 }

@@ -16,58 +16,100 @@ namespace Fungus.Commands
     {
         [Tooltip("Stage to display portrait on")]
         [SerializeField] protected Stage stage;
-        public virtual Stage _Stage { get { return stage; } set { stage = value; } }
 
         [Tooltip("Character to display")]
         [SerializeField] protected Character character;
-        public virtual Character _Character { get { return character; } set { character = value; } }
 
         [Tooltip("Character to swap with")]
         [SerializeField] protected Character replacedCharacter;
-        
+
         [Tooltip("Portrait to display")]
         [SerializeField] protected Sprite portrait;
-        public virtual Sprite _Portrait { get { return portrait; } set { portrait = value; } }
 
         [Tooltip("Move the portrait from/to this offset position")]
         [SerializeField] protected PositionOffset offset;
-        public virtual PositionOffset Offset { get { return offset; } set { offset = value; } }
 
         [Tooltip("Move the portrait from this position")]
         [SerializeField] protected RectTransform fromPosition;
-        public virtual RectTransform FromPosition { get { return fromPosition; } set { fromPosition = value;} }
 
-        [Tooltip("Move the portrait to this positoin")]
+        [Tooltip("Move the portrait to this position")]
         [SerializeField] protected RectTransform toPosition;
-        public virtual RectTransform ToPosition { get { return toPosition; } set { toPosition = value;} }
 
         [Tooltip("Direction character is facing")]
         [SerializeField] protected FacingDirection facing;
-        public virtual FacingDirection Facing { get { return facing; } set { facing = value; } }
 
         [Tooltip("Use Default Settings")]
         [SerializeField] protected bool useDefaultSettings = true;
-        public virtual bool UseDefaultSettings { get { return useDefaultSettings; } set { useDefaultSettings = value; } }
 
         [Tooltip("Fade Duration")]
         [SerializeField] protected float fadeDuration = 0.5f;
-        
+
         [Tooltip("Movement Duration")]
         [SerializeField] protected float moveDuration = 1f;
-        
+
         [Tooltip("Shift Offset")]
         [SerializeField] protected Vector2 shiftOffset;
-        
-        [Tooltip("Move")]
-        [SerializeField] protected bool move;
-        public virtual bool Move { get { return move; } set { move = value; } }
 
-        [Tooltip("Start from offset")]
+        [Tooltip("Move portrait into new position")]
+        [SerializeField] protected bool move;
+
+        [Tooltip("Start from offset position")]
         [SerializeField] protected bool shiftIntoPlace;
-        public virtual bool ShiftIntoPlace { get { return shiftIntoPlace; } set { shiftIntoPlace = value; } }
 
         [Tooltip("Wait until the tween has finished before executing the next command")]
         [SerializeField] protected bool waitUntilFinished = false;
+
+        #region Public members
+
+        /// <summary>
+        /// Stage to display portrait on.
+        /// </summary>
+        public virtual Stage _Stage { get { return stage; } set { stage = value; } }
+
+        /// <summary>
+        /// Character to display.
+        /// </summary>
+        public virtual Character _Character { get { return character; } set { character = value; } }
+
+        /// <summary>
+        /// Portrait to display.
+        /// </summary>
+        public virtual Sprite _Portrait { get { return portrait; } set { portrait = value; } }
+
+        /// <summary>
+        /// Move the portrait from/to this offset position.
+        /// </summary>
+        public virtual PositionOffset Offset { get { return offset; } set { offset = value; } }
+
+        /// <summary>
+        /// Move the portrait from this position.
+        /// </summary>
+        public virtual RectTransform FromPosition { get { return fromPosition; } set { fromPosition = value;} }
+
+        /// <summary>
+        /// Move the portrait to this position.
+        /// </summary>
+        public virtual RectTransform ToPosition { get { return toPosition; } set { toPosition = value;} }
+
+        /// <summary>
+        /// Direction character is facing.
+        /// </summary>
+        public virtual FacingDirection Facing { get { return facing; } set { facing = value; } }
+
+        /// <summary>
+        /// Use Default Settings.
+        /// </summary>
+        public virtual bool UseDefaultSettings { get { return useDefaultSettings; } set { useDefaultSettings = value; } }
+
+        /// <summary>
+        /// Move portrait into new position.
+        /// </summary>
+        public virtual bool Move { get { return move; } set { move = value; } }
+
+        /// <summary>
+        /// Start from offset position.
+        /// </summary>
+        public virtual bool ShiftIntoPlace { get { return shiftIntoPlace; } set { shiftIntoPlace = value; } }
 
         public override void OnEnter()
         {
@@ -213,5 +255,7 @@ namespace Fungus.Commands
             //Default to display type: show
             display = DisplayType.Show;
         }
+
+        #endregion
     }
 }

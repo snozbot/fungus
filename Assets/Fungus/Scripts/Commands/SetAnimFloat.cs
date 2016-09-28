@@ -26,6 +26,8 @@ namespace Fungus.Commands
         [Tooltip("The float value to set the parameter to")]
         [SerializeField] protected FloatData value;
 
+        #region Public members
+
         public override void OnEnter()
         {
             if (_animator.Value != null)
@@ -50,6 +52,8 @@ namespace Fungus.Commands
         {
             return new Color32(170, 204, 169, 255);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

@@ -16,13 +16,15 @@ namespace Fungus.Commands
     [AddComponentMenu("")]
     public class SetSaveProfile : Command
     {
+        [Tooltip("Name of save profile to make active.")]
+        [SerializeField] protected string saveProfileName = "";
+
+        #region Public members
+
         /// <summary>
         /// Shared save profile name used by SaveVariable and LoadVariable.
         /// </summary>
         public static string saveProfile = "";
-
-        [Tooltip("Name of save profile to make active.")]
-        [SerializeField] protected string saveProfileName = "";
 
         public override void OnEnter()
         {
@@ -40,5 +42,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
     }    
 }

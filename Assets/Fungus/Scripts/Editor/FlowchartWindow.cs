@@ -84,7 +84,7 @@ namespace Fungus.EditorUtils
             Repaint();
         }
 
-        static public Flowchart GetFlowchart()
+        public static Flowchart GetFlowchart()
         {
             // Using a temp hidden object to track the active Flowchart across 
             // serialization / deserialization when playing the game in the editor.

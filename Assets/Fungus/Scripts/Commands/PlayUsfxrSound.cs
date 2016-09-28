@@ -30,7 +30,7 @@ using Fungus.Variables;
         protected SfxrSynth _synth = new SfxrSynth();
 
         //Call this if the settings have changed
-        protected void UpdateCache() 
+        protected virtual void UpdateCache() 
         {
             if (_SettingsString.Value != null) 
             {
@@ -39,11 +39,18 @@ using Fungus.Variables;
             }
         }
 
-        public void Awake() 
+        protected virtual void Awake() 
         {
             //Always build the cache on awake
             UpdateCache();
         }
+
+        protected void DoWait()
+        {
+            Continue();
+        }
+
+        #region Public members
 
         public override void OnEnter() 
         {
@@ -57,11 +64,6 @@ using Fungus.Variables;
             {
                 Invoke ("DoWait", waitDuration);
             }
-        }
-
-        protected void DoWait()
-        {
-            Continue();
         }
 
         public override string GetSummary() 
@@ -81,6 +83,8 @@ using Fungus.Variables;
         {
             return new Color32(128, 200, 200, 255);
         }
+
+        #endregion
 
         #region Backwards compatibility
 

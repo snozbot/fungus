@@ -34,6 +34,8 @@ namespace Fungus.Commands
         [Tooltip("Text to write to the debug log. Supports variable substitution, e.g. {$Myvar}")]
         [SerializeField] protected StringDataMulti logMessage;
 
+        #region Public members
+
         public override void OnEnter ()
         {
             var flowchart = GetFlowchart();
@@ -64,5 +66,7 @@ namespace Fungus.Commands
         {
             return new Color32(235, 191, 217, 255);
         }
+
+        #endregion
     }
 }
