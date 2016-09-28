@@ -10,6 +10,8 @@ namespace Fungus
     /// </summary>
     public abstract class LuaEnvironmentInitializer : MonoBehaviour
     {
+        #region Public members
+
         /// <summary>
         /// Called when the LuaEnvironment is initializing.
         /// </summary>
@@ -19,5 +21,7 @@ namespace Fungus
         /// Applies transformations to the input script prior to execution.
         /// </summary>
         public abstract string PreprocessScript(string input);
+
+        #endregion
     }
 }

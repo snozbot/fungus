@@ -240,7 +240,7 @@ namespace Fungus
         /// Will cause the Menu dialog to become visible if it is not already visible.
         /// </summary>
         /// <returns><c>true</c>, if the option was added successfully.</returns>
-        public virtual bool AddOption(string text, bool interactable, ILuaEnvironment luaEnv, Closure callBack)
+        public virtual bool AddOption(string text, bool interactable, LuaEnvironment luaEnv, Closure callBack)
         {
             if (!gameObject.activeSelf)
             {
@@ -301,7 +301,7 @@ namespace Fungus
         /// <summary>
         /// Show a timer during which the player can select an option. Calls a Lua function when the timer expires.
         /// </summary>
-        public virtual IEnumerator ShowTimer(float duration, ILuaEnvironment luaEnv, Closure callBack)
+        public virtual IEnumerator ShowTimer(float duration, LuaEnvironment luaEnv, Closure callBack)
         {
             if (CachedSlider == null ||
                 duration <= 0f)

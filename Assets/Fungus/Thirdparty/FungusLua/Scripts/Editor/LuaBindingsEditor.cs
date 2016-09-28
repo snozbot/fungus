@@ -63,7 +63,7 @@ namespace Fungus
                 if (EditorGUI.EndChangeCheck())
                 {
                     // Force the key to be a valid Lua variable name
-                    LuaBindings luaBindings = target as LuaBindings;
+                    var luaBindings = target as LuaBindings;
                     keyProp.stringValue = GetUniqueKey(luaBindings, keyProp.stringValue, index);
                 }
 
@@ -77,7 +77,7 @@ namespace Fungus
                 {
                     // Use the object name as the key
                     string keyName = objectProp.objectReferenceValue.name;
-                    LuaBindings luaBindings = target as LuaBindings;
+                    var luaBindings = target as LuaBindings;
                     element.FindPropertyRelative("key").stringValue = GetUniqueKey(luaBindings, keyName.ToLower(), index);
 
                     // Auto select any Flowchart component in the object
@@ -200,7 +200,7 @@ namespace Fungus
             List<string> details = new List<string>();
             details.Add("");
 
-            LuaBindings luaBindings = target as LuaBindings;
+            var luaBindings = target as LuaBindings;
             foreach (BoundObject boundObject in luaBindings.BoundObjects)
             {
                 UnityEngine.Object inspectObject = boundObject.obj;
@@ -388,8 +388,8 @@ namespace Fungus
         [DidReloadScripts()]
         protected static void DidReloadScripts()
         {
-            LuaBindings[] luaBindingsList = GameObject.FindObjectsOfType<LuaBindings>();
-            foreach (LuaBindings luaBindings in luaBindingsList)
+            var luaBindingsList = GameObject.FindObjectsOfType<LuaBindings>();
+            foreach (var luaBindings in luaBindingsList)
             {
                 SerializedObject so = new SerializedObject(luaBindings);
                 so.Update();

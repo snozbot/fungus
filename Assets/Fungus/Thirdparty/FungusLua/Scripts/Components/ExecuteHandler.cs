@@ -12,23 +12,60 @@ using Object = UnityEngine.Object;
 
 namespace Fungus
 {
+    [Flags]
+    public enum ExecuteMethod
+    {
+        AfterPeriodOfTime       = 1 << 0,
+        Start                   = 1 << 1,
+        Update                  = 1 << 2,
+        FixedUpdate             = 1 << 3,
+        LateUpdate              = 1 << 4,
+        OnDestroy               = 1 << 5,
+        OnEnable                = 1 << 6,
+        OnDisable               = 1 << 7,
+        OnControllerColliderHit = 1 << 8,
+        OnParticleCollision     = 1 << 9,
+        OnJointBreak            = 1 << 10,
+        OnBecameInvisible       = 1 << 11,
+        OnBecameVisible         = 1 << 12,
+        OnTriggerEnter          = 1 << 13,
+        OnTriggerExit           = 1 << 14,
+        OnTriggerStay           = 1 << 15,
+        OnCollisionEnter        = 1 << 16,
+        OnCollisionExit         = 1 << 17,
+        OnCollisionStay         = 1 << 18,
+        OnTriggerEnter2D        = 1 << 19,
+        OnTriggerExit2D         = 1 << 20,
+        OnTriggerStay2D         = 1 << 21,
+        OnCollisionEnter2D      = 1 << 22,
+        OnCollisionExit2D       = 1 << 23,
+        OnCollisionStay2D       = 1 << 24,
+    }
+
     /// <summary>
     /// Executes an LuaScript component in the same gameobject when a condition occurs.
     /// </summary>
-    public class ExecuteHandler : MonoBehaviour, IExecuteHandler, IExecuteHandlerConfigurator
+    public class ExecuteHandler : MonoBehaviour, IExecuteHandlerConfigurator
     {
+        [Tooltip("Execute after a period of time.")]
         [SerializeField] protected float executeAfterTime = 1f;
 
+        [Tooltip("Repeat execution after a period of time.")]
         [SerializeField] protected bool repeatExecuteTime = true;
 
+        [Tooltip("Repeat forever.")]
         [SerializeField] protected float repeatEveryTime = 1f;
 
+        [Tooltip("Execute after a number of frames have elapsed.")]
         [SerializeField] protected int executeAfterFrames = 1;
 
+        [Tooltip("Repeat execution after a number of frames have elapsed.")]
         [SerializeField] protected bool repeatExecuteFrame = true;
 
+        [Tooltip("Execute on every frame.")]
         [SerializeField] protected int repeatEveryFrame = 1;
 
+        [Tooltip("The bitmask for the currently selected execution methods.")]
         [SerializeField] protected ExecuteMethod executeMethods = ExecuteMethod.Start;
 
         [Tooltip("Name of the method on a component in this gameobject to call when executing.")]
@@ -209,8 +246,68 @@ namespace Fungus
                 Execute();
             }
         }
+            
+        #region Public methods
 
-        #region AssertionComponentConfigurator
+        /// <summary>
+        /// Execute after a period of time.
+        /// </summary>
+        public virtual float ExecuteAfterTime { get { return executeAfterTime; } set { executeAfterTime = value; } }
+
+        /// <summary>
+        /// Repeat execution after a period of time.
+        /// </summary>
+        public virtual bool RepeatExecuteTime { get { return repeatExecuteTime; } set { repeatExecuteTime = value; } }
+
+        /// <summary>
+        /// Repeat forever.
+        /// </summary>
+        public virtual float RepeatEveryTime { get { return repeatEveryTime; } set { repeatEveryTime = value; } }
+
+        /// <summary>
+        /// Execute after a number of frames have elapsed.
+        /// </summary>
+        public virtual int ExecuteAfterFrames { get { return executeAfterFrames; } set { executeAfterFrames = value; } }
+
+        /// <summary>
+        /// Repeat execution after a number of frames have elapsed.
+        /// </summary>
+        public virtual bool RepeatExecuteFrame { get { return repeatExecuteFrame; } set { repeatExecuteFrame = value; } }
+
+        /// <summary>
+        /// Execute on every frame.
+        /// </summary>
+        public virtual int RepeatEveryFrame { get { return repeatEveryFrame; } set { repeatEveryFrame = value; } }
+
+        /// <summary>
+        /// The bitmask for the currently selected execution methods.
+        /// </summary>
+        public virtual ExecuteMethod ExecuteMethods { get { return executeMethods; } set { executeMethods = value; } }
+
+        /// <summary>
+        /// Returns true if the specified execute method option has been enabled.
+        /// </summary>
+        public virtual bool IsExecuteMethodSelected(ExecuteMethod method)
+        {
+            return method == (executeMethods & method);
+        }
+
+        /// <summary>
+        /// Execute the Lua script immediately.
+        /// This is the function to call if you want to trigger execution from an external script.
+        /// </summary>
+        public virtual void Execute()
+        {
+            // Call any OnExecute methods in components on this gameobject
+            if (executeMethodName != "")
+            {
+                SendMessage(executeMethodName, SendMessageOptions.DontRequireReceiver);
+            }
+        }
+
+        #endregion
+
+        #region AssertionComponentConfigurator implementation
 
         public int UpdateExecuteStartOnFrame { set { executeAfterFrames = value; } }
 
@@ -225,38 +322,6 @@ namespace Fungus
         public bool TimeExecuteRepeat { set { repeatExecuteTime = value; } }
 
         public ExecuteHandler Component { get { return this; } }
-
-        #endregion
-
-        #region IExecuteHandler implementation
-
-        public virtual float ExecuteAfterTime { get { return executeAfterTime; } set { executeAfterTime = value; } }
-
-        public virtual bool RepeatExecuteTime { get { return repeatExecuteTime; } set { repeatExecuteTime = value; } }
-
-        public virtual float RepeatEveryTime { get { return repeatEveryTime; } set { repeatEveryTime = value; } }
-
-        public virtual int ExecuteAfterFrames { get { return executeAfterFrames; } set { executeAfterFrames = value; } }
-
-        public virtual bool RepeatExecuteFrame { get { return repeatExecuteFrame; } set { repeatExecuteFrame = value; } }
-
-        public virtual int RepeatEveryFrame { get { return repeatEveryFrame; } set { repeatEveryFrame = value; } }
-
-        public virtual ExecuteMethod ExecuteMethods { get { return executeMethods; } set { executeMethods = value; } }
-
-        public virtual bool IsExecuteMethodSelected(ExecuteMethod method)
-        {
-            return method == (executeMethods & method);
-        }
-
-        public virtual void Execute()
-        {
-            // Call any OnExecute methods in components on this gameobject
-            if (executeMethodName != "")
-            {
-                SendMessage(executeMethodName, SendMessageOptions.DontRequireReceiver);
-            }
-        }
 
         #endregion
     }

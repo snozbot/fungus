@@ -65,7 +65,7 @@ namespace Fungus
 
         #region LuaBindingsBase implementation
 
-        public override void AddBindings(ILuaEnvironment luaEnv)
+        public override void AddBindings(LuaEnvironment luaEnv)
         {
             if (!Init())
             {

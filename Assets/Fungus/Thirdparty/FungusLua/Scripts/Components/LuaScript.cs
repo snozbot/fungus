@@ -18,7 +18,6 @@ namespace Fungus
         /// </summary>
         [Tooltip("The Lua Environment to use when executing Lua script.")]
         [SerializeField] protected LuaEnvironment luaEnvironment;
-        protected ILuaEnvironment LuaEnv { get; set; }
 
         /// <summary>
         /// Text file containing Lua script to be executed.
@@ -50,7 +49,7 @@ namespace Fungus
         protected Closure luaFunction;
 
         // Recursively build the full hierarchy path to this game object
-        private static string GetPath(Transform current) 
+        protected static string GetPath(Transform current) 
         {
             if (current.parent == null)
             {
@@ -74,32 +73,26 @@ namespace Fungus
                 return;
             }
 
-            if (LuaEnv == null &&
-                luaEnvironment != null)
-            {
-                LuaEnv = luaEnvironment as ILuaEnvironment;
-            }
-
-            if (LuaEnv == null)        
+            if (luaEnvironment == null)        
             {
                 // Create a Lua Environment if none exists yet
-                LuaEnv = LuaEnvironment.GetLua();
+                luaEnvironment = LuaEnvironment.GetLua();
             }
 
-            if (LuaEnv == null)        
+            if (luaEnvironment == null)        
             {
                 Debug.LogError("No Lua Environment found");
                 return;
             }
 
             // Ensure the LuaEnvironment is initialized before trying to execute code
-            LuaEnv.InitEnvironment();
+            luaEnvironment.InitEnvironment();
 
             // Cache a descriptive name to use in Lua error messages
             friendlyName = GetPath(transform) + ".LuaScript";
 
             string s = GetLuaString();
-            luaFunction = LuaEnv.LoadLuaFunction(s, friendlyName);
+            luaFunction = luaEnvironment.LoadLuaFunction(s, friendlyName);
 
             initialised = true;
         }
@@ -136,13 +129,13 @@ namespace Fungus
             // Make sure the script and Lua environment are initialised before executing
             InitLuaScript();
 
-            if (LuaEnv == null)
+            if (luaEnvironment == null)
             {
                 Debug.LogWarning("No Lua Environment found");
             }
             else
             {
-                LuaEnv.RunLuaFunction(luaFunction, runAsCoroutine);
+                luaEnvironment.RunLuaFunction(luaFunction, runAsCoroutine);
             }
         }
 

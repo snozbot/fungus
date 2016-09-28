@@ -368,7 +368,7 @@ namespace Fungus
         /// <summary>
         /// Lua Environment to be used by default for all Execute Lua commands in this Flowchart.
         /// </summary>
-        public virtual ILuaEnvironment LuaEnv { get { return luaEnvironment; } }
+        public virtual LuaEnvironment LuaEnv { get { return luaEnvironment; } }
 
         /// <summary>
         /// The ExecuteLua command adds a global Lua variable with this name bound to the flowchart prior to executing.

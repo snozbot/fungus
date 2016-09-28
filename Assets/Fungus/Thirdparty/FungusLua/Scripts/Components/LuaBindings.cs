@@ -4,18 +4,36 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using MoonSharp.Interpreter;
+using System;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Represents a single Unity object (+ optional component) bound to a string key.
+    /// </summary>
+    [Serializable]
+    public class BoundObject
+    {
+        public string key;
+        public UnityEngine.Object obj;
+        public Component component;
+    }
+
     /// <summary>
     /// Base class for a component which registers Lua Bindings.
     /// When the Lua Environment initialises, it finds all components in the scene that inherit
     /// from LuaBindingsBase and calls them to add their bindings.
     /// </summary>
-    public abstract class LuaBindingsBase : MonoBehaviour, ILuaBindings
+    public abstract class LuaBindingsBase : MonoBehaviour
     {
-        public abstract void AddBindings(ILuaEnvironment luaEnv);
+        /// <summary>
+        /// Adds the required bindings to the Lua environment.
+        /// </summary>
+        public abstract void AddBindings(LuaEnvironment luaEnv);
 
+        /// <summary>
+        /// Returns a list of the object that will be bound to the Lua environment.
+        /// </summary>
         public abstract List<BoundObject> BoundObjects { get; }
     }
 
@@ -55,9 +73,12 @@ namespace Fungus
             }
         }
 
-        #region ILuaBindings implementation
+        #region Public methods
 
-        public override void AddBindings(ILuaEnvironment luaEnv)
+        /// <summary>
+        /// Add all declared bindings to the globals table.
+        /// </summary>
+        public override void AddBindings(LuaEnvironment luaEnv)
         {
             if (!allEnvironments && 
                 (luaEnvironment != null && !luaEnvironment.Equals(luaEnv)))
@@ -147,6 +168,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// The list of objects to be bound to Lua.
+        /// </summary>
         public override List<BoundObject> BoundObjects { get { return boundObjects; } }
 
         #endregion

@@ -51,7 +51,7 @@ namespace Fungus
         /// <summary>
         /// Cached reference to the Lua Environment component.
         /// </summary>
-        protected ILuaEnvironment LuaEnv { get; set; }
+        protected LuaEnvironment luaEnvironment { get; set; }
 
         protected StringSubstituter stringSubstituter;
 
@@ -140,7 +140,7 @@ namespace Fungus
             LuaBindingsBase[] bindings = GameObject.FindObjectsOfType<LuaBindingsBase>();
             foreach (LuaBindingsBase binding in bindings)
             {
-                binding.AddBindings(LuaEnv);
+                binding.AddBindings(luaEnvironment);
             }
         }
 
@@ -156,7 +156,7 @@ namespace Fungus
                 return;
             }
 
-            MoonSharp.Interpreter.Script interpreter = LuaEnv.Interpreter;
+            MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
 
             // Require the Fungus module and assign it to the global 'fungus'
             Table fungusTable = null;
@@ -180,7 +180,7 @@ namespace Fungus
             fungusTable["factory"] = UserData.CreateStatic(typeof(PODTypeFactory));
 
             // Lua Environment and Lua Utils components
-            fungusTable["luaenvironment"] = LuaEnv;
+            fungusTable["luaenvironment"] = luaEnvironment;
             fungusTable["luautils"] = this;
 
             // Provide access to the Unity Test Tools (if available).
@@ -266,14 +266,14 @@ namespace Fungus
 
         public override void Initialize()
         {   
-            LuaEnv = GetComponent<ILuaEnvironment>();
-            if (LuaEnv == null)
+            luaEnvironment = GetComponent<LuaEnvironment>();
+            if (luaEnvironment == null)
             {
                 Debug.LogError("No Lua Environment found");
                 return;
             }
 
-            if (LuaEnv.Interpreter == null)
+            if (luaEnvironment.Interpreter == null)
             {
                 Debug.LogError("No Lua interpreter found");
                 return;
@@ -319,28 +319,28 @@ namespace Fungus
         {
             // This method could be called from the Start of another component, so
             // we need to ensure that the LuaEnvironment has been initialized.
-            if (LuaEnv == null)
+            if (luaEnvironment == null)
             {
-                LuaEnv = GetComponent<ILuaEnvironment>();
-                if (LuaEnv != null)
+                luaEnvironment = GetComponent<LuaEnvironment>();
+                if (luaEnvironment != null)
                 {
-                    LuaEnv.InitEnvironment();
+                    luaEnvironment.InitEnvironment();
                 }
             }
                     
-            if (LuaEnv == null)
+            if (luaEnvironment == null)
             {
                 UnityEngine.Debug.LogError("No Lua Environment found");
                 return false;
             }
 
-            if (LuaEnv.Interpreter == null)
+            if (luaEnvironment.Interpreter == null)
             {
                 UnityEngine.Debug.LogError("No Lua interpreter found");
                 return false;
             }
                 
-            MoonSharp.Interpreter.Script interpreter = LuaEnv.Interpreter;
+            MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
 
             // Instantiate the regular expression object.
             Regex r = new Regex("\\{\\$.*?\\}");
