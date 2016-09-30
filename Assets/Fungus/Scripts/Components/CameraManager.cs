@@ -428,7 +428,7 @@ namespace Fungus
 
             swipePanActive = false;
 
-            if (duration == 0f)
+            if (Mathf.Approximately(duration, 0f))
             {
                 // Move immediately
                 camera.orthographicSize = targetSize;

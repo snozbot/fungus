@@ -78,7 +78,7 @@ namespace Fungus
         {
             AudioSource audio = GetComponent<AudioSource>();
 
-            if (duration == 0f)
+            if (Mathf.Approximately(duration, 0f))
             {
                 audio.pitch = pitch;
                 if (onComplete != null)

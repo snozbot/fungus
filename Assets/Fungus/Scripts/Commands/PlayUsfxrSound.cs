@@ -56,7 +56,7 @@ using Fungus.Variables;
         {
             _synth.SetParentTransform(ParentTransform);
             _synth.Play();
-            if (waitDuration == 0f)
+            if (Mathf.Approximately(waitDuration, 0f))
             {
                 Continue();
             }

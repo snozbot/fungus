@@ -96,7 +96,7 @@ namespace Fungus
             }
 
             // Early out if duration is zero
-            if (duration == 0f)
+            if (Mathf.Approximately(duration, 0f))
             {
                 spriteRenderer.color = targetColor;
                 if (onComplete != null)

@@ -41,7 +41,7 @@ namespace Fungus.Commands
                 return;
             }
 
-            if (delay == 0f)
+            if (Mathf.Approximately(delay, 0f))
             {
                 CallTheMethod();
             }
