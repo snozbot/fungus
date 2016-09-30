@@ -10,9 +10,9 @@ using Fungus;
 namespace Fungus
 {
     /// <summary>
-    /// Controller for main camera.Supports several types of camera transition including snap, pan & fade.
+    /// Manager for main camera. Supports several types of camera transition including snap, pan & fade.
     /// </summary>
-    public class CameraController : MonoBehaviour
+    public class CameraManager : MonoBehaviour
     {
         [Tooltip("Full screen texture used for screen fade effect.")]
         [SerializeField] protected Texture2D screenFadeTexture;

@@ -10,7 +10,7 @@ namespace Fungus
     /// Music playback persists across scene loads.
     /// </summary>
     [RequireComponent(typeof(AudioSource))]
-    public class MusicController : MonoBehaviour
+    public class MusicManager : MonoBehaviour
     {
         protected virtual void Start()
         {
@@ -32,7 +32,7 @@ namespace Fungus
                 return;
             }
 
-            if (fadeDuration == 0f)
+            if (Mathf.Approximately(fadeDuration, 0f))
             {
                 audioSource.clip = musicClip;
                 audioSource.loop = loop;

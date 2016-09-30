@@ -53,9 +53,9 @@ namespace Fungus.Commands
                 return;
             }
 
-            var cameraController = FungusManager.Instance.Camera;
+            var cameraManager = FungusManager.Instance.CameraManager;
 
-            cameraController.StartSwipePan(targetCamera, viewA, viewB, duration, speedMultiplier, () => Continue() );
+            cameraManager.StartSwipePan(targetCamera, viewA, viewB, duration, speedMultiplier, () => Continue() );
         }
 
         public override string GetSummary()

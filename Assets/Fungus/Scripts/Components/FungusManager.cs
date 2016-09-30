@@ -6,8 +6,8 @@ namespace Fungus
     /// <summary>
     /// Fungus manager singleton. Manages access to all Fungus singletons in a consistent manner.
     /// </summary>
-    [RequireComponent(typeof(CameraController))]
-    [RequireComponent(typeof(MusicController))]
+    [RequireComponent(typeof(CameraManager))]
+    [RequireComponent(typeof(MusicManager))]
     public sealed class FungusManager : MonoBehaviour
     {
         static FungusManager instance;
@@ -16,8 +16,8 @@ namespace Fungus
 
         void Awake()
         {
-            Camera = GetComponent<CameraController>();
-            Music = GetComponent<MusicController>();
+            CameraManager = GetComponent<CameraManager>();
+            MusicManager = GetComponent<MusicManager>();
         }
 
         /// <summary>
@@ -38,12 +38,12 @@ namespace Fungus
         /// <summary>
         /// Gets the camera manager singleton instance.
         /// </summary>
-        public CameraController Camera { get; private set; }
+        public CameraManager CameraManager { get; private set; }
 
         /// <summary>
         /// Gets the music manager singleton instance.
         /// </summary>
-        public MusicController Music { get; private set; }
+        public MusicManager MusicManager { get; private set; }
 
         /// <summary>
         /// Gets the FungusManager singleton instance.
