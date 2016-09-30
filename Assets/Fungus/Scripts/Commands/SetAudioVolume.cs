@@ -29,16 +29,14 @@ namespace Fungus.Commands
 
         public override void OnEnter()
         {
-            var musicController = MusicController.GetInstance();
-            if (musicController != null)
-            {
-                musicController.SetAudioVolume(volume, fadeDuration, () => {
-                    if (waitUntilFinished)
-                    {
-                        Continue();
-                    }
-                });
-            }
+            var musicManager = FungusManager.Instance.MusicManager;
+
+            musicManager.SetAudioVolume(volume, fadeDuration, () => {
+                if (waitUntilFinished)
+                {
+                    Continue();
+                }
+            });
 
             if (!waitUntilFinished)
             {

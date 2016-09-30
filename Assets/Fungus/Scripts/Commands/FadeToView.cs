@@ -71,18 +71,18 @@ namespace Fungus.Commands
                 return;
             }
 
-            var cameraController = CameraController.GetInstance();
+            var cameraManager = FungusManager.Instance.CameraManager;
 
             if (fadeTexture)
             {
-                cameraController.ScreenFadeTexture = fadeTexture;
+                cameraManager.ScreenFadeTexture = fadeTexture;
             }
             else
             {
-                cameraController.ScreenFadeTexture = CameraController.CreateColorTexture(fadeColor, 32, 32);
+                cameraManager.ScreenFadeTexture = CameraManager.CreateColorTexture(fadeColor, 32, 32);
             }
 
-            cameraController.FadeToView(targetCamera, targetView, duration, fadeOut, delegate { 
+            cameraManager.FadeToView(targetCamera, targetView, duration, fadeOut, delegate { 
                 if (waitUntilFinished)
                 {
                     Continue();
@@ -97,7 +97,9 @@ namespace Fungus.Commands
 
         public override void OnStopExecuting()
         {
-            CameraController.GetInstance().Stop();
+            var cameraManager = FungusManager.Instance.CameraManager;
+
+            cameraManager.Stop();
         }
 
         public override string GetSummary()

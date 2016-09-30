@@ -35,18 +35,18 @@ namespace Fungus.Commands
 
         public override void OnEnter()
         {
-            var cameraController = CameraController.GetInstance();
+            var cameraManager = FungusManager.Instance.CameraManager;
             
             if (fadeTexture)
             {
-                cameraController.ScreenFadeTexture = fadeTexture;
+                cameraManager.ScreenFadeTexture = fadeTexture;
             }
             else
             {
-                cameraController.ScreenFadeTexture = CameraController.CreateColorTexture(fadeColor, 32, 32);
+                cameraManager.ScreenFadeTexture = CameraManager.CreateColorTexture(fadeColor, 32, 32);
             }
             
-            cameraController.Fade(targetAlpha, duration, delegate { 
+            cameraManager.Fade(targetAlpha, duration, delegate { 
                 if (waitUntilFinished)
                 {
                     Continue();

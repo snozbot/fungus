@@ -36,11 +36,9 @@ namespace Fungus.Commands
                 }
             };
 
-            var musicController = MusicController.GetInstance();
-            if (musicController != null)
-            {
-                musicController.SetAudioPitch(pitch, fadeDuration, onComplete);
-            }
+            var musicManager = FungusManager.Instance.MusicManager;
+
+            musicManager.SetAudioPitch(pitch, fadeDuration, onComplete);
 
             if (!waitUntilFinished)
             {

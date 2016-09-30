@@ -37,7 +37,7 @@ namespace Fungus.Commands
         {
             foreach (Image image in go.GetComponentsInChildren<Image>())
             {
-                if (duration == 0f)
+                if (Mathf.Approximately(duration, 0f))
                 {
                     switch (fadeMode)
                     {
@@ -67,7 +67,7 @@ namespace Fungus.Commands
 
             foreach (Text text in go.GetComponentsInChildren<Text>())
             {
-                if (duration == 0f)
+                if (Mathf.Approximately(duration, 0f))
                 {
                     switch (fadeMode)
                     {
@@ -97,7 +97,7 @@ namespace Fungus.Commands
 
             foreach (TextMesh textMesh in go.GetComponentsInChildren<TextMesh>())
             {
-                if (duration == 0f)
+                if (Mathf.Approximately(duration, 0f))
                 {
                     switch (fadeMode)
                     {

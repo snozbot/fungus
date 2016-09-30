@@ -18,11 +18,9 @@ namespace Fungus.Commands
 
         public override void OnEnter()
         {
-            var musicController = MusicController.GetInstance();
-            if (musicController != null)
-            {
-                musicController.StopMusic();
-            }
+            var musicManager = FungusManager.Instance.MusicManager;
+
+            musicManager.StopMusic();
 
             Continue();
         }

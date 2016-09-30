@@ -58,13 +58,13 @@ namespace Fungus.Commands
                 return;
             }
 
-            var cameraController = CameraController.GetInstance();
+            var cameraManager = FungusManager.Instance.CameraManager;
 
             Vector3 targetPosition = targetView.transform.position;
             Quaternion targetRotation = targetView.transform.rotation;
             float targetSize = targetView.ViewSize;
 
-            cameraController.PanToPosition(targetCamera, targetPosition, targetRotation, targetSize, duration, delegate {
+            cameraManager.PanToPosition(targetCamera, targetPosition, targetRotation, targetSize, duration, delegate {
                 if (waitUntilFinished)
                 {
                     Continue();
@@ -79,7 +79,9 @@ namespace Fungus.Commands
 
         public override void OnStopExecuting()
         {
-            CameraController.GetInstance().Stop();
+            var cameraManager = FungusManager.Instance.CameraManager;
+
+            cameraManager.Stop();
         }
 
         public override string GetSummary()

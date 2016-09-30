@@ -10,9 +10,9 @@ using Fungus;
 namespace Fungus
 {
     /// <summary>
-    /// Controller for main camera.Supports several types of camera transition including snap, pan & fade.
+    /// Manager for main camera. Supports several types of camera transition including snap, pan & fade.
     /// </summary>
-    public class CameraController : MonoBehaviour
+    public class CameraManager : MonoBehaviour
     {
         [Tooltip("Full screen texture used for screen fade effect.")]
         [SerializeField] protected Texture2D screenFadeTexture;
@@ -51,8 +51,6 @@ namespace Fungus
         
         protected Dictionary<string, CameraView> storedViews = new Dictionary<string, CameraView>();
         
-        protected static CameraController instance;
-
         protected virtual void OnGUI()
         {
             if (swipePanActive)
@@ -303,21 +301,6 @@ namespace Fungus
         #region Public members
 
         /// <summary>
-        /// Returns the CameraController singleton instance.
-        /// Will create a CameraController game object if none currently exists.
-        /// </summary>
-        public static CameraController GetInstance()
-        {
-            if (instance == null)
-            {
-                GameObject go = new GameObject("CameraController");
-                instance = go.AddComponent<CameraController>();
-            }
-
-            return instance;
-        }
-
-        /// <summary>
         /// Moves camera smoothly through a sequence of Views over a period of time.
         /// </summary>
         public virtual void PanToPath(Camera camera, View[] viewList, float duration, Action arriveAction)
@@ -445,7 +428,7 @@ namespace Fungus
 
             swipePanActive = false;
 
-            if (duration == 0f)
+            if (Mathf.Approximately(duration, 0f))
             {
                 // Move immediately
                 camera.orthographicSize = targetSize;

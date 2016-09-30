@@ -144,7 +144,7 @@ namespace Fungus
                 targetAlpha = 1f;
                 fadeCoolDownTimer = 0.1f;
             }
-            else if (fadeWhenDone && fadeCoolDownTimer == 0f)
+            else if (fadeWhenDone && Mathf.Approximately(fadeCoolDownTimer, 0f))
             {
                 targetAlpha = 0f;
             }

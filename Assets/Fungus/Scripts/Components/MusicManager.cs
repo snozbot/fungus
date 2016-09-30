@@ -10,10 +10,8 @@ namespace Fungus
     /// Music playback persists across scene loads.
     /// </summary>
     [RequireComponent(typeof(AudioSource))]
-    public class MusicController : MonoBehaviour
+    public class MusicManager : MonoBehaviour
     {
-        protected static MusicController instance;
-
         protected virtual void Start()
         {
             GetComponent<AudioSource>().playOnAwake = false;
@@ -21,22 +19,6 @@ namespace Fungus
         }
 
         #region Public members
-
-        /// <summary>
-        /// Returns the MusicController singleton instance.
-        /// Will create a MusicController game object if none currently exists.
-        /// </summary>
-        public static MusicController GetInstance()
-        {
-            if (instance == null)
-            {
-                GameObject go = new GameObject("MusicController");
-                DontDestroyOnLoad(go);
-                instance = go.AddComponent<MusicController>();
-            }
-
-            return instance;
-        }
 
         /// <summary>
         /// Plays game music using an audio clip.
@@ -50,7 +32,7 @@ namespace Fungus
                 return;
             }
 
-            if (fadeDuration == 0f)
+            if (Mathf.Approximately(fadeDuration, 0f))
             {
                 audioSource.clip = musicClip;
                 audioSource.loop = loop;
@@ -96,7 +78,7 @@ namespace Fungus
         {
             AudioSource audio = GetComponent<AudioSource>();
 
-            if (duration == 0f)
+            if (Mathf.Approximately(duration, 0f))
             {
                 audio.pitch = pitch;
                 if (onComplete != null)
