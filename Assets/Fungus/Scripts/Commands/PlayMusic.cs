@@ -30,12 +30,10 @@ namespace Fungus.Commands
 
         public override void OnEnter()
         {
-            var musicController = MusicController.GetInstance();
-            if (musicController != null)
-            {
-                float startTime = Mathf.Max(0, atTime);
-                musicController.PlayMusic(musicClip, loop, fadeDuration, startTime);
-            }
+            var musicController = FungusManager.Instance.Music;
+
+            float startTime = Mathf.Max(0, atTime);
+            musicController.PlayMusic(musicClip, loop, fadeDuration, startTime);
                 
             Continue();
         }

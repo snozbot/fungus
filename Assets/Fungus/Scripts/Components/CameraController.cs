@@ -51,8 +51,6 @@ namespace Fungus
         
         protected Dictionary<string, CameraView> storedViews = new Dictionary<string, CameraView>();
         
-        protected static CameraController instance;
-
         protected virtual void OnGUI()
         {
             if (swipePanActive)
@@ -301,21 +299,6 @@ namespace Fungus
         }
 
         #region Public members
-
-        /// <summary>
-        /// Returns the CameraController singleton instance.
-        /// Will create a CameraController game object if none currently exists.
-        /// </summary>
-        public static CameraController GetInstance()
-        {
-            if (instance == null)
-            {
-                GameObject go = new GameObject("CameraController");
-                instance = go.AddComponent<CameraController>();
-            }
-
-            return instance;
-        }
 
         /// <summary>
         /// Moves camera smoothly through a sequence of Views over a period of time.

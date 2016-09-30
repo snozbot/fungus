@@ -39,11 +39,9 @@ namespace Fungus.Commands
                 return;
             }
 
-            var musicController = MusicController.GetInstance();
-            if (musicController != null)
-            {
-                musicController.PlaySound(soundClip, volume);
-            }
+            var musicController = FungusManager.Instance.Music;
+
+            musicController.PlaySound(soundClip, volume);
 
             if (waitUntilFinished)
             {

@@ -53,7 +53,7 @@ namespace Fungus.Commands
                 return;
             }
 
-            var cameraController = CameraController.GetInstance();
+            var cameraController = FungusManager.Instance.Camera;
 
             cameraController.StartSwipePan(targetCamera, viewA, viewB, duration, speedMultiplier, () => Continue() );
         }

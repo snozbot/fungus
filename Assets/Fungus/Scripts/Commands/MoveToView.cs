@@ -58,7 +58,7 @@ namespace Fungus.Commands
                 return;
             }
 
-            var cameraController = CameraController.GetInstance();
+            var cameraController = FungusManager.Instance.Camera;
 
             Vector3 targetPosition = targetView.transform.position;
             Quaternion targetRotation = targetView.transform.rotation;
@@ -79,7 +79,9 @@ namespace Fungus.Commands
 
         public override void OnStopExecuting()
         {
-            CameraController.GetInstance().Stop();
+            var cameraController = FungusManager.Instance.Camera;
+
+            cameraController.Stop();
         }
 
         public override string GetSummary()

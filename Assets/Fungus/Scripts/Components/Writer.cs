@@ -665,7 +665,8 @@ namespace Fungus
         
         protected virtual void Flash(float duration)
         {
-            var cameraController = CameraController.GetInstance();
+            var cameraController = FungusManager.Instance.Camera;
+
             cameraController.ScreenFadeTexture = CameraController.CreateColorTexture(new Color(1f,1f,1f,1f), 32, 32);
             cameraController.Fade(1f, duration, delegate {
                 cameraController.ScreenFadeTexture = CameraController.CreateColorTexture(new Color(1f,1f,1f,1f), 32, 32);
