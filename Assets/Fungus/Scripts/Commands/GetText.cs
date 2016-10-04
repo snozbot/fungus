@@ -4,9 +4,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Serialization;
-using Fungus.Variables;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Gets the text property from a UI Text object and stores it in a string variable.

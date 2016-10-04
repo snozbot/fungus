@@ -3,7 +3,7 @@
 
 ﻿using UnityEngine;
 
-namespace Fungus.EventHandlers
+namespace Fungus
 {
     /// <summary>
     /// The block will execute when the Flowchart game object is enabled.

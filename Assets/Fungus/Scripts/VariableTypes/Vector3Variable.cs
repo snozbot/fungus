@@ -4,7 +4,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Fungus.Variables
+namespace Fungus
 {
     /// <summary>
     /// Vector3 variable type.

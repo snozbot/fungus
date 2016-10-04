@@ -9,10 +9,6 @@ using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Fungus.Commands;
-using Fungus.EventHandlers;
-using Fungus.Utils;
-using Fungus.Variables;
 
 namespace Fungus
 {

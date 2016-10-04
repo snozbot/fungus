@@ -3,10 +3,8 @@
 
 ﻿using UnityEngine;
 using MoonSharp.Interpreter;
-using Fungus;
-using Fungus.Variables;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Executes a Lua code chunk using a Lua Environment.

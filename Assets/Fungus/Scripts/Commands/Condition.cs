@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     [AddComponentMenu("")]
     public abstract class Condition : Command

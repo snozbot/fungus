@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Fungus.Utils
+namespace Fungus
 {
     /// <summary>
     /// Supported token types for use in Say / Write text.

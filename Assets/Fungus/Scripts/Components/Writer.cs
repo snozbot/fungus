@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System;
 using System.Reflection;
 using System.Text;
-using Fungus.Utils;
 
 namespace Fungus
 {

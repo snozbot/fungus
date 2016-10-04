@@ -3,7 +3,7 @@
 
 ﻿using UnityEngine;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Clears the options from a menu dialogue.

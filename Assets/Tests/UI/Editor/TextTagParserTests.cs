@@ -3,12 +3,10 @@
 
 using System.Collections.Generic;
 using Fungus;
-using Fungus.Utils;
 
 #if UNITY_5_3_OR_NEWER
 
 using NUnit.Framework;
-
 
 [TestFixture]
 public class TextTagParserTests

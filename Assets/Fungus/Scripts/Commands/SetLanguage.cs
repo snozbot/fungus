@@ -3,9 +3,8 @@
 
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
-using Fungus.Variables;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Set the active language for the scene. A Localization object with a localization file must be present in the scene.

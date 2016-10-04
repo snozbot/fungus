@@ -4,8 +4,6 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
-using Fungus.Commands;
-using Fungus.Utils;
 
 namespace Fungus.EditorUtils
 {

@@ -4,7 +4,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Stops execution of all Blocks in a Flowchart.

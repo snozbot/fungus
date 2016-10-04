@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MoonSharp.Interpreter;
 
-namespace Fungus.Utils
+namespace Fungus
 {
     /// <summary>
     /// Contains all options to run a portrait command.

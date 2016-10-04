@@ -3,7 +3,7 @@
 
 ﻿using UnityEngine;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Stop all active iTweens in the current scene.

@@ -3,7 +3,7 @@
 
 ﻿using UnityEngine;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Sets the mouse cursor sprite.

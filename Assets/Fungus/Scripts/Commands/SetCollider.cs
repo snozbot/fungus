@@ -3,9 +3,8 @@
 
 using UnityEngine;
 using System.Collections.Generic;
-using Fungus.Variables;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Sets all collider (2d or 3d) components on the target objects to be active / inactive.

@@ -4,8 +4,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
-using Fungus.EventHandlers;
-using Fungus.Commands;
 
 namespace Fungus
 {

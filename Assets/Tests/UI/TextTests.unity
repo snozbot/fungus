@@ -787,7 +787,7 @@ MonoBehaviour:
     height: 859
   selectedBlock: {fileID: 332004788}
   selectedCommands:
-  - {fileID: 332004787}
+  - {fileID: 332004791}
   variables: []
   description: 
   stepPause: 0
@@ -910,26 +910,9 @@ MonoBehaviour:
     Culture=neutral, PublicKeyToken=null
   targetComponentFullname: UnityEngine.Component[]
   targetComponentText: WriterAudio
-  targetMethod: SetAudioMode
-  targetMethodText: 'SetAudioMode (AudioMode): Void'
-  methodParameters:
-  - objValue:
-      typeAssemblyname: Fungus.WriterAudio+AudioMode, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      typeFullname: Fungus.WriterAudio+AudioMode
-      intValue: 1
-      boolValue: 0
-      floatValue: 0
-      stringValue: 
-      colorValue: {r: 0, g: 0, b: 0, a: 0}
-      gameObjectValue: {fileID: 0}
-      materialValue: {fileID: 0}
-      objectValue: {fileID: 0}
-      spriteValue: {fileID: 0}
-      textureValue: {fileID: 0}
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-    variableKey: 
+  targetMethod: OnInput
+  targetMethodText: 'OnInput (): Void'
+  methodParameters: []
   saveReturnValue: 0
   returnValueVariableKey: 
   returnValueType: System.Void
@@ -950,8 +933,8 @@ MonoBehaviour:
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
-    floatVal: 1
-  durationOLD: 2
+    floatVal: 2
+  durationOLD: 0
 --- !u!1 &352621261
 GameObject:
   m_ObjectHideFlags: 0
@@ -5277,7 +5260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 957032117}
+  selectedFlowchart: {fileID: 332004786}
 --- !u!4 &1308535842
 Transform:
   m_ObjectHideFlags: 1

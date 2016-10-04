@@ -3,10 +3,8 @@
 
 using UnityEngine;
 using UnityEngine.Serialization;
-using Fungus.Variables;
-using Fungus.EventHandlers;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Supported target types for messages.

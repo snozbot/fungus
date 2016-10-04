@@ -4,9 +4,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Serialization;
-using Fungus.Variables;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Sets the text property on a UI Text object and/or an Input Field object.

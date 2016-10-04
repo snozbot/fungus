@@ -2,9 +2,8 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using Fungus.Utils;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Controls a character portrait.

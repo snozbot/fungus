@@ -3,7 +3,7 @@
 
 ﻿using UnityEngine;
 
-namespace Fungus.EventHandlers 
+namespace Fungus 
 {
     /// <summary>
     /// The block will execute when the user clicks or taps on the clickable object.

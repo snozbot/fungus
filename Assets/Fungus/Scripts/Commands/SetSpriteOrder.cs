@@ -3,9 +3,8 @@
 
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Fungus.Variables;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Controls the render order of sprites by setting the Order In Layer property of a list of sprites.

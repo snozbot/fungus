@@ -3,9 +3,8 @@
 
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
-using Fungus.Variables;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Stops an active iTween by name.

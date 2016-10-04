@@ -4,9 +4,8 @@
 using UnityEngine;
 using System;
 using UnityEngine.Events;
-using Fungus.Variables;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Supported types of method invocation.

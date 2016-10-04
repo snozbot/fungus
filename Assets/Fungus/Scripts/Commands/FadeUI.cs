@@ -3,10 +3,8 @@
 
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Fungus;
-using Fungus.Variables;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Select which type of fade will be applied.

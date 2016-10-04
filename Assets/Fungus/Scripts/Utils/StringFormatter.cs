@@ -4,7 +4,7 @@
 using System.Text;
 using System;
 
-namespace Fungus.Utils
+namespace Fungus
 {
     /// <summary>
     /// Misc string formatting functions.

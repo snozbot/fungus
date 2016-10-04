@@ -3,8 +3,6 @@
 
 using UnityEditor;
 using UnityEngine;
-using Fungus.Commands;
-using Fungus.Utils;
 
 namespace Fungus.EditorUtils
 {

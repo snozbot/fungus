@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 using System.Collections.Generic;
 using System;
 
-namespace Fungus.Commands
+namespace Fungus
 {
     /// <summary>
     /// Supported modes for calling a block.

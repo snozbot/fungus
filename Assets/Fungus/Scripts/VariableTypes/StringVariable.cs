@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Fungus.Variables
+namespace Fungus
 {
     /// <summary>
     /// String variable type.

@@ -8,8 +8,6 @@ using System.Linq;
 using System.Reflection;
 using System;
 using System.Collections.Generic;
-using Fungus.Commands;
-using Fungus.Variables;
 
 namespace Fungus.EditorUtils
 {

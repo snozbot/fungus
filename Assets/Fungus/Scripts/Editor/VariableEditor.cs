@@ -6,7 +6,6 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Fungus.Variables;
 
 namespace Fungus.EditorUtils
 {
