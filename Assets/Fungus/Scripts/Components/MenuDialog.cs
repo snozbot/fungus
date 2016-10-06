@@ -74,6 +74,21 @@ namespace Fungus
             }
         }
 
+        protected IEnumerator CallBlock(Block block)
+        {
+            yield return new WaitForEndOfFrame();
+            block.StartExecution();
+        }
+
+        protected IEnumerator CallLuaClosure(LuaEnvironment luaEnv, Closure callback)
+        {
+            yield return new WaitForEndOfFrame();
+            if (callback != null)
+            {
+                luaEnv.RunLuaFunction(callback, true);
+            }
+        }
+
         #region Public members
 
         /// <summary>
@@ -215,15 +230,18 @@ namespace Fungus
 
                         if (block != null)
                         {
+                            var flowchart = block.GetFlowchart();
+
                             #if UNITY_EDITOR
                             // Select the new target block in the Flowchart window
-                            var flowchart = block.GetFlowchart();
                             flowchart.SelectedBlock = block;
                             #endif
 
                             gameObject.SetActive(false);
 
-                            block.StartExecution();
+                            // Use a coroutine to call the block on the next frame
+                            // Have to use the Flowchart gameobject as the MenuDialog is now inactive
+                            flowchart.StartCoroutine(CallBlock(block));
                         }
                     });
 
@@ -262,16 +280,18 @@ namespace Fungus
                         textComponent.text = text;
                     }
 
+                    // Copy to local variables 
+                    LuaEnvironment env = luaEnv;
+                    Closure call = callBack;
+
                     button.onClick.AddListener(delegate {
 
                         StopAllCoroutines(); // Stop timeout
                         Clear();
                         HideSayDialog();
 
-                        if (callBack != null)
-                        {
-                            luaEnv.RunLuaFunction(callBack, true);
-                        }
+                        // Use a coroutine to call the callback on the next frame
+                        StartCoroutine(CallLuaClosure(env, call));
                     });
 
                     addedOption = true;
