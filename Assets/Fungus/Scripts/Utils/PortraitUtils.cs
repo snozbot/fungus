@@ -118,7 +118,25 @@ namespace Fungus
 
             if (!table.Get("facing").IsNil())
             {
-                options.facing = table.Get("facing").ToObject<FacingDirection>();
+                var facingDirection = FacingDirection.None;
+                DynValue v = table.Get("facing");
+                if (v.Type == DataType.String)
+                {
+                    if (string.Compare(v.String, "left", true) == 0)
+                    {
+                        facingDirection = FacingDirection.Left;
+                    }
+                    else if (string.Compare(v.String, "right", true) == 0)
+                    {
+                        facingDirection = FacingDirection.Right;
+                    }
+                }
+                else
+                {
+                    facingDirection = table.Get("facing").ToObject<FacingDirection>();
+                }
+
+                options.facing = facingDirection;
             }
 
             if (!table.Get("useDefaultSettings").IsNil())
