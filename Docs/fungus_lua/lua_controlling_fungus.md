@@ -201,7 +201,7 @@ You can also specify any Portrait option available by using named arguments.
 ```lua
 stage.show{character=character, fromPosition="left", toPosition="right"}
 
-stage.show{character=character, portrait="angry"}
+stage.show{character=character, portrait="angry", facing="left"}
 
 stage.hide{character=character}
 ```
