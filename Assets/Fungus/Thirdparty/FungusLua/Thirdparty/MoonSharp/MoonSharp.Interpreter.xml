@@ -390,6 +390,473 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="T:MoonSharp.Interpreter.Debugging.DebuggerCaps">
+            <summary>
+            Enumeration of capabilities for a debugger
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerCaps.CanDebugSourceCode">
+            <summary>
+            Flag set if the debugger can debug source code
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerCaps.CanDebugByteCode">
+            <summary>
+            Flag set if the can debug VM bytecode
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerCaps.HasLineBasedBreakpoints">
+            <summary>
+            Flag set if the debugger uses breakpoints based on lines instead of tokens
+            </summary>
+        </member>
+        <member name="T:MoonSharp.Interpreter.Debugging.DebugService">
+            <summary>
+            Class providing services specific to debugger implementations.
+            </summary>
+            <seealso cref="T:MoonSharp.Interpreter.IScriptPrivateResource" />
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.DebugService.OwnerScript">
+            <summary>
+            Gets the script owning this resource.
+            </summary>
+            <value>
+            The script owning this resource.
+            </value>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.DebugService.ResetBreakPoints(MoonSharp.Interpreter.Debugging.SourceCode,System.Collections.Generic.HashSet{System.Int32})">
+            <summary>
+            Resets the break points for a given file. Supports only line-based breakpoints.
+            </summary>
+            <param name="src">The source.</param>
+            <param name="lines">The lines.</param>
+            <returns>The lines for which breakpoints have been set</returns>
+        </member>
+        <member name="T:MoonSharp.Interpreter.Debugging.DebuggerAction">
+            <summary>
+            Wrapper for a debugger initiated action 
+            </summary>
+        </member>
+        <member name="T:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType">
+            <summary>
+            Type of the action
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.ByteCodeStepIn">
+            <summary>
+            Step-in at the bytecode level
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.ByteCodeStepOver">
+            <summary>
+            Step-over at the bytecode level
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.ByteCodeStepOut">
+            <summary>
+            Step-out at the bytecode level
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.StepIn">
+            <summary>
+            Step-in at the source level
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.StepOver">
+            <summary>
+            Step-over at the source level
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.StepOut">
+            <summary>
+            Step-out at the source level
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.Run">
+            <summary>
+            Continue execution "freely"
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.ToggleBreakpoint">
+            <summary>
+            Toggles breakpoint 
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.SetBreakpoint">
+            <summary>
+            Sets a breakpoint
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.ClearBreakpoint">
+            <summary>
+            Clears a breakpoint
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.ResetBreakpoints">
+            <summary>
+            Reset all breakpoints
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.Refresh">
+            <summary>
+            Refresh the data
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.HardRefresh">
+            <summary>
+            Hard refresh of data
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.None">
+            <summary>
+            No action
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.Action">
+            <summary>
+            The type of action
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.TimeStampUTC">
+            <summary>
+            Gets the time stamp UTC of this action
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.SourceID">
+            <summary>
+            Gets or sets the source identifier this action refers to. <see cref="M:MoonSharp.Interpreter.Script.GetSourceCode(System.Int32)"/>
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.SourceLine">
+            <summary>
+            Gets or sets the source line this action refers to.
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.SourceCol">
+            <summary>
+            Gets or sets the source column this action refers to.
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.Lines">
+            <summary>
+            Gets or sets the lines. This is used for the ResetBreakpoints and sets line-based bps only.
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.DebuggerAction.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MoonSharp.Interpreter.Debugging.DebuggerAction"/> class.
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.Age">
+            <summary>
+            Gets the age of this debugger action
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.DebuggerAction.ToString">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="T:MoonSharp.Interpreter.Debugging.IDebugger">
+            <summary>
+            Interface for debuggers to implement, in order to provide debugging facilities to Scripts.
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.GetDebuggerCaps">
+            <summary>
+            Gets the debugger caps.
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.SetDebugService(MoonSharp.Interpreter.Debugging.DebugService)">
+            <summary>
+            Sets the debug service for this debugger
+            </summary>
+            <param name="debugService">The debug service.</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.SetSourceCode(MoonSharp.Interpreter.Debugging.SourceCode)">
+            <summary>
+            Called by the script engine  when a source code is added or changed.
+            </summary>
+            <param name="sourceCode">The source code object.</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.SetByteCode(System.String[])">
+            <summary>
+            Called by the script engine  when the bytecode changes.
+            </summary>
+            <param name="byteCode">The bytecode source</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.IsPauseRequested">
+            <summary>
+            Called by the script engine at execution time to check if a break has 
+            been requested. Should return pretty fast as it's called A LOT.
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.SignalRuntimeException(MoonSharp.Interpreter.ScriptRuntimeException)">
+            <summary>
+            Called by the script engine when a runtime error occurs. 
+            The debugger can return true to signal the engine that it wants to break 
+            into the source of the error. If it does so, it should also return true 
+            to subsequent calls to IsPauseRequested().
+            </summary>
+            <param name="ex">The runtime exception.</param>
+            <returns>True if this error should break execution.</returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.GetAction(System.Int32,MoonSharp.Interpreter.Debugging.SourceRef)">
+            <summary>
+            Called by the script engine to get what action to do next.
+            </summary>
+            <param name="ip">The instruction pointer in bytecode.</param>
+            <param name="sourceref">The source reference.</param>
+            <returns>T</returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.SignalExecutionEnded">
+            <summary>
+            Called by the script engine when the execution ends.
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.Update(MoonSharp.Interpreter.Debugging.WatchType,System.Collections.Generic.IEnumerable{MoonSharp.Interpreter.Debugging.WatchItem})">
+            <summary>
+            Called by the script engine to update watches of a given type. Note 
+            that this method is not called only for watches in the strictest term, 
+            but also for the stack, etc.
+            </summary>
+            <param name="watchType">Type of the watch.</param>
+            <param name="items">The items.</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.GetWatchItems">
+            <summary>
+            Called by the script engine to get which expressions are active 
+            watches in the debugger.
+            </summary>
+            <returns>A list of watches</returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.RefreshBreakpoints(System.Collections.Generic.IEnumerable{MoonSharp.Interpreter.Debugging.SourceRef})">
+            <summary>
+            Called by the script engine to refresh the breakpoint list.
+            </summary>
+        </member>
+        <member name="T:MoonSharp.Interpreter.Debugging.SourceRef">
+            <summary>
+            Class representing a reference to source code interval
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.IsClrLocation">
+            <summary>
+            Gets a value indicating whether this location is inside CLR .
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.SourceIdx">
+            <summary>
+            Gets the index of the source.
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.FromChar">
+            <summary>
+            Gets from which column the source code ref starts
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.ToChar">
+            <summary>
+            Gets to which column the source code ref ends
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.FromLine">
+            <summary>
+            Gets from which line the source code ref starts
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.ToLine">
+            <summary>
+            Gets to which line the source code ref ends
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.IsStepStop">
+            <summary>
+            Gets a value indicating whether this instance is a stop "step" in source mode
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.SourceRef.Breakpoint">
+            <summary>
+            Gets a value indicating whether this instance is a breakpoint
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.CannotBreakpoint">
+            <summary>
+            Gets a value indicating whether this instance cannot be set as a breakpoint
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.SourceRef.ToString">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.SourceRef.IncludesLocation(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Gets whether the source ref includes the specified location
+            </summary>
+            <param name="sourceIdx">Index of the source.</param>
+            <param name="line">The line.</param>
+            <param name="col">The column.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.SourceRef.SetNoBreakPoint">
+            <summary>
+            Sets the CannotBreakpoint flag.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.SourceRef.FormatLocation(MoonSharp.Interpreter.Script,System.Boolean)">
+            <summary>
+            Formats the location according to script preferences
+            </summary>
+            <param name="script">The script.</param>
+            <param name="forceClassicFormat">if set to <c>true</c> the classic Lua format is forced.</param>
+            <returns></returns>
+        </member>
+        <member name="T:MoonSharp.Interpreter.Debugging.WatchItem">
+            <summary>
+            A watch item for the debugger to consume.
+            Most properties make or not sense depending on the WatchType.
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.Address">
+            <summary>
+            Gets or sets the address of the item
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.BasePtr">
+            <summary>
+            Gets or sets the base pointer (base value of v-stack at entering the function).
+            Valid only for call-stack items
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.RetAddress">
+            <summary>
+            Gets or sets the return address.
+            Valid only for call-stack items
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.Name">
+            <summary>
+            Gets or sets the name of the item
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.Value">
+            <summary>
+            Gets or sets the value of the item
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.LValue">
+            <summary>
+            Gets or sets the symbol reference of the item 
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.IsError">
+            <summary>
+            Gets or sets a value indicating whether this instance is generating an error.
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.Location">
+            <summary>
+            Gets or sets the source location this item refers to.
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.WatchItem.ToString">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="T:MoonSharp.Interpreter.Debugging.WatchType">
+            <summary>
+            Enumeration of the possible watch types
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.WatchType.Watches">
+            <summary>
+            A real variable watch
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.WatchType.VStack">
+            <summary>
+            The status of the v-stack
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.WatchType.CallStack">
+            <summary>
+            The call stack
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.WatchType.Coroutines">
+            <summary>
+            The list of coroutines
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.WatchType.Locals">
+            <summary>
+            Topmost local variables
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.WatchType.Threads">
+            <summary>
+            The list of currently active coroutines
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.Debugging.WatchType.MaxValue">
+            <summary>
+            The maximum value of this enum
+            </summary>
+        </member>
+        <member name="T:MoonSharp.Interpreter.Debugging.SourceCode">
+            <summary>
+            Class representing the source code of a given script
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceCode.Name">
+            <summary>
+            Gets the name of the source code
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceCode.Code">
+            <summary>
+            Gets the source code as a string
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceCode.Lines">
+            <summary>
+            Gets the source code lines.
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceCode.OwnerScript">
+            <summary>
+            Gets the script owning this resource.
+            </summary>
+        </member>
+        <member name="P:MoonSharp.Interpreter.Debugging.SourceCode.SourceID">
+            <summary>
+            Gets the source identifier inside a script
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Debugging.SourceCode.GetCodeSnippet(MoonSharp.Interpreter.Debugging.SourceRef)">
+            <summary>
+            Gets the code snippet represented by a source ref
+            </summary>
+            <param name="sourceCodeRef">The source code reference.</param>
+            <returns></returns>
+        </member>
+        <member name="T:MoonSharp.Interpreter.Debugging.NamespaceDoc">
+            <summary>
+            Namespace containing classes used to support debuggers
+            </summary>
+        </member>
         <member name="T:MoonSharp.Interpreter.Execution.ClosureContext">
             <summary>
             The scope of a closure (container of upvalues)
@@ -1018,6 +1485,13 @@
             <param name="type">The type.</param>
             <param name="obj">The object.</param>
             <returns></returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Interop.Converters.ClrToScriptConversions.TryObjectToTrivialDynValue(MoonSharp.Interpreter.Script,System.Object)">
+            <summary>
+            Tries to convert a CLR object to a MoonSharp value, using "trivial" logic.
+            Skips on custom conversions, etc.
+            Does NOT throw on failure.
+            </summary>
         </member>
         <member name="M:MoonSharp.Interpreter.Interop.Converters.ClrToScriptConversions.TryObjectToSimpleDynValue(MoonSharp.Interpreter.Script,System.Object)">
             <summary>
@@ -3854,400 +4328,6 @@
             Gets or sets a value indicating whether this <see cref="T:MoonSharp.Interpreter.YieldRequest"/> is a forced yield.
             </summary>
         </member>
-        <member name="T:MoonSharp.Interpreter.Debugging.DebuggerAction">
-            <summary>
-            Wrapper for a debugger initiated action 
-            </summary>
-        </member>
-        <member name="T:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType">
-            <summary>
-            Type of the action
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.ByteCodeStepIn">
-            <summary>
-            Step-in at the bytecode level
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.ByteCodeStepOver">
-            <summary>
-            Step-over at the bytecode level
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.ByteCodeStepOut">
-            <summary>
-            Step-out at the bytecode level
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.StepIn">
-            <summary>
-            Step-in at the source level
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.StepOver">
-            <summary>
-            Step-over at the source level
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.StepOut">
-            <summary>
-            Step-out at the source level
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.Run">
-            <summary>
-            Continue execution "freely"
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.ToggleBreakpoint">
-            <summary>
-            Toggles breakpoint 
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.SetBreakpoint">
-            <summary>
-            Sets a breakpoint
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.ClearBreakpoint">
-            <summary>
-            Clears a breakpoint
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.Refresh">
-            <summary>
-            Refresh the data
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.HardRefresh">
-            <summary>
-            Hard refresh of data
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.DebuggerAction.ActionType.None">
-            <summary>
-            No action
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.Action">
-            <summary>
-            The type of action
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.TimeStampUTC">
-            <summary>
-            Gets the time stamp UTC of this action
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.SourceID">
-            <summary>
-            Gets or sets the source identifier this action refers to. <see cref="M:MoonSharp.Interpreter.Script.GetSourceCode(System.Int32)"/>
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.SourceLine">
-            <summary>
-            Gets or sets the source line this action refers to.
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.SourceCol">
-            <summary>
-            Gets or sets the source column this action refers to.
-            </summary>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.DebuggerAction.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:MoonSharp.Interpreter.Debugging.DebuggerAction"/> class.
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.DebuggerAction.Age">
-            <summary>
-            Gets the age of this debugger action
-            </summary>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.DebuggerAction.ToString">
-            <summary>
-            Returns a <see cref="T:System.String" /> that represents this instance.
-            </summary>
-            <returns>
-            A <see cref="T:System.String" /> that represents this instance.
-            </returns>
-        </member>
-        <member name="T:MoonSharp.Interpreter.Debugging.IDebugger">
-            <summary>
-            Interface for debuggers to implement, in order to provide debugging facilities to Scripts.
-            </summary>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.SetSourceCode(MoonSharp.Interpreter.Debugging.SourceCode)">
-            <summary>
-            Called by the script engine  when a source code is added or changed.
-            </summary>
-            <param name="sourceCode">The source code object.</param>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.SetByteCode(System.String[])">
-            <summary>
-            Called by the script engine  when the bytecode changes.
-            </summary>
-            <param name="byteCode">The bytecode source</param>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.IsPauseRequested">
-            <summary>
-            Called by the script engine at execution time to check if a break has 
-            been requested. Should return pretty fast as it's called A LOT.
-            </summary>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.SignalRuntimeException(MoonSharp.Interpreter.ScriptRuntimeException)">
-            <summary>
-            Called by the script engine when a runtime error occurs. 
-            The debugger can return true to signal the engine that it wants to break 
-            into the source of the error. If it does so, it should also return true 
-            to subsequent calls to IsPauseRequested().
-            </summary>
-            <param name="ex">The runtime exception.</param>
-            <returns>True if this error should break execution.</returns>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.GetAction(System.Int32,MoonSharp.Interpreter.Debugging.SourceRef)">
-            <summary>
-            Called by the script engine to get what action to do next.
-            </summary>
-            <param name="ip">The instruction pointer in bytecode.</param>
-            <param name="sourceref">The source reference.</param>
-            <returns>T</returns>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.SignalExecutionEnded">
-            <summary>
-            Called by the script engine when the execution ends.
-            </summary>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.Update(MoonSharp.Interpreter.Debugging.WatchType,System.Collections.Generic.IEnumerable{MoonSharp.Interpreter.Debugging.WatchItem})">
-            <summary>
-            Called by the script engine to update watches of a given type. Note 
-            that this method is not called only for watches in the strictest term, 
-            but also for the stack, etc.
-            </summary>
-            <param name="watchType">Type of the watch.</param>
-            <param name="items">The items.</param>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.GetWatchItems">
-            <summary>
-            Called by the script engine to get which expressions are active 
-            watches in the debugger.
-            </summary>
-            <returns>A list of watches</returns>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.IDebugger.RefreshBreakpoints(System.Collections.Generic.IEnumerable{MoonSharp.Interpreter.Debugging.SourceRef})">
-            <summary>
-            Called by the script engine to refresh the breakpoint list.
-            </summary>
-        </member>
-        <member name="T:MoonSharp.Interpreter.Debugging.SourceRef">
-            <summary>
-            Class representing a reference to source code interval
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.IsClrLocation">
-            <summary>
-            Gets a value indicating whether this location is inside CLR .
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.SourceIdx">
-            <summary>
-            Gets the index of the source.
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.FromChar">
-            <summary>
-            Gets from which column the source code ref starts
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.ToChar">
-            <summary>
-            Gets to which column the source code ref ends
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.FromLine">
-            <summary>
-            Gets from which line the source code ref starts
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.ToLine">
-            <summary>
-            Gets to which line the source code ref ends
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.IsStepStop">
-            <summary>
-            Gets a value indicating whether this instance is a stop "step" in source mode
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.SourceRef.Breakpoint">
-            <summary>
-            Gets a value indicating whether this instance is a breakpoint
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceRef.CannotBreakpoint">
-            <summary>
-            Gets a value indicating whether this instance cannot be set as a breakpoint
-            </summary>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.SourceRef.ToString">
-            <summary>
-            Returns a <see cref="T:System.String" /> that represents this instance.
-            </summary>
-            <returns>
-            A <see cref="T:System.String" /> that represents this instance.
-            </returns>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.SourceRef.IncludesLocation(System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Gets whether the source ref includes the specified location
-            </summary>
-            <param name="sourceIdx">Index of the source.</param>
-            <param name="line">The line.</param>
-            <param name="col">The column.</param>
-            <returns></returns>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.SourceRef.SetNoBreakPoint">
-            <summary>
-            Sets the CannotBreakpoint flag.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.SourceRef.FormatLocation(MoonSharp.Interpreter.Script,System.Boolean)">
-            <summary>
-            Formats the location according to script preferences
-            </summary>
-            <param name="script">The script.</param>
-            <param name="forceClassicFormat">if set to <c>true</c> the classic Lua format is forced.</param>
-            <returns></returns>
-        </member>
-        <member name="T:MoonSharp.Interpreter.Debugging.WatchItem">
-            <summary>
-            A watch item for the debugger to consume.
-            Most properties make or not sense depending on the WatchType.
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.Address">
-            <summary>
-            Gets or sets the address of the item
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.BasePtr">
-            <summary>
-            Gets or sets the base pointer (base value of v-stack at entering the function).
-            Valid only for call-stack items
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.RetAddress">
-            <summary>
-            Gets or sets the return address.
-            Valid only for call-stack items
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.Name">
-            <summary>
-            Gets or sets the name of the item
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.Value">
-            <summary>
-            Gets or sets the value of the item
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.LValue">
-            <summary>
-            Gets or sets the symbol reference of the item 
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.IsError">
-            <summary>
-            Gets or sets a value indicating whether this instance is generating an error.
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.WatchItem.Location">
-            <summary>
-            Gets or sets the source location this item refers to.
-            </summary>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.WatchItem.ToString">
-            <summary>
-            Returns a <see cref="T:System.String" /> that represents this instance.
-            </summary>
-            <returns>
-            A <see cref="T:System.String" /> that represents this instance.
-            </returns>
-        </member>
-        <member name="T:MoonSharp.Interpreter.Debugging.WatchType">
-            <summary>
-            Enumeration of the possible watch types
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.WatchType.Watches">
-            <summary>
-            A real variable watch
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.WatchType.VStack">
-            <summary>
-            The status of the v-stack
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.WatchType.CallStack">
-            <summary>
-            The call stack
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.WatchType.Coroutines">
-            <summary>
-            The list of coroutines
-            </summary>
-        </member>
-        <member name="F:MoonSharp.Interpreter.Debugging.WatchType.MaxValue">
-            <summary>
-            The maximum value of this enum
-            </summary>
-        </member>
-        <member name="T:MoonSharp.Interpreter.Debugging.SourceCode">
-            <summary>
-            Class representing the source code of a given script
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceCode.Name">
-            <summary>
-            Gets the name of the source code
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceCode.Code">
-            <summary>
-            Gets the source code as a string
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceCode.Lines">
-            <summary>
-            Gets the source code lines.
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceCode.OwnerScript">
-            <summary>
-            Gets the script owning this resource.
-            </summary>
-        </member>
-        <member name="P:MoonSharp.Interpreter.Debugging.SourceCode.SourceID">
-            <summary>
-            Gets the source identifier inside a script
-            </summary>
-        </member>
-        <member name="M:MoonSharp.Interpreter.Debugging.SourceCode.GetCodeSnippet(MoonSharp.Interpreter.Debugging.SourceRef)">
-            <summary>
-            Gets the code snippet represented by a source ref
-            </summary>
-            <param name="sourceCodeRef">The source code reference.</param>
-            <returns></returns>
-        </member>
-        <member name="T:MoonSharp.Interpreter.Debugging.NamespaceDoc">
-            <summary>
-            Namespace containing classes used to support debuggers
-            </summary>
-        </member>
         <member name="T:MoonSharp.Interpreter.Diagnostics.PerformanceCounters.GlobalPerformanceStopwatch">
             <summary>
             This class is not *really* IDisposable.. it's just use to have a RAII like pattern.
@@ -5362,6 +5442,11 @@
             Returns a string which is what it's expected to be output by the print function applied to this value.
             </summary>
         </member>
+        <member name="M:MoonSharp.Interpreter.DynValue.ToDebugPrintString">
+            <summary>
+            Returns a string which is what it's expected to be output by debuggers.
+            </summary>
+        </member>
         <member name="M:MoonSharp.Interpreter.DynValue.ToString">
             <summary>
             Returns a <see cref="T:System.String" /> that represents this instance.
@@ -6299,6 +6384,27 @@
             Namespace containing classes used to customized how scripts are loaded from external files.
             </summary>
         </member>
+        <member name="T:MoonSharp.Interpreter.ColonOperatorBehaviour">
+            <summary>
+            Defines behaviour of the colon ':' operator in CLR callbacks.
+            Default behaviour is for ':' being treated the same as a '.' if the functions is implemented on the CLR side (e.g. in C#).
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.ColonOperatorBehaviour.TreatAsDot">
+            <summary>
+            The colon is treated the same as the dot ('.') operator.
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.ColonOperatorBehaviour.TreatAsDotOnUserData">
+            <summary>
+            The colon is treated the same as the dot ('.') operator if the first argument is userdata, as a Lua colon operator otherwise.
+            </summary>
+        </member>
+        <member name="F:MoonSharp.Interpreter.ColonOperatorBehaviour.TreatAsColon">
+            <summary>
+            The colon is treated in the same as the Lua colon operator works.
+            </summary>
+        </member>
         <member name="T:MoonSharp.Interpreter.REPL.ReplHistoryInterpreter">
             <summary>
             An implementation of <see cref="T:MoonSharp.Interpreter.REPL.ReplInterpreter"/> which supports a very basic history of recent input lines.
@@ -7059,7 +7165,7 @@
             </summary>
             <param name="code">The code.</param>
             <param name="globalTable">The global table to bind to this chunk.</param>
-            <param name="codeFriendlyName">Name of the code - used to report errors, etc.</param>
+            <param name="codeFriendlyName">Name of the code - used to report errors, etc. Also used by debuggers to locate the original source file.</param>
             <returns>
             A DynValue containing a function which will execute the loaded code.
             </returns>
@@ -7100,32 +7206,35 @@
             A DynValue containing a function which will execute the loaded code.
             </returns>
         </member>
-        <member name="M:MoonSharp.Interpreter.Script.DoString(System.String,MoonSharp.Interpreter.Table)">
+        <member name="M:MoonSharp.Interpreter.Script.DoString(System.String,MoonSharp.Interpreter.Table,System.String)">
             <summary>
             Loads and executes a string containing a Lua/MoonSharp script.
             </summary>
             <param name="code">The code.</param>
             <param name="globalContext">The global context.</param>
+            <param name="codeFriendlyName">Name of the code - used to report errors, etc. Also used by debuggers to locate the original source file.</param>
             <returns>
             A DynValue containing the result of the processing of the loaded chunk.
             </returns>
         </member>
-        <member name="M:MoonSharp.Interpreter.Script.DoStream(System.IO.Stream,MoonSharp.Interpreter.Table)">
+        <member name="M:MoonSharp.Interpreter.Script.DoStream(System.IO.Stream,MoonSharp.Interpreter.Table,System.String)">
             <summary>
             Loads and executes a stream containing a Lua/MoonSharp script.
             </summary>
             <param name="stream">The stream.</param>
             <param name="globalContext">The global context.</param>
+            <param name="codeFriendlyName">Name of the code - used to report errors, etc. Also used by debuggers to locate the original source file.</param>
             <returns>
             A DynValue containing the result of the processing of the loaded chunk.
             </returns>
         </member>
-        <member name="M:MoonSharp.Interpreter.Script.DoFile(System.String,MoonSharp.Interpreter.Table)">
+        <member name="M:MoonSharp.Interpreter.Script.DoFile(System.String,MoonSharp.Interpreter.Table,System.String)">
             <summary>
             Loads and executes a file containing a Lua/MoonSharp script.
             </summary>
             <param name="filename">The filename.</param>
             <param name="globalContext">The global context.</param>
+            <param name="codeFriendlyName">Name of the code - used to report errors, etc. Also used by debuggers to locate the original source file.</param>
             <returns>
             A DynValue containing the result of the processing of the loaded chunk.
             </returns>
@@ -7647,6 +7756,11 @@
             The "dynamic" package (introduced by MoonSharp).
             </summary>
         </member>
+        <member name="F:MoonSharp.Interpreter.CoreModules.Json">
+            <summary>
+            The "json" package (introduced by MoonSharp).
+            </summary>
+        </member>
         <member name="F:MoonSharp.Interpreter.CoreModules.Preset_HardSandbox">
             <summary>
             A sort of "hard" sandbox preset, including string, math, table, bit32 packages, constants and table iterators.
@@ -7654,7 +7768,7 @@
         </member>
         <member name="F:MoonSharp.Interpreter.CoreModules.Preset_SoftSandbox">
             <summary>
-            A softer sandbox preset, adding metatables support, error handling, coroutine, time functions and dynamic evaluations.
+            A softer sandbox preset, adding metatables support, error handling, coroutine, time functions, json parsing and dynamic evaluations.
             </summary>
         </member>
         <member name="F:MoonSharp.Interpreter.CoreModules.Preset_Default">
@@ -7795,6 +7909,11 @@
             improved ones. Use this for compatibility with legacy Lua code which parses error messages.
             </summary>
         </member>
+        <member name="P:MoonSharp.Interpreter.ScriptOptions.ColonOperatorClrCallbackBehaviour">
+            <summary>
+            Gets or sets a value which dictates the behaviour of the colon (':') operator in callbacks to CLR code.
+            </summary>
+        </member>
         <member name="P:MoonSharp.Interpreter.ScriptOptions.Stdin">
             <summary>
             Gets or sets the stream used as stdin. If null, a default stream is used.
@@ -7835,6 +7954,47 @@
             Disable this option if the thread check is giving problems in your scenario, but please check that
             you are not calling MoonSharp execution concurrently as it is not supported.
             </summary>
+        </member>
+        <member name="T:MoonSharp.Interpreter.Serialization.Json.JsonNull">
+            <summary>
+            UserData representing a null value in a table converted from Json
+            </summary>
+        </member>
+        <member name="T:MoonSharp.Interpreter.Serialization.Json.JsonTableConverter">
+            <summary>
+            Class performing conversions between Tables and Json.
+            NOTE : the conversions are done respecting json syntax but using Lua constructs. This means mostly that:
+            1) Lua string escapes can be accepted while they are not technically valid JSON, and viceversa
+            2) Null values are represented using a static userdata of type JsonNull
+            3) Do not use it when input cannot be entirely trusted
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Serialization.Json.JsonTableConverter.TableToJson(MoonSharp.Interpreter.Table)">
+            <summary>
+            Converts a table to a json string
+            </summary>
+            <param name="table">The table.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Serialization.Json.JsonTableConverter.TableToJson(System.Text.StringBuilder,MoonSharp.Interpreter.Table)">
+            <summary>
+            Tables to json.
+            </summary>
+            <param name="sb">The sb.</param>
+            <param name="table">The table.</param>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Serialization.Json.JsonTableConverter.ObjectToJson(System.Object)">
+            <summary>
+            Converts a generic object to JSON
+            </summary>
+        </member>
+        <member name="M:MoonSharp.Interpreter.Serialization.Json.JsonTableConverter.JsonToTable(System.String,MoonSharp.Interpreter.Script)">
+            <summary>
+            Converts a json string to a table
+            </summary>
+            <param name="json">The json.</param>
+            <param name="script">The script to which the table is assigned (null for prime tables).</param>
+            <returns>A table containing the representation of the given json.</returns>
         </member>
         <member name="T:MoonSharp.Interpreter.Serialization.SerializationExtensions">
             <summary>
