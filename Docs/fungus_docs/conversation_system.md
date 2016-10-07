@@ -28,7 +28,7 @@ bored: Not like that would stop you.
 
 sherlock excited: AHA! So that's how you do a conversation from Lua!
 Fascinating.
-john: Yes, riveting.
+john <<<: Yes, riveting.
 
 john hide:
 sherlock hide:
@@ -38,13 +38,15 @@ sherlock hide:
 
 The format for conversation text is:
 ```text
-[character] [portrait] [position] [hide] : [Dialogue text]
+[character] [portrait] [position] [hide] [<<< | >>>]: [Dialogue text]
 ```
 
 - character: The gameobject name or Name Text value of the speaking character.
 - portrait: The name of a sprite in the character's Portraits list.
 - position: The name of a position object in the Stage (e.g. Left, Middle, Right, Offscreen Left, Offscreen Right)
 - hide: Hides the character
+- <<<: Portrait face left
+- >>>: Portrait face right
 
 Parameters go on the left of the colon and the dialogue text goes on the right. You can omit any parameter and specify them in any order. Parameters are separated by spaces. If you need to use a name which contains spaces, wrap it in quotation marks e.g. "John Watson". Parameters are case insensitive. Blank lines and comment lines starting with -- are ignored. A line of dialogue text on its own will be spoken by the most recent character. You can omit dialogue text, but remember you still need to add the : character at the end of the line.
 
