@@ -65,8 +65,8 @@ namespace Fungus
                 return;
             }
 
-            AudioSource[] audioSources = GameObject.FindObjectsOfType<AudioSource>();
-            foreach (AudioSource a in audioSources)
+            var audioSources = GameObject.FindObjectsOfType<AudioSource>();
+            foreach (var a in audioSources)
             {
                 if ((a.GetComponent<AudioSource>() != _audioSource.Value) && (a.tag == _audioSource.Value.tag))
                 {

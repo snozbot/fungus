@@ -58,12 +58,14 @@ namespace Fungus
                 return;
             }
 
-            foreach (DragEntered handler in GetHandlers<DragEntered>())
+            var dragEnteredHandlers = GetHandlers<DragEntered>();
+            foreach (var handler in dragEnteredHandlers)
             {
                 handler.OnDragEntered(this, other);
             }
 
-            foreach (DragCompleted handler in GetHandlers<DragCompleted>())
+            var dragCompletedHandlers = GetHandlers<DragCompleted>();
+            foreach (var handler in dragCompletedHandlers)
             {
                 handler.OnDragEntered(this, other);
             }
@@ -76,12 +78,14 @@ namespace Fungus
                 return;
             }
 
-            foreach (DragExited handler in GetHandlers<DragExited>())
+            var dragExitedHandlers = GetHandlers<DragExited>();
+            foreach (var handler in dragExitedHandlers)
             {
                 handler.OnDragExited(this, other);
             }
 
-            foreach (DragCompleted handler in GetHandlers<DragCompleted>())
+            var dragCompletedHandlers = GetHandlers<DragCompleted>();
+            foreach (var handler in dragCompletedHandlers)
             {
                 handler.OnDragExited(this, other);
             }
@@ -103,7 +107,8 @@ namespace Fungus
 
             startingPosition = transform.position;
 
-            foreach (DragStarted handler in GetHandlers<DragStarted>())
+            var dragStartedHandlers = GetHandlers<DragStarted>();
+            foreach (var handler in dragStartedHandlers)
             {
                 handler.OnDragStarted(this);
             }
@@ -134,8 +139,8 @@ namespace Fungus
 
             bool dragCompleted = false;
 
-            DragCompleted[] handlers = GetHandlers<DragCompleted>();
-            foreach (DragCompleted handler in handlers)
+            var handlers = GetHandlers<DragCompleted>();
+            foreach (var handler in handlers)
             {
                 if (handler.DraggableObject == this)
                 {
@@ -154,7 +159,8 @@ namespace Fungus
 
             if (!dragCompleted)
             {
-                foreach (DragCancelled handler in GetHandlers<DragCancelled>())
+                var dragCancelledHandlers = GetHandlers<DragCancelled>();
+                foreach (var handler in dragCancelledHandlers)
                 {
                     handler.OnDragCancelled(this);
                 }

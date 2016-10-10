@@ -29,7 +29,8 @@ namespace Fungus
                 return;
             }
 
-            foreach (var command in ParentBlock.CommandList)
+            var commandList = ParentBlock.CommandList;
+            foreach (var command in commandList)
             {
                 Label label = command as Label;
                 if (label != null &&

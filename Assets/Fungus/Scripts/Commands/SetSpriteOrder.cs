@@ -25,7 +25,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            foreach (SpriteRenderer spriteRenderer in targetSprites)
+            foreach (var spriteRenderer in targetSprites)
             {
                 spriteRenderer.sortingOrder = orderInLayer;
             }
@@ -36,7 +36,7 @@ namespace Fungus
         public override string GetSummary()
         {
             string summary = "";
-            foreach (SpriteRenderer spriteRenderer in targetSprites)
+            foreach (var spriteRenderer in targetSprites)
             {
                 if (spriteRenderer == null)
                 {

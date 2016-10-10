@@ -264,7 +264,7 @@ namespace Fungus
             // These characters are usually added for legibility when editing, but are not 
             // desireable when viewing the text in game.
             bool trimLeading = false;
-            foreach (TextTagToken token in tokens)
+            foreach (var token in tokens)
             {
                 if (trimLeading &&
                     token.type == TokenType.Words)

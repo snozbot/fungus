@@ -158,7 +158,8 @@ namespace Fungus
             }
 
             // Tell all components that implement IUpdateable to update to the new version
-            foreach (Component component in GetComponents<Component>())
+            var components = GetComponents<Component>();
+            foreach (var component in components)
             {
                 IUpdateable u = component as IUpdateable;
                 if (u != null)
@@ -213,7 +214,8 @@ namespace Fungus
             // It shouldn't happen but it seemed to occur for a user on the forum 
             variables.RemoveAll(item => item == null);
 
-            foreach (Variable variable in GetComponents<Variable>())
+            var allVariables = GetComponents<Variable>();
+            foreach (var variable in allVariables)
             {
                 if (!variables.Contains(variable))
                 {
@@ -222,8 +224,8 @@ namespace Fungus
             }
             
             var blocks = GetComponents<Block>();
-
-            foreach (var command in GetComponents<Command>())
+            var commands = GetComponents<Command>();
+            foreach (var command in commands)
             {
                 bool found = false;
                 foreach (var block in blocks)
@@ -241,7 +243,8 @@ namespace Fungus
                 }
             }
             
-            foreach (EventHandler eventHandler in GetComponents<EventHandler>())
+            var eventHandlers = GetComponents<EventHandler>();
+            foreach (var eventHandler in eventHandlers)
             {
                 bool found = false;
                 foreach (var block in blocks)
@@ -279,8 +282,8 @@ namespace Fungus
         /// </summary>
         public static void BroadcastFungusMessage(string messageName)
         {
-            MessageReceived[] eventHandlers = UnityEngine.Object.FindObjectsOfType<MessageReceived>();
-            foreach (MessageReceived eventHandler in eventHandlers)
+            var eventHandlers = UnityEngine.Object.FindObjectsOfType<MessageReceived>();
+            foreach (var eventHandler in eventHandlers)
             {
                 eventHandler.OnSendFungusMessage(messageName);
             }
@@ -506,7 +509,7 @@ namespace Fungus
         public virtual void StopAllBlocks()
         {
             var blocks = GetComponents<Block>();
-            foreach (Block block in blocks)
+            foreach (var block in blocks)
             {
                 if (block.IsExecuting())
                 {
@@ -521,8 +524,8 @@ namespace Fungus
         /// </summary>
         public virtual void SendFungusMessage(string messageName)
         {
-            MessageReceived[] eventHandlers = GetComponents<MessageReceived>();
-            foreach (MessageReceived eventHandler in eventHandlers)
+            var eventHandlers = GetComponents<MessageReceived>();
+            foreach (var eventHandler in eventHandlers)
             {
                 eventHandler.OnSendFungusMessage(messageName);
             }
@@ -553,7 +556,7 @@ namespace Fungus
             while (true)
             {
                 bool collision = false;
-                foreach(Variable variable in variables)
+                foreach(var variable in variables)
                 {
                     if (variable == null ||
                         variable == ignoreVariable ||
@@ -640,7 +643,8 @@ namespace Fungus
             while (true)
             {
                 bool collision = false;
-                foreach (var command in block.CommandList)
+                var commandList = block.CommandList;
+                foreach (var command in commandList)
                 {
                     Label label = command as Label;
                     if (label == null ||
@@ -673,7 +677,7 @@ namespace Fungus
         /// </summary>
         public Variable GetVariable(string key)
         {
-            foreach (Variable variable in variables)
+            foreach (var variable in variables)
             {
                 if (variable != null && variable.Key == key)
                 {
@@ -692,7 +696,7 @@ namespace Fungus
         /// </summary>
         public T GetVariable<T>(string key) where T : Variable
         {
-            foreach (Variable variable in variables)
+            foreach (var variable in variables)
             {
                 if (variable != null && variable.Key == key)
                 {
@@ -710,7 +714,7 @@ namespace Fungus
         /// </summary>
         public void SetVariable<T>(string key, T newvariable) where T : Variable
         {
-            foreach (Variable v in variables)
+            foreach (var v in variables)
             {
                 if (v != null && v.Key == key)
                 {
@@ -732,7 +736,7 @@ namespace Fungus
         public virtual List<Variable> GetPublicVariables()
         {
             List<Variable> publicVariables = new List<Variable>();
-            foreach (Variable v in variables)
+            foreach (var v in variables)
             {
                 if (v != null && v.Scope == VariableScope.Public)
                 {
@@ -874,8 +878,8 @@ namespace Fungus
         {
             if (hideComponents)
             {
-                Block[] blocks = GetComponents<Block>();
-                foreach (Block block in blocks)
+                var blocks = GetComponents<Block>();
+                foreach (var block in blocks)
                 {
                     block.hideFlags = HideFlags.HideInInspector;
                     if (block.gameObject != gameObject)
@@ -884,13 +888,13 @@ namespace Fungus
                     }
                 }
 
-                Command[] commands = GetComponents<Command>();
+                var commands = GetComponents<Command>();
                 foreach (var command in commands)
                 {
                     command.hideFlags = HideFlags.HideInInspector;
                 }
 
-                EventHandler[] eventHandlers = GetComponents<EventHandler>();
+                var eventHandlers = GetComponents<EventHandler>();
                 foreach (var eventHandler in eventHandlers)
                 {
                     eventHandler.hideFlags = HideFlags.HideInInspector;
@@ -898,8 +902,8 @@ namespace Fungus
             }
             else
             {
-                MonoBehaviour[] monoBehaviours = GetComponents<MonoBehaviour>();
-                foreach (MonoBehaviour monoBehaviour in monoBehaviours)
+                var monoBehaviours = GetComponents<MonoBehaviour>();
+                foreach (var monoBehaviour in monoBehaviours)
                 {
                     if (monoBehaviour == null)
                     {
@@ -947,7 +951,7 @@ namespace Fungus
 
             if (resetVariables)
             {
-                foreach (Variable variable in variables)
+                foreach (var variable in variables)
                 {
                     variable.OnReset();
                 }
@@ -959,7 +963,7 @@ namespace Fungus
         /// </summary>
         public virtual bool IsCommandSupported(CommandInfoAttribute commandInfo)
         {
-            foreach (string key in hideCommands)
+            foreach (var key in hideCommands)
             {
                 // Match on category or command name (case insensitive)
                 if (String.Compare(commandInfo.Category, key, StringComparison.OrdinalIgnoreCase) == 0 ||
@@ -1037,7 +1041,7 @@ namespace Fungus
                 string key = match.Value.Substring(2, match.Value.Length - 3);
 
                 // Look for any matching private variables in this Flowchart first
-                foreach (Variable variable in variables)
+                foreach (var variable in variables)
                 {
                     if (variable == null)
                         continue;
@@ -1089,7 +1093,7 @@ namespace Fungus
                 string key = match.Value.Substring(2, match.Value.Length - 3);
 
                 // Look for any matching public variables in this Flowchart
-                foreach (Variable variable in variables)
+                foreach (var variable in variables)
                 {
                     if (variable == null)
                         continue;

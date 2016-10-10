@@ -40,8 +40,8 @@ namespace Fungus
             {
                 if (affectChildren)
                 {
-                    SpriteRenderer[] children = spriteRenderer.gameObject.GetComponentsInChildren<SpriteRenderer>();
-                    foreach (SpriteRenderer sr in children)
+                    var spriteRenderers = spriteRenderer.gameObject.GetComponentsInChildren<SpriteRenderer>();
+                    foreach (var sr in spriteRenderers)
                     {
                         SetSpriteAlpha(sr, _visible.Value);
                     }

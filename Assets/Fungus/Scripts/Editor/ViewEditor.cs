@@ -171,7 +171,8 @@ namespace Fungus.EditorUtils
             var flowchart = FlowchartWindow.GetFlowchart();
             if (flowchart != null)
             {
-                foreach (Command command in flowchart.SelectedCommands)
+                var selectedCommands = flowchart.SelectedCommands;
+                foreach (var command in selectedCommands)
                 {
                     MoveToView moveToViewCommand = command as MoveToView;
                     if (moveToViewCommand != null &&

@@ -26,7 +26,8 @@ namespace Fungus.EditorUtils
 
             int index = 0;
             int selectedIndex = 0;
-            foreach (Command command in block.CommandList)
+            var commandList = block.CommandList;
+            foreach (var command in commandList)
             {
                 Label label = command as Label;
                 if (label == null)

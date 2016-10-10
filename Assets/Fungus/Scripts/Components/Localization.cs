@@ -96,7 +96,7 @@ namespace Fungus
         protected virtual void CacheLocalizeableObjects()
         {
             UnityEngine.Object[] objects = Resources.FindObjectsOfTypeAll(typeof(Component));
-            foreach (UnityEngine.Object o in objects)
+            foreach (var o in objects)
             {
                 ILocalizable localizable = o as ILocalizable;
                 if (localizable != null)
@@ -121,7 +121,8 @@ namespace Fungus
                 var blocks = flowchart.GetComponents<Block>();
                 foreach (var block in blocks)
                 {
-                    foreach (var command in block.CommandList)
+                    var commandList = block.CommandList;
+                    foreach (var command in commandList)
                     {
                         ILocalizable localizable = command as ILocalizable;
                         if (localizable != null)
@@ -137,7 +138,7 @@ namespace Fungus
 
             // Add everything else that's localizable (including inactive objects)
             UnityEngine.Object[] objects = Resources.FindObjectsOfTypeAll(typeof(Component));
-            foreach (UnityEngine.Object o in objects)
+            foreach (var o in objects)
             {
                 ILocalizable localizable = o as ILocalizable;
                 if (localizable != null)
@@ -289,7 +290,8 @@ namespace Fungus
             // Build CSV header row and a list of the language codes currently in use
             string csvHeader = "Key,Description,Standard";
             List<string> languageCodes = new List<string>();
-            foreach (TextItem textItem in textItems.Values)
+            var values = textItems.Values;
+            foreach (var textItem in values)
             {
                 foreach (string languageCode in textItem.localizedStrings.Keys)
                 {
@@ -304,7 +306,8 @@ namespace Fungus
             // Build the CSV file using collected text items
             int rowCount = 0;
             string csvData = csvHeader + "\n";
-            foreach (string stringId in textItems.Keys)
+            var keys = textItems.Keys;
+            foreach (var stringId in keys)
             {
                 TextItem textItem = textItems[stringId];
 
@@ -312,7 +315,7 @@ namespace Fungus
                 row += "," + CSVSupport.Escape(textItem.description);
                 row += "," + CSVSupport.Escape(textItem.standardText);
 
-                foreach (string languageCode in languageCodes)
+                foreach (var languageCode in languageCodes)
                 {
                     if (textItem.localizedStrings.ContainsKey(languageCode))
                     {
@@ -462,7 +465,8 @@ namespace Fungus
 
             string textData = "";
             int rowCount = 0;
-            foreach (string stringId in textItems.Keys)
+            var keys = textItems.Keys;
+            foreach (var stringId in keys)
             {
                 TextItem languageItem = textItems[stringId];
 
@@ -487,7 +491,7 @@ namespace Fungus
 
             string stringId = "";
             string buffer = "";
-            foreach (string line in lines)
+            foreach (var line in lines)
             {
                 // Check for string id line 
                 if (line.StartsWith("#"))

@@ -155,12 +155,12 @@ namespace Fungus
             StopAllCoroutines();
 
             Button[] optionButtons = GetComponentsInChildren<Button>();                     
-            foreach (UnityEngine.UI.Button button in optionButtons)
+            foreach (var button in optionButtons)
             {
                 button.onClick.RemoveAllListeners();
             }
 
-            foreach (UnityEngine.UI.Button button in optionButtons)
+            foreach (var button in optionButtons)
             {
                 if (button != null)
                 {
@@ -198,7 +198,7 @@ namespace Fungus
         public virtual bool AddOption(string text, bool interactable, Block targetBlock)
         {
             bool addedOption = false;
-            foreach (Button button in cachedButtons)
+            foreach (var button in cachedButtons)
             {
                 if (!button.gameObject.activeSelf)
                 {
@@ -266,7 +266,7 @@ namespace Fungus
             }
 
             bool addedOption = false;
-            foreach (Button button in CachedButtons)
+            foreach (var button in CachedButtons)
             {
                 if (!button.gameObject.activeSelf)
                 {
@@ -373,7 +373,7 @@ namespace Fungus
         {
             get {
                 int count = 0;
-                foreach (Button button in cachedButtons)
+                foreach (var button in cachedButtons)
                 {
                     if (button.gameObject.activeSelf)
                     {

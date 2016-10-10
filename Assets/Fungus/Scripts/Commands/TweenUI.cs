@@ -26,7 +26,7 @@ namespace Fungus
 
         protected virtual void ApplyTween()
         {
-            foreach (GameObject targetObject in targetObjects)
+            foreach (var targetObject in targetObjects)
             {
                 if (targetObject == null)
                 {
@@ -97,7 +97,7 @@ namespace Fungus
             }
             
             string objectList = "";
-            foreach (GameObject gameObject in targetObjects)
+            foreach (var gameObject in targetObjects)
             {
                 if (gameObject == null)
                 {

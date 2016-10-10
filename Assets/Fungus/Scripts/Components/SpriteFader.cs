@@ -77,15 +77,15 @@ namespace Fungus
             }
 
             // Fade child sprite renderers
-            SpriteRenderer[] children = spriteRenderer.gameObject.GetComponentsInChildren<SpriteRenderer>();
-            foreach (SpriteRenderer child in children)
+            var spriteRenderers = spriteRenderer.gameObject.GetComponentsInChildren<SpriteRenderer>();
+            foreach (var sr in spriteRenderers)
             {
-                if (child == spriteRenderer)
+                if (sr == spriteRenderer)
                 {
                     continue;
                 }
 
-                FadeSprite(child, targetColor, duration, slideOffset);
+                FadeSprite(sr, targetColor, duration, slideOffset);
             }
 
             // Destroy any existing fader component

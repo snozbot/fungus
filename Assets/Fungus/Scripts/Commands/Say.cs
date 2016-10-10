@@ -107,7 +107,8 @@ namespace Fungus
 
             string displayText = storyText;
 
-            foreach (CustomTag ct in CustomTag.activeCustomTags)
+            var activeCustomTags = CustomTag.activeCustomTags;
+            foreach (var ct in activeCustomTags)
             {
                 displayText = displayText.Replace(ct.TagStartSymbol, ct.ReplaceTagStartWith);
                 if (ct.TagEndSymbol != "" && ct.ReplaceTagEndWith != "")

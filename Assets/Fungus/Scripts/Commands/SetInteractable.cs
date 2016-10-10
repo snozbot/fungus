@@ -31,9 +31,10 @@ namespace Fungus
                 return;
             }
 
-            foreach (GameObject targetObject in targetObjects)
+            foreach (var targetObject in targetObjects)
             {
-                foreach (Selectable selectable in targetObject.GetComponents<Selectable>())
+                var selectables = targetObject.GetComponents<Selectable>();
+                foreach (var selectable in selectables)
                 {
                     selectable.interactable = interactableState.Value;
                 }
@@ -58,7 +59,7 @@ namespace Fungus
             }
             
             string objectList = "";
-            foreach (GameObject gameObject in targetObjects)
+            foreach (var gameObject in targetObjects)
             {
                 if (gameObject == null)
                 {

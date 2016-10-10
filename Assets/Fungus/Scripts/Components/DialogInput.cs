@@ -114,8 +114,8 @@ namespace Fungus
             // Tell any listeners to move to the next line
             if (nextLineInputFlag)
             {
-                IDialogInputListener[] inputListeners = gameObject.GetComponentsInChildren<IDialogInputListener>();
-                foreach (IDialogInputListener inputListener in inputListeners)
+                var inputListeners = gameObject.GetComponentsInChildren<IDialogInputListener>();
+                foreach (var inputListener in inputListeners)
                 {
                     inputListener.OnNextLineEvent();
                 }

@@ -106,7 +106,8 @@ namespace Fungus
             // Try to find any component with a text property
             if (textUI == null && inputField == null && textMesh == null)
             {
-                foreach (Component c in go.GetComponents<Component>())
+                var allcomponents = go.GetComponents<Component>();
+                foreach (var c in allcomponents)
                 {
                     textProperty = c.GetType().GetProperty("text");
                     if (textProperty != null)
@@ -118,7 +119,8 @@ namespace Fungus
             }
 
             // Cache the list of child writer listeners
-            foreach (Component component in GetComponentsInChildren<Component>())
+            var allComponents = GetComponentsInChildren<Component>();
+            foreach (var component in allComponents)
             {
                 IWriterListener writerListener = component as IWriterListener;
                 if (writerListener != null)
@@ -688,7 +690,7 @@ namespace Fungus
         {
             WriterSignals.DoWriterInput(this);
 
-            foreach (IWriterListener writerListener in writerListeners)
+            foreach (var writerListener in writerListeners)
             {
                 writerListener.OnInput();
             }
@@ -698,7 +700,7 @@ namespace Fungus
         {
             WriterSignals.DoWriterState(this, WriterState.Start);
 
-            foreach (IWriterListener writerListener in writerListeners)
+            foreach (var writerListener in writerListeners)
             {
                 writerListener.OnStart(audioClip);
             }
@@ -708,7 +710,7 @@ namespace Fungus
         {
             WriterSignals.DoWriterState(this, WriterState.Pause);
 
-            foreach (IWriterListener writerListener in writerListeners)
+            foreach (var writerListener in writerListeners)
             {
                 writerListener.OnPause();
             }
@@ -718,7 +720,7 @@ namespace Fungus
         {
             WriterSignals.DoWriterState(this, WriterState.Resume);
 
-            foreach (IWriterListener writerListener in writerListeners)
+            foreach (var writerListener in writerListeners)
             {
                 writerListener.OnResume();
             }
@@ -728,7 +730,7 @@ namespace Fungus
         {
             WriterSignals.DoWriterState(this, WriterState.End);
 
-            foreach (IWriterListener writerListener in writerListeners)
+            foreach (var writerListener in writerListeners)
             {
                 writerListener.OnEnd(stopAudio);
             }
@@ -738,7 +740,7 @@ namespace Fungus
         {
             WriterSignals.DoWriterGlyph(this); 
 
-            foreach (IWriterListener writerListener in writerListeners)
+            foreach (var writerListener in writerListeners)
             {
                 writerListener.OnGlyph();
             }
