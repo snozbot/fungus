@@ -34,8 +34,9 @@ namespace Fungus
         protected override void ApplyTween(GameObject go)
         {
             var images = go.GetComponentsInChildren<Image>();
-            foreach (var image in images)
+            for (int i = 0; i < images.Length; i++)
             {
+                var image = images[i];
                 if (Mathf.Approximately(duration, 0f))
                 {
                     switch (fadeMode)
@@ -65,8 +66,9 @@ namespace Fungus
             }
 
             var texts = go.GetComponentsInChildren<Text>();
-            foreach (var text in texts)
+            for (int i = 0; i < texts.Length; i++)
             {
+                var text = texts[i];
                 if (Mathf.Approximately(duration, 0f))
                 {
                     switch (fadeMode)
@@ -96,8 +98,9 @@ namespace Fungus
             }
 
             var textMeshes = go.GetComponentsInChildren<TextMesh>();
-            foreach (var textMesh in textMeshes)
+            for (int i = 0; i < textMeshes.Length; i++)
             {
+                var textMesh = textMeshes[i];
                 if (Mathf.Approximately(duration, 0f))
                 {
                     switch (fadeMode)

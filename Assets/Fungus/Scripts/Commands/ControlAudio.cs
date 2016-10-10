@@ -66,11 +66,12 @@ namespace Fungus
             }
 
             var audioSources = GameObject.FindObjectsOfType<AudioSource>();
-            foreach (var a in audioSources)
+            for (int i = 0; i < audioSources.Length; i++)
             {
-                if ((a.GetComponent<AudioSource>() != _audioSource.Value) && (a.tag == _audioSource.Value.tag))
+                var a = audioSources[i];
+                if (a != _audioSource.Value && a.tag == _audioSource.Value.tag)
                 {
-                    StopLoop(a.GetComponent<AudioSource>());
+                    StopLoop(a);
                 }
             }
         }

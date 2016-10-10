@@ -31,11 +31,13 @@ namespace Fungus
                 return;
             }
 
-            foreach (var targetObject in targetObjects)
+            for (int i = 0; i < targetObjects.Count; i++)
             {
+                var targetObject = targetObjects[i];
                 var selectables = targetObject.GetComponents<Selectable>();
-                foreach (var selectable in selectables)
+                for (int j = 0; j < selectables.Length; j++)
                 {
+                    var selectable = selectables[j];
                     selectable.interactable = interactableState.Value;
                 }
             }
@@ -59,20 +61,20 @@ namespace Fungus
             }
             
             string objectList = "";
-            foreach (var gameObject in targetObjects)
+            for (int i = 0; i < targetObjects.Count; i++)
             {
-                if (gameObject == null)
+                var go = targetObjects[i];
+                if (go == null)
                 {
                     continue;
                 }
-                
                 if (objectList == "")
                 {
-                    objectList += gameObject.name;
+                    objectList += go.name;
                 }
                 else
                 {
-                    objectList += ", " + gameObject.name;
+                    objectList += ", " + go.name;
                 }
             }
             

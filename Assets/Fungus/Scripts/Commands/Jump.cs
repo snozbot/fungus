@@ -30,11 +30,11 @@ namespace Fungus
             }
 
             var commandList = ParentBlock.CommandList;
-            foreach (var command in commandList)
+            for (int i = 0; i < commandList.Count; i++)
             {
+                var command = commandList[i];
                 Label label = command as Label;
-                if (label != null &&
-                    label.Key == _targetLabel.Value)
+                if (label != null && label.Key == _targetLabel.Value)
                 {
                     Continue(label.CommandIndex + 1);
                     return;

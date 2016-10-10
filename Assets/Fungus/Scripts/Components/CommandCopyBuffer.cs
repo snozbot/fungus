@@ -63,8 +63,9 @@ namespace Fungus
         public virtual void Clear()
         {
             var commands = GetCommands();
-            foreach (var command in commands)
+            for (int i = 0; i < commands.Length; i++)
             {
+                var command = commands[i];
                 DestroyImmediate(command);
             }
         }

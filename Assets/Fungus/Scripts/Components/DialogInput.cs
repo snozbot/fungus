@@ -115,8 +115,9 @@ namespace Fungus
             if (nextLineInputFlag)
             {
                 var inputListeners = gameObject.GetComponentsInChildren<IDialogInputListener>();
-                foreach (var inputListener in inputListeners)
+                for (int i = 0; i < inputListeners.Length; i++)
                 {
+                    var inputListener = inputListeners[i];
                     inputListener.OnNextLineEvent();
                 }
                 nextLineInputFlag = false;

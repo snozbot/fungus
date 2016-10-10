@@ -73,8 +73,9 @@ namespace Fungus
         protected virtual void MoveToFront(Stage stage)
         {
             var activeStages = Stage.ActiveStages;
-            foreach (var s in activeStages)
+            for (int i = 0; i < activeStages.Count; i++)
             {
+                var s = activeStages[i];
                 if (s == stage)
                 {
                     s.PortraitCanvas.sortingOrder = 1;
@@ -90,8 +91,9 @@ namespace Fungus
         {
             stage.DimPortraits = false;
             var charactersOnStage = stage.CharactersOnStage;
-            foreach (var character in charactersOnStage)
+            for (int i = 0; i < charactersOnStage.Count; i++)
             {
+                var character = charactersOnStage[i];
                 stage.SetDimmed(character, false);
             }
         }

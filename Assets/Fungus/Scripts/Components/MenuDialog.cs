@@ -154,14 +154,16 @@ namespace Fungus
         {
             StopAllCoroutines();
 
-            Button[] optionButtons = GetComponentsInChildren<Button>();                     
-            foreach (var button in optionButtons)
+            var optionButtons = GetComponentsInChildren<Button>();
+            for (int i = 0; i < optionButtons.Length; i++)
             {
+                var button = optionButtons[i];
                 button.onClick.RemoveAllListeners();
             }
 
-            foreach (var button in optionButtons)
+            for (int i = 0; i < optionButtons.Length; i++)
             {
+                var button = optionButtons[i];
                 if (button != null)
                 {
                     button.gameObject.SetActive(false);
@@ -198,53 +200,43 @@ namespace Fungus
         public virtual bool AddOption(string text, bool interactable, Block targetBlock)
         {
             bool addedOption = false;
-            foreach (var button in cachedButtons)
+            for (int i = 0; i < cachedButtons.Length; i++)
             {
+                var button = cachedButtons[i];
                 if (!button.gameObject.activeSelf)
                 {
                     button.gameObject.SetActive(true);
-
                     button.interactable = interactable;
-
-                    if (interactable && autoSelectFirstButton && !cachedButtons.Select((x) => x.gameObject).Contains(EventSystem.current.currentSelectedGameObject))
+                    if (interactable && autoSelectFirstButton && !cachedButtons.Select(x => x.gameObject).Contains(EventSystem.current.currentSelectedGameObject))
                     {
                         EventSystem.current.SetSelectedGameObject(button.gameObject);
                     }
-
                     Text textComponent = button.GetComponentInChildren<Text>();
                     if (textComponent != null)
                     {
                         textComponent.text = text;
                     }
-
                     var block = targetBlock;
-
-                    button.onClick.AddListener(delegate {
-
+                    button.onClick.AddListener(delegate
+                    {
                         EventSystem.current.SetSelectedGameObject(null);
-
-                        StopAllCoroutines(); // Stop timeout
+                        StopAllCoroutines();
+                        // Stop timeout
                         Clear();
-
                         HideSayDialog();
-
                         if (block != null)
                         {
                             var flowchart = block.GetFlowchart();
-
                             #if UNITY_EDITOR
                             // Select the new target block in the Flowchart window
                             flowchart.SelectedBlock = block;
                             #endif
-
                             gameObject.SetActive(false);
-
                             // Use a coroutine to call the block on the next frame
                             // Have to use the Flowchart gameobject as the MenuDialog is now inactive
                             flowchart.StartCoroutine(CallBlock(block));
                         }
                     });
-
                     addedOption = true;
                     break;
                 }
@@ -266,15 +258,14 @@ namespace Fungus
             }
 
             bool addedOption = false;
-            foreach (var button in CachedButtons)
+            for (int i = 0; i < CachedButtons.Length; i++)
             {
+                var button = CachedButtons[i];
                 if (!button.gameObject.activeSelf)
                 {
                     button.gameObject.SetActive(true);
-
                     button.interactable = interactable;
-
-                    Text textComponent = button.GetComponentInChildren<Text>();
+                    var textComponent = button.GetComponentInChildren<Text>();
                     if (textComponent != null)
                     {
                         textComponent.text = text;
@@ -283,17 +274,16 @@ namespace Fungus
                     // Copy to local variables 
                     LuaEnvironment env = luaEnv;
                     Closure call = callBack;
-
-                    button.onClick.AddListener(delegate {
-
-                        StopAllCoroutines(); // Stop timeout
+                    button.onClick.AddListener(delegate
+                    {
+                        StopAllCoroutines();
+                        // Stop timeout
                         Clear();
                         HideSayDialog();
-
                         // Use a coroutine to call the callback on the next frame
                         StartCoroutine(CallLuaClosure(env, call));
                     });
-
+                    
                     addedOption = true;
                     break;
                 }
@@ -373,8 +363,9 @@ namespace Fungus
         {
             get {
                 int count = 0;
-                foreach (var button in cachedButtons)
+                for (int i = 0; i < cachedButtons.Length; i++)
                 {
+                    var button = cachedButtons[i];
                     if (button.gameObject.activeSelf)
                     {
                         count++;

@@ -159,8 +159,9 @@ namespace Fungus
 
             // Tell all components that implement IUpdateable to update to the new version
             var components = GetComponents<Component>();
-            foreach (var component in components)
+            for (int i = 0; i < components.Length; i++)
             {
+                var component = components[i];
                 IUpdateable u = component as IUpdateable;
                 if (u != null)
                 {
@@ -182,10 +183,10 @@ namespace Fungus
             // This should always be the case, but some legacy Flowcharts may have issues.
             List<int> usedIds = new List<int>();
             var blocks = GetComponents<Block>();
-            foreach (var block in blocks)
+            for (int i = 0; i < blocks.Length; i++)
             {
-                if (block.ItemId == -1 ||
-                    usedIds.Contains(block.ItemId))
+                var block = blocks[i];
+                if (block.ItemId == -1 || usedIds.Contains(block.ItemId))
                 {
                     block.ItemId = NextItemId();
                 }
@@ -193,10 +194,10 @@ namespace Fungus
             }
             
             var commands = GetComponents<Command>();
-            foreach (var command in commands)
+            for (int i = 0; i < commands.Length; i++)
             {
-                if (command.ItemId == -1 ||
-                    usedIds.Contains(command.ItemId))
+                var command = commands[i];
+                if (command.ItemId == -1 || usedIds.Contains(command.ItemId))
                 {
                     command.ItemId = NextItemId();
                 }
@@ -215,8 +216,9 @@ namespace Fungus
             variables.RemoveAll(item => item == null);
 
             var allVariables = GetComponents<Variable>();
-            foreach (var variable in allVariables)
+            for (int i = 0; i < allVariables.Length; i++)
             {
+                var variable = allVariables[i];
                 if (!variables.Contains(variable))
                 {
                     DestroyImmediate(variable);
@@ -225,18 +227,19 @@ namespace Fungus
             
             var blocks = GetComponents<Block>();
             var commands = GetComponents<Command>();
-            foreach (var command in commands)
+            for (int i = 0; i < commands.Length; i++)
             {
+                var command = commands[i];
                 bool found = false;
-                foreach (var block in blocks)
+                for (int j = 0; j < blocks.Length; j++)
                 {
+                    var block = blocks[j];
                     if (block.CommandList.Contains(command))
                     {
                         found = true;
                         break;
                     }
                 }
-                
                 if (!found)
                 {
                     DestroyImmediate(command);
@@ -244,18 +247,19 @@ namespace Fungus
             }
             
             var eventHandlers = GetComponents<EventHandler>();
-            foreach (var eventHandler in eventHandlers)
+            for (int i = 0; i < eventHandlers.Length; i++)
             {
+                var eventHandler = eventHandlers[i];
                 bool found = false;
-                foreach (var block in blocks)
+                for (int j = 0; j < blocks.Length; j++)
                 {
+                    var block = blocks[j];
                     if (block._EventHandler == eventHandler)
                     {
                         found = true;
                         break;
                     }
                 }
-                
                 if (!found)
                 {
                     DestroyImmediate(eventHandler);
@@ -283,8 +287,9 @@ namespace Fungus
         public static void BroadcastFungusMessage(string messageName)
         {
             var eventHandlers = UnityEngine.Object.FindObjectsOfType<MessageReceived>();
-            foreach (var eventHandler in eventHandlers)
+            for (int i = 0; i < eventHandlers.Length; i++)
             {
+                var eventHandler = eventHandlers[i];
                 eventHandler.OnSendFungusMessage(messageName);
             }
         }
@@ -409,14 +414,16 @@ namespace Fungus
         {
             int maxId = -1;
             var blocks = GetComponents<Block>();
-            foreach (var block in blocks)
+            for (int i = 0; i < blocks.Length; i++)
             {
+                var block = blocks[i];
                 maxId = Math.Max(maxId, block.ItemId);
             }
 
             var commands = GetComponents<Command>();
-            foreach (var command in commands)
+            for (int i = 0; i < commands.Length; i++)
             {
+                var command = commands[i];
                 maxId = Math.Max(maxId, command.ItemId);
             }
             return maxId + 1;
@@ -441,8 +448,9 @@ namespace Fungus
         public virtual Block FindBlock(string blockName)
         {
             var blocks = GetComponents<Block>();
-            foreach (var block in blocks)
+            for (int i = 0; i < blocks.Length; i++)
             {
+                var block = blocks[i];
                 if (block.BlockName == blockName)
                 {
                     return block;
@@ -509,8 +517,9 @@ namespace Fungus
         public virtual void StopAllBlocks()
         {
             var blocks = GetComponents<Block>();
-            foreach (var block in blocks)
+            for (int i = 0; i < blocks.Length; i++)
             {
+                var block = blocks[i];
                 if (block.IsExecuting())
                 {
                     block.Stop();
@@ -525,8 +534,9 @@ namespace Fungus
         public virtual void SendFungusMessage(string messageName)
         {
             var eventHandlers = GetComponents<MessageReceived>();
-            foreach (var eventHandler in eventHandlers)
+            for (int i = 0; i < eventHandlers.Length; i++)
             {
+                var eventHandler = eventHandlers[i];
                 eventHandler.OnSendFungusMessage(messageName);
             }
         }
@@ -556,15 +566,13 @@ namespace Fungus
             while (true)
             {
                 bool collision = false;
-                foreach(var variable in variables)
+                for (int i = 0; i < variables.Count; i++)
                 {
-                    if (variable == null ||
-                        variable == ignoreVariable ||
-                        variable.Key == null)
+                    var variable = variables[i];
+                    if (variable == null || variable == ignoreVariable || variable.Key == null)
                     {
                         continue;
                     }
-
                     if (variable.Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                     {
                         collision = true;
@@ -600,14 +608,13 @@ namespace Fungus
             while (true)
             {
                 bool collision = false;
-                foreach (var block in blocks)
+                for (int i = 0; i < blocks.Length; i++)
                 {
-                    if (block == ignoreBlock ||
-                        block.BlockName == null)
+                    var block = blocks[i];
+                    if (block == ignoreBlock || block.BlockName == null)
                     {
                         continue;
                     }
-
                     if (block.BlockName.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                     {
                         collision = true;
@@ -644,15 +651,14 @@ namespace Fungus
             {
                 bool collision = false;
                 var commandList = block.CommandList;
-                foreach (var command in commandList)
+                for (int i = 0; i < commandList.Count; i++)
                 {
+                    var command = commandList[i];
                     Label label = command as Label;
-                    if (label == null ||
-                        label == ignoreLabel)
+                    if (label == null || label == ignoreLabel)
                     {
                         continue;
                     }
-
                     if (label.Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                     {
                         collision = true;
@@ -677,8 +683,9 @@ namespace Fungus
         /// </summary>
         public Variable GetVariable(string key)
         {
-            foreach (var variable in variables)
+            for (int i = 0; i < variables.Count; i++)
             {
+                var variable = variables[i];
                 if (variable != null && variable.Key == key)
                 {
                     return variable;
@@ -696,8 +703,9 @@ namespace Fungus
         /// </summary>
         public T GetVariable<T>(string key) where T : Variable
         {
-            foreach (var variable in variables)
+            for (int i = 0; i < variables.Count; i++)
             {
+                var variable = variables[i];
                 if (variable != null && variable.Key == key)
                 {
                     return variable as T;
@@ -714,8 +722,9 @@ namespace Fungus
         /// </summary>
         public void SetVariable<T>(string key, T newvariable) where T : Variable
         {
-            foreach (var v in variables)
+            for (int i = 0; i < variables.Count; i++)
             {
+                var v = variables[i];
                 if (v != null && v.Key == key)
                 {
                     T variable = v as T;
@@ -735,9 +744,10 @@ namespace Fungus
         /// </summary>
         public virtual List<Variable> GetPublicVariables()
         {
-            List<Variable> publicVariables = new List<Variable>();
-            foreach (var v in variables)
+            var publicVariables = new List<Variable>();
+            for (int i = 0; i < variables.Count; i++)
             {
+                var v = variables[i];
                 if (v != null && v.Scope == VariableScope.Public)
                 {
                     publicVariables.Add(v);
@@ -879,8 +889,9 @@ namespace Fungus
             if (hideComponents)
             {
                 var blocks = GetComponents<Block>();
-                foreach (var block in blocks)
+                for (int i = 0; i < blocks.Length; i++)
                 {
+                    var block = blocks[i];
                     block.hideFlags = HideFlags.HideInInspector;
                     if (block.gameObject != gameObject)
                     {
@@ -889,27 +900,29 @@ namespace Fungus
                 }
 
                 var commands = GetComponents<Command>();
-                foreach (var command in commands)
+                for (int i = 0; i < commands.Length; i++)
                 {
+                    var command = commands[i];
                     command.hideFlags = HideFlags.HideInInspector;
                 }
 
                 var eventHandlers = GetComponents<EventHandler>();
-                foreach (var eventHandler in eventHandlers)
+                for (int i = 0; i < eventHandlers.Length; i++)
                 {
+                    var eventHandler = eventHandlers[i];
                     eventHandler.hideFlags = HideFlags.HideInInspector;
                 }
             }
             else
             {
                 var monoBehaviours = GetComponents<MonoBehaviour>();
-                foreach (var monoBehaviour in monoBehaviours)
+                for (int i = 0; i < monoBehaviours.Length; i++)
                 {
+                    var monoBehaviour = monoBehaviours[i];
                     if (monoBehaviour == null)
                     {
                         continue;
                     }
-
                     monoBehaviour.hideFlags = HideFlags.None;
                     monoBehaviour.gameObject.hideFlags = HideFlags.None;
                 }
@@ -943,16 +956,18 @@ namespace Fungus
             if (resetCommands)
             {
                 var commands = GetComponents<Command>();
-                foreach (var command in commands)
+                for (int i = 0; i < commands.Length; i++)
                 {
+                    var command = commands[i];
                     command.OnReset();
                 }
             }
 
             if (resetVariables)
             {
-                foreach (var variable in variables)
+                for (int i = 0; i < variables.Count; i++)
                 {
+                    var variable = variables[i];
                     variable.OnReset();
                 }
             }
@@ -963,11 +978,11 @@ namespace Fungus
         /// </summary>
         public virtual bool IsCommandSupported(CommandInfoAttribute commandInfo)
         {
-            foreach (var key in hideCommands)
+            for (int i = 0; i < hideCommands.Count; i++)
             {
                 // Match on category or command name (case insensitive)
-                if (String.Compare(commandInfo.Category, key, StringComparison.OrdinalIgnoreCase) == 0 ||
-                    String.Compare(commandInfo.CommandName, key, StringComparison.OrdinalIgnoreCase) == 0)
+                var key = hideCommands[i];
+                if (String.Compare(commandInfo.Category, key, StringComparison.OrdinalIgnoreCase) == 0 || String.Compare(commandInfo.CommandName, key, StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     return false;
                 }
@@ -982,8 +997,9 @@ namespace Fungus
         public virtual bool HasExecutingBlocks()
         {
             var blocks = GetComponents<Block>();
-            foreach (var block in blocks)
+            for (int i = 0; i < blocks.Length; i++)
             {
+                var block = blocks[i];
                 if (block.IsExecuting())
                 {
                     return true;
@@ -999,8 +1015,9 @@ namespace Fungus
         {
             var executingBlocks = new List<Block>();
             var blocks = GetComponents<Block>();
-            foreach (var block in blocks)
+            for (int i = 0; i < blocks.Length; i++)
             {
+                var block = blocks[i];
                 if (block.IsExecuting())
                 {
                     executingBlocks.Add(block);
@@ -1036,19 +1053,18 @@ namespace Fungus
 
             // Match the regular expression pattern against a text string.
             var results = r.Matches(input);
-            foreach (Match match in results)
+            for (int i = 0; i < results.Count; i++)
             {
+                Match match = results[i];
                 string key = match.Value.Substring(2, match.Value.Length - 3);
-
                 // Look for any matching private variables in this Flowchart first
-                foreach (var variable in variables)
+                for (int j = 0; j < variables.Count; j++)
                 {
+                    var variable = variables[j];
                     if (variable == null)
                         continue;
-
-                    if (variable.Scope == VariableScope.Private &&
-                        variable.Key == key)
-                    {   
+                    if (variable.Scope == VariableScope.Private && variable.Key == key)
+                    {
                         string value = variable.ToString();
                         sb.Replace(match.Value, value);
                         changed = true;
@@ -1088,22 +1104,22 @@ namespace Fungus
 
             // Match the regular expression pattern against a text string.
             var results = r.Matches(input.ToString());
-            foreach (Match match in results)
+            for (int i = 0; i < results.Count; i++)
             {
+                Match match = results[i];
                 string key = match.Value.Substring(2, match.Value.Length - 3);
-
                 // Look for any matching public variables in this Flowchart
-                foreach (var variable in variables)
+                for (int j = 0; j < variables.Count; j++)
                 {
+                    var variable = variables[j];
                     if (variable == null)
+                    {
                         continue;
-
-                    if (variable.Scope == VariableScope.Public &&
-                        variable.Key == key)
-                    {   
+                    }
+                    if (variable.Scope == VariableScope.Public && variable.Key == key)
+                    {
                         string value = variable.ToString();
                         input.Replace(match.Value, value);
-
                         modified = true;
                     }
                 }

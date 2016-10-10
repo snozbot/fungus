@@ -74,8 +74,9 @@ namespace Fungus
             {
                 // Force any existing iTweens on this target object to complete immediately
                 var tweens = _targetObject.Value.GetComponents<iTween>();
-                foreach (var tween in tweens) 
+                for (int i = 0; i < tweens.Length; i++)
                 {
+                    var tween = tweens[i];
                     tween.time = 0;
                     tween.SendMessage("Update");
                 }
