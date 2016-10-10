@@ -46,6 +46,13 @@ namespace Fungus
 
         protected StandaloneInputModule currentStandaloneInputModule;
 
+        protected Writer writer;
+
+        protected virtual void Awake()
+        {
+            writer = GetComponent<Writer>();
+        }
+
         protected virtual void Update()
         {
             if (EventSystem.current == null)
@@ -69,10 +76,13 @@ namespace Fungus
                 currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
             }
 
-            if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
-                (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
+            if (writer != null && writer.IsWriting)
             {
-                SetNextLineFlag();
+                if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
+                    (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
+                {
+                    SetNextLineFlag();
+                }
             }
 
             switch (clickMode)
