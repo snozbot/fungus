@@ -1,3 +1,53 @@
+Fungus 3.3.0
+============
+# Known Issues
+- FungusLua does not work in WebGL builds due to issues in MoonSharp 1.8.0.0
+   Forum thread: http://fungusgames.com/forum/#!/general:fungus-lua-and-web-gl-uni
+
+# Added
+- Added test for StopTweens does not stop a Tween with loop enabled #529
+- Added signals (pub-sub system) for Writer and Block events #539
+- All interfaces now have their own source files.
+- Added monodevelop project for editing docs files.
+- Added Flip option (<<< and >>>) to conversation system #527
+
+# Changed
+
+- Tidied up Fungus folder structure to organize scripts more logically
+- Migrated documentation to use Doxygen for help and API docs
+- Lots of misc improvements to documentation
+- Updated to MoonSharp 1.8.0.0
+- Documented using string facing parameter in stage.show() Lua function.
+- Documented <<< and >>> tags for conversation system.
+- Documented all public members for API docs.
+- All serialized fields are now protected, exposed via public properties as needed.
+- Moved all enums to namespace scope.
+- Moved global constants to FungusConstants static class.
+- Moved editor resources to the main resources folder
+- Fungus editor code moved to Fungus.EditorUtils namespace
+- Convert singletons to use a single FungusManager singleton #540
+- Renamed CameraController to CameraManager and MusicController to MusicManager
+- Changed float constant comparisons to use Mathf.Approximately
+- Added #region Public members to all non-editor classes
+- StringFormatter, TextTagParser and FungusPrefs classes are now static
+- Merged MenuDialog extension methods (used for Lua) with main MenuDialog class.
+- Change all public methods to use virtual
+- Removed all unnecessary using statements.
+- All class and member comments use standard c# xml comment style
+
+# Fixed
+
+- Fixed Setting facing in lua only works if portraits are set to “FRONT” #528
+- Fixed Say command completes instantly after menu choice #533
+- Fixed broken mouse pointer in WebGL build of Drag and Drop
+- Fixed ObjectField nulls reference if object is disabled #536
+- Updated Unity Test Tools to v1.5.9
+- Fixed missing Process class error in Unity5.5b3
+- Fixed Spine.Unity namespace problem in integration scripts
+- Fix Regex for character names with "." & "'" #531 (thanks to Sercan Altun)
+    Old Regex expression did not capture Character names with "." and "'". As a result characters with names like "Mr. Jones" or "Ab'ar" were not registering correctly.
+- Fixed Lua setlanguage() function
+
 Fungus 3.2.0
 ============
 
