@@ -121,7 +121,8 @@ namespace Fungus.EditorUtils
             {
                 bool isSelected = (flowchart.SelectedBlock == deleteBlock);
 
-                foreach (Command command in deleteBlock.CommandList)
+                var commandList = deleteBlock.CommandList;
+                foreach (var command in commandList)
                 {
                     Undo.DestroyObjectImmediate(command);
                 }
@@ -552,7 +553,8 @@ namespace Fungus.EditorUtils
 
         protected virtual void DeleteBlock(Flowchart flowchart, Block block)
         {
-            foreach (var command in block.CommandList)
+            var commandList = block.CommandList;
+            foreach (var command in commandList)
             {
                 Undo.DestroyObjectImmediate(command);
             }
@@ -614,7 +616,7 @@ namespace Fungus.EditorUtils
                 // Count the number of unique connections (excluding self references)
                 var uniqueList = new List<Block>();
                 var connectedBlocks = block.GetConnectedBlocks();
-                foreach (Block connectedBlock in connectedBlocks)
+                foreach (var connectedBlock in connectedBlocks)
                 {
                     if (connectedBlock == block ||
                         uniqueList.Contains(connectedBlock))
@@ -675,7 +677,8 @@ namespace Fungus.EditorUtils
 
             bool blockIsSelected = (flowchart.SelectedBlock != block);
 
-            foreach (Command command in block.CommandList)
+            var commandList = block.CommandList;
+            foreach (var command in commandList)
             {
                 if (command == null)
                 {
@@ -683,7 +686,8 @@ namespace Fungus.EditorUtils
                 }
 
                 bool commandIsSelected = false;
-                foreach (Command selectedCommand in flowchart.SelectedCommands)
+                var selectedCommands = flowchart.SelectedCommands;
+                foreach (var selectedCommand in selectedCommands)
                 {
                     if (selectedCommand == command)
                     {
@@ -703,7 +707,7 @@ namespace Fungus.EditorUtils
                 connectedBlocks.Clear();
                 command.GetConnectedBlocks(ref connectedBlocks);
 
-                foreach (Block blockB in connectedBlocks)
+                foreach (var blockB in connectedBlocks)
                 {
                     if (blockB == null ||
                         block == blockB ||
@@ -745,9 +749,9 @@ namespace Fungus.EditorUtils
             Vector2 pointB = Vector2.zero;
             float minDist = float.MaxValue;
 
-            foreach (Vector2 a in pointsA)
+            foreach (var a in pointsA)
             {
-                foreach (Vector2 b in pointsB)
+                foreach (var b in pointsB)
                 {
                     float d = Vector2.Distance(a, b);
                     if (d < minDist)
@@ -796,7 +800,8 @@ namespace Fungus.EditorUtils
 
             Undo.RecordObject(newBlock, "Duplicate Block");
 
-            foreach (Command command in oldBlock.CommandList)
+            var commandList = oldBlock.CommandList;
+            foreach (var command in commandList)
             {
                 if (ComponentUtility.CopyComponent(command))
                 {
@@ -807,7 +812,7 @@ namespace Fungus.EditorUtils
                         if (pastedCommand != null)
                         {
                             pastedCommand.ItemId = flowchart.NextItemId();
-                            newBlock.CommandList.Add (pastedCommand);
+                            newBlock.CommandList.Add(pastedCommand);
                         }
                     }
                     

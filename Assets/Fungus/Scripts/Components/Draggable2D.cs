@@ -58,13 +58,17 @@ namespace Fungus
                 return;
             }
 
-            foreach (DragEntered handler in GetHandlers<DragEntered>())
+            var dragEnteredHandlers = GetHandlers<DragEntered>();
+            for (int i = 0; i < dragEnteredHandlers.Length; i++)
             {
+                var handler = dragEnteredHandlers[i];
                 handler.OnDragEntered(this, other);
             }
 
-            foreach (DragCompleted handler in GetHandlers<DragCompleted>())
+            var dragCompletedHandlers = GetHandlers<DragCompleted>();
+            for (int i = 0; i < dragCompletedHandlers.Length; i++)
             {
+                var handler = dragCompletedHandlers[i];
                 handler.OnDragEntered(this, other);
             }
         }
@@ -76,13 +80,17 @@ namespace Fungus
                 return;
             }
 
-            foreach (DragExited handler in GetHandlers<DragExited>())
+            var dragExitedHandlers = GetHandlers<DragExited>();
+            for (int i = 0; i < dragExitedHandlers.Length; i++)
             {
+                var handler = dragExitedHandlers[i];
                 handler.OnDragExited(this, other);
             }
 
-            foreach (DragCompleted handler in GetHandlers<DragCompleted>())
+            var dragCompletedHandlers = GetHandlers<DragCompleted>();
+            for (int i = 0; i < dragCompletedHandlers.Length; i++)
             {
+                var handler = dragCompletedHandlers[i];
                 handler.OnDragExited(this, other);
             }
         }
@@ -103,8 +111,10 @@ namespace Fungus
 
             startingPosition = transform.position;
 
-            foreach (DragStarted handler in GetHandlers<DragStarted>())
+            var dragStartedHandlers = GetHandlers<DragStarted>();
+            for (int i = 0; i < dragStartedHandlers.Length; i++)
             {
+                var handler = dragStartedHandlers[i];
                 handler.OnDragStarted(this);
             }
         }
@@ -134,16 +144,16 @@ namespace Fungus
 
             bool dragCompleted = false;
 
-            DragCompleted[] handlers = GetHandlers<DragCompleted>();
-            foreach (DragCompleted handler in handlers)
+            var handlers = GetHandlers<DragCompleted>();
+            for (int i = 0; i < handlers.Length; i++)
             {
+                var handler = handlers[i];
                 if (handler.DraggableObject == this)
                 {
                     if (handler.IsOverTarget())
                     {
                         handler.OnDragCompleted(this);
                         dragCompleted = true;
-
                         if (returnOnCompleted)
                         {
                             LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
@@ -154,8 +164,10 @@ namespace Fungus
 
             if (!dragCompleted)
             {
-                foreach (DragCancelled handler in GetHandlers<DragCancelled>())
+                var dragCancelledHandlers = GetHandlers<DragCancelled>();
+                for (int i = 0; i < dragCancelledHandlers.Length; i++)
                 {
+                    var handler = dragCancelledHandlers[i];
                     handler.OnDragCancelled(this);
                 }
 

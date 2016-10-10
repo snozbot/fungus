@@ -22,14 +22,15 @@ namespace Fungus
 
         protected void ApplySortingLayer(Transform target, string layerName) 
         {
-            Renderer renderer = target.gameObject.GetComponent<Renderer>();
+            var renderer = target.gameObject.GetComponent<Renderer>();
             if (renderer)
             {
                 renderer.sortingLayerName = layerName;
                 Debug.Log(target.name);
             }
 
-            foreach (Transform child in target.transform) 
+            var targetTransform = target.transform;
+            foreach (Transform child in targetTransform)
             {
                 ApplySortingLayer(child, layerName);
             }

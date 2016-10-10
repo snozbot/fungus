@@ -188,7 +188,7 @@ namespace Fungus.EditorUtils
                     List<System.Type> types = FindAllDerivedTypes<Variable>();
 
                     // Add variable types without a category
-                    foreach (System.Type type in types)
+                    foreach (var type in types)
                     {
                         VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(type);
                         if (variableInfo == null ||
@@ -207,7 +207,7 @@ namespace Fungus.EditorUtils
                     }
 
                     // Add types with a category
-                    foreach (System.Type type in types)
+                    foreach (var type in types)
                     {
                         VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(type);
                         if (variableInfo == null ||

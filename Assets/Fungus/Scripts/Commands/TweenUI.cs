@@ -26,13 +26,13 @@ namespace Fungus
 
         protected virtual void ApplyTween()
         {
-            foreach (GameObject targetObject in targetObjects)
+            for (int i = 0; i < targetObjects.Count; i++)
             {
+                var targetObject = targetObjects[i];
                 if (targetObject == null)
                 {
                     continue;
                 }
-
                 ApplyTween(targetObject);
             }
 
@@ -97,20 +97,20 @@ namespace Fungus
             }
             
             string objectList = "";
-            foreach (GameObject gameObject in targetObjects)
+            for (int i = 0; i < targetObjects.Count; i++)
             {
-                if (gameObject == null)
+                var go = targetObjects[i];
+                if (go == null)
                 {
                     continue;
                 }
-                
                 if (objectList == "")
                 {
-                    objectList += gameObject.name;
+                    objectList += go.name;
                 }
                 else
                 {
-                    objectList += ", " + gameObject.name;
+                    objectList += ", " + go.name;
                 }
             }
             

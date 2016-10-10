@@ -96,8 +96,9 @@ namespace Fungus
         protected virtual void CacheLocalizeableObjects()
         {
             UnityEngine.Object[] objects = Resources.FindObjectsOfTypeAll(typeof(Component));
-            foreach (UnityEngine.Object o in objects)
+            for (int i = 0; i < objects.Length; i++)
             {
+                var o = objects[i];
                 ILocalizable localizable = o as ILocalizable;
                 if (localizable != null)
                 {
@@ -116,13 +117,18 @@ namespace Fungus
             // Add localizable commands in same order as command list to make it
             // easier to localise / edit standard text.
             var flowcharts = GameObject.FindObjectsOfType<Flowchart>();
-            foreach (var flowchart in flowcharts)
+            for (int i = 0; i < flowcharts.Length; i++)
             {
+                var flowchart = flowcharts[i];
                 var blocks = flowchart.GetComponents<Block>();
-                foreach (var block in blocks)
+
+                for (int j = 0; j < blocks.Length; j++)
                 {
-                    foreach (var command in block.CommandList)
+                    var block = blocks[j];
+                    var commandList = block.CommandList;
+                    for (int k = 0; k < commandList.Count; k++)
                     {
+                        var command = commandList[k];
                         ILocalizable localizable = command as ILocalizable;
                         if (localizable != null)
                         {
@@ -137,8 +143,9 @@ namespace Fungus
 
             // Add everything else that's localizable (including inactive objects)
             UnityEngine.Object[] objects = Resources.FindObjectsOfTypeAll(typeof(Component));
-            foreach (UnityEngine.Object o in objects)
+            for (int i = 0; i < objects.Length; i++)
             {
+                var o = objects[i];
                 ILocalizable localizable = o as ILocalizable;
                 if (localizable != null)
                 {
@@ -148,7 +155,6 @@ namespace Fungus
                         // Already added
                         continue;
                     }
-
                     TextItem textItem = new TextItem();
                     textItem.standardText = localizable.GetStandardText();
                     textItem.description = localizable.GetDescription();
@@ -288,8 +294,9 @@ namespace Fungus
 
             // Build CSV header row and a list of the language codes currently in use
             string csvHeader = "Key,Description,Standard";
-            List<string> languageCodes = new List<string>();
-            foreach (TextItem textItem in textItems.Values)
+            var languageCodes = new List<string>();
+            var values = textItems.Values;
+            foreach (var textItem in values)
             {
                 foreach (string languageCode in textItem.localizedStrings.Keys)
                 {
@@ -304,7 +311,8 @@ namespace Fungus
             // Build the CSV file using collected text items
             int rowCount = 0;
             string csvData = csvHeader + "\n";
-            foreach (string stringId in textItems.Keys)
+            var keys = textItems.Keys;
+            foreach (var stringId in keys)
             {
                 TextItem textItem = textItems[stringId];
 
@@ -312,15 +320,17 @@ namespace Fungus
                 row += "," + CSVSupport.Escape(textItem.description);
                 row += "," + CSVSupport.Escape(textItem.standardText);
 
-                foreach (string languageCode in languageCodes)
+                for (int i = 0; i < languageCodes.Count; i++)
                 {
+                    var languageCode = languageCodes[i];
                     if (textItem.localizedStrings.ContainsKey(languageCode))
                     {
                         row += "," + CSVSupport.Escape(textItem.localizedStrings[languageCode]);
                     }
                     else
                     {
-                        row += ","; // Empty field
+                        row += ",";
+                        // Empty field
                     }
                 }
 
@@ -462,7 +472,8 @@ namespace Fungus
 
             string textData = "";
             int rowCount = 0;
-            foreach (string stringId in textItems.Keys)
+            var keys = textItems.Keys;
+            foreach (var stringId in keys)
             {
                 TextItem languageItem = textItems[stringId];
 
@@ -481,15 +492,16 @@ namespace Fungus
         /// </summary>
         public virtual void SetStandardText(string textData)
         {
-            string[] lines = textData.Split('\n');
+            var lines = textData.Split('\n');
 
             int updatedCount = 0;
 
             string stringId = "";
             string buffer = "";
-            foreach (string line in lines)
+            for (int i = 0; i < lines.Length; i++)
             {
                 // Check for string id line 
+                var line = lines[i];
                 if (line.StartsWith("#"))
                 {
                     if (stringId.Length > 0)
@@ -500,7 +512,6 @@ namespace Fungus
                             updatedCount++;
                         }
                     }
-
                     // Set the string id for the follow text lines
                     stringId = line.Substring(1, line.Length - 1);
                     buffer = "";
@@ -540,10 +551,10 @@ namespace Fungus
 
             // Match the regular expression pattern against a text string.
             var results = r.Matches(input.ToString());
-            foreach (Match match in results)
+            for (int i = 0; i < results.Count; i++)
             {
+                Match match = results[i];
                 string key = match.Value.Substring(2, match.Value.Length - 3);
-
                 // Next look for matching localized string
                 string localizedString = Localization.GetLocalizedString(key);
                 if (localizedString != null)

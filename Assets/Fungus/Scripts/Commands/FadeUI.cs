@@ -33,92 +33,98 @@ namespace Fungus
 
         protected override void ApplyTween(GameObject go)
         {
-            foreach (Image image in go.GetComponentsInChildren<Image>())
+            var images = go.GetComponentsInChildren<Image>();
+            for (int i = 0; i < images.Length; i++)
             {
+                var image = images[i];
                 if (Mathf.Approximately(duration, 0f))
                 {
                     switch (fadeMode)
                     {
-                    case FadeMode.Alpha:
-                        Color tempColor = image.color;
-                        tempColor.a = targetAlpha;
-                        image.color = tempColor;
-                        break;
-                    case FadeMode.Color:
-                        image.color = targetColor;
-                        break;
+                        case FadeMode.Alpha:
+                            Color tempColor = image.color;
+                            tempColor.a = targetAlpha;
+                            image.color = tempColor;
+                            break;
+                        case FadeMode.Color:
+                            image.color = targetColor;
+                            break;
                     }
                 }
                 else
                 {
                     switch (fadeMode)
                     {
-                    case FadeMode.Alpha:
-                        LeanTween.alpha(image.rectTransform, targetAlpha, duration).setEase(tweenType).setEase(tweenType);
-                        break;
-                    case FadeMode.Color:
-                        LeanTween.color(image.rectTransform, targetColor, duration).setEase(tweenType).setEase(tweenType);
-                        break;
+                        case FadeMode.Alpha:
+                            LeanTween.alpha(image.rectTransform, targetAlpha, duration).setEase(tweenType).setEase(tweenType);
+                            break;
+                        case FadeMode.Color:
+                            LeanTween.color(image.rectTransform, targetColor, duration).setEase(tweenType).setEase(tweenType);
+                            break;
                     }
                 }
             }
 
-            foreach (Text text in go.GetComponentsInChildren<Text>())
+            var texts = go.GetComponentsInChildren<Text>();
+            for (int i = 0; i < texts.Length; i++)
             {
+                var text = texts[i];
                 if (Mathf.Approximately(duration, 0f))
                 {
                     switch (fadeMode)
                     {
-                    case FadeMode.Alpha:
-                        Color tempColor = text.color;
-                        tempColor.a = targetAlpha;
-                        text.color = tempColor;
-                        break;
-                    case FadeMode.Color:
-                        text.color = targetColor;
-                        break;
+                        case FadeMode.Alpha:
+                            Color tempColor = text.color;
+                            tempColor.a = targetAlpha;
+                            text.color = tempColor;
+                            break;
+                        case FadeMode.Color:
+                            text.color = targetColor;
+                            break;
                     }
                 }
                 else
                 {
                     switch (fadeMode)
                     {
-                    case FadeMode.Alpha:
-                        LeanTween.textAlpha(text.rectTransform, targetAlpha, duration).setEase(tweenType);
-                        break;
-                    case FadeMode.Color:
-                        LeanTween.textColor(text.rectTransform, targetColor, duration).setEase(tweenType);
-                        break;
+                        case FadeMode.Alpha:
+                            LeanTween.textAlpha(text.rectTransform, targetAlpha, duration).setEase(tweenType);
+                            break;
+                        case FadeMode.Color:
+                            LeanTween.textColor(text.rectTransform, targetColor, duration).setEase(tweenType);
+                            break;
                     }
                 }
             }
 
-            foreach (TextMesh textMesh in go.GetComponentsInChildren<TextMesh>())
+            var textMeshes = go.GetComponentsInChildren<TextMesh>();
+            for (int i = 0; i < textMeshes.Length; i++)
             {
+                var textMesh = textMeshes[i];
                 if (Mathf.Approximately(duration, 0f))
                 {
                     switch (fadeMode)
                     {
-                    case FadeMode.Alpha:
-                        Color tempColor = textMesh.color;
-                        tempColor.a = targetAlpha;
-                        textMesh.color = tempColor;
-                        break;
-                    case FadeMode.Color:
-                        textMesh.color = targetColor;
-                        break;
+                        case FadeMode.Alpha:
+                            Color tempColor = textMesh.color;
+                            tempColor.a = targetAlpha;
+                            textMesh.color = tempColor;
+                            break;
+                        case FadeMode.Color:
+                            textMesh.color = targetColor;
+                            break;
                     }
                 }
                 else
                 {
                     switch (fadeMode)
                     {
-                    case FadeMode.Alpha:
-                        LeanTween.alpha(go, targetAlpha, duration).setEase(tweenType);
-                        break;
-                    case FadeMode.Color:
-                        LeanTween.color(go, targetColor, duration).setEase(tweenType);
-                        break;
+                        case FadeMode.Alpha:
+                            LeanTween.alpha(go, targetAlpha, duration).setEase(tweenType);
+                            break;
+                        case FadeMode.Color:
+                            LeanTween.color(go, targetColor, duration).setEase(tweenType);
+                            break;
                     }
                 }
             }

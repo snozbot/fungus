@@ -29,14 +29,18 @@ namespace Fungus
             if (go != null)     
             {
                 // 3D objects
-                foreach (Collider c in go.GetComponentsInChildren<Collider>())
+                var colliders = go.GetComponentsInChildren<Collider>();
+                for (int i = 0; i < colliders.Length; i++)
                 {
+                    var c = colliders[i];
                     c.enabled = activeState.Value;
                 }
 
                 // 2D objects
-                foreach (Collider2D c in go.GetComponentsInChildren<Collider2D>())
+                var collider2Ds = go.GetComponentsInChildren<Collider2D>();
+                for (int i = 0; i < collider2Ds.Length; i++)
                 {
+                    var c = collider2Ds[i];
                     c.enabled = activeState.Value;
                 }
             }
@@ -46,8 +50,9 @@ namespace Fungus
 
         public override void OnEnter()  
         {
-            foreach (GameObject go in targetObjects)
+            for (int i = 0; i < targetObjects.Count; i++)
             {
+                var go = targetObjects[i];
                 SetColliderActive(go);
             }
 
@@ -63,8 +68,9 @@ namespace Fungus
 
             if (taggedObjects != null)
             {
-                foreach (GameObject go in taggedObjects)
+                for (int i = 0; i < taggedObjects.Length; i++)
                 {
+                    var go = taggedObjects[i];
                     SetColliderActive(go);
                 }
             }

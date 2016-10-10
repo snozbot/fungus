@@ -59,8 +59,9 @@ namespace Fungus
 
             if (receivers != null)
             {
-                foreach (MessageReceived receiver in receivers)
+                for (int i = 0; i < receivers.Length; i++)
                 {
+                    var receiver = receivers[i];
                     receiver.OnSendFungusMessage(_message.Value);
                 }
             }

@@ -180,8 +180,9 @@ namespace Fungus
 
             string paramsStr = input.Substring(index + 1);
             var splits = paramsStr.Split(',');
-            foreach (var p in splits) 
+            for (int i = 0; i < splits.Length; i++)
             {
+                var p = splits[i];
                 paramsList.Add(p.Trim());
             }
             return paramsList;
@@ -264,16 +265,14 @@ namespace Fungus
             // These characters are usually added for legibility when editing, but are not 
             // desireable when viewing the text in game.
             bool trimLeading = false;
-            foreach (TextTagToken token in tokens)
+            for (int i = 0; i < tokens.Count; i++)
             {
-                if (trimLeading &&
-                    token.type == TokenType.Words)
+                var token = tokens[i];
+                if (trimLeading && token.type == TokenType.Words)
                 {
                     token.paramList[0] = token.paramList[0].TrimStart(' ', '\t', '\r', '\n');
                 }
-
-                if (token.type == TokenType.Clear || 
-                    token.type == TokenType.WaitForInputAndClear)
+                if (token.type == TokenType.Clear || token.type == TokenType.WaitForInputAndClear)
                 {
                     trimLeading = true;
                 }

@@ -155,10 +155,10 @@ namespace Fungus
                     camera.orthographicSize = Mathf.Lerp(startSize, endSize, Mathf.SmoothStep(0f, 1f, t));
                     camera.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, t));
                     camera.transform.rotation = Quaternion.Lerp(startRot, endRot, Mathf.SmoothStep(0f, 1f, t));
+
+                    SetCameraZ(camera);
                 }
 
-                SetCameraZ(camera);
-                
                 if (arrived &&
                     arriveAction != null)
                 {

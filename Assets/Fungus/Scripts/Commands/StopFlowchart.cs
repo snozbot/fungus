@@ -32,14 +32,14 @@ namespace Fungus
                 flowchart.StopAllBlocks();
             }
 
-            foreach (var f in targetFlowcharts)
+            for (int i = 0; i < targetFlowcharts.Count; i++)
             {
+                var f = targetFlowcharts[i];
                 if (f == flowchart)
                 {
                     // Flowchart has already been stopped
                     continue;
                 }
-
                 f.StopAllBlocks();
             }
         }

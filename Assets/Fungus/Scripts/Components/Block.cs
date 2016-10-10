@@ -72,13 +72,13 @@ namespace Fungus
             // Give each child command a reference back to its parent block
             // and tell each command its index in the list.
             int index = 0;
-            foreach (var command in commandList)
+            for (int i = 0; i < commandList.Count; i++)
             {
+                var command = commandList[i];
                 if (command == null)
                 {
                     continue;
                 }
-
                 command.ParentBlock = this;
                 command.CommandIndex = index++;
             }
@@ -98,13 +98,14 @@ namespace Fungus
         protected virtual void Update()
         {
             int index = 0;
-            foreach (var command in commandList)
+            for (int i = 0; i < commandList.Count; i++)
             {
-                if (command == null) // Null entry will be deleted automatically later
+                var command = commandList[i];
+                if (command == null)// Null entry will be deleted automatically later
+                
                 {
                     continue;
                 }
-
                 command.CommandIndex = index++;
             }
         }
@@ -328,8 +329,9 @@ namespace Fungus
         public virtual List<Block> GetConnectedBlocks()
         {
             var connectedBlocks = new List<Block>();
-            foreach (var command in commandList)
+            for (int i = 0; i < commandList.Count; i++)
             {
+                var command = commandList[i];
                 if (command != null)
                 {
                     command.GetConnectedBlocks(ref connectedBlocks);
@@ -359,23 +361,20 @@ namespace Fungus
         public virtual void UpdateIndentLevels()
         {
             int indentLevel = 0;
-            foreach (var command in commandList)
+            for (int i = 0; i < commandList.Count; i++)
             {
+                var command = commandList[i];
                 if (command == null)
                 {
                     continue;
                 }
-
                 if (command.CloseBlock())
                 {
                     indentLevel--;
                 }
-
                 // Negative indent level is not permitted
                 indentLevel = Math.Max(indentLevel, 0);
-
                 command.IndentLevel = indentLevel;
-
                 if (command.OpenBlock())
                 {
                     indentLevel++;

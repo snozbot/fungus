@@ -40,9 +40,10 @@ namespace Fungus
             }
 
             // TODO: Cache these objects for faster lookup
-            ObjectClicked[] handlers = GameObject.FindObjectsOfType<ObjectClicked>();
-            foreach (ObjectClicked handler in handlers)
+            var handlers = GameObject.FindObjectsOfType<ObjectClicked>();
+            for (int i = 0; i < handlers.Length; i++)
             {
+                var handler = handlers[i];
                 handler.OnObjectClicked(this);
             }
         }

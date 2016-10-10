@@ -46,6 +46,13 @@ namespace Fungus
 
         protected StandaloneInputModule currentStandaloneInputModule;
 
+        protected Writer writer;
+
+        protected virtual void Awake()
+        {
+            writer = GetComponent<Writer>();
+        }
+
         protected virtual void Update()
         {
             if (EventSystem.current == null)
@@ -69,10 +76,13 @@ namespace Fungus
                 currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
             }
 
-            if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
-                (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
+            if (writer != null && writer.IsWriting)
             {
-                SetNextLineFlag();
+                if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
+                    (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
+                {
+                    SetNextLineFlag();
+                }
             }
 
             switch (clickMode)
@@ -114,9 +124,10 @@ namespace Fungus
             // Tell any listeners to move to the next line
             if (nextLineInputFlag)
             {
-                IDialogInputListener[] inputListeners = gameObject.GetComponentsInChildren<IDialogInputListener>();
-                foreach (IDialogInputListener inputListener in inputListeners)
+                var inputListeners = gameObject.GetComponentsInChildren<IDialogInputListener>();
+                for (int i = 0; i < inputListeners.Length; i++)
                 {
+                    var inputListener = inputListeners[i];
                     inputListener.OnNextLineEvent();
                 }
                 nextLineInputFlag = false;

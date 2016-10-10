@@ -15,7 +15,7 @@ namespace Fungus.EditorUtils
         public static EventHandlerInfoAttribute GetEventHandlerInfo(System.Type eventHandlerType)
         {
             object[] attributes = eventHandlerType.GetCustomAttributes(typeof(EventHandlerInfoAttribute), false);
-            foreach (object obj in attributes)
+            foreach (var obj in attributes)
             {
                 EventHandlerInfoAttribute eventHandlerInfoAttr = obj as EventHandlerInfoAttribute;
                 if (eventHandlerInfoAttr != null)

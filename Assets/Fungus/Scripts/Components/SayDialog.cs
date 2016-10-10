@@ -226,14 +226,15 @@ namespace Fungus
         public static void StopPortraitTweens()
         {
             // Stop all tweening portraits
-            foreach( Character c in Character.ActiveCharacters )
+            var activeCharacters = Character.ActiveCharacters;
+            for (int i = 0; i < activeCharacters.Count; i++)
             {
+                var c = activeCharacters[i];
                 if (c.State.portraitImage != null)
                 {
                     if (LeanTween.isTweening(c.State.portraitImage.gameObject))
                     {
                         LeanTween.cancel(c.State.portraitImage.gameObject, true);
-
                         PortraitController.SetRectTransform(c.State.portraitImage.rectTransform, c.State.position);
                         if (c.State.dimmed == true)
                         {
@@ -281,13 +282,16 @@ namespace Fungus
                 speakingCharacter = character;
 
                 // Dim portraits of non-speaking characters
-                foreach (Stage stage in Stage.ActiveStages)
+                var activeStages = Stage.ActiveStages;
+                for (int i = 0; i < activeStages.Count; i++)
                 {
-
+                    var stage = activeStages[i];
                     if (stage.DimPortraits)
                     {
-                        foreach (var c in stage.CharactersOnStage)
+                        var charactersOnStage = stage.CharactersOnStage;
+                        for (int j = 0; j < charactersOnStage.Count; j++)
                         {
+                            var c = charactersOnStage[j];
                             if (prevSpeakingCharacter != speakingCharacter)
                             {
                                 if (c != null && !c.Equals(speakingCharacter))
