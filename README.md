@@ -27,7 +27,7 @@ You can also join into our chat room.
 Contributing
 ============
 
-To contribute code to Fungus, please see [CONTRIBUTING][contributing]. If you are interested in contributing in some other way (art, audio, documentation, pizza) just email me at chris at fungusgames.com.
+To contribute code to Fungus, please see [CONTRIBUTING][contributing]. If you are interested in contributing in some other way (art, audio, documentation, pizza) just email me at chris at snozbot.com.
 
 [contributing]: https://github.com/snozbot/fungus/blob/master/CONTRIBUTING.md
 
