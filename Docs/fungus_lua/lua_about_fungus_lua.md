@@ -9,6 +9,13 @@ We made FungusLua in response to requests from the %Fungus community for a way t
 
 FungusLua comes as part of the [%Fungus asset] available on the Unity Asset Store.
 
+# Platform Compatibility # {#lua_platform_compatibility}
+
+%Fungus Lua should work on most platforms supported by Unity, however the MoonSharp Lua library we use has known compatibility issues on some platforms. 
+
+- WebGL: The application builds ok, but executing a Lua script causes a runtime exception. The author of MoonSharp is aware of this issue. Note: %Fungus still works fine in WebGL as long as you don't use any FungusLua features.
+- Windows Store (.net scripting backend): Both %Fungus and MoonSharp fail to compile. You can however use the IL2CPP scripting backend instead so we're not planning to fix this.
+
 # Tutorial Video # {#lua_tutorial_video}
 
 This video shows how to use many of the features available in FungusLua. It's more of a demonstration than a step-by-step tutorial, but hopefully between this video, the docs and the forums you'll have enough to figure it all out :)
