@@ -299,5 +299,6 @@
     <None Include="top_pages\command_reference.md" />
     <None Include="top_pages\fungus_lua.md" />
     <None Include="top_pages\mainpage.md" />
+    <None Include="fungus_docs\coding_tips.md" />
   </ItemGroup>
 </Project>
