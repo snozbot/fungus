@@ -18,6 +18,7 @@ There's a wide range of training material available here, suitable for both begi
 * @subpage narrative_text_tags
 * @subpage glossary
 * @subpage faq
+* @subpage changelog
 * @subpage code_of_conduct
 
 [Unity]: http://unity3d.com
