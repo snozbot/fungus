@@ -23,10 +23,10 @@ namespace Fungus
 
         protected virtual void MyMethod()
         {
-        	if (myProperty > 5f)
-        	{
-        		Debug.Log("A message");
-        	}
+            if (myProperty > 5f)
+            {
+                Debug.Log("A message");
+            }
         }
 
         #region Public members
@@ -61,6 +61,7 @@ Things to note:
 - All serialized fields should have a Tooltip attribute. This doubles as code documentation for the field.
 - All methods should be declared virtual and use protected instead of private. This allows for easy inheritance and extension (at the cost of some performance).
 - All public members of a class (including public static & delegate types) should be placed inside a 'Public members' region for easy access.
+- Braces go on a newline and use spaces exclusively instead of tabs.
 
 # Coding best practices # {#coding_best_practices}
 
