@@ -34,3 +34,27 @@ To contribute code to Fungus, please see [CONTRIBUTING][contributing]. If you ar
 Many thanks to everyone who has contributed code to the project.
 https://github.com/snozbot/fungus/graphs/contributors
 
+Building the documentation
+==========================
+
+1. Download and install Doxygen from http://www.doxygen.org
+2. Run Doxygen and open Docs/Doxyfile
+3. Switch to the Run tab and click Run Doxygen.
+4. The documentation will be built in the Builds/Docs folder.
+
+To contribute to the documentation please send in a pull request with the changes.
+
+Running the automated tests
+===========================
+
+The Unity Test Tools contains a tool called the Platform Runner which builds and runs all the test scenes automaticaly.
+Unfortunately it only works on Windows :(
+
+On OSX you can open each test scene individually and use the Unity Test Runner window to run all tests in each scene.
+
+On Windows:
+1. Open the Platform Runner via Unity Test Tools > Platform Runner
+2. Select the platforms and test set you wish to run.
+3. Run the tests and wait for the results.
+
+
