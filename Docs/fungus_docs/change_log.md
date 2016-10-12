@@ -8,6 +8,7 @@ v3.3.0 {#v3_3_0}
 ## Known Issues
 - FungusLua does not work in WebGL builds due to issues in MoonSharp 1.8.0.0
 - Forum thread: http://fungusgames.com/forum/#!/general:fungus-lua-and-web-gl-uni
+- FungusLua does not compile for Windows Store platform using .net scripting backend. Use the IL2CPP backend instead.
 
 ## Added
 - Added test for StopTweens does not stop a Tween with loop enabled #529
