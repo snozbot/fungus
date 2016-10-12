@@ -10,8 +10,8 @@ eLearning apps and also some frankly weird stuff which defies classification :)
 
 - Author: Chris Gregan
 - Website: fungusgames.com
-- Email: chris@fungusgames.com
-- Twtter: @gofungus
+- Email: chris@snozbot.com
+- Twitter: @gofungus
 - Facebook: facebook.com/fungusgames
 
 Instructions
@@ -30,8 +30,8 @@ Contributing
 ============
 
 Many thanks to everyone who has contributed code to the project.
-https://github.com/fungusgames/fungus/graphs/contributors
+https://github.com/snozbot/fungus/graphs/contributors
 
-If you would like to contribute a bug fix or new feature, please submit a pull request on github (https://github.com/fungusgames/fungus)
+If you would like to contribute a bug fix or new feature, please submit a pull request on github (https://github.com/snozbot/fungus)
 
-And if you are interested in contributing in some other way (art, audio, documentation, pizza) just email me at chris@fungusgames.com.
+And if you are interested in contributing in some other way (art, audio, documentation, pizza) just email me at chris@snozbot.com.
