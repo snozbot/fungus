@@ -300,5 +300,6 @@
     <None Include="top_pages\fungus_lua.md" />
     <None Include="top_pages\mainpage.md" />
     <None Include="fungus_docs\coding_tips.md" />
+    <None Include="fungus_docs\coding_standard.md" />
   </ItemGroup>
 </Project>

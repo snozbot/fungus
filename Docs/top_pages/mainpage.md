@@ -17,6 +17,7 @@ There's a wide range of training material available here, suitable for both begi
 * @subpage community_tutorials
 * @subpage narrative_text_tags
 * @subpage coding_tips
+* @subpage coding_standard
 * @subpage glossary
 * @subpage faq
 * @subpage changelog
