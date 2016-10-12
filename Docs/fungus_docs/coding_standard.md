@@ -1,4 +1,4 @@
-# Coding standard # {#coding_standard}
+# Coding Standard # {#coding_standard}
 
 \brief The %Fungus coding standard is designed to make the source code simple to understand for users and easy to maintain for contributors.
 
