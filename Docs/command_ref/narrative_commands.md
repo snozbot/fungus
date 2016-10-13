@@ -4,7 +4,7 @@
 # Clear Menu # {#ClearMenu}
 Clears the options from a menu dialogue
 
-Defined in Fungus.Commands.ClearMenu
+Defined in Fungus.ClearMenu
 
 Property | Type | Description
  --- | --- | ---
@@ -13,7 +13,7 @@ Menu Dialog | Fungus.MenuDialog | Menu Dialog to clear the options on
 # Control Stage # {#ControlStage}
 Controls the stage on which character portraits are displayed.
 
-Defined in Fungus.Commands.ControlStage
+Defined in Fungus.ControlStage
 
 Property | Type | Description
  --- | --- | ---
@@ -22,16 +22,16 @@ Replaced Stage | Fungus.Stage | Stage to swap with
 Use Default Settings | System.Boolean | Use Default Settings
 Fade Duration | System.Single | Fade Duration
 Wait Until Finished | System.Boolean | Wait until the tween has finished before executing the next command
-Display | Fungus.Commands.StageDisplayType | Display type
+Display | Fungus.StageDisplayType | Display type
 
 # Conversation # {#Conversation}
 Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text]
 
-Defined in Fungus.Commands.Conversation
+Defined in Fungus.Conversation
 # Menu # {#Menu}
 Displays a button in a multiple choice menu
 
-Defined in Fungus.Commands.Menu
+Defined in Fungus.Menu
 
 Property | Type | Description
  --- | --- | ---
@@ -39,23 +39,23 @@ Text | System.String | Text to display on the menu button
 Description | System.String | Notes about the option text for other authors, localization, etc.
 Target Block | Fungus.Block | Block to execute when this option is selected
 Hide If Visited | System.Boolean | Hide this option if the target block has been executed previously
-Interactable | Fungus.Variables.BooleanData | If false, the menu option will be displayed but will not be selectable
+Interactable | Fungus.BooleanData | If false, the menu option will be displayed but will not be selectable
 Set Menu Dialog | Fungus.MenuDialog | A custom Menu Dialog to use to display this menu. All subsequent Menu commands will use this dialog.
 
 # Menu Timer # {#MenuTimer}
 Displays a timer bar and executes a target block if the player fails to select a menu option in time.
 
-Defined in Fungus.Commands.MenuTimer
+Defined in Fungus.MenuTimer
 
 Property | Type | Description
  --- | --- | ---
-_duration | Fungus.Variables.FloatData | Length of time to display the timer for
+_duration | Fungus.FloatData | Length of time to display the timer for
 Target Block | Fungus.Block | Block to execute when the timer expires
 
 # Portrait # {#Portrait}
 Controls a character portrait.
 
-Defined in Fungus.Commands.Portrait
+Defined in Fungus.Portrait
 
 Property | Type | Description
  --- | --- | ---
@@ -65,21 +65,21 @@ Replaced Character | Fungus.Character | Character to swap with
 Portrait | UnityEngine.Sprite | Portrait to display
 Offset | Fungus.PositionOffset | Move the portrait from/to this offset position
 From Position | UnityEngine.RectTransform | Move the portrait from this position
-To Position | UnityEngine.RectTransform | Move the portrait to this positoin
+To Position | UnityEngine.RectTransform | Move the portrait to this position
 Facing | Fungus.FacingDirection | Direction character is facing
 Use Default Settings | System.Boolean | Use Default Settings
 Fade Duration | System.Single | Fade Duration
 Move Duration | System.Single | Movement Duration
 Shift Offset | UnityEngine.Vector2 | Shift Offset
-Move | System.Boolean | Move
-Shift Into Place | System.Boolean | Start from offset
+Move | System.Boolean | Move portrait into new position
+Shift Into Place | System.Boolean | Start from offset position
 Wait Until Finished | System.Boolean | Wait until the tween has finished before executing the next command
 Display | Fungus.DisplayType | Display type
 
 # Say # {#Say}
 Writes text in a dialog box.
 
-Defined in Fungus.Commands.Say
+Defined in Fungus.Say
 
 Property | Type | Description
  --- | --- | ---
@@ -98,16 +98,16 @@ Set Say Dialog | Fungus.SayDialog | Sets the active Say dialog with a reference 
 # Set Language # {#SetLanguage}
 Set the active language for the scene. A Localization object with a localization file must be present in the scene.
 
-Defined in Fungus.Commands.SetLanguage
+Defined in Fungus.SetLanguage
 
 Property | Type | Description
  --- | --- | ---
-_language Code | Fungus.Variables.StringData | Code of the language to set. e.g. ES, DE, JA
+_language Code | Fungus.StringData | Code of the language to set. e.g. ES, DE, JA
 
 # Set Menu Dialog # {#SetMenuDialog}
 Sets a custom menu dialog to use when displaying multiple choice menus
 
-Defined in Fungus.Commands.SetMenuDialog
+Defined in Fungus.SetMenuDialog
 
 Property | Type | Description
  --- | --- | ---
@@ -116,7 +116,7 @@ Menu Dialog | Fungus.MenuDialog | The Menu Dialog to use for displaying menu but
 # Set Say Dialog # {#SetSayDialog}
 Sets a custom say dialog to use when displaying story text
 
-Defined in Fungus.Commands.SetSayDialog
+Defined in Fungus.SetSayDialog
 
 Property | Type | Description
  --- | --- | ---

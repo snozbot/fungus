@@ -4,7 +4,7 @@
 # Drag Cancelled # {#DragCancelled}
 The block will execute when the player drags an object and releases it without dropping it on a target object.
 
-Defined in Fungus.EventHandlers.DragCancelled
+Defined in Fungus.DragCancelled
 
 Property | Type | Description
  --- | --- | ---
@@ -13,7 +13,7 @@ Draggable Object | Fungus.Draggable2D | Draggable object to listen for drag even
 # Drag Completed # {#DragCompleted}
 The block will execute when the player drags an object and successfully drops it on a target object.
 
-Defined in Fungus.EventHandlers.DragCompleted
+Defined in Fungus.DragCompleted
 
 Property | Type | Description
  --- | --- | ---
@@ -23,7 +23,7 @@ Target Object | UnityEngine.Collider2D | Drag target object to listen for drag e
 # Drag Entered # {#DragEntered}
 The block will execute when the player is dragging an object which starts touching the target object.
 
-Defined in Fungus.EventHandlers.DragEntered
+Defined in Fungus.DragEntered
 
 Property | Type | Description
  --- | --- | ---
@@ -33,7 +33,7 @@ Target Object | UnityEngine.Collider2D | Drag target object to listen for drag e
 # Drag Exited # {#DragExited}
 The block will execute when the player is dragging an object which stops touching the target object.
 
-Defined in Fungus.EventHandlers.DragExited
+Defined in Fungus.DragExited
 
 Property | Type | Description
  --- | --- | ---
@@ -43,11 +43,11 @@ Target Object | UnityEngine.Collider2D | Drag target object to listen for drag e
 # Drag Started # {#DragStarted}
 The block will execute when the player starts dragging an object.
 
-Defined in Fungus.EventHandlers.DragStarted
+Defined in Fungus.DragStarted
 # Object Clicked # {#ObjectClicked}
 The block will execute when the user clicks or taps on the clickable object.
 
-Defined in Fungus.EventHandlers.ObjectClicked
+Defined in Fungus.ObjectClicked
 
 Property | Type | Description
  --- | --- | ---
