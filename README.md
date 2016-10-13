@@ -47,14 +47,13 @@ To contribute to the documentation please send in a pull request with the change
 Running the automated tests
 ===========================
 
-The Unity Test Tools contains a tool called the Platform Runner which builds and runs all the test scenes automaticaly.
-Unfortunately it only works on Windows :(
+The Unity Test Tools contains a tool called the Platform Runner which builds and runs all the test scenes automatically.
 
-On OSX you can open each test scene individually and use the Unity Test Runner window to run all tests in each scene.
+There is currently an issue with the Unity Test Tools on OSX that prevents the Platform Runner running all tests in the project. You can open each scene in the Tests folder individually and use the Unity Test Runner window to run all tests in the editor.
 
 On Windows:
 1. Open the Platform Runner via Unity Test Tools > Platform Runner
-2. Select the platforms and test set you wish to run.
-3. Run the tests and wait for the results.
+2. Select the platforms and tests you wish to run (defaults to running all).
+3. Run the tests and wait for the results. All tests should pass.
 
 
