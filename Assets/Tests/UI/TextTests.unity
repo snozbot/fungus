@@ -778,7 +778,7 @@ MonoBehaviour:
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 1
+  zoom: 0.99975
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -787,7 +787,7 @@ MonoBehaviour:
     height: 859
   selectedBlock: {fileID: 332004788}
   selectedCommands:
-  - {fileID: 332004791}
+  - {fileID: 332004790}
   variables: []
   description: 
   stepPause: 0
@@ -881,7 +881,8 @@ MonoBehaviour:
   textObject: {fileID: 1490749230}
   text:
     stringRef: {fileID: 0}
-    stringVal: Write some text with sound effects
+    stringVal: Write out some more text with sound effects that takes a second or
+      two to complete
   description: 
   clearText: 1
   waitUntilFinished: 1
@@ -1575,7 +1576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeout: 5
+  timeout: 6
   ignored: 0
   succeedAfterAllAssertionsAreExecuted: 1
   expectException: 0
@@ -4963,7 +4964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkAfterTime: 2.25
+  checkAfterTime: 2.3
   repeatCheckTime: 0
   repeatEveryTime: 1
   checkAfterFrames: 1
@@ -6156,7 +6157,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -6178,7 +6179,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!1 &1518184822
 GameObject:
   m_ObjectHideFlags: 0

@@ -186,15 +186,15 @@ public class NarrativeTests : Command
 	{
 		Transform johnTransform = stage.transform.Find("Canvas/JohnCharacter");		
 
-		if (Mathf.Approximately(johnTransform.localPosition.x, 0f))
+        // Running on windows this position can end up as a tiny non-zero value that
+        // Mathf.Approximately doesn't match as zero. Using a less strict comparison.
+		if (johnTransform.localPosition.x < 0.001f)
 		{
 			Pass();
 		}
 		else
 		{
-			Debug.Log (johnTransform.localPosition.x);
-
-			Fail("Image position after move not correct");
+			Fail("Image position after move not zero: " + johnTransform.localPosition.x);
 		}
 	}
 

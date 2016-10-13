@@ -221,6 +221,9 @@ namespace Fungus
                 yield return null;
             }
 
+            // Wait until next frame just to be safe
+            yield return new WaitForEndOfFrame();
+
             if (onComplete != null)
             {
                 onComplete();
