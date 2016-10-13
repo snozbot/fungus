@@ -254,6 +254,12 @@ namespace Fungus
 
             for (int i = 0; i < tokens.Count; ++i)
             {
+                // Pause between tokens if Paused is set
+                while (Paused)
+                {
+                    yield return null;
+                }
+
                 var token = tokens[i];
 
                 // Notify listeners about new token
@@ -339,7 +345,6 @@ namespace Fungus
                 case TokenType.Exit:
                     exitFlag = true;
                     break;
-
 
                 case TokenType.Message:
                     if (CheckParamCount(token.paramList, 1)) 
@@ -491,6 +496,12 @@ namespace Fungus
                 if (exitFlag)
                 {
                     break;
+                }
+
+                // Pause mid sentence if Paused is set
+                while (Paused)
+                {
+                    yield return null;
                 }
 
                 PartitionString(writeWholeWords, param, i);
@@ -813,6 +824,11 @@ namespace Fungus
         /// This property is true when the writer is waiting for user input to continue.
         /// </summary>
         public virtual bool IsWaitingForInput { get { return isWaitingForInput; } }
+
+        /// <summary>
+        /// Pauses the writer.
+        /// </summary>
+        public virtual bool Paused { set; get; }
 
         /// <summary>
         /// Stop writing text.
