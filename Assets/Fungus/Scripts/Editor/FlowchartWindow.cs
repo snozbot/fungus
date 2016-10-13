@@ -68,7 +68,8 @@ namespace Fungus.EditorUtils
             }
 
             if (Selection.activeGameObject == null &&
-                flowchart.SelectedBlock != null)
+                flowchart.SelectedBlock != null &&
+                flowchart.IsActive())
             {
                 if (blockInspector == null)
                 {
