@@ -24,7 +24,10 @@ namespace Fungus
 
         public override void OnEnter() 
         {
-            slider.value = value;
+            if (slider != null)
+            {
+                slider.value = value;
+            }
 
             Continue();
         }
