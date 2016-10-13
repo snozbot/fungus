@@ -16,6 +16,9 @@ v3.3.0 {#v3_3_0}
 - All interfaces now have their own source files.
 - Added monodevelop project for editing docs files.
 - Added Flip option (<<< and >>>) to conversation system #527
+- Added WaitFrames command to wait for a number of frames
+- Added GetToggleState, SetToggleState commands and ToggleChanged event handler
+- Added Writer.Paused property to pause a writer from code.
 
 ## Changed
 
@@ -40,6 +43,8 @@ v3.3.0 {#v3_3_0}
 - Change all public methods to use virtual
 - Removed all unnecessary using statements.
 - All class and member comments use standard c# xml comment style
+- Replaced foreach loops with for loops (avoids allocation for iterator)
+- Added changelog to Doxygen documentation
 
 ## Fixed
 
@@ -53,6 +58,9 @@ v3.3.0 {#v3_3_0}
 - Fix Regex for character names with "." & "'" #531 (thanks to Sercan Altun)
     Old Regex expression did not capture Character names with "." and "'". As a result characters with names like "Mr. Jones" or "Ab'ar" were not registering correctly.
 - Fixed Lua setlanguage() function
+- Fixed namespace issue in Spine integration.
+- Fixes all integration tests to pass when run on Windows Standalone.
+- Fixed Block inspector displayed for inactive flowchart #544
 
 v3.2.0 {#v3_2_0}
 ======
