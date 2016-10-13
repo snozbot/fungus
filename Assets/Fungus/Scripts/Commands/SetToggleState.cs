@@ -7,26 +7,26 @@ using UnityEngine.UI;
 namespace Fungus
 {
     /// <summary>
-    /// Sets the value property of a slider object.
+    /// Sets the state of a toggle UI object.
     /// </summary>
     [CommandInfo("UI",
-                 "Set Slider Value",
-                 "Sets the value property of a slider object")]
-    public class SetSliderValue : Command 
+                 "Set Toggle State",
+                 "Sets the state of a toggle UI object")]
+    public class SetToggleState : Command 
     {
-        [Tooltip("Target slider object to set the value on")]
-        [SerializeField] protected Slider slider;
+        [Tooltip("Target toggle object to set the state on")]
+        [SerializeField] protected Toggle toggle;
 
-        [Tooltip("Float value to set the slider value to.")]
-        [SerializeField] protected FloatData value;
+        [Tooltip("Boolean value to set the toggle state to.")]
+        [SerializeField] protected BooleanData value;
 
         #region Public members
 
         public override void OnEnter() 
         {
-            if (slider != null)
+            if (toggle != null)
             {
-                slider.value = value;
+                toggle.isOn = value.Value;
             }
 
             Continue();
@@ -39,12 +39,12 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            if (slider == null)
+            if (toggle == null)
             {
-                return "Error: Slider object not selected";
+                return "Error: Toggle object not selected";
             }
 
-            return slider.name + " = " + value.GetDescription();
+            return toggle.name + " = " + value.GetDescription();
         }
 
         #endregion
