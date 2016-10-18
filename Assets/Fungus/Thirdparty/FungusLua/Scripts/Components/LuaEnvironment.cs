@@ -1,7 +1,7 @@
 // This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
-using MoonSharp.RemoteDebugger;
+using MoonSharp.VsCodeDebugger;
 
 namespace Fungus
 {
@@ -30,9 +30,9 @@ namespace Fungus
         protected Script interpreter;
 
         /// <summary>
-        /// Instance of remote debugging service when debugging option is enabled.
+        /// Instance of VS Code debug server when debugging option is enabled.
         /// </summary>
-        protected RemoteDebuggerService remoteDebuggerService;
+        protected MoonSharpVsCodeDebugServer debugServer;
 
         /// <summary>
         /// Flag used to avoid startup dependency issues.
@@ -42,6 +42,17 @@ namespace Fungus
         protected virtual void Start() 
         {
             InitEnvironment();
+        }
+
+        /// <summary>
+        /// This function is called when the MonoBehaviour will be destroyed.
+        /// </summary>
+        protected virtual void OnDestroy()
+        {
+            if (debugServer != null)
+            {
+                debugServer.Detach(interpreter);
+            }            
         }
 
         /// <summary>
@@ -114,22 +125,16 @@ namespace Fungus
             yield return StartCoroutine(coroutine);
         }
 
-        protected virtual void ActivateRemoteDebugger(Script script)
+        protected virtual void ActivateVSCodeDebugger(Script script)
         {
-            #if UNITY_STANDALONE
-            if (remoteDebuggerService == null)
-            {
-                remoteDebuggerService = new RemoteDebuggerService();
+            // Create the debugger server
+            debugServer = new MoonSharpVsCodeDebugServer();
 
-                // the last boolean is to specify if the script is free to run 
-                // after attachment, defaults to false
-                remoteDebuggerService.Attach(script, gameObject.name, false);
-            }
+            // Start the debugger server
+            debugServer.Start();
 
-            // start the web-browser at the correct url. Replace this or just
-            // pass the url to the user in some way.
-            Process.Start(remoteDebuggerService.HttpUrlStringLocalHost);
-            #endif
+            // Attach the script to the debugger
+            debugServer.AttachToScript(script, gameObject.name);
         }
 
         /// <summary>
@@ -256,10 +261,12 @@ namespace Fungus
                 initializer.Initialize();
             }
 
+            #if UNITY_STANDALONE
             if (remoteDebugger)
             {
-                ActivateRemoteDebugger(interpreter);
+                ActivateVSCodeDebugger(interpreter);
             }
+            #endif
 
             initialised = true;
         }
