@@ -52,6 +52,8 @@ namespace Fungus
         // Most recent speaking character
         protected static Character speakingCharacter;
 
+        protected StringSubstituter stringSubstituter = new StringSubstituter();
+
         protected Writer GetWriter()
         {
             if (writer != null)
@@ -125,6 +127,8 @@ namespace Fungus
                 // Character image is hidden by default.
                 SetCharacterImage(null);
             }
+
+            stringSubstituter.CacheSubstitutionHandlers();
         }
 
         protected virtual void LateUpdate()
@@ -261,8 +265,7 @@ namespace Fungus
         /// Sets the active speaking character.
         /// </summary>
         /// <param name="character">The active speaking character.</param>
-        /// <param name="flowchart">An optional Flowchart to use for variable substitution in the character name string.</param>
-        public virtual void SetCharacter(Character character, Flowchart flowchart = null)
+        public virtual void SetCharacter(Character character)
         {
             if (character == null)
             {
@@ -314,12 +317,7 @@ namespace Fungus
                     // Use game object name as default
                     characterName = character.GetObjectName();
                 }
-
-                if (flowchart != null)
-                {
-                    characterName = flowchart.SubstituteVariables(characterName);
-                }
-
+                    
                 SetCharacterName(characterName, character.NameColor);
             }
         }
@@ -357,7 +355,7 @@ namespace Fungus
                 storyText != null &&
                 characterImage.gameObject.activeSelf)
             {
-                if (startStoryTextWidth == 0)
+                if (Mathf.Approximately(startStoryTextWidth, 0f))
                 {
                     startStoryTextWidth = storyText.rectTransform.rect.width;
                     startStoryTextInset = storyText.rectTransform.offsetMin.x; 
@@ -381,12 +379,14 @@ namespace Fungus
 
         /// <summary>
         /// Sets the character name to display on the Say Dialog.
+        /// Supports variable substitution e.g. John {$surname}
         /// </summary>
         public virtual void SetCharacterName(string name, Color color)
         {
             if (nameText != null)
             {
-                nameText.text = name;
+                var subbedName = stringSubstituter.SubstituteStrings(name);
+                nameText.text = subbedName;
                 nameText.color = color;
             }
         }
