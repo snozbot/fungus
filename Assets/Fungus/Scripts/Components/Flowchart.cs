@@ -740,6 +740,40 @@ namespace Fungus
         }
 
         /// <summary>
+        /// Checks if a given variable exists in the flowchart.
+        /// </summary>
+        public virtual bool HasVariable(string key)
+        {
+            for (int i = 0; i < variables.Count; i++)
+            {
+                var v = variables[i];
+                if (v != null && v.Key == key)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Returns the list of variable names in the Flowchart.
+        /// </summary>
+        public virtual string[] GetVariableNames()
+        {
+            var vList = new string[variables.Count];
+
+            for (int i = 0; i < variables.Count; i++)
+            {
+                var v = variables[i];
+                if (v != null)
+                {
+                    vList[i] = v.Key;
+                }
+            }
+            return vList;
+        }
+
+        /// <summary>
         /// Gets a list of all variables with public scope in this Flowchart.
         /// </summary>
         public virtual List<Variable> GetPublicVariables()
