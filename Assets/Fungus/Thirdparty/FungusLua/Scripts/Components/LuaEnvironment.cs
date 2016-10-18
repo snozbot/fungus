@@ -3,36 +3,23 @@
 
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using MoonSharp.Interpreter;
-using MoonSharp.Interpreter.Loaders;
 using MoonSharp.VsCodeDebugger;
 
 namespace Fungus
 {
     /// <summary>
     /// Wrapper for a MoonSharp Lua Script instance.
+    /// A debug server is started automatically when running in the Unity Editor. Use VS Code to debug Lua scripts.
     /// </summary>
     public class LuaEnvironment : MonoBehaviour
     {
         /// <summary>
-        /// Launches the remote Lua debugger in your browser and breaks execution at the first executed Lua command.
-        /// </summary>
-        [Tooltip("Launches the remote Lua debugger in your browser and breaks execution at the first executed Lua command. Standalone platform only.")]
-        [SerializeField] protected bool remoteDebugger = false;
-
-        /// <summary>
         /// The MoonSharp interpreter instance.
         /// </summary>
         protected Script interpreter;
-
-        /// <summary>
-        /// Instance of VS Code debug server when debugging option is enabled.
-        /// </summary>
-        protected MoonSharpVsCodeDebugServer debugServer;
 
         /// <summary>
         /// Flag used to avoid startup dependency issues.
@@ -45,13 +32,13 @@ namespace Fungus
         }
 
         /// <summary>
-        /// This function is called when the MonoBehaviour will be destroyed.
+        /// Detach the MoonSharp script from the debugger.
         /// </summary>
         protected virtual void OnDestroy()
         {
-            if (debugServer != null)
+            if (DebugServer != null)
             {
-                debugServer.Detach(interpreter);
+                DebugServer.Detach(interpreter);
             }            
         }
 
@@ -125,16 +112,16 @@ namespace Fungus
             yield return StartCoroutine(coroutine);
         }
 
-        protected virtual void ActivateVSCodeDebugger(Script script)
+        protected virtual void StartVSCodeDebugger()
         {
-            // Create the debugger server
-            debugServer = new MoonSharpVsCodeDebugServer();
+            if (DebugServer == null)
+            {
+                // Create the debugger server
+                DebugServer = new MoonSharpVsCodeDebugServer();
 
-            // Start the debugger server
-            debugServer.Start();
-
-            // Attach the script to the debugger
-            debugServer.AttachToScript(script, gameObject.name);
+                // Start the debugger server
+                DebugServer.Start();
+            }
         }
 
         /// <summary>
@@ -161,6 +148,11 @@ namespace Fungus
         }
 
         #region Public members
+
+        /// <summary>
+        /// Instance of VS Code debug server when debugging option is enabled.
+        /// </summary>
+        public static MoonSharpVsCodeDebugServer DebugServer { get; private set; }
 
         /// <summary>
         /// Returns the first Lua Environment found in the scene, or creates one if none exists.
@@ -261,11 +253,15 @@ namespace Fungus
                 initializer.Initialize();
             }
 
-            #if UNITY_STANDALONE
-            if (remoteDebugger)
-            {
-                ActivateVSCodeDebugger(interpreter);
-            }
+            //
+            // Change this to #if UNITY_STANDALONE if you want to debug a standalone build.
+            //
+
+            #if UNITY_EDITOR
+            StartVSCodeDebugger();
+
+            // Attach the MoonSharp script to the debugger
+            DebugServer.AttachToScript(interpreter, gameObject.name);
             #endif
 
             initialised = true;
