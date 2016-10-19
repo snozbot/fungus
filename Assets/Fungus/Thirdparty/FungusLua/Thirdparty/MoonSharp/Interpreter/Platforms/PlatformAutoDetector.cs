@@ -10,7 +10,10 @@ namespace MoonSharp.Interpreter.Platforms
 	/// </summary>
 	public static class PlatformAutoDetector
 	{
+#if UNITY_WEBGL || UNITY_IOS || UNITY_TVOS || ENABLE_IL2CPP
+#else
 		private static bool? m_IsRunningOnAOT = null;
+#endif
 
 		private static bool m_AutoDetectionsDone = false;
 
