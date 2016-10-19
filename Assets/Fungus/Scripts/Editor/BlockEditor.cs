@@ -906,12 +906,25 @@ namespace Fungus.EditorUtils
             {
                 if (flowchart.SelectedCommands.Contains(command))
                 {
-                    System.Type type = command.GetType();
+                    var type = command.GetType();
                     Command newCommand = Undo.AddComponent(commandCopyBuffer.gameObject, type) as Command;
-                    System.Reflection.FieldInfo[] fields = type.GetFields();
-                    foreach (System.Reflection.FieldInfo field in fields)
+                    var fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+                    foreach (var field in fields)
                     {
-                        field.SetValue(newCommand, field.GetValue(command));
+                        // Copy all public fields
+                        bool copy = field.IsPublic;
+
+                        // Copy non-public fields that have the SerializeField attribute
+                        var attributes = field.GetCustomAttributes(typeof(SerializeField), true);
+                        if (attributes.Length > 0)
+                        {
+                            copy = true;
+                        }
+
+                        if (copy)
+                        {
+                            field.SetValue(newCommand, field.GetValue(command));
+                        }
                     }
                 }
             }
