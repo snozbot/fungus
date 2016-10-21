@@ -11,7 +11,9 @@ You can create one via (Tools > %Fungus > Create > LuaEnvironment). You usually 
 
 You can use multiple LuaEnvironments in your scene to ’sandbox’ the variables, functions and executing code of independent sets of Lua scripts. If you do this, make sure to specify the appropriate LuaEnvironment when using LuaScript components, ExecuteLua commands, etc. or else they'll just use the first one they find in the scene.
 
-# Remote Debugger # {#remote_debugger}
+# VS Code Debugger # {#remote_debugger}
+
+VS Code is a free open source IDE from Microsoft which you can use to write code for Unity projects. FungusLua automatically starts a VS Code debug server when in playmode in the Unity Editor. See the [MoonSharp documentation](http://www.moonsharp.org/debugger.html) for how to configure VS Code to debug Lua scripts. Note that the game has to be running in the Unity Editor before you can connect the VS Code debugger to it.
 
 The 'Remote Debugger' option activates the built-in MoonSharp remote debugger tool. The application will halt execution on the first executed line of Lua code and open a MoonSharp debugger window in your browser. See the [MoonSharp documentation](http://www.moonsharp.org/debugger.html) for more information on using this debugger.
  
