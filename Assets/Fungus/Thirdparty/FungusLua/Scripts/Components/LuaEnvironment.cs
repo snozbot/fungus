@@ -179,7 +179,14 @@ namespace Fungus
         /// </summary>
         public static void RegisterType(string typeName, bool extensionType = false)
         {
-            System.Type t = System.Type.GetType(typeName);
+            System.Type t = null;
+            try
+            {
+                t = System.Type.GetType(typeName);
+            }
+            catch
+            {}
+
             if (t == null)
             {
                 UnityEngine.Debug.LogWarning("Type not found: " + typeName);

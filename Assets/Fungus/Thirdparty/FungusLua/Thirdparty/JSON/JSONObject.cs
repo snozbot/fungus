@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using MoonSharp.Interpreter.Diagnostics.PerformanceCounters;
 /*
  * http://www.opensource.org/licenses/lgpl-2.1.php
  * JSONObject class v.1.4.1
@@ -732,9 +733,11 @@ public class JSONObject {
 	}
 	public IEnumerable<string> PrintAsync(bool pretty = false) {
 		StringBuilder builder = new StringBuilder();
-		printWatch.Reset();
+#if !NETFX_CORE
+        printWatch.Reset();
 		printWatch.Start();
-		foreach(IEnumerable e in StringifyAsync(0, builder, pretty)) {
+#endif
+            foreach(IEnumerable e in StringifyAsync(0, builder, pretty)) {
 			yield return null;
 		}
 		yield return builder.ToString();
@@ -754,12 +757,16 @@ public class JSONObject {
 			("reached max depth!");
 			yield break;
 		}
+
+#if !NETFX_CORE
 		if(printWatch.Elapsed.TotalSeconds > maxFrameTime) {
 			printWatch.Reset();
 			yield return null;
 			printWatch.Start();
 		}
-		switch(type) {
+#endif
+
+            switch(type) {
 			case Type.BAKED:
 				builder.Append(str);
 				break;
@@ -792,7 +799,7 @@ public class JSONObject {
 			case Type.OBJECT:
 				builder.Append("{");
 				if(list.Count > 0) {
-#if(PRETTY)		//for a bit more readability, comment the define above to disable system-wide
+#if (PRETTY)        //for a bit more readability, comment the define above to disable system-wide
 					if(pretty)
 						builder.Append(NEWLINE);
 #endif
@@ -800,7 +807,7 @@ public class JSONObject {
 						string key = keys[i];
 						JSONObject obj = list[i];
 						if(obj) {
-#if(PRETTY)
+#if (PRETTY)
 							if(pretty)
 								for(int j = 0; j < depth; j++)
 									builder.Append("\t"); //for a bit more readability
@@ -809,20 +816,20 @@ public class JSONObject {
 							foreach(IEnumerable e in obj.StringifyAsync(depth, builder, pretty))
 								yield return e;
 							builder.Append(",");
-#if(PRETTY)
+#if (PRETTY)
 							if(pretty)
 								builder.Append(NEWLINE);
 #endif
 						}
 					}
-#if(PRETTY)
+#if (PRETTY)
 					if(pretty)
 						builder.Length -= 2;
 					else
 #endif
 						builder.Length--;
 				}
-#if(PRETTY)
+#if (PRETTY)
 				if(pretty && list.Count > 0) {
 					builder.Append(NEWLINE);
 					for(int j = 0; j < depth - 1; j++)
@@ -834,13 +841,13 @@ public class JSONObject {
 			case Type.ARRAY:
 				builder.Append("[");
 				if(list.Count > 0) {
-#if(PRETTY)
+#if (PRETTY)
 					if(pretty)
 						builder.Append(NEWLINE); //for a bit more readability
 #endif
 					for(int i = 0; i < list.Count; i++) {
 						if(list[i]) {
-#if(PRETTY)
+#if (PRETTY)
 							if(pretty)
 								for(int j = 0; j < depth; j++)
 									builder.Append("\t"); //for a bit more readability
@@ -848,20 +855,20 @@ public class JSONObject {
 							foreach(IEnumerable e in list[i].StringifyAsync(depth, builder, pretty))
 								yield return e;
 							builder.Append(",");
-#if(PRETTY)
+#if (PRETTY)
 							if(pretty)
 								builder.Append(NEWLINE); //for a bit more readability
 #endif
 						}
 					}
-#if(PRETTY)
+#if (PRETTY)
 					if(pretty)
 						builder.Length -= 2;
 					else
 #endif
 						builder.Length--;
 				}
-#if(PRETTY)
+#if (PRETTY)
 				if(pretty && list.Count > 0) {
 					builder.Append(NEWLINE);
 					for(int j = 0; j < depth - 1; j++)
@@ -933,7 +940,7 @@ public class JSONObject {
 			case Type.OBJECT:
 				builder.Append("{");
 				if(list.Count > 0) {
-#if(PRETTY)		//for a bit more readability, comment the define above to disable system-wide
+#if (PRETTY)        //for a bit more readability, comment the define above to disable system-wide
 					if(pretty)
 						builder.Append("\n");
 #endif
@@ -941,7 +948,7 @@ public class JSONObject {
 						string key = keys[i];
 						JSONObject obj = list[i];
 						if(obj) {
-#if(PRETTY)
+#if (PRETTY)
 							if(pretty)
 								for(int j = 0; j < depth; j++)
 									builder.Append("\t"); //for a bit more readability
@@ -949,20 +956,20 @@ public class JSONObject {
 							builder.AppendFormat("\"{0}\":", key);
 							obj.Stringify(depth, builder, pretty);
 							builder.Append(",");
-#if(PRETTY)
+#if (PRETTY)
 							if(pretty)
 								builder.Append("\n");
 #endif
 						}
 					}
-#if(PRETTY)
+#if (PRETTY)
 					if(pretty)
 						builder.Length -= 2;
 					else
 #endif
 						builder.Length--;
 				}
-#if(PRETTY)
+#if (PRETTY)
 				if(pretty && list.Count > 0) {
 					builder.Append("\n");
 					for(int j = 0; j < depth - 1; j++)
@@ -974,33 +981,33 @@ public class JSONObject {
 			case Type.ARRAY:
 				builder.Append("[");
 				if(list.Count > 0) {
-#if(PRETTY)
+#if (PRETTY)
 					if(pretty)
 						builder.Append("\n"); //for a bit more readability
 #endif
 					for(int i = 0; i < list.Count; i++) {
 						if(list[i]) {
-#if(PRETTY)
+#if (PRETTY)
 							if(pretty)
 								for(int j = 0; j < depth; j++)
 									builder.Append("\t"); //for a bit more readability
 #endif
 							list[i].Stringify(depth, builder, pretty);
 							builder.Append(",");
-#if(PRETTY)
+#if (PRETTY)
 							if(pretty)
 								builder.Append("\n"); //for a bit more readability
 #endif
 						}
 					}
-#if(PRETTY)
+#if (PRETTY)
 					if(pretty)
 						builder.Length -= 2;
 					else
 #endif
 						builder.Length--;
 				}
-#if(PRETTY)
+#if (PRETTY)
 				if(pretty && list.Count > 0) {
 					builder.Append("\n");
 					for(int j = 0; j < depth - 1; j++)
@@ -1021,7 +1028,7 @@ public class JSONObject {
 		}
 		//Profiler.EndSample();
 	}
-	#endregion
+#endregion
 #if UNITY_2 || UNITY_3 || UNITY_4 || UNITY_5
 	public static implicit operator WWWForm(JSONObject obj) {
 		WWWForm form = new WWWForm();

@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MarkerMetro.Unity.WinLegacy.Reflection;
 
 namespace Fungus
 {
@@ -43,9 +44,15 @@ namespace Fungus
         public virtual void CacheSubstitutionHandlers()
         {
             // Use reflection to find all components in the scene that implement ISubstitutionHandler
-            var types = this.GetType().Assembly.GetTypes().Where(type => type.IsClass &&
-                !type.IsAbstract && 
+#if NETFX_CORE
+            var types = this.GetType().GetAssembly().GetTypes().Where(type => type.IsClass() &&
+                !type.IsAbstract() &&
                 typeof(ISubstitutionHandler).IsAssignableFrom(type));
+#else
+            var types = this.GetType().Assembly.GetTypes().Where(type => type.IsClass &&
+                !type.IsAbstract &&
+                typeof(ISubstitutionHandler).IsAssignableFrom(type));
+#endif
 
             substitutionHandlers.Clear();
             foreach (System.Type t in types)

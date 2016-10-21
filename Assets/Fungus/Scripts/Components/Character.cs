@@ -113,8 +113,13 @@ namespace Fungus
         /// </summary>
         public virtual bool NameStartsWith(string matchString)
         {
+#if NETFX_CORE
+            return name.StartsWith(matchString, StringComparison.CurrentCultureIgnoreCase)
+                || nameText.StartsWith(matchString, StringComparison.CurrentCultureIgnoreCase);
+#else
             return name.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture)
                 || nameText.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture);
+#endif
         }
 
         /// <summary>
