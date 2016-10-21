@@ -797,8 +797,7 @@ namespace Fungus
         /// </summary>
         public virtual bool GetBooleanVariable(string key)
         {
-            BooleanVariable variable = GetVariable<BooleanVariable>(key);
-
+            var variable = GetVariable<BooleanVariable>(key);
             if(variable != null)
             {
                 return GetVariable<BooleanVariable>(key).Value;
@@ -815,7 +814,7 @@ namespace Fungus
         /// </summary>
         public virtual void SetBooleanVariable(string key, bool value)
         {
-            BooleanVariable variable = GetVariable<BooleanVariable>(key);
+            var variable = GetVariable<BooleanVariable>(key);
             if(variable != null)
             {
                 variable.Value = value;
@@ -828,8 +827,7 @@ namespace Fungus
         /// </summary>
         public virtual int GetIntegerVariable(string key)
         {
-            IntegerVariable variable = GetVariable<IntegerVariable>(key);
-
+            var variable = GetVariable<IntegerVariable>(key);
             if (variable != null)
             {
                 return GetVariable<IntegerVariable>(key).Value;
@@ -846,7 +844,7 @@ namespace Fungus
         /// </summary>
         public virtual void SetIntegerVariable(string key, int value)
         {
-            IntegerVariable variable = GetVariable<IntegerVariable>(key);
+            var variable = GetVariable<IntegerVariable>(key);
             if (variable != null)
             {
                 variable.Value = value;
@@ -859,8 +857,7 @@ namespace Fungus
         /// </summary>
         public virtual float GetFloatVariable(string key)
         {
-            FloatVariable variable = GetVariable<FloatVariable>(key);
-
+            var variable = GetVariable<FloatVariable>(key);
             if (variable != null)
             {
                 return GetVariable<FloatVariable>(key).Value;
@@ -877,7 +874,7 @@ namespace Fungus
         /// </summary>
         public virtual void SetFloatVariable(string key, float value)
         {
-            FloatVariable variable = GetVariable<FloatVariable>(key);
+            var variable = GetVariable<FloatVariable>(key);
             if (variable != null)
             {
                 variable.Value = value;
@@ -890,8 +887,7 @@ namespace Fungus
         /// </summary>
         public virtual string GetStringVariable(string key)
         {
-            StringVariable variable = GetVariable<StringVariable>(key);
-
+            var variable = GetVariable<StringVariable>(key);
             if (variable != null)
             {
                 return GetVariable<StringVariable>(key).Value;
@@ -908,7 +904,69 @@ namespace Fungus
         /// </summary>
         public virtual void SetStringVariable(string key, string value)
         {
-            StringVariable variable = GetVariable<StringVariable>(key);
+            var variable = GetVariable<StringVariable>(key);
+            if (variable != null)
+            {
+                variable.Value = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the value of a GameObject variable.
+        /// Returns null if the variable key does not exist.
+        /// </summary>
+        public virtual GameObject GetGameObjectVariable(string key)
+        {
+            var variable = GetVariable<GameObjectVariable>(key);
+
+            if (variable != null)
+            {
+                return GetVariable<GameObjectVariable>(key).Value;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Sets the value of a GameObject variable.
+        /// The variable must already be added to the list of variables for this Flowchart.
+        /// </summary>
+        public virtual void SetGameObjectVariable(string key, GameObject value)
+        {
+            var variable = GetVariable<GameObjectVariable>(key);
+            if (variable != null)
+            {
+                variable.Value = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the value of a Transform variable.
+        /// Returns null if the variable key does not exist.
+        /// </summary>
+        public virtual Transform GetTransformVariable(string key)
+        {
+            var variable = GetVariable<TransformVariable>(key);
+
+            if (variable != null)
+            {
+                return GetVariable<TransformVariable>(key).Value;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Sets the value of a Transform variable.
+        /// The variable must already be added to the list of variables for this Flowchart.
+        /// </summary>
+        public virtual void SetTransformVariable(string key, Transform value)
+        {
+            var variable = GetVariable<TransformVariable>(key);
             if (variable != null)
             {
                 variable.Value = value;
