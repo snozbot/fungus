@@ -89,22 +89,22 @@ The best approach here is to treat POD properties as immutable objects, and neve
 
 ```lua
 -- Returns a new Color object
-local c = luautils.factory.color(1,1,1,1)
+local c = factory.color(1,1,1,1)
 
 -- Returns a new Vector2 object
-local v2 = luautils.factory.vector2(1, 2)
+local v2 = factory.vector2(1, 2)
 
 -- Returns a new Vector3 object
-local v3 = luautils.factory.vector3(1, 2, 3)
+local v3 = factory.vector3(1, 2, 3)
 
 -- Returns a new Vector4 object
-local v4 = luautils.factory.vector4(1, 2, 3, 4)
+local v4 = factory.vector4(1, 2, 3, 4)
 
 -- Returns a new Quaternion object
-local q = luautils.factory.quaternion(float x, float y, float z) -- Rotation in euler angles
+local q = factory.quaternion(float x, float y, float z) -- Rotation in euler angles
 			
 -- Returns a new Rect object
-local r = luautils.factory.rect(float x, float y, float width, float height)
+local r = factory.rect(float x, float y, float width, float height)
 ```
 
 [namespace qualified type name]: https://msdn.microsoft.com/en-us/library/system.type.assemblyqualifiedname(v=vs.110).aspx

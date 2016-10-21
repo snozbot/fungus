@@ -75,6 +75,10 @@ namespace Fungus
         {
             bool isFungusInstalled = (Type.GetType("Fungus.Flowchart") != null);
 
+            // Always register these FungusLua utilities
+            LuaEnvironment.RegisterType("Fungus.PODTypeFactory");
+            LuaEnvironment.RegisterType("Fungus.FungusPrefs");
+
             foreach (TextAsset textFile in registerTypes)
             {
                 if (textFile == null)
