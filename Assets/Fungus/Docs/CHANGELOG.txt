@@ -2,6 +2,35 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.4.0 {#v3_4_0}
+======
+
+## Known Issues
+- FungusLua generates runtime errors running Lua when using .NET scripting backend. The IL2CPP backend works fine.
+
+## Added
+- Added accessors for GameObject and Transform variables in Flowchart.cs
+- Added Flowchart.HasVariable() and GetVariableNames() - thanks murnyipl!
+- Added WaitForFrames property to GameStarted event handler. Default is wait for 1 frame (should reduce startup order issues).
+
+## Changed
+- Upgraded to Moonsharp 2.0. Moonsharp source code is now included in Fungus/Thirdparty/MoonSharp
+- Removed MoonSharp assembly from link.xml
+- Converted MoonSharp line endings to OSX for consistency with rest of project.
+- Updated documentation for Lua debugger (using VS Code)
+- Removed LuaEnvironment Remote Debugger option. A VS Code debug server always starts when running in the editor.
+- SayDialog now supports full variable substitution when setting character names.
+
+## Fixed
+
+- Fixed Command properties not copied when copying commands #546
+- Fixed PODTypeFactory and FungusPrefs classes are not registered #549
+- Fixed for compile errors on .NET Core scripting backend
+- Fixed LuaBindings registered types in example scenes
+- Fixed MoonSharp warning when not building for an AOT platform
+- Fixed minor issues in some example scenes (e.g. missing sprite refs)
+
+
 v3.3.0 {#v3_3_0}
 ======
 
