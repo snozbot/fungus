@@ -128,7 +128,7 @@ Property | Type | Description
  --- | --- | ---
 _duration | Fungus.FloatData | Duration to wait for
 
-# WaitFrames # {#WaitFrames}
+# Wait Frames # {#WaitFrames}
 Waits for a number of frames before executing the next command in the block.
 
 Defined in Fungus.WaitFrames

@@ -11,7 +11,7 @@ namespace Fungus
     /// Waits for a number of frames before executing the next command in the block.
     /// </summary>
     [CommandInfo("Flow", 
-                 "WaitFrames", 
+                 "Wait Frames", 
                  "Waits for a number of frames before executing the next command in the block.")]
     [AddComponentMenu("")]
     [ExecuteInEditMode]
