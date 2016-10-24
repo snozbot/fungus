@@ -30,7 +30,6 @@ v3.4.0 {#v3_4_0}
 - Fixed MoonSharp warning when not building for an AOT platform
 - Fixed minor issues in some example scenes (e.g. missing sprite refs)
 
-
 v3.3.0 {#v3_3_0}
 ======
 
