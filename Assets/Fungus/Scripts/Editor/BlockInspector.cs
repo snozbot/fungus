@@ -83,6 +83,12 @@ namespace Fungus.EditorUtils
 
             var flowchart = (Flowchart)block.GetFlowchart();
 
+            if (flowchart.SelectedBlocks.Count > 1)
+            {
+                GUILayout.Label("Multi-block editing not yet supported");
+                return;
+            }
+
             if (activeBlockEditor == null ||
                 !block.Equals(activeBlockEditor.target))
             {
