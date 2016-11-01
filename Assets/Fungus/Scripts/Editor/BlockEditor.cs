@@ -95,6 +95,20 @@ namespace Fungus.EditorUtils
             
             if (block == flowchart.SelectedBlock)
             {
+                // Custom tinting
+                SerializedProperty useCustomTintProp = serializedObject.FindProperty("useCustomTint");
+                SerializedProperty tintProp = serializedObject.FindProperty("tint");
+
+                EditorGUILayout.BeginHorizontal();
+
+                useCustomTintProp.boolValue = GUILayout.Toggle(useCustomTintProp.boolValue, " Custom Tint");
+                if (useCustomTintProp.boolValue)
+                {
+                    EditorGUILayout.PropertyField(tintProp, GUIContent.none);
+                }
+
+                EditorGUILayout.EndHorizontal();
+
                 SerializedProperty descriptionProp = serializedObject.FindProperty("description");
                 EditorGUILayout.PropertyField(descriptionProp);
 

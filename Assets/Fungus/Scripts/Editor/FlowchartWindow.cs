@@ -607,10 +607,15 @@ namespace Fungus.EditorUtils
             }
 
             GUIStyle nodeStyleCopy = new GUIStyle(nodeStyle);
+            Texture2D offTex;
+            Texture2D onTex;
+            Color defaultColor;
 
             if (block._EventHandler != null)
             {
-                nodeStyleCopy.normal.background = selected ? FungusEditorResources.texEventNodeOn : FungusEditorResources.texEventNodeOff;
+                offTex = FungusEditorResources.texEventNodeOff;
+                onTex = FungusEditorResources.texEventNodeOn;
+                defaultColor = FungusConstants.DefaultEventBlockTint;
             }
             else
             {
@@ -629,16 +634,18 @@ namespace Fungus.EditorUtils
 
                 if (uniqueList.Count > 1)
                 {
-                    nodeStyleCopy.normal.background = selected ? FungusEditorResources.texChoiceNodeOn : FungusEditorResources.texChoiceNodeOff;
+                    offTex = FungusEditorResources.texChoiceNodeOff;
+                    onTex = FungusEditorResources.texChoiceNodeOn;
+                    defaultColor = FungusConstants.DefaultChoiceBlockTint;
                 }
                 else
                 {
-                    nodeStyleCopy.normal.background = selected ? FungusEditorResources.texProcessNodeOn : FungusEditorResources.texProcessNodeOff;
+                    offTex = FungusEditorResources.texProcessNodeOff;
+                    onTex = FungusEditorResources.texProcessNodeOn;
+                    defaultColor = FungusConstants.DefaultProcessBlockTint;
                 }
             }
 
-            nodeStyleCopy.normal.textColor = Color.black;
-    
             // Make sure node is wide enough to fit the node name text
             var n = block as Node;
             float width = nodeStyleCopy.CalcSize(new GUIContent(block.BlockName)).x;
@@ -646,8 +653,26 @@ namespace Fungus.EditorUtils
             tempRect.width = Mathf.Max (n._NodeRect.width, width);
             n._NodeRect = tempRect;
 
+            Rect boxRect = GUILayoutUtility.GetRect(n._NodeRect.width, n._NodeRect.height);
+            var tintColor = n.UseCustomTint ? n.Tint : defaultColor;
+
+            // Draw untinted highlight
+            if (selected)
+            {
+                GUI.backgroundColor = Color.white;
+                nodeStyleCopy.normal.background = onTex;
+                GUI.Box(boxRect, "", nodeStyleCopy);
+            }
+
+            // Draw tinted block; ensure text is readable
+            var brightness = tintColor.r * 0.3 + tintColor.g * 0.59 + tintColor.b * 0.11;
+            nodeStyleCopy.normal.textColor = brightness >= 0.5 ? Color.black : Color.white;
+
+            nodeStyleCopy.normal.background = offTex;
+            GUI.backgroundColor = tintColor;
+            GUI.Box(GUILayoutUtility.GetLastRect(), block.BlockName, nodeStyleCopy);
+
             GUI.backgroundColor = Color.white;
-            GUILayout.Box(block.BlockName, nodeStyleCopy, GUILayout.Width(n._NodeRect.width), GUILayout.Height(n._NodeRect.height));
 
             if (block.Description.Length > 0)
             {
