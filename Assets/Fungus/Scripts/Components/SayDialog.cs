@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Fungus
 {
@@ -54,7 +55,23 @@ namespace Fungus
 
         protected StringSubstituter stringSubstituter = new StringSubstituter();
 
-        protected Writer GetWriter()
+		// Cache active Say Dialogs to avoid expensive scene search
+		protected static List<SayDialog> activeSayDialogs = new List<SayDialog>();
+
+		protected void Awake()
+		{
+			if (!activeSayDialogs.Contains(this))
+			{
+				activeSayDialogs.Add(this);
+			}
+		}
+
+		protected void OnDestroy()
+		{
+			activeSayDialogs.Remove(this);
+		}
+			
+		protected Writer GetWriter()
         {
             if (writer != null)
             {
@@ -200,8 +217,14 @@ namespace Fungus
         {
             if (ActiveSayDialog == null)
             {
-                // Use first Say Dialog found in the scene (if any)
-                SayDialog sd = GameObject.FindObjectOfType<SayDialog>();
+				SayDialog sd = null;
+
+				// Use first active Say Dialog in the scene (if any)
+				if (activeSayDialogs.Count > 0)
+				{
+					sd = activeSayDialogs[0];
+				}
+
                 if (sd != null)
                 {
                     ActiveSayDialog = sd;
