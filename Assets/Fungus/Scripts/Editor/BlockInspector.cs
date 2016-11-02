@@ -83,6 +83,12 @@ namespace Fungus.EditorUtils
 
             var flowchart = (Flowchart)block.GetFlowchart();
 
+            if (flowchart.SelectedBlocks.Count > 1)
+            {
+                GUILayout.Label("Multiple blocks selected");
+                return;
+            }
+
             if (activeBlockEditor == null ||
                 !block.Equals(activeBlockEditor.target))
             {
