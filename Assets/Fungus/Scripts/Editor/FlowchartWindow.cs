@@ -312,7 +312,7 @@ namespace Fungus.EditorUtils
 
                             block._NodeRect = tempRect;
                             
-                            Undo.RecordObject(block, "Node Position " + i);
+                            Undo.RecordObject(block, "Node Position");
                             
                             tempRect.x = newPos.x;
                             tempRect.y = newPos.y;
@@ -464,7 +464,8 @@ namespace Fungus.EditorUtils
 
         protected virtual void HandleSelectionBox(Flowchart flowchart)
         {
-            if (Event.current.button == 0 && Event.current.modifiers != EventModifiers.Alt)
+            if (Event.current.button == 0 && Event.current.modifiers != EventModifiers.Alt &&
+                !(UnityEditor.Tools.current == Tool.View && UnityEditor.Tools.viewTool == ViewTool.Pan))
             {
                 switch (Event.current.type)
                 {
@@ -578,7 +579,7 @@ namespace Fungus.EditorUtils
                 zoom = true;
             }
             
-            if (zoom)
+            if (zoom && selectionBox.size == Vector2.zero)
             {
                 flowchart.Zoom -= Event.current.delta.y * 0.01f;
                 flowchart.Zoom = Mathf.Clamp(flowchart.Zoom, minZoomValue, maxZoomValue);
