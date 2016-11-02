@@ -787,7 +787,7 @@ namespace Fungus.EditorUtils
 
             nodeStyleCopy.normal.background = offTex;
             GUI.backgroundColor = tintColor;
-            GUI.Box(GUILayoutUtility.GetLastRect(), block.BlockName, nodeStyleCopy);
+            GUI.Box(boxRect, block.BlockName, nodeStyleCopy);
 
             GUI.backgroundColor = Color.white;
 
