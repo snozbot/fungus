@@ -85,7 +85,7 @@ namespace Fungus.EditorUtils
 
             if (flowchart.SelectedBlocks.Count > 1)
             {
-                GUILayout.Label("Multi-block editing not yet supported");
+                GUILayout.Label("Multiple blocks selected");
                 return;
             }
 

@@ -20,7 +20,7 @@ namespace Fungus
         /// <summary>
         /// The current version of the Flowchart. Used for updating components.
         /// </summary>
-        public const int CurrentVersion = 2;
+        public const int CurrentVersion = 1;
 
         /// <summary>
         /// The name of the initial block in a new flowchart.

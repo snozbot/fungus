@@ -41,10 +41,6 @@ namespace Fungus
         [SerializeField] protected Rect scrollViewRect;
 
         [HideInInspector]
-        [FormerlySerializedAs("selectedSequence")]
-        [SerializeField] protected Block selectedBlock;
-
-        [HideInInspector]
         [SerializeField] protected List<Block> selectedBlocks = new List<Block>();
 
         [HideInInspector]
@@ -158,15 +154,6 @@ namespace Fungus
             {
                 // No need to update
                 return;
-            }
-            else if (version < 2)
-            {
-                // Multi-select feature: update selection from single block to list
-                if (selectedBlock != null)
-                {
-                    SelectedBlock = selectedBlock;
-                    selectedBlock = null;
-                }
             }
 
             // Tell all components that implement IUpdateable to update to the new version
