@@ -7,6 +7,7 @@ using UnityEditorInternal;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Fungus.EditorUtils
 {
@@ -88,6 +89,24 @@ namespace Fungus.EditorUtils
             Repaint();
         }
 
+        protected virtual void OnBecameVisible()
+        {
+            // Ensure that toolbar looks correct in both docked and undocked windows
+            // The docked value doesn't always report correctly without the delayCall
+            EditorApplication.delayCall += () => {
+                var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+                var isDockedMethod = typeof(EditorWindow).GetProperty("docked", flags).GetGetMethod(true);
+                if ((bool) isDockedMethod.Invoke(this, null))
+                {
+                    EditorZoomArea.Offset = new Vector2(2.0f, 19.0f);
+                }
+                else
+                {
+                    EditorZoomArea.Offset = new Vector2(0.0f, 22.0f);
+                }
+            };
+        }
+
         public static Flowchart GetFlowchart()
         {
             // Using a temp hidden object to track the active Flowchart across 
@@ -158,28 +177,55 @@ namespace Fungus.EditorUtils
 
         protected virtual void DrawOverlay(Flowchart flowchart)
         {
-            GUILayout.Space(8);
+            GUILayout.BeginHorizontal(EditorStyles.toolbar);
             
-            GUILayout.BeginHorizontal();
-            
-            GUILayout.Space(8);
+            GUILayout.Space(2);
 
-            if (GUILayout.Button(new GUIContent(addTexture, "Add a new block")))
+            if (GUILayout.Button(new GUIContent(addTexture, "Add a new block"), EditorStyles.toolbarButton))
             {
-                Vector2 newNodePosition = new Vector2(50 - flowchart.ScrollPos.x, 
-                                                      50 - flowchart.ScrollPos.y);
+                Vector2 newNodePosition = new Vector2(50 / flowchart.Zoom - flowchart.ScrollPos.x, 
+                                                    50 / flowchart.Zoom - flowchart.ScrollPos.y);
                 CreateBlock(flowchart, newNodePosition);
             }
+            
+            // Separator
+            GUILayout.Label("", EditorStyles.toolbarButton, GUILayout.Width(8));
 
-            GUILayout.Space(8);
+            GUILayout.Label("Scale", EditorStyles.miniLabel);
+            var newZoom = GUILayout.HorizontalSlider(
+                flowchart.Zoom, minZoomValue, maxZoomValue, GUILayout.MinWidth(40), GUILayout.MaxWidth(100)
+            );
+            GUILayout.Label(flowchart.Zoom.ToString("0.0#x"), EditorStyles.miniLabel, GUILayout.Width(30));
 
-            var newZoom = GUILayout.HorizontalSlider(flowchart.Zoom, minZoomValue, maxZoomValue, GUILayout.Width(100));
+            if (GUILayout.Button("Min", EditorStyles.toolbarButton))
+            {
+                newZoom = minZoomValue;
+            }
+            if (GUILayout.Button("Max", EditorStyles.toolbarButton))
+            {
+                newZoom = maxZoomValue;
+            }
+
             DoZoom(flowchart, newZoom - flowchart.Zoom, Vector2.one * 0.5f);
+
+            if (GUILayout.Button("Center", EditorStyles.toolbarButton))
+            {
+                flowchart.ScrollPos = flowchart.CenterPosition;
+            }
+
+            GUILayout.FlexibleSpace();
+
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
 
             GUILayout.FlexibleSpace();
 
             GUILayout.BeginVertical();
             GUILayout.Label(flowchart.name, EditorStyles.whiteBoldLabel);
+            
+            GUILayout.Space(2);
+            
             if (flowchart.Description.Length > 0)
             {
                 GUILayout.Label(flowchart.Description, EditorStyles.helpBox);
@@ -188,13 +234,13 @@ namespace Fungus.EditorUtils
 
             GUILayout.EndHorizontal();
 
-            GUILayout.FlexibleSpace();
-
             GUILayout.BeginHorizontal();
 
             GUILayout.BeginVertical(GUILayout.Width(440));
         
             GUILayout.FlexibleSpace();
+
+            var rawMousePosition = Event.current.mousePosition; // mouse position outside of scrollview to test against toolbar rect
 
             flowchart.VariablesScrollPos = GUILayout.BeginScrollView(flowchart.VariablesScrollPos, GUILayout.MaxHeight(position.height * 0.75f));
 
@@ -215,7 +261,8 @@ namespace Fungus.EditorUtils
             }
             if (Event.current.type == EventType.Repaint)
             {
-                mouseOverVariables = variableWindowRect.Contains(Event.current.mousePosition); 
+                Rect toolbarRect = new Rect(0, 0, position.width, 18);
+                mouseOverVariables = variableWindowRect.Contains(Event.current.mousePosition) || toolbarRect.Contains(rawMousePosition); 
             }
 
             GUILayout.EndScrollView();
@@ -430,10 +477,10 @@ namespace Fungus.EditorUtils
 
             // Draw selection box
             if (startSelectionBoxPosition.x >= 0 && startSelectionBoxPosition.y >= 0)
-			{
-				GUI.Box(selectionBox, "", (GUIStyle) "SelectionRect");
+            {
+                GUI.Box(selectionBox, "", (GUIStyle) "SelectionRect");
                 forceRepaintCount = 6;
-			}
+            }
         }
 
         public virtual void CalcFlowchartCenter(Flowchart flowchart, Block[] blocks)
@@ -457,8 +504,8 @@ namespace Fungus.EditorUtils
 
             Vector2 center = (min + max) * -0.5f;
 
-            center.x += position.width * 0.5f;
-            center.y += position.height * 0.5f;
+            center.x += position.width * 0.5f / flowchart.Zoom;
+            center.y += position.height * 0.5f / flowchart.Zoom;
 
             flowchart.CenterPosition = center;
         }
@@ -471,16 +518,19 @@ namespace Fungus.EditorUtils
                 switch (Event.current.type)
                 {
                 case EventType.MouseDown:
-                    startSelectionBoxPosition = Event.current.mousePosition;
-                    mouseDownSelectionState = new List<Block>(flowchart.SelectedBlocks);
-                    Event.current.Use();
+                    if (!mouseOverVariables)
+                    {
+                        startSelectionBoxPosition = Event.current.mousePosition;
+                        mouseDownSelectionState = new List<Block>(flowchart.SelectedBlocks);
+                        Event.current.Use();
+                    }
                     break;
 
                 case EventType.MouseDrag:
                     if (startSelectionBoxPosition.x >= 0 && startSelectionBoxPosition.y >= 0)
                     {
                         var topLeft = Vector2.Min(startSelectionBoxPosition, Event.current.mousePosition);
-					    var bottomRight = Vector2.Max(startSelectionBoxPosition, Event.current.mousePosition);
+                        var bottomRight = Vector2.Max(startSelectionBoxPosition, Event.current.mousePosition);
                         selectionBox = Rect.MinMaxRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
 
                         Rect zoomSelectionBox = selectionBox;

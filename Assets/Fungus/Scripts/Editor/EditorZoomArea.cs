@@ -56,15 +56,16 @@ namespace Fungus.EditorUtils
 
     public class EditorZoomArea
     {
-        private const float kEditorWindowTabHeight = 21.0f;
         private static Matrix4x4 _prevGuiMatrix;
+        private static Vector2 offset = new Vector2(2.0f, 19.0f);
+        public static Vector2 Offset { get { return offset; } set { offset = value; } }
         
         public static Rect Begin(float zoomScale, Rect screenCoordsArea)
         {
             GUI.EndGroup();        // End the group Unity begins automatically for an EditorWindow to clip out the window tab. This allows us to draw outside of the size of the EditorWindow.
             
             Rect clippedArea = screenCoordsArea.ScaleSizeBy(1.0f / zoomScale, screenCoordsArea.TopLeft());
-            clippedArea.y += kEditorWindowTabHeight;
+            clippedArea.position += offset;
             GUI.BeginGroup(clippedArea);
             
             _prevGuiMatrix = GUI.matrix;
@@ -81,7 +82,7 @@ namespace Fungus.EditorUtils
         {
             GUI.matrix = _prevGuiMatrix;
             GUI.EndGroup();
-            GUI.BeginGroup(new Rect(0.0f, kEditorWindowTabHeight, Screen.width, Screen.height));
+            GUI.BeginGroup(new Rect(offset.x, offset.y, Screen.width, Screen.height));
         }
     }
 }
