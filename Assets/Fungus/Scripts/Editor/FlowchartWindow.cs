@@ -33,6 +33,10 @@ namespace Fungus.EditorUtils
         protected int forceRepaintCount;
 
         protected Texture2D addTexture;
+
+        protected Rect selectionBox;
+        protected Vector2 startSelectionBoxPosition;
+        protected List<Block> mouseDownSelectionState;
         
         protected bool cursorZoom = true;
 
@@ -122,7 +126,7 @@ namespace Fungus.EditorUtils
             // Delete any scheduled objects
             foreach (var deleteBlock in deleteList)
             {
-                bool isSelected = (flowchart.SelectedBlock == deleteBlock);
+                bool isSelected = (flowchart.SelectedBlocks.Contains(deleteBlock));
 
                 var commandList = deleteBlock.CommandList;
                 foreach (var command in commandList)
@@ -143,6 +147,9 @@ namespace Fungus.EditorUtils
 
             DrawFlowchartView(flowchart);
             DrawOverlay(flowchart);
+
+            // Handle selection box events after block and overlay events
+            HandleSelectionBox(flowchart);
 
             if (forceRepaintCount > 0)
             {
@@ -256,18 +263,6 @@ namespace Fungus.EditorUtils
             
             GLDraw.BeginGroup(scriptViewRect);
 
-            if (Event.current.button == 0 && 
-                Event.current.type == EventType.MouseDown &&
-                !mouseOverVariables)
-            {
-                flowchart.SelectedBlock = null;
-                if (!EditorGUI.actionKey)
-                {
-                    flowchart.ClearSelectedCommands();
-                }
-                Selection.activeGameObject = flowchart.gameObject;
-            }
-
             // The center of the Flowchart depends on the block positions and window dimensions, so we calculate it 
             // here in the FlowchartWindow class and store it on the Flowchart object for use later.
             CalcFlowchartCenter(flowchart, blocks);
@@ -288,6 +283,8 @@ namespace Fungus.EditorUtils
             BeginWindows();
 
             windowBlockMap.Clear();
+            bool useEvent = false;
+            bool endDrag = false;
             for (int i = 0; i < blocks.Length; ++i)
             {
                 var block = blocks[i];
@@ -305,28 +302,33 @@ namespace Fungus.EditorUtils
                     tempRect.width = Mathf.Max(Mathf.Max(nodeWidthA, nodeWidthB), 120);
                     tempRect.height = 40;
 
-                    if (Event.current.type == EventType.MouseDrag && dragWindowId == i)
+                    if (dragWindowId > -1 && flowchart.SelectedBlocks.Contains(block))
                     {
-                        tempRect.x += Event.current.delta.x;
-                        tempRect.y += Event.current.delta.y;
+                        if (Event.current.type == EventType.MouseDrag)
+                        {
+                            tempRect.x += Event.current.delta.x;
+                            tempRect.y += Event.current.delta.y;
 
-                        forceRepaintCount = 6;
-                    }
-                    else if (Event.current.type == EventType.MouseUp &&
-                             dragWindowId == i)
-                    {
-                        Vector2 newPos = new Vector2(tempRect.x, tempRect.y);
-                        
-                        tempRect.x = startDragPosition.x;
-                        tempRect.y = startDragPosition.y;
-                        
-                        Undo.RecordObject((Block)block, "Node Position");
-                        
-                        tempRect.x = newPos.x;
-                        tempRect.y = newPos.y;
+                            forceRepaintCount = 6;
+                            useEvent = true;
+                        }
+                        else if (Event.current.rawType == EventType.MouseUp)
+                        {
+                            Vector2 newPos = new Vector2(tempRect.x, tempRect.y);
+                            tempRect.x = startDragPosition.x + (newPos.x - blocks[dragWindowId]._NodeRect.position.x);
+                            tempRect.y = startDragPosition.y + (newPos.y - blocks[dragWindowId]._NodeRect.position.y);
 
-                        dragWindowId = -1;
-                        forceRepaintCount = 6;
+                            block._NodeRect = tempRect;
+                            
+                            Undo.RecordObject(block, "Node Position");
+                            
+                            tempRect.x = newPos.x;
+                            tempRect.y = newPos.y;
+
+                            forceRepaintCount = 6;
+                            useEvent = true;
+                            endDrag = true;
+                        }
                     }
 
                     block._NodeRect = tempRect;
@@ -341,6 +343,13 @@ namespace Fungus.EditorUtils
                 GUI.backgroundColor = Color.white;
 
                 windowBlockMap.Add(block);
+            }
+
+            dragWindowId = endDrag ? -1 : dragWindowId;
+
+            if (useEvent)
+            {
+                Event.current.Use();
             }
 
             EndWindows();
@@ -415,6 +424,23 @@ namespace Fungus.EditorUtils
             GLDraw.EndGroup();
 
             EditorZoomArea.End();
+
+            // If event has yet to be used and user isn't multiselecting or panning, clear selection
+            bool validModifier = Event.current.alt || GetAppendModifierDown();
+            if (Event.current.type == EventType.MouseDown && Event.current.button == 0 && !validModifier)
+            {
+                Undo.RecordObject(flowchart, "Deselect");
+                flowchart.ClearSelectedCommands();
+                flowchart.ClearSelectedBlocks();
+                Selection.activeGameObject = flowchart.gameObject;                
+            }
+
+            // Draw selection box
+            if (startSelectionBoxPosition.x >= 0 && startSelectionBoxPosition.y >= 0)
+			{
+				GUI.Box(selectionBox, "", (GUIStyle) "SelectionRect");
+                forceRepaintCount = 6;
+			}
         }
 
         public virtual void CalcFlowchartCenter(Flowchart flowchart, Block[] blocks)
@@ -442,6 +468,77 @@ namespace Fungus.EditorUtils
             center.y += position.height * 0.5f;
 
             flowchart.CenterPosition = center;
+        }
+
+        protected virtual void HandleSelectionBox(Flowchart flowchart)
+        {
+            if (Event.current.button == 0 && Event.current.modifiers != EventModifiers.Alt &&
+                !(UnityEditor.Tools.current == Tool.View && UnityEditor.Tools.viewTool == ViewTool.Pan))
+            {
+                switch (Event.current.type)
+                {
+                case EventType.MouseDown:
+                    startSelectionBoxPosition = Event.current.mousePosition;
+                    mouseDownSelectionState = new List<Block>(flowchart.SelectedBlocks);
+                    Event.current.Use();
+                    break;
+
+                case EventType.MouseDrag:
+                    if (startSelectionBoxPosition.x >= 0 && startSelectionBoxPosition.y >= 0)
+                    {
+                        var topLeft = Vector2.Min(startSelectionBoxPosition, Event.current.mousePosition);
+					    var bottomRight = Vector2.Max(startSelectionBoxPosition, Event.current.mousePosition);
+                        selectionBox = Rect.MinMaxRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
+
+                        Rect zoomSelectionBox = selectionBox;
+                        zoomSelectionBox.position -= flowchart.ScrollPos * flowchart.Zoom;
+                        zoomSelectionBox.position /= flowchart.Zoom;
+                        zoomSelectionBox.size /= flowchart.Zoom;
+
+                        foreach (var block in flowchart.GetComponents<Block>())
+                        {
+                            if (zoomSelectionBox.Overlaps(block._NodeRect))
+                            {
+                                if (mouseDownSelectionState.Contains(block))
+                                {
+                                    flowchart.SelectedBlocks.Remove(block);
+                                }
+                                else
+                                {
+                                    flowchart.AddSelectedBlock(block);
+                                }
+                            }
+                            else if (mouseDownSelectionState.Contains(block))
+                            {
+                                flowchart.AddSelectedBlock(block);
+                            }
+                            else
+                            {
+                                flowchart.SelectedBlocks.Remove(block);
+                            }
+                        }
+                    }
+                    Event.current.Use();
+                    break;
+                }
+
+                if (Event.current.rawType == EventType.MouseUp)
+                {
+                    selectionBox.size = Vector2.zero;
+                    selectionBox.position = Vector2.one * -1;
+                    startSelectionBoxPosition = selectionBox.position;
+
+                    var tempList = new List<Block>(flowchart.SelectedBlocks);
+                    flowchart.SelectedBlocks = mouseDownSelectionState;
+                    Undo.RecordObject(flowchart, "Select");
+                    flowchart.SelectedBlocks = tempList;
+
+                    if (flowchart.SelectedBlock != null)
+                    {
+                        SetBlockForInspector(flowchart, flowchart.SelectedBlock);
+                    }
+                }
+            }
         }
 
         protected virtual void PanAndZoom(Flowchart flowchart)
@@ -490,7 +587,7 @@ namespace Fungus.EditorUtils
                 zoom = true;
             }
             
-            if (zoom)
+            if (zoom && selectionBox.size == Vector2.zero)
             {
                 Vector2 zoomCenter;
                 if (cursorZoom)
@@ -561,22 +658,18 @@ namespace Fungus.EditorUtils
         protected virtual void SelectBlock(Flowchart flowchart, Block block)
         {
             // Select the block and also select currently executing command
-            ShowBlockInspector(flowchart);
             flowchart.SelectedBlock = block;
-            flowchart.ClearSelectedCommands();
-            if (block.ActiveCommand != null)
-            {
-                flowchart.AddSelectedCommand(block.ActiveCommand);
-            }
+            SetBlockForInspector(flowchart, block);
         }
         
         public static Block CreateBlock(Flowchart flowchart, Vector2 position)
         {
             Block newBlock = flowchart.CreateBlock(position);
             Undo.RegisterCreatedObjectUndo(newBlock, "New Block");
-            ShowBlockInspector(flowchart);
-            flowchart.SelectedBlock = newBlock;
-            flowchart.ClearSelectedCommands();
+
+            // Use AddSelected instead of Select for when multiple blocks are duplicated
+            flowchart.AddSelectedBlock(newBlock);
+            SetBlockForInspector(flowchart, newBlock);
 
             return newBlock;
         }
@@ -612,25 +705,50 @@ namespace Fungus.EditorUtils
                 if (Event.current.button == 0 &&
                     Event.current.alt == false)
                 {
-                    dragWindowId = windowId;
+                    if (!GetAppendModifierDown())
+                    {
+                        dragWindowId = windowId;
 
-                    startDragPosition.x = block._NodeRect.x;
-                    startDragPosition.y = block._NodeRect.y;
+                        startDragPosition.x = block._NodeRect.x;
+                        startDragPosition.y = block._NodeRect.y;
+                    }
+
+                    Event.current.Use();
                 }
 
                 if (windowId < windowBlockMap.Count)
                 {
                     Undo.RecordObject(flowchart, "Select");
 
-                    SelectBlock(flowchart, block);
+                    if (GetAppendModifierDown())
+                    {
+                        if (flowchart.SelectedBlocks.Contains(block))
+                        {
+                            flowchart.SelectedBlocks.Remove(block);
+                        }
+                        else
+                        {
+                            flowchart.AddSelectedBlock(block);
+                        }
+                    }
+                    else
+                    {
+                        if (flowchart.SelectedBlocks.Contains(block))
+                        {
+                            SetBlockForInspector(flowchart, block);
+                        }
+                        else
+                        {
+                            SelectBlock(flowchart, block);
+                        }
+                    }
 
                     GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
                 }
             }
 
             bool selected = false;
-            if (flowchart.SelectedBlock != null &&
-                flowchart.SelectedBlock.Equals(block))
+            if (flowchart.SelectedBlocks.Contains(block))
             {
                 selected = true;
             }
@@ -699,7 +817,7 @@ namespace Fungus.EditorUtils
 
             nodeStyleCopy.normal.background = offTex;
             GUI.backgroundColor = tintColor;
-            GUI.Box(GUILayoutUtility.GetLastRect(), block.BlockName, nodeStyleCopy);
+            GUI.Box(boxRect, block.BlockName, nodeStyleCopy);
 
             GUI.backgroundColor = Color.white;
 
@@ -712,10 +830,14 @@ namespace Fungus.EditorUtils
 
             if (Event.current.type == EventType.ContextClick)
             {
+                flowchart.AddSelectedBlock(block);
+
                 GenericMenu menu = new GenericMenu ();
                 
-                menu.AddItem(new GUIContent ("Duplicate"), false, DuplicateBlock, block);
-                menu.AddItem(new GUIContent ("Delete"), false, DeleteBlock, block);
+                // Use a copy because flowchart.SelectedBlocks gets modified
+                var blockList = new List<Block>(flowchart.SelectedBlocks);
+                menu.AddItem(new GUIContent ("Duplicate"), false, DuplicateBlocks, blockList);
+                menu.AddItem(new GUIContent ("Delete"), false, DeleteBlocks, blockList);
 
                 menu.ShowAsContext();           
             }
@@ -833,61 +955,68 @@ namespace Fungus.EditorUtils
             GUI.Label(dotBRect, "", new GUIStyle("U2D.dragDotActive"));
         }
 
-        public static void DeleteBlock(object obj)
+        public static void DeleteBlocks(object obj)
         {
-            var block = obj as Block;
-            FlowchartWindow.deleteList.Add(block);
+            var blocks = obj as List<Block>;
+            blocks.ForEach(block => FlowchartWindow.deleteList.Add(block));
         }
         
-        protected static void DuplicateBlock(object obj)
+        protected static void DuplicateBlocks(object obj)
         {
             var flowchart = GetFlowchart();
-            Block block = obj as Block;
 
-            Vector2 newPosition = new Vector2(block._NodeRect.position.x + 
+            Undo.RecordObject(flowchart, "Select");
+            flowchart.ClearSelectedBlocks();
+
+            var blocks = obj as List<Block>;
+
+            foreach (var block in blocks)
+            {
+                Vector2 newPosition = new Vector2(block._NodeRect.position.x + 
                                               block._NodeRect.width + 20, 
                                               block._NodeRect.y);
 
-            Block oldBlock = block;
+                Block oldBlock = block;
 
-            Block newBlock = FlowchartWindow.CreateBlock(flowchart, newPosition);
-            newBlock.BlockName = flowchart.GetUniqueBlockKey(oldBlock.BlockName + " (Copy)");
+                Block newBlock = FlowchartWindow.CreateBlock(flowchart, newPosition);
+                newBlock.BlockName = flowchart.GetUniqueBlockKey(oldBlock.BlockName + " (Copy)");
 
-            Undo.RecordObject(newBlock, "Duplicate Block");
+                Undo.RecordObject(newBlock, "Duplicate Block");
 
-            var commandList = oldBlock.CommandList;
-            foreach (var command in commandList)
-            {
-                if (ComponentUtility.CopyComponent(command))
+                var commandList = oldBlock.CommandList;
+                foreach (var command in commandList)
                 {
-                    if (ComponentUtility.PasteComponentAsNew(flowchart.gameObject))
+                    if (ComponentUtility.CopyComponent(command))
                     {
-                        Command[] commands = flowchart.GetComponents<Command>();
-                        Command pastedCommand = commands.Last<Command>();
-                        if (pastedCommand != null)
+                        if (ComponentUtility.PasteComponentAsNew(flowchart.gameObject))
                         {
-                            pastedCommand.ItemId = flowchart.NextItemId();
-                            newBlock.CommandList.Add(pastedCommand);
+                            Command[] commands = flowchart.GetComponents<Command>();
+                            Command pastedCommand = commands.Last<Command>();
+                            if (pastedCommand != null)
+                            {
+                                pastedCommand.ItemId = flowchart.NextItemId();
+                                newBlock.CommandList.Add(pastedCommand);
+                            }
                         }
+                        
+                        // This stops the user pasting the command manually into another game object.
+                        ComponentUtility.CopyComponent(flowchart.transform);
                     }
-                    
-                    // This stops the user pasting the command manually into another game object.
-                    ComponentUtility.CopyComponent(flowchart.transform);
                 }
-            }
 
-            if (oldBlock._EventHandler != null)
-            {
-                if (ComponentUtility.CopyComponent(oldBlock._EventHandler))
+                if (oldBlock._EventHandler != null)
                 {
-                    if (ComponentUtility.PasteComponentAsNew(flowchart.gameObject))
+                    if (ComponentUtility.CopyComponent(oldBlock._EventHandler))
                     {
-                        EventHandler[] eventHandlers = flowchart.GetComponents<EventHandler>();
-                        EventHandler pastedEventHandler = eventHandlers.Last<EventHandler>();
-                        if (pastedEventHandler != null)
+                        if (ComponentUtility.PasteComponentAsNew(flowchart.gameObject))
                         {
-                            pastedEventHandler.ParentBlock = newBlock;
-                            newBlock._EventHandler = pastedEventHandler;
+                            EventHandler[] eventHandlers = flowchart.GetComponents<EventHandler>();
+                            EventHandler pastedEventHandler = eventHandlers.Last<EventHandler>();
+                            if (pastedEventHandler != null)
+                            {
+                                pastedEventHandler.ParentBlock = newBlock;
+                                newBlock._EventHandler = pastedEventHandler;
+                            }
                         }
                     }
                 }
@@ -909,6 +1038,16 @@ namespace Fungus.EditorUtils
             EditorUtility.SetDirty(blockInspector);
         }
 
+        protected static void SetBlockForInspector(Flowchart flowchart, Block block)
+        {
+            ShowBlockInspector(flowchart);
+            flowchart.ClearSelectedCommands();
+            if (block.ActiveCommand != null)
+            {
+                flowchart.AddSelectedCommand(block.ActiveCommand);
+            }
+        }
+
         /// <summary>
         /// Displays a temporary text alert in the center of the Flowchart window.
         /// </summary>
@@ -919,6 +1058,11 @@ namespace Fungus.EditorUtils
             {
                 window.ShowNotification(new GUIContent(notificationText));
             }
+        }
+
+         protected virtual bool GetAppendModifierDown()
+        {
+            return Event.current.shift || EditorGUI.actionKey;
         }
     }
 }

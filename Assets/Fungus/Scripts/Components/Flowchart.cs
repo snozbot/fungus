@@ -41,8 +41,7 @@ namespace Fungus
         [SerializeField] protected Rect scrollViewRect;
 
         [HideInInspector]
-        [FormerlySerializedAs("selectedSequence")]
-        [SerializeField] protected Block selectedBlock;
+        [SerializeField] protected List<Block> selectedBlocks = new List<Block>();
 
         [HideInInspector]
         [SerializeField] protected List<Command> selectedCommands = new List<Command>();
@@ -325,9 +324,22 @@ namespace Fungus
         public virtual Rect ScrollViewRect { get { return scrollViewRect; } set { scrollViewRect = value; } }
 
         /// <summary>
-        /// Currently selected block in the Flowchart editor.
+        /// Current actively selected block in the Flowchart editor.
         /// </summary>
-        public virtual Block SelectedBlock { get { return selectedBlock; } set { selectedBlock = value; } }
+        public virtual Block SelectedBlock
+        { 
+            get
+            {
+                return selectedBlocks.FirstOrDefault();
+            } 
+            set
+            {
+                selectedBlocks.Clear();
+                selectedBlocks.Add(value);
+            } 
+        }
+
+        public virtual List<Block> SelectedBlocks { get { return selectedBlocks; } set { selectedBlocks = value; } }
 
         /// <summary>
         /// Currently selected command in the Flowchart editor.
@@ -1037,6 +1049,25 @@ namespace Fungus
             if (!selectedCommands.Contains(command))
             {
                 selectedCommands.Add(command);
+            }
+        }
+
+        /// <summary>
+        /// Clears the list of selected blocks.
+        /// </summary>
+        public virtual void ClearSelectedBlocks()
+        {
+            selectedBlocks.Clear();
+        }
+
+        /// <summary>
+        /// Adds a block to the list of selected blocks.
+        /// </summary>
+        public virtual void AddSelectedBlock(Block block)
+        {
+            if (!selectedBlocks.Contains(block))
+            {
+                selectedBlocks.Add(block);
             }
         }
 
