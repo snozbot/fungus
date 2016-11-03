@@ -51,7 +51,7 @@ namespace Fungus
 Things to note:
 
 - using declarations all go together at the top of the file. 
-- You should remove any unused using declarations (can spot these easily with static code analysis - see below).
+- Remove any unused using declarations (can spot these easily with static code analysis - see below).
 - Runtime code goes in the Fungus namespace. 
 - Editor code goes in the Fungus.EditorUtils namespace.
 - All public classes, structs, enums and class members should be documented using xml comments.
@@ -78,4 +78,32 @@ These are some general best practices when writing code for %Fungus. Where these
 - Use Mathf.Approximately when comparing float variables to constants.
 - Treat compiler warnings as errors. There should be zero warnings at build or runtime in normal operation.
 - Add global constants to FungusConstants.cs
-- Always try to maintain backwards compatibility when introducing changes. We support Unity 5.0+ so beware of API differences in newer versions.
+
+# Backwards compatibility # {#backwards_compatibility}
+
+We aim to maintain backwards compatibility with each new release (to a reasonable extent).
+
+- Projects should work correctly after upgrading to a newer %Fungus version. Minor behavior changes are acceptable.
+- Custom code which uses the %Fungus API should compile without error after upgrading. Minor compile errors that are trivial to fix are sometimes acceptable.
+- There are loads of %Fungus tutorial videos and articles on the Internet, so avoid changing the UI too dramatically. Small UI tweaks and adding new controls is acceptable.
+- We support Unity 5.0+ so beware of API differences in newer versions. If in doubt, install Unity 5.0 and test your changes.
+
+# Contributing # {#contributing}
+
+We welcome pull requests from everyone. By contributing to this project, you agree to abide by the @ref code_of_conduct. You also agree that by submitting a pull request for this project, your contribution will be licensed under the [Open Source license] for this project.
+
+- Fork and clone the %Fungus repo.
+- Make sure the tests pass locally (see the project readme for instructions).
+- Make your change. Add tests for your change. Make the tests pass locally.
+- Push to your fork and submit a pull request.
+
+Your pull request will have a better chance of being accepted if you do the following: 
+
+- Send one pull request for each new feature / bug fix. It's time consuming to review multi-feature changes and we won't merge a change unless we know exactly what it does.
+- Write tests for each change / new feature (not always possible)
+- Follow our coding standard (see above)
+- Write a [good commit message][commit].
+
+[commit]: http://chris.beams.io/posts/git-commit/
+[fork a repo]: https://help.github.com/articles/fork-a-repo/
+[Open Source license]: https://github.com/snozbot/Fungus/blob/master/LICENSE
