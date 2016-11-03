@@ -35,10 +35,8 @@ namespace Fungus.EditorUtils
         protected Texture2D addTexture;
 
         protected Rect selectionBox;
-        protected Vector2 startSelectionBoxPosition;
-        protected List<Block> mouseDownSelectionState;
-        
-        protected bool cursorZoom = true;
+        protected Vector2 startSelectionBoxPosition = new Vector2(-1.0f, -1.0f);
+        protected List<Block> mouseDownSelectionState = new List<Block>();
 
         [MenuItem("Tools/Fungus/Flowchart Window")]
         static void Init()
@@ -177,11 +175,6 @@ namespace Fungus.EditorUtils
 
             var newZoom = GUILayout.HorizontalSlider(flowchart.Zoom, minZoomValue, maxZoomValue, GUILayout.Width(100));
             DoZoom(flowchart, newZoom - flowchart.Zoom, Vector2.one * 0.5f);
-
-            GUILayout.Space(8);
-            var toggleStyle = new GUIStyle(GUI.skin.button);
-            toggleStyle.fontSize = 8;
-            cursorZoom = GUILayout.Toggle(cursorZoom, " Cursor\nZoom", toggleStyle, GUILayout.Width(45), GUILayout.Height(22));
 
             GUILayout.FlexibleSpace();
 
@@ -590,16 +583,9 @@ namespace Fungus.EditorUtils
             if (zoom && selectionBox.size == Vector2.zero)
             {
                 Vector2 zoomCenter;
-                if (cursorZoom)
-                {
-                    zoomCenter.x = Event.current.mousePosition.x / position.width;
-                    zoomCenter.y = Event.current.mousePosition.y / position.height;
-                    zoomCenter *= flowchart.Zoom;
-                }
-                else
-                {
-                    zoomCenter = Vector2.one * 0.5f;
-                }
+                zoomCenter.x = Event.current.mousePosition.x / position.width;
+                zoomCenter.y = Event.current.mousePosition.y / position.height;
+                zoomCenter *= flowchart.Zoom;
 
                 DoZoom(flowchart, -Event.current.delta.y * 0.01f, zoomCenter);
             }
