@@ -95,24 +95,16 @@ namespace Fungus.EditorUtils
             // The docked value doesn't always report correctly without the delayCall
             EditorApplication.delayCall += () => {
                 var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-                var dockedProperty = typeof(EditorWindow).GetProperty("docked", flags);
-
-                if (dockedProperty != null)
+                var isDockedMethod = typeof(EditorWindow).GetProperty("docked", flags).GetGetMethod(true);
+                if ((bool) isDockedMethod.Invoke(this, null))
                 {
-                    var isDockedMethod = dockedProperty.GetGetMethod(true);
-                    if (isDockedMethod != null)
-                    {
-                        if ((bool) isDockedMethod.Invoke(this, null))
-                        {
-                            EditorZoomArea.Offset = new Vector2(2.0f, 19.0f);
-                        }
-                        else
-                        {
-                            EditorZoomArea.Offset = new Vector2(0.0f, 22.0f);
-                        }
-                    } 
+                    EditorZoomArea.Offset = new Vector2(2.0f, 19.0f);
                 }
-            };    
+                else
+                {
+                    EditorZoomArea.Offset = new Vector2(0.0f, 22.0f);
+                }
+            };
         }
 
         public static Flowchart GetFlowchart()
@@ -204,15 +196,6 @@ namespace Fungus.EditorUtils
                 flowchart.Zoom, minZoomValue, maxZoomValue, GUILayout.MinWidth(40), GUILayout.MaxWidth(100)
             );
             GUILayout.Label(flowchart.Zoom.ToString("0.0#x"), EditorStyles.miniLabel, GUILayout.Width(30));
-
-            if (GUILayout.Button("Min", EditorStyles.toolbarButton))
-            {
-                newZoom = minZoomValue;
-            }
-            if (GUILayout.Button("Max", EditorStyles.toolbarButton))
-            {
-                newZoom = maxZoomValue;
-            }
 
             DoZoom(flowchart, newZoom - flowchart.Zoom, Vector2.one * 0.5f);
 
