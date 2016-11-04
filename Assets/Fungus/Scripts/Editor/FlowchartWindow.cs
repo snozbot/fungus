@@ -95,16 +95,24 @@ namespace Fungus.EditorUtils
             // The docked value doesn't always report correctly without the delayCall
             EditorApplication.delayCall += () => {
                 var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-                var isDockedMethod = typeof(EditorWindow).GetProperty("docked", flags).GetGetMethod(true);
-                if ((bool) isDockedMethod.Invoke(this, null))
+                var dockedProperty = typeof(EditorWindow).GetProperty("docked", flags);
+
+                if (dockedProperty != null)
                 {
-                    EditorZoomArea.Offset = new Vector2(2.0f, 19.0f);
+                    var isDockedMethod = dockedProperty.GetGetMethod(true);
+                    if (isDockedMethod != null)
+                    {
+                        if ((bool) isDockedMethod.Invoke(this, null))
+                        {
+                            EditorZoomArea.Offset = new Vector2(2.0f, 19.0f);
+                        }
+                        else
+                        {
+                            EditorZoomArea.Offset = new Vector2(0.0f, 22.0f);
+                        }
+                    } 
                 }
-                else
-                {
-                    EditorZoomArea.Offset = new Vector2(0.0f, 22.0f);
-                }
-            };
+            };    
         }
 
         public static Flowchart GetFlowchart()
