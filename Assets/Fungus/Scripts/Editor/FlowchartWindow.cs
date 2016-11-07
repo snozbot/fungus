@@ -210,7 +210,10 @@ namespace Fungus.EditorUtils
             );
             GUILayout.Label(flowchart.Zoom.ToString("0.0#x"), EditorStyles.miniLabel, GUILayout.Width(30));
 
-            DoZoom(flowchart, newZoom - flowchart.Zoom, Vector2.one * 0.5f);
+            if (newZoom != flowchart.Zoom)
+            {
+                DoZoom(flowchart, newZoom - flowchart.Zoom, Vector2.one * 0.5f);
+            }
 
             if (GUILayout.Button("Center", EditorStyles.toolbarButton))
             {
