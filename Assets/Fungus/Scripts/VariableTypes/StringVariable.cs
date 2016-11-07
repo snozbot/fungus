@@ -96,7 +96,7 @@ namespace Fungus
         [VariableProperty("<Value>", typeof(StringVariable))]
         public StringVariable stringRef;
 
-        [TextArea(1,10)]
+        [TextArea(1,15)]
         [SerializeField]
         public string stringVal;
 
