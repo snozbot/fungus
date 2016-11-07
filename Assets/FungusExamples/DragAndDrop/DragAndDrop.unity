@@ -608,47 +608,6 @@ CircleCollider2D:
   m_PrefabParentObject: {fileID: 5800000, guid: 4442b79fcbcbb4aac97f42d6dc3d4e0b,
     type: 2}
   m_PrefabInternal: {fileID: 442175927}
---- !u!1 &807929237
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 807929239}
-  - 114: {fileID: 807929238}
-  m_Layer: 0
-  m_Name: TestRunner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &807929238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 807929237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3afc1c624179749bcdecf7b0224902, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentTest: {fileID: 0}
---- !u!4 &807929239
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 807929237}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
 --- !u!1 &1081858233 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 4d55f86cf3b124c8fb1158da26ffa96d, type: 2}
@@ -979,7 +938,7 @@ MonoBehaviour:
     y: -452
     width: 1887
     height: 1080
-  selectedBlock: {fileID: 2019116698}
+  selectedBlocks: []
   selectedCommands: []
   variables: []
   description: 'This scene shows how to set up a drag-and-drop
@@ -1011,6 +970,8 @@ MonoBehaviour:
     y: 29
     width: 197
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 17
   blockName: Drag Completed
   description: 
@@ -1221,6 +1182,8 @@ MonoBehaviour:
     y: 132
     width: 197
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 16
   blockName: Drag Exited
   description: 
@@ -1275,6 +1238,8 @@ MonoBehaviour:
     y: 133
     width: 197
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 15
   blockName: Drag Entered
   description: 
@@ -1313,6 +1278,8 @@ MonoBehaviour:
     y: 30
     width: 136
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 14
   blockName: Drag Cancelled
   description: 
@@ -1351,6 +1318,8 @@ MonoBehaviour:
     y: 27
     width: 136
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 13
   blockName: Drag Start
   description: 
@@ -1504,6 +1473,8 @@ MonoBehaviour:
     y: 29
     width: 137
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 18
   blockName: Object Clicked 1
   description: 
@@ -1527,6 +1498,8 @@ MonoBehaviour:
     y: 31
     width: 137
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 19
   blockName: Object Clicked 2
   description: 
@@ -1611,6 +1584,8 @@ MonoBehaviour:
     y: -50
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 20
   blockName: Start
   description: 
@@ -1629,6 +1604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 2019116698}
+  waitForFrames: 1
 --- !u!1 &2096462794
 GameObject:
   m_ObjectHideFlags: 0

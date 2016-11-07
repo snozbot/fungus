@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 574033268}
+  waitForFrames: 1
 --- !u!114 &574033268
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -349,6 +350,8 @@ MonoBehaviour:
     y: 68.96694
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 0
   blockName: Start
   description: 
@@ -381,7 +384,7 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlock: {fileID: 574033268}
+  selectedBlocks: []
   selectedCommands:
   - {fileID: 574033272}
   variables: []
@@ -903,7 +906,7 @@ MonoBehaviour:
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: a92b08a118b7d46f59dd091acb2e4102, type: 3}
+  - {fileID: 21300000, guid: e8a9122c4dc10b14da3b625e1f2634c9, type: 3}
   - {fileID: 21300000, guid: 03bc547cc0049594bae51f00903eedef, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 1231398849}
@@ -954,7 +957,7 @@ MonoBehaviour:
   soundEffect: {fileID: 0}
   portraits:
   - {fileID: 21300000, guid: 8f5b5b110e73a414eb229eeead86200f, type: 3}
-  - {fileID: 21300000, guid: c779e34c6eb8e45da98c70cf2802a54c, type: 3}
+  - {fileID: 21300000, guid: 84cdbfde1b7d4c24ab7071894480d5db, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 1958712152}
   description: 

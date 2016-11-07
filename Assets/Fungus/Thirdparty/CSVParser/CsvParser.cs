@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Ideafixxxer.CsvParser
 {
@@ -190,28 +191,36 @@ namespace Ideafixxxer.CsvParser
 			var context = new ParserContext();
 
 			// Handle both Windows and Mac line endings
-			string[] lines = csvData.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+			var lines = Regex.Split(csvData, "\n|\r\n");
 
 			ParserState currentState = ParserState.LineStartState;
-			foreach (string next in lines)
-			{
-				foreach (char ch in next)
+			for (int i = 0; i < lines.Length; i++) {
+				var next = lines [i];
+
+				// Skip empty entries
+				if (next.Length == 0)
 				{
-					switch (ch)
-					{
+					continue;
+				}
+
+				for (int j = 0; j < next.Length; j++) {
+					var ch = next [j];
+
+					switch (ch) {
 					case CommaCharacter:
-						currentState = currentState.Comma(context);
+						currentState = currentState.Comma (context);
 						break;
 					case QuoteCharacter:
-						currentState = currentState.Quote(context);
+						currentState = currentState.Quote (context);
 						break;
 					default:
-						currentState = currentState.AnyChar(ch, context);
+						currentState = currentState.AnyChar (ch, context);
 						break;
 					}
 				}
-				currentState = currentState.EndOfLine(context);
+				currentState = currentState.EndOfLine (context);
 			}
+
 			List<string[]> allLines = context.GetAllLines();
 			return allLines.ToArray();
 		}
