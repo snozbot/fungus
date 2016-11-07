@@ -3,8 +3,8 @@
 
 using UnityEngine;
 using UnityEditor;
-using System.IO;
 using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -24,7 +24,7 @@ namespace Fungus.EditorUtils
 			// Get first folder named "Fungus Editor Resources"
 			var rootGuid = AssetDatabase.FindAssets("\"Fungus Editor Resources\"")[0];
 			var root = AssetDatabase.GUIDToAssetPath(rootGuid);
-			var guids = AssetDatabase.FindAssets("t:Texture2D", new string[] { root });
+			var guids = AssetDatabase.FindAssets("t:Texture2D", new [] { root });
 			var paths = guids.Select(guid => AssetDatabase.GUIDToAssetPath(guid)).OrderBy(path => path.ToLower().Contains("/pro/"));
 
 			foreach (var path in paths)
@@ -33,7 +33,7 @@ namespace Fungus.EditorUtils
 				{
 					return;
 				}
-				var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+				var texture = AssetDatabase.LoadAssetAtPath(path, typeof(Texture2D)) as Texture2D;
 				textures[texture.name] = texture;
 			}
 		}
@@ -43,7 +43,7 @@ namespace Fungus.EditorUtils
 		{
 			var guid = AssetDatabase.FindAssets("FungusEditorResources t:MonoScript")[0];
 			var relativePath = AssetDatabase.GUIDToAssetPath(guid).Replace("FungusEditorResources.cs", "FungusEditorResourcesGenerated.cs");
-			var absolutePath = Application.dataPath + relativePath.Substring("Assets".Length);//
+			var absolutePath = Application.dataPath + relativePath.Substring("Assets".Length);
 			
 			using (var writer = new StreamWriter(absolutePath))
 			{
@@ -63,7 +63,7 @@ namespace Fungus.EditorUtils
 					var pascalCase = string.Join("", name.Split(new [] { '_' }, StringSplitOptions.RemoveEmptyEntries).Select(
 						s => s.Substring(0, 1).ToUpper() + s.Substring(1)).ToArray()
 					);
-					writer.WriteLine("\t\tpublic static Texture2D " + pascalCase + " { get { return textures[\"" + name + "\"]; } }");
+					writer.WriteLine("\t\tpublic static Texture2D " + pascalCase + " { get { return GetTexture(\"" + name + "\"); } }");
 				}
 
 				writer.WriteLine("\t}");
@@ -71,6 +71,17 @@ namespace Fungus.EditorUtils
 			}
 
 			AssetDatabase.ImportAsset(relativePath);
+		}
+
+		private static Texture2D GetTexture(string name)
+		{
+			Texture2D texture;
+			if (!textures.TryGetValue(name, out texture))
+			{
+				Debug.LogWarning("Texture \"" + name + "\" not found!");
+			}
+			
+			return texture;
 		}
 	}
 }
