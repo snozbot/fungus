@@ -30,7 +30,7 @@ namespace Fungus
             var flowchart = GetFlowchart();
             
             // Prepend the current save profile (if any)
-            string prefsKey = SetSaveProfile.saveProfile + "_" + flowchart.SubstituteVariables(key);
+            string prefsKey = SetSaveProfile.SaveProfile + "_" + flowchart.SubstituteVariables(key);
             
             PlayerPrefs.DeleteKey(prefsKey);
 

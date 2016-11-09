@@ -44,9 +44,9 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(descriptionProp);
             
             BlockEditor.BlockField(targetBlockProp,
-                                         new GUIContent("Target Block", "Block to call when option is selected"), 
-                                         new GUIContent("<None>"), 
-                                         flowchart);
+                                   new GUIContent("Target Block", "Block to call when option is selected"), 
+                                   new GUIContent("<None>"), 
+                                   flowchart);
             
             EditorGUILayout.PropertyField(hideIfVisitedProp);
             EditorGUILayout.PropertyField(interactableProp);

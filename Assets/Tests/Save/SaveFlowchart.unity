@@ -303,13 +303,15 @@ GameObject:
   - 4: {fileID: 1728985436}
   - 114: {fileID: 1728985435}
   - 114: {fileID: 1728985434}
-  - 114: {fileID: 1728985433}
   - 114: {fileID: 1728985432}
   - 114: {fileID: 1728985431}
   - 114: {fileID: 1728985430}
   - 114: {fileID: 1728985429}
-  - 114: {fileID: 1728985437}
   - 114: {fileID: 1728985438}
+  - 114: {fileID: 1728985439}
+  - 114: {fileID: 1728985441}
+  - 114: {fileID: 1728985440}
+  - 114: {fileID: 1728985437}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -373,20 +375,6 @@ MonoBehaviour:
   scope: 0
   key: StringVar
   value: One
---- !u!114 &1728985433
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11462346, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1728985428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentBlock: {fileID: 1728985434}
-  waitForFrames: 1
 --- !u!114 &1728985434
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -408,11 +396,11 @@ MonoBehaviour:
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
   itemId: 0
-  blockName: New Block
+  blockName: Save
   description: 
-  eventHandler: {fileID: 1728985433}
+  eventHandler: {fileID: 1728985440}
   commandList:
-  - {fileID: 1728985437}
+  - {fileID: 1728985441}
 --- !u!114 &1728985435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,11 +421,12 @@ MonoBehaviour:
   zoom: 0.98893297
   scrollViewRect:
     serializedVersion: 2
-    x: -343
-    y: -340
-    width: 1114
-    height: 859
-  selectedBlocks: []
+    x: -351.0967
+    y: -353.54834
+    width: 1199.0886
+    height: 873.3693
+  selectedBlocks:
+  - {fileID: 1728985434}
   selectedCommands: []
   variables:
   - {fileID: 1728985432}
@@ -470,18 +459,29 @@ Transform:
   m_RootOrder: 2
 --- !u!114 &1728985437
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1728985428}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b115619cb83b4d6ab8047d0e9407403, type: 3}
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 1
+  itemId: 4
   indentLevel: 0
-  restoreBlock: 
+  storyText: Resumed ok!
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  setSayDialog: {fileID: 0}
 --- !u!114 &1728985438
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -496,3 +496,59 @@ MonoBehaviour:
   scope: 0
   key: StringVar2
   value: Two
+--- !u!114 &1728985439
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1728985428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 266.3094
+    y: 70.72026
+    width: 120
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 2
+  blockName: Resume
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1728985437}
+--- !u!114 &1728985440
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1728985428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000864f8e9e1748a39807861d0e60e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 1728985434}
+  keyPressType: 0
+  keyCode: 115
+--- !u!114 &1728985441
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1728985428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b115619cb83b4d6ab8047d0e9407403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 3
+  indentLevel: 0
+  saveKey:
+    stringRef: {fileID: 0}
+    stringVal: savedata
+  resumeBlock: {fileID: 1728985439}
