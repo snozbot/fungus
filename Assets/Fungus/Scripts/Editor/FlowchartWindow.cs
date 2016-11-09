@@ -42,6 +42,7 @@ namespace Fungus.EditorUtils
         // Context Click occurs on MouseDown which interferes with panning
         // Track right click positions manually to show menus on MouseUp
         protected Vector2 rightClickDown = -Vector2.one;
+        protected readonly float rightClickTolerance = 5f;
 
         [MenuItem("Tools/Fungus/Flowchart Window")]
         static void Init()
@@ -310,7 +311,10 @@ namespace Fungus.EditorUtils
                 }
                 else if (Event.current.type == EventType.MouseDrag)
                 {
-                    rightClickDown = -Vector2.one;
+                    if (Vector2.Distance(rightClickDown, Event.current.mousePosition) > rightClickTolerance)
+                    {
+                        rightClickDown = -Vector2.one;
+                    }
                 }
             }
 
@@ -487,7 +491,7 @@ namespace Fungus.EditorUtils
             
             // Handle right click up outside of EditorZoomArea to avoid strange offsets
             if (Event.current.type == EventType.MouseUp && Event.current.button == 1 &&
-                Event.current.mousePosition == rightClickDown && !mouseOverVariables)
+                rightClickDown != -Vector2.one && !mouseOverVariables)
             {
                 var menu = new GenericMenu();
                 var mousePosition = rightClickDown;
