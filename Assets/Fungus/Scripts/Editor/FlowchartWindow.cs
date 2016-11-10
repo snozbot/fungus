@@ -473,7 +473,7 @@ namespace Fungus.EditorUtils
                             GUI.color = new Color(1f, 1f, 1f, alpha); 
                         }
 
-                        if (GUI.Button(rect, FungusEditorResources.PlayBig as Texture, new GUIStyle()))
+                        if (GUI.Button(rect, FungusEditorResources.PlayBig, new GUIStyle()))
                         {
                             SelectBlock(flowchart, b);
                         }
