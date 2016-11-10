@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 115525222}
+  waitForFrames: 1
 --- !u!114 &115525222
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -181,6 +182,8 @@ MonoBehaviour:
     y: 70
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 0
   blockName: Start
   description: 
@@ -212,7 +215,7 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlock: {fileID: 115525222}
+  selectedBlocks: []
   selectedCommands: []
   variables: []
   description: 
@@ -301,6 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 169310214}
+  waitForFrames: 1
 --- !u!114 &169310214
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -319,6 +323,8 @@ MonoBehaviour:
     y: 69
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 0
   blockName: Start
   description: 
@@ -350,7 +356,7 @@ MonoBehaviour:
     y: -350
     width: 1126
     height: 869
-  selectedBlock: {fileID: 0}
+  selectedBlocks: []
   selectedCommands: []
   variables: []
   description: If none of the other Flowcharts have Failed then this one will succeed
@@ -404,7 +410,7 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlock: {fileID: 0}
+  selectedBlocks: []
   selectedCommands: []
   variables:
   - {fileID: 178675537}
@@ -690,6 +696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 265055379}
+  waitForFrames: 1
 --- !u!114 &265055379
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -707,6 +714,8 @@ MonoBehaviour:
     y: 70
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 1
   blockName: BlockB
   description: The block that does the stopping
@@ -733,6 +742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 265055381}
+  waitForFrames: 1
 --- !u!114 &265055381
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -751,6 +761,8 @@ MonoBehaviour:
     y: 70
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 0
   blockName: BlockA
   description: The block to be stopped
@@ -782,7 +794,7 @@ MonoBehaviour:
     y: -350
     width: 1121
     height: 869
-  selectedBlock: {fileID: 265055379}
+  selectedBlocks: []
   selectedCommands: []
   variables:
   - {fileID: 265055376}
@@ -890,7 +902,7 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 892
-  selectedBlock: {fileID: 396492930}
+  selectedBlocks: []
   selectedCommands:
   - {fileID: 396492940}
   variables:
@@ -967,6 +979,8 @@ MonoBehaviour:
     y: 111
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 0
   blockName: Start
   description: 
@@ -1035,6 +1049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 396492930}
+  waitForFrames: 1
 --- !u!114 &396492934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1357,6 +1372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 491823362}
+  waitForFrames: 1
 --- !u!114 &491823362
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1375,6 +1391,8 @@ MonoBehaviour:
     y: 70
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 0
   blockName: Start
   description: 
@@ -1412,7 +1430,8 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlock: {fileID: 491823362}
+  selectedBlocks:
+  - {fileID: 491823362}
   selectedCommands: []
   variables:
   - {fileID: 491823359}
@@ -1523,6 +1542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 575910004}
+  waitForFrames: 1
 --- !u!114 &575910004
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1540,6 +1560,8 @@ MonoBehaviour:
     y: 75
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 2
   blockName: New Block
   description: 
@@ -1585,6 +1607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 575910007}
+  waitForFrames: 1
 --- !u!114 &575910007
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1603,6 +1626,8 @@ MonoBehaviour:
     y: 69
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 0
   blockName: Start
   description: 
@@ -1634,7 +1659,7 @@ MonoBehaviour:
     y: -350
     width: 1126
     height: 869
-  selectedBlock: {fileID: 575910007}
+  selectedBlocks: []
   selectedCommands: []
   variables: []
   description: Test if interupting a Say command works
@@ -1763,6 +1788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 590474778}
+  waitForFrames: 1
 --- !u!114 &590474778
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1780,6 +1806,8 @@ MonoBehaviour:
     y: 75
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 2
   blockName: New Block
   description: 
@@ -1800,6 +1828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 590474780}
+  waitForFrames: 1
 --- !u!114 &590474780
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1818,6 +1847,8 @@ MonoBehaviour:
     y: 69
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 0
   blockName: Start
   description: 
@@ -1850,7 +1881,7 @@ MonoBehaviour:
     y: -350
     width: 1126
     height: 869
-  selectedBlock: {fileID: 590474780}
+  selectedBlocks: []
   selectedCommands:
   - {fileID: 590474773}
   variables: []
@@ -1933,6 +1964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 636123607}
+  waitForFrames: 1
 --- !u!114 &636123607
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1951,6 +1983,8 @@ MonoBehaviour:
     y: 69
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 0
   blockName: Start
   description: 
@@ -1983,7 +2017,7 @@ MonoBehaviour:
     y: -350
     width: 1126
     height: 869
-  selectedBlock: {fileID: 636123607}
+  selectedBlocks: []
   selectedCommands:
   - {fileID: 636123614}
   variables: []
@@ -2054,6 +2088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 636123613}
+  waitForFrames: 1
 --- !u!114 &636123613
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2071,6 +2106,8 @@ MonoBehaviour:
     y: 75
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 2
   blockName: New Block
   description: 
@@ -2152,7 +2189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 178675536}
+  selectedFlowchart: {fileID: 675090867}
 --- !u!4 &646902075
 Transform:
   m_ObjectHideFlags: 1
@@ -2166,6 +2203,455 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1 &675090853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 142980, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 675090854}
+  - 114: {fileID: 675090867}
+  - 114: {fileID: 675090866}
+  - 114: {fileID: 675090865}
+  - 114: {fileID: 675090864}
+  - 114: {fileID: 675090863}
+  - 114: {fileID: 675090862}
+  - 114: {fileID: 675090861}
+  - 114: {fileID: 675090860}
+  - 114: {fileID: 675090859}
+  - 114: {fileID: 675090858}
+  - 114: {fileID: 675090857}
+  - 114: {fileID: 675090856}
+  - 114: {fileID: 675090873}
+  - 114: {fileID: 675090872}
+  - 114: {fileID: 675090871}
+  - 114: {fileID: 675090870}
+  - 114: {fileID: 675090869}
+  - 114: {fileID: 675090868}
+  - 114: {fileID: 675090855}
+  m_Layer: 0
+  m_Name: Flowchart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &675090854
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 467082, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1220349165}
+  m_RootOrder: 0
+--- !u!114 &675090855
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4920f47cde1a84b11ad07b7317568494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 15
+  indentLevel: 0
+--- !u!114 &675090856
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 7
+  indentLevel: 1
+  variable: {fileID: 675090859}
+  setOperator: 0
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+--- !u!114 &675090857
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 6
+  indentLevel: 2
+  variable: {fileID: 675090859}
+  setOperator: 2
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 1
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+--- !u!114 &675090858
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb77d0ce495044f6e9feb91b31798e8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 5
+  indentLevel: 1
+  variable: {fileID: 675090860}
+  setOperator: 2
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 1
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+--- !u!114 &675090859
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb91b566ceda411bad1e9d3c3243ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: j
+  value: 0
+--- !u!114 &675090860
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb91b566ceda411bad1e9d3c3243ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: i
+  value: 0
+--- !u!114 &675090861
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 4
+  indentLevel: 0
+--- !u!114 &675090862
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 663c8a7831a104d16ad7078a4dc2bd10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 3
+  indentLevel: 1
+  compareOperator: 2
+  variable: {fileID: 675090859}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 3
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+--- !u!114 &675090863
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 2
+  indentLevel: 1
+--- !u!114 &675090864
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 663c8a7831a104d16ad7078a4dc2bd10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 1
+  indentLevel: 0
+  compareOperator: 2
+  variable: {fileID: 675090860}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 3
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+--- !u!114 &675090865
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 11462346, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 675090866}
+  waitForFrames: 1
+--- !u!114 &675090866
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 11433304, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 67
+    y: 70
+    width: 120
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 0
+  blockName: Start
+  description: 
+  eventHandler: {fileID: 675090865}
+  commandList:
+  - {fileID: 675090864}
+  - {fileID: 675090856}
+  - {fileID: 675090858}
+  - {fileID: 675090862}
+  - {fileID: 675090857}
+  - {fileID: 675090863}
+  - {fileID: 675090861}
+  - {fileID: 675090873}
+  - {fileID: 675090871}
+  - {fileID: 675090872}
+  - {fileID: 675090870}
+  - {fileID: 675090869}
+  - {fileID: 675090868}
+  - {fileID: 675090855}
+--- !u!114 &675090867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11430050, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  scrollPos: {x: 0, y: 0}
+  variablesScrollPos: {x: 0, y: 0}
+  variablesExpanded: 1
+  blockViewHeight: 400
+  zoom: 1
+  scrollViewRect:
+    serializedVersion: 2
+    x: -343
+    y: -340
+    width: 1114
+    height: 859
+  selectedBlocks: []
+  selectedCommands: []
+  variables:
+  - {fileID: 675090860}
+  - {fileID: 675090859}
+  description: Check if nested while loops work correctly
+  stepPause: 0
+  colorCommands: 1
+  hideComponents: 1
+  saveSelection: 1
+  localizationId: 
+  showLineNumbers: 0
+  hideCommands: []
+  luaEnvironment: {fileID: 0}
+  luaBindingName: flowchart
+--- !u!114 &675090868
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 14
+  indentLevel: 0
+--- !u!114 &675090869
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dcb71131f45b47fead560a97ef55f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 13
+  indentLevel: 1
+  failMessage: 
+--- !u!114 &675090870
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  indentLevel: 0
+  compareOperator: 1
+  variable: {fileID: 675090859}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 3
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+--- !u!114 &675090871
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dcb71131f45b47fead560a97ef55f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 11
+  indentLevel: 1
+  failMessage: 
+--- !u!114 &675090872
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 10
+  indentLevel: 0
+--- !u!114 &675090873
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 675090853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 9
+  indentLevel: 0
+  compareOperator: 1
+  variable: {fileID: 675090860}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 3
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
 --- !u!1 &676156674
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,6 +3099,57 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1141004796}
+--- !u!1 &1220349163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1220349165}
+  - 114: {fileID: 1220349164}
+  m_Layer: 0
+  m_Name: NestedWhileTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1220349164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1220349163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeout: 5
+  ignored: 0
+  succeedAfterAllAssertionsAreExecuted: 0
+  expectException: 0
+  expectedExceptionList: 
+  succeedWhenExceptionIsThrown: 0
+  includedPlatforms: -1
+  platformsToIgnore: []
+  dynamic: 0
+  dynamicTypeName: 
+--- !u!4 &1220349165
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1220349163}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 675090854}
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
 --- !u!1 &1314799789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2628,7 +3165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1314799790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2892,7 +3429,7 @@ MonoBehaviour:
     y: -351
     width: 1161
     height: 873
-  selectedBlock: {fileID: 1618689131}
+  selectedBlocks: []
   selectedCommands:
   - {fileID: 1618689150}
   variables:
@@ -3022,6 +3559,8 @@ MonoBehaviour:
     y: 69
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 0
   blockName: Test Invoke
   description: 
@@ -3050,6 +3589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 1618689131}
+  waitForFrames: 1
 --- !u!4 &1618689133
 Transform:
   m_ObjectHideFlags: 0
@@ -3427,6 +3967,8 @@ MonoBehaviour:
     y: 68
     width: 156
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 11
   blockName: Test Delayed Invoke
   description: This block gets executed by last command in Test Invoke
@@ -3664,7 +4206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  remoteDebugger: 0
 --- !u!114 &1753646198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4103,6 +4644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 1982550313}
+  waitForFrames: 1
 --- !u!114 &1982550313
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4121,6 +4663,8 @@ MonoBehaviour:
     y: 70
     width: 120
     height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
   itemId: 0
   blockName: Start
   description: 
@@ -4156,7 +4700,7 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlock: {fileID: 1982550313}
+  selectedBlocks: []
   selectedCommands: []
   variables:
   - {fileID: 1982550310}
