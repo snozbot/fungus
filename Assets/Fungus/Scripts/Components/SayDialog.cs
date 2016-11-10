@@ -37,6 +37,9 @@ namespace Fungus
         [Tooltip("Adjust width of story text when Character Image is displayed (to avoid overlapping)")]
         [SerializeField] protected bool fitTextWithImage = true;
 
+        [Tooltip("Close any other open Say Dialogs when this one is active")]
+        [SerializeField] protected bool closeOtherDialogs;
+
         protected float startStoryTextWidth; 
         protected float startStoryTextInset;
 
@@ -452,6 +455,17 @@ namespace Fungus
                 }
             }
 
+            if (closeOtherDialogs)
+            {
+                for (int i = 0; i < activeSayDialogs.Count; i++)
+                {
+                    var sd = activeSayDialogs[i];
+                    if (sd.gameObject != gameObject)
+                    {
+                        sd.SetActive(false);
+                    }
+                }
+            }
             gameObject.SetActive(true);
 
             this.fadeWhenDone = fadeWhenDone;
