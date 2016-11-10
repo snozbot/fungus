@@ -7,6 +7,24 @@ namespace Fungus.EditorUtils
 {
 	internal static partial class FungusEditorResources
 	{
+		private static readonly string[] resourceNames = new [] {
+			"add",
+			"add_small",
+			"delete",
+			"down",
+			"duplicate",
+			"up",
+			"choice_node_off",
+			"choice_node_on",
+			"command_background",
+			"event_node_off",
+			"event_node_on",
+			"play_big",
+			"play_small",
+			"process_node_off",
+			"process_node_on",
+		};
+
 		public static Texture2D Add { get { return GetTexture("add"); } }
 		public static Texture2D AddSmall { get { return GetTexture("add_small"); } }
 		public static Texture2D Delete { get { return GetTexture("delete"); } }

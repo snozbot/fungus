@@ -16,17 +16,32 @@ namespace Fungus.EditorUtils
 		
 		static FungusEditorResources()
 		{
-			LoadResourceAssets();
+			LoadTexturesFromNames();
 		}
 
-		private static void LoadResourceAssets()
+		private static void LoadTexturesFromNames()
 		{
-			// Get first folder named "Fungus Editor Resources"
+			var baseDirectories = AssetDatabase.FindAssets("\"Fungus Editor Resources\"").Select(
+				guid => AssetDatabase.GUIDToAssetPath(guid)
+			).ToArray();
+			
+			foreach (var name in resourceNames)
+			{
+				LoadTexturesFromGUIDs(AssetDatabase.FindAssets(name + " t:Texture2D", baseDirectories));
+			}
+		}
+
+		private static void LoadAllTexturesInFolder()
+		{
 			var rootGuid = AssetDatabase.FindAssets("\"Fungus Editor Resources\"")[0];
 			var root = AssetDatabase.GUIDToAssetPath(rootGuid);
-			var guids = AssetDatabase.FindAssets("t:Texture2D", new [] { root });
-			var paths = guids.Select(guid => AssetDatabase.GUIDToAssetPath(guid)).OrderBy(path => path.ToLower().Contains("/pro/"));
+			LoadTexturesFromGUIDs(AssetDatabase.FindAssets("t:Texture2D", new [] { root }));
+		}
 
+		private static void LoadTexturesFromGUIDs(string[] guids)
+		{
+			var paths = guids.Select(guid => AssetDatabase.GUIDToAssetPath(guid)).OrderBy(path => path.ToLower().Contains("/pro/"));
+			
 			foreach (var path in paths)
 			{
 				if (path.ToLower().Contains("/pro/") && !EditorGUIUtility.isProSkin)
@@ -41,6 +56,9 @@ namespace Fungus.EditorUtils
 		[MenuItem("Tools/Fungus/Utilities/Update Editor Resources Script")]
 		private static void GenerateResourcesScript()
 		{
+			textures.Clear();
+			LoadAllTexturesInFolder();
+
 			var guid = AssetDatabase.FindAssets("FungusEditorResources t:MonoScript")[0];
 			var relativePath = AssetDatabase.GUIDToAssetPath(guid).Replace("FungusEditorResources.cs", "FungusEditorResourcesGenerated.cs");
 			var absolutePath = Application.dataPath + relativePath.Substring("Assets".Length);
@@ -56,6 +74,15 @@ namespace Fungus.EditorUtils
 				writer.WriteLine("{");
 				writer.WriteLine("\tinternal static partial class FungusEditorResources");
 				writer.WriteLine("\t{");
+				writer.WriteLine("\t\tprivate static readonly string[] resourceNames = new [] {");
+				
+				foreach (var pair in textures)
+				{
+					writer.WriteLine("\t\t\t\"" + pair.Key + "\",");
+				}
+
+				writer.WriteLine("\t\t};");
+				writer.WriteLine("");
 
 				foreach (var pair in textures)
 				{
