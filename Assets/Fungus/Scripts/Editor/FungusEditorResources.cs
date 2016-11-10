@@ -13,6 +13,7 @@ namespace Fungus.EditorUtils
     internal static partial class FungusEditorResources
     {
         private static Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
+        private static readonly string editorResourcesFolderName = "\"EditorResources\"";
         
         static FungusEditorResources()
         {
@@ -21,7 +22,7 @@ namespace Fungus.EditorUtils
 
         private static void LoadTexturesFromNames()
         {
-            var baseDirectories = AssetDatabase.FindAssets("\"Fungus Editor Resources\"").Select(
+            var baseDirectories = AssetDatabase.FindAssets(editorResourcesFolderName).Select(
                 guid => AssetDatabase.GUIDToAssetPath(guid)
             ).ToArray();
             
@@ -33,7 +34,7 @@ namespace Fungus.EditorUtils
 
         private static void LoadAllTexturesInFolder()
         {
-            var rootGuid = AssetDatabase.FindAssets("\"Fungus Editor Resources\"")[0];
+            var rootGuid = AssetDatabase.FindAssets(editorResourcesFolderName)[0];
             var root = AssetDatabase.GUIDToAssetPath(rootGuid);
             LoadTexturesFromGUIDs(AssetDatabase.FindAssets("t:Texture2D", new [] { root }));
         }
