@@ -113,6 +113,10 @@ namespace Fungus
 
             if (Mathf.Approximately(duration, 0f))
             {
+				if (onComplete != null)
+				{
+					onComplete();
+				}				
                 audio.volume = volume;
                 return;
             }

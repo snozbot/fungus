@@ -41,11 +41,11 @@ namespace Fungus.EditorUtils
 
         protected virtual void OnEnable()
         {
-            upIcon = Resources.Load("Icons/up") as Texture2D;
-            downIcon = Resources.Load("Icons/down") as Texture2D;
-            addIcon = Resources.Load("Icons/add") as Texture2D;
-            duplicateIcon = Resources.Load("Icons/duplicate") as Texture2D;
-            deleteIcon = Resources.Load("Icons/delete") as Texture2D;
+            upIcon = FungusEditorResources.Up;
+            downIcon = FungusEditorResources.Down;
+            addIcon = FungusEditorResources.Add;
+            duplicateIcon = FungusEditorResources.Duplicate;
+            deleteIcon = FungusEditorResources.Delete;
         }
 
         public virtual void DrawBlockName(Flowchart flowchart)
