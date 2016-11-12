@@ -8,6 +8,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+#if UNITY_5_0 || UNITY_5_1
+using System.Reflection;
+#endif
 
 namespace Fungus.EditorUtils
 {
@@ -28,6 +31,26 @@ namespace Fungus.EditorUtils
                 }
 
                 DrawDefaultInspector();
+            }
+        }
+    }
+
+    internal class EditorResourcesPostProcessor : AssetPostprocessor 
+    {
+        private static void OnPostprocessAllAssets(string[] importedAssets, string[] _, string[] __, string[] ___) 
+        {
+            foreach (var path in importedAssets)
+            {
+                if (path.EndsWith("FungusEditorResources.asset"))
+                {
+                    var asset = AssetDatabase.LoadAssetAtPath(path, typeof(FungusEditorResources)) as FungusEditorResources;
+                    if (asset != null)
+                    {
+                        FungusEditorResources.UpdateTextureReferences(asset);
+                        AssetDatabase.SaveAssets();
+                        return;
+                    }
+                }
             }
         }
     }
@@ -68,8 +91,6 @@ namespace Fungus.EditorUtils
                     {
                         instance = ScriptableObject.CreateInstance(typeof(FungusEditorResources)) as FungusEditorResources;
                         AssetDatabase.CreateAsset(instance, GetRootFolder() + "/FungusEditorResources.asset");
-                        UpdateTextureReferences(instance);
-                        AssetDatabase.SaveAssets();
                     }
                     else 
                     {
@@ -153,9 +174,9 @@ namespace Fungus.EditorUtils
             }
         }
 
-        private static void UpdateTextureReferences(FungusEditorResources instance)
+        internal static void UpdateTextureReferences(FungusEditorResources instance)
         {
-            // Iterate through all fields in class and set texture references
+            // Iterate through all fields in instance and set texture references
             var serializedObject = new SerializedObject(instance);
             var prop = serializedObject.GetIterator();
             var rootFolder = new [] { GetRootFolder() };
@@ -186,7 +207,15 @@ namespace Fungus.EditorUtils
             }
 
             instance.updateOnReloadScripts = false;
+
+            // The ApplyModifiedPropertiesWithoutUndo() function wasn't documented until Unity 5.2
+#if UNITY_5_0 || UNITY_5_1
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            var applyMethod = typeof(SerializedObject).GetMethod("ApplyModifiedPropertiesWithoutUndo", flags);
+            applyMethod.Invoke(serializedObject, null);
+#else
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
+#endif
         }
     }
 }
