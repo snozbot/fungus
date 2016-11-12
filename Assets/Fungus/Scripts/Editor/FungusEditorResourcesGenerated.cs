@@ -5,40 +5,38 @@ using UnityEngine;
 
 namespace Fungus.EditorUtils
 {
-    internal static partial class FungusEditorResources
+    internal partial class FungusEditorResources : ScriptableObject
     {
-        private static readonly string[] resourceNames = new [] {
-            "add",
-            "add_small",
-            "delete",
-            "down",
-            "duplicate",
-            "up",
-            "choice_node_off",
-            "choice_node_on",
-            "command_background",
-            "event_node_off",
-            "event_node_on",
-            "play_big",
-            "play_small",
-            "process_node_off",
-            "process_node_on",
-        };
+        [SerializeField] private EditorTexture add;
+        [SerializeField] private EditorTexture add_small;
+        [SerializeField] private EditorTexture delete;
+        [SerializeField] private EditorTexture down;
+        [SerializeField] private EditorTexture duplicate;
+        [SerializeField] private EditorTexture up;
+        [SerializeField] private EditorTexture choice_node_off;
+        [SerializeField] private EditorTexture choice_node_on;
+        [SerializeField] private EditorTexture command_background;
+        [SerializeField] private EditorTexture event_node_off;
+        [SerializeField] private EditorTexture event_node_on;
+        [SerializeField] private EditorTexture play_big;
+        [SerializeField] private EditorTexture play_small;
+        [SerializeField] private EditorTexture process_node_off;
+        [SerializeField] private EditorTexture process_node_on;
 
-        public static Texture2D Add { get { return GetTexture("add"); } }
-        public static Texture2D AddSmall { get { return GetTexture("add_small"); } }
-        public static Texture2D Delete { get { return GetTexture("delete"); } }
-        public static Texture2D Down { get { return GetTexture("down"); } }
-        public static Texture2D Duplicate { get { return GetTexture("duplicate"); } }
-        public static Texture2D Up { get { return GetTexture("up"); } }
-        public static Texture2D ChoiceNodeOff { get { return GetTexture("choice_node_off"); } }
-        public static Texture2D ChoiceNodeOn { get { return GetTexture("choice_node_on"); } }
-        public static Texture2D CommandBackground { get { return GetTexture("command_background"); } }
-        public static Texture2D EventNodeOff { get { return GetTexture("event_node_off"); } }
-        public static Texture2D EventNodeOn { get { return GetTexture("event_node_on"); } }
-        public static Texture2D PlayBig { get { return GetTexture("play_big"); } }
-        public static Texture2D PlaySmall { get { return GetTexture("play_small"); } }
-        public static Texture2D ProcessNodeOff { get { return GetTexture("process_node_off"); } }
-        public static Texture2D ProcessNodeOn { get { return GetTexture("process_node_on"); } }
+        public static Texture2D Add { get { return Instance.add.Texture2D; } }
+        public static Texture2D AddSmall { get { return Instance.add_small.Texture2D; } }
+        public static Texture2D Delete { get { return Instance.delete.Texture2D; } }
+        public static Texture2D Down { get { return Instance.down.Texture2D; } }
+        public static Texture2D Duplicate { get { return Instance.duplicate.Texture2D; } }
+        public static Texture2D Up { get { return Instance.up.Texture2D; } }
+        public static Texture2D ChoiceNodeOff { get { return Instance.choice_node_off.Texture2D; } }
+        public static Texture2D ChoiceNodeOn { get { return Instance.choice_node_on.Texture2D; } }
+        public static Texture2D CommandBackground { get { return Instance.command_background.Texture2D; } }
+        public static Texture2D EventNodeOff { get { return Instance.event_node_off.Texture2D; } }
+        public static Texture2D EventNodeOn { get { return Instance.event_node_on.Texture2D; } }
+        public static Texture2D PlayBig { get { return Instance.play_big.Texture2D; } }
+        public static Texture2D PlaySmall { get { return Instance.play_small.Texture2D; } }
+        public static Texture2D ProcessNodeOff { get { return Instance.process_node_off.Texture2D; } }
+        public static Texture2D ProcessNodeOn { get { return Instance.process_node_on.Texture2D; } }
     }
 }

@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using System;
 using System.IO;
 using System.Linq;
@@ -10,58 +11,102 @@ using System.Collections.Generic;
 
 namespace Fungus.EditorUtils
 {
-    internal static partial class FungusEditorResources
+    [CustomEditor(typeof(FungusEditorResources))]
+    internal class FungusEditorResourcesInspector : Editor
     {
-        private static Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
-        private static readonly string editorResourcesFolderName = "\"EditorResources\"";
-        
-        static FungusEditorResources()
+        public override void OnInspectorGUI()
         {
-            LoadTexturesFromNames();
-        }
-
-        private static void LoadTexturesFromNames()
-        {
-            var baseDirectories = AssetDatabase.FindAssets(editorResourcesFolderName).Select(
-                guid => AssetDatabase.GUIDToAssetPath(guid)
-            ).ToArray();
-            
-            foreach (var name in resourceNames)
+            if (serializedObject.FindProperty("updateOnReloadScripts").boolValue)
             {
-                LoadTexturesFromGUIDs(AssetDatabase.FindAssets(name + " t:Texture2D", baseDirectories));
+                GUILayout.Label("Updating...");
+            }
+            else
+            {
+                if (GUILayout.Button("Sync with EditorResources folder"))
+                {
+                    FungusEditorResources.GenerateResourcesScript();
+                }
+
+                DrawDefaultInspector();
+            }
+        }
+    }
+
+    internal partial class FungusEditorResources : ScriptableObject
+    {
+        [Serializable]
+        internal class EditorTexture
+        {
+            [SerializeField] private Texture2D free;
+            [SerializeField] private Texture2D pro;
+
+            public Texture2D Texture2D
+            {
+                get { return EditorGUIUtility.isProSkin && pro != null ? pro : free; }
+            }
+
+            public EditorTexture(Texture2D free, Texture2D pro)
+            {
+                this.free = free;
+                this.pro = pro;
             }
         }
 
-        private static void LoadAllTexturesInFolder()
+        private static FungusEditorResources instance;
+        private static readonly string editorResourcesFolderName = "\"EditorResources\"";
+        [SerializeField] [HideInInspector] private bool updateOnReloadScripts = false;
+
+        internal static FungusEditorResources Instance
         {
-            var rootGuid = AssetDatabase.FindAssets(editorResourcesFolderName)[0];
-            var root = AssetDatabase.GUIDToAssetPath(rootGuid);
-            LoadTexturesFromGUIDs(AssetDatabase.FindAssets("t:Texture2D", new [] { root }));
+            get
+            {
+                if (instance == null)
+                {
+                    var guids = AssetDatabase.FindAssets("FungusEditorResources t:FungusEditorResources");
+
+                    if (guids.Length == 0)
+                    {
+                        instance = ScriptableObject.CreateInstance(typeof(FungusEditorResources)) as FungusEditorResources;
+                        AssetDatabase.CreateAsset(instance, GetRootFolder() + "/FungusEditorResources.asset");
+                        UpdateTextureReferences(instance);
+                        AssetDatabase.SaveAssets();
+                    }
+                    else 
+                    {
+                        if (guids.Length > 1)
+                        {
+                            Debug.LogWarning("Multiple FungusEditorResources assets found!");
+                        }
+
+                        var path = AssetDatabase.GUIDToAssetPath(guids[0]);
+                        instance = AssetDatabase.LoadAssetAtPath(path, typeof(FungusEditorResources)) as FungusEditorResources;
+                    }
+                }
+
+                return instance;
+            }
         }
 
-        private static void LoadTexturesFromGUIDs(string[] guids)
+        private static string GetRootFolder()
         {
-            var paths = guids.Select(guid => AssetDatabase.GUIDToAssetPath(guid)).OrderBy(path => path.ToLower().Contains("/pro/"));
+            var rootGuid = AssetDatabase.FindAssets(editorResourcesFolderName)[0];
+            return AssetDatabase.GUIDToAssetPath(rootGuid);
+        }
+
+        internal static void GenerateResourcesScript()
+        {
+            // Get all unique filenames
+            var textureNames = new HashSet<string>();
+            var guids = AssetDatabase.FindAssets("t:Texture2D", new [] { GetRootFolder() });
+            var paths = guids.Select(guid => AssetDatabase.GUIDToAssetPath(guid));
             
             foreach (var path in paths)
             {
-                if (path.ToLower().Contains("/pro/") && !EditorGUIUtility.isProSkin)
-                {
-                    return;
-                }
-                var texture = AssetDatabase.LoadAssetAtPath(path, typeof(Texture2D)) as Texture2D;
-                textures[texture.name] = texture;
+                textureNames.Add(Path.GetFileNameWithoutExtension(path));
             }
-        }
 
-        [MenuItem("Tools/Fungus/Utilities/Update Editor Resources Script")]
-        private static void GenerateResourcesScript()
-        {
-            textures.Clear();
-            LoadAllTexturesInFolder();
-
-            var guid = AssetDatabase.FindAssets("FungusEditorResources t:MonoScript")[0];
-            var relativePath = AssetDatabase.GUIDToAssetPath(guid).Replace("FungusEditorResources.cs", "FungusEditorResourcesGenerated.cs");
+            var scriptGuid = AssetDatabase.FindAssets("FungusEditorResources t:MonoScript")[0];
+            var relativePath = AssetDatabase.GUIDToAssetPath(scriptGuid).Replace("FungusEditorResources.cs", "FungusEditorResourcesGenerated.cs");
             var absolutePath = Application.dataPath + relativePath.Substring("Assets".Length);
             
             using (var writer = new StreamWriter(absolutePath))
@@ -73,43 +118,75 @@ namespace Fungus.EditorUtils
                 writer.WriteLine("");
                 writer.WriteLine("namespace Fungus.EditorUtils");
                 writer.WriteLine("{");
-                writer.WriteLine("    internal static partial class FungusEditorResources");
+                writer.WriteLine("    internal partial class FungusEditorResources : ScriptableObject");
                 writer.WriteLine("    {");
-                writer.WriteLine("        private static readonly string[] resourceNames = new [] {");
                 
-                foreach (var pair in textures)
+                foreach (var name in textureNames)
                 {
-                    writer.WriteLine("            \"" + pair.Key + "\",");
+                    writer.WriteLine("        [SerializeField] private EditorTexture " + name + ";");
                 }
 
-                writer.WriteLine("        };");
                 writer.WriteLine("");
 
-                foreach (var pair in textures)
+                foreach (var name in textureNames)
                 {
-                    var name = pair.Key;
                     var pascalCase = string.Join("", name.Split(new [] { '_' }, StringSplitOptions.RemoveEmptyEntries).Select(
                         s => s.Substring(0, 1).ToUpper() + s.Substring(1)).ToArray()
                     );
-                    writer.WriteLine("        public static Texture2D " + pascalCase + " { get { return GetTexture(\"" + name + "\"); } }");
+                    writer.WriteLine("        public static Texture2D " + pascalCase + " { get { return Instance." + name + ".Texture2D; } }");
                 }
 
                 writer.WriteLine("    }");
                 writer.WriteLine("}");
             }
 
+            Instance.updateOnReloadScripts = true;
             AssetDatabase.ImportAsset(relativePath);
         }
 
-        private static Texture2D GetTexture(string name)
+        [DidReloadScripts]
+        private static void OnDidReloadScripts()
         {
-            Texture2D texture;
-            if (!textures.TryGetValue(name, out texture))
-            {
-                Debug.LogWarning("Texture \"" + name + "\" not found!");
+            if (Instance.updateOnReloadScripts)
+            {                
+                UpdateTextureReferences(Instance);
             }
-            
-            return texture;
+        }
+
+        private static void UpdateTextureReferences(FungusEditorResources instance)
+        {
+            // Iterate through all fields in class and set texture references
+            var serializedObject = new SerializedObject(instance);
+            var prop = serializedObject.GetIterator();
+            var rootFolder = new [] { GetRootFolder() };
+
+            prop.NextVisible(true);
+            while (prop.NextVisible(false))
+            {
+                if (prop.propertyType == SerializedPropertyType.Generic)
+                {
+                    var guids = AssetDatabase.FindAssets(prop.name + " t:Texture2D", rootFolder);
+                    var paths = guids.Select(guid => AssetDatabase.GUIDToAssetPath(guid)).Where(
+                        path => path.Contains(prop.name + ".")
+                    );
+
+                    foreach (var path in paths)
+                    {
+                        var texture = AssetDatabase.LoadAssetAtPath(path, typeof(Texture2D)) as Texture2D;
+                        if (path.ToLower().Contains("/pro/"))
+                        {
+                            prop.FindPropertyRelative("pro").objectReferenceValue = texture;
+                        }
+                        else
+                        {
+                            prop.FindPropertyRelative("free").objectReferenceValue = texture;
+                        }
+                    }       
+                }
+            }
+
+            instance.updateOnReloadScripts = false;
+            serializedObject.ApplyModifiedPropertiesWithoutUndo();
         }
     }
 }
