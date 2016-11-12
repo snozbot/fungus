@@ -17,6 +17,7 @@ namespace Fungus.EditorUtils
             "choice_node_off",
             "choice_node_on",
             "command_background",
+            "connection_point",
             "event_node_off",
             "event_node_on",
             "play_big",
@@ -34,6 +35,7 @@ namespace Fungus.EditorUtils
         public static Texture2D ChoiceNodeOff { get { return GetTexture("choice_node_off"); } }
         public static Texture2D ChoiceNodeOn { get { return GetTexture("choice_node_on"); } }
         public static Texture2D CommandBackground { get { return GetTexture("command_background"); } }
+        public static Texture2D ConnectionPoint { get { return GetTexture("connection_point"); } }
         public static Texture2D EventNodeOff { get { return GetTexture("event_node_off"); } }
         public static Texture2D EventNodeOn { get { return GetTexture("event_node_on"); } }
         public static Texture2D PlayBig { get { return GetTexture("play_big"); } }
