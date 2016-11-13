@@ -3,7 +3,6 @@
 
 using UnityEngine;
 using UnityEditor;
-using UnityEditorInternal;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -70,6 +69,7 @@ namespace Fungus.EditorUtils
                 {
                     var newCommand = Undo.AddComponent(flowchart.gameObject, command.type) as Command;
                     CopyProperties(command.serializedObject, newCommand);
+                    newCommand.ItemId = flowchart.NextItemId();
                     newBlock.CommandList.Add(newCommand);
                 }
 
@@ -78,6 +78,7 @@ namespace Fungus.EditorUtils
                 {
                     var newEventHandler = Undo.AddComponent(flowchart.gameObject, eventHandler.type) as EventHandler;
                     CopyProperties(eventHandler.serializedObject, newEventHandler);
+                    newEventHandler.ParentBlock = newBlock;
                     newBlock._EventHandler = newEventHandler;     
                 }
 
