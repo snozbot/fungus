@@ -8,11 +8,94 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
+using Object = UnityEngine.Object;
 
 namespace Fungus.EditorUtils
 {
     public class FlowchartWindow : EditorWindow
     {
+        protected class ClipboardObject
+        {
+            internal SerializedObject serializedObject;
+            internal Type type;
+
+            internal ClipboardObject(Object obj)
+            {
+                serializedObject = new SerializedObject(obj);
+                type = obj.GetType();
+            }
+        }
+
+        protected class BlockCopy
+        {
+            private SerializedObject block = null;
+            private List<ClipboardObject> commands = new List<ClipboardObject>();
+            private ClipboardObject eventHandler = null;
+
+            internal BlockCopy(Block block)
+            {
+                this.block = new SerializedObject(block);
+                foreach (var command in block.CommandList)
+                {
+                    commands.Add(new ClipboardObject(command));
+                }
+                if (block._EventHandler != null)
+                {
+                    eventHandler = new ClipboardObject(block._EventHandler);
+                }
+            }
+
+            private void CopyProperties(SerializedObject source, Object dest, params SerializedPropertyType[] excludeTypes)
+            {
+                var newSerializedObject = new SerializedObject(dest);
+                var prop = source.GetIterator();
+                while (prop.NextVisible(true))
+                {
+                    if (!excludeTypes.Contains(prop.propertyType))
+                    {
+                        newSerializedObject.CopyFromSerializedProperty(prop);
+                    }
+                }
+
+                newSerializedObject.ApplyModifiedProperties();
+            }
+
+            internal Block PasteBlock(Flowchart flowchart)
+            {
+                var newBlock = FlowchartWindow.CreateBlock(flowchart, Vector2.zero);
+
+                // Copy all command serialized properties
+                // Copy references to match duplication behavior
+                foreach (var command in commands)
+                {
+                    var newCommand = Undo.AddComponent(flowchart.gameObject, command.type) as Command;
+                    CopyProperties(command.serializedObject, newCommand);
+                    newBlock.CommandList.Add(newCommand);
+                }
+
+                // Copy event handler
+                if (eventHandler != null)
+                {
+                    var newEventHandler = Undo.AddComponent(flowchart.gameObject, eventHandler.type) as EventHandler;
+                    CopyProperties(eventHandler.serializedObject, newEventHandler);
+                    newBlock._EventHandler = newEventHandler;     
+                }
+
+                // Copy block properties, but do not copy references because those were just assigned
+                CopyProperties(
+                    block,
+                    newBlock,
+                    SerializedPropertyType.ObjectReference,
+                    SerializedPropertyType.Generic,
+                    SerializedPropertyType.ArraySize
+                );
+
+                newBlock.BlockName = flowchart.GetUniqueBlockKey(block.FindProperty("blockName").stringValue + " (Copy)");
+
+                return newBlock;
+            }
+        }
+
         public static List<Block> deleteList = new List<Block>();
 
         protected List<Block> windowBlockMap = new List<Block>();
@@ -38,6 +121,8 @@ namespace Fungus.EditorUtils
         protected Rect selectionBox;
         protected Vector2 startSelectionBoxPosition = -Vector2.one;
         protected List<Block> mouseDownSelectionState = new List<Block>();
+
+        protected List<BlockCopy> copyList = new List<BlockCopy>();
 
         // Context Click occurs on MouseDown which interferes with panning
         // Track right click positions manually to show menus on MouseUp
@@ -66,6 +151,7 @@ namespace Fungus.EditorUtils
             nodeStyle.wordWrap = true;
 
             addTexture = Resources.Load("Icons/add_small") as Texture2D;
+            copyList.Clear();
         }
 
         protected virtual void OnInspectorUpdate()
@@ -154,6 +240,11 @@ namespace Fungus.EditorUtils
                 foreach (var command in commandList)
                 {
                     Undo.DestroyObjectImmediate(command);
+                }
+
+                if (deleteBlock._EventHandler != null)
+                {
+                    Undo.DestroyObjectImmediate(deleteBlock._EventHandler);
                 }
                 
                 Undo.DestroyObjectImmediate((Block)deleteBlock);
@@ -512,14 +603,26 @@ namespace Fungus.EditorUtils
 
                     // Use a copy because flowchart.SelectedBlocks gets modified
                     var blockList = new List<Block>(flowchart.SelectedBlocks);
-                    menu.AddItem(new GUIContent ("Duplicate"), false, DuplicateBlocks, blockList);
+                    menu.AddItem(new GUIContent ("Copy"), false, () => Copy(flowchart));
+                    menu.AddItem(new GUIContent ("Cut"), false, () => Cut(flowchart));
+                    menu.AddItem(new GUIContent ("Duplicate"), false, () => Duplicate(flowchart));
                     menu.AddItem(new GUIContent ("Delete"), false, DeleteBlocks, blockList);
                 }
                 // Clicked on empty space in grid
                 else
                 {
                     DeselectAll(flowchart);
+
                     menu.AddItem(new GUIContent("Add Block"), false, () => CreateBlock(flowchart, mousePosition / flowchart.Zoom - flowchart.ScrollPos));
+
+                    if (copyList.Count > 0)
+                    {
+                        menu.AddItem(new GUIContent("Paste"), false, () => Paste(flowchart, mousePosition));
+                    }
+                    else
+                    {
+                        menu.AddDisabledItem(new GUIContent("Paste"));
+                    }
                 }
 
                 var menuRect = new Rect();
@@ -1042,71 +1145,6 @@ namespace Fungus.EditorUtils
             blocks.ForEach(block => FlowchartWindow.deleteList.Add(block));
         }
         
-        protected static void DuplicateBlocks(object obj)
-        {
-            DuplicateBlocks(obj, new Vector2(20, 0));
-        }
-        
-        protected static void DuplicateBlocks(object obj, Vector2 offset)
-        {
-            var flowchart = GetFlowchart();
-
-            Undo.RecordObject(flowchart, "Select");
-            flowchart.ClearSelectedBlocks();
-
-            var blocks = obj as List<Block>;
-
-            foreach (var block in blocks)
-            {
-                Vector2 newPosition = block._NodeRect.position + offset;
-
-                Block oldBlock = block;
-
-                Block newBlock = FlowchartWindow.CreateBlock(flowchart, newPosition);
-                newBlock.BlockName = flowchart.GetUniqueBlockKey(oldBlock.BlockName + " (Copy)");
-
-                Undo.RecordObject(newBlock, "Duplicate Block");
-
-                var commandList = oldBlock.CommandList;
-                foreach (var command in commandList)
-                {
-                    if (ComponentUtility.CopyComponent(command))
-                    {
-                        if (ComponentUtility.PasteComponentAsNew(flowchart.gameObject))
-                        {
-                            Command[] commands = flowchart.GetComponents<Command>();
-                            Command pastedCommand = commands.Last<Command>();
-                            if (pastedCommand != null)
-                            {
-                                pastedCommand.ItemId = flowchart.NextItemId();
-                                newBlock.CommandList.Add(pastedCommand);
-                            }
-                        }
-                        
-                        // This stops the user pasting the command manually into another game object.
-                        ComponentUtility.CopyComponent(flowchart.transform);
-                    }
-                }
-
-                if (oldBlock._EventHandler != null)
-                {
-                    if (ComponentUtility.CopyComponent(oldBlock._EventHandler))
-                    {
-                        if (ComponentUtility.PasteComponentAsNew(flowchart.gameObject))
-                        {
-                            EventHandler[] eventHandlers = flowchart.GetComponents<EventHandler>();
-                            EventHandler pastedEventHandler = eventHandlers.Last<EventHandler>();
-                            if (pastedEventHandler != null)
-                            {
-                                pastedEventHandler.ParentBlock = newBlock;
-                                newBlock._EventHandler = pastedEventHandler;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         protected static void ShowBlockInspector(Flowchart flowchart)
         {
             if (blockInspector == null)
@@ -1149,14 +1187,70 @@ namespace Fungus.EditorUtils
             return Event.current.shift || EditorGUI.actionKey;
         }
 
+        protected virtual void Copy(Flowchart flowchart)
+        {
+            copyList.Clear();
+
+            foreach (var block in flowchart.SelectedBlocks)
+            {
+                copyList.Add(new BlockCopy(block));
+            }
+        }
+
+        protected virtual void Cut(Flowchart flowchart)
+        {
+            Copy(flowchart);
+            Undo.RecordObject(flowchart, "Cut");
+            DeleteBlocks(flowchart.SelectedBlocks);
+        }
+
+        // Center is position in unscaled window space
+        protected virtual void Paste(Flowchart flowchart, Vector2 center, bool relative = false)
+        {
+            Undo.RecordObject(flowchart, "Deselect");
+            DeselectAll(flowchart);
+
+            var pasteList = new List<Block>();
+
+            foreach (var copy in copyList)
+            {
+                pasteList.Add(copy.PasteBlock(flowchart));
+            }
+
+            var copiedCenter = GetBlockCenter(flowchart, pasteList.ToArray()) + flowchart.ScrollPos;
+            var delta = relative ? center : (center / flowchart.Zoom - copiedCenter);
+            
+            foreach (var block in pasteList)
+            {
+                var tempRect = block._NodeRect;
+                tempRect.position += delta;
+                block._NodeRect = tempRect;
+            }
+        }
+
+        protected virtual void Duplicate(Flowchart flowchart)
+        {
+            var tempCopyList = new List<BlockCopy>(copyList);
+            Copy(flowchart);
+            Paste(flowchart, new Vector2(20, 0), true);
+            copyList = tempCopyList;
+        }
+
         protected virtual void ValidateCommands(Flowchart flowchart)
         {
             if (Event.current.type == EventType.ValidateCommand)
             {
                 var c = Event.current.commandName;
-                if (c == "Delete" || c == "Duplicate")
+                if (c == "Copy" || c == "Cut" || c == "Delete" || c == "Duplicate")
                 {
                     if (flowchart.SelectedBlocks.Count > 0)
+                    {
+                        Event.current.Use();
+                    }
+                }
+                else if (c == "Paste")
+                {
+                    if (copyList.Count > 0)
                     {
                         Event.current.Use();
                     }
@@ -1174,13 +1268,28 @@ namespace Fungus.EditorUtils
             {
                 switch (Event.current.commandName)
                 {
+                case "Copy":
+                    Copy(flowchart);
+                    Event.current.Use();
+                    break;
+                
+                case "Cut":
+                    Cut(flowchart);
+                    Event.current.Use();
+                    break;
+
+                case "Paste":
+                    Paste(flowchart, position.center - position.position);
+                    Event.current.Use();
+                    break;
+
                 case "Delete":
                     DeleteBlocks(flowchart.SelectedBlocks);
                     Event.current.Use();
                     break;
 
                 case "Duplicate":
-                    DuplicateBlocks(new List<Block>(flowchart.SelectedBlocks));
+                    Duplicate(flowchart);
                     Event.current.Use();
                     break;
 
