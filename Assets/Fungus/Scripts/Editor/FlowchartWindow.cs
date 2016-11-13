@@ -150,7 +150,7 @@ namespace Fungus.EditorUtils
             nodeStyle.alignment = TextAnchor.MiddleCenter;
             nodeStyle.wordWrap = true;
 
-            addTexture = Resources.Load("Icons/add_small") as Texture2D;
+            addTexture = FungusEditorResources.AddSmall;
             copyList.Clear();
         }
 
@@ -564,7 +564,7 @@ namespace Fungus.EditorUtils
                             GUI.color = new Color(1f, 1f, 1f, alpha); 
                         }
 
-                        if (GUI.Button(rect, FungusEditorResources.texPlayBig as Texture, new GUIStyle()))
+                        if (GUI.Button(rect, FungusEditorResources.PlayBig, new GUIStyle()))
                         {
                             SelectBlock(flowchart, b);
                         }
@@ -958,8 +958,8 @@ namespace Fungus.EditorUtils
 
             if (block._EventHandler != null)
             {
-                offTex = FungusEditorResources.texEventNodeOff;
-                onTex = FungusEditorResources.texEventNodeOn;
+                offTex = FungusEditorResources.EventNodeOff;
+                onTex = FungusEditorResources.EventNodeOn;
                 defaultColor = FungusConstants.DefaultEventBlockTint;
             }
             else
@@ -979,14 +979,14 @@ namespace Fungus.EditorUtils
 
                 if (uniqueList.Count > 1)
                 {
-                    offTex = FungusEditorResources.texChoiceNodeOff;
-                    onTex = FungusEditorResources.texChoiceNodeOn;
+                    offTex = FungusEditorResources.ChoiceNodeOff;
+                    onTex = FungusEditorResources.ChoiceNodeOn;
                     defaultColor = FungusConstants.DefaultChoiceBlockTint;
                 }
                 else
                 {
-                    offTex = FungusEditorResources.texProcessNodeOff;
-                    onTex = FungusEditorResources.texProcessNodeOn;
+                    offTex = FungusEditorResources.ProcessNodeOff;
+                    onTex = FungusEditorResources.ProcessNodeOn;
                     defaultColor = FungusConstants.DefaultProcessBlockTint;
                 }
             }
