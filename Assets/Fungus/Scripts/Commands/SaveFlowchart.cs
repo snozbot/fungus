@@ -22,7 +22,7 @@ namespace Fungus
         {
             var saveManager = FungusManager.Instance.SaveManager;
 
-            saveManager.PopulateSaveBuffer(GetFlowchart(), resumeBlock.name);
+            saveManager.PopulateSaveBuffer(GetFlowchart(), resumeBlock.BlockName);
 
             if (saveImmediately)
             {
