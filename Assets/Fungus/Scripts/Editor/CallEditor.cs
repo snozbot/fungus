@@ -11,6 +11,7 @@ namespace Fungus.EditorUtils
     {
         protected SerializedProperty targetFlowchartProp;
         protected SerializedProperty targetBlockProp;
+        protected SerializedProperty startLabelProp;
         protected SerializedProperty startIndexProp;
         protected SerializedProperty callModeProp;
 
@@ -21,6 +22,7 @@ namespace Fungus.EditorUtils
 
             targetFlowchartProp = serializedObject.FindProperty("targetFlowchart");
             targetBlockProp = serializedObject.FindProperty("targetBlock");
+            startLabelProp = serializedObject.FindProperty("startLabel");
             startIndexProp = serializedObject.FindProperty("startIndex");
             callModeProp = serializedObject.FindProperty("callMode");
         }
@@ -49,6 +51,8 @@ namespace Fungus.EditorUtils
                                        new GUIContent("Target Block", "Block to call"), 
                                        new GUIContent("<None>"), 
                                        flowchart);
+
+                EditorGUILayout.PropertyField(startLabelProp);
 
                 EditorGUILayout.PropertyField(startIndexProp);
             }

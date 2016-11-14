@@ -382,6 +382,29 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Returns the index of the Label command with matching key, or -1 if not found.
+        /// </summary>
+        public virtual int GetLabelIndex(string labelKey)
+        {
+            if (labelKey.Length == 0)
+            {
+                return -1;
+            }
+
+            for (int i = 0; i < commandList.Count; i++)
+            {
+                var command = commandList[i];
+                var labelCommand = command as Label;
+                if (labelCommand != null && String.Compare(labelCommand.Key, labelKey, true) == 0)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         #endregion
     }
 }
