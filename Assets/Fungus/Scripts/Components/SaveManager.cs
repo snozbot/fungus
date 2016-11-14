@@ -26,6 +26,8 @@ namespace Fungus
 
         protected static SaveManager instance;
 
+        protected SavePointData tempSaveData;
+
         protected virtual void Awake()
         {
             instance = this;
@@ -110,12 +112,70 @@ namespace Fungus
             return JsonUtility.ToJson(saveData, true);
         }
 
+        protected virtual void RestoreSavedGame(SavePointData saveData)
+        {
+            var go = GameObject.Find(saveData.flowchartName);
+            if (go == null)
+            {
+                return;
+            }
+
+            var flowchart = go.GetComponent<Flowchart>();
+            if (flowchart == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < saveData.boolVars.Count; i++)
+            {
+                var boolVar = saveData.boolVars[i];
+                flowchart.SetBooleanVariable(boolVar.key, boolVar.value);
+            }
+            for (int i = 0; i < saveData.intVars.Count; i++)
+            {
+                var intVar = saveData.intVars[i];
+                flowchart.SetIntegerVariable(intVar.key, intVar.value);
+            }
+            for (int i = 0; i < saveData.floatVars.Count; i++)
+            {
+                var floatVar = saveData.floatVars[i];
+                flowchart.SetFloatVariable(floatVar.key, floatVar.value);
+            }
+            for (int i = 0; i < saveData.stringVars.Count; i++)
+            {
+                var stringVar = saveData.stringVars[i];
+                flowchart.SetStringVariable(stringVar.key, stringVar.value);
+            }
+
+            flowchart.ExecuteBlock(saveData.resumeBlockName);
+        }
+
         protected virtual void StoreJSONData(string key, string jsonData)
         {
             if (key.Length > 0)
             {
                 PlayerPrefs.SetString(key, jsonData);
             }
+        }
+
+        protected virtual string LoadJSONData(string key)
+        {
+            if (key.Length > 0)
+            {
+                return PlayerPrefs.GetString(key);
+            }
+
+            return "";
+        }
+
+        protected virtual void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name == tempSaveData.sceneName)
+            {
+                RestoreSavedGame(tempSaveData);
+            }
+
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         #region Public members
@@ -160,11 +220,11 @@ namespace Fungus
                 return;
             }
 
-            // Load JSON data for active slot
-            // Convert to SavePointData
-            // Load scene
-            // Populate variables
-            // Execute Block and Label
+            var jsonData = LoadJSONData(key);
+            tempSaveData = JsonUtility.FromJson<SavePointData>(jsonData);
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.LoadScene(tempSaveData.sceneName);
         }
 
         public virtual void Delete(int slot)
@@ -175,17 +235,6 @@ namespace Fungus
 
         public virtual void PopulateSaveBuffer(Flowchart flowchart, string resumeBlockName)
         {
-            var block = flowchart.GetBlock("BlockName");
-
-            foreach (var command in block.CommandList)
-            {
-                if (command is Menu)
-                {
-
-                }
-            }
-
-
             saveBuffer = CreateSaveData(flowchart, resumeBlockName);
         }
 
