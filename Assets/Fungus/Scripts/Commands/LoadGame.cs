@@ -2,15 +2,13 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 
 namespace Fungus
 {
     [CommandInfo("Variable", 
-        "Load Flowchart", 
-        "Loads a previously saved Flowchart state. The original scene is loaded and the resume block is executed.")]
-    public class LoadFlowchart : Command
+                 "Load Game", 
+                 "Loads a previously saved game. The original scene is loaded and the resume block is executed.")]
+    public class LoadGame : Command
     {
         [SerializeField] protected IntegerData saveSlot = new IntegerData(0);
 
@@ -20,7 +18,7 @@ namespace Fungus
         {
             var saveManager = FungusManager.Instance.SaveManager;
 
-            saveManager.Load(0);
+            saveManager.Load(saveSlot.Value);
         }
 
         public override string GetSummary()

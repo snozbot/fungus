@@ -8,13 +8,13 @@ using System.Collections.Generic;
 namespace Fungus
 {
     [CommandInfo("Variable", 
-        "Save Flowchart", 
-        "Saves the current Flowchart variable state to be loaded again in future.")]
-    public class SaveFlowchart : Command
+                 "Save Point", 
+                 "Creates a save point which can be saved to persistant storage and loaded again later.")]
+    public class SavePoint : Command
     {
         [SerializeField] protected Block resumeBlock;
 
-        [SerializeField] protected bool saveImmediately;
+        [SerializeField] protected bool saveNow;
 
         #region Public members
 
@@ -24,7 +24,7 @@ namespace Fungus
 
             saveManager.PopulateSaveBuffer(GetFlowchart(), resumeBlock.BlockName);
 
-            if (saveImmediately)
+            if (saveNow)
             {
                 saveManager.Save();
             }

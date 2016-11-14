@@ -7,11 +7,11 @@ using Fungus;
 
 namespace Fungus.EditorUtils
 {
-    [CustomEditor(typeof(SaveFlowchart))]
-    public class SaveFlowchartEditor : CommandEditor
+    [CustomEditor(typeof(SavePoint))]
+    public class SavePointEditor : CommandEditor
     {
         protected SerializedProperty resumeBlockProp;
-        protected SerializedProperty saveImmediatelyProp;
+        protected SerializedProperty saveNowProp;
 
         protected virtual void OnEnable()
         {
@@ -19,7 +19,7 @@ namespace Fungus.EditorUtils
                 return;
 
             resumeBlockProp = serializedObject.FindProperty("resumeBlock");
-            saveImmediatelyProp = serializedObject.FindProperty("saveImmediately");
+            saveNowProp = serializedObject.FindProperty("saveNow");
         }
 
         public override void DrawCommandGUI()
@@ -33,10 +33,10 @@ namespace Fungus.EditorUtils
             serializedObject.Update();
 
             BlockEditor.BlockField(resumeBlockProp,
-                new GUIContent("Resume Block", "Block to call when save data is loaded again"), 
-                new GUIContent("<None>"), 
-                flowchart);
-            EditorGUILayout.PropertyField(saveImmediatelyProp);
+                                   new GUIContent("Resume Block", "Block to call when save data is loaded again"), 
+                                   new GUIContent("<None>"), 
+                                   flowchart);
+            EditorGUILayout.PropertyField(saveNowProp);
 
             serializedObject.ApplyModifiedProperties();
         }
