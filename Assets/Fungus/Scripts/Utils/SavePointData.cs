@@ -44,63 +44,6 @@ namespace Fungus
 		public List<FloatVar> floatVars = new List<FloatVar>();
 		public List<BoolVar> boolVars = new List<BoolVar>();
 
-        public static SavePointData Create(Flowchart flowchart, string resumeBlockName)
-        {
-            var saveData = new SavePointData();
-
-            // Store the scene, flowchart and block to execute on resume
-            saveData.sceneName = SceneManager.GetActiveScene().name;
-            saveData.flowchartName = flowchart.name;
-            saveData.resumeBlockName = resumeBlockName;
-
-            for (int i = 0; i < flowchart.Variables.Count; i++) 
-            {
-                var v = flowchart.Variables[i];
-
-                // Save string
-                var stringVariable = v as StringVariable;
-                if (stringVariable != null)
-                {
-                    var d = new StringVar();
-                    d.key = stringVariable.Key;
-                    d.value = stringVariable.Value;
-                    saveData.stringVars.Add(d);
-                }
-
-                // Save int
-                var intVariable = v as IntegerVariable;
-                if (intVariable != null)
-                {
-                    var d = new IntVar();
-                    d.key = intVariable.Key;
-                    d.value = intVariable.Value;
-                    saveData.intVars.Add(d);
-                }
-
-                // Save float
-                var floatVariable = v as FloatVariable;
-                if (floatVariable != null)
-                {
-                    var d = new FloatVar();
-                    d.key = floatVariable.Key;
-                    d.value = floatVariable.Value;
-                    saveData.floatVars.Add(d);
-                }
-
-                // Save bool
-                var boolVariable = v as BooleanVariable;
-                if (boolVariable != null)
-                {
-                    var d = new BoolVar();
-                    d.key = boolVariable.Key;
-                    d.value = boolVariable.Value;
-                    saveData.boolVars.Add(d);
-                }
-            }
-
-            return saveData;
-        }
-
         public static void ResumeSavedState(SavePointData saveData)
         {
             var go = GameObject.Find(saveData.flowchartName);

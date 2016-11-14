@@ -10,16 +10,16 @@ namespace Fungus.EditorUtils
     [CustomEditor(typeof(SaveFlowchart))]
     public class SaveFlowchartEditor : CommandEditor
     {
-        protected SerializedProperty saveKeyProp;
         protected SerializedProperty resumeBlockProp;
+        protected SerializedProperty saveImmediatelyProp;
 
         protected virtual void OnEnable()
         {
             if (NullTargetCheck()) // Check for an orphaned editor instance
                 return;
 
-            saveKeyProp = serializedObject.FindProperty("saveKey");
             resumeBlockProp = serializedObject.FindProperty("resumeBlock");
+            saveImmediatelyProp = serializedObject.FindProperty("saveImmediately");
         }
 
         public override void DrawCommandGUI()
@@ -32,11 +32,11 @@ namespace Fungus.EditorUtils
 
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(saveKeyProp);
             BlockEditor.BlockField(resumeBlockProp,
                 new GUIContent("Resume Block", "Block to call when save data is loaded again"), 
                 new GUIContent("<None>"), 
                 flowchart);
+            EditorGUILayout.PropertyField(saveImmediatelyProp);
 
             serializedObject.ApplyModifiedProperties();
         }

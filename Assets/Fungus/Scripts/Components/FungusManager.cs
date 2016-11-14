@@ -8,6 +8,7 @@ namespace Fungus
     /// </summary>
     [RequireComponent(typeof(CameraManager))]
     [RequireComponent(typeof(MusicManager))]
+    [RequireComponent(typeof(SaveManager))]
     public sealed class FungusManager : MonoBehaviour
     {
         static FungusManager instance;
@@ -18,6 +19,7 @@ namespace Fungus
         {
             CameraManager = GetComponent<CameraManager>();
             MusicManager = GetComponent<MusicManager>();
+            SaveManager = GetComponent<SaveManager>();
         }
 
         /// <summary>
@@ -44,6 +46,11 @@ namespace Fungus
         /// Gets the music manager singleton instance.
         /// </summary>
         public MusicManager MusicManager { get; private set; }
+
+        /// <summary>
+        /// Gets the save manager singleton instance.
+        /// </summary>
+        public SaveManager SaveManager { get; private set; }
 
         /// <summary>
         /// Gets the FungusManager singleton instance.

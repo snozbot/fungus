@@ -7,72 +7,45 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-	[CommandInfo("Variable", 
-				 "Save Flowchart", 
-				 "Saves the current Flowchart variable state to be loaded again in future.")]
-	public class SaveFlowchart : Command
-	{
-        [Tooltip("Key for storing save data in PlayerPrefs. Supports variable subsitution {$VarName} and will prepend a profile name set using Set Save Profile command.")]
-        [SerializeField] protected StringData saveKey = new StringData("savedata");
+    [CommandInfo("Variable", 
+        "Save Flowchart", 
+        "Saves the current Flowchart variable state to be loaded again in future.")]
+    public class SaveFlowchart : Command
+    {
+        [SerializeField] protected Block resumeBlock;
 
-		[SerializeField] protected Block resumeBlock;
+        [SerializeField] protected bool saveImmediately;
 
-		// Make serialize data extensible (subclassing?)
-		// Save key, use save profile and variable substitution
-		// Store scene name, flowchart name and block name to execute after load
-		// Show link to Block to be executed
+        #region Public members
 
-		protected virtual string CreateSaveKey()
-		{
-			var flowchart = GetFlowchart();
-			var saveProfile = SetSaveProfile.SaveProfile;
+        public override void OnEnter()
+        {
+            var saveManager = FungusManager.Instance.SaveManager;
 
-			if (saveProfile.Length > 0)
-			{
-				return string.Format(saveProfile  + "_" + flowchart.SubstituteVariables(saveKey.Value));
-			}
-			else
-			{
-				return string.Format(flowchart.SubstituteVariables(saveKey.Value));
-			}
-		}
+            saveManager.PopulateSaveBuffer(GetFlowchart(), resumeBlock.name);
 
-		protected virtual SavePointData CreateSaveData()
-		{
-            return SavePointData.Create(GetFlowchart(), resumeBlock.BlockName);
-		}
+            if (saveImmediately)
+            {
+                saveManager.Save();
+            }
 
-		protected virtual void StoreJSONData(string key, string jsonData)
-		{
-			if (key.Length > 0)
-			{
-				PlayerPrefs.SetString(key, jsonData);
-			}
-		}
+            Continue();
+        }
 
-		#region Public members
+        public override string GetSummary()
+        {
+            if (resumeBlock == null)
+            {
+                return "Error: No resume block set";
+            }
 
-		public override void OnEnter()
-		{
-			var key = CreateSaveKey();
+            return resumeBlock.BlockName;
+        }
 
-            var saveData = CreateSaveData();
-			var saveDataJSON = JsonUtility.ToJson(saveData, true);
-
-			StoreJSONData(key, saveDataJSON);
-
-			Continue();
-		}
-
-		public override string GetSummary()
-		{
-			return saveKey.Value;
-		}
-
-		public override Color GetButtonColor()
-		{
-			return new Color32(235, 191, 217, 255);
-		}
+        public override Color GetButtonColor()
+        {
+            return new Color32(235, 191, 217, 255);
+        }
 
         public override void GetConnectedBlocks(ref List<Block> connectedBlocks)
         {
@@ -82,6 +55,6 @@ namespace Fungus
             }
         }
 
-		#endregion
-	}
+        #endregion
+    }
 }
