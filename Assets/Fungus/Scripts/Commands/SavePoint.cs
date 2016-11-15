@@ -24,7 +24,7 @@ namespace Fungus
         {
             var saveManager = FungusManager.Instance.SaveManager;
 
-            saveManager.PopulateSaveBuffer(GetFlowchart(), saveKey, description);
+            saveManager.PopulateSaveBuffer(saveKey, description);
 
             if (saveNow)
             {

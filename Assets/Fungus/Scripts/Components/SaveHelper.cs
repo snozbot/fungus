@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 namespace Fungus
@@ -7,6 +8,12 @@ namespace Fungus
     public class SaveHelper : MonoBehaviour 
     {
         [SerializeField] protected string startScene = "";
+
+        [SerializeField] protected List<Flowchart> flowcharts = new List<Flowchart>();
+
+        #region Public methods
+
+        public List<Flowchart> Flowcharts { get { return flowcharts; } }
 
         public virtual void Load(int slot)
         {
@@ -30,5 +37,7 @@ namespace Fungus
         {
             SceneManager.LoadScene(sceneName);
         }
+
+        #endregion
     }
 }
