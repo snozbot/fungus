@@ -60,99 +60,27 @@ namespace Fungus
             var saveData = new SavePointData();
 
             // Store the scene, flowchart and block to execute on resume
-            saveData.sceneName = SceneManager.GetActiveScene().name;
-            saveData.flowchartName = flowchart.name;
-            saveData.saveKey = saveKey;
+            saveData.SceneName = SceneManager.GetActiveScene().name;
+            saveData.SaveKey = saveKey;
 
-            for (int i = 0; i < flowchart.Variables.Count; i++) 
-            {
-                var v = flowchart.Variables[i];
-
-                // Save string
-                var stringVariable = v as StringVariable;
-                if (stringVariable != null)
-                {
-                    var d = new StringVar();
-                    d.key = stringVariable.Key;
-                    d.value = stringVariable.Value;
-                    saveData.stringVars.Add(d);
-                }
-
-                // Save int
-                var intVariable = v as IntegerVariable;
-                if (intVariable != null)
-                {
-                    var d = new IntVar();
-                    d.key = intVariable.Key;
-                    d.value = intVariable.Value;
-                    saveData.intVars.Add(d);
-                }
-
-                // Save float
-                var floatVariable = v as FloatVariable;
-                if (floatVariable != null)
-                {
-                    var d = new FloatVar();
-                    d.key = floatVariable.Key;
-                    d.value = floatVariable.Value;
-                    saveData.floatVars.Add(d);
-                }
-
-                // Save bool
-                var boolVariable = v as BooleanVariable;
-                if (boolVariable != null)
-                {
-                    var d = new BoolVar();
-                    d.key = boolVariable.Key;
-                    d.value = boolVariable.Value;
-                    saveData.boolVars.Add(d);
-                }
-            }
+            var flowchartData = FlowchartData.Encode(flowchart);
+            saveData.FlowchartData.Add(flowchartData);
 
             return JsonUtility.ToJson(saveData, true);
         }
 
         protected virtual void RestoreSavedGame(SavePointData saveData)
         {
-            var go = GameObject.Find(saveData.flowchartName);
-            if (go == null)
-            {
-                return;
-            }
+            var flowchartData = saveData.FlowchartData[0];
 
-            var flowchart = go.GetComponent<Flowchart>();
-            if (flowchart == null)
-            {
-                return;
-            }
-
-            for (int i = 0; i < saveData.boolVars.Count; i++)
-            {
-                var boolVar = saveData.boolVars[i];
-                flowchart.SetBooleanVariable(boolVar.key, boolVar.value);
-            }
-            for (int i = 0; i < saveData.intVars.Count; i++)
-            {
-                var intVar = saveData.intVars[i];
-                flowchart.SetIntegerVariable(intVar.key, intVar.value);
-            }
-            for (int i = 0; i < saveData.floatVars.Count; i++)
-            {
-                var floatVar = saveData.floatVars[i];
-                flowchart.SetFloatVariable(floatVar.key, floatVar.value);
-            }
-            for (int i = 0; i < saveData.stringVars.Count; i++)
-            {
-                var stringVar = saveData.stringVars[i];
-                flowchart.SetStringVariable(stringVar.key, stringVar.value);
-            }
+            FlowchartData.Decode(flowchartData);
 
             // Fire any matching SavePointLoaded event handler with matching save key.
             var eventHandlers = Object.FindObjectsOfType<SavePointLoaded>();
             for (int i = 0; i < eventHandlers.Length; i++)
             {
                 var eventHandler = eventHandlers[i];
-                eventHandler.OnSavePointLoaded(saveData.saveKey);
+                eventHandler.OnSavePointLoaded(saveData.SaveKey);
             } 
 
             // Execute any block with a Label matching the save key
@@ -160,14 +88,14 @@ namespace Fungus
             for (int i = 0; i < labels.Length; i++)
             {
                 var label = labels[i];
-                if (string.Compare(label.Key, saveData.saveKey) == 0)
+                if (string.Compare(label.Key, saveData.SaveKey, true) == 0)
                 {
                     int index = label.CommandIndex;
                     var block = label.ParentBlock;
                     var fc = label.GetFlowchart();
                     fc.ExecuteBlock(block, index + 1);
                 }
-            } 
+            }
         }
 
         protected virtual void StoreJSONData(string key, string jsonData)
@@ -190,7 +118,7 @@ namespace Fungus
 
         protected virtual void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name == tempSaveData.sceneName)
+            if (scene.name == tempSaveData.SceneName)
             {
                 RestoreSavedGame(tempSaveData);
             }
@@ -244,7 +172,7 @@ namespace Fungus
             tempSaveData = JsonUtility.FromJson<SavePointData>(jsonData);
 
             SceneManager.sceneLoaded += OnSceneLoaded;
-            SceneManager.LoadScene(tempSaveData.sceneName);
+            SceneManager.LoadScene(tempSaveData.SceneName);
         }
 
         public virtual void Delete(int slot)
