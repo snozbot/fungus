@@ -214,8 +214,7 @@ MonoBehaviour:
     height: 909
   selectedBlocks:
   - {fileID: 27697883}
-  selectedCommands:
-  - {fileID: 27697875}
+  selectedCommands: []
   variables:
   - {fileID: 27697873}
   description: 
@@ -284,7 +283,7 @@ MonoBehaviour:
     stringVal: 
 --- !u!114 &27697875
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 27697867}
@@ -399,7 +398,7 @@ MonoBehaviour:
   - {fileID: 27697878}
 --- !u!114 &27697881
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 27697867}
@@ -413,7 +412,7 @@ MonoBehaviour:
   key: save_1
 --- !u!114 &27697882
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 27697867}
@@ -432,7 +431,7 @@ MonoBehaviour:
 '
 --- !u!114 &27697883
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 27697867}

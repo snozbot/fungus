@@ -147,12 +147,12 @@ namespace Fungus
                 flowchart.SetStringVariable(stringVar.key, stringVar.value);
             }
 
-            // Fire any matching GameLoaded event handler with matching save key.
-            var eventHandlers = Object.FindObjectsOfType<GameLoaded>();
+            // Fire any matching SavePointLoaded event handler with matching save key.
+            var eventHandlers = Object.FindObjectsOfType<SavePointLoaded>();
             for (int i = 0; i < eventHandlers.Length; i++)
             {
                 var eventHandler = eventHandlers[i];
-                eventHandler.OnGameLoaded(saveData.saveKey);
+                eventHandler.OnSavePointLoaded(saveData.saveKey);
             } 
 
             // Execute any block with a Label matching the save key

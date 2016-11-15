@@ -6,20 +6,20 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-    [EventHandlerInfo("",
-                      "Game Loaded",
-                      "Execute this block when a saved game is loaded.")]
-    public class GameLoaded : EventHandler 
+    [EventHandlerInfo("Scene",
+                      "Save Point Loaded",
+                      "Execute this block when a saved point is loaded.")]
+    public class SavePointLoaded : EventHandler 
     {
-        [Tooltip("Block will execute if the Save Key of the loaded data matches an entry in the Save Keys list.")]
+        [Tooltip("Block will execute if the Save Key of the loaded save point matches an entry in the Save Keys list.")]
         [SerializeField] protected List<string> saveKeys = new List<string>();
 
         #region Public methods
 
         /// <summary>
-        /// Called when a saved game is loaded.
+        /// Called when a save point is loaded.
         /// </summary>
-        public void OnGameLoaded(string saveKey)
+        public void OnSavePointLoaded(string saveKey)
         {
             if (saveKeys.Contains(saveKey))
             {
