@@ -213,8 +213,9 @@ MonoBehaviour:
     width: 1328
     height: 909
   selectedBlocks:
-  - {fileID: 27697883}
-  selectedCommands: []
+  - {fileID: 27697870}
+  selectedCommands:
+  - {fileID: 27697876}
   variables:
   - {fileID: 27697873}
   description: 
@@ -312,6 +313,7 @@ MonoBehaviour:
   itemId: 5
   indentLevel: 0
   saveKey: save_1
+  description: Entering the forest
   saveNow: 0
 --- !u!114 &27697877
 MonoBehaviour:

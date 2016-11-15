@@ -55,13 +55,14 @@ namespace Fungus
             return true;
         }
 
-        protected virtual string CreateSaveData(Flowchart flowchart, string saveKey)
+        protected virtual string CreateSaveData(Flowchart flowchart, string saveKey, string description)
         {
             var saveData = new SavePointData();
 
             // Store the scene, flowchart and block to execute on resume
             saveData.SceneName = SceneManager.GetActiveScene().name;
             saveData.SaveKey = saveKey;
+            saveData.Description = description;
 
             var flowchartData = FlowchartData.Encode(flowchart);
             saveData.FlowchartData.Add(flowchartData);
@@ -181,9 +182,9 @@ namespace Fungus
             PlayerPrefs.DeleteKey(key);
         }
 
-        public virtual void PopulateSaveBuffer(Flowchart flowchart, string saveKey)
+        public virtual void PopulateSaveBuffer(Flowchart flowchart, string saveKey, string description)
         {
-            saveBuffer = CreateSaveData(flowchart, saveKey);
+            saveBuffer = CreateSaveData(flowchart, saveKey, description);
         }
 
         #endregion

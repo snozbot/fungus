@@ -7,12 +7,14 @@ namespace Fungus
     public class SavePointData
     {
         [SerializeField] protected string saveKey;
+        [SerializeField] protected string description;
         [SerializeField] protected string sceneName;
         [SerializeField] protected List<FlowchartData> flowchartData = new List<FlowchartData>();
 
         #region Public methods
 
         public string SaveKey { get { return saveKey; } set { saveKey = value; } }
+        public string Description { get { return description; } set { description = value; } }
         public string SceneName { get { return sceneName; } set { sceneName = value; } }
         public List<FlowchartData> FlowchartData { get { return flowchartData; } set { flowchartData = value; } }
 

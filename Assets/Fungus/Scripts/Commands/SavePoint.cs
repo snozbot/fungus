@@ -14,6 +14,8 @@ namespace Fungus
     {
         [SerializeField] protected string saveKey;
 
+        [SerializeField] protected string description;
+
         [SerializeField] protected bool saveNow;
 
         #region Public members
@@ -22,7 +24,7 @@ namespace Fungus
         {
             var saveManager = FungusManager.Instance.SaveManager;
 
-            saveManager.PopulateSaveBuffer(GetFlowchart(), saveKey);
+            saveManager.PopulateSaveBuffer(GetFlowchart(), saveKey, description);
 
             if (saveNow)
             {
