@@ -55,14 +55,14 @@ namespace Fungus
             return true;
         }
 
-        protected virtual string CreateSaveData(Flowchart flowchart, string resumeBlockName)
+        protected virtual string CreateSaveData(Flowchart flowchart, string saveKey)
         {
             var saveData = new SavePointData();
 
             // Store the scene, flowchart and block to execute on resume
             saveData.sceneName = SceneManager.GetActiveScene().name;
             saveData.flowchartName = flowchart.name;
-            saveData.resumeBlockName = resumeBlockName;
+            saveData.saveKey = saveKey;
 
             for (int i = 0; i < flowchart.Variables.Count; i++) 
             {
@@ -147,7 +147,27 @@ namespace Fungus
                 flowchart.SetStringVariable(stringVar.key, stringVar.value);
             }
 
-            flowchart.ExecuteBlock(saveData.resumeBlockName);
+            // Fire any matching GameLoaded event handler with matching save key.
+            var eventHandlers = Object.FindObjectsOfType<GameLoaded>();
+            for (int i = 0; i < eventHandlers.Length; i++)
+            {
+                var eventHandler = eventHandlers[i];
+                eventHandler.OnGameLoaded(saveData.saveKey);
+            } 
+
+            // Execute any block with a Label matching the save key
+            var labels = Object.FindObjectsOfType<Label>();
+            for (int i = 0; i < labels.Length; i++)
+            {
+                var label = labels[i];
+                if (string.Compare(label.Key, saveData.saveKey) == 0)
+                {
+                    int index = label.CommandIndex;
+                    var block = label.ParentBlock;
+                    var fc = label.GetFlowchart();
+                    fc.ExecuteBlock(block, index + 1);
+                }
+            } 
         }
 
         protected virtual void StoreJSONData(string key, string jsonData)
@@ -233,9 +253,9 @@ namespace Fungus
             PlayerPrefs.DeleteKey(key);
         }
 
-        public virtual void PopulateSaveBuffer(Flowchart flowchart, string resumeBlockName)
+        public virtual void PopulateSaveBuffer(Flowchart flowchart, string saveKey)
         {
-            saveBuffer = CreateSaveData(flowchart, resumeBlockName);
+            saveBuffer = CreateSaveData(flowchart, saveKey);
         }
 
         #endregion

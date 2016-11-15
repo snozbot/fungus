@@ -37,7 +37,7 @@ namespace Fungus
     {
         public string sceneName;
         public string flowchartName;
-        public string resumeBlockName;
+        public string saveKey;
 
         public List<StringVar> stringVars = new List<StringVar>();
         public List<IntVar> intVars = new List<IntVar>();

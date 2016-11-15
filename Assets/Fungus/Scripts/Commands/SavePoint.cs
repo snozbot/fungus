@@ -12,7 +12,7 @@ namespace Fungus
                  "Creates a save point which can be saved to persistant storage and loaded again later.")]
     public class SavePoint : Command
     {
-        [SerializeField] protected Block resumeBlock;
+        [SerializeField] protected string saveKey;
 
         [SerializeField] protected bool saveNow;
 
@@ -22,7 +22,7 @@ namespace Fungus
         {
             var saveManager = FungusManager.Instance.SaveManager;
 
-            saveManager.PopulateSaveBuffer(GetFlowchart(), resumeBlock.BlockName);
+            saveManager.PopulateSaveBuffer(GetFlowchart(), saveKey);
 
             if (saveNow)
             {
@@ -34,25 +34,12 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            if (resumeBlock == null)
-            {
-                return "Error: No resume block set";
-            }
-
-            return resumeBlock.BlockName;
+            return saveKey;
         }
 
         public override Color GetButtonColor()
         {
             return new Color32(235, 191, 217, 255);
-        }
-
-        public override void GetConnectedBlocks(ref List<Block> connectedBlocks)
-        {
-            if (resumeBlock != null)
-            {
-                connectedBlocks.Add(resumeBlock);
-            }
         }
 
         #endregion
