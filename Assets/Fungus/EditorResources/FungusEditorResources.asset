@@ -39,6 +39,9 @@ MonoBehaviour:
   command_background:
     free: {fileID: 2800000, guid: a5c9a4271b3de4e4f86eff7f8a1bd768, type: 3}
     pro: {fileID: 0}
+  connection_point:
+    free: {fileID: 2800000, guid: f08a4c27d7efe4aa6a35348a4e8aec8f, type: 3}
+    pro: {fileID: 0}
   event_node_off:
     free: {fileID: 2800000, guid: 0e16a209826864df7b05f6d3901aae7a, type: 3}
     pro: {fileID: 0}
