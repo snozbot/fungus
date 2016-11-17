@@ -35,6 +35,7 @@ namespace Fungus.EditorUtils
         }
     }
 
+    // Handle reimporting all assets
     internal class EditorResourcesPostProcessor : AssetPostprocessor 
     {
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] _, string[] __, string[] ___) 
@@ -206,7 +207,7 @@ namespace Fungus.EditorUtils
                 }
             }
 
-            instance.updateOnReloadScripts = false;
+            serializedObject.FindProperty("updateOnReloadScripts").boolValue = false;
 
             // The ApplyModifiedPropertiesWithoutUndo() function wasn't documented until Unity 5.2
 #if UNITY_5_0 || UNITY_5_1

@@ -16,6 +16,7 @@ namespace Fungus.EditorUtils
         [SerializeField] private EditorTexture choice_node_off;
         [SerializeField] private EditorTexture choice_node_on;
         [SerializeField] private EditorTexture command_background;
+        [SerializeField] private EditorTexture connection_point;
         [SerializeField] private EditorTexture event_node_off;
         [SerializeField] private EditorTexture event_node_on;
         [SerializeField] private EditorTexture play_big;
@@ -32,6 +33,7 @@ namespace Fungus.EditorUtils
         public static Texture2D ChoiceNodeOff { get { return Instance.choice_node_off.Texture2D; } }
         public static Texture2D ChoiceNodeOn { get { return Instance.choice_node_on.Texture2D; } }
         public static Texture2D CommandBackground { get { return Instance.command_background.Texture2D; } }
+        public static Texture2D ConnectionPoint { get { return Instance.connection_point.Texture2D; } }
         public static Texture2D EventNodeOff { get { return Instance.event_node_off.Texture2D; } }
         public static Texture2D EventNodeOn { get { return Instance.event_node_on.Texture2D; } }
         public static Texture2D PlayBig { get { return Instance.play_big.Texture2D; } }
