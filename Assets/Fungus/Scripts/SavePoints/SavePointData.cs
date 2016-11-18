@@ -7,6 +7,12 @@ namespace Fungus
     [System.Serializable]
     public class SavePointData
     {
+        /// <summary>
+        /// Version number of current save data format.
+        /// </summary>
+        protected const int SavePointDataVersion = 0;
+
+        [SerializeField] protected int version;
         [SerializeField] protected string saveKey;
         [SerializeField] protected string description;
         [SerializeField] protected string sceneName;
@@ -74,20 +80,21 @@ namespace Fungus
         {
             var savePointData = new SavePointData();
 
+            savePointData.version = 1;
             savePointData.saveKey = _saveKey;
             savePointData.description = _description;
             savePointData.sceneName = _sceneName;
                 
-            var saveHelper = GameObject.FindObjectOfType<SaveHelper>();
-            if (saveHelper == null)
+            var gameSaver = GameObject.FindObjectOfType<GameSaver>();
+            if (gameSaver == null)
             {
                 Debug.LogError("Failed to find SaveHelper object in scene");
                 return null;
             }
 
-            for (int i = 0; i < saveHelper.Flowcharts.Count; i++)
+            for (int i = 0; i < gameSaver.Flowcharts.Count; i++)
             {
-                var flowchart = saveHelper.Flowcharts[i];
+                var flowchart = gameSaver.Flowcharts[i];
                 var flowchartData = FlowchartData.Encode(flowchart);
                 savePointData.FlowchartDatas.Add(flowchartData);
             }

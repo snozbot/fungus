@@ -100,7 +100,7 @@ GameObject:
   - 4: {fileID: 76757869}
   - 114: {fileID: 76757868}
   m_Layer: 0
-  m_Name: SaveHelper
+  m_Name: GameSaver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startScene: SceneA
+  flowcharts: []
 --- !u!4 &76757869
 Transform:
   m_ObjectHideFlags: 0

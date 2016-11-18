@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Fungus
 {
-    public class SaveHelper : MonoBehaviour 
+    public class GameSaver : MonoBehaviour 
     {
         [SerializeField] protected string startScene = "";
 
