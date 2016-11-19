@@ -16,7 +16,7 @@ namespace Fungus
             return string.Format(SlotKeyFormat, slot);
         }
 
-        protected virtual bool LoadNewGame(string key, string startScene)
+        protected virtual bool LoadNewGame(string key)
         {
             if (PlayerPrefs.HasKey(key) &&
                 PlayerPrefs.GetString(key) != "")
@@ -27,8 +27,7 @@ namespace Fungus
             // Create a new save entry
             PlayerPrefs.SetString(key, "");
 
-            // Load the start scene
-            SceneManager.LoadScene(startScene);
+            SavePointLoaded.NotifyEventHandlers("new_game");
 
             return true;
         }
@@ -80,13 +79,13 @@ namespace Fungus
             saveBuffer = "";
         }
 
-        public virtual void Load(int slot, string startScene = "")
+        public virtual void Load(int slot)
         {
             ActiveSlot = slot;
 
             var key = FormatSaveKey(slot);
 
-            if (LoadNewGame(key, startScene))
+            if (LoadNewGame(key))
             {
                 return;
             }

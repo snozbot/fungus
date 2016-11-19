@@ -36,20 +36,9 @@ namespace Fungus
                 FlowchartData.Decode(flowchartData);
             }
 
-            NotifyEventHandlers(savePointData);
+            SavePointLoaded.NotifyEventHandlers(savePointData.saveKey);
 
             ExecuteBlocks(savePointData);
-        }
-
-        protected static void NotifyEventHandlers(SavePointData savePointData)
-        {
-            // Fire any matching SavePointLoaded event handler with matching save key.
-            var eventHandlers = Object.FindObjectsOfType<SavePointLoaded>();
-            for (int i = 0; i < eventHandlers.Length; i++)
-            {
-                var eventHandler = eventHandlers[i];
-                eventHandler.OnSavePointLoaded(savePointData.SaveKey);
-            }
         }
 
         protected static void ExecuteBlocks(SavePointData savePointData)

@@ -11,19 +11,27 @@ namespace Fungus
                       "Execute this block when a saved point is loaded.")]
     public class SavePointLoaded : EventHandler 
     {
-        [Tooltip("Block will execute if the Save Key of the loaded save point matches an entry in the Save Keys list.")]
-        [SerializeField] protected List<string> saveKeys = new List<string>();
+        [Tooltip("Block will execute if the Save Key of the loaded save point matches this save key.")]
+        [SerializeField] protected string saveKey = "";
+
+        protected void OnSavePointLoaded(string _saveKey)
+        {
+            if (string.Compare(saveKey, _saveKey, true) == 0)
+            {
+                ExecuteBlock();
+            }
+        }
 
         #region Public methods
 
-        /// <summary>
-        /// Called when a save point is loaded.
-        /// </summary>
-        public void OnSavePointLoaded(string saveKey)
+        public static void NotifyEventHandlers(string _saveKey)
         {
-            if (saveKeys.Contains(saveKey))
+            // Fire any matching SavePointLoaded event handler with matching save key.
+            var eventHandlers = Object.FindObjectsOfType<SavePointLoaded>();
+            for (int i = 0; i < eventHandlers.Length; i++)
             {
-                ExecuteBlock();
+                var eventHandler = eventHandlers[i];
+                eventHandler.OnSavePointLoaded(_saveKey);
             }
         }
 
