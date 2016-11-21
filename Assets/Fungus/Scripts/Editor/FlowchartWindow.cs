@@ -131,7 +131,10 @@ namespace Fungus.EditorUtils
         // Context Click occurs on MouseDown which interferes with panning
         // Track right click positions manually to show menus on MouseUp
         protected Vector2 rightClickDown = -Vector2.one;
-        protected readonly float rightClickTolerance = 5f;
+        protected const float rightClickTolerance = 5f;
+
+        protected string searchString = string.Empty;
+        protected const string searchFieldName = "search";
 
         [MenuItem("Tools/Fungus/Flowchart Window")]
         static void Init()
@@ -268,6 +271,25 @@ namespace Fungus.EditorUtils
             }
             deleteList.Clear();
 
+            // Clear search filter focus
+            if (Event.current.type == EventType.MouseDown)
+            {
+                 GUIUtility.keyboardControl = 0;
+            }
+
+            if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape)
+            {
+                if (GUI.GetNameOfFocusedControl() == searchFieldName)
+                {
+                    searchString = string.Empty;
+                    GUIUtility.keyboardControl = 0;
+                }
+                else if (flowchart.SelectedBlocks.Count > 0)
+                {
+                    DeselectAll(flowchart);
+                }
+            }
+
             DrawFlowchartView(flowchart);
             DrawOverlay(flowchart);
 
@@ -317,6 +339,15 @@ namespace Fungus.EditorUtils
             }
 
             GUILayout.FlexibleSpace();
+
+            GUI.SetNextControlName(searchFieldName);
+            searchString = EditorGUILayout.TextField(searchString, GUI.skin.FindStyle("ToolbarSeachTextField"), GUILayout.Width(150));
+
+            if (GUILayout.Button("", GUI.skin.FindStyle("ToolbarSeachCancelButton"))) // These are spelled correctly
+            {
+                searchString = string.Empty;
+                GUIUtility.keyboardControl = 0;
+            }
 
             GUILayout.EndHorizontal();
 
@@ -1016,6 +1047,11 @@ namespace Fungus.EditorUtils
             var brightness = tintColor.r * 0.3 + tintColor.g * 0.59 + tintColor.b * 0.11;
             nodeStyleCopy.normal.textColor = brightness >= 0.5 ? Color.black : Color.white;
 
+            if (searchString != string.Empty && !block.BlockName.ToLower().Contains(searchString.ToLower()))
+            {
+                tintColor.a *= 0.2f;
+            }
+
             nodeStyleCopy.normal.background = offTex;
             GUI.backgroundColor = tintColor;
             GUI.Box(boxRect, block.BlockName, nodeStyleCopy);
@@ -1293,7 +1329,7 @@ namespace Fungus.EditorUtils
                         Event.current.Use();
                     }
                 }
-                else if (c == "SelectAll")
+                else if (c == "SelectAll" || c == "Find")
                 {
                     Event.current.Use();
                 }
@@ -1338,6 +1374,10 @@ namespace Fungus.EditorUtils
                     {
                         flowchart.AddSelectedBlock(block);
                     }
+                    Event.current.Use();
+                    break;
+                case "Find":
+                    EditorGUI.FocusTextInControl(searchFieldName);
                     Event.current.Use();
                     break;
                 }
