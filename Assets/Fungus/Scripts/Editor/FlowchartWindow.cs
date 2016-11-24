@@ -97,6 +97,13 @@ namespace Fungus.EditorUtils
             }
         }
 
+        protected struct BlockGraphics
+        {
+            internal Color tint;
+            internal Texture2D onTexture;
+            internal Texture2D offTexture;
+        }
+
         protected List<BlockCopy> copyList = new List<BlockCopy>();
         public static List<Block> deleteList = new List<Block>();
 
@@ -131,8 +138,17 @@ namespace Fungus.EditorUtils
         // Context Click occurs on MouseDown which interferes with panning
         // Track right click positions manually to show menus on MouseUp
         protected Vector2 rightClickDown = -Vector2.one;
-        protected readonly float rightClickTolerance = 5f;
+        protected const float rightClickTolerance = 5f;
 
+        protected const string searchFieldName = "search";
+        private string searchString = string.Empty;
+        protected Rect searchRect;
+        protected Rect popupRect;
+        protected Block[] filteredBlocks;
+        protected int blockPopupSelection = -1;
+        protected Vector2 popupScroll;
+        protected bool mouseOverPopup;
+        
         [MenuItem("Tools/Fungus/Flowchart Window")]
         static void Init()
         {
@@ -159,6 +175,8 @@ namespace Fungus.EditorUtils
             gridLineColor.a = EditorGUIUtility.isProSkin ? 0.5f : 0.25f;
 
             copyList.Clear();
+
+            wantsMouseMove = true; // For hover selection in block search popup  
         }
 
         protected virtual void OnInspectorUpdate()
@@ -268,6 +286,22 @@ namespace Fungus.EditorUtils
             }
             deleteList.Clear();
 
+            // Clear search filter focus
+            if (Event.current.type == EventType.MouseDown && !searchRect.Contains(Event.current.mousePosition) &&
+                !popupRect.Contains(Event.current.mousePosition))
+            {
+                CloseBlockPopup();
+            }
+
+            if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape)
+            {
+                if (GUI.GetNameOfFocusedControl() != searchFieldName && flowchart.SelectedBlocks.Count > 0)
+                {
+                    DeselectAll(flowchart);
+                    Event.current.Use();
+                }
+            }
+
             DrawFlowchartView(flowchart);
             DrawOverlay(flowchart);
 
@@ -318,6 +352,100 @@ namespace Fungus.EditorUtils
 
             GUILayout.FlexibleSpace();
 
+            var blocks = flowchart.GetComponents<Block>();
+
+            // Intercept mouse and keyboard events before search field uses them
+            if (GUI.GetNameOfFocusedControl() == searchFieldName)
+            {
+                if (Event.current.type == EventType.KeyDown)
+                {
+                    var centerBlock = false;
+                    var selectBlock = false;
+                    var closePopup = false;
+                    var useEvent = false;
+
+                    switch (Event.current.keyCode)
+                    {
+                    case KeyCode.DownArrow:
+                        ++blockPopupSelection;
+                        centerBlock = true;
+                        useEvent = true;
+                        break;
+
+                    case KeyCode.UpArrow:
+                        --blockPopupSelection;
+                        centerBlock = true;
+                        useEvent = true;
+                        break;
+
+                    case KeyCode.Return:
+                        centerBlock = true;
+                        selectBlock = true;
+                        closePopup = true;
+                        useEvent = true;
+                        break;
+                        
+                    case KeyCode.Escape:
+                        closePopup = true;
+                        useEvent = true;
+                        break;
+                    }
+
+                    blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
+
+                    if (centerBlock && filteredBlocks.Length > 0)
+                    {
+                        var block = filteredBlocks[blockPopupSelection];
+                        CenterBlock(flowchart, block);
+
+                        if (selectBlock)
+                        {
+                            SelectBlock(flowchart, block);
+                        }
+                    }
+
+                    if (closePopup)
+                    {
+                        CloseBlockPopup();
+                    }
+
+                    if (useEvent)
+                    {
+                        Event.current.Use();
+                    }
+                }
+            }
+            else if (Event.current.type == EventType.MouseDown && Event.current.button == 0 &&
+                searchRect.Contains(Event.current.mousePosition))
+            {
+                blockPopupSelection = 0;
+            }
+
+            GUI.SetNextControlName(searchFieldName);
+            var newString = EditorGUILayout.TextField(searchString, GUI.skin.FindStyle("ToolbarSeachTextField"), GUILayout.Width(150));
+            if (newString != searchString)
+            {
+                searchString = newString;
+            }
+
+            // Update this every frame in case of redo/undo while popup is open
+            filteredBlocks = blocks.Where(block => block.BlockName.ToLower().Contains(searchString.ToLower())).ToArray();
+            blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
+
+            if (Event.current.type == EventType.Repaint)
+            {
+                searchRect = GUILayoutUtility.GetLastRect();
+                popupRect = searchRect;
+                popupRect.width += 12;
+                popupRect.y += popupRect.height;
+                popupRect.height = Mathf.Min(filteredBlocks.Length * 16, position.height - 22);
+            }
+
+            if (GUILayout.Button("", GUI.skin.FindStyle("ToolbarSeachCancelButton")))
+            {
+                CloseBlockPopup();
+            }
+
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
@@ -365,7 +493,9 @@ namespace Fungus.EditorUtils
             if (Event.current.type == EventType.Repaint)
             {
                 Rect toolbarRect = new Rect(0, 0, position.width, 18);
-                mouseOverVariables = variableWindowRect.Contains(Event.current.mousePosition) || toolbarRect.Contains(rawMousePosition); 
+                mouseOverPopup = (GUI.GetNameOfFocusedControl() == searchFieldName && popupRect.Contains(rawMousePosition));
+                mouseOverVariables = variableWindowRect.Contains(Event.current.mousePosition) ||
+                                     toolbarRect.Contains(rawMousePosition) || mouseOverPopup; 
             }
 
             GUILayout.EndScrollView();
@@ -375,6 +505,75 @@ namespace Fungus.EditorUtils
             GUILayout.FlexibleSpace();
 
             GUILayout.EndHorizontal();
+
+            // Draw block search popup on top of other controls
+            if (GUI.GetNameOfFocusedControl() == searchFieldName && filteredBlocks.Length > 0)
+            {
+                DrawBlockPopup(flowchart);
+            }
+        }
+
+        protected virtual void DrawBlockPopup(Flowchart flowchart)
+        {            
+            blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
+
+            GUI.Box(popupRect, "", GUI.skin.FindStyle("sv_iconselector_back"));
+
+            if (Event.current.type == EventType.MouseMove)
+            {
+                if (popupRect.Contains(Event.current.mousePosition))
+                {
+                    var relativeY = Event.current.mousePosition.y - popupRect.yMin + popupScroll.y;
+                    blockPopupSelection = (int) (relativeY / 16);
+                }
+
+                Event.current.Use();
+            }
+
+            GUILayout.BeginArea(popupRect);
+            popupScroll = EditorGUILayout.BeginScrollView(popupScroll, GUIStyle.none, GUI.skin.verticalScrollbar);
+
+            var normalStyle = new GUIStyle(GUI.skin.FindStyle("MenuItem"));
+            normalStyle.padding = new RectOffset(8, 0, 0, 0);
+            normalStyle.imagePosition = ImagePosition.ImageLeft;
+            var selectedStyle = new GUIStyle(normalStyle);
+            selectedStyle.normal = selectedStyle.hover;
+            normalStyle.hover = normalStyle.normal;
+
+            for (int i = 0; i < filteredBlocks.Length; ++i)
+            {
+                EditorGUILayout.BeginHorizontal(GUILayout.Height(16));
+
+                var block = filteredBlocks[i];
+                var style = i == blockPopupSelection ? selectedStyle : normalStyle;
+
+                GUI.contentColor = GetBlockGraphics(block).tint;
+
+                var buttonPressed = false;
+                if (GUILayout.Button(FungusEditorResources.BulletPoint, style, GUILayout.Width(16)))
+                {
+                    buttonPressed = true;
+                }
+
+                GUI.contentColor = Color.white;
+
+                if (GUILayout.Button(block.BlockName, style))
+                {
+                    buttonPressed = true;
+                }
+
+                if (buttonPressed)
+                {
+                    CenterBlock(flowchart, block);
+                    SelectBlock(flowchart, block);
+                    CloseBlockPopup();
+                }
+
+                EditorGUILayout.EndHorizontal();       
+            }
+
+            EditorGUILayout.EndScrollView();
+            GUILayout.EndArea();
         }
         
         protected virtual void DrawFlowchartView(Flowchart flowchart)
@@ -797,7 +996,7 @@ namespace Fungus.EditorUtils
             bool zoom = false;
             
             // Scroll wheel
-            if (Event.current.type == EventType.ScrollWheel)
+            if (Event.current.type == EventType.ScrollWheel && !mouseOverPopup)
             {
                 zoom = true;
             }
@@ -955,44 +1154,7 @@ namespace Fungus.EditorUtils
             }
 
             GUIStyle nodeStyleCopy = new GUIStyle(nodeStyle);
-            Texture2D offTex;
-            Texture2D onTex;
-            Color defaultColor;
-
-            if (block._EventHandler != null)
-            {
-                offTex = FungusEditorResources.EventNodeOff;
-                onTex = FungusEditorResources.EventNodeOn;
-                defaultColor = FungusConstants.DefaultEventBlockTint;
-            }
-            else
-            {
-                // Count the number of unique connections (excluding self references)
-                var uniqueList = new List<Block>();
-                var connectedBlocks = block.GetConnectedBlocks();
-                foreach (var connectedBlock in connectedBlocks)
-                {
-                    if (connectedBlock == block ||
-                        uniqueList.Contains(connectedBlock))
-                    {
-                        continue;
-                    }
-                    uniqueList.Add(connectedBlock);
-                }
-
-                if (uniqueList.Count > 1)
-                {
-                    offTex = FungusEditorResources.ChoiceNodeOff;
-                    onTex = FungusEditorResources.ChoiceNodeOn;
-                    defaultColor = FungusConstants.DefaultChoiceBlockTint;
-                }
-                else
-                {
-                    offTex = FungusEditorResources.ProcessNodeOff;
-                    onTex = FungusEditorResources.ProcessNodeOn;
-                    defaultColor = FungusConstants.DefaultProcessBlockTint;
-                }
-            }
+            var graphics = GetBlockGraphics(block);
 
             // Make sure node is wide enough to fit the node name text
             var n = block as Node;
@@ -1002,22 +1164,26 @@ namespace Fungus.EditorUtils
             n._NodeRect = tempRect;
 
             Rect boxRect = GUILayoutUtility.GetRect(n._NodeRect.width, n._NodeRect.height);
-            var tintColor = n.UseCustomTint ? n.Tint : defaultColor;
 
             // Draw untinted highlight
             if (selected)
             {
                 GUI.backgroundColor = Color.white;
-                nodeStyleCopy.normal.background = onTex;
+                nodeStyleCopy.normal.background = graphics.onTexture;
                 GUI.Box(boxRect, "", nodeStyleCopy);
             }
 
             // Draw tinted block; ensure text is readable
-            var brightness = tintColor.r * 0.3 + tintColor.g * 0.59 + tintColor.b * 0.11;
+            var brightness = graphics.tint.r * 0.3 + graphics.tint.g * 0.59 + graphics.tint.b * 0.11;
             nodeStyleCopy.normal.textColor = brightness >= 0.5 ? Color.black : Color.white;
 
-            nodeStyleCopy.normal.background = offTex;
-            GUI.backgroundColor = tintColor;
+            if (GUI.GetNameOfFocusedControl() == searchFieldName && !filteredBlocks.Contains(block))
+            {
+                graphics.tint.a *= 0.2f;
+            }
+
+            nodeStyleCopy.normal.background = graphics.offTexture;
+            GUI.backgroundColor = graphics.tint;
             GUI.Box(boxRect, block.BlockName, nodeStyleCopy);
 
             GUI.backgroundColor = Color.white;
@@ -1293,7 +1459,7 @@ namespace Fungus.EditorUtils
                         Event.current.Use();
                     }
                 }
-                else if (c == "SelectAll")
+                else if (c == "SelectAll" || c == "Find")
                 {
                     Event.current.Use();
                 }
@@ -1340,8 +1506,75 @@ namespace Fungus.EditorUtils
                     }
                     Event.current.Use();
                     break;
+
+                case "Find":
+                    blockPopupSelection = 0;
+                    EditorGUI.FocusTextInControl(searchFieldName);
+                    Event.current.Use();
+                    break;
                 }
             }
+        }
+
+        protected virtual void CenterBlock(Flowchart flowchart, Block block)
+        {
+            if (flowchart.Zoom < 1)
+            {
+                DoZoom(flowchart, 1 - flowchart.Zoom, Vector2.one * 0.5f);
+            }
+
+            flowchart.ScrollPos = -block._NodeRect.center + position.size * 0.5f / flowchart.Zoom;
+        }
+
+        protected virtual void CloseBlockPopup()
+        {
+            GUIUtility.keyboardControl = 0;
+            searchString = string.Empty;
+        }
+
+        protected virtual BlockGraphics GetBlockGraphics(Block block)
+        {
+            var graphics = new BlockGraphics();
+
+            Color defaultTint;
+            if (block._EventHandler != null)
+            {
+                graphics.offTexture = FungusEditorResources.EventNodeOff;
+                graphics.onTexture = FungusEditorResources.EventNodeOn;
+                defaultTint = FungusConstants.DefaultEventBlockTint;
+            }
+            else
+            {
+                // Count the number of unique connections (excluding self references)
+                var uniqueList = new List<Block>();
+                var connectedBlocks = block.GetConnectedBlocks();
+                foreach (var connectedBlock in connectedBlocks)
+                {
+                    if (connectedBlock == block ||
+                        uniqueList.Contains(connectedBlock))
+                    {
+                        continue;
+                    }
+                    uniqueList.Add(connectedBlock);
+                }
+
+                if (uniqueList.Count > 1)
+                {
+                    graphics.offTexture = FungusEditorResources.ChoiceNodeOff;
+                    graphics.onTexture = FungusEditorResources.ChoiceNodeOn;
+                    defaultTint = FungusConstants.DefaultChoiceBlockTint;
+                }
+                else
+                {
+                    graphics.offTexture = FungusEditorResources.ProcessNodeOff;
+                    graphics.onTexture = FungusEditorResources.ProcessNodeOn;
+                    defaultTint = FungusConstants.DefaultProcessBlockTint;
+                }
+            }
+
+            graphics.tint = block.UseCustomTint ? block.Tint : defaultTint;
+
+            return graphics;
         }
     }
 }

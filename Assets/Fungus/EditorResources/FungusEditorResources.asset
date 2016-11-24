@@ -30,6 +30,9 @@ MonoBehaviour:
   up:
     free: {fileID: 2800000, guid: 8f1242ad894201f43b2b6d52fd990f77, type: 3}
     pro: {fileID: 2800000, guid: 2a76a781db2994b33b83cd84b8835da7, type: 3}
+  bullet_point:
+    free: {fileID: 2800000, guid: 4ef739c68bb234717a60a2bb83ff8602, type: 3}
+    pro: {fileID: 0}
   choice_node_off:
     free: {fileID: 2800000, guid: 7b6fc04aac74540e39e9502da5312ce7, type: 3}
     pro: {fileID: 0}
