@@ -58,14 +58,7 @@ namespace Fungus
             }
         }
 
-        #region Public methods
-
-        public string SaveKey { get { return saveKey; } set { saveKey = value; } }
-        public string Description { get { return description; } set { description = value; } }
-        public string SceneName { get { return sceneName; } set { sceneName = value; } }
-        public List<FlowchartData> FlowchartDatas { get { return flowchartDatas; } set { flowchartDatas = value; } }
-
-        public static string Encode(string _saveKey, string _description, string _sceneName)
+        protected static SavePointData Create(string _saveKey, string _description, string _sceneName)
         {
             var savePointData = new SavePointData();
 
@@ -73,6 +66,27 @@ namespace Fungus
             savePointData.saveKey = _saveKey;
             savePointData.description = _description;
             savePointData.sceneName = _sceneName;
+
+            return savePointData;
+        }
+
+        #region Public methods
+
+        public string SaveKey { get { return saveKey; } set { saveKey = value; } }
+        public string Description { get { return description; } set { description = value; } }
+        public string SceneName { get { return sceneName; } set { sceneName = value; } }
+        public List<FlowchartData> FlowchartDatas { get { return flowchartDatas; } set { flowchartDatas = value; } }
+
+        public static string EncodeNewGame(string _description, string _sceneName)
+        {
+            var savePointData = Create("new_game", _description, _sceneName);
+
+            return JsonUtility.ToJson(savePointData, true);
+        }
+
+        public static string Encode(string _saveKey, string _description, string _sceneName)
+        {
+            var savePointData = Create(_saveKey, _description, _sceneName);
                 
             var gameSaver = GameObject.FindObjectOfType<GameSaver>();
             if (gameSaver == null)

@@ -5,12 +5,22 @@ namespace Fungus
 {
     public class SavePicker : MonoBehaviour
     {
+        [SerializeField] protected string newGameDescription = "Playing";
+
         #region Public methods
 
         public virtual void Select(int slot)
         {
             var saveManager = FungusManager.Instance.SaveManager;
-            saveManager.Load(slot);
+
+            if (saveManager.SlotExists(slot))
+            {
+                saveManager.Load(slot);
+            }
+            else
+            {
+                saveManager.LoadNewGame(slot, newGameDescription);
+            }
         }
 
         public virtual void Delete(int slot)
