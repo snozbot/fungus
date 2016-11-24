@@ -371,17 +371,20 @@ namespace Fungus.EditorUtils
                         centerBlock = true;
                         useEvent = true;
                         break;
+
                     case KeyCode.UpArrow:
                         --blockPopupSelection;
                         centerBlock = true;
                         useEvent = true;
                         break;
+
                     case KeyCode.Return:
                         centerBlock = true;
                         selectBlock = true;
                         closePopup = true;
                         useEvent = true;
                         break;
+                        
                     case KeyCode.Escape:
                         closePopup = true;
                         useEvent = true;
