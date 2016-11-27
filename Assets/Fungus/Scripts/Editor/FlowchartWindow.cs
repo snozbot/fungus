@@ -205,7 +205,7 @@ namespace Fungus.EditorUtils
 
             wantsMouseMove = true; // For hover selection in block search popup
 
-            flowchart = GetFlowchart();
+            EditorApplication.delayCall += () => flowchart = GetFlowchart();
             Undo.undoRedoPerformed += () => UpdateBlockCache();
             EditorApplication.playmodeStateChanged += () => {
                 blocks = null;
@@ -217,7 +217,6 @@ namespace Fungus.EditorUtils
         protected virtual void OnInspectorUpdate()
         {
             // Ensure the Block Inspector is always showing the currently selected block
-            // var flowchart = GetFlowchart();
             if (flowchart == null)
             {
                 return;
