@@ -902,12 +902,12 @@ namespace Fungus.EditorUtils
             if (e.type == EventType.Repaint)
             {
                 DrawGrid(flowchart);
-            }
 
-            // Draw connections
-            for (int i = 0; i < blocks.Length; ++i)
-            {
-                DrawConnections(blocks[i]);
+                // Draw connections
+                for (int i = 0; i < blocks.Length; ++i)
+                {
+                    DrawConnections(blocks[i]);
+                }
             }
 
             for (int i = 0; i < blocks.Length; ++i)
