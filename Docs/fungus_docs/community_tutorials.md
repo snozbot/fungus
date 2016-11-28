@@ -3,6 +3,10 @@
 
 If you've created an article or video about %Fungus let us know on the forum and we'll add it here.
 
+# Marco Secchi #
+
+- [Interacting with a GameObject in Fungus](http://www.marcosecchi.it/2016/11/26/interacting-with-a-gameobject-in-fungus/?lang=en)
+
 # Morning Fun Games # {#morning_fun}
 
 - [Custom Dialog Like A Comic](https://www.youtube.com/watch?v=RdCAjpQ3iGE)
