@@ -171,6 +171,7 @@ namespace Fungus.EditorUtils
             {
                 blocks = newBlocks;
                 BringSelectedBlockToFront();
+                UpdateFilteredBlocks();
             }
         }
 
@@ -186,6 +187,19 @@ namespace Fungus.EditorUtils
                 }
                 blocks[blocks.Length - 1] = block;
             }
+        }
+
+        protected static void UpdateFilteredBlocks()
+        {
+            filteredBlocks = blocks.Where(block => block.BlockName.ToLower().Contains(searchString.ToLower())).ToArray();
+            blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
+        }
+
+        // Used to detect switching scenes
+        protected virtual void OnHierarchyChange()
+        {
+            blocks = null;            
+            flowchart = GetFlowchart();
         }
 
         protected virtual void OnEnable()
@@ -456,11 +470,8 @@ namespace Fungus.EditorUtils
                 if (newString != searchString)
                 {
                     searchString = newString;
+                    UpdateFilteredBlocks();
                 }
-
-                // Update this every frame in case of redo/undo while popup is open
-                filteredBlocks = blocks.Where(block => block.BlockName.ToLower().Contains(searchString.ToLower())).ToArray();
-                blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
 
                 if (Event.current.type == EventType.Repaint)
                 {
@@ -1502,6 +1513,7 @@ namespace Fungus.EditorUtils
         {
             GUIUtility.keyboardControl = 0;
             searchString = string.Empty;
+            UpdateFilteredBlocks();
         }
 
         protected virtual BlockGraphics GetBlockGraphics(Block block)
