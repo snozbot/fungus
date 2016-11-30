@@ -8,7 +8,13 @@ namespace Fungus
 {
     public class SaveGameHelper : MonoBehaviour 
     {
+        const string NewGameSaveKey = "new_game";
+
         [SerializeField] protected string startScene = "";
+
+        [SerializeField] protected bool autoStartGame = true;
+
+        [SerializeField] protected bool restartDeletesSave = false;
 
         [SerializeField] protected SaveGameObjects saveGameObjects = new SaveGameObjects();
 
@@ -22,9 +28,19 @@ namespace Fungus
             SaveSignals.OnGameSave -= OnGameSave;
         }
 
+        protected virtual void Start()
+        {
+            var saveManager = FungusManager.Instance.SaveManager;
+
+            if (autoStartGame &&
+                saveManager.NumSavePoints == 0)
+            {
+                SavePointLoaded.NotifyEventHandlers(NewGameSaveKey);
+            }
+        }
+
         protected virtual void OnGameSave(string saveKey, string saveDescription)
         {
-            // TODO: Play sound effect
         }
 
         #region Public methods
@@ -52,7 +68,13 @@ namespace Fungus
         public virtual void Restart()
         {
             var saveManager = FungusManager.Instance.SaveManager;
-            saveManager.Clear();
+            saveManager.ClearHistory();
+
+            if (restartDeletesSave)
+            {
+                saveManager.Delete();
+            }
+
             SceneManager.LoadScene(startScene);
         }
 

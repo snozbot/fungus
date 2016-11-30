@@ -9,7 +9,7 @@ namespace Fungus
 
         protected static SaveHistory saveHistory = new SaveHistory();
 
-        protected virtual void ReadSaveHistory(string saveDataKey)
+        protected virtual bool ReadSaveHistory(string saveDataKey)
         {
             var historyData = PlayerPrefs.GetString(saveDataKey);
             if (!string.IsNullOrEmpty(historyData))
@@ -18,21 +18,29 @@ namespace Fungus
                 if (tempSaveHistory != null)
                 {
                     saveHistory = tempSaveHistory;
+                    return true;
                 }
             }
+
+            return false;
         }
 
-        protected virtual void WriteSaveHistory(string saveDataKey)
+        protected virtual bool WriteSaveHistory(string saveDataKey)
         {
             var historyData = JsonUtility.ToJson(saveHistory, true);
             if (!string.IsNullOrEmpty(historyData))
             {
                 PlayerPrefs.SetString(saveDataKey, historyData);
                 PlayerPrefs.Save();
+                return true;
             }
+
+            return false;
         }
 
         #region Public members
+
+        public virtual int NumSavePoints { get { return saveHistory.NumSavePoints; } }
 
         public virtual void Save(string saveDataKey = DefaultSaveDataKey)
         {
@@ -41,11 +49,16 @@ namespace Fungus
  
         public void Load(string saveDataKey = DefaultSaveDataKey)
         {
-            ReadSaveHistory(saveDataKey);
-            if (saveHistory != null)
+            if (ReadSaveHistory(saveDataKey))
             {
                 saveHistory.LoadLatestSavePoint();
             }
+        }
+
+        public void Delete(string saveDataKey = DefaultSaveDataKey)
+        {
+            PlayerPrefs.DeleteKey(saveDataKey);
+            PlayerPrefs.Save();
         }
 
         public virtual void AddSavePoint(string saveKey, string saveDescription)
@@ -62,7 +75,7 @@ namespace Fungus
             }
         }
 
-        public virtual void Clear()
+        public virtual void ClearHistory()
         {
             saveHistory.Clear();
         }

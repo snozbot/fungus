@@ -1443,7 +1443,7 @@ GameObject:
   - 114: {fileID: 1665317944}
   - 114: {fileID: 1665317948}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: SaveGameCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1476,12 +1476,12 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1535,9 +1535,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe25ebf9ddc8416ead6f30d4671fdbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startScene: 536176654578616d706c65
-  flowcharts:
-  - {fileID: 1889213476}
+  startScene: SaveExample
+  autoStartGame: 1
+  restartDeletesSave: 0
+  saveGameObjects:
+    flowcharts:
+    - {fileID: 1889213476}
 --- !u!1 &1810448172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,16 +1674,14 @@ GameObject:
   - 114: {fileID: 1889213476}
   - 114: {fileID: 1889213475}
   - 114: {fileID: 1889213474}
-  - 114: {fileID: 1889213471}
   - 114: {fileID: 1889213481}
   - 114: {fileID: 1889213480}
   - 114: {fileID: 1889213479}
   - 114: {fileID: 1889213478}
   - 114: {fileID: 1889213473}
   - 114: {fileID: 1889213472}
+  - 114: {fileID: 1889213471}
   - 114: {fileID: 1889213470}
-  - 114: {fileID: 1889213483}
-  - 114: {fileID: 1889213482}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1699,9 +1700,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 12
+  itemId: 15
   indentLevel: 0
-  storyText: Step 3
+  storyText: Step 4
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -1721,47 +1722,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1889213469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 73
-    y: 127
-    width: 120
-    height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
-  itemId: 5
-  blockName: Begin
-  description: 
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 1889213480}
-  - {fileID: 1889213479}
-  - {fileID: 1889213478}
-  - {fileID: 1889213473}
-  - {fileID: 1889213472}
-  - {fileID: 1889213470}
-  - {fileID: 1889213483}
-  - {fileID: 1889213482}
---- !u!114 &1889213472
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1889213469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b115619cb83b4d6ab8047d0e9407403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 11
+  itemId: 14
   indentLevel: 0
-  saveKey: step_3
+  saveKey: step_4
   saveDescription: 
   resumeFromHere: 1
---- !u!114 &1889213473
+--- !u!114 &1889213472
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
@@ -1772,9 +1741,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 10
+  itemId: 13
   indentLevel: 0
-  storyText: Step 2
+  storyText: Step 3
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -1786,20 +1755,35 @@ MonoBehaviour:
   waitForClick: 1
   stopVoiceover: 1
   setSayDialog: {fileID: 0}
---- !u!114 &1889213474
+--- !u!114 &1889213473
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 11462346, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1889213469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b115619cb83b4d6ab8047d0e9407403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  indentLevel: 0
+  saveKey: step_3
+  saveDescription: 
+  resumeFromHere: 1
+--- !u!114 &1889213474
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1889213469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca33a026786245d4b10323b87e84d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 1889213475}
-  waitForFrames: 1
+  saveKey: new_game
 --- !u!114 &1889213475
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1815,7 +1799,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 72
-    y: 64
+    y: 65
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -1826,6 +1810,13 @@ MonoBehaviour:
   eventHandler: {fileID: 1889213474}
   commandList:
   - {fileID: 1889213481}
+  - {fileID: 1889213480}
+  - {fileID: 1889213479}
+  - {fileID: 1889213478}
+  - {fileID: 1889213473}
+  - {fileID: 1889213472}
+  - {fileID: 1889213471}
+  - {fileID: 1889213470}
 --- !u!114 &1889213476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1851,7 +1842,7 @@ MonoBehaviour:
     width: 1121
     height: 922
   selectedBlocks:
-  - {fileID: 1889213471}
+  - {fileID: 1889213475}
   selectedCommands: []
   variables: []
   description: 
@@ -1885,15 +1876,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 1889213469}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 11
+  indentLevel: 0
+  storyText: Step 2
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &1889213479
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1889213469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b115619cb83b4d6ab8047d0e9407403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 9
+  itemId: 10
   indentLevel: 0
   saveKey: step_2
   saveDescription: 
   resumeFromHere: 1
---- !u!114 &1889213479
+--- !u!114 &1889213480
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
@@ -1904,7 +1920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 8
+  itemId: 9
   indentLevel: 0
   storyText: Step 1
   description: 
@@ -1918,22 +1934,6 @@ MonoBehaviour:
   waitForClick: 1
   stopVoiceover: 1
   setSayDialog: {fileID: 0}
---- !u!114 &1889213480
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1889213469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b115619cb83b4d6ab8047d0e9407403, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 7
-  indentLevel: 0
-  saveKey: step_1
-  saveDescription: 
-  resumeFromHere: 1
 --- !u!114 &1889213481
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1942,57 +1942,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1889213469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 6
-  indentLevel: 0
-  targetFlowchart: {fileID: 0}
-  targetBlock: {fileID: 1889213471}
-  startLabel:
-    stringRef: {fileID: 0}
-    stringVal: 
-  startIndex: 0
-  callMode: 0
---- !u!114 &1889213482
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1889213469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 14
-  indentLevel: 0
-  storyText: Step 4
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  setSayDialog: {fileID: 0}
---- !u!114 &1889213483
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1889213469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b115619cb83b4d6ab8047d0e9407403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 13
+  itemId: 8
   indentLevel: 0
-  saveKey: step_4
+  saveKey: step_1
   saveDescription: 
   resumeFromHere: 1
 --- !u!1 &1922034243
