@@ -335,7 +335,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Game
+  m_Text: Save Slot
 --- !u!222 &274184161
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -409,9 +409,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'New Game
-
-'
+  m_Text: Save Slot
 --- !u!222 &342006600
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -485,7 +483,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Game
+  m_Text: Save Slot
 --- !u!222 &554677439
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -600,6 +598,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a19f3f0e9b84b14b2b310a296de1b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quickSaveSlotDesc: Quick Save Slot
+  emptySlotDesc: Empty Slot
+  newSlotDesc: New Game
+  slotTexts:
+  - {fileID: 342006599}
+  - {fileID: 274184160}
+  - {fileID: 554677438}
 --- !u!1 &829939242
 GameObject:
   m_ObjectHideFlags: 1
@@ -1500,7 +1505,7 @@ GameObject:
   - 114: {fileID: 1744305197}
   - 114: {fileID: 1744305196}
   m_Layer: 5
-  m_Name: Slot3
+  m_Name: Slot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1643,21 +1648,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 0, y: 0}
+  scrollPos: {x: 3.5126438, y: 1.8458961}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 1
+  zoom: 0.9922716
   scrollViewRect:
     serializedVersion: 2
     x: -343
     y: -340
     width: 1114
     height: 859
-  selectedBlocks:
-  - {fileID: 1902192250}
-  selectedCommands:
-  - {fileID: 1902192253}
+  selectedBlocks: []
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -1697,7 +1700,7 @@ MonoBehaviour:
   - {fileID: 1902192253}
 --- !u!114 &1902192251
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1902192248}
@@ -1723,7 +1726,7 @@ Transform:
   m_RootOrder: 1
 --- !u!114 &1902192253
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1902192248}

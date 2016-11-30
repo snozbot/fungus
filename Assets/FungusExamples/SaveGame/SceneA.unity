@@ -371,8 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 27697880}
-  saveKeys:
-  - save_1
+  saveKey: 
 --- !u!114 &27697880
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -444,7 +443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 419
+    x: 420
     y: 66
     width: 120
     height: 40

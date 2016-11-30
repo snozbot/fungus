@@ -5,112 +5,66 @@ namespace Fungus
 {
     public class SaveManager : MonoBehaviour 
     {
-        const string ActiveSlotKey = "active_slot";
+        const string DefaultSaveDataKey = "save_data";
 
-        const string SlotKeyFormat = "slot{0}";
+        protected static SaveHistory saveHistory = new SaveHistory();
 
-        protected string saveBuffer = "";
-
-        protected virtual string FormatSaveKey(int slot)
+        protected virtual void ReadSaveHistory(string saveDataKey)
         {
-            return string.Format(SlotKeyFormat, slot);
-        }
-
-        protected virtual void StoreJSONData(string key, string jsonData)
-        {
-            if (key.Length > 0)
+            var historyData = PlayerPrefs.GetString(saveDataKey);
+            if (!string.IsNullOrEmpty(historyData))
             {
-                PlayerPrefs.SetString(key, jsonData);
+                var tempSaveHistory = JsonUtility.FromJson<SaveHistory>(historyData);
+                if (tempSaveHistory != null)
+                {
+                    saveHistory = tempSaveHistory;
+                }
             }
         }
 
-        protected virtual string LoadJSONData(string key)
+        protected virtual void WriteSaveHistory(string saveDataKey)
         {
-            if (key.Length > 0)
+            var historyData = JsonUtility.ToJson(saveHistory, true);
+            if (!string.IsNullOrEmpty(historyData))
             {
-                return PlayerPrefs.GetString(key);
+                PlayerPrefs.SetString(saveDataKey, historyData);
+                PlayerPrefs.Save();
             }
-
-            return "";
         }
 
         #region Public members
 
-        public virtual int ActiveSlot
+        public virtual void Save(string saveDataKey = DefaultSaveDataKey)
         {
-            get
-            {
-                return PlayerPrefs.GetInt(ActiveSlotKey);
-            }
-            set
-            {
-                PlayerPrefs.SetInt(ActiveSlotKey, value);
-            }
+            WriteSaveHistory(saveDataKey);
         }
-
-        public virtual void Save()
+ 
+        public void Load(string saveDataKey = DefaultSaveDataKey)
         {
-            if (saveBuffer == "")
+            ReadSaveHistory(saveDataKey);
+            if (saveHistory != null)
             {
-                // Nothing to save
-                return;
-            }
-
-            var key = FormatSaveKey(ActiveSlot);
-
-            PlayerPrefs.SetString(key, saveBuffer);
-
-            saveBuffer = "";
-        }
-
-        public virtual bool SlotExists(int slot)
-        {
-            var key = FormatSaveKey(slot);
-
-            if (PlayerPrefs.HasKey(key) &&
-                PlayerPrefs.GetString(key) != "")
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public virtual void Load(int slot)
-        {
-            ActiveSlot = slot;
-
-            var key = FormatSaveKey(slot);
-
-            var saveDataJSON = LoadJSONData(key);
-            if (saveDataJSON != "")
-            {
-                SavePointData.Decode(saveDataJSON);
+                saveHistory.LoadLatestSavePoint();
             }
         }
 
-        public virtual void LoadNewGame(int slot, string saveDescription)
+        public virtual void AddSavePoint(string saveKey, string saveDescription)
         {
-            var key = FormatSaveKey(slot);
-
-            var saveDataJSON = SavePointData.EncodeNewGame(saveDescription, SceneManager.GetActiveScene().name);
-
-            // Create a new save entry
-            PlayerPrefs.SetString(key, saveDataJSON);
-
-            SavePointLoaded.NotifyEventHandlers("new_game");
+            saveHistory.AddSavePoint(saveKey, saveDescription);
         }
 
-        public virtual void Delete(int slot)
+        public virtual void Rewind()
         {
-            var key = FormatSaveKey(slot);
-            PlayerPrefs.DeleteKey(key);
+            if (saveHistory.NumSavePoints > 0)
+            {
+                saveHistory.RemoveSavePoint();
+                saveHistory.LoadLatestSavePoint();
+            }
         }
 
-        public virtual void PopulateSaveBuffer(string saveKey, string description)
+        public virtual void Clear()
         {
-            saveBuffer = SavePointData.Encode(saveKey, description, SceneManager.GetActiveScene().name);
-            Debug.Log(saveBuffer);
+            saveHistory.Clear();
         }
 
         #endregion

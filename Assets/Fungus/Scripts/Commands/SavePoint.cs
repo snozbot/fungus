@@ -14,29 +14,28 @@ namespace Fungus
     {
         [SerializeField] protected string saveKey;
 
-        [SerializeField] protected string description;
+        [SerializeField] protected string saveDescription;
 
-        [SerializeField] protected bool saveNow;
+        [SerializeField] protected bool resumeFromHere = true;
 
         #region Public members
+
+        public string SaveKey { get { return saveKey; } }
+
+        public bool ResumeFromHere { get { return resumeFromHere; } }
 
         public override void OnEnter()
         {
             var saveManager = FungusManager.Instance.SaveManager;
 
-            saveManager.PopulateSaveBuffer(saveKey, description);
-
-            if (saveNow)
-            {
-                saveManager.Save();
-            }
+            saveManager.AddSavePoint(saveKey, saveDescription);
 
             Continue();
         }
 
         public override string GetSummary()
         {
-            return saveKey;
+            return saveKey + " : " + saveDescription;
         }
 
         public override Color GetButtonColor()
