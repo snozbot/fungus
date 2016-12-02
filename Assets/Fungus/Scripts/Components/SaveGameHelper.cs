@@ -16,7 +16,16 @@ namespace Fungus
 
         [SerializeField] protected bool restartDeletesSave = false;
 
+        [SerializeField] protected AudioClip buttonClickClip;
+
         [SerializeField] protected SaveGameObjects saveGameObjects = new SaveGameObjects();
+
+        protected AudioSource clickAudioSource;
+
+        protected virtual void Awake()
+        {
+            clickAudioSource = GetComponent<AudioSource>();
+        }
 
         protected virtual void Start()
         {
@@ -56,24 +65,38 @@ namespace Fungus
 
         }
 
+        protected void PlayClickSound()
+        {
+            if (clickAudioSource != null)
+            {
+                clickAudioSource.Play();
+            }
+        }
+
         #region Public methods
 
         public SaveGameObjects SaveGameObjects { get { return saveGameObjects; } }
 
         public virtual void Save()
         {
+            PlayClickSound();
+
             var saveManager = FungusManager.Instance.SaveManager;
             saveManager.Save();
         }
 
         public virtual void Load()
         {
+            PlayClickSound();
+
             var saveManager = FungusManager.Instance.SaveManager;
             saveManager.Load();
         }
 
         public virtual void Rewind()
         {
+            PlayClickSound();
+
             var saveManager = FungusManager.Instance.SaveManager;
             saveManager.Rewind();
         }
@@ -88,11 +111,15 @@ namespace Fungus
                 saveManager.Delete();
             }
 
+            PlayClickSound();
+
             SceneManager.LoadScene(startScene);
         }
 
         public virtual void LoadScene(string sceneName)
         {
+            PlayClickSound();
+
             SceneManager.LoadScene(sceneName);
         }
 
