@@ -1727,8 +1727,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 14
   indentLevel: 0
-  saveKey: step_4
-  saveDescription: 
+  savePointKey: step 4
+  savePointDescription: 
   resumeFromHere: 1
 --- !u!114 &1889213472
 MonoBehaviour:
@@ -1768,8 +1768,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 12
   indentLevel: 0
-  saveKey: step_3
-  saveDescription: 
+  savePointKey: step 3
+  savePointDescription: 
   resumeFromHere: 1
 --- !u!114 &1889213474
 MonoBehaviour:
@@ -1783,7 +1783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 1889213475}
-  saveKey: new_game
+  savePointKey: new_game
 --- !u!114 &1889213475
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1843,7 +1843,8 @@ MonoBehaviour:
     height: 922
   selectedBlocks:
   - {fileID: 1889213475}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 1889213471}
   variables: []
   description: 
   stepPause: 0
@@ -1906,8 +1907,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 10
   indentLevel: 0
-  saveKey: step_2
-  saveDescription: 
+  savePointKey: step 2
+  savePointDescription: 
   resumeFromHere: 1
 --- !u!114 &1889213480
 MonoBehaviour:
@@ -1947,8 +1948,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 8
   indentLevel: 0
-  saveKey: step_1
-  saveDescription: 
+  savePointKey: step 1
+  savePointDescription: 
   resumeFromHere: 1
 --- !u!1 &1922034243
 GameObject:

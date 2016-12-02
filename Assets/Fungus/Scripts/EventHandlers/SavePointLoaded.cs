@@ -12,11 +12,11 @@ namespace Fungus
     public class SavePointLoaded : EventHandler 
     {
         [Tooltip("Block will execute if the Save Key of the loaded save point matches this save key.")]
-        [SerializeField] protected string saveKey = "";
+        [SerializeField] protected string savePointKey = "";
 
-        protected void OnSavePointLoaded(string _saveKey)
+        protected void OnSavePointLoaded(string _savePointKey)
         {
-            if (string.Compare(saveKey, _saveKey, true) == 0)
+            if (string.Compare(savePointKey, _savePointKey, true) == 0)
             {
                 ExecuteBlock();
             }
@@ -24,14 +24,14 @@ namespace Fungus
 
         #region Public methods
 
-        public static void NotifyEventHandlers(string _saveKey)
+        public static void NotifyEventHandlers(string _savePointKey)
         {
             // Fire any matching SavePointLoaded event handler with matching save key.
             var eventHandlers = Object.FindObjectsOfType<SavePointLoaded>();
             for (int i = 0; i < eventHandlers.Length; i++)
             {
                 var eventHandler = eventHandlers[i];
-                eventHandler.OnSavePointLoaded(_saveKey);
+                eventHandler.OnSavePointLoaded(_savePointKey);
             }
         }
 

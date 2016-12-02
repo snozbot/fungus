@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000012594529446}
   - 114: {fileID: 114000011912982844}
   m_Layer: 0
-  m_Name: GameSaver
+  m_Name: SaveGameCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,5 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startScene: 
-  flowcharts:
-  - {fileID: 0}
+  autoStartGame: 1
+  restartDeletesSave: 0
+  saveGameObjects:
+    flowcharts: []

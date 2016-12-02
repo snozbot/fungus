@@ -12,30 +12,41 @@ namespace Fungus
                  "Creates a save point which can be saved to persistant storage and loaded again later.")]
     public class SavePoint : Command
     {
-        [SerializeField] protected string saveKey;
+        [SerializeField] protected string savePointKey;
 
-        [SerializeField] protected string saveDescription;
+        [SerializeField] protected string savePointDescription;
 
         [SerializeField] protected bool resumeFromHere = true;
 
         #region Public members
 
-        public string SaveKey { get { return saveKey; } }
+        public string SavePointKey { get { return savePointKey; } }
 
         public bool ResumeFromHere { get { return resumeFromHere; } }
 
         public override void OnEnter()
         {
+            if (string.IsNullOrEmpty(savePointKey))
+            {
+                Continue();
+                return;
+            }
+
             var saveManager = FungusManager.Instance.SaveManager;
 
-            saveManager.AddSavePoint(saveKey, saveDescription);
+            saveManager.AddSavePoint(savePointKey, savePointDescription);
 
             Continue();
         }
 
         public override string GetSummary()
         {
-            return saveKey + " : " + saveDescription;
+            if (string.IsNullOrEmpty(savePointKey))
+            {
+                return "Error: Save Point Key not specified";
+            }
+
+            return savePointKey + " : " + savePointDescription;
         }
 
         public override Color GetButtonColor()

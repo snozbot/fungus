@@ -21,10 +21,10 @@ namespace Fungus
 
         public int NumSavePoints { get { return savePoints.Count; } }
 
-        public void AddSavePoint(string saveKey, string saveDescription)
+        public void AddSavePoint(string savePointKey, string savePointDescription)
         {
             string sceneName = SceneManager.GetActiveScene().name;
-            var savePointData = SavePointData.Encode(saveKey, saveDescription, sceneName);
+            var savePointData = SavePointData.Encode(savePointKey, savePointDescription, sceneName);
             savePoints.Add(savePointData);
         }
 

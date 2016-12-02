@@ -8,7 +8,7 @@ namespace Fungus
 {
     public class SaveGameHelper : MonoBehaviour 
     {
-        const string NewGameSaveKey = "new_game";
+        const string NewGameSavePointKey = "new_game";
 
         [SerializeField] protected string startScene = "";
 
@@ -18,16 +18,6 @@ namespace Fungus
 
         [SerializeField] protected SaveGameObjects saveGameObjects = new SaveGameObjects();
 
-        protected virtual void OnEnable()
-        {
-            SaveSignals.OnGameSave += OnGameSave;
-        }
-
-        protected virtual void OnDisable()
-        {
-            SaveSignals.OnGameSave -= OnGameSave;
-        }
-
         protected virtual void Start()
         {
             var saveManager = FungusManager.Instance.SaveManager;
@@ -35,12 +25,35 @@ namespace Fungus
             if (autoStartGame &&
                 saveManager.NumSavePoints == 0)
             {
-                SavePointLoaded.NotifyEventHandlers(NewGameSaveKey);
+                SavePointLoaded.NotifyEventHandlers(NewGameSavePointKey);
             }
+
+            CheckSavePointKeys();
         }
 
-        protected virtual void OnGameSave(string saveKey, string saveDescription)
+        protected void CheckSavePointKeys()
         {
+            List<string> keys = new List<string>();
+
+            var savePoints = GameObject.FindObjectsOfType<SavePoint>();
+
+            foreach (var savePoint in savePoints)
+            {
+                if (string.IsNullOrEmpty(savePoint.SavePointKey))
+                {
+                    continue;
+                }
+
+                if (keys.Contains(savePoint.SavePointKey))
+                {
+                    Debug.LogError("Save Point Key " + savePoint.SavePointKey + " is defined multiple times.");
+                }
+                else
+                {
+                    keys.Add(savePoint.SavePointKey);
+                }
+            }
+
         }
 
         #region Public methods
@@ -76,6 +89,11 @@ namespace Fungus
             }
 
             SceneManager.LoadScene(startScene);
+        }
+
+        public virtual void LoadScene(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
         }
 
         #endregion

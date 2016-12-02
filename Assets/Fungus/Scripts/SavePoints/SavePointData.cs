@@ -7,8 +7,8 @@ namespace Fungus
     [System.Serializable]
     public class SavePointData
     {
-        [SerializeField] protected string saveKey;
-        [SerializeField] protected string description;
+        [SerializeField] protected string savePointKey;
+        [SerializeField] protected string savePointDescription;
         [SerializeField] protected string sceneName;
         [SerializeField] protected List<FlowchartData> flowchartDatas = new List<FlowchartData>();
 
@@ -30,12 +30,12 @@ namespace Fungus
                 FlowchartData.Decode(flowchartData);
             }
 
-            ExecuteBlocks(savePointData.saveKey);
+            ExecuteBlocks(savePointData.savePointKey);
         }
 
-        protected static void ExecuteBlocks(string saveKey)
+        protected static void ExecuteBlocks(string savePointKey)
         {
-            SavePointLoaded.NotifyEventHandlers(saveKey);
+            SavePointLoaded.NotifyEventHandlers(savePointKey);
 
             // Execute any block containing a SavePoint command matching the save key, with Resume From Here enabled
             var savePoints = Object.FindObjectsOfType<SavePoint>();
@@ -43,7 +43,7 @@ namespace Fungus
             {
                 var savePoint = savePoints[i];
                 if (savePoint.ResumeFromHere &&
-                    string.Compare(savePoint.SaveKey, saveKey, true) == 0)
+                    string.Compare(savePoint.SavePointKey, savePointKey, true) == 0)
                 {
                     int index = savePoint.CommandIndex;
                     var block = savePoint.ParentBlock;
@@ -60,7 +60,7 @@ namespace Fungus
             for (int i = 0; i < labels.Length; i++)
             {
                 var label = labels[i];
-                if (string.Compare(label.Key, saveKey, true) == 0)
+                if (string.Compare(label.Key, savePointKey, true) == 0)
                 {
                     int index = label.CommandIndex;
                     var block = label.ParentBlock;
@@ -70,12 +70,12 @@ namespace Fungus
             }
         }
 
-        protected static SavePointData Create(string _saveKey, string _description, string _sceneName)
+        protected static SavePointData Create(string _savePointKey, string _savePointDescription, string _sceneName)
         {
             var savePointData = new SavePointData();
 
-            savePointData.saveKey = _saveKey;
-            savePointData.description = _description;
+            savePointData.savePointKey = _savePointKey;
+            savePointData.savePointDescription = _savePointDescription;
             savePointData.sceneName = _sceneName;
 
             return savePointData;
@@ -83,8 +83,8 @@ namespace Fungus
 
         #region Public methods
 
-        public string SaveKey { get { return saveKey; } set { saveKey = value; } }
-        public string Description { get { return description; } set { description = value; } }
+        public string SavePointKey { get { return savePointKey; } set { savePointKey = value; } }
+        public string SavePointDescription { get { return savePointDescription; } set { savePointDescription = value; } }
         public string SceneName { get { return sceneName; } set { sceneName = value; } }
         public List<FlowchartData> FlowchartDatas { get { return flowchartDatas; } set { flowchartDatas = value; } }
 
@@ -95,9 +95,9 @@ namespace Fungus
             return JsonUtility.ToJson(savePointData, true);
         }
 
-        public static string Encode(string _saveKey, string _description, string _sceneName)
+        public static string Encode(string _savePointKey, string _savePointDescription, string _sceneName)
         {
-            var savePointData = Create(_saveKey, _description, _sceneName);
+            var savePointData = Create(_savePointKey, _savePointDescription, _sceneName);
                 
             var saveGameHelper = GameObject.FindObjectOfType<SaveGameHelper>();
             if (saveGameHelper == null)

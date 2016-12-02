@@ -45,6 +45,8 @@ namespace Fungus
         public virtual void Save(string saveDataKey = DefaultSaveDataKey)
         {
             WriteSaveHistory(saveDataKey);
+
+            SaveManagerSignals.DoGameSaved(saveDataKey);
         }
  
         public void Load(string saveDataKey = DefaultSaveDataKey)
@@ -52,6 +54,8 @@ namespace Fungus
             if (ReadSaveHistory(saveDataKey))
             {
                 saveHistory.LoadLatestSavePoint();
+
+                SaveManagerSignals.DoGameLoaded(saveDataKey);
             }
         }
 
@@ -61,9 +65,11 @@ namespace Fungus
             PlayerPrefs.Save();
         }
 
-        public virtual void AddSavePoint(string saveKey, string saveDescription)
+        public virtual void AddSavePoint(string savePointKey, string savePointDescription)
         {
-            saveHistory.AddSavePoint(saveKey, saveDescription);
+            saveHistory.AddSavePoint(savePointKey, savePointDescription);
+
+            SaveManagerSignals.DoSavePointAdded(savePointKey, savePointDescription);
         }
 
         public virtual void Rewind()
