@@ -8,6 +8,8 @@ namespace Fungus
 {
     public class SaveGameHelper : MonoBehaviour 
     {
+        const string SaveDataKey = "save_data";
+
         const string NewGameSavePointKey = "new_game";
 
         [SerializeField] protected string startScene = "";
@@ -16,7 +18,13 @@ namespace Fungus
 
         [SerializeField] protected bool restartDeletesSave = false;
 
-        [SerializeField] protected AudioClip buttonClickClip;
+        [SerializeField] protected Button saveButton;
+
+        [SerializeField] protected Button loadButton;
+
+        [SerializeField] protected Button rewindButton;
+
+        [SerializeField] protected Button restartButton;
 
         [SerializeField] protected SaveGameObjects saveGameObjects = new SaveGameObjects();
 
@@ -38,6 +46,26 @@ namespace Fungus
             }
 
             CheckSavePointKeys();
+        }
+
+        protected virtual void Update()
+        {
+            var saveManager = FungusManager.Instance.SaveManager;
+
+            if (saveButton != null)
+            {
+                // Don't allow saving unless there's at least one save point in the history,
+                // This avoids the case where you could try to load a save data with 0 save points.
+                saveButton.interactable = saveManager.NumSavePoints > 0;
+            }
+            if (loadButton != null)
+            {
+                loadButton.interactable = saveManager.SaveDataExists(SaveDataKey);
+            }
+            if (rewindButton != null)
+            {
+                rewindButton.interactable = saveManager.NumSavePoints > 1;
+            }
         }
 
         protected void CheckSavePointKeys()
@@ -79,18 +107,24 @@ namespace Fungus
 
         public virtual void Save()
         {
-            PlayClickSound();
-
             var saveManager = FungusManager.Instance.SaveManager;
-            saveManager.Save();
+
+            if (saveManager.NumSavePoints > 0)
+            {
+                PlayClickSound();
+                saveManager.Save(SaveDataKey);
+            }
         }
 
         public virtual void Load()
         {
-            PlayClickSound();
-
             var saveManager = FungusManager.Instance.SaveManager;
-            saveManager.Load();
+
+            if (saveManager.SaveDataExists(SaveDataKey))
+            {
+                PlayClickSound();
+                saveManager.Load(SaveDataKey);
+            }
         }
 
         public virtual void Rewind()
@@ -98,20 +132,29 @@ namespace Fungus
             PlayClickSound();
 
             var saveManager = FungusManager.Instance.SaveManager;
-            saveManager.Rewind();
+            if (saveManager.NumSavePoints > 1)
+            {
+                saveManager.Rewind();
+            }
         }
 
         public virtual void Restart()
         {
-            var saveManager = FungusManager.Instance.SaveManager;
-            saveManager.ClearHistory();
-
-            if (restartDeletesSave)
+            if (string.IsNullOrEmpty(startScene))
             {
-                saveManager.Delete();
+                Debug.LogError("No start scene specified");
+                return;
             }
 
+            var saveManager = FungusManager.Instance.SaveManager;
+
             PlayClickSound();
+
+            saveManager.ClearHistory();
+            if (restartDeletesSave)
+            {
+                saveManager.Delete(SaveDataKey);
+            }
 
             SceneManager.LoadScene(startScene);
         }

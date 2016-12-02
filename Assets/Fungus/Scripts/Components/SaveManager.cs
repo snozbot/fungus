@@ -5,8 +5,6 @@ namespace Fungus
 {
     public class SaveManager : MonoBehaviour 
     {
-        const string DefaultSaveDataKey = "save_data";
-
         protected static SaveHistory saveHistory = new SaveHistory();
 
         protected virtual bool ReadSaveHistory(string saveDataKey)
@@ -42,14 +40,14 @@ namespace Fungus
 
         public virtual int NumSavePoints { get { return saveHistory.NumSavePoints; } }
 
-        public virtual void Save(string saveDataKey = DefaultSaveDataKey)
+        public virtual void Save(string saveDataKey)
         {
             WriteSaveHistory(saveDataKey);
 
             SaveManagerSignals.DoGameSaved(saveDataKey);
         }
  
-        public void Load(string saveDataKey = DefaultSaveDataKey)
+        public void Load(string saveDataKey)
         {
             if (ReadSaveHistory(saveDataKey))
             {
@@ -59,10 +57,15 @@ namespace Fungus
             }
         }
 
-        public void Delete(string saveDataKey = DefaultSaveDataKey)
+        public void Delete(string saveDataKey)
         {
             PlayerPrefs.DeleteKey(saveDataKey);
             PlayerPrefs.Save();
+        }
+
+        public bool SaveDataExists(string saveDataKey)
+        {
+            return PlayerPrefs.HasKey(saveDataKey);
         }
 
         public virtual void AddSavePoint(string savePointKey, string savePointDescription)
