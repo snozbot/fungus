@@ -50,7 +50,7 @@ namespace Fungus.EditorUtils
             luaEnvironmentProp = serializedObject.FindProperty("luaEnvironment");
             luaBindingNameProp = serializedObject.FindProperty("luaBindingName");
 
-            addTexture = Resources.Load("Icons/add_small") as Texture2D;
+            addTexture = FungusEditorResources.AddSmall;
         }
 
         public override void OnInspectorGUI() 

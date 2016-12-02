@@ -213,7 +213,7 @@ namespace Fungus.EditorUtils
             string commandName = commandInfoAttr.CommandName;
             
             GUIStyle commandLabelStyle = new GUIStyle(GUI.skin.box);
-            commandLabelStyle.normal.background = FungusEditorResources.texCommandBackground;
+            commandLabelStyle.normal.background = FungusEditorResources.CommandBackground;
             int borderSize = 5;
             commandLabelStyle.border.top = borderSize;
             commandLabelStyle.border.bottom = borderSize;
@@ -420,7 +420,7 @@ namespace Fungus.EditorUtils
                 alpha = Mathf.Clamp01(alpha);
 
                 GUI.color = new Color(1f, 1f, 1f, alpha);
-                GUI.Label(iconRect, FungusEditorResources.texPlaySmall, new GUIStyle());
+                GUI.Label(iconRect, FungusEditorResources.PlaySmall, new GUIStyle());
 
                 GUI.color = storeColor;
             }

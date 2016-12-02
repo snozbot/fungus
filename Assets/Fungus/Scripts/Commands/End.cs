@@ -24,8 +24,10 @@ namespace Fungus
             {
                 for (int i = CommandIndex - 1; i >= 0; --i)
                 {
-                    System.Type commandType = ParentBlock.CommandList[i].GetType();
-                    if (commandType == typeof(While))
+                    var command = ParentBlock.CommandList[i];
+
+                    if (command.IndentLevel == IndentLevel &&
+                        command.GetType() == typeof(While))
                     {
                         Continue(i);
                         return;

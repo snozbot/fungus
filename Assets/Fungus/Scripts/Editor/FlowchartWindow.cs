@@ -3,16 +3,108 @@
 
 using UnityEngine;
 using UnityEditor;
-using UnityEditorInternal;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
+using Object = UnityEngine.Object;
 
 namespace Fungus.EditorUtils
 {
     public class FlowchartWindow : EditorWindow
     {
+        protected class ClipboardObject
+        {
+            internal SerializedObject serializedObject;
+            internal Type type;
+
+            internal ClipboardObject(Object obj)
+            {
+                serializedObject = new SerializedObject(obj);
+                type = obj.GetType();
+            }
+        }
+
+        protected class BlockCopy
+        {
+            private SerializedObject block = null;
+            private List<ClipboardObject> commands = new List<ClipboardObject>();
+            private ClipboardObject eventHandler = null;
+
+            internal BlockCopy(Block block)
+            {
+                this.block = new SerializedObject(block);
+                foreach (var command in block.CommandList)
+                {
+                    commands.Add(new ClipboardObject(command));
+                }
+                if (block._EventHandler != null)
+                {
+                    eventHandler = new ClipboardObject(block._EventHandler);
+                }
+            }
+
+            private void CopyProperties(SerializedObject source, Object dest, params SerializedPropertyType[] excludeTypes)
+            {
+                var newSerializedObject = new SerializedObject(dest);
+                var prop = source.GetIterator();
+                while (prop.NextVisible(true))
+                {
+                    if (!excludeTypes.Contains(prop.propertyType))
+                    {
+                        newSerializedObject.CopyFromSerializedProperty(prop);
+                    }
+                }
+
+                newSerializedObject.ApplyModifiedProperties();
+            }
+
+            internal Block PasteBlock(Flowchart flowchart)
+            {
+                var newBlock = FlowchartWindow.CreateBlock(flowchart, Vector2.zero);
+
+                // Copy all command serialized properties
+                // Copy references to match duplication behavior
+                foreach (var command in commands)
+                {
+                    var newCommand = Undo.AddComponent(flowchart.gameObject, command.type) as Command;
+                    CopyProperties(command.serializedObject, newCommand);
+                    newCommand.ItemId = flowchart.NextItemId();
+                    newBlock.CommandList.Add(newCommand);
+                }
+
+                // Copy event handler
+                if (eventHandler != null)
+                {
+                    var newEventHandler = Undo.AddComponent(flowchart.gameObject, eventHandler.type) as EventHandler;
+                    CopyProperties(eventHandler.serializedObject, newEventHandler);
+                    newEventHandler.ParentBlock = newBlock;
+                    newBlock._EventHandler = newEventHandler;     
+                }
+
+                // Copy block properties, but do not copy references because those were just assigned
+                CopyProperties(
+                    block,
+                    newBlock,
+                    SerializedPropertyType.ObjectReference,
+                    SerializedPropertyType.Generic,
+                    SerializedPropertyType.ArraySize
+                );
+
+                newBlock.BlockName = flowchart.GetUniqueBlockKey(block.FindProperty("blockName").stringValue + " (Copy)");
+
+                return newBlock;
+            }
+        }
+
+        protected struct BlockGraphics
+        {
+            internal Color tint;
+            internal Texture2D onTexture;
+            internal Texture2D offTexture;
+        }
+
+        protected List<BlockCopy> copyList = new List<BlockCopy>();
         public static List<Block> deleteList = new List<Block>();
 
         protected List<Block> windowBlockMap = new List<Block>();
@@ -34,11 +126,29 @@ namespace Fungus.EditorUtils
         protected int forceRepaintCount;
 
         protected Texture2D addTexture;
+        protected Texture2D connectionPointTexture;
 
         protected Rect selectionBox;
-        protected Vector2 startSelectionBoxPosition = new Vector2(-1.0f, -1.0f);
+        protected Vector2 startSelectionBoxPosition = -Vector2.one;
         protected List<Block> mouseDownSelectionState = new List<Block>();
 
+        protected Color gridLineColor = Color.black;
+        protected readonly Color connectionColor = new Color(0.65f, 0.65f, 0.65f, 1.0f);
+
+        // Context Click occurs on MouseDown which interferes with panning
+        // Track right click positions manually to show menus on MouseUp
+        protected Vector2 rightClickDown = -Vector2.one;
+        protected const float rightClickTolerance = 5f;
+
+        protected const string searchFieldName = "search";
+        private string searchString = string.Empty;
+        protected Rect searchRect;
+        protected Rect popupRect;
+        protected Block[] filteredBlocks;
+        protected int blockPopupSelection = -1;
+        protected Vector2 popupScroll;
+        protected bool mouseOverPopup;
+        
         [MenuItem("Tools/Fungus/Flowchart Window")]
         static void Init()
         {
@@ -60,7 +170,13 @@ namespace Fungus.EditorUtils
             nodeStyle.alignment = TextAnchor.MiddleCenter;
             nodeStyle.wordWrap = true;
 
-            addTexture = Resources.Load("Icons/add_small") as Texture2D;
+            addTexture = FungusEditorResources.AddSmall;
+            connectionPointTexture = FungusEditorResources.ConnectionPoint;
+            gridLineColor.a = EditorGUIUtility.isProSkin ? 0.5f : 0.25f;
+
+            copyList.Clear();
+
+            wantsMouseMove = true; // For hover selection in block search popup  
         }
 
         protected virtual void OnInspectorUpdate()
@@ -150,23 +266,50 @@ namespace Fungus.EditorUtils
                 {
                     Undo.DestroyObjectImmediate(command);
                 }
+
+                if (deleteBlock._EventHandler != null)
+                {
+                    Undo.DestroyObjectImmediate(deleteBlock._EventHandler);
+                }
                 
                 Undo.DestroyObjectImmediate((Block)deleteBlock);
                 flowchart.ClearSelectedCommands();
 
                 if (isSelected)
                 {
+                    // Deselect
+                    flowchart.SelectedBlocks.Remove(deleteBlock);
+
                     // Revert to showing properties for the Flowchart
                     Selection.activeGameObject = flowchart.gameObject;
                 }
             }
             deleteList.Clear();
 
+            // Clear search filter focus
+            if (Event.current.type == EventType.MouseDown && !searchRect.Contains(Event.current.mousePosition) &&
+                !popupRect.Contains(Event.current.mousePosition))
+            {
+                CloseBlockPopup();
+            }
+
+            if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape)
+            {
+                if (GUI.GetNameOfFocusedControl() != searchFieldName && flowchart.SelectedBlocks.Count > 0)
+                {
+                    DeselectAll(flowchart);
+                    Event.current.Use();
+                }
+            }
+
             DrawFlowchartView(flowchart);
             DrawOverlay(flowchart);
 
             // Handle selection box events after block and overlay events
             HandleSelectionBox(flowchart);
+
+            ValidateCommands(flowchart);
+            ExecuteCommands(flowchart);
 
             if (forceRepaintCount > 0)
             {
@@ -197,7 +340,10 @@ namespace Fungus.EditorUtils
             );
             GUILayout.Label(flowchart.Zoom.ToString("0.0#x"), EditorStyles.miniLabel, GUILayout.Width(30));
 
-            DoZoom(flowchart, newZoom - flowchart.Zoom, Vector2.one * 0.5f);
+            if (newZoom != flowchart.Zoom)
+            {
+                DoZoom(flowchart, newZoom - flowchart.Zoom, Vector2.one * 0.5f);
+            }
 
             if (GUILayout.Button("Center", EditorStyles.toolbarButton))
             {
@@ -205,6 +351,100 @@ namespace Fungus.EditorUtils
             }
 
             GUILayout.FlexibleSpace();
+
+            var blocks = flowchart.GetComponents<Block>();
+
+            // Intercept mouse and keyboard events before search field uses them
+            if (GUI.GetNameOfFocusedControl() == searchFieldName)
+            {
+                if (Event.current.type == EventType.KeyDown)
+                {
+                    var centerBlock = false;
+                    var selectBlock = false;
+                    var closePopup = false;
+                    var useEvent = false;
+
+                    switch (Event.current.keyCode)
+                    {
+                    case KeyCode.DownArrow:
+                        ++blockPopupSelection;
+                        centerBlock = true;
+                        useEvent = true;
+                        break;
+
+                    case KeyCode.UpArrow:
+                        --blockPopupSelection;
+                        centerBlock = true;
+                        useEvent = true;
+                        break;
+
+                    case KeyCode.Return:
+                        centerBlock = true;
+                        selectBlock = true;
+                        closePopup = true;
+                        useEvent = true;
+                        break;
+                        
+                    case KeyCode.Escape:
+                        closePopup = true;
+                        useEvent = true;
+                        break;
+                    }
+
+                    blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
+
+                    if (centerBlock && filteredBlocks.Length > 0)
+                    {
+                        var block = filteredBlocks[blockPopupSelection];
+                        CenterBlock(flowchart, block);
+
+                        if (selectBlock)
+                        {
+                            SelectBlock(flowchart, block);
+                        }
+                    }
+
+                    if (closePopup)
+                    {
+                        CloseBlockPopup();
+                    }
+
+                    if (useEvent)
+                    {
+                        Event.current.Use();
+                    }
+                }
+            }
+            else if (Event.current.type == EventType.MouseDown && Event.current.button == 0 &&
+                searchRect.Contains(Event.current.mousePosition))
+            {
+                blockPopupSelection = 0;
+            }
+
+            GUI.SetNextControlName(searchFieldName);
+            var newString = EditorGUILayout.TextField(searchString, GUI.skin.FindStyle("ToolbarSeachTextField"), GUILayout.Width(150));
+            if (newString != searchString)
+            {
+                searchString = newString;
+            }
+
+            // Update this every frame in case of redo/undo while popup is open
+            filteredBlocks = blocks.Where(block => block.BlockName.ToLower().Contains(searchString.ToLower())).ToArray();
+            blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
+
+            if (Event.current.type == EventType.Repaint)
+            {
+                searchRect = GUILayoutUtility.GetLastRect();
+                popupRect = searchRect;
+                popupRect.width += 12;
+                popupRect.y += popupRect.height;
+                popupRect.height = Mathf.Min(filteredBlocks.Length * 16, position.height - 22);
+            }
+
+            if (GUILayout.Button("", GUI.skin.FindStyle("ToolbarSeachCancelButton")))
+            {
+                CloseBlockPopup();
+            }
 
             GUILayout.EndHorizontal();
 
@@ -253,7 +493,9 @@ namespace Fungus.EditorUtils
             if (Event.current.type == EventType.Repaint)
             {
                 Rect toolbarRect = new Rect(0, 0, position.width, 18);
-                mouseOverVariables = variableWindowRect.Contains(Event.current.mousePosition) || toolbarRect.Contains(rawMousePosition); 
+                mouseOverPopup = (GUI.GetNameOfFocusedControl() == searchFieldName && popupRect.Contains(rawMousePosition));
+                mouseOverVariables = variableWindowRect.Contains(Event.current.mousePosition) ||
+                                     toolbarRect.Contains(rawMousePosition) || mouseOverPopup; 
             }
 
             GUILayout.EndScrollView();
@@ -263,6 +505,75 @@ namespace Fungus.EditorUtils
             GUILayout.FlexibleSpace();
 
             GUILayout.EndHorizontal();
+
+            // Draw block search popup on top of other controls
+            if (GUI.GetNameOfFocusedControl() == searchFieldName && filteredBlocks.Length > 0)
+            {
+                DrawBlockPopup(flowchart);
+            }
+        }
+
+        protected virtual void DrawBlockPopup(Flowchart flowchart)
+        {            
+            blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
+
+            GUI.Box(popupRect, "", GUI.skin.FindStyle("sv_iconselector_back"));
+
+            if (Event.current.type == EventType.MouseMove)
+            {
+                if (popupRect.Contains(Event.current.mousePosition))
+                {
+                    var relativeY = Event.current.mousePosition.y - popupRect.yMin + popupScroll.y;
+                    blockPopupSelection = (int) (relativeY / 16);
+                }
+
+                Event.current.Use();
+            }
+
+            GUILayout.BeginArea(popupRect);
+            popupScroll = EditorGUILayout.BeginScrollView(popupScroll, GUIStyle.none, GUI.skin.verticalScrollbar);
+
+            var normalStyle = new GUIStyle(GUI.skin.FindStyle("MenuItem"));
+            normalStyle.padding = new RectOffset(8, 0, 0, 0);
+            normalStyle.imagePosition = ImagePosition.ImageLeft;
+            var selectedStyle = new GUIStyle(normalStyle);
+            selectedStyle.normal = selectedStyle.hover;
+            normalStyle.hover = normalStyle.normal;
+
+            for (int i = 0; i < filteredBlocks.Length; ++i)
+            {
+                EditorGUILayout.BeginHorizontal(GUILayout.Height(16));
+
+                var block = filteredBlocks[i];
+                var style = i == blockPopupSelection ? selectedStyle : normalStyle;
+
+                GUI.contentColor = GetBlockGraphics(block).tint;
+
+                var buttonPressed = false;
+                if (GUILayout.Button(FungusEditorResources.BulletPoint, style, GUILayout.Width(16)))
+                {
+                    buttonPressed = true;
+                }
+
+                GUI.contentColor = Color.white;
+
+                if (GUILayout.Button(block.BlockName, style))
+                {
+                    buttonPressed = true;
+                }
+
+                if (buttonPressed)
+                {
+                    CenterBlock(flowchart, block);
+                    SelectBlock(flowchart, block);
+                    CloseBlockPopup();
+                }
+
+                EditorGUILayout.EndHorizontal();       
+            }
+
+            EditorGUILayout.EndScrollView();
+            GUILayout.EndArea();
         }
         
         protected virtual void DrawFlowchartView(Flowchart flowchart)
@@ -285,18 +596,45 @@ namespace Fungus.EditorUtils
                 flowchart.ScrollViewRect = newRect;
             }
 
+            // Draw background color / drop shadow
+            if (Event.current.type == EventType.Repaint)
+            {
+                UnityEditor.Graphs.Styles.graphBackground.Draw(
+                    new Rect(0, 17, position.width, position.height - 17), false, false, false, false
+                );            
+            }
             // Calc rect for script view
             Rect scriptViewRect = new Rect(0, 0, this.position.width / flowchart.Zoom, this.position.height / flowchart.Zoom);
 
+            // Update right click start outside of EditorZoomArea
+            if (Event.current.button == 1)
+            {
+                if (Event.current.type == EventType.MouseDown)
+                {
+                    rightClickDown = Event.current.mousePosition;
+                }
+                else if (Event.current.type == EventType.MouseDrag)
+                {
+                    if (Vector2.Distance(rightClickDown, Event.current.mousePosition) > rightClickTolerance)
+                    {
+                        rightClickDown = -Vector2.one;
+                    }
+                }
+            }
+
             EditorZoomArea.Begin(flowchart.Zoom, scriptViewRect);
 
-            DrawGrid(flowchart);
+            if (Event.current.type == EventType.Repaint)
+            {
+                DrawGrid(flowchart);
+            }
             
-            GLDraw.BeginGroup(scriptViewRect);
-
             // The center of the Flowchart depends on the block positions and window dimensions, so we calculate it 
             // here in the FlowchartWindow class and store it on the Flowchart object for use later.
-            CalcFlowchartCenter(flowchart, blocks);
+            if (flowchart != null && blocks.Length > 0)
+            {
+                CalcFlowchartCenter(flowchart, blocks);
+            }
 
             // Draw connections
             foreach (var block in blocks)
@@ -440,7 +778,7 @@ namespace Fungus.EditorUtils
                             GUI.color = new Color(1f, 1f, 1f, alpha); 
                         }
 
-                        if (GUI.Button(rect, FungusEditorResources.texPlayBig as Texture, new GUIStyle()))
+                        if (GUI.Button(rect, FungusEditorResources.PlayBig, new GUIStyle()))
                         {
                             SelectBlock(flowchart, b);
                         }
@@ -452,18 +790,64 @@ namespace Fungus.EditorUtils
 
             PanAndZoom(flowchart);
 
-            GLDraw.EndGroup();
-
             EditorZoomArea.End();
+            
+            // Handle right click up outside of EditorZoomArea to avoid strange offsets
+            if (Event.current.type == EventType.MouseUp && Event.current.button == 1 &&
+                rightClickDown != -Vector2.one && !mouseOverVariables)
+            {
+                var menu = new GenericMenu();
+                var mousePosition = rightClickDown;
+
+                Block hitBlock = null;
+                foreach (var block in blocks)
+                {
+                    if (block._NodeRect.Contains(rightClickDown / flowchart.Zoom - flowchart.ScrollPos))
+                    {
+                        hitBlock = block;
+                        break;
+                    }
+                }
+                // Clicked on a block
+                if (hitBlock != null)
+                {
+                    flowchart.AddSelectedBlock(hitBlock);
+
+                    // Use a copy because flowchart.SelectedBlocks gets modified
+                    var blockList = new List<Block>(flowchart.SelectedBlocks);
+                    menu.AddItem(new GUIContent ("Copy"), false, () => Copy(flowchart));
+                    menu.AddItem(new GUIContent ("Cut"), false, () => Cut(flowchart));
+                    menu.AddItem(new GUIContent ("Duplicate"), false, () => Duplicate(flowchart));
+                    menu.AddItem(new GUIContent ("Delete"), false, DeleteBlocks, blockList);
+                }
+                // Clicked on empty space in grid
+                else
+                {
+                    DeselectAll(flowchart);
+
+                    menu.AddItem(new GUIContent("Add Block"), false, () => CreateBlock(flowchart, mousePosition / flowchart.Zoom - flowchart.ScrollPos));
+
+                    if (copyList.Count > 0)
+                    {
+                        menu.AddItem(new GUIContent("Paste"), false, () => Paste(flowchart, mousePosition));
+                    }
+                    else
+                    {
+                        menu.AddDisabledItem(new GUIContent("Paste"));
+                    }
+                }
+
+                var menuRect = new Rect();
+                menuRect.position = new Vector2(mousePosition.x, mousePosition.y - 12f);
+                menu.DropDown(menuRect);
+                Event.current.Use();               
+            }
 
             // If event has yet to be used and user isn't multiselecting or panning, clear selection
             bool validModifier = Event.current.alt || GetAppendModifierDown();
             if (Event.current.type == EventType.MouseDown && Event.current.button == 0 && !validModifier)
             {
-                Undo.RecordObject(flowchart, "Deselect");
-                flowchart.ClearSelectedCommands();
-                flowchart.ClearSelectedBlocks();
-                Selection.activeGameObject = flowchart.gameObject;                
+                DeselectAll(flowchart);
             }
 
             // Draw selection box
@@ -474,12 +858,11 @@ namespace Fungus.EditorUtils
             }
         }
 
-        public virtual void CalcFlowchartCenter(Flowchart flowchart, Block[] blocks)
+        public virtual Vector2 GetBlockCenter(Flowchart flowchart, Block[] blocks)
         {
-            if (flowchart == null ||
-                blocks.Count() == 0)
+            if (blocks.Length == 0)
             {
-                return;
+                return Vector2.zero;
             }
 
             Vector2 min = blocks[0]._NodeRect.min;
@@ -493,8 +876,12 @@ namespace Fungus.EditorUtils
                 max.y = Mathf.Max(max.y, block._NodeRect.center.y);
             }
 
-            Vector2 center = (min + max) * -0.5f;
+            return (min + max) * 0.5f;
+        }
 
+        public virtual void CalcFlowchartCenter(Flowchart flowchart, Block[] blocks)
+        {
+            var center = -GetBlockCenter(flowchart, blocks);
             center.x += position.width * 0.5f / flowchart.Zoom;
             center.y += position.height * 0.5f / flowchart.Zoom;
 
@@ -559,7 +946,7 @@ namespace Fungus.EditorUtils
                 if (Event.current.rawType == EventType.MouseUp)
                 {
                     selectionBox.size = Vector2.zero;
-                    selectionBox.position = Vector2.one * -1;
+                    selectionBox.position = -Vector2.one;
                     startSelectionBoxPosition = selectionBox.position;
 
                     var tempList = new List<Block>(flowchart.SelectedBlocks);
@@ -609,7 +996,7 @@ namespace Fungus.EditorUtils
             bool zoom = false;
             
             // Scroll wheel
-            if (Event.current.type == EventType.ScrollWheel)
+            if (Event.current.type == EventType.ScrollWheel && !mouseOverPopup)
             {
                 zoom = true;
             }
@@ -648,26 +1035,14 @@ namespace Fungus.EditorUtils
             float width = this.position.width / flowchart.Zoom;
             float height = this.position.height / flowchart.Zoom;
 
-            // Match background color of scene view
-            if (EditorGUIUtility.isProSkin)
-            {
-                GUI.color = new Color32(71, 71, 71, 255); 
-            }
-            else
-            {
-                GUI.color = new Color32(86, 86, 86, 255); 
-            }
-            GUI.DrawTexture( new Rect(0,0, width, height), EditorGUIUtility.whiteTexture );
-
-            GUI.color = Color.white;
-            Color color = new Color32(96, 96, 96, 255);
+            Handles.color = gridLineColor;
 
             float gridSize = 128f;
             
             float x = flowchart.ScrollPos.x % gridSize;
             while (x < width)
             {
-                GLDraw.DrawLine(new Vector2(x, 0), new Vector2(x, height), color, 1f);
+                Handles.DrawLine(new Vector2(x, 0), new Vector2(x, height));
                 x += gridSize;
             }
             
@@ -676,10 +1051,12 @@ namespace Fungus.EditorUtils
             {
                 if (y >= 0)
                 {
-                    GLDraw.DrawLine(new Vector2(0, y), new Vector2(width, y), color, 1f);
+                    Handles.DrawLine(new Vector2(0, y), new Vector2(width, y));
                 }
                 y += gridSize;
             }
+
+            Handles.color = Color.white;
         }
 
         protected virtual void SelectBlock(Flowchart flowchart, Block block)
@@ -687,6 +1064,14 @@ namespace Fungus.EditorUtils
             // Select the block and also select currently executing command
             flowchart.SelectedBlock = block;
             SetBlockForInspector(flowchart, block);
+        }
+
+        protected virtual void DeselectAll(Flowchart flowchart)
+        {
+            Undo.RecordObject(flowchart, "Deselect");
+            flowchart.ClearSelectedCommands();
+            flowchart.ClearSelectedBlocks();
+            Selection.activeGameObject = flowchart.gameObject;
         }
         
         public static Block CreateBlock(Flowchart flowchart, Vector2 position)
@@ -699,18 +1084,6 @@ namespace Fungus.EditorUtils
             SetBlockForInspector(flowchart, newBlock);
 
             return newBlock;
-        }
-
-        protected virtual void DeleteBlock(Flowchart flowchart, Block block)
-        {
-            var commandList = block.CommandList;
-            foreach (var command in commandList)
-            {
-                Undo.DestroyObjectImmediate(command);
-            }
-            
-            Undo.DestroyObjectImmediate((Block)block);
-            flowchart.ClearSelectedCommands();
         }
 
         protected virtual void DrawWindow(int windowId)
@@ -781,44 +1154,7 @@ namespace Fungus.EditorUtils
             }
 
             GUIStyle nodeStyleCopy = new GUIStyle(nodeStyle);
-            Texture2D offTex;
-            Texture2D onTex;
-            Color defaultColor;
-
-            if (block._EventHandler != null)
-            {
-                offTex = FungusEditorResources.texEventNodeOff;
-                onTex = FungusEditorResources.texEventNodeOn;
-                defaultColor = FungusConstants.DefaultEventBlockTint;
-            }
-            else
-            {
-                // Count the number of unique connections (excluding self references)
-                var uniqueList = new List<Block>();
-                var connectedBlocks = block.GetConnectedBlocks();
-                foreach (var connectedBlock in connectedBlocks)
-                {
-                    if (connectedBlock == block ||
-                        uniqueList.Contains(connectedBlock))
-                    {
-                        continue;
-                    }
-                    uniqueList.Add(connectedBlock);
-                }
-
-                if (uniqueList.Count > 1)
-                {
-                    offTex = FungusEditorResources.texChoiceNodeOff;
-                    onTex = FungusEditorResources.texChoiceNodeOn;
-                    defaultColor = FungusConstants.DefaultChoiceBlockTint;
-                }
-                else
-                {
-                    offTex = FungusEditorResources.texProcessNodeOff;
-                    onTex = FungusEditorResources.texProcessNodeOn;
-                    defaultColor = FungusConstants.DefaultProcessBlockTint;
-                }
-            }
+            var graphics = GetBlockGraphics(block);
 
             // Make sure node is wide enough to fit the node name text
             var n = block as Node;
@@ -828,22 +1164,26 @@ namespace Fungus.EditorUtils
             n._NodeRect = tempRect;
 
             Rect boxRect = GUILayoutUtility.GetRect(n._NodeRect.width, n._NodeRect.height);
-            var tintColor = n.UseCustomTint ? n.Tint : defaultColor;
 
             // Draw untinted highlight
             if (selected)
             {
                 GUI.backgroundColor = Color.white;
-                nodeStyleCopy.normal.background = onTex;
+                nodeStyleCopy.normal.background = graphics.onTexture;
                 GUI.Box(boxRect, "", nodeStyleCopy);
             }
 
             // Draw tinted block; ensure text is readable
-            var brightness = tintColor.r * 0.3 + tintColor.g * 0.59 + tintColor.b * 0.11;
+            var brightness = graphics.tint.r * 0.3 + graphics.tint.g * 0.59 + graphics.tint.b * 0.11;
             nodeStyleCopy.normal.textColor = brightness >= 0.5 ? Color.black : Color.white;
 
-            nodeStyleCopy.normal.background = offTex;
-            GUI.backgroundColor = tintColor;
+            if (GUI.GetNameOfFocusedControl() == searchFieldName && !filteredBlocks.Contains(block))
+            {
+                graphics.tint.a *= 0.2f;
+            }
+
+            nodeStyleCopy.normal.background = graphics.offTexture;
+            GUI.backgroundColor = graphics.tint;
             GUI.Box(boxRect, block.BlockName, nodeStyleCopy);
 
             GUI.backgroundColor = Color.white;
@@ -853,20 +1193,6 @@ namespace Fungus.EditorUtils
                 GUIStyle descriptionStyle = new GUIStyle(EditorStyles.helpBox);
                 descriptionStyle.wordWrap = true;
                 GUILayout.Label(block.Description, descriptionStyle);
-            }
-
-            if (Event.current.type == EventType.ContextClick)
-            {
-                flowchart.AddSelectedBlock(block);
-
-                GenericMenu menu = new GenericMenu ();
-                
-                // Use a copy because flowchart.SelectedBlocks gets modified
-                var blockList = new List<Block>(flowchart.SelectedBlocks);
-                menu.AddItem(new GUIContent ("Duplicate"), false, DuplicateBlocks, blockList);
-                menu.AddItem(new GUIContent ("Delete"), false, DeleteBlocks, blockList);
-
-                menu.ShowAsContext();           
             }
         }
 
@@ -936,17 +1262,17 @@ namespace Fungus.EditorUtils
         protected virtual void DrawRectConnection(Rect rectA, Rect rectB, bool highlight)
         {
             Vector2[] pointsA = new Vector2[] {
-                new Vector2(rectA.xMin + 5, rectA.center.y),
-                new Vector2(rectA.xMin + rectA.width / 2, rectA.yMin + 2),
-                new Vector2(rectA.xMin + rectA.width / 2, rectA.yMax - 2),
-                new Vector2(rectA.xMax - 5, rectA.center.y) 
+                new Vector2(rectA.xMin, rectA.center.y),
+                new Vector2(rectA.xMin + rectA.width / 2, rectA.yMin),
+                new Vector2(rectA.xMin + rectA.width / 2, rectA.yMax),
+                new Vector2(rectA.xMax, rectA.center.y) 
             };
 
             Vector2[] pointsB = new Vector2[] {
-                new Vector2(rectB.xMin + 5, rectB.center.y),
-                new Vector2(rectB.xMin + rectB.width / 2, rectB.yMin + 2),
-                new Vector2(rectB.xMin + rectB.width / 2, rectB.yMax - 2),
-                new Vector2(rectB.xMax - 5, rectB.center.y)
+                new Vector2(rectB.xMin, rectB.center.y),
+                new Vector2(rectB.xMin + rectB.width / 2, rectB.yMin),
+                new Vector2(rectB.xMin + rectB.width / 2, rectB.yMax),
+                new Vector2(rectB.xMax, rectB.center.y)
             };
 
             Vector2 pointA = Vector2.zero;
@@ -967,19 +1293,54 @@ namespace Fungus.EditorUtils
                 }
             }
 
-            Color color = Color.grey;
+            Color color = connectionColor;
             if (highlight)
             {
                 color = Color.green;
             }
 
-            GLDraw.DrawConnectingCurve(pointA, pointB, color, 1.025f);
+            Handles.color = color;
 
-            Rect dotARect = new Rect(pointA.x - 5, pointA.y - 5, 10, 10);
-            GUI.Label(dotARect, "", new GUIStyle("U2D.dragDotActive"));
+            // Place control based on distance between points
+            // Weight the min component more so things don't get overly curvy
+            var diff = pointA - pointB;
+            diff.x = Mathf.Abs(diff.x);
+            diff.y = Mathf.Abs(diff.y);
+            var min = Mathf.Min(diff.x, diff.y);
+            var max = Mathf.Max(diff.x, diff.y);
+            var mod = min * 0.75f + max * 0.25f;
 
-            Rect dotBRect = new Rect(pointB.x - 5, pointB.y - 5, 10, 10);
-            GUI.Label(dotBRect, "", new GUIStyle("U2D.dragDotActive"));
+            // Draw bezier curve connecting blocks
+            var directionA = (rectA.center - pointA).normalized;
+            var directionB = (rectB.center - pointB).normalized;
+            var controlA = pointA - directionA * mod * 0.67f;
+            var controlB = pointB - directionB * mod * 0.67f;            
+            Handles.DrawBezier(pointA, pointB, controlA, controlB, color, null, 3f);
+
+            // Draw arrow on curve
+            var point = GetPointOnCurve(pointA, controlA, pointB, controlB, 0.7f);
+            var direction = (GetPointOnCurve(pointA, controlA, pointB, controlB, 0.6f) - point).normalized;
+            var perp = new Vector2(direction.y, -direction.x);
+            Handles.DrawAAConvexPolygon(
+                point, point + direction * 10 + perp * 5, point + direction * 10 - perp * 5
+            );
+
+            var connectionPointA = pointA + directionA * 4f;
+            var connectionRectA = new Rect(connectionPointA.x - 4f, connectionPointA.y - 4f, 8f, 8f);
+            var connectionPointB = pointB + directionB * 4f;
+            var connectionRectB = new Rect(connectionPointB.x - 4f, connectionPointB.y - 4f, 8f, 8f);
+
+            GUI.DrawTexture(connectionRectA, connectionPointTexture, ScaleMode.ScaleToFit);
+            GUI.DrawTexture(connectionRectB, connectionPointTexture, ScaleMode.ScaleToFit);
+
+            Handles.color = Color.white;
+        }
+
+        private static Vector2 GetPointOnCurve(Vector2 s, Vector2 st, Vector2 e, Vector2 et, float t)
+        {
+            float rt = 1 - t;
+            float rtt = rt * t;
+            return rt * rt * rt * s + 3 * rt * rtt * st + 3 * rtt * t * et + t * t * t * e;
         }
 
         public static void DeleteBlocks(object obj)
@@ -988,68 +1349,6 @@ namespace Fungus.EditorUtils
             blocks.ForEach(block => FlowchartWindow.deleteList.Add(block));
         }
         
-        protected static void DuplicateBlocks(object obj)
-        {
-            var flowchart = GetFlowchart();
-
-            Undo.RecordObject(flowchart, "Select");
-            flowchart.ClearSelectedBlocks();
-
-            var blocks = obj as List<Block>;
-
-            foreach (var block in blocks)
-            {
-                Vector2 newPosition = new Vector2(block._NodeRect.position.x + 
-                                              block._NodeRect.width + 20, 
-                                              block._NodeRect.y);
-
-                Block oldBlock = block;
-
-                Block newBlock = FlowchartWindow.CreateBlock(flowchart, newPosition);
-                newBlock.BlockName = flowchart.GetUniqueBlockKey(oldBlock.BlockName + " (Copy)");
-
-                Undo.RecordObject(newBlock, "Duplicate Block");
-
-                var commandList = oldBlock.CommandList;
-                foreach (var command in commandList)
-                {
-                    if (ComponentUtility.CopyComponent(command))
-                    {
-                        if (ComponentUtility.PasteComponentAsNew(flowchart.gameObject))
-                        {
-                            Command[] commands = flowchart.GetComponents<Command>();
-                            Command pastedCommand = commands.Last<Command>();
-                            if (pastedCommand != null)
-                            {
-                                pastedCommand.ItemId = flowchart.NextItemId();
-                                newBlock.CommandList.Add(pastedCommand);
-                            }
-                        }
-                        
-                        // This stops the user pasting the command manually into another game object.
-                        ComponentUtility.CopyComponent(flowchart.transform);
-                    }
-                }
-
-                if (oldBlock._EventHandler != null)
-                {
-                    if (ComponentUtility.CopyComponent(oldBlock._EventHandler))
-                    {
-                        if (ComponentUtility.PasteComponentAsNew(flowchart.gameObject))
-                        {
-                            EventHandler[] eventHandlers = flowchart.GetComponents<EventHandler>();
-                            EventHandler pastedEventHandler = eventHandlers.Last<EventHandler>();
-                            if (pastedEventHandler != null)
-                            {
-                                pastedEventHandler.ParentBlock = newBlock;
-                                newBlock._EventHandler = pastedEventHandler;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         protected static void ShowBlockInspector(Flowchart flowchart)
         {
             if (blockInspector == null)
@@ -1087,9 +1386,195 @@ namespace Fungus.EditorUtils
             }
         }
 
-         protected virtual bool GetAppendModifierDown()
+        protected virtual bool GetAppendModifierDown()
         {
             return Event.current.shift || EditorGUI.actionKey;
+        }
+
+        protected virtual void Copy(Flowchart flowchart)
+        {
+            copyList.Clear();
+
+            foreach (var block in flowchart.SelectedBlocks)
+            {
+                copyList.Add(new BlockCopy(block));
+            }
+        }
+
+        protected virtual void Cut(Flowchart flowchart)
+        {
+            Copy(flowchart);
+            Undo.RecordObject(flowchart, "Cut");
+            DeleteBlocks(flowchart.SelectedBlocks);
+        }
+
+        // Center is position in unscaled window space
+        protected virtual void Paste(Flowchart flowchart, Vector2 center, bool relative = false)
+        {
+            Undo.RecordObject(flowchart, "Deselect");
+            DeselectAll(flowchart);
+
+            var pasteList = new List<Block>();
+
+            foreach (var copy in copyList)
+            {
+                pasteList.Add(copy.PasteBlock(flowchart));
+            }
+
+            var copiedCenter = GetBlockCenter(flowchart, pasteList.ToArray()) + flowchart.ScrollPos;
+            var delta = relative ? center : (center / flowchart.Zoom - copiedCenter);
+            
+            foreach (var block in pasteList)
+            {
+                var tempRect = block._NodeRect;
+                tempRect.position += delta;
+                block._NodeRect = tempRect;
+            }
+        }
+
+        protected virtual void Duplicate(Flowchart flowchart)
+        {
+            var tempCopyList = new List<BlockCopy>(copyList);
+            Copy(flowchart);
+            Paste(flowchart, new Vector2(20, 0), true);
+            copyList = tempCopyList;
+        }
+
+        protected virtual void ValidateCommands(Flowchart flowchart)
+        {
+            if (Event.current.type == EventType.ValidateCommand)
+            {
+                var c = Event.current.commandName;
+                if (c == "Copy" || c == "Cut" || c == "Delete" || c == "Duplicate")
+                {
+                    if (flowchart.SelectedBlocks.Count > 0)
+                    {
+                        Event.current.Use();
+                    }
+                }
+                else if (c == "Paste")
+                {
+                    if (copyList.Count > 0)
+                    {
+                        Event.current.Use();
+                    }
+                }
+                else if (c == "SelectAll" || c == "Find")
+                {
+                    Event.current.Use();
+                }
+            }
+        }
+
+        protected virtual void ExecuteCommands(Flowchart flowchart)
+        {
+            if (Event.current.type == EventType.ExecuteCommand)
+            {
+                switch (Event.current.commandName)
+                {
+                case "Copy":
+                    Copy(flowchart);
+                    Event.current.Use();
+                    break;
+                
+                case "Cut":
+                    Cut(flowchart);
+                    Event.current.Use();
+                    break;
+
+                case "Paste":
+                    Paste(flowchart, position.center - position.position);
+                    Event.current.Use();
+                    break;
+
+                case "Delete":
+                    DeleteBlocks(flowchart.SelectedBlocks);
+                    Event.current.Use();
+                    break;
+
+                case "Duplicate":
+                    Duplicate(flowchart);
+                    Event.current.Use();
+                    break;
+
+                case "SelectAll":
+                    Undo.RecordObject(flowchart, "Selection");
+                    flowchart.ClearSelectedBlocks();
+                    foreach (var block in flowchart.GetComponents<Block>())
+                    {
+                        flowchart.AddSelectedBlock(block);
+                    }
+                    Event.current.Use();
+                    break;
+
+                case "Find":
+                    blockPopupSelection = 0;
+                    EditorGUI.FocusTextInControl(searchFieldName);
+                    Event.current.Use();
+                    break;
+                }
+            }
+        }
+
+        protected virtual void CenterBlock(Flowchart flowchart, Block block)
+        {
+            if (flowchart.Zoom < 1)
+            {
+                DoZoom(flowchart, 1 - flowchart.Zoom, Vector2.one * 0.5f);
+            }
+
+            flowchart.ScrollPos = -block._NodeRect.center + position.size * 0.5f / flowchart.Zoom;
+        }
+
+        protected virtual void CloseBlockPopup()
+        {
+            GUIUtility.keyboardControl = 0;
+            searchString = string.Empty;
+        }
+
+        protected virtual BlockGraphics GetBlockGraphics(Block block)
+        {
+            var graphics = new BlockGraphics();
+
+            Color defaultTint;
+            if (block._EventHandler != null)
+            {
+                graphics.offTexture = FungusEditorResources.EventNodeOff;
+                graphics.onTexture = FungusEditorResources.EventNodeOn;
+                defaultTint = FungusConstants.DefaultEventBlockTint;
+            }
+            else
+            {
+                // Count the number of unique connections (excluding self references)
+                var uniqueList = new List<Block>();
+                var connectedBlocks = block.GetConnectedBlocks();
+                foreach (var connectedBlock in connectedBlocks)
+                {
+                    if (connectedBlock == block ||
+                        uniqueList.Contains(connectedBlock))
+                    {
+                        continue;
+                    }
+                    uniqueList.Add(connectedBlock);
+                }
+
+                if (uniqueList.Count > 1)
+                {
+                    graphics.offTexture = FungusEditorResources.ChoiceNodeOff;
+                    graphics.onTexture = FungusEditorResources.ChoiceNodeOn;
+                    defaultTint = FungusConstants.DefaultChoiceBlockTint;
+                }
+                else
+                {
+                    graphics.offTexture = FungusEditorResources.ProcessNodeOff;
+                    graphics.onTexture = FungusEditorResources.ProcessNodeOn;
+                    defaultTint = FungusConstants.DefaultProcessBlockTint;
+                }
+            }
+
+            graphics.tint = block.UseCustomTint ? block.Tint : defaultTint;
+
+            return graphics;
         }
     }
 }

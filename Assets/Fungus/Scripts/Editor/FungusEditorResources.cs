@@ -1,149 +1,222 @@
 // This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using System;
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+#if UNITY_5_0 || UNITY_5_1
+using System.Reflection;
+#endif
 
-namespace Fungus.EditorUtils 
+namespace Fungus.EditorUtils
 {
-    internal static class FungusEditorResources 
+    [CustomEditor(typeof(FungusEditorResources))]
+    internal class FungusEditorResourcesInspector : Editor
     {
-
-        static FungusEditorResources() {
-            GenerateSpecialTextures();
-            LoadResourceAssets();
-        }
-
-        private enum ResourceName 
+        public override void OnInspectorGUI()
         {
-            command_background = 0,
-            choice_node_off,
-            choice_node_on,
-            process_node_off,
-            process_node_on,
-            event_node_off,
-            event_node_on,
-            play_big,
-            play_small
-        }
-        
-        private static string[] s_LightSkin = {
-            "command_background",
-            "choice_node_off",
-            "choice_node_on",
-            "process_node_off",
-            "process_node_on",
-            "event_node_off",
-            "event_node_on",
-            "play_big",
-            "play_small"
-        };
-
-        private static string[] s_DarkSkin = {
-            "command_background",
-            "choice_node_off",
-            "choice_node_on",
-            "process_node_off",
-            "process_node_on",
-            "event_node_off",
-            "event_node_on",
-            "play_big",
-            "play_small"
-        };
-
-        public static Texture2D texCommandBackground 
-        {
-            get { return s_Cached[(int)ResourceName.command_background]; }
-        }
-
-        public static Texture2D texEventNodeOn
-        {
-            get { return s_Cached[(int)ResourceName.event_node_on]; }
-        }
-        
-        public static Texture2D texEventNodeOff
-        {
-            get { return s_Cached[(int)ResourceName.event_node_off]; }
-        }
-
-        public static Texture2D texProcessNodeOn
-        {
-            get { return s_Cached[(int)ResourceName.process_node_on]; }
-        }
-        
-        public static Texture2D texProcessNodeOff
-        {
-            get { return s_Cached[(int)ResourceName.process_node_off]; }
-        }
-
-        public static Texture2D texChoiceNodeOn
-        {
-            get { return s_Cached[(int)ResourceName.choice_node_on]; }
-        }
-        
-        public static Texture2D texChoiceNodeOff
-        {
-            get { return s_Cached[(int)ResourceName.choice_node_off]; }
-        }
-
-        public static Texture2D texPlayBig
-        {
-            get { return s_Cached[(int)ResourceName.play_big]; }
-        }
-
-        public static Texture2D texPlaySmall
-        {
-            get { return s_Cached[(int)ResourceName.play_small]; }
-        }
-
-        public static Texture2D texItemSplitter { get; private set; }
-        
-        private static void GenerateSpecialTextures() 
-        {
-            var splitterColor = EditorGUIUtility.isProSkin
-                ? new Color(1f, 1f, 1f, 0.14f)
-                    : new Color(0.59f, 0.59f, 0.59f, 0.55f)
-                    ;
-            texItemSplitter = CreatePixelTexture("(Generated) Item Splitter", splitterColor);
-        }
-        
-        public static Texture2D CreatePixelTexture(string name, Color color) 
-        {
-            var tex = new Texture2D(1, 1, TextureFormat.ARGB32, false, true);
-            tex.name = name;
-            tex.hideFlags = HideFlags.HideAndDontSave;
-            tex.filterMode = FilterMode.Point;
-            tex.SetPixel(0, 0, color);
-            tex.Apply();
-            return tex;
-        }
-
-        private static Texture2D[] s_Cached;
-        
-        public static void LoadResourceAssets() 
-        {
-            var skin = EditorGUIUtility.isProSkin ? s_DarkSkin : s_LightSkin;
-            s_Cached = new Texture2D[skin.Length];
-            
-            for (int i = 0; i < s_Cached.Length; ++i)
+            if (serializedObject.FindProperty("updateOnReloadScripts").boolValue)
             {
-                s_Cached[i] = Resources.Load("Textures/" + skin[i]) as Texture2D;
+                GUILayout.Label("Updating...");
             }
+            else
+            {
+                if (GUILayout.Button("Sync with EditorResources folder"))
+                {
+                    FungusEditorResources.GenerateResourcesScript();
+                }
+
+                DrawDefaultInspector();
+            }
+        }
+    }
+
+    // Handle reimporting all assets
+    internal class EditorResourcesPostProcessor : AssetPostprocessor 
+    {
+        private static void OnPostprocessAllAssets(string[] importedAssets, string[] _, string[] __, string[] ___) 
+        {
+            foreach (var path in importedAssets)
+            {
+                if (path.EndsWith("FungusEditorResources.asset"))
+                {
+                    var asset = AssetDatabase.LoadAssetAtPath(path, typeof(FungusEditorResources)) as FungusEditorResources;
+                    if (asset != null)
+                    {
+                        FungusEditorResources.UpdateTextureReferences(asset);
+                        AssetDatabase.SaveAssets();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    internal partial class FungusEditorResources : ScriptableObject
+    {
+        [Serializable]
+        internal class EditorTexture
+        {
+            [SerializeField] private Texture2D free;
+            [SerializeField] private Texture2D pro;
+
+            public Texture2D Texture2D
+            {
+                get { return EditorGUIUtility.isProSkin && pro != null ? pro : free; }
+            }
+
+            public EditorTexture(Texture2D free, Texture2D pro)
+            {
+                this.free = free;
+                this.pro = pro;
+            }
+        }
+
+        private static FungusEditorResources instance;
+        private static readonly string editorResourcesFolderName = "\"EditorResources\"";
+        [SerializeField] [HideInInspector] private bool updateOnReloadScripts = false;
+
+        internal static FungusEditorResources Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    var guids = AssetDatabase.FindAssets("FungusEditorResources t:FungusEditorResources");
+
+                    if (guids.Length == 0)
+                    {
+                        instance = ScriptableObject.CreateInstance(typeof(FungusEditorResources)) as FungusEditorResources;
+                        AssetDatabase.CreateAsset(instance, GetRootFolder() + "/FungusEditorResources.asset");
+                    }
+                    else 
+                    {
+                        if (guids.Length > 1)
+                        {
+                            Debug.LogWarning("Multiple FungusEditorResources assets found!");
+                        }
+
+                        var path = AssetDatabase.GUIDToAssetPath(guids[0]);
+                        instance = AssetDatabase.LoadAssetAtPath(path, typeof(FungusEditorResources)) as FungusEditorResources;
+                    }
+                }
+
+                return instance;
+            }
+        }
+
+        private static string GetRootFolder()
+        {
+            var rootGuid = AssetDatabase.FindAssets(editorResourcesFolderName)[0];
+            return AssetDatabase.GUIDToAssetPath(rootGuid);
+        }
+
+        internal static void GenerateResourcesScript()
+        {
+            // Get all unique filenames
+            var textureNames = new HashSet<string>();
+            var guids = AssetDatabase.FindAssets("t:Texture2D", new [] { GetRootFolder() });
+            var paths = guids.Select(guid => AssetDatabase.GUIDToAssetPath(guid));
             
-            s_LightSkin = null;
-            s_DarkSkin = null;
+            foreach (var path in paths)
+            {
+                textureNames.Add(Path.GetFileNameWithoutExtension(path));
+            }
+
+            var scriptGuid = AssetDatabase.FindAssets("FungusEditorResources t:MonoScript")[0];
+            var relativePath = AssetDatabase.GUIDToAssetPath(scriptGuid).Replace("FungusEditorResources.cs", "FungusEditorResourcesGenerated.cs");
+            var absolutePath = Application.dataPath + relativePath.Substring("Assets".Length);
+            
+            using (var writer = new StreamWriter(absolutePath))
+            {
+                writer.WriteLine("// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).");
+                writer.WriteLine("// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)");
+                writer.WriteLine("");				
+                writer.WriteLine("using UnityEngine;");
+                writer.WriteLine("");
+                writer.WriteLine("namespace Fungus.EditorUtils");
+                writer.WriteLine("{");
+                writer.WriteLine("    internal partial class FungusEditorResources : ScriptableObject");
+                writer.WriteLine("    {");
+                
+                foreach (var name in textureNames)
+                {
+                    writer.WriteLine("        [SerializeField] private EditorTexture " + name + ";");
+                }
+
+                writer.WriteLine("");
+
+                foreach (var name in textureNames)
+                {
+                    var pascalCase = string.Join("", name.Split(new [] { '_' }, StringSplitOptions.RemoveEmptyEntries).Select(
+                        s => s.Substring(0, 1).ToUpper() + s.Substring(1)).ToArray()
+                    );
+                    writer.WriteLine("        public static Texture2D " + pascalCase + " { get { return Instance." + name + ".Texture2D; } }");
+                }
+
+                writer.WriteLine("    }");
+                writer.WriteLine("}");
+            }
+
+            Instance.updateOnReloadScripts = true;
+            AssetDatabase.ImportAsset(relativePath);
         }
-        
-        private static void GetImageSize(byte[] imageData, out int width, out int height) 
+
+        [DidReloadScripts]
+        private static void OnDidReloadScripts()
         {
-            width = ReadInt(imageData, 3 + 15);
-            height = ReadInt(imageData, 3 + 15 + 2 + 2);
+            if (Instance.updateOnReloadScripts)
+            {                
+                UpdateTextureReferences(Instance);
+            }
         }
-        
-        private static int ReadInt(byte[] imageData, int offset) 
+
+        internal static void UpdateTextureReferences(FungusEditorResources instance)
         {
-            return (imageData[offset] << 8) | imageData[offset + 1];
+            // Iterate through all fields in instance and set texture references
+            var serializedObject = new SerializedObject(instance);
+            var prop = serializedObject.GetIterator();
+            var rootFolder = new [] { GetRootFolder() };
+
+            prop.NextVisible(true);
+            while (prop.NextVisible(false))
+            {
+                if (prop.propertyType == SerializedPropertyType.Generic)
+                {
+                    var guids = AssetDatabase.FindAssets(prop.name + " t:Texture2D", rootFolder);
+                    var paths = guids.Select(guid => AssetDatabase.GUIDToAssetPath(guid)).Where(
+                        path => path.Contains(prop.name + ".")
+                    );
+
+                    foreach (var path in paths)
+                    {
+                        var texture = AssetDatabase.LoadAssetAtPath(path, typeof(Texture2D)) as Texture2D;
+                        if (path.ToLower().Contains("/pro/"))
+                        {
+                            prop.FindPropertyRelative("pro").objectReferenceValue = texture;
+                        }
+                        else
+                        {
+                            prop.FindPropertyRelative("free").objectReferenceValue = texture;
+                        }
+                    }       
+                }
+            }
+
+            serializedObject.FindProperty("updateOnReloadScripts").boolValue = false;
+
+            // The ApplyModifiedPropertiesWithoutUndo() function wasn't documented until Unity 5.2
+#if UNITY_5_0 || UNITY_5_1
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            var applyMethod = typeof(SerializedObject).GetMethod("ApplyModifiedPropertiesWithoutUndo", flags);
+            applyMethod.Invoke(serializedObject, null);
+#else
+            serializedObject.ApplyModifiedPropertiesWithoutUndo();
+#endif
         }
     }
 }
