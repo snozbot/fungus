@@ -18,6 +18,10 @@ namespace Fungus
 
         [SerializeField] protected bool restartDeletesSave = false;
 
+        [SerializeField] protected CanvasGroup saveMenuGroup;
+
+        [SerializeField] protected Button saveMenuButton;
+
         [SerializeField] protected Button saveButton;
 
         [SerializeField] protected Button loadButton;
@@ -66,6 +70,8 @@ namespace Fungus
             {
                 rewindButton.interactable = saveManager.NumSavePoints > 1;
             }
+
+            Debug.Log("Update");
         }
 
         protected void CheckSavePointKeys()
@@ -90,7 +96,6 @@ namespace Fungus
                     keys.Add(savePoint.SavePointKey);
                 }
             }
-
         }
 
         protected void PlayClickSound()
@@ -101,9 +106,45 @@ namespace Fungus
             }
         }
 
+        protected LTDescr fadeTween;
+
+        protected bool saveMenuActive = true;
+
         #region Public methods
 
         public SaveGameObjects SaveGameObjects { get { return saveGameObjects; } }
+
+        public virtual void ToggleSaveMenu()
+        {
+            if (fadeTween != null)
+            {
+                LeanTween.cancel(fadeTween.id);
+                fadeTween = null;
+            }
+
+            if (saveMenuActive)
+            {
+                // Switch save menu off
+                LeanTween.value(saveMenuGroup.gameObject, saveMenuGroup.alpha, 0f, 0.5f).setOnUpdate( (t) => { 
+                    saveMenuGroup.alpha = t;
+                }).setOnComplete( () => {
+                    //saveMenuGroup.interactable = false;
+                    //saveMenuGroup.gameObject.SetActive(false);
+                });
+            }
+            else
+            {
+                // Switch save menu on
+                //saveMenuGroup.gameObject.SetActive(true);
+                saveMenuGroup.interactable = false;
+                LeanTween.value(saveMenuGroup.gameObject, saveMenuGroup.alpha, 1f, 0.5f).setOnUpdate( (t) => { 
+                    saveMenuGroup.alpha = t;
+                }).setOnComplete( () => {
+                });
+            }
+
+            saveMenuActive = !saveMenuActive;
+        }
 
         public virtual void Save()
         {
