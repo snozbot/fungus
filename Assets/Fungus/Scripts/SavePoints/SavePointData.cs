@@ -88,29 +88,18 @@ namespace Fungus
         public string SceneName { get { return sceneName; } set { sceneName = value; } }
         public List<FlowchartData> FlowchartDatas { get { return flowchartDatas; } set { flowchartDatas = value; } }
 
-        public static string EncodeNewGame(string _description, string _sceneName)
-        {
-            var savePointData = Create("start_game", _description, _sceneName);
-
-            return JsonUtility.ToJson(savePointData, true);
-        }
-
         public static string Encode(string _savePointKey, string _savePointDescription, string _sceneName)
         {
             var savePointData = Create(_savePointKey, _savePointDescription, _sceneName);
                 
-            var saveGameHelper = GameObject.FindObjectOfType<SaveGameHelper>();
-            if (saveGameHelper == null)
+            var saveGameObjects = GameObject.FindObjectOfType<SaveGameObjects>();
+            if (saveGameObjects == null)
             {
-                Debug.LogError("Failed to find SaveGameHelper object in scene");
-                return null;
+                Debug.LogWarning("Failed to find a SaveGameObjects in current scene");
             }
-
-            for (int i = 0; i < saveGameHelper.SaveGameObjects.Flowcharts.Count; i++)
+            else
             {
-                var flowchart = saveGameHelper.SaveGameObjects.Flowcharts[i];
-                var flowchartData = FlowchartData.Encode(flowchart);
-                savePointData.FlowchartDatas.Add(flowchartData);
+                saveGameObjects.Encode(savePointData);
             }
 
             return JsonUtility.ToJson(savePointData, true);

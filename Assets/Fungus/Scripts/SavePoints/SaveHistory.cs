@@ -62,6 +62,12 @@ namespace Fungus
         public void Clear()
         {
             savePoints.Clear();
+            rewoundSavePoints.Clear();
+        }
+
+        public void ClearRewoundSavePoints()
+        {
+            rewoundSavePoints.Clear();
         }
 
         #endregion

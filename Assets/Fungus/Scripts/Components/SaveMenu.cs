@@ -6,17 +6,13 @@ using UnityEngine.SceneManagement;
 
 namespace Fungus
 {
-    public class SaveGameHelper : MonoBehaviour 
+    public class SaveMenu : MonoBehaviour 
     {
         const string SaveDataKey = "save_data";
 
         const string NewGameSavePointKey = "new_game";
 
-        [SerializeField] protected string startScene = "";
-
         [SerializeField] protected bool autoStartGame = true;
-
-        [SerializeField] protected bool saveMenuActive = false;
 
         [SerializeField] protected bool restartDeletesSave = false;
 
@@ -34,19 +30,36 @@ namespace Fungus
 
         [SerializeField] protected Button restartButton;
 
-        [SerializeField] protected SaveGameObjects saveGameObjects = new SaveGameObjects();
+        protected static bool saveMenuActive = false;
 
         protected AudioSource clickAudioSource;
 
         protected LTDescr fadeTween;
 
+        protected static SaveMenu instance;
+
+        protected string startScene = "";
+
         protected virtual void Awake()
         {
+            // Only one instance of SaveMenu may exist
+            if (instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            instance = this;
+
+            GameObject.DontDestroyOnLoad(this);
+
             clickAudioSource = GetComponent<AudioSource>();
         }
 
         protected virtual void Start()
         {
+            startScene = SceneManager.GetActiveScene().name;
+
             var saveManager = FungusManager.Instance.SaveManager;
 
             if (!saveMenuActive)
@@ -87,6 +100,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Warn if duplicate SavePointKeys are found.
+        /// </summary>
         protected void CheckSavePointKeys()
         {
             List<string> keys = new List<string>();
@@ -119,15 +135,27 @@ namespace Fungus
             }
         }
 
-        #region Public methods
+        /// <summary>
+        /// Callback for restart scene load
+        /// </summary>
+        protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name != startScene)
+            {
+                return;
+            }
 
-        public SaveGameObjects SaveGameObjects { get { return saveGameObjects; } }
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            SavePointLoaded.NotifyEventHandlers(NewGameSavePointKey);
+        }
+
+        #region Public methods
 
         public virtual void ToggleSaveMenu()
         {
             if (fadeTween != null)
             {
-                LeanTween.cancel(fadeTween.id);
+                LeanTween.cancel(fadeTween.id, true);
                 fadeTween = null;
             }
 
@@ -136,6 +164,8 @@ namespace Fungus
                 // Switch menu off
                 LeanTween.value(saveMenuGroup.gameObject, saveMenuGroup.alpha, 0f, 0.5f).setOnUpdate( (t) => { 
                     saveMenuGroup.alpha = t;
+                }).setOnComplete( () => {
+                    saveMenuGroup.alpha = 0f;
                 });
             }
             else
@@ -143,6 +173,8 @@ namespace Fungus
                 // Switch menu on
                 LeanTween.value(saveMenuGroup.gameObject, saveMenuGroup.alpha, 1f, 0.5f).setOnUpdate( (t) => { 
                     saveMenuGroup.alpha = t;
+                }).setOnComplete( () => {
+                    saveMenuGroup.alpha = 1f;
                 });
             }
 
@@ -211,14 +243,8 @@ namespace Fungus
                 saveManager.Delete(SaveDataKey);
             }
 
+            SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene(startScene);
-        }
-
-        public virtual void LoadScene(string sceneName)
-        {
-            PlayClickSound();
-
-            SceneManager.LoadScene(sceneName);
         }
 
         #endregion

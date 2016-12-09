@@ -53,6 +53,7 @@ namespace Fungus
         {
             if (ReadSaveHistory(saveDataKey))
             {
+                saveHistory.ClearRewoundSavePoints();
                 saveHistory.LoadLatestSavePoint();
 
                 SaveManagerSignals.DoGameLoaded(saveDataKey);
@@ -99,7 +100,7 @@ namespace Fungus
         {
             saveHistory.Clear();
         }
-
+            
         #endregion
     }
 }
