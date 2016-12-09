@@ -17,9 +17,13 @@ namespace Fungus
 
         [SerializeField] protected List<string> savePoints = new List<string>();
 
+        [SerializeField] protected List<string> rewoundSavePoints = new List<string>();
+
         #region Public methods
 
         public int NumSavePoints { get { return savePoints.Count; } }
+
+        public int NumRewoundSavePoints { get { return rewoundSavePoints.Count; } }
 
         public void AddSavePoint(string savePointKey, string savePointDescription)
         {
@@ -28,14 +32,21 @@ namespace Fungus
             savePoints.Add(savePointData);
         }
 
-        /// <summary>
-        /// Removes the latest save point.
-        /// </summary>
-        public void RemoveSavePoint()
+        public void Rewind()
         {
             if (savePoints.Count > 0)
             {
+                rewoundSavePoints.Add(savePoints[savePoints.Count - 1]);
                 savePoints.RemoveAt(savePoints.Count - 1);
+            }
+        }
+
+        public void FastForward()
+        {
+            if (rewoundSavePoints.Count > 0)
+            {
+                savePoints.Add(rewoundSavePoints[rewoundSavePoints.Count - 1]);
+                rewoundSavePoints.RemoveAt(rewoundSavePoints.Count - 1);
             }
         }
 

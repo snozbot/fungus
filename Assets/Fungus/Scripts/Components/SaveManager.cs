@@ -40,6 +40,8 @@ namespace Fungus
 
         public virtual int NumSavePoints { get { return saveHistory.NumSavePoints; } }
 
+        public virtual int NumRewoundSavePoints { get { return saveHistory.NumRewoundSavePoints; } }
+
         public virtual void Save(string saveDataKey)
         {
             WriteSaveHistory(saveDataKey);
@@ -79,7 +81,16 @@ namespace Fungus
         {
             if (saveHistory.NumSavePoints > 0)
             {
-                saveHistory.RemoveSavePoint();
+                saveHistory.Rewind();
+                saveHistory.LoadLatestSavePoint();
+            }
+        }
+
+        public virtual void FastForward()
+        {
+            if (saveHistory.NumRewoundSavePoints > 0)
+            {
+                saveHistory.FastForward();
                 saveHistory.LoadLatestSavePoint();
             }
         }

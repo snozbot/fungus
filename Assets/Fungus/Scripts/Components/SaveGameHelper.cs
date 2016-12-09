@@ -30,6 +30,8 @@ namespace Fungus
 
         [SerializeField] protected Button rewindButton;
 
+        [SerializeField] protected Button forwardButton;
+
         [SerializeField] protected Button restartButton;
 
         [SerializeField] protected SaveGameObjects saveGameObjects = new SaveGameObjects();
@@ -78,6 +80,10 @@ namespace Fungus
             if (rewindButton != null)
             {
                 rewindButton.interactable = saveManager.NumSavePoints > 1;
+            }
+            if (forwardButton != null)
+            {
+                forwardButton.interactable = saveManager.NumRewoundSavePoints > 0;
             }
         }
 
@@ -173,6 +179,17 @@ namespace Fungus
             if (saveManager.NumSavePoints > 1)
             {
                 saveManager.Rewind();
+            }
+        }
+
+        public virtual void Forward()
+        {
+            PlayClickSound();
+
+            var saveManager = FungusManager.Instance.SaveManager;
+            if (saveManager.NumRewoundSavePoints > 0)
+            {
+                saveManager.FastForward();
             }
         }
 
