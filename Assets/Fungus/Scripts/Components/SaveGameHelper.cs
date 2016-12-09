@@ -16,6 +16,8 @@ namespace Fungus
 
         [SerializeField] protected bool autoStartGame = true;
 
+        [SerializeField] protected bool saveMenuActive = false;
+
         [SerializeField] protected bool restartDeletesSave = false;
 
         [SerializeField] protected CanvasGroup saveMenuGroup;
@@ -34,6 +36,8 @@ namespace Fungus
 
         protected AudioSource clickAudioSource;
 
+        protected LTDescr fadeTween;
+
         protected virtual void Awake()
         {
             clickAudioSource = GetComponent<AudioSource>();
@@ -42,6 +46,11 @@ namespace Fungus
         protected virtual void Start()
         {
             var saveManager = FungusManager.Instance.SaveManager;
+
+            if (!saveMenuActive)
+            {
+                saveMenuGroup.alpha = 0f;
+            }
 
             if (autoStartGame &&
                 saveManager.NumSavePoints == 0)
@@ -70,8 +79,6 @@ namespace Fungus
             {
                 rewindButton.interactable = saveManager.NumSavePoints > 1;
             }
-
-            Debug.Log("Update");
         }
 
         protected void CheckSavePointKeys()
@@ -106,10 +113,6 @@ namespace Fungus
             }
         }
 
-        protected LTDescr fadeTween;
-
-        protected bool saveMenuActive = true;
-
         #region Public methods
 
         public SaveGameObjects SaveGameObjects { get { return saveGameObjects; } }
@@ -124,22 +127,16 @@ namespace Fungus
 
             if (saveMenuActive)
             {
-                // Switch save menu off
+                // Switch menu off
                 LeanTween.value(saveMenuGroup.gameObject, saveMenuGroup.alpha, 0f, 0.5f).setOnUpdate( (t) => { 
                     saveMenuGroup.alpha = t;
-                }).setOnComplete( () => {
-                    //saveMenuGroup.interactable = false;
-                    //saveMenuGroup.gameObject.SetActive(false);
                 });
             }
             else
             {
-                // Switch save menu on
-                //saveMenuGroup.gameObject.SetActive(true);
-                saveMenuGroup.interactable = false;
+                // Switch menu on
                 LeanTween.value(saveMenuGroup.gameObject, saveMenuGroup.alpha, 1f, 0.5f).setOnUpdate( (t) => { 
                     saveMenuGroup.alpha = t;
-                }).setOnComplete( () => {
                 });
             }
 
