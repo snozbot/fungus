@@ -678,6 +678,57 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 139349258}
+--- !u!1 &159322289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 159322290}
+  - 114: {fileID: 159322291}
+  m_Layer: 0
+  m_Name: Sherlock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &159322290
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 159322289}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1285896120}
+  m_RootOrder: 4
+--- !u!114 &159322291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 159322289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: Sherlock
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
+  soundEffect: {fileID: 0}
+  portraits:
+  - {fileID: 21300000, guid: 10cc2fec4b8aa4db983981588b06b591, type: 3}
+  - {fileID: 21300000, guid: 450277e404c2d4d1e87c5bd4012283bb, type: 3}
+  portraitsFace: 0
+  portraitLocation: 0
+  setSayDialog: {fileID: 0}
+  description: 
 --- !u!1 &181558814
 GameObject:
   m_ObjectHideFlags: 0
@@ -3000,7 +3051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1dba0b27b0864740a8720e920aa88c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeout: 10
+  timeout: 15
   ignored: 0
   succeedAfterAllAssertionsAreExecuted: 0
   expectException: 0
@@ -3025,6 +3076,7 @@ Transform:
   - {fileID: 50872979}
   - {fileID: 1863458360}
   - {fileID: 1118906662}
+  - {fileID: 159322290}
   - {fileID: 1725151116}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -4609,7 +4661,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1285896120}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!114 &1725151117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5823,6 +5875,13 @@ GameObject:
   - 114: {fileID: 1863458363}
   - 114: {fileID: 1863458362}
   - 114: {fileID: 1863458361}
+  - 114: {fileID: 1863458379}
+  - 114: {fileID: 1863458378}
+  - 114: {fileID: 1863458377}
+  - 114: {fileID: 1863458376}
+  - 114: {fileID: 1863458375}
+  - 114: {fileID: 1863458374}
+  - 114: {fileID: 1863458373}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -6058,6 +6117,7 @@ MonoBehaviour:
   commandList:
   - {fileID: 1863458361}
   - {fileID: 1863458369}
+  - {fileID: 1863458373}
   - {fileID: 1863458362}
 --- !u!114 &1863458372
 MonoBehaviour:
@@ -6081,11 +6141,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: -350
     y: -350
-    width: 1271
+    width: 1314
     height: 1033
   selectedBlocks:
-  - {fileID: 1863458365}
-  selectedCommands: []
+  - {fileID: 1863458371}
+  selectedCommands:
+  - {fileID: 1863458373}
   variables: []
   description: 
   stepPause: 0
@@ -6097,6 +6158,151 @@ MonoBehaviour:
   hideCommands: []
   luaEnvironment: {fileID: 0}
   luaBindingName: flowchart
+--- !u!114 &1863458373
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1863458359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f455683d4ba4405b8dbba457159620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  indentLevel: 0
+  luaEnvironment: {fileID: 0}
+  luaFile: {fileID: 0}
+  luaScript: 'conversation [[
+
+    sherlock inline angry: sherlock inline 1{w=1}{m=CheckInlineSherlock}{x}
+
+    john bored inline: John go to inline 2{w=1}{m=CheckInline}{x}
+
+    sherlock onstage left: sherlock is on stage!{w=1}{m=CheckStageSherlock}{x}
+
+    john onstage apologetic: John apologizing on stage.{w=1}{m=CheckInline}{x}
+
+    ]]'
+  runAsCoroutine: 1
+  waitUntilFinished: 1
+  returnVariable: {fileID: 0}
+--- !u!114 &1863458374
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1863458359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 1863458376}
+  message: CheckStageSherlock
+--- !u!114 &1863458375
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1863458359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f455683d4ba4405b8dbba457159620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 11
+  indentLevel: 0
+  luaEnvironment: {fileID: 1725151118}
+  luaFile: {fileID: 0}
+  luaScript: 'local sherlock = canvas.Find("Sherlock")
+
+    check (sherlock != nil)'
+  runAsCoroutine: 1
+  waitUntilFinished: 1
+  returnVariable: {fileID: 0}
+--- !u!114 &1863458376
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1863458359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 343
+    y: 136
+    width: 169
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 14
+  blockName: CheckStageSherlock
+  description: 
+  eventHandler: {fileID: 1863458374}
+  commandList:
+  - {fileID: 1863458375}
+--- !u!114 &1863458377
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1863458359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7d417659cd54a6787f70f763950c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 1863458379}
+  message: CheckInlineSherlock
+--- !u!114 &1863458378
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1863458359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71f455683d4ba4405b8dbba457159620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 9
+  indentLevel: 0
+  luaEnvironment: {fileID: 1725151118}
+  luaFile: {fileID: 0}
+  luaScript: check (image.sprite.name == "angry")
+  runAsCoroutine: 1
+  waitUntilFinished: 1
+  returnVariable: {fileID: 0}
+--- !u!114 &1863458379
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1863458359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 340
+    y: 69
+    width: 168
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 13
+  blockName: CheckInlineSherlock
+  description: 
+  eventHandler: {fileID: 1863458377}
+  commandList:
+  - {fileID: 1863458378}
 --- !u!1 &1864265030
 GameObject:
   m_ObjectHideFlags: 0

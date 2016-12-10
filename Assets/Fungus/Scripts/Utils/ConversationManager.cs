@@ -357,7 +357,14 @@ namespace Fungus
                     currentCharacter.PortraitLocation = item.PortraitLocation;
                 }
 
-                currentPortrait = item.Portrait ?? currentPortrait;
+                if (item.Portrait != null)
+                {
+                    currentPortrait = item.Portrait;
+                }
+                else
+                {
+                    if (currentCharacter != null) currentPortrait = currentCharacter.State.portrait;
+                }
                 currentPosition = item.Position;
 
                 var sayDialog = GetSayDialog(currentCharacter);
