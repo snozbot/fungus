@@ -29,6 +29,9 @@ namespace Fungus
         [Tooltip("Direction that portrait sprites face.")]
         [SerializeField] protected FacingDirection portraitsFace;
 
+        [Tooltip("Show the character in the say dialog or on the stage.")]
+        [SerializeField] protected PortraitLocation portraitLocation;
+
         [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. This Say Dialog will be used whenever the character speaks.")]
         [SerializeField] protected SayDialog setSayDialog;
 
@@ -85,6 +88,11 @@ namespace Fungus
         /// Direction that portrait sprites face.
         /// </summary>
         public virtual FacingDirection PortraitsFace { get { return portraitsFace; } }
+
+        /// <summary>
+        /// Location of the portrait on stage or in the say dialog.
+        /// </summary>
+        public virtual PortraitLocation PortraitLocation { get; set; }
 
         /// <summary>
         /// Currently display profile sprite for this character.
