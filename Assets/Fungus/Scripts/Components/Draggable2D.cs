@@ -57,20 +57,7 @@ namespace Fungus
             {
                 return;
             }
-
-            var dragEnteredHandlers = GetHandlers<DragEntered>();
-            for (int i = 0; i < dragEnteredHandlers.Length; i++)
-            {
-                var handler = dragEnteredHandlers[i];
-                handler.OnDragEntered(this, other);
-            }
-
-            var dragCompletedHandlers = GetHandlers<DragCompleted>();
-            for (int i = 0; i < dragCompletedHandlers.Length; i++)
-            {
-                var handler = dragCompletedHandlers[i];
-                handler.OnDragEntered(this, other);
-            }
+            EventDispatcher.Raise(new DragEntered.DragEnteredEvent(this, other));
         }
 
         protected virtual void OnTriggerExit2D(Collider2D other) 
@@ -79,20 +66,7 @@ namespace Fungus
             {
                 return;
             }
-
-            var dragExitedHandlers = GetHandlers<DragExited>();
-            for (int i = 0; i < dragExitedHandlers.Length; i++)
-            {
-                var handler = dragExitedHandlers[i];
-                handler.OnDragExited(this, other);
-            }
-
-            var dragCompletedHandlers = GetHandlers<DragCompleted>();
-            for (int i = 0; i < dragCompletedHandlers.Length; i++)
-            {
-                var handler = dragCompletedHandlers[i];
-                handler.OnDragExited(this, other);
-            }
+            EventDispatcher.Raise(new DragExited.DragExitedEvent(this, other));
         }
 
         protected virtual T[] GetHandlers<T>() where T : EventHandler
@@ -111,12 +85,7 @@ namespace Fungus
 
             startingPosition = transform.position;
 
-            var dragStartedHandlers = GetHandlers<DragStarted>();
-            for (int i = 0; i < dragStartedHandlers.Length; i++)
-            {
-                var handler = dragStartedHandlers[i];
-                handler.OnDragStarted(this);
-            }
+            EventDispatcher.Raise(new DragStarted.DragStartedEvent(this));
         }
 
         protected virtual void DoDrag()
@@ -152,7 +121,7 @@ namespace Fungus
                 {
                     if (handler.IsOverTarget())
                     {
-                        handler.OnDragCompleted(this);
+                        EventDispatcher.Raise(new DragCompleted.DragCompletedEvent(this));
                         dragCompleted = true;
                         if (returnOnCompleted)
                         {
@@ -164,12 +133,7 @@ namespace Fungus
 
             if (!dragCompleted)
             {
-                var dragCancelledHandlers = GetHandlers<DragCancelled>();
-                for (int i = 0; i < dragCancelledHandlers.Length; i++)
-                {
-                    var handler = dragCancelledHandlers[i];
-                    handler.OnDragCancelled(this);
-                }
+                EventDispatcher.Raise(new DragCancelled.DragCancelledEvent(this));
 
                 if (returnOnCancelled)
                 {
