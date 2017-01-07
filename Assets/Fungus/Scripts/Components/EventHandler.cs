@@ -41,6 +41,38 @@ namespace Fungus
         [FormerlySerializedAs("parentSequence")]
         [SerializeField] protected Block parentBlock;
 
+        #region Unity Messages Propagation
+        protected virtual void UnityOnEnable()
+        {
+
+        }
+
+        protected virtual void UnityOnDisable()
+        {
+
+        }
+
+        protected virtual void UnityStart()
+        {
+
+        }
+
+        void OnEnable()
+        {
+            UnityOnEnable();
+        }
+
+        void OnDisable()
+        {
+            UnityOnDisable();
+        }
+
+        void Start()
+        {
+            UnityStart();
+        }
+        #endregion
+
         #region Public members
 
         /// <summary>
