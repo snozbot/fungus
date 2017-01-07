@@ -17,11 +17,39 @@ namespace Fungus
     [AddComponentMenu("")]
     public class DragExited : EventHandler
     {   
+        public class DragExitedEvent
+        {
+            public Draggable2D DraggableObject;
+            public Collider2D TargetCollider;
+            public DragExitedEvent(Draggable2D draggableObject, Collider2D targetCollider)
+            {
+                DraggableObject = draggableObject;
+                TargetCollider = targetCollider;
+            }
+        }
+
         [Tooltip("Draggable object to listen for drag events on")]
         [SerializeField] protected Draggable2D draggableObject;
 
         [Tooltip("Drag target object to listen for drag events on")]
         [SerializeField] protected Collider2D targetObject;
+
+        protected override void UnityOnEnable()
+        {
+            base.UnityOnEnable();
+            EventDispatcher.AddListener<DragExitedEvent>(OnDragEnteredEvent);
+        }
+
+        protected override void UnityOnDisable()
+        {
+            base.UnityOnDisable();
+            EventDispatcher.RemoveListener<DragExitedEvent>(OnDragEnteredEvent);
+        }
+
+        void OnDragEnteredEvent(DragExitedEvent evt)
+        {
+            OnDragExited(evt.DraggableObject, evt.TargetCollider);
+        }
 
         #region Public members
 
