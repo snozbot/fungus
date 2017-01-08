@@ -38,6 +38,11 @@ namespace Fungus
             EventDispatcher.AddListener<DragCompletedEvent>(OnDragCompletedEvent);
             EventDispatcher.AddListener<DragEntered.DragEnteredEvent>(OnDragEnteredEvent);
             EventDispatcher.AddListener<DragExited.DragExitedEvent>(OnDragExitedEvent);
+
+            if(draggableObject != null)
+            {
+                draggableObject.RegisterHandler(this);
+            }
         }
 
         protected override void UnityOnDisable()
@@ -45,7 +50,12 @@ namespace Fungus
             base.UnityOnDisable();
             EventDispatcher.RemoveListener<DragCompletedEvent>(OnDragCompletedEvent);
             EventDispatcher.RemoveListener<DragEntered.DragEnteredEvent>(OnDragEnteredEvent);
-            EventDispatcher.RemoveListener<DragExited.DragExitedEvent>(OnDragExitedEvent);
+            EventDispatcher.RemoveListener<DragExited.DragExitedEvent>(OnDragExitedEvent);            
+
+            if(draggableObject != null)
+            {
+                draggableObject.UnregisterHandler(this);
+            }
         }
 
         void OnDragCompletedEvent(DragCompletedEvent evt)

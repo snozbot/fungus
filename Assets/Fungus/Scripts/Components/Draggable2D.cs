@@ -4,6 +4,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+using System.Collections.Generic;
 
 namespace Fungus
 {
@@ -40,6 +41,23 @@ namespace Fungus
         protected Vector3 newPosition;
         protected Vector3 delta = Vector3.zero;
 
+        #region DragCompleted handlers
+        protected List<DragCompleted> dragCompletedHandlers = new List<DragCompleted>();
+
+        public void RegisterHandler(DragCompleted handler)
+        {
+            dragCompletedHandlers.Add(handler);
+        }
+
+        public void UnregisterHandler(DragCompleted handler)
+        {
+            if(dragCompletedHandlers.Contains(handler))
+            {
+                dragCompletedHandlers.Remove(handler);
+            }
+        }
+        #endregion
+
         protected virtual void LateUpdate()
         {
             // iTween will sometimes override the object position even if it should only be affecting the scale, rotation, etc.
@@ -67,12 +85,6 @@ namespace Fungus
                 return;
             }
             EventDispatcher.Raise(new DragExited.DragExitedEvent(this, other));
-        }
-
-        protected virtual T[] GetHandlers<T>() where T : EventHandler
-        {
-            // TODO: Cache these object for faster lookup
-            return GameObject.FindObjectsOfType<T>();
         }
 
         protected virtual void DoBeginDrag()
@@ -113,20 +125,15 @@ namespace Fungus
 
             bool dragCompleted = false;
 
-            var handlers = GetHandlers<DragCompleted>();
-            for (int i = 0; i < handlers.Length; i++)
+            for (int i = 0; i < dragCompletedHandlers.Count; i++)
             {
-                var handler = handlers[i];
-                if (handler.DraggableObject == this)
+                var handler = dragCompletedHandlers[i];
+                if (handler != null && handler.DraggableObject == this)
                 {
                     if (handler.IsOverTarget())
                     {
-                        EventDispatcher.Raise(new DragCompleted.DragCompletedEvent(this));
                         dragCompleted = true;
-                        if (returnOnCompleted)
-                        {
-                            LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
-                        }
+                        EventDispatcher.Raise(new DragCompleted.DragCompletedEvent(this));
                     }
                 }
             }
@@ -139,6 +146,10 @@ namespace Fungus
                 {
                     LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
                 }
+            }
+            else if(returnOnCompleted)
+            {
+                LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
             }
         }
 
