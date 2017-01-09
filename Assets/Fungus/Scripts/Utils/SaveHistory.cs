@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 namespace Fungus
 {
+    /// <summary>
+    /// The Save History is a list of previously created Save Points, sorted chronologically.
+    /// </summary>
     [System.Serializable]
     public class SaveHistory
     {
@@ -21,10 +24,19 @@ namespace Fungus
 
         #region Public methods
 
+        /// <summary>
+        /// Returns the number of Save Points in the Save History.
+        /// </summary>
         public int NumSavePoints { get { return savePoints.Count; } }
 
+        /// <summary>
+        /// Returns the current number of rewound Save Points in the Save History.
+        /// </summary>
         public int NumRewoundSavePoints { get { return rewoundSavePoints.Count; } }
 
+        /// <summary>
+        /// Creates a new Save Point using a key and description, and adds it to the Save History.
+        /// </summary>
         public void AddSavePoint(string savePointKey, string savePointDescription)
         {
             string sceneName = SceneManager.GetActiveScene().name;
@@ -32,6 +44,10 @@ namespace Fungus
             savePoints.Add(savePointData);
         }
 
+        /// <summary>
+        /// Rewinds to the previous Save Point in the Save History.
+        /// The latest Save Point is moved to a seperate list of rewound save points.
+        /// </summary>
         public void Rewind()
         {
             if (savePoints.Count > 0)
@@ -41,6 +57,10 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Fast forwards to the next Save Point in the Save History.
+        /// The most recently rewound Save Point is moved back to the main list of save points.
+        /// </summary>
         public void FastForward()
         {
             if (rewoundSavePoints.Count > 0)
@@ -50,6 +70,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Loads the latest Save Point.
+        /// </summary>
         public void LoadLatestSavePoint()
         {
             if (savePoints.Count > 0)
@@ -59,12 +82,18 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Clears all Save Points.
+        /// </summary>
         public void Clear()
         {
             savePoints.Clear();
             rewoundSavePoints.Clear();
         }
 
+        /// <summary>
+        /// Clears rewound Save Points only. The main Save Point list is not changed.
+        /// </summary>
         public void ClearRewoundSavePoints()
         {
             rewoundSavePoints.Clear();

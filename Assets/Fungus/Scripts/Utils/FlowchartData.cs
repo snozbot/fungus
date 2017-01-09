@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Serializable container for a string variable.
+    /// </summary>
     [System.Serializable]
     public class StringVar
     {
@@ -18,6 +20,9 @@ namespace Fungus
         #endregion
     }
 
+    /// <summary>
+    /// Serializable container for an integer variable.
+    /// </summary>
     [System.Serializable]
     public class IntVar
     {
@@ -32,6 +37,9 @@ namespace Fungus
         #endregion
     }
 
+    /// <summary>
+    /// Serializable container for a float variable.
+    /// </summary>
     [System.Serializable]
     public class FloatVar
     {
@@ -46,6 +54,9 @@ namespace Fungus
         #endregion
     }
 
+    /// <summary>
+    /// Serializable container for a boolean variable.
+    /// </summary>
     [System.Serializable]
     public class BoolVar
     {
@@ -60,6 +71,9 @@ namespace Fungus
         #endregion
     }
 
+    /// <summary>
+    /// Serializable container for encoding the state of a Flowchart's variables.
+    /// </summary>
     [System.Serializable]
     public class FlowchartData
     {
@@ -71,12 +85,34 @@ namespace Fungus
 
         #region Public methods
 
+        /// <summary>
+        /// Gets or sets the name of the encoded Flowchart.
+        /// </summary>
         public string FlowchartName { get { return flowchartName; } set { flowchartName = value; } }
+
+        /// <summary>
+        /// Gets or sets the list of encoded string variables.
+        /// </summary>
         public List<StringVar> StringVars { get { return stringVars; } set { stringVars = value; } }
+
+        /// <summary>
+        /// Gets or sets the list of encoded integer variables.
+        /// </summary>
         public List<IntVar> IntVars { get { return intVars; } set { intVars = value; } }
+
+        /// <summary>
+        /// Gets or sets the list of encoded float variables.
+        /// </summary>
         public List<FloatVar> FloatVars { get { return floatVars; } set { floatVars = value; } }
+
+        /// <summary>
+        /// Gets or sets the list of encoded boolean variables.
+        /// </summary>
         public List<BoolVar> BoolVars { get { return boolVars; } set { boolVars = value; } }
 
+        /// <summary>
+        /// Encodes the data in a Flowchart into a structure that can be stored by the save system.
+        /// </summary>
         public static FlowchartData Encode(Flowchart flowchart)
         {
             var flowchartData = new FlowchartData();
@@ -131,6 +167,9 @@ namespace Fungus
             return flowchartData;
         }
 
+        /// <summary>
+        /// Decodes a FlowchartData object and uses it to restore the state of a Flowchart in the scene.
+        /// </summary>
         public static void Decode(FlowchartData flowchartData)
         {
             var go = GameObject.Find(flowchartData.FlowchartName);

@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Serializable container for a Save Point.
+    /// </summary>
     [System.Serializable]
     public class SavePointData
     {
@@ -83,16 +86,34 @@ namespace Fungus
 
         #region Public methods
 
+        /// <summary>
+        /// Gets or sets the unique key for the Save Point.
+        /// </summary>
         public string SavePointKey { get { return savePointKey; } set { savePointKey = value; } }
+
+        /// <summary>
+        /// Gets or sets the description for the Save Point.
+        /// </summary>
         public string SavePointDescription { get { return savePointDescription; } set { savePointDescription = value; } }
+
+        /// <summary>
+        /// Gets or sets the scene name associated with the Save Point.
+        /// </summary>
         public string SceneName { get { return sceneName; } set { sceneName = value; } }
+
+        /// <summary>
+        /// Gets or sets the encoded Flowchart data for the Save Point.
+        /// </summary>
         public List<FlowchartData> FlowchartDatas { get { return flowchartDatas; } set { flowchartDatas = value; } }
 
+        /// <summary>
+        /// Encodes a new Save Point to data and converts it to JSON text format.
+        /// </summary>
         public static string Encode(string _savePointKey, string _savePointDescription, string _sceneName)
         {
             var savePointData = Create(_savePointKey, _savePointDescription, _sceneName);
                 
-            var saveGameObjects = GameObject.FindObjectOfType<SaveGameObjects>();
+            var saveGameObjects = GameObject.FindObjectOfType<SavedObjects>();
             if (saveGameObjects == null)
             {
                 Debug.LogWarning("Failed to find a SaveGameObjects in current scene");
@@ -105,6 +126,9 @@ namespace Fungus
             return JsonUtility.ToJson(savePointData, true);
         }
 
+        /// <summary>
+        /// Decodes a Save Point from JSON text format and loads it.
+        /// </summary>
         public static void Decode(string saveDataJSON)
         {
             tempSavePointData = JsonUtility.FromJson<SavePointData>(saveDataJSON);

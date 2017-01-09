@@ -2,26 +2,33 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 
 namespace Fungus
 {
-    [CommandInfo("Variable", 
+    [CommandInfo("Flow",
                  "Save Point", 
                  "Creates a save point which can be saved to persistant storage and loaded again later.")]
     public class SavePoint : Command
     {
+        [Tooltip("A string key which identifies this save point. Must be unique in this scene.")]
         [SerializeField] protected string savePointKey;
 
-        [SerializeField] protected string savePointDescription;
+        [Tooltip("A short description of this save point.")]
+        [SerializeField] protected StringData savePointDescription;
 
+        [Tooltip("Resume execution from this command after loading a save point.")]
         [SerializeField] protected bool resumeFromHere = true;
 
         #region Public members
 
+        /// <summary>
+        /// A string key which identifies this save point. Must be unique in this scene.
+        /// </summary>
         public string SavePointKey { get { return savePointKey; } }
 
+        /// <summary>
+        /// Resume execution from this command after loading a save point.
+        /// </summary>
         public bool ResumeFromHere { get { return resumeFromHere; } }
 
         public override void OnEnter()
@@ -34,7 +41,7 @@ namespace Fungus
 
             var saveManager = FungusManager.Instance.SaveManager;
 
-            saveManager.AddSavePoint(savePointKey, savePointDescription);
+            saveManager.AddSavePoint(savePointKey, savePointDescription.Value);
 
             Continue();
         }
@@ -46,7 +53,7 @@ namespace Fungus
                 return "Error: Save Point Key not specified";
             }
 
-            return savePointKey + " : " + savePointDescription;
+            return savePointKey + " : " + savePointDescription.Value;
         }
 
         public override Color GetButtonColor()

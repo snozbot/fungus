@@ -1,33 +1,44 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 namespace Fungus
 {
+    /// <summary>
+    /// A singleton game object which displays a simple UI for the save system.
+    /// </summary>
     public class SaveMenu : MonoBehaviour 
     {
         const string SaveDataKey = "save_data";
 
         const string NewGameSavePointKey = "new_game";
 
+        [Tooltip("On scene start, execute any Save Point Loaded event handlers which have the 'new_game' key")]
         [SerializeField] protected bool autoStartGame = true;
 
+        [Tooltip("Delete the save game data from disk when player restarts the game. Useful for testing, but best switched off for release builds.")]
         [SerializeField] protected bool restartDeletesSave = false;
 
+        [Tooltip("The CanvasGroup containing the save menu buttons")]
         [SerializeField] protected CanvasGroup saveMenuGroup;
 
+        [Tooltip("The button which hides / displays the save menu")]
         [SerializeField] protected Button saveMenuButton;
 
+        [Tooltip("The button which saves the save history to disk")]
         [SerializeField] protected Button saveButton;
 
+        [Tooltip("The button which loads the save history from disk")]
         [SerializeField] protected Button loadButton;
 
+        [Tooltip("The button which rewinds the save history to the previous save point.")]
         [SerializeField] protected Button rewindButton;
 
+        [Tooltip("The button which fast forwards the save history to the next save point.")]
         [SerializeField] protected Button forwardButton;
 
+        [Tooltip("The button which restarts the game.")]
         [SerializeField] protected Button restartButton;
 
         protected static bool saveMenuActive = false;
@@ -58,6 +69,7 @@ namespace Fungus
 
         protected virtual void Start()
         {
+            // Assume that the first scene that contains the SaveMenu is also the scene to load on restart.
             startScene = SceneManager.GetActiveScene().name;
 
             var saveManager = FungusManager.Instance.SaveManager;
@@ -101,7 +113,7 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Warn if duplicate SavePointKeys are found.
+        /// Warns if duplicate SavePointKeys are found.
         /// </summary>
         protected void CheckSavePointKeys()
         {
@@ -136,7 +148,7 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Callback for restart scene load
+        /// Callback for the restart scene load
         /// </summary>
         protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
@@ -151,6 +163,10 @@ namespace Fungus
 
         #region Public methods
 
+        /// <summary>
+        /// Toggles the expanded / collapsed state of the save menu.
+        /// Uses a tween to fade the menu UI in and out.
+        /// </summary>
         public virtual void ToggleSaveMenu()
         {
             if (fadeTween != null)
@@ -181,6 +197,9 @@ namespace Fungus
             saveMenuActive = !saveMenuActive;
         }
 
+        /// <summary>
+        /// Handler function called when the Save button is pressed.
+        /// </summary>
         public virtual void Save()
         {
             var saveManager = FungusManager.Instance.SaveManager;
@@ -192,6 +211,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Handler function called when the Load button is pressed.
+        /// </summary>
         public virtual void Load()
         {
             var saveManager = FungusManager.Instance.SaveManager;
@@ -203,6 +225,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Handler function called when the Rewind button is pressed.
+        /// </summary>
         public virtual void Rewind()
         {
             PlayClickSound();
@@ -214,7 +239,10 @@ namespace Fungus
             }
         }
 
-        public virtual void Forward()
+        /// <summary>
+        /// Handler function called when the Fast Forward button is pressed.
+        /// </summary>
+        public virtual void FastForward()
         {
             PlayClickSound();
 
@@ -225,6 +253,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Handler function called when the Restart button is pressed.
+        /// </summary>
         public virtual void Restart()
         {
             if (string.IsNullOrEmpty(startScene))
