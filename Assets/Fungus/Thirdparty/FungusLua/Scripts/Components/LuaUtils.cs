@@ -461,6 +461,14 @@ namespace Fungus
             SayDialog.ActiveSayDialog = sayDialog;
         }
 
+        /// <summary>
+        /// Sync the active menu dialog with what Lua thinks the MenuDialog should be
+        /// </summary>
+        public void SetMenuDialog(MenuDialog menuDialog)
+        {
+            MenuDialog.ActiveMenuDialog = menuDialog;
+        }
+
         #endregion
 
         #region LuaEnvironmentInitializer implementation

@@ -220,6 +220,7 @@ M.menuoptions = {}
 -- Set the active menudialog to use with the menu function
 function M.setmenudialog(menudialog)
     M.menuoptions.menudialog = menudialog
+	luautils.SetMenuDialog(menudialog)
 end
 
 -- Gets the active menu dialog, or creates one if none exists yet
