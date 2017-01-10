@@ -697,7 +697,7 @@ Prefab:
     - target: {fileID: 224000012150207008, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 224000012150207008, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -707,7 +707,7 @@ Prefab:
     - target: {fileID: 224000012150207008, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 224000013898185038, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -727,7 +727,7 @@ Prefab:
     - target: {fileID: 224000013898185038, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 224000013898185038, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -737,7 +737,7 @@ Prefab:
     - target: {fileID: 224000013898185038, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 224000012687811630, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -757,7 +757,7 @@ Prefab:
     - target: {fileID: 224000012687811630, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 224000012687811630, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -767,7 +767,7 @@ Prefab:
     - target: {fileID: 224000012687811630, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 224000012590701094, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -787,7 +787,7 @@ Prefab:
     - target: {fileID: 224000012590701094, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 224000012590701094, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -797,7 +797,7 @@ Prefab:
     - target: {fileID: 224000012590701094, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 224000013149320576, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -817,7 +817,7 @@ Prefab:
     - target: {fileID: 224000013149320576, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 224000013149320576, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -827,7 +827,7 @@ Prefab:
     - target: {fileID: 224000013149320576, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 21
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bd2b99773f3e0489aae9f9b5053ad360, type: 2}
@@ -1293,7 +1293,6 @@ GameObject:
   - component: {fileID: 1889213480}
   - component: {fileID: 1889213479}
   - component: {fileID: 1889213475}
-  - component: {fileID: 1889213472}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1314,8 +1313,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 64.99671
-    y: 268.1121
+    x: 76.99671
+    y: 228.11209
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -1340,27 +1339,7 @@ MonoBehaviour:
   parentBlock: {fileID: 1889213470}
   savePointKeys:
   - new_game
-  - queens_chamber
---- !u!114 &1889213472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1889213469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 60
-  indentLevel: 0
-  targetFlowchart: {fileID: 0}
-  targetBlock: {fileID: 1889213481}
-  startLabel:
-    stringRef: {fileID: 0}
-    stringVal: 
-  startIndex: 0
-  callMode: 0
+  - Queens Chamber
 --- !u!114 &1889213473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1443,7 +1422,7 @@ MonoBehaviour:
     width: 1502.7736
     height: 1138.5048
   selectedBlocks:
-  - {fileID: 1889213496}
+  - {fileID: 1889213481}
   selectedCommands: []
   variables:
   - {fileID: 1889213489}
@@ -1484,9 +1463,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 1889213481}
   savePointKeys:
-  - use_umbrella
-  - duck_down
-  - queen_fight
+  - Use Umbrella
+  - Duck Down
+  - The Queen
 --- !u!114 &1889213480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1517,8 +1496,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 63.28943
-    y: 337.5421
+    x: 81.28943
+    y: 288.5421
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -1621,14 +1600,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 232.40749
+    x: 233.40749
     y: 144.44666
-    width: 140
+    width: 143
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
   itemId: 20
-  blockName: QueensChamber
+  blockName: Queens Chamber
   description: 
   eventHandler: {fileID: 0}
   commandList:
@@ -1638,7 +1617,6 @@ MonoBehaviour:
   - {fileID: 1889213495}
   - {fileID: 1889213494}
   - {fileID: 1889213491}
-  - {fileID: 1889213472}
 --- !u!114 &1889213487
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1652,10 +1630,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 21
   indentLevel: 0
-  savePointKey: queens_chamber
+  savePointKey: 
   savePointDescription:
     stringRef: {fileID: 0}
     stringVal: 
+  fireEvent: 1
   resumeFromHere: 1
 --- !u!114 &1889213488
 MonoBehaviour:
@@ -1747,7 +1726,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 394.38702
-    y: 183.56548
+    y: 184.56548
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -1836,7 +1815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 392.23532
+    x: 391.23532
     y: 97.65081
     width: 121
     height: 40
@@ -1943,7 +1922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 541.1676
+    x: 542.1676
     y: 144.44673
     width: 120
     height: 40
@@ -1973,10 +1952,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 35
   indentLevel: 0
-  savePointKey: duck_down
+  savePointKey: 
   savePointDescription:
     stringRef: {fileID: 0}
     stringVal: 
+  fireEvent: 1
   resumeFromHere: 1
 --- !u!114 &1889213502
 MonoBehaviour:
@@ -1991,10 +1971,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 34
   indentLevel: 0
-  savePointKey: use_umbrella
+  savePointKey: 
   savePointDescription:
     stringRef: {fileID: 0}
     stringVal: 
+  fireEvent: 1
   resumeFromHere: 1
 --- !u!114 &1889213503
 MonoBehaviour:
@@ -2257,10 +2238,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 43
   indentLevel: 0
-  savePointKey: queen_fight
+  savePointKey: 
   savePointDescription:
     stringRef: {fileID: 0}
     stringVal: 
+  fireEvent: 1
   resumeFromHere: 1
 --- !u!1 &2025975869
 GameObject:
