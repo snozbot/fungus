@@ -72,20 +72,32 @@ namespace Fungus
             // Assume that the first scene that contains the SaveMenu is also the scene to load on restart.
             startScene = SceneManager.GetActiveScene().name;
 
-            var saveManager = FungusManager.Instance.SaveManager;
 
             if (!saveMenuActive)
             {
                 saveMenuGroup.alpha = 0f;
             }
 
+            var saveManager = FungusManager.Instance.SaveManager;
+
             if (autoStartGame &&
                 saveManager.NumSavePoints == 0)
             {
-                SavePointLoaded.NotifyEventHandlers(NewGameSavePointKey);
+                StartNewGame();
             }
 
             CheckSavePointKeys();
+        }
+
+        protected virtual void StartNewGame()
+        {
+            var saveManager = FungusManager.Instance.SaveManager;
+
+            // Create an initial save point
+            saveManager.AddSavePoint(NewGameSavePointKey, "");
+
+            // Start game execution
+            SavePointData.ExecuteBlocks(NewGameSavePointKey);
         }
 
         protected virtual void Update()
@@ -104,7 +116,7 @@ namespace Fungus
             }
             if (rewindButton != null)
             {
-                rewindButton.interactable = saveManager.NumSavePoints > 1;
+                rewindButton.interactable = saveManager.NumSavePoints > 0;
             }
             if (forwardButton != null)
             {
@@ -158,7 +170,8 @@ namespace Fungus
             }
 
             SceneManager.sceneLoaded -= OnSceneLoaded;
-            SavePointLoaded.NotifyEventHandlers(NewGameSavePointKey);
+        
+            StartNewGame();
         }
 
         #region Public methods
@@ -233,7 +246,7 @@ namespace Fungus
             PlayClickSound();
 
             var saveManager = FungusManager.Instance.SaveManager;
-            if (saveManager.NumSavePoints > 1)
+            if (saveManager.NumSavePoints > 0)
             {
                 saveManager.Rewind();
             }

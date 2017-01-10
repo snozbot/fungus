@@ -108,7 +108,12 @@ namespace Fungus
         {
             if (saveHistory.NumSavePoints > 0)
             {
-                saveHistory.Rewind();
+                // Can't rewind the first save point (new_game)
+                if (saveHistory.NumSavePoints > 1)
+                {
+                    saveHistory.Rewind();
+                }
+
                 saveHistory.LoadLatestSavePoint();
             }
         }

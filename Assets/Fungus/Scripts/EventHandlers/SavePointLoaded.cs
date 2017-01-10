@@ -8,17 +8,22 @@ namespace Fungus
 {
     [EventHandlerInfo("Scene",
                       "Save Point Loaded",
-                      "Execute this block when a saved point is loaded.")]
+        "Execute this block when a saved point is loaded. Use the 'new_game' key to handle game start.")]
     public class SavePointLoaded : EventHandler 
     {
         [Tooltip("Block will execute if the Save Key of the loaded save point matches this save key.")]
-        [SerializeField] protected string savePointKey = "";
+        [SerializeField] protected List<string> savePointKeys = new List<string>();
 
         protected void OnSavePointLoaded(string _savePointKey)
         {
-            if (string.Compare(savePointKey, _savePointKey, true) == 0)
+            for (int i = 0; i < savePointKeys.Count; i++)
             {
-                ExecuteBlock();
+                var key = savePointKeys[i];
+                if (string.Compare(key, _savePointKey, true) == 0)
+                {
+                    ExecuteBlock();
+                    break;
+                }
             }
         }
 

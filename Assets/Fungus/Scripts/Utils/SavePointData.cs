@@ -35,44 +35,7 @@ namespace Fungus
 
             ExecuteBlocks(savePointData.savePointKey);
         }
-
-        protected static void ExecuteBlocks(string savePointKey)
-        {
-            SavePointLoaded.NotifyEventHandlers(savePointKey);
-
-            // Execute any block containing a SavePoint command matching the save key, with Resume From Here enabled
-            var savePoints = Object.FindObjectsOfType<SavePoint>();
-            for (int i = 0; i < savePoints.Length; i++)
-            {
-                var savePoint = savePoints[i];
-                if (savePoint.ResumeFromHere &&
-                    string.Compare(savePoint.SavePointKey, savePointKey, true) == 0)
-                {
-                    int index = savePoint.CommandIndex;
-                    var block = savePoint.ParentBlock;
-                    var flowchart = savePoint.GetFlowchart();
-                    flowchart.ExecuteBlock(block, index + 1);
-
-                    // Assume there's only one SavePoint using this key
-                    break;
-                }
-            }
-                
-            // Execute any block containing a Label matching the save key
-            var labels = Object.FindObjectsOfType<Label>();
-            for (int i = 0; i < labels.Length; i++)
-            {
-                var label = labels[i];
-                if (string.Compare(label.Key, savePointKey, true) == 0)
-                {
-                    int index = label.CommandIndex;
-                    var block = label.ParentBlock;
-                    var flowchart = label.GetFlowchart();
-                    flowchart.ExecuteBlock(block, index + 1);
-                }
-            }
-        }
-
+            
         protected static SavePointData Create(string _savePointKey, string _savePointDescription, string _sceneName)
         {
             var savePointData = new SavePointData();
@@ -135,7 +98,52 @@ namespace Fungus
 
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene(tempSavePointData.SceneName);
-        }            
+        }     
+
+        /// <summary>
+        /// Starts Block execution based on a Save Point Key
+        /// The execution order is:
+        /// 1. Save Point Loaded event handlers with a matching key.
+        /// 2. First Save Point command (in any Block) with matching key. Execution starts at following command.
+        /// 3. Any label in any block with name matching the key. Execution starts at following command.
+        /// </summary>
+        public static void ExecuteBlocks(string savePointKey)
+        {
+            // Execute Save Point Loaded event handlers with matching key.
+            SavePointLoaded.NotifyEventHandlers(savePointKey);
+
+            // Execute any block containing a SavePoint command matching the save key, with Resume From Here enabled
+            var savePoints = Object.FindObjectsOfType<SavePoint>();
+            for (int i = 0; i < savePoints.Length; i++)
+            {
+                var savePoint = savePoints[i];
+                if (savePoint.ResumeFromHere &&
+                    string.Compare(savePoint.SavePointKey, savePointKey, true) == 0)
+                {
+                    int index = savePoint.CommandIndex;
+                    var block = savePoint.ParentBlock;
+                    var flowchart = savePoint.GetFlowchart();
+                    flowchart.ExecuteBlock(block, index + 1);
+
+                    // Assume there's only one SavePoint using this key
+                    break;
+                }
+            }
+
+            // Execute any block containing a Label matching the save key
+            var labels = Object.FindObjectsOfType<Label>();
+            for (int i = 0; i < labels.Length; i++)
+            {
+                var label = labels[i];
+                if (string.Compare(label.Key, savePointKey, true) == 0)
+                {
+                    int index = label.CommandIndex;
+                    var block = label.ParentBlock;
+                    var flowchart = label.GetFlowchart();
+                    flowchart.ExecuteBlock(block, index + 1);
+                }
+            }
+        }
 
         #endregion
     }

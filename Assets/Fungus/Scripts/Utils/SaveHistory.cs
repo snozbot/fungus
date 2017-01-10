@@ -39,6 +39,9 @@ namespace Fungus
         /// </summary>
         public void AddSavePoint(string savePointKey, string savePointDescription)
         {
+            // Creating a new Save Point invalidates all rewound Save Points, so delete them.
+            ClearRewoundSavePoints();
+
             string sceneName = SceneManager.GetActiveScene().name;
             var savePointData = SavePointData.Encode(savePointKey, savePointDescription, sceneName);
             savePoints.Add(savePointData);
