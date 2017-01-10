@@ -97,7 +97,7 @@ namespace Fungus
             saveManager.AddSavePoint(NewGameSavePointKey, "");
 
             // Start game execution
-            SavePointData.ExecuteBlocks(NewGameSavePointKey);
+            SaveManager.ExecuteBlocks(NewGameSavePointKey);
         }
 
         protected virtual void Update()

@@ -16,6 +16,9 @@ namespace Fungus
         [Tooltip("A short description of this save point.")]
         [SerializeField] protected StringData savePointDescription;
 
+        [Tooltip("Fire an event that will be handled by any Save Point Loaded event handler with matching key.")]
+        [SerializeField] protected bool fireEvent = true;
+
         [Tooltip("Resume execution from this command after loading a save point.")]
         [SerializeField] protected bool resumeFromHere = true;
 
@@ -42,6 +45,11 @@ namespace Fungus
             var saveManager = FungusManager.Instance.SaveManager;
 
             saveManager.AddSavePoint(savePointKey, savePointDescription.Value);
+
+            if (fireEvent)
+            {
+                SavePointLoaded.NotifyEventHandlers(savePointKey);
+            }
 
             Continue();
         }
