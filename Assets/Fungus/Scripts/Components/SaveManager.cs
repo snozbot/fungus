@@ -52,12 +52,12 @@ namespace Fungus
             // Execute Save Point Loaded event handlers with matching key.
             SavePointLoaded.NotifyEventHandlers(savePointKey);
 
-            // Execute any block containing a SavePoint command matching the save key, with Resume From Here enabled
+            // Execute any block containing a SavePoint command matching the save key, with Resume On Load enabled
             var savePoints = Object.FindObjectsOfType<SavePoint>();
             for (int i = 0; i < savePoints.Length; i++)
             {
                 var savePoint = savePoints[i];
-                if (savePoint.ResumeFromHere &&
+                if (savePoint.ResumeOnLoad &&
                     string.Compare(savePoint.SavePointKey, savePointKey, true) == 0)
                 {
                     int index = savePoint.CommandIndex;

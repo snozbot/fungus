@@ -48,8 +48,8 @@ namespace Fungus
         [Tooltip("Fire a Save Point Loaded event when this command executes.")]
         [SerializeField] protected bool fireEvent = true;
 
-        [Tooltip("Resume execution from here after loading this Save Point.")]
-        [SerializeField] protected bool resumeFromHere = true;
+        [Tooltip("Resume execution from this location after loading this Save Point.")]
+        [SerializeField] protected bool resumeOnLoad = true;
 
         #region Public members
 
@@ -90,9 +90,9 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Resume execution from this command after loading a save point.
+        /// Resume execution from this location after loading this Save Point.
         /// </summary>
-        public bool ResumeFromHere { get { return resumeFromHere; } }
+        public bool ResumeOnLoad { get { return resumeOnLoad; } }
 
         public override void OnEnter()
         {
