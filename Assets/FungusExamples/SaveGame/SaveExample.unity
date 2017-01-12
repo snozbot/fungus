@@ -756,7 +756,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0cbb63e218a4414a796a60ffe37dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: Information text
+  info: 'This example shows how to use the Save Menu and the Save Point command to
+    create a simple save game system.
+
+
+    Click the  icon in the top right to show the Save Menu and try saving, loading
+    and rewinding the game at various points.'
 --- !u!4 &493197090
 Transform:
   m_ObjectHideFlags: 0
@@ -2681,8 +2686,9 @@ MonoBehaviour:
     width: 1502.7736
     height: 1138.5048
   selectedBlocks:
-  - {fileID: 1889213500}
-  selectedCommands: []
+  - {fileID: 1889213486}
+  selectedCommands:
+  - {fileID: 1889213487}
   variables:
   - {fileID: 1889213489}
   - {fileID: 1889213488}
@@ -2722,8 +2728,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 61
   indentLevel: 0
-  savePointKey: 
-  savePointDescription: 
+  keyMode: 0
+  customKey: 
+  descriptionMode: 0
+  customDescription: 
   fireEvent: 1
   resumeFromHere: 1
 --- !u!114 &1889213480
@@ -2891,8 +2899,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 21
   indentLevel: 0
-  savePointKey: 
-  savePointDescription: 
+  keyMode: 0
+  customKey: 
+  descriptionMode: 0
+  customDescription: 
   fireEvent: 1
   resumeFromHere: 1
 --- !u!114 &1889213488
@@ -3211,8 +3221,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 35
   indentLevel: 0
-  savePointKey: 
-  savePointDescription: 
+  keyMode: 0
+  customKey: 
+  descriptionMode: 0
+  customDescription: 
   fireEvent: 1
   resumeFromHere: 1
 --- !u!114 &1889213502
@@ -3228,8 +3240,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 34
   indentLevel: 0
-  savePointKey: 
-  savePointDescription: 
+  keyMode: 0
+  customKey: 
+  descriptionMode: 0
+  customDescription: 
   fireEvent: 1
   resumeFromHere: 1
 --- !u!114 &1889213503
@@ -3493,8 +3507,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 43
   indentLevel: 0
-  savePointKey: 
-  savePointDescription: 
+  keyMode: 0
+  customKey: 
+  descriptionMode: 0
+  customDescription: 
   fireEvent: 1
   resumeFromHere: 1
 --- !u!1 &2025975869
