@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace Fungus
 {
     /// <summary>
-    /// Manages the Save History (a list of Save Points).
+    /// Manages the Save History (a list of Save Points) and provides a set of operations for saving and loading games.
     /// </summary>
     public class SaveManager : MonoBehaviour 
     {
@@ -39,28 +40,131 @@ namespace Fungus
             return false;
         }
 
+        /// <summary>
+        /// Starts Block execution based on a Save Point Key
+        /// The execution order is:
+        /// 1. Save Point Loaded event handlers with a matching key.
+        /// 2. First Save Point command (in any Block) with matching key. Execution starts at the following command.
+        /// 3. Any label in any block with name matching the key. Execution starts at the following command.
+        /// </summary>
+        protected virtual void ExecuteBlocks(string savePointKey)
+        {
+            // Execute Save Point Loaded event handlers with matching key.
+            SavePointLoaded.NotifyEventHandlers(savePointKey);
+
+            // Execute any block containing a SavePoint command matching the save key, with Resume From Here enabled
+            var savePoints = Object.FindObjectsOfType<SavePoint>();
+            for (int i = 0; i < savePoints.Length; i++)
+            {
+                var savePoint = savePoints[i];
+                if (savePoint.ResumeFromHere &&
+                    string.Compare(savePoint.SavePointKey, savePointKey, true) == 0)
+                {
+                    int index = savePoint.CommandIndex;
+                    var block = savePoint.ParentBlock;
+                    var flowchart = savePoint.GetFlowchart();
+                    flowchart.ExecuteBlock(block, index + 1);
+
+                    // Assume there's only one SavePoint using this key
+                    break;
+                }
+            }
+
+            // Execute any block containing a Label matching the save key
+            var labels = Object.FindObjectsOfType<Label>();
+            for (int i = 0; i < labels.Length; i++)
+            {
+                var label = labels[i];
+                if (string.Compare(label.Key, savePointKey, true) == 0)
+                {
+                    int index = label.CommandIndex;
+                    var block = label.ParentBlock;
+                    var flowchart = label.GetFlowchart();
+                    flowchart.ExecuteBlock(block, index + 1);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Starts execution at the first Save Point with the key 'Start'.
+        /// </summary>
+        protected virtual void ExecuteStartBlock()
+        {
+            // Each scene should have one Save Point with the 'Start' key.
+            // We automatically start execution from this command whenever the scene starts 'normally' (i.e. first play, restart or scene load via the Load Scene command or SceneManager.LoadScene).
+
+            var savePoints = Object.FindObjectsOfType<SavePoint>();
+            for (int i = 0; i < savePoints.Length; i++)
+            {
+                var savePoint = savePoints[i];
+                if (string.Compare(savePoint.SavePointKey, "Start", true) == 0)
+                {
+                    savePoint.GetFlowchart().ExecuteBlock(savePoint.ParentBlock, savePoint.CommandIndex);
+                    break;
+                }
+            }
+        }
+
+        // Scene loading in Unity is asynchronous so we need to take care to avoid race conditions. 
+        // The following callbacks tell us when a scene has been loaded and when 
+        // a saved game has been loaded. We delay taking action until the next 
+        // frame (via a delegate) so that we're sure which case we're dealing with.
+
         protected virtual void OnEnable()
         {
             SaveManagerSignals.OnSavePointLoaded += OnSavePointLoaded;
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         protected virtual void OnDisable()
         {
             SaveManagerSignals.OnSavePointLoaded -= OnSavePointLoaded;
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         protected virtual void OnSavePointLoaded(string savePointKey)
         {
-            // Flag that a save point was loaded.
-            // The flag remains set for 1 frame to give other components enough time to poll it in their Start method.
-            HasLoadedSavePoint = true;
-            StartCoroutine(ResetHasLoadedSavePoint());
+            var key = savePointKey;
+            loadAction = () => ExecuteBlocks(key);
         }
 
-        protected virtual IEnumerator ResetHasLoadedSavePoint()
+        protected virtual void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            yield return new WaitForEndOfFrame();
-            HasLoadedSavePoint = false;
+            // Ignore additive scene loads
+            if (mode == LoadSceneMode.Additive)
+            {
+                return;
+            }
+
+            // We first assume that this is a 'normal' scene load rather than a saved game being loaded.
+            // If we subsequently receive a notification that a saved game was loaded then the load action 
+            // set here will be overridden by the OnSavePointLoaded callback above.
+
+            if (loadAction == null)
+            {
+                loadAction = ExecuteStartBlock;
+            }
+        }
+
+        protected System.Action loadAction;
+
+        protected virtual void Update()
+        {
+            // Execute any previously scheduled load action
+            if (loadAction != null)
+            {
+                loadAction();
+                loadAction = null;
+            }
+        }
+
+        protected virtual void LoadSavedGame(string saveDataKey)
+        {
+            if (ReadSaveHistory(saveDataKey))
+            {
+                saveHistory.ClearRewoundSavePoints();
+                saveHistory.LoadLatestSavePoint();
+            }
         }
 
         #region Public members
@@ -80,8 +184,6 @@ namespace Fungus
         /// </summary>
         public virtual int NumRewoundSavePoints { get { return saveHistory.NumRewoundSavePoints; } }
 
-        public virtual bool HasLoadedSavePoint { get; private set; }
-
         /// <summary>
         /// Writes the Save History to persistent storage.
         /// </summary>
@@ -91,15 +193,13 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Loads the Save History from persistent storage.
+        /// Loads the Save History from persistent storage and loads the latest Save Point.
         /// </summary>
         public void Load(string saveDataKey = DefaultSaveDataKey)
         {
-            if (ReadSaveHistory(saveDataKey))
-            {
-                saveHistory.ClearRewoundSavePoints();
-                saveHistory.LoadLatestSavePoint();
-            }
+            // Set a load action to be executed on next update
+            var key = saveDataKey;
+            loadAction = () => LoadSavedGame(key);
         }
 
         /// <summary>
@@ -167,50 +267,14 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Starts Block execution based on a Save Point Key
-        /// The execution order is:
-        /// 1. Save Point Loaded event handlers with a matching key.
-        /// 2. First Save Point command (in any Block) with matching key. Execution starts at the following command.
-        /// 3. Any label in any block with name matching the key. Execution starts at the following command.
+        /// Returns an info string to help debug issues with the save data.
         /// </summary>
-        public static void ExecuteBlocks(string savePointKey)
+        /// <returns>The debug info.</returns>
+        public virtual string GetDebugInfo()
         {
-            // Execute Save Point Loaded event handlers with matching key.
-            SavePointLoaded.NotifyEventHandlers(savePointKey);
-
-            // Execute any block containing a SavePoint command matching the save key, with Resume From Here enabled
-            var savePoints = Object.FindObjectsOfType<SavePoint>();
-            for (int i = 0; i < savePoints.Length; i++)
-            {
-                var savePoint = savePoints[i];
-                if (savePoint.ResumeFromHere &&
-                    string.Compare(savePoint.SavePointKey, savePointKey, true) == 0)
-                {
-                    int index = savePoint.CommandIndex;
-                    var block = savePoint.ParentBlock;
-                    var flowchart = savePoint.GetFlowchart();
-                    flowchart.ExecuteBlock(block, index + 1);
-
-                    // Assume there's only one SavePoint using this key
-                    break;
-                }
-            }
-
-            // Execute any block containing a Label matching the save key
-            var labels = Object.FindObjectsOfType<Label>();
-            for (int i = 0; i < labels.Length; i++)
-            {
-                var label = labels[i];
-                if (string.Compare(label.Key, savePointKey, true) == 0)
-                {
-                    int index = label.CommandIndex;
-                    var block = label.ParentBlock;
-                    var flowchart = label.GetFlowchart();
-                    flowchart.ExecuteBlock(block, index + 1);
-                }
-            }
+            return saveHistory.GetDebugInfo();
         }
-        
+
         #endregion
     }
 }

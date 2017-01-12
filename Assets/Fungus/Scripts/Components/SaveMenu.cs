@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 namespace Fungus
@@ -36,6 +35,9 @@ namespace Fungus
 
         [Tooltip("The button which restarts the game.")]
         [SerializeField] protected Button restartButton;
+
+        [Tooltip("A scrollable text field used for debugging the save data. The text field should be disabled in normal use.")]
+        [SerializeField] protected ScrollRect debugView;
 
         protected static bool saveMenuActive = false;
 
@@ -104,6 +106,15 @@ namespace Fungus
             if (forwardButton != null)
             {
                 forwardButton.interactable = saveManager.NumRewoundSavePoints > 0;
+            }
+
+            if (debugView.enabled)
+            {
+                var debugText = debugView.GetComponentInChildren<Text>();
+                if (debugText != null)
+                {
+                    debugText.text = saveManager.GetDebugInfo();
+                }
             }
         }
 

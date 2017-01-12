@@ -102,6 +102,25 @@ namespace Fungus
             rewoundSavePoints.Clear();
         }
 
+        public virtual string GetDebugInfo()
+        {
+            string debugInfo = "Save points:\n";
+
+            foreach (var savePoint in savePoints)
+            {
+                debugInfo += savePoint.Substring(0, savePoint.IndexOf(',')).Replace("\n", "").Replace("{", "").Replace("}","") + "\n";
+            }
+
+            debugInfo += "Rewound points:\n";
+
+            foreach (var savePoint in rewoundSavePoints)
+            {
+                debugInfo += savePoint.Substring(0, savePoint.IndexOf(',')).Replace("\n", "").Replace("{", "").Replace("}","") + "\n";
+            }
+
+            return debugInfo;
+        }
+
         #endregion
     }
 }

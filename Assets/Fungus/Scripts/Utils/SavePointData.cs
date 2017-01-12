@@ -20,7 +20,10 @@ namespace Fungus
 
         protected static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name != tempSavePointData.SceneName)
+            // Additive scene loads and non-matching scene loads could happen if someone is using
+            // Fungus as part of a bigger game, so just ignore these events and hope they know what they're doing.
+            if (mode == LoadSceneMode.Additive ||
+                scene.name != tempSavePointData.SceneName)
             {
                 return;
             }
@@ -33,8 +36,6 @@ namespace Fungus
                 var flowchartData = savePointData.FlowchartDatas[i];
                 FlowchartData.Decode(flowchartData);
             }
-
-            SaveManager.ExecuteBlocks(savePointData.savePointKey);
 
             SaveManagerSignals.DoSavePointLoaded(savePointData.savePointKey);
         }

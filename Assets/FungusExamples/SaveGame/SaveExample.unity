@@ -632,6 +632,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224000013748593462, guid: bd2b99773f3e0489aae9f9b5053ad360,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.079956055
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bd2b99773f3e0489aae9f9b5053ad360, type: 2}
   m_IsPrefabParent: 0
@@ -1260,11 +1265,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: -103.9434, y: -49.980755}
+  scrollPos: {x: -92.87758, y: -50.260628}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 1
+  zoom: 0.9789249
   scrollViewRect:
     serializedVersion: 2
     x: -400.28992

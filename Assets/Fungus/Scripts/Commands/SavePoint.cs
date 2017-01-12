@@ -51,19 +51,6 @@ namespace Fungus
         [Tooltip("Resume execution from here after loading this Save Point.")]
         [SerializeField] protected bool resumeFromHere = true;
 
-        protected virtual void Start()
-        {
-            // Each scene should have one Save Point with the 'Start' key.
-            // We automatically start execution from this command whenever the scene starts 'normally' (i.e. first play, restart or scene load via the Load Scene command or SceneManager.LoadScene).
-            // If on the other hand, the scene was loaded by loading a Save Point then the Save Manager handles resuming execution at the appropriate point, so we don't need to do anything here.
-
-            if (string.Compare(SavePointKey, "Start", true) == 0 &&
-                !FungusManager.Instance.SaveManager.HasLoadedSavePoint)
-            {
-                GetFlowchart().ExecuteBlock(ParentBlock, CommandIndex);
-            }
-        }
-
         #region Public members
 
         /// <summary>
