@@ -8,14 +8,42 @@ namespace Fungus
 {
     [CommandInfo("Flow",
                  "Save Point", 
-                 "Creates a Save Point and adds it to the Save History. The player can save the Save History to peristent storage and load it again later.")]
+                 "Creates a Save Point and adds it to the Save History. The player can save the Save History to peristent storage and load it again later using the Save Menu.")]
     public class SavePoint : Command
     {
-        [Tooltip("A string key which uniquely identifies this save point. If you leave this empty then the parent Block's name will be used.")]
-        [SerializeField] protected string savePointKey = "";
+        /// <summary>
+        /// Supported modes for specifying a Save Point Key.
+        /// </summary>
+        public enum KeyMode
+        {
+            /// <summary> Use the parent Block's name as the Save Point Key. N.B. If you change the Block name later it will break the save file!</summary>
+            UseBlockName,
+            /// <summary> Use a custom string for the key. This allows you to use multiple Save Points in the same block and save files will still work if the Block is renamed later. </summary>
+            Custom
+        }
 
-        [Tooltip("A short description of this save point. If you leave this empty then the current time and date will be used.")]
-        [SerializeField] protected string savePointDescription;
+        /// <summary>
+        /// Supported modes for specifying a Save Point Description.
+        /// </summary>
+        public enum DescriptionMode
+        {
+            /// <summary> Uses the current date and time as the save point description.</summary>
+            Timestamp,
+            /// <summary> Use a custom string for the save point description.</summary>
+            Custom
+        }
+
+        [Tooltip("How the Save Point Key for this Save Point is defined.")]
+        [SerializeField] protected KeyMode keyMode = KeyMode.UseBlockName;
+
+        [Tooltip("A string key which uniquely identifies this save point.")]
+        [SerializeField] protected string customKey = "";
+
+        [Tooltip("How the description for this Save Point is defined.")]
+        [SerializeField] protected DescriptionMode descriptionMode = DescriptionMode.Timestamp;
+
+        [Tooltip("A short description of this save point.")]
+        [SerializeField] protected string customDescription;
 
         [Tooltip("Fire a Save Point Loaded event when this command executes.")]
         [SerializeField] protected bool fireEvent = true;
@@ -39,34 +67,38 @@ namespace Fungus
         #region Public members
 
         /// <summary>
-        /// A string key which uniquely identifies this Save Point.
-        /// If the save point key is empty then the parent Block's name is returned.
+        /// Gets a string key which uniquely identifies this Save Point.
         /// </summary>
         public string SavePointKey 
         { 
             get 
             { 
-                if (string.IsNullOrEmpty(savePointKey))
+                if (keyMode == KeyMode.UseBlockName)
                 {
                     return ParentBlock.BlockName;
                 }
-                return savePointKey; 
+                else
+                {
+                    return customKey; 
+                }
             } 
         }
 
         /// <summary>
         /// Gets the save point description.
-        /// If the description is empty then the current time and date will be returned.
         /// </summary>
         public string SavePointDescription
         {
             get
             {
-                if (string.IsNullOrEmpty(savePointDescription))
+                if (descriptionMode == DescriptionMode.Timestamp)
                 {
                     return System.DateTime.UtcNow.ToString("HH:mm dd MMMM, yyyy");
                 }
-                return savePointDescription; 
+                else
+                {
+                    return customDescription; 
+                }
             }
         }
 
@@ -91,17 +123,34 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            if (string.IsNullOrEmpty(savePointKey))
+            if (keyMode == KeyMode.UseBlockName)
             {
-                return "<Block Name>";
+                return "key: <Block Name>";
             }
 
-            return savePointKey;
+            return "key: " + customKey;
         }
 
         public override Color GetButtonColor()
         {
             return new Color32(235, 191, 217, 255);
+        }
+
+        public override bool IsPropertyVisible(string propertyName)
+        {
+            if (propertyName == "customKey" &&
+                keyMode != KeyMode.Custom)
+            {
+                return false;
+            }
+
+            if (propertyName == "customDescription" &&
+                descriptionMode != DescriptionMode.Custom)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         #endregion
