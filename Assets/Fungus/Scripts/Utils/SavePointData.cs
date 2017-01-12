@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 namespace Fungus
 {
@@ -34,6 +35,8 @@ namespace Fungus
             }
 
             SaveManager.ExecuteBlocks(savePointData.savePointKey);
+
+            SaveManagerSignals.DoSavePointLoaded(savePointData.savePointKey);
         }
             
         protected static SavePointData Create(string _savePointKey, string _savePointDescription, string _sceneName)

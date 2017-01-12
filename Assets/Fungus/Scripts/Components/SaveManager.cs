@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 namespace Fungus
 {
@@ -38,7 +39,36 @@ namespace Fungus
             return false;
         }
 
+        protected virtual void OnEnable()
+        {
+            SaveManagerSignals.OnSavePointLoaded += OnSavePointLoaded;
+        }
+
+        protected virtual void OnDisable()
+        {
+            SaveManagerSignals.OnSavePointLoaded -= OnSavePointLoaded;
+        }
+
+        protected virtual void OnSavePointLoaded(string savePointKey)
+        {
+            // Flag that a save point was loaded.
+            // The flag remains set for 1 frame to give other components enough time to poll it in their Start method.
+            HasLoadedSavePoint = true;
+            StartCoroutine(ResetHasLoadedSavePoint());
+        }
+
+        protected virtual IEnumerator ResetHasLoadedSavePoint()
+        {
+            yield return new WaitForEndOfFrame();
+            HasLoadedSavePoint = false;
+        }
+
         #region Public members
+
+        /// <summary>
+        /// The default key used for storing save game data in PlayerPrefs.
+        /// </summary>
+        public const string DefaultSaveDataKey = "save_data";
 
         /// <summary>
         /// Returns the number of Save Points in the Save History.
@@ -50,34 +80,32 @@ namespace Fungus
         /// </summary>
         public virtual int NumRewoundSavePoints { get { return saveHistory.NumRewoundSavePoints; } }
 
+        public virtual bool HasLoadedSavePoint { get; private set; }
+
         /// <summary>
         /// Writes the Save History to persistent storage.
         /// </summary>
-        public virtual void Save(string saveDataKey)
+        public virtual void Save(string saveDataKey = DefaultSaveDataKey)
         {
             WriteSaveHistory(saveDataKey);
-
-            SaveManagerSignals.DoGameSaved(saveDataKey);
         }
 
         /// <summary>
         /// Loads the Save History from persistent storage.
         /// </summary>
-        public void Load(string saveDataKey)
+        public void Load(string saveDataKey = DefaultSaveDataKey)
         {
             if (ReadSaveHistory(saveDataKey))
             {
                 saveHistory.ClearRewoundSavePoints();
                 saveHistory.LoadLatestSavePoint();
-
-                SaveManagerSignals.DoGameLoaded(saveDataKey);
             }
         }
 
         /// <summary>
         /// Deletes a previously stored Save History from persistent storage.
         /// </summary>
-        public void Delete(string saveDataKey)
+        public void Delete(string saveDataKey = DefaultSaveDataKey)
         {
             PlayerPrefs.DeleteKey(saveDataKey);
             PlayerPrefs.Save();
@@ -86,7 +114,7 @@ namespace Fungus
         /// <summary>
         /// Returns true if save data has previously been stored using this key.
         /// </summary>
-        public bool SaveDataExists(string saveDataKey)
+        public bool SaveDataExists(string saveDataKey = DefaultSaveDataKey)
         {
             return PlayerPrefs.HasKey(saveDataKey);
         }
@@ -108,7 +136,7 @@ namespace Fungus
         {
             if (saveHistory.NumSavePoints > 0)
             {
-                // Can't rewind the first save point (new_game)
+                // Rewinding the first save point is not permitted
                 if (saveHistory.NumSavePoints > 1)
                 {
                     saveHistory.Rewind();
@@ -142,8 +170,8 @@ namespace Fungus
         /// Starts Block execution based on a Save Point Key
         /// The execution order is:
         /// 1. Save Point Loaded event handlers with a matching key.
-        /// 2. First Save Point command (in any Block) with matching key. Execution starts at following command.
-        /// 3. Any label in any block with name matching the key. Execution starts at following command.
+        /// 2. First Save Point command (in any Block) with matching key. Execution starts at the following command.
+        /// 3. Any label in any block with name matching the key. Execution starts at the following command.
         /// </summary>
         public static void ExecuteBlocks(string savePointKey)
         {

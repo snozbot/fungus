@@ -12,18 +12,11 @@ namespace Fungus
         #region Public members
 
         /// <summary>
-        /// GameSaved signal. Sent just after the game is saved.
+        /// SavePointLoaded signal. Sent just after a SavePoint is loaded.
         /// </summary>
-        public static event GameSavedHandler OnGameSaved;
-        public delegate void GameSavedHandler(string saveDataKey);
-        public static void DoGameSaved(string saveDataKey) { if (OnGameSaved != null) OnGameSaved(saveDataKey); }
-
-        /// <summary>
-        /// GameLoaded signal. Sent just after the game is loaded.
-        /// </summary>
-        public static event GameLoadedHandler OnGameLoaded;
-        public delegate void GameLoadedHandler(string saveDataKey);
-        public static void DoGameLoaded(string saveDataKey) { if (OnGameLoaded != null) OnGameLoaded(saveDataKey); }
+        public static event SavePointLoadedHandler OnSavePointLoaded;
+        public delegate void SavePointLoadedHandler(string savePointKey);
+        public static void DoSavePointLoaded(string savePointKey) { if (OnSavePointLoaded != null) OnSavePointLoaded(savePointKey); }
 
         /// <summary>
         /// SavePointAdded signal. Sent when a new save point is added to the save history (typically via the Save Point command).

@@ -1287,12 +1287,12 @@ GameObject:
   - component: {fileID: 1889213511}
   - component: {fileID: 1889213509}
   - component: {fileID: 1889213470}
-  - component: {fileID: 1889213471}
   - component: {fileID: 1889213473}
   - component: {fileID: 1889213481}
   - component: {fileID: 1889213480}
-  - component: {fileID: 1889213479}
+  - component: {fileID: 1889213478}
   - component: {fileID: 1889213475}
+  - component: {fileID: 1889213471}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1302,7 +1302,7 @@ GameObject:
   m_IsActive: 1
 --- !u!114 &1889213470
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1889213469}
@@ -1322,7 +1322,7 @@ MonoBehaviour:
   itemId: 52
   blockName: Play Music 1
   description: 
-  eventHandler: {fileID: 1889213471}
+  eventHandler: {fileID: 1889213475}
   commandList:
   - {fileID: 1889213473}
 --- !u!114 &1889213471
@@ -1336,13 +1336,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca33a026786245d4b10323b87e84d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentBlock: {fileID: 1889213470}
+  parentBlock: {fileID: 1889213481}
   savePointKeys:
-  - new_game
-  - Queens Chamber
+  - Use Umbrella
+  - Duck Down
+  - The Queen
 --- !u!114 &1889213473
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1889213469}
@@ -1394,9 +1395,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca33a026786245d4b10323b87e84d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentBlock: {fileID: 1889213482}
+  parentBlock: {fileID: 1889213470}
   savePointKeys:
-  - new_game
+  - Start
+  - Queens Chamber
 --- !u!114 &1889213476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1410,7 +1412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: -57.30224, y: -63.688995}
+  scrollPos: {x: -103.9434, y: -49.980755}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
@@ -1422,7 +1424,7 @@ MonoBehaviour:
     width: 1502.7736
     height: 1138.5048
   selectedBlocks:
-  - {fileID: 1889213481}
+  - {fileID: 1889213500}
   selectedCommands: []
   variables:
   - {fileID: 1889213489}
@@ -1450,25 +1452,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1889213479
+--- !u!114 &1889213478
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1889213469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ca33a026786245d4b10323b87e84d5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b115619cb83b4d6ab8047d0e9407403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentBlock: {fileID: 1889213481}
-  savePointKeys:
-  - Use Umbrella
-  - Duck Down
-  - The Queen
+  itemId: 61
+  indentLevel: 0
+  savePointKey: 
+  savePointDescription: 
+  fireEvent: 1
+  resumeFromHere: 1
 --- !u!114 &1889213480
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1889213469}
@@ -1485,7 +1488,7 @@ MonoBehaviour:
   fadeDuration: 1
 --- !u!114 &1889213481
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1889213469}
@@ -1496,8 +1499,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 81.28943
-    y: 288.5421
+    x: 78.28943
+    y: 294.5421
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -1505,7 +1508,7 @@ MonoBehaviour:
   itemId: 59
   blockName: Play Music 2
   description: 
-  eventHandler: {fileID: 1889213479}
+  eventHandler: {fileID: 1889213471}
   commandList:
   - {fileID: 1889213480}
 --- !u!114 &1889213482
@@ -1528,10 +1531,11 @@ MonoBehaviour:
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
   itemId: 16
-  blockName: new_game
+  blockName: Start
   description: 
-  eventHandler: {fileID: 1889213475}
+  eventHandler: {fileID: 0}
   commandList:
+  - {fileID: 1889213478}
   - {fileID: 1889213474}
   - {fileID: 1889213507}
   - {fileID: 1889213504}
@@ -1631,9 +1635,7 @@ MonoBehaviour:
   itemId: 21
   indentLevel: 0
   savePointKey: 
-  savePointDescription:
-    stringRef: {fileID: 0}
-    stringVal: 
+  savePointDescription: 
   fireEvent: 1
   resumeFromHere: 1
 --- !u!114 &1889213488
@@ -1923,13 +1925,13 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 542.1676
-    y: 144.44673
+    y: 143.44673
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
   itemId: 31
-  blockName: TheQueen
+  blockName: The Queen
   description: 
   eventHandler: {fileID: 0}
   commandList:
@@ -1953,9 +1955,7 @@ MonoBehaviour:
   itemId: 35
   indentLevel: 0
   savePointKey: 
-  savePointDescription:
-    stringRef: {fileID: 0}
-    stringVal: 
+  savePointDescription: 
   fireEvent: 1
   resumeFromHere: 1
 --- !u!114 &1889213502
@@ -1972,9 +1972,7 @@ MonoBehaviour:
   itemId: 34
   indentLevel: 0
   savePointKey: 
-  savePointDescription:
-    stringRef: {fileID: 0}
-    stringVal: 
+  savePointDescription: 
   fireEvent: 1
   resumeFromHere: 1
 --- !u!114 &1889213503
@@ -2239,9 +2237,7 @@ MonoBehaviour:
   itemId: 43
   indentLevel: 0
   savePointKey: 
-  savePointDescription:
-    stringRef: {fileID: 0}
-    stringVal: 
+  savePointDescription: 
   fireEvent: 1
   resumeFromHere: 1
 --- !u!1 &2025975869

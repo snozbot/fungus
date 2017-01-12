@@ -10,12 +10,8 @@ namespace Fungus
     /// </summary>
     public class SaveMenu : MonoBehaviour 
     {
-        const string SaveDataKey = "save_data";
-
-        const string NewGameSavePointKey = "new_game";
-
-        [Tooltip("On scene start, execute any Save Point Loaded event handlers which have the 'new_game' key")]
-        [SerializeField] protected bool autoStartGame = true;
+        [Tooltip("Automatically load the most recently saved game on startup")]
+        [SerializeField] protected bool loadOnStart = true;
 
         [Tooltip("Delete the save game data from disk when player restarts the game. Useful for testing, but best switched off for release builds.")]
         [SerializeField] protected bool restartDeletesSave = false;
@@ -72,32 +68,19 @@ namespace Fungus
             // Assume that the first scene that contains the SaveMenu is also the scene to load on restart.
             startScene = SceneManager.GetActiveScene().name;
 
-
             if (!saveMenuActive)
             {
                 saveMenuGroup.alpha = 0f;
             }
 
-            var saveManager = FungusManager.Instance.SaveManager;
-
-            if (autoStartGame &&
-                saveManager.NumSavePoints == 0)
+            if (loadOnStart)
             {
-                StartNewGame();
+                var saveManager = FungusManager.Instance.SaveManager;
+                if (saveManager.SaveDataExists())
+                {
+                    saveManager.Load();
+                }
             }
-
-            CheckSavePointKeys();
-        }
-
-        protected virtual void StartNewGame()
-        {
-            var saveManager = FungusManager.Instance.SaveManager;
-
-            // Create an initial save point
-            saveManager.AddSavePoint(NewGameSavePointKey, "");
-
-            // Start game execution
-            SaveManager.ExecuteBlocks(NewGameSavePointKey);
         }
 
         protected virtual void Update()
@@ -112,7 +95,7 @@ namespace Fungus
             }
             if (loadButton != null)
             {
-                loadButton.interactable = saveManager.SaveDataExists(SaveDataKey);
+                loadButton.interactable = saveManager.SaveDataExists();
             }
             if (rewindButton != null)
             {
@@ -124,54 +107,12 @@ namespace Fungus
             }
         }
 
-        /// <summary>
-        /// Warns if duplicate SavePointKeys are found.
-        /// </summary>
-        protected void CheckSavePointKeys()
-        {
-            List<string> keys = new List<string>();
-
-            var savePoints = GameObject.FindObjectsOfType<SavePoint>();
-
-            foreach (var savePoint in savePoints)
-            {
-                if (string.IsNullOrEmpty(savePoint.SavePointKey))
-                {
-                    continue;
-                }
-
-                if (keys.Contains(savePoint.SavePointKey))
-                {
-                    Debug.LogError("Save Point Key " + savePoint.SavePointKey + " is defined multiple times.");
-                }
-                else
-                {
-                    keys.Add(savePoint.SavePointKey);
-                }
-            }
-        }
-
         protected void PlayClickSound()
         {
             if (clickAudioSource != null)
             {
                 clickAudioSource.Play();
             }
-        }
-
-        /// <summary>
-        /// Callback for the restart scene load
-        /// </summary>
-        protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            if (scene.name != startScene)
-            {
-                return;
-            }
-
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        
-            StartNewGame();
         }
 
         #region Public methods
@@ -220,7 +161,7 @@ namespace Fungus
             if (saveManager.NumSavePoints > 0)
             {
                 PlayClickSound();
-                saveManager.Save(SaveDataKey);
+                saveManager.Save();
             }
         }
 
@@ -231,10 +172,10 @@ namespace Fungus
         {
             var saveManager = FungusManager.Instance.SaveManager;
 
-            if (saveManager.SaveDataExists(SaveDataKey))
+            if (saveManager.SaveDataExists())
             {
                 PlayClickSound();
-                saveManager.Load(SaveDataKey);
+                saveManager.Load();
             }
         }
 
@@ -277,17 +218,16 @@ namespace Fungus
                 return;
             }
 
-            var saveManager = FungusManager.Instance.SaveManager;
-
             PlayClickSound();
 
+            // Reset the Save History for a new game
+            var saveManager = FungusManager.Instance.SaveManager;
             saveManager.ClearHistory();
             if (restartDeletesSave)
             {
-                saveManager.Delete(SaveDataKey);
+                saveManager.Delete();
             }
 
-            SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene(startScene);
         }
 
