@@ -454,11 +454,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0cbb63e218a4414a796a60ffe37dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: 'This example shows how to use the Save Menu and the Save Point command to
-    create a simple save game system.
+  info: 'This example shows how to use the Save Menu prefab and the Save Point command
+    to create a simple save system.
 
 
-    Click the  icon in the top right to show the Save Menu and try saving, loading
+    Click the icon in the top right to display the Save Menu and try saving, loading
     and rewinding the game at various points.'
 --- !u!4 &493197090
 Transform:
@@ -632,11 +632,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224000013748593462, guid: bd2b99773f3e0489aae9f9b5053ad360,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.079956055
-      objectReference: {fileID: 0}
     - target: {fileID: 224000012150207008, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_AnchorMin.y
@@ -655,7 +650,7 @@ Prefab:
     - target: {fileID: 224000012150207008, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -14.96
       objectReference: {fileID: 0}
     - target: {fileID: 224000012150207008, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -665,7 +660,7 @@ Prefab:
     - target: {fileID: 224000012150207008, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 29.92
       objectReference: {fileID: 0}
     - target: {fileID: 224000013898185038, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -685,7 +680,7 @@ Prefab:
     - target: {fileID: 224000013898185038, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -14.96
       objectReference: {fileID: 0}
     - target: {fileID: 224000013898185038, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -695,7 +690,7 @@ Prefab:
     - target: {fileID: 224000013898185038, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 29.92
       objectReference: {fileID: 0}
     - target: {fileID: 224000012687811630, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -715,7 +710,7 @@ Prefab:
     - target: {fileID: 224000012687811630, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -14.96
       objectReference: {fileID: 0}
     - target: {fileID: 224000012687811630, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -725,7 +720,7 @@ Prefab:
     - target: {fileID: 224000012687811630, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 29.92
       objectReference: {fileID: 0}
     - target: {fileID: 224000012590701094, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -745,7 +740,7 @@ Prefab:
     - target: {fileID: 224000012590701094, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -14.96
       objectReference: {fileID: 0}
     - target: {fileID: 224000012590701094, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -755,7 +750,7 @@ Prefab:
     - target: {fileID: 224000012590701094, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 29.92
       objectReference: {fileID: 0}
     - target: {fileID: 224000013149320576, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -775,7 +770,7 @@ Prefab:
     - target: {fileID: 224000013149320576, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -14.96
       objectReference: {fileID: 0}
     - target: {fileID: 224000013149320576, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
@@ -785,7 +780,7 @@ Prefab:
     - target: {fileID: 224000013149320576, guid: bd2b99773f3e0489aae9f9b5053ad360,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 29.92
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bd2b99773f3e0489aae9f9b5053ad360, type: 2}
@@ -1427,9 +1422,9 @@ MonoBehaviour:
     width: 1502.7736
     height: 1138.5048
   selectedBlocks:
-  - {fileID: 1889213500}
+  - {fileID: 1889213482}
   selectedCommands:
-  - {fileID: 1889213509}
+  - {fileID: 1889213478}
   variables:
   - {fileID: 1889213489}
   - {fileID: 1889213488}
@@ -1469,6 +1464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 61
   indentLevel: 0
+  isStartPoint: 1
   keyMode: 0
   customKey: 
   descriptionMode: 0
@@ -1640,6 +1636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 21
   indentLevel: 0
+  isStartPoint: 0
   keyMode: 0
   customKey: 
   descriptionMode: 0
@@ -1962,6 +1959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 35
   indentLevel: 0
+  isStartPoint: 0
   keyMode: 0
   customKey: 
   descriptionMode: 0
@@ -1981,6 +1979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 34
   indentLevel: 0
+  isStartPoint: 0
   keyMode: 0
   customKey: 
   descriptionMode: 0
@@ -2248,6 +2247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 43
   indentLevel: 0
+  isStartPoint: 0
   keyMode: 0
   customKey: 
   descriptionMode: 0

@@ -86,18 +86,18 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Starts execution at the first Save Point with the key 'Start'.
+        /// Starts execution at the first Save Point found in the scene with the IsStartPoint property enabled.
         /// </summary>
         protected virtual void ExecuteStartBlock()
         {
-            // Each scene should have one Save Point with the 'Start' key.
+            // Each scene should have one Save Point with the IsStartPoint property enabled.
             // We automatically start execution from this command whenever the scene starts 'normally' (i.e. first play, restart or scene load via the Load Scene command or SceneManager.LoadScene).
 
             var savePoints = Object.FindObjectsOfType<SavePoint>();
             for (int i = 0; i < savePoints.Length; i++)
             {
                 var savePoint = savePoints[i];
-                if (string.Compare(savePoint.SavePointKey, "Start", true) == 0)
+                if (savePoint.IsStartPoint)
                 {
                     savePoint.GetFlowchart().ExecuteBlock(savePoint.ParentBlock, savePoint.CommandIndex);
                     break;
@@ -105,10 +105,19 @@ namespace Fungus
             }
         }
 
+        protected virtual void LoadSavedGame(string saveDataKey)
+        {
+            if (ReadSaveHistory(saveDataKey))
+            {
+                saveHistory.ClearRewoundSavePoints();
+                saveHistory.LoadLatestSavePoint();
+            }
+        }
+
         // Scene loading in Unity is asynchronous so we need to take care to avoid race conditions. 
         // The following callbacks tell us when a scene has been loaded and when 
         // a saved game has been loaded. We delay taking action until the next 
-        // frame (via a delegate) so that we're sure which case we're dealing with.
+        // frame (via a delegate) so that we know for sure which case we're dealing with.
 
         protected virtual void OnEnable()
         {
@@ -155,15 +164,6 @@ namespace Fungus
             {
                 loadAction();
                 loadAction = null;
-            }
-        }
-
-        protected virtual void LoadSavedGame(string saveDataKey)
-        {
-            if (ReadSaveHistory(saveDataKey))
-            {
-                saveHistory.ClearRewoundSavePoints();
-                saveHistory.LoadLatestSavePoint();
             }
         }
 
