@@ -2686,9 +2686,9 @@ MonoBehaviour:
     width: 1502.7736
     height: 1138.5048
   selectedBlocks:
-  - {fileID: 1889213486}
+  - {fileID: 1889213500}
   selectedCommands:
-  - {fileID: 1889213487}
+  - {fileID: 1889213509}
   variables:
   - {fileID: 1889213489}
   - {fileID: 1889213488}
@@ -3027,8 +3027,8 @@ MonoBehaviour:
     The liquid projectile strikes a rock behind you and the back splatter gives you
     a nasty acid burn on your bottom.'
   description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
+  character: {fileID: 1646731288}
+  portrait: {fileID: 21300000, guid: 636094c1361ce1b44b4ace0fc587d758, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -3084,7 +3084,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 391.23532
+    x: 392.23532
     y: 97.65081
     width: 121
     height: 40
@@ -3169,7 +3169,7 @@ MonoBehaviour:
 '
   description: 
   character: {fileID: 1646731288}
-  portrait: {fileID: 21300000, guid: 636094c1361ce1b44b4ace0fc587d758, type: 3}
+  portrait: {fileID: 21300000, guid: d7af8fdea3ead3c4b8a4e54d014b255d, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -3315,7 +3315,7 @@ MonoBehaviour:
   storyText: Now where am I?
   description: 
   character: {fileID: 1646731288}
-  portrait: {fileID: 21300000, guid: a79a4c2e96ba5fd418c637fe852e92d9, type: 3}
+  portrait: {fileID: 21300000, guid: 636094c1361ce1b44b4ace0fc587d758, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
@@ -3457,8 +3457,8 @@ MonoBehaviour:
 
     A direct hit! Huzzah, victory is yours!'
   description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
+  character: {fileID: 1646731288}
+  portrait: {fileID: 21300000, guid: d7af8fdea3ead3c4b8a4e54d014b255d, type: 3}
   voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
