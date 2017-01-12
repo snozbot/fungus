@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe25ebf9ddc8416ead6f30d4671fdbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoStartGame: 1
+  loadOnStart: 1
   restartDeletesSave: 0
   saveMenuGroup: {fileID: 225000012423540070}
   saveMenuButton: {fileID: 114000012074514418}
