@@ -4,8 +4,8 @@ using Rotorz.ReorderableList;
 
 namespace Fungus.EditorUtils
 {
-    [CustomEditor (typeof(SavedObjects), true)]
-    public class SavedObjectsEditor : Editor 
+    [CustomEditor (typeof(SaveData), true)]
+    public class SaveDataEditor : Editor 
     {
         protected SerializedProperty flowchartsProp;
 

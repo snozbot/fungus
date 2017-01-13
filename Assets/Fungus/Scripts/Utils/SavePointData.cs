@@ -29,15 +29,13 @@ namespace Fungus
             }
             SceneManager.sceneLoaded -= OnSceneLoaded;
 
-            var savePointData = tempSavePointData;
-
-            for (int i = 0; i < savePointData.FlowchartDatas.Count; i++)
+            var saveDatas = GameObject.FindObjectsOfType<SaveData>();
+            foreach (var saveData in saveDatas)
             {
-                var flowchartData = savePointData.FlowchartDatas[i];
-                FlowchartData.Decode(flowchartData);
+                saveData.Decode(tempSavePointData);
             }
 
-            SaveManagerSignals.DoSavePointLoaded(savePointData.savePointKey);
+            SaveManagerSignals.DoSavePointLoaded(tempSavePointData.savePointKey);
         }
             
         protected static SavePointData Create(string _savePointKey, string _savePointDescription, string _sceneName)
@@ -80,14 +78,10 @@ namespace Fungus
         {
             var savePointData = Create(_savePointKey, _savePointDescription, _sceneName);
                 
-            var saveGameObjects = GameObject.FindObjectOfType<SavedObjects>();
-            if (saveGameObjects == null)
+            var saveDatas = GameObject.FindObjectsOfType<SaveData>();
+            foreach (var saveData in saveDatas)
             {
-                Debug.LogWarning("Failed to find a SaveGameObjects in current scene");
-            }
-            else
-            {
-                saveGameObjects.Encode(savePointData);
+                saveData.Encode(savePointData);
             }
 
             return JsonUtility.ToJson(savePointData, true);

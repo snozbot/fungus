@@ -13,10 +13,10 @@ namespace Fungus.EditorUtils
             FlowchartMenuItems.SpawnPrefab("SaveMenu");
         }
 
-        [MenuItem("Tools/Fungus/Create/Saved Objects", false, 1101)]
-        static void CreateSavedObjects()
+        [MenuItem("Tools/Fungus/Create/Save Data", false, 1101)]
+        static void CreateSaveData()
         {
-            FlowchartMenuItems.SpawnPrefab("SavedObjects");
+            FlowchartMenuItems.SpawnPrefab("SaveData");
         }
     }
 }
