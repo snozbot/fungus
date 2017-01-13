@@ -175,6 +175,11 @@ namespace Fungus
         public const string DefaultSaveDataKey = "save_data";
 
         /// <summary>
+        /// The scene that should be loaded when restarting a game.
+        /// </summary>
+        public string StartScene { get; set; }
+
+        /// <summary>
         /// Returns the number of Save Points in the Save History.
         /// </summary>
         public virtual int NumSavePoints { get { return saveHistory.NumSavePoints; } }

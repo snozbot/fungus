@@ -47,8 +47,6 @@ namespace Fungus
 
         protected static SaveMenu instance;
 
-        protected string startScene = "";
-
         protected virtual void Awake()
         {
             // Only one instance of SaveMenu may exist
@@ -67,17 +65,21 @@ namespace Fungus
 
         protected virtual void Start()
         {
-            // Assume that the first scene that contains the SaveMenu is also the scene to load on restart.
-            startScene = SceneManager.GetActiveScene().name;
-
             if (!saveMenuActive)
             {
                 saveMenuGroup.alpha = 0f;
             }
 
+            var saveManager = FungusManager.Instance.SaveManager;
+
+            // Make a note of the current scene. This will be used when restarting the game.
+            if (string.IsNullOrEmpty(saveManager.StartScene))
+            {
+                saveManager.StartScene = SceneManager.GetActiveScene().name;
+            }
+
             if (loadOnStart)
             {
-                var saveManager = FungusManager.Instance.SaveManager;
                 if (saveManager.SaveDataExists())
                 {
                     saveManager.Load();
@@ -223,7 +225,9 @@ namespace Fungus
         /// </summary>
         public virtual void Restart()
         {
-            if (string.IsNullOrEmpty(startScene))
+            var saveManager = FungusManager.Instance.SaveManager;
+
+            if (string.IsNullOrEmpty(saveManager.StartScene))
             {
                 Debug.LogError("No start scene specified");
                 return;
@@ -232,14 +236,13 @@ namespace Fungus
             PlayClickSound();
 
             // Reset the Save History for a new game
-            var saveManager = FungusManager.Instance.SaveManager;
             saveManager.ClearHistory();
             if (restartDeletesSave)
             {
                 saveManager.Delete();
             }
 
-            SceneManager.LoadScene(startScene);
+            SceneManager.LoadScene(saveManager.StartScene);
         }
 
         #endregion

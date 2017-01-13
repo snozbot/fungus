@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace Fungus
 {
@@ -56,6 +57,9 @@ namespace Fungus
 
         #region Public members
 
+        /// <summary>
+        /// Marks this Save Point as the starting point for Flowchart execution in the scene. Each scene in your game should have exactly one Save Point with this enabled.
+        /// </summary>
         public bool IsStartPoint { get { return isStartPoint; } set { isStartPoint = value; } }
 
         /// <summary>
