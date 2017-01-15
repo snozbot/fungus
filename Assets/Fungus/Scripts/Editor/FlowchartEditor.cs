@@ -82,14 +82,6 @@ namespace Fungus.EditorUtils
                 EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart");
             }
 
-            GUILayout.Space(10);
-
-            if (GUILayout.Button(new GUIContent("Center View", "Centers the window view at the center of all blocks in the Flowchart")))
-            {
-                // Reset the zoom so we don't have adjust the center position depending on zoom
-                flowchart.ScrollPos = flowchart.CenterPosition;
-                flowchart.Zoom = FlowchartWindow.maxZoomValue;
-            }
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
 
