@@ -12,6 +12,9 @@ namespace Fungus
         [Tooltip("Automatically load the most recently saved game on startup")]
         [SerializeField] protected bool loadOnStart = true;
 
+        [Tooltip("Automatically save game to disk after each Save Point command executes. This also disables the Save and Load menu buttons.")]
+        [SerializeField] protected bool autoSave = false;
+
         [Tooltip("Delete the save game data from disk when player restarts the game. Useful for testing, but best switched off for release builds.")]
         [SerializeField] protected bool restartDeletesSave = false;
 
@@ -91,16 +94,29 @@ namespace Fungus
         {
             var saveManager = FungusManager.Instance.SaveManager;
 
-            if (saveButton != null)
+            // Hide the Save and Load buttons if autosave is on
+
+            bool showSaveAndLoad = !autoSave;
+            if (saveButton.IsActive() != showSaveAndLoad)
             {
-                // Don't allow saving unless there's at least one save point in the history,
-                // This avoids the case where you could try to load a save data with 0 save points.
-                saveButton.interactable = saveManager.NumSavePoints > 0;
+                saveButton.gameObject.SetActive(showSaveAndLoad);
+                loadButton.gameObject.SetActive(showSaveAndLoad);
             }
-            if (loadButton != null)
+ 
+            if (showSaveAndLoad)
             {
-                loadButton.interactable = saveManager.SaveDataExists();
+                if (saveButton != null)
+                {
+                    // Don't allow saving unless there's at least one save point in the history,
+                    // This avoids the case where you could try to load a save data with 0 save points.
+                    saveButton.interactable = saveManager.NumSavePoints > 0;
+                }
+                if (loadButton != null)
+                {
+                    loadButton.interactable = saveManager.SaveDataExists();
+                }
             }
+
             if (rewindButton != null)
             {
                 rewindButton.interactable = saveManager.NumSavePoints > 0;
@@ -117,6 +133,27 @@ namespace Fungus
                 {
                     debugText.text = saveManager.GetDebugInfo();
                 }
+            }
+        }
+
+        protected virtual void OnEnable()
+        {
+            SaveManagerSignals.OnSavePointAdded += OnSavePointAdded;
+        }
+
+        protected virtual void OnDisable()
+        {
+            SaveManagerSignals.OnSavePointAdded -= OnSavePointAdded;
+        }
+
+        protected virtual void OnSavePointAdded(string savePointKey, string savePointDescription)
+        {
+            var saveManager = FungusManager.Instance.SaveManager;
+
+            if (autoSave &&
+                saveManager.NumSavePoints > 0)
+            {
+                saveManager.Save();
             }
         }
 
