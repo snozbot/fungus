@@ -69,20 +69,6 @@ namespace Fungus
                     break;
                 }
             }
-
-            // Execute any block containing a Label matching the save key
-            var labels = Object.FindObjectsOfType<Label>();
-            for (int i = 0; i < labels.Length; i++)
-            {
-                var label = labels[i];
-                if (string.Compare(label.Key, savePointKey, true) == 0)
-                {
-                    int index = label.CommandIndex;
-                    var block = label.ParentBlock;
-                    var flowchart = label.GetFlowchart();
-                    flowchart.ExecuteBlock(block, index + 1);
-                }
-            }
         }
 
         /// <summary>
