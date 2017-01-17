@@ -37,7 +37,7 @@ namespace Fungus
         [Tooltip("Block to start executing")]
         [SerializeField] protected Block targetBlock;
 
-        [Tooltip("Label to start exeuction at. Takes priority over startIndex.")]
+        [Tooltip("Label to start execution at. Takes priority over startIndex.")]
         [SerializeField] protected StringData startLabel = new StringData();
 
         [Tooltip("Command index to start executing")]
@@ -75,9 +75,9 @@ namespace Fungus
 
                 // Find the command index to start execution at
                 int index = startIndex;
-                if (startLabel != "")
+                if (startLabel.Value != "")
                 {
-                    int labelIndex = targetBlock.GetLabelIndex(startLabel);
+                    int labelIndex = targetBlock.GetLabelIndex(startLabel.Value);
                     if (labelIndex != -1)
                     {
                         index = labelIndex;
