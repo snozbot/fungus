@@ -1,43 +1,25 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
+using UnityEngine.Events;
 
 namespace Fungus
 {
     /// <summary>
-    /// Serializable container for a Save Point.
+    /// Serializable container for a Save Point's data. 
+    /// All data is stored as strings, and the only concrete game class it depends on is the SaveData component.
     /// </summary>
     [System.Serializable]
     public class SavePointData
     {
         [SerializeField] protected string savePointKey;
+
         [SerializeField] protected string savePointDescription;
+
         [SerializeField] protected string sceneName;
-        [SerializeField] protected List<FlowchartData> flowchartDatas = new List<FlowchartData>();
 
-        protected static SavePointData tempSavePointData;
+        [SerializeField] protected List<SaveDataItem> saveDataItems = new List<SaveDataItem>();
 
-        protected static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            // Additive scene loads and non-matching scene loads could happen if someone is using
-            // Fungus as part of a bigger game, so just ignore these events and hope they know what they're doing.
-            if (mode == LoadSceneMode.Additive ||
-                scene.name != tempSavePointData.SceneName)
-            {
-                return;
-            }
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-
-            var saveDatas = GameObject.FindObjectsOfType<SaveData>();
-            foreach (var saveData in saveDatas)
-            {
-                saveData.Decode(tempSavePointData);
-            }
-
-            SaveManagerSignals.DoSavePointLoaded(tempSavePointData.savePointKey);
-        }
-            
         protected static SavePointData Create(string _savePointKey, string _savePointDescription, string _sceneName)
         {
             var savePointData = new SavePointData();
@@ -67,9 +49,10 @@ namespace Fungus
         public string SceneName { get { return sceneName; } set { sceneName = value; } }
 
         /// <summary>
-        /// Gets or sets the encoded Flowchart data for the Save Point.
+        /// Gets the list of save data items.
         /// </summary>
-        public List<FlowchartData> FlowchartDatas { get { return flowchartDatas; } set { flowchartDatas = value; } }
+        /// <value>The save data items.</value>
+        public List<SaveDataItem> SaveDataItems { get { return saveDataItems; } }
 
         /// <summary>
         /// Encodes a new Save Point to data and converts it to JSON text format.
@@ -77,11 +60,12 @@ namespace Fungus
         public static string Encode(string _savePointKey, string _savePointDescription, string _sceneName)
         {
             var savePointData = Create(_savePointKey, _savePointDescription, _sceneName);
-                
-            var saveDatas = GameObject.FindObjectsOfType<SaveData>();
-            foreach (var saveData in saveDatas)
+
+            // Look for a SaveData component in the scene to populate the save data items.
+            var saveData = GameObject.FindObjectOfType<SaveData>();
+            if (saveData != null)
             {
-                saveData.Encode(savePointData);
+                saveData.Encode(savePointData.SaveDataItems);
             }
 
             return JsonUtility.ToJson(savePointData, true);
@@ -92,10 +76,33 @@ namespace Fungus
         /// </summary>
         public static void Decode(string saveDataJSON)
         {
-            tempSavePointData = JsonUtility.FromJson<SavePointData>(saveDataJSON);
+            var savePointData = JsonUtility.FromJson<SavePointData>(saveDataJSON);
 
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            SceneManager.LoadScene(tempSavePointData.SceneName);
+            UnityAction<Scene, LoadSceneMode> onSceneLoadedAction = null;
+
+            onSceneLoadedAction = (scene, mode) =>  {
+                // Additive scene loads and non-matching scene loads could happen if the client is using the
+                // SceneManager directly. We just ignore these events and hope they know what they're doing!
+                if (mode == LoadSceneMode.Additive ||
+                    scene.name != savePointData.SceneName)
+                {
+                    return;
+                }
+
+                SceneManager.sceneLoaded -= onSceneLoadedAction;
+
+                // Look for a SaveData component in the scene to process the save data items.
+                var saveData = GameObject.FindObjectOfType<SaveData>();
+                if (saveData != null)
+                {
+                    saveData.Decode(savePointData.SaveDataItems);
+                }
+
+                SaveManagerSignals.DoSavePointLoaded(savePointData.savePointKey);
+            };
+                
+            SceneManager.sceneLoaded += onSceneLoadedAction;
+            SceneManager.LoadScene(savePointData.SceneName);
         }     
 
         #endregion
