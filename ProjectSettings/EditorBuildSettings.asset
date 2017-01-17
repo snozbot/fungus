@@ -4,8 +4,4 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/FungusExamples/SaveGame/Menu.unity
-  - enabled: 1
-    path: Assets/FungusExamples/SaveGame/SceneA.unity
+  m_Scenes: []
