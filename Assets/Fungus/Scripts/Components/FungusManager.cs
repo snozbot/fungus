@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 using System.Collections;
 
 namespace Fungus
@@ -8,6 +11,9 @@ namespace Fungus
     /// </summary>
     [RequireComponent(typeof(CameraManager))]
     [RequireComponent(typeof(MusicManager))]
+    #if UNITY_5_3_OR_NEWER
+    [RequireComponent(typeof(SaveManager))]
+    #endif
     public sealed class FungusManager : MonoBehaviour
     {
         static FungusManager instance;
@@ -18,6 +24,9 @@ namespace Fungus
         {
             CameraManager = GetComponent<CameraManager>();
             MusicManager = GetComponent<MusicManager>();
+            #if UNITY_5_3_OR_NEWER
+            SaveManager = GetComponent<SaveManager>();
+            #endif
         }
 
         /// <summary>
@@ -44,6 +53,13 @@ namespace Fungus
         /// Gets the music manager singleton instance.
         /// </summary>
         public MusicManager MusicManager { get; private set; }
+
+        #if UNITY_5_3_OR_NEWER
+        /// <summary>
+        /// Gets the save manager singleton instance.
+        /// </summary>
+        public SaveManager SaveManager { get; private set; }
+        #endif
 
         /// <summary>
         /// Gets the FungusManager singleton instance.

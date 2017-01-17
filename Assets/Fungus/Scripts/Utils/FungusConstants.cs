@@ -27,8 +27,19 @@ namespace Fungus
         /// </summary>
         public const string DefaultBlockName = "New Block";
 
+        /// <summary>
+        /// The default choice block color.
+        /// </summary>
         public static Color DefaultChoiceBlockTint = new Color(1.0f, 0.627f, 0.313f, 1.0f);
+
+        /// <summary>
+        /// The default event block color.
+        /// </summary>
         public static Color DefaultEventBlockTint = new Color(0.784f, 0.882f, 1.0f, 1.0f);
+
+        /// <summary>
+        /// The default process block color.
+        /// </summary>
         public static Color DefaultProcessBlockTint = new Color(1.0f, 0.882f, 0.0f, 1.0f);
 
         #endregion

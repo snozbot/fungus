@@ -14,6 +14,7 @@ Property | Type | Description
  --- | --- | ---
 Target Flowchart | Fungus.Flowchart | Flowchart which contains the block to execute. If none is specified then the current Flowchart is used.
 Target Block | Fungus.Block | Block to start executing
+Start Label | Fungus.StringData | Label to start exeuction at. Takes priority over startIndex.
 Start Index | System.Int32 | Command index to start executing
 Call Mode | Fungus.CallMode | Select if the calling block should stop or continue executing commands, or wait until the called block finishes.
 
@@ -85,6 +86,21 @@ Loading Image | UnityEngine.Texture2D | Image to display while loading the scene
 Quits the application. Does not work in Editor or Webplayer builds. Shouldn't generally be used on iOS.
 
 Defined in Fungus.Quit
+# Save Point # {#SavePoint}
+Creates a Save Point and adds it to the Save History. The player can save the Save History to peristent storage and load it again later using the Save Menu.
+
+Defined in Fungus.SavePoint
+
+Property | Type | Description
+ --- | --- | ---
+Is Start Point | System.Boolean | Marks this Save Point as the starting point for Flowchart execution in the scene. Each scene in your game should have exactly one Save Point with this enabled.
+Key Mode | Fungus.SavePoint+KeyMode | How the Save Point Key for this Save Point is defined.
+Custom Key | System.String | A string key which uniquely identifies this save point.
+Description Mode | Fungus.SavePoint+DescriptionMode | How the description for this Save Point is defined.
+Custom Description | System.String | A short description of this save point.
+Fire Event | System.Boolean | Fire a Save Point Loaded event when this command executes.
+Resume On Load | System.Boolean | Resume execution from this location after loading this Save Point.
+
 # Send Message # {#SendMessage}
 Sends a message to either the owner Flowchart or all Flowcharts in the scene. Blocks can listen for this message using a Message Received event handler.
 

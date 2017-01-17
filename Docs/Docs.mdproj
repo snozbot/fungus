@@ -301,5 +301,6 @@
     <None Include="top_pages\mainpage.md" />
     <None Include="fungus_docs\coding_tips.md" />
     <None Include="fungus_docs\coding_standard.md" />
+    <None Include="fungus_docs\save_system.md" />
   </ItemGroup>
 </Project>

@@ -35,7 +35,9 @@ namespace Fungus
         [Tooltip("A custom Menu Dialog to use to display this menu. All subsequent Menu commands will use this dialog.")]
         [SerializeField] protected MenuDialog setMenuDialog;
 
-        #region Public member
+        #region Public members
+
+        public MenuDialog SetMenuDialog  { get { return setMenuDialog; } set { setMenuDialog = value; } }
 
         public override void OnEnter()
         {

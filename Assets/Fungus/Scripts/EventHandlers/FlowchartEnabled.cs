@@ -8,7 +8,7 @@ namespace Fungus
     /// <summary>
     /// The block will execute when the Flowchart game object is enabled.
     /// </summary>
-    [EventHandlerInfo("",
+    [EventHandlerInfo("Scene",
                       "Flowchart Enabled",
                       "The block will execute when the Flowchart game object is enabled.")]
     [AddComponentMenu("")]

@@ -37,6 +37,9 @@ namespace Fungus
         [Tooltip("Block to start executing")]
         [SerializeField] protected Block targetBlock;
 
+        [Tooltip("Label to start exeuction at. Takes priority over startIndex.")]
+        [SerializeField] protected StringData startLabel = new StringData();
+
         [Tooltip("Command index to start executing")]
         [FormerlySerializedAs("commandIndex")]
         [SerializeField] protected int startIndex;
@@ -70,6 +73,17 @@ namespace Fungus
                     };
                 }
 
+                // Find the command index to start execution at
+                int index = startIndex;
+                if (startLabel != "")
+                {
+                    int labelIndex = targetBlock.GetLabelIndex(startLabel);
+                    if (labelIndex != -1)
+                    {
+                        index = labelIndex;
+                    }
+                }
+
                 if (targetFlowchart == null ||
                     targetFlowchart.Equals(GetFlowchart()))
                 {
@@ -80,12 +94,12 @@ namespace Fungus
                         flowchart.SelectedBlock = targetBlock;
                     }
 
-                    StartCoroutine(targetBlock.Execute(startIndex, onComplete));
+                    StartCoroutine(targetBlock.Execute(index, onComplete));
                 }
                 else
                 {
                     // Execute block in another Flowchart
-                    targetFlowchart.ExecuteBlock(targetBlock, startIndex, onComplete);
+                    targetFlowchart.ExecuteBlock(targetBlock, index, onComplete);
                 }
             }
 
