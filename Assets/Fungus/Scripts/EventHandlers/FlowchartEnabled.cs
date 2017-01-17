@@ -14,8 +14,9 @@ namespace Fungus
     [AddComponentMenu("")]
     public class FlowchartEnabled : EventHandler
     {   
-        protected virtual void OnEnable()
+        protected override void UnityOnEnable()
         {
+            base.UnityOnEnable();
             // Blocks use coroutines to schedule command execution, but Unity's coroutines are
             // sometimes unreliable when enabling / disabling objects.
             // To workaround this we execute the block on the next frame.

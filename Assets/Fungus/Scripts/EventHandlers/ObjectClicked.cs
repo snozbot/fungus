@@ -15,11 +15,38 @@ namespace Fungus
     [AddComponentMenu("")]
     public class ObjectClicked : EventHandler
     {   
+        public class ObjectClickedEvent
+        {
+            public Clickable2D ClickableObject;
+            public ObjectClickedEvent(Clickable2D clickableObject)
+            {
+                ClickableObject = clickableObject;
+            }
+        }
+
         [Tooltip("Object that the user can click or tap on")]
         [SerializeField] protected Clickable2D clickableObject;
 
         [Tooltip("Wait for a number of frames before executing the block.")]
         [SerializeField] protected int waitFrames = 1;
+
+
+        protected override void UnityOnEnable()
+        {
+            base.UnityOnEnable();
+            EventDispatcher.AddListener<ObjectClickedEvent>(OnObjectClickedEvent);
+        }
+
+        protected override void UnityOnDisable()
+        {
+            base.UnityOnDisable();
+            EventDispatcher.RemoveListener<ObjectClickedEvent>(OnObjectClickedEvent);
+        }
+
+        void OnObjectClickedEvent(ObjectClickedEvent evt)
+        {
+            OnObjectClicked(evt.ClickableObject);
+        }
 
         /// <summary>
         /// Executing a block on the same frame that the object is clicked can cause

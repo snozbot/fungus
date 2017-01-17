@@ -14,9 +14,34 @@ namespace Fungus
     [AddComponentMenu("")]
     public class DragCancelled : EventHandler
     {   
+        public class DragCancelledEvent
+        {
+            public Draggable2D DraggableObject;
+            public DragCancelledEvent(Draggable2D draggableObject)
+            {
+                DraggableObject = draggableObject;
+            }
+        }
+
         [Tooltip("Draggable object to listen for drag events on")]
         [SerializeField] protected Draggable2D draggableObject;
 
+        protected override void UnityOnEnable()
+        {
+            base.UnityOnEnable();
+            EventDispatcher.AddListener<DragCancelledEvent>(OnDragCancelledEvent);
+        }
+
+        protected override void UnityOnDisable()
+        {
+            base.UnityOnDisable();
+            EventDispatcher.RemoveListener<DragCancelledEvent>(OnDragCancelledEvent);
+        }
+
+        void OnDragCancelledEvent(DragCancelledEvent evt)
+        {
+            OnDragCancelled(evt.DraggableObject);
+        }
         #region Public members
 
         public virtual void OnDragCancelled(Draggable2D draggableObject)

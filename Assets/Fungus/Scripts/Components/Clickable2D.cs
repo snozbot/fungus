@@ -39,13 +39,7 @@ namespace Fungus
                 return;
             }
 
-            // TODO: Cache these objects for faster lookup
-            var handlers = GameObject.FindObjectsOfType<ObjectClicked>();
-            for (int i = 0; i < handlers.Length; i++)
-            {
-                var handler = handlers[i];
-                handler.OnObjectClicked(this);
-            }
+            EventDispatcher.Raise(new ObjectClicked.ObjectClickedEvent(this));
         }
 
         protected virtual void DoPointerEnter()

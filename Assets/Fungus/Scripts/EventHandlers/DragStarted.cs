@@ -14,7 +14,33 @@ namespace Fungus
     [AddComponentMenu("")]
     public class DragStarted : EventHandler
     {   
+        public class DragStartedEvent
+        {
+            public Draggable2D DraggableObject;
+            public DragStartedEvent(Draggable2D draggableObject)
+            {
+                DraggableObject = draggableObject;
+            }
+        }
+
         [SerializeField] protected Draggable2D draggableObject;
+
+        protected override void UnityOnEnable()
+        {
+            base.UnityOnEnable();
+            EventDispatcher.AddListener<DragStartedEvent>(OnDragStartedEvent);
+        }
+
+        protected override void UnityOnDisable()
+        {
+            base.UnityOnDisable();
+            EventDispatcher.RemoveListener<DragStartedEvent>(OnDragStartedEvent);
+        }
+
+        void OnDragStartedEvent(DragStartedEvent evt)
+        {
+            OnDragStarted(evt.DraggableObject);
+        }
 
         #region Public members
 
