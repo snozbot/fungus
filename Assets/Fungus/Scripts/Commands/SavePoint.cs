@@ -9,7 +9,7 @@ namespace Fungus
 {
     [CommandInfo("Flow",
                  "Save Point", 
-                 "Creates a Save Point and adds it to the Save History. The player can save the Save History to peristent storage and load it again later using the Save Menu.")]
+                 "Creates a Save Point and adds it to the Save History. The player can save the Save History to persistent storage and load it again later using the Save Menu.")]
     public class SavePoint : Command
     {
         /// <summary>

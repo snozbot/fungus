@@ -52,4 +52,5 @@ Defined in Fungus.ObjectClicked
 Property | Type | Description
  --- | --- | ---
 Clickable Object | Fungus.Clickable2D | Object that the user can click or tap on
+Wait Frames | System.Int32 | Wait for a number of frames before executing the block.
 
