@@ -19,7 +19,7 @@ Support
 =======
 
 If you have questions about Fungus, please search our forum first as someone may have had the same issue already. If you can't find an answer please start a new discussion and we'll answer you as soon as we can. Fungus is designed for beginners and we love to hear from users so please don't be shy about posting!
-http://fungusgames.com/forum
+http://fungusgames.com
 
 You can also join into our chat room.
 [![Join the chat at https://gitter.im/snozbot/fungus](https://badges.gitter.im/snozbot/fungus.svg)](https://gitter.im/snozbot/fungus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
