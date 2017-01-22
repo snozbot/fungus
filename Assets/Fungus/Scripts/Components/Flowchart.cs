@@ -37,9 +37,6 @@ namespace Fungus
         [SerializeField] protected float zoom = 1f;
 
         [HideInInspector]
-        [SerializeField] protected Rect scrollViewRect;
-
-        [HideInInspector]
         [SerializeField] protected List<Block> selectedBlocks = new List<Block>();
 
         [HideInInspector]
@@ -318,18 +315,13 @@ namespace Fungus
         public virtual float Zoom { get { return zoom; } set { zoom = value; } }
 
         /// <summary>
-        /// Scrollable area for Flowchart editor window.
-        /// </summary>
-        public virtual Rect ScrollViewRect { get { return scrollViewRect; } set { scrollViewRect = value; } }
-
-        /// <summary>
         /// Current actively selected block in the Flowchart editor.
         /// </summary>
         public virtual Block SelectedBlock
         { 
             get
             {
-                return selectedBlocks.FirstOrDefault();
+                return selectedBlocks.Count > 0 ? selectedBlocks[0] : null;
             } 
             set
             {
