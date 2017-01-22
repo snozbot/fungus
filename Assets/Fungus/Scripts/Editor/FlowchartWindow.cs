@@ -1123,7 +1123,7 @@ namespace Fungus.EditorUtils
 
             var connectedBlocks = new List<Block>();
 
-            bool blockIsSelected = (flowchart.SelectedBlock != block);
+            bool blockIsSelected = flowchart.SelectedBlock == block;
 
             var commandList = block.CommandList;
             foreach (var command in commandList)
