@@ -106,33 +106,23 @@ namespace Fungus.EditorUtils
 
         protected List<BlockCopy> copyList = new List<BlockCopy>();
         public static List<Block> deleteList = new List<Block>();
-
         protected Vector2 startDragPosition;
-
         public const float minZoomValue = 0.25f;
         public const float maxZoomValue = 1f;
-
         protected GUIStyle nodeStyle = new GUIStyle();
-
         protected static BlockInspector blockInspector;
-
         protected int forceRepaintCount;
-
         protected Texture2D addTexture;
         protected Texture2D connectionPointTexture;
-
         protected Rect selectionBox;
         protected Vector2 startSelectionBoxPosition = -Vector2.one;
         protected List<Block> mouseDownSelectionState = new List<Block>();
-
         protected Color gridLineColor = Color.black;
         protected readonly Color connectionColor = new Color(0.65f, 0.65f, 0.65f, 1.0f);
-
         // Context Click occurs on MouseDown which interferes with panning
         // Track right click positions manually to show menus on MouseUp
         protected Vector2 rightClickDown = -Vector2.one;
         protected const float rightClickTolerance = 5f;
-
         protected const string searchFieldName = "search";
         private string searchString = string.Empty;
         protected Rect searchRect;
@@ -153,14 +143,8 @@ namespace Fungus.EditorUtils
         protected virtual void OnEnable()
         {
             // All block nodes use the same GUIStyle, but with a different background
-            nodeStyle.border.left = 20;
-            nodeStyle.border.right = 20;
-            nodeStyle.border.top = 5;
-            nodeStyle.border.bottom = 5;
-            nodeStyle.padding.left = 20;
-            nodeStyle.padding.right = 20;
-            nodeStyle.padding.top = 5;
-            nodeStyle.padding.bottom = 5;
+            nodeStyle.border = new RectOffset(20, 20, 5, 5);
+            nodeStyle.padding = nodeStyle.border;
             nodeStyle.contentOffset = Vector2.zero;
             nodeStyle.alignment = TextAnchor.MiddleCenter;
             nodeStyle.wordWrap = true;
