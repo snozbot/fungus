@@ -322,7 +322,7 @@ namespace Fungus.EditorUtils
         protected virtual void OnGUI()
         {
             // TODO: avoid calling some of these methods in OnGUI because it should be possible
-            // to only call them when a flowchart is selected, etc.
+            // to only call them when the window is initialized or a new flowchart is selected, etc.
             flowchart = GetFlowchart();
 
             if (flowchart == null)
@@ -348,7 +348,7 @@ namespace Fungus.EditorUtils
             }
 
             // Draw blocks and connections
-            DrawFlowchartView();
+            DrawFlowchartView(Event.current);
 
             // Draw selection box
             if (Event.current.type == EventType.Repaint)
@@ -360,7 +360,7 @@ namespace Fungus.EditorUtils
             }
 
             // Draw toolbar, search popup, and variables window
-            DrawOverlay();
+            DrawOverlay(Event.current);
 
             // Handle events for custom GUI
             base.HandleEvents(Event.current);
@@ -372,7 +372,7 @@ namespace Fungus.EditorUtils
             }
         }
 
-        protected virtual void DrawOverlay()
+        protected virtual void DrawOverlay(Event e)
         {            
             // Main toolbar group
             GUILayout.BeginHorizontal(EditorStyles.toolbar);
@@ -419,7 +419,7 @@ namespace Fungus.EditorUtils
                     searchString = newString;
                 }
 
-                if (Event.current.type == EventType.Repaint)
+                if (e.type == EventType.Repaint)
                 {
                     searchRect = GUILayoutUtility.GetLastRect();
                     popupRect = searchRect;
@@ -434,11 +434,11 @@ namespace Fungus.EditorUtils
                 }
 
                 // Eat all click events on toolbar
-                if (Event.current.type == EventType.MouseDown)
+                if (e.type == EventType.MouseDown)
                 {
-                    if (Event.current.mousePosition.y < searchRect.height)
+                    if (e.mousePosition.y < searchRect.height)
                     {
-                        Event.current.Use();
+                        e.Use();
                     }
                 }
             }
@@ -487,12 +487,12 @@ namespace Fungus.EditorUtils
                         }
 
                         // Eat mouse events
-                        if (Event.current.type == EventType.MouseDown)
+                        if (e.type == EventType.MouseDown)
                         {
-                            if (Event.current.mousePosition.x <= variableWindowRect.width &&
-                                Event.current.mousePosition.y <= variableWindowRect.height)
+                            if (e.mousePosition.x <= variableWindowRect.width &&
+                                e.mousePosition.y <= variableWindowRect.height)
                             {
-                                Event.current.Use();
+                                e.Use();
                             }
                         }
                     }
@@ -507,25 +507,25 @@ namespace Fungus.EditorUtils
             // Draw block search popup on top of other controls
             if (GUI.GetNameOfFocusedControl() == searchFieldName && filteredBlocks.Length > 0)
             {
-                DrawBlockPopup();
+                DrawBlockPopup(e);
             }
         }
 
-        protected virtual void DrawBlockPopup()
+        protected virtual void DrawBlockPopup(Event e)
         {            
             blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
 
             GUI.Box(popupRect, "", GUI.skin.FindStyle("sv_iconselector_back"));
 
-            if (Event.current.type == EventType.MouseMove)
+            if (e.type == EventType.MouseMove)
             {
-                if (popupRect.Contains(Event.current.mousePosition))
+                if (popupRect.Contains(e.mousePosition))
                 {
-                    var relativeY = Event.current.mousePosition.y - popupRect.yMin + popupScroll.y;
+                    var relativeY = e.mousePosition.y - popupRect.yMin + popupScroll.y;
                     blockPopupSelection = (int) (relativeY / 16);
                 }
 
-                Event.current.Use();
+                e.Use();
             }
 
             GUILayout.BeginArea(popupRect);
@@ -695,7 +695,7 @@ namespace Fungus.EditorUtils
                 }
                 else if (UnityEditor.Tools.current == Tool.View && UnityEditor.Tools.viewTool == ViewTool.Zoom)
                 {
-                    DoZoom(-Event.current.delta.y * 0.01f, Vector2.one * 0.5f);
+                    DoZoom(-e.delta.y * 0.01f, Vector2.one * 0.5f);
                     e.Use();
                 }
                 // Selection box
@@ -834,7 +834,7 @@ namespace Fungus.EditorUtils
                     var menuRect = new Rect();
                     menuRect.position = new Vector2(mousePosition.x, mousePosition.y - 12f);
                     menu.DropDown(menuRect);
-                    Event.current.Use();               
+                    e.Use();               
                 }
                 break;
             }
@@ -854,15 +854,13 @@ namespace Fungus.EditorUtils
                 zoomCenter.y = e.mousePosition.y / flowchart.Zoom / position.height;
                 zoomCenter *= flowchart.Zoom;
 
-                DoZoom(-Event.current.delta.y * 0.01f, zoomCenter);
+                DoZoom(-e.delta.y * 0.01f, zoomCenter);
                 e.Use();
             }
         }
         
-        protected virtual void DrawFlowchartView()
+        protected virtual void DrawFlowchartView(Event e)
         {
-            var e = Event.current;
-
             // Calc rect for script view
             Rect scriptViewRect = new Rect(0, 0, this.position.width / flowchart.Zoom, this.position.height / flowchart.Zoom);
 
