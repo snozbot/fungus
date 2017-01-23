@@ -11,7 +11,7 @@ namespace Fungus
     public enum SetOperator
     {
         /// <summary> = operator. </summary>
-        Assign,     // 
+        Assign,
         /// <summary> =! operator. </summary>
         Negate,
         /// <summary> += operator. </summary>

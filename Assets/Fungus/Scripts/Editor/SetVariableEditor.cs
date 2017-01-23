@@ -66,7 +66,7 @@ namespace Fungus.EditorUtils
                 operatorsList.Add(new GUIContent("+="));
                 operatorsList.Add(new GUIContent("-="));
                 operatorsList.Add(new GUIContent("*="));
-                operatorsList.Add(new GUIContent("/="));
+                operatorsList.Add(new GUIContent("\\="));
             }
             
             int selectedIndex = 0;
