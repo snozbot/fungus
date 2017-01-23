@@ -321,6 +321,8 @@ namespace Fungus.EditorUtils
 
         protected virtual void OnGUI()
         {
+            // TODO: avoid calling some of these methods in OnGUI because it should be possible
+            // to only call them when a flowchart is selected, etc.
             flowchart = GetFlowchart();
 
             if (flowchart == null)
@@ -333,6 +335,7 @@ namespace Fungus.EditorUtils
 
             blocks = flowchart.GetComponents<Block>();
             UpdateFilteredBlocks();
+            BringSelectedBlockToFront();
 
             HandleEarlyEvents(Event.current);
 
@@ -348,10 +351,12 @@ namespace Fungus.EditorUtils
             DrawFlowchartView();
 
             // Draw selection box
-            if (startSelectionBoxPosition.x >= 0 && startSelectionBoxPosition.y >= 0)
+            if (Event.current.type == EventType.Repaint)
             {
-                GUI.Box(selectionBox, "", GUI.skin.FindStyle("SelectionRect"));
-                forceRepaintCount = 1;
+                if (startSelectionBoxPosition.x >= 0 && startSelectionBoxPosition.y >= 0)
+                {
+                    GUI.Box(selectionBox, "", GUI.skin.FindStyle("SelectionRect"));
+                }
             }
 
             // Draw toolbar, search popup, and variables window
@@ -641,7 +646,6 @@ namespace Fungus.EditorUtils
                             dragBlock = hitBlock;
                         }
 
-                        BringSelectedBlockToFront();
                         e.Use();
                         GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
                     }
