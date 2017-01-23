@@ -459,17 +459,31 @@ namespace Fungus
         /// <summary>
         /// Sync the active say dialog with what Lua thinks the SayDialog should be
         /// </summary>
-        public void SetSayDialog(SayDialog sayDialog)
+        public virtual void SetSayDialog(SayDialog sayDialog)
         {
             SayDialog.ActiveSayDialog = sayDialog;
         }
+        /// <summary>
+        /// Returns the current say dialog.
+        /// </summary>
+        public virtual SayDialog GetSayDialog ()
+        {
+            return SayDialog.GetSayDialog();
+        }
 
         /// <summary>
-        /// Sync the active menu dialog with what Lua thinks the MenuDialog should be
+        /// Sync the active menu dialog with what Lua things the MenuDialog should be
         /// </summary>
-        public void SetMenuDialog(MenuDialog menuDialog)
+        public virtual void SetMenuDialog(MenuDialog menuDialog)
         {
             MenuDialog.ActiveMenuDialog = menuDialog;
+        }
+        /// <summary>
+        /// Returns the current menu dialog
+        /// </summary>
+        public virtual MenuDialog GetMenuDialog()
+        {
+            return MenuDialog.GetMenuDialog();
         }
 
         #endregion

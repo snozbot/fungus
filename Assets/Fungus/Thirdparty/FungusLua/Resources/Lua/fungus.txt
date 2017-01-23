@@ -137,7 +137,6 @@ end
 
 -- Options for configuring Say Dialog behaviour
 M.sayoptions = {}
-M.sayoptions.saydialog = nil
 M.sayoptions.clearprevious = true 
 M.sayoptions.waitforinput = true
 M.sayoptions.fadewhendone = true
@@ -145,17 +144,12 @@ M.sayoptions.stopvoiceover = true
 
 -- Set the active saydialog to use with the say and conversation functions
 function M.setsaydialog(saydialog)
-    M.sayoptions.saydialog = saydialog
     luautils.SetSayDialog(saydialog)
 end
 
--- Gets the active say dialog, or creates one if none exists yet
+-- Gets the active say dialog
 function M.getsaydialog()
-    if (M.sayoptions.saydialog == nil) then
-        local sd = M.luautils.spawn("Prefabs/SayDialog").GetComponent("SayDialog")
-        M.setsaydialog(sd)
-    end
-    return M.sayoptions.saydialog
+    return M.luautils.GetSayDialog()
 end
 
 -- Set the active character on the Say Dialog
@@ -168,17 +162,17 @@ function M.setcharacter(character, portrait)
 
     -- Do substitution on character name
     local subbed = M.sub(character.nameText)
-    M.sayoptions.saydialog.SetCharacterName(subbed, character.nameColor)
+    M.getsaydialog().SetCharacterName(subbed, character.nameColor)
 
     -- Try to set the portrait sprite
     if (portrait) then
         if (portrait == "") then
-            M.sayoptions.saydialog.SetCharacterImage(nill)
+            M.getsaydialog().SetCharacterImage(nill)
         else
             for i,v in ipairs(character.portraits) do
                 -- Use a case insensitive comparison
                 if (string.lower(v.name) == string.lower(portrait)) then
-                    M.sayoptions.saydialog.SetCharacterImage(v)
+                    M.getsaydialog().SetCharacterImage(v)
                 end
             end
         end
@@ -214,22 +208,14 @@ end
 -- Menu Dialog
 --------------
 
--- Options for configuring Menu Dialog behaviour
-M.menuoptions = {}
-
 -- Set the active menudialog to use with the menu function
 function M.setmenudialog(menudialog)
-    M.menuoptions.menudialog = menudialog
-	luautils.SetMenuDialog(menudialog)
+    luautils.SetMenuDialog(menudialog)
 end
 
--- Gets the active menu dialog, or creates one if none exists yet
+-- Gets the active menu dialog
 function M.getmenudialog()
-    if (M.menuoptions.menudialog == nil) then
-        local md = M.luautils.spawn("Prefabs/MenuDialog").GetComponent("MenuDialog")
-        M.setmenudialog(md)
-    end
-    return M.menuoptions.menudialog
+    return M.luautils.GetMenuDialog()
 end
 
 -- Display a menu button
@@ -324,8 +310,7 @@ end
 
 -- Clear all currently displayed menu options
 function M.clearmenu()
-    assert(M.menuoptions.menudialog, "menudialog must not be nil")
-    M.menuoptions.menudialog.Clear()
+    M.getmenudialog().Clear()
 end
 
 ------------
