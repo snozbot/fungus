@@ -33,16 +33,20 @@ namespace Fungus
         [Tooltip("Drag target object to listen for drag events on")]
         [SerializeField] protected Collider2D targetObject;
 
-        protected override void UnityOnEnable()
+        protected EventDispatcher eventDispatcher;
+
+        protected virtual void OnEnable()
         {
-            base.UnityOnEnable();
-            EventDispatcher.AddListener<DragEnteredEvent>(OnDragEnteredEvent);
+            eventDispatcher = FungusManager.Instance.EventDispatcher;
+
+            eventDispatcher.AddListener<DragEnteredEvent>(OnDragEnteredEvent);
         }
 
-        protected override void UnityOnDisable()
+        protected virtual void OnDisable()
         {
-            base.UnityOnDisable();
-            EventDispatcher.RemoveListener<DragEnteredEvent>(OnDragEnteredEvent);
+            eventDispatcher.RemoveListener<DragEnteredEvent>(OnDragEnteredEvent);
+
+            eventDispatcher = null;
         }
 
         void OnDragEnteredEvent(DragEnteredEvent evt)

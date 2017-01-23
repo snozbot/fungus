@@ -32,12 +32,15 @@ namespace Fungus
         // we have to listen to the callbacks and track the touching state ourselves.
         protected bool overTarget = false;
 
-        protected override void UnityOnEnable()
+        protected EventDispatcher eventDispatcher;
+
+        protected virtual void OnEnable()
         {
-            base.UnityOnEnable();
-            EventDispatcher.AddListener<DragCompletedEvent>(OnDragCompletedEvent);
-            EventDispatcher.AddListener<DragEntered.DragEnteredEvent>(OnDragEnteredEvent);
-            EventDispatcher.AddListener<DragExited.DragExitedEvent>(OnDragExitedEvent);
+            eventDispatcher = FungusManager.Instance.EventDispatcher;
+
+            eventDispatcher.AddListener<DragCompletedEvent>(OnDragCompletedEvent);
+            eventDispatcher.AddListener<DragEntered.DragEnteredEvent>(OnDragEnteredEvent);
+            eventDispatcher.AddListener<DragExited.DragExitedEvent>(OnDragExitedEvent);
 
             if(draggableObject != null)
             {
@@ -45,17 +48,18 @@ namespace Fungus
             }
         }
 
-        protected override void UnityOnDisable()
+        protected virtual void OnDisable()
         {
-            base.UnityOnDisable();
-            EventDispatcher.RemoveListener<DragCompletedEvent>(OnDragCompletedEvent);
-            EventDispatcher.RemoveListener<DragEntered.DragEnteredEvent>(OnDragEnteredEvent);
-            EventDispatcher.RemoveListener<DragExited.DragExitedEvent>(OnDragExitedEvent);            
+            eventDispatcher.RemoveListener<DragCompletedEvent>(OnDragCompletedEvent);
+            eventDispatcher.RemoveListener<DragEntered.DragEnteredEvent>(OnDragEnteredEvent);
+            eventDispatcher.RemoveListener<DragExited.DragExitedEvent>(OnDragExitedEvent);
 
             if(draggableObject != null)
             {
                 draggableObject.UnregisterHandler(this);
             }
+
+            eventDispatcher = null;
         }
 
         void OnDragCompletedEvent(DragCompletedEvent evt)

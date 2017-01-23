@@ -2,9 +2,6 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Fungus
 {
@@ -34,16 +31,20 @@ namespace Fungus
         [Tooltip("Drag target object to listen for drag events on")]
         [SerializeField] protected Collider2D targetObject;
 
-        protected override void UnityOnEnable()
+        protected EventDispatcher eventDispatcher;
+
+        protected virtual void OnEnable()
         {
-            base.UnityOnEnable();
-            EventDispatcher.AddListener<DragExitedEvent>(OnDragEnteredEvent);
+            eventDispatcher = FungusManager.Instance.EventDispatcher;
+
+            eventDispatcher.AddListener<DragExitedEvent>(OnDragEnteredEvent);
         }
 
-        protected override void UnityOnDisable()
+        protected virtual void OnDisable()
         {
-            base.UnityOnDisable();
-            EventDispatcher.RemoveListener<DragExitedEvent>(OnDragEnteredEvent);
+            eventDispatcher.RemoveListener<DragExitedEvent>(OnDragEnteredEvent);
+
+            eventDispatcher = null;
         }
 
         void OnDragEnteredEvent(DragExitedEvent evt)

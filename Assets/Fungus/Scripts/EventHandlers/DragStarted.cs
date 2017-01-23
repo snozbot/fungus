@@ -25,16 +25,20 @@ namespace Fungus
 
         [SerializeField] protected Draggable2D draggableObject;
 
-        protected override void UnityOnEnable()
+        protected EventDispatcher eventDispatcher;
+
+        protected virtual void OnEnable()
         {
-            base.UnityOnEnable();
-            EventDispatcher.AddListener<DragStartedEvent>(OnDragStartedEvent);
+            eventDispatcher = FungusManager.Instance.EventDispatcher;
+
+            eventDispatcher.AddListener<DragStartedEvent>(OnDragStartedEvent);
         }
 
-        protected override void UnityOnDisable()
+        protected virtual void OnDisable()
         {
-            base.UnityOnDisable();
-            EventDispatcher.RemoveListener<DragStartedEvent>(OnDragStartedEvent);
+            eventDispatcher.RemoveListener<DragStartedEvent>(OnDragStartedEvent);
+
+            eventDispatcher = null;
         }
 
         void OnDragStartedEvent(DragStartedEvent evt)

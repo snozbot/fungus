@@ -18,9 +18,8 @@ namespace Fungus
         [Tooltip("Wait for a number of frames after startup before executing the Block. Can help fix startup order issues.")]
         [SerializeField] protected int waitForFrames = 1;
 
-        protected override void UnityStart()
+        protected virtual void Start()
         {
-            base.UnityStart();
             StartCoroutine(GameStartCoroutine());
         }
 

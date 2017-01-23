@@ -39,7 +39,9 @@ namespace Fungus
                 return;
             }
 
-            EventDispatcher.Raise(new ObjectClicked.ObjectClickedEvent(this));
+            var eventDispatcher = FungusManager.Instance.EventDispatcher;
+
+            eventDispatcher.Raise(new ObjectClicked.ObjectClickedEvent(this));
         }
 
         protected virtual void DoPointerEnter()

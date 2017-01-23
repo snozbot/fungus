@@ -75,7 +75,10 @@ namespace Fungus
             {
                 return;
             }
-            EventDispatcher.Raise(new DragEntered.DragEnteredEvent(this, other));
+
+            var eventDispatcher = FungusManager.Instance.EventDispatcher;
+
+            eventDispatcher.Raise(new DragEntered.DragEnteredEvent(this, other));
         }
 
         protected virtual void OnTriggerExit2D(Collider2D other) 
@@ -84,7 +87,10 @@ namespace Fungus
             {
                 return;
             }
-            EventDispatcher.Raise(new DragExited.DragExitedEvent(this, other));
+
+            var eventDispatcher = FungusManager.Instance.EventDispatcher;
+
+            eventDispatcher.Raise(new DragExited.DragExitedEvent(this, other));
         }
 
         protected virtual void DoBeginDrag()
@@ -97,7 +103,9 @@ namespace Fungus
 
             startingPosition = transform.position;
 
-            EventDispatcher.Raise(new DragStarted.DragStartedEvent(this));
+            var eventDispatcher = FungusManager.Instance.EventDispatcher;
+
+            eventDispatcher.Raise(new DragStarted.DragStartedEvent(this));
         }
 
         protected virtual void DoDrag()
@@ -123,6 +131,7 @@ namespace Fungus
                 return;
             }
 
+            var eventDispatcher = FungusManager.Instance.EventDispatcher;
             bool dragCompleted = false;
 
             for (int i = 0; i < dragCompletedHandlers.Count; i++)
@@ -133,14 +142,15 @@ namespace Fungus
                     if (handler.IsOverTarget())
                     {
                         dragCompleted = true;
-                        EventDispatcher.Raise(new DragCompleted.DragCompletedEvent(this));
+
+                        eventDispatcher.Raise(new DragCompleted.DragCompletedEvent(this));
                     }
                 }
             }
 
             if (!dragCompleted)
             {
-                EventDispatcher.Raise(new DragCancelled.DragCancelledEvent(this));
+                eventDispatcher.Raise(new DragCancelled.DragCancelledEvent(this));
 
                 if (returnOnCancelled)
                 {

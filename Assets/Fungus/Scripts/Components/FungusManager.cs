@@ -11,6 +11,7 @@ namespace Fungus
     /// </summary>
     [RequireComponent(typeof(CameraManager))]
     [RequireComponent(typeof(MusicManager))]
+    [RequireComponent(typeof(EventDispatcher))]
     #if UNITY_5_3_OR_NEWER
     [RequireComponent(typeof(SaveManager))]
     #endif
@@ -24,6 +25,7 @@ namespace Fungus
         {
             CameraManager = GetComponent<CameraManager>();
             MusicManager = GetComponent<MusicManager>();
+            EventDispatcher = GetComponent<EventDispatcher>();
             #if UNITY_5_3_OR_NEWER
             SaveManager = GetComponent<SaveManager>();
             #endif
@@ -53,6 +55,11 @@ namespace Fungus
         /// Gets the music manager singleton instance.
         /// </summary>
         public MusicManager MusicManager { get; private set; }
+
+        /// <summary>
+        /// Gets the event dispatcher singleton instance.
+        /// </summary>
+        public EventDispatcher EventDispatcher { get; private set; }
 
         #if UNITY_5_3_OR_NEWER
         /// <summary>

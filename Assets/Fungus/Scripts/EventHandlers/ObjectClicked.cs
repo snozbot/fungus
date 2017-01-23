@@ -30,17 +30,20 @@ namespace Fungus
         [Tooltip("Wait for a number of frames before executing the block.")]
         [SerializeField] protected int waitFrames = 1;
 
+        protected EventDispatcher eventDispatcher;
 
-        protected override void UnityOnEnable()
+        protected virtual void OnEnable()
         {
-            base.UnityOnEnable();
-            EventDispatcher.AddListener<ObjectClickedEvent>(OnObjectClickedEvent);
+            eventDispatcher = FungusManager.Instance.EventDispatcher;
+
+            eventDispatcher.AddListener<ObjectClickedEvent>(OnObjectClickedEvent);
         }
 
-        protected override void UnityOnDisable()
+        protected virtual void OnDisable()
         {
-            base.UnityOnDisable();
-            EventDispatcher.RemoveListener<ObjectClickedEvent>(OnObjectClickedEvent);
+            eventDispatcher.RemoveListener<ObjectClickedEvent>(OnObjectClickedEvent);
+
+            eventDispatcher = null;
         }
 
         void OnObjectClickedEvent(ObjectClickedEvent evt)

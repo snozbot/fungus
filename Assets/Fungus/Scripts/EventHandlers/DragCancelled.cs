@@ -26,22 +26,27 @@ namespace Fungus
         [Tooltip("Draggable object to listen for drag events on")]
         [SerializeField] protected Draggable2D draggableObject;
 
-        protected override void UnityOnEnable()
+        protected EventDispatcher eventDispatcher;
+
+        protected virtual void OnEnable()
         {
-            base.UnityOnEnable();
-            EventDispatcher.AddListener<DragCancelledEvent>(OnDragCancelledEvent);
+            eventDispatcher = FungusManager.Instance.EventDispatcher;
+
+            eventDispatcher.AddListener<DragCancelledEvent>(OnDragCancelledEvent);
         }
 
-        protected override void UnityOnDisable()
+        protected virtual void OnDisable()
         {
-            base.UnityOnDisable();
-            EventDispatcher.RemoveListener<DragCancelledEvent>(OnDragCancelledEvent);
+            eventDispatcher.RemoveListener<DragCancelledEvent>(OnDragCancelledEvent);
+
+            eventDispatcher = null;
         }
 
-        void OnDragCancelledEvent(DragCancelledEvent evt)
+        protected virtual void OnDragCancelledEvent(DragCancelledEvent evt)
         {
             OnDragCancelled(evt.DraggableObject);
         }
+
         #region Public members
 
         public virtual void OnDragCancelled(Draggable2D draggableObject)
