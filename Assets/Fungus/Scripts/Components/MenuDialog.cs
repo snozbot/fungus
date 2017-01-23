@@ -35,6 +35,25 @@ namespace Fungus
                 // Don't auto disable buttons in the editor
                 Clear();
             }
+
+            CheckEventSystem();
+        }
+
+        // There must be an Event System in the scene for Say and Menu input to work.
+        // This method will automatically instantiate one if none exists.
+        protected virtual void CheckEventSystem()
+        {
+            EventSystem eventSystem = GameObject.FindObjectOfType<EventSystem>();
+            if (eventSystem == null)
+            {
+                // Auto spawn an Event System from the prefab
+                GameObject prefab = Resources.Load<GameObject>("Prefabs/EventSystem");
+                if (prefab != null)
+                {
+                    GameObject go = Instantiate(prefab) as GameObject;
+                    go.name = "EventSystem";
+                }
+            }
         }
 
         protected virtual void OnEnable()

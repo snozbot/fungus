@@ -51,8 +51,27 @@ namespace Fungus
         protected virtual void Awake()
         {
             writer = GetComponent<Writer>();
+
+            CheckEventSystem();
         }
 
+        // There must be an Event System in the scene for Say and Menu input to work.
+        // This method will automatically instantiate one if none exists.
+        protected virtual void CheckEventSystem()
+        {
+            EventSystem eventSystem = GameObject.FindObjectOfType<EventSystem>();
+            if (eventSystem == null)
+            {
+                // Auto spawn an Event System from the prefab
+                GameObject prefab = Resources.Load<GameObject>("Prefabs/EventSystem");
+                if (prefab != null)
+                {
+                    GameObject go = Instantiate(prefab) as GameObject;
+                    go.name = "EventSystem";
+                }
+            }
+        }
+            
         protected virtual void Update()
         {
             if (EventSystem.current == null)
@@ -62,17 +81,6 @@ namespace Fungus
 
             if (currentStandaloneInputModule == null)
             {
-                if (EventSystem.current == null)
-                {
-                    // Auto spawn an Event System from the prefab
-                    GameObject prefab = Resources.Load<GameObject>("Prefabs/EventSystem");
-                    if (prefab != null)
-                    {
-                        GameObject go = Instantiate(prefab) as GameObject;
-                        go.name = "EventSystem";
-                    }
-                }
-
                 currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
             }
 

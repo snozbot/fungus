@@ -89,6 +89,8 @@ namespace Fungus
         #if UNITY_5_4_OR_NEWER
         protected virtual void Awake()
         {
+            CheckEventSystem();
+
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += (A, B) => {
                 LevelWasLoaded();
             };
