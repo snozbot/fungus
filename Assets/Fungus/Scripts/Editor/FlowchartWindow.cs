@@ -167,9 +167,15 @@ namespace Fungus.EditorUtils
                 return;
             }
 
+            bool isActive = flowchart.IsActive();
+            if (PrefabUtility.GetPrefabType(flowchart.gameObject) == PrefabType.Prefab)
+            {
+                isActive = true;
+            }
+
             if (Selection.activeGameObject == null &&
                 flowchart.SelectedBlock != null &&
-                flowchart.IsActive())
+                isActive)
             {
                 if (blockInspector == null)
                 {
