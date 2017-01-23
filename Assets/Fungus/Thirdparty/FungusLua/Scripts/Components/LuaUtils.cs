@@ -335,6 +335,9 @@ namespace Fungus
                 UnityEngine.Debug.LogError("No Lua interpreter found");
                 return false;
             }
+
+            // Remove all tabs from input
+            input.Replace("\t", "");
                 
             MoonSharp.Interpreter.Script interpreter = luaEnvironment.Interpreter;
 
