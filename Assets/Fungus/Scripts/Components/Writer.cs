@@ -130,15 +130,20 @@ namespace Fungus
                     writerListeners.Add(writerListener);
                 }
             }
+
+            CacheHiddenColorStrings();
         }
 
-        protected virtual void Start()
+        protected virtual void CacheHiddenColorStrings()
         {
             // Cache the hidden color string
             Color32 c = hiddenTextColor;
             hiddenColorOpen = String.Format("<color=#{0:X2}{1:X2}{2:X2}{3:X2}>", c.r, c.g, c.b, c.a);
             hiddenColorClose = "</color>";
+        }
 
+        protected virtual void Start()
+        {
             if (forceRichText)
             {
                 if (textUI != null)
@@ -587,6 +592,12 @@ namespace Fungus
             if (SupportsRichText() &&
                 rightString.Length > 0)
             {
+                // Ensure the hidden color strings are populated
+                if (hiddenColorOpen.Length == 0)
+                {
+                    CacheHiddenColorStrings();
+                }
+
                 outputString.Append(hiddenColorOpen);
                 outputString.Append(rightString);
                 outputString.Append(hiddenColorClose);
