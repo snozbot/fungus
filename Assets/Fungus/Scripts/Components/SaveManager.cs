@@ -147,6 +147,16 @@ namespace Fungus
 
         protected System.Action loadAction;
 
+        protected virtual void Start()
+        {
+            // The OnSceneLoaded callback above may not be called for the initial scene load in the game,
+            // so we call ExecuteStartBlock when the SaveManager starts up too.
+            if (loadAction == null)
+            {
+                loadAction = ExecuteStartBlock;
+            }
+        }
+
         protected virtual void Update()
         {
             // Execute any previously scheduled load action
