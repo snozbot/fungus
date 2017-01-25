@@ -8,6 +8,7 @@ namespace Fungus.EditorUtils
     [CustomEditor (typeof(InvokeEvent))]
     public class InvokeEventEditor : CommandEditor 
     {
+        protected SerializedProperty descriptionProp;
         protected SerializedProperty delayProp;
         protected SerializedProperty invokeTypeProp;
         protected SerializedProperty staticEventProp;
@@ -25,6 +26,7 @@ namespace Fungus.EditorUtils
             if (NullTargetCheck()) // Check for an orphaned editor instance
                 return;
 
+            descriptionProp = serializedObject.FindProperty("description");
             delayProp = serializedObject.FindProperty("delay");
             invokeTypeProp = serializedObject.FindProperty("invokeType");
             staticEventProp = serializedObject.FindProperty("staticEvent");
@@ -42,6 +44,7 @@ namespace Fungus.EditorUtils
         {
             serializedObject.Update();
 
+            EditorGUILayout.PropertyField(descriptionProp);
             EditorGUILayout.PropertyField(delayProp);
             EditorGUILayout.PropertyField(invokeTypeProp);
 

@@ -36,6 +36,9 @@ namespace Fungus
     [AddComponentMenu("")]
     public class InvokeEvent : Command
     {
+        [Tooltip("A description of what this command does. Appears in the command summary.")]
+        [SerializeField] protected string description = "";
+
         [Tooltip("Delay (in seconds) before the methods will be called")]
         [SerializeField] protected float delay;
 
@@ -115,6 +118,11 @@ namespace Fungus
 
         public override string GetSummary()
         {
+            if (!string.IsNullOrEmpty(description))
+            {
+                return description;
+            }
+
             string summary = invokeType.ToString() + " ";
 
             switch (invokeType)

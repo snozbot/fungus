@@ -19,6 +19,9 @@ namespace Fungus
                  "Invokes a method of a component via reflection. Supports passing multiple parameters and storing returned values in a Fungus variable.")]
     public class InvokeMethod : Command
     {
+        [Tooltip("A description of what this command does. Appears in the command summary.")]
+        [SerializeField] protected string description = "";
+
         [Tooltip("GameObject containing the component method to be invoked")]
         [SerializeField] protected GameObject targetObject;
 
@@ -310,6 +313,11 @@ namespace Fungus
             if (targetObject == null)
             {
                 return "Error: targetObject is not assigned";
+            }
+
+            if (!string.IsNullOrEmpty(description))
+            {
+                return description;
             }
 
             return targetObject.name + "." + targetComponentText + "." + targetMethodText;
