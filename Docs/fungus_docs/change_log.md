@@ -5,8 +5,6 @@ Changelog {#changelog}
 v3.5.0 {#v3_5_0}
 ======
 
-Many thanks to contributor https://github.com/zvinless for all the great editor productivity improvements in this release!
-
 ## Added
 - Save game system. Use Save Point command and Save Menu prefab to easily add saving support with rewind / fast forward support.
 - Added new menu options for spawning SaveMenu and SavedObjects prefabs
