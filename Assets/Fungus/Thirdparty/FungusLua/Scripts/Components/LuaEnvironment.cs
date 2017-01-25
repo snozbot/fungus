@@ -16,6 +16,12 @@ namespace Fungus
     /// </summary>
     public class LuaEnvironment : MonoBehaviour
     {
+        [Tooltip("Start a Lua debug server on scene start.")]
+        [SerializeField] protected bool startDebugServer = true;
+
+        [Tooltip("Port to use for the Lua debug server.")]
+        [SerializeField] protected int debugServerPort = 41912;
+
         /// <summary>
         /// The MoonSharp interpreter instance.
         /// </summary>
@@ -110,18 +116,6 @@ namespace Fungus
             }
 
             yield return StartCoroutine(coroutine);
-        }
-
-        protected virtual void StartVSCodeDebugger()
-        {
-            if (DebugServer == null)
-            {
-                // Create the debugger server
-                DebugServer = new MoonSharpVsCodeDebugServer();
-
-                // Start the debugger server
-                DebugServer.Start();
-            }
         }
 
         /// <summary>
@@ -263,12 +257,20 @@ namespace Fungus
             //
             // Change this to #if UNITY_STANDALONE if you want to debug a standalone build.
             //
-
             #if UNITY_EDITOR
-            StartVSCodeDebugger();
+            if (startDebugServer &&
+                DebugServer == null)
+            {
+                // Create the debugger server
+                DebugServer = new MoonSharpVsCodeDebugServer(debugServerPort);
 
-            // Attach the MoonSharp script to the debugger
-            DebugServer.AttachToScript(interpreter, gameObject.name);
+                // Start the debugger server
+                DebugServer.Start();
+
+                // Attach the MoonSharp script to the debugger
+                DebugServer.AttachToScript(interpreter, gameObject.name);
+            }
+
             #endif
 
             initialised = true;
