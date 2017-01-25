@@ -2,6 +2,65 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.5.0 {#v3_5_0}
+======
+
+Many thanks to contributor https://github.com/zvinless for all the great editor productivity improvements in this release!
+
+## Added
+- Save game system. Use Save Point command and Save Menu prefab to easily add saving support with rewind / fast forward support.
+- Added new menu options for spawning SaveMenu and SavedObjects prefabs
+- New Save Game example scene
+- Added documentation for Save System.
+- Option to Close Other Say Dialogs when one Say Dialog becomes active.
+- Select a start Label in Call command properties
+
+Thanks to contributor [zvinless](https://github.com/zvinless):
+- Custom block tints can now be toggled per block in the block inspector.
+- Added multi-select feature for blocks via action key/shift+click and click+drag
+- Block movement and context menu options now affect all selected blocks
+- Added Flowchart window toolbar in place of floating UI
+- Flowchart window search filter to quickly find Blocks
+- Added keyboard shortcuts and more context menu options for Blocks (copy, cut, duplicate, delete, select all)
+
+Thanks to contributor [sp-francisco-ruiz](https://github.com/sp-francisco-ruiz):
+- Add a new Event Dispatcher to the FungusManager singleton
+- Change Draggable2D and Clickable2D to use the new EventDispatcher for efficient calls for events. 
+
+## Changed
+- Moved Center button from Flowchart properties to new Flowchart window toolbar
+- Flowchart’s SelectedBlock property now refers to the active selected block rather than the sole selected block.
+- Updated coding standard with backwards compatibility & contributing notes
+- Flowchart window now zoom in/out by mouse cursor or center rather than upper left corner
+- All editor textures are now be accessible as properties in FungusEditorResources. 
+- Use Tools -> Fungus -> Utilities -> UpdateEditorResourcesScript to automatically update these editor textures
+- Increased height of multi-line text box for StringDataMulti
+- Updated curves, connection points, and grid background rendering with better approach
+- Refactored Flowchart window to simplify event handling
+- Bumped flowchart version to 2 to upgrade previously serialized selected blocks
+- Flowchart context menu now appears on mouse up to better support panning
+
+## Fixed
+- Fixed nested while loops don't loop correctly #562
+- Fixed Sprite Object click skips writing Say Text #576
+- Fixed setmenudialog() lua function does not set main active menu dialog #578
+- Fixed Unity Test Tools compatibility issue with Unity 5.5.0f
+- Fixed spine integration to work with latest version of Spine runtime
+- Fixed Block connections not highlighting when command selected
+- Fixed centered text shifts position when written by Say command #569
+- Fixed Say text appears for single frame when using Say command #575
+- Fixed MenuDialog Lua Bug #565
+- Fixed using say in lua doesn't automatically spawn an EventSystem #571
+- Fixed cannot divide an integer by an integer using Set Variable #579
+- Fixed tabs in conversation text from Lua #574
+- Fixed Flowchart prefab's block show as empty on the Inspector #583
+- Fixed typo in Game Started Wait Frames property name
+- Fixed Fungus ignores existing “SayDialog” and creates another one #555
+- Change CSVParser to use Regex.Split (way faster for large CSV files)
+- Fixed missing sprite assets in Asset Store version.
+- Fixed onComplete callback in MusicManager.SetAudioVolume when duration is 0
+- Removed TestRunner game objects from DragAndDrop examples.
+
 v3.4.0 {#v3_4_0}
 ======
 
