@@ -14,7 +14,7 @@ Property | Type | Description
  --- | --- | ---
 Target Flowchart | Fungus.Flowchart | Flowchart which contains the block to execute. If none is specified then the current Flowchart is used.
 Target Block | Fungus.Block | Block to start executing
-Start Label | Fungus.StringData | Label to start exeuction at. Takes priority over startIndex.
+Start Label | Fungus.StringData | Label to start execution at. Takes priority over startIndex.
 Start Index | System.Int32 | Command index to start executing
 Call Mode | Fungus.CallMode | Select if the calling block should stop or continue executing commands, or wait until the called block finishes.
 
@@ -87,7 +87,7 @@ Quits the application. Does not work in Editor or Webplayer builds. Shouldn't ge
 
 Defined in Fungus.Quit
 # Save Point # {#SavePoint}
-Creates a Save Point and adds it to the Save History. The player can save the Save History to peristent storage and load it again later using the Save Menu.
+Creates a Save Point and adds it to the Save History. The player can save the Save History to persistent storage and load it again later using the Save Menu.
 
 Defined in Fungus.SavePoint
 

@@ -62,6 +62,7 @@ Defined in Fungus.InvokeEvent
 
 Property | Type | Description
  --- | --- | ---
+Description | System.String | A description of what this command does. Appears in the command summary.
 Delay | System.Single | Delay (in seconds) before the methods will be called
 Invoke Type | Fungus.InvokeType | Selects type of method parameter to pass
 Static Event | UnityEngine.Events.UnityEvent | List of methods to call. Supports methods with no parameters or exactly one string, int, float or object parameter.
@@ -81,6 +82,7 @@ Defined in Fungus.InvokeMethod
 
 Property | Type | Description
  --- | --- | ---
+Description | System.String | A description of what this command does. Appears in the command summary.
 Target Object | UnityEngine.GameObject | GameObject containing the component method to be invoked
 Target Component Assembly Name | System.String | Name of assembly containing the target component
 Target Component Fullname | System.String | Full name of the target component
