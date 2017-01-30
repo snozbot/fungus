@@ -2,6 +2,12 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.5.1 {#v3_5_1}
+======
+
+## Changed
+- Added Save Data Key property to Save Menu to support multiple games in the same Unity project.
+
 v3.5.0 {#v3_5_0}
 ======
 
