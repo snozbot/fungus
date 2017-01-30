@@ -2034,7 +2034,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe25ebf9ddc8416ead6f30d4671fdbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveDataKey: save_example_data
   loadOnStart: 1
+  autoSave: 0
   restartDeletesSave: 0
   saveMenuGroup: {fileID: 178630601}
   saveMenuButton: {fileID: 1058705593}

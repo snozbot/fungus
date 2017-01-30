@@ -42,6 +42,11 @@ namespace Fungus
         /// </summary>
         public static Color DefaultProcessBlockTint = new Color(1.0f, 0.882f, 0.0f, 1.0f);
 
+        /// <summary>
+        /// The default key used for storing save game data in PlayerPrefs.
+        /// </summary>
+        public const string DefaultSaveDataKey = "save_data";
+
         #endregion
     }
 }

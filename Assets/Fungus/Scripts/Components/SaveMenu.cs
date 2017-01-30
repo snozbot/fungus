@@ -14,6 +14,9 @@ namespace Fungus
     /// </summary>
     public class SaveMenu : MonoBehaviour 
     {
+        [Tooltip("String key used when storing save game data in PlayerPrefs.")]
+        [SerializeField] protected string saveDataKey = FungusConstants.DefaultSaveDataKey;
+
         [Tooltip("Automatically load the most recently saved game on startup")]
         [SerializeField] protected bool loadOnStart = true;
 
@@ -88,9 +91,9 @@ namespace Fungus
 
             if (loadOnStart)
             {
-                if (saveManager.SaveDataExists())
+                if (saveManager.SaveDataExists(saveDataKey))
                 {
-                    saveManager.Load();
+                    saveManager.Load(saveDataKey);
                 }
             }
         }
@@ -118,7 +121,7 @@ namespace Fungus
                 }
                 if (loadButton != null)
                 {
-                    loadButton.interactable = saveManager.SaveDataExists();
+                    loadButton.interactable = saveManager.SaveDataExists(saveDataKey);
                 }
             }
 
@@ -158,7 +161,7 @@ namespace Fungus
             if (autoSave &&
                 saveManager.NumSavePoints > 0)
             {
-                saveManager.Save();
+                saveManager.Save(saveDataKey);
             }
         }
 
@@ -216,7 +219,7 @@ namespace Fungus
             if (saveManager.NumSavePoints > 0)
             {
                 PlayClickSound();
-                saveManager.Save();
+                saveManager.Save(saveDataKey);
             }
         }
 
@@ -227,10 +230,10 @@ namespace Fungus
         {
             var saveManager = FungusManager.Instance.SaveManager;
 
-            if (saveManager.SaveDataExists())
+            if (saveManager.SaveDataExists(saveDataKey))
             {
                 PlayClickSound();
-                saveManager.Load();
+                saveManager.Load(saveDataKey);
             }
         }
 
@@ -281,7 +284,7 @@ namespace Fungus
             saveManager.ClearHistory();
             if (restartDeletesSave)
             {
-                saveManager.Delete();
+                saveManager.Delete(saveDataKey);
             }
 
             SceneManager.LoadScene(saveManager.StartScene);

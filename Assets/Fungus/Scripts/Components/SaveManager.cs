@@ -170,11 +170,6 @@ namespace Fungus
         #region Public members
 
         /// <summary>
-        /// The default key used for storing save game data in PlayerPrefs.
-        /// </summary>
-        public const string DefaultSaveDataKey = "save_data";
-
-        /// <summary>
         /// The scene that should be loaded when restarting a game.
         /// </summary>
         public string StartScene { get; set; }
@@ -192,7 +187,7 @@ namespace Fungus
         /// <summary>
         /// Writes the Save History to persistent storage.
         /// </summary>
-        public virtual void Save(string saveDataKey = DefaultSaveDataKey)
+        public virtual void Save(string saveDataKey)
         {
             WriteSaveHistory(saveDataKey);
         }
@@ -200,7 +195,7 @@ namespace Fungus
         /// <summary>
         /// Loads the Save History from persistent storage and loads the latest Save Point.
         /// </summary>
-        public void Load(string saveDataKey = DefaultSaveDataKey)
+        public void Load(string saveDataKey)
         {
             // Set a load action to be executed on next update
             var key = saveDataKey;
@@ -210,7 +205,7 @@ namespace Fungus
         /// <summary>
         /// Deletes a previously stored Save History from persistent storage.
         /// </summary>
-        public void Delete(string saveDataKey = DefaultSaveDataKey)
+        public void Delete(string saveDataKey)
         {
             PlayerPrefs.DeleteKey(saveDataKey);
             PlayerPrefs.Save();
@@ -219,7 +214,7 @@ namespace Fungus
         /// <summary>
         /// Returns true if save data has previously been stored using this key.
         /// </summary>
-        public bool SaveDataExists(string saveDataKey = DefaultSaveDataKey)
+        public bool SaveDataExists(string saveDataKey)
         {
             return PlayerPrefs.HasKey(saveDataKey);
         }
