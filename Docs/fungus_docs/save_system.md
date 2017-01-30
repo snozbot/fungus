@@ -82,6 +82,8 @@ There are 4 main properties that you might want to configure in the Save Menu.
 - Auto Save: Automatically save the game to disk at every Save Point. When this option is enabled the Save and Load buttons are disabled.
 - Restart Deletes Save: Delete the save data from disk when the player restarts the game. This is useful when testing your game to ensure you’re starting from a blank save state.
 
+N.B. If your game uses multiple scenes (e.g. via the Load Scene command), make sure to add all the scene to the Scenes in Build list in the [Build Settings](https://docs.unity3d.com/Manual/BuildSettings.html). 
+
 ## Save button ## {#save_save_button}
 
 Pressing the Save button causes the current Save History to be serialized to JSON text and written to persistent storage via the PlayerPrefs class.
