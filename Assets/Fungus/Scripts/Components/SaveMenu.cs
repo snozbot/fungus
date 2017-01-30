@@ -14,7 +14,7 @@ namespace Fungus
     /// </summary>
     public class SaveMenu : MonoBehaviour 
     {
-        [Tooltip("String key used when storing save game data in PlayerPrefs.")]
+        [Tooltip("Save Data Key: The string key used to store save game data in Player Prefs. If you have multiple games defined in the same Unity project, use a unique key for each one.")]
         [SerializeField] protected string saveDataKey = FungusConstants.DefaultSaveDataKey;
 
         [Tooltip("Automatically load the most recently saved game on startup")]

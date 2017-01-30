@@ -75,8 +75,9 @@ The Save Menu is a simple UI which allows players to interact with the %Fungus s
 
 ## Save Menu properties ## {#save_menu_properties}
 
-There are 3 main properties that you might want to configure in the Save Menu.
+There are 4 main properties that you might want to configure in the Save Menu.
 
+- Save Data Key: The string key used to store save game data in Player Prefs. If you have multiple games defined in the same Unity project, use a unique key for each one.
 - Load On Start: Automatically load the previously saved game on startup.
 - Auto Save: Automatically save the game to disk at every Save Point. When this option is enabled the Save and Load buttons are disabled.
 - Restart Deletes Save: Delete the save data from disk when the player restarts the game. This is useful when testing your game to ensure you’re starting from a blank save state.
