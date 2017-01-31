@@ -30,6 +30,8 @@ These free tutorial videos cover most of the functionality available in %Fungus.
 * [%Fungus Live Stream #1]
 * [%Fungus Live Stream #2]
 * [%Fungus Live Stream #3]
+* [Using Lua scripting]
+* [Saving and Loading]
 
 [%Fungus Overview]: https://www.youtube.com/watch?v=F1vmEtQ7k6M
 [Installing %Fungus in your project]: https://www.youtube.com/watch?v=BQRdRz9Q5VY
@@ -53,3 +55,5 @@ These free tutorial videos cover most of the functionality available in %Fungus.
 [%Fungus Live Stream #1]: https://www.youtube.com/watch?v=W_lcfZS5REU
 [%Fungus Live Stream #2]: https://www.youtube.com/watch?v=skxTOqvif3g
 [%Fungus Live Stream #3]: https://www.youtube.com/watch?v=LTSHaxPsB-M
+[Using Lua scripting]: https://www.youtube.com/watch?v=M_Oo9FpVTos
+[Saving and Loading]: https://www.youtube.com/watch?v=Bd4RDcCc0lE

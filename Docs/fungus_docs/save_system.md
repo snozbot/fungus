@@ -7,7 +7,7 @@
 
 The %Fungus Save System provides an easy way to save and load the execution state of Flowcharts in your game. 
 
-This [tutorial video](https://www.youtube.com/watch?v=Bd4RDcCc0lE&t=2s&list=PLiMlyObJfJmUohJ_M2pJhtrNKuNECo2Uk&index=20) shows how you can quickly add saving functionality to a %Fungus game.
+This [tutorial video](https://www.youtube.com/watch?v=Bd4RDcCc0lE&list=PLiMlyObJfJmUohJ_M2pJhtrNKuNECo2Uk&index=20) shows how you can quickly add saving functionality to a %Fungus game.
 
 The save system works by storing a series of Save Points as the player progresses through the game, to build up a Save History. A basic Save Menu UI is provided to allow the player to Save, Load, Restart, Rewind and Fast Forward through the Save History.
 

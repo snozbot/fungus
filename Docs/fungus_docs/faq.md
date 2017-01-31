@@ -8,10 +8,10 @@
 %Fungus is developed by [Snozbot], a small independent games company. Chris Gregan is the main developer of %Fungus.
 
 # Where do I get Fungus? # {#faq_where_get}
-%Fungus is available on the [Unity Asset Store] and in the download section of this website.
+%Fungus is available on the [Unity Asset Store] and in the [releases section] of the Fungus github repository.
 
 # Is Fungus really free to use? # {#faq_really_free}
-Yes. %Fungus has an Open Source M.I.T. license. You can use %Fungus with any version of the Unity game engine, including the freely available personal edition.
+Yes. %Fungus has an Open Source M.I.T. license. You can use %Fungus with both the free personal and pro versions of the Unity game engine.
 
 # Can I sell the apps I make with Fungus? # {#faq_can_sell}
 Yes. We do not charge a license fee.
@@ -20,13 +20,13 @@ Yes. We do not charge a license fee.
 %Fungus runs on any platform supported by the Unity game engine. See here for a list of supported platforms.
 
 # Do I need to be a programmer to use Fungus? # {#faq_non_coders}
-No. %Fungus can be used to make a variety of story-driven games with no coding required.
+No. %Fungus can be used to make a variety of story-driven games with no coding required, via its visual scripting Flowchart system.
 
 # Is Fungus useful for programmers? # {#faq_coders}
 Yes. %Fungus provides an easy way to add visual novel features to any Unity game. It is also possible to extend %Fungus to customise the workflow for your team. Checkout the documentation and tutorials for more information.
 
 # Where can I learn more about Fungus? # {#faq_learn_more}
-We provide extensive tutorials and documentation on our website here. There is also a comprehensive online training course suitable for beginners at Udemy.
+We provide extensive tutorials and documentation on our website. There is also a comprehensive online training course suitable for beginners at Udemy.
 
 # I've made something cool with Fungus. Wanna see? # {#faq_show_and_tell}
 Most definitely! Please tweet [gofungus] and/or post an item in the announcements section of our forum.
@@ -62,3 +62,4 @@ Not currently. We're sticking with Unity for the foreseeable future.
 [gamejolt.com]: http://gamejolt.com
 [newgrounds.com]: http://newgrounds.com
 [github repository]: https://github.com/snozbot/fungus
+[releases section]: https://github.com/snozbot/fungus/releases

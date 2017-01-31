@@ -3,6 +3,11 @@
 
 If you've created an article or video about %Fungus let us know on the forum and we'll add it here.
 
+# Game Dev Resources # {#game_dev_resources}
+
+- [Global Game Jam resources list](http://globalgamejam.org/jammer-resources)
+- [Open Game Art](http://opengameart.org)
+
 # Marco Secchi # {#marco_secchi}
 
 - [Interacting with a GameObject in Fungus](http://www.marcosecchi.it/2016/11/26/interacting-with-a-gameobject-in-fungus/?lang=en)
