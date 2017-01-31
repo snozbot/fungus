@@ -14,7 +14,7 @@ namespace Fungus
     /// </summary>
     public class SaveMenu : MonoBehaviour 
     {
-        [Tooltip("Save Data Key: The string key used to store save game data in Player Prefs. If you have multiple games defined in the same Unity project, use a unique key for each one.")]
+        [Tooltip("The string key used to store save game data in Player Prefs. If you have multiple games defined in the same Unity project, use a unique key for each one.")]
         [SerializeField] protected string saveDataKey = FungusConstants.DefaultSaveDataKey;
 
         [Tooltip("Automatically load the most recently saved game on startup")]
@@ -174,6 +174,11 @@ namespace Fungus
         }
 
         #region Public methods
+
+        /// <summary>
+        /// Gets the string key used to store save game data in Player Prefs. 
+        /// </summary>
+        public virtual string SaveDataKey { get { return saveDataKey; } }
 
         /// <summary>
         /// Toggles the expanded / collapsed state of the save menu.
