@@ -7,6 +7,7 @@ If you've created an article or video about %Fungus let us know on the forum and
 
 - [Global Game Jam resources list](http://globalgamejam.org/jammer-resources)
 - [Open Game Art](http://opengameart.org)
+- [Choice of Games design articles](https://www.choiceofgames.com/category/blog/game-design)
 
 # Marco Secchi # {#marco_secchi}
 
