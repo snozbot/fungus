@@ -15,6 +15,7 @@ public class NarrativeTests : Command
 	public enum TestType
 	{
 		Show,
+        ShowCharacter,
 		Hide,
 		Replace,
 		MoveToFront,
@@ -75,6 +76,9 @@ public class NarrativeTests : Command
 		case TestType.Show:
 			TestShow();
 			break;
+        case TestType.ShowCharacter:
+            TestShowCharacter();
+            break;
 		case TestType.Hide:
 			TestHide();
 			break;
@@ -118,8 +122,24 @@ public class NarrativeTests : Command
 		}
 	}
 
-	// Test hiding a character
-	protected virtual void TestHide()
+    // Test showing multiple characters
+    protected virtual void TestShowCharacter()
+    {
+        GameObject johnGO = stage.transform.Find("Canvas/JohnCharacter").gameObject;
+        
+        Image johnImage = johnGO.GetComponent<Image>();
+        if (johnImage.color.a == 1.0 && johnGO != null)
+        {
+            Pass();
+        }
+        else
+        {
+            Fail("Character alpha is not zero or character missing " + johnImage.color.a);
+        }
+    }
+
+    // Test hiding a character
+    protected virtual void TestHide()
 	{
 		GameObject johnGO = stage.transform.Find("Canvas/JohnCharacter").gameObject;
 

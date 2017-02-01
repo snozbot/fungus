@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startDebugServer: 1
+  debugServerPort: 41912
 --- !u!114 &66556863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,7 +737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &215354033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,6 +775,7 @@ Transform:
   - {fileID: 1808696925}
   - {fileID: 66556860}
   - {fileID: 1740854159}
+  - {fileID: 650831550}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1063,6 +1066,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &650831549
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 650831550}
+  - component: {fileID: 650831551}
+  m_Layer: 0
+  m_Name: JohnCharacter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &650831550
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: b20518d45890e4be59ba82946f88026c, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 650831549}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 215354034}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &650831551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: b20518d45890e4be59ba82946f88026c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 650831549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: John
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
+  soundEffect: {fileID: 0}
+  portraits:
+  - {fileID: 21300000, guid: 58bfb145092302e4083ef8a9e4eeb576, type: 3}
+  - {fileID: 21300000, guid: 820bab66bb5a044ec961ba8ee3b045cc, type: 3}
+  portraitsFace: 0
+  setSayDialog: {fileID: 0}
+  description: 
 --- !u!1 &750318400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1607,6 +1660,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba19c26c1ba7243d2b57ebc4329cc7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startDebugServer: 1
+  debugServerPort: 41912
 --- !u!114 &1086658922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2021,6 +2076,12 @@ GameObject:
   - component: {fileID: 1286795386}
   - component: {fileID: 1286795393}
   - component: {fileID: 1286795366}
+  - component: {fileID: 1286795399}
+  - component: {fileID: 1286795398}
+  - component: {fileID: 1286795394}
+  - component: {fileID: 1286795395}
+  - component: {fileID: 1286795397}
+  - component: {fileID: 1286795396}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -2104,6 +2165,7 @@ MonoBehaviour:
   - {fileID: 1286795356}
   - {fileID: 1286795382}
   - {fileID: 1286795383}
+  - {fileID: 1286795394}
   - {fileID: 1286795352}
   - {fileID: 1286795367}
   - {fileID: 1286795364}
@@ -2121,11 +2183,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: -3.115326, y: 2.0768204}
+  scrollPos: {x: 95.66089, y: 75.91023}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.96299773
+  zoom: 0.662998
   scrollViewRect:
     serializedVersion: 2
     x: -351
@@ -2133,9 +2195,9 @@ MonoBehaviour:
     width: 1563
     height: 1097.6444
   selectedBlocks:
-  - {fileID: 1286795370}
+  - {fileID: 1286795399}
   selectedCommands:
-  - {fileID: 1286795392}
+  - {fileID: 1286795398}
   variables:
   - {fileID: 1286795390}
   - {fileID: 1286795386}
@@ -2191,7 +2253,7 @@ MonoBehaviour:
     check (active == true)
 
 
-    local john = canvas.Find("John")
+    local john = canvas.Find("JohnCharacter")
 
     check (john != nil)
 
@@ -2259,8 +2321,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 338.07687
-    y: 167.1902
+    x: 340.96286
+    y: 194.60736
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -2345,7 +2407,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 337.1537
     y: 15.616764
-    width: 120
+    width: 124
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2408,7 +2470,7 @@ MonoBehaviour:
   luaScript: '-- Check John and Sherlock images exist
 
 
-    local john = canvas.Find("John")
+    local john = canvas.Find("JohnCharacter")
 
     check (john != nil)
 
@@ -2452,8 +2514,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 341.79718
-    y: 269.10748
+    x: 343.2402
+    y: 276.32227
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -2480,8 +2542,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 340.11526
-    y: 215.03644
+    x: 341.49295
+    y: 233.7954
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -2542,7 +2604,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 482.65918
     y: 214.0749
-    width: 131
+    width: 137
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2601,7 +2663,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 626.42365
     y: 214.0749
-    width: 153
+    width: 161
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2751,7 +2813,7 @@ MonoBehaviour:
   indentLevel: 0
   luaEnvironment: {fileID: 66556862}
   luaFile: {fileID: 0}
-  luaScript: 'local john = canvas.Find("John")
+  luaScript: 'local john = canvas.Find("JohnCharacter")
 
     check (john != nil)'
   runAsCoroutine: 1
@@ -2800,9 +2862,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 336.7791
-    y: 114.267044
-    width: 120
+    x: 341.1081
+    y: 109.93802
+    width: 122
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -2847,7 +2909,7 @@ MonoBehaviour:
   indentLevel: 0
   display: 2
   stage: {fileID: 0}
-  character: {fileID: 0}
+  character: {fileID: 650831551}
   replacedCharacter: {fileID: 0}
   portrait: {fileID: 0}
   offset: 0
@@ -2933,6 +2995,120 @@ MonoBehaviour:
   runAsCoroutine: 1
   waitUntilFinished: 1
   returnVariable: {fileID: 0}
+--- !u!114 &1286795394
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1286795350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 55
+  indentLevel: 0
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 1286795399}
+  startLabel:
+    stringRef: {fileID: 0}
+    stringVal: 
+  startIndex: 0
+  callMode: 2
+--- !u!114 &1286795395
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1286795350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43af40f40b38a4deda25df4b1a6cef63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 56
+  indentLevel: 0
+  testType: 2
+--- !u!114 &1286795396
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1286795350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43af40f40b38a4deda25df4b1a6cef63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 58
+  indentLevel: 0
+  testType: 1
+--- !u!114 &1286795397
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1286795350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f608b8c9fb3044200aac956492d8d586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 57
+  indentLevel: 0
+  conversationText:
+    stringRef: {fileID: 0}
+    stringVal: 'john bored: show {w=1.0}{x}'
+--- !u!114 &1286795398
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1286795350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f608b8c9fb3044200aac956492d8d586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 50
+  indentLevel: 0
+  conversationText:
+    stringRef: {fileID: 0}
+    stringVal: 'john bored: hi {x}
+
+      john hide:
+
+      john: hide1 {x}
+
+      john: hide2 {w=1.0}{x}'
+--- !u!114 &1286795399
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1286795350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 339.6326
+    y: 154.78741
+    width: 121
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 54
+  blockName: Portrait Hide
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1286795398}
+  - {fileID: 1286795395}
+  - {fileID: 1286795397}
+  - {fileID: 1286795396}
 --- !u!1 &1349948625
 GameObject:
   m_ObjectHideFlags: 0
@@ -3525,7 +3701,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
