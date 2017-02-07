@@ -327,7 +327,17 @@ namespace Fungus
                     sayDialog.SetCharacter(currentCharacter);
                 }
 
+                //Handle stage changes
                 var stage = Stage.GetActiveStage();
+
+                if (currentCharacter != null &&
+                    !currentCharacter.State.onScreen &&
+                    currentPortrait == null)
+                {
+                    // No call to show portrait of hidden character
+                    // so keep hidden
+                    item.Hide = true;
+                }
 
                 if (stage != null && currentCharacter != null &&
                     (currentPortrait != currentCharacter.State.portrait || 
