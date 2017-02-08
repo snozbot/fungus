@@ -503,7 +503,7 @@ namespace Fungus
                 yield break;
             }
 
-            string param = paramList[0];
+            string param = paramList[0].Replace("\\n", "\n");
 
             // Trim whitespace after a {wc} or {c} tag
             if (previousTokenType == TokenType.WaitForInputAndClear ||
