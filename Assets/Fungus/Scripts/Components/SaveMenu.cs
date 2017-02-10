@@ -43,15 +43,26 @@ namespace Fungus
 
         [Tooltip("The button which fast forwards the save history to the next save point.")]
         [SerializeField] protected Button forwardButton;
-
+        
         [Tooltip("The button which restarts the game.")]
         [SerializeField] protected Button restartButton;
+
+        [Tooltip("The button that shows conversation history.")]
+        [SerializeField] protected Button historyButton;
+
+        [Tooltip("A scrollable text field used for displaying conversation history.")]
+        [SerializeField] protected ScrollRect historyView;
+        
+        [Tooltip("The CanvasGroup containing the save menu buttons")]
+        [SerializeField] protected CanvasGroup historyMenuGroup;
 
         [Tooltip("A scrollable text field used for debugging the save data. The text field should be disabled in normal use.")]
         [SerializeField] protected ScrollRect debugView;
 
         protected static bool saveMenuActive = false;
 
+        protected static bool historyMenuActive = false;
+        
         protected AudioSource clickAudioSource;
 
         protected LTDescr fadeTween;
@@ -79,6 +90,11 @@ namespace Fungus
             if (!saveMenuActive)
             {
                 saveMenuGroup.alpha = 0f;
+            }
+
+            if (!historyMenuActive)
+            {
+                historyMenuGroup.alpha = 0f;
             }
 
             var saveManager = FungusManager.Instance.SaveManager;
@@ -140,6 +156,15 @@ namespace Fungus
                 if (debugText != null)
                 {
                     debugText.text = saveManager.GetDebugInfo();
+                }
+            }
+
+            if (historyView.enabled)
+            {
+                var historyText = historyView.GetComponentInChildren<Text>();
+                if (historyText != null)
+                {
+                    historyText.text = FungusManager.Instance.HistoryManager.GetPrettyHistory();
                 }
             }
         }
@@ -295,6 +320,36 @@ namespace Fungus
             SceneManager.LoadScene(saveManager.StartScene);
         }
 
+        public virtual void ToggleHistoryView()
+        {
+            if (fadeTween != null)
+            {
+                LeanTween.cancel(fadeTween.id, true);
+                fadeTween = null;
+            }
+
+            if (historyMenuActive)
+            {
+                // Switch menu off
+                LeanTween.value(historyMenuGroup.gameObject, historyMenuGroup.alpha, 0f, 0.5f).setOnUpdate((t) => {
+                    historyMenuGroup.alpha = t;
+                }).setOnComplete(() => {
+                    historyMenuGroup.alpha = 0f;
+                });
+            }
+            else
+            {
+                // Switch menu on
+                LeanTween.value(historyMenuGroup.gameObject, historyMenuGroup.alpha, 1f, 0.5f).setOnUpdate((t) => {
+                    historyMenuGroup.alpha = t;
+                }).setOnComplete(() => {
+                    historyMenuGroup.alpha = 1f;
+                });
+            }
+
+            historyMenuActive = !historyMenuActive;
+        }
+    
         #endregion
     }
 }
