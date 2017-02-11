@@ -14,7 +14,7 @@ namespace Fungus
     [RequireComponent(typeof(EventDispatcher))]
     #if UNITY_5_3_OR_NEWER
     [RequireComponent(typeof(SaveManager))]
-    [RequireComponent(typeof(HistoryManager))]
+    [RequireComponent(typeof(NarrativeLog))]
     #endif
     public sealed class FungusManager : MonoBehaviour
     {
@@ -29,7 +29,7 @@ namespace Fungus
             EventDispatcher = GetComponent<EventDispatcher>();
             #if UNITY_5_3_OR_NEWER
             SaveManager = GetComponent<SaveManager>();
-            HistoryManager = GetComponent<HistoryManager>();
+            NarrativeLog = GetComponent<NarrativeLog>();
             #endif
         }
 
@@ -72,7 +72,7 @@ namespace Fungus
         /// <summary>
         /// Gets the history manager singleton instance.
         /// </summary>
-        public HistoryManager HistoryManager { get; private set; }
+        public NarrativeLog NarrativeLog { get; private set; }
         
         #endif
 

@@ -435,7 +435,7 @@ namespace Fungus
         /// <param name="onComplete">Callback to execute when writing and player input have finished.</param>
         public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
         {
-            FungusManager.Instance.HistoryManager.AddLine(nameText.text, text);
+            FungusManager.Instance.NarrativeLog.AddLine(nameText.text, text);
             StartCoroutine(DoSay(text, clearPrevious, waitForInput, fadeWhenDone, stopVoiceover, voiceOverClip, onComplete));
         }
 
