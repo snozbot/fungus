@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 236109456}
   - component: {fileID: 236109455}
   m_Layer: 5
-  m_Name: HistoryView
+  m_Name: NarrativeLogView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -980,7 +980,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1809,10 +1809,8 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks:
-  - {fileID: 775007736}
-  selectedCommands:
-  - {fileID: 775007746}
+  selectedBlocks: []
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -3061,7 +3059,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3156,9 +3154,9 @@ MonoBehaviour:
   rewindButton: {fileID: 1752978368}
   forwardButton: {fileID: 1747792014}
   restartButton: {fileID: 854933977}
-  historyButton: {fileID: 1334503914}
-  historyView: {fileID: 236109459}
-  historyMenuGroup: {fileID: 236109455}
+  narrativeLogButton: {fileID: 1334503914}
+  narrativeLogView: {fileID: 236109459}
+  narrativeLogMenuGroup: {fileID: 236109455}
   debugView: {fileID: 1797755878}
 --- !u!224 &1155851445
 RectTransform:
@@ -3530,7 +3528,7 @@ GameObject:
   - component: {fileID: 1334503914}
   - component: {fileID: 1334503917}
   m_Layer: 5
-  m_Name: HistoryButton
+  m_Name: NarrativeLogButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3597,7 +3595,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1155851444}
-        m_MethodName: ToggleHistoryView
+        m_MethodName: ToggleNarrativeLogView
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4151,6 +4149,7 @@ GameObject:
   - component: {fileID: 1578342720}
   - component: {fileID: 1578342719}
   - component: {fileID: 1578342718}
+  - component: {fileID: 1578342721}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -4226,6 +4225,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!114 &1578342721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1578342716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 10
+    m_Right: 10
+    m_Top: 10
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
 --- !u!1 &1747792010
 GameObject:
   m_ObjectHideFlags: 0
@@ -4364,7 +4385,7 @@ GameObject:
   - component: {fileID: 1751880455}
   - component: {fileID: 1751880457}
   - component: {fileID: 1751880456}
-  - component: {fileID: 1751880458}
+  - component: {fileID: 1751880459}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -4386,10 +4407,10 @@ RectTransform:
   m_Father: {fileID: 1578342717}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.046000004, y: 0.8638016}
-  m_AnchorMax: {x: 0.961, y: 0.9455848}
-  m_AnchoredPosition: {x: -16.681557, y: 17.386902}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 302.53156}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1751880456
 MonoBehaviour:
@@ -4424,7 +4445,36 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: '<b>Lorem</b>
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+    deserunt mollit anim id est laborum.
+
+
+    <b>Ipsum</b>
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+    incididunt ut labore et dolore magna aliqua.
+
+
+    <b>Lorem</b>
+
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+    <b> Ipsum </b>
+
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 --- !u!222 &1751880457
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4432,7 +4482,7 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1751880454}
---- !u!114 &1751880458
+--- !u!114 &1751880459
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -4440,11 +4490,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1751880454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 2
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 352
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
 --- !u!1 &1752978364
 GameObject:
   m_ObjectHideFlags: 0

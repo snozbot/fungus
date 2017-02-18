@@ -45,11 +45,28 @@ namespace Fungus
             history = new NarrativeData();
         }
 
+        protected virtual void OnEnable()
+        {
+            SaveManagerSignals.OnSaveReset += OnSaveReset;
+        }
+
+        protected virtual void OnDisable()
+        {
+            SaveManagerSignals.OnSaveReset -= OnSaveReset;
+        }
+
+        protected virtual void OnSaveReset()
+        {
+            Clear();
+        }
+
+        #region Public Methods
+
         /// <summary>
         /// Add a line of dialog to the Narrative Log
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="text"></param>
+        /// <param name="name">Character Name</param>
+        /// <param name="text">Narrative Text</param>
         public void AddLine(string name, string text)
         {
             Line line = new Line();
@@ -59,7 +76,8 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Clear line history after reset
+        /// Clear all lines of the  narrative log
+        /// Usually used on restart
         /// </summary>
         public void Clear()
         {
@@ -84,7 +102,7 @@ namespace Fungus
         {
             string output = "";
 
-            for (int i = 0; i < history.lines.Count-1; i++)
+            for (int i = 0; i < history.lines.Count; i++)
             {
                 output += "<b>" + history.lines[i].name + "</b>\n";
                 output += history.lines[i].text + "\n\n";
@@ -105,5 +123,6 @@ namespace Fungus
             }
             history = JsonUtility.FromJson<NarrativeData>(narrativeData);
         }
+        #endregion
     }
 }

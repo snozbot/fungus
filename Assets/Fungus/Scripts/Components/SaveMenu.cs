@@ -48,20 +48,20 @@ namespace Fungus
         [SerializeField] protected Button restartButton;
 
         [Tooltip("The button that shows conversation history.")]
-        [SerializeField] protected Button historyButton;
+        [SerializeField] protected Button narrativeLogButton;
 
         [Tooltip("A scrollable text field used for displaying conversation history.")]
-        [SerializeField] protected ScrollRect historyView;
+        [SerializeField] protected ScrollRect narrativeLogView;
         
         [Tooltip("The CanvasGroup containing the save menu buttons")]
-        [SerializeField] protected CanvasGroup historyMenuGroup;
+        [SerializeField] protected CanvasGroup narrativeLogMenuGroup;
 
         [Tooltip("A scrollable text field used for debugging the save data. The text field should be disabled in normal use.")]
         [SerializeField] protected ScrollRect debugView;
 
         protected static bool saveMenuActive = false;
 
-        protected static bool historyMenuActive = false;
+        protected static bool narrativeLogActive = false;
         
         protected AudioSource clickAudioSource;
 
@@ -92,10 +92,13 @@ namespace Fungus
                 saveMenuGroup.alpha = 0f;
             }
 
-            if (!historyMenuActive)
+            if (!narrativeLogActive)
             {
-                historyMenuGroup.alpha = 0f;
+                narrativeLogMenuGroup.alpha = 0f;
             }
+
+            //Clear up the lorem ipsum
+            UpdateNarrativeLogText();
 
             var saveManager = FungusManager.Instance.SaveManager;
 
@@ -159,24 +162,18 @@ namespace Fungus
                 }
             }
 
-            if (historyView.enabled)
-            {
-                var historyText = historyView.GetComponentInChildren<Text>();
-                if (historyText != null)
-                {
-                    historyText.text = FungusManager.Instance.NarrativeLog.GetPrettyHistory();
-                }
-            }
         }
 
         protected virtual void OnEnable()
         {
             SaveManagerSignals.OnSavePointAdded += OnSavePointAdded;
+            WriterSignals.OnWriterState += OnWriterState;
         }
 
         protected virtual void OnDisable()
         {
             SaveManagerSignals.OnSavePointAdded -= OnSavePointAdded;
+            WriterSignals.OnWriterState -= OnWriterState;
         }
 
         protected virtual void OnSavePointAdded(string savePointKey, string savePointDescription)
@@ -190,9 +187,25 @@ namespace Fungus
             }
         }
 
-        protected virtual void OnSaveReset()
+        protected virtual void OnWriterState(Writer writer, WriterState writerState)
         {
-            var saveManager = FungusManager.Instance.SaveManager;
+            if (writerState == WriterState.End || writerState == WriterState.Start)
+            {
+                UpdateNarrativeLogText();
+            }
+        }
+
+        protected void UpdateNarrativeLogText()
+        {
+            if (narrativeLogView.enabled)
+            {
+                Debug.Log("Update NarrativeLog");
+                var historyText = narrativeLogView.GetComponentInChildren<Text>();
+                if (historyText != null)
+                {
+                    historyText.text = FungusManager.Instance.NarrativeLog.GetPrettyHistory();
+                }
+            }
         }
 
         protected void PlayClickSound()
@@ -225,7 +238,7 @@ namespace Fungus
             if (saveMenuActive)
             {
                 // Switch menu off
-                LeanTween.value(saveMenuGroup.gameObject, saveMenuGroup.alpha, 0f, 0.5f).setOnUpdate( (t) => { 
+                LeanTween.value(saveMenuGroup.gameObject, saveMenuGroup.alpha, 0f, 0.2f).setOnUpdate( (t) => {
                     saveMenuGroup.alpha = t;
                 }).setOnComplete( () => {
                     saveMenuGroup.alpha = 0f;
@@ -234,7 +247,7 @@ namespace Fungus
             else
             {
                 // Switch menu on
-                LeanTween.value(saveMenuGroup.gameObject, saveMenuGroup.alpha, 1f, 0.5f).setOnUpdate( (t) => { 
+                LeanTween.value(saveMenuGroup.gameObject, saveMenuGroup.alpha, 1f, 0.2f).setOnUpdate( (t) => {
                     saveMenuGroup.alpha = t;
                 }).setOnComplete( () => {
                     saveMenuGroup.alpha = 1f;
@@ -270,6 +283,8 @@ namespace Fungus
                 PlayClickSound();
                 saveManager.Load(saveDataKey);
             }
+
+            UpdateNarrativeLogText();
         }
 
         /// <summary>
@@ -284,6 +299,8 @@ namespace Fungus
             {
                 saveManager.Rewind();
             }
+
+            UpdateNarrativeLogText();
         }
 
         /// <summary>
@@ -306,7 +323,6 @@ namespace Fungus
         public virtual void Restart()
         {
             var saveManager = FungusManager.Instance.SaveManager;
-            var narrativeLog = FungusManager.Instance.NarrativeLog;
             if (string.IsNullOrEmpty(saveManager.StartScene))
             {
                 Debug.LogError("No start scene specified");
@@ -317,7 +333,11 @@ namespace Fungus
 
             // Reset the Save History for a new game
             saveManager.ClearHistory();
-            narrativeLog.Clear();
+
+            // Update and clear narrative log
+            SaveManagerSignals.DoSaveReset();
+            UpdateNarrativeLogText();
+            
             if (restartDeletesSave)
             {
                 saveManager.Delete(saveDataKey);
@@ -326,7 +346,7 @@ namespace Fungus
             SceneManager.LoadScene(saveManager.StartScene);
         }
 
-        public virtual void ToggleHistoryView()
+        public virtual void ToggleNarrativeLogView()
         {
             if (fadeTween != null)
             {
@@ -334,26 +354,26 @@ namespace Fungus
                 fadeTween = null;
             }
 
-            if (historyMenuActive)
+            if (narrativeLogActive)
             {
                 // Switch menu off
-                LeanTween.value(historyMenuGroup.gameObject, historyMenuGroup.alpha, 0f, 0.5f).setOnUpdate((t) => {
-                    historyMenuGroup.alpha = t;
+                LeanTween.value(narrativeLogMenuGroup.gameObject, narrativeLogMenuGroup.alpha, 0f, 0.2f).setOnUpdate((t) => {
+                    narrativeLogMenuGroup.alpha = t;
                 }).setOnComplete(() => {
-                    historyMenuGroup.alpha = 0f;
+                    narrativeLogMenuGroup.alpha = 0f;
                 });
             }
             else
             {
                 // Switch menu on
-                LeanTween.value(historyMenuGroup.gameObject, historyMenuGroup.alpha, 1f, 0.5f).setOnUpdate((t) => {
-                    historyMenuGroup.alpha = t;
+                LeanTween.value(narrativeLogMenuGroup.gameObject, narrativeLogMenuGroup.alpha, 1f, 0.2f).setOnUpdate((t) => {
+                    narrativeLogMenuGroup.alpha = t;
                 }).setOnComplete(() => {
-                    historyMenuGroup.alpha = 1f;
+                    narrativeLogMenuGroup.alpha = 1f;
                 });
             }
 
-            historyMenuActive = !historyMenuActive;
+            narrativeLogActive = !narrativeLogActive;
         }
     
         #endregion
