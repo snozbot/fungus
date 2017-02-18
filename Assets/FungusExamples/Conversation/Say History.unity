@@ -2984,6 +2984,7 @@ GameObject:
   - component: {fileID: 1155851441}
   - component: {fileID: 1155851440}
   - component: {fileID: 1155851446}
+  - component: {fileID: 1155851447}
   m_Layer: 5
   m_Name: SaveMenu
   m_TagString: Untagged
@@ -3154,9 +3155,6 @@ MonoBehaviour:
   rewindButton: {fileID: 1752978368}
   forwardButton: {fileID: 1747792014}
   restartButton: {fileID: 854933977}
-  narrativeLogButton: {fileID: 1334503914}
-  narrativeLogView: {fileID: 236109459}
-  narrativeLogMenuGroup: {fileID: 236109455}
   debugView: {fileID: 1797755878}
 --- !u!224 &1155851445
 RectTransform:
@@ -3202,6 +3200,20 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
+--- !u!114 &1155851447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1155851439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76befdada4ed8754db75aeb0b0d42976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  narrativeLogButton: {fileID: 1334503914}
+  narrativeLogView: {fileID: 236109459}
+  narrativeLogMenuGroup: {fileID: 236109455}
 --- !u!1 &1173948434
 GameObject:
   m_ObjectHideFlags: 0
@@ -3594,7 +3606,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1155851444}
+      - m_Target: {fileID: 1155851447}
         m_MethodName: ToggleNarrativeLogView
         m_Mode: 1
         m_Arguments:

@@ -17,7 +17,7 @@ namespace Fungus
     {
         protected const string FlowchartDataKey = "FlowchartData";
 
-        protected const string NarrativeLogKey = "HistoryData";
+        protected const string NarrativeLogKey = "NarrativeLogData";
 
         [Tooltip("A list of Flowchart objects whose variables will be encoded in the save data. Boolean, Integer, Float and String variables are supported.")]
         [SerializeField] protected List<Flowchart> flowcharts = new List<Flowchart>();
@@ -37,8 +37,8 @@ namespace Fungus
                 var saveDataItem = SaveDataItem.Create(FlowchartDataKey, JsonUtility.ToJson(flowchartData));
                 saveDataItems.Add(saveDataItem);
 
-                var historyDataItem = SaveDataItem.Create(NarrativeLogKey, FungusManager.Instance.NarrativeLog.GetJsonHistory());
-                saveDataItems.Add(historyDataItem);
+                var narrativeLogItem = SaveDataItem.Create(NarrativeLogKey, FungusManager.Instance.NarrativeLog.GetJsonHistory());
+                saveDataItems.Add(narrativeLogItem);
             }
         }
 

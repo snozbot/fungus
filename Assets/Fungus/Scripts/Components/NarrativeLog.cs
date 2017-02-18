@@ -45,21 +45,6 @@ namespace Fungus
             history = new NarrativeData();
         }
 
-        protected virtual void OnEnable()
-        {
-            SaveManagerSignals.OnSaveReset += OnSaveReset;
-        }
-
-        protected virtual void OnDisable()
-        {
-            SaveManagerSignals.OnSaveReset -= OnSaveReset;
-        }
-
-        protected virtual void OnSaveReset()
-        {
-            Clear();
-        }
-
         #region Public Methods
 
         /// <summary>
