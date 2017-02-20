@@ -133,6 +133,9 @@ namespace Fungus
                 StringVariable lhs = (variable as StringVariable);
                 string rhs = stringData.Value;
 
+                var flowchart = GetFlowchart();
+                rhs = flowchart.SubstituteVariables(rhs);
+
                 switch (setOperator)
                 {
                     default:
