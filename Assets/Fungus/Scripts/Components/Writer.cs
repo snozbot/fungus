@@ -260,8 +260,6 @@ namespace Fungus
 
             TokenType previousTokenType = TokenType.Invalid;
 
-            visibleCharacterCount = 0;
-
             for (int i = 0; i < tokens.Count; ++i)
             {
                 // Pause between tokens if Paused is set
@@ -901,6 +899,7 @@ namespace Fungus
             if (clear)
             {
                 this.Text = "";
+                visibleCharacterCount = 0;
             }
 
             if (!HasTextObject())
