@@ -149,20 +149,26 @@ namespace Fungus
             if (narrativeLogActive)
             {
                 // Switch menu off
-                LeanTween.value(narrativeLogMenuGroup.gameObject, narrativeLogMenuGroup.alpha, 0f, 0.2f).setOnUpdate((t) => {
+                LeanTween.value(narrativeLogMenuGroup.gameObject, narrativeLogMenuGroup.alpha, 0f, .2f)
+                    .setEase(LeanTweenType.easeOutQuint)
+                    .setOnUpdate((t) => {
                     narrativeLogMenuGroup.alpha = t;
                 }).setOnComplete(() => {
                     narrativeLogMenuGroup.alpha = 0f;
                 });
+                
             }
             else
             {
                 // Switch menu on
-                LeanTween.value(narrativeLogMenuGroup.gameObject, narrativeLogMenuGroup.alpha, 1f, 0.2f).setOnUpdate((t) => {
+                LeanTween.value(narrativeLogMenuGroup.gameObject, narrativeLogMenuGroup.alpha, 1f, .2f)
+                    .setEase(LeanTweenType.easeOutQuint)
+                    .setOnUpdate((t) => {
                     narrativeLogMenuGroup.alpha = t;
                 }).setOnComplete(() => {
                     narrativeLogMenuGroup.alpha = 1f;
                 });
+                
             }
 
             narrativeLogActive = !narrativeLogActive;
