@@ -83,11 +83,14 @@ namespace Fungus
         /// Show previous lines for display purposes
         /// </summary>
         /// <returns></returns>
-        public string GetPrettyHistory()
+        public string GetPrettyHistory(bool previousOnly = false)
         {
             string output = "";
+            int count;
 
-            for (int i = 0; i < history.lines.Count; i++)
+            count = previousOnly ? history.lines.Count - 1: history.lines.Count;
+
+            for (int i = 0; i < count; i++)
             {
                 output += "<b>" + history.lines[i].name + "</b>\n";
                 output += history.lines[i].text + "\n\n";

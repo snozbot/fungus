@@ -1706,7 +1706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76befdada4ed8754db75aeb0b0d42976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showLog: 0
+  showLog: 1
   previousLines: 1
   narrativeLogView: {fileID: 114162492929892552}
   narrativeLogMenuGroup: {fileID: 225545614455694522}

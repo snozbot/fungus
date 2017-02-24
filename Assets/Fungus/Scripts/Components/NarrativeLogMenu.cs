@@ -76,6 +76,7 @@ namespace Fungus
             WriterSignals.OnWriterState += OnWriterState;
             SaveManagerSignals.OnSavePointLoaded += OnSavePointLoaded;
             SaveManagerSignals.OnSaveReset += OnSaveReset;
+            BlockSignals.OnBlockEnd += OnBlockEnd;
         }
                 
         protected virtual void OnDisable()
@@ -83,6 +84,7 @@ namespace Fungus
             WriterSignals.OnWriterState -= OnWriterState;
             SaveManagerSignals.OnSavePointLoaded -= OnSavePointLoaded;
             SaveManagerSignals.OnSaveReset -= OnSaveReset;
+            BlockSignals.OnBlockEnd -= OnBlockEnd;
         }
 
         protected virtual void OnWriterState(Writer writer, WriterState writerState)
@@ -104,6 +106,15 @@ namespace Fungus
             UpdateNarrativeLogText();
         }
 
+        protected virtual void OnBlockEnd (Block block)
+        {
+            // At block end update to get the last line of the block
+            bool defaultPreviousLines = previousLines;
+            previousLines = false;
+            UpdateNarrativeLogText();
+            previousLines = defaultPreviousLines;
+        }
+
         protected void UpdateNarrativeLogText()
         {
             if (narrativeLogView.enabled)
@@ -112,7 +123,7 @@ namespace Fungus
                 var historyText = narrativeLogView.GetComponentInChildren<Text>();
                 if (historyText != null)
                 {
-                    historyText.text = FungusManager.Instance.NarrativeLog.GetPrettyHistory();
+                    historyText.text = FungusManager.Instance.NarrativeLog.GetPrettyHistory(previousLines);
                 }
             }
         }
