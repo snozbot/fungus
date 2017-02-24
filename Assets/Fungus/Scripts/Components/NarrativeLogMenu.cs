@@ -14,8 +14,11 @@ namespace Fungus
     /// </summary>
     public class NarrativeLogMenu : MonoBehaviour 
     {
-        [Tooltip("The button that shows conversation history.")]
-        [SerializeField] protected Button narrativeLogButton;
+        [Tooltip("Show the Narrative Log Menu")]
+        [SerializeField] protected bool showLog = true;
+
+        [Tooltip("Show previous lines instead of previous and current")]
+        [SerializeField] protected bool previousLines = true;
 
         [Tooltip("A scrollable text field used for displaying conversation history.")]
         [SerializeField] protected ScrollRect narrativeLogView;
@@ -33,18 +36,27 @@ namespace Fungus
 
         protected virtual void Awake()
         {
-            // Only one instance of NarrativeLogMenu may exist
-            if (instance != null)
+            if (showLog)
             {
-                Destroy(gameObject);
-                return;
+                // Only one instance of NarrativeLogMenu may exist
+                if (instance != null)
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+
+                instance = this;
+
+                GameObject.DontDestroyOnLoad(this);
+
+                clickAudioSource = GetComponent<AudioSource>();
             }
-
-            instance = this;
-
-            GameObject.DontDestroyOnLoad(this);
-
-            clickAudioSource = GetComponent<AudioSource>();
+            else
+            {
+                GameObject logView = GameObject.Find("NarrativeLogView");
+                logView.SetActive(false);
+                this.enabled = false;
+            }
         }
 
         protected virtual void Start()
