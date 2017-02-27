@@ -20,7 +20,9 @@ namespace Fungus
             /// <summary> Use the parent Block's name as the Save Point Key. N.B. If you change the Block name later it will break the save file!</summary>
             UseBlockName,
             /// <summary> Use a custom string for the key. This allows you to use multiple Save Points in the same block and save files will still work if the Block is renamed later. </summary>
-            Custom
+            Custom,
+            /// <summary> Use both the parent Block's name as well as a custom string for the Save Point key. This allows you to use your custom key every block, provided your Block names are unique./// </summary>
+            Both
         }
 
         /// <summary>
@@ -42,6 +44,10 @@ namespace Fungus
 
         [Tooltip("A string key which uniquely identifies this save point.")]
         [SerializeField] protected string customKey = "";
+
+        [Tooltip("A string to seperate the block name and custom key when using KeyMode.Both.")]
+        [SerializeField]
+        protected string keySeparator = "_";
 
         [Tooltip("How the description for this Save Point is defined.")]
         [SerializeField] protected DescriptionMode descriptionMode = DescriptionMode.Timestamp;
@@ -72,6 +78,10 @@ namespace Fungus
                 if (keyMode == KeyMode.UseBlockName)
                 {
                     return ParentBlock.BlockName;
+                }
+                else if (keyMode == KeyMode.Both)
+                {
+                    return ParentBlock.BlockName + keySeparator + customKey;
                 }
                 else
                 {
@@ -123,6 +133,10 @@ namespace Fungus
             {
                 return "key: <Block Name>";
             }
+            else if (keyMode == KeyMode.Both)
+            {
+                return "key: <Block Name>" + keySeparator + customKey;
+            }
 
             return "key: " + customKey;
         }
@@ -135,7 +149,13 @@ namespace Fungus
         public override bool IsPropertyVisible(string propertyName)
         {
             if (propertyName == "customKey" &&
-                keyMode != KeyMode.Custom)
+                (keyMode != KeyMode.Custom && keyMode != KeyMode.Both))
+            {
+                return false;
+            }
+
+            if (propertyName == "keySeparator" &&
+                keyMode != KeyMode.Both)
             {
                 return false;
             }
