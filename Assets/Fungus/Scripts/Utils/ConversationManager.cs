@@ -10,6 +10,19 @@ using System.Text;
 namespace Fungus
 {
     /// <summary>
+    /// Locations where a character portrait can be displayed during a conversation.
+    /// </summary>
+    public enum PortraitLocation
+    {
+        /// <summary> An invalid portrait location.</summary>
+        Invalid,
+        /// <summary> Display the portrait inline with the story text.</summary>
+        Inline,
+        /// <summary> Display the portrait on the stage. </summary>
+        Stage
+    }
+
+    /// <summary>
     /// Helper class to manage parsing and executing the conversation format.
     /// </summary>
     public class ConversationManager
@@ -23,6 +36,7 @@ namespace Fungus
             public bool Hide { get; set; }
             public FacingDirection FacingDirection { get; set; }
             public bool Flip { get; set; }
+            public PortraitLocation PortraitLocation { get; set; }
         }
 
         protected Character[] characters;
@@ -158,12 +172,12 @@ namespace Fungus
             }
 
             // try to find the character param first, since we need to get its portrait
-            int characterIndex = -1;
             if (characters == null)
             {
                 PopulateCharacterCache();
             }
 
+            int characterIndex = -1;
             for (int i = 0; item.Character == null && i < sayParams.Length; i++)
             {
                 for (int j = 0; j < characters.Length; j++)
@@ -217,7 +231,33 @@ namespace Fungus
                     }
                 }
             }
-                
+
+            // Next see if we can find a portrait location (inline or onstage)
+            int portraitLocationIndex = -1;
+            if (item.Character != null)
+            {
+                for (int i = 0; i < sayParams.Length; i++)
+                {
+                    if (portraitLocationIndex == -1 &&
+                        item.Character != null &&
+                        i != characterIndex &&
+                        i != hideIndex &&
+                        i != flipIndex)
+                    {
+                        if (string.Compare(sayParams[i], "inline", true) == 0)
+                        {
+                            portraitLocationIndex = i;
+                            item.PortraitLocation = PortraitLocation.Inline;
+                        }
+                        else if (string.Compare(sayParams[i], "onstage", true) == 0)
+                        {
+                            portraitLocationIndex = i;
+                            item.PortraitLocation = PortraitLocation.Stage;
+                        }
+                    }
+                }
+            }
+
             // Next see if we can find a portrait for this character
             int portraitIndex = -1;
             if (item.Character != null)
@@ -225,10 +265,10 @@ namespace Fungus
                 for (int i = 0; i < sayParams.Length; i++)
                 {
                     if (item.Portrait == null && 
-                        item.Character != null &&
                         i != characterIndex && 
                         i != hideIndex &&
-                        i != flipIndex) 
+                        i != flipIndex &&
+                        i != portraitLocationIndex)
                     {
                         Sprite s = item.Character.GetPortrait(sayParams[i]);
                         if (s != null)
@@ -241,15 +281,18 @@ namespace Fungus
                 }
             }
 
-            // Next check if there's a position parameter
+
+            // Next check if there's a stage position parameter
             Stage stage = Stage.GetActiveStage();
             if (stage != null)
             {
                 for (int i = 0; i < sayParams.Length; i++)
                 {
                     if (i != characterIndex &&
+                        i != hideIndex &&
+                        i != flipIndex &&
                         i != portraitIndex &&
-                        i != hideIndex)
+                        i != portraitLocationIndex)
                     {
                         RectTransform r = stage.GetPosition(sayParams[i]);
                         if (r != null)
@@ -308,7 +351,20 @@ namespace Fungus
                     currentCharacter = item.Character;
                 }
 
-                currentPortrait = item.Portrait;
+                if (item.PortraitLocation != PortraitLocation.Invalid)
+                {
+                    //store the new portrait location on the character
+                    currentCharacter.PortraitLocation = item.PortraitLocation;
+                }
+
+                if (item.Portrait != null)
+                {
+                    currentPortrait = item.Portrait;
+                }
+                else
+                {
+                    if (currentCharacter != null) currentPortrait = currentCharacter.State.portrait;
+                }
                 currentPosition = item.Position;
 
                 var sayDialog = GetSayDialog(currentCharacter);
@@ -341,7 +397,7 @@ namespace Fungus
 
                 if (stage != null && currentCharacter != null &&
                     (currentPortrait != currentCharacter.State.portrait || 
-                        currentPosition != currentCharacter.State.position))
+                     currentPosition != currentCharacter.State.position))
                 {
                     var portraitOptions = new PortraitOptions(true);
                     portraitOptions.display = item.Hide ? DisplayType.Hide : DisplayType.Show;
@@ -350,8 +406,11 @@ namespace Fungus
                     portraitOptions.toPosition = currentPosition;
                     portraitOptions.portrait = currentPortrait;
 
-                    //Flip option - Flip the opposite direction the character is currently facing
-                    if (item.Flip) portraitOptions.facing = item.FacingDirection;
+                    // Flip option - Flip the opposite direction the character is currently facing
+                    if (item.Flip) 
+                    {
+                        portraitOptions.facing = item.FacingDirection;
+                    }
 
                     // Do a move tween if the character is already on screen and not yet at the specified position
                     if (currentCharacter.State.onScreen &&
@@ -370,10 +429,20 @@ namespace Fungus
                     }
                 }
 
-                if (stage == null &&
-                    currentPortrait != null)
+                if (currentCharacter != null
+                    && (stage == null || currentCharacter.PortraitLocation == PortraitLocation.Inline)
+                     && currentPortrait != null)
                 {
+                    if (currentCharacter.PortraitLocation == PortraitLocation.Inline)
+                    {
+                        stage.Hide(currentCharacter);
+                    }
                     sayDialog.SetCharacterImage(currentPortrait);
+                }
+
+                if ( item.PortraitLocation == PortraitLocation.Stage)
+                {
+                    sayDialog.SetCharacterImage(null);
                 }
 
                 previousCharacter = currentCharacter;
