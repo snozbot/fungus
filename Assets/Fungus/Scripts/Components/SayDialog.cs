@@ -147,9 +147,15 @@ namespace Fungus
                 // Character image is hidden by default.
                 SetCharacterImage(null);
             }
+        }
 
+        protected void OnEnable()
+        {
+            // We need to update the cached list every time the Say Dialog is enabled
+            // due to an initialization order issue after loading scenes.
             stringSubstituter.CacheSubstitutionHandlers();
         }
+
 
         protected virtual void LateUpdate()
         {
