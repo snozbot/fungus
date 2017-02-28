@@ -1,4 +1,4 @@
-==Author==
+﻿==Author==
 [mailto:schoen@defectivestudios.com Matt Schoen] of [http://www.defectivestudios.com Defective Studios]
 
 ==Download==
