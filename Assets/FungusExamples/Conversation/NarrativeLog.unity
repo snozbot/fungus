@@ -1687,8 +1687,8 @@ GameObject:
   - component: {fileID: 691674165}
   - component: {fileID: 691674168}
   - component: {fileID: 691674167}
-  - component: {fileID: 691674166}
   - component: {fileID: 691674169}
+  - component: {fileID: 691674166}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -1703,7 +1703,7 @@ RectTransform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 691674164}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1712,28 +1712,32 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -0.000030517578}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 338, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &691674166
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114143363685304078, guid: bd2b99773f3e0489aae9f9b5053ad360,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 691674164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: 352
-  m_PreferredHeight: -1
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
+  m_Padding:
+    m_Left: 10
+    m_Right: 10
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 100, y: 100}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 1
+  m_ConstraintCount: 1
 --- !u!114 &691674167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1807,7 +1811,8 @@ CanvasRenderer:
 --- !u!114 &691674169
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_PrefabParentObject: {fileID: 114798629268810940, guid: bd2b99773f3e0489aae9f9b5053ad360,
+    type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 691674164}
   m_Enabled: 1
@@ -1815,7 +1820,7 @@ MonoBehaviour:
   m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
+  m_HorizontalFit: 0
   m_VerticalFit: 2
 --- !u!1 &734092205
 GameObject:
@@ -2013,6 +2018,7 @@ GameObject:
   - component: {fileID: 775007749}
   - component: {fileID: 775007740}
   - component: {fileID: 775007739}
+  - component: {fileID: 775007742}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -2047,7 +2053,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 775007736}
   selectedCommands:
-  - {fileID: 775007749}
+  - {fileID: 775007742}
   variables: []
   description: 
   stepPause: 0
@@ -2072,11 +2078,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 1
   indentLevel: 0
-  storyText: '{b}After Save 1!{/b}{w}
+  storyText: 'After Save 1!
 
-    {color=Blue}What do we do now?{/color}
+    {b}This is what different types {size=30}of text would look like{/size}{/b}
 
-    {flash=0.5}On to the next save!'
+    {color=red}And different colors.{/color}
+
+    {vpunch=10,0.5}BAM!'
   description: 
   character: {fileID: 1021439244}
   portrait: {fileID: 0}
@@ -2115,6 +2123,7 @@ MonoBehaviour:
   commandList:
   - {fileID: 775007746}
   - {fileID: 775007735}
+  - {fileID: 775007742}
   - {fileID: 775007748}
   - {fileID: 775007745}
   - {fileID: 775007747}
@@ -2211,6 +2220,31 @@ MonoBehaviour:
   itemId: 6
   indentLevel: 0
   storyText: After Save 4!
+  description: 
+  character: {fileID: 1021439244}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &775007742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 775007733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 19
+  indentLevel: 0
+  storyText: '{vpunch=10,0.5}BAM!'
   description: 
   character: {fileID: 1021439244}
   portrait: {fileID: 0}
@@ -2349,29 +2383,23 @@ MonoBehaviour:
     stringRef: {fileID: 0}
     stringVal: 'john: After Save 5!
 
-      Hope everyone enjoyed my listing of saves!
+      And
 
-      Putting
-
-      some
-
-      extra
-
-      space
-
-      here
+      now
 
       to
 
       test
 
+      the
+
       scrolling
 
       of
 
-      the
+      this
 
-      window.'
+      component.'
 --- !u!1 &794363962
 GameObject:
   m_ObjectHideFlags: 0
@@ -4086,7 +4114,7 @@ GameObject:
   - component: {fileID: 1815104319}
   - component: {fileID: 1815104318}
   - component: {fileID: 1815104317}
-  - component: {fileID: 1815104316}
+  - component: {fileID: 1815104320}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -4114,29 +4142,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &1815104316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114198143241251030, guid: bd2b99773f3e0489aae9f9b5053ad360,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1815104314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 10
-    m_Right: 10
-    m_Top: 10
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 0
 --- !u!114 &1815104317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4184,7 +4189,26 @@ MonoBehaviour:
   m_Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 0
+  m_ShowMaskGraphic: 1
+--- !u!114 &1815104320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114840705241243790, guid: bd2b99773f3e0489aae9f9b5053ad360,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1815104314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
 --- !u!1 &1874761861
 GameObject:
   m_ObjectHideFlags: 0
@@ -4199,6 +4223,7 @@ GameObject:
   - component: {fileID: 1874761864}
   - component: {fileID: 1874761863}
   - component: {fileID: 1874761862}
+  - component: {fileID: 1874761868}
   m_Layer: 5
   m_Name: NarrativeLogView
   m_TagString: Untagged
@@ -4289,10 +4314,10 @@ RectTransform:
   m_Father: {fileID: 1676011172}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 226, y: 65}
-  m_SizeDelta: {x: -532, y: -190}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 687.5, y: -195}
+  m_SizeDelta: {x: 391, y: 330}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1874761867
 MonoBehaviour:
@@ -4326,6 +4351,21 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.ScrollRect+ScrollRectEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1874761868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114753562748590582, guid: bd2b99773f3e0489aae9f9b5053ad360,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1874761861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1875376873
 GameObject:
   m_ObjectHideFlags: 0
@@ -4378,7 +4418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -4405,8 +4445,8 @@ MonoBehaviour:
   m_HandleRect: {fileID: 282981322}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.6864908
-  m_NumberOfSteps: 5
+  m_Size: 0.59707195
+  m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4631,9 +4671,9 @@ RectTransform:
   m_Father: {fileID: 1874761866}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -329.51}
   m_SizeDelta: {x: 0, y: 20}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &2046472530
