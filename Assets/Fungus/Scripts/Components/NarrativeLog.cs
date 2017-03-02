@@ -38,6 +38,13 @@ namespace Fungus
     public class NarrativeLog : MonoBehaviour
     {
 
+        /// <summary>
+        /// NarrativeAdded signal. Sent when a line is added.
+        /// </summary>
+        public static event NarrativeAddedHandler OnNarrativeAdded;
+        public delegate void NarrativeAddedHandler();
+        public static void DoNarrativeAdded() { if (OnNarrativeAdded != null) OnNarrativeAdded(); }
+
         NarrativeData history;
 
         protected virtual void Awake()
@@ -45,8 +52,27 @@ namespace Fungus
             history = new NarrativeData();
         }
 
-        #region Public Methods
+        protected virtual void OnEnable()
+        {
+            WriterSignals.OnWriterState += OnWriterState;
+        }
 
+        protected virtual void OnDisable()
+        {
+            WriterSignals.OnWriterState -= OnWriterState;
+        }
+
+        protected virtual void OnWriterState(Writer writer, WriterState writerState)
+        {
+            if (writerState == WriterState.End)
+            {
+                AddLine(SayDialog.GetSayDialog().NameText.text,
+                    SayDialog.GetSayDialog().StoryText.text);
+            }
+        }
+
+        #region Public Methods
+        
         /// <summary>
         /// Add a line of dialog to the Narrative Log
         /// </summary>
@@ -58,6 +84,7 @@ namespace Fungus
             line.name = name;
             line.text = text;
             history.lines.Add(line);
+            DoNarrativeAdded();
         }
 
         /// <summary>

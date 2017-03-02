@@ -2033,7 +2033,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 775007736}
   selectedCommands:
-  - {fileID: 775007749}
+  - {fileID: 775007735}
   variables: []
   description: 
   stepPause: 0
@@ -2058,7 +2058,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 1
   indentLevel: 0
-  storyText: After Save 1!
+  storyText: '{b}After Save 1!{/b}{w}
+
+    {color=Blue}What do we do now?{/color}
+
+    {flash=0.5}On to the next save!'
   description: 
   character: {fileID: 1021439244}
   portrait: {fileID: 0}
@@ -4365,7 +4369,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 282981322}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.98689735
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

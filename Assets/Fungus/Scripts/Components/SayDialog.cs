@@ -25,6 +25,7 @@ namespace Fungus
 
         [Tooltip("The name text UI object")]
         [SerializeField] protected Text nameText;
+        public virtual Text NameText { get { return nameText; } }
 
         [Tooltip("The story text UI object")]
         [SerializeField] protected Text storyText;
@@ -435,7 +436,6 @@ namespace Fungus
         /// <param name="onComplete">Callback to execute when writing and player input have finished.</param>
         public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
         {
-            FungusManager.Instance.NarrativeLog.AddLine(nameText.text, text);
             StartCoroutine(DoSay(text, clearPrevious, waitForInput, fadeWhenDone, stopVoiceover, voiceOverClip, onComplete));
         }
 
