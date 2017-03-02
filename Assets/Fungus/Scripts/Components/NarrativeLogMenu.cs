@@ -131,6 +131,9 @@ namespace Fungus
                 {
                     historyText.text = FungusManager.Instance.NarrativeLog.GetPrettyHistory();
                 }
+                Canvas.ForceUpdateCanvases();
+                narrativeLogView.verticalNormalizedPosition = 0f;
+                Canvas.ForceUpdateCanvases();
             }
         }
 
