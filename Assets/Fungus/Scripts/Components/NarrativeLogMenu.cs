@@ -126,7 +126,6 @@ namespace Fungus
         {
             if (narrativeLogView.enabled)
             {
-                Debug.Log("Update NarrativeLog");
                 var historyText = narrativeLogView.GetComponentInChildren<Text>();
                 if (historyText != null)
                 {
