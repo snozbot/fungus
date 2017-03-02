@@ -20,6 +20,9 @@ namespace Fungus
         [Tooltip("Dim portraits when a character is not speaking.")]
         [SerializeField] protected bool dimPortraits;
 
+        [Tooltip("Choose a dimColor")]
+        [SerializeField] protected Color dimColor =new Color(0.5f, 0.5f, 0.5f, 1f);
+
         [Tooltip("Duration for fading character portraits in / out.")]
         [SerializeField] protected float fadeDuration = 0.5f;
 
@@ -95,6 +98,11 @@ namespace Fungus
         /// Dim portraits when a character is not speaking.
         /// </summary>
         public virtual bool DimPortraits { get { return dimPortraits; } set { dimPortraits = value; } }
+
+        /// <summary>
+        /// Choose a dimColor.
+        /// </summary>
+        public virtual Color DimColor { get { return dimColor; } set { dimColor = value; } }
 
         /// <summary>
         /// Duration for fading character portraits in / out.

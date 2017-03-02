@@ -32,7 +32,7 @@ namespace Fungus
     public enum FacingDirection
     {
         /// <summary> Unknown direction </summary>
-        None, 
+        None,
         /// <summary> Facing left. </summary>
         Left,
         /// <summary> Facing right. </summary>
@@ -605,14 +605,14 @@ namespace Fungus
 
             character.State.dimmed = dimmedState;
 
-            Color targetColor = dimmedState ? new Color(0.5f, 0.5f, 0.5f, 1f) : Color.white;
+            Color targetColor = dimmedState ? stage.DimColor : Color.white;
 
             // LeanTween doesn't handle 0 duration properly
             float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
 
             LeanTween.color(character.State.portraitImage.rectTransform, targetColor, duration).setEase(stage.FadeEaseType);
         }
-            
+
         #endregion
     }
 }
