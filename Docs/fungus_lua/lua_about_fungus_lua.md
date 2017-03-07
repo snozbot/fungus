@@ -31,6 +31,7 @@ FungusLua can easily be used on its own if you don't need the rest of the functi
 
 1. In the project window, move the %Fungus/Thirdparty/FungusLua folder up to the root of the project.
 2. Delete the %Fungus and FungusExamples folders.
+3. Add FUNGUSLUA_STANDALONE to the Scripting Define Symbols in Edit > Project Settings > Player
 
 The Tools > %Fungus menu will now only show options for creating FungusLua objects. Obviously you won't be able to use %Fungus functions like say(), menu(), etc. anymore, but you can still use LuaEnvironment, LuaBindings, LuaScript to add Lua scripting to your game.
 
