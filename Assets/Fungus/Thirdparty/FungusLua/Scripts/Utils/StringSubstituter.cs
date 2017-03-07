@@ -5,7 +5,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#if NETFX_CORE
 using MarkerMetro.Unity.WinLegacy.Reflection;
+#endif
 
 namespace Fungus
 {

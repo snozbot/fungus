@@ -64,8 +64,10 @@ namespace Fungus
 
         protected StringSubstituter stringSubstituter;
 
+#if !FUNGUSLUA_STANDALONE
         protected ConversationManager conversationManager;
-        
+#endif
+
         /// <summary>
         /// Registers all listed c# types for interop with Lua.
         /// You can also register types directly in the Awake method of any 
@@ -251,8 +253,10 @@ namespace Fungus
             stringSubstituter = new StringSubstituter();
             stringSubstituter.CacheSubstitutionHandlers();
 
+#if !FUNGUSLUA_STANDALONE
             conversationManager = new ConversationManager();
             conversationManager.PopulateCharacterCache();
+#endif
 
             if (fungusModule == FungusModuleOptions.UseGlobalVariables)
             {               
@@ -448,6 +452,8 @@ namespace Fungus
             return null;
         }
 
+
+#if !FUNGUSLUA_STANDALONE
         /// <summary>
         /// Use the conversation manager to play out a conversation
         /// </summary>
@@ -485,6 +491,7 @@ namespace Fungus
         {
             return MenuDialog.GetMenuDialog();
         }
+#endif
 
         #endregion
 
