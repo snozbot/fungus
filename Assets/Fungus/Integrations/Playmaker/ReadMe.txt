@@ -22,3 +22,4 @@ To write Playmaker variable values to Fungus Variables, use the Action Browser >
 To execute a block in a Fungus flowchart from , use the Action Browser > ScriptControl > Playmaker Execute Block command.
 To trigger a global state transition in Playmaker from Fungus, use the Playmaker > Global State Transition command.
 To read Fungus variable values into Playmaker Variables, use the Action Browser > ScriptControl > Receive Fungus Variable command.
+To write Fungus variable values from the inspector into Playmaker global variables, use the Playmaker > Write To Playmaker command.
