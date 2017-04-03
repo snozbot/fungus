@@ -145,7 +145,12 @@ namespace Fungus.EditorUtils
                                                         Quaternion.identity,
                                                         HandleUtility.GetHandleSize(pos) * 0.1f,
                                                         Vector3.zero,
+#if UNITY_5_6_OR_NEWER
+                                                        Handles.CubeHandleCap);
+#else
                                                         Handles.CubeCap);
+#endif
+
                 if (newPos != handles[i])
                 {
                     Undo.RecordObject(view, "Set View Size");
