@@ -495,7 +495,7 @@ namespace Fungus
         /// <summary>
         /// Tell the Say Dialog to fade out once writing and player input have finished.
         /// </summary>
-        public virtual bool FadeWhenDone { set { fadeWhenDone = value; } }
+        public virtual bool FadeWhenDone { get {return fadeWhenDone; } set { fadeWhenDone = value; } }
 
         /// <summary>
         /// Stop the Say Dialog while its writing text.
