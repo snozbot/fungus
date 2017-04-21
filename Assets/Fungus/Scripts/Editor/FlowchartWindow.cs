@@ -610,6 +610,16 @@ namespace Fungus.EditorUtils
         {
             var hitBlock = GetBlockAtPoint(e.mousePosition);
 
+            // Convert Ctrl+Left click to a right click on mac
+            if (Application.platform == RuntimePlatform.OSXEditor)
+            {
+                if (e.button == MouseButton.Left &&
+                    e.control)
+                {
+                    e.button = MouseButton.Right;
+                }
+            }
+
             switch(e.button)
             {
             case MouseButton.Left:
@@ -759,6 +769,16 @@ namespace Fungus.EditorUtils
         protected override void OnRawMouseUp(Event e)
         {
             var hitBlock = GetBlockAtPoint(e.mousePosition);
+
+            // Convert Ctrl+Left click to a right click on mac
+            if (Application.platform == RuntimePlatform.OSXEditor)
+            {
+                if (e.button == MouseButton.Left &&
+                    e.control)
+                {
+                    e.button = MouseButton.Right;
+                }
+            }
 
             switch (e.button)
             {
