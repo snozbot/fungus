@@ -8,11 +8,11 @@ namespace Fungus
     /// <summary>
     /// If the test expression is true, execute the following command block.
     /// </summary>
-    [CommandInfo("Flow", 
-                 "If", 
-                 "If the test expression is true, execute the following command block.")]
+	[CommandInfo("Flow", 
+	             "Lua If", 
+	             "If the test expression is true, execute the following command block.")]
     [AddComponentMenu("")]
-    public class If : VariableCondition
+    public class LuaIf : LuaCondition
     {
         #region Public members
         

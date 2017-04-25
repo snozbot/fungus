@@ -8,11 +8,6 @@ namespace Fungus
     [AddComponentMenu("")]
     public abstract class Condition : Command
     {
-        [Tooltip("The type of comparison to be performed")]
-        [SerializeField] protected CompareOperator compareOperator;
-
-        #region Public members
-
         public static string GetOperatorDescription(CompareOperator compareOperator)
         {
             string summary = "";
@@ -41,6 +36,157 @@ namespace Fungus
             return summary;
         }
 
+        #region Public members
+
+        public override void OnEnter()
+        {
+
+            if (ParentBlock == null)
+            {
+                return;
+            }
+
+            if( !HasNeededProperties() )
+            {
+                Continue();
+                return;
+            }
+
+            if( !this.IsElseIf )
+            {
+                EvaluateAndContinue();
+            }
+            else
+            {
+                System.Type previousCommandType = ParentBlock.GetPreviousActiveCommandType();
+
+                if (previousCommandType.IsSubclassOf(typeof(Condition)))
+                {
+                    // Else If behaves the same as an If command
+                    EvaluateAndContinue();
+                }
+                else
+                {
+                    // Else If behaves mostly like an Else command, 
+                    // but will also jump to a following Else command.
+
+                    // Stop if this is the last command in the list
+                    if (CommandIndex >= ParentBlock.CommandList.Count - 1)
+                    {
+                        StopParentBlock();
+                        return;
+                    }
+
+                    // Find the next End command at the same indent level as this Else If command
+                    int indent = indentLevel;
+                    for (int i = CommandIndex + 1; i < ParentBlock.CommandList.Count; ++i)
+                    {
+                        var command = ParentBlock.CommandList[i];
+
+                        if (command.IndentLevel == indent)
+                        {
+                            System.Type type = command.GetType();
+                            if (type == typeof(End))
+                            {
+                                // Execute command immediately after the Else or End command
+                                Continue(command.CommandIndex + 1);
+                                return;
+                            }
+                        }
+                    }
+
+                    // No End command found
+                    StopParentBlock();
+                }
+            }
+        }
+
+        public override bool OpenBlock()
+        {
+            return true;
+        }
+
         #endregion
+
+        protected virtual void EvaluateAndContinue()
+        {
+            if (EvaluateCondition())
+            {
+                OnTrue();
+            }
+            else
+            {
+                OnFalse();
+            }
+        }
+
+        protected virtual void OnTrue()
+        {
+            Continue();
+        }
+
+        protected virtual void OnFalse()
+        {
+            // Last command in block
+            if (CommandIndex >= ParentBlock.CommandList.Count)
+            {
+                StopParentBlock();
+                return;
+            }
+
+            // Find the next Else, ElseIf or End command at the same indent level as this If command
+            for (int i = CommandIndex + 1; i < ParentBlock.CommandList.Count; ++i)
+            {
+                Command nextCommand = ParentBlock.CommandList[i];
+
+                if (nextCommand == null)
+                {
+                    continue;
+                }
+
+                // Find next command at same indent level as this If command
+                // Skip disabled commands, comments & labels
+                if (!((Command)nextCommand).enabled || 
+                    nextCommand.GetType() == typeof(Comment) ||
+                    nextCommand.GetType() == typeof(Label) ||
+                    nextCommand.IndentLevel != indentLevel)
+                {
+                    continue;
+                }
+
+                System.Type type = nextCommand.GetType();
+                if (type == typeof(Else) ||
+                    type == typeof(End))
+                {
+                    if (i >= ParentBlock.CommandList.Count - 1)
+                    {
+                        // Last command in Block, so stop
+                        StopParentBlock();
+                    }
+                    else
+                    {
+                        // Execute command immediately after the Else or End command
+                        Continue(nextCommand.CommandIndex + 1);
+                        return;
+                    }
+                }
+                else if (type.IsSubclassOf(typeof(Condition)) && (nextCommand as Condition).IsElseIf)
+                {
+                    // Execute the Else If command
+                    Continue(i);
+
+                    return;
+                }
+            }
+
+            // No matching End command found, so just stop the block
+            StopParentBlock();
+        }
+
+        protected abstract bool EvaluateCondition();
+
+        protected abstract bool HasNeededProperties();
+
+        protected virtual bool IsElseIf { get { return false; } }
     }
 }
