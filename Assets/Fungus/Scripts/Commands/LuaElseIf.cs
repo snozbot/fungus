@@ -9,10 +9,10 @@ namespace Fungus
     /// Marks the start of a command block to be executed when the preceding If statement is False and the test expression is true.
     /// </summary>
     [CommandInfo("Flow", 
-                 "Else If", 
+                 "Lua Else If", 
                  "Marks the start of a command block to be executed when the preceding If statement is False and the test expression is true.")]
     [AddComponentMenu("")]
-    public class ElseIf : VariableCondition
+    public class LuaElseIf : LuaCondition
     {
         protected override bool IsElseIf { get { return true; } }
 
