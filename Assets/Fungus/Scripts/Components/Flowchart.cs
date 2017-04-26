@@ -491,6 +491,25 @@ namespace Fungus
                 Debug.LogWarning("Block " + blockName  + "failed to execute");
             }
         }
+            
+        /// <summary>
+        /// Stops an executing Block in the Flowchart.
+        /// </summary>
+        public virtual void StopBlock(string blockName)
+        {
+            var block = FindBlock(blockName);
+
+            if (block == null)
+            {
+                Debug.LogError("Block " + blockName  + "does not exist");
+                return;
+            }
+
+            if (block.IsExecuting())
+            {
+                block.Stop();
+            }
+        }
 
         /// <summary>
         /// Execute a child block in the flowchart.
