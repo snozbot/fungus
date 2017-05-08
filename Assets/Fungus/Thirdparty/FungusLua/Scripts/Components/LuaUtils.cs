@@ -75,8 +75,6 @@ namespace Fungus
         /// </summary>
         protected virtual void InitTypes()
         {
-            bool isFungusInstalled = (Type.GetType("Fungus.Flowchart") != null);
-
             // Always register these FungusLua utilities
             LuaEnvironment.RegisterType("Fungus.PODTypeFactory");
             LuaEnvironment.RegisterType("Fungus.FungusPrefs");
@@ -109,9 +107,7 @@ namespace Fungus
                         {
                             string typeName = entry.str.Trim();
 
-                            // Don't register fungus types if the Fungus library is not present
-                            if (!isFungusInstalled &&
-                                typeName.StartsWith("Fungus."))
+                            if (Type.GetType(typeName) == null)
                             {
                                 continue;
                             }
@@ -133,9 +129,7 @@ namespace Fungus
                         {
                             string typeName = entry.str.Trim();
 
-                            // Don't register fungus types if the Fungus library is not present
-                            if (!isFungusInstalled &&
-                                typeName.StartsWith("Fungus."))
+                            if (Type.GetType(typeName) == null)
                             {
                                 continue;
                             }
