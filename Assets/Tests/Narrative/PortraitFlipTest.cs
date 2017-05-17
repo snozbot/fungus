@@ -8,7 +8,7 @@ public class PortraitFlipTest : MonoBehaviour {
 	
 	void Update () 
 	{
-		Transform t = gameObject.transform.FindChild("Canvas/JohnCharacter");	
+		Transform t = gameObject.transform.Find("Canvas/JohnCharacter");	
 
 		if (t == null)
 		{
