@@ -10,7 +10,7 @@ v3.6.0 {#v3_6_0}
 - Added Fungus-Playmaker integration package in Fungus/Integrations/PlayMaker #602 - thanks Nilihum
 - Added Delete Save Data button to Save Menu inspector.
 - Variable substitution works in Set Variable (String) command
-- New "BlockNameAndCustom" Keymode for Save Point command, use both block name and custom key together. #597 - thanks to Trieger
+- New "BlockNameAndCustom" Keymode for Save Point command, use both block name and custom key together. #597 - thanks Trieger
 - Added portrait DimColor #601 - thanks MorningFunGame
 - Lua If and Lua Else If commands #609 - thanks PillowFightIo
 - Stop a named Block in a Flowchart
@@ -31,7 +31,6 @@ v3.6.0 {#v3_6_0}
 - Fixed luautils won't work on FungusLua standalone #604
 - Fixed Save Menu: clicking to left of collapsed menu clicks hidden buttons #615
 - Fixed Localization only localizes character name, not story text #611, #614
-
 
 v3.5.1 {#v3_5_1}
 ======
