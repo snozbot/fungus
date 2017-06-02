@@ -117,21 +117,25 @@ namespace Fungus
                 {
                     // Don't allow saving unless there's at least one save point in the history,
                     // This avoids the case where you could try to load a save data with 0 save points.
-                    saveButton.interactable = saveManager.NumSavePoints > 0;
+                    saveButton.interactable = saveManager.NumSavePoints > 0 && saveMenuActive;
                 }
                 if (loadButton != null)
                 {
-                    loadButton.interactable = saveManager.SaveDataExists(saveDataKey);
+                    loadButton.interactable = saveManager.SaveDataExists(saveDataKey) && saveMenuActive;
                 }
             }
 
+            if (restartButton != null)
+            {
+                restartButton.interactable = saveMenuActive;
+            }
             if (rewindButton != null)
             {
-                rewindButton.interactable = saveManager.NumSavePoints > 0;
+                rewindButton.interactable = saveManager.NumSavePoints > 0 && saveMenuActive;
             }
             if (forwardButton != null)
             {
-                forwardButton.interactable = saveManager.NumRewoundSavePoints > 0;
+                forwardButton.interactable = saveManager.NumRewoundSavePoints > 0 && saveMenuActive;
             }
 
             if (debugView.enabled)
