@@ -68,6 +68,16 @@ namespace Fungus
         protected ConversationManager conversationManager;
 #endif
 
+        protected virtual void OnEnable()
+        {
+            StringSubstituter.RegisterHandler(this);
+        }
+
+        protected virtual void OnDisable()
+        {
+            StringSubstituter.UnregisterHandler(this);
+        }
+            
         /// <summary>
         /// Registers all listed c# types for interop with Lua.
         /// You can also register types directly in the Awake method of any 
@@ -245,7 +255,6 @@ namespace Fungus
             }
 
             stringSubstituter = new StringSubstituter();
-            stringSubstituter.CacheSubstitutionHandlers();
 
 #if !FUNGUSLUA_STANDALONE
             conversationManager = new ConversationManager();

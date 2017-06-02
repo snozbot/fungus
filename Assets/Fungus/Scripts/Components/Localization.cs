@@ -65,6 +65,16 @@ namespace Fungus
             }
         }
 
+        protected virtual void OnEnable()
+        {
+            StringSubstituter.RegisterHandler(this);
+        }
+
+        protected virtual void OnDisable()
+        {
+            StringSubstituter.UnregisterHandler(this);
+        }
+
         protected virtual void Start()
         {
             Init();

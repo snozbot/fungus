@@ -147,6 +147,15 @@ namespace Fungus
             CheckItemIds();
             CleanupComponents();
             UpdateVersion();
+
+            StringSubstituter.RegisterHandler(this);   
+        }
+
+        protected virtual void OnDisable()
+        {
+            cachedFlowcharts.Remove(this);
+
+            StringSubstituter.UnregisterHandler(this);   
         }
 
         protected virtual void UpdateVersion()
@@ -170,11 +179,6 @@ namespace Fungus
             }
 
             version = FungusConstants.CurrentVersion;
-        }
-
-        protected virtual void OnDisable()
-        {
-            cachedFlowcharts.Remove(this);
         }
 
         protected virtual void CheckItemIds()
@@ -1181,7 +1185,6 @@ namespace Fungus
             if (stringSubstituer == null)
             {
                 stringSubstituer = new StringSubstituter();
-                stringSubstituer.CacheSubstitutionHandlers();
             }
 
             // Use the string builder from StringSubstituter for efficiency.
