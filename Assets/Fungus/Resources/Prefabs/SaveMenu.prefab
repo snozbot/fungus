@@ -558,7 +558,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe25ebf9ddc8416ead6f30d4671fdbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveDataKey: save_data
   loadOnStart: 1
+  autoSave: 0
   restartDeletesSave: 0
   saveMenuGroup: {fileID: 225000012423540070}
   saveMenuButton: {fileID: 114000012074514418}
@@ -1772,7 +1774,7 @@ Canvas:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012899462148}
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
@@ -1781,6 +1783,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1862,7 +1865,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -28.2, y: 0}
+  m_AnchoredPosition: {x: -28.200012, y: 0}
   m_SizeDelta: {x: 265.4, y: 29.92}
   m_Pivot: {x: 1, y: 1}
 --- !u!224 &224000012590701094
@@ -2029,7 +2032,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000025272, y: 0.000025272}
+  m_AnchoredPosition: {x: -0.000025271998, y: 0.000025271998}
   m_SizeDelta: {x: 21, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224258996373127644
@@ -2199,7 +2202,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.3, y: 1.1}
+  m_AnchoredPosition: {x: 0.3000002, y: 1.1000004}
   m_SizeDelta: {x: 27.7, y: 27.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224880810258273170
