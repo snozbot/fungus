@@ -133,6 +133,7 @@ namespace Fungus.EditorUtils
         protected Flowchart flowchart;
         protected Block[] blocks;
         protected Block dragBlock;
+        protected static FungusState fungusState;
 
         [MenuItem("Tools/Fungus/Flowchart Window")]
         static void Init()
@@ -205,12 +206,15 @@ namespace Fungus.EditorUtils
         {
             // Using a temp hidden object to track the active Flowchart across 
             // serialization / deserialization when playing the game in the editor.
-            FungusState fungusState = GameObject.FindObjectOfType<FungusState>();
             if (fungusState == null)
             {
-                GameObject go = new GameObject("_FungusState");
-                go.hideFlags = HideFlags.HideInHierarchy;
-                fungusState = go.AddComponent<FungusState>();
+                fungusState = GameObject.FindObjectOfType<FungusState>();
+                if (fungusState == null)
+                {
+                    GameObject go = new GameObject("_FungusState");
+                    go.hideFlags = HideFlags.HideInHierarchy;
+                    fungusState = go.AddComponent<FungusState>();
+                }
             }
 
             if (Selection.activeGameObject != null)

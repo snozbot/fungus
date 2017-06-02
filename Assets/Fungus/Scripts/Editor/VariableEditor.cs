@@ -86,7 +86,7 @@ namespace Fungus.EditorUtils
                 }
             }
 
-            Flowchart[] fsList = GameObject.FindObjectsOfType<Flowchart>();
+            List<Flowchart> fsList = Flowchart.CachedFlowcharts;
             foreach (Flowchart fs in fsList)
             {
                 if (fs == flowchart)
