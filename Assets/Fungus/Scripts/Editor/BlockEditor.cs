@@ -331,6 +331,37 @@ namespace Fungus.EditorUtils
             }
 
             GUILayout.EndHorizontal();
+            
+            if(!string.IsNullOrEmpty(commandTextFieldContents))
+                ShowPartialMatches();
+
+        }
+
+        private void ShowPartialMatches()
+        {
+            var block = target as Block;
+
+            var flowchart = (Flowchart)block.GetFlowchart();
+
+            var filteredAttributes = GetFilteredSupportedCommands(flowchart);
+
+            filteredAttributes = filteredAttributes.Where((x) => {
+                    return x.Value.Category.Contains(commandTextFieldContents) || x.Value.CommandName.Contains(commandTextFieldContents);
+                }).ToList();
+
+            if (filteredAttributes == null || filteredAttributes.Count == 0)
+                return;
+
+            //show results
+            GUILayout.Space(5);
+
+            GUILayout.BeginHorizontal();
+
+            GUILayout.TextArea(string.Join("\n", filteredAttributes.Select(x => x.Value.Category + "/" + x.Value.CommandName).ToArray()));
+
+            GUILayout.EndHorizontal();
+
+            GUILayout.Space(5);
         }
 
         protected virtual void DrawEventHandlerGUI(Flowchart flowchart)
@@ -685,18 +716,10 @@ namespace Fungus.EditorUtils
             GenericMenu commandMenu = new GenericMenu();
 
             // Build menu list
-            List<KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = GetFilteredCommandInfoAttribute(commandTypes);
-
-            filteredAttributes.Sort(CompareCommandAttributes);
+            var filteredAttributes = GetFilteredSupportedCommands(flowchart);
 
             foreach (var keyPair in filteredAttributes)
             {
-                // Skip command type if the Flowchart doesn't support it
-                if (!flowchart.IsCommandSupported(keyPair.Value))
-                {
-                    continue;
-                }
-
                 AddCommandOperation commandOperation = new AddCommandOperation();
 
                 commandOperation.block = block;
@@ -717,6 +740,17 @@ namespace Fungus.EditorUtils
             }
 
             commandMenu.ShowAsContext();
+        }
+
+        protected static List<KeyValuePair<System.Type, CommandInfoAttribute>> GetFilteredSupportedCommands(Flowchart flowchart)
+        {
+            List<KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = GetFilteredCommandInfoAttribute(commandTypes);
+
+            filteredAttributes.Sort(CompareCommandAttributes);
+
+            filteredAttributes = filteredAttributes.Where(x => flowchart.IsCommandSupported(x.Value)).ToList();
+
+            return filteredAttributes;
         }
 
         protected static List<KeyValuePair<System.Type, CommandInfoAttribute>> GetFilteredCommandInfoAttribute(List<System.Type> menuTypes)
@@ -751,7 +785,7 @@ namespace Fungus.EditorUtils
         }
 
         //Used by GenericMenu Delegate
-        protected static void AddCommandCallback(object obj)
+        protected void AddCommandCallback(object obj)
         {
             AddCommandOperation commandOperation = obj as AddCommandOperation;
             if (commandOperation != null)
@@ -760,7 +794,7 @@ namespace Fungus.EditorUtils
             }
         }
 
-        protected static void AddCommandCallback(AddCommandOperation commandOperation)
+        protected void AddCommandCallback(AddCommandOperation commandOperation)
         {
             var block = commandOperation.block;
             if (block == null)
@@ -792,6 +826,8 @@ namespace Fungus.EditorUtils
 
             // Because this is an async call, we need to force prefab instances to record changes
             PrefabUtility.RecordPrefabInstancePropertyModifications(block);
+
+            commandTextFieldContents = string.Empty;
         }
 
         public virtual void ShowContextMenu()
