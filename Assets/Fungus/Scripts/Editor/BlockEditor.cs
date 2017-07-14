@@ -26,9 +26,8 @@ namespace Fungus.EditorUtils
 
         protected class AddCommandOperation
         {
-            public Block block;
+            //public Block block;
             public Type commandType;
-            public int index;
         }
 
         public static List<Action> actionList = new List<Action>();
@@ -331,12 +330,13 @@ namespace Fungus.EditorUtils
             }
 
             GUILayout.EndHorizontal();
-            
-            if(!string.IsNullOrEmpty(commandTextFieldContents))
+
+            if (!string.IsNullOrEmpty(commandTextFieldContents))
                 ShowPartialMatches();
 
         }
 
+        private static readonly char[] SPLIT_INPUT_ON = new char[] { ' ', '/', '\\' };
         private void ShowPartialMatches()
         {
             var block = target as Block;
@@ -345,9 +345,24 @@ namespace Fungus.EditorUtils
 
             var filteredAttributes = GetFilteredSupportedCommands(flowchart);
 
-            filteredAttributes = filteredAttributes.Where((x) => {
-                    return x.Value.Category.Contains(commandTextFieldContents) || x.Value.CommandName.Contains(commandTextFieldContents);
-                }).ToList();
+            var upperCommandText = commandTextFieldContents.ToUpper().Trim();
+            var tokens = upperCommandText.Split();
+
+            filteredAttributes = filteredAttributes.Where((x) =>
+            {
+                bool catAny = tokens.Any(x.Value.Category.ToUpper().Contains);
+                bool comAny = tokens.Any( x.Value.CommandName.ToUpper().Contains);
+                bool catAll = tokens.All(x.Value.Category.ToUpper().Contains);
+                bool comAll = tokens.All(x.Value.CommandName.ToUpper().Contains);
+
+                if (catAny && comAny)
+                    return true;
+                else if (catAll || comAll)
+                    return true;
+
+                return false;
+
+            }).ToList();
 
             if (filteredAttributes == null || filteredAttributes.Count == 0)
                 return;
@@ -358,6 +373,17 @@ namespace Fungus.EditorUtils
             GUILayout.BeginHorizontal();
 
             GUILayout.TextArea(string.Join("\n", filteredAttributes.Select(x => x.Value.Category + "/" + x.Value.CommandName).ToArray()));
+
+            // Previous Command
+            if ((Event.current.keyCode == KeyCode.Return || Event.current.keyCode == KeyCode.KeypadEnter) &&
+                filteredAttributes.Count == 1)
+            {
+                commandTextFieldContents = String.Empty;
+                //GUI.FocusControl("dummycontrol");
+                //Event.current.Use();
+                AddCommandCallback(filteredAttributes[0].Key);
+
+            }
 
             GUILayout.EndHorizontal();
 
@@ -699,20 +725,6 @@ namespace Fungus.EditorUtils
 
             var flowchart = (Flowchart)block.GetFlowchart();
 
-            // Use index of last selected command in list, or end of list if nothing selected.
-            int index = -1;
-            foreach (var command in flowchart.SelectedCommands)
-            {
-                if (command.CommandIndex + 1 > index)
-                {
-                    index = command.CommandIndex + 1;
-                }
-            }
-            if (index == -1)
-            {
-                index = block.CommandList.Count;
-            }
-
             GenericMenu commandMenu = new GenericMenu();
 
             // Build menu list
@@ -722,9 +734,9 @@ namespace Fungus.EditorUtils
             {
                 AddCommandOperation commandOperation = new AddCommandOperation();
 
-                commandOperation.block = block;
+                //commandOperation.block = block;
                 commandOperation.commandType = keyPair.Key;
-                commandOperation.index = index;
+                //commandOperation.index = index;
 
                 GUIContent menuItem;
                 if (keyPair.Value.Category == "")
@@ -790,13 +802,13 @@ namespace Fungus.EditorUtils
             AddCommandOperation commandOperation = obj as AddCommandOperation;
             if (commandOperation != null)
             {
-                AddCommandCallback(commandOperation);
+                AddCommandCallback(commandOperation.commandType);
             }
         }
 
-        protected void AddCommandCallback(AddCommandOperation commandOperation)
+        protected void AddCommandCallback(Type commandType)
         {
-            var block = commandOperation.block;
+            var block = target as Block;
             if (block == null)
             {
                 return;
@@ -804,9 +816,21 @@ namespace Fungus.EditorUtils
 
             var flowchart = (Flowchart)block.GetFlowchart();
 
-            flowchart.ClearSelectedCommands();
+            // Use index of last selected command in list, or end of list if nothing selected.
+            int index = -1;
+            foreach (var command in flowchart.SelectedCommands)
+            {
+                if (command.CommandIndex + 1 > index)
+                {
+                    index = command.CommandIndex + 1;
+                }
+            }
+            if (index == -1)
+            {
+                index = block.CommandList.Count;
+            }
 
-            var newCommand = Undo.AddComponent(block.gameObject, commandOperation.commandType) as Command;
+            var newCommand = Undo.AddComponent(block.gameObject, commandType) as Command;
             block.GetFlowchart().AddSelectedCommand(newCommand);
             newCommand.ParentBlock = block;
             newCommand.ItemId = flowchart.NextItemId();
@@ -815,9 +839,9 @@ namespace Fungus.EditorUtils
             newCommand.OnCommandAdded(block);
 
             Undo.RecordObject(block, "Set command type");
-            if (commandOperation.index < block.CommandList.Count - 1)
+            if (index < block.CommandList.Count - 1)
             {
-                block.CommandList.Insert(commandOperation.index, newCommand);
+                block.CommandList.Insert(index, newCommand);
             }
             else
             {
@@ -826,6 +850,8 @@ namespace Fungus.EditorUtils
 
             // Because this is an async call, we need to force prefab instances to record changes
             PrefabUtility.RecordPrefabInstancePropertyModifications(block);
+
+            flowchart.ClearSelectedCommands();
 
             commandTextFieldContents = string.Empty;
         }
