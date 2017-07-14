@@ -42,8 +42,10 @@ namespace Fungus.EditorUtils
         protected Texture2D addIcon;
         protected Texture2D duplicateIcon;
         protected Texture2D deleteIcon;
+
         protected string commandTextFieldContents = string.Empty;
         protected int filteredCommandPreviewSelectedItem = 0;
+        protected Type commandSelectedByTextInput;
 
         static List<System.Type> commandTypes;
         static List<System.Type> eventHandlerTypes;
@@ -300,6 +302,17 @@ namespace Fungus.EditorUtils
                 {
                     filteredCommandPreviewSelectedItem++;
                 }
+
+                if (commandSelectedByTextInput != null &&
+                    Event.current.keyCode == KeyCode.Return || Event.current.keyCode == KeyCode.KeypadEnter)
+                {
+                    AddCommandCallback(commandSelectedByTextInput);
+                    commandSelectedByTextInput = null;
+                    commandTextFieldContents = String.Empty;
+                    //GUI.FocusControl("dummycontrol");
+                    Event.current.Use();
+                    filteredCommandPreviewSelectedItem = 0;
+                }
             }
 
             // Previous Command
@@ -373,6 +386,10 @@ namespace Fungus.EditorUtils
             var filteredAttributes = GetFilteredSupportedCommands(flowchart);
 
             var upperCommandText = commandTextFieldContents.ToUpper().Trim();
+
+            if (upperCommandText.Length > 0)
+                return;
+
             var tokens = upperCommandText.Split(SPLIT_INPUT_ON);
 
             //we want commands that have all the elements you have typed
@@ -417,18 +434,11 @@ namespace Fungus.EditorUtils
 
             filteredCommandPreviewSelectedItem = GUILayout.SelectionGrid(filteredCommandPreviewSelectedItem, toShow, 1);
 
+            if (toShow[filteredCommandPreviewSelectedItem] != ELIPSIS)
+                commandSelectedByTextInput = filteredAttributes[filteredCommandPreviewSelectedItem].Key;
+            else
+                commandSelectedByTextInput = null;
 
-
-            // if enter is hit then create that command and reset the preview window
-            if ((Event.current.keyCode == KeyCode.Return || Event.current.keyCode == KeyCode.KeypadEnter) &&
-                filteredAttributes.Count > filteredCommandPreviewSelectedItem && toShow[filteredCommandPreviewSelectedItem] != ELIPSIS)
-            {
-                commandTextFieldContents = String.Empty;
-                //GUI.FocusControl("dummycontrol");
-                //Event.current.Use();
-                AddCommandCallback(filteredAttributes[filteredCommandPreviewSelectedItem].Key);
-                filteredCommandPreviewSelectedItem = 0;
-            }
 
             GUILayout.EndHorizontal();
 
