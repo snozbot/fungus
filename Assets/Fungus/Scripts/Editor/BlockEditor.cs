@@ -30,6 +30,11 @@ namespace Fungus.EditorUtils
             public Type commandType;
         }
 
+
+        private static readonly char[] SPLIT_INPUT_ON = new char[] { ' ', '/', '\\' };
+        private static readonly int MAX_PREVIEW_GRID = 7;
+        private static readonly string ELIPSIS = "...";
+
         public static List<Action> actionList = new List<Action>();
 
         protected Texture2D upIcon;
@@ -325,6 +330,7 @@ namespace Fungus.EditorUtils
 
             GUILayout.FlexibleSpace();
 
+            //should track if text actually changes and pass that to the ShowPartialMatches so it can cache
             commandTextFieldContents = GUILayout.TextField(commandTextFieldContents, GUILayout.MinWidth(20), GUILayout.MaxWidth(200));
 
             // Add Button
@@ -353,18 +359,23 @@ namespace Fungus.EditorUtils
 
         }
 
-        private static readonly char[] SPLIT_INPUT_ON = new char[] { ' ', '/', '\\' };
+        //Handles showing partial matches against the text input next to the AddCommand button
+        // Splits and matches and can use up down arrows and return/enter/numenter to confirm
+        //  TODO add sorting of results so we get best match at the not just just a match
+        //      e.g. "if" should show Flow/If at the top not Flow/Else If
         private void ShowPartialMatches()
         {
             var block = target as Block;
 
             var flowchart = (Flowchart)block.GetFlowchart();
 
+            //TODO this could be cached if input hasn't changed to avoid thrashing
             var filteredAttributes = GetFilteredSupportedCommands(flowchart);
 
             var upperCommandText = commandTextFieldContents.ToUpper().Trim();
             var tokens = upperCommandText.Split();
 
+            //we want commands that have all the elements you have typed
             filteredAttributes = filteredAttributes.Where((x) =>
             {
                 bool catAny = tokens.Any(x.Value.Category.ToUpper().Contains);
@@ -372,10 +383,13 @@ namespace Fungus.EditorUtils
                 bool catAll = tokens.All(x.Value.Category.ToUpper().Contains);
                 bool comAll = tokens.All(x.Value.CommandName.ToUpper().Contains);
 
+                //so if both category and command found something, then there are multiple tokens and they line up with category and command
                 if (catAny && comAny)
                     return true;
+                //or its a single token or a complex token that matches entirely in cat or com
                 else if (catAll || comAll)
                     return true;
+                //this setup avoids multiple bad suggestions due to a complex category name that gives many false matches on complex partials
 
                 return false;
 
@@ -392,13 +406,22 @@ namespace Fungus.EditorUtils
             filteredCommandPreviewSelectedItem = Mathf.Clamp(filteredCommandPreviewSelectedItem, 0, filteredAttributes.Count - 1);
 
             //GUILayout.TextArea(string.Join("\n", filteredAttributes.Select(x => x.Value.Category + "/" + x.Value.CommandName).ToArray()));
-            filteredCommandPreviewSelectedItem = GUILayout.SelectionGrid(filteredCommandPreviewSelectedItem, filteredAttributes.Select(x => x.Value.Category + "/" + x.Value.CommandName).ToArray(), 1);
+
+            var toShow = filteredAttributes.Select(x => x.Value.Category + "/" + x.Value.CommandName).ToArray();
+            //show the first x max that match our filters
+            if(toShow.Length > MAX_PREVIEW_GRID)
+            {
+                toShow = toShow.Take(MAX_PREVIEW_GRID).ToArray();
+                toShow[MAX_PREVIEW_GRID - 1] = ELIPSIS;
+            }
+
+            filteredCommandPreviewSelectedItem = GUILayout.SelectionGrid(filteredCommandPreviewSelectedItem, toShow, 1);
 
 
 
             // if enter is hit then create that command and reset the preview window
             if ((Event.current.keyCode == KeyCode.Return || Event.current.keyCode == KeyCode.KeypadEnter) &&
-                filteredAttributes.Count > filteredCommandPreviewSelectedItem)
+                filteredAttributes.Count > filteredCommandPreviewSelectedItem && toShow[filteredCommandPreviewSelectedItem] != ELIPSIS)
             {
                 commandTextFieldContents = String.Empty;
                 //GUI.FocusControl("dummycontrol");
