@@ -373,7 +373,7 @@ namespace Fungus.EditorUtils
             var filteredAttributes = GetFilteredSupportedCommands(flowchart);
 
             var upperCommandText = commandTextFieldContents.ToUpper().Trim();
-            var tokens = upperCommandText.Split();
+            var tokens = upperCommandText.Split(SPLIT_INPUT_ON);
 
             //we want commands that have all the elements you have typed
             filteredAttributes = filteredAttributes.Where((x) =>
@@ -897,7 +897,7 @@ namespace Fungus.EditorUtils
             PrefabUtility.RecordPrefabInstancePropertyModifications(block);
 
             flowchart.ClearSelectedCommands();
-            flowchart.AddSelectedCommand(newCommand);
+            //flowchart.AddSelectedCommand(newCommand);
 
             commandTextFieldContents = string.Empty;
         }
