@@ -387,7 +387,7 @@ namespace Fungus.EditorUtils
 
             var upperCommandText = commandTextFieldContents.ToUpper().Trim();
 
-            if (upperCommandText.Length > 0)
+            if (upperCommandText.Length == 0)
                 return;
 
             var tokens = upperCommandText.Split(SPLIT_INPUT_ON);
