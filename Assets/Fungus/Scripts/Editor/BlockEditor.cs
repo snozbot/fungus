@@ -38,6 +38,7 @@ namespace Fungus.EditorUtils
         protected Texture2D duplicateIcon;
         protected Texture2D deleteIcon;
         protected string commandTextFieldContents = string.Empty;
+        protected int filteredCommandPreviewSelectedItem = 0;
 
         static List<System.Type> commandTypes;
         static List<System.Type> eventHandlerTypes;
@@ -280,6 +281,22 @@ namespace Fungus.EditorUtils
         {
             GUILayout.BeginHorizontal();
 
+
+
+            //handle movement along our selection grid before something else eats our inputs
+            if (Event.current.type == EventType.keyDown)
+            {
+                //up down to change selection / esc to clear field
+                if (Event.current.keyCode == KeyCode.UpArrow)
+                {
+                    filteredCommandPreviewSelectedItem--;
+                }
+                else if (Event.current.keyCode == KeyCode.DownArrow)
+                {
+                    filteredCommandPreviewSelectedItem++;
+                }
+            }
+
             // Previous Command
             if ((Event.current.type == EventType.keyDown) && (Event.current.keyCode == KeyCode.PageUp))
             {
@@ -351,7 +368,7 @@ namespace Fungus.EditorUtils
             filteredAttributes = filteredAttributes.Where((x) =>
             {
                 bool catAny = tokens.Any(x.Value.Category.ToUpper().Contains);
-                bool comAny = tokens.Any( x.Value.CommandName.ToUpper().Contains);
+                bool comAny = tokens.Any(x.Value.CommandName.ToUpper().Contains);
                 bool catAll = tokens.All(x.Value.Category.ToUpper().Contains);
                 bool comAll = tokens.All(x.Value.CommandName.ToUpper().Contains);
 
@@ -372,17 +389,22 @@ namespace Fungus.EditorUtils
 
             GUILayout.BeginHorizontal();
 
-            GUILayout.TextArea(string.Join("\n", filteredAttributes.Select(x => x.Value.Category + "/" + x.Value.CommandName).ToArray()));
+            filteredCommandPreviewSelectedItem = Mathf.Clamp(filteredCommandPreviewSelectedItem, 0, filteredAttributes.Count - 1);
 
-            // Previous Command
+            //GUILayout.TextArea(string.Join("\n", filteredAttributes.Select(x => x.Value.Category + "/" + x.Value.CommandName).ToArray()));
+            filteredCommandPreviewSelectedItem = GUILayout.SelectionGrid(filteredCommandPreviewSelectedItem, filteredAttributes.Select(x => x.Value.Category + "/" + x.Value.CommandName).ToArray(), 1);
+
+
+
+            // if enter is hit then create that command and reset the preview window
             if ((Event.current.keyCode == KeyCode.Return || Event.current.keyCode == KeyCode.KeypadEnter) &&
-                filteredAttributes.Count == 1)
+                filteredAttributes.Count > filteredCommandPreviewSelectedItem)
             {
                 commandTextFieldContents = String.Empty;
                 //GUI.FocusControl("dummycontrol");
                 //Event.current.Use();
-                AddCommandCallback(filteredAttributes[0].Key);
-
+                AddCommandCallback(filteredAttributes[filteredCommandPreviewSelectedItem].Key);
+                filteredCommandPreviewSelectedItem = 0;
             }
 
             GUILayout.EndHorizontal();
@@ -852,6 +874,7 @@ namespace Fungus.EditorUtils
             PrefabUtility.RecordPrefabInstancePropertyModifications(block);
 
             flowchart.ClearSelectedCommands();
+            flowchart.AddSelectedCommand(newCommand);
 
             commandTextFieldContents = string.Empty;
         }
