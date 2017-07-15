@@ -130,7 +130,7 @@ namespace Fungus.EditorUtils
         protected Block[] filteredBlocks;
         protected int blockPopupSelection = -1;
         protected Vector2 popupScroll;
-        protected Flowchart flowchart;
+        protected Flowchart flowchart, prevFlowchart;
         protected Block[] blocks;
         protected Block dragBlock;
         protected static FungusState fungusState;
@@ -334,6 +334,14 @@ namespace Fungus.EditorUtils
                 return;
             }
 
+            //target has changed, so clear the blockinspector
+            if (flowchart != prevFlowchart)
+            {
+                blockInspector = null;
+                prevFlowchart = flowchart;
+                return;
+            }
+
             DeleteBlocks();
 
             blocks = flowchart.GetComponents<Block>();
@@ -363,7 +371,17 @@ namespace Fungus.EditorUtils
             }
 
             // Draw toolbar, search popup, and variables window
-            DrawOverlay(Event.current);
+            //  need try catch here as we are now invalidating the drawer if the target flowchart
+            //      has changed which makes unity GUILayouts upset and this function appears to 
+            //      actually get called partially outside our control
+            try
+            {
+                DrawOverlay(Event.current);
+            }
+            catch (Exception)
+            {
+                //Debug.Log("Failed to draw overlay in some way");
+            }
 
             // Handle events for custom GUI
             base.HandleEvents(Event.current);
