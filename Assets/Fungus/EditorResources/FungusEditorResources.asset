@@ -27,6 +27,9 @@ MonoBehaviour:
   duplicate:
     free: {fileID: 2800000, guid: c97f334c466215a4f93eff31de3c1591, type: 3}
     pro: {fileID: 2800000, guid: 2f17490d993c84bd7872ef6588ffba47, type: 3}
+  fungus_mushroom:
+    free: {fileID: 2800000, guid: 1c99c9bf7557e23469ed5dfce00504c0, type: 3}
+    pro: {fileID: 2800000, guid: 6368c1c16ebb1694091262337e4f8c44, type: 3}
   up:
     free: {fileID: 2800000, guid: 8f1242ad894201f43b2b6d52fd990f77, type: 3}
     pro: {fileID: 2800000, guid: 2a76a781db2994b33b83cd84b8835da7, type: 3}

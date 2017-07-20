@@ -12,6 +12,7 @@ namespace Fungus.EditorUtils
         [SerializeField] private EditorTexture delete;
         [SerializeField] private EditorTexture down;
         [SerializeField] private EditorTexture duplicate;
+        [SerializeField] private EditorTexture fungus_mushroom;
         [SerializeField] private EditorTexture up;
         [SerializeField] private EditorTexture bullet_point;
         [SerializeField] private EditorTexture choice_node_off;
@@ -30,6 +31,7 @@ namespace Fungus.EditorUtils
         public static Texture2D Delete { get { return Instance.delete.Texture2D; } }
         public static Texture2D Down { get { return Instance.down.Texture2D; } }
         public static Texture2D Duplicate { get { return Instance.duplicate.Texture2D; } }
+        public static Texture2D FungusMushroom { get { return Instance.fungus_mushroom.Texture2D; } }
         public static Texture2D Up { get { return Instance.up.Texture2D; } }
         public static Texture2D BulletPoint { get { return Instance.bullet_point.Texture2D; } }
         public static Texture2D ChoiceNodeOff { get { return Instance.choice_node_off.Texture2D; } }
