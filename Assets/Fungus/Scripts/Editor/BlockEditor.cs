@@ -26,7 +26,6 @@ namespace Fungus.EditorUtils
 
         protected class AddCommandOperation
         {
-            //public Block block;
             public Type commandType;
         }
 
@@ -422,9 +421,8 @@ namespace Fungus.EditorUtils
 
             filteredCommandPreviewSelectedItem = Mathf.Clamp(filteredCommandPreviewSelectedItem, 0, filteredAttributes.Count - 1);
 
-            //GUILayout.TextArea(string.Join("\n", filteredAttributes.Select(x => x.Value.Category + "/" + x.Value.CommandName).ToArray()));
-
             var toShow = filteredAttributes.Select(x => x.Value.Category + "/" + x.Value.CommandName).ToArray();
+
             //show the first x max that match our filters
             if(toShow.Length > MAX_PREVIEW_GRID)
             {
@@ -435,10 +433,13 @@ namespace Fungus.EditorUtils
             filteredCommandPreviewSelectedItem = GUILayout.SelectionGrid(filteredCommandPreviewSelectedItem, toShow, 1);
 
             if (toShow[filteredCommandPreviewSelectedItem] != ELIPSIS)
+            {
                 commandSelectedByTextInput = filteredAttributes[filteredCommandPreviewSelectedItem].Key;
+            }
             else
+            {
                 commandSelectedByTextInput = null;
-
+            }
 
             GUILayout.EndHorizontal();
 
@@ -788,10 +789,8 @@ namespace Fungus.EditorUtils
             foreach (var keyPair in filteredAttributes)
             {
                 AddCommandOperation commandOperation = new AddCommandOperation();
-
-                //commandOperation.block = block;
+                
                 commandOperation.commandType = keyPair.Key;
-                //commandOperation.index = index;
 
                 GUIContent menuItem;
                 if (keyPair.Value.Category == "")
@@ -907,7 +906,6 @@ namespace Fungus.EditorUtils
             PrefabUtility.RecordPrefabInstancePropertyModifications(block);
 
             flowchart.ClearSelectedCommands();
-            //flowchart.AddSelectedCommand(newCommand);
 
             commandTextFieldContents = string.Empty;
         }
