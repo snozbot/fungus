@@ -42,6 +42,10 @@ namespace Fungus
         protected View swipePanViewB;
         protected Vector3 previousMousePos;
         
+		//Coroutine handles for panning and fading commands
+		protected IEnumerator panCoroutine;
+		protected IEnumerator fadeCoroutine;
+
         protected class CameraView
         {
             public Vector3 cameraPos;
@@ -331,8 +335,7 @@ namespace Fungus
                     view.ViewSize);
                 pathList.Add(viewPos);
             }
-
-            StartCoroutine(PanToPathInternal(camera, duration, arriveAction, pathList.ToArray()));
+			StartCoroutine(panCoroutine = PanToPathInternal (camera, duration, arriveAction, pathList.ToArray ()));
         }
 
         /// <summary>
@@ -363,7 +366,7 @@ namespace Fungus
         /// </summary>
         public virtual void Fade(float targetAlpha, float fadeDuration, Action fadeAction)
         {
-            StartCoroutine(FadeInternal(targetAlpha, fadeDuration, fadeAction));
+			StartCoroutine(fadeCoroutine = FadeInternal (targetAlpha, fadeDuration, fadeAction));
         }
 
         /// <summary>
@@ -410,6 +413,8 @@ namespace Fungus
         public virtual void Stop()
         {
             StopAllCoroutines();
+			panCoroutine = null;
+			fadeCoroutine = null;
         }
 
         /// <summary>
@@ -424,8 +429,10 @@ namespace Fungus
             }
 
             // Stop any pan that is currently active
-            StopAllCoroutines();
-
+			if (panCoroutine != null) {
+				StopCoroutine(panCoroutine);
+				panCoroutine = null;
+			}
             swipePanActive = false;
 
             if (Mathf.Approximately(duration, 0f))
@@ -444,7 +451,7 @@ namespace Fungus
             }
             else
             {
-                StartCoroutine(PanInternal(camera, targetPosition, targetRotation, targetSize, duration, arriveAction));
+				StartCoroutine(panCoroutine = PanInternal(camera, targetPosition, targetRotation, targetSize, duration, arriveAction));
             }
         }
 
