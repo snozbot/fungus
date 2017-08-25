@@ -7,8 +7,8 @@ using System.Collections.Generic;
 
 namespace Fungus.EditorUtils
 {
-    [CustomEditor (typeof(If), true)]
-    public class IfEditor : CommandEditor 
+    [CustomEditor (typeof(VariableCondition), true)]
+    public class VariableConditionEditor : CommandEditor 
     {
         protected SerializedProperty variableProp;
         protected SerializedProperty compareOperatorProp;
@@ -34,7 +34,7 @@ namespace Fungus.EditorUtils
         {
             serializedObject.Update();
 
-            If t = target as If;
+            VariableCondition t = target as VariableCondition;
 
             var flowchart = (Flowchart)t.GetFlowchart();
             if (flowchart == null)
