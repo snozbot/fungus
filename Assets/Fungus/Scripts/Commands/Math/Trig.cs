@@ -9,7 +9,7 @@ namespace Fungus
                  "Trig",
                  "Command to execute and store the result of basic trigonometry")]
     [AddComponentMenu("")]
-    public class Trig : Command
+    public class Trig : BaseUnaryMathCommand
     {
         public enum Function
         {
@@ -27,14 +27,6 @@ namespace Fungus
         [Tooltip("Trigonometric function to run.")]
         [SerializeField]
         protected Function function = Function.Sin;
-
-        [Tooltip("Value to be passed in to the function.")]
-        [SerializeField]
-        protected FloatData inValue;
-        
-        [Tooltip("Where the result of the function is stored.")]
-        [SerializeField]
-        protected FloatData outValue;
         
         public override void OnEnter()
         {
