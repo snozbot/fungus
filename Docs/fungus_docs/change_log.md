@@ -2,6 +2,37 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.6.0 {#v3_6_0}
+======
+
+## Added
+- Support use of \n newline character in Say and Conversation text
+- Added Fungus-Playmaker integration package in Fungus/Integrations/PlayMaker #602 - thanks Nilihum
+- Added Delete Save Data button to Save Menu inspector.
+- Variable substitution works in Set Variable (String) command
+- New "BlockNameAndCustom" Keymode for Save Point command, use both block name and custom key together. #597 - thanks Trieger
+- Added portrait DimColor #601 - thanks MorningFunGame
+- Lua If and Lua Else If commands #609 - thanks PillowFightIo
+- Stop a named Block in a Flowchart
+- Added utility to convert all files to Mac line endings
+
+## Changed
+- Made all methods virtual in SayDialog.cs #607 thanks PillowFightIo
+- Updated project to Unity 5.6.1, fixed some warnings.
+- Use transform.Find instead of deprecated transform.FindChild
+- Replaced some uses of slow GameObject.FindObjectOfType() and FindDerivedTypes()
+
+## Fixed
+- Fixed Write command "Clear Text" option not working #594
+- Fixed portrait hide bug in conversation #590 - thanks to lealeelu
+- Fixed stopping audio in conversation #592 - thanks to lealeelu
+- Fixed can't use FungusLua separately to rest of Fungus #596
+- Fixed can't inspect disabled Flowchart #598
+- Fixed Cmd+Left Click doesn't register as right click on OSX #595
+- Fixed luautils won't work on FungusLua standalone #604
+- Fixed Save Menu: clicking to left of collapsed menu clicks hidden buttons #615
+- Fixed Localization only localizes character name, not story text #611, #614
+
 v3.5.1 {#v3_5_1}
 ======
 
