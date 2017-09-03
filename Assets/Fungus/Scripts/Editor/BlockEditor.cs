@@ -607,7 +607,7 @@ namespace Fungus.EditorUtils
             Block[] blocks = flowchart.GetComponents<Block>();
             for (int i = 0; i < blocks.Length; ++i)
             {
-                blockNames.Add(new GUIContent(blocks[i].name));
+				blockNames.Add(new GUIContent(blocks[i].BlockName));
 
                 if (block == blocks[i])
                 {
