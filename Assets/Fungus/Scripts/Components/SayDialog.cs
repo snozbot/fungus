@@ -206,6 +206,8 @@ namespace Fungus
 
         #region Public members
 
+		public Character SpeakingCharacter { get { return speakingCharacter; } }
+
         /// <summary>
         /// Currently active Say Dialog used to display Say text
         /// </summary>
