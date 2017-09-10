@@ -19,14 +19,23 @@ namespace Fungus
         [Tooltip("Game object to copy when spawning. Can be a scene object or a prefab.")]
         [SerializeField] protected GameObjectData _sourceObject;
 
-        [Tooltip("Transform to use for position of newly spawned object.")]
+        [Tooltip("Transform to use as parent during instantiate.")]
         [SerializeField] protected TransformData _parentTransform;
+
+        [Tooltip("If true, will use the Transfrom of this Flowchart for the position and rotation.")]
+        [SerializeField] protected BooleanData _spawnAtSelf = new BooleanData(false);
 
         [Tooltip("Local position of newly spawned object.")]
         [SerializeField] protected Vector3Data _spawnPosition;
 
         [Tooltip("Local rotation of newly spawned object.")]
         [SerializeField] protected Vector3Data _spawnRotation;
+
+
+
+        [Tooltip("Optional variable to store the GameObject that was just created.")]
+        [SerializeField]
+        protected GameObjectData _newlySpawnedObject;
 
         #region Public members
 
@@ -38,14 +47,28 @@ namespace Fungus
                 return;
             }
 
-            GameObject newObject = GameObject.Instantiate(_sourceObject.Value);
+            GameObject newObject = null;
+
             if (_parentTransform.Value != null)
             {
-                newObject.transform.parent = _parentTransform.Value;
+                newObject = GameObject.Instantiate(_sourceObject.Value,_parentTransform.Value);
+            }
+            else
+            {
+                newObject = GameObject.Instantiate(_sourceObject.Value);
             }
 
-            newObject.transform.localPosition = _spawnPosition.Value;
-            newObject.transform.localRotation = Quaternion.Euler(_spawnRotation.Value);
+            if (!_spawnAtSelf.Value)
+            {
+                newObject.transform.localPosition = _spawnPosition.Value;
+                newObject.transform.localRotation = Quaternion.Euler(_spawnRotation.Value);
+            }
+            else
+            {
+                newObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            }
+
+            _newlySpawnedObject.Value = newObject;
 
             Continue();
         }

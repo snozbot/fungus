@@ -40,6 +40,7 @@ Defined in Fungus.Destroy
 Property | Type | Description
  --- | --- | ---
 _target Game Object | Fungus.GameObjectData | Reference to game object to destroy
+destroyInXSeconds | Fungus.FloatData | Optional delay given to the destroy
 
 # Execute Lua # {#ExecuteLua}
 Executes a Lua code chunk using a Lua Environment.
@@ -116,14 +117,16 @@ _target Game Object | Fungus.GameObjectData | Reference to game object to enable
 Active State | Fungus.BooleanData | Set to true to enable the game object
 
 # Spawn Object # {#SpawnObject}
-Spawns a new object based on a reference to a scene or prefab game object.
+Spawns a new object based on a reference to a scene or prefab game object. Can use the Instantiate parent if desired and can be set to spawn at the same location as the flowchart.
 
 Defined in Fungus.SpawnObject
 
 Property | Type | Description
  --- | --- | ---
 _source Object | Fungus.GameObjectData | Game object to copy when spawning. Can be a scene object or a prefab.
-_parent Transform | Fungus.TransformData | Transform to use for position of newly spawned object.
+_parent Transform | Fungus.TransformData | Optional, Transform to use as parent of newly spawned object.
+_sapwn At Self | Fungus.BooleanData | If true, will use the Transfrom of this Flowchart for the position and rotation.
 _spawn Position | Fungus.Vector3Data | Local position of newly spawned object.
 _spawn Rotation | Fungus.Vector3Data | Local rotation of newly spawned object.
+_newly Spawned Object | Fungus.GameObjectData | Optional variable to store the GameObject that was just created.
 
