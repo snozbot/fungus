@@ -12,6 +12,9 @@ namespace Fungus
     [CommandInfo("Scripting", 
                  "Spawn Object", 
                  "Spawns a new object based on a reference to a scene or prefab game object.")]
+    [CommandInfo("GameObject",
+                 "Instantiate",
+                 "Instantiate a game object")]
     [AddComponentMenu("")]
     [ExecuteInEditMode]
     public class SpawnObject : Command
