@@ -11,7 +11,8 @@ namespace Fungus
     /// </summary>
     [CommandInfo("Scripting", 
                  "Spawn Object", 
-                 "Spawns a new object based on a reference to a scene or prefab game object.")]
+                 "Spawns a new object based on a reference to a scene or prefab game object.", 
+        Priority = 10)]
     [CommandInfo("GameObject",
                  "Instantiate",
                  "Instantiate a game object")]

@@ -16,17 +16,22 @@ namespace Fungus.EditorUtils
 
         public static CommandInfoAttribute GetCommandInfo(System.Type commandType)
         {
+            CommandInfoAttribute retval = null;
+
             object[] attributes = commandType.GetCustomAttributes(typeof(CommandInfoAttribute), false);
             foreach (object obj in attributes)
             {
                 CommandInfoAttribute commandInfoAttr = obj as CommandInfoAttribute;
                 if (commandInfoAttr != null)
                 {
-                    return commandInfoAttr;
+                    if (retval == null)
+                        retval = commandInfoAttr;
+                    else if (retval.Priority < commandInfoAttr.Priority)
+                        retval = commandInfoAttr;
                 }
             }
             
-            return null;
+            return retval;
         }
 
         public virtual void DrawCommandInspectorGUI()
