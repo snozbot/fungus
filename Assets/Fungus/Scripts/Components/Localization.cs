@@ -42,12 +42,6 @@ namespace Fungus
         protected static Dictionary<string, string> localizedStrings = new Dictionary<string, string>();
 
         #if UNITY_5_4_OR_NEWER
-        protected virtual void Awake()
-        {
-            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += (A, B) => {
-                LevelWasLoaded();
-            };
-        }
         #else
         public virtual void OnLevelWasLoaded(int level) 
         {
@@ -65,14 +59,25 @@ namespace Fungus
             }
         }
 
+        private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
+        {
+            LevelWasLoaded();
+        }
+
         protected virtual void OnEnable()
         {
             StringSubstituter.RegisterHandler(this);
+            #if UNITY_5_4_OR_NEWER
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+            #endif
         }
 
         protected virtual void OnDisable()
         {
             StringSubstituter.UnregisterHandler(this);
+            #if UNITY_5_4_OR_NEWER
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
+            #endif
         }
 
         protected virtual void Start()
