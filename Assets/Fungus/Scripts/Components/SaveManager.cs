@@ -10,14 +10,34 @@ namespace Fungus
 {
     /// <summary>
     /// Manages the Save History (a list of Save Points) and provides a set of operations for saving and loading games.
+    /// 
+    /// Note WebGL and Webplayer (deprecated) save using playerprefs instead of using a json file in persistent storage
+    /// -webgl would require additional js to force a sync of FS.syncfs
+    /// -webplayer does not implement system io
     /// </summary>
     public class SaveManager : MonoBehaviour 
     {
         protected static SaveHistory saveHistory = new SaveHistory();
 
+        public static string STORAGE_DIRECTORY { get { return Application.persistentDataPath + "/FungusSaves/"; } }
+
+        private static string GetFullFilePath(string saveDataKey)
+        {
+            return STORAGE_DIRECTORY + saveDataKey + ".json";
+        }
+
         protected virtual bool ReadSaveHistory(string saveDataKey)
         {
-            var historyData = PlayerPrefs.GetString(saveDataKey);
+            var historyData = string.Empty;
+#if UNITY_WEBPLAYER || UNITY_WEBGL
+            historyData = PlayerPrefs.GetString(saveDataKey);
+#else
+            var fullFilePath = GetFullFilePath(saveDataKey);
+            if (System.IO.File.Exists(fullFilePath))
+            {
+                historyData = System.IO.File.ReadAllText(fullFilePath);
+            }
+#endif//UNITY_WEBPLAYER
             if (!string.IsNullOrEmpty(historyData))
             {
                 var tempSaveHistory = JsonUtility.FromJson<SaveHistory>(historyData);
@@ -36,8 +56,18 @@ namespace Fungus
             var historyData = JsonUtility.ToJson(saveHistory, true);
             if (!string.IsNullOrEmpty(historyData))
             {
+#if UNITY_WEBPLAYER || UNITY_WEBGL
                 PlayerPrefs.SetString(saveDataKey, historyData);
                 PlayerPrefs.Save();
+#else
+                var fileLoc = GetFullFilePath(saveDataKey);
+                
+                //make sure the dir exists
+                System.IO.FileInfo file = new System.IO.FileInfo(fileLoc);
+                file.Directory.Create();
+                
+                System.IO.File.WriteAllText(fileLoc, historyData);
+#endif//UNITY_WEBPLAYER
                 return true;
             }
 
@@ -57,7 +87,7 @@ namespace Fungus
             SavePointLoaded.NotifyEventHandlers(savePointKey);
 
             // Execute any block containing a SavePoint command matching the save key, with Resume On Load enabled
-            var savePoints = Object.FindObjectsOfType<SavePoint>();
+            var savePoints = UnityEngine.Object.FindObjectsOfType<SavePoint>();
             for (int i = 0; i < savePoints.Length; i++)
             {
                 var savePoint = savePoints[i];
@@ -83,7 +113,7 @@ namespace Fungus
             // Each scene should have one Save Point with the IsStartPoint property enabled.
             // We automatically start execution from this command whenever the scene starts 'normally' (i.e. first play, restart or scene load via the Load Scene command or SceneManager.LoadScene).
 
-            var savePoints = Object.FindObjectsOfType<SavePoint>();
+            var savePoints = UnityEngine.Object.FindObjectsOfType<SavePoint>();
             for (int i = 0; i < savePoints.Length; i++)
             {
                 var savePoint = savePoints[i];
@@ -207,8 +237,16 @@ namespace Fungus
         /// </summary>
         public void Delete(string saveDataKey)
         {
+#if UNITY_WEBPLAYER || UNITY_WEBGL
             PlayerPrefs.DeleteKey(saveDataKey);
             PlayerPrefs.Save();
+#else
+            var fullFilePath = GetFullFilePath(saveDataKey);
+            if (System.IO.File.Exists(fullFilePath))
+            {
+                System.IO.File.Delete(fullFilePath);
+            }
+#endif//UNITY_WEBPLAYER
         }
 
         /// <summary>
@@ -216,8 +254,13 @@ namespace Fungus
         /// </summary>
         public bool SaveDataExists(string saveDataKey)
         {
+#if UNITY_WEBPLAYER || UNITY_WEBGL
             return PlayerPrefs.HasKey(saveDataKey);
-        }
+#else
+            var fullFilePath = GetFullFilePath(saveDataKey);
+            return System.IO.File.Exists(fullFilePath);
+#endif//UNITY_WEBPLAYER
+            }
 
         /// <summary>
         /// Creates a new Save Point using a key and description, and adds it to the Save History.
@@ -275,7 +318,7 @@ namespace Fungus
             return saveHistory.GetDebugInfo();
         }
 
-        #endregion
+#endregion
     }
 }
 

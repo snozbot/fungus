@@ -11,6 +11,8 @@ namespace Fungus
     /// <summary>
     /// Attribute class for Fungus commands.
     /// </summary>
+    /// 
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class CommandInfoAttribute : Attribute
     {
         /// <summary>
