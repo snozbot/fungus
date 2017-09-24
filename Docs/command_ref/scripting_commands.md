@@ -99,7 +99,7 @@ Call Mode | Fungus.CallMode | The coroutine call behavior for methods that retur
 # Open URL # {#OpenURL}
 Opens the specified URL in the browser.
 
-Defined in Fungus.LinkToWebsite
+Defined in Fungus.OpenURL
 
 Property | Type | Description
  --- | --- | ---
