@@ -250,7 +250,6 @@ GameObject:
   - component: {fileID: 53095177}
   - component: {fileID: 53095178}
   - component: {fileID: 53095176}
-  - component: {fileID: 53095179}
   - component: {fileID: 53095172}
   - component: {fileID: 53095180}
   - component: {fileID: 53095160}
@@ -688,9 +687,8 @@ MonoBehaviour:
     width: 0
     height: 0
   selectedBlocks:
-  - {fileID: 53095162}
-  selectedCommands:
-  - {fileID: 53095181}
+  - {fileID: 53095145}
+  selectedCommands: []
   variables:
   - {fileID: 53095153}
   - {fileID: 53095152}
@@ -724,7 +722,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &53095158
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 53095135}
@@ -738,7 +736,7 @@ MonoBehaviour:
   value: {x: 0, y: 0, z: 0}
 --- !u!114 &53095159
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 53095135}
@@ -752,7 +750,7 @@ MonoBehaviour:
   value: {x: -5, y: 0, z: 0}
 --- !u!114 &53095160
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 53095135}
@@ -991,7 +989,6 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 53095175}
-  - {fileID: 53095179}
   - {fileID: 53095174}
   - {fileID: 53095173}
   - {fileID: 53095172}
@@ -1131,26 +1128,6 @@ MonoBehaviour:
     stringVal: 
   startIndex: 0
   callMode: 0
---- !u!114 &53095179
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 53095135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b521257e66940a4c835dce2e246e464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 34
-  indentLevel: 0
-  property: 9
-  transformData:
-    transformRef: {fileID: 0}
-    transformVal: {fileID: 785288107}
-  vec3:
-    vector3Ref: {fileID: 0}
-    vector3Val: {x: 1, y: 1, z: 1}
 --- !u!114 &53095180
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1172,7 +1149,7 @@ MonoBehaviour:
   inOutVar: {fileID: 53095160}
 --- !u!114 &53095181
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 53095135}
@@ -1191,7 +1168,7 @@ MonoBehaviour:
   inOutVar: {fileID: 53095158}
 --- !u!114 &53095182
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 53095135}
