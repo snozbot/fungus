@@ -12,7 +12,7 @@ namespace Fungus
     [CommandInfo("Scripting",
                  "Open URL",
                  "Opens the specified URL in the browser.")]
-    public class LinkToWebsite : Command
+    public class OpenURL : Command
     {
         [Tooltip("URL to open in the browser")]
         [SerializeField] protected StringData url = new StringData();
