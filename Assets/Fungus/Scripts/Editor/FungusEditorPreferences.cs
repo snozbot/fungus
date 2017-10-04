@@ -17,8 +17,7 @@ namespace Fungus
             // Have we loaded the prefs yet
             private static bool prefsLoaded = false;
 
-            public static bool hideMushroomInHierarchy,
-                               hideVariableInFlowchartInspector ;
+            public static bool hideMushroomInHierarchy;
 
             static FungusEditorPreferences()
             {
@@ -37,20 +36,17 @@ namespace Fungus
 
                 // Preferences GUI
                 hideMushroomInHierarchy = EditorGUILayout.Toggle("Hide Mushroom Flowchart Icon", hideMushroomInHierarchy);
-                hideVariableInFlowchartInspector = EditorGUILayout.Toggle("Hide Variables in Flowchart Inspector", hideVariableInFlowchartInspector);
 
                 // Save the preferences
                 if (GUI.changed)
                 {
                     EditorPrefs.SetBool("hideMushroomInHierarchy", hideMushroomInHierarchy);
-                    EditorPrefs.SetBool("hideVariableInFlowchartInspector", hideVariableInFlowchartInspector);
                 }
             }
 
             public static void LoadOnScriptLoad()
             {
                 hideMushroomInHierarchy = EditorPrefs.GetBool("hideMushroomInHierarchy", false);
-                hideVariableInFlowchartInspector = EditorPrefs.GetBool("hideVariableInFlowchartInspector", true);
                 prefsLoaded = true;
             }
         }

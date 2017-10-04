@@ -81,7 +81,7 @@ namespace Fungus
         [SerializeField] protected string luaBindingName = "flowchart";
 
         [Tooltip("Draw the variable gui in the inspector.")]
-        [SerializeField] protected bool showVariablesInInspector = true;
+        [SerializeField] protected bool showVariables = true;
 
         protected static List<Flowchart> cachedFlowcharts = new List<Flowchart>();
 

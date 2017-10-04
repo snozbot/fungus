@@ -50,7 +50,7 @@ namespace Fungus.EditorUtils
             hideCommandsProp = serializedObject.FindProperty("hideCommands");
             luaEnvironmentProp = serializedObject.FindProperty("luaEnvironment");
             luaBindingNameProp = serializedObject.FindProperty("luaBindingName");
-            varInspectorProp = serializedObject.FindProperty("showVariablesInInspector"); 
+            varInspectorProp = serializedObject.FindProperty("showVariables"); 
 
             addTexture = FungusEditorResources.AddSmall;
         }
@@ -72,11 +72,7 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(showLineNumbersProp);
             EditorGUILayout.PropertyField(luaEnvironmentProp);
             EditorGUILayout.PropertyField(luaBindingNameProp);
-
-            if (!FungusEditorPreferences.hideVariableInFlowchartInspector)
-            {
-                EditorGUILayout.PropertyField(varInspectorProp);
-            }
+            EditorGUILayout.PropertyField(varInspectorProp);
 
             // Show list of commands to hide in Add Command menu
             ReorderableListGUI.Title(new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip));
@@ -95,7 +91,7 @@ namespace Fungus.EditorUtils
 
             serializedObject.ApplyModifiedProperties();
 
-            if (varInspectorProp.boolValue && !FungusEditorPreferences.hideVariableInFlowchartInspector)
+            if (varInspectorProp.boolValue)
             {
                 GUILayout.Space(20);
 
