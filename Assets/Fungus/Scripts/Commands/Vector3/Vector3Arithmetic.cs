@@ -58,7 +58,7 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            if(output.vector3Ref == null)
+            if (output.vector3Ref == null)
             {
                 return "Error: no output set";
             }
@@ -69,6 +69,14 @@ namespace Fungus
         public override Color GetButtonColor()
         {
             return new Color32(235, 191, 217, 255);
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            if (lhs.vector3Ref == variable || rhs.vector3Ref == variable || output.vector3Ref == variable)
+                return true;
+
+            return false;
         }
     }
 }

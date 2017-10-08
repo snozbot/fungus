@@ -72,5 +72,14 @@ namespace Fungus
             return new Color32(235, 191, 217, 255);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            if (rb.rigidbody2DRef == variable || force.vector2Ref == variable || forceScaleFactor.floatRef == variable ||
+                atPosition.vector2Ref == variable)
+                return true;
+
+            return false;
+        }
+
     }
 }

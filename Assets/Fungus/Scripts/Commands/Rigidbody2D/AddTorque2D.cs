@@ -32,7 +32,7 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            if(rb.Value == null)
+            if (rb.Value == null)
             {
                 return "Error: rb not set";
             }
@@ -44,6 +44,13 @@ namespace Fungus
         {
             return new Color32(235, 191, 217, 255);
         }
+        
+        public override bool HasReference(Variable variable)
+        {
+            if (rb.rigidbody2DRef == variable || force.floatRef == variable)
+                return true;
 
+            return false;
+        }
     }
 }

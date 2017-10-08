@@ -48,7 +48,7 @@ namespace Fungus
 
         [SerializeField]
         protected TransformData transformData;
-        
+
         [SerializeField]
         [VariableProperty(typeof(BooleanVariable),
                           typeof(IntegerVariable),
@@ -174,13 +174,13 @@ namespace Fungus
                 default:
                     break;
             }
-            
+
             Continue();
         }
 
         public override string GetSummary()
         {
-            if(transformData.Value == null)
+            if (transformData.Value == null)
             {
                 return "Error: no transform set";
             }
@@ -190,7 +190,7 @@ namespace Fungus
             var iov = inOutVar as Vector3Variable;
             var iot = inOutVar as TransformVariable;
 
-            if(iob == null && ioi == null && iov == null && iot == null)
+            if (iob == null && ioi == null && iov == null && iot == null)
             {
                 return "Error: no variable set to push or pull data to or from";
             }
@@ -203,6 +203,14 @@ namespace Fungus
         public override Color GetButtonColor()
         {
             return new Color32(235, 191, 217, 255);
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            if (transformData.transformRef == variable || inOutVar == variable)
+                return true;
+
+            return false;
         }
 
     }

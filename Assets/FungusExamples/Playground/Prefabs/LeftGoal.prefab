@@ -34,7 +34,7 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4678101578738422
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846694562102150}
@@ -47,7 +47,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &61864220351951950
 BoxCollider2D:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846694562102150}
@@ -72,7 +72,7 @@ BoxCollider2D:
   m_EdgeRadius: 0
 --- !u!114 &114034257819947328
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846694562102150}
@@ -90,7 +90,7 @@ MonoBehaviour:
   messageOLD: 
 --- !u!114 &114505441869896354
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846694562102150}
@@ -105,7 +105,7 @@ MonoBehaviour:
   FireOn: 1
 --- !u!114 &114534288108544306
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846694562102150}
@@ -130,7 +130,7 @@ MonoBehaviour:
   - {fileID: 114034257819947328}
 --- !u!114 &114600625297110402
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846694562102150}
@@ -166,7 +166,7 @@ MonoBehaviour:
   luaBindingName: flowchart
 --- !u!212 &212708722285412346
 SpriteRenderer:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846694562102150}

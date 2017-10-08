@@ -31,7 +31,6 @@ GameObject:
   - component: {fileID: 114205508981943572}
   - component: {fileID: 114451434740700826}
   - component: {fileID: 114158483713016934}
-  - component: {fileID: 114170397803954806}
   - component: {fileID: 114708947738974764}
   - component: {fileID: 114536672983551206}
   m_Layer: 0
@@ -43,7 +42,7 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4839343606506310
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -56,7 +55,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114094183539183980
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -98,7 +97,7 @@ MonoBehaviour:
   luaBindingName: flowchart
 --- !u!114 &114158188752211888
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -124,13 +123,12 @@ MonoBehaviour:
   - {fileID: 114222629582179790}
   - {fileID: 114186534075702092}
   - {fileID: 114845356377412462}
-  - {fileID: 114170397803954806}
   - {fileID: 114536672983551206}
   - {fileID: 114533871774847328}
   - {fileID: 114197543733484370}
 --- !u!114 &114158483713016934
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -142,34 +140,9 @@ MonoBehaviour:
   scope: 0
   key: spawnPos
   value: {x: 0, y: 0, z: 0}
---- !u!114 &114170397803954806
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1643320542487702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1119697fcc02a1c45936fd8c00b481d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 7
-  indentLevel: 0
-  xval:
-    floatRef: {fileID: 114205508981943572}
-    floatVal: 0
-  yval:
-    floatRef: {fileID: 114451434740700826}
-    floatVal: 0
-  zval:
-    floatRef: {fileID: 0}
-    floatVal: 0
-  vec3:
-    vector3Ref: {fileID: 114158483713016934}
-    vector3Val: {x: 0, y: 0, z: 0}
 --- !u!114 &114186534075702092
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -189,7 +162,7 @@ MonoBehaviour:
     floatVal: 6
 --- !u!114 &114197543733484370
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -206,7 +179,7 @@ MonoBehaviour:
   targetLabelOLD: {fileID: 0}
 --- !u!114 &114205508981943572
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -220,7 +193,7 @@ MonoBehaviour:
   value: 0
 --- !u!114 &114220456410977536
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -234,7 +207,7 @@ MonoBehaviour:
   key: start
 --- !u!114 &114222629582179790
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -251,7 +224,7 @@ MonoBehaviour:
   durationOLD: 0
 --- !u!114 &114271269415529472
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -264,7 +237,7 @@ MonoBehaviour:
   waitForFrames: 1
 --- !u!114 &114451434740700826
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -278,7 +251,7 @@ MonoBehaviour:
   value: 0
 --- !u!114 &114533871774847328
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -296,19 +269,25 @@ MonoBehaviour:
   _parentTransform:
     transformRef: {fileID: 0}
     transformVal: {fileID: 0}
+  _spawnAtSelf:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
   _spawnPosition:
     vector3Ref: {fileID: 114158483713016934}
     vector3Val: {x: 0, y: 0, z: 0}
   _spawnRotation:
     vector3Ref: {fileID: 0}
     vector3Val: {x: 0, y: 0, z: 0}
+  _newlySpawnedObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 0}
   sourceObjectOLD: {fileID: 0}
   parentTransformOLD: {fileID: 0}
   spawnPositionOLD: {x: 0, y: 0, z: 0}
   spawnRotationOLD: {x: 0, y: 0, z: 0}
 --- !u!114 &114536672983551206
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -331,7 +310,7 @@ MonoBehaviour:
   operation: 0
 --- !u!114 &114708947738974764
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}
@@ -345,7 +324,7 @@ MonoBehaviour:
   value: {x: 0, y: 6, z: 0}
 --- !u!114 &114845356377412462
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643320542487702}

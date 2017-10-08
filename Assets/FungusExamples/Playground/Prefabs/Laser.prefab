@@ -72,7 +72,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4591436351563906
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -87,7 +87,7 @@ Transform:
 --- !u!50 &50266752063846120
 Rigidbody2D:
   serializedVersion: 4
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -106,7 +106,7 @@ Rigidbody2D:
   m_Constraints: 0
 --- !u!60 &60745726664901920
 PolygonCollider2D:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -276,7 +276,7 @@ TrailRenderer:
 --- !u!96 &96390674517467256
 TrailRenderer:
   serializedVersion: 2
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -366,7 +366,7 @@ TrailRenderer:
   m_Autodestruct: 0
 --- !u!114 &114182131449558960
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -391,7 +391,7 @@ MonoBehaviour:
   - {fileID: 114299940920854140}
 --- !u!114 &114216864803211772
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -405,7 +405,7 @@ MonoBehaviour:
   value: {fileID: 50266752063846120}
 --- !u!114 &114250531415154764
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -420,7 +420,7 @@ MonoBehaviour:
   FireOn: 1
 --- !u!114 &114299940920854140
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -438,7 +438,7 @@ MonoBehaviour:
   messageOLD: 
 --- !u!114 &114455382144078078
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -452,7 +452,7 @@ MonoBehaviour:
   value: 3
 --- !u!114 &114487163524766562
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -479,7 +479,7 @@ MonoBehaviour:
     vector2Val: {x: 0, y: 0}
 --- !u!114 &114526636883379746
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -518,7 +518,7 @@ MonoBehaviour:
   luaBindingName: flowchart
 --- !u!114 &114593477394275294
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -544,7 +544,7 @@ MonoBehaviour:
   - {fileID: 114751314740007556}
 --- !u!114 &114602407226986924
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -557,7 +557,7 @@ MonoBehaviour:
   waitForFrames: 1
 --- !u!114 &114751314740007556
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -577,7 +577,7 @@ MonoBehaviour:
   targetGameObjectOLD: {fileID: 0}
 --- !u!114 &114979932131573080
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -591,7 +591,7 @@ MonoBehaviour:
   value: {x: 0, y: 10}
 --- !u!212 &212200396344711462
 SpriteRenderer:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}

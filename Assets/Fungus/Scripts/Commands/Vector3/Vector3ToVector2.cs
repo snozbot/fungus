@@ -29,8 +29,10 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            if(vec3.vector3Ref != null && vec2.vector2Ref != null)
+            if (vec3.vector3Ref != null && vec2.vector2Ref != null)
+            {
                 return "Converting " + vec3.vector3Ref.Key + " to " + vec2.vector2Ref.Key;
+            }
 
             return "Error: variables not set";
         }
@@ -40,5 +42,13 @@ namespace Fungus
             return new Color32(235, 191, 217, 255);
         }
 
+
+        public override bool HasReference(Variable variable)
+        {
+            if (variable == vec3.vector3Ref || variable == vec2.vector2Ref)
+                return true;
+
+            return false;
+        }
     }
 }

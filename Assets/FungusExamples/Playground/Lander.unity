@@ -2021,7 +2021,7 @@ MonoBehaviour:
   scrollPos: {x: 146, y: -26.5}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 324
+  blockViewHeight: 401
   zoom: 1
   scrollViewRect:
     serializedVersion: 2

@@ -22,7 +22,7 @@ namespace Fungus
 
         [SerializeField]
         protected Vector3Data vec3;
-        
+
         [SerializeField]
         protected FloatData x, y, z;
 
@@ -50,7 +50,7 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            if(vec3.vector3Ref == null)
+            if (vec3.vector3Ref == null)
             {
                 return "Error: vec3 not set";
             }
@@ -63,5 +63,12 @@ namespace Fungus
             return new Color32(235, 191, 217, 255);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            if (vec3.vector3Ref == variable || x.floatRef == variable || y.floatRef == variable || z.floatRef == variable)
+                return true;
+
+            return false;
+        }
     }
 }

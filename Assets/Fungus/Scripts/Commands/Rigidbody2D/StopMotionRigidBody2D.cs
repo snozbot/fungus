@@ -15,7 +15,7 @@ namespace Fungus
     {
         [SerializeField]
         protected Rigidbody2DData rb;
-        
+
         public enum Motion
         {
             Velocity,
@@ -55,6 +55,14 @@ namespace Fungus
         public override Color GetButtonColor()
         {
             return new Color32(235, 191, 217, 255);
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            if (rb.rigidbody2DRef == variable)
+                return true;
+
+            return false;
         }
 
     }

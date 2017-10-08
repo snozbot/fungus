@@ -15,7 +15,7 @@ namespace Fungus
     {
         [SerializeField]
         protected StringData axisName;
-        
+
         [Tooltip("If true, calls GetAxisRaw instead of GetAxis")]
         [SerializeField]
         protected bool axisRaw = false;
@@ -26,7 +26,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            if(axisRaw)
+            if (axisRaw)
             {
                 outValue.Value = Input.GetAxisRaw(axisName.Value);
             }
@@ -34,7 +34,7 @@ namespace Fungus
             {
                 outValue.Value = Input.GetAxis(axisName.Value);
             }
-            
+
             Continue();
         }
 
@@ -46,6 +46,14 @@ namespace Fungus
         public override Color GetButtonColor()
         {
             return new Color32(235, 191, 217, 255);
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            if (axisName.stringRef == variable || outValue.floatRef == variable)
+                return true;
+
+            return false;
         }
 
     }

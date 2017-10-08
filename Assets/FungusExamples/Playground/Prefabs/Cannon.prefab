@@ -45,8 +45,6 @@ GameObject:
   - component: {fileID: 114873397630457622}
   - component: {fileID: 114099386588132780}
   - component: {fileID: 114238188189624062}
-  - component: {fileID: 114797075761082608}
-  - component: {fileID: 114611752584720384}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -72,7 +70,7 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4038790522185248
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -100,7 +98,7 @@ Transform:
 --- !u!50 &50078523555390844
 Rigidbody2D:
   serializedVersion: 4
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -119,7 +117,7 @@ Rigidbody2D:
   m_Constraints: 3
 --- !u!114 &114036837631678186
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -133,7 +131,7 @@ MonoBehaviour:
   keyCode: 32
 --- !u!114 &114093757454897032
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -160,7 +158,7 @@ MonoBehaviour:
     stringVal: 
 --- !u!114 &114099386588132780
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -187,7 +185,7 @@ MonoBehaviour:
     stringVal: 
 --- !u!114 &114110427670967256
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -207,7 +205,7 @@ MonoBehaviour:
     floatVal: 0
 --- !u!114 &114116014992790474
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -251,7 +249,7 @@ MonoBehaviour:
   luaBindingName: flowchart
 --- !u!114 &114141913385670956
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -278,7 +276,7 @@ MonoBehaviour:
     stringVal: 
 --- !u!114 &114194947709156218
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -291,7 +289,7 @@ MonoBehaviour:
   FireOn: 2
 --- !u!114 &114238188189624062
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -318,7 +316,7 @@ MonoBehaviour:
     stringVal: 
 --- !u!114 &114268424750904310
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -332,7 +330,7 @@ MonoBehaviour:
   value: 1
 --- !u!114 &114310288066248142
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -346,7 +344,7 @@ MonoBehaviour:
   value: {x: 0, y: 0, z: 0}
 --- !u!114 &114476154734915750
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -360,7 +358,7 @@ MonoBehaviour:
   value: {x: 0, y: 0, z: 0}
 --- !u!114 &114499702294427518
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -374,7 +372,7 @@ MonoBehaviour:
   value: 1
 --- !u!114 &114567745504451066
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -403,7 +401,7 @@ MonoBehaviour:
   - {fileID: 114588250137994584}
 --- !u!114 &114588250137994584
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -421,29 +419,9 @@ MonoBehaviour:
   force:
     floatRef: {fileID: 114680196880106302}
     floatVal: 5
---- !u!114 &114611752584720384
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1380797001910276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b521257e66940a4c835dce2e246e464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 14
-  indentLevel: 1
-  property: 11
-  transformData:
-    transformRef: {fileID: 0}
-    transformVal: {fileID: 4244392958347542}
-  vec3:
-    vector3Ref: {fileID: 114476154734915750}
-    vector3Val: {x: 0, y: 0, z: 0}
 --- !u!114 &114680196880106302
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -457,7 +435,7 @@ MonoBehaviour:
   value: 0
 --- !u!114 &114704119826569804
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -469,29 +447,9 @@ MonoBehaviour:
   scope: 0
   key: spawnAtTrans
   value: {fileID: 4244392958347542}
---- !u!114 &114797075761082608
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1380797001910276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b521257e66940a4c835dce2e246e464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 13
-  indentLevel: 1
-  property: 0
-  transformData:
-    transformRef: {fileID: 0}
-    transformVal: {fileID: 4038790522185248}
-  vec3:
-    vector3Ref: {fileID: 114310288066248142}
-    vector3Val: {x: 0, y: 0, z: 0}
 --- !u!114 &114873397630457622
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -518,7 +476,7 @@ MonoBehaviour:
     stringVal: 
 --- !u!114 &114904554220365688
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -531,7 +489,7 @@ MonoBehaviour:
   indentLevel: 0
 --- !u!114 &114920461919457924
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -549,19 +507,25 @@ MonoBehaviour:
   _parentTransform:
     transformRef: {fileID: 0}
     transformVal: {fileID: 0}
+  _spawnAtSelf:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
   _spawnPosition:
     vector3Ref: {fileID: 114476154734915750}
     vector3Val: {x: 0, y: 0, z: 0}
   _spawnRotation:
     vector3Ref: {fileID: 114310288066248142}
     vector3Val: {x: 0, y: 0, z: 0}
+  _newlySpawnedObject:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 0}
   sourceObjectOLD: {fileID: 0}
   parentTransformOLD: {fileID: 0}
   spawnPositionOLD: {x: 0, y: 0, z: 0}
   spawnRotationOLD: {x: 0, y: 0, z: 0}
 --- !u!114 &114945764084547224
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -588,7 +552,7 @@ MonoBehaviour:
     stringVal: 
 --- !u!114 &114948797197275504
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -605,7 +569,7 @@ MonoBehaviour:
   durationOLD: 0
 --- !u!114 &114980758164341790
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -629,15 +593,15 @@ MonoBehaviour:
   commandList:
   - {fileID: 114945764084547224}
   - {fileID: 114141913385670956}
-  - {fileID: 114797075761082608}
-  - {fileID: 114611752584720384}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 114920461919457924}
   - {fileID: 114948797197275504}
   - {fileID: 114093757454897032}
   - {fileID: 114904554220365688}
 --- !u!114 &114987963891140428
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -651,7 +615,7 @@ MonoBehaviour:
   value: 6
 --- !u!114 &114994441961358866
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 2
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}
@@ -665,7 +629,7 @@ MonoBehaviour:
   value: 0
 --- !u!212 &212653995144694442
 SpriteRenderer:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1380797001910276}

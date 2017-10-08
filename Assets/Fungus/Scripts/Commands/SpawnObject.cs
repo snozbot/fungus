@@ -92,6 +92,16 @@ namespace Fungus
             return new Color32(235, 191, 217, 255);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            if (_sourceObject.gameObjectRef == variable || _parentTransform.transformRef == variable ||
+                _spawnAtSelf.booleanRef == variable || _spawnPosition.vector3Ref == variable ||
+                _spawnRotation.vector3Ref == variable)
+                return true;
+
+            return false;
+        }
+
         #endregion
 
         #region Backwards compatibility
