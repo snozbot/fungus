@@ -105,6 +105,7 @@ Fade When Done | System.Boolean | Fade out the dialog box when writing has finis
 Wait For Click | System.Boolean | Wait for player to click before continuing.
 Stop Voiceover | System.Boolean | Stop playing voiceover when text finishes writing.
 Set Say Dialog | Fungus.SayDialog | Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.
+Wait for VO | System.Boolean | Wait for the VO line to complete before continuing.
 
 # Set Language # {#SetLanguage}
 Set the active language for the scene. A Localization object with a localization file must be present in the scene.

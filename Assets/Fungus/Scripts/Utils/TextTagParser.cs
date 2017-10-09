@@ -71,9 +71,13 @@ namespace Fungus
             {
                 type = TokenType.WaitForInputNoClear;
             }
-            if (tag == "wc")
+            else if (tag == "wc")
             {
                 type = TokenType.WaitForInputAndClear;
+            }
+            else if (tag == "wvo")
+            {
+                type = TokenType.WaitForVoiceOver;
             }
             else if (tag.StartsWith("wp="))
             {

@@ -93,6 +93,7 @@ namespace Fungus
         protected string hiddenColorClose = "";
 
         protected int visibleCharacterCount = 0;
+        public WriterAudio AttachedWriterAudio { get; set; }
 
         protected virtual void Awake()
         {
@@ -347,8 +348,12 @@ namespace Fungus
                 case TokenType.WaitForInputAndClear:
                     yield return StartCoroutine(DoWaitForInput(true));
                     break;
-                    
-                case TokenType.WaitOnPunctuationStart:
+
+                case TokenType.WaitForVoiceOver:
+                    yield return StartCoroutine(DoWaitVO());
+                    break;
+
+                    case TokenType.WaitOnPunctuationStart:
                     TryGetSingleParam(token.paramList, 0, punctuationPause, out currentPunctuationPause);
                     break;
                     
@@ -654,6 +659,18 @@ namespace Fungus
             yield return StartCoroutine( DoWait(duration) );
         }
 
+        protected virtual IEnumerator DoWaitVO()
+        {
+            float duration = 0f;
+
+            if (AttachedWriterAudio != null)
+            {
+                duration = AttachedWriterAudio.GetSecondsRemaining();
+            }
+
+            yield return StartCoroutine(DoWait(duration));
+        }
+
         protected virtual IEnumerator DoWait(float duration)
         {
             NotifyPause();
@@ -892,9 +909,10 @@ namespace Fungus
         /// <param name="clear">If true clears the previous text.</param>
         /// <param name="waitForInput">Writes the text and then waits for player input before calling onComplete.</param>
         /// <param name="stopAudio">Stops any currently playing audioclip.</param>
+        /// <param name="waitForVO">Wait for the Voice over to complete before proceeding</param>
         /// <param name="audioClip">Audio clip to play when text starts writing.</param>
         /// <param name="onComplete">Callback to call when writing is finished.</param>
-        public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, AudioClip audioClip, Action onComplete)
+        public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, bool waitForVO, AudioClip audioClip, Action onComplete)
         {
             if (clear)
             {
@@ -915,6 +933,12 @@ namespace Fungus
             {
                 tokenText += "{wi}";
             }
+
+            if(waitForVO)
+            {
+                tokenText += "{wvo}";
+            }
+
 
             List<TextTagToken> tokens = TextTagParser.Tokenize(tokenText);
 
