@@ -91,7 +91,7 @@ namespace Fungus.EditorUtils
             //Show the variables in the flowchart inspector
             GUILayout.Space(20);
 
-            DrawVariablesGUI(false, Screen.width - 70);
+            DrawVariablesGUI(false, Mathf.FloorToInt(EditorGUIUtility.currentViewWidth) - VariableListAdaptor.ReorderListSkirts);
 
         }
 
@@ -165,8 +165,10 @@ namespace Fungus.EditorUtils
                 Rect lastRect = buttonRect;
                 lastRect.x += 5;
                 lastRect.y += 5;
+                
                 //this is not required, seems to be legacy that is hidden in the normal reorderable
-                //EditorGUI.Foldout(lastRect, true, "");
+                if(showVariableToggleButton)
+                    EditorGUI.Foldout(lastRect, true, "");
 
                 Rect plusRect = listRect;
                 plusRect.x += plusRect.width - plusWidth;

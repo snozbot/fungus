@@ -15,6 +15,8 @@ namespace Fungus.EditorUtils
     public class VariableListAdaptor : IReorderableListAdaptor {
 
         public static readonly int DefaultWidth = 80 + 100 + 140 + 60;
+        public static readonly int ScrollSpacer = 8;
+        public static readonly int ReorderListSkirts = 70;
 
         protected SerializedProperty _arrayProperty;
 
@@ -38,7 +40,7 @@ namespace Fungus.EditorUtils
             
             this._arrayProperty = arrayProperty;
             this.fixedItemHeight = fixedItemHeight;
-            this.widthOfList = widthOfList;
+            this.widthOfList = widthOfList - ScrollSpacer;
         }
         
         public VariableListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f, DefaultWidth) {
