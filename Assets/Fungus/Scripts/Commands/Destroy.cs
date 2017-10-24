@@ -18,6 +18,7 @@ namespace Fungus
     {   
         [Tooltip("Reference to game object to destroy")]
         [SerializeField] protected GameObjectData _targetGameObject;
+        [SerializeField] protected bool self;
 
         #region Public members
 
@@ -28,16 +29,25 @@ namespace Fungus
                 Destroy(_targetGameObject.Value);
             }
 
+            if (self)
+            {
+                Destroy(gameObject);
+            }
+
             Continue();
         }
 
         public override string GetSummary()
         {
-            if (_targetGameObject.Value == null)
+            if (_targetGameObject.Value == null && !self)
             {
                 return "Error: No game object selected";
             }
 
+            if (self)
+            {
+                return "Destroy this game object";
+            }
             return _targetGameObject.Value.name;
         }
 
