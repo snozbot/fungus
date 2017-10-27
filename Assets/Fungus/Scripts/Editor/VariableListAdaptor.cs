@@ -13,11 +13,17 @@ using Rotorz.ReorderableList;
 namespace Fungus.EditorUtils
 {
     public class VariableListAdaptor : IReorderableListAdaptor {
-        
+
+        public static readonly int DefaultWidth = 80 + 100 + 140 + 60;
+        public static readonly int ScrollSpacer = 8;
+        public static readonly int ReorderListSkirts = 70;
+
         protected SerializedProperty _arrayProperty;
 
         public float fixedItemHeight;
-        
+        public int widthOfList;
+
+
         public SerializedProperty this[int index] {
             get { return _arrayProperty.GetArrayElementAtIndex(index); }
         }
@@ -26,7 +32,7 @@ namespace Fungus.EditorUtils
             get { return _arrayProperty; }
         }
         
-        public VariableListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight) {
+        public VariableListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight, int widthOfList) {
             if (arrayProperty == null)
                 throw new ArgumentNullException("Array property was null.");
             if (!arrayProperty.isArray)
@@ -34,9 +40,10 @@ namespace Fungus.EditorUtils
             
             this._arrayProperty = arrayProperty;
             this.fixedItemHeight = fixedItemHeight;
+            this.widthOfList = widthOfList - ScrollSpacer;
         }
         
-        public VariableListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f) {
+        public VariableListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f, DefaultWidth) {
         }
                 
         public int Count {
@@ -103,7 +110,14 @@ namespace Fungus.EditorUtils
                 return;
             }
 
-            float[] widths = { 80, 100, 140, 60 };
+            int width = widthOfList;
+            int totalRatio = DefaultWidth;
+
+
+            float[] widths = { (80.0f/ totalRatio) * width,
+                (100.0f / totalRatio) * width,
+                (140.0f/ totalRatio) * width,
+                (60.0f/ totalRatio) * width };
             Rect[] rects = new Rect[4];
 
             for (int i = 0; i < 4; ++i)

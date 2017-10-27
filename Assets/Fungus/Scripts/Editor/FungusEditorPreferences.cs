@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using UnityEditor.Callbacks;
 
 namespace Fungus
 {
@@ -10,23 +11,27 @@ namespace Fungus
         /// 
         /// ref https://docs.unity3d.com/ScriptReference/PreferenceItem.html
         /// </summary>
-        public class FungusEditorPreferences
+        [InitializeOnLoad]
+        public static class FungusEditorPreferences
         {
             // Have we loaded the prefs yet
             private static bool prefsLoaded = false;
-            
-            public static bool hideMushroomInHierarchy = false;
+
+            public static bool hideMushroomInHierarchy;
+
+            static FungusEditorPreferences()
+            {
+                LoadOnScriptLoad();
+            }
 
             // Add preferences section named "My Preferences" to the Preferences Window
             [PreferenceItem("Fungus")]
-
             public static void PreferencesGUI()
             {
                 // Load the preferences
                 if (!prefsLoaded)
                 {
-                    hideMushroomInHierarchy = EditorPrefs.GetBool("hideMushroomInHierarchy", false);
-                    prefsLoaded = true;
+                    LoadOnScriptLoad();
                 }
 
                 // Preferences GUI
@@ -37,6 +42,12 @@ namespace Fungus
                 {
                     EditorPrefs.SetBool("hideMushroomInHierarchy", hideMushroomInHierarchy);
                 }
+            }
+
+            public static void LoadOnScriptLoad()
+            {
+                hideMushroomInHierarchy = EditorPrefs.GetBool("hideMushroomInHierarchy", false);
+                prefsLoaded = true;
             }
         }
     }
