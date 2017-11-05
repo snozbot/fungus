@@ -2,6 +2,40 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.6.1 {#v3_6_1}
+======
+
+## Added
+- Rigidbody2D Fungus Variable
+- Added Playground FungusExamples that demonstrate the use of Rigidbody2D, input, vectors and transforms.
+- Vector3 commands for modifying fields, normalising & arithetic
+- Added TransformProperty command, gets and sets Transform fields and properties
+- Added ReloadScene command
+- Added Rigidbody2D commands, AddForce, AddTorque, StopMotion
+- Added GetAxis command to fetch Input.GetAxis into a float variable
+- Added Math Commands
+- Added MathQuiz Example scene
+- Added MonoBehaviour Events
+- Added MonoBehaviour Example Scene
+- Added LeanTween Commands for Move, Scale, Rotate
+- Added LeanTween Example Scene
+- Added ability to type name of desired command in text box below the block editor
+- Added hierarchy icon for all GameObjects with a flowchart on them
+- Added FungusEditorPreferences these can currently toggle off the hierarchy icons.
+
+## Changed
+- Spawn Object can now return the gameobject made via a Fungus GameObject variable & calls the best matching version of Instantiate
+- Destroy command now supports a destroy delay
+- Updated project to Unity 2017.1.0
+- SayDialog public SpeakingCharacter property
+- BlockEditor name to BlockName
+- CameraManager now tracks the pan and fade coroutines independantly
+
+## Fixed
+- EventHandler now correctly indents its properties
+- If CustomEditor changed to VariableConditionEditor
+
+
 v3.6.0 {#v3_6_0}
 ======
 

@@ -9,15 +9,19 @@ namespace Fungus
     /// <summary>
     /// Destroys a specified game object in the scene.
     /// </summary>
-    [CommandInfo("Scripting", 
-                 "Destroy", 
+    [CommandInfo("Scripting",
+                 "Destroy",
                  "Destroys a specified game object in the scene.")]
     [AddComponentMenu("")]
     [ExecuteInEditMode]
     public class Destroy : Command
-    {   
+    {
         [Tooltip("Reference to game object to destroy")]
         [SerializeField] protected GameObjectData _targetGameObject;
+
+        [Tooltip("Optional delay given to destroy")]
+        [SerializeField]
+        protected FloatData destroyInXSeconds = new FloatData(0);
 
         #region Public members
 
@@ -25,7 +29,10 @@ namespace Fungus
         {
             if (_targetGameObject.Value != null)
             {
-                Destroy(_targetGameObject.Value);
+                if (destroyInXSeconds.Value != 0)
+                    Destroy(_targetGameObject, destroyInXSeconds.Value);
+                else
+                    Destroy(_targetGameObject.Value);
             }
 
             Continue();
@@ -38,12 +45,20 @@ namespace Fungus
                 return "Error: No game object selected";
             }
 
-            return _targetGameObject.Value.name;
+            return _targetGameObject.Value.name + (destroyInXSeconds.Value == 0 ? "" : " in " + destroyInXSeconds.Value.ToString());
         }
 
         public override Color GetButtonColor()
         {
             return new Color32(235, 191, 217, 255);
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            if (_targetGameObject.gameObjectRef == variable || destroyInXSeconds.floatRef == variable)
+                return true;
+
+            return false;
         }
 
         #endregion
