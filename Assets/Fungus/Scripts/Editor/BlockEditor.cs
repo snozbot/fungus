@@ -725,8 +725,8 @@ namespace Fungus.EditorUtils
                     EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
 
                     if (info != null &&
-                        info.Category == category ||
-                        info.Category == "" && category == "Core")
+                        (info.Category == category ||
+                         (info.Category == "" && category == "Core")))
                     {
                         markdown += "# " + info.EventHandlerName + " # {#" + info.EventHandlerName.Replace(" ", "") + "}\n";
                         markdown += info.HelpText + "\n\n";
