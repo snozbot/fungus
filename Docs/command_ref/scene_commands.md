@@ -1,6 +1,4 @@
-# Scene Commands # {#scene_commands}
-
-Commands that interact with scenes and Unity SceneManagement.
+# Scene commands # {#scene_commands}
 
 [TOC]
 # Reload # {#Reload}
@@ -11,3 +9,4 @@ Defined in Fungus.ReloadScene
 Property | Type | Description
  --- | --- | ---
 Loading Image | UnityEngine.Texture2D | Image to display while loading the scene
+

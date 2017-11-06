@@ -1,15 +1,13 @@
-# Input Commands # {#input_commands}
-
-Commands that interact with UnityEngine.Input
+# Input commands # {#input_commands}
 
 [TOC]
-# Move # {#Move}
-Moves a game object to a specified position over time. Can be either to or from a given target. Can be absolute or additive.
+# GetAxis # {#GetAxis}
+Store Input.GetAxis in a variable
 
-Defined in Fungus.MoveLean
+Defined in Fungus.GetAxis
 
 Property | Type | Description
  --- | --- | ---
-axisName | Fungus.StringData | Input Axis name, defined in [InputManager](https://docs.unity3d.com/Manual/class-InputManager.html)
-axisRaw | System.Boolean | If true, calls GetAxisRaw instead of GetAxis
-outValue | Fungus.FloatData | Float to store the value of the GetAxis.
+Axis Raw | System.Boolean | If true, calls GetAxisRaw instead of GetAxis
+Out Value | Fungus.FloatData | Float to store the value of the GetAxis
+
