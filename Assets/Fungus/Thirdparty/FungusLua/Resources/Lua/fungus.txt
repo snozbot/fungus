@@ -187,7 +187,7 @@ function M.say(text, voiceclip)
 
    -- Do variable substitution before displaying text
    local subbed = M.sub(text)
-   local e = sd.DoSay(subbed, M.sayoptions.clearprevious, M.sayoptions.waitforinput, M.sayoptions.fadewhendone, M.sayoptions.stopvoiceover, voiceclip)
+   local e = sd.DoSay(subbed, M.sayoptions.clearprevious, M.sayoptions.waitforinput, M.sayoptions.fadewhendone, M.sayoptions.stopvoiceover, false, voiceclip, nil)
 
    M.runwait(e)
 end
