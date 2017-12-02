@@ -27,7 +27,7 @@ namespace UnityTest
         public static void RunIntegrationTests()
         {
             var targetPlatform = GetTargetPlatform();
-            var otherBuildScenes = GetSceneListFromParam (k_OtherBuildScenesParam);
+            var otherBuildScenes = GetSceneListFromParam(k_OtherBuildScenesParam);
 
             var testScenes = GetSceneListFromParam(k_TestScenesParam);
             if (testScenes.Count == 0)
@@ -35,8 +35,8 @@ namespace UnityTest
 
             RunIntegrationTests(targetPlatform, testScenes, otherBuildScenes);
         }
-        
-        public static void RunIntegrationTests(BuildTarget ? targetPlatform)
+
+        public static void RunIntegrationTests(BuildTarget? targetPlatform)
         {
             var sceneList = FindTestScenesInProject();
             RunIntegrationTests(targetPlatform, sceneList, new List<string>());
@@ -48,9 +48,9 @@ namespace UnityTest
             if (targetPlatform.HasValue)
                 BuildAndRun(targetPlatform.Value, testScenes, otherBuildScenes);
             else
-                RunInEditor(testScenes,  otherBuildScenes);
+                RunInEditor(testScenes, otherBuildScenes);
         }
-        
+
         private static void BuildAndRun(BuildTarget target, List<string> testScenes, List<string> otherBuildScenes)
         {
             var resultFilePath = GetParameterArgument(k_ResultFileDirParam);
@@ -70,7 +70,7 @@ namespace UnityTest
                 port = port
             };
 
-            if (Application.isWebPlayer)
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 config.sendResultsOverNetwork = false;
                 Debug.Log("You can't use WebPlayer as active platform for running integration tests. Switching to Standalone");
