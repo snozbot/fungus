@@ -12,7 +12,8 @@ using Rotorz.ReorderableList;
 
 namespace Fungus.EditorUtils
 {
-    public class VariableListAdaptor : IReorderableListAdaptor {
+    public class VariableListAdaptor : IReorderableListAdaptor
+    {
 
         public static readonly int DefaultWidth = 80 + 100 + 140 + 60;
         public static readonly int ScrollSpacer = 8;
@@ -24,56 +25,67 @@ namespace Fungus.EditorUtils
         public int widthOfList;
 
 
-        public SerializedProperty this[int index] {
+        public SerializedProperty this[int index]
+        {
             get { return _arrayProperty.GetArrayElementAtIndex(index); }
         }
-        
-        public SerializedProperty arrayProperty {
+
+        public SerializedProperty arrayProperty
+        {
             get { return _arrayProperty; }
         }
-        
-        public VariableListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight, int widthOfList) {
+
+        public VariableListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight, int widthOfList)
+        {
             if (arrayProperty == null)
                 throw new ArgumentNullException("Array property was null.");
             if (!arrayProperty.isArray)
                 throw new InvalidOperationException("Specified serialized propery is not an array.");
-            
+
             this._arrayProperty = arrayProperty;
             this.fixedItemHeight = fixedItemHeight;
             this.widthOfList = widthOfList - ScrollSpacer;
         }
-        
-        public VariableListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f, DefaultWidth) {
+
+        public VariableListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f, DefaultWidth)
+        {
         }
-                
-        public int Count {
+
+        public int Count
+        {
             get { return _arrayProperty.arraySize; }
         }
-        
-        public virtual bool CanDrag(int index) {
+
+        public virtual bool CanDrag(int index)
+        {
             return true;
         }
 
-        public virtual bool CanRemove(int index) {
+        public virtual bool CanRemove(int index)
+        {
             return true;
         }
-        
-        public void Add() {
+
+        public void Add()
+        {
             int newIndex = _arrayProperty.arraySize;
             ++_arrayProperty.arraySize;
             _arrayProperty.GetArrayElementAtIndex(newIndex).ResetValue();
         }
 
-        public void Insert(int index) {
+        public void Insert(int index)
+        {
             _arrayProperty.InsertArrayElementAtIndex(index);
             _arrayProperty.GetArrayElementAtIndex(index).ResetValue();
         }
 
-        public void Duplicate(int index) {
+        public void Duplicate(int index)
+        {
             _arrayProperty.InsertArrayElementAtIndex(index);
         }
 
-        public void Remove(int index) {
+        public void Remove(int index)
+        {
             // Remove the Fungus Variable component
             Variable variable = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as Variable;
             Undo.DestroyObjectImmediate(variable);
@@ -82,26 +94,29 @@ namespace Fungus.EditorUtils
             _arrayProperty.DeleteArrayElementAtIndex(index);
         }
 
-        public void Move(int sourceIndex, int destIndex) {
+        public void Move(int sourceIndex, int destIndex)
+        {
             if (destIndex > sourceIndex)
                 --destIndex;
             _arrayProperty.MoveArrayElement(sourceIndex, destIndex);
         }
 
-        public void Clear() {
+        public void Clear()
+        {
             _arrayProperty.ClearArray();
         }
 
         public void BeginGUI()
-        {}
-        
-        public void EndGUI()
-        {}
+        { }
 
-        public virtual void DrawItemBackground(Rect position, int index) {
+        public void EndGUI()
+        { }
+
+        public virtual void DrawItemBackground(Rect position, int index)
+        {
         }
 
-        public void DrawItem(Rect position, int index) 
+        public void DrawItem(Rect position, int index)
         {
             Variable variable = this[index].objectReferenceValue as Variable;
 
@@ -142,7 +157,7 @@ namespace Fungus.EditorUtils
             {
                 return;
             }
-                            
+
             // Highlight if an active or selected command is referencing this variable
             bool highlight = false;
             if (flowchart.SelectedBlock != null)
@@ -188,12 +203,36 @@ namespace Fungus.EditorUtils
 
             key = EditorGUI.TextField(rects[1], variable.Key);
             SerializedProperty keyProp = variableObject.FindProperty("key");
+            SerializedProperty defaultProp = variableObject.FindProperty("value");
+            SerializedProperty scopeProp = variableObject.FindProperty("scope");
+
             keyProp.stringValue = flowchart.GetUniqueVariableKey(key, variable);
 
-            SerializedProperty defaultProp = variableObject.FindProperty("value");
-            EditorGUI.PropertyField(rects[2], defaultProp, new GUIContent(""));
+            bool isGlobal = scopeProp.enumValueIndex == (int)VariableScope.Global;
 
-            SerializedProperty scopeProp = variableObject.FindProperty("scope");
+
+            if (isGlobal && Application.isPlaying)
+            {
+                var res = FungusManager.Instance.GlobalVariables.GetVariable(keyProp.stringValue);
+                if (res != null)
+                {
+                    SerializedObject globalValue = new SerializedObject(res);
+                    var globalValProp = globalValue.FindProperty("value");
+
+                    var prevEnabled = GUI.enabled;
+                    GUI.enabled = false;
+
+                    EditorGUI.PropertyField(rects[2], globalValProp, new GUIContent(""));
+
+                    GUI.enabled = prevEnabled;
+                }
+            }
+            else
+            {
+                EditorGUI.PropertyField(rects[2], defaultProp, new GUIContent(""));
+            }
+
+
             scope = (VariableScope)EditorGUI.EnumPopup(rects[3], variable.Scope);
             scopeProp.enumValueIndex = (int)scope;
 
@@ -202,7 +241,8 @@ namespace Fungus.EditorUtils
             GUI.backgroundColor = Color.white;
         }
 
-        public virtual float GetItemHeight(int index) {
+        public virtual float GetItemHeight(int index)
+        {
             return fixedItemHeight != 0f
                 ? fixedItemHeight
                     : EditorGUI.GetPropertyHeight(this[index], GUIContent.none, false)
