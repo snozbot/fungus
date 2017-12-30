@@ -116,7 +116,11 @@ namespace UnityTest.IntegrationTests
                         case RuntimePlatform.WindowsPlayer:
                             return BuildTarget.StandaloneWindows;
                         case RuntimePlatform.OSXPlayer:
-                            return BuildTarget.StandaloneOSXIntel;
+#if UNITY_2017_3_OR_NEWER
+                            return BuildTarget.StandaloneOSX;
+#else
+                                return BuildTarget.StandaloneOSXIntel;
+#endif
                         case RuntimePlatform.LinuxPlayer:
                             return BuildTarget.StandaloneLinux;
                     }
