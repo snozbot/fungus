@@ -70,6 +70,20 @@ namespace UnityTest
                 port = port
             };
 
+#if !UNITY_2017_2_OR_NEWER
+            if (Application.isWebPlayer)
+            {
+                config.sendResultsOverNetwork = false;
+                Debug.Log("You can't use WebPlayer as active platform for running integration tests. Switching to Standalone");
+#if UNITY_5_6_OR_NEWER
+                EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+#else
+                EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTarget.StandaloneWindows);
+#endif
+
+            }
+#endif
+
             PlatformRunner.BuildAndRunInPlayer(config);
         }
 

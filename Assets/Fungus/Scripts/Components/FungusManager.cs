@@ -12,7 +12,8 @@ namespace Fungus
     [RequireComponent(typeof(CameraManager))]
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(EventDispatcher))]
-    #if UNITY_5_3_OR_NEWER
+    [RequireComponent(typeof(GlobalVariables))]
+#if UNITY_5_3_OR_NEWER
     [RequireComponent(typeof(SaveManager))]
     #endif
     public sealed class FungusManager : MonoBehaviour
@@ -26,7 +27,8 @@ namespace Fungus
             CameraManager = GetComponent<CameraManager>();
             MusicManager = GetComponent<MusicManager>();
             EventDispatcher = GetComponent<EventDispatcher>();
-            #if UNITY_5_3_OR_NEWER
+            GlobalVariables = GetComponent<GlobalVariables>();
+#if UNITY_5_3_OR_NEWER
             SaveManager = GetComponent<SaveManager>();
             #endif
         }
@@ -61,7 +63,12 @@ namespace Fungus
         /// </summary>
         public EventDispatcher EventDispatcher { get; private set; }
 
-        #if UNITY_5_3_OR_NEWER
+        /// <summary>
+        /// Gets the global variable singleton instance.
+        /// </summary>
+        public GlobalVariables GlobalVariables { get; private set; }
+
+#if UNITY_5_3_OR_NEWER
         /// <summary>
         /// Gets the save manager singleton instance.
         /// </summary>
