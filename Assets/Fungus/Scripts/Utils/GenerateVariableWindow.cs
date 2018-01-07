@@ -217,7 +217,7 @@ namespace Fungus
     /// <summary>
     /// {0} variable type.
     /// </summary>
-    [VariableInfo(""{3}"", ""{0}"", isPreviewedOnly:true)]
+    [VariableInfo(""{3}"", ""{0}""{4})]
     [AddComponentMenu("""")]
 	[System.Serializable]
 	public class {0}Variable : VariableBase<{0}>
@@ -416,7 +416,7 @@ namespace Fungus
                 {
                     NamespaceOfClass = NamespaceOfClass.Length > 0 ? ("using " + NamespaceOfClass + ";") : string.Empty;
                     EditorUtility.DisplayProgressBar("Generating " + ClassName, "Variable", 0);
-                    var scriptContents = string.Format(VariableScriptTemplate, ClassName, NamespaceOfClass, lowerClassName, Category, PreviewOnly);
+                    var scriptContents = string.Format(VariableScriptTemplate, ClassName, NamespaceOfClass, lowerClassName, Category, PreviewOnly ? ", isPreviewedOnly:true" : "");
                     System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(VaraibleScriptLocation));
                     System.IO.File.WriteAllText(fileName, scriptContents);
                     Debug.Log("Created " + fileName);
