@@ -22,7 +22,12 @@ namespace Fungus
                 propName = property.name;
 
             EditorGUI.BeginProperty(position, label, property);
+#if UNITY_2017_3_OR_NEWER
+
+            Enum enumNew = EditorGUI.EnumFlagsField(position, propName, targetEnum);
+#else
             Enum enumNew = EditorGUI.EnumMaskField(position, propName, targetEnum);
+#endif            
             property.intValue = (int)Convert.ChangeType(enumNew, targetEnum.GetType());
             EditorGUI.EndProperty();
         }
