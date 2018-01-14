@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using System.Linq;
+using UnityEditor.Build.Reporting;
 
 namespace UnityTest.IntegrationTests
 {
@@ -80,17 +81,28 @@ namespace UnityTest.IntegrationTests
 
             AssetDatabase.Refresh();
 
-            var result = BuildPipeline.BuildPlayer(configuration.testScenes.Concat(configuration.buildScenes).ToArray(),
+#if UNITY_2018_1_OR_NEWER
+            BuildReport result = BuildPipeline.BuildPlayer(configuration.testScenes.Concat(configuration.buildScenes).ToArray(),
                                                    configuration.GetTempPath(),
                                                    configuration.buildTarget,
                                                    BuildOptions.AutoRunPlayer | BuildOptions.Development);
+#else
+            string result = BuildPipeline.BuildPlayer(configuration.testScenes.Concat(configuration.buildScenes).ToArray(),
+                                                   configuration.GetTempPath(),
+                                                   configuration.buildTarget,
+                                                   BuildOptions.AutoRunPlayer | BuildOptions.Development);
+#endif
 
             settings.RevertSettingsChanges();
             settings.RemoveAllConfigurationFiles();
 
             AssetDatabase.Refresh();
 
+#if UNITY_2018_1_OR_NEWER
+            if (result != null)
+#else
             if (!string.IsNullOrEmpty(result))
+#endif
             {
                 if (InternalEditorUtility.inBatchMode)
                     EditorApplication.Exit(Batch.returnCodeRunError);
