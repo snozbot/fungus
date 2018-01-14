@@ -6,7 +6,9 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using System.Linq;
+#if UNITY_2018_1_OR_NEWER
 using UnityEditor.Build.Reporting;
+#endif
 
 namespace UnityTest.IntegrationTests
 {
