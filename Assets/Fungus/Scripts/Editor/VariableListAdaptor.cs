@@ -203,33 +203,38 @@ namespace Fungus.EditorUtils
 
             key = EditorGUI.TextField(rects[1], variable.Key);
             SerializedProperty keyProp = variableObject.FindProperty("key");
-            SerializedProperty defaultProp = variableObject.FindProperty("value");
-            SerializedProperty scopeProp = variableObject.FindProperty("scope");
-
-            keyProp.stringValue = flowchart.GetUniqueVariableKey(key, variable);
+			SerializedProperty defaultProp = variableObject.FindProperty("value");
+			SerializedProperty scopeProp = variableObject.FindProperty("scope");
+            
+			keyProp.stringValue = flowchart.GetUniqueVariableKey(key, variable);
 
             bool isGlobal = scopeProp.enumValueIndex == (int)VariableScope.Global;
 
 
             if (isGlobal && Application.isPlaying)
-            {
-                var res = FungusManager.Instance.GlobalVariables.GetVariable(keyProp.stringValue);
-                if (res != null)
-                {
-                    SerializedObject globalValue = new SerializedObject(res);
-                    var globalValProp = globalValue.FindProperty("value");
+			{
+				var res = FungusManager.Instance.GlobalVariables.GetVariable(keyProp.stringValue);
+				if(res != null)
+				{
+					SerializedObject globalValue = new SerializedObject(res);
+					var globalValProp = globalValue.FindProperty("value");
 
-                    var prevEnabled = GUI.enabled;
-                    GUI.enabled = false;
+					var prevEnabled = GUI.enabled;
+					GUI.enabled = false;
 
-                    EditorGUI.PropertyField(rects[2], globalValProp, new GUIContent(""));
+                    if (!variableInfo.IsPreviewedOnly)
+                        EditorGUI.PropertyField(rects[2], globalValProp, new GUIContent(""));
 
                     GUI.enabled = prevEnabled;
-                }
-            }
-            else
+				}
+			}
+			else
             {
-                EditorGUI.PropertyField(rects[2], defaultProp, new GUIContent(""));
+                if (!variableInfo.IsPreviewedOnly)
+                    EditorGUI.PropertyField(rects[2], defaultProp, new GUIContent(""));
+                else if(!isGlobal)
+                    EditorGUI.LabelField(rects[2], this[index].objectReferenceValue.ToString());
+
             }
 
 

@@ -43,16 +43,18 @@ namespace Fungus
     /// </summary>
     public class VariableInfoAttribute : Attribute
     {
-        public VariableInfoAttribute(string category, string variableType, int order = 0)
+        public VariableInfoAttribute(string category, string variableType, int order = 0, bool isPreviewedOnly = false)
         {
             this.Category = category;
             this.VariableType = variableType;
             this.Order = order;
+            this.IsPreviewedOnly = isPreviewedOnly;
         }
         
         public string Category { get; set; }
         public string VariableType { get; set; }
         public int Order { get; set; }
+        public bool IsPreviewedOnly { get; set; }
     }
 
     /// <summary>
