@@ -140,6 +140,7 @@ namespace Fungus
         public virtual void StopMusic()
         {
             GetComponent<AudioSource>().Stop();
+            audio.clip = null;
         }
 
         #endregion
