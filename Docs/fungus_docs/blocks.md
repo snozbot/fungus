@@ -132,7 +132,7 @@ To pass control to another Block, and stop executing Commands in the current Blo
 4. Add a new Block to your Flowchart named "Block2".
 5. Add to Block "Block2" a Say Command with the Story Text "I am in Block2".
 ![block 2]
-6. Add to Block "Block2" a Call Command, by choosing menu: ```Flow | Call```:
+6. Add to Block "Start" a Call Command, by choosing menu: ```Flow | Call```:
 ![flow call]
 7. With this Call Command Selected, in the Inspector choose Block2 from the list of Blocks for property **Target Block**:
 ![call block menu]
