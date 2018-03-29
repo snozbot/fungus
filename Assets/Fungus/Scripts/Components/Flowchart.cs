@@ -483,6 +483,31 @@ namespace Fungus
         }
 
         /// <summary>
+        /// Checks availability of the block in the Flowchart.
+        /// You can use this method in a UI event. e.g. to test availability block, before handle it.
+        public virtual bool HasBlock(string blockName)
+        {
+            var block = FindBlock(blockName);
+            return block != null;
+        }
+
+        /// <summary>
+        /// Executes the block if it is available in the Flowchart.
+        /// You can use this method in a UI event. e.g. to try executing block without confidence in its existence.
+        public virtual bool ExecuteIfHasBlock(string blockName)
+        {
+            if (HasBlock(blockName))
+            {
+                ExecuteBlock(blockName);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }        
+
+        /// <summary>
         /// Execute a child block in the Flowchart.
         /// You can use this method in a UI event. e.g. to handle a button click.
         public virtual void ExecuteBlock(string blockName)
