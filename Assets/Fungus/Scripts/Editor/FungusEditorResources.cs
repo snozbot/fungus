@@ -78,6 +78,7 @@ namespace Fungus.EditorUtils
 
         private static FungusEditorResources instance;
         private static readonly string editorResourcesFolderName = "\"EditorResources\"";
+        private static readonly string PartialEditorResourcesPath = System.IO.Path.Combine("Fungus\\", "EditorResources");
         [SerializeField] [HideInInspector] private bool updateOnReloadScripts = false;
 
         internal static FungusEditorResources Instance
@@ -97,7 +98,7 @@ namespace Fungus.EditorUtils
                     {
                         if (guids.Length > 1)
                         {
-                            Debug.LogWarning("Multiple FungusEditorResources assets found!");
+                            Debug.LogError("Multiple FungusEditorResources assets found!");
                         }
 
                         var path = AssetDatabase.GUIDToAssetPath(guids[0]);
@@ -111,8 +112,17 @@ namespace Fungus.EditorUtils
 
         private static string GetRootFolder()
         {
-            var rootGuid = AssetDatabase.FindAssets(editorResourcesFolderName)[0];
-            return AssetDatabase.GUIDToAssetPath(rootGuid);
+            var res = AssetDatabase.FindAssets(editorResourcesFolderName);
+
+            foreach (var item in res)
+            {
+                var path = AssetDatabase.GUIDToAssetPath(item);
+                var safePath = System.IO.Path.GetFullPath(path);
+                if (safePath.IndexOf(PartialEditorResourcesPath) != -1)
+                    return path;
+            }
+
+            return string.Empty;
         }
 
         internal static void GenerateResourcesScript()
