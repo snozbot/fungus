@@ -17,6 +17,7 @@ namespace Fungus
                           typeof(FloatVariable), 
                           typeof(StringVariable),
                           typeof(AnimatorVariable),
+                          typeof(AudioSourceVariable),
                           typeof(GameObjectVariable))]
         [SerializeField] protected Variable variable;
 
@@ -34,6 +35,9 @@ namespace Fungus
 
         [Tooltip("Animator value to compare against")]
         [SerializeField] protected AnimatorData animatorData;
+
+        [Tooltip("AudioSource value to compare against")]
+        [SerializeField] protected AudioSourceData audioSourceData;
 
         [Tooltip("GameObject value to compare against")]
         [SerializeField] protected GameObjectData gameObjectData;
@@ -72,6 +76,11 @@ namespace Fungus
                 AnimatorVariable animatorVariable = (variable as AnimatorVariable);
                 condition = animatorVariable.Evaluate(compareOperator, animatorData.Value);
             }
+            else if (variable.GetType() == typeof(AudioSourceVariable))
+            {
+                AudioSourceVariable audioSourceVariable = (variable as AudioSourceVariable);
+                condition = audioSourceVariable.Evaluate(compareOperator, audioSourceData.Value);
+            }
             else if (variable.GetType() == typeof(GameObjectVariable))
             {
                 GameObjectVariable gameObjectVariable = (variable as GameObjectVariable);
@@ -94,6 +103,7 @@ namespace Fungus
             { typeof(FloatVariable), FloatVariable.compareOperators },
             { typeof(StringVariable), StringVariable.compareOperators },
             { typeof(AnimatorVariable), AnimatorVariable.compareOperators },
+            { typeof(AudioSourceVariable), AudioSourceVariable.compareOperators },
             { typeof(GameObjectVariable), GameObjectVariable.compareOperators }
         };
 
@@ -131,6 +141,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(AnimatorVariable))
             {
                 summary += animatorData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(AudioSourceVariable))
+            {
+                summary += audioSourceData.GetDescription();
             }
             else if (variable.GetType() == typeof(GameObjectVariable))
             {
