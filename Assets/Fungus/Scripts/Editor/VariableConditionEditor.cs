@@ -12,10 +12,8 @@ namespace Fungus.EditorUtils
     {
         protected SerializedProperty variableProp;
         protected SerializedProperty compareOperatorProp;
-        protected SerializedProperty booleanDataProp;
-        protected SerializedProperty integerDataProp;
-        protected SerializedProperty floatDataProp;
-        protected SerializedProperty stringDataProp;
+
+        protected Dictionary<System.Type, SerializedProperty> propByVariableType;
 
         protected virtual void OnEnable()
         {
@@ -24,10 +22,15 @@ namespace Fungus.EditorUtils
 
             variableProp = serializedObject.FindProperty("variable");
             compareOperatorProp = serializedObject.FindProperty("compareOperator");
-            booleanDataProp = serializedObject.FindProperty("booleanData");
-            integerDataProp = serializedObject.FindProperty("integerData");
-            floatDataProp = serializedObject.FindProperty("floatData");
-            stringDataProp = serializedObject.FindProperty("stringData");
+
+            // Get variable data props by name
+            propByVariableType = new Dictionary<System.Type, SerializedProperty>() {
+                { typeof(BooleanVariable), serializedObject.FindProperty("booleanData") },
+                { typeof(IntegerVariable), serializedObject.FindProperty("integerData") },
+                { typeof(FloatVariable), serializedObject.FindProperty("floatData") },
+                { typeof(StringVariable), serializedObject.FindProperty("stringData") },
+                { typeof(GameObjectVariable), serializedObject.FindProperty("gameObjectData") }
+            };
         }
 
         public override void DrawCommandGUI()
@@ -42,6 +45,7 @@ namespace Fungus.EditorUtils
                 return;
             }
 
+            // Select Variable
             EditorGUILayout.PropertyField(variableProp);
 
             if (variableProp.objectReferenceValue == null)
@@ -50,41 +54,60 @@ namespace Fungus.EditorUtils
                 return;
             }
 
+            // Get selected variable
             Variable selectedVariable = variableProp.objectReferenceValue as Variable;
             System.Type variableType = selectedVariable.GetType();
 
-            List<GUIContent> operatorList = new List<GUIContent>();
-            operatorList.Add(new GUIContent("=="));
-            operatorList.Add(new GUIContent("!="));
-            if (variableType == typeof(IntegerVariable) ||
-                variableType == typeof(FloatVariable))
+            // Get operators for the variable
+            CompareOperator[] compareOperators = VariableCondition.operatorsByVariableType[variableType];
+
+            // Create operator list
+            List<GUIContent> operatorsList = new List<GUIContent>();
+            foreach (var compareOperator in compareOperators)
             {
-                operatorList.Add(new GUIContent("<"));
-                operatorList.Add(new GUIContent(">"));
-                operatorList.Add(new GUIContent("<="));
-                operatorList.Add(new GUIContent(">="));
+                switch (compareOperator)
+                {
+                    case CompareOperator.Equals:
+                        operatorsList.Add(new GUIContent("=="));
+                        break;
+                    case CompareOperator.NotEquals:
+                        operatorsList.Add(new GUIContent("!="));
+                        break;
+                    case CompareOperator.LessThan:
+                        operatorsList.Add(new GUIContent("<"));
+                        break;
+                    case CompareOperator.GreaterThan:
+                        operatorsList.Add(new GUIContent(">"));
+                        break;
+                    case CompareOperator.LessThanOrEquals:
+                        operatorsList.Add(new GUIContent("<="));
+                        break;
+                    case CompareOperator.GreaterThanOrEquals:
+                        operatorsList.Add(new GUIContent(">="));
+                        break;
+                    default:
+                        Debug.LogError("The " + compareOperator.ToString() + " operator has no matching GUIContent.");
+                        break;
+                }
             }
 
-            compareOperatorProp.enumValueIndex = EditorGUILayout.Popup(new GUIContent("Compare", "The comparison operator to use when comparing values"), 
-                                                                       compareOperatorProp.enumValueIndex, 
-                                                                       operatorList.ToArray());
+            // Get previously selected operator
+            int selectedIndex = System.Array.IndexOf(compareOperators, t._CompareOperator);
+            if (selectedIndex < 0)
+            {
+                // Default to first index if the operator is not found in the available operators list
+                // This can occur when changing between variable types
+                selectedIndex = 0;
+            }
 
-            if (variableType == typeof(BooleanVariable))
-            {
-                EditorGUILayout.PropertyField(booleanDataProp);
-            }
-            else if (variableType == typeof(IntegerVariable))
-            {
-                EditorGUILayout.PropertyField(integerDataProp);
-            }
-            else if (variableType == typeof(FloatVariable))
-            {
-                EditorGUILayout.PropertyField(floatDataProp);
-            }
-            else if (variableType == typeof(StringVariable))
-            {
-                EditorGUILayout.PropertyField(stringDataProp);
-            }
+            selectedIndex = EditorGUILayout.Popup(
+                new GUIContent("Compare", "The comparison operator to use when comparing values"),
+                selectedIndex,
+                operatorsList.ToArray());
+
+            compareOperatorProp.enumValueIndex = (int)compareOperators[selectedIndex];
+
+            EditorGUILayout.PropertyField(propByVariableType[variableType]);
 
             serializedObject.ApplyModifiedProperties();
         }
