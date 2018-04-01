@@ -229,7 +229,7 @@ namespace Fungus.EditorUtils
             Rect valueRect = controlRect;
             valueRect.width = controlRect.width - popupWidth - 5;
             Rect popupRect = controlRect;
-            
+
             if (referenceProp.objectReferenceValue == null)
             {
                 EditorGUI.PropertyField(valueRect, valueProp, new GUIContent(""));

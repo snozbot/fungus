@@ -13,6 +13,8 @@ namespace Fungus
     [System.Serializable]
     public class FloatVariable : VariableBase<float>
     {
+        public static readonly SetOperator[] operators = { SetOperator.Assign, SetOperator.Add, SetOperator.Subtract, SetOperator.Multiply, SetOperator.Divide };
+
         public virtual bool Evaluate(CompareOperator compareOperator, float floatValue)
         {
             float lhs = Value;
@@ -43,6 +45,29 @@ namespace Fungus
             }
             
             return condition;
+        }
+
+        public override void Apply(SetOperator setOperator, float value)
+        {
+            switch (setOperator)
+            {
+                default:
+                case SetOperator.Assign:
+                    Value = value;
+                    break;
+                case SetOperator.Add:
+                    Value += value;
+                    break;
+                case SetOperator.Subtract:
+                    Value -= value;
+                    break;
+                case SetOperator.Multiply:
+                    Value *= value;
+                    break;
+                case SetOperator.Divide:
+                    Value /= value;
+                    break;
+            }
         }
     }
 

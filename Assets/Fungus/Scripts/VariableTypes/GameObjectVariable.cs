@@ -13,7 +13,20 @@ namespace Fungus
     [AddComponentMenu("")]
     [System.Serializable]
     public class GameObjectVariable : VariableBase<GameObject>
-    {}
+    {
+        public static readonly SetOperator[] operators = { SetOperator.Assign };
+
+        public override void Apply(SetOperator setOperator, GameObject value)
+        {
+            switch (setOperator)
+            {
+                default:
+                case SetOperator.Assign:
+                    Value = value;
+                    break;
+            }
+        }
+    }
 
     /// <summary>
     /// Container for a GameObject variable reference or constant value.
