@@ -13,7 +13,7 @@ namespace Fungus
     [System.Serializable]
     public class StringVariable : VariableBase<string>
     {
-        public static readonly SetOperator[] operators = { SetOperator.Assign };
+        public static readonly SetOperator[] setOperators = { SetOperator.Assign };
 
         public virtual bool Evaluate(CompareOperator compareOperator, string stringValue)
         {

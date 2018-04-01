@@ -13,7 +13,7 @@ namespace Fungus
     [System.Serializable]
     public class FloatVariable : VariableBase<float>
     {
-        public static readonly SetOperator[] operators = { SetOperator.Assign, SetOperator.Add, SetOperator.Subtract, SetOperator.Multiply, SetOperator.Divide };
+        public static readonly SetOperator[] setOperators = { SetOperator.Assign, SetOperator.Add, SetOperator.Subtract, SetOperator.Multiply, SetOperator.Divide };
 
         public virtual bool Evaluate(CompareOperator compareOperator, float floatValue)
         {

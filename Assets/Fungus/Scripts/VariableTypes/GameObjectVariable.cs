@@ -14,7 +14,7 @@ namespace Fungus
     [System.Serializable]
     public class GameObjectVariable : VariableBase<GameObject>
     {
-        public static readonly SetOperator[] operators = { SetOperator.Assign };
+        public static readonly SetOperator[] setOperators = { SetOperator.Assign };
 
         public override void Apply(SetOperator setOperator, GameObject value)
         {

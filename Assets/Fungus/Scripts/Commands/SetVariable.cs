@@ -79,11 +79,11 @@ namespace Fungus
         #region Public members
 
         public static readonly Dictionary<System.Type, SetOperator[]> operatorsByVariableType = new Dictionary<System.Type, SetOperator[]>() {
-            { typeof(BooleanVariable), BooleanVariable.operators },
-            { typeof(IntegerVariable), IntegerVariable.operators },
-            { typeof(FloatVariable), FloatVariable.operators },
-            { typeof(StringVariable), StringVariable.operators },
-            { typeof(GameObjectVariable), GameObjectVariable.operators }
+            { typeof(BooleanVariable), BooleanVariable.setOperators },
+            { typeof(IntegerVariable), IntegerVariable.setOperators },
+            { typeof(FloatVariable), FloatVariable.setOperators },
+            { typeof(StringVariable), StringVariable.setOperators },
+            { typeof(GameObjectVariable), GameObjectVariable.setOperators }
         };
 
         /// <summary>

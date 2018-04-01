@@ -13,7 +13,7 @@ namespace Fungus
     [System.Serializable]
     public class BooleanVariable : VariableBase<bool>
     {
-        public static readonly SetOperator[] operators = { SetOperator.Assign, SetOperator.Negate };
+        public static readonly SetOperator[] setOperators = { SetOperator.Assign, SetOperator.Negate };
 
         public virtual bool Evaluate(CompareOperator compareOperator, bool booleanValue)
         {
