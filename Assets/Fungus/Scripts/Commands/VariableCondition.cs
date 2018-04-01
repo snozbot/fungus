@@ -16,6 +16,7 @@ namespace Fungus
                           typeof(IntegerVariable), 
                           typeof(FloatVariable), 
                           typeof(StringVariable),
+                          typeof(AnimatorVariable),
                           typeof(GameObjectVariable))]
         [SerializeField] protected Variable variable;
 
@@ -30,6 +31,9 @@ namespace Fungus
 
         [Tooltip("String value to compare against")]
         [SerializeField] protected StringDataMulti stringData;
+
+        [Tooltip("Animator value to compare against")]
+        [SerializeField] protected AnimatorData animatorData;
 
         [Tooltip("GameObject value to compare against")]
         [SerializeField] protected GameObjectData gameObjectData;
@@ -63,6 +67,11 @@ namespace Fungus
                 StringVariable stringVariable = (variable as StringVariable);
                 condition = stringVariable.Evaluate(compareOperator, stringData.Value);
             }
+            else if (variable.GetType() == typeof(AnimatorVariable))
+            {
+                AnimatorVariable animatorVariable = (variable as AnimatorVariable);
+                condition = animatorVariable.Evaluate(compareOperator, animatorData.Value);
+            }
             else if (variable.GetType() == typeof(GameObjectVariable))
             {
                 GameObjectVariable gameObjectVariable = (variable as GameObjectVariable);
@@ -84,6 +93,7 @@ namespace Fungus
             { typeof(IntegerVariable), IntegerVariable.compareOperators },
             { typeof(FloatVariable), FloatVariable.compareOperators },
             { typeof(StringVariable), StringVariable.compareOperators },
+            { typeof(AnimatorVariable), AnimatorVariable.compareOperators },
             { typeof(GameObjectVariable), GameObjectVariable.compareOperators }
         };
 
@@ -117,6 +127,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(StringVariable))
             {
                 summary += stringData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(AnimatorVariable))
+            {
+                summary += animatorData.GetDescription();
             }
             else if (variable.GetType() == typeof(GameObjectVariable))
             {

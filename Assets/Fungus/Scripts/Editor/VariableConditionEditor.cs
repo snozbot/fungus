@@ -29,6 +29,7 @@ namespace Fungus.EditorUtils
                 { typeof(IntegerVariable), serializedObject.FindProperty("integerData") },
                 { typeof(FloatVariable), serializedObject.FindProperty("floatData") },
                 { typeof(StringVariable), serializedObject.FindProperty("stringData") },
+                { typeof(AnimatorVariable), serializedObject.FindProperty("animatorData") },
                 { typeof(GameObjectVariable), serializedObject.FindProperty("gameObjectData") }
             };
         }
