@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Fungus
 {
@@ -14,7 +15,8 @@ namespace Fungus
         [VariableProperty(typeof(BooleanVariable),
                           typeof(IntegerVariable), 
                           typeof(FloatVariable), 
-                          typeof(StringVariable))]
+                          typeof(StringVariable),
+                          typeof(GameObjectVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("Boolean value to compare against")]
@@ -29,30 +31,42 @@ namespace Fungus
         [Tooltip("String value to compare against")]
         [SerializeField] protected StringDataMulti stringData;
 
+        [Tooltip("GameObject value to compare against")]
+        [SerializeField] protected GameObjectData gameObjectData;
+
         protected override bool EvaluateCondition()
         {
-            BooleanVariable booleanVariable = variable as BooleanVariable;
-            IntegerVariable integerVariable = variable as IntegerVariable;
-            FloatVariable floatVariable = variable as FloatVariable;
-            StringVariable stringVariable = variable as StringVariable;
-            
-            bool condition = false;
-            
-            if (booleanVariable != null)
+            if (variable == null)
             {
+                return false;
+            }
+
+            bool condition = false;
+
+            if (variable.GetType() == typeof(BooleanVariable))
+            {
+                BooleanVariable booleanVariable = (variable as BooleanVariable);
                 condition = booleanVariable.Evaluate(compareOperator, booleanData.Value);
             }
-            else if (integerVariable != null)
+            else if (variable.GetType() == typeof(IntegerVariable))
             {
+                IntegerVariable integerVariable = (variable as IntegerVariable);
                 condition = integerVariable.Evaluate(compareOperator, integerData.Value);
             }
-            else if (floatVariable != null)
+            else if (variable.GetType() == typeof(FloatVariable))
             {
+                FloatVariable floatVariable = (variable as FloatVariable);
                 condition = floatVariable.Evaluate(compareOperator, floatData.Value);
             }
-            else if (stringVariable != null)
+            else if (variable.GetType() == typeof(StringVariable))
             {
+                StringVariable stringVariable = (variable as StringVariable);
                 condition = stringVariable.Evaluate(compareOperator, stringData.Value);
+            }
+            else if (variable.GetType() == typeof(GameObjectVariable))
+            {
+                GameObjectVariable gameObjectVariable = (variable as GameObjectVariable);
+                condition = gameObjectVariable.Evaluate(compareOperator, gameObjectData.Value);
             }
 
             return condition;
@@ -64,6 +78,19 @@ namespace Fungus
         }
 
         #region Public members
+
+        public static readonly Dictionary<System.Type, CompareOperator[]> operatorsByVariableType = new Dictionary<System.Type, CompareOperator[]>() {
+            { typeof(BooleanVariable), BooleanVariable.compareOperators },
+            { typeof(IntegerVariable), IntegerVariable.compareOperators },
+            { typeof(FloatVariable), FloatVariable.compareOperators },
+            { typeof(StringVariable), StringVariable.compareOperators },
+            { typeof(GameObjectVariable), GameObjectVariable.compareOperators }
+        };
+
+        /// <summary>
+        /// The type of comparison operation to be performed.
+        /// </summary>
+        public virtual CompareOperator _CompareOperator { get { return compareOperator; } }
 
         public override string GetSummary()
         {
@@ -90,6 +117,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(StringVariable))
             {
                 summary += stringData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(GameObjectVariable))
+            {
+                summary += gameObjectData.GetDescription();
             }
 
             return summary;
