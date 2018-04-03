@@ -26,6 +26,25 @@ namespace Fungus
     }
 
     /// <summary>
+    /// Mathematical operations that can be performed on variables.
+    /// </summary>
+    public enum SetOperator
+    {
+        /// <summary> = operator. </summary>
+        Assign,
+        /// <summary> =! operator. </summary>
+        Negate,
+        /// <summary> += operator. </summary>
+        Add,
+        /// <summary> -= operator. </summary>
+        Subtract,
+        /// <summary> *= operator. </summary>
+        Multiply,
+        /// <summary> /= operator. </summary>
+        Divide
+    }
+
+    /// <summary>
     /// Scope types for Variables.
     /// </summary>
     public enum VariableScope
@@ -175,6 +194,10 @@ namespace Fungus
         {
             // Remember the initial value so we can reset later on
             startValue = Value;
+        }
+
+        public virtual void Apply(SetOperator setOperator, T value) {
+            Debug.LogError("Variable doesn't have any operators.");
         }
     }
 }

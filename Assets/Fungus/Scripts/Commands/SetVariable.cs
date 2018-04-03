@@ -2,28 +2,10 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Fungus
 {
-    /// <summary>
-    /// Mathematical operations that can be performed on variables.
-    /// </summary>
-    public enum SetOperator
-    {
-        /// <summary> = operator. </summary>
-        Assign,
-        /// <summary> =! operator. </summary>
-        Negate,
-        /// <summary> += operator. </summary>
-        Add,
-        /// <summary> -= operator. </summary>
-        Subtract,
-        /// <summary> *= operator. </summary>
-        Multiply,
-        /// <summary> /= operator. </summary>
-        Divide
-    }
-
     /// <summary>
     /// Sets a Boolean, Integer, Float or String variable to a new value using a simple arithmetic operation. The value can be a constant or reference another variable of the same type.
     /// </summary>
@@ -37,7 +19,8 @@ namespace Fungus
         [VariableProperty(typeof(BooleanVariable),
                           typeof(IntegerVariable), 
                           typeof(FloatVariable), 
-                          typeof(StringVariable))]
+                          typeof(StringVariable),
+                          typeof(GameObjectVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("The type of math operation to be performed")]
@@ -55,6 +38,9 @@ namespace Fungus
         [Tooltip("String value to set with")]
         [SerializeField] protected StringDataMulti stringData;
 
+        [Tooltip("GameObject value to set with")]
+        [SerializeField] protected GameObjectData gameObjectData;
+
         protected virtual void DoSetOperation()
         {
             if (variable == null)
@@ -64,89 +50,41 @@ namespace Fungus
 
             if (variable.GetType() == typeof(BooleanVariable))
             {
-                BooleanVariable lhs = (variable as BooleanVariable);
-                bool rhs = booleanData.Value;
-
-                switch (setOperator)
-                {
-                    default:
-                    case SetOperator.Assign:
-                        lhs.Value = rhs;
-                        break;
-                    case SetOperator.Negate:
-                        lhs.Value = !rhs;
-                        break;
-                }
+                BooleanVariable booleanVariable = (variable as BooleanVariable);
+                booleanVariable.Apply(setOperator, booleanData.Value);
             }
             else if (variable.GetType() == typeof(IntegerVariable))
             {
-                IntegerVariable lhs = (variable as IntegerVariable);
-                int rhs = integerData.Value;
-
-                switch (setOperator)
-                {
-                    default:
-                    case SetOperator.Assign:
-                        lhs.Value = rhs;
-                        break;
-                    case SetOperator.Add:
-                        lhs.Value += rhs;
-                        break;
-                    case SetOperator.Subtract:
-                        lhs.Value -= rhs;
-                        break;
-                    case SetOperator.Multiply:
-                        lhs.Value *= rhs;
-                        break;
-                    case SetOperator.Divide:
-                        lhs.Value /= rhs;
-                        break;
-                }
+                IntegerVariable integerVariable = (variable as IntegerVariable);
+                integerVariable.Apply(setOperator, integerData.Value);
             }
             else if (variable.GetType() == typeof(FloatVariable))
             {
-                FloatVariable lhs = (variable as FloatVariable);
-                float rhs = floatData.Value;
-
-                switch (setOperator)
-                {
-                    default:
-                    case SetOperator.Assign:
-                        lhs.Value = rhs;
-                        break;
-                    case SetOperator.Add:
-                        lhs.Value += rhs;
-                        break;
-                    case SetOperator.Subtract:
-                        lhs.Value -= rhs;
-                        break;
-                    case SetOperator.Multiply:
-                        lhs.Value *= rhs;
-                        break;
-                    case SetOperator.Divide:
-                        lhs.Value /= rhs;
-                        break;
-                }
+                FloatVariable floatVariable = (variable as FloatVariable);
+                floatVariable.Apply(setOperator, floatData.Value);
             }
             else if (variable.GetType() == typeof(StringVariable))
             {
-                StringVariable lhs = (variable as StringVariable);
-                string rhs = stringData.Value;
-
+                StringVariable stringVariable = (variable as StringVariable);
                 var flowchart = GetFlowchart();
-                rhs = flowchart.SubstituteVariables(rhs);
-
-                switch (setOperator)
-                {
-                    default:
-                    case SetOperator.Assign:
-                        lhs.Value = rhs;
-                        break;
-                }
+                stringVariable.Apply(setOperator, flowchart.SubstituteVariables(stringData.Value));
+            }
+            else if (variable.GetType() == typeof(GameObjectVariable))
+            {
+                GameObjectVariable gameObjectVariable = (variable as GameObjectVariable);
+                gameObjectVariable.Apply(setOperator, gameObjectData.Value);
             }
         }
 
         #region Public members
+
+        public static readonly Dictionary<System.Type, SetOperator[]> operatorsByVariableType = new Dictionary<System.Type, SetOperator[]>() {
+            { typeof(BooleanVariable), BooleanVariable.setOperators },
+            { typeof(IntegerVariable), IntegerVariable.setOperators },
+            { typeof(FloatVariable), FloatVariable.setOperators },
+            { typeof(StringVariable), StringVariable.setOperators },
+            { typeof(GameObjectVariable), GameObjectVariable.setOperators }
+        };
 
         /// <summary>
         /// The type of math operation to be performed.
@@ -207,6 +145,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(StringVariable))
             {
                 description += stringData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(GameObjectVariable))
+            {
+                description += gameObjectData.GetDescription();
             }
 
             return description;
