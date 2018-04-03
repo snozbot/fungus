@@ -35,6 +35,7 @@ Boolean Data | Fungus.BooleanData | Boolean value to compare against
 Integer Data | Fungus.IntegerData | Integer value to compare against
 Float Data | Fungus.FloatData | Float value to compare against
 String Data | Fungus.StringDataMulti | String value to compare against
+Game Object Data | Fungus.GameObjectData | GameObject value to compare against
 
 # End # {#End}
 Marks the end of a conditional block.
@@ -53,6 +54,7 @@ Boolean Data | Fungus.BooleanData | Boolean value to compare against
 Integer Data | Fungus.IntegerData | Integer value to compare against
 Float Data | Fungus.FloatData | Float value to compare against
 String Data | Fungus.StringDataMulti | String value to compare against
+Game Object Data | Fungus.GameObjectData | GameObject value to compare against
 
 # Jump # {#Jump}
 Move execution to a specific Label command in the same block
@@ -196,4 +198,5 @@ Boolean Data | Fungus.BooleanData | Boolean value to compare against
 Integer Data | Fungus.IntegerData | Integer value to compare against
 Float Data | Fungus.FloatData | Float value to compare against
 String Data | Fungus.StringDataMulti | String value to compare against
+Game Object Data | Fungus.GameObjectData | GameObject value to compare against
 
