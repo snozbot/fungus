@@ -13,6 +13,8 @@ namespace Fungus
     [System.Serializable]
     public class StringVariable : VariableBase<string>
     {
+        public static readonly SetOperator[] setOperators = { SetOperator.Assign };
+
         public virtual bool Evaluate(CompareOperator compareOperator, string stringValue)
         {
             string lhs = Value;
@@ -32,6 +34,17 @@ namespace Fungus
             }
 
             return condition;
+        }
+
+        public override void Apply(SetOperator setOperator, string value)
+        {
+            switch (setOperator)
+            {
+                default:
+                case SetOperator.Assign:
+                    Value = value;
+                    break;
+            }
         }
     }
 
