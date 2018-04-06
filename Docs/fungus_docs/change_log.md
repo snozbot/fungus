@@ -2,39 +2,72 @@ Changelog {#changelog}
 =========
 [TOC]
 
-v3.6.1 {#v3_6_1}
+v3.8.0 {#v3_8_0}
 ======
 
+Many thanks to contributors stevehalliwell, FrederickKDP, MeMark2, KVinS, charblar, FatPuzo for their work on this release!
+
 ## Added
-- Rigidbody2D Fungus Variable
-- Added Playground FungusExamples that demonstrate the use of Rigidbody2D, input, vectors and transforms.
-- Vector3 commands for modifying fields, normalising & arithetic
-- Added TransformProperty command, gets and sets Transform fields and properties
-- Added ReloadScene command
-- Added Rigidbody2D commands, AddForce, AddTorque, StopMotion
-- Added GetAxis command to fetch Input.GetAxis into a float variable
-- Added Math Commands
-- Added MathQuiz Example scene
-- Added MonoBehaviour Events
-- Added MonoBehaviour Example Scene
-- Added LeanTween Commands for Move, Scale, Rotate
-- Added LeanTween Example Scene
-- Added ability to type name of desired command in text box below the block editor
-- Added hierarchy icon for all GameObjects with a flowchart on them
-- Added FungusEditorPreferences these can currently toggle off the hierarchy icons.
+- Added Flowchart.HasBlock() and ExecuteIfHasBlock() methods
+- Added Global Variable support. Variables have new 'Global' variable scope.
+- Added GlobalVar demo scene
 
 ## Changed
-- Spawn Object can now return the gameobject made via a Fungus GameObject variable & calls the best matching version of Instantiate
-- Destroy command now supports a destroy delay
-- Updated project to Unity 2017.1.0
-- SayDialog public SpeakingCharacter property
-- BlockEditor name to BlockName
-- CameraManager now tracks the pan and fade coroutines independantly
+- Updated project version to Unity 2017.4.0f1
+- Refactored the set variable system to make it easier to add variable comparison options
+- Added comparison and setting of GameObjects variables
+- Updated Batch for newer versions of Unity3D web player #650
 
 ## Fixed
-- EventHandler now correctly indents its properties
-- If CustomEditor changed to VariableConditionEditor
+- Fixed compile errors in Unity 2018.1 beta
+- Fixed compiler warnings in Untity2017.3
+- Fixed repeat play of music #659
+- Fixed conflicting EditorResource folder issue #664
+- Fixed SaveMenu DontDestroyOnLoad problems #661
+- Fixed docs: the block name in 6 of "Connections between Blocks" section from "Block2" to "Start" #663
+- Fixed lua say() function to match new say method parameters
 
+v3.7.0 {#v3_7_0}
+======
+
+Many thanks to maintainer Steve Halliwell for all the amazing new functionality in this release!
+
+## Added
+- Added Playground examples showing 3 simple arcade games made using Fungus
+- Added Rigidbody2D variable type 
+- Added Vector3 FungusCommands - Fields, Normalise, Convert to Vector2, Arithetic 
+- Added TransformProperty FungusCommand. Get and Set a transform's fields and properties. Does not currently support rotation, localRotation nor the Mat4x4 commands as we do not have the appropriate FungusVariables to store them in 
+- Added FungusCommand to Reload Current Scene 
+- Added Rigidbody2D FungusCommands - AddForce, AddTorque, StopMotion 
+- Added Input GetAxis fungusCommand, fetch Input.GetAxis and store in a FloatData 
+- SpawnObject FungusCommand can now store the gameobject it instantiates and can spawn at itself 
+- Destroy FungusCommand can now be told to pass down a delay to Destroy 
+- Added Fungus Commands for most of MathF 
+- Added Math demo scene
+- Added Mouse fungus event demo scene
+- Added Monobehaviour fungus event handlers and physics demo scene
+- Added LeanTween commands and demo scene that approximates the old iTween demo
+- Added SpeakingCharacter property to SayDialog
+- Added Fungus panel in editor preferences 
+- Added option to toggle off the fungus icon in the hierarchy in case it conflicts with other tools or is just undesired
+- Added TextTag WVO WaitForVoiceOver #572
+- Added ability to show variable list in the Flowchart Inspector #643
+- OpenURL FungusCommand renamed, fixes #554 #642
+
+## Changed
+- SaveManager now uses json files in a FungusSaves sub directory for all platforms but webplayer & webgl which still use playerprefs
+- GetCommandInfo returns the highest priority CommandInfo to better support multiple names while maintaining what is shown in the inspector
+- Allow multiple CommandInfos to be added to a class SpawnObject can now also be found under GameObject/Instantiate
+- Changed Fungus icon loading to use FungusEditorResources
+
+## Fixed
+- Fixed typo in BlockEditor.BlockField() #633 
+- Fixed custom editor for ElseIf command #630
+- Fixed Prefab Variable Dereferencing #618
+- Fixed typo in Set Interactable description #647
+- Fixed choice dialogues were not set to stay during the MenuDialogue #640
+- Fixed camera fading and panning at the same time (thanks to iBicha!) #624
+- Fixed warnings on Unity 2017.2 
 
 v3.6.0 {#v3_6_0}
 ======
