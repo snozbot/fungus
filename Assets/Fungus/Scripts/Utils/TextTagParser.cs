@@ -209,6 +209,7 @@ namespace Fungus
                 "\t{w}, {w=0.5} Wait (seconds)\n" +
                 "\t{wi} Wait for input\n" +
                 "\t{wc} Wait for input and clear\n" +
+                "\t{wvo} Wait for voice over line to complete\n" +
                 "\t{wp}, {wp=0.5} Wait on punctuation (seconds){/wp}\n" +
                 "\t{c} Clear\n" +
                 "\t{x} Exit, advance to the next command without waiting for input\n" +
