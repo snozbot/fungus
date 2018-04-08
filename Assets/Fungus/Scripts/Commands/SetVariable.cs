@@ -9,21 +9,22 @@ namespace Fungus
     /// <summary>
     /// Sets a Boolean, Integer, Float or String variable to a new value using a simple arithmetic operation. The value can be a constant or reference another variable of the same type.
     /// </summary>
-    [CommandInfo("Variable", 
-                 "Set Variable", 
+    [CommandInfo("Variable",
+                 "Set Variable",
                  "Sets a Boolean, Integer, Float or String variable to a new value using a simple arithmetic operation. The value can be a constant or reference another variable of the same type.")]
     [AddComponentMenu("")]
-    public class SetVariable : Command 
+    public class SetVariable : Command
     {
         [Tooltip("The variable whos value will be set")]
         [VariableProperty(typeof(BooleanVariable),
-                          typeof(IntegerVariable), 
-                          typeof(FloatVariable), 
+                          typeof(IntegerVariable),
+                          typeof(FloatVariable),
                           typeof(StringVariable),
                           typeof(AnimatorVariable),
                           typeof(AudioSourceVariable),
                           typeof(ColorVariable),
-                          typeof(GameObjectVariable))]
+                          typeof(GameObjectVariable),
+                          typeof(MaterialVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("The type of math operation to be performed")]
@@ -52,6 +53,9 @@ namespace Fungus
 
         [Tooltip("GameObject value to set with")]
         [SerializeField] protected GameObjectData gameObjectData;
+
+        [Tooltip("Material value to set with")]
+        [SerializeField] protected MaterialData materialData;
 
         protected virtual void DoSetOperation()
         {
@@ -101,6 +105,11 @@ namespace Fungus
                 GameObjectVariable gameObjectVariable = (variable as GameObjectVariable);
                 gameObjectVariable.Apply(setOperator, gameObjectData.Value);
             }
+            else if (variable.GetType() == typeof(MaterialVariable))
+            {
+                MaterialVariable materialVariable = (variable as MaterialVariable);
+                materialVariable.Apply(setOperator, materialData.Value);
+            }
         }
 
         #region Public members
@@ -113,7 +122,8 @@ namespace Fungus
             { typeof(AnimatorVariable), AnimatorVariable.setOperators },
             { typeof(AudioSourceVariable), AudioSourceVariable.setOperators },
             { typeof(ColorVariable), ColorVariable.setOperators },
-            { typeof(GameObjectVariable), GameObjectVariable.setOperators }
+            { typeof(GameObjectVariable), GameObjectVariable.setOperators },
+            { typeof(MaterialVariable), MaterialVariable.setOperators }
         };
 
         /// <summary>
@@ -191,6 +201,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(GameObjectVariable))
             {
                 description += gameObjectData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(MaterialVariable))
+            {
+                description += materialData.GetDescription();
             }
 
             return description;

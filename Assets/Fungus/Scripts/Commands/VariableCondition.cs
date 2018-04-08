@@ -13,13 +13,14 @@ namespace Fungus
 
         [Tooltip("Variable to use in expression")]
         [VariableProperty(typeof(BooleanVariable),
-                          typeof(IntegerVariable), 
-                          typeof(FloatVariable), 
+                          typeof(IntegerVariable),
+                          typeof(FloatVariable),
                           typeof(StringVariable),
                           typeof(AnimatorVariable),
                           typeof(AudioSourceVariable),
                           typeof(ColorVariable),
-                          typeof(GameObjectVariable))]
+                          typeof(GameObjectVariable),
+                          typeof(MaterialVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("Boolean value to compare against")]
@@ -45,6 +46,9 @@ namespace Fungus
 
         [Tooltip("GameObject value to compare against")]
         [SerializeField] protected GameObjectData gameObjectData;
+
+        [Tooltip("Material value to compare against")]
+        [SerializeField] protected MaterialData materialData;
 
         protected override bool EvaluateCondition()
         {
@@ -95,6 +99,11 @@ namespace Fungus
                 GameObjectVariable gameObjectVariable = (variable as GameObjectVariable);
                 condition = gameObjectVariable.Evaluate(compareOperator, gameObjectData.Value);
             }
+            else if (variable.GetType() == typeof(MaterialVariable))
+            {
+                MaterialVariable materialVariable = (variable as MaterialVariable);
+                condition = materialVariable.Evaluate(compareOperator, materialData.Value);
+            }
 
             return condition;
         }
@@ -114,7 +123,8 @@ namespace Fungus
             { typeof(AnimatorVariable), AnimatorVariable.compareOperators },
             { typeof(AudioSourceVariable), AudioSourceVariable.compareOperators },
             { typeof(ColorVariable), ColorVariable.compareOperators },
-            { typeof(GameObjectVariable), GameObjectVariable.compareOperators }
+            { typeof(GameObjectVariable), GameObjectVariable.compareOperators },
+            { typeof(MaterialVariable), MaterialVariable.compareOperators }
         };
 
         /// <summary>
@@ -163,6 +173,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(GameObjectVariable))
             {
                 summary += gameObjectData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(MaterialVariable))
+            {
+                summary += materialData.GetDescription();
             }
 
             return summary;
