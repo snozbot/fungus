@@ -24,7 +24,8 @@ namespace Fungus
                           typeof(AudioSourceVariable),
                           typeof(ColorVariable),
                           typeof(GameObjectVariable),
-                          typeof(MaterialVariable))]
+                          typeof(MaterialVariable),
+                          typeof(ObjectVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("The type of math operation to be performed")]
@@ -56,6 +57,9 @@ namespace Fungus
 
         [Tooltip("Material value to set with")]
         [SerializeField] protected MaterialData materialData;
+
+        [Tooltip("Object value to set with")]
+        [SerializeField] protected ObjectData objectData;
 
         protected virtual void DoSetOperation()
         {
@@ -110,6 +114,11 @@ namespace Fungus
                 MaterialVariable materialVariable = (variable as MaterialVariable);
                 materialVariable.Apply(setOperator, materialData.Value);
             }
+            else if (variable.GetType() == typeof(ObjectVariable))
+            {
+                ObjectVariable objectVariable = (variable as ObjectVariable);
+                objectVariable.Apply(setOperator, objectData.Value);
+            }
         }
 
         #region Public members
@@ -123,7 +132,8 @@ namespace Fungus
             { typeof(AudioSourceVariable), AudioSourceVariable.setOperators },
             { typeof(ColorVariable), ColorVariable.setOperators },
             { typeof(GameObjectVariable), GameObjectVariable.setOperators },
-            { typeof(MaterialVariable), MaterialVariable.setOperators }
+            { typeof(MaterialVariable), MaterialVariable.setOperators },
+            { typeof(ObjectVariable), ObjectVariable.setOperators }
         };
 
         /// <summary>
@@ -205,6 +215,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(MaterialVariable))
             {
                 description += materialData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(ObjectVariable))
+            {
+                description += objectData.GetDescription();
             }
 
             return description;

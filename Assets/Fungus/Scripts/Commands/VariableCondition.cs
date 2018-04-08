@@ -20,7 +20,8 @@ namespace Fungus
                           typeof(AudioSourceVariable),
                           typeof(ColorVariable),
                           typeof(GameObjectVariable),
-                          typeof(MaterialVariable))]
+                          typeof(MaterialVariable),
+                          typeof(ObjectVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("Boolean value to compare against")]
@@ -49,6 +50,9 @@ namespace Fungus
 
         [Tooltip("Material value to compare against")]
         [SerializeField] protected MaterialData materialData;
+
+        [Tooltip("Object value to compare against")]
+        [SerializeField] protected ObjectData objectData;
 
         protected override bool EvaluateCondition()
         {
@@ -104,6 +108,11 @@ namespace Fungus
                 MaterialVariable materialVariable = (variable as MaterialVariable);
                 condition = materialVariable.Evaluate(compareOperator, materialData.Value);
             }
+            else if (variable.GetType() == typeof(ObjectVariable))
+            {
+                ObjectVariable objectVariable = (variable as ObjectVariable);
+                condition = objectVariable.Evaluate(compareOperator, objectData.Value);
+            }
 
             return condition;
         }
@@ -124,7 +133,8 @@ namespace Fungus
             { typeof(AudioSourceVariable), AudioSourceVariable.compareOperators },
             { typeof(ColorVariable), ColorVariable.compareOperators },
             { typeof(GameObjectVariable), GameObjectVariable.compareOperators },
-            { typeof(MaterialVariable), MaterialVariable.compareOperators }
+            { typeof(MaterialVariable), MaterialVariable.compareOperators },
+            { typeof(ObjectVariable), ObjectVariable.compareOperators }
         };
 
         /// <summary>
@@ -177,6 +187,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(MaterialVariable))
             {
                 summary += materialData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(ObjectVariable))
+            {
+                summary += objectData.GetDescription();
             }
 
             return summary;
