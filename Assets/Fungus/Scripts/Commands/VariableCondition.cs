@@ -18,6 +18,7 @@ namespace Fungus
                           typeof(StringVariable),
                           typeof(AnimatorVariable),
                           typeof(AudioSourceVariable),
+                          typeof(ColorVariable),
                           typeof(GameObjectVariable))]
         [SerializeField] protected Variable variable;
 
@@ -38,6 +39,9 @@ namespace Fungus
 
         [Tooltip("AudioSource value to compare against")]
         [SerializeField] protected AudioSourceData audioSourceData;
+
+        [Tooltip("Color value to compare against")]
+        [SerializeField] protected ColorData colorData;
 
         [Tooltip("GameObject value to compare against")]
         [SerializeField] protected GameObjectData gameObjectData;
@@ -81,6 +85,11 @@ namespace Fungus
                 AudioSourceVariable audioSourceVariable = (variable as AudioSourceVariable);
                 condition = audioSourceVariable.Evaluate(compareOperator, audioSourceData.Value);
             }
+            else if (variable.GetType() == typeof(ColorVariable))
+            {
+                ColorVariable colorVariable = (variable as ColorVariable);
+                condition = colorVariable.Evaluate(compareOperator, colorData.Value);
+            }
             else if (variable.GetType() == typeof(GameObjectVariable))
             {
                 GameObjectVariable gameObjectVariable = (variable as GameObjectVariable);
@@ -104,6 +113,7 @@ namespace Fungus
             { typeof(StringVariable), StringVariable.compareOperators },
             { typeof(AnimatorVariable), AnimatorVariable.compareOperators },
             { typeof(AudioSourceVariable), AudioSourceVariable.compareOperators },
+            { typeof(ColorVariable), ColorVariable.compareOperators },
             { typeof(GameObjectVariable), GameObjectVariable.compareOperators }
         };
 
@@ -145,6 +155,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(AudioSourceVariable))
             {
                 summary += audioSourceData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(ColorVariable))
+            {
+                summary += colorData.GetDescription();
             }
             else if (variable.GetType() == typeof(GameObjectVariable))
             {

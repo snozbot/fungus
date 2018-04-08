@@ -9,7 +9,7 @@ namespace Fungus.EditorUtils
 {
 
     [CustomEditor (typeof(SetVariable))]
-    public class SetVariableEditor : CommandEditor 
+    public class SetVariableEditor : CommandEditor
     {
         protected struct VariablePropertyInfo
         {
@@ -46,6 +46,7 @@ namespace Fungus.EditorUtils
                 { typeof(StringVariable), new VariablePropertyInfo("String", serializedObject.FindProperty("stringData")) },
                 { typeof(AnimatorVariable), new VariablePropertyInfo("Animator", serializedObject.FindProperty("animatorData")) },
                 { typeof(AudioSourceVariable), new VariablePropertyInfo("AudioSource", serializedObject.FindProperty("audioSourceData")) },
+                { typeof(ColorVariable), new VariablePropertyInfo("Color", serializedObject.FindProperty("colorData")) },
                 { typeof(GameObjectVariable), new VariablePropertyInfo("GameObject", serializedObject.FindProperty("gameObjectData")) }
             };
         }
@@ -107,7 +108,7 @@ namespace Fungus.EditorUtils
                         break;
                 }
             }
-            
+
             // Get previously selected operator
             int selectedIndex = System.Array.IndexOf(setOperators, t._SetOperator);
             if (selectedIndex < 0)
@@ -119,7 +120,7 @@ namespace Fungus.EditorUtils
 
             // Get next selected operator
             selectedIndex = EditorGUILayout.Popup(new GUIContent("Operation", "Arithmetic operator to use"), selectedIndex, operatorsList.ToArray());
-            
+
 
             setOperatorProp.enumValueIndex = (int)setOperators[selectedIndex];
 

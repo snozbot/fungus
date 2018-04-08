@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(VariableCondition), true)]
-    public class VariableConditionEditor : CommandEditor 
+    public class VariableConditionEditor : CommandEditor
     {
         protected SerializedProperty variableProp;
         protected SerializedProperty compareOperatorProp;
@@ -31,6 +31,7 @@ namespace Fungus.EditorUtils
                 { typeof(StringVariable), serializedObject.FindProperty("stringData") },
                 { typeof(AnimatorVariable), serializedObject.FindProperty("animatorData") },
                 { typeof(AudioSourceVariable), serializedObject.FindProperty("audioSourceData") },
+                { typeof(ColorVariable), serializedObject.FindProperty("colorData") },
                 { typeof(GameObjectVariable), serializedObject.FindProperty("gameObjectData") }
             };
         }
