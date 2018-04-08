@@ -22,7 +22,8 @@ namespace Fungus
                           typeof(GameObjectVariable),
                           typeof(MaterialVariable),
                           typeof(ObjectVariable),
-                          typeof(Rigidbody2DVariable))]
+                          typeof(Rigidbody2DVariable),
+                          typeof(SpriteVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("Boolean value to compare against")]
@@ -57,6 +58,9 @@ namespace Fungus
 
         [Tooltip("Rigidbody2D value to compare against")]
         [SerializeField] protected Rigidbody2DData rigidbody2DData;
+
+        [Tooltip("Sprite value to compare against")]
+        [SerializeField] protected SpriteData spriteData;
 
         protected override bool EvaluateCondition()
         {
@@ -122,6 +126,11 @@ namespace Fungus
                 Rigidbody2DVariable rigidbody2DVariable = (variable as Rigidbody2DVariable);
                 condition = rigidbody2DVariable.Evaluate(compareOperator, rigidbody2DData.Value);
             }
+            else if (variable.GetType() == typeof(SpriteVariable))
+            {
+                SpriteVariable spriteVariable = (variable as SpriteVariable);
+                condition = spriteVariable.Evaluate(compareOperator, spriteData.Value);
+            }
 
             return condition;
         }
@@ -144,7 +153,8 @@ namespace Fungus
             { typeof(GameObjectVariable), GameObjectVariable.compareOperators },
             { typeof(MaterialVariable), MaterialVariable.compareOperators },
             { typeof(ObjectVariable), ObjectVariable.compareOperators },
-            { typeof(Rigidbody2DVariable), Rigidbody2DVariable.compareOperators }
+            { typeof(Rigidbody2DVariable), Rigidbody2DVariable.compareOperators },
+            { typeof(SpriteVariable), SpriteVariable.compareOperators }
         };
 
         /// <summary>
@@ -205,6 +215,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(Rigidbody2DVariable))
             {
                 summary += rigidbody2DData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(SpriteVariable))
+            {
+                summary += spriteData.GetDescription();
             }
 
             return summary;

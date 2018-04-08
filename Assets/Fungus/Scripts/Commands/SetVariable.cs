@@ -26,7 +26,8 @@ namespace Fungus
                           typeof(GameObjectVariable),
                           typeof(MaterialVariable),
                           typeof(ObjectVariable),
-                          typeof(Rigidbody2DVariable))]
+                          typeof(Rigidbody2DVariable),
+                          typeof(SpriteVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("The type of math operation to be performed")]
@@ -64,6 +65,9 @@ namespace Fungus
 
         [Tooltip("Rigidbody2D value to set with")]
         [SerializeField] protected Rigidbody2DData rigidbody2DData;
+
+        [Tooltip("Sprite value to set with")]
+        [SerializeField] protected SpriteData spriteData;
 
         protected virtual void DoSetOperation()
         {
@@ -128,6 +132,11 @@ namespace Fungus
                 Rigidbody2DVariable rigidbody2DVariable = (variable as Rigidbody2DVariable);
                 rigidbody2DVariable.Apply(setOperator, rigidbody2DData.Value);
             }
+            else if (variable.GetType() == typeof(SpriteVariable))
+            {
+                SpriteVariable spriteVariable = (variable as SpriteVariable);
+                spriteVariable.Apply(setOperator, spriteData.Value);
+            }
         }
 
         #region Public members
@@ -143,7 +152,8 @@ namespace Fungus
             { typeof(GameObjectVariable), GameObjectVariable.setOperators },
             { typeof(MaterialVariable), MaterialVariable.setOperators },
             { typeof(ObjectVariable), ObjectVariable.setOperators },
-            { typeof(Rigidbody2DVariable), Rigidbody2DVariable.setOperators }
+            { typeof(Rigidbody2DVariable), Rigidbody2DVariable.setOperators },
+            { typeof(SpriteVariable), SpriteVariable.setOperators }
         };
 
         /// <summary>
@@ -233,6 +243,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(Rigidbody2DVariable))
             {
                 description += rigidbody2DData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(SpriteVariable))
+            {
+                description += spriteData.GetDescription();
             }
 
             return description;
