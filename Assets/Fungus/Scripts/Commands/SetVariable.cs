@@ -25,7 +25,8 @@ namespace Fungus
                           typeof(ColorVariable),
                           typeof(GameObjectVariable),
                           typeof(MaterialVariable),
-                          typeof(ObjectVariable))]
+                          typeof(ObjectVariable),
+                          typeof(Rigidbody2DVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("The type of math operation to be performed")]
@@ -60,6 +61,9 @@ namespace Fungus
 
         [Tooltip("Object value to set with")]
         [SerializeField] protected ObjectData objectData;
+
+        [Tooltip("Rigidbody2D value to set with")]
+        [SerializeField] protected Rigidbody2DData rigidbody2DData;
 
         protected virtual void DoSetOperation()
         {
@@ -119,6 +123,11 @@ namespace Fungus
                 ObjectVariable objectVariable = (variable as ObjectVariable);
                 objectVariable.Apply(setOperator, objectData.Value);
             }
+            else if (variable.GetType() == typeof(Rigidbody2DVariable))
+            {
+                Rigidbody2DVariable rigidbody2DVariable = (variable as Rigidbody2DVariable);
+                rigidbody2DVariable.Apply(setOperator, rigidbody2DData.Value);
+            }
         }
 
         #region Public members
@@ -133,7 +142,8 @@ namespace Fungus
             { typeof(ColorVariable), ColorVariable.setOperators },
             { typeof(GameObjectVariable), GameObjectVariable.setOperators },
             { typeof(MaterialVariable), MaterialVariable.setOperators },
-            { typeof(ObjectVariable), ObjectVariable.setOperators }
+            { typeof(ObjectVariable), ObjectVariable.setOperators },
+            { typeof(Rigidbody2DVariable), Rigidbody2DVariable.setOperators }
         };
 
         /// <summary>
@@ -219,6 +229,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(ObjectVariable))
             {
                 description += objectData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(Rigidbody2DVariable))
+            {
+                description += rigidbody2DData.GetDescription();
             }
 
             return description;

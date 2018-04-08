@@ -21,7 +21,8 @@ namespace Fungus
                           typeof(ColorVariable),
                           typeof(GameObjectVariable),
                           typeof(MaterialVariable),
-                          typeof(ObjectVariable))]
+                          typeof(ObjectVariable),
+                          typeof(Rigidbody2DVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("Boolean value to compare against")]
@@ -53,6 +54,9 @@ namespace Fungus
 
         [Tooltip("Object value to compare against")]
         [SerializeField] protected ObjectData objectData;
+
+        [Tooltip("Rigidbody2D value to compare against")]
+        [SerializeField] protected Rigidbody2DData rigidbody2DData;
 
         protected override bool EvaluateCondition()
         {
@@ -113,6 +117,11 @@ namespace Fungus
                 ObjectVariable objectVariable = (variable as ObjectVariable);
                 condition = objectVariable.Evaluate(compareOperator, objectData.Value);
             }
+            else if (variable.GetType() == typeof(Rigidbody2DVariable))
+            {
+                Rigidbody2DVariable rigidbody2DVariable = (variable as Rigidbody2DVariable);
+                condition = rigidbody2DVariable.Evaluate(compareOperator, rigidbody2DData.Value);
+            }
 
             return condition;
         }
@@ -134,7 +143,8 @@ namespace Fungus
             { typeof(ColorVariable), ColorVariable.compareOperators },
             { typeof(GameObjectVariable), GameObjectVariable.compareOperators },
             { typeof(MaterialVariable), MaterialVariable.compareOperators },
-            { typeof(ObjectVariable), ObjectVariable.compareOperators }
+            { typeof(ObjectVariable), ObjectVariable.compareOperators },
+            { typeof(Rigidbody2DVariable), Rigidbody2DVariable.compareOperators }
         };
 
         /// <summary>
@@ -191,6 +201,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(ObjectVariable))
             {
                 summary += objectData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(Rigidbody2DVariable))
+            {
+                summary += rigidbody2DData.GetDescription();
             }
 
             return summary;
