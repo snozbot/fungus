@@ -15,7 +15,7 @@ namespace Fungus
     public class Vector3Variable : VariableBase<Vector3>
     {
         public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
-        public static readonly SetOperator[] setOperators = { SetOperator.Assign };
+        public static readonly SetOperator[] setOperators = { SetOperator.Assign, SetOperator.Add, SetOperator.Subtract };
 
         public virtual bool Evaluate(CompareOperator compareOperator, Vector3 value)
         {
@@ -43,6 +43,12 @@ namespace Fungus
             {
                 case SetOperator.Assign:
                     Value = value;
+                    break;
+                case SetOperator.Add:
+                    Value += value;
+                    break;
+                case SetOperator.Subtract:
+                    Value -= value;
                     break;
                 default:
                     Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
