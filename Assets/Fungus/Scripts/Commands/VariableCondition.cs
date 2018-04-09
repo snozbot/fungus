@@ -25,7 +25,9 @@ namespace Fungus
                           typeof(Rigidbody2DVariable),
                           typeof(SpriteVariable),
                           typeof(TextureVariable),
-                          typeof(TransformVariable))]
+                          typeof(TransformVariable),
+                          typeof(Vector2Variable),
+                          typeof(Vector3Variable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("Boolean value to compare against")]
@@ -69,6 +71,12 @@ namespace Fungus
 
         [Tooltip("Transform value to compare against")]
         [SerializeField] protected TransformData transformData;
+
+        [Tooltip("Vector2 value to compare against")]
+        [SerializeField] protected Vector2Data vector2Data;
+
+        [Tooltip("Vector3 value to compare against")]
+        [SerializeField] protected Vector3Data vector3Data;
 
         protected override bool EvaluateCondition()
         {
@@ -149,6 +157,16 @@ namespace Fungus
                 TransformVariable transformVariable = (variable as TransformVariable);
                 condition = transformVariable.Evaluate(compareOperator, transformData.Value);
             }
+            else if (variable.GetType() == typeof(Vector2Variable))
+            {
+                Vector2Variable vector2Variable = (variable as Vector2Variable);
+                condition = vector2Variable.Evaluate(compareOperator, vector2Data.Value);
+            }
+            else if (variable.GetType() == typeof(Vector3Variable))
+            {
+                Vector3Variable vector3Variable = (variable as Vector3Variable);
+                condition = vector3Variable.Evaluate(compareOperator, vector3Data.Value);
+            }
 
             return condition;
         }
@@ -174,7 +192,9 @@ namespace Fungus
             { typeof(Rigidbody2DVariable), Rigidbody2DVariable.compareOperators },
             { typeof(SpriteVariable), SpriteVariable.compareOperators },
             { typeof(TextureVariable), TextureVariable.compareOperators },
-            { typeof(TransformVariable), TransformVariable.compareOperators }
+            { typeof(TransformVariable), TransformVariable.compareOperators },
+            { typeof(Vector2Variable), Vector2Variable.compareOperators },
+            { typeof(Vector3Variable), Vector3Variable.compareOperators }
         };
 
         /// <summary>
@@ -247,6 +267,14 @@ namespace Fungus
             else if (variable.GetType() == typeof(TransformVariable))
             {
                 summary += transformData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(Vector2Variable))
+            {
+                summary += vector2Data.GetDescription();
+            }
+            else if (variable.GetType() == typeof(Vector3Variable))
+            {
+                summary += vector3Data.GetDescription();
             }
 
             return summary;

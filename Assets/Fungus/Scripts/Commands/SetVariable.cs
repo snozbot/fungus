@@ -29,7 +29,9 @@ namespace Fungus
                           typeof(Rigidbody2DVariable),
                           typeof(SpriteVariable),
                           typeof(TextureVariable),
-                          typeof(TransformVariable))]
+                          typeof(TransformVariable),
+                          typeof(Vector2Variable),
+                          typeof(Vector3Variable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("The type of math operation to be performed")]
@@ -76,6 +78,12 @@ namespace Fungus
 
         [Tooltip("Transform value to set with")]
         [SerializeField] protected TransformData transformData;
+
+        [Tooltip("Vector2 value to set with")]
+        [SerializeField] protected Vector2Data vector2Data;
+
+        [Tooltip("Vector3 value to set with")]
+        [SerializeField] protected Vector3Data vector3Data;
 
         protected virtual void DoSetOperation()
         {
@@ -155,6 +163,16 @@ namespace Fungus
                 TransformVariable transformVariable = (variable as TransformVariable);
                 transformVariable.Apply(setOperator, transformData.Value);
             }
+            else if (variable.GetType() == typeof(Vector2Variable))
+            {
+                Vector2Variable vector2Variable = (variable as Vector2Variable);
+                vector2Variable.Apply(setOperator, vector2Data.Value);
+            }
+            else if (variable.GetType() == typeof(Vector3Variable))
+            {
+                Vector3Variable vector3Variable = (variable as Vector3Variable);
+                vector3Variable.Apply(setOperator, vector3Data.Value);
+            }
         }
 
         #region Public members
@@ -173,7 +191,9 @@ namespace Fungus
             { typeof(Rigidbody2DVariable), Rigidbody2DVariable.setOperators },
             { typeof(SpriteVariable), SpriteVariable.setOperators },
             { typeof(TextureVariable), TextureVariable.setOperators },
-            { typeof(TransformVariable), TransformVariable.setOperators }
+            { typeof(TransformVariable), TransformVariable.setOperators },
+            { typeof(Vector2Variable), Vector2Variable.setOperators },
+            { typeof(Vector3Variable), Vector3Variable.setOperators }
         };
 
         /// <summary>
@@ -275,6 +295,14 @@ namespace Fungus
             else if (variable.GetType() == typeof(TransformVariable))
             {
                 description += transformData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(Vector2Variable))
+            {
+                description += vector2Data.GetDescription();
+            }
+            else if (variable.GetType() == typeof(Vector3Variable))
+            {
+                description += vector3Data.GetDescription();
             }
 
             return description;

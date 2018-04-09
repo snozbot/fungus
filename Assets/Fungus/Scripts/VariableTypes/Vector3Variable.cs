@@ -13,7 +13,43 @@ namespace Fungus
     [AddComponentMenu("")]
     [System.Serializable]
     public class Vector3Variable : VariableBase<Vector3>
-    {}
+    {
+        public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
+        public static readonly SetOperator[] setOperators = { SetOperator.Assign };
+
+        public virtual bool Evaluate(CompareOperator compareOperator, Vector3 value)
+        {
+            bool condition = false;
+
+            switch (compareOperator)
+            {
+                case CompareOperator.Equals:
+                    condition = Value == value;
+                    break;
+                case CompareOperator.NotEquals:
+                    condition = Value != value;
+                    break;
+                default:
+                    Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
+                    break;
+            }
+
+            return condition;
+        }
+
+        public override void Apply(SetOperator setOperator, Vector3 value)
+        {
+            switch (setOperator)
+            {
+                case SetOperator.Assign:
+                    Value = value;
+                    break;
+                default:
+                    Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
+                    break;
+            }
+        }
+    }
 
     /// <summary>
     /// Container for a Vector3 variable reference or constant value.
