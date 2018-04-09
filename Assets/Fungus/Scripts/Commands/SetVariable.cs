@@ -28,7 +28,8 @@ namespace Fungus
                           typeof(ObjectVariable),
                           typeof(Rigidbody2DVariable),
                           typeof(SpriteVariable),
-                          typeof(TextureVariable))]
+                          typeof(TextureVariable),
+                          typeof(TransformVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("The type of math operation to be performed")]
@@ -72,6 +73,9 @@ namespace Fungus
 
         [Tooltip("Texture value to set with")]
         [SerializeField] protected TextureData textureData;
+
+        [Tooltip("Transform value to set with")]
+        [SerializeField] protected TransformData transformData;
 
         protected virtual void DoSetOperation()
         {
@@ -146,6 +150,11 @@ namespace Fungus
                 TextureVariable textureVariable = (variable as TextureVariable);
                 textureVariable.Apply(setOperator, textureData.Value);
             }
+            else if (variable.GetType() == typeof(TransformVariable))
+            {
+                TransformVariable transformVariable = (variable as TransformVariable);
+                transformVariable.Apply(setOperator, transformData.Value);
+            }
         }
 
         #region Public members
@@ -163,7 +172,8 @@ namespace Fungus
             { typeof(ObjectVariable), ObjectVariable.setOperators },
             { typeof(Rigidbody2DVariable), Rigidbody2DVariable.setOperators },
             { typeof(SpriteVariable), SpriteVariable.setOperators },
-            { typeof(TextureVariable), TextureVariable.setOperators }
+            { typeof(TextureVariable), TextureVariable.setOperators },
+            { typeof(TransformVariable), TransformVariable.setOperators }
         };
 
         /// <summary>
@@ -261,6 +271,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(TextureVariable))
             {
                 description += textureData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(TransformVariable))
+            {
+                description += transformData.GetDescription();
             }
 
             return description;
