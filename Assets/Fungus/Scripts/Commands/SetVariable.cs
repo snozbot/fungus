@@ -27,7 +27,8 @@ namespace Fungus
                           typeof(MaterialVariable),
                           typeof(ObjectVariable),
                           typeof(Rigidbody2DVariable),
-                          typeof(SpriteVariable))]
+                          typeof(SpriteVariable),
+                          typeof(TextureVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("The type of math operation to be performed")]
@@ -68,6 +69,9 @@ namespace Fungus
 
         [Tooltip("Sprite value to set with")]
         [SerializeField] protected SpriteData spriteData;
+
+        [Tooltip("Texture value to set with")]
+        [SerializeField] protected TextureData textureData;
 
         protected virtual void DoSetOperation()
         {
@@ -137,6 +141,11 @@ namespace Fungus
                 SpriteVariable spriteVariable = (variable as SpriteVariable);
                 spriteVariable.Apply(setOperator, spriteData.Value);
             }
+            else if (variable.GetType() == typeof(TextureVariable))
+            {
+                TextureVariable textureVariable = (variable as TextureVariable);
+                textureVariable.Apply(setOperator, textureData.Value);
+            }
         }
 
         #region Public members
@@ -153,7 +162,8 @@ namespace Fungus
             { typeof(MaterialVariable), MaterialVariable.setOperators },
             { typeof(ObjectVariable), ObjectVariable.setOperators },
             { typeof(Rigidbody2DVariable), Rigidbody2DVariable.setOperators },
-            { typeof(SpriteVariable), SpriteVariable.setOperators }
+            { typeof(SpriteVariable), SpriteVariable.setOperators },
+            { typeof(TextureVariable), TextureVariable.setOperators }
         };
 
         /// <summary>
@@ -247,6 +257,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(SpriteVariable))
             {
                 description += spriteData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(TextureVariable))
+            {
+                description += textureData.GetDescription();
             }
 
             return description;

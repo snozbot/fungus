@@ -13,7 +13,43 @@ namespace Fungus
     [AddComponentMenu("")]
     [System.Serializable]
     public class TextureVariable : VariableBase<Texture>
-    {}
+    {
+        public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
+        public static readonly SetOperator[] setOperators = { SetOperator.Assign };
+
+        public virtual bool Evaluate(CompareOperator compareOperator, Texture value)
+        {
+            bool condition = false;
+
+            switch (compareOperator)
+            {
+                case CompareOperator.Equals:
+                    condition = Value == value;
+                    break;
+                case CompareOperator.NotEquals:
+                    condition = Value != value;
+                    break;
+                default:
+                    Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
+                    break;
+            }
+
+            return condition;
+        }
+
+        public override void Apply(SetOperator setOperator, Texture value)
+        {
+            switch (setOperator)
+            {
+                case SetOperator.Assign:
+                    Value = value;
+                    break;
+                default:
+                    Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
+                    break;
+            }
+        }
+    }
 
     /// <summary>
     /// Container for a Texture variable reference or constant value.

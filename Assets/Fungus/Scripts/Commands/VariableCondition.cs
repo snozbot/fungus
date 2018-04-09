@@ -23,7 +23,8 @@ namespace Fungus
                           typeof(MaterialVariable),
                           typeof(ObjectVariable),
                           typeof(Rigidbody2DVariable),
-                          typeof(SpriteVariable))]
+                          typeof(SpriteVariable),
+                          typeof(TextureVariable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("Boolean value to compare against")]
@@ -61,6 +62,9 @@ namespace Fungus
 
         [Tooltip("Sprite value to compare against")]
         [SerializeField] protected SpriteData spriteData;
+
+        [Tooltip("Texture value to compare against")]
+        [SerializeField] protected TextureData textureData;
 
         protected override bool EvaluateCondition()
         {
@@ -131,6 +135,11 @@ namespace Fungus
                 SpriteVariable spriteVariable = (variable as SpriteVariable);
                 condition = spriteVariable.Evaluate(compareOperator, spriteData.Value);
             }
+            else if (variable.GetType() == typeof(TextureVariable))
+            {
+                TextureVariable textureVariable = (variable as TextureVariable);
+                condition = textureVariable.Evaluate(compareOperator, textureData.Value);
+            }
 
             return condition;
         }
@@ -154,7 +163,8 @@ namespace Fungus
             { typeof(MaterialVariable), MaterialVariable.compareOperators },
             { typeof(ObjectVariable), ObjectVariable.compareOperators },
             { typeof(Rigidbody2DVariable), Rigidbody2DVariable.compareOperators },
-            { typeof(SpriteVariable), SpriteVariable.compareOperators }
+            { typeof(SpriteVariable), SpriteVariable.compareOperators },
+            { typeof(TextureVariable), TextureVariable.compareOperators }
         };
 
         /// <summary>
@@ -219,6 +229,10 @@ namespace Fungus
             else if (variable.GetType() == typeof(SpriteVariable))
             {
                 summary += spriteData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(TextureVariable))
+            {
+                summary += textureData.GetDescription();
             }
 
             return summary;

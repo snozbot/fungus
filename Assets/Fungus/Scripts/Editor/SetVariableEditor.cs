@@ -51,7 +51,8 @@ namespace Fungus.EditorUtils
                 { typeof(MaterialVariable), new VariablePropertyInfo("Material", serializedObject.FindProperty("materialData")) },
                 { typeof(ObjectVariable), new VariablePropertyInfo("Object", serializedObject.FindProperty("objectData")) },
                 { typeof(Rigidbody2DVariable), new VariablePropertyInfo("Rigidbody2D", serializedObject.FindProperty("rigidbody2DData")) },
-                { typeof(SpriteVariable), new VariablePropertyInfo("Sprite", serializedObject.FindProperty("spriteData")) }
+                { typeof(SpriteVariable), new VariablePropertyInfo("Sprite", serializedObject.FindProperty("spriteData")) },
+                { typeof(TextureVariable), new VariablePropertyInfo("Texture", serializedObject.FindProperty("textureData")) }
             };
         }
 
