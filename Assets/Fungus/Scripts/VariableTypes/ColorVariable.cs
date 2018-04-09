@@ -15,7 +15,12 @@ namespace Fungus
     public class ColorVariable : VariableBase<Color>
     {
         public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
-        public static readonly SetOperator[] setOperators = { SetOperator.Assign };
+        public static readonly SetOperator[] setOperators = {
+            SetOperator.Assign,
+            SetOperator.Add,
+            SetOperator.Subtract,
+            SetOperator.Multiply
+        };
 
         protected static bool ColorsEqual(Color a, Color b) {
             return ColorUtility.ToHtmlStringRGBA(a) == ColorUtility.ToHtmlStringRGBA(b);
@@ -47,6 +52,15 @@ namespace Fungus
             {
                 case SetOperator.Assign:
                     Value = value;
+                    break;
+                case SetOperator.Add:
+                    Value += value;
+                    break;
+                case SetOperator.Subtract:
+                    Value -= value;
+                    break;
+                case SetOperator.Multiply:
+                    Value *= value;
                     break;
                 default:
                     Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
