@@ -34,6 +34,7 @@ namespace Fungus
         public bool ClearPrev { get; set; }
         public bool WaitForInput { get; set; }
         public bool FadeDone { get; set; }
+        public FloatData WaitForSeconds { get; internal set; }
 
         public ConversationManager()
         {
@@ -166,6 +167,11 @@ namespace Fungus
 
             // Populate the story text to be written
             item.Text = text;
+
+            if(WaitForSeconds > 0)
+            {
+                item.Text += "{w=" + WaitForSeconds.ToString() +"}";
+            }
 
             if (sayParams == null || sayParams.Length == 0)
             {
