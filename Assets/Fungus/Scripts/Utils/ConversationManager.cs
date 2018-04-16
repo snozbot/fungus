@@ -92,6 +92,9 @@ namespace Fungus
                 sayDialog = SayDialog.GetSayDialog();
             }
 
+            sayDialog.SetActive(true);
+            SayDialog.ActiveSayDialog = sayDialog;
+
             return sayDialog;
         }
 
@@ -318,8 +321,6 @@ namespace Fungus
                     // Should never happen
                     yield break;
                 }
-
-                sayDialog.SetActive(true);
 
                 if (currentCharacter != null && 
                     currentCharacter != previousCharacter)

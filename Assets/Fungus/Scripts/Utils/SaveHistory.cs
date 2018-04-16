@@ -53,7 +53,7 @@ namespace Fungus
 
         /// <summary>
         /// Rewinds to the previous Save Point in the Save History.
-        /// The latest Save Point is moved to a seperate list of rewound save points.
+        /// The latest Save Point is moved to a separate list of rewound save points.
         /// </summary>
         public void Rewind()
         {
