@@ -41,6 +41,16 @@ Target Block | Fungus.Block | Block to execute when this option is selected
 Hide If Visited | System.Boolean | Hide this option if the target block has been executed previously
 Interactable | Fungus.BooleanData | If false, the menu option will be displayed but will not be selectable
 Set Menu Dialog | Fungus.MenuDialog | A custom Menu Dialog to use to display this menu. All subsequent Menu commands will use this dialog.
+Hide This Option | Fungus.BooleanData | If true, this option will be passed to the Menu Dialogue but marked as hidden, this can be used to hide options while maintaining a Menu Shuffle.
+
+# Menu Shuffle # {#MenuShuffle}
+Shuffle the order of the items in a Fungus Menu
+
+Defined in Fungus.MenuShuffle
+
+Property | Type | Description
+ --- | --- | ---
+Shuffle Mode | Fungus.MenuShuffle+Mode | Determines if the order is shuffled everytime this command is it (Every) or if it is consistent when returned to but random (Once)
 
 # Menu Timer # {#MenuTimer}
 Displays a timer bar and executes a target block if the player fails to select a menu option in time.
@@ -93,6 +103,7 @@ Extend Previous | System.Boolean | Type this text in the previous dialog box.
 Fade When Done | System.Boolean | Fade out the dialog box when writing has finished and not waiting for input.
 Wait For Click | System.Boolean | Wait for player to click before continuing.
 Stop Voiceover | System.Boolean | Stop playing voiceover when text finishes writing.
+Wait For V O | System.Boolean | Wait for the Voice Over to complete before continuing
 Set Say Dialog | Fungus.SayDialog | Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.
 
 # Set Language # {#SetLanguage}

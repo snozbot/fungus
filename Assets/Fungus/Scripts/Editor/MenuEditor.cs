@@ -15,6 +15,7 @@ namespace Fungus.EditorUtils
         protected SerializedProperty hideIfVisitedProp;
         protected SerializedProperty interactableProp;
         protected SerializedProperty setMenuDialogProp;
+        protected SerializedProperty hideThisOptionProp;
 
         protected virtual void OnEnable()
         {
@@ -27,6 +28,7 @@ namespace Fungus.EditorUtils
             hideIfVisitedProp = serializedObject.FindProperty("hideIfVisited");
             interactableProp = serializedObject.FindProperty("interactable");
             setMenuDialogProp = serializedObject.FindProperty("setMenuDialog");
+            hideThisOptionProp = serializedObject.FindProperty("hideThisOption");
         }
         
         public override void DrawCommandGUI()
@@ -51,7 +53,8 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(hideIfVisitedProp);
             EditorGUILayout.PropertyField(interactableProp);
             EditorGUILayout.PropertyField(setMenuDialogProp);
-
+            EditorGUILayout.PropertyField(hideThisOptionProp);
+            
             serializedObject.ApplyModifiedProperties();
         }
     }    

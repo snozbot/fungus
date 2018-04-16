@@ -58,6 +58,8 @@ namespace Fungus
 
         protected static SaveMenu instance;
 
+        protected static bool hasLoadedOnStart = false;
+
         protected virtual void Awake()
         {
             // Only one instance of SaveMenu may exist
@@ -69,7 +71,14 @@ namespace Fungus
 
             instance = this;
 
-            GameObject.DontDestroyOnLoad(this);
+            if (transform.parent == null)
+            {
+                GameObject.DontDestroyOnLoad(this);
+            }
+            else
+            {
+                Debug.LogError("Save Menu cannot be preserved across scene loads if it is a child of another GameObject.");
+            }
 
             clickAudioSource = GetComponent<AudioSource>();
         }
@@ -89,8 +98,10 @@ namespace Fungus
                 saveManager.StartScene = SceneManager.GetActiveScene().name;
             }
 
-            if (loadOnStart)
+            if (loadOnStart && !hasLoadedOnStart)
             {
+                hasLoadedOnStart = true;
+
                 if (saveManager.SaveDataExists(saveDataKey))
                 {
                     saveManager.Load(saveDataKey);
@@ -117,21 +128,25 @@ namespace Fungus
                 {
                     // Don't allow saving unless there's at least one save point in the history,
                     // This avoids the case where you could try to load a save data with 0 save points.
-                    saveButton.interactable = saveManager.NumSavePoints > 0;
+                    saveButton.interactable = saveManager.NumSavePoints > 0 && saveMenuActive;
                 }
                 if (loadButton != null)
                 {
-                    loadButton.interactable = saveManager.SaveDataExists(saveDataKey);
+                    loadButton.interactable = saveManager.SaveDataExists(saveDataKey) && saveMenuActive;
                 }
             }
 
+            if (restartButton != null)
+            {
+                restartButton.interactable = saveMenuActive;
+            }
             if (rewindButton != null)
             {
-                rewindButton.interactable = saveManager.NumSavePoints > 0;
+                rewindButton.interactable = saveManager.NumSavePoints > 0 && saveMenuActive;
             }
             if (forwardButton != null)
             {
-                forwardButton.interactable = saveManager.NumRewoundSavePoints > 0;
+                forwardButton.interactable = saveManager.NumRewoundSavePoints > 0 && saveMenuActive;
             }
 
             if (debugView.enabled)

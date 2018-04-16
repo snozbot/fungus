@@ -29,12 +29,13 @@ Defined in Fungus.ElseIf
 
 Property | Type | Description
  --- | --- | ---
+Compare Operator | Fungus.CompareOperator | The type of comparison to be performed
 Variable | Fungus.Variable | Variable to use in expression
 Boolean Data | Fungus.BooleanData | Boolean value to compare against
 Integer Data | Fungus.IntegerData | Integer value to compare against
 Float Data | Fungus.FloatData | Float value to compare against
 String Data | Fungus.StringDataMulti | String value to compare against
-Compare Operator | Fungus.CompareOperator | The type of comparison to be performed
+Game Object Data | Fungus.GameObjectData | GameObject value to compare against
 
 # End # {#End}
 Marks the end of a conditional block.
@@ -47,12 +48,13 @@ Defined in Fungus.If
 
 Property | Type | Description
  --- | --- | ---
+Compare Operator | Fungus.CompareOperator | The type of comparison to be performed
 Variable | Fungus.Variable | Variable to use in expression
 Boolean Data | Fungus.BooleanData | Boolean value to compare against
 Integer Data | Fungus.IntegerData | Integer value to compare against
 Float Data | Fungus.FloatData | Float value to compare against
 String Data | Fungus.StringDataMulti | String value to compare against
-Compare Operator | Fungus.CompareOperator | The type of comparison to be performed
+Game Object Data | Fungus.GameObjectData | GameObject value to compare against
 
 # Jump # {#Jump}
 Move execution to a specific Label command in the same block
@@ -82,6 +84,26 @@ Property | Type | Description
 _scene Name | Fungus.StringData | Name of the scene to load. The scene must also be added to the build settings.
 Loading Image | UnityEngine.Texture2D | Image to display while loading the scene
 
+# Lua Else If # {#LuaElseIf}
+Marks the start of a command block to be executed when the preceding If statement is False and the test expression is true.
+
+Defined in Fungus.LuaElseIf
+
+Property | Type | Description
+ --- | --- | ---
+Lua Environment | Fungus.LuaEnvironment | Lua Environment to use to execute this Lua script (null for global)
+Lua Compare String | System.String | The lua comparison string to run; implicitly prepends 'return' onto this
+
+# Lua If # {#LuaIf}
+If the test expression is true, execute the following command block.
+
+Defined in Fungus.LuaIf
+
+Property | Type | Description
+ --- | --- | ---
+Lua Environment | Fungus.LuaEnvironment | Lua Environment to use to execute this Lua script (null for global)
+Lua Compare String | System.String | The lua comparison string to run; implicitly prepends 'return' onto this
+
 # Quit # {#Quit}
 Quits the application. Does not work in Editor or Webplayer builds. Shouldn't generally be used on iOS.
 
@@ -96,6 +118,7 @@ Property | Type | Description
 Is Start Point | System.Boolean | Marks this Save Point as the starting point for Flowchart execution in the scene. Each scene in your game should have exactly one Save Point with this enabled.
 Key Mode | Fungus.SavePoint+KeyMode | How the Save Point Key for this Save Point is defined.
 Custom Key | System.String | A string key which uniquely identifies this save point.
+Key Separator | System.String | A string to seperate the block name and custom key when using KeyMode.Both.
 Description Mode | Fungus.SavePoint+DescriptionMode | How the description for this Save Point is defined.
 Custom Description | System.String | A short description of this save point.
 Fire Event | System.Boolean | Fire a Save Point Loaded event when this command executes.
@@ -153,15 +176,6 @@ Property | Type | Description
  --- | --- | ---
 Frame Count | Fungus.IntegerData | Number of frames to wait for
 
-# WaitInput # {#WaitInput}
-Waits for a period of time or for player input before executing the next command in the block.
-
-Defined in WaitInput
-
-Property | Type | Description
- --- | --- | ---
-Duration | System.Single | Duration to wait for. If negative will wait until player input occurs.
-
 # While # {#While}
 Continuously loop through a block of commands while the condition is true. Use the Break command to force the loop to terminate immediately.
 
@@ -169,10 +183,11 @@ Defined in Fungus.While
 
 Property | Type | Description
  --- | --- | ---
+Compare Operator | Fungus.CompareOperator | The type of comparison to be performed
 Variable | Fungus.Variable | Variable to use in expression
 Boolean Data | Fungus.BooleanData | Boolean value to compare against
 Integer Data | Fungus.IntegerData | Integer value to compare against
 Float Data | Fungus.FloatData | Float value to compare against
 String Data | Fungus.StringDataMulti | String value to compare against
-Compare Operator | Fungus.CompareOperator | The type of comparison to be performed
+Game Object Data | Fungus.GameObjectData | GameObject value to compare against
 

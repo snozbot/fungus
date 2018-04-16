@@ -2,6 +2,104 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.8.0 {#v3_8_0}
+======
+
+Many thanks to contributors stevehalliwell, FrederickKDP, MeMark2, KVinS, charblar, FatPuzo for their work on this release!
+
+## Added
+- Added Flowchart.HasBlock() and ExecuteIfHasBlock() methods
+- Added Global Variable support. Variables have new 'Global' variable scope.
+- Added GlobalVar demo scene
+
+## Changed
+- Updated project version to Unity 2017.4.0f1
+- Refactored the set variable system to make it easier to add variable comparison options
+- Added comparison and setting of GameObjects variables
+- Updated Batch for newer versions of Unity3D web player #650
+
+## Fixed
+- Fixed compile errors in Unity 2018.1 beta
+- Fixed compiler warnings in Untity2017.3
+- Fixed repeat play of music #659
+- Fixed conflicting EditorResource folder issue #664
+- Fixed SaveMenu DontDestroyOnLoad problems #661
+- Fixed docs: the block name in 6 of "Connections between Blocks" section from "Block2" to "Start" #663
+- Fixed lua say() function to match new say method parameters
+
+v3.7.0 {#v3_7_0}
+======
+
+Many thanks to maintainer Steve Halliwell for all the amazing new functionality in this release!
+
+## Added
+- Added Playground examples showing 3 simple arcade games made using Fungus
+- Added Rigidbody2D variable type 
+- Added Vector3 FungusCommands - Fields, Normalise, Convert to Vector2, Arithetic 
+- Added TransformProperty FungusCommand. Get and Set a transform's fields and properties. Does not currently support rotation, localRotation nor the Mat4x4 commands as we do not have the appropriate FungusVariables to store them in 
+- Added FungusCommand to Reload Current Scene 
+- Added Rigidbody2D FungusCommands - AddForce, AddTorque, StopMotion 
+- Added Input GetAxis fungusCommand, fetch Input.GetAxis and store in a FloatData 
+- SpawnObject FungusCommand can now store the gameobject it instantiates and can spawn at itself 
+- Destroy FungusCommand can now be told to pass down a delay to Destroy 
+- Added Fungus Commands for most of MathF 
+- Added Math demo scene
+- Added Mouse fungus event demo scene
+- Added Monobehaviour fungus event handlers and physics demo scene
+- Added LeanTween commands and demo scene that approximates the old iTween demo
+- Added SpeakingCharacter property to SayDialog
+- Added Fungus panel in editor preferences 
+- Added option to toggle off the fungus icon in the hierarchy in case it conflicts with other tools or is just undesired
+- Added TextTag WVO WaitForVoiceOver #572
+- Added ability to show variable list in the Flowchart Inspector #643
+- OpenURL FungusCommand renamed, fixes #554 #642
+
+## Changed
+- SaveManager now uses json files in a FungusSaves sub directory for all platforms but webplayer & webgl which still use playerprefs
+- GetCommandInfo returns the highest priority CommandInfo to better support multiple names while maintaining what is shown in the inspector
+- Allow multiple CommandInfos to be added to a class SpawnObject can now also be found under GameObject/Instantiate
+- Changed Fungus icon loading to use FungusEditorResources
+
+## Fixed
+- Fixed typo in BlockEditor.BlockField() #633 
+- Fixed custom editor for ElseIf command #630
+- Fixed Prefab Variable Dereferencing #618
+- Fixed typo in Set Interactable description #647
+- Fixed choice dialogues were not set to stay during the MenuDialogue #640
+- Fixed camera fading and panning at the same time (thanks to iBicha!) #624
+- Fixed warnings on Unity 2017.2 
+
+v3.6.0 {#v3_6_0}
+======
+
+## Added
+- Support use of \n newline character in Say and Conversation text
+- Added Fungus-Playmaker integration package in Fungus/Integrations/PlayMaker #602 - thanks Nilihum
+- Added Delete Save Data button to Save Menu inspector.
+- Variable substitution works in Set Variable (String) command
+- New "BlockNameAndCustom" Keymode for Save Point command, use both block name and custom key together. #597 - thanks Trieger
+- Added portrait DimColor #601 - thanks MorningFunGame
+- Lua If and Lua Else If commands #609 - thanks PillowFightIo
+- Stop a named Block in a Flowchart
+- Added utility to convert all files to Mac line endings
+
+## Changed
+- Made all methods virtual in SayDialog.cs #607 thanks PillowFightIo
+- Updated project to Unity 5.6.1, fixed some warnings.
+- Use transform.Find instead of deprecated transform.FindChild
+- Replaced some uses of slow GameObject.FindObjectOfType() and FindDerivedTypes()
+
+## Fixed
+- Fixed Write command "Clear Text" option not working #594
+- Fixed portrait hide bug in conversation #590 - thanks to lealeelu
+- Fixed stopping audio in conversation #592 - thanks to lealeelu
+- Fixed can't use FungusLua separately to rest of Fungus #596
+- Fixed can't inspect disabled Flowchart #598
+- Fixed Cmd+Left Click doesn't register as right click on OSX #595
+- Fixed luautils won't work on FungusLua standalone #604
+- Fixed Save Menu: clicking to left of collapsed menu clicks hidden buttons #615
+- Fixed Localization only localizes character name, not story text #611, #614
+
 v3.5.1 {#v3_5_1}
 ======
 

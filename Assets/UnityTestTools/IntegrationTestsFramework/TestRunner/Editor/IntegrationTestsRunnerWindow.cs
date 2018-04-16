@@ -63,11 +63,20 @@ namespace UnityTest
             EditorApplication.hierarchyWindowChanged += OnHierarchyChangeUpdate;
             EditorApplication.update -= BackgroundSceneChangeWatch;
             EditorApplication.update += BackgroundSceneChangeWatch;
+#if UNITY_2017_2_OR_NEWER
+            EditorApplication.playModeStateChanged -= OnPlaymodeStateChanged;
+            EditorApplication.playModeStateChanged += OnPlaymodeStateChanged;
+#else
             EditorApplication.playmodeStateChanged -= OnPlaymodeStateChanged;
             EditorApplication.playmodeStateChanged += OnPlaymodeStateChanged;
+#endif
         }
 
+#if UNITY_2017_2_OR_NEWER
+        private static void OnPlaymodeStateChanged(PlayModeStateChange stateChange)
+#else
         private static void OnPlaymodeStateChanged()
+#endif
         {
             if (s_Instance && EditorApplication.isPlaying  == EditorApplication.isPlayingOrWillChangePlaymode)
                 s_Instance.RebuildTestList();
@@ -78,7 +87,11 @@ namespace UnityTest
             EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyWindowItemDraw;
             EditorApplication.update -= BackgroundSceneChangeWatch;
             EditorApplication.hierarchyWindowChanged -= OnHierarchyChangeUpdate;
+#if UNITY_2017_2_OR_NEWER
+            EditorApplication.playModeStateChanged -= OnPlaymodeStateChanged;
+#else
             EditorApplication.playmodeStateChanged -= OnPlaymodeStateChanged;
+#endif
 
             TestComponent.DestroyAllDynamicTests();
         }

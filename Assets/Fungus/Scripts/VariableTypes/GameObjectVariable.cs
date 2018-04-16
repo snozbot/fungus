@@ -13,7 +13,42 @@ namespace Fungus
     [AddComponentMenu("")]
     [System.Serializable]
     public class GameObjectVariable : VariableBase<GameObject>
-    {}
+    {
+        public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
+        public static readonly SetOperator[] setOperators = { SetOperator.Assign };
+
+        public virtual bool Evaluate(CompareOperator compareOperator, GameObject gameObjectValue)
+        {
+            GameObject lhs = Value;
+            GameObject rhs = gameObjectValue;
+
+            bool condition = false;
+
+            switch (compareOperator)
+            {
+                case CompareOperator.Equals:
+                    condition = lhs == rhs;
+                    break;
+                case CompareOperator.NotEquals:
+                default:
+                    condition = lhs != rhs;
+                    break;
+            }
+
+            return condition;
+        }
+
+        public override void Apply(SetOperator setOperator, GameObject value)
+        {
+            switch (setOperator)
+            {
+                default:
+                case SetOperator.Assign:
+                    Value = value;
+                    break;
+            }
+        }
+    }
 
     /// <summary>
     /// Container for a GameObject variable reference or constant value.

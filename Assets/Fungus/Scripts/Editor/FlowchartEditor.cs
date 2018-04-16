@@ -82,13 +82,20 @@ namespace Fungus.EditorUtils
                 EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart");
             }
 
+
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
 
             serializedObject.ApplyModifiedProperties();
+
+            //Show the variables in the flowchart inspector
+            GUILayout.Space(20);
+
+            DrawVariablesGUI(false, Mathf.FloorToInt(EditorGUIUtility.currentViewWidth) - VariableListAdaptor.ReorderListSkirts);
+
         }
 
-        public virtual void DrawVariablesGUI()
+        public virtual void DrawVariablesGUI(bool showVariableToggleButton, int w)
         {
             serializedObject.Update();
 
@@ -97,9 +104,10 @@ namespace Fungus.EditorUtils
             if (t.Variables.Count == 0)
             {
                 t.VariablesExpanded = true;
+                //showVariableToggleButton = true;
             }
 
-            if (!t.VariablesExpanded)
+            if (showVariableToggleButton && !t.VariablesExpanded)
             {
                 if (GUILayout.Button ("Variables (" + t.Variables.Count + ")", GUILayout.Height(24)))
                 {
@@ -115,34 +123,26 @@ namespace Fungus.EditorUtils
             else
             {
                 Rect listRect = new Rect();
-
-                if (t.Variables.Count > 0)
+                
+                // Remove any null variables from the list
+                // Can sometimes happen when upgrading to a new version of Fungus (if .meta GUID changes for a variable class)
+                for (int i = t.Variables.Count - 1; i >= 0; i--)
                 {
-                    // Remove any null variables from the list
-                    // Can sometimes happen when upgrading to a new version of Fungus (if .meta GUID changes for a variable class)
-                    for (int i = t.Variables.Count - 1; i >= 0; i--)
+                    if (t.Variables[i] == null)
                     {
-                        if (t.Variables[i] == null)
-                        {
-                            t.Variables.RemoveAt(i);
-                        }
+                        t.Variables.RemoveAt(i);
                     }
-
-                    ReorderableListGUI.Title("Variables");
-                    VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0);
-
-                    ReorderableListFlags flags = ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton;
-
-                    ReorderableListControl.DrawControlFromState(adaptor, null, flags);
-                    listRect = GUILayoutUtility.GetLastRect();
-                }
-                else
-                {
-                    GUILayoutUtility.GetRect(300, 24);
-                    listRect = GUILayoutUtility.GetLastRect();
-                    listRect.y += 20;
                 }
 
+                ReorderableListGUI.Title("Variables");
+                VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0, w == 0 ? VariableListAdaptor.DefaultWidth : w);
+
+                ReorderableListFlags flags = ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton;
+
+                ReorderableListControl.DrawControlFromState(adaptor, null, flags);
+
+                listRect = GUILayoutUtility.GetLastRect();
+                
                 float plusWidth = 32;
                 float plusHeight = 24;
 
@@ -156,7 +156,7 @@ namespace Fungus.EditorUtils
                     buttonRect.width -= 30;
                 }
 
-                if (GUI.Button (buttonRect, "Variables"))
+                if (showVariableToggleButton && GUI.Button(buttonRect, "Variables"))
                 {
                     t.VariablesExpanded = false;
                 }
@@ -165,7 +165,10 @@ namespace Fungus.EditorUtils
                 Rect lastRect = buttonRect;
                 lastRect.x += 5;
                 lastRect.y += 5;
-                EditorGUI.Foldout(lastRect, true, "");
+                
+                //this is not required, seems to be legacy that is hidden in the normal reorderable
+                if(showVariableToggleButton)
+                    EditorGUI.Foldout(lastRect, true, "");
 
                 Rect plusRect = listRect;
                 plusRect.x += plusRect.width - plusWidth;

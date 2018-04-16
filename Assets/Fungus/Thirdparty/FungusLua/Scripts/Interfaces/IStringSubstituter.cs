@@ -17,11 +17,6 @@ namespace Fungus
         StringBuilder _StringBuilder { get; }
 
         /// <summary>
-        /// Populates a cache of all components in the scene that implement ISubstitutionHandler.
-        /// </summary>
-        void CacheSubstitutionHandlers();
-
-        /// <summary>
         /// Returns a new string that has been processed by all substitution handlers in the scene.
         /// </summary>
         string SubstituteStrings(string input);

@@ -13,6 +13,9 @@ namespace Fungus
     [System.Serializable]
     public class BooleanVariable : VariableBase<bool>
     {
+        public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
+        public static readonly SetOperator[] setOperators = { SetOperator.Assign, SetOperator.Negate };
+
         public virtual bool Evaluate(CompareOperator compareOperator, bool booleanValue)
         {
             bool condition = false;
@@ -34,6 +37,19 @@ namespace Fungus
             return condition;
         }
 
+        public override void Apply(SetOperator setOperator, bool value)
+        {
+            switch (setOperator)
+            {
+                default:
+                case SetOperator.Assign:
+                    Value = value;
+                    break;
+                case SetOperator.Negate:
+                    Value = !value;
+                    break;
+            }
+        }
     }
 
     /// <summary>

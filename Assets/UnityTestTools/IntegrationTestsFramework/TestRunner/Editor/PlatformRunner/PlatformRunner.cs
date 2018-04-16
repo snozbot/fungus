@@ -6,6 +6,9 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using System.Linq;
+#if UNITY_2018_1_OR_NEWER
+using UnityEditor.Build.Reporting;
+#endif
 
 namespace UnityTest.IntegrationTests
 {
@@ -80,17 +83,28 @@ namespace UnityTest.IntegrationTests
 
             AssetDatabase.Refresh();
 
-            var result = BuildPipeline.BuildPlayer(configuration.testScenes.Concat(configuration.buildScenes).ToArray(),
+#if UNITY_2018_1_OR_NEWER
+            BuildReport result = BuildPipeline.BuildPlayer(configuration.testScenes.Concat(configuration.buildScenes).ToArray(),
                                                    configuration.GetTempPath(),
                                                    configuration.buildTarget,
                                                    BuildOptions.AutoRunPlayer | BuildOptions.Development);
+#else
+            string result = BuildPipeline.BuildPlayer(configuration.testScenes.Concat(configuration.buildScenes).ToArray(),
+                                                   configuration.GetTempPath(),
+                                                   configuration.buildTarget,
+                                                   BuildOptions.AutoRunPlayer | BuildOptions.Development);
+#endif
 
             settings.RevertSettingsChanges();
             settings.RemoveAllConfigurationFiles();
 
             AssetDatabase.Refresh();
 
+#if UNITY_2018_1_OR_NEWER
+            if (result != null)
+#else
             if (!string.IsNullOrEmpty(result))
+#endif
             {
                 if (InternalEditorUtility.inBatchMode)
                     EditorApplication.Exit(Batch.returnCodeRunError);
@@ -116,7 +130,11 @@ namespace UnityTest.IntegrationTests
                         case RuntimePlatform.WindowsPlayer:
                             return BuildTarget.StandaloneWindows;
                         case RuntimePlatform.OSXPlayer:
+#if UNITY_2017_3_OR_NEWER
+                            return BuildTarget.StandaloneOSX;
+#else
                             return BuildTarget.StandaloneOSXIntel;
+#endif                        
                         case RuntimePlatform.LinuxPlayer:
                             return BuildTarget.StandaloneLinux;
                     }

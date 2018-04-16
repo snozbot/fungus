@@ -26,6 +26,25 @@ namespace Fungus
     }
 
     /// <summary>
+    /// Mathematical operations that can be performed on variables.
+    /// </summary>
+    public enum SetOperator
+    {
+        /// <summary> = operator. </summary>
+        Assign,
+        /// <summary> =! operator. </summary>
+        Negate,
+        /// <summary> += operator. </summary>
+        Add,
+        /// <summary> -= operator. </summary>
+        Subtract,
+        /// <summary> *= operator. </summary>
+        Multiply,
+        /// <summary> /= operator. </summary>
+        Divide
+    }
+
+    /// <summary>
     /// Scope types for Variables.
     /// </summary>
     public enum VariableScope
@@ -33,7 +52,9 @@ namespace Fungus
         /// <summary> Can only be accessed by commands in the same Flowchart. </summary>
         Private,
         /// <summary> Can be accessed from any command in any Flowchart. </summary>
-        Public
+        Public,
+        /// <summary> Creates and/or references a global variable of that name, all variables of this name and scope share the same underlying fungus variable and exist for the duration of the instance of Unity.</summary>
+        Global,
     }
 
     /// <summary>
@@ -89,7 +110,7 @@ namespace Fungus
         /// <summary>
         /// Visibility scope for the variable.
         /// </summary>
-        public virtual VariableScope Scope { get { return scope; } }
+        public virtual VariableScope Scope { get { return scope; } set { scope = value; } }
 
         /// <summary>
         /// String identifier for the variable.
@@ -109,9 +130,54 @@ namespace Fungus
     /// </summary>
     public abstract class VariableBase<T> : Variable
     {
+        //caching mechanism for global static variables
+        private VariableBase<T> _globalStaicRef;
+        private VariableBase<T> globalStaicRef
+        {
+            get
+            {
+                if (_globalStaicRef != null)
+                {
+                    return _globalStaicRef;
+                }
+                else if(Application.isPlaying)
+                {
+                    return _globalStaicRef = FungusManager.Instance.GlobalVariables.GetOrAddVariable(Key, value, this.GetType());
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         [SerializeField] protected T value;
-        public virtual T Value { get { return this.value; } set { this.value = value; } }
-        
+        public virtual T Value
+        {
+            get
+            {
+                if (scope != VariableScope.Global || !Application.isPlaying)
+                {
+                    return this.value;
+                }
+                else
+                { 
+                    return globalStaicRef.value;
+                }
+            }
+            set
+            {
+                if (scope != VariableScope.Global || !Application.isPlaying)
+                {
+                    this.value = value;
+                }
+                else
+                {
+                    globalStaicRef.Value = value;
+                }
+            }
+        }
+
         protected T startValue;
 
         public override void OnReset()
@@ -128,6 +194,10 @@ namespace Fungus
         {
             // Remember the initial value so we can reset later on
             startValue = Value;
+        }
+
+        public virtual void Apply(SetOperator setOperator, T value) {
+            Debug.LogError("Variable doesn't have any operators.");
         }
     }
 }

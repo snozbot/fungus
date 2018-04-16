@@ -65,7 +65,9 @@ namespace Fungus
         /// <summary> audiopause=Sound </summary>
         AudioPause,
         /// <summary> audiostop=Sound </summary>
-        AudioStop
+        AudioStop,
+        /// <summary> wvo </summary>
+        WaitForVoiceOver,
     }
 
     /// <summary>

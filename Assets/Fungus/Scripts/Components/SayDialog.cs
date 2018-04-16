@@ -62,7 +62,7 @@ namespace Fungus
 		// Cache active Say Dialogs to avoid expensive scene search
 		protected static List<SayDialog> activeSayDialogs = new List<SayDialog>();
 
-		protected void Awake()
+		protected virtual void Awake()
 		{
 			if (!activeSayDialogs.Contains(this))
 			{
@@ -70,12 +70,12 @@ namespace Fungus
 			}
 		}
 
-		protected void OnDestroy()
+		protected virtual void OnDestroy()
 		{
 			activeSayDialogs.Remove(this);
 		}
 			
-		protected Writer GetWriter()
+		protected virtual Writer GetWriter()
         {
             if (writer != null)
             {
@@ -91,7 +91,7 @@ namespace Fungus
             return writer;
         }
 
-        protected CanvasGroup GetCanvasGroup()
+        protected virtual CanvasGroup GetCanvasGroup()
         {
             if (canvasGroup != null)
             {
@@ -107,7 +107,7 @@ namespace Fungus
             return canvasGroup;
         }
 
-        protected WriterAudio GetWriterAudio()
+        protected virtual WriterAudio GetWriterAudio()
         {
             if (writerAudio != null)
             {
@@ -123,7 +123,7 @@ namespace Fungus
             return writerAudio;
         }
 
-        protected void Start()
+        protected virtual void Start()
         {
             // Dialog always starts invisible, will be faded in when writing starts
             GetCanvasGroup().alpha = 0f;
@@ -149,14 +149,6 @@ namespace Fungus
                 SetCharacterImage(null);
             }
         }
-
-        protected void OnEnable()
-        {
-            // We need to update the cached list every time the Say Dialog is enabled
-            // due to an initialization order issue after loading scenes.
-            stringSubstituter.CacheSubstitutionHandlers();
-        }
-
 
         protected virtual void LateUpdate()
         {
@@ -214,6 +206,8 @@ namespace Fungus
         }
 
         #region Public members
+
+		public Character SpeakingCharacter { get { return speakingCharacter; } }
 
         /// <summary>
         /// Currently active Say Dialog used to display Say text
@@ -434,9 +428,9 @@ namespace Fungus
         /// <param name="stopVoiceover">Stop any existing voiceover audio before writing starts.</param>
         /// <param name="voiceOverClip">Voice over audio clip to play.</param>
         /// <param name="onComplete">Callback to execute when writing and player input have finished.</param>
-        public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
+        public virtual void Say(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, bool waitForVO, AudioClip voiceOverClip, Action onComplete)
         {
-            StartCoroutine(DoSay(text, clearPrevious, waitForInput, fadeWhenDone, stopVoiceover, voiceOverClip, onComplete));
+            StartCoroutine(DoSay(text, clearPrevious, waitForInput, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, onComplete));
         }
 
         /// <summary>
@@ -449,7 +443,7 @@ namespace Fungus
         /// <param name="stopVoiceover">Stop any existing voiceover audio before writing starts.</param>
         /// <param name="voiceOverClip">Voice over audio clip to play.</param>
         /// <param name="onComplete">Callback to execute when writing and player input have finished.</param>
-        public virtual IEnumerator DoSay(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, AudioClip voiceOverClip, Action onComplete)
+        public virtual IEnumerator DoSay(string text, bool clearPrevious, bool waitForInput, bool fadeWhenDone, bool stopVoiceover, bool waitForVO, AudioClip voiceOverClip, Action onComplete)
         {
             var writer = GetWriter();
 
@@ -490,13 +484,15 @@ namespace Fungus
                 soundEffectClip = speakingCharacter.SoundEffect;
             }
 
-            yield return StartCoroutine(writer.Write(text, clearPrevious, waitForInput, stopVoiceover, soundEffectClip, onComplete));
+            writer.AttachedWriterAudio = writerAudio;
+
+            yield return StartCoroutine(writer.Write(text, clearPrevious, waitForInput, stopVoiceover, waitForVO, soundEffectClip, onComplete));
         }
 
         /// <summary>
         /// Tell the Say Dialog to fade out once writing and player input have finished.
         /// </summary>
-        public virtual bool FadeWhenDone { set { fadeWhenDone = value; } }
+        public virtual bool FadeWhenDone { get {return fadeWhenDone; } set { fadeWhenDone = value; } }
 
         /// <summary>
         /// Stop the Say Dialog while its writing text.

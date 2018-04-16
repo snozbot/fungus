@@ -130,9 +130,10 @@ namespace Fungus.EditorUtils
         protected Block[] filteredBlocks;
         protected int blockPopupSelection = -1;
         protected Vector2 popupScroll;
-        protected Flowchart flowchart;
+        protected Flowchart flowchart, prevFlowchart;
         protected Block[] blocks;
         protected Block dragBlock;
+        protected static FungusState fungusState;
 
         [MenuItem("Tools/Fungus/Flowchart Window")]
         static void Init()
@@ -167,15 +168,8 @@ namespace Fungus.EditorUtils
                 return;
             }
 
-            bool isActive = flowchart.IsActive();
-            if (PrefabUtility.GetPrefabType(flowchart.gameObject) == PrefabType.Prefab)
-            {
-                isActive = true;
-            }
-
             if (Selection.activeGameObject == null &&
-                flowchart.SelectedBlock != null &&
-                isActive)
+                flowchart.SelectedBlock != null )
             {
                 if (blockInspector == null)
                 {
@@ -212,12 +206,15 @@ namespace Fungus.EditorUtils
         {
             // Using a temp hidden object to track the active Flowchart across 
             // serialization / deserialization when playing the game in the editor.
-            FungusState fungusState = GameObject.FindObjectOfType<FungusState>();
             if (fungusState == null)
             {
-                GameObject go = new GameObject("_FungusState");
-                go.hideFlags = HideFlags.HideInHierarchy;
-                fungusState = go.AddComponent<FungusState>();
+                fungusState = GameObject.FindObjectOfType<FungusState>();
+                if (fungusState == null)
+                {
+                    GameObject go = new GameObject("_FungusState");
+                    go.hideFlags = HideFlags.HideInHierarchy;
+                    fungusState = go.AddComponent<FungusState>();
+                }
             }
 
             if (Selection.activeGameObject != null)
@@ -337,6 +334,14 @@ namespace Fungus.EditorUtils
                 return;
             }
 
+            //target has changed, so clear the blockinspector
+            if (flowchart != prevFlowchart)
+            {
+                blockInspector = null;
+                prevFlowchart = flowchart;
+                return;
+            }
+
             DeleteBlocks();
 
             blocks = flowchart.GetComponents<Block>();
@@ -366,7 +371,17 @@ namespace Fungus.EditorUtils
             }
 
             // Draw toolbar, search popup, and variables window
-            DrawOverlay(Event.current);
+            //  need try catch here as we are now invalidating the drawer if the target flowchart
+            //      has changed which makes unity GUILayouts upset and this function appears to 
+            //      actually get called partially outside our control
+            try
+            {
+                DrawOverlay(Event.current);
+            }
+            catch (Exception)
+            {
+                //Debug.Log("Failed to draw overlay in some way");
+            }
 
             // Handle events for custom GUI
             base.HandleEvents(Event.current);
@@ -482,7 +497,7 @@ namespace Fungus.EditorUtils
                         GUILayout.Space(8);
 
                         FlowchartEditor flowchartEditor = Editor.CreateEditor (flowchart) as FlowchartEditor;
-                        flowchartEditor.DrawVariablesGUI();
+                        flowchartEditor.DrawVariablesGUI(true, 0);
                         DestroyImmediate(flowchartEditor);
 
                         Rect variableWindowRect = GUILayoutUtility.GetLastRect();
@@ -616,6 +631,16 @@ namespace Fungus.EditorUtils
         protected override void OnMouseDown(Event e)
         {
             var hitBlock = GetBlockAtPoint(e.mousePosition);
+
+            // Convert Ctrl+Left click to a right click on mac
+            if (Application.platform == RuntimePlatform.OSXEditor)
+            {
+                if (e.button == MouseButton.Left &&
+                    e.control)
+                {
+                    e.button = MouseButton.Right;
+                }
+            }
 
             switch(e.button)
             {
@@ -766,6 +791,16 @@ namespace Fungus.EditorUtils
         protected override void OnRawMouseUp(Event e)
         {
             var hitBlock = GetBlockAtPoint(e.mousePosition);
+
+            // Convert Ctrl+Left click to a right click on mac
+            if (Application.platform == RuntimePlatform.OSXEditor)
+            {
+                if (e.button == MouseButton.Left &&
+                    e.control)
+                {
+                    e.button = MouseButton.Right;
+                }
+            }
 
             switch (e.button)
             {

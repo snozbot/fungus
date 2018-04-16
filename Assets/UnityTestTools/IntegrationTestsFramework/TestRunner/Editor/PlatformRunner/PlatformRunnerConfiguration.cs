@@ -55,8 +55,12 @@ public class PlatformRunnerConfiguration
             case BuildTarget.StandaloneWindows:
             case BuildTarget.StandaloneWindows64:
                 return path + ".exe";
+#if UNITY_2017_3_OR_NEWER                
+            case BuildTarget.StandaloneOSX:
+#else
             case BuildTarget.StandaloneOSXIntel:
             case BuildTarget.StandaloneOSXIntel64:
+#endif
             case BuildTarget.StandaloneLinuxUniversal:
                 return path + ".app";
             case BuildTarget.Android:

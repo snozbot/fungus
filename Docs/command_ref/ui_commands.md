@@ -34,7 +34,7 @@ Toggle | UnityEngine.UI.Toggle | Target toggle object to get the value from
 Toggle State | Fungus.BooleanVariable | Boolean variable to store the state of the toggle value in.
 
 # Set Interactable # {#SetInteractable}
-Set the interactable sate of selectable objects.
+Set the interactable state of selectable objects.
 
 Defined in Fungus.SetInteractable
 
