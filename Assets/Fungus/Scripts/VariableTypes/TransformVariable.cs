@@ -13,7 +13,43 @@ namespace Fungus
     [AddComponentMenu("")]
     [System.Serializable]
     public class TransformVariable : VariableBase<Transform>
-    {}
+    {
+        public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
+        public static readonly SetOperator[] setOperators = { SetOperator.Assign };
+
+        public virtual bool Evaluate(CompareOperator compareOperator, Transform value)
+        {
+            bool condition = false;
+
+            switch (compareOperator)
+            {
+                case CompareOperator.Equals:
+                    condition = Value == value;
+                    break;
+                case CompareOperator.NotEquals:
+                    condition = Value != value;
+                    break;
+                default:
+                    Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
+                    break;
+            }
+
+            return condition;
+        }
+
+        public override void Apply(SetOperator setOperator, Transform value)
+        {
+            switch (setOperator)
+            {
+                case SetOperator.Assign:
+                    Value = value;
+                    break;
+                default:
+                    Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
+                    break;
+            }
+        }
+    }
 
     /// <summary>
     /// Container for a Transform variable reference or constant value.

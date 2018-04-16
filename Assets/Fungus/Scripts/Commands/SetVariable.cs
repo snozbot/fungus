@@ -9,18 +9,29 @@ namespace Fungus
     /// <summary>
     /// Sets a Boolean, Integer, Float or String variable to a new value using a simple arithmetic operation. The value can be a constant or reference another variable of the same type.
     /// </summary>
-    [CommandInfo("Variable", 
-                 "Set Variable", 
+    [CommandInfo("Variable",
+                 "Set Variable",
                  "Sets a Boolean, Integer, Float or String variable to a new value using a simple arithmetic operation. The value can be a constant or reference another variable of the same type.")]
     [AddComponentMenu("")]
-    public class SetVariable : Command 
+    public class SetVariable : Command
     {
         [Tooltip("The variable whos value will be set")]
         [VariableProperty(typeof(BooleanVariable),
-                          typeof(IntegerVariable), 
-                          typeof(FloatVariable), 
+                          typeof(IntegerVariable),
+                          typeof(FloatVariable),
                           typeof(StringVariable),
-                          typeof(GameObjectVariable))]
+                          typeof(AnimatorVariable),
+                          typeof(AudioSourceVariable),
+                          typeof(ColorVariable),
+                          typeof(GameObjectVariable),
+                          typeof(MaterialVariable),
+                          typeof(ObjectVariable),
+                          typeof(Rigidbody2DVariable),
+                          typeof(SpriteVariable),
+                          typeof(TextureVariable),
+                          typeof(TransformVariable),
+                          typeof(Vector2Variable),
+                          typeof(Vector3Variable))]
         [SerializeField] protected Variable variable;
 
         [Tooltip("The type of math operation to be performed")]
@@ -38,8 +49,41 @@ namespace Fungus
         [Tooltip("String value to set with")]
         [SerializeField] protected StringDataMulti stringData;
 
+        [Tooltip("Animator value to set with")]
+        [SerializeField] protected AnimatorData animatorData;
+
+        [Tooltip("AudioSource value to set with")]
+        [SerializeField] protected AudioSourceData audioSourceData;
+
+        [Tooltip("Color value to set with")]
+        [SerializeField] protected ColorData colorData;
+
         [Tooltip("GameObject value to set with")]
         [SerializeField] protected GameObjectData gameObjectData;
+
+        [Tooltip("Material value to set with")]
+        [SerializeField] protected MaterialData materialData;
+
+        [Tooltip("Object value to set with")]
+        [SerializeField] protected ObjectData objectData;
+
+        [Tooltip("Rigidbody2D value to set with")]
+        [SerializeField] protected Rigidbody2DData rigidbody2DData;
+
+        [Tooltip("Sprite value to set with")]
+        [SerializeField] protected SpriteData spriteData;
+
+        [Tooltip("Texture value to set with")]
+        [SerializeField] protected TextureData textureData;
+
+        [Tooltip("Transform value to set with")]
+        [SerializeField] protected TransformData transformData;
+
+        [Tooltip("Vector2 value to set with")]
+        [SerializeField] protected Vector2Data vector2Data;
+
+        [Tooltip("Vector3 value to set with")]
+        [SerializeField] protected Vector3Data vector3Data;
 
         protected virtual void DoSetOperation()
         {
@@ -69,10 +113,65 @@ namespace Fungus
                 var flowchart = GetFlowchart();
                 stringVariable.Apply(setOperator, flowchart.SubstituteVariables(stringData.Value));
             }
+            else if (variable.GetType() == typeof(AnimatorVariable))
+            {
+                AnimatorVariable animatorVariable = (variable as AnimatorVariable);
+                animatorVariable.Apply(setOperator, animatorData.Value);
+            }
+            else if (variable.GetType() == typeof(AudioSourceVariable))
+            {
+                AudioSourceVariable audioSourceVariable = (variable as AudioSourceVariable);
+                audioSourceVariable.Apply(setOperator, audioSourceData.Value);
+            }
+            else if (variable.GetType() == typeof(ColorVariable))
+            {
+                ColorVariable colorVariable = (variable as ColorVariable);
+                colorVariable.Apply(setOperator, colorData.Value);
+            }
             else if (variable.GetType() == typeof(GameObjectVariable))
             {
                 GameObjectVariable gameObjectVariable = (variable as GameObjectVariable);
                 gameObjectVariable.Apply(setOperator, gameObjectData.Value);
+            }
+            else if (variable.GetType() == typeof(MaterialVariable))
+            {
+                MaterialVariable materialVariable = (variable as MaterialVariable);
+                materialVariable.Apply(setOperator, materialData.Value);
+            }
+            else if (variable.GetType() == typeof(ObjectVariable))
+            {
+                ObjectVariable objectVariable = (variable as ObjectVariable);
+                objectVariable.Apply(setOperator, objectData.Value);
+            }
+            else if (variable.GetType() == typeof(Rigidbody2DVariable))
+            {
+                Rigidbody2DVariable rigidbody2DVariable = (variable as Rigidbody2DVariable);
+                rigidbody2DVariable.Apply(setOperator, rigidbody2DData.Value);
+            }
+            else if (variable.GetType() == typeof(SpriteVariable))
+            {
+                SpriteVariable spriteVariable = (variable as SpriteVariable);
+                spriteVariable.Apply(setOperator, spriteData.Value);
+            }
+            else if (variable.GetType() == typeof(TextureVariable))
+            {
+                TextureVariable textureVariable = (variable as TextureVariable);
+                textureVariable.Apply(setOperator, textureData.Value);
+            }
+            else if (variable.GetType() == typeof(TransformVariable))
+            {
+                TransformVariable transformVariable = (variable as TransformVariable);
+                transformVariable.Apply(setOperator, transformData.Value);
+            }
+            else if (variable.GetType() == typeof(Vector2Variable))
+            {
+                Vector2Variable vector2Variable = (variable as Vector2Variable);
+                vector2Variable.Apply(setOperator, vector2Data.Value);
+            }
+            else if (variable.GetType() == typeof(Vector3Variable))
+            {
+                Vector3Variable vector3Variable = (variable as Vector3Variable);
+                vector3Variable.Apply(setOperator, vector3Data.Value);
             }
         }
 
@@ -83,7 +182,18 @@ namespace Fungus
             { typeof(IntegerVariable), IntegerVariable.setOperators },
             { typeof(FloatVariable), FloatVariable.setOperators },
             { typeof(StringVariable), StringVariable.setOperators },
-            { typeof(GameObjectVariable), GameObjectVariable.setOperators }
+            { typeof(AnimatorVariable), AnimatorVariable.setOperators },
+            { typeof(AudioSourceVariable), AudioSourceVariable.setOperators },
+            { typeof(ColorVariable), ColorVariable.setOperators },
+            { typeof(GameObjectVariable), GameObjectVariable.setOperators },
+            { typeof(MaterialVariable), MaterialVariable.setOperators },
+            { typeof(ObjectVariable), ObjectVariable.setOperators },
+            { typeof(Rigidbody2DVariable), Rigidbody2DVariable.setOperators },
+            { typeof(SpriteVariable), SpriteVariable.setOperators },
+            { typeof(TextureVariable), TextureVariable.setOperators },
+            { typeof(TransformVariable), TransformVariable.setOperators },
+            { typeof(Vector2Variable), Vector2Variable.setOperators },
+            { typeof(Vector3Variable), Vector3Variable.setOperators }
         };
 
         /// <summary>
@@ -146,9 +256,53 @@ namespace Fungus
             {
                 description += stringData.GetDescription();
             }
+            else if (variable.GetType() == typeof(AnimatorVariable))
+            {
+                description += animatorData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(AudioSourceVariable))
+            {
+                description += audioSourceData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(ColorVariable))
+            {
+                description += colorData.GetDescription();
+            }
             else if (variable.GetType() == typeof(GameObjectVariable))
             {
                 description += gameObjectData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(MaterialVariable))
+            {
+                description += materialData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(ObjectVariable))
+            {
+                description += objectData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(Rigidbody2DVariable))
+            {
+                description += rigidbody2DData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(SpriteVariable))
+            {
+                description += spriteData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(TextureVariable))
+            {
+                description += textureData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(TransformVariable))
+            {
+                description += transformData.GetDescription();
+            }
+            else if (variable.GetType() == typeof(Vector2Variable))
+            {
+                description += vector2Data.GetDescription();
+            }
+            else if (variable.GetType() == typeof(Vector3Variable))
+            {
+                description += vector3Data.GetDescription();
             }
 
             return description;

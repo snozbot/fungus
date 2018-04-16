@@ -9,7 +9,7 @@ namespace Fungus.EditorUtils
 {
 
     [CustomEditor (typeof(SetVariable))]
-    public class SetVariableEditor : CommandEditor 
+    public class SetVariableEditor : CommandEditor
     {
         protected struct VariablePropertyInfo
         {
@@ -44,7 +44,18 @@ namespace Fungus.EditorUtils
                 { typeof(IntegerVariable), new VariablePropertyInfo("Integer", serializedObject.FindProperty("integerData")) },
                 { typeof(FloatVariable), new VariablePropertyInfo("Float", serializedObject.FindProperty("floatData")) },
                 { typeof(StringVariable), new VariablePropertyInfo("String", serializedObject.FindProperty("stringData")) },
-                { typeof(GameObjectVariable), new VariablePropertyInfo("GameObject", serializedObject.FindProperty("gameObjectData")) }
+                { typeof(AnimatorVariable), new VariablePropertyInfo("Animator", serializedObject.FindProperty("animatorData")) },
+                { typeof(AudioSourceVariable), new VariablePropertyInfo("AudioSource", serializedObject.FindProperty("audioSourceData")) },
+                { typeof(ColorVariable), new VariablePropertyInfo("Color", serializedObject.FindProperty("colorData")) },
+                { typeof(GameObjectVariable), new VariablePropertyInfo("GameObject", serializedObject.FindProperty("gameObjectData")) },
+                { typeof(MaterialVariable), new VariablePropertyInfo("Material", serializedObject.FindProperty("materialData")) },
+                { typeof(ObjectVariable), new VariablePropertyInfo("Object", serializedObject.FindProperty("objectData")) },
+                { typeof(Rigidbody2DVariable), new VariablePropertyInfo("Rigidbody2D", serializedObject.FindProperty("rigidbody2DData")) },
+                { typeof(SpriteVariable), new VariablePropertyInfo("Sprite", serializedObject.FindProperty("spriteData")) },
+                { typeof(TextureVariable), new VariablePropertyInfo("Texture", serializedObject.FindProperty("textureData")) },
+                { typeof(TransformVariable), new VariablePropertyInfo("Transform", serializedObject.FindProperty("transformData")) },
+                { typeof(Vector2Variable), new VariablePropertyInfo("Vector2", serializedObject.FindProperty("vector2Data")) },
+                { typeof(Vector3Variable), new VariablePropertyInfo("Vector3", serializedObject.FindProperty("vector3Data")) }
             };
         }
 
@@ -105,7 +116,7 @@ namespace Fungus.EditorUtils
                         break;
                 }
             }
-            
+
             // Get previously selected operator
             int selectedIndex = System.Array.IndexOf(setOperators, t._SetOperator);
             if (selectedIndex < 0)
@@ -117,7 +128,7 @@ namespace Fungus.EditorUtils
 
             // Get next selected operator
             selectedIndex = EditorGUILayout.Popup(new GUIContent("Operation", "Arithmetic operator to use"), selectedIndex, operatorsList.ToArray());
-            
+
 
             setOperatorProp.enumValueIndex = (int)setOperators[selectedIndex];
 

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Fungus.EditorUtils
 {
     [CustomEditor (typeof(VariableCondition), true)]
-    public class VariableConditionEditor : CommandEditor 
+    public class VariableConditionEditor : CommandEditor
     {
         protected SerializedProperty variableProp;
         protected SerializedProperty compareOperatorProp;
@@ -29,7 +29,18 @@ namespace Fungus.EditorUtils
                 { typeof(IntegerVariable), serializedObject.FindProperty("integerData") },
                 { typeof(FloatVariable), serializedObject.FindProperty("floatData") },
                 { typeof(StringVariable), serializedObject.FindProperty("stringData") },
-                { typeof(GameObjectVariable), serializedObject.FindProperty("gameObjectData") }
+                { typeof(AnimatorVariable), serializedObject.FindProperty("animatorData") },
+                { typeof(AudioSourceVariable), serializedObject.FindProperty("audioSourceData") },
+                { typeof(ColorVariable), serializedObject.FindProperty("colorData") },
+                { typeof(GameObjectVariable), serializedObject.FindProperty("gameObjectData") },
+                { typeof(MaterialVariable), serializedObject.FindProperty("materialData") },
+                { typeof(ObjectVariable), serializedObject.FindProperty("objectData") },
+                { typeof(Rigidbody2DVariable), serializedObject.FindProperty("rigidbody2DData") },
+                { typeof(SpriteVariable), serializedObject.FindProperty("spriteData") },
+                { typeof(TextureVariable), serializedObject.FindProperty("textureData") },
+                { typeof(TransformVariable), serializedObject.FindProperty("transformData") },
+                { typeof(Vector2Variable), serializedObject.FindProperty("vector2Data") },
+                { typeof(Vector3Variable), serializedObject.FindProperty("vector3Data") }
             };
         }
 

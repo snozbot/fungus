@@ -9,7 +9,43 @@ namespace Fungus
     [AddComponentMenu("")]
     [System.Serializable]
     public class Rigidbody2DVariable : VariableBase<Rigidbody2D>
-    { }
+    {
+        public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
+        public static readonly SetOperator[] setOperators = { SetOperator.Assign };
+
+        public virtual bool Evaluate(CompareOperator compareOperator, Rigidbody2D value)
+        {
+            bool condition = false;
+
+            switch (compareOperator)
+            {
+                case CompareOperator.Equals:
+                    condition = Value == value;
+                    break;
+                case CompareOperator.NotEquals:
+                    condition = Value != value;
+                    break;
+                default:
+                    Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
+                    break;
+            }
+
+            return condition;
+        }
+
+        public override void Apply(SetOperator setOperator, Rigidbody2D value)
+        {
+            switch (setOperator)
+            {
+                case SetOperator.Assign:
+                    Value = value;
+                    break;
+                default:
+                    Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
+                    break;
+            }
+        }
+    }
 
     /// <summary>
     /// Container for a Rigidbody2D variable reference or constant value.
