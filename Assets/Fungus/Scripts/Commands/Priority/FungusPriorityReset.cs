@@ -5,11 +5,12 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
+    /// Resets the FungusPriority count to zero. Useful if you are among logic that is hard to have matching increase and decreases.
     /// </summary>
-    [CommandInfo("Scripting",
+    [CommandInfo("Priority Signals",
                  "Priority Reset",
                  "Resets the FungusPriority count to zero. Useful if you are among logic that is hard to have matching increase and decreases.")]
-    public class FungusPrirorityReset : Command
+    public class FungusPriorityReset : Command
     {
         public override void OnEnter()
         {

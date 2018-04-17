@@ -5,12 +5,14 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
+    /// Increases the FungusPriority count, causing the related FungusPrioritySignals to fire.
+    /// Intended to be used to notify external systems that fungus is doing something important and they should perhaps pause.
     /// </summary>
-    [CommandInfo("Scripting",
+    [CommandInfo("Priority Signals",
                  "Priority Up",
                  "Increases the FungusPriority count, causing the related FungusPrioritySignals to fire. " +
                 "Intended to be used to notify external systems that fungus is doing something important and they should perhaps pause.")]
-    public class FungusPrirorityIncrease : Command
+    public class FungusPriorityIncrease : Command
     {
         public override void OnEnter()
         {

@@ -5,13 +5,15 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
+    /// Copy the value of the Priority Count to a local IntegerVariable, intended primarily to assist with debugging use of Priority.
     /// </summary>
-    [CommandInfo("Scripting",
-                 "Priority Count",
-                 "Resets the FungusPriority count to zero. Useful if you are among logic that is hard to have matching increase and decreases.")]
-    public class FungusPrirorityCurrentCount : Command
+    [CommandInfo("Priority Signals",
+                 "Get Priority Count",
+                 "Copy the value of the Priority Count to a local IntegerVariable, intended primarily to assist with debugging use of Priority.")]
+    public class FungusPriorityCount : Command
     {
-        public FloatVar outVar;
+        [VariableProperty(typeof(IntegerVariable))]
+        public IntegerVariable outVar;
 
         public override void OnEnter()
         {
