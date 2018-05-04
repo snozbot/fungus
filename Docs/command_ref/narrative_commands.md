@@ -25,9 +25,14 @@ Wait Until Finished | System.Boolean | Wait until the tween has finished before 
 Display | Fungus.StageDisplayType | Display type
 
 # Conversation # {#Conversation}
-Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text]
+Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [hide] [<<< | >>>] [clear | noclear] [wait | nowait] [fade | nofade] [: Story text]
 
 Defined in Fungus.Conversation
+
+Property | Type | Description
+ --- | --- | ---
+Wait For Seconds | Fungus.FloatData | a wait for seconds added to each item of the conversation.
+
 # Menu # {#Menu}
 Displays a button in a multiple choice menu
 
