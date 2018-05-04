@@ -59,8 +59,8 @@ namespace UnityTest
         {
             EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyWindowItemDraw;
             EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyWindowItemDraw;
-            EditorApplication.hierarchyWindowChanged -= OnHierarchyChangeUpdate;
-            EditorApplication.hierarchyWindowChanged += OnHierarchyChangeUpdate;
+            EditorApplication.hierarchyChanged -= OnHierarchyChangeUpdate;
+            EditorApplication.hierarchyChanged += OnHierarchyChangeUpdate;
             EditorApplication.update -= BackgroundSceneChangeWatch;
             EditorApplication.update += BackgroundSceneChangeWatch;
 #if UNITY_2017_2_OR_NEWER
@@ -86,7 +86,7 @@ namespace UnityTest
         {
             EditorApplication.hierarchyWindowItemOnGUI -= OnHierarchyWindowItemDraw;
             EditorApplication.update -= BackgroundSceneChangeWatch;
-            EditorApplication.hierarchyWindowChanged -= OnHierarchyChangeUpdate;
+            EditorApplication.hierarchyChanged -= OnHierarchyChangeUpdate;
 #if UNITY_2017_2_OR_NEWER
             EditorApplication.playModeStateChanged -= OnPlaymodeStateChanged;
 #else
