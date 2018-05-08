@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 114602407226986924}
   - component: {fileID: 114487163524766562}
   - component: {fileID: 114979932131573080}
-  - component: {fileID: 114216864803211772}
   - component: {fileID: 114751314740007556}
   - component: {fileID: 114455382144078078}
   - component: {fileID: 114182131449558960}
@@ -72,12 +71,12 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4591436351563906
 Transform:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.648, y: 0.214, z: 0}
+  m_LocalPosition: {x: 15.526983, y: -0.36546326, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
   - {fileID: 4506692581060478}
@@ -87,7 +86,7 @@ Transform:
 --- !u!50 &50266752063846120
 Rigidbody2D:
   serializedVersion: 4
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -106,7 +105,7 @@ Rigidbody2D:
   m_Constraints: 0
 --- !u!60 &60745726664901920
 PolygonCollider2D:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -192,9 +191,11 @@ TrailRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -207,6 +208,7 @@ TrailRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -222,18 +224,24 @@ TrailRenderer:
     widthCurve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
+      - serializedVersion: 3
         time: 0
         value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - serializedVersion: 2
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 1
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 0
@@ -276,16 +284,18 @@ TrailRenderer:
 --- !u!96 &96390674517467256
 TrailRenderer:
   serializedVersion: 2
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -298,6 +308,7 @@ TrailRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -313,18 +324,24 @@ TrailRenderer:
     widthCurve:
       serializedVersion: 2
       m_Curve:
-      - serializedVersion: 2
+      - serializedVersion: 3
         time: 0
         value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
-      - serializedVersion: 2
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 1
         value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 0
@@ -389,20 +406,6 @@ MonoBehaviour:
   eventHandler: {fileID: 114250531415154764}
   commandList:
   - {fileID: 114299940920854140}
---- !u!114 &114216864803211772
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942691996823588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5571f032eb722324fac0fc908bc370bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scope: 0
-  key: rb
-  value: {fileID: 50266752063846120}
 --- !u!114 &114250531415154764
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -464,8 +467,8 @@ MonoBehaviour:
   itemId: 1
   indentLevel: 0
   rb:
-    rigidbody2DRef: {fileID: 114216864803211772}
-    rigidbody2DVal: {fileID: 0}
+    rigidbody2DRef: {fileID: 0}
+    rigidbody2DVal: {fileID: 50266752063846120}
   forceMode: 1
   forceFunction: 2
   force:
@@ -479,7 +482,7 @@ MonoBehaviour:
     vector2Val: {x: 0, y: 0}
 --- !u!114 &114526636883379746
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
@@ -492,7 +495,7 @@ MonoBehaviour:
   scrollPos: {x: 62, y: -35}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 400
+  blockViewHeight: 339
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -500,11 +503,12 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
-  selectedBlocks: []
-  selectedCommands: []
+  selectedBlocks:
+  - {fileID: 114593477394275294}
+  selectedCommands:
+  - {fileID: 114487163524766562}
   variables:
   - {fileID: 114979932131573080}
-  - {fileID: 114216864803211772}
   - {fileID: 114455382144078078}
   description: 
   stepPause: 0
@@ -554,7 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 114593477394275294}
-  waitForFrames: 1
+  waitForFrames: 3
 --- !u!114 &114751314740007556
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -591,16 +595,18 @@ MonoBehaviour:
   value: {x: 0, y: 10}
 --- !u!212 &212200396344711462
 SpriteRenderer:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942691996823588}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -613,6 +619,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
