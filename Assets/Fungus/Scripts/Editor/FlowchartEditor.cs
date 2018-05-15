@@ -4,7 +4,6 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
-using Rotorz.ReorderableList;
 using System.Linq;
 using System.Reflection;
 
@@ -72,8 +71,9 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(luaBindingNameProp);
 
             // Show list of commands to hide in Add Command menu
-            ReorderableListGUI.Title(new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip));
-            ReorderableListGUI.ListField(hideCommandsProp);
+            //ReorderableListGUI.Title(new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip));
+            //ReorderableListGUI.ListField(hideCommandsProp);
+            EditorGUILayout.PropertyField(hideCommandsProp, new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip), true);
 
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
@@ -134,12 +134,7 @@ namespace Fungus.EditorUtils
                     }
                 }
 
-                ReorderableListGUI.Title("Variables");
-                VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0, w == 0 ? VariableListAdaptor.DefaultWidth : w);
-
-                ReorderableListFlags flags = ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton;
-
-                ReorderableListControl.DrawControlFromState(adaptor, null, flags);
+                VariableListAdaptor.DrawVarList(w, variablesProp);
 
                 listRect = GUILayoutUtility.GetLastRect();
                 

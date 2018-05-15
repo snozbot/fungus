@@ -14,6 +14,24 @@ namespace Fungus.EditorUtils
 {
     public class CommandListAdaptor : IReorderableListAdaptor {
         
+        public static void DrawCommandList(Block block, SerializedProperty commandListProperty)
+        {
+            ReorderableListGUI.Title("Commands");
+            CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
+            adaptor.nodeRect = block._NodeRect;
+
+            ReorderableListFlags flags = ReorderableListFlags.HideAddButton | ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.DisableContextMenu;
+
+            if (block.CommandList.Count == 0)
+            {
+                EditorGUILayout.HelpBox("Press the + button below to add a command to the list.", MessageType.Info);
+            }
+            else
+            {
+                ReorderableListControl.DrawControlFromState(adaptor, null, flags);
+            }
+        }
+
         protected SerializedProperty _arrayProperty;
         
         public float fixedItemHeight;

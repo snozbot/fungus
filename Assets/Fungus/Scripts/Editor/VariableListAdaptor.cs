@@ -25,6 +25,16 @@ namespace Fungus.EditorUtils
         public int widthOfList;
 
 
+        static public void DrawVarList(int w, SerializedProperty variablesProp)
+        {
+            ReorderableListGUI.Title("Variables");
+            VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0, w == 0 ? VariableListAdaptor.DefaultWidth : w);
+
+            ReorderableListFlags flags = ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton;
+
+            ReorderableListControl.DrawControlFromState(adaptor, null, flags);
+        }
+
         public SerializedProperty this[int index]
         {
             get { return _arrayProperty.GetArrayElementAtIndex(index); }

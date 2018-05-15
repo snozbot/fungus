@@ -9,7 +9,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Rotorz.ReorderableList;
 using System.IO;
 using System.Reflection;
 
@@ -150,20 +149,7 @@ namespace Fungus.EditorUtils
                     command.ParentBlock = block;
                 }
 
-                ReorderableListGUI.Title("Commands");
-                CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
-                adaptor.nodeRect = block._NodeRect;
-
-                ReorderableListFlags flags = ReorderableListFlags.HideAddButton | ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.DisableContextMenu;
-
-                if (block.CommandList.Count == 0)
-                {
-                    EditorGUILayout.HelpBox("Press the + button below to add a command to the list.", MessageType.Info);
-                }
-                else
-                {
-                    ReorderableListControl.DrawControlFromState(adaptor, null, flags);
-                }
+                CommandListAdaptor.DrawCommandList(block, commandListProperty);
 
                 // EventType.contextClick doesn't register since we moved the Block Editor to be inside
                 // a GUI Area, no idea why. As a workaround we just check for right click instead.
