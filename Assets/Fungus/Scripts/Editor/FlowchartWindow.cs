@@ -135,6 +135,8 @@ namespace Fungus.EditorUtils
         protected Block dragBlock;
         protected static FungusState fungusState;
 
+        static FlowchartEditor flowchartEditor;
+
         [MenuItem("Tools/Fungus/Flowchart Window")]
         static void Init()
         {
@@ -222,7 +224,13 @@ namespace Fungus.EditorUtils
                 var fs = Selection.activeGameObject.GetComponent<Flowchart>();
                 if (fs != null)
                 {
-                    fungusState.SelectedFlowchart = fs;
+                    //make sure we have a valid editor for this flowchart
+                    if (fungusState.SelectedFlowchart != fs || fungusState.SelectedFlowchart == null || flowchartEditor == null)
+                    {
+                        DestroyImmediate(flowchartEditor);
+                        flowchartEditor = Editor.CreateEditor(fs) as FlowchartEditor;
+                        fungusState.SelectedFlowchart = fs;
+                    }
                 }
             }
 
@@ -495,10 +503,8 @@ namespace Fungus.EditorUtils
                     flowchart.VariablesScrollPos = GUILayout.BeginScrollView(flowchart.VariablesScrollPos);
                     {                        
                         GUILayout.Space(8);
-
-                        FlowchartEditor flowchartEditor = Editor.CreateEditor (flowchart) as FlowchartEditor;
+                        
                         flowchartEditor.DrawVariablesGUI(true, 0);
-                        DestroyImmediate(flowchartEditor);
 
                         Rect variableWindowRect = GUILayoutUtility.GetLastRect();
                         if (flowchart.VariablesExpanded && flowchart.Variables.Count > 0)

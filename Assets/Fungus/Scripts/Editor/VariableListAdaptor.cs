@@ -8,33 +8,32 @@
 using UnityEngine;
 using UnityEditor;
 using System;
-using Rotorz.ReorderableList;
+using UnityEditorInternal;
+using System.Collections.Generic;
 
 namespace Fungus.EditorUtils
 {
-    public class VariableListAdaptor : IReorderableListAdaptor
+    public class VariableListAdaptor
     {
 
+        protected class AddVariableInfo
+        {
+            public Flowchart flowchart;
+            public System.Type variableType;
+        }
+
         public static readonly int DefaultWidth = 80 + 100 + 140 + 60;
-        public static readonly int ScrollSpacer = 8;
-        public static readonly int ReorderListSkirts = 70;
+        public static readonly int ScrollSpacer = 0;
+        public static readonly int ReorderListSkirts = 50;
 
         protected SerializedProperty _arrayProperty;
 
         public float fixedItemHeight;
         public int widthOfList;
 
-
-        static public void DrawVarList(int w, SerializedProperty variablesProp)
-        {
-            ReorderableListGUI.Title("Variables");
-            VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0, w == 0 ? VariableListAdaptor.DefaultWidth : w);
-
-            ReorderableListFlags flags = ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton;
-
-            ReorderableListControl.DrawControlFromState(adaptor, null, flags);
-        }
-
+        private ReorderableList list;
+        private Flowchart targetFlowchart;
+        
         public SerializedProperty this[int index]
         {
             get { return _arrayProperty.GetArrayElementAtIndex(index); }
@@ -45,88 +44,120 @@ namespace Fungus.EditorUtils
             get { return _arrayProperty; }
         }
 
-        public VariableListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight, int widthOfList)
+        public VariableListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight, int widthOfList, Flowchart _targetFlowchart)
         {
             if (arrayProperty == null)
                 throw new ArgumentNullException("Array property was null.");
             if (!arrayProperty.isArray)
                 throw new InvalidOperationException("Specified serialized propery is not an array.");
 
+            this.targetFlowchart = _targetFlowchart;
             this._arrayProperty = arrayProperty;
             this.fixedItemHeight = fixedItemHeight;
             this.widthOfList = widthOfList - ScrollSpacer;
+            list = new ReorderableList(arrayProperty.serializedObject, arrayProperty, true, false, true, true);
+            list.drawElementCallback = DrawItem;
+            list.onRemoveCallback = RemoveItem;
+            //list.drawHeaderCallback = DrawHeader;
+            list.onAddCallback = AddButton;
+            list.onRemoveCallback = RemoveItem;
         }
 
-        public VariableListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f, DefaultWidth)
+        private void RemoveItem(ReorderableList list)
         {
-        }
-
-        public int Count
-        {
-            get { return _arrayProperty.arraySize; }
-        }
-
-        public virtual bool CanDrag(int index)
-        {
-            return true;
-        }
-
-        public virtual bool CanRemove(int index)
-        {
-            return true;
-        }
-
-        public void Add()
-        {
-            int newIndex = _arrayProperty.arraySize;
-            ++_arrayProperty.arraySize;
-            _arrayProperty.GetArrayElementAtIndex(newIndex).ResetValue();
-        }
-
-        public void Insert(int index)
-        {
-            _arrayProperty.InsertArrayElementAtIndex(index);
-            _arrayProperty.GetArrayElementAtIndex(index).ResetValue();
-        }
-
-        public void Duplicate(int index)
-        {
-            _arrayProperty.InsertArrayElementAtIndex(index);
-        }
-
-        public void Remove(int index)
-        {
+            int index = list.index;
             // Remove the Fungus Variable component
             Variable variable = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as Variable;
             Undo.DestroyObjectImmediate(variable);
-
-            _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = null;
-            _arrayProperty.DeleteArrayElementAtIndex(index);
         }
 
-        public void Move(int sourceIndex, int destIndex)
+        private void AddButton(ReorderableList list)
         {
-            if (destIndex > sourceIndex)
-                --destIndex;
-            _arrayProperty.MoveArrayElement(sourceIndex, destIndex);
+            GenericMenu menu = new GenericMenu();
+            List<System.Type> types = FlowchartEditor.FindAllDerivedTypes<Variable>();
+
+            // Add variable types without a category
+            foreach (var type in types)
+            {
+                VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(type);
+                if (variableInfo == null ||
+                    variableInfo.Category != "")
+                {
+                    continue;
+                }
+
+                AddVariableInfo addVariableInfo = new AddVariableInfo();
+                addVariableInfo.flowchart = targetFlowchart;
+                addVariableInfo.variableType = type;
+
+                GUIContent typeName = new GUIContent(variableInfo.VariableType);
+
+                menu.AddItem(typeName, false, AddVariable, addVariableInfo);
+            }
+
+            // Add types with a category
+            foreach (var type in types)
+            {
+                VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(type);
+                if (variableInfo == null ||
+                    variableInfo.Category == "")
+                {
+                    continue;
+                }
+
+                AddVariableInfo info = new AddVariableInfo();
+                info.flowchart = targetFlowchart;
+                info.variableType = type;
+
+                GUIContent typeName = new GUIContent(variableInfo.Category + "/" + variableInfo.VariableType);
+
+                menu.AddItem(typeName, false, AddVariable, info);
+            }
+
+            menu.ShowAsContext();
         }
 
-        public void Clear()
+        protected virtual void AddVariable(object obj)
         {
-            _arrayProperty.ClearArray();
+            AddVariableInfo addVariableInfo = obj as AddVariableInfo;
+            if (addVariableInfo == null)
+            {
+                return;
+            }
+
+            var flowchart = addVariableInfo.flowchart;
+            System.Type variableType = addVariableInfo.variableType;
+
+            Undo.RecordObject(flowchart, "Add Variable");
+            Variable newVariable = flowchart.gameObject.AddComponent(variableType) as Variable;
+            newVariable.Key = flowchart.GetUniqueVariableKey("");
+            flowchart.Variables.Add(newVariable);
+
+            // Because this is an async call, we need to force prefab instances to record changes
+            PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
         }
 
-        public void BeginGUI()
-        { }
-
-        public void EndGUI()
-        { }
-
-        public virtual void DrawItemBackground(Rect position, int index)
+        private void DrawHeader(Rect rect)
         {
+            EditorGUI.PrefixLabel(rect, new GUIContent("Variables"));
+        }
+        
+        public void DrawVarList(int w)
+        {
+            this.widthOfList = (w == 0 ? VariableListAdaptor.DefaultWidth : w) - ScrollSpacer;
+
+            if(GUILayout.Button("Variables"))
+            {
+                arrayProperty.isExpanded = !arrayProperty.isExpanded;
+            }
+
+            if (arrayProperty.isExpanded)
+            {
+                list.DoLayoutList();
+            }
         }
 
-        public void DrawItem(Rect position, int index)
+        public void DrawItem(Rect position, int index, bool selected, bool focused)
         {
             Variable variable = this[index].objectReferenceValue as Variable;
 
@@ -162,7 +193,7 @@ namespace Fungus.EditorUtils
                 return;
             }
 
-            var flowchart = FlowchartWindow.GetFlowchart();
+            var flowchart = targetFlowchart;
             if (flowchart == null)
             {
                 return;
@@ -249,14 +280,6 @@ namespace Fungus.EditorUtils
             variableObject.ApplyModifiedProperties();
 
             GUI.backgroundColor = Color.white;
-        }
-
-        public virtual float GetItemHeight(int index)
-        {
-            return fixedItemHeight != 0f
-                ? fixedItemHeight
-                    : EditorGUI.GetPropertyHeight(this[index], GUIContent.none, false)
-                    ;
         }
     }
 }
