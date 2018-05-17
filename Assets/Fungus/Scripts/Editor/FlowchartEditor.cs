@@ -47,7 +47,7 @@ namespace Fungus.EditorUtils
 
             addTexture = FungusEditorResources.AddSmall;
 
-            variableListAdaptor = new VariableListAdaptor(variablesProp, 0, 0, target as Flowchart);
+            variableListAdaptor = new VariableListAdaptor(variablesProp, target as Flowchart);
         }
 
         public override void OnInspectorGUI() 
@@ -95,9 +95,15 @@ namespace Fungus.EditorUtils
 
         public virtual void DrawVariablesGUI(bool showVariableToggleButton, int w)
         {
+            var t = target as Flowchart;
+
+            if(t == null)
+            {
+                return;
+            }
+
             serializedObject.Update();
 
-            var t = target as Flowchart;
 
             if (t.Variables.Count == 0)
             {

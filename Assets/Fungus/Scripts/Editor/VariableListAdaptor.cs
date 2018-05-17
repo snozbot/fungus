@@ -1,9 +1,6 @@
 // This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-// Copyright (c) 2012-2013 Rotorz Limited. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 
 using UnityEngine;
 using UnityEditor;
@@ -15,7 +12,6 @@ namespace Fungus.EditorUtils
 {
     public class VariableListAdaptor
     {
-
         protected class AddVariableInfo
         {
             public Flowchart flowchart;
@@ -32,28 +28,36 @@ namespace Fungus.EditorUtils
         public int widthOfList;
 
         private ReorderableList list;
-        private Flowchart targetFlowchart;
-        
+        public Flowchart TargetFlowchart { get; private set; }
+
         public SerializedProperty this[int index]
         {
             get { return _arrayProperty.GetArrayElementAtIndex(index); }
         }
 
-        public SerializedProperty arrayProperty
+        public Variable GetVarAt(int index)
         {
-            get { return _arrayProperty; }
+            if (list.list != null)
+                return list.list[index] as Variable;
+            else
+                return this[index].objectReferenceValue as Variable;
         }
 
-        public VariableListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight, int widthOfList, Flowchart _targetFlowchart)
+        //public SerializedProperty arrayProperty
+        //{
+        //    get { return _arrayProperty; }
+        //}
+
+        public VariableListAdaptor(SerializedProperty arrayProperty, Flowchart _targetFlowchart)
         {
             if (arrayProperty == null)
                 throw new ArgumentNullException("Array property was null.");
             if (!arrayProperty.isArray)
                 throw new InvalidOperationException("Specified serialized propery is not an array.");
 
-            this.targetFlowchart = _targetFlowchart;
+            this.TargetFlowchart = _targetFlowchart;
+            this.fixedItemHeight = 0;
             this._arrayProperty = arrayProperty;
-            this.fixedItemHeight = fixedItemHeight;
             this.widthOfList = widthOfList - ScrollSpacer;
             list = new ReorderableList(arrayProperty.serializedObject, arrayProperty, true, false, true, true);
             list.drawElementCallback = DrawItem;
@@ -67,7 +71,7 @@ namespace Fungus.EditorUtils
         {
             int index = list.index;
             // Remove the Fungus Variable component
-            Variable variable = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as Variable;
+            Variable variable = this[index].objectReferenceValue as Variable;
             Undo.DestroyObjectImmediate(variable);
         }
 
@@ -87,7 +91,7 @@ namespace Fungus.EditorUtils
                 }
 
                 AddVariableInfo addVariableInfo = new AddVariableInfo();
-                addVariableInfo.flowchart = targetFlowchart;
+                addVariableInfo.flowchart = TargetFlowchart;
                 addVariableInfo.variableType = type;
 
                 GUIContent typeName = new GUIContent(variableInfo.VariableType);
@@ -106,7 +110,7 @@ namespace Fungus.EditorUtils
                 }
 
                 AddVariableInfo info = new AddVariableInfo();
-                info.flowchart = targetFlowchart;
+                info.flowchart = TargetFlowchart;
                 info.variableType = type;
 
                 GUIContent typeName = new GUIContent(variableInfo.Category + "/" + variableInfo.VariableType);
@@ -144,22 +148,24 @@ namespace Fungus.EditorUtils
         
         public void DrawVarList(int w)
         {
+            _arrayProperty.serializedObject.Update();
             this.widthOfList = (w == 0 ? VariableListAdaptor.DefaultWidth : w) - ScrollSpacer;
 
             if(GUILayout.Button("Variables"))
             {
-                arrayProperty.isExpanded = !arrayProperty.isExpanded;
+                _arrayProperty.isExpanded = !_arrayProperty.isExpanded;
             }
 
-            if (arrayProperty.isExpanded)
+            if (_arrayProperty.isExpanded)
             {
                 list.DoLayoutList();
             }
+            _arrayProperty.serializedObject.ApplyModifiedProperties();
         }
 
         public void DrawItem(Rect position, int index, bool selected, bool focused)
         {
-            Variable variable = this[index].objectReferenceValue as Variable;
+            Variable variable = GetVarAt(index);// this[index].objectReferenceValue as Variable;
 
             if (variable == null)
             {
@@ -193,7 +199,7 @@ namespace Fungus.EditorUtils
                 return;
             }
 
-            var flowchart = targetFlowchart;
+            var flowchart = TargetFlowchart;
             if (flowchart == null)
             {
                 return;
@@ -236,7 +242,7 @@ namespace Fungus.EditorUtils
 
             // To access properties in a monobehavior, you have to new a SerializedObject
             // http://answers.unity3d.com/questions/629803/findrelativeproperty-never-worked-for-me-how-does.html
-            SerializedObject variableObject = new SerializedObject(this[index].objectReferenceValue);
+            SerializedObject variableObject = new SerializedObject(variable);
 
             variableObject.Update();
 

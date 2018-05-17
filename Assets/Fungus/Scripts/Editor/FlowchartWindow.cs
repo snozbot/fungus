@@ -135,7 +135,8 @@ namespace Fungus.EditorUtils
         protected Block dragBlock;
         protected static FungusState fungusState;
 
-        static FlowchartEditor flowchartEditor;
+        static protected VariableListAdaptor variableListAdaptor;
+
 
         [MenuItem("Tools/Fungus/Flowchart Window")]
         static void Init()
@@ -145,6 +146,7 @@ namespace Fungus.EditorUtils
 
         protected virtual void OnEnable()
         {
+
             // All block nodes use the same GUIStyle, but with a different background
             nodeStyle.border = new RectOffset(20, 20, 5, 5);
             nodeStyle.padding = nodeStyle.border;
@@ -224,14 +226,18 @@ namespace Fungus.EditorUtils
                 var fs = Selection.activeGameObject.GetComponent<Flowchart>();
                 if (fs != null)
                 {
-                    //make sure we have a valid editor for this flowchart
-                    if (fungusState.SelectedFlowchart != fs || fungusState.SelectedFlowchart == null || flowchartEditor == null)
-                    {
-                        DestroyImmediate(flowchartEditor);
-                        flowchartEditor = Editor.CreateEditor(fs) as FlowchartEditor;
-                        fungusState.SelectedFlowchart = fs;
-                    }
+                    fungusState.SelectedFlowchart = fs;
                 }
+            }
+
+            if (fungusState.SelectedFlowchart == null)
+            {
+                variableListAdaptor = null;
+            }
+            else if (variableListAdaptor == null || variableListAdaptor.TargetFlowchart != fungusState.SelectedFlowchart)
+            {
+                var fsSO = new SerializedObject(fungusState.SelectedFlowchart);
+                variableListAdaptor = new VariableListAdaptor(fsSO.FindProperty("variables"), fungusState.SelectedFlowchart);
             }
 
             return fungusState.SelectedFlowchart;
@@ -503,8 +509,15 @@ namespace Fungus.EditorUtils
                     flowchart.VariablesScrollPos = GUILayout.BeginScrollView(flowchart.VariablesScrollPos);
                     {                        
                         GUILayout.Space(8);
-                        
-                        flowchartEditor.DrawVariablesGUI(true, 0);
+
+
+                        if (variableListAdaptor != null)
+                        {
+                            if (variableListAdaptor.TargetFlowchart == null)
+                                variableListAdaptor = null;
+                            else
+                                variableListAdaptor.DrawVarList(0);
+                        }
 
                         Rect variableWindowRect = GUILayoutUtility.GetLastRect();
                         if (flowchart.VariablesExpanded && flowchart.Variables.Count > 0)
