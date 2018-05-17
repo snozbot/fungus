@@ -510,6 +510,7 @@ namespace Fungus.EditorUtils
                     {                        
                         GUILayout.Space(8);
 
+                        EditorGUI.BeginChangeCheck();
 
                         if (variableListAdaptor != null)
                         {
@@ -517,6 +518,11 @@ namespace Fungus.EditorUtils
                                 variableListAdaptor = null;
                             else
                                 variableListAdaptor.DrawVarList(0);
+                        }
+
+                        if(EditorGUI.EndChangeCheck())
+                        {
+                            EditorUtility.SetDirty(flowchart);
                         }
 
                         Rect variableWindowRect = GUILayoutUtility.GetLastRect();
