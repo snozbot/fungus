@@ -42,12 +42,7 @@ namespace Fungus.EditorUtils
             else
                 return this[index].objectReferenceValue as Variable;
         }
-
-        //public SerializedProperty arrayProperty
-        //{
-        //    get { return _arrayProperty; }
-        //}
-
+        
         public VariableListAdaptor(SerializedProperty arrayProperty, Flowchart _targetFlowchart)
         {
             if (arrayProperty == null)
@@ -59,10 +54,10 @@ namespace Fungus.EditorUtils
             this.fixedItemHeight = 0;
             this._arrayProperty = arrayProperty;
             this.widthOfList = widthOfList - ScrollSpacer;
+
             list = new ReorderableList(arrayProperty.serializedObject, arrayProperty, true, false, true, true);
             list.drawElementCallback = DrawItem;
             list.onRemoveCallback = RemoveItem;
-            //list.drawHeaderCallback = DrawHeader;
             list.onAddCallback = AddButton;
             list.onRemoveCallback = RemoveItem;
         }
@@ -141,11 +136,6 @@ namespace Fungus.EditorUtils
             PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
         }
 
-        private void DrawHeader(Rect rect)
-        {
-            EditorGUI.PrefixLabel(rect, new GUIContent("Variables"));
-        }
-        
         public void DrawVarList(int w)
         {
             _arrayProperty.serializedObject.Update();

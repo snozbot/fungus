@@ -1,42 +1,36 @@
 // This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-// Copyright (c) 2012-2013 Rotorz Limited. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 using UnityEngine;
 using UnityEditor;
 using System;
-using Rotorz.ReorderableList;
+using UnityEditorInternal;
 
 namespace Fungus.EditorUtils
 {
-    public class CommandListAdaptor : IReorderableListAdaptor {
+    public class CommandListAdaptor {
         
-        public static void DrawCommandList(Block block, SerializedProperty commandListProperty)
+        public void DrawCommandList()
         {
-            ReorderableListGUI.Title("Commands");
-            CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
-            adaptor.nodeRect = block._NodeRect;
-
-            ReorderableListFlags flags = ReorderableListFlags.HideAddButton | ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.DisableContextMenu;
-
             if (block.CommandList.Count == 0)
             {
                 EditorGUILayout.HelpBox("Press the + button below to add a command to the list.", MessageType.Info);
             }
             else
             {
-                ReorderableListControl.DrawControlFromState(adaptor, null, flags);
+                EditorGUI.indentLevel++;
+                list.DoLayoutList();
+                EditorGUI.indentLevel--;
             }
         }
 
         protected SerializedProperty _arrayProperty;
+
+        protected ReorderableList list;
+
+        protected Block block;
         
         public float fixedItemHeight;
-        
-        public Rect nodeRect = new Rect();
 
         public SerializedProperty this[int index] {
             get { return _arrayProperty.GetArrayElementAtIndex(index); }
@@ -46,7 +40,7 @@ namespace Fungus.EditorUtils
             get { return _arrayProperty; }
         }
         
-        public CommandListAdaptor(SerializedProperty arrayProperty, float fixedItemHeight) {
+        public CommandListAdaptor(Block _block, SerializedProperty arrayProperty, float fixedItemHeight = 0) {
             if (arrayProperty == null)
                 throw new ArgumentNullException("Array property was null.");
             if (!arrayProperty.isArray)
@@ -54,123 +48,19 @@ namespace Fungus.EditorUtils
             
             this._arrayProperty = arrayProperty;
             this.fixedItemHeight = fixedItemHeight;
+            this.block = _block;
+
+            list = new ReorderableList(arrayProperty.serializedObject, arrayProperty, true, true, false, false);
+            list.drawHeaderCallback = DrawHeader;
+            list.drawElementCallback = DrawItem;
         }
-        
-        public CommandListAdaptor(SerializedProperty arrayProperty) : this(arrayProperty, 0f) {
-        }
-        
-        public int Count {
-            get { return _arrayProperty.arraySize; }
-        }
-        
-        public virtual bool CanDrag(int index) {
-            return true;
-        }
-        
-        public virtual bool CanRemove(int index) {
-            return true;
-        }
-        
-        public void Add() {
-            Command newCommand = AddNewCommand();
-            if (newCommand == null)
-            {
-                return;
-            }
-            
-            int newIndex = _arrayProperty.arraySize;
-            ++_arrayProperty.arraySize;
-            _arrayProperty.GetArrayElementAtIndex(newIndex).objectReferenceValue = newCommand;
-        }
-        
-        public void Insert(int index) {
-            Command newCommand = AddNewCommand();
-            if (newCommand == null)
-            {
-                return;
-            }
-            
-            _arrayProperty.InsertArrayElementAtIndex(index);
-            _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = newCommand;
-        }
-        
-        Command AddNewCommand()
+
+        private void DrawHeader(Rect rect)
         {
-            Flowchart flowchart = FlowchartWindow.GetFlowchart();
-            if (flowchart == null)
-            {
-                return null;
-            }
-            
-            var block = flowchart.SelectedBlock;
-            if (block == null)
-            {
-                return null;
-            }
-            
-            var newCommand = Undo.AddComponent<Comment>(block.gameObject) as Command;
-            newCommand.ItemId = flowchart.NextItemId();
-            flowchart.ClearSelectedCommands();
-            flowchart.AddSelectedCommand(newCommand);
-            
-            return newCommand;
-        }
-        
-        public void Duplicate(int index) {
-            
-            Command command = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as Command;
-            
-            // Add the command as a new component
-            var parentBlock = command.GetComponent<Block>();
-            
-            System.Type type = command.GetType();
-            Command newCommand = Undo.AddComponent(parentBlock.gameObject, type) as Command;
-            newCommand.ItemId = newCommand.GetFlowchart().NextItemId();
-            System.Reflection.FieldInfo[] fields = type.GetFields();
-            foreach (System.Reflection.FieldInfo field in fields)
-            {
-                field.SetValue(newCommand, field.GetValue(command));
-            }
-            
-            _arrayProperty.InsertArrayElementAtIndex(index);
-            _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = newCommand;
-        }
-        
-        public void Remove(int index) {
-            // Remove the Fungus Command component
-            Command command = _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue as Command;
-            if (command != null)
-            {
-                Undo.DestroyObjectImmediate(command);
-            }
-            
-            _arrayProperty.GetArrayElementAtIndex(index).objectReferenceValue = null;
-            _arrayProperty.DeleteArrayElementAtIndex(index);
-        }
-        
-        public void Move(int sourceIndex, int destIndex) {
-            if (destIndex > sourceIndex)
-                --destIndex;
-            _arrayProperty.MoveArrayElement(sourceIndex, destIndex);
-        }
-        
-        public void Clear() {
-            while (Count > 0)
-            {
-                Remove(0);
-            }
+            EditorGUI.PrefixLabel(rect, new GUIContent("Commands"));
         }
 
-        public void BeginGUI()
-        {}
-
-        public void EndGUI()
-        {}
-
-        public void DrawItemBackground(Rect position, int index) {
-        }
-
-        public void DrawItem(Rect position, int index) 
+        public void DrawItem(Rect position, int index, bool selected, bool focused) 
         {
             Command command = this[index].objectReferenceValue as Command;
             
