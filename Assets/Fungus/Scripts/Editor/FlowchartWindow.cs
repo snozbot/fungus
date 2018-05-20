@@ -347,7 +347,7 @@ namespace Fungus.EditorUtils
                 GUILayout.Label("No Flowchart scene object selected");
                 return;
             }
-
+            
             //target has changed, so clear the blockinspector
             if (flowchart != prevFlowchart)
             {
@@ -514,10 +514,14 @@ namespace Fungus.EditorUtils
 
                         if (variableListAdaptor != null)
                         {
-                            if (variableListAdaptor.TargetFlowchart == null)
-                                variableListAdaptor = null;
-                            else
+                            if (variableListAdaptor.TargetFlowchart != null)
+                            {
                                 variableListAdaptor.DrawVarList(0);
+                            }
+                            else
+                            {
+                                variableListAdaptor = null;
+                            }
                         }
 
                         if(EditorGUI.EndChangeCheck())

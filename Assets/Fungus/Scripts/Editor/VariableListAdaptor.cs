@@ -42,7 +42,7 @@ namespace Fungus.EditorUtils
             else
                 return this[index].objectReferenceValue as Variable;
         }
-        
+
         public VariableListAdaptor(SerializedProperty arrayProperty, Flowchart _targetFlowchart)
         {
             if (arrayProperty == null)
@@ -138,19 +138,29 @@ namespace Fungus.EditorUtils
 
         public void DrawVarList(int w)
         {
-            _arrayProperty.serializedObject.Update();
-            this.widthOfList = (w == 0 ? VariableListAdaptor.DefaultWidth : w) - ScrollSpacer;
-
-            if(GUILayout.Button("Variables"))
+            //we want to eat the throw that occurs when switching back to editor from play
+            try
             {
-                _arrayProperty.isExpanded = !_arrayProperty.isExpanded;
-            }
+                if (_arrayProperty == null || _arrayProperty.serializedObject == null)
+                    return;
 
-            if (_arrayProperty.isExpanded)
-            {
-                list.DoLayoutList();
+                _arrayProperty.serializedObject.Update();
+                this.widthOfList = (w == 0 ? VariableListAdaptor.DefaultWidth : w) - ScrollSpacer;
+
+                if (GUILayout.Button("Variables"))
+                {
+                    _arrayProperty.isExpanded = !_arrayProperty.isExpanded;
+                }
+
+                if (_arrayProperty.isExpanded)
+                {
+                    list.DoLayoutList();
+                }
+                _arrayProperty.serializedObject.ApplyModifiedProperties();
             }
-            _arrayProperty.serializedObject.ApplyModifiedProperties();
+            catch (Exception)
+            {
+            }
         }
 
         public void DrawItem(Rect position, int index, bool selected, bool focused)
