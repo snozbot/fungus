@@ -27,21 +27,21 @@ namespace Fungus
         {
             var flowchart = GetFlowchart();
 
+            for (int i = 0; i < targetFlowcharts.Count; i++)
+            {
+                var f = targetFlowcharts[i];
+                f.StopAllBlocks();
+            }
+
+            //current block and command logic doesn't require it in this order but it makes sense to
+            // stop everything but yourself first
             if (stopParentFlowchart)
             {
                 flowchart.StopAllBlocks();
             }
 
-            for (int i = 0; i < targetFlowcharts.Count; i++)
-            {
-                var f = targetFlowcharts[i];
-                if (f == flowchart)
-                {
-                    // Flowchart has already been stopped
-                    continue;
-                }
-                f.StopAllBlocks();
-            }
+            //you might not be stopping this flowchart so keep going
+            Continue();
         }
 
         public override bool IsReorderableArray(string propertyName)

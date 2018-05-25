@@ -32,13 +32,13 @@ GameObject:
   - component: {fileID: 114348338108346498}
   - component: {fileID: 114465925968467040}
   - component: {fileID: 114409838832793244}
-  - component: {fileID: 114337264207455518}
-  - component: {fileID: 114314477038342724}
   - component: {fileID: 114573728990135962}
   - component: {fileID: 114326212544484044}
   - component: {fileID: 114081283549603066}
   - component: {fileID: 114085027684436294}
   - component: {fileID: 114862459103620794}
+  - component: {fileID: 114128824974302672}
+  - component: {fileID: 114595299051009690}
   m_Layer: 0
   m_Name: P1
   m_TagString: Untagged
@@ -48,7 +48,7 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4164059856041556
 Transform:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -62,7 +62,7 @@ Transform:
 --- !u!50 &50485926042586766
 Rigidbody2D:
   serializedVersion: 4
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -81,7 +81,7 @@ Rigidbody2D:
   m_Constraints: 4
 --- !u!58 &58545323045532278
 CircleCollider2D:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -96,7 +96,7 @@ CircleCollider2D:
   m_Radius: 0.5
 --- !u!114 &114024079056778752
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -106,11 +106,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scope: 0
-  key: x
+  key: x1
   value: 0
 --- !u!114 &114081283549603066
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -133,7 +133,7 @@ MonoBehaviour:
   operation: 2
 --- !u!114 &114085027684436294
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -159,7 +159,7 @@ MonoBehaviour:
     floatVal: 0
 --- !u!114 &114126325013622294
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -200,9 +200,32 @@ MonoBehaviour:
   hideCommands: []
   luaEnvironment: {fileID: 0}
   luaBindingName: flowchart
+--- !u!114 &114128824974302672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404956649453682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abf9e2e4334293449850759c812dd9db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 11
+  indentLevel: 0
+  keyCode: 100
+  keyCodeNegative: 97
+  keyCodeName:
+    stringRef: {fileID: 0}
+    stringVal: 
+  keyCodeNameNegative:
+    stringRef: {fileID: 0}
+    stringVal: 
+  keyQueryType: 2
+  outValue: {fileID: 114024079056778752}
 --- !u!114 &114177047531498962
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -224,8 +247,8 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 114201986544531680}
   commandList:
-  - {fileID: 114337264207455518}
-  - {fileID: 114314477038342724}
+  - {fileID: 114128824974302672}
+  - {fileID: 114595299051009690}
   - {fileID: 114085027684436294}
   - {fileID: 114409838832793244}
   - {fileID: 114862459103620794}
@@ -234,7 +257,7 @@ MonoBehaviour:
   - {fileID: 114334667391765546}
 --- !u!114 &114188004173552184
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -244,11 +267,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scope: 0
-  key: y
+  key: y1
   value: 0
 --- !u!114 &114201986544531680
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -259,29 +282,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 114177047531498962}
   FireOn: 2
---- !u!114 &114314477038342724
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1404956649453682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb18ee740f55ba24680c15466ff13ece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 6
-  indentLevel: 0
-  axisName:
-    stringRef: {fileID: 0}
-    stringVal: p1yAxis
-  axisRaw: 0
-  outValue:
-    floatRef: {fileID: 114188004173552184}
-    floatVal: 0
 --- !u!114 &114326212544484044
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -291,11 +294,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scope: 0
-  key: forceScaleVec3
+  key: forceScaleVec31
   value: {x: 0, y: 0, z: 0}
 --- !u!114 &114334667391765546
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -320,29 +323,9 @@ MonoBehaviour:
   atPosition:
     vector2Ref: {fileID: 0}
     vector2Val: {x: 0, y: 0}
---- !u!114 &114337264207455518
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1404956649453682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb18ee740f55ba24680c15466ff13ece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 5
-  indentLevel: 0
-  axisName:
-    stringRef: {fileID: 0}
-    stringVal: p1xAxis
-  axisRaw: 0
-  outValue:
-    floatRef: {fileID: 114024079056778752}
-    floatVal: 0
 --- !u!114 &114348338108346498
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -352,11 +335,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scope: 0
-  key: Force
+  key: Force1
   value: {x: 0, y: 0}
 --- !u!114 &114409838832793244
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -375,7 +358,7 @@ MonoBehaviour:
     vector3Val: {x: 0, y: 0, z: 0}
 --- !u!114 &114465925968467040
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -394,7 +377,7 @@ MonoBehaviour:
     vector2Val: {x: 0, y: 0}
 --- !u!114 &114573728990135962
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -404,11 +387,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scope: 0
-  key: forceScale
+  key: forceScale1
   value: 60
+--- !u!114 &114595299051009690
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404956649453682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abf9e2e4334293449850759c812dd9db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  indentLevel: 0
+  keyCode: 119
+  keyCodeNegative: 115
+  keyCodeName:
+    stringRef: {fileID: 0}
+    stringVal: 
+  keyCodeNameNegative:
+    stringRef: {fileID: 0}
+    stringVal: 
+  keyQueryType: 2
+  outValue: {fileID: 114188004173552184}
 --- !u!114 &114777688141419168
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -418,11 +424,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scope: 0
-  key: vec3
+  key: vec31
   value: {x: 0, y: 0, z: 0}
 --- !u!114 &114862459103620794
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
@@ -448,16 +454,18 @@ MonoBehaviour:
     floatVal: 0
 --- !u!212 &212462972284088668
 SpriteRenderer:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404956649453682}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -470,6 +478,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
