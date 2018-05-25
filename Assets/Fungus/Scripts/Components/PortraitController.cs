@@ -203,7 +203,7 @@ namespace Fungus
             float duration = (fadeDuration > 0f) ? fadeDuration : float.Epsilon;
 
             // Fade in character image (first time)
-            LeanTween.alpha(portraitImage.transform as RectTransform, 1f, duration).setEase(stage.FadeEaseType);
+            LeanTween.alpha(portraitImage.transform as RectTransform, 1f, duration).setEase(stage.FadeEaseType).setRecursive(false);
 
             // Tell character about portrait image
             character.State.portraitImage = portraitImage;
@@ -455,7 +455,7 @@ namespace Fungus
             float duration = (options.fadeDuration > 0f) ? options.fadeDuration : float.Epsilon;
 
             // Fade out a duplicate of the existing portrait image
-            if (options.character.State.portraitImage != null)
+            if (options.character.State.portraitImage != null && options.character.State.portraitImage.sprite != null)
             {
                 GameObject tempGO = GameObject.Instantiate(options.character.State.portraitImage.gameObject);
                 tempGO.transform.SetParent(options.character.State.portraitImage.transform, false);
@@ -469,7 +469,7 @@ namespace Fungus
 
                 LeanTween.alpha(tempImage.rectTransform, 0f, duration).setEase(stage.FadeEaseType).setOnComplete(() => {
                     Destroy(tempGO);
-                });
+                }).setRecursive(false);
             }
 
             // Fade in the new sprite image
@@ -478,7 +478,7 @@ namespace Fungus
             {
                 options.character.State.portraitImage.sprite = options.portrait;
                 options.character.State.portraitImage.color = new Color(1f, 1f, 1f, 0f);
-                LeanTween.alpha(options.character.State.portraitImage.rectTransform, 1f, duration).setEase(stage.FadeEaseType);
+                LeanTween.alpha(options.character.State.portraitImage.rectTransform, 1f, duration).setEase(stage.FadeEaseType).setRecursive(false);
             }
 
             DoMoveTween(options);
@@ -577,7 +577,7 @@ namespace Fungus
             // LeanTween doesn't handle 0 duration properly
             float duration = (options.fadeDuration > 0f) ? options.fadeDuration : float.Epsilon;
 
-            LeanTween.alpha(options.character.State.portraitImage.rectTransform, 0f, duration).setEase(stage.FadeEaseType);
+            LeanTween.alpha(options.character.State.portraitImage.rectTransform, 0f, duration).setEase(stage.FadeEaseType).setRecursive(false);
 
             DoMoveTween(options);
 
@@ -610,7 +610,7 @@ namespace Fungus
             // LeanTween doesn't handle 0 duration properly
             float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
 
-            LeanTween.color(character.State.portraitImage.rectTransform, targetColor, duration).setEase(stage.FadeEaseType);
+            LeanTween.color(character.State.portraitImage.rectTransform, targetColor, duration).setEase(stage.FadeEaseType).setRecursive(false);
         }
 
         #endregion
