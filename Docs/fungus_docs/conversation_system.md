@@ -38,7 +38,7 @@ sherlock hide:
 
 The format for conversation text is:
 ```text
-[character] [portrait] [position] [hide] [<<< | >>>]: [Dialogue text]
+[character] [portrait] [position] [hide] [<<< | >>>] [clear | noclear] [wait | nowait] [fade | nofade]: [Dialogue text]
 ```
 
 - character: The gameobject name or Name Text value of the speaking character.
@@ -47,6 +47,9 @@ The format for conversation text is:
 - hide: Hides the character
 - <<<: Portrait face left
 - >>>: Portrait face right
+- clear | noclear: override the ClearPreviousLine default with true on clear or with false with noclear
+- wait | nowait: override the WaitForInput default with true on wait or with false with nowait
+- fade | nofade: override the FadeDone default with true on fade or with false with nofade. This is rarely required as it only really makes a difference on the last say of the conversation anyway.
 
 Parameters go on the left of the colon and the dialogue text goes on the right. You can omit any parameter and specify them in any order. Parameters are separated by spaces. If you need to use a name which contains spaces, wrap it in quotation marks e.g. "John Watson". Parameters are case insensitive. Blank lines and comment lines starting with -- are ignored. A line of dialogue text on its own will be spoken by the most recent character. You can omit dialogue text, but remember you still need to add the : character at the end of the line.
 

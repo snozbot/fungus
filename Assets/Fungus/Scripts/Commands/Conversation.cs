@@ -7,11 +7,11 @@ using System.Collections;
 namespace Fungus
 {
     /// <summary>
-    /// Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text].
+    /// Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [hide] [<<< | >>>] [clear | noclear] [wait | nowait] [fade | nofade] [: Story text].
     /// </summary>
     [CommandInfo("Narrative", 
-                 "Conversation", 
-                 "Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [: Story text]")]
+                 "Conversation",
+                 "Do multiple say and portrait commands in a single block of text. Format is: [character] [portrait] [stage position] [hide] [<<< | >>>] [clear | noclear] [wait | nowait] [fade | nofade] [: Story text]")]
     [AddComponentMenu("")]
     [ExecuteInEditMode]
     public class Conversation : Command
@@ -19,6 +19,12 @@ namespace Fungus
         [SerializeField] protected StringDataMulti conversationText;
 
         protected ConversationManager conversationManager = new ConversationManager();
+
+        [SerializeField] protected BooleanData clearPrevious = new BooleanData(true);
+        [SerializeField] protected BooleanData waitForInput = new BooleanData(true);
+        [Tooltip("a wait for seconds added to each item of the conversation.")]
+        [SerializeField] protected FloatData waitForSeconds = new FloatData(0);
+        [SerializeField] protected BooleanData fadeWhenDone = new BooleanData(true);
 
         protected virtual void Start()
         {
@@ -29,6 +35,11 @@ namespace Fungus
         {
             var flowchart = GetFlowchart();
             string subbedText = flowchart.SubstituteVariables(conversationText.Value);
+
+            conversationManager.ClearPrev = clearPrevious;
+            conversationManager.WaitForInput = waitForInput;
+            conversationManager.FadeDone = fadeWhenDone;
+            conversationManager.WaitForSeconds = waitForSeconds;
 
             yield return StartCoroutine(conversationManager.DoConversation(subbedText));
 
