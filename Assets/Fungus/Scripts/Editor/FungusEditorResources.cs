@@ -78,7 +78,7 @@ namespace Fungus.EditorUtils
 
         private static FungusEditorResources instance;
         private static readonly string editorResourcesFolderName = "\"EditorResources\"";
-        private static readonly string PartialEditorResourcesPath = System.IO.Path.Combine("Fungus\\", "EditorResources");
+        private static readonly string PartialEditorResourcesPath = System.IO.Path.Combine("Fungus", "EditorResources");
         [SerializeField] [HideInInspector] private bool updateOnReloadScripts = false;
 
         internal static FungusEditorResources Instance
