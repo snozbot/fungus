@@ -65,6 +65,12 @@ namespace Fungus
 
             var flowchart = ParentBlock.GetFlowchart();
 
+            //if somehow the flowchart is invalid or has been disabled we don't want to continue
+            if(flowchart == null || !flowchart.isActiveAndEnabled)
+            {
+                return false;
+            }
+
             // Auto-follow the executing block if none is currently selected
             if (flowchart.SelectedBlock == null)
             {
