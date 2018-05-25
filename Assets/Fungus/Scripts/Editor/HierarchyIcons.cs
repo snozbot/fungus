@@ -28,7 +28,7 @@ namespace Fungus
         static HierarchyIcons()
         {   
             EditorApplication.hierarchyWindowItemOnGUI += HierarchyIconCallback;
-            EditorApplication.hierarchyWindowChanged += HierarchyChanged;
+            EditorApplication.hierarchyChanged += HierarchyChanged;
         }
 
         //track all gameobjectIds that have flowcharts on them

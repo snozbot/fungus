@@ -36,7 +36,6 @@ public class SfxrAudioPlayer : MonoBehaviour {
 	 * @author Zeh Fernando
 	 */
 
-
 	// Properties
 	private bool		isDestroyed = false;		// If true, this instance has been destroyed and shouldn't do anything yes
 	private bool		needsToDestroy = false;		// If true, it has been scheduled for destruction (from outside the main thread)
@@ -52,7 +51,7 @@ public class SfxrAudioPlayer : MonoBehaviour {
 	void Start() {
 		// Creates an empty audio source so this GameObject can receive audio events
 		AudioSource soundSource = gameObject.AddComponent<AudioSource>();
-		soundSource.clip = null; // new AudioClip();
+		soundSource.clip = null;
 		soundSource.volume = 1f;
 		soundSource.pitch = 1f;
 		soundSource.priority = 128;
