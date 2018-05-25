@@ -40,6 +40,9 @@ namespace Fungus.EditorUtils
 
         public virtual void OnEnable()
         {
+            if (NullTargetCheck()) // Check for an orphaned editor instance
+                return;
+
             reorderableLists = new Dictionary<string, ReorderableList>();
         }
 

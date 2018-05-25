@@ -83,10 +83,9 @@ namespace Fungus.EditorUtils
         protected SerializedProperty setSayDialogProp;
         protected SerializedProperty waitForVOProp;
 
-        protected virtual void OnEnable()
+        public override void OnEnable()
         {
-            if (NullTargetCheck()) // Check for an orphaned editor instance
-                return;
+            base.OnEnable();
 
             characterProp = serializedObject.FindProperty("character");
             portraitProp = serializedObject.FindProperty("portrait");
