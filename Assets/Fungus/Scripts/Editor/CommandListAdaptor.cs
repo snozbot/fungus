@@ -57,7 +57,7 @@ namespace Fungus.EditorUtils
 
         private void DrawHeader(Rect rect)
         {
-            EditorGUI.PrefixLabel(rect, new GUIContent("Commands"));
+            EditorGUI.LabelField(rect, new GUIContent("Commands"));
         }
 
         public void DrawItem(Rect position, int index, bool selected, bool focused) 
@@ -136,7 +136,7 @@ namespace Fungus.EditorUtils
             for (int i = 0; i < command.IndentLevel; ++i)
             {
                 Rect indentRect = position;
-                indentRect.x += i * indentSize - 21;
+                indentRect.x += i * indentSize;// - 21;
                 indentRect.width = indentSize + 1;
                 indentRect.y -= 2;
                 indentRect.height += 5;
@@ -148,9 +148,9 @@ namespace Fungus.EditorUtils
             float indentWidth = command.IndentLevel * indentSize;
             
             Rect commandLabelRect = position;
-            commandLabelRect.x += indentWidth - 21;
+            commandLabelRect.x += indentWidth;// - 21;
             commandLabelRect.y -= 2;
-            commandLabelRect.width -= (indentSize * command.IndentLevel - 22);
+            commandLabelRect.width -= (indentSize * command.IndentLevel);// - 22);
             commandLabelRect.height += 5;
 
             // There's a weird incompatibility between the Reorderable list control used for the command list and 
@@ -159,8 +159,8 @@ namespace Fungus.EditorUtils
             // The workaround for now is to hide the reordering grabber from mouse clicks by extending the command
             // selection rectangle to cover it. We are planning to totally replace the command list display system.
             Rect clickRect = position;
-            clickRect.x -= 20;
-            clickRect.width += 20;
+            //clickRect.x -= 20;
+            //clickRect.width += 20;
 
             // Select command via left click
             if (Event.current.type == EventType.MouseDown &&
