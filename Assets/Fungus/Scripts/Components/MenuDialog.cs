@@ -318,6 +318,8 @@ namespace Fungus
             Text textComponent = button.GetComponentInChildren<Text>();
             if (textComponent != null)
             {
+                text = TextVariationHandler.SelectVariations(text);
+
                 textComponent.text = text;
             }
             button.onClick.AddListener(action);
