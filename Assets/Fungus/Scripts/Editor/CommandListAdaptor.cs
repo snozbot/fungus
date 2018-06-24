@@ -8,8 +8,9 @@ using UnityEditorInternal;
 
 namespace Fungus.EditorUtils
 {
-    public class CommandListAdaptor {
-        
+    public class CommandListAdaptor
+    {
+
         public void DrawCommandList()
         {
             if (block.CommandList.Count == 0)
@@ -29,61 +30,69 @@ namespace Fungus.EditorUtils
         protected ReorderableList list;
 
         protected Block block;
-        
+
         public float fixedItemHeight;
 
-        public SerializedProperty this[int index] {
+        public SerializedProperty this[int index]
+        {
             get { return _arrayProperty.GetArrayElementAtIndex(index); }
         }
-        
-        public SerializedProperty arrayProperty {
+
+        public SerializedProperty arrayProperty
+        {
             get { return _arrayProperty; }
         }
-        
-        public CommandListAdaptor(Block _block, SerializedProperty arrayProperty, float fixedItemHeight = 0) {
+
+        public CommandListAdaptor(Block _block, SerializedProperty arrayProperty)
+        {
             if (arrayProperty == null)
                 throw new ArgumentNullException("Array property was null.");
             if (!arrayProperty.isArray)
                 throw new InvalidOperationException("Specified serialized propery is not an array.");
-            
+
             this._arrayProperty = arrayProperty;
-            this.fixedItemHeight = fixedItemHeight;
             this.block = _block;
 
             list = new ReorderableList(arrayProperty.serializedObject, arrayProperty, true, true, false, false);
             list.drawHeaderCallback = DrawHeader;
             list.drawElementCallback = DrawItem;
+            //list.elementHeightCallback = GetElementHeight;
         }
+
+        //private float GetElementHeight(int index)
+        //{
+        //    return EditorGUI.GetPropertyHeight(this[index], null, true);// + EditorGUIUtility.singleLineHeight;
+        //}
 
         private void DrawHeader(Rect rect)
         {
             EditorGUI.LabelField(rect, new GUIContent("Commands"));
         }
 
-        public void DrawItem(Rect position, int index, bool selected, bool focused) 
+        public void DrawItem(Rect position, int index, bool selected, bool focused)
         {
             Command command = this[index].objectReferenceValue as Command;
-            
+
             if (command == null)
             {
                 return;
             }
-            
+
             CommandInfoAttribute commandInfoAttr = CommandEditor.GetCommandInfo(command.GetType());
             if (commandInfoAttr == null)
             {
                 return;
             }
-            
+
             var flowchart = (Flowchart)command.GetFlowchart();
             if (flowchart == null)
             {
                 return;
             }
-            
+
             bool isComment = command.GetType() == typeof(Comment);
             bool isLabel = (command.GetType() == typeof(Label));
-            
+
             bool error = false;
             string summary = command.GetSummary();
             if (summary == null)
@@ -117,9 +126,9 @@ namespace Fungus.EditorUtils
                     break;
                 }
             }
-            
+
             string commandName = commandInfoAttr.CommandName;
-            
+
             GUIStyle commandLabelStyle = new GUIStyle(GUI.skin.box);
             commandLabelStyle.normal.background = FungusEditorResources.CommandBackground;
             int borderSize = 5;
@@ -131,8 +140,8 @@ namespace Fungus.EditorUtils
             commandLabelStyle.richText = true;
             commandLabelStyle.fontSize = 11;
             commandLabelStyle.padding.top -= 1;
-            
-            float indentSize = 20;          
+
+            float indentSize = 20;
             for (int i = 0; i < command.IndentLevel; ++i)
             {
                 Rect indentRect = position;
@@ -143,10 +152,10 @@ namespace Fungus.EditorUtils
                 GUI.backgroundColor = new Color(0.5f, 0.5f, 0.5f, 1f);
                 GUI.Box(indentRect, "", commandLabelStyle);
             }
-            
+
             float commandNameWidth = Mathf.Max(commandLabelStyle.CalcSize(new GUIContent(commandName)).x, 90f);
             float indentWidth = command.IndentLevel * indentSize;
-            
+
             Rect commandLabelRect = position;
             commandLabelRect.x += indentWidth;// - 21;
             commandLabelRect.y -= 2;
@@ -173,7 +182,8 @@ namespace Fungus.EditorUtils
                     // Command key and shift key is not pressed
                     if (!EditorGUI.actionKey && !Event.current.shift)
                     {
-                        BlockEditor.actionList.Add ( delegate {
+                        BlockEditor.actionList.Add(delegate
+                        {
                             flowchart.SelectedCommands.Remove(command);
                             flowchart.ClearSelectedCommands();
                         });
@@ -182,7 +192,8 @@ namespace Fungus.EditorUtils
                     // Command key pressed
                     if (EditorGUI.actionKey)
                     {
-                        BlockEditor.actionList.Add ( delegate {
+                        BlockEditor.actionList.Add(delegate
+                        {
                             flowchart.SelectedCommands.Remove(command);
                         });
                         Event.current.Use();
@@ -195,13 +206,15 @@ namespace Fungus.EditorUtils
                     // Left click and no command key
                     if (!shift && !EditorGUI.actionKey && Event.current.button == 0)
                     {
-                        BlockEditor.actionList.Add ( delegate {
+                        BlockEditor.actionList.Add(delegate
+                        {
                             flowchart.ClearSelectedCommands();
                         });
                         Event.current.Use();
                     }
 
-                    BlockEditor.actionList.Add ( delegate {
+                    BlockEditor.actionList.Add(delegate
+                    {
                         flowchart.AddSelectedCommand(command);
                     });
 
@@ -209,12 +222,12 @@ namespace Fungus.EditorUtils
                     int firstSelectedIndex = -1;
                     int lastSelectedIndex = -1;
                     if (flowchart.SelectedCommands.Count > 0)
-                    { 
-                        if ( flowchart.SelectedBlock != null)
+                    {
+                        if (flowchart.SelectedBlock != null)
                         {
                             for (int i = 0; i < flowchart.SelectedBlock.CommandList.Count; i++)
                             {
-                                Command commandInBlock = flowchart.SelectedBlock.CommandList[i];                                
+                                Command commandInBlock = flowchart.SelectedBlock.CommandList[i];
                                 foreach (Command selectedCommand in flowchart.SelectedCommands)
                                 {
                                     if (commandInBlock == selectedCommand)
@@ -224,9 +237,9 @@ namespace Fungus.EditorUtils
                                     }
                                 }
                             }
-                            for (int i = flowchart.SelectedBlock.CommandList.Count - 1; i >=0; i--)
+                            for (int i = flowchart.SelectedBlock.CommandList.Count - 1; i >= 0; i--)
                             {
-                                Command commandInBlock = flowchart.SelectedBlock.CommandList[i];                                
+                                Command commandInBlock = flowchart.SelectedBlock.CommandList[i];
                                 foreach (Command selectedCommand in flowchart.SelectedCommands)
                                 {
                                     if (commandInBlock == selectedCommand)
@@ -239,7 +252,7 @@ namespace Fungus.EditorUtils
                         }
                     }
 
-                    if (shift) 
+                    if (shift)
                     {
                         int currentIndex = command.CommandIndex;
                         if (firstSelectedIndex == -1 ||
@@ -264,7 +277,8 @@ namespace Fungus.EditorUtils
                         for (int i = Math.Min(firstSelectedIndex, lastSelectedIndex); i < Math.Max(firstSelectedIndex, lastSelectedIndex); ++i)
                         {
                             var selectedCommand = flowchart.SelectedBlock.CommandList[i];
-                            BlockEditor.actionList.Add ( delegate {
+                            BlockEditor.actionList.Add(delegate
+                            {
                                 flowchart.AddSelectedCommand(selectedCommand);
                             });
                         }
@@ -274,13 +288,13 @@ namespace Fungus.EditorUtils
                 }
                 GUIUtility.keyboardControl = 0; // Fix for textarea not refeshing (change focus)
             }
-            
+
             Color commandLabelColor = Color.white;
             if (flowchart.ColorCommands)
             {
                 commandLabelColor = command.GetButtonColor();
             }
-            
+
             if (commandIsSelected)
             {
                 commandLabelColor = Color.green;
@@ -293,9 +307,9 @@ namespace Fungus.EditorUtils
             {
                 // TODO: Show warning icon
             }
-            
+
             GUI.backgroundColor = commandLabelColor;
-            
+
             if (isComment)
             {
                 GUI.Label(commandLabelRect, "", commandLabelStyle);
@@ -314,7 +328,7 @@ namespace Fungus.EditorUtils
 
                 GUI.Label(commandLabelRect, commandNameLabel, commandLabelStyle);
             }
-            
+
             if (command.ExecutingIconTimer > Time.realtimeSinceStartup)
             {
                 Rect iconRect = new Rect(commandLabelRect);
@@ -332,7 +346,7 @@ namespace Fungus.EditorUtils
 
                 GUI.color = storeColor;
             }
-            
+
             Rect summaryRect = new Rect(commandLabelRect);
             if (isComment)
             {
@@ -343,16 +357,16 @@ namespace Fungus.EditorUtils
                 summaryRect.x += commandNameWidth + 5;
                 summaryRect.width -= commandNameWidth + 5;
             }
-            
+
             GUIStyle summaryStyle = new GUIStyle();
-            summaryStyle.fontSize = 10; 
+            summaryStyle.fontSize = 10;
             summaryStyle.padding.top += 5;
             summaryStyle.richText = true;
             summaryStyle.wordWrap = false;
             summaryStyle.clipping = TextClipping.Clip;
             commandLabelStyle.alignment = TextAnchor.MiddleLeft;
             GUI.Label(summaryRect, summary, summaryStyle);
-            
+
             if (error)
             {
                 GUISkin editorSkin = EditorGUIUtility.GetBuiltinSkin(EditorSkin.Inspector);
@@ -363,17 +377,9 @@ namespace Fungus.EditorUtils
                 GUI.Label(errorRect, editorSkin.GetStyle("CN EntryError").normal.background);
                 summaryRect.width -= 20;
             }
-            
+
             GUI.backgroundColor = Color.white;
         }
-        
-        public virtual float GetItemHeight(int index) {
-            return fixedItemHeight != 0f
-                ? fixedItemHeight
-                    : EditorGUI.GetPropertyHeight(this[index], GUIContent.none, false)
-                    ;
-        }
-        
-        
+
     }
 }

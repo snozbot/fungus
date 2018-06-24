@@ -60,6 +60,12 @@ namespace Fungus.EditorUtils
             list.onRemoveCallback = RemoveItem;
             list.onAddCallback = AddButton;
             list.onRemoveCallback = RemoveItem;
+            list.elementHeightCallback = GetElementHeight;
+        }
+
+        private float GetElementHeight(int index)
+        {
+            return /*EditorGUI.GetPropertyHeight(this[index], null, true) +*/ EditorGUIUtility.singleLineHeight;
         }
 
         private void RemoveItem(ReorderableList list)

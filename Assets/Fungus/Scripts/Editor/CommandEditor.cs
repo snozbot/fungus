@@ -171,8 +171,16 @@ namespace Fungus.EditorUtils
                             drawHeaderCallback = (Rect rect) =>
                             {
                                 EditorGUI.LabelField(rect, locSerProp.displayName);
+                            },
+                            drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
+                            {
+                                EditorGUI.PropertyField(rect, locSerProp.GetArrayElementAtIndex(index));
+                            },
+                            elementHeightCallback = (int index) =>
+                            {
+                                return EditorGUI.GetPropertyHeight(locSerProp.GetArrayElementAtIndex(index), null, true);// + EditorGUIUtility.singleLineHeight;
                             }
-                        };
+                    };
 
                         reorderableLists.Add(iterator.displayName, reordList);
                     }
