@@ -14,6 +14,8 @@ namespace Fungus
     /// Default behaviour is to show one element after another and hold the final element. Such that [a|b|c] will show
     /// a the first time it is parsed, b the second and every subsequent time it will show c.
     /// 
+    /// Empty sections are allowed, such that [a||c], on second showing it will have 0 characters.
+    /// 
     /// This behaviour can be modified with certain characters at the start of the [], eg. [&a|b|c];
     /// - & does not hold the final element it wraps back around to the begining in a looping fashion
     /// - ! does not hold the final element, it instead returns empty for the varying section
@@ -21,95 +23,188 @@ namespace Fungus
     /// </summary>
     public static class TextVariationHandler
     {
-        static Dictionary<int, int> hashedSections = new Dictionary<int, int>();
-        static StringBuilder sb = new StringBuilder();
-        const string pattern = @"\[([^]]+?)\]";
-        static Regex r = new Regex(pattern);
-
-        private enum VaryType
+        public class Section
         {
-            Sequence,
-            Cycle,
-            Once,
-            Random
-        }
+            public VaryType type = VaryType.Sequence;
 
-        static public string SelectVariations(string input)
-        {
-            sb.Length = 0;
-            sb.Append(input);
-
-            // Match the regular expression pattern against a text string.
-            var results = r.Matches(input);
-            for (int i = 0; i < results.Count; i++)
+            public enum VaryType
             {
-                Match match = results[i];
+                Sequence,
+                Cycle,
+                Once,
+                Random
+            }
 
-                //determine type
-                VaryType t = VaryType.Sequence;
+            public string entire = string.Empty;
+            public List<string> elements = new List<string>();
 
-                var typedIndicatingChar = match.Value[1];
-                switch (typedIndicatingChar)
+            public string Select(ref int index)
+            {
+                switch (type)
                 {
-                    case '~':
-                        t = VaryType.Random;
+                    case VaryType.Sequence:
+                        index = UnityEngine.Mathf.Min(index, elements.Count - 1);
                         break;
-                    case '&':
-                        t = VaryType.Cycle;
+                    case VaryType.Cycle:
+                        index = index % elements.Count;
                         break;
-                    case '!':
-                        t = VaryType.Once;
+                    case VaryType.Once:
+                        //clamp to 1 more than options
+                        index = UnityEngine.Mathf.Min(index, elements.Count);
+                        break;
+                    case VaryType.Random:
+                        index = UnityEngine.Random.Range(0, elements.Count);
                         break;
                     default:
                         break;
                 }
 
-                //explode and remove the control char
-                int startSubStrIndex = t != VaryType.Sequence ? 2 : 1;
-                int subStrLen = match.Value.Length - 1 - startSubStrIndex;
-                var exploded = match.Value.Substring(startSubStrIndex, subStrLen).Split('|');
+                if (index >= 0 && index < elements.Count)
+                    return elements[index];
+
+                return string.Empty;
+            }
+        }
+
+        static Dictionary<int, int> hashedSections = new Dictionary<int, int>();
+        //static StringBuilder sb = new StringBuilder();
+        //const string pattern = @"\[([^]]+?)\]";
+        //static Regex r = new Regex(pattern);
+
+        /// <summary>
+        /// Simple parser to extract depth matched []. 
+        /// 
+        /// Such that a string of "[Hail and well met|Hello|[Good |]Morning] Traveler" will return
+        /// "[Hail and well met|Hello|[Good |]Morning]"
+        /// and string of "Hail and well met|Hello|[Good |]Morning"
+        /// will return [Good |]
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="varyingSections"></param>
+        /// <returns></returns>
+        static public bool TokenizeVarySections(string input, List<Section> varyingSections)
+        {
+            varyingSections.Clear();
+            int currentDepth = 0;
+            int curStartIndex = 0;
+            int curPipeIndex = 0;
+            Section curSection = null;
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                switch (input[i])
+                {
+                    case '[':
+                        if (currentDepth == 0)
+                        {
+                            curSection = new Section();
+                            varyingSections.Add(curSection);
+
+                            //determine type and skip control char
+                            var typedIndicatingChar = input[i + 1];
+                            switch (typedIndicatingChar)
+                            {
+                                case '~':
+                                    curSection.type = Section.VaryType.Random;
+                                    break;
+                                case '&':
+                                    curSection.type = Section.VaryType.Cycle;
+                                    break;
+                                case '!':
+                                    curSection.type = Section.VaryType.Once;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+
+                            //mark start
+                            curStartIndex = i;
+                            curPipeIndex = i + 1;
+                        }
+                        currentDepth++;
+                        break;
+                    case ']':
+                        if (currentDepth == 1)
+                        {
+
+                            //extract, including the ]
+                            curSection.entire = input.Substring(curStartIndex, i - curStartIndex + 1);
+
+
+                            //close an element if we started one
+                            if (curStartIndex != curPipeIndex - 1)
+                            {
+                                curSection.elements.Add(input.Substring(curPipeIndex, i - curPipeIndex));
+                            }
+
+                            //if has control var, clean first element
+                            if(curSection.type != Section.VaryType.Sequence)
+                            {
+                                curSection.elements[0] = curSection.elements[0].Substring(1);
+                            }
+                        }
+                        currentDepth--;
+                        break;
+                    case '|':
+                        if (currentDepth == 1)
+                        {
+                            //split
+                            curSection.elements.Add(input.Substring(curPipeIndex, i - curPipeIndex));
+
+                            //over the | on the next one
+                            curPipeIndex = i + 1;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return varyingSections.Count > 0;
+        }
+
+
+        static public string SelectVariations(string input)
+        {
+            // Match the regular expression pattern against a text string.
+            List<Section> sections = new List<Section>();
+            bool foundSections = TokenizeVarySections(input, sections);
+
+            if (!foundSections)
+                return input;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Length = 0;
+            sb.Append(input);
+
+            for (int i = 0; i < sections.Count; i++)
+            {
+                var curSection = sections[i];
                 string selected = string.Empty;
 
                 //fetched hashed value
                 int index = -1;
-                int key = input.GetHashCode() ^ match.Value.GetHashCode();
+                int key = input.GetHashCode() ^ curSection.entire.GetHashCode();
 
                 int foundVal = 0;
-                if(hashedSections.TryGetValue(key, out foundVal))
+                if (hashedSections.TryGetValue(key, out foundVal))
                 {
                     index = foundVal;
                 }
-                
+
                 index++;
 
-                switch (t)
-                {
-                    case VaryType.Sequence:
-                        index = UnityEngine.Mathf.Min(index, exploded.Length - 1);
-                        break;
-                    case VaryType.Cycle:
-                        index = index % exploded.Length;
-                        break;
-                    case VaryType.Once:
-                        //clamp to 1 more than options
-                        index = UnityEngine.Mathf.Min(index, exploded.Length);
-                        break;
-                    case VaryType.Random:
-                        index = UnityEngine.Random.Range(0, exploded.Length - 1);
-                        break;
-                    default:
-                        break;
-                }
+                selected = curSection.Select(ref index);
 
                 //update hashed value
                 hashedSections[key] = index;
 
-                //selected updated if valid
-                if(index >=0 && index < exploded.Length)
-                    selected = exploded[index];
+                //handle sub vary within selected section
+                selected = SelectVariations(selected);
 
-
-                sb.Replace(match.Value, selected);
+                //update with selecton
+                sb.Replace(curSection.entire, selected);
             }
 
             return sb.ToString();

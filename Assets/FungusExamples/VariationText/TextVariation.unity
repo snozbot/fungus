@@ -942,8 +942,10 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks: []
-  selectedCommands: []
+  selectedBlocks:
+  - {fileID: 1755499608}
+  selectedCommands:
+  - {fileID: 1755499607}
   variables: []
   description: 
   stepPause: 0
@@ -973,9 +975,9 @@ MonoBehaviour:
     stringVal: 'john calling-neutral left: [Good morning, it''s John|Hmm|Yes, still
       here].
 
-      sherlock explaining right: [Who are you talking to?|Still at it, I see.] We
+      sherlock explaining right: [!Who are you talking to?||Still at it, I see.] We
       have a case to [~deal with|work|tend to|solve]. [!I''m right as rain.|Stop fussing
-      will you.]'
+      will you.|||Rude.] '
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
