@@ -59,8 +59,11 @@ namespace Fungus
             else
             {
                 System.Type previousCommandType = ParentBlock.GetPreviousActiveCommandType();
+                var prevCmdIndent = ParentBlock.GetPreviousActiveCommandIndent();
 
-                if (previousCommandType.IsSubclassOf(typeof(Condition)))
+                //handle our matching if or else if in the chain failing and moving to us,
+                //  need to make sure it is the same indent level
+                if (prevCmdIndent == IndentLevel && previousCommandType.IsSubclassOf(typeof(Condition)))
                 {
                     // Else If behaves the same as an If command
                     EvaluateAndContinue();
