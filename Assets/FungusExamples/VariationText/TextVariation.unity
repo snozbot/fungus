@@ -972,8 +972,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: 'john calling-neutral left: [Good morning, it''s John|Hmm|Yes, still
-      here].
+    stringVal: 'john calling-neutral left: [Good [~morning|day], it''s John|Hmm|[~Yes,
+      still|I''m|We''re] here].
 
       sherlock explaining right: [!Who are you talking to?||Still at it, I see.] We
       have a case to [~deal with|work|tend to|solve]. [!I''m right as rain.|Stop fussing

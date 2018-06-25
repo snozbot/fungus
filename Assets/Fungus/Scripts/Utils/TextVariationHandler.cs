@@ -16,6 +16,8 @@ namespace Fungus
     /// 
     /// Empty sections are allowed, such that [a||c], on second showing it will have 0 characters.
     /// 
+    /// Supports nested sections, that are only evaluated if their parent element is chosen. 
+    /// 
     /// This behaviour can be modified with certain characters at the start of the [], eg. [&a|b|c];
     /// - & does not hold the final element it wraps back around to the begining in a looping fashion
     /// - ! does not hold the final element, it instead returns empty for the varying section
@@ -67,9 +69,6 @@ namespace Fungus
         }
 
         static Dictionary<int, int> hashedSections = new Dictionary<int, int>();
-        //static StringBuilder sb = new StringBuilder();
-        //const string pattern = @"\[([^]]+?)\]";
-        //static Regex r = new Regex(pattern);
 
         /// <summary>
         /// Simple parser to extract depth matched []. 
