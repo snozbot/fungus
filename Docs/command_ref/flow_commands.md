@@ -35,7 +35,18 @@ Boolean Data | Fungus.BooleanData | Boolean value to compare against
 Integer Data | Fungus.IntegerData | Integer value to compare against
 Float Data | Fungus.FloatData | Float value to compare against
 String Data | Fungus.StringDataMulti | String value to compare against
+Animator Data | Fungus.AnimatorData | Animator value to compare against
+Audio Source Data | Fungus.AudioSourceData | AudioSource value to compare against
+Color Data | Fungus.ColorData | Color value to compare against
 Game Object Data | Fungus.GameObjectData | GameObject value to compare against
+Material Data | Fungus.MaterialData | Material value to compare against
+Object Data | Fungus.ObjectData | Object value to compare against
+Rigidbody2 D Data | Fungus.Rigidbody2DData | Rigidbody2D value to compare against
+Sprite Data | Fungus.SpriteData | Sprite value to compare against
+Texture Data | Fungus.TextureData | Texture value to compare against
+Transform Data | Fungus.TransformData | Transform value to compare against
+Vector2 Data | Fungus.Vector2Data | Vector2 value to compare against
+Vector3 Data | Fungus.Vector3Data | Vector3 value to compare against
 
 # End # {#End}
 Marks the end of a conditional block.
@@ -54,7 +65,18 @@ Boolean Data | Fungus.BooleanData | Boolean value to compare against
 Integer Data | Fungus.IntegerData | Integer value to compare against
 Float Data | Fungus.FloatData | Float value to compare against
 String Data | Fungus.StringDataMulti | String value to compare against
+Animator Data | Fungus.AnimatorData | Animator value to compare against
+Audio Source Data | Fungus.AudioSourceData | AudioSource value to compare against
+Color Data | Fungus.ColorData | Color value to compare against
 Game Object Data | Fungus.GameObjectData | GameObject value to compare against
+Material Data | Fungus.MaterialData | Material value to compare against
+Object Data | Fungus.ObjectData | Object value to compare against
+Rigidbody2 D Data | Fungus.Rigidbody2DData | Rigidbody2D value to compare against
+Sprite Data | Fungus.SpriteData | Sprite value to compare against
+Texture Data | Fungus.TextureData | Texture value to compare against
+Transform Data | Fungus.TransformData | Transform value to compare against
+Vector2 Data | Fungus.Vector2Data | Vector2 value to compare against
+Vector3 Data | Fungus.Vector3Data | Vector3 value to compare against
 
 # Jump # {#Jump}
 Move execution to a specific Label command in the same block
@@ -176,6 +198,15 @@ Property | Type | Description
  --- | --- | ---
 Frame Count | Fungus.IntegerData | Number of frames to wait for
 
+# WaitInput # {#WaitInput}
+Waits for a period of time or for player input before executing the next command in the block.
+
+Defined in WaitInput
+
+Property | Type | Description
+ --- | --- | ---
+Duration | System.Single | Duration to wait for. If negative will wait until player input occurs.
+
 # While # {#While}
 Continuously loop through a block of commands while the condition is true. Use the Break command to force the loop to terminate immediately.
 
@@ -189,5 +220,16 @@ Boolean Data | Fungus.BooleanData | Boolean value to compare against
 Integer Data | Fungus.IntegerData | Integer value to compare against
 Float Data | Fungus.FloatData | Float value to compare against
 String Data | Fungus.StringDataMulti | String value to compare against
+Animator Data | Fungus.AnimatorData | Animator value to compare against
+Audio Source Data | Fungus.AudioSourceData | AudioSource value to compare against
+Color Data | Fungus.ColorData | Color value to compare against
 Game Object Data | Fungus.GameObjectData | GameObject value to compare against
+Material Data | Fungus.MaterialData | Material value to compare against
+Object Data | Fungus.ObjectData | Object value to compare against
+Rigidbody2 D Data | Fungus.Rigidbody2DData | Rigidbody2D value to compare against
+Sprite Data | Fungus.SpriteData | Sprite value to compare against
+Texture Data | Fungus.TextureData | Texture value to compare against
+Transform Data | Fungus.TransformData | Transform value to compare against
+Vector2 Data | Fungus.Vector2Data | Vector2 value to compare against
+Vector3 Data | Fungus.Vector3Data | Vector3 value to compare against
 
