@@ -163,8 +163,14 @@ namespace Fungus
             return varyingSections.Count > 0;
         }
 
-
-        static public string SelectVariations(string input)
+        /// <summary>
+        /// Uses the results of a run of tokenisation to choose the appropriate elements
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="parentHash">When called recursively, we pass down the current objects hash so as to 
+        /// avoid similar sub /sub sub/ etc. variations</param>
+        /// <returns></returns>
+        static public string SelectVariations(string input, int parentHash = 0)
         {
             // Match the regular expression pattern against a text string.
             List<Section> sections = new List<Section>();
@@ -184,7 +190,7 @@ namespace Fungus
 
                 //fetched hashed value
                 int index = -1;
-                int key = input.GetHashCode() ^ curSection.entire.GetHashCode();
+                int key = input.GetHashCode() ^ curSection.entire.GetHashCode() ^ parentHash;
 
                 int foundVal = 0;
                 if (hashedSections.TryGetValue(key, out foundVal))
@@ -200,7 +206,7 @@ namespace Fungus
                 hashedSections[key] = index;
 
                 //handle sub vary within selected section
-                selected = SelectVariations(selected);
+                selected = SelectVariations(selected, key);
 
                 //update with selecton
                 sb.Replace(curSection.entire, selected);

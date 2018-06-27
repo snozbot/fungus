@@ -942,10 +942,8 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks:
-  - {fileID: 1755499608}
-  selectedCommands:
-  - {fileID: 1755499607}
+  selectedBlocks: []
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -972,7 +970,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: 'john calling-neutral left: [Good [~morning|day], it''s John|Hmm|[~Yes,
+    stringVal: 'john calling-neutral left: [[~Good [~morning|day]|Hey], it''s John|Hmm|[~Yes,
       still|I''m|We''re] here].
 
       sherlock explaining right: [!Who are you talking to?||Still at it, I see.] We
@@ -1076,8 +1074,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 3
   indentLevel: 0
-  storyText: '[&I''m not sure|He doesn''t seem to be doing well|Sherlock, please put
-    some pants on].'
+  storyText: '[&I''m not so sure[~ about that Sherlock||]|He doesn''t seem to be doing
+    well|[~Sherlock, p|P]lease put some pants on].'
   description: 
   character: {fileID: 275029863}
   portrait: {fileID: 0}
@@ -1174,7 +1172,7 @@ MonoBehaviour:
   itemId: 11
   indentLevel: 0
   storyText: Alright Sherlock, [~let's go through it again|seriously, pants|let's
-    sit down|let's get some breakfast and then get to the logic].
+    [~sit down|let's get some [~breakfast|tea]] and then get to the logic].
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
