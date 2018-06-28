@@ -80,7 +80,7 @@ namespace Fungus
         /// <param name="soundClip">The sound effect clip to play.</param>
         /// <param name="loop">If the audioclip should loop or not.</param>
         /// <param name="volume">The volume level of the sound effect.</param>
-        public virtual void PlayAmbienceSound(AudioClip soundClip, bool loop, float volume)
+        public virtual void PlayAmbianceSound(AudioClip soundClip, bool loop, float volume)
         {
             audioSource.loop = loop;
             audioSource.clip = soundClip;

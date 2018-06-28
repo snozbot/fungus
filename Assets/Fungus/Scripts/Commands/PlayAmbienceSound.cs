@@ -9,10 +9,10 @@ namespace Fungus
     /// Plays a once-off sound effect. Multiple sound effects can be played at the same time.
     /// </summary>
     [CommandInfo("Audio",
-                 "Play Ambience Sound",
+                 "Play Ambiance Sound",
                  "Plays a once-off sound effect. Multiple sound effects can be played at the same time.")]
     [AddComponentMenu("")]
-    public class PlayAmbienceSound : Command
+    public class PlayAmbianceSound : Command
     {
         [Tooltip("Sound effect clip to play")]
         [SerializeField]
