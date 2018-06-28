@@ -75,6 +75,20 @@ namespace Fungus
         }
 
         /// <summary>
+        /// Plays a sound effect with optional looping values, at the specified volume.
+        /// </summary>
+        /// <param name="soundClip">The sound effect clip to play.</param>
+        /// <param name="loop">If the audioclip should loop or not.</param>
+        /// <param name="volume">The volume level of the sound effect.</param>
+        public virtual void PlayAmbienceSound(AudioClip soundClip, bool loop, float volume)
+        {
+            audioSource.loop = loop;
+            audioSource.clip = soundClip;
+            audioSource.volume = volume;
+            audioSource.Play();
+        }
+
+        /// <summary>
         /// Shifts the game music pitch to required value over a period of time.
         /// </summary>
         /// <param name="pitch">The new music pitch value.</param>
