@@ -44,7 +44,7 @@ namespace Fungus
 
             var musicManager = FungusManager.Instance.MusicManager;
 
-            musicManager.PlayAmbienceSound(soundClip, loop, volume);
+            musicManager.PlayAmbianceSound(soundClip, loop, volume);
 
             Continue();
         }
