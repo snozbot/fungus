@@ -70,6 +70,11 @@ namespace Fungus
 
         static Dictionary<int, int> hashedSections = new Dictionary<int, int>();
 
+        static public void ClearHistory()
+        {
+            hashedSections.Clear();
+        }
+
         /// <summary>
         /// Simple parser to extract depth matched []. 
         /// 
@@ -190,7 +195,14 @@ namespace Fungus
 
                 //fetched hashed value
                 int index = -1;
-                int key = input.GetHashCode() ^ curSection.entire.GetHashCode() ^ parentHash;
+                
+                //as input and entire can be the same thing we need to shuffle these bits
+                //we use some xorshift style mixing
+                int inputHash = input.GetHashCode();
+                inputHash ^= inputHash << 13;
+                int curSecHash = curSection.entire.GetHashCode();
+                curSecHash ^= curSecHash >> 17;
+                int key = inputHash ^ curSecHash ^ parentHash;
 
                 int foundVal = 0;
                 if (hashedSections.TryGetValue(key, out foundVal))
