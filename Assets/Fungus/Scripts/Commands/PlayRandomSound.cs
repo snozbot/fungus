@@ -66,7 +66,8 @@ namespace Fungus
             
             string sounds = "[";
             foreach (AudioClip ac in soundClip) {
-                sounds+=ac.name+" ,";
+				if(ac!=null)
+					sounds+=ac.name+" ,";
             }
             sounds = sounds.TrimEnd(' ', ',');
             sounds += "]";
