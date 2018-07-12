@@ -2,6 +2,40 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.9.0 {#v3_9_0}
+======
+
+## Added
+- Conversation command supports setting default clear, wait for input and fade options #673
+- Added Fungus Priority Signals #671 #670
+    - allows fungus to notify the outside world that it is doing something of priority so the outside world can pause
+- Added GetKey fungus command. #683
+    - Supports positive and negative keybindings output to a bool, float or int variable 
+    - Supports checking for pressed, release and current state 
+    - Uses keycode with optional fallback to key name
+- Disabled Flowcharts and EventHandlers. #682
+- Added Dialog history on Save Menu UI #675
+- Added BlockReference, a simple data type with a property drawer that makes it easier to select a target fungus block from external c# scripts. #669
+- Added comparison (equals and not equals) as well as assign functionality to most variable types. #668
+
+## Changed
+- Updated to Unity 2018.1 #681
+- Conversation Manager Regex now allows - and _ within say params group. #692
+- Conversation example scene makes some basic use of new Conversation features
+- Update LeanTween to 2.46 #689
+- PortraitController forces alpha and color tweens to be non recursive.
+- Updated playground demos
+    - Football uses GetKey instead of GetAxis (get axis was failing in some packages as inputmanager axis were not imported)
+    - Defender had a bug due to a change in how unity syncs 'up' between transform and rb2d
+
+## Fixed
+- ElseIfs now confirm that the previous condition was at the same indent as themselves. #693
+- NarrativeLog is tolerant of null Name or Story fields #690
+- Force the hierarchy icon list to refresh when a script a is loaded/changed #672
+- Eventhandlers no longer fire when the flowchart is disabled #682
+- StopFlowchart can continue now #685
+- Fixed stray \\ that were not being stripped on Mac OS, when importing editor resources. #686
+ 
 v3.8.0 {#v3_8_0}
 ======
 
@@ -324,16 +358,16 @@ Awesome github contributors:
 
 ## Added
 - FungusLua: Lua scripting support for Fungus via wrapper components for using MoonSharp in Unity. #281, #317, #334, #237, #235, #232, #224
-	- LuaEnvironment component: Execution environment for running Lua scripts.
-	- LuaUtils component: Extends LuaEnvironment with lots of useful features.
-	- LuaBindings: Maps Unity objects & components to Lua variables for use in Lua scripts.
-	- LuaScript: Runs Lua code from a text file or from a string property.
-	- LuaStore: Stores variables in a global table which persists across scene loads.
-	- FungusModule: A set of utility functions for scripting Unity and Fungus from Lua.
-	- FungusPrefs: An improved version of PlayerPrefs that can be easily used from Lua.
-	- ExecuteHandler: Listens for any standard Unity event and calls a method on a component in the gameobject. #247
-	- ExecuteLua command: Run some Lua script in a Fungus command. Return values can be stored in Fungus variables.
-	- PODTypeFactory: Utility factory class for instantiating Plain-Old-Data (POD) types like Color, Vector3, etc.
+    - LuaEnvironment component: Execution environment for running Lua scripts.
+    - LuaUtils component: Extends LuaEnvironment with lots of useful features.
+    - LuaBindings: Maps Unity objects & components to Lua variables for use in Lua scripts.
+    - LuaScript: Runs Lua code from a text file or from a string property.
+    - LuaStore: Stores variables in a global table which persists across scene loads.
+    - FungusModule: A set of utility functions for scripting Unity and Fungus from Lua.
+    - FungusPrefs: An improved version of PlayerPrefs that can be easily used from Lua.
+    - ExecuteHandler: Listens for any standard Unity event and calls a method on a component in the gameobject. #247
+    - ExecuteLua command: Run some Lua script in a Fungus command. Return values can be stored in Fungus variables.
+    - PODTypeFactory: Utility factory class for instantiating Plain-Old-Data (POD) types like Color, Vector3, etc.
     - Lots of FungusLua example scenes
     - Fungus documentation now has an extensive section on LuaScripting.
 - StringDataMulti: Like StringData, but uses a multi-line textbox in the inspector.
@@ -405,16 +439,16 @@ v2.4.0 {#v2_4_0}
 
 ## Added
 - FungusLua: Lua scripting support for Fungus via wrapper components for using MoonSharp in Unity. #281, #317, #334, #237, #235, #232, #224
-	- LuaEnvironment component: Execution environment for running Lua scripts.
-	- LuaUtils component: Extends LuaEnvironment with lots of useful features.
-	- LuaBindings: Maps Unity objects & components to Lua variables for use in Lua scripts.
-	- LuaScript: Runs Lua code from a text file or from a string property.
-	- LuaStore: Stores variables in a global table which persists across scene loads.
-	- FungusModule: A set of utility functions for scripting Unity and Fungus from Lua.
-	- FungusPrefs: An improved version of PlayerPrefs that can be easily used from Lua.
-	- ExecuteHandler: Listens for any standard Unity event and calls a method on a component in the gameobject. #247
-	- ExecuteLua command: Run some Lua script in a Fungus command. Return values can be stored in Fungus variables.
-	- PODTypeFactory: Utility factory class for instantiating Plain-Old-Data (POD) types like Color, Vector3, etc.
+    - LuaEnvironment component: Execution environment for running Lua scripts.
+    - LuaUtils component: Extends LuaEnvironment with lots of useful features.
+    - LuaBindings: Maps Unity objects & components to Lua variables for use in Lua scripts.
+    - LuaScript: Runs Lua code from a text file or from a string property.
+    - LuaStore: Stores variables in a global table which persists across scene loads.
+    - FungusModule: A set of utility functions for scripting Unity and Fungus from Lua.
+    - FungusPrefs: An improved version of PlayerPrefs that can be easily used from Lua.
+    - ExecuteHandler: Listens for any standard Unity event and calls a method on a component in the gameobject. #247
+    - ExecuteLua command: Run some Lua script in a Fungus command. Return values can be stored in Fungus variables.
+    - PODTypeFactory: Utility factory class for instantiating Plain-Old-Data (POD) types like Color, Vector3, etc.
     - Lots of FungusLua example scenes
     - Fungus documentation now has an extensive section on LuaScripting.
 - StringDataMulti: Like StringData, but uses a multi-line textbox in the inspector.
