@@ -1,4 +1,4 @@
-﻿README
+README
 ======
 
 List control for Unity allowing editor developers to add reorderable list controls to
@@ -21,13 +21,19 @@ Features
 - Subscribe to add/remove item events.
 - Supports mixed item heights.
 - Disable drag and/or removal on per-item basis.
-- [Drop insertion](<https://youtu.be/gtdPvLaGTNI>) (for use with `UnityEditor.DragAndDrop`).
+- Drop insertion (for use with `UnityEditor.DragAndDrop`).
 - Styles can be overridden on per-list basis if desired.
 - Subclass list control to override context menu.
 - Add drop-down to add menu (or instead of add menu).
 - Helper functionality to build element adder menus.
 - User guide (Asset Path/Support/User Guide.pdf).
 - API reference documentation (Asset Path/Support/API Reference.chm).
+
+
+Preview (showing drop insertion feature)
+----------------------------------------
+
+![preview](https://bitbucket.org/rotorz/reorderable-list-editor-field-for-unity/raw/master/preview.gif)
 
 Installing scripts
 ------------------
