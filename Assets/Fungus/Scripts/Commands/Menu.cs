@@ -17,6 +17,7 @@ namespace Fungus
     public class Menu : Command, ILocalizable
     {
         [Tooltip("Text to display on the menu button")]
+        [TextArea()]
         [SerializeField] protected string text = "Option Text";
 
         [Tooltip("Notes about the option text for other authors, localization, etc.")]

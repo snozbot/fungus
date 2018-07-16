@@ -928,7 +928,8 @@ namespace Fungus
             // If this clip is null then WriterAudio will play the default sound effect (if any)
             NotifyStart(audioClip);
 
-            string tokenText = content;
+            string tokenText = TextVariationHandler.SelectVariations(content);
+            
             if (waitForInput)
             {
                 tokenText += "{wi}";
