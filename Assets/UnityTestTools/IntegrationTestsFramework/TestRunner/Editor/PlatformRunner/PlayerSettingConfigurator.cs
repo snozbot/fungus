@@ -18,7 +18,12 @@ namespace UnityTest
 
         private ResolutionDialogSetting m_DisplayResolutionDialog;
         private bool m_RunInBackground;
+
+#if UNITY_2018_1_OR_NEWER
         private FullScreenMode m_FullScreen;
+#else
+        private bool m_FullScreen;
+#endif
         private bool m_ResizableWindow;
         private readonly List<string> m_TempFileList = new List<string>();
 
@@ -34,9 +39,13 @@ namespace UnityTest
 
             m_RunInBackground = PlayerSettings.runInBackground;
             PlayerSettings.runInBackground = true;
-
+#if UNITY_2018_1_OR_NEWER
             m_FullScreen = PlayerSettings.fullScreenMode;
             PlayerSettings.fullScreenMode = FullScreenMode.Windowed;
+#else
+            m_FullScreen = PlayerSettings.defaultIsFullScreen;
+            PlayerSettings.defaultIsFullScreen = false;
+#endif
 
             m_ResizableWindow = PlayerSettings.resizableWindow;
             PlayerSettings.resizableWindow = true;
@@ -44,7 +53,11 @@ namespace UnityTest
 
         public void RevertSettingsChanges()
         {
+#if UNITY_2018_1_OR_NEWER
             PlayerSettings.fullScreenMode = m_FullScreen;
+#else
+            PlayerSettings.defaultIsFullScreen = m_FullScreen;
+#endif
             PlayerSettings.runInBackground = m_RunInBackground;
             PlayerSettings.displayResolutionDialog = m_DisplayResolutionDialog;
             PlayerSettings.resizableWindow = m_ResizableWindow;

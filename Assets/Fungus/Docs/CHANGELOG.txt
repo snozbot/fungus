@@ -2,6 +2,15 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.9.1 {#v3_9_1}
+======
+
+## Added
+- Text Variation Handler: Adds Ink-style text variation in Say, Menu and Conversation commands. #695 
+
+## Fixed
+- Fixed Reorderable List control errors in 2018.2. Compatible with 2017.4, 2018.1 2018.2 #697
+
 v3.9.0 {#v3_9_0}
 ======
 

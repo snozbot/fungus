@@ -31,7 +31,11 @@ namespace Fungus
         {
             initalHierarchyCheckFlag = true;
             EditorApplication.hierarchyWindowItemOnGUI += HierarchyIconCallback;
+#if UNITY_2018_1_OR_NEWER
             EditorApplication.hierarchyChanged += HierarchyChanged;
+#else
+            EditorApplication.hierarchyWindowChanged += HierarchyChanged;
+#endif
         }
 
         //track all gameobjectIds that have flowcharts on them
