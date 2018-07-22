@@ -2,6 +2,9 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
 namespace Fungus
 {
@@ -43,7 +46,7 @@ namespace Fungus
             
             // Prepend the current save profile (if any)
             string prefsKey = SetSaveProfile.SaveProfile + "_" + flowchart.SubstituteVariables(key);
-            
+            ArrayList profileList = memoizeProfileList(SetSaveProfile.SaveProfile);            
             System.Type variableType = variable.GetType();
 
             if (variableType == typeof(BooleanVariable))
@@ -105,4 +108,33 @@ namespace Fungus
 
         #endregion
     }    
+    protected ArrayList memoizeProfileList(String name)
+    {
+        String k= "Fungus.profile_list"
+        ArrayList l =null;
+        BinaryFormatter formatter = new BinaryFormatter();
+        MemoryStream stream = new MemoryStream();
+        byte[] bytes;
+        if(!PlayerPrefs.HasKey(k))
+        {
+            l = new ArrayList()
+        }
+        else
+        {
+            l=(ArrayList)deserializeProfileList();
+        }
+        l.Add(name);
+        formatter.Serialize(stream,l);
+        bytes = memoryStream.ToArray();
+        String base64 = Convert.ToBase64String(bytes);
+        PlayerPrefs.SetString(prefsKey, stringVariable.Value);
+    }
+    protected List<String> deserializeProfileList()
+    {
+        byte[] bytes;
+        BinaryFormatter formatter = new BinaryFormatter();
+        String s = PlayerPrefs.GetString(k);
+        bytes=Convert.FromBase64String(s);
+        return formatter.Deserialize(bytes);
+    }
 }
