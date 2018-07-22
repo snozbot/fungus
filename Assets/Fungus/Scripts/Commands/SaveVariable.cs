@@ -128,6 +128,7 @@ namespace Fungus
         bytes = memoryStream.ToArray();
         String base64 = Convert.ToBase64String(bytes);
         PlayerPrefs.SetString(prefsKey, stringVariable.Value);
+        return l;
     }
     protected List<String> deserializeProfileList()
     {
