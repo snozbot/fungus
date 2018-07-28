@@ -10,7 +10,7 @@ namespace Fungus
     /// </summary>
     [CommandInfo("Audio",
                  "Play Random Sound",
-                 "Plays a once-off sound effect. Multiple sound effects can be played at the same time.")]
+                 "Plays a once-off sound effect from a list of available sound effects. Multiple sound effects can be played at the same time.")]
     [AddComponentMenu("")]
     public class PlayRandomSound : Command
     {
