@@ -16,17 +16,32 @@ namespace Fungus
         protected PropertyInfo textProperty;
         protected IWriterTextDestination writerTextDestination;
 
-        public void InitFromGameObject(GameObject go)
+        public void InitFromGameObject(GameObject go, bool includeChildren = false)
         {
-            textUI = go.GetComponent<Text>();
-            inputField = go.GetComponent<InputField>();
-            textMesh = go.GetComponent<TextMesh>();
-            writerTextDestination = go.GetComponent<IWriterTextDestination>();
-
+            if (!includeChildren)
+            {
+                textUI = go.GetComponent<Text>();
+                inputField = go.GetComponent<InputField>();
+                textMesh = go.GetComponent<TextMesh>();
+                writerTextDestination = go.GetComponent<IWriterTextDestination>();
+            }
+            else
+            {
+                textUI = go.GetComponentInChildren<Text>();
+                inputField = go.GetComponentInChildren<InputField>();
+                textMesh = go.GetComponentInChildren<TextMesh>();
+                writerTextDestination = go.GetComponentInChildren<IWriterTextDestination>();
+            }
+            
             // Try to find any component with a text property
             if (textUI == null && inputField == null && textMesh == null && writerTextDestination == null)
             {
-                var allcomponents = go.GetComponents<Component>();
+                Component[] allcomponents = null;
+                if (!includeChildren)
+                    allcomponents = go.GetComponents<Component>();
+                else
+                    allcomponents = go.GetComponentsInChildren<Component>();
+
                 for (int i = 0; i < allcomponents.Length; i++)
                 {
                     var c = allcomponents[i];
