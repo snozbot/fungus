@@ -18,12 +18,6 @@ namespace Fungus.EditorUtils
     [CustomEditor(typeof(Block))]
     public class BlockEditor : Editor
     {
-        protected class SetEventHandlerOperation
-        {
-            public Block block;
-            public Type eventHandlerType;
-        }
-
         protected class AddCommandOperation
         {
             public Type commandType;
@@ -45,6 +39,8 @@ namespace Fungus.EditorUtils
         protected string commandTextFieldContents = string.Empty;
         protected int filteredCommandPreviewSelectedItem = 0;
         protected Type commandSelectedByTextInput;
+
+        private Rect lastEventPopupPos;
 
         static List<System.Type> commandTypes;
         static List<System.Type> eventHandlerTypes;
@@ -467,49 +463,18 @@ namespace Fungus.EditorUtils
                 }
             }
 
+            var pos = EditorGUILayout.GetControlRect(true, 0, EditorStyles.objectField);
+            if (pos.x != 0)
+            {
+                lastEventPopupPos = pos;
+                lastEventPopupPos.x += EditorGUIUtility.labelWidth;
+                lastEventPopupPos.y += EditorGUIUtility.singleLineHeight;
+            }
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel(new GUIContent("Execute On Event"));
-            if (GUILayout.Button(new GUIContent(currentHandlerName), EditorStyles.popup))
+            if (EditorGUILayout.DropdownButton(new GUIContent(currentHandlerName),FocusType.Passive))
             {
-                SetEventHandlerOperation noneOperation = new SetEventHandlerOperation();
-                noneOperation.block = block;
-                noneOperation.eventHandlerType = null;
-
-                GenericMenu eventHandlerMenu = new GenericMenu();
-                eventHandlerMenu.AddItem(new GUIContent("None"), false, OnSelectEventHandler, noneOperation);
-
-                // Add event handlers with no category first
-                foreach (System.Type type in eventHandlerTypes)
-                {
-                    EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
-                    if (info != null &&
-                        info.Category.Length == 0)
-                    {
-                        SetEventHandlerOperation operation = new SetEventHandlerOperation();
-                        operation.block = block;
-                        operation.eventHandlerType = type;
-
-                        eventHandlerMenu.AddItem(new GUIContent(info.EventHandlerName), false, OnSelectEventHandler, operation);
-                    }
-                }
-
-                // Add event handlers with a category afterwards
-                foreach (System.Type type in eventHandlerTypes)
-                {
-                    EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
-                    if (info != null &&
-                        info.Category.Length > 0)
-                    {
-                        SetEventHandlerOperation operation = new SetEventHandlerOperation();
-                        operation.block = block;
-                        operation.eventHandlerType = type;
-                        string typeName = info.Category + "/" + info.EventHandlerName;
-                        eventHandlerMenu.AddItem(new GUIContent(typeName), false, OnSelectEventHandler, operation);
-                    }
-                }
-
-
-                eventHandlerMenu.ShowAsContext();
+                EventSelectorPopupWindowContent.DoEventHandlerPopUp(lastEventPopupPos, currentHandlerName, block, eventHandlerTypes);
             }
             EditorGUILayout.EndHorizontal();
 
@@ -524,33 +489,6 @@ namespace Fungus.EditorUtils
             }
         }
 
-        protected void OnSelectEventHandler(object obj)
-        {
-            SetEventHandlerOperation operation = obj as SetEventHandlerOperation;
-            Block block = operation.block;
-            System.Type selectedType = operation.eventHandlerType;
-            if (block == null)
-            {
-                return;
-            }
-
-            Undo.RecordObject(block, "Set Event Handler");
-
-            if (block._EventHandler != null)
-            {
-                Undo.DestroyObjectImmediate(block._EventHandler);
-            }
-
-            if (selectedType != null)
-            {
-                EventHandler newHandler = Undo.AddComponent(block.gameObject, selectedType) as EventHandler;
-                newHandler.ParentBlock = block;
-                block._EventHandler = newHandler;
-            }
-
-            // Because this is an async call, we need to force prefab instances to record changes
-            PrefabUtility.RecordPrefabInstancePropertyModifications(block);
-        }
 
         public static void BlockField(SerializedProperty property, GUIContent label, GUIContent nullLabel, Flowchart flowchart)
         {
