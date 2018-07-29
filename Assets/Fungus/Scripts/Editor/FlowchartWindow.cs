@@ -516,7 +516,8 @@ namespace Fungus.EditorUtils
                         {
                             if (variableListAdaptor.TargetFlowchart != null)
                             {
-                                variableListAdaptor.DrawVarList(0);
+                                //440 - space for scrollbar
+                                variableListAdaptor.DrawVarList(400);
                             }
                             else
                             {
