@@ -25,18 +25,32 @@ namespace Fungus.EditorUtils
             public Type eventHandlerType;
         }
 
+        public class FilteredListItem
+        {
+            public FilteredListItem(int index, string str)
+            {
+                origIndex = index;
+                name = str;
+                lowerName = str.ToLowerInvariant();
+            }
+            public int origIndex;
+            public string name, lowerName;
+        }
+
         private string currentHandlerName;
         private Block block;
         private List<Type> eventHandlerTypes;
         private int hoverIndex;
         private readonly string SEARCH_CONTROL_NAME = "PopupSearchControlName";
         private readonly float ROW_HEIGHT = EditorGUIUtility.singleLineHeight;
-        private List<string> allItems = new List<string>(), visibleItems = new List<string>();
-        private string currentFilter;
+        private List<FilteredListItem> allItems = new List<FilteredListItem>(), visibleItems = new List<FilteredListItem>();
+        private string currentFilter = string.Empty;
         private Vector2 scroll;
         private int scrollToIndex;
         private float scrollOffset;
         private int currentIndex;
+
+        static readonly char[] SEARCH_SPLITS = new char[]{ '/', ' ' };
 
         public EventSelectorPopupWindowContent(string currentHandlerName, Block block, List<Type> eventHandlerTypes)
         {
@@ -44,19 +58,23 @@ namespace Fungus.EditorUtils
             this.block = block;
             this.eventHandlerTypes = eventHandlerTypes;
 
+            int i = 0;
             foreach (System.Type type in eventHandlerTypes)
             {
                 EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
                 if (info != null)
                 {
-                    allItems.Add(info.Category + "/" + info.EventHandlerName);
+                    allItems.Add(new FilteredListItem(i, (info.Category.Length > 0 ? info.Category + "/" : "") + info.EventHandlerName));
                 }
                 else
                 {
-                    allItems.Add(type.Name);
+                    allItems.Add(new FilteredListItem(i, type.Name));
                 }
+
+                i++;
             }
-            visibleItems.AddRange(allItems);
+            allItems.Sort((lhs, rhs) => lhs.name.CompareTo(rhs.name));
+            UpdateFilter();
         }
 
         public override void OnGUI(Rect rect)
@@ -82,24 +100,41 @@ namespace Fungus.EditorUtils
 
             GUI.FocusControl(SEARCH_CONTROL_NAME);
             GUI.SetNextControlName(SEARCH_CONTROL_NAME);
-            string newText = GUI.TextField(searchRect, "FilterBy");
+            var prevFilter = currentFilter;
+            currentFilter = GUI.TextField(searchRect, currentFilter);
 
-            //if (list.UpdateFilter(newText))
-            //{
-            //    hoverIndex = 0;
-            //    scroll = Vector2.zero;
-            //}
+            if (prevFilter != currentFilter)
+            {
+                UpdateFilter();
+            }
+        }
 
-            //searchRect.x = searchRect.xMax;
-            //searchRect.width = CancelButton.fixedWidth;
+        private void UpdateFilter()
+        {
+            var curlower = currentFilter.ToLowerInvariant();
+            var lowers = curlower.Split(SEARCH_SPLITS);
+            lowers = lowers.Where(x => x.Length > 0).ToArray();
 
-            //if (string.IsNullOrEmpty(list.Filter))
-            //    GUI.Box(searchRect, GUIContent.none, DisabledCancelButton);
-            //else if (GUI.Button(searchRect, "x", CancelButton))
-            //{
-            //    list.UpdateFilter("");
-            //    scroll = Vector2.zero;
-            //}
+            if (lowers == null || lowers.Length == 0)
+            {
+                visibleItems.AddRange(allItems);
+            }
+            else
+            {
+                visibleItems = allItems.Where(x =>
+                {
+                    foreach (var item in lowers)
+                    {
+                        if (x.lowerName.Contains(currentFilter))
+                            return true;
+                    }
+                    return false;
+                }).ToList();
+            }
+
+            hoverIndex = 0;
+            scroll = Vector2.zero;
+            visibleItems.Insert(0, new FilteredListItem(-1, "None"));
         }
 
         private void DrawSelectionArea(Rect scrollRect)
@@ -133,7 +168,7 @@ namespace Fungus.EditorUtils
                     if (Event.current.type == EventType.MouseDown)
                     {
                         //onSelectionMade(list.Entries[i].Index);
-                        SelectByName(visibleItems[i]);
+                        SelectByOrigIndex(visibleItems[i].origIndex);
                         EditorWindow.focusedWindow.Close();
                     }
                 }
@@ -164,7 +199,7 @@ namespace Fungus.EditorUtils
             Rect labelRect = new Rect(rowRect);
             //labelRect.xMin += ROW_INDENT;
 
-            GUI.Label(labelRect, visibleItems[i]);
+            GUI.Label(labelRect, visibleItems[i].name);
         }
 
         /// <summary>
@@ -194,7 +229,7 @@ namespace Fungus.EditorUtils
                 {
                     if (hoverIndex >= 0 && hoverIndex < visibleItems.Count)
                     {
-                        SelectByName(visibleItems[hoverIndex]);
+                        SelectByOrigIndex(visibleItems[hoverIndex].origIndex);
                         //onSelectionMade(list.Entries[hoverIndex].Index);
                         EditorWindow.focusedWindow.Close();
                     }
@@ -214,7 +249,7 @@ namespace Fungus.EditorUtils
             PopupWindow.Show(rect, win);
 
             //old method
-            
+
             SetEventHandlerOperation noneOperation = new SetEventHandlerOperation();
             noneOperation.block = block;
             noneOperation.eventHandlerType = null;
@@ -252,10 +287,7 @@ namespace Fungus.EditorUtils
                 }
             }
 
-
             eventHandlerMenu.ShowAsContext();
-            
-
         }
 
 
@@ -289,10 +321,18 @@ namespace Fungus.EditorUtils
 
         protected void SelectByName(string name)
         {
-            var loc = allItems.IndexOf(name);
+            var loc = allItems.First(x => x.name == name);
             SetEventHandlerOperation operation = new SetEventHandlerOperation();
             operation.block = block;
-            operation.eventHandlerType = eventHandlerTypes[loc];
+            operation.eventHandlerType = eventHandlerTypes[loc.origIndex];
+            OnSelectEventHandler(operation);
+        }
+
+        protected void SelectByOrigIndex(int index)
+        {
+            SetEventHandlerOperation operation = new SetEventHandlerOperation();
+            operation.block = block;
+            operation.eventHandlerType = (index >= 0 && index<eventHandlerTypes.Count) ? eventHandlerTypes[index] : null;
             OnSelectEventHandler(operation);
         }
     }

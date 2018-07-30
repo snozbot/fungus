@@ -47,8 +47,8 @@ namespace Fungus.EditorUtils
 
         static void CacheEventHandlerTypes()
         {
-            eventHandlerTypes = EditorExtensions.FindDerivedTypes(typeof(EventHandler)).ToList();
-            commandTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).ToList();
+            eventHandlerTypes = EditorExtensions.FindDerivedTypes(typeof(EventHandler)).Where(x=>!x.IsAbstract).ToList();
+            commandTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).Where(x => !x.IsAbstract).ToList();
         }
 
         [UnityEditor.Callbacks.DidReloadScripts]
