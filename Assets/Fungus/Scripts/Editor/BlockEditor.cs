@@ -474,7 +474,7 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PrefixLabel(new GUIContent("Execute On Event"));
             if (EditorGUILayout.DropdownButton(new GUIContent(currentHandlerName),FocusType.Passive))
             {
-                EventSelectorPopupWindowContent.DoEventHandlerPopUp(lastEventPopupPos, currentHandlerName, block, eventHandlerTypes);
+                EventSelectorPopupWindowContent.DoEventHandlerPopUp(lastEventPopupPos, currentHandlerName, block, eventHandlerTypes, (int)(EditorGUIUtility.currentViewWidth - lastEventPopupPos.x), 200);
             }
             EditorGUILayout.EndHorizontal();
 

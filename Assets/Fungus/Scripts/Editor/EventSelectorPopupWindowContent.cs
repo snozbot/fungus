@@ -49,14 +49,16 @@ namespace Fungus.EditorUtils
         private int scrollToIndex;
         private float scrollOffset;
         private int currentIndex;
+        private Vector2 size;
 
         static readonly char[] SEARCH_SPLITS = new char[]{ '/', ' ' };
 
-        public EventSelectorPopupWindowContent(string currentHandlerName, Block block, List<Type> eventHandlerTypes)
+        public EventSelectorPopupWindowContent(string currentHandlerName, Block block, List<Type> eventHandlerTypes, int width, int height)
         {
             this.currentHandlerName = currentHandlerName;
             this.block = block;
             this.eventHandlerTypes = eventHandlerTypes;
+            this.size = new Vector2(width, height);
 
             int i = 0;
             foreach (System.Type type in eventHandlerTypes)
@@ -85,6 +87,11 @@ namespace Fungus.EditorUtils
             HandleKeyboard();
             DrawSearch(searchRect);
             DrawSelectionArea(scrollRect);
+        }
+
+        public override Vector2 GetWindowSize()
+        {
+            return size;
         }
 
         private void DrawSearch(Rect rect)
@@ -242,11 +249,11 @@ namespace Fungus.EditorUtils
             }
         }
 
-        static public void DoEventHandlerPopUp(Rect rect, string currentHandlerName, Block block, List<Type> eventHandlerTypes)
+        static public void DoEventHandlerPopUp(Rect position, string currentHandlerName, Block block, List<Type> eventHandlerTypes, int width, int height)
         {
             //new method
-            EventSelectorPopupWindowContent win = new EventSelectorPopupWindowContent(currentHandlerName, block, eventHandlerTypes);
-            PopupWindow.Show(rect, win);
+            EventSelectorPopupWindowContent win = new EventSelectorPopupWindowContent(currentHandlerName, block, eventHandlerTypes, width, height);
+            PopupWindow.Show(position, win);
 
             //old method
 
