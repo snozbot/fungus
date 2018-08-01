@@ -1,14 +1,8 @@
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using Rotorz.ReorderableList;
-using System.IO;
-using System.Reflection;
 
 namespace Fungus.EditorUtils
 {
@@ -19,6 +13,19 @@ namespace Fungus.EditorUtils
     /// </summary>
     public class EventSelectorPopupWindowContent : PopupWindowContent
     {
+        static List<System.Type> eventHandlerTypes;
+
+        static void CacheEventHandlerTypes()
+        {
+            eventHandlerTypes = EditorExtensions.FindDerivedTypes(typeof(EventHandler)).Where(x => !x.IsAbstract).ToList();
+        }
+
+        [UnityEditor.Callbacks.DidReloadScripts]
+        private static void OnScriptsReloaded()
+        {
+            CacheEventHandlerTypes();
+        }
+
         protected class SetEventHandlerOperation
         {
             public Block block;
@@ -37,9 +44,7 @@ namespace Fungus.EditorUtils
             public string name, lowerName;
         }
 
-        private string currentHandlerName;
         private Block block;
-        private List<Type> eventHandlerTypes;
         private int hoverIndex;
         private readonly string SEARCH_CONTROL_NAME = "PopupSearchControlName";
         private readonly float ROW_HEIGHT = EditorGUIUtility.singleLineHeight;
@@ -53,11 +58,9 @@ namespace Fungus.EditorUtils
 
         static readonly char[] SEARCH_SPLITS = new char[]{ '/', ' ' };
 
-        public EventSelectorPopupWindowContent(string currentHandlerName, Block block, List<Type> eventHandlerTypes, int width, int height)
+        public EventSelectorPopupWindowContent(string currentHandlerName, Block block, int width, int height)
         {
-            this.currentHandlerName = currentHandlerName;
             this.block = block;
-            this.eventHandlerTypes = eventHandlerTypes;
             this.size = new Vector2(width, height);
 
             int i = 0;
@@ -77,6 +80,7 @@ namespace Fungus.EditorUtils
             }
             allItems.Sort((lhs, rhs) => lhs.name.CompareTo(rhs.name));
             UpdateFilter();
+            currentIndex = Mathf.Max(0, visibleItems.FindIndex(x=>x.name.Contains(currentHandlerName)));
         }
 
         public override void OnGUI(Rect rect)
@@ -249,10 +253,10 @@ namespace Fungus.EditorUtils
             }
         }
 
-        static public void DoEventHandlerPopUp(Rect position, string currentHandlerName, Block block, List<Type> eventHandlerTypes, int width, int height)
+        static public void DoEventHandlerPopUp(Rect position, string currentHandlerName, Block block, int width, int height)
         {
             //new method
-            EventSelectorPopupWindowContent win = new EventSelectorPopupWindowContent(currentHandlerName, block, eventHandlerTypes, width, height);
+            EventSelectorPopupWindowContent win = new EventSelectorPopupWindowContent(currentHandlerName, block, width, height);
             PopupWindow.Show(position, win);
 
             //old method
