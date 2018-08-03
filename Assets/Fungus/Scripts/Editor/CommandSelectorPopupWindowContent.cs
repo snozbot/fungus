@@ -11,7 +11,7 @@ namespace Fungus.EditorUtils
     /// 
     /// Inspired by https://github.com/roboryantron/UnityEditorJunkie/blob/master/Assets/SearchableEnum/Code/Editor/SearchablePopup.cs
     /// </summary>
-    public class CommandSelectorPopupWindowContent //: PopupWindowContent
+    public class CommandSelectorPopupWindowContent : BasePopupWindowContent
     {
         private static readonly char[] SPLIT_INPUT_ON = new char[] { ' ', '/', '\\' };
         private static readonly int MAX_PREVIEW_GRID = 7;
@@ -20,7 +20,7 @@ namespace Fungus.EditorUtils
 
         static List<System.Type> commandTypes;
 
-        static void CacheEventHandlerTypes()
+        static void CacheCommandTypes()
         {
             commandTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).Where(x => !x.IsAbstract).ToList();
         }
@@ -28,42 +28,52 @@ namespace Fungus.EditorUtils
         [UnityEditor.Callbacks.DidReloadScripts]
         private static void OnScriptsReloaded()
         {
-            CacheEventHandlerTypes();
+            CacheCommandTypes();
         }
 
         static Block curBlock;
+        static protected List<KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes;
 
-        static public void ShowCommandMenu(Block block)
+        public CommandSelectorPopupWindowContent(string currentHandlerName, Block block, int width, int height)
+            : base(currentHandlerName, block, width, height)
+        {
+        }
+
+        protected override void SelectByOrigIndex(int index)
+        {
+            var commandType = (index >= 0 && index < commandTypes.Count) ? commandTypes[index] : null;
+            AddCommandCallback(commandType);
+        }
+
+        protected override void PrepareAllItems()
+        {
+            if (commandTypes == null || commandTypes.Count == 0)
+            {
+                CacheCommandTypes();
+            }
+
+
+            filteredAttributes = GetFilteredSupportedCommands(block.GetFlowchart());
+
+            int i = 0;
+            foreach (var item in filteredAttributes)
+            {
+                allItems.Add(new FilteredListItem(i, (item.Value.Category.Length > 0 ? item.Value.Category + "/" : "") + item.Value.CommandName));
+
+                i++;
+            }
+        }
+
+        static public void ShowCommandMenu(Rect position, string currentHandlerName, Block block, int width, int height)
         {
             curBlock = block;
 
-            var flowchart = (Flowchart)block.GetFlowchart();
+            var win = new CommandSelectorPopupWindowContent(currentHandlerName, block, width, height);
+            PopupWindow.Show(position, win);
 
-            GenericMenu commandMenu = new GenericMenu();
 
-            // Build menu list
-            var filteredAttributes = GetFilteredSupportedCommands(flowchart);
-
-            foreach (var keyPair in filteredAttributes)
-            {
-                AddCommandOperation commandOperation = new AddCommandOperation();
-
-                commandOperation.commandType = keyPair.Key;
-
-                GUIContent menuItem;
-                if (keyPair.Value.Category == "")
-                {
-                    menuItem = new GUIContent(keyPair.Value.CommandName);
-                }
-                else
-                {
-                    menuItem = new GUIContent(keyPair.Value.Category + "/" + keyPair.Value.CommandName);
-                }
-
-                commandMenu.AddItem(menuItem, false, AddCommandCallback, commandOperation);
-            }
-
-            commandMenu.ShowAsContext();
+            //old method
+            DoOlderMenu();
         }
 
         protected static List<KeyValuePair<System.Type, CommandInfoAttribute>> GetFilteredSupportedCommands(Flowchart flowchart)
@@ -79,13 +89,40 @@ namespace Fungus.EditorUtils
 
         
 
+
+        static protected void DoOlderMenu()
+        {
+            var flowchart = (Flowchart)curBlock.GetFlowchart();
+
+            GenericMenu commandMenu = new GenericMenu();
+
+            // Build menu list
+
+            foreach (var keyPair in filteredAttributes)
+            {
+                GUIContent menuItem;
+                if (keyPair.Value.Category == "")
+                {
+                    menuItem = new GUIContent(keyPair.Value.CommandName);
+                }
+                else
+                {
+                    menuItem = new GUIContent(keyPair.Value.Category + "/" + keyPair.Value.CommandName);
+                }
+
+                commandMenu.AddItem(menuItem, false, AddCommandCallback, keyPair.Key);
+            }
+
+            commandMenu.ShowAsContext();
+        }
+
         //Used by GenericMenu Delegate
         static protected void AddCommandCallback(object obj)
         {
-            AddCommandOperation commandOperation = obj as AddCommandOperation;
-            if (commandOperation != null)
+            Type command = obj as Type;
+            if (command != null)
             {
-                AddCommandCallback(commandOperation.commandType);
+                AddCommandCallback(command);
             }
         }
 
@@ -93,7 +130,7 @@ namespace Fungus.EditorUtils
         static protected void AddCommandCallback(Type commandType)
         {
             var block = curBlock;
-            if (block == null)
+            if (block == null || commandType == null)
             {
                 return;
             }
@@ -137,89 +174,6 @@ namespace Fungus.EditorUtils
 
             flowchart.ClearSelectedCommands();
 
-            //commandTextFieldContents = string.Empty;
         }
-
-
-        protected class AddCommandOperation
-        {
-            public Type commandType;
-        }
-
-        //Handles showing partial matches against the text input next to the AddCommand button
-        // Splits and matches and can use up down arrows and return/enter/numenter to confirm
-        //  TODO add sorting of results so we get best match at the not just just a match
-        //      e.g. "if" should show Flow/If at the top not Flow/Else If
-        //private void ShowPartialMatches()
-        //{
-        //    var block = curBlock;
-
-        //    var flowchart = (Flowchart)block.GetFlowchart();
-
-        //    //TODO this could be cached if input hasn't changed to avoid thrashing
-        //    var filteredAttributes = GetFilteredSupportedCommands(flowchart);
-
-        //    var upperCommandText = commandTextFieldContents.ToUpper().Trim();
-
-        //    if (upperCommandText.Length == 0)
-        //        return;
-
-        //    var tokens = upperCommandText.Split(SPLIT_INPUT_ON);
-
-        //    //we want commands that have all the elements you have typed
-        //    filteredAttributes = filteredAttributes.Where((x) =>
-        //    {
-        //        bool catAny = tokens.Any(x.Value.Category.ToUpper().Contains);
-        //        bool comAny = tokens.Any(x.Value.CommandName.ToUpper().Contains);
-        //        bool catAll = tokens.All(x.Value.Category.ToUpper().Contains);
-        //        bool comAll = tokens.All(x.Value.CommandName.ToUpper().Contains);
-
-        //        //so if both category and command found something, then there are multiple tokens and they line up with category and command
-        //        if (catAny && comAny)
-        //            return true;
-        //        //or its a single token or a complex token that matches entirely in cat or com
-        //        else if (catAll || comAll)
-        //            return true;
-        //        //this setup avoids multiple bad suggestions due to a complex category name that gives many false matches on complex partials
-
-        //        return false;
-
-        //    }).ToList();
-
-        //    if (filteredAttributes == null || filteredAttributes.Count == 0)
-        //        return;
-
-        //    //show results
-        //    GUILayout.Space(5);
-
-        //    GUILayout.BeginHorizontal();
-
-        //    filteredCommandPreviewSelectedItem = Mathf.Clamp(filteredCommandPreviewSelectedItem, 0, filteredAttributes.Count - 1);
-
-        //    var toShow = filteredAttributes.Select(x => x.Value.Category + "/" + x.Value.CommandName).ToArray();
-
-        //    //show the first x max that match our filters
-        //    if (toShow.Length > MAX_PREVIEW_GRID)
-        //    {
-        //        toShow = toShow.Take(MAX_PREVIEW_GRID).ToArray();
-        //        toShow[MAX_PREVIEW_GRID - 1] = ELIPSIS;
-        //    }
-
-        //    filteredCommandPreviewSelectedItem = GUILayout.SelectionGrid(filteredCommandPreviewSelectedItem, toShow, 1);
-
-        //    if (toShow[filteredCommandPreviewSelectedItem] != ELIPSIS)
-        //    {
-        //        commandSelectedByTextInput = filteredAttributes[filteredCommandPreviewSelectedItem].Key;
-        //    }
-        //    else
-        //    {
-        //        commandSelectedByTextInput = null;
-        //    }
-
-        //    GUILayout.EndHorizontal();
-
-        //    GUILayout.Space(5);
-        //}
     }
-
 }

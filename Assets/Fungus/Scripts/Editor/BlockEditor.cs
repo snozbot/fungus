@@ -26,7 +26,7 @@ namespace Fungus.EditorUtils
         protected Texture2D duplicateIcon;
         protected Texture2D deleteIcon;
         
-        private Rect lastEventPopupPos;
+        private Rect lastEventPopupPos, lastCMDpopupPos;
 
 
         protected virtual void OnEnable()
@@ -282,11 +282,19 @@ namespace Fungus.EditorUtils
 
             GUILayout.FlexibleSpace();
 
-           
+            var pos = EditorGUILayout.GetControlRect(true, 0, EditorStyles.objectField);
+            if (pos.x != 0)
+            {
+                lastCMDpopupPos = pos;
+                lastCMDpopupPos.x += EditorGUIUtility.labelWidth;
+                lastCMDpopupPos.y += EditorGUIUtility.singleLineHeight;
+            }
             // Add Button
             if (GUILayout.Button(addIcon))
             {
-                CommandSelectorPopupWindowContent.ShowCommandMenu(target as Block);
+                CommandSelectorPopupWindowContent.ShowCommandMenu(lastCMDpopupPos, "", target as Block, 
+                    (int)(EditorGUIUtility.currentViewWidth), 
+                    (int)(EditorWindow.focusedWindow.position.height - lastCMDpopupPos.y - EditorGUIUtility.singleLineHeight*3));
             }
 
             // Duplicate Button
