@@ -306,7 +306,7 @@ namespace Fungus.EditorUtils
                 }
 
                 if (commandSelectedByTextInput != null &&
-                    Event.current.keyCode == KeyCode.Return || Event.current.keyCode == KeyCode.KeypadEnter)
+                    (Event.current.keyCode == KeyCode.Return || Event.current.keyCode == KeyCode.KeypadEnter))
                 {
                     AddCommandCallback(commandSelectedByTextInput);
                     commandSelectedByTextInput = null;

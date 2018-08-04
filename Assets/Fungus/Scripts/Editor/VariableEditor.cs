@@ -211,13 +211,15 @@ namespace Fungus.EditorUtils
                 return;
             }
 
+            var origLabel = new GUIContent(label);
+
             if (EditorGUI.GetPropertyHeight(valueProp, label) > EditorGUIUtility.singleLineHeight)
             {
-                DrawMultiLineProperty(position, label, referenceProp, valueProp, flowchart);
+                DrawMultiLineProperty(position, origLabel, referenceProp, valueProp, flowchart);
             }
             else
             {
-                DrawSingleLineProperty(position, label, referenceProp, valueProp, flowchart);
+                DrawSingleLineProperty(position, origLabel, referenceProp, valueProp, flowchart);
             }
 
             EditorGUI.EndProperty();
