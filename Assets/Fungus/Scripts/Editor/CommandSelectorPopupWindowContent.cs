@@ -58,7 +58,7 @@ namespace Fungus.EditorUtils
             int i = 0;
             foreach (var item in filteredAttributes)
             {
-                allItems.Add(new FilteredListItem(i, (item.Value.Category.Length > 0 ? item.Value.Category + "/" : "") + item.Value.CommandName));
+                allItems.Add(new FilteredListItem(i, (item.Value.Category.Length > 0 ? item.Value.Category + "/" : "") + item.Value.CommandName, item.Value.HelpText));
 
                 i++;
             }

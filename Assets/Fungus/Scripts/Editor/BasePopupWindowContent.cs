@@ -20,27 +20,34 @@ namespace Fungus.EditorUtils
         abstract protected void SelectByOrigIndex(int index);
 
         /// <summary>
-        /// Called during Base Ctor, so that all 
+        /// Called during Base Ctor, must fill allItems list so the ctor can continue to fill
+        /// the visible items and current selected index.
         /// </summary>
         abstract protected void PrepareAllItems();
 
+        /// <summary>
+        /// Internal representation of 1 row of our popup list
+        /// </summary>
         public class FilteredListItem
         {
-            public FilteredListItem(int index, string str)
+            public FilteredListItem(int index, string str, string tip = "")
             {
                 origIndex = index;
                 name = str;
                 lowerName = str.ToLowerInvariant();
+                content = new GUIContent(str, tip);
             }
             public int origIndex;
             public string name, lowerName;
+            public GUIContent content;
         }
 
         protected Block block;
         protected int hoverIndex;
         protected readonly string SEARCH_CONTROL_NAME = "PopupSearchControlName";
         protected readonly float ROW_HEIGHT = EditorGUIUtility.singleLineHeight;
-        protected List<FilteredListItem> allItems = new List<FilteredListItem>(), visibleItems = new List<FilteredListItem>();
+        protected List<FilteredListItem> allItems = new List<FilteredListItem>(), 
+            visibleItems = new List<FilteredListItem>();
         protected string currentFilter = string.Empty;
         protected Vector2 scroll;
         protected int scrollToIndex;
@@ -57,9 +64,10 @@ namespace Fungus.EditorUtils
 
             PrepareAllItems();
 
-            allItems.Sort((lhs, rhs) => lhs.name.CompareTo(rhs.name));
+            allItems.Sort((lhs, rhs) => lhs.lowerName.CompareTo(rhs.lowerName));
             UpdateFilter();
             currentIndex = Mathf.Max(0, visibleItems.FindIndex(x=>x.name.Contains(currentHandlerName)));
+            hoverIndex = currentIndex;
         }
 
         public override void OnGUI(Rect rect)
@@ -153,7 +161,16 @@ namespace Fungus.EditorUtils
                 {
                     if (Event.current.type == EventType.MouseMove ||
                         Event.current.type == EventType.ScrollWheel)
+                    {
+                        //if new item force update so it's snappier
+                        if (hoverIndex != 1)
+                        {
+                            this.editorWindow.Repaint();
+                        }
+
                         hoverIndex = i;
+                    }
+
                     if (Event.current.type == EventType.MouseDown)
                     {
                         //onSelectionMade(list.Entries[i].Index);
@@ -188,7 +205,7 @@ namespace Fungus.EditorUtils
             Rect labelRect = new Rect(rowRect);
             //labelRect.xMin += ROW_INDENT;
 
-            GUI.Label(labelRect, visibleItems[i].name);
+            GUI.Label(labelRect, visibleItems[i].content);
         }
 
         /// <summary>
@@ -231,11 +248,11 @@ namespace Fungus.EditorUtils
         }
 
        
-        protected void SelectByName(string name)
-        {
-            var loc = allItems.FindIndex(x => x.name == name);
-            SelectByOrigIndex(loc);
-        }
+        //protected void SelectByName(string name)
+        //{
+        //    var loc = allItems.FindIndex(x => x.name == name);
+        //    SelectByOrigIndex(loc);
+        //}
 
     }
 }

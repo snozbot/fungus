@@ -51,11 +51,11 @@ namespace Fungus.EditorUtils
                 EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
                 if (info != null)
                 {
-                    allItems.Add(new FilteredListItem(i, (info.Category.Length > 0 ? info.Category + "/" : "") + info.EventHandlerName));
+                    allItems.Add(new FilteredListItem(i, (info.Category.Length > 0 ? info.Category + "/" : "") + info.EventHandlerName, info.HelpText));
                 }
                 else
                 {
-                    allItems.Add(new FilteredListItem(i, type.Name));
+                    allItems.Add(new FilteredListItem(i, type.Name, info.HelpText));
                 }
 
                 i++;
