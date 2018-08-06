@@ -68,7 +68,8 @@ namespace Fungus.EditorUtils
         {
             curBlock = block;
 
-            var win = new CommandSelectorPopupWindowContent(currentHandlerName, block, width, height);
+            var win = new CommandSelectorPopupWindowContent(currentHandlerName, block, 
+                width, (int)(height - EditorGUIUtility.singleLineHeight * 3));
             PopupWindow.Show(position, win);
 
 

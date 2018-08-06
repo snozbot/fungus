@@ -287,14 +287,14 @@ namespace Fungus.EditorUtils
             {
                 lastCMDpopupPos = pos;
                 lastCMDpopupPos.x += EditorGUIUtility.labelWidth;
-                lastCMDpopupPos.y += EditorGUIUtility.singleLineHeight;
+                lastCMDpopupPos.y += EditorGUIUtility.singleLineHeight*2;
             }
             // Add Button
             if (GUILayout.Button(addIcon))
             {
                 CommandSelectorPopupWindowContent.ShowCommandMenu(lastCMDpopupPos, "", target as Block, 
                     (int)(EditorGUIUtility.currentViewWidth), 
-                    (int)(EditorWindow.focusedWindow.position.height - lastCMDpopupPos.y - EditorGUIUtility.singleLineHeight*3));
+                    (int)(EditorWindow.focusedWindow.position.height - lastCMDpopupPos.y));
             }
 
             // Duplicate Button
