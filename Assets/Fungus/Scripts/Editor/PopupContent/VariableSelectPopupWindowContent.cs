@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace Fungus.EditorUtils
 {
+    /// <summary>
+    /// Show the variable selection window as a searchable popup
+    /// </summary>
     public class VariableSelectPopupWindowContent : BasePopupWindowContent
     {
         static readonly int POPUP_WIDTH = 200, POPUP_HEIGHT = 200;

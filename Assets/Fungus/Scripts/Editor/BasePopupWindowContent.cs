@@ -53,13 +53,15 @@ namespace Fungus.EditorUtils
         protected float scrollOffset;
         protected int currentIndex;
         protected Vector2 size;
+        protected bool hasNoneOption = false;
 
         static readonly char[] SEARCH_SPLITS = new char[]{ CATEGORY_CHAR, ' ' };
         protected static readonly char CATEGORY_CHAR = '/';
 
-        public BasePopupWindowContent(string currentHandlerName, int width, int height)
+        public BasePopupWindowContent(string currentHandlerName, int width, int height, bool showNoneOption = false)
         {
             this.size = new Vector2(width, height);
+            hasNoneOption = showNoneOption;
 
             PrepareAllItems();
 
@@ -140,7 +142,8 @@ namespace Fungus.EditorUtils
 
             hoverIndex = 0;
             scroll = Vector2.zero;
-            visibleItems.Insert(0, new FilteredListItem(-1, "None"));
+            if(hasNoneOption)
+                visibleItems.Insert(0, new FilteredListItem(-1, "None"));
         }
 
         private void DrawSelectionArea(Rect scrollRect)

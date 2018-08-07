@@ -32,7 +32,7 @@ namespace Fungus.EditorUtils
 
         protected Block block;
         public EventSelectorPopupWindowContent(string currentHandlerName, Block block, int width, int height)
-            :base(currentHandlerName, width, height)
+            :base(currentHandlerName, width, height, true)
         {
             this.block = block;
         }
