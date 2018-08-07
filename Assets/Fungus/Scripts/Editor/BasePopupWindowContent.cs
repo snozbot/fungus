@@ -42,7 +42,6 @@ namespace Fungus.EditorUtils
             public GUIContent content;
         }
 
-        protected Block block;
         protected int hoverIndex;
         protected readonly string SEARCH_CONTROL_NAME = "PopupSearchControlName";
         protected readonly float ROW_HEIGHT = EditorGUIUtility.singleLineHeight;
@@ -55,16 +54,25 @@ namespace Fungus.EditorUtils
         protected int currentIndex;
         protected Vector2 size;
 
-        static readonly char[] SEARCH_SPLITS = new char[]{ '/', ' ' };
+        static readonly char[] SEARCH_SPLITS = new char[]{ CATEGORY_CHAR, ' ' };
+        protected static readonly char CATEGORY_CHAR = '/';
 
-        public BasePopupWindowContent(string currentHandlerName, Block block, int width, int height)
+        public BasePopupWindowContent(string currentHandlerName, int width, int height)
         {
-            this.block = block;
             this.size = new Vector2(width, height);
 
             PrepareAllItems();
 
-            allItems.Sort((lhs, rhs) => lhs.lowerName.CompareTo(rhs.lowerName));
+            allItems.Sort((lhs, rhs) => 
+            {
+                //order root level objects first
+                var islhsRoot = lhs.lowerName.IndexOf(CATEGORY_CHAR) != -1;
+                var isrhsRoot = rhs.lowerName.IndexOf(CATEGORY_CHAR) != -1;
+
+                if(islhsRoot == isrhsRoot)
+                    return lhs.lowerName.CompareTo(rhs.lowerName);
+                return islhsRoot ? 1 : -1;
+            });
             UpdateFilter();
             currentIndex = Mathf.Max(0, visibleItems.FindIndex(x=>x.name.Contains(currentHandlerName)));
             hoverIndex = currentIndex;
@@ -120,12 +128,13 @@ namespace Fungus.EditorUtils
             {
                 visibleItems = allItems.Where(x =>
                 {
+                    //we want all tokens
                     foreach (var item in lowers)
                     {
-                        if (x.lowerName.Contains(currentFilter))
-                            return true;
+                        if (!x.lowerName.Contains(item))
+                            return false;
                     }
-                    return false;
+                    return true;
                 }).ToList();
             }
 
@@ -246,13 +255,5 @@ namespace Fungus.EditorUtils
                 }
             }
         }
-
-       
-        //protected void SelectByName(string name)
-        //{
-        //    var loc = allItems.FindIndex(x => x.name == name);
-        //    SelectByOrigIndex(loc);
-        //}
-
     }
 }

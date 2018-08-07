@@ -13,11 +13,6 @@ namespace Fungus.EditorUtils
     [CustomEditor (typeof(Flowchart))]
     public class FlowchartEditor : Editor 
     {
-        protected class AddVariableInfo
-        {
-            public Flowchart flowchart;
-            public System.Type variableType;
-        }
 
         protected SerializedProperty descriptionProp;
         protected SerializedProperty colorCommandsProp;
@@ -179,90 +174,15 @@ namespace Fungus.EditorUtils
                 if (!Application.isPlaying && 
                     GUI.Button(plusRect, addTexture))
                 {
-                    GenericMenu menu = new GenericMenu ();
-                    List<System.Type> types = FindAllDerivedTypes<Variable>();
-
-                    // Add variable types without a category
-                    foreach (var type in types)
-                    {
-                        VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(type);
-                        if (variableInfo == null ||
-                            variableInfo.Category != "")
-                        {
-                            continue;
-                        }
-
-                        AddVariableInfo addVariableInfo = new AddVariableInfo();
-                        addVariableInfo.flowchart = t;
-                        addVariableInfo.variableType = type;
-
-                        GUIContent typeName = new GUIContent(variableInfo.VariableType);
-
-                        menu.AddItem(typeName, false, AddVariable, addVariableInfo);
-                    }
-
-                    // Add types with a category
-                    foreach (var type in types)
-                    {
-                        VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(type);
-                        if (variableInfo == null ||
-                            variableInfo.Category == "")
-                        {
-                            continue;
-                        }
-
-                        AddVariableInfo info = new AddVariableInfo();
-                        info.flowchart = t;
-                        info.variableType = type;
-
-                        GUIContent typeName = new GUIContent(variableInfo.Category + "/" + variableInfo.VariableType);
-
-                        menu.AddItem(typeName, false, AddVariable, info);
-                    }
-
-                    menu.ShowAsContext ();
+                    Rect popRect = plusRect;
+                    VariableSelectPopupWindowContent.DoAddVariable(popRect, "", t);
                 }
             }
 
             serializedObject.ApplyModifiedProperties();
         }
 
-        protected virtual void AddVariable(object obj)
-        {
-            AddVariableInfo addVariableInfo = obj as AddVariableInfo;
-            if (addVariableInfo == null)
-            {
-                return;
-            }
-
-            var flowchart = addVariableInfo.flowchart;
-            System.Type variableType = addVariableInfo.variableType;
-
-            Undo.RecordObject(flowchart, "Add Variable");
-            Variable newVariable = flowchart.gameObject.AddComponent(variableType) as Variable;
-            newVariable.Key = flowchart.GetUniqueVariableKey("");
-            flowchart.Variables.Add(newVariable);
-
-            // Because this is an async call, we need to force prefab instances to record changes
-            PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
-        }
-
-        public static List<System.Type> FindAllDerivedTypes<T>()
-        {
-            return FindAllDerivedTypes<T>(Assembly.GetAssembly(typeof(T)));
-        }
         
-        public static List<System.Type> FindAllDerivedTypes<T>(Assembly assembly)
-        {
-            var derivedType = typeof(T);
-            return assembly
-                .GetTypes()
-                    .Where(t =>
-                           t != derivedType &&
-                           derivedType.IsAssignableFrom(t)
-                           ).ToList();
-            
-        }
 
         /// <summary>
         /// When modifying custom editor code you can occasionally end up with orphaned editor instances.

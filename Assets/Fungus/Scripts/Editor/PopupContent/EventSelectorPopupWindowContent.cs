@@ -8,8 +8,6 @@ namespace Fungus.EditorUtils
 {
     /// <summary>
     /// Searchable Popup Window for selecting Event type, used by block editor
-    /// 
-    /// Inspired by https://github.com/roboryantron/UnityEditorJunkie/blob/master/Assets/SearchableEnum/Code/Editor/SearchablePopup.cs
     /// </summary>
     public class EventSelectorPopupWindowContent : BasePopupWindowContent
     {
@@ -32,10 +30,11 @@ namespace Fungus.EditorUtils
             public Type eventHandlerType;
         }
 
-        
+        protected Block block;
         public EventSelectorPopupWindowContent(string currentHandlerName, Block block, int width, int height)
-            :base(currentHandlerName, block, width, height)
+            :base(currentHandlerName, width, height)
         {
+            this.block = block;
         }
 
         protected override void PrepareAllItems()
@@ -51,7 +50,7 @@ namespace Fungus.EditorUtils
                 EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
                 if (info != null)
                 {
-                    allItems.Add(new FilteredListItem(i, (info.Category.Length > 0 ? info.Category + "/" : "") + info.EventHandlerName, info.HelpText));
+                    allItems.Add(new FilteredListItem(i, (info.Category.Length > 0 ? info.Category + CATEGORY_CHAR : "") + info.EventHandlerName, info.HelpText));
                 }
                 else
                 {

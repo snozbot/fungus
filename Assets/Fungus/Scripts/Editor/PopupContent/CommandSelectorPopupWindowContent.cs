@@ -8,16 +8,9 @@ namespace Fungus.EditorUtils
 {
     /// <summary>
     /// Searchable Popup Window for adding a command to a block
-    /// 
-    /// Inspired by https://github.com/roboryantron/UnityEditorJunkie/blob/master/Assets/SearchableEnum/Code/Editor/SearchablePopup.cs
     /// </summary>
     public class CommandSelectorPopupWindowContent : BasePopupWindowContent
     {
-        private static readonly char[] SPLIT_INPUT_ON = new char[] { ' ', '/', '\\' };
-        private static readonly int MAX_PREVIEW_GRID = 7;
-        private static readonly string ELIPSIS = "...";
-
-
         static List<System.Type> commandTypes;
 
         static void CacheCommandTypes()
@@ -34,8 +27,8 @@ namespace Fungus.EditorUtils
         static Block curBlock;
         static protected List<KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes;
 
-        public CommandSelectorPopupWindowContent(string currentHandlerName, Block block, int width, int height)
-            : base(currentHandlerName, block, width, height)
+        public CommandSelectorPopupWindowContent(string currentHandlerName, int width, int height)
+            : base(currentHandlerName, width, height)
         {
         }
 
@@ -53,12 +46,12 @@ namespace Fungus.EditorUtils
             }
 
 
-            filteredAttributes = GetFilteredSupportedCommands(block.GetFlowchart());
+            filteredAttributes = GetFilteredSupportedCommands(curBlock.GetFlowchart());
 
             int i = 0;
             foreach (var item in filteredAttributes)
             {
-                allItems.Add(new FilteredListItem(i, (item.Value.Category.Length > 0 ? item.Value.Category + "/" : "") + item.Value.CommandName, item.Value.HelpText));
+                allItems.Add(new FilteredListItem(i, (item.Value.Category.Length > 0 ? item.Value.Category + CATEGORY_CHAR : "") + item.Value.CommandName, item.Value.HelpText));
 
                 i++;
             }
@@ -68,7 +61,7 @@ namespace Fungus.EditorUtils
         {
             curBlock = block;
 
-            var win = new CommandSelectorPopupWindowContent(currentHandlerName, block, 
+            var win = new CommandSelectorPopupWindowContent(currentHandlerName, 
                 width, (int)(height - EditorGUIUtility.singleLineHeight * 3));
             PopupWindow.Show(position, win);
 
@@ -87,14 +80,10 @@ namespace Fungus.EditorUtils
 
             return filteredAttributes;
         }
-
         
-
 
         static protected void DoOlderMenu()
         {
-            var flowchart = (Flowchart)curBlock.GetFlowchart();
-
             GenericMenu commandMenu = new GenericMenu();
 
             // Build menu list
@@ -108,7 +97,7 @@ namespace Fungus.EditorUtils
                 }
                 else
                 {
-                    menuItem = new GUIContent(keyPair.Value.Category + "/" + keyPair.Value.CommandName);
+                    menuItem = new GUIContent(keyPair.Value.Category + CATEGORY_CHAR + keyPair.Value.CommandName);
                 }
 
                 commandMenu.AddItem(menuItem, false, AddCommandCallback, keyPair.Key);
