@@ -12,10 +12,9 @@ namespace Fungus.EditorUtils
         protected SerializedProperty durationProp;
         protected SerializedProperty targetBlockProp;
 
-        protected virtual void OnEnable()
+        public override void OnEnable()
         {
-            if (NullTargetCheck()) // Check for an orphaned editor instance
-                return;
+            base.OnEnable();
 
             durationProp = serializedObject.FindProperty("_duration");
             targetBlockProp = serializedObject.FindProperty("targetBlock");

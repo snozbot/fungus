@@ -17,10 +17,9 @@ namespace Fungus.EditorUtils
         protected SerializedProperty fadeDurationProp; 
         protected SerializedProperty waitUntilFinishedProp;
         
-        protected virtual void OnEnable()
+        public override void OnEnable()
         {
-            if (NullTargetCheck()) // Check for an orphaned editor instance
-                return;
+            base.OnEnable();
 
             controlProp = serializedObject.FindProperty("control");
             audioSourceProp = serializedObject.FindProperty("_audioSource");

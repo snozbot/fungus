@@ -17,10 +17,9 @@ namespace Fungus.EditorUtils
         protected SerializedProperty setMenuDialogProp;
         protected SerializedProperty hideThisOptionProp;
 
-        protected virtual void OnEnable()
+        public override void OnEnable()
         {
-            if (NullTargetCheck()) // Check for an orphaned editor instance
-                return;
+            base.OnEnable();
 
             textProp = serializedObject.FindProperty("text");
             descriptionProp = serializedObject.FindProperty("description");

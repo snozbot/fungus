@@ -51,10 +51,9 @@ namespace Fungus.EditorUtils
             property.objectReferenceValue = labelObjects[selectedIndex];
         }
 
-        protected virtual void OnEnable()
+        public override void OnEnable()
         {
-            if (NullTargetCheck()) // Check for an orphaned editor instance
-                return;
+            base.OnEnable();
 
             keyProp = serializedObject.FindProperty("key");
         }

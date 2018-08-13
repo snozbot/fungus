@@ -30,10 +30,9 @@ namespace Fungus.EditorUtils
             EditorGUILayout.SelectableLabel(tagsText, GUI.skin.GetStyle("HelpBox"), GUILayout.MinHeight(pixelHeight));
         }
 
-        protected virtual void OnEnable()
+        public override void OnEnable()
         {
-            if (NullTargetCheck()) // Check for an orphaned editor instance
-                return;
+            base.OnEnable();
 
             textObjectProp = serializedObject.FindProperty("textObject");
             textProp = serializedObject.FindProperty("text");
