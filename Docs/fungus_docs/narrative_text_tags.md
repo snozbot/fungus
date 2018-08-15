@@ -10,6 +10,7 @@ The following tokens can be used within Story Text to do things such as change t
 * {w}, {w=0.5} Wait (seconds)
 * {wi} Wait for input
 * {wc} Wait for input and clear
+* {wvo} Wait for voice over line to complete
 * {wp}, {wp=0.5} Wait on punctuation (seconds){/wp}
 * {c} Clear
 * {x} Exit, advance to the next command without waiting for input
