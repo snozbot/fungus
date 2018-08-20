@@ -1,4 +1,5 @@
 # Text Variation System # {#text_variation_system}
+[TOC]
 
 A system for selecting a sub section of a larger string. Allows for simple changes to occur within the same block of text, instead of having to create multiple commands. The Text Variation System is inspired by [Ink]'s [Variable Text system](https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md#6-variable-text). Fungus' Writer and Menu classes currently use this system, as such Say, Menu and Conversation commands can make use of it. Fungus Lua actions that result in Lua passing strings to the Fungus Writer or Menu will also work.
 
@@ -18,7 +19,7 @@ This behaviour can be modified with certain characters at the start of the [], e
 - ! does not hold the final element, it instead returns empty for the varying section
 - ~ chooses a random element every time it is encountered 
 
-##Example Usage##
+# Example Usage # {#example}
 
 In a simple case you may want to have a line read differently the first time the user encounters it. Perhaps a shop keeper, first time they say 
 ```
@@ -50,7 +51,7 @@ We could do a variation of
 
 For a more complete and thorough example, see example scene at  FungusExamples\VariationText\TextVariation.unity
 
-##Future Work##
+# Future Work # {#future_work}
 
 * Bundling of state tracking of variations so they can be saved along with other fungus data in save files
 * Loading and Unbundling of state tracking for variations so that variations can continue across instances of the applications life.

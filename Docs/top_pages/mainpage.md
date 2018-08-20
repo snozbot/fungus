@@ -11,6 +11,7 @@ There's a wide range of training material available here, suitable for both begi
 * @subpage getting_started
 * @subpage flowcharts
 * @subpage blocks
+* @subpage variables
 * @subpage telling_a_story
 * @subpage playing_audio
 * @subpage conversation_system
