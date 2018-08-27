@@ -9,7 +9,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Rotorz.ReorderableList;
 using System.IO;
 using System.Reflection;
 
@@ -26,16 +25,36 @@ namespace Fungus.EditorUtils
         protected Texture2D duplicateIcon;
         protected Texture2D deleteIcon;
         
+
+        private CommandListAdaptor commandListAdaptor;
+        private SerializedProperty commandListProperty;
+
         private Rect lastEventPopupPos, lastCMDpopupPos;
 
-
+    
         protected virtual void OnEnable()
         {
+            //this appears to happen when leaving playmode
+            try
+            {
+                if (serializedObject == null)
+                    return;
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
             upIcon = FungusEditorResources.Up;
             downIcon = FungusEditorResources.Down;
             addIcon = FungusEditorResources.Add;
             duplicateIcon = FungusEditorResources.Duplicate;
             deleteIcon = FungusEditorResources.Delete;
+
+            commandListProperty = serializedObject.FindProperty("commandList");
+
+            commandListAdaptor = new CommandListAdaptor(target as Block, commandListProperty);
+
         }
 
         public virtual void DrawBlockName(Flowchart flowchart)
@@ -63,6 +82,8 @@ namespace Fungus.EditorUtils
         {
             serializedObject.Update();
 
+            var block = target as Block;
+
             // Execute any queued cut, copy, paste, etc. operations from the prevous GUI update
             // We need to defer applying these operations until the following update because
             // the ReorderableList control emits GUI errors if you clear the list in the same frame
@@ -79,9 +100,6 @@ namespace Fungus.EditorUtils
                 actionList.Clear();
             }
 
-            var block = target as Block;
-
-            SerializedProperty commandListProperty = serializedObject.FindProperty("commandList");
 
             if (block == flowchart.SelectedBlock)
             {
@@ -116,20 +134,7 @@ namespace Fungus.EditorUtils
                     command.ParentBlock = block;
                 }
 
-                ReorderableListGUI.Title("Commands");
-                CommandListAdaptor adaptor = new CommandListAdaptor(commandListProperty, 0);
-                adaptor.nodeRect = block._NodeRect;
-
-                ReorderableListFlags flags = ReorderableListFlags.HideAddButton | ReorderableListFlags.HideRemoveButtons | ReorderableListFlags.DisableContextMenu;
-
-                if (block.CommandList.Count == 0)
-                {
-                    EditorGUILayout.HelpBox("Press the + button below to add a command to the list.", MessageType.Info);
-                }
-                else
-                {
-                    ReorderableListControl.DrawControlFromState(adaptor, null, flags);
-                }
+                commandListAdaptor.DrawCommandList();
 
                 // EventType.contextClick doesn't register since we moved the Block Editor to be inside
                 // a GUI Area, no idea why. As a workaround we just check for right click instead.
@@ -282,18 +287,19 @@ namespace Fungus.EditorUtils
 
             GUILayout.FlexibleSpace();
 
+
             var pos = EditorGUILayout.GetControlRect(true, 0, EditorStyles.objectField);
             if (pos.x != 0)
             {
                 lastCMDpopupPos = pos;
                 lastCMDpopupPos.x += EditorGUIUtility.labelWidth;
-                lastCMDpopupPos.y += EditorGUIUtility.singleLineHeight*2;
+                lastCMDpopupPos.y += EditorGUIUtility.singleLineHeight * 2;
             }
             // Add Button
             if (GUILayout.Button(addIcon))
             {
-                CommandSelectorPopupWindowContent.ShowCommandMenu(lastCMDpopupPos, "", target as Block, 
-                    (int)(EditorGUIUtility.currentViewWidth), 
+                CommandSelectorPopupWindowContent.ShowCommandMenu(lastCMDpopupPos, "", target as Block,
+                    (int)(EditorGUIUtility.currentViewWidth),
                     (int)(EditorWindow.focusedWindow.position.height - lastCMDpopupPos.y));
             }
 
@@ -311,7 +317,6 @@ namespace Fungus.EditorUtils
             }
 
             GUILayout.EndHorizontal();
-
 
         }
 
@@ -347,7 +352,7 @@ namespace Fungus.EditorUtils
             }
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel(new GUIContent("Execute On Event"));
-            if (EditorGUILayout.DropdownButton(new GUIContent(currentHandlerName),FocusType.Passive))
+            if (EditorGUILayout.DropdownButton(new GUIContent(currentHandlerName), FocusType.Passive))
             {
                 EventSelectorPopupWindowContent.DoEventHandlerPopUp(lastEventPopupPos, currentHandlerName, block, (int)(EditorGUIUtility.currentViewWidth - lastEventPopupPos.x), 200);
             }

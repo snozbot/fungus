@@ -4,7 +4,6 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
-using Rotorz.ReorderableList;
 using System.Linq;
 using System.Reflection;
 
@@ -13,7 +12,6 @@ namespace Fungus.EditorUtils
     [CustomEditor (typeof(Flowchart))]
     public class FlowchartEditor : Editor 
     {
-
         protected SerializedProperty descriptionProp;
         protected SerializedProperty colorCommandsProp;
         protected SerializedProperty hideComponentsProp;
@@ -27,6 +25,8 @@ namespace Fungus.EditorUtils
         protected SerializedProperty luaBindingNameProp;
 
         protected Texture2D addTexture;
+
+        protected VariableListAdaptor variableListAdaptor;
                 
         protected virtual void OnEnable()
         {
@@ -46,6 +46,8 @@ namespace Fungus.EditorUtils
             luaBindingNameProp = serializedObject.FindProperty("luaBindingName");
 
             addTexture = FungusEditorResources.AddSmall;
+
+            variableListAdaptor = new VariableListAdaptor(variablesProp, target as Flowchart);
         }
 
         public override void OnInspectorGUI() 
@@ -67,8 +69,9 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(luaBindingNameProp);
 
             // Show list of commands to hide in Add Command menu
-            ReorderableListGUI.Title(new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip));
-            ReorderableListGUI.ListField(hideCommandsProp);
+            //ReorderableListGUI.Title(new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip));
+            //ReorderableListGUI.ListField(hideCommandsProp);
+            EditorGUILayout.PropertyField(hideCommandsProp, new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip), true);
 
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
@@ -92,9 +95,15 @@ namespace Fungus.EditorUtils
 
         public virtual void DrawVariablesGUI(bool showVariableToggleButton, int w)
         {
+            var t = target as Flowchart;
+
+            if(t == null)
+            {
+                return;
+            }
+
             serializedObject.Update();
 
-            var t = target as Flowchart;
 
             if (t.Variables.Count == 0)
             {
@@ -117,8 +126,6 @@ namespace Fungus.EditorUtils
             }
             else
             {
-                Rect listRect = new Rect();
-                
                 // Remove any null variables from the list
                 // Can sometimes happen when upgrading to a new version of Fungus (if .meta GUID changes for a variable class)
                 for (int i = t.Variables.Count - 1; i >= 0; i--)
@@ -129,60 +136,28 @@ namespace Fungus.EditorUtils
                     }
                 }
 
-                ReorderableListGUI.Title("Variables");
-                VariableListAdaptor adaptor = new VariableListAdaptor(variablesProp, 0, w == 0 ? VariableListAdaptor.DefaultWidth : w);
-
-                ReorderableListFlags flags = ReorderableListFlags.DisableContextMenu | ReorderableListFlags.HideAddButton;
-
-                ReorderableListControl.DrawControlFromState(adaptor, null, flags);
-
-                listRect = GUILayoutUtility.GetLastRect();
-                
-                float plusWidth = 32;
-                float plusHeight = 24;
-
-                Rect buttonRect = listRect;
-                float buttonHeight = 24;
-                buttonRect.x = 4;
-                buttonRect.y -= buttonHeight - 1;
-                buttonRect.height = buttonHeight;
-                if (!Application.isPlaying)
-                {
-                    buttonRect.width -= 30;
-                }
-
-                if (showVariableToggleButton && GUI.Button(buttonRect, "Variables"))
-                {
-                    t.VariablesExpanded = false;
-                }
-
-                // Draw disclosure triangle
-                Rect lastRect = buttonRect;
-                lastRect.x += 5;
-                lastRect.y += 5;
-                
-                //this is not required, seems to be legacy that is hidden in the normal reorderable
-                if(showVariableToggleButton)
-                    EditorGUI.Foldout(lastRect, true, "");
-
-                Rect plusRect = listRect;
-                plusRect.x += plusRect.width - plusWidth;
-                plusRect.y -= plusHeight - 1;
-                plusRect.width = plusWidth;
-                plusRect.height = plusHeight;
-
-                if (!Application.isPlaying && 
-                    GUI.Button(plusRect, addTexture))
-                {
-                    Rect popRect = plusRect;
-                    VariableSelectPopupWindowContent.DoAddVariable(popRect, "", t);
-                }
+                variableListAdaptor.DrawVarList(w);
             }
 
             serializedObject.ApplyModifiedProperties();
         }
 
+        public static List<System.Type> FindAllDerivedTypes<T>()
+        {
+            return FindAllDerivedTypes<T>(Assembly.GetAssembly(typeof(T)));
+        }
         
+        public static List<System.Type> FindAllDerivedTypes<T>(Assembly assembly)
+        {
+            var derivedType = typeof(T);
+            return assembly
+                .GetTypes()
+                    .Where(t =>
+                           t != derivedType &&
+                           derivedType.IsAssignableFrom(t)
+                           ).ToList();
+            
+        }
 
         /// <summary>
         /// When modifying custom editor code you can occasionally end up with orphaned editor instances.

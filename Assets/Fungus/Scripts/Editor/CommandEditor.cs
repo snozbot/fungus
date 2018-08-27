@@ -4,14 +4,14 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
-using Rotorz.ReorderableList;
+using UnityEditorInternal;
 
 namespace Fungus.EditorUtils
 {
-
     [CustomEditor (typeof(Command), true)]
     public class CommandEditor : Editor 
     {
+        #region statics
         public static Command selectedCommand;
 
         public static CommandInfoAttribute GetCommandInfo(System.Type commandType)
@@ -32,6 +32,18 @@ namespace Fungus.EditorUtils
             }
             
             return retval;
+        }
+
+        #endregion statics
+
+        private Dictionary<string, ReorderableList> reorderableLists;
+
+        public virtual void OnEnable()
+        {
+            if (NullTargetCheck()) // Check for an orphaned editor instance
+                return;
+
+            reorderableLists = new Dictionary<string, ReorderableList>();
         }
 
         public virtual void DrawCommandInspectorGUI()
@@ -148,8 +160,32 @@ namespace Fungus.EditorUtils
                 if (iterator.isArray &&
                     t.IsReorderableArray(iterator.name))
                 {
-                    ReorderableListGUI.Title(new GUIContent(iterator.displayName, iterator.tooltip));
-                    ReorderableListGUI.ListField(iterator);
+                    ReorderableList reordList = null;
+                    reorderableLists.TryGetValue(iterator.displayName, out reordList);
+                    if(reordList == null)
+                    {
+                        var locSerProp = iterator.Copy();
+                        //create and insert
+                        reordList = new ReorderableList(serializedObject, locSerProp, true, false, true, true)
+                        {
+                            drawHeaderCallback = (Rect rect) =>
+                            {
+                                EditorGUI.LabelField(rect, locSerProp.displayName);
+                            },
+                            drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
+                            {
+                                EditorGUI.PropertyField(rect, locSerProp.GetArrayElementAtIndex(index));
+                            },
+                            elementHeightCallback = (int index) =>
+                            {
+                                return EditorGUI.GetPropertyHeight(locSerProp.GetArrayElementAtIndex(index), null, true);// + EditorGUIUtility.singleLineHeight;
+                            }
+                    };
+
+                        reorderableLists.Add(iterator.displayName, reordList);
+                    }
+
+                    reordList.DoLayoutList();
                 }
                 else
                 {
