@@ -89,7 +89,7 @@ To move / rearrange Blocks in the Flowchart window do the following:
 %Fungus Flowcharts visually differentiate three differents kinds of Block behavior:
 
 1. Event Block - blue rounded rectangle (Block execution triggered by an event)
-2. Branching Block - orange polygon (passes control to 2 or more other Blocks, and not and Event Block)
+2. Branching Block - orange hexagon (passes control to 2 or more other Blocks, and not an Event Block)
 3. Standard Block - yellow rectangle (no event, passes control to 0 or 1 other blocks)
 
 ## 1: Event Block - blue rounded rectangle ##
@@ -101,8 +101,8 @@ As we can see, the default Block created with every new Flowchart automatically 
 
 NOTE: A Block with an Execute On Event will always appear as an Event Block in the Flowchart, regardless of whether its Commands contain menus or calls to 2 or more Blocks). In other words, in terms of Flowchart appearance, display of an Event Block overrides display of a Branching Block.
 
-## 2: Branching Block - orange polygon ##
-If a Block is *not* an Event Block, and its Commands include Calls and/or Menu commands to execute Commands in 2 or more other Blocks, then in the Flowchart window this Block will be displayed as a Branching Block, visually appearing as an **orange polygon**.
+## 2: Branching Block - orange hexagon ##
+If a Block is *not* an Event Block, and its Commands include Calls and/or Menu commands to execute Commands in 2 or more other Blocks, then in the Flowchart window this Block will be displayed as a Branching Block, visually appearing as an **orange hexagon**.
 
 ![branching block]
 
