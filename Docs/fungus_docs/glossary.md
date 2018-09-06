@@ -55,7 +55,7 @@ A true/false variable.
 **Branching block**:
 A Block that is **not** an Event Block, and causes execution of 2 or more other Blocks.
 
-Note: Branching Blocks are displayed as an orange polygon in the Flowchart window.
+Note: Branching Blocks are displayed as an orange hexagon in the Flowchart window.
 
 ![branching block](./images/001_3_block_types/2_branching_block.png "branching block")
 
