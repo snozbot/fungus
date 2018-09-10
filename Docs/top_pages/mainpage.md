@@ -11,11 +11,13 @@ There's a wide range of training material available here, suitable for both begi
 * @subpage getting_started
 * @subpage flowcharts
 * @subpage blocks
+* @subpage variables
 * @subpage telling_a_story
 * @subpage playing_audio
 * @subpage conversation_system
 * @subpage community_tutorials
 * @subpage narrative_text_tags
+* @subpage text_variation_system
 * @subpage save_system
 * @subpage coding_tips
 * @subpage coding_standard
