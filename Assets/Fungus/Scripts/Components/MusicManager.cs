@@ -1,7 +1,7 @@
 // This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Fungus
 {
@@ -9,14 +9,25 @@ namespace Fungus
     /// Music manager which provides basic music and sound effect functionality.
     /// Music playback persists across scene loads.
     /// </summary>
-    [RequireComponent(typeof(AudioSource))]
+    //[RequireComponent(typeof(AudioSource))]
     public class MusicManager : MonoBehaviour
     {
         protected AudioSource audioSource;
+        protected AudioSource audioSourceAmbiance;
+
+        void Reset()
+        {
+            int audioSourceCount = this.GetComponents<AudioSource>().Length;
+            for (int i = 0; i < 2 - audioSourceCount; i++)
+                gameObject.AddComponent<AudioSource>();
+
+        }
 
         protected virtual void Awake()
         {
-            audioSource = GetComponent<AudioSource>();            
+            Reset();
+            audioSource = GetComponents<AudioSource>()[0];
+            audioSourceAmbiance = GetComponents<AudioSource>()[1];
         }
 
         protected virtual void Start()
@@ -50,10 +61,10 @@ namespace Fungus
                 float startVolume = audioSource.volume;
 
                 LeanTween.value(gameObject, startVolume, 0f, fadeDuration)
-                    .setOnUpdate( (v) => {
+                    .setOnUpdate((v) => {
                         // Fade out current music
                         audioSource.volume = v;
-                    }).setOnComplete( () => {
+                    }).setOnComplete(() => {
                         // Play new music
                         audioSource.volume = startVolume;
                         audioSource.clip = musicClip;
@@ -75,6 +86,20 @@ namespace Fungus
         }
 
         /// <summary>
+        /// Plays a sound effect with optional looping values, at the specified volume.
+        /// </summary>
+        /// <param name="soundClip">The sound effect clip to play.</param>
+        /// <param name="loop">If the audioclip should loop or not.</param>
+        /// <param name="volume">The volume level of the sound effect.</param>
+        public virtual void PlayAmbianceSound(AudioClip soundClip, bool loop, float volume)
+        {
+            audioSourceAmbiance.loop = loop;
+            audioSourceAmbiance.clip = soundClip;
+            audioSourceAmbiance.volume = volume;
+            audioSourceAmbiance.Play();
+        }
+
+        /// <summary>
         /// Shifts the game music pitch to required value over a period of time.
         /// </summary>
         /// <param name="pitch">The new music pitch value.</param>
@@ -85,6 +110,7 @@ namespace Fungus
             if (Mathf.Approximately(duration, 0f))
             {
                 audioSource.pitch = pitch;
+                audioSourceAmbiance.pitch = pitch;
                 if (onComplete != null)
                 {
                     onComplete();
@@ -92,12 +118,15 @@ namespace Fungus
                 return;
             }
 
-            LeanTween.value(gameObject, 
-                audioSource.pitch, 
-                pitch, 
-                duration).setOnUpdate( (p) => {
+            LeanTween.value(gameObject,
+                audioSource.pitch,
+                pitch,
+                duration).setOnUpdate((p) =>
+                {
                     audioSource.pitch = p;
-                }).setOnComplete( () => {
+                    audioSourceAmbiance.pitch = p;
+                }).setOnComplete(() =>
+                {
                     if (onComplete != null)
                     {
                         onComplete();
@@ -115,20 +144,22 @@ namespace Fungus
         {
             if (Mathf.Approximately(duration, 0f))
             {
-				if (onComplete != null)
-				{
-					onComplete();
-				}				
+                if (onComplete != null)
+                {
+                    onComplete();
+                }
                 audioSource.volume = volume;
+                audioSourceAmbiance.volume = volume;
                 return;
             }
 
-            LeanTween.value(gameObject, 
-                audioSource.volume, 
-                volume, 
-                duration).setOnUpdate( (v) => {
+            LeanTween.value(gameObject,
+                audioSource.volume,
+                volume,
+                duration).setOnUpdate((v) => {
                     audioSource.volume = v;
-                }).setOnComplete( () => {
+                    audioSourceAmbiance.volume = v;
+                }).setOnComplete(() => {
                     if (onComplete != null)
                     {
                         onComplete();
@@ -143,6 +174,15 @@ namespace Fungus
         {
             audioSource.Stop();
             audioSource.clip = null;
+        }
+
+        /// <summary>
+        /// Stops playing game ambiance.
+        /// </summary>
+        public virtual void StopAmbiance()
+        {
+            audioSourceAmbiance.Stop();
+            audioSourceAmbiance.clip = null;
         }
 
         #endregion
