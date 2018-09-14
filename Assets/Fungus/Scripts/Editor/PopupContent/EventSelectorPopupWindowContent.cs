@@ -72,10 +72,12 @@ namespace Fungus.EditorUtils
 
         static public void DoEventHandlerPopUp(Rect position, string currentHandlerName, Block block, int width, int height)
         {
-            //new method
-            EventSelectorPopupWindowContent win = new EventSelectorPopupWindowContent(currentHandlerName, block, width, height);
-            PopupWindow.Show(position, win);
-
+            if (FungusEditorPreferences.useExperimentalMenus)
+            {
+                //new method
+                EventSelectorPopupWindowContent win = new EventSelectorPopupWindowContent(currentHandlerName, block, width, height);
+                PopupWindow.Show(position, win);
+            }
             //old method
             DoOlderMenu(block);
         }

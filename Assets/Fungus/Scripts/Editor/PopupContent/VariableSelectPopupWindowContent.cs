@@ -56,10 +56,12 @@ namespace Fungus.EditorUtils
         static public void DoAddVariable(Rect position, string currentHandlerName, Flowchart flowchart)
         {
             curFlowchart = flowchart;
-            //new method
-            VariableSelectPopupWindowContent win = new VariableSelectPopupWindowContent(currentHandlerName, POPUP_WIDTH, POPUP_HEIGHT);
-            PopupWindow.Show(position, win);
-
+            if (FungusEditorPreferences.useExperimentalMenus)
+            {
+                //new method
+                VariableSelectPopupWindowContent win = new VariableSelectPopupWindowContent(currentHandlerName, POPUP_WIDTH, POPUP_HEIGHT);
+                PopupWindow.Show(position, win);
+            }
             //old method
             DoOlderMenu(flowchart);
         }

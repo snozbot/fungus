@@ -61,10 +61,18 @@ namespace Fungus.EditorUtils
         {
             curBlock = block;
 
-            var win = new CommandSelectorPopupWindowContent(currentHandlerName, 
-                width, (int)(height - EditorGUIUtility.singleLineHeight * 3));
-            PopupWindow.Show(position, win);
 
+            if (FungusEditorPreferences.useExperimentalMenus)
+            {
+                var win = new CommandSelectorPopupWindowContent(currentHandlerName,
+                    width, (int)(height - EditorGUIUtility.singleLineHeight * 3));
+                PopupWindow.Show(position, win);
+            }
+            else
+            {
+                //need to ensure we have filtered data 
+                filteredAttributes = GetFilteredSupportedCommands(curBlock.GetFlowchart());
+            }
 
             //old method
             DoOlderMenu();
