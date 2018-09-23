@@ -48,12 +48,11 @@ namespace Fungus.EditorUtils
 
             filteredAttributes = GetFilteredSupportedCommands(curBlock.GetFlowchart());
 
-            int i = 0;
             foreach (var item in filteredAttributes)
             {
-                allItems.Add(new FilteredListItem(i, (item.Value.Category.Length > 0 ? item.Value.Category + CATEGORY_CHAR : "") + item.Value.CommandName, item.Value.HelpText));
-
-                i++;
+                //force lookup to orig index here to account for commmand lists being filtered by users
+                var newFilteredItem = new FilteredListItem(commandTypes.IndexOf(item.Key), (item.Value.Category.Length > 0 ? item.Value.Category + CATEGORY_CHAR : "") + item.Value.CommandName, item.Value.HelpText);
+                allItems.Add(newFilteredItem);
             }
         }
 

@@ -288,7 +288,8 @@ namespace Fungus.EditorUtils
             GUILayout.FlexibleSpace();
 
 
-            var pos = EditorGUILayout.GetControlRect(true, 0, EditorStyles.objectField);
+            //using false to prevent forcing a longer row than will fit on smallest inspector
+            var pos = EditorGUILayout.GetControlRect(false, 0, EditorStyles.objectField);
             if (pos.x != 0)
             {
                 lastCMDpopupPos = pos;
