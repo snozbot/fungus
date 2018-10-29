@@ -228,7 +228,7 @@ namespace Fungus
                 {
                     if (nextBeepTime < Time.realtimeSinceStartup)
                     {
-                        targetAudioSource.clip = beepSounds[Random.Range(0, beepSounds.Count - 1)];
+                        targetAudioSource.clip = beepSounds[Random.Range(0, beepSounds.Count)];
 
                         if (targetAudioSource.clip != null)
                         {
