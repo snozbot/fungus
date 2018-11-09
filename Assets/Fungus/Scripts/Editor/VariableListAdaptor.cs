@@ -58,7 +58,8 @@ namespace Fungus.EditorUtils
             list = new ReorderableList(arrayProperty.serializedObject, arrayProperty, true, false, true, true);
             list.drawElementCallback = DrawItem;
             list.onRemoveCallback = RemoveItem;
-            list.onAddCallback = AddButton;
+            //list.onAddCallback = AddButton;
+            list.onAddDropdownCallback = AddDropDown;
             list.onRemoveCallback = RemoveItem;
             list.elementHeightCallback = GetElementHeight;
         }
@@ -76,50 +77,10 @@ namespace Fungus.EditorUtils
             Undo.DestroyObjectImmediate(variable);
         }
 
-        private void AddButton(ReorderableList list)
+        private void AddDropDown(Rect buttonRect, ReorderableList list)
         {
-            GenericMenu menu = new GenericMenu();
-            List<System.Type> types = FlowchartEditor.FindAllDerivedTypes<Variable>();
-
-            // Add variable types without a category
-            foreach (var type in types)
-            {
-                VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(type);
-                if (variableInfo == null ||
-                    variableInfo.Category != "")
-                {
-                    continue;
-                }
-
-                AddVariableInfo addVariableInfo = new AddVariableInfo();
-                addVariableInfo.flowchart = TargetFlowchart;
-                addVariableInfo.variableType = type;
-
-                GUIContent typeName = new GUIContent(variableInfo.VariableType);
-
-                menu.AddItem(typeName, false, AddVariable, addVariableInfo);
-            }
-
-            // Add types with a category
-            foreach (var type in types)
-            {
-                VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(type);
-                if (variableInfo == null ||
-                    variableInfo.Category == "")
-                {
-                    continue;
-                }
-
-                AddVariableInfo info = new AddVariableInfo();
-                info.flowchart = TargetFlowchart;
-                info.variableType = type;
-
-                GUIContent typeName = new GUIContent(variableInfo.Category + "/" + variableInfo.VariableType);
-
-                menu.AddItem(typeName, false, AddVariable, info);
-            }
-
-            menu.ShowAsContext();
+            Event.current.Use();
+            VariableSelectPopupWindowContent.DoAddVariable(buttonRect, "", TargetFlowchart);
         }
 
         protected virtual void AddVariable(object obj)
