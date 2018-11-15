@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Fungus.Examples
 {
@@ -12,6 +10,8 @@ namespace Fungus.Examples
         public BlockReference runBlockWhenGazed;
         public Transform eye;
 
+        public VariableReference fungusBoolHasGazed;
+
         public void ActivateNow()
         {
             enabled = true;
@@ -19,10 +19,11 @@ namespace Fungus.Examples
 
         private void Update()
         {
+            var curCounter = gazeCounter;
             RaycastHit hit;
-            if(Physics.Raycast(eye.position, eye.forward, out hit))
+            if (Physics.Raycast(eye.position, eye.forward, out hit))
             {
-                if(hit.collider == doorCol)
+                if (hit.collider == doorCol)
                 {
                     gazeCounter += Time.deltaTime;
                 }
@@ -36,10 +37,10 @@ namespace Fungus.Examples
                 gazeCounter = 0;
             }
 
-            if(gazeCounter >= gazeTime)
+            if (gazeCounter >= gazeTime && curCounter <= gazeTime)
             {
                 runBlockWhenGazed.Execute();
-                enabled = false;
+                fungusBoolHasGazed.Set(true);
             }
         }
     }
