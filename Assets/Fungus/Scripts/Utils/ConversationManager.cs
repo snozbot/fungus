@@ -14,6 +14,14 @@ namespace Fungus
     /// </summary>
     public class ConversationManager
     {
+        const string ConversationTextBodyRegex = @"((?<sayParams>[\w ""><.'-_]*?):)?(?<text>.*)\r*(\n|$)";
+
+        public struct RawConversationItem
+        {
+            public string[] sayParams;
+            public string text;
+        }
+
         protected struct ConversationItem
         {
             public string Text { get; set; }
@@ -112,16 +120,13 @@ namespace Fungus
             return sayDialog;
         }
 
-        protected virtual List<ConversationItem> Parse(string conv)
+        public static void PreParse(string conv, System.Action<RawConversationItem> itemAction)
         {
             //find SimpleScript say strings with portrait options
             //You can test regex matches here: http://regexstorm.net/tester
-            var sayRegex = new Regex(@"((?<sayParams>[\w ""><.'-_]*):)?(?<text>.*)\r*(\n|$)");
+            var sayRegex = new Regex(ConversationTextBodyRegex);
             MatchCollection sayMatches = sayRegex.Matches(conv);
 
-            var items = new List<ConversationItem>(sayMatches.Count);
-
-            Character currentCharacter = null;
             for (int i = 0; i < sayMatches.Count; i++)
             {
                 string text = sayMatches[i].Groups["text"].Value.Trim();
@@ -141,14 +146,39 @@ namespace Fungus
                 {
                     separateParams = Split(sayParams);
                 }
+                else
+                {
+                    separateParams = new string[0];
+                }
 
-                var item = CreateConversationItem(separateParams, text, currentCharacter);
+                var item = new RawConversationItem() { sayParams = separateParams, text = text };
+
+                itemAction(item);
+            }
+        }
+
+        public static List<RawConversationItem> PreParse(string conv)
+        {
+            List<RawConversationItem> retval = new List<RawConversationItem>();
+
+            PreParse(conv, (ia) => { retval.Add(ia); });
+
+            return retval;
+        }
+
+        protected virtual List<ConversationItem> Parse(string conv)
+        {
+            var items = new List<ConversationItem>();
+
+            Character currentCharacter = null;
+            PreParse(conv, (ia) =>
+            {
+                var item = CreateConversationItem(ia.sayParams, ia.text, currentCharacter);
 
                 // Previous speaking character is the default for next conversation item
                 currentCharacter = item.Character;
-
                 items.Add(item);
-            }
+            });
 
             return items;
         }
