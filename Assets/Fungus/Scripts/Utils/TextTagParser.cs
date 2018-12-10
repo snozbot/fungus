@@ -12,6 +12,8 @@ namespace Fungus
     /// </summary>
     public static class TextTagParser
     {
+        const string TextTokenRegexString = @"\{.*?\}";
+
         private static void AddWordsToken(List<TextTagToken> tokenList, string words)
         {
             TextTagToken token = new TextTagToken();
@@ -235,8 +237,7 @@ namespace Fungus
         {
             List<TextTagToken> tokens = new List<TextTagToken>();
 
-            string pattern = @"\{.*?\}";
-            Regex myRegex = new Regex(pattern);
+            Regex myRegex = new Regex(TextTokenRegexString);
 
             Match m = myRegex.Match(storyText);   // m is the first match
 
