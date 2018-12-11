@@ -109,6 +109,10 @@ namespace Fungus
                 command.CommandIndex = index++;
             }
         }
+
+        //editor only state for speeding up flowchart window drawing
+        public bool IsSelected { get; set; }
+        public bool IsFiltered { get; set; }
 #endif
 
         #region Public members

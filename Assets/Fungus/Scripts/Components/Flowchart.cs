@@ -333,6 +333,7 @@ namespace Fungus
         /// </summary>
         public virtual Rect ScrollViewRect { get { return scrollViewRect; } set { scrollViewRect = value; } }
 
+#if UNITY_EDITOR
         /// <summary>
         /// Current actively selected block in the Flowchart editor.
         /// </summary>
@@ -344,13 +345,14 @@ namespace Fungus
             } 
             set
             {
-                selectedBlocks.Clear();
-                selectedBlocks.Add(value);
+                ClearSelectedBlocks();
+                AddSelectedBlock(value);
             } 
         }
 
         public virtual List<Block> SelectedBlocks { get { return selectedBlocks; } set { selectedBlocks = value; } }
 
+#endif
         /// <summary>
         /// Currently selected command in the Flowchart editor.
         /// </summary>
@@ -1106,11 +1108,16 @@ namespace Fungus
             }
         }
 
+#if UNITY_EDITOR
         /// <summary>
         /// Clears the list of selected blocks.
         /// </summary>
         public virtual void ClearSelectedBlocks()
         {
+            foreach (var item in selectedBlocks)
+            {
+                item.IsSelected = false;
+            }
             selectedBlocks.Clear();
         }
 
@@ -1121,10 +1128,23 @@ namespace Fungus
         {
             if (!selectedBlocks.Contains(block))
             {
+                block.IsSelected = true;
                 selectedBlocks.Add(block);
             }
         }
 
+        public virtual bool DeselectBlock(Block block)
+        {
+            if (!selectedBlocks.Contains(block))
+            {
+                block.IsSelected = false;
+                selectedBlocks.Remove(block);
+                return true;
+            }
+            return false;
+        }
+
+#endif
         /// <summary>
         /// Reset the commands and variables in the Flowchart.
         /// </summary>
