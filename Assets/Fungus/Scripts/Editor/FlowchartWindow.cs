@@ -168,7 +168,14 @@ namespace Fungus.EditorUtils
         protected void UpdateBlockCollection()
         {
             flowchart = GetFlowchart();
-            blocks = flowchart.GetComponents<Block>();
+            if (flowchart == null)
+            {
+                blocks = new Block[0];
+            }
+            else
+            {
+                blocks = flowchart.GetComponents<Block>();
+            }
             filterStale = true;
             UpdateFilteredBlocks();
         }
@@ -393,7 +400,6 @@ namespace Fungus.EditorUtils
             //prevBlockCount = blocks.Length;
 
             UpdateFilteredBlocks();
-            BringSelectedBlockToFront();
 
             HandleEarlyEvents(Event.current);
 
@@ -679,20 +685,6 @@ namespace Fungus.EditorUtils
             return null;
         }
 
-        protected void BringSelectedBlockToFront()
-        {
-            var block = flowchart.SelectedBlock;
-            if (block != null)
-            {
-                var index = Array.IndexOf(blocks, block);
-                for (int i = index; i < blocks.Length - 1; ++i)
-                {
-                    blocks[i] = blocks[i + 1];
-                }
-                blocks[blocks.Length - 1] = block;
-            }
-        }
-
         protected override void OnMouseDown(Event e)
         {
             var hitBlock = GetBlockAtPoint(e.mousePosition);
@@ -793,6 +785,9 @@ namespace Fungus.EditorUtils
                 // Selection box
                 else if (startSelectionBoxPosition.x >= 0 && startSelectionBoxPosition.y >= 0)
                 {
+                    if (Mathf.Approximately(e.delta.magnitude, 0))
+                        break;
+
                     var topLeft = Vector2.Min(startSelectionBoxPosition, e.mousePosition);
                     var bottomRight = Vector2.Max(startSelectionBoxPosition, e.mousePosition);
                     selectionBox = Rect.MinMaxRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
@@ -805,11 +800,12 @@ namespace Fungus.EditorUtils
                     for (int i = 0; i < blocks.Length; ++i)
                     {
                         var block = blocks[i];
-                        if (zoomSelectionBox.Overlaps(block._NodeRect))
+                        var doesMarqueOverlap = zoomSelectionBox.Overlaps(block._NodeRect);
+                        if (doesMarqueOverlap)
                         {
                             if (mouseDownSelectionState.Contains(block))
                             {
-                                flowchart.DeselectBlock(block);
+                                flowchart.DeselectBlockNoCheck(block);
                             }
                             else
                             {
@@ -820,9 +816,10 @@ namespace Fungus.EditorUtils
                         {
                             flowchart.AddSelectedBlock(block);
                         }
-                        else
+
+                        if (block.IsSelected && !doesMarqueOverlap)
                         {
-                            flowchart.DeselectBlock(block);
+                            flowchart.DeselectBlockNoCheck(block);
                         }
                     }
                     e.Use();
@@ -961,11 +958,11 @@ namespace Fungus.EditorUtils
                 e.Use();
             }
         }
-        
+
         protected virtual void DrawFlowchartView(Event e)
         {
             // Calc rect for script view
-            Rect scriptViewRect = new Rect(0, 0, this.position.width / flowchart.Zoom, this.position.height / flowchart.Zoom);
+            Rect scriptViewRect = CalcFlowchartWindowViewRect();
 
             EditorZoomArea.Begin(flowchart.Zoom, scriptViewRect);
 
@@ -976,105 +973,26 @@ namespace Fungus.EditorUtils
                 // Draw connections
                 foreach (var block in blocks)
                 {
-                    DrawConnections(block, false);
-                }
-                foreach (var block in blocks)
-                {
-                    DrawConnections(block, true);
+                    DrawConnections(block);
                 }
 
+                //draw all non selected
                 for (int i = 0; i < blocks.Length; ++i)
                 {
                     var block = blocks[i];
+                    if (!block.IsSelected)
+                        DrawBlock(blocks[i], scriptViewRect);
+                }
 
-                    float nodeWidthA = nodeStyle.CalcSize(new GUIContent(block.BlockName)).x + 10;
-                    float nodeWidthB = 0f;
-                    if (block._EventHandler != null)
-                    {
-                        nodeWidthB = nodeStyle.CalcSize(new GUIContent(block._EventHandler.GetSummary())).x + 10;
-                    }
-
-                    Rect tempRect = block._NodeRect;
-                    tempRect.width = Mathf.Max(Mathf.Max(nodeWidthA, nodeWidthB), 120);
-                    tempRect.height = 40;
-                    block._NodeRect = tempRect;
-
-                    Rect windowRect = new Rect(block._NodeRect);
-                    windowRect.position += flowchart.ScrollPos;
-
-                    // Draw blocks
-                    bool selected = block.IsSelected;
-
-                    GUIStyle nodeStyleCopy = new GUIStyle(nodeStyle);
-                    var graphics = GetBlockGraphics(block);
-
-                    // Make sure node is wide enough to fit the node name text
-                    float width = nodeStyleCopy.CalcSize(new GUIContent(block.BlockName)).x;
-                    tempRect = block._NodeRect;
-                    tempRect.width = Mathf.Max(block._NodeRect.width, width);
-                    block._NodeRect = tempRect;
-
-                    // Draw untinted highlight
-                    if (selected)
-                    {
-                        GUI.backgroundColor = Color.white;
-                        nodeStyleCopy.normal.background = graphics.onTexture;
-                        GUI.Box(windowRect, "", nodeStyleCopy);
-                    }
-
-                    // Draw tinted block; ensure text is readable
-                    var brightness = graphics.tint.r * 0.3 + graphics.tint.g * 0.59 + graphics.tint.b * 0.11;
-                    nodeStyleCopy.normal.textColor = brightness >= 0.5 ? Color.black : Color.white;
-
-                    if (GUI.GetNameOfFocusedControl() == searchFieldName && !block.IsFiltered)
-                    {
-                        graphics.tint.a *= 0.2f;
-                    }
-
-                    nodeStyleCopy.normal.background = graphics.offTexture;
-                    GUI.backgroundColor = graphics.tint;
-                    GUI.Box(windowRect, block.BlockName, nodeStyleCopy);
-
-                    GUI.backgroundColor = Color.white;
-
-                    if (block.Description.Length > 0)
-                    {
-                        GUIStyle descriptionStyle = new GUIStyle(EditorStyles.helpBox);
-                        descriptionStyle.wordWrap = true;
-                        var content = new GUIContent(block.Description);
-                        windowRect.y += windowRect.height;
-                        windowRect.height = descriptionStyle.CalcHeight(content, windowRect.width);
-                        GUI.Label(windowRect, content, descriptionStyle);
-                    }
-
-                    GUI.backgroundColor = Color.white;
-
-                    // Draw Event Handler labels
-                    if (block._EventHandler != null)
-                    {
-                        string handlerLabel = "";
-                        EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(block._EventHandler.GetType());
-                        if (info != null)
-                        {
-                            handlerLabel = "<" + info.EventHandlerName + "> ";
-                        }
-
-                        GUIStyle handlerStyle = new GUIStyle(EditorStyles.whiteLabel);
-                        handlerStyle.wordWrap = true;
-                        handlerStyle.margin.top = 0;
-                        handlerStyle.margin.bottom = 0;
-                        handlerStyle.alignment = TextAnchor.MiddleCenter;
-
-                        Rect rect = new Rect(block._NodeRect);
-                        rect.height = handlerStyle.CalcHeight(new GUIContent(handlerLabel), block._NodeRect.width);
-                        rect.x += flowchart.ScrollPos.x;
-                        rect.y += flowchart.ScrollPos.y - rect.height;
-
-                        GUI.Label(rect, handlerLabel, handlerStyle);
-                    }
+                //draw all selected
+                for (int i = 0; i < blocks.Length; ++i)
+                {
+                    var block = blocks[i];
+                    if (block.IsSelected)
+                        DrawBlock(blocks[i], scriptViewRect);
                 }
             }
-                
+
             // Draw play icons beside all executing blocks
             if (Application.isPlaying)
             {
@@ -1115,6 +1033,11 @@ namespace Fungus.EditorUtils
             }
 
             EditorZoomArea.End();
+        }
+
+        private Rect CalcFlowchartWindowViewRect()
+        {
+            return new Rect(0, 0, this.position.width / flowchart.Zoom, this.position.height / flowchart.Zoom);
         }
 
         public virtual Vector2 GetBlockCenter(Block[] blocks)
@@ -1220,7 +1143,7 @@ namespace Fungus.EditorUtils
             return newBlock;
         }
 
-        protected virtual void DrawConnections(Block block, bool highlightedOnly)
+        protected virtual void DrawConnections(Block block)
         {
             if (block == null)
             {
@@ -1251,12 +1174,6 @@ namespace Fungus.EditorUtils
                 }
 
                 bool highlight = command.IsExecuting || (blockIsSelected && commandIsSelected);
-
-                if (highlightedOnly && !highlight ||
-                    !highlightedOnly && highlight)
-                {
-                    continue;
-                }
 
                 connectedBlocks.Clear();
                 command.GetConnectedBlocks(ref connectedBlocks);
@@ -1400,7 +1317,7 @@ namespace Fungus.EditorUtils
                 if (isSelected)
                 {
                     // Deselect
-                    flowchart.DeselectBlock(deleteBlock);
+                    flowchart.DeselectBlockNoCheck(deleteBlock);
 
                     // Revert to showing properties for the Flowchart
                     Selection.activeGameObject = flowchart.gameObject;
@@ -1641,6 +1558,99 @@ namespace Fungus.EditorUtils
             graphics.tint = block.UseCustomTint ? block.Tint : defaultTint;
 
             return graphics;
+        }
+
+        private void DrawBlock(Block block, Rect scriptViewRect)
+        {
+            float nodeWidthA = nodeStyle.CalcSize(new GUIContent(block.BlockName)).x + 10;
+            float nodeWidthB = 0f;
+            if (block._EventHandler != null)
+            {
+                nodeWidthB = nodeStyle.CalcSize(new GUIContent(block._EventHandler.GetSummary())).x + 10;
+            }
+
+            Rect tempRect = block._NodeRect;
+            tempRect.width = Mathf.Max(Mathf.Max(nodeWidthA, nodeWidthB), 120);
+            tempRect.height = 40;
+            block._NodeRect = tempRect;
+
+            Rect windowRect = new Rect(block._NodeRect);
+            windowRect.position += flowchart.ScrollPos;
+
+            //skip if outside of view
+            if (!scriptViewRect.Overlaps(windowRect))
+                return;
+
+            // Draw blocks
+            bool selected = block.IsSelected;
+
+            GUIStyle nodeStyleCopy = new GUIStyle(nodeStyle);
+            var graphics = GetBlockGraphics(block);
+
+            // Make sure node is wide enough to fit the node name text
+            float width = nodeStyleCopy.CalcSize(new GUIContent(block.BlockName)).x;
+            tempRect = block._NodeRect;
+            tempRect.width = Mathf.Max(block._NodeRect.width, width);
+            block._NodeRect = tempRect;
+
+            // Draw untinted highlight
+            if (selected)
+            {
+                GUI.backgroundColor = Color.white;
+                nodeStyleCopy.normal.background = graphics.onTexture;
+                GUI.Box(windowRect, "", nodeStyleCopy);
+            }
+
+            // Draw tinted block; ensure text is readable
+            var brightness = graphics.tint.r * 0.3 + graphics.tint.g * 0.59 + graphics.tint.b * 0.11;
+            nodeStyleCopy.normal.textColor = brightness >= 0.5 ? Color.black : Color.white;
+
+            if (GUI.GetNameOfFocusedControl() == searchFieldName && !block.IsFiltered)
+            {
+                graphics.tint.a *= 0.2f;
+            }
+
+            nodeStyleCopy.normal.background = graphics.offTexture;
+            GUI.backgroundColor = graphics.tint;
+            GUI.Box(windowRect, block.BlockName, nodeStyleCopy);
+
+            GUI.backgroundColor = Color.white;
+
+            if (block.Description.Length > 0)
+            {
+                GUIStyle descriptionStyle = new GUIStyle(EditorStyles.helpBox);
+                descriptionStyle.wordWrap = true;
+                var content = new GUIContent(block.Description);
+                windowRect.y += windowRect.height;
+                windowRect.height = descriptionStyle.CalcHeight(content, windowRect.width);
+                GUI.Label(windowRect, content, descriptionStyle);
+            }
+
+            GUI.backgroundColor = Color.white;
+
+            // Draw Event Handler labels
+            if (block._EventHandler != null)
+            {
+                string handlerLabel = "";
+                EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(block._EventHandler.GetType());
+                if (info != null)
+                {
+                    handlerLabel = "<" + info.EventHandlerName + "> ";
+                }
+
+                GUIStyle handlerStyle = new GUIStyle(EditorStyles.whiteLabel);
+                handlerStyle.wordWrap = true;
+                handlerStyle.margin.top = 0;
+                handlerStyle.margin.bottom = 0;
+                handlerStyle.alignment = TextAnchor.MiddleCenter;
+
+                Rect rect = new Rect(block._NodeRect);
+                rect.height = handlerStyle.CalcHeight(new GUIContent(handlerLabel), block._NodeRect.width);
+                rect.x += flowchart.ScrollPos.x;
+                rect.y += flowchart.ScrollPos.y - rect.height;
+
+                GUI.Label(rect, handlerLabel, handlerStyle);
+            }
         }
     }
 }

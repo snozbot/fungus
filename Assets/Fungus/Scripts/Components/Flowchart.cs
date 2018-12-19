@@ -341,7 +341,10 @@ namespace Fungus
         { 
             get
             {
-                return selectedBlocks.FirstOrDefault();
+                if (selectedBlocks == null || selectedBlocks.Count == 0)
+                    return null;
+
+                return selectedBlocks[0];
             } 
             set
             {
@@ -1135,13 +1138,18 @@ namespace Fungus
 
         public virtual bool DeselectBlock(Block block)
         {
-            if (!selectedBlocks.Contains(block))
+            if (selectedBlocks.Contains(block))
             {
-                block.IsSelected = false;
-                selectedBlocks.Remove(block);
+                DeselectBlockNoCheck(block);
                 return true;
             }
             return false;
+        }
+
+        public virtual void DeselectBlockNoCheck(Block b)
+        {
+            b.IsSelected = false;
+            selectedBlocks.Remove(b);
         }
 
 #endif
