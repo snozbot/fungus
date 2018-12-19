@@ -18,7 +18,9 @@ namespace Fungus
         /// <summary> Continue executing the current block after calling  </summary>
         Continue,
         /// <summary> Wait until the called block finishes executing, then continue executing current block. </summary>
-        WaitUntilFinished
+        WaitUntilFinished,
+        /// <summary> Stop executing the current block before attempting to call. This allows for circular calls within the same frame </summary>
+        StopThenCall
     }
 
     /// <summary>
@@ -63,6 +65,13 @@ namespace Fungus
                     return;
                 }
 
+                if(targetBlock.IsExecuting())
+                {
+                    Debug.LogWarning(targetBlock.BlockName + " cannot be called/executed, it is already running.");
+                    Continue();
+                    return;
+                }
+
                 // Callback action for Wait Until Finished mode
                 Action onComplete = null;
                 if (callMode == CallMode.WaitUntilFinished)
@@ -94,10 +103,18 @@ namespace Fungus
                         flowchart.SelectedBlock = targetBlock;
                     }
 
+                    if (callMode == CallMode.StopThenCall)
+                    {
+                        StopParentBlock();
+                    }
                     StartCoroutine(targetBlock.Execute(index, onComplete));
                 }
                 else
                 {
+                    if (callMode == CallMode.StopThenCall)
+                    {
+                        StopParentBlock();
+                    }
                     // Execute block in another Flowchart
                     targetFlowchart.ExecuteBlock(targetBlock, index, onComplete);
                 }
@@ -134,18 +151,7 @@ namespace Fungus
                 summary = targetBlock.BlockName;
             }
 
-            switch (callMode)
-            {
-            case CallMode.Stop:
-                summary += " : Stop";
-                break;
-            case CallMode.Continue:
-                summary += " : Continue";
-                break;
-            case CallMode.WaitUntilFinished:
-                summary += " : Wait";
-                break;
-            }
+            summary += " : " + callMode.ToString();
 
             return summary;
         }
