@@ -138,6 +138,7 @@ namespace Fungus.EditorUtils
         static protected VariableListAdaptor variableListAdaptor;
 
         private bool filterStale = true;
+        private bool wasControl;
 
         [MenuItem("Tools/Fungus/Flowchart Window")]
         static void Init()
@@ -367,8 +368,46 @@ namespace Fungus.EditorUtils
                     DeselectAll();
                     e.Use();
                 }
+                else if (e.control && !wasControl)
+                {
+                    StartControlSelection();
+                    Repaint();
+                    wasControl = true;
+                }
+                break;
+                case EventType.KeyUp:
+                if (!e.control && wasControl)
+                {
+                    wasControl = false;
+                    EndControlSelection();
+                    Repaint();
+                }
                 break;
             }
+        }
+
+        private void StartControlSelection()
+        {
+            mouseDownSelectionState.Clear();
+            mouseDownSelectionState.AddRange(flowchart.SelectedBlocks);
+            flowchart.ClearSelectedBlocks();
+            foreach (var item in mouseDownSelectionState)
+            {
+                item.IsControlSelected = true;
+            }
+        }
+
+        private void EndControlSelection()
+        {
+            foreach (var item in mouseDownSelectionState)
+            {
+                item.IsControlSelected = false;
+                if (!flowchart.DeselectBlock(item))
+                {
+                    flowchart.AddSelectedBlock(item);
+                }
+            }
+            mouseDownSelectionState.Clear();
         }
 
         protected virtual void OnGUI()
@@ -388,6 +427,7 @@ namespace Fungus.EditorUtils
             {
                 blockInspector = null;
                 prevFlowchart = flowchart;
+                UpdateBlockCollection();
                 return;
             }
             
@@ -741,7 +781,6 @@ namespace Fungus.EditorUtils
                         }
 
                         startSelectionBoxPosition = e.mousePosition;
-                        mouseDownSelectionState = new List<Block>(flowchart.SelectedBlocks);
                         e.Use();
                     }
                 }
@@ -756,7 +795,7 @@ namespace Fungus.EditorUtils
 
         protected override void OnMouseDrag(Event e)
         {
-            var drag = false;
+            var draggingWindow = false;
             switch (e.button)
             {
             case MouseButton.Left:
@@ -775,7 +814,7 @@ namespace Fungus.EditorUtils
                 // Pan tool or alt + left click
                 else if (UnityEditor.Tools.current == Tool.View && UnityEditor.Tools.viewTool == ViewTool.Pan || e.alt)
                 {
-                    drag = true;
+                    draggingWindow = true;
                 }
                 else if (UnityEditor.Tools.current == Tool.View && UnityEditor.Tools.viewTool == ViewTool.Zoom)
                 {
@@ -787,7 +826,7 @@ namespace Fungus.EditorUtils
                 {
                     if (Mathf.Approximately(e.delta.magnitude, 0))
                         break;
-
+                    
                     var topLeft = Vector2.Min(startSelectionBoxPosition, e.mousePosition);
                     var bottomRight = Vector2.Max(startSelectionBoxPosition, e.mousePosition);
                     selectionBox = Rect.MinMaxRect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
@@ -797,31 +836,21 @@ namespace Fungus.EditorUtils
                     zoomSelectionBox.position /= flowchart.Zoom;
                     zoomSelectionBox.size /= flowchart.Zoom;
 
+
                     for (int i = 0; i < blocks.Length; ++i)
                     {
                         var block = blocks[i];
                         var doesMarqueOverlap = zoomSelectionBox.Overlaps(block._NodeRect);
                         if (doesMarqueOverlap)
                         {
-                            if (mouseDownSelectionState.Contains(block))
-                            {
-                                flowchart.DeselectBlockNoCheck(block);
-                            }
-                            else
-                            {
-                                flowchart.AddSelectedBlock(block);
-                            }
-                        }
-                        else if (mouseDownSelectionState.Contains(block))
-                        {
                             flowchart.AddSelectedBlock(block);
                         }
-
-                        if (block.IsSelected && !doesMarqueOverlap)
-                        {
+                        else
+                        { 
                             flowchart.DeselectBlockNoCheck(block);
                         }
                     }
+
                     e.Use();
                 }
                 break;
@@ -831,15 +860,15 @@ namespace Fungus.EditorUtils
                 {
                     rightClickDown = -Vector2.one;
                 }
-                drag = true;
+                draggingWindow = true;
                 break;
 
             case MouseButton.Middle:
-                drag = true;
+                draggingWindow = true;
                 break;
             }
 
-            if (drag)
+            if (draggingWindow)
             {
                 flowchart.ScrollPos += e.delta / flowchart.Zoom;
                 e.Use();
@@ -884,10 +913,12 @@ namespace Fungus.EditorUtils
                 // Check to see if selection actually changed?
                 if (selectionBox.size.x > 0 && selectionBox.size.y > 0)
                 {
-                    var tempList = new List<Block>(flowchart.SelectedBlocks);
-                    flowchart.SelectedBlocks = mouseDownSelectionState;
                     Undo.RecordObject(flowchart, "Select");
-                    flowchart.SelectedBlocks = tempList;
+                    flowchart.UpdateSelectedCache();
+
+                    EndControlSelection();
+                    StartControlSelection();
+                    Repaint();
 
                     if (flowchart.SelectedBlock != null)
                     {
@@ -980,16 +1011,23 @@ namespace Fungus.EditorUtils
                 for (int i = 0; i < blocks.Length; ++i)
                 {
                     var block = blocks[i];
-                    if (!block.IsSelected)
-                        DrawBlock(blocks[i], scriptViewRect);
+                    if (!block.IsSelected && !block.IsControlSelected)
+                        DrawBlock(block, scriptViewRect, false);
                 }
 
                 //draw all selected
                 for (int i = 0; i < blocks.Length; ++i)
                 {
                     var block = blocks[i];
-                    if (block.IsSelected)
-                        DrawBlock(blocks[i], scriptViewRect);
+                    if (block.IsSelected && !block.IsControlSelected)
+                        DrawBlock(block, scriptViewRect, true);
+                }
+
+                //draw held over from control
+                for (int i = 0; i < mouseDownSelectionState.Count; ++i)
+                {
+                    var block = mouseDownSelectionState[i];
+                    DrawBlock(block, scriptViewRect, !block.IsSelected);
                 }
             }
 
@@ -1560,7 +1598,7 @@ namespace Fungus.EditorUtils
             return graphics;
         }
 
-        private void DrawBlock(Block block, Rect scriptViewRect)
+        private void DrawBlock(Block block, Rect scriptViewRect, bool highlighted)
         {
             float nodeWidthA = nodeStyle.CalcSize(new GUIContent(block.BlockName)).x + 10;
             float nodeWidthB = 0f;
@@ -1582,8 +1620,6 @@ namespace Fungus.EditorUtils
                 return;
 
             // Draw blocks
-            bool selected = block.IsSelected;
-
             GUIStyle nodeStyleCopy = new GUIStyle(nodeStyle);
             var graphics = GetBlockGraphics(block);
 
@@ -1594,7 +1630,7 @@ namespace Fungus.EditorUtils
             block._NodeRect = tempRect;
 
             // Draw untinted highlight
-            if (selected)
+            if (highlighted)
             {
                 GUI.backgroundColor = Color.white;
                 nodeStyleCopy.normal.background = graphics.onTexture;

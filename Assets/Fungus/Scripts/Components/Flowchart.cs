@@ -1152,6 +1152,13 @@ namespace Fungus
             selectedBlocks.Remove(b);
         }
 
+        public void UpdateSelectedCache()
+        {
+            selectedBlocks.Clear();
+            var res = gameObject.GetComponents<Block>();
+            selectedBlocks = res.Where(x => x.IsSelected).ToList();
+        }
+
 #endif
         /// <summary>
         /// Reset the commands and variables in the Flowchart.
