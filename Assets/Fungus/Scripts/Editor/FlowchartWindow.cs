@@ -185,13 +185,15 @@ namespace Fungus.EditorUtils
         {
             // Ensure the Block Inspector is always showing the currently selected block
             var flowchart = GetFlowchart();
-            if (flowchart == null)
+            if (flowchart == null || AnyNullBLocks())
             {
+                UpdateBlockCollection();
+                Repaint();
                 return;
             }
 
             if (Selection.activeGameObject == null &&
-                flowchart.SelectedBlock != null )
+                flowchart.SelectedBlock != null)
             {
                 if (blockInspector == null)
                 {
@@ -200,10 +202,27 @@ namespace Fungus.EditorUtils
                 blockInspector.block = (Block)flowchart.SelectedBlock;
             }
 
-            forceRepaintCount--;
-            forceRepaintCount = Math.Max(0, forceRepaintCount);
+            if (forceRepaintCount != 0)
+            {
+                forceRepaintCount--;
+                forceRepaintCount = Math.Max(0, forceRepaintCount);
 
-            //Repaint();
+                Repaint();
+            }
+        }
+
+        private bool AnyNullBLocks()
+        {
+            if (blocks == null)
+                return true;
+
+            for (int i = 0; i < blocks.Length; i++)
+            {
+                if (blocks[i] == null)
+                    return true;
+            }
+
+            return false;
         }
 
         protected virtual void OnBecameVisible()
@@ -428,6 +447,7 @@ namespace Fungus.EditorUtils
                 blockInspector = null;
                 prevFlowchart = flowchart;
                 UpdateBlockCollection();
+                Repaint();
                 return;
             }
             
@@ -1034,17 +1054,23 @@ namespace Fungus.EditorUtils
             // Draw play icons beside all executing blocks
             if (Application.isPlaying)
             {
+                //greedy repaint for now
+                Repaint();
+
+                //cache these once as they can end up being called thousands of times per frame otherwise
+                var curRealTime = Time.realtimeSinceStartup;
+                var fadeTimer = curRealTime + FungusConstants.ExecutingIconFadeTime;
                 for (int i = 0; i < blocks.Length; ++i)
                 {
                     var b = blocks[i];
-                    if (b.IsExecuting())
+                    var bIsExec = b.IsExecuting();
+                    if (bIsExec)
                     {
-                        b.ExecutingIconTimer = Time.realtimeSinceStartup + FungusConstants.ExecutingIconFadeTime;
-                        b.ActiveCommand.ExecutingIconTimer = Time.realtimeSinceStartup + FungusConstants.ExecutingIconFadeTime;
-                        forceRepaintCount = 1;
+                        b.ExecutingIconTimer = fadeTimer;
+                        b.ActiveCommand.ExecutingIconTimer = fadeTimer;
                     }
 
-                    if (b.ExecutingIconTimer > Time.realtimeSinceStartup)
+                    if (b.ExecutingIconTimer > curRealTime)
                     {
                         Rect rect = new Rect(b._NodeRect);
 
@@ -1053,9 +1079,9 @@ namespace Fungus.EditorUtils
                         rect.width = 34;
                         rect.height = 34;
 
-                        if (!b.IsExecuting())
+                        if (!bIsExec)
                         {
-                            float alpha = (b.ExecutingIconTimer - Time.realtimeSinceStartup) / FungusConstants.ExecutingIconFadeTime;
+                            float alpha = (b.ExecutingIconTimer - curRealTime) / FungusConstants.ExecutingIconFadeTime;
                             alpha = Mathf.Clamp01(alpha);
                             GUI.color = new Color(1f, 1f, 1f, alpha); 
                         }
@@ -1238,37 +1264,51 @@ namespace Fungus.EditorUtils
             }
         }
 
+        static readonly Vector2[] pointsA = new Vector2[4];
+        static readonly Vector2[] pointsB = new Vector2[4];
+
+        //we only connect mids on sides to matching opposing middle side on other block
+        private struct IndexPair { public int a, b;  public IndexPair(int a, int b) { this.a = a;this.b = b; } }
+        static readonly IndexPair[] closestCornerIndexPairs = new IndexPair[]
+        {
+            new IndexPair(){a=0,b=3 },
+            new IndexPair(){a=3,b=0 },
+            new IndexPair(){a=1,b=2 },
+            new IndexPair(){a=2,b=1 },
+        };
+
+        //prevent alloc in DrawAAConvexPolygon
+        static readonly Vector3[] beizerWorkSpace = new Vector3[3];
+
         protected virtual void DrawRectConnection(Rect rectA, Rect rectB, bool highlight)
         {
-            Vector2[] pointsA = new Vector2[] {
-                new Vector2(rectA.xMin, rectA.center.y),
-                new Vector2(rectA.xMin + rectA.width / 2, rectA.yMin),
-                new Vector2(rectA.xMin + rectA.width / 2, rectA.yMax),
-                new Vector2(rectA.xMax, rectA.center.y) 
-            };
+            //previous method made a lot of garbage so now we reuse the same array
+            pointsA[0] = new Vector2(rectA.xMin, rectA.center.y);
+            pointsA[1] = new Vector2(rectA.xMin + rectA.width / 2, rectA.yMin);
+            pointsA[2] = new Vector2(rectA.xMin + rectA.width / 2, rectA.yMax);
+            pointsA[3] = new Vector2(rectA.xMax, rectA.center.y);
 
-            Vector2[] pointsB = new Vector2[] {
-                new Vector2(rectB.xMin, rectB.center.y),
-                new Vector2(rectB.xMin + rectB.width / 2, rectB.yMin),
-                new Vector2(rectB.xMin + rectB.width / 2, rectB.yMax),
-                new Vector2(rectB.xMax, rectB.center.y)
-            };
+            pointsB[0] = new Vector2(rectB.xMin, rectB.center.y);
+            pointsB[1] = new Vector2(rectB.xMin + rectB.width / 2, rectB.yMin);
+            pointsB[2] = new Vector2(rectB.xMin + rectB.width / 2, rectB.yMax);
+            pointsB[3] = new Vector2(rectB.xMax, rectB.center.y);
 
             Vector2 pointA = Vector2.zero;
             Vector2 pointB = Vector2.zero;
             float minDist = float.MaxValue;
 
-            foreach (var a in pointsA)
+            //previous method compared every point to every point
+            //  we only check mathcing opposing mids
+            for (int i = 0; i < closestCornerIndexPairs.Length; i++)
             {
-                foreach (var b in pointsB)
+                var a = pointsA[closestCornerIndexPairs[i].a];
+                var b = pointsB[closestCornerIndexPairs[i].b];
+                float d = Vector2.Distance(a, b);
+                if (d < minDist)
                 {
-                    float d = Vector2.Distance(a, b);
-                    if (d < minDist)
-                    {
-                        pointA = a;
-                        pointB = b;
-                        minDist = d;
-                    }
+                    pointA = a;
+                    pointB = b;
+                    minDist = d;
                 }
             }
 
@@ -1300,9 +1340,11 @@ namespace Fungus.EditorUtils
             var point = GetPointOnCurve(pointA, controlA, pointB, controlB, 0.7f);
             var direction = (GetPointOnCurve(pointA, controlA, pointB, controlB, 0.6f) - point).normalized;
             var perp = new Vector2(direction.y, -direction.x);
-            Handles.DrawAAConvexPolygon(
-                point, point + direction * 10 + perp * 5, point + direction * 10 - perp * 5
-            );
+            //reuse same array to avoid the auto alloced one in DrawAAConvexPolygon
+            beizerWorkSpace[0] = point;
+            beizerWorkSpace[1] = point + direction * 10 + perp * 5;
+            beizerWorkSpace[2] = point + direction * 10 - perp * 5;
+            Handles.DrawAAConvexPolygon(beizerWorkSpace);
 
             var connectionPointA = pointA + directionA * 4f;
             var connectionRectA = new Rect(connectionPointA.x - 4f, connectionPointA.y - 4f, 8f, 8f);
