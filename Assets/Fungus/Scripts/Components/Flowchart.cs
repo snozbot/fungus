@@ -366,6 +366,8 @@ namespace Fungus
         /// </summary>
         public virtual List<Variable> Variables { get { return variables; } }
 
+        public virtual int VariableCount { get { return variables.Count; } }
+
         /// <summary>
         /// Description text displayed in the Flowchart editor window
         /// </summary>

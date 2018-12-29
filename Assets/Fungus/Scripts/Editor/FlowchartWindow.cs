@@ -177,10 +177,11 @@ namespace Fungus.EditorUtils
         protected Vector2 startDragPosition;
         public const float minZoomValue = 0.25f;
         public const float maxZoomValue = 1f;
-        protected GUIStyle nodeStyle = new GUIStyle();
+        protected GUIStyle nodeStyle = new GUIStyle();        
         protected static BlockInspector blockInspector;
         protected int forceRepaintCount;
         protected Texture2D addTexture;
+        protected GUIContent addButtonContent;
         protected Texture2D connectionPointTexture;
         protected Rect selectionBox;
         protected Vector2 startSelectionBoxPosition = -Vector2.one;
@@ -199,6 +200,7 @@ namespace Fungus.EditorUtils
         protected int blockPopupSelection = -1;
         protected Vector2 popupScroll;
         protected Flowchart flowchart, prevFlowchart;
+        protected int prevVarCount;
         protected Block[] blocks = new Block[0];
         protected Block dragBlock;
         protected static FungusState fungusState;
@@ -208,6 +210,29 @@ namespace Fungus.EditorUtils
         private bool filterStale = true;
         private bool wasControl;
         private ExecutingBlocks executingBlocks = new ExecutingBlocks();
+
+        private GUIStyle toolbarSeachTextFieldStyle;
+        protected GUIStyle ToolbarSeachTextFieldStyle
+        {
+            get
+            {
+                if(toolbarSeachTextFieldStyle == null)
+                    toolbarSeachTextFieldStyle = GUI.skin.FindStyle("ToolbarSeachTextField");
+
+                return toolbarSeachTextFieldStyle;
+            }
+        }
+        private GUIStyle toolbarSeachCancelButtonStyle;
+        protected GUIStyle ToolbarSeachCancelButtonStyle
+        {
+            get
+            {
+                if(toolbarSeachCancelButtonStyle == null)
+                    toolbarSeachCancelButtonStyle = GUI.skin.FindStyle("ToolbarSeachCancelButton");
+
+                return toolbarSeachCancelButtonStyle;
+            }
+        }
 
         [MenuItem("Tools/Fungus/Flowchart Window")]
         static void Init()
@@ -225,6 +250,7 @@ namespace Fungus.EditorUtils
             nodeStyle.wordWrap = true;
 
             addTexture = FungusEditorResources.AddSmall;
+            addButtonContent = new GUIContent(addTexture, "Add a new block");
             connectionPointTexture = FungusEditorResources.ConnectionPoint;
             gridLineColor.a = EditorGUIUtility.isProSkin ? 0.5f : 0.25f;
 
@@ -247,6 +273,20 @@ namespace Fungus.EditorUtils
         void OnEditorUpdate()
         {
             HandleFlowchartSelectionChange();
+
+            if(flowchart != null)
+            {
+                var varcount = flowchart.VariableCount;
+                if (varcount != prevVarCount)
+                {
+                    prevVarCount = varcount;
+                    Repaint();
+                }
+            }
+            else
+            {
+                prevVarCount = 0;
+            }
 
             if (Application.isPlaying)
             {
@@ -597,14 +637,14 @@ namespace Fungus.EditorUtils
         }
 
         protected virtual void DrawOverlay(Event e)
-        {            
+        {
             // Main toolbar group
             GUILayout.BeginHorizontal(EditorStyles.toolbar);
             {
                 GUILayout.Space(2);
 
                 // Draw add block button
-                if (GUILayout.Button(new GUIContent(addTexture, "Add a new block"), EditorStyles.toolbarButton))
+                if (GUILayout.Button(addButtonContent, EditorStyles.toolbarButton))
                 {
                     DeselectAll();
                     Vector2 newNodePosition = new Vector2(
@@ -613,7 +653,7 @@ namespace Fungus.EditorUtils
                     CreateBlock(flowchart, newNodePosition);
                     UpdateBlockCollection();
                 }
-                
+
                 GUILayout.Label("", EditorStyles.toolbarButton, GUILayout.Width(8)); // Separator
 
                 // Draw scale bar and labels
@@ -638,7 +678,7 @@ namespace Fungus.EditorUtils
 
                 // Draw search bar
                 GUI.SetNextControlName(searchFieldName);
-                var newString = EditorGUILayout.TextField(searchString, GUI.skin.FindStyle("ToolbarSeachTextField"), GUILayout.Width(150));
+                var newString = EditorGUILayout.TextField(searchString, ToolbarSeachTextFieldStyle, GUILayout.Width(150));
                 if (newString != searchString)
                 {
                     searchString = newString;
@@ -654,7 +694,7 @@ namespace Fungus.EditorUtils
                     popupRect.height = Mathf.Min(filteredBlocks.Length * 16, position.height - 22);
                 }
 
-                if (GUILayout.Button("", GUI.skin.FindStyle("ToolbarSeachCancelButton")))
+                if (GUILayout.Button("", ToolbarSeachCancelButtonStyle))
                 {
                     CloseBlockPopup();
                 }
@@ -678,9 +718,9 @@ namespace Fungus.EditorUtils
                 GUILayout.BeginVertical();
                 {
                     GUILayout.Label(flowchart.name, EditorStyles.whiteBoldLabel);
-                    
+
                     GUILayout.Space(2);
-                    
+
                     if (flowchart.Description.Length > 0)
                     {
                         GUILayout.Label(flowchart.Description, EditorStyles.helpBox);
@@ -689,7 +729,18 @@ namespace Fungus.EditorUtils
                 GUILayout.EndVertical();
             }
             GUILayout.EndHorizontal();
+            DrawVariablesBlock(e);
 
+
+            // Draw block search popup on top of other controls
+            if (GUI.GetNameOfFocusedControl() == searchFieldName && filteredBlocks.Length > 0)
+            {
+                DrawBlockPopup(e);
+            }
+        }
+
+        protected virtual void DrawVariablesBlock(Event e)
+        {
             // Variables group
             GUILayout.BeginHorizontal();
             {
@@ -698,7 +749,7 @@ namespace Fungus.EditorUtils
                     GUILayout.FlexibleSpace();
 
                     flowchart.VariablesScrollPos = GUILayout.BeginScrollView(flowchart.VariablesScrollPos);
-                    {                        
+                    {
                         GUILayout.Space(8);
 
                         EditorGUI.BeginChangeCheck();
@@ -716,11 +767,17 @@ namespace Fungus.EditorUtils
                             }
                         }
 
-                        if(EditorGUI.EndChangeCheck())
+                        if (EditorGUI.EndChangeCheck())
                         {
                             EditorUtility.SetDirty(flowchart);
                         }
+                    }
+                    GUILayout.EndScrollView();
 
+
+                    // Eat mouse events
+                    if (e.type == EventType.MouseDown)
+                    {
                         Rect variableWindowRect = GUILayoutUtility.GetLastRect();
                         if (flowchart.VariablesExpanded && flowchart.Variables.Count > 0)
                         {
@@ -728,29 +785,17 @@ namespace Fungus.EditorUtils
                             variableWindowRect.height += 20;
                         }
 
-                        // Eat mouse events
-                        if (e.type == EventType.MouseDown)
+                        if (variableWindowRect.Contains(e.mousePosition))
                         {
-                            if (e.mousePosition.x <= variableWindowRect.width &&
-                                e.mousePosition.y <= variableWindowRect.height)
-                            {
-                                e.Use();
-                            }
+                            e.Use();
                         }
                     }
-                    GUILayout.EndScrollView();
                 }
                 GUILayout.EndVertical();
 
                 GUILayout.FlexibleSpace();
             }
             GUILayout.EndHorizontal();
-
-            // Draw block search popup on top of other controls
-            if (GUI.GetNameOfFocusedControl() == searchFieldName && filteredBlocks.Length > 0)
-            {
-                DrawBlockPopup(e);
-            }
         }
 
         protected virtual void DrawBlockPopup(Event e)
