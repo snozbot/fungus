@@ -104,6 +104,74 @@ namespace Fungus.EditorUtils
             internal Texture2D offTexture;
         }
 
+        /// <summary>
+        /// Helper class to maintain list of blocks that are currently executing when the game is running in editor
+        /// </summary>
+        protected class ExecutingBlocks
+        {
+            internal List<Block> areExecuting = new List<Block>(),
+                                 wereExecuting = new List<Block>(),
+                                 workspace = new List<Block>();
+
+            internal bool isChangeDetected { get; set; }
+
+            private float lastFade;
+
+            internal void ProcessAllBlocks(Block[] blocks)
+            {
+                isChangeDetected = false;
+                workspace.Clear();
+                //cache these once as they can end up being called thousands of times per frame otherwise
+                var curRealTime = Time.realtimeSinceStartup;
+                var fadeTimer = curRealTime + FungusConstants.ExecutingIconFadeTime;
+                for (int i = 0; i < blocks.Length; ++i)
+                {
+                    var b = blocks[i];
+                    var bIsExec = b.IsExecuting();
+                    if (bIsExec)
+                    {
+                        b.ExecutingIconTimer = fadeTimer;
+                        b.ActiveCommand.ExecutingIconTimer = fadeTimer;
+                        workspace.Add(b);
+                    }
+                }
+
+                if(areExecuting.Count != workspace.Count || !WorkspaceMatchesExeucting())
+                {
+                    wereExecuting.Clear();
+                    wereExecuting.AddRange(areExecuting);
+                    areExecuting.Clear();
+                    areExecuting.AddRange(workspace);
+                    isChangeDetected = true;
+                    lastFade = fadeTimer;
+                }
+            }
+
+            internal bool WorkspaceMatchesExeucting()
+            {
+                for (int i = 0; i < areExecuting.Count; i++)
+                {
+                    if (areExecuting[i] != workspace[i])
+                        return false;
+                }
+                return true;
+            }
+
+            internal bool IsAnimFadeoutNeed()
+            {
+                return (lastFade - Time.realtimeSinceStartup) >= 0;
+            }
+
+            internal void ClearAll()
+            {
+                areExecuting.Clear();
+                wereExecuting.Clear();
+                workspace.Clear();
+                isChangeDetected = true;
+                lastFade = 0;
+            }
+        }
+
         protected List<BlockCopy> copyList = new List<BlockCopy>();
         public static List<Block> deleteList = new List<Block>();
         protected Vector2 startDragPosition;
@@ -139,6 +207,7 @@ namespace Fungus.EditorUtils
 
         private bool filterStale = true;
         private bool wasControl;
+        private ExecutingBlocks executingBlocks = new ExecutingBlocks();
 
         [MenuItem("Tools/Fungus/Flowchart Window")]
         static void Init()
@@ -164,6 +233,27 @@ namespace Fungus.EditorUtils
             wantsMouseMove = true; // For hover selection in block search popup  
 
             UpdateBlockCollection();
+
+
+            EditorApplication.update += OnEditorUpdate;
+        }
+
+
+        protected virtual void OnDisable()
+        {
+            EditorApplication.update -= OnEditorUpdate;
+        }
+
+        void OnEditorUpdate()
+        {
+            HandleFlowchartSelectionChange();
+
+            if (Application.isPlaying)
+            {
+                executingBlocks.ProcessAllBlocks(blocks);
+                if (executingBlocks.isChangeDetected || executingBlocks.IsAnimFadeoutNeed())
+                    Repaint();
+            }
         }
 
         protected void UpdateBlockCollection()
@@ -429,35 +519,35 @@ namespace Fungus.EditorUtils
             mouseDownSelectionState.Clear();
         }
 
+        internal bool HandleFlowchartSelectionChange()
+        {
+            flowchart = GetFlowchart();
+            //target has changed, so clear the blockinspector
+            if (flowchart != prevFlowchart)
+            {
+                blockInspector = null;
+                prevFlowchart = flowchart;
+                executingBlocks.ClearAll();
+                UpdateBlockCollection();
+                Repaint();
+                return true;
+            }
+            return false;
+        }
+
         protected virtual void OnGUI()
         {
             // TODO: avoid calling some of these methods in OnGUI because it should be possible
             // to only call them when the window is initialized or a new flowchart is selected, etc.
-            flowchart = GetFlowchart();
+            if (HandleFlowchartSelectionChange()) return;
 
             if (flowchart == null)
             {
                 GUILayout.Label("No Flowchart scene object selected");
                 return;
             }
-            
-            //target has changed, so clear the blockinspector
-            if (flowchart != prevFlowchart)
-            {
-                blockInspector = null;
-                prevFlowchart = flowchart;
-                UpdateBlockCollection();
-                Repaint();
-                return;
-            }
-            
+
             DeleteBlocks();
-
-            ////blocks = flowchart.GetComponents<Block>();
-            //if (prevBlockCount != blocks.Length)
-            //    filterStale = true;
-
-            //prevBlockCount = blocks.Length;
 
             UpdateFilteredBlocks();
 
@@ -1054,8 +1144,7 @@ namespace Fungus.EditorUtils
             // Draw play icons beside all executing blocks
             if (Application.isPlaying)
             {
-                //greedy repaint for now
-                Repaint();
+                var emptyStyle = new GUIStyle();
 
                 //cache these once as they can end up being called thousands of times per frame otherwise
                 var curRealTime = Time.realtimeSinceStartup;
@@ -1063,40 +1152,40 @@ namespace Fungus.EditorUtils
                 for (int i = 0; i < blocks.Length; ++i)
                 {
                     var b = blocks[i];
-                    var bIsExec = b.IsExecuting();
-                    if (bIsExec)
-                    {
-                        b.ExecutingIconTimer = fadeTimer;
-                        b.ActiveCommand.ExecutingIconTimer = fadeTimer;
-                    }
-
-                    if (b.ExecutingIconTimer > curRealTime)
-                    {
-                        Rect rect = new Rect(b._NodeRect);
-
-                        rect.x += flowchart.ScrollPos.x - 37;
-                        rect.y += flowchart.ScrollPos.y + 3;
-                        rect.width = 34;
-                        rect.height = 34;
-
-                        if (!bIsExec)
-                        {
-                            float alpha = (b.ExecutingIconTimer - curRealTime) / FungusConstants.ExecutingIconFadeTime;
-                            alpha = Mathf.Clamp01(alpha);
-                            GUI.color = new Color(1f, 1f, 1f, alpha); 
-                        }
-
-                        if (GUI.Button(rect, FungusEditorResources.PlayBig, new GUIStyle()))
-                        {
-                            SelectBlock(b);
-                        }
-
-                        GUI.color = Color.white;
-                    }
+                    DrawExecutingBlockIcon(b,
+                        scriptViewRect,
+                        (b.ExecutingIconTimer - curRealTime) / FungusConstants.ExecutingIconFadeTime,
+                        emptyStyle);
                 }
+                GUI.color = Color.white;
             }
 
             EditorZoomArea.End();
+        }
+
+        private void DrawExecutingBlockIcon(Block b, Rect scriptViewRect, float alpha, GUIStyle style)
+        {
+            if (alpha <= 0)
+                return;
+
+            Rect rect = new Rect(b._NodeRect);
+
+            rect.x += flowchart.ScrollPos.x - 37;
+            rect.y += flowchart.ScrollPos.y + 3;
+            rect.width = 34;
+            rect.height = 34;
+
+            if (scriptViewRect.Overlaps(rect))
+            {
+                GUI.color = new Color(1f, 1f, 1f, alpha);
+
+                if (GUI.Button(rect, FungusEditorResources.PlayBig, style))
+                {
+                    SelectBlock(b);
+                }
+
+                GUI.color = Color.white;
+            }
         }
 
         private Rect CalcFlowchartWindowViewRect()
@@ -1218,6 +1307,9 @@ namespace Fungus.EditorUtils
 
             bool blockIsSelected = flowchart.SelectedBlock == block;
 
+
+            Rect scriptViewRect = CalcFlowchartWindowViewRect();
+
             var commandList = block.CommandList;
             foreach (var command in commandList)
             {
@@ -1259,7 +1351,14 @@ namespace Fungus.EditorUtils
                     endRect.x += flowchart.ScrollPos.x;
                     endRect.y += flowchart.ScrollPos.y;
 
-                    DrawRectConnection(startRect, endRect, highlight);
+                    Rect boundRect = new Rect();
+                    boundRect.xMin = Mathf.Min(startRect.xMin, endRect.xMin);
+                    boundRect.xMax = Mathf.Max(startRect.xMax, endRect.xMax);
+                    boundRect.yMin = Mathf.Min(startRect.yMin, endRect.yMin);
+                    boundRect.yMax = Mathf.Max(startRect.yMax, endRect.yMax);
+
+                    if (boundRect.Overlaps(scriptViewRect))
+                        DrawRectConnection(startRect, endRect, highlight);
                 }
             }
         }
