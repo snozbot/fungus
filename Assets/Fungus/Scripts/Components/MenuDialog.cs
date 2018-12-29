@@ -315,13 +315,16 @@ namespace Fungus
             {
                 EventSystem.current.SetSelectedGameObject(button.gameObject);
             }
-            Text textComponent = button.GetComponentInChildren<Text>();
-            if (textComponent != null)
+
+            TextAdapter textAdapter = new TextAdapter();
+            textAdapter.InitFromGameObject(button.gameObject, true);
+            if (textAdapter.HasTextObject())
             {
                 text = TextVariationHandler.SelectVariations(text);
 
-                textComponent.text = text;
+                textAdapter.Text = text;
             }
+
             button.onClick.AddListener(action);
             
             return true;
