@@ -134,7 +134,7 @@ namespace Fungus
             }
             else
             {
-                _audioSource.Value.volume = 1;
+                _audioSource.Value.volume = endVolume;
                 _audioSource.Value.loop = true;
                 _audioSource.Value.GetComponent<AudioSource>().Play();
             }
