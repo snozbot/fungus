@@ -570,6 +570,7 @@ namespace Fungus
             // Can't restart a running block, have to wait until it's idle again
             if (block.IsExecuting())
             {
+                Debug.LogWarning(block.BlockName + " cannot be called/executed, it is already running.");
                 return false;
             }
 
