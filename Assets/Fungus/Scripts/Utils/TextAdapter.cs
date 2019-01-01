@@ -18,6 +18,11 @@ namespace Fungus
 
         public void InitFromGameObject(GameObject go, bool includeChildren = false)
         {
+            if (go == null)
+            {
+                return;
+            }
+
             if (!includeChildren)
             {
                 textUI = go.GetComponent<Text>();
