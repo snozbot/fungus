@@ -67,8 +67,8 @@ namespace Fungus
             if (writerState == WriterState.End)
             {
                 var sd = SayDialog.GetSayDialog();
-                var from = sd.NameText != null ? sd.NameText.text : string.Empty;
-                var line = sd.StoryText != null ? sd.StoryText.text : string.Empty;
+                var from = sd.NameText;
+                var line = sd.StoryText;
 
                 AddLine(from, line);
             }

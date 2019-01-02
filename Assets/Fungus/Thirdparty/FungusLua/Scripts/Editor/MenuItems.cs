@@ -77,7 +77,7 @@ namespace Fungus
             }
 
             GameObject go = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
-            PrefabUtility.DisconnectPrefabInstance(go);
+            PrefabUtility.UnpackPrefabInstance(go, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
 
             if (centerInScene)
             {

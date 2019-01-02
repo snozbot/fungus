@@ -1222,7 +1222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1788221410}
+  selectedFlowchart: {fileID: 1112454213}
 --- !u!4 &428461411
 Transform:
   m_ObjectHideFlags: 1
@@ -1337,8 +1337,7 @@ MonoBehaviour:
     height: 0
   selectedBlocks:
   - {fileID: 640305181}
-  selectedCommands:
-  - {fileID: 640305193}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -2455,6 +2454,32 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1802049371907118, guid: 929d45c4d9c08874ba1eaf9ba09de51d,
     type: 2}
   m_PrefabInternal: {fileID: 128347548}
+--- !u!114 &1112454205
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1112454204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 37
+  indentLevel: 2
+  storyText: '[~Still there|So enticing|But what does it mean?]'
+  description: 
+  character: {fileID: 92124522}
+  portrait: {fileID: 21300000, guid: ab808050bc535a643afaf4755050339e, type: 3}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 0
+  setSayDialog: {fileID: 0}
 --- !u!114 &1112454206
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2642,10 +2667,12 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
-  selectedBlocks: []
+  selectedBlocks:
+  - {fileID: 1112454222}
   selectedCommands: []
   variables:
   - {fileID: 1112454209}
+  - {fileID: 1112454226}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -2680,7 +2707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 12
-  indentLevel: 0
+  indentLevel: 2
 --- !u!114 &1112454216
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2745,7 +2772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 8
-  indentLevel: 1
+  indentLevel: 2
   storyText: "Yes, a door John. \n\nBut how to reach it."
   description: 
   character: {fileID: 92124522}
@@ -2834,7 +2861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 6
-  indentLevel: 0
+  indentLevel: 2
 --- !u!114 &1112454222
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2859,13 +2886,120 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 1112454221}
   - {fileID: 1112454220}
+  - {fileID: 1112454225}
+  - {fileID: 1112454221}
   - {fileID: 1112454219}
+  - {fileID: 1112454215}
+  - {fileID: 1112454224}
+  - {fileID: 1112454205}
+  - {fileID: 1112454223}
   - {fileID: 1112454218}
   - {fileID: 1112454217}
   - {fileID: 1112454216}
-  - {fileID: 1112454215}
+--- !u!114 &1112454223
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1112454204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93cb9773f2ca04e2bbf7a68ccfc23267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 36
+  indentLevel: 1
+--- !u!114 &1112454224
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1112454204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa968f01a7f9496bb50e13dfe16760d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 35
+  indentLevel: 1
+--- !u!114 &1112454225
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1112454204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c5622b8a80845c980954170295f292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 34
+  indentLevel: 1
+  compareOperator: 0
+  variable: {fileID: 1112454226}
+  booleanData:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+  integerData:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  floatData:
+    floatRef: {fileID: 0}
+    floatVal: 0
+  stringData:
+    stringRef: {fileID: 0}
+    stringVal: 
+  animatorData:
+    animatorRef: {fileID: 0}
+    animatorVal: {fileID: 0}
+  audioSourceData:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 0}
+  colorData:
+    colorRef: {fileID: 0}
+    colorVal: {r: 0, g: 0, b: 0, a: 0}
+  gameObjectData:
+    gameObjectRef: {fileID: 0}
+    gameObjectVal: {fileID: 0}
+  materialData:
+    materialRef: {fileID: 0}
+    materialVal: {fileID: 0}
+  objectData:
+    objectRef: {fileID: 0}
+    objectVal: {fileID: 0}
+  rigidbody2DData:
+    rigidbody2DRef: {fileID: 0}
+    rigidbody2DVal: {fileID: 0}
+  spriteData:
+    spriteRef: {fileID: 0}
+    spriteVal: {fileID: 0}
+  textureData:
+    textureRef: {fileID: 0}
+    textureVal: {fileID: 0}
+  transformData:
+    transformRef: {fileID: 0}
+    transformVal: {fileID: 0}
+  vector2Data:
+    vector2Ref: {fileID: 0}
+    vector2Val: {x: 0, y: 0}
+  vector3Data:
+    vector3Ref: {fileID: 0}
+    vector3Val: {x: 0, y: 0, z: 0}
+--- !u!114 &1112454226
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1112454204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d02d9822eec54c98afe95bb497211b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: hasGazed
+  value: 0
 --- !u!1 &1140326301
 GameObject:
   m_ObjectHideFlags: 0
@@ -3250,6 +3384,8 @@ MonoBehaviour:
   runBlockWhenGazed:
     block: {fileID: 1112454222}
   eye: {fileID: 1353701873}
+  fungusBoolHasGazed:
+    variable: {fileID: 1112454226}
 --- !u!114 &1377282264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3806,8 +3942,7 @@ MonoBehaviour:
     height: 0
   selectedBlocks:
   - {fileID: 1788221409}
-  selectedCommands:
-  - {fileID: 1788221406}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
