@@ -282,6 +282,12 @@ namespace Fungus.EditorUtils
                     prevVarCount = varcount;
                     Repaint();
                 }
+
+                if(flowchart.SelectedCommandsStale)
+                {
+                    flowchart.SelectedCommandsStale = false;
+                    Repaint();
+                }
             }
             else
             {

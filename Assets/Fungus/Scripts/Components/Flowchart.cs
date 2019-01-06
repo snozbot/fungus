@@ -88,6 +88,10 @@ namespace Fungus
 
         protected StringSubstituter stringSubstituer;
 
+#if UNITY_EDITOR
+        public bool SelectedCommandsStale { get; set; }
+#endif
+
         #if UNITY_5_4_OR_NEWER
         #else
         protected virtual void OnLevelWasLoaded(int level) 
@@ -1103,6 +1107,9 @@ namespace Fungus
         public virtual void ClearSelectedCommands()
         {
             selectedCommands.Clear();
+#if UNITY_EDITOR
+            SelectedCommandsStale = true;
+#endif
         }
 
         /// <summary>
@@ -1113,6 +1120,9 @@ namespace Fungus
             if (!selectedCommands.Contains(command))
             {
                 selectedCommands.Add(command);
+#if UNITY_EDITOR
+                SelectedCommandsStale = true;
+#endif
             }
         }
 
