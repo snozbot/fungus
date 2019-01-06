@@ -128,6 +128,83 @@ namespace Fungus
                     }
                 }
             }
+
+#if UNITY_2018_1_OR_NEWER
+            var tmpros = go.GetComponentsInChildren<TMPro.TMP_Text>();
+            for (int i = 0; i < tmpros.Length; i++)
+            {
+            
+                var tmpro = tmpros[i];
+                if (Mathf.Approximately(duration, 0f))
+                {
+                    switch (fadeMode)
+                    {
+                    case FadeMode.Alpha:
+                        Color tempColor = tmpro.color;
+                        tempColor.a = targetAlpha;
+                        tmpro.color = tempColor;
+                        break;
+                    case FadeMode.Color:
+                        tmpro.color = targetColor;
+                        break;
+                    }
+                }
+                else
+                {
+                    switch (fadeMode)
+                    {
+                    case FadeMode.Alpha:
+                        LeanTween.value(tmpro.gameObject, tmpro.color.a, targetAlpha.Value, duration)
+                                 .setEase(tweenType)
+                                 .setOnUpdate((float alphaValue) =>
+                                 {
+                                     Color tempColor = tmpro.color;
+                                     tempColor.a = alphaValue;
+                                     tmpro.color = tempColor;
+                                 });
+                        break;
+                    case FadeMode.Color:
+                        LeanTween.value(tmpro.gameObject, tmpro.color, targetColor.Value, duration)
+                                 .setEase(tweenType)
+                                 .setOnUpdate((Color colorValue) =>
+                                 {
+                                     tmpro.color = colorValue;
+                                 });
+                        break;
+                    }
+                }
+            }
+#endif
+            //canvas groups don't support color but we can anim the alpha IN the color
+            var canvasGroups = go.GetComponentsInChildren<CanvasGroup>();
+            for (int i = 0; i < canvasGroups.Length; i++)
+            {
+                var canvasGroup = canvasGroups[i];
+                if (Mathf.Approximately(duration, 0f))
+                {
+                    switch (fadeMode)
+                    {
+                        case FadeMode.Alpha:
+                            canvasGroup.alpha = targetAlpha.Value;
+                            break;
+                        case FadeMode.Color:
+                            canvasGroup.alpha = targetColor.Value.a;
+                        break;
+                    }
+                }
+                else
+                {
+                    switch (fadeMode)
+                    {
+                        case FadeMode.Alpha:
+                            LeanTween.alphaCanvas(canvasGroup, targetAlpha, duration).setEase(tweenType);
+                            break;
+                        case FadeMode.Color:
+                            LeanTween.alphaCanvas(canvasGroup, targetColor.Value.a, duration).setEase(tweenType);
+                        break;
+                    }
+                }
+            }
         }
 
         protected override string GetSummaryValue()
@@ -144,7 +221,7 @@ namespace Fungus
             return "";
         }
 
-        #region Public members
+#region Public members
 
         public override bool IsPropertyVisible(string propertyName)
         {
@@ -163,6 +240,6 @@ namespace Fungus
             return true;
         }
 
-        #endregion
+#endregion
     }
 }
