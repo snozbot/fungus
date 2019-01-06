@@ -262,15 +262,22 @@ namespace Fungus.EditorUtils
 
 
             EditorApplication.update += OnEditorUpdate;
+            Undo.undoRedoPerformed += ForceRepaint;
         }
 
 
         protected virtual void OnDisable()
         {
             EditorApplication.update -= OnEditorUpdate;
+            Undo.undoRedoPerformed -= ForceRepaint;
         }
 
-        void OnEditorUpdate()
+        protected void ForceRepaint()
+        {
+            Repaint();
+        }
+
+        protected void OnEditorUpdate()
         {
             HandleFlowchartSelectionChange();
 
@@ -286,6 +293,12 @@ namespace Fungus.EditorUtils
                 if(flowchart.SelectedCommandsStale)
                 {
                     flowchart.SelectedCommandsStale = false;
+                    Repaint();
+                }
+
+                if(CommandEditor.SelectedCommandDataStale)
+                {
+                    CommandEditor.SelectedCommandDataStale = false;
                     Repaint();
                 }
             }
@@ -1199,7 +1212,7 @@ namespace Fungus.EditorUtils
 
                 //cache these once as they can end up being called thousands of times per frame otherwise
                 var curRealTime = Time.realtimeSinceStartup;
-                var fadeTimer = curRealTime + FungusConstants.ExecutingIconFadeTime;
+
                 for (int i = 0; i < blocks.Length; ++i)
                 {
                     var b = blocks[i];
