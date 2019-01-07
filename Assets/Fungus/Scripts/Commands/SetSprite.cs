@@ -13,24 +13,24 @@ namespace Fungus
     /// </summary>
     [CommandInfo("Sprite", 
                  "Set Sprite", 
-                 "Changes the sprite of a SpriteRenderer.")]
+                 "Changes the sprite property of a list of Sprite Renderers.")]
     [AddComponentMenu("")]
     public class SetSprite : Command 
     {
         [Tooltip("List of sprites to set the sprite property on")]
-        [SerializeField] protected List<SpriteRenderer> targetSprites = new List<SpriteRenderer>();
+        [SerializeField] protected List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
 
-        [Tooltip("The sprite set on the target sprites")]
-        [SerializeField] protected Sprite spriteRendererSprite;
+        [Tooltip("The sprite set on the target sprite renderers")]
+        [SerializeField] protected Sprite sprite;
 
         #region Public members
 
         public override void OnEnter()
         {
-            for (int i = 0; i < targetSprites.Count; i++)
+            for (int i = 0; i < spriteRenderers.Count; i++)
             {
-                var spriteRenderer = targetSprites[i];
-                spriteRenderer.sprite = spriteRendererSprite;
+                var spriteRenderer = spriteRenderers[i];
+                spriteRenderer.sprite = sprite;
             }
 
             Continue();
@@ -39,9 +39,9 @@ namespace Fungus
         public override string GetSummary()
         {
             string summary = "";
-            for (int i = 0; i < targetSprites.Count; i++)
+            for (int i = 0; i < spriteRenderers.Count; i++)
             {
-                var spriteRenderer = targetSprites[i];
+                var spriteRenderer = spriteRenderers[i];
                 if (spriteRenderer == null)
                 {
                     continue;
@@ -55,10 +55,10 @@ namespace Fungus
 
             if (summary.Length == 0)
             {
-                return "Error: No cursor sprite selected";
+                return "Error: No sprite selected";
             }
 
-            return summary + " = " + spriteRendererSprite;
+            return summary + " = " + sprite;
         }
         
         public override Color GetButtonColor()
@@ -68,7 +68,7 @@ namespace Fungus
 
         public override bool IsReorderableArray(string propertyName)
         {
-            if (propertyName == "targetSprites")
+            if (propertyName == "spriteRenderers")
             {
                 return true;
             }
@@ -79,7 +79,7 @@ namespace Fungus
         public override void OnCommandAdded(Block parentBlock)
         {
             // Add a default empty entry
-            targetSprites.Add(null);
+            spriteRenderers.Add(null);
         }
 
         #endregion

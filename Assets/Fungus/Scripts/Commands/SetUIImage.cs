@@ -8,28 +8,28 @@ using UnityEngine.UI;
 namespace Fungus
 {
     /// <summary>
-    /// Changes the Image on a UI-element.
+    /// Changes the Image property on a UI element.
     /// </summary>
     [CommandInfo("UI", 
-                 "Set UI-Image", 
-                 "Changes the Image of a UI-Element.")]
+                 "Set UI Image", 
+                 "Changes the Image property of a list of UI Images.")]
     [AddComponentMenu("")]
     public class SetUIImage : Command 
     {
-        [Tooltip("List of UI-objects to set the image property on")]
-        [SerializeField] protected List<Image> targetImages = new List<Image>();
+        [Tooltip("List of UI Images to set the source image property on")]
+        [SerializeField] protected List<Image> images = new List<Image>();
 
-        [Tooltip("The sprite set on the target Image")]
-        [SerializeField] protected Sprite imageSprite;
+        [Tooltip("The sprite set on the source image property")]
+        [SerializeField] protected Sprite sprite;
 
         #region Public members
 
         public override void OnEnter()
         {
-            for (int i = 0; i < targetImages.Count; i++)
+            for (int i = 0; i < images.Count; i++)
             {
-                var targetImage = targetImages[i];
-                targetImage.sprite = imageSprite;
+                var image = images[i];
+                image.sprite = sprite;
             }
 
             Continue();
@@ -38,9 +38,9 @@ namespace Fungus
         public override string GetSummary()
         {
             string summary = "";
-            for (int i = 0; i < targetImages.Count; i++)
+            for (int i = 0; i < images.Count; i++)
             {
-                var targetImage = targetImages[i];
+                var targetImage = images[i];
                 if (targetImage == null)
                 {
                     continue;
@@ -54,10 +54,10 @@ namespace Fungus
 
             if (summary.Length == 0)
             {
-                return "Error: No cursor sprite selected";
+                return "Error: No sprite selected";
             }
 
-            return summary + " = " + imageSprite;
+            return summary + " = " + sprite;
         }
         
         public override Color GetButtonColor()
@@ -67,7 +67,7 @@ namespace Fungus
 
         public override bool IsReorderableArray(string propertyName)
         {
-            if (propertyName == "targetImages")
+            if (propertyName == "images")
             {
                 return true;
             }
@@ -78,7 +78,7 @@ namespace Fungus
         public override void OnCommandAdded(Block parentBlock)
         {
             // Add a default empty entry
-            targetImages.Add(null);
+            images.Add(null);
         }
 
         #endregion
