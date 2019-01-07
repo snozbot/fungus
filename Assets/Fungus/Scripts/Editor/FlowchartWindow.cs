@@ -301,6 +301,18 @@ namespace Fungus.EditorUtils
                     CommandEditor.SelectedCommandDataStale = false;
                     Repaint();
                 }
+
+                if(BlockEditor.SelectedBlockDataStale)
+                {
+                    BlockEditor.SelectedBlockDataStale = false;
+                    Repaint();
+                }
+
+                if (FlowchartEditor.FlowchartDataStale)
+                {
+                    FlowchartEditor.FlowchartDataStale = false;
+                    Repaint();
+                }
             }
             else
             {
