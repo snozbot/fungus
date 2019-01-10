@@ -1,17 +1,20 @@
 // This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+// Snippet added by ducksonthewater, 2019-01-10 - www.ducks-on-the-water.com
+
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace Fungus
 {
     /// <summary>
     /// Displays a button in a multiple choice menu.
     /// </summary>
-    [CommandInfo("Narrative", 
-                 "Menu", 
+    [CommandInfo("Narrative",
+                 "Menu",
                  "Displays a button in a multiple choice menu")]
     [AddComponentMenu("")]
     public class Menu : Command, ILocalizable
@@ -39,9 +42,14 @@ namespace Fungus
         [Tooltip("If true, this option will be passed to the Menu Dialogue but marked as hidden, this can be used to hide options while maintaining a Menu Shuffle.")]
         [SerializeField] protected BooleanData hideThisOption = new BooleanData(false);
 
+        // Snippet added by ducksonthewater, 2019-01-10 - www.ducks-on-the-water.com
+
+        [Tooltip("Image to display as menu button background")]
+        [SerializeField] protected Sprite menuImage;
+
         #region Public members
 
-        public MenuDialog SetMenuDialog  { get { return setMenuDialog; } set { setMenuDialog = value; } }
+        public MenuDialog SetMenuDialog { get { return setMenuDialog; } set { setMenuDialog = value; } }
 
         public override void OnEnter()
         {
@@ -54,16 +62,17 @@ namespace Fungus
             bool hideOption = (hideIfVisited && targetBlock != null && targetBlock.GetExecutionCount() > 0) || hideThisOption.Value;
 
             var menuDialog = MenuDialog.GetMenuDialog();
-                if (menuDialog != null)
-                {
-                    menuDialog.SetActive(true);
+            if (menuDialog != null)
+            {
+                menuDialog.SetActive(true);
 
-                    var flowchart = GetFlowchart();
-                    string displayText = flowchart.SubstituteVariables(text);
+                var flowchart = GetFlowchart();
+                string displayText = flowchart.SubstituteVariables(text);
 
-                    menuDialog.AddOption(displayText, interactable, hideOption, targetBlock);
-                }
-            
+                // menuImage added by ducksonthewater, 2019-01-10 - www.ducks-on-the-water.com
+                menuDialog.AddOption(displayText, menuImage, interactable, hideOption, targetBlock);
+            }
+
             Continue();
         }
 
@@ -72,7 +81,7 @@ namespace Fungus
             if (targetBlock != null)
             {
                 connectedBlocks.Add(targetBlock);
-            }       
+            }
         }
 
         public override string GetSummary()
@@ -108,12 +117,12 @@ namespace Fungus
         {
             text = standardText;
         }
-        
+
         public virtual string GetDescription()
         {
             return description;
         }
-        
+
         public virtual string GetStringId()
         {
             // String id for Menu commands is MENU.<Localization Id>.<Command id>
