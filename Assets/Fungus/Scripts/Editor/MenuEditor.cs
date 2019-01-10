@@ -1,6 +1,8 @@
 // This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+// Snippet changed by ducksonthewater, 2019-01-10 - www.ducks-on-the-water.com
+
 using UnityEditor;
 using UnityEngine;
 
@@ -16,10 +18,12 @@ namespace Fungus.EditorUtils
         protected SerializedProperty interactableProp;
         protected SerializedProperty setMenuDialogProp;
         protected SerializedProperty hideThisOptionProp;
+        protected SerializedProperty menuImageProp;  // added by ducksonthewater, 2019-01-10
 
-        public override void OnEnable()
+        protected virtual void OnEnable()
         {
-            base.OnEnable();
+            if (NullTargetCheck()) // Check for an orphaned editor instance
+                return;
 
             textProp = serializedObject.FindProperty("text");
             descriptionProp = serializedObject.FindProperty("description");
@@ -28,6 +32,7 @@ namespace Fungus.EditorUtils
             interactableProp = serializedObject.FindProperty("interactable");
             setMenuDialogProp = serializedObject.FindProperty("setMenuDialog");
             hideThisOptionProp = serializedObject.FindProperty("hideThisOption");
+            menuImageProp = serializedObject.FindProperty("menuImage");    // added by ducksonthewater, 2019-01-10
         }
         
         public override void DrawCommandGUI()
@@ -53,7 +58,8 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(interactableProp);
             EditorGUILayout.PropertyField(setMenuDialogProp);
             EditorGUILayout.PropertyField(hideThisOptionProp);
-            
+            EditorGUILayout.PropertyField(menuImageProp);   // added by ducksonthewater, 2019-01-10
+
             serializedObject.ApplyModifiedProperties();
         }
     }    
