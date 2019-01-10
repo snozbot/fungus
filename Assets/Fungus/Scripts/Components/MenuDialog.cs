@@ -1,6 +1,9 @@
 // This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+// Snippet changed by ducksonthewater, 2019-01-10 - www.ducks-on-the-water.com
+// Added Sprite myImage to all AddOption 
+
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -224,10 +227,11 @@ namespace Fungus
         /// </summary>
         /// <returns><c>true</c>, if the option was added successfully.</returns>
         /// <param name="text">The option text to display on the button.</param>
+        /// <param name="myImage">The image to display on the button.</param>
         /// <param name="interactable">If false, the option is displayed but is not selectable.</param>
         /// <param name="hideOption">If true, the option is not displayed but the menu knows that option can or did exist</param>
         /// <param name="targetBlock">Block to execute when the option is selected.</param>
-        public virtual bool AddOption(string text, bool interactable, bool hideOption, Block targetBlock)
+        public virtual bool AddOption(string text, Sprite myImage, bool interactable, bool hideOption, Block targetBlock)
         {
             var block = targetBlock;
             UnityEngine.Events.UnityAction action = delegate
@@ -251,7 +255,7 @@ namespace Fungus
                 }
             };
 
-            return AddOption(text, interactable, hideOption, action);
+            return AddOption(text, myImage, interactable, hideOption, action);
         }
 
         /// <summary>
@@ -259,7 +263,7 @@ namespace Fungus
         /// Will cause the Menu dialog to become visible if it is not already visible.
         /// </summary>
         /// <returns><c>true</c>, if the option was added successfully.</returns>
-        public virtual bool AddOption(string text, bool interactable, LuaEnvironment luaEnv, Closure callBack)
+        public virtual bool AddOption(string text, Sprite myImage, bool interactable, LuaEnvironment luaEnv, Closure callBack)
         {
             if (!gameObject.activeSelf)
             {
@@ -279,7 +283,7 @@ namespace Fungus
                 StartCoroutine(CallLuaClosure(env, call));
             };
 
-            return AddOption(text, interactable, false, action);
+            return AddOption(text, myImage, interactable, false, action);
         }
 
         /// <summary>
@@ -291,7 +295,7 @@ namespace Fungus
         /// <param name="interactable">If false, the option is displayed but is not selectable.</param>
         /// <param name="hideOption">If true, the option is not displayed but the menu knows that option can or did exist</param>
         /// <param name="action">Action attached to the button on the menu item</param>
-        private bool AddOption(string text, bool interactable, bool hideOption, UnityEngine.Events.UnityAction action)
+        private bool AddOption(string text, Sprite myImage, bool interactable, bool hideOption, UnityEngine.Events.UnityAction action)
         {
             if (nextOptionIndex >= CachedButtons.Length)
                 return false;
@@ -315,14 +319,19 @@ namespace Fungus
             {
                 EventSystem.current.SetSelectedGameObject(button.gameObject);
             }
-
-            TextAdapter textAdapter = new TextAdapter();
-            textAdapter.InitFromGameObject(button.gameObject, true);
-            if (textAdapter.HasTextObject())
+            Text textComponent = button.GetComponentInChildren<Text>();
+            if (textComponent != null)
             {
                 text = TextVariationHandler.SelectVariations(text);
 
-                textAdapter.Text = text;
+                textComponent.text = text;
+            }
+
+            // Snippet changed by ducksonthewater, 2019-01-10 - www.ducks-on-the-water.com
+            Image imageComponent = button.GetComponentInChildren<Image>();
+            if (imageComponent != null)
+            {
+                imageComponent.sprite = myImage;
             }
 
             button.onClick.AddListener(action);
