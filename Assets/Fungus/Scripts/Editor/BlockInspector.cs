@@ -28,7 +28,11 @@ namespace Fungus.EditorUtils
         protected Vector2 commandScrollPos;
         protected bool resize = false;
         protected bool clamp = false;
-        protected float topPanelHeight = 50;
+#if UNITY_2019_1_OR_NEWER
+        protected float topPanelHeight = 0;
+#else
+        protected float topPanelHeight = 48;
+#endif
         protected float windowHeight = 0f;
 
         // Cache the block and command editors so we only create and destroy them
@@ -96,14 +100,12 @@ namespace Fungus.EditorUtils
                 activeBlockEditor = Editor.CreateEditor(block) as BlockEditor;
             }
 
-            activeBlockEditor.DrawBlockName(flowchart);
-
             UpdateWindowHeight();
 
             float width = EditorGUIUtility.currentViewWidth;
-            float height = windowHeight;
 
             blockScrollPos = GUILayout.BeginScrollView(blockScrollPos, GUILayout.Height(flowchart.BlockViewHeight));
+            activeBlockEditor.DrawBlockName(flowchart);
             activeBlockEditor.DrawBlockGUI(flowchart);
             GUILayout.EndScrollView();
 
@@ -138,18 +140,7 @@ namespace Fungus.EditorUtils
         /// </summary>
         protected void UpdateWindowHeight()
         {
-#if UNITY_2019_1_OR_NEWER
             windowHeight = Screen.height * EditorGUIUtility.pixelsPerPoint;
-#else
-            EditorGUILayout.BeginVertical();
-            GUILayout.FlexibleSpace();
-            EditorGUILayout.EndVertical();
-            Rect tempRect = GUILayoutUtility.GetLastRect();
-            if (Event.current.type == EventType.Repaint)
-            {
-                windowHeight = tempRect.height;
-            }
-#endif
         }
 
         public void DrawCommandUI(Flowchart flowchart, Command inspectCommand)
@@ -192,7 +183,7 @@ namespace Fungus.EditorUtils
 
             // Draw the resize bar after everything else has finished drawing
             // This is mainly to avoid incorrect indenting.
-            Rect resizeRect = new Rect(0, flowchart.BlockViewHeight, EditorGUIUtility.currentViewWidth, 4f);
+            Rect resizeRect = new Rect(0, flowchart.BlockViewHeight + topPanelHeight, EditorGUIUtility.currentViewWidth, 4f);
             GUI.color = new Color(0.64f, 0.64f, 0.64f);
             GUI.DrawTexture(resizeRect, EditorGUIUtility.whiteTexture);
             resizeRect.height = 1;
@@ -207,7 +198,7 @@ namespace Fungus.EditorUtils
 
         private void ResizeScrollView(Flowchart flowchart)
         {
-            Rect cursorChangeRect = new Rect(0, flowchart.BlockViewHeight + 1, EditorGUIUtility.currentViewWidth, 4f);
+            Rect cursorChangeRect = new Rect(0, flowchart.BlockViewHeight + 1 + topPanelHeight, EditorGUIUtility.currentViewWidth, 4f);
 
             EditorGUIUtility.AddCursorRect(cursorChangeRect, MouseCursor.ResizeVertical);
             
@@ -222,7 +213,7 @@ namespace Fungus.EditorUtils
             if (resize && Event.current.type == EventType.Repaint)
             {
                 Undo.RecordObject(flowchart, "Resize view");
-                flowchart.BlockViewHeight = Event.current.mousePosition.y;
+                flowchart.BlockViewHeight = Event.current.mousePosition.y - topPanelHeight;
             }
             
             ClampBlockViewHeight(flowchart);
