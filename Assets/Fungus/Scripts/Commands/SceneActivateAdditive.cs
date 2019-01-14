@@ -15,8 +15,8 @@ namespace Fungus
     /// Removes an additively loaded scene from the hierarchy.
     /// The scene to be loaded must be added to the scene list in Build Settings.")]
     /// </summary>
-    [CommandInfo("Flow",
-                 "Scene Activate Additive", 
+    [CommandInfo("Scene",
+                 "Activate Additive", 
                  "Activates an additively loaded scene in the hierarchy." +
                  "The scene to be activated must have been added to the scene list in Build Settings.")]
     [AddComponentMenu("")]

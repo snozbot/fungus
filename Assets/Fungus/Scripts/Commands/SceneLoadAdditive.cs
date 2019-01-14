@@ -17,8 +17,8 @@ namespace Fungus
     /// on the fly.
     /// The scene to be loaded must be added to the scene list in Build Settings.")]
     /// </summary>
-    [CommandInfo("Flow", 
-                 "Scene Load Additive", 
+    [CommandInfo("Scene", 
+                 "Load Additive", 
                  "Loads a new Unity scene and adds it to the hierarchy. This is useful for " +
                  "splitting a large game across multiple scene files and loading e.g. levels " +
                  "on the fly." +
@@ -30,7 +30,7 @@ namespace Fungus
         public AsyncOperation asyncLoad;
 
         [Tooltip("Name of the scene to load. The scene must also be added to the build settings.")]
-        [SerializeField] protected StringData _sceneName = new StringData("");
+        [SerializeField] protected StringData sceneName = new StringData("");
 
         [Tooltip("Display the scene, when it has finished loading")]
         [SerializeField] protected bool showSceneWhenLoaded;
@@ -38,8 +38,9 @@ namespace Fungus
         [Tooltip("Flowchart which contains the block to execute. If none is specified then the current Flowchart is used.")]
         [SerializeField] protected Flowchart targetFlowchart;
 
+        [FormerlySerializedAs("targetSequence")]
         [Tooltip("Block to start executing")]
-        [SerializeField] protected string targetBlock;
+        [SerializeField] protected Block targetBlock;
 
         #region Public members
 
@@ -56,7 +57,9 @@ namespace Fungus
                     flowchart = targetFlowchart;
                 }
 
-                flowchart.ExecuteIfHasBlock(targetBlock);
+                StartCoroutine(targetBlock.Execute());
+
+//                flowchart.ExecuteIfHasBlock(targetBlock);
                 Continue();
             }
             else
@@ -67,7 +70,7 @@ namespace Fungus
 
         IEnumerator LoadYourAsyncScene()
         {
-            asyncLoad = SceneManager.LoadSceneAsync(_sceneName.Value, LoadSceneMode.Additive);
+            asyncLoad = SceneManager.LoadSceneAsync(sceneName.Value, LoadSceneMode.Additive);
             asyncLoad.allowSceneActivation = showSceneWhenLoaded;
 
             // Wait until the asynchronous scene fully loads
@@ -79,17 +82,25 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            if (_sceneName.Value.Length == 0)
+            if (sceneName.Value.Length == 0)
             {
                 return "Error: No scene name selected";
             }
 
-            return _sceneName.Value;
+            return sceneName.Value;
         }
 
         public override Color GetButtonColor()
         {
             return new Color32(235, 191, 217, 255);
+        }
+
+        public override void GetConnectedBlocks(ref List<Block> connectedBlocks)
+        {
+            if (targetBlock != null)
+            {
+                connectedBlocks.Add(targetBlock);
+            }
         }
 
         #endregion
