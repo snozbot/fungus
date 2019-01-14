@@ -1264,6 +1264,23 @@ namespace Fungus
             }
         }
 
+        public virtual void DetermineSubstituteVariables(string str, List<Variable> vars)
+        {
+            Regex r = new Regex(Flowchart.SubstituteVariableRegexString);
+
+            // Match the regular expression pattern against a text string.
+            var results = r.Matches(str);
+            for (int i = 0; i < results.Count; i++)
+            {
+                var match = results[i];
+                var v = GetVariable(match.Value.Substring(2, match.Value.Length - 3));
+                if (v != null)
+                {
+                    vars.Add(v);
+                }
+            }
+        }
+
         #endregion
 
         #region IStringSubstituter implementation

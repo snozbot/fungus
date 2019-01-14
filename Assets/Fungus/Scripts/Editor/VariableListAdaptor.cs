@@ -178,7 +178,7 @@ namespace Fungus.EditorUtils
             {
                 if (Application.isPlaying && flowchart.SelectedBlock.IsExecuting())
                 {
-                    highlight = flowchart.SelectedBlock.ActiveCommand.HasReference(variable);
+                    highlight = flowchart.SelectedBlock.ActiveCommand.IsVariableReferenced(variable);
                 }
                 else if (!Application.isPlaying && flowchart.SelectedCommands.Count > 0)
                 {
@@ -189,7 +189,7 @@ namespace Fungus.EditorUtils
                             continue;
                         }
 
-                        if (selectedCommand.HasReference(variable))
+                        if (selectedCommand.IsVariableReferenced(variable))
                         {
                             highlight = true;
                             break;

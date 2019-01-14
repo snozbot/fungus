@@ -82,6 +82,20 @@ namespace Fungus
 
         #endregion
 
+
+        #region Editor caches
+#if UNITY_EDITOR
+        protected override void RefreshVariableCache()
+        {
+            base.RefreshVariableCache();
+
+            var f = GetFlowchart();
+
+            f.DetermineSubstituteVariables(text, referencedVariables);
+        }
+#endif
+        #endregion Editor caches
+
         #region ILocalizable implementation
 
         public virtual string GetStandardText()
