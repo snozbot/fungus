@@ -47,6 +47,11 @@ namespace Fungus
             return slider.name + " = " + value.GetDescription();
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return value.floatRef == variable || base.HasReference(variable);
+        }
+
         #endregion
     }
 }

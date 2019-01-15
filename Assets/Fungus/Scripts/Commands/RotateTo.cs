@@ -50,6 +50,12 @@ namespace Fungus
             iTween.RotateTo(_targetObject.Value, tweenParams);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return _toTransform.transformRef == variable || _toRotation.vector3Ref == variable ||
+                base.HasReference(variable);
+        }
+
         #endregion
 
         #region Backwards compatibility

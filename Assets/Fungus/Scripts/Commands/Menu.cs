@@ -95,6 +95,12 @@ namespace Fungus
             return new Color32(184, 210, 235, 255);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return interactable.booleanRef == variable || hideThisOption.booleanRef == variable ||
+                base.HasReference(variable);
+        }
+
         #endregion
 
         #region ILocalizable implementation

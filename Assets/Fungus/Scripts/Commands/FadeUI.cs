@@ -163,6 +163,12 @@ namespace Fungus
             return true;
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return targetColor.colorRef == variable || targetAlpha.floatRef == variable ||
+                base.HasReference(variable);
+        }
+
         #endregion
     }
 }

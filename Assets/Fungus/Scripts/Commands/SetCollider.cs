@@ -102,6 +102,11 @@ namespace Fungus
             return propertyName == "targetObjects";
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return activeState.booleanRef == variable || base.HasReference(variable);
+        }
+
         #endregion
     }
         

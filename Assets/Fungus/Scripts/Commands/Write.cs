@@ -155,6 +155,11 @@ namespace Fungus
             return "WRITE." + GetFlowchartLocalizationId() + "." + itemId;
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return text.stringRef == variable || setAlpha.floatRef == variable || setColor.colorRef == variable || base.HasReference(variable);
+        }
+
         #endregion
     }
 }

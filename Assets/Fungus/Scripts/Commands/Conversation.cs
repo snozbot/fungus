@@ -63,6 +63,13 @@ namespace Fungus
             return new Color32(184, 210, 235, 255);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return clearPrevious.booleanRef == variable || waitForInput.booleanRef == variable || 
+                waitForSeconds.floatRef == variable || fadeWhenDone.booleanRef == variable ||
+                base.HasReference(variable);
+        }
+
         #endregion
 
 
