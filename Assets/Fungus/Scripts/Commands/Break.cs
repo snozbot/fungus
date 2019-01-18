@@ -18,51 +18,27 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            // Find index of previous while command
-            int whileIndex = -1;
-            int whileIndentLevel = -1;
+            Condition loopingCond = null;
+            // Find index of previous looping command
             for (int i = CommandIndex - 1; i >=0; --i)
             {
-                While whileCommand = ParentBlock.CommandList[i] as While;
-                if (whileCommand != null)
+                Condition cond = ParentBlock.CommandList[i] as Condition;
+                if (cond != null && cond.IsLooping)
                 {
-                    whileIndex = i;
-                    whileIndentLevel = whileCommand.IndentLevel;
+                    loopingCond = cond;
                     break;
                 }
             }
 
-            if (whileIndex == -1)
+            if (loopingCond == null)
             {
-                // No enclosing While command found, just continue
+                // No enclosing loop command found, just continue
                 Continue();
-                return;
             }
-
-            // Find matching End statement at same indent level as While
-            for (int i = whileIndex + 1; i < ParentBlock.CommandList.Count; ++i)
+            else
             {
-                End endCommand = ParentBlock.CommandList[i] as End;
-                
-                if (endCommand != null && 
-                    endCommand.IndentLevel == whileIndentLevel)
-                {
-                    // Sanity check that break command is actually between the While and End commands
-                    if (CommandIndex > whileIndex && CommandIndex < endCommand.CommandIndex)
-                    {
-                        // Continue at next command after End
-                        Continue (endCommand.CommandIndex + 1);
-                        return;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
+                loopingCond.MoveToEnd();
             }
-
-            // No matching End command found so just continue
-            Continue();
         }
 
         public override Color GetButtonColor()

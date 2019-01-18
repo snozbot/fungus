@@ -28,9 +28,19 @@ namespace Fungus
 
         public abstract int Count();
 
-        //index of (first, last)
+        public abstract void Shuffle();
+
+        public abstract void Reverse();
+
+        public abstract bool Contains(object o);
+
+        public abstract int IndexOf(object o);
+
+        public abstract int LastIndexOf(object o);
+
         //sort
-        //reverse
-        //shuffle
+        //merge
+        //exclusive
+        //subtract
     }
 }

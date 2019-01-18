@@ -17,22 +17,14 @@ namespace Fungus
         #region Public members
 
         public virtual bool Loop { get; set; }
+        public virtual int LoopBackIndex { get; set; }
 
         public override void OnEnter()
         {
             if (Loop)
             {
-                for (int i = CommandIndex - 1; i >= 0; --i)
-                {
-                    var command = ParentBlock.CommandList[i];
-
-                    if (command.IndentLevel == IndentLevel &&
-                        command.GetType() == typeof(While))
-                    {
-                        Continue(i);
-                        return;
-                    }
-                }
+                Continue(LoopBackIndex);
+                return;
             }
 
             Continue();

@@ -55,6 +55,8 @@ namespace Fungus
         /// </summary>
         protected int previousActiveCommandIndex = -1;
 
+        public int PreviousActiveCommandIndex { get { return previousActiveCommandIndex; } }
+
         protected int jumpToCommandIndex = -1;
 
         protected int executionCount;

@@ -16,49 +16,16 @@ namespace Fungus
     {
         #region Public members
 
-        public override void OnEnter()
+        public override bool IsLooping { get { return true; } }
+
+        protected override void OnFalse()
         {
-            bool execute = true;
-            if (variable != null)
-            {
-                execute = EvaluateCondition();
-            }
-
-            // Find next End statement at same indent level
-            End endCommand = null;
-            for (int i = CommandIndex + 1; i < ParentBlock.CommandList.Count; ++i)
-            {
-                End command = ParentBlock.CommandList[i] as End;
-                
-                if (command != null && 
-                    command.IndentLevel == indentLevel)
-                {
-                    endCommand = command;
-                    break;
-                }
-            }
-
-            if (execute)
-            {
-                // Tell the following end command to loop back
-                endCommand.Loop = true;
-                Continue();
-            }
-            else
-            {
-                // Continue at next command after End
-                Continue (endCommand.CommandIndex + 1);
-            }
+            MoveToEnd();
         }
 
-        public override bool OpenBlock()
+        protected override bool HasNeededProperties()
         {
-            return true;
-        }
-
-        public override Color GetButtonColor()
-        {
-            return new Color32(253, 253, 150, 255);
+            return HasRequiredEnd(true);
         }
 
         #endregion

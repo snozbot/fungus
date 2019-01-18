@@ -11,6 +11,34 @@ namespace Fungus
         [Tooltip("The type of comparison to be performed")]
         [SerializeField] protected CompareOperator compareOperator;
 
+        public static string GetOperatorDescription(CompareOperator compareOperator)
+        {
+            string summary = "";
+            switch (compareOperator)
+            {
+            case CompareOperator.Equals:
+                summary += "==";
+                break;
+            case CompareOperator.NotEquals:
+                summary += "!=";
+                break;
+            case CompareOperator.LessThan:
+                summary += "<";
+                break;
+            case CompareOperator.GreaterThan:
+                summary += ">";
+                break;
+            case CompareOperator.LessThanOrEquals:
+                summary += "<=";
+                break;
+            case CompareOperator.GreaterThanOrEquals:
+                summary += ">=";
+                break;
+            }
+
+            return summary;
+        }
+
         [Tooltip("Variable to use in expression")]
         [VariableProperty(typeof(BooleanVariable),
                           typeof(IntegerVariable),
@@ -210,7 +238,7 @@ namespace Fungus
             }
 
             string summary = variable.Key + " ";
-            summary += Condition.GetOperatorDescription(compareOperator) + " ";
+            summary += GetOperatorDescription(compareOperator) + " ";
 
             if (variable.GetType() == typeof(BooleanVariable))
             {
@@ -283,11 +311,6 @@ namespace Fungus
         public override bool HasReference(Variable variable)
         {
             return (variable == this.variable);
-        }
-
-        public override Color GetButtonColor()
-        {
-            return new Color32(253, 253, 150, 255);
         }
 
         #endregion

@@ -107,5 +107,51 @@ namespace Fungus
         {
             return collection.Count;
         }
+
+        public override void Shuffle()
+        {
+            for (int i = 0; i < collection.Count; i++)
+            {
+                var tmp = collection[i];
+                var rnd = UnityEngine.Random.Range(0, collection.Count);
+                collection[i] = collection[rnd];
+                collection[rnd] = tmp;
+            }
+        }
+
+        public override void Reverse()
+        {
+            collection.Reverse();
+        }
+
+        public override bool Contains(object o)
+        {
+            var t = Promote(o);
+            if (t != null)
+            {
+                return collection.Contains(t);
+            }
+            return false;
+        }
+
+        public override int IndexOf(object o)
+        {
+            var t = Promote(o);
+            if (t != null)
+            {
+                return collection.IndexOf(t);
+            }
+            return -1;
+        }
+
+        public override int LastIndexOf(object o)
+        {
+            var t = Promote(o);
+            if (t != null)
+            {
+                return collection.LastIndexOf(t);
+            }
+            return -1;
+        }
     }
 }
