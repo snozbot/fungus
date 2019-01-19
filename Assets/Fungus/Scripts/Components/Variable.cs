@@ -91,6 +91,7 @@ namespace Fungus
         }
 
         public String defaultText = "<None>";
+        public string compatibleVariableName = string.Empty;
 
         public Type[] VariableTypes { get; set; }
     }

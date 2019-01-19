@@ -22,7 +22,9 @@ namespace Fungus
 
         public abstract void Clear();
 
-        public abstract void Get(int index, ref object out_o);
+        public abstract object Get(int index);
+
+        public abstract void Get(int index, ref Variable variable);
 
         public abstract void Set(int index, object o);
 

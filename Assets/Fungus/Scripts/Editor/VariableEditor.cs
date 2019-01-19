@@ -156,10 +156,10 @@ namespace Fungus.EditorUtils
 
                 if (variableProperty.VariableTypes.Length == 0)
                 {
-                    var collectionCommand = property.serializedObject.targetObject as CollectionBaseCommand;
-                    if (collectionCommand != null && collectionCommand.Collection != null)
+                    var compatChecker = property.serializedObject.targetObject as ICollectionCompatible;
+                    if (compatChecker != null)
                     {
-                        return collectionCommand.Collection.IsCompatible(v);
+                        return compatChecker.IsCompat(v, variableProperty.compatibleVariableName);
                     }
                     else
                     {

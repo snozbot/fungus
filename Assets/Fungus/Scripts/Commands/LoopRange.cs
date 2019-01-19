@@ -74,6 +74,13 @@ namespace Fungus
             step.Value = Mathf.Abs(step.Value);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return startingValue.integerRef == variable || endValue.integerRef == variable ||
+                counter.integerRef == variable || step.integerRef == variable ||
+                base.HasReference(variable);
+        }
+
         #endregion
     }
 }

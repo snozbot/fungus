@@ -6,22 +6,14 @@ namespace Fungus
     /// Base class for all FungusCollection commands
     /// </summary>
     [AddComponentMenu("")]
-    public abstract class CollectionBaseCommand : Command
+    public abstract class CollectionBaseCommand : Command, ICollectionCompatible
     {
         [SerializeField]
         protected CollectionData collection;
 
         [SerializeField]
-        [VariableProperty()]
+        [VariableProperty(compatibleVariableName = "collection")]
         protected Variable variableToUse;
-
-        public Collection Collection
-        {
-            get
-            {
-                return collection.Value;
-            }
-        }
 
         public override void OnEnter()
         {
@@ -54,6 +46,14 @@ namespace Fungus
                 return "Error: no variable selected";
 
             return variableToUse.Key + " to " + collection.Value.name;
+        }
+
+        bool ICollectionCompatible.IsCompat(Variable variable, string compatibleWith)
+        {
+            if (compatibleWith == "collection")
+                return collection.Value == null ? false : collection.Value.IsCompatible(variable);
+            else
+                return true;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Fungus
 {
@@ -8,7 +6,7 @@ namespace Fungus
     public class GenericCollection<T> : Collection
     {
         [SerializeField]
-        protected List<T> collection = new List<T>();
+        protected System.Collections.Generic.List<T> collection = new System.Collections.Generic.List<T>();
 
         protected virtual T Promote(object o)
         {
@@ -57,18 +55,14 @@ namespace Fungus
             collection.Clear();
         }
 
-        public override Type ContainedType()
+        public override System.Type ContainedType()
         {
             return typeof(T);
         }
 
-        public override void Get(int index, ref object out_o)
+        public override object Get(int index)
         {
-            var t = Promote(out_o);
-            if (t != null)
-            {
-                out_o = collection[index];
-            }
+            return collection[index];
         }
 
         public override void Remove(object o)
@@ -152,6 +146,15 @@ namespace Fungus
                 return collection.LastIndexOf(t);
             }
             return -1;
+        }
+
+        public override void Get(int index, ref Variable variable)
+        {
+            if(variable is VariableBase<T>)
+            {
+                VariableBase<T> vt = variable as VariableBase<T>;
+                vt.Value = collection[index];
+            }
         }
     }
 }
