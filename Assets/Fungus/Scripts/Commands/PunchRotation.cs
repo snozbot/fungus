@@ -40,6 +40,11 @@ namespace Fungus
             iTween.PunchRotation(_targetObject.Value, tweenParams);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return variable == _amount.vector3Ref;
+        }
+
         #endregion
 
         #region Backwards compatibility

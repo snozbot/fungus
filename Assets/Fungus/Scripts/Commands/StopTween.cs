@@ -27,6 +27,11 @@ namespace Fungus
             Continue();
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return _tweenName.stringRef == variable || base.HasReference(variable);
+        }
+
         #endregion
 
         #region Backwards compatibility

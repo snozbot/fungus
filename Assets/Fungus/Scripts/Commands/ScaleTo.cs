@@ -46,6 +46,12 @@ namespace Fungus
             iTween.ScaleTo(_targetObject.Value, tweenParams);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return _toTransform.transformRef == variable || _toScale.vector3Ref == variable ||
+                base.HasReference(variable);
+        }
+
         #endregion
 
         #region Backwards compatibility

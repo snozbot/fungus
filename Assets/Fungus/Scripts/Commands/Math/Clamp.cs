@@ -55,7 +55,16 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            return Mode.Clamp.ToString() + (mode != Mode.Clamp ? " & " + mode.ToString() : "");
+            if (outValue.floatRef == null)
+                return "Error: no output value selected";
+
+            return outValue.floatRef.Key + " = " + Mode.Clamp.ToString() + (mode != Mode.Clamp ? " & " + mode.ToString() : "");
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            return lower.floatRef == variable || upper.floatRef == variable || value.floatRef == variable ||
+                   outValue.floatRef == variable;
         }
 
         public override Color GetButtonColor()

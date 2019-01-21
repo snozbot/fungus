@@ -80,6 +80,11 @@ namespace Fungus
             targetSprites.Add(null);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return orderInLayer.integerRef == variable || base.HasReference(variable);
+        }
+
         #endregion
     }
 }

@@ -80,7 +80,26 @@ namespace Fungus
             return new Color32(235, 191, 217, 255);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return text.stringRef == variable || base.HasReference(variable);
+        }
+
         #endregion
+
+
+        #region Editor caches
+#if UNITY_EDITOR
+        protected override void RefreshVariableCache()
+        {
+            base.RefreshVariableCache();
+
+            var f = GetFlowchart();
+
+            f.DetermineSubstituteVariables(text, referencedVariables);
+        }
+#endif
+        #endregion Editor caches
 
         #region ILocalizable implementation
 
