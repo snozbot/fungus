@@ -388,6 +388,17 @@ namespace Fungus
             return -1;
         }
 
+        public virtual Command GetPreviousActiveCommand()
+        {
+            if (previousActiveCommandIndex >= 0 &&
+                previousActiveCommandIndex < commandList.Count)
+            {
+                return commandList[previousActiveCommandIndex];
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Recalculate the indent levels for all commands in the list.
         /// </summary>

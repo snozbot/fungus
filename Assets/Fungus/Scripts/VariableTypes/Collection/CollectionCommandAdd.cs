@@ -6,11 +6,28 @@ namespace Fungus
                     "Add",
                     "Add an item to a collection")]
     [AddComponentMenu("")]
-    public class CollectionCommandAdd : CollectionBaseCommand
+    public class CollectionCommandAdd : CollectionBaseVarCommand
     {
+        [Tooltip("Only add if the item does not already exist in the collection")]
+        [SerializeField]
+        protected BooleanData onlyIfUnique = new BooleanData(false);
+
         protected override void OnEnterInner()
         {
-            collection.Value.Add(variableToUse);
+            if (onlyIfUnique.Value)
+                collection.Value.AddUnique(variableToUse);
+            else
+                collection.Value.Add(variableToUse);
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            return onlyIfUnique.booleanRef == variable || base.HasReference(variable);
+        }
+
+        public override string GetSummary()
+        {
+            return base.GetSummary() + (onlyIfUnique.Value ? " Unique" : "");
         }
     }
 }

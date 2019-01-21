@@ -25,14 +25,28 @@ namespace Fungus
                 return;
             }
 
-            if( !this.IsElseIf )
+            if( this.IsElseIf )
             {
-                EvaluateAndContinue();
+                System.Type previousCommandType = ParentBlock.GetPreviousActiveCommandType();
+                var prevCmdIndent = ParentBlock.GetPreviousActiveCommandIndent();
+                var prevCmd = ParentBlock.GetPreviousActiveCommand();
+
+                //handle our matching if or else if in the chain failing and moving to us,
+                //  need to make sure it is the same indent level
+                if (prevCmd == null ||
+                    prevCmdIndent != IndentLevel ||
+                    !previousCommandType.IsSubclassOf(typeof(Condition)) ||
+                    (prevCmd as Condition).IsLooping)
+                {
+                    //elif is being asked to run but didn't come from a previously failing if or elif, this isn't allowed
+                    MoveToEnd();
+                    return;
+                }
+
+                //otherwise elif acts just like any other Condition command
             }
-            else
-            {
-                ElIfEvalAndContinue();
-            }
+            
+            EvaluateAndContinue();
         }
 
         public override bool OpenBlock()
@@ -50,6 +64,11 @@ namespace Fungus
 
         public virtual void MoveToEnd()
         {
+            if(endCommand == null)
+            {
+                endCommand = FindOurEndCommand();
+            }
+
             if (endCommand != null)
             {
                 // Continue at next command after End
@@ -64,48 +83,7 @@ namespace Fungus
         }
 
         #endregion
-
-        protected virtual void ElIfEvalAndContinue()
-        {
-            // Else If behaves mostly like an Else command, 
-            // but will also jump to a following Else command.
-
-            System.Type previousCommandType = ParentBlock.GetPreviousActiveCommandType();
-            var prevCmdIndent = ParentBlock.GetPreviousActiveCommandIndent();
-
-            //handle our matching if or else if in the chain failing and moving to us,
-            //  need to make sure it is the same indent level
-            if (prevCmdIndent == IndentLevel && previousCommandType.IsSubclassOf(typeof(Condition)))
-            {
-                // Else If behaves the same as an If command
-                EvaluateAndContinue();
-            }
-            else //we didn't come from a previous if or elif so get out of here
-            {
-
-                // Stop if this is the last command in the list
-                if (CommandIndex >= ParentBlock.CommandList.Count - 1)
-                {
-                    StopParentBlock();
-                    return;
-                }
-
-                // Find the next End command at the same indent level as this Else If command
-                var end = FindOurEndCommand();
-                int endIndex = end != null ? end.CommandIndex : -1;
-                if (endIndex != -1)
-                {
-                    // Execute command immediately after the Else or End command
-                    Continue(endIndex + 1);
-                }
-                else
-                {
-                    // No End command found
-                    StopParentBlock();
-                }
-            }
-        }
-
+               
         protected End FindOurEndCommand()
         {
             int indent = indentLevel;

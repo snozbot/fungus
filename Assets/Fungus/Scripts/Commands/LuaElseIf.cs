@@ -18,19 +18,9 @@ namespace Fungus
 
         #region Public members
 
-        public override bool OpenBlock()
-        {
-            return true;
-        }
-
         public override bool CloseBlock()
         {
             return true;
-        }
-
-        public override Color GetButtonColor()
-        {
-            return new Color32(253, 253, 150, 255);
         }
 
         #endregion

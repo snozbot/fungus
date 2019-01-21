@@ -12,6 +12,8 @@ namespace Fungus
 
         public abstract void Add(object o);
 
+        public abstract void Insert(int index, object o);
+
         public abstract void AddUnique(object o);
 
         public abstract void Remove(object o);
@@ -34,11 +36,15 @@ namespace Fungus
 
         public abstract void Reverse();
 
+        public abstract void Sort();
+
         public abstract bool Contains(object o);
 
         public abstract int IndexOf(object o);
 
         public abstract int LastIndexOf(object o);
+
+        public abstract int Occurrences(object o);
 
         //sort
         //merge

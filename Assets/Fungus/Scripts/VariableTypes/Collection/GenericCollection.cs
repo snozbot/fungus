@@ -156,5 +156,34 @@ namespace Fungus
                 vt.Value = collection[index];
             }
         }
+
+        public override int Occurrences(object o)
+        {
+            int retval = 0;
+            var t = Promote(o);
+            if (t != null)
+            {
+                for (int i = 0; i < collection.Count; i++)
+                {
+                    if (collection[i].Equals(t))
+                        retval++;
+                }
+            }
+            return retval;
+        }
+
+        public override void Insert(int index, object o)
+        {
+            var t = Promote(o);
+            if (t != null)
+            {
+                collection.Insert(index, t);
+            }
+        }
+
+        public override void Sort()
+        {
+            collection.Sort();
+        }
     }
 }
