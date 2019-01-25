@@ -185,5 +185,22 @@ namespace Fungus
         {
             collection.Sort();
         }
+
+        public override void Reserve(int count)
+        {
+            collection.Capacity = count;
+        }
+
+        public override void Resize(int count)
+        {
+            var toAdd = count - collection.Count;
+            if(toAdd > 0)
+                collection.AddRange(System.Linq.Enumerable.Repeat(default(T), toAdd));
+        }
+
+        public override int Capacity()
+        {
+            return collection.Capacity;
+        }
     }
 }

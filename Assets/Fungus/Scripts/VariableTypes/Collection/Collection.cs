@@ -46,7 +46,12 @@ namespace Fungus
 
         public abstract int Occurrences(object o);
 
-        //sort
+        public abstract void Reserve(int count);
+
+        public abstract void Resize(int count);
+
+        public abstract int Capacity();
+
         //merge
         //exclusive
         //subtract

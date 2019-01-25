@@ -13,12 +13,20 @@ namespace Fungus
 
         public override Color GetButtonColor()
         {
-            return new Color32(235, 191, 217, 255);
+            return new Color32(191, 217, 235, 255);
         }
 
         public override bool HasReference(Variable variable)
         {
             return variable == collection;
+        }
+
+        public override string GetSummary()
+        {
+            if (collection.Value == null)
+                return "Error: no collection selected";
+
+            return collection.Value.name;
         }
     }
 }
