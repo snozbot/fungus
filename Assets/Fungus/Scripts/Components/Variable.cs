@@ -84,6 +84,11 @@ namespace Fungus
             this.VariableTypes = variableTypes;
         }
 
+        public VariablePropertyAttribute(VariableInfo.VariableAny any)
+        {
+            VariableTypes = VariableInfo.AllFungusVarTypes;
+        }
+
         public VariablePropertyAttribute (string defaultText, params System.Type[] variableTypes) 
         {
             this.defaultText = defaultText;
@@ -122,6 +127,32 @@ namespace Fungus
         /// Callback to reset the variable if the Flowchart is reset.
         /// </summary>
         public abstract void OnReset();
+
+        public abstract void Apply(SetOperator setOperator, object value);
+
+        public abstract bool Evaluate(CompareOperator compareOperator, object value);
+
+        /// <summary>
+        /// Does the underlying type provide support for +-*/
+        /// </summary>
+        public virtual bool IsArithmeticSupported() { return false; }
+
+        /// <summary>
+        /// Does the underlying type provide support for < <= > >=
+        /// </summary>
+        public virtual bool IsComparisonSupported() { return false; }
+
+#if UNITY_EDITOR
+        /// <summary>
+        /// Method to be overloaded in child classes to alter how a variable type draws itself
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <param name="valueProp"></param>
+        public virtual void InternalDrawProperty(Rect rect, UnityEditor.SerializedProperty valueProp)
+        {
+            Debug.LogError("Internal Draw Property called when no specialisation is provided:" + this.ToString());
+        }
+#endif//UNITY_EDITOR
 
         #endregion
     }
@@ -197,8 +228,65 @@ namespace Fungus
             startValue = Value;
         }
 
-        public virtual void Apply(SetOperator setOperator, T value) {
-            Debug.LogError("Variable doesn't have any operators.");
+        public override void Apply(SetOperator op, object value)
+        {
+            if(value is T)
+            {
+                Apply(op, (T)value);
+            }
+            else if(value is VariableBase<T>)
+            {
+                var vbg = value as VariableBase<T>;
+                Apply(op, vbg.Value);
+            }
+        }
+
+        public virtual void Apply(SetOperator setOperator, T value)
+        {
+            switch (setOperator)
+            {
+            case SetOperator.Assign:
+                Value = value;
+                break;
+            default:
+                Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
+                break;
+            }
+        }
+
+        public override bool Evaluate(CompareOperator op, object value)
+        {
+            if (value is T)
+            {
+                return Evaluate(op, (T)value);
+            }
+            else if (value is VariableBase<T>)
+            {
+                var vbg = value as VariableBase<T>;
+                return Evaluate(op, vbg.Value);
+            }
+
+            return false;
+        }
+
+        public virtual bool Evaluate(CompareOperator compareOperator, T value)
+        {
+            bool condition = false;
+
+            switch (compareOperator)
+            {
+            case CompareOperator.Equals:
+                condition = Value.Equals(value);
+                break;
+            case CompareOperator.NotEquals:
+                condition = !Value.Equals(value);
+                break;
+            default:
+                Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
+                break;
+            }
+
+            return condition;
         }
     }
 }

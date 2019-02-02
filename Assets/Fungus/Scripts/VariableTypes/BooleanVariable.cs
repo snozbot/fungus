@@ -13,47 +13,6 @@ namespace Fungus
     [System.Serializable]
     public class BooleanVariable : VariableBase<bool>
     {
-        public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
-        public static readonly SetOperator[] setOperators = { SetOperator.Assign, SetOperator.Negate };
-
-        public virtual bool Evaluate(CompareOperator compareOperator, bool booleanValue)
-        {
-            bool condition = false;
-            
-            bool lhs = Value;
-            bool rhs = booleanValue;
-            
-            switch (compareOperator)
-            {
-                case CompareOperator.Equals:
-                    condition = lhs == rhs;
-                    break;
-                case CompareOperator.NotEquals:
-                    condition = lhs != rhs;
-                    break;
-                default:
-                    Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
-                    break;
-            }
-            
-            return condition;
-        }
-
-        public override void Apply(SetOperator setOperator, bool value)
-        {
-            switch (setOperator)
-            {
-                case SetOperator.Assign:
-                    Value = value;
-                    break;
-                case SetOperator.Negate:
-                    Value = !value;
-                    break;
-                default:
-                    Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
-                    break;
-            }
-        }
     }
 
     /// <summary>

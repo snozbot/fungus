@@ -11,51 +11,30 @@ namespace Fungus.EditorUtils
     [CustomEditor (typeof(SetVariable))]
     public class SetVariableEditor : CommandEditor
     {
-        protected struct VariablePropertyInfo
+        static readonly List<GUIContent> operatorsListAll = new List<GUIContent>()
         {
-            public string name;
-            public SerializedProperty dataProp;
+            new GUIContent("="),
+            new GUIContent("=!"),
+            new GUIContent("+="),
+            new GUIContent("-="),
+            new GUIContent("*="),
+            new GUIContent("\\="),
+        };
 
-            public VariablePropertyInfo(string name, SerializedProperty dataProp) {
-                this.name = name;
-                this.dataProp = dataProp;
-            }
-        }
+        static readonly List<GUIContent> operatorsListAssignOnly = new List<GUIContent>()
+        {
+            new GUIContent("="),
+        };
 
-        protected SerializedProperty variableProp;
+        protected SerializedProperty anyVarProp;
         protected SerializedProperty setOperatorProp;
-
-        // Variable data props
-        protected Dictionary<System.Type, VariablePropertyInfo> propertyInfoByVariableType;
-
-        protected List<SerializedProperty> variableDataProps;
-
+        
         public override void OnEnable()
         {
             base.OnEnable();
 
-            variableProp = serializedObject.FindProperty("variable");
+            anyVarProp = serializedObject.FindProperty("anyVar");
             setOperatorProp = serializedObject.FindProperty("setOperator");
-
-            // Get variable data props by name
-            propertyInfoByVariableType = new Dictionary<System.Type, VariablePropertyInfo>() {
-                { typeof(BooleanVariable), new VariablePropertyInfo("Boolean", serializedObject.FindProperty("booleanData")) },
-                { typeof(IntegerVariable), new VariablePropertyInfo("Integer", serializedObject.FindProperty("integerData")) },
-                { typeof(FloatVariable), new VariablePropertyInfo("Float", serializedObject.FindProperty("floatData")) },
-                { typeof(StringVariable), new VariablePropertyInfo("String", serializedObject.FindProperty("stringData")) },
-                { typeof(AnimatorVariable), new VariablePropertyInfo("Animator", serializedObject.FindProperty("animatorData")) },
-                { typeof(AudioSourceVariable), new VariablePropertyInfo("AudioSource", serializedObject.FindProperty("audioSourceData")) },
-                { typeof(ColorVariable), new VariablePropertyInfo("Color", serializedObject.FindProperty("colorData")) },
-                { typeof(GameObjectVariable), new VariablePropertyInfo("GameObject", serializedObject.FindProperty("gameObjectData")) },
-                { typeof(MaterialVariable), new VariablePropertyInfo("Material", serializedObject.FindProperty("materialData")) },
-                { typeof(ObjectVariable), new VariablePropertyInfo("Object", serializedObject.FindProperty("objectData")) },
-                { typeof(Rigidbody2DVariable), new VariablePropertyInfo("Rigidbody2D", serializedObject.FindProperty("rigidbody2DData")) },
-                { typeof(SpriteVariable), new VariablePropertyInfo("Sprite", serializedObject.FindProperty("spriteData")) },
-                { typeof(TextureVariable), new VariablePropertyInfo("Texture", serializedObject.FindProperty("textureData")) },
-                { typeof(TransformVariable), new VariablePropertyInfo("Transform", serializedObject.FindProperty("transformData")) },
-                { typeof(Vector2Variable), new VariablePropertyInfo("Vector2", serializedObject.FindProperty("vector2Data")) },
-                { typeof(Vector3Variable), new VariablePropertyInfo("Vector3", serializedObject.FindProperty("vector3Data")) }
-            };
         }
 
         public override void DrawCommandGUI()
@@ -71,53 +50,20 @@ namespace Fungus.EditorUtils
             }
 
             // Select Variable
-            EditorGUILayout.PropertyField(variableProp);
-
-            if (variableProp.objectReferenceValue == null)
-            {
-                serializedObject.ApplyModifiedProperties();
-                return;
-            }
+            EditorGUILayout.PropertyField(anyVarProp, true);
 
             // Get selected variable
-            Variable selectedVariable = variableProp.objectReferenceValue as Variable;
-            System.Type variableType = selectedVariable.GetType();
-
-            // Get operators for the variable
-            SetOperator[] setOperators = SetVariable.operatorsByVariableType[variableType];
-
-            // Create operator list
-            List<GUIContent> operatorsList = new List<GUIContent>();
-            foreach (var setOperator in setOperators)
+            Variable selectedVariable = anyVarProp.FindPropertyRelative("variable").objectReferenceValue as Variable;
+            System.Type variableType = null;
+            List<GUIContent> operatorsList = VariableConditionEditor.emptyList;
+            if (selectedVariable != null)
             {
-                switch (setOperator)
-                {
-                    case SetOperator.Assign:
-                        operatorsList.Add(new GUIContent("="));
-                        break;
-                    case SetOperator.Negate:
-                        operatorsList.Add(new GUIContent("=!"));
-                        break;
-                    case SetOperator.Add:
-                        operatorsList.Add(new GUIContent("+="));
-                        break;
-                    case SetOperator.Subtract:
-                        operatorsList.Add(new GUIContent("-="));
-                        break;
-                    case SetOperator.Multiply:
-                        operatorsList.Add(new GUIContent("*="));
-                        break;
-                    case SetOperator.Divide:
-                        operatorsList.Add(new GUIContent("\\="));
-                        break;
-                    default:
-                        Debug.LogError("The " + setOperator.ToString() + " operator has no matching GUIContent.");
-                        break;
-                }
+                variableType = selectedVariable.GetType();
+                operatorsList = selectedVariable.IsComparisonSupported() ? operatorsListAll : operatorsListAssignOnly;
             }
 
             // Get previously selected operator
-            int selectedIndex = System.Array.IndexOf(setOperators, t._SetOperator);
+            int selectedIndex = (int) t._SetOperator;
             if (selectedIndex < 0)
             {
                 // Default to first index if the operator is not found in the available operators list
@@ -128,13 +74,10 @@ namespace Fungus.EditorUtils
             // Get next selected operator
             selectedIndex = EditorGUILayout.Popup(new GUIContent("Operation", "Arithmetic operator to use"), selectedIndex, operatorsList.ToArray());
 
-
-            setOperatorProp.enumValueIndex = (int)setOperators[selectedIndex];
-
-
-            VariablePropertyInfo propertyInfo = propertyInfoByVariableType[variableType];
-            EditorGUILayout.PropertyField(propertyInfo.dataProp, new GUIContent(propertyInfo.name));
-
+            if (selectedVariable != null)
+            {
+                setOperatorProp.enumValueIndex = selectedIndex;
+            }
 
             serializedObject.ApplyModifiedProperties();
         }

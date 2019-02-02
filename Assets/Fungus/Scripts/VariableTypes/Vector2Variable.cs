@@ -14,45 +14,30 @@ namespace Fungus
     [System.Serializable]
     public class Vector2Variable : VariableBase<Vector2>
     {
-        public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
-        public static readonly SetOperator[] setOperators = { SetOperator.Assign, SetOperator.Add, SetOperator.Subtract };
-
-        public virtual bool Evaluate(CompareOperator compareOperator, Vector2 value)
+        public override bool IsArithmeticSupported()
         {
-            bool condition = false;
-
-            switch (compareOperator)
-            {
-                case CompareOperator.Equals:
-                    condition = Value == value;
-                    break;
-                case CompareOperator.NotEquals:
-                    condition = Value != value;
-                    break;
-                default:
-                    Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
-                    break;
-            }
-
-            return condition;
+            return true;
         }
 
         public override void Apply(SetOperator setOperator, Vector2 value)
         {
             switch (setOperator)
             {
-                case SetOperator.Assign:
-                    Value = value;
-                    break;
-                case SetOperator.Add:
-                    Value += value;
-                    break;
-                case SetOperator.Subtract:
-                    Value -= value;
-                    break;
-                default:
-                    Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
-                    break;
+            case SetOperator.Add:
+                Value += value;
+                break;
+            case SetOperator.Subtract:
+                Value -= value;
+                break;
+            case SetOperator.Multiply:
+                Value *= value;
+                break;
+            case SetOperator.Divide:
+                Value /= value;
+                break;
+            default:
+                base.Apply(setOperator, value);
+                break;
             }
         }
     }

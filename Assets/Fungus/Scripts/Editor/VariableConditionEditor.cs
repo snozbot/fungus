@@ -10,8 +10,28 @@ namespace Fungus.EditorUtils
     [CustomEditor (typeof(VariableCondition), true)]
     public class VariableConditionEditor : CommandEditor
     {
-        protected SerializedProperty variableProp;
-        protected SerializedProperty compareOperatorProp;
+        public static readonly List<GUIContent> emptyList = new List<GUIContent>()
+        {
+            new GUIContent("<None>"),
+        };
+
+        static readonly List<GUIContent> compareListAll = new List<GUIContent>()
+        {
+            new GUIContent("=="),
+            new GUIContent("!="),
+            new GUIContent("<"),
+            new GUIContent(">"),
+            new GUIContent("<="),
+            new GUIContent(">="),
+        };
+
+        static readonly List<GUIContent> compareListEqualOnly = new List<GUIContent>()
+        {
+            new GUIContent("=="),
+            new GUIContent("!="),
+        };
+
+        protected SerializedProperty compareOperatorProp, anyVarProp;
 
         protected Dictionary<System.Type, SerializedProperty> propByVariableType;
 
@@ -19,28 +39,8 @@ namespace Fungus.EditorUtils
         {
             base.OnEnable();
 
-            variableProp = serializedObject.FindProperty("variable");
             compareOperatorProp = serializedObject.FindProperty("compareOperator");
-
-            // Get variable data props by name
-            propByVariableType = new Dictionary<System.Type, SerializedProperty>() {
-                { typeof(BooleanVariable), serializedObject.FindProperty("booleanData") },
-                { typeof(IntegerVariable), serializedObject.FindProperty("integerData") },
-                { typeof(FloatVariable), serializedObject.FindProperty("floatData") },
-                { typeof(StringVariable), serializedObject.FindProperty("stringData") },
-                { typeof(AnimatorVariable), serializedObject.FindProperty("animatorData") },
-                { typeof(AudioSourceVariable), serializedObject.FindProperty("audioSourceData") },
-                { typeof(ColorVariable), serializedObject.FindProperty("colorData") },
-                { typeof(GameObjectVariable), serializedObject.FindProperty("gameObjectData") },
-                { typeof(MaterialVariable), serializedObject.FindProperty("materialData") },
-                { typeof(ObjectVariable), serializedObject.FindProperty("objectData") },
-                { typeof(Rigidbody2DVariable), serializedObject.FindProperty("rigidbody2DData") },
-                { typeof(SpriteVariable), serializedObject.FindProperty("spriteData") },
-                { typeof(TextureVariable), serializedObject.FindProperty("textureData") },
-                { typeof(TransformVariable), serializedObject.FindProperty("transformData") },
-                { typeof(Vector2Variable), serializedObject.FindProperty("vector2Data") },
-                { typeof(Vector3Variable), serializedObject.FindProperty("vector3Data") }
-            };
+            anyVarProp = serializedObject.FindProperty("anyVar");
         }
 
         public override void DrawCommandGUI()
@@ -55,54 +55,20 @@ namespace Fungus.EditorUtils
                 return;
             }
 
-            // Select Variable
-            EditorGUILayout.PropertyField(variableProp);
-
-            if (variableProp.objectReferenceValue == null)
-            {
-                serializedObject.ApplyModifiedProperties();
-                return;
-            }
+            EditorGUILayout.PropertyField(anyVarProp, true);
 
             // Get selected variable
-            Variable selectedVariable = variableProp.objectReferenceValue as Variable;
-            System.Type variableType = selectedVariable.GetType();
-
-            // Get operators for the variable
-            CompareOperator[] compareOperators = VariableCondition.operatorsByVariableType[variableType];
-
-            // Create operator list
-            List<GUIContent> operatorsList = new List<GUIContent>();
-            foreach (var compareOperator in compareOperators)
+            Variable selectedVariable = anyVarProp.FindPropertyRelative("variable").objectReferenceValue as Variable;
+            System.Type variableType = null;
+            List<GUIContent> operatorsList = emptyList;
+            if (selectedVariable != null)
             {
-                switch (compareOperator)
-                {
-                    case CompareOperator.Equals:
-                        operatorsList.Add(new GUIContent("=="));
-                        break;
-                    case CompareOperator.NotEquals:
-                        operatorsList.Add(new GUIContent("!="));
-                        break;
-                    case CompareOperator.LessThan:
-                        operatorsList.Add(new GUIContent("<"));
-                        break;
-                    case CompareOperator.GreaterThan:
-                        operatorsList.Add(new GUIContent(">"));
-                        break;
-                    case CompareOperator.LessThanOrEquals:
-                        operatorsList.Add(new GUIContent("<="));
-                        break;
-                    case CompareOperator.GreaterThanOrEquals:
-                        operatorsList.Add(new GUIContent(">="));
-                        break;
-                    default:
-                        Debug.LogError("The " + compareOperator.ToString() + " operator has no matching GUIContent.");
-                        break;
-                }
+                variableType = selectedVariable.GetType();
+                operatorsList = selectedVariable.IsComparisonSupported() ? compareListAll : compareListEqualOnly;
             }
-
+            
             // Get previously selected operator
-            int selectedIndex = System.Array.IndexOf(compareOperators, t._CompareOperator);
+            int selectedIndex = (int)t._CompareOperator;
             if (selectedIndex < 0)
             {
                 // Default to first index if the operator is not found in the available operators list
@@ -115,9 +81,11 @@ namespace Fungus.EditorUtils
                 selectedIndex,
                 operatorsList.ToArray());
 
-            compareOperatorProp.enumValueIndex = (int)compareOperators[selectedIndex];
+            if (selectedVariable != null)
+            {
+                compareOperatorProp.enumValueIndex = selectedIndex;
+            }
 
-            EditorGUILayout.PropertyField(propByVariableType[variableType]);
 
             serializedObject.ApplyModifiedProperties();
         }

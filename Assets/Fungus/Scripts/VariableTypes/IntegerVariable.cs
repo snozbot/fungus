@@ -11,82 +11,67 @@ namespace Fungus
     [VariableInfo("", "Integer")]
     [AddComponentMenu("")]
     [System.Serializable]
-    public class IntegerVariable : VariableBase<int> 
+    public class IntegerVariable : VariableBase<int>
     {
-        public static readonly CompareOperator[] compareOperators = {
-            CompareOperator.Equals,
-            CompareOperator.NotEquals,
-            CompareOperator.LessThan,
-            CompareOperator.GreaterThan,
-            CompareOperator.LessThanOrEquals,
-            CompareOperator.GreaterThanOrEquals
-        };
-        public static readonly SetOperator[] setOperators = {
-            SetOperator.Assign,
-            SetOperator.Add,
-            SetOperator.Subtract,
-            SetOperator.Multiply,
-            SetOperator.Divide
-        };
-
-        public virtual bool Evaluate(CompareOperator compareOperator, int integerValue)
+        public override bool IsArithmeticSupported()
         {
-            int lhs = Value;
-            int rhs = integerValue;
+            return true;
+        }
 
-            bool condition = false;
-
-            switch (compareOperator)
-            {
-                case CompareOperator.Equals:
-                    condition = lhs == rhs;
-                    break;
-                case CompareOperator.NotEquals:
-                    condition = lhs != rhs;
-                    break;
-                case CompareOperator.LessThan:
-                    condition = lhs < rhs;
-                    break;
-                case CompareOperator.GreaterThan:
-                    condition = lhs > rhs;
-                    break;
-                case CompareOperator.LessThanOrEquals:
-                    condition = lhs <= rhs;
-                    break;
-                case CompareOperator.GreaterThanOrEquals:
-                    condition = lhs >= rhs;
-                    break;
-                default:
-                    Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
-                    break;
-            }
-
-            return condition;
+        public override bool IsComparisonSupported()
+        {
+            return true;
         }
 
         public override void Apply(SetOperator setOperator, int value)
         {
             switch (setOperator)
             {
-                case SetOperator.Assign:
-                    Value = value;
-                    break;
-                case SetOperator.Add:
-                    Value += value;
-                    break;
-                case SetOperator.Subtract:
-                    Value -= value;
-                    break;
-                case SetOperator.Multiply:
-                    Value *= value;
-                    break;
-                case SetOperator.Divide:
-                    Value /= value;
-                    break;
-                default:
-                    Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
-                    break;
+            case SetOperator.Add:
+                Value += value;
+                break;
+            case SetOperator.Subtract:
+                Value -= value;
+                break;
+            case SetOperator.Multiply:
+                Value *= value;
+                break;
+            case SetOperator.Divide:
+                Value /= value;
+                break;
+            default:
+                base.Apply(setOperator, value);
+                break;
             }
+        }
+
+        public override bool Evaluate(CompareOperator compareOperator, int value)
+        {
+            int lhs = Value;
+            int rhs = value;
+
+            bool condition = false;
+
+            switch (compareOperator)
+            {
+            case CompareOperator.LessThan:
+                condition = lhs < rhs;
+                break;
+            case CompareOperator.GreaterThan:
+                condition = lhs > rhs;
+                break;
+            case CompareOperator.LessThanOrEquals:
+                condition = lhs <= rhs;
+                break;
+            case CompareOperator.GreaterThanOrEquals:
+                condition = lhs >= rhs;
+                break;
+            default:
+                condition = base.Evaluate(compareOperator, value);
+                break;
+            }
+
+            return condition;
         }
     }
 
