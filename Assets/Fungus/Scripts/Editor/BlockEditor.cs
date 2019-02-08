@@ -62,18 +62,27 @@ namespace Fungus.EditorUtils
             serializedObject.Update();
 
             SerializedProperty blockNameProperty = serializedObject.FindProperty("blockName");
-            Rect blockLabelRect = new Rect(45, 5, 120, 16);
-            EditorGUI.LabelField(blockLabelRect, new GUIContent("Block Name"));
-            Rect blockNameRect = new Rect(45, 21, 180, 16);
-            EditorGUI.PropertyField(blockNameRect, blockNameProperty, new GUIContent(""));
-
-            // Ensure block name is unique for this Flowchart
-            var block = target as Block;
-            string uniqueName = flowchart.GetUniqueBlockKey(blockNameProperty.stringValue, block);
-            if (uniqueName != block.BlockName)
+            //calc position as size of what we want to draw pushed up into the top bar of the inspector
+            //Rect blockLabelRect = new Rect(45, -GUI.skin.window.padding.bottom - EditorGUIUtility.singleLineHeight * 2, 120, 16);
+            //EditorGUI.LabelField(blockLabelRect, new GUIContent("Block Name"));
+            //Rect blockNameRect = new Rect(45, blockLabelRect.y + EditorGUIUtility.singleLineHeight, 180, 16);
+            //EditorGUI.PropertyField(blockNameRect, blockNameProperty, new GUIContent(""));
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.PrefixLabel(new GUIContent("Block Name"), EditorStyles.largeLabel);
+            EditorGUI.BeginChangeCheck();
+            blockNameProperty.stringValue = EditorGUILayout.TextField(blockNameProperty.stringValue);
+            if(EditorGUI.EndChangeCheck())
             {
-                blockNameProperty.stringValue = uniqueName;
+                // Ensure block name is unique for this Flowchart
+                var block = target as Block;
+                string uniqueName = flowchart.GetUniqueBlockKey(blockNameProperty.stringValue, block);
+                if (uniqueName != block.BlockName)
+                {
+                    blockNameProperty.stringValue = uniqueName;
+                }
             }
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.Space();
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -119,7 +128,8 @@ namespace Fungus.EditorUtils
 
                 SerializedProperty descriptionProp = serializedObject.FindProperty("description");
                 EditorGUILayout.PropertyField(descriptionProp);
-
+                EditorGUILayout.Space();
+                
                 DrawEventHandlerGUI(flowchart);
 
                 block.UpdateIndentLevels();

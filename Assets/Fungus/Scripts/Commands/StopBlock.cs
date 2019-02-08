@@ -55,6 +55,11 @@ namespace Fungus
             return new Color32(253, 253, 150, 255);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return blockName.stringRef == variable || base.HasReference(variable);
+        }
+
         #endregion
     }
 }

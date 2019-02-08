@@ -21,5 +21,15 @@ namespace Fungus
             return new Color32(235, 191, 217, 255);
         }
 
+        public override string GetSummary()
+        {
+            return "in: " + (inValue.floatRef != null ? inValue.floatRef.Key : inValue.Value.ToString()) + 
+                   ", out: " + (outValue.floatRef != null ? outValue.floatRef.Key : outValue.Value.ToString());
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            return variable == inValue.floatRef || variable == outValue.floatRef;
+        }
     }
 }

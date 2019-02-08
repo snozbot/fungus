@@ -48,7 +48,7 @@ namespace Fungus
 
         public override bool HasReference(Variable variable)
         {
-            return (variable == this.variable);
+            return (variable == this.variable) || minValue.integerRef == variable || maxValue.integerRef == variable;
         }
 
         public override Color GetButtonColor()

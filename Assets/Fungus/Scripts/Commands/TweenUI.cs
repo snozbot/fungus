@@ -132,6 +132,11 @@ namespace Fungus
             return false;
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return waitUntilFinished.booleanRef == variable || duration.floatRef == variable || base.HasReference(variable);
+        }
+
         #endregion
     }
 }

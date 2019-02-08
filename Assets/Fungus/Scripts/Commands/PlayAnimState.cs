@@ -53,6 +53,13 @@ namespace Fungus
             return new Color32(170, 204, 169, 255);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return animator.animatorRef == variable || stateName.stringRef == variable || 
+                layer.integerRef == variable || time.floatRef == variable || 
+                base.HasReference(variable);
+        }
+
         #endregion
     }    
 }

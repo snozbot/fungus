@@ -50,6 +50,30 @@ namespace Fungus
 
         protected string errorMessage = "";
 
+        #region Editor caches
+#if UNITY_EDITOR
+        //
+        protected List<Variable> referencedVariables = new List<Variable>();
+
+        //used by var list adapter to highlight variables 
+        public bool IsVariableReferenced(Variable variable)
+        {
+            return referencedVariables.Contains(variable) || HasReference(variable);
+        }
+
+        /// <summary>
+        /// Called by OnValidate
+        /// 
+        /// Child classes to specialise to add variable references to referencedVariables, either directly or
+        /// via the use of Flowchart.DetermineSubstituteVariables
+        /// </summary>
+        protected virtual void RefreshVariableCache()
+        {
+            referencedVariables.Clear();
+        }
+#endif
+        #endregion Editor caches
+
         #region Public members
 
         /// <summary>
@@ -202,6 +226,16 @@ namespace Fungus
         public virtual bool HasReference(Variable variable)
         {
             return false;
+        }
+
+        /// <summary>
+        /// Called by unity when script is loaded or its data changed by editor
+        /// </summary>
+        public virtual void OnValidate()
+        {
+#if UNITY_EDITOR
+            RefreshVariableCache();
+#endif
         }
 
         /// <summary>

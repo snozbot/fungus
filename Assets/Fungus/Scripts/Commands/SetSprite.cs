@@ -1,34 +1,36 @@
 // This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+// Snippet added by ducksonthewater, 2019-01-03 - www.ducks-on-the-water.com
+
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace Fungus
 {
     /// <summary>
-    /// Controls the render order of sprites by setting the Order In Layer property of a list of sprites.
+    /// Changes the sprite on a SpriteRenderer.
     /// </summary>
     [CommandInfo("Sprite", 
-                 "Set Sprite Order", 
-                 "Controls the render order of sprites by setting the Order In Layer property of a list of sprites.")]
+                 "Set Sprite", 
+                 "Changes the sprite property of a list of Sprite Renderers.")]
     [AddComponentMenu("")]
-    public class SetSpriteOrder : Command 
+    public class SetSprite : Command 
     {
-        [Tooltip("List of sprites to set the order in layer property on")]
-        [SerializeField] protected List<SpriteRenderer> targetSprites = new List<SpriteRenderer>();
+        [Tooltip("List of sprites to set the sprite property on")]
+        [SerializeField] protected List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
 
-        [Tooltip("The order in layer value to set on the target sprites")]
-        [SerializeField] protected IntegerData orderInLayer;
+        [Tooltip("The sprite set on the target sprite renderers")]
+        [SerializeField] protected Sprite sprite;
 
         #region Public members
 
         public override void OnEnter()
         {
-            for (int i = 0; i < targetSprites.Count; i++)
+            for (int i = 0; i < spriteRenderers.Count; i++)
             {
-                var spriteRenderer = targetSprites[i];
-                spriteRenderer.sortingOrder = orderInLayer;
+                var spriteRenderer = spriteRenderers[i];
+                spriteRenderer.sprite = sprite;
             }
 
             Continue();
@@ -37,9 +39,9 @@ namespace Fungus
         public override string GetSummary()
         {
             string summary = "";
-            for (int i = 0; i < targetSprites.Count; i++)
+            for (int i = 0; i < spriteRenderers.Count; i++)
             {
-                var spriteRenderer = targetSprites[i];
+                var spriteRenderer = spriteRenderers[i];
                 if (spriteRenderer == null)
                 {
                     continue;
@@ -53,10 +55,10 @@ namespace Fungus
 
             if (summary.Length == 0)
             {
-                return "Error: No cursor sprite selected";
+                return "Error: No sprite selected";
             }
 
-            return summary + " = " + orderInLayer.Value;
+            return summary + " = " + sprite;
         }
         
         public override Color GetButtonColor()
@@ -66,7 +68,7 @@ namespace Fungus
 
         public override bool IsReorderableArray(string propertyName)
         {
-            if (propertyName == "targetSprites")
+            if (propertyName == "spriteRenderers")
             {
                 return true;
             }
@@ -77,12 +79,7 @@ namespace Fungus
         public override void OnCommandAdded(Block parentBlock)
         {
             // Add a default empty entry
-            targetSprites.Add(null);
-        }
-
-        public override bool HasReference(Variable variable)
-        {
-            return orderInLayer.integerRef == variable || base.HasReference(variable);
+            spriteRenderers.Add(null);
         }
 
         #endregion
