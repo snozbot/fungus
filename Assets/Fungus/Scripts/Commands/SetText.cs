@@ -38,30 +38,15 @@ namespace Fungus
                 Continue();
                 return;
             }
-            
-            // Use first component found of Text, Input Field or Text Mesh type
-            Text uiText = targetTextObject.GetComponent<Text>();
-            if (uiText != null)
+
+            TextAdapter textAdapter = new TextAdapter();
+            textAdapter.InitFromGameObject(targetTextObject);
+
+            if (textAdapter.HasTextObject())
             {
-                uiText.text = newText;
+                textAdapter.Text = newText;
             }
-            else
-            {
-                InputField inputField = targetTextObject.GetComponent<InputField>();
-                if (inputField != null)
-                {
-                    inputField.text = newText;
-                }
-                else
-                {
-                    TextMesh textMesh = targetTextObject.GetComponent<TextMesh>();
-                    if (textMesh != null)
-                    {
-                        textMesh.text = newText;
-                    }
-                }
-            }
-            
+
             Continue();
         }
         
