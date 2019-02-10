@@ -224,28 +224,26 @@ namespace Fungus.EditorUtils
 
             bool isGlobal = scopeProp.enumValueIndex == (int)VariableScope.Global;
 
-
+            var prevEnabled = GUI.enabled;
             if (isGlobal && Application.isPlaying)
-            {
-                var res = FungusManager.Instance.GlobalVariables.GetVariable(keyProp.stringValue);
-                if (res != null)
-                {
-                    SerializedObject globalValue = new SerializedObject(res);
-                    var globalValProp = globalValue.FindProperty("value");
+			{
+				var res = FungusManager.Instance.GlobalVariables.GetVariable(keyProp.stringValue);
+				if(res != null)
+				{
+					SerializedObject globalValue = new SerializedObject(res);
+					var globalValProp = globalValue.FindProperty("value");
 
-                    var prevEnabled = GUI.enabled;
-                    GUI.enabled = false;
-
-                    EditorGUI.PropertyField(rects[2], globalValProp, new GUIContent(""));
-
-                    GUI.enabled = prevEnabled;
+					
+					GUI.enabled = false;
+                    defaultProp = globalValProp;
                 }
-            }
-            else
-            {
-                EditorGUI.PropertyField(rects[2], defaultProp, new GUIContent(""));
-            }
+			}
 
+
+            //variable.DrawProperty(rects[2], defaultProp, variableInfo);
+            VariableDrawProperty(variable, rects[2], defaultProp, variableInfo);
+
+            GUI.enabled = prevEnabled;
 
             scope = (VariableScope)EditorGUI.EnumPopup(rects[3], variable.Scope);
             scopeProp.enumValueIndex = (int)scope;
@@ -253,6 +251,35 @@ namespace Fungus.EditorUtils
             variableObject.ApplyModifiedProperties();
 
             GUI.backgroundColor = Color.white;
+        }
+
+        public virtual float GetItemHeight(int index)
+        {
+            return fixedItemHeight != 0f
+                ? fixedItemHeight
+                    : EditorGUI.GetPropertyHeight(this[index], GUIContent.none, false)
+                    ;
+        }
+
+        public void VariableDrawProperty(Variable variable,Rect rect, SerializedProperty valueProp, VariableInfoAttribute info)
+        {
+            if (valueProp == null)
+            {
+                EditorGUI.LabelField(rect, "N/A");
+            }
+            else if (info.IsPreviewedOnly)
+            {
+                EditorGUI.LabelField(rect, variable.ToString());
+            }
+            else if (info.HasCustomDraw)
+            {
+                //delegate actual drawing to the variable
+                variable.InternalDrawProperty(rect, valueProp);
+            }
+            else
+            {
+                EditorGUI.PropertyField(rect, valueProp, new GUIContent(""));
+            }
         }
     }
 }

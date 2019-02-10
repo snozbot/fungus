@@ -29,11 +29,11 @@ namespace Fungus.EditorUtils
             {
                 var varPropType = varProp.objectReferenceValue.GetType();
 
-                var typeIndex = System.Array.IndexOf(VariableInfo.AllFungusVarTypes, varPropType);
+                var typeActionsRes = AnyVaraibleAndDataPair.typeActionLookup[varPropType];
 
-                if(typeIndex != -1)
+                if (typeActionsRes != null)
                 {
-                    var targetName = "data." + AnyVariableData.PropertyNameByTypeIndex[typeIndex];
+                    var targetName = "data." + typeActionsRes.DataPropName;
                     var dataProp = property.FindPropertyRelative(targetName);
                     if (dataProp != null)
                     {

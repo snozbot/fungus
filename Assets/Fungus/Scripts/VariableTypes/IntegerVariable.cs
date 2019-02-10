@@ -13,7 +13,7 @@ namespace Fungus
     [System.Serializable]
     public class IntegerVariable : VariableBase<int>
     {
-        public override bool IsArithmeticSupported()
+        public override bool IsArithmeticSupported(SetOperator setOperator)
         {
             return true;
         }
@@ -27,6 +27,9 @@ namespace Fungus
         {
             switch (setOperator)
             {
+            case SetOperator.Negate:
+                Value = Value * -1;
+                break;
             case SetOperator.Add:
                 Value += value;
                 break;

@@ -11,21 +11,6 @@ namespace Fungus.EditorUtils
     [CustomEditor (typeof(SetVariable))]
     public class SetVariableEditor : CommandEditor
     {
-        static readonly List<GUIContent> operatorsListAll = new List<GUIContent>()
-        {
-            new GUIContent("="),
-            new GUIContent("=!"),
-            new GUIContent("+="),
-            new GUIContent("-="),
-            new GUIContent("*="),
-            new GUIContent("\\="),
-        };
-
-        static readonly List<GUIContent> operatorsListAssignOnly = new List<GUIContent>()
-        {
-            new GUIContent("="),
-        };
-
         protected SerializedProperty anyVarProp;
         protected SerializedProperty setOperatorProp;
         
@@ -54,12 +39,25 @@ namespace Fungus.EditorUtils
 
             // Get selected variable
             Variable selectedVariable = anyVarProp.FindPropertyRelative("variable").objectReferenceValue as Variable;
-            System.Type variableType = null;
-            List<GUIContent> operatorsList = VariableConditionEditor.emptyList;
+            List<GUIContent> operatorsList = new List<GUIContent>();
             if (selectedVariable != null)
             {
-                variableType = selectedVariable.GetType();
-                operatorsList = selectedVariable.IsComparisonSupported() ? operatorsListAll : operatorsListAssignOnly;
+                if(selectedVariable.IsArithmeticSupported(SetOperator.Assign))
+                    operatorsList.Add(new GUIContent("="));
+                if (selectedVariable.IsArithmeticSupported(SetOperator.Negate))
+                    operatorsList.Add(new GUIContent("=!"));
+                if (selectedVariable.IsArithmeticSupported(SetOperator.Add))
+                    operatorsList.Add(new GUIContent("+="));
+                if (selectedVariable.IsArithmeticSupported(SetOperator.Subtract))
+                    operatorsList.Add(new GUIContent("-="));
+                if (selectedVariable.IsArithmeticSupported(SetOperator.Multiply))
+                    operatorsList.Add(new GUIContent("*="));
+                if (selectedVariable.IsArithmeticSupported(SetOperator.Divide))
+                    operatorsList.Add(new GUIContent("\\="));
+            }
+            else
+            {
+                operatorsList = VariableConditionEditor.emptyList;
             }
 
             // Get previously selected operator

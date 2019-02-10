@@ -12,19 +12,36 @@ namespace Fungus
     [AddComponentMenu("")]
     public class Trigger : BasePhysicsEventHandler
     {
+        [Tooltip("Optional variable to store the collider that caused the trigger to occur.")]
+        [VariableProperty(typeof(ColliderVariable))]
+        [SerializeField] protected ColliderVariable colliderVar;
+
         private void OnTriggerEnter(Collider col)
         {
-            ProcessCollider(PhysicsMessageType.Enter, col.tag);
+            ProcessCollider(PhysicsMessageType.Enter, col);
         }
 
         private void OnTriggerStay(Collider col)
         {
-            ProcessCollider(PhysicsMessageType.Stay, col.tag);
+            ProcessCollider(PhysicsMessageType.Stay, col);
         }
 
         private void OnTriggerExit(Collider col)
         {
-            ProcessCollider(PhysicsMessageType.Exit, col.tag);
+            ProcessCollider(PhysicsMessageType.Exit, col);
+        }
+        
+        protected void ProcessCollider(PhysicsMessageType from, Collider other)
+        {
+            if ((from & FireOn) != 0 && DoesPassFilter(other.tag))
+            {
+                if(colliderVar != null)
+                {
+                    colliderVar.Value = other;
+                }
+
+                ExecuteBlock();
+            }
         }
     }
 }

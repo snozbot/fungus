@@ -171,8 +171,8 @@ MonoBehaviour:
   indentLevel: 0
   collection:
     collectionRef: {fileID: 0}
-    collectionVal: {fileID: 0}
-  variableToUse: {fileID: 0}
+    collectionVal: {fileID: 1130536777}
+  variableToUse: {fileID: 37731990}
   onlyIfUnique:
     booleanRef: {fileID: 0}
     booleanVal: 0
@@ -278,7 +278,8 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
-  selectedBlocks: []
+  selectedBlocks:
+  - {fileID: 37731983}
   selectedCommands: []
   variables:
   - {fileID: 37731970}
@@ -454,8 +455,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 380
-    y: 180
+    x: 77
+    y: 231
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -507,14 +508,102 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 10
   indentLevel: 0
-  variable: {fileID: 37731970}
+  anyVar:
+    variable: {fileID: 37731970}
+    data:
+      animatorData:
+        animatorRef: {fileID: 0}
+        animatorVal: {fileID: 0}
+      audioSourceData:
+        audioSourceRef: {fileID: 0}
+        audioSourceVal: {fileID: 0}
+      booleanData:
+        booleanRef: {fileID: 0}
+        booleanVal: 0
+      collectionData:
+        collectionRef: {fileID: 0}
+        collectionVal: {fileID: 0}
+      collider2DData:
+        collider2DRef: {fileID: 0}
+        collider2DVal: {fileID: 0}
+      colliderData:
+        colliderRef: {fileID: 0}
+        colliderVal: {fileID: 0}
+      colorData:
+        colorRef: {fileID: 0}
+        colorVal: {r: 0, g: 0, b: 0, a: 0}
+      floatData:
+        floatRef: {fileID: 0}
+        floatVal: 0
+      gameObjectData:
+        gameObjectRef: {fileID: 0}
+        gameObjectVal: {fileID: 0}
+      integerData:
+        integerRef: {fileID: 0}
+        integerVal: 5
+      materialData:
+        materialRef: {fileID: 0}
+        materialVal: {fileID: 0}
+      matrix4x4Data:
+        matrix4x4Ref: {fileID: 0}
+        matrix4x4Val:
+          e00: 0
+          e01: 0
+          e02: 0
+          e03: 0
+          e10: 0
+          e11: 0
+          e12: 0
+          e13: 0
+          e20: 0
+          e21: 0
+          e22: 0
+          e23: 0
+          e30: 0
+          e31: 0
+          e32: 0
+          e33: 0
+      objectData:
+        objectRef: {fileID: 0}
+        objectVal: {fileID: 0}
+      quaternionData:
+        quaternionRef: {fileID: 0}
+        quaternionVal: {x: 0, y: 0, z: 0, w: 0}
+      rigidbody2DData:
+        rigidbody2DRef: {fileID: 0}
+        rigidbody2DVal: {fileID: 0}
+      rigidbodyData:
+        rigidbodyRef: {fileID: 0}
+        rigidbodyVal: {fileID: 0}
+      spriteData:
+        spriteRef: {fileID: 0}
+        spriteVal: {fileID: 0}
+      stringData:
+        stringRef: {fileID: 0}
+        stringVal: 
+      textureData:
+        textureRef: {fileID: 0}
+        textureVal: {fileID: 0}
+      transformData:
+        transformRef: {fileID: 0}
+        transformVal: {fileID: 0}
+      vector2Data:
+        vector2Ref: {fileID: 0}
+        vector2Val: {x: 0, y: 0}
+      vector3Data:
+        vector3Ref: {fileID: 0}
+        vector3Val: {x: 0, y: 0, z: 0}
+      vector4Data:
+        vector4Ref: {fileID: 0}
+        vector4Val: {x: 0, y: 0, z: 0, w: 0}
   setOperator: 0
+  variable: {fileID: 0}
   booleanData:
     booleanRef: {fileID: 0}
     booleanVal: 0
   integerData:
     integerRef: {fileID: 0}
-    integerVal: 5
+    integerVal: 0
   floatData:
     floatRef: {fileID: 0}
     floatVal: 0
@@ -684,7 +773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 37731993}
-  waitForFrames: 1
+  waitForFrames: 2
 --- !u!114 &37731993
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -699,8 +788,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 604
-    y: 201
+    x: 70
+    y: 298
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -733,6 +822,9 @@ MonoBehaviour:
   tagString:
     stringRef: {fileID: 0}
     stringVal: Collection
+  clearCollection:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
 --- !u!114 &37731995
 MonoBehaviour:
   m_ObjectHideFlags: 2

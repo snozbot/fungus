@@ -159,7 +159,7 @@ namespace Fungus.EditorUtils
                     var compatChecker = property.serializedObject.targetObject as ICollectionCompatible;
                     if (compatChecker != null)
                     {
-                        return compatChecker.IsCompat(v, variableProperty.compatibleVariableName);
+                        return compatChecker.IsCompatible(v, variableProperty.compatibleVariableName);
                     }
                     else
                     {
@@ -362,7 +362,4 @@ namespace Fungus.EditorUtils
     public class AudioSourceDrawer : VariableDataDrawer<AudioSourceVariable>
     { }
 
-    [CustomPropertyDrawer(typeof(Rigidbody2DData))]
-    public class Rigidbody2DDataDrawer : VariableDataDrawer<Rigidbody2DVariable>
-    { }
 }

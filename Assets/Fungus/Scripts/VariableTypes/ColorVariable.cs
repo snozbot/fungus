@@ -14,9 +14,9 @@ namespace Fungus
     [System.Serializable]
     public class ColorVariable : VariableBase<Color>
     {
-        public override bool IsArithmeticSupported()
+        public override bool IsArithmeticSupported(SetOperator setOperator)
         {
-            return true;
+            return setOperator != SetOperator.Negate;
         }
 
         public override void Apply(SetOperator setOperator, Color value)

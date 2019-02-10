@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 namespace Fungus
 {
-
     /// <summary>
     /// The block will execute when a 3d physics collision matching some basic conditions is met 
     /// </summary>
@@ -13,19 +12,35 @@ namespace Fungus
     [AddComponentMenu("")]
     public class Collision : BasePhysicsEventHandler
     {
+        [Tooltip("Optional variable to store the collision object that is provided by Unity.")]
+        [VariableProperty(typeof(CollisionVariable))]
+        [SerializeField] protected CollisionVariable collisionVar;
+
         private void OnCollisionEnter(UnityEngine.Collision collision)
         {
-            ProcessCollider(PhysicsMessageType.Enter, collision.collider.tag);
+            ProcessCollisionEvent(PhysicsMessageType.Enter, collision);
         }
 
         private void OnCollisionStay(UnityEngine.Collision collision)
         {
-            ProcessCollider(PhysicsMessageType.Stay, collision.collider.tag);
+            ProcessCollisionEvent(PhysicsMessageType.Stay, collision);
         }
 
         private void OnCollisionExit(UnityEngine.Collision collision)
         {
-            ProcessCollider(PhysicsMessageType.Exit, collision.collider.tag);
+            ProcessCollisionEvent(PhysicsMessageType.Exit, collision);
+        }
+
+        private void ProcessCollisionEvent(PhysicsMessageType from, UnityEngine.Collision collision)
+        {
+            if ((from & FireOn) != 0 &&
+                DoesPassFilter(collision.collider.tag))
+            {
+                if (collisionVar != null)
+                    collisionVar.Value = collision;
+
+                ExecuteBlock();
+            }
         }
     }
 }

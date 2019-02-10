@@ -24,6 +24,17 @@ namespace Fungus
             return default(T);
         }
 
+        protected virtual GenericCollection<T> Promote(Collection col)
+        {
+            if (col is GenericCollection<T>)
+            {
+                return (GenericCollection<T>)col;
+            }
+
+            Debug.LogError("Collection cannot promote " + col.GetType().Name + " to " + this.GetType().Name);
+            return null;
+        }
+
         public override bool IsCompatible(object o)
         {
             return o is T || o is VariableBase<T>;
@@ -34,8 +45,13 @@ namespace Fungus
             var t = Promote(o);
             if (t != null)
             {
-                collection.Add(t);
+                Add(t);
             }
+        }
+
+        public void Add(T t)
+        {
+            collection.Add(t);
         }
 
         public override void AddUnique(object o)
@@ -47,6 +63,14 @@ namespace Fungus
                 {
                     collection.Add(t);
                 }
+            }
+        }
+
+        public void AddUnique(T t)
+        {
+            if (!collection.Contains(t))
+            {
+                Add(t);
             }
         }
 
@@ -155,6 +179,10 @@ namespace Fungus
                 VariableBase<T> vt = variable as VariableBase<T>;
                 vt.Value = collection[index];
             }
+            else
+            {
+                Debug.LogError("Collection cannot get variable " + variable.Key + ". Is not matching type:" + typeof(T).Name);
+            }
         }
 
         public override int Occurrences(object o)
@@ -201,6 +229,136 @@ namespace Fungus
         public override int Capacity()
         {
             return collection.Capacity;
+        }
+
+        public override void RemoveAll(Collection rhsCol)
+        {
+            var rhs = Promote(rhsCol);
+            if (rhs != null)
+            {
+                for (int i = 0; i < rhs.collection.Count; i++)
+                {
+                    collection.Remove(rhs.collection[i]);
+                }
+            }
+        }
+
+        public override bool ContainsAllOf(Collection rhsCol)
+        {
+            var rhs = Promote(rhsCol);
+            if (rhs != null)
+            {
+                for (int i = 0; i < rhs.collection.Count; i++)
+                {
+                    if (!collection.Contains(rhs.collection[i]))
+                        return false;
+                }
+
+                return true;
+            }
+           
+            return false;
+        }
+
+        public override bool ContainsAllOfOrdered(Collection rhsCol)
+        {
+            var rhs = Promote(rhsCol);
+            if (rhs != null)
+            {
+                if (rhs.Count() == Count())
+                {
+                    for (int i = 0; i < rhs.collection.Count; i++)
+                    {
+                        if (!rhs.collection[i].Equals(collection[i]))
+                            return false;
+                    }
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public override void Add(Collection rhsCol)
+        {
+            var rhs = Promote(rhsCol);
+            if (rhs != null)
+            {
+                for (int i = 0; i < rhs.collection.Count; i++)
+                {
+                    Add(rhs.collection[i]);
+                }
+            }
+        }
+
+        public override void AddUnique(Collection rhsCol)
+        {
+            var rhs = Promote(rhsCol);
+            if (rhs != null)
+            {
+                for (int i = 0; i < rhs.collection.Count; i++)
+                {
+                    AddUnique(rhs.collection[i]);
+                }
+            }
+        }
+
+        public override bool ContainsAnyOf(Collection rhsCol)
+        {
+            var rhs = Promote(rhsCol);
+            if (rhs != null)
+            {
+                for (int i = 0; i < rhs.collection.Count; i++)
+                {
+                    if (collection.Contains(rhs.collection[i]))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        public override void Intersection(Collection rhsCol)
+        {
+            var rhs = Promote(rhsCol);
+            if (rhs != null)
+            {
+                //only things that are in us and in rhs remain
+                for (int i = collection.Count-1; i >=0; i--)
+                {
+                    if(!rhs.Contains(collection[i]))
+                    {
+                        collection.RemoveAt(i);
+                    }
+                }
+            }
+        }
+
+        public override void Exclusive(Collection rhsCol)
+        {
+            var rhs = Promote(rhsCol);
+            if (rhs != null)
+            {
+                //if its in both, remove, if its only in 1 keep
+                for (int i = 0; i <  rhs.collection.Count;  i++)
+                {
+                    var item = rhs.collection[i];
+                    if (!collection.Remove(item))
+                    {
+                        collection.Add(item);
+                    }
+                }
+            }
+        }
+
+        public override void CopyFrom(Collection rhsCol)
+        {
+            var rhs = Promote(rhsCol);
+            if (rhs != null)
+            {
+                collection.Clear();
+                collection.AddRange(rhs.collection);
+            }
         }
     }
 }

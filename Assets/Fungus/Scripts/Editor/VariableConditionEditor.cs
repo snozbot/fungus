@@ -31,7 +31,8 @@ namespace Fungus.EditorUtils
             new GUIContent("!="),
         };
 
-        protected SerializedProperty compareOperatorProp, anyVarProp;
+        protected SerializedProperty compareOperatorProp;
+        protected SerializedProperty anyVarProp;
 
         protected Dictionary<System.Type, SerializedProperty> propByVariableType;
 
@@ -59,11 +60,9 @@ namespace Fungus.EditorUtils
 
             // Get selected variable
             Variable selectedVariable = anyVarProp.FindPropertyRelative("variable").objectReferenceValue as Variable;
-            System.Type variableType = null;
             List<GUIContent> operatorsList = emptyList;
             if (selectedVariable != null)
             {
-                variableType = selectedVariable.GetType();
                 operatorsList = selectedVariable.IsComparisonSupported() ? compareListAll : compareListEqualOnly;
             }
             

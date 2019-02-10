@@ -13,10 +13,21 @@ namespace Fungus
     [AddComponentMenu("")]
     public class CharacterControllerCollide : TagFilteredEventHandler
     {
+        [Tooltip("Optional variable to store the ControllerColliderHit")]
+        [VariableProperty(typeof(ControllerColliderHitVariable))]
+        [SerializeField] protected ControllerColliderHitVariable colHitVar;
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            ProcessTagFilter(hit.gameObject.tag);
+            if (DoesPassFilter(hit.gameObject.tag))
+            {
+                if(colHitVar != null)
+                {
+                    colHitVar.Value = hit;
+                }
+
+                ExecuteBlock();
+            }
         }
     }
 }

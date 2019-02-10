@@ -15,17 +15,15 @@ namespace Fungus
 
         protected void ProcessTagFilter(string tagOnOther)
         {
-            if (tagFilter.Length == 0)
+            if (DoesPassFilter(tagOnOther))
             {
                 ExecuteBlock();
             }
-            else
-            {
-                if (System.Array.IndexOf(tagFilter, tagOnOther) != -1)
-                {
-                    ExecuteBlock();
-                }
-            }
+        }
+
+        protected bool DoesPassFilter(string tagOnOther)
+        {
+            return tagFilter.Length == 0 || System.Array.IndexOf(tagFilter, tagOnOther) != -1;
         }
     }
 }
