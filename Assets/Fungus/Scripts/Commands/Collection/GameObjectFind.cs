@@ -15,9 +15,6 @@ namespace Fungus
         [SerializeField]
         protected StringData tagString;
 
-        [SerializeField]
-        protected BooleanData clearCollection = new BooleanData(false);
-
         public override void OnEnter()
         {
             var col = collection.Value;
@@ -25,8 +22,6 @@ namespace Fungus
             if(col != null)
             {
                 var res = GameObject.FindGameObjectsWithTag(tagString.Value);
-
-                col.Clear();
 
                 for (int i = 0; i < res.Length; i++)
                 {

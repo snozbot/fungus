@@ -18,7 +18,7 @@ namespace Fungus
 
         public override bool HasReference(Variable variable)
         {
-            return variable == collection;
+            return variable == collection.collectionRef;
         }
 
         public override string GetSummary()

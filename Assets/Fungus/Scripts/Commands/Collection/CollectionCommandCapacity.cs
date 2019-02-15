@@ -10,7 +10,7 @@ namespace Fungus
     {
         protected override void OnEnterInner()
         {
-            collection.Value.RemoveAt(integer.Value);
+            integer.Value = collection.Value.Capacity();
         }
     }
 }

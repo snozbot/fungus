@@ -238,7 +238,7 @@ namespace Fungus
             {
                 for (int i = 0; i < rhs.collection.Count; i++)
                 {
-                    collection.Remove(rhs.collection[i]);
+                    collection.RemoveAll(x => x.Equals(rhs.collection[i]));
                 }
             }
         }
