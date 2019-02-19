@@ -107,7 +107,7 @@ namespace Fungus.EditorUtils
                         }
                     }
 
-                    variableKeys.Add(fs.name + " / " + v.Key);
+                    variableKeys.Add(fs.name + "/" + v.Key);
                     variableObjects.Add(v);
 
                     index++;
