@@ -13,6 +13,7 @@ namespace Fungus.EditorUtils
     {
         #region statics
         public static Command selectedCommand;
+        public static bool SelectedCommandDataStale { get; set; }
 
         public static CommandInfoAttribute GetCommandInfo(System.Type commandType)
         {
@@ -108,8 +109,13 @@ namespace Fungus.EditorUtils
             GUI.backgroundColor = Color.white;
 
             EditorGUILayout.Separator();
-            
+
+            EditorGUI.BeginChangeCheck();
             DrawCommandGUI();
+            if(EditorGUI.EndChangeCheck())
+            {
+                SelectedCommandDataStale = true;
+            }
 
             EditorGUILayout.Separator();
 

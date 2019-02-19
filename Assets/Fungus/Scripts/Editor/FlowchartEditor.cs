@@ -27,7 +27,10 @@ namespace Fungus.EditorUtils
         protected Texture2D addTexture;
 
         protected VariableListAdaptor variableListAdaptor;
-                
+
+
+        public static bool FlowchartDataStale { get; set; }
+
         protected virtual void OnEnable()
         {
             if (NullTargetCheck()) // Check for an orphaned editor instance
@@ -58,6 +61,8 @@ namespace Fungus.EditorUtils
 
             flowchart.UpdateHideFlags();
 
+            EditorGUI.BeginChangeCheck();
+
             EditorGUILayout.PropertyField(descriptionProp);
             EditorGUILayout.PropertyField(colorCommandsProp);
             EditorGUILayout.PropertyField(hideComponentsProp);
@@ -72,6 +77,12 @@ namespace Fungus.EditorUtils
             //ReorderableListGUI.Title(new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip));
             //ReorderableListGUI.ListField(hideCommandsProp);
             EditorGUILayout.PropertyField(hideCommandsProp, new GUIContent(hideCommandsProp.displayName, hideCommandsProp.tooltip), true);
+
+            if(EditorGUI.EndChangeCheck())
+            {
+                FlowchartDataStale = true;
+            }
+
 
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();

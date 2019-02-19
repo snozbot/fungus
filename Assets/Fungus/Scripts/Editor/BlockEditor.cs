@@ -19,6 +19,8 @@ namespace Fungus.EditorUtils
     {
         public static List<Action> actionList = new List<Action>();
 
+        public static bool SelectedBlockDataStale { get; set; }
+
         protected Texture2D upIcon;
         protected Texture2D downIcon;
         protected Texture2D addIcon;
@@ -109,6 +111,8 @@ namespace Fungus.EditorUtils
                 actionList.Clear();
             }
 
+
+            EditorGUI.BeginChangeCheck();
 
             if (block == flowchart.SelectedBlock)
             {
@@ -261,6 +265,12 @@ namespace Fungus.EditorUtils
                 }
             }
 
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                SelectedBlockDataStale = true;
+            }
+
             serializedObject.ApplyModifiedProperties();
         }
 
@@ -374,7 +384,14 @@ namespace Fungus.EditorUtils
                 EventHandlerEditor eventHandlerEditor = Editor.CreateEditor(block._EventHandler) as EventHandlerEditor;
                 if (eventHandlerEditor != null)
                 {
+                    EditorGUI.BeginChangeCheck();
                     eventHandlerEditor.DrawInspectorGUI();
+
+                    if(EditorGUI.EndChangeCheck())
+                    {
+                        SelectedBlockDataStale = true;
+                    }
+
                     DestroyImmediate(eventHandlerEditor);
                 }
             }
