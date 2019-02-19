@@ -12,14 +12,6 @@ namespace Fungus
 	[System.Serializable]
 	public class QuaternionVariable : VariableBase<UnityEngine.Quaternion>
     {
-#if UNITY_EDITOR
-        public override void InternalDrawProperty(Rect rect, UnityEditor.SerializedProperty valueProp)
-        {
-            //show it as euler angles.
-            valueProp.quaternionValue = Quaternion.Euler(UnityEditor.EditorGUI.Vector3Field(rect, new GUIContent(""), valueProp.quaternionValue.eulerAngles));
-        }
-#endif//UNITY_EDITOR
-
         public override bool IsArithmeticSupported(SetOperator setOperator)
         {
             return setOperator == SetOperator.Multiply || base.IsArithmeticSupported(setOperator);

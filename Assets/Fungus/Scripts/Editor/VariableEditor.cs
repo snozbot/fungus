@@ -221,19 +221,20 @@ namespace Fungus.EditorUtils
 
             var origLabel = new GUIContent(label);
 
-            if (EditorGUI.GetPropertyHeight(valueProp, label) > EditorGUIUtility.singleLineHeight)
+            if (typeInfo.HasCustomDraw || EditorGUI.GetPropertyHeight(valueProp, label) <= EditorGUIUtility.singleLineHeight)
             {
-                DrawMultiLineProperty(position, origLabel, referenceProp, valueProp, flowchart);
+                DrawSingleLineProperty(position, origLabel, referenceProp, valueProp, flowchart, typeInfo);
             }
             else
             {
-                DrawSingleLineProperty(position, origLabel, referenceProp, valueProp, flowchart);
+                DrawMultiLineProperty(position, origLabel, referenceProp, valueProp, flowchart, typeInfo);
             }
 
             EditorGUI.EndProperty();
         }
 
-        protected virtual void DrawSingleLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart)
+        protected virtual void DrawSingleLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart,
+            VariableInfoAttribute typeInfo)
         {
             const int popupWidth = 17;
             
@@ -244,7 +245,7 @@ namespace Fungus.EditorUtils
 
             if (referenceProp.objectReferenceValue == null)
             {
-                EditorGUI.PropertyField(valueRect, valueProp, new GUIContent(""));
+                DrawValueProperty(valueRect, valueProp, typeInfo);
                 popupRect.x += valueRect.width + 5;
                 popupRect.width = popupWidth;
             }
@@ -252,7 +253,8 @@ namespace Fungus.EditorUtils
             EditorGUI.PropertyField(popupRect, referenceProp, new GUIContent(""));
         }
 
-        protected virtual void DrawMultiLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart)
+        protected virtual void DrawMultiLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart,
+            VariableInfoAttribute typeInfo)
         {
             const int popupWidth = 100;
             
@@ -263,7 +265,7 @@ namespace Fungus.EditorUtils
             
             if (referenceProp.objectReferenceValue == null)
             {
-                EditorGUI.PropertyField(valueRect, valueProp, label);
+                DrawValueProperty(valueRect, valueProp, typeInfo);
                 popupRect.x = rect.width - popupWidth + 5;
                 popupRect.width = popupWidth;
             }
@@ -273,6 +275,22 @@ namespace Fungus.EditorUtils
             }
 
             EditorGUI.PropertyField(popupRect, referenceProp, new GUIContent(""));
+        }
+
+        protected virtual void DrawValueProperty(Rect valueRect, SerializedProperty valueProp, VariableInfoAttribute typeInfo)
+        {
+            if (typeInfo.HasCustomDraw)
+            {
+                //delegate actual drawing to the variableInfo
+                AnyVaraibleAndDataPair.TypeActions typeActions = null;
+                AnyVaraibleAndDataPair.typeActionLookup.TryGetValue(typeof(T), out typeActions);
+                if (typeActions != null)
+                    typeActions.CustomDraw(valueRect, valueProp);
+            }
+            else
+            {
+                EditorGUI.PropertyField(valueRect, valueProp, new GUIContent(""));
+            }
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)

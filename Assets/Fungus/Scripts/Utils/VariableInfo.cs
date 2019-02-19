@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Fungus
 {
@@ -77,18 +76,28 @@ namespace Fungus
             public TypeActions(string dataPropName,
                                System.Func<AnyVaraibleAndDataPair, Fungus.CompareOperator, bool> comparer,
                                System.Func<AnyVaraibleAndDataPair, string> desccription,
-                               System.Action<AnyVaraibleAndDataPair, Fungus.SetOperator> set)
+                               System.Action<AnyVaraibleAndDataPair, Fungus.SetOperator> set
+#if UNITY_EDITOR
+                               ,System.Action<UnityEngine.Rect, UnityEditor.SerializedProperty> customDrawFunc = null
+#endif
+                )
             {
                 DataPropName = dataPropName;
                 CompareFunc = comparer;
                 DescFunc = desccription;
                 SetFunc = set;
+#if UNITY_EDITOR
+                CustomDraw = customDrawFunc;
+#endif
             }
 
             public string DataPropName { get; set; }
             public System.Func<AnyVaraibleAndDataPair, Fungus.CompareOperator, bool> CompareFunc;
             public System.Func<AnyVaraibleAndDataPair, string> DescFunc;
             public System.Action<AnyVaraibleAndDataPair, Fungus.SetOperator> SetFunc;
+#if UNITY_EDITOR
+            public System.Action<UnityEngine.Rect, UnityEditor.SerializedProperty> CustomDraw;
+#endif
         }
 
 
@@ -169,7 +178,11 @@ namespace Fungus
                 new TypeActions( "quaternionData", 
                     (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.quaternionData.Value); },
                     (anyVar) => anyVar.data.quaternionData.GetDescription(),
-                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.quaternionData.Value)) },
+                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.quaternionData.Value)
+#if UNITY_EDITOR
+                    ,(rect, valueProp) => {valueProp.quaternionValue = UnityEngine. Quaternion.Euler(UnityEditor.EditorGUI.Vector3Field(rect, new UnityEngine.GUIContent(""), valueProp.quaternionValue.eulerAngles)); }
+#endif
+                    ) },
             { typeof(Rigidbody2DVariable),
                 new TypeActions( "rigidbody2DData", 
                     (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.rigidbody2DData.Value); },
@@ -214,7 +227,11 @@ namespace Fungus
                 new TypeActions( "vector4Data", 
                     (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.vector4Data.Value); },
                     (anyVar) => anyVar.data.vector4Data.GetDescription(),
-                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.vector4Data.Value)) },
+                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.vector4Data.Value)
+#if UNITY_EDITOR
+                    ,(rect, valueProp) => {valueProp.vector4Value = UnityEditor.EditorGUI.Vector4Field(rect, new UnityEngine.GUIContent(""), valueProp.vector4Value); }
+#endif
+                    ) },
         };
 
         public bool HasReference(Variable var)

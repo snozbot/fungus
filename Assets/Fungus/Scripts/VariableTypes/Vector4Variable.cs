@@ -12,13 +12,6 @@ namespace Fungus
 	[System.Serializable]
 	public class Vector4Variable : VariableBase<UnityEngine.Vector4>
 	{
-#if UNITY_EDITOR
-        public override void InternalDrawProperty(Rect rect, UnityEditor.SerializedProperty valueProp)
-        {
-            valueProp.vector4Value = UnityEditor.EditorGUI.Vector4Field(rect, new GUIContent(""), valueProp.vector4Value);
-        }
-#endif//UNITY_EDITOR
-
         public override bool IsArithmeticSupported(SetOperator setOperator)
         {
             return true;

@@ -5,17 +5,19 @@ namespace Fungus
     /// <summary>
     /// 
     /// </summary>
-    [CommandInfo("Physics",
-                    "Overlap",
+    [CommandInfo("Physics2D",
+                    "Overlap2D",
                     "Find all gameobjects hit by given physics shape overlap")]
     [AddComponentMenu("")]
-    public class PhysicsOverlap : CollectionBaseCommand
+    public class Physics2DOverlap : CollectionBaseCommand
     {
         public enum Shape
         {
+            Point,
+            Area,
             Box,
+            Circle,
             Capsule,
-            Sphere,
         }
 
         [Tooltip("")]
@@ -26,21 +28,21 @@ namespace Fungus
         [SerializeField]
         protected Vector3Data position1;
 
-        [Tooltip("CAPSULE ONLY; end point of the capsule")]
+        [Tooltip("AREA ONLY")]
         [SerializeField]
-        protected Vector3Data capsulePosition2;
+        protected Vector3Data areaEndPosition;
 
         [Tooltip("CAPSULE & SPHERE ONLY")]
         [SerializeField]
         protected FloatData radius = new FloatData(0.5f);
 
-        [Tooltip("BOX ONLY")]
+        [Tooltip("BOX & CAPSULE ONLY")]
         [SerializeField]
-        protected Vector3Data boxHalfExtends = new Vector3Data(Vector3.one * 0.5f);
+        protected Vector3Data shapeSize = new Vector3Data(Vector3.one * 0.5f);
 
-        [Tooltip("BOX ONLY")]
+        [Tooltip("BOX & CAPSULE ONLY")]
         [SerializeField]
-        protected QuaternionData boxOrientation = new QuaternionData(Quaternion.identity);
+        protected FloatData shapeAngle;
 
         [Tooltip("")]
         [SerializeField]
@@ -48,8 +50,10 @@ namespace Fungus
 
         [Tooltip("")]
         [SerializeField]
-        protected QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal;
+        protected FloatData minDepth = new FloatData(float.NegativeInfinity), maxDepth = new FloatData(float.PositiveInfinity);
 
+        [SerializeField]
+        protected CapsuleDirection2D capsuleDirection;
 
 
 
@@ -59,18 +63,24 @@ namespace Fungus
 
             if (col != null)
             {
-                Collider[] resColliders = null;
+                Collider2D[] resColliders = null;
 
                 switch (shape)
                 {
-                    case Shape.Box:
-                        resColliders = Physics.OverlapBox(position1.Value, boxHalfExtends.Value, boxOrientation.Value, layerMask.value, queryTriggerInteraction);
+                    case Shape.Area:
+                        resColliders = Physics2D.OverlapAreaAll(position1.Value, areaEndPosition.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
-                    case Shape.Sphere:
-                        resColliders = Physics.OverlapSphere(position1.Value, radius.Value, layerMask.value, queryTriggerInteraction);
+                    case Shape.Box:
+                        resColliders = Physics2D.OverlapBoxAll(position1.Value, shapeSize.Value, shapeAngle.Value, layerMask.value, minDepth.Value, maxDepth.Value);
+                        break;
+                    case Shape.Circle:
+                        resColliders = Physics2D.OverlapCircleAll(position1.Value, radius.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
                     case Shape.Capsule:
-                        resColliders = Physics.OverlapCapsule(position1.Value, capsulePosition2.Value, radius.Value, layerMask.value, queryTriggerInteraction);
+                        resColliders = Physics2D.OverlapCapsuleAll(position1.Value, shapeSize.Value, capsuleDirection, shapeAngle.Value, layerMask.value, minDepth.Value, maxDepth.Value);
+                        break;
+                    case Shape.Point:
+                        resColliders = Physics2D.OverlapPointAll(position1.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
                     default:
                         break;
@@ -82,7 +92,7 @@ namespace Fungus
             Continue();
         }
 
-        protected void PutCollidersIntoGameObjectCollection(Collider[] resColliders)
+        protected void PutCollidersIntoGameObjectCollection(Collider2D[] resColliders)
         {
             if (resColliders != null)
             {
@@ -97,10 +107,12 @@ namespace Fungus
         public override bool HasReference(Variable variable)
         {
             return variable == position1.vector3Ref ||
-                variable == capsulePosition2.vector3Ref ||
+                variable == areaEndPosition.vector3Ref ||
                 variable == radius.floatRef ||
-                variable == boxHalfExtends.vector3Ref ||
-                variable == boxOrientation.quaternionRef ||
+                variable == shapeSize.vector3Ref ||
+                variable == shapeAngle.floatRef ||
+                variable == minDepth.floatRef ||
+                variable == maxDepth.floatRef ||
                 base.HasReference(variable);
         }
 

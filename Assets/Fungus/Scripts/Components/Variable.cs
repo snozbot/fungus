@@ -149,19 +149,7 @@ namespace Fungus
         /// Does the underlying type provide support for < <= > >=
         /// </summary>
         public virtual bool IsComparisonSupported() { return false; }
-
-#if UNITY_EDITOR
-        /// <summary>
-        /// Method to be overloaded in child classes to alter how a variable type draws itself
-        /// </summary>
-        /// <param name="rect"></param>
-        /// <param name="valueProp"></param>
-        public virtual void InternalDrawProperty(Rect rect, UnityEditor.SerializedProperty valueProp)
-        {
-            Debug.LogError("Internal Draw Property called when no specialisation is provided:" + this.ToString());
-        }
-#endif//UNITY_EDITOR
-
+        
         #endregion
     }
 
@@ -304,6 +292,5 @@ namespace Fungus
         {
             return setOperator == SetOperator.Assign || base.IsArithmeticSupported(setOperator);
         }
-
     }
 }

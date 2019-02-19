@@ -273,8 +273,11 @@ namespace Fungus.EditorUtils
             }
             else if (info.HasCustomDraw)
             {
-                //delegate actual drawing to the variable
-                variable.InternalDrawProperty(rect, valueProp);
+                //delegate actual drawing to the variableInfo
+                AnyVaraibleAndDataPair.TypeActions typeActions = null;
+                AnyVaraibleAndDataPair.typeActionLookup.TryGetValue(variable.GetType(), out typeActions);
+                if(typeActions != null)
+                    typeActions.CustomDraw(rect, valueProp);
             }
             else
             {

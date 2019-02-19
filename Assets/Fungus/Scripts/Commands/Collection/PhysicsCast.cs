@@ -6,25 +6,33 @@ namespace Fungus
     /// 
     /// </summary>
     [CommandInfo("Physics",
-                    "Overlap",
-                    "Find all gameobjects hit by given physics shape overlap")]
+                    "Cast",
+                    "Find all gameobjects hit by given physics shape cast")]
     [AddComponentMenu("")]
-    public class PhysicsOverlap : CollectionBaseCommand
+    public class PhysicsCast : CollectionBaseCommand
     {
-        public enum Shape
+        public enum CastType
         {
             Box,
             Capsule,
+            Ray,
             Sphere,
         }
 
-        [Tooltip("")]
         [SerializeField]
-        protected Shape shape = Shape.Box;
+        protected CastType castType = CastType.Ray;
 
-        [Tooltip("Starting point or centre of shape")]
+        [Tooltip("Starting point/origin or centre of shape")]
         [SerializeField]
         protected Vector3Data position1;
+
+        [Tooltip("")]
+        [SerializeField]
+        protected Vector3Data direction;
+
+        [Tooltip("")]
+        [SerializeField]
+        protected FloatData maxDistance = new FloatData(float.PositiveInfinity);
 
         [Tooltip("CAPSULE ONLY; end point of the capsule")]
         [SerializeField]
@@ -50,53 +58,55 @@ namespace Fungus
         [SerializeField]
         protected QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal;
 
-
-
-
         public override void OnEnter()
         {
             var col = collection.Value;
 
             if (col != null)
             {
-                Collider[] resColliders = null;
+                RaycastHit[] resHits = null;
 
-                switch (shape)
+                switch (castType)
                 {
-                    case Shape.Box:
-                        resColliders = Physics.OverlapBox(position1.Value, boxHalfExtends.Value, boxOrientation.Value, layerMask.value, queryTriggerInteraction);
+                    case CastType.Ray:
+                        resHits = Physics.RaycastAll(position1.Value, direction.Value, maxDistance.Value, layerMask.value, queryTriggerInteraction);
                         break;
-                    case Shape.Sphere:
-                        resColliders = Physics.OverlapSphere(position1.Value, radius.Value, layerMask.value, queryTriggerInteraction);
+                    case CastType.Sphere:
+                        resHits = Physics.SphereCastAll(position1.Value, radius.Value, direction.Value, maxDistance.Value, layerMask.value, queryTriggerInteraction);
                         break;
-                    case Shape.Capsule:
-                        resColliders = Physics.OverlapCapsule(position1.Value, capsulePosition2.Value, radius.Value, layerMask.value, queryTriggerInteraction);
+                    case CastType.Box:
+                        resHits = Physics.BoxCastAll(position1.Value, boxHalfExtends.Value, direction.Value, boxOrientation.Value, maxDistance.Value, layerMask.value, queryTriggerInteraction);
+                        break;
+                    case CastType.Capsule:
+                        resHits = Physics.CapsuleCastAll(position1.Value, capsulePosition2.Value, radius.Value, direction.Value, maxDistance.Value, layerMask.value, queryTriggerInteraction);
                         break;
                     default:
                         break;
                 }
 
-                PutCollidersIntoGameObjectCollection(resColliders);
+                PutCollidersIntoGameObjectCollection(resHits);
             }
 
             Continue();
         }
 
-        protected void PutCollidersIntoGameObjectCollection(Collider[] resColliders)
+        protected void PutCollidersIntoGameObjectCollection(RaycastHit[] resHits)
         {
-            if (resColliders != null)
+            if (resHits != null)
             {
                 var col = collection.Value;
-                for (int i = 0; i < resColliders.Length; i++)
+                for (int i = 0; i < resHits.Length; i++)
                 {
-                    col.Add(resColliders[i].gameObject);
+                    col.Add(resHits[i].collider.gameObject);
                 }
             }
         }
 
         public override bool HasReference(Variable variable)
         {
-            return variable == position1.vector3Ref ||
+            return variable == direction.vector3Ref ||
+                variable == maxDistance.floatRef ||
+                variable == position1.vector3Ref ||
                 variable == capsulePosition2.vector3Ref ||
                 variable == radius.floatRef ||
                 variable == boxHalfExtends.vector3Ref ||
@@ -113,7 +123,7 @@ namespace Fungus
             if (!(collection.Value is GameObjectCollection))
                 return "Error: collection is not GameObjectCollection";
 
-            return shape.ToString() + ", store in " + collection.Value.name;
+            return castType.ToString() + ", store in " + collection.Value.name;
         }
     }
 }
