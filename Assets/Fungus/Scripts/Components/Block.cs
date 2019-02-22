@@ -112,11 +112,11 @@ namespace Fungus
             }
         }
 
+#endif
         //editor only state for speeding up flowchart window drawing
         public bool IsSelected { get; set; }    //local cache of selectedness
         public bool IsFiltered { get; set; }    //local cache of filteredness
         public bool IsControlSelected { get; set; } //local cache of being part of the control exclusion group
-#endif
 
         #region Public members
 
