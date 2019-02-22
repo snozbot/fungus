@@ -35,7 +35,16 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            return "InvLerp [" + a.Value.ToString() + "-" + b.Value.ToString() + "]";
+            if (outValue.floatRef == null)
+                return "Error: no out value selected";
+
+            return outValue.floatRef.Key + " = [" + a.Value.ToString() + "-" + b.Value.ToString() + "]";
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            return a.floatRef == variable || b.floatRef == variable || value.floatRef == variable ||
+                   outValue.floatRef == variable;
         }
 
         public override Color GetButtonColor()

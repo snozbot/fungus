@@ -30,6 +30,10 @@ namespace Fungus.EditorUtils
         private ReorderableList list;
         public Flowchart TargetFlowchart { get; private set; }
 
+        private float[] itemWidths = new float[4];
+        private Rect[] itemRects = new Rect[4];
+        private GUIContent emptyGUIContent = new GUIContent("");
+
         public SerializedProperty this[int index]
         {
             get { return _arrayProperty.GetArrayElementAtIndex(index); }
@@ -111,8 +115,17 @@ namespace Fungus.EditorUtils
                 if (_arrayProperty == null || _arrayProperty.serializedObject == null)
                     return;
 
+
                 _arrayProperty.serializedObject.Update();
                 this.widthOfList = (w == 0 ? VariableListAdaptor.DefaultWidth : w) - ScrollSpacer;
+
+                int width = widthOfList;
+                int totalRatio = DefaultWidth;
+
+                itemWidths[0] = (80.0f / totalRatio) * width;
+                itemWidths[1] = (100.0f / totalRatio) * width;
+                itemWidths[2] = (140.0f / totalRatio) * width;
+                itemWidths[3] = (60.0f / totalRatio) * width;
 
                 if (GUILayout.Button("Variables"))
                 {
@@ -139,24 +152,14 @@ namespace Fungus.EditorUtils
                 return;
             }
 
-            int width = widthOfList;
-            int totalRatio = DefaultWidth;
-
-
-            float[] widths = { (80.0f/ totalRatio) * width,
-                (100.0f / totalRatio) * width,
-                (140.0f/ totalRatio) * width,
-                (60.0f/ totalRatio) * width };
-            Rect[] rects = new Rect[4];
-
             for (int i = 0; i < 4; ++i)
             {
-                rects[i] = position;
-                rects[i].width = widths[i] - 5;
+                itemRects[i] = position;
+                itemRects[i].width = itemWidths[i] - 5;
 
                 for (int j = 0; j < i; ++j)
                 {
-                    rects[i].x += widths[j];
+                    itemRects[i].x += itemWidths[j];
                 }
             }
 
@@ -178,7 +181,7 @@ namespace Fungus.EditorUtils
             {
                 if (Application.isPlaying && flowchart.SelectedBlock.IsExecuting())
                 {
-                    highlight = flowchart.SelectedBlock.ActiveCommand.HasReference(variable);
+                    highlight = flowchart.SelectedBlock.ActiveCommand.IsVariableReferenced(variable);
                 }
                 else if (!Application.isPlaying && flowchart.SelectedCommands.Count > 0)
                 {
@@ -189,7 +192,7 @@ namespace Fungus.EditorUtils
                             continue;
                         }
 
-                        if (selectedCommand.HasReference(variable))
+                        if (selectedCommand.IsVariableReferenced(variable))
                         {
                             highlight = true;
                             break;
@@ -213,39 +216,45 @@ namespace Fungus.EditorUtils
 
             variableObject.Update();
 
-            GUI.Label(rects[0], variableInfo.VariableType);
+            GUI.Label(itemRects[0], variableInfo.VariableType);
 
-            key = EditorGUI.TextField(rects[1], variable.Key);
             SerializedProperty keyProp = variableObject.FindProperty("key");
             SerializedProperty defaultProp = variableObject.FindProperty("value");
             SerializedProperty scopeProp = variableObject.FindProperty("scope");
 
-            keyProp.stringValue = flowchart.GetUniqueVariableKey(key, variable);
+
+            EditorGUI.BeginChangeCheck();
+            key = EditorGUI.TextField(itemRects[1], variable.Key);
+            if (EditorGUI.EndChangeCheck())
+            {
+                keyProp.stringValue = flowchart.GetUniqueVariableKey(key, variable);
+            }
 
             bool isGlobal = scopeProp.enumValueIndex == (int)VariableScope.Global;
 
             var prevEnabled = GUI.enabled;
             if (isGlobal && Application.isPlaying)
-			{
-				var res = FungusManager.Instance.GlobalVariables.GetVariable(keyProp.stringValue);
-				if(res != null)
-				{
-					SerializedObject globalValue = new SerializedObject(res);
-					var globalValProp = globalValue.FindProperty("value");
+            {
+                var res = FungusManager.Instance.GlobalVariables.GetVariable(keyProp.stringValue);
+                if (res != null)
+                {
+                    SerializedObject globalValue = new SerializedObject(res);
+                    var globalValProp = globalValue.FindProperty("value");
 
-					
-					GUI.enabled = false;
+
+                    GUI.enabled = false;
                     defaultProp = globalValProp;
                 }
-			}
+            }
 
 
             //variable.DrawProperty(rects[2], defaultProp, variableInfo);
-            VariableDrawProperty(variable, rects[2], defaultProp, variableInfo);
+            VariableDrawProperty(variable, itemRects[2], defaultProp, variableInfo);
 
             GUI.enabled = prevEnabled;
 
-            scope = (VariableScope)EditorGUI.EnumPopup(rects[3], variable.Scope);
+
+            scope = (VariableScope)EditorGUI.EnumPopup(itemRects[3], variable.Scope);
             scopeProp.enumValueIndex = (int)scope;
 
             variableObject.ApplyModifiedProperties();
@@ -261,7 +270,7 @@ namespace Fungus.EditorUtils
                     ;
         }
 
-        public void VariableDrawProperty(Variable variable,Rect rect, SerializedProperty valueProp, VariableInfoAttribute info)
+        public void VariableDrawProperty(Variable variable, Rect rect, SerializedProperty valueProp, VariableInfoAttribute info)
         {
             if (valueProp == null)
             {
@@ -276,7 +285,7 @@ namespace Fungus.EditorUtils
                 //delegate actual drawing to the variableInfo
                 AnyVaraibleAndDataPair.TypeActions typeActions = null;
                 AnyVaraibleAndDataPair.typeActionLookup.TryGetValue(variable.GetType(), out typeActions);
-                if(typeActions != null)
+                if (typeActions != null)
                     typeActions.CustomDraw(rect, valueProp);
             }
             else

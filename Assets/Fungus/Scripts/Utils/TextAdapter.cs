@@ -12,6 +12,9 @@ namespace Fungus
         protected Text textUI;
         protected InputField inputField;
         protected TextMesh textMesh;
+#if UNITY_2018_1_OR_NEWER
+        protected TMPro.TMP_Text tmpro;
+#endif
         protected Component textComponent;
         protected PropertyInfo textProperty;
         protected IWriterTextDestination writerTextDestination;
@@ -28,6 +31,9 @@ namespace Fungus
                 textUI = go.GetComponent<Text>();
                 inputField = go.GetComponent<InputField>();
                 textMesh = go.GetComponent<TextMesh>();
+#if UNITY_2018_1_OR_NEWER
+                tmpro = go.GetComponent<TMPro.TMP_Text>();
+#endif
                 writerTextDestination = go.GetComponent<IWriterTextDestination>();
             }
             else
@@ -35,6 +41,9 @@ namespace Fungus
                 textUI = go.GetComponentInChildren<Text>();
                 inputField = go.GetComponentInChildren<InputField>();
                 textMesh = go.GetComponentInChildren<TextMesh>();
+#if UNITY_2018_1_OR_NEWER
+                tmpro = go.GetComponentInChildren<TMPro.TMP_Text>();
+#endif
                 writerTextDestination = go.GetComponentInChildren<IWriterTextDestination>();
             }
             
@@ -74,7 +83,14 @@ namespace Fungus
                 textMesh.richText = true;
             }
 
-            if(writerTextDestination != null)
+#if UNITY_2018_1_OR_NEWER
+            if(tmpro != null)
+            {
+                tmpro.richText = true;
+            }
+#endif
+
+            if (writerTextDestination != null)
             {
                 writerTextDestination.ForceRichText();
             }
@@ -97,6 +113,12 @@ namespace Fungus
             {
                 textMesh.color = textColor;
             }
+#if UNITY_2018_1_OR_NEWER
+            else if (tmpro != null)
+            {
+                tmpro.color = textColor;
+            }
+#endif
             else if (writerTextDestination != null)
             {
                 writerTextDestination.SetTextColor(textColor);
@@ -126,6 +148,12 @@ namespace Fungus
                 tempColor.a = textAlpha;
                 textMesh.color = tempColor;
             }
+#if UNITY_2018_1_OR_NEWER
+            else if (tmpro != null)
+            {
+                tmpro.alpha = textAlpha;
+            }
+#endif
             else if (writerTextDestination != null)
             {
                 writerTextDestination.SetTextAlpha(textAlpha);
@@ -134,7 +162,11 @@ namespace Fungus
 
         public bool HasTextObject()
         {
-            return (textUI != null || inputField != null || textMesh != null || textComponent != null || writerTextDestination != null);
+            return (textUI != null || inputField != null || textMesh != null || textComponent != null ||
+#if UNITY_2018_1_OR_NEWER
+                tmpro !=null ||
+#endif
+                 writerTextDestination != null);
         }
 
         public bool SupportsRichText()
@@ -151,6 +183,12 @@ namespace Fungus
             {
                 return textMesh.richText;
             }
+#if UNITY_2018_1_OR_NEWER
+            if (tmpro != null)
+            {
+                return true;
+            }
+#endif
             if (writerTextDestination != null)
             {
                 return writerTextDestination.SupportsRichText();
@@ -178,6 +216,12 @@ namespace Fungus
                 {
                     return textMesh.text;
                 }
+#if UNITY_2018_1_OR_NEWER
+                else if (tmpro != null)
+                {
+                    return tmpro.text;
+                }
+#endif
                 else if (textProperty != null)
                 {
                     return textProperty.GetValue(textComponent, null) as string;
@@ -204,6 +248,12 @@ namespace Fungus
                 {
                     textMesh.text = value;
                 }
+#if UNITY_2018_1_OR_NEWER
+                else if (tmpro != null)
+                {
+                    tmpro.text = value;
+                }
+#endif
                 else if (textProperty != null)
                 {
                     textProperty.SetValue(textComponent, value, null);

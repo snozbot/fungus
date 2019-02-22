@@ -99,6 +99,24 @@ namespace Fungus
             return new Color32(235, 191, 217, 255);
         }
 
+        public override bool HasReference(Variable in_variable)
+        {
+            return this.variable == in_variable ||
+                base.HasReference(in_variable);
+        }
+
         #endregion
-    }    
+        #region Editor caches
+#if UNITY_EDITOR
+        protected override void RefreshVariableCache()
+        {
+            base.RefreshVariableCache();
+
+            var f = GetFlowchart();
+
+            f.DetermineSubstituteVariables(key, referencedVariables);
+        }
+#endif
+        #endregion Editor caches
+    }
 }

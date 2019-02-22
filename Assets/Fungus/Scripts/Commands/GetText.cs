@@ -32,33 +32,15 @@ namespace Fungus
                 Continue();
                 return;
             }
-            
-            if (targetTextObject != null)
+
+            TextAdapter textAdapter = new TextAdapter();
+            textAdapter.InitFromGameObject(targetTextObject);
+
+            if (textAdapter.HasTextObject())
             {
-                // Use first component found of Text, Input Field or Text Mesh type
-                Text uiText = targetTextObject.GetComponent<Text>();
-                if (uiText != null)
-                {
-                    stringVariable.Value = uiText.text;
-                }
-                else
-                {
-                    InputField inputField = targetTextObject.GetComponent<InputField>();
-                    if (inputField != null)
-                    {
-                        stringVariable.Value = inputField.text;
-                    }
-                    else
-                    {
-                        TextMesh textMesh = targetTextObject.GetComponent<TextMesh>();
-                        if (textMesh != null)
-                        {
-                            stringVariable.Value = textMesh.text;
-                        }
-                    }
-                }
+                stringVariable.Value = textAdapter.Text;
             }
-            
+
             Continue();
         }
         
@@ -80,6 +62,12 @@ namespace Fungus
         public override Color GetButtonColor()
         {
             return new Color32(235, 191, 217, 255);
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            return stringVariable == variable || 
+                base.HasReference(variable);
         }
 
         #endregion

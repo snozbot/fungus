@@ -149,6 +149,8 @@ namespace Fungus.EditorUtils
                 block._EventHandler = newHandler;
             }
 
+            BlockEditor.SelectedBlockDataStale = true;
+
             // Because this is an async call, we need to force prefab instances to record changes
             PrefabUtility.RecordPrefabInstancePropertyModifications(block);
         }

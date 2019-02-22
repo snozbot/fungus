@@ -108,6 +108,12 @@ namespace Fungus
             return new Color32(233, 163, 180, 255);
         }
 
+        public override bool HasReference(Variable variable)
+        {
+            return _targetObject.gameObjectRef == variable || _tweenName.stringRef == variable ||
+                base.HasReference(variable);
+        }
+
         #endregion
 
         #region Backwards compatibility
