@@ -339,7 +339,6 @@ namespace Fungus
         /// </summary>
         public virtual Rect ScrollViewRect { get { return scrollViewRect; } set { scrollViewRect = value; } }
 
-#if UNITY_EDITOR
         /// <summary>
         /// Current actively selected block in the Flowchart editor.
         /// </summary>
@@ -361,7 +360,6 @@ namespace Fungus
 
         public virtual List<Block> SelectedBlocks { get { return selectedBlocks; } set { selectedBlocks = value; } }
 
-#endif
         /// <summary>
         /// Currently selected command in the Flowchart editor.
         /// </summary>
@@ -1125,8 +1123,7 @@ namespace Fungus
 #endif
             }
         }
-
-#if UNITY_EDITOR
+        
         /// <summary>
         /// Clears the list of selected blocks.
         /// </summary>
@@ -1173,8 +1170,7 @@ namespace Fungus
             var res = gameObject.GetComponents<Block>();
             selectedBlocks = res.Where(x => x.IsSelected).ToList();
         }
-
-#endif
+        
         /// <summary>
         /// Reset the commands and variables in the Flowchart.
         /// </summary>
