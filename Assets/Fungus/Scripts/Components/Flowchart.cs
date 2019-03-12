@@ -546,7 +546,7 @@ namespace Fungus
 
             if (block == null)
             {
-                Debug.LogError("Block " + blockName  + "does not exist");
+                Debug.LogError("Block " + blockName  + " does not exist");
                 return;
             }
 
