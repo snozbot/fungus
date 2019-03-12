@@ -527,13 +527,13 @@ namespace Fungus
 
             if (block == null)
             {
-                Debug.LogError("Block " + blockName  + "does not exist");
+                Debug.LogError("Block " + blockName  + " does not exist");
                 return;
             }
 
             if (!ExecuteBlock(block))
             {
-                Debug.LogWarning("Block " + blockName  + "failed to execute");
+                Debug.LogWarning("Block " + blockName  + " failed to execute");
             }
         }
             
