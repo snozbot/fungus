@@ -11,11 +11,21 @@ namespace Fungus.EditorUtils
     /// </summary>
     public class CommandSelectorPopupWindowContent : BasePopupWindowContent
     {
-        static List<System.Type> commandTypes;
+        static List<System.Type> _commandTypes;
+        static List<System.Type> CommandTypes
+        {
+            get
+            {
+                if (_commandTypes == null || _commandTypes.Count == 0)
+                    CacheCommandTypes();
+
+                return _commandTypes;
+            }
+        }
 
         static void CacheCommandTypes()
         {
-            commandTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).Where(x => !x.IsAbstract).ToList();
+            _commandTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).Where(x => !x.IsAbstract).ToList();
         }
 
         [UnityEditor.Callbacks.DidReloadScripts]
@@ -34,24 +44,18 @@ namespace Fungus.EditorUtils
 
         protected override void SelectByOrigIndex(int index)
         {
-            var commandType = (index >= 0 && index < commandTypes.Count) ? commandTypes[index] : null;
+            var commandType = (index >= 0 && index < CommandTypes.Count) ? CommandTypes[index] : null;
             AddCommandCallback(commandType);
         }
 
         protected override void PrepareAllItems()
         {
-            if (commandTypes == null || commandTypes.Count == 0)
-            {
-                CacheCommandTypes();
-            }
-
-
             filteredAttributes = GetFilteredSupportedCommands(curBlock.GetFlowchart());
 
             foreach (var item in filteredAttributes)
             {
                 //force lookup to orig index here to account for commmand lists being filtered by users
-                var newFilteredItem = new FilteredListItem(commandTypes.IndexOf(item.Key), (item.Value.Category.Length > 0 ? item.Value.Category + CATEGORY_CHAR : "") + item.Value.CommandName, item.Value.HelpText);
+                var newFilteredItem = new FilteredListItem(CommandTypes.IndexOf(item.Key), (item.Value.Category.Length > 0 ? item.Value.Category + CATEGORY_CHAR : "") + item.Value.CommandName, item.Value.HelpText);
                 allItems.Add(newFilteredItem);
             }
         }
@@ -79,7 +83,7 @@ namespace Fungus.EditorUtils
 
         protected static List<KeyValuePair<System.Type, CommandInfoAttribute>> GetFilteredSupportedCommands(Flowchart flowchart)
         {
-            List<KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = BlockEditor.GetFilteredCommandInfoAttribute(commandTypes);
+            List<KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = BlockEditor.GetFilteredCommandInfoAttribute(CommandTypes);
 
             filteredAttributes.Sort(BlockEditor.CompareCommandAttributes);
 
