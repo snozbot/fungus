@@ -12,12 +12,22 @@ namespace Fungus.EditorUtils
     public class VariableSelectPopupWindowContent : BasePopupWindowContent
     {
         static readonly int POPUP_WIDTH = 200, POPUP_HEIGHT = 200;
-        static List<System.Type> types;
+        static List<System.Type> _variableTypes;
+        static List<System.Type> VariableTypes
+        {
+            get
+            {
+                if (_variableTypes == null || _variableTypes.Count == 0)
+                    CacheVariableTypes();
+
+                return _variableTypes;
+            }
+        }
 
         static void CacheVariableTypes()
         {
             var derivedType = typeof(Variable);
-            types = EditorExtensions.FindDerivedTypes(derivedType)
+            _variableTypes = EditorExtensions.FindDerivedTypes(derivedType)
                 .Where(x => !x.IsAbstract && derivedType.IsAssignableFrom(x))
                 .ToList();
         }
@@ -30,13 +40,8 @@ namespace Fungus.EditorUtils
 
         protected override void PrepareAllItems()
         {
-            if(types == null || types.Count == 0)
-            {
-                CacheVariableTypes();
-            }
-
             int i = 0;
-            foreach (var item in types)
+            foreach (var item in VariableTypes)
             {
                 VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(item);
                 if (variableInfo != null)
@@ -50,7 +55,7 @@ namespace Fungus.EditorUtils
 
         protected override void SelectByOrigIndex(int index)
         {
-            AddVariable(types[index]);
+            AddVariable(VariableTypes[index]);
         }
 
         static public void DoAddVariable(Rect position, string currentHandlerName, Flowchart flowchart)
@@ -71,7 +76,7 @@ namespace Fungus.EditorUtils
             GenericMenu menu = new GenericMenu();
 
             // Add variable types without a category
-            foreach (var type in types)
+            foreach (var type in VariableTypes)
             {
                 VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(type);
                 if (variableInfo == null ||
@@ -86,7 +91,7 @@ namespace Fungus.EditorUtils
             }
 
             // Add types with a category
-            foreach (var type in types)
+            foreach (var type in VariableTypes)
             {
                 VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(type);
                 if (variableInfo == null ||

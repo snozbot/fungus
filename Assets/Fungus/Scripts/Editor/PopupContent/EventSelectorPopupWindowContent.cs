@@ -11,11 +11,21 @@ namespace Fungus.EditorUtils
     /// </summary>
     public class EventSelectorPopupWindowContent : BasePopupWindowContent
     {
-        static List<System.Type> eventHandlerTypes;
+        static List<System.Type> _eventHandlerTypes;
+        static List<System.Type> EventHandlerTypes
+        {
+            get
+            {
+                if (_eventHandlerTypes == null || _eventHandlerTypes.Count == 0)
+                    CacheEventHandlerTypes();
+
+                return _eventHandlerTypes;
+            }
+        }
 
         static void CacheEventHandlerTypes()
         {
-            eventHandlerTypes = EditorExtensions.FindDerivedTypes(typeof(EventHandler)).Where(x => !x.IsAbstract).ToList();
+            _eventHandlerTypes = EditorExtensions.FindDerivedTypes(typeof(EventHandler)).Where(x => !x.IsAbstract).ToList();
         }
 
         [UnityEditor.Callbacks.DidReloadScripts]
@@ -39,13 +49,8 @@ namespace Fungus.EditorUtils
 
         protected override void PrepareAllItems()
         {
-            if (eventHandlerTypes == null || eventHandlerTypes.Count == 0)
-            {
-                CacheEventHandlerTypes();
-            }
-
             int i = 0;
-            foreach (System.Type type in eventHandlerTypes)
+            foreach (System.Type type in EventHandlerTypes)
             {
                 EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
                 if (info != null)
@@ -65,7 +70,7 @@ namespace Fungus.EditorUtils
         {
             SetEventHandlerOperation operation = new SetEventHandlerOperation();
             operation.block = block;
-            operation.eventHandlerType = (index >= 0 && index < eventHandlerTypes.Count) ? eventHandlerTypes[index] : null;
+            operation.eventHandlerType = (index >= 0 && index < EventHandlerTypes.Count) ? EventHandlerTypes[index] : null;
             OnSelectEventHandler(operation);
         }
 
@@ -93,7 +98,7 @@ namespace Fungus.EditorUtils
             eventHandlerMenu.AddItem(new GUIContent("None"), false, OnSelectEventHandler, noneOperation);
 
             // Add event handlers with no category first
-            foreach (System.Type type in eventHandlerTypes)
+            foreach (System.Type type in EventHandlerTypes)
             {
                 EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
                 if (info != null &&
@@ -108,7 +113,7 @@ namespace Fungus.EditorUtils
             }
 
             // Add event handlers with a category afterwards
-            foreach (System.Type type in eventHandlerTypes)
+            foreach (System.Type type in EventHandlerTypes)
             {
                 EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
                 if (info != null &&
