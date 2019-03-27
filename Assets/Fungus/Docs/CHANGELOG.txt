@@ -2,6 +2,24 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.11.2 {#v3.11.2}
+======
+
+## Fixed
+
+- Static list caching in editor.
+
+## Changed
+
+- Spacing in debug output related to Block find and execute warnings and failures.
+
+v3.11.1 {#v3.11.1}
+======
+
+## Fixed
+
+- Compile error in Unity 2018.3.6f1
+
 v3.11.0 {#v3.11.0}
 ======
 
