@@ -199,9 +199,6 @@ namespace Fungus
         public virtual void Apply(SetOperator setOperator, T value) {
             Debug.LogError("Variable doesn't have any operators.");
         }
-        public virtual void Apply(SetOperator setOperator, int value1, int value2)
-        {
-            Debug.LogError("Variable doesn't have any operators.");
-        }
+
     }
 }

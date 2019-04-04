@@ -55,24 +55,7 @@ namespace Fungus
                     break;
             }
         }
-        public override void Apply(SetOperator setOperator, int value1, int value2)
-        {
-            switch (setOperator)
-            {
-                case SetOperator.Assign:
-                    Value = new Vector2Int(value1,value2);
-                    break;
-                case SetOperator.Add:
-                    Value += new Vector2Int(value1, value2);
-                    break;
-                case SetOperator.Subtract:
-                    Value -= new Vector2Int(value1, value2);
-                    break;
-                default:
-                    Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
-                    break;
-            }
-        }
+        
     }
 
     /// <summary>
