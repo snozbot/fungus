@@ -230,6 +230,9 @@ namespace Fungus
             // It shouldn't happen but it seemed to occur for a user on the forum 
             variables.RemoveAll(item => item == null);
 
+            selectedBlocks.RemoveAll(item => item == null);
+            selectedCommands.RemoveAll(item => item == null);
+
             var allVariables = GetComponents<Variable>();
             for (int i = 0; i < allVariables.Length; i++)
             {
@@ -1129,9 +1132,19 @@ namespace Fungus
         /// </summary>
         public virtual void ClearSelectedBlocks()
         {
-            foreach (var item in selectedBlocks)
+            if(selectedBlocks == null)
             {
-                item.IsSelected = false;
+                selectedBlocks = new List<Block>();
+            }
+
+            for (int i = 0; i < selectedBlocks.Count; i++)
+            {
+                var item = selectedBlocks[i];
+
+                if(item != null)
+                {
+                    item.IsSelected = false;
+                }
             }
             selectedBlocks.Clear();
         }
