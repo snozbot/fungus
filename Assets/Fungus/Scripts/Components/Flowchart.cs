@@ -230,6 +230,9 @@ namespace Fungus
             // It shouldn't happen but it seemed to occur for a user on the forum 
             variables.RemoveAll(item => item == null);
 
+            if (selectedBlocks == null) selectedBlocks = new List<Block>();
+            if (selectedCommands == null) selectedCommands = new List<Command>();
+
             selectedBlocks.RemoveAll(item => item == null);
             selectedCommands.RemoveAll(item => item == null);
 
