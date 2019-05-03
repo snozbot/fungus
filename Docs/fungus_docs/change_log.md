@@ -2,6 +2,15 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.11.4 {#v3.11.4}
+======
+
+## Changed
+
+- Updated project to Unity 2019.1.0f2
+- Updated to .NET 4.x
+- Updated reference docs
+
 v3.11.3 {#v3.11.3}
 ======
 
