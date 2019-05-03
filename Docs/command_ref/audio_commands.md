@@ -15,6 +15,17 @@ End Volume | System.Single | End audio at this volume
 Fade Duration | System.Single | Time to fade between current volume level and target volume level.
 Wait Until Finished | System.Boolean | Wait until this command has finished before executing the next command.
 
+# Play Ambiance Sound # {#PlayAmbianceSound}
+Plays a background sound to be overlayed on top of the music. Only one Ambiance can be played at a time.
+
+Defined in Fungus.PlayAmbianceSound
+
+Property | Type | Description
+ --- | --- | ---
+Sound Clip | UnityEngine.AudioClip | Sound effect clip to play
+Volume | System.Single | Volume level of the sound effect
+Loop | System.Boolean | Sound effect clip to play
+
 # Play Music # {#PlayMusic}
 Plays looping game music. If any game music is already playing, it is stopped. Game music will continue playing across scene loads.
 
@@ -26,6 +37,17 @@ Music Clip | UnityEngine.AudioClip | Music sound clip to play
 At Time | System.Single | Time to begin playing in seconds. If the audio file is compressed, the time index may be inaccurate.
 Loop | System.Boolean | The music will start playing again at end.
 Fade Duration | System.Single | Length of time to fade out previous playing music.
+
+# Play Random Sound # {#PlayRandomSound}
+Plays a once-off sound effect from a list of available sound effects. Multiple sound effects can be played at the same time.
+
+Defined in Fungus.PlayRandomSound
+
+Property | Type | Description
+ --- | --- | ---
+Sound Clip | UnityEngine.AudioClip[] | Sound effect clip to play
+Volume | System.Single | Volume level of the sound effect
+Wait Until Finished | System.Boolean | Wait until the sound has finished playing before continuing execution.
 
 # Play Sound # {#PlaySound}
 Plays a once-off sound effect. Multiple sound effects can be played at the same time.
@@ -71,6 +93,10 @@ Volume | System.Single | Global volume level for audio played using Play Music a
 Fade Duration | System.Single | Time to fade between current volume level and target volume level.
 Wait Until Finished | System.Boolean | Wait until the volume fade has completed before continuing.
 
+# Stop Ambiance # {#StopAmbiance}
+Stops the currently playing game ambiance.
+
+Defined in Fungus.StopAmbiance
 # Stop Music # {#StopMusic}
 Stops the currently playing game music.
 

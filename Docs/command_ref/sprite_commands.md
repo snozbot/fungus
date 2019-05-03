@@ -64,6 +64,16 @@ Property | Type | Description
 Target Object | UnityEngine.GameObject | Root Object that will have the Sorting Layer set. Any children will also be affected
 Sorting Layer | System.String | The New Layer Name to apply
 
+# Set Sprite # {#SetSprite}
+Changes the sprite property of a list of Sprite Renderers.
+
+Defined in Fungus.SetSprite
+
+Property | Type | Description
+ --- | --- | ---
+Sprite Renderers | System.Collections.Generic.List`1[UnityEngine.SpriteRenderer] | List of sprites to set the sprite property on
+Sprite | UnityEngine.Sprite | The sprite set on the target sprite renderers
+
 # Set Sprite Order # {#SetSpriteOrder}
 Controls the render order of sprites by setting the Order In Layer property of a list of sprites.
 
