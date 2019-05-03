@@ -2,6 +2,98 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.11.4 {#v3.11.4}
+======
+
+## Changed
+
+- Updated project to Unity 2019.1.0f2
+- Updated to .NET 4.x
+- Updated reference docs
+
+v3.11.3 {#v3.11.3}
+======
+
+## Fixed
+
+- Additional null checks around Flowchart.selectedBlocks and Flowchart.selectedCommands.
+
+v3.11.2 {#v3.11.2}
+======
+
+## Fixed
+
+- Static list caching in editor.
+
+## Changed
+
+- Spacing in debug output related to Block find and execute warnings and failures.
+
+v3.11.1 {#v3.11.1}
+======
+
+## Fixed
+
+- Compile error in Unity 2018.3.6f1
+
+v3.11.0 {#v3.11.0}
+======
+
+## Added
+
+- SetSprite: changes the image on the SpriteRenderer of one or more GameObjects 
+- SetUIImage: changes the image on the Image of one or more GameObjects (Joerg Burbach)
+- Commands to store FungusVariable.ToString into a StringVariable and to parse a string into an Int or Float FungusVariable 
+
+## Fixed
+
+- #729 VariableEditor popup name and key concat no longer has spaces, allows the PopUp to correctly nest items with the same parent
+- #732 BlockInspector correct top panel height in 2018_3 BlockEditor only force unique name if it has changed
+- BlockInspector and BlockEditor changes to display correctly in 2019.1.0a13
+
+## Changed
+
+- #728 FlowchartWindow performance for 100s of blocks
+- #727 Support use of TMPro in Set Text, Get Text and Narrative Log Menu commands
+- #733 Command can now cache a list of referenced variables that are checked by the variablelistadapter for highlighting 
+- Flowchart can identify add variables found via the substitute regex 
+- Commands that use SubstituteVariables on their string data use the new caching method so they can highlight variables that will be used during substitution
+- #733 HasReference added to many commands that lacked them or had only partially checked vars
+
+v3.10.0 {#v3_10_0}
+======
+
+## Added
+- #725 Added Stop Then Call mode in Call command. Stops the calling Block immediately, instead of waiting a frame.
+- #718 Say and Menu dialogs now support TextMeshPro directly
+  - TextMeshPro demo scene - A default say dialog but with TextMeshPro Text UI elements in place of uGUI Text 
+  - A default menu dialog but with TextMeshPro Text UI elements in place of uGUI Text
+  - TextAdapter can be asked to include children in text output search MenuDialogue now uses TextAdapter rather than assuming UI.Text
+- #720 Variable reference allows for selecting a flowchart a targeting a specific fungus variable for use from c#
+- #705 Added FirstPersonDemo examples
+- New audio commands: Play Ambience Sound, Stop Ambience Sound, Play Random sound.
+
+## Fixed
+- #717 Control Audio > Play Loop volume is always 1
+- #723 Unity 2018.3 Warnings
+- #711 Beeps in WriterAudio ignores last sound in array
+- PLay Sound Effect volume is now independent of Set Music Volume setting
+- Correct width calc on smaller width inspectors
+- #708 Specifically identify choice blocks as hexagons in documentation
+
+## Changed
+- #721 Conversation text can now contain colons within the text body itself
+- #719 Change FlowchartMenuItem.SpawnPrefab to GameObject.Inst rather than PrefabUtil to avoid exception modifications.empty
+- #709 Command searchable pop up
+	- Added Fungus Preferences setting to enable Searchable PopupMenus
+- #694 Adding Random Sound Command and Ambiance Sounds - thanks to Hector Castelli
+- #704 Replaced Rotorz Reorderable List with Unity's InternalReorderable list
+- ExceuteOnEvent dropdown is searchable -can double click to circumvent the search drop down -can remove event by setting None -use search similar to add command method
+
+Changelog {#changelog}
+=========
+[TOC]
+
 v3.9.1 {#v3_9_1}
 ======
 
