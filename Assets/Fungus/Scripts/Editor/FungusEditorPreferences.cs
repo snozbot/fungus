@@ -27,26 +27,39 @@ namespace Fungus
                 LoadOnScriptLoad();
             }
 
-            // Add preferences section named "My Preferences" to the Preferences Window
-            [PreferenceItem("Fungus")]
-            public static void PreferencesGUI()
+            [SettingsProvider]
+            public static SettingsProvider CreateFungusSettingsProvider()
             {
-                // Load the preferences
-                if (!prefsLoaded)
+                // First parameter is the path in the Settings window.
+                // Second parameter is the scope of this setting: it only appears in the Project Settings window.
+                var provider = new SettingsProvider("Project/Fungus", SettingsScope.Project)
                 {
-                    LoadOnScriptLoad();
-                }
+                    // Create the SettingsProvider and initialize its drawing (IMGUI) function in place:
+                    guiHandler = (searchContext) =>
+                    {
+                        // Load the preferences
+                        if (!prefsLoaded)
+                        {
+                            LoadOnScriptLoad();
+                        }
 
-                // Preferences GUI
-                hideMushroomInHierarchy = EditorGUILayout.Toggle("Hide Mushroom Flowchart Icon", hideMushroomInHierarchy);
-                useExperimentalMenus = EditorGUILayout.Toggle(new GUIContent("Experimental Searchable Menus", "Experimental menus replace the Event, Add Variable and Add Command menus with a searchable menu more like the Unity AddComponent menu."), useExperimentalMenus);
+                        // Preferences GUI
+                        hideMushroomInHierarchy = EditorGUILayout.Toggle("Hide Mushroom Flowchart Icon", hideMushroomInHierarchy);
+                        useExperimentalMenus = EditorGUILayout.Toggle(new GUIContent("Experimental Searchable Menus", "Experimental menus replace the Event, Add Variable and Add Command menus with a searchable menu more like the Unity AddComponent menu."), useExperimentalMenus);
 
-                // Save the preferences
-                if (GUI.changed)
-                {
-                    EditorPrefs.SetBool(HIDE_MUSH_KEY, hideMushroomInHierarchy);
-                    EditorPrefs.SetBool(USE_EXP_MENUS, useExperimentalMenus);
-                }
+                        // Save the preferences
+                        if (GUI.changed)
+                        {
+                            EditorPrefs.SetBool(HIDE_MUSH_KEY, hideMushroomInHierarchy);
+                            EditorPrefs.SetBool(USE_EXP_MENUS, useExperimentalMenus);
+                        }
+                    },
+
+                    // // Populate the search keywords to enable smart search filtering and label highlighting:
+                    // keywords = new HashSet<string>(new[] { "Number", "Some String" })
+                };
+
+                return provider;
             }
 
             public static void LoadOnScriptLoad()

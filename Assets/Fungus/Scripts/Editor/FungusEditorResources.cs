@@ -146,6 +146,8 @@ namespace Fungus.EditorUtils
                 writer.WriteLine("// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).");
                 writer.WriteLine("// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)");
                 writer.WriteLine("");				
+                writer.WriteLine("#pragma warning disable 0649");
+                writer.WriteLine("");
                 writer.WriteLine("using UnityEngine;");
                 writer.WriteLine("");
                 writer.WriteLine("namespace Fungus.EditorUtils");
