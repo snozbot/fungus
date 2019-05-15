@@ -394,7 +394,7 @@ namespace Fungus
 
             if (image != null)
             {
-                characterImage.sprite = image;
+                characterImage.overrideSprite = image;
                 characterImage.gameObject.SetActive(true);
                 currentCharacterImage = image;
             }

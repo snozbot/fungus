@@ -177,12 +177,6 @@ namespace Fungus
             return options;
         }
 
-        protected virtual void CreatePortraitObject(PortraitOptions options)
-        {
-            CreatePortraitObject(options.character, options.fadeDuration);
-            options.character.State.portraitImage.sprite = options.portrait;
-        }
-
         /// <summary>
         /// Creates and sets the portrait image for a character
         /// </summary>
@@ -202,7 +196,7 @@ namespace Fungus
             // Configure the portrait image
             Image portraitImage = portraitObj.GetComponent<Image>();
             portraitImage.preserveAspect = true;
-            portraitImage.sprite = character.ProfileSprite;
+            portraitImage.overrideSprite = character.ProfileSprite;
             portraitImage.color = new Color(1f, 1f, 1f, 0f);
 
             // LeanTween doesn't handle 0 duration properly
@@ -460,32 +454,31 @@ namespace Fungus
             // LeanTween doesn't handle 0 duration properly
             float duration = (options.fadeDuration > 0f) ? options.fadeDuration : float.Epsilon;
 
-            var prevPort = options.character.State.portraitImage;
-
             // Fade out a duplicate of the existing portrait image
-            if (options.character.State.portraitImage != null && options.character.State.portraitImage.sprite != options.portrait)
+            if (options.character.State.portraitImage != null && options.character.State.portraitImage.overrideSprite != null)
             {
-                if(options.character.State.portraitImage.sprite != null)
-                {
-                    LeanTween.alpha(prevPort.rectTransform, 0f, duration).setEase(stage.FadeEaseType).setOnComplete(() => {
-                        Destroy(prevPort.gameObject);
-                    }).setRecursive(false);
+                GameObject tempGO = GameObject.Instantiate(options.character.State.portraitImage.gameObject);
+                tempGO.transform.SetParent(options.character.State.portraitImage.transform, false);
+                tempGO.transform.localPosition = Vector3.zero;
+                tempGO.transform.localScale = options.character.State.position.localScale;
 
+                Image tempImage = tempGO.GetComponent<Image>();
+                tempImage.overrideSprite = options.character.State.portraitImage.overrideSprite;
+                tempImage.preserveAspect = true;
+                tempImage.color = options.character.State.portraitImage.color;
 
-                    // Fade in the new sprite image
-                    CreatePortraitObject(options);
-                    SetupPortrait(options);
-                    if (prevPort != null)
-                    {
-                        prevPort.transform.SetParent(options.character.State.portraitImage.transform, false);
-                        prevPort.transform.localPosition = Vector3.zero;
-                        prevPort.transform.localScale = options.character.State.position.localScale;
-                    }
-                }
-                else
-                {
-                    options.character.State.portraitImage.sprite = options.portrait;
-                }
+                LeanTween.alpha(tempImage.rectTransform, 0f, duration).setEase(stage.FadeEaseType).setOnComplete(() => {
+                    Destroy(tempGO);
+                }).setRecursive(false);
+            }
+
+            // Fade in the new sprite image
+            if (options.character.State.portraitImage.overrideSprite != options.portrait ||
+                options.character.State.portraitImage.color.a < 1f)
+            {
+                options.character.State.portraitImage.overrideSprite = options.portrait;
+                options.character.State.portraitImage.color = new Color(1f, 1f, 1f, 0f);
+                LeanTween.alpha(options.character.State.portraitImage.rectTransform, 1f, duration).setEase(stage.FadeEaseType).setRecursive(false);
             }
 
             DoMoveTween(options);
