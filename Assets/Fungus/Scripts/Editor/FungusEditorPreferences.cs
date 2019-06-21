@@ -17,10 +17,10 @@ namespace Fungus
             // Have we loaded the prefs yet
             private static bool prefsLoaded = false;
             const string HIDE_MUSH_KEY = "hideMushroomInHierarchy";
-            const string USE_EXP_MENUS = "useExperimentalMenus";
+            const string USE_LEGACY_MENUS = "useLegacyMenus";
 
             public static bool hideMushroomInHierarchy;
-            public static bool useExperimentalMenus;
+            public static bool useLegacyMenus;
 
             static FungusEditorPreferences()
             {
@@ -45,13 +45,13 @@ namespace Fungus
 
                         // Preferences GUI
                         hideMushroomInHierarchy = EditorGUILayout.Toggle("Hide Mushroom Flowchart Icon", hideMushroomInHierarchy);
-                        useExperimentalMenus = EditorGUILayout.Toggle(new GUIContent("Experimental Searchable Menus", "Experimental menus replace the Event, Add Variable and Add Command menus with a searchable menu more like the Unity AddComponent menu."), useExperimentalMenus);
+                        useLegacyMenus = EditorGUILayout.Toggle(new GUIContent("Legacy Menus", "Force Legacy menus for Event, Add Variable and Add Command menus"), useLegacyMenus);
 
                         // Save the preferences
                         if (GUI.changed)
                         {
                             EditorPrefs.SetBool(HIDE_MUSH_KEY, hideMushroomInHierarchy);
-                            EditorPrefs.SetBool(USE_EXP_MENUS, useExperimentalMenus);
+                            EditorPrefs.SetBool(USE_LEGACY_MENUS, useLegacyMenus);
                         }
                     },
 
@@ -65,7 +65,7 @@ namespace Fungus
             public static void LoadOnScriptLoad()
             {
                 hideMushroomInHierarchy = EditorPrefs.GetBool(HIDE_MUSH_KEY, false);
-                useExperimentalMenus = EditorPrefs.GetBool(USE_EXP_MENUS, false);
+                useLegacyMenus = EditorPrefs.GetBool(USE_LEGACY_MENUS, false);
                 prefsLoaded = true;
             }
         }
