@@ -203,6 +203,7 @@ namespace Fungus.EditorUtils
         protected int prevVarCount;
         protected Block[] blocks = new Block[0];
         protected Block dragBlock;
+        protected bool hasDraggedSelected = false;
         protected static FungusState fungusState;
 
         static protected VariableListAdaptor variableListAdaptor;
@@ -262,18 +263,20 @@ namespace Fungus.EditorUtils
 
 
             EditorApplication.update += OnEditorUpdate;
-            Undo.undoRedoPerformed += ForceRepaint;
+            Undo.undoRedoPerformed += Undo_ForceRepaint;
         }
-
 
         protected virtual void OnDisable()
         {
             EditorApplication.update -= OnEditorUpdate;
-            Undo.undoRedoPerformed -= ForceRepaint;
+            Undo.undoRedoPerformed -= Undo_ForceRepaint;
         }
 
-        protected void ForceRepaint()
+        protected void Undo_ForceRepaint()
         {
+            //an undo redo may have added or removed blocks so
+            UpdateBlockCollection();
+            flowchart.UpdateSelectedCache();
             Repaint();
         }
 
@@ -543,7 +546,7 @@ namespace Fungus.EditorUtils
                         e.Use();
                     }
                 }
-                else if (e.keyCode == KeyCode.Escape && flowchart.SelectedBlocks.Count > 0)
+                else if (e.keyCode == KeyCode.Escape)
                 {
                     DeselectAll();
                     e.Use();
@@ -568,7 +571,6 @@ namespace Fungus.EditorUtils
 
         private void StartControlSelection()
         {
-            mouseDownSelectionState.Clear();
             mouseDownSelectionState.AddRange(flowchart.SelectedBlocks);
             flowchart.ClearSelectedBlocks();
             foreach (var item in mouseDownSelectionState)
@@ -577,17 +579,49 @@ namespace Fungus.EditorUtils
             }
         }
 
+        private void AddMouseDownSelectionState(Block item)
+        {
+            mouseDownSelectionState.Add(item);
+            item.IsControlSelected = true;
+        }
+
+        private void RemoveMouseDownSelectionState(Block item)
+        {
+            mouseDownSelectionState.Remove(item);
+            item.IsControlSelected = false;
+        }
+
         private void EndControlSelection()
         {
-            foreach (var item in mouseDownSelectionState)
+            //we can be called either by mouse up with control still held or because ctrl was released
+            if (GetAppendModifierDown())
             {
-                item.IsControlSelected = false;
-                if (!flowchart.DeselectBlock(item))
+                //remove items selected from the mouse down and then move the mouse down to the selection
+                for (int i = mouseDownSelectionState.Count - 1; i >= 0; i--)
                 {
-                    flowchart.AddSelectedBlock(item);
+                    var item = mouseDownSelectionState[i];
+
+                    if (item.IsSelected)
+                    {
+                        flowchart.DeselectBlockNoCheck(item);
+                        RemoveMouseDownSelectionState(item);
+                    }
+                    else
+                    {
+                        flowchart.AddSelectedBlock(item);
+                    }
                 }
             }
-            mouseDownSelectionState.Clear();
+            else
+            {
+                //ctrl released moves all back to selection
+                for (int i = mouseDownSelectionState.Count - 1; i >= 0; i--)
+                {
+                    var item = mouseDownSelectionState[i];
+                    flowchart.AddSelectedBlock(item);
+                    RemoveMouseDownSelectionState(item);
+                }
+            }
         }
 
         internal bool HandleFlowchartSelectionChange()
@@ -937,9 +971,14 @@ namespace Fungus.EditorUtils
 
                         if (GetAppendModifierDown())
                         {
-                            if (!flowchart.DeselectBlock(hitBlock))
+                            //ctrl clicking blocks toggles between
+                            if (mouseDownSelectionState.Contains(hitBlock))
                             {
-                                flowchart.AddSelectedBlock(hitBlock);
+                                RemoveMouseDownSelectionState(hitBlock);
+                            }
+                            else
+                            {
+                                AddMouseDownSelectionState(hitBlock);
                             }
                         }
                         else
@@ -954,6 +993,7 @@ namespace Fungus.EditorUtils
                             }
 
                             dragBlock = hitBlock;
+                            hasDraggedSelected = false;
                         }
 
                         e.Use();
@@ -961,12 +1001,8 @@ namespace Fungus.EditorUtils
                     }
                     else if (!(UnityEditor.Tools.current == Tool.View && UnityEditor.Tools.viewTool == ViewTool.Zoom))
                     {
-                        if (!GetAppendModifierDown())
-                        {
-                            DeselectAll();
-                        }
-
                         startSelectionBoxPosition = e.mousePosition;
+                        selectionBox = Rect.MinMaxRect(selectionBox.x, selectionBox.y, selectionBox.x, selectionBox.y);
                         e.Use();
                     }
                 }
@@ -995,6 +1031,8 @@ namespace Fungus.EditorUtils
                         tempRect.position += e.delta / flowchart.Zoom;
                         block._NodeRect = tempRect;
                     }
+
+                    hasDraggedSelected = true;
                     e.Use();
                 }
                 // Pan tool or alt + left click
@@ -1103,7 +1141,10 @@ namespace Fungus.EditorUtils
                     flowchart.UpdateSelectedCache();
 
                     EndControlSelection();
-                    StartControlSelection();
+                    //if ctrl down push them immediately back into mouse down
+                    if (GetAppendModifierDown())
+                        StartControlSelection();
+
                     Repaint();
 
                     if (flowchart.SelectedBlock != null)
@@ -1112,6 +1153,20 @@ namespace Fungus.EditorUtils
                     }
                     Repaint();
                 }
+                else
+                {
+                    if (!GetAppendModifierDown() && !hasDraggedSelected)
+                    {
+                        DeselectAll();
+
+                        if (hitBlock != null)
+                        {
+                            SelectBlock(hitBlock);
+                        }
+                    }
+                }
+
+                hasDraggedSelected = false;
                 break;
 
             case MouseButton.Right:
@@ -1197,23 +1252,24 @@ namespace Fungus.EditorUtils
                 for (int i = 0; i < blocks.Length; ++i)
                 {
                     var block = blocks[i];
-                    if (!block.IsSelected && !block.IsControlSelected)
-                        DrawBlock(block, scriptViewRect, false);
+                    if(!block.IsSelected && ! block.IsControlSelected)
+                        DrawBlock(block, scriptViewRect);
                 }
-
-                //draw all selected
+                
+                //draw all held
                 for (int i = 0; i < blocks.Length; ++i)
                 {
                     var block = blocks[i];
-                    if (block.IsSelected && !block.IsControlSelected)
-                        DrawBlock(block, scriptViewRect, true);
+                    if (block.IsControlSelected)
+                        DrawBlock(block, scriptViewRect);
                 }
 
-                //draw held over from control
-                for (int i = 0; i < mouseDownSelectionState.Count; ++i)
+                //draw all  selected
+                for (int i = 0; i < blocks.Length; ++i)
                 {
-                    var block = mouseDownSelectionState[i];
-                    DrawBlock(block, scriptViewRect, !block.IsSelected);
+                    var block = blocks[i];
+                    if (block.IsSelected)
+                        DrawBlock(block, scriptViewRect);
                 }
             }
 
@@ -1293,6 +1349,8 @@ namespace Fungus.EditorUtils
 
         protected virtual void CenterFlowchart()
         {
+            UpdateBlockCollection();
+
             if (blocks.Length > 0)
             {
                 var center = -GetBlockCenter(blocks);
@@ -1355,6 +1413,7 @@ namespace Fungus.EditorUtils
         {
             Undo.RecordObject(flowchart, "Deselect");
             flowchart.ClearSelectedCommands();
+            EndControlSelection();
             flowchart.ClearSelectedBlocks();
             Selection.activeGameObject = flowchart.gameObject;
         }
@@ -1553,7 +1612,6 @@ namespace Fungus.EditorUtils
             for (int i = 0; i < deleteList.Count; ++i)
             {
                 var deleteBlock = deleteList[i];
-                bool isSelected = deleteBlock.IsSelected;
 
                 var commandList = deleteBlock.CommandList;
                 for (int j = 0; j < commandList.Count; ++j)
@@ -1566,22 +1624,22 @@ namespace Fungus.EditorUtils
                     Undo.DestroyObjectImmediate(deleteBlock._EventHandler);
                 }
                 
-                Undo.DestroyObjectImmediate(deleteBlock);
-                flowchart.ClearSelectedCommands();
-
-                if (isSelected)
+                if (deleteBlock.IsSelected)
                 {
                     // Deselect
                     flowchart.DeselectBlockNoCheck(deleteBlock);
-
-                    // Revert to showing properties for the Flowchart
-                    Selection.activeGameObject = flowchart.gameObject;
                 }
+
+                Undo.DestroyObjectImmediate(deleteBlock);
             }
 
             if (deleteList.Count > 0)
             {
                 UpdateBlockCollection();
+                // Revert to showing properties for the Flowchart
+                Selection.activeGameObject = flowchart.gameObject;
+                flowchart.ClearSelectedCommands();
+                Repaint();
             }
 
             deleteList.Clear();
@@ -1626,7 +1684,7 @@ namespace Fungus.EditorUtils
 
         protected virtual bool GetAppendModifierDown()
         {
-            return Event.current.shift || EditorGUI.actionKey;
+            return (Event.current != null && Event.current.shift) || EditorGUI.actionKey;
         }
 
         protected virtual void Copy()
@@ -1634,6 +1692,10 @@ namespace Fungus.EditorUtils
             copyList.Clear();
 
             foreach (var block in flowchart.SelectedBlocks)
+            {
+                copyList.Add(new BlockCopy(block));
+            }
+            foreach (var block in mouseDownSelectionState)
             {
                 copyList.Add(new BlockCopy(block));
             }
@@ -1685,9 +1747,9 @@ namespace Fungus.EditorUtils
             if (e.type == EventType.ValidateCommand)
             {
                 var c = e.commandName;
-                if (c == "Copy" || c == "Cut" || c == "Delete" || c == "Duplicate")
+                if (c == "Copy" || c == "Cut" || c == "SoftDelete" || c == "Delete" || c == "Duplicate")
                 {
-                    if (flowchart.SelectedBlocks.Count > 0)
+                    if (flowchart.SelectedBlocks.Count > 0 || mouseDownSelectionState.Count > 0)
                     {
                         e.Use();
                     }
@@ -1726,6 +1788,11 @@ namespace Fungus.EditorUtils
                 break;
 
             case "Delete":
+                AddToDeleteList(flowchart.SelectedBlocks);
+                e.Use();
+                break;
+
+            case "SoftDelete":
                 AddToDeleteList(flowchart.SelectedBlocks);
                 e.Use();
                 break;
@@ -1815,7 +1882,7 @@ namespace Fungus.EditorUtils
             return graphics;
         }
 
-        private void DrawBlock(Block block, Rect scriptViewRect, bool highlighted)
+        private void DrawBlock(Block block, Rect scriptViewRect)
         {
             float nodeWidthA = nodeStyle.CalcSize(new GUIContent(block.BlockName)).x + 10;
             float nodeWidthB = 0f;
@@ -1847,10 +1914,20 @@ namespace Fungus.EditorUtils
             block._NodeRect = tempRect;
 
             // Draw untinted highlight
-            if (highlighted)
+            if (block.IsSelected && !block.IsControlSelected)
             {
                 GUI.backgroundColor = Color.white;
                 nodeStyleCopy.normal.background = graphics.onTexture;
+                GUI.Box(windowRect, "", nodeStyleCopy);
+            }
+
+            if (block.IsControlSelected && !block.IsSelected)
+            {
+                GUI.backgroundColor = Color.white;
+                nodeStyleCopy.normal.background = graphics.onTexture;
+                var c = GUI.backgroundColor;
+                c.a = 0.5f;
+                GUI.backgroundColor = c;
                 GUI.Box(windowRect, "", nodeStyleCopy);
             }
 
