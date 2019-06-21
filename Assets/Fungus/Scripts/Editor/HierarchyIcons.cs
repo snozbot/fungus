@@ -66,7 +66,11 @@ namespace Fungus
 
             // place the icon to the left of the element
             Rect r = new Rect(selectionRect);
+#if UNITY_2019_1_OR_NEWER
+            r.x -= r.height;
+#else
             r.x = 0;
+#endif
             r.width = r.height;
 
             //GameObject go = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
