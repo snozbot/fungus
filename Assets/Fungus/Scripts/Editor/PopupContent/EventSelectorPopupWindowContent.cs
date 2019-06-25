@@ -77,7 +77,7 @@ namespace Fungus.EditorUtils
 
         static public void DoEventHandlerPopUp(Rect position, string currentHandlerName, Block block, int width, int height)
         {
-            if (FungusEditorPreferences.useExperimentalMenus)
+            if (!FungusEditorPreferences.useLegacyMenus)
             {
                 //new method
                 EventSelectorPopupWindowContent win = new EventSelectorPopupWindowContent(currentHandlerName, block, width, height);
