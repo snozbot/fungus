@@ -2,6 +2,28 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.11.5 {#v3.11.5}
+======
+
+## Fixed
+
+- Mushroom icon for the inspector moved in 2019 as to not overlap the new visibility toggle Unity has added. #745
+- FlowchartWindow MutliSelect now more strictly manages selectedness #744
+- Portrait sprite issue in Unity 2019 #743
+
+## Changed
+
+- Experimental Searchable menus are now enabled by default #746
+
+v3.11.4 {#v3.11.4}
+======
+
+## Changed
+
+- Updated project to Unity 2019.1.0f2
+- Updated to .NET 4.x
+- Updated reference docs
+
 v3.11.3 {#v3.11.3}
 ======
 
