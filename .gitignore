@@ -13,3 +13,5 @@
 
 .vs/*
 UWP/*
+.idea/*
+Assets/Plugins/
