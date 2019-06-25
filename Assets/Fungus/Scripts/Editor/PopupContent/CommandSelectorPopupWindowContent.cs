@@ -65,7 +65,7 @@ namespace Fungus.EditorUtils
             curBlock = block;
 
 
-            if (FungusEditorPreferences.useExperimentalMenus)
+            if (!FungusEditorPreferences.useLegacyMenus)
             {
                 var win = new CommandSelectorPopupWindowContent(currentHandlerName,
                     width, (int)(height - EditorGUIUtility.singleLineHeight * 3));
