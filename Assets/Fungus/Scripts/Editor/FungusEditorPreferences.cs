@@ -47,6 +47,19 @@ namespace Fungus
                         hideMushroomInHierarchy = EditorGUILayout.Toggle("Hide Mushroom Flowchart Icon", hideMushroomInHierarchy);
                         useLegacyMenus = EditorGUILayout.Toggle(new GUIContent("Legacy Menus", "Force Legacy menus for Event, Add Variable and Add Command menus"), useLegacyMenus);
 
+                        EditorGUILayout.Space();
+                        GUILayout.Label("If Fungus icons are not showing correctly you may need to reassign the references in the FungusEditorResources. Button below will locate it.");
+                        if (GUILayout.Button("Select Fungus Editor Resources SO"))
+                        {
+                            var ids = AssetDatabase.FindAssets("t:FungusEditorResources");
+                            if (ids.Length > 0)
+                            {
+                                var p = AssetDatabase.GUIDToAssetPath(ids[0]);
+                                var asset = AssetDatabase.LoadAssetAtPath<FungusEditorResources>(p);
+                                Selection.activeObject = asset;
+                            }
+                        }
+
                         // Save the preferences
                         if (GUI.changed)
                         {
