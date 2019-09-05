@@ -48,8 +48,13 @@ namespace Fungus
                         useLegacyMenus = EditorGUILayout.Toggle(new GUIContent("Legacy Menus", "Force Legacy menus for Event, Add Variable and Add Command menus"), useLegacyMenus);
 
                         EditorGUILayout.Space();
-                        GUILayout.Label("If Fungus icons are not showing correctly you may need to reassign the references in the FungusEditorResources. Button below will locate it.");
-                        if (GUILayout.Button("Select Fungus Editor Resources SO"))
+                        //ideally if any are null, but typically it is all or nothing that have broken links due to version changes or moving files external to Unity
+                        if(FungusEditorResources.Add == null)
+                        {
+                            EditorGUILayout.HelpBox("FungusEditorResources need to be regenerated!", MessageType.Error);
+                        }
+
+                        if (GUILayout.Button(new GUIContent("Select Fungus Editor Resources SO", "If Fungus icons are not showing correctly you may need to reassign the references in the FungusEditorResources. Button below will locate it.")))
                         {
                             var ids = AssetDatabase.FindAssets("t:FungusEditorResources");
                             if (ids.Length > 0)
@@ -58,6 +63,12 @@ namespace Fungus
                                 var asset = AssetDatabase.LoadAssetAtPath<FungusEditorResources>(p);
                                 Selection.activeObject = asset;
                             }
+                        }
+
+                        if(GUILayout.Button("Open Changelog (version info)"))
+                        {
+                            var fileMacthes = System.IO.Directory.GetFiles(Application.dataPath, "Fungus\\Docs\\CHANGELOG.txt", System.IO.SearchOption.AllDirectories);
+                            Application.OpenURL(fileMacthes[0]);
                         }
 
                         // Save the preferences
