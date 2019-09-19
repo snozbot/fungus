@@ -97,7 +97,7 @@ namespace Fungus.EditorUtils
                 !block.Equals(activeBlockEditor.target))
             {
                 DestroyImmediate(activeBlockEditor);
-                activeBlockEditor = Editor.CreateEditor(block) as BlockEditor;
+                activeBlockEditor = Editor.CreateEditor(block, typeof(BlockEditor)) as BlockEditor;
             }
 
             UpdateWindowHeight();
