@@ -319,9 +319,15 @@ namespace Fungus.EditorUtils
             // Add Button
             if (GUILayout.Button(addIcon))
             {
+                //this may be less reliable for HDPI scaling but previous method using editor window height is now returning 
+                //  null in 2019.2 suspect ongoing ui changes, so default to screen.height and then attempt to get the better result
+                int h = Screen.height;
+                if (EditorWindow.focusedWindow != null) h = (int)EditorWindow.focusedWindow.position.height;
+                else if (EditorWindow.mouseOverWindow != null) h = (int)EditorWindow.mouseOverWindow.position.height;
+
                 CommandSelectorPopupWindowContent.ShowCommandMenu(lastCMDpopupPos, "", target as Block,
                     (int)(EditorGUIUtility.currentViewWidth),
-                    (int)(EditorWindow.focusedWindow.position.height - lastCMDpopupPos.y));
+                    (int)(h - lastCMDpopupPos.y));
             }
 
             // Duplicate Button
