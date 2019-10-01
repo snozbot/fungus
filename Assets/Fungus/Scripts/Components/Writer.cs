@@ -57,6 +57,8 @@ namespace Fungus
         [Tooltip("Click while text is writing to finish writing immediately")]
         [SerializeField] protected bool instantComplete = true;
 
+        [SerializeField] protected bool doReadAheadText = true;
+
         // This property is true when the writer is waiting for user input to continue
         protected bool isWaitingForInput;
 
@@ -71,6 +73,8 @@ namespace Fungus
         protected bool italicActive = false;
         protected bool colorActive = false;
         protected string colorText = "";
+        protected bool linkActive = false;
+        protected string linkText = string.Empty;
         protected bool sizeActive = false;
         protected float sizeValue = 16f;
         protected bool inputFlag;
@@ -148,7 +152,13 @@ namespace Fungus
                 {
                     openString.Append("<color=");
                     openString.Append(colorText);
-                    openString.Append(">"); 
+                    openString.Append(">");
+                }
+                if (linkActive)
+                {
+                    openString.Append("<link=");
+                    openString.Append(linkText);
+                    openString.Append(">");
                 }
                 if (boldActive)
                 {
@@ -177,7 +187,11 @@ namespace Fungus
                 }
                 if (colorActive)
                 {
-                    closeString.Append("</color>"); 
+                    closeString.Append("</color>");
+                }
+                if (linkActive)
+                {
+                    closeString.Append("</link>");
                 }
                 if (sizeActive)
                 {
@@ -241,22 +255,25 @@ namespace Fungus
 
                 // Notify listeners about new token
                 WriterSignals.DoTextTagToken(this, token, i, tokens.Count);
-               
+
                 // Update the read ahead string buffer. This contains the text for any 
                 // Word tags which are further ahead in the list. 
-                readAheadString.Length = 0;
-                for (int j = i + 1; j < tokens.Count; ++j)
+                if (doReadAheadText)
                 {
-                    var readAheadToken = tokens[j];
+                    readAheadString.Length = 0;
+                    for (int j = i + 1; j < tokens.Count; ++j)
+                    {
+                        var readAheadToken = tokens[j];
 
-                    if (readAheadToken.type == TokenType.Words &&
-                        readAheadToken.paramList.Count == 1)
-                    {
-                        readAheadString.Append(readAheadToken.paramList[0]);
-                    }
-                    else if (readAheadToken.type == TokenType.WaitForInputAndClear)
-                    {
-                        break;
+                        if (readAheadToken.type == TokenType.Words &&
+                            readAheadToken.paramList.Count == 1)
+                        {
+                            readAheadString.Append(readAheadToken.paramList[0]);
+                        }
+                        else if (readAheadToken.type == TokenType.WaitForInputAndClear)
+                        {
+                            break;
+                        }
                     }
                 }
 
@@ -292,6 +309,18 @@ namespace Fungus
                     
                 case TokenType.ColorEnd:
                     colorActive = false;
+                    break;
+
+                case TokenType.LinkStart:
+                    if (CheckParamCount(token.paramList, 1))
+                    {
+                        linkActive = true;
+                        linkText = token.paramList[0];
+                    }
+                    break;
+
+                case TokenType.LinkEnd:
+                    linkActive = false;
                     break;
 
                 case TokenType.SizeStart:
@@ -496,50 +525,92 @@ namespace Fungus
 
             float timeAccumulator = Time.deltaTime;
 
-            for (int i = 0; i < param.Length + 1; ++i)
+            
+            if(textAdapter.SupportsHiddenCharacters())
             {
-                // Exit immediately if the exit flag has been set
-                if (exitFlag)
-                {
-                    break;
-                }
-
-                // Pause mid sentence if Paused is set
-                while (Paused)
-                {
-                    yield return null;
-                }
-
-                PartitionString(writeWholeWords, param, i);
+                //pausing for 1 frame means we can get better first data, but is conflicting with animation ?
+                //  or is it something else inserting the color alpha invis 
+                yield return null;
+                //this works for first thing being shown but then no subsequent, as the char counts have not been update
+                // by tmpro after the set to ""
+                var startingReveal = textAdapter.CharactersToReveal;
+                PartitionString(writeWholeWords, param, param.Length + 1);
                 ConcatenateString(startText);
                 textAdapter.Text = outputString.ToString();
 
                 NotifyGlyph();
+                textAdapter.RevealedCharacters = startingReveal;
+                yield return null;
 
-                // No delay if user has clicked and Instant Complete is enabled
-                if (instantComplete && inputFlag)
+                while (textAdapter.RevealedCharacters < textAdapter.CharactersToReveal)
                 {
-                    continue;
-                }
-
-                // Punctuation pause
-                if (leftString.Length > 0 && 
-                    rightString.Length > 0 &&
-                    IsPunctuation(leftString.ToString(leftString.Length - 1, 1)[0]))
-                {
-                    yield return StartCoroutine(DoWait(currentPunctuationPause));
-                }
-
-                // Delay between characters
-                if (currentWritingSpeed > 0f)
-                {
-                    if (timeAccumulator > 0f)
+                    // No delay if user has clicked and Instant Complete is enabled
+                    if (instantComplete && inputFlag)
                     {
-                        timeAccumulator -= 1f / currentWritingSpeed;
-                    } 
-                    else
+                        textAdapter.RevealedCharacters = textAdapter.CharactersToReveal;
+                    }
+
+                    if (currentWritingSpeed > 0f)
                     {
-                        yield return new WaitForSeconds(1f / currentWritingSpeed);
+                        textAdapter.RevealedCharacters++;
+                        if (timeAccumulator > 0f)
+                        {
+                            timeAccumulator -= 1f / currentWritingSpeed;
+                        }
+                        else
+                        {
+                            yield return new WaitForSeconds(1f / currentWritingSpeed);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < param.Length + 1; ++i)
+                {
+                    // Exit immediately if the exit flag has been set
+                    if (exitFlag)
+                    {
+                        break;
+                    }
+
+                    // Pause mid sentence if Paused is set
+                    while (Paused)
+                    {
+                        yield return null;
+                    }
+
+                    PartitionString(writeWholeWords, param, i);
+                    ConcatenateString(startText);
+                    textAdapter.Text = outputString.ToString();
+
+                    NotifyGlyph();
+
+                    // No delay if user has clicked and Instant Complete is enabled
+                    if (instantComplete && inputFlag)
+                    {
+                        continue;
+                    }
+
+                    // Punctuation pause
+                    if (leftString.Length > 0 &&
+                        rightString.Length > 0 &&
+                        IsPunctuation(leftString.ToString(leftString.Length - 1, 1)[0]))
+                    {
+                        yield return StartCoroutine(DoWait(currentPunctuationPause));
+                    }
+
+                    // Delay between characters
+                    if (currentWritingSpeed > 0f)
+                    {
+                        if (timeAccumulator > 0f)
+                        {
+                            timeAccumulator -= 1f / currentWritingSpeed;
+                        }
+                        else
+                        {
+                            yield return new WaitForSeconds(1f / currentWritingSpeed);
+                        }
                     }
                 }
             }

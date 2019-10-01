@@ -1,6 +1,6 @@
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Reflection;
 
 namespace Fungus
 {
@@ -46,7 +46,7 @@ namespace Fungus
 #endif
                 writerTextDestination = go.GetComponentInChildren<IWriterTextDestination>();
             }
-            
+
             // Try to find any component with a text property
             if (textUI == null && inputField == null && textMesh == null && writerTextDestination == null)
             {
@@ -84,7 +84,7 @@ namespace Fungus
             }
 
 #if UNITY_2018_1_OR_NEWER
-            if(tmpro != null)
+            if (tmpro != null)
             {
                 tmpro.richText = true;
             }
@@ -164,7 +164,7 @@ namespace Fungus
         {
             return (textUI != null || inputField != null || textMesh != null || textComponent != null ||
 #if UNITY_2018_1_OR_NEWER
-                tmpro !=null ||
+                tmpro != null ||
 #endif
                  writerTextDestination != null);
         }
@@ -194,6 +194,54 @@ namespace Fungus
                 return writerTextDestination.SupportsRichText();
             }
             return false;
+        }
+
+        public bool SupportsHiddenCharacters()
+        {
+#if UNITY_2018_1_OR_NEWER
+            if (tmpro != null)
+            {
+                return true;
+            }
+#endif
+            return false;
+        }
+
+        public int RevealedCharacters
+        {
+            get
+            {
+#if UNITY_2018_1_OR_NEWER
+                if (tmpro != null)
+                {
+                    return tmpro.maxVisibleCharacters;
+                }
+#endif
+                return 0;
+            }
+            set
+            {
+#if UNITY_2018_1_OR_NEWER
+                if (tmpro != null)
+                {
+                    tmpro.maxVisibleCharacters = value;
+                }
+#endif
+            }
+        }
+
+        public int CharactersToReveal
+        {
+            get
+            {
+#if UNITY_2018_1_OR_NEWER
+                if (tmpro != null)
+                {
+                    return tmpro.textInfo.characterCount;
+                }
+#endif
+                return 0;
+            }
         }
 
         public virtual string Text
