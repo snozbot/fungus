@@ -1360,7 +1360,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 2
   indentLevel: 0
-  storyText: '{b}Say {i}with{/i}{/b} TM{color=red}Pro{/color}'
+  storyText: '{b}Say {i}with{/i}{/b} TM{color=red}Pro and then there is yet more{/color}
+    words, big ones. Like antidisestablishmentarianism, extraneously multisyllabic,
+    or supercalifragilisticexpialidocious!'
   description: 
   character: {fileID: 1368592027}
   portrait: {fileID: 0}
