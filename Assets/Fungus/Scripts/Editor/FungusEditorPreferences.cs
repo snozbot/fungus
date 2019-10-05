@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Linq;
 using UnityEditor;
-using UnityEditor.Callbacks;
+using UnityEngine;
 
 namespace Fungus
 {
@@ -16,8 +16,8 @@ namespace Fungus
         {
             // Have we loaded the prefs yet
             private static bool prefsLoaded = false;
-            const string HIDE_MUSH_KEY = "hideMushroomInHierarchy";
-            const string USE_LEGACY_MENUS = "useLegacyMenus";
+            private const string HIDE_MUSH_KEY = "hideMushroomInHierarchy";
+            private const string USE_LEGACY_MENUS = "useLegacyMenus";
 
             public static bool hideMushroomInHierarchy;
             public static bool useLegacyMenus;
@@ -49,7 +49,7 @@ namespace Fungus
 
                         EditorGUILayout.Space();
                         //ideally if any are null, but typically it is all or nothing that have broken links due to version changes or moving files external to Unity
-                        if(FungusEditorResources.Add == null)
+                        if (FungusEditorResources.Add == null)
                         {
                             EditorGUILayout.HelpBox("FungusEditorResources need to be regenerated!", MessageType.Error);
                         }
@@ -63,12 +63,32 @@ namespace Fungus
                                 var asset = AssetDatabase.LoadAssetAtPath<FungusEditorResources>(p);
                                 Selection.activeObject = asset;
                             }
+                            else
+                            {
+                                Debug.LogError("No FungusEditorResources found!");
+                            }
                         }
 
-                        if(GUILayout.Button("Open Changelog (version info)"))
+                        if (GUILayout.Button("Open Changelog (version info)"))
                         {
-                            var fileMacthes = System.IO.Directory.GetFiles(Application.dataPath, "Fungus\\Docs\\CHANGELOG.txt", System.IO.SearchOption.AllDirectories);
-                            Application.OpenURL(fileMacthes[0]);
+                            //From project path down, look for our Fungus\Docs\ChangeLog.txt
+                            var projectPath = System.IO.Directory.GetParent(Application.dataPath);
+                            var fileMacthes = System.IO.Directory.GetFiles(projectPath.FullName, "CHANGELOG.txt", System.IO.SearchOption.AllDirectories);
+
+                            fileMacthes = fileMacthes.Where((x) =>
+                            {
+                                var fileFolder = System.IO.Directory.GetParent(x);
+                                return fileFolder.Name == "Docs" && fileFolder.Parent.Name == "Fungus";
+                            }).ToArray();
+
+                            if (fileMacthes == null || fileMacthes.Length == 0)
+                            {
+                                Debug.LogWarning("Cannot locate Fungus\\Docs\\CHANGELONG.txt");
+                            }
+                            else
+                            {
+                                Application.OpenURL(fileMacthes[0]);
+                            }
                         }
 
                         // Save the preferences
