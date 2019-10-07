@@ -24,6 +24,8 @@ namespace Fungus
         //this is where additional effects would be added
         static public Dictionary<int, TMProAnimFunc> LinkHashToEffect = new Dictionary<int, TMProAnimFunc>()
         {
+            //comments left here for the effects that are added in the demo scene
+            /*
             {TMPro.TMP_TextUtilities.GetSimpleHashCode("shake"),
                 new TMProLinkAnimEffects.ShakeEffect()
                 {
@@ -63,8 +65,26 @@ namespace Fungus
                     v = 0.8f
                 }.DoEffect
             },
-
+            {TMPro.TMP_TextUtilities.GetSimpleHashCode("ascend"),
+                new TMProLinkAnimEffects.AscendEffect()
+                {
+                    mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerCharacter,
+                    totalStep = 10
+                }.DoEffect
+            },
+            */
         };
+
+        static public void AddHelper(string linkIdText, TMProAnimFunc func)
+        {
+            LinkHashToEffect.Add(TMPro.TMP_TextUtilities.GetSimpleHashCode(linkIdText), func);
+        }
+
+        static public void AddHelper(string linkIdText, TMProLinkAnimEffects.BaseEffect baseEffect)
+        {
+            LinkHashToEffect.Add(TMPro.TMP_TextUtilities.GetSimpleHashCode(linkIdText), baseEffect.DoEffect);
+        }
     }
 }
 #endif
+      

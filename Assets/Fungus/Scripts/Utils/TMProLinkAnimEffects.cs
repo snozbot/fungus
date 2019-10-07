@@ -30,9 +30,16 @@ namespace Fungus
         public abstract class BaseEffect
         {
             public TMPLinkAnimatorMode mode;
+            protected TMProLinkAnimator currentContext { get; set; }
+            protected int currentStart { get; set; }
+            protected int currentLength { get; set; }
 
             public virtual void DoEffect(TMProLinkAnimator context, int start, int length)
             {
+                currentContext = context;
+                currentStart = start;
+                currentLength = length;
+
                 MeshVertUpdateLoop(context, start, length, TransFunc, ColorFunc, mode);
             }
 
@@ -283,6 +290,23 @@ namespace Fungus
             {
                 return Matrix4x4.TRS(Vector3.zero,
                       Quaternion.Euler(0, 0, Mathf.Sin(Time.time * pivotSpeed + index) * pivotDegScale),
+                      Vector3.one);
+            }
+        }
+
+        public class AscendEffect : BaseEffect
+        {
+            public float totalStep;
+
+            public override Matrix4x4 TransFunc(int index)
+            {
+                return StepTransformFunc(index, index - currentStart, totalStep / currentLength);
+            }
+
+            static public Matrix4x4 StepTransformFunc(int index, int stepNum, float stepHeight)
+            {
+                return Matrix4x4.TRS(Vector3.up * stepNum * stepHeight,
+                      Quaternion.identity,
                       Vector3.one);
             }
         }
