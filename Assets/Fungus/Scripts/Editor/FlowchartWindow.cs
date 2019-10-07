@@ -264,13 +264,30 @@ namespace Fungus.EditorUtils
 
             EditorApplication.update += OnEditorUpdate;
             Undo.undoRedoPerformed += Undo_ForceRepaint;
+
+#if UNITY_2017_4_OR_NEWER
+            EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
+#endif
         }
 
         protected virtual void OnDisable()
         {
             EditorApplication.update -= OnEditorUpdate;
             Undo.undoRedoPerformed -= Undo_ForceRepaint;
+#if UNITY_2017_4_OR_NEWER
+            EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
+#endif
         }
+
+#if UNITY_2017_4_OR_NEWER
+        private void EditorApplication_playModeStateChanged(PlayModeStateChange obj)
+        {
+            //force null so it can refresh context on the other side of the context
+            flowchart = null;
+            prevFlowchart = null;
+            blockInspector = null;
+        }
+#endif
 
         protected void Undo_ForceRepaint()
         {
@@ -664,6 +681,10 @@ namespace Fungus.EditorUtils
                 }
 
                 UpdateBlockCollection();
+
+                if(flowchart != null)
+                    flowchart.ReverseUpdateSelectedCache();//becomes reverse restore selected cache
+
                 Repaint();
                 return true;
             }
