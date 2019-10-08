@@ -495,7 +495,6 @@ namespace Fungus
             UpdateCloseMarkup();
 
             float timeAccumulator = Time.deltaTime;
-            float invWritingSpeed = 1f / currentWritingSpeed;
 
             for (int i = 0; i < param.Length + 1; ++i)
             {
@@ -535,6 +534,8 @@ namespace Fungus
                 // Delay between characters
                 if (currentWritingSpeed > 0f)
                 {
+                    float invWritingSpeed = 1f / currentWritingSpeed;
+
                     timeAccumulator -= invWritingSpeed;
                     if (timeAccumulator <= 0f)
                     {
