@@ -6,7 +6,7 @@ Fork and clone the Fungus repo (see [fork a repo] )
 
 Make sure the tests pass locally (see the project readme for instructions).
 
-Make your change. Add tests for your change. Make the tests pass locally.
+Make your change. Add tests and/or demo scenes for your change. Make the tests pass locally.
 
 Push to your fork and [submit a pull request][pr].
 
