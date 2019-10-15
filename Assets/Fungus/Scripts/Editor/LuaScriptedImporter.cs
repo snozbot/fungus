@@ -2,13 +2,16 @@
 using UnityEditor.Experimental.AssetImporters;
 using System.IO;
 
-[ScriptedImporter(1, "lua")]
-public class LuaScriptedImporter : ScriptedImporter
+namespace Fungus.EditorUtils
 {
-    public override void OnImportAsset(AssetImportContext ctx)
-    {
-        TextAsset lua = new TextAsset(File.ReadAllText(ctx.assetPath));
-        ctx.AddObjectToAsset("main", lua);
-        ctx.SetMainObject(lua);
-    }
+	[ScriptedImporter(1, "lua")]
+	public class LuaScriptedImporter : ScriptedImporter
+	{
+	    public override void OnImportAsset(AssetImportContext ctx)
+	    {
+	        TextAsset lua = new TextAsset(File.ReadAllText(ctx.assetPath));
+	        ctx.AddObjectToAsset("main", lua);
+	        ctx.SetMainObject(lua);
+	    }
+	}
 }
