@@ -10,7 +10,6 @@ Make your change. Add tests and/or demo scenes for your change. Make the tests p
 
 Push to your fork and [submit a pull request][pr].
 
-[pr]: https://github.com/fungusgames/Fungus/compare/
 
 We will try to give initial feedback to pull requests within a few days. However, this may not always be possible. Please be patient, we will look at every pull request as soon as we can.
 
@@ -18,10 +17,12 @@ Your pull request will have a better chance of being accepted if you do the foll
 
 * Send one pull request for each new feature. It's time consuming for us to review multi-feature changes.
 * Write tests for each change / new feature (not always possible)
-* Follow our coding standard (see project docs)
+* Follow our [coding standard]
 * Write a [good commit message][commit].
 
-[code of conduct]: https://fungusgames.com/code-of-conduct
+[code of conduct]: https://github.com/snozbot/fungus/wiki/code_of_conduct
 [commit]: http://chris.beams.io/posts/git-commit/
 [fork a repo]: https://help.github.com/articles/fork-a-repo/
 [fungus license]: https://github.com/FungusGames/Fungus/blob/master/LICENSE
+[pr]: https://github.com/snozbot/fungus/compare
+[coding standard]: https://github.com/snozbot/fungus/wiki/coding_standard
