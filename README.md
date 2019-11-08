@@ -12,7 +12,7 @@ The goal of Fungus is to provide a free, open source tool for creating interacti
 Installation
 ============
 
-Download & installation instructions and tutorial videos are available on the official Fungus website.
+Download & installation instructions and tutorial videos are available in [the wiki](https://github.com/snozbot/fungus/wiki/installation) and the official Fungus website.
 http://fungusgames.com
 
 Support
@@ -34,15 +34,10 @@ To contribute code to Fungus, please see [CONTRIBUTING][contributing]. If you ar
 Many thanks to everyone who has contributed code to the project.
 https://github.com/snozbot/fungus/graphs/contributors
 
-Building the documentation
+Documentation
 ==========================
 
-1. Download and install Doxygen from http://www.doxygen.org
-2. Run Doxygen and open Docs/Doxyfile
-3. Switch to the Run tab and click Run Doxygen.
-4. The documentation will be built in the Builds/Docs folder.
-
-To contribute to the documentation please send in a pull request with the changes.
+Fungus docs are being moved to the [wiki here](https://github.com/snozbot/fungus/wiki) but are also still available on the [external site](http://fungusdocs.snozbot.com/). Contributions to the wiki welcome and encouraged.
 
 Running the automated tests
 ===========================
