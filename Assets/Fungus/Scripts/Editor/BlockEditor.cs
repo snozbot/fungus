@@ -33,6 +33,9 @@ namespace Fungus.EditorUtils
 
         private Rect lastEventPopupPos, lastCMDpopupPos;
 
+        private string callersString;
+        private bool callersFoldout;
+
     
         protected virtual void OnEnable()
         {
@@ -56,6 +59,25 @@ namespace Fungus.EditorUtils
             commandListProperty = serializedObject.FindProperty("commandList");
 
             commandListAdaptor = new CommandListAdaptor(target as Block, commandListProperty);
+        }
+
+        protected void CacheCallerString()
+        {
+            if (!string.IsNullOrEmpty(callersString))
+                return;
+
+            var targetBlock = target as Block;
+
+            var callers = FindObjectsOfType<MonoBehaviour>()
+                .Where(x => x is IBlockCaller)
+                .Select(x => x as IBlockCaller)
+                .Where(x => x.MayCallBlock(targetBlock))
+                .Select(x => x.GetLocationIdentifier()).ToList();
+
+            if (callers.Count > 0)
+                callersString = string.Join("\n", callers);
+            else
+                callersString = "None";
 
         }
 
@@ -132,6 +154,19 @@ namespace Fungus.EditorUtils
 
                 SerializedProperty descriptionProp = serializedObject.FindProperty("description");
                 EditorGUILayout.PropertyField(descriptionProp);
+
+                
+                EditorGUI.indentLevel++;
+                if (callersFoldout = EditorGUILayout.Foldout(callersFoldout, "Callers"))
+                {
+                    CacheCallerString();
+                    GUI.enabled = false;
+                    EditorGUILayout.TextArea(callersString);
+                    GUI.enabled = true;
+                }
+                EditorGUI.indentLevel--;
+                
+
                 EditorGUILayout.Space();
                 
                 DrawEventHandlerGUI(flowchart);
