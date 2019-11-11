@@ -1237,6 +1237,21 @@ namespace Fungus.EditorUtils
                         menu.AddItem(new GUIContent ("Cut"), false, () => Cut());
                         menu.AddItem(new GUIContent ("Duplicate"), false, () => Duplicate());
                         menu.AddItem(new GUIContent ("Delete"), false, () => AddToDeleteList(blockList));
+                        menu.AddSeparator("");
+                        if(Application.isPlaying)
+                        {
+                            menu.AddItem(new GUIContent("StopAll"), false, () => StopAllBlocks());
+                            menu.AddItem(new GUIContent("Stop"), false, () => StopThisBlock(hitBlock));
+                            menu.AddItem(new GUIContent("Execute"), false, () => ExecuteThisBlock(hitBlock, false));
+                            menu.AddItem(new GUIContent("Execute (Stop All First)"), false, () => ExecuteThisBlock(hitBlock, true));
+                        }
+                        else
+                        {
+                            menu.AddDisabledItem(new GUIContent("StopAll"), false);//, () => StopAllBlocks());
+                            menu.AddDisabledItem(new GUIContent("Stop"), false);//, () => StopThisBlock(hitBlock));
+                            menu.AddDisabledItem(new GUIContent("Execute"), false);//, () => ExecuteThisBlock(hitBlock, false));
+                            menu.AddDisabledItem(new GUIContent("Execute (Stop All First)"), false);//, () => ExecuteThisBlock(hitBlock, true));
+                        }
                     }
                     else
                     {
@@ -1251,6 +1266,16 @@ namespace Fungus.EditorUtils
                         else
                         {
                             menu.AddDisabledItem(new GUIContent("Paste"));
+                        }
+
+                        menu.AddSeparator("");
+                        if (Application.isPlaying)
+                        {
+                            menu.AddItem(new GUIContent("StopAll"), false, () => StopAllBlocks());
+                        }
+                        else
+                        {
+                            menu.AddDisabledItem(new GUIContent("StopAll"), false);//, () => StopAllBlocks());
                         }
                     }
 
@@ -1655,6 +1680,24 @@ namespace Fungus.EditorUtils
             {
                 FlowchartWindow.deleteList.Add(blocks[i]);
             }
+        }
+
+        internal void StopThisBlock(Block block)
+        {
+            block.Stop();
+        }
+
+        internal void StopAllBlocks()
+        {
+            flowchart.StopAllBlocks();
+        }
+
+        internal void ExecuteThisBlock(Block block, bool stopRunningBlocks)
+        {
+            if (stopRunningBlocks)
+                StopAllBlocks();
+
+            block.StartExecution();
         }
 
         public void DeleteBlocks()

@@ -39,7 +39,7 @@ namespace Fungus
     /// <summary>
     /// Base class for Commands. Commands can be added to Blocks to create an execution sequence.
     /// </summary>
-    public abstract class Command : MonoBehaviour
+    public abstract class Command : MonoBehaviour, IVariableReference
     {
         [FormerlySerializedAs("commandId")]
         [HideInInspector]
@@ -226,6 +226,11 @@ namespace Fungus
         public virtual bool HasReference(Variable variable)
         {
             return false;
+        }
+
+        public virtual string GetLocationIdentifier()
+        {
+            return ParentBlock.GetFlowchart().GetName() + ":" + ParentBlock.BlockName + "." + this.GetType().Name + ":" + CommandIndex.ToString(); 
         }
 
         /// <summary>

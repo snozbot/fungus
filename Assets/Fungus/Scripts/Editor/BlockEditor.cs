@@ -132,6 +132,10 @@ namespace Fungus.EditorUtils
 
                 SerializedProperty descriptionProp = serializedObject.FindProperty("description");
                 EditorGUILayout.PropertyField(descriptionProp);
+
+
+                SerializedProperty suppressProp = serializedObject.FindProperty("suppressAllAutoSelections");
+                EditorGUILayout.PropertyField(suppressProp);
                 EditorGUILayout.Space();
                 
                 DrawEventHandlerGUI(flowchart);
