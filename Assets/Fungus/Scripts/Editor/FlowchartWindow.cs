@@ -472,7 +472,7 @@ namespace Fungus.EditorUtils
                 //reset all
                 for (int i = 0; filteredBlocks != null && i < filteredBlocks.Length; i++)
                 {
-                    if(filteredBlocks[i] != null)
+                    if (filteredBlocks[i] != null)
                     {
                         filteredBlocks[i].IsFiltered = false;
                     }
@@ -483,10 +483,10 @@ namespace Fungus.EditorUtils
                 {
                     Debug.LogWarning("Null block found in filteredBlocks. May be a symptom of an underlying issue");
                 }
-                
+
                 //gather new
-                filteredBlocks = blocks.Where(block => block.BlockName.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0).ToArray();
-                
+                filteredBlocks = blocks.Where(block => IsBlockNameMatch(block) || IsCommandContentMatch(block)).ToArray();
+
                 //update filteredness
                 foreach (var item in filteredBlocks)
                 {
@@ -495,6 +495,16 @@ namespace Fungus.EditorUtils
 
                 blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
             }
+        }
+
+        private bool IsBlockNameMatch(Block block)
+        {
+            return block.BlockName.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private bool IsCommandContentMatch(Block block)
+        {
+            return block.CommandList.Any(command => command.GetSearchableContent().IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0);            
         }
 
         protected virtual void HandleEarlyEvents(Event e) 
