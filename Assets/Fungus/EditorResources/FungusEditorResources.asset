@@ -14,56 +14,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updateOnReloadScripts: 0
   add:
-    free: {fileID: 2800000, guid: 24a867d6b4cdda04cb3aa3350f9ec7d0, type: 3}
-    pro: {fileID: 2800000, guid: 4e43c476b4a7a49a08c37378fb01ce99, type: 3}
+    free: {fileID: 0}
+    pro: {fileID: 0}
   add_small:
-    free: {fileID: 2800000, guid: 288aff1a0e5c14fd3a0039d24149df73, type: 3}
-    pro: {fileID: 2800000, guid: 64534dfaa17844231a9a9dd2df89d0db, type: 3}
+    free: {fileID: 0}
+    pro: {fileID: 0}
   delete:
-    free: {fileID: 2800000, guid: d6fc8a97e8a5b0947a49b780f787e504, type: 3}
-    pro: {fileID: 2800000, guid: 29c4d29b1678042a5b3516c732ccc507, type: 3}
+    free: {fileID: 0}
+    pro: {fileID: 0}
   down:
-    free: {fileID: 2800000, guid: 51a973f446c2e664582861480cce6215, type: 3}
-    pro: {fileID: 2800000, guid: 5a87a7d3683164a238377d948572805f, type: 3}
+    free: {fileID: 0}
+    pro: {fileID: 0}
   duplicate:
-    free: {fileID: 2800000, guid: c97f334c466215a4f93eff31de3c1591, type: 3}
-    pro: {fileID: 2800000, guid: 2f17490d993c84bd7872ef6588ffba47, type: 3}
+    free: {fileID: 0}
+    pro: {fileID: 0}
   fungus_mushroom:
-    free: {fileID: 2800000, guid: 1c99c9bf7557e23469ed5dfce00504c0, type: 3}
-    pro: {fileID: 2800000, guid: 6368c1c16ebb1694091262337e4f8c44, type: 3}
+    free: {fileID: 0}
+    pro: {fileID: 0}
   up:
-    free: {fileID: 2800000, guid: 8f1242ad894201f43b2b6d52fd990f77, type: 3}
-    pro: {fileID: 2800000, guid: 2a76a781db2994b33b83cd84b8835da7, type: 3}
+    free: {fileID: 0}
+    pro: {fileID: 0}
   bullet_point:
-    free: {fileID: 2800000, guid: 4ef739c68bb234717a60a2bb83ff8602, type: 3}
+    free: {fileID: 0}
     pro: {fileID: 0}
   choice_node_off:
-    free: {fileID: 2800000, guid: 7b6fc04aac74540e39e9502da5312ce7, type: 3}
+    free: {fileID: 0}
     pro: {fileID: 0}
   choice_node_on:
-    free: {fileID: 2800000, guid: cfc05494b71a0446182868aab5f7febf, type: 3}
+    free: {fileID: 0}
     pro: {fileID: 0}
   command_background:
-    free: {fileID: 2800000, guid: a5c9a4271b3de4e4f86eff7f8a1bd768, type: 3}
+    free: {fileID: 0}
     pro: {fileID: 0}
   connection_point:
-    free: {fileID: 2800000, guid: f08a4c27d7efe4aa6a35348a4e8aec8f, type: 3}
+    free: {fileID: 0}
     pro: {fileID: 0}
   event_node_off:
-    free: {fileID: 2800000, guid: 0e16a209826864df7b05f6d3901aae7a, type: 3}
+    free: {fileID: 0}
     pro: {fileID: 0}
   event_node_on:
-    free: {fileID: 2800000, guid: 9434488a4efb54da5986eba5d5619baf, type: 3}
+    free: {fileID: 0}
     pro: {fileID: 0}
   play_big:
-    free: {fileID: 2800000, guid: bff2ba39f5f4448589e80522ebfcd0a0, type: 3}
+    free: {fileID: 0}
     pro: {fileID: 0}
   play_small:
-    free: {fileID: 2800000, guid: a48a2b9b06deb469d9da1777b094521b, type: 3}
+    free: {fileID: 0}
     pro: {fileID: 0}
   process_node_off:
-    free: {fileID: 2800000, guid: ea3a4228e6c214149bfe5c741b56ae0c, type: 3}
+    free: {fileID: 0}
     pro: {fileID: 0}
   process_node_on:
-    free: {fileID: 2800000, guid: c2dceb780784240ccbe8d3cde89f7671, type: 3}
+    free: {fileID: 0}
     pro: {fileID: 0}
