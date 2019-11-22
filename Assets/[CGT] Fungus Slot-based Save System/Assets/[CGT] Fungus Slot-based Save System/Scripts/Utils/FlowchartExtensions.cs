@@ -1,0 +1,25 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Fungus;
+using BaseFungus = Fungus;
+
+namespace CGTUnity.Fungus.SaveSystem
+{
+    public static class FlowchartExtensions 
+    {
+        /// <summary>
+        /// Sets the value of a variable in the flowchart (if it exists) to the value that was passed.
+        /// </summary>
+        public static void SetVariable<TBase, TVarType>(this Flowchart flowchart, string key, TBase value)
+        where TVarType: BaseFungus.VariableBase<TBase>
+
+        {
+            var variable =                          flowchart.GetVariable<TVarType>(key);
+            if (variable != null)
+            {
+                variable.Value =                    value; 
+            }
+        }
+    }
+}

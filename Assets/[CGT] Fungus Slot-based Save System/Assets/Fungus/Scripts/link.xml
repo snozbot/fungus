@@ -1,0 +1,55 @@
+<linker>
+    <assembly fullname="UnityEngine">
+        <type fullname="UnityEngine.AudioClip" preserve="all" />
+        <type fullname="UnityEngine.AudioClipLoadType" preserve="all" />
+        <type fullname="UnityEngine.AudioDataLoadState" preserve="all" />
+        <type fullname="UnityEngine.AudioSource" preserve="all" />
+        <type fullname="UnityEngine.Bounds" preserve="all" />
+        <type fullname="UnityEngine.Canvas" preserve="all" />
+        <type fullname="UnityEngine.Color" preserve="all" />
+        <type fullname="UnityEngine.Component" preserve="all" />
+        <type fullname="UnityEngine.ComputeBuffer" preserve="all" />
+        <type fullname="UnityEngine.Coroutine" preserve="all" />
+        <type fullname="UnityEngine.EventSystems.BaseEventData" preserve="all" />
+        <type fullname="UnityEngine.EventSystems.PointerEventData" preserve="all" />
+        <type fullname="UnityEngine.Font" preserve="all" />
+        <type fullname="UnityEngine.FontStyle" preserve="all" />
+        <type fullname="UnityEngine.GameObject" preserve="all" />
+        <type fullname="UnityEngine.HorizontalWrapMode" preserve="all" />
+        <type fullname="UnityEngine.Material" preserve="all" />
+        <type fullname="UnityEngine.MaterialGlobalIlluminationFlags" preserve="all" />
+        <type fullname="UnityEngine.Matrix4x4" preserve="all" />
+        <type fullname="UnityEngine.MonoBehaviour" preserve="all" />
+        <type fullname="UnityEngine.Object" preserve="all" />
+        <type fullname="UnityEngine.PlayerPrefs" preserve="all" />
+        <type fullname="UnityEngine.PrimitiveType" preserve="all" />
+        <type fullname="UnityEngine.Quaternion" preserve="all" />
+        <type fullname="UnityEngine.Rect" preserve="all" />
+        <type fullname="UnityEngine.RectTransform" preserve="all" />
+        <type fullname="UnityEngine.SceneManagement.Scene" preserve="all" />
+        <type fullname="UnityEngine.ScriptableObject" preserve="all" />
+        <type fullname="UnityEngine.SendMessageOptions" preserve="all" />
+        <type fullname="UnityEngine.Shader" preserve="all" />
+        <type fullname="UnityEngine.Sprite" preserve="all" />
+        <type fullname="UnityEngine.SpriteMeshType" preserve="all" />
+        <type fullname="UnityEngine.SpritePackingMode" preserve="all" />
+        <type fullname="UnityEngine.SpritePackingRotation" preserve="all" />
+        <type fullname="UnityEngine.TextAnchor" preserve="all" />
+        <type fullname="UnityEngine.TextGenerationSettings" preserve="all" />
+        <type fullname="UnityEngine.TextGenerator" preserve="all" />
+        <type fullname="UnityEngine.Texture" preserve="all" />
+        <type fullname="UnityEngine.Texture2D" preserve="all" />
+        <type fullname="UnityEngine.TextureFormat" preserve="all" />
+        <type fullname="UnityEngine.Time" preserve="all" />
+        <type fullname="UnityEngine.Transform" preserve="all" />
+        <type fullname="UnityEngine.UI.Button" preserve="all" />
+        <type fullname="UnityEngine.UI.Image" preserve="all" />
+        <type fullname="UnityEngine.UI.Slider" preserve="all" />
+        <type fullname="UnityEngine.UI.Text" preserve="all" />
+        <type fullname="UnityEngine.Vector2" preserve="all" />
+        <type fullname="UnityEngine.Vector3" preserve="all" />
+        <type fullname="UnityEngine.Vector4" preserve="all" />
+        <type fullname="UnityEngine.VerticalWrapMode" preserve="all" />
+        <!--- <type fullname="UnityEngine.*" preserve="all" preserve="all" /> -->
+    </assembly>
+</linker>

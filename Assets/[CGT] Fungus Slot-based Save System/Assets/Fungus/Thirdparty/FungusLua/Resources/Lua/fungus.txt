@@ -1,0 +1,355 @@
+local inspect = require('inspect')
+
+-- Utility functions for working with Lua in Fungus
+local M = {}
+
+------------
+-- Debugging
+------------
+
+-- Prints a summary of object v in a human readable format.
+function M.inspect(v)
+    print (inspect.inspect(v))
+end
+
+------------
+-- Math
+------------
+
+-- rounds a number to the nearest decimal places
+-- e.g. round(1.523, 100) -- 1.52
+function M.round(val, decimal)
+  if (decimal) then
+    return math.floor( (val * 10^decimal) + 0.5) / (10^decimal)
+  else
+    return math.floor(val+0.5)
+  end
+end
+
+-------------
+-- Coroutines
+-------------
+
+-- Waits for a number of seconds
+function M.wait(duration)
+    local t = M.time.timeSinceLevelLoad
+    while (M.time.timeSinceLevelLoad - t < duration) do
+        coroutine.yield()
+    end
+end
+
+-- Waits until the lamda function provided returns true, or the timeout expires.
+-- Returns true if the function succeeded, or false if the timeout expired
+function M.waitfor(fn, timeoutduration)
+    local t = M.time.timeSinceLevelLoad
+    while (not fn()) do
+        coroutine.yield()
+        if (M.time.timeSinceLevelLoad - t > timeoutduration) then
+            return false
+        end
+    end
+    return true
+end
+
+-- Starts a C# coroutine method
+function M.run(enumerator)
+    -- If the parameter isn't an enumerator then CreateTask will fail
+    local status, err = pcall( function() 
+        local task = M.luaenvironment.RunUnityCoroutine(enumerator)
+    end)
+
+    if (not status) then
+        print(debug.traceback("Can't start a coroutine with a c# method that doesn't return IEnumerator", 2))
+        error(err)
+    end
+end
+
+-- Starts a C# coroutine method and waits until it's finished
+function M.runwait(enumerator)
+    -- If the parameter isn't an enumerator then CreateTask will fail
+    local status, err = pcall( function() 
+        local task = M.luaenvironment.RunUnityCoroutine(enumerator)
+        while (task != nil and task.Running) do
+            coroutine.yield();
+        end
+    end)
+
+    if (not status) then
+        print(debug.traceback("Can't start a coroutine with a c# method that doesn't return IEnumerator", 2))
+        error(err)
+    end
+end
+
+---------------
+-- String table
+---------------
+
+-- Set active language for string table
+function M.setlanguage(languagecode)
+    M.luautils.ActiveLanguage = languagecode
+end
+
+-- Get a named string from the string table
+function M.getstring(key)
+    return M.luautils.GetString(key)
+end
+
+-- Substitutes variables and localisation strings into a piece of text
+-- e.g. v = 10, "Subbed value is [$v]" => "Subbed value is 10"
+function M.sub(text)
+    return M.luautils.substitute(text)
+end
+
+--------------------------------------------------------------
+-- Integration tests
+-- These functions require the Unity Test Tools to work.
+--------------------------------------------------------------
+
+-- Checks if a condition is true (requires Unity Test Tools)
+-- Lua has a built in assert function, so we called this check to avoid conflicting.
+function M.check(c, reason)
+    if (not c) then
+        -- Output a traceback to help track down source
+        error( debug.traceback("Assert failed", 2) )
+    end
+    M.test.assert(c, reason)
+end
+
+-- Pass an integration test (requires Unity Test Tools)
+function M.pass()
+    M.test.pass()
+end
+
+-- Fail an integration test (requires Unity Test Tools)
+-- reason: Option string explaining why the test failed.
+function M.fail(reason)
+    error( debug.traceback("Test failed", 2) )
+    M.test.fail(reason)
+end
+
+---------------------------------------------
+-- All functions below require Fungus to work
+---------------------------------------------
+
+-------------
+-- Say Dialog
+-------------
+
+-- Options for configuring Say Dialog behaviour
+M.sayoptions = {}
+M.sayoptions.clearprevious = true 
+M.sayoptions.waitforinput = true
+M.sayoptions.fadewhendone = true
+M.sayoptions.stopvoiceover = true
+
+-- Set the active saydialog to use with the say and conversation functions
+function M.setsaydialog(saydialog)
+    luautils.SetSayDialog(saydialog)
+end
+
+-- Gets the active say dialog
+function M.getsaydialog()
+    return M.luautils.GetSayDialog()
+end
+
+-- Set the active character on the Say Dialog
+-- character: A Fungus.Character component
+-- portrait: The name of a sprite in the character's portrait list
+function M.setcharacter(character, portrait)
+    assert(character, "character must not be nil")
+    local sd = M.getsaydialog()
+    sd.SetCharacter(character)
+
+    -- Do substitution on character name
+    local subbed = M.sub(character.nameText)
+    M.getsaydialog().SetCharacterName(subbed, character.nameColor)
+
+    -- Try to set the portrait sprite
+    if (portrait) then
+        if (portrait == "") then
+            M.getsaydialog().SetCharacterImage(nill)
+        else
+            for i,v in ipairs(character.portraits) do
+                -- Use a case insensitive comparison
+                if (string.lower(v.name) == string.lower(portrait)) then
+                    M.getsaydialog().SetCharacterImage(v)
+                end
+            end
+        end
+    end
+end
+
+-- Write text to the active Say Dialog
+-- text: A string to write to the say dialog
+-- voice: A voiceover audioclip to play
+function M.say(text, voiceclip)
+   local sd = M.getsaydialog()
+
+   -- Do variable substitution before displaying text
+   local subbed = M.sub(text)
+   local e = sd.DoSay(subbed, M.sayoptions.clearprevious, M.sayoptions.waitforinput, M.sayoptions.fadewhendone, M.sayoptions.stopvoiceover, false, voiceclip, nil)
+
+   M.runwait(e)
+end
+
+-- Say a series of lines, setting speakign character, portrait or stage position on each line.
+-- All parameters may be ommitted. The first three parameters can appear in any order.
+-- The story text starts with a ':' and runs to the next newline character.
+-- conv: A string of conversational lines using the following format.
+-- [character] [portrait] [position] <: Story text>
+-- e.g. john happy left: Hi, I'm happy.
+function M.conversation(text)
+    local subbed = M.sub(text)
+    local e = luautils.DoConversation(subbed)
+    M.runwait(e)
+end
+
+--------------
+-- Menu Dialog
+--------------
+
+-- Set the active menudialog to use with the menu function
+function M.setmenudialog(menudialog)
+    luautils.SetMenuDialog(menudialog)
+end
+
+-- Gets the active menu dialog
+function M.getmenudialog()
+    return M.luautils.GetMenuDialog()
+end
+
+-- Display a menu button
+-- text: text to display on the button
+-- callback: function to call when this option is selected
+-- interactive (optional): if false, displays the option as disabled
+function M.menu(text, callback, interactive)
+    local md = M.getmenudialog()
+
+    -- Do variable substitution before displaying text
+    local subbed = M.sub(text)
+
+    -- Default bool parameters are tricksy
+    if (interactive == nil) then
+        interactive = true
+    end
+
+    md.AddOption(subbed, interactive, M.luaenvironment, callback)
+end
+
+-- Display a list of menu options and wait for user to choose one.
+-- When an option starts with the ~ character it will be displayed but not be selectable.
+-- Returns the index of the selected option.
+-- Returns 0 if options list is empty. Note: Lua array indices start at 1, not 0).
+-- options: an array of option strings. e.g. { "Option 1", "Option 2" }
+function M.choose(options)
+    return M.choosetimer(options, 0, 0)
+end
+
+-- Display a list of menu options and wait for user to choose one, or for a timer to expire.
+-- When an option starts with the ~ character it will be displayed but not be selectable.
+-- Returns the index of the selected option, or the defaultoption if the timer expires.
+-- Returns 0 if options list is empty. Note: Lua array indices start at 1, not 0).
+-- options: an array of option strings. e.g. { "Option 1", "Option 2" }
+-- duration: Time player has to pick an option.
+-- defaultoption: Option index to return if the timer expires.
+function M.choosetimer(options, duration, defaultoption)
+    if (options == nil or #options == 0) then
+        return 0
+    end
+
+    local md = M.getmenudialog()
+
+    local selection = 0
+
+    for i, text in ipairs(options) do
+
+        local callback = function ()
+            selection = i;
+        end
+
+        -- Do variable substitution before displaying text
+        local subbed = M.sub(text)
+
+        -- Check if option has been flagged as not interactive
+        local interactive = true
+
+        if string.sub(subbed, 1, 1) == "~" then
+            interactive = false
+            subbed = string.sub(subbed, 2)
+        end
+
+        md.AddOption(subbed, interactive, M.luaenvironment, callback)
+    end
+
+    if (duration > 0) then
+        local callback = function ()
+            selection = defaultoption
+        end
+
+        local e = md.ShowTimer(duration, M.luaenvironment, callback)
+        M.run(e)
+    end
+
+    -- Wait until one of the callbacks is called by the user selecting an option
+    while (selection == 0) do
+        coroutine.yield()
+    end
+
+    return selection
+end
+
+-- Display a timer during which the player has to choose an option.
+-- duration: The length of time to display the timer.
+-- callback: Function to call if the timer expires before an option is selected.
+function M.menutimer(duration, callback)
+    local md = M.getmenudialog()
+
+    local e = md.ShowTimer(duration, M.luaenvironment, callback)
+    M.runwait(e)
+end
+
+-- Clear all currently displayed menu options
+function M.clearmenu()
+    M.getmenudialog().Clear()
+end
+
+------------
+-- Flowchart
+------------
+
+-- Returns the specified Variable in a Flowchart.
+-- To access the value of the variable, use its .value property. e.g.
+--  v = getvar(flowchart, "FloatVar") 
+--  v.value = 10    -- Sets the value of the variable to 10
+--  f = v.value     -- f now contains 10
+-- flowchart: The Fungus Flowchart containing the Block to run.
+-- varname: The name of the Variable to get.
+function M.getvar(flowchart, varname)
+    assert(flowchart, "flowchart must not be nil")
+    return flowchart.GetVariable(varname)
+end
+
+-- Runs the specified Block in a Flowchart
+-- flowchart: The Fungus Flowchart containing the Block to run.
+-- blockname: The name of the Block to run.
+-- commandindex: Index of the command to start execution at
+-- nowait: If false, will yield until the Block finishes execution. If true will continue immediately.
+function M.runblock(flowchart, blockname, commandindex, nowait)
+    assert(flowchart, "flowchart must not be nil")
+    assert(blockname, "blockname must not be nil")
+    local block = flowchart.FindBlock(blockname)
+    if (not block) then
+        error("Block " .. blockname .. " not found")
+        return
+    end
+
+    local e = block.Execute(commandindex or 0);
+
+    if (nowait) then
+        M.run( e )
+    else
+        M.runwait( e )
+    end
+end
+
+return M
