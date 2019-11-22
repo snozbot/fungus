@@ -1,6 +1,0 @@
-{
-	"hello" : {
-		"en" : "Hi there",
-		"fr" : "Bonjour"
-	}
-}

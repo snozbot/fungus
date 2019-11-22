@@ -1,2 +1,0 @@
--- Set a local variable. The test checks its value in a LuaScript component.
-local v = 5

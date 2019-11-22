@@ -33,6 +33,9 @@ namespace Fungus.EditorUtils
 
         private Rect lastEventPopupPos, lastCMDpopupPos;
 
+        private string callersString;
+        private bool callersFoldout;
+
     
         protected virtual void OnEnable()
         {
@@ -56,6 +59,25 @@ namespace Fungus.EditorUtils
             commandListProperty = serializedObject.FindProperty("commandList");
 
             commandListAdaptor = new CommandListAdaptor(target as Block, commandListProperty);
+        }
+
+        protected void CacheCallerString()
+        {
+            if (!string.IsNullOrEmpty(callersString))
+                return;
+
+            var targetBlock = target as Block;
+
+            var callers = FindObjectsOfType<MonoBehaviour>()
+                .Where(x => x is IBlockCaller)
+                .Select(x => x as IBlockCaller)
+                .Where(x => x.MayCallBlock(targetBlock))
+                .Select(x => x.GetLocationIdentifier()).ToList();
+
+            if (callers.Count > 0)
+                callersString = string.Join("\n", callers);
+            else
+                callersString = "None";
 
         }
 
@@ -132,6 +154,19 @@ namespace Fungus.EditorUtils
 
                 SerializedProperty descriptionProp = serializedObject.FindProperty("description");
                 EditorGUILayout.PropertyField(descriptionProp);
+
+                
+                EditorGUI.indentLevel++;
+                if (callersFoldout = EditorGUILayout.Foldout(callersFoldout, "Callers"))
+                {
+                    CacheCallerString();
+                    GUI.enabled = false;
+                    EditorGUILayout.TextArea(callersString);
+                    GUI.enabled = true;
+                }
+                EditorGUI.indentLevel--;
+                
+
                 EditorGUILayout.Space();
                 
                 DrawEventHandlerGUI(flowchart);
@@ -319,9 +354,15 @@ namespace Fungus.EditorUtils
             // Add Button
             if (GUILayout.Button(addIcon))
             {
+                //this may be less reliable for HDPI scaling but previous method using editor window height is now returning 
+                //  null in 2019.2 suspect ongoing ui changes, so default to screen.height and then attempt to get the better result
+                int h = Screen.height;
+                if (EditorWindow.focusedWindow != null) h = (int)EditorWindow.focusedWindow.position.height;
+                else if (EditorWindow.mouseOverWindow != null) h = (int)EditorWindow.mouseOverWindow.position.height;
+
                 CommandSelectorPopupWindowContent.ShowCommandMenu(lastCMDpopupPos, "", target as Block,
                     (int)(EditorGUIUtility.currentViewWidth),
-                    (int)(EditorWindow.focusedWindow.position.height - lastCMDpopupPos.y));
+                    (int)(h - lastCMDpopupPos.y));
             }
 
             // Duplicate Button

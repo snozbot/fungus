@@ -10,6 +10,16 @@ Property | Type | Description
  --- | --- | ---
 Key | System.String | Name of the saved value. Supports variable substition e.g. "player_{$PlayerNumber}
 
+# From String # {#FromString}
+Attempts to parse a string into a given fungus variable type, such as integer or float
+
+Defined in Fungus.FromString
+
+Property | Type | Description
+ --- | --- | ---
+Source String | Fungus.StringVariable | Source of string data to parse into another variables value
+Out Value | Fungus.Variable | The variable type to be parsed and value stored within
+
 # Load Variable # {#LoadVariable}
 Loads a saved value and stores it in a Boolean, Integer, Float or String variable. If the key is not found then the variable is not modified.
 
@@ -106,4 +116,14 @@ Texture Data | Fungus.TextureData | Texture value to set with
 Transform Data | Fungus.TransformData | Transform value to set with
 Vector2 Data | Fungus.Vector2Data | Vector2 value to set with
 Vector3 Data | Fungus.Vector3Data | Vector3 value to set with
+
+# To String # {#ToString}
+Stores the result of a ToString on given variable in a string.
+
+Defined in Fungus.ToString
+
+Property | Type | Description
+ --- | --- | ---
+Variable | Fungus.Variable | Target variable to get String of.
+Out Value | Fungus.StringVariable | Variable to store the result of ToString
 

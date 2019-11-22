@@ -2,6 +2,77 @@ Changelog {#changelog}
 =========
 [TOC]
 
+v3.11.5 {#v3.11.5}
+======
+
+## Fixed
+
+- Mushroom icon for the inspector moved in 2019 as to not overlap the new visibility toggle Unity has added. #745
+- FlowchartWindow MutliSelect now more strictly manages selectedness #744
+- Portrait sprite issue in Unity 2019 #743
+
+## Changed
+
+- Experimental Searchable menus are now enabled by default #746
+
+v3.11.4 {#v3.11.4}
+======
+
+## Changed
+
+- Updated project to Unity 2019.1.0f2
+- Updated to .NET 4.x
+- Updated reference docs
+
+v3.11.3 {#v3.11.3}
+======
+
+## Fixed
+
+- Additional null checks around Flowchart.selectedBlocks and Flowchart.selectedCommands.
+
+v3.11.2 {#v3.11.2}
+======
+
+## Fixed
+
+- Static list caching in editor.
+
+## Changed
+
+- Spacing in debug output related to Block find and execute warnings and failures.
+
+v3.11.1 {#v3.11.1}
+======
+
+## Fixed
+
+- Compile error in Unity 2018.3.6f1
+
+v3.11.0 {#v3.11.0}
+======
+
+## Added
+
+- SetSprite: changes the image on the SpriteRenderer of one or more GameObjects 
+- SetUIImage: changes the image on the Image of one or more GameObjects (Joerg Burbach)
+- Commands to store FungusVariable.ToString into a StringVariable and to parse a string into an Int or Float FungusVariable 
+
+## Fixed
+
+- #729 VariableEditor popup name and key concat no longer has spaces, allows the PopUp to correctly nest items with the same parent
+- #732 BlockInspector correct top panel height in 2018_3 BlockEditor only force unique name if it has changed
+- BlockInspector and BlockEditor changes to display correctly in 2019.1.0a13
+
+## Changed
+
+- #728 FlowchartWindow performance for 100s of blocks
+- #727 Support use of TMPro in Set Text, Get Text and Narrative Log Menu commands
+- #733 Command can now cache a list of referenced variables that are checked by the variablelistadapter for highlighting 
+- Flowchart can identify add variables found via the substitute regex 
+- Commands that use SubstituteVariables on their string data use the new caching method so they can highlight variables that will be used during substitution
+- #733 HasReference added to many commands that lacked them or had only partially checked vars
+
 v3.10.0 {#v3_10_0}
 ======
 

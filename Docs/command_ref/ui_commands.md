@@ -74,6 +74,16 @@ Property | Type | Description
 Toggle | UnityEngine.UI.Toggle | Target toggle object to set the state on
 Value | Fungus.BooleanData | Boolean value to set the toggle state to.
 
+# Set UI Image # {#SetUIImage}
+Changes the Image property of a list of UI Images.
+
+Defined in Fungus.SetUIImage
+
+Property | Type | Description
+ --- | --- | ---
+Images | System.Collections.Generic.List`1[UnityEngine.UI.Image] | List of UI Images to set the source image property on
+Sprite | UnityEngine.Sprite | The sprite set on the source image property
+
 # Write # {#Write}
 Writes content to a UI Text or Text Mesh object.
 

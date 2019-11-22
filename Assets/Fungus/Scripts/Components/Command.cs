@@ -247,6 +247,14 @@ namespace Fungus
         }
 
         /// <summary>
+        /// Returns the searchable content for searches on the flowchart window.
+        /// </summary>
+        public virtual string GetSearchableContent()
+        {
+            return GetSummary();
+        }
+
+        /// <summary>
         /// Returns the help text to display for this command.
         /// </summary>
         public virtual string GetHelpText()
@@ -316,7 +324,7 @@ namespace Fungus
             }
 
             return localizationId;
-        }
+        }        
 
         #endregion
     }

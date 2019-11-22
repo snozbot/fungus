@@ -3,6 +3,12 @@
 
 If you've created an article or video about %Fungus let us know on the forum and we'll add it here.
 
+# Jesse Shepherd # {#jesse_shepherd}
+
+An add-on for Fungus that simplifies the process of writing for characters with dynamic or user-defined gender pronouns.
+
+- [Fungus Gendered Terms](https://github.com/zelgadis/fungus-gendered-terms)
+
 # Game Dev Resources # {#game_dev_resources}
 
 - [Global Game Jam resources list](http://globalgamejam.org/jammer-resources)

@@ -33,6 +33,7 @@ namespace Fungus.EditorUtils
             serializedObject.Update();
 
             Character t = target as Character;
+            EditorGUI.BeginChangeCheck();
 
             EditorGUILayout.PropertyField(nameTextProp, new GUIContent("Name Text", "Name of the character display in the dialog"));
             EditorGUILayout.PropertyField(nameColorProp, new GUIContent("Name Color", "Color of name text display in the dialog"));
@@ -75,7 +76,8 @@ namespace Fungus.EditorUtils
 
             EditorGUILayout.Separator();
 
-            EditorUtility.SetDirty(t);
+            if(EditorGUI.EndChangeCheck())
+                EditorUtility.SetDirty(t);
 
             serializedObject.ApplyModifiedProperties();
         }
