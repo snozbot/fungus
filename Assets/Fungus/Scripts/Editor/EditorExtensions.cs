@@ -78,5 +78,15 @@ namespace Fungus.EditorUtils
             return retval.ToArray();
 #endif
         }
+
+        /// <summary>
+        /// Find and return all Unity.Objects that have the target interface
+        /// </summary>
+        /// <typeparam name="T">Intended to be an interface but will work for any</typeparam>
+        /// <returns></returns>
+        public static List<T> FindObjectsOfInterface<T>()
+        {
+            return Object.FindObjectsOfType<Object>().OfType<T>().ToList();
+        }
     }
 }

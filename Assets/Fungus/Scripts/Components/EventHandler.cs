@@ -41,6 +41,9 @@ namespace Fungus
         [FormerlySerializedAs("parentSequence")]
         [SerializeField] protected Block parentBlock;
 
+        [Tooltip("If true, the flowchart window will not auto select the Block when the Event Handler fires. Affects Editor only.")]
+        [SerializeField] protected bool suppressBlockAutoSelect = false;
+
         #region Public members
 
         /// <summary>
@@ -71,10 +74,9 @@ namespace Fungus
                 return false;
             }
 
-            // Auto-follow the executing block if none is currently selected
-            if (flowchart.SelectedBlock == null)
+            if (suppressBlockAutoSelect)
             {
-                flowchart.SelectedBlock = ParentBlock;
+                ParentBlock.SuppressNextAutoSelection = true;
             }
 
             return flowchart.ExecuteBlock(ParentBlock);
