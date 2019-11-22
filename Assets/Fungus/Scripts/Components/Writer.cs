@@ -510,6 +510,7 @@ namespace Fungus
                     yield return null;
                 }
 
+                //actually grab the next chars
                 PartitionString(writeWholeWords, param, i);
                 ConcatenateString(startText);
                 textAdapter.Text = outputString.ToString();
@@ -533,13 +534,21 @@ namespace Fungus
                 // Delay between characters
                 if (currentWritingSpeed > 0f)
                 {
-                    if (timeAccumulator > 0f)
+                    float invWritingSpeed = 1f / currentWritingSpeed;
+
+                    timeAccumulator -= invWritingSpeed;
+                    if (timeAccumulator <= 0f)
                     {
-                        timeAccumulator -= 1f / currentWritingSpeed;
-                    } 
-                    else
-                    {
-                        yield return new WaitForSeconds(1f / currentWritingSpeed);
+                        if (invWritingSpeed > Time.deltaTime)
+                        {
+                            yield return new WaitForSeconds(invWritingSpeed);
+                            timeAccumulator += invWritingSpeed;
+                        }
+                        else
+                        {
+                            yield return null;
+                            timeAccumulator += Time.deltaTime;
+                        }
                     }
                 }
             }
