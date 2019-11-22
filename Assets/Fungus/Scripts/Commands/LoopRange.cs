@@ -64,7 +64,7 @@ namespace Fungus
             return HasRequiredEnd(true);
         }
 
-        public virtual void OnValidate()
+        public override void OnValidate()
         {
             // no infinite loops
             if (step.Value == 0)
