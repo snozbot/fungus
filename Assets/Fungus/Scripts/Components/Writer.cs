@@ -527,7 +527,7 @@ namespace Fungus
 
             
             if(textAdapter.SupportsHiddenCharacters())
-            {
+            { 
                 //pausing for 1 frame means we can get better first data, but is conflicting with animation ?
                 //  or is it something else inserting the color alpha invis 
                 yield return null;
@@ -535,6 +535,7 @@ namespace Fungus
                 // by tmpro after the set to ""
                 var startingReveal = textAdapter.CharactersToReveal;
                 PartitionString(writeWholeWords, param, param.Length + 1);
+
                 ConcatenateString(startText);
                 textAdapter.Text = outputString.ToString();
 
@@ -568,7 +569,8 @@ namespace Fungus
             {
                 for (int i = 0; i < param.Length + 1; ++i)
                 {
-                    // Exit immediately if the exit flag has been set
+                    float invWritingSpeed = 1f / currentWritingSpeed;
+                    
                     if (exitFlag)
                     {
                         break;
@@ -601,15 +603,18 @@ namespace Fungus
                     }
 
                     // Delay between characters
-                    if (currentWritingSpeed > 0f)
+                     timeAccumulator -= invWritingSpeed;
+                    if (timeAccumulator <= 0f)
                     {
-                        if (timeAccumulator > 0f)
+                        if (invWritingSpeed > Time.deltaTime)
                         {
-                            timeAccumulator -= 1f / currentWritingSpeed;
+                            yield return new WaitForSeconds(invWritingSpeed);
+                            timeAccumulator += invWritingSpeed;
                         }
                         else
                         {
-                            yield return new WaitForSeconds(1f / currentWritingSpeed);
+                            yield return null;
+                            timeAccumulator += Time.deltaTime;
                         }
                     }
                 }
