@@ -11,6 +11,9 @@ namespace Fungus
     [CommandInfo("Flow",
                  "Loop Range",
                  "Loop over a fixed integer range, similar to a common for loop.")]
+    [CommandInfo("Flow",
+                 "For",
+                 "Loop over a fixed integer range, similar to a common for loop.")]
     [AddComponentMenu("")]
     public class LoopRange : Condition
     {
