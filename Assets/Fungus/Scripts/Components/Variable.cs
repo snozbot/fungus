@@ -150,6 +150,11 @@ namespace Fungus
         /// </summary>
         public virtual bool IsComparisonSupported() { return false; }
         
+        /// <summary>
+        /// Boxed or referenced value of type defined within inherited types.
+        /// Not recommended for direct use, primarily intended for use in editor code.
+        /// </summary>
+        public abstract object GetValue();
         #endregion
     }
 
@@ -204,6 +209,11 @@ namespace Fungus
                     globalStaicRef.Value = value;
                 }
             }
+        }
+
+        public override object GetValue()
+        {
+            return value;
         }
 
         protected T startValue;

@@ -1,12 +1,12 @@
 // This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-
 using UnityEngine;
 using UnityEditor;
 using System;
 using UnityEditorInternal;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Fungus.EditorUtils
 {
@@ -45,6 +45,18 @@ namespace Fungus.EditorUtils
                 return list.list[index] as Variable;
             else
                 return this[index].objectReferenceValue as Variable;
+        }
+
+        public void SetVarAt(int index, Variable v)
+        {
+            if (list.list != null)
+            {
+                list.list[index] = v;
+            }
+            else
+            {
+                this[index].objectReferenceValue = v;
+            }
         }
 
         public VariableListAdaptor(SerializedProperty arrayProperty, Flowchart _targetFlowchart)
@@ -150,6 +162,11 @@ namespace Fungus.EditorUtils
             if (variable == null)
             {
                 return;
+            }
+
+            if(Event.current.type == EventType.ContextClick && position.Contains(Event.current.mousePosition))
+            {
+                DoRightClickMenu(index);
             }
 
             for (int i = 0; i < 4; ++i)
@@ -261,15 +278,7 @@ namespace Fungus.EditorUtils
 
             GUI.backgroundColor = Color.white;
         }
-
-        public virtual float GetItemHeight(int index)
-        {
-            return fixedItemHeight != 0f
-                ? fixedItemHeight
-                    : EditorGUI.GetPropertyHeight(this[index], GUIContent.none, false)
-                    ;
-        }
-
+        
         public void VariableDrawProperty(Variable variable, Rect rect, SerializedProperty valueProp, VariableInfoAttribute info)
         {
             if (valueProp == null)
@@ -292,6 +301,55 @@ namespace Fungus.EditorUtils
             {
                 EditorGUI.PropertyField(rect, valueProp, new GUIContent(""));
             }
+        }
+
+        private void DoRightClickMenu(int index)
+        {
+            var v = GetVarAt(index);
+
+            GenericMenu commandMenu = new GenericMenu();
+            commandMenu.AddItem(new GUIContent("Remove"), false, () => {list.index = index; RemoveItem(list); });
+            commandMenu.AddItem(new GUIContent("Duplicate"), false, () => VariableSelectPopupWindowContent.AddVariable(v.GetType(), v.Key));
+            commandMenu.AddItem(new GUIContent("Find References"), false, () => FindUsage(GetVarAt(index)));
+            commandMenu.AddSeparator("");
+            commandMenu.AddItem(new GUIContent("Sort by Name"), false, () => SortBy(x =>  x.Key));
+            commandMenu.AddItem(new GUIContent("Sort by Type"), false, () => SortBy(x => x.GetType().Name));
+            commandMenu.AddItem(new GUIContent("Sort by Value"), false, () => SortBy(x => x.GetValue()));
+            commandMenu.ShowAsContext();
+        }
+
+        private void SortBy<TKey>(Func<Variable, TKey> orderFunc)
+        {
+            List<Variable> vars = new List<Variable>();
+            for (int i = 0; i < list.count; i++)
+            {
+                vars.Add(GetVarAt(i));
+            }
+
+            vars = vars.OrderBy(orderFunc).ToList();
+
+            for (int i = 0; i < list.count; i++)
+            {
+                SetVarAt(i, vars[i]);
+            }
+
+            _arrayProperty.serializedObject.ApplyModifiedProperties();
+        }
+
+        private void FindUsage(Variable variable)
+        {                
+            var varRefs = EditorExtensions.FindObjectsOfInterface<IVariableReference>()
+                .Where(x => x.HasReference(variable))
+                .Select(x => x.GetLocationIdentifier()).ToList(); ;
+
+            string varRefString = variable.Key + " referenced in;\n";
+
+            if (varRefs.Count > 0)
+                varRefString += string.Join("\n", varRefs);
+            else
+                varRefString += "None";
+
+            Debug.Log(varRefString);
         }
     }
 }
