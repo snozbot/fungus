@@ -60,7 +60,7 @@ namespace Fungus
             }
 
             // Cache a descriptive name to use in Lua error messages
-            friendlyName = gameObject.name + "." + ParentBlock.BlockName + "." + this.GetType().ToString() + " #" + CommandIndex.ToString();
+            friendlyName = GetLocationIdentifier();
 
             Flowchart flowchart = GetFlowchart();
 

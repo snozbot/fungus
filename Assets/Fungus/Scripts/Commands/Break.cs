@@ -33,6 +33,7 @@ namespace Fungus
             if (loopingCond == null)
             {
                 // No enclosing loop command found, just continue
+                Debug.LogWarning("Break called but found no enclosing looping construct.");
                 Continue();
             }
             else

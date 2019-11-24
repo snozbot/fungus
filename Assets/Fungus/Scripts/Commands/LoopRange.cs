@@ -62,11 +62,6 @@ namespace Fungus
             MoveToEnd();
         }
 
-        protected override bool HasNeededProperties()
-        {
-            return HasRequiredEnd(true);
-        }
-
         public override void OnValidate()
         {
             // no infinite loops

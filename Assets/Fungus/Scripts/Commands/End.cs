@@ -16,7 +16,14 @@ namespace Fungus
     {
         #region Public members
 
+        /// <summary>
+        /// Set to true by looping constructs to allow for loops to occur
+        /// </summary>
         public virtual bool Loop { get; set; }
+
+        /// <summary>
+        /// Set to the index of the owning looping construct
+        /// </summary>
         public virtual int LoopBackIndex { get; set; }
 
         public override void OnEnter()

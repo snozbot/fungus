@@ -56,7 +56,7 @@ namespace Fungus
 
         protected override bool HasNeededProperties()
         {
-            return collection.Value != null && item != null && HasRequiredEnd(true);
+            return collection.Value != null && item != null;
         }
 
         public override bool HasReference(Variable variable)

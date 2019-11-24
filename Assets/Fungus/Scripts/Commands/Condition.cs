@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Base for all Conditional based Commands, Ifs, Loops, and so on.
+    /// </summary>
     [AddComponentMenu("")]
     public abstract class Condition : Command
     {
@@ -19,13 +22,23 @@ namespace Fungus
                 return;
             }
 
-            if( !HasNeededProperties() )
+            //if looping we need the end to function at all
+            if(IsLooping && !EnsureRequiredEnd())
             {
+                Debug.LogWarning(GetLocationIdentifier() + " is looping but has no matching End command");
                 Continue();
                 return;
             }
 
-            if( this.IsElseIf )
+            if ( !HasNeededProperties() )
+            {
+                Debug.LogWarning(GetLocationIdentifier() + " cannot run due to missing required properties");
+                Continue();
+                return;
+            }
+
+            //Ensuring we arrived at this elif honestly, not incorrectly due to fall through from a previous command
+            if ( this.IsElseIf )
             {
                 System.Type previousCommandType = ParentBlock.GetPreviousActiveCommandType();
                 var prevCmdIndent = ParentBlock.GetPreviousActiveCommandIndent();
@@ -62,6 +75,10 @@ namespace Fungus
         public virtual bool IsLooping { get { return false; } }
 
 
+        /// <summary>
+        /// Moves execution to the closing End of the current command, attempts to locate end if not
+        /// already known and if no closing End exists.
+        /// </summary>
         public virtual void MoveToEnd()
         {
             if(endCommand == null)
@@ -86,15 +103,24 @@ namespace Fungus
                
         protected End FindOurEndCommand()
         {
-            int indent = indentLevel;
-            for (int i = CommandIndex + 1; i < ParentBlock.CommandList.Count; ++i)
+            return FindMatchingEndCommand(this);
+        }
+
+        /// <summary>
+        /// Helper to find the paired End Command for the given command.
+        /// </summary>
+        /// <param name="startCommand"></param>
+        /// <returns>Mathcing End Command or null if not found</returns>
+        public static End FindMatchingEndCommand(Command startCommand)
+        {
+            int indent = startCommand.IndentLevel;
+            for (int i = startCommand.CommandIndex + 1; i < startCommand.ParentBlock.CommandList.Count; ++i)
             {
-                var command = ParentBlock.CommandList[i];
+                var command = startCommand.ParentBlock.CommandList[i];
 
                 if (command.IndentLevel == indent)
                 {
-                    System.Type type = command.GetType();
-                    if (type == typeof(End))
+                    if (command is End)
                     {
                         return command as End;
                     }
@@ -110,7 +136,12 @@ namespace Fungus
             return null;
         }
 
-        protected virtual bool HasRequiredEnd(bool loopback)
+        /// <summary>
+        /// Helper for child classes that require an End command to function. For IsLooping commands
+        /// this also configures the loopback within the End command.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool EnsureRequiredEnd()
         {
             if (endCommand == null)
             {
@@ -118,14 +149,13 @@ namespace Fungus
 
                 if (endCommand == null)
                 {
-                    Debug.LogError(GetType().Name + " command in, '" + ParentBlock.BlockName + "' on '" + ParentBlock.GetFlowchart().gameObject.name +
-                      "', could not find closing End command and thus cannot loop.");
+                    Debug.LogError( GetLocationIdentifier() + "', could not find closing End command and thus cannot loop.");
                     //StopParentBlock();
                     return false;
                 }
             }
 
-            if (loopback)
+            if (IsLooping)
             {
                 // Tell the following end command to loop back
                 endCommand.Loop = true;
@@ -134,6 +164,10 @@ namespace Fungus
             return true;
         }
 
+        /// <summary>
+        /// Called by OnEnter when the condition is needed to evaluate and continue execution.
+        /// Means child classes do not have to deal with erronuous execution conditions, like fall through.
+        /// </summary>
         protected virtual void EvaluateAndContinue()
         {
             PreEvaluate();
@@ -148,20 +182,19 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Called when the condition is ru and EvaluateCondition returns true 
+        /// </summary>
         protected virtual void OnTrue()
         {
             Continue();
         }
 
+        /// <summary>
+        /// Called when the condition is ru and EvaluateCondition returns false 
+        /// </summary>
         protected virtual void OnFalse()
         {
-            // Last command in block
-            if (CommandIndex >= ParentBlock.CommandList.Count)
-            {
-                StopParentBlock();
-                return;
-            }
-
             // Find the next Else, ElseIf or End command at the same indent level as this If command
             for (int i = CommandIndex + 1; i < ParentBlock.CommandList.Count; ++i)
             {
@@ -202,7 +235,6 @@ namespace Fungus
                 {
                     // Execute the Else If command
                     Continue(i);
-
                     return;
                 }
             }
@@ -211,12 +243,24 @@ namespace Fungus
             StopParentBlock();
         }
 
+        /// <summary>
+        /// Sits in the if within EvaluateAndContinue, if returns true, OnTrue will run, if false, OnFalse will run.
+        /// </summary>
         protected abstract bool EvaluateCondition();
 
-        protected abstract bool HasNeededProperties();
+        /// <summary>
+        /// Child classes are required to report if it is possible for them to be evaulated.
+        /// </summary>
+        protected virtual bool HasNeededProperties() { return true; }
 
+        /// <summary>
+        /// Declare if the child class is implementing an 'else if' command, which requires some special handling
+        /// </summary>
         protected virtual bool IsElseIf { get { return false; } }
 
+        /// <summary>
+        /// Called before EvaluateCondition, allowing for child classes to gather required data
+        /// </summary>
         protected virtual void PreEvaluate() { }
     }
 }

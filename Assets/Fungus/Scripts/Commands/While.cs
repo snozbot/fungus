@@ -23,11 +23,6 @@ namespace Fungus
             MoveToEnd();
         }
 
-        protected override bool HasNeededProperties()
-        {
-            return HasRequiredEnd(true);
-        }
-
         #endregion
     }    
 }
