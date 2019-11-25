@@ -6,11 +6,11 @@ namespace Fungus
                     "Copy",
                     "Clears target and then adds all of rhs to target.")]
     [AddComponentMenu("")]
-    public class CollectionCommandCopy : CollectionBase2ColCommand
+    public class CollectionCommandCopy : CollectionBaseTwoCollectionCommand
     {
         protected override void OnEnterInner()
         {
-            collection.Value.CopyFrom(rhsCollection);
+            collection.Value.CopyFrom(rhsCollection.Value);
         }
     }
 }

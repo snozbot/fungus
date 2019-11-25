@@ -3,10 +3,10 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Contains Any",
+                    "Contains Any Of",
                     "Does target collection, contain any of the items in the rhs collection items")]
     [AddComponentMenu("")]
-    public class CollectionCommandContainsAny : CollectionBase2ColCommand
+    public class CollectionCommandContainsAny : CollectionBaseTwoCollectionCommand
     {
         [VariableProperty(typeof(BooleanVariable))]
         protected BooleanVariable result;
@@ -19,7 +19,7 @@ namespace Fungus
             }
             else
             {
-                result.Value = collection.Value.ContainsAnyOf(rhsCollection);
+                result.Value = collection.Value.ContainsAnyOf(rhsCollection.Value);
             }
         }
 

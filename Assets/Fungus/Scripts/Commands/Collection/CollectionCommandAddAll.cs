@@ -6,7 +6,7 @@ namespace Fungus
                     "Add All",
                     "Add all items in given rhs collection to target collection")]
     [AddComponentMenu("")]
-    public class CollectionCommandAddAll : CollectionBase2ColCommand
+    public class CollectionCommandAddAll : CollectionBaseTwoCollectionCommand
     {
         [Tooltip("Only add if the item does not already exist in the collection")]
         [SerializeField]

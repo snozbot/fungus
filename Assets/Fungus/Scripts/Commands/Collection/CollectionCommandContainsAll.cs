@@ -3,10 +3,10 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Contains All",
+                    "Contains All Of",
                     "Does target collection, contain all rhs collection items")]
     [AddComponentMenu("")]
-    public class CollectionCommandContainsAll : CollectionBase2ColCommand
+    public class CollectionCommandContainsAll : CollectionBaseTwoCollectionCommand
     {
         [Tooltip("Do they have to be in the same order?")]
         [SerializeField]
@@ -23,14 +23,13 @@ namespace Fungus
             }
             else
             {
-
                 if (inSameOrder.Value)
                 {
-                    result.Value = collection.Value.ContainsAllOfOrdered(rhsCollection);
+                    result.Value = collection.Value.ContainsAllOfOrdered(rhsCollection.Value);
                 }
                 else
                 {
-                    result.Value = collection.Value.ContainsAllOf(rhsCollection);
+                    result.Value = collection.Value.ContainsAllOf(rhsCollection.Value);
                 }
             }
         }

@@ -6,7 +6,7 @@ namespace Fungus
                     "Insert",
                     "Add at a specific location in the collection")]
     [AddComponentMenu("")]
-    public class CollectionCommandInsert : CollectionBaseVarIntCommand
+    public class CollectionCommandInsert : CollectionBaseVarAndIntCommand
     {
         protected override void OnEnterInner()
         {

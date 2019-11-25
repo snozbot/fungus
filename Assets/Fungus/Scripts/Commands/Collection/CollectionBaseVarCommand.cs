@@ -3,7 +3,7 @@
 namespace Fungus
 {
     /// <summary>
-    /// Base class for all FungusCollection commands that require a compatible variable
+    /// Base class for all FungusCollection commands that require a compatible variable type
     /// </summary>
     [AddComponentMenu("")]
     public abstract class CollectionBaseVarCommand : CollectionBaseCommand, ICollectionCompatible

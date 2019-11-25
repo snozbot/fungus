@@ -9,7 +9,7 @@ namespace Fungus
                     "IndexOf",
                     "Find an item in a collection")]
     [AddComponentMenu("")]
-    public class CollectionCommandFind : CollectionBaseVarIntCommand
+    public class CollectionCommandFind : CollectionBaseVarAndIntCommand
     {
         [Tooltip("If true, will find the last occurance rather than first occurance.")]
         [SerializeField]

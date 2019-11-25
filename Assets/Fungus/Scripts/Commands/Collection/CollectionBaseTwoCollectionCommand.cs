@@ -6,7 +6,7 @@ namespace Fungus
     /// Base class for all FungusCollection commands that require a second collection of the same type
     /// </summary>
     [AddComponentMenu("")]
-    public abstract class CollectionBase2ColCommand : CollectionBaseCommand
+    public abstract class CollectionBaseTwoCollectionCommand : CollectionBaseCommand
     {
         [SerializeField]
         protected CollectionData rhsCollection;

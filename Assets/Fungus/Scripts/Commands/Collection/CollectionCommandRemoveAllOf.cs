@@ -6,7 +6,7 @@ namespace Fungus
                     "Remove All Of",
                     "Remove all items in given rhs collection to target collection")]
     [AddComponentMenu("")]
-    public class CollectionCommandRemoveAllOf : CollectionBase2ColCommand
+    public class CollectionCommandRemoveAllOf : CollectionBaseTwoCollectionCommand
     {
         protected override void OnEnterInner()
         {

@@ -313,11 +313,9 @@ GameObject:
   - component: {fileID: 1163017694}
   - component: {fileID: 1163017701}
   - component: {fileID: 1163017706}
-  - component: {fileID: 1163017705}
   - component: {fileID: 1163017704}
   - component: {fileID: 1163017703}
   - component: {fileID: 1163017702}
-  - component: {fileID: 1163017697}
   - component: {fileID: 1163017708}
   - component: {fileID: 1163017707}
   - component: {fileID: 1163017710}
@@ -329,12 +327,17 @@ GameObject:
   - component: {fileID: 1163017715}
   - component: {fileID: 1163017714}
   - component: {fileID: 1163017722}
-  - component: {fileID: 1163017721}
   - component: {fileID: 1163017720}
   - component: {fileID: 1163017719}
   - component: {fileID: 1163017718}
   - component: {fileID: 1163017717}
   - component: {fileID: 1163017723}
+  - component: {fileID: 1163017721}
+  - component: {fileID: 1163017705}
+  - component: {fileID: 1163017697}
+  - component: {fileID: 1163017726}
+  - component: {fileID: 1163017725}
+  - component: {fileID: 1163017724}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -670,12 +673,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1163017693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Script: {fileID: 11500000, guid: de9232e9295ed476a8cfb707b5c242b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentBlock: {fileID: 1163017698}
-  suppressBlockAutoSelect: 0
-  waitForFrames: 1
+  itemId: 24
+  indentLevel: 1
+  frameCount:
+    integerRef: {fileID: 0}
+    integerVal: 1
 --- !u!114 &1163017698
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -699,9 +704,10 @@ MonoBehaviour:
   itemId: 0
   blockName: New Block
   description: 
-  eventHandler: {fileID: 1163017697}
+  eventHandler: {fileID: 1163017726}
   commandList:
   - {fileID: 1163017696}
+  - {fileID: 1163017721}
   - {fileID: 1163017713}
   - {fileID: 1163017711}
   - {fileID: 1163017712}
@@ -734,10 +740,8 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
-  selectedBlocks:
-  - {fileID: 1163017722}
-  selectedCommands:
-  - {fileID: 1163017717}
+  selectedBlocks: []
+  selectedCommands: []
   variables:
   - {fileID: 1163017695}
   - {fileID: 1163017704}
@@ -844,12 +848,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1163017693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Script: {fileID: 11500000, guid: de9232e9295ed476a8cfb707b5c242b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentBlock: {fileID: 1163017706}
-  suppressBlockAutoSelect: 0
-  waitForFrames: 1
+  itemId: 23
+  indentLevel: 1
+  frameCount:
+    integerRef: {fileID: 0}
+    integerVal: 1
 --- !u!114 &1163017706
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -873,9 +879,10 @@ MonoBehaviour:
   itemId: 4
   blockName: New Block1
   description: 
-  eventHandler: {fileID: 1163017705}
+  eventHandler: {fileID: 1163017725}
   commandList:
   - {fileID: 1163017703}
+  - {fileID: 1163017705}
   - {fileID: 1163017716}
   - {fileID: 1163017714}
   - {fileID: 1163017702}
@@ -1389,12 +1396,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1163017693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Script: {fileID: 11500000, guid: de9232e9295ed476a8cfb707b5c242b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentBlock: {fileID: 1163017722}
-  suppressBlockAutoSelect: 0
-  waitForFrames: 1
+  itemId: 22
+  indentLevel: 1
+  frameCount:
+    integerRef: {fileID: 0}
+    integerVal: 1
 --- !u!114 &1163017722
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1418,10 +1427,11 @@ MonoBehaviour:
   itemId: 17
   blockName: float looper
   description: 
-  eventHandler: {fileID: 1163017721}
+  eventHandler: {fileID: 1163017724}
   commandList:
   - {fileID: 1163017723}
   - {fileID: 1163017720}
+  - {fileID: 1163017697}
   - {fileID: 1163017717}
   - {fileID: 1163017719}
   suppressAllAutoSelections: 0
@@ -1577,6 +1587,51 @@ MonoBehaviour:
   vector3Data:
     vector3Ref: {fileID: 0}
     vector3Val: {x: 0, y: 0, z: 0}
+--- !u!114 &1163017724
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163017693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 1163017722}
+  suppressBlockAutoSelect: 0
+  waitForFrames: 1
+--- !u!114 &1163017725
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163017693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 1163017706}
+  suppressBlockAutoSelect: 0
+  waitForFrames: 1
+--- !u!114 &1163017726
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163017693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 1163017698}
+  suppressBlockAutoSelect: 0
+  waitForFrames: 1
 --- !u!1 &1735779632
 GameObject:
   m_ObjectHideFlags: 0

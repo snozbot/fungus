@@ -6,7 +6,7 @@ namespace Fungus
     /// Base class for all FungusCollection commands that require a compatible variable and an integer
     /// </summary>
     [AddComponentMenu("")]
-    public abstract class CollectionBaseVarIntCommand : CollectionBaseVarCommand
+    public abstract class CollectionBaseVarAndIntCommand : CollectionBaseVarCommand
     {
         [SerializeField]
         [VariableProperty(typeof(IntegerVariable))]

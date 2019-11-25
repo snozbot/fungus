@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Fungus
 {
@@ -24,7 +25,7 @@ namespace Fungus
             return default(T);
         }
 
-        protected virtual GenericCollection<T> Promote(Collection col)
+        protected virtual GenericCollection<T> Promote(ICollection col)
         {
             if (col is GenericCollection<T>)
             {
@@ -231,7 +232,7 @@ namespace Fungus
             return collection.Capacity;
         }
 
-        public override void RemoveAll(Collection rhsCol)
+        public override void RemoveAll(ICollection rhsCol)
         {
             var rhs = Promote(rhsCol);
             if (rhs != null)
@@ -243,7 +244,7 @@ namespace Fungus
             }
         }
 
-        public override bool ContainsAllOf(Collection rhsCol)
+        public override bool ContainsAllOf(ICollection rhsCol)
         {
             var rhs = Promote(rhsCol);
             if (rhs != null)
@@ -260,7 +261,7 @@ namespace Fungus
             return false;
         }
 
-        public override bool ContainsAllOfOrdered(Collection rhsCol)
+        public override bool ContainsAllOfOrdered(ICollection rhsCol)
         {
             var rhs = Promote(rhsCol);
             if (rhs != null)
@@ -279,7 +280,7 @@ namespace Fungus
             return false;
         }
 
-        public override void Add(Collection rhsCol)
+        public override void Add(ICollection rhsCol)
         {
             var rhs = Promote(rhsCol);
             if (rhs != null)
@@ -291,7 +292,7 @@ namespace Fungus
             }
         }
 
-        public override void AddUnique(Collection rhsCol)
+        public override void AddUnique(ICollection rhsCol)
         {
             var rhs = Promote(rhsCol);
             if (rhs != null)
@@ -303,7 +304,7 @@ namespace Fungus
             }
         }
 
-        public override bool ContainsAnyOf(Collection rhsCol)
+        public override bool ContainsAnyOf(ICollection rhsCol)
         {
             var rhs = Promote(rhsCol);
             if (rhs != null)
@@ -318,7 +319,7 @@ namespace Fungus
             return false;
         }
 
-        public override void Intersection(Collection rhsCol)
+        public override void Intersection(ICollection rhsCol)
         {
             var rhs = Promote(rhsCol);
             if (rhs != null)
@@ -334,7 +335,7 @@ namespace Fungus
             }
         }
 
-        public override void Exclusive(Collection rhsCol)
+        public override void Exclusive(ICollection rhsCol)
         {
             var rhs = Promote(rhsCol);
             if (rhs != null)
@@ -351,7 +352,7 @@ namespace Fungus
             }
         }
 
-        public override void CopyFrom(Collection rhsCol)
+        public override void CopyFrom(ICollection rhsCol)
         {
             var rhs = Promote(rhsCol);
             if (rhs != null)

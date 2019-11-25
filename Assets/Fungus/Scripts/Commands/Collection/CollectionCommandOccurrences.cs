@@ -6,7 +6,7 @@ namespace Fungus
                     "Occurrences",
                     "How many occurrences of a given variable exist in a target collection")]
     [AddComponentMenu("")]
-    public class CollectionCommandOccurrences : CollectionBaseVarIntCommand
+    public class CollectionCommandOccurrences : CollectionBaseVarAndIntCommand
     {
         protected override void OnEnterInner()
         {
