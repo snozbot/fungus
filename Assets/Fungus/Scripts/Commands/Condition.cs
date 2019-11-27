@@ -183,7 +183,7 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Called when the condition is ru and EvaluateCondition returns true 
+        /// Called when the condition is run and EvaluateCondition returns true 
         /// </summary>
         protected virtual void OnTrue()
         {
@@ -191,7 +191,7 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Called when the condition is ru and EvaluateCondition returns false 
+        /// Called when the condition is run and EvaluateCondition returns false 
         /// </summary>
         protected virtual void OnFalse()
         {

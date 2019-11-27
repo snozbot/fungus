@@ -10,7 +10,7 @@ namespace Fungus
     /// </summary>
     [CommandInfo("Collection",
                  "For Each",
-                 "Loop over each element in the given collection.")]
+                 "Loop over each element in the given collection, similar to a foreach but internally uses indicies")]
     [AddComponentMenu("")]
     public class ForEach : Condition, ICollectionCompatible
     {
@@ -40,7 +40,7 @@ namespace Fungus
         {
             var col = collection.Value;
             curIndex++;
-            if(curIndex < col.Count())
+            if(curIndex < col.Count)
             {
                 col.Get(curIndex, ref item);
                 return true;

@@ -100,7 +100,7 @@ namespace Fungus
 
 
         [Tooltip("Variable to use in expression")]
-        [VariableProperty(VariableInfo.VariableAny.Any)]
+        [VariableProperty(AllVariableTypes.VariableAny.Any)]
         [SerializeField] protected Variable variable;
 
         [Tooltip("Boolean value to compare against")]

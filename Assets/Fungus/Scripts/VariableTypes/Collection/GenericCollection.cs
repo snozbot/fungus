@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Fungus
@@ -8,6 +9,8 @@ namespace Fungus
     {
         [SerializeField]
         protected System.Collections.Generic.List<T> collection = new System.Collections.Generic.List<T>();
+
+        public override int Count => collection.Count;
 
         protected virtual T Promote(object o)
         {
@@ -41,18 +44,19 @@ namespace Fungus
             return o is T || o is VariableBase<T>;
         }
 
-        public override void Add(object o)
+        public override int Add(object o)
         {
             var t = Promote(o);
             if (t != null)
             {
-                Add(t);
+                return Add(t);
             }
+            return -1;
         }
 
-        public void Add(T t)
+        public int Add(T t)
         {
-            collection.Add(t);
+            return (collection as IList).Add(t);
         }
 
         public override void AddUnique(object o)
@@ -120,11 +124,6 @@ namespace Fungus
             {
                 collection[index] = t;
             }
-        }
-
-        public override int Count()
-        {
-            return collection.Count;
         }
 
         public override void Shuffle()
@@ -266,7 +265,7 @@ namespace Fungus
             var rhs = Promote(rhsCol);
             if (rhs != null)
             {
-                if (rhs.Count() == Count())
+                if (rhs.Count == Count)
                 {
                     for (int i = 0; i < rhs.collection.Count; i++)
                     {
@@ -360,6 +359,16 @@ namespace Fungus
                 collection.Clear();
                 collection.AddRange(rhs.collection);
             }
+        }
+
+        public override void CopyTo(Array array, int index)
+        {
+            (collection as IList).CopyTo(array, index);
+        }
+
+        public override IEnumerator GetEnumerator()
+        {
+            return collection.GetEnumerator();
         }
     }
 }

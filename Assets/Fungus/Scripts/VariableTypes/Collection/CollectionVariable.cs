@@ -2,7 +2,7 @@
 
 namespace Fungus
 {
-    [VariableInfo("Other", "Collection")]
+    [VariableInfo("", "Collection")]
     [AddComponentMenu("")]
     [System.Serializable]
     public class CollectionVariable : VariableBase<Collection>

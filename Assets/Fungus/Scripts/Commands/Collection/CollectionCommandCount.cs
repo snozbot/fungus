@@ -13,7 +13,7 @@ namespace Fungus
     {
         protected override void OnEnterInner()
         {
-            integer.Value = collection.Value.Count();
+            integer.Value = collection.Value.Count;
         }
     }
 }

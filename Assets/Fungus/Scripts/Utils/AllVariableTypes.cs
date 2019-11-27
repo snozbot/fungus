@@ -1,14 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Fungus
 {
-    public static class VariableInfo
+    /// <summary>
+    /// Static cache of all fungus variable types, used by commands that are designed to work on
+    /// any and all variable types supported by Fungus.
+    /// 
+    /// New types created need to be added to the list below and also to AnyVariableData and 
+    /// AnyVaraibleAndDataPair
+    /// </summary>
+    public static class AllVariableTypes
     {
         public enum VariableAny
         {
             Any
         }
-
+        //todo this should be removed as only editor code uses this list at runtime and using typecache would 
+        //  mean users don't have to modify our files to support their custom types
         public static readonly System.Type[] AllFungusVarTypes = new System.Type[]
         {
             typeof(AnimatorVariable),
@@ -40,8 +49,16 @@ namespace Fungus
         };
     }
 
+    /// <summary>
+    /// Collection of every Fungus VariableData type, used in commands that are designed to
+    /// support any and all types. Those command just have a AnyVariableData anyVar or 
+    /// an AnyVaraibleAndDataPair anyVarDataPair to encapsulate the more unplease parts.
+    /// 
+    /// New types created need to be added to the list below and also to AllVariableTypes and 
+    /// AnyVaraibleAndDataPair
+    /// </summary>
     [System.Serializable]
-    public struct AnyVariableData
+    public partial struct AnyVariableData
     {
         public AnimatorData     animatorData;
         public AudioSourceData  audioSourceData;
@@ -66,8 +83,44 @@ namespace Fungus
         public Vector2Data      vector2Data;
         public Vector3Data      vector3Data;
         public Vector4Data      vector4Data;
+
+        internal bool HasReference(Variable var)
+        {
+            return animatorData.animatorRef == var ||
+                   audioSourceData.audioSourceRef == var ||
+                   booleanData.booleanRef == var ||
+                   collectionData.collectionRef == var ||
+                   collider2DData.collider2DRef == var ||
+                   colliderData.colliderRef == var ||
+                   colorData.colorRef == var ||
+                   floatData.floatRef == var ||
+                   gameObjectData.gameObjectRef == var ||
+                   integerData.integerRef == var ||
+                   materialData.materialRef == var ||
+                   matrix4x4Data.matrix4x4Ref == var ||
+                   objectData.objectRef == var ||
+                   quaternionData.quaternionRef == var ||
+                   rigidbody2DData.rigidbody2DRef == var ||
+                   rigidbodyData.rigidbodyRef == var ||
+                   spriteData.spriteRef == var ||
+                   stringData.stringRef == var ||
+                   textureData.textureRef == var ||
+                   transformData.transformRef == var ||
+                   vector2Data.vector2Ref == var ||
+                   vector3Data.vector3Ref == var ||
+                   vector4Data.vector4Ref == var;
+        }
     }
 
+    /// <summary>
+    /// Pairing of an AnyVariableData and an variable reference. Internal lookup for 
+    /// making the right kind of variable with the correct data in the AnyVariableData.
+    /// This is the primary mechanism for hiding the ugly need to matching variable to 
+    /// the correct data type so we can perform comparisons and operations.
+    /// 
+    /// New types created need to be added to the list below and also to AllVariableTypes and 
+    /// AnyVariableData
+    /// </summary>
     [System.Serializable]
     public class AnyVaraibleAndDataPair
     {
@@ -91,6 +144,7 @@ namespace Fungus
 #endif
             }
 
+            // used in AnyVaraibleAndDataPair Drawer to show the correct aspect of the AnyVariableData in the editor
             public string DataPropName { get; set; }
             public System.Func<AnyVaraibleAndDataPair, Fungus.CompareOperator, bool> CompareFunc;
             public System.Func<AnyVaraibleAndDataPair, string> DescFunc;
@@ -101,12 +155,13 @@ namespace Fungus
         }
 
 
-        [VariableProperty(VariableInfo.VariableAny.Any)]
+        [VariableProperty(AllVariableTypes.VariableAny.Any)]
         [UnityEngine.SerializeField] public Variable variable;
 
         [UnityEngine.SerializeField] public AnyVariableData data;
 
-        //needs static lookup function table for 
+        //needs static lookup function table for getting a function or string based on the type
+        // all new variable types will need to be added here also to be supported
         public static readonly Dictionary<System.Type, TypeActions> typeActionLookup = new Dictionary<System.Type, TypeActions>()
         {
             { typeof(AnimatorVariable),
@@ -234,32 +289,9 @@ namespace Fungus
                     ) },
         };
 
-        public bool HasReference(Variable var)
+        public bool HasReference(Variable variable)
         {
-            return var == variable ||
-                data.animatorData.animatorRef == var ||
-            data.audioSourceData.audioSourceRef == var ||
-            data.booleanData.booleanRef == var ||
-            data.collectionData.collectionRef == var ||
-            data.collider2DData.collider2DRef == var ||
-            data.colliderData.colliderRef == var ||
-            data.colorData.colorRef == var ||
-            data.floatData.floatRef == var ||
-            data.gameObjectData.gameObjectRef == var ||
-            data.integerData.integerRef == var ||
-            data.materialData.materialRef == var ||
-            data.matrix4x4Data.matrix4x4Ref == var ||
-            data.objectData.objectRef == var ||
-            data.quaternionData.quaternionRef == var ||
-            data.rigidbody2DData.rigidbody2DRef == var ||
-            data.rigidbodyData.rigidbodyRef == var ||
-            data.spriteData.spriteRef == var ||
-            data.stringData.stringRef == var ||
-            data.textureData.textureRef == var ||
-            data.transformData.transformRef == var ||
-            data.vector2Data.vector2Ref == var ||
-            data.vector3Data.vector3Ref == var ||
-            data.vector4Data.vector4Ref == var;
+            return variable == this.variable || data.HasReference(variable);
         }
 
         public string GetDataDescription()

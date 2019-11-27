@@ -92,9 +92,9 @@ namespace Fungus
             this.VariableTypes = variableTypes;
         }
 
-        public VariablePropertyAttribute(VariableInfo.VariableAny any)
+        public VariablePropertyAttribute(AllVariableTypes.VariableAny any)
         {
-            VariableTypes = VariableInfo.AllFungusVarTypes;
+            VariableTypes = AllVariableTypes.AllFungusVarTypes;
         }
 
         public VariablePropertyAttribute (string defaultText, params System.Type[] variableTypes) 
@@ -103,7 +103,7 @@ namespace Fungus
             this.VariableTypes = variableTypes;
         }
 
-        public String defaultText = "<None>";
+        public string defaultText = "<None>";
         public string compatibleVariableName = string.Empty;
 
         public Type[] VariableTypes { get; set; }
@@ -113,6 +113,7 @@ namespace Fungus
     /// Abstract base class for variables.
     /// </summary>
     [RequireComponent(typeof(Flowchart))]
+    [System.Serializable]
     public abstract class Variable : MonoBehaviour
     {
         [SerializeField] protected VariableScope scope;
@@ -237,6 +238,7 @@ namespace Fungus
             startValue = Value;
         }
 
+        //Apply to get from base system.object to T
         public override void Apply(SetOperator op, object value)
         {
             if(value is T)
@@ -247,6 +249,10 @@ namespace Fungus
             {
                 var vbg = value as VariableBase<T>;
                 Apply(op, vbg.Value);
+            }
+            else
+            {
+                Debug.LogError("Cannot do Apply on variable, as object type: " + value.GetType().Name + " is incompatible with " + typeof(T).Name);
             }
         }
 
@@ -263,6 +269,7 @@ namespace Fungus
             }
         }
 
+        //Apply to get from base system.object to T
         public override bool Evaluate(CompareOperator op, object value)
         {
             if (value is T)
@@ -273,6 +280,10 @@ namespace Fungus
             {
                 var vbg = value as VariableBase<T>;
                 return Evaluate(op, vbg.Value);
+            }
+            else
+            {
+                Debug.LogError("Cannot do Evaluate on variable, as object type: " + value.GetType().Name + " is incompatible with " + typeof(T).Name);
             }
 
             return false;

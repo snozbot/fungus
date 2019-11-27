@@ -22,7 +22,7 @@ namespace Fungus
 
         protected override void OnEnterInner()
         {
-            if (index.Value >= 0 && index.Value < collection.Value.Count())
+            if (index.Value >= 0 && index.Value < collection.Value.Count)
             {
                 if (getset == GetSet.Get)
                 {
