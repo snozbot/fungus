@@ -83,12 +83,19 @@ namespace Fungus.EditorUtils
             list.drawHeaderCallback = DrawHeader;
             list.drawElementCallback = DrawItem;
             //list.elementHeightCallback = GetElementHeight;
+            list.onSelectCallback = SelectChanged;
         }
 
-        //private float GetElementHeight(int index)
-        //{
-        //    return EditorGUI.GetPropertyHeight(this[index], null, true);// + EditorGUIUtility.singleLineHeight;
-        //}
+        private void SelectChanged(ReorderableList list)
+        {
+            Command command = this[list.index].objectReferenceValue as Command;
+            var flowchart = (Flowchart)command.GetFlowchart();
+            BlockEditor.actionList.Add(delegate
+            {
+                flowchart.ClearSelectedCommands();
+                flowchart.AddSelectedCommand(command);
+            });
+        }
 
         private void DrawHeader(Rect rect)
         {
@@ -227,6 +234,7 @@ namespace Fungus.EditorUtils
                             flowchart.ClearSelectedCommands();
                         });
                         Event.current.Use();
+                        list.index = index;
                     }
 
                     BlockEditor.actionList.Add(delegate
