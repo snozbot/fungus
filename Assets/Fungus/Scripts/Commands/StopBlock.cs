@@ -67,11 +67,6 @@ namespace Fungus
             return false;
         }
 
-        public string GetLocationIdentifier()
-        {
-            return ParentBlock.GetFlowchart().GetName() + ":" + ParentBlock.BlockName + ".StopBlock:" + CommandIndex.ToString();
-        }
-
         #endregion
     }
 }
