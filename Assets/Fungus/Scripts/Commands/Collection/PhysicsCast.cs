@@ -71,15 +71,19 @@ namespace Fungus
                     case CastType.Ray:
                         resHits = Physics.RaycastAll(position1.Value, direction.Value, maxDistance.Value, layerMask.value, queryTriggerInteraction);
                         break;
+
                     case CastType.Sphere:
                         resHits = Physics.SphereCastAll(position1.Value, radius.Value, direction.Value, maxDistance.Value, layerMask.value, queryTriggerInteraction);
                         break;
+
                     case CastType.Box:
                         resHits = Physics.BoxCastAll(position1.Value, boxHalfExtends.Value, direction.Value, boxOrientation.Value, maxDistance.Value, layerMask.value, queryTriggerInteraction);
                         break;
+
                     case CastType.Capsule:
                         resHits = Physics.CapsuleCastAll(position1.Value, capsulePosition2.Value, radius.Value, direction.Value, maxDistance.Value, layerMask.value, queryTriggerInteraction);
                         break;
+
                     default:
                         break;
                 }

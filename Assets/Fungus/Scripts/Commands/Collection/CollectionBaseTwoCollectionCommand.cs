@@ -36,7 +36,7 @@ namespace Fungus
             if (rhsCollection.Value == null)
                 return "Error: no variable selected";
 
-            if(collection.Value.ContainedType() != rhsCollection.Value.ContainedType())
+            if (collection.Value.ContainedType() != rhsCollection.Value.ContainedType())
             {
                 return "Error: Collection types do not match. " + collection.Value.ContainedType().Name + " != " + rhsCollection.Value.ContainedType().Name;
             }

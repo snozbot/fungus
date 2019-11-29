@@ -19,7 +19,7 @@ namespace Fungus
         {
             var col = collection.Value;
 
-            if(col != null)
+            if (col != null)
             {
                 var res = GameObject.FindGameObjectsWithTag(tagString.Value);
 
@@ -28,7 +28,7 @@ namespace Fungus
                     col.Add(res[i]);
                 }
             }
-        
+
             Continue();
         }
 

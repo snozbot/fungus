@@ -26,7 +26,7 @@ namespace Fungus
 
         public override bool HasReference(Variable variable)
         {
-            return  variable == variableToUse || base.HasReference(variable);
+            return variable == variableToUse || base.HasReference(variable);
         }
 
         public override string GetSummary()

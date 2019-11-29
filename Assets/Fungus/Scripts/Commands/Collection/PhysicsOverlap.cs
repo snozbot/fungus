@@ -50,9 +50,6 @@ namespace Fungus
         [SerializeField]
         protected QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal;
 
-
-
-
         public override void OnEnter()
         {
             var col = collection.Value;
@@ -66,12 +63,15 @@ namespace Fungus
                     case Shape.Box:
                         resColliders = Physics.OverlapBox(position1.Value, boxHalfExtends.Value, boxOrientation.Value, layerMask.value, queryTriggerInteraction);
                         break;
+
                     case Shape.Sphere:
                         resColliders = Physics.OverlapSphere(position1.Value, radius.Value, layerMask.value, queryTriggerInteraction);
                         break;
+
                     case Shape.Capsule:
                         resColliders = Physics.OverlapCapsule(position1.Value, capsulePosition2.Value, radius.Value, layerMask.value, queryTriggerInteraction);
                         break;
+
                     default:
                         break;
                 }

@@ -55,8 +55,6 @@ namespace Fungus
         [SerializeField]
         protected CapsuleDirection2D capsuleDirection;
 
-
-
         public override void OnEnter()
         {
             var col = collection.Value;
@@ -70,18 +68,23 @@ namespace Fungus
                     case Shape.Area:
                         resColliders = Physics2D.OverlapAreaAll(position1.Value, areaEndPosition.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
+
                     case Shape.Box:
                         resColliders = Physics2D.OverlapBoxAll(position1.Value, shapeSize.Value, shapeAngle.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
+
                     case Shape.Circle:
                         resColliders = Physics2D.OverlapCircleAll(position1.Value, radius.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
+
                     case Shape.Capsule:
                         resColliders = Physics2D.OverlapCapsuleAll(position1.Value, shapeSize.Value, capsuleDirection, shapeAngle.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
+
                     case Shape.Point:
                         resColliders = Physics2D.OverlapPointAll(position1.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
+
                     default:
                         break;
                 }

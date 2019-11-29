@@ -63,8 +63,6 @@ namespace Fungus
         [SerializeField]
         protected CapsuleDirection2D capsuleDirection;
 
-
-
         public override void OnEnter()
         {
             var col = collection.Value;
@@ -78,18 +76,23 @@ namespace Fungus
                     case CastType.Box:
                         resHits = Physics2D.BoxCastAll(position1.Value, shapeSize.Value, shapeAngle.Value, direction.Value, maxDistance.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
+
                     case CastType.Capsule:
                         resHits = Physics2D.CapsuleCastAll(position1.Value, shapeSize.Value, capsuleDirection, shapeAngle.Value, direction.Value, maxDistance.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
+
                     case CastType.Circle:
                         resHits = Physics2D.CircleCastAll(position1.Value, radius.Value, direction.Value, maxDistance.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
+
                     case CastType.Line:
                         resHits = Physics2D.LinecastAll(position1.Value, lineEnd.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
+
                     case CastType.Ray:
                         resHits = Physics2D.RaycastAll(position1.Value, direction.Value, maxDistance.Value, layerMask.value, minDepth.Value, maxDepth.Value);
                         break;
+
                     default:
                         break;
                 }

@@ -40,7 +40,7 @@ namespace Fungus
         {
             var col = collection.Value;
             curIndex++;
-            if(curIndex < col.Count)
+            if (curIndex < col.Count)
             {
                 col.Get(curIndex, ref item);
                 return true;
@@ -61,7 +61,7 @@ namespace Fungus
 
         public override bool HasReference(Variable variable)
         {
-            return collection. collectionRef == variable || item == variable ||
+            return collection.collectionRef == variable || item == variable ||
                 base.HasReference(variable);
         }
 
@@ -73,6 +73,6 @@ namespace Fungus
                 return true;
         }
 
-        #endregion
+        #endregion Public members
     }
 }

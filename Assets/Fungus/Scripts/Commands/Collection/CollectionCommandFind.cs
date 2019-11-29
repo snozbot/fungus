@@ -19,7 +19,7 @@ namespace Fungus
         {
             integer.Value = !lastInsteadOfFirst.Value ?
                 collection.Value.IndexOf(variableToUse)
-               : collection.Value.LastIndexOf(variableToUse);
+                : collection.Value.LastIndexOf(variableToUse);
         }
 
         public override bool HasReference(Variable variable)
