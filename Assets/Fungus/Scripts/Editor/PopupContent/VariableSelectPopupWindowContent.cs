@@ -115,7 +115,12 @@ namespace Fungus.EditorUtils
         {
         }
 
-        protected static void AddVariable(object obj)
+        public static void AddVariable(object obj)
+        {
+            AddVariable(obj, string.Empty);
+        }
+
+        public static void AddVariable(object obj, string suggestedName)
         {
             System.Type t = obj as System.Type;
             if (t == null)
@@ -123,13 +128,24 @@ namespace Fungus.EditorUtils
                 return;
             }
 
-            Undo.RecordObject(curFlowchart, "Add Variable");
-            Variable newVariable = curFlowchart.gameObject.AddComponent(t) as Variable;
-            newVariable.Key = curFlowchart.GetUniqueVariableKey("");
-            curFlowchart.Variables.Add(newVariable);
+            var flowchart = curFlowchart != null ? curFlowchart : FlowchartWindow.GetFlowchart();
+            Undo.RecordObject(flowchart, "Add Variable");
+            Variable newVariable = flowchart.gameObject.AddComponent(t) as Variable;
+            newVariable.Key = flowchart.GetUniqueVariableKey(suggestedName);
+
+            //if suggested exists, then insert, if not just add
+            var existingVariable = flowchart.GetVariable(suggestedName);
+            if (existingVariable != null)
+            {
+                flowchart.Variables.Insert(flowchart.Variables.IndexOf(existingVariable)+1, newVariable);
+            }
+            else
+            {
+                flowchart.Variables.Add(newVariable);
+            }
 
             // Because this is an async call, we need to force prefab instances to record changes
-            PrefabUtility.RecordPrefabInstancePropertyModifications(curFlowchart);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
         }
     }
 }

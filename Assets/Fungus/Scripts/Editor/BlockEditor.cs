@@ -155,6 +155,9 @@ namespace Fungus.EditorUtils
                 SerializedProperty descriptionProp = serializedObject.FindProperty("description");
                 EditorGUILayout.PropertyField(descriptionProp);
 
+
+                SerializedProperty suppressProp = serializedObject.FindProperty("suppressAllAutoSelections");
+                EditorGUILayout.PropertyField(suppressProp);
                 
                 EditorGUI.indentLevel++;
                 if (callersFoldout = EditorGUILayout.Foldout(callersFoldout, "Callers"))
@@ -166,7 +169,6 @@ namespace Fungus.EditorUtils
                 }
                 EditorGUI.indentLevel--;
                 
-
                 EditorGUILayout.Space();
                 
                 DrawEventHandlerGUI(flowchart);

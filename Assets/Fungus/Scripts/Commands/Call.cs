@@ -77,7 +77,6 @@ namespace Fungus
                 if (callMode == CallMode.WaitUntilFinished)
                 {
                     onComplete = delegate {
-                        flowchart.SelectedBlock = ParentBlock;
                         Continue();
                     };
                 }
@@ -96,13 +95,6 @@ namespace Fungus
                 if (targetFlowchart == null ||
                     targetFlowchart.Equals(GetFlowchart()))
                 {
-                    // If the executing block is currently selected then follow the execution 
-                    // onto the next block in the inspector.
-                    if (flowchart.SelectedBlock == ParentBlock)
-                    {
-                        flowchart.SelectedBlock = targetBlock;
-                    }
-
                     if (callMode == CallMode.StopThenCall)
                     {
                         StopParentBlock();
@@ -169,11 +161,6 @@ namespace Fungus
         public bool MayCallBlock(Block block)
         {
             return block == targetBlock;
-        }
-
-        public string GetLocationIdentifier()
-        {
-            return ParentBlock.GetFlowchart().GetName() + ":" + ParentBlock.BlockName + ".Call:" + CommandIndex.ToString();
         }
 
         #endregion
