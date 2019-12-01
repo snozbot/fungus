@@ -1257,10 +1257,10 @@ namespace Fungus.EditorUtils
                         }
                         else
                         {
-                            menu.AddDisabledItem(new GUIContent("StopAll"), false);//, () => StopAllBlocks());
-                            menu.AddDisabledItem(new GUIContent("Stop"), false);//, () => StopThisBlock(hitBlock));
-                            menu.AddDisabledItem(new GUIContent("Execute"), false);//, () => ExecuteThisBlock(hitBlock, false));
-                            menu.AddDisabledItem(new GUIContent("Execute (Stop All First)"), false);//, () => ExecuteThisBlock(hitBlock, true));
+                            menu.AddDisabledItem(new GUIContent("StopAll"));//, false), () => StopAllBlocks());
+                            menu.AddDisabledItem(new GUIContent("Stop"));//, false);, () => StopThisBlock(hitBlock));
+                            menu.AddDisabledItem(new GUIContent("Execute"));//, false);, () => ExecuteThisBlock(hitBlock, false));
+                            menu.AddDisabledItem(new GUIContent("Execute (Stop All First)"));//, false);, () => ExecuteThisBlock(hitBlock, true));
                         }
                     }
                     else
@@ -1285,7 +1285,7 @@ namespace Fungus.EditorUtils
                         }
                         else
                         {
-                            menu.AddDisabledItem(new GUIContent("StopAll"), false);//, () => StopAllBlocks());
+                            menu.AddDisabledItem(new GUIContent("StopAll"));//, false);, () => StopAllBlocks());
                         }
                     }
 
