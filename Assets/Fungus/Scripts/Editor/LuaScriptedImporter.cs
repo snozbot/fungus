@@ -4,7 +4,8 @@ using System.IO;
 
 namespace Fungus.EditorUtils
 {
-	[ScriptedImporter(1, "lua")]
+#if UNITY_2018_4_OR_NEWER
+    [ScriptedImporter(1, "lua")]
 	public class LuaScriptedImporter : ScriptedImporter
 	{
 	    public override void OnImportAsset(AssetImportContext ctx)
@@ -14,4 +15,5 @@ namespace Fungus.EditorUtils
 	        ctx.SetMainObject(lua);
 	    }
 	}
+#endif
 }
