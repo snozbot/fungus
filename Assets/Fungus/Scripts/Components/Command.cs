@@ -230,7 +230,7 @@ namespace Fungus
 
         public virtual string GetLocationIdentifier()
         {
-            return ParentBlock.GetFlowchart().GetName() + ":" + ParentBlock.BlockName + "." + this.GetType().Name + ":" + CommandIndex.ToString(); 
+            return ParentBlock.GetFlowchart().GetName() + ":" + ParentBlock.BlockName + "." + this.GetType().Name + "#" + CommandIndex.ToString(); 
         }
 
         /// <summary>

@@ -72,12 +72,7 @@ namespace Fungus
         {
             return block == targetBlock;
         }
-
-        public string GetLocationIdentifier()
-        {
-            return ParentBlock.GetFlowchart().GetName() + ":" + ParentBlock.BlockName + ".Menu Timer:" + CommandIndex.ToString();
-        }
-
+        
         #endregion
 
         #region Backwards compatibility

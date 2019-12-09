@@ -340,14 +340,20 @@ namespace Fungus.EditorUtils
         {                
             var varRefs = EditorExtensions.FindObjectsOfInterface<IVariableReference>()
                 .Where(x => x.HasReference(variable))
-                .Select(x => x.GetLocationIdentifier()).ToList(); ;
+                .Select(x => x.GetLocationIdentifier()).ToArray(); ;
 
-            string varRefString = variable.Key + " referenced in;\n";
+            string varRefString = variable.Key;
 
-            if (varRefs.Count > 0)
-                varRefString += string.Join("\n", varRefs);
+            if (varRefs != null && varRefs.Length > 0)
+            {
+                varRefString += " referenced in " + varRefs.Length.ToString() + " places:\n";
+
+                varRefString += string.Join("\n - ", varRefs);
+            }
             else
-                varRefString += "None";
+            {
+                varRefString += ", found no references.";
+            }
 
             Debug.Log(varRefString);
         }

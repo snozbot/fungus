@@ -106,11 +106,6 @@ namespace Fungus
             return block == targetBlock;
         }
 
-        public string GetLocationIdentifier()
-        {
-            return ParentBlock.GetFlowchart().GetName() + ":" + ParentBlock.BlockName + ".Menu:" + CommandIndex.ToString();
-        }
-
         #endregion
 
         #region ILocalizable implementation
