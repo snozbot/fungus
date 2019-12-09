@@ -7,6 +7,12 @@ using Fungus.TMProLinkAnimEffects;
 #if UNITY_2018_1_OR_NEWER
 namespace Fungus.Examples
 {
+    /// <summary>
+    /// Used in TMPro Link Anim Demo, adds a number of sample animation styles. Serves as
+    /// an example of how you might configure these effects and variations of them in
+    /// your projects
+    /// </summary>
+    /// TODO add use of same underlying effect with different settings
     public class TMProLinkStylingDemo : MonoBehaviour
     {
         void Awake()

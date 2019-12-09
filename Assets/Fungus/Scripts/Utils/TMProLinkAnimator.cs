@@ -61,12 +61,7 @@ namespace Fungus
                 TMProComponent = GetComponent<TMPro.TMP_Text>();
             }
         }
-
-        protected void Start()
-        {
-            SetDirty();
-        }
-
+        
         protected void Update()
         {
             UpdateAnimation();

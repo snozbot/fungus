@@ -5,7 +5,7 @@ namespace Fungus
 {
     /// <summary>
     /// Static lookup for Text Mesh Pro Link animations. TMPro tracks and holds information about
-    /// link tags in its text body and is recommended as one of the ways to achieve per effects within
+    /// link tags in its text body and is recommended as one of the ways to achieve effects within
     /// a body of text. Giving you the text within the link and the name/hash of the link id itself.
     /// 
     /// Such that {link="shake"}this text will be marked up as within shake link{/link}.
