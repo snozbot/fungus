@@ -72,9 +72,9 @@ namespace Fungus.EditorUtils
                 .Where(x => x is IBlockCaller)
                 .Select(x => x as IBlockCaller)
                 .Where(x => x.MayCallBlock(targetBlock))
-                .Select(x => x.GetLocationIdentifier()).ToList();
+                .Select(x => x.GetLocationIdentifier()).ToArray();
 
-            if (callers.Count > 0)
+            if (callers != null && callers.Length > 0)
                 callersString = string.Join("\n", callers);
             else
                 callersString = "None";
