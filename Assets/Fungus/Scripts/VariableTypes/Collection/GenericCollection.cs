@@ -69,9 +69,16 @@ namespace Fungus
             }
         }
 
-        public override int Capacity()
+        public override int Capacity
         {
-            return collection.Capacity;
+            get
+            {
+                return collection.Capacity;
+            }
+            set
+            {
+                collection.Capacity = value;
+            }
         }
 
         public override void Clear()
@@ -182,6 +189,11 @@ namespace Fungus
             return collection[index];
         }
 
+        public virtual T GetSafe(int index)
+        {
+            return collection[index];
+        }
+
         public override void Get(int index, ref Variable variable)
         {
             if (variable is VariableBase<T>)
@@ -235,9 +247,33 @@ namespace Fungus
             }
         }
 
-        public override bool IsCompatible(object o)
+        public override bool IsElementCompatible(object o)
         {
             return o is T || o is VariableBase<T>;
+        }
+
+        public override bool IsCollectionCompatible(object o)
+        {
+            if (o is GenericCollection<T> || o is System.Collections.Generic.IList<T>)
+                return true;
+
+            var ot = o.GetType();
+            var ote = ot.GetElementType();
+            var otgs = ot.GetGenericArguments();
+
+            //element type only works for arrays, need to use getgenerictype with ilist<>T
+            if (o is System.Array)
+            {
+                return ote is T || ote is Fungus.VariableBase<T>;
+            }
+            else if (o is System.Collections.IList && otgs.Length > 0)
+            {
+                return otgs[0] == typeof(T) || otgs[0].IsSubclassOf(typeof(Fungus.VariableBase<T>));
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override int LastIndexOf(object o)
@@ -288,7 +324,7 @@ namespace Fungus
             var rhs = Promote(rhsCol);
             if (rhs != null)
             {
-                for (int i = 0; i < rhs.collection.Count; i++)
+                for (int i = rhsCol.Count - 1; i >= 0; i--)
                 {
                     collection.RemoveAll(x => x.Equals(rhs.collection[i]));
                 }
@@ -324,6 +360,11 @@ namespace Fungus
             {
                 collection[index] = t;
             }
+        }
+
+        public virtual void Set(int index, T value)
+        {
+            collection[index] = value;
         }
 
         public override void Shuffle()

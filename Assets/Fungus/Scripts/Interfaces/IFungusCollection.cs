@@ -10,7 +10,7 @@
 
         void AddUnique(IFungusCollection rhsCol);
 
-        int Capacity();
+        int Capacity { get; set; }
 
         System.Type ContainedType();
 
@@ -30,7 +30,9 @@
 
         void Intersection(IFungusCollection rhsCol);
 
-        bool IsCompatible(object o);
+        bool IsElementCompatible(object o);
+
+        bool IsCollectionCompatible(object o);
 
         int LastIndexOf(object o);
 

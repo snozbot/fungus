@@ -43,7 +43,7 @@ namespace Fungus
         bool ICollectionCompatible.IsCompatible(Variable variable, string compatibleWith)
         {
             if (compatibleWith == "collection")
-                return collection.Value == null ? false : collection.Value.IsCompatible(variable);
+                return collection.Value == null ? false : collection.Value.IsElementCompatible(variable);
             else
                 return true;
         }
