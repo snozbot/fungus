@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace Fungus
 {
-    //N.B. is a monobeh presently, but may not remain so
+    /// <summary>
+    /// Provides a common and complete MonoBehavior based reference point for FungusCollection.
+    /// Fungus.GenericCollection inherits from this.
+    /// </summary>
     [AddComponentMenu("")]
     [System.Serializable]
     public abstract class Collection : MonoBehaviour, IFungusCollection
@@ -15,6 +18,8 @@ namespace Fungus
         public bool IsReadOnly => false;
         public bool IsSynchronized => false;
         public object SyncRoot => null;
+        public string Name => name;
+
         public object this[int index] { get => Get(index); set => Set(index, value); }
 
         public abstract int Add(object o);

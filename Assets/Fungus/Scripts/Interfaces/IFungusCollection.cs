@@ -1,9 +1,16 @@
 ﻿namespace Fungus
 {
+    /// <summary>
+    /// Extension of IList for Fungus collections and support for associated commands.
+    /// 
+    /// Built upon objects being passed in and returned as the base starting point. 
+    /// The inherited classes may wish to provided typed access to underlying container,
+    /// this is what the Fungus.GenericCollection does.
+    /// </summary>
     public interface IFungusCollection : System.Collections.IList
     {
         int Capacity { get; set; }
-        string name { get; }
+        string Name { get; }
 
         void Add(IFungusCollection rhsCol);
 

@@ -4,6 +4,18 @@ using UnityEngine;
 
 namespace Fungus
 {
+    /// <summary>
+    /// The meat of the Fungus Collection. Internally uses a List of given type, simplest example 
+    /// being IntCollection. Provides some type specific additions to the base Collection for
+    /// increasing speed and safety. 
+    /// 
+    /// Uses Promote methods to convert from objects or other collection or Fungus.Variable types
+    /// being passed in, will attempt to do compatability for you, such as if you give an 
+    /// IntCollection an int or a Fungus.IntVariable, either works as the Promote is aware
+    /// of Fungus.VariableBase<T>. Will also allow mixing some operations between 
+    /// GenericCollection<T>, T[], and List<T>.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     [AddComponentMenu("")]
     public class GenericCollection<T> : Collection
     {
