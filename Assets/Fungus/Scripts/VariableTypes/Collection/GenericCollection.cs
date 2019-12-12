@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 namespace Fungus
 {
@@ -7,6 +9,18 @@ namespace Fungus
     {
         [SerializeField]
         protected System.Collections.Generic.List<T> collection = new System.Collections.Generic.List<T>();
+
+        public override int Capacity
+        {
+            get
+            {
+                return collection.Capacity;
+            }
+            set
+            {
+                collection.Capacity = value;
+            }
+        }
 
         public override int Count => collection.Count;
 
@@ -68,19 +82,6 @@ namespace Fungus
                 }
             }
         }
-
-        public override int Capacity
-        {
-            get
-            {
-                return collection.Capacity;
-            }
-            set
-            {
-                collection.Capacity = value;
-            }
-        }
-
         public override void Clear()
         {
             collection.Clear();
@@ -162,6 +163,22 @@ namespace Fungus
             }
         }
 
+        public override void CopyFrom(Array array)
+        {
+            foreach (var item in array)
+            {
+                Add(item);
+            }
+        }
+
+        public override void CopyFrom(IList list)
+        {
+            foreach (var item in list)
+            {
+                Add(item);
+            }
+        }
+
         public override void CopyTo(System.Array array, int index)
         {
             (collection as System.Collections.IList).CopyTo(array, index);
@@ -189,11 +206,6 @@ namespace Fungus
             return collection[index];
         }
 
-        public virtual T GetSafe(int index)
-        {
-            return collection[index];
-        }
-
         public override void Get(int index, ref Variable variable)
         {
             if (variable is VariableBase<T>)
@@ -212,6 +224,10 @@ namespace Fungus
             return collection.GetEnumerator();
         }
 
+        public virtual T GetSafe(int index)
+        {
+            return collection[index];
+        }
         public override int IndexOf(object o)
         {
             var t = Promote(o);
@@ -247,11 +263,6 @@ namespace Fungus
             }
         }
 
-        public override bool IsElementCompatible(object o)
-        {
-            return o is T || o is VariableBase<T>;
-        }
-
         public override bool IsCollectionCompatible(object o)
         {
             if (o is GenericCollection<T> || o is System.Collections.Generic.IList<T>)
@@ -276,6 +287,10 @@ namespace Fungus
             }
         }
 
+        public override bool IsElementCompatible(object o)
+        {
+            return o is T || o is VariableBase<T>;
+        }
         public override int LastIndexOf(object o)
         {
             var t = Promote(o);

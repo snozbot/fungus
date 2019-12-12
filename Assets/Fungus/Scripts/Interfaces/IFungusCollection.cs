@@ -2,6 +2,7 @@
 {
     public interface IFungusCollection : System.Collections.IList
     {
+        int Capacity { get; set; }
         string name { get; }
 
         void Add(IFungusCollection rhsCol);
@@ -9,8 +10,6 @@
         void AddUnique(object o);
 
         void AddUnique(IFungusCollection rhsCol);
-
-        int Capacity { get; set; }
 
         System.Type ContainedType();
 
@@ -22,6 +21,10 @@
 
         void CopyFrom(IFungusCollection rhsCol);
 
+        void CopyFrom(System.Array array);
+
+        void CopyFrom(System.Collections.IList list);
+
         void Exclusive(IFungusCollection rhsCol);
 
         object Get(int index);
@@ -30,9 +33,9 @@
 
         void Intersection(IFungusCollection rhsCol);
 
-        bool IsElementCompatible(object o);
-
         bool IsCollectionCompatible(object o);
+
+        bool IsElementCompatible(object o);
 
         int LastIndexOf(object o);
 
