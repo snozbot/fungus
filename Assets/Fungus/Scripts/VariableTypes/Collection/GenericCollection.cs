@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using System.Linq;
 
 namespace Fungus
 {
@@ -408,6 +409,11 @@ namespace Fungus
         public override void Sort()
         {
             collection.Sort();
+        }
+
+        public override void Unique()
+        {
+            collection = collection.Distinct().ToList();
         }
 
         protected virtual T Promote(object o)

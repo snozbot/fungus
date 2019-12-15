@@ -89,5 +89,7 @@ namespace Fungus
         public abstract void Shuffle();
 
         public abstract void Sort();
+
+        public abstract void Unique();
     }
 }

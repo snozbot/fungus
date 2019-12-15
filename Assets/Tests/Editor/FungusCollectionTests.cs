@@ -77,6 +77,10 @@ public class FungusCollectionTests
         intColA.AddUnique(intColB);//ensure intColB[0] doesn't double
         Assert.AreEqual(intColA.Count, Items);// all of b should be back in there now
 
+        intColA.Add(intColB);
+        intColA.Unique();
+        Assert.IsTrue(intColA.Count == Items);
+
         intColA.RemoveAll(intColA);//should be equiv to clear
         intColB.Clear();
         Assert.AreEqual(intColA.Count, 0);
@@ -340,6 +344,8 @@ public class FungusCollectionTests
         {
             Assert.AreEqual(i, intColA[Items - i - 1]);
         }
+
+
 
         intColA.Clear();
         intColB.Clear();

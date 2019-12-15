@@ -63,5 +63,7 @@
         void Shuffle();
 
         void Sort();
+
+        void Unique();
     }
 }
