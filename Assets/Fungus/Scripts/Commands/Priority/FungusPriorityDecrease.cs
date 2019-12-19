@@ -8,7 +8,7 @@ namespace Fungus
     /// Decrease the FungusPriority count, causing the related FungusPrioritySignals to fire.
     /// Intended to be used to notify external systems that fungus is doing something important and they should perhaps resume.
     /// </summary>
-    [CommandInfo("Priority Signals",
+    [CommandInfo("PrioritySignals",
                  "Priority Down",
                  "Decrease the FungusPriority count, causing the related FungusPrioritySignals to fire. " +
                 "Intended to be used to notify external systems that fungus is doing something important and they should perhaps resume.")]
