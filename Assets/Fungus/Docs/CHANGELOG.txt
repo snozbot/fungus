@@ -1,7 +1,7 @@
 Changelog {#changelog}
 =========
 
-v3.12.0 rc1
+v3.12.0
 ======
 
 ## Added
@@ -32,6 +32,7 @@ v3.12.0 rc1
 - More elaborated use of text in TMPro demo
 - Block Inspector forces type at creation. Thanks to Michaelwolf95
 - Warning when requesting menu elements that are not avaialble, such as more menu items that you have created.
+- Fungus Docs can now generate in github markdown format
 
 
 v3.11.5 {#v3.11.5}
