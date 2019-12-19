@@ -221,7 +221,7 @@ namespace Fungus.EditorUtils
 
             var origLabel = new GUIContent(label);
 
-            if (typeInfo.HasCustomDraw || EditorGUI.GetPropertyHeight(valueProp, label) <= EditorGUIUtility.singleLineHeight)
+            if (EditorGUI.GetPropertyHeight(valueProp, label) <= EditorGUIUtility.singleLineHeight)
             {
                 DrawSingleLineProperty(position, origLabel, referenceProp, valueProp, flowchart, typeInfo);
             }
@@ -279,18 +279,7 @@ namespace Fungus.EditorUtils
 
         protected virtual void DrawValueProperty(Rect valueRect, SerializedProperty valueProp, VariableInfoAttribute typeInfo)
         {
-            if (typeInfo.HasCustomDraw)
-            {
-                //delegate actual drawing to the variableInfo
-                AnyVaraibleAndDataPair.TypeActions typeActions = null;
-                AnyVaraibleAndDataPair.typeActionLookup.TryGetValue(typeof(T), out typeActions);
-                if (typeActions != null)
-                    typeActions.CustomDraw(valueRect, valueProp);
-            }
-            else
-            {
-                EditorGUI.PropertyField(valueRect, valueProp, new GUIContent(""));
-            }
+            CustomVariableDrawerLookup.DrawCustomOrPropertyField(typeof(T), valueRect, valueProp);
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -335,49 +324,4 @@ namespace Fungus.EditorUtils
     [CustomPropertyDrawer (typeof(StringDataMulti))]
     public class StringDataMultiDrawer : VariableDataDrawer<StringVariable>
     {}
-
-    [CustomPropertyDrawer (typeof(ColorData))]
-    public class ColorDataDrawer : VariableDataDrawer<ColorVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(Vector2Data))]
-    public class Vector2DataDrawer : VariableDataDrawer<Vector2Variable>
-    {}
-
-    [CustomPropertyDrawer (typeof(Vector3Data))]
-    public class Vector3DataDrawer : VariableDataDrawer<Vector3Variable>
-    {}
-    
-    [CustomPropertyDrawer (typeof(MaterialData))]
-    public class MaterialDataDrawer : VariableDataDrawer<MaterialVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(TextureData))]
-    public class TextureDataDrawer : VariableDataDrawer<TextureVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(SpriteData))]
-    public class SpriteDataDrawer : VariableDataDrawer<SpriteVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(GameObjectData))]
-    public class GameObjectDataDrawer : VariableDataDrawer<GameObjectVariable>
-    {}
-    
-    [CustomPropertyDrawer (typeof(ObjectData))]
-    public class ObjectDataDrawer : VariableDataDrawer<ObjectVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(AnimatorData))]
-    public class AnimatorDataDrawer : VariableDataDrawer<AnimatorVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(TransformData))]
-    public class TransformDataDrawer : VariableDataDrawer<TransformVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(AudioSourceData))]
-    public class AudioSourceDrawer : VariableDataDrawer<AudioSourceVariable>
-    { }
-
 }

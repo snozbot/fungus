@@ -5,24 +5,23 @@ using UnityEngine;
 namespace Fungus
 {
     // <summary>
-    /// Get or Set a property of a Vector4 component
+    /// Get or Set a property of a Collection component
     /// </summary>
-    [CommandInfo("Vector4",
+    [CommandInfo("Collection",
                  "Property",
-                 "Get or Set a property of a Vector4 component")]
+                 "Get or Set a property of a Collection component")]
     [AddComponentMenu("")]
-    public class Vector4Property : BaseVariableProperty
+    public class CollectionProperty : BaseVariableProperty
     {
 		//generated property
         public enum Property 
         { 
-            X, 
-            Y, 
-            Z, 
-            W, 
-            Magnitude, 
-            SqrMagnitude, 
-            Normalized, 
+            Capacity, 
+            Count, 
+            IsFixedSize, 
+            IsReadOnly, 
+            IsSynchronized, 
+            Name, 
         }
 
 		
@@ -30,46 +29,45 @@ namespace Fungus
         protected Property property;
 		
         [SerializeField]
-        protected Vector4Data vector4Data;
+        protected CollectionData collectionData;
 
         [SerializeField]
-        [VariableProperty(typeof(FloatVariable),
-                          typeof(Vector4Variable))]
+        [VariableProperty(typeof(IntegerVariable),
+                          typeof(BooleanVariable),
+                          typeof(StringVariable))]
         protected Variable inOutVar;
 
         public override void OnEnter()
         {
-            var iof = inOutVar as FloatVariable;
-            var iov4 = inOutVar as Vector4Variable;
+            var ioi = inOutVar as IntegerVariable;
+            var iob = inOutVar as BooleanVariable;
+            var ios = inOutVar as StringVariable;
 
 
-            var target = vector4Data.Value;
+            var target = collectionData.Value;
 
             switch (getOrSet)
             {
                 case GetSet.Get:
                     switch (property)
                     {
-                        case Property.X:
-                            iof.Value = target.x;
+                        case Property.Capacity:
+                            ioi.Value = target.Capacity;
                             break;
-                        case Property.Y:
-                            iof.Value = target.y;
+                        case Property.Count:
+                            ioi.Value = target.Count;
                             break;
-                        case Property.Z:
-                            iof.Value = target.z;
+                        case Property.IsFixedSize:
+                            iob.Value = target.IsFixedSize;
                             break;
-                        case Property.W:
-                            iof.Value = target.w;
+                        case Property.IsReadOnly:
+                            iob.Value = target.IsReadOnly;
                             break;
-                        case Property.Normalized:
-                            iov4.Value = target.normalized;
+                        case Property.IsSynchronized:
+                            iob.Value = target.IsSynchronized;
                             break;
-                        case Property.Magnitude:
-                            iof.Value = target.magnitude;
-                            break;
-                        case Property.SqrMagnitude:
-                            iof.Value = target.sqrMagnitude;
+                        case Property.Name:
+                            ios.Value = target.Name;
                             break;
                         default:
                             Debug.Log("Unsupported get or set attempted");
@@ -80,17 +78,8 @@ namespace Fungus
                 case GetSet.Set:
                     switch (property)
                     {
-                        case Property.X:
-                            target.x = iof.Value;
-                            break;
-                        case Property.Y:
-                            target.y = iof.Value;
-                            break;
-                        case Property.Z:
-                            target.z = iof.Value;
-                            break;
-                        case Property.W:
-                            target.w = iof.Value;
+                        case Property.Capacity:
+                            target.Capacity = ioi.Value;
                             break;
                         default:
                             Debug.Log("Unsupported get or set attempted");
@@ -107,6 +96,10 @@ namespace Fungus
 
         public override string GetSummary()
         {
+            if (collectionData.Value == null)
+            {
+                return "Error: no collection set";
+            }
             if (inOutVar == null)
             {
                 return "Error: no variable set to push or pull data to or from";
@@ -122,7 +115,7 @@ namespace Fungus
 
         public override bool HasReference(Variable variable)
         {
-            if (vector4Data.vector4Ref == variable || inOutVar == variable)
+            if (collectionData.collectionRef == variable || inOutVar == variable)
                 return true;
 
             return false;

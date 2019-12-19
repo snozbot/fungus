@@ -279,7 +279,7 @@ namespace Fungus.EditorUtils
             GUI.backgroundColor = Color.white;
         }
         
-        public void VariableDrawProperty(Variable variable, Rect rect, SerializedProperty valueProp, VariableInfoAttribute info)
+        public static void VariableDrawProperty(Variable variable, Rect rect, SerializedProperty valueProp, VariableInfoAttribute info)
         {
             if (valueProp == null)
             {
@@ -289,17 +289,9 @@ namespace Fungus.EditorUtils
             {
                 EditorGUI.LabelField(rect, variable.ToString());
             }
-            else if (info.HasCustomDraw)
+            else 
             {
-                //delegate actual drawing to the variableInfo
-                AnyVaraibleAndDataPair.TypeActions typeActions = null;
-                AnyVaraibleAndDataPair.typeActionLookup.TryGetValue(variable.GetType(), out typeActions);
-                if (typeActions != null)
-                    typeActions.CustomDraw(rect, valueProp);
-            }
-            else
-            {
-                EditorGUI.PropertyField(rect, valueProp, new GUIContent(""));
+                CustomVariableDrawerLookup.DrawCustomOrPropertyField(variable.GetType(), rect, valueProp);
             }
         }
 

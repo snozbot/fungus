@@ -49,19 +49,19 @@ namespace Fungus
 
         [SerializeField]
         [VariableProperty(typeof(FloatVariable),
-                          typeof(Matrix4x4Variable),
                           typeof(QuaternionVariable),
                           typeof(Vector3Variable),
-                          typeof(BooleanVariable))]
+                          typeof(BooleanVariable),
+                          typeof(Matrix4x4Variable))]
         protected Variable inOutVar;
 
         public override void OnEnter()
         {
             var iof = inOutVar as FloatVariable;
-            var iom4 = inOutVar as Matrix4x4Variable;
             var ioq = inOutVar as QuaternionVariable;
             var iov = inOutVar as Vector3Variable;
             var iob = inOutVar as BooleanVariable;
+            var iom4 = inOutVar as Matrix4x4Variable;
 
 
             var target = matrix4x4Data.Value;
@@ -119,12 +119,6 @@ namespace Fungus
                         case Property.M33:
                             iof.Value = target.m33;
                             break;
-                        case Property.Inverse:
-                            iom4.Value = target.inverse;
-                            break;
-                        case Property.Transpose:
-                            iom4.Value = target.transpose;
-                            break;
                         case Property.Rotation:
                             ioq.Value = target.rotation;
                             break;
@@ -136,6 +130,12 @@ namespace Fungus
                             break;
                         case Property.Determinant:
                             iof.Value = target.determinant;
+                            break;
+                        case Property.Inverse:
+                            iom4.Value = target.inverse;
+                            break;
+                        case Property.Transpose:
+                            iom4.Value = target.transpose;
                             break;
                         default:
                             Debug.Log("Unsupported get or set attempted");

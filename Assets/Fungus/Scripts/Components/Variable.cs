@@ -66,20 +66,18 @@ namespace Fungus
     public class VariableInfoAttribute : Attribute
     {
         //Note do not use "isPreviewedOnly:true", it causes the script to fail to load without errors shown
-        public VariableInfoAttribute(string category, string variableType, int order = 0, bool isPreviewedOnly = false, bool hasCustomDraw = false)
+        public VariableInfoAttribute(string category, string variableType, int order = 0, bool isPreviewedOnly = false)
         {
             this.Category = category;
             this.VariableType = variableType;
             this.Order = order;
             this.IsPreviewedOnly = isPreviewedOnly;
-            this.HasCustomDraw = hasCustomDraw;
         }
         
         public string Category { get; set; }
         public string VariableType { get; set; }
         public int Order { get; set; }
         public bool IsPreviewedOnly { get; set; }
-        public bool HasCustomDraw { get; set; }
     }
 
     /// <summary>

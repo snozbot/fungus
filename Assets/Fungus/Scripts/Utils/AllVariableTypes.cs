@@ -16,8 +16,7 @@ namespace Fungus
         {
             Any
         }
-        //todo this should be removed as only editor code uses this list at runtime and using typecache would 
-        //  mean users don't have to modify our files to support their custom types
+
         public static readonly System.Type[] AllFungusVarTypes = new System.Type[]
         {
             typeof(AnimatorVariable),
@@ -52,7 +51,7 @@ namespace Fungus
     /// <summary>
     /// Collection of every Fungus VariableData type, used in commands that are designed to
     /// support any and all types. Those command just have a AnyVariableData anyVar or 
-    /// an AnyVaraibleAndDataPair anyVarDataPair to encapsulate the more unplease parts.
+    /// an AnyVaraibleAndDataPair anyVarDataPair to encapsulate the more unpleasant parts.
     /// 
     /// New types created need to be added to the list below and also to AllVariableTypes and 
     /// AnyVaraibleAndDataPair
@@ -115,8 +114,8 @@ namespace Fungus
     /// <summary>
     /// Pairing of an AnyVariableData and an variable reference. Internal lookup for 
     /// making the right kind of variable with the correct data in the AnyVariableData.
-    /// This is the primary mechanism for hiding the ugly need to matching variable to 
-    /// the correct data type so we can perform comparisons and operations.
+    /// This is the primary mechanism for hiding the ugly need to match variable to 
+    /// correct data type so we can perform comparisons and operations.
     /// 
     /// New types created need to be added to the list below and also to AllVariableTypes and 
     /// AnyVariableData
@@ -130,18 +129,12 @@ namespace Fungus
                                System.Func<AnyVaraibleAndDataPair, Fungus.CompareOperator, bool> comparer,
                                System.Func<AnyVaraibleAndDataPair, string> desccription,
                                System.Action<AnyVaraibleAndDataPair, Fungus.SetOperator> set
-#if UNITY_EDITOR
-                               ,System.Action<UnityEngine.Rect, UnityEditor.SerializedProperty> customDrawFunc = null
-#endif
                 )
             {
                 DataPropName = dataPropName;
                 CompareFunc = comparer;
                 DescFunc = desccription;
                 SetFunc = set;
-#if UNITY_EDITOR
-                CustomDraw = customDrawFunc;
-#endif
             }
 
             // used in AnyVaraibleAndDataPair Drawer to show the correct aspect of the AnyVariableData in the editor
@@ -149,9 +142,6 @@ namespace Fungus
             public System.Func<AnyVaraibleAndDataPair, Fungus.CompareOperator, bool> CompareFunc;
             public System.Func<AnyVaraibleAndDataPair, string> DescFunc;
             public System.Action<AnyVaraibleAndDataPair, Fungus.SetOperator> SetFunc;
-#if UNITY_EDITOR
-            public System.Action<UnityEngine.Rect, UnityEditor.SerializedProperty> CustomDraw;
-#endif
         }
 
 
@@ -233,11 +223,7 @@ namespace Fungus
                 new TypeActions( "quaternionData", 
                     (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.quaternionData.Value); },
                     (anyVar) => anyVar.data.quaternionData.GetDescription(),
-                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.quaternionData.Value)
-#if UNITY_EDITOR
-                    ,(rect, valueProp) => {valueProp.quaternionValue = UnityEngine. Quaternion.Euler(UnityEditor.EditorGUI.Vector3Field(rect, new UnityEngine.GUIContent(""), valueProp.quaternionValue.eulerAngles)); }
-#endif
-                    ) },
+                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.quaternionData.Value)) },
             { typeof(Rigidbody2DVariable),
                 new TypeActions( "rigidbody2DData", 
                     (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.rigidbody2DData.Value); },
@@ -282,11 +268,7 @@ namespace Fungus
                 new TypeActions( "vector4Data", 
                     (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.vector4Data.Value); },
                     (anyVar) => anyVar.data.vector4Data.GetDescription(),
-                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.vector4Data.Value)
-#if UNITY_EDITOR
-                    ,(rect, valueProp) => {valueProp.vector4Value = UnityEditor.EditorGUI.Vector4Field(rect, new UnityEngine.GUIContent(""), valueProp.vector4Value); }
-#endif
-                    ) },
+                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.vector4Data.Value)) },
         };
 
         public bool HasReference(Variable variable)

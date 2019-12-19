@@ -21,6 +21,7 @@ namespace Fungus
             Z, 
             W, 
             EulerAngles, 
+            Normalized, 
         }
 
 		
@@ -32,13 +33,15 @@ namespace Fungus
 
         [SerializeField]
         [VariableProperty(typeof(FloatVariable),
-                          typeof(Vector3Variable))]
+                          typeof(Vector3Variable),
+                          typeof(QuaternionVariable))]
         protected Variable inOutVar;
 
         public override void OnEnter()
         {
             var iof = inOutVar as FloatVariable;
             var iov = inOutVar as Vector3Variable;
+            var ioq = inOutVar as QuaternionVariable;
 
 
             var target = quaternionData.Value;
@@ -62,6 +65,9 @@ namespace Fungus
                             break;
                         case Property.EulerAngles:
                             iov.Value = target.eulerAngles;
+                            break;
+                        case Property.Normalized:
+                            ioq.Value = target.normalized;
                             break;
                         default:
                             Debug.Log("Unsupported get or set attempted");

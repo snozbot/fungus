@@ -7,7 +7,7 @@ namespace Fungus
     /// <summary>
     /// Vector4 variable type.
     /// </summary>
-    [VariableInfo("Other", "Vector4", HasCustomDraw = true)]
+    [VariableInfo("Other", "Vector4")]
     [AddComponentMenu("")]
 	[System.Serializable]
 	public class Vector4Variable : VariableBase<UnityEngine.Vector4>
