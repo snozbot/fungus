@@ -46,7 +46,7 @@ namespace Fungus
         {
             if (rigidbody2DRef == null)
             {
-                return rigidbody2DVal.ToString();
+                return rigidbody2DVal != null ? rigidbody2DVal.ToString() : string.Empty;
             }
             else
             {

@@ -28,9 +28,11 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            throw new FungusException(message.Value);
+            throw new FungusException(GetLocationIdentifier() + " " + message.Value);
 
+#pragma warning disable CS0162 // Unreachable code detected
             Continue();
+#pragma warning restore CS0162 // Unreachable code detected
         }
 
         public override string GetSummary()

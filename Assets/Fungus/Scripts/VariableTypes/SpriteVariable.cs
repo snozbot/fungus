@@ -50,7 +50,7 @@ namespace Fungus
         {
             if (spriteRef == null)
             {
-                return spriteVal.ToString();
+                return spriteVal != null ? spriteVal.ToString() : string.Empty;
             }
             else
             {

@@ -55,7 +55,7 @@ namespace Fungus
         {
             if (stringRef == null)
             {
-                return stringVal;
+                return stringVal != null ? stringVal : string.Empty;
             }
             else
             {
@@ -105,7 +105,7 @@ namespace Fungus
         {
             if (stringRef == null)
             {
-                return stringVal;
+                return stringVal != null ? stringVal : string.Empty;
             }
             else
             {

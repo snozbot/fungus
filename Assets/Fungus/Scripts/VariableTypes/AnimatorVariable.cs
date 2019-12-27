@@ -49,7 +49,7 @@ namespace Fungus
         {
             if (animatorRef == null)
             {
-                return animatorVal.ToString();
+                return animatorVal != null ? animatorVal.ToString() : string.Empty;
             }
             else
             {

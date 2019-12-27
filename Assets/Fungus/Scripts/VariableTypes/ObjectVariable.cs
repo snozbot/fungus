@@ -50,7 +50,7 @@ namespace Fungus
         {
             if (objectRef == null)
             {
-                return objectVal.ToString();
+                return objectVal != null ? objectVal.ToString() : string.Empty;
             }
             else
             {

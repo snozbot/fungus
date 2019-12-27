@@ -50,7 +50,7 @@ namespace Fungus
         {
             if (textureRef == null)
             {
-                return textureVal.ToString();
+                return textureVal != null ? textureVal.ToString() : string.Empty;
             }
             else
             {
