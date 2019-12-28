@@ -47,7 +47,7 @@ namespace Fungus
 		{
 			if (colliderRef == null)
 			{
-				return colliderVal.ToString();
+				return colliderVal != null ? colliderVal.ToString() : string.Empty;
 			}
 			else
 			{

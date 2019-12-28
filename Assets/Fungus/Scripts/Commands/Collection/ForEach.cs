@@ -21,7 +21,9 @@ namespace Fungus
         [VariableProperty(compatibleVariableName = "collection")]
         protected Variable item;
 
-        private int curIndex;
+        [SerializeField]
+        [Tooltip("Optional")]
+        protected IntegerData curIndex;
 
         #region Public members
 
@@ -32,14 +34,14 @@ namespace Fungus
             //if we came from the end then we are already looping, if not this is first loop so prep
             if (ParentBlock.PreviousActiveCommandIndex != endCommand.CommandIndex)
             {
-                curIndex = -1;
+                curIndex.Value = -1;
             }
         }
 
         protected override bool EvaluateCondition()
         {
             var col = collection.Value;
-            curIndex++;
+            curIndex.Value++;
             if (curIndex < col.Count)
             {
                 col.Get(curIndex, ref item);
@@ -71,6 +73,16 @@ namespace Fungus
                 return collection.Value == null ? false : collection.Value.IsElementCompatible(variable);
             else
                 return true;
+        }
+
+        public override string GetSummary()
+        {
+            if (item == null)
+                return "Error: No item var";
+            if (collection.Value == null)
+                return "Error: No collection";
+            
+            return  item.Key + " in " + collection.Value.name;
         }
 
         #endregion Public members
