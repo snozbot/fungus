@@ -52,7 +52,15 @@ namespace Fungus.Examples
             TMProLinkAnimLookup.AddHelper("ascend", new TMProLinkAnimEffects.AscendEffect()
             {
                 mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerCharacter,
-                totalStep = 10
+                totalStep = 10,
+            });
+            TMProLinkAnimLookup.AddHelper("pulse", new TMProLinkAnimEffects.PulseColorEffect()
+            {
+                mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerWord,
+                speed = 3,
+                size = 0.15f,
+                hueScale = 0,
+                saturationScale = 0,
             });
         }
     }

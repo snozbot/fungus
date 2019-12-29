@@ -327,6 +327,27 @@ namespace Fungus
                 return (Color32)col;
             }
         }   
+
+        public class PulseColorEffect : BaseEffect
+        {
+            public float speed = 1, size = 1, indexStep = 1, hueScale = 1, saturationScale = 1, valueScale = 1;
+
+            public override Color32 ColorFunc(int index, Color32 col)
+            {
+                return HSVPulse(index, indexStep, speed, size, col, hueScale, saturationScale, valueScale);
+            }
+
+            static public Color32 HSVPulse(int index, float indexStep, float speed, float size, Color32 startingColor, float hueScale, float saturationScale, float valueScale)
+            {
+                float t = Mathf.Sin(Time.time * speed + index * indexStep) * size;
+                Color.RGBToHSV(startingColor, out float h, out float s, out float v);
+
+                var col = Color.HSVToRGB(Mathf.PingPong(h + t * hueScale, 1),
+                                         Mathf.PingPong(s + t * saturationScale, 1),
+                                         Mathf.PingPong(v + t * valueScale, 1));
+                return (Color32)col;
+            }
+        }
     }
 }
 #endif
