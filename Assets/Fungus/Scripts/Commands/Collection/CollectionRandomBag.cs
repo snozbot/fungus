@@ -3,9 +3,9 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                       "RandomBag",
-                       "Use the collection as a source of random items and turn it into a random bag. " +
-                        "Drawing the next random item until out of items and then reshuffling them.")]
+                 "RandomBag",
+                     "Use the collection as a source of random items and turn it into a random bag. " +
+                         "Drawing the next random item until out of items and then reshuffling them.")]
     [AddComponentMenu("")]
     public class CollectionRandomBag : CollectionBaseVarCommand
     {
@@ -15,7 +15,7 @@ namespace Fungus
 
         [SerializeField]
         protected IntegerData currentIndex = new IntegerData(int.MaxValue);
-        
+
         protected bool isInit = false;
 
         protected override void OnEnterInner()
@@ -27,7 +27,7 @@ namespace Fungus
 
             currentIndex.Value++;
 
-            if(currentIndex.Value >= collection.Value.Count)
+            if (currentIndex.Value >= collection.Value.Count)
             {
                 Reshuffle();
             }
@@ -67,7 +67,7 @@ namespace Fungus
         {
             return base.GetSummary() +
                 (duplicatesToPutInBag.integerRef != null ? " " + duplicatesToPutInBag.integerRef.Key : "") +
-                (currentIndex.integerRef != null ? " " + currentIndex.integerRef.Key : ""); ;
+            (currentIndex.integerRef != null ? " " + currentIndex.integerRef.Key : ""); ;
         }
     }
 }

@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Unique",
-                    "Removes all duplicates.")]
+                 "Unique",
+                     "Removes all duplicates.")]
     [AddComponentMenu("")]
     public class CollectionCommandUnique : CollectionBaseCommand
     {

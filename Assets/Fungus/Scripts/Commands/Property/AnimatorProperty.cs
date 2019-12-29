@@ -7,8 +7,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a Animator component
     /// </summary>
-    [CommandInfo("Animator",
-                 "Property",
+    [CommandInfo("Property", 
+                 "Animator",
                  "Get or Set a property of a Animator component")]
     [AddComponentMenu("")]
     public class AnimatorProperty : BaseVariableProperty

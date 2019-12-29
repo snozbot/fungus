@@ -18,18 +18,6 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            if (ParentBlock == null)
-            {
-                return;
-            }
-
-            // Stop if this is the last command in the list
-            if (CommandIndex >= ParentBlock.CommandList.Count - 1)
-            {
-                StopParentBlock();
-                return;
-            }
-
             // Find the next End command at the same indent level as this Else command
             var matchingEnd = Condition.FindMatchingEndCommand(this);
             if (matchingEnd != null)

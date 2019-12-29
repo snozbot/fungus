@@ -15,12 +15,11 @@ namespace Fungus
     [AddComponentMenu("")]
     public class SetVariable : Command, ISerializationCallbackReceiver
     {
-        [SerializeField] protected AnyVaraibleAndDataPair anyVar = new AnyVaraibleAndDataPair();
+        [SerializeField] protected AnyVariableAndDataPair anyVar = new AnyVariableAndDataPair();
         
         [Tooltip("The type of math operation to be performed")]
         [SerializeField] protected SetOperator setOperator;
-
-       
+               
         protected virtual void DoSetOperation()
         {
             if (anyVar.variable == null)
@@ -53,31 +52,7 @@ namespace Fungus
             }
 
             string description = anyVar.variable.Key;
-
-            switch (setOperator)
-            {
-            default:
-            case SetOperator.Assign:
-                description += " = ";
-                break;
-            case SetOperator.Negate:
-                description += " =! ";
-                break;
-            case SetOperator.Add:
-                description += " += ";
-                break;
-            case SetOperator.Subtract:
-                description += " -= ";
-                break;
-            case SetOperator.Multiply:
-                description += " *= ";
-                break;
-            case SetOperator.Divide:
-                description += " /= ";
-                break;
-            }
-
-
+            description += " " + VariableUtil.GetSetOperatorDescription(setOperator) + " ";
             description += anyVar.GetDataDescription();
 
 
@@ -151,7 +126,7 @@ namespace Fungus
         [Tooltip("Vector3 value to compare against")]
         [SerializeField] protected Vector3Data vector3Data;
 
-        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        public void OnBeforeSerialize()
         {
         }
 
@@ -248,6 +223,7 @@ namespace Fungus
                 vector3Data = new Vector3Data();
             }
 
+            //now converted to new AnyVar storage, remove the legacy.
             variable = null;
         }
         #endregion

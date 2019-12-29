@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Remove At",
-                    "Remove item at given index")]
+                 "Remove At",
+                     "Remove item at given index")]
     [AddComponentMenu("")]
     public class CollectionCommandRemoveAt : CollectionBaseIntCommand
     {

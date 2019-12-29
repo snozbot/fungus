@@ -1,13 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEngine;
+﻿using NUnit.Framework;
+using System.Collections;
 using UnityEngine.TestTools;
-
-/**
- * Set and compare variable types
- */
-
 
 namespace Fungus.Tests
 {

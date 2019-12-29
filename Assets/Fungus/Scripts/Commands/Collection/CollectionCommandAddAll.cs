@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Add All",
-                    "Add all items in given rhs collection to target collection")]
+                 "Add All",
+                     "Add all items in given rhs collection to target collection")]
     [AddComponentMenu("")]
     public class CollectionCommandAddAll : CollectionBaseTwoCollectionCommand
     {

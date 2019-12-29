@@ -37,27 +37,30 @@ namespace Fungus.EditorUtils
             // Select Variable
             EditorGUILayout.PropertyField(anyVarProp, true);
 
+            //fetching every draw to ensure we don't have stale data based on types that have changed by user selection,
+            //  without us noticing.
+
             // Get selected variable
             Variable selectedVariable = anyVarProp.FindPropertyRelative("variable").objectReferenceValue as Variable;
             List<GUIContent> operatorsList = new List<GUIContent>();
             if (selectedVariable != null)
             {
                 if(selectedVariable.IsArithmeticSupported(SetOperator.Assign))
-                    operatorsList.Add(new GUIContent("="));
+                    operatorsList.Add(new GUIContent(VariableUtil.GetSetOperatorDescription(SetOperator.Assign)));
                 if (selectedVariable.IsArithmeticSupported(SetOperator.Negate))
-                    operatorsList.Add(new GUIContent("=!"));
+                    operatorsList.Add(new GUIContent(VariableUtil.GetSetOperatorDescription(SetOperator.Negate)));
                 if (selectedVariable.IsArithmeticSupported(SetOperator.Add))
-                    operatorsList.Add(new GUIContent("+="));
+                    operatorsList.Add(new GUIContent(VariableUtil.GetSetOperatorDescription(SetOperator.Add)));
                 if (selectedVariable.IsArithmeticSupported(SetOperator.Subtract))
-                    operatorsList.Add(new GUIContent("-="));
+                    operatorsList.Add(new GUIContent(VariableUtil.GetSetOperatorDescription(SetOperator.Subtract)));
                 if (selectedVariable.IsArithmeticSupported(SetOperator.Multiply))
-                    operatorsList.Add(new GUIContent("*="));
+                    operatorsList.Add(new GUIContent(VariableUtil.GetSetOperatorDescription(SetOperator.Multiply)));
                 if (selectedVariable.IsArithmeticSupported(SetOperator.Divide))
-                    operatorsList.Add(new GUIContent("\\="));
+                    operatorsList.Add(new GUIContent(VariableUtil.GetSetOperatorDescription(SetOperator.Divide)));
             }
             else
             {
-                operatorsList = VariableConditionEditor.emptyList;
+                operatorsList.Add(VariableConditionEditor.None);
             }
 
             // Get previously selected operator

@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Reverse",
-                    "Reverse the current order of a target collection")]
+                 "Reverse",
+                     "Reverse the current order of a target collection")]
     [AddComponentMenu("")]
     public class CollectionCommandReverse : CollectionBaseCommand
     {

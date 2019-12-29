@@ -3,11 +3,11 @@
 namespace Fungus
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [CommandInfo("Physics",
-                    "Overlap",
-                    "Find all gameobjects hit by given physics shape overlap")]
+                 "Overlap",
+                     "Find all gameobjects hit by given physics shape overlap")]
     [AddComponentMenu("")]
     public class PhysicsOverlap : CollectionBaseCommand
     {
@@ -73,7 +73,7 @@ namespace Fungus
                         break;
 
                     default:
-                        break;
+                    break;
                 }
 
                 PutCollidersIntoGameObjectCollection(resColliders);

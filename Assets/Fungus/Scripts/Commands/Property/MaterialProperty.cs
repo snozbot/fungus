@@ -7,8 +7,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a Material component
     /// </summary>
-    [CommandInfo("Material",
-                 "Property",
+    [CommandInfo("Property",
+                 "Material",
                  "Get or Set a property of a Material component")]
     [AddComponentMenu("")]
     public class MaterialProperty : BaseVariableProperty

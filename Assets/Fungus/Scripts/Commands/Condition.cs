@@ -22,43 +22,29 @@ namespace Fungus
                 return;
             }
 
-            //if looping we need the end to function at all
+            //if looping we need the end command in order to work
             if(IsLooping && !EnsureRequiredEnd())
             {
-                Debug.LogWarning(GetLocationIdentifier() + " is looping but has no matching End command");
+                Debug.LogError(GetLocationIdentifier() + " is looping but has no matching End command");
                 Continue();
                 return;
             }
 
             if ( !HasNeededProperties() )
             {
-                Debug.LogWarning(GetLocationIdentifier() + " cannot run due to missing required properties");
+                Debug.LogError(GetLocationIdentifier() + " cannot run due to missing required properties");
                 Continue();
                 return;
             }
 
             //Ensuring we arrived at this elif honestly, not incorrectly due to fall through from a previous command
-            if ( this.IsElseIf )
+            if (this.IsElseIf && !DoesPassElifSanityCheck())
             {
-                System.Type previousCommandType = ParentBlock.GetPreviousActiveCommandType();
-                var prevCmdIndent = ParentBlock.GetPreviousActiveCommandIndent();
-                var prevCmd = ParentBlock.GetPreviousActiveCommand();
-
-                //handle our matching if or else if in the chain failing and moving to us,
-                //  need to make sure it is the same indent level
-                if (prevCmd == null ||
-                    prevCmdIndent != IndentLevel ||
-                    !previousCommandType.IsSubclassOf(typeof(Condition)) ||
-                    (prevCmd as Condition).IsLooping)
-                {
-                    //elif is being asked to run but didn't come from a previously failing if or elif, this isn't allowed
-                    MoveToEnd();
-                    return;
-                }
-
-                //otherwise elif acts just like any other Condition command
+                //elif is being asked to run but didn't come from a previously failing if or elif, this isn't allowed
+                MoveToEnd();
+                return;
             }
-            
+
             EvaluateAndContinue();
         }
 
@@ -89,12 +75,15 @@ namespace Fungus
             if (endCommand != null)
             {
                 // Continue at next command after End
-                //but make the end non looping incase it gets run via index etc.
+                // and make the end non looping incase it gets run via index etc.
                 endCommand.Loop = false;
                 Continue(endCommand.CommandIndex + 1);
             }
             else
             {
+                //nowhere to go, so we assume the block wants to stop but is missing and end, this
+                //  is also ensures back compat
+                Debug.LogWarning("Condition wants to move to end but no End command found, stopping block. " + GetLocationIdentifier());
                 StopParentBlock();
             }
         }
@@ -113,6 +102,9 @@ namespace Fungus
         /// <returns>Mathcing End Command or null if not found</returns>
         public static End FindMatchingEndCommand(Command startCommand)
         {
+            if (startCommand.ParentBlock == null)
+                return null;
+
             int indent = startCommand.IndentLevel;
             for (int i = startCommand.CommandIndex + 1; i < startCommand.ParentBlock.CommandList.Count; ++i)
             {
@@ -128,7 +120,7 @@ namespace Fungus
                 else if (command.IndentLevel < indent)
                 {
                     //managed to be less indent than the inner but not find and end, this shouldn't occur
-                    // but makes sense for completeness here
+                    // but may be user error or bad data, makes sense for completeness here
                     return null;
                 }
             }
@@ -195,6 +187,13 @@ namespace Fungus
         /// </summary>
         protected virtual void OnFalse()
         {
+            //looping constructs only care about the end
+            if(IsLooping)
+            {
+                MoveToEnd();
+                return;
+            }
+
             // Find the next Else, ElseIf or End command at the same indent level as this If command
             for (int i = CommandIndex + 1; i < ParentBlock.CommandList.Count; ++i)
             {
@@ -262,5 +261,28 @@ namespace Fungus
         /// Called before EvaluateCondition, allowing for child classes to gather required data
         /// </summary>
         protected virtual void PreEvaluate() { }
+
+        /// <summary>
+        /// Ensure that this condition didn't come from a non matching if/elif.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual bool DoesPassElifSanityCheck()
+        {
+            System.Type previousCommandType = ParentBlock.GetPreviousActiveCommandType();
+            var prevCmdIndent = ParentBlock.GetPreviousActiveCommandIndent();
+            var prevCmd = ParentBlock.GetPreviousActiveCommand();
+
+            //handle our matching if or else if in the chain failing and moving to us,
+            //  need to make sure it is the same indent level
+            if (prevCmd == null ||
+                prevCmdIndent != IndentLevel ||
+                !previousCommandType.IsSubclassOf(typeof(Condition)) ||
+                (prevCmd as Condition).IsLooping)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

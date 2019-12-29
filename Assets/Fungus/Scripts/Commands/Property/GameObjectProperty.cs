@@ -7,8 +7,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a GameObject component
     /// </summary>
-    [CommandInfo("GameObject",
-                 "Property",
+    [CommandInfo("Property",
+                 "GameObject",
                  "Get or Set a property of a GameObject component")]
     [AddComponentMenu("")]
     public class GameObjectProperty : BaseVariableProperty

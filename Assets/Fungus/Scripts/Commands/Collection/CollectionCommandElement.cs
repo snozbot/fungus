@@ -3,8 +3,8 @@ using UnityEngine;
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Element",
-                    "Get or Set, an element in a collection")]
+                 "Element",
+                     "Get or Set, an element in a collection")]
     [AddComponentMenu("")]
     public class CollectionCommandElement : CollectionBaseVarCommand
     {

@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Reserve",
-                    "Reserve space for given number of items in the collection")]
+                 "Reserve",
+                     "Reserve space for given number of items in the collection")]
     [AddComponentMenu("")]
     public class CollectionCommandReserve : CollectionBaseIntCommand
     {

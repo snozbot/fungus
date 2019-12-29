@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Contains",
-                    "Does the collection contain the given variable")]
+                 "Contains",
+                     "Does the collection contain the given variable")]
     [AddComponentMenu("")]
     public class CollectionCommandContains : CollectionBaseVarCommand
     {

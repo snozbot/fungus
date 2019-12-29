@@ -67,7 +67,7 @@ namespace Fungus
                 base.HasReference(variable);
         }
 
-        bool ICollectionCompatible.IsCompatible(Variable variable, string compatibleWith)
+        bool ICollectionCompatible.IsVarCompatibleWithCollection(Variable variable, string compatibleWith)
         {
             if (compatibleWith == "collection")
                 return collection.Value == null ? false : collection.Value.IsElementCompatible(variable);
@@ -81,8 +81,8 @@ namespace Fungus
                 return "Error: No item var";
             if (collection.Value == null)
                 return "Error: No collection";
-            
-            return  item.Key + " in " + collection.Value.name;
+
+            return item.Key + " in " + collection.Value.name;
         }
 
         #endregion Public members

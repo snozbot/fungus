@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Contains Any Of",
-                    "Does target collection, contain any of the items in the rhs collection items")]
+                 "Contains Any Of",
+                     "Does target collection, contain any of the items in the rhs collection items")]
     [AddComponentMenu("")]
     public class CollectionCommandContainsAny : CollectionBaseTwoCollectionCommand
     {

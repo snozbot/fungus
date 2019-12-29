@@ -7,8 +7,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a Matrix4x4 component
     /// </summary>
-    [CommandInfo("Matrix4x4",
-                 "Property",
+    [CommandInfo("Property",
+                 "Matrix4x4",
                  "Get or Set a property of a Matrix4x4 component")]
     [AddComponentMenu("")]
     public class Matrix4x4Property : BaseVariableProperty

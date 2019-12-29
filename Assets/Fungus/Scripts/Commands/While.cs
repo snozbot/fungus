@@ -18,11 +18,6 @@ namespace Fungus
 
         public override bool IsLooping { get { return true; } }
 
-        protected override void OnFalse()
-        {
-            MoveToEnd();
-        }
-
         #endregion
     }    
 }

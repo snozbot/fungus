@@ -7,8 +7,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a Quaternion component
     /// </summary>
-    [CommandInfo("Quaternion",
-                 "Property",
+    [CommandInfo("Property",
+                 "Quaternion",
                  "Get or Set a property of a Quaternion component")]
     [AddComponentMenu("")]
     public class QuaternionProperty : BaseVariableProperty

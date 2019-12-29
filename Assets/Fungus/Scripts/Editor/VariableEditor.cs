@@ -159,7 +159,7 @@ namespace Fungus.EditorUtils
                     var compatChecker = property.serializedObject.targetObject as ICollectionCompatible;
                     if (compatChecker != null)
                     {
-                        return compatChecker.IsCompatible(v, variableProperty.compatibleVariableName);
+                        return compatChecker.IsVarCompatibleWithCollection(v, variableProperty.compatibleVariableName);
                     }
                     else
                     {

@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Shuffle",
-                    "Randomly reorders all elements of a target collection")]
+                 "Shuffle",
+                     "Randomly reorders all elements of a target collection")]
     [AddComponentMenu("")]
     public class CollectionCommandShuffle : CollectionBaseCommand
     {

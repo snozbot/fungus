@@ -332,8 +332,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a {0} component
     /// </summary>
-    [CommandInfo(""{0}"",
-                 ""Property"",
+    [CommandInfo(""Property"",
+                 ""{0}"",
                  ""Get or Set a property of a {0} component"")]
     [AddComponentMenu("""")]
     public class {0}Property : BaseVariableProperty
@@ -415,8 +415,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a {0} component
     /// </summary>
-    [CommandInfo(""{0}"",
-                 ""Property"",
+    [CommandInfo(""Property"",
+                 ""{0}"",
                  ""Get or Set a property of a {0} component"")]
     [AddComponentMenu("""")]
     public class {0}Property : BaseVariableProperty

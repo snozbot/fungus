@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Remove All Of",
-                    "Remove all items in given rhs collection to target collection")]
+                 "Remove All Of",
+                     "Remove all items in given rhs collection to target collection")]
     [AddComponentMenu("")]
     public class CollectionCommandRemoveAllOf : CollectionBaseTwoCollectionCommand
     {

@@ -3,11 +3,11 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Find",
-                    "Find an item in a collection")]
+                 "Find",
+                     "Find an item in a collection")]
     [CommandInfo("Collection",
-                    "IndexOf",
-                    "Find an item in a collection")]
+                 "IndexOf",
+                     "Find an item in a collection")]
     [AddComponentMenu("")]
     public class CollectionCommandFind : CollectionBaseVarAndIntCommand
     {

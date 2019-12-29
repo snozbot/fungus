@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEditor;
-using System.Linq;
 
 namespace Fungus.EditorUtils
 {
@@ -10,8 +7,8 @@ namespace Fungus.EditorUtils
     /// Custom drawer for the AnyVaraibleAndDataPair, shows only the matching data for the targeted variable
     /// scripts.
     /// </summary>
-    [CustomPropertyDrawer(typeof(Fungus.AnyVaraibleAndDataPair))]
-    public class AnyVaraibleAndDataPairDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(Fungus.AnyVariableAndDataPair))]
+    public class AnyVariableAndDataPairDrawer : PropertyDrawer
     {
         public Fungus.Flowchart lastFlowchart;
 
@@ -25,11 +22,11 @@ namespace Fungus.EditorUtils
 
             position.y += EditorGUIUtility.singleLineHeight;
 
-            if(varProp.objectReferenceValue != null)
+            if (varProp.objectReferenceValue != null)
             {
                 var varPropType = varProp.objectReferenceValue.GetType();
 
-                var typeActionsRes = AnyVaraibleAndDataPair.typeActionLookup[varPropType];
+                var typeActionsRes = AnyVariableAndDataPair.typeActionLookup[varPropType];
 
                 if (typeActionsRes != null)
                 {

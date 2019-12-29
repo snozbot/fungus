@@ -40,7 +40,7 @@ namespace Fungus
             return variableToUse.Key + " to " + collection.Value.name;
         }
 
-        bool ICollectionCompatible.IsCompatible(Variable variable, string compatibleWith)
+        bool ICollectionCompatible.IsVarCompatibleWithCollection(Variable variable, string compatibleWith)
         {
             if (compatibleWith == "collection")
                 return collection.Value == null ? false : collection.Value.IsElementCompatible(variable);

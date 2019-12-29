@@ -10,25 +10,27 @@ namespace Fungus.EditorUtils
     [CustomEditor (typeof(VariableCondition), true)]
     public class VariableConditionEditor : CommandEditor
     {
-        public static readonly List<GUIContent> emptyList = new List<GUIContent>()
+        public static readonly GUIContent None = new GUIContent("<None>");
+
+        public static readonly GUIContent[] emptyList = new GUIContent[]
         {
-            new GUIContent("<None>"),
+            None,
         };
 
-        static readonly List<GUIContent> compareListAll = new List<GUIContent>()
+        static readonly GUIContent[] compareListAll = new GUIContent[]
         {
-            new GUIContent("=="),
-            new GUIContent("!="),
-            new GUIContent("<"),
-            new GUIContent(">"),
-            new GUIContent("<="),
-            new GUIContent(">="),
+            new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.Equals)),
+            new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.NotEquals)),
+            new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.LessThan)),
+            new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.GreaterThan)),
+            new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.LessThanOrEquals)),
+            new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.GreaterThanOrEquals)),
         };
 
-        static readonly List<GUIContent> compareListEqualOnly = new List<GUIContent>()
+        static readonly GUIContent[] compareListEqualOnly = new GUIContent[]
         {
-            new GUIContent("=="),
-            new GUIContent("!="),
+            new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.Equals)),
+            new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.NotEquals)),
         };
 
         protected SerializedProperty compareOperatorProp;
@@ -60,14 +62,14 @@ namespace Fungus.EditorUtils
 
             // Get selected variable
             Variable selectedVariable = anyVarProp.FindPropertyRelative("variable").objectReferenceValue as Variable;
-            List<GUIContent> operatorsList = emptyList;
+            GUIContent[] operatorsList = emptyList;
             if (selectedVariable != null)
             {
                 operatorsList = selectedVariable.IsComparisonSupported() ? compareListAll : compareListEqualOnly;
             }
             
             // Get previously selected operator
-            int selectedIndex = (int)t._CompareOperator;
+            int selectedIndex = (int)t.CompareOperator;
             if (selectedIndex < 0)
             {
                 // Default to first index if the operator is not found in the available operators list
@@ -78,7 +80,7 @@ namespace Fungus.EditorUtils
             selectedIndex = EditorGUILayout.Popup(
                 new GUIContent("Compare", "The comparison operator to use when comparing values"),
                 selectedIndex,
-                operatorsList.ToArray());
+                operatorsList);
 
             if (selectedVariable != null)
             {

@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Clear",
-                    "Clears a target collection")]
+                 "Clear",
+                     "Clears a target collection")]
     [AddComponentMenu("")]
     public class CollectionCommandClear : CollectionBaseCommand
     {

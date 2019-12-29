@@ -3,8 +3,8 @@ using UnityEngine;
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Occurrences",
-                    "How many occurrences of a given variable exist in a target collection")]
+                 "Occurrences",
+                     "How many occurrences of a given variable exist in a target collection")]
     [AddComponentMenu("")]
     public class CollectionCommandOccurrences : CollectionBaseVarAndIntCommand
     {

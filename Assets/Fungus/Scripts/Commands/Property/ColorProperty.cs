@@ -7,8 +7,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a Color component
     /// </summary>
-    [CommandInfo("Color",
-                 "Property",
+    [CommandInfo("Property",
+                 "Color",
                  "Get or Set a property of a Color component")]
     [AddComponentMenu("")]
     public class ColorProperty : BaseVariableProperty

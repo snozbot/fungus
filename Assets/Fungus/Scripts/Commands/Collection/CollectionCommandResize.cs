@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Resize",
-                    "Resize will grow the collection to be the given size, will not remove items to shrink")]
+                 "Resize",
+                     "Resize will grow the collection to be the given size, will not remove items to shrink")]
     [AddComponentMenu("")]
     public class CollectionCommandResize : CollectionBaseIntCommand
     {

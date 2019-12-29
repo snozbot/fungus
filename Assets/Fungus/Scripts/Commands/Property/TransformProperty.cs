@@ -7,8 +7,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a Transform component
     /// </summary>
-    [CommandInfo("Transform",
-                 "Property",
+    [CommandInfo("Property",
+                 "Transform",
                  "Get or Set a property of a Transform component")]
     [AddComponentMenu("")]
     public class TransformProperty : BaseVariableProperty

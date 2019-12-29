@@ -2,12 +2,9 @@
 
 namespace Fungus
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [CommandInfo("Physics2D",
-                    "Cast2D",
-                    "Find all gameobjects hit by given physics shape overlap")]
+                 "Cast2D",
+                     "Find all gameobjects hit by given physics shape overlap")]
     [AddComponentMenu("")]
     public class Physics2DCast : CollectionBaseCommand
     {
@@ -94,7 +91,7 @@ namespace Fungus
                         break;
 
                     default:
-                        break;
+                    break;
                 }
 
                 PutCollidersIntoGameObjectCollection(resHits);

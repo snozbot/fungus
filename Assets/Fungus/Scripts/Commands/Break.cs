@@ -16,6 +16,7 @@ namespace Fungus
     {
         #region Public members
 
+        //located the containing loop and tell it to end
         public override void OnEnter()
         {
             Condition loopingCond = null;
@@ -33,7 +34,7 @@ namespace Fungus
             if (loopingCond == null)
             {
                 // No enclosing loop command found, just continue
-                Debug.LogWarning("Break called but found no enclosing looping construct.");
+                Debug.LogError("Break called but found no enclosing looping construct." + GetLocationIdentifier());
                 Continue();
             }
             else

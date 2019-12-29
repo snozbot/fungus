@@ -7,8 +7,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a Collision2D component
     /// </summary>
-    [CommandInfo("Collision2D",
-                 "Property",
+    [CommandInfo("Property",
+                 "Collision2D",
                  "Get or Set a property of a Collision2D component")]
     [AddComponentMenu("")]
     public class Collision2DProperty : BaseVariableProperty

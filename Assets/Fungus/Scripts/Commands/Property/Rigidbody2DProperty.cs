@@ -7,8 +7,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a Rigidbody2D component
     /// </summary>
-    [CommandInfo("Rigidbody2D",
-                 "Property",
+    [CommandInfo("Property",
+                 "Rigidbody2D",
                  "Get or Set a property of a Rigidbody2D component")]
     [AddComponentMenu("")]
     public class Rigidbody2DProperty : BaseVariableProperty

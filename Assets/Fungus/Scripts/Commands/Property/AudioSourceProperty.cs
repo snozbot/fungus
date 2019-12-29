@@ -7,8 +7,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a AudioSource component
     /// </summary>
-    [CommandInfo("AudioSource",
-                 "Property",
+    [CommandInfo("Property",
+                 "AudioSource",
                  "Get or Set a property of a AudioSource component")]
     [AddComponentMenu("")]
     public class AudioSourceProperty : BaseVariableProperty

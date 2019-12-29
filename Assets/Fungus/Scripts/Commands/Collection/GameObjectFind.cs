@@ -2,12 +2,9 @@
 
 namespace Fungus
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [CommandInfo("GameObject",
-                    "FindAll",
-                    "Find all gameobjects by tag and store in a collection")]
+                 "FindAll",
+                     "Find all gameobjects by tag and store in a collection")]
     [AddComponentMenu("")]
     public class GameObjectFind : CollectionBaseCommand
     {

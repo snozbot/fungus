@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Fungus
 {
@@ -69,10 +67,10 @@ namespace Fungus
         public override string GetSummary()
         {
             return (screenPosition != null ? screenPosition.Key + " " : "") +
-                   (castCamera != null ? castCamera.name + " " : "MainCam") +
-                   (viewPosition != null ? viewPosition.Key + " " : "") +
-                   (worldPosition != null ? worldPosition.Key + " " : "") +
-                   (worldDirection != null ? worldDirection.Key + " " : "");
+                    (castCamera != null ? castCamera.name + " " : "MainCam") +
+                    (viewPosition != null ? viewPosition.Key + " " : "") +
+                    (worldPosition != null ? worldPosition.Key + " " : "") +
+                    (worldDirection != null ? worldDirection.Key + " " : "");
         }
 
         public override Color GetButtonColor()

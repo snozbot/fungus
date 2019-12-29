@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Add",
-                    "Add an item to a collection")]
+                 "Add",
+                     "Add an item to a collection")]
     [AddComponentMenu("")]
     public class CollectionCommandAdd : CollectionBaseVarCommand
     {

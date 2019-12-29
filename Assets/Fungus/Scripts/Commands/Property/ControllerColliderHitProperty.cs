@@ -7,8 +7,8 @@ namespace Fungus
     // <summary>
     /// Get or Set a property of a ControllerColliderHit component
     /// </summary>
-    [CommandInfo("ControllerColliderHit",
-                 "Property",
+    [CommandInfo("Property",
+                 "ControllerColliderHit",
                  "Get or Set a property of a ControllerColliderHit component")]
     [AddComponentMenu("")]
     public class ControllerColliderHitProperty : BaseVariableProperty

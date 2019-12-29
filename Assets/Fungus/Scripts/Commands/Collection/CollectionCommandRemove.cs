@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Remove",
-                    "Remove an item to a collection")]
+                 "Remove",
+                     "Remove an item to a collection")]
     [AddComponentMenu("")]
     public class CollectionCommandRemove : CollectionBaseVarCommand
     {

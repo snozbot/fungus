@@ -3,8 +3,8 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Sort",
-                    "Sort a target collection")]
+                 "Sort",
+                     "Sort a target collection")]
     [AddComponentMenu("")]
     public class CollectionCommandSort : CollectionBaseCommand
     {

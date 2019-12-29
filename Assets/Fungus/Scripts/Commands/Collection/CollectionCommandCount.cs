@@ -3,11 +3,11 @@
 namespace Fungus
 {
     [CommandInfo("Collection",
-                    "Count",
-                    "Number of items in the collection")]
+                 "Count",
+                     "Number of items in the collection")]
     [CommandInfo("Collection",
-                    "Length",
-                    "Number of items in the collection")]
+                 "Length",
+                     "Number of items in the collection")]
     [AddComponentMenu("")]
     public class CollectionCommandCount : CollectionBaseIntCommand
     {

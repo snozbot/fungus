@@ -11,35 +11,7 @@ namespace Fungus
         [Tooltip("The type of comparison to be performed")]
         [SerializeField] protected CompareOperator compareOperator;
 
-        public static string GetOperatorDescription(CompareOperator compareOperator)
-        {
-            string summary = "";
-            switch (compareOperator)
-            {
-            case CompareOperator.Equals:
-                summary += "==";
-                break;
-            case CompareOperator.NotEquals:
-                summary += "!=";
-                break;
-            case CompareOperator.LessThan:
-                summary += "<";
-                break;
-            case CompareOperator.GreaterThan:
-                summary += ">";
-                break;
-            case CompareOperator.LessThanOrEquals:
-                summary += "<=";
-                break;
-            case CompareOperator.GreaterThanOrEquals:
-                summary += ">=";
-                break;
-            }
-
-            return summary;
-        }
-
-        [SerializeField] protected AnyVaraibleAndDataPair anyVar = new AnyVaraibleAndDataPair();
+        [SerializeField] protected AnyVariableAndDataPair anyVar = new AnyVariableAndDataPair();
 
         protected override bool EvaluateCondition()
         {
@@ -64,7 +36,7 @@ namespace Fungus
         /// <summary>
         /// The type of comparison operation to be performed.
         /// </summary>
-        public virtual CompareOperator _CompareOperator { get { return compareOperator; } }
+        public virtual CompareOperator CompareOperator { get { return compareOperator; } }
 
         public override string GetSummary()
         {
@@ -74,7 +46,7 @@ namespace Fungus
             }
 
             string summary = anyVar.variable.Key + " ";
-            summary += GetOperatorDescription(compareOperator) + " ";
+            summary += VariableUtil.GetCompareOperatorDescription(compareOperator) + " ";
             summary += anyVar.GetDataDescription();
 
             return summary;
@@ -239,6 +211,7 @@ namespace Fungus
                 vector3Data = new Vector3Data();
             }
 
+            //moved to new anyvar storage, clear legacy.
             variable = null;
         }
         #endregion

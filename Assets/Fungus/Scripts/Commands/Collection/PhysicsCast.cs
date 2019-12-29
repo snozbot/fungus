@@ -2,12 +2,9 @@
 
 namespace Fungus
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [CommandInfo("Physics",
-                    "Cast",
-                    "Find all gameobjects hit by given physics shape cast")]
+                 "Cast",
+                     "Find all gameobjects hit by given physics shape cast")]
     [AddComponentMenu("")]
     public class PhysicsCast : CollectionBaseCommand
     {
@@ -85,7 +82,7 @@ namespace Fungus
                         break;
 
                     default:
-                        break;
+                    break;
                 }
 
                 PutCollidersIntoGameObjectCollection(resHits);
