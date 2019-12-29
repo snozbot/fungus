@@ -7,7 +7,7 @@ namespace Fungus
     /// <summary>
     /// Copy the value of the Priority Count to a local IntegerVariable, intended primarily to assist with debugging use of Priority.
     /// </summary>
-    [CommandInfo("Priority Signals",
+    [CommandInfo("PrioritySignals",
                  "Get Priority Count",
                  "Copy the value of the Priority Count to a local IntegerVariable, intended primarily to assist with debugging use of Priority.")]
     public class FungusPriorityCount : Command
