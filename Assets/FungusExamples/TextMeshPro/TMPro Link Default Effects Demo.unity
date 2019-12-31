@@ -435,21 +435,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<link="shake">shake, shake, shake, sure</link>
-
-    <link="wiggle">wiggle, wiggle, wiggle, yeah</link>
-
-    <link="wave">wave, wave, wave, alright</link>
-
-    <link="pivot">pivot, pivot, pivot, OK</link>
-
-    <link="rainbow">rainbow!</link>
-
-    <link="ascend">going up</link>
-
-    <link="pulse"><color=#bbee22>Glowing</color></link>
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -518,13 +504,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 789770957}
-    characterCount: 131
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 20
-    wordCount: 20
-    linkCount: 7
-    lineCount: 7
-    pageCount: 1
+    spaceCount: 0
+    wordCount: 0
+    linkCount: 0
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -562,12 +548,11 @@ GameObject:
   - component: {fileID: 841670905}
   - component: {fileID: 841670904}
   - component: {fileID: 841670903}
-  - component: {fileID: 841670902}
-  - component: {fileID: 841670908}
   - component: {fileID: 841670909}
+  - component: {fileID: 841670908}
+  - component: {fileID: 841670902}
   - component: {fileID: 841670910}
   - component: {fileID: 841670911}
-  - component: {fileID: 841670912}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -584,30 +569,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 841670901}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 78c0367bf08d147bd80b5454de50e9d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 2
+  itemId: 5
   indentLevel: 0
-  storyText: '{link="wave"}pivot, pivot, pivot, OK{/link} Lorem ipsum dolor sit amet,
-    consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-    in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-    id est laborum.'
+  targetTextObject: {fileID: 789770954}
+  text:
+    stringRef: {fileID: 841670908}
+    stringVal: 
   description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
+  _textObjectObsolete: {fileID: 0}
 --- !u!114 &841670903
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -653,7 +625,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 230
-    y: 42
+    y: 41
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -663,13 +635,11 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 841670904}
   commandList:
-  - {fileID: 841670903}
-  - {fileID: 841670909}
-  - {fileID: 841670912}
-  - {fileID: 841670910}
-  - {fileID: 841670911}
   - {fileID: 841670902}
-  - {fileID: 841670908}
+  - {fileID: 841670903}
+  - {fileID: 841670910}
+  - {fileID: 841670909}
+  - {fileID: 841670911}
   suppressAllAutoSelections: 0
 --- !u!114 &841670906
 MonoBehaviour:
@@ -687,7 +657,7 @@ MonoBehaviour:
   scrollPos: {x: 37, y: 49}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 400
+  blockViewHeight: 619
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -695,9 +665,12 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
-  selectedBlocks: []
-  selectedCommands: []
-  variables: []
+  selectedBlocks:
+  - {fileID: 841670905}
+  selectedCommands:
+  - {fileID: 841670910}
+  variables:
+  - {fileID: 841670908}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -731,24 +704,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 841670901}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 4580f28dd8581476b810b38eea2f1316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 3
-  indentLevel: 0
-  storyText: "{link=\"shake\"}shake, shake, \r\nshake, sure{/link}"
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
+  scope: 0
+  key: anim_text
+  value: <link="jitter">jitter</link>, <link="angry">angry</link>, <link="spooky">spooky</link>,
+    <link="wave">wavey wavey wave</link>, <link="swing">swing</link>, <link="bounce">bounce</link>,
+    <link="excited">excited</link>, <link="unknowable">unknowable</link>,  <link="glow"><color=#bbee22>glow</color></link>
 --- !u!114 &841670909
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -763,17 +726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 4
   indentLevel: 0
-  storyText: '<link="shake">shake, shake, shake, sure</link>
-
-    <link="wiggle">wiggle, wiggle, wiggle, yeah</link>
-
-    <link="wave">wave, wave, wave, alright</link>
-
-    <link="pivot">pivot, pivot, pivot, OK</link>
-
-    <link="rainbow">rainbow!</link>
-
-'
+  storyText: I am <link="angry">very</link> off put by this odor.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -798,14 +751,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 5
+  itemId: 6
   indentLevel: 0
-  storyText: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-    culpa qui officia deserunt mollit anim id est laborum.
+  storyText: '{$anim_text}'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -830,41 +778,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 6
-  indentLevel: 0
-  storyText: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-    culpa qui officia deserunt mollit anim id est laborum.
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
---- !u!114 &841670912
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 841670901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   itemId: 7
   indentLevel: 0
-  storyText: test{link="shake"}shake{/link}test{link="wiggle"}wiggle{/link}
+  storyText: <link="excited">This is my <i>favorite</i> song.</link>
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -877,49 +793,6 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
---- !u!1 &1062361822
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1062361824}
-  - component: {fileID: 1062361823}
-  m_Layer: 0
-  m_Name: AddTMProLinkEffects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1062361823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1062361822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d3b019791b0794419d9937f571dd578, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1062361824
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1062361822}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1343343068
 GameObject:
   m_ObjectHideFlags: 0

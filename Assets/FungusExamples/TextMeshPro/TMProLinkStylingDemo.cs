@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Fungus;
-using Fungus.TMProLinkAnimEffects;
+﻿using UnityEngine;
 
 #if UNITY_2018_1_OR_NEWER
+
 namespace Fungus.Examples
 {
     /// <summary>
@@ -12,21 +9,23 @@ namespace Fungus.Examples
     /// an example of how you might configure these effects and variations of them in
     /// your projects
     /// </summary>
-    /// TODO add use of same underlying effect with different settings
     public class TMProLinkStylingDemo : MonoBehaviour
     {
-        void Awake()
+        private void Awake()
         {
+            //force clearing and adding our own effects here
+            TMProLinkAnimLookup.RemoveAll();
+
             TMProLinkAnimLookup.AddHelper("shake", new TMProLinkAnimEffects.ShakeEffect()
             {
-                mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerLine,
-                offsetScale = 2,
+                mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerCharacter,
+                offsetScale = Vector2.one * 2,
                 rotScale = 15
             });
             TMProLinkAnimLookup.AddHelper("wiggle", new TMProLinkAnimEffects.WiggleEffect()
             {
                 mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerSection,
-                scale = 5
+                offsetScale = Vector2.one * 5
             });
             TMProLinkAnimLookup.AddHelper("wave", new TMProLinkAnimEffects.WaveEffect()
             {
@@ -54,15 +53,17 @@ namespace Fungus.Examples
                 mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerCharacter,
                 totalStep = 10,
             });
-            TMProLinkAnimLookup.AddHelper("pulse", new TMProLinkAnimEffects.PulseColorEffect()
+            TMProLinkAnimLookup.AddHelper("pulse", new TMProLinkAnimEffects.PulseEffect()
             {
                 mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerWord,
                 speed = 3,
-                size = 0.15f,
+                HSVIntensityScale = 0.15f,
                 hueScale = 0,
                 saturationScale = 0,
+                scale = new Vector3(0.05f, 0.05f, 0),
             });
         }
     }
 }
+
 #endif

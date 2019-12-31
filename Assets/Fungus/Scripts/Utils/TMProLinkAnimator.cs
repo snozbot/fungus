@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 #if UNITY_2018_1_OR_NEWER
+
 namespace Fungus
 {
     //Component that is automatically added to all tmpro texts that contain links,
@@ -17,6 +16,70 @@ namespace Fungus
         public static void RegisterAutoAddTMPLinkAnim()
         {
             TMPro.TMPro_EventManager.TEXT_CHANGED_EVENT.Add(AutoAddTMPLinkAnim);
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        public static void RegisterDefaultTMPLinkAnims()
+        {
+            TMProLinkAnimLookup.AddHelper("jitter", new TMProLinkAnimEffects.ShakeEffect()
+            {
+                mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerCharacter,
+                offsetScale = new Vector2(1, 4),
+                rotScale = 10
+            });
+            TMProLinkAnimLookup.AddHelper("angry", new TMProLinkAnimEffects.ShakeEffect()
+            {
+                mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerWord,
+                offsetScale = new Vector2(1, 8),
+                rotScale = 4
+            });
+            TMProLinkAnimLookup.AddHelper("spooky", new TMProLinkAnimEffects.WiggleEffect()
+            {
+                mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerSection,
+                offsetScale = new Vector2(6, 10),
+                speed = 1.5f,
+            });
+            TMProLinkAnimLookup.AddHelper("unknowable", new TMProLinkAnimEffects.WiggleEffect()
+            {
+                mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerCharacter,
+                offsetScale = new Vector2(4, 8),
+                speed = 1f,
+            });
+            TMProLinkAnimLookup.AddHelper("wave", new TMProLinkAnimEffects.WaveEffect()
+            {
+                mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerCharacter,
+                speed = 10,
+                indexStep = 0.3f,
+                scale = 2
+            });
+            TMProLinkAnimLookup.AddHelper("swing", new TMProLinkAnimEffects.PivotEffect()
+            {
+                mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerWord,
+                speed = 10,
+                degScale = 15
+            });
+            TMProLinkAnimLookup.AddHelper("bounce", new TMProLinkAnimEffects.BounceEffect()
+            {
+                mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerWord,
+                speed = 4,
+                scale = 5,
+            });
+            TMProLinkAnimLookup.AddHelper("excited", new TMProLinkAnimEffects.BounceEffect()
+            {
+                mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerCharacter,
+                speed = 7,
+                scale = 2,
+                indexStep = 11.0f / 3.0f,
+            });
+            TMProLinkAnimLookup.AddHelper("glow", new TMProLinkAnimEffects.PulseEffect()
+            {
+                mode = TMProLinkAnimEffects.TMPLinkAnimatorMode.PerWord,
+                speed = 4,
+                HSVIntensityScale = 0.15f,
+                hueScale = 0,
+                saturationScale = 0.1f,
+                scale = new Vector3(0.06f, 0.06f, 0),
+            });
         }
 
         public static void AutoAddTMPLinkAnim(object obj)
@@ -61,7 +124,7 @@ namespace Fungus
                 TMProComponent = GetComponent<TMPro.TMP_Text>();
             }
         }
-        
+
         protected void Update()
         {
             UpdateAnimation();
@@ -80,7 +143,7 @@ namespace Fungus
                     var curLink = TMProComponent.textInfo.linkInfo[i];
 
                     //if a static lookup exists, ask it to run its animation with us as the context
-                    if(TMProLinkAnimLookup.LinkHashToEffect.TryGetValue(curLink.hashCode, out TMProLinkAnimLookup.TMProAnimFunc animFunc))
+                    if (TMProLinkAnimLookup.LinkHashToEffect.TryGetValue(curLink.hashCode, out TMProLinkAnimLookup.TMProAnimFunc animFunc))
                     {
                         //only update caches if we actually need it
                         HandleDirty();
@@ -101,7 +164,7 @@ namespace Fungus
 
         protected void HandleDirty()
         {
-            //update internal cache if underlying data has changed 
+            //update internal cache if underlying data has changed
             if (dirty)
             {
                 if (needsToForceMeshUpdate)
@@ -116,4 +179,5 @@ namespace Fungus
         }
     }
 }
+
 #endif

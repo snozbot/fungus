@@ -93,6 +93,7 @@ namespace Fungus
         protected string hiddenColorClose = "";
 
         protected int visibleCharacterCount = 0;
+        protected int readAheadStartIndex = 0;
         public WriterAudio AttachedWriterAudio { get; set; }
 
         protected virtual void Awake()
@@ -524,16 +525,17 @@ namespace Fungus
             UpdateCloseMarkup();
 
             float timeAccumulator = Time.deltaTime;
+            float invWritingSpeed = 1f / currentWritingSpeed;
 
-            
-            if(textAdapter.SupportsHiddenCharacters())
+            //refactor this, its mostly the same 30 lines of code
+            if (textAdapter.SupportsHiddenCharacters())
             { 
                 //pausing for 1 frame means we can get better first data, but is conflicting with animation ?
                 //  or is it something else inserting the color alpha invis 
                 yield return null;
                 //this works for first thing being shown but then no subsequent, as the char counts have not been update
                 // by tmpro after the set to ""
-                var startingReveal = textAdapter.CharactersToReveal;
+                var startingReveal = Mathf.Min(readAheadStartIndex, textAdapter.CharactersToReveal);
                 PartitionString(writeWholeWords, param, param.Length + 1);
 
                 ConcatenateString(startText);
@@ -543,7 +545,7 @@ namespace Fungus
                 textAdapter.RevealedCharacters = startingReveal;
                 yield return null;
 
-                while (textAdapter.RevealedCharacters < textAdapter.CharactersToReveal)
+                while (textAdapter.RevealedCharacters < Mathf.Min(readAheadStartIndex, textAdapter.CharactersToReveal))
                 {
                     // No delay if user has clicked and Instant Complete is enabled
                     if (instantComplete && inputFlag)
@@ -554,13 +556,12 @@ namespace Fungus
                     if (currentWritingSpeed > 0f)
                     {
                         textAdapter.RevealedCharacters++;
-                        if (timeAccumulator > 0f)
+                        timeAccumulator -= invWritingSpeed;
+                        if (timeAccumulator <= 0f)
                         {
-                            timeAccumulator -= 1f / currentWritingSpeed;
-                        }
-                        else
-                        {
-                            yield return new WaitForSeconds(1f / currentWritingSpeed);
+                            var waitTime = Mathf.Max(invWritingSpeed, Time.deltaTime);
+                            yield return new WaitForSeconds(waitTime);
+                            timeAccumulator += waitTime;
                         }
                     }
                 }
@@ -568,9 +569,7 @@ namespace Fungus
             else
             {
                 for (int i = 0; i < param.Length + 1; ++i)
-                {
-                    float invWritingSpeed = 1f / currentWritingSpeed;
-                    
+                {   
                     if (exitFlag)
                     {
                         break;
@@ -599,22 +598,19 @@ namespace Fungus
                         rightString.Length > 0 &&
                         IsPunctuation(leftString.ToString(leftString.Length - 1, 1)[0]))
                     {
+                        //timeAccumulator -= currentPunctuationPause; ???
                         yield return StartCoroutine(DoWait(currentPunctuationPause));
                     }
 
                     // Delay between characters
-                     timeAccumulator -= invWritingSpeed;
-                    if (timeAccumulator <= 0f)
+                    if (currentWritingSpeed > 0f)
                     {
-                        if (invWritingSpeed > Time.deltaTime)
+                        timeAccumulator -= invWritingSpeed;
+                        if (timeAccumulator <= 0f)
                         {
-                            yield return new WaitForSeconds(invWritingSpeed);
-                            timeAccumulator += invWritingSpeed;
-                        }
-                        else
-                        {
-                            yield return null;
-                            timeAccumulator += Time.deltaTime;
+                            var waitTime = Mathf.Max(invWritingSpeed, Time.deltaTime);
+                            yield return new WaitForSeconds(waitTime);
+                            timeAccumulator += waitTime;
                         }
                     }
                 }
@@ -658,6 +654,7 @@ namespace Fungus
         protected virtual void ConcatenateString(string startText)
         {
             outputString.Length = 0;
+            readAheadStartIndex = int.MaxValue;
 
             // string tempText = startText + openText + leftText + closeText;
             outputString.Append(startText);
@@ -678,6 +675,8 @@ namespace Fungus
                 {
                     CacheHiddenColorStrings();
                 }
+
+                readAheadStartIndex = outputString.Length;
 
                 outputString.Append(hiddenColorOpen);
                 outputString.Append(rightString);

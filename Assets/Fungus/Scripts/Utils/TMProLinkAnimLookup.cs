@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 #if UNITY_2018_1_OR_NEWER
 
 namespace Fungus
@@ -7,12 +8,12 @@ namespace Fungus
     /// Static lookup for Text Mesh Pro Link animations. TMPro tracks and holds information about
     /// link tags in its text body and is recommended as one of the ways to achieve effects within
     /// a body of text. Giving you the text within the link and the name/hash of the link id itself.
-    /// 
+    ///
     /// Such that {link="shake"}this text will be marked up as within shake link{/link}.
-    /// 
+    ///
     /// By assigning to the LinkHashToEffect dictionary with a key of TMPro.TMP_TextUtilities.GetSimpleHashCode("shake")
     /// and a matching function signature that can then be used the the TMProLinkAnimator.
-    /// 
+    ///
     /// See TMProLinkAnimEffects for sample basis for creating effects.
     /// </summary>
     public static class TMProLinkAnimLookup
@@ -84,7 +85,17 @@ namespace Fungus
         {
             LinkHashToEffect.Add(TMPro.TMP_TextUtilities.GetSimpleHashCode(linkIdText), baseEffect.DoEffect);
         }
+
+        static public void Remove(string linkIdText)
+        {
+            LinkHashToEffect.Remove(TMPro.TMP_TextUtilities.GetSimpleHashCode(linkIdText));
+        }
+
+        static public void RemoveAll()
+        {
+            LinkHashToEffect.Clear();
+        }
     }
 }
+
 #endif
-      

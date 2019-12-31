@@ -1,15 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 #if UNITY_2018_1_OR_NEWER
 
 namespace Fungus
 {
     /// <summary>
-    /// Samples and helpers for creating TMProLink animations 
+    /// Samples and helpers for creating TMProLink animations
     /// </summary>
     namespace TMProLinkAnimEffects
     {
+        /// <summary>
+        /// Used by BaseEffect and child classes to configure how locations and pivots are calculated
+        /// before being passed to internal functions.
+        /// </summary>
         public enum TMPLinkAnimatorMode
         {
             PerCharacter,
@@ -21,24 +24,24 @@ namespace Fungus
         /// <summary>
         /// Use of this is not required, all that the TMProLinkAnimLookup requires is a matching signature of
         /// void delegate(TMProLinkAnimator context, int start, int length). The base class however is used to
-        /// create all the sample effects as they all operate in a similar underlying fashion, with a custom mode 
+        /// create all the sample effects as they all operate in a similar underlying fashion, with a custom mode
         /// but ultimately on a character by character basis, doing a relative translation and color modifcation.
-        /// 
-        /// Much of this class and its sample child effects are static functions to more easily allow reuse by 
+        ///
+        /// Much of this class and its sample child effects are static functions to more easily allow reuse by
         /// custom effects you may wish to make.
         /// </summary>
         public abstract class BaseEffect
         {
             public TMPLinkAnimatorMode mode;
-            protected TMProLinkAnimator currentContext { get; set; }
-            protected int currentStart { get; set; }
-            protected int currentLength { get; set; }
+            protected TMProLinkAnimator CurrentContext { get; set; }
+            protected int CurrentStart { get; set; }
+            protected int CurrentLength { get; set; }
 
             public virtual void DoEffect(TMProLinkAnimator context, int start, int length)
             {
-                currentContext = context;
-                currentStart = start;
-                currentLength = length;
+                CurrentContext = context;
+                CurrentStart = start;
+                CurrentLength = length;
 
                 MeshVertUpdateLoop(context, start, length, TransFunc, ColorFunc, mode);
             }
@@ -54,6 +57,7 @@ namespace Fungus
             }
 
             #region static helpers
+
             //Helper for mesh vertex updating within a found link
             //adapted from TMPRo examples VertexJitter
             static public void MeshVertUpdateLoop(TMProLinkAnimator context, int start, int length, System.Func<int, Matrix4x4> transformFunc, System.Func<int, Color32, Color32> colorFunc, TMPLinkAnimatorMode mode)
@@ -138,7 +142,6 @@ namespace Fungus
                     destinationVertices[vertexIndex + 2] = sourceVertices[vertexIndex + 2] - offset;
                     destinationVertices[vertexIndex + 3] = sourceVertices[vertexIndex + 3] - offset;
 
-
                     destinationVertices[vertexIndex + 0] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 0]);
                     destinationVertices[vertexIndex + 1] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 1]);
                     destinationVertices[vertexIndex + 2] = matrix.MultiplyPoint3x4(destinationVertices[vertexIndex + 2]);
@@ -213,43 +216,51 @@ namespace Fungus
                 firstWord = CalcWordFromChar(startCharacter, wordInfo);
                 lastWord = CalcWordFromChar(endCharacter, wordInfo);
             }
-            #endregion
+
+            #endregion static helpers
         }
 
+        /// <summary>
+        /// Shake the element, by moving centre slightly and randomly rolling each update.
+        /// </summary>
         public class ShakeEffect : BaseEffect
         {
-            public float offsetScale, rotScale;
+            public float rotScale;
+            public Vector2 offsetScale = Vector2.one;
 
             public override Matrix4x4 TransFunc(int index)
             {
                 return ShakeTransformFunc(index, offsetScale, rotScale);
             }
 
-            static public Matrix4x4 ShakeTransformFunc(int index, float positionOffsetScale, float rotDegScale)
+            static public Matrix4x4 ShakeTransformFunc(int index, Vector2 positionOffsetScale, float rotDegScale)
             {
-                return Matrix4x4.TRS(new Vector3(Random.Range(-.25f, .25f), Random.Range(-.25f, .25f), 0) * positionOffsetScale,
+                return Matrix4x4.TRS(new Vector3(Random.Range(-.25f, .25f) * positionOffsetScale.x, Random.Range(-.25f, .25f), 0) * positionOffsetScale.y,
                     Quaternion.Euler(0, 0, Random.Range(-1f, 1f) * rotDegScale),
                     Vector3.one);
             }
-
         }
 
+        /// <summary>
+        /// Wiggle the position by over time using perlin noise to offset its centre.
+        /// </summary>
         public class WiggleEffect : BaseEffect
         {
-            public float scale;
+            public float speed = 1;
+            public Vector2 offsetScale = Vector2.one;
 
             public override Matrix4x4 TransFunc(int index)
             {
-                return WiggleTransformFunc(index, scale);
+                return WiggleTransformFunc(index, speed, offsetScale);
             }
 
-            static public Matrix4x4 WiggleTransformFunc(int index, float wiggleScale)
+            static public Matrix4x4 WiggleTransformFunc(int index, float speed, Vector2 wiggleScale)
             {
                 const int SAFE_PRIME_A = 11;
                 const int SAFE_PRIME_B = 59;
                 //add a pingpong
-                var jitterOffset = new Vector3(Mathf.PerlinNoise(Time.time + index * SAFE_PRIME_A, index * SAFE_PRIME_B),
-                                               Mathf.PerlinNoise(Time.time + index * SAFE_PRIME_B, index * SAFE_PRIME_A),
+                var jitterOffset = new Vector3(Mathf.PerlinNoise(Time.time * speed + index * SAFE_PRIME_A, index * SAFE_PRIME_B),
+                                               Mathf.PerlinNoise(Time.time * speed + index * SAFE_PRIME_B, index * SAFE_PRIME_A),
                                                0);
                 jitterOffset *= 2;
                 jitterOffset -= new Vector3(1, 1, 0);
@@ -260,6 +271,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Use a sine wave by time to offset the height of the element.
+        /// </summary>
         public class WaveEffect : BaseEffect
         {
             public float speed, indexStep, scale;
@@ -277,6 +291,9 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Use a sinewave to swing or pivot the element around its centre back n forth.
+        /// </summary>
         public class PivotEffect : BaseEffect
         {
             public float speed, degScale;
@@ -289,28 +306,97 @@ namespace Fungus
             static public Matrix4x4 PivotTransformFunc(int index, float pivotSpeed, float pivotDegScale)
             {
                 return Matrix4x4.TRS(Vector3.zero,
-                      Quaternion.Euler(0, 0, Mathf.Sin(Time.time * pivotSpeed + index) * pivotDegScale),
-                      Vector3.one);
+                       Quaternion.Euler(0, 0, Mathf.Sin(Time.time * pivotSpeed + index) * pivotDegScale),
+                       Vector3.one);
             }
         }
 
+        /// <summary>
+        /// Use a sine wave to animate the H,S,V elements individually, modifying them from their starting color.
+        /// Use a sine wave to scale the element
+        /// </summary>
+        public class PulseEffect : BaseEffect
+        {
+            public float speed = 1, HSVIntensityScale = 1, indexStep = 1, hueScale = 1, saturationScale = 1, valueScale = 1;
+            public Vector3 scale = Vector2.zero;
+
+            public override Color32 ColorFunc(int index, Color32 col)
+            {
+                return HSVPulse(index, indexStep, speed, HSVIntensityScale, col, hueScale, saturationScale, valueScale);
+            }
+
+            public override Matrix4x4 TransFunc(int index)
+            {
+                return ScalePulse(index, indexStep, speed, scale);
+            }
+
+            static public Color32 HSVPulse(int index, float indexStep, float speed, float colScale, Color32 startingColor, float hueScale, float saturationScale, float valueScale)
+            {
+                float t = Mathf.Sin(Time.time * speed + index * indexStep) * colScale;
+                Color.RGBToHSV(startingColor, out float h, out float s, out float v);
+
+                var col = Color.HSVToRGB(Mathf.Repeat(h + t * hueScale, 1),
+                                         Mathf.Clamp01(s + t * saturationScale),
+                                         Mathf.Clamp01(v + t * valueScale));
+                return (Color32)col;
+            }
+
+            static public Matrix4x4 ScalePulse(int index, float indexStep, float speed, Vector3 scale)
+            {
+                float t = Mathf.Sin(Time.time * speed + index * indexStep);
+                return Matrix4x4.TRS(Vector3.zero,
+                                     Quaternion.identity,
+                                     Vector3.one + scale * t);
+            }
+        }
+
+        /// <summary>
+        /// Bounce up and down on an endless parabolic curve.
+        /// </summary>
+        public class BounceEffect : BaseEffect
+        {
+            public float indexStep = 1, speed = 1, scale = 1, fixedOffsetScale = 0.5f;
+
+            public override Matrix4x4 TransFunc(int index)
+            {
+                return Bounce(index, indexStep, speed, scale, fixedOffsetScale);
+            }
+
+            static public Matrix4x4 Bounce(int index, float indexStep, float speed, float scale, float fixedOffsetScale)
+            {
+                float t = (Time.time * speed + index * indexStep) % 2.0f;
+
+                t = -t * t + 2 * t;
+
+                return Matrix4x4.TRS(Vector3.up * t * scale + Vector3.down * fixedOffsetScale * scale,
+                                     Quaternion.identity,
+                                     Vector3.one);
+            }
+        }
+
+        /// <summary>
+        /// Create a staircase effect of the the elements.
+        /// </summary>
         public class AscendEffect : BaseEffect
         {
             public float totalStep;
 
             public override Matrix4x4 TransFunc(int index)
             {
-                return StepTransformFunc(index, index - currentStart, totalStep / currentLength);
+                return StepTransformFunc(index, index - CurrentStart, totalStep / CurrentLength);
             }
 
             static public Matrix4x4 StepTransformFunc(int index, int stepNum, float stepHeight)
             {
                 return Matrix4x4.TRS(Vector3.up * stepNum * stepHeight,
-                      Quaternion.identity,
-                      Vector3.one);
+                       Quaternion.identity,
+                       Vector3.one);
             }
         }
 
+        /// <summary>
+        /// Cycle the colors of the elements by forcing color to a roling Hue and fixed SV color value.
+        /// </summary>
         public class RainbowEffect : BaseEffect
         {
             public float speed, indexStep, s, v;
@@ -326,28 +412,8 @@ namespace Fungus
                 var col = Color.HSVToRGB(h % 1.0f, s, v);
                 return (Color32)col;
             }
-        }   
-
-        public class PulseColorEffect : BaseEffect
-        {
-            public float speed = 1, size = 1, indexStep = 1, hueScale = 1, saturationScale = 1, valueScale = 1;
-
-            public override Color32 ColorFunc(int index, Color32 col)
-            {
-                return HSVPulse(index, indexStep, speed, size, col, hueScale, saturationScale, valueScale);
-            }
-
-            static public Color32 HSVPulse(int index, float indexStep, float speed, float size, Color32 startingColor, float hueScale, float saturationScale, float valueScale)
-            {
-                float t = Mathf.Sin(Time.time * speed + index * indexStep) * size;
-                Color.RGBToHSV(startingColor, out float h, out float s, out float v);
-
-                var col = Color.HSVToRGB(Mathf.PingPong(h + t * hueScale, 1),
-                                         Mathf.PingPong(s + t * saturationScale, 1),
-                                         Mathf.PingPong(v + t * valueScale, 1));
-                return (Color32)col;
-            }
         }
     }
 }
+
 #endif
