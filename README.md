@@ -37,7 +37,7 @@ https://github.com/snozbot/fungus/graphs/contributors
 Documentation
 ==========================
 
-Fungus docs are being moved to the [wiki here](https://github.com/snozbot/fungus/wiki) but are also still available on the [external site](http://fungusdocs.snozbot.com/). Contributions to the wiki welcome and encouraged.
+The Fungus wiki documentation is available [here](https://github.com/snozbot/fungus/wiki). Contributions to the wiki are both welcome and encouraged!
 
 Running the automated tests
 ===========================
