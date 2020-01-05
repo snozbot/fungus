@@ -27,7 +27,7 @@ Contributing
 
 Many thanks to everyone who has [contributed](https://github.com/snozbot/fungus/graphs/contributors) to the project to date!
 
-To contribute code or documentation to Fungus, please see [CONTRIBUTING][https://github.com/snozbot/fungus/blob/master/CONTRIBUTING.md].
+To contribute code or documentation to Fungus, please see [CONTRIBUTING](https://github.com/snozbot/fungus/blob/master/CONTRIBUTING.md).
 
 Documentation
 ==========================
