@@ -25,17 +25,14 @@ You can also join into our chat room.
 Contributing
 ============
 
-To contribute code or documentation to Fungus, please see [CONTRIBUTING][contributing].
+Many thanks to everyone who has [contributed](https://github.com/snozbot/fungus/graphs/contributors) to the project to date!
 
-[contributing]: https://github.com/snozbot/fungus/blob/master/CONTRIBUTING.md
-
-Many thanks to everyone who has contributed to the project to date!
-https://github.com/snozbot/fungus/graphs/contributors
+To contribute code or documentation to Fungus, please see [CONTRIBUTING][https://github.com/snozbot/fungus/blob/master/CONTRIBUTING.md].
 
 Documentation
 ==========================
 
-The Fungus wiki documentation is available [here](https://github.com/snozbot/fungus/wiki). Contributions to the wiki are both welcome and encouraged.
+The Fungus documentation is available on [our wiki](https://github.com/snozbot/fungus/wiki). Contributions to the wiki are very  welcome.
 
 Running the automated tests
 ===========================
