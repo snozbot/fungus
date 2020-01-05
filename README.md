@@ -12,14 +12,12 @@ Fungus was originally created by [Chris Gregan](https://github.com/chrisgregan) 
 Installation
 ============
 
-Download & installation instructions and tutorial videos are available in [the wiki](https://github.com/snozbot/fungus/wiki/installation) and the official Fungus website.
-http://fungusgames.com
+Download & installation instructions and tutorial videos are available in [the wiki](https://github.com/snozbot/fungus/wiki/installation) and the official [Fungus website](https://fungusgames.com).
 
 Support
 =======
 
-If you have questions about Fungus, please search our forum first as someone may have had the same issue already. If you can't find an answer please start a new discussion and we'll answer you as soon as we can. Fungus is designed for beginners and we love to hear from users so please don't be shy about posting!
-http://fungusgames.com/forum
+If you have questions about Fungus, please search our forum first as someone may have had the same issue already. If you can't find an answer please start a new discussion and we'll answer you as soon as we can. Fungus is designed for beginners and we love to hear from users so please don't be shy about posting on [the forum](https://fungusgames.com/forum)!
 
 You can also join into our chat room.
 [![Join the chat at https://gitter.im/snozbot/fungus](https://badges.gitter.im/snozbot/fungus.svg)](https://gitter.im/snozbot/fungus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -37,7 +35,7 @@ https://github.com/snozbot/fungus/graphs/contributors
 Documentation
 ==========================
 
-The Fungus wiki documentation is available [here](https://github.com/snozbot/fungus/wiki). Contributions to the wiki are both welcome and encouraged!
+The Fungus wiki documentation is available [here](https://github.com/snozbot/fungus/wiki). Contributions to the wiki are both welcome and encouraged.
 
 Running the automated tests
 ===========================
