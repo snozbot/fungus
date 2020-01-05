@@ -4,10 +4,10 @@ Fungus
 The goal of Fungus is to provide a free, open source tool for creating interactive storytelling games in Unity 3D. Fungus is designed to be easy to learn for beginners to Unity 3D, especially for people with no coding experience. For power users, it provides an intuitive, fast workflow for visual scripting and interactive storytelling. Fungus is being used to create Visual Novels, Point and Click Adventure Games, Childrens Stories, Hidden Object Games, eLearning apps and also some frankly weird stuff which defies classification :)
 
 - Maintainer: Steve Halliwell
-- Website: fungusgames.com
+- Website: [fungusgames.com](https://fungusgames.com)
 - Email: funguswork@stevehalliwell.com 
 
-Fungus was originally created by [https://github.com/chrisgregan](Chris Gregan) - [@gofungus](https://twitter.com/gofungus)
+Fungus was originally created by [Chris Gregan](https://github.com/chrisgregan) - [@gofungus](https://twitter.com/gofungus)
 
 Installation
 ============
