@@ -1,6 +1,39 @@
 Changelog {#changelog}
 =========
-[TOC]
+
+v3.12.0
+======
+
+## Added
+
+- Search should search commands, not just block names (#775). Thanks to AcademyOfF
+- Debug additions (#777) righclicking context menus additions and improvements on commands, blocks, and variables
+- BlockCallers can be seen within the block inspector
+- Variable referencers can be seen logged to the console
+- Added a custom script importer for lua files. Thanks to Matthew Barnes
+- Added Asmdefs
+- Fungus Editor Prefs button to locate FungusEditorResources and changelog
+
+## Fixed
+
+- Defines and fallbacks for 2017 and 2018 (#781)
+- CommandListAdapter sync command selection bidirectionally with selection in underlying reorderablelist
+- Command text with 'Error:' shows red
+- HighSpeedWriterFix; corrected rate of characters and more than 1 character per frame issue.
+- FilterBlocks during SceneChange, now refresh as expected
+- Command and Variables outside of Fungus assembly now locate
+- Character selection preventing edits bug
+- Restore Edit Mode Tests
+
+## Changed
+
+- FungusManager.cs Use "double checked locking" algorithm to implement the singleton for "FungusManager" class, which can improve performance. Thanks to AndyHan1001 
+- CommandSearchHeightFallback on some versions of Unity editor inspector height is not returning correctly so we make an educated guess if it seems unreliable
+- More elaborated use of text in TMPro demo
+- Block Inspector forces type at creation. Thanks to Michaelwolf95
+- Warning when requesting menu elements that are not avaialble, such as more menu items that you have created.
+- Fungus Docs can now generate in github markdown format
+
 
 v3.11.5 {#v3.11.5}
 ======

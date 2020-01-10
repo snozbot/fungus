@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
@@ -37,19 +37,28 @@ namespace Fungus.EditorUtils
         }
 
         [MenuItem("Tools/Fungus/Utilities/Export Fungus Package")]
-        static void ExportFungusPackage()
+        static void ExportFungusPackageFull()
         {
-            string path = EditorUtility.SaveFilePanel("Export Fungus Package", "", "Fungus", "unitypackage");           
-            if(path.Length == 0) 
+            ExportFungusPackage( new string[] {"Assets/Fungus", "Assets/FungusExamples" });
+        }
+
+        [MenuItem("Tools/Fungus/Utilities/Export Fungus Package - Lite")]
+        static void ExportFungusPackageLite()
+        {
+            ExportFungusPackage(new string[] { "Assets/Fungus" });
+        }
+
+        static void ExportFungusPackage(string[] folders)
+        {
+            string path = EditorUtility.SaveFilePanel("Export Fungus Package", "", "Fungus", "unitypackage");
+            if (path.Length == 0)
             {
                 return;
             }
 
-            string[] folders = new string[] {"Assets/Fungus", "Assets/FungusExamples" };
-
             AssetDatabase.ExportPackage(folders, path, ExportPackageOptions.Recurse);
         }
-            
+
         public static GameObject SpawnPrefab(string prefabName)
         {
             GameObject prefab = Resources.Load<GameObject>("Prefabs/" + prefabName);
