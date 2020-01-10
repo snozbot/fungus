@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (http://fungusgames.com).
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 using UnityEngine.UI;
 
-
-namespace CGTUnity.Fungus.NarrativeLogSystem
+namespace Fungus
 {
     /// <summary>
     /// Displays Narrative Log Entries in the UI.
@@ -11,18 +13,18 @@ namespace CGTUnity.Fungus.NarrativeLogSystem
     {
         [SerializeField] protected Text nameTextField;
         [SerializeField] protected Text storyTextField;
-        Entry toDisplay;
+        private NarrativeLogEntry toDisplay;
 
         /// <summary>
         /// The entry that this represents in the UI. The setter here alters this display's UI fields
         /// to fit the new value.
         /// </summary>
-        public virtual Entry ToDisplay
+        public virtual NarrativeLogEntry ToDisplay
         {
-            get                                     { return toDisplay; }
-            set 
+            get { return toDisplay; }
+            set
             {
-                toDisplay =                         value;
+                toDisplay = value;
                 UpdateDisplays();
             }
         }
@@ -35,15 +37,14 @@ namespace CGTUnity.Fungus.NarrativeLogSystem
         {
             if (ToDisplay == null)
             {
-                nameTextField.text =                "";
-                storyTextField.text =               "";
+                nameTextField.text = "";
+                storyTextField.text = "";
             }
             else
             {
-                nameTextField.text =                toDisplay.NameText;
-                storyTextField.text =               toDisplay.StoryText;
+                nameTextField.text = toDisplay.name;
+                storyTextField.text = toDisplay.text;
             }
         }
-
     }
 }

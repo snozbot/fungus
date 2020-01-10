@@ -940,7 +940,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 460.5, y: -420}
+  m_AnchoredPosition: {x: 460.5, y: -419.9983}
   m_SizeDelta: {x: 921, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &310863109
@@ -3569,7 +3569,7 @@ MonoBehaviour:
   scrollPos: {x: 0, y: 0}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 400
+  blockViewHeight: 448
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -3580,7 +3580,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 1283924776}
   selectedCommands:
-  - {fileID: 1283924790}
+  - {fileID: 1283924780}
   variables: []
   description: 
   stepPause: 0
@@ -3620,7 +3620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 1
   indentLevel: 0
-  storyText: Testing functionality for adding entries to the new Narrative Log. {w=1}
+  storyText: Testing functionality for adding entries to the new Narrative Log.
   description: 
   character: {fileID: 2072580810}
   portrait: {fileID: 0}
@@ -3711,7 +3711,7 @@ MonoBehaviour:
   showCount: 1
   extendPrevious: 0
   fadeWhenDone: 1
-  waitForClick: 0
+  waitForClick: 1
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
@@ -5510,10 +5510,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3892339028774243865, guid: bffd475e4bfb82f49810ceafe8d17b78,
+    - target: {fileID: 3892339028022738721, guid: bffd475e4bfb82f49810ceafe8d17b78,
         type: 3}
-      propertyPath: m_Name
-      value: NarrativeLog
+      propertyPath: m_ChildControlHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892339028022738723, guid: bffd475e4bfb82f49810ceafe8d17b78,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3892339028774243842, guid: bffd475e4bfb82f49810ceafe8d17b78,
         type: 3}
@@ -5620,10 +5625,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3892339028022738723, guid: bffd475e4bfb82f49810ceafe8d17b78,
+    - target: {fileID: 3892339028774243865, guid: bffd475e4bfb82f49810ceafe8d17b78,
         type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
+      propertyPath: m_Name
+      value: NarrativeLog
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3892339028774243865, guid: bffd475e4bfb82f49810ceafe8d17b78,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3892339028774243847, guid: bffd475e4bfb82f49810ceafe8d17b78, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bffd475e4bfb82f49810ceafe8d17b78, type: 3}
