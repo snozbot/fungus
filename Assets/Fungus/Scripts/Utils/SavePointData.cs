@@ -5,8 +5,11 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Events;
+
+
+//TODO perhaps want concept of generic history to store data in for cookies and menu has been visited
+// add last written time stamp?
+//  doco update
 
 namespace Fungus
 {
@@ -17,7 +20,16 @@ namespace Fungus
     [System.Serializable]
     public class SavePointData
     {
-        [SerializeField] protected string savePointKey;
+        /// <summary>
+        /// Version number of current save data format.
+        /// </summary>
+        protected const int SaveDataVersion = 2;
+
+        [SerializeField] protected int version = SaveDataVersion;
+
+        [SerializeField] protected string saveName;
+
+        [SerializeField] protected string progressMarkerName;
 
         [SerializeField] protected string savePointDescription;
 
@@ -25,23 +37,27 @@ namespace Fungus
 
         [SerializeField] protected List<SaveDataItem> saveDataItems = new List<SaveDataItem>();
 
-        protected static SavePointData Create(string _savePointKey, string _savePointDescription, string _sceneName)
+        [SerializeField] protected string lastWrittenDateTimeString;
+
+        protected static SavePointData Create(string _saveName, string _savePointDescription, string _sceneName)
         {
-            var savePointData = new SavePointData();
-
-            savePointData.savePointKey = _savePointKey;
-            savePointData.savePointDescription = _savePointDescription;
-            savePointData.sceneName = _sceneName;
-
-            return savePointData;
+            return new SavePointData
+            {
+                saveName = _saveName,
+                savePointDescription = _savePointDescription,
+                progressMarkerName = ProgressMarker.LatestExecuted != null ? ProgressMarker.LatestExecuted.CustomKey : string.Empty,
+                //TODO include last item in narrative log?
+                sceneName = _sceneName,
+                lastWrittenDateTimeString = System.DateTime.Now.ToString("O"),
+            };
         }
-
-        #region Public methods
 
         /// <summary>
         /// Gets or sets the unique key for the Save Point.
         /// </summary>
-        public string SavePointKey { get { return savePointKey; } set { savePointKey = value; } }
+        public string SaveName { get { return saveName; } set { saveName = value; } }
+
+        public string ProgressMarkerName { get { return progressMarkerName; } set { progressMarkerName = value; } }
 
         /// <summary>
         /// Gets or sets the description for the Save Point.
@@ -59,58 +75,64 @@ namespace Fungus
         /// <value>The save data items.</value>
         public List<SaveDataItem> SaveDataItems { get { return saveDataItems; } }
 
+        public System.DateTime LastWritten { get { return System.DateTime.Parse(lastWrittenDateTimeString); } }
+
         /// <summary>
         /// Encodes a new Save Point to data and converts it to JSON text format.
         /// </summary>
-        public static string Encode(string _savePointKey, string _savePointDescription, string _sceneName)
+        public static string EncodeToJson(string _saveName, string _savePointDescription, string _sceneName, out SavePointData savePointData)
         {
-            var savePointData = Create(_savePointKey, _savePointDescription, _sceneName);
+            savePointData = Create(_saveName, _savePointDescription, _sceneName);
 
             // Look for a SaveData component in the scene to populate the save data items.
-            var saveData = GameObject.FindObjectOfType<SaveData>();
-            if (saveData != null)
+            var savers = GameObject.FindObjectsOfType<SaveDataSerializer>();
+            foreach (var saveData in savers)
             {
-                saveData.Encode(savePointData.SaveDataItems);
+                saveData.Encode(savePointData);
             }
 
             return JsonUtility.ToJson(savePointData, true);
         }
 
-        /// <summary>
-        /// Decodes a Save Point from JSON text format and loads it.
-        /// </summary>
-        public static void Decode(string saveDataJSON)
+        static public SavePointData DecodeFromJSON(string saveDataJSON)
         {
             var savePointData = JsonUtility.FromJson<SavePointData>(saveDataJSON);
 
-            UnityAction<Scene, LoadSceneMode> onSceneLoadedAction = null;
+            if (savePointData != null && savePointData.version != SaveDataVersion)
+            {
+                var success = savePointData.HandleVersionMismatch(savePointData.version, SaveDataVersion);
 
-            onSceneLoadedAction = (scene, mode) =>  {
-                // Additive scene loads and non-matching scene loads could happen if the client is using the
-                // SceneManager directly. We just ignore these events and hope they know what they're doing!
-                if (mode == LoadSceneMode.Additive ||
-                    scene.name != savePointData.SceneName)
+                if (success)
                 {
-                    return;
+                    savePointData.version = SaveDataVersion;
                 }
-
-                SceneManager.sceneLoaded -= onSceneLoadedAction;
-
-                // Look for a SaveData component in the scene to process the save data items.
-                var saveData = GameObject.FindObjectOfType<SaveData>();
-                if (saveData != null)
+                else
                 {
-                    saveData.Decode(savePointData.SaveDataItems);
+                    Debug.LogError(savePointData.saveName + " could not be updated from " +
+                        savePointData.version.ToString() + " to " + SaveDataVersion.ToString());
+                    return null;
                 }
+            }
 
-                SaveManagerSignals.DoSavePointLoaded(savePointData.savePointKey);
-            };
-                
-            SceneManager.sceneLoaded += onSceneLoadedAction;
-            SceneManager.LoadScene(savePointData.SceneName);
-        }     
+            return savePointData;
+        }
 
-        #endregion
+        public void RunDeserialize()
+        {
+            if (!string.IsNullOrEmpty(progressMarkerName))
+                ProgressMarker.LatestExecuted = ProgressMarker.FindWithKey(progressMarkerName);
+
+            var sers = GameObject.FindObjectsOfType<SaveDataSerializer>();
+            foreach (var serializer in sers)
+            {
+                serializer.Decode(this);
+            }
+        }
+
+        protected virtual bool HandleVersionMismatch(int version, int saveDataVersion)
+        {
+            return true;
+        }
     }
 }
 

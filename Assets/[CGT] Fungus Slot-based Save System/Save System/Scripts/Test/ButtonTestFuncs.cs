@@ -1,27 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Fungus.SaveSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Fungus.SaveSystem;
 
 /// <summary>
 /// Helps test the Save Menu UI without requiring user input to progress the menus along.
 /// </summary>
 public class ButtonTestFuncs : MonoBehaviour
 {
-    SaveSlotManager slotManager;
-    EventSystem eventSystem;
+    private SaveSlotManager slotManager;
+    private EventSystem eventSystem;
 
-    void Awake()
+    private void Awake()
     {
         slotManager = FindObjectOfType<SaveSlotManager>();
-        
     }
 
-    void Start()
+    private void Start()
     {
-        eventSystem =                       EventSystem.current;
+        eventSystem = EventSystem.current;
     }
 
     public void SelectButton(Button button)
@@ -32,15 +29,15 @@ public class ButtonTestFuncs : MonoBehaviour
 
     public void InvokeClick(Button button)
     {
-        PointerEventData eventData =        new PointerEventData(eventSystem);
+        PointerEventData eventData = new PointerEventData(eventSystem);
         button.OnPointerClick(eventData);
     }
 
     public void ClickSaveSlot(int indexNumber)
     {
         slotManager.SelectSlot(indexNumber);
-        PointerEventData eventData =        new PointerEventData(eventSystem);
-        Button slotButton =                 slotManager.selectedSlot.GetComponent<Button>();
+        PointerEventData eventData = new PointerEventData(eventSystem);
+        Button slotButton = slotManager.selectedSlot.GetComponent<Button>();
         eventSystem.SetSelectedGameObject(slotButton.gameObject);
 
         slotButton.OnPointerClick(eventData);
@@ -49,10 +46,8 @@ public class ButtonTestFuncs : MonoBehaviour
     public void SelectSaveSlot(int indexNumber)
     {
         slotManager.SelectSlot(indexNumber);
-        PointerEventData eventData =        new PointerEventData(eventSystem);
-        Button slotButton =                 slotManager.selectedSlot.GetComponent<Button>();
+        PointerEventData eventData = new PointerEventData(eventSystem);
+        Button slotButton = slotManager.selectedSlot.GetComponent<Button>();
         eventSystem.SetSelectedGameObject(slotButton.gameObject);
     }
-
-    
 }

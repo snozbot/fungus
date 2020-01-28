@@ -6,25 +6,25 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
+
+//TODO 
+//  use meta from save manager
+//  use a view component per save
+//  allow change of save profile
+
+
 
 namespace Fungus
 {
     /// <summary>
     /// A singleton game object which displays a simple UI for the save system.
     /// </summary>
-    public class SaveMenu : MonoBehaviour 
-    {
-        [Tooltip("The string key used to store save game data in Player Prefs. If you have multiple games defined in the same Unity project, use a unique key for each one.")]
-        [SerializeField] protected string saveDataKey = FungusConstants.DefaultSaveDataKey;
+    public class SaveController : MonoBehaviour 
+    {        //[Tooltip("Automatically load the most recently saved game on startup")]
+             //[SerializeField] protected bool loadOnStart = true;
 
-        [Tooltip("Automatically load the most recently saved game on startup")]
-        [SerializeField] protected bool loadOnStart = true;
-
-        [Tooltip("Automatically save game to disk after each Save Point command executes. This also disables the Save and Load menu buttons.")]
-        [SerializeField] protected bool autoSave = false;
-
-        [Tooltip("Delete the save game data from disk when player restarts the game. Useful for testing, but best switched off for release builds.")]
-        [SerializeField] protected bool restartDeletesSave = false;
+        [SerializeField] protected SaveSettings saveSettings;
 
         [Tooltip("The CanvasGroup containing the save menu buttons")]
         [SerializeField] protected CanvasGroup saveMenuGroup;
@@ -38,11 +38,12 @@ namespace Fungus
         [Tooltip("The button which loads the save history from disk")]
         [SerializeField] protected Button loadButton;
 
-        [Tooltip("The button which rewinds the save history to the previous save point.")]
-        [SerializeField] protected Button rewindButton;
 
-        [Tooltip("The button which fast forwards the save history to the next save point.")]
-        [SerializeField] protected Button forwardButton;
+        //[Tooltip("The button which rewinds the save history to the previous save point.")]
+        //[SerializeField] protected Button rewindButton;
+
+        //[Tooltip("The button which fast forwards the save history to the next save point.")]
+        //[SerializeField] protected Button forwardButton;
         
         [Tooltip("The button which restarts the game.")]
         [SerializeField] protected Button restartButton;
@@ -56,7 +57,7 @@ namespace Fungus
 
         protected LTDescr fadeTween;
 
-        protected static SaveMenu instance;
+        protected static SaveController instance;
 
         protected static bool hasLoadedOnStart = false;
 
@@ -83,6 +84,16 @@ namespace Fungus
             clickAudioSource = GetComponent<AudioSource>();
         }
 
+        protected virtual void OnEnable()
+        {
+            SaveManagerSignals.OnSaveSaved += OnSaveAdded;
+        }
+
+        protected virtual void OnDisable()
+        {
+            SaveManagerSignals.OnSaveSaved -= OnSaveAdded;
+        }
+
         protected virtual void Start()
         {
             if (!saveMenuActive)
@@ -98,56 +109,57 @@ namespace Fungus
                 saveManager.StartScene = SceneManager.GetActiveScene().name;
             }
 
-            if (loadOnStart && !hasLoadedOnStart)
-            {
-                hasLoadedOnStart = true;
+            //if (loadOnStart && !hasLoadedOnStart)
+            //{
+            //    hasLoadedOnStart = true;
 
-                if (saveManager.SaveDataExists(saveDataKey))
-                {
-                    saveManager.Load(saveDataKey);
-                }
-            }
+            //    if (saveManager.SaveDataExists(saveDataKey))
+            //    {
+            //        saveManager.Load(saveDataKey);
+            //    }
+            //}
         }
 
+        //todo this looks like it should just be done when the menu is toggled/interacted with
         protected virtual void Update()
         {
             var saveManager = FungusManager.Instance.SaveManager;
 
             // Hide the Save and Load buttons if autosave is on
 
-            bool showSaveAndLoad = !autoSave;
-            if (saveButton.IsActive() != showSaveAndLoad)
-            {
-                saveButton.gameObject.SetActive(showSaveAndLoad);
-                loadButton.gameObject.SetActive(showSaveAndLoad);
-            }
+            //bool showSaveAndLoad = !autoSave;
+            //if (saveButton.IsActive() != showSaveAndLoad)
+            //{
+            //    saveButton.gameObject.SetActive(showSaveAndLoad);
+            //    loadButton.gameObject.SetActive(showSaveAndLoad);
+            //}
  
-            if (showSaveAndLoad)
+            
+            //if (saveButton != null)
+            //{
+            //    // Don't allow saving unless there's at least one save point in the history,
+            //    // This avoids the case where you could try to load a save data with 0 save points.
+            //    saveButton.interactable = saveManager.NumSavePoints > 0 && saveMenuActive;
+            //}
+            if (loadButton != null)
             {
-                if (saveButton != null)
-                {
-                    // Don't allow saving unless there's at least one save point in the history,
-                    // This avoids the case where you could try to load a save data with 0 save points.
-                    saveButton.interactable = saveManager.NumSavePoints > 0 && saveMenuActive;
-                }
-                if (loadButton != null)
-                {
-                    loadButton.interactable = saveManager.SaveDataExists(saveDataKey) && saveMenuActive;
-                }
+                loadButton.interactable = saveManager.NumSaves > 0 && saveMenuActive;
             }
+            
 
             if (restartButton != null)
             {
                 restartButton.interactable = saveMenuActive;
             }
-            if (rewindButton != null)
-            {
-                rewindButton.interactable = saveManager.NumSavePoints > 0 && saveMenuActive;
-            }
-            if (forwardButton != null)
-            {
-                forwardButton.interactable = saveManager.NumRewoundSavePoints > 0 && saveMenuActive;
-            }
+
+            //if (rewindButton != null)
+            //{
+            //    rewindButton.interactable = saveManager.NumSavePoints > 0 && saveMenuActive;
+            //}
+            //if (forwardButton != null)
+            //{
+            //    forwardButton.interactable = saveManager.NumRewoundSavePoints > 0 && saveMenuActive;
+            //}
 
             if (debugView.enabled)
             {
@@ -160,24 +172,15 @@ namespace Fungus
 
         }
 
-        protected virtual void OnEnable()
+        protected virtual void OnSaveAdded(string savePointKey, string savePointDescription)
         {
-            SaveManagerSignals.OnSavePointAdded += OnSavePointAdded;
-        }
+            //if we limit autos and it is an auto, are there now to many, delete oldest until not over limit
+            var autoSaves = FungusManager.Instance.SaveManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.AutoSavePrefix))
+                .OrderBy(x => x.savePointLastWritten).ToList();
 
-        protected virtual void OnDisable()
-        {
-            SaveManagerSignals.OnSavePointAdded -= OnSavePointAdded;
-        }
-
-        protected virtual void OnSavePointAdded(string savePointKey, string savePointDescription)
-        {
-            var saveManager = FungusManager.Instance.SaveManager;
-
-            if (autoSave &&
-                saveManager.NumSavePoints > 0)
+            for (int i = 0; i < autoSaves.Count - saveSettings.NumberOfAutoSaves; i++)
             {
-                saveManager.Save(saveDataKey);
+                FungusManager.Instance.SaveManager.DeleteSave(autoSaves[i]);
             }
         }
 
@@ -191,10 +194,6 @@ namespace Fungus
 
         #region Public methods
 
-        /// <summary>
-        /// Gets the string key used to store save game data in Player Prefs. 
-        /// </summary>
-        public virtual string SaveDataKey { get { return saveDataKey; } }
 
         /// <summary>
         /// Toggles the expanded / collapsed state of the save menu.
@@ -211,24 +210,16 @@ namespace Fungus
             if (saveMenuActive)
             {
                 // Switch menu off
-                LeanTween.value(saveMenuGroup.gameObject, saveMenuGroup.alpha, 0f, 0.2f)
+                fadeTween = LeanTween.alphaCanvas(saveMenuGroup, 0f, 0.2f)
                     .setEase(LeanTweenType.easeOutQuint)
-                    .setOnUpdate( (t) => {
-                    saveMenuGroup.alpha = t;
-                }).setOnComplete( () => {
-                    saveMenuGroup.alpha = 0f;
-                });
+                    .setOnComplete(() => saveMenuGroup.alpha = 0);
             }
             else
             {
                 // Switch menu on
-                LeanTween.value(saveMenuGroup.gameObject, saveMenuGroup.alpha, 1f, 0.2f)
+                fadeTween = LeanTween.alphaCanvas(saveMenuGroup, 1f, 0.2f)
                     .setEase(LeanTweenType.easeOutQuint)
-                    .setOnUpdate( (t) => {
-                    saveMenuGroup.alpha = t;
-                }).setOnComplete( () => {
-                    saveMenuGroup.alpha = 1f;
-                });
+                    .setOnComplete(() => saveMenuGroup.alpha = 1);
             }
 
             saveMenuActive = !saveMenuActive;
@@ -237,60 +228,64 @@ namespace Fungus
         /// <summary>
         /// Handler function called when the Save button is pressed.
         /// </summary>
-        public virtual void Save()
-        {
-            var saveManager = FungusManager.Instance.SaveManager;
+        //public virtual void SaveNew()
+        //{
+        //    //TODO need a way to save new or override
 
-            if (saveManager.NumSavePoints > 0)
-            {
-                PlayClickSound();
-                saveManager.Save(saveDataKey);
-            }
-        }
+        //    var saveManager = FungusManager.Instance.SaveManager;
+
+        //    if (saveManager.NumSavePoints > 0)
+        //    {
+        //        PlayClickSound();
+        //        saveManager.Save(saveDataKey);
+        //    }
+        //}
 
         /// <summary>
         /// Handler function called when the Load button is pressed.
         /// </summary>
-        public virtual void Load()
+        public virtual void LoadMostRecent()
         {
             var saveManager = FungusManager.Instance.SaveManager;
 
-            if (saveManager.SaveDataExists(saveDataKey))
+            var newestSaveTime = saveManager.SaveMetas.Max(x => x.savePointLastWritten);
+
+            var mostRecentMeta = saveManager.SaveMetas.FirstOrDefault(x => x.savePointLastWritten == newestSaveTime);
+
+            if (mostRecentMeta != null && saveManager.Load(mostRecentMeta))
             {
                 PlayClickSound();
-                saveManager.Load(saveDataKey);
             }
-
         }
 
         /// <summary>
         /// Handler function called when the Rewind button is pressed.
         /// </summary>
-        public virtual void Rewind()
-        {
-            PlayClickSound();
+        //public virtual void Rewind()
+        //{
+        //    PlayClickSound();
 
-            var saveManager = FungusManager.Instance.SaveManager;
-            if (saveManager.NumSavePoints > 0)
-            {
-                saveManager.Rewind();
-            }
+        //    var saveManager = FungusManager.Instance.SaveManager;
+        //    if (saveManager.NumSavePoints > 0)
+        //    {
+        //        saveManager.Rewind();
+        //    }
 
-        }
+        //}
 
         /// <summary>
         /// Handler function called when the Fast Forward button is pressed.
         /// </summary>
-        public virtual void FastForward()
-        {
-            PlayClickSound();
+        //public virtual void FastForward()
+        //{
+        //    PlayClickSound();
 
-            var saveManager = FungusManager.Instance.SaveManager;
-            if (saveManager.NumRewoundSavePoints > 0)
-            {
-                saveManager.FastForward();
-            }
-        }
+        //    var saveManager = FungusManager.Instance.SaveManager;
+        //    if (saveManager.NumRewoundSavePoints > 0)
+        //    {
+        //        saveManager.FastForward();
+        //    }
+        //}
 
         /// <summary>
         /// Handler function called when the Restart button is pressed.
@@ -307,13 +302,12 @@ namespace Fungus
             PlayClickSound();
 
             // Reset the Save History for a new game
-            saveManager.ClearHistory();
-
-            if (restartDeletesSave)
+            if (saveSettings.RestartDeletesSave)
             {
-                saveManager.Delete(saveDataKey);
+                saveManager.DeleteAllSaves();
+                SaveManagerSignals.DoSaveReset();
             }
-            SaveManagerSignals.DoSaveReset();
+
             SceneManager.LoadScene(saveManager.StartScene);
         }
 

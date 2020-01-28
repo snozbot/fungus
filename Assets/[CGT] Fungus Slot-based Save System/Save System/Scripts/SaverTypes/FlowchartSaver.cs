@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Fungus;
+
+//todo remove
 
 namespace Fungus.SaveSystem
 {
     /// <summary>
     /// Creates Flowchart save data.
     /// </summary>
-    public class FlowchartSaver : DataSaver<FlowchartData>, ISaveCreator<FlowchartData, Flowchart>,
-                                    IGroupSaver<FlowchartData>
+    public class FlowchartSaver : DataSaver<FlowchartData>
     {
-
         [Tooltip("A list of Flowchart objects whose variables will be encoded in the save data. Boolean, Integer, Float and String variables are supported.")]
-        [SerializeField] protected Flowchart[] flowcharts =               null;
+        [SerializeField] protected Flowchart[] flowcharts = null;
 
         #region Methods
 
@@ -29,18 +28,18 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual IList<FlowchartData> CreateSaves()
         {
-            var saveGroup =                                     new FlowchartData[flowcharts.Length];
+            var saveGroup = new FlowchartData[flowcharts.Length];
 
             for (int i = 0; i < flowcharts.Length; i++)
             {
-                var flowchart =                                 flowcharts[i];
-                if (flowchart == null) 
+                var flowchart = flowcharts[i];
+                if (flowchart == null)
                 {
                     Debug.LogWarning("There is a null flowchart in the flowcharts array " + this.name + " has.");
                     continue;
                 }
-                var newData =                                   CreateSave(flowchart);
-                saveGroup[i] =                                  newData;
+                var newData = CreateSave(flowchart);
+                saveGroup[i] = newData;
             }
 
             return saveGroup;
@@ -51,13 +50,13 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual IList<SaveDataItem> CreateItems(IList<FlowchartData> dataGroup)
         {
-            var itemGroup =                                         new SaveDataItem[dataGroup.Count];
-            
+            var itemGroup = new SaveDataItem[dataGroup.Count];
+
             for (int i = 0; i < dataGroup.Count; i++)
             {
-                var fcData =                                        dataGroup[i];
-                var newItem =                                       CreateItem(fcData);
-                itemGroup[i] =                                      newItem;
+                var fcData = dataGroup[i];
+                var newItem = CreateItem(fcData);
+                itemGroup[i] = newItem;
             }
 
             return itemGroup;
@@ -68,14 +67,14 @@ namespace Fungus.SaveSystem
         /// </summary>
         public override IList<SaveDataItem> CreateItems()
         {
-            var flowchartSaves =                        CreateSaves();
-            var items =                                 new SaveDataItem[flowchartSaves.Count];
+            var flowchartSaves = CreateSaves();
+            var items = new SaveDataItem[flowchartSaves.Count];
 
             for (int i = 0; i < flowchartSaves.Count; i++)
             {
-                var flowchartSave =                     flowchartSaves[i];
-                var newItem =                           CreateItem(flowchartSave);
-                items[i] =                              newItem;
+                var flowchartSave = flowchartSaves[i];
+                var newItem = CreateItem(flowchartSave);
+                items[i] = newItem;
             }
 
             return items;
@@ -86,13 +85,11 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual SaveDataItem CreateItem(FlowchartData data)
         {
-            var jsonString =                            JsonUtility.ToJson(data);
-            var newItem =                               new SaveDataItem(saveType.Name, jsonString);
+            var jsonString = JsonUtility.ToJson(data);
+            var newItem = new SaveDataItem(saveType.Name, jsonString);
             return newItem;
         }
 
-
-        #endregion
-
+        #endregion Methods
     }
 }

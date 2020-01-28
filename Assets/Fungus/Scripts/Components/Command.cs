@@ -284,6 +284,16 @@ namespace Fungus
         }
 
         /// <summary>
+        /// Only used when the command is the active command of the block and a save of the block has been requested.
+        /// Allows the command to prevent saving of the block if doing so would be problematic or otherwise undesirable.
+        /// </summary>
+        /// <returns>true if you wish to make your command prevent saving of the block containing it</returns>
+        public virtual bool GetPreventBlockSave()
+        {
+            return false;
+        }
+
+        /// <summary>
         /// Return the color for the command background in inspector.
         /// </summary>
         /// <returns>The button color.</returns>

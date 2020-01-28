@@ -3,6 +3,8 @@
 
 using UnityEngine;
 
+//TODO remove
+
 namespace Fungus.SaveSystem
 {
     /// <summary>
@@ -28,14 +30,16 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual string Data { get { return data; } }
 
-        public SaveDataItem() {}
+        public SaveDataItem()
+        {
+        }
 
         public SaveDataItem(string dataType, string data)
         {
-            this.dataType =                         dataType;
-            this.data =                             data;
+            this.dataType = dataType;
+            this.data = data;
         }
-        
+
         /// <summary>
         /// Factory method to create a new SaveDataItem.
         /// </summary>
@@ -48,6 +52,6 @@ namespace Fungus.SaveSystem
             return item;
         }
 
-        #endregion
+        #endregion Public methods
     }
 }

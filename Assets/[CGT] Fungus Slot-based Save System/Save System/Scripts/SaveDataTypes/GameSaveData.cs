@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+//todo remove
+
 namespace Fungus.SaveSystem
 {
     /// <summary>
@@ -10,23 +12,24 @@ namespace Fungus.SaveSystem
     public class GameSaveData : SaveData
     {
         #region Fields
-        [SerializeField] string description =           null;
-    
-        [SerializeField] int slotNumber =               -1;
 
-        [SerializeField] System.DateTime lastWritten;
+        [SerializeField] private string description = null;
 
-        [SerializeField] List<SaveDataItem> items =    new List<SaveDataItem>();
-        [SerializeField] string progressMarkerKey;
+        [SerializeField] private int slotNumber = -1;
 
-        #endregion
+        [SerializeField] private System.DateTime lastWritten;
+
+        [SerializeField] private List<SaveDataItem> items = new List<SaveDataItem>();
+        [SerializeField] private string progressMarkerKey;
+
+        #endregion Fields
 
         #region Properties
 
         public virtual string Description
         {
-            get                             { return description; }
-            set                             { description = value; }
+            get { return description; }
+            set { description = value; }
         }
 
         /// <summary>
@@ -34,14 +37,14 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual int SlotNumber
         {
-            get                             { return slotNumber; }
-            set                             { slotNumber = value; }
+            get { return slotNumber; }
+            set { slotNumber = value; }
         }
 
         public virtual System.DateTime LastWritten
         {
-            get                             { return lastWritten; }
-            protected set                   { lastWritten = value; }
+            get { return lastWritten; }
+            protected set { lastWritten = value; }
         }
 
         /// <summary>
@@ -49,7 +52,7 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual List<SaveDataItem> Items
         {
-                                            get { return items; }
+            get { return items; }
         }
 
         /// <summary>
@@ -57,23 +60,24 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual string ProgressMarkerKey
         {
-            get                             { return progressMarkerKey; }
-            set                             { progressMarkerKey = value; }
+            get { return progressMarkerKey; }
+            set { progressMarkerKey = value; }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
         #region Constructors
+
         /// <summary>
-        /// Warning: GameSaveDatas without scene names are not safe to load, unless your 
+        /// Warning: GameSaveDatas without scene names are not safe to load, unless your
         /// GameLoader is set to handle such cases.
         /// </summary>
-        public GameSaveData() 
+        public GameSaveData()
         {
             UpdateTime();
-            description =                   lastWritten.ToLongDateString();
+            description = lastWritten.ToLongDateString();
             Signals.GameSaveCreated.Invoke(this);
         }
 
@@ -83,26 +87,26 @@ namespace Fungus.SaveSystem
             Signals.GameSaveCreated.Invoke(this);
         }
 
-        public GameSaveData(string sceneName, int slotNumber = -1, 
+        public GameSaveData(string sceneName, int slotNumber = -1,
                             ICollection<SaveDataItem> items = null) : base(sceneName)
         {
             UpdateTime();
-            description =                   lastWritten.ToLongDateString();
-            this.slotNumber =               slotNumber;
+            description = lastWritten.ToLongDateString();
+            this.slotNumber = slotNumber;
             if (items != null)
                 this.items.AddRange(items);
             Signals.GameSaveCreated.Invoke(this);
         }
 
-        #endregion
+        #endregion Constructors
 
         public virtual void SetFrom(GameSaveData other)
         {
             SetFrom(other as SaveData);
-            this.description =              other.description;
-            this.slotNumber =               other.slotNumber;
-            this.lastWritten =              other.lastWritten;
-            this.progressMarkerKey =        other.progressMarkerKey;
+            this.description = other.description;
+            this.slotNumber = other.slotNumber;
+            this.lastWritten = other.lastWritten;
+            this.progressMarkerKey = other.progressMarkerKey;
             this.items.Clear();
             this.items.AddRange(other.items);
         }
@@ -112,7 +116,7 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual void UpdateTime()
         {
-            lastWritten =                   System.DateTime.Now;
+            lastWritten = System.DateTime.Now;
         }
 
         /// <summary>
@@ -121,14 +125,14 @@ namespace Fungus.SaveSystem
         /// </summary>
         public override void Clear()
         {
-            SceneName =                     "";
-            description =                   "";
-            progressMarkerKey =             "";
-            slotNumber =                    -1;
-            lastWritten =                   new System.DateTime();
+            SceneName = "";
+            description = "";
+            progressMarkerKey = "";
+            slotNumber = -1;
+            lastWritten = new System.DateTime();
             items.Clear();
         }
 
-        #endregion
+        #endregion Methods
     }
 }

@@ -67,8 +67,25 @@ namespace Fungus
         /// </summary>
         public bool SuppressNextAutoSelection { get; set; }
 
-        [SerializeField] bool suppressAllAutoSelections = false;
-        
+        [SerializeField] protected bool suppressAllAutoSelections = false;
+
+        /// <summary>
+        /// Mechanism for blocks to prevent themselves from being saved by the savedata system.
+        /// </summary>
+        public bool IsSavingAllowed 
+        {
+            get
+            {
+                return isSavingAllowed && (activeCommand != null ? !activeCommand.GetPreventBlockSave() : true);
+            }
+            set
+            {
+                isSavingAllowed = value;
+            }
+        }
+
+        [SerializeField] protected bool isSavingAllowed = true;
+
 
         protected virtual void Awake()
         {
@@ -159,6 +176,11 @@ namespace Fungus
         /// The currently executing command.
         /// </summary>
         public virtual Command ActiveCommand { get { return activeCommand; } }
+
+        /// <summary>
+        /// The currently executing command index or -1 if no active command
+        /// </summary>
+        public virtual int ActiveCommandIndex { get { return activeCommand != null ? activeCommand.CommandIndex : -1; } }
 
         /// <summary>
         /// Timer for fading Block execution icon.
@@ -337,6 +359,9 @@ namespace Fungus
 
         private void ReturnToIdle()
         {
+            if (executionState == ExecutionState.Idle)
+                return;
+
             executionState = ExecutionState.Idle;
             activeCommand = null;
             BlockSignals.DoBlockEnd(this);

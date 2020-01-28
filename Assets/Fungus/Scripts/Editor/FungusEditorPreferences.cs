@@ -108,6 +108,11 @@ namespace Fungus
                     }
                 }
 
+                if(GUILayout.Button("Open save file directory"))
+                {
+                    Application.OpenURL(SaveManager.STORAGE_DIRECTORY);
+                }
+
                 // Save the preferences
                 if (GUI.changed)
                 {

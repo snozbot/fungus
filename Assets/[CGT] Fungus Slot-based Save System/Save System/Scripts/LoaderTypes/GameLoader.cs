@@ -3,18 +3,20 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+//todo remove
+
 namespace Fungus.SaveSystem
 {
-
     /// <summary>
     /// Loads save data for a whole game/playthrough.
     /// </summary>
     public class GameLoader : SaveLoader<GameSaveData>
     {
-        protected List<SaveLoader> subloaders =               new List<SaveLoader>(); 
+        protected List<SaveLoader> subloaders = new List<SaveLoader>();
         // Handles loading the different types of data.
 
         #region Methods
+
         protected virtual void Awake()
         {
             // Register all the loaders attached to this game object.
@@ -30,28 +32,27 @@ namespace Fungus.SaveSystem
         public override bool Load(GameSaveData saveData)
         {
             // This loader will be gone by the time the scene is loaded. Best pass the job
-            // to a lambda, which will then pass the job to the loader in the loaded scene.        
-            UnityAction<Scene, LoadSceneMode> onSceneLoaded =   null;
-            
-            onSceneLoaded = (scene, mode) => 
+            // to a lambda, which will then pass the job to the loader in the loaded scene.
+            UnityAction<Scene, LoadSceneMode> onSceneLoaded = null;
+
+            onSceneLoaded = (scene, mode) =>
             {
                 if (mode == LoadSceneMode.Single)
                 {
-                    var loader =                                FindObjectOfType<GameLoader>();
+                    var loader = FindObjectOfType<GameLoader>();
                     if (loader == null) // The user might need a reminder.
                     {
                         Debug.LogError("There is no GameLoader in the scene named " + scene.name);
                         return;
                     }
 
-                    SceneManager.sceneLoaded -=                 onSceneLoaded;
+                    SceneManager.sceneLoaded -= onSceneLoaded;
                     loader.LoadState(saveData);
                 }
             };
 
-            SceneManager.sceneLoaded +=             onSceneLoaded;
+            SceneManager.sceneLoaded += onSceneLoaded;
             SceneManager.LoadScene(saveData.SceneName);
-            
 
             return true;
         }
@@ -75,15 +76,15 @@ namespace Fungus.SaveSystem
         public virtual void LoadState(GameSaveData saveData)
         {
             if (!string.IsNullOrEmpty(saveData.ProgressMarkerKey))
-                ProgressMarker.latestExecuted =     ProgressMarker.FindWithKey(saveData.ProgressMarkerKey);
+                ProgressMarker.LatestExecuted = ProgressMarker.FindWithKey(saveData.ProgressMarkerKey);
             // ^ In case any to-be-reexecuted blocks need to know
 
-            // Have each subloader go through the items one at a time, loading as many of them 
-            // as they can. 
+            // Have each subloader go through the items one at a time, loading as many of them
+            // as they can.
 
             for (int i = 0; i < subloaders.Count; i++)
             {
-                var loader =                        subloaders[i];
+                var loader = subloaders[i];
 
                 if (loader == null)
                 {
@@ -93,15 +94,12 @@ namespace Fungus.SaveSystem
 
                 for (int j = 0; j < saveData.Items.Count; j++)
                 {
-                    var saveItem =                  saveData.Items[j];
+                    var saveItem = saveData.Items[j];
                     loader.Load(saveItem);
                 }
-
             }
-
         }
-    
-        #endregion
-    }
 
+        #endregion Methods
+    }
 }

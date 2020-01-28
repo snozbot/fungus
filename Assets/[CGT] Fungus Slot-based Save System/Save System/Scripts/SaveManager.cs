@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using System.IO;
-using Fungus;
+using UnityEngine;
+
+//TODO cannot use datapath in builds won't work on all platforms
 
 namespace Fungus.SaveSystem
 {
@@ -11,40 +11,45 @@ namespace Fungus.SaveSystem
     /// </summary>
     public class SaveManager : MonoBehaviour
     {
-        
         #region Fields
-        // Most of the functionality here is passed off to the following submodules. Much of what 
-        // this does without passing the job is react to that the submodules do, hence the 
+
+        // Most of the functionality here is passed off to the following submodules. Much of what
+        // this does without passing the job is react to that the submodules do, hence the
         // stuff in the event-listener region.
-        [SerializeField] protected SaveWriter saveWriter;
-        [SerializeField] protected SaveReader saveReader;
+        //[SerializeField] protected SaveWriter saveWriter;
+
+        //[SerializeField] protected SaveReader saveReader;
+        [SerializeField] protected SaveDiskAccessor saveAccessor;
         [SerializeField] protected GameLoader gameLoader;
         [SerializeField] protected GameSaver gameSaver;
-        protected List<GameSaveData> gameSaves =                    new List<GameSaveData>();
-        protected List<GameSaveData> unwrittenSaves =               new List<GameSaveData>();
-        protected Dictionary<string, GameSaveData> writtenSaves =   new Dictionary<string, GameSaveData>();
-        // ^ Keeping track of what's written or unwritten helps optimize the save-writing 
+        protected List<GameSaveData> gameSaves = new List<GameSaveData>();
+        protected List<GameSaveData> unwrittenSaves = new List<GameSaveData>();
+        protected Dictionary<string, GameSaveData> writtenSaves = new Dictionary<string, GameSaveData>();
+        // ^ Keeping track of what's written or unwritten helps optimize the save-writing
         // and save-deleting processes.
 
-        #endregion
+        #endregion Fields
 
         #region Properties
+
         protected virtual string SaveDirectory
         {
             // By default, we're using a save directory relative to the game's launcher for
             // player convenience.
-            get                                                     { return Application.dataPath + "/saveData/"; }
+            get { return Application.dataPath + "/saveData/"; }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Methods
-        
+
         #region MonoBehaviour Standard
+
         protected virtual void Awake()
         {
             // Get the necessary components
-            if (gameLoader == null) gameLoader =    FindObjectOfType<GameLoader>();
-            if (gameSaver == null) gameSaver =      FindObjectOfType<GameSaver>();
+            if (gameLoader == null) gameLoader = FindObjectOfType<GameLoader>();
+            if (gameSaver == null) gameSaver = FindObjectOfType<GameSaver>();
 
             if (!Directory.Exists(SaveDirectory))
                 Directory.CreateDirectory(SaveDirectory);
@@ -55,7 +60,7 @@ namespace Fungus.SaveSystem
         protected virtual void Start()
         {
             // So other objects (like the SaveSlotManager) can be ready to listen for the save-reading
-            saveReader.ReadAllFromDisk(SaveDirectory);
+            saveAccessor.ReadAllFromDisk(SaveDirectory);
         }
 
         protected virtual void OnDestroy()
@@ -63,18 +68,19 @@ namespace Fungus.SaveSystem
             UnlistenForEvents();
         }
 
-        #endregion
+        #endregion MonoBehaviour Standard
 
         #region Event Listeners
+
         protected virtual void OnGameSaveWritten(GameSaveData saveData, string filePath, string fileName)
         {
             unwrittenSaves.Remove(saveData);
-            writtenSaves[fileName] =                    saveData;
+            writtenSaves[fileName] = saveData;
         }
 
         protected virtual void OnGameSaveRead(GameSaveData saveData, string filePath, string fileName)
         {
-            writtenSaves[fileName] =                    saveData;
+            writtenSaves[fileName] = saveData;
             if (!gameSaves.Contains(saveData))
                 gameSaves.Add(saveData);
         }
@@ -83,10 +89,10 @@ namespace Fungus.SaveSystem
         {
             gameSaves.Remove(saveData);
             unwrittenSaves.Remove(saveData);
-            writtenSaves[fileName] =                    null;
+            writtenSaves[fileName] = null;
         }
 
-        #endregion
+        #endregion Event Listeners
 
         #region Save-writing
 
@@ -95,7 +101,7 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual void WriteSavesToDisk()
         {
-            saveWriter.WriteAllToDisk(unwrittenSaves, SaveDirectory);
+            saveAccessor.WriteAllToDisk(unwrittenSaves, SaveDirectory);
         }
 
         /// <summary>
@@ -103,10 +109,10 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual void WriteSaveToDisk(GameSaveData saveData)
         {
-            saveWriter.WriteOneToDisk(saveData, SaveDirectory);
+            saveAccessor.WriteOneToDisk(saveData, SaveDirectory);
         }
 
-        #endregion
+        #endregion Save-writing
 
         #region Save-creation and registration
 
@@ -128,14 +134,14 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual bool AddSave(int slotNumber, bool writeToDisk = true)
         {
-            var newSaveData =                       gameSaver.CreateSave(slotNumber);
+            var newSaveData = gameSaver.CreateSave(slotNumber);
             return AddSave(newSaveData, writeToDisk);
         }
 
         /// <summary>
         /// Adds a save to the manager. If the passed save shares a number with one it's already
         /// keeping track of, the old one is replaced with the new one.
-        /// In which case, the new one will be written to disk regardless of the 
+        /// In which case, the new one will be written to disk regardless of the
         /// second argument.
         /// </summary>
         public virtual bool AddSave(GameSaveData newSave, bool writeToDisk = true)
@@ -144,15 +150,15 @@ namespace Fungus.SaveSystem
                 return false;
 
             // See if any save-replacing will happen
-            var saveWasReplaced =                 false;
+            var saveWasReplaced = false;
 
             for (int i = 0; i < gameSaves.Count; i++)
             {
-                var oldSave =                       gameSaves[i];
+                var oldSave = gameSaves[i];
                 if (oldSave.SlotNumber == newSave.SlotNumber) // Yes, it will!
                 {
                     ReplaceSave(oldSave, newSave);
-                    saveWasReplaced =             true;
+                    saveWasReplaced = true;
                     break;
                 }
             }
@@ -171,9 +177,10 @@ namespace Fungus.SaveSystem
             return true;
         }
 
-        #endregion
+        #endregion Save-creation and registration
 
         #region Save-erasing
+
         /// <summary>
         /// Erases the save data with the passed slot number from disk.
         /// </summary>
@@ -182,9 +189,8 @@ namespace Fungus.SaveSystem
             for (int i = 0; i < gameSaves.Count; i++)
                 if (gameSaves[i].SlotNumber == slotNumber)
                     return EraseSave(gameSaves[i]);
-            
+
             return false;
- 
         }
 
         /// <summary>
@@ -198,7 +204,7 @@ namespace Fungus.SaveSystem
                 return false;
             }
 
-            var saveData =                  slot.SaveData;
+            var saveData = slot.SaveData;
 
             if (saveData == null)
             {
@@ -214,18 +220,18 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual bool EraseSave(GameSaveData saveData)
         {
-            // Get the file name associated the save data was written into, and use that to delete 
+            // Get the file name associated the save data was written into, and use that to delete
             // it from the save directory.
             // Using foreach because key-value collections are unindexable.
-            var eraseSuccessful =               false;
+            var eraseSuccessful = false;
 
             foreach (var fileName in writtenSaves.Keys)
             {
                 if (writtenSaves[fileName] == saveData)
                 {
-                    var filePath =              SaveDirectory + fileName;
+                    var filePath = SaveDirectory + fileName;
                     File.Delete(filePath);
-                    eraseSuccessful =           true;
+                    eraseSuccessful = true;
                     Signals.GameSaveErased.Invoke(saveData, filePath, fileName);
                     break;
                 }
@@ -233,9 +239,11 @@ namespace Fungus.SaveSystem
 
             return eraseSuccessful;
         }
-        #endregion
+
+        #endregion Save-erasing
 
         #region Save-loading
+
         // Ultimately, the loading is always passed off to the GameLoader.
 
         /// <summary>
@@ -245,7 +253,7 @@ namespace Fungus.SaveSystem
         {
             for (int i = 0; i < gameSaves.Count; i++)
             {
-                var save =                      gameSaves[i];
+                var save = gameSaves[i];
                 if (save.SlotNumber == slotNumber)
                     return LoadSave(save);
             }
@@ -268,7 +276,7 @@ namespace Fungus.SaveSystem
                 Debug.LogWarning("Cannot load save data from " + slot.name + "; it has no save data assigned to it.");
                 return false;
             }
-            
+
             return LoadSave(slot.SaveData);
         }
 
@@ -277,23 +285,24 @@ namespace Fungus.SaveSystem
             return gameLoader.Load(saveData);
         }
 
-        #endregion
+        #endregion Save-loading
 
         #region Helpers
+
         // When it comes to saves being read or written, this manager only cares when it's the specified
         // save readers and writers doing it.
         protected virtual void ListenForEvents()
         {
-            saveWriter.GameSaveWritten +=               OnGameSaveWritten;
-            saveReader.GameSaveRead +=                  OnGameSaveRead;
-            Signals.GameSaveErased +=         OnGameSaveErased;
+            saveAccessor.GameSaveWritten += OnGameSaveWritten;
+            saveAccessor.GameSaveRead += OnGameSaveRead;
+            Signals.GameSaveErased += OnGameSaveErased;
         }
 
         protected virtual void UnlistenForEvents()
         {
-            saveWriter.GameSaveWritten -=               OnGameSaveWritten;
-            saveReader.GameSaveRead -=                  OnGameSaveRead;
-            Signals.GameSaveErased -=         OnGameSaveErased;
+            saveAccessor.GameSaveWritten -= OnGameSaveWritten;
+            saveAccessor.GameSaveRead -= OnGameSaveRead;
+            Signals.GameSaveErased -= OnGameSaveErased;
         }
 
         /// <summary>
@@ -312,7 +321,7 @@ namespace Fungus.SaveSystem
             {
                 if (writtenSaves[fileName] == oldSave)
                 {
-                    writeNewSave =              true;
+                    writeNewSave = true;
                     break;
                 }
             }
@@ -327,8 +336,9 @@ namespace Fungus.SaveSystem
                 unwrittenSaves.Add(newSave);
             }
         }
-        #endregion
-        #endregion
 
+        #endregion Helpers
+
+        #endregion Methods
     }
 }

@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+//todo merge into existing menu
+//  should create list of save slots from prefab
+
 namespace Fungus.SaveSystem
 {
     /// <summary>
@@ -9,25 +12,29 @@ namespace Fungus.SaveSystem
     public class SaveMenu : MonoBehaviour
     {
         #region Fields
+
         // This makes the below submodules to the vast majority of the work.
         [SerializeField] protected GameLoader gameLoader;
+
         [SerializeField] protected GameSaver gameSaver;
         [SerializeField] protected SaveSlotManager slotManager;
         [SerializeField] protected SaveManager saveManager;
         protected CanvasGroup canvasGroup;
-        #endregion
+
+        #endregion Fields
 
         protected virtual void Awake()
         {
             // Make sure we have the components we need
-            if (gameLoader == null) gameLoader =    FindObjectOfType<GameLoader>();
-            if (gameSaver == null) gameSaver =      FindObjectOfType<GameSaver>();
-            if (slotManager == null) slotManager =  FindObjectOfType<SaveSlotManager>();
-            if (saveManager == null) saveManager =  FindObjectOfType<SaveManager>();
-            canvasGroup =                           GetComponent<CanvasGroup>();
+            if (gameLoader == null) gameLoader = FindObjectOfType<GameLoader>();
+            if (gameSaver == null) gameSaver = FindObjectOfType<GameSaver>();
+            if (slotManager == null) slotManager = FindObjectOfType<SaveSlotManager>();
+            if (saveManager == null) saveManager = FindObjectOfType<SaveManager>();
+            canvasGroup = GetComponent<CanvasGroup>();
         }
-        
+
         #region Saving
+
         /// <summary>
         /// Saves new save data to disk and the slot with the passed number.
         /// </summary>
@@ -51,19 +58,20 @@ namespace Fungus.SaveSystem
 
         public virtual void SaveToSelectedSlot()
         {
-            var slot =                          slotManager.selectedSlot;
+            var slot = slotManager.selectedSlot;
             if (slot == null)
                 return;
-            
-            var newSaveData =                   gameSaver.CreateSave(slot.Number);
+
+            var newSaveData = gameSaver.CreateSave(slot.Number);
             saveManager.AddSave(newSaveData);
         }
 
-        #endregion
+        #endregion Saving
 
         #region Loading
+
         /// <summary>
-        /// Loads the save data assigned to the slot with the passed number, if 
+        /// Loads the save data assigned to the slot with the passed number, if
         /// there is any.
         /// </summary>
         public virtual void LoadFromSlot(int slotNumber)
@@ -83,16 +91,17 @@ namespace Fungus.SaveSystem
 
         public virtual void LoadFromSelectedSlot()
         {
-            var slot =                      slotManager.selectedSlot;
+            var slot = slotManager.selectedSlot;
             if (slot == null || slot.SaveData == null)
                 return;
 
             saveManager.LoadSave(slot.SaveData);
         }
 
-        #endregion
+        #endregion Loading
 
         #region Save-erasing
+
         /// <summary>
         /// Clears the slot with the passed number, erasing the save data it had been
         /// representing.
@@ -114,45 +123,46 @@ namespace Fungus.SaveSystem
 
         public virtual void ClearSelectedSlot()
         {
-            var slot =                          slotManager.selectedSlot;
+            var slot = slotManager.selectedSlot;
             if (slot == null || slot.SaveData == null)
                 return;
 
             saveManager.EraseSave(slot.SaveData);
         }
-        #endregion
+
+        #endregion Save-erasing
 
         #region Save-retrieval
-        
+
         /// <summary>
         /// Returns the save data assigned to the slot with the passed number.
         /// </summary>
         public virtual GameSaveData GetSaveFromSlot(int slotNumber)
         {
-            var slot =                      slotManager.FindSlot(slotNumber);
+            var slot = slotManager.FindSlot(slotNumber);
             if (slot != null) return slot.SaveData;
 
             return null;
         }
 
-        #endregion
+        #endregion Save-retrieval
 
         #region Menu Display
+
         public virtual void Open()
         {
-            canvasGroup.alpha =             1;
-            canvasGroup.interactable =      true;
-            canvasGroup.blocksRaycasts =    true;
+            canvasGroup.alpha = 1;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
         }
 
         public virtual void Close()
         {
-            canvasGroup.alpha =             0;
-            canvasGroup.interactable =      false;
-            canvasGroup.blocksRaycasts =    false;
+            canvasGroup.alpha = 0;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
         }
 
-        #endregion
-
+        #endregion Menu Display
     }
 }

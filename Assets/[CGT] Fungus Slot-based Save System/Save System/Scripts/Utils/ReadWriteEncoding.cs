@@ -1,20 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Text;
+﻿using System.Text;
+
+//todo remove
 
 namespace Fungus.SaveSystem
 {
     public enum ReadWriteEncoding
     {
-        ASCII, 
+        ASCII,
         BigEndianUnicode,
         Default,
         UTF7,
         UTF8,
         UTF32,
         Unicode
-
     }
 
     public static class ReadWriteEncodingExtensions
@@ -43,11 +41,10 @@ namespace Fungus.SaveSystem
 
                 case ReadWriteEncoding.Unicode:
                     return Encoding.Unicode;
-                    
+
                 default:
-                    throw new System.ArgumentException("ReadWriteEncoding " + encoding + " not accounted for.");
+                throw new System.ArgumentException("ReadWriteEncoding " + encoding + " not accounted for.");
             }
         }
     }
-
 }

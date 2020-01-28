@@ -1,25 +1,29 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
+
+//todo remove
 
 namespace Fungus.SaveSystem
 {
     [System.Serializable]
-    public class SaveData 
+    public class SaveData
     {
-        [SerializeField] string sceneName;
+        [SerializeField] private string sceneName;
 
         public string SceneName
         {
-            get                         { return sceneName; }
-            set                         { sceneName = value; }
+            get { return sceneName; }
+            set { sceneName = value; }
         }
 
         #region Constructors
-        public SaveData()               {}
+
+        public SaveData()
+        {
+        }
 
         public SaveData(string sceneName)
         {
-            this.sceneName =            sceneName;
+            this.sceneName = sceneName;
         }
 
         /// <summary>
@@ -30,14 +34,14 @@ namespace Fungus.SaveSystem
             SetFrom(other);
         }
 
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// Turns this save data into a deep copy of the one passed, given class constraints.
         /// </summary>
         public virtual void SetFrom(SaveData other)
         {
-            this.sceneName =                other.sceneName;
+            this.sceneName = other.sceneName;
         }
 
         /// <summary>
@@ -45,8 +49,7 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual void Clear()
         {
-            this.sceneName =                string.Empty;
+            this.sceneName = string.Empty;
         }
-
     }
 }

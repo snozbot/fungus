@@ -16,7 +16,7 @@ namespace Fungus
 #if UNITY_5_3_OR_NEWER
     [RequireComponent(typeof(SaveManager))]
     [RequireComponent(typeof(NarrativeLog))]
-    #endif
+#endif
     public sealed class FungusManager : MonoBehaviour
     {
         volatile static FungusManager instance;  // The keyword "volatile" is friendly to the multi-thread.
@@ -32,7 +32,7 @@ namespace Fungus
 #if UNITY_5_3_OR_NEWER
             SaveManager = GetComponent<SaveManager>();
             NarrativeLog = GetComponent<NarrativeLog>();
-            #endif
+#endif
         }
 
         /// <summary>
@@ -79,9 +79,8 @@ namespace Fungus
         /// <summary>
         /// Gets the history manager singleton instance.
         /// </summary>
-        public NarrativeLog NarrativeLog { get; private set; }
-        
-        #endif
+        public NarrativeLog NarrativeLog { get; private set; }      
+#endif
 
         /// <summary>
         /// Gets the FungusManager singleton instance.

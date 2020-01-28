@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+//todo needs updates, should be created via prefab by menu
 
 namespace Fungus.SaveSystem
 {
@@ -8,69 +9,75 @@ namespace Fungus.SaveSystem
     public class SaveSlot : MonoBehaviour
     {
         #region Fields
-        [Tooltip("Displays the number for this slot.")]
-        [SerializeField] Text numDisplay =                      null;
-        [Tooltip("Displays the description for this slot.")]
-        [SerializeField] Text descDisplay =                     null;
-        protected Button clickReceiver =                        null;
-        protected GameSaveData saveData =                       null;
-        int number; // Cached to avoid too much casting
 
-        #endregion
+        [Tooltip("Displays the number for this slot.")]
+        [SerializeField] private Text numDisplay = null;
+
+        [Tooltip("Displays the description for this slot.")]
+        [SerializeField] private Text descDisplay = null;
+
+        protected Button clickReceiver = null;
+        protected GameSaveData saveData = null;
+        private int number; // Cached to avoid too much casting
+
+        #endregion Fields
 
         #region Properties
-        #region UI Elements
-        public RectTransform rectTransform                      { get; private set; }
-        
 
-        #endregion
-        
+        #region UI Elements
+
+        public RectTransform rectTransform { get; private set; }
+
+        #endregion UI Elements
+
         /// <summary>
         /// Defines which slot this is in the Save Menu. First, second, etc.
         /// </summary>
-        public virtual int Number                               
-        { 
-            get                                                 { return number; } 
+        public virtual int Number
+        {
+            get { return number; }
             protected set
             {
-                number =                                        value;
-                numDisplay.text =                               "Save #" + number.ToString();
-            } 
+                number = value;
+                numDisplay.text = "Save #" + number.ToString();
+            }
         }
 
         public virtual string Description
         {
-            get                                                 { return descDisplay.text; }
-            protected set                                       { descDisplay.text = value; }
+            get { return descDisplay.text; }
+            protected set { descDisplay.text = value; }
         }
 
         public virtual GameSaveData SaveData
         {
-            get                                                 { return saveData; }
-            set 
+            get { return saveData; }
+            set
             {
                 if (value == null)
                 {
-                    string message =                            
-                    @"Cannot assign null GameSaveData to a Save Slot. If you want to 
+                    string message =
+                    @"Cannot assign null GameSaveData to a Save Slot. If you want to
                     clear the slot, call its Clear() method instead.";
                     Debug.LogWarning(message);
                     return;
                 }
-                
-                saveData =                                     value;
+
+                saveData = value;
                 UpdateDisplays();
                 Signals.SaveSlotUpdated.Invoke(this, value);
             }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Methods
+
         protected virtual void Awake()
         {
-            rectTransform =                                     GetComponent<RectTransform>();
-            Number =                                            rectTransform.GetSiblingIndex();
-            clickReceiver =                                         GetComponent<Button>();
+            rectTransform = GetComponent<RectTransform>();
+            Number = rectTransform.GetSiblingIndex();
+            clickReceiver = GetComponent<Button>();
             clickReceiver.onClick.AddListener(OnClick);
             UpdateDisplays();
         }
@@ -82,7 +89,7 @@ namespace Fungus.SaveSystem
 
         public virtual void Clear()
         {
-            saveData =                                         null;
+            saveData = null;
             UpdateDisplays();
             Signals.SaveSlotUpdated.Invoke(this, SaveData);
         }
@@ -92,15 +99,14 @@ namespace Fungus.SaveSystem
         /// </summary>
         protected virtual void UpdateDisplays()
         {
-            string newDesc =                                        null;
+            string newDesc = null;
 
             if (saveData != null)
-                newDesc =                                           saveData.Description;
-            
+                newDesc = saveData.Description;
             else
-                newDesc =                                           "<No Save Data>";
-            
-            Description =                                           newDesc;
+                newDesc = "<No Save Data>";
+
+            Description = newDesc;
         }
 
         protected virtual void OnClick()
@@ -108,6 +114,6 @@ namespace Fungus.SaveSystem
             Signals.SaveSlotClicked.Invoke(this);
         }
 
-        #endregion
+        #endregion Methods
     }
 }

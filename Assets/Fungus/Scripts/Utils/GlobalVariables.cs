@@ -14,6 +14,8 @@ namespace Fungus
     {
         private Flowchart holder;
 
+        public Flowchart GlobalVariableFlowchart { get { return holder; } }
+
         Dictionary<string, Variable> variables = new Dictionary<string, Variable>();
 
         void Awake()

@@ -7,84 +7,28 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
-    /// Serializable container for a string variable.
-    /// </summary>
-    [System.Serializable]
-    public class StringVar
-    {
-        [SerializeField] protected string key;
-        [SerializeField] protected string value;
-
-        #region Public methods
-
-        public string Key { get { return key; } set { key = value; } }
-        public string Value { get { return value; } set { this.value = value; } }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// Serializable container for an integer variable.
-    /// </summary>
-    [System.Serializable]
-    public class IntVar
-    {
-        [SerializeField] protected string key;
-        [SerializeField] protected int value;
-
-        #region Public methods
-
-        public string Key { get { return key; } set { key = value; } }
-        public int Value { get { return value; } set { this.value = value; } }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// Serializable container for a float variable.
-    /// </summary>
-    [System.Serializable]
-    public class FloatVar
-    {
-        [SerializeField] protected string key;
-        [SerializeField] protected float value;
-
-        #region Public methods
-
-        public string Key { get { return key; } set { key = value; } }
-        public float Value { get { return value; } set { this.value = value; } }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// Serializable container for a boolean variable.
-    /// </summary>
-    [System.Serializable]
-    public class BoolVar
-    {
-        [SerializeField] protected string key;
-        [SerializeField] protected bool value;
-
-        #region Public methods
-
-        public string Key { get { return key; } set { key = value; } }
-        public bool Value { get { return value; } set { this.value = value; } }
-
-        #endregion
-    }
-
-    /// <summary>
     /// Serializable container for encoding the state of a Flowchart's variables.
     /// </summary>
     [System.Serializable]
     public class FlowchartData
     {
+        [System.Serializable]
+        public class StringToJsonPair 
+        {
+            public string key, json;
+        }
+
+        [System.Serializable]
+        public class BlockData
+        {
+            public string blockName = string.Empty;
+            public int commandIndex = -1;
+            public ExecutionState executionState = ExecutionState.Idle;
+        }
+
         [SerializeField] protected string flowchartName;
-        [SerializeField] protected List<StringVar> stringVars = new List<StringVar>();
-        [SerializeField] protected List<IntVar> intVars = new List<IntVar>();
-        [SerializeField] protected List<FloatVar> floatVars = new List<FloatVar>();
-        [SerializeField] protected List<BoolVar> boolVars = new List<BoolVar>();
+        [SerializeField] protected List<StringToJsonPair> varPairs = new List<StringToJsonPair>();
+        [SerializeField] protected List<BlockData> blockDatas = new List<BlockData>();
 
         #region Public methods
 
@@ -92,26 +36,6 @@ namespace Fungus
         /// Gets or sets the name of the encoded Flowchart.
         /// </summary>
         public string FlowchartName { get { return flowchartName; } set { flowchartName = value; } }
-
-        /// <summary>
-        /// Gets or sets the list of encoded string variables.
-        /// </summary>
-        public List<StringVar> StringVars { get { return stringVars; } set { stringVars = value; } }
-
-        /// <summary>
-        /// Gets or sets the list of encoded integer variables.
-        /// </summary>
-        public List<IntVar> IntVars { get { return intVars; } set { intVars = value; } }
-
-        /// <summary>
-        /// Gets or sets the list of encoded float variables.
-        /// </summary>
-        public List<FloatVar> FloatVars { get { return floatVars; } set { floatVars = value; } }
-
-        /// <summary>
-        /// Gets or sets the list of encoded boolean variables.
-        /// </summary>
-        public List<BoolVar> BoolVars { get { return boolVars; } set { boolVars = value; } }
 
         /// <summary>
         /// Encodes the data in a Flowchart into a structure that can be stored by the save system.
@@ -122,48 +46,31 @@ namespace Fungus
 
             flowchartData.FlowchartName = flowchart.name;
 
-            for (int i = 0; i < flowchart.Variables.Count; i++) 
+            for (int i = 0; i < flowchart.Variables.Count; i++)
             {
                 var v = flowchart.Variables[i];
 
-                // Save string
-                var stringVariable = v as StringVariable;
-                if (stringVariable != null)
+                if (v.IsSerialisable)
                 {
-                    var d = new StringVar();
-                    d.Key = stringVariable.Key;
-                    d.Value = stringVariable.Value;
-                    flowchartData.StringVars.Add(d);
+                    flowchartData.varPairs.Add(new StringToJsonPair()
+                    {
+                        key = v.Key,
+                        json = v.GetValueAsJson()
+                    });
                 }
+            }
 
-                // Save int
-                var intVariable = v as IntegerVariable;
-                if (intVariable != null)
+            var blocks = flowchart.GetComponents<Block>();
+            foreach(var block in blocks)
+            {
+                if (block.IsSavingAllowed)
                 {
-                    var d = new IntVar();
-                    d.Key = intVariable.Key;
-                    d.Value = intVariable.Value;
-                    flowchartData.IntVars.Add(d);
-                }
-
-                // Save float
-                var floatVariable = v as FloatVariable;
-                if (floatVariable != null)
-                {
-                    var d = new FloatVar();
-                    d.Key = floatVariable.Key;
-                    d.Value = floatVariable.Value;
-                    flowchartData.FloatVars.Add(d);
-                }
-
-                // Save bool
-                var boolVariable = v as BooleanVariable;
-                if (boolVariable != null)
-                {
-                    var d = new BoolVar();
-                    d.Key = boolVariable.Key;
-                    d.Value = boolVariable.Value;
-                    flowchartData.BoolVars.Add(d);
+                    flowchartData.blockDatas.Add(new BlockData()
+                    {
+                        blockName = block.BlockName,
+                        commandIndex = block.ActiveCommandIndex,
+                        executionState = block.State
+                    });
                 }
             }
 
@@ -173,41 +80,61 @@ namespace Fungus
         /// <summary>
         /// Decodes a FlowchartData object and uses it to restore the state of a Flowchart in the scene.
         /// </summary>
-        public static void Decode(FlowchartData flowchartData)
+        public static void Decode(FlowchartData flowchartData, Flowchart flowchart = null)
         {
-            var go = GameObject.Find(flowchartData.FlowchartName);
-            if (go == null)
-            {
-                Debug.LogError("Failed to find flowchart object specified in save data");
-                return;
-            }
-
-            var flowchart = go.GetComponent<Flowchart>();
             if (flowchart == null)
             {
-                Debug.LogError("Failed to find flowchart object specified in save data");
-                return;
+                var go = GameObject.Find(flowchartData.FlowchartName);
+                if (go == null)
+                {
+                    Debug.LogError("Failed to find flowchart object specified in save data");
+                    return;
+                }
+
+                flowchart = go.GetComponent<Flowchart>();
+                if (flowchart == null)
+                {
+                    Debug.LogError("Failed to find flowchart object specified in save data");
+                    return;
+                }
+
             }
 
-            for (int i = 0; i < flowchartData.BoolVars.Count; i++)
+            for (int i = 0; i < flowchartData.varPairs.Count; i++)
             {
-                var boolVar = flowchartData.BoolVars[i];
-                flowchart.SetBooleanVariable(boolVar.Key, boolVar.Value);
+                var v = flowchart.GetVariable(flowchartData.varPairs[i].key);
+
+                if(v != null)
+                {
+                    v.SetValueFromJson(flowchartData.varPairs[i].json);
+                }
             }
-            for (int i = 0; i < flowchartData.IntVars.Count; i++)
+
+            foreach (var item in flowchartData.blockDatas)
             {
-                var intVar = flowchartData.IntVars[i];
-                flowchart.SetIntegerVariable(intVar.Key, intVar.Value);
-            }
-            for (int i = 0; i < flowchartData.FloatVars.Count; i++)
-            {
-                var floatVar = flowchartData.FloatVars[i];
-                flowchart.SetFloatVariable(floatVar.Key, floatVar.Value);
-            }
-            for (int i = 0; i < flowchartData.StringVars.Count; i++)
-            {
-                var stringVar = flowchartData.StringVars[i];
-                flowchart.SetStringVariable(stringVar.Key, stringVar.Value);
+                var block = flowchart.FindBlock(item.blockName);
+
+                if(block != null)
+                {
+                    if (item.executionState == ExecutionState.Idle)
+                    {
+                        //meant to be idle but isn't
+                        block.Stop();
+                    }
+                    else if (item.executionState == ExecutionState.Executing)
+                    {
+                        //running the wrong thing
+                        if (block.ActiveCommandIndex != item.commandIndex)
+                            block.Stop();
+
+                        //TODO this should be cached until all loading is complete
+                        if (!block.IsExecuting())
+                        {
+                            block.Stop();
+                            flowchart.ExecuteBlock(block, item.commandIndex);
+                        }
+                    }
+                }
             }
         }
 

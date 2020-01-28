@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using Fungus;
 
+//todo remove
 
 namespace Fungus.SaveSystem
 {
@@ -11,16 +11,18 @@ namespace Fungus.SaveSystem
     public class BlockData : SaveData
     {
         #region Fields
-        [SerializeField] string blockName;
-        [SerializeField] int commandIndex =             -1;
-        #endregion
+
+        [SerializeField] private string blockName;
+        [SerializeField] private int commandIndex = -1;
+
+        #endregion Fields
 
         #region Properties
 
         public virtual string BlockName
         {
-            get                                         { return blockName; }
-            set                                         { blockName = value; }
+            get { return blockName; }
+            set { blockName = value; }
         }
 
         /// <summary>
@@ -29,44 +31,47 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual int CommandIndex
         {
-            get                                         { return commandIndex; }
-            set                                         { commandIndex = value; }
+            get { return commandIndex; }
+            set { commandIndex = value; }
         }
 
         /// <summary>
         /// Whether or not this was executing any commands according to this data.
         /// </summary>
         /// <value></value>
-        public virtual bool WasExecuting                { get { return commandIndex >= 0; } }
-        #endregion
+        public virtual bool WasExecuting { get { return commandIndex >= 0; } }
+
+        #endregion Properties
 
         #region Methods
 
         #region Constructors
-        public BlockData() {}
+
+        public BlockData()
+        {
+        }
 
         public BlockData(Block block)
         {
             SetFrom(block);
         }
 
-
         public BlockData(string blockName, int commandIndex = -1)
         {
-            this.blockName =                            blockName;
-            this.commandIndex =                         commandIndex;
+            this.blockName = blockName;
+            this.commandIndex = commandIndex;
         }
 
-        #endregion
+        #endregion Constructors
 
         public virtual void SetFrom(Block block)
         {
-            blockName =                                 block.BlockName;
-            var flowchart =                             block.GetFlowchart();
+            blockName = block.BlockName;
+            var flowchart = block.GetFlowchart();
             if (block.ActiveCommand != null)
-                commandIndex =                          block.CommandList.IndexOf(block.ActiveCommand);
+                commandIndex = block.CommandList.IndexOf(block.ActiveCommand);
         }
 
-        #endregion
+        #endregion Methods
     }
 }

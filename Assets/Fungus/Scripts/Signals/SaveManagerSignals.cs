@@ -14,16 +14,16 @@ namespace Fungus
         /// <summary>
         /// SavePointLoaded signal. Sent just after a SavePoint is loaded.
         /// </summary>
-        public static event SavePointLoadedHandler OnSavePointLoaded;
-        public delegate void SavePointLoadedHandler(string savePointKey);
-        public static void DoSavePointLoaded(string savePointKey) { if (OnSavePointLoaded != null) OnSavePointLoaded(savePointKey); }
+        public static event SaveLoadedHandler OnSaveLoaded;
+        public delegate void SaveLoadedHandler(string savePointKey);
+        public static void DoSaveLoaded(string savePointKey) { if (OnSaveLoaded != null) OnSaveLoaded(savePointKey); }
 
         /// <summary>
         /// SavePointAdded signal. Sent when a new save point is added to the save history (typically via the Save Point command).
         /// </summary>
-        public static event SavePointAddedHandler OnSavePointAdded;
-        public delegate void SavePointAddedHandler(string savePointKey, string savePointDescription);
-        public static void DoSavePointAdded(string savePointKey, string savePointDescription) { if (OnSavePointAdded != null) OnSavePointAdded(savePointKey, savePointDescription); }
+        public static event SaveSavedHandler OnSaveSaved;
+        public delegate void SaveSavedHandler(string savePointKey, string savePointDescription);
+        public static void DoSaveSaved(string savePointKey, string savePointDescription) { if (OnSaveSaved != null) OnSaveSaved(savePointKey, savePointDescription); }
 
         /// <summary>
         /// SaveReset signal. Sent when the save history is reset.
@@ -31,6 +31,14 @@ namespace Fungus
         public static event SaveResetHandler OnSaveReset;
         public delegate void SaveResetHandler();
         public static void DoSaveReset() { if (OnSaveReset != null) OnSaveReset(); }
+
+
+        /// <summary>
+        /// ProgressMarker reached.
+        /// </summary>
+        public static event ProgressMarkerChangedHandler OnProgressMarkerReached;
+        public delegate void ProgressMarkerChangedHandler(ProgressMarker was, ProgressMarker now);
+        public static void DoProgressMarkerReached(ProgressMarker was, ProgressMarker now) { if (OnProgressMarkerReached != null) OnProgressMarkerReached(was, now); }
 
         #endregion
     }

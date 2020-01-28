@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using Fungus;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using BaseFungus = Fungus;
+
+//todo remove
 
 namespace Fungus.SaveSystem
 {
@@ -23,43 +24,42 @@ namespace Fungus.SaveSystem
             }
 
             // Restore the flowchart's state
-            GameObject fcGo =               GameObject.Find(data.FlowchartName);
-            Flowchart flowchart =           fcGo.GetComponent<Flowchart>();
+            GameObject fcGo = GameObject.Find(data.FlowchartName);
+            Flowchart flowchart = fcGo.GetComponent<Flowchart>();
 
             PreventInterruptions(flowchart);
             LoadVariables(data, ref flowchart);
-            
+
             // Before any blocks are re-executed, the ones responding to the load should execute first.
-            if (ProgressMarker.latestExecuted != null)
-                SaveDataLoaded.NotifyEventHandlers(ProgressMarker.latestExecuted.Key);
+            if (ProgressMarker.LatestExecuted != null)
+                SaveDataLoaded.NotifyEventHandlers(ProgressMarker.LatestExecuted.CustomKey);
             LoadExecutingBlocks(data, flowchart);
             return true;
-
         }
 
         protected virtual bool CanLoadData(FlowchartData data, out string errorMessage)
         {
-            errorMessage =                                  null;
-            string objNotFound =                            "Failed to find Flowchart object specified in save data";
+            errorMessage = null;
+            string objNotFound = "Failed to find Flowchart object specified in save data";
 
             // Find the Game Object in the scene
-            GameObject fcGo =                               null;
-            Flowchart fc =                                  null;
-            fcGo =                                          GameObject.Find(data.FlowchartName);
-            
+            GameObject fcGo = null;
+            Flowchart fc = null;
+            fcGo = GameObject.Find(data.FlowchartName);
+
             // If possible, get the Flowchart component from it
             if (fcGo != null)
-                fc =                                        fcGo.GetComponent<Flowchart>();
-            
+                fc = fcGo.GetComponent<Flowchart>();
+
             if (fc == null) // Need the flowchart component to load into
-                errorMessage =                              objNotFound;
-            
+                errorMessage = objNotFound;
+
             return fc != null;
         }
 
         protected virtual void LoadVariables(FlowchartData data, ref Flowchart flowchart)
         {
-            FlowchartVariables vars =                       data.Vars;
+            FlowchartVariables vars = data.Vars;
 
             LoadVariables<string, StringVar, StringVariable>(flowchart, vars.Strings);
             LoadVariables<int, IntVar, IntegerVariable>(flowchart, vars.Ints);
@@ -113,7 +113,6 @@ namespace Fungus.SaveSystem
                 flowchart.SetVariable<Vector3, Vector3Variable>(vec3Var.Key, vec3Var.Value);
             }
             */
-
         }
 
         /// <summary>
@@ -122,61 +121,64 @@ namespace Fungus.SaveSystem
         /// TSVarType: This save system's serializable variable container
         /// TNSVarType Fungus's built-in not-as-serializable variable container
         /// </summary>
-        protected virtual void LoadVariables<TBase, TSVarType, TNSVarType>(Flowchart toLoadInto, 
-                                                                            IList<TSVarType> toLoadFrom)
-        where TSVarType: Var<TBase>
-        where TNSVarType: BaseFungus.VariableBase<TBase>
+        protected virtual void LoadVariables<TBase, TSVarType, TNSVarType>(Flowchart toLoadInto,
+                                                                           IList<TSVarType> toLoadFrom)
+        where TSVarType : Var<TBase>
+        where TNSVarType : BaseFungus.VariableBase<TBase>
         {
             for (int i = 0; i < toLoadFrom.Count; i++)
             {
-                var variable =                  toLoadFrom[i];
+                var variable = toLoadFrom[i];
                 toLoadInto.SetVariable<TBase, TNSVarType>(variable.Key, variable.Value);
             }
         }
+
+        //TODO this needs a fix, can't just nuke gamestarteds
 
         /// <summary>
         /// Keeps blocks like those with a Game Started event from interfering with the load process.
         /// </summary>
         protected virtual void PreventInterruptions(Flowchart flowchart)
         {
-            var blocks =                        flowchart.GetComponents<Block>();
-            
+            var blocks = flowchart.GetComponents<Block>();
+
             for (int i = 0; i < blocks.Length; i++)
             {
-                var block =                     blocks[i];
+                var block = blocks[i];
 
                 // Getting rid of the Game Started event
-                var hasGameStartedHandler =     block._EventHandler as GameStarted != null;
+                var hasGameStartedHandler = block._EventHandler as GameStarted != null;
 
                 if (hasGameStartedHandler)
                 {
-                    block._EventHandler =       null;
+                    block._EventHandler = null;
                 }
             }
         }
 
         /// <summary>
-        /// Makes the blocks in the flowchart pick up where they left off, when the original 
+        /// Makes the blocks in the flowchart pick up where they left off, when the original
         /// FlowchartData was made.
         /// </summary>
         protected virtual void LoadExecutingBlocks(FlowchartData data, Flowchart flowchart)
         {
+            //todo load loads scene, nothing should be running that hasn't asked to due to scene load
             flowchart.StopAllBlocks();
             for (int i = 0; i < data.Blocks.Count; i++)
             {
-                var savedBlock =                data.Blocks[i];
+                var savedBlock = data.Blocks[i];
                 if (!savedBlock.WasExecuting)
                     continue;
-                
-                var fullBlockObj =              flowchart.FindBlock(savedBlock.BlockName);
+
+                var fullBlockObj = flowchart.FindBlock(savedBlock.BlockName);
 
                 if (fullBlockObj == null)
                 {
                     // Seems the user removed the block. Might as well let them know.
-                    var messageFormat = 
-                    @"Could not load state of block named {0} from flowchart named {1}; 
+                    var messageFormat =
+                    @"Could not load state of block named {0} from flowchart named {1};
                     the former is not in the latter.";
-                    var message =               string.Format(messageFormat, savedBlock.BlockName, flowchart.name);
+                    var message = string.Format(messageFormat, savedBlock.BlockName, flowchart.name);
                     Debug.LogWarning(message);
                     continue;
                 }
@@ -184,7 +186,5 @@ namespace Fungus.SaveSystem
                 flowchart.ExecuteBlock(fullBlockObj, savedBlock.CommandIndex);
             }
         }
-
     }
-
 }

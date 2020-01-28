@@ -1,36 +1,38 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Fungus;
+
+//todo remove
 
 namespace Fungus.SaveSystem
 {
     /// <summary>
-    /// This encodes game objects into save data for a whole playthrough, so their state 
+    /// This encodes game objects into save data for a whole playthrough, so their state
     /// can be restored upon loading the game.
     /// Handles Flowcharts and NarrativeLogs by default.
     /// To extend this to handle other data types, just modify or subclass this component.
     /// </summary>
-    public class GameSaver: DataSaver<GameSaveData>, ISaveCreator<GameSaveData>
+    public class GameSaver : DataSaver<GameSaveData>
     {
-        protected List<DataSaver> subsavers =       new List<DataSaver>();
+        protected List<DataSaver> subsavers = new List<DataSaver>();
 
         #region Methods
+
         protected virtual void Awake()
         {
-           subsavers.AddRange(GetComponents<DataSaver>());
-           subsavers.RemoveAll(saver => saver == this); // This can't be its own subsaver!
+            subsavers.AddRange(GetComponents<DataSaver>());
+            subsavers.RemoveAll(saver => saver == this); // This can't be its own subsaver!
         }
 
         public override IList<SaveDataItem> CreateItems()
         {
             // Create GameSaveData, and encode it into a SaveDataItem
-            var gameSave =                          CreateSave();
-            var jsonSave =                          JsonUtility.ToJson(gameSave);
-            var newItem =                           new SaveDataItem(saveType.Name, jsonSave);
+            var gameSave = CreateSave();
+            var jsonSave = JsonUtility.ToJson(gameSave);
+            var newItem = new SaveDataItem(saveType.Name, jsonSave);
 
             // The array has only one element, since we only made one GameSaveData
-            return new SaveDataItem[1] {newItem};
+            return new SaveDataItem[1] { newItem };
         }
 
         /// <summary>
@@ -38,24 +40,24 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual GameSaveData CreateSave()
         {
-            var sceneName =                         SceneManager.GetActiveScene().name;
-            var newGameSave =                       new GameSaveData(sceneName, -1);
+            var sceneName = SceneManager.GetActiveScene().name;
+            var newGameSave = new GameSaveData(sceneName, -1);
             EncodeInto(ref newGameSave);
             newGameSave.UpdateTime();
-            if (ProgressMarker.latestExecuted != null)
-                newGameSave.ProgressMarkerKey =     ProgressMarker.latestExecuted.Key;
-            
-            // It's common to make VN save file descs be the text that was in the textbox, 
+            if (ProgressMarker.LatestExecuted != null)
+                newGameSave.ProgressMarkerKey = ProgressMarker.LatestExecuted.CustomKey;
+
+            // It's common to make VN save file descs be the text that was in the textbox,
             // at the time of the save being made.
-            var description =                       newGameSave.Description;
-            var sayDialog =                         SayDialog.ActiveSayDialog;
+            var description = newGameSave.Description;
+            var sayDialog = SayDialog.ActiveSayDialog;
 
             if (sayDialog != null || string.IsNullOrEmpty(sayDialog.StoryText))
-                description =                       sayDialog.StoryText;
+                description = sayDialog.StoryText;
             else
-                description =                       newGameSave.LastWritten.ToLongDateString();
-           
-            newGameSave.Description =               description;
+                description = newGameSave.LastWritten.ToLongDateString();
+
+            newGameSave.Description = description;
             return newGameSave;
         }
 
@@ -64,8 +66,8 @@ namespace Fungus.SaveSystem
         /// </summary>
         public virtual GameSaveData CreateSave(int slotNumber)
         {
-            var newGameSave =                       CreateSave();
-            newGameSave.SlotNumber =                slotNumber;
+            var newGameSave = CreateSave();
+            newGameSave.SlotNumber = slotNumber;
             return newGameSave;
         }
 
@@ -83,16 +85,14 @@ namespace Fungus.SaveSystem
         {
             for (int i = 0; i < subsavers.Count; i++)
             {
-                var subsaver =                      subsavers[i];
-                var saveDataItems =                 subsaver.CreateItems();
+                var subsaver = subsavers[i];
+                var saveDataItems = subsaver.CreateItems();
                 saveData.Items.AddRange(saveDataItems);
             }
         }
 
-        #endregion
+        #endregion Helpers
 
-        #endregion
-
-
+        #endregion Methods
     }
 }

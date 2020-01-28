@@ -5,6 +5,11 @@
 
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+
+
+//TODO update doco
 
 namespace Fungus
 {
@@ -15,63 +20,39 @@ namespace Fungus
     /// -webgl would require additional js to force a sync of FS.syncfs
     /// -webplayer does not implement system io
     /// </summary>
-    public class SaveManager : MonoBehaviour 
+    public class SaveManager : MonoBehaviour
     {
-        protected static SaveHistory saveHistory = new SaveHistory();
+        public class SavePointMeta
+        {
+            public string saveName;
+            public string savePointDescription;
+            public System.DateTime savePointLastWritten;
+            public string fileLocation;
+            public string progressMarker;
+        }
+
+        [SerializeField] protected List<SavePointMeta> saveMetas = new List<SavePointMeta>();
+
+        public List<SavePointMeta> SaveMetas { get { return saveMetas; } }
+
+        [SerializeField] protected string currentSaveProfileKey = FungusConstants.DefaultSaveProfileKey;
+
+
+        //#if UNITY_WEBPLAYER || UNITY_WEBGL
+        [System.Serializable]
+        public class WebSaveBlob
+        {
+            public List<string> saveJSONs = new List<string>();
+        }
+
+        [SerializeField] protected WebSaveBlob webSaveBlob = new WebSaveBlob();
 
         public static string STORAGE_DIRECTORY { get { return Application.persistentDataPath + "/FungusSaves/"; } }
+        protected const string FileExtension = ".save";
 
-        private static string GetFullFilePath(string saveDataKey)
+        private string GetFullSaveDir()
         {
-            return STORAGE_DIRECTORY + saveDataKey + ".json";
-        }
-
-        protected virtual bool ReadSaveHistory(string saveDataKey)
-        {
-            var historyData = string.Empty;
-#if UNITY_WEBPLAYER || UNITY_WEBGL
-            historyData = PlayerPrefs.GetString(saveDataKey);
-#else
-            var fullFilePath = GetFullFilePath(saveDataKey);
-            if (System.IO.File.Exists(fullFilePath))
-            {
-                historyData = System.IO.File.ReadAllText(fullFilePath);
-            }
-#endif//UNITY_WEBPLAYER
-            if (!string.IsNullOrEmpty(historyData))
-            {
-                var tempSaveHistory = JsonUtility.FromJson<SaveHistory>(historyData);
-                if (tempSaveHistory != null)
-                {
-                    saveHistory = tempSaveHistory;
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        protected virtual bool WriteSaveHistory(string saveDataKey)
-        {
-            var historyData = JsonUtility.ToJson(saveHistory, true);
-            if (!string.IsNullOrEmpty(historyData))
-            {
-#if UNITY_WEBPLAYER || UNITY_WEBGL
-                PlayerPrefs.SetString(saveDataKey, historyData);
-                PlayerPrefs.Save();
-#else
-                var fileLoc = GetFullFilePath(saveDataKey);
-                
-                //make sure the dir exists
-                System.IO.FileInfo file = new System.IO.FileInfo(fileLoc);
-                file.Directory.Create();
-                
-                System.IO.File.WriteAllText(fileLoc, historyData);
-#endif//UNITY_WEBPLAYER
-                return true;
-            }
-
-            return false;
+            return System.IO.Path.GetFullPath(STORAGE_DIRECTORY + currentSaveProfileKey + "/");
         }
 
         /// <summary>
@@ -81,123 +62,35 @@ namespace Fungus
         /// 2. First Save Point command (in any Block) with matching key. Execution starts at the following command.
         /// 3. Any label in any block with name matching the key. Execution starts at the following command.
         /// </summary>
-        protected virtual void ExecuteBlocks(string savePointKey)
+        protected virtual void ExecuteBlocks(string progressMarkerName)
         {
             // Execute Save Point Loaded event handlers with matching key.
-            SavePointLoaded.NotifyEventHandlers(savePointKey);
+            SaveLoaded.NotifyEventHandlers(progressMarkerName);
 
             // Execute any block containing a SavePoint command matching the save key, with Resume On Load enabled
-            var savePoints = UnityEngine.Object.FindObjectsOfType<SavePoint>();
+            var savePoints = UnityEngine.Object.FindObjectsOfType<AutoSave>();
             for (int i = 0; i < savePoints.Length; i++)
             {
                 var savePoint = savePoints[i];
-                if (savePoint.ResumeOnLoad &&
-                    string.Compare(savePoint.SavePointKey, savePointKey, true) == 0)
+                if (string.Compare(savePoint.CustomKey, progressMarkerName, true) == 0)
                 {
-                    int index = savePoint.CommandIndex;
-                    var block = savePoint.ParentBlock;
-                    var flowchart = savePoint.GetFlowchart();
-                    flowchart.ExecuteBlock(block, index + 1);
+                    savePoint.RequestResumeAfterLoad();
 
-                    // Assume there's only one SavePoint using this key
+                    // Assume there's only one AutoSave using this key
                     break;
                 }
             }
         }
 
-        /// <summary>
-        /// Starts execution at the first Save Point found in the scene with the IsStartPoint property enabled.
-        /// </summary>
-        protected virtual void ExecuteStartBlock()
+        public string GetDebugInfo()
         {
-            // Each scene should have one Save Point with the IsStartPoint property enabled.
-            // We automatically start execution from this command whenever the scene starts 'normally' (i.e. first play, restart or scene load via the Load Scene command or SceneManager.LoadScene).
-
-            var savePoints = UnityEngine.Object.FindObjectsOfType<SavePoint>();
-            for (int i = 0; i < savePoints.Length; i++)
+            string retval = string.Empty;
+            foreach (var item in saveMetas)
             {
-                var savePoint = savePoints[i];
-                if (savePoint.IsStartPoint)
-                {
-                    savePoint.GetFlowchart().ExecuteBlock(savePoint.ParentBlock, savePoint.CommandIndex);
-                    break;
-                }
+                retval += item.saveName + "\n";
             }
+            return retval;
         }
-
-        protected virtual void LoadSavedGame(string saveDataKey)
-        {
-            if (ReadSaveHistory(saveDataKey))
-            {
-                saveHistory.ClearRewoundSavePoints();
-                saveHistory.LoadLatestSavePoint();
-            }
-        }
-
-        // Scene loading in Unity is asynchronous so we need to take care to avoid race conditions. 
-        // The following callbacks tell us when a scene has been loaded and when 
-        // a saved game has been loaded. We delay taking action until the next 
-        // frame (via a delegate) so that we know for sure which case we're dealing with.
-
-        protected virtual void OnEnable()
-        {
-            SaveManagerSignals.OnSavePointLoaded += OnSavePointLoaded;
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-
-        protected virtual void OnDisable()
-        {
-            SaveManagerSignals.OnSavePointLoaded -= OnSavePointLoaded;
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
-
-        protected virtual void OnSavePointLoaded(string savePointKey)
-        {
-            var key = savePointKey;
-            loadAction = () => ExecuteBlocks(key);
-        }
-
-        protected virtual void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            // Ignore additive scene loads
-            if (mode == LoadSceneMode.Additive)
-            {
-                return;
-            }
-
-            // We first assume that this is a 'normal' scene load rather than a saved game being loaded.
-            // If we subsequently receive a notification that a saved game was loaded then the load action 
-            // set here will be overridden by the OnSavePointLoaded callback above.
-
-            if (loadAction == null)
-            {
-                loadAction = ExecuteStartBlock;
-            }
-        }
-
-        protected System.Action loadAction;
-
-        protected virtual void Start()
-        {
-            // The OnSceneLoaded callback above may not be called for the initial scene load in the game,
-            // so we call ExecuteStartBlock when the SaveManager starts up too.
-            if (loadAction == null)
-            {
-                loadAction = ExecuteStartBlock;
-            }
-        }
-
-        protected virtual void Update()
-        {
-            // Execute any previously scheduled load action
-            if (loadAction != null)
-            {
-                loadAction();
-                loadAction = null;
-            }
-        }
-
-        #region Public members
 
         /// <summary>
         /// The scene that should be loaded when restarting a game.
@@ -207,118 +100,207 @@ namespace Fungus
         /// <summary>
         /// Returns the number of Save Points in the Save History.
         /// </summary>
-        public virtual int NumSavePoints { get { return saveHistory.NumSavePoints; } }
+        public virtual int NumSaves { get { return saveMetas.Count; } }
 
-        /// <summary>
-        /// Returns the current number of rewound Save Points in the Save History.
-        /// </summary>
-        public virtual int NumRewoundSavePoints { get { return saveHistory.NumRewoundSavePoints; } }
+        public bool IsSaveLoading { get; protected set; }
 
-        /// <summary>
-        /// Writes the Save History to persistent storage.
-        /// </summary>
-        public virtual void Save(string saveDataKey)
+        public void Awake()
         {
-            WriteSaveHistory(saveDataKey);
+            IsSaveLoading = false;
+            PopulateSaveMetas(currentSaveProfileKey);
+            SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         }
 
-        /// <summary>
-        /// Loads the Save History from persistent storage and loads the latest Save Point.
-        /// </summary>
-        public void Load(string saveDataKey)
+        private void OnDestroy()
         {
-            // Set a load action to be executed on next update
-            var key = saveDataKey;
-            loadAction = () => LoadSavedGame(key);
+            SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
+        }
+
+        private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+        {
+            if(!IsSaveLoading)
+            {
+                //scene was loaded not a save game
+                var savePoints = UnityEngine.Object.FindObjectsOfType<ProgressMarker>().ToList();
+                var startingSavePoint = savePoints.FirstOrDefault(x => x.IsStartPoint);
+                if(startingSavePoint != null)
+                {
+                    startingSavePoint.GetFlowchart().ExecuteBlock(startingSavePoint.ParentBlock, startingSavePoint.CommandIndex);
+                }
+            }
+        }
+
+
+        //TODO needs web version
+        public void PopulateSaveMetas(string saveDataKey)
+        {
+            saveMetas.Clear();
+            currentSaveProfileKey = saveDataKey;
+
+            var dir = GetFullSaveDir();
+
+            var foundFiles = System.IO.Directory.GetFiles(dir, "*" + FileExtension);
+
+            foreach (var item in foundFiles)
+            {
+                var fileContents = System.IO.File.ReadAllText(item);
+                var save = SavePointData.DecodeFromJSON(fileContents);
+                GenerateMetaFromSave(item, save);
+            }
+        }
+
+        private void GenerateMetaFromSave(string fileLoc, SavePointData save)
+        {
+            if (save != null)
+            {
+                saveMetas.Add(new SavePointMeta()
+                {
+                    fileLocation = fileLoc,
+                    saveName = save.SaveName,
+                    progressMarker = save.ProgressMarkerName,
+                    savePointDescription = save.SavePointDescription,
+                    savePointLastWritten = save.LastWritten,
+                });
+            }
+        }
+
+        public int SavePointNameToIndex(string saveName)
+        {
+            return saveMetas.FindIndex(x => x.saveName == saveName);
         }
 
         /// <summary>
         /// Deletes a previously stored Save History from persistent storage.
         /// </summary>
-        public void Delete(string saveDataKey)
+        public void DeleteSave(int index)
         {
+            var meta = saveMetas[index];
 #if UNITY_WEBPLAYER || UNITY_WEBGL
-            PlayerPrefs.DeleteKey(saveDataKey);
+            webSaveBlob.saveJSONs.RemoveAt(index);
+            var webBlogJSON = JsonUtility.ToJson(webSaveBlob);
+            PlayerPrefs.SetString(currentSaveDataKey, webBlogJSON);
             PlayerPrefs.Save();
 #else
-            var fullFilePath = GetFullFilePath(saveDataKey);
-            if (System.IO.File.Exists(fullFilePath))
+            if (System.IO.File.Exists(meta.fileLocation))
             {
-                System.IO.File.Delete(fullFilePath);
+                System.IO.File.Delete(meta.fileLocation);
             }
 #endif//UNITY_WEBPLAYER
+            saveMetas.RemoveAt(index);
         }
 
-        /// <summary>
-        /// Returns true if save data has previously been stored using this key.
-        /// </summary>
-        public bool SaveDataExists(string saveDataKey)
+        public void DeleteSave(SavePointMeta meta)
         {
-#if UNITY_WEBPLAYER || UNITY_WEBGL
-            return PlayerPrefs.HasKey(saveDataKey);
-#else
-            var fullFilePath = GetFullFilePath(saveDataKey);
-            return System.IO.File.Exists(fullFilePath);
-#endif//UNITY_WEBPLAYER
-            }
+            DeleteSave(saveMetas.IndexOf(meta));
+        }
 
         /// <summary>
         /// Creates a new Save Point using a key and description, and adds it to the Save History.
         /// </summary>
-        public virtual void AddSavePoint(string savePointKey, string savePointDescription)
+        public virtual void Save(string saveName, string savePointDescription)
         {
-            saveHistory.AddSavePoint(savePointKey, savePointDescription);
+            var existingMetaIndex = SavePointNameToIndex(saveName);
+            if (existingMetaIndex >= 0)
+            {
+                DeleteSave(existingMetaIndex);
+            }
 
-            SaveManagerSignals.DoSavePointAdded(savePointKey, savePointDescription);
+            string sceneName = SceneManager.GetActiveScene().name;
+            var savePointDataJSON = SavePointData.EncodeToJson(saveName, savePointDescription, sceneName, out SavePointData save);
+            var fileName = GetFullSaveDir() + System.DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss.ffff") + FileExtension;
+            GenerateMetaFromSave(fileName, save);
+#if UNITY_WEBPLAYER || UNITY_WEBGL
+
+#else
+            System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
+            System.IO.File.WriteAllText(fileName, savePointDataJSON, System.Text.Encoding.UTF8);
+#endif
+            //https://docs.unity3d.com/ScriptReference/ScreenCapture.CaptureScreenshot.html with unique name
+
+            //TODO save created
+            SaveManagerSignals.DoSaveSaved(saveName, savePointDescription);
         }
 
-        /// <summary>
-        /// Rewinds to the previous Save Point in the Save History and loads that Save Point.
-        /// </summary>
-        public virtual void Rewind()
+        public virtual bool Load(string savePointKey)
         {
-            if (saveHistory.NumSavePoints > 0)
+            var existingMetaIndex = SavePointNameToIndex(savePointKey);
+            if (existingMetaIndex < 0)
             {
-                // Rewinding the first save point is not permitted
-                if (saveHistory.NumSavePoints > 1)
+                Debug.LogError("Asked to Load save point of key " + savePointKey + " but none of that key exist.");
+
+                return false;
+            }
+
+            return Load(saveMetas[existingMetaIndex]);
+        }
+
+        public virtual bool Load(SavePointMeta meta)
+        {
+            var saveContent = System.IO.File.ReadAllText(meta.fileLocation, System.Text.Encoding.UTF8);
+
+            var savePointData = SavePointData.DecodeFromJSON(saveContent);
+
+            if (!LoadSavePoint(savePointData))
+            {
+                Debug.LogError("Failed to Load " + meta.saveName);
+                return false;
+            }
+            return true;
+        }
+
+        public virtual bool LoadSavePoint(SavePointData savePointData)
+        {
+            if (savePointData == null)
+                return false;
+
+            var markerKey = savePointData.ProgressMarkerName;
+
+            UnityEngine.Events.UnityAction<Scene, LoadSceneMode> onSceneLoadedAction = null;
+
+            onSceneLoadedAction = (scene, mode) =>
+            {
+                // Additive scene loads and non-matching scene loads could happen if the client is using the
+                // SceneManager directly. We just ignore these events and hope they know what they're doing!
+                if (mode == LoadSceneMode.Additive ||
+                    scene.name != savePointData.SceneName)
                 {
-                    saveHistory.Rewind();
+                    return;
                 }
 
-                saveHistory.LoadLatestSavePoint();
-            }
+                SceneManager.sceneLoaded -= onSceneLoadedAction;
+
+                // Look for a SaveData component in the scene to process the save data items.
+                savePointData.RunDeserialize();
+
+                SaveManagerSignals.DoSaveLoaded(savePointData.SaveName);
+
+                ExecuteBlocks(markerKey);
+                StartCoroutine(DelaySetNotLoading());
+            };
+
+            SceneManager.sceneLoaded += onSceneLoadedAction;
+            IsSaveLoading = true;
+            SceneManager.LoadScene(savePointData.SceneName);
+
+            return true;
         }
 
-        /// <summary>
-        /// Fast forwards to the next rewound Save Point in the Save History and loads that Save Point.
-        /// </summary>
-        public virtual void FastForward()
+        private System.Collections.IEnumerator DelaySetNotLoading()
         {
-            if (saveHistory.NumRewoundSavePoints > 0)
-            {
-                saveHistory.FastForward();
-                saveHistory.LoadLatestSavePoint();
-            }
+            yield return new WaitForEndOfFrame();
+            IsSaveLoading = false;
         }
 
         /// <summary>
         /// Deletes all Save Points in the Save History.
         /// </summary>
-        public virtual void ClearHistory()
+        public virtual void DeleteAllSaves()
         {
-            saveHistory.Clear();
+            while(saveMetas.Count > 0)
+            {
+                DeleteSave(saveMetas.Count - 1);
+            }
         }
-
-        /// <summary>
-        /// Returns an info string to help debug issues with the save data.
-        /// </summary>
-        /// <returns>The debug info.</returns>
-        public virtual string GetDebugInfo()
-        {
-            return saveHistory.GetDebugInfo();
-        }
-
-#endregion
     }
 }
 

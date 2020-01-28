@@ -4,6 +4,8 @@
 using UnityEngine;
 using System;
 
+//todo doco update
+
 namespace Fungus
 {
     /// <summary>
@@ -128,6 +130,10 @@ namespace Fungus
         /// </summary>
         public abstract object GetValue();
 
+        public abstract bool IsSerialisable { get; }
+        public abstract string GetValueAsJson();
+        public abstract void SetValueFromJson(string jsonString);
+
         #endregion
     }
 
@@ -209,6 +215,32 @@ namespace Fungus
 
         public virtual void Apply(SetOperator setOperator, T value) {
             Debug.LogError("Variable doesn't have any operators.");
+        }
+
+        public override bool IsSerialisable
+        {
+            get
+            {
+                //unity objects are not serialisable or at least not safe to so we default to them being false
+                return !typeof(T).IsSubclassOf(typeof(UnityEngine.Object));
+            }
+        }
+
+        private struct SerialisationPod
+        {
+            public T value;
+        }
+
+        public override string GetValueAsJson()
+        {
+            var tmp = new SerialisationPod() { value = Value };
+            return JsonUtility.ToJson(tmp);
+        }
+
+        public override void SetValueFromJson(string jsonString)
+        {
+            SerialisationPod tmp = JsonUtility.FromJson<SerialisationPod>(jsonString);
+            Value = tmp.value;
         }
     }
 }

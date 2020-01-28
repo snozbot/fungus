@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
-    /// A container for a single unity of saved data.
+    /// A container for a single unit of saved data.
     /// The data and its associated type are stored as string properties.
     /// The data would typically be a JSON string representing a saved object.
     /// </summary>
