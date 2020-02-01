@@ -30,6 +30,7 @@ namespace Fungus
 
         public override void Decode(SavePointData data)
         {
+            FungusManager.Instance.GlobalVariables.ClearVars();
             DecodeMatchingItem(data, ProcessItem);
         }
 

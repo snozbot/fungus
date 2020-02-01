@@ -116,7 +116,7 @@ namespace Fungus
 
                 if(block != null)
                 {
-                    if (item.executionState == ExecutionState.Idle)
+                    if (item.executionState == ExecutionState.Idle && block.State != ExecutionState.Idle)
                     {
                         //meant to be idle but isn't
                         block.Stop();
@@ -124,7 +124,7 @@ namespace Fungus
                     else if (item.executionState == ExecutionState.Executing)
                     {
                         //running the wrong thing
-                        if (block.ActiveCommandIndex != item.commandIndex)
+                        if (block.State != ExecutionState.Idle && block.ActiveCommandIndex != item.commandIndex)
                             block.Stop();
 
                         //TODO this should be cached until all loading is complete

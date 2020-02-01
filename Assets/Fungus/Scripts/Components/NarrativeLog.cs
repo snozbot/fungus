@@ -55,11 +55,19 @@ namespace Fungus
         protected virtual void OnEnable()
         {
             WriterSignals.OnWriterState += OnWriterState;
+            //we don't need to do so on load as the NarLogSaveData will do that
+            SaveManagerSignals.OnSaveReset += SaveManagerSignals_OnSaveReset;
         }
 
         protected virtual void OnDisable()
         {
             WriterSignals.OnWriterState -= OnWriterState;
+            SaveManagerSignals.OnSaveReset -= SaveManagerSignals_OnSaveReset;
+        }
+
+        private void SaveManagerSignals_OnSaveReset()
+        {
+            Clear();
         }
 
         protected virtual void OnWriterState(Writer writer, WriterState writerState)

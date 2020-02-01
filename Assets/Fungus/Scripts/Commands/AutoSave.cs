@@ -47,12 +47,20 @@ namespace Fungus
             {
                 if (descriptionMode == DescriptionMode.Timestamp)
                 {
-                    return System.DateTime.UtcNow.ToString("HH:mm dd MMMM, yyyy");
+                    return TimeStampDesc;
                 }
                 else
                 {
                     return customDescription; 
                 }
+            }
+        }
+
+        public static string TimeStampDesc
+        {
+            get
+            {
+                return System.DateTime.UtcNow.ToString("HH:mm dd MMMM, yyyy");
             }
         }
 
@@ -63,7 +71,7 @@ namespace Fungus
 
             var saveManager = FungusManager.Instance.SaveManager;
 
-            saveManager.Save(FungusConstants.AutoSavePrefix + CustomKey, SavePointDescription);
+            saveManager.Save(FungusConstants.AutoSavePrefix + CustomKey, SavePointDescription, true);
 
             //TODO this doesn't make sense, this is save point hit, not loaded
             //if (fireEvent)

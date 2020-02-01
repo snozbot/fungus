@@ -52,6 +52,11 @@ namespace Fungus
         /// </summary>
         public const string AutoSavePrefix = "autosave_";
 
+        /// <summary>
+        /// The prefix for auto saves
+        /// </summary>
+        public const string UserSavePrefix = "slot_";
+
         #endregion
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 
 //TODO update doco
@@ -32,6 +33,20 @@ namespace Fungus
         }
 
         [SerializeField] protected List<SavePointMeta> saveMetas = new List<SavePointMeta>();
+
+        [SerializeField] protected SaveSettings saveSettings;
+        public SaveSettings SaveSettings
+        {
+            get
+            {
+                return saveSettings;
+            }
+            set
+            {
+                saveSettings = value;
+                PopulateSaveMetas(currentSaveProfileKey);
+            }
+        }
 
         public List<SavePointMeta> SaveMetas { get { return saveMetas; } }
 
@@ -74,22 +89,16 @@ namespace Fungus
                 var savePoint = savePoints[i];
                 if (string.Compare(savePoint.CustomKey, progressMarkerName, true) == 0)
                 {
-                    savePoint.RequestResumeAfterLoad();
+                    //if its idle assume that we want to offer the resume. If not assume we are resumed already some point after the autosave
+                    if (savePoint.ParentBlock.State == ExecutionState.Idle)
+                    {
+                        savePoint.RequestResumeAfterLoad();
+                    }
 
                     // Assume there's only one AutoSave using this key
                     break;
                 }
             }
-        }
-
-        public string GetDebugInfo()
-        {
-            string retval = string.Empty;
-            foreach (var item in saveMetas)
-            {
-                retval += item.saveName + "\n";
-            }
-            return retval;
         }
 
         /// <summary>
@@ -139,6 +148,8 @@ namespace Fungus
 
             var dir = GetFullSaveDir();
 
+            System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(dir));
+
             var foundFiles = System.IO.Directory.GetFiles(dir, "*" + FileExtension);
 
             foreach (var item in foundFiles)
@@ -146,6 +157,20 @@ namespace Fungus
                 var fileContents = System.IO.File.ReadAllText(item);
                 var save = SavePointData.DecodeFromJSON(fileContents);
                 GenerateMetaFromSave(item, save);
+            }
+
+            //TODO look at the settings and ensure we have saves in correct order for user saves and put dumbies in where we don't
+            if (saveSettings != null)
+            {
+                var userSaves = CollectUserSaves();
+
+                for (int i = 0; i < saveSettings.NumberOfUserSaves; i++)
+                {
+                    if (userSaves.Find(x => x.saveName.EndsWith(i.ToString())) == null)
+                    {
+                        saveMetas.Add(new SavePointMeta() { saveName = FungusConstants.UserSavePrefix + i.ToString() });
+                    }
+                }
             }
         }
 
@@ -172,7 +197,7 @@ namespace Fungus
         /// <summary>
         /// Deletes a previously stored Save History from persistent storage.
         /// </summary>
-        public void DeleteSave(int index)
+        public void DeleteSave(int index, bool suppressReplaceSlot = false)
         {
             var meta = saveMetas[index];
 #if UNITY_WEBPLAYER || UNITY_WEBGL
@@ -186,7 +211,13 @@ namespace Fungus
                 System.IO.File.Delete(meta.fileLocation);
             }
 #endif//UNITY_WEBPLAYER
+            if(meta.saveName.StartsWith(FungusConstants.UserSavePrefix) && !suppressReplaceSlot)
+            {
+                saveMetas.Add(new SavePointMeta() { saveName = meta.saveName });
+            }
             saveMetas.RemoveAt(index);
+            SaveManagerSignals.DoSaveDeleted(meta.saveName);
+            //TODO if user slot save then put dumby there
         }
 
         public void DeleteSave(SavePointMeta meta)
@@ -197,17 +228,17 @@ namespace Fungus
         /// <summary>
         /// Creates a new Save Point using a key and description, and adds it to the Save History.
         /// </summary>
-        public virtual void Save(string saveName, string savePointDescription)
+        public virtual void Save(string saveName, string savePointDescription, bool isAutoSave = false)
         {
             var existingMetaIndex = SavePointNameToIndex(saveName);
             if (existingMetaIndex >= 0)
             {
-                DeleteSave(existingMetaIndex);
+                DeleteSave(existingMetaIndex, true);
             }
-
+            
             string sceneName = SceneManager.GetActiveScene().name;
             var savePointDataJSON = SavePointData.EncodeToJson(saveName, savePointDescription, sceneName, out SavePointData save);
-            var fileName = GetFullSaveDir() + System.DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss.ffff") + FileExtension;
+            var fileName = GetFullSaveDir() + (isAutoSave ? FungusConstants.AutoSavePrefix : FungusConstants.UserSavePrefix) + System.DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss.ffff") + FileExtension;
             GenerateMetaFromSave(fileName, save);
 #if UNITY_WEBPLAYER || UNITY_WEBGL
 
@@ -217,22 +248,33 @@ namespace Fungus
 #endif
             //https://docs.unity3d.com/ScriptReference/ScreenCapture.CaptureScreenshot.html with unique name
 
+            //if we limit autos and it is an auto, are there now to many, delete oldest until not over limit
+            if (isAutoSave)
+            {
+                var autoSaves = CollectAutoSaves();
+
+                for (int i = 0; i < autoSaves.Count - saveSettings.NumberOfAutoSaves; i++)
+                {
+                    DeleteSave(saveMetas.IndexOf(autoSaves[i]), true);
+                }
+            }
+
             //TODO save created
             SaveManagerSignals.DoSaveSaved(saveName, savePointDescription);
         }
 
-        public virtual bool Load(string savePointKey)
-        {
-            var existingMetaIndex = SavePointNameToIndex(savePointKey);
-            if (existingMetaIndex < 0)
-            {
-                Debug.LogError("Asked to Load save point of key " + savePointKey + " but none of that key exist.");
+        //public virtual bool Load(string savePointKey)
+        //{
+        //    var existingMetaIndex = SavePointNameToIndex(savePointKey);
+        //    if (existingMetaIndex < 0)
+        //    {
+        //        Debug.LogError("Asked to Load save point of key " + savePointKey + " but none of that key exist.");
 
-                return false;
-            }
+        //        return false;
+        //    }
 
-            return Load(saveMetas[existingMetaIndex]);
-        }
+        //    return Load(saveMetas[existingMetaIndex]);
+        //}
 
         public virtual bool Load(SavePointMeta meta)
         {
@@ -296,10 +338,56 @@ namespace Fungus
         /// </summary>
         public virtual void DeleteAllSaves()
         {
-            while(saveMetas.Count > 0)
+            for (int i = saveMetas.Count-1; i >= 0; i--)
             {
-                DeleteSave(saveMetas.Count - 1);
+                DeleteSave(i);
             }
+        }
+
+        public virtual SavePointMeta GetMostRecentSave()
+        {
+            if (SaveMetas.Count > 0)
+            {
+                var newestSaveTime = SaveMetas.Max(x => x.savePointLastWritten);
+
+                return SaveMetas.FirstOrDefault(x => x.savePointLastWritten == newestSaveTime);
+            }
+
+            return null;
+        }
+
+        public List<SaveManager.SavePointMeta> CollectAutoSaves()
+        {
+            return FungusManager.Instance.SaveManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.AutoSavePrefix))
+               .OrderBy(x => x.savePointLastWritten.Ticks).ToList();
+        }
+
+        public List<SaveManager.SavePointMeta> CollectUserSaves()
+        {
+            return FungusManager.Instance.SaveManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.UserSavePrefix))
+               .OrderBy(x => x.saveName).ToList();
+        }
+
+        /// <summary>
+        /// Handler function called when the Restart button is pressed.
+        /// </summary>
+        public virtual bool Restart()
+        {
+            if (string.IsNullOrEmpty(StartScene))
+            {
+                Debug.LogError("No start scene specified");
+                return false;
+            }
+
+            // Reset the Save History for a new game
+            if (saveSettings.RestartDeletesSave)
+            {
+                DeleteAllSaves();
+                SaveManagerSignals.DoSaveReset();
+            }
+
+            SceneManager.LoadScene(StartScene);
+            return true;
         }
     }
 }

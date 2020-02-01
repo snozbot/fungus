@@ -19,6 +19,13 @@ namespace Fungus
         public static void DoSaveLoaded(string savePointKey) { if (OnSaveLoaded != null) OnSaveLoaded(savePointKey); }
 
         /// <summary>
+        /// SavePointLoaded signal. Sent just after a SavePoint is loaded.
+        /// </summary>
+        public static event SaveDeletedHandler OnSaveDeleted;
+        public delegate void SaveDeletedHandler(string savePointKey);
+        public static void DoSaveDeleted(string savePointKey) { if (OnSaveDeleted != null) OnSaveDeleted(savePointKey); }
+
+        /// <summary>
         /// SavePointAdded signal. Sent when a new save point is added to the save history (typically via the Save Point command).
         /// </summary>
         public static event SaveSavedHandler OnSaveSaved;

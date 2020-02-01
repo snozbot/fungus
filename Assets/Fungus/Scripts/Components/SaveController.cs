@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System;
+using System.Collections.Generic;
 
 //TODO 
 //  use meta from save manager
@@ -38,6 +40,9 @@ namespace Fungus
         [Tooltip("The button which loads the save history from disk")]
         [SerializeField] protected Button loadButton;
 
+        [Tooltip("The button which deletes the selected slot")]
+        [SerializeField] protected Button deleteButton;
+
 
         //[Tooltip("The button which rewinds the save history to the previous save point.")]
         //[SerializeField] protected Button rewindButton;
@@ -45,11 +50,22 @@ namespace Fungus
         //[Tooltip("The button which fast forwards the save history to the next save point.")]
         //[SerializeField] protected Button forwardButton;
         
-        [Tooltip("The button which restarts the game.")]
-        [SerializeField] protected Button restartButton;
+        [SerializeField] protected SaveSlotController slotPrefab;
 
-        [Tooltip("A scrollable text field used for debugging the save data. The text field should be disabled in normal use.")]
-        [SerializeField] protected ScrollRect debugView;
+        [SerializeField] protected Text timeSinceLastSaveText;
+        protected DateTime lastSaveTime;
+
+        protected SaveSlotController selectedSaveSlot;
+        public void SetSelectedSlot(SaveSlotController saveSlotController)
+        {
+            selectedSaveSlot = saveSlotController;
+            selectedSaveSlot.OurButton.Select();
+        }
+
+        protected List<SaveSlotController> autoSaveSlots = new List<SaveSlotController>();
+        protected List<SaveSlotController> userSaveSlots = new List<SaveSlotController>();
+
+        [SerializeField] protected RectTransform autoSaveScrollViewContainer, userSaveScrollViewContainer;
 
         protected static bool saveMenuActive = false;
 
@@ -87,11 +103,30 @@ namespace Fungus
         protected virtual void OnEnable()
         {
             SaveManagerSignals.OnSaveSaved += OnSaveAdded;
+            SaveManagerSignals.OnSaveDeleted += OnSaveDeleted;
+            SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         }
 
         protected virtual void OnDisable()
         {
             SaveManagerSignals.OnSaveSaved -= OnSaveAdded;
+            SaveManagerSignals.OnSaveDeleted -= OnSaveDeleted;
+            SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
+        }
+        private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+        {
+            //force menu off after load
+            saveMenuActive = true;
+            ToggleSaveMenu();
+        }
+
+        protected virtual void OnSaveAdded(string savePointKey, string savePointDescription)
+        {
+            UpdateSlots();
+        }
+        protected virtual void OnSaveDeleted(string savePointKey)
+        {
+            UpdateSlots();
         }
 
         protected virtual void Start()
@@ -102,6 +137,7 @@ namespace Fungus
             }
 
             var saveManager = FungusManager.Instance.SaveManager;
+            saveManager.SaveSettings = saveSettings;
 
             // Make a note of the current scene. This will be used when restarting the game.
             if (string.IsNullOrEmpty(saveManager.StartScene))
@@ -118,6 +154,63 @@ namespace Fungus
             //        saveManager.Load(saveDataKey);
             //    }
             //}
+            UpdateSlots();
+        }
+
+        public void UpdateSlots()
+        {
+            var saveMan = FungusManager.Instance.SaveManager;
+
+            var mostRecentMeta = saveMan.GetMostRecentSave();
+            if (mostRecentMeta != null)
+            {
+                lastSaveTime = mostRecentMeta.savePointLastWritten;
+            }
+            //if unlimited
+
+            //ensure we have the correct number of slots
+            //while(slots.Count < saveMan.NumSaves)
+            //{
+            //    //add more
+            //    var newSlot = Instantiate(slotPrefab, scrollViewContainer);
+            //    slots.Add(newSlot);
+            //}
+            //while(slots.Count < saveMan.NumSaves)
+            //{
+            //    //remove excess
+            //    Destroy(slots.Last().gameObject);
+            //    slots.RemoveAt(slots.Count - 1);
+            //}
+
+            //if specificed number of slots
+            var autoSaves = saveMan.CollectAutoSaves();
+            AdjustAndUpdateSaveSlots(autoSaves, autoSaveSlots, autoSaveScrollViewContainer);
+
+            var userSaves = saveMan.CollectUserSaves();
+            AdjustAndUpdateSaveSlots(userSaves, userSaveSlots, userSaveScrollViewContainer);
+        }
+
+        protected virtual void AdjustAndUpdateSaveSlots(List<SaveManager.SavePointMeta> saves, List<SaveSlotController> slots, RectTransform scrollViewContainer)
+        {
+            while (slots.Count < saves.Count)
+            {
+                var newSlot = Instantiate(slotPrefab, scrollViewContainer);
+                slots.Add(newSlot);
+            }
+            //shouldnt happen but be thorough
+            while (slots.Count > saves.Count)
+            {
+                //    //remove excess
+                Destroy(slots.Last().gameObject);
+                slots.RemoveAt(slots.Count - 1);
+            }
+
+            for (int i = 0; i < saves.Count; i++)
+            {
+                slots[i].LinkedMeta = saves[i];
+            }
+
+            scrollViewContainer.parent.gameObject.SetActive(saves.Count != 0);
         }
 
         //todo this looks like it should just be done when the menu is toggled/interacted with
@@ -133,8 +226,8 @@ namespace Fungus
             //    saveButton.gameObject.SetActive(showSaveAndLoad);
             //    loadButton.gameObject.SetActive(showSaveAndLoad);
             //}
- 
-            
+
+
             //if (saveButton != null)
             //{
             //    // Don't allow saving unless there's at least one save point in the history,
@@ -143,13 +236,19 @@ namespace Fungus
             //}
             if (loadButton != null)
             {
-                loadButton.interactable = saveManager.NumSaves > 0 && saveMenuActive;
+                loadButton.interactable = saveMenuActive;
             }
-            
 
-            if (restartButton != null)
+            if (saveButton != null)
             {
-                restartButton.interactable = saveMenuActive;
+                saveButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null &&
+                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.UserSavePrefix);
+            }
+
+            if (deleteButton != null)
+            {
+                deleteButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null
+                    && !string.IsNullOrEmpty(selectedSaveSlot.LinkedMeta.fileLocation);
             }
 
             //if (rewindButton != null)
@@ -161,27 +260,11 @@ namespace Fungus
             //    forwardButton.interactable = saveManager.NumRewoundSavePoints > 0 && saveMenuActive;
             //}
 
-            if (debugView.enabled)
+            if (timeSinceLastSaveText != null && timeSinceLastSaveText.gameObject.activeInHierarchy && timeSinceLastSaveText.isActiveAndEnabled)
             {
-                var debugText = debugView.GetComponentInChildren<Text>();
-                if (debugText != null)
-                {
-                    debugText.text = saveManager.GetDebugInfo();
-                }
+                timeSinceLastSaveText.text = "Since last save: " + (DateTime.Now - lastSaveTime).ToString(@"dd\.hh\:mm\:ss");
             }
 
-        }
-
-        protected virtual void OnSaveAdded(string savePointKey, string savePointDescription)
-        {
-            //if we limit autos and it is an auto, are there now to many, delete oldest until not over limit
-            var autoSaves = FungusManager.Instance.SaveManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.AutoSavePrefix))
-                .OrderBy(x => x.savePointLastWritten).ToList();
-
-            for (int i = 0; i < autoSaves.Count - saveSettings.NumberOfAutoSaves; i++)
-            {
-                FungusManager.Instance.SaveManager.DeleteSave(autoSaves[i]);
-            }
         }
 
         protected void PlayClickSound()
@@ -212,14 +295,14 @@ namespace Fungus
                 // Switch menu off
                 fadeTween = LeanTween.alphaCanvas(saveMenuGroup, 0f, 0.2f)
                     .setEase(LeanTweenType.easeOutQuint)
-                    .setOnComplete(() => saveMenuGroup.alpha = 0);
+                    .setOnComplete(() => { saveMenuGroup.alpha = 0; saveMenuGroup.interactable = false; saveMenuGroup.blocksRaycasts = false; }) ;
             }
             else
             {
                 // Switch menu on
                 fadeTween = LeanTween.alphaCanvas(saveMenuGroup, 1f, 0.2f)
                     .setEase(LeanTweenType.easeOutQuint)
-                    .setOnComplete(() => saveMenuGroup.alpha = 1);
+                    .setOnComplete(() => { saveMenuGroup.alpha = 1; saveMenuGroup.interactable = true; saveMenuGroup.blocksRaycasts = true; });
             }
 
             saveMenuActive = !saveMenuActive;
@@ -228,18 +311,47 @@ namespace Fungus
         /// <summary>
         /// Handler function called when the Save button is pressed.
         /// </summary>
-        //public virtual void SaveNew()
-        //{
-        //    //TODO need a way to save new or override
+        public virtual void SaveOver()
+        {
+            //TODO
+            var saveManager = FungusManager.Instance.SaveManager;
 
-        //    var saveManager = FungusManager.Instance.SaveManager;
+            if (selectedSaveSlot != null)
+            {
+                //todo better desc
+                if (selectedSaveSlot.LinkedMeta != null && selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.UserSavePrefix))
+                {
+                    saveManager.Save(selectedSaveSlot.LinkedMeta.saveName, AutoSave.TimeStampDesc);
+                    PlayClickSound();
+                }
+            }
+        }
 
-        //    if (saveManager.NumSavePoints > 0)
-        //    {
-        //        PlayClickSound();
-        //        saveManager.Save(saveDataKey);
-        //    }
-        //}
+        public virtual void DeleteSelectedSave()
+        {
+            if(selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null)
+            {
+                var saveManager = FungusManager.Instance.SaveManager;
+                saveManager.DeleteSave(selectedSaveSlot.LinkedMeta);
+                PlayClickSound();
+            }
+        }
+
+        //todo this should instead find an empty slot
+        public virtual void SaveNew()
+        {
+            //var saveManager = FungusManager.Instance.SaveManager;
+            //var userSaves = saveManager.CollectUserSaves();
+
+            //if (userSaves.Count < saveSettings.NumberOfUserSaves)
+            //{
+            //    saveManager.Save(FungusConstants.UserSavePrefix + (userSaves.Count + 1).ToString(), AutoSave.TimeStampDesc);
+            //    PlayClickSound();
+            //}
+
+            //writting to empty slot
+            //saveManager.Save(selectedSaveSlot, AutoSave.TimeStampDesc);
+        }
 
         /// <summary>
         /// Handler function called when the Load button is pressed.
@@ -248,13 +360,41 @@ namespace Fungus
         {
             var saveManager = FungusManager.Instance.SaveManager;
 
-            var newestSaveTime = saveManager.SaveMetas.Max(x => x.savePointLastWritten);
-
-            var mostRecentMeta = saveManager.SaveMetas.FirstOrDefault(x => x.savePointLastWritten == newestSaveTime);
+            var mostRecentMeta = saveManager.GetMostRecentSave();
 
             if (mostRecentMeta != null && saveManager.Load(mostRecentMeta))
             {
                 PlayClickSound();
+            }
+        }
+
+        public virtual void LoadSelected()
+        {
+            var saveManager = FungusManager.Instance.SaveManager;
+
+            if (selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null && saveManager.Load(selectedSaveSlot.LinkedMeta))
+            {
+                PlayClickSound();
+            }
+            else
+            {
+                //TODO not final, used for testing
+                if (string.IsNullOrEmpty(saveManager.StartScene))
+                {
+                    Debug.LogError("No start scene specified");
+                    return;
+                }
+
+                PlayClickSound();
+
+                //// Reset the Save History for a new game
+                //if (saveSettings.RestartDeletesSave)
+                //{
+                //    saveManager.DeleteAllSaves();
+                //    SaveManagerSignals.DoSaveReset();
+                //}
+
+                SceneManager.LoadScene(saveManager.StartScene);
             }
         }
 
@@ -287,29 +427,6 @@ namespace Fungus
         //    }
         //}
 
-        /// <summary>
-        /// Handler function called when the Restart button is pressed.
-        /// </summary>
-        public virtual void Restart()
-        {
-            var saveManager = FungusManager.Instance.SaveManager;
-            if (string.IsNullOrEmpty(saveManager.StartScene))
-            {
-                Debug.LogError("No start scene specified");
-                return;
-            }
-
-            PlayClickSound();
-
-            // Reset the Save History for a new game
-            if (saveSettings.RestartDeletesSave)
-            {
-                saveManager.DeleteAllSaves();
-                SaveManagerSignals.DoSaveReset();
-            }
-
-            SceneManager.LoadScene(saveManager.StartScene);
-        }
 
         #endregion
     }

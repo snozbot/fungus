@@ -12,7 +12,7 @@ namespace Fungus
     /// </summary>
     public class GlobalVariables : MonoBehaviour
     {
-        private Flowchart holder;
+        protected Flowchart holder;
 
         public Flowchart GlobalVariableFlowchart { get { return holder; } }
 
@@ -24,7 +24,34 @@ namespace Fungus
             holder.transform.parent = transform;
         }
 
-		public Variable GetVariable(string variableKey)
+        private void OnEnable()
+        {
+            //we don't touch load or save as the GlobalVarSaveData deals with those
+            SaveManagerSignals.OnSaveReset += SaveManagerSignals_OnSaveReset;
+        }
+
+        private void OnDisable()
+        {
+            SaveManagerSignals.OnSaveReset -= SaveManagerSignals_OnSaveReset;
+        }
+
+        private void SaveManagerSignals_OnSaveReset()
+        {
+            //remove all the vars
+            ClearVars();
+        }
+
+        public virtual void ClearVars()
+        {
+            foreach (var item in holder.Variables)
+            {
+                Destroy(item);
+            }
+
+            holder.Variables.Clear();
+        }
+
+        public Variable GetVariable(string variableKey)
 		{
 			Variable v = null;
 			variables.TryGetValue(variableKey, out v);
