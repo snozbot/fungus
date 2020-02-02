@@ -66,44 +66,22 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            //do progressmarker
-            ProgressMarker.LatestExecuted = this;
-
-            var saveManager = FungusManager.Instance.SaveManager;
-
-            saveManager.Save(FungusConstants.AutoSavePrefix + CustomKey, SavePointDescription, true);
-
-            //TODO this doesn't make sense, this is save point hit, not loaded
-            //if (fireEvent)
-            //{
-            //    SavePointLoaded.NotifyEventHandlers(SavePointKey);
-            //}
-
-            Continue();
-        }
-
-        /// <summary>
-        /// AutoSave doesn't have it's runningness saved as it, as the save system will resume after the command if desired.
-        /// </summary>
-        /// <returns></returns>
-        public override bool GetPreventBlockSave()
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Called during a load on a matching key AutoSave.
-        /// Resumes running the block after the save.
-        /// </summary>
-        public virtual void RequestResumeAfterLoad()
-        {
-            if (resumeAfterLoad)
+            if (ProgressMarker.LatestExecuted != this)
             {
-                int index = CommandIndex;
-                var block = ParentBlock;
-                var flowchart = GetFlowchart();
-                flowchart.ExecuteBlock(block, index + 1);
+                //do progressmarker
+                ProgressMarker.LatestExecuted = this;
+
+                var saveManager = FungusManager.Instance.SaveManager;
+
+                saveManager.Save(FungusConstants.AutoSavePrefix + CustomKey, SavePointDescription, true);
+
+                //TODO this doesn't make sense, this is save point hit, not loaded
+                //if (fireEvent)
+                //{
+                //    SavePointLoaded.NotifyEventHandlers(SavePointKey);
+                //}
             }
+            Continue();
         }
     }
 }

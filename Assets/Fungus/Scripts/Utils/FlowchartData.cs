@@ -37,6 +37,11 @@ namespace Fungus
         /// </summary>
         public string FlowchartName { get { return flowchartName; } set { flowchartName = value; } }
 
+        public void AddBlockData(BlockData bd)
+        {
+            blockDatas.Add(bd);
+        }
+
         /// <summary>
         /// Encodes the data in a Flowchart into a structure that can be stored by the save system.
         /// </summary>
@@ -97,7 +102,6 @@ namespace Fungus
                     Debug.LogError("Failed to find flowchart object specified in save data");
                     return;
                 }
-
             }
 
             for (int i = 0; i < flowchartData.varPairs.Count; i++)

@@ -23,7 +23,9 @@ namespace Fungus
 
         public override void Encode(SavePointData data)
         {
-            var narrativeLogItem = SaveDataItem.Create(NarrativeLogKey, FungusManager.Instance.NarrativeLog.GetJsonHistory());
+            var narLogJSON = FungusManager.Instance.NarrativeLog.GetJsonHistory();
+
+            var narrativeLogItem = SaveDataItem.Create(NarrativeLogKey, narLogJSON);
             data.SaveDataItems.Add(narrativeLogItem);
         }
 

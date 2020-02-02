@@ -38,14 +38,14 @@ namespace Fungus
 
         #region Public methods
 
-        public static void NotifyEventHandlers(string _savePointKey)
+        public static void NotifyEventHandlers(string progressMarkerName)
         {
             // Fire any matching SavePointLoaded event handler with matching save key.
             var eventHandlers = Object.FindObjectsOfType<SaveLoaded>();
             for (int i = 0; i < eventHandlers.Length; i++)
             {
                 var eventHandler = eventHandlers[i];
-                eventHandler.OnSavePointLoaded(_savePointKey);
+                eventHandler.OnSavePointLoaded(progressMarkerName);
             }
         }
 

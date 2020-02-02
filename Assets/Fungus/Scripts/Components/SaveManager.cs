@@ -71,37 +71,6 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Starts Block execution based on a Save Point Key
-        /// The execution order is:
-        /// 1. Save Point Loaded event handlers with a matching key.
-        /// 2. First Save Point command (in any Block) with matching key. Execution starts at the following command.
-        /// 3. Any label in any block with name matching the key. Execution starts at the following command.
-        /// </summary>
-        protected virtual void ExecuteBlocks(string progressMarkerName)
-        {
-            // Execute Save Point Loaded event handlers with matching key.
-            SaveLoaded.NotifyEventHandlers(progressMarkerName);
-
-            // Execute any block containing a SavePoint command matching the save key, with Resume On Load enabled
-            var savePoints = UnityEngine.Object.FindObjectsOfType<AutoSave>();
-            for (int i = 0; i < savePoints.Length; i++)
-            {
-                var savePoint = savePoints[i];
-                if (string.Compare(savePoint.CustomKey, progressMarkerName, true) == 0)
-                {
-                    //if its idle assume that we want to offer the resume. If not assume we are resumed already some point after the autosave
-                    if (savePoint.ParentBlock.State == ExecutionState.Idle)
-                    {
-                        savePoint.RequestResumeAfterLoad();
-                    }
-
-                    // Assume there's only one AutoSave using this key
-                    break;
-                }
-            }
-        }
-
-        /// <summary>
         /// The scene that should be loaded when restarting a game.
         /// </summary>
         public string StartScene { get; set; }
@@ -316,7 +285,9 @@ namespace Fungus
 
                 SaveManagerSignals.DoSaveLoaded(savePointData.SaveName);
 
-                ExecuteBlocks(markerKey);
+                // Execute Save Point Loaded event handlers with matching key.
+                SaveLoaded.NotifyEventHandlers(savePointData.ProgressMarkerName);
+
                 StartCoroutine(DelaySetNotLoading());
             };
 

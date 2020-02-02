@@ -284,6 +284,7 @@ namespace Fungus
         /// </summary>
         public virtual void ToggleSaveMenu()
         {
+            selectedSaveSlot = null;
             if (fadeTween != null)
             {
                 LeanTween.cancel(fadeTween.id, true);

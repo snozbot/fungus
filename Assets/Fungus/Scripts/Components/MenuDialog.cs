@@ -21,7 +21,8 @@ namespace Fungus
         protected Button[] cachedButtons;
 
         protected Slider cachedSlider;
-        private int nextOptionIndex;
+        protected int nextOptionIndex;
+        protected Command firstTouchedByCommand; //track the first command that added to the present menu, used for saving
 
         #region Public members
 
@@ -41,6 +42,8 @@ namespace Fungus
         /// </summary>
         /// <value>The cached slider.</value>
         public virtual Slider CachedSlider { get { return cachedSlider; } }
+
+        public virtual Command FirstTouchedByCommand { get { return firstTouchedByCommand; } }
 
         /// <summary>
         /// Sets the active state of the Menu Dialog gameobject.
@@ -81,6 +84,14 @@ namespace Fungus
             }
 
             return ActiveMenuDialog;
+        }
+
+        public void Touch(Command touchedByCommand)
+        {
+            if(firstTouchedByCommand == null)
+            {
+                firstTouchedByCommand = touchedByCommand;
+            }
         }
 
         protected virtual void Awake()
@@ -176,8 +187,10 @@ namespace Fungus
         {
             StopAllCoroutines();
 
+            firstTouchedByCommand = null;
+
             //if something was shown notify that we are ending
-            if(nextOptionIndex != 0)
+            if (nextOptionIndex != 0)
                 MenuSignals.DoMenuEnd(this);
 
             nextOptionIndex = 0;

@@ -39,6 +39,7 @@ namespace Fungus
 
         public override void Decode(SavePointData data)
         {
+            TextVariationHandler.ClearHistory();
             DecodeMatchingItem(data, ProcessItem);
         }
 
