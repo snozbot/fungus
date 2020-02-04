@@ -1,29 +1,29 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-#if UNITY_5_3_OR_NEWER
-
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-//TODO needs doco update
-
 namespace Fungus
 {
     /// <summary>
-    /// This component encodes and decodes a list of game objects to be saved for each Save Point.
-    /// It knows how to encode / decode concrete game classes like Flowchart and FlowchartData.
-    /// To extend the save system to handle other data types, just modify or subclass this component.
+    /// This component encodes and decodes the added flowcharts and their blocks and running
+    /// states.
     /// </summary>
     public class FlowchartSaveDataSerializer : SaveDataSerializer
     {
         protected const string FlowchartDataKey = "FlowchartData";
+        protected const int FlowchartDataPriority = 1000;
 
         [Tooltip("A list of Flowchart objects whose variables will be encoded in the save data. Boolean, Integer, Float and String variables are supported.")]
         [SerializeField] protected List<Flowchart> flowcharts = new List<Flowchart>();
+        
+        protected List<FlowchartData.CachedBlockExecution> cachedBlockExecutions = new List<FlowchartData.CachedBlockExecution>();
 
         public override string DataTypeKey => FlowchartDataKey;
+
+        public override int Order => FlowchartDataPriority;
 
         public override void Encode(SavePointData data)
         {
@@ -42,10 +42,10 @@ namespace Fungus
 
         public override void Decode(SavePointData data)
         {
-            DecodeMatchingItem(data, ProcessItem);
+            DecodeMatchingDataTypeItems(data);
         }
 
-        protected virtual void ProcessItem(SaveDataItem item)
+        protected override void ProcessItem(SaveDataItem item)
         {
             var flowchartData = JsonUtility.FromJson<FlowchartData>(item.Data);
             if (flowchartData == null)
@@ -54,7 +54,9 @@ namespace Fungus
                 return;
             }
 
-            FlowchartData.Decode(flowchartData);
+            //we want to grab all executions and cache for later
+            flowchartData.Decode(null, true);
+            cachedBlockExecutions.AddRange(flowchartData.CachedBlockExecutions);
         }
 
         private void OnValidate()
@@ -71,7 +73,11 @@ namespace Fungus
                 }
             }
         }
+
+        public override void PostDecode()
+        {
+            base.PostDecode();
+            FlowchartData.ProcessCachedExecutions(cachedBlockExecutions);
+        }
     }
 }
-
-#endif

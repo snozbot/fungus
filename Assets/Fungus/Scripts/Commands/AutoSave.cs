@@ -6,8 +6,7 @@
 using System;
 using UnityEngine;
 
-//TODO becomes auto save point, needs to be able to cycle x number of autos or always new or always the same one
-//  udpate doco
+//TODO udpate doco
 
 namespace Fungus
 {
@@ -74,12 +73,6 @@ namespace Fungus
                 var saveManager = FungusManager.Instance.SaveManager;
 
                 saveManager.Save(FungusConstants.AutoSavePrefix + CustomKey, SavePointDescription, true);
-
-                //TODO this doesn't make sense, this is save point hit, not loaded
-                //if (fireEvent)
-                //{
-                //    SavePointLoaded.NotifyEventHandlers(SavePointKey);
-                //}
             }
             Continue();
         }

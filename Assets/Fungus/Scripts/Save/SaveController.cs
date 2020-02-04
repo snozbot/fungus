@@ -1,8 +1,6 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-#if UNITY_5_3_OR_NEWER
-
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -10,12 +8,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 
-//TODO 
-//  use meta from save manager
-//  use a view component per save
-//  allow change of save profile
-
-
+//TODO allow change of save profile
 
 namespace Fungus
 {
@@ -314,7 +307,6 @@ namespace Fungus
         /// </summary>
         public virtual void SaveOver()
         {
-            //TODO
             var saveManager = FungusManager.Instance.SaveManager;
 
             if (selectedSaveSlot != null)
@@ -336,22 +328,6 @@ namespace Fungus
                 saveManager.DeleteSave(selectedSaveSlot.LinkedMeta);
                 PlayClickSound();
             }
-        }
-
-        //todo this should instead find an empty slot
-        public virtual void SaveNew()
-        {
-            //var saveManager = FungusManager.Instance.SaveManager;
-            //var userSaves = saveManager.CollectUserSaves();
-
-            //if (userSaves.Count < saveSettings.NumberOfUserSaves)
-            //{
-            //    saveManager.Save(FungusConstants.UserSavePrefix + (userSaves.Count + 1).ToString(), AutoSave.TimeStampDesc);
-            //    PlayClickSound();
-            //}
-
-            //writting to empty slot
-            //saveManager.Save(selectedSaveSlot, AutoSave.TimeStampDesc);
         }
 
         /// <summary>
@@ -379,7 +355,7 @@ namespace Fungus
             }
             else
             {
-                //TODO not final, used for testing
+                //TODO move to a restart function/button
                 if (string.IsNullOrEmpty(saveManager.StartScene))
                 {
                     Debug.LogError("No start scene specified");
@@ -432,5 +408,3 @@ namespace Fungus
         #endregion
     }
 }
-
-#endif

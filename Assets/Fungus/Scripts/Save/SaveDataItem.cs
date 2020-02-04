@@ -16,8 +16,6 @@ namespace Fungus
         [SerializeField] protected string dataType = "";
         [SerializeField] protected string data = "";
 
-        #region Public methods
-
         /// <summary>
         /// Gets the type of the data.
         /// </summary>
@@ -33,13 +31,13 @@ namespace Fungus
         /// </summary>
         public static SaveDataItem Create(string dataType, string data)
         {
-            var item = new SaveDataItem();
-            item.dataType = dataType;
-            item.data = data;
+            var item = new SaveDataItem
+            {
+                dataType = dataType,
+                data = data
+            };
 
             return item;
         }
-
-        #endregion
     }
 }

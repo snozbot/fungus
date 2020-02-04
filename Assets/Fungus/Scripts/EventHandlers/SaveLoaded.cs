@@ -4,8 +4,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-//todo ensure this is actually getting called when it should
-
 namespace Fungus
 {
     [EventHandlerInfo("Scene",
@@ -36,8 +34,6 @@ namespace Fungus
             }
         }
 
-        #region Public methods
-
         public static void NotifyEventHandlers(string progressMarkerName)
         {
             // Fire any matching SavePointLoaded event handler with matching save key.
@@ -48,7 +44,5 @@ namespace Fungus
                 eventHandler.OnSavePointLoaded(progressMarkerName);
             }
         }
-
-        #endregion
     }
 }

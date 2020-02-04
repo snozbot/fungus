@@ -18,19 +18,12 @@ namespace Fungus
     {
         [Tooltip("Name of save profile to make active.")]
         [SerializeField] protected string saveProfileName = "";
-
-		/// <summary>
-		/// Shared save profile name used by SaveVariable and LoadVariable.
-		/// </summary>
-		private static string saveProfile = "";
-
+        
         #region Public members
-
-		public static String SaveProfile { get { return saveProfile; } }
 
         public override void OnEnter()
         {
-            saveProfile = saveProfileName;
+            FungusManager.Instance.SaveManager.ChangeProfile(saveProfileName);
 
             Continue();
         }

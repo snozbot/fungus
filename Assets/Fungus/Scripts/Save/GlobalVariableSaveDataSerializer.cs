@@ -1,25 +1,22 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-#if UNITY_5_3_OR_NEWER
-
 using UnityEngine;
 using System.Collections.Generic;
-
-//TODO needs doco update
 
 namespace Fungus
 {
     /// <summary>
-    /// This component encodes and decodes a list of game objects to be saved for each Save Point.
-    /// It knows how to encode / decode concrete game classes like Flowchart and FlowchartData.
-    /// To extend the save system to handle other data types, just modify or subclass this component.
+    /// This component encodes and decodes the current state of the global variables
     /// </summary>
     public class GlobalVariableSaveDataSerializer : SaveDataSerializer
     {
         protected const string GlobalVarKey = "GlobalVarData";
+        protected const int GlobalVarDataPriority = 500;
 
         public override string DataTypeKey => GlobalVarKey;
+
+        public override int Order => GlobalVarDataPriority;
 
         public override void Encode(SavePointData data)
         {
@@ -31,10 +28,10 @@ namespace Fungus
         public override void Decode(SavePointData data)
         {
             FungusManager.Instance.GlobalVariables.ClearVars();
-            DecodeMatchingItem(data, ProcessItem);
+            DecodeMatchingDataTypeItems(data);
         }
 
-        protected virtual void ProcessItem(SaveDataItem item)
+        protected override void ProcessItem(SaveDataItem item)
         {
             var flowchartData = JsonUtility.FromJson<FlowchartData>(item.Data);
             if (flowchartData == null)
@@ -43,9 +40,7 @@ namespace Fungus
                 return;
             }
 
-            FlowchartData.Decode(flowchartData, FungusManager.Instance.GlobalVariables.GlobalVariableFlowchart);
+            flowchartData.Decode(FungusManager.Instance.GlobalVariables.GlobalVariableFlowchart);
         }
     }
 }
-
-#endif

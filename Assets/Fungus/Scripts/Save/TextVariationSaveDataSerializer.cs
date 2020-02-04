@@ -1,20 +1,15 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-#if UNITY_5_3_OR_NEWER
-
 using UnityEngine;
 using System.Collections.Generic;
 
 //TODO needs doco update
-//todo savedata and children need a refactor
 
 namespace Fungus
 {
     /// <summary>
-    /// This component encodes and decodes a list of game objects to be saved for each Save Point.
-    /// It knows how to encode / decode concrete game classes like Flowchart and FlowchartData.
-    /// To extend the save system to handle other data types, just modify or subclass this component.
+    /// This component encodes and decodes the state of the TextVariation system.
     /// </summary>
     public class TextVariationSaveDataSerializer : SaveDataSerializer
     {
@@ -25,8 +20,10 @@ namespace Fungus
         }
 
         protected const string TextVarKey = "TextVariationData";
+        protected const int TextVarDataPriority = 1000;
 
         public override string DataTypeKey => TextVarKey;
+        public override int Order => TextVarDataPriority;
 
         public override void Encode(SavePointData data)
         {
@@ -40,10 +37,10 @@ namespace Fungus
         public override void Decode(SavePointData data)
         {
             TextVariationHandler.ClearHistory();
-            DecodeMatchingItem(data, ProcessItem);
+            DecodeMatchingDataTypeItems(data);
         }
 
-        protected virtual void ProcessItem(SaveDataItem item)
+        protected override void ProcessItem(SaveDataItem item)
         {
             var tvdata = JsonUtility.FromJson<TextVariationData>(item.Data);
             if(tvdata == null)
@@ -56,5 +53,3 @@ namespace Fungus
         }
     }
 }
-
-#endif

@@ -1,14 +1,11 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-#if UNITY_5_3_OR_NEWER
-
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-
 
 //TODO update doco
 
@@ -44,13 +41,15 @@ namespace Fungus
             set
             {
                 saveSettings = value;
-                PopulateSaveMetas(currentSaveProfileKey);
+                PopulateSaveMetas();
             }
         }
 
         public List<SavePointMeta> SaveMetas { get { return saveMetas; } }
 
-        [SerializeField] protected string currentSaveProfileKey = FungusConstants.DefaultSaveProfileKey;
+        [SerializeField] protected string currentSaveProfileKey = string.Empty;
+
+        public string CurrentSaveProfileKey { get { return currentSaveProfileKey; } }
 
 
         //#if UNITY_WEBPLAYER || UNITY_WEBGL
@@ -62,12 +61,22 @@ namespace Fungus
 
         [SerializeField] protected WebSaveBlob webSaveBlob = new WebSaveBlob();
 
+        [System.Serializable]
+        protected class SaveManagerData
+        {
+            public string lastProfileName;
+        }
+
         public static string STORAGE_DIRECTORY { get { return Application.persistentDataPath + "/FungusSaves/"; } }
         protected const string FileExtension = ".save";
 
         private string GetFullSaveDir()
         {
             return System.IO.Path.GetFullPath(STORAGE_DIRECTORY + currentSaveProfileKey + "/");
+        }
+        private string GetSaveManagerDataFile()
+        {
+            return System.IO.Path.GetFullPath(STORAGE_DIRECTORY + "save_manager_data.json");
         }
 
         /// <summary>
@@ -85,7 +94,24 @@ namespace Fungus
         public void Awake()
         {
             IsSaveLoading = false;
-            PopulateSaveMetas(currentSaveProfileKey);
+            StartScene = SceneManager.GetActiveScene().name;
+
+            try
+            {
+                var fileName = GetSaveManagerDataFile();
+                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
+                var datString = System.IO.File.ReadAllText(fileName);
+                var dat = JsonUtility.FromJson<SaveManagerData>(datString);
+                if(dat != null)
+                {
+                    ChangeProfile(dat.lastProfileName);
+                }
+            }
+            catch (Exception)
+            {
+                ChangeProfile(FungusConstants.DefaultSaveProfileKey);
+            }
+
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         }
 
@@ -108,12 +134,27 @@ namespace Fungus
             }
         }
 
+        public void ChangeProfile(string saveProfileKey)
+        {
+            if (saveProfileKey != currentSaveProfileKey)
+            {
+                currentSaveProfileKey = saveProfileKey;
+
+                var fileName = GetSaveManagerDataFile();
+                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
+                var profile = new SaveManagerData() { lastProfileName = currentSaveProfileKey };
+                System.IO.File.WriteAllText(fileName, JsonUtility.ToJson(profile));
+
+                PopulateSaveMetas();
+                SaveManagerSignals.DoSaveProfileChanged();
+                SaveManagerSignals.DoSaveReset();
+            }
+        }
 
         //TODO needs web version
-        public void PopulateSaveMetas(string saveDataKey)
+        public void PopulateSaveMetas()
         {
             saveMetas.Clear();
-            currentSaveProfileKey = saveDataKey;
 
             var dir = GetFullSaveDir();
 
@@ -199,15 +240,17 @@ namespace Fungus
         /// </summary>
         public virtual void Save(string saveName, string savePointDescription, bool isAutoSave = false)
         {
+            SaveManagerSignals.DoSavePrepare(saveName, savePointDescription);
+
             var existingMetaIndex = SavePointNameToIndex(saveName);
             if (existingMetaIndex >= 0)
             {
                 DeleteSave(existingMetaIndex, true);
             }
             
-            string sceneName = SceneManager.GetActiveScene().name;
-            var savePointDataJSON = SavePointData.EncodeToJson(saveName, savePointDescription, sceneName, out SavePointData save);
-            var fileName = GetFullSaveDir() + (isAutoSave ? FungusConstants.AutoSavePrefix : FungusConstants.UserSavePrefix) + System.DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss.ffff") + FileExtension;
+            var savePointDataJSON = SavePointData.EncodeToJson(saveName, savePointDescription, out SavePointData save);
+            var fileName = GetFullSaveDir() + (isAutoSave ? FungusConstants.AutoSavePrefix : FungusConstants.UserSavePrefix) 
+                + System.DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss.ffff") + FileExtension;
             GenerateMetaFromSave(fileName, save);
 #if UNITY_WEBPLAYER || UNITY_WEBGL
 
@@ -218,7 +261,7 @@ namespace Fungus
             //https://docs.unity3d.com/ScriptReference/ScreenCapture.CaptureScreenshot.html with unique name
 
             //if we limit autos and it is an auto, are there now to many, delete oldest until not over limit
-            if (isAutoSave)
+            if (isAutoSave && saveSettings.NumberOfAutoSaves >= 0)
             {
                 var autoSaves = CollectAutoSaves();
 
@@ -231,19 +274,6 @@ namespace Fungus
             //TODO save created
             SaveManagerSignals.DoSaveSaved(saveName, savePointDescription);
         }
-
-        //public virtual bool Load(string savePointKey)
-        //{
-        //    var existingMetaIndex = SavePointNameToIndex(savePointKey);
-        //    if (existingMetaIndex < 0)
-        //    {
-        //        Debug.LogError("Asked to Load save point of key " + savePointKey + " but none of that key exist.");
-
-        //        return false;
-        //    }
-
-        //    return Load(saveMetas[existingMetaIndex]);
-        //}
 
         public virtual bool Load(SavePointMeta meta)
         {
@@ -293,6 +323,7 @@ namespace Fungus
 
             SceneManager.sceneLoaded += onSceneLoadedAction;
             IsSaveLoading = true;
+            SaveManagerSignals.DoSavePreLoad(savePointData.SaveName);
             SceneManager.LoadScene(savePointData.SceneName);
 
             return true;
@@ -327,13 +358,13 @@ namespace Fungus
             return null;
         }
 
-        public List<SaveManager.SavePointMeta> CollectAutoSaves()
+        public List<SavePointMeta> CollectAutoSaves()
         {
             return FungusManager.Instance.SaveManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.AutoSavePrefix))
                .OrderBy(x => x.savePointLastWritten.Ticks).ToList();
         }
 
-        public List<SaveManager.SavePointMeta> CollectUserSaves()
+        public List<SavePointMeta> CollectUserSaves()
         {
             return FungusManager.Instance.SaveManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.UserSavePrefix))
                .OrderBy(x => x.saveName).ToList();
@@ -362,5 +393,3 @@ namespace Fungus
         }
     }
 }
-
-#endif

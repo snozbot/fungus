@@ -30,7 +30,16 @@ namespace Fungus
         [SerializeField] protected List<StringToJsonPair> varPairs = new List<StringToJsonPair>();
         [SerializeField] protected List<BlockData> blockDatas = new List<BlockData>();
 
-        #region Public methods
+        public class CachedBlockExecution
+        {
+            public Flowchart flowchart;
+            public Block block;
+            public int commandIndex = -1;
+        }
+
+        [System.NonSerialized] protected List<CachedBlockExecution> cachedBlockExecutions = new List<CachedBlockExecution>();
+        public List<CachedBlockExecution> CachedBlockExecutions { get { return cachedBlockExecutions; } }
+
 
         /// <summary>
         /// Gets or sets the name of the encoded Flowchart.
@@ -85,11 +94,11 @@ namespace Fungus
         /// <summary>
         /// Decodes a FlowchartData object and uses it to restore the state of a Flowchart in the scene.
         /// </summary>
-        public static void Decode(FlowchartData flowchartData, Flowchart flowchart = null)
+        public void Decode(Flowchart flowchart = null, bool cacheExecutions = false)
         {
             if (flowchart == null)
             {
-                var go = GameObject.Find(flowchartData.FlowchartName);
+                var go = GameObject.Find(FlowchartName);
                 if (go == null)
                 {
                     Debug.LogError("Failed to find flowchart object specified in save data");
@@ -104,17 +113,17 @@ namespace Fungus
                 }
             }
 
-            for (int i = 0; i < flowchartData.varPairs.Count; i++)
+            for (int i = 0; i < varPairs.Count; i++)
             {
-                var v = flowchart.GetVariable(flowchartData.varPairs[i].key);
+                var v = flowchart.GetVariable(varPairs[i].key);
 
                 if(v != null)
                 {
-                    v.SetValueFromJson(flowchartData.varPairs[i].json);
+                    v.SetValueFromJson(varPairs[i].json);
                 }
             }
 
-            foreach (var item in flowchartData.blockDatas)
+            foreach (var item in blockDatas)
             {
                 var block = flowchart.FindBlock(item.blockName);
 
@@ -131,17 +140,32 @@ namespace Fungus
                         if (block.State != ExecutionState.Idle && block.ActiveCommandIndex != item.commandIndex)
                             block.Stop();
 
-                        //TODO this should be cached until all loading is complete
+                        
                         if (!block.IsExecuting())
                         {
-                            block.Stop();
-                            flowchart.ExecuteBlock(block, item.commandIndex);
+                            //caching gives blocks that access others a better chance of running correctly
+                            // but its use is up to the caller
+                            if (cacheExecutions)
+                            {
+                                cachedBlockExecutions.Add(new CachedBlockExecution() 
+                                { flowchart = flowchart, block = block, commandIndex = item.commandIndex, });
+                            }
+                            else
+                            {
+                                flowchart.ExecuteBlock(block, item.commandIndex);
+                            }
                         }
                     }
                 }
             }
         }
 
-        #endregion
+        public static void ProcessCachedExecutions(List<CachedBlockExecution> cached)
+        {
+            foreach (var item in cached)
+            {
+                item.flowchart.ExecuteBlock(item.block, item.commandIndex);
+            }
+        }
     }
 }

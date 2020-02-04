@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-//todo needs updates, should be created via prefab by menu
+//todo doco update
 
 namespace Fungus
 {
+    /// <summary>
+    /// Links ui element to a save slot, communicates back forth between a slot, ui, interactions and the SaveController
+    /// </summary>
     [RequireComponent(typeof(RectTransform))]
     public class SaveSlotController : MonoBehaviour
     {
@@ -28,7 +31,6 @@ namespace Fungus
             {
                 return ourMeta;
             }
-
             set
             {
                 ourMeta = value;

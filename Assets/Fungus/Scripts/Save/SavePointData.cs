@@ -1,14 +1,12 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-#if UNITY_5_3_OR_NEWER
-
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 //TODO perhaps want concept of generic history to store data in for cookies and menu has been visited
-// add last written time stamp?
 //  doco update
 
 namespace Fungus
@@ -39,7 +37,9 @@ namespace Fungus
 
         [SerializeField] protected string lastWrittenDateTimeString;
 
-        protected static SavePointData Create(string _saveName, string _savePointDescription, string _sceneName)
+        protected List<SaveDataSerializer> orderedSerializers = new List<SaveDataSerializer>();
+
+        protected static SavePointData Create(string _saveName, string _savePointDescription)
         {
             return new SavePointData
             {
@@ -47,7 +47,7 @@ namespace Fungus
                 savePointDescription = _savePointDescription,
                 progressMarkerName = ProgressMarker.LatestExecuted != null ? ProgressMarker.LatestExecuted.CustomKey : string.Empty,
                 //TODO include last item in narrative log?
-                sceneName = _sceneName,
+                sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
                 lastWrittenDateTimeString = System.DateTime.Now.ToString("O"),
             };
         }
@@ -80,9 +80,9 @@ namespace Fungus
         /// <summary>
         /// Encodes a new Save Point to data and converts it to JSON text format.
         /// </summary>
-        public static string EncodeToJson(string _saveName, string _savePointDescription, string _sceneName, out SavePointData savePointData)
+        public static string EncodeToJson(string _saveName, string _savePointDescription, out SavePointData savePointData)
         {
-            savePointData = Create(_saveName, _savePointDescription, _sceneName);
+            savePointData = Create(_saveName, _savePointDescription);
 
             // Look for a SaveData component in the scene to populate the save data items.
             var savers = GameObject.FindObjectsOfType<SaveDataSerializer>();
@@ -117,15 +117,23 @@ namespace Fungus
             return savePointData;
         }
 
-        public void RunDeserialize()
+        //TODO DOCO
+        public virtual void RunDeserialize()
         {
             if (!string.IsNullOrEmpty(progressMarkerName))
                 ProgressMarker.LatestExecuted = ProgressMarker.FindWithKey(progressMarkerName);
 
-            var sers = GameObject.FindObjectsOfType<SaveDataSerializer>();
-            foreach (var serializer in sers)
+            orderedSerializers = GameObject.FindObjectsOfType<SaveDataSerializer>().ToList();
+            orderedSerializers = orderedSerializers.OrderBy(x => x.Order).ToList();
+
+            foreach (var serializer in orderedSerializers)
             {
                 serializer.Decode(this);
+            }
+
+            foreach (var item in orderedSerializers)
+            {
+                item.PostDecode();
             }
         }
 
@@ -135,5 +143,3 @@ namespace Fungus
         }
     }
 }
-
-#endif

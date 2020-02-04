@@ -3,9 +3,8 @@
 
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
 
-//todo doco update
+//TODO needs to listen to save load events and profile changes
 
 namespace Fungus
 {
