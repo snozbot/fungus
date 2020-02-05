@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 //todo doco update
@@ -9,7 +10,7 @@ namespace Fungus
     /// Links ui element to a save slot, communicates back forth between a slot, ui, interactions and the SaveController
     /// </summary>
     [RequireComponent(typeof(RectTransform))]
-    public class SaveSlotController : MonoBehaviour
+    public class SaveSlotController : MonoBehaviour, ISelectHandler
     {
         [Tooltip("Displays the number for this slot.")]
         [SerializeField] protected Text nameText = null;
@@ -24,6 +25,18 @@ namespace Fungus
         public virtual Button OurButton { get { return ourButton; } }
 
         protected SaveManager.SavePointMeta ourMeta;
+
+        protected SaveController saveCont;
+
+        private void Start()
+        {
+            saveCont = GetComponentInParent<SaveController>(); 
+
+            if (saveCont == null)
+            {
+                Debug.LogError("SaveSlot clicked without a SaveController, not allowed");
+            }
+        }
 
         public SaveManager.SavePointMeta LinkedMeta 
         {
@@ -43,18 +56,10 @@ namespace Fungus
                 }
             }
         }
-        
-        public virtual void OnClick()
+
+        public void OnSelect(BaseEventData eventData)
         {
-            var cont = GetComponentInParent<SaveController>();
-            if (cont != null)
-            {
-                cont.SetSelectedSlot(this);
-            }
-            else
-            {
-                Debug.LogError("SaveSlot clicked without a SaveController, not allowed");
-            }
+            saveCont.SetSelectedSlot(this);
         }
     }
 }

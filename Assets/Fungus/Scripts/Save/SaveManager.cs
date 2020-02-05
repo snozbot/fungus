@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Collections;
 
 //TODO update doco
 
@@ -30,21 +31,7 @@ namespace Fungus
         }
 
         [SerializeField] protected List<SavePointMeta> saveMetas = new List<SavePointMeta>();
-
-        [SerializeField] protected SaveSettings saveSettings;
-        public SaveSettings SaveSettings
-        {
-            get
-            {
-                return saveSettings;
-            }
-            set
-            {
-                saveSettings = value;
-                PopulateSaveMetas();
-            }
-        }
-
+        
         public List<SavePointMeta> SaveMetas { get { return saveMetas; } }
 
         [SerializeField] protected string currentSaveProfileKey = string.Empty;
@@ -89,13 +76,24 @@ namespace Fungus
         /// </summary>
         public virtual int NumSaves { get { return saveMetas.Count; } }
 
+        protected int numAutoSaves = 1, numUserSaves = 0;
+        public int NumberOfUserSaves { get { return numUserSaves; } }
+        public int NumberOfAutoSaves { get { return numAutoSaves; } }
+
+        public void ConfigureSaveNumber(int numAutos, int numUser)
+        {
+            numAutoSaves = numAutos;
+            numUserSaves = numUser;
+            PopulateSaveMetas();
+        }
+
         public bool IsSaveLoading { get; protected set; }
 
         public void Awake()
         {
             IsSaveLoading = false;
             StartScene = SceneManager.GetActiveScene().name;
-
+            
             try
             {
                 var fileName = GetSaveManagerDataFile();
@@ -112,6 +110,8 @@ namespace Fungus
                 ChangeProfile(FungusConstants.DefaultSaveProfileKey);
             }
 
+            StartCoroutine(DelayGameStart());
+
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         }
 
@@ -122,12 +122,24 @@ namespace Fungus
 
         private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
-            if(!IsSaveLoading)
+            GameStarted();
+        }
+
+        //we want to kick off this frame but we want to ensure all other starts get to go first
+        protected IEnumerator DelayGameStart()
+        {
+            yield return new WaitForFixedUpdate();
+            GameStarted();
+        }
+
+        private void GameStarted()
+        {
+            if (!IsSaveLoading)
             {
                 //scene was loaded not a save game
                 var savePoints = UnityEngine.Object.FindObjectsOfType<ProgressMarker>().ToList();
                 var startingSavePoint = savePoints.FirstOrDefault(x => x.IsStartPoint);
-                if(startingSavePoint != null)
+                if (startingSavePoint != null)
                 {
                     startingSavePoint.GetFlowchart().ExecuteBlock(startingSavePoint.ParentBlock, startingSavePoint.CommandIndex);
                 }
@@ -170,18 +182,15 @@ namespace Fungus
             }
 
             //TODO look at the settings and ensure we have saves in correct order for user saves and put dumbies in where we don't
-            if (saveSettings != null)
-            {
-                var userSaves = CollectUserSaves();
+            var userSaves = CollectUserSaves();
 
-                for (int i = 0; i < saveSettings.NumberOfUserSaves; i++)
+                for (int i = 0; i < NumberOfUserSaves; i++)
                 {
                     if (userSaves.Find(x => x.saveName.EndsWith(i.ToString())) == null)
                     {
                         saveMetas.Add(new SavePointMeta() { saveName = FungusConstants.UserSavePrefix + i.ToString() });
                     }
                 }
-            }
         }
 
         private void GenerateMetaFromSave(string fileLoc, SavePointData save)
@@ -261,11 +270,11 @@ namespace Fungus
             //https://docs.unity3d.com/ScriptReference/ScreenCapture.CaptureScreenshot.html with unique name
 
             //if we limit autos and it is an auto, are there now to many, delete oldest until not over limit
-            if (isAutoSave && saveSettings.NumberOfAutoSaves >= 0)
+            if (isAutoSave && NumberOfAutoSaves >= 0)
             {
                 var autoSaves = CollectAutoSaves();
 
-                for (int i = 0; i < autoSaves.Count - saveSettings.NumberOfAutoSaves; i++)
+                for (int i = 0; i < autoSaves.Count - NumberOfAutoSaves; i++)
                 {
                     DeleteSave(saveMetas.IndexOf(autoSaves[i]), true);
                 }
@@ -370,10 +379,8 @@ namespace Fungus
                .OrderBy(x => x.saveName).ToList();
         }
 
-        /// <summary>
-        /// Handler function called when the Restart button is pressed.
-        /// </summary>
-        public virtual bool Restart()
+
+        public virtual bool Restart(bool deleteSaves)
         {
             if (string.IsNullOrEmpty(StartScene))
             {
@@ -382,12 +389,12 @@ namespace Fungus
             }
 
             // Reset the Save History for a new game
-            if (saveSettings.RestartDeletesSave)
+            if (deleteSaves)
             {
                 DeleteAllSaves();
-                SaveManagerSignals.DoSaveReset();
             }
 
+            SaveManagerSignals.DoSaveReset();
             SceneManager.LoadScene(StartScene);
             return true;
         }

@@ -1091,6 +1091,9 @@ GameObject:
   - component: {fileID: 1889213478}
   - component: {fileID: 1889213471}
   - component: {fileID: 1889213472}
+  - component: {fileID: 1889213483}
+  - component: {fileID: 1889213479}
+  - component: {fileID: 1889213475}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1207,6 +1210,21 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
+--- !u!114 &1889213475
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889213469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 1889213483}
+  suppressBlockAutoSelect: 0
+  waitForFrames: 0
 --- !u!114 &1889213476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1221,7 +1239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 46.050354, y: -51.282158}
+  scrollPos: {x: 133.90182, y: 79.473526}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
@@ -1232,8 +1250,7 @@ MonoBehaviour:
     y: -350
     width: 1502.7736
     height: 1138.5048
-  selectedBlocks:
-  - {fileID: 1889213486}
+  selectedBlocks: []
   selectedCommands: []
   variables:
   - {fileID: 1889213489}
@@ -1282,6 +1299,27 @@ MonoBehaviour:
   resumeAfterLoad: 1
   descriptionMode: 0
   customDescription: 
+--- !u!114 &1889213479
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889213469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f0ee2b341afd848895696e5a5e82ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 63
+  indentLevel: 0
+  getOrSet: 1
+  numAutoSaves:
+    integerRef: {fileID: 0}
+    integerVal: 0
+  numUserSaves:
+    integerRef: {fileID: 0}
+    integerVal: 3
 --- !u!114 &1889213480
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1360,6 +1398,34 @@ MonoBehaviour:
   - {fileID: 1889213506}
   - {fileID: 1889213505}
   - {fileID: 1889213485}
+  suppressAllAutoSelections: 0
+  isSavingAllowed: 1
+--- !u!114 &1889213483
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889213469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 69.65253
+    y: 81.336975
+    width: 120
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 62
+  blockName: PrepSave
+  description: 
+  eventHandler: {fileID: 1889213475}
+  commandList:
+  - {fileID: 1889213479}
   suppressAllAutoSelections: 0
   isSavingAllowed: 1
 --- !u!114 &1889213484

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-//TODO move to fungus
+using UnityEngine;
 
 namespace Fungus
 {
@@ -8,7 +9,7 @@ namespace Fungus
     /// Helps signify where into a game the player has gotten, so that when a GameSaveData is loaded,
     /// the game can react appropriately.
     /// </summary>
-    [CommandInfo("Flow",
+    [CommandInfo("Save",
                  "Progress Marker",
                  "Marks a point for where a player has gotten. Helps with reacting to GameSaveData being loaded.")]
     public class ProgressMarker : Command

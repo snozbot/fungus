@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    [CommandInfo("Flow",
+    [CommandInfo("Save",
                  "Auto Save", 
                  "Creates an Auto Save. Player can then load or continue with them via the SaveMenu/SaveController")]
     public class AutoSave : ProgressMarker

@@ -19,8 +19,6 @@ namespace Fungus
     {        //[Tooltip("Automatically load the most recently saved game on startup")]
              //[SerializeField] protected bool loadOnStart = true;
 
-        [SerializeField] protected SaveSettings saveSettings;
-
         [Tooltip("The CanvasGroup containing the save menu buttons")]
         [SerializeField] protected CanvasGroup saveMenuGroup;
 
@@ -130,7 +128,6 @@ namespace Fungus
             }
 
             var saveManager = FungusManager.Instance.SaveManager;
-            saveManager.SaveSettings = saveSettings;
 
             // Make a note of the current scene. This will be used when restarting the game.
             if (string.IsNullOrEmpty(saveManager.StartScene))
@@ -138,15 +135,6 @@ namespace Fungus
                 saveManager.StartScene = SceneManager.GetActiveScene().name;
             }
 
-            //if (loadOnStart && !hasLoadedOnStart)
-            //{
-            //    hasLoadedOnStart = true;
-
-            //    if (saveManager.SaveDataExists(saveDataKey))
-            //    {
-            //        saveManager.Load(saveDataKey);
-            //    }
-            //}
             UpdateSlots();
         }
 
@@ -229,7 +217,7 @@ namespace Fungus
             //}
             if (loadButton != null)
             {
-                loadButton.interactable = saveMenuActive;
+                loadButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null;
             }
 
             if (saveButton != null)
