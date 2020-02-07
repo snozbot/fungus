@@ -18,6 +18,7 @@ namespace Fungus
             Get,
             Set,
         }
+
         [SerializeField] protected GetSet getOrSet = GetSet.Set;
 
         [Tooltip("Number of AutoSaves for the Save Manager.")]

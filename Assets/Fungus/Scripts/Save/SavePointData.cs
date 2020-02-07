@@ -3,17 +3,12 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-
-
-//TODO perhaps want concept of generic history to store data in for cookies and menu has been visited
-//  doco update
 
 namespace Fungus
 {
     /// <summary>
-    /// Serializable container for a Save Point's data. 
-    /// All data is stored as strings, and the only concrete game class it depends on is the SaveData component.
+    /// Serializable container for a Save Point's data.
+    /// All data is stored as strings, in SaveDataItems. SaveDataSerializers being responsible for encoding and decoding.
     /// </summary>
     [System.Serializable]
     public class SavePointData
@@ -21,7 +16,7 @@ namespace Fungus
         /// <summary>
         /// Version number of current save data format.
         /// </summary>
-        protected const int SaveDataVersion = 2;
+        protected const int SaveDataVersion = FungusConstants.CurrentSaveVersion;
 
         [SerializeField] protected int version = SaveDataVersion;
 
@@ -36,8 +31,6 @@ namespace Fungus
         [SerializeField] protected List<SaveDataItem> saveDataItems = new List<SaveDataItem>();
 
         [SerializeField] protected string lastWrittenDateTimeString;
-
-        protected List<SaveDataSerializer> orderedSerializers = new List<SaveDataSerializer>();
 
         protected static SavePointData Create(string _saveName, string _savePointDescription)
         {
@@ -57,6 +50,9 @@ namespace Fungus
         /// </summary>
         public string SaveName { get { return saveName; } set { saveName = value; } }
 
+        /// <summary>
+        /// Gets or sets the name of the most recent ProgressMarker reached.
+        /// </summary>
         public string ProgressMarkerName { get { return progressMarkerName; } set { progressMarkerName = value; } }
 
         /// <summary>
@@ -75,18 +71,23 @@ namespace Fungus
         /// <value>The save data items.</value>
         public List<SaveDataItem> SaveDataItems { get { return saveDataItems; } }
 
+        /// <summary>
+        /// DateTime this save reports it was written at.
+        /// </summary>
         public System.DateTime LastWritten { get { return System.DateTime.Parse(lastWrittenDateTimeString); } }
 
         /// <summary>
         /// Encodes a new Save Point to data and converts it to JSON text format.
+        ///
+        /// Fetches all SaveDataSerializers and asks them to encode themselves into the newly created SavePointData
         /// </summary>
         public static string EncodeToJson(string _saveName, string _savePointDescription, out SavePointData savePointData)
         {
             savePointData = Create(_saveName, _savePointDescription);
 
             // Look for a SaveData component in the scene to populate the save data items.
-            var savers = GameObject.FindObjectsOfType<SaveDataSerializer>();
-            foreach (var saveData in savers)
+            var orderedSerializers = SaveDataSerializer.ActiveSerializers;
+            foreach (var saveData in orderedSerializers)
             {
                 saveData.Encode(savePointData);
             }
@@ -94,6 +95,12 @@ namespace Fungus
             return JsonUtility.ToJson(savePointData, true);
         }
 
+        /// <summary>
+        /// Decodes a JSON text formatted Save back into a new Save Point object, for others to use.
+        ///
+        /// If version mismatch is found, requests HandleVersionMismatch solve it, if that method
+        /// returns false, decode is stopped and null returned.
+        /// </summary>
         static public SavePointData DecodeFromJSON(string saveDataJSON)
         {
             var savePointData = JsonUtility.FromJson<SavePointData>(saveDataJSON);
@@ -117,14 +124,16 @@ namespace Fungus
             return savePointData;
         }
 
-        //TODO DOCO
+        /// <summary>
+        /// Passes the current state of this SavePointData back through all the active SaveDataSerializers.
+        /// First through all Decodes, then through all PostDecodes.
+        /// </summary>
         public virtual void RunDeserialize()
         {
             if (!string.IsNullOrEmpty(progressMarkerName))
                 ProgressMarker.LatestExecuted = ProgressMarker.FindWithKey(progressMarkerName);
 
-            orderedSerializers = GameObject.FindObjectsOfType<SaveDataSerializer>().ToList();
-            orderedSerializers = orderedSerializers.OrderBy(x => x.Order).ToList();
+            var orderedSerializers = SaveDataSerializer.ActiveSerializers;
 
             foreach (var serializer in orderedSerializers)
             {
@@ -137,6 +146,15 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Provided as entrypoint for attempts to update from previous versions of the save format.
+        /// Returning false will prevent the save from being returned during a DecodeFromJSON.
+        ///
+        /// No default provided, you may simply wish to notify user or log an error.
+        /// </summary>
+        /// <param name="version"></param>
+        /// <param name="saveDataVersion"></param>
+        /// <returns></returns>
         protected virtual bool HandleVersionMismatch(int version, int saveDataVersion)
         {
             return true;

@@ -2,12 +2,12 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace Fungus
 {
     /// <summary>
-    /// This component encodes and decodes the current state of the global variables
+    /// This component encodes and decodes the current state of the global variables. Achieved
+    /// by using flowchart encode/decode on the GlobalVariables flowchart.
     /// </summary>
     public class GlobalVariableSaveDataSerializer : SaveDataSerializer
     {

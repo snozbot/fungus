@@ -1,12 +1,12 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using UnityEngine.SceneManagement;
-using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //TODO update doco
 
@@ -14,13 +14,18 @@ namespace Fungus
 {
     /// <summary>
     /// Manages the Save History (a list of Save Points) and provides a set of operations for saving and loading games.
-    /// 
+    ///
     /// Note WebGL and Webplayer (deprecated) save using playerprefs instead of using a json file in persistent storage
     /// -webgl would require additional js to force a sync of FS.syncfs
     /// -webplayer does not implement system io
     /// </summary>
     public class SaveManager : MonoBehaviour
     {
+        /// <summary>
+        /// Meta data about a save that has found by a save manager.
+        /// These exist to prevent the Save Manager from keeping potentially a lot of potentially
+        /// very large json files in ram.
+        /// </summary>
         public class SavePointMeta
         {
             public string saveName;
@@ -31,15 +36,20 @@ namespace Fungus
         }
 
         [SerializeField] protected List<SavePointMeta> saveMetas = new List<SavePointMeta>();
-        
+
+        /// <summary>
+        /// Access list of all currently known saves, for the current profile.
+        /// </summary>
         public List<SavePointMeta> SaveMetas { get { return saveMetas; } }
 
         [SerializeField] protected string currentSaveProfileKey = string.Empty;
 
+        /// <summary>
+        /// Profiles determine which set of saves are available.
+        /// </summary>
         public string CurrentSaveProfileKey { get { return currentSaveProfileKey; } }
 
-
-        //#if UNITY_WEBPLAYER || UNITY_WEBGL
+#if UNITY_WEBPLAYER || UNITY_WEBGL
         [System.Serializable]
         public class WebSaveBlob
         {
@@ -47,7 +57,11 @@ namespace Fungus
         }
 
         [SerializeField] protected WebSaveBlob webSaveBlob = new WebSaveBlob();
+#endif
 
+        /// <summary>
+        /// POD for info the SaveManager wants between runs of the game.
+        /// </summary>
         [System.Serializable]
         protected class SaveManagerData
         {
@@ -57,10 +71,19 @@ namespace Fungus
         public static string STORAGE_DIRECTORY { get { return Application.persistentDataPath + "/FungusSaves/"; } }
         protected const string FileExtension = ".save";
 
+        /// <summary>
+        /// Directory location currently being used for saves.
+        /// </summary>
+        /// <returns></returns>
         private string GetFullSaveDir()
         {
             return System.IO.Path.GetFullPath(STORAGE_DIRECTORY + currentSaveProfileKey + "/");
         }
+
+        /// <summary>
+        /// Filename being used for the save manager persisted data.
+        /// </summary>
+        /// <returns></returns>
         private string GetSaveManagerDataFile()
         {
             return System.IO.Path.GetFullPath(STORAGE_DIRECTORY + "save_manager_data.json");
@@ -77,9 +100,24 @@ namespace Fungus
         public virtual int NumSaves { get { return saveMetas.Count; } }
 
         protected int numAutoSaves = 1, numUserSaves = 0;
+
+        /// <summary>
+        /// SaveManager wants to know how many UserSaves are expected, this is set via the ConfigureSaveNumber.
+        /// </summary>
         public int NumberOfUserSaves { get { return numUserSaves; } }
+
+        /// <summary>
+        /// SaveManager wants to know how many Auto Saves are allowed, this is set via the ConfigureSaveNumber.
+        /// </summary>
         public int NumberOfAutoSaves { get { return numAutoSaves; } }
 
+        /// <summary>
+        /// Determines the number of saves expected and maintained for the current profile by the save manager.
+        ///
+        /// PopulatesSaveMetas when called.
+        /// </summary>
+        /// <param name="numAutos">Max auto saves, after which, the oldest will be removed</param>
+        /// <param name="numUser">Slots for user saves that will be maintained</param>
         public void ConfigureSaveNumber(int numAutos, int numUser)
         {
             numAutoSaves = numAutos;
@@ -87,29 +125,37 @@ namespace Fungus
             PopulateSaveMetas();
         }
 
+        /// <summary>
+        /// Set during SaveManager loading, intended to be used by any class that wants conditional logic
+        /// for a 'normal' level load vs one caused by a the save manager.
+        /// </summary>
         public bool IsSaveLoading { get; protected set; }
 
         public void Awake()
         {
             IsSaveLoading = false;
             StartScene = SceneManager.GetActiveScene().name;
-            
+
+            //load last used profile
             try
             {
                 var fileName = GetSaveManagerDataFile();
                 System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
                 var datString = System.IO.File.ReadAllText(fileName);
                 var dat = JsonUtility.FromJson<SaveManagerData>(datString);
-                if(dat != null)
+                if (dat != null)
                 {
                     ChangeProfile(dat.lastProfileName);
                 }
             }
             catch (Exception)
             {
+                //if that fails for whatever reason use default profile
                 ChangeProfile(FungusConstants.DefaultSaveProfileKey);
             }
 
+            //we find that other systems want to take actions in start or enable or update, so lets not make that
+            //  difficult to do.
             StartCoroutine(DelayGameStart());
 
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
@@ -132,6 +178,9 @@ namespace Fungus
             GameStarted();
         }
 
+        /// <summary>
+        /// Called on game start or when level is loaded. Will do nothing if level load is caued by the SaveManager
+        /// </summary>
         private void GameStarted()
         {
             if (!IsSaveLoading)
@@ -146,6 +195,10 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Profiles determine which set of saves are available to the user.
+        /// </summary>
+        /// <param name="saveProfileKey"></param>
         public void ChangeProfile(string saveProfileKey)
         {
             if (saveProfileKey != currentSaveProfileKey)
@@ -164,6 +217,11 @@ namespace Fungus
         }
 
         //TODO needs web version
+        /// <summary>
+        /// Gathers all saves for the current profile, filling the SaveMetas collection.
+        ///
+        /// If there are less existing user saves that configured, empty metas are generated.
+        /// </summary>
         public void PopulateSaveMetas()
         {
             saveMetas.Clear();
@@ -184,15 +242,20 @@ namespace Fungus
             //TODO look at the settings and ensure we have saves in correct order for user saves and put dumbies in where we don't
             var userSaves = CollectUserSaves();
 
-                for (int i = 0; i < NumberOfUserSaves; i++)
+            for (int i = 0; i < NumberOfUserSaves; i++)
+            {
+                if (userSaves.Find(x => x.saveName.EndsWith(i.ToString())) == null)
                 {
-                    if (userSaves.Find(x => x.saveName.EndsWith(i.ToString())) == null)
-                    {
-                        saveMetas.Add(new SavePointMeta() { saveName = FungusConstants.UserSavePrefix + i.ToString() });
-                    }
+                    saveMetas.Add(new SavePointMeta() { saveName = FungusConstants.UserSavePrefix + i.ToString() });
                 }
+            }
         }
 
+        /// <summary>
+        /// Helpder to create the meta from a fullsave
+        /// </summary>
+        /// <param name="fileLoc"></param>
+        /// <param name="save"></param>
         private void GenerateMetaFromSave(string fileLoc, SavePointData save)
         {
             if (save != null)
@@ -230,13 +293,12 @@ namespace Fungus
                 System.IO.File.Delete(meta.fileLocation);
             }
 #endif//UNITY_WEBPLAYER
-            if(meta.saveName.StartsWith(FungusConstants.UserSavePrefix) && !suppressReplaceSlot)
+            if (meta.saveName.StartsWith(FungusConstants.UserSavePrefix) && !suppressReplaceSlot)
             {
                 saveMetas.Add(new SavePointMeta() { saveName = meta.saveName });
             }
             saveMetas.RemoveAt(index);
             SaveManagerSignals.DoSaveDeleted(meta.saveName);
-            //TODO if user slot save then put dumby there
         }
 
         public void DeleteSave(SavePointMeta meta)
@@ -245,7 +307,7 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Creates a new Save Point using a key and description, and adds it to the Save History.
+        /// Creates a new Save Point using a key and description.
         /// </summary>
         public virtual void Save(string saveName, string savePointDescription, bool isAutoSave = false)
         {
@@ -256,9 +318,9 @@ namespace Fungus
             {
                 DeleteSave(existingMetaIndex, true);
             }
-            
+
             var savePointDataJSON = SavePointData.EncodeToJson(saveName, savePointDescription, out SavePointData save);
-            var fileName = GetFullSaveDir() + (isAutoSave ? FungusConstants.AutoSavePrefix : FungusConstants.UserSavePrefix) 
+            var fileName = GetFullSaveDir() + (isAutoSave ? FungusConstants.AutoSavePrefix : FungusConstants.UserSavePrefix)
                 + System.DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss.ffff") + FileExtension;
             GenerateMetaFromSave(fileName, save);
 #if UNITY_WEBPLAYER || UNITY_WEBGL
@@ -267,7 +329,6 @@ namespace Fungus
             System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
             System.IO.File.WriteAllText(fileName, savePointDataJSON, System.Text.Encoding.UTF8);
 #endif
-            //https://docs.unity3d.com/ScriptReference/ScreenCapture.CaptureScreenshot.html with unique name
 
             //if we limit autos and it is an auto, are there now to many, delete oldest until not over limit
             if (isAutoSave && NumberOfAutoSaves >= 0)
@@ -280,10 +341,14 @@ namespace Fungus
                 }
             }
 
-            //TODO save created
             SaveManagerSignals.DoSaveSaved(saveName, savePointDescription);
         }
 
+        /// <summary>
+        /// Helper to call LoadSavePoint via a meta.
+        /// </summary>
+        /// <param name="meta"></param>
+        /// <returns></returns>
         public virtual bool Load(SavePointMeta meta)
         {
             var saveContent = System.IO.File.ReadAllText(meta.fileLocation, System.Text.Encoding.UTF8);
@@ -298,6 +363,14 @@ namespace Fungus
             return true;
         }
 
+        /// <summary>
+        /// Cause a scene load, flagging that we are loading a save during it, in IsSaveLoading.
+        /// When scene is loaded, we ask the savepoint to RunDeserialize. Means the serializers
+        /// need to exist in target scene, either existing in all scenes manually, or singlying
+        /// via a Don'tDestroyOnLoad
+        /// </summary>
+        /// <param name="savePointData"></param>
+        /// <returns></returns>
         public virtual bool LoadSavePoint(SavePointData savePointData)
         {
             if (savePointData == null)
@@ -338,6 +411,10 @@ namespace Fungus
             return true;
         }
 
+        /// <summary>
+        /// Used to allow full enable, start, update to run before turning off our loading flag.
+        /// </summary>
+        /// <returns></returns>
         private System.Collections.IEnumerator DelaySetNotLoading()
         {
             yield return new WaitForEndOfFrame();
@@ -349,12 +426,16 @@ namespace Fungus
         /// </summary>
         public virtual void DeleteAllSaves()
         {
-            for (int i = saveMetas.Count-1; i >= 0; i--)
+            for (int i = saveMetas.Count - 1; i >= 0; i--)
             {
                 DeleteSave(i);
             }
         }
 
+        /// <summary>
+        /// Return the most recently written save regardless of type of save.
+        /// </summary>
+        /// <returns></returns>
         public virtual SavePointMeta GetMostRecentSave()
         {
             if (SaveMetas.Count > 0)
@@ -367,19 +448,32 @@ namespace Fungus
             return null;
         }
 
+        /// <summary>
+        /// Gather and return all Auto saves currently in our meta list.
+        /// </summary>
+        /// <returns></returns>
         public List<SavePointMeta> CollectAutoSaves()
         {
             return FungusManager.Instance.SaveManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.AutoSavePrefix))
-               .OrderBy(x => x.savePointLastWritten.Ticks).ToList();
+                .OrderBy(x => x.savePointLastWritten.Ticks).ToList();
         }
 
+        /// <summary>
+        /// Gather and return all User (slot) saves currently in our meta list.
+        /// </summary>
+        /// <returns></returns>
         public List<SavePointMeta> CollectUserSaves()
         {
             return FungusManager.Instance.SaveManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.UserSavePrefix))
-               .OrderBy(x => x.saveName).ToList();
+                .OrderBy(x => x.saveName).ToList();
         }
 
-
+        /// <summary>
+        /// Reload the starting scene, without setting the loading flag. If requested, can delete all saves on
+        /// the current profile.
+        /// </summary>
+        /// <param name="deleteSaves"></param>
+        /// <returns></returns>
         public virtual bool Restart(bool deleteSaves)
         {
             if (string.IsNullOrEmpty(StartScene))

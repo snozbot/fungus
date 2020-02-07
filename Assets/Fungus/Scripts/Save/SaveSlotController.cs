@@ -2,8 +2,6 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-//todo doco update
-
 namespace Fungus
 {
     /// <summary>
@@ -28,9 +26,11 @@ namespace Fungus
 
         protected SaveController saveCont;
 
+        public bool IsLoadable { get { return ourMeta != null && !string.IsNullOrEmpty(ourMeta.fileLocation); } }
+
         private void Start()
         {
-            saveCont = GetComponentInParent<SaveController>(); 
+            saveCont = GetComponentInParent<SaveController>();
 
             if (saveCont == null)
             {
@@ -38,7 +38,7 @@ namespace Fungus
             }
         }
 
-        public SaveManager.SavePointMeta LinkedMeta 
+        public SaveManager.SavePointMeta LinkedMeta
         {
             get
             {

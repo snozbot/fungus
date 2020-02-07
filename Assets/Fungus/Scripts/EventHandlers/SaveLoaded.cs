@@ -4,11 +4,16 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+//TODO move to listening to events?
+
 namespace Fungus
 {
+    /// <summary>
+    /// Handler for executing blocks based exclusively on save loading, rather than pure progress marker being reached.
+    /// </summary>
     [EventHandlerInfo("Scene",
                       "Save Loaded",
-                      "Execute this block when a saved is loaded. Use the 'new_game' key to handle game start. If you wish to run regardless of save loading see ProgressMarkerReached.")]
+                      "Execute blocks when a saved of matching marker name is loaded. If you wish to run regardless of save loading see ProgressMarkerReached.")]
     public class SaveLoaded : EventHandler 
     {
         [Tooltip("Block will execute if the Save Key of the loaded save point matches this save key. If empty, will execute on any key.")]

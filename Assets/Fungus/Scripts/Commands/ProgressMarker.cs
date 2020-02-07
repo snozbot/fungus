@@ -11,17 +11,16 @@ namespace Fungus
     /// </summary>
     [CommandInfo("Save",
                  "Progress Marker",
-                 "Marks a point for where a player has gotten. Helps with reacting to GameSaveData being loaded.")]
+                 "Marks a point for where a player has reached. Helps with reacting to GameSaveData being loaded.")]
     public class ProgressMarker : Command
     {
-        [Tooltip("Marks this Save Point as the starting point for Flowchart execution in the scene. Each scene in your game should have exactly one Save Point with this enabled.")]
+        [Tooltip("Marks this as the starting point for Flowchart execution in the scene. If using the save system, each scene in your game should have exactly one with this enabled.")]
         [SerializeField] protected bool isStartPoint = false;
-               
+
         /// <summary>
-        /// Marks this Save Point as the starting point for Flowchart execution in the scene. Each scene in your game should have exactly one Save Point with this enabled.
+        /// Marks this as the starting point for Flowchart execution in the scene. Each scene in your game should have exactly one Save Point with this enabled.
         /// </summary>
         public bool IsStartPoint { get { return isStartPoint; } set { isStartPoint = value; } }
-
 
         [SerializeField] protected string customKey = string.Empty;
 
@@ -31,9 +30,10 @@ namespace Fungus
         }
 
         protected static ProgressMarker latestExecuted;
-        public static ProgressMarker LatestExecuted 
+
+        public static ProgressMarker LatestExecuted
         {
-            get { return latestExecuted; } 
+            get { return latestExecuted; }
             set
             {
                 SaveManagerSignals.DoProgressMarkerReached(latestExecuted, value);
@@ -76,7 +76,7 @@ namespace Fungus
         {
             base.OnValidate();
 
-            if(string.IsNullOrEmpty(customKey))
+            if (string.IsNullOrEmpty(customKey))
             {
                 customKey = GetLocationIdentifier();
             }

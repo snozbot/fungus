@@ -1,24 +1,19 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-#if UNITY_5_3_OR_NEWER
-
-using System;
 using UnityEngine;
-
-//TODO udpate doco
 
 namespace Fungus
 {
+    /// <summary>
+    /// AutoSave, requests a new AutoSave from the save manager, this is still governed by the limits in place in the Save
+    /// Manager.
+    /// </summary>
     [CommandInfo("Save",
-                 "Auto Save", 
+                 "Auto Save",
                  "Creates an Auto Save. Player can then load or continue with them via the SaveMenu/SaveController")]
     public class AutoSave : ProgressMarker
     {
-        [Tooltip("If true, when this save is loaded, execution of this block will resume 1 command after this one.")]
-        [SerializeField] protected bool resumeAfterLoad = true;
-        public bool ResumeAfterLoad { get { return resumeAfterLoad; } }
-
         /// <summary>
         /// Supported modes for specifying a Save Point Description.
         /// </summary>
@@ -26,6 +21,7 @@ namespace Fungus
         {
             /// <summary> Uses the current date and time as the save point description.</summary>
             Timestamp,
+
             /// <summary> Use a custom string for the save point description.</summary>
             Custom
         }
@@ -35,7 +31,6 @@ namespace Fungus
 
         [Tooltip("A short description of this save point.")]
         [SerializeField] protected string customDescription;
-
 
         /// <summary>
         /// Gets the save point description.
@@ -50,7 +45,7 @@ namespace Fungus
                 }
                 else
                 {
-                    return customDescription; 
+                    return customDescription;
                 }
             }
         }
@@ -74,9 +69,8 @@ namespace Fungus
 
                 saveManager.Save(FungusConstants.AutoSavePrefix + CustomKey, SavePointDescription, true);
             }
+
             Continue();
         }
     }
 }
-
-#endif

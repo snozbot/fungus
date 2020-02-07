@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
-    /// The block will execute when a Progress Marker of the same name is reached or set.
+    /// The block will execute when a Progress Marker with a name from set the is reached.
     /// </summary>
     [EventHandlerInfo("Flow",
                       "Progress Marker Reached",
@@ -48,7 +48,7 @@ namespace Fungus
 
         protected virtual void SaveManagerSignals_OnProgressMarkerReached(ProgressMarker was, ProgressMarker now)
         {
-            if(enabled)
+            if (enabled)
             {
                 OnProgressMarkerReached(now.CustomKey);
             }
@@ -71,11 +71,6 @@ namespace Fungus
             {
                 ExecuteBlock();
             }
-        }
-
-        public override string GetSummary()
-        {
-            return string.Join(",", progressMarkerCustomKeys);
         }
     }
 }

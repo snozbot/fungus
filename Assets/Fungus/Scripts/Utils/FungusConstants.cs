@@ -57,6 +57,11 @@ namespace Fungus
         /// </summary>
         public const string UserSavePrefix = "slot_";
 
+        /// <summary>
+        /// Current version of the save system
+        /// </summary>
+        public const int CurrentSaveVersion = 2;
+
         #endregion
     }
 }

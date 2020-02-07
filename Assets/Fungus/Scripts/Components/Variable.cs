@@ -130,8 +130,24 @@ namespace Fungus
         /// </summary>
         public abstract object GetValue();
 
+        /// <summary>
+        /// Determines if this variable is able to be serialised, requires then that it implements
+        /// GetValueAsJson & SetValueFromJson for round tripping data. If retruns false, the variable 
+        /// is ignored by the saving system.
+        /// </summary>
         public abstract bool IsSerialisable { get; }
+
+        /// <summary>
+        /// Return a json form of the variables value, will be stored by save system in a StringToJsonPair
+        /// within the a FlowchartData.
+        /// </summary>
+        /// <returns></returns>
         public abstract string GetValueAsJson();
+
+        /// <summary>
+        /// Restore a value from a previously serialised form from GetValueAsJson. Called by save system.
+        /// </summary>
+        /// <param name="jsonString"></param>
         public abstract void SetValueFromJson(string jsonString);
 
         #endregion
@@ -226,6 +242,13 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Helper object for simplifying value serialisation to json.
+        /// 
+        /// Not a good solution, but prevents most variables and users from defining a to and from string
+        /// parsing mechanism for each variable type that wishes to serialise.
+        /// </summary>
+        [System.Serializable]
         private struct SerialisationPod
         {
             public T value;
