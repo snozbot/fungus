@@ -1,7 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com)
-// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
-
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -11,39 +8,61 @@ namespace Fungus
     /// <summary>
     /// Force a loop to terminate immediately.
     /// </summary>
-    [CommandInfo("Flow",
-                 "Break",
+    [CommandInfo("Flow", 
+                 "Break", 
                  "Force a loop to terminate immediately.")]
     [AddComponentMenu("")]
     public class Break : Command
     {
         #region Public members
 
-        //located the containing loop and tell it to end
         public override void OnEnter()
         {
-            Condition loopingCond = null;
-            // Find index of previous looping command
-            for (int i = CommandIndex - 1; i >= 0; --i)
+            // Find index of previous while command
+            int whileIndex = -1;
+            int whileIndentLevel = -1;
+            for (int i = CommandIndex - 1; i >=0; --i)
             {
-                Condition cond = ParentBlock.CommandList[i] as Condition;
-                if (cond != null && cond.IsLooping)
+                While whileCommand = ParentBlock.CommandList[i] as While;
+                if (whileCommand != null)
                 {
-                    loopingCond = cond;
+                    whileIndex = i;
+                    whileIndentLevel = whileCommand.IndentLevel;
                     break;
                 }
             }
 
-            if (loopingCond == null)
+            if (whileIndex == -1)
             {
-                // No enclosing loop command found, just continue
-                Debug.LogError("Break called but found no enclosing looping construct." + GetLocationIdentifier());
+                // No enclosing While command found, just continue
                 Continue();
+                return;
             }
-            else
+
+            // Find matching End statement at same indent level as While
+            for (int i = whileIndex + 1; i < ParentBlock.CommandList.Count; ++i)
             {
-                loopingCond.MoveToEnd();
+                End endCommand = ParentBlock.CommandList[i] as End;
+                
+                if (endCommand != null && 
+                    endCommand.IndentLevel == whileIndentLevel)
+                {
+                    // Sanity check that break command is actually between the While and End commands
+                    if (CommandIndex > whileIndex && CommandIndex < endCommand.CommandIndex)
+                    {
+                        // Continue at next command after End
+                        Continue (endCommand.CommandIndex + 1);
+                        return;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
+
+            // No matching End command found so just continue
+            Continue();
         }
 
         public override Color GetButtonColor()
@@ -51,6 +70,6 @@ namespace Fungus
             return new Color32(253, 253, 150, 255);
         }
 
-        #endregion Public members
-    }
+        #endregion
+    }    
 }

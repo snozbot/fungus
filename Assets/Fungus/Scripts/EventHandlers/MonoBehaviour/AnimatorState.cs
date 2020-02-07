@@ -1,6 +1,8 @@
-﻿// This code is part of the Fungus library (http://fungusgames.com)
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus
@@ -14,6 +16,7 @@ namespace Fungus
     [AddComponentMenu("")]
     public class AnimatorState : EventHandler
     {
+
         [System.Flags]
         public enum AnimatorMessageFlags
         {
@@ -29,11 +32,11 @@ namespace Fungus
         [Tooltip("IK layer to trigger on. Negative is all.")]
         [SerializeField]
         protected int IKLayer = 1;
-
+        
         private void OnAnimatorIK(int layer)
         {
-            if ((FireOn & AnimatorMessageFlags.OnAnimatorIK) != 0 &&
-                (IKLayer == layer || IKLayer < 0))
+            if ((FireOn & AnimatorMessageFlags.OnAnimatorIK) != 0 && 
+                (IKLayer == layer || IKLayer < 0) )
             {
                 ExecuteBlock();
             }

@@ -1,4 +1,4 @@
-﻿// This code is part of the Fungus library (http://fungusgames.com)
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
-    /// Calls Debug.Break if enabled. Also useful for putting a visual studio breakbpoint within.
+    /// Writes a log message to the debug console.
     /// </summary>
     [CommandInfo("Scripting",
                  "Debug Break",

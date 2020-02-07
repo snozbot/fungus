@@ -1,10 +1,10 @@
-﻿// This code is part of the Fungus library (http://fungusgames.com)
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 namespace Fungus
 {
     /// <summary>
-    /// Interface for providing a human readable path to an element, used in editor code to determine where
+    /// Interface for providing a human readable path to an element, used in editor code to determine where 
     /// something exists elsewhere in the scene.
     /// </summary>
     public interface IStringLocationIdentifier

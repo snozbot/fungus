@@ -1,4 +1,4 @@
-﻿// This code is part of the Fungus library (http://fungusgames.com)
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using System.Collections.Generic;
@@ -51,6 +51,7 @@ namespace Fungus.EditorUtils
                     targetBlock.BlockName = commandTypeAttr.Category;
                     blockComCats[commandTypeAttr.Category] = targetBlock;
                 }
+
 
                 var newCommand = newGO.AddComponent(commandType) as Command;
                 newCommand.ParentBlock = targetBlock;

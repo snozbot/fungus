@@ -1,6 +1,8 @@
-﻿// This code is part of the Fungus library (http://fungusgames.com)
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus
@@ -14,16 +16,15 @@ namespace Fungus
     [AddComponentMenu("")]
     public class Render : EventHandler
     {
+
         [System.Flags]
         public enum RenderMessageFlags
         {
             OnPostRender = 1 << 0,
             OnPreCull = 1 << 1,
             OnPreRender = 1 << 2,
-
             //OnRenderImage = 1 << 3,
             OnRenderObject = 1 << 4,
-
             OnWillRenderObject = 1 << 5,
             OnBecameInvisible = 1 << 6,
             OnBecameVisible = 1 << 7,
@@ -36,7 +37,7 @@ namespace Fungus
 
         private void OnPostRender()
         {
-            if ((FireOn & RenderMessageFlags.OnPostRender) != 0)
+            if((FireOn & RenderMessageFlags.OnPostRender) != 0)
             {
                 ExecuteBlock();
             }

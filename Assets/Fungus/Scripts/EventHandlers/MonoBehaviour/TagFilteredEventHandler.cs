@@ -1,12 +1,13 @@
-// This code is part of the Fungus library (http://fungusgames.com)
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Fungus
 {
     /// <summary>
-    /// Base class for all of tag filtered events
+    /// Base class for all of our physics event handlers
     /// </summary>
     [AddComponentMenu("")]
     public abstract class TagFilteredEventHandler : EventHandler
@@ -17,15 +18,17 @@ namespace Fungus
 
         protected void ProcessTagFilter(string tagOnOther)
         {
-            if (DoesPassFilter(tagOnOther))
+            if (tagFilter.Length == 0)
             {
                 ExecuteBlock();
             }
-        }
-
-        protected bool DoesPassFilter(string tagOnOther)
-        {
-            return tagFilter.Length == 0 || System.Array.IndexOf(tagFilter, tagOnOther) != -1;
+            else
+            {
+                if (System.Array.IndexOf(tagFilter, tagOnOther) != -1)
+                {
+                    ExecuteBlock();
+                }
+            }
         }
     }
 }
