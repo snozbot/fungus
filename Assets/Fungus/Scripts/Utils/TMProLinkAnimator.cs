@@ -1,23 +1,34 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 
 #if UNITY_2018_1_OR_NEWER
 
 namespace Fungus
 {
-    //Component that is automatically added to all tmpro texts that contain links,
-    //  caches local data for that TMProText and uses the TMProLinkAnimLookup to
-    //  to the actual animation
+    /// <summary>
+    /// Component that is automatically added to all tmpro texts that contain links. Caches
+    /// local data for that TMProText and uses the TMProLinkAnimLookup to the actual animation.
+    /// </summary>
     [DisallowMultipleComponent]
     public class TMProLinkAnimator : MonoBehaviour
     {
         #region Auto Add Component
 
+        /// <summary>
+        /// Ensure we are being notified of TMPro changes.
+        /// </summary>
         [RuntimeInitializeOnLoadMethod]
         public static void RegisterAutoAddTMPLinkAnim()
         {
             TMPro.TMPro_EventManager.TEXT_CHANGED_EVENT.Add(AutoAddTMPLinkAnim);
         }
 
+        /// <summary>
+        /// Adds a suite of default link text animations. These can be removed via the
+        /// TMProLinkAnimLookup if desired.
+        /// </summary>
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void RegisterDefaultTMPLinkAnims()
         {
@@ -82,6 +93,11 @@ namespace Fungus
             });
         }
 
+        /// <summary>
+        /// Called by TMPro when a text is changed, ensuring link animator is there and
+        /// that data is ready for it to use.
+        /// </summary>
+        /// <param name="obj"></param>
         public static void AutoAddTMPLinkAnim(object obj)
         {
             if (Application.isPlaying)
@@ -102,6 +118,10 @@ namespace Fungus
             }
         }
 
+        /// <summary>
+        /// Cache of the TMProLinkAnimator that just forced an update of the TMProText, used to
+        /// prevent cyclic updates of TMPro mesh content.
+        /// </summary>
         protected static TMProLinkAnimator forcedUpdater;
 
         #endregion Auto Add Component
@@ -130,6 +150,9 @@ namespace Fungus
             UpdateAnimation();
         }
 
+        /// <summary>
+        /// If there is TMPro and a link to potentially animate then ask the AnimLookup for it
+        /// </summary>
         protected void UpdateAnimation()
         {
             //could we anim

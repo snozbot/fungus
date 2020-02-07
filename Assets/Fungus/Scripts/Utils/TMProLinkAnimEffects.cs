@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 
 #if UNITY_2018_1_OR_NEWER
 
@@ -58,8 +61,15 @@ namespace Fungus
 
             #region static helpers
 
-            //Helper for mesh vertex updating within a found link
-            //adapted from TMPRo examples VertexJitter
+            /// <summary>
+            /// Helper for mesh vertex updating within a found link, adapted from TMPRo examples VertexJitter.
+            /// </summary>
+            /// <param name="context"></param>
+            /// <param name="start"></param>
+            /// <param name="length"></param>
+            /// <param name="transformFunc"></param>
+            /// <param name="colorFunc"></param>
+            /// <param name="mode"></param>
             static public void MeshVertUpdateLoop(TMProLinkAnimator context, int start, int length, System.Func<int, Matrix4x4> transformFunc, System.Func<int, Color32, Color32> colorFunc, TMPLinkAnimatorMode mode)
             {
                 var tmproComponent = context.TMProComponent;
@@ -159,7 +169,13 @@ namespace Fungus
                 }
             }
 
-            //same as calcing a character mid but averaging over all characters in the given character range
+            /// <summary>
+            /// Same as calcing a character mid but averaging over all characters in the given character range
+            /// </summary>
+            /// <param name="context"></param>
+            /// <param name="start"></param>
+            /// <param name="end"></param>
+            /// <returns></returns>
             static public Vector2 CalcMidFromChars(TMProLinkAnimator context, int start, int end)
             {
                 Vector3 middle = Vector3.zero;
@@ -176,6 +192,12 @@ namespace Fungus
                 return middle / (end - start);
             }
 
+            /// <summary>
+            /// Determine which TMPro World a given character index is within
+            /// </summary>
+            /// <param name="charIndex"></param>
+            /// <param name="wordInfo"></param>
+            /// <returns></returns>
             static public int CalcWordFromChar(int charIndex, TMPro.TMP_WordInfo[] wordInfo)
             {
                 for (int i = 0; i < wordInfo.Length; i++)
@@ -191,6 +213,12 @@ namespace Fungus
                 return -1;
             }
 
+            /// <summary>
+            /// Determine which TMPro Line a given character index is within
+            /// </summary>
+            /// <param name="charIndex"></param>
+            /// <param name="wordInfo"></param>
+            /// <returns></returns>
             static public int CalcLineFromChar(int charIndex, TMPro.TMP_WordInfo[] wordInfo)
             {
                 for (int i = 0; i < wordInfo.Length; i++)
@@ -204,17 +232,6 @@ namespace Fungus
                 }
 
                 return -1;
-            }
-
-            static public void CharRangeToWordIndices(int startCharacter, int length, TMPro.TMP_WordInfo[] wordInfo, out int firstWord, out int lastWord)
-            {
-                firstWord = -1;
-                lastWord = -1;
-
-                int endCharacter = startCharacter + length;
-
-                firstWord = CalcWordFromChar(startCharacter, wordInfo);
-                lastWord = CalcWordFromChar(endCharacter, wordInfo);
             }
 
             #endregion static helpers
