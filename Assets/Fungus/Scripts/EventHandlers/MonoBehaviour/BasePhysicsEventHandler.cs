@@ -21,17 +21,9 @@ namespace Fungus
             Exit = 1 << 2,
         }
 
-        [Tooltip("Which of the 3d physics messages to we trigger on.")]
+        [Tooltip("Which of the physics messages do we trigger on.")]
         [SerializeField]
         [EnumFlag]
         protected PhysicsMessageType FireOn = PhysicsMessageType.Enter;
-
-        protected void ProcessCollider(PhysicsMessageType from, string tagOnOther)
-        {
-            if ((from & FireOn) != 0)
-            {
-                ProcessTagFilter(tagOnOther);
-            }
-        }
     }
 }

@@ -13,7 +13,7 @@ namespace Fungus.Tests
         [UnityTest]
         public IEnumerator Looping()
         {
-            yield return EditorUtils.TestUtils.RunPrefabFlowchartTests("LoopTest", true);
+            yield return EditorUtils.TestUtils.RunPrefabFlowchartTests("LoopTest", true, 200);
         }
 
         [UnityTest]

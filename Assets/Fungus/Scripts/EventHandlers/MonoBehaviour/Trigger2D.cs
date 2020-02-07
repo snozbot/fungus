@@ -20,17 +20,30 @@ namespace Fungus
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            ProcessCollider(PhysicsMessageType.Enter, col.tag);
+            ProcessCollider(PhysicsMessageType.Enter, col);
         }
 
         private void OnTriggerStay2D(Collider2D col)
         {
-            ProcessCollider(PhysicsMessageType.Stay, col.tag);
+            ProcessCollider(PhysicsMessageType.Stay, col);
         }
 
         private void OnTriggerExit2D(Collider2D col)
         {
-            ProcessCollider(PhysicsMessageType.Exit, col.tag);
+            ProcessCollider(PhysicsMessageType.Exit, col);
+        }
+
+        protected void ProcessCollider(PhysicsMessageType from, Collider2D other)
+        {
+            if ((from & FireOn) != 0 && DoesPassFilter(other.tag))
+            {
+                if (colliderVar != null)
+                {
+                    colliderVar.Value = other;
+                }
+
+                ExecuteBlock();
+            }
         }
     }
 }
