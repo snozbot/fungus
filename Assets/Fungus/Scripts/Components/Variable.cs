@@ -131,8 +131,19 @@ namespace Fungus
         /// </summary>
         public abstract void OnReset();
 
+        /// <summary>
+        /// Used by SetVariable, child classes required to declare and implement operators.
+        /// </summary>
+        /// <param name="setOperator"></param>
+        /// <param name="value"></param>
         public abstract void Apply(SetOperator setOperator, object value);
 
+        /// <summary>
+        /// Used by Ifs, While, and the like. Child classes required to declare and implement comparisons.
+        /// </summary>
+        /// <param name="compareOperator"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public abstract bool Evaluate(CompareOperator compareOperator, object value);
 
         /// <summary>
@@ -151,67 +162,6 @@ namespace Fungus
         /// </summary>
         public abstract object GetValue();
         #endregion
-    }
-
-    public static class VariableUtil
-    {
-        public static string GetCompareOperatorDescription(CompareOperator compareOperator)
-        {
-#pragma warning disable CS0162 // Unreachable code detected
-            switch (compareOperator)
-            {
-            case CompareOperator.Equals:
-                return "==";
-                break;
-            case CompareOperator.NotEquals:
-                return "!=";
-                break;
-            case CompareOperator.LessThan:
-                return "<";
-                break;
-            case CompareOperator.GreaterThan:
-                return ">";
-                break;
-            case CompareOperator.LessThanOrEquals:
-                return "<=";
-                break;
-            case CompareOperator.GreaterThanOrEquals:
-                return ">=";
-                break;
-            }
-#pragma warning restore CS0162 // Unreachable code detected
-            return string.Empty;
-        }
-
-        public static string GetSetOperatorDescription(SetOperator setOperator)
-        {
-#pragma warning disable CS0162 // Unreachable code detected
-            switch (setOperator)
-            {
-            default:
-            case SetOperator.Assign:
-                return "=";
-                break;
-            case SetOperator.Negate:
-                return "=!";
-                break;
-            case SetOperator.Add:
-                return "+=";
-                break;
-            case SetOperator.Subtract:
-                return "-=";
-                break;
-            case SetOperator.Multiply:
-                return "*=";
-                break;
-            case SetOperator.Divide:
-                return "/=";
-                break;
-            }
-
-            return string.Empty;
-#pragma warning restore CS0162 // Unreachable code detected
-        }
     }
 
     /// <summary>

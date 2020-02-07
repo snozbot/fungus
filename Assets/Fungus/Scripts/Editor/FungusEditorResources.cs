@@ -15,7 +15,7 @@ using System.Reflection;
 namespace Fungus.EditorUtils
 {
     [CustomEditor(typeof(FungusEditorResources))]
-    internal class FungusEditorResourcesInspector : Editor
+    public class FungusEditorResourcesInspector : Editor
     {
         public override void OnInspectorGUI()
         {
@@ -36,7 +36,7 @@ namespace Fungus.EditorUtils
     }
 
     // Handle reimporting all assets
-    internal class EditorResourcesPostProcessor : AssetPostprocessor 
+    public class EditorResourcesPostProcessor : AssetPostprocessor 
     {
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] _, string[] __, string[] ___) 
         {
@@ -56,10 +56,10 @@ namespace Fungus.EditorUtils
         }
     }
 
-    internal partial class FungusEditorResources : ScriptableObject
+    public partial class FungusEditorResources : ScriptableObject
     {
         [Serializable]
-        internal class EditorTexture
+        public class EditorTexture
         {
             [SerializeField] private Texture2D free;
             [SerializeField] private Texture2D pro;
@@ -81,7 +81,7 @@ namespace Fungus.EditorUtils
         private static readonly string PartialEditorResourcesPath = System.IO.Path.Combine("Fungus", "EditorResources");
         [SerializeField] [HideInInspector] private bool updateOnReloadScripts = false;
 
-        internal static FungusEditorResources Instance
+        public static FungusEditorResources Instance
         {
             get
             {
@@ -125,7 +125,7 @@ namespace Fungus.EditorUtils
             return string.Empty;
         }
 
-        internal static void GenerateResourcesScript()
+        public static void GenerateResourcesScript()
         {
             // Get all unique filenames
             var textureNames = new HashSet<string>();
@@ -152,7 +152,7 @@ namespace Fungus.EditorUtils
                 writer.WriteLine("");
                 writer.WriteLine("namespace Fungus.EditorUtils");
                 writer.WriteLine("{");
-                writer.WriteLine("    internal partial class FungusEditorResources : ScriptableObject");
+                writer.WriteLine("    public partial class FungusEditorResources : ScriptableObject");
                 writer.WriteLine("    {");
                 
                 foreach (var name in textureNames)
@@ -187,7 +187,7 @@ namespace Fungus.EditorUtils
             }
         }
 
-        internal static void UpdateTextureReferences(FungusEditorResources instance)
+        public static void UpdateTextureReferences(FungusEditorResources instance)
         {
             // Iterate through all fields in instance and set texture references
             var serializedObject = new SerializedObject(instance);

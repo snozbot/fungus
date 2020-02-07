@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿// This code is part of the Fungus library (http://fungusgames.com)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using NUnit.Framework;
 using System.Collections.Generic;
 
 namespace Fungus.Tests
@@ -15,6 +18,7 @@ hide john ""offscreen left"": I sure do.
 
 -- This is a comment, it doesn't appear in the conversation
 ";
+
         private static readonly List<Fungus.ConversationManager.RawConversationItem> SimpleConvRes = new List<Fungus.ConversationManager.RawConversationItem>()
     {
         new Fungus.ConversationManager.RawConversationItem(){ sayParams = new string[]{ "john", "bored", "left" }, text = "Oh, so that's how you use the Conversation command."},
@@ -53,6 +57,7 @@ sherlock: Colon to direct attention to a list. Colon to emphasize connecton betw
 : To Buy: Eggs, Milk, Flour.
 sherlock irate right: In this world, there are only two tragedies: one is not getting what one wants, and the other is getting it.
 john smug:Love is blind: sometimes it keeps us from seeing the truth.";
+
         private static readonly List<Fungus.ConversationManager.RawConversationItem> MultiColonConvRes = new List<Fungus.ConversationManager.RawConversationItem>()
     {
         new Fungus.ConversationManager.RawConversationItem(){ sayParams = new string[]{ "sherlock", "left" }, text = "Outragous!"},

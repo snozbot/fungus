@@ -1,10 +1,12 @@
+// This code is part of the Fungus library (http://fungusgames.com)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Fungus
 {
     /// <summary>
-    /// Base class for all of our physics event handlers
+    /// Base class for all of tag filtered events
     /// </summary>
     [AddComponentMenu("")]
     public abstract class TagFilteredEventHandler : EventHandler

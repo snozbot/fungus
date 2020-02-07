@@ -1,7 +1,13 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (http://fungusgames.com)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Does target collection, contain all rhs collection items
+    /// </summary>
     [CommandInfo("Collection",
                  "Contains All Of",
                      "Does target collection, contain all rhs collection items")]

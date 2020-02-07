@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿// This code is part of the Fungus library (http://fungusgames.com)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using NUnit.Framework;
 using System.Collections;
 using UnityEngine.TestTools;
 
@@ -7,14 +10,6 @@ namespace Fungus.Tests
     [TestFixture]
     public class FungusPlayModeTest
     {
-        //// A Test behaves as an ordinary method
-        //[Test]
-        //public void FungusPlayModeTestSimplePasses()
-        //{
-        //}
-
-        // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-        // `yield return null;` to skip a frame.
         [UnityTest]
         public IEnumerator Looping()
         {

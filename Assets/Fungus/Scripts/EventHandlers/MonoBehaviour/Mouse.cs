@@ -1,5 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// This code is part of the Fungus library (http://fungusgames.com)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using UnityEngine;
 
 namespace Fungus
@@ -13,16 +14,15 @@ namespace Fungus
     [AddComponentMenu("")]
     public class Mouse : EventHandler
     {
-
         [System.Flags]
         public enum MouseMessageFlags
         {
-            OnMouseDown     = 1 << 0,
-            OnMouseDrag     = 1 << 1,
-            OnMouseEnter    = 1 << 2,
-            OnMouseExit     = 1 << 3,
-            OnMouseOver     = 1 << 4,
-            OnMouseUp       = 1 << 5,
+            OnMouseDown = 1 << 0,
+            OnMouseDrag = 1 << 1,
+            OnMouseEnter = 1 << 2,
+            OnMouseExit = 1 << 3,
+            OnMouseOver = 1 << 4,
+            OnMouseUp = 1 << 5,
             OnMouseUpAsButton = 1 << 6,
         }
 
@@ -68,7 +68,7 @@ namespace Fungus
 
         private void HandleTriggering(MouseMessageFlags from)
         {
-            if((from & FireOn) != 0)
+            if ((from & FireOn) != 0)
             {
                 ExecuteBlock();
             }

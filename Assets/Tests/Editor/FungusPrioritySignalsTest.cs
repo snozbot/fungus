@@ -1,15 +1,13 @@
-﻿using UnityEngine;
-using UnityEditor;
-using UnityEngine.TestTools;
+﻿// This code is part of the Fungus library (http://fungusgames.com)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using NUnit.Framework;
-using System.Collections;
 
 namespace Fungus.Tests
 {
     [TestFixture]
     public class PrioritySignalsTest
     {
-
         private int changeCallCount, startCallCount, endCallCount;
 
         [Test]
@@ -28,15 +26,12 @@ namespace Fungus.Tests
             Assert.AreEqual(1, changeCallCount);
             Assert.AreEqual(1, Fungus.FungusPrioritySignals.CurrentPriorityDepth);
 
-
-
             Fungus.FungusPrioritySignals.DoIncreasePriorityDepth();
             //one start, 2 change, no end, 2 depth
             Assert.AreEqual(0, endCallCount);
             Assert.AreEqual(1, startCallCount);
             Assert.AreEqual(2, changeCallCount);
             Assert.AreEqual(2, Fungus.FungusPrioritySignals.CurrentPriorityDepth);
-
 
             Fungus.FungusPrioritySignals.DoIncreasePriorityDepth();
             //one start, 3 change, no end, 3 depth
@@ -45,14 +40,12 @@ namespace Fungus.Tests
             Assert.AreEqual(3, changeCallCount);
             Assert.AreEqual(3, Fungus.FungusPrioritySignals.CurrentPriorityDepth);
 
-
             Fungus.FungusPrioritySignals.DoDecreasePriorityDepth();
             //one start, 4 change, no end, 2 depth
             Assert.AreEqual(0, endCallCount);
             Assert.AreEqual(1, startCallCount);
             Assert.AreEqual(4, changeCallCount);
             Assert.AreEqual(2, Fungus.FungusPrioritySignals.CurrentPriorityDepth);
-
 
             Fungus.FungusPrioritySignals.DoDecreasePriorityDepth();
             Fungus.FungusPrioritySignals.DoDecreasePriorityDepth();

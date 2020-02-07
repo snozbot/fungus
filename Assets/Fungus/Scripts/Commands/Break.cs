@@ -1,3 +1,6 @@
+// This code is part of the Fungus library (http://fungusgames.com)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 // This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
@@ -8,8 +11,8 @@ namespace Fungus
     /// <summary>
     /// Force a loop to terminate immediately.
     /// </summary>
-    [CommandInfo("Flow", 
-                 "Break", 
+    [CommandInfo("Flow",
+                 "Break",
                  "Force a loop to terminate immediately.")]
     [AddComponentMenu("")]
     public class Break : Command
@@ -21,7 +24,7 @@ namespace Fungus
         {
             Condition loopingCond = null;
             // Find index of previous looping command
-            for (int i = CommandIndex - 1; i >=0; --i)
+            for (int i = CommandIndex - 1; i >= 0; --i)
             {
                 Condition cond = ParentBlock.CommandList[i] as Condition;
                 if (cond != null && cond.IsLooping)
@@ -48,6 +51,6 @@ namespace Fungus
             return new Color32(253, 253, 150, 255);
         }
 
-        #endregion
-    }    
+        #endregion Public members
+    }
 }

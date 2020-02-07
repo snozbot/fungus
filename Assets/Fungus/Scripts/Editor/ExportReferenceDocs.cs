@@ -18,7 +18,7 @@ namespace Fungus.EditorUtils
         private const string BaseDocPath = "./Docs/";
 
         [MenuItem("Tools/Fungus/Utilities/Export Reference Docs")]
-        internal static void Export()
+        public static void Export()
         {
             ExportCommandInfo();
             ExportEventHandlerInfo();
@@ -175,7 +175,7 @@ This is the reference documentation for all Fungus event handlers.
         }
 
         [MenuItem("Tools/Fungus/Utilities/Convert Docs to GitHub MD")]
-        internal static void ConvertAllToGHMD()
+        public static void ConvertAllToGHMD()
         {
             var files = Directory.GetFiles(BaseDocPath, "*.md", SearchOption.AllDirectories);
             foreach (var file in files)

@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿// This code is part of the Fungus library (http://fungusgames.com)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +17,7 @@ namespace Fungus.Tests
     {
         private Fungus.GameObjectCollection goCol;
         private Fungus.IntCollection intColA, intColB;
+
         [Test]
         public void AddRemove()
         {
@@ -276,6 +280,7 @@ namespace Fungus.Tests
             intColB = new GameObject().AddComponent<Fungus.IntCollection>();
             goCol = new GameObject().AddComponent<Fungus.GameObjectCollection>();
         }
+
         [Test]
         public void Intersection()
         {
@@ -322,6 +327,7 @@ namespace Fungus.Tests
             intColA.Clear();
             intColB.Clear();
         }
+
         [Test]
         public void Sort()
         {
@@ -348,11 +354,10 @@ namespace Fungus.Tests
                 Assert.AreEqual(i, intColA[Items - i - 1]);
             }
 
-
-
             intColA.Clear();
             intColB.Clear();
         }
+
         private void EnsureShuffledDifferent(Fungus.IntCollection col)
         {
             var startval = col.GetSafe(0);

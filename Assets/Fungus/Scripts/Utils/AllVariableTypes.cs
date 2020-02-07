@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// This code is part of the Fungus library (http://fungusgames.com)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using System.Collections.Generic;
 
 namespace Fungus
 {
@@ -82,7 +85,7 @@ namespace Fungus
         public Vector3Data vector3Data;
         public Vector4Data vector4Data;
 
-        internal bool HasReference(Variable var)
+        public bool HasReference(Variable var)
         {
             return animatorData.animatorRef == var ||
                    audioSourceData.audioSourceRef == var ||

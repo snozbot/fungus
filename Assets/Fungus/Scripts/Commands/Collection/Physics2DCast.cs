@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (http://fungusgames.com)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 
 namespace Fungus
 {
@@ -33,7 +36,7 @@ namespace Fungus
         [SerializeField]
         protected FloatData maxDistance = new FloatData(float.PositiveInfinity);
 
-        [Tooltip("CAPSULE & SPHERE ONLY")]
+        [Tooltip("CAPSULE & Circle ONLY")]
         [SerializeField]
         protected FloatData radius = new FloatData(0.5f);
 
@@ -136,6 +139,24 @@ namespace Fungus
                 return "Error: collection is not GameObjectCollection";
 
             return castType.ToString() + ", store in " + collection.Value.name;
+        }
+
+        public override bool IsPropertyVisible(string propertyName)
+        {
+            if (castType == CastType.Capsule && propertyName == "capsulePosition2")
+                return true;
+
+            if (castType == CastType.Line && propertyName == "lineEnd")
+                return true;
+
+            if ((castType == CastType.Capsule || castType == CastType.Circle) && propertyName == "radius")
+                return true;
+
+            if ((castType == CastType.Capsule || castType == CastType.Box) &&
+                (propertyName == "shapeAngle" || propertyName == "shapeSize"))
+                return true;
+
+            return base.IsPropertyVisible(propertyName);
         }
     }
 }

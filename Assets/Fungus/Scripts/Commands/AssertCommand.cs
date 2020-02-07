@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (http://fungusgames.com)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Fungus
@@ -32,13 +35,15 @@ namespace Fungus
         {
             switch (method)
             {
-            case Method.AreEqual:
-                Assert.AreEqual(a.GetValue(), b.GetValue());
-                break;
-            case Method.AreNotEqual:
-                Assert.AreNotEqual(a.GetValue(), b.GetValue());
-                break;
-            default:
+                case Method.AreEqual:
+                    Assert.AreEqual(a.GetValue(), b.GetValue());
+                    break;
+
+                case Method.AreNotEqual:
+                    Assert.AreNotEqual(a.GetValue(), b.GetValue());
+                    break;
+
+                default:
                 break;
             }
 
@@ -57,8 +62,8 @@ namespace Fungus
 
         public override bool HasReference(Variable variable)
         {
-            return variable == message.stringRef || 
-                 variable == a|| variable == b ||
+            return variable == message.stringRef ||
+                variable == a || variable == b ||
                 base.HasReference(variable);
         }
     }
