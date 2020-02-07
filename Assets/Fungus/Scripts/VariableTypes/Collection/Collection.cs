@@ -1,4 +1,7 @@
-﻿using System;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -29,6 +32,7 @@ namespace Fungus
         public abstract void AddUnique(object o);
 
         public abstract void AddUnique(IFungusCollection rhsCol);
+
         public abstract void Clear();
 
         public abstract Type ContainedType();
@@ -66,6 +70,7 @@ namespace Fungus
         public abstract bool IsCollectionCompatible(object o);
 
         public abstract bool IsElementCompatible(object o);
+
         public abstract int LastIndexOf(object o);
 
         public abstract int Occurrences(object o);

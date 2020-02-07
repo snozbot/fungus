@@ -1,19 +1,22 @@
-﻿using System;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using System;
 using System.Collections;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 namespace Fungus
 {
     /// <summary>
-    /// The meat of the Fungus Collection. Internally uses a List of given type, simplest example 
+    /// The meat of the Fungus Collection. Internally uses a List of given type, simplest example
     /// being IntCollection. Provides some type specific additions to the base Collection for
-    /// increasing speed and safety. 
-    /// 
+    /// increasing speed and safety.
+    ///
     /// Uses Promote methods to convert from objects or other collection or Fungus.Variable types
-    /// being passed in, will attempt to do compatability for you, such as if you give an 
+    /// being passed in, will attempt to do compatability for you, such as if you give an
     /// IntCollection an int or a Fungus.IntVariable, either works as the Promote is aware
-    /// of Fungus.VariableBase<T>. Will also allow mixing some operations between 
+    /// of Fungus.VariableBase<T>. Will also allow mixing some operations between
     /// GenericCollection<T>, T[], and List<T>.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -95,6 +98,7 @@ namespace Fungus
                 }
             }
         }
+
         public override void Clear()
         {
             collection.Clear();
@@ -241,6 +245,7 @@ namespace Fungus
         {
             return collection[index];
         }
+
         public override int IndexOf(object o)
         {
             var t = Promote(o);
@@ -304,6 +309,7 @@ namespace Fungus
         {
             return o is T || o is VariableBase<T>;
         }
+
         public override int LastIndexOf(object o)
         {
             var t = Promote(o);
