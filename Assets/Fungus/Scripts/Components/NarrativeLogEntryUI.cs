@@ -1,7 +1,6 @@
-﻿// This code is part of the Fungus library (http://fungusgames.com).
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using Fungus;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ namespace Fungus
 {
     /// <summary>
     /// Manages the UI aspects of the Narrative Log via EntryDisplay objects
-    /// 
+    ///
     /// Originally contributed by https://github.com/CG-Tespy
     /// </summary>
     public class NarrativeLogEntryUI : MonoBehaviour
