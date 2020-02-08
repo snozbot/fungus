@@ -2,6 +2,8 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
+using System.Collections.Generic;
+
 
 namespace Fungus
 {
@@ -24,7 +26,7 @@ namespace Fungus
         }
 
         [Tooltip("Draggable object to listen for drag events on")]
-        [SerializeField] protected Draggable2D draggableObject;
+        [SerializeField] protected List<Draggable2D> draggableObjects;
 
         protected EventDispatcher eventDispatcher;
 
@@ -51,20 +53,35 @@ namespace Fungus
 
         public virtual void OnDragCancelled(Draggable2D draggableObject)
         {
-            if (draggableObject == this.draggableObject)
+            for (int i = 0; i < this.draggableObjects.Count; i++)
             {
-                ExecuteBlock();
+                if (draggableObject == this.draggableObjects[i])
+                {
+                    ExecuteBlock();
+                } 
+                
             }
         }
 
         public override string GetSummary()
         {
-            if (draggableObject != null)
+            string summary = "Dragable: ";
+            if (this.draggableObjects != null && this.draggableObjects.Count != 0)
             {
-                return draggableObject.name;
+                for (int i = 0; i < this.draggableObjects.Count; i++)
+                {
+                    if (draggableObjects[i] != null)
+                    {
+                        summary += draggableObjects[i].name + ",";
+                    }   
+                }
+                return summary;
+            }
+            else
+            {
+                return "None";
             }
             
-            return "None";
         }
 
         #endregion
