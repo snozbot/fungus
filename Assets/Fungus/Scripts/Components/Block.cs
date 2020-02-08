@@ -55,6 +55,8 @@ namespace Fungus
         /// </summary>
         protected int previousActiveCommandIndex = -1;
 
+        public int PreviousActiveCommandIndex { get { return previousActiveCommandIndex; } }
+
         protected int jumpToCommandIndex = -1;
 
         protected int executionCount;
@@ -408,6 +410,17 @@ namespace Fungus
             }
 
             return -1;
+        }
+
+        public virtual Command GetPreviousActiveCommand()
+        {
+            if (previousActiveCommandIndex >= 0 &&
+                previousActiveCommandIndex < commandList.Count)
+            {
+                return commandList[previousActiveCommandIndex];
+            }
+
+            return null;
         }
 
         /// <summary>

@@ -31,7 +31,7 @@ using UnityEngine.Serialization;
         //Call this if the settings have changed
         protected virtual void UpdateCache() 
         {
-            if (_SettingsString.Value != null) 
+            if (!string.IsNullOrEmpty(_SettingsString.Value)) 
             {
                 _synth.parameters.SetSettingsString(_SettingsString.Value);
                 _synth.CacheSound();

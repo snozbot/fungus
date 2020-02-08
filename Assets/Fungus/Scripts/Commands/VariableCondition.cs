@@ -6,28 +6,64 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-    public abstract class VariableCondition : Condition
+    public abstract class VariableCondition : Condition, ISerializationCallbackReceiver
     {
         [Tooltip("The type of comparison to be performed")]
         [SerializeField] protected CompareOperator compareOperator;
 
+        [SerializeField] protected AnyVariableAndDataPair anyVar = new AnyVariableAndDataPair();
+
+        protected override bool EvaluateCondition()
+        {
+            if (anyVar.variable == null)
+            {
+                return false;
+            }
+
+            bool condition = false;
+            anyVar.Compare(compareOperator, ref condition);
+            
+            return condition;
+        }
+
+        protected override bool HasNeededProperties()
+        {
+            return (anyVar.variable != null);
+        }
+
+        #region Public members
+
+        /// <summary>
+        /// The type of comparison operation to be performed.
+        /// </summary>
+        public virtual CompareOperator CompareOperator { get { return compareOperator; } }
+
+        public override string GetSummary()
+        {
+            if (anyVar.variable == null)
+            {
+                return "Error: No variable selected";
+            }
+
+            string summary = anyVar.variable.Key + " ";
+            summary += VariableUtil.GetCompareOperatorDescription(compareOperator) + " ";
+            summary += anyVar.GetDataDescription();
+
+            return summary;
+        }
+
+        public override bool HasReference(Variable variable)
+        {
+            return anyVar.HasReference(variable);
+        }
+
+        #endregion
+
+        #region backwards compat
+
+
         [Tooltip("Variable to use in expression")]
-        [VariableProperty(typeof(BooleanVariable),
-                          typeof(IntegerVariable),
-                          typeof(FloatVariable),
-                          typeof(StringVariable),
-                          typeof(AnimatorVariable),
-                          typeof(AudioSourceVariable),
-                          typeof(ColorVariable),
-                          typeof(GameObjectVariable),
-                          typeof(MaterialVariable),
-                          typeof(ObjectVariable),
-                          typeof(Rigidbody2DVariable),
-                          typeof(SpriteVariable),
-                          typeof(TextureVariable),
-                          typeof(TransformVariable),
-                          typeof(Vector2Variable),
-                          typeof(Vector3Variable))]
+        [VariableProperty(AllVariableTypes.VariableAny.Any)]
         [SerializeField] protected Variable variable;
 
         [Tooltip("Boolean value to compare against")]
@@ -77,293 +113,107 @@ namespace Fungus
 
         [Tooltip("Vector3 value to compare against")]
         [SerializeField] protected Vector3Data vector3Data;
+        
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+        }
 
-        protected override bool EvaluateCondition()
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
             if (variable == null)
             {
-                return false;
+                return;
+            }
+            else
+            {
+                anyVar.variable = variable;
             }
 
-            bool condition = false;
-
-            var t = variable.GetType();
-
-            if (t == typeof(BooleanVariable))
+            if (variable.GetType() == typeof(BooleanVariable) && !booleanData.Equals(new BooleanData()))
             {
-                BooleanVariable booleanVariable = (variable as BooleanVariable);
-                condition = booleanVariable.Evaluate(compareOperator, booleanData.Value);
+                anyVar.data.booleanData = booleanData;
+                booleanData = new BooleanData();
             }
-            else if (t == typeof(IntegerVariable))
+            else if (variable.GetType() == typeof(IntegerVariable) && !integerData.Equals(new IntegerData()))
             {
-                IntegerVariable integerVariable = (variable as IntegerVariable);
-                condition = integerVariable.Evaluate(compareOperator, integerData.Value);
+                anyVar.data.integerData = integerData;
+                integerData = new IntegerData();
             }
-            else if (t == typeof(FloatVariable))
+            else if (variable.GetType() == typeof(FloatVariable) && !floatData.Equals(new FloatData()))
             {
-                FloatVariable floatVariable = (variable as FloatVariable);
-                condition = floatVariable.Evaluate(compareOperator, floatData.Value);
+                anyVar.data.floatData = floatData;
+                floatData = new FloatData();
             }
-            else if (t == typeof(StringVariable))
+            else if (variable.GetType() == typeof(StringVariable) && !stringData.Equals(new StringDataMulti()))
             {
-                StringVariable stringVariable = (variable as StringVariable);
-                condition = stringVariable.Evaluate(compareOperator, stringData.Value);
+                anyVar.data.stringData.stringRef = stringData.stringRef;
+                anyVar.data.stringData.stringVal = stringData.stringVal;
+                stringData = new StringDataMulti();
             }
-            else if (t == typeof(AnimatorVariable))
+            else if (variable.GetType() == typeof(AnimatorVariable) && !animatorData.Equals(new AnimatorData()))
             {
-                AnimatorVariable animatorVariable = (variable as AnimatorVariable);
-                condition = animatorVariable.Evaluate(compareOperator, animatorData.Value);
+                anyVar.data.animatorData = animatorData;
+                animatorData = new AnimatorData();
             }
-            else if (t == typeof(AudioSourceVariable))
+            else if (variable.GetType() == typeof(AudioSourceVariable) && !audioSourceData.Equals(new AudioSourceData()))
             {
-                AudioSourceVariable audioSourceVariable = (variable as AudioSourceVariable);
-                condition = audioSourceVariable.Evaluate(compareOperator, audioSourceData.Value);
+                anyVar.data.audioSourceData = audioSourceData;
+                audioSourceData = new AudioSourceData();
             }
-            else if (t == typeof(ColorVariable))
+            else if (variable.GetType() == typeof(ColorVariable) && !colorData.Equals(new ColorData()))
             {
-                ColorVariable colorVariable = (variable as ColorVariable);
-                condition = colorVariable.Evaluate(compareOperator, colorData.Value);
+                anyVar.data.colorData = colorData;
+                colorData = new ColorData();
             }
-            else if (t == typeof(GameObjectVariable))
+            else if (variable.GetType() == typeof(GameObjectVariable) && !gameObjectData.Equals(new GameObjectData()))
             {
-                GameObjectVariable gameObjectVariable = (variable as GameObjectVariable);
-                condition = gameObjectVariable.Evaluate(compareOperator, gameObjectData.Value);
+                anyVar.data.gameObjectData = gameObjectData;
+                gameObjectData = new GameObjectData();
             }
-            else if (t == typeof(MaterialVariable))
+            else if (variable.GetType() == typeof(MaterialVariable) && !materialData.Equals(new MaterialData()))
             {
-                MaterialVariable materialVariable = (variable as MaterialVariable);
-                condition = materialVariable.Evaluate(compareOperator, materialData.Value);
+                anyVar.data.materialData = materialData;
+                materialData = new MaterialData();
             }
-            else if (t == typeof(ObjectVariable))
+            else if (variable.GetType() == typeof(ObjectVariable) && !objectData.Equals(new ObjectData()))
             {
-                ObjectVariable objectVariable = (variable as ObjectVariable);
-                condition = objectVariable.Evaluate(compareOperator, objectData.Value);
+                anyVar.data.objectData = objectData;
+                objectData = new ObjectData();
             }
-            else if (t == typeof(Rigidbody2DVariable))
+            else if (variable.GetType() == typeof(Rigidbody2DVariable) && !rigidbody2DData.Equals(new Rigidbody2DData()))
             {
-                Rigidbody2DVariable rigidbody2DVariable = (variable as Rigidbody2DVariable);
-                condition = rigidbody2DVariable.Evaluate(compareOperator, rigidbody2DData.Value);
+                anyVar.data.rigidbody2DData = rigidbody2DData;
+                rigidbody2DData = new Rigidbody2DData();
             }
-            else if (t == typeof(SpriteVariable))
+            else if (variable.GetType() == typeof(SpriteVariable) && !spriteData.Equals(new SpriteData()))
             {
-                SpriteVariable spriteVariable = (variable as SpriteVariable);
-                condition = spriteVariable.Evaluate(compareOperator, spriteData.Value);
+                anyVar.data.spriteData = spriteData;
+                spriteData = new SpriteData();
             }
-            else if (t == typeof(TextureVariable))
+            else if (variable.GetType() == typeof(TextureVariable) && !textureData.Equals(new TextureData()))
             {
-                TextureVariable textureVariable = (variable as TextureVariable);
-                condition = textureVariable.Evaluate(compareOperator, textureData.Value);
+                anyVar.data.textureData = textureData;
+                textureData = new TextureData();
             }
-            else if (t == typeof(TransformVariable))
+            else if (variable.GetType() == typeof(TransformVariable) && !transformData.Equals(new TransformData()))
             {
-                TransformVariable transformVariable = (variable as TransformVariable);
-                condition = transformVariable.Evaluate(compareOperator, transformData.Value);
+                anyVar.data.transformData = transformData;
+                transformData = new TransformData();
             }
-            else if (t == typeof(Vector2Variable))
+            else if (variable.GetType() == typeof(Vector2Variable) && !vector2Data.Equals(new Vector2Data()))
             {
-                Vector2Variable vector2Variable = (variable as Vector2Variable);
-                condition = vector2Variable.Evaluate(compareOperator, vector2Data.Value);
+                anyVar.data.vector2Data = vector2Data;
+                vector2Data = new Vector2Data();
             }
-            else if (t == typeof(Vector3Variable))
+            else if (variable.GetType() == typeof(Vector3Variable) && !vector3Data.Equals(new Vector3Data()))
             {
-                Vector3Variable vector3Variable = (variable as Vector3Variable);
-                condition = vector3Variable.Evaluate(compareOperator, vector3Data.Value);
+                anyVar.data.vector3Data = vector3Data;
+                vector3Data = new Vector3Data();
             }
 
-            return condition;
+            //moved to new anyvar storage, clear legacy.
+            variable = null;
         }
-
-        protected override bool HasNeededProperties()
-        {
-            return (variable != null);
-        }
-
-        #region Public members
-
-        public static readonly Dictionary<System.Type, CompareOperator[]> operatorsByVariableType = new Dictionary<System.Type, CompareOperator[]>() {
-            { typeof(BooleanVariable), BooleanVariable.compareOperators },
-            { typeof(IntegerVariable), IntegerVariable.compareOperators },
-            { typeof(FloatVariable), FloatVariable.compareOperators },
-            { typeof(StringVariable), StringVariable.compareOperators },
-            { typeof(AnimatorVariable), AnimatorVariable.compareOperators },
-            { typeof(AudioSourceVariable), AudioSourceVariable.compareOperators },
-            { typeof(ColorVariable), ColorVariable.compareOperators },
-            { typeof(GameObjectVariable), GameObjectVariable.compareOperators },
-            { typeof(MaterialVariable), MaterialVariable.compareOperators },
-            { typeof(ObjectVariable), ObjectVariable.compareOperators },
-            { typeof(Rigidbody2DVariable), Rigidbody2DVariable.compareOperators },
-            { typeof(SpriteVariable), SpriteVariable.compareOperators },
-            { typeof(TextureVariable), TextureVariable.compareOperators },
-            { typeof(TransformVariable), TransformVariable.compareOperators },
-            { typeof(Vector2Variable), Vector2Variable.compareOperators },
-            { typeof(Vector3Variable), Vector3Variable.compareOperators }
-        };
-
-        /// <summary>
-        /// The type of comparison operation to be performed.
-        /// </summary>
-        public virtual CompareOperator _CompareOperator { get { return compareOperator; } }
-
-        public override string GetSummary()
-        {
-            if (variable == null)
-            {
-                return "Error: No variable selected";
-            }
-
-            var t = variable.GetType();
-
-            string summary = variable.Key + " ";
-            summary += Condition.GetOperatorDescription(compareOperator) + " ";
-
-            if (t == typeof(BooleanVariable))
-            {
-                summary += booleanData.GetDescription();
-            }
-            else if (t == typeof(IntegerVariable))
-            {
-                summary += integerData.GetDescription();
-            }
-            else if (t == typeof(FloatVariable))
-            {
-                summary += floatData.GetDescription();
-            }
-            else if (t == typeof(StringVariable))
-            {
-                summary += stringData.GetDescription();
-            }
-            else if (t == typeof(AnimatorVariable))
-            {
-                summary += animatorData.GetDescription();
-            }
-            else if (t == typeof(AudioSourceVariable))
-            {
-                summary += audioSourceData.GetDescription();
-            }
-            else if (t == typeof(ColorVariable))
-            {
-                summary += colorData.GetDescription();
-            }
-            else if (t == typeof(GameObjectVariable))
-            {
-                summary += gameObjectData.GetDescription();
-            }
-            else if (t == typeof(MaterialVariable))
-            {
-                summary += materialData.GetDescription();
-            }
-            else if (t == typeof(ObjectVariable))
-            {
-                summary += objectData.GetDescription();
-            }
-            else if (t == typeof(Rigidbody2DVariable))
-            {
-                summary += rigidbody2DData.GetDescription();
-            }
-            else if (t == typeof(SpriteVariable))
-            {
-                summary += spriteData.GetDescription();
-            }
-            else if (t == typeof(TextureVariable))
-            {
-                summary += textureData.GetDescription();
-            }
-            else if (t == typeof(TransformVariable))
-            {
-                summary += transformData.GetDescription();
-            }
-            else if (t == typeof(Vector2Variable))
-            {
-                summary += vector2Data.GetDescription();
-            }
-            else if (t == typeof(Vector3Variable))
-            {
-                summary += vector3Data.GetDescription();
-            }
-
-            return summary;
-        }
-
-        public override bool HasReference(Variable variable)
-        {
-            bool retval = (variable == this.variable) || base.HasReference(variable);
-
-            var t = variable.GetType();
-
-            //this is a nightmare
-            if (t == typeof(BooleanVariable))
-            {
-                retval |= booleanData.booleanRef == variable;
-            }
-            else if (t == typeof(IntegerVariable))
-            {
-                retval |= integerData.integerRef == variable;
-            }
-            else if (t == typeof(FloatVariable))
-            {
-                retval |= floatData.floatRef == variable;
-            }
-            else if (t == typeof(StringVariable))
-            {
-                retval |= stringData.stringRef == variable;
-            }
-            else if (t == typeof(AnimatorVariable))
-            {
-                retval |= animatorData.animatorRef == variable;
-            }
-            else if (t == typeof(AudioSourceVariable))
-            {
-                retval |= audioSourceData.audioSourceRef == variable;
-            }
-            else if (t == typeof(ColorVariable))
-            {
-                retval |= colorData.colorRef == variable;
-            }
-            else if (t == typeof(GameObjectVariable))
-            {
-                retval |= gameObjectData.gameObjectRef == variable;
-            }
-            else if (t == typeof(MaterialVariable))
-            {
-                retval |= materialData.materialRef == variable;
-            }
-            else if (t == typeof(ObjectVariable))
-            {
-                retval |= objectData.objectRef == variable;
-            }
-            else if (t == typeof(Rigidbody2DVariable))
-            {
-                retval |= rigidbody2DData.rigidbody2DRef == variable;
-            }
-            else if (t == typeof(SpriteVariable))
-            {
-                retval |= spriteData.spriteRef == variable;
-            }
-            else if (t == typeof(TextureVariable))
-            {
-                retval |= textureData.textureRef == variable;
-            }
-            else if (t == typeof(TransformVariable))
-            {
-                retval |= transformData.transformRef == variable;
-            }
-            else if (t == typeof(Vector2Variable))
-            {
-                retval |= vector2Data.vector2Ref == variable;
-            }
-            else if (t == typeof(Vector3Variable))
-            {
-                retval |= vector3Data.vector3Ref == variable;
-            }
-
-            return retval;
-        }
-
-        public override Color GetButtonColor()
-        {
-            return new Color32(253, 253, 150, 255);
-        }
-
         #endregion
     }
 }

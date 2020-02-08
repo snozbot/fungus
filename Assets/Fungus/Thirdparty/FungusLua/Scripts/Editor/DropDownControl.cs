@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Fungus
 {
     [Serializable]
-    internal class DropDownControl<T>
+    public class DropDownControl<T>
     {
         private readonly GUILayoutOption[] m_ButtonLayoutOptions = { GUILayout.ExpandWidth(true) };
         public Func<T, string> convertForButtonLabel = s => s.ToString();

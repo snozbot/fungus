@@ -14,45 +14,37 @@ namespace Fungus
     [System.Serializable]
     public class Vector3Variable : VariableBase<Vector3>
     {
-        public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
-        public static readonly SetOperator[] setOperators = { SetOperator.Assign, SetOperator.Add, SetOperator.Subtract };
-
-        public virtual bool Evaluate(CompareOperator compareOperator, Vector3 value)
+        public override bool IsArithmeticSupported(SetOperator setOperator)
         {
-            bool condition = false;
-
-            switch (compareOperator)
-            {
-                case CompareOperator.Equals:
-                    condition = Value == value;
-                    break;
-                case CompareOperator.NotEquals:
-                    condition = Value != value;
-                    break;
-                default:
-                    Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
-                    break;
-            }
-
-            return condition;
+            return true;
         }
 
         public override void Apply(SetOperator setOperator, Vector3 value)
         {
+            Vector3 local = Value;
+
             switch (setOperator)
             {
-                case SetOperator.Assign:
-                    Value = value;
-                    break;
-                case SetOperator.Add:
-                    Value += value;
-                    break;
-                case SetOperator.Subtract:
-                    Value -= value;
-                    break;
-                default:
-                    Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
-                    break;
+            case SetOperator.Negate:
+                Value = Value * -1;
+                break;
+            case SetOperator.Add:
+                Value += value;
+                break;
+            case SetOperator.Subtract:
+                Value -= value;
+                break;
+            case SetOperator.Multiply:
+                local.Scale(value);
+                Value = local;
+                break;
+            case SetOperator.Divide:
+                local.Scale(new Vector3(1.0f / value.x, 1.0f / value.y, 1.0f / value.z));
+                Value = local;
+                break;
+            default:
+                base.Apply(setOperator, value);
+                break;
             }
         }
     }

@@ -130,7 +130,7 @@ namespace Fungus.EditorUtils
 
                 _arrayProperty.serializedObject.Update();
                 this.widthOfList = (w == 0 ? VariableListAdaptor.DefaultWidth : w) - ScrollSpacer;
-                
+
                 int width = widthOfList;
                 int totalRatio = DefaultWidth;
 
@@ -249,7 +249,7 @@ namespace Fungus.EditorUtils
 
             bool isGlobal = scopeProp.enumValueIndex == (int)VariableScope.Global;
 
-
+            var prevEnabled = GUI.enabled;
             if (isGlobal && Application.isPlaying)
             {
                 var res = FungusManager.Instance.GlobalVariables.GetVariable(keyProp.stringValue);
@@ -258,18 +258,17 @@ namespace Fungus.EditorUtils
                     SerializedObject globalValue = new SerializedObject(res);
                     var globalValProp = globalValue.FindProperty("value");
 
-                    var prevEnabled = GUI.enabled;
+
                     GUI.enabled = false;
-
-                    EditorGUI.PropertyField(itemRects[2], globalValProp, emptyGUIContent);
-
-                    GUI.enabled = prevEnabled;
+                    defaultProp = globalValProp;
                 }
             }
-            else
-            {
-                EditorGUI.PropertyField(itemRects[2], defaultProp, emptyGUIContent);
-            }
+
+
+            //variable.DrawProperty(rects[2], defaultProp, variableInfo);
+            VariableDrawProperty(variable, itemRects[2], defaultProp, variableInfo);
+
+            GUI.enabled = prevEnabled;
 
 
             scope = (VariableScope)EditorGUI.EnumPopup(itemRects[3], variable.Scope);
@@ -278,6 +277,22 @@ namespace Fungus.EditorUtils
             variableObject.ApplyModifiedProperties();
 
             GUI.backgroundColor = Color.white;
+        }
+        
+        public static void VariableDrawProperty(Variable variable, Rect rect, SerializedProperty valueProp, VariableInfoAttribute info)
+        {
+            if (valueProp == null)
+            {
+                EditorGUI.LabelField(rect, "N/A");
+            }
+            else if (info.IsPreviewedOnly)
+            {
+                EditorGUI.LabelField(rect, variable.ToString());
+            }
+            else 
+            {
+                CustomVariableDrawerLookup.DrawCustomOrPropertyField(variable.GetType(), rect, valueProp);
+            }
         }
 
         private void DoRightClickMenu(int index)

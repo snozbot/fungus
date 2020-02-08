@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Fungus.EditorUtils
 {
-    internal partial class FungusEditorResources : ScriptableObject
+    public partial class FungusEditorResources : ScriptableObject
     {
         [SerializeField] private EditorTexture add;
         [SerializeField] private EditorTexture add_small;
