@@ -458,6 +458,13 @@ namespace Fungus
             if (options.character.State.portraitImage != null && options.character.State.portraitImage.overrideSprite != null)
             {
                 GameObject tempGO = GameObject.Instantiate(options.character.State.portraitImage.gameObject);
+                
+                //Fix for white box issue introduced by unity UI circa 2019.1
+                for (int i = 0; i < tempGO.transform.childCount; i++)
+                {
+                    DestroyImmediate(tempGO.transform.GetChild(i).gameObject);
+                }
+
                 tempGO.transform.SetParent(options.character.State.portraitImage.transform, false);
                 tempGO.transform.localPosition = Vector3.zero;
                 tempGO.transform.localScale = options.character.State.position.localScale;
