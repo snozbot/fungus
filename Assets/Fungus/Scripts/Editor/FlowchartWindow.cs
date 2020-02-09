@@ -1534,6 +1534,15 @@ namespace Fungus.EditorUtils
             return newBlock;
         }
 
+        public Block CreateBlockSuppressSelect(Flowchart flowchart, Vector2 position)
+        {
+            Block newBlock = flowchart.CreateBlock(position);
+            UpdateBlockCollection();
+            Undo.RegisterCreatedObjectUndo(newBlock, "New Block");
+
+            return newBlock;
+        }
+
         protected virtual void DrawConnections(Block block)
         {
             if (block == null)
