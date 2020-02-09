@@ -224,6 +224,8 @@ namespace Fungus.EditorUtils
             }
         }
         private GUIStyle toolbarSeachCancelButtonStyle;
+        private bool didDoubleClick;
+
         protected GUIStyle ToolbarSeachCancelButtonStyle
         {
             get
@@ -1027,6 +1029,15 @@ namespace Fungus.EditorUtils
                 {
                     if (hitBlock != null)
                     {
+                        if(e.clickCount == 2)
+                        {
+                            CenterBlock(hitBlock);
+
+                            e.Use();
+                            didDoubleClick = true;
+                            return;
+                        }
+
                         startDragPosition = e.mousePosition / flowchart.Zoom - flowchart.ScrollPos;
                         Undo.RecordObject(flowchart, "Select");
 
@@ -1177,7 +1188,13 @@ namespace Fungus.EditorUtils
             switch (e.button)
             {
             case MouseButton.Left:
-                
+                if(didDoubleClick)
+                {
+                    didDoubleClick = false;
+                    return;
+                }
+
+
                 if (dragBlock != null)
                 {
                     for (int i = 0; i < flowchart.SelectedBlocks.Count; ++i)
