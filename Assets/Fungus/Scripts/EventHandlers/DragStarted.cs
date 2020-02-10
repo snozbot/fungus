@@ -23,8 +23,12 @@ namespace Fungus
                 DraggableObject = draggableObject;
             }
         }
-
+        [SerializeField] protected VariableReference draggableRef;
         [SerializeField] protected List<Draggable2D> draggableObjects;
+
+        [HideInInspector]
+        [SerializeField] protected Draggable2D draggableObject;
+
 
         protected EventDispatcher eventDispatcher;
 
@@ -34,6 +38,20 @@ namespace Fungus
             eventDispatcher = FungusManager.Instance.EventDispatcher;
 
             eventDispatcher.AddListener<DragStartedEvent>(OnDragStartedEvent);
+        }
+
+        /// <summary>
+        /// Called when the script is loaded or a value is changed in the
+        /// inspector (Called in the editor only).
+        /// </summary>
+        void OnValidate()
+        {
+            //add any dragableobject already present to list for backwards compatability
+            if(draggableObject!=null){
+                if(!draggableObjects.Contains(draggableObject)){
+                    draggableObjects.Add(draggableObject);
+                }
+            }
         }
 
         protected virtual void OnDisable()
@@ -55,20 +73,16 @@ namespace Fungus
         /// </summary>
         public virtual void OnDragStarted(Draggable2D draggableObject)
         {
-            for (int i = 0; i < this.draggableObjects.Count; i++)
+            if (draggableObjects.Contains(draggableObject))
             {
-                if (draggableObject == this.draggableObjects[i])
-                {
-                    ExecuteBlock();
-                } 
-                
-            }
-          
+                draggableRef.Set<GameObject>(draggableObject.gameObject);
+                ExecuteBlock();
+            }           
         }
 
         public override string GetSummary()
         {
-            string summary = "Dragable: ";
+            string summary = "Draggable: ";
             if (this.draggableObjects != null && this.draggableObjects.Count != 0)
             {
                 for (int i = 0; i < this.draggableObjects.Count; i++)
@@ -78,13 +92,14 @@ namespace Fungus
                         summary += draggableObjects[i].name + ",";
                     }   
                 }
-                return summary;
             }
-            else
+
+            if (summary.Length == 0)
             {
                 return "None";
             }
-            
+
+            return summary;            
         }
 
         #endregion

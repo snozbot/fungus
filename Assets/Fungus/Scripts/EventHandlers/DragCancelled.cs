@@ -24,9 +24,23 @@ namespace Fungus
                 DraggableObject = draggableObject;
             }
         }
-
+        [SerializeField] protected VariableReference draggableRef;
         [Tooltip("Draggable object to listen for drag events on")]
         [SerializeField] protected List<Draggable2D> draggableObjects;
+
+        [HideInInspector]
+        [SerializeField] protected Draggable2D draggableObject;
+
+        void OnValidate()
+        {
+            //add any dragableobject already present to list for backwards compatability
+            if(draggableObject!=null){
+                if(!draggableObjects.Contains(draggableObject)){
+                    draggableObjects.Add(draggableObject);
+                }
+            }
+        }
+
 
         protected EventDispatcher eventDispatcher;
 
@@ -53,19 +67,16 @@ namespace Fungus
 
         public virtual void OnDragCancelled(Draggable2D draggableObject)
         {
-            for (int i = 0; i < this.draggableObjects.Count; i++)
+            if (draggableObjects.Contains(draggableObject))
             {
-                if (draggableObject == this.draggableObjects[i])
-                {
-                    ExecuteBlock();
-                } 
-                
-            }
+                draggableRef.Set<GameObject>(draggableObject.gameObject);
+                ExecuteBlock();
+            } 
         }
 
         public override string GetSummary()
         {
-            string summary = "Dragable: ";
+            string summary = "Draggable: ";
             if (this.draggableObjects != null && this.draggableObjects.Count != 0)
             {
                 for (int i = 0; i < this.draggableObjects.Count; i++)

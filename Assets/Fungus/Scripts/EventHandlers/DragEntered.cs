@@ -27,11 +27,35 @@ namespace Fungus
                 TargetCollider = targetCollider;
             }
         }
+
+        [SerializeField] protected VariableReference draggableRef;
+        [SerializeField] protected VariableReference targetRef;
         [Tooltip("Draggable object to listen for drag events on")]
+        [HideInInspector]
         [SerializeField] protected Draggable2D draggableObject;
+        
+        [SerializeField] protected List<Draggable2D> draggableObjects;
 
         [Tooltip("Drag target object to listen for drag events on")]
+        [HideInInspector]
         [SerializeField] protected Collider2D targetObject;
+        [SerializeField] protected List<Collider2D> targetObjects;
+
+        void OnValidate()
+        {
+            //add any dragableobject already present to list for backwards compatability
+            if(draggableObject!=null){
+                if(!draggableObjects.Contains(draggableObject)){
+                    draggableObjects.Add(draggableObject);
+                }
+            }
+
+            if(targetObject!=null){
+                if(!targetObjects.Contains(targetObject)){
+                    targetObjects.Add(targetObject);
+                }
+            }
+        }
 
         protected EventDispatcher eventDispatcher;
 
@@ -60,30 +84,47 @@ namespace Fungus
         /// </summary>
         public virtual void OnDragEntered(Draggable2D draggableObject, Collider2D targetObject)
         {
-            if (draggableObject == this.draggableObject &&
-                targetObject == this.targetObject)
+            if (this.targetObjects != null && this.draggableObjects !=null &&
+                this.draggableObjects.Contains(draggableObject) &&
+                this.targetObjects.Contains(targetObject))
             {
+                draggableRef.Set<GameObject>(draggableObject.gameObject);
+                targetRef.Set<GameObject>(targetObject.gameObject);
                 ExecuteBlock();
             }
         }
 
         public override string GetSummary()
         {
-            string summary = "";
-            if (draggableObject != null)
+            string summary = "Draggable: ";
+            if (this.draggableObjects != null && this.draggableObjects.Count != 0)
             {
-                summary += "\nDraggable: " + draggableObject.name;
+                for (int i = 0; i < this.draggableObjects.Count; i++)
+                {
+                    if (draggableObjects[i] != null)
+                    {
+                        summary += draggableObjects[i].name + ",";
+                    }   
+                }
             }
-            if (targetObject != null)
+
+            summary += "\nTarget: ";
+            if (this.targetObjects != null && this.targetObjects.Count != 0)
             {
-                summary += "\nTarget: " + targetObject.name;
+                for (int i = 0; i < this.targetObjects.Count; i++)
+                {
+                    if (targetObjects[i] != null)
+                    {
+                        summary += targetObjects[i].name + ",";
+                    }   
+                }
             }
-            
+
             if (summary.Length == 0)
             {
                 return "None";
             }
-            
+
             return summary;
         }
 
