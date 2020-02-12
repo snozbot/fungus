@@ -186,7 +186,7 @@ namespace Fungus
                 }
                 if(targetRef!=null)
                 {
-                    targetRef.Value = targetObject.gameObject;
+                    targetRef.Value = targetCollider.gameObject;
                 }
 
                 overTarget = false;
