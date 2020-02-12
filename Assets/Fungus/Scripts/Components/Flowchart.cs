@@ -803,7 +803,7 @@ namespace Fungus
         /// <summary>
         /// Returns a list of variables matching the specified type.
         /// </summary>
-        public IList<T> GetVariables<T>() where T: Variable
+        public virtual List<T> GetVariables<T>() where T: Variable
         {
             var varsFound = new List<T>();
             
