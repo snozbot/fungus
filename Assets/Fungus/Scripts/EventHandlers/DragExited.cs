@@ -110,7 +110,7 @@ namespace Fungus
                 }
                 if(targetRef!=null)
                 {
-                    targetRef.Value = draggableObject.gameObject;
+                    targetRef.Value = targetObject.gameObject;
                 }
                 ExecuteBlock();
             }
