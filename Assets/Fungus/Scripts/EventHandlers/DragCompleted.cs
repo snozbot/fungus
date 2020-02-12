@@ -14,7 +14,7 @@ namespace Fungus
                       "Drag Completed",
                       "The block will execute when the player drags an object and successfully drops it on a target object.")]
     [AddComponentMenu("")]
-    public class DragCompleted : EventHandler
+    public class DragCompleted : EventHandler, ISerializationCallbackReceiver
     {   
         public class DragCompletedEvent
         {
@@ -24,8 +24,11 @@ namespace Fungus
                 DraggableObject = draggableObject;
             }
         }
+        [VariableProperty(typeof(GameObjectVariable))]
 
-        [SerializeField] protected VariableReference draggableRef;
+        [SerializeField] protected GameObjectVariable draggableRef;
+        [VariableProperty(typeof(GameObjectVariable))]
+        [SerializeField] protected GameObjectVariable targetRef;
 
        
         [Tooltip("Draggable object to listen for drag events on")]
@@ -39,24 +42,8 @@ namespace Fungus
         [SerializeField] protected Collider2D targetObject;
         [SerializeField] protected List<Collider2D> targetObjects;
 
-        [SerializeField] protected VariableReference targetRef;
 
 
-        void OnValidate()
-        {
-            //add any dragableobject already present to list for backwards compatability
-            if(draggableObject!=null){
-                if(!draggableObjects.Contains(draggableObject)){
-                    draggableObjects.Add(draggableObject);
-                }
-            }
-
-            if(targetObject!=null){
-                if(!targetObjects.Contains(targetObject)){
-                    targetObjects.Add(targetObject);
-                }
-            }
-        }
 
 
         
@@ -109,6 +96,33 @@ namespace Fungus
         void OnDragExitedEvent(DragExited.DragExitedEvent evt)
         {
             OnDragExited(evt.DraggableObject, evt.TargetCollider);
+        }
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            //add any dragableobject already present to list for backwards compatability
+            if (draggableObject != null)
+            {
+                if (!draggableObjects.Contains(draggableObject))
+                {
+                    draggableObjects.Add(draggableObject);
+                }
+            }
+
+            if (targetObject != null)
+            {
+                if (!targetObjects.Contains(targetObject))
+                {
+                    targetObjects.Add(targetObject);
+                }
+            }
+            draggableObject = null;
+            targetObject = null;
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+
         }
 
         #region Public members
@@ -166,8 +180,14 @@ namespace Fungus
                 // Assume that the player will have to do perform another drag and drop operation
                 // to complete the drag again. This is necessary because we don't get an OnDragExited if the
                 // draggable object is set to be inactive.
-                draggableRef.Set<GameObject>(draggableObject.gameObject);
-                targetRef.Set<GameObject>(targetCollider.gameObject);
+                if(draggableRef!=null)
+                {
+                    draggableRef.Value = draggableObject.gameObject;
+                }
+                if(targetRef!=null)
+                {
+                    targetRef.Value = draggableObject.gameObject;
+                }
 
                 overTarget = false;
                 targetCollider = null;
@@ -175,6 +195,7 @@ namespace Fungus
                 ExecuteBlock();
             }
         }
+
 
         public override string GetSummary()
         {

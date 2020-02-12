@@ -15,7 +15,7 @@ namespace Fungus
                       "Drag Entered",
                       "The block will execute when the player is dragging an object which starts touching the target object.")]
     [AddComponentMenu("")]
-    public class DragEntered : EventHandler
+    public class DragEntered : EventHandler, ISerializationCallbackReceiver
     {   
         public class DragEnteredEvent
         {
@@ -27,9 +27,10 @@ namespace Fungus
                 TargetCollider = targetCollider;
             }
         }
-
-        [SerializeField] protected VariableReference draggableRef;
-        [SerializeField] protected VariableReference targetRef;
+        [VariableProperty(typeof(GameObjectVariable))]
+        [SerializeField] protected GameObjectVariable draggableRef;
+        [VariableProperty(typeof(GameObjectVariable))]
+        [SerializeField] protected GameObjectVariable targetRef;
         [Tooltip("Draggable object to listen for drag events on")]
         [HideInInspector]
         [SerializeField] protected Draggable2D draggableObject;
@@ -41,21 +42,6 @@ namespace Fungus
         [SerializeField] protected Collider2D targetObject;
         [SerializeField] protected List<Collider2D> targetObjects;
 
-        void OnValidate()
-        {
-            //add any dragableobject already present to list for backwards compatability
-            if(draggableObject!=null){
-                if(!draggableObjects.Contains(draggableObject)){
-                    draggableObjects.Add(draggableObject);
-                }
-            }
-
-            if(targetObject!=null){
-                if(!targetObjects.Contains(targetObject)){
-                    targetObjects.Add(targetObject);
-                }
-            }
-        }
 
         protected EventDispatcher eventDispatcher;
 
@@ -88,10 +74,43 @@ namespace Fungus
                 this.draggableObjects.Contains(draggableObject) &&
                 this.targetObjects.Contains(targetObject))
             {
-                draggableRef.Set<GameObject>(draggableObject.gameObject);
-                targetRef.Set<GameObject>(targetObject.gameObject);
+                if(draggableRef!=null)
+                {
+                    draggableRef.Value = draggableObject.gameObject;
+                }
+                if(targetRef!=null)
+                {
+                    targetRef.Value = draggableObject.gameObject;
+                }
                 ExecuteBlock();
             }
+        }
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            //add any dragableobject already present to list for backwards compatability
+            if (draggableObject != null)
+            {
+                if (!draggableObjects.Contains(draggableObject))
+                {
+                    draggableObjects.Add(draggableObject);
+                }
+            }
+
+            if (targetObject != null)
+            {
+                if (!targetObjects.Contains(targetObject))
+                {
+                    targetObjects.Add(targetObject);
+                }
+            }
+            draggableObject = null;
+            targetObject = null;
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+
         }
 
         public override string GetSummary()
