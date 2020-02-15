@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 //TODO update doco
+//  should really enforce slots
 
 namespace Fungus
 {
@@ -242,6 +243,7 @@ namespace Fungus
             //TODO look at the settings and ensure we have saves in correct order for user saves and put dumbies in where we don't
             var userSaves = CollectUserSaves();
 
+
             for (int i = 0; i < NumberOfUserSaves; i++)
             {
                 if (userSaves.Find(x => x.saveName.EndsWith(i.ToString())) == null)
@@ -271,7 +273,7 @@ namespace Fungus
             }
         }
 
-        public int SavePointNameToIndex(string saveName)
+        public int SaveNameToIndex(string saveName)
         {
             return saveMetas.FindIndex(x => x.saveName == saveName);
         }
@@ -313,7 +315,7 @@ namespace Fungus
         {
             SaveManagerSignals.DoSavePrepare(saveName, savePointDescription);
 
-            var existingMetaIndex = SavePointNameToIndex(saveName);
+            var existingMetaIndex = SaveNameToIndex(saveName);
             if (existingMetaIndex >= 0)
             {
                 DeleteSave(existingMetaIndex, true);
@@ -465,7 +467,7 @@ namespace Fungus
         public List<SavePointMeta> CollectUserSaves()
         {
             return FungusManager.Instance.SaveManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.UserSavePrefix))
-                .OrderBy(x => x.saveName).ToList();
+                .OrderBy(x => System.Convert.ToInt32(x.saveName.Substring(FungusConstants.UserSavePrefix.Length))).ToList();
         }
 
         /// <summary>
