@@ -25,7 +25,9 @@ namespace Fungus
         /// <summary> Writing has resumed after a pause. </summary>
         Resume,
         /// <summary> Writing has ended. </summary>
-        End
+        End,
+        /// <summary> No text remaining to be written. </summary>
+        AllTextWritten,
     }
 
     /// <summary>
@@ -79,6 +81,7 @@ namespace Fungus
         protected float sizeValue = 16f;
         protected bool inputFlag;
         protected bool exitFlag;
+        protected bool hasTextRemaining;
 
         protected List<IWriterListener> writerListeners = new List<IWriterListener>();
 
@@ -227,6 +230,16 @@ namespace Fungus
             return false;
         }
 
+        protected virtual bool WordTokensRemaining(List<TextTagToken> tokens, int startingIndex)
+        {
+            for (int i = startingIndex; i < tokens.Count; i++)
+            {
+                if (tokens[i].type == TokenType.Words)
+                    return true;
+            }
+            return false;
+        }
+
         protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio, Action onComplete)
         {
             // Reset control members
@@ -234,6 +247,7 @@ namespace Fungus
             italicActive = false;
             colorActive = false;
             sizeActive = false;
+            hasTextRemaining = WordTokensRemaining(tokens, 0);
             colorText = "";
             sizeValue = 16f;
             currentPunctuationPause = punctuationPause;
@@ -256,6 +270,12 @@ namespace Fungus
 
                 // Notify listeners about new token
                 WriterSignals.DoTextTagToken(this, token, i, tokens.Count);
+
+                if(hasTextRemaining && !WordTokensRemaining(tokens, i))
+                {
+                    hasTextRemaining = false;
+                    NotifyAllTextWritten();
+                }
 
                 // Update the read ahead string buffer. This contains the text for any 
                 // Word tags which are further ahead in the list. 
@@ -844,6 +864,17 @@ namespace Fungus
             {
                 var writerListener = writerListeners[i];
                 writerListener.OnResume();
+            }
+        }
+
+        protected virtual void NotifyAllTextWritten()
+        {
+            WriterSignals.DoWriterState(this, WriterState.AllTextWritten);
+
+            for (int i = 0; i < writerListeners.Count; i++)
+            {
+                var writerListener = writerListeners[i];
+                writerListener.OnAllTextWritten();
             }
         }
 
