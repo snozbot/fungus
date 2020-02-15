@@ -14,6 +14,8 @@ namespace Fungus
                       "Drag Exited",
                       "The block will execute when the player is dragging an object which stops touching the target object.")]
     [AddComponentMenu("")]
+
+    [ExecuteAlways]
     public class DragExited : EventHandler, ISerializationCallbackReceiver
     {   
         public class DragExitedEvent
@@ -47,26 +49,11 @@ namespace Fungus
 
         protected EventDispatcher eventDispatcher;
 
-        protected virtual void OnEnable()
-        {
-            eventDispatcher = FungusManager.Instance.EventDispatcher;
 
-            eventDispatcher.AddListener<DragExitedEvent>(OnDragEnteredEvent);
-        }
-
-        protected virtual void OnDisable()
-        {
-            eventDispatcher.RemoveListener<DragExitedEvent>(OnDragEnteredEvent);
-
-            eventDispatcher = null;
-        }
-
-        void OnDragEnteredEvent(DragExitedEvent evt)
-        {
-            OnDragExited(evt.DraggableObject, evt.TargetCollider);
-        }
-
-        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        /// <summary>
+        /// Awake is called when the script instance is being loaded.
+        /// </summary>
+        void Awake()
         {
             //add any dragableobject already present to list for backwards compatability
             if (draggableObject != null)
@@ -86,6 +73,36 @@ namespace Fungus
             }
             draggableObject = null;
             targetObject = null;
+        }
+
+        protected virtual void OnEnable()
+        {
+            if(Application.IsPlaying(this)){
+                eventDispatcher = FungusManager.Instance.EventDispatcher;
+
+                eventDispatcher.AddListener<DragExitedEvent>(OnDragEnteredEvent);
+            }
+          
+        }
+
+        protected virtual void OnDisable()
+        {
+            if(Application.IsPlaying(this)){
+                 eventDispatcher.RemoveListener<DragExitedEvent>(OnDragEnteredEvent);
+
+                eventDispatcher = null;
+            }
+           
+        }
+
+        void OnDragEnteredEvent(DragExitedEvent evt)
+        {
+            OnDragExited(evt.DraggableObject, evt.TargetCollider);
+        }
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+           
         }
 
         void ISerializationCallbackReceiver.OnBeforeSerialize()

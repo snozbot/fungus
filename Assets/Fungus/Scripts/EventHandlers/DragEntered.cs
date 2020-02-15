@@ -15,6 +15,8 @@ namespace Fungus
                       "Drag Entered",
                       "The block will execute when the player is dragging an object which starts touching the target object.")]
     [AddComponentMenu("")]
+
+    [ExecuteAlways]
     public class DragEntered : EventHandler, ISerializationCallbackReceiver
     {   
         public class DragEnteredEvent
@@ -45,18 +47,46 @@ namespace Fungus
 
         protected EventDispatcher eventDispatcher;
 
+        void Awake()
+        {
+            //add any dragableobject already present to list for backwards compatability
+            if (draggableObject != null)
+            {
+                if (!draggableObjects.Contains(draggableObject))
+                {
+                    draggableObjects.Add(draggableObject);
+                }
+            }
+
+            if (targetObject != null)
+            {
+                if (!targetObjects.Contains(targetObject))
+                {
+                    targetObjects.Add(targetObject);
+                }
+            }
+            draggableObject = null;
+            targetObject = null;
+        
+            
+        }
+
         protected virtual void OnEnable()
         {
-            eventDispatcher = FungusManager.Instance.EventDispatcher;
+            if(Application.IsPlaying(this)){
+                eventDispatcher = FungusManager.Instance.EventDispatcher;
 
-            eventDispatcher.AddListener<DragEnteredEvent>(OnDragEnteredEvent);
+                eventDispatcher.AddListener<DragEnteredEvent>(OnDragEnteredEvent);
+            }
         }
 
         protected virtual void OnDisable()
         {
-            eventDispatcher.RemoveListener<DragEnteredEvent>(OnDragEnteredEvent);
+            if(Application.IsPlaying(this)){
+                eventDispatcher.RemoveListener<DragEnteredEvent>(OnDragEnteredEvent);
 
-            eventDispatcher = null;
+                eventDispatcher = null;
+            }
         }
 
         void OnDragEnteredEvent(DragEnteredEvent evt)
@@ -88,24 +118,7 @@ namespace Fungus
 
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
-            //add any dragableobject already present to list for backwards compatability
-            if (draggableObject != null)
-            {
-                if (!draggableObjects.Contains(draggableObject))
-                {
-                    draggableObjects.Add(draggableObject);
-                }
-            }
-
-            if (targetObject != null)
-            {
-                if (!targetObjects.Contains(targetObject))
-                {
-                    targetObjects.Add(targetObject);
-                }
-            }
-            draggableObject = null;
-            targetObject = null;
+            
         }
 
         void ISerializationCallbackReceiver.OnBeforeSerialize()
