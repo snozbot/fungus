@@ -260,7 +260,7 @@ namespace Fungus
             targetAudioSource.Play();
         }
 
-        public void OnAllTextWritten()
+        public void OnAllWordsWritten()
         {
         }
 

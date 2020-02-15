@@ -5,7 +5,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -26,8 +26,6 @@ namespace Fungus
         Resume,
         /// <summary> Writing has ended. </summary>
         End,
-        /// <summary> No text remaining to be written. </summary>
-        AllTextWritten,
     }
 
     /// <summary>
@@ -81,7 +79,30 @@ namespace Fungus
         protected float sizeValue = 16f;
         protected bool inputFlag;
         protected bool exitFlag;
-        protected bool hasTextRemaining;
+
+        //holds number of Word tokens in the currently running Write
+        public int WordTokensFound { get; protected set; }
+        //holds count of number of Word tokens completed
+        protected int wordTokensProcessed;
+
+        /// <summary>
+        /// Updated during writing of Word tokens, when processed tips over found, fires NotifyAllWordsWritten
+        /// </summary>
+        public virtual int WordTokensProcessed
+        {
+            get { return wordTokensProcessed; }
+            protected set
+            {
+                if(wordTokensProcessed < WordTokensFound && value >= WordTokensFound)
+                {
+                    NotifyAllWordsWritten();
+                }
+                wordTokensProcessed = value;
+            }
+        }
+
+
+        public bool HasWordsRemaining { get { return WordTokensProcessed > WordTokensFound; } }
 
         protected List<IWriterListener> writerListeners = new List<IWriterListener>();
 
@@ -128,7 +149,7 @@ namespace Fungus
         {
             // Cache the hidden color string
             Color32 c = hiddenTextColor;
-            hiddenColorOpen = String.Format("<color=#{0:X2}{1:X2}{2:X2}{3:X2}>", c.r, c.g, c.b, c.a);
+            hiddenColorOpen = string.Format("<color=#{0:X2}{1:X2}{2:X2}{3:X2}>", c.r, c.g, c.b, c.a);
             hiddenColorClose = "</color>";
         }
 
@@ -224,30 +245,21 @@ namespace Fungus
             value = defaultValue;
             if (paramList.Count > index) 
             {
-                Single.TryParse(paramList[index], out value);
+                float.TryParse(paramList[index], out value);
                 return true;
             }
             return false;
         }
 
-        protected virtual bool WordTokensRemaining(List<TextTagToken> tokens, int startingIndex)
-        {
-            for (int i = startingIndex; i < tokens.Count; i++)
-            {
-                if (tokens[i].type == TokenType.Words)
-                    return true;
-            }
-            return false;
-        }
-
-        protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio, Action onComplete)
+        protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio, System.Action onComplete)
         {
             // Reset control members
             boldActive = false;
             italicActive = false;
             colorActive = false;
             sizeActive = false;
-            hasTextRemaining = WordTokensRemaining(tokens, 0);
+            WordTokensFound = tokens.Count(x => x.type == TokenType.Words);
+            WordTokensProcessed = 0;
             colorText = "";
             sizeValue = 16f;
             currentPunctuationPause = punctuationPause;
@@ -270,13 +282,7 @@ namespace Fungus
 
                 // Notify listeners about new token
                 WriterSignals.DoTextTagToken(this, token, i, tokens.Count);
-
-                if(hasTextRemaining && !WordTokensRemaining(tokens, i))
-                {
-                    hasTextRemaining = false;
-                    NotifyAllTextWritten();
-                }
-
+                
                 // Update the read ahead string buffer. This contains the text for any 
                 // Word tags which are further ahead in the list. 
                 if (doReadAheadText)
@@ -302,6 +308,7 @@ namespace Fungus
                 {
                 case TokenType.Words:
                     yield return StartCoroutine(DoWords(token.paramList, previousTokenType));
+                    WordTokensProcessed++;
                     break;
                     
                 case TokenType.BoldStart:
@@ -656,7 +663,7 @@ namespace Fungus
                 // Look ahead to find next whitespace or end of string
                 for (int j = i; j < inputString.Length + 1; ++j)
                 {
-                    if (j == inputString.Length || Char.IsWhiteSpace(inputString[j]))
+                    if (j == inputString.Length || char.IsWhiteSpace(inputString[j]))
                     {
                         leftString.Length = j;
                         rightString.Remove(0, j);
@@ -714,7 +721,7 @@ namespace Fungus
             }
 
             float duration = 1f;
-            if (!Single.TryParse(param, out duration))
+            if (!float.TryParse(param, out duration))
             {
                 duration = 1f;
             }
@@ -867,14 +874,12 @@ namespace Fungus
             }
         }
 
-        protected virtual void NotifyAllTextWritten()
+        protected virtual void NotifyAllWordsWritten()
         {
-            WriterSignals.DoWriterState(this, WriterState.AllTextWritten);
-
             for (int i = 0; i < writerListeners.Count; i++)
             {
                 var writerListener = writerListeners[i];
-                writerListener.OnAllTextWritten();
+                writerListener.OnAllWordsWritten();
             }
         }
 
@@ -938,7 +943,7 @@ namespace Fungus
         /// <param name="waitForVO">Wait for the Voice over to complete before proceeding</param>
         /// <param name="audioClip">Audio clip to play when text starts writing.</param>
         /// <param name="onComplete">Callback to call when writing is finished.</param>
-        public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, bool waitForVO, AudioClip audioClip, Action onComplete)
+        public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, bool waitForVO, AudioClip audioClip, System.Action onComplete)
         {
             if (clear)
             {
