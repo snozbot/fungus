@@ -27,9 +27,18 @@ namespace Fungus
         [System.Serializable]
         public class BlockData
         {
+            public BlockData(string name, int index, ExecutionState state, int executionCount)
+            {
+                this.blockName = name;
+                this.commandIndex = index;
+                this.executionState = state;
+                this.executionCount = executionCount;
+            }
+
             public string blockName = string.Empty;
             public int commandIndex = -1;
             public ExecutionState executionState = ExecutionState.Idle;
+            public int executionCount;
         }
 
         [SerializeField] protected string flowchartName;
@@ -89,12 +98,10 @@ namespace Fungus
             {
                 if (block.IsSavingAllowed)
                 {
-                    flowchartData.blockDatas.Add(new BlockData()
-                    {
-                        blockName = block.BlockName,
-                        commandIndex = block.ActiveCommandIndex,
-                        executionState = block.State
-                    });
+                    flowchartData.blockDatas.Add(new BlockData( block.BlockName, 
+                        block.ActiveCommandIndex, 
+                        block.State,
+                        block.GetExecutionCount()));
                 }
             }
 
@@ -144,6 +151,8 @@ namespace Fungus
 
                 if (block != null)
                 {
+                    block.SetExecutionCount(item.executionCount);
+
                     if (item.executionState == ExecutionState.Idle && block.State != ExecutionState.Idle)
                     {
                         //meant to be idle but isn't

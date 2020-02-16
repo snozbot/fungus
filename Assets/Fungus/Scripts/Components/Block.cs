@@ -222,6 +222,16 @@ namespace Fungus
         }
 
         /// <summary>
+        /// Intended to be used by serialisation only.
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public virtual void SetExecutionCount(int count)
+        {
+            executionCount = count;
+        }
+
+        /// <summary>
         /// Start a coroutine which executes all commands in the Block. Only one running instance of each Block is permitted.
         /// </summary>
         public virtual void StartExecution()
