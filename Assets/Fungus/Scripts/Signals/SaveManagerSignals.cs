@@ -102,5 +102,17 @@ namespace Fungus
         {
             if (OnSaveProfileChanged != null) OnSaveProfileChanged();
         }
+
+        /// <summary>
+        /// Saving or Loading allowed changed signal.
+        /// </summary>
+        public static event SavingLoadingAllowedChangeHandler OnSavingLoadingAllowedChanged;
+
+        public delegate void SavingLoadingAllowedChangeHandler();
+
+        public static void DoSavingLoadingAllowedChanged()
+        {
+            if (OnSavingLoadingAllowedChanged != null) OnSavingLoadingAllowedChanged();
+        }
     }
 }

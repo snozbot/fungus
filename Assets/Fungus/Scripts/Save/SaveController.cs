@@ -180,7 +180,7 @@ namespace Fungus
 
             if (loadButton != null)
             {
-                loadButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.IsLoadable;
+                loadButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.IsLoadable && saveManager.IsLoadingAllowed;
             }
 
             if (deleteButton != null)
@@ -191,7 +191,7 @@ namespace Fungus
             if (saveButton != null)
             {
                 saveButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null &&
-                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.UserSavePrefix);
+                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.UserSavePrefix) && saveManager.IsSavingAllowed;
             }
 
             if (timeSinceLastSaveText != null && timeSinceLastSaveText.gameObject.activeInHierarchy && timeSinceLastSaveText.isActiveAndEnabled)

@@ -134,9 +134,33 @@ namespace Fungus
         /// </summary>
         public bool IsSaveLoading { get; protected set; }
 
+        /// <summary>
+        /// If false, calls to Save will be immediately short circuited. Intended for user to prevent saving
+        /// during gameplay sections that are either undesirable or not safe to save within.
+        /// </summary>
+        public virtual bool IsSavingAllowed
+        {
+            get { return _isSavingAllowed; }
+            set { _isSavingAllowed = value; SaveManagerSignals.DoSavingLoadingAllowedChanged(); }
+        }
+        protected bool _isSavingAllowed = true;
+
+        /// <summary>
+        /// If false, calls to Load will be immediately short circuited. Intended for user to prevent loading
+        /// during gameplay sections that are either undesirable or for somereason unsafe to do so.
+        /// </summary>
+        public virtual bool IsLoadingAllowed
+        {
+            get { return _isLoadingAllowed; }
+            set { _isLoadingAllowed = value; SaveManagerSignals.DoSavingLoadingAllowedChanged(); }
+        }
+        protected bool _isLoadingAllowed = true;
+
         public void Awake()
         {
             IsSaveLoading = false;
+            IsSavingAllowed = true;
+            IsLoadingAllowed = true;
             StartScene = SceneManager.GetActiveScene().name;
 
             //load last used profile
@@ -320,6 +344,9 @@ namespace Fungus
         /// </summary>
         public virtual void Save(string saveName, string savePointDescription, bool isAutoSave = false)
         {
+            if (!IsSavingAllowed)
+                return;
+
             SaveManagerSignals.DoSavePrepare(saveName, savePointDescription);
 
             var existingMetaIndex = SaveNameToIndex(saveName);
@@ -359,6 +386,9 @@ namespace Fungus
         /// <returns></returns>
         public virtual bool Load(SavePointMeta meta)
         {
+            if (!IsLoadingAllowed)
+                return false;
+
 #if UNITY_WEBGL
                 Application.ExternalEval("_JS_FileSystem_Sync();");
 #endif
@@ -384,6 +414,9 @@ namespace Fungus
         /// <returns></returns>
         public virtual bool LoadSavePoint(SavePointData savePointData)
         {
+            if (!IsLoadingAllowed)
+                return false;
+
             if (savePointData == null)
                 return false;
 
