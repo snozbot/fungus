@@ -54,7 +54,7 @@ namespace Fungus
         {
             get
             {
-                return System.DateTime.UtcNow.ToString("HH:mm dd MMMM, yyyy");
+                return System.DateTime.Now.ToString("HH:mm dd MMMM, yyyy");
             }
         }
 

@@ -133,7 +133,7 @@ namespace Fungus
             var mostRecentMeta = saveMan.GetMostRecentSave();
             if (mostRecentMeta != null)
             {
-                lastSaveTime = mostRecentMeta.savePointLastWritten;
+                lastSaveTime = mostRecentMeta.lastWritten;
             }
 
             var autoSaves = saveMan.CollectAutoSaves();

@@ -1,8 +1,8 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 //TODO move to listening to events?
 
@@ -14,7 +14,7 @@ namespace Fungus
     [EventHandlerInfo("Scene",
                       "Save Loaded",
                       "Execute blocks when a saved of matching marker name is loaded. If you wish to run regardless of save loading see ProgressMarkerReached.")]
-    public class SaveLoaded : EventHandler 
+    public class SaveLoaded : EventHandler
     {
         [Tooltip("Block will execute if the Save Key of the loaded save point matches this save key. If empty, will execute on any key.")]
         [UnityEngine.Serialization.FormerlySerializedAs("savePointKeys")]
@@ -33,7 +33,7 @@ namespace Fungus
             }
 
             //empty collection means go on any key
-            if(progressMarkerCustomKeys.Count == 0)
+            if (progressMarkerCustomKeys.Count == 0)
             {
                 ExecuteBlock();
             }

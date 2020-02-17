@@ -30,10 +30,22 @@ namespace Fungus
         public class SavePointMeta
         {
             public string saveName;
-            public string savePointDescription;
-            public System.DateTime savePointLastWritten;
+            public string description;
+            public System.DateTime lastWritten;
             public string fileLocation;
             public string progressMarker;
+
+            public string GetReadableTime()
+            {
+                return lastWritten.ToString("O");
+            }
+        }
+        
+        public enum SaveType
+        {
+            Auto,
+            User,
+            Any,
         }
 
         [SerializeField] protected List<SavePointMeta> saveMetas = new List<SavePointMeta>();
@@ -49,17 +61,7 @@ namespace Fungus
         /// Profiles determine which set of saves are available.
         /// </summary>
         public string CurrentSaveProfileKey { get { return currentSaveProfileKey; } }
-
-#if UNITY_WEBPLAYER || UNITY_WEBGL
-        [System.Serializable]
-        public class WebSaveBlob
-        {
-            public List<string> saveJSONs = new List<string>();
-        }
-
-        [SerializeField] protected WebSaveBlob webSaveBlob = new WebSaveBlob();
-#endif
-
+        
         /// <summary>
         /// POD for info the SaveManager wants between runs of the game.
         /// </summary>
@@ -140,6 +142,9 @@ namespace Fungus
             //load last used profile
             try
             {
+#if UNITY_WEBGL
+                Application.ExternalEval("_JS_FileSystem_Sync();");
+#endif
                 var fileName = GetSaveManagerDataFile();
                 System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
                 var datString = System.IO.File.ReadAllText(fileName);
@@ -210,6 +215,9 @@ namespace Fungus
                 System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
                 var profile = new SaveManagerData() { lastProfileName = currentSaveProfileKey };
                 System.IO.File.WriteAllText(fileName, JsonUtility.ToJson(profile));
+#if UNITY_WEBGL
+                Application.ExternalEval("_JS_FileSystem_Sync();");
+#endif
 
                 PopulateSaveMetas();
                 SaveManagerSignals.DoSaveProfileChanged();
@@ -228,6 +236,9 @@ namespace Fungus
             saveMetas.Clear();
 
             var dir = GetFullSaveDir();
+#if UNITY_WEBGL
+                Application.ExternalEval("_JS_FileSystem_Sync();");
+#endif
 
             System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(dir));
 
@@ -267,8 +278,8 @@ namespace Fungus
                     fileLocation = fileLoc,
                     saveName = save.SaveName,
                     progressMarker = save.ProgressMarkerName,
-                    savePointDescription = save.SavePointDescription,
-                    savePointLastWritten = save.LastWritten,
+                    description = save.SavePointDescription,
+                    lastWritten = save.LastWritten,
                 });
             }
         }
@@ -283,18 +294,14 @@ namespace Fungus
         /// </summary>
         public void DeleteSave(int index, bool suppressReplaceSlot = false)
         {
+#if UNITY_WEBGL
+                Application.ExternalEval("_JS_FileSystem_Sync();");
+#endif
             var meta = saveMetas[index];
-#if UNITY_WEBPLAYER || UNITY_WEBGL
-            webSaveBlob.saveJSONs.RemoveAt(index);
-            var webBlogJSON = JsonUtility.ToJson(webSaveBlob);
-            PlayerPrefs.SetString(currentSaveDataKey, webBlogJSON);
-            PlayerPrefs.Save();
-#else
             if (System.IO.File.Exists(meta.fileLocation))
             {
                 System.IO.File.Delete(meta.fileLocation);
             }
-#endif//UNITY_WEBPLAYER
             if (meta.saveName.StartsWith(FungusConstants.UserSavePrefix) && !suppressReplaceSlot)
             {
                 saveMetas.Add(new SavePointMeta() { saveName = meta.saveName });
@@ -325,11 +332,10 @@ namespace Fungus
             var fileName = GetFullSaveDir() + (isAutoSave ? FungusConstants.AutoSavePrefix : FungusConstants.UserSavePrefix)
                 + System.DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss.ffff") + FileExtension;
             GenerateMetaFromSave(fileName, save);
-#if UNITY_WEBPLAYER || UNITY_WEBGL
-
-#else
             System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
             System.IO.File.WriteAllText(fileName, savePointDataJSON, System.Text.Encoding.UTF8);
+#if UNITY_WEBGL
+                Application.ExternalEval("_JS_FileSystem_Sync();");
 #endif
 
             //if we limit autos and it is an auto, are there now to many, delete oldest until not over limit
@@ -353,6 +359,9 @@ namespace Fungus
         /// <returns></returns>
         public virtual bool Load(SavePointMeta meta)
         {
+#if UNITY_WEBGL
+                Application.ExternalEval("_JS_FileSystem_Sync();");
+#endif
             var saveContent = System.IO.File.ReadAllText(meta.fileLocation, System.Text.Encoding.UTF8);
 
             var savePointData = SavePointData.DecodeFromJSON(saveContent);
@@ -442,9 +451,9 @@ namespace Fungus
         {
             if (SaveMetas.Count > 0)
             {
-                var newestSaveTime = SaveMetas.Max(x => x.savePointLastWritten);
+                var newestSaveTime = SaveMetas.Max(x => x.lastWritten);
 
-                return SaveMetas.FirstOrDefault(x => x.savePointLastWritten == newestSaveTime);
+                return SaveMetas.FirstOrDefault(x => x.lastWritten == newestSaveTime);
             }
 
             return null;
@@ -457,7 +466,7 @@ namespace Fungus
         public List<SavePointMeta> CollectAutoSaves()
         {
             return FungusManager.Instance.SaveManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.AutoSavePrefix))
-                .OrderBy(x => x.savePointLastWritten.Ticks).ToList();
+                .OrderBy(x => x.lastWritten.Ticks).ToList();
         }
 
         /// <summary>

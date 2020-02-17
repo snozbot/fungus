@@ -3,6 +3,7 @@
 
 using System.Linq;
 using UnityEngine;
+using static Fungus.SaveManager;
 
 namespace Fungus
 {
@@ -14,33 +15,27 @@ namespace Fungus
                  "Requests SaveManager load a recent save, be it Auto, User, or Regardless of type.")]
     public class LoadMostRecentSave : Command
     {
-        public enum SaveType
-        {
-            Auto,
-            User,
-            Any,
-        }
-
         [SerializeField] protected SaveType saveType = SaveType.Any;
 
         public override void OnEnter()
         {
             SaveManager.SavePointMeta save = null;
+            var saveMan = FungusManager.Instance.SaveManager;
 
             switch (saveType)
             {
                 case SaveType.Auto:
-                    save = FungusManager.Instance.SaveManager.CollectAutoSaves().LastOrDefault();
+                    save = saveMan.CollectAutoSaves().LastOrDefault();
                     break;
 
                 case SaveType.User:
-                    save = FungusManager.Instance.SaveManager.CollectUserSaves()
-                        .OrderByDescending(x => x.savePointLastWritten.Ticks).FirstOrDefault();
+                    save = saveMan.CollectUserSaves()
+                        .OrderByDescending(x => x.lastWritten.Ticks).FirstOrDefault();
                     break;
 
                 case SaveType.Any:
-                    save = FungusManager.Instance.SaveManager.SaveMetas
-                        .OrderByDescending(x => x.savePointLastWritten.Ticks).FirstOrDefault();
+                    save = saveMan.SaveMetas
+                        .OrderByDescending(x => x.lastWritten.Ticks).FirstOrDefault();
                     break;
 
                 default:
@@ -49,7 +44,7 @@ namespace Fungus
 
             if (save != null)
             {
-                FungusManager.Instance.SaveManager.Load(save);
+                saveMan.Load(save);
             }
 
             Continue();
