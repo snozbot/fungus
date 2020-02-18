@@ -82,8 +82,6 @@ namespace Fungus
 
         //holds number of Word tokens in the currently running Write
         public int WordTokensFound { get; protected set; }
-        //holds count of number of Word tokens completed
-        protected int wordTokensProcessed;
 
         /// <summary>
         /// Updated during writing of Word tokens, when processed tips over found, fires NotifyAllWordsWritten
@@ -100,9 +98,13 @@ namespace Fungus
                 wordTokensProcessed = value;
             }
         }
+        //holds count of number of Word tokens completed
+        protected int wordTokensProcessed;
 
-
-        public bool HasWordsRemaining { get { return WordTokensProcessed > WordTokensFound; } }
+        /// <summary>
+        /// Does the currently processing list of Tokens have Word Tokens that are not yet processed
+        /// </summary>
+        public bool HasWordsRemaining { get { return WordTokensProcessed < WordTokensFound; } }
 
         protected List<IWriterListener> writerListeners = new List<IWriterListener>();
 
