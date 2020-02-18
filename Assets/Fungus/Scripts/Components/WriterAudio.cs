@@ -259,7 +259,11 @@ namespace Fungus
             targetAudioSource.clip = voiceOverClip;
             targetAudioSource.Play();
         }
-            
+
+        public void OnAllWordsWritten()
+        {
+        }
+
         #endregion
     }
 }
