@@ -6,29 +6,85 @@ using System.Collections.Generic;
 
 namespace Fungus
 {
-    public abstract class VariableCondition : Condition, ISerializationCallbackReceiver
-    {
-        [Tooltip("The type of comparison to be performed")]
-        [SerializeField] protected CompareOperator compareOperator;
 
-        [SerializeField] protected AnyVariableAndDataPair anyVar = new AnyVariableAndDataPair();
+    [System.Serializable]
+    public class conditionExpression
+    {
+        [SerializeField] protected CompareOperator compareOperator;
+        [SerializeField] protected AnyVariableAndDataPair anyVar;
+
+        public virtual AnyVariableAndDataPair AnyVar { get { return anyVar; } }
+        public virtual CompareOperator CompareOperator { get { return compareOperator; } }
+
+        public conditionExpression(){}
+        public conditionExpression(CompareOperator op, AnyVariableAndDataPair variablePair)
+        {
+
+            compareOperator = op;
+            anyVar = variablePair;
+
+        }  
+
+    }
+
+    // anyone with a better name for this can update it
+    public enum AnyOrAllConditions
+    {
+        AnyOneTrue,
+        AllTrue
+    }
+    public abstract class VariableCondition : Condition, ISerializationCallbackReceiver
+    {       
+
+        [Tooltip("The type of comparison to be performed")]
+
+        [SerializeField] protected AnyOrAllConditions anyOrAllConditions;
+        
+
+        [SerializeField] protected List<conditionExpression> conditions = new List<conditionExpression>(); 
 
         protected override bool EvaluateCondition()
         {
-            if (anyVar.variable == null)
+            if (conditions == null || conditions.Count == 0)
             {
                 return false;
             }
 
-            bool condition = false;
-            anyVar.Compare(compareOperator, ref condition);
+            bool resultAny = false, resultAll = true;
+            foreach (conditionExpression condition in conditions) 
+            {
+                bool curResult = false;
+                if (condition.AnyVar == null) 
+                {
+                    resultAll &= curResult;
+                    resultAny |= curResult;
+                    continue;
+                }
+                condition.AnyVar.Compare(condition.CompareOperator, ref curResult);
+                Debug.Log("res : " + curResult.ToString());
+                resultAll &= curResult;
+                resultAny |= curResult;
+            }
+
+            if (anyOrAllConditions == AnyOrAllConditions.AnyOneTrue) return resultAny;
             
-            return condition;
+            return resultAll;
         }
 
         protected override bool HasNeededProperties()
         {
-            return (anyVar.variable != null);
+            if( conditions == null || conditions.Count == 0){
+                return false;
+            }
+
+            foreach (conditionExpression condition in conditions) 
+            {
+                if(condition.AnyVar == null || condition.AnyVar.variable == null){
+                    return false;
+                }
+                
+            }
+            return true;
         }
 
         #region Public members
@@ -36,18 +92,40 @@ namespace Fungus
         /// <summary>
         /// The type of comparison operation to be performed.
         /// </summary>
-        public virtual CompareOperator CompareOperator { get { return compareOperator; } }
+        public virtual CompareOperator CompareOperator { get { return conditions[0].CompareOperator; } }
+
+        public virtual List<conditionExpression> Conditions { get { return conditions; } }
 
         public override string GetSummary()
         {
-            if (anyVar.variable == null)
+            if (!this.HasNeededProperties())
             {
                 return "Error: No variable selected";
             }
 
-            string summary = anyVar.variable.Key + " ";
-            summary += VariableUtil.GetCompareOperatorDescription(compareOperator) + " ";
-            summary += anyVar.GetDataDescription();
+            string summary = "";
+            string connector = "";
+            if(anyOrAllConditions == AnyOrAllConditions.AnyOneTrue){
+                connector = " Or ";
+            }
+            else{
+                connector = " And ";
+            }
+
+            for(int i = 0 ; i < conditions.Count; i++) 
+            {
+                summary += conditions[i].AnyVar.variable.Key + " ";
+                summary += VariableUtil.GetCompareOperatorDescription(conditions[i].CompareOperator) + " ";
+                summary += conditions[i].AnyVar.GetDataDescription();
+
+                if(i<conditions.Count-1){
+                    summary += connector;
+                }
+                
+            }
+
+            
+          
 
             return summary;
         }
@@ -60,6 +138,10 @@ namespace Fungus
         #endregion
 
         #region backwards compat
+
+        [SerializeField] protected CompareOperator compareOperator;
+   
+        [SerializeField] protected AnyVariableAndDataPair anyVar;
 
 
         [Tooltip("Variable to use in expression")]
@@ -120,100 +202,116 @@ namespace Fungus
 
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
-            if (variable == null)
+
+            
+            if( variable != null)
             {
-                return;
-            }
-            else
-            {
-                anyVar.variable = variable;
+                {
+                    anyVar.variable = variable;
+                }
+
+                if (variable.GetType() == typeof(BooleanVariable) && !booleanData.Equals(new BooleanData()))
+                {
+                    anyVar.data.booleanData = booleanData;
+                    booleanData = new BooleanData();
+                }
+                else if (variable.GetType() == typeof(IntegerVariable) && !integerData.Equals(new IntegerData()))
+                {
+                    anyVar.data.integerData = integerData;
+                    integerData = new IntegerData();
+                }
+                else if (variable.GetType() == typeof(FloatVariable) && !floatData.Equals(new FloatData()))
+                {
+                    anyVar.data.floatData = floatData;
+                    floatData = new FloatData();
+                }
+                else if (variable.GetType() == typeof(StringVariable) && !stringData.Equals(new StringDataMulti()))
+                {
+                    anyVar.data.stringData.stringRef = stringData.stringRef;
+                    anyVar.data.stringData.stringVal = stringData.stringVal;
+                    stringData = new StringDataMulti();
+                }
+                else if (variable.GetType() == typeof(AnimatorVariable) && !animatorData.Equals(new AnimatorData()))
+                {
+                    anyVar.data.animatorData = animatorData;
+                    animatorData = new AnimatorData();
+                }
+                else if (variable.GetType() == typeof(AudioSourceVariable) && !audioSourceData.Equals(new AudioSourceData()))
+                {
+                    anyVar.data.audioSourceData = audioSourceData;
+                    audioSourceData = new AudioSourceData();
+                }
+                else if (variable.GetType() == typeof(ColorVariable) && !colorData.Equals(new ColorData()))
+                {
+                    anyVar.data.colorData = colorData;
+                    colorData = new ColorData();
+                }
+                else if (variable.GetType() == typeof(GameObjectVariable) && !gameObjectData.Equals(new GameObjectData()))
+                {
+                    anyVar.data.gameObjectData = gameObjectData;
+                    gameObjectData = new GameObjectData();
+                }
+                else if (variable.GetType() == typeof(MaterialVariable) && !materialData.Equals(new MaterialData()))
+                {
+                    anyVar.data.materialData = materialData;
+                    materialData = new MaterialData();
+                }
+                else if (variable.GetType() == typeof(ObjectVariable) && !objectData.Equals(new ObjectData()))
+                {
+                    anyVar.data.objectData = objectData;
+                    objectData = new ObjectData();
+                }
+                else if (variable.GetType() == typeof(Rigidbody2DVariable) && !rigidbody2DData.Equals(new Rigidbody2DData()))
+                {
+                    anyVar.data.rigidbody2DData = rigidbody2DData;
+                    rigidbody2DData = new Rigidbody2DData();
+                }
+                else if (variable.GetType() == typeof(SpriteVariable) && !spriteData.Equals(new SpriteData()))
+                {
+                    anyVar.data.spriteData = spriteData;
+                    spriteData = new SpriteData();
+                }
+                else if (variable.GetType() == typeof(TextureVariable) && !textureData.Equals(new TextureData()))
+                {
+                    anyVar.data.textureData = textureData;
+                    textureData = new TextureData();
+                }
+                else if (variable.GetType() == typeof(TransformVariable) && !transformData.Equals(new TransformData()))
+                {
+                    anyVar.data.transformData = transformData;
+                    transformData = new TransformData();
+                }
+                else if (variable.GetType() == typeof(Vector2Variable) && !vector2Data.Equals(new Vector2Data()))
+                {
+                    anyVar.data.vector2Data = vector2Data;
+                    vector2Data = new Vector2Data();
+                }
+                else if (variable.GetType() == typeof(Vector3Variable) && !vector3Data.Equals(new Vector3Data()))
+                {
+                    anyVar.data.vector3Data = vector3Data;
+                    vector3Data = new Vector3Data();
+                }
+
+                //moved to new anyvar storage, clear legacy.
+                variable = null;
             }
 
-            if (variable.GetType() == typeof(BooleanVariable) && !booleanData.Equals(new BooleanData()))
-            {
-                anyVar.data.booleanData = booleanData;
-                booleanData = new BooleanData();
-            }
-            else if (variable.GetType() == typeof(IntegerVariable) && !integerData.Equals(new IntegerData()))
-            {
-                anyVar.data.integerData = integerData;
-                integerData = new IntegerData();
-            }
-            else if (variable.GetType() == typeof(FloatVariable) && !floatData.Equals(new FloatData()))
-            {
-                anyVar.data.floatData = floatData;
-                floatData = new FloatData();
-            }
-            else if (variable.GetType() == typeof(StringVariable) && !stringData.Equals(new StringDataMulti()))
-            {
-                anyVar.data.stringData.stringRef = stringData.stringRef;
-                anyVar.data.stringData.stringVal = stringData.stringVal;
-                stringData = new StringDataMulti();
-            }
-            else if (variable.GetType() == typeof(AnimatorVariable) && !animatorData.Equals(new AnimatorData()))
-            {
-                anyVar.data.animatorData = animatorData;
-                animatorData = new AnimatorData();
-            }
-            else if (variable.GetType() == typeof(AudioSourceVariable) && !audioSourceData.Equals(new AudioSourceData()))
-            {
-                anyVar.data.audioSourceData = audioSourceData;
-                audioSourceData = new AudioSourceData();
-            }
-            else if (variable.GetType() == typeof(ColorVariable) && !colorData.Equals(new ColorData()))
-            {
-                anyVar.data.colorData = colorData;
-                colorData = new ColorData();
-            }
-            else if (variable.GetType() == typeof(GameObjectVariable) && !gameObjectData.Equals(new GameObjectData()))
-            {
-                anyVar.data.gameObjectData = gameObjectData;
-                gameObjectData = new GameObjectData();
-            }
-            else if (variable.GetType() == typeof(MaterialVariable) && !materialData.Equals(new MaterialData()))
-            {
-                anyVar.data.materialData = materialData;
-                materialData = new MaterialData();
-            }
-            else if (variable.GetType() == typeof(ObjectVariable) && !objectData.Equals(new ObjectData()))
-            {
-                anyVar.data.objectData = objectData;
-                objectData = new ObjectData();
-            }
-            else if (variable.GetType() == typeof(Rigidbody2DVariable) && !rigidbody2DData.Equals(new Rigidbody2DData()))
-            {
-                anyVar.data.rigidbody2DData = rigidbody2DData;
-                rigidbody2DData = new Rigidbody2DData();
-            }
-            else if (variable.GetType() == typeof(SpriteVariable) && !spriteData.Equals(new SpriteData()))
-            {
-                anyVar.data.spriteData = spriteData;
-                spriteData = new SpriteData();
-            }
-            else if (variable.GetType() == typeof(TextureVariable) && !textureData.Equals(new TextureData()))
-            {
-                anyVar.data.textureData = textureData;
-                textureData = new TextureData();
-            }
-            else if (variable.GetType() == typeof(TransformVariable) && !transformData.Equals(new TransformData()))
-            {
-                anyVar.data.transformData = transformData;
-                transformData = new TransformData();
-            }
-            else if (variable.GetType() == typeof(Vector2Variable) && !vector2Data.Equals(new Vector2Data()))
-            {
-                anyVar.data.vector2Data = vector2Data;
-                vector2Data = new Vector2Data();
-            }
-            else if (variable.GetType() == typeof(Vector3Variable) && !vector3Data.Equals(new Vector3Data()))
-            {
-                anyVar.data.vector3Data = vector3Data;
-                vector3Data = new Vector3Data();
-            }
+            // just checking for anyVar != null fails here. is any var beig reintilaized somewhere?
 
-            //moved to new anyvar storage, clear legacy.
-            variable = null;
+            if(anyVar != null && anyVar.variable != null){
+                conditionExpression c = new conditionExpression(compareOperator,anyVar);
+                if(!conditions.Contains(c)){
+                    conditions.Add(c);
+                }
+                //added to list
+                anyVar = null;
+
+                //this is not nullabale?
+                //compareOperator = null;
+            }
         }
+
+
         #endregion
     }
 }
