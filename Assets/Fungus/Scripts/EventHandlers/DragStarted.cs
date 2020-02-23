@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 namespace Fungus
 {
@@ -12,7 +13,7 @@ namespace Fungus
                       "Drag Started",
                       "The block will execute when the player starts dragging an object.")]
     [AddComponentMenu("")]
-    public class DragStarted : EventHandler
+    public class DragStarted : EventHandler, ISerializationCallbackReceiver
     {   
         public class DragStartedEvent
         {
@@ -22,10 +23,16 @@ namespace Fungus
                 DraggableObject = draggableObject;
             }
         }
+        [VariableProperty(typeof(GameObjectVariable))]
+        [SerializeField] protected GameObjectVariable draggableRef;
+        [SerializeField] protected List<Draggable2D> draggableObjects;
 
+        [HideInInspector]
         [SerializeField] protected Draggable2D draggableObject;
 
+
         protected EventDispatcher eventDispatcher;
+
 
         protected virtual void OnEnable()
         {
@@ -33,6 +40,8 @@ namespace Fungus
 
             eventDispatcher.AddListener<DragStartedEvent>(OnDragStartedEvent);
         }
+
+        
 
         protected virtual void OnDisable()
         {
@@ -46,6 +55,25 @@ namespace Fungus
             OnDragStarted(evt.DraggableObject);
         }
 
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            //add any dragableobject already present to list for backwards compatability
+            if (draggableObject != null)
+            {
+                if (!draggableObjects.Contains(draggableObject))
+                {
+                    draggableObjects.Add(draggableObject);
+
+                }
+                draggableObject = null;
+            }
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+
+        }
+
         #region Public members
 
         /// <summary>
@@ -53,20 +81,36 @@ namespace Fungus
         /// </summary>
         public virtual void OnDragStarted(Draggable2D draggableObject)
         {
-            if (draggableObject == this.draggableObject)
+            if (draggableObjects.Contains(draggableObject))
             {
+                if(draggableRef!=null)
+                {
+                    draggableRef.Value = draggableObject.gameObject;
+                }
                 ExecuteBlock();
-            }
+            }           
         }
 
         public override string GetSummary()
         {
-            if (draggableObject != null)
+            string summary = "Draggable: ";
+            if (this.draggableObjects != null && this.draggableObjects.Count != 0)
             {
-                return draggableObject.name;
+                for (int i = 0; i < this.draggableObjects.Count; i++)
+                {
+                    if (draggableObjects[i] != null)
+                    {
+                        summary += draggableObjects[i].name + ",";
+                    }   
+                }
             }
-            
-            return "None";
+
+            if (summary.Length == 0)
+            {
+                return "None";
+            }
+
+            return summary;            
         }
 
         #endregion

@@ -15,7 +15,9 @@ namespace Fungus
                       "Drag Entered",
                       "The block will execute when the player is dragging an object which starts touching the target object.")]
     [AddComponentMenu("")]
-    public class DragEntered : EventHandler
+
+    [ExecuteAlways]
+    public class DragEntered : EventHandler, ISerializationCallbackReceiver
     {   
         public class DragEnteredEvent
         {
@@ -27,26 +29,64 @@ namespace Fungus
                 TargetCollider = targetCollider;
             }
         }
+        [VariableProperty(typeof(GameObjectVariable))]
+        [SerializeField] protected GameObjectVariable draggableRef;
+        [VariableProperty(typeof(GameObjectVariable))]
+        [SerializeField] protected GameObjectVariable targetRef;
         [Tooltip("Draggable object to listen for drag events on")]
+        [HideInInspector]
         [SerializeField] protected Draggable2D draggableObject;
+        
+        [SerializeField] protected List<Draggable2D> draggableObjects;
 
         [Tooltip("Drag target object to listen for drag events on")]
+        [HideInInspector]
         [SerializeField] protected Collider2D targetObject;
+        [SerializeField] protected List<Collider2D> targetObjects;
+
 
         protected EventDispatcher eventDispatcher;
 
+        void Awake()
+        {
+            //add any dragableobject already present to list for backwards compatability
+            if (draggableObject != null)
+            {
+                if (!draggableObjects.Contains(draggableObject))
+                {
+                    draggableObjects.Add(draggableObject);
+                }
+            }
+
+            if (targetObject != null)
+            {
+                if (!targetObjects.Contains(targetObject))
+                {
+                    targetObjects.Add(targetObject);
+                }
+            }
+            draggableObject = null;
+            targetObject = null;
+        
+            
+        }
+
         protected virtual void OnEnable()
         {
-            eventDispatcher = FungusManager.Instance.EventDispatcher;
+            if(Application.IsPlaying(this)){
+                eventDispatcher = FungusManager.Instance.EventDispatcher;
 
-            eventDispatcher.AddListener<DragEnteredEvent>(OnDragEnteredEvent);
+                eventDispatcher.AddListener<DragEnteredEvent>(OnDragEnteredEvent);
+            }
         }
 
         protected virtual void OnDisable()
         {
-            eventDispatcher.RemoveListener<DragEnteredEvent>(OnDragEnteredEvent);
+            if(Application.IsPlaying(this)){
+                eventDispatcher.RemoveListener<DragEnteredEvent>(OnDragEnteredEvent);
 
-            eventDispatcher = null;
+                eventDispatcher = null;
+            }
         }
 
         void OnDragEnteredEvent(DragEnteredEvent evt)
@@ -60,30 +100,63 @@ namespace Fungus
         /// </summary>
         public virtual void OnDragEntered(Draggable2D draggableObject, Collider2D targetObject)
         {
-            if (draggableObject == this.draggableObject &&
-                targetObject == this.targetObject)
+            if (this.targetObjects != null && this.draggableObjects !=null &&
+                this.draggableObjects.Contains(draggableObject) &&
+                this.targetObjects.Contains(targetObject))
             {
+                if(draggableRef!=null)
+                {
+                    draggableRef.Value = draggableObject.gameObject;
+                }
+                if(targetRef!=null)
+                {
+                    targetRef.Value = targetObject.gameObject;
+                }
                 ExecuteBlock();
             }
         }
 
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+
+        }
+
         public override string GetSummary()
         {
-            string summary = "";
-            if (draggableObject != null)
+            string summary = "Draggable: ";
+            if (this.draggableObjects != null && this.draggableObjects.Count != 0)
             {
-                summary += "\nDraggable: " + draggableObject.name;
+                for (int i = 0; i < this.draggableObjects.Count; i++)
+                {
+                    if (draggableObjects[i] != null)
+                    {
+                        summary += draggableObjects[i].name + ",";
+                    }   
+                }
             }
-            if (targetObject != null)
+
+            summary += "\nTarget: ";
+            if (this.targetObjects != null && this.targetObjects.Count != 0)
             {
-                summary += "\nTarget: " + targetObject.name;
+                for (int i = 0; i < this.targetObjects.Count; i++)
+                {
+                    if (targetObjects[i] != null)
+                    {
+                        summary += targetObjects[i].name + ",";
+                    }   
+                }
             }
-            
+
             if (summary.Length == 0)
             {
                 return "None";
             }
-            
+
             return summary;
         }
 
