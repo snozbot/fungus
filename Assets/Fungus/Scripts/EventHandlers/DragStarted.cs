@@ -1,8 +1,8 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Fungus
 {
@@ -14,25 +14,26 @@ namespace Fungus
                       "The block will execute when the player starts dragging an object.")]
     [AddComponentMenu("")]
     public class DragStarted : EventHandler, ISerializationCallbackReceiver
-    {   
+    {
         public class DragStartedEvent
         {
             public Draggable2D DraggableObject;
+
             public DragStartedEvent(Draggable2D draggableObject)
             {
                 DraggableObject = draggableObject;
             }
         }
+
         [VariableProperty(typeof(GameObjectVariable))]
         [SerializeField] protected GameObjectVariable draggableRef;
+
         [SerializeField] protected List<Draggable2D> draggableObjects;
 
         [HideInInspector]
         [SerializeField] protected Draggable2D draggableObject;
 
-
         protected EventDispatcher eventDispatcher;
-
 
         protected virtual void OnEnable()
         {
@@ -41,8 +42,6 @@ namespace Fungus
             eventDispatcher.AddListener<DragStartedEvent>(OnDragStartedEvent);
         }
 
-        
-
         protected virtual void OnDisable()
         {
             eventDispatcher.RemoveListener<DragStartedEvent>(OnDragStartedEvent);
@@ -50,10 +49,12 @@ namespace Fungus
             eventDispatcher = null;
         }
 
-        void OnDragStartedEvent(DragStartedEvent evt)
+        private void OnDragStartedEvent(DragStartedEvent evt)
         {
             OnDragStarted(evt.DraggableObject);
         }
+
+        #region Compatibility
 
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
@@ -63,7 +64,6 @@ namespace Fungus
                 if (!draggableObjects.Contains(draggableObject))
                 {
                     draggableObjects.Add(draggableObject);
-
                 }
                 draggableObject = null;
             }
@@ -71,8 +71,9 @@ namespace Fungus
 
         void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
-
         }
+
+        #endregion Compatibility
 
         #region Public members
 
@@ -83,12 +84,12 @@ namespace Fungus
         {
             if (draggableObjects.Contains(draggableObject))
             {
-                if(draggableRef!=null)
+                if (draggableRef != null)
                 {
                     draggableRef.Value = draggableObject.gameObject;
                 }
                 ExecuteBlock();
-            }           
+            }
         }
 
         public override string GetSummary()
@@ -101,7 +102,7 @@ namespace Fungus
                     if (draggableObjects[i] != null)
                     {
                         summary += draggableObjects[i].name + ",";
-                    }   
+                    }
                 }
             }
 
@@ -110,9 +111,9 @@ namespace Fungus
                 return "None";
             }
 
-            return summary;            
+            return summary;
         }
 
-        #endregion
+        #endregion Public members
     }
 }
