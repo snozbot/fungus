@@ -26,6 +26,7 @@ namespace Fungus
         }  
 
     }
+    
 
     // anyone with a better name for this can update it
     public enum AnyOrAllConditions
@@ -41,7 +42,27 @@ namespace Fungus
         [SerializeField] protected AnyOrAllConditions anyOrAllConditions;
         
 
-        [SerializeField] protected List<conditionExpression> conditions = new List<conditionExpression>(); 
+        [SerializeField] protected List<conditionExpression> conditions = new List<conditionExpression>();
+
+
+        /// <summary>
+        /// Called when the script is loaded or a value is changed in the
+        /// inspector (Called in the editor only).
+        /// </summary>
+        public override void OnValidate()
+        {
+            base.OnValidate();
+
+            if (conditions == null)
+            {
+                conditions = new List<conditionExpression>();
+            }
+
+            if (conditions.Count == 0)
+            {
+                conditions.Add(new conditionExpression());
+            }
+        } 
 
         protected override bool EvaluateCondition()
         {
@@ -61,7 +82,6 @@ namespace Fungus
                     continue;
                 }
                 condition.AnyVar.Compare(condition.CompareOperator, ref curResult);
-                Debug.Log("res : " + curResult.ToString());
                 resultAll &= curResult;
                 resultAny |= curResult;
             }
@@ -73,13 +93,15 @@ namespace Fungus
 
         protected override bool HasNeededProperties()
         {
-            if( conditions == null || conditions.Count == 0){
+            if (conditions == null || conditions.Count == 0)
+            {
                 return false;
             }
 
             foreach (conditionExpression condition in conditions) 
             {
-                if(condition.AnyVar == null || condition.AnyVar.variable == null){
+                if (condition.AnyVar == null || condition.AnyVar.variable == null)
+                {
                     return false;
                 }
                 
@@ -105,28 +127,26 @@ namespace Fungus
 
             string summary = "";
             string connector = "";
-            if(anyOrAllConditions == AnyOrAllConditions.AnyOneTrue){
+            if (anyOrAllConditions == AnyOrAllConditions.AnyOneTrue)
+            {
                 connector = " Or ";
             }
-            else{
+            else
+            {
                 connector = " And ";
             }
 
-            for(int i = 0 ; i < conditions.Count; i++) 
+            for (int i = 0 ; i < conditions.Count; i++) 
             {
                 summary += conditions[i].AnyVar.variable.Key + " ";
                 summary += VariableUtil.GetCompareOperatorDescription(conditions[i].CompareOperator) + " ";
                 summary += conditions[i].AnyVar.GetDataDescription();
 
-                if(i<conditions.Count-1){
+                if (i < conditions.Count - 1)
+                {
                     summary += connector;
                 }
-                
             }
-
-            
-          
-
             return summary;
         }
 
@@ -139,8 +159,10 @@ namespace Fungus
 
         #region backwards compat
 
+        [HideInInspector]
         [SerializeField] protected CompareOperator compareOperator;
-   
+
+        [HideInInspector]   
         [SerializeField] protected AnyVariableAndDataPair anyVar;
 
 
@@ -196,19 +218,15 @@ namespace Fungus
         [Tooltip("Vector3 value to compare against")]
         [SerializeField] protected Vector3Data vector3Data;
         
-        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        void ISerializationCallbackReceiver.OnBeforeSerialize() 
         {
         }
 
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
-
-            
-            if( variable != null)
+            if (variable != null)
             {
-                {
-                    anyVar.variable = variable;
-                }
+                anyVar.variable = variable;
 
                 if (variable.GetType() == typeof(BooleanVariable) && !booleanData.Equals(new BooleanData()))
                 {
@@ -296,22 +314,22 @@ namespace Fungus
                 variable = null;
             }
 
-            // just checking for anyVar != null fails here. is any var beig reintilaized somewhere?
+            // just checking for anyVar != null fails here. is any var being reintilaized somewhere?
 
-            if(anyVar != null && anyVar.variable != null){
+            if (anyVar != null && anyVar.variable != null)
+            {
                 conditionExpression c = new conditionExpression(compareOperator,anyVar);
-                if(!conditions.Contains(c)){
+                if (!conditions.Contains(c))
+                {
                     conditions.Add(c);
                 }
-                //added to list
-                anyVar = null;
+            }
 
-                //this is not nullabale?
-                //compareOperator = null;
+            if (anyVar != null && anyVar.variable == null)
+            {
+                anyVar = null;
             }
         }
-
-
         #endregion
     }
 }

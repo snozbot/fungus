@@ -48,6 +48,7 @@ namespace Fungus.EditorUtils
             // anyVarProp = serializedObject.FindProperty("anyVar");
 
             conditions = serializedObject.FindProperty("conditions");
+            
 
         }
 
@@ -62,6 +63,12 @@ namespace Fungus.EditorUtils
             for (int i = 0; i < conditions.arraySize; i++)
             {
 
+                GUILayout.Label("Condition "+(i+1).ToString(),EditorStyles.boldLabel);
+
+
+
+                //uncomment this for indentation
+                // EditorGUI.indentLevel++;
                 VariableCondition t = target as VariableCondition;
 
                 var flowchart = (Flowchart)t.GetFlowchart();
@@ -103,11 +110,13 @@ namespace Fungus.EditorUtils
                     conditionCompare.enumValueIndex = selectedIndex;
                 }
 
+                //uncomment this for indentation
+                // EditorGUI.indentLevel--;
+                GUILayout.Space(10f);
 
+               
                 
             }
-
-           
             serializedObject.ApplyModifiedProperties();
         }
     }
