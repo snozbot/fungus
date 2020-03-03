@@ -60,9 +60,11 @@ namespace Fungus
                         case Property.Height:
                             ioi.Value = target.height;
                             break;
+#if UNITY_2019_2_OR_NEWER
                         case Property.IsReadable:
                             iob.Value = target.isReadable;
                             break;
+#endif
                         case Property.AnisoLevel:
                             ioi.Value = target.anisoLevel;
                             break;

@@ -21,9 +21,11 @@ namespace Fungus
             private static bool prefsLoaded = false;
             private const string HIDE_MUSH_KEY = "hideMushroomInHierarchy";
             private const string USE_LEGACY_MENUS = "useLegacyMenus";
+            private const string USE_GRID_SNAP = "useGridSnap";
 
             public static bool hideMushroomInHierarchy;
             public static bool useLegacyMenus;
+            public static bool useGridSnap;
 
             static FungusEditorPreferences()
             {
@@ -63,6 +65,7 @@ namespace Fungus
                 // Preferences GUI
                 hideMushroomInHierarchy = EditorGUILayout.Toggle("Hide Mushroom Flowchart Icon", hideMushroomInHierarchy);
                 useLegacyMenus = EditorGUILayout.Toggle(new GUIContent("Legacy Menus", "Force Legacy menus for Event, Add Variable and Add Command menus"), useLegacyMenus);
+                useGridSnap = EditorGUILayout.Toggle(new GUIContent("Grid Snap", "Align and Snap block positions and widths in the flowchart window to the grid"), useGridSnap);
 
                 EditorGUILayout.Space();
                 //ideally if any are null, but typically it is all or nothing that have broken links due to version changes or moving files external to Unity
@@ -113,6 +116,7 @@ namespace Fungus
                 {
                     EditorPrefs.SetBool(HIDE_MUSH_KEY, hideMushroomInHierarchy);
                     EditorPrefs.SetBool(USE_LEGACY_MENUS, useLegacyMenus);
+                    EditorPrefs.SetBool(USE_GRID_SNAP, useGridSnap);
                 }
             }
 
@@ -120,6 +124,7 @@ namespace Fungus
             {
                 hideMushroomInHierarchy = EditorPrefs.GetBool(HIDE_MUSH_KEY, false);
                 useLegacyMenus = EditorPrefs.GetBool(USE_LEGACY_MENUS, false);
+                useGridSnap = EditorPrefs.GetBool(USE_GRID_SNAP, false);
                 prefsLoaded = true;
             }
         }

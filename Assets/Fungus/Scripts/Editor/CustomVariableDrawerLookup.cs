@@ -43,8 +43,9 @@ namespace Fungus.EditorUtils
         /// <param name="prop"></param>
         public static void DrawCustomOrPropertyField(System.Type type, Rect rect, SerializedProperty prop)
         {
+            System.Action<UnityEngine.Rect, UnityEditor.SerializedProperty> drawer = null;
             //delegate actual drawing to the variableInfo
-            var foundDrawer = typeToDrawer.TryGetValue(type, out System.Action<UnityEngine.Rect, UnityEditor.SerializedProperty> drawer);
+            var foundDrawer = typeToDrawer.TryGetValue(type, out drawer);
             if (foundDrawer)
             {
                 drawer(rect, prop);

@@ -375,6 +375,12 @@ namespace Fungus
         public virtual List<Block> GetConnectedBlocks()
         {
             var connectedBlocks = new List<Block>();
+            GetConnectedBlocks(ref connectedBlocks);
+            return connectedBlocks;
+        }
+
+        public virtual void GetConnectedBlocks(ref List<Block> connectedBlocks)
+        {
             for (int i = 0; i < commandList.Count; i++)
             {
                 var command = commandList[i];
@@ -383,7 +389,6 @@ namespace Fungus
                     command.GetConnectedBlocks(ref connectedBlocks);
                 }
             }
-            return connectedBlocks;
         }
 
         /// <summary>

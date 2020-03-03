@@ -17,13 +17,13 @@ namespace Fungus
     {
         public abstract int Capacity { get; set; }
         public abstract int Count { get; }
-        public bool IsFixedSize => false;
-        public bool IsReadOnly => false;
-        public bool IsSynchronized => false;
-        public object SyncRoot => null;
-        public string Name => name;
+        public bool IsFixedSize { get { return false; } }
+        public bool IsReadOnly { get { return false; } }
+        public bool IsSynchronized { get { return false; } }
+        public object SyncRoot { get { return null; } }
+        public string Name { get { return name; } }
 
-        public object this[int index] { get => Get(index); set => Set(index, value); }
+        public object this[int index] { get { return Get(index); } set { Set(index, value); } }
 
         public abstract int Add(object o);
 
