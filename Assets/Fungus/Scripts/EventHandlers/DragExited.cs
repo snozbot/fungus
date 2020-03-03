@@ -16,7 +16,7 @@ namespace Fungus
                       "Drag Exited",
                       "The block will execute when the player is dragging an object which stops touching the target object.")]
     [AddComponentMenu("")]
-    [ExecuteAlways]
+    [ExecuteInEditMode]
     public class DragExited : EventHandler, ISerializationCallbackReceiver
     {
         public class DragExitedEvent
@@ -53,7 +53,7 @@ namespace Fungus
 
         protected virtual void OnEnable()
         {
-            if (Application.IsPlaying(this))
+            if (Application.isPlaying)
             {
                 eventDispatcher = FungusManager.Instance.EventDispatcher;
 
@@ -63,7 +63,7 @@ namespace Fungus
 
         protected virtual void OnDisable()
         {
-            if (Application.IsPlaying(this))
+            if (Application.isPlaying)
             {
                 eventDispatcher.RemoveListener<DragExitedEvent>(OnDragEnteredEvent);
 

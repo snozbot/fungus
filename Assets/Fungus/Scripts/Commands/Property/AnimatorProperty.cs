@@ -191,9 +191,11 @@ namespace Fungus
                         case Property.FireEvents:
                             iob.Value = target.fireEvents;
                             break;
-                        case Property.KeepAnimatorControllerStateOnDisable:
+#if UNITY_2019_2_OR_NEWER
+                case Property.KeepAnimatorControllerStateOnDisable:
                             iob.Value = target.keepAnimatorControllerStateOnDisable;
                             break;
+#endif
                         default:
                             Debug.Log("Unsupported get or set attempted");
                             break;
@@ -245,10 +247,12 @@ namespace Fungus
                         case Property.FireEvents:
                             target.fireEvents = iob.Value;
                             break;
+#if UNITY_2019_2_OR_NEWER
                         case Property.KeepAnimatorControllerStateOnDisable:
                             target.keepAnimatorControllerStateOnDisable = iob.Value;
                             break;
-                        default:
+#endif
+                default:
                             Debug.Log("Unsupported get or set attempted");
                             break;
                     }

@@ -87,9 +87,11 @@ namespace Fungus
                         case Property.Enabled:
                             iob.Value = target.enabled;
                             break;
+#if UNITY_2019_2_OR_NEWER
                         case Property.ContactCount:
                             ioi.Value = target.contactCount;
                             break;
+#endif
                         default:
                             Debug.Log("Unsupported get or set attempted");
                             break;

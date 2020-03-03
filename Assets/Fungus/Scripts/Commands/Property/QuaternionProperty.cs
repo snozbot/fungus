@@ -66,9 +66,11 @@ namespace Fungus
                         case Property.EulerAngles:
                             iov.Value = target.eulerAngles;
                             break;
+#if UNITY_2019_2_OR_NEWER
                         case Property.Normalized:
                             ioq.Value = target.normalized;
                             break;
+#endif
                         default:
                             Debug.Log("Unsupported get or set attempted");
                             break;

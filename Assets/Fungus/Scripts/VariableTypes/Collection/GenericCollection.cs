@@ -38,7 +38,7 @@ namespace Fungus
             }
         }
 
-        public override int Count => collection.Count;
+        public override int Count { get { return collection.Count; } }
 
         public override int Add(object o)
         {
