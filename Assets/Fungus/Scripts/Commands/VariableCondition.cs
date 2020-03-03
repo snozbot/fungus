@@ -3,12 +3,16 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System.Text; 
 
 namespace Fungus
 {
 
+    /// <summary>
+    /// class for a single condition. A list of this is used for multiple conditions.
+    /// </summary>
     [System.Serializable]
-    public class conditionExpression
+    public class ConditionExpression
     {
         [SerializeField] protected CompareOperator compareOperator;
         [SerializeField] protected AnyVariableAndDataPair anyVar;
@@ -16,8 +20,8 @@ namespace Fungus
         public virtual AnyVariableAndDataPair AnyVar { get { return anyVar; } }
         public virtual CompareOperator CompareOperator { get { return compareOperator; } }
 
-        public conditionExpression(){}
-        public conditionExpression(CompareOperator op, AnyVariableAndDataPair variablePair)
+        public ConditionExpression(){}
+        public ConditionExpression(CompareOperator op, AnyVariableAndDataPair variablePair)
         {
 
             compareOperator = op;
@@ -37,12 +41,12 @@ namespace Fungus
     public abstract class VariableCondition : Condition, ISerializationCallbackReceiver
     {       
 
-        [Tooltip("The type of comparison to be performed")]
+        [Tooltip("Selecting \"Any One True\" will result in true if atleast one of the conditions is true. Selecting \"All True\" will result in true only when all the conditions are true.")]
 
         [SerializeField] protected AnyOrAllConditions anyOrAllConditions;
         
 
-        [SerializeField] protected List<conditionExpression> conditions = new List<conditionExpression>();
+        [SerializeField] protected List<ConditionExpression> conditions = new List<ConditionExpression>();
 
 
         /// <summary>
@@ -55,12 +59,12 @@ namespace Fungus
 
             if (conditions == null)
             {
-                conditions = new List<conditionExpression>();
+                conditions = new List<ConditionExpression>();
             }
 
             if (conditions.Count == 0)
             {
-                conditions.Add(new conditionExpression());
+                conditions.Add(new ConditionExpression());
             }
         } 
 
@@ -72,7 +76,7 @@ namespace Fungus
             }
 
             bool resultAny = false, resultAll = true;
-            foreach (conditionExpression condition in conditions) 
+            foreach (ConditionExpression condition in conditions) 
             {
                 bool curResult = false;
                 if (condition.AnyVar == null) 
@@ -98,7 +102,7 @@ namespace Fungus
                 return false;
             }
 
-            foreach (conditionExpression condition in conditions) 
+            foreach (ConditionExpression condition in conditions) 
             {
                 if (condition.AnyVar == null || condition.AnyVar.variable == null)
                 {
@@ -116,7 +120,7 @@ namespace Fungus
         /// </summary>
         public virtual CompareOperator CompareOperator { get { return conditions[0].CompareOperator; } }
 
-        public virtual List<conditionExpression> Conditions { get { return conditions; } }
+        public virtual List<ConditionExpression> Conditions { get { return conditions; } }
 
         public override string GetSummary()
         {
@@ -125,29 +129,29 @@ namespace Fungus
                 return "Error: No variable selected";
             }
 
-            string summary = "";
             string connector = "";
             if (anyOrAllConditions == AnyOrAllConditions.AnyOneTrue)
             {
-                connector = " Or ";
+                connector = " <b>OR</b> ";
             }
             else
             {
-                connector = " And ";
+                connector = " <b>AND</b> ";
             }
 
+            StringBuilder summary = new StringBuilder(""); 
             for (int i = 0 ; i < conditions.Count; i++) 
             {
-                summary += conditions[i].AnyVar.variable.Key + " ";
-                summary += VariableUtil.GetCompareOperatorDescription(conditions[i].CompareOperator) + " ";
-                summary += conditions[i].AnyVar.GetDataDescription();
+                summary.Append(conditions[i].AnyVar.variable.Key + " " + 
+                               VariableUtil.GetCompareOperatorDescription(conditions[i].CompareOperator) + " " + 
+                               conditions[i].AnyVar.GetDataDescription());
 
                 if (i < conditions.Count - 1)
                 {
-                    summary += connector;
+                    summary.Append(connector);
                 }
             }
-            return summary;
+            return summary.ToString();
         }
 
         public override bool HasReference(Variable variable)
@@ -318,7 +322,7 @@ namespace Fungus
 
             if (anyVar != null && anyVar.variable != null)
             {
-                conditionExpression c = new conditionExpression(compareOperator,anyVar);
+                ConditionExpression c = new ConditionExpression(compareOperator,anyVar);
                 if (!conditions.Contains(c))
                 {
                     conditions.Add(c);
