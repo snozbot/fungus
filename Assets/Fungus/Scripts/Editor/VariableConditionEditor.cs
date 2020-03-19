@@ -3,11 +3,15 @@
 
 using UnityEditor;
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace Fungus.EditorUtils
 {
-    [CustomEditor (typeof(VariableCondition), true)]
+    /// <summary>
+    /// Handles custom drawing for ConditionExperssions within the VariableCondition and inherited commands.
+    /// 
+    /// TODO; refactor to allow a propertydrawer on ConditionExperssion and potentially list as reorderable
+    /// </summary>
+    [CustomEditor(typeof(VariableCondition), true)]
     public class VariableConditionEditor : CommandEditor
     {
         public static readonly GUIContent None = new GUIContent("<None>");
@@ -17,7 +21,7 @@ namespace Fungus.EditorUtils
             None,
         };
 
-        static readonly GUIContent[] compareListAll = new GUIContent[]
+        private static readonly GUIContent[] compareListAll = new GUIContent[]
         {
             new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.Equals)),
             new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.NotEquals)),
@@ -27,68 +31,58 @@ namespace Fungus.EditorUtils
             new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.GreaterThanOrEquals)),
         };
 
-        static readonly GUIContent[] compareListEqualOnly = new GUIContent[]
+        private static readonly GUIContent[] compareListEqualOnly = new GUIContent[]
         {
             new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.Equals)),
             new GUIContent(VariableUtil.GetCompareOperatorDescription(CompareOperator.NotEquals)),
         };
 
-        // protected SerializedProperty compareOperatorProp;
-        // protected SerializedProperty anyVarProp;
-        
-         protected SerializedProperty conditions;
-
-        protected Dictionary<System.Type, SerializedProperty> propByVariableType;
+        protected SerializedProperty conditions;
 
         public override void OnEnable()
         {
             base.OnEnable();
 
-            // compareOperatorProp = serializedObject.FindProperty("compareOperator");
-            // anyVarProp = serializedObject.FindProperty("anyVar");
-
             conditions = serializedObject.FindProperty("conditions");
-            
-
         }
 
         public override void DrawCommandGUI()
         {
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("anyOrAllConditions"));            
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("anyOrAllConditions"));
 
             conditions.arraySize = EditorGUILayout.IntField("Size", conditions.arraySize);
-            GUILayout.Label("Conditions",EditorStyles.boldLabel);
-            
+            GUILayout.Label("Conditions", EditorStyles.boldLabel);
+
+            VariableCondition t = target as VariableCondition;
+
+            var flowchart = (Flowchart)t.GetFlowchart();
+            if (flowchart == null)
+            {
+                return;
+            }
+
+            EditorGUI.indentLevel++;
             for (int i = 0; i < conditions.arraySize; i++)
             {
-                EditorGUI.indentLevel++;
-                VariableCondition t = target as VariableCondition;
-
-                var flowchart = (Flowchart)t.GetFlowchart();
-                if (flowchart == null)
-                {
-                    return;
-                }
-
-                // EditorGUILayout.PropertyField(anyVarProp, true);
                 var conditionAnyVar = conditions.GetArrayElementAtIndex(i).FindPropertyRelative("anyVar");
                 var conditionCompare = conditions.GetArrayElementAtIndex(i).FindPropertyRelative("compareOperator");
-                
-                EditorGUILayout.PropertyField(conditionAnyVar,new GUIContent("Variable"),true);
+
+                EditorGUILayout.PropertyField(conditionAnyVar, new GUIContent("Variable"), true);
 
                 // Get selected variable
                 Variable selectedVariable = conditionAnyVar.FindPropertyRelative("variable").objectReferenceValue as Variable;
+
+                if (selectedVariable == null)
+                    continue;
+
                 GUIContent[] operatorsList = emptyList;
-                if (selectedVariable != null)
-                {
-                    operatorsList = selectedVariable.IsComparisonSupported() ? compareListAll : compareListEqualOnly;
-                }
-                
+                operatorsList = selectedVariable.IsComparisonSupported() ? compareListAll : compareListEqualOnly;
+
                 // Get previously selected operator
-                int selectedIndex = (int)t.Conditions[i].CompareOperator;
-                if (selectedIndex < 0)
+                int selectedIndex = conditionCompare.enumValueIndex;
+                if (selectedIndex < 0 || selectedIndex >= operatorsList.Length)
                 {
                     // Default to first index if the operator is not found in the available operators list
                     // This can occur when changing between variable types
@@ -100,14 +94,11 @@ namespace Fungus.EditorUtils
                     selectedIndex,
                     operatorsList);
 
-                if (selectedVariable != null)
-                {
-                    conditionCompare.enumValueIndex = selectedIndex;
-                }
+                conditionCompare.enumValueIndex = selectedIndex;
 
-                EditorGUI.indentLevel--;
-                GUILayout.Space(10f);
+                EditorGUILayout.Separator();
             }
+            EditorGUI.indentLevel--;
             serializedObject.ApplyModifiedProperties();
         }
     }

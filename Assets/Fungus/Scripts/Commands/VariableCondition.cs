@@ -1,13 +1,12 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using UnityEngine;
 using System.Collections.Generic;
-using System.Text; 
+using System.Text;
+using UnityEngine;
 
 namespace Fungus
 {
-
     /// <summary>
     /// class for a single condition. A list of this is used for multiple conditions.
     /// </summary>
@@ -20,34 +19,29 @@ namespace Fungus
         public virtual AnyVariableAndDataPair AnyVar { get { return anyVar; } }
         public virtual CompareOperator CompareOperator { get { return compareOperator; } }
 
-        public ConditionExpression(){}
+        public ConditionExpression()
+        {
+        }
+
         public ConditionExpression(CompareOperator op, AnyVariableAndDataPair variablePair)
         {
-
             compareOperator = op;
             anyVar = variablePair;
-
-        }  
-
+        }
     }
-    
 
-    // anyone with a better name for this can update it
-    public enum AnyOrAllConditions
-    {
-        AnyOneTrue,
-        AllTrue
-    }
     public abstract class VariableCondition : Condition, ISerializationCallbackReceiver
-    {       
+    {
+        public enum AnyOrAll
+        {
+            AnyOf_OR,//Use as a chain of ORs
+            AllOf_AND,//Use as a chain of ANDs
+        }
 
-        [Tooltip("Selecting \"Any One True\" will result in true if atleast one of the conditions is true. Selecting \"All True\" will result in true only when all the conditions are true.")]
-
-        [SerializeField] protected AnyOrAllConditions anyOrAllConditions;
-        
+        [Tooltip("Selecting AnyOf will result in true if at least one of the conditions is true. Selecting AllOF will result in true only when all the conditions are true.")]
+        [SerializeField] protected AnyOrAll anyOrAllConditions;
 
         [SerializeField] protected List<ConditionExpression> conditions = new List<ConditionExpression>();
-
 
         /// <summary>
         /// Called when the script is loaded or a value is changed in the
@@ -66,7 +60,7 @@ namespace Fungus
             {
                 conditions.Add(new ConditionExpression());
             }
-        } 
+        }
 
         protected override bool EvaluateCondition()
         {
@@ -76,10 +70,10 @@ namespace Fungus
             }
 
             bool resultAny = false, resultAll = true;
-            foreach (ConditionExpression condition in conditions) 
+            foreach (ConditionExpression condition in conditions)
             {
                 bool curResult = false;
-                if (condition.AnyVar == null) 
+                if (condition.AnyVar == null)
                 {
                     resultAll &= curResult;
                     resultAny |= curResult;
@@ -90,8 +84,8 @@ namespace Fungus
                 resultAny |= curResult;
             }
 
-            if (anyOrAllConditions == AnyOrAllConditions.AnyOneTrue) return resultAny;
-            
+            if (anyOrAllConditions == AnyOrAll.AnyOf_OR) return resultAny;
+
             return resultAll;
         }
 
@@ -102,26 +96,16 @@ namespace Fungus
                 return false;
             }
 
-            foreach (ConditionExpression condition in conditions) 
+            foreach (ConditionExpression condition in conditions)
             {
                 if (condition.AnyVar == null || condition.AnyVar.variable == null)
                 {
                     return false;
                 }
-                
             }
             return true;
         }
-
-        #region Public members
-
-        /// <summary>
-        /// The type of comparison operation to be performed.
-        /// </summary>
-        public virtual CompareOperator CompareOperator { get { return conditions[0].CompareOperator; } }
-
-        public virtual List<ConditionExpression> Conditions { get { return conditions; } }
-
+        
         public override string GetSummary()
         {
             if (!this.HasNeededProperties())
@@ -130,7 +114,7 @@ namespace Fungus
             }
 
             string connector = "";
-            if (anyOrAllConditions == AnyOrAllConditions.AnyOneTrue)
+            if (anyOrAllConditions == AnyOrAll.AnyOf_OR)
             {
                 connector = " <b>OR</b> ";
             }
@@ -139,11 +123,11 @@ namespace Fungus
                 connector = " <b>AND</b> ";
             }
 
-            StringBuilder summary = new StringBuilder(""); 
-            for (int i = 0 ; i < conditions.Count; i++) 
+            StringBuilder summary = new StringBuilder("");
+            for (int i = 0; i < conditions.Count; i++)
             {
-                summary.Append(conditions[i].AnyVar.variable.Key + " " + 
-                               VariableUtil.GetCompareOperatorDescription(conditions[i].CompareOperator) + " " + 
+                summary.Append(conditions[i].AnyVar.variable.Key + " " +
+                               VariableUtil.GetCompareOperatorDescription(conditions[i].CompareOperator) + " " +
                                conditions[i].AnyVar.GetDataDescription());
 
                 if (i < conditions.Count - 1)
@@ -159,16 +143,14 @@ namespace Fungus
             return anyVar.HasReference(variable);
         }
 
-        #endregion
 
         #region backwards compat
 
         [HideInInspector]
         [SerializeField] protected CompareOperator compareOperator;
 
-        [HideInInspector]   
+        [HideInInspector]
         [SerializeField] protected AnyVariableAndDataPair anyVar;
-
 
         [Tooltip("Variable to use in expression")]
         [VariableProperty(AllVariableTypes.VariableAny.Any)]
@@ -221,8 +203,8 @@ namespace Fungus
 
         [Tooltip("Vector3 value to compare against")]
         [SerializeField] protected Vector3Data vector3Data;
-        
-        void ISerializationCallbackReceiver.OnBeforeSerialize() 
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
         }
 
@@ -322,18 +304,17 @@ namespace Fungus
 
             if (anyVar != null && anyVar.variable != null)
             {
-                ConditionExpression c = new ConditionExpression(compareOperator,anyVar);
+                ConditionExpression c = new ConditionExpression(compareOperator, anyVar);
                 if (!conditions.Contains(c))
                 {
                     conditions.Add(c);
                 }
-            }
 
-            if (anyVar != null && anyVar.variable == null)
-            {
                 anyVar = null;
+                variable = null;
             }
         }
-        #endregion
+
+        #endregion backwards compat
     }
 }
