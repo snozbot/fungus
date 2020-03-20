@@ -13,8 +13,6 @@ namespace Fungus
     {
         protected End endCommand;
      
-        #region Public members
-
         public override void OnEnter()
         {
             if (ParentBlock == null)
@@ -88,7 +86,6 @@ namespace Fungus
             }
         }
 
-        #endregion
                
         protected End FindOurEndCommand()
         {
