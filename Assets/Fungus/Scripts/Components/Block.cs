@@ -126,7 +126,8 @@ namespace Fungus
 #endif
         //editor only state for speeding up flowchart window drawing
         public bool IsSelected { get; set; }    //local cache of selectedness
-        public bool IsFiltered { get; set; }    //local cache of filteredness
+        public enum FilteredState { Full, Partial, None}
+        public FilteredState FilterState { get; set; }    //local cache of filteredness
         public bool IsControlSelected { get; set; } //local cache of being part of the control exclusion group
 
         #region Public members

@@ -210,7 +210,7 @@ namespace Fungus.EditorUtils
         private string searchString = string.Empty;
         protected Rect searchRect;
         protected Rect popupRect;
-        protected Block[] filteredBlocks = new Block[0];
+        protected List<Block> filteredBlocks = new List<Block>();
         protected int blockPopupSelection = -1;
         protected Vector2 popupScroll;
         protected Flowchart flowchart, prevFlowchart;
@@ -393,7 +393,7 @@ namespace Fungus.EditorUtils
             if (flowchart == null)
             {
                 blocks = new Block[0];
-                filteredBlocks = new Block[0];
+                filteredBlocks = new List<Block>();
             }
             else
             {
@@ -510,30 +510,41 @@ namespace Fungus.EditorUtils
             {
                 filterStale = false;
                 //reset all
-                for (int i = 0; filteredBlocks != null && i < filteredBlocks.Length; i++)
+                for (int i = 0; filteredBlocks != null && i < filteredBlocks.Count; i++)
                 {
                     if (filteredBlocks[i] != null)
                     {
-                        filteredBlocks[i].IsFiltered = false;
+                        filteredBlocks[i].FilterState = Block.FilteredState.None;
                     }
                 }
 
                 var nullCount = filteredBlocks.Count(x => x == null);
-                if (nullCount > 0 && nullCount != filteredBlocks.Length)
+                if (nullCount > 0 && nullCount != filteredBlocks.Count)
                 {
                     Debug.LogWarning("Null block found in filteredBlocks. May be a symptom of an underlying issue");
                 }
 
-                //gather new
-                filteredBlocks = blocks.Where(block => IsBlockNameMatch(block) || IsCommandContentMatch(block)).ToArray();
-
-                //update filteredness
-                foreach (var item in filteredBlocks)
+                filteredBlocks.Clear();
+                
+                for (int i = 0; i < blocks.Length; i++)
                 {
-                    item.IsFiltered = true;
+                    var item = blocks[i];
+                    if (item != null)
+                    {
+                        if(IsBlockNameMatch(item))
+                        {
+                            filteredBlocks.Add(item);
+                            item.FilterState = Block.FilteredState.Full;
+                        }
+                        else if (IsCommandContentMatch(item))
+                        {
+                            filteredBlocks.Add(item);
+                            item.FilterState = Block.FilteredState.Partial;
+                        }
+                    }
                 }
 
-                blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
+                blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Count - 1);
             }
         }
 
@@ -602,9 +613,9 @@ namespace Fungus.EditorUtils
                         break;
                     }
 
-                    blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
+                    blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Count - 1);
 
-                    if (centerBlock && filteredBlocks.Length > 0)
+                    if (centerBlock && filteredBlocks.Count > 0)
                     {
                         var block = filteredBlocks[blockPopupSelection];
                         CenterBlock(block);
@@ -722,11 +733,11 @@ namespace Fungus.EditorUtils
 
                 //attempt to defilter previous, if due to scene change these will be null
                 //  the regular filter updates will still occur within UpdateBlockCollection
-                for (int i = 0; i < filteredBlocks.Length; i++)
+                for (int i = 0; i < filteredBlocks.Count; i++)
                 {
                     if (filteredBlocks[i] != null)
                     {
-                        filteredBlocks[i].IsFiltered = false;
+                        filteredBlocks[i].FilterState = Block.FilteredState.None;
                     }
                 }
 
@@ -852,6 +863,7 @@ namespace Fungus.EditorUtils
                     searchString = newString;
                     filterStale = true;
                 }
+                GUI.SetNextControlName(string.Empty);
 
                 if (e.type == EventType.Repaint)
                 {
@@ -859,7 +871,7 @@ namespace Fungus.EditorUtils
                     popupRect = searchRect;
                     popupRect.width += 12;
                     popupRect.y += popupRect.height;
-                    popupRect.height = Mathf.Min(filteredBlocks.Length * 16, position.height - 22);
+                    popupRect.height = Mathf.Min(filteredBlocks.Count * 16, position.height - 22);
                 }
 
                 if (GUILayout.Button("", ToolbarSeachCancelButtonStyle))
@@ -901,7 +913,8 @@ namespace Fungus.EditorUtils
 
 
             // Draw block search popup on top of other controls
-            if (GUI.GetNameOfFocusedControl() == SearchFieldName && filteredBlocks.Length > 0)
+            if (GUI.GetNameOfFocusedControl() == SearchFieldName && 
+                filteredBlocks.Count > 0 && !string.IsNullOrEmpty(searchString))
             {
                 DrawBlockPopup(e);
             }
@@ -968,7 +981,7 @@ namespace Fungus.EditorUtils
 
         protected virtual void DrawBlockPopup(Event e)
         {            
-            blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Length - 1);
+            blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Count - 1);
 
             GUI.Box(popupRect, "", GUI.skin.FindStyle("sv_iconselector_back"));
 
@@ -994,7 +1007,7 @@ namespace Fungus.EditorUtils
                     selectedStyle.normal = selectedStyle.hover;
                     normalStyle.hover = normalStyle.normal;
 
-                    for (int i = 0; i < filteredBlocks.Length; ++i)
+                    for (int i = 0; i < filteredBlocks.Count; ++i)
                     {
                         EditorGUILayout.BeginHorizontal(GUILayout.Height(16));
 
@@ -1406,7 +1419,7 @@ namespace Fungus.EditorUtils
                         DrawBlock(block, scriptViewRect);
                 }
 
-                //draw all  selected
+                //draw all selected
                 for (int i = 0; i < blocks.Length; ++i)
                 {
                     var block = blocks[i];
@@ -2006,6 +2019,7 @@ namespace Fungus.EditorUtils
         {
             GUIUtility.keyboardControl = 0;
             searchString = string.Empty;
+            filterStale = true;
         }
 
         static protected List<Block> blockGraphicsUniqueListWorkSpace = new List<Block>();
@@ -2110,9 +2124,18 @@ namespace Fungus.EditorUtils
             var tmpNormTxtCol = nodeStyle.normal.textColor;
             nodeStyle.normal.textColor = brightness >= 0.5 ? Color.black : Color.white;
 
-            if (GUI.GetNameOfFocusedControl() == SearchFieldName && !block.IsFiltered)
+            switch (block.FilterState)
             {
+            case Block.FilteredState.Full:
+                break;
+            case Block.FilteredState.Partial:
+                graphics.tint.a *= 0.65f;
+                break;
+            case Block.FilteredState.None:
                 graphics.tint.a *= 0.2f;
+                break;
+            default:
+                break;
             }
 
             nodeStyle.normal.background = graphics.offTexture;
