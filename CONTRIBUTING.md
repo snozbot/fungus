@@ -4,6 +4,8 @@ We welcome pull requests from everyone. By contributing to this project, you agr
 
 Fork and clone the Fungus repo (see [fork a repo] )
 
+Switch to the develop branch.
+
 Make sure the tests pass locally (see the project readme for instructions).
 
 Make your change. Add tests and/or demo scenes for your change. Make the tests pass locally.
@@ -19,8 +21,9 @@ Your pull request will have a better chance of being accepted if you do the foll
 * Write tests for each change / new feature (not always possible)
 * Follow our [coding standard]
 * Write a [good commit message][commit].
+* Target and make changes against the develop branch.
 
-[code of conduct]: https://github.com/snozbot/fungus/wiki/code_of_conduct
+[code of conduct]: https://github.com/snozbot/fungus/blob/master/CODE_OF_CONDUCT.md
 [commit]: http://chris.beams.io/posts/git-commit/
 [fork a repo]: https://help.github.com/articles/fork-a-repo/
 [fungus license]: https://github.com/FungusGames/Fungus/blob/master/LICENSE
