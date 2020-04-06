@@ -311,7 +311,7 @@ namespace Fungus
 
             if (restartDeletesSave)
             {
-                saveManager.Delete(saveDataKey);
+                SaveManager.Delete(saveDataKey);
             }
             SaveManagerSignals.DoSaveReset();
             SceneManager.LoadScene(saveManager.StartScene);
