@@ -24,7 +24,7 @@ namespace Fungus.EditorUtils
 
             if (commandLabelStyle == null)
             {
-                commandLabelStyle = new GUIStyle(GUI.skin.box);
+                commandLabelStyle = new GUIStyle(GUI.skin.label);
                 commandLabelStyle.normal.background = FungusEditorResources.CommandBackground;
                 commandLabelStyle.normal.textColor = Color.black;
                 int borderSize = 5;
