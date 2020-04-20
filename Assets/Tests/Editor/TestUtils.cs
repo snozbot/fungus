@@ -56,7 +56,7 @@ namespace Fungus.EditorUtils
                 }
             }
 
-            UnityEngine.Object.Destroy(resTest);
+            UnityEngine.Object.DestroyImmediate(resTest);
         }
     }
 }

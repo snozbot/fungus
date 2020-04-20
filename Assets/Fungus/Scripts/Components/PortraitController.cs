@@ -207,6 +207,11 @@ namespace Fungus
             {
                 foreach (var item in character.Portraits)
                 {
+                    if(item == null)
+                    {
+                        Debug.LogError("null in portrait list on character " + character.name);
+                        continue;
+                    }
                     // Create a new portrait object
                     GameObject po = new GameObject(item.name,
                                                             typeof(RectTransform),
