@@ -189,9 +189,9 @@ namespace Fungus
             if (x == y)
                 return 0;
             if (y == null)
-                return 1;
-            if (x == null)
                 return -1;
+            if (x == null)
+                return 1;
 
             return x.name.CompareTo(y.name);
         }

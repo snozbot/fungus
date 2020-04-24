@@ -184,7 +184,10 @@ namespace Fungus
 
         protected virtual void OnValidate()
         {
-            portraits.Sort(PortraitUtil.PortraitCompareTo);
+            if (portraits != null && portraits.Count > 1)
+            {
+                portraits.Sort(PortraitUtil.PortraitCompareTo);
+            }
         }
     }
 }
