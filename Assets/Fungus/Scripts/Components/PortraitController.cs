@@ -296,6 +296,8 @@ namespace Fungus
         {
             CleanPortraitOptions(options);
 
+            LeanTween.cancel(options.character.State.holder.gameObject);
+
             // LeanTween doesn't handle 0 duration properly
             float duration = (options.moveDuration > 0f) ? options.moveDuration : float.Epsilon;
 
