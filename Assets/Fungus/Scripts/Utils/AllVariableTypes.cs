@@ -285,7 +285,7 @@ namespace Fungus
             {
                 return ta.DescFunc(this);
             }
-            return string.Empty;
+            return "Null";
         }
 
         public bool Compare(CompareOperator compareOperator, ref bool compareResult)

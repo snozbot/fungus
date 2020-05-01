@@ -234,7 +234,7 @@ namespace Fungus
             if (Value != null)
                 return Value.ToString();
             else
-                return string.Empty;
+                return "Null";
         }
         
         protected virtual void Start()
@@ -246,7 +246,7 @@ namespace Fungus
         //Apply to get from base system.object to T
         public override void Apply(SetOperator op, object value)
         {
-            if(value is T)
+            if(value is T || value == null)
             {
                 Apply(op, (T)value);
             }
@@ -277,7 +277,7 @@ namespace Fungus
         //Apply to get from base system.object to T
         public override bool Evaluate(CompareOperator op, object value)
         {
-            if (value is T)
+            if (value is T || value == null)
             {
                 return Evaluate(op, (T)value);
             }
@@ -301,10 +301,10 @@ namespace Fungus
             switch (compareOperator)
             {
             case CompareOperator.Equals:
-                condition = Value.Equals(value);
+                condition = Equals(Value, value);// Value.Equals(value);
                 break;
             case CompareOperator.NotEquals:
-                condition = !Value.Equals(value);
+                condition = !Equals(Value, value);
                 break;
             default:
                 Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");

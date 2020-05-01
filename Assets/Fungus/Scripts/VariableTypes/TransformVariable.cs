@@ -50,7 +50,7 @@ namespace Fungus
         {
             if (transformRef == null)
             {
-                return transformVal != null ? transformVal.ToString() : string.Empty;
+                return transformVal != null ? transformVal.ToString() : "Null";
             }
             else
             {
