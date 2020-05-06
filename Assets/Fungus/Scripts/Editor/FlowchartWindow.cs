@@ -194,7 +194,7 @@ namespace Fungus.EditorUtils
         protected List<BlockCopy> copyList = new List<BlockCopy>();
         public static List<Block> deleteList = new List<Block>();
         protected Vector2 startDragPosition;
-        protected GUIStyle nodeStyle, descriptionStyle, handlerStyle;
+        protected GUIStyle nodeStyle, descriptionStyle, handlerStyle, blockSearchPopupNormalStyle, blockSearchPopupSelectedStyle;
         protected static BlockInspector blockInspector;
         protected int forceRepaintCount;
         protected Texture2D addTexture;
@@ -307,6 +307,16 @@ namespace Fungus.EditorUtils
                 handlerStyle.margin.top = 0;
                 handlerStyle.margin.bottom = 0;
                 handlerStyle.alignment = TextAnchor.MiddleCenter;
+            }
+
+            if(blockSearchPopupNormalStyle == null || blockSearchPopupSelectedStyle == null)
+            {
+                blockSearchPopupNormalStyle = new GUIStyle(GUI.skin.FindStyle("MenuItem"));
+                blockSearchPopupNormalStyle.padding = new RectOffset(8, 0, 0, 0);
+                blockSearchPopupNormalStyle.imagePosition = ImagePosition.ImageLeft;
+                blockSearchPopupSelectedStyle = new GUIStyle(blockSearchPopupNormalStyle);
+                blockSearchPopupSelectedStyle.normal = blockSearchPopupSelectedStyle.hover;
+                blockSearchPopupNormalStyle.hover = blockSearchPopupNormalStyle.normal;
             }
         }
 
@@ -871,7 +881,7 @@ namespace Fungus.EditorUtils
                     popupRect = searchRect;
                     popupRect.width += 12;
                     popupRect.y += popupRect.height;
-                    popupRect.height = Mathf.Min(filteredBlocks.Count * 16, position.height - 22);
+                    popupRect.height = Mathf.Min(Mathf.Max(1,filteredBlocks.Count) * 16, position.height - 22);
                 }
 
                 if (GUILayout.Button("", ToolbarSeachCancelButtonStyle))
@@ -909,15 +919,15 @@ namespace Fungus.EditorUtils
                 GUILayout.EndVertical();
             }
             GUILayout.EndHorizontal();
-            DrawVariablesBlock(e);
 
 
             // Draw block search popup on top of other controls
-            if (GUI.GetNameOfFocusedControl() == SearchFieldName && 
-                filteredBlocks.Count > 0 && !string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
                 DrawBlockPopup(e);
             }
+
+            DrawVariablesBlock(e);
         }
 
         protected virtual void DrawVariablesBlock(Event e)
@@ -981,7 +991,7 @@ namespace Fungus.EditorUtils
 
         protected virtual void DrawBlockPopup(Event e)
         {            
-            blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, filteredBlocks.Count - 1);
+            blockPopupSelection = Mathf.Clamp(blockPopupSelection, 0, Mathf.Max(filteredBlocks.Count - 1,0));
 
             GUI.Box(popupRect, "", GUI.skin.FindStyle("sv_iconselector_back"));
 
@@ -1000,48 +1010,50 @@ namespace Fungus.EditorUtils
             {
                 popupScroll = EditorGUILayout.BeginScrollView(popupScroll, GUIStyle.none, GUI.skin.verticalScrollbar);
                 {
-                    var normalStyle = new GUIStyle(GUI.skin.FindStyle("MenuItem"));
-                    normalStyle.padding = new RectOffset(8, 0, 0, 0);
-                    normalStyle.imagePosition = ImagePosition.ImageLeft;
-                    var selectedStyle = new GUIStyle(normalStyle);
-                    selectedStyle.normal = selectedStyle.hover;
-                    normalStyle.hover = normalStyle.normal;
-
                     for (int i = 0; i < filteredBlocks.Count; ++i)
                     {
-                        EditorGUILayout.BeginHorizontal(GUILayout.Height(16));
+                        DrawBlockSearchPopUpItem(filteredBlocks[i], i == blockPopupSelection);
+                    }
 
-                        var block = filteredBlocks[i];
-                        var style = i == blockPopupSelection ? selectedStyle : normalStyle;
-
-                        GUI.contentColor = GetBlockGraphics(block).tint;
-
-                        var buttonPressed = false;
-                        if (GUILayout.Button(FungusEditorResources.BulletPoint, style, GUILayout.Width(16)))
-                        {
-                            buttonPressed = true;
-                        }
-
-                        GUI.contentColor = Color.white;
-
-                        if (GUILayout.Button(block.BlockName, style))
-                        {
-                            buttonPressed = true;
-                        }
-
-                        if (buttonPressed)
-                        {
-                            CenterBlock(block);
-                            SelectBlock(block);
-                            CloseBlockPopup();
-                        }
-
-                        EditorGUILayout.EndHorizontal();       
+                    if(filteredBlocks.Count == 0)
+                    {
+                        DrawBlockSearchPopUpItem(null, false);
                     }
                 }
                 EditorGUILayout.EndScrollView();
             }
             GUILayout.EndArea();
+        }
+
+        protected void DrawBlockSearchPopUpItem(Block block, bool selected)
+        {
+            EditorGUILayout.BeginHorizontal(GUILayout.Height(16));
+
+            var style = selected ? blockSearchPopupSelectedStyle : blockSearchPopupNormalStyle;
+
+            GUI.contentColor = block != null ? GetBlockGraphics(block).tint : Color.white;
+
+            var buttonPressed = false;
+            if (GUILayout.Button(FungusEditorResources.BulletPoint, style, GUILayout.Width(16)))
+            {
+                buttonPressed = true;
+            }
+
+            GUI.contentColor = Color.white;
+
+            if (GUILayout.Button(block != null ? block.BlockName : "No Matches", style))
+            {
+                buttonPressed = true;
+            }
+
+            if (buttonPressed)
+            {
+                CenterBlock(block);
+                SelectBlock(block);
+                CloseBlockPopup();
+            }
+
+            EditorGUILayout.EndHorizontal();
         }
 
         protected Block GetBlockAtPoint(Vector2 point)
