@@ -50,7 +50,7 @@ namespace Fungus
         {
             if (materialRef == null)
             {
-                return materialVal != null ? materialVal.ToString() : string.Empty;
+                return materialVal != null ? materialVal.ToString() : "Null";
             }
             else
             {

@@ -50,7 +50,7 @@ namespace Fungus
         {
             if (rigidbodyRef == null)
             {
-                return rigidbodyVal != null ? rigidbodyVal.ToString() : string.Empty;
+                return rigidbodyVal != null ? rigidbodyVal.ToString() : "Null";
             }
             else
             {

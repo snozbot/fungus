@@ -50,7 +50,7 @@ namespace Fungus
         {
             if (gameObjectRef == null)
             {
-                return gameObjectVal != null ? gameObjectVal.ToString() : string.Empty;
+                return gameObjectVal != null ? gameObjectVal.ToString() : "Null";
             }
             else
             {
