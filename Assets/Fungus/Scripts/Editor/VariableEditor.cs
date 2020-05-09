@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
@@ -156,7 +156,15 @@ namespace Fungus.EditorUtils
 
                 if (variableProperty.VariableTypes.Length == 0)
                 {
-                    return true;
+                    var compatChecker = property.serializedObject.targetObject as ICollectionCompatible;
+                    if (compatChecker != null)
+                    {
+                        return compatChecker.IsVarCompatibleWithCollection(v, variableProperty.compatibleVariableName);
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
 
                 return variableProperty.VariableTypes.Contains<System.Type>(v.GetType());
@@ -213,38 +221,47 @@ namespace Fungus.EditorUtils
 
             var origLabel = new GUIContent(label);
 
-            if (EditorGUI.GetPropertyHeight(valueProp, label) > EditorGUIUtility.singleLineHeight)
+            if (EditorGUI.GetPropertyHeight(valueProp, label) <= EditorGUIUtility.singleLineHeight)
             {
-                DrawMultiLineProperty(position, origLabel, referenceProp, valueProp, flowchart);
+                DrawSingleLineProperty(position, origLabel, referenceProp, valueProp, flowchart, typeInfo);
             }
             else
             {
-                DrawSingleLineProperty(position, origLabel, referenceProp, valueProp, flowchart);
+                DrawMultiLineProperty(position, origLabel, referenceProp, valueProp, flowchart, typeInfo);
             }
 
             EditorGUI.EndProperty();
         }
 
-        protected virtual void DrawSingleLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart)
+        protected virtual void DrawSingleLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart,
+            VariableInfoAttribute typeInfo)
         {
-            const int popupWidth = 17;
-            
+            int popupWidth = Mathf.RoundToInt(EditorGUIUtility.singleLineHeight);
+            const int popupGap = 5;
+
+            //get out starting rect with intent honoured
             Rect controlRect = EditorGUI.PrefixLabel(rect, label);
             Rect valueRect = controlRect;
-            valueRect.width = controlRect.width - popupWidth - 5;
+            valueRect.width = controlRect.width - popupWidth - popupGap;
             Rect popupRect = controlRect;
+
+            //we are overriding much of the auto layout to cram this all on 1 line so zero the intend and restore it later
+            var prevIndent = EditorGUI.indentLevel;
+            EditorGUI.indentLevel = 0;
 
             if (referenceProp.objectReferenceValue == null)
             {
-                EditorGUI.PropertyField(valueRect, valueProp, new GUIContent(""));
-                popupRect.x += valueRect.width + 5;
+                DrawValueProperty(valueRect, valueProp, typeInfo);
+                popupRect.x += valueRect.width + popupGap;
                 popupRect.width = popupWidth;
             }
 
             EditorGUI.PropertyField(popupRect, referenceProp, new GUIContent(""));
+            EditorGUI.indentLevel = prevIndent;
         }
 
-        protected virtual void DrawMultiLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart)
+        protected virtual void DrawMultiLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart,
+            VariableInfoAttribute typeInfo)
         {
             const int popupWidth = 100;
             
@@ -255,7 +272,7 @@ namespace Fungus.EditorUtils
             
             if (referenceProp.objectReferenceValue == null)
             {
-                EditorGUI.PropertyField(valueRect, valueProp, label);
+                DrawValueProperty(valueRect, valueProp, typeInfo);
                 popupRect.x = rect.width - popupWidth + 5;
                 popupRect.width = popupWidth;
             }
@@ -265,6 +282,11 @@ namespace Fungus.EditorUtils
             }
 
             EditorGUI.PropertyField(popupRect, referenceProp, new GUIContent(""));
+        }
+
+        protected virtual void DrawValueProperty(Rect valueRect, SerializedProperty valueProp, VariableInfoAttribute typeInfo)
+        {
+            CustomVariableDrawerLookup.DrawCustomOrPropertyField(typeof(T), valueRect, valueProp);
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -309,52 +331,4 @@ namespace Fungus.EditorUtils
     [CustomPropertyDrawer (typeof(StringDataMulti))]
     public class StringDataMultiDrawer : VariableDataDrawer<StringVariable>
     {}
-
-    [CustomPropertyDrawer (typeof(ColorData))]
-    public class ColorDataDrawer : VariableDataDrawer<ColorVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(Vector2Data))]
-    public class Vector2DataDrawer : VariableDataDrawer<Vector2Variable>
-    {}
-
-    [CustomPropertyDrawer (typeof(Vector3Data))]
-    public class Vector3DataDrawer : VariableDataDrawer<Vector3Variable>
-    {}
-    
-    [CustomPropertyDrawer (typeof(MaterialData))]
-    public class MaterialDataDrawer : VariableDataDrawer<MaterialVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(TextureData))]
-    public class TextureDataDrawer : VariableDataDrawer<TextureVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(SpriteData))]
-    public class SpriteDataDrawer : VariableDataDrawer<SpriteVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(GameObjectData))]
-    public class GameObjectDataDrawer : VariableDataDrawer<GameObjectVariable>
-    {}
-    
-    [CustomPropertyDrawer (typeof(ObjectData))]
-    public class ObjectDataDrawer : VariableDataDrawer<ObjectVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(AnimatorData))]
-    public class AnimatorDataDrawer : VariableDataDrawer<AnimatorVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(TransformData))]
-    public class TransformDataDrawer : VariableDataDrawer<TransformVariable>
-    {}
-
-    [CustomPropertyDrawer (typeof(AudioSourceData))]
-    public class AudioSourceDrawer : VariableDataDrawer<AudioSourceVariable>
-    { }
-
-    [CustomPropertyDrawer(typeof(Rigidbody2DData))]
-    public class Rigidbody2DDataDrawer : VariableDataDrawer<Rigidbody2DVariable>
-    { }
 }

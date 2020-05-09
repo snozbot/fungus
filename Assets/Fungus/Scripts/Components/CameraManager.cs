@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -43,8 +43,7 @@ namespace Fungus
         protected Vector3 previousMousePos;
         
 		//Coroutine handles for panning and fading commands
-		protected IEnumerator panCoroutine;
-		protected IEnumerator fadeCoroutine;
+        protected LTDescr fadeTween, sizeTween, camPosTween, camRotTween;
 
         protected class CameraView
         {
@@ -86,122 +85,6 @@ namespace Fungus
                 GUI.color = new Color(1,1,1, fadeAlpha);    
                 GUI.depth = -1000;
                 GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), screenFadeTexture);
-            }
-        }
-
-        protected virtual IEnumerator FadeInternal(float targetAlpha, float fadeDuration, Action fadeAction)
-        {
-            float startAlpha = fadeAlpha;
-            float timer = 0;
-            
-            // If already at the target alpha then complete immediately
-            if (Mathf.Approximately(startAlpha, targetAlpha))
-            {
-                yield return null;
-            }
-            else
-            {
-                while (timer < fadeDuration)
-                {
-                    float t = timer / fadeDuration;
-                    timer += Time.deltaTime;
-                    
-                    t = Mathf.Clamp01(t);   
-                    
-                    fadeAlpha = Mathf.Lerp(startAlpha, targetAlpha, t);
-                    yield return null;
-                }
-            }
-            
-            fadeAlpha = targetAlpha;
-            
-            if (fadeAction != null)
-            {
-                fadeAction();
-            }
-        }
-
-        protected virtual IEnumerator PanInternal(Camera camera, Vector3 targetPos, Quaternion targetRot, float targetSize, float duration, Action arriveAction)
-        {
-            if (camera == null)
-            {
-                Debug.LogWarning("Camera is null");
-                yield break;
-            }
-
-            float timer = 0;
-            float startSize = camera.orthographicSize;
-            float endSize = targetSize;
-            Vector3 startPos = camera.transform.position;
-            Vector3 endPos = targetPos;
-            Quaternion startRot = camera.transform.rotation;
-            Quaternion endRot = targetRot;
-            
-            bool arrived = false;
-            while (!arrived)
-            {
-                timer += Time.deltaTime;
-                if (timer > duration)
-                {
-                    arrived = true;
-                    timer = duration;
-                }
-                
-                // Apply smoothed lerp to camera position and orthographic size
-                float t = 1f;
-                if (duration > 0f)
-                {
-                    t = timer / duration;
-                }
-
-                if (camera != null)
-                {
-                    camera.orthographicSize = Mathf.Lerp(startSize, endSize, Mathf.SmoothStep(0f, 1f, t));
-                    camera.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0f, 1f, t));
-                    camera.transform.rotation = Quaternion.Lerp(startRot, endRot, Mathf.SmoothStep(0f, 1f, t));
-
-                    SetCameraZ(camera);
-                }
-
-                if (arrived &&
-                    arriveAction != null)
-                {
-                    arriveAction();
-                }
-                
-                yield return null;
-            }
-        }
-
-        protected virtual IEnumerator PanToPathInternal(Camera camera, float duration, Action arriveAction, Vector3[] path)
-        {
-            if (camera == null)
-            {
-                Debug.LogWarning("Camera is null");
-                yield break;
-            }
-
-            float timer = 0;
-            
-            while (timer < duration)
-            {
-                timer += Time.deltaTime;
-                timer = Mathf.Min(timer, duration);
-                float percent = timer / duration;
-                
-                Vector3 point = iTween.PointOnPath(path, percent);
-                
-                camera.transform.position = new Vector3(point.x, point.y, 0);
-                camera.orthographicSize = point.z;
-
-                SetCameraZ(camera);
-                
-                yield return null;
-            }
-            
-            if (arriveAction != null)
-            {
-                arriveAction();
             }
         }
 
@@ -303,41 +186,7 @@ namespace Fungus
         }
 
         #region Public members
-
-        /// <summary>
-        /// Moves camera smoothly through a sequence of Views over a period of time.
-        /// </summary>
-        public virtual void PanToPath(Camera camera, View[] viewList, float duration, Action arriveAction)
-        {
-            if (camera == null)
-            {
-                Debug.LogWarning("Camera is null");
-                return;
-            }
-
-            swipePanActive = false;
-
-            List<Vector3> pathList = new List<Vector3>();
-
-            // Add current camera position as first point in path
-            // Note: We use the z coord to tween the camera orthographic size
-            Vector3 startPos = new Vector3(camera.transform.position.x,
-                camera.transform.position.y,
-                camera.orthographicSize);
-            pathList.Add(startPos);
-
-            for (int i = 0; i < viewList.Length; ++i)
-            {
-                View view = viewList[i];
-
-                Vector3 viewPos = new Vector3(view.transform.position.x, 
-                    view.transform.position.y, 
-                    view.ViewSize);
-                pathList.Add(viewPos);
-            }
-			StartCoroutine(panCoroutine = PanToPathInternal (camera, duration, arriveAction, pathList.ToArray ()));
-        }
-
+        
         /// <summary>
         /// Creates a flat colored texture.
         /// </summary>
@@ -364,15 +213,35 @@ namespace Fungus
         /// <summary>
         /// Perform a fullscreen fade over a duration.
         /// </summary>
-        public virtual void Fade(float targetAlpha, float fadeDuration, Action fadeAction)
+        public virtual void Fade(float targetAlpha, float fadeDuration, Action fadeAction, LeanTweenType leanTweenType = LeanTweenType.easeInOutQuad)
         {
-			StartCoroutine(fadeCoroutine = FadeInternal (targetAlpha, fadeDuration, fadeAction));
+            StopFadeTween();
+
+            if (Mathf.Approximately(fadeDuration, 0))
+            {
+                fadeAlpha = targetAlpha;
+                if (fadeAction != null) fadeAction();
+            }
+            else
+            {
+                fadeTween = LeanTween.value(fadeAlpha, targetAlpha, fadeDuration)
+                    .setEase(leanTweenType)
+                    .setOnUpdate((x) => fadeAlpha = x)
+                    .setOnComplete(() =>
+                    {
+                        fadeAlpha = targetAlpha;
+                        if (fadeAction != null) fadeAction();
+                        fadeTween = null;
+                    });
+            }
         }
 
         /// <summary>
         /// Fade out, move camera to view and then fade back in.
         /// </summary>
-        public virtual void FadeToView(Camera camera, View view, float fadeDuration, bool fadeOut, Action fadeAction)
+        public virtual void FadeToView(Camera camera, View view, float fadeDuration, bool fadeOut, Action fadeAction, 
+            LeanTweenType fadeType = LeanTweenType.easeInOutQuad, LeanTweenType sizeTweenType = LeanTweenType.easeInOutQuad, 
+            LeanTweenType posTweenType = LeanTweenType.easeInOutQuad, LeanTweenType rotTweenType = LeanTweenType.easeInOutQuad)
         {
             swipePanActive = false;
             fadeAlpha = 0f;
@@ -395,7 +264,7 @@ namespace Fungus
             Fade(1f, outDuration, delegate {
 
                 // Snap to new view
-                PanToPosition(camera, view.transform.position, view.transform.rotation, view.ViewSize, 0f, null);
+                PanToPosition(camera, view.transform.position, view.transform.rotation, view.ViewSize, 0f, null, sizeTweenType, posTweenType, rotTweenType);
 
                 // Fade in
                 Fade(0f, inDuration, delegate {
@@ -403,8 +272,8 @@ namespace Fungus
                     {
                         fadeAction();
                     }
-                });
-            });
+                }, fadeType);
+            }, fadeType);
         }
 
         /// <summary>
@@ -412,15 +281,43 @@ namespace Fungus
         /// </summary>
         public virtual void Stop()
         {
-            StopAllCoroutines();
-			panCoroutine = null;
-			fadeCoroutine = null;
+            StopFadeTween();
+            StopPosTweens();
+        }
+
+        protected void StopFadeTween()
+        {
+            if (fadeTween != null)
+            {
+                LeanTween.cancel(fadeTween.id, true);
+                fadeTween = null;
+            }
+        }
+
+        protected void StopPosTweens()
+        {
+            if (sizeTween != null)
+            {
+                LeanTween.cancel(sizeTween.id, true);
+                sizeTween = null;
+            }
+            if (camPosTween != null)
+            {
+                LeanTween.cancel(camPosTween.id, true);
+                camPosTween = null;
+            }
+            if (camRotTween != null)
+            {
+                LeanTween.cancel(camRotTween.id, true);
+                camRotTween = null;
+            }
         }
 
         /// <summary>
         /// Moves camera from current position to a target position over a period of time.
         /// </summary>
-        public virtual void PanToPosition(Camera camera, Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, Action arriveAction)
+        public virtual void PanToPosition(Camera camera, Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, Action arriveAction,
+            LeanTweenType sizeTweenType = LeanTweenType.easeInOutQuad, LeanTweenType posTweenType = LeanTweenType.easeInOutQuad, LeanTweenType rotTweenType = LeanTweenType.easeInOutQuad)
         {
             if (camera == null)
             {
@@ -428,11 +325,13 @@ namespace Fungus
                 return;
             }
 
+            if(setCameraZ)
+            {
+                targetPosition.z = camera.transform.position.z;
+            }
+
             // Stop any pan that is currently active
-			if (panCoroutine != null) {
-				StopCoroutine(panCoroutine);
-				panCoroutine = null;
-			}
+            StopPosTweens();
             swipePanActive = false;
 
             if (Mathf.Approximately(duration, 0f))
@@ -451,7 +350,31 @@ namespace Fungus
             }
             else
             {
-				StartCoroutine(panCoroutine = PanInternal(camera, targetPosition, targetRotation, targetSize, duration, arriveAction));
+                sizeTween = LeanTween.value(camera.orthographicSize, targetSize, duration)
+                    .setEase(sizeTweenType)
+                    .setOnUpdate(x => camera.orthographicSize = x)
+                    .setOnComplete(() =>
+                    {
+                        camera.orthographicSize = targetSize;
+                        if (arriveAction != null) arriveAction();
+                        sizeTween = null;
+                    });
+
+                camPosTween = LeanTween.move(camera.gameObject, targetPosition, duration)
+                    .setEase(posTweenType)
+                    .setOnComplete(() =>
+                    {
+                        camera.transform.position = targetPosition;
+                        camPosTween = null;
+                    });
+
+                camRotTween = LeanTween.rotate(camera.gameObject, targetRotation.eulerAngles, duration)
+                    .setEase(rotTweenType)
+                    .setOnComplete(() =>
+                    {
+                        camera.transform.rotation = targetRotation;
+                        camRotTween = null;
+                    });
             }
         }
 

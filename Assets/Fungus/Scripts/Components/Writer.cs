@@ -1,11 +1,11 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -25,7 +25,7 @@ namespace Fungus
         /// <summary> Writing has resumed after a pause. </summary>
         Resume,
         /// <summary> Writing has ended. </summary>
-        End
+        End,
     }
 
     /// <summary>
@@ -57,6 +57,8 @@ namespace Fungus
         [Tooltip("Click while text is writing to finish writing immediately")]
         [SerializeField] protected bool instantComplete = true;
 
+        [SerializeField] protected bool doReadAheadText = true;
+
         // This property is true when the writer is waiting for user input to continue
         protected bool isWaitingForInput;
 
@@ -71,10 +73,38 @@ namespace Fungus
         protected bool italicActive = false;
         protected bool colorActive = false;
         protected string colorText = "";
+        protected bool linkActive = false;
+        protected string linkText = string.Empty;
         protected bool sizeActive = false;
         protected float sizeValue = 16f;
         protected bool inputFlag;
         protected bool exitFlag;
+
+        //holds number of Word tokens in the currently running Write
+        public int WordTokensFound { get; protected set; }
+
+        /// <summary>
+        /// Updated during writing of Word tokens, when processed tips over found, fires NotifyAllWordsWritten
+        /// </summary>
+        public virtual int WordTokensProcessed
+        {
+            get { return wordTokensProcessed; }
+            protected set
+            {
+                if(wordTokensProcessed < WordTokensFound && value >= WordTokensFound)
+                {
+                    NotifyAllWordsWritten();
+                }
+                wordTokensProcessed = value;
+            }
+        }
+        //holds count of number of Word tokens completed
+        protected int wordTokensProcessed;
+
+        /// <summary>
+        /// Does the currently processing list of Tokens have Word Tokens that are not yet processed
+        /// </summary>
+        public bool HasWordsRemaining { get { return WordTokensProcessed < WordTokensFound; } }
 
         protected List<IWriterListener> writerListeners = new List<IWriterListener>();
 
@@ -89,6 +119,7 @@ namespace Fungus
         protected string hiddenColorClose = "";
 
         protected int visibleCharacterCount = 0;
+        protected int readAheadStartIndex = 0;
         public WriterAudio AttachedWriterAudio { get; set; }
 
         protected virtual void Awake()
@@ -120,7 +151,7 @@ namespace Fungus
         {
             // Cache the hidden color string
             Color32 c = hiddenTextColor;
-            hiddenColorOpen = String.Format("<color=#{0:X2}{1:X2}{2:X2}{3:X2}>", c.r, c.g, c.b, c.a);
+            hiddenColorOpen = string.Format("<color=#{0:X2}{1:X2}{2:X2}{3:X2}>", c.r, c.g, c.b, c.a);
             hiddenColorClose = "</color>";
         }
 
@@ -148,7 +179,13 @@ namespace Fungus
                 {
                     openString.Append("<color=");
                     openString.Append(colorText);
-                    openString.Append(">"); 
+                    openString.Append(">");
+                }
+                if (linkActive)
+                {
+                    openString.Append("<link=");
+                    openString.Append(linkText);
+                    openString.Append(">");
                 }
                 if (boldActive)
                 {
@@ -177,7 +214,11 @@ namespace Fungus
                 }
                 if (colorActive)
                 {
-                    closeString.Append("</color>"); 
+                    closeString.Append("</color>");
+                }
+                if (linkActive)
+                {
+                    closeString.Append("</link>");
                 }
                 if (sizeActive)
                 {
@@ -206,19 +247,21 @@ namespace Fungus
             value = defaultValue;
             if (paramList.Count > index) 
             {
-                Single.TryParse(paramList[index], out value);
+                float.TryParse(paramList[index], out value);
                 return true;
             }
             return false;
         }
 
-        protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio, Action onComplete)
+        protected virtual IEnumerator ProcessTokens(List<TextTagToken> tokens, bool stopAudio, System.Action onComplete)
         {
             // Reset control members
             boldActive = false;
             italicActive = false;
             colorActive = false;
             sizeActive = false;
+            WordTokensFound = tokens.Count(x => x.type == TokenType.Words);
+            WordTokensProcessed = 0;
             colorText = "";
             sizeValue = 16f;
             currentPunctuationPause = punctuationPause;
@@ -241,22 +284,25 @@ namespace Fungus
 
                 // Notify listeners about new token
                 WriterSignals.DoTextTagToken(this, token, i, tokens.Count);
-               
+                
                 // Update the read ahead string buffer. This contains the text for any 
                 // Word tags which are further ahead in the list. 
-                readAheadString.Length = 0;
-                for (int j = i + 1; j < tokens.Count; ++j)
+                if (doReadAheadText)
                 {
-                    var readAheadToken = tokens[j];
+                    readAheadString.Length = 0;
+                    for (int j = i + 1; j < tokens.Count; ++j)
+                    {
+                        var readAheadToken = tokens[j];
 
-                    if (readAheadToken.type == TokenType.Words &&
-                        readAheadToken.paramList.Count == 1)
-                    {
-                        readAheadString.Append(readAheadToken.paramList[0]);
-                    }
-                    else if (readAheadToken.type == TokenType.WaitForInputAndClear)
-                    {
-                        break;
+                        if (readAheadToken.type == TokenType.Words &&
+                            readAheadToken.paramList.Count == 1)
+                        {
+                            readAheadString.Append(readAheadToken.paramList[0]);
+                        }
+                        else if (readAheadToken.type == TokenType.WaitForInputAndClear)
+                        {
+                            break;
+                        }
                     }
                 }
 
@@ -264,6 +310,7 @@ namespace Fungus
                 {
                 case TokenType.Words:
                     yield return StartCoroutine(DoWords(token.paramList, previousTokenType));
+                    WordTokensProcessed++;
                     break;
                     
                 case TokenType.BoldStart:
@@ -292,6 +339,18 @@ namespace Fungus
                     
                 case TokenType.ColorEnd:
                     colorActive = false;
+                    break;
+
+                case TokenType.LinkStart:
+                    if (CheckParamCount(token.paramList, 1))
+                    {
+                        linkActive = true;
+                        linkText = token.paramList[0];
+                    }
+                    break;
+
+                case TokenType.LinkEnd:
+                    linkActive = false;
                     break;
 
                 case TokenType.SizeStart:
@@ -495,59 +554,92 @@ namespace Fungus
             UpdateCloseMarkup();
 
             float timeAccumulator = Time.deltaTime;
+            float invWritingSpeed = 1f / currentWritingSpeed;
 
-            for (int i = 0; i < param.Length + 1; ++i)
-            {
-                // Exit immediately if the exit flag has been set
-                if (exitFlag)
-                {
-                    break;
-                }
+            //refactor this, its mostly the same 30 lines of code
+            if (textAdapter.SupportsHiddenCharacters())
+            { 
+                //pausing for 1 frame means we can get better first data, but is conflicting with animation ?
+                //  or is it something else inserting the color alpha invis 
+                yield return null;
+                //this works for first thing being shown but then no subsequent, as the char counts have not been update
+                // by tmpro after the set to ""
+                var startingReveal = Mathf.Min(readAheadStartIndex, textAdapter.CharactersToReveal);
+                PartitionString(writeWholeWords, param, param.Length + 1);
 
-                // Pause mid sentence if Paused is set
-                while (Paused)
-                {
-                    yield return null;
-                }
-
-                //actually grab the next chars
-                PartitionString(writeWholeWords, param, i);
                 ConcatenateString(startText);
                 textAdapter.Text = outputString.ToString();
 
                 NotifyGlyph();
+                textAdapter.RevealedCharacters = startingReveal;
+                yield return null;
 
-                // No delay if user has clicked and Instant Complete is enabled
-                if (instantComplete && inputFlag)
+                while (textAdapter.RevealedCharacters < Mathf.Min(readAheadStartIndex, textAdapter.CharactersToReveal))
                 {
-                    continue;
-                }
-
-                // Punctuation pause
-                if (leftString.Length > 0 && 
-                    rightString.Length > 0 &&
-                    IsPunctuation(leftString.ToString(leftString.Length - 1, 1)[0]))
-                {
-                    yield return StartCoroutine(DoWait(currentPunctuationPause));
-                }
-
-                // Delay between characters
-                if (currentWritingSpeed > 0f)
-                {
-                    float invWritingSpeed = 1f / currentWritingSpeed;
-
-                    timeAccumulator -= invWritingSpeed;
-                    if (timeAccumulator <= 0f)
+                    // No delay if user has clicked and Instant Complete is enabled
+                    if (instantComplete && inputFlag)
                     {
-                        if (invWritingSpeed > Time.deltaTime)
+                        textAdapter.RevealedCharacters = textAdapter.CharactersToReveal;
+                    }
+
+                    if (currentWritingSpeed > 0f)
+                    {
+                        textAdapter.RevealedCharacters++;
+                        timeAccumulator -= invWritingSpeed;
+                        if (timeAccumulator <= 0f)
                         {
-                            yield return new WaitForSeconds(invWritingSpeed);
-                            timeAccumulator += invWritingSpeed;
+                            var waitTime = Mathf.Max(invWritingSpeed, Time.deltaTime);
+                            yield return new WaitForSeconds(waitTime);
+                            timeAccumulator += waitTime;
                         }
-                        else
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < param.Length + 1; ++i)
+                {   
+                    if (exitFlag)
+                    {
+                        break;
+                    }
+
+                    // Pause mid sentence if Paused is set
+                    while (Paused)
+                    {
+                        yield return null;
+                    }
+
+                    PartitionString(writeWholeWords, param, i);
+                    ConcatenateString(startText);
+                    textAdapter.Text = outputString.ToString();
+
+                    NotifyGlyph();
+
+                    // No delay if user has clicked and Instant Complete is enabled
+                    if (instantComplete && inputFlag)
+                    {
+                        continue;
+                    }
+
+                    // Punctuation pause
+                    if (leftString.Length > 0 &&
+                        rightString.Length > 0 &&
+                        IsPunctuation(leftString.ToString(leftString.Length - 1, 1)[0]))
+                    {
+                        //timeAccumulator -= currentPunctuationPause; ???
+                        yield return StartCoroutine(DoWait(currentPunctuationPause));
+                    }
+
+                    // Delay between characters
+                    if (currentWritingSpeed > 0f)
+                    {
+                        timeAccumulator -= invWritingSpeed;
+                        if (timeAccumulator <= 0f)
                         {
-                            yield return null;
-                            timeAccumulator += Time.deltaTime;
+                            var waitTime = Mathf.Max(invWritingSpeed, Time.deltaTime);
+                            yield return new WaitForSeconds(waitTime);
+                            timeAccumulator += waitTime;
                         }
                     }
                 }
@@ -573,7 +665,7 @@ namespace Fungus
                 // Look ahead to find next whitespace or end of string
                 for (int j = i; j < inputString.Length + 1; ++j)
                 {
-                    if (j == inputString.Length || Char.IsWhiteSpace(inputString[j]))
+                    if (j == inputString.Length || char.IsWhiteSpace(inputString[j]))
                     {
                         leftString.Length = j;
                         rightString.Remove(0, j);
@@ -591,6 +683,7 @@ namespace Fungus
         protected virtual void ConcatenateString(string startText)
         {
             outputString.Length = 0;
+            readAheadStartIndex = int.MaxValue;
 
             // string tempText = startText + openText + leftText + closeText;
             outputString.Append(startText);
@@ -612,6 +705,8 @@ namespace Fungus
                     CacheHiddenColorStrings();
                 }
 
+                readAheadStartIndex = outputString.Length;
+
                 outputString.Append(hiddenColorOpen);
                 outputString.Append(rightString);
                 outputString.Append(readAheadString);
@@ -628,7 +723,7 @@ namespace Fungus
             }
 
             float duration = 1f;
-            if (!Single.TryParse(param, out duration))
+            if (!float.TryParse(param, out duration))
             {
                 duration = 1f;
             }
@@ -781,6 +876,15 @@ namespace Fungus
             }
         }
 
+        protected virtual void NotifyAllWordsWritten()
+        {
+            for (int i = 0; i < writerListeners.Count; i++)
+            {
+                var writerListener = writerListeners[i];
+                writerListener.OnAllWordsWritten();
+            }
+        }
+
         protected virtual void NotifyEnd(bool stopAudio)
         {
             WriterSignals.DoWriterState(this, WriterState.End);
@@ -841,7 +945,7 @@ namespace Fungus
         /// <param name="waitForVO">Wait for the Voice over to complete before proceeding</param>
         /// <param name="audioClip">Audio clip to play when text starts writing.</param>
         /// <param name="onComplete">Callback to call when writing is finished.</param>
-        public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, bool waitForVO, AudioClip audioClip, Action onComplete)
+        public virtual IEnumerator Write(string content, bool clear, bool waitForInput, bool stopAudio, bool waitForVO, AudioClip audioClip, System.Action onComplete)
         {
             if (clear)
             {

@@ -1,4 +1,4 @@
-﻿// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using System.Collections;
@@ -422,8 +422,9 @@ namespace Fungus
                 }
 
                 if (stage != null && currentCharacter != null &&
-                    (currentPortrait != currentCharacter.State.portrait || 
-                        currentPosition != currentCharacter.State.position))
+                    (currentPortrait != currentCharacter.State.portrait ||
+                        currentPosition != currentCharacter.State.position ||
+                        (currentCharacter.State.display == DisplayType.Hide && !item.Hide)))
                 {
                     var portraitOptions = new PortraitOptions(true);
                     portraitOptions.display = item.Hide ? DisplayType.Hide : DisplayType.Show;

@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 ﻿using UnityEngine;
@@ -137,7 +137,7 @@ namespace Fungus
             for (int i = 0; i < dragCompletedHandlers.Count; i++)
             {
                 var handler = dragCompletedHandlers[i];
-                if (handler != null && handler.DraggableObject == this)
+                if (handler != null && handler.DraggableObjects.Contains(this))
                 {
                     if (handler.IsOverTarget())
                     {

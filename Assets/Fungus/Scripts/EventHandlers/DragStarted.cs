@@ -1,7 +1,8 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Fungus
 {
@@ -12,17 +13,24 @@ namespace Fungus
                       "Drag Started",
                       "The block will execute when the player starts dragging an object.")]
     [AddComponentMenu("")]
-    public class DragStarted : EventHandler
-    {   
+    public class DragStarted : EventHandler, ISerializationCallbackReceiver
+    {
         public class DragStartedEvent
         {
             public Draggable2D DraggableObject;
+
             public DragStartedEvent(Draggable2D draggableObject)
             {
                 DraggableObject = draggableObject;
             }
         }
 
+        [VariableProperty(typeof(GameObjectVariable))]
+        [SerializeField] protected GameObjectVariable draggableRef;
+
+        [SerializeField] protected List<Draggable2D> draggableObjects;
+
+        [HideInInspector]
         [SerializeField] protected Draggable2D draggableObject;
 
         protected EventDispatcher eventDispatcher;
@@ -41,10 +49,31 @@ namespace Fungus
             eventDispatcher = null;
         }
 
-        void OnDragStartedEvent(DragStartedEvent evt)
+        private void OnDragStartedEvent(DragStartedEvent evt)
         {
             OnDragStarted(evt.DraggableObject);
         }
+
+        #region Compatibility
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            //add any dragableobject already present to list for backwards compatability
+            if (draggableObject != null)
+            {
+                if (!draggableObjects.Contains(draggableObject))
+                {
+                    draggableObjects.Add(draggableObject);
+                }
+                draggableObject = null;
+            }
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+        }
+
+        #endregion Compatibility
 
         #region Public members
 
@@ -53,22 +82,38 @@ namespace Fungus
         /// </summary>
         public virtual void OnDragStarted(Draggable2D draggableObject)
         {
-            if (draggableObject == this.draggableObject)
+            if (draggableObjects.Contains(draggableObject))
             {
+                if (draggableRef != null)
+                {
+                    draggableRef.Value = draggableObject.gameObject;
+                }
                 ExecuteBlock();
             }
         }
 
         public override string GetSummary()
         {
-            if (draggableObject != null)
+            string summary = "Draggable: ";
+            if (this.draggableObjects != null && this.draggableObjects.Count != 0)
             {
-                return draggableObject.name;
+                for (int i = 0; i < this.draggableObjects.Count; i++)
+                {
+                    if (draggableObjects[i] != null)
+                    {
+                        summary += draggableObjects[i].name + ",";
+                    }
+                }
             }
-            
-            return "None";
+
+            if (summary.Length == 0)
+            {
+                return "None";
+            }
+
+            return summary;
         }
 
-        #endregion
+        #endregion Public members
     }
 }

@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -116,7 +116,7 @@ namespace Fungus
             if (stage == null)
             {
                 // If no default specified, try to get any portrait stage in the scene
-                stage = FindObjectOfType<Stage>();
+                stage = Stage.GetActiveStage();
                 // If portrait stage does not exist, do nothing
                 if (stage == null)
                 {

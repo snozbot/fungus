@@ -1,3 +1,6 @@
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,7 +63,7 @@ namespace Fungus
             }
 
             // Cache a descriptive name to use in Lua error messages
-            friendlyName = gameObject.name + "." + ParentBlock.BlockName + "." + this.GetType().ToString() + " #" + CommandIndex.ToString();
+            friendlyName = GetLocationIdentifier();
 
             Flowchart flowchart = GetFlowchart();
 
@@ -108,17 +111,6 @@ namespace Fungus
 			}
 
 			return luaCompareString;
-		}
-
-
-		public override bool OpenBlock()
-		{
-			return true;
-		}
-
-		public override Color GetButtonColor()
-		{
-			return new Color32(253, 253, 150, 255);
 		}
 
 		#endregion

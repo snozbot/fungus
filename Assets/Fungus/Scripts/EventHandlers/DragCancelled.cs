@@ -1,7 +1,8 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Fungus
 {
@@ -12,18 +13,25 @@ namespace Fungus
                       "Drag Cancelled",
                       "The block will execute when the player drags an object and releases it without dropping it on a target object.")]
     [AddComponentMenu("")]
-    public class DragCancelled : EventHandler
-    {   
+    public class DragCancelled : EventHandler, ISerializationCallbackReceiver
+    {
         public class DragCancelledEvent
         {
             public Draggable2D DraggableObject;
+
             public DragCancelledEvent(Draggable2D draggableObject)
             {
                 DraggableObject = draggableObject;
             }
         }
 
+        [VariableProperty(typeof(GameObjectVariable))]
+        [SerializeField] protected GameObjectVariable draggableRef;
+
         [Tooltip("Draggable object to listen for drag events on")]
+        [SerializeField] protected List<Draggable2D> draggableObjects;
+
+        [HideInInspector]
         [SerializeField] protected Draggable2D draggableObject;
 
         protected EventDispatcher eventDispatcher;
@@ -47,26 +55,61 @@ namespace Fungus
             OnDragCancelled(evt.DraggableObject);
         }
 
+        #region Compatibility
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            //add any dragableobject already present to list for backwards compatability
+            if (draggableObject != null)
+            {
+                if (!draggableObjects.Contains(draggableObject))
+                {
+                    draggableObjects.Add(draggableObject);
+                }
+                draggableObject = null;
+            }
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+        }
+
+        #endregion Compatibility
+
         #region Public members
 
         public virtual void OnDragCancelled(Draggable2D draggableObject)
         {
-            if (draggableObject == this.draggableObject)
+            if (draggableObjects.Contains(draggableObject))
             {
+                if (draggableRef != null)
+                {
+                    draggableRef.Value = draggableObject.gameObject;
+                }
                 ExecuteBlock();
             }
         }
 
         public override string GetSummary()
         {
-            if (draggableObject != null)
+            string summary = "Draggable: ";
+            if (this.draggableObjects != null && this.draggableObjects.Count != 0)
             {
-                return draggableObject.name;
+                for (int i = 0; i < this.draggableObjects.Count; i++)
+                {
+                    if (draggableObjects[i] != null)
+                    {
+                        summary += draggableObjects[i].name + ",";
+                    }
+                }
+                return summary;
             }
-            
-            return "None";
+            else
+            {
+                return "None";
+            }
         }
 
-        #endregion
+        #endregion Public members
     }
 }

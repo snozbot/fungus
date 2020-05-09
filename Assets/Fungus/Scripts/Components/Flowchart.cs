@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -798,6 +798,23 @@ namespace Fungus
 
             Debug.LogWarning("Variable " + key + " not found.");
             return null;
+        }
+
+        /// <summary>
+        /// Returns a list of variables matching the specified type.
+        /// </summary>
+        public virtual List<T> GetVariables<T>() where T: Variable
+        {
+            var varsFound = new List<T>();
+            
+            for (int i = 0; i < Variables.Count; i++)
+            {
+                var currentVar = Variables[i];
+                if (currentVar is T)
+                    varsFound.Add(currentVar as T);
+            }
+
+            return varsFound;
         }
 
         /// <summary>

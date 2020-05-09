@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -13,45 +13,21 @@ namespace Fungus
     [System.Serializable]
     public class BooleanVariable : VariableBase<bool>
     {
-        public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
-        public static readonly SetOperator[] setOperators = { SetOperator.Assign, SetOperator.Negate };
-
-        public virtual bool Evaluate(CompareOperator compareOperator, bool booleanValue)
+        public override bool IsArithmeticSupported(SetOperator setOperator)
         {
-            bool condition = false;
-            
-            bool lhs = Value;
-            bool rhs = booleanValue;
-            
-            switch (compareOperator)
-            {
-                case CompareOperator.Equals:
-                    condition = lhs == rhs;
-                    break;
-                case CompareOperator.NotEquals:
-                    condition = lhs != rhs;
-                    break;
-                default:
-                    Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
-                    break;
-            }
-            
-            return condition;
+            return setOperator == SetOperator.Negate || base.IsArithmeticSupported(setOperator);
         }
 
-        public override void Apply(SetOperator setOperator, bool value)
+        public override void Apply(SetOperator op, bool value)
         {
-            switch (setOperator)
+            switch (op)
             {
-                case SetOperator.Assign:
-                    Value = value;
-                    break;
-                case SetOperator.Negate:
-                    Value = !value;
-                    break;
-                default:
-                    Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
-                    break;
+            case SetOperator.Negate:
+                Value = !value;
+                break;
+            default:
+                base.Apply(op, value);
+                break;
             }
         }
     }

@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
@@ -34,6 +34,11 @@ namespace Fungus
 
         [Tooltip("Camera to use for the fade. Will use main camera if set to none.")]
         [SerializeField] protected Camera targetCamera;
+
+        [SerializeField] protected LeanTweenType fadeTweenType = LeanTweenType.easeInOutQuad;
+        [SerializeField] protected LeanTweenType orthoSizeTweenType = LeanTweenType.easeInOutQuad;
+        [SerializeField] protected LeanTweenType posTweenType = LeanTweenType.easeInOutQuad;
+        [SerializeField] protected LeanTweenType rotTweenType = LeanTweenType.easeInOutQuad;
 
         protected virtual void Start()
         {
@@ -87,7 +92,7 @@ namespace Fungus
                 {
                     Continue();
                 }
-            });
+            }, fadeTweenType, orthoSizeTweenType, posTweenType, rotTweenType);
 
             if (!waitUntilFinished)
             {

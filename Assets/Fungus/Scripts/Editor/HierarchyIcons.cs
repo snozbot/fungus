@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -67,7 +70,7 @@ namespace Fungus
             // place the icon to the left of the element
             Rect r = new Rect(selectionRect);
 #if UNITY_2019_1_OR_NEWER
-            r.x -= r.height;
+            r.x -= 28;  //this would make sense as singleLineHeight *2 but it isn't as that includes padding
 #else
             r.x = 0;
 #endif

@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using System;
@@ -14,7 +14,7 @@ using UnityEngine.Serialization;
                  "Play Usfxr Sound", 
                  "Plays a usfxr synth sound. Use the usfxr editor [Tools > Fungus > Utilities > Generate usfxr Sound Effects] to create the SettingsString. Set a ParentTransform if using positional sound. See https://github.com/zeh/usfxr for more information about usfxr.")]
     [AddComponentMenu("")]
-    [ExecuteInEditMode]
+    //[ExecuteInEditMode]
     public class PlayUsfxrSound : Command
     {
         [Tooltip("Transform to use for positional audio")]
@@ -29,9 +29,9 @@ using UnityEngine.Serialization;
         protected SfxrSynth _synth = new SfxrSynth();
 
         //Call this if the settings have changed
-        protected virtual void UpdateCache() 
+        protected virtual void UpdateCache()  
         {
-            if (_SettingsString.Value != null) 
+            if (!string.IsNullOrEmpty(_SettingsString.Value)) 
             {
                 _synth.parameters.SetSettingsString(_SettingsString.Value);
                 _synth.CacheSound();
@@ -101,6 +101,12 @@ using UnityEngine.Serialization;
                 _SettingsString.Value = SettingsStringOLD;
                 SettingsStringOLD = "";
             }
+        }
+
+        public override void OnValidate()
+        {
+            OnEnable();
+            base.OnValidate();
         }
 
         #endregion

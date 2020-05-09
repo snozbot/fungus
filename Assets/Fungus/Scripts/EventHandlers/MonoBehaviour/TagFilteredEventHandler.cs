@@ -1,3 +1,6 @@
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,17 +18,15 @@ namespace Fungus
 
         protected void ProcessTagFilter(string tagOnOther)
         {
-            if (tagFilter.Length == 0)
+            if (DoesPassFilter(tagOnOther))
             {
                 ExecuteBlock();
             }
-            else
-            {
-                if (System.Array.IndexOf(tagFilter, tagOnOther) != -1)
-                {
-                    ExecuteBlock();
-                }
-            }
+        }
+
+        protected bool DoesPassFilter(string tagOnOther)
+        {
+            return tagFilter.Length == 0 || System.Array.IndexOf(tagFilter, tagOnOther) != -1;
         }
     }
 }

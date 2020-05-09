@@ -1,3 +1,6 @@
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using UnityEngine;
 using UnityEngine.UI;
 using System.Reflection;
@@ -84,7 +87,7 @@ namespace Fungus
             }
 
 #if UNITY_2018_1_OR_NEWER
-            if(tmpro != null)
+            if (tmpro != null)
             {
                 tmpro.richText = true;
             }
@@ -164,7 +167,7 @@ namespace Fungus
         {
             return (textUI != null || inputField != null || textMesh != null || textComponent != null ||
 #if UNITY_2018_1_OR_NEWER
-                tmpro !=null ||
+                tmpro != null ||
 #endif
                  writerTextDestination != null);
         }
@@ -194,6 +197,54 @@ namespace Fungus
                 return writerTextDestination.SupportsRichText();
             }
             return false;
+        }
+
+        public bool SupportsHiddenCharacters()
+        {
+#if UNITY_2018_1_OR_NEWER
+            if (tmpro != null)
+            {
+                return true;
+            }
+#endif
+            return false;
+        }
+
+        public int RevealedCharacters
+        {
+            get
+            {
+#if UNITY_2018_1_OR_NEWER
+                if (tmpro != null)
+                {
+                    return tmpro.maxVisibleCharacters;
+                }
+#endif
+                return 0;
+            }
+            set
+            {
+#if UNITY_2018_1_OR_NEWER
+                if (tmpro != null)
+                {
+                    tmpro.maxVisibleCharacters = value;
+                }
+#endif
+            }
+        }
+
+        public int CharactersToReveal
+        {
+            get
+            {
+#if UNITY_2018_1_OR_NEWER
+                if (tmpro != null)
+                {
+                    return tmpro.textInfo.characterCount;
+                }
+#endif
+                return 0;
+            }
         }
 
         public virtual string Text

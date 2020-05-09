@@ -1,7 +1,6 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,26 +9,20 @@ namespace Fungus
     /// <summary>
     /// A single line of dialog
     /// </summary>
-    [Serializable]
-    public class Line
+    [System.Serializable]
+    public class NarrativeLogEntry
     {
         [SerializeField] public string name;
         [SerializeField] public string text;
-
     }
 
     /// <summary>
     /// Serializable object to store Narrative Lines
     /// </summary>
-    [Serializable]
+    [System.Serializable]
     public class NarrativeData
     {
-        [SerializeField] public List<Line> lines;
-
-        public NarrativeData() {
-            lines = new List<Line>();
-        }
-        
+        public List<NarrativeLogEntry> entries = new List<NarrativeLogEntry>();
     }
 
     /// <summary>
@@ -37,19 +30,38 @@ namespace Fungus
     /// </summary>
     public class NarrativeLog : MonoBehaviour
     {
-
         /// <summary>
         /// NarrativeAdded signal. Sent when a line is added.
         /// </summary>
         public static event NarrativeAddedHandler OnNarrativeAdded;
-        public delegate void NarrativeAddedHandler();
-        public static void DoNarrativeAdded() { if (OnNarrativeAdded != null) OnNarrativeAdded(); }
+        public delegate void NarrativeAddedHandler(NarrativeLogEntry data);
+        public static void DoNarrativeAdded(NarrativeLogEntry data)
+        {
+            if (OnNarrativeAdded != null)
+            {
+                OnNarrativeAdded(data);
+            }
+        }
+
+        /// <summary>
+        /// Signal sent when log history is cleared or loaded
+        /// </summary>
+        public static System.Action OnNarrativeLogClear;
+        public static void DoNarrativeCleared()
+        {
+            if (OnNarrativeLogClear != null)
+            {
+                OnNarrativeLogClear();
+            }
+        }
+
 
         NarrativeData history;
 
         protected virtual void Awake()
         {
             history = new NarrativeData();
+            DoNarrativeCleared();
         }
 
         protected virtual void OnEnable()
@@ -67,27 +79,28 @@ namespace Fungus
             if (writerState == WriterState.End)
             {
                 var sd = SayDialog.GetSayDialog();
-                var from = sd.NameText;
-                var line = sd.StoryText;
 
-                AddLine(from, line);
+                if (sd != null)
+                {
+                    NarrativeLogEntry entry = new NarrativeLogEntry()
+                    {
+                        name = sd.NameText,
+                        text = sd.StoryText
+                    };
+                    AddLine(entry);
+                }
             }
         }
 
         #region Public Methods
-        
+
         /// <summary>
         /// Add a line of dialog to the Narrative Log
         /// </summary>
-        /// <param name="name">Character Name</param>
-        /// <param name="text">Narrative Text</param>
-        public void AddLine(string name, string text)
+        public void AddLine(NarrativeLogEntry entry)
         {
-            Line line = new Line();
-            line.name = name;
-            line.text = text;
-            history.lines.Add(line);
-            DoNarrativeAdded();
+            history.entries.Add(entry);
+            DoNarrativeAdded(entry);
         }
 
         /// <summary>
@@ -96,7 +109,9 @@ namespace Fungus
         /// </summary>
         public void Clear()
         {
-            history.lines.Clear();
+            history.entries.Clear();
+
+            DoNarrativeCleared();
         }
 
         /// <summary>
@@ -118,12 +133,12 @@ namespace Fungus
             string output = "\n ";
             int count;
 
-            count = previousOnly ? history.lines.Count - 1: history.lines.Count;
+            count = previousOnly ? history.entries.Count - 1 : history.entries.Count;
 
             for (int i = 0; i < count; i++)
             {
-                output += "<b>" + history.lines[i].name + "</b>\n";
-                output += history.lines[i].text + "\n\n";
+                output += "<b>" + history.entries[i].name + "</b>\n";
+                output += history.entries[i].text + "\n\n";
             }
             return output;
         }
@@ -140,6 +155,8 @@ namespace Fungus
                 return;
             }
             history = JsonUtility.FromJson<NarrativeData>(narrativeData);
+
+            DoNarrativeCleared();
         }
         #endregion
     }

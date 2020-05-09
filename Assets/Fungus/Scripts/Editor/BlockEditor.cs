@@ -1,4 +1,4 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEditor;
@@ -8,8 +8,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.IO;
 using System.Reflection;
 
 namespace Fungus.EditorUtils
@@ -456,6 +454,8 @@ namespace Fungus.EditorUtils
             int selectedIndex = 0;
             blockNames.Add(nullLabel);
             var blocks = flowchart.GetComponents<Block>();
+            blocks = blocks.OrderBy(x => x.BlockName).ToArray();
+
             for (int i = 0; i < blocks.Length; ++i)
             {
                 blockNames.Add(new GUIContent(blocks[i].BlockName));
@@ -494,6 +494,8 @@ namespace Fungus.EditorUtils
             int selectedIndex = 0;
             blockNames.Add(nullLabel);
             Block[] blocks = flowchart.GetComponents<Block>();
+            blocks = blocks.OrderBy(x => x.BlockName).ToArray();
+
             for (int i = 0; i < blocks.Length; ++i)
             {
 				blockNames.Add(new GUIContent(blocks[i].BlockName));
@@ -516,187 +518,6 @@ namespace Fungus.EditorUtils
 
             return result;
         }
-
-        [MenuItem("Tools/Fungus/Utilities/Export Reference Docs")]
-        protected static void ExportReferenceDocs()
-        {
-            const string path = "./Docs";
-
-            ExportCommandInfo(path);
-            ExportEventHandlerInfo(path);
-
-            FlowchartWindow.ShowNotification("Exported Reference Documentation");
-        }
-
-        public static List<KeyValuePair<System.Type, CommandInfoAttribute>> GetFilteredCommandInfoAttribute(List<System.Type> menuTypes)
-        {
-            Dictionary<string, KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = new Dictionary<string, KeyValuePair<System.Type, CommandInfoAttribute>>();
-
-            foreach (System.Type type in menuTypes)
-            {
-                object[] attributes = type.GetCustomAttributes(false);
-                foreach (object obj in attributes)
-                {
-                    CommandInfoAttribute infoAttr = obj as CommandInfoAttribute;
-                    if (infoAttr != null)
-                    {
-                        string dictionaryName = string.Format("{0}/{1}", infoAttr.Category, infoAttr.CommandName);
-
-                        int existingItemPriority = -1;
-                        if (filteredAttributes.ContainsKey(dictionaryName))
-                        {
-                            existingItemPriority = filteredAttributes[dictionaryName].Value.Priority;
-                        }
-
-                        if (infoAttr.Priority > existingItemPriority)
-                        {
-                            KeyValuePair<System.Type, CommandInfoAttribute> keyValuePair = new KeyValuePair<System.Type, CommandInfoAttribute>(type, infoAttr);
-                            filteredAttributes[dictionaryName] = keyValuePair;
-                        }
-                    }
-                }
-            }
-            return filteredAttributes.Values.ToList<KeyValuePair<System.Type, CommandInfoAttribute>>();
-        }
-
-
-        // Compare delegate for sorting the list of command attributes
-        public static int CompareCommandAttributes(KeyValuePair<System.Type, CommandInfoAttribute> x, KeyValuePair<System.Type, CommandInfoAttribute> y)
-        {
-            int compare = (x.Value.Category.CompareTo(y.Value.Category));
-            if (compare == 0)
-            {
-                compare = (x.Value.CommandName.CompareTo(y.Value.CommandName));
-            }
-            return compare;
-        }
-
-        protected static void ExportCommandInfo(string path)
-        {
-            // Dump command info
-            List<System.Type> menuTypes = EditorExtensions.FindDerivedTypes(typeof(Command)).ToList();
-            List<KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = GetFilteredCommandInfoAttribute(menuTypes);
-            filteredAttributes.Sort(CompareCommandAttributes);
-
-            // Build list of command categories
-            List<string> commandCategories = new List<string>();
-            foreach (var keyPair in filteredAttributes)
-            {
-                CommandInfoAttribute info = keyPair.Value;
-                if (info.Category != "" &&
-                    !commandCategories.Contains(info.Category))
-                {
-                    commandCategories.Add(info.Category);
-                }
-            }
-            commandCategories.Sort();
-
-            // Output the commands in each category
-            foreach (string category in commandCategories)
-            {
-                string markdown = "# " + category + " commands # {#" + category.ToLower() + "_commands}\n\n";
-                markdown += "[TOC]\n";
-
-                foreach (var keyPair in filteredAttributes)
-                {
-                    CommandInfoAttribute info = keyPair.Value;
-
-                    if (info.Category == category ||
-                        info.Category == "" && category == "Scripting")
-                    {
-                        markdown += "# " + info.CommandName + " # {#" + info.CommandName.Replace(" ", "") + "}\n";
-                        markdown += info.HelpText + "\n\n";
-                        markdown += "Defined in " + keyPair.Key.FullName + "\n";
-                        markdown += GetPropertyInfo(keyPair.Key);
-                    }
-                }
-
-                string filePath = path + "/command_ref/" + category.ToLower() + "_commands.md";
-
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                File.WriteAllText(filePath, markdown);
-            }
-        }
-
-        protected static void ExportEventHandlerInfo(string path)
-        {
-            List<System.Type> eventHandlerTypes = EditorExtensions.FindDerivedTypes(typeof(EventHandler)).ToList();
-            List<string> eventHandlerCategories = new List<string>();
-            eventHandlerCategories.Add("Core");
-            foreach (System.Type type in eventHandlerTypes)
-            {
-                EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
-                if (info != null &&
-                    info.Category != "" &&
-                    !eventHandlerCategories.Contains(info.Category))
-                {
-                    eventHandlerCategories.Add(info.Category);
-                }
-            }
-            eventHandlerCategories.Sort();
-
-            // Output the commands in each category
-            foreach (string category in eventHandlerCategories)
-            {
-                string markdown = "# " + category + " event handlers # {#" + category.ToLower() + "_events}\n\n";
-                markdown += "[TOC]\n";
-
-                foreach (System.Type type in eventHandlerTypes)
-                {
-                    EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(type);
-
-                    if (info != null &&
-                        (info.Category == category ||
-                         (info.Category == "" && category == "Core")))
-                    {
-                        markdown += "# " + info.EventHandlerName + " # {#" + info.EventHandlerName.Replace(" ", "") + "}\n";
-                        markdown += info.HelpText + "\n\n";
-                        markdown += "Defined in " + type.FullName + "\n";
-                        markdown += GetPropertyInfo(type);
-                    }
-                }
-
-                string filePath = path + "/command_ref/" + category.ToLower() + "_events.md";
-
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-                File.WriteAllText(filePath, markdown);
-            }
-        }
-
-        protected static string GetPropertyInfo(System.Type type)
-        {
-            string markdown = "";
-            foreach (FieldInfo field in type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
-            {
-                TooltipAttribute attribute = (TooltipAttribute)Attribute.GetCustomAttribute(field, typeof(TooltipAttribute));
-                if (attribute == null)
-                {
-                    continue;
-                }
-
-                // Change field name to how it's displayed in the inspector
-                string propertyName = Regex.Replace(field.Name, "(\\B[A-Z])", " $1");
-                if (propertyName.Length > 1)
-                {
-                    propertyName = propertyName.Substring(0, 1).ToUpper() + propertyName.Substring(1);
-                }
-                else
-                {
-                    propertyName = propertyName.ToUpper();
-                }
-
-                markdown += propertyName + " | " + field.FieldType + " | " + attribute.tooltip + "\n";
-            }
-
-            if (markdown.Length > 0)
-            {
-                markdown = "\nProperty | Type | Description\n --- | --- | ---\n" + markdown + "\n";
-            }
-
-            return markdown;
-        }
-
-
 
         public virtual void ShowContextMenu()
         {
@@ -1082,6 +903,50 @@ namespace Fungus.EditorUtils
             }
 
             Repaint();
+        }
+
+
+
+        public static List<KeyValuePair<System.Type, CommandInfoAttribute>> GetFilteredCommandInfoAttribute(List<System.Type> menuTypes)
+        {
+            Dictionary<string, KeyValuePair<System.Type, CommandInfoAttribute>> filteredAttributes = new Dictionary<string, KeyValuePair<System.Type, CommandInfoAttribute>>();
+
+            foreach (System.Type type in menuTypes)
+            {
+                object[] attributes = type.GetCustomAttributes(false);
+                foreach (object obj in attributes)
+                {
+                    CommandInfoAttribute infoAttr = obj as CommandInfoAttribute;
+                    if (infoAttr != null)
+                    {
+                        string dictionaryName = string.Format("{0}/{1}", infoAttr.Category, infoAttr.CommandName);
+
+                        int existingItemPriority = -1;
+                        if (filteredAttributes.ContainsKey(dictionaryName))
+                        {
+                            existingItemPriority = filteredAttributes[dictionaryName].Value.Priority;
+                        }
+
+                        if (infoAttr.Priority > existingItemPriority)
+                        {
+                            KeyValuePair<System.Type, CommandInfoAttribute> keyValuePair = new KeyValuePair<System.Type, CommandInfoAttribute>(type, infoAttr);
+                            filteredAttributes[dictionaryName] = keyValuePair;
+                        }
+                    }
+                }
+            }
+            return filteredAttributes.Values.ToList<KeyValuePair<System.Type, CommandInfoAttribute>>();
+        }
+
+        // Compare delegate for sorting the list of command attributes
+        public static int CompareCommandAttributes(KeyValuePair<System.Type, CommandInfoAttribute> x, KeyValuePair<System.Type, CommandInfoAttribute> y)
+        {
+            int compare = (x.Value.Category.CompareTo(y.Value.Category));
+            if (compare == 0)
+            {
+                compare = (x.Value.CommandName.CompareTo(y.Value.CommandName));
+            }
+            return compare;
         }
     }
 }

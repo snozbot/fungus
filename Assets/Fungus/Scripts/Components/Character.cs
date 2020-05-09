@@ -1,10 +1,9 @@
-// This code is part of the Fungus library (http://fungusgames.com) maintained by Chris Gregan (http://twitter.com/gofungus).
+// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
-using System;
 
 namespace Fungus
 {
@@ -12,7 +11,7 @@ namespace Fungus
     /// A Character that can be used in dialogue via the Say, Conversation and Portrait commands.
     /// </summary>
     [ExecuteInEditMode]
-    public class Character : MonoBehaviour, ILocalizable
+    public class Character : MonoBehaviour, ILocalizable, IComparer<Character>
     {
         [Tooltip("Character name as displayed in Say Dialog.")]
         [SerializeField] protected string nameText; // We need a separate name as the object name is used for character variations (e.g. "Smurf Happy", "Smurf Sad")
@@ -45,6 +44,7 @@ namespace Fungus
             if (!activeCharacters.Contains(this))
             {
                 activeCharacters.Add(this);
+                activeCharacters.Sort(this);
             }
         }
 
@@ -121,6 +121,18 @@ namespace Fungus
                 || nameText.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture);
 #endif
         }
+        
+        public int Compare(Character x, Character y)
+        {
+            if (x == y)
+                return 0;
+            if (y == null)
+                return 1;
+            if (x == null)
+                return -1;
+
+            return x.name.CompareTo(y.name);
+        }
 
         /// <summary>
         /// Looks for a portrait by name on a character
@@ -128,14 +140,14 @@ namespace Fungus
         /// </summary>
         public virtual Sprite GetPortrait(string portraitString)
         {
-            if (String.IsNullOrEmpty(portraitString))
+            if (string.IsNullOrEmpty(portraitString))
             {
                 return null;
             }
 
             for (int i = 0; i < portraits.Count; i++)
             {
-                if (portraits[i] != null && String.Compare(portraits[i].name, portraitString, true) == 0)
+                if (portraits[i] != null && string.Compare(portraits[i].name, portraitString, true) == 0)
                 {
                     return portraits[i];
                 }
@@ -169,5 +181,13 @@ namespace Fungus
         }
 
         #endregion
+
+        protected virtual void OnValidate()
+        {
+            if (portraits != null && portraits.Count > 1)
+            {
+                portraits.Sort(PortraitUtil.PortraitCompareTo);
+            }
+        }
     }
 }
