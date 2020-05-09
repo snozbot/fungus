@@ -240,6 +240,8 @@ namespace Fungus
                     rt.pivot = Vector2.one * 0.5f;
                     rt.ForceUpdateRectTransforms();
 
+                    po.SetActive(false);
+
                     character.State.allPortraits.Add(pi);
                 }
             }
@@ -431,12 +433,11 @@ namespace Fungus
 
             if (options.character.State.portrait != null && options.character.State.portrait != options.portrait)
             {
-                LeanTween.alpha(options.character.State.portraitImage.rectTransform, 0f, duration)
-                    .setEase(stage.FadeEaseType)
-                    .setRecursive(false);
+                HidePortrait(options.character.State.portraitImage.rectTransform, duration);
             }
 
             options.character.State.SetPortraitImageBySprite(options.portrait);
+            options.character.State.portraitImage.rectTransform.gameObject.SetActive(true);
             LeanTween.alpha(options.character.State.portraitImage.rectTransform, 1f, duration).setEase(stage.FadeEaseType).setRecursive(false);
 
             DoMoveTween(options);
@@ -457,6 +458,14 @@ namespace Fungus
             options.character.State.position = options.toPosition;
         }
 
+        protected virtual void HidePortrait(RectTransform rectTransform, float duration)
+        {
+            LeanTween.alpha(rectTransform, 0f, duration)
+                .setEase(stage.FadeEaseType)
+                .setRecursive(false)
+                .setOnComplete(() => rectTransform.gameObject.SetActive(false));
+        }
+
         /// <summary>
         /// Hide portrait with provided options
         /// </summary>
@@ -474,7 +483,7 @@ namespace Fungus
             // LeanTween doesn't handle 0 duration properly
             float duration = (options.fadeDuration > 0f) ? options.fadeDuration : float.Epsilon;
 
-            LeanTween.alpha(options.character.State.portraitImage.rectTransform, 0f, duration).setEase(stage.FadeEaseType).setRecursive(false);
+            HidePortrait(options.character.State.portraitImage.rectTransform, duration);
 
             DoMoveTween(options);
 
