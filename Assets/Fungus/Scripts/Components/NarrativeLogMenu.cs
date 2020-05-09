@@ -83,7 +83,7 @@ namespace Fungus
             SaveManagerSignals.OnSavePointLoaded += OnSavePointLoaded;
             SaveManagerSignals.OnSaveReset += OnSaveReset;
             BlockSignals.OnBlockEnd += OnBlockEnd;
-            FungusManager.Instance.NarrativeLog.OnNarrativeAdded += OnNarrativeAdded;
+            NarrativeLog.OnNarrativeAdded += OnNarrativeAdded;
         }
                 
         protected virtual void OnDisable()
@@ -92,7 +92,7 @@ namespace Fungus
             SaveManagerSignals.OnSavePointLoaded -= OnSavePointLoaded;
             SaveManagerSignals.OnSaveReset -= OnSaveReset;
             BlockSignals.OnBlockEnd -= OnBlockEnd;
-            FungusManager.Instance.NarrativeLog.OnNarrativeAdded -= OnNarrativeAdded;
+            NarrativeLog.OnNarrativeAdded -= OnNarrativeAdded;
         }
 
         protected virtual void OnNarrativeAdded(NarrativeLogEntry data)

@@ -32,7 +32,6 @@ namespace Fungus.EditorUtils
 
         private float[] itemWidths = new float[4];
         private Rect[] itemRects = new Rect[4];
-        private GUIContent emptyGUIContent = new GUIContent("");
 
         public SerializedProperty this[int index]
         {

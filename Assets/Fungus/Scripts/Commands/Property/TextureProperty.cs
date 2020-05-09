@@ -42,7 +42,9 @@ namespace Fungus
         public override void OnEnter()
         {
             var ioi = inOutVar as IntegerVariable;
+#if UNITY_2019_2_OR_NEWER
             var iob = inOutVar as BooleanVariable;
+#endif
             var iof = inOutVar as FloatVariable;
             var iov2 = inOutVar as Vector2Variable;
 

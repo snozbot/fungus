@@ -33,9 +33,9 @@ namespace Fungus
         /// <summary>
         /// NarrativeAdded signal. Sent when a line is added.
         /// </summary>
-        public event NarrativeAddedHandler OnNarrativeAdded;
+        public static event NarrativeAddedHandler OnNarrativeAdded;
         public delegate void NarrativeAddedHandler(NarrativeLogEntry data);
-        public void DoNarrativeAdded(NarrativeLogEntry data)
+        public static void DoNarrativeAdded(NarrativeLogEntry data)
         {
             if (OnNarrativeAdded != null)
             {
@@ -46,8 +46,8 @@ namespace Fungus
         /// <summary>
         /// Signal sent when log history is cleared or loaded
         /// </summary>
-        public System.Action OnNarrativeLogClear;
-        public void DoNarrativeCleared()
+        public static System.Action OnNarrativeLogClear;
+        public static void DoNarrativeCleared()
         {
             if (OnNarrativeLogClear != null)
             {

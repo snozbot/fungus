@@ -28,8 +28,8 @@ namespace Fungus
             // Make sure to update the UI when new entries are added to or
             // cleared from the log.
             //using the fungusmanager to ensure that the narrativeLog is inited
-            FungusManager.Instance.NarrativeLog.OnNarrativeAdded += OnNarrativeAdded;
-            FungusManager.Instance.NarrativeLog.OnNarrativeLogClear += Clear;
+            NarrativeLog.OnNarrativeAdded += OnNarrativeAdded;
+            NarrativeLog.OnNarrativeLogClear += Clear;
 
             scrollRect = GetComponentInChildren<UnityEngine.UI.ScrollRect>();
         }
@@ -86,8 +86,8 @@ namespace Fungus
             // Avoid this responding to signals when being destroyed.
             if (fManInst != null)
             {
-                FungusManager.Instance.NarrativeLog.OnNarrativeAdded -= OnNarrativeAdded;
-                FungusManager.Instance.NarrativeLog.OnNarrativeLogClear -= Clear;
+                NarrativeLog.OnNarrativeAdded -= OnNarrativeAdded;
+                NarrativeLog.OnNarrativeLogClear -= Clear;
             }
         }
     }

@@ -41,7 +41,9 @@ namespace Fungus
         {
             var iof = inOutVar as FloatVariable;
             var iov = inOutVar as Vector3Variable;
+#if UNITY_2019_2_OR_NEWER
             var ioq = inOutVar as QuaternionVariable;
+#endif
 
 
             var target = quaternionData.Value;
