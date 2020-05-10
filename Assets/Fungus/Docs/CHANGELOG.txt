@@ -1,6 +1,50 @@
 Changelog {#changelog}
 =========
 
+v3.13.0rc1
+======
+
+## Added
+
+- Conditional Commands now support multiple comparisons as a chain of && or ||. Thanks to preda2or, and AcademyOfF
+- IWriterListener OnAllWorldsWritten fires when there are no words left to be written but writer may still have pending waits
+- Entry based NarrativeLog alternate. Thanks to cg-tespy
+- Option to grid snap blocks in the FlowchartWindow.
+- TMPro Text animation via link text.
+- Fungus Collection, varaibles, default types, and commands.
+
+## Fixed
+
+- Portrait image shown as white when cycled through rapidly.
+- Flowchart Window Search box steals focus
+- Mushroom icon placement incorrect on some versions of Unity. Thanks to TonyJeffree
+- Text and Background colour readability across Unity Versions and Pro skin. Thanks to DesperateHouseDev
+- VariableData indents incorrect.
+- Fix reshow of hidden portrait in Conversation. Thanks to jusw85
+- FlowchartWindow search pop not showing on newer Unity versions.
+- VS Solution file fix for Unity 2019.3.12
+- Inspector DeleteSave button now deletes now more aware of target platform.
+
+## Changed
+
+- Portraits are now all cached when requested under their own gameobjects and toggle active.
+- Fungus Docs moved to github wiki
+- JSONObject lib updated to newer version. Thanks to qrostar.
+- CameraManager and View now use Tween types.
+- Dragable EventHandlers now support an array of target dragables. Thanks to SarveshBajaj
+- Flowchart GetVariables by type. Thanks to cg-tespy
+- A null FungusVariables will now report their string value as Null instead of an empty string.
+- Develop updated to Unity 2019.3.13
+- Demo scenes rebuilt in minimum supported Unity version.
+- Block selector now orders blocks by name.
+- Block search now supports partial matches.
+- Update to c#4
+- Updates to Contributing, Code of Conduct, Issue and PR templates.
+- Menu command has a button to add a block for it to target.
+- Character selector now sorts names.
+- Portrait selector now sorts names.
+- Update header license
+
 v3.12.0
 ======
 
