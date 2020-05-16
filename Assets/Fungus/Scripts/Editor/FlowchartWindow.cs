@@ -565,7 +565,14 @@ namespace Fungus.EditorUtils
 
         private bool IsCommandContentMatch(Block block)
         {
-            return block.CommandList.Any(command => command.GetSearchableContent().IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0);            
+            try
+            {
+                return block.CommandList.Any(command => command.GetSearchableContent().IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+            catch (Exception)
+            {
+                return false;
+            }           
         }
 
         protected virtual void HandleEarlyEvents(Event e) 
