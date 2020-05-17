@@ -221,11 +221,28 @@ namespace Fungus.EditorUtils
 
             var origLabel = new GUIContent(label);
 
+            var itemH = EditorGUI.GetPropertyHeight(valueProp, label);
+
+            if (itemH <= EditorGUIUtility.singleLineHeight*2)
+            {
+                DrawSingleLineProperty(position, origLabel, referenceProp, valueProp, flowchart, typeInfo);
+            }
+            else
+            {
+                DrawMultiLineProperty(position, origLabel, referenceProp, valueProp, flowchart, typeInfo);
+            }
+
+            EditorGUI.EndProperty();
+        }
+
+        protected virtual void DrawSingleLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart,
+            VariableInfoAttribute typeInfo)
+        {
             int popupWidth = Mathf.RoundToInt(EditorGUIUtility.singleLineHeight);
             const int popupGap = 5;
 
             //get out starting rect with intent honoured
-            Rect controlRect = EditorGUI.PrefixLabel(position, origLabel);
+            Rect controlRect = EditorGUI.PrefixLabel(rect, label);
             Rect valueRect = controlRect;
             valueRect.width = controlRect.width - popupWidth - popupGap;
             Rect popupRect = controlRect;
@@ -236,15 +253,61 @@ namespace Fungus.EditorUtils
 
             if (referenceProp.objectReferenceValue == null)
             {
-                CustomVariableDrawerLookup.DrawCustomOrPropertyField(typeof(T), valueRect, valueProp);
+                CustomVariableDrawerLookup.DrawCustomOrPropertyField(typeof(T), valueRect, valueProp, GUIContent.none);
                 popupRect.x += valueRect.width + popupGap;
                 popupRect.width = popupWidth;
             }
 
-            EditorGUI.PropertyField(popupRect, referenceProp, new GUIContent(""));
+            EditorGUI.PropertyField(popupRect, referenceProp, GUIContent.none);
             EditorGUI.indentLevel = prevIndent;
+        }
 
-            EditorGUI.EndProperty();
+        protected virtual void DrawMultiLineProperty(Rect rect, GUIContent label, SerializedProperty referenceProp, SerializedProperty valueProp, Flowchart flowchart,
+            VariableInfoAttribute typeInfo)
+        {
+            const int popupWidth = 100;
+            
+            Rect controlRect = rect;
+            Rect valueRect = controlRect;
+            //valueRect.width = controlRect.width - 5;
+            Rect popupRect = controlRect;
+            popupRect.height = EditorGUIUtility.singleLineHeight;
+            
+            if (referenceProp.objectReferenceValue == null)
+            {
+                //EditorGUI.PropertyField(valueRect, valueProp, label);
+                CustomVariableDrawerLookup.DrawCustomOrPropertyField(typeof(T), valueRect, valueProp, label);
+                popupRect.x = rect.width - popupWidth + 5;
+                popupRect.width = popupWidth;
+            }
+            else
+            {
+                popupRect = EditorGUI.PrefixLabel(rect, label);
+            }
+
+            EditorGUI.PropertyField(popupRect, referenceProp, GUIContent.none);
+        }
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            VariableInfoAttribute typeInfo = VariableEditor.GetVariableInfo(typeof(T));
+            if (typeInfo == null)
+            {
+                return EditorGUIUtility.singleLineHeight;
+            }
+            
+            string propNameBase = typeInfo.VariableType;
+            propNameBase = Char.ToLowerInvariant(propNameBase[0]) + propNameBase.Substring(1);
+
+            SerializedProperty referenceProp = property.FindPropertyRelative(propNameBase + "Ref");
+
+            if (referenceProp.objectReferenceValue != null)
+            {
+                return EditorGUIUtility.singleLineHeight;
+            }
+
+            SerializedProperty valueProp = property.FindPropertyRelative(propNameBase + "Val");
+            return EditorGUI.GetPropertyHeight(valueProp, label);
         }
     }
 
