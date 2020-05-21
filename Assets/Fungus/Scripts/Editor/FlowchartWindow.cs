@@ -565,7 +565,14 @@ namespace Fungus.EditorUtils
 
         private bool IsCommandContentMatch(Block block)
         {
-            return block.CommandList.Any(command => command.GetSearchableContent().IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0);            
+            try
+            {
+                return block.CommandList.Any(command => command.GetSearchableContent().IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+            catch (Exception)
+            {
+                return false;
+            }           
         }
 
         protected virtual void HandleEarlyEvents(Event e) 
@@ -2106,87 +2113,87 @@ namespace Fungus.EditorUtils
             windowRelativeRect.position += flowchart.ScrollPos;
 
             //skip if outside of view
-            if (!scriptViewRect.Overlaps(windowRelativeRect))
-                return;
-
-            var tmpNormBg = nodeStyle.normal.background;
-
-            // Draw untinted highlight
-            if (block.IsSelected && !block.IsControlSelected)
+            if (scriptViewRect.Overlaps(windowRelativeRect))
             {
-                GUI.backgroundColor = Color.white;
-                nodeStyle.normal.background = graphics.onTexture;
-                GUI.Box(windowRelativeRect, "", nodeStyle);
-                nodeStyle.normal.background = tmpNormBg;
-            }
 
-            if (block.IsControlSelected && !block.IsSelected)
-            {
-                GUI.backgroundColor = Color.white;
-                nodeStyle.normal.background = graphics.onTexture;
-                var c = GUI.backgroundColor;
-                c.a = 0.5f;
-                GUI.backgroundColor = c;
-                GUI.Box(windowRelativeRect, "", nodeStyle);
-                nodeStyle.normal.background = tmpNormBg;
-            }
+                var tmpNormBg = nodeStyle.normal.background;
 
-            // Draw tinted block; ensure text is readable
-            var brightness = graphics.tint.r * 0.3 + graphics.tint.g * 0.59 + graphics.tint.b * 0.11;
-            var tmpNormTxtCol = nodeStyle.normal.textColor;
-            nodeStyle.normal.textColor = brightness >= 0.5 ? Color.black : Color.white;
-
-            switch (block.FilterState)
-            {
-            case Block.FilteredState.Full:
-                break;
-            case Block.FilteredState.Partial:
-                graphics.tint.a *= 0.65f;
-                break;
-            case Block.FilteredState.None:
-                graphics.tint.a *= 0.2f;
-                break;
-            default:
-                break;
-            }
-
-            nodeStyle.normal.background = graphics.offTexture;
-            GUI.backgroundColor = graphics.tint;
-            GUI.Box(windowRelativeRect, block.BlockName, nodeStyle);
-
-            GUI.backgroundColor = Color.white;
-
-            if (block.Description.Length > 0)
-            {
-                var content = new GUIContent(block.Description);
-                windowRelativeRect.y += windowRelativeRect.height;
-                windowRelativeRect.height = descriptionStyle.CalcHeight(content, windowRelativeRect.width);
-                GUI.Label(windowRelativeRect, content, descriptionStyle);
-            }
-
-            GUI.backgroundColor = Color.white;
-
-            nodeStyle.normal.textColor = tmpNormTxtCol;
-            nodeStyle.normal.background = tmpNormBg;
-
-            // Draw Event Handler labels
-            if (block._EventHandler != null)
-            {
-                string handlerLabel = "";
-                EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(block._EventHandler.GetType());
-                if (info != null)
+                // Draw untinted highlight
+                if (block.IsSelected && !block.IsControlSelected)
                 {
-                    handlerLabel = "<" + info.EventHandlerName + "> ";
+                    GUI.backgroundColor = Color.white;
+                    nodeStyle.normal.background = graphics.onTexture;
+                    GUI.Box(windowRelativeRect, "", nodeStyle);
+                    nodeStyle.normal.background = tmpNormBg;
                 }
-                
-                Rect rect = new Rect(block._NodeRect);
-                rect.height = handlerStyle.CalcHeight(new GUIContent(handlerLabel), block._NodeRect.width);
-                rect.x += flowchart.ScrollPos.x;
-                rect.y += flowchart.ScrollPos.y - rect.height;
 
-                GUI.Label(rect, handlerLabel, handlerStyle);
+                if (block.IsControlSelected && !block.IsSelected)
+                {
+                    GUI.backgroundColor = Color.white;
+                    nodeStyle.normal.background = graphics.onTexture;
+                    var c = GUI.backgroundColor;
+                    c.a = 0.5f;
+                    GUI.backgroundColor = c;
+                    GUI.Box(windowRelativeRect, "", nodeStyle);
+                    nodeStyle.normal.background = tmpNormBg;
+                }
+
+                // Draw tinted block; ensure text is readable
+                var brightness = graphics.tint.r * 0.3 + graphics.tint.g * 0.59 + graphics.tint.b * 0.11;
+                var tmpNormTxtCol = nodeStyle.normal.textColor;
+                nodeStyle.normal.textColor = brightness >= 0.5 ? Color.black : Color.white;
+
+                switch (block.FilterState)
+                {
+                case Block.FilteredState.Full:
+                    break;
+                case Block.FilteredState.Partial:
+                    graphics.tint.a *= 0.65f;
+                    break;
+                case Block.FilteredState.None:
+                    graphics.tint.a *= 0.2f;
+                    break;
+                default:
+                    break;
+                }
+
+                nodeStyle.normal.background = graphics.offTexture;
+                GUI.backgroundColor = graphics.tint;
+                GUI.Box(windowRelativeRect, block.BlockName, nodeStyle);
+
+                GUI.backgroundColor = Color.white;
+
+                if (block.Description.Length > 0)
+                {
+                    var content = new GUIContent(block.Description);
+                    windowRelativeRect.y += windowRelativeRect.height;
+                    windowRelativeRect.height = descriptionStyle.CalcHeight(content, windowRelativeRect.width);
+                    GUI.Label(windowRelativeRect, content, descriptionStyle);
+                }
+
+                GUI.backgroundColor = Color.white;
+
+                nodeStyle.normal.textColor = tmpNormTxtCol;
+                nodeStyle.normal.background = tmpNormBg;
+
+                // Draw Event Handler labels
+                if (block._EventHandler != null)
+                {
+                    string handlerLabel = "";
+                    EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(block._EventHandler.GetType());
+                    if (info != null)
+                    {
+                        handlerLabel = "<" + info.EventHandlerName + "> ";
+                    }
+
+                    Rect rect = new Rect(block._NodeRect);
+                    rect.height = handlerStyle.CalcHeight(new GUIContent(handlerLabel), block._NodeRect.width);
+                    rect.x += flowchart.ScrollPos.x;
+                    rect.y += flowchart.ScrollPos.y - rect.height;
+
+                    GUI.Label(rect, handlerLabel, handlerStyle);
+                }
             }
-
 
             DrawConnections(block);
         }

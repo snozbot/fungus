@@ -81,7 +81,8 @@ namespace Fungus
 
             var f = GetFlowchart();
 
-            f.DetermineSubstituteVariables(conversationText, referencedVariables);
+            if(!string.IsNullOrEmpty(conversationText.Value))
+                f.DetermineSubstituteVariables(conversationText, referencedVariables);
         }
 #endif
         #endregion Editor caches
