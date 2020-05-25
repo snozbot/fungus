@@ -422,8 +422,9 @@ namespace Fungus
                 }
 
                 if (stage != null && currentCharacter != null &&
-                    (currentPortrait != currentCharacter.State.portrait || 
-                        currentPosition != currentCharacter.State.position))
+                    (currentPortrait != currentCharacter.State.portrait ||
+                        currentPosition != currentCharacter.State.position ||
+                        (currentCharacter.State.display == DisplayType.Hide && !item.Hide)))
                 {
                     var portraitOptions = new PortraitOptions(true);
                     portraitOptions.display = item.Hide ? DisplayType.Hide : DisplayType.Show;

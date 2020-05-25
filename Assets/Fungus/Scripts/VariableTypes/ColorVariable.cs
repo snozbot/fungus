@@ -14,57 +14,30 @@ namespace Fungus
     [System.Serializable]
     public class ColorVariable : VariableBase<Color>
     {
-        public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
-        public static readonly SetOperator[] setOperators = {
-            SetOperator.Assign,
-            SetOperator.Add,
-            SetOperator.Subtract,
-            SetOperator.Multiply
-        };
-
-        protected static bool ColorsEqual(Color a, Color b) {
-            return ColorUtility.ToHtmlStringRGBA(a) == ColorUtility.ToHtmlStringRGBA(b);
-        }
-
-        public virtual bool Evaluate(CompareOperator compareOperator, Color value)
+        public override bool IsArithmeticSupported(SetOperator setOperator)
         {
-            bool condition = false;
-
-            switch (compareOperator)
-            {
-                case CompareOperator.Equals:
-                    condition = ColorsEqual(Value, value);
-                    break;
-                case CompareOperator.NotEquals:
-                    condition = !ColorsEqual(Value, value);
-                    break;
-                default:
-                    Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
-                    break;
-            }
-
-            return condition;
+            return setOperator != SetOperator.Negate;
         }
 
         public override void Apply(SetOperator setOperator, Color value)
         {
             switch (setOperator)
             {
-                case SetOperator.Assign:
-                    Value = value;
-                    break;
-                case SetOperator.Add:
-                    Value += value;
-                    break;
-                case SetOperator.Subtract:
-                    Value -= value;
-                    break;
-                case SetOperator.Multiply:
-                    Value *= value;
-                    break;
-                default:
-                    Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
-                    break;
+            case SetOperator.Add:
+                Value += value;
+                break;
+            case SetOperator.Subtract:
+                Value -= value;
+                break;
+            case SetOperator.Multiply:
+                Value *= value;
+                break;
+            case SetOperator.Divide:
+                Value *= new Color(1.0f/value.r, 1.0f / value.g, 1.0f / value.b, 1.0f / value.a);
+                break;
+            default:
+                base.Apply(setOperator, value);
+                break;
             }
         }
     }

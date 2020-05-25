@@ -26,7 +26,11 @@ namespace Fungus
 
         [Tooltip("Camera to use for the pan. Will use main camera if set to none.")]
         [SerializeField] protected Camera targetCamera;
-        
+
+        [SerializeField] protected LeanTweenType orthoSizeTweenType = LeanTweenType.easeInOutQuad;
+        [SerializeField] protected LeanTweenType posTweenType = LeanTweenType.easeInOutQuad;
+        [SerializeField] protected LeanTweenType rotTweenType = LeanTweenType.easeInOutQuad;
+
         protected virtual void AcquireCamera()
         {
             if (targetCamera != null)
@@ -69,7 +73,7 @@ namespace Fungus
                 {
                     Continue();
                 }
-            });
+            }, orthoSizeTweenType, posTweenType, rotTweenType);
 
             if (!waitUntilFinished)
             {

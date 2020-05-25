@@ -4,6 +4,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using MoonSharp.Interpreter;
+using System.Collections.Generic;
 
 namespace Fungus
 {
@@ -60,10 +61,16 @@ namespace Fungus
         public bool onScreen;
         public bool dimmed;
         public DisplayType display;
-        public Sprite portrait;
-        public RectTransform position;
+        public RectTransform position, holder;
         public FacingDirection facing;
         public Image portraitImage;
+        public Sprite portrait { get { return portraitImage != null ? portraitImage.sprite : null; } }
+        public List<Image> allPortraits = new List<Image>();
+
+        public void SetPortraitImageBySprite(Sprite portrait)
+        {
+            portraitImage = allPortraits.Find(x => x.sprite == portrait);
+        }
     }
 
     /// <summary>
@@ -174,6 +181,19 @@ namespace Fungus
             }
 
             return options;
+        }
+
+
+        static public int PortraitCompareTo(Sprite x, Sprite y)
+        {
+            if (x == y)
+                return 0;
+            if (y == null)
+                return -1;
+            if (x == null)
+                return 1;
+
+            return x.name.CompareTo(y.name);
         }
 
         #endregion

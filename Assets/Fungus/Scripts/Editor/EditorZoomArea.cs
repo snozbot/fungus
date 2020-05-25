@@ -52,6 +52,22 @@ namespace Fungus.EditorUtils
             result.y += pivotPoint.y;
             return result;
         }
+
+        public static Rect SnapPosition(this Rect rect, float snapInterval)
+        {
+            var tmp = rect;
+            var x = tmp.position.x;
+            var y = tmp.position.y;
+            tmp.position = new Vector2(Mathf.RoundToInt(x / snapInterval) * snapInterval, Mathf.RoundToInt(y / snapInterval) * snapInterval);
+            return tmp;
+        }
+
+        public static Rect SnapWidth(this Rect rect, float snapInterval)
+        {
+            var tmp = rect;
+            tmp.width = Mathf.RoundToInt(tmp.width / snapInterval) * snapInterval;
+            return tmp;
+        }
     }
 
     public class EditorZoomArea

@@ -70,7 +70,7 @@ namespace Fungus
             // place the icon to the left of the element
             Rect r = new Rect(selectionRect);
 #if UNITY_2019_1_OR_NEWER
-            r.x -= r.height;
+            r.x -= 28;  //this would make sense as singleLineHeight *2 but it isn't as that includes padding
 #else
             r.x = 0;
 #endif

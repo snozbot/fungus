@@ -801,6 +801,23 @@ namespace Fungus
         }
 
         /// <summary>
+        /// Returns a list of variables matching the specified type.
+        /// </summary>
+        public virtual List<T> GetVariables<T>() where T: Variable
+        {
+            var varsFound = new List<T>();
+            
+            for (int i = 0; i < Variables.Count; i++)
+            {
+                var currentVar = Variables[i];
+                if (currentVar is T)
+                    varsFound.Add(currentVar as T);
+            }
+
+            return varsFound;
+        }
+
+        /// <summary>
         /// Register a new variable with the Flowchart at runtime. 
         /// The variable should be added as a component on the Flowchart game object.
         /// </summary>

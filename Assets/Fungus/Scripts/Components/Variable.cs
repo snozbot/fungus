@@ -2,7 +2,6 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System;
 
 //todo doco update
 
@@ -62,28 +61,36 @@ namespace Fungus
     /// <summary>
     /// Attribute class for variables.
     /// </summary>
-    public class VariableInfoAttribute : Attribute
+    public sealed class VariableInfoAttribute : System.Attribute
     {
-        public VariableInfoAttribute(string category, string variableType, int order = 0)
+        //Note do not use "isPreviewedOnly:true", it causes the script to fail to load without errors shown
+        public VariableInfoAttribute(string category, string variableType, int order = 0, bool isPreviewedOnly = false)
         {
             this.Category = category;
             this.VariableType = variableType;
             this.Order = order;
+            this.IsPreviewedOnly = isPreviewedOnly;
         }
         
         public string Category { get; set; }
         public string VariableType { get; set; }
         public int Order { get; set; }
+        public bool IsPreviewedOnly { get; set; }
     }
 
     /// <summary>
     /// Attribute class for variable properties.
     /// </summary>
-    public class VariablePropertyAttribute : PropertyAttribute 
+    public sealed class VariablePropertyAttribute : PropertyAttribute 
     {
         public VariablePropertyAttribute (params System.Type[] variableTypes) 
         {
             this.VariableTypes = variableTypes;
+        }
+
+        public VariablePropertyAttribute(AllVariableTypes.VariableAny any)
+        {
+            VariableTypes = AllVariableTypes.AllFungusVarTypes;
         }
 
         public VariablePropertyAttribute (string defaultText, params System.Type[] variableTypes) 
@@ -92,15 +99,17 @@ namespace Fungus
             this.VariableTypes = variableTypes;
         }
 
-        public String defaultText = "<None>";
+        public string defaultText = "<None>";
+        public string compatibleVariableName = string.Empty;
 
-        public Type[] VariableTypes { get; set; }
+        public System.Type[] VariableTypes { get; set; }
     }
 
     /// <summary>
     /// Abstract base class for variables.
     /// </summary>
     [RequireComponent(typeof(Flowchart))]
+    [System.Serializable]
     public abstract class Variable : MonoBehaviour
     {
         [SerializeField] protected VariableScope scope;
@@ -124,6 +133,31 @@ namespace Fungus
         /// </summary>
         public abstract void OnReset();
 
+        /// <summary>
+        /// Used by SetVariable, child classes required to declare and implement operators.
+        /// </summary>
+        /// <param name="setOperator"></param>
+        /// <param name="value"></param>
+        public abstract void Apply(SetOperator setOperator, object value);
+
+        /// <summary>
+        /// Used by Ifs, While, and the like. Child classes required to declare and implement comparisons.
+        /// </summary>
+        /// <param name="compareOperator"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public abstract bool Evaluate(CompareOperator compareOperator, object value);
+
+        /// <summary>
+        /// Does the underlying type provide support for +-*/
+        /// </summary>
+        public virtual bool IsArithmeticSupported(SetOperator setOperator) { return false; }
+
+        /// <summary>
+        /// Does the underlying type provide support for < <= > >=
+        /// </summary>
+        public virtual bool IsComparisonSupported() { return false; }
+        
         /// <summary>
         /// Boxed or referenced value of type defined within inherited types.
         /// Not recommended for direct use, primarily intended for use in editor code.
@@ -220,7 +254,10 @@ namespace Fungus
         
         public override string ToString()
         {
-            return Value.ToString();
+            if (Value != null)
+                return Value.ToString();
+            else
+                return "Null";
         }
         
         protected virtual void Start()
@@ -229,8 +266,80 @@ namespace Fungus
             startValue = Value;
         }
 
-        public virtual void Apply(SetOperator setOperator, T value) {
-            Debug.LogError("Variable doesn't have any operators.");
+        //Apply to get from base system.object to T
+        public override void Apply(SetOperator op, object value)
+        {
+            if(value is T || value == null)
+            {
+                Apply(op, (T)value);
+            }
+            else if(value is VariableBase<T>)
+            {
+                var vbg = value as VariableBase<T>;
+                Apply(op, vbg.Value);
+            }
+            else
+            {
+                Debug.LogError("Cannot do Apply on variable, as object type: " + value.GetType().Name + " is incompatible with " + typeof(T).Name);
+            }
+        }
+
+        public virtual void Apply(SetOperator setOperator, T value)
+        {
+            switch (setOperator)
+            {
+            case SetOperator.Assign:
+                Value = value;
+                break;
+            default:
+                Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
+                break;
+            }
+        }
+
+        //Apply to get from base system.object to T
+        public override bool Evaluate(CompareOperator op, object value)
+        {
+            if (value is T || value == null)
+            {
+                return Evaluate(op, (T)value);
+            }
+            else if (value is VariableBase<T>)
+            {
+                var vbg = value as VariableBase<T>;
+                return Evaluate(op, vbg.Value);
+            }
+            else
+            {
+                Debug.LogError("Cannot do Evaluate on variable, as object type: " + value.GetType().Name + " is incompatible with " + typeof(T).Name);
+            }
+
+            return false;
+        }
+
+        public virtual bool Evaluate(CompareOperator compareOperator, T value)
+        {
+            bool condition = false;
+
+            switch (compareOperator)
+            {
+            case CompareOperator.Equals:
+                condition = Equals(Value, value);// Value.Equals(value);
+                break;
+            case CompareOperator.NotEquals:
+                condition = !Equals(Value, value);
+                break;
+            default:
+                Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
+                break;
+            }
+
+            return condition;
+        }
+
+        public override bool IsArithmeticSupported(SetOperator setOperator)
+        {
+            return setOperator == SetOperator.Assign || base.IsArithmeticSupported(setOperator);
         }
 
         public override bool IsSerialisable

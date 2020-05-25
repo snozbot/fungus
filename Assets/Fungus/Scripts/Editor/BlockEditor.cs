@@ -457,6 +457,8 @@ namespace Fungus.EditorUtils
             int selectedIndex = 0;
             blockNames.Add(nullLabel);
             var blocks = flowchart.GetComponents<Block>();
+            blocks = blocks.OrderBy(x => x.BlockName).ToArray();
+
             for (int i = 0; i < blocks.Length; ++i)
             {
                 blockNames.Add(new GUIContent(blocks[i].BlockName));
@@ -495,6 +497,8 @@ namespace Fungus.EditorUtils
             int selectedIndex = 0;
             blockNames.Add(nullLabel);
             Block[] blocks = flowchart.GetComponents<Block>();
+            blocks = blocks.OrderBy(x => x.BlockName).ToArray();
+
             for (int i = 0; i < blocks.Length; ++i)
             {
 				blockNames.Add(new GUIContent(blocks[i].BlockName));

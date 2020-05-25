@@ -13,41 +13,6 @@ namespace Fungus
     [System.Serializable]
     public class Rigidbody2DVariable : VariableBase<Rigidbody2D>
     {
-        public static readonly CompareOperator[] compareOperators = { CompareOperator.Equals, CompareOperator.NotEquals };
-        public static readonly SetOperator[] setOperators = { SetOperator.Assign };
-
-        public virtual bool Evaluate(CompareOperator compareOperator, Rigidbody2D value)
-        {
-            bool condition = false;
-
-            switch (compareOperator)
-            {
-                case CompareOperator.Equals:
-                    condition = Value == value;
-                    break;
-                case CompareOperator.NotEquals:
-                    condition = Value != value;
-                    break;
-                default:
-                    Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");
-                    break;
-            }
-
-            return condition;
-        }
-
-        public override void Apply(SetOperator setOperator, Rigidbody2D value)
-        {
-            switch (setOperator)
-            {
-                case SetOperator.Assign:
-                    Value = value;
-                    break;
-                default:
-                    Debug.LogError("The " + setOperator.ToString() + " set operator is not valid.");
-                    break;
-            }
-        }
     }
 
     /// <summary>
@@ -84,7 +49,7 @@ namespace Fungus
         {
             if (rigidbody2DRef == null)
             {
-                return rigidbody2DVal.ToString();
+                return rigidbody2DVal != null ? rigidbody2DVal.ToString() : "Null";
             }
             else
             {

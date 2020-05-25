@@ -31,6 +31,8 @@ namespace Fungus
         [Tooltip("Optional texture to use when rendering the fullscreen fade effect.")]
         [SerializeField] protected Texture2D fadeTexture;
 
+        [SerializeField] protected LeanTweenType fadeTweenType = LeanTweenType.easeInOutQuad;
+
         #region Public members
 
         public override void OnEnter()
@@ -51,7 +53,7 @@ namespace Fungus
                 {
                     Continue();
                 }
-            });
+            }, fadeTweenType);
             
             if (!waitUntilFinished)
             {

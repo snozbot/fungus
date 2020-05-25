@@ -14,13 +14,5 @@ namespace Fungus
     [AddComponentMenu("")]
     public class If : VariableCondition
     {
-        #region Public members
-        
-        public override Color GetButtonColor()
-        {
-            return new Color32(253, 253, 150, 255);
-        }
-
-        #endregion
     }
 }

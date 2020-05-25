@@ -15,19 +15,35 @@ namespace Fungus
     [AddComponentMenu("")]
     public class Collision2D : BasePhysicsEventHandler
     {
+        [Tooltip("Optional variable to store the collision object that is provided by Unity.")]
+        [VariableProperty(typeof(Collision2DVariable))]
+        [SerializeField] protected Collision2DVariable collisionVar;
+
         private void OnCollisionEnter2D(UnityEngine.Collision2D collision)
         {
-            ProcessCollider(PhysicsMessageType.Enter, collision.collider.tag);
+            ProcessCollisionEvent(PhysicsMessageType.Enter, collision);
         }
 
         private void OnCollisionStay2D(UnityEngine.Collision2D collision)
         {
-            ProcessCollider(PhysicsMessageType.Stay, collision.collider.tag);
+            ProcessCollisionEvent(PhysicsMessageType.Stay, collision);
         }
 
         private void OnCollisionExit2D(UnityEngine.Collision2D collision)
         {
-            ProcessCollider(PhysicsMessageType.Exit, collision.collider.tag);
+            ProcessCollisionEvent(PhysicsMessageType.Exit, collision);
+        }
+
+        private void ProcessCollisionEvent(PhysicsMessageType from, UnityEngine.Collision2D collision)
+        {
+            if ((from & FireOn) != 0 &&
+                DoesPassFilter(collision.collider.tag))
+            {
+                if (collisionVar != null)
+                    collisionVar.Value = collision;
+
+                ExecuteBlock();
+            }
         }
     }
 }
