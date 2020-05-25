@@ -16,23 +16,22 @@ namespace Fungus
     {
         #region Public members
 
+        /// <summary>
+        /// Set to true by looping constructs to allow for loops to occur
+        /// </summary>
         public virtual bool Loop { get; set; }
+
+        /// <summary>
+        /// Set to the index of the owning looping construct
+        /// </summary>
+        public virtual int LoopBackIndex { get; set; }
 
         public override void OnEnter()
         {
             if (Loop)
             {
-                for (int i = CommandIndex - 1; i >= 0; --i)
-                {
-                    var command = ParentBlock.CommandList[i];
-
-                    if (command.IndentLevel == IndentLevel &&
-                        command.GetType() == typeof(While))
-                    {
-                        Continue(i);
-                        return;
-                    }
-                }
+                Continue(LoopBackIndex);
+                return;
             }
 
             Continue();

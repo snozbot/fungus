@@ -137,7 +137,7 @@ namespace Fungus
             for (int i = 0; i < dragCompletedHandlers.Count; i++)
             {
                 var handler = dragCompletedHandlers[i];
-                if (handler != null && handler.DraggableObject == this)
+                if (handler != null && handler.DraggableObjects.Contains(this))
                 {
                     if (handler.IsOverTarget())
                     {

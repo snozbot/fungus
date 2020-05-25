@@ -53,8 +53,6 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            var flowchart = GetFlowchart();
-
             if (targetBlock != null)
             {
                 // Check if calling your own parent block

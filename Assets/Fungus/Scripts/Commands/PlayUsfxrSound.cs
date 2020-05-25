@@ -14,7 +14,7 @@ using UnityEngine.Serialization;
                  "Play Usfxr Sound", 
                  "Plays a usfxr synth sound. Use the usfxr editor [Tools > Fungus > Utilities > Generate usfxr Sound Effects] to create the SettingsString. Set a ParentTransform if using positional sound. See https://github.com/zeh/usfxr for more information about usfxr.")]
     [AddComponentMenu("")]
-    [ExecuteInEditMode]
+    //[ExecuteInEditMode]
     public class PlayUsfxrSound : Command
     {
         [Tooltip("Transform to use for positional audio")]
@@ -29,9 +29,9 @@ using UnityEngine.Serialization;
         protected SfxrSynth _synth = new SfxrSynth();
 
         //Call this if the settings have changed
-        protected virtual void UpdateCache() 
+        protected virtual void UpdateCache()  
         {
-            if (_SettingsString.Value != null) 
+            if (!string.IsNullOrEmpty(_SettingsString.Value)) 
             {
                 _synth.parameters.SetSettingsString(_SettingsString.Value);
                 _synth.CacheSound();
@@ -101,6 +101,12 @@ using UnityEngine.Serialization;
                 _SettingsString.Value = SettingsStringOLD;
                 SettingsStringOLD = "";
             }
+        }
+
+        public override void OnValidate()
+        {
+            OnEnable();
+            base.OnValidate();
         }
 
         #endregion

@@ -14,6 +14,9 @@ namespace Fungus
     /// </summary>
     public class NarrativeLogMenu : MonoBehaviour 
     {
+        [Tooltip("Contains the overall aesthetic of each entry.")]
+        [SerializeField] protected NarrativeLogEntryDisplay entryDisplayPrefab;
+
         [Tooltip("Show the Narrative Log Menu")]
         [SerializeField] protected bool showLog = true;
 
@@ -72,7 +75,6 @@ namespace Fungus
 
             //Clear up the lorem ipsum
             UpdateNarrativeLogText();
-
         }
 
         protected virtual void OnEnable()
@@ -93,7 +95,7 @@ namespace Fungus
             NarrativeLog.OnNarrativeAdded -= OnNarrativeAdded;
         }
 
-        protected virtual void OnNarrativeAdded()
+        protected virtual void OnNarrativeAdded(NarrativeLogEntry data)
         {
             UpdateNarrativeLogText();
         }

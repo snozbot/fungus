@@ -161,7 +161,15 @@ namespace Fungus
             {
                 type = TokenType.AudioStop;
             }
-            
+            else if (tag.StartsWith("link="))
+            {
+                type = TokenType.LinkStart;
+            }
+            else if (tag.StartsWith("/link"))
+            {
+                type = TokenType.LinkEnd;
+            }
+
             if (type != TokenType.Invalid)
             {
                 TextTagToken token = new TextTagToken();
@@ -215,6 +223,7 @@ namespace Fungus
                 "\t{wp}, {wp=0.5} Wait on punctuation (seconds){/wp}\n" +
                 "\t{c} Clear\n" +
                 "\t{x} Exit, advance to the next command without waiting for input\n" +
+                "\t{link=id}link text{/link} <link=id>link text</link>\n" +
                 "\n" +
                 "\t{vpunch=10,0.5} Vertically punch screen (intensity,time)\n" +
                 "\t{hpunch=10,0.5} Horizontally punch screen (intensity,time)\n" +

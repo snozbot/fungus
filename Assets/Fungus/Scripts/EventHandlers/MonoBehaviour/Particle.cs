@@ -30,11 +30,23 @@ namespace Fungus
         [EnumFlag]
         protected ParticleMessageFlags FireOn = ParticleMessageFlags.OnParticleCollision;
 
+        [Tooltip("Optional variable to store the gameobject that particle collided with.")]
+        [VariableProperty(typeof(GameObjectVariable))]
+        [SerializeField] protected GameObjectVariable GOcolliderVar;
+
         private void OnParticleCollision(GameObject other)
         {
             if ((FireOn & ParticleMessageFlags.OnParticleCollision) != 0)
             {
-                ProcessTagFilter(other.tag);
+                if (DoesPassFilter(other.tag))
+                {
+                    if (GOcolliderVar != null)
+                    {
+                        GOcolliderVar.Value = other;
+                    }
+
+                    ExecuteBlock();
+                }
             }
         }
 

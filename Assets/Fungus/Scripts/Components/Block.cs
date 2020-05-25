@@ -55,6 +55,8 @@ namespace Fungus
         /// </summary>
         protected int previousActiveCommandIndex = -1;
 
+        public int PreviousActiveCommandIndex { get { return previousActiveCommandIndex; } }
+
         protected int jumpToCommandIndex = -1;
 
         protected int executionCount;
@@ -124,7 +126,8 @@ namespace Fungus
 #endif
         //editor only state for speeding up flowchart window drawing
         public bool IsSelected { get; set; }    //local cache of selectedness
-        public bool IsFiltered { get; set; }    //local cache of filteredness
+        public enum FilteredState { Full, Partial, None}
+        public FilteredState FilterState { get; set; }    //local cache of filteredness
         public bool IsControlSelected { get; set; } //local cache of being part of the control exclusion group
 
         #region Public members
@@ -373,6 +376,12 @@ namespace Fungus
         public virtual List<Block> GetConnectedBlocks()
         {
             var connectedBlocks = new List<Block>();
+            GetConnectedBlocks(ref connectedBlocks);
+            return connectedBlocks;
+        }
+
+        public virtual void GetConnectedBlocks(ref List<Block> connectedBlocks)
+        {
             for (int i = 0; i < commandList.Count; i++)
             {
                 var command = commandList[i];
@@ -381,7 +390,6 @@ namespace Fungus
                     command.GetConnectedBlocks(ref connectedBlocks);
                 }
             }
-            return connectedBlocks;
         }
 
         /// <summary>
@@ -408,6 +416,17 @@ namespace Fungus
             }
 
             return -1;
+        }
+
+        public virtual Command GetPreviousActiveCommand()
+        {
+            if (previousActiveCommandIndex >= 0 &&
+                previousActiveCommandIndex < commandList.Count)
+            {
+                return commandList[previousActiveCommandIndex];
+            }
+
+            return null;
         }
 
         /// <summary>

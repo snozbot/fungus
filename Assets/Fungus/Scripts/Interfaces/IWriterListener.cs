@@ -2,7 +2,6 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using System.Collections;
 
 namespace Fungus
 {
@@ -28,9 +27,19 @@ namespace Fungus
         /// Called when the Writer has resumed writing text.
         void OnResume();
 
-        /// Called when the Writer has finished writing text.
+        /// Called when the Writer has finished.
         /// <param name="stopAudio">Controls whether audio should be stopped when writing ends.</param>
         void OnEnd(bool stopAudio);
+
+        /// <summary>
+        /// Called when the Writer has no more Words remaining, but may have waits or other tokens still pending.
+        /// Will not be called if there is NO Words for the writer to process in the first place. e.g. Audio only says
+        /// do not trigger this.
+        /// 
+        /// Note that the writer does not know what may happen after it's job is done. If a following Say does
+        /// not clear the existing, you'll get what looks like AllWordsWritten and then more words written.
+        /// </summary>
+        void OnAllWordsWritten();
 
         /// Called every time the Writer writes a new character glyph.
         void OnGlyph();

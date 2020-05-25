@@ -43,12 +43,26 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(textProp);
 
             EditorGUILayout.PropertyField(descriptionProp);
-            
+
+            EditorGUILayout.BeginHorizontal();
             BlockEditor.BlockField(targetBlockProp,
                                    new GUIContent("Target Block", "Block to call when option is selected"), 
                                    new GUIContent("<None>"), 
                                    flowchart);
-            
+            const int popupWidth = 17;
+            if(targetBlockProp.objectReferenceValue == null && GUILayout.Button("+",GUILayout.MaxWidth(popupWidth)))
+            {
+                var fw = EditorWindow.GetWindow<FlowchartWindow>();
+                var t = (Menu)target;
+                var activeFlowchart = t.GetFlowchart();
+                var newBlock = fw.CreateBlockSuppressSelect(activeFlowchart, t.ParentBlock._NodeRect.position - Vector2.down * 60);
+                targetBlockProp.objectReferenceValue = newBlock;
+                activeFlowchart.SelectedBlock = t.ParentBlock;
+            }
+            EditorGUILayout.EndHorizontal();
+
+
+
             EditorGUILayout.PropertyField(hideIfVisitedProp);
             EditorGUILayout.PropertyField(interactableProp);
             EditorGUILayout.PropertyField(setMenuDialogProp);
