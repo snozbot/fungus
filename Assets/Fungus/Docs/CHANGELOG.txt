@@ -1,7 +1,7 @@
 Changelog {#changelog}
 =========
 
-v3.13.0rc1
+v3.13.0
 ======
 
 ## Added
@@ -12,6 +12,7 @@ v3.13.0rc1
 - Option to grid snap blocks in the FlowchartWindow.
 - TMPro Text animation via link text.
 - Fungus Collection, varaibles, default types, and commands.
+- Github Issue and PR templates.
 
 ## Fixed
 
@@ -24,6 +25,9 @@ v3.13.0rc1
 - FlowchartWindow search pop not showing on newer Unity versions.
 - VS Solution file fix for Unity 2019.3.12
 - Inspector DeleteSave button now deletes now more aware of target platform.
+- Fungus VariableData single and mutliline variable drawing in more recent Unity versions.
+- Possible null ref in Conversation editor during variable match check
+- Block connections not drawing if origin block is not drawn.
 
 ## Changed
 
@@ -39,11 +43,12 @@ v3.13.0rc1
 - Block selector now orders blocks by name.
 - Block search now supports partial matches.
 - Update to c#4
-- Updates to Contributing, Code of Conduct, Issue and PR templates.
+- Updates to Contributing, Code of Conduct.
 - Menu command has a button to add a block for it to target.
 - Character selector now sorts names.
 - Portrait selector now sorts names.
 - Update header license
+- Writer uses InvariantCulture when parsing floats to avoid unexpected behaviour under changing system cultures.
 
 v3.12.0
 ======
