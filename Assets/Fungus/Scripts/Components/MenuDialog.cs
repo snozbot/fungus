@@ -143,6 +143,8 @@ namespace Fungus
                 yield return null;
             }
 
+            MenuSignals.DoMenuTimerElapsed();
+
             Clear();
             gameObject.SetActive(false);
 
@@ -233,6 +235,7 @@ namespace Fungus
             UnityEngine.Events.UnityAction action = delegate
             {
                 EventSystem.current.SetSelectedGameObject(null);
+                MenuSignals.DoMenuSelectionMade(text);
                 StopAllCoroutines();
                 // Stop timeout
                 Clear();
@@ -267,6 +270,7 @@ namespace Fungus
             Closure call = callBack;
             UnityEngine.Events.UnityAction action = delegate
             {
+                MenuSignals.DoMenuSelectionMade(text);
                 StopAllCoroutines();
                 // Stop timeout
                 Clear();
