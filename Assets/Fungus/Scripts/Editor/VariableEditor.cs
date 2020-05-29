@@ -221,7 +221,9 @@ namespace Fungus.EditorUtils
 
             var origLabel = new GUIContent(label);
 
-            if (EditorGUI.GetPropertyHeight(valueProp, label) <= EditorGUIUtility.singleLineHeight)
+            var itemH = EditorGUI.GetPropertyHeight(valueProp, label);
+
+            if (itemH <= EditorGUIUtility.singleLineHeight*2)
             {
                 DrawSingleLineProperty(position, origLabel, referenceProp, valueProp, flowchart, typeInfo);
             }
@@ -251,12 +253,12 @@ namespace Fungus.EditorUtils
 
             if (referenceProp.objectReferenceValue == null)
             {
-                DrawValueProperty(valueRect, valueProp, typeInfo);
+                CustomVariableDrawerLookup.DrawCustomOrPropertyField(typeof(T), valueRect, valueProp, GUIContent.none);
                 popupRect.x += valueRect.width + popupGap;
                 popupRect.width = popupWidth;
             }
 
-            EditorGUI.PropertyField(popupRect, referenceProp, new GUIContent(""));
+            EditorGUI.PropertyField(popupRect, referenceProp, GUIContent.none);
             EditorGUI.indentLevel = prevIndent;
         }
 
@@ -267,12 +269,14 @@ namespace Fungus.EditorUtils
             
             Rect controlRect = rect;
             Rect valueRect = controlRect;
-            valueRect.width = controlRect.width - 5;
+            //valueRect.width = controlRect.width - 5;
             Rect popupRect = controlRect;
+            popupRect.height = EditorGUIUtility.singleLineHeight;
             
             if (referenceProp.objectReferenceValue == null)
             {
-                DrawValueProperty(valueRect, valueProp, typeInfo);
+                //EditorGUI.PropertyField(valueRect, valueProp, label);
+                CustomVariableDrawerLookup.DrawCustomOrPropertyField(typeof(T), valueRect, valueProp, label);
                 popupRect.x = rect.width - popupWidth + 5;
                 popupRect.width = popupWidth;
             }
@@ -281,12 +285,7 @@ namespace Fungus.EditorUtils
                 popupRect = EditorGUI.PrefixLabel(rect, label);
             }
 
-            EditorGUI.PropertyField(popupRect, referenceProp, new GUIContent(""));
-        }
-
-        protected virtual void DrawValueProperty(Rect valueRect, SerializedProperty valueProp, VariableInfoAttribute typeInfo)
-        {
-            CustomVariableDrawerLookup.DrawCustomOrPropertyField(typeof(T), valueRect, valueProp);
+            EditorGUI.PropertyField(popupRect, referenceProp, GUIContent.none);
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)

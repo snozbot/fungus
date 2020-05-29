@@ -290,7 +290,7 @@ namespace Fungus.EditorUtils
             }
             else 
             {
-                CustomVariableDrawerLookup.DrawCustomOrPropertyField(variable.GetType(), rect, valueProp);
+                CustomVariableDrawerLookup.DrawCustomOrPropertyField(variable.GetType(), rect, valueProp, GUIContent.none);
             }
         }
 
