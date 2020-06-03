@@ -85,6 +85,7 @@ namespace Fungus
                 if (targetAudioSource == null)
                 {
                     targetAudioSource = gameObject.AddComponent<AudioSource>();
+                    targetAudioSource.outputAudioMixerGroup = FungusManager.Instance.MainAudioMixer.SFXGroup;
                 }
             }
 

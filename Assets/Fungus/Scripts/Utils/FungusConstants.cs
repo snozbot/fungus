@@ -47,6 +47,8 @@ namespace Fungus
         /// </summary>
         public const string DefaultSaveDataKey = "save_data";
 
+        public const string FungusAudioMixer = "FungusAudioMixer";
+
         #endregion
     }
 }

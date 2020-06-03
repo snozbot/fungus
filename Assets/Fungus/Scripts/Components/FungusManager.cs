@@ -13,6 +13,7 @@ namespace Fungus
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(EventDispatcher))]
     [RequireComponent(typeof(GlobalVariables))]
+    [RequireComponent(typeof(MainAudioMixer))]
 #if UNITY_5_3_OR_NEWER
     [RequireComponent(typeof(SaveManager))]
     [RequireComponent(typeof(NarrativeLog))]
@@ -29,6 +30,7 @@ namespace Fungus
             MusicManager = GetComponent<MusicManager>();
             EventDispatcher = GetComponent<EventDispatcher>();
             GlobalVariables = GetComponent<GlobalVariables>();
+            MainAudioMixer = GetComponent<MainAudioMixer>();
 #if UNITY_5_3_OR_NEWER
             SaveManager = GetComponent<SaveManager>();
             NarrativeLog = GetComponent<NarrativeLog>();
@@ -69,6 +71,8 @@ namespace Fungus
         /// Gets the global variable singleton instance.
         /// </summary>
         public GlobalVariables GlobalVariables { get; private set; }
+
+        public MainAudioMixer MainAudioMixer { get; private set; }
 
 #if UNITY_5_3_OR_NEWER
         /// <summary>
