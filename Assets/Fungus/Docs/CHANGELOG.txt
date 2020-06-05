@@ -1,6 +1,13 @@
 Changelog {#changelog}
 =========
 
+v3.13.1
+======
+
+## Fixed
+
+- Build error in JsonChecker caused by missing asmdef in newer Unity versions. (#833)
+
 v3.13.0
 ======
 
