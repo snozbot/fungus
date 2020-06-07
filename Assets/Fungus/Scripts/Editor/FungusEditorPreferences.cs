@@ -113,7 +113,7 @@ namespace Fungus
 
                 if(GUILayout.Button("Open save file directory"))
                 {
-                    Application.OpenURL(SaveManager.STORAGE_DIRECTORY);
+                    Application.OpenURL(SaveManager.StorageDirectory);
                 }
 
                 // Save the preferences

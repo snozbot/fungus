@@ -38,7 +38,7 @@ namespace Fungus
                 return lastWritten.ToString("O");
             }
         }
-        
+
         public enum SaveType
         {
             Auto,
@@ -59,7 +59,7 @@ namespace Fungus
         /// Profiles determine which set of saves are available.
         /// </summary>
         public string CurrentSaveProfileKey { get { return currentSaveProfileKey; } }
-        
+
         /// <summary>
         /// POD for info the SaveManager wants between runs of the game.
         /// </summary>
@@ -69,7 +69,7 @@ namespace Fungus
             public string lastProfileName;
         }
 
-        public static string STORAGE_DIRECTORY { get { return Application.persistentDataPath + "/FungusSaves/"; } }
+        public static string StorageDirectory { get { return Application.persistentDataPath + "/FungusSaves/"; } }
         protected const string FileExtension = ".save";
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Fungus
         /// <returns></returns>
         private string GetFullSaveDir()
         {
-            return System.IO.Path.GetFullPath(STORAGE_DIRECTORY + currentSaveProfileKey + "/");
+            return System.IO.Path.GetFullPath(StorageDirectory + currentSaveProfileKey + "/");
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Fungus
         /// <returns></returns>
         private string GetSaveManagerDataFile()
         {
-            return System.IO.Path.GetFullPath(STORAGE_DIRECTORY + "save_manager_data.json");
+            return System.IO.Path.GetFullPath(StorageDirectory + "save_manager_data.json");
         }
 
         /// <summary>
@@ -141,6 +141,7 @@ namespace Fungus
             get { return _isSavingAllowed; }
             set { _isSavingAllowed = value; SaveManagerSignals.DoSavingLoadingAllowedChanged(); }
         }
+
         protected bool _isSavingAllowed = true;
 
         /// <summary>
@@ -152,6 +153,7 @@ namespace Fungus
             get { return _isLoadingAllowed; }
             set { _isLoadingAllowed = value; SaveManagerSignals.DoSavingLoadingAllowedChanged(); }
         }
+
         protected bool _isLoadingAllowed = true;
 
         public void Awake()
@@ -235,7 +237,6 @@ namespace Fungus
 
             //TODO look at the settings and ensure we have saves in correct order for user saves and put dumbies in where we don't
             var userSaves = CollectUserSaves();
-
 
             for (int i = 0; i < NumberOfUserSaves; i++)
             {

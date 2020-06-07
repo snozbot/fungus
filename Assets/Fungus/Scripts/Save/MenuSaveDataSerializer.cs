@@ -27,7 +27,7 @@ namespace Fungus
                     FlowchartName = cmd.GetFlowchart().GetName(),
                 };
 
-                menuFlowchartCommandData.AddBlockData(new FlowchartData.BlockData( cmd.ParentBlock.BlockName,
+                menuFlowchartCommandData.AddBlockData(new FlowchartData.BlockData(cmd.ParentBlock.BlockName,
                     cmd.CommandIndex,
                     ExecutionState.Executing,
                     cmd.ParentBlock.GetExecutionCount(),

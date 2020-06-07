@@ -1,9 +1,7 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using System.Linq;
 using UnityEngine;
-using static Fungus.SaveManager;
 
 namespace Fungus
 {
@@ -31,25 +29,29 @@ namespace Fungus
 
             switch (savingAllowedGetSet)
             {
-            case GetSet.Get:
-                savingAllowedBool.Value = saveMan.IsSavingAllowed;
-                break;
-            case GetSet.Set:
-                saveMan.IsSavingAllowed = savingAllowedBool.Value;
-                break;
-            default:
+                case GetSet.Get:
+                    savingAllowedBool.Value = saveMan.IsSavingAllowed;
+                    break;
+
+                case GetSet.Set:
+                    saveMan.IsSavingAllowed = savingAllowedBool.Value;
+                    break;
+
+                default:
                 break;
             }
 
             switch (loadingAllowedGetSet)
             {
-            case GetSet.Get:
-                loadingAllowedBool.Value = saveMan.IsLoadingAllowed;
-                break;
-            case GetSet.Set:
-                saveMan.IsLoadingAllowed = loadingAllowedBool.Value;
-                break;
-            default:
+                case GetSet.Get:
+                    loadingAllowedBool.Value = saveMan.IsLoadingAllowed;
+                    break;
+
+                case GetSet.Set:
+                    saveMan.IsLoadingAllowed = loadingAllowedBool.Value;
+                    break;
+
+                default:
                 break;
             }
 
@@ -63,8 +65,8 @@ namespace Fungus
 
         public override bool HasReference(Variable variable)
         {
-            return variable == savingAllowedBool.booleanRef || 
-                variable == loadingAllowedBool.booleanRef || 
+            return variable == savingAllowedBool.booleanRef ||
+                variable == loadingAllowedBool.booleanRef ||
                 base.HasReference(variable);
         }
 
