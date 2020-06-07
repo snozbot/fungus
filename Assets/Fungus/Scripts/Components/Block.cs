@@ -55,8 +55,6 @@ namespace Fungus
         /// </summary>
         protected int previousActiveCommandIndex = -1;
 
-        public int PreviousActiveCommandIndex { get { return previousActiveCommandIndex; } }
-
         protected int jumpToCommandIndex = -1;
 
         protected int executionCount;
@@ -194,11 +192,13 @@ namespace Fungus
         /// The list of commands in the sequence.
         /// </summary>
         public virtual List<Command> CommandList { get { return commandList; } }
+        public virtual int PreviousActiveCommandIndex { get { return previousActiveCommandIndex; } }
 
         /// <summary>
         /// Controls the next command to execute in the block execution coroutine.
         /// </summary>
-        public virtual int JumpToCommandIndex { set { jumpToCommandIndex = value; } }
+        public virtual int JumpToCommandIndex { get { return jumpToCommandIndex; } set { jumpToCommandIndex = value; } }
+
 
         /// <summary>
         /// Returns the parent Flowchart for this Block.
@@ -227,19 +227,34 @@ namespace Fungus
         /// <summary>
         /// Intended to be used by serialisation only.
         /// </summary>
-        /// <param name="count"></param>
-        /// <returns></returns>
         public virtual void SetExecutionCount(int count)
         {
             executionCount = count;
         }
 
         /// <summary>
+        /// Intended to be used by serialisation only.
+        /// </summary>
+        public virtual void SetPreviousActiveCommandIndex(int ind)
+        {
+            previousActiveCommandIndex = ind;
+        }
+
+        /// <summary>
+        /// Intended to be used by serialisation only.
+        /// </summary>
+        public virtual void SetJumpToCommandIndex(int ind)
+        {
+            jumpToCommandIndex = ind;
+        }
+
+
+        /// <summary>
         /// Start a coroutine which executes all commands in the Block. Only one running instance of each Block is permitted.
         /// </summary>
         public virtual void StartExecution()
         {
-            StartCoroutine(Execute());
+            StartCoroutine(Execute(0, null));
         }
 
         /// <summary>
@@ -247,7 +262,7 @@ namespace Fungus
         /// </summary>
         /// <param name="commandIndex">Index of command to start execution at</param>
         /// <param name="onComplete">Delegate function to call when execution completes</param>
-        public virtual IEnumerator Execute(int commandIndex = 0, Action onComplete = null)
+        public virtual IEnumerator Execute(int commandIndex, Action onComplete)
         {
             if (executionState != ExecutionState.Idle)
             {

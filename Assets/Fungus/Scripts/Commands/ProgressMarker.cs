@@ -14,14 +14,6 @@ namespace Fungus
                  "Marks a point for where a player has reached. Helps with reacting to GameSaveData being loaded.")]
     public class ProgressMarker : Command
     {
-        [Tooltip("Marks this as the starting point for Flowchart execution in the scene. If using the save system, each scene in your game should have exactly one with this enabled.")]
-        [SerializeField] protected bool isStartPoint = false;
-
-        /// <summary>
-        /// Marks this as the starting point for Flowchart execution in the scene. Each scene in your game should have exactly one Save Point with this enabled.
-        /// </summary>
-        public bool IsStartPoint { get { return isStartPoint; } set { isStartPoint = value; } }
-
         [SerializeField] protected string customKey = string.Empty;
 
         public virtual string CustomKey

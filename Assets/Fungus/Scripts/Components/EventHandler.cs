@@ -10,6 +10,7 @@ namespace Fungus
     /// <summary>
     /// Attribute class for Fungus event handlers.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
     public class EventHandlerInfoAttribute : Attribute
     {
         public EventHandlerInfoAttribute(string category, string eventHandlerName, string helpText)
@@ -79,7 +80,7 @@ namespace Fungus
                 ParentBlock.SuppressNextAutoSelection = true;
             }
 
-            return flowchart.ExecuteBlock(ParentBlock);
+            return flowchart.ExecuteBlock(ParentBlock,0);
         }
 
         /// <summary>
@@ -90,6 +91,23 @@ namespace Fungus
             return "";
         }
 
+        /// <summary>
+        /// Optional method for child classes to add additional data to a save via flowchartData.AddToVisitorPairs.
+        /// To be used if the child command has mutable state that it needs restored, in VisitDecode.
+        /// </summary>
+        /// <param name="flowchartData"></param>
+        public virtual void VisitEncode(FlowchartData flowchartData)
+        {
+        }
+
+        /// <summary>
+        /// Optional method for child classes to restore previously saved data from a save that is being loaded, via
+        /// flowchartData.TryGetVisitorValueByKey restoring internal state from previously saved values.
+        /// </summary>
+        /// <param name="flowchartData"></param>
+        public virtual void VisitDecode(FlowchartData flowchartData)
+        {
+        }
         #endregion
     }
 }

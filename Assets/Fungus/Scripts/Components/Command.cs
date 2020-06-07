@@ -158,7 +158,7 @@ namespace Fungus
             OnExit();
             if (ParentBlock != null)
             {
-                ParentBlock.JumpToCommandIndex = nextCommandIndex;
+                ParentBlock.SetJumpToCommandIndex(nextCommandIndex);
             }
         }
 
@@ -194,6 +194,24 @@ namespace Fungus
         /// </summary>
         public virtual void OnCommandRemoved(Block parentBlock)
         {}
+
+        /// <summary>
+        /// Optional method for child classes to add additional data to a save via flowchartData.AddToVisitorPairs.
+        /// To be used if the child command has mutable state that it needs restored, in VisitDecode.
+        /// </summary>
+        /// <param name="flowchartData"></param>
+        public virtual void VisitEncode(FlowchartData flowchartData)
+        {
+        }
+
+        /// <summary>
+        /// Optional method for child classes to restore previously saved data from a save that is being loaded, via
+        /// flowchartData.TryGetVisitorValueByKey restoring internal state from previously saved values.
+        /// </summary>
+        /// <param name="flowchartData"></param>
+        public virtual void VisitDecode(FlowchartData flowchartData)
+        {
+        }
 
         /// <summary>
         /// Called when this command starts execution.

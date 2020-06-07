@@ -18,25 +18,6 @@ namespace Fungus
         [Tooltip("Block will execute of any match. If empty, will execute on any key.")]
         [SerializeField] protected List<string> progressMarkerCustomKeys = new List<string>();
 
-        protected void OnSavePointLoaded(string _savePointKey)
-        {
-            for (int i = 0; i < progressMarkerCustomKeys.Count; i++)
-            {
-                var key = progressMarkerCustomKeys[i];
-                if (string.Compare(key, _savePointKey, true) == 0)
-                {
-                    ExecuteBlock();
-                    break;
-                }
-            }
-
-            //empty collection means go on any key
-            if (progressMarkerCustomKeys.Count == 0)
-            {
-                ExecuteBlock();
-            }
-        }
-
         protected virtual void Awake()
         {
             SaveManagerSignals.OnProgressMarkerReached += SaveManagerSignals_OnProgressMarkerReached;

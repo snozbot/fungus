@@ -1,8 +1,6 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -178,50 +176,10 @@ namespace Fungus
                     ChangeProfile(dat.lastProfileName);
                 }
             }
-            catch (Exception)
+            catch (System.Exception)
             {
                 //if that fails for whatever reason use default profile
                 ChangeProfile(FungusConstants.DefaultSaveProfileKey);
-            }
-
-            //we find that other systems want to take actions in start or enable or update, so lets not make that
-            //  difficult to do.
-            StartCoroutine(DelayGameStart());
-
-            SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-        }
-
-        private void OnDestroy()
-        {
-            SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
-        }
-
-        private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
-        {
-            GameStarted();
-        }
-
-        //we want to kick off this frame but we want to ensure all other starts get to go first
-        protected IEnumerator DelayGameStart()
-        {
-            yield return new WaitForFixedUpdate();
-            GameStarted();
-        }
-
-        /// <summary>
-        /// Called on game start or when level is loaded. Will do nothing if level load is caued by the SaveManager
-        /// </summary>
-        private void GameStarted()
-        {
-            if (!IsSaveLoading)
-            {
-                //scene was loaded not a save game
-                var savePoints = UnityEngine.Object.FindObjectsOfType<ProgressMarker>().ToList();
-                var startingSavePoint = savePoints.FirstOrDefault(x => x.IsStartPoint);
-                if (startingSavePoint != null)
-                {
-                    startingSavePoint.GetFlowchart().ExecuteBlock(startingSavePoint.ParentBlock, startingSavePoint.CommandIndex);
-                }
             }
         }
 
@@ -498,7 +456,7 @@ namespace Fungus
         /// <returns></returns>
         public List<SavePointMeta> CollectAutoSaves()
         {
-            return FungusManager.Instance.SaveManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.AutoSavePrefix))
+            return SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.AutoSavePrefix))
                 .OrderBy(x => x.lastWritten.Ticks).ToList();
         }
 
@@ -508,7 +466,7 @@ namespace Fungus
         /// <returns></returns>
         public List<SavePointMeta> CollectUserSaves()
         {
-            return FungusManager.Instance.SaveManager.SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.UserSavePrefix))
+            return SaveMetas.Where(x => x.saveName.StartsWith(FungusConstants.UserSavePrefix))
                 .OrderBy(x => System.Convert.ToInt32(x.saveName.Substring(FungusConstants.UserSavePrefix.Length))).ToList();
         }
 

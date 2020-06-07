@@ -18,6 +18,9 @@ namespace Fungus
         [System.Serializable]
         public class StringToJsonPair
         {
+            public StringToJsonPair() { }
+            public StringToJsonPair(string key, string json) { this.key = key; this.json = json; }
+
             public string key, json;
         }
 
@@ -27,22 +30,25 @@ namespace Fungus
         [System.Serializable]
         public class BlockData
         {
-            public BlockData(string name, int index, ExecutionState state, int executionCount)
+            public BlockData(string name, int index, ExecutionState state, int executionCount, int previousActiveCommandIndex, int jumpToCommandIndex)
             {
                 this.blockName = name;
                 this.commandIndex = index;
                 this.executionState = state;
                 this.executionCount = executionCount;
+                this.previousActiveCommandIndex = previousActiveCommandIndex;
+                this.jumpToCommandIndex = jumpToCommandIndex;
             }
 
             public string blockName = string.Empty;
             public int commandIndex = -1;
             public ExecutionState executionState = ExecutionState.Idle;
-            public int executionCount;
+            public int executionCount, previousActiveCommandIndex = -1, jumpToCommandIndex = -1;
         }
 
         [SerializeField] protected string flowchartName;
         [SerializeField] protected List<StringToJsonPair> varPairs = new List<StringToJsonPair>();
+        [SerializeField] protected List<StringToJsonPair> visitorPairs = new List<StringToJsonPair>();
         [SerializeField] protected List<BlockData> blockDatas = new List<BlockData>();
 
         /// <summary>
@@ -98,10 +104,23 @@ namespace Fungus
             {
                 if (block.IsSavingAllowed)
                 {
-                    flowchartData.blockDatas.Add(new BlockData( block.BlockName, 
-                        block.ActiveCommandIndex, 
+                    flowchartData.blockDatas.Add(new BlockData(block.BlockName,
+                        block.ActiveCommandIndex,
                         block.State,
-                        block.GetExecutionCount()));
+                        block.GetExecutionCount(),
+                        block.PreviousActiveCommandIndex,
+                        block.JumpToCommandIndex));
+
+                    var cmds = block.CommandList;
+                    foreach (var item in cmds)
+                    {
+                        item.VisitEncode(flowchartData);
+                    }
+
+                    if (block._EventHandler != null)
+                    {
+                        block._EventHandler.VisitEncode(flowchartData);
+                    }
                 }
             }
 
@@ -152,6 +171,19 @@ namespace Fungus
                 if (block != null)
                 {
                     block.SetExecutionCount(item.executionCount);
+                    block.SetPreviousActiveCommandIndex(item.previousActiveCommandIndex);
+                    block.SetJumpToCommandIndex(item.jumpToCommandIndex);
+
+                    var cmds = block.CommandList;
+                    foreach (var cmd in cmds)
+                    {
+                        cmd.VisitDecode(this);
+                    }
+
+                    if (block._EventHandler != null)
+                    {
+                        block._EventHandler.VisitDecode(this);
+                    }
 
                     if (item.executionState == ExecutionState.Idle && block.State != ExecutionState.Idle)
                     {
@@ -193,6 +225,23 @@ namespace Fungus
             {
                 item.block.GetFlowchart().ExecuteBlock(item.block, item.commandIndex);
             }
+        }
+
+        public virtual void AddToVisitorPairs(string key, string json)
+        {
+            visitorPairs.Add(new StringToJsonPair(key, json));
+        }
+
+        public virtual bool TryGetVisitorValueByKey(string key, out string value)
+        {
+            var item = visitorPairs.Find(x => x.key == key);
+            if (item != null)
+            {
+                value = item.json;
+                return true;
+            }
+            value = string.Empty;
+            return false;
         }
     }
 }

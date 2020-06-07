@@ -1,6 +1,7 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+using System;
 using UnityEngine;
 
 //todo doco update
@@ -61,6 +62,7 @@ namespace Fungus
     /// <summary>
     /// Attribute class for variables.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
     public sealed class VariableInfoAttribute : System.Attribute
     {
         //Note do not use "isPreviewedOnly:true", it causes the script to fail to load without errors shown
@@ -81,6 +83,7 @@ namespace Fungus
     /// <summary>
     /// Attribute class for variable properties.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Field)]
     public sealed class VariablePropertyAttribute : PropertyAttribute 
     {
         public VariablePropertyAttribute (params System.Type[] variableTypes) 

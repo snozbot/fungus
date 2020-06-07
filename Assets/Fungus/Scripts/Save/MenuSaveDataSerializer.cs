@@ -30,7 +30,9 @@ namespace Fungus
                 menuFlowchartCommandData.AddBlockData(new FlowchartData.BlockData( cmd.ParentBlock.BlockName,
                     cmd.CommandIndex,
                     ExecutionState.Executing,
-                    cmd.ParentBlock.GetExecutionCount()));
+                    cmd.ParentBlock.GetExecutionCount(),
+                    cmd.ParentBlock.PreviousActiveCommandIndex,
+                    cmd.ParentBlock.JumpToCommandIndex));
 
                 var menuLogitem = SaveDataItem.Create(MenuKey, JsonUtility.ToJson(menuFlowchartCommandData));
                 data.SaveDataItems.Add(menuLogitem);
