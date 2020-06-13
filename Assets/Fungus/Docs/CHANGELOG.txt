@@ -1,6 +1,21 @@
 Changelog {#changelog}
 =========
 
+v3.13.2
+======
+
+## Fixed
+
+- Restore string VariableSubstitution in use of AnyVariableDataPair, found in SetVariable and VariableCondition (#841)
+- Float variable comparison, typo causing comparison to self instead of rhs(#836)
+
+v3.13.1
+======
+
+## Fixed
+
+- Build error in JsonChecker caused by missing asmdef in newer Unity versions. (#833)
+
 v3.13.0
 ======
 

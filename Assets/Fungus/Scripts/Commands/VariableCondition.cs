@@ -144,6 +144,24 @@ namespace Fungus
         }
 
 
+
+        #region Editor caches
+#if UNITY_EDITOR
+        protected override void RefreshVariableCache()
+        {
+            base.RefreshVariableCache();
+
+            if (conditions != null)
+            {
+                foreach (var item in conditions)
+                {
+                    item.AnyVar.RefreshVariableCacheHelper(GetFlowchart(), ref referencedVariables);
+                }
+            }
+        }
+#endif
+        #endregion Editor caches
+
         #region backwards compat
 
         [HideInInspector]

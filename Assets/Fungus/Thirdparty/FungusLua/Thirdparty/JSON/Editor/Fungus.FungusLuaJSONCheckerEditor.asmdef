@@ -1,7 +1,7 @@
 {
-    "name": "Fungus.LineEndingsEditor",
+    "name": "Fungus.FungusLuaJSONCheckerEditor",
     "references": [
-        "GUID:007db7f7a4c8f944990d71603a110f82"
+        "Fungus"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [
@@ -12,6 +12,5 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": []
+    "defineConstraints": []
 }

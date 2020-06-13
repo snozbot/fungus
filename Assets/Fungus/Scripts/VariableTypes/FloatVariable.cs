@@ -70,7 +70,7 @@ namespace Fungus
                 condition = lhs >= rhs;
                 break;
             default:
-                condition = base.Evaluate(compareOperator, base.value);
+                condition = base.Evaluate(compareOperator, value);
                 break;
             }
 
