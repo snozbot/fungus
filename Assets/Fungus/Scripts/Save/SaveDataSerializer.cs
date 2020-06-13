@@ -47,7 +47,10 @@ namespace Fungus
         /// <summary>
         /// Decodes the loaded list of SaveDataItems to restore the saved game state.
         /// </summary>
-        public abstract void Decode(SavePointData data);
+        public virtual void Decode(SavePointData data)
+        {
+            DecodeMatchingDataTypeItems(data);
+        }
 
         /// <summary>
         /// Called on serialisers after all have completed thier decodes

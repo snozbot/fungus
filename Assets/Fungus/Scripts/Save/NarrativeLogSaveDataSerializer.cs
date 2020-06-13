@@ -22,11 +22,6 @@ namespace Fungus
             data.SaveDataItems.Add(narrativeLogItem);
         }
 
-        public override void Decode(SavePointData data)
-        {
-            DecodeMatchingDataTypeItems(data);
-        }
-
         protected override void ProcessItem(SaveDataItem item)
         {
             FungusManager.Instance.NarrativeLog.LoadHistory(item.Data);
