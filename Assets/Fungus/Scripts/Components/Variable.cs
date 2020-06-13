@@ -161,6 +161,12 @@ namespace Fungus
         /// Not recommended for direct use, primarily intended for use in editor code.
         /// </summary>
         public abstract object GetValue();
+
+        //we are required to be on a flowchart so we provide this as a helper
+        public virtual Flowchart GetFlowchart()
+        {
+            return GetComponent<Flowchart>();
+        }
         #endregion
     }
 
