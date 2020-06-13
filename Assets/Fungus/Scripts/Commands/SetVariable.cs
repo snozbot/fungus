@@ -71,6 +71,20 @@ namespace Fungus
 
         #endregion
 
+
+
+        #region Editor caches
+#if UNITY_EDITOR
+        protected override void RefreshVariableCache()
+        {
+            base.RefreshVariableCache();
+
+            if(anyVar != null)
+                anyVar.RefreshVariableCacheHelper(GetFlowchart(), ref referencedVariables);
+        }
+#endif
+        #endregion Editor caches
+
         #region backwards compat
 
 
