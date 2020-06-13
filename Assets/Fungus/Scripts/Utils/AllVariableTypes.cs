@@ -295,9 +295,12 @@ namespace Fungus
 #if UNITY_EDITOR
         public void RefreshVariableCacheHelper(Flowchart f, ref List<Variable> referencedVariables)
         {
-            if (variable is StringVariable asStringVar && asStringVar != null && !string.IsNullOrEmpty(asStringVar.Value))
-                f.DetermineSubstituteVariables(asStringVar.Value, referencedVariables);
-
+            if (variable is StringVariable)
+            {
+                StringVariable asStringVar = variable as StringVariable;
+                if (asStringVar != null && !string.IsNullOrEmpty(asStringVar.Value))
+                    f.DetermineSubstituteVariables(asStringVar.Value, referencedVariables);
+            }
             if (!string.IsNullOrEmpty(data.stringData.Value))
                 f.DetermineSubstituteVariables(data.stringData.Value, referencedVariables);
         }
