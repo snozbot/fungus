@@ -167,6 +167,12 @@ namespace Fungus
         /// </summary>
         public abstract object GetValue();
 
+        //we are required to be on a flowchart so we provide this as a helper
+        public virtual Flowchart GetFlowchart()
+        {
+            return GetComponent<Flowchart>();
+        }
+        
         /// <summary>
         /// Determines if this variable is able to be serialised, requires then that it implements
         /// GetValueAsJson & SetValueFromJson for round tripping data. If retruns false, the variable 
