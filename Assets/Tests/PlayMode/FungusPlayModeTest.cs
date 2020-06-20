@@ -28,6 +28,12 @@ namespace Fungus.Tests
         {
             yield return EditorUtils.TestUtils.RunPrefabFlowchartTests("VarSetTest", true);
         }
+
+        [UnityTest]
+        public IEnumerator SaveLoadTest()
+        {
+            yield return EditorUtils.TestUtils.RunPrefabFlowchartTests("SaveTestRoot", false);
+        }
     }
 }
 #endif
