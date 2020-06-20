@@ -76,5 +76,33 @@ namespace Fungus
                 (duplicatesToPutInBag.integerRef != null ? " " + duplicatesToPutInBag.integerRef.Key : "") +
             (currentIndex.integerRef != null ? " " + currentIndex.integerRef.Key : ""); ;
         }
+
+        public override void VisitEncode(FlowchartData flowchartData)
+        {
+            if (currentIndex.integerRef == null)
+            {
+                flowchartData.AddToVisitorPairs(GetLocationIdentifier(), currentIndex.integerVal.ToString());
+            }
+
+            base.VisitEncode(flowchartData);
+        }
+
+        public override void VisitDecode(FlowchartData flowchartData)
+        {
+            if (currentIndex.integerRef == null)
+            {
+                string sVal;
+                if (flowchartData.TryGetVisitorValueByKey(GetLocationIdentifier(), out sVal))
+                {
+                    int iVal;
+                    if (int.TryParse(sVal, out iVal))
+                    {
+                        currentIndex.integerVal = iVal;
+                    }
+                }
+            }
+
+            base.VisitDecode(flowchartData);
+        }
     }
 }

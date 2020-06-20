@@ -16,12 +16,12 @@ namespace Fungus
         /// Variable name and json value pair.
         /// </summary>
         [System.Serializable]
-        public class StringToJsonPair
+        public class StringPair
         {
-            public StringToJsonPair() { }
-            public StringToJsonPair(string key, string json) { this.key = key; this.json = json; }
+            public StringPair() { }
+            public StringPair(string key, string val) { this.key = key; this.val = val; }
 
-            public string key, json;
+            public string key, val;
         }
 
         /// <summary>
@@ -47,8 +47,8 @@ namespace Fungus
         }
 
         [SerializeField] protected string flowchartName;
-        [SerializeField] protected List<StringToJsonPair> varPairs = new List<StringToJsonPair>();
-        [SerializeField] protected List<StringToJsonPair> visitorPairs = new List<StringToJsonPair>();
+        [SerializeField] protected List<StringPair> varPairs = new List<StringPair>();
+        [SerializeField] protected List<StringPair> visitorPairs = new List<StringPair>();
         [SerializeField] protected List<BlockData> blockDatas = new List<BlockData>();
 
         /// <summary>
@@ -91,10 +91,10 @@ namespace Fungus
 
                 if (v.IsSerialisable)
                 {
-                    flowchartData.varPairs.Add(new StringToJsonPair()
+                    flowchartData.varPairs.Add(new StringPair()
                     {
                         key = v.Key,
-                        json = v.GetValueAsJson()
+                        val = v.GetStringifiedValue()
                     });
                 }
             }
@@ -159,7 +159,7 @@ namespace Fungus
 
                 if (v != null)
                 {
-                    v.SetValueFromJson(varPairs[i].json);
+                    v.RestoreFromStringifiedValue(varPairs[i].val);
                 }
             }
 
@@ -227,9 +227,9 @@ namespace Fungus
             }
         }
 
-        public virtual void AddToVisitorPairs(string key, string json)
+        public virtual void AddToVisitorPairs(string key, string value)
         {
-            visitorPairs.Add(new StringToJsonPair(key, json));
+            visitorPairs.Add(new StringPair(key, value));
         }
 
         public virtual bool TryGetVisitorValueByKey(string key, out string value)
@@ -237,7 +237,7 @@ namespace Fungus
             var item = visitorPairs.Find(x => x.key == key);
             if (item != null)
             {
-                value = item.json;
+                value = item.val;
                 return true;
             }
             value = string.Empty;

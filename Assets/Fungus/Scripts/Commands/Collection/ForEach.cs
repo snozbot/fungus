@@ -84,6 +84,33 @@ namespace Fungus
 
             return item.Key + " in " + collection.Value.name;
         }
+        public override void VisitEncode(FlowchartData flowchartData)
+        {
+            if (curIndex.integerRef == null)
+            {
+                flowchartData.AddToVisitorPairs(GetLocationIdentifier(), curIndex.integerVal.ToString());
+            }
+
+            base.VisitEncode(flowchartData);
+        }
+
+        public override void VisitDecode(FlowchartData flowchartData)
+        {
+            if (curIndex.integerRef == null)
+            {
+                string sVal;
+                if (flowchartData.TryGetVisitorValueByKey(GetLocationIdentifier(), out sVal))
+                {
+                    int iVal;
+                    if (int.TryParse(sVal, out iVal))
+                    {
+                        curIndex.integerVal = iVal;
+                    }
+                }
+            }
+
+            base.VisitDecode(flowchartData);
+        }
 
         #endregion Public members
     }
