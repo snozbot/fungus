@@ -13,6 +13,17 @@ namespace Fungus
     [System.Serializable]
     public class StringVariable : VariableBase<string>
     {
+        public override bool IsSerialisable { get { return true; } }
+
+        public override string GetStringifiedValue()
+        {
+            return Value;
+        }
+
+        public override void RestoreFromStringifiedValue(string stringifiedValue)
+        {
+            Value = stringifiedValue;
+        }
     }
 
     /// <summary>

@@ -2,6 +2,8 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using System;
+using System.Globalization;
+using System.Linq;
 using UnityEngine;
 
 //todo doco update
@@ -178,20 +180,17 @@ namespace Fungus
         /// GetValueAsJson & SetValueFromJson for round tripping data. If retruns false, the variable 
         /// is ignored by the saving system.
         /// </summary>
-        public abstract bool IsSerialisable { get; }
+        public virtual bool IsSerialisable { get { return false; } }
 
         /// <summary>
-        /// Return a json form of the variables value, will be stored by save system in a StringToJsonPair
-        /// within the a FlowchartData.
+        /// Return a stringified form of the variables value, will be stored by save system within the a FlowchartData.
         /// </summary>
-        /// <returns></returns>
-        public abstract string GetValueAsJson();
+        public virtual string GetStringifiedValue() { throw new System.NotImplementedException(); }
 
         /// <summary>
         /// Restore a value from a previously serialised form from GetValueAsJson. Called by save system.
         /// </summary>
-        /// <param name="jsonString"></param>
-        public abstract void SetValueFromJson(string jsonString);
+        public virtual void RestoreFromStringifiedValue(string stringifiedValue) { throw new System.NotImplementedException(); }
 
         #endregion
     }
@@ -372,16 +371,38 @@ namespace Fungus
             public T value;
         }
 
-        public override string GetValueAsJson()
+        public override string GetStringifiedValue()
         {
             var tmp = new SerialisationPod() { value = Value };
             return JsonUtility.ToJson(tmp);
         }
 
-        public override void SetValueFromJson(string jsonString)
+        public override void RestoreFromStringifiedValue(string stringifiedValue)
         {
-            SerialisationPod tmp = JsonUtility.FromJson<SerialisationPod>(jsonString);
+            SerialisationPod tmp = JsonUtility.FromJson<SerialisationPod>(stringifiedValue);
             Value = tmp.value;
+        }
+
+        /// <summary>
+        /// Helper for stringifying collections of floats, such found in colors, vectors, and the like.
+        /// </summary>
+        public static string StringifyFloatArray(float[] fs)
+        {
+            return string.Join(",", fs.Select(x => x.ToString(CultureInfo.InvariantCulture)));
+        }
+
+        /// <summary>
+        /// Helper for restoring a collection floats from the previously stringified version from StringifyFloatArray.
+        /// </summary>
+        public static float[] FloatArrayFromString(string s)
+        {
+            var fstrings = s.Split(',');
+            var retVal = new float[fstrings.Length];
+            for (int i = 0; i < fstrings.Length; i++)
+            {
+                retVal[i] = float.Parse(fstrings[i]);
+            }
+            return retVal;
         }
     }
 }
