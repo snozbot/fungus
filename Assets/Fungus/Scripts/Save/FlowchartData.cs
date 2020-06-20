@@ -18,9 +18,6 @@ namespace Fungus
         [System.Serializable]
         public class StringPair
         {
-            public StringPair() { }
-            public StringPair(string key, string val) { this.key = key; this.val = val; }
-
             public string key, val;
         }
 
@@ -229,7 +226,7 @@ namespace Fungus
 
         public virtual void AddToVisitorPairs(string key, string value)
         {
-            visitorPairs.Add(new StringPair(key, value));
+            visitorPairs.Add(new StringPair() { key = key, val = value });
         }
 
         public virtual bool TryGetVisitorValueByKey(string key, out string value)

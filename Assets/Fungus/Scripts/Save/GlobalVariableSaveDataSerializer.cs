@@ -20,9 +20,9 @@ namespace Fungus
 
         public override void Encode(SavePointData data)
         {
-            var gvFlowchartData = FlowchartData.Encode(FungusManager.Instance.GlobalVariables.GlobalVariableFlowchart);
-            var gvDataItem = SaveDataItem.Create(GlobalVarKey, JsonUtility.ToJson(gvFlowchartData));
-            data.SaveDataItems.Add(gvDataItem);
+            var gvd = GlobalVariableData.Encode();
+            var saveDataItem = SaveDataItem.Create(GlobalVarKey, JsonUtility.ToJson(gvd));
+            data.SaveDataItems.Add(saveDataItem);
         }
 
         public override void Decode(SavePointData data)
@@ -33,14 +33,14 @@ namespace Fungus
 
         protected override void ProcessItem(SaveDataItem item)
         {
-            var flowchartData = JsonUtility.FromJson<FlowchartData>(item.Data);
-            if (flowchartData == null)
+            var gvd = JsonUtility.FromJson<GlobalVariableData>(item.Data);
+            if (gvd == null)
             {
-                Debug.LogError("Failed to decode Global Variable Flowchart save data item");
+                Debug.LogError("Failed to decode Global Variable save data item");
                 return;
             }
 
-            flowchartData.Decode(FungusManager.Instance.GlobalVariables.GlobalVariableFlowchart);
+            gvd.Decode();
         }
     }
 }

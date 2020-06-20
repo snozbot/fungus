@@ -80,15 +80,21 @@ namespace Fungus
             else
             {
                 //create the variable
-                vAsT = holder.gameObject.AddComponent(type) as VariableBase<T>;
+                vAsT = AddVariable(variableKey, type) as VariableBase<T>;
                 vAsT.Value = defaultvalue;
-                vAsT.Key = variableKey;
-                vAsT.Scope = VariableScope.Public;
-                variables[variableKey] = vAsT;
-                holder.Variables.Add(vAsT);
             }
 
             return vAsT;
+        }
+
+        public Variable AddVariable(string key, Type type)
+        {
+            var v = holder.gameObject.AddComponent(type) as Variable;
+            v.Key = key;
+            v.Scope = VariableScope.Public;
+            variables[key] = v;
+            holder.Variables.Add(v);
+            return v;
         }
     }
 }
