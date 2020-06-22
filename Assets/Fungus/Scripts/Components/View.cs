@@ -9,7 +9,6 @@ namespace Fungus
     /// Defines a camera view point.
     /// The position and rotation are specified using the game object's transform, so this class only needs to specify the ortographic view size.
     /// </summary>
-    [ExecuteInEditMode]
     public class View : MonoBehaviour
     {
         [Tooltip("Orthographic size of the camera view in world units.")]
@@ -20,14 +19,6 @@ namespace Fungus
 
         [Tooltip("Aspect ratio of the secondary view rectangle. (e.g. 2:1 aspect ratio = 2.0)")]
         [SerializeField] protected Vector2 secondaryAspectRatio = new Vector2(2, 1);
-
-        protected virtual void Update()
-        {
-            // Disable scaling to avoid complicating the orthographic size calculations
-            transform.localScale = new Vector3(1,1,1);
-        }
-
-        #region Public members
 
         /// <summary>
         /// Orthographic size of the camera view in world units.
@@ -44,6 +35,10 @@ namespace Fungus
         /// </summary>
         public virtual Vector2 SecondaryAspectRatio { get { return secondaryAspectRatio; } set { secondaryAspectRatio = value; } }
 
-        #endregion
+        public void OnValidate()
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            GameObjectUtils.UniqueGameObjectNamePerType(this);
+        }
     }
 }

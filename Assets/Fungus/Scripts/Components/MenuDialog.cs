@@ -24,8 +24,6 @@ namespace Fungus
         protected int nextOptionIndex;
         protected Command firstTouchedByCommand; //track the first command that added to the present menu, used for saving
 
-        #region Public members
-
         /// <summary>
         /// Currently active Menu Dialog used to display Menu options
         /// </summary>
@@ -52,8 +50,6 @@ namespace Fungus
         {
             gameObject.SetActive(state);
         }
-
-
 
         /// <summary>
         /// Returns a menu dialog by searching for one in the scene or creating one if none exists.
@@ -439,6 +435,9 @@ namespace Fungus
 			}
 		}
 
-        #endregion
+        public virtual void OnValidate()
+        {
+            GameObjectUtils.UniqueGameObjectNamePerType(this);
+        }
     }    
 }

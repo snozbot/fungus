@@ -72,19 +72,7 @@ namespace Fungus
 
         protected virtual void MoveToFront(Stage stage)
         {
-            var activeStages = Stage.ActiveStages;
-            for (int i = 0; i < activeStages.Count; i++)
-            {
-                var s = activeStages[i];
-                if (s == stage)
-                {
-                    s.PortraitCanvas.sortingOrder = 1;
-                }
-                else
-                {
-                    s.PortraitCanvas.sortingOrder = 0;
-                }
-            }
+            Stage.MoveStageToFront(stage);
         }
 
         protected virtual void UndimAllPortraits(Stage stage) 

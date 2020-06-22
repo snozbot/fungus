@@ -1052,7 +1052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1947003572}
+  selectedFlowchart: {fileID: 1889213476}
 --- !u!4 &397720779
 Transform:
   m_ObjectHideFlags: 1
@@ -3278,8 +3278,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1889213477}
   - component: {fileID: 1889213476}
-  - component: {fileID: 1889213489}
-  - component: {fileID: 1889213488}
   - component: {fileID: 1889213483}
   - component: {fileID: 1889213479}
   - component: {fileID: 1889213475}
@@ -3348,11 +3346,10 @@ MonoBehaviour:
     y: -350
     width: 1502.7736
     height: 1138.5048
-  selectedBlocks: []
+  selectedBlocks:
+  - {fileID: 1889213518}
   selectedCommands: []
   variables:
-  - {fileID: 1889213489}
-  - {fileID: 1889213488}
   - {fileID: 1889213523}
   description: 
   stepPause: 0
@@ -3423,36 +3420,6 @@ MonoBehaviour:
   - {fileID: 1889213526}
   suppressAllAutoSelections: 0
   isSavingAllowed: 1
---- !u!114 &1889213488
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1889213469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d02d9822eec54c98afe95bb497211b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scope: 0
-  key: burnt_bottom
-  value: 0
---- !u!114 &1889213489
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1889213469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d02d9822eec54c98afe95bb497211b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scope: 0
-  key: has_umbrella
-  value: 1
 --- !u!114 &1889213515
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3529,7 +3496,7 @@ MonoBehaviour:
   commandList:
   - {fileID: 1889213515}
   suppressAllAutoSelections: 0
-  isSavingAllowed: 1
+  isSavingAllowed: 0
 --- !u!114 &1889213519
 MonoBehaviour:
   m_ObjectHideFlags: 2

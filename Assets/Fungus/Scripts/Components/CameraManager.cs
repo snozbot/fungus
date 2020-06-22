@@ -45,15 +45,9 @@ namespace Fungus
 		//Coroutine handles for panning and fading commands
         protected LTDescr fadeTween, sizeTween, camPosTween, camRotTween;
 
-        protected class CameraView
-        {
-            public Vector3 cameraPos;
-            public Quaternion cameraRot;
-            public float cameraSize;
-        };
-        
-        protected Dictionary<string, CameraView> storedViews = new Dictionary<string, CameraView>();
-        
+        public View LastView { get; protected set; }
+
+
         protected virtual void OnGUI()
         {
             if (swipePanActive)
@@ -264,7 +258,7 @@ namespace Fungus
             Fade(1f, outDuration, delegate {
 
                 // Snap to new view
-                PanToPosition(camera, view.transform.position, view.transform.rotation, view.ViewSize, 0f, null, sizeTweenType, posTweenType, rotTweenType);
+                PanToView(camera, view, 0f, null, sizeTweenType, posTweenType, rotTweenType);
 
                 // Fade in
                 Fade(0f, inDuration, delegate {
@@ -313,11 +307,32 @@ namespace Fungus
             }
         }
 
+        public virtual void PanToView(
+            Camera camera,
+            View view,
+            float duration,
+            Action arriveAction,
+            LeanTweenType sizeTweenType = LeanTweenType.easeInOutQuad,
+            LeanTweenType posTweenType = LeanTweenType.easeInOutQuad,
+            LeanTweenType rotTweenType = LeanTweenType.easeInOutQuad)
+        {
+            LastView = view;
+            PanToPosition(camera, view.transform.position, view.transform.rotation, view.ViewSize, duration, arriveAction, sizeTweenType, posTweenType, rotTweenType);
+        }
+
         /// <summary>
         /// Moves camera from current position to a target position over a period of time.
         /// </summary>
-        public virtual void PanToPosition(Camera camera, Vector3 targetPosition, Quaternion targetRotation, float targetSize, float duration, Action arriveAction,
-            LeanTweenType sizeTweenType = LeanTweenType.easeInOutQuad, LeanTweenType posTweenType = LeanTweenType.easeInOutQuad, LeanTweenType rotTweenType = LeanTweenType.easeInOutQuad)
+        public virtual void PanToPosition(
+            Camera camera, 
+            Vector3 targetPosition, 
+            Quaternion targetRotation, 
+            float targetSize, 
+            float duration, 
+            Action arriveAction,
+            LeanTweenType sizeTweenType = LeanTweenType.easeInOutQuad, 
+            LeanTweenType posTweenType = LeanTweenType.easeInOutQuad, 
+            LeanTweenType rotTweenType = LeanTweenType.easeInOutQuad)
         {
             if (camera == null)
             {
@@ -389,6 +404,7 @@ namespace Fungus
                 return;
             }
 
+            LastView = viewA;
             swipePanViewA = viewA;
             swipePanViewB = viewB;
             swipeSpeedMultiplier = speedMultiplier;
