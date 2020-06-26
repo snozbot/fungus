@@ -16,25 +16,36 @@ namespace Fungus
         protected AudioSource audioSourceMusic;
         protected AudioSource audioSourceAmbiance;
         protected AudioSource audioSourceSoundEffect;
+        protected AudioSource audioSourceDefaultVoice;
+        protected AudioSource audioSourceWriterSoundEffect;
+
+        const int RequiredAudioSources = 5;
+
+        public AudioSource DefaultVoiceAudioSource { get { return audioSourceDefaultVoice; } }
+        public AudioSource WriterSoundEffectAudioSource { get { return audioSourceWriterSoundEffect; } }
 
         void Reset()
         {
             int audioSourceCount = this.GetComponents<AudioSource>().Length;
-            for (int i = 0; i < 3 - audioSourceCount; i++)
+            for (int i = 0; i < RequiredAudioSources - audioSourceCount; i++)
                 gameObject.AddComponent<AudioSource>();
         }
 
-        protected virtual void Awake()
+        public virtual void Init()
         {
             Reset();
             AudioSource[] audioSources = GetComponents<AudioSource>();
             audioSourceMusic = audioSources[0];
             audioSourceAmbiance = audioSources[1];
             audioSourceSoundEffect = audioSources[2];
+            audioSourceDefaultVoice = audioSources[3];
+            audioSourceWriterSoundEffect = audioSources[4];
 
             audioSourceMusic.outputAudioMixerGroup = FungusManager.Instance.MainAudioMixer.MusicGroup;
             audioSourceSoundEffect.outputAudioMixerGroup = FungusManager.Instance.MainAudioMixer.SFXGroup;
             audioSourceAmbiance.outputAudioMixerGroup = audioSourceSoundEffect.outputAudioMixerGroup;
+            audioSourceDefaultVoice.outputAudioMixerGroup = FungusManager.Instance.MainAudioMixer.VoiceGroup;
+            audioSourceWriterSoundEffect.outputAudioMixerGroup = audioSourceSoundEffect.outputAudioMixerGroup;
         }
 
         protected virtual void Start()

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    // <summary>
+    /// <summary>
     /// Get or Set a property of a AudioMixerGroup component
     /// </summary>
     [CommandInfo("Property",

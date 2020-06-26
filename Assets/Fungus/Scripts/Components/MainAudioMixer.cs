@@ -17,7 +17,7 @@ namespace Fungus
         public AudioMixerGroup SFXGroup { get; protected set; }
         public AudioMixerGroup VoiceGroup { get; protected set; }
 
-        protected virtual void Awake()
+        public virtual void Init()
         {
             Mixer = Resources.Load(FungusConstants.FungusAudioMixer) as AudioMixer;
             MusicGroup = Mixer.FindMatchingGroups("Music")[0];

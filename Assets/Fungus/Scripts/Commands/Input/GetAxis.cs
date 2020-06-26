@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    // <summary>
+    /// <summary>
     /// Store Input.GetAxis in a variable
     /// </summary>
     [CommandInfo("Input",

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    // <summary>
+    /// <summary>
     /// Add force to a Rigidbody2D
     /// </summary>
     [CommandInfo("Rigidbody2D",

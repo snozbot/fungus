@@ -194,6 +194,7 @@ namespace Fungus.EditorUtils
             typeof(UnityEngine.Audio.AudioMixerSnapshot),
             typeof(AudioSource),
             //typeof(Boolean),
+            typeof(Character),
             typeof(Color),
             typeof(Collection),
             typeof(Collider),
@@ -349,7 +350,7 @@ using UnityEngine;
 
 namespace Fungus
 {{
-    // <summary>
+    /// <summary>
     /// Get or Set a property of a {0} component
     /// </summary>
     [CommandInfo(""Property"",
@@ -435,7 +436,7 @@ using UnityEngine;
 
 namespace Fungus
 {{
-    // <summary>
+    /// <summary>
     /// Get or Set a property of a {0} component
     /// </summary>
     [CommandInfo(""Property"",
@@ -536,6 +537,7 @@ namespace Fungus
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(bool), typeof(BooleanVariable), "iob"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Collider2D), typeof(Collider2DVariable), "ioc2d"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Collider), typeof(ColliderVariable), "ioc"));
+            helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Character), typeof(CharacterVariable), "iochar"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Collection), typeof(CollectionVariable), "iocollect"));
             //we don't need to do collision varaibles
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Color), typeof(ColorVariable), "iocol"));
@@ -548,8 +550,8 @@ namespace Fungus
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Quaternion), typeof(QuaternionVariable), "ioq"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Rigidbody2D), typeof(Rigidbody2DVariable), "iorb2d"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Rigidbody), typeof(RigidbodyVariable), "iorb"));
-            helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Sprite), typeof(SpriteVariable), "iospr"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(string), typeof(StringVariable), "ios"));
+            helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Sprite), typeof(SpriteVariable), "iospr"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Texture), typeof(TextureVariable), "iotex"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Transform), typeof(TransformVariable), "iot"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Vector2), typeof(Vector2Variable), "iov2"));

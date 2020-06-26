@@ -26,6 +26,9 @@ namespace Fungus
 
         void Awake()
         {
+            if (instance == null)
+                instance = this;
+
             CameraManager = GetComponent<CameraManager>();
             MusicManager = GetComponent<MusicManager>();
             EventDispatcher = GetComponent<EventDispatcher>();
@@ -34,7 +37,9 @@ namespace Fungus
 #if UNITY_5_3_OR_NEWER
             SaveManager = GetComponent<SaveManager>();
             NarrativeLog = GetComponent<NarrativeLog>();
-            #endif
+#endif
+            MainAudioMixer.Init();
+            MusicManager.Init();
         }
 
         /// <summary>
