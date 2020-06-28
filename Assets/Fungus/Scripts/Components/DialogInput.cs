@@ -3,6 +3,11 @@
 
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.UI;
+
+//todo needs to use the InputSystemUIModule and mouse and touch
 
 namespace Fungus
 {
@@ -44,7 +49,11 @@ namespace Fungus
 
         protected float ignoreClickTimer;
 
+#if ENABLE_INPUT_SYSTEM
+        protected InputSystemUIInputModule inputSystemUIInputModule;
+#else
         protected StandaloneInputModule currentStandaloneInputModule;
+#endif
 
         protected Writer writer;
 
@@ -79,6 +88,21 @@ namespace Fungus
                 return;
             }
 
+#if ENABLE_INPUT_SYSTEM
+            if(inputSystemUIInputModule == null)
+            {
+                inputSystemUIInputModule = FindObjectOfType<InputSystemUIInputModule>();
+            }
+            
+            if (writer != null && writer.IsWriting)
+            {
+                if (inputSystemUIInputModule.submit.action.triggered ||
+                    (cancelEnabled && inputSystemUIInputModule.cancel.action.triggered))
+                {
+                    SetNextLineFlag();
+                }
+            }
+#else
             if (currentStandaloneInputModule == null)
             {
                 currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
@@ -92,13 +116,18 @@ namespace Fungus
                     SetNextLineFlag();
                 }
             }
+#endif
 
             switch (clickMode)
             {
             case ClickMode.Disabled:
                 break;
             case ClickMode.ClickAnywhere:
+#if ENABLE_INPUT_SYSTEM
+                if (UnityEngine.InputSystem.Mouse.current.leftButton.wasPressedThisFrame)
+#else
                 if (Input.GetMouseButtonDown(0))
+#endif
                 {
                     SetNextLineFlag();
                 }
@@ -142,7 +171,7 @@ namespace Fungus
             }
         }
 
-        #region Public members
+#region Public members
 
         /// <summary>
         /// Trigger next line input event from script.
@@ -183,6 +212,6 @@ namespace Fungus
             }
         }
 
-        #endregion
+#endregion
     }
 }

@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
 
+//todo input system does not currently support drags so either we engineer our own or omit it for now
+
 namespace Fungus
 {
     /// <summary>

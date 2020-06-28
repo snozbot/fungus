@@ -7,6 +7,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Fungus;
 
+//TODO use touch.current and mouse.current
+
 namespace Fungus
 {
     /// <summary>
@@ -119,7 +121,8 @@ namespace Fungus
 
             Vector3 delta = Vector3.zero;
             
-            if (Input.touchCount > 0)
+            if (
+           Input.touchCount > 0)
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Moved)
                 {

@@ -23,7 +23,13 @@ namespace Fungus.EditorUtils
                     continue;
                 }
 
-                EditorGUILayout.PropertyField(iterator, true, new GUILayoutOption[0]);
+                try
+                {
+                    EditorGUILayout.PropertyField(iterator, true, new GUILayoutOption[0]);
+                }
+                catch (System.Exception)
+                {
+                }
             }
 
             EditorGUI.indentLevel--;

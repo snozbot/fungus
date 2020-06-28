@@ -3,6 +3,8 @@
 
 ﻿using UnityEngine;
 
+//TODO use Keyboard.current, see GetKey for more details
+
 namespace Fungus
 {
     /// <summary>

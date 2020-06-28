@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//todo probably just needs a new receiver command for info from the InputSystem
+
 namespace Fungus
 {
     // <summary>
