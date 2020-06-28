@@ -7,6 +7,7 @@
 - Check your code additions pass all tests.
 - Check your code additions have not negatively impacted or altered the behaviour of the FungusExamples.
 - If adding a new feature, ensure you have added a demo to the FungusExamples and if possible added Tests too.
+- If adding prefabs or scenes, please make them in the oldest supported version of Unity possible (to ensure they are able to run in the Compatability release)
 
 💔Thank you! With that done and out of the way, you can remove all the above text and get to submitting this PR.
 
@@ -25,14 +26,14 @@ Issue Number: N/A
 -
 
 ### Important Notes
-<!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
+<!--- Go over the following points, and delete all lines that do not apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
-- [ ] My change require changes to documentation
-- My changes modify
-  - [ ] the editing of flowcharts/blocks/commands etc.
-  - [ ] the runtime execution of existing Fungus Features. e.g., Say, Menus, Portraits, etc.
-- [ ] My change adds additional tests
-- [ ] My change modifies existing FungusExamples
+- My change require modifcations or additions to documentation
+- My change modifies the workflow/editing of flowcharts/blocks/commands etc.
+- My change modifies the runtime execution/behaviour of existing Fungus Features. e.g., Say, Menus, Portraits, etc.
+- My change adds tests or test scenes
+- My change adds demos to FungusExamples
+- My change modifies existing FungusExamples
 
 <!-- If this introduces a breaking change, please describe the impact and migration path for existing applications below. -->
 
