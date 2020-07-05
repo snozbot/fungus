@@ -50,7 +50,7 @@ namespace Fungus
 		{
 			if (audioClipRef == null)
 			{
-				return audioClipVal.ToString();
+				return audioClipVal != null ? audioClipVal.ToString() : "Null";
 			}
 			else
 			{

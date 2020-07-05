@@ -50,7 +50,7 @@ namespace Fungus
 		{
 			if (characterRef == null)
 			{
-				return characterVal.ToString();
+				return characterVal != null ? characterVal.ToString() : "Null";
 			}
 			else
 			{

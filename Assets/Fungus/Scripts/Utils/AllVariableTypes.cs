@@ -47,6 +47,12 @@ namespace Fungus
             typeof(Vector2Variable),
             typeof(Vector3Variable),
             typeof(Vector4Variable),
+
+            typeof(AudioClipVariable),
+            typeof(AudioMixerGroupVariable),
+            typeof(AudioMixerSnapshotVariable),
+            typeof(AudioMixerVariable),
+            typeof(CharacterVariable),
         };
     }
 
@@ -85,6 +91,12 @@ namespace Fungus
         public Vector3Data vector3Data;
         public Vector4Data vector4Data;
 
+        public AudioClipData audioClipData;
+        public AudioMixerGroupData audioMixerGroupData;
+        public AudioMixerSnapshotData audioMixerSnapshotData;
+        public AudioMixerData audioMixerData;
+        public CharacterData characterData;
+
         public bool HasReference(Variable var)
         {
             return animatorData.animatorRef == var ||
@@ -109,7 +121,13 @@ namespace Fungus
                    transformData.transformRef == var ||
                    vector2Data.vector2Ref == var ||
                    vector3Data.vector3Ref == var ||
-                   vector4Data.vector4Ref == var;
+                   vector4Data.vector4Ref == var ||
+
+                   audioClipData.audioClipRef == var ||
+                   audioMixerGroupData.audioMixerGroupRef == var ||
+                   audioMixerSnapshotData.audioMixerSnapshotRef == var ||
+                   audioMixerData.audioMixerRef == var ||
+                   characterData.characterRef == var;
         }
     }
 
@@ -271,6 +289,32 @@ namespace Fungus
                     (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.vector4Data.Value); },
                     (anyVar) => anyVar.data.vector4Data.GetDescription(),
                     (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.vector4Data.Value)) },
+
+             { typeof(AudioClipVariable),
+                new TypeActions( "audioClipData",
+                    (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.audioClipData.Value); },
+                    (anyVar) => anyVar.data.audioClipData.GetDescription(),
+                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.audioClipData.Value)) },
+             { typeof(AudioMixerGroupVariable),
+                new TypeActions( "audioMixerGroupData",
+                    (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.audioMixerGroupData.Value); },
+                    (anyVar) => anyVar.data.audioMixerGroupData.GetDescription(),
+                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.audioMixerGroupData.Value)) },
+             { typeof(AudioMixerSnapshotVariable),
+                new TypeActions( "audioMixerSnapshotData",
+                    (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.audioMixerSnapshotData.Value); },
+                    (anyVar) => anyVar.data.audioMixerSnapshotData.GetDescription(),
+                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.audioMixerSnapshotData.Value)) },
+             { typeof(AudioMixerVariable),
+                new TypeActions( "audioMixerData",
+                    (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.audioMixerData.Value); },
+                    (anyVar) => anyVar.data.audioMixerData.GetDescription(),
+                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.audioMixerData.Value)) },
+             { typeof(CharacterVariable),
+                new TypeActions( "characterData",
+                    (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.characterData.Value); },
+                    (anyVar) => anyVar.data.characterData.GetDescription(),
+                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.characterData.Value)) },
         };
 
         public bool HasReference(Variable variable)

@@ -50,7 +50,7 @@ namespace Fungus
 		{
 			if (audioMixerSnapshotRef == null)
 			{
-				return audioMixerSnapshotVal.ToString();
+				return audioMixerSnapshotVal != null ? audioMixerSnapshotVal.ToString() : "Null";
 			}
 			else
 			{
