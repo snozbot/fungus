@@ -22,10 +22,9 @@ namespace Fungus.EditorUtils
 #else
         [DrawGizmo(GizmoType.NotInSelectionHierarchy | GizmoType.InSelectionHierarchy, typeof(View))]
 #endif
-        static void RenderCustomGizmo(Transform objectTransform, GizmoType gizmoType)
+        public static void RenderCustomGizmo(View view, GizmoType gizmoType)
         {
-            View view = objectTransform.gameObject.GetComponent<View>();
-	    DrawView(view, false);
+            DrawView(view, false);
         }
 
         protected virtual Vector2 LookupAspectRatio(int index)
