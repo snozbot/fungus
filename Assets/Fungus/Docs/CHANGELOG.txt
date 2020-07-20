@@ -1,6 +1,19 @@
 Changelog {#changelog}
 =========
 
+Unreleased
+======
+
+
+v3.13.3
+======
+
+## Fixed
+
+ - View Gizmo Drawer specifies type of View, no longer tries to run for every object in scene.
+ - TMProLinkAnim dictionary errors caused by duplicate entries when Domain Reload is disabled, Thanks to yano.
+ - Divide Equal now uses Unicode characters in place of ASCII slash in menus, so it shows correctly.
+
 v3.13.2
 ======
 
