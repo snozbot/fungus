@@ -386,6 +386,8 @@ namespace Fungus
                     break;
             }}
 
+            {2}Data.Value = target;
+
             Continue();
         }}
 
@@ -472,6 +474,8 @@ namespace Fungus
                 default:
                     break;
             }}
+
+            {2}Var.Value = target;
 
             Continue();
         }}
