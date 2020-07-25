@@ -4,6 +4,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Fungus
 {
