@@ -5,6 +5,15 @@ Unreleased
 ======
 
 
+## Fixed
+
+ - Set actions on Property commands targeting structs now save changes. Previously the target variable was not being copied back to the internal struct, causing changes to be discarded. Impacts the following Property Commands, Color, Matrix, Quaternion, Vector2, Vector3, Vector4.
+
+## Changed
+
+ - Conversation System finding character by name now uses an exact match with fallback to previous StartsWith. Thanks to hsandt.
+
+
 v3.13.3
 ======
 
