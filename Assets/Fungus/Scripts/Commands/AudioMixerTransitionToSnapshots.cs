@@ -1,6 +1,7 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -24,6 +25,9 @@ namespace Fungus
 
         [SerializeField] protected FloatData timeToTransition;
 
+        [Tooltip("Wait for the transition to complete before continuing.")]
+        [SerializeField] protected bool waitUntilFinished = false;
+
         public override void OnEnter()
         {
             if (floatCollection.Value != null)
@@ -33,6 +37,20 @@ namespace Fungus
             }
 
             mixer.Value.TransitionToSnapshots(snapShots, floatArr, timeToTransition.Value);
+
+            if (waitUntilFinished)
+            {
+                StartCoroutine(WaitForTransition());
+            }
+            else
+            {
+                Continue();
+            }
+        }
+
+        protected IEnumerator WaitForTransition()
+        {
+            yield return new WaitForSeconds(timeToTransition.Value);
             Continue();
         }
 
@@ -41,7 +59,12 @@ namespace Fungus
             if (mixer.Value == null)
                 return "Error: no mixer set";
 
-            return mixer.Value.name + " " + snapShots.Length.ToString() + " in " + timeToTransition.Value.ToString() + "s";
+            var retval =  mixer.Value.name + " " + snapShots.Length.ToString() + " in " + timeToTransition.Value.ToString() + "s";
+
+            if (waitUntilFinished)
+                retval += " waits";
+
+            return retval;
         }
 
         public override Color GetButtonColor()

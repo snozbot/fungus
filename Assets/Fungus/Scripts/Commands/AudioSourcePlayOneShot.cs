@@ -52,7 +52,7 @@ namespace Fungus
             if (audioClip.Value == null)
                 return "Error: no clip set";
 
-            var retval = audioSource.Value.name + ": " + audioClip.Value.name + "@ " + volumeScale.Value.ToString();
+            var retval = audioSource.Value.name + ": " + audioClip.Value.name + " @ " + volumeScale.Value.ToString();
 
             if (waitUntilFinished)
                 retval += " waits";
