@@ -13,7 +13,7 @@ namespace Fungus
                  "Add To Log Custom Strings",
                  "Manually add an item to the Narrative log.")]
     [AddComponentMenu("")]
-    public class CustomStrings : Command, ILocalizable
+    public class AddToNarrativeLogCustomStrings : Command, ILocalizable
     {
         [SerializeField] protected StringData nameString;
         [SerializeField] protected StringDataMulti bodyString;

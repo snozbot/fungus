@@ -2781,20 +2781,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949005579}
   m_CullTransparentMesh: 0
---- !u!115 &952491450
-MonoScript:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 5
-  m_Script: 
-  m_DefaultReferences: {}
-  m_Icon: {fileID: 0}
-  m_ExecutionOrder: 0
-  m_ClassName: CustomStrings
-  m_Namespace: Fungus
 --- !u!1 &1051807139
 GameObject:
   m_ObjectHideFlags: 0
@@ -3532,8 +3518,8 @@ GameObject:
   - component: {fileID: 1283924783}
   - component: {fileID: 1283924781}
   - component: {fileID: 1283924782}
-  - component: {fileID: 1283924780}
   - component: {fileID: 1283924786}
+  - component: {fileID: 1283924787}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -3612,9 +3598,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1283924776}
+  - {fileID: 1283924781}
   selectedCommands:
-  - {fileID: 1283924783}
+  - {fileID: 1283924787}
   variables: []
   description: 
   stepPause: 0
@@ -3667,28 +3653,6 @@ MonoBehaviour:
   stopVoiceover: 1
   waitForVO: 0
   setSayDialog: {fileID: 0}
---- !u!114 &1283924780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1283924774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 952491450}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 26
-  indentLevel: 0
-  nameString:
-    stringRef: {fileID: 0}
-    stringVal: Custom
-  bodyString:
-    stringRef: {fileID: 0}
-    stringVal: entries from string vars allows adding to the log from existing variable
-      results
-  description: 
 --- !u!114 &1283924781
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3714,12 +3678,12 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
-  - {fileID: 1283924780}
+  - {fileID: 1283924787}
   - {fileID: 1283924782}
   suppressAllAutoSelections: 0
 --- !u!114 &1283924782
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -3796,7 +3760,7 @@ MonoBehaviour:
   sayDialog: {fileID: 109008363}
 --- !u!114 &1283924786
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -3811,6 +3775,28 @@ MonoBehaviour:
   manualEntry:
     name: MENU
     text: Timed Selection Missed
+  description: 
+--- !u!114 &1283924787
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283924774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f425ca81916728e479c481bbdd63b55f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 28
+  indentLevel: 0
+  nameString:
+    stringRef: {fileID: 0}
+    stringVal: Custom
+  bodyString:
+    stringRef: {fileID: 0}
+    stringVal: entries from string vars allows adding to the log from existing variable
+      results
   description: 
 --- !u!1 &1296051204
 GameObject:
