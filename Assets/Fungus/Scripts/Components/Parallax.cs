@@ -3,8 +3,6 @@
 
 ﻿using UnityEngine;
 
-//todo accelerometer.current
-
 namespace Fungus
 {
     /// <summary>
@@ -72,9 +70,14 @@ namespace Fungus
             // Apply parallax translation based on device accelerometer
             if (SystemInfo.supportsAccelerometer)
             {
-                float maxParallaxScale = Mathf.Max(parallaxScale.x, parallaxScale.y); 
+                float maxParallaxScale = Mathf.Max(parallaxScale.x, parallaxScale.y);
                 // The accelerometer data is quite noisy, so we apply smoothing to even it out.
-                acceleration = Vector3.SmoothDamp(acceleration, Input.acceleration, ref velocity, 0.1f);
+#if ENABLE_INPUT_SYSTEM
+                Vector3 accel = UnityEngine.InputSystem.Accelerometer.current?.acceleration.ReadValue() ?? Vector3.zero;
+#else
+                Vector3 accel = Input.acceleration;
+#endif
+                acceleration = Vector3.SmoothDamp(acceleration, accel, ref velocity, 0.1f);
                 // Assuming a 45 degree "neutral position" when holding a mobile device
                 Vector3 accelerometerOffset = Quaternion.Euler(45, 0, 0) * acceleration * maxParallaxScale * accelerometerScale;
                 translation += accelerometerOffset;

@@ -47,6 +47,16 @@ namespace Fungus
         /// </summary>
         public const string DefaultSaveDataKey = "save_data";
 
-        #endregion
+        /// <summary>
+        /// The default name of the Input EventSystem, stored in the resources folder.
+        /// </summary>
+        public const string EventSystemPrefabName =
+#if ENABLE_INPUT_SYSTEM
+            "Prefabs/EventSystem_NewInputSystem";
+#else
+            "Prefabs/EventSystem";
+#endif
+
+#endregion
     }
 }

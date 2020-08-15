@@ -3,8 +3,6 @@
 
 using UnityEngine;
 
-//TODO either needs KeyCode to Key converter or InputSystem variant/wrapped in #def
-
 namespace Fungus
 {
     // <summary>

@@ -3,8 +3,6 @@
 
 using UnityEngine;
 
-//todo use Mouse.current.position
-
 namespace Fungus
 {
     // <summary>
@@ -43,7 +41,7 @@ namespace Fungus
             }
 
 #if ENABLE_INPUT_SYSTEM
-            var mousePos = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
+            var mousePos = UnityEngine.InputSystem.Mouse.current?.position.ReadValue() ?? Vector2.zero;
 #else
             var mousePos = Input.mousePosition;
 #endif

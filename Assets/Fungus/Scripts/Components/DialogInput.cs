@@ -3,11 +3,6 @@
 
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
-using UnityEngine.InputSystem.UI;
-
-//todo needs to use the InputSystemUIModule and mouse and touch
 
 namespace Fungus
 {
@@ -50,7 +45,7 @@ namespace Fungus
         protected float ignoreClickTimer;
 
 #if ENABLE_INPUT_SYSTEM
-        protected InputSystemUIInputModule inputSystemUIInputModule;
+        protected UnityEngine.InputSystem.UI.InputSystemUIInputModule inputSystemUIInputModule;
 #else
         protected StandaloneInputModule currentStandaloneInputModule;
 #endif
@@ -72,7 +67,7 @@ namespace Fungus
             if (eventSystem == null)
             {
                 // Auto spawn an Event System from the prefab
-                GameObject prefab = Resources.Load<GameObject>("Prefabs/EventSystem");
+                GameObject prefab = Resources.Load<GameObject>(FungusConstants.EventSystemPrefabName);
                 if (prefab != null)
                 {
                     GameObject go = Instantiate(prefab) as GameObject;
@@ -91,7 +86,7 @@ namespace Fungus
 #if ENABLE_INPUT_SYSTEM
             if(inputSystemUIInputModule == null)
             {
-                inputSystemUIInputModule = FindObjectOfType<InputSystemUIInputModule>();
+                inputSystemUIInputModule = FindObjectOfType<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
             }
             
             if (writer != null && writer.IsWriting)
@@ -124,7 +119,8 @@ namespace Fungus
                 break;
             case ClickMode.ClickAnywhere:
 #if ENABLE_INPUT_SYSTEM
-                if (UnityEngine.InputSystem.Mouse.current.leftButton.wasPressedThisFrame)
+                if ((UnityEngine.InputSystem.Mouse.current?.leftButton.wasPressedThisFrame ?? false) ||
+                    (UnityEngine.InputSystem.Touchscreen.current?.primaryTouch?.press.wasPressedThisFrame ?? false))
 #else
                 if (Input.GetMouseButtonDown(0))
 #endif
