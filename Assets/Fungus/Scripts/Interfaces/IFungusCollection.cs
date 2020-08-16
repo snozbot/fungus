@@ -10,7 +10,7 @@ namespace Fungus
     /// The inherited classes may wish to provided typed access to underlying container,
     /// this is what the Fungus.GenericCollection does.
     /// </summary>
-    public interface IFungusCollection : System.Collections.IList
+    public interface IFungusCollection : System.Collections.IList, IStringSerializable
     {
         int Capacity { get; set; }
         string Name { get; }

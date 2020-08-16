@@ -34,7 +34,7 @@ namespace Fungus
 
             foreach (var item in FungusManager.Instance.GlobalVariables.GlobalVariableFlowchart.Variables)
             {
-                if(item.IsSerialisable)
+                if(item.IsSerializable)
                 {
                     gvd.typeStringPairs.Add(new TypeStringPair() { 
                         key = item.Key, 

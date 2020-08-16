@@ -115,7 +115,7 @@ namespace Fungus
     /// </summary>
     [RequireComponent(typeof(Flowchart))]
     [System.Serializable]
-    public abstract class Variable : MonoBehaviour
+    public abstract class Variable : MonoBehaviour, IStringSerializable
     {
         [SerializeField] protected VariableScope scope;
 
@@ -180,7 +180,7 @@ namespace Fungus
         /// GetValueAsJson & SetValueFromJson for round tripping data. If retruns false, the variable 
         /// is ignored by the saving system.
         /// </summary>
-        public virtual bool IsSerialisable { get { return false; } }
+        public virtual bool IsSerializable { get { return false; } }
 
         /// <summary>
         /// Return a stringified form of the variables value, will be stored by save system within the a FlowchartData.
@@ -350,7 +350,7 @@ namespace Fungus
             return setOperator == SetOperator.Assign || base.IsArithmeticSupported(setOperator);
         }
 
-        public override bool IsSerialisable
+        public override bool IsSerializable
         {
             get
             {

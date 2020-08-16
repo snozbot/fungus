@@ -86,7 +86,7 @@ namespace Fungus
             {
                 var v = flowchart.Variables[i];
 
-                if (v.IsSerialisable)
+                if (v.IsSerializable)
                 {
                     flowchartData.varPairs.Add(new StringPair()
                     {

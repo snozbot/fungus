@@ -48,7 +48,7 @@ namespace Fungus
             }
         }
 
-        public override bool IsSerialisable { get { return true; } }
+        public override bool IsSerializable { get { return true; } }
 
         public override string GetStringifiedValue()
         {
