@@ -583,9 +583,10 @@ namespace Fungus
                         textAdapter.RevealedCharacters = textAdapter.CharactersToReveal;
                     }
 
+                    textAdapter.RevealedCharacters++;
+                    
                     if (currentWritingSpeed > 0f)
                     {
-                        textAdapter.RevealedCharacters++;
                         timeAccumulator -= invWritingSpeed;
                         if (timeAccumulator <= 0f)
                         {

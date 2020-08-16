@@ -1,6 +1,30 @@
 Changelog {#changelog}
 =========
 
+Unreleased
+======
+
+
+## Fixed
+
+ - Set actions on Property commands targeting structs now save changes. Previously the target variable was not being copied back to the internal struct, causing changes to be discarded. Impacts the following Property Commands, Color, Matrix, Quaternion, Vector2, Vector3, Vector4.
+ - Writer with 0 speed and TMPro text correctly writes at infinite speed, previously was infinite loop.
+ - Collection Contains* commands now actually show the field to store boolean result.
+
+## Changed
+
+ - Conversation System finding character by name now uses an exact match with fallback to previous StartsWith. Thanks to hsandt.
+
+
+v3.13.3
+======
+
+## Fixed
+
+ - View Gizmo Drawer specifies type of View, no longer tries to run for every object in scene.
+ - TMProLinkAnim dictionary errors caused by duplicate entries when Domain Reload is disabled, Thanks to yano.
+ - Divide Equal now uses Unicode characters in place of ASCII slash in menus, so it shows correctly.
+
 v3.13.2
 ======
 
