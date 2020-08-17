@@ -584,7 +584,16 @@ namespace Fungus
                     }
 
                     textAdapter.RevealedCharacters++;
-                    
+
+                    NotifyGlyph();
+                    //TODO need to log some info here, it's not a perf spike
+
+                    // Punctuation pause
+                    if (IsPunctuation(textAdapter.LastRevealedCharacter))
+                    {
+                        yield return StartCoroutine(DoWait(currentPunctuationPause));
+                    }
+
                     if (currentWritingSpeed > 0f)
                     {
                         timeAccumulator -= invWritingSpeed;
