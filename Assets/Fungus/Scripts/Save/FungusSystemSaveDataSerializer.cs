@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Fungus
@@ -14,14 +15,27 @@ namespace Fungus
         [System.Serializable]
         public class FungusSystemData
         {
-            //public class StageCharacterPortrait { public string characterName, visiblePortrait, portraitLocation; }
+            [System.Serializable]
+            public class StageCharactersData 
+            {
+                public string stageName;
+                public CharacterPortraitData[] charactersOnStage;
+            }
+
+            [System.Serializable]
+            public struct CharacterPortraitData 
+            {
+                public string characterName, visiblePortraitName, portraitLocationName;
+                public bool dimmed;
+                public FacingDirection facing;
+                public DisplayType displayType; 
+            }
 
             public List<int> textVariationHistory = new List<int>();
             public List<NarrativeLogEntry> narLogEntries;
             public string lastMenuName, lastSayDialogName, lastViewName, lastStage;
             public int fungusPriority;
-            //portrait showing , character, spriteName, stage location name
-            //public List<StageCharacterPortrait> stageCharacterPortraits = new List<StageCharacterPortrait>();
+            public List<StageCharactersData> stages = new List<StageCharactersData>();
         }
 
         protected const string FungusSystemKey = "FungusSystemData";
@@ -40,8 +54,29 @@ namespace Fungus
             var lv = FungusManager.Instance.CameraManager.LastView;
             fsData.lastViewName = lv != null ? lv.gameObject.name : string.Empty;
             fsData.fungusPriority = FungusPrioritySignals.CurrentPriorityDepth;
-            var stage = Stage.GetActiveStage();
-            fsData.lastStage = stage != null ? stage.gameObject.name : string.Empty;
+
+            foreach (var stage in Stage.ActiveStages)
+            {
+                var stageData = new FungusSystemData.StageCharactersData();
+                stageData.stageName = stage.name;
+                stageData.charactersOnStage = new FungusSystemData.CharacterPortraitData[stage.CharactersOnStage.Count];
+                for (int i = 0; i < stage.CharactersOnStage.Count; i++)
+                {
+                    Character ch = stage.CharactersOnStage[i];
+                    stageData.charactersOnStage[i] = new FungusSystemData.CharacterPortraitData()
+                    {
+                        characterName = ch.name,
+                        dimmed = ch.State.dimmed,
+                        displayType = ch.State.display,
+                        facing = ch.State.facing,
+                        portraitLocationName = ch.State.position.name,
+                        visiblePortraitName = ch.State.portrait.name
+                    };
+                }
+            }
+
+            var activeStage = Stage.GetActiveStage();
+            fsData.lastStage = activeStage != null ? activeStage.gameObject.name : string.Empty;
 
             var tvDataItem = SaveDataItem.Create(FungusSystemKey, JsonUtility.ToJson(fsData));
             data.SaveDataItems.Add(tvDataItem);
@@ -73,10 +108,43 @@ namespace Fungus
                 FungusPrioritySignals.DoIncreasePriorityDepth();
             }
 
-            var stage = GameObjectUtils.FindObjectOfTypeWithGameObjectName<Stage>(fsData.lastStage);
-            if(stage != null)
+            var port = new PortraitOptions();
+
+            foreach (var stageData in fsData.stages)
             {
-                Stage.MoveStageToFront(stage);
+                var stage = GameObjectUtils.FindObjectOfTypeWithGameObjectName<Stage>(stageData.stageName);
+
+                if(stage == null)
+                {
+                    Debug.LogError("Cannot find stage of name " + stageData.stageName + 
+                        ". Skipping this block of stage save data.");
+                    continue;
+                }
+
+                foreach (var ch in stageData.charactersOnStage)
+                {
+                    port.Reset(true);
+                    port.character = Character.ActiveCharacters.FirstOrDefault(x => x.name == ch.characterName);
+                    if (port.character == null)
+                    {
+                        Debug.LogError("Could not find matching character name " + ch.characterName + ". Skipping loading character to stage.");
+                        continue;
+                    }
+
+                    port.portrait = port.character.GetPortrait(ch.visiblePortraitName);
+                    port.display = ch.displayType;
+                    port.fromPosition = stage.GetPosition(ch.portraitLocationName);
+                    port.toPosition = port.fromPosition;
+                    port.facing = ch.facing;
+                    stage.RunPortraitCommand(port, null);
+                    stage.SetDimmed(port.character, ch.dimmed);
+                }
+            }
+
+            var activeStage = GameObjectUtils.FindObjectOfTypeWithGameObjectName<Stage>(fsData.lastStage);
+            if(activeStage != null)
+            {
+                Stage.MoveStageToFront(activeStage);
             } 
         }
     }
