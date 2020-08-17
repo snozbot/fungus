@@ -15,12 +15,13 @@ namespace Fungus
     {
         protected List<FlowchartData.CachedBlockExecution> cachedBlockExecutions = new List<FlowchartData.CachedBlockExecution>();
 
-        public override void Decode(SavePointData data)
+        public override void PreDecode()
         {
+            base.PreDecode();
             cachedBlockExecutions.Clear();
-            base.Decode(data);
         }
 
+        //this is the naive, surely there is a matching flowchart somwhere method
         protected override void ProcessItem(SaveDataItem item)
         {
             var flowchartData = JsonUtility.FromJson<FlowchartData>(item.Data);
@@ -31,8 +32,7 @@ namespace Fungus
             }
 
             //we want to grab all executions and cache for later
-            flowchartData.Decode(null, true);
-            cachedBlockExecutions.AddRange(flowchartData.CachedBlockExecutions);
+            flowchartData.Decode(null, cachedBlockExecutions);
         }
 
         public override void PostDecode()

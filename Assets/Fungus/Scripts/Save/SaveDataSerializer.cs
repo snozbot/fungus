@@ -45,6 +45,11 @@ namespace Fungus
         public abstract void Encode(SavePointData data);
 
         /// <summary>
+        /// Called on serialisers before any decodes are done.
+        /// </summary>
+        public virtual void PreDecode() { }
+
+        /// <summary>
         /// Decodes the loaded list of SaveDataItems to restore the saved game state.
         /// </summary>
         public virtual void Decode(SavePointData data)

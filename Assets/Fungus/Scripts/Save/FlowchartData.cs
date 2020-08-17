@@ -57,9 +57,6 @@ namespace Fungus
             public int commandIndex = -1;
         }
 
-        [System.NonSerialized] protected List<CachedBlockExecution> cachedBlockExecutions = new List<CachedBlockExecution>();
-        public List<CachedBlockExecution> CachedBlockExecutions { get { return cachedBlockExecutions; } }
-
         /// <summary>
         /// Gets or sets the name of the encoded Flowchart.
         /// </summary>
@@ -130,7 +127,7 @@ namespace Fungus
         /// <param name="flowchart">if null finds flowcharts by saved name, if provided uses provided</param>
         /// <param name="cacheExecutions"> if true, adds them to the cachedExecution list rather than executing them as
         /// it moves through the data. Primarily useful for synchronoisation of blocks.</param>
-        public void Decode(Flowchart flowchart = null, bool cacheExecutions = false)
+        public void Decode(Flowchart flowchart = null, List<CachedBlockExecution> cachedBlockExecutions = null)
         {
             if (flowchart == null)
             {
@@ -197,7 +194,7 @@ namespace Fungus
                         {
                             //caching gives blocks that access others a better chance of running correctly
                             // but its use is up to the caller
-                            if (cacheExecutions)
+                            if (cachedBlockExecutions != null)
                             {
                                 cachedBlockExecutions.Add(new CachedBlockExecution()
                                 { block = block, commandIndex = item.commandIndex, });

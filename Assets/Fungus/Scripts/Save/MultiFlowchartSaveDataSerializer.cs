@@ -37,6 +37,28 @@ namespace Fungus
             }
         }
 
+        protected override void ProcessItem(SaveDataItem item)
+        {
+            var flowchartData = JsonUtility.FromJson<FlowchartData>(item.Data);
+            if (flowchartData == null)
+            {
+                Debug.LogError("Failed to decode save data item");
+                return;
+            }
+
+            var flowchart = flowcharts.FirstOrDefault(x => x.name == flowchartData.FlowchartName);
+
+            if(flowchart == null)
+            {
+                Debug.LogError("Could not find matching flowchart in set, none matching name " + flowchartData.FlowchartName 
+                    + ".\nSkipping data block.");
+                return;
+            }
+
+            //we want to grab all executions and cache for later
+            flowchartData.Decode(flowchart, cachedBlockExecutions);
+        }
+
         private void OnValidate()
         {
             foreach (var item in flowcharts)

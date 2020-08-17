@@ -135,6 +135,11 @@ namespace Fungus
 
             var orderedSerializers = SaveDataSerializer.ActiveSerializers;
 
+            foreach (var item in orderedSerializers)
+            {
+                item.PreDecode();
+            }
+
             foreach (var serializer in orderedSerializers)
             {
                 serializer.Decode(this);
