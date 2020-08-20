@@ -15,7 +15,7 @@ namespace Fungus
     public class CollectionCommandContainsAny : CollectionBaseTwoCollectionCommand
     {
         [VariableProperty(typeof(BooleanVariable))]
-        protected BooleanVariable result;
+        [SerializeField] protected BooleanVariable result;
 
         protected override void OnEnterInner()
         {
