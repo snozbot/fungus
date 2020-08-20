@@ -302,7 +302,7 @@ namespace Fungus.EditorUtils
 
             if (EditorStyles.whiteLabel != null && handlerStyle == null)
             {
-                handlerStyle = new GUIStyle(EditorStyles.whiteLabel);
+                handlerStyle = new GUIStyle(EditorStyles.label);
                 handlerStyle.wordWrap = true;
                 handlerStyle.margin.top = 0;
                 handlerStyle.margin.bottom = 0;
@@ -914,7 +914,7 @@ namespace Fungus.EditorUtils
 
                 GUILayout.BeginVertical();
                 {
-                    GUILayout.Label(flowchart.name, EditorStyles.whiteBoldLabel);
+                    GUILayout.Label(flowchart.name, EditorStyles.boldLabel);
 
                     GUILayout.Space(2);
 

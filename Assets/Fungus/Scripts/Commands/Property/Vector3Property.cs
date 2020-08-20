@@ -96,6 +96,8 @@ namespace Fungus
                     break;
             }
 
+            vector3Var.Value = target;
+
             Continue();
         }
 

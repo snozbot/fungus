@@ -4,6 +4,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Fungus
 {
@@ -121,7 +122,16 @@ namespace Fungus
                 || nameText.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture);
 #endif
         }
-        
+
+        /// <summary>
+        /// Returns true if the character name is a complete match to the specified string. Case insensitive.
+        /// </summary>
+        public virtual bool NameMatch(string matchString)
+        {
+            return string.Compare(name, matchString, true, CultureInfo.CurrentCulture) == 0
+                || string.Compare(nameText, matchString, true, CultureInfo.CurrentCulture) == 0;
+        }
+
         public int Compare(Character x, Character y)
         {
             if (x == y)

@@ -5,6 +5,22 @@ Unreleased
 ======
 
 
+v3.13.4
+======
+
+## Fixed
+
+ - Set actions on Property commands targeting structs now save changes. Previously the target variable was not being copied back to the internal struct, causing changes to be discarded. Impacts the following Property Commands, Color, Matrix, Quaternion, Vector2, Vector3, Vector4.
+ - Writer with 0 speed and TMPro text correctly writes at infinite speed, previously was infinite loop.
+ - Collection Contains* commands now actually show the field to store boolean result.
+ - Writer with TMPro text now correctly calls NotifyGlyph and less susceptible to nested rich text tag confusion. 
+
+## Changed
+
+ - Conversation System finding character by name now uses an exact match with fallback to previous StartsWith. Thanks to hsandt.
+ - Flowchart Window labels no longer forced white, to better accomidate dark theme as of Unity 2019.4.8
+
+
 v3.13.3
 ======
 
