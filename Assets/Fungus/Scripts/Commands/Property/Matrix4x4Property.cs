@@ -204,8 +204,6 @@ namespace Fungus
                     break;
             }
 
-            matrix4x4Data.Value = target;
-
             Continue();
         }
 

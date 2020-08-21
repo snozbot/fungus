@@ -18,13 +18,17 @@ namespace Fungus.EditorUtils
 
         // Draw Views when they're not selected
 #if UNITY_5_0
-        [DrawGizmo(GizmoType.NotSelected | GizmoType.SelectedOrChild, typeof(View))]
+        [DrawGizmo(GizmoType.NotSelected | GizmoType.SelectedOrChild)]
 #else
-        [DrawGizmo(GizmoType.NotInSelectionHierarchy | GizmoType.InSelectionHierarchy, typeof(View))]
+        [DrawGizmo(GizmoType.NotInSelectionHierarchy | GizmoType.InSelectionHierarchy)]
 #endif
-        public static void RenderCustomGizmo(View view, GizmoType gizmoType)
+        static void RenderCustomGizmo(Transform objectTransform, GizmoType gizmoType)
         {
-            DrawView(view, false);
+            View view = objectTransform.gameObject.GetComponent<View>();
+            if (view != null)
+            {
+                DrawView(view, false);
+            }
         }
 
         protected virtual Vector2 LookupAspectRatio(int index)

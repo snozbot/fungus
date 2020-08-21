@@ -116,7 +116,7 @@ namespace Fungus
             if (stage == null)
             {
                 // If no default specified, try to get any portrait stage in the scene
-                stage = Stage.GetActiveStage();
+                stage = FindObjectOfType<Stage>();
                 // If portrait stage does not exist, do nothing
                 if (stage == null)
                 {

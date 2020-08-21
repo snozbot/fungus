@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Fungus
 {
     /// <summary>
-    /// Define a set of screen positions where character sprites can be displayed and controls portraits.
+    /// Define a set of screen positions where character sprites can be displayed.
     /// </summary>
     [ExecuteInEditMode]
     public class Stage : PortraitController

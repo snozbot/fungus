@@ -50,7 +50,7 @@ namespace Fungus
         {
             if (collectionRef == null)
             {
-                return collectionVal != null ? collectionVal.ToString() : "Null";
+                return collectionVal != null ? collectionVal.ToString() : string.Empty;
             }
             else
             {

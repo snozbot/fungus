@@ -49,7 +49,7 @@ namespace Fungus
         {
             if (audioSourceRef == null)
             {
-                return audioSourceVal != null ? audioSourceVal.ToString() : "Null";
+                return audioSourceVal != null ? audioSourceVal.ToString() : string.Empty;
             }
             else
             {

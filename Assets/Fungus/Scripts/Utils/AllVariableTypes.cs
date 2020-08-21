@@ -57,9 +57,6 @@ namespace Fungus
     ///
     /// New types created need to be added to the list below and also to AllVariableTypes and
     /// AnyVaraibleAndDataPair
-    /// 
-    /// Note; when using this in a command ensure that RefreshVariableCache is also handled for
-    /// string var substitution.
     /// </summary>
     [System.Serializable]
     public partial struct AnyVariableData
@@ -124,9 +121,6 @@ namespace Fungus
     ///
     /// New types created need to be added to the list below and also to AllVariableTypes and
     /// AnyVariableData
-    /// 
-    /// Note to ensure use of RefreshVariableCacheHelper in commands, see SetVariable for
-    /// example.
     /// </summary>
     [System.Serializable]
     public class AnyVariableAndDataPair
@@ -249,17 +243,9 @@ namespace Fungus
                     (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.spriteData.Value)) },
             { typeof(StringVariable),
                 new TypeActions( "stringData",
-                    (anyVar, compareOperator) =>
-                    {
-                        var subbedRHS = anyVar.variable.GetFlowchart().SubstituteVariables(anyVar.data.stringData.Value);
-                        return anyVar.variable.Evaluate(compareOperator, subbedRHS); 
-                    },
+                    (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.stringData.Value); },
                     (anyVar) => anyVar.data.stringData.GetDescription(),
-                    (anyVar, setOperator) =>
-                    {
-                        var subbedRHS = anyVar.variable.GetFlowchart().SubstituteVariables(anyVar.data.stringData.Value);
-                        anyVar.variable.Apply(setOperator, subbedRHS); 
-                    })},
+                    (anyVar, setOperator) => anyVar.variable.Apply(setOperator, anyVar.data.stringData.Value)) },
             { typeof(TextureVariable),
                 new TypeActions( "textureData",
                     (anyVar, compareOperator) => {return anyVar.variable.Evaluate(compareOperator, anyVar.data.textureData.Value); },
@@ -292,17 +278,6 @@ namespace Fungus
             return variable == this.variable || data.HasReference(variable);
         }
 
-#if UNITY_EDITOR
-        public void RefreshVariableCacheHelper(Flowchart f, ref List<Variable> referencedVariables)
-        {
-            if (variable is StringVariable asStringVar && asStringVar != null && !string.IsNullOrEmpty(asStringVar.Value))
-                f.DetermineSubstituteVariables(asStringVar.Value, referencedVariables);
-
-            if (!string.IsNullOrEmpty(data.stringData.Value))
-                f.DetermineSubstituteVariables(data.stringData.Value, referencedVariables);
-        }
-#endif
-
         public string GetDataDescription()
         {
             TypeActions ta = null;
@@ -310,7 +285,7 @@ namespace Fungus
             {
                 return ta.DescFunc(this);
             }
-            return "Null";
+            return string.Empty;
         }
 
         public bool Compare(CompareOperator compareOperator, ref bool compareResult)

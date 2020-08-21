@@ -233,20 +233,6 @@ namespace Fungus
             }
         }
 
-        public char LastRevealedCharacter
-        {
-            get
-            {
-#if UNITY_2018_1_OR_NEWER
-                if(tmpro != null)
-                {
-                    return tmpro.textInfo.characterInfo[tmpro.maxVisibleCharacters].character;
-                }
-#endif
-                return (char)0;
-            }
-        }
-
         public int CharactersToReveal
         {
             get
