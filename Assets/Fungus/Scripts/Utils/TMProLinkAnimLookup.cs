@@ -81,23 +81,17 @@ namespace Fungus
 
         static public void AddHelper(string linkIdText, TMProAnimFunc func)
         {
-            var hashCode = TMPro.TMP_TextUtilities.GetSimpleHashCode(linkIdText);
-            if(!LinkHashToEffect.ContainsKey(hashCode))
-                LinkHashToEffect.Add(hashCode, func);
+            LinkHashToEffect.Add(TMPro.TMP_TextUtilities.GetSimpleHashCode(linkIdText), func);
         }
 
         static public void AddHelper(string linkIdText, TMProLinkAnimEffects.BaseEffect baseEffect)
         {
-            var hashCode = TMPro.TMP_TextUtilities.GetSimpleHashCode(linkIdText);
-            if (!LinkHashToEffect.ContainsKey(hashCode))
-                LinkHashToEffect.Add(TMPro.TMP_TextUtilities.GetSimpleHashCode(linkIdText), baseEffect.DoEffect);
+            LinkHashToEffect.Add(TMPro.TMP_TextUtilities.GetSimpleHashCode(linkIdText), baseEffect.DoEffect);
         }
 
         static public void Remove(string linkIdText)
         {
-            var hashCode = TMPro.TMP_TextUtilities.GetSimpleHashCode(linkIdText);
-            if (LinkHashToEffect.ContainsKey(hashCode))
-                LinkHashToEffect.Remove(hashCode);
+            LinkHashToEffect.Remove(TMPro.TMP_TextUtilities.GetSimpleHashCode(linkIdText));
         }
 
         static public void RemoveAll()

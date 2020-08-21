@@ -107,8 +107,6 @@ namespace Fungus
                     break;
             }
 
-            colorVar.Value = target;
-
             Continue();
         }
 

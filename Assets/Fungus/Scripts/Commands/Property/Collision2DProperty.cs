@@ -53,9 +53,7 @@ namespace Fungus
             var iogo = inOutVar as GameObjectVariable;
             var iov2 = inOutVar as Vector2Variable;
             var iob = inOutVar as BooleanVariable;
-#if UNITY_2019_2_OR_NEWER
             var ioi = inOutVar as IntegerVariable;
-#endif
 
 
             var target = collision2DVar.Value;

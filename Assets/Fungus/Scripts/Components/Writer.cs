@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Globalization;
 
 namespace Fungus
 {
@@ -246,9 +245,9 @@ namespace Fungus
         protected virtual bool TryGetSingleParam(List<string> paramList, int index, float defaultValue, out float value) 
         {
             value = defaultValue;
-            if (paramList.Count > index)
+            if (paramList.Count > index) 
             {
-                float.TryParse(paramList[index], NumberStyles.Any, CultureInfo.InvariantCulture, out value);
+                float.TryParse(paramList[index], out value);
                 return true;
             }
             return false;
@@ -583,10 +582,9 @@ namespace Fungus
                         textAdapter.RevealedCharacters = textAdapter.CharactersToReveal;
                     }
 
-                    textAdapter.RevealedCharacters++;
-                    
                     if (currentWritingSpeed > 0f)
                     {
+                        textAdapter.RevealedCharacters++;
                         timeAccumulator -= invWritingSpeed;
                         if (timeAccumulator <= 0f)
                         {
@@ -725,7 +723,7 @@ namespace Fungus
             }
 
             float duration = 1f;
-            if (!float.TryParse(param, NumberStyles.Any, CultureInfo.InvariantCulture, out duration))
+            if (!float.TryParse(param, out duration))
             {
                 duration = 1f;
             }

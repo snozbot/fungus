@@ -32,6 +32,7 @@ namespace Fungus.EditorUtils
 
         private float[] itemWidths = new float[4];
         private Rect[] itemRects = new Rect[4];
+        private GUIContent emptyGUIContent = new GUIContent("");
 
         public SerializedProperty this[int index]
         {
@@ -290,7 +291,7 @@ namespace Fungus.EditorUtils
             }
             else 
             {
-                CustomVariableDrawerLookup.DrawCustomOrPropertyField(variable.GetType(), rect, valueProp, GUIContent.none);
+                CustomVariableDrawerLookup.DrawCustomOrPropertyField(variable.GetType(), rect, valueProp);
             }
         }
 

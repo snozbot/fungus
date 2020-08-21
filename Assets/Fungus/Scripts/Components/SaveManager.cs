@@ -235,7 +235,7 @@ namespace Fungus
         /// <summary>
         /// Deletes a previously stored Save History from persistent storage.
         /// </summary>
-        public static void Delete(string saveDataKey)
+        public void Delete(string saveDataKey)
         {
 #if UNITY_WEBPLAYER || UNITY_WEBGL
             PlayerPrefs.DeleteKey(saveDataKey);

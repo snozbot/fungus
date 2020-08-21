@@ -102,9 +102,6 @@ namespace Fungus
                     break;
             }
 
-
-            vector4Data.Value = target;
-
             Continue();
         }
 

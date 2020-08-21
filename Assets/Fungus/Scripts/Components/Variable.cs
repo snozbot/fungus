@@ -161,12 +161,6 @@ namespace Fungus
         /// Not recommended for direct use, primarily intended for use in editor code.
         /// </summary>
         public abstract object GetValue();
-
-        //we are required to be on a flowchart so we provide this as a helper
-        public virtual Flowchart GetFlowchart()
-        {
-            return GetComponent<Flowchart>();
-        }
         #endregion
     }
 
@@ -240,7 +234,7 @@ namespace Fungus
             if (Value != null)
                 return Value.ToString();
             else
-                return "Null";
+                return string.Empty;
         }
         
         protected virtual void Start()
@@ -252,7 +246,7 @@ namespace Fungus
         //Apply to get from base system.object to T
         public override void Apply(SetOperator op, object value)
         {
-            if(value is T || value == null)
+            if(value is T)
             {
                 Apply(op, (T)value);
             }
@@ -283,7 +277,7 @@ namespace Fungus
         //Apply to get from base system.object to T
         public override bool Evaluate(CompareOperator op, object value)
         {
-            if (value is T || value == null)
+            if (value is T)
             {
                 return Evaluate(op, (T)value);
             }
@@ -307,10 +301,10 @@ namespace Fungus
             switch (compareOperator)
             {
             case CompareOperator.Equals:
-                condition = Equals(Value, value);// Value.Equals(value);
+                condition = Value.Equals(value);
                 break;
             case CompareOperator.NotEquals:
-                condition = !Equals(Value, value);
+                condition = !Value.Equals(value);
                 break;
             default:
                 Debug.LogError("The " + compareOperator.ToString() + " comparison operator is not valid.");

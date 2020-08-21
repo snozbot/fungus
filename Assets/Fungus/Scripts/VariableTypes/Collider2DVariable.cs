@@ -50,7 +50,7 @@ namespace Fungus
         {
             if (collider2DRef == null)
             {
-                return collider2DVal != null ? collider2DVal.ToString() : "Null";
+                return collider2DVal != null ? collider2DVal.ToString() : string.Empty;
             }
             else
             {

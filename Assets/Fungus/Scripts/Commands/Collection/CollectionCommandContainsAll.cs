@@ -19,7 +19,7 @@ namespace Fungus
         protected BooleanData inSameOrder = new BooleanData(false);
 
         [VariableProperty(typeof(BooleanVariable))]
-        [SerializeField] protected BooleanVariable result;
+        protected BooleanVariable result;
 
         protected override void OnEnterInner()
         {
