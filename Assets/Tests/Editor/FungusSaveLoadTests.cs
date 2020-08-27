@@ -11,11 +11,14 @@ namespace Fungus.Tests
     [TestFixture]
     public class FungusSaveLoadTests
     {
-        //by no means exaustive but provides us a basic test in editor mode that flowchart 
+        //by no means exaustive but provides us a basic test in editor mode that flowchart
         // serialisation is at all functional
         [UnityTest]
         public IEnumerator ManualSaveLoadFlowchart()
         {
+            const int InitialVariableValue = 8;
+            const int ChangedVariableValue = 8;
+
             //create flowchart
             var go = new GameObject();
             var f = go.AddComponent<Flowchart>();
@@ -24,24 +27,37 @@ namespace Fungus.Tests
             vi.Key = f.GetUniqueVariableKey("");
             f.Variables.Add(vi);
 
-
             yield return b.Execute(0, null);
-            vi.Value = 8;
+            vi.Value = InitialVariableValue;
 
             var fd = FlowchartData.Encode(f);
 
             //change data
             yield return b.Execute(0, null);
             yield return b.Execute(0, null);
-            vi.Value = 5;
+            vi.Value = ChangedVariableValue;
 
             //decode to revert
             fd.Decode(f);
 
             Assert.That(b.GetExecutionCount() == 1);
-            Assert.That(vi.Value == 8);
+            Assert.That(vi.Value == InitialVariableValue);
 
             Object.DestroyImmediate(go);
+        }
+
+        [Test]
+        public void ManualSaveLoadValueCollection()
+        {
+            throw new System.NotImplementedException();
+            //ValueTypeCollectionData
+        }
+
+        [Test]
+        public void ManualSaveLoadGlobalVars()
+        {
+            throw new System.NotImplementedException();
+            //GlobalVariableData
         }
     }
 }

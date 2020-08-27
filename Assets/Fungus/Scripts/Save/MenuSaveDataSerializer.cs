@@ -34,7 +34,11 @@ namespace Fungus
                     cmd.ParentBlock.PreviousActiveCommandIndex,
                     cmd.ParentBlock.JumpToCommandIndex));
 
-                var menuLogitem = SaveDataItem.Create(MenuKey, JsonUtility.ToJson(menuFlowchartCommandData));
+                var menuLogitem = new SaveDataItem()
+                {
+                    DataType = MenuKey,
+                    Data = JsonUtility.ToJson(menuFlowchartCommandData)
+                };
                 data.SaveDataItems.Add(menuLogitem);
             }
         }

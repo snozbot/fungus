@@ -32,7 +32,11 @@ namespace Fungus
 
                 var flowchartData = FlowchartData.Encode(flowchart);
 
-                var saveDataItem = SaveDataItem.Create(FlowchartDataKey, JsonUtility.ToJson(flowchartData));
+                var saveDataItem = new SaveDataItem()
+                {
+                    DataType = FlowchartDataKey,
+                    Data = JsonUtility.ToJson(flowchartData)
+                };
                 data.SaveDataItems.Add(saveDataItem);
             }
         }
@@ -48,9 +52,9 @@ namespace Fungus
 
             var flowchart = flowcharts.FirstOrDefault(x => x.name == flowchartData.FlowchartName);
 
-            if(flowchart == null)
+            if (flowchart == null)
             {
-                Debug.LogError("Could not find matching flowchart in set, none matching name " + flowchartData.FlowchartName 
+                Debug.LogError("Could not find matching flowchart in set, none matching name " + flowchartData.FlowchartName
                     + ".\nSkipping data block.");
                 return;
             }

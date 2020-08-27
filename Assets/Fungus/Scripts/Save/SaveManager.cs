@@ -6,17 +6,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//TODO update doco
-//  should really enforce slots
-
 namespace Fungus
 {
     /// <summary>
     /// Manages the Save History (a list of Save Points) and provides a set of operations for saving and loading games.
-    ///
-    /// Note WebGL and Webplayer (deprecated) save using playerprefs instead of using a json file in persistent storage
-    /// -webgl would require additional js to force a sync of FS.syncfs
-    /// -webplayer does not implement system io
     /// </summary>
     public class SaveManager : MonoBehaviour
     {

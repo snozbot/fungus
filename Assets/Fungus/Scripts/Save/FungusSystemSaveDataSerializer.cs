@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class FungusSystemSaveDataSerializer : SaveDataSerializer
     {
@@ -16,19 +16,19 @@ namespace Fungus
         public class FungusSystemData
         {
             [System.Serializable]
-            public class StageCharactersData 
+            public class StageCharactersData
             {
                 public string stageName;
                 public CharacterPortraitData[] charactersOnStage;
             }
 
             [System.Serializable]
-            public struct CharacterPortraitData 
+            public struct CharacterPortraitData
             {
                 public string characterName, visiblePortraitName, portraitLocationName;
                 public bool dimmed;
                 public FacingDirection facing;
-                public DisplayType displayType; 
+                public DisplayType displayType;
             }
 
             public List<int> textVariationHistory = new List<int>();
@@ -78,7 +78,12 @@ namespace Fungus
             var activeStage = Stage.GetActiveStage();
             fsData.lastStage = activeStage != null ? activeStage.gameObject.name : string.Empty;
 
-            var tvDataItem = SaveDataItem.Create(FungusSystemKey, JsonUtility.ToJson(fsData));
+            var tvDataItem = new SaveDataItem()
+            {
+                DataType = FungusSystemKey,
+                Data = JsonUtility.ToJson(fsData)
+            };
+
             data.SaveDataItems.Add(tvDataItem);
         }
 
@@ -95,9 +100,9 @@ namespace Fungus
             FungusManager.Instance.NarrativeLog.LoadHistory(fsData.narLogEntries);
             MenuDialog.ActiveMenuDialog = GameObjectUtils.FindObjectOfTypeWithGameObjectName<MenuDialog>(fsData.lastMenuName);
             SayDialog.ActiveSayDialog = GameObjectUtils.FindObjectOfTypeWithGameObjectName<SayDialog>(fsData.lastSayDialogName);
-            
+
             var v = GameObjectUtils.FindObjectOfTypeWithGameObjectName<View>(fsData.lastViewName);
-            if(v != null)
+            if (v != null)
             {
                 FungusManager.Instance.CameraManager.PanToView(Camera.main, v, 0f, null);
             }
@@ -114,9 +119,9 @@ namespace Fungus
             {
                 var stage = GameObjectUtils.FindObjectOfTypeWithGameObjectName<Stage>(stageData.stageName);
 
-                if(stage == null)
+                if (stage == null)
                 {
-                    Debug.LogError("Cannot find stage of name " + stageData.stageName + 
+                    Debug.LogError("Cannot find stage of name " + stageData.stageName +
                         ". Skipping this block of stage save data.");
                     continue;
                 }
@@ -142,10 +147,10 @@ namespace Fungus
             }
 
             var activeStage = GameObjectUtils.FindObjectOfTypeWithGameObjectName<Stage>(fsData.lastStage);
-            if(activeStage != null)
+            if (activeStage != null)
             {
                 Stage.MoveStageToFront(activeStage);
-            } 
+            }
         }
     }
 }

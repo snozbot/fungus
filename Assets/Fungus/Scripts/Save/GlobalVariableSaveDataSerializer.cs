@@ -21,7 +21,11 @@ namespace Fungus
         public override void Encode(SavePointData data)
         {
             var gvd = GlobalVariableData.Encode();
-            var saveDataItem = SaveDataItem.Create(GlobalVarKey, JsonUtility.ToJson(gvd));
+            var saveDataItem = new SaveDataItem()
+            {
+                DataType = GlobalVarKey,
+                Data = JsonUtility.ToJson(gvd)
+            };
             data.SaveDataItems.Add(saveDataItem);
         }
 

@@ -42,7 +42,11 @@ namespace Fungus.Examples
             }
 
             //put the data into a save data item
-            var tDataItem = SaveDataItem.Create(TransformDataKey, JsonUtility.ToJson(td));
+            var tDataItem = new SaveDataItem()
+            {
+                DataType = TransformDataKey, 
+                Data = JsonUtility.ToJson(td)
+            };
             //push it into the save data item collection
             data.SaveDataItems.Add(tDataItem);
         }

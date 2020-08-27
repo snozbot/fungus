@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Fungus
 {
@@ -34,12 +33,14 @@ namespace Fungus
 
             foreach (var item in FungusManager.Instance.GlobalVariables.GlobalVariableFlowchart.Variables)
             {
-                if(item.IsSerializable)
+                if (item.IsSerializable)
                 {
-                    gvd.typeStringPairs.Add(new TypeStringPair() { 
-                        key = item.Key, 
-                        val = item.GetStringifiedValue(), 
-                        typeName = item.GetType().Name });
+                    gvd.typeStringPairs.Add(new TypeStringPair()
+                    {
+                        key = item.Key,
+                        val = item.GetStringifiedValue(),
+                        typeName = item.GetType().Name
+                    });
                 }
             }
 

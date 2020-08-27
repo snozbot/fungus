@@ -1,7 +1,6 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fungus
@@ -23,7 +22,11 @@ namespace Fungus
         public override void Encode(SavePointData data)
         {
             var block = ValueTypeCollectionData.Encode(collectionsToSerialize);
-            var saveDataItem = SaveDataItem.Create(VTCollectionKey, JsonUtility.ToJson(block));
+            var saveDataItem = new SaveDataItem()
+            {
+                DataType = VTCollectionKey,
+                Data = JsonUtility.ToJson(block)
+            };
             data.SaveDataItems.Add(saveDataItem);
         }
 
