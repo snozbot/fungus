@@ -4,6 +4,10 @@ Changelog {#changelog}
 Unreleased
 ======
 
+
+v3.13.5
+======
+
 ## Fixed
 
  - TextAdapter use of Visible Characters null and bounds checked, required for TMPro 3.x
