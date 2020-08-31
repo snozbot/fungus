@@ -4,6 +4,12 @@ Changelog {#changelog}
 Unreleased
 ======
 
+## Fixed
+
+ - TextAdapter use of Visible Characters null and bounds checked, required for TMPro 3.x
+ - FlowchartWindow styles force set expected values, seems required to deal with changes to UI style defaults in more recent Unity.
+ - InvokeMethod command uses more explicit search and more informative log if error is found in editor.
+
 
 v3.13.4
 ======
