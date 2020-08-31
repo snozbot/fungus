@@ -795,7 +795,7 @@ MonoBehaviour:
   indentLevel: 0
   description: 
   targetObject: {fileID: 1377282257}
-  targetComponentAssemblyName: Fungus.Examples.LookingAtDoor, Assembly-CSharp, Version=0.0.0.0,
+  targetComponentAssemblyName: Fungus.Examples.LookingAtDoor, FungusExamples, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
   targetComponentFullname: UnityEngine.Component[]
   targetComponentText: LookingAtDoor
