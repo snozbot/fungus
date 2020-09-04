@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4704521519618994}
-  - component: {fileID: 6090270529574640073}
-  - component: {fileID: 3843509060272096281}
-  - component: {fileID: 7231103746484513082}
-  - component: {fileID: 1524483497749188652}
+  - component: {fileID: 4182283721263017402}
+  - component: {fileID: 48459533358594827}
+  - component: {fileID: 8123734969152331106}
   m_Layer: 0
   m_Name: SaveData
   m_TagString: Untagged
@@ -34,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6090270529574640073
+--- !u!114 &4182283721263017402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,11 +42,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1310974650352510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24bf406d6c81d9b4aaa3a190a027438b, type: 3}
+  m_Script: {fileID: 11500000, guid: b958468ef52eb834a8806f30e7c7d9fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flowcharts: []
---- !u!114 &3843509060272096281
+  saveDataItemSerializerComponents:
+  - {fileID: 48459533358594827}
+  - {fileID: 8123734969152331106}
+--- !u!114 &48459533358594827
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,10 +57,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1310974650352510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a59b3fc561da3a4dacbe8fd2dd1571f, type: 3}
+  m_Script: {fileID: 11500000, guid: 371952c8a2034394b8d1e6189a63bfd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7231103746484513082
+  serializerSettings:
+    flowchartsToSave: []
+--- !u!114 &8123734969152331106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68,18 +71,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1310974650352510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77365993ad5a1414b959e778e22f65c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d4150cf9542e0947b1c56c237303d1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1524483497749188652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310974650352510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f07b2ff5bc231184c9de22d59582b5db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializerSettings:
+    collectionsToSerialize: []

@@ -10,43 +10,17 @@ namespace Fungus
     /// <summary>
     ///
     /// </summary>
-    public class FungusSystemSaveDataSerializer : SaveDataSerializer
+    public class FungusSystemSaveDataItemSerializer : ISaveDataItemSerializer
     {
-        [System.Serializable]
-        public class FungusSystemData
-        {
-            [System.Serializable]
-            public class StageCharactersData
-            {
-                public string stageName;
-                public CharacterPortraitData[] charactersOnStage;
-            }
-
-            [System.Serializable]
-            public struct CharacterPortraitData
-            {
-                public string characterName, visiblePortraitName, portraitLocationName;
-                public bool dimmed;
-                public FacingDirection facing;
-                public DisplayType displayType;
-            }
-
-            public List<int> textVariationHistory = new List<int>();
-            public List<NarrativeLogEntry> narLogEntries;
-            public string lastMenuName, lastSayDialogName, lastViewName, lastStage;
-            public int fungusPriority;
-            public List<StageCharactersData> stages = new List<StageCharactersData>();
-        }
-
         protected const string FungusSystemKey = "FungusSystemData";
         protected const int DataPriority = 1000;
 
-        public override string DataTypeKey => FungusSystemKey;
-        public override int Order => DataPriority;
+        public string DataTypeKey => FungusSystemKey;
+        public int Order => DataPriority;
 
-        public override void Encode(SavePointData data)
+        public SaveDataItem[] Encode()
         {
-            var fsData = new FungusSystemData();
+            var fsData = new FungusSystemDataItem();
             fsData.textVariationHistory = TextVariationHandler.GetSerialisedHistory();
             fsData.narLogEntries = FungusManager.Instance.NarrativeLog.GetAllNarrativeLogItems();
             fsData.lastMenuName = MenuDialog.GetMenuDialog().gameObject.name;
@@ -57,13 +31,13 @@ namespace Fungus
 
             foreach (var stage in Stage.ActiveStages)
             {
-                var stageData = new FungusSystemData.StageCharactersData();
+                var stageData = new FungusSystemDataItem.StageCharactersData();
                 stageData.stageName = stage.name;
-                stageData.charactersOnStage = new FungusSystemData.CharacterPortraitData[stage.CharactersOnStage.Count];
+                stageData.charactersOnStage = new FungusSystemDataItem.CharacterPortraitData[stage.CharactersOnStage.Count];
                 for (int i = 0; i < stage.CharactersOnStage.Count; i++)
                 {
                     Character ch = stage.CharactersOnStage[i];
-                    stageData.charactersOnStage[i] = new FungusSystemData.CharacterPortraitData()
+                    stageData.charactersOnStage[i] = new FungusSystemDataItem.CharacterPortraitData()
                     {
                         characterName = ch.name,
                         dimmed = ch.State.dimmed,
@@ -78,22 +52,22 @@ namespace Fungus
             var activeStage = Stage.GetActiveStage();
             fsData.lastStage = activeStage != null ? activeStage.gameObject.name : string.Empty;
 
-            var tvDataItem = new SaveDataItem()
+            var sdi = new SaveDataItem()
             {
-                DataType = FungusSystemKey,
+                DataType = DataTypeKey,
                 Data = JsonUtility.ToJson(fsData)
             };
 
-            data.SaveDataItems.Add(tvDataItem);
+            return new SaveDataItem[] { sdi };
         }
 
-        protected override void ProcessItem(SaveDataItem sditem)
+        public bool Decode(SaveDataItem sdi)
         {
-            var fsData = JsonUtility.FromJson<FungusSystemData>(sditem.Data);
+            var fsData = JsonUtility.FromJson<FungusSystemDataItem>(sdi.Data);
             if (fsData == null)
             {
                 Debug.LogError("Failed to decode Text Variation save data item");
-                return;
+                return false;
             }
 
             TextVariationHandler.RestoreFromSerialisedHistory(fsData.textVariationHistory);
@@ -151,6 +125,42 @@ namespace Fungus
             {
                 Stage.MoveStageToFront(activeStage);
             }
+
+            return true;
+        }
+
+        public void PreDecode()
+        {
+        }
+
+        public void PostDecode()
+        {
+        }
+
+        [System.Serializable]
+        public class FungusSystemDataItem
+        {
+            [System.Serializable]
+            public class StageCharactersData
+            {
+                public string stageName;
+                public CharacterPortraitData[] charactersOnStage;
+            }
+
+            [System.Serializable]
+            public struct CharacterPortraitData
+            {
+                public string characterName, visiblePortraitName, portraitLocationName;
+                public bool dimmed;
+                public FacingDirection facing;
+                public DisplayType displayType;
+            }
+
+            public List<int> textVariationHistory = new List<int>();
+            public List<NarrativeLogEntry> narLogEntries;
+            public string lastMenuName, lastSayDialogName, lastViewName, lastStage;
+            public int fungusPriority;
+            public List<StageCharactersData> stages = new List<StageCharactersData>();
         }
     }
 }

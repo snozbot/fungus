@@ -7,7 +7,7 @@ namespace Fungus
 {
     /// <summary>
     /// Directly calls Decode on a SavePointData created from supplied json in a string.
-    /// 
+    ///
     /// This does not use the SaveManager and will not fire signals.
     /// </summary>
     [CommandInfo("Save",
@@ -20,9 +20,10 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            var savePointData = SavePointData.DecodeFromJSON(jsonString.Value);
+            var saveHandler = FungusManager.Instance.SaveManager.CurrentSaveHandler;
+            var saveData = saveHandler.DecodeFromJSON(jsonString.Value);
 
-            savePointData.RunDeserialize();
+            saveHandler.LoadSaveData(saveData);
 
             Continue();
         }

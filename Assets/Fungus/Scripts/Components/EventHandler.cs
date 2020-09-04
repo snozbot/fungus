@@ -96,7 +96,7 @@ namespace Fungus
         /// To be used if the child command has mutable state that it needs restored, in VisitDecode.
         /// </summary>
         /// <param name="flowchartData"></param>
-        public virtual void VisitEncode(FlowchartData flowchartData)
+        public virtual void VisitEncode(FlowchartDataItem flowchartData)
         {
         }
 
@@ -105,7 +105,7 @@ namespace Fungus
         /// flowchartData.TryGetVisitorValueByKey restoring internal state from previously saved values.
         /// </summary>
         /// <param name="flowchartData"></param>
-        public virtual void VisitDecode(FlowchartData flowchartData)
+        public virtual void VisitDecode(FlowchartDataItem flowchartData)
         {
         }
         #endregion

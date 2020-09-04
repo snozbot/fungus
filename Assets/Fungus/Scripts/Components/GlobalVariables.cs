@@ -9,6 +9,10 @@ namespace Fungus
 {
     /// <summary>
     /// Storage for a collection of fungus variables that can then be accessed globally.
+    /// 
+    /// Uses both a local dictionary lookup and a flowchart internally. Dict is for faster lookup
+    /// flowchart is used so existing variable replacement mechanisms can locate the variables
+    /// stored in globals.
     /// </summary>
     public class GlobalVariables : MonoBehaviour
     {
@@ -49,6 +53,7 @@ namespace Fungus
             }
 
             holder.Variables.Clear();
+            variables.Clear();
         }
 
         public Variable GetVariable(string variableKey)

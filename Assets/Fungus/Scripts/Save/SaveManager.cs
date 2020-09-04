@@ -53,6 +53,8 @@ namespace Fungus
         /// </summary>
         public string CurrentSaveProfileKey { get { return currentSaveProfileKey; } }
 
+        public ISaveHandler CurrentSaveHandler { get; set; } = DefaultSaveHandler.CreateDefaultWithSerializers();
+
         /// <summary>
         /// POD for info the SaveManager wants between runs of the game.
         /// </summary>
@@ -224,7 +226,7 @@ namespace Fungus
             foreach (var item in foundFiles)
             {
                 var fileContents = System.IO.File.ReadAllText(item);
-                var save = SavePointData.DecodeFromJSON(fileContents);
+                var save = CurrentSaveHandler.DecodeFromJSON(fileContents);
                 GenerateMetaFromSave(item, save);
             }
 
@@ -245,16 +247,16 @@ namespace Fungus
         /// </summary>
         /// <param name="fileLoc"></param>
         /// <param name="save"></param>
-        private void GenerateMetaFromSave(string fileLoc, SavePointData save)
+        private void GenerateMetaFromSave(string fileLoc, SaveData save)
         {
             if (save != null)
             {
                 saveMetas.Add(new SavePointMeta()
                 {
                     fileLocation = fileLoc,
-                    saveName = save.SaveName,
-                    progressMarker = save.ProgressMarkerName,
-                    description = save.SavePointDescription,
+                    saveName = save.saveName,
+                    progressMarker = save.progressMarkerName,
+                    description = save.savePointDescription,
                     lastWritten = save.LastWritten,
                 });
             }
@@ -307,10 +309,11 @@ namespace Fungus
                 DeleteSave(existingMetaIndex, true);
             }
 
-            var savePointDataJSON = SavePointData.EncodeToJson(saveName, savePointDescription, out SavePointData save);
+            var saveData = CurrentSaveHandler.CreateSaveData(saveName, savePointDescription);
+            var savePointDataJSON = CurrentSaveHandler.EncodeToJSON(saveData);
             var fileName = GetFullSaveDir() + (isAutoSave ? FungusConstants.AutoSavePrefix : FungusConstants.UserSavePrefix)
                 + System.DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss.ffff") + FileExtension;
-            GenerateMetaFromSave(fileName, save);
+            GenerateMetaFromSave(fileName, saveData);
             System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
             System.IO.File.WriteAllText(fileName, savePointDataJSON, System.Text.Encoding.UTF8);
 #if UNITY_WEBGL
@@ -346,7 +349,7 @@ namespace Fungus
 #endif
             var saveContent = System.IO.File.ReadAllText(meta.fileLocation, System.Text.Encoding.UTF8);
 
-            var savePointData = SavePointData.DecodeFromJSON(saveContent);
+            var savePointData = CurrentSaveHandler.DecodeFromJSON(saveContent);
 
             if (!LoadSavePoint(savePointData))
             {
@@ -364,7 +367,7 @@ namespace Fungus
         /// </summary>
         /// <param name="savePointData"></param>
         /// <returns></returns>
-        public virtual bool LoadSavePoint(SavePointData savePointData)
+        public virtual bool LoadSavePoint(SaveData savePointData)
         {
             if (!IsLoadingAllowed)
                 return false;
@@ -372,7 +375,7 @@ namespace Fungus
             if (savePointData == null)
                 return false;
 
-            var markerKey = savePointData.ProgressMarkerName;
+            var markerKey = savePointData.progressMarkerName;
 
             UnityEngine.Events.UnityAction<Scene, LoadSceneMode> onSceneLoadedAction = null;
 
@@ -381,7 +384,7 @@ namespace Fungus
                 // Additive scene loads and non-matching scene loads could happen if the client is using the
                 // SceneManager directly. We just ignore these events and hope they know what they're doing!
                 if (mode == LoadSceneMode.Additive ||
-                    scene.name != savePointData.SceneName)
+                    scene.name != savePointData.sceneName)
                 {
                     return;
                 }
@@ -389,20 +392,20 @@ namespace Fungus
                 SceneManager.sceneLoaded -= onSceneLoadedAction;
 
                 // Look for a SaveData component in the scene to process the save data items.
-                savePointData.RunDeserialize();
+                CurrentSaveHandler.LoadSaveData(savePointData);
 
-                SaveManagerSignals.DoSaveLoaded(savePointData.SaveName);
+                SaveManagerSignals.DoSaveLoaded(savePointData.saveName);
 
                 // Execute Save Point Loaded event handlers with matching key.
-                SaveLoaded.NotifyEventHandlers(savePointData.ProgressMarkerName);
+                SaveLoaded.NotifyEventHandlers(savePointData.progressMarkerName);
 
                 StartCoroutine(DelaySetNotLoading());
             };
 
             SceneManager.sceneLoaded += onSceneLoadedAction;
             IsSaveLoading = true;
-            SaveManagerSignals.DoSavePreLoad(savePointData.SaveName);
-            SceneManager.LoadScene(savePointData.SceneName);
+            SaveManagerSignals.DoSavePreLoad(savePointData.saveName);
+            SceneManager.LoadScene(savePointData.sceneName);
 
             return true;
         }

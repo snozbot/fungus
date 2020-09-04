@@ -6,34 +6,26 @@ using UnityEngine;
 
 namespace Fungus.Examples
 {
+    [System.Serializable]
     /// <summary>
     /// This examples shows how to work with the saveDataSerialiser for types you may need from unity itself or your own codebase.
     /// This is purely an example and is not for production use.
     /// </summary>
-    public class TransformDataSerializer : SaveDataSerializer
+    public class TransformSaveDataItemSerializer : ISaveDataItemSerializer
     {
         //the items we want to load and save
         public List<Transform> transformsToSerialize = new List<Transform>();
-
-        //structure of our save data, we are using json utility but you do not have to
-        [System.Serializable]
-        public class TransformData
-        {
-            public List<Vector3> positions = new List<Vector3>();
-            public List<Quaternion> rotations = new List<Quaternion>();
-        }
 
         //keys and priority determine when we are asked to load and save in relation to other serializers
         protected const string TransformDataKey = "TransformData";
 
         protected const int TransformDataDataPriority = 1000;
 
-        public override string DataTypeKey => TransformDataKey;
-        public override int Order => TransformDataDataPriority;
+        public string DataTypeKey => TransformDataKey;
+        public int Order => TransformDataDataPriority;
 
-        public override void Encode(SavePointData data)
+        public SaveDataItem[] Encode()
         {
-            //gather the info we wish to save, we use index in array and index in saved arrays to sync
             var td = new TransformData();
             foreach (var item in transformsToSerialize)
             {
@@ -41,24 +33,24 @@ namespace Fungus.Examples
                 td.rotations.Add(item.rotation);
             }
 
-            //put the data into a save data item
-            var tDataItem = new SaveDataItem()
+            return new SaveDataItem[]
             {
-                DataType = TransformDataKey, 
-                Data = JsonUtility.ToJson(td)
+                new SaveDataItem()
+                {
+                    DataType = DataTypeKey,
+                    Data = JsonUtility.ToJson(td)
+                } 
             };
-            //push it into the save data item collection
-            data.SaveDataItems.Add(tDataItem);
         }
 
-        protected override void ProcessItem(SaveDataItem item)
+        public bool Decode(SaveDataItem sdi)
         {
             //the reverse process of our encode,
-            var tdata = JsonUtility.FromJson<TransformData>(item.Data);
+            var tdata = JsonUtility.FromJson<TransformData>(sdi.Data);
             if (tdata == null)
             {
                 Debug.LogError("Failed to decode Text Variation save data item");
-                return;
+                return false;
             }
 
             //use array index to push data from json array back into the objects in our list
@@ -66,6 +58,24 @@ namespace Fungus.Examples
             {
                 transformsToSerialize[i].SetPositionAndRotation(tdata.positions[i], tdata.rotations[i]);
             }
+
+            return true;
+        }
+
+        public void PreDecode()
+        {
+        }
+
+        public void PostDecode()
+        {
+        }
+
+        //structure of our save data, we are using json utility but you do not have to
+        [System.Serializable]
+        public class TransformData
+        {
+            public List<Vector3> positions = new List<Vector3>();
+            public List<Quaternion> rotations = new List<Quaternion>();
         }
     }
 }

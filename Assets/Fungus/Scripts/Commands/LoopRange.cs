@@ -79,7 +79,7 @@ namespace Fungus
                 base.HasReference(variable);
         }
 
-        public override void VisitEncode(FlowchartData flowchartData)
+        public override void VisitEncode(FlowchartDataItem flowchartData)
         {
             if (counter.integerRef == null)
             {
@@ -89,7 +89,7 @@ namespace Fungus
             base.VisitEncode(flowchartData);
         }
 
-        public override void VisitDecode(FlowchartData flowchartData)
+        public override void VisitDecode(FlowchartDataItem flowchartData)
         {
             if (counter.integerRef == null)
             {

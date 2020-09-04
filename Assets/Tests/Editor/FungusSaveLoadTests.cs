@@ -30,7 +30,11 @@ namespace Fungus.Tests
             yield return b.Execute(0, null);
             vi.Value = InitialVariableValue;
 
-            var fd = FlowchartData.Encode(f);
+            var saveHandler = new DefaultSaveHandler();
+            var mf = new MultiFlowchartSaveDataItemSerializer();
+            saveHandler.SaveDataItemSerializers.Add(mf);
+            mf.flowchartsToSave.Add(f);
+            var saveData = saveHandler.CreateSaveData("ManualSaveLoadFlowchart", "");
 
             //change data
             yield return b.Execute(0, null);
@@ -38,7 +42,7 @@ namespace Fungus.Tests
             vi.Value = ChangedVariableValue;
 
             //decode to revert
-            fd.Decode(f);
+            saveHandler.LoadSaveData(saveData);
 
             Assert.That(b.GetExecutionCount() == 1);
             Assert.That(vi.Value == InitialVariableValue);
@@ -49,15 +53,30 @@ namespace Fungus.Tests
         [Test]
         public void ManualSaveLoadValueCollection()
         {
-            throw new System.NotImplementedException();
-            //ValueTypeCollectionData
-        }
+            var go = new GameObject();
+            var intcol = go.AddComponent<IntCollection>();
+            Collection col = intcol;
+            var cols = new Collection[] { col };
 
-        [Test]
-        public void ManualSaveLoadGlobalVars()
-        {
-            throw new System.NotImplementedException();
-            //GlobalVariableData
+            intcol.Add(1);
+            intcol.Add(2);
+
+            var saveHandler = new DefaultSaveHandler();
+            var vts = new ValueTypeCollectionSaveDataItemSerializer();
+            saveHandler.SaveDataItemSerializers.Add(vts);
+
+            vts.collectionsToSerialize.Add(intcol);
+            var saveData = saveHandler.CreateSaveData("ManualSaveLoadValueCollection", "");
+
+            intcol.Remove(1);
+            intcol.Add(3);
+            intcol.Add(4);
+
+            saveHandler.LoadSaveData(saveData);
+
+            Assert.That(intcol.Count == 2);
+            Assert.That(intcol.IndexOf(1) == 0);
+            Assert.That(intcol.IndexOf(2) == 1);
         }
     }
 }

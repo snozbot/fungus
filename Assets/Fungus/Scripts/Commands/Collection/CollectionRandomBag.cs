@@ -77,7 +77,7 @@ namespace Fungus
             (currentIndex.integerRef != null ? " " + currentIndex.integerRef.Key : ""); ;
         }
 
-        public override void VisitEncode(FlowchartData flowchartData)
+        public override void VisitEncode(FlowchartDataItem flowchartData)
         {
             if (currentIndex.integerRef == null)
             {
@@ -87,7 +87,7 @@ namespace Fungus
             base.VisitEncode(flowchartData);
         }
 
-        public override void VisitDecode(FlowchartData flowchartData)
+        public override void VisitDecode(FlowchartDataItem flowchartData)
         {
             if (currentIndex.integerRef == null)
             {

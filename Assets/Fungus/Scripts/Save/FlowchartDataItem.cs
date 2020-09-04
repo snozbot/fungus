@@ -10,7 +10,7 @@ namespace Fungus
     /// Serializable container for encoding the state of a Flowchart's blocks status & variables.
     /// </summary>
     [System.Serializable]
-    public class FlowchartData
+    public class FlowchartDataItem
     {
         /// <summary>
         /// Variable name and json value pair.
@@ -43,10 +43,10 @@ namespace Fungus
             public int executionCount, previousActiveCommandIndex = -1, jumpToCommandIndex = -1;
         }
 
-        [SerializeField] protected string flowchartName;
-        [SerializeField] protected List<StringPair> varPairs = new List<StringPair>();
-        [SerializeField] protected List<StringPair> visitorPairs = new List<StringPair>();
-        [SerializeField] protected List<BlockData> blockDatas = new List<BlockData>();
+        public string flowchartName;
+        public List<StringPair> varPairs = new List<StringPair>();
+        public List<StringPair> visitorPairs = new List<StringPair>();
+        public List<BlockData> blockDatas = new List<BlockData>();
 
         /// <summary>
         /// Information bundle for blocks that need to be executed.
@@ -58,26 +58,16 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Gets or sets the name of the encoded Flowchart.
-        /// </summary>
-        public string FlowchartName { get { return flowchartName; } set { flowchartName = value; } }
-
-        public void AddBlockData(BlockData bd)
-        {
-            blockDatas.Add(bd);
-        }
-
-        /// <summary>
         /// Encodes the data in a Flowchart into a structure that can be stored by the save system.
         ///
         /// Includes all variables that are IsSerialisable, regardless of access level and all blocks
         /// unless they report that they do not want to be serialised via IsSavingAllowed.
         /// </summary>
-        public static FlowchartData Encode(Flowchart flowchart)
+        public static FlowchartDataItem Encode(Flowchart flowchart)
         {
-            var flowchartData = new FlowchartData();
+            var flowchartData = new FlowchartDataItem();
 
-            flowchartData.FlowchartName = flowchart.name;
+            flowchartData.flowchartName = flowchart.name;
 
             for (int i = 0; i < flowchart.Variables.Count; i++)
             {
@@ -127,25 +117,8 @@ namespace Fungus
         /// <param name="flowchart">if null finds flowcharts by saved name, if provided uses provided</param>
         /// <param name="cacheExecutions"> if true, adds them to the cachedExecution list rather than executing them as
         /// it moves through the data. Primarily useful for synchronoisation of blocks.</param>
-        public void Decode(Flowchart flowchart = null, List<CachedBlockExecution> cachedBlockExecutions = null)
+        public void Decode(Flowchart flowchart, List<CachedBlockExecution> cachedBlockExecutions = null)
         {
-            if (flowchart == null)
-            {
-                var go = GameObject.Find(FlowchartName);
-                if (go == null)
-                {
-                    Debug.LogError("Failed to find flowchart object specified in save data");
-                    return;
-                }
-
-                flowchart = go.GetComponent<Flowchart>();
-                if (flowchart == null)
-                {
-                    Debug.LogError("Failed to find flowchart object specified in save data");
-                    return;
-                }
-            }
-
             //restore variable values
             for (int i = 0; i < varPairs.Count; i++)
             {
@@ -236,6 +209,25 @@ namespace Fungus
             }
             value = string.Empty;
             return false;
+        }
+
+        public static Flowchart FindFlowchartByName(string name)
+        {
+            var go = GameObject.Find(name);
+            if (go == null)
+            {
+                Debug.LogError("Failed to find GameObject matching flowchart name");
+                return null;
+            }
+
+            var flowchart = go.GetComponent<Flowchart>();
+            if (flowchart == null)
+            {
+                Debug.LogError("Failed to find Flowchart on GameObject");
+                return null;
+            }
+
+            return flowchart;
         }
     }
 }
