@@ -14,6 +14,9 @@ namespace Fungus
     {
         [SerializeField] public string name;
         [SerializeField] public string text;
+        [SerializeField] public int index = -1; 
+        // The index is to keep track of where in the log this entry is to be displayed. A negative index
+        // means it's not yet even been added to the log.
     }
 
     /// <summary>
@@ -33,9 +36,14 @@ namespace Fungus
         /// <summary>
         /// NarrativeAdded signal. Sent when a line is added.
         /// </summary>
-        public static event NarrativeAddedHandler OnNarrativeAdded;
+        public event NarrativeAddedHandler OnNarrativeAdded = delegate { }; 
+        public event NarrativeHandler OnNarrativeRemoved = delegate { };
+        // ^ Makes sure these events are never null. Less necessary null checks = better performance ^_^
+
+        public delegate void NarrativeHandler(NarrativeLogEntry data);
         public delegate void NarrativeAddedHandler(NarrativeLogEntry data);
-        public static void DoNarrativeAdded(NarrativeLogEntry data)
+
+        public void DoNarrativeAdded(NarrativeLogEntry data)
         {
             if (OnNarrativeAdded != null)
             {
@@ -43,18 +51,19 @@ namespace Fungus
             }
         }
 
+        public void DoNarrativeRemoved(NarrativeLogEntry data)
+        {
+            OnNarrativeRemoved(data);
+        }
+
         /// <summary>
         /// Signal sent when log history is cleared or loaded
         /// </summary>
-        public static System.Action OnNarrativeLogClear;
-        public static void DoNarrativeCleared()
+        public System.Action OnNarrativeLogClear = delegate { }; // So we won't need any null checks
+        public void DoNarrativeCleared()
         {
-            if (OnNarrativeLogClear != null)
-            {
-                OnNarrativeLogClear();
-            }
+            OnNarrativeLogClear();
         }
-
 
         NarrativeData history;
 
@@ -66,12 +75,50 @@ namespace Fungus
 
         protected virtual void OnEnable()
         {
+            ListenForNarrativeEvents();
             WriterSignals.OnWriterState += OnWriterState;
+        }
+
+        protected virtual void ListenForNarrativeEvents()
+        {
+            OnNarrativeRemoved += RespondToNarrativeRemoval;
+            OnNarrativeAdded += RespondToNarrativeAdding;
+        }
+
+        protected virtual void RespondToNarrativeRemoval(NarrativeLogEntry entryRemoved)
+        {
+            // We may want to have this class do other responses to narrative-removal in the
+            // future, so it's best to have each response in its own func.
+            UpdateEntryIndexesAfterRemoval(entryRemoved);
+        }
+
+        protected virtual void UpdateEntryIndexesAfterRemoval(NarrativeLogEntry entryRemoved)
+        {
+            // The entry removed might not be the last one added, after all.
+            // We'll need to update the indexes of all the entries that followed
+            // the removed one.
+            for (int i = entryRemoved.index; i < history.entries.Count; i++)
+            {
+                var entry = history.entries[i];
+                entry.index = i;
+            }
+        }
+
+        protected virtual void RespondToNarrativeAdding(NarrativeLogEntry entryAdded)
+        {
+            // Future-proofing.
         }
 
         protected virtual void OnDisable()
         {
+            UnlistenForNarrativeEvents();
             WriterSignals.OnWriterState -= OnWriterState;
+        }
+
+        protected virtual void UnlistenForNarrativeEvents()
+        {
+            OnNarrativeRemoved -= RespondToNarrativeRemoval;
+            OnNarrativeAdded -= RespondToNarrativeAdding;
         }
 
         protected virtual void OnWriterState(Writer writer, WriterState writerState)
@@ -85,12 +132,14 @@ namespace Fungus
                     NarrativeLogEntry entry = new NarrativeLogEntry()
                     {
                         name = sd.NameText,
-                        text = sd.StoryText
+                        text = sd.StoryText,
+                        index = history.entries.Count
                     };
                     AddLine(entry);
                 }
             }
         }
+
 
         #region Public Methods
 
@@ -101,6 +150,22 @@ namespace Fungus
         {
             history.entries.Add(entry);
             DoNarrativeAdded(entry);
+        }
+
+        /// <summary>
+        /// Removes a line of dialog from the Narrative Log. Returns whether or not
+        /// the line was in the log at the time this func was called.
+        /// </summary>
+        public bool RemoveLine(NarrativeLogEntry entry)
+        {
+            bool hadLineToBeginWith = history.entries.Remove(entry);
+
+            if (hadLineToBeginWith)
+            {
+                DoNarrativeRemoved(entry);
+            }
+
+            return hadLineToBeginWith;
         }
 
         /// <summary>
