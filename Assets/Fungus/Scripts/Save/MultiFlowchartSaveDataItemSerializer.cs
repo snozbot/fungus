@@ -45,7 +45,7 @@ namespace Fungus
                 if (flowchart == null)
                     continue;
 
-                var flowchartData = FlowchartDataItem.Encode(flowchart);
+                var flowchartData = FlowchartSaveDataItem.Encode(flowchart);
 
                 var saveDataItem = new SaveDataItem()
                 {
@@ -60,7 +60,7 @@ namespace Fungus
 
         public bool Decode(SaveDataItem sdi)
         {
-            var flowchartData = JsonUtility.FromJson<FlowchartDataItem>(sdi.Data);
+            var flowchartData = JsonUtility.FromJson<FlowchartSaveDataItem>(sdi.Data);
             if (flowchartData == null)
             {
                 Debug.LogError("Failed to decode save data item");
@@ -74,7 +74,7 @@ namespace Fungus
                 Debug.LogWarning("Could not find matching flowchart in set, none matching name " + flowchartData.flowchartName
                     + ".\nSkipping data block.");
 
-                flowchart = FlowchartDataItem.FindFlowchartByName(flowchartData.flowchartName);
+                flowchart = FlowchartSaveDataItem.FindFlowchartByName(flowchartData.flowchartName);
             }
 
             if (flowchart == null)
@@ -86,7 +86,7 @@ namespace Fungus
             return true;
         }
 
-        protected List<FlowchartDataItem.CachedBlockExecution> cachedBlockExecutions = new List<FlowchartDataItem.CachedBlockExecution>();
+        protected List<FlowchartSaveDataItem.CachedBlockExecution> cachedBlockExecutions = new List<FlowchartSaveDataItem.CachedBlockExecution>();
 
         public void PreDecode()
         {
@@ -95,7 +95,7 @@ namespace Fungus
 
         public void PostDecode()
         {
-            FlowchartDataItem.ProcessCachedExecutions(cachedBlockExecutions);
+            FlowchartSaveDataItem.ProcessCachedExecutions(cachedBlockExecutions);
         }
     }
 }

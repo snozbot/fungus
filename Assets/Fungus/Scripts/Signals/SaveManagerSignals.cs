@@ -92,18 +92,6 @@ namespace Fungus
         }
 
         /// <summary>
-        /// Save Profile Changed signal.
-        /// </summary>
-        public static event SaveProfileChangeHandler OnSaveProfileChanged;
-
-        public delegate void SaveProfileChangeHandler();
-
-        public static void DoSaveProfileChanged()
-        {
-            if (OnSaveProfileChanged != null) OnSaveProfileChanged();
-        }
-
-        /// <summary>
         /// Saving or Loading allowed changed signal.
         /// </summary>
         public static event SavingLoadingAllowedChangeHandler OnSavingLoadingAllowedChanged;

@@ -6,20 +6,18 @@ using UnityEngine;
 
 namespace Fungus
 {
-    /// <summary>
-    /// Serializable container for encoding the state of a Flowchart's blocks status & variables.
-    /// </summary>
-    [System.Serializable]
-    public class FlowchartDataItem
-    {
-        /// <summary>
-        /// Variable name and json value pair.
-        /// </summary>
         [System.Serializable]
         public class StringPair
         {
             public string key, val;
         }
+ 
+    /// <summary>
+    /// Serializable container for encoding the state of a Flowchart's blocks status & variables.
+    /// </summary>
+    [System.Serializable]
+    public class FlowchartSaveDataItem
+    {
 
         /// <summary>
         /// Container for an individual blocks state during serialisation.
@@ -63,9 +61,9 @@ namespace Fungus
         /// Includes all variables that are IsSerialisable, regardless of access level and all blocks
         /// unless they report that they do not want to be serialised via IsSavingAllowed.
         /// </summary>
-        public static FlowchartDataItem Encode(Flowchart flowchart)
+        public static FlowchartSaveDataItem Encode(Flowchart flowchart)
         {
-            var flowchartData = new FlowchartDataItem();
+            var flowchartData = new FlowchartSaveDataItem();
 
             flowchartData.flowchartName = flowchart.name;
 

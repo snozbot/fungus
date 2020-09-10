@@ -14,4 +14,18 @@ namespace Fungus
         public string DataType;
         public string Data;
     }
+
+    public static class SaveDataItemUtility
+    { 
+        public static SaveDataItem[] CreateSingleElement<T>(string key, T dataItem)
+        {
+            var sdi = new SaveDataItem()
+            {
+                DataType = key,
+                Data = UnityEngine.JsonUtility.ToJson(dataItem)
+            };
+
+            return new SaveDataItem[] { sdi };
+        }
+    }
 }

@@ -38,7 +38,7 @@ namespace Fungus
             var flowchart = GetFlowchart();
 
             // Prepend the current save profile (if any)
-            string prefsKey = FungusManager.Instance.SaveManager.CurrentSaveProfileKey + "_" + flowchart.SubstituteVariables(key);
+            string prefsKey = FungusManager.Instance.UserProfileManager.CurrentUserProfileName + "_" + flowchart.SubstituteVariables(key);
 
             System.Type variableType = variable.GetType();
 

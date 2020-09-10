@@ -9,6 +9,9 @@ namespace Fungus
 {
     /// <summary>
     /// This component encodes and decodes the flowchart.block.command that kicked off a menu that is presently active.
+    /// 
+    /// This is encoded as a separate item from FungusSystem and other Flowchart saving so that it can be forced
+    /// to run after any other serialization that it may need to override.
     /// </summary>
     public class MenuSaveDataItemSerializer : ISaveDataItemSerializer
     {
@@ -18,7 +21,7 @@ namespace Fungus
         public string DataTypeKey => MenuKey;
         public int Order => MenuDataPriority;
 
-        protected List<FlowchartDataItem.CachedBlockExecution> cachedBlockExecutions = new List<FlowchartDataItem.CachedBlockExecution>();
+        protected List<FlowchartSaveDataItem.CachedBlockExecution> cachedBlockExecutions = new List<FlowchartSaveDataItem.CachedBlockExecution>();
 
         public void PreDecode()
         {
@@ -27,7 +30,7 @@ namespace Fungus
 
         public void PostDecode()
         {
-            FlowchartDataItem.ProcessCachedExecutions(cachedBlockExecutions);
+            FlowchartSaveDataItem.ProcessCachedExecutions(cachedBlockExecutions);
         }
 
         public SaveDataItem[] Encode()
@@ -37,37 +40,32 @@ namespace Fungus
                 return Array.Empty<SaveDataItem>();
 
             var cmd = activeMenu.FirstTouchedByCommand;
-            var menuFlowchartCommandData = new FlowchartDataItem()
+            var menuFlowchartCommandData = new FlowchartSaveDataItem()
             {
                 flowchartName = cmd.GetFlowchart().GetName(),
             };
 
-            menuFlowchartCommandData.blockDatas.Add(new FlowchartDataItem.BlockData(cmd.ParentBlock.BlockName,
+            menuFlowchartCommandData.blockDatas.Add(new FlowchartSaveDataItem.BlockData(cmd.ParentBlock.BlockName,
                 cmd.CommandIndex,
                 ExecutionState.Executing,
                 cmd.ParentBlock.GetExecutionCount(),
                 cmd.ParentBlock.PreviousActiveCommandIndex,
                 cmd.ParentBlock.JumpToCommandIndex));
 
-            var sdi = new SaveDataItem()
-            {
-                DataType = DataTypeKey,
-                Data = JsonUtility.ToJson(menuFlowchartCommandData)
-            };
 
-            return new SaveDataItem[] { sdi };
+            return SaveDataItemUtility.CreateSingleElement(DataTypeKey, menuFlowchartCommandData);
         }
 
         public bool Decode(SaveDataItem sdi)
         {
-            var flowchartData = JsonUtility.FromJson<FlowchartDataItem>(sdi.Data);
+            var flowchartData = JsonUtility.FromJson<FlowchartSaveDataItem>(sdi.Data);
             if (flowchartData == null)
             {
                 Debug.LogError("Failed to decode save data item");
                 return false;
             }
 
-            var flowchart = FlowchartDataItem.FindFlowchartByName(flowchartData.flowchartName);
+            var flowchart = FlowchartSaveDataItem.FindFlowchartByName(flowchartData.flowchartName);
 
             if (flowchart == null)
                 return false;

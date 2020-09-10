@@ -24,13 +24,13 @@ namespace Fungus
 
         public SaveDataItem[] Encode()
         {
-            var vtcd = new ValueTypeCollectionData();
+            var data = new ValueTypeCollectionData();
 
             foreach (var item in collectionsToSerialize)
             {
                 if (item.IsSerializable)
                 {
-                    vtcd.nameToContentsPairs.Add(new FlowchartDataItem.StringPair()
+                    data.nameToContentsPairs.Add(new StringPair()
                     {
                         key = item.name,
                         val = item.GetStringifiedValue()
@@ -38,13 +38,7 @@ namespace Fungus
                 }
             }
 
-            var sdi = new SaveDataItem()
-            {
-                DataType = DataTypeKey,
-                Data = JsonUtility.ToJson(vtcd)
-            };
-
-            return new SaveDataItem[] { sdi };
+            return SaveDataItemUtility.CreateSingleElement(DataTypeKey, data);
         }
 
         public bool Decode(SaveDataItem sdi)
@@ -77,7 +71,7 @@ namespace Fungus
         public class ValueTypeCollectionData
         {
             [SerializeField]
-            public List<FlowchartDataItem.StringPair> nameToContentsPairs = new List<FlowchartDataItem.StringPair>();
+            public List<StringPair> nameToContentsPairs = new List<StringPair>();
         }
     }
 }

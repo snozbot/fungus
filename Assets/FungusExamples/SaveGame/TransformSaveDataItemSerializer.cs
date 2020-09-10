@@ -33,14 +33,7 @@ namespace Fungus.Examples
                 td.rotations.Add(item.rotation);
             }
 
-            return new SaveDataItem[]
-            {
-                new SaveDataItem()
-                {
-                    DataType = DataTypeKey,
-                    Data = JsonUtility.ToJson(td)
-                } 
-            };
+            return SaveDataItemUtility.CreateSingleElement(DataTypeKey, td);
         }
 
         public bool Decode(SaveDataItem sdi)

@@ -21,7 +21,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            FungusManager.Instance.SaveManager.ChangeProfile(saveProfileName);
+            FungusManager.Instance.UserProfileManager.ChangeProfile(saveProfileName);
 
             Continue();
         }

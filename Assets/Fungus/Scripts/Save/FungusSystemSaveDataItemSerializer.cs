@@ -20,7 +20,7 @@ namespace Fungus
 
         public SaveDataItem[] Encode()
         {
-            var fsData = new FungusSystemDataItem();
+            var fsData = new FungusSystemSaveDataItem();
             fsData.textVariationHistory = TextVariationHandler.GetSerialisedHistory();
             fsData.narLogEntries = FungusManager.Instance.NarrativeLog.GetAllNarrativeLogItems();
             fsData.lastMenuName = MenuDialog.GetMenuDialog().gameObject.name;
@@ -28,16 +28,17 @@ namespace Fungus
             var lv = FungusManager.Instance.CameraManager.LastView;
             fsData.lastViewName = lv != null ? lv.gameObject.name : string.Empty;
             fsData.fungusPriority = FungusPrioritySignals.CurrentPriorityDepth;
+            fsData.progressMarkerName = ProgressMarker.LastExecutedCustomKey;
 
             foreach (var stage in Stage.ActiveStages)
             {
-                var stageData = new FungusSystemDataItem.StageCharactersData();
+                var stageData = new FungusSystemSaveDataItem.StageCharactersData();
                 stageData.stageName = stage.name;
-                stageData.charactersOnStage = new FungusSystemDataItem.CharacterPortraitData[stage.CharactersOnStage.Count];
+                stageData.charactersOnStage = new FungusSystemSaveDataItem.CharacterPortraitData[stage.CharactersOnStage.Count];
                 for (int i = 0; i < stage.CharactersOnStage.Count; i++)
                 {
                     Character ch = stage.CharactersOnStage[i];
-                    stageData.charactersOnStage[i] = new FungusSystemDataItem.CharacterPortraitData()
+                    stageData.charactersOnStage[i] = new FungusSystemSaveDataItem.CharacterPortraitData()
                     {
                         characterName = ch.name,
                         dimmed = ch.State.dimmed,
@@ -52,21 +53,15 @@ namespace Fungus
             var activeStage = Stage.GetActiveStage();
             fsData.lastStage = activeStage != null ? activeStage.gameObject.name : string.Empty;
 
-            var sdi = new SaveDataItem()
-            {
-                DataType = DataTypeKey,
-                Data = JsonUtility.ToJson(fsData)
-            };
-
-            return new SaveDataItem[] { sdi };
+            return SaveDataItemUtility.CreateSingleElement(DataTypeKey, fsData);
         }
 
         public bool Decode(SaveDataItem sdi)
         {
-            var fsData = JsonUtility.FromJson<FungusSystemDataItem>(sdi.Data);
+            var fsData = JsonUtility.FromJson<FungusSystemSaveDataItem>(sdi.Data);
             if (fsData == null)
             {
-                Debug.LogError("Failed to decode Text Variation save data item");
+                Debug.LogError("Failed to decode FungusSystemSaveDataItem");
                 return false;
             }
 
@@ -126,6 +121,8 @@ namespace Fungus
                 Stage.MoveStageToFront(activeStage);
             }
 
+            ProgressMarker.LatestExecuted = ProgressMarker.FindWithKey(fsData.progressMarkerName);
+
             return true;
         }
 
@@ -135,10 +132,11 @@ namespace Fungus
 
         public void PostDecode()
         {
+            SaveLoaded.NotifyEventHandlers(ProgressMarker.LastExecutedCustomKey);
         }
 
         [System.Serializable]
-        public class FungusSystemDataItem
+        public class FungusSystemSaveDataItem
         {
             [System.Serializable]
             public class StageCharactersData
@@ -158,7 +156,7 @@ namespace Fungus
 
             public List<int> textVariationHistory = new List<int>();
             public List<NarrativeLogEntry> narLogEntries;
-            public string lastMenuName, lastSayDialogName, lastViewName, lastStage;
+            public string lastMenuName, lastSayDialogName, lastViewName, lastStage, progressMarkerName;
             public int fungusPriority;
             public List<StageCharactersData> stages = new List<StageCharactersData>();
         }

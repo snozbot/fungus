@@ -60,7 +60,16 @@ namespace Fungus
         /// <summary>
         /// Current version of the save system
         /// </summary>
-        public const int CurrentSaveVersion = 2;
+        public const int CurrentSaveDataVersion = 2;
+
+        /// <summary>
+        /// Current version of the save system
+        /// </summary>
+        public const int CurrentProfileDataVersion = 1;
+
+        public const string SaveDescKey = "SaveDesc"; 
+
+        public const string SceneNameKey = "SceneName"; 
 
         #endregion
     }

@@ -8,12 +8,14 @@ namespace Fungus
     public class SetCurrentSaveHandler : MonoBehaviour
     {
         protected ISaveHandler previousSaveHandler;
+        protected SaveManager sm;
 
         public SaveDataItemSerializerComponent[] saveDataItemSerializerComponents;
 
         public void OnEnable()
         {
-            previousSaveHandler = FungusManager.Instance.SaveManager.CurrentSaveHandler;
+            sm = FungusManager.Instance.SaveManager;
+            previousSaveHandler = sm.CurrentSaveHandler;
 
             var newHandler = DefaultSaveHandler.CreateDefaultWithSerializers();
 
@@ -27,9 +29,8 @@ namespace Fungus
 
         public void OnDisable()
         {
-            var fm = FungusManager.Instance;
-            if (fm != null)
-                fm.SaveManager.CurrentSaveHandler = previousSaveHandler;
+            if(sm!= null)
+                sm.CurrentSaveHandler = previousSaveHandler;
         }
     }
 }

@@ -20,13 +20,13 @@ namespace Fungus
 
         public SaveDataItem[] Encode()
         {
-            var gvd = new GlobalVariableDataItem();
+            var gvd = new GlobalVariableSaveDataItem();
 
             foreach (var item in FungusManager.Instance.GlobalVariables.GlobalVariableFlowchart.Variables)
             {
                 if (item.IsSerializable)
                 {
-                    gvd.typeStringPairs.Add(new GlobalVariableDataItem.TypeStringPair()
+                    gvd.typeStringPairs.Add(new GlobalVariableSaveDataItem.TypeStringPair()
                     {
                         key = item.Key,
                         val = item.GetStringifiedValue(),
@@ -35,18 +35,12 @@ namespace Fungus
                 }
             }
 
-            var sdi = new SaveDataItem()
-            {
-                DataType = DataTypeKey,
-                Data = JsonUtility.ToJson(gvd)
-            };
-
-            return new SaveDataItem[] { sdi };
+            return SaveDataItemUtility.CreateSingleElement(DataTypeKey, gvd);
         }
 
         public bool Decode(SaveDataItem sdi)
         {
-            var gvd = JsonUtility.FromJson<GlobalVariableDataItem>(sdi.Data);
+            var gvd = JsonUtility.FromJson<GlobalVariableSaveDataItem>(sdi.Data);
             if (gvd == null)
             {
                 Debug.LogError("Failed to decode Global Variable save data item");
@@ -84,13 +78,13 @@ namespace Fungus
         /// Serializable container for encoding the variables in the GlobalVariables.
         /// </summary>
         [System.Serializable]
-        public class GlobalVariableDataItem
+        public class GlobalVariableSaveDataItem
         {
             /// <summary>
             /// Variable name and json value pair.
             /// </summary>
             [System.Serializable]
-            public class TypeStringPair : FlowchartDataItem.StringPair
+            public class TypeStringPair : StringPair
             {
                 public string typeName;
             }

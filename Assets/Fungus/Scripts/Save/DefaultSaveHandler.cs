@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Fungus
 {
@@ -28,7 +32,8 @@ namespace Fungus
 
         public SaveData CreateSaveData(string saveName, string saveDesc)
         {
-            var sd = new SaveData(saveName, saveDesc);
+            var sd = new SaveData(saveName, 
+                new StringPair() { key = FungusConstants.SaveDescKey,val = saveDesc });
 
             saveDataItemSerializers = saveDataItemSerializers.OrderBy(x => x.Order).ToList();
 
@@ -43,9 +48,6 @@ namespace Fungus
         public bool LoadSaveData(SaveData sd)
         {
             saveDataItemSerializers = saveDataItemSerializers.OrderBy(x => x.Order).ToList();
-
-            if (!string.IsNullOrEmpty(sd.progressMarkerName))
-                ProgressMarker.LatestExecuted = ProgressMarker.FindWithKey(sd.progressMarkerName);
 
             foreach (var item in saveDataItemSerializers)
             {
@@ -80,14 +82,14 @@ namespace Fungus
                 return null;
             }
 
-            if (sd != null && sd.version != FungusConstants.CurrentSaveVersion)
+            if (sd != null && sd.version != FungusConstants.CurrentSaveDataVersion)
             {
                 var success = HandleVersionMismatch(sd);
 
                 if (!success)
                 {
                     Debug.LogError(sd.saveName + " could not be updated from " +
-                        sd.version.ToString() + " to " + FungusConstants.CurrentSaveVersion.ToString());
+                        sd.version.ToString() + " to " + FungusConstants.CurrentSaveDataVersion.ToString());
                     return null;
                 }
             }

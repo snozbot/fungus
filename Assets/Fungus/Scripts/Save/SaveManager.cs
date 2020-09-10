@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace Fungus
 {
+    [AddComponentMenu("")]
     /// <summary>
     /// Manages the Save History (a list of Save Points) and provides a set of operations for saving and loading games.
     /// </summary>
@@ -15,8 +16,7 @@ namespace Fungus
     {
         /// <summary>
         /// Meta data about a save that has found by a save manager.
-        /// These exist to prevent the Save Manager from keeping potentially a lot of potentially
-        /// very large json files in ram.
+        /// These exist to prevent the Save Manager from keeping potentially a lot of very large json files in ram.
         /// </summary>
         public class SavePointMeta
         {
@@ -46,44 +46,10 @@ namespace Fungus
         /// </summary>
         public List<SavePointMeta> SaveMetas { get { return saveMetas; } }
 
-        [SerializeField] protected string currentSaveProfileKey = string.Empty;
-
-        /// <summary>
-        /// Profiles determine which set of saves are available.
-        /// </summary>
-        public string CurrentSaveProfileKey { get { return currentSaveProfileKey; } }
-
         public ISaveHandler CurrentSaveHandler { get; set; } = DefaultSaveHandler.CreateDefaultWithSerializers();
 
-        /// <summary>
-        /// POD for info the SaveManager wants between runs of the game.
-        /// </summary>
-        [System.Serializable]
-        protected class SaveManagerData
-        {
-            public string lastProfileName;
-        }
-
-        public static string StorageDirectory { get { return Application.persistentDataPath + "/FungusSaves/"; } }
         protected const string FileExtension = ".save";
 
-        /// <summary>
-        /// Directory location currently being used for saves.
-        /// </summary>
-        /// <returns></returns>
-        private string GetFullSaveDir()
-        {
-            return System.IO.Path.GetFullPath(StorageDirectory + currentSaveProfileKey + "/");
-        }
-
-        /// <summary>
-        /// Filename being used for the save manager persisted data.
-        /// </summary>
-        /// <returns></returns>
-        private string GetSaveManagerDataFile()
-        {
-            return System.IO.Path.GetFullPath(StorageDirectory + "save_manager_data.json");
-        }
 
         /// <summary>
         /// The scene that should be loaded when restarting a game.
@@ -158,50 +124,8 @@ namespace Fungus
             IsLoadingAllowed = true;
             StartScene = SceneManager.GetActiveScene().name;
 
-            //load last used profile
-            try
-            {
-#if UNITY_WEBGL
-                Application.ExternalEval("_JS_FileSystem_Sync();");
-#endif
-                var fileName = GetSaveManagerDataFile();
-                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
-                var datString = System.IO.File.ReadAllText(fileName);
-                var dat = JsonUtility.FromJson<SaveManagerData>(datString);
-                if (dat != null)
-                {
-                    ChangeProfile(dat.lastProfileName);
-                }
-            }
-            catch (System.Exception)
-            {
-                //if that fails for whatever reason use default profile
-                ChangeProfile(FungusConstants.DefaultSaveProfileKey);
-            }
-        }
-
-        /// <summary>
-        /// Profiles determine which set of saves are available to the user.
-        /// </summary>
-        /// <param name="saveProfileKey"></param>
-        public void ChangeProfile(string saveProfileKey)
-        {
-            if (saveProfileKey != currentSaveProfileKey)
-            {
-                currentSaveProfileKey = saveProfileKey;
-
-                var fileName = GetSaveManagerDataFile();
-                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
-                var profile = new SaveManagerData() { lastProfileName = currentSaveProfileKey };
-                System.IO.File.WriteAllText(fileName, JsonUtility.ToJson(profile));
-#if UNITY_WEBGL
-                Application.ExternalEval("_JS_FileSystem_Sync();");
-#endif
-
-                PopulateSaveMetas();
-                SaveManagerSignals.DoSaveProfileChanged();
-                SaveManagerSignals.DoSaveReset();
-            }
+            //listen to profile changes
+            //and reset when it changes
         }
 
         //TODO needs web version
@@ -214,7 +138,7 @@ namespace Fungus
         {
             saveMetas.Clear();
 
-            var dir = GetFullSaveDir();
+            var dir = FungusManager.Instance.UserProfileManager.GetCurrentUserProfileDirectory();
 #if UNITY_WEBGL
                 Application.ExternalEval("_JS_FileSystem_Sync();");
 #endif
@@ -255,8 +179,7 @@ namespace Fungus
                 {
                     fileLocation = fileLoc,
                     saveName = save.saveName,
-                    progressMarker = save.progressMarkerName,
-                    description = save.savePointDescription,
+                    description = save.GetStringPairValue(FungusConstants.SaveDescKey),
                     lastWritten = save.LastWritten,
                 });
             }
@@ -310,8 +233,13 @@ namespace Fungus
             }
 
             var saveData = CurrentSaveHandler.CreateSaveData(saveName, savePointDescription);
+
+            saveData.stringPairs.Add(new StringPair() { key = FungusConstants.SceneNameKey, val = SceneManager.GetActiveScene().name });
+
             var savePointDataJSON = CurrentSaveHandler.EncodeToJSON(saveData);
-            var fileName = GetFullSaveDir() + (isAutoSave ? FungusConstants.AutoSavePrefix : FungusConstants.UserSavePrefix)
+
+            var dir = FungusManager.Instance.UserProfileManager.GetCurrentUserProfileDirectory();
+            var fileName = dir + (isAutoSave ? FungusConstants.AutoSavePrefix : FungusConstants.UserSavePrefix)
                 + System.DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss.ffff") + FileExtension;
             GenerateMetaFromSave(fileName, saveData);
             System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
@@ -375,7 +303,10 @@ namespace Fungus
             if (savePointData == null)
                 return false;
 
-            var markerKey = savePointData.progressMarkerName;
+            var sceneName = savePointData.GetStringPairValue(FungusConstants.SceneNameKey);
+
+            if (string.IsNullOrEmpty(sceneName))
+                return false;
 
             UnityEngine.Events.UnityAction<Scene, LoadSceneMode> onSceneLoadedAction = null;
 
@@ -384,7 +315,8 @@ namespace Fungus
                 // Additive scene loads and non-matching scene loads could happen if the client is using the
                 // SceneManager directly. We just ignore these events and hope they know what they're doing!
                 if (mode == LoadSceneMode.Additive ||
-                    scene.name != savePointData.sceneName)
+                //TODO use savedata string pair for this
+                    scene.name != sceneName)
                 {
                     return;
                 }
@@ -396,16 +328,13 @@ namespace Fungus
 
                 SaveManagerSignals.DoSaveLoaded(savePointData.saveName);
 
-                // Execute Save Point Loaded event handlers with matching key.
-                SaveLoaded.NotifyEventHandlers(savePointData.progressMarkerName);
-
                 StartCoroutine(DelaySetNotLoading());
             };
 
             SceneManager.sceneLoaded += onSceneLoadedAction;
             IsSaveLoading = true;
             SaveManagerSignals.DoSavePreLoad(savePointData.saveName);
-            SceneManager.LoadScene(savePointData.sceneName);
+            SceneManager.LoadScene(sceneName);
 
             return true;
         }

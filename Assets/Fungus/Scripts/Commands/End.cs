@@ -47,13 +47,13 @@ namespace Fungus
             return new Color32(253, 253, 150, 255);
         }
 
-        public override void VisitEncode(FlowchartDataItem flowchartData)
+        public override void VisitEncode(FlowchartSaveDataItem flowchartData)
         {
             flowchartData.AddToVisitorPairs(GetLocationIdentifier(), LoopBackIndex.ToString());
             base.VisitEncode(flowchartData);
         }
 
-        public override void VisitDecode(FlowchartDataItem flowchartData)
+        public override void VisitDecode(FlowchartSaveDataItem flowchartData)
         {
             string sVal;
             if (flowchartData.TryGetVisitorValueByKey(GetLocationIdentifier(), out sVal))

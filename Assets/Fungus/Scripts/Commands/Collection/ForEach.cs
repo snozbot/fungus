@@ -84,7 +84,7 @@ namespace Fungus
 
             return item.Key + " in " + collection.Value.name;
         }
-        public override void VisitEncode(FlowchartDataItem flowchartData)
+        public override void VisitEncode(FlowchartSaveDataItem flowchartData)
         {
             if (curIndex.integerRef == null)
             {
@@ -94,7 +94,7 @@ namespace Fungus
             base.VisitEncode(flowchartData);
         }
 
-        public override void VisitDecode(FlowchartDataItem flowchartData)
+        public override void VisitDecode(FlowchartSaveDataItem flowchartData)
         {
             if (curIndex.integerRef == null)
             {

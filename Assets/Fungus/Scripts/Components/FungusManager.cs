@@ -8,6 +8,7 @@ namespace Fungus
     /// <summary>
     /// Fungus manager singleton. Manages access to all Fungus singletons in a consistent manner.
     /// </summary>
+    [RequireComponent(typeof(UserProfileManager))]
     [RequireComponent(typeof(CameraManager))]
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(EventDispatcher))]
@@ -22,6 +23,7 @@ namespace Fungus
 
         private void Awake()
         {
+            UserProfileManager = GetComponent<UserProfileManager>();
             CameraManager = GetComponent<CameraManager>();
             MusicManager = GetComponent<MusicManager>();
             EventDispatcher = GetComponent<EventDispatcher>();
@@ -80,6 +82,8 @@ namespace Fungus
         /// Gets the history manager singleton instance.
         /// </summary>
         public NarrativeLog NarrativeLog { get; private set; }
+
+        public UserProfileManager UserProfileManager { get; private set; }
 
         /// <summary>
         /// Gets the FungusManager singleton instance.
