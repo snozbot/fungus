@@ -1,7 +1,6 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,13 +15,13 @@ namespace Fungus
     {
         public int version = FungusConstants.CurrentSaveDataVersion;
         public string saveName;
-        public List<SaveDataItem> saveDataItems;
-        public List<StringPair> stringPairs;
+        public StringPairList saveDataItems;
+        public StringPairList stringPairs;
         public string lastWrittenDateTimeString;
 
         public SaveData(string _saveName)
         {
-            Init(_saveName, Array.Empty<StringPair>());
+            Init(_saveName, System.Array.Empty<StringPair>());
         }
 
         public SaveData(string _saveName, params StringPair[] pairs)
@@ -33,16 +32,13 @@ namespace Fungus
         private void Init(string _saveName, StringPair[] pairs)
         {
             saveName = _saveName;
-            saveDataItems = new List<SaveDataItem>();
-            stringPairs = new List<StringPair>(pairs);
+            saveDataItems = new StringPairList();
+            stringPairs = new StringPairList();
+            stringPairs.AddRange(pairs);
+            stringPairs.MakeUnique();
             lastWrittenDateTimeString = System.DateTime.Now.ToString("O");
         }
 
         public System.DateTime LastWritten { get { return System.DateTime.Parse(lastWrittenDateTimeString); } }
-
-        public string GetStringPairValue(string key)
-        {
-            return stringPairs.FirstOrDefault(x => x.key == key)?.val ?? string.Empty;
-        }
     }
 }

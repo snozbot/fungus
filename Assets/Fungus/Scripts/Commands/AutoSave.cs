@@ -67,7 +67,7 @@ namespace Fungus
 
                 var saveManager = FungusManager.Instance.SaveManager;
 
-                saveManager.Save(FungusConstants.AutoSavePrefix + CustomKey, SavePointDescription, true);
+                saveManager.SaveAuto(CustomKey, SavePointDescription);
             }
 
             Continue();

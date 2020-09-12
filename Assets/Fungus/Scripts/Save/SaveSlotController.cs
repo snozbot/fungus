@@ -25,7 +25,7 @@ namespace Fungus
         [SerializeField] protected Button ourButton;
         public virtual Button OurButton { get { return ourButton; } }
 
-        protected SaveManager.SavePointMeta ourMeta;
+        protected SaveGameMetaData ourMeta;
 
         protected SaveController saveCont;
 
@@ -41,7 +41,7 @@ namespace Fungus
             }
         }
 
-        public SaveManager.SavePointMeta LinkedMeta
+        public SaveGameMetaData LinkedMeta
         {
             get
             {

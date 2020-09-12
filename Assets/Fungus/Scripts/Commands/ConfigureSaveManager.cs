@@ -34,7 +34,7 @@ namespace Fungus
             if (getOrSet == GetSet.Get)
             {
                 numAutoSaves.Value = saveMan.NumberOfAutoSaves;
-                numUserSaves.Value = saveMan.NumberOfUserSaves;
+                numUserSaves.Value = saveMan.NumberOfSlotSaves;
             }
             else
             {

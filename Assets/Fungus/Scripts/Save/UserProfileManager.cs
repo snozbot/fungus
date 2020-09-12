@@ -1,25 +1,18 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Fungus
 {
-    [AddComponentMenu("")]
-    public class UserProfileManager : MonoBehaviour
+    public class UserProfileManager
     {
         [System.Serializable]
         protected class LastUserProfileUsedData
         {
             public string lastUserProfileName;
         }
-
-        public static string StorageDirectory { get { return Application.persistentDataPath + "/Fungus/"; } }
 
         private const string LastUserDataFileName = "last_user.json";
         private const string ProfileDataFileName = "user_data.json";
@@ -30,12 +23,12 @@ namespace Fungus
 
         private string GetSaveManagerDataFile()
         {
-            return Path.GetFullPath(StorageDirectory + LastUserDataFileName);
+            return Path.GetFullPath(FungusConstants.StorageDirectory + LastUserDataFileName);
         }
 
         public string GetCurrentUserProfileDirectory()
         {
-            return Path.GetFullPath(StorageDirectory + CurrentUserProfileName + "/");
+            return Path.GetFullPath(FungusConstants.StorageDirectory + CurrentUserProfileName + "/");
         }
 
         public string GetCurrentUserProfileFileName()
@@ -43,7 +36,7 @@ namespace Fungus
             return Path.GetFullPath(GetCurrentUserProfileDirectory() + ProfileDataFileName);
         }
 
-        public void Awake()
+        public void Init()
         {
             //load last used profile
             try
@@ -96,14 +89,6 @@ namespace Fungus
 #endif
                 UserProfileManagerSignals.DoUserProfileChanged();
             }
-        }
-
-        //delete profile
-
-
-        private void OnDestroy()
-        {
-            SaveProfileData();
         }
 
         public void SaveProfileData()

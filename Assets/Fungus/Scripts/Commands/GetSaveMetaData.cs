@@ -28,13 +28,14 @@ namespace Fungus
         [VariableProperty(typeof(StringVariable))]
         [SerializeField] protected StringVariable descString;
 
+
         [Tooltip("")]
         [VariableProperty(typeof(StringVariable))]
         [SerializeField] protected StringVariable dateString;
 
         public override void OnEnter()
         {
-            SaveManager.SavePointMeta save = null;
+            SaveGameMetaData save = null;
             var saveMan = FungusManager.Instance.SaveManager;
 
             switch (saveType)
@@ -48,7 +49,7 @@ namespace Fungus
                     break;
 
                 case SaveType.Any:
-                    save = saveMan.SaveMetas.ElementAtOrDefault(saveIndexRequested.Value);
+                    save = saveMan.SaveFileManager.SaveMetas.ElementAtOrDefault(saveIndexRequested.Value);
                     break;
 
                 default:

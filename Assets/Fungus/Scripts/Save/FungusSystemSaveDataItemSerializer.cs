@@ -18,17 +18,26 @@ namespace Fungus
         public string DataTypeKey => FungusSystemKey;
         public int Order => DataPriority;
 
-        public SaveDataItem[] Encode()
+        public StringPair[] Encode()
         {
             var fsData = new FungusSystemSaveDataItem();
             fsData.textVariationHistory = TextVariationHandler.GetSerialisedHistory();
-            fsData.narLogEntries = FungusManager.Instance.NarrativeLog.GetAllNarrativeLogItems();
-            fsData.lastMenuName = MenuDialog.GetMenuDialog().gameObject.name;
-            fsData.lastSayDialogName = SayDialog.GetSayDialog().gameObject.name;
-            var lv = FungusManager.Instance.CameraManager.LastView;
-            fsData.lastViewName = lv != null ? lv.gameObject.name : string.Empty;
-            fsData.fungusPriority = FungusPrioritySignals.CurrentPriorityDepth;
-            fsData.progressMarkerName = ProgressMarker.LastExecutedCustomKey;
+            if(FungusManager.Instance.NarrativeLog != null)
+                fsData.narLogEntries = FungusManager.Instance.NarrativeLog.GetAllNarrativeLogItems();
+            
+            if(MenuDialog.GetMenuDialog() != null)
+                fsData.lastMenuName = MenuDialog.GetMenuDialog().gameObject.name;
+
+            if(SayDialog.GetSayDialog() != null)
+                fsData.lastSayDialogName = SayDialog.GetSayDialog().gameObject.name;
+
+            if (FungusManager.Instance.CameraManager != null)
+            {
+                var lv = FungusManager.Instance.CameraManager.LastView;
+                fsData.lastViewName = lv != null ? lv.gameObject.name : string.Empty;
+                fsData.fungusPriority = FungusPrioritySignals.CurrentPriorityDepth;
+                fsData.progressMarkerName = ProgressMarker.LastExecutedCustomKey;
+            }
 
             foreach (var stage in Stage.ActiveStages)
             {
@@ -56,9 +65,9 @@ namespace Fungus
             return SaveDataItemUtility.CreateSingleElement(DataTypeKey, fsData);
         }
 
-        public bool Decode(SaveDataItem sdi)
+        public bool Decode(StringPair sdi)
         {
-            var fsData = JsonUtility.FromJson<FungusSystemSaveDataItem>(sdi.Data);
+            var fsData = JsonUtility.FromJson<FungusSystemSaveDataItem>(sdi.val);
             if (fsData == null)
             {
                 Debug.LogError("Failed to decode FungusSystemSaveDataItem");
@@ -66,7 +75,10 @@ namespace Fungus
             }
 
             TextVariationHandler.RestoreFromSerialisedHistory(fsData.textVariationHistory);
-            FungusManager.Instance.NarrativeLog.LoadHistory(fsData.narLogEntries);
+            
+            if(fsData.narLogEntries.Count > 0)
+                FungusManager.Instance.NarrativeLog.LoadHistory(fsData.narLogEntries);
+            
             MenuDialog.ActiveMenuDialog = GameObjectUtils.FindObjectOfTypeWithGameObjectName<MenuDialog>(fsData.lastMenuName);
             SayDialog.ActiveSayDialog = GameObjectUtils.FindObjectOfTypeWithGameObjectName<SayDialog>(fsData.lastSayDialogName);
 

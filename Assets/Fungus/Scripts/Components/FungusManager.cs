@@ -8,7 +8,7 @@ namespace Fungus
     /// <summary>
     /// Fungus manager singleton. Manages access to all Fungus singletons in a consistent manner.
     /// </summary>
-    [RequireComponent(typeof(UserProfileManager))]
+    [RequireComponent(typeof(UserProfileManagerComponent))]
     [RequireComponent(typeof(CameraManager))]
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(EventDispatcher))]
@@ -23,14 +23,16 @@ namespace Fungus
 
         private void Awake()
         {
-            UserProfileManager = GetComponent<UserProfileManager>();
+            UserProfileManager = GetComponent<UserProfileManagerComponent>();
             CameraManager = GetComponent<CameraManager>();
             MusicManager = GetComponent<MusicManager>();
             EventDispatcher = GetComponent<EventDispatcher>();
             GlobalVariables = GetComponent<GlobalVariables>();
             SaveManager = GetComponent<SaveManager>();
-            SaveManagerSignals.OnSaveReset += SaveManagerSignals_OnSaveReset;
             NarrativeLog = GetComponent<NarrativeLog>();
+
+            SaveManager.SaveFileManager.Init(UserProfileManager.UserProfileManager);
+            SaveManagerSignals.OnSaveReset += SaveManagerSignals_OnSaveReset;
         }
 
         private void SaveManagerSignals_OnSaveReset()
@@ -83,7 +85,7 @@ namespace Fungus
         /// </summary>
         public NarrativeLog NarrativeLog { get; private set; }
 
-        public UserProfileManager UserProfileManager { get; private set; }
+        public UserProfileManagerComponent UserProfileManager { get; private set; }
 
         /// <summary>
         /// Gets the FungusManager singleton instance.
@@ -107,7 +109,8 @@ namespace Fungus
                         {
                             var go = new GameObject();
                             go.name = "FungusManager";
-                            DontDestroyOnLoad(go);
+                            if(Application.isPlaying)
+                                DontDestroyOnLoad(go);
                             instance = go.AddComponent<FungusManager>();
                         }
                     }
@@ -115,6 +118,11 @@ namespace Fungus
 
                 return instance;
             }
+        }
+
+        public static void ForceApplicationQuitting(bool b)
+        {
+            applicationIsQuitting = b;
         }
 
         #endregion Public methods

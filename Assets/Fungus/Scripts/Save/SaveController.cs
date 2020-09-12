@@ -58,6 +58,8 @@ namespace Fungus
 
         protected static bool hasLoadedOnStart = false;
 
+        protected SaveManager smc;
+
         protected virtual void Awake()
         {
             // Only one instance of SaveMenu may exist
@@ -79,6 +81,8 @@ namespace Fungus
             }
 
             clickAudioSource = GetComponent<AudioSource>();
+
+            smc = FungusManager.Instance.SaveManager;
         }
 
         protected virtual void OnEnable()
@@ -128,7 +132,7 @@ namespace Fungus
         /// </summary>
         public void UpdateSlots()
         {
-            var saveMan = FungusManager.Instance.SaveManager;
+            var saveMan = smc;
 
             var mostRecentMeta = saveMan.GetMostRecentSave();
             if (mostRecentMeta != null)
@@ -150,7 +154,10 @@ namespace Fungus
         /// <param name="saves"></param>
         /// <param name="slots"></param>
         /// <param name="scrollViewContainer"></param>
-        protected virtual void AdjustAndUpdateSaveSlots(List<SaveManager.SavePointMeta> saves, List<SaveSlotController> slots, RectTransform scrollViewContainer)
+        protected virtual void AdjustAndUpdateSaveSlots(
+            List<SaveGameMetaData> saves, 
+            List<SaveSlotController> slots, 
+            RectTransform scrollViewContainer)
         {
             while (slots.Count < saves.Count)
             {
@@ -176,11 +183,9 @@ namespace Fungus
         //todo this looks like it should just be done when the menu is toggled/interacted with
         protected virtual void Update()
         {
-            var saveManager = FungusManager.Instance.SaveManager;
-
             if (loadButton != null)
             {
-                loadButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.IsLoadable && saveManager.IsLoadingAllowed;
+                loadButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.IsLoadable && smc.IsLoadingAllowed;
             }
 
             if (deleteButton != null)
@@ -191,7 +196,7 @@ namespace Fungus
             if (saveButton != null)
             {
                 saveButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null &&
-                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.UserSavePrefix) && saveManager.IsSavingAllowed;
+                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.SlotSavePrefix) && smc.IsSavingAllowed;
             }
 
             if (timeSinceLastSaveText != null && timeSinceLastSaveText.gameObject.activeInHierarchy && timeSinceLastSaveText.isActiveAndEnabled)
@@ -245,14 +250,12 @@ namespace Fungus
         /// </summary>
         public virtual void SaveOver()
         {
-            var saveManager = FungusManager.Instance.SaveManager;
 
             if (selectedSaveSlot != null)
             {
-                //todo better desc
-                if (selectedSaveSlot.LinkedMeta != null && selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.UserSavePrefix))
+                if (selectedSaveSlot.LinkedMeta != null && selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.SlotSavePrefix))
                 {
-                    saveManager.Save(selectedSaveSlot.LinkedMeta.saveName, AutoSave.TimeStampDesc);
+                    smc.ReplaceSave(selectedSaveSlot.LinkedMeta, AutoSave.TimeStampDesc);
                     PlayClickSound();
                 }
             }
@@ -265,8 +268,7 @@ namespace Fungus
         {
             if (selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null)
             {
-                var saveManager = FungusManager.Instance.SaveManager;
-                saveManager.DeleteSave(selectedSaveSlot.LinkedMeta);
+                smc.DeleteSave(selectedSaveSlot.LinkedMeta);
                 PlayClickSound();
             }
         }
@@ -276,11 +278,9 @@ namespace Fungus
         /// </summary>
         public virtual void LoadMostRecent()
         {
-            var saveManager = FungusManager.Instance.SaveManager;
+            var mostRecentMeta = smc.GetMostRecentSave();
 
-            var mostRecentMeta = saveManager.GetMostRecentSave();
-
-            if (mostRecentMeta != null && saveManager.Load(mostRecentMeta))
+            if (mostRecentMeta != null && smc.Load(mostRecentMeta))
             {
                 PlayClickSound();
             }
@@ -291,9 +291,7 @@ namespace Fungus
         /// </summary>
         public virtual void LoadSelected()
         {
-            var saveManager = FungusManager.Instance.SaveManager;
-
-            if (selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null && saveManager.Load(selectedSaveSlot.LinkedMeta))
+            if (selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null && smc.Load(selectedSaveSlot.LinkedMeta))
             {
                 PlayClickSound();
             }

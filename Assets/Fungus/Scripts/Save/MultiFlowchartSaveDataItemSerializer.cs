@@ -23,7 +23,7 @@ namespace Fungus
 
         public int Order => FlowchartDataPriority;
 
-        public SaveDataItem[] Encode()
+        public StringPair[] Encode()
         {
             foreach (var item in flowchartsToSave)
             {
@@ -37,7 +37,7 @@ namespace Fungus
                 }
             }
 
-            var retval = new SaveDataItem[flowchartsToSave.Count];
+            var retval = new StringPair[flowchartsToSave.Count];
 
             for (int i = 0; i < flowchartsToSave.Count; i++)
             {
@@ -47,10 +47,10 @@ namespace Fungus
 
                 var flowchartData = FlowchartSaveDataItem.Encode(flowchart);
 
-                var saveDataItem = new SaveDataItem()
+                var saveDataItem = new StringPair()
                 {
-                    DataType = DataTypeKey,
-                    Data = JsonUtility.ToJson(flowchartData)
+                    key = DataTypeKey,
+                    val = JsonUtility.ToJson(flowchartData)
                 };
                 retval[i] = saveDataItem;
             }
@@ -58,9 +58,9 @@ namespace Fungus
             return retval;
         }
 
-        public bool Decode(SaveDataItem sdi)
+        public bool Decode(StringPair sdi)
         {
-            var flowchartData = JsonUtility.FromJson<FlowchartSaveDataItem>(sdi.Data);
+            var flowchartData = JsonUtility.FromJson<FlowchartSaveDataItem>(sdi.val);
             if (flowchartData == null)
             {
                 Debug.LogError("Failed to decode save data item");

@@ -19,7 +19,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            SaveManager.SavePointMeta save = null;
+            SaveGameMetaData save = null;
             var saveMan = FungusManager.Instance.SaveManager;
 
             switch (saveType)
@@ -34,7 +34,7 @@ namespace Fungus
                     break;
 
                 case SaveType.Any:
-                    save = saveMan.SaveMetas
+                    save = saveMan.SaveFileManager.SaveMetas
                         .OrderByDescending(x => x.lastWritten.Ticks).FirstOrDefault();
                     break;
 

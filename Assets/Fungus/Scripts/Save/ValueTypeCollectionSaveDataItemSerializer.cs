@@ -22,35 +22,33 @@ namespace Fungus
 
         public List<Collection> collectionsToSerialize = new List<Collection>();
 
-        public SaveDataItem[] Encode()
+        public StringPair[] Encode()
         {
-            var data = new ValueTypeCollectionData();
+            var data = new StringPairList();
 
             foreach (var item in collectionsToSerialize)
             {
                 if (item.IsSerializable)
                 {
-                    data.nameToContentsPairs.Add(new StringPair()
-                    {
-                        key = item.name,
-                        val = item.GetStringifiedValue()
-                    });
+                    data.Add(item.name, item.GetStringifiedValue());
                 }
             }
 
             return SaveDataItemUtility.CreateSingleElement(DataTypeKey, data);
         }
 
-        public bool Decode(SaveDataItem sdi)
+        public bool Decode(StringPair sdi)
         {
-            var vtcd = JsonUtility.FromJson<ValueTypeCollectionData>(sdi.Data);
+            var vtcd = JsonUtility.FromJson<StringPairList>(sdi.val);
             if (vtcd == null)
             {
                 Debug.LogError("Failed to decode ValueTypeCollection save data item");
                 return false;
             }
 
-            foreach (var item in vtcd.nameToContentsPairs)
+            var col = vtcd.AsReadOnly();
+
+            foreach (var item in col)
             {
                 var v = collectionsToSerialize.First(x => x.Name == item.key);
                 v.RestoreFromStringifiedValue(item.val);

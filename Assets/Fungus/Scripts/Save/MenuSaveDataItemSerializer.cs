@@ -33,11 +33,11 @@ namespace Fungus
             FlowchartSaveDataItem.ProcessCachedExecutions(cachedBlockExecutions);
         }
 
-        public SaveDataItem[] Encode()
+        public StringPair[] Encode()
         {
             var activeMenu = MenuDialog.ActiveMenuDialog;
             if (activeMenu == null || !activeMenu.isActiveAndEnabled || activeMenu.FirstTouchedByCommand == null)
-                return Array.Empty<SaveDataItem>();
+                return Array.Empty<StringPair>();
 
             var cmd = activeMenu.FirstTouchedByCommand;
             var menuFlowchartCommandData = new FlowchartSaveDataItem()
@@ -56,9 +56,9 @@ namespace Fungus
             return SaveDataItemUtility.CreateSingleElement(DataTypeKey, menuFlowchartCommandData);
         }
 
-        public bool Decode(SaveDataItem sdi)
+        public bool Decode(StringPair sdi)
         {
-            var flowchartData = JsonUtility.FromJson<FlowchartSaveDataItem>(sdi.Data);
+            var flowchartData = JsonUtility.FromJson<FlowchartSaveDataItem>(sdi.val);
             if (flowchartData == null)
             {
                 Debug.LogError("Failed to decode save data item");

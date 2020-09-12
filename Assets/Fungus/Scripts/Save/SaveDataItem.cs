@@ -3,29 +3,17 @@
 
 namespace Fungus
 {
-    /// <summary>
-    /// A container for a single unit of saved data.
-    /// The data and its associated type are stored as string properties.
-    /// The data would typically be a JSON string representing a saved object.
-    /// </summary>
-    [System.Serializable]
-    public class SaveDataItem
-    {
-        public string DataType;
-        public string Data;
-    }
-
     public static class SaveDataItemUtility
-    { 
-        public static SaveDataItem[] CreateSingleElement<T>(string key, T dataItem)
+    {
+        public static StringPair[] CreateSingleElement<T>(string key, T dataItem)
         {
-            var sdi = new SaveDataItem()
+            var sdi = new StringPair()
             {
-                DataType = key,
-                Data = UnityEngine.JsonUtility.ToJson(dataItem)
+                key = key,
+                val = UnityEngine.JsonUtility.ToJson(dataItem)
             };
 
-            return new SaveDataItem[] { sdi };
+            return new StringPair[] { sdi };
         }
     }
 }

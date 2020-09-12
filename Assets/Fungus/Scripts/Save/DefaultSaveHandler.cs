@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Fungus
 {
@@ -32,8 +31,8 @@ namespace Fungus
 
         public SaveData CreateSaveData(string saveName, string saveDesc)
         {
-            var sd = new SaveData(saveName, 
-                new StringPair() { key = FungusConstants.SaveDescKey,val = saveDesc });
+            var sd = new SaveData(saveName,
+                new StringPair() { key = FungusConstants.SaveDescKey, val = saveDesc });
 
             saveDataItemSerializers = saveDataItemSerializers.OrderBy(x => x.Order).ToList();
 
@@ -56,7 +55,7 @@ namespace Fungus
 
             foreach (var item in saveDataItemSerializers)
             {
-                var matches = sd.saveDataItems.Where(x => x.DataType == item.DataTypeKey);
+                var matches = sd.saveDataItems.AsReadOnly().Where(x => x.key == item.DataTypeKey);
                 foreach (var match in matches)
                 {
                     item.Decode(match);
@@ -76,7 +75,7 @@ namespace Fungus
         {
             var sd = JsonUtility.FromJson<SaveData>(jsonSave);
 
-            if (sd == null || (sd.saveDataItems.Count > 0 && sd.saveDataItems.IndexOf(null) != -1))
+            if (sd == null || sd.saveDataItems.Count == 0)
             {
                 Debug.LogError("Failed to decode save from json.");
                 return null;

@@ -113,6 +113,53 @@ namespace Fungus.Tests
 
             Assert.AreEqual(FungusPrioritySignals.CurrentPriorityDepth, 2);
         }
+
+        [UnityTest]
+        public IEnumerator ManualSaveManagerLimits()
+        {
+            var smc = FungusManager.Instance.SaveManager;
+            yield return null;
+            smc.SaveFileManager.UserProfileManager.ChangeProfile("playmode_save_manager_test");
+
+            smc.ConfigureSaveNumber(0, 0);
+            smc.SaveFileManager.DeleteAllSaves();
+            Assert.AreEqual(smc.SaveFileManager.NumSaveMetas, 0);
+
+            const int MaxSaves = 3;
+            smc.ConfigureSaveNumber(MaxSaves, MaxSaves);
+
+            for (int i = 0; i < MaxSaves * 2; i++)
+            {
+                smc.SaveAuto(i.ToString(), string.Empty);
+                yield return null;
+                smc.SaveSlot(i, string.Empty);
+                yield return null;
+                smc.SaveCustom(i.ToString(), string.Empty);
+                yield return null;
+            }
+
+            Assert.AreEqual(smc.CollectAutoSaves().Count, MaxSaves);
+            Assert.AreEqual(smc.CollectUserSaves().Count, MaxSaves);
+            Assert.AreEqual(smc.SaveFileManager.NumSaveMetas, MaxSaves * 2 + MaxSaves + MaxSaves);
+
+            smc.IsSavingAllowed = false;
+
+            smc.SaveFileManager.DeleteAllSaves();
+
+            for (int i = 0; i < MaxSaves * 2; i++)
+            {
+                smc.SaveAuto(i.ToString(), string.Empty);
+                yield return null;
+                smc.SaveSlot(i, string.Empty);
+                yield return null;
+                smc.SaveCustom(i.ToString(), string.Empty);
+                yield return null;
+            }
+
+            Assert.AreNotEqual(smc.CollectAutoSaves().Count, MaxSaves);
+            Assert.AreNotEqual(smc.CollectUserSaves().Count, MaxSaves);
+            Assert.AreNotEqual(smc.SaveFileManager.NumSaveMetas, MaxSaves * 2 + MaxSaves + MaxSaves);
+        }
     }
 }
 

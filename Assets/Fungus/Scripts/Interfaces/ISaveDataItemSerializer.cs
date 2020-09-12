@@ -12,8 +12,8 @@ namespace Fungus
 
         void PostDecode();
 
-        SaveDataItem[] Encode();
+        StringPair[] Encode();
 
-        bool Decode(SaveDataItem sdi);
+        bool Decode(StringPair sdi);
     }
 }

@@ -6,19 +6,12 @@ using UnityEngine;
 
 namespace Fungus
 {
-        [System.Serializable]
-        public class StringPair
-        {
-            public string key, val;
-        }
- 
     /// <summary>
     /// Serializable container for encoding the state of a Flowchart's blocks status & variables.
     /// </summary>
     [System.Serializable]
     public class FlowchartSaveDataItem
     {
-
         /// <summary>
         /// Container for an individual blocks state during serialisation.
         /// </summary>
@@ -42,8 +35,8 @@ namespace Fungus
         }
 
         public string flowchartName;
-        public List<StringPair> varPairs = new List<StringPair>();
-        public List<StringPair> visitorPairs = new List<StringPair>();
+        public StringPairList varPairs = new StringPairList();
+        public StringPairList visitorPairs = new StringPairList();
         public List<BlockData> blockDatas = new List<BlockData>();
 
         /// <summary>
@@ -73,11 +66,7 @@ namespace Fungus
 
                 if (v.IsSerializable)
                 {
-                    flowchartData.varPairs.Add(new StringPair()
-                    {
-                        key = v.Key,
-                        val = v.GetStringifiedValue()
-                    });
+                    flowchartData.varPairs.Add(v.Key,v.GetStringifiedValue());
                 }
             }
 
@@ -117,17 +106,17 @@ namespace Fungus
         /// it moves through the data. Primarily useful for synchronoisation of blocks.</param>
         public void Decode(Flowchart flowchart, List<CachedBlockExecution> cachedBlockExecutions = null)
         {
-            //restore variable values
-            for (int i = 0; i < varPairs.Count; i++)
+            var readOnlyVarPairs = varPairs.AsReadOnly();
+
+            foreach (var item in readOnlyVarPairs)
             {
-                var v = flowchart.GetVariable(varPairs[i].key);
+                var v = flowchart.GetVariable(item.key);
 
                 if (v != null)
                 {
-                    v.RestoreFromStringifiedValue(varPairs[i].val);
+                    v.RestoreFromStringifiedValue(item.val);
                 }
             }
-
             //stop blocks if they are running and shouldn't be, cache or execute blocks at commands that they should be at
             foreach (var item in blockDatas)
             {
@@ -194,19 +183,12 @@ namespace Fungus
 
         public virtual void AddToVisitorPairs(string key, string value)
         {
-            visitorPairs.Add(new StringPair() { key = key, val = value });
+            visitorPairs.AddUnique(key, value);
         }
 
         public virtual bool TryGetVisitorValueByKey(string key, out string value)
         {
-            var item = visitorPairs.Find(x => x.key == key);
-            if (item != null)
-            {
-                value = item.val;
-                return true;
-            }
-            value = string.Empty;
-            return false;
+            return visitorPairs.TryGetValue(key, out value);
         }
 
         public static Flowchart FindFlowchartByName(string name)

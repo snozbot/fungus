@@ -24,7 +24,7 @@ namespace Fungus.Examples
         public string DataTypeKey => TransformDataKey;
         public int Order => TransformDataDataPriority;
 
-        public SaveDataItem[] Encode()
+        public StringPair[] Encode()
         {
             var td = new TransformData();
             foreach (var item in transformsToSerialize)
@@ -36,10 +36,10 @@ namespace Fungus.Examples
             return SaveDataItemUtility.CreateSingleElement(DataTypeKey, td);
         }
 
-        public bool Decode(SaveDataItem sdi)
+        public bool Decode(StringPair sdi)
         {
             //the reverse process of our encode,
-            var tdata = JsonUtility.FromJson<TransformData>(sdi.Data);
+            var tdata = JsonUtility.FromJson<TransformData>(sdi.val);
             if (tdata == null)
             {
                 Debug.LogError("Failed to decode Text Variation save data item");

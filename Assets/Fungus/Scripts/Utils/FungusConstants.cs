@@ -55,7 +55,7 @@ namespace Fungus
         /// <summary>
         /// The prefix for auto saves
         /// </summary>
-        public const string UserSavePrefix = "slot_";
+        public const string SlotSavePrefix = "slot_";
 
         /// <summary>
         /// Current version of the save system
@@ -67,10 +67,12 @@ namespace Fungus
         /// </summary>
         public const int CurrentProfileDataVersion = 1;
 
-        public const string SaveDescKey = "SaveDesc"; 
+        public const string SaveDescKey = "SaveDesc";
 
-        public const string SceneNameKey = "SceneName"; 
+        public const string SceneNameKey = "SceneName";
 
-        #endregion
+        public static string StorageDirectory { get; private set; } = Application.persistentDataPath + "/Fungus/";
+
+        #endregion Public members
     }
 }

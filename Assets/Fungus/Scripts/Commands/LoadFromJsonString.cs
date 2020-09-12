@@ -20,7 +20,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            var saveHandler = FungusManager.Instance.SaveManager.CurrentSaveHandler;
+            var saveHandler = FungusManager.Instance.SaveManager.SaveFileManager.CurrentSaveHandler;
             var saveData = saveHandler.DecodeFromJSON(jsonString.Value);
 
             saveHandler.LoadSaveData(saveData);

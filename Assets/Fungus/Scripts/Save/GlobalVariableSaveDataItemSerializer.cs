@@ -18,34 +18,48 @@ namespace Fungus
 
         public int Order => GlobalVarDataPriority;
 
-        public SaveDataItem[] Encode()
+        public StringPair[] Encode()
         {
             var gvd = new GlobalVariableSaveDataItem();
 
-            foreach (var item in FungusManager.Instance.GlobalVariables.GlobalVariableFlowchart.Variables)
+            var gv = FungusManager.Instance.GlobalVariables;
+            List<Variable> vars = null;
+            if (gv != null)
+                vars = gv.GlobalVariableFlowchart.Variables;
+
+            if (vars != null)
             {
-                if (item.IsSerializable)
+
+                foreach (var item in vars)
                 {
-                    gvd.typeStringPairs.Add(new GlobalVariableSaveDataItem.TypeStringPair()
+                    if (item.IsSerializable)
                     {
-                        key = item.Key,
-                        val = item.GetStringifiedValue(),
-                        typeName = item.GetType().Name
-                    });
+                        gvd.typeStringPairs.Add(new GlobalVariableSaveDataItem.TypeStringPair()
+                        {
+                            typeName = item.GetType().Name,
+                            stringPair = new StringPair
+                            {
+                                key = item.Key,
+                                val = item.GetStringifiedValue()
+                            }
+                        });
+                    }
                 }
             }
-
             return SaveDataItemUtility.CreateSingleElement(DataTypeKey, gvd);
         }
 
-        public bool Decode(SaveDataItem sdi)
+        public bool Decode(StringPair sdi)
         {
-            var gvd = JsonUtility.FromJson<GlobalVariableSaveDataItem>(sdi.Data);
+            var gvd = JsonUtility.FromJson<GlobalVariableSaveDataItem>(sdi.val);
             if (gvd == null)
             {
                 Debug.LogError("Failed to decode Global Variable save data item");
                 return false;
             }
+
+            if (gvd.typeStringPairs.Count == 0)
+                return true;
 
             FungusManager.Instance.GlobalVariables.ClearVars();
 
@@ -59,8 +73,8 @@ namespace Fungus
             foreach (var item in gvd.typeStringPairs)
             {
                 var foundType = allVarTypes.First(x => x.Name == item.typeName);
-                var v = FungusManager.Instance.GlobalVariables.AddVariable(item.key, foundType);
-                v.RestoreFromStringifiedValue(item.val);
+                var v = FungusManager.Instance.GlobalVariables.AddVariable(item.stringPair.key, foundType);
+                v.RestoreFromStringifiedValue(item.stringPair.val);
             }
 
             return true;
@@ -84,9 +98,10 @@ namespace Fungus
             /// Variable name and json value pair.
             /// </summary>
             [System.Serializable]
-            public class TypeStringPair : StringPair
+            public struct TypeStringPair
             {
                 public string typeName;
+                public StringPair stringPair;
             }
 
             public List<TypeStringPair> typeStringPairs = new List<TypeStringPair>();

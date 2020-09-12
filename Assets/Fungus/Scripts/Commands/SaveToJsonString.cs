@@ -28,7 +28,7 @@ namespace Fungus
             var savingAllowed = ParentBlock.IsSavingAllowed;
             ParentBlock.IsSavingAllowed = false;
 
-            var saveHandler = FungusManager.Instance.SaveManager.CurrentSaveHandler;
+            var saveHandler = FungusManager.Instance.SaveManager.SaveFileManager.CurrentSaveHandler;
             var saveData = saveHandler.CreateSaveData(saveName.Value, saveDescription.Value);
 
             jsonStringVar.Value = saveHandler.EncodeToJSON(saveData);

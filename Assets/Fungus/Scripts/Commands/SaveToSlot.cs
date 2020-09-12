@@ -17,14 +17,9 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            var saveMan = FungusManager.Instance.SaveManager;
+            var saveManComp = FungusManager.Instance.SaveManager;
 
-            var saveIndex = saveMan.SaveNameToIndex(FungusConstants.UserSavePrefix + slotIndex.Value.ToString());
-            if (saveIndex >= 0)
-            {
-                saveMan.Save(saveMan.SaveMetas[saveIndex].saveName, AutoSave.TimeStampDesc);
-            }
-            else
+            if (!saveManComp.SaveSlot(slotIndex.Value, AutoSave.TimeStampDesc))
             {
                 Debug.LogError("No save slot available at index " + slotIndex.Value.ToString());
             }
