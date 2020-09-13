@@ -1,6 +1,7 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+using System.Collections;
 using UnityEngine;
 
 namespace Fungus
@@ -75,6 +76,12 @@ namespace Fungus
         /// </summary>
         public virtual bool ExtendPrevious { get { return extendPrevious; } }
 
+        /// <summary>
+        /// A wait delay that applies after this command is done executing, and before the next command
+        /// starts executing.
+        /// </summary>
+        public static float endDelay = 0f;
+
         public override void OnEnter()
         {
             if (!showAlways && executionCount >= showCount)
@@ -111,6 +118,7 @@ namespace Fungus
             sayDialog.SetCharacterImage(portrait);
 
             string displayText = storyText;
+            ApplyDelayTo(ref displayText);
 
             var activeCustomTags = CustomTag.activeCustomTags;
             for (int i = 0; i < activeCustomTags.Count; i++)
@@ -128,6 +136,21 @@ namespace Fungus
             sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, delegate {
                 Continue();
             });
+        }
+
+        void ApplyDelayTo(ref string displayText)
+        {
+            if (endDelay <= 0)
+                return;
+
+            string waitTag = "{w=" + endDelay + "}";
+            displayText += waitTag;
+        }
+
+        IEnumerator ApplyEndDelay()
+        {
+            yield return new WaitForSeconds(endDelay);
+            Continue();
         }
 
         public override string GetSummary()
