@@ -25,7 +25,7 @@ namespace Fungus
         /// </summary>
         public List<SaveGameMetaData> SaveMetas { get { return saveMetas; } }
 
-        public ISaveHandler CurrentSaveHandler { get; set; } = DefaultSaveHandler.CreateDefaultWithSerializers();
+        public ISaveHandler CurrentSaveHandler { get; set; } = DefaultSaveGameSaveHandler.CreateDefaultWithSerializers();
 
         protected const string FileExtension = ".save";
 

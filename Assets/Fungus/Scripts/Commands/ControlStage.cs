@@ -53,21 +53,7 @@ namespace Fungus
 
         protected virtual void Show(Stage stage, bool visible) 
         {
-            float duration = (fadeDuration == 0) ? float.Epsilon : fadeDuration;
-            float targetAlpha = visible ? 1f : 0f;
-
-            CanvasGroup canvasGroup = stage.GetComponentInChildren<CanvasGroup>();
-            if (canvasGroup == null)
-            {
-                Continue();
-                return;
-            }
-
-            LeanTween.value(canvasGroup.gameObject, canvasGroup.alpha, targetAlpha, duration).setOnUpdate( (float alpha) => {
-                canvasGroup.alpha = alpha;
-            }).setOnComplete( () => {
-                OnComplete();
-            });
+            stage.ShowStage(visible, fadeDuration, OnComplete);
         }
 
         protected virtual void MoveToFront(Stage stage)
@@ -77,13 +63,7 @@ namespace Fungus
 
         protected virtual void UndimAllPortraits(Stage stage) 
         {
-            stage.DimPortraits = false;
-            var charactersOnStage = stage.CharactersOnStage;
-            for (int i = 0; i < charactersOnStage.Count; i++)
-            {
-                var character = charactersOnStage[i];
-                stage.SetDimmed(character, false);
-            }
+            stage.UndimAllPortraits();
         }
 
         protected virtual void DimNonSpeakingPortraits(Stage stage) 

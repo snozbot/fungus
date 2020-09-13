@@ -3,7 +3,7 @@
 
 namespace Fungus
 {
-    public static class SaveDataItemUtility
+    public static class SaveDataItemUtils
     {
         public static StringPair[] CreateSingleElement<T>(string key, T dataItem)
         {

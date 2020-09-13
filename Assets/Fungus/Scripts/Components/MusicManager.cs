@@ -12,31 +12,41 @@ namespace Fungus
     //[RequireComponent(typeof(AudioSource))]
     public class MusicManager : MonoBehaviour
     {
-        protected AudioSource audioSourceMusic;
-        protected AudioSource audioSourceAmbiance;
-        protected AudioSource audioSourceSoundEffect;
+        public float TargetMusicVolume { get; protected set; }
+        public float TargetMusicPitch { get; protected set; }
+        public float TargetAmbVolume { get; protected set; }
+        public float TargetAmbPitch { get; protected set; }
+        public AudioClip TargetMusicClip { get; protected set; }
+        public AudioClip TargetAmbClip { get; protected set; }
+        public AudioSource AudioSourceMusic { get; protected set; }
+        public AudioSource AudioSourceAmbiance { get; protected set; }
+        public AudioSource AudioSourceSoundEffect { get; protected set; }
 
         void Reset()
         {
             int audioSourceCount = this.GetComponents<AudioSource>().Length;
             for (int i = 0; i < 3 - audioSourceCount; i++)
                 gameObject.AddComponent<AudioSource>();
-
         }
 
         protected virtual void Awake()
         {
             Reset();
             AudioSource[] audioSources = GetComponents<AudioSource>();
-            audioSourceMusic = audioSources[0];
-            audioSourceAmbiance = audioSources[1];
-            audioSourceSoundEffect = audioSources[2];
+            AudioSourceMusic = audioSources[0];
+            AudioSourceAmbiance = audioSources[1];
+            AudioSourceSoundEffect = audioSources[2];
         }
 
         protected virtual void Start()
         {
-            audioSourceMusic.playOnAwake = false;
-            audioSourceMusic.loop = true;
+            AudioSourceMusic.playOnAwake = false;
+            AudioSourceMusic.loop = true;
+
+            TargetMusicVolume = AudioSourceMusic.volume;
+            TargetAmbVolume = AudioSourceAmbiance.volume;
+            TargetMusicPitch = AudioSourceMusic.pitch;
+            TargetAmbPitch = AudioSourceAmbiance.pitch;
         }
 
         #region Public members
@@ -47,33 +57,35 @@ namespace Fungus
         /// </summary>
         public void PlayMusic(AudioClip musicClip, bool loop, float fadeDuration, float atTime)
         {
-            if (audioSourceMusic == null || audioSourceMusic.clip == musicClip)
+            TargetMusicClip = musicClip;
+
+            if (AudioSourceMusic == null || AudioSourceMusic.clip == musicClip)
             {
                 return;
             }
 
             if (Mathf.Approximately(fadeDuration, 0f))
             {
-                audioSourceMusic.clip = musicClip;
-                audioSourceMusic.loop = loop;
-                audioSourceMusic.time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
-                audioSourceMusic.Play();
+                AudioSourceMusic.clip = musicClip;
+                AudioSourceMusic.loop = loop;
+                AudioSourceMusic.time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
+                AudioSourceMusic.Play();
             }
             else
             {
-                float startVolume = audioSourceMusic.volume;
+                float startVolume = AudioSourceMusic.volume;
 
                 LeanTween.value(gameObject, startVolume, 0f, fadeDuration)
                     .setOnUpdate((v) => {
                         // Fade out current music
-                        audioSourceMusic.volume = v;
+                        AudioSourceMusic.volume = v;
                     }).setOnComplete(() => {
                         // Play new music
-                        audioSourceMusic.volume = startVolume;
-                        audioSourceMusic.clip = musicClip;
-                        audioSourceMusic.loop = loop;
-                        audioSourceMusic.time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
-                        audioSourceMusic.Play();
+                        AudioSourceMusic.volume = startVolume;
+                        AudioSourceMusic.clip = musicClip;
+                        AudioSourceMusic.loop = loop;
+                        AudioSourceMusic.time = atTime;  // May be inaccurate if the audio source is compressed http://docs.unity3d.com/ScriptReference/AudioSource-time.html BK
+                        AudioSourceMusic.Play();
                     });
             }
         }
@@ -85,7 +97,7 @@ namespace Fungus
         /// <param name="volume">The volume level of the sound effect.</param>
         public virtual void PlaySound(AudioClip soundClip, float volume)
         {
-            audioSourceSoundEffect.PlayOneShot(soundClip, volume);
+            AudioSourceSoundEffect.PlayOneShot(soundClip, volume);
         }
 
         /// <summary>
@@ -96,10 +108,12 @@ namespace Fungus
         /// <param name="volume">The volume level of the sound effect.</param>
         public virtual void PlayAmbianceSound(AudioClip soundClip, bool loop, float volume)
         {
-            audioSourceAmbiance.loop = loop;
-            audioSourceAmbiance.clip = soundClip;
-            audioSourceAmbiance.volume = volume;
-            audioSourceAmbiance.Play();
+            TargetAmbClip = soundClip;
+            AudioSourceAmbiance.loop = loop;
+            AudioSourceAmbiance.clip = soundClip;
+            AudioSourceAmbiance.volume = volume;
+            AudioSourceAmbiance.Play();
+            TargetAmbVolume = volume;
         }
 
         /// <summary>
@@ -110,10 +124,13 @@ namespace Fungus
         /// <param name="onComplete">A delegate method to call when the pitch shift has completed.</param>
         public virtual void SetAudioPitch(float pitch, float duration, System.Action onComplete)
         {
+            TargetAmbPitch = pitch;
+            TargetMusicPitch = pitch;
+
             if (Mathf.Approximately(duration, 0f))
             {
-                audioSourceMusic.pitch = pitch;
-                audioSourceAmbiance.pitch = pitch;
+                AudioSourceMusic.pitch = pitch;
+                AudioSourceAmbiance.pitch = pitch;
                 if (onComplete != null)
                 {
                     onComplete();
@@ -122,12 +139,12 @@ namespace Fungus
             }
 
             LeanTween.value(gameObject,
-                audioSourceMusic.pitch,
+                AudioSourceMusic.pitch,
                 pitch,
                 duration).setOnUpdate((p) =>
                 {
-                    audioSourceMusic.pitch = p;
-                    audioSourceAmbiance.pitch = p;
+                    AudioSourceMusic.pitch = p;
+                    AudioSourceAmbiance.pitch = p;
                 }).setOnComplete(() =>
                 {
                     if (onComplete != null)
@@ -145,23 +162,26 @@ namespace Fungus
         /// <param name="onComplete">Delegate function to call when fade completes.</param>
         public virtual void SetAudioVolume(float volume, float duration, System.Action onComplete)
         {
+            TargetMusicVolume = volume;
+            TargetAmbVolume = volume;
+
             if (Mathf.Approximately(duration, 0f))
             {
                 if (onComplete != null)
                 {
                     onComplete();
                 }
-                audioSourceMusic.volume = volume;
-                audioSourceAmbiance.volume = volume;
+                AudioSourceMusic.volume = volume;
+                AudioSourceAmbiance.volume = volume;
                 return;
             }
 
             LeanTween.value(gameObject,
-                audioSourceMusic.volume,
+                AudioSourceMusic.volume,
                 volume,
                 duration).setOnUpdate((v) => {
-                    audioSourceMusic.volume = v;
-                    audioSourceAmbiance.volume = v;
+                    AudioSourceMusic.volume = v;
+                    AudioSourceAmbiance.volume = v;
                 }).setOnComplete(() => {
                     if (onComplete != null)
                     {
@@ -175,8 +195,8 @@ namespace Fungus
         /// </summary>
         public virtual void StopMusic()
         {
-            audioSourceMusic.Stop();
-            audioSourceMusic.clip = null;
+            AudioSourceMusic.Stop();
+            AudioSourceMusic.clip = null;
         }
 
         /// <summary>
@@ -184,8 +204,8 @@ namespace Fungus
         /// </summary>
         public virtual void StopAmbiance()
         {
-            audioSourceAmbiance.Stop();
-            audioSourceAmbiance.clip = null;
+            AudioSourceAmbiance.Stop();
+            AudioSourceAmbiance.clip = null;
         }
 
         #endregion

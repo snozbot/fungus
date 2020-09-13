@@ -60,7 +60,7 @@ namespace Fungus
         /// <summary>
         /// Current version of the save system
         /// </summary>
-        public const int CurrentSaveDataVersion = 2;
+        public const int CurrentSaveGameDataVersion = 2;
 
         /// <summary>
         /// Current version of the save system

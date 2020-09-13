@@ -18,5 +18,7 @@ namespace Fungus
         SaveData DecodeFromJSON(string jsonSave);
 
         bool HandleVersionMismatch(SaveData sd);
+
+        int CurrentExpectedVersion { get; }
     }
 }

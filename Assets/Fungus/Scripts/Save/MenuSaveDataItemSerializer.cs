@@ -53,7 +53,7 @@ namespace Fungus
                 cmd.ParentBlock.JumpToCommandIndex));
 
 
-            return SaveDataItemUtility.CreateSingleElement(DataTypeKey, menuFlowchartCommandData);
+            return SaveDataItemUtils.CreateSingleElement(DataTypeKey, menuFlowchartCommandData);
         }
 
         public bool Decode(StringPair sdi)

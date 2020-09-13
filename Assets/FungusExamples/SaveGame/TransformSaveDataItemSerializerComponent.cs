@@ -3,7 +3,8 @@
 
 namespace Fungus.Examples
 {
-    public class TransformSaveDataItemSerializerComponent : SaveDataItemSerializerComponentT<TransformSaveDataItemSerializer>
+    public class TransformSaveDataItemSerializerComponent : 
+        SaveDataItemSerializerComponentT<TransformSaveDataItemSerializer>
     {
     }
 }

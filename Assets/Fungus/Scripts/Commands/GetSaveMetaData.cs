@@ -44,7 +44,7 @@ namespace Fungus
                     save = saveMan.CollectAutoSaves().ElementAtOrDefault(saveIndexRequested.Value);
                     break;
 
-                case SaveType.User:
+                case SaveType.Slot:
                     save = saveMan.CollectUserSaves().ElementAtOrDefault(saveIndexRequested.Value);
                     break;
 

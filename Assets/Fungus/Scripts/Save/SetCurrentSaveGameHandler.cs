@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    public class SetCurrentSaveHandler : MonoBehaviour
+    public class SetCurrentSaveGameHandler : MonoBehaviour
     {
         protected ISaveHandler previousSaveHandler;
         protected SaveFileManager sm;
@@ -17,7 +17,7 @@ namespace Fungus
             sm = FungusManager.Instance.SaveManager.SaveFileManager;
             previousSaveHandler = sm.CurrentSaveHandler;
 
-            var newHandler = DefaultSaveHandler.CreateDefaultWithSerializers();
+            var newHandler = DefaultSaveGameSaveHandler.CreateDefaultWithSerializers();
 
             foreach (var item in saveDataItemSerializerComponents)
             {

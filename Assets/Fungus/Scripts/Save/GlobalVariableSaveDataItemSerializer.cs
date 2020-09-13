@@ -46,7 +46,7 @@ namespace Fungus
                     }
                 }
             }
-            return SaveDataItemUtility.CreateSingleElement(DataTypeKey, gvd);
+            return SaveDataItemUtils.CreateSingleElement(DataTypeKey, gvd);
         }
 
         public bool Decode(StringPair sdi)

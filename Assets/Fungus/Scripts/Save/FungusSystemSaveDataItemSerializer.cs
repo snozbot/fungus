@@ -43,6 +43,8 @@ namespace Fungus
             {
                 var stageData = new FungusSystemSaveDataItem.StageCharactersData();
                 stageData.stageName = stage.name;
+                stageData.dimmed = stage.DimPortraits;
+                stageData.CGAlpha = stage.CanvasGroup?.alpha ?? 0;
                 stageData.charactersOnStage = new FungusSystemSaveDataItem.CharacterPortraitData[stage.CharactersOnStage.Count];
                 for (int i = 0; i < stage.CharactersOnStage.Count; i++)
                 {
@@ -57,12 +59,13 @@ namespace Fungus
                         visiblePortraitName = ch.State.portrait.name
                     };
                 }
+                fsData.stages.Add(stageData);
             }
 
             var activeStage = Stage.GetActiveStage();
             fsData.lastStage = activeStage != null ? activeStage.gameObject.name : string.Empty;
 
-            return SaveDataItemUtility.CreateSingleElement(DataTypeKey, fsData);
+            return SaveDataItemUtils.CreateSingleElement(DataTypeKey, fsData);
         }
 
         public bool Decode(StringPair sdi)
@@ -78,9 +81,6 @@ namespace Fungus
             
             if(fsData.narLogEntries.Count > 0)
                 FungusManager.Instance.NarrativeLog.LoadHistory(fsData.narLogEntries);
-            
-            MenuDialog.ActiveMenuDialog = GameObjectUtils.FindObjectOfTypeWithGameObjectName<MenuDialog>(fsData.lastMenuName);
-            SayDialog.ActiveSayDialog = GameObjectUtils.FindObjectOfTypeWithGameObjectName<SayDialog>(fsData.lastSayDialogName);
 
             var v = GameObjectUtils.FindObjectOfTypeWithGameObjectName<View>(fsData.lastViewName);
             if (v != null)
@@ -107,6 +107,10 @@ namespace Fungus
                     continue;
                 }
 
+                stage.DimPortraits = stageData.dimmed;
+                if (stage.CanvasGroup != null)
+                    stage.CanvasGroup.alpha = stageData.CGAlpha;
+
                 foreach (var ch in stageData.charactersOnStage)
                 {
                     port.Reset(true);
@@ -127,11 +131,8 @@ namespace Fungus
                 }
             }
 
-            var activeStage = GameObjectUtils.FindObjectOfTypeWithGameObjectName<Stage>(fsData.lastStage);
-            if (activeStage != null)
-            {
-                Stage.MoveStageToFront(activeStage);
-            }
+            MenuDialog.ActiveMenuDialog = GameObjectUtils.FindObjectOfTypeWithGameObjectName<MenuDialog>(fsData.lastMenuName);
+            SayDialog.ActiveSayDialog = GameObjectUtils.FindObjectOfTypeWithGameObjectName<SayDialog>(fsData.lastSayDialogName);
 
             ProgressMarker.LatestExecuted = ProgressMarker.FindWithKey(fsData.progressMarkerName);
 
@@ -154,7 +155,10 @@ namespace Fungus
             public class StageCharactersData
             {
                 public string stageName;
+                public bool stageVisible;
                 public CharacterPortraitData[] charactersOnStage;
+                public bool dimmed;
+                public float CGAlpha;
             }
 
             [System.Serializable]

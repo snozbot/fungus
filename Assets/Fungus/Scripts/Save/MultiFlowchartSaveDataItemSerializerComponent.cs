@@ -3,7 +3,8 @@
 
 namespace Fungus
 {
-    public class MultiFlowchartSaveDataItemSerializerComponent : SaveDataItemSerializerComponentT<MultiFlowchartSaveDataItemSerializer>
+    public class MultiFlowchartSaveDataItemSerializerComponent : 
+        SaveDataItemSerializerComponentT<MultiFlowchartSaveDataItemSerializer>
     {
     }
 }

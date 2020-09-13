@@ -17,7 +17,7 @@ namespace Fungus
         public enum SaveType
         {
             Auto,
-            User,
+            Slot,
             Any,
         }
         public SaveFileManager SaveFileManager { get; private set; }

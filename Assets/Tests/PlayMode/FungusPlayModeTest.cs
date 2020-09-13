@@ -43,7 +43,7 @@ namespace Fungus.Tests
             yield return null;
             gv = FungusManager.Instance.GlobalVariables;
 
-            var saveHandler = DefaultSaveHandler.CreateDefaultWithSerializers();
+            var saveHandler = DefaultSaveGameSaveHandler.CreateDefaultWithSerializers();
 
             var vi1 = gv.GetOrAddVariable<int>("1", 1, typeof(IntegerVariable));
             var vi2 = gv.GetOrAddVariable<int>("2", 2, typeof(IntegerVariable));
@@ -85,7 +85,7 @@ namespace Fungus.Tests
             FungusPrioritySignals.DoIncreasePriorityDepth();
             FungusPrioritySignals.DoIncreasePriorityDepth();
 
-            var saveHandler = DefaultSaveHandler.CreateDefaultWithSerializers();
+            var saveHandler = DefaultSaveGameSaveHandler.CreateDefaultWithSerializers();
             //post save
             var saveData = saveHandler.CreateSaveData("ManualSaveLoadFungusSystem", "");
 

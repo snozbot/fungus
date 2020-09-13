@@ -36,7 +36,7 @@ namespace Fungus.Tests
             yield return b.Execute(0, null);
             vi.Value = InitialVariableValue;
 
-            var saveHandler = new DefaultSaveHandler();
+            var saveHandler = new DefaultSaveGameSaveHandler();
             var mf = new MultiFlowchartSaveDataItemSerializer();
             saveHandler.SaveDataItemSerializers.Add(mf);
             mf.flowchartsToSave.Add(f);
@@ -65,7 +65,7 @@ namespace Fungus.Tests
             intcol.Add(1);
             intcol.Add(2);
 
-            var saveHandler = new DefaultSaveHandler();
+            var saveHandler = new DefaultSaveGameSaveHandler();
             var vts = new ValueTypeCollectionSaveDataItemSerializer();
             saveHandler.SaveDataItemSerializers.Add(vts);
 
