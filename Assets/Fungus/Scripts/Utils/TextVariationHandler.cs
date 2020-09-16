@@ -3,7 +3,8 @@
 
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
+
+//TODO needs to listen to save load events and profile changes
 
 namespace Fungus
 {
@@ -76,6 +77,29 @@ namespace Fungus
         static public void ClearHistory()
         {
             hashedSections.Clear();
+        }
+
+        static public List<int> GetSerialisedHistory()
+        {
+            var retval = new List<int>();
+
+            foreach (var item in hashedSections)
+            {
+                retval.Add(item.Key);
+                retval.Add(item.Value);
+            }
+
+            return retval;
+        }
+
+        static public void RestoreFromSerialisedHistory(List<int> serialisedHistory)
+        {
+            ClearHistory();
+
+            for (int i = 0; i < serialisedHistory.Count; i+=2)
+            {
+                hashedSections[serialisedHistory[i]] = serialisedHistory[i + 1];
+            }
         }
 
         /// <summary>

@@ -537,7 +537,7 @@ namespace Fungus
                 return;
             }
 
-            if (!ExecuteBlock(block))
+            if (!ExecuteBlock(block, 0))
             {
                 Debug.LogWarning("Block " + blockName  + " failed to execute");
             }
@@ -562,13 +562,18 @@ namespace Fungus
             }
         }
 
+        public virtual bool ExecuteBlock(Block block, int commandIndex)
+        {
+            return ExecuteBlock(block, commandIndex, null);
+        }
+
         /// <summary>
         /// Execute a child block in the flowchart.
         /// The block must be in an idle state to be executed.
         /// This version provides extra options to control how the block is executed.
         /// Returns true if the Block started execution.            
         /// </summary>
-        public virtual bool ExecuteBlock(Block block, int commandIndex = 0, Action onComplete = null)
+        public virtual bool ExecuteBlock(Block block, int commandIndex, Action onComplete)
         {
             if (block == null)
             {

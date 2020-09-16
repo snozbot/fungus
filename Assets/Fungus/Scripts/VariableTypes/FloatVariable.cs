@@ -76,6 +76,18 @@ namespace Fungus
 
             return condition;
         }
+
+        public override bool IsSerializable { get { return true; } }
+
+        public override string GetStringifiedValue()
+        {
+            return Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+        public override void RestoreFromStringifiedValue(string stringifiedValue)
+        {
+            Value = float.Parse(stringifiedValue, System.Globalization.CultureInfo.InvariantCulture);
+        }
     }
 
     /// <summary>

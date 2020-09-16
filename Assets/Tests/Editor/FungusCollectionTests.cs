@@ -18,6 +18,14 @@ namespace Fungus.Tests
         private Fungus.GameObjectCollection goCol;
         private Fungus.IntCollection intColA, intColB;
 
+        [OneTimeSetUp]
+        public void InitTestObjects()
+        {
+            intColA = new GameObject().AddComponent<Fungus.IntCollection>();
+            intColB = new GameObject().AddComponent<Fungus.IntCollection>();
+            goCol = new GameObject().AddComponent<Fungus.GameObjectCollection>();
+        }
+
         [Test]
         public void AddRemove()
         {
@@ -271,14 +279,6 @@ namespace Fungus.Tests
 
             intColA.Clear();
             intColB.Clear();
-        }
-
-        [OneTimeSetUp]
-        public void InitTestObjects()
-        {
-            intColA = new GameObject().AddComponent<Fungus.IntCollection>();
-            intColB = new GameObject().AddComponent<Fungus.IntCollection>();
-            goCol = new GameObject().AddComponent<Fungus.GameObjectCollection>();
         }
 
         [Test]

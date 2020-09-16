@@ -80,7 +80,7 @@ namespace Fungus
         protected virtual void OnEnable()
         {
             WriterSignals.OnWriterState += OnWriterState;
-            SaveManagerSignals.OnSavePointLoaded += OnSavePointLoaded;
+            SaveManagerSignals.OnSaveLoaded += OnSavePointLoaded;
             SaveManagerSignals.OnSaveReset += OnSaveReset;
             BlockSignals.OnBlockEnd += OnBlockEnd;
             NarrativeLog.OnNarrativeAdded += OnNarrativeAdded;
@@ -89,7 +89,7 @@ namespace Fungus
         protected virtual void OnDisable()
         {
             WriterSignals.OnWriterState -= OnWriterState;
-            SaveManagerSignals.OnSavePointLoaded -= OnSavePointLoaded;
+            SaveManagerSignals.OnSaveLoaded -= OnSavePointLoaded;
             SaveManagerSignals.OnSaveReset -= OnSaveReset;
             BlockSignals.OnBlockEnd -= OnBlockEnd;
             NarrativeLog.OnNarrativeAdded -= OnNarrativeAdded;

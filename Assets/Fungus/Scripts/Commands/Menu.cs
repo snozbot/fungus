@@ -54,16 +54,17 @@ namespace Fungus
             bool hideOption = (hideIfVisited && targetBlock != null && targetBlock.GetExecutionCount() > 0) || hideThisOption.Value;
 
             var menuDialog = MenuDialog.GetMenuDialog();
-                if (menuDialog != null)
-                {
-                    menuDialog.SetActive(true);
+            if (menuDialog != null)
+            {
+                menuDialog.SetActive(true);
 
-                    var flowchart = GetFlowchart();
-                    string displayText = flowchart.SubstituteVariables(text);
+                var flowchart = GetFlowchart();
+                string displayText = flowchart.SubstituteVariables(text);
+                menuDialog.Touch(this);
 
-                    menuDialog.AddOption(displayText, interactable, hideOption, targetBlock);
-                }
-            
+                menuDialog.AddOption(displayText, interactable, hideOption, targetBlock);
+            }
+
             Continue();
         }
 

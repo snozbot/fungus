@@ -12,7 +12,8 @@ namespace Fungus
     public abstract class Condition : Command
     {
         protected End endCommand;
-     
+        public virtual bool IsLooping { get { return false; } }
+
         public override void OnEnter()
         {
             if (ParentBlock == null)
@@ -56,7 +57,6 @@ namespace Fungus
             return new Color32(253, 253, 150, 255);
         }
         
-        public virtual bool IsLooping { get { return false; } }
 
 
         /// <summary>

@@ -23,6 +23,8 @@ namespace Fungus
         public object SyncRoot { get { return null; } }
         public string Name { get { return name; } }
 
+        public abstract bool IsSerializable { get; }
+
         public object this[int index] { get { return Get(index); } set { Set(index, value); } }
 
         public abstract int Add(object o);
@@ -96,5 +98,7 @@ namespace Fungus
         public abstract void Sort();
 
         public abstract void Unique();
+        public abstract string GetStringifiedValue();
+        public abstract void RestoreFromStringifiedValue(string stringifiedValue);
     }
 }

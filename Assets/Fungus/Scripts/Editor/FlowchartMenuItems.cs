@@ -67,8 +67,13 @@ namespace Fungus.EditorUtils
                 return null;
             }
 
+#if UNITY_2018_4_OR_NEWER
+            GameObject go = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+            PrefabUtility.UnpackPrefabInstance(go, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
+#else
             GameObject go = GameObject.Instantiate(prefab) as GameObject;
             go.name = prefab.name;
+#endif
 
             SceneView view = SceneView.lastActiveSceneView;
             if (view != null)
@@ -82,6 +87,8 @@ namespace Fungus.EditorUtils
             Selection.activeGameObject = go;
             
             Undo.RegisterCreatedObjectUndo(go, "Create Object");
+
+            EditorUtility.SetDirty(go);
 
             return go;
         }

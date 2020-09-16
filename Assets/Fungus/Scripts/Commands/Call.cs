@@ -70,15 +70,6 @@ namespace Fungus
                     return;
                 }
 
-                // Callback action for Wait Until Finished mode
-                Action onComplete = null;
-                if (callMode == CallMode.WaitUntilFinished)
-                {
-                    onComplete = delegate {
-                        Continue();
-                    };
-                }
-
                 // Find the command index to start execution at
                 int index = startIndex;
                 if (startLabel.Value != "")
@@ -90,20 +81,27 @@ namespace Fungus
                     }
                 }
 
-                if (targetFlowchart == null ||
-                    targetFlowchart.Equals(GetFlowchart()))
+                //this could become if target is null it becomes ours then run same logic instead of fork
+                if (targetFlowchart == null )
                 {
-                    if (callMode == CallMode.StopThenCall)
-                    {
-                        StopParentBlock();
-                    }
-                    StartCoroutine(targetBlock.Execute(index, onComplete));
+                    targetFlowchart = GetFlowchart();
+                }
+
+                if (callMode == CallMode.StopThenCall)
+                {
+                    StopParentBlock();
+                    //call without complete action as we just stopped ourselves so we do not want to continue
+                    targetFlowchart.ExecuteBlock(targetBlock, index);
                 }
                 else
                 {
-                    if (callMode == CallMode.StopThenCall)
+                    // Callback action for Wait Until Finished mode
+                    Action onComplete = null;
+                    if (callMode == CallMode.WaitUntilFinished)
                     {
-                        StopParentBlock();
+                        onComplete = delegate {
+                            Continue();
+                        };
                     }
                     // Execute block in another Flowchart
                     targetFlowchart.ExecuteBlock(targetBlock, index, onComplete);

@@ -548,5 +548,10 @@ namespace Fungus
         }
 
         #endregion
+
+        public virtual void OnValidate()
+        {
+            GameObjectUtils.UniqueGameObjectNamePerType(this);
+        }
     }
 }
