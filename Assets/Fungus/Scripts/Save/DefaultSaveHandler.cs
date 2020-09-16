@@ -18,7 +18,7 @@ namespace Fungus
         {
             saveDataItemSerializers = saveDataItemSerializers.OrderBy(x => x.Order).ToList();
 
-            return SaveHandlerUtils.CreateSaveData(this, saveName, saveDesc);
+            return SaveHandlerUtils.CreateSaveData(this, saveName, saveDesc, CurrentExpectedVersion);
         }
 
         public bool LoadSaveData(SaveData sd)
@@ -40,6 +40,7 @@ namespace Fungus
 
         public bool HandleVersionMismatch(SaveData sd)
         {
+            sd.version = CurrentExpectedVersion;
             return true;
         }
     }

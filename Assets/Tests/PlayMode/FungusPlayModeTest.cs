@@ -12,22 +12,22 @@ namespace Fungus.Tests
     [TestFixture]
     public class FungusPlayModeTest
     {
+        public readonly static string[] PrefabTestNames = new string[]
+        {
+            "FlowTest",
+            "VarSetTest",
+        };
+
         [UnityTest]
-        public IEnumerator Looping()
+        public IEnumerator NamedPlayModePrefabTest([ValueSource("PrefabTestNames")] string testName)
+        {
+            yield return EditorUtils.TestUtils.RunPrefabFlowchartTests(testName);
+        }
+
+        [UnityTest]
+        public IEnumerator LoopTest()
         {
             yield return EditorUtils.TestUtils.RunPrefabFlowchartTests("LoopTest", true, 200);
-        }
-
-        [UnityTest]
-        public IEnumerator ControlFlow()
-        {
-            yield return EditorUtils.TestUtils.RunPrefabFlowchartTests("FlowTest", true);
-        }
-
-        [UnityTest]
-        public IEnumerator VariableSets()
-        {
-            yield return EditorUtils.TestUtils.RunPrefabFlowchartTests("VarSetTest", true);
         }
 
         [UnityTest]

@@ -7,7 +7,8 @@ namespace Fungus
     {
         public static ISaveHandler CreateDefaultWithSerializers()
         {
-            return new DefaultUserProfileSaveHandler();
+            return new DefaultUserProfileSaveHandler(
+                new FungusPerProfileSaveDataItemSerializer());
         }
 
         public override int CurrentExpectedVersion => FungusConstants.CurrentProfileDataVersion;

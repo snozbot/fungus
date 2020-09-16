@@ -91,16 +91,27 @@ namespace Fungus.Tests
             upm.ChangeProfile("test1");
             Assert.AreEqual(upm.CurrentUserProfileName, "test1");
             upm.ChangeProfile("test2");
-            Assert.AreEqual(upm.CurrentProfileData.saveName, "test2");
-            upm.CurrentProfileData.stringPairs.AddUnique("key", "value");
+            Assert.AreEqual(upm.LastLoadedProfileData.saveName, "test2");
+
+            void PairAdder() { upm.LastLoadedProfileData.stringPairs.AddUnique("key", "value"); }
+
+            UserProfileManagerSignals.OnUserProfileChangedPreSave += PairAdder;
+
+            //todo add setlangauge test
 
             upm.SaveProfileData();
 
+            UserProfileManagerSignals.OnUserProfileChangedPreSave -= PairAdder;
+
             upm = new UserProfileManager();
-            Assert.AreEqual(upm.CurrentProfileData, null);
+            Assert.AreEqual(upm.LastLoadedProfileData, null);
             upm.Init();
-            Assert.AreEqual(upm.CurrentProfileData.saveName, "test2");
-            Assert.AreEqual(upm.CurrentProfileData.stringPairs.GetOrDefault("key"), "value");
+            Assert.AreEqual(upm.LastLoadedProfileData.saveName, "test2");
+            Assert.AreEqual(upm.LastLoadedProfileData.stringPairs.GetOrDefault("key"), "value");
+
+
+            upm.ResetProfile();
+            Assert.IsTrue(string.IsNullOrEmpty(upm.LastLoadedProfileData.stringPairs.GetOrDefault("key")));
         }
 
         [UnityTest]
@@ -145,6 +156,30 @@ namespace Fungus.Tests
             sm.CurrentSaveHandler.LoadSaveData(sd);
 
             Assert.AreEqual(intcol.Count, 2);
+        }
+
+        [Test]
+        public void UserLangPrefSaveLoad()
+        {
+            var upm = new UserProfileManager();
+            upm.Init();
+            upm.ChangeProfile("langtest");
+            upm.ResetProfile();
+            SetLanguage.SetActiveLanguage("");
+
+            Assert.AreEqual(SetLanguage.mostRecentLanguage, string.Empty);
+
+            SetLanguage.SetActiveLanguage("en");
+            //TODO add elements that are localised
+            Assert.AreEqual(SetLanguage.mostRecentLanguage, "en");
+
+            upm.SaveProfileData();
+
+
+            upm = new UserProfileManager();
+            Assert.AreEqual(upm.LastLoadedProfileData, null);
+            upm.Init();
+            Assert.AreEqual(SetLanguage.mostRecentLanguage, "en");
         }
     }
 }

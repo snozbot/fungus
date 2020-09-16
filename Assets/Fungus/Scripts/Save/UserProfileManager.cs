@@ -19,9 +19,14 @@ namespace Fungus
 
         public string CurrentUserProfileName { get; private set; }
 
-        public SaveData CurrentProfileData { get; protected set; }
+        public ISaveHandler CurrentUserProfileSaveHandler { get; set; } = DefaultUserProfileSaveHandler.CreateDefaultWithSerializers();
 
-        private string GetSaveManagerDataFile()
+        /// <summary>
+        /// Stores the user data profile after it is loaded and immediately before it is saved.
+        /// </summary>
+        public SaveData LastLoadedProfileData { get; protected set; }
+
+        private string GetLastUserFile()
         {
             return Path.GetFullPath(FungusConstants.StorageDirectory + LastUserDataFileName);
         }
@@ -44,7 +49,7 @@ namespace Fungus
 #if UNITY_WEBGL
                 Application.ExternalEval("_JS_FileSystem_Sync();");
 #endif
-                var fileName = GetSaveManagerDataFile();
+                var fileName = GetLastUserFile();
                 Directory.CreateDirectory(Path.GetDirectoryName(fileName));
                 var datString = File.ReadAllText(fileName);
                 var dat = JsonUtility.FromJson<LastUserProfileUsedData>(datString);
@@ -59,53 +64,64 @@ namespace Fungus
 
         public void ChangeProfile(string saveProfileKey)
         {
-            if (saveProfileKey != CurrentUserProfileName)
+            SaveProfileData();
+
+            CurrentUserProfileName = saveProfileKey;
+
+            var userFile = GetCurrentUserProfileFileName();
+            Directory.CreateDirectory(Path.GetDirectoryName(userFile));
+            if (File.Exists(userFile))
             {
-                SaveProfileData();
-
-                CurrentUserProfileName = saveProfileKey;
-                CurrentProfileData = null;
-
-                var userFile = GetCurrentUserProfileFileName();
-                Directory.CreateDirectory(Path.GetDirectoryName(userFile));
-                if (File.Exists(userFile))
+                try
                 {
-                    try
-                    {
-                        CurrentProfileData = JsonUtility.FromJson<SaveData>(File.ReadAllText(userFile));
-                    }
-                    catch (System.Exception)
-                    {
-                    }
-                }
+                    var sdJSON = File.ReadAllText(userFile);
+                    var saveData = CurrentUserProfileSaveHandler.DecodeFromJSON(sdJSON);
+                    CurrentUserProfileSaveHandler.LoadSaveData(saveData);
 
-                if (CurrentProfileData == null)
-                {
-                    CurrentProfileData = new SaveData(CurrentUserProfileName) { version = FungusConstants.CurrentProfileDataVersion };
+                    LastLoadedProfileData = saveData;
                 }
+                catch (System.Exception)
+                {
+                }
+            }
+
+            if (LastLoadedProfileData == null)
+            {
+                LastLoadedProfileData = CurrentUserProfileSaveHandler.CreateSaveData(CurrentUserProfileName, string.Empty);
+            }
 
 #if UNITY_WEBGL
                 Application.ExternalEval("_JS_FileSystem_Sync();");
 #endif
-                UserProfileManagerSignals.DoUserProfileChanged();
-            }
+            UserProfileManagerSignals.DoUserProfileChanged();
+        }
+
+        public void ResetProfile()
+        {
+            LastLoadedProfileData = CurrentUserProfileSaveHandler.CreateSaveData(CurrentUserProfileName, string.Empty);
+            ChangeProfile(CurrentUserProfileName);
         }
 
         public void SaveProfileData()
         {
-            if (CurrentProfileData == null || string.IsNullOrEmpty(CurrentUserProfileName))
+            if (string.IsNullOrEmpty(CurrentUserProfileName))
                 return;
 
+            var userProfileSave = CurrentUserProfileSaveHandler.CreateSaveData(CurrentUserProfileName, string.Empty);
+
+            LastLoadedProfileData = userProfileSave;
 
             UserProfileManagerSignals.DoUserProfileChangedPreSave();
 
-            var fileName = GetSaveManagerDataFile();
+            var fileName = GetLastUserFile();
             Directory.CreateDirectory(Path.GetDirectoryName(fileName));
             var last = new LastUserProfileUsedData() { lastUserProfileName = CurrentUserProfileName };
             File.WriteAllText(fileName, JsonUtility.ToJson(last));
 
+            var sdJSON = CurrentUserProfileSaveHandler.EncodeToJSON(userProfileSave);
 
-            File.WriteAllText(GetCurrentUserProfileFileName(), JsonUtility.ToJson(CurrentProfileData));
+
+            File.WriteAllText(GetCurrentUserProfileFileName(), sdJSON);
 
 #if UNITY_WEBGL
                 Application.ExternalEval("_JS_FileSystem_Sync();");

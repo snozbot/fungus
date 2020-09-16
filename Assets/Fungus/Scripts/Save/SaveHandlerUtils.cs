@@ -9,10 +9,13 @@ namespace Fungus
     //Our current version of c# in unity doesn't yet support default methods in interfaces so we use helpers
     public static class SaveHandlerUtils
     {
-        public static SaveData CreateSaveData(ISaveHandler saveHandler,string saveName, string saveDesc)
+        public static SaveData CreateSaveData(ISaveHandler saveHandler,string saveName, string saveDesc, int version)
         {
             var sd = new SaveData(saveName,
-                new StringPair() { key = FungusConstants.SaveDescKey, val = saveDesc });
+                new StringPair() { key = FungusConstants.SaveDescKey, val = saveDesc })
+            { 
+                version = version
+            };
 
             var serializers = saveHandler.SaveDataItemSerializers;
 
@@ -55,13 +58,13 @@ namespace Fungus
         {
             var sd = JsonUtility.FromJson<SaveData>(jsonSave);
 
-            if (sd == null || sd.saveDataItems.Count == 0)
+            if (sd == null)
             {
                 Debug.LogError("Failed to decode save from json.");
                 return null;
             }
 
-            if (sd != null && sd.version != saveHandler.CurrentExpectedVersion)
+            if (sd.version != saveHandler.CurrentExpectedVersion)
             {
                 var success = saveHandler.HandleVersionMismatch(sd);
 
