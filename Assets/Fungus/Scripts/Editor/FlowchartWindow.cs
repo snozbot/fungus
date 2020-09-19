@@ -1419,6 +1419,8 @@ namespace Fungus.EditorUtils
 
             EditorZoomArea.Begin(flowchart.Zoom, scriptViewRect);
 
+            var prevCol = GUI.color;
+
             if (e.type == EventType.Repaint)
             {
                 DrawGrid();
@@ -1464,9 +1466,9 @@ namespace Fungus.EditorUtils
                         (b.ExecutingIconTimer - curRealTime) / FungusConstants.ExecutingIconFadeTime,
                         emptyStyle);
                 }
-                GUI.color = Color.white;
             }
 
+            GUI.color = prevCol;
             EditorZoomArea.End();
         }
 
@@ -2085,7 +2087,7 @@ namespace Fungus.EditorUtils
                 }
             }
 
-            graphics.tint = block.UseCustomTint ? block.Tint : defaultTint;
+            graphics.tint = (block.UseCustomTint ? block.Tint : defaultTint) * FungusEditorPreferences.flowchatBlockTint;
 
             return graphics;
         }

@@ -162,6 +162,8 @@ namespace Fungus.EditorUtils
                     break;
                 }
             }
+            var prevCol = GUI.color;
+            GUI.color = FungusEditorPreferences.commandListTint;
 
             string commandName = commandInfoAttr.CommandName;
             
@@ -382,6 +384,7 @@ namespace Fungus.EditorUtils
             GUI.Label(summaryRect, summary, summaryStyle);
             
             GUI.backgroundColor = Color.white;
+            GUI.color = prevCol;
         }
     }
 }
