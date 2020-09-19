@@ -390,7 +390,7 @@ namespace Fungus
         /// </summary>
         public virtual void MoveToFront(PortraitOptions options)
         {
-            options.character.State.portraitImage.transform.parent.SetSiblingIndex(options.character.State.portraitImage.transform.parent.parent.childCount);
+            options.character.State.holder.SetSiblingIndex(options.character.State.holder.parent.childCount);
             options.character.State.display = DisplayType.MoveToFront;
             FinishCommand(options);
         }

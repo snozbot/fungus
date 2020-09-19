@@ -4,6 +4,10 @@ Changelog {#changelog}
 Unreleased
 ======
 
+## Fixed
+
+ - LoadVariable leaves variable unchanged if key not found, previously was setting to default. Thanks to CG-Tespy.
+ - Portrait MoveToFront now correctly moves holder rather than underlying image itself. Thanks to iwanPlays.
 
 v3.13.5
 ======
