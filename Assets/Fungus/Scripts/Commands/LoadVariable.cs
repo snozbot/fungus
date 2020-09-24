@@ -28,18 +28,17 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            var flowchart = GetFlowchart();
-
-            // Prepend the current save profile (if any) and make sure all inputs are valid
-            string prefsKey = SetSaveProfile.SaveProfile + "_" + flowchart.SubstituteVariables(key);
-            bool validKey = key != "" && PlayerPrefs.HasKey(prefsKey);
-            bool validVariable = variable != null;
-
-            if (!validKey || !validVariable)
+            if (key == "" ||
+                variable == null)
             {
                 Continue();
                 return;
             }
+
+            var flowchart = GetFlowchart();
+
+            // Prepend the current save profile (if any)
+            string prefsKey = SetSaveProfile.SaveProfile + "_" + flowchart.SubstituteVariables(key);
 
             System.Type variableType = variable.GetType();
 
