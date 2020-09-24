@@ -315,14 +315,16 @@ namespace Fungus.EditorUtils
 
 
             // Previous Command
-            if ((Event.current.type == EventType.KeyDown) && (Event.current.keyCode == KeyCode.PageUp))
+            if ((Event.current.type == EventType.KeyDown) && (Event.current.keyCode == KeyCode.PageUp) ||
+                (Event.current.type == EventType.KeyDown) && (Event.current.keyCode == KeyCode.UpArrow))
             {
                 SelectPrevious();
                 GUI.FocusControl("dummycontrol");
                 Event.current.Use();
             }
             // Next Command
-            if ((Event.current.type == EventType.KeyDown) && (Event.current.keyCode == KeyCode.PageDown))
+            if ((Event.current.type == EventType.KeyDown) && (Event.current.keyCode == KeyCode.PageDown) || 
+                (Event.current.type == EventType.KeyDown) && (Event.current.keyCode == KeyCode.DownArrow))
             {
                 SelectNext();
                 GUI.FocusControl("dummycontrol");
