@@ -323,7 +323,7 @@ namespace Fungus.EditorUtils
                 Event.current.Use();
             }
             // Next Command
-            if ((Event.current.type == EventType.KeyDown) && (Event.current.keyCode == KeyCode.PageDown) ||
+            if ((Event.current.type == EventType.KeyDown) && (Event.current.keyCode == KeyCode.PageDown) || 
                 (Event.current.type == EventType.KeyDown) && (Event.current.keyCode == KeyCode.DownArrow))
             {
                 SelectNext();
