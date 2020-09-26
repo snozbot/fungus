@@ -9,9 +9,9 @@ namespace Fungus
 
     public enum CharStageDisplayType
     {
-        /// <summary> No operation </summary>
+        /// <summary> Disables tween </summary>
         None,
-        /// <summary> Dim all non-speaking portraits on the stage. </summary>
+        /// <summary> Applies Punch like animation to character. </summary>
         Wobble,
 
         /// <summary> Applies Happy animation to character. </summary>
@@ -27,7 +27,7 @@ namespace Fungus
     }
 
     /// <summary>
-    /// Controls the stage on which character portraits are displayed.
+    /// Controls speaking/non-speaking characters with predefined tween animations.
     /// </summary>
     [CommandInfo("Animation", 
                  "Character Expression",
