@@ -274,7 +274,6 @@ namespace Fungus
                         if (LeanTween.isTweening(c.State.portraitImage.gameObject))
                         {
                             LeanTween.cancel(c.State.portraitImage.gameObject, true);
-                            Continue();
                         }
                     }
                 }
@@ -293,7 +292,6 @@ namespace Fungus
                         {
                             LeanTween.cancel(c.State.portraitImage.gameObject, true);
                             PortraitController.SetRectTransform(c.State.portraitImage.rectTransform, c.State.position);                            
-                            Continue();
                         }
                     }
                 }
