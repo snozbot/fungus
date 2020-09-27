@@ -2,19 +2,24 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using UnityEngine.UI;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 
 namespace Fungus
 {
 
+
     public enum CharStageDisplayType
     {
-        /// <summary> Disables tween </summary>
+        /// <summary> No operation </summary>
         None,
-        /// <summary> Applies Punch like animation to character. </summary>
+        /// <summary> Applies Wobble animation to character. </summary>
         Wobble,
 
-        /// <summary> Applies Happy animation to character. </summary>
+        /// <summary> Applies Shock animation to character. </summary>
         Shock,
 
         /// <summary> Applies Happy animation to character. </summary>
@@ -22,12 +27,18 @@ namespace Fungus
 
         /// <summary> Applies Panic animation expression to character. </summary>
         Panic,
-        /// <summary> Applies Panic animation expression to character. </summary>
-        Mad        
+
+        /// <summary> Applies Mad animation expression to character. </summary>
+        Mad,
+   
+        /// <summary> Applies Mad animation expression to character. </summary>
+        ZoomIn
+        
+        
     }
 
     /// <summary>
-    /// Controls speaking/non-speaking characters with predefined tween animations.
+    /// Controls the stage on which character portraits are displayed.
     /// </summary>
     [CommandInfo("Animation", 
                  "Character Expression",
@@ -39,214 +50,237 @@ namespace Fungus
         [SerializeField] protected Character character;
         [SerializeField] protected bool AllChar = false;
         [HideInInspector] protected Stage stage;
+        [HideInInspector] public Image characterImage;
         [HideInInspector] protected bool waitUntilFinished = false;
-        [SerializeField] protected bool overideStagePro = true;
+        [SerializeField] protected bool IgnoreStageProperty = true;
+
         protected static Character speakingCharacter;
-        protected virtual void MadSpeakingPortraits(Stage stage) 
-            {
+
+
+
+        protected virtual void MadSpeakingPortraits(Character character)
+        {
                 var prevSpeakingCharacter = speakingCharacter;
                 speakingCharacter = character;
                 
-                var charactersOnStage = stage.CharactersOnStage;
-                for (int j = 0; j < charactersOnStage.Count; j++)               
-                   { 
-                        var c = charactersOnStage[j];
-                        if (c != null && c.Equals(speakingCharacter))
-                            {   
-                                LeanTween.alpha(c.State.portraitImage.rectTransform, 0f, 0.1f).setDelay(0.1f);
-                                LeanTween.scale(c.State.portraitImage.rectTransform, Vector3.zero, 0.2f).setEase(LeanTweenType.punch).setLoopPingPong(-1);                                    
-                            }
-
-                        if(AllChar)                                    
-                            {
-
-                                if (c != null && !c.Equals(speakingCharacter))
-                                {                        
-                            
-                                    for (int i = 0; i < charactersOnStage.Count; i++)
-                                    {
-                                        LeanTween.alpha(c.State.portraitImage.rectTransform, 0f, 0.1f).setDelay(0.1f);
-                                        LeanTween.scale(c.State.portraitImage.rectTransform, Vector3.zero, 0.2f).setEase(LeanTweenType.punch).setLoopPingPong(-1);      
-
-                                    }
-                                }
-                                    
-                            }                                       
-                        if (!waitUntilFinished)
-                            {
-                                Continue();                                
-                            }
-                        if (overideStagePro)
-                            {
-                                stage.SetDimmed(c, false);
-                            }                                     
-                    }                
-                    
-            }
-        protected virtual void WobbleSpeakingPortraits(Stage stage) 
-            {
-                var prevSpeakingCharacter = speakingCharacter;
-                speakingCharacter = character;
-                
-                var charactersOnStage = stage.CharactersOnStage;
-                for (int j = 0; j < charactersOnStage.Count; j++)               
-                { 
-                    var c = charactersOnStage[j];
-                    if (c != null && c.Equals(speakingCharacter))
-                        {   
-
-                            LeanTween.scale(c.State.portraitImage.rectTransform, Vector3.zero, 1f).setEase(LeanTweenType.punch).setLoopPingPong(-1);
-                                          
-                        }
-                    if(AllChar)                                    
+                var activeStages = Stage.ActiveStages;
+                for (int i = 0; i < activeStages.Count; i++)
+                {       
+                    var stage = activeStages[i];
+                    if (character != null)
+                    {
+                        var charactersOnStage = stage.CharactersOnStage;
+                        for (int j = 0; j < charactersOnStage.Count; j++)
                         {
+                            var c = charactersOnStage[j];
+                            if (prevSpeakingCharacter != speakingCharacter)
+                            {
+                                if (c != null && c.Equals(speakingCharacter))
+                                {
+                                    LeanTween.alpha(c.State.portraitImage.rectTransform, 0f, 0.1f).setDelay(0.3f);
+                                    LeanTween.scale(c.State.portraitImage.rectTransform, Vector3.zero, 0.2f).setEase(LeanTweenType.punch).setLoopPingPong(-1); 
+                                } 
+                            }
+                        }
+                    }                
+                }
+            
+            if(AllChar)                                    
+                { 
+                    var charactersOnStage = stage.CharactersOnStage;
+                    for (int i = 0; i < charactersOnStage.Count; i++)
+                        {
+                            var c = charactersOnStage[i];
+                            LeanTween.alpha(c.State.portraitImage.rectTransform, 0f, 0.1f).setDelay(0.3f);
+                            LeanTween.scale(c.State.portraitImage.rectTransform, Vector3.zero, 0.2f).setEase(LeanTweenType.punch).setLoopPingPong(-1);                  
+                        }                            
+                }
 
-                            if (c != null && !c.Equals(speakingCharacter))
-                            {                        
-                           
-                                for (int i = 0; i < charactersOnStage.Count; i++)
+            if (IgnoreStageProperty)
+                {
+                    stage.SetDimmed(character, false);
+                }
+        }
+        protected virtual void WobbleSpeakingPortraits(Character character)
+        {
+                var prevSpeakingCharacter = speakingCharacter;
+                speakingCharacter = character;
+                
+                var activeStages = Stage.ActiveStages;
+                for (int i = 0; i < activeStages.Count; i++)
+                {       
+                    var stage = activeStages[i];
+                    if (character != null)
+                    {
+                        var charactersOnStage = stage.CharactersOnStage;
+                        for (int j = 0; j < charactersOnStage.Count; j++)
+                        {
+                            var c = charactersOnStage[j];
+                            if (prevSpeakingCharacter != speakingCharacter)
+                            {
+                                if (c != null && c.Equals(speakingCharacter))
                                 {
                                     LeanTween.scale(c.State.portraitImage.rectTransform, Vector3.zero, 1f).setEase(LeanTweenType.punch).setLoopPingPong(-1);
-
-                                }
+                                } 
                             }
-                                
-                        }                                    
-                    if (!waitUntilFinished)
-                        {
-                            Continue();                                
                         }
-                    if (overideStagePro)
-                        {
-                            stage.SetDimmed(c, false);
-                        }                                           
+                    }                
                 }
-            }
+            
+            if(AllChar)                                    
+                { 
+                    var charactersOnStage = stage.CharactersOnStage;
+                    for (int i = 0; i < charactersOnStage.Count; i++)
+                        {
+                            var c = charactersOnStage[i];
+                            LeanTween.scale(c.State.portraitImage.rectTransform, Vector3.zero, 1f).setEase(LeanTweenType.punch).setLoopPingPong(-1);
+                        }                            
+                }
+
+            if (IgnoreStageProperty)
+                {
+                    stage.SetDimmed(character, false);
+                }                                         
+                     
+                
+        }
 
         // Happy expression
-        protected virtual void HappySpeakingPortraits(Stage stage) 
+        protected virtual void HappySpeakingPortraits(Character character) 
         {
                 var prevSpeakingCharacter = speakingCharacter;
                 speakingCharacter = character;
                 
-                var charactersOnStage = stage.CharactersOnStage;
-                for (int j = 0; j < charactersOnStage.Count; j++)               
-                   { 
-                        var c = charactersOnStage[j];
-                        if (c != null && c.Equals(speakingCharacter))
-                            {   
-                                LeanTween.moveY(c.State.portraitImage.rectTransform, 100f, 0.2f).setEase(LeanTweenType.easeInQuad).setDelay(0.1f);
-                                LeanTween.moveY(c.State.portraitImage.rectTransform, -100f, 0.2f).setEase(LeanTweenType.easeInQuad).setLoopPingPong(-1);                             
-                            }
-
-                        if(AllChar)                                    
-                            {
-
-                                if (c != null && !c.Equals(speakingCharacter))
-                                {                        
-                            
-                                    for (int i = 0; i < charactersOnStage.Count; i++)
-                                    {
-                                        LeanTween.moveY(c.State.portraitImage.rectTransform, 100f, 0.2f).setEase(LeanTweenType.easeInQuad).setDelay(0.1f);
-                                        LeanTween.moveY(c.State.portraitImage.rectTransform, -100f, 0.2f).setEase(LeanTweenType.easeInQuad).setLoopPingPong(-1); 
-                                    
-                                    }
-                                }
-                                    
-                            }                                        
-                        if (!waitUntilFinished)
-                            {
-                                Continue();                                
-                            }
-                        if (overideStagePro)
-                            {
-                                stage.SetDimmed(c, false);
-                            }                                         
-                    }        
-        }
-
-        protected virtual void ShockSpeakingPortraits(Stage stage) 
-        {
-                var prevSpeakingCharacter = speakingCharacter;
-                speakingCharacter = character;
-                
-                var charactersOnStage = stage.CharactersOnStage;
-                for (int j = 0; j < charactersOnStage.Count; j++)               
-                   { 
-                        var c = charactersOnStage[j];
-                        if (c != null && c.Equals(speakingCharacter))
-                            {   
-                                LeanTween.rotateAround(c.State.portraitImage.rectTransform, Vector3.forward, -12f, 0.2f);
-                                LeanTween.rotateAround(c.State.portraitImage.rectTransform, Vector3.forward, 0f, 0.2f);
-                                LeanTween.rotateAround(c.State.portraitImage.rectTransform, Vector3.forward, 12f, 0.2f).setLoopPingPong(-1);                      
-                            }
-
-                        if(AllChar)                                    
-                            {
-
-                                if (c != null && !c.Equals(speakingCharacter))
-                                {                        
-                            
-                                    for (int i = 0; i < charactersOnStage.Count; i++)
-                                    {
-                                        LeanTween.rotateAround(c.State.portraitImage.rectTransform, Vector3.forward, -12f, 0.2f);
-                                        LeanTween.rotateAround(c.State.portraitImage.rectTransform, Vector3.forward, 0f, 0.2f);
-                                        LeanTween.rotateAround(c.State.portraitImage.rectTransform, Vector3.forward, 12f, 0.2f).setLoopPingPong(-1); 
-
-                                    }
-                                }
-                                    
-                            }                                    
-                        if (!waitUntilFinished)
-                            {
-                                Continue();                                
-                            }
-                        if (overideStagePro)
-                            {
-                                stage.SetDimmed(c, false);
-                            }           
-                    }    
-        }
-
-        protected virtual void PanicSpeakingPortraits(Stage stage) 
-        {
-                var prevSpeakingCharacter = speakingCharacter;
-                speakingCharacter = character;
-                
-                var charactersOnStage = stage.CharactersOnStage;
-                for (int j = 0; j < charactersOnStage.Count; j++)               
-                   { 
-                    var c = charactersOnStage[j];
-                    if (c != null && c.Equals(speakingCharacter))
-                        {   
-                            LeanTween.moveX(c.State.portraitImage.rectTransform, 100f, 0.2f).setEase(LeanTweenType.easeInQuad).setDelay(0.1f);
-                            LeanTween.moveX(c.State.portraitImage.rectTransform, -100f, 0.2f).setEase(LeanTweenType.easeInQuad).setLoopPingPong(-1);                             
-                        }
-
-                    if(AllChar)                                    
+                var activeStages = Stage.ActiveStages;
+                for (int i = 0; i < activeStages.Count; i++)
+                {       
+                    var stage = activeStages[i];
+                    if (character != null)
+                    {
+                        var charactersOnStage = stage.CharactersOnStage;
+                        for (int j = 0; j < charactersOnStage.Count; j++)
                         {
+                            var c = charactersOnStage[j];
+                            if (prevSpeakingCharacter != speakingCharacter)
+                            {
+                                if (c != null && c.Equals(speakingCharacter))
+                                {
+                                    LeanTween.moveY(c.State.portraitImage.rectTransform, 100f, 0.2f).setEase(LeanTweenType.easeInQuad).setDelay(0.2f);
+                                    LeanTween.moveY(c.State.portraitImage.rectTransform, -100f, 0.2f).setEase(LeanTweenType.easeInQuad).setLoopPingPong(-1); 
+                                } 
+                            }
+                        }
+                    }                
+                }
+            
+            if(AllChar)                                    
+                { 
+                    var charactersOnStage = stage.CharactersOnStage;
+                    for (int i = 0; i < charactersOnStage.Count; i++)
+                        {
+                            var c = charactersOnStage[i];
+                            LeanTween.moveY(c.State.portraitImage.rectTransform, 100f, 0.2f).setEase(LeanTweenType.easeInQuad).setDelay(0.2f);
+                            LeanTween.moveY(c.State.portraitImage.rectTransform, -100f, 0.2f).setEase(LeanTweenType.easeInQuad).setLoopPingPong(-1);                    
+                        }                            
+                }
 
-                            if (c != null && !c.Equals(speakingCharacter))
-                            {                        
-                           
-                                for (int i = 0; i < charactersOnStage.Count; i++)
+            if (IgnoreStageProperty)
+                {
+                    stage.SetDimmed(character, false);
+                }                
+        }
+        protected virtual void ShockSpeakingPortraits(Character character)
+        {
+                var prevSpeakingCharacter = speakingCharacter;
+                speakingCharacter = character;
+                
+                var activeStages = Stage.ActiveStages;
+                for (int i = 0; i < activeStages.Count; i++)
+                {       
+                    var stage = activeStages[i];
+                    if (character != null)
+                    {
+                        var charactersOnStage = stage.CharactersOnStage;
+                        for (int j = 0; j < charactersOnStage.Count; j++)
+                        {
+                            var c = charactersOnStage[j];
+                            if (prevSpeakingCharacter != speakingCharacter)
+                            {
+                                if (c != null && c.Equals(speakingCharacter))
+                                {
+                                    LeanTween.rotateAround(c.State.portraitImage.rectTransform, Vector3.forward, -12f, 0.2f);
+                                    LeanTween.rotateAround(c.State.portraitImage.rectTransform, Vector3.forward, 0f, 0.2f);
+                                    LeanTween.rotateAround(c.State.portraitImage.rectTransform, Vector3.forward, 12f, 0.2f).setLoopPingPong(-1); 
+                                } 
+                            }
+                        }
+                    }                
+                }
+            
+            if(AllChar)                                    
+                { 
+                    var charactersOnStage = stage.CharactersOnStage;
+                    for (int i = 0; i < charactersOnStage.Count; i++)
+                        {
+                            var c = charactersOnStage[i];
+                            LeanTween.rotateAround(c.State.portraitImage.rectTransform, Vector3.forward, -12f, 0.2f);
+                            LeanTween.rotateAround(c.State.portraitImage.rectTransform, Vector3.forward, 0f, 0.2f);
+                            LeanTween.rotateAround(c.State.portraitImage.rectTransform, Vector3.forward, 12f, 0.2f).setLoopPingPong(-1);                    
+                        }                            
+                }
+
+            if (IgnoreStageProperty)
+                {
+                    stage.SetDimmed(character, false);
+                }   
+        }
+
+        protected virtual void PanicSpeakingPortraits(Character character) 
+        {
+                var prevSpeakingCharacter = speakingCharacter;
+                speakingCharacter = character;
+                
+                var activeStages = Stage.ActiveStages;
+                for (int i = 0; i < activeStages.Count; i++)
+                {       
+                    var stage = activeStages[i];
+                    if (character != null)
+                    {
+                        var charactersOnStage = stage.CharactersOnStage;
+                        for (int j = 0; j < charactersOnStage.Count; j++)
+                        {
+                            var c = charactersOnStage[j];
+                            if (prevSpeakingCharacter != speakingCharacter)
+                            {
+                                if (c != null && c.Equals(speakingCharacter))
                                 {
                                     LeanTween.moveX(c.State.portraitImage.rectTransform, 100f, 0.2f).setEase(LeanTweenType.easeInQuad).setDelay(0.1f);
-                                    LeanTween.moveX(c.State.portraitImage.rectTransform, -100f, 0.2f).setEase(LeanTweenType.easeInQuad).setLoopPingPong(-1);  
-
+                                    LeanTween.moveX(c.State.portraitImage.rectTransform, -100f, 0.2f).setEase(LeanTweenType.easeInQuad).setLoopPingPong(-1); 
                                 }
+
+ 
                             }
-                                
-                        }                                     
-                    if (!waitUntilFinished)
-                        {
-                            Continue();                                
                         }
-                    if (overideStagePro)
+                    }                
+                }
+            
+            if(AllChar)                                    
+                { 
+                    var charactersOnStage = stage.CharactersOnStage;
+                    for (int i = 0; i < charactersOnStage.Count; i++)
                         {
-                            stage.SetDimmed(c, false);
-                        }         
-                    }    
+                            var c = charactersOnStage[i];
+                            LeanTween.moveX(c.State.portraitImage.rectTransform, 100f, 0.2f).setEase(LeanTweenType.easeInQuad).setDelay(0.1f);
+                            LeanTween.moveX(c.State.portraitImage.rectTransform, -100f, 0.2f).setEase(LeanTweenType.easeInQuad).setLoopPingPong(-1);                  
+                        }                            
+                }
+
+            if (IgnoreStageProperty)
+                {
+                    stage.SetDimmed(character, false);
+                }                                         
+                     
+                
         }
         protected virtual void OnComplete() 
         {
@@ -262,7 +296,6 @@ namespace Fungus
         #region Public members        
         public override void OnEnter()
         {
-
             if(AllChar)
             {
                 var activeCharacters = Character.ActiveCharacters;
@@ -278,7 +311,6 @@ namespace Fungus
                     }
                 }
             }
-
             // If NONE selected, means stop all tweens
             if (IsDisplayNone(display))
             {
@@ -314,19 +346,19 @@ namespace Fungus
             switch(display)
             {            
             case (CharStageDisplayType.Wobble):
-                WobbleSpeakingPortraits(stage);
+                WobbleSpeakingPortraits(character);
                 break;
             case (CharStageDisplayType.Shock):
-                ShockSpeakingPortraits(stage);
+                ShockSpeakingPortraits(character);
                 break;
             case (CharStageDisplayType.Happy):
-                HappySpeakingPortraits(stage);
+                HappySpeakingPortraits(character);
                 break;
             case (CharStageDisplayType.Panic):
-                PanicSpeakingPortraits(stage);
+                PanicSpeakingPortraits(character);
                 break;
             case (CharStageDisplayType.Mad):
-                MadSpeakingPortraits(stage);
+                MadSpeakingPortraits(character);
                 break;
             }
 
