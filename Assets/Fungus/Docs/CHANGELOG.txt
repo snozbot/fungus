@@ -4,6 +4,9 @@ Changelog {#changelog}
 Unreleased
 ======
 
+v3.13.6
+======
+
 ## Fixed
 
  - LoadVariable leaves variable unchanged if key not found, previously was setting to default. Thanks to CG-Tespy.
