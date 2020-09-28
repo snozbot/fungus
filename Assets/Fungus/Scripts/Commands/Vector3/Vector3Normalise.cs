@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    // <summary>
+    /// <summary>
     /// Normalise a vector3, output can be the same as the input
     /// </summary>
     [CommandInfo("Vector3",
