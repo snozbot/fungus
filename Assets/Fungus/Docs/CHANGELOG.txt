@@ -7,12 +7,20 @@ Unreleased
 ## Added
  - Fungus.EventHandler to respond to UI.Slider value change.
  - Colour Tints for FlowchartWindow Block icons and the BlockInspector CommandList. Found in FungusEditorPreferences.
+ - Commands and Variables for Character, AudioSource, AudioClip, AudioMixer, MixerGroups, and Snapshots.
+ - Fungus now has a MainAudioMixer that is used by all audio requiring systems, will allow for audio options menu and mixer effects on all sounds.
+ - Characters can now specify an AudioSource to use to voice their AudioClips
+ - WriterAudio now seeks out the most specific AudioSource relevant to context of the speaking character, rather than always using the one on the SayDialog it is usually attached to. Allowing each character to specify it's own AudioSource and it being used by the WriterAudio regardless of which SayDialog is active.
 
 ## Fixed
+ - Many Summaries that had \\ instead of \\\
 
  
 ## Changed
  - SetSliderValue command can now also get the current value of the target slider.
+ - MusicManager uses new Mixer Groups.
+ - WriterAudio userLegacyAudioLogic toggles it to behave as it did prior to 3.14.
+ - Generate Variable now relies on list of types not names.
 
 v3.13.6
 ======
