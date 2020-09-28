@@ -4,6 +4,16 @@ Changelog {#changelog}
 Unreleased
 ======
 
+## Added
+ - Fungus.EventHandler to respond to UI.Slider value change.
+ - Colour Tints for FlowchartWindow Block icons and the BlockInspector CommandList. Found in FungusEditorPreferences.
+
+## Fixed
+
+ 
+## Changed
+ - SetSliderValue command can now also get the current value of the target slider.
+
 v3.13.6
 ======
 
