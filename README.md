@@ -14,8 +14,10 @@ Installation
 
 Download & installation instructions and tutorial videos are available in [the wiki](https://github.com/snozbot/fungus/wiki/installation) and the official [Fungus website](https://fungusgames.com).
 
-Support
+Support & Documentation
 =======
+
+The Fungus documentation is available on [our wiki](https://github.com/snozbot/fungus/wiki). Contributions to the wiki are very  welcome.
 
 If you have questions about Fungus, please search our forum first as someone may have had the same issue already. If you can't find an answer please start a new discussion and we'll answer you as soon as we can. Fungus is designed for beginners and we love to hear from users so please don't be shy about posting on [the forum](https://fungusgames.com/forum)!
 
@@ -23,6 +25,14 @@ There is also a community run [Discord server](https://discord.gg/99RqraQ).
 
 You can also join into our chat room.
 [![Join the chat at https://gitter.im/snozbot/fungus](https://badges.gitter.im/snozbot/fungus.svg)](https://gitter.im/snozbot/fungus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+
+Status & Branches
+=================
+
+Fungus uses a [gitflow](https://nvie.com/posts/a-successful-git-branching-model/) style setup. The default branch holds the most recent stable release. Develop is the staging ground for ongoing work and the default target of most PRs. 
+
+Develop is currently the staging ground for the next Fungus [feature release 3.14](https://github.com/snozbot/fungus/milestone/1)
 
 Contributing
 ============
@@ -32,11 +42,6 @@ Many thanks to everyone who has [contributed](https://github.com/snozbot/fungus/
 To contribute code or documentation to Fungus, please see [CONTRIBUTING](https://github.com/snozbot/fungus/blob/master/CONTRIBUTING.md).
 
 You can view the upcoming roadmap via the [Milestones](https://github.com/snozbot/fungus/milestones).
-
-Documentation
-==========================
-
-The Fungus documentation is available on [our wiki](https://github.com/snozbot/fungus/wiki). Contributions to the wiki are very  welcome.
 
 Running the automated tests
 ===========================
