@@ -14,6 +14,7 @@ namespace Fungus
                  "Scale Add", 
                  "Changes a game object's scale by a specified offset over time.")]
     [AddComponentMenu("")]
+    [System.Obsolete("Deprecated, consider using the LeanTween based Tween command instead.")]
     [ExecuteInEditMode]
     public class ScaleAdd : iTweenCommand
     {
