@@ -372,7 +372,7 @@ namespace Fungus
                 for (int i = 0; i < activeStages.Count; i++)
                 {
                     var stage = activeStages[i];
-                    if (stage.FlashPortraits)
+                    if (stage.PunchPortraits)
                     {
                         var charactersOnStage = stage.CharactersOnStage;
                         for (int j = 0; j < charactersOnStage.Count; j++)

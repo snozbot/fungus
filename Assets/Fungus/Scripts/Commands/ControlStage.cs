@@ -24,10 +24,10 @@ namespace Fungus
         UndimAllPortraits,
         /// <summary> Dim all non-speaking portraits on the stage. </summary>
         DimNonSpeakingPortraits,
-        /// <summary> Dim all non-speaking portraits on the stage. </summary>
-        FlashSpeakingPortraits,
-        /// <summary> Unflash all portraits on the stage. </summary>
-        UnflashAllPortraits
+        /// <summary> Punch speaking portraits on the stage. </summary>
+        PunchSpeakingPortraits,
+        /// <summary> Un-punch all portraits on the stage. </summary>
+        UnpunchSpeakingPortraits
     }
 
     /// <summary>
@@ -107,9 +107,9 @@ namespace Fungus
             stage.DimPortraits = true;
         }
 
-        protected virtual void UnflashAllPortraits(Stage stage) 
+        protected virtual void UnpunchSpeakingPortraits(Stage stage) 
         {
-            stage.FlashPortraits = false;
+            stage.PunchPortraits = false;
             var charactersOnStage = stage.CharactersOnStage;
             for (int i = 0; i > charactersOnStage.Count; i++)
             {
@@ -118,9 +118,9 @@ namespace Fungus
             }
         }
 
-        protected virtual void FlashSpeakingPortraits(Stage stage) 
+        protected virtual void PunchSpeakingPortraits(Stage stage) 
         {
-            stage.FlashPortraits = true;
+            stage.PunchPortraits = true;
         }
 
         protected virtual void OnComplete() 
@@ -193,14 +193,14 @@ namespace Fungus
             case (StageDisplayType.UndimAllPortraits):
                 UndimAllPortraits(stage);
                 break;
-            case (StageDisplayType.UnflashAllPortraits):
-                UnflashAllPortraits(stage);
+            case (StageDisplayType.UnpunchSpeakingPortraits):
+                UnpunchSpeakingPortraits(stage);
                 break;
             case (StageDisplayType.DimNonSpeakingPortraits):
                 DimNonSpeakingPortraits(stage);
                 break;
-            case (StageDisplayType.FlashSpeakingPortraits):
-                FlashSpeakingPortraits(stage);
+            case (StageDisplayType.PunchSpeakingPortraits):
+                PunchSpeakingPortraits(stage);
                 break;
             }
 

@@ -18,7 +18,7 @@ namespace Fungus
         [SerializeField] protected Canvas portraitCanvas;
 
         [Tooltip("Punch portraits when a character is speaking.")]
-        [SerializeField] protected bool flashPortraits;
+        [SerializeField] protected bool punchPortraits;
 
         [Tooltip("Dim portraits when a character is not speaking.")]
         [SerializeField] protected bool dimPortraits;
@@ -100,7 +100,7 @@ namespace Fungus
         /// <summary>
         /// Punch portraits when a character is speaking.
         /// </summary>
-        public virtual bool FlashPortraits { get { return flashPortraits; } set { flashPortraits = value; } }
+        public virtual bool PunchPortraits { get { return punchPortraits; } set { punchPortraits = value; } }
 
         /// <summary>
         /// Dim portraits when a character is not speaking.
