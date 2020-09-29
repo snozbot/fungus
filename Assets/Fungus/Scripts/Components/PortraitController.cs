@@ -520,6 +520,26 @@ namespace Fungus
             LeanTween.color(character.State.portraitImage.rectTransform, targetColor, duration).setEase(stage.FadeEaseType).setRecursive(false);
         }
 
+        /// <summary>
+        /// Sets the punched state of a character on the stage.
+        /// </summary>
+        public virtual void SetFlashed(Character character, bool flashedState)
+        {
+            if (character.State.flashed != flashedState)
+            {
+                return;
+            }
+
+            character.State.flashed = flashedState;
+
+            Color targetColor = flashedState ? stage.DimColor : Color.white;
+
+            // LeanTween doesn't handle 0 duration properly
+            float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
+
+            LeanTween.scale(character.State.portraitImage.rectTransform, Vector3.zero, duration).setEase(LeanTweenType.punch).setRecursive(false);
+        }
+
         #region Overloads and Helpers
 
         /// <summary>

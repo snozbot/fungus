@@ -76,25 +76,18 @@ namespace Fungus
 
         protected float startStoryTextWidth; 
         protected float startStoryTextInset;
-
         protected WriterAudio writerAudio;
         protected Writer writer;
         protected CanvasGroup canvasGroup;
-
         protected bool fadeWhenDone = true;
         protected float targetAlpha = 0f;
         protected float fadeCoolDownTimer = 0f;
-
         protected Sprite currentCharacterImage;
-
         // Most recent speaking character
         protected static Character speakingCharacter;
-
         protected StringSubstituter stringSubstituter = new StringSubstituter();
-
 		// Cache active Say Dialogs to avoid expensive scene search
 		protected static List<SayDialog> activeSayDialogs = new List<SayDialog>();
-
 		protected virtual void Awake()
 		{
 			if (!activeSayDialogs.Contains(this))
@@ -308,6 +301,9 @@ namespace Fungus
                         {
                             c.State.portraitImage.color = Color.white;
                         }
+
+
+
                     }
                 }
             }
@@ -369,6 +365,34 @@ namespace Fungus
                         }
                     }
                 }
+
+                speakingCharacter = character;
+
+                // Punch portraits of speaking characters
+                for (int i = 0; i < activeStages.Count; i++)
+                {
+                    var stage = activeStages[i];
+                    if (stage.FlashPortraits)
+                    {
+                        var charactersOnStage = stage.CharactersOnStage;
+                        for (int j = 0; j < charactersOnStage.Count; j++)
+                        {
+                            var c = charactersOnStage[j];
+                            if (prevSpeakingCharacter != speakingCharacter)
+                            {
+                                if (c != null && !c.Equals(speakingCharacter))
+                                {
+                                    stage.SetFlashed(c, true);
+                                }
+                                else
+                                {
+                                    stage.SetFlashed(c, false);
+                                }
+                            }
+                        }
+                    }
+                }
+
 
                 string characterName = character.NameText;
 

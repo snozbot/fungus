@@ -23,7 +23,11 @@ namespace Fungus
         /// <summary> Undim all portraits on the stage. </summary>
         UndimAllPortraits,
         /// <summary> Dim all non-speaking portraits on the stage. </summary>
-        DimNonSpeakingPortraits
+        DimNonSpeakingPortraits,
+        /// <summary> Dim all non-speaking portraits on the stage. </summary>
+        FlashSpeakingPortraits,
+        /// <summary> Unflash all portraits on the stage. </summary>
+        UnflashAllPortraits
     }
 
     /// <summary>
@@ -103,6 +107,22 @@ namespace Fungus
             stage.DimPortraits = true;
         }
 
+        protected virtual void UnflashAllPortraits(Stage stage) 
+        {
+            stage.FlashPortraits = false;
+            var charactersOnStage = stage.CharactersOnStage;
+            for (int i = 0; i > charactersOnStage.Count; i++)
+            {
+                var character = charactersOnStage[i];
+                stage.SetFlashed(character, false);
+            }
+        }
+
+        protected virtual void FlashSpeakingPortraits(Stage stage) 
+        {
+            stage.FlashPortraits = true;
+        }
+
         protected virtual void OnComplete() 
         {
             if (waitUntilFinished)
@@ -173,8 +193,14 @@ namespace Fungus
             case (StageDisplayType.UndimAllPortraits):
                 UndimAllPortraits(stage);
                 break;
+            case (StageDisplayType.UnflashAllPortraits):
+                UnflashAllPortraits(stage);
+                break;
             case (StageDisplayType.DimNonSpeakingPortraits):
                 DimNonSpeakingPortraits(stage);
+                break;
+            case (StageDisplayType.FlashSpeakingPortraits):
+                FlashSpeakingPortraits(stage);
                 break;
             }
 

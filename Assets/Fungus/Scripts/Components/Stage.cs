@@ -17,6 +17,9 @@ namespace Fungus
         [Tooltip("Canvas object containing the stage positions.")]
         [SerializeField] protected Canvas portraitCanvas;
 
+        [Tooltip("Punch portraits when a character is speaking.")]
+        [SerializeField] protected bool flashPortraits;
+
         [Tooltip("Dim portraits when a character is not speaking.")]
         [SerializeField] protected bool dimPortraits;
 
@@ -93,6 +96,11 @@ namespace Fungus
         /// Canvas object containing the stage positions.
         /// </summary>
         public virtual Canvas PortraitCanvas { get { return portraitCanvas; } }
+
+        /// <summary>
+        /// Punch portraits when a character is speaking.
+        /// </summary>
+        public virtual bool FlashPortraits { get { return flashPortraits; } set { flashPortraits = value; } }
 
         /// <summary>
         /// Dim portraits when a character is not speaking.
