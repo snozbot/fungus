@@ -15,4 +15,9 @@ public class SetSayEndDelay : Command
 
         Continue();
     }
+
+    public override Color GetButtonColor()
+    {
+        return new Color32(184, 210, 235, 255);
+    }
 }

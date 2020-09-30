@@ -82,9 +82,13 @@ namespace Fungus
         /// </summary>
         public static float endDelay = 0f;
 
+        protected virtual SayDialog ForDisplayingThis { get; set; } = null;
+
+        protected virtual string DisplayText { get; set; } = null;
+
         public override void OnEnter()
         {
-            if (!showAlways && executionCount >= showCount)
+            if (this.ShouldBeSkipped())
             {
                 Continue();
                 return;
@@ -92,65 +96,101 @@ namespace Fungus
 
             executionCount++;
 
-            // Override the active say dialog if needed
-            if (character != null && character.SetSayDialog != null)
+            PrepareSayDialogToShowThis();
+            PrepareDisplayText();
+
+            ForDisplayingThis.Say(DisplayText, !extendPrevious, 
+                waitForClick, fadeWhenDone, 
+                stopVoiceover, waitForVO, 
+                voiceOverClip, delegate { Continue(); });
+        }
+
+        bool ShouldBeSkipped()
+        {
+            return this.HasBeenShownEnoughAlready() && !this.HasSayDialogueToWorkWith();
+        }
+
+        bool HasSayDialogueToWorkWith()
+        {
+            return SayDialog.GetSayDialog() != null;
+        }
+
+        bool HasBeenShownEnoughAlready()
+        {
+            return !showAlways && executionCount >= showCount;
+        }
+
+        void PrepareSayDialogToShowThis()
+        {
+            OverrideActiveSayDialogAsNeeded();
+
+            var sayDialog = SayDialog.GetSayDialog();
+
+            sayDialog.SetActive(true);
+            sayDialog.SetCharacter(character);
+            sayDialog.SetCharacterImage(portrait);
+        }
+
+        void OverrideActiveSayDialogAsNeeded()
+        {
+            if (this.HasCharacterToDisplayFor())
             {
                 SayDialog.ActiveSayDialog = character.SetSayDialog;
             }
 
-            if (setSayDialog != null)
+            if (this.IsSetForSpecificSayDialog())
             {
                 SayDialog.ActiveSayDialog = setSayDialog;
             }
-
-            var sayDialog = SayDialog.GetSayDialog();
-            if (sayDialog == null)
-            {
-                Continue();
-                return;
-            }
-    
-            var flowchart = GetFlowchart();
-
-            sayDialog.SetActive(true);
-
-            sayDialog.SetCharacter(character);
-            sayDialog.SetCharacterImage(portrait);
-
-            string displayText = storyText;
-            ApplyDelayTo(ref displayText);
-
-            var activeCustomTags = CustomTag.activeCustomTags;
-            for (int i = 0; i < activeCustomTags.Count; i++)
-            {
-                var ct = activeCustomTags[i];
-                displayText = displayText.Replace(ct.TagStartSymbol, ct.ReplaceTagStartWith);
-                if (ct.TagEndSymbol != "" && ct.ReplaceTagEndWith != "")
-                {
-                    displayText = displayText.Replace(ct.TagEndSymbol, ct.ReplaceTagEndWith);
-                }
-            }
-
-            string subbedText = flowchart.SubstituteVariables(displayText);
-
-            sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, delegate {
-                Continue();
-            });
         }
 
-        void ApplyDelayTo(ref string displayText)
+        bool HasCharacterToDisplayFor()
+        {
+            return character != null && character.SetSayDialog != null;
+        }
+
+        bool IsSetForSpecificSayDialog()
+        {
+            return setSayDialog != null;
+        }
+
+        void PrepareDisplayText()
+        {
+            DisplayText = storyText;
+            AddEndDelayTagAsNeeded();
+            HandleCustomTags();
+            ApplyVariableSubstitution();
+        }
+
+        void AddEndDelayTagAsNeeded()
         {
             if (endDelay <= 0)
                 return;
 
-            string waitTag = "{w=" + endDelay + "}";
-            displayText += waitTag;
+            string waitTag = string.Concat("{w=", endDelay,  "}");
+            DisplayText = string.Concat(DisplayText, waitTag);
         }
 
-        IEnumerator ApplyEndDelay()
+        void HandleCustomTags()
         {
-            yield return new WaitForSeconds(endDelay);
-            Continue();
+            var activeCustomTags = CustomTag.activeCustomTags;
+
+            for (int i = 0; i < activeCustomTags.Count; i++)
+            {
+                var tag = activeCustomTags[i];
+                DisplayText = DisplayText.Replace(tag.TagStartSymbol, tag.ReplaceTagStartWith);
+
+                if (tag.TagEndSymbol != "" && tag.ReplaceTagEndWith != "")
+                {
+                    DisplayText = DisplayText.Replace(tag.TagEndSymbol, tag.ReplaceTagEndWith);
+                }
+            }
+        }
+
+        void ApplyVariableSubstitution()
+        {
+            var flowchart = GetFlowchart();
+            DisplayText = flowchart.SubstituteVariables(DisplayText);
         }
 
         public override string GetSummary()
