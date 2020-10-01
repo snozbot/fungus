@@ -610,7 +610,7 @@ MonoBehaviour:
   defaultFont: {fileID: 11400000, guid: a63a36c29a3a9a545abce6fa7b97a44f, type: 2}
   setFontOnStart: 1
   fontLinks:
-  - langCode: EN
+  - langCode: Standard
     font: {fileID: 11400000, guid: a63a36c29a3a9a545abce6fa7b97a44f, type: 2}
   - langCode: ES
     font: {fileID: 11400000, guid: 1a7e3d22a193fce469c0ccaaa64fb52d, type: 2}
