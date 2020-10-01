@@ -312,7 +312,16 @@ namespace Fungus
                 // set it here in case a command starts and finishes execution before the next window update.
                 command.ExecutingIconTimer = Time.realtimeSinceStartup + FungusConstants.ExecutingIconFadeTime;
                 BlockSignals.DoCommandExecute(this, command, i, commandList.Count);
-                command.Execute();
+
+                try
+                {
+                    command.Execute();
+                }
+                catch (Exception)
+                {
+                    Debug.LogError("Rethrowing Exception thrown by:" + command.GetLocationIdentifier());
+                    throw;
+                }
 
                 // Wait until the executing command sets another command to jump to via Command.Continue()
                 while (jumpToCommandIndex == -1)
