@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEditorInternal;
+using System.Reflection;
 
 namespace Fungus.EditorUtils
 {
