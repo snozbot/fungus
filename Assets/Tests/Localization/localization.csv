@@ -1,0 +1,5 @@
+Key,Description,Standard,ES,FR
+SAY.Flowchart.1.,,This should show in the default font.,,
+SAY.Flowchart.4.,,This should be in the font for French.,,Cela devrait être dans la police du français.
+SAY.Flowchart.6.,,This should be in the font for Spanish.,Debe estar en la fuente para español.,
+SAY._CommandCopyBuffer.4.,,This should be the font for French.,,Cela devrait être dans la police du français.

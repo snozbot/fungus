@@ -1,7 +1,8 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+using System;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Fungus
@@ -20,8 +21,9 @@ namespace Fungus
         [SerializeField] protected StringData _languageCode = new StringData(); 
 
         #region Public members
-
         public static string mostRecentLanguage = "";
+
+        public static Action LanguageSet = delegate { };
 
         public override void OnEnter()
         {
@@ -32,10 +34,20 @@ namespace Fungus
 
                 // Cache the most recently set language code so we can continue to 
                 // use the same language in subsequent scenes.
+                
+                string prevLang = mostRecentLanguage;
                 mostRecentLanguage = _languageCode.Value;
+                string newLang = mostRecentLanguage;
+                //LocalizationSignals.DoLangChanged(prevLang, newLang);
+                
             }
 
             Continue();
+        }
+
+        protected virtual void UpdateMostRecentLanguage()
+        {
+
         }
 
         public override string GetSummary()
