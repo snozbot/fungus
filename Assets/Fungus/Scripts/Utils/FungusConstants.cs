@@ -49,6 +49,9 @@ namespace Fungus
 
         public const string FungusAudioMixer = "FungusAudioMixer";
 
+        public const string UIPrefixForDeprecated = "[DEP] ";
+        public const string UIPrefixForDeprecated_RichText = "<color=yellow>" + UIPrefixForDeprecated + "</color>";
+
         #endregion
     }
 }

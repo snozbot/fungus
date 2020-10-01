@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using UnityEditorInternal;
+using System.Reflection;
 
 namespace Fungus.EditorUtils
 {
@@ -115,11 +116,15 @@ namespace Fungus.EditorUtils
                 return;
             }
 
-            CommandInfoAttribute commandInfoAttr = CommandEditor.GetCommandInfo(command.GetType());
+            var commandType = command.GetType();
+
+            CommandInfoAttribute commandInfoAttr = CommandEditor.GetCommandInfo(commandType);
             if (commandInfoAttr == null)
             {
                 return;
             }
+
+            var obsAttr = commandType.GetCustomAttribute<System.ObsoleteAttribute>();
 
             var flowchart = (Flowchart)command.GetFlowchart();
             if (flowchart == null)
@@ -139,10 +144,16 @@ namespace Fungus.EditorUtils
             {
                 summary = summary.Replace("\n", "").Replace("\r", "");
             }
+
             if (summary.StartsWith("Error:"))
             {
                 summary = "<color=red> " + summary + "</color>";
             }
+            else if(obsAttr != null)
+            {
+                summary = FungusConstants.UIPrefixForDeprecated_RichText + summary;
+            }
+            
 
             if (isComment || isLabel)
             {

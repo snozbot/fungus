@@ -2183,10 +2183,19 @@ namespace Fungus.EditorUtils
                 if (block._EventHandler != null)
                 {
                     string handlerLabel = "";
-                    EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(block._EventHandler.GetType());
+                    var eventType = block._EventHandler.GetType();
+                    EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(eventType);
                     if (info != null)
                     {
-                        handlerLabel = "<" + info.EventHandlerName + "> ";
+                        var obsAttr = eventType.GetCustomAttribute<System.ObsoleteAttribute>();
+                        if (obsAttr != null)
+                        {
+                            handlerLabel = "<" + FungusConstants.UIPrefixForDeprecated_RichText + info.EventHandlerName + "> ";
+                        }
+                        else
+                        {
+                            handlerLabel = "<" + info.EventHandlerName + "> ";
+                        }
                     }
 
                     Rect rect = new Rect(block._NodeRect);

@@ -14,6 +14,7 @@ namespace Fungus
                  "Scale To", 
                  "Changes a game object's scale to a specified value over time.")]
     [AddComponentMenu("")]
+    [System.Obsolete("Deprecated, consider using the LeanTween based Tween command instead.")]
     [ExecuteInEditMode]
     public class ScaleTo : iTweenCommand
     {
