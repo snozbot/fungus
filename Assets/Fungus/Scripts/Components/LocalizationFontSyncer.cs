@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using TMP_Font = TMPro.TMP_FontAsset;
 
@@ -16,25 +14,14 @@ namespace Fungus
         [SerializeField] protected TextMeshProUGUI textField = null;
 
         [Tooltip("When a language is set that isn't in the font links, this is the font switched to.")]
-        [SerializeField] TMP_Font defaultFont = null;
+        [SerializeField] protected TMP_Font defaultFont = null;
 
-        [SerializeField] bool setFontOnStart = true;
+        [SerializeField] protected bool setFontOnStart = true;
 
-        [SerializeField] LangFontLink[] fontLinks = { };
+        //[SerializeField] LangFontLink[] fontLinks = { };
+        [SerializeField] protected LangFontLinkSet fontLinkSet = null;
+        protected LangFontLink[] FontLinks { get { return fontLinkSet.Links; } }
        
-        /// <summary>
-        /// Encapsulates a link between language codes and font assets to use for
-        /// them, since Unity doesn't quite support Dictionaries very well.
-        /// </summary>
-        [System.Serializable]
-        public class LangFontLink
-        {
-            [SerializeField] protected string langCode = null;
-            [SerializeField] protected TMP_Font font = null;
-
-            public string LangCode { get { return langCode; } }
-            public TMP_Font Font { get { return font; } }
-        }
 
         protected virtual void Awake()
         {
@@ -70,11 +57,11 @@ namespace Fungus
 
         TMP_Font GetFontForLanguage(string langCode)
         {
-            for (int i = 0; i < fontLinks.Length; i++)
+            for (int i = 0; i < FontLinks.Length; i++)
             {
-                LangFontLink currentLink = fontLinks[i];
-                if (currentLink.LangCode == langCode)
-                    return currentLink.Font;
+                LangFontLink currentLink = FontLinks[i];
+                if (currentLink.langCode == langCode)
+                    return currentLink.font;
             }
 
             return defaultFont;

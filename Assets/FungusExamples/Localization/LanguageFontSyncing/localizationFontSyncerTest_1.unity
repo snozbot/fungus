@@ -609,13 +609,7 @@ MonoBehaviour:
   textField: {fileID: 925749821}
   defaultFont: {fileID: 11400000, guid: a63a36c29a3a9a545abce6fa7b97a44f, type: 2}
   setFontOnStart: 1
-  fontLinks:
-  - langCode: Standard
-    font: {fileID: 11400000, guid: a63a36c29a3a9a545abce6fa7b97a44f, type: 2}
-  - langCode: ES
-    font: {fileID: 11400000, guid: 12f8d4647cb43a9499f27a1661559f69, type: 2}
-  - langCode: FR
-    font: {fileID: 11400000, guid: b3cca7bd29d6d4c4886181bd63088603, type: 2}
+  fontLinkSet: {fileID: 11400000, guid: d7ecacbb5f14b7a48b2e1e5a23847273, type: 2}
 --- !u!1 &1054466785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,13 +1283,7 @@ MonoBehaviour:
   textField: {fileID: 1548396919}
   defaultFont: {fileID: 11400000, guid: a63a36c29a3a9a545abce6fa7b97a44f, type: 2}
   setFontOnStart: 1
-  fontLinks:
-  - langCode: Standard
-    font: {fileID: 11400000, guid: a63a36c29a3a9a545abce6fa7b97a44f, type: 2}
-  - langCode: ES
-    font: {fileID: 11400000, guid: 12f8d4647cb43a9499f27a1661559f69, type: 2}
-  - langCode: FR
-    font: {fileID: 11400000, guid: b3cca7bd29d6d4c4886181bd63088603, type: 2}
+  fontLinkSet: {fileID: 11400000, guid: d7ecacbb5f14b7a48b2e1e5a23847273, type: 2}
 --- !u!1 &1641174148
 GameObject:
   m_ObjectHideFlags: 0
