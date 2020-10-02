@@ -34,20 +34,10 @@ namespace Fungus
 
                 // Cache the most recently set language code so we can continue to 
                 // use the same language in subsequent scenes.
-                
-                string prevLang = mostRecentLanguage;
                 mostRecentLanguage = _languageCode.Value;
-                string newLang = mostRecentLanguage;
-                //LocalizationSignals.DoLangChanged(prevLang, newLang);
-                
             }
 
             Continue();
-        }
-
-        protected virtual void UpdateMostRecentLanguage()
-        {
-
         }
 
         public override string GetSummary()
