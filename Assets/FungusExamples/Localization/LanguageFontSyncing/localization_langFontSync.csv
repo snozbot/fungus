@@ -1,5 +1,7 @@
 Key,Description,Standard,ES,FR
-SAY.Flowchart.1.Sherlock,,This should show in the default font.,Esto debería mostrarse en la fuente predeterminada.,Cela devrait apparaître dans la police par défaut.
-SAY.Flowchart.4.Sherlock,,This should be in the font for French.,Debe estar en la fuente del francés.,Cela devrait être dans la police du français.
-SAY.Flowchart.6.Sherlock,,This should be in the font for Spanish.,Debe estar en la fuente para español.,Cela devrait être dans la police de l'espagnol.
+SAY.Flowchart.1.Sherlock,,This should show up in a different font than the other languages.,Esto debería aparecer en una fuente diferente a la de los otros idiomas.,Cela devrait apparaître dans une police différente de celle des autres langues.
+SAY.Flowchart.27.,,Select Language,,
+MENU.Flowchart.9,,English,,
+MENU.Flowchart.10,,Spanish,,
+MENU.Flowchart.11,,French,,
 CHARACTER.Sherlock,,Sherlock,El Sherlock,Le Sherlock
