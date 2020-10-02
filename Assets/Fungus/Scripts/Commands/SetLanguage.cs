@@ -23,8 +23,6 @@ namespace Fungus
         #region Public members
         public static string mostRecentLanguage = "";
 
-        public static Action LanguageSet = delegate { };
-
         public override void OnEnter()
         {
             Localization localization = GameObject.FindObjectOfType<Localization>();
