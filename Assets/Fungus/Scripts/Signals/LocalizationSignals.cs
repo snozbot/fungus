@@ -23,7 +23,7 @@ namespace Fungus
         /// <summary>
         /// Sent when the active language is changed.
         /// </summary>
-        public static event LangChangeHandler LanguageChanged;
+        public static event LangChangeHandler LanguageChanged = delegate { };
         public delegate void LangChangeHandler(string prevLangCode, string newLangCode);
         public static void DoLangChanged(string prevLangCode, string newLangCode)
         {
