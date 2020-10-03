@@ -523,16 +523,14 @@ namespace Fungus
         /// <summary>
         /// Sets the punched state of a character on the stage.
         /// </summary>
-        public virtual void SetFlashed(Character character, bool flashedState)
+        public virtual void SetPunched(Character character, bool punchedState)
         {
-            if (character.State.flashed != flashedState)
+            if (character.State.punched != punchedState)
             {
                 return;
             }
 
-            character.State.flashed = flashedState;
-
-            Color targetColor = flashedState ? stage.DimColor : Color.white;
+            character.State.punched = punchedState;
 
             // LeanTween doesn't handle 0 duration properly
             float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;

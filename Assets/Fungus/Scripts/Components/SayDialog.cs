@@ -382,11 +382,11 @@ namespace Fungus
                             {
                                 if (c != null && !c.Equals(speakingCharacter))
                                 {
-                                    stage.SetFlashed(c, true);
+                                    stage.SetPunched(c, true);
                                 }
                                 else
                                 {
-                                    stage.SetFlashed(c, false);
+                                    stage.SetPunched(c, false);
                                 }
                             }
                         }

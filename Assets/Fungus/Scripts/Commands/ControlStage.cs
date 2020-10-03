@@ -114,7 +114,7 @@ namespace Fungus
             for (int i = 0; i > charactersOnStage.Count; i++)
             {
                 var character = charactersOnStage[i];
-                stage.SetFlashed(character, false);
+                stage.SetPunched(character, false);
             }
         }
 
