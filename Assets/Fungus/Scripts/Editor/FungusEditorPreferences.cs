@@ -25,6 +25,7 @@ namespace Fungus
             private const string COMMAND_LIST_ITEM_TINT = "commandListTint";
             private const string FLOWCHART_WINDIOW_BLOCK_TINT = "flowchartWindowBlockTint";
             private const string SUPPRESS_HELP_BOXES = "suppressHelpBoxes";
+            private const string NAV_CMD_WITH_ARROWS = "navigateCmdListWithArrows";
 
             public static bool hideMushroomInHierarchy;
             public static bool useLegacyMenus;
@@ -32,6 +33,7 @@ namespace Fungus
             public static Color commandListTint = Color.white;
             public static Color flowchatBlockTint = Color.white;
             public static bool suppressHelpBoxes = false;
+            public static bool navigateCmdListWithArrows = false;
 
             static FungusEditorPreferences()
             {
@@ -75,6 +77,7 @@ namespace Fungus
                 flowchatBlockTint = EditorGUILayout.ColorField(new GUIContent("Flowchart Window Block Tint", "Custom tint used on the Block icons in the Flowchart Window. Default is white."), flowchatBlockTint);
                 commandListTint = EditorGUILayout.ColorField(new GUIContent("Command List Tint", "Custom tint used on the Command List in the Block Inspector. Default is white."), commandListTint);
                 suppressHelpBoxes = EditorGUILayout.Toggle(new GUIContent("Hide Help Boxes", "Hides the Default Help boxes shown in in Block inspector for EventHandlers and Commands."), suppressHelpBoxes);
+                navigateCmdListWithArrows = EditorGUILayout.Toggle(new GUIContent("Use Arrows In CMD List", "Allows the use of Arrows UP and Down to move between Commands in the Command list, in the block inspector"), navigateCmdListWithArrows);
 
                 EditorGUILayout.Space();
                 //ideally if any are null, but typically it is all or nothing that have broken links due to version changes or moving files external to Unity
@@ -130,7 +133,8 @@ namespace Fungus
                     EditorPrefs.SetString(COMMAND_LIST_ITEM_TINT, colAsString); 
                     colAsString = "#" + ColorUtility.ToHtmlStringRGBA(flowchatBlockTint);
                     EditorPrefs.SetString(FLOWCHART_WINDIOW_BLOCK_TINT, colAsString);
-                    EditorPrefs.SetBool(SUPPRESS_HELP_BOXES, suppressHelpBoxes);
+                    EditorPrefs.SetBool(SUPPRESS_HELP_BOXES, suppressHelpBoxes); 
+                    EditorPrefs.SetBool(NAV_CMD_WITH_ARROWS, navigateCmdListWithArrows); 
                 }
             }
 
@@ -149,6 +153,7 @@ namespace Fungus
                     flowchatBlockTint = col;
                 }
                 suppressHelpBoxes = EditorPrefs.GetBool(SUPPRESS_HELP_BOXES, false);
+                navigateCmdListWithArrows = EditorPrefs.GetBool(NAV_CMD_WITH_ARROWS, false);
                 prefsLoaded = true;
             }
         }
