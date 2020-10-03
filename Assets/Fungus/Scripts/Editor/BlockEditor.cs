@@ -183,6 +183,9 @@ namespace Fungus.EditorUtils
                     command.ParentBlock = block;
                 }
 
+
+                EditorGUILayout.Space();
+
                 commandListAdaptor.DrawCommandList();
 
                 // EventType.contextClick doesn't register since we moved the Block Editor to be inside
