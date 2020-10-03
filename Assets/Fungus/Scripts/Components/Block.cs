@@ -313,6 +313,7 @@ namespace Fungus
                 command.ExecutingIconTimer = Time.realtimeSinceStartup + FungusConstants.ExecutingIconFadeTime;
                 BlockSignals.DoCommandExecute(this, command, i, commandList.Count);
 
+#if UNITY_EDITOR
                 try
                 {
                     command.Execute();
@@ -322,6 +323,9 @@ namespace Fungus
                     Debug.LogError("Rethrowing Exception thrown by:" + command.GetLocationIdentifier());
                     throw;
                 }
+#else
+                command.Execute();
+#endif
 
                 // Wait until the executing command sets another command to jump to via Command.Continue()
                 while (jumpToCommandIndex == -1)
