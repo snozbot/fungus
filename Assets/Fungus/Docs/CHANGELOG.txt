@@ -11,6 +11,8 @@ Unreleased
  - Fungus now has a MainAudioMixer that is used by all audio requiring systems, will allow for audio options menu and mixer effects on all sounds.
  - Characters can now specify an AudioSource to use to voice their AudioClips
  - WriterAudio now seeks out the most specific AudioSource relevant to context of the speaking character, rather than always using the one on the SayDialog it is usually attached to. Allowing each character to specify it's own AudioSource and it being used by the WriterAudio regardless of which SayDialog is active.
+ - Fungus Commands, EventHandlers, and Variables can now be marked with the Obsolete Attribute and will be shown with warnings and in yellow with [DEP].
+ - EventHandler.GetSummary is now shown to the user in an info box and if it contains Error: is shown as an error box.
 
 ## Fixed
  - Many Summaries that had \\ instead of \\\
@@ -21,6 +23,11 @@ Unreleased
  - MusicManager uses new Mixer Groups.
  - WriterAudio userLegacyAudioLogic toggles it to behave as it did prior to 3.14.
  - Generate Variable now relies on list of types not names.
+ - Can use Up and Down arrows to move selection in the command list, enabled via the Fungus EditorPreferences. Thanks to TheEmbracedOne.
+ - EventHandler GetSummaries report Error if missing required information.
+ - Standard Info boxes for Commands and EventHandlers can be disabled via Fungus EditorPreferences, claiming back some inspector space.
+ - All iTween based Commands that have LeanTween alternatives are now marked as Obsolete/Deprecated.
+ - Block will LogError when an exception is caught from a Command being Executed.
 
 v3.13.6
 ======
