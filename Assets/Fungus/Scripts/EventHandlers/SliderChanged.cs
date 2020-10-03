@@ -47,7 +47,7 @@ namespace Fungus
                 return targetSlider.name;
             }
 
-            return "None";
+            return "Error: no targetSlider set.";
         }
     }
 }

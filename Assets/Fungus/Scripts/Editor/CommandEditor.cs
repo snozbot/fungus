@@ -139,7 +139,7 @@ namespace Fungus.EditorUtils
 
             // Display help text
             CommandInfoAttribute infoAttr = CommandEditor.GetCommandInfo(t.GetType());
-            if (infoAttr != null)
+            if (infoAttr != null && !FungusEditorPreferences.suppressHelpBoxes)
             {
                 EditorGUILayout.HelpBox(infoAttr.HelpText, MessageType.Info, true);
             }

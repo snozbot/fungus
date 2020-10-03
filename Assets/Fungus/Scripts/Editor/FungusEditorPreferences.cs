@@ -24,12 +24,14 @@ namespace Fungus
             private const string USE_GRID_SNAP = "useGridSnap";
             private const string COMMAND_LIST_ITEM_TINT = "commandListTint";
             private const string FLOWCHART_WINDIOW_BLOCK_TINT = "flowchartWindowBlockTint";
+            private const string SUPPRESS_HELP_BOXES = "suppressHelpBoxes";
 
             public static bool hideMushroomInHierarchy;
             public static bool useLegacyMenus;
             public static bool useGridSnap;
             public static Color commandListTint = Color.white;
             public static Color flowchatBlockTint = Color.white;
+            public static bool suppressHelpBoxes = false;
 
             static FungusEditorPreferences()
             {
@@ -72,6 +74,7 @@ namespace Fungus
                 useGridSnap = EditorGUILayout.Toggle(new GUIContent("Grid Snap", "Align and Snap block positions and widths in the flowchart window to the grid"), useGridSnap);
                 flowchatBlockTint = EditorGUILayout.ColorField(new GUIContent("Flowchart Window Block Tint", "Custom tint used on the Block icons in the Flowchart Window. Default is white."), flowchatBlockTint);
                 commandListTint = EditorGUILayout.ColorField(new GUIContent("Command List Tint", "Custom tint used on the Command List in the Block Inspector. Default is white."), commandListTint);
+                suppressHelpBoxes = EditorGUILayout.Toggle(new GUIContent("Hide Help Boxes", "Hides the Default Help boxes shown in in Block inspector for EventHandlers and Commands."), suppressHelpBoxes);
 
                 EditorGUILayout.Space();
                 //ideally if any are null, but typically it is all or nothing that have broken links due to version changes or moving files external to Unity
@@ -127,6 +130,7 @@ namespace Fungus
                     EditorPrefs.SetString(COMMAND_LIST_ITEM_TINT, colAsString); 
                     colAsString = "#" + ColorUtility.ToHtmlStringRGBA(flowchatBlockTint);
                     EditorPrefs.SetString(FLOWCHART_WINDIOW_BLOCK_TINT, colAsString);
+                    EditorPrefs.SetBool(SUPPRESS_HELP_BOXES, suppressHelpBoxes);
                 }
             }
 
@@ -144,6 +148,7 @@ namespace Fungus
                 {
                     flowchatBlockTint = col;
                 }
+                suppressHelpBoxes = EditorPrefs.GetBool(SUPPRESS_HELP_BOXES, false);
                 prefsLoaded = true;
             }
         }
