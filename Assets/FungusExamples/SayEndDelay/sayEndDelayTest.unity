@@ -264,6 +264,9 @@ GameObject:
   - component: {fileID: 2013691760}
   - component: {fileID: 2013691764}
   - component: {fileID: 2013691765}
+  - component: {fileID: 2013691766}
+  - component: {fileID: 2013691767}
+  - component: {fileID: 2013691768}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -298,7 +301,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 2013691758}
   selectedCommands:
-  - {fileID: 2013691760}
+  - {fileID: 2013691767}
   variables:
   - {fileID: 2013691756}
   description: 
@@ -325,7 +328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scope: 0
   key: delay
-  value: 1.5
+  value: 2
 --- !u!114 &2013691757
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -340,11 +343,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 1
   indentLevel: 0
-  storyText: "e rhguhq4e39hgf834ae gf 843\t6tt2\t87f\t7 3yr8 \tt80 tq834 gt8\t 34"
+  storyText: This is the scene for testing the delays each Say command now has at
+    the end of it.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 8300000, guid: e15cd033e8242884fa44bbbffb3635e4, type: 3}
+  voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -369,12 +373,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 499.13165
     y: 75.44411
-    width: 112.8866
+    width: 144.84537
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
   itemId: 0
-  blockName: New Block
+  blockName: ShowcaseDelay
   description: 
   eventHandler: {fileID: 2013691764}
   commandList:
@@ -382,26 +386,30 @@ MonoBehaviour:
   - {fileID: 2013691757}
   - {fileID: 2013691760}
   - {fileID: 2013691759}
+  - {fileID: 2013691766}
+  - {fileID: 2013691767}
+  - {fileID: 2013691768}
   suppressAllAutoSelections: 0
 --- !u!114 &2013691759
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013691754}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 2
   indentLevel: 0
-  storyText: qp3akgt 0478fwe78hyf 7934y t34 t34ugnfaldnviandr g7804
+  storyText: This functionality makes it easier to have autoscrolling text without
+    manually adding a wait tag at the end of each Say.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 8300000, guid: 476f002f45c7655408b9e7b1fa186f26, type: 3}
+  voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -412,7 +420,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 0}
 --- !u!114 &2013691760
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -424,11 +432,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 3
   indentLevel: 0
-  storyText: 378qt378tq3 tgfwefc5wetf yq498ty 78 34wt6rt q34 tq
+  storyText: Said delay is 0 by default. Try setting it to a negative, and it'll
+    instead be set to 0.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
-  voiceOverClip: {fileID: 8300000, guid: f5ffbadf97e0bd24bae41734cf28d2da, type: 3}
+  voiceOverClip: {fileID: 0}
   showAlways: 1
   showCount: 1
   extendPrevious: 0
@@ -504,7 +513,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2013691764
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -519,12 +528,12 @@ MonoBehaviour:
   waitForFrames: 1
 --- !u!114 &2013691765
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013691754}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a8046cb3b167fc42b96ab91c2909f41, type: 3}
   m_Name: 
@@ -534,3 +543,80 @@ MonoBehaviour:
   newDelay:
     floatRef: {fileID: 2013691756}
     floatVal: 0
+--- !u!114 &2013691766
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013691754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 5
+  indentLevel: 0
+  storyText: You may want to play around with the delay variable in the Main Camera's
+    flowchart.
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &2013691767
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013691754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 6
+  indentLevel: 0
+  storyText: Have fun! Now, this block will execute itself again after this Say is
+    done. This will keep happening until you stop Play Mode.
+  description: 
+  character: {fileID: 0}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 0}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 0
+  waitForVO: 1
+  setSayDialog: {fileID: 0}
+--- !u!114 &2013691768
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013691754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 7
+  indentLevel: 0
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 2013691758}
+  startLabel:
+    stringRef: {fileID: 0}
+    stringVal: 
+  startIndex: 0
+  callMode: 0

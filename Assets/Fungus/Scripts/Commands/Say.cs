@@ -80,7 +80,16 @@ namespace Fungus
         /// A wait delay that applies after this command is done executing, and before the next command
         /// starts executing.
         /// </summary>
-        public static float endDelay = 0f;
+        protected static float endDelay = 0f;
+        public static float EndDelay
+        {
+            get { return endDelay; }
+            set
+            {
+                // We can't have negative delays... That would be time-traveling into the past!
+                endDelay = Mathf.Clamp(value, 0, float.MaxValue);
+            }
+        }
 
         protected virtual SayDialog ForDisplayingThis { get; set; } = null;
 
@@ -88,7 +97,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            if (this.ShouldBeSkipped())
+            if (this.ShouldBeSkipped)
             {
                 Continue();
                 return;
@@ -105,73 +114,72 @@ namespace Fungus
                 voiceOverClip, delegate { Continue(); });
         }
 
-        bool ShouldBeSkipped()
+        #region Helper functions
+
+        protected virtual bool ShouldBeSkipped
         {
-            return this.HasBeenShownEnoughAlready() && !this.HasSayDialogueToWorkWith();
+            get { return this.HasBeenShownEnoughAlready && !this.HasSayDialogueToWorkWith; }
         }
 
-        bool HasSayDialogueToWorkWith()
+        protected virtual bool HasBeenShownEnoughAlready
         {
-            return SayDialog.GetSayDialog() != null;
+            get { return !showAlways && executionCount >= showCount; }
         }
 
-        bool HasBeenShownEnoughAlready()
+        protected virtual bool HasSayDialogueToWorkWith
         {
-            return !showAlways && executionCount >= showCount;
+            get { return SayDialog.GetSayDialog() != null; }
         }
 
         void PrepareSayDialogToShowThis()
         {
             OverrideActiveSayDialogAsNeeded();
 
-            var sayDialog = SayDialog.GetSayDialog();
+            ForDisplayingThis = SayDialog.GetSayDialog();
 
-            sayDialog.SetActive(true);
-            sayDialog.SetCharacter(character);
-            sayDialog.SetCharacterImage(portrait);
+            ForDisplayingThis.SetActive(true);
+            ForDisplayingThis.SetCharacter(character);
+            ForDisplayingThis.SetCharacterImage(portrait);
         }
 
         void OverrideActiveSayDialogAsNeeded()
         {
-            if (this.HasCharacterToDisplayFor())
+            if (this.HasCharacterToDisplayFor)
             {
                 SayDialog.ActiveSayDialog = character.SetSayDialog;
             }
 
-            if (this.IsSetForSpecificSayDialog())
+            if (this.IsSetForSpecificSayDialog)
             {
                 SayDialog.ActiveSayDialog = setSayDialog;
             }
         }
 
-        bool HasCharacterToDisplayFor()
+        protected virtual bool HasCharacterToDisplayFor
         {
-            return character != null && character.SetSayDialog != null;
+            get { return character != null && character.SetSayDialog != null; }
         }
 
-        bool IsSetForSpecificSayDialog()
+        protected virtual bool IsSetForSpecificSayDialog
         {
-            return setSayDialog != null;
+            get { return setSayDialog != null; }
         }
 
-        void PrepareDisplayText()
+        protected void PrepareDisplayText()
         {
             DisplayText = storyText;
             AddEndDelayTagAsNeeded();
-            HandleCustomTags();
-            ApplyVariableSubstitution();
+            SubstituteCustomTags();
+            SubstituteVariables();
         }
 
-        void AddEndDelayTagAsNeeded()
+        protected void AddEndDelayTagAsNeeded()
         {
-            if (endDelay <= 0)
-                return;
-
             string waitTag = string.Concat("{w=", endDelay,  "}");
             DisplayText = string.Concat(DisplayText, waitTag);
         }
 
-        void HandleCustomTags()
+        protected void SubstituteCustomTags()
         {
             var activeCustomTags = CustomTag.activeCustomTags;
 
@@ -187,11 +195,13 @@ namespace Fungus
             }
         }
 
-        void ApplyVariableSubstitution()
+        protected void SubstituteVariables()
         {
             var flowchart = GetFlowchart();
             DisplayText = flowchart.SubstituteVariables(DisplayText);
         }
+
+        #endregion
 
         public override string GetSummary()
         {
