@@ -9,11 +9,11 @@ using UnityEngine.InputSystem;
 namespace Fungus
 {
     /// <summary>
-    ///
+    /// Execute a block when a targeted InputAction is performed. Optionally reads the value from the action.
     /// </summary>
     [EventHandlerInfo("Input",
                       "Input Action",
-                      "")]
+                      "Execute a block when a targeted InputAction is performed. Optionally reads the value from the action.")]
     [AddComponentMenu("")]
     public class InputActionEventHandler : EventHandler
     {
