@@ -14,6 +14,7 @@ namespace Fungus
                  "Punch Position", 
                  "Applies a jolt of force to a GameObject's position and wobbles it back to its initial position.")]
     [AddComponentMenu("")]
+    [System.Obsolete("Deprecated, consider using the LeanTween based Tween command instead.")]
     [ExecuteInEditMode]
     public class PunchPosition : iTweenCommand
     {

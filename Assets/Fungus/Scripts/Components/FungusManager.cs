@@ -13,6 +13,7 @@ namespace Fungus
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(EventDispatcher))]
     [RequireComponent(typeof(GlobalVariables))]
+    [RequireComponent(typeof(MainAudioMixer))]
     [RequireComponent(typeof(SaveManager))]
     [RequireComponent(typeof(NarrativeLog))]
     public sealed class FungusManager : MonoBehaviour
@@ -23,16 +24,24 @@ namespace Fungus
 
         private void Awake()
         {
+            if (instance == null)
+                instance = this;
+
             UserProfileManager = GetComponent<UserProfileManagerComponent>();
             CameraManager = GetComponent<CameraManager>();
             MusicManager = GetComponent<MusicManager>();
             EventDispatcher = GetComponent<EventDispatcher>();
             GlobalVariables = GetComponent<GlobalVariables>();
+            MainAudioMixer = GetComponent<MainAudioMixer>();
             SaveManager = GetComponent<SaveManager>();
             NarrativeLog = GetComponent<NarrativeLog>();
-
+            
             SaveManager.SaveFileManager.Init(UserProfileManager.UserProfileManager);
             SaveManagerSignals.OnSaveReset += SaveManagerSignals_OnSaveReset;
+            
+            MainAudioMixer.Init();
+            MusicManager.Init();
+
         }
 
         private void SaveManagerSignals_OnSaveReset()
@@ -74,6 +83,8 @@ namespace Fungus
         /// Gets the global variable singleton instance.
         /// </summary>
         public GlobalVariables GlobalVariables { get; private set; }
+
+        public MainAudioMixer MainAudioMixer { get; private set; }
 
         /// <summary>
         /// Gets the save manager singleton instance.

@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Fungus
 {
@@ -21,21 +22,33 @@ namespace Fungus
         public AudioSource AudioSourceMusic { get; protected set; }
         public AudioSource AudioSourceAmbiance { get; protected set; }
         public AudioSource AudioSourceSoundEffect { get; protected set; }
+        public AudioSource DefaultVoiceAudioSource { get; protected set; }
+        public AudioSource WriterSoundEffectAudioSource { get; protected set; }
+
+        const int RequiredAudioSources = 5;
 
         void Reset()
         {
             int audioSourceCount = this.GetComponents<AudioSource>().Length;
-            for (int i = 0; i < 3 - audioSourceCount; i++)
+            for (int i = 0; i < RequiredAudioSources - audioSourceCount; i++)
                 gameObject.AddComponent<AudioSource>();
         }
 
-        protected virtual void Awake()
+        public virtual void Init()
         {
             Reset();
             AudioSource[] audioSources = GetComponents<AudioSource>();
             AudioSourceMusic = audioSources[0];
             AudioSourceAmbiance = audioSources[1];
             AudioSourceSoundEffect = audioSources[2];
+            DefaultVoiceAudioSource = audioSources[3];
+            WriterSoundEffectAudioSource = audioSources[4];
+
+            AudioSourceMusic.outputAudioMixerGroup = FungusManager.Instance.MainAudioMixer.MusicGroup;
+            AudioSourceSoundEffect.outputAudioMixerGroup = FungusManager.Instance.MainAudioMixer.SFXGroup;
+            AudioSourceAmbiance.outputAudioMixerGroup = AudioSourceSoundEffect.outputAudioMixerGroup;
+            DefaultVoiceAudioSource.outputAudioMixerGroup = FungusManager.Instance.MainAudioMixer.VoiceGroup;
+            WriterSoundEffectAudioSource.outputAudioMixerGroup = AudioSourceSoundEffect.outputAudioMixerGroup;
         }
 
         protected virtual void Start()
@@ -48,8 +61,6 @@ namespace Fungus
             TargetMusicPitch = AudioSourceMusic.pitch;
             TargetAmbPitch = AudioSourceAmbiance.pitch;
         }
-
-        #region Public members
 
         /// <summary>
         /// Plays game music using an audio clip.
@@ -207,7 +218,5 @@ namespace Fungus
             AudioSourceAmbiance.Stop();
             AudioSourceAmbiance.clip = null;
         }
-
-        #endregion
     }
 }
