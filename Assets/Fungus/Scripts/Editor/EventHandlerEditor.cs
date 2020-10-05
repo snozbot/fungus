@@ -1,13 +1,14 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
 namespace Fungus.EditorUtils
 {
-    [CustomEditor (typeof(EventHandler), true)]
-    public class EventHandlerEditor : Editor 
+    [CustomEditor(typeof(EventHandler), true)]
+    public class EventHandlerEditor : Editor
     {
         protected virtual void DrawProperties()
         {
@@ -45,7 +46,7 @@ namespace Fungus.EditorUtils
                 EditorGUILayout.HelpBox(info.HelpText, MessageType.Info);
             }
         }
-        
+
         #region Public members
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace Fungus.EditorUtils
                     return eventHandlerInfoAttr;
                 }
             }
-            
+
             return null;
         }
 
@@ -73,8 +74,27 @@ namespace Fungus.EditorUtils
             // To avoid this we manually display all properties, except for m_Script.
             serializedObject.Update();
 
+            var obsAttr = (target as EventHandler).GetType().GetCustomAttribute<System.ObsoleteAttribute>();
+            if (obsAttr != null)
+            {
+                EditorGUILayout.HelpBox(obsAttr.Message, MessageType.Warning, true);
+            }
+
             DrawProperties();
-            DrawHelpBox();
+
+            var summary = (target as EventHandler).GetSummary();
+
+            if (!string.IsNullOrEmpty(summary))
+            {
+                EditorGUILayout.HelpBox(summary, summary.StartsWith("Error:") ? MessageType.Error : MessageType.Info, true);
+            }
+
+
+            if (!FungusEditorPreferences.suppressHelpBoxes)
+            {
+                EditorGUILayout.Space();
+                DrawHelpBox();
+            }
 
             serializedObject.ApplyModifiedProperties();
         }

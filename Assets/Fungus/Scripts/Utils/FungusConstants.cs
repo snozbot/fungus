@@ -47,6 +47,12 @@ namespace Fungus
         /// </summary>
         public const string DefaultSaveDataKey = "save_data";
 
+        public const string FungusAudioMixer = "FungusAudioMixer";
+
+        public const string UIPrefixForDeprecated = "[DEP] ";
+        public const string UIPrefixForDeprecated_RichText = "<color=yellow>" + UIPrefixForDeprecated + "</color>";
+
+        #endregion
         /// <summary>
         /// The default name of the Input EventSystem, stored in the resources folder.
         /// </summary>

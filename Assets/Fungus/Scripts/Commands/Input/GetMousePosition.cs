@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    // <summary>
+    /// <summary>
     /// Store Input.mousePosition and mouse screen conversions in a variable(s)
     /// </summary>
     [CommandInfo("Input",

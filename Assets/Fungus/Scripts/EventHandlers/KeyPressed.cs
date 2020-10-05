@@ -59,14 +59,5 @@ namespace Fungus
                 break;
             }
         }
-
-        #region Public members
-
-        public override string GetSummary()
-        {
-            return keyCode.ToString();
-        }
-
-        #endregion
     }
 }

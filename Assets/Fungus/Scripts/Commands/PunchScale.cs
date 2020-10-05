@@ -14,6 +14,7 @@ namespace Fungus
                  "Punch Scale", 
                  "Applies a jolt of force to a GameObject's scale and wobbles it back to its initial scale.")]
     [AddComponentMenu("")]
+    [System.Obsolete("Deprecated, consider using the LeanTween based Tween command instead.")]
     [ExecuteInEditMode]
     public class PunchScale : iTweenCommand
     {

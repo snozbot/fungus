@@ -94,7 +94,7 @@ namespace Fungus
                 return clickableObject.name;
             }
 
-            return "None";
+            return "Error: no clickableObject set.";
         }
 
         #endregion

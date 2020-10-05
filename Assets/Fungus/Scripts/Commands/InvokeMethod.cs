@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.Events;
 using MarkerMetro.Unity.WinLegacy.Reflection;
+using System.Linq;
 
 namespace Fungus
 {
@@ -403,14 +404,16 @@ namespace Fungus
     {
         static Dictionary<string, System.Type> types = new Dictionary<string, System.Type>();
 
-        public static System.Type GetType(string typeName)
+        public static System.Type GetType(string AssemblyQualifiedNameTypeName)
         {
-            if (types.ContainsKey(typeName))
-                return types[typeName];
+            if (types.ContainsKey(AssemblyQualifiedNameTypeName) && types[AssemblyQualifiedNameTypeName] != null)
+                return types[AssemblyQualifiedNameTypeName];
 
-            types[typeName] = System.Type.GetType(typeName);
+            types[AssemblyQualifiedNameTypeName] = AppDomain.CurrentDomain.GetAssemblies().
+                SelectMany(x => x.GetTypes())
+                .FirstOrDefault(x => x.AssemblyQualifiedName == AssemblyQualifiedNameTypeName);
 
-            return types[typeName];
+            return types[AssemblyQualifiedNameTypeName];
         }
     }
 }

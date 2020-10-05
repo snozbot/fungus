@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    // <summary>
+    /// <summary>
     /// Get or Set a property of a Color component
     /// </summary>
     [CommandInfo("Property",
@@ -106,6 +106,8 @@ namespace Fungus
                 default:
                     break;
             }
+
+            colorVar.Value = target;
 
             Continue();
         }

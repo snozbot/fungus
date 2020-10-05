@@ -288,7 +288,7 @@ namespace Fungus
                 
                 // Update the read ahead string buffer. This contains the text for any 
                 // Word tags which are further ahead in the list. 
-                if (doReadAheadText)
+                if (doReadAheadText && !textAdapter.SupportsHiddenCharacters())
                 {
                     readAheadString.Length = 0;
                     for (int j = i + 1; j < tokens.Count; ++j)
@@ -583,9 +583,18 @@ namespace Fungus
                         textAdapter.RevealedCharacters = textAdapter.CharactersToReveal;
                     }
 
+                    textAdapter.RevealedCharacters++;
+
+                    NotifyGlyph();
+
+                    // Punctuation pause
+                    if (IsPunctuation(textAdapter.LastRevealedCharacter))
+                    {
+                        yield return StartCoroutine(DoWait(currentPunctuationPause));
+                    }
+
                     if (currentWritingSpeed > 0f)
                     {
-                        textAdapter.RevealedCharacters++;
                         timeAccumulator -= invWritingSpeed;
                         if (timeAccumulator <= 0f)
                         {

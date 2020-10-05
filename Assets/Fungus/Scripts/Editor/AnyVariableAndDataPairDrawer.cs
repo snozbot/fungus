@@ -61,7 +61,32 @@ namespace Fungus.EditorUtils
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return EditorGUIUtility.singleLineHeight * 2;
+            //changes in new Unity circa UIElements mean that some data that used to be single line
+            //  are now multiple lines, so we have to ask the props individually how high they are
+            var dataProp = GetDataProp(property);
+
+            return EditorGUI.GetPropertyHeight(property.FindPropertyRelative("variable")) +
+                (dataProp != null ? 
+                    EditorGUI.GetPropertyHeight(dataProp) :
+                    EditorGUIUtility.singleLineHeight);
+        }
+
+        protected SerializedProperty GetDataProp(SerializedProperty property)
+        {
+            var varProp = property.FindPropertyRelative("variable");
+            if (varProp.objectReferenceValue != null)
+            {
+                var varPropType = varProp.objectReferenceValue.GetType();
+
+                var typeActionsRes = AnyVariableAndDataPair.typeActionLookup[varPropType];
+
+                if (typeActionsRes != null)
+                {
+                    var targetName = "data." + typeActionsRes.DataPropName;
+                    return property.FindPropertyRelative(targetName);
+                }
+            }
+            return null;
         }
     }
 }
