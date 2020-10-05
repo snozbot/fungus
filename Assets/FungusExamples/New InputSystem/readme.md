@@ -1,0 +1,2 @@
+These demos use the new Unity Input system avaiable via the package manager.
+Adding that should also set ENABLE_INPUT_SYSTEM in your projects hash defines, which will switch out behaviour in a number of Fungus systems and commands, and events.

@@ -10,8 +10,6 @@ namespace Fungus
     /// </summary>
     public static class FungusConstants
     {
-        #region Public members
-
         /// <summary>
         /// Duration of fade for executing icon displayed beside blocks & commands.
         /// </summary>
@@ -52,7 +50,6 @@ namespace Fungus
         public const string UIPrefixForDeprecated = "[DEP] ";
         public const string UIPrefixForDeprecated_RichText = "<color=yellow>" + UIPrefixForDeprecated + "</color>";
 
-        #endregion
         /// <summary>
         /// The default name of the Input EventSystem, stored in the resources folder.
         /// </summary>
@@ -62,7 +59,5 @@ namespace Fungus
 #else
             "Prefabs/EventSystem";
 #endif
-
-#endregion
     }
 }
