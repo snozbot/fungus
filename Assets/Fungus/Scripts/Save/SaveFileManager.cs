@@ -189,7 +189,6 @@ namespace Fungus
                 // Additive scene loads and non-matching scene loads could happen if the client is using the
                 // SceneManager directly. We just ignore these events and hope they know what they're doing!
                 if (mode == LoadSceneMode.Additive ||
-                //TODO use savedata string pair for this
                     scene.name != sceneName)
                 {
                     return;
