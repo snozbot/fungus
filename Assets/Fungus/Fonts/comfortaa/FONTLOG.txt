@@ -1,0 +1,110 @@
+	FONTLOG for Comfortaa:
+This file provides detailed information on the Comfortaa Font Software.
+This information should be distributed along with the Comfortaa fonts and any derivative works.
+
+
+
+
+
+
+
+	Font Information / Notes from the Author:
+
+Read me V1.6 - 26/12 - 2011
+
+Thank you for downloading Comfortaa!
+
+If you like Comfortaa and use it, you are very welcome to leave a donation!
+Making fonts is much work and even a very small amount of money will be highly appreciated,
+encouraging me to keep making fonts available free of charge.  
+To make a donation, use the link "donate" included in the comfortaa folder.
+
+(Note that it is entirely up to you if you want to leave a donation, and not doing so should by no means ethically stop you from using Comfortaa)
+
+
+To install:
+
+Windows:
+Copy the font files to C:\windows\fonts
+
+Mac:
+Put the files into /Library/Fonts (for all users),
+or into /Users/Your_username/Library/Fonts (for you only).
+
+Linux:
+Copy the font files to fonts:// in the File manager
+
+
+I hope you will enjoy using it.
+
+
+Brief copyright information:
+
+Comfortaa is free for personal/noncommercial use, AND commercial use.
+
+Comfortaa is licensed under the SIL Open Font License, Version 1.1.
+http://scripts.sil.org/OFL
+This is the standard license of open source fonts and has very few restrictions. Read the "OFL" file included in the Comfortaa folder for detailed information on the license.  
+
+If you still have questions or comments, you are more than welcome to write to my email: aajohan@gmail.com
+
+
+
+
+
+
+
+	ChangeLog:
+Please list both major and minor changes made to Comfortaa here (in case of derivative works) - most recent first.
+
+8. August 2012
+- Version 2.003 2012
+- Corrected the "upside down questionmark" which was facing the wrong direction.
+
+2. January 2012
+- Version 2.002 2012
+- Fixes an issue with the font naming that could result in diffuculty when installing or using.
+
+26. December 2011
+- Version 2.001 2011
+- basic hinting added (not included in v2.000)
+- small increase of the space width.
+
+29. July 2011
+- Version 2.000 2011
+- All characters redone at a higher quality. Some characters have changed more than others, e.g. s and A.
+- Spacing rethought, as well as kerning
+- This version is released to the google web fonts service only.
+
+6. December 2010
+- Changed filenames to included dashes "-" instead of spaces.
+- Changed name of "Comfortaa thin" to "Comfortaa-light"
+- Changed the font weight info of Comfortaa-light from 250 to 300
+- Made changes to Fontlog.txt (Included the readme file in the fontlog file)
+
+30. November 2010
+- Corrected "cyrillic small letter yi" and "dotless i" (version 1.004 2010)  
+
+20. July 2010
+- Comfortaa released under a new license:  SIL Open Font License, Version 1.1.
+
+22. June 2009
+- Cyrillic character set added
+- Minor changes made to kerning
+
+4. Decemeber 2008
+- Initial release of font family "Comfortaa"
+
+
+
+
+
+
+
+	Acknowledgements
+If you make modifications be sure to add your name (N), email (E), web-address (W) and description (D). This list is sorted by last name in alphabetical order.
+
+N: Johan Aakerlund
+E: aajohan@gmail.com
+W: aajohan.deviantart.com/
+D: Designer/creator of Comfortaa

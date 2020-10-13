@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8f7e2094756180942942b1e597d187a8
+guid: 1751e77bcd2fcbd4ea9b900968dbd60f
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Super [Mario] Script 2 Demo
+  fontName: Comfortaa
   fontNames:
-  - Super [Mario] Script 2 Demo
+  - Comfortaa
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

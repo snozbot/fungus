@@ -4,6 +4,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Reflection;
+using UnityEngine.Video;
+
+#if UNITY_2018_1_OR_NEWER
+using TMPFont = TMPro.TMP_FontAsset;
+#endif
 
 namespace Fungus
 {
@@ -328,5 +333,47 @@ namespace Fungus
                 }
             }
         }
+        
+        public virtual FontAdapter Font
+        {
+            get { return font; }
+            set 
+            {
+                // Will work with FontAdapters and the appropriate font types, due to the 
+                // former's operator-overloading
+                font.SetFrom(value);
+                ApplyFont();
+            }
+        }
+
+        protected FontAdapter font = new FontAdapter();
+
+        protected virtual void ApplyFont()
+        {
+            if (textUI != null)
+            {
+                textUI.font = font;
+                return;
+            }
+
+            if (tmpro != null)
+            {
+                tmpro.font = font;
+                return;
+            }
+
+            if (inputField != null)
+            {
+                inputField.textComponent.font = font;
+                return;
+            }
+
+            if (textMesh != null)
+            {
+                textMesh.font = font;
+                return;
+            }
+        }
+
     }
 }

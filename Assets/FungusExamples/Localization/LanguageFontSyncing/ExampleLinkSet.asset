@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Fungus:Fungus:LangFontLinkSet
   links:
   - langCode: Standard
-    font: {fileID: 11400000, guid: a63a36c29a3a9a545abce6fa7b97a44f, type: 2}
+    uguiFont: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
+    tmpFont: {fileID: 11400000, guid: a63a36c29a3a9a545abce6fa7b97a44f, type: 2}
   - langCode: ES
-    font: {fileID: 11400000, guid: 12f8d4647cb43a9499f27a1661559f69, type: 2}
+    uguiFont: {fileID: 12800000, guid: 68f573ee7ce0a4d4ab4ad3850725aedf, type: 3}
+    tmpFont: {fileID: 11400000, guid: 5718ea8f34a8ec64b9128f1f416f7e19, type: 2}
   - langCode: FR
-    font: {fileID: 11400000, guid: b3cca7bd29d6d4c4886181bd63088603, type: 2}
+    uguiFont: {fileID: 12800000, guid: b9c32a21b945a1d488f26b4e990f84d5, type: 3}
+    tmpFont: {fileID: 11400000, guid: afefb9817974e8441ad623da2f035a8f, type: 2}

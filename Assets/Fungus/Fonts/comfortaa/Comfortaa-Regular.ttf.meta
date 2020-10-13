@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 22b96bd87807b7644afbcc87069c4dcc
+guid: ec2449e2348f6fe4dae2b0a76b6c5302
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,10 +8,12 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Hey Gorgeous
+  fontName: Comfortaa
   fontNames:
-  - Hey Gorgeous
-  fallbackFontReferences: []
+  - Comfortaa
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6c423f55d01ce984b9830a45bbe50df2, type: 3}
+  - {fileID: 12800000, guid: 1751e77bcd2fcbd4ea9b900968dbd60f, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
