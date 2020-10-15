@@ -205,9 +205,9 @@ namespace Fungus
         /// <summary>
         /// Start a coroutine which executes all commands in the Block. Only one running instance of each Block is permitted.
         /// </summary>
-        public virtual void StartExecution()
+        public virtual void StartExecution(int commandIndex = 0, Action onComplete = null)
         {
-            StartCoroutine(Execute());
+            StartCoroutine(Execute(commandIndex, onComplete));
         }
 
         /// <summary>
