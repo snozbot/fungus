@@ -49,7 +49,7 @@ namespace Fungus
                 return targetToggle.name;
             }
 
-            return "None";
+            return "Error: No targetToggle set.";
         }
 
         #endregion

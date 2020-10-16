@@ -816,7 +816,7 @@ namespace Fungus
 
             if (go != null)
             {
-                iTween.ShakePosition(go, axis, time);
+                LeanTweenHelpers.ShakePosition(go.transform, axis, new Vector2(30,60), time);
             }
         }
         

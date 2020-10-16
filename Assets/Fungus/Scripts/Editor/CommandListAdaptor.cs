@@ -42,7 +42,10 @@ namespace Fungus.EditorUtils
 
             if (block.CommandList.Count == 0)
             {
-                EditorGUILayout.HelpBox("Press the + button below to add a command to the list.", MessageType.Info);
+                if (!FungusEditorPreferences.suppressHelpBoxes)
+                {
+                    EditorGUILayout.HelpBox("Press the + button below to add a command to the list.", MessageType.Info); 
+                }
             }
             else
             {

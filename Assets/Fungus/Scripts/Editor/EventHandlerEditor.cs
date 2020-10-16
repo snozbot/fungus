@@ -7,8 +7,8 @@ using UnityEngine;
 
 namespace Fungus.EditorUtils
 {
-    [CustomEditor (typeof(EventHandler), true)]
-    public class EventHandlerEditor : Editor 
+    [CustomEditor(typeof(EventHandler), true)]
+    public class EventHandlerEditor : Editor
     {
         protected virtual void DrawProperties()
         {
@@ -40,7 +40,7 @@ namespace Fungus.EditorUtils
                 EditorGUILayout.HelpBox(info.HelpText, MessageType.Info);
             }
         }
-        
+
         #region Public members
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Fungus.EditorUtils
                     return eventHandlerInfoAttr;
                 }
             }
-            
+
             return null;
         }
 
@@ -75,7 +75,20 @@ namespace Fungus.EditorUtils
             }
 
             DrawProperties();
-            DrawHelpBox();
+
+            var summary = (target as EventHandler).GetSummary();
+
+            if (!string.IsNullOrEmpty(summary))
+            {
+                EditorGUILayout.HelpBox(summary, summary.StartsWith("Error:") ? MessageType.Error : MessageType.Info, true);
+            }
+
+
+            if (!FungusEditorPreferences.suppressHelpBoxes)
+            {
+                EditorGUILayout.Space();
+                DrawHelpBox();
+            }
 
             serializedObject.ApplyModifiedProperties();
         }
