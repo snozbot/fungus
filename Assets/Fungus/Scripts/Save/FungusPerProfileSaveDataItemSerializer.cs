@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
-    ///
+    /// Save and Load data at the user profile level, presently only the active lanaguage used by the player.
     /// </summary>
     public class FungusPerProfileSaveDataItemSerializer : ISaveDataItemSerializer
     {

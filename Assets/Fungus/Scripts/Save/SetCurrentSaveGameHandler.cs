@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Fungus
 {
+    /// <summary>
+    /// Helper component to replace and restore the SaveHandler with a set of defined components.
+    /// </summary>
     public class SetCurrentSaveGameHandler : MonoBehaviour
     {
         protected ISaveHandler previousSaveHandler;

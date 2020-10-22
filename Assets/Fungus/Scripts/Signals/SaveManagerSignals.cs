@@ -1,8 +1,6 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-//TODO do we need a save meta changed signal
-
 namespace Fungus
 {
     /// <summary>
@@ -97,6 +95,17 @@ namespace Fungus
         public static void DoSavingLoadingAllowedChanged()
         {
             if (OnSavingLoadingAllowedChanged != null) OnSavingLoadingAllowedChanged();
+        }
+
+        /// <summary>
+        /// Save manager will cause a dump and refresh of all metas when changing profiles and the like,
+        /// subscription here allows for others to respond when such a flush and refresh occurs.
+        /// </summary>
+        public static event System.Action OnSaveMetasRefreshed;
+
+        public static void DoSaveMetasRefreshed()
+        {
+            if (OnSaveMetasRefreshed != null) OnSaveMetasRefreshed();
         }
     }
 }

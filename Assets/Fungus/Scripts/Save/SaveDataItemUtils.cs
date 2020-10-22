@@ -5,6 +5,10 @@ namespace Fungus
 {
     public static class SaveDataItemUtils
     {
+        /// <summary>
+        /// Often a save data item will only want to create a single element but the return
+        /// of the encode expects an array, this helper hides that conversion.
+        /// </summary>
         public static StringPair[] CreateSingleElement<T>(string key, T dataItem)
         {
             var sdi = new StringPair()

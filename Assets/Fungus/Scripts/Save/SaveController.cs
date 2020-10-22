@@ -78,15 +78,17 @@ namespace Fungus
 
         protected virtual void OnEnable()
         {
-            SaveManagerSignals.OnSaveSaved += OnSaveAdded;
-            SaveManagerSignals.OnSaveDeleted += OnSaveDeleted;
+            SaveManagerSignals.OnSaveSaved += OnSaveAddedHandler;
+            SaveManagerSignals.OnSaveDeleted += OnSaveDeletedHandler;
+            SaveManagerSignals.OnSaveMetasRefreshed += SaveManagerSignals_OnSaveMetasRefreshed;
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         }
 
         protected virtual void OnDisable()
         {
-            SaveManagerSignals.OnSaveSaved -= OnSaveAdded;
-            SaveManagerSignals.OnSaveDeleted -= OnSaveDeleted;
+            SaveManagerSignals.OnSaveSaved -= OnSaveAddedHandler;
+            SaveManagerSignals.OnSaveDeleted -= OnSaveDeletedHandler;
+            SaveManagerSignals.OnSaveMetasRefreshed -= SaveManagerSignals_OnSaveMetasRefreshed;
             SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
         }
 
@@ -97,12 +99,17 @@ namespace Fungus
             ToggleSaveMenu();
         }
 
-        protected virtual void OnSaveAdded(string savePointKey, string savePointDescription)
+        protected virtual void OnSaveAddedHandler(string savePointKey, string savePointDescription)
         {
             UpdateSlots();
         }
 
-        protected virtual void OnSaveDeleted(string savePointKey)
+        protected virtual void OnSaveDeletedHandler(string savePointKey)
+        {
+            UpdateSlots();
+        }
+
+        private void SaveManagerSignals_OnSaveMetasRefreshed()
         {
             UpdateSlots();
         }
@@ -136,9 +143,9 @@ namespace Fungus
 
         private void Update()
         {
-            if(selectedSaveSlot != null)
+            if (selectedSaveSlot != null)
             {
-                if(EventSystem.current.currentSelectedGameObject != selectedSaveSlot.OurButton.gameObject)
+                if (EventSystem.current.currentSelectedGameObject != selectedSaveSlot.OurButton.gameObject)
                 {
                     SetSelectedSlot(null);
                 }
@@ -148,7 +155,7 @@ namespace Fungus
         public void SetSelectedSlot(SaveSlotController saveSlotController)
         {
             selectedSaveSlot = saveSlotController;
-            if(selectedSaveSlot != null)
+            if (selectedSaveSlot != null)
                 selectedSaveSlot.OurButton.Select();
 
             if (loadButton != null)
@@ -188,7 +195,7 @@ namespace Fungus
             //shouldnt happen but be thorough
             while (slots.Count > saves.Count)
             {
-                //    //remove excess
+                //remove excess
                 Destroy(slots.Last().gameObject);
                 slots.RemoveAt(slots.Count - 1);
             }

@@ -8,7 +8,8 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
-    ///
+    /// Save and restore data for Fungus core systems. Presently includes TextVariation, NarativeLog,
+    ///      MenuDialog, SayDialog, Cameramanager, Stages, and active Character Portraits on stage.
     /// </summary>
     public class FungusSystemSaveDataItemSerializer : ISaveDataItemSerializer
     {

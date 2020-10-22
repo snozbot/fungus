@@ -3,12 +3,8 @@
 
 namespace Fungus
 {
-    /// <summary>
-    /// </summary>
     public static class UserProfileManagerSignals
     {
-        /// <summary>
-        /// </summary>
         public static event System.Action OnUserProfileChanged;
 
         public static void DoUserProfileChanged()
@@ -16,8 +12,6 @@ namespace Fungus
             OnUserProfileChanged?.Invoke();
         }
 
-        /// <summary>
-        /// </summary>
         public static event System.Action OnUserProfileChangedPreSave;
 
         public static void DoUserProfileChangedPreSave()

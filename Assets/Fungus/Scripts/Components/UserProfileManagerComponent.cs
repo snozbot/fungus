@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace Fungus
 {
+    /// <summary>
+    /// UserProfileManager itself is not a MonoBeh, it's core function does not really require it. This class allows for
+    /// the UserProfileManager to live on the FungusManager and makes calls down to it at some appropriate Unity Messages.
+    /// </summary>
     [AddComponentMenu("")]
     public class UserProfileManagerComponent : MonoBehaviour
     {

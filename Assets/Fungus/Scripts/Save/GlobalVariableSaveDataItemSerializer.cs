@@ -8,6 +8,8 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
+    /// Save and load Fungus Global Variable data, this is done separately from general Fungus System
+    ///     save data as it requires a different priority.
     /// </summary>
     public class GlobalVariableSaveDataItemSerializer : ISaveDataItemSerializer
     {
