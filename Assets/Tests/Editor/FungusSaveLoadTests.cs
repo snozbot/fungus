@@ -97,8 +97,6 @@ namespace Fungus.Tests
 
             UserProfileManagerSignals.OnUserProfileChangedPreSave += PairAdder;
 
-            //todo add setlangauge test
-
             upm.SaveProfileData();
 
             UserProfileManagerSignals.OnUserProfileChangedPreSave -= PairAdder;
@@ -165,12 +163,10 @@ namespace Fungus.Tests
             upm.Init();
             upm.ChangeProfile("langtest");
             upm.ResetProfile();
-            SetLanguage.SetActiveLanguage("");
-
+            SetLanguage.SetActiveLanguage(string.Empty);
             Assert.AreEqual(SetLanguage.mostRecentLanguage, string.Empty);
 
             SetLanguage.SetActiveLanguage("en");
-            //TODO add elements that are localised
             Assert.AreEqual(SetLanguage.mostRecentLanguage, "en");
 
             upm.SaveProfileData();

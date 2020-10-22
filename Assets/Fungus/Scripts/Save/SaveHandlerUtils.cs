@@ -27,33 +27,6 @@ namespace Fungus
             return sd;
         }
 
-        public static bool LoadSaveData(ISaveHandler saveHandler, SaveData sd)
-        {
-            var serializers = saveHandler.SaveDataItemSerializers;
-
-            foreach (var item in serializers)
-            {
-                item.PreDecode();
-            }
-
-            foreach (var item in serializers)
-            {
-                var matches = sd.saveDataItems.AsReadOnly().Where(x => x.key == item.DataTypeKey);
-                foreach (var match in matches)
-                {
-                    item.Decode(match);
-                }
-            }
-
-            foreach (var item in serializers)
-            {
-                item.PostDecode();
-            }
-            //hack, not checking for failures
-
-            return true;
-        }
-
         public static SaveData DecodeFromJSON(ISaveHandler saveHandler, string jsonSave)
         {
             var sd = JsonUtility.FromJson<SaveData>(jsonSave);
@@ -77,6 +50,30 @@ namespace Fungus
             }
 
             return sd;
+        }
+
+        public static void LoadSaveData(ISaveHandler saveHandler, SaveData sd)
+        {
+            var serializers = saveHandler.SaveDataItemSerializers;
+
+            foreach (var item in serializers)
+            {
+                item.PreDecode();
+            }
+
+            foreach (var item in serializers)
+            {
+                var matches = sd.saveDataItems.AsReadOnly().Where(x => x.key == item.DataTypeKey);
+                foreach (var match in matches)
+                {
+                    item.Decode(match);
+                }
+            }
+
+            foreach (var item in serializers)
+            {
+                item.PostDecode();
+            }
         }
     }
 }

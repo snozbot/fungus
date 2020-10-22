@@ -29,8 +29,6 @@ namespace Fungus.EditorUtils
             yield return null;
             yield return null;
 
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
             var f = resTest.GetComponent<Flowchart>();
             if(f == null)
             {

@@ -11,7 +11,7 @@ namespace Fungus
 
         SaveData CreateSaveData(string saveName, string saveDesc);
 
-        bool LoadSaveData(SaveData sd);
+        void LoadSaveData(SaveData sd);
 
         string EncodeToJSON(SaveData sd);
 

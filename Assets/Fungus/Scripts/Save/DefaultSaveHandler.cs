@@ -21,11 +21,11 @@ namespace Fungus
             return SaveHandlerUtils.CreateSaveData(this, saveName, saveDesc, CurrentExpectedVersion);
         }
 
-        public bool LoadSaveData(SaveData sd)
+        public void LoadSaveData(SaveData sd)
         {
             saveDataItemSerializers = saveDataItemSerializers.OrderBy(x => x.Order).ToList();
 
-            return SaveHandlerUtils.LoadSaveData(this, sd);
+            SaveHandlerUtils.LoadSaveData(this, sd);
         }
 
         public SaveData DecodeFromJSON(string jsonSave)
