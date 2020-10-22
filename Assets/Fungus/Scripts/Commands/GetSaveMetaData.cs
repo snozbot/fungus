@@ -28,7 +28,6 @@ namespace Fungus
         [VariableProperty(typeof(StringVariable))]
         [SerializeField] protected StringVariable descString;
 
-
         [Tooltip("")]
         [VariableProperty(typeof(StringVariable))]
         [SerializeField] protected StringVariable dateString;

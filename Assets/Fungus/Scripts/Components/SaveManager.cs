@@ -20,6 +20,7 @@ namespace Fungus
             Slot,
             Any,
         }
+
         public SaveFileManager SaveFileManager { get; private set; }
 
         public void Awake()
@@ -48,8 +49,6 @@ namespace Fungus
         {
             SaveFileManager.PopulateSaveMetas();
 
-
-            //TODO look at the settings and ensure we have saves in correct order for user saves and put dumbies in where we don't
             var userSaves = CollectUserSaves();
 
             for (int i = 0; i < NumberOfSlotSaves; i++)
@@ -123,7 +122,7 @@ namespace Fungus
 
                 for (int i = 0; i < autoSaves.Count - NumberOfAutoSaves; i++)
                 {
-                    DeleteSave(autoSaves[i],false);
+                    DeleteSave(autoSaves[i], false);
                 }
             }
         }

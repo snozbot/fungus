@@ -9,11 +9,11 @@ namespace Fungus
     //Our current version of c# in unity doesn't yet support default methods in interfaces so we use helpers
     public static class SaveHandlerUtils
     {
-        public static SaveData CreateSaveData(ISaveHandler saveHandler,string saveName, string saveDesc, int version)
+        public static SaveData CreateSaveData(ISaveHandler saveHandler, string saveName, string saveDesc, int version)
         {
             var sd = new SaveData(saveName,
                 new StringPair() { key = FungusConstants.SaveDescKey, val = saveDesc })
-            { 
+            {
                 version = version
             };
 

@@ -33,7 +33,6 @@ namespace Fungus
 
         public virtual int NumSaveMetas { get { return saveMetas.Count; } }
 
-        //TODO needs web version
         /// <summary>
         /// Gathers all saves for the current profile, filling the SaveMetas collection.
         ///
@@ -44,9 +43,6 @@ namespace Fungus
             saveMetas.Clear();
 
             var dir = UserProfileManager.GetCurrentUserProfileDirectory();
-#if UNITY_WEBGL
-                Application.ExternalEval("_JS_FileSystem_Sync();");
-#endif
 
             System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(dir));
 
@@ -94,9 +90,6 @@ namespace Fungus
         /// </summary>
         public void DeleteSave(int index)
         {
-#if UNITY_WEBGL
-                Application.ExternalEval("_JS_FileSystem_Sync();");
-#endif
             var meta = saveMetas[index];
             if (System.IO.File.Exists(meta.fileLocation))
             {
@@ -130,18 +123,12 @@ namespace Fungus
             GenerateMetaFromSave(fileName, saveData);
             System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fileName));
             System.IO.File.WriteAllText(fileName, savePointDataJSON, System.Text.Encoding.UTF8);
-#if UNITY_WEBGL
-                Application.ExternalEval("_JS_FileSystem_Sync();");
-#endif
 
             SaveManagerSignals.DoSaveSaved(saveName, savePointDescription);
         }
 
         public SaveData GetSaveDataFromMeta(SaveGameMetaData meta)
         {
-#if UNITY_WEBGL
-                Application.ExternalEval("_JS_FileSystem_Sync();");
-#endif
             var saveContent = System.IO.File.ReadAllText(meta.fileLocation, System.Text.Encoding.UTF8);
 
             return CurrentSaveHandler.DecodeFromJSON(saveContent);

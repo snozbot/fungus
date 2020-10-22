@@ -13,7 +13,9 @@ namespace Fungus
 
         public override int CurrentExpectedVersion => FungusConstants.CurrentProfileDataVersion;
 
-        public DefaultUserProfileSaveHandler() {}
+        public DefaultUserProfileSaveHandler()
+        {
+        }
 
         public DefaultUserProfileSaveHandler(params ISaveDataItemSerializer[] handlers)
         {

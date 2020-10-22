@@ -3,7 +3,7 @@
 
 namespace Fungus
 {
-    public class ValueTypeCollectionSaveDataItemSerializerComponent : 
+    public class ValueTypeCollectionSaveDataItemSerializerComponent :
         SaveDataItemSerializerComponentT<ValueTypeCollectionSaveDataItemSerializer>
     {
     }

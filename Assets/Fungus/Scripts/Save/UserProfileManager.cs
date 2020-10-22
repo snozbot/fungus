@@ -46,9 +46,6 @@ namespace Fungus
             //load last used profile
             try
             {
-#if UNITY_WEBGL
-                Application.ExternalEval("_JS_FileSystem_Sync();");
-#endif
                 var fileName = GetLastUserFile();
                 Directory.CreateDirectory(Path.GetDirectoryName(fileName));
                 var datString = File.ReadAllText(fileName);
@@ -90,9 +87,6 @@ namespace Fungus
                 LastLoadedProfileData = CurrentUserProfileSaveHandler.CreateSaveData(CurrentUserProfileName, string.Empty);
             }
 
-#if UNITY_WEBGL
-                Application.ExternalEval("_JS_FileSystem_Sync();");
-#endif
             UserProfileManagerSignals.DoUserProfileChanged();
         }
 
@@ -120,12 +114,7 @@ namespace Fungus
 
             var sdJSON = CurrentUserProfileSaveHandler.EncodeToJSON(userProfileSave);
 
-
             File.WriteAllText(GetCurrentUserProfileFileName(), sdJSON);
-
-#if UNITY_WEBGL
-                Application.ExternalEval("_JS_FileSystem_Sync();");
-#endif
         }
     }
 }

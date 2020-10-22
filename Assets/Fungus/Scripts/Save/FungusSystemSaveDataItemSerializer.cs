@@ -22,13 +22,13 @@ namespace Fungus
         {
             var fsData = new FungusSystemSaveDataItem();
             fsData.textVariationHistory = TextVariationHandler.GetSerialisedHistory();
-            if(FungusManager.Instance.NarrativeLog != null)
+            if (FungusManager.Instance.NarrativeLog != null)
                 fsData.narLogEntries = FungusManager.Instance.NarrativeLog.GetAllNarrativeLogItems();
-            
-            if(MenuDialog.GetMenuDialog() != null)
+
+            if (MenuDialog.GetMenuDialog() != null)
                 fsData.lastMenuName = MenuDialog.GetMenuDialog().gameObject.name;
 
-            if(SayDialog.GetSayDialog() != null)
+            if (SayDialog.GetSayDialog() != null)
                 fsData.lastSayDialogName = SayDialog.GetSayDialog().gameObject.name;
 
             if (FungusManager.Instance.CameraManager != null)
@@ -78,8 +78,8 @@ namespace Fungus
             }
 
             TextVariationHandler.RestoreFromSerialisedHistory(fsData.textVariationHistory);
-            
-            if(fsData.narLogEntries.Count > 0)
+
+            if (fsData.narLogEntries.Count > 0)
                 FungusManager.Instance.NarrativeLog.LoadHistory(fsData.narLogEntries);
 
             var v = GameObjectUtils.FindObjectOfTypeWithGameObjectName<View>(fsData.lastViewName);

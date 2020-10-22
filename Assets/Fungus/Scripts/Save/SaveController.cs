@@ -1,10 +1,10 @@
 ﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -32,16 +32,7 @@ namespace Fungus
 
         [SerializeField] protected SaveSlotController slotPrefab;
 
-        [SerializeField] protected Text timeSinceLastSaveText;
-        protected DateTime lastSaveTime;
-
         protected SaveSlotController selectedSaveSlot;
-
-        public void SetSelectedSlot(SaveSlotController saveSlotController)
-        {
-            selectedSaveSlot = saveSlotController;
-            selectedSaveSlot.OurButton.Select();
-        }
 
         protected List<SaveSlotController> autoSaveSlots = new List<SaveSlotController>();
         protected List<SaveSlotController> userSaveSlots = new List<SaveSlotController>();
@@ -134,17 +125,47 @@ namespace Fungus
         {
             var saveMan = smc;
 
-            var mostRecentMeta = saveMan.GetMostRecentSave();
-            if (mostRecentMeta != null)
-            {
-                lastSaveTime = mostRecentMeta.lastWritten;
-            }
-
             var autoSaves = saveMan.CollectAutoSaves();
             AdjustAndUpdateSaveSlots(autoSaves, autoSaveSlots, autoSaveScrollViewContainer);
 
             var userSaves = saveMan.CollectUserSaves();
             AdjustAndUpdateSaveSlots(userSaves, userSaveSlots, userSaveScrollViewContainer);
+
+            SetSelectedSlot(null);
+        }
+
+        private void Update()
+        {
+            if(selectedSaveSlot != null)
+            {
+                if(EventSystem.current.currentSelectedGameObject != selectedSaveSlot.OurButton.gameObject)
+                {
+                    SetSelectedSlot(null);
+                }
+            }
+        }
+
+        public void SetSelectedSlot(SaveSlotController saveSlotController)
+        {
+            selectedSaveSlot = saveSlotController;
+            if(selectedSaveSlot != null)
+                selectedSaveSlot.OurButton.Select();
+
+            if (loadButton != null)
+            {
+                loadButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.IsLoadable && smc.IsLoadingAllowed;
+            }
+
+            if (deleteButton != null)
+            {
+                deleteButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.IsLoadable;
+            }
+
+            if (saveButton != null)
+            {
+                saveButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null &&
+                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.SlotSavePrefix) && smc.IsSavingAllowed;
+            }
         }
 
         /// <summary>
@@ -155,8 +176,8 @@ namespace Fungus
         /// <param name="slots"></param>
         /// <param name="scrollViewContainer"></param>
         protected virtual void AdjustAndUpdateSaveSlots(
-            List<SaveGameMetaData> saves, 
-            List<SaveSlotController> slots, 
+            List<SaveGameMetaData> saves,
+            List<SaveSlotController> slots,
             RectTransform scrollViewContainer)
         {
             while (slots.Count < saves.Count)
@@ -178,31 +199,6 @@ namespace Fungus
             }
 
             scrollViewContainer.parent.gameObject.SetActive(saves.Count != 0);
-        }
-
-        //todo this looks like it should just be done when the menu is toggled/interacted with
-        protected virtual void Update()
-        {
-            if (loadButton != null)
-            {
-                loadButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.IsLoadable && smc.IsLoadingAllowed;
-            }
-
-            if (deleteButton != null)
-            {
-                deleteButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.IsLoadable;
-            }
-
-            if (saveButton != null)
-            {
-                saveButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null &&
-                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.SlotSavePrefix) && smc.IsSavingAllowed;
-            }
-
-            if (timeSinceLastSaveText != null && timeSinceLastSaveText.gameObject.activeInHierarchy && timeSinceLastSaveText.isActiveAndEnabled)
-            {
-                timeSinceLastSaveText.text = "Since last save: " + (DateTime.Now - lastSaveTime).ToString(@"dd\.hh\:mm\:ss");
-            }
         }
 
         protected void PlayClickSound()
@@ -250,7 +246,6 @@ namespace Fungus
         /// </summary>
         public virtual void SaveOver()
         {
-
             if (selectedSaveSlot != null)
             {
                 if (selectedSaveSlot.LinkedMeta != null && selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.SlotSavePrefix))

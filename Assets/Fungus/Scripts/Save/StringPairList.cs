@@ -42,10 +42,10 @@ namespace Fungus
         public bool TryGetValue(string key, out string val)
         {
             int loc = stringPairs.FindIndex(x => x.key == key);
-            if( loc != -1)
+            if (loc != -1)
             {
                 val = stringPairs[loc].val;
-                return true; 
+                return true;
             }
 
             val = string.Empty;

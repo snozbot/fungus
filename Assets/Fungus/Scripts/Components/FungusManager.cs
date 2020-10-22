@@ -35,13 +35,12 @@ namespace Fungus
             MainAudioMixer = GetComponent<MainAudioMixer>();
             SaveManager = GetComponent<SaveManager>();
             NarrativeLog = GetComponent<NarrativeLog>();
-            
+
             SaveManager.SaveFileManager.Init(UserProfileManager.UserProfileManager);
             SaveManagerSignals.OnSaveReset += SaveManagerSignals_OnSaveReset;
-            
+
             MainAudioMixer.Init();
             MusicManager.Init();
-
         }
 
         private void SaveManagerSignals_OnSaveReset()
@@ -120,7 +119,7 @@ namespace Fungus
                         {
                             var go = new GameObject();
                             go.name = "FungusManager";
-                            if(Application.isPlaying)
+                            if (Application.isPlaying)
                                 DontDestroyOnLoad(go);
                             instance = go.AddComponent<FungusManager>();
                         }

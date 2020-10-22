@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
-    /// Use the collection as a source of random items and turn it into a random bag. Drawing the 
+    /// Use the collection as a source of random items and turn it into a random bag. Drawing the
     /// next random item until out of items and then reshuffling them.
     /// </summary>
     [CommandInfo("Collection",

@@ -12,9 +12,13 @@ namespace Fungus
                 new GlobalVariableSaveDataItemSerializer(),
                 new MenuSaveDataItemSerializer());
         }
+
         public override int CurrentExpectedVersion => FungusConstants.CurrentSaveGameDataVersion;
 
-        public DefaultSaveGameSaveHandler() { }
+        public DefaultSaveGameSaveHandler()
+        {
+        }
+
         public DefaultSaveGameSaveHandler(params ISaveDataItemSerializer[] handlers)
         {
             saveDataItemSerializers.AddRange(handlers);

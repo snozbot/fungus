@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using static Fungus.BaseVariableProperty;
 
 namespace Fungus
 {
@@ -14,12 +15,6 @@ namespace Fungus
     [AddComponentMenu("")]
     public class CollectionCommandElement : CollectionBaseVarCommand
     {
-        public enum GetSet
-        {
-            Get,
-            Set,
-        }
-
         [SerializeField]
         protected IntegerData index;
 

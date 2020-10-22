@@ -66,7 +66,7 @@ namespace Fungus
 
                 if (v.IsSerializable)
                 {
-                    flowchartData.varPairs.Add(v.Key,v.GetStringifiedValue());
+                    flowchartData.varPairs.Add(v.Key, v.GetStringifiedValue());
                 }
             }
 

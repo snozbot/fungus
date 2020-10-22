@@ -22,6 +22,7 @@ namespace Fungus
         {
             SaveManagerSignals.OnProgressMarkerReached += SaveManagerSignals_OnProgressMarkerReached;
         }
+
         protected virtual void OnDestroy()
         {
             SaveManagerSignals.OnProgressMarkerReached -= SaveManagerSignals_OnProgressMarkerReached;

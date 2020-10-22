@@ -2,7 +2,6 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-using UnityEngine.Audio;
 
 namespace Fungus
 {
@@ -25,9 +24,9 @@ namespace Fungus
         public AudioSource DefaultVoiceAudioSource { get; protected set; }
         public AudioSource WriterSoundEffectAudioSource { get; protected set; }
 
-        const int RequiredAudioSources = 5;
+        private const int RequiredAudioSources = 5;
 
-        void Reset()
+        private void Reset()
         {
             int audioSourceCount = this.GetComponents<AudioSource>().Length;
             for (int i = 0; i < RequiredAudioSources - audioSourceCount; i++)
@@ -87,10 +86,12 @@ namespace Fungus
                 float startVolume = AudioSourceMusic.volume;
 
                 LeanTween.value(gameObject, startVolume, 0f, fadeDuration)
-                    .setOnUpdate((v) => {
+                    .setOnUpdate((v) =>
+                    {
                         // Fade out current music
                         AudioSourceMusic.volume = v;
-                    }).setOnComplete(() => {
+                    }).setOnComplete(() =>
+                    {
                         // Play new music
                         AudioSourceMusic.volume = startVolume;
                         AudioSourceMusic.clip = musicClip;
@@ -190,10 +191,12 @@ namespace Fungus
             LeanTween.value(gameObject,
                 AudioSourceMusic.volume,
                 volume,
-                duration).setOnUpdate((v) => {
+                duration).setOnUpdate((v) =>
+                {
                     AudioSourceMusic.volume = v;
                     AudioSourceAmbiance.volume = v;
-                }).setOnComplete(() => {
+                }).setOnComplete(() =>
+                {
                     if (onComplete != null)
                     {
                         onComplete();

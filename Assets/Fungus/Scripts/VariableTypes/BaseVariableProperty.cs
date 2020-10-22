@@ -14,6 +14,7 @@ namespace Fungus
             Set,
         }
 
-        public GetSet getOrSet = GetSet.Get;
+        [SerializeField]
+        protected GetSet getOrSet = GetSet.Get;
     }
 }

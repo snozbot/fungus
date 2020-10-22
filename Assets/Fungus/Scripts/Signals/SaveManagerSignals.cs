@@ -82,9 +82,7 @@ namespace Fungus
         /// SaveReset signal. Sent when the saves for the current profile are removed or progress reset or profile changed.
         /// </summary>
         /// </summary>
-        public static event SaveResetHandler OnSaveReset;
-
-        public delegate void SaveResetHandler();
+        public static event System.Action OnSaveReset;
 
         public static void DoSaveReset()
         {
@@ -94,9 +92,7 @@ namespace Fungus
         /// <summary>
         /// Saving or Loading allowed changed signal.
         /// </summary>
-        public static event SavingLoadingAllowedChangeHandler OnSavingLoadingAllowedChanged;
-
-        public delegate void SavingLoadingAllowedChangeHandler();
+        public static event System.Action OnSavingLoadingAllowedChanged;
 
         public static void DoSavingLoadingAllowedChanged()
         {

@@ -29,7 +29,6 @@ namespace Fungus
 
             if (vars != null)
             {
-
                 foreach (var item in vars)
                 {
                     if (item.IsSerializable)

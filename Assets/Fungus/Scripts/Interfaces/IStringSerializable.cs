@@ -8,9 +8,11 @@ namespace Fungus
     /// the object. Can also indicate if it can or cannot be serialised.
     /// </summary>
     public interface IStringSerializable
-    { 
-        bool IsSerializable { get;}
+    {
+        bool IsSerializable { get; }
+
         string GetStringifiedValue();
+
         void RestoreFromStringifiedValue(string stringifiedValue);
     }
 }

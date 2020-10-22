@@ -17,7 +17,7 @@ namespace Fungus
 
         protected const string MusicDataKey = "MusicData";
         protected const int MusicDataPriority = 1000;
-                
+
         public string DataTypeKey => MusicDataKey;
 
         public int Order => MusicDataPriority;
@@ -62,18 +62,18 @@ namespace Fungus
             mm.StopMusic();
             mm.StopAmbiance();
 
-            mm.SetAudioPitch(data.music.pitch,0, () => { });
+            mm.SetAudioPitch(data.music.pitch, 0, () => { });
             mm.SetAudioVolume(data.music.vol, 0, () => { });
-            
+
             mm.PlayMusic(
-                possibleMusicAudioClips.FirstOrDefault(x=>x.name == data.music.clipName), 
-                data.music.loop, 
-                0, 
+                possibleMusicAudioClips.FirstOrDefault(x => x.name == data.music.clipName),
+                data.music.loop,
+                0,
                 data.music.position);
 
             mm.PlayAmbianceSound(
-                possibleAmbientAudioClips.FirstOrDefault(x=>x.name == data.amb.clipName), 
-                data.amb.loop, 
+                possibleAmbientAudioClips.FirstOrDefault(x => x.name == data.amb.clipName),
+                data.amb.loop,
                 data.amb.vol);
 
             return true;
@@ -87,10 +87,10 @@ namespace Fungus
         {
         }
     }
-    
+
     /// <summary>
-     /// Serializable container for encoding the variables in the GlobalVariables.
-     /// </summary>
+    /// Serializable container for encoding the variables in the GlobalVariables.
+    /// </summary>
     [System.Serializable]
     public class FungusMusicSaveDataItem
     {
@@ -101,6 +101,7 @@ namespace Fungus
             public bool loop;
             public string clipName;
         }
+
         public MusicSourceSaveInfo music, amb;
     }
 }

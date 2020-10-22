@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
-    /// AutoSave, requests a new AutoSave from the save manager, this is still governed by the limits in place in 
+    /// AutoSave, requests a new AutoSave from the save manager, this is still governed by the limits in place in
     /// the Save Manager.
     /// </summary>
     [CommandInfo("Save",

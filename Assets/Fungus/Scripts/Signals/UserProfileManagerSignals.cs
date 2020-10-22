@@ -19,6 +19,7 @@ namespace Fungus
         /// <summary>
         /// </summary>
         public static event System.Action OnUserProfileChangedPreSave;
+
         public static void DoUserProfileChangedPreSave()
         {
             OnUserProfileChangedPreSave?.Invoke();

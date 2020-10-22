@@ -9,7 +9,7 @@ namespace Fungus
 {
     /// <summary>
     /// This component encodes and decodes the flowchart.block.command that kicked off a menu that is presently active.
-    /// 
+    ///
     /// This is encoded as a separate item from FungusSystem and other Flowchart saving so that it can be forced
     /// to run after any other serialization that it may need to override.
     /// </summary>
@@ -51,7 +51,6 @@ namespace Fungus
                 cmd.ParentBlock.GetExecutionCount(),
                 cmd.ParentBlock.PreviousActiveCommandIndex,
                 cmd.ParentBlock.JumpToCommandIndex));
-
 
             return SaveDataItemUtils.CreateSingleElement(DataTypeKey, menuFlowchartCommandData);
         }
