@@ -60,6 +60,11 @@ namespace Fungus
 
         [SerializeField] protected bool doReadAheadText = true;
 
+        [Tooltip("Delay or pause the writer will wait at the end of finishing it's words.")]
+        [SerializeField] protected float endDelay = 0;
+        public float EndDelay { get => endDelay; set { endDelay = Mathf.Max(0, value); } }
+
+
         // This property is true when the writer is waiting for user input to continue
         protected bool isWaitingForInput;
 
@@ -981,6 +986,11 @@ namespace Fungus
             if(waitForVO)
             {
                 tokenText += "{wvo}";
+            }
+
+            if(EndDelay > 0)
+            {
+                tokenText += $"{{w={EndDelay}}}";
             }
 
 
