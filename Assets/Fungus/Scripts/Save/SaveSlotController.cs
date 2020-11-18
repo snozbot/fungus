@@ -31,6 +31,13 @@ namespace Fungus
 
         public bool IsLoadable { get { return ourMeta != null && !string.IsNullOrEmpty(ourMeta.fileLocation); } }
 
+        ISaveSlotView[] slotViews;
+
+        protected virtual void Awake()
+        {
+            slotViews = GetComponentsInChildren<ISaveSlotView>();
+        }
+
         private void Start()
         {
             saveCont = GetComponentInParent<SaveController>();
@@ -39,6 +46,7 @@ namespace Fungus
             {
                 Debug.LogError("SaveSlot clicked without a SaveController, not allowed");
             }
+
         }
 
         public SaveGameMetaData LinkedMeta
@@ -50,13 +58,9 @@ namespace Fungus
             set
             {
                 ourMeta = value;
-                //update views
-                if (ourMeta != null)
-                {
-                    nameText.text = ourMeta.saveName;
-                    descText.text = ourMeta.description;
-                    timeStampText.text = ourMeta.GetReadableTime();
-                }
+ 
+                RefreshDisplay();
+                
             }
         }
 
@@ -64,5 +68,26 @@ namespace Fungus
         {
             saveCont.SetSelectedSlot(this);
         }
+
+        protected virtual void UpdateViews()
+        {
+            //nameText.text = ourMeta.saveName;
+            //descText.text = ourMeta.description;
+            //timeStampText.text = ourMeta.GetReadableTime();
+
+            // Pass the metadata to the views, so they can do their thing with it.
+            slotViews = GetComponentsInChildren<ISaveSlotView>();
+            for (int i = 0; i < slotViews.Length; i++)
+            {
+                ISaveSlotView currentView = slotViews[i];
+                currentView.SaveData = LinkedMeta;
+            }
+        }
+
+        public virtual void RefreshDisplay()
+        {
+            UpdateViews();
+        }
+
     }
 }

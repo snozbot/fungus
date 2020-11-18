@@ -49,7 +49,7 @@ namespace Fungus
 
         protected static bool hasLoadedOnStart = false;
 
-        protected SaveManager smc;
+        protected SaveManager saveManager;
 
         protected virtual void Awake()
         {
@@ -73,7 +73,7 @@ namespace Fungus
 
             clickAudioSource = GetComponent<AudioSource>();
 
-            smc = FungusManager.Instance.SaveManager;
+            saveManager = FungusManager.Instance.SaveManager;
         }
 
         protected virtual void OnEnable()
@@ -130,7 +130,7 @@ namespace Fungus
         /// </summary>
         public void UpdateSlots()
         {
-            var saveMan = smc;
+            var saveMan = saveManager;
 
             var autoSaves = saveMan.CollectAutoSaves();
             AdjustAndUpdateSaveSlots(autoSaves, autoSaveSlots, autoSaveScrollViewContainer);
@@ -145,22 +145,31 @@ namespace Fungus
         {
             if (selectedSaveSlot != null)
             {
+                /*
+                 * This here sets the selected slot to null when the Save button itself is clicked, rendering it 
+                 * unable to do its job.
                 if (EventSystem.current.currentSelectedGameObject != selectedSaveSlot.OurButton.gameObject)
                 {
                     SetSelectedSlot(null);
                 }
+                */
+
+                // Better to have this unselect the slot when the menu isn't active
+                if (!saveMenuActive)
+                    SetSelectedSlot(null);
             }
         }
 
         public void SetSelectedSlot(SaveSlotController saveSlotController)
         {
             selectedSaveSlot = saveSlotController;
+
             if (selectedSaveSlot != null)
                 selectedSaveSlot.OurButton.Select();
 
             if (loadButton != null)
             {
-                loadButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.IsLoadable && smc.IsLoadingAllowed;
+                loadButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.IsLoadable && saveManager.IsLoadingAllowed;
             }
 
             if (deleteButton != null)
@@ -171,7 +180,7 @@ namespace Fungus
             if (saveButton != null)
             {
                 saveButton.interactable = saveMenuActive && selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null &&
-                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.SlotSavePrefix) && smc.IsSavingAllowed;
+                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.SlotSavePrefix) && saveManager.IsSavingAllowed;
             }
         }
 
@@ -249,17 +258,20 @@ namespace Fungus
 
         /// <summary>
         /// Handler function called when the Save button is pressed. Saves over the currently selected slot,
-        /// if no slot does nothing.
+        /// doing nothing if there's no slot selected.
         /// </summary>
         public virtual void SaveOver()
         {
             if (selectedSaveSlot != null)
             {
-                if (selectedSaveSlot.LinkedMeta != null && selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.SlotSavePrefix))
+                if (selectedSaveSlot.LinkedMeta != null && 
+                    selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.SlotSavePrefix))
                 {
-                    smc.ReplaceSave(selectedSaveSlot.LinkedMeta, AutoSave.TimeStampDesc);
+                    saveManager.ReplaceSave(selectedSaveSlot.LinkedMeta, AutoSave.TimeStampDesc);
                     PlayClickSound();
+                    //selectedSaveSlot.RefreshDisplay();
                 }
+
             }
         }
 
@@ -270,7 +282,7 @@ namespace Fungus
         {
             if (selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null)
             {
-                smc.DeleteSave(selectedSaveSlot.LinkedMeta);
+                saveManager.DeleteSave(selectedSaveSlot.LinkedMeta);
                 PlayClickSound();
             }
         }
@@ -280,9 +292,9 @@ namespace Fungus
         /// </summary>
         public virtual void LoadMostRecent()
         {
-            var mostRecentMeta = smc.GetMostRecentSave();
+            var mostRecentMeta = saveManager.GetMostRecentSave();
 
-            if (mostRecentMeta != null && smc.Load(mostRecentMeta))
+            if (mostRecentMeta != null && saveManager.Load(mostRecentMeta))
             {
                 PlayClickSound();
             }
@@ -293,10 +305,12 @@ namespace Fungus
         /// </summary>
         public virtual void LoadSelected()
         {
-            if (selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null && smc.Load(selectedSaveSlot.LinkedMeta))
+            if (selectedSaveSlot != null && selectedSaveSlot.LinkedMeta != null && saveManager.Load(selectedSaveSlot.LinkedMeta))
             {
                 PlayClickSound();
             }
         }
+
+
     }
 }
