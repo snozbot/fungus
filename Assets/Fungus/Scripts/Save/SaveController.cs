@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -146,7 +145,7 @@ namespace Fungus
             if (selectedSaveSlot != null)
             {
                 /*
-                 * This here sets the selected slot to null when the Save button itself is clicked, rendering it 
+                 * This here sets the selected slot to null when the Save button itself is clicked, rendering it
                  * unable to do its job.
                 if (EventSystem.current.currentSelectedGameObject != selectedSaveSlot.OurButton.gameObject)
                 {
@@ -264,14 +263,13 @@ namespace Fungus
         {
             if (selectedSaveSlot != null)
             {
-                if (selectedSaveSlot.LinkedMeta != null && 
+                if (selectedSaveSlot.LinkedMeta != null &&
                     selectedSaveSlot.LinkedMeta.saveName.StartsWith(FungusConstants.SlotSavePrefix))
                 {
                     saveManager.ReplaceSave(selectedSaveSlot.LinkedMeta, AutoSave.TimeStampDesc);
                     PlayClickSound();
                     //selectedSaveSlot.RefreshDisplay();
                 }
-
             }
         }
 
@@ -310,7 +308,5 @@ namespace Fungus
                 PlayClickSound();
             }
         }
-
-
     }
 }

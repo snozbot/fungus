@@ -31,7 +31,7 @@ namespace Fungus
 
         public bool IsLoadable { get { return ourMeta != null && !string.IsNullOrEmpty(ourMeta.fileLocation); } }
 
-        ISaveSlotView[] slotViews;
+        private ISaveSlotView[] slotViews;
 
         protected virtual void Awake()
         {
@@ -46,7 +46,6 @@ namespace Fungus
             {
                 Debug.LogError("SaveSlot clicked without a SaveController, not allowed");
             }
-
         }
 
         public SaveGameMetaData LinkedMeta
@@ -58,9 +57,8 @@ namespace Fungus
             set
             {
                 ourMeta = value;
- 
+
                 RefreshDisplay();
-                
             }
         }
 
@@ -88,6 +86,5 @@ namespace Fungus
         {
             UpdateViews();
         }
-
     }
 }

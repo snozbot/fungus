@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using System.Globalization;
+using UnityEngine;
 using DateTime = System.DateTime;
 
 namespace Fungus
 {
     /// <summary>
-    /// Handles displaying the last time a slot was saved to. The user can choose the format 
+    /// Handles displaying the last time a slot was saved to. The user can choose the format
     /// that the date gets displayed in.
     /// </summary>
     public class SaveDateView : SlotTextView
@@ -24,7 +27,7 @@ namespace Fungus
 
         [SerializeField]
         [Tooltip("The standard format this will display the date in. The default is G.")]
-        string standardFormat = "G";
+        private string standardFormat = "G";
 
         // See here for examples: https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings
 
@@ -67,6 +70,5 @@ namespace Fungus
         {
             textField.text = readableDate;
         }
-
     }
 }

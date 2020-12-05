@@ -7,7 +7,7 @@ namespace Fungus
 {
     /// <summary>
     /// Base class for ease of creating MonoBehaviours that hold a SaveDataItemSerializer. Serializers are
-    /// not required to be MonoBeh but often want to be so they can direct reference scene elements. 
+    /// not required to be MonoBeh but often want to be so they can direct reference scene elements.
     /// </summary>
     [AddComponentMenu("")]
     public abstract class SaveDataItemSerializerComponent : MonoBehaviour
