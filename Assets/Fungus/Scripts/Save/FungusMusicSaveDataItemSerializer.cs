@@ -15,6 +15,9 @@ namespace Fungus
     {
         [SerializeField] protected List<AudioClip> possibleMusicAudioClips, possibleAmbientAudioClips;
 
+        public List<AudioClip> PossibleMusicAudioClips { get => possibleMusicAudioClips; set => possibleMusicAudioClips = value; }
+        public List<AudioClip> PossibleAmbientAudioClips { get => possibleAmbientAudioClips; set => possibleAmbientAudioClips = value; }
+
         protected const string MusicDataKey = "MusicData";
         protected const int MusicDataPriority = 1000;
 

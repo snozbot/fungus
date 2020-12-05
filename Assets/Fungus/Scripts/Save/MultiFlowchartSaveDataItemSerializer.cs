@@ -7,10 +7,10 @@ using UnityEngine;
 
 namespace Fungus
 {
-    [System.Serializable]
     /// <summary>
     /// This component encodes and decodes the added flowcharts and their blocks and running states.
     /// </summary>
+    [System.Serializable]
     public class MultiFlowchartSaveDataItemSerializer : ISaveDataItemSerializer
     {
         protected const string FlowchartDataKey = "FlowchartData";
@@ -23,6 +23,8 @@ namespace Fungus
 
         public int Order => FlowchartDataPriority;
 
+        protected List<FlowchartSaveDataItem.CachedBlockExecution> cachedBlockExecutions = new List<FlowchartSaveDataItem.CachedBlockExecution>();
+        
         public StringPair[] Encode()
         {
             foreach (var item in flowchartsToSave)
@@ -85,8 +87,6 @@ namespace Fungus
 
             return true;
         }
-
-        protected List<FlowchartSaveDataItem.CachedBlockExecution> cachedBlockExecutions = new List<FlowchartSaveDataItem.CachedBlockExecution>();
 
         public void PreDecode()
         {

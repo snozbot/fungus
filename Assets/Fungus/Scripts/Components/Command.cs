@@ -199,8 +199,8 @@ namespace Fungus
         /// Optional method for child classes to add additional data to a save via flowchartData.AddToVisitorPairs.
         /// To be used if the child command has mutable state that it needs restored, in VisitDecode.
         /// </summary>
-        /// <param name="flowchartData"></param>
-        public virtual void VisitEncode(FlowchartSaveDataItem flowchartData)
+        /// <param name="visitor"></param>
+        public virtual void VisitEncode(ISaveDataItemStringPairVisitor visitor)
         {
         }
 
@@ -209,7 +209,7 @@ namespace Fungus
         /// flowchartData.TryGetVisitorValueByKey restoring internal state from previously saved values.
         /// </summary>
         /// <param name="flowchartData"></param>
-        public virtual void VisitDecode(FlowchartSaveDataItem flowchartData)
+        public virtual void VisitDecode(ISaveDataItemStringPairVisitor visitor)
         {
         }
 

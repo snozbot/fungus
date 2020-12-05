@@ -10,7 +10,7 @@ namespace Fungus
     /// Serializable container for encoding the state of a Flowchart's blocks status & variables.
     /// </summary>
     [System.Serializable]
-    public class FlowchartSaveDataItem
+    public class FlowchartSaveDataItem : ISaveDataItemStringPairVisitor
     {
         /// <summary>
         /// Container for an individual blocks state during serialisation.
