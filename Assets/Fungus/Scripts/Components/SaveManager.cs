@@ -124,6 +124,8 @@ namespace Fungus
             if (replaceIfSlot && meta.saveName.StartsWith(FungusConstants.SlotSavePrefix))
             {
                 SaveFileManager.SaveMetas.Add(new SaveGameMetaData() { saveName = meta.saveName });
+
+                SaveManagerSignals.DoSaveMetasRefreshed();
             }
         }
 
