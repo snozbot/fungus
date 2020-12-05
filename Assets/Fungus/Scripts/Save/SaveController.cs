@@ -145,10 +145,24 @@ namespace Fungus
         {
             if (selectedSaveSlot != null)
             {
-                if (EventSystem.current.currentSelectedGameObject != selectedSaveSlot.OurButton.gameObject)
+                if (!IsSelectingSlot && !IsSelectingSaveMenuElements)
                 {
                     SetSelectedSlot(null);
                 }
+            }
+        }
+
+        private bool IsSelectingSlot =>
+             EventSystem.current.currentSelectedGameObject != selectedSaveSlot.OurButton.gameObject;
+
+        private bool IsSelectingSaveMenuElements
+        {
+            get
+            {
+                var selected = EventSystem.current.currentSelectedGameObject;
+                return selected != saveButton.gameObject &&
+                        selected != loadButton.gameObject &&
+                        selected != deleteButton.gameObject;
             }
         }
 
