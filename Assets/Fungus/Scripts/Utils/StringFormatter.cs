@@ -59,6 +59,22 @@ namespace Fungus
             return true;
         }
 
+        /// <summary>
+        /// Shortens string to maxLength and appends suffix. Does nothing if string is within length.
+        /// </summary>
+        /// <param name="value">string to shorten</param>
+        /// <param name="maxLength">maximum length of the string</param>
+        /// <param name="suffix">Suffix to apply to the end of the string when shortened.</param>
+        /// <returns></returns>
+        public static string Truncate(this string value, int maxLength, string suffix = "...")
+        {
+            if (string.IsNullOrEmpty(value) || maxLength <= 0) { return value; }
+
+            if (value.Length <= maxLength) return value;
+
+            return value.Substring(0, Math.Min(value.Length, maxLength)).Trim() + suffix;
+        }
+
         #endregion
     }    
 }
