@@ -4,7 +4,6 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Fungus.EditorUtils
 {
@@ -152,60 +151,8 @@ namespace Fungus.EditorUtils
                     t.Portrait = null;
                 }
             }
-
-            #region Character limits
-
+            
             EditorGUILayout.PropertyField(storyTextProp);
-
-            Color editorColor = GUI.color; // cache the GUI colour for later.
-
-            int storyLength = -1;
-            int storyMaxLength = 0;
-
-            BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic; // get non-public properties (Protected)
-
-            // fetch the field for the story text and calculate length from it. 
-            // This is messy, but it's the only clear way to get the properties from serialized data
-            var targetObject = storyTextProp.serializedObject.targetObject;
-            var targetObjectClassType = targetObject.GetType();
-            var storyText = targetObjectClassType.GetField(storyTextProp.propertyPath, bindingFlags);
-            if (storyText != null)
-            {
-                string value = (string)storyText.GetValue(targetObject); 
-                storyLength = value.Length; //assign the story text length based on the retrieved story text
-            }
-
-            // fetch the story max lenth
-            SerializedProperty storyLimitProp = serializedObject.FindProperty("storyMaxLength");
-            var storyLimit = targetObjectClassType.GetField(storyLimitProp.propertyPath, bindingFlags);
-            if (storyLimit != null)
-            {
-                storyMaxLength = (int)storyLimit.GetValue(targetObject);
-            }
-
-            // the only time this will be 0 is if the say dialog has no limit. Null dialogs result in a reference from the default/prefab dialog.
-            if (storyMaxLength != 0)
-            {
-                // fetch dialog name to display. This will show the user what dialog will be used for that command
-                // This way, if they're using a bunch of dialogs, it can be easier to track
-                string dialogName = string.Empty;
-                SerializedProperty sayDialogName = serializedObject.FindProperty("sayDialogName");
-                var _dialogName = targetObjectClassType.GetField(sayDialogName.propertyPath, bindingFlags);
-                if (_dialogName != null)
-                {
-                    dialogName = (string)_dialogName.GetValue(targetObject);
-                }
-
-                // change GUI colour
-                if (storyLength >= storyMaxLength - 15) GUI.color = Color.yellow;
-                if (storyLength > storyMaxLength) GUI.color = Color.red;
-
-                EditorGUILayout.LabelField(storyLength + " / " + storyMaxLength + " (" + dialogName + ")"); //display the character counter and dialog name
-                GUI.color = editorColor; //reset colour to the cached colour.
-            }
-
-            GUILayout.FlexibleSpace();
-            #endregion 
 
             EditorGUILayout.PropertyField(descriptionProp);
 
