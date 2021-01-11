@@ -1,10 +1,11 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
+using Action = System.Action;
 
 namespace Fungus
 {
@@ -36,10 +37,44 @@ namespace Fungus
         [Tooltip("Use the UI Event System to check for drag events. Clicks that hit an overlapping UI object will be ignored. Camera must have a PhysicsRaycaster component, or a Physics2DRaycaster for 2D colliders.")]
         [SerializeField] protected bool useEventSystem;
 
-        protected Vector3 startingPosition;
+        protected Vector3 startingPosition; // So we know where to move this if returnOnCompleted is true
         protected bool updatePosition = false;
-        protected Vector3 newPosition;
-        protected Vector3 delta = Vector3.zero;
+        protected Vector3 newLocalPosition;
+        protected Vector3 mouseMovement = Vector3.zero;
+
+        protected virtual void Awake()
+        {
+            CacheMainCamera(); // Performance
+            SetLocalPositionUpdaters();
+        }
+
+        protected virtual void CacheMainCamera()
+        {
+            mainCamera = Camera.main;
+        }
+
+        protected Camera mainCamera;
+
+        protected virtual void SetLocalPositionUpdaters()
+        {
+            // The boolean corresponds to useEventSystem
+            newPositionUpdaters[true] = UpdateLocalPositionForUI;
+            newPositionUpdaters[false] = UpdateLocalPositionForSprites;
+        }
+
+        protected Dictionary<bool, Action> newPositionUpdaters = new Dictionary<bool, Action>();
+
+        protected virtual void UpdateLocalPositionForUI()
+        {
+            mouseMovement = Input.mousePosition - prevMousePosition;
+            newLocalPosition += mouseMovement;
+        }
+
+        protected virtual void UpdateLocalPositionForSprites()
+        {
+            mouseMovement = mainCamera.ScreenToWorldPoint(Input.mousePosition) - mainCamera.ScreenToWorldPoint(prevMousePosition);
+            newLocalPosition += mouseMovement;
+        }
 
         #region DragCompleted handlers
         protected List<DragCompleted> dragCompletedHandlers = new List<DragCompleted>();
@@ -51,7 +86,7 @@ namespace Fungus
 
         public void UnregisterHandler(DragCompleted handler)
         {
-            if(dragCompletedHandlers.Contains(handler))
+            if (dragCompletedHandlers.Contains(handler))
             {
                 dragCompletedHandlers.Remove(handler);
             }
@@ -64,12 +99,13 @@ namespace Fungus
             // To make sure this doesn't happen, we force the position change to happen in LateUpdate.
             if (updatePosition)
             {
-                transform.position = newPosition;
+                transform.localPosition = newLocalPosition;
                 updatePosition = false;
             }
         }
 
-        protected virtual void OnTriggerEnter2D(Collider2D other) 
+
+        protected virtual void OnTriggerEnter2D(Collider2D other)
         {
             if (!dragEnabled)
             {
@@ -81,7 +117,7 @@ namespace Fungus
             eventDispatcher.Raise(new DragEntered.DragEnteredEvent(this, other));
         }
 
-        protected virtual void OnTriggerExit2D(Collider2D other) 
+        protected virtual void OnTriggerExit2D(Collider2D other)
         {
             if (!dragEnabled)
             {
@@ -95,22 +131,20 @@ namespace Fungus
 
         protected virtual void DoBeginDrag()
         {
-            // Offset the object so that the drag is anchored to the exact point where the user clicked it
-
-#if ENABLE_INPUT_SYSTEM
-            var mousePos = UnityEngine.InputSystem.Mouse.current?.position.ReadValue() ?? Vector2.zero;
-#else
-            var mousePos = Input.mousePosition;
-#endif
-            delta = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 10f)) - transform.position;
-            delta.z = 0f;
-
-            startingPosition = transform.position;
+            ResetCachedPositions();
 
             var eventDispatcher = FungusManager.Instance.EventDispatcher;
-
             eventDispatcher.Raise(new DragStarted.DragStartedEvent(this));
         }
+
+        protected virtual void ResetCachedPositions()
+        {
+            startingPosition = transform.position;
+            newLocalPosition = transform.localPosition;
+            prevMousePosition = Input.mousePosition;
+        }
+
+        Vector3 prevMousePosition = Vector3.zero;
 
         protected virtual void DoDrag()
         {
@@ -119,18 +153,16 @@ namespace Fungus
                 return;
             }
 
-#if ENABLE_INPUT_SYSTEM
-            var mousePos = UnityEngine.InputSystem.Mouse.current?.position.ReadValue() ?? Vector2.zero;
-#else
-            var mousePos = Input.mousePosition;
-#endif
-            float x = mousePos.x;
-            float y = mousePos.y;
-            float z = transform.position.z;
+            UpdateNewLocalPosition();
 
-            newPosition = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f)) - delta;
-            newPosition.z = z;
+            prevMousePosition = Input.mousePosition; // For the next frame's drag operations
             updatePosition = true;
+        }
+
+        protected virtual void UpdateNewLocalPosition()
+        {
+            var updater = newPositionUpdaters[useEventSystem];
+            updater();
         }
 
         protected virtual void DoEndDrag()
@@ -166,7 +198,7 @@ namespace Fungus
                     LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
                 }
             }
-            else if(returnOnCompleted)
+            else if (returnOnCompleted)
             {
                 LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
             }
@@ -225,7 +257,7 @@ namespace Fungus
                 DoPointerEnter();
             }
         }
-        
+
         protected virtual void OnMouseExit()
         {
             if (!useEventSystem)
