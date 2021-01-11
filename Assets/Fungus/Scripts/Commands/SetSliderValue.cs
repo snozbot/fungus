@@ -20,8 +20,8 @@ namespace Fungus
 
         [Tooltip("Float value to set the slider value to.")]
         [SerializeField] protected FloatData value;
-        [Tooltip("Fade duration in seconds")]
-        [SerializeField] protected FloatData fadeDuration;
+        [Tooltip("Time to fade between current volume level and target volume level.")]
+        [SerializeField] protected float fadeDuration;
 
         [Tooltip("Wait until this command has finished before executing the next command.")]
         [SerializeField] protected bool waitUntilFinished = false;
