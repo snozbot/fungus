@@ -162,6 +162,12 @@ namespace Fungus
         /// </summary>
         public abstract object GetValue();
 
+        /// <summary>
+        /// Set value in inherited types via Boxed value.
+        /// Not recommended for direct use, primarily intended for use in editor code.
+        /// </summary>
+        public abstract void SetValue(object value);
+
         //we are required to be on a flowchart so we provide this as a helper
         public virtual Flowchart GetFlowchart()
         {
@@ -226,6 +232,11 @@ namespace Fungus
         public override object GetValue()
         {
             return value;
+        }
+
+        public override void SetValue(object value)
+        {
+            this.value = (T)value;
         }
 
         protected T startValue;

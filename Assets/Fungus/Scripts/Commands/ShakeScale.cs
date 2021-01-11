@@ -14,6 +14,7 @@ namespace Fungus
                  "Shake Scale", 
                  "Randomly shakes a GameObject's rotation by a diminishing amount over time.")]
     [AddComponentMenu("")]
+    [System.Obsolete("Deprecated, consider using the LeanTween based Tween command instead.")]
     [ExecuteInEditMode]
     public class ShakeScale : iTweenCommand
     {

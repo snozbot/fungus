@@ -14,6 +14,7 @@ namespace Fungus
                  "Rotate From", 
                  "Rotates a game object from the specified angles back to its starting orientation over time.")]
     [AddComponentMenu("")]
+    [System.Obsolete("Deprecated, consider using the LeanTween based Tween command instead.")]
     [ExecuteInEditMode]
     public class RotateFrom : iTweenCommand
     {

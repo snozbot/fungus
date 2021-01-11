@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Fungus
@@ -135,6 +136,15 @@ namespace Fungus
 
         public override string GetSummary()
         {
+            if (draggableObjects.Count(x => x != null) == 0)
+            {
+                return "Error: no draggable objects assigned.";
+            }
+            if (targetObjects.Count(x => x != null) == 0)
+            {
+                return "Error: no target objects assigned.";
+            }
+
             string summary = "Draggable: ";
             if (this.draggableObjects != null && this.draggableObjects.Count != 0)
             {
@@ -157,11 +167,6 @@ namespace Fungus
                         summary += targetObjects[i].name + ",";
                     }
                 }
-            }
-
-            if (summary.Length == 0)
-            {
-                return "None";
             }
 
             return summary;
