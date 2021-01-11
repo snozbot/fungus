@@ -7,6 +7,7 @@ using System;
 using UnityEditorInternal;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Fungus.EditorUtils
 {
@@ -179,7 +180,9 @@ namespace Fungus.EditorUtils
                 }
             }
 
-            VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(variable.GetType());
+            var varType = variable.GetType();
+
+            VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(varType);
             if (variableInfo == null)
             {
                 return;
@@ -232,7 +235,23 @@ namespace Fungus.EditorUtils
 
             variableObject.Update();
 
-            GUI.Label(itemRects[0], variableInfo.VariableType);
+            var obsAttr = varType.GetCustomAttribute<System.ObsoleteAttribute>();
+
+
+            if (obsAttr != null)
+            {
+                var existingGUICol = GUI.color;
+                GUI.color = Color.yellow;
+                GUI.Label(itemRects[0], FungusConstants.UIPrefixForDeprecated + variableInfo.VariableType);
+                GUI.color = existingGUICol;
+            }
+            else
+            {
+                GUI.Label(itemRects[0], variableInfo.VariableType);
+            }
+
+
+
 
             SerializedProperty keyProp = variableObject.FindProperty("key");
             SerializedProperty defaultProp = variableObject.FindProperty("value");

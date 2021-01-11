@@ -185,34 +185,40 @@ namespace Fungus.EditorUtils
         #region consts
 
         // need to also track if they are preview only
-        static public readonly string[] AllGeneratedVariableTypeClassNames =
+        static public readonly Type[] AllGeneratedVariableTypeClassNames =
         {
-            "Animator",
-            "AudioSource",
-            //"Boolean",
-            "Color",
-            "Collection",
-            "Collider",
-            "Collider2D",
-            "Collision",
-            "Collision2D",
-            "ControllerColliderHit",
-            //"Float",
-            "GameObject",
-            //"Integer",
-            "Material",
-            "Matrix4x4",
-            //"Object",
-            "Quaternion",
-            "Rigidbody",
-            "Rigidbody2D",
-            "Sprite",
-            //"String",
-            "Texture",
-            "Transform",
-            "Vector2",
-            "Vector3",
-            "Vector4"};
+            typeof(Animator),
+            typeof(AudioClip),
+            typeof(UnityEngine.Audio.AudioMixer),
+            typeof(UnityEngine.Audio.AudioMixerGroup),
+            typeof(UnityEngine.Audio.AudioMixerSnapshot),
+            typeof(AudioSource),
+            //typeof(Boolean),
+            typeof(Character),
+            typeof(Color),
+            typeof(Collection),
+            typeof(Collider),
+            typeof(Collider2D),
+            typeof(Collision),
+            typeof(Collision2D),
+            typeof(ControllerColliderHit),
+            //typeof(Float),
+            typeof(GameObject),
+            //typeof(Integer),
+            typeof(Material),
+            typeof(Matrix4x4),
+            //typeof(Object),
+            typeof(Quaternion),
+            typeof(Rigidbody),
+            typeof(Rigidbody2D),
+            typeof(Sprite),
+            //typeof(String),
+            typeof(Texture),
+            typeof(Transform),
+            typeof(Vector2),
+            typeof(Vector3),
+            typeof(Vector4),
+        };
 
         private const string ScriptLocation = "./Assets/Fungus/Scripts/";
         private const string PropertyScriptLocation = ScriptLocation + "Commands/Property/";
@@ -344,7 +350,7 @@ using UnityEngine;
 
 namespace Fungus
 {{
-    // <summary>
+    /// <summary>
     /// Get or Set a property of a {0} component
     /// </summary>
     [CommandInfo(""Property"",
@@ -432,7 +438,7 @@ using UnityEngine;
 
 namespace Fungus
 {{
-    // <summary>
+    /// <summary>
     /// Get or Set a property of a {0} component
     /// </summary>
     [CommandInfo(""Property"",
@@ -527,10 +533,15 @@ namespace Fungus
         public VariableScriptGenerator()
         {
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Animator), typeof(AnimatorVariable), "ioani"));
+            helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(AudioClip), typeof(AudioClipVariable), "ioac"));
+            helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(UnityEngine.Audio.AudioMixer), typeof(AudioMixerVariable), "ioam"));
+            helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(UnityEngine.Audio.AudioMixerGroup), typeof(AudioMixerGroupVariable), "ioamg"));
+            helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(UnityEngine.Audio.AudioMixerSnapshot), typeof(AudioMixerSnapshotVariable), "ioams"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(AudioSource), typeof(AudioSourceVariable), "ioaud"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(bool), typeof(BooleanVariable), "iob"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Collider2D), typeof(Collider2DVariable), "ioc2d"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Collider), typeof(ColliderVariable), "ioc"));
+            helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Character), typeof(CharacterVariable), "iochar"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Collection), typeof(CollectionVariable), "iocollect"));
             //we don't need to do collision varaibles
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Color), typeof(ColorVariable), "iocol"));
@@ -543,8 +554,8 @@ namespace Fungus
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Quaternion), typeof(QuaternionVariable), "ioq"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Rigidbody2D), typeof(Rigidbody2DVariable), "iorb2d"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Rigidbody), typeof(RigidbodyVariable), "iorb"));
-            helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Sprite), typeof(SpriteVariable), "iospr"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(string), typeof(StringVariable), "ios"));
+            helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Sprite), typeof(SpriteVariable), "iospr"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Texture), typeof(TextureVariable), "iotex"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Transform), typeof(TransformVariable), "iot"));
             helper.AddHandler(new FungusVariableTypeHelper.TypeHandler(typeof(Vector2), typeof(Vector2Variable), "iov2"));

@@ -66,7 +66,7 @@ namespace Fungus.EditorUtils
             foreach (var varType in TypeCache.GetTypesWithAttribute<VariableInfoAttribute>())
             {
                 Variable newVariable = newGO.AddComponent(varType) as Variable;
-                newVariable.Key = flow.GetUniqueVariableKey("");
+                newVariable.Key = flow.GetUniqueVariableKey(varType.Name);
                 flow.Variables.Add(newVariable);
             }
         }

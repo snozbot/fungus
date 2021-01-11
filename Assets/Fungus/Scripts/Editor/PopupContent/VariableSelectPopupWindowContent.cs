@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using System.Reflection;
 
 namespace Fungus.EditorUtils
 {
@@ -49,7 +50,12 @@ namespace Fungus.EditorUtils
                 VariableInfoAttribute variableInfo = VariableEditor.GetVariableInfo(item);
                 if (variableInfo != null)
                 {
-                    allItems.Add(new FilteredListItem(i, (variableInfo.Category.Length > 0 ? variableInfo.Category + CATEGORY_CHAR : "") + variableInfo.VariableType));
+                    var obsAttr = item.GetCustomAttribute<System.ObsoleteAttribute>();
+
+                    var fliStr = (variableInfo.Category.Length > 0 ? variableInfo.Category + CATEGORY_CHAR : "")
+                        + (obsAttr != null ? FungusConstants.UIPrefixForDeprecated_RichText : "")
+                        + variableInfo.VariableType;
+                    allItems.Add(new FilteredListItem(i, fliStr));
                 }
 
                 i++;

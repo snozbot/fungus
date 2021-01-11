@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    // <summary>
+    /// <summary>
     /// Convert fungus vec3 to vec2
     /// </summary>
     [CommandInfo("Vector3",

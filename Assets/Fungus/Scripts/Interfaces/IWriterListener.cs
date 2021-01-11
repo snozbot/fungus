@@ -47,6 +47,6 @@ namespace Fungus
         /// <summary>
         /// Called when voiceover should start.
         /// </summary>
-        void OnVoiceover(AudioClip voiceOverClip);
+        void OnVoiceover(AudioClip voiceoverClip);
     }
 }
