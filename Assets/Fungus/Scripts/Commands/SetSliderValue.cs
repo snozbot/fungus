@@ -1,8 +1,9 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 namespace Fungus
 {
@@ -12,24 +13,68 @@ namespace Fungus
     [CommandInfo("UI",
                  "Set Slider Value",
                  "Sets the value property of a slider object")]
-    public class SetSliderValue : Command 
+    public class SetSliderValue : Command
     {
         [Tooltip("Target slider object to set the value on")]
         [SerializeField] protected Slider slider;
 
         [Tooltip("Float value to set the slider value to.")]
         [SerializeField] protected FloatData value;
+        [Tooltip("Fade duration in seconds")]
+        [SerializeField] protected FloatData fadeDuration;
+
+        [Tooltip("Wait until this command has finished before executing the next command.")]
+        [SerializeField] protected bool waitUntilFinished = false;
 
         #region Public members
-
-        public override void OnEnter() 
+        protected void SliderValue(float target)
         {
-            if (slider != null)
+            // Fade volume in
+            LeanTween.value(slider.gameObject,
+                slider.value,
+                target,
+                fadeDuration
+            ).setOnUpdate(
+                (float updateVolume) =>
+                {
+                    slider.value = updateVolume;
+                });
+
+            slider.value = target;
+
+            if (waitUntilFinished)
             {
-                slider.value = value;
+                StartCoroutine(WaitAndContinue());
+            }
+        }
+        protected virtual IEnumerator WaitAndContinue()
+        {
+            // Wait for slider to reach it's target value
+            while ( LeanTween.isTweening(slider.gameObject))
+            {
+                yield return null;
             }
 
             Continue();
+        }
+        public override void OnEnter()
+        {
+            if (slider != null)
+            {
+                if (fadeDuration > 0)
+                {
+                    SliderValue(value);
+                }
+                else
+                {
+                    slider.value = value;
+                }
+            }
+
+            if(!waitUntilFinished)
+            {
+                Continue();
+            }
         }
 
         public override Color GetButtonColor()
