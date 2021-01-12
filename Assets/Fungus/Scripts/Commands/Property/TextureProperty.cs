@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    // <summary>
+    /// <summary>
     /// Get or Set a property of a Texture component
     /// </summary>
     [CommandInfo("Property",
@@ -22,6 +22,7 @@ namespace Fungus
             AnisoLevel, 
             MipMapBias, 
             TexelSize, 
+            MipmapCount, 
         }
 
 		
@@ -34,7 +35,9 @@ namespace Fungus
 
         [SerializeField]
         [VariableProperty(typeof(IntegerVariable),
+#if UNITY_2019_2_OR_NEWER
                           typeof(BooleanVariable),
+#endif
                           typeof(FloatVariable),
                           typeof(Vector2Variable))]
         protected Variable inOutVar;
@@ -55,7 +58,7 @@ namespace Fungus
             {
                 case GetSet.Get:
                     switch (property)
-                    {
+                {
                         case Property.Width:
                             ioi.Value = target.width;
                             break;
@@ -76,7 +79,12 @@ namespace Fungus
                         case Property.TexelSize:
                             iov2.Value = target.texelSize;
                             break;
-                        default:
+#if UNITY_2019_2_OR_NEWER
+                        case Property.MipmapCount:
+                            ioi.Value = target.mipmapCount;
+                            break;
+#endif
+                default:
                             Debug.Log("Unsupported get or set attempted");
                             break;
                     }

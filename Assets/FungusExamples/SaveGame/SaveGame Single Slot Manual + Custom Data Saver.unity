@@ -1006,6 +1006,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4182283721263017402, guid: eae76c041b933476bbe9bdd4c3d80793,
+        type: 3}
+      propertyPath: saveDataItemSerializerComponents.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4182283721263017402, guid: eae76c041b933476bbe9bdd4c3d80793,
+        type: 3}
+      propertyPath: saveDataItemSerializerComponents.Array.data[2]
+      value: 
+      objectReference: {fileID: 1660788064}
     - target: {fileID: 6090270529574640073, guid: eae76c041b933476bbe9bdd4c3d80793,
         type: 3}
       propertyPath: flowcharts.Array.size
@@ -1052,7 +1062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1889213476}
+  selectedFlowchart: {fileID: 1947003572}
 --- !u!4 &397720779
 Transform:
   m_ObjectHideFlags: 1
@@ -3302,32 +3312,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1660788063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a20448805bd3f5469c109775ab6760c, type: 3}
+  m_Script: {fileID: 11500000, guid: 82c180e3424fef043a6080797f6af577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectionsToSerialize:
-  - {fileID: 1182973722}
-  - {fileID: 1767534032}
---- !u!114 &1660788070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1660788063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 000e14ff905ff014c928f6dd0bbf78ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transformsToSerialize:
-  - {fileID: 619334014}
-  - {fileID: 399697877}
-  - {fileID: 1101460129}
-  - {fileID: 617759372}
-  - {fileID: 1123572682}
-  - {fileID: 2078834111}
-  - {fileID: 1947003576}
+  serializerSettings:
+    transformsToSerialize:
+    - {fileID: 1947003576}
+    - {fileID: 619334014}
+    - {fileID: 399697877}
+    - {fileID: 1101460129}
+    - {fileID: 617759372}
+    - {fileID: 1123572682}
+    - {fileID: 2078834111}
 --- !u!1 &1767534030
 GameObject:
   m_ObjectHideFlags: 0

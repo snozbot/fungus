@@ -34,7 +34,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            SaveManager.SavePointMeta save = null;
+            SaveGameMetaData save = null;
             var saveMan = FungusManager.Instance.SaveManager;
 
             switch (saveType)
@@ -43,12 +43,12 @@ namespace Fungus
                     save = saveMan.CollectAutoSaves().ElementAtOrDefault(saveIndexRequested.Value);
                     break;
 
-                case SaveType.User:
+                case SaveType.Slot:
                     save = saveMan.CollectUserSaves().ElementAtOrDefault(saveIndexRequested.Value);
                     break;
 
                 case SaveType.Any:
-                    save = saveMan.SaveMetas.ElementAtOrDefault(saveIndexRequested.Value);
+                    save = saveMan.SaveFileManager.SaveMetas.ElementAtOrDefault(saveIndexRequested.Value);
                     break;
 
                 default:

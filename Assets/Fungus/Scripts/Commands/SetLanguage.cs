@@ -1,7 +1,7 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Fungus
@@ -21,19 +21,24 @@ namespace Fungus
 
         #region Public members
 
-        public static string mostRecentLanguage = "";
+        public static string mostRecentLanguage { get; protected set; } = string.Empty;
 
-        public override void OnEnter()
+        public static void SetActiveLanguage(string langCode)
         {
             Localization localization = GameObject.FindObjectOfType<Localization>();
             if (localization != null)
             {
-                localization.SetActiveLanguage(_languageCode.Value, true);
-
-                // Cache the most recently set language code so we can continue to 
-                // use the same language in subsequent scenes.
-                mostRecentLanguage = _languageCode.Value;
+                localization.SetActiveLanguage(langCode, true);
             }
+
+            // Cache the most recently set language code so we can continue to 
+            // use the same language in subsequent scenes or if localization starts after this is set.
+            mostRecentLanguage = langCode;
+        }
+
+        public override void OnEnter()
+        {
+            SetActiveLanguage(_languageCode.Value);
 
             Continue();
         }

@@ -10,8 +10,6 @@ namespace Fungus
     /// </summary>
     public static class FungusConstants
     {
-        #region Public members
-
         /// <summary>
         /// Duration of fade for executing icon displayed beside blocks & commands.
         /// </summary>
@@ -47,6 +45,11 @@ namespace Fungus
         /// </summary>
         public const string DefaultSaveProfileKey = "default_profile";
 
+        public const string FungusAudioMixer = "FungusAudioMixer";
+
+        public const string UIPrefixForDeprecated = "[DEP] ";
+        public const string UIPrefixForDeprecated_RichText = "<color=yellow>" + UIPrefixForDeprecated + "</color>";
+
         /// <summary>
         /// The prefix for auto saves
         /// </summary>
@@ -55,13 +58,22 @@ namespace Fungus
         /// <summary>
         /// The prefix for auto saves
         /// </summary>
-        public const string UserSavePrefix = "slot_";
+        public const string SlotSavePrefix = "slot_";
 
         /// <summary>
         /// Current version of the save system
         /// </summary>
-        public const int CurrentSaveVersion = 2;
+        public const int CurrentSaveGameDataVersion = 2;
 
-        #endregion
+        /// <summary>
+        /// Current version of the save system
+        /// </summary>
+        public const int CurrentProfileDataVersion = 1;
+
+        public const string SaveDescKey = "SaveDesc";
+
+        public const string SceneNameKey = "SceneName";
+
+        public static string StorageDirectory { get; private set; } = Application.persistentDataPath + "/Fungus/";
     }
 }

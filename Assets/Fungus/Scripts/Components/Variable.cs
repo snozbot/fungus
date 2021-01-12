@@ -6,8 +6,6 @@ using System.Globalization;
 using System.Linq;
 using UnityEngine;
 
-//todo doco update
-
 namespace Fungus
 {
     /// <summary>

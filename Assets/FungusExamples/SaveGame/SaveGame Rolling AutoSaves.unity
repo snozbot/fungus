@@ -176,6 +176,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 48459533358594827, guid: eae76c041b933476bbe9bdd4c3d80793,
+        type: 3}
+      propertyPath: serializerSettings.flowchartsToSave.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 48459533358594827, guid: eae76c041b933476bbe9bdd4c3d80793,
+        type: 3}
+      propertyPath: serializerSettings.flowchartsToSave.Array.data[0]
+      value: 
+      objectReference: {fileID: 1889213476}
     - target: {fileID: 6090270529574640073, guid: eae76c041b933476bbe9bdd4c3d80793,
         type: 3}
       propertyPath: flowcharts.Array.size
@@ -1337,6 +1347,7 @@ MonoBehaviour:
   parentBlock: {fileID: 1889213483}
   suppressBlockAutoSelect: 0
   waitForFrames: 0
+  shouldExecuteDuringSaveLoad: 1
 --- !u!114 &1889213480
 MonoBehaviour:
   m_ObjectHideFlags: 2

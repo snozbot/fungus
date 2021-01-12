@@ -45,6 +45,8 @@ namespace Fungus
 
         protected static List<Stage> activeStages = new List<Stage>();
 
+        public CanvasGroup CanvasGroup { get; protected set; }
+
         protected virtual void OnEnable()
         {
             if (!activeStages.Contains(this))
@@ -66,6 +68,7 @@ namespace Fungus
                 // Ensure the stage canvas is active
                 portraitCanvas.gameObject.SetActive(true);
             }
+            CanvasGroup = GetComponentInChildren<CanvasGroup>();
         }
 
         #region Public members
@@ -182,6 +185,32 @@ namespace Fungus
         public void OnValidate()
         {
             GameObjectUtils.UniqueGameObjectNamePerType(this);
+        }
+
+        public virtual void ShowStage(bool visible, float duration, System.Action onComplete = default)
+        {
+            duration = (duration == 0) ? float.Epsilon : duration;
+            float targetAlpha = visible ? 1f : 0f;
+
+            if (CanvasGroup == null)
+            {
+                return;
+            }
+
+            LeanTween.alphaCanvas(CanvasGroup, targetAlpha, duration).setOnComplete(() => {
+                onComplete?.Invoke();
+            });
+        }
+
+        public virtual void UndimAllPortraits()
+        {
+            DimPortraits = false;
+            var charactersOnStage = CharactersOnStage;
+            for (int i = 0; i < charactersOnStage.Count; i++)
+            {
+                var character = charactersOnStage[i];
+                SetDimmed(character, false);
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Fungus
     /// Requests SaveManager load a recent save, be it Auto, User, or Regardless of type.
     /// </summary>
     [CommandInfo("Save",
-                 "Load Latest Auto Save",
+                 "Load Latest Save",
                  "Requests SaveManager load a recent save, be it Auto, User, or Regardless of type.")]
     public class LoadMostRecentSave : Command
     {
@@ -19,7 +19,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            SaveManager.SavePointMeta save = null;
+            SaveGameMetaData save = null;
             var saveMan = FungusManager.Instance.SaveManager;
 
             switch (saveType)
@@ -28,13 +28,13 @@ namespace Fungus
                     save = saveMan.CollectAutoSaves().LastOrDefault();
                     break;
 
-                case SaveType.User:
+                case SaveType.Slot:
                     save = saveMan.CollectUserSaves()
                         .OrderByDescending(x => x.lastWritten.Ticks).FirstOrDefault();
                     break;
 
                 case SaveType.Any:
-                    save = saveMan.SaveMetas
+                    save = saveMan.SaveFileManager.SaveMetas
                         .OrderByDescending(x => x.lastWritten.Ticks).FirstOrDefault();
                     break;
 

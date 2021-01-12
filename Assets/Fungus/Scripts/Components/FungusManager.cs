@@ -8,10 +8,12 @@ namespace Fungus
     /// <summary>
     /// Fungus manager singleton. Manages access to all Fungus singletons in a consistent manner.
     /// </summary>
+    [RequireComponent(typeof(UserProfileManagerComponent))]
     [RequireComponent(typeof(CameraManager))]
     [RequireComponent(typeof(MusicManager))]
     [RequireComponent(typeof(EventDispatcher))]
     [RequireComponent(typeof(GlobalVariables))]
+    [RequireComponent(typeof(MainAudioMixer))]
     [RequireComponent(typeof(SaveManager))]
     [RequireComponent(typeof(NarrativeLog))]
     public sealed class FungusManager : MonoBehaviour
@@ -22,13 +24,23 @@ namespace Fungus
 
         private void Awake()
         {
+            if (instance == null)
+                instance = this;
+
+            UserProfileManager = GetComponent<UserProfileManagerComponent>();
             CameraManager = GetComponent<CameraManager>();
             MusicManager = GetComponent<MusicManager>();
             EventDispatcher = GetComponent<EventDispatcher>();
             GlobalVariables = GetComponent<GlobalVariables>();
+            MainAudioMixer = GetComponent<MainAudioMixer>();
             SaveManager = GetComponent<SaveManager>();
-            SaveManagerSignals.OnSaveReset += SaveManagerSignals_OnSaveReset;
             NarrativeLog = GetComponent<NarrativeLog>();
+
+            SaveManager.SaveFileManager.Init(UserProfileManager.UserProfileManager);
+            SaveManagerSignals.OnSaveReset += SaveManagerSignals_OnSaveReset;
+
+            MainAudioMixer.Init();
+            MusicManager.Init();
         }
 
         private void SaveManagerSignals_OnSaveReset()
@@ -71,6 +83,8 @@ namespace Fungus
         /// </summary>
         public GlobalVariables GlobalVariables { get; private set; }
 
+        public MainAudioMixer MainAudioMixer { get; private set; }
+
         /// <summary>
         /// Gets the save manager singleton instance.
         /// </summary>
@@ -80,6 +94,8 @@ namespace Fungus
         /// Gets the history manager singleton instance.
         /// </summary>
         public NarrativeLog NarrativeLog { get; private set; }
+
+        public UserProfileManagerComponent UserProfileManager { get; private set; }
 
         /// <summary>
         /// Gets the FungusManager singleton instance.
@@ -103,7 +119,8 @@ namespace Fungus
                         {
                             var go = new GameObject();
                             go.name = "FungusManager";
-                            DontDestroyOnLoad(go);
+                            if (Application.isPlaying)
+                                DontDestroyOnLoad(go);
                             instance = go.AddComponent<FungusManager>();
                         }
                     }
@@ -111,6 +128,11 @@ namespace Fungus
 
                 return instance;
             }
+        }
+
+        public static void ForceApplicationQuitting(bool b)
+        {
+            applicationIsQuitting = b;
         }
 
         #endregion Public methods

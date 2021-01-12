@@ -33,6 +33,14 @@ namespace Fungus
             }
         }
 
+        public static string LastExecutedCustomKey
+        {
+            get
+            {
+                return ProgressMarker.LatestExecuted != null ? ProgressMarker.LatestExecuted.CustomKey : string.Empty;
+            }
+        }
+
         public override void OnEnter()
         {
             LatestExecuted = this;

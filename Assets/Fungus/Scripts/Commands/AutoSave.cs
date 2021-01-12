@@ -6,8 +6,8 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
-    /// AutoSave, requests a new AutoSave from the save manager, this is still governed by the limits in place in the Save
-    /// Manager.
+    /// AutoSave, requests a new AutoSave from the save manager, this is still governed by the limits in place in
+    /// the Save Manager.
     /// </summary>
     [CommandInfo("Save",
                  "Auto Save",
@@ -67,7 +67,7 @@ namespace Fungus
 
                 var saveManager = FungusManager.Instance.SaveManager;
 
-                saveManager.Save(FungusConstants.AutoSavePrefix + CustomKey, SavePointDescription, true);
+                saveManager.SaveAuto(CustomKey, SavePointDescription);
             }
 
             Continue();

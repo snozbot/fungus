@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using static Fungus.BaseVariableProperty;
 
 namespace Fungus
 {
@@ -13,12 +14,6 @@ namespace Fungus
                  "Get or set the whether Loading and/or Saving is currently allowed within the SaveManager")]
     public class LoadingSavingAllowed : Command
     {
-        public enum GetSet
-        {
-            Get,
-            Set,
-        }
-
         [SerializeField] protected GetSet savingAllowedGetSet, loadingAllowedGetSet;
 
         [SerializeField] protected BooleanData savingAllowedBool, loadingAllowedBool;

@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 35, y: -109}
+  scrollPos: {x: 142, y: 15}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 453
@@ -2074,7 +2074,7 @@ MonoBehaviour:
     stringRef: {fileID: 0}
     stringVal: 
   startIndex: 0
-  callMode: 0
+  callMode: 3
 --- !u!114 &6250901064258098308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3215,6 +3215,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 48459533358594827, guid: eae76c041b933476bbe9bdd4c3d80793,
+        type: 3}
+      propertyPath: serializerSettings.flowchartsToSave.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 48459533358594827, guid: eae76c041b933476bbe9bdd4c3d80793,
+        type: 3}
+      propertyPath: serializerSettings.flowchartsToSave.Array.data[0]
+      value: 
+      objectReference: {fileID: 914985447501439212}
     - target: {fileID: 6090270529574640073, guid: eae76c041b933476bbe9bdd4c3d80793,
         type: 3}
       propertyPath: flowcharts.Array.size

@@ -25,11 +25,18 @@ namespace Fungus
         [SerializeField] protected Button ourButton;
         public virtual Button OurButton { get { return ourButton; } }
 
-        protected SaveManager.SavePointMeta ourMeta;
+        protected SaveGameMetaData ourMeta;
 
         protected SaveController saveCont;
 
         public bool IsLoadable { get { return ourMeta != null && !string.IsNullOrEmpty(ourMeta.fileLocation); } }
+
+        private ISaveSlotView[] slotViews;
+
+        protected virtual void Awake()
+        {
+            slotViews = GetComponentsInChildren<ISaveSlotView>();
+        }
 
         private void Start()
         {
@@ -41,7 +48,7 @@ namespace Fungus
             }
         }
 
-        public SaveManager.SavePointMeta LinkedMeta
+        public SaveGameMetaData LinkedMeta
         {
             get
             {
@@ -50,19 +57,34 @@ namespace Fungus
             set
             {
                 ourMeta = value;
-                //update views
-                if (ourMeta != null)
-                {
-                    nameText.text = ourMeta.saveName;
-                    descText.text = ourMeta.description;
-                    timeStampText.text = ourMeta.GetReadableTime();
-                }
+
+                RefreshDisplay();
             }
         }
 
         public void OnSelect(BaseEventData eventData)
         {
             saveCont.SetSelectedSlot(this);
+        }
+
+        protected virtual void UpdateViews()
+        {
+            //nameText.text = ourMeta.saveName;
+            //descText.text = ourMeta.description;
+            //timeStampText.text = ourMeta.GetReadableTime();
+
+            // Pass the metadata to the views, so they can do their thing with it.
+            slotViews = GetComponentsInChildren<ISaveSlotView>();
+            for (int i = 0; i < slotViews.Length; i++)
+            {
+                ISaveSlotView currentView = slotViews[i];
+                currentView.SaveData = LinkedMeta;
+            }
+        }
+
+        public virtual void RefreshDisplay()
+        {
+            UpdateViews();
         }
     }
 }

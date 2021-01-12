@@ -84,22 +84,22 @@ namespace Fungus
 
             return item.Key + " in " + collection.Value.name;
         }
-        public override void VisitEncode(FlowchartData flowchartData)
+        public override void VisitEncode(ISaveDataItemStringPairVisitor visitor)
         {
             if (curIndex.integerRef == null)
             {
-                flowchartData.AddToVisitorPairs(GetLocationIdentifier(), curIndex.integerVal.ToString());
+                visitor.AddToVisitorPairs(GetLocationIdentifier(), curIndex.integerVal.ToString());
             }
 
-            base.VisitEncode(flowchartData);
+            base.VisitEncode(visitor);
         }
 
-        public override void VisitDecode(FlowchartData flowchartData)
+        public override void VisitDecode(ISaveDataItemStringPairVisitor visitor)
         {
             if (curIndex.integerRef == null)
             {
                 string sVal;
-                if (flowchartData.TryGetVisitorValueByKey(GetLocationIdentifier(), out sVal))
+                if (visitor.TryGetVisitorValueByKey(GetLocationIdentifier(), out sVal))
                 {
                     int iVal;
                     if (int.TryParse(sVal, out iVal))
@@ -109,7 +109,7 @@ namespace Fungus
                 }
             }
 
-            base.VisitDecode(flowchartData);
+            base.VisitDecode(visitor);
         }
 
         #endregion Public members

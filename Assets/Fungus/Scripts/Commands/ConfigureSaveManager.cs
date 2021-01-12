@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using static Fungus.BaseVariableProperty;
 
 namespace Fungus
 {
@@ -13,12 +14,6 @@ namespace Fungus
                  "Set or Get the number of auto and user save slots being set in the save manager.")]
     public class ConfigureSaveManager : Command
     {
-        public enum GetSet
-        {
-            Get,
-            Set,
-        }
-
         [SerializeField] protected GetSet getOrSet = GetSet.Set;
 
         [Tooltip("Number of AutoSaves for the Save Manager.")]
@@ -34,7 +29,7 @@ namespace Fungus
             if (getOrSet == GetSet.Get)
             {
                 numAutoSaves.Value = saveMan.NumberOfAutoSaves;
-                numUserSaves.Value = saveMan.NumberOfUserSaves;
+                numUserSaves.Value = saveMan.NumberOfSlotSaves;
             }
             else
             {

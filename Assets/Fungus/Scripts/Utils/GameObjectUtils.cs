@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// This code is part of the Fungus library (https://github.com/snozbot/fungus)
+// It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
+
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Fungus
@@ -11,7 +9,7 @@ namespace Fungus
     public static class GameObjectUtils
     {
         /// <summary>
-        /// Often we require that each of a certain type in a scene have a unique name this helper ensures that, but 
+        /// Often we require that each of a certain type in a scene have a unique name this helper ensures that, but
         /// requires parts of UnityEditor. Fortunately, this logic is desired withing Validation or creation in scenes.
         /// </summary>
         public static void UniqueGameObjectNamePerType<T>(T targetComp) where T : MonoBehaviour

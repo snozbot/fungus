@@ -4,8 +4,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO move to listening to events?
-
 namespace Fungus
 {
     /// <summary>

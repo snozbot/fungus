@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
-    /// Use the collection as a source of random items and turn it into a random bag. Drawing the 
+    /// Use the collection as a source of random items and turn it into a random bag. Drawing the
     /// next random item until out of items and then reshuffling them.
     /// </summary>
     [CommandInfo("Collection",
@@ -77,22 +77,22 @@ namespace Fungus
             (currentIndex.integerRef != null ? " " + currentIndex.integerRef.Key : ""); ;
         }
 
-        public override void VisitEncode(FlowchartData flowchartData)
+        public override void VisitEncode(ISaveDataItemStringPairVisitor visitor)
         {
             if (currentIndex.integerRef == null)
             {
-                flowchartData.AddToVisitorPairs(GetLocationIdentifier(), currentIndex.integerVal.ToString());
+                visitor.AddToVisitorPairs(GetLocationIdentifier(), currentIndex.integerVal.ToString());
             }
 
-            base.VisitEncode(flowchartData);
+            base.VisitEncode(visitor);
         }
 
-        public override void VisitDecode(FlowchartData flowchartData)
+        public override void VisitDecode(ISaveDataItemStringPairVisitor visitor)
         {
             if (currentIndex.integerRef == null)
             {
                 string sVal;
-                if (flowchartData.TryGetVisitorValueByKey(GetLocationIdentifier(), out sVal))
+                if (visitor.TryGetVisitorValueByKey(GetLocationIdentifier(), out sVal))
                 {
                     int iVal;
                     if (int.TryParse(sVal, out iVal))
@@ -102,7 +102,7 @@ namespace Fungus
                 }
             }
 
-            base.VisitDecode(flowchartData);
+            base.VisitDecode(visitor);
         }
     }
 }

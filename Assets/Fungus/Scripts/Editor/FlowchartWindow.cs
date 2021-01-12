@@ -286,38 +286,39 @@ namespace Fungus.EditorUtils
             if (nodeStyle == null)
             {
                 nodeStyle = new GUIStyle();
-                // All block nodes use the same GUIStyle, but with a different background
-                nodeStyle.border = new RectOffset(HorizontalPad, HorizontalPad, VerticalPad, VerticalPad);
-                nodeStyle.padding = nodeStyle.border;
-                nodeStyle.contentOffset = Vector2.zero;
-                nodeStyle.alignment = TextAnchor.MiddleCenter;
-                nodeStyle.wordWrap = true;
             }
+
+            // All block nodes use the same GUIStyle, but with a different background
+            nodeStyle.border = new RectOffset(HorizontalPad, HorizontalPad, VerticalPad, VerticalPad);
+            nodeStyle.padding = nodeStyle.border;
+            nodeStyle.contentOffset = Vector2.zero;
+            nodeStyle.alignment = TextAnchor.MiddleCenter;
+            nodeStyle.wordWrap = true;
 
             if (EditorStyles.helpBox != null && descriptionStyle == null)
             {
                 descriptionStyle = new GUIStyle(EditorStyles.helpBox);
-                descriptionStyle.wordWrap = true;
             }
+            descriptionStyle.wordWrap = true;
 
             if (EditorStyles.whiteLabel != null && handlerStyle == null)
             {
                 handlerStyle = new GUIStyle(EditorStyles.label);
-                handlerStyle.wordWrap = true;
-                handlerStyle.margin.top = 0;
-                handlerStyle.margin.bottom = 0;
-                handlerStyle.alignment = TextAnchor.MiddleCenter;
             }
+            handlerStyle.wordWrap = true;
+            handlerStyle.margin.top = 0;
+            handlerStyle.margin.bottom = 0;
+            handlerStyle.alignment = TextAnchor.MiddleCenter;
 
-            if(blockSearchPopupNormalStyle == null || blockSearchPopupSelectedStyle == null)
+            if (blockSearchPopupNormalStyle == null || blockSearchPopupSelectedStyle == null)
             {
                 blockSearchPopupNormalStyle = new GUIStyle(GUI.skin.FindStyle("MenuItem"));
-                blockSearchPopupNormalStyle.padding = new RectOffset(8, 0, 0, 0);
-                blockSearchPopupNormalStyle.imagePosition = ImagePosition.ImageLeft;
-                blockSearchPopupSelectedStyle = new GUIStyle(blockSearchPopupNormalStyle);
-                blockSearchPopupSelectedStyle.normal = blockSearchPopupSelectedStyle.hover;
-                blockSearchPopupNormalStyle.hover = blockSearchPopupNormalStyle.normal;
             }
+            blockSearchPopupNormalStyle.padding = new RectOffset(8, 0, 0, 0);
+            blockSearchPopupNormalStyle.imagePosition = ImagePosition.ImageLeft;
+            blockSearchPopupSelectedStyle = new GUIStyle(blockSearchPopupNormalStyle);
+            blockSearchPopupSelectedStyle.normal = blockSearchPopupSelectedStyle.hover;
+            blockSearchPopupNormalStyle.hover = blockSearchPopupNormalStyle.normal;
         }
 
         protected virtual void OnDisable()
@@ -1418,6 +1419,8 @@ namespace Fungus.EditorUtils
 
             EditorZoomArea.Begin(flowchart.Zoom, scriptViewRect);
 
+            var prevCol = GUI.color;
+
             if (e.type == EventType.Repaint)
             {
                 DrawGrid();
@@ -1463,9 +1466,9 @@ namespace Fungus.EditorUtils
                         (b.ExecutingIconTimer - curRealTime) / FungusConstants.ExecutingIconFadeTime,
                         emptyStyle);
                 }
-                GUI.color = Color.white;
             }
 
+            GUI.color = prevCol;
             EditorZoomArea.End();
         }
 
@@ -2084,7 +2087,7 @@ namespace Fungus.EditorUtils
                 }
             }
 
-            graphics.tint = block.UseCustomTint ? block.Tint : defaultTint;
+            graphics.tint = (block.UseCustomTint ? block.Tint : defaultTint) * FungusEditorPreferences.flowchatBlockTint;
 
             return graphics;
         }
@@ -2180,10 +2183,19 @@ namespace Fungus.EditorUtils
                 if (block._EventHandler != null)
                 {
                     string handlerLabel = "";
-                    EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(block._EventHandler.GetType());
+                    var eventType = block._EventHandler.GetType();
+                    EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(eventType);
                     if (info != null)
                     {
-                        handlerLabel = "<" + info.EventHandlerName + "> ";
+                        var obsAttr = eventType.GetCustomAttribute<System.ObsoleteAttribute>();
+                        if (obsAttr != null)
+                        {
+                            handlerLabel = "<" + FungusConstants.UIPrefixForDeprecated_RichText + info.EventHandlerName + "> ";
+                        }
+                        else
+                        {
+                            handlerLabel = "<" + info.EventHandlerName + "> ";
+                        }
                     }
 
                     Rect rect = new Rect(block._NodeRect);

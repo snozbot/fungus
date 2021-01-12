@@ -4,8 +4,6 @@
 using System.Collections.Generic;
 using System.Text;
 
-//TODO needs to listen to save load events and profile changes
-
 namespace Fungus
 {
     /// <summary>

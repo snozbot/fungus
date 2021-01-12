@@ -689,7 +689,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 911349658}
   selectedCommands:
-  - {fileID: 911349666}
+  - {fileID: 911349661}
   variables: []
   description: 
   stepPause: 0
@@ -715,10 +715,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 1
   indentLevel: 0
-  storyText: '{s=10}asd .fas dfas, dfas {s=30}asd.fasd   fa,sdfa .sdfa s{s=60}.asdf
-    asdfa .s, asd f{s=120}dfas dfasd fasd fa,sdf as dfas dfas dfasd fa{s=600}df a
-    sd f a s ,dfasdfas dfasdfasdfasd.f asd fasd,fa sd fa sd fasd fa sdfa sd fa .s
-    d fa sd fasdfasd fas dfasd,fa sdfas dfas.dfa'
+  storyText: '{s=10}10 asd . dfas {s=30} 30 asd.fasd   fa,sdfa s{s=60}60 asdf asdfa
+    .s, asd f{s=120}120 dfas fa,sdf as dfas {s=600} 600 df dfas.dfa {s=0} 0 dfasdfasdfasd.f
+    asd fasd'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -808,10 +807,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 4
   indentLevel: 0
-  storyText: '{s=10}asd .fas dfas, dfas {s=30}asd.fasd   fa,sdfa .sdfa s{s=60}.asdf
-    asdfa .s, asd f{s=120}dfas dfasd fasd fa,sdf as dfas dfas dfasd fa{s=600}df a
-    sd f a s ,dfasdfas dfasdfasdfasd.f asd fasd,fa sd fa sd fasd fa sdfa sd fa .s
-    d fa sd fasdfasd fas dfasd,fa sdfas dfas.dfa'
+  storyText: '{s=10}10 asd . dfas {s=30} 30 asd.fasd   fa,sdfa s{s=60}60 asdf asdfa
+    .s, asd f{s=120}120 dfas fa,sdf as dfas {s=600} 600 df dfas.dfa {s=0} 0 dfasdfasdfasd.f
+    asd fasd'
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -940,7 +938,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 0}
 --- !u!114 &911349667
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1694,6 +1692,7 @@ MonoBehaviour:
   writeWholeWords: 0
   forceRichText: 1
   instantComplete: 1
+  doReadAheadText: 1
 --- !u!114 &1470136057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2409,6 +2408,7 @@ MonoBehaviour:
   writeWholeWords: 0
   forceRichText: 1
   instantComplete: 1
+  doReadAheadText: 1
 --- !u!114 &1802548009
 MonoBehaviour:
   m_ObjectHideFlags: 0

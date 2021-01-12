@@ -21,6 +21,8 @@
 		"Fungus.ObjectVariable",
 		"Fungus.PODTypeFactory",
 		"Fungus.PortraitState",
+		"Fungus.SaveGameMetaData",
+		"Fungus.SaveManager",
 		"Fungus.SayDialog",
 		"Fungus.SpriteVariable",
 		"Fungus.StringVariable",

@@ -7,7 +7,7 @@ namespace Fungus
 {
     /// <summary>
     /// Directly calls Encode on the SavePointData, resulting in a jsonified savedata in string var.
-    /// 
+    ///
     /// This does not use the SaveManager and will not fire signals, you probably want SaveToSlot.
     /// </summary>
     [CommandInfo("Save",
@@ -27,9 +27,12 @@ namespace Fungus
             //prevent us being saving from being part of the save, will lead to looping
             var savingAllowed = ParentBlock.IsSavingAllowed;
             ParentBlock.IsSavingAllowed = false;
-            
-            jsonStringVar.Value = SavePointData.EncodeToJson(saveName.Value, saveDescription.Value, out SavePointData data);
-            
+
+            var saveHandler = FungusManager.Instance.SaveManager.SaveFileManager.CurrentSaveHandler;
+            var saveData = saveHandler.CreateSaveData(saveName.Value, saveDescription.Value);
+
+            jsonStringVar.Value = saveHandler.EncodeToJSON(saveData);
+
             ParentBlock.IsSavingAllowed = savingAllowed;
 
             Continue();

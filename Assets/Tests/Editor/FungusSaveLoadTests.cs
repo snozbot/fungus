@@ -11,6 +11,12 @@ namespace Fungus.Tests
     [TestFixture]
     public class FungusSaveLoadTests
     {
+        [SetUp]
+        public void ForceFungusManagerAlive()
+        {
+            FungusManager.ForceApplicationQuitting(false);
+        }
+
         //by no means exaustive but provides us a basic test in editor mode that flowchart
         // serialisation is at all functional
         [UnityTest]
@@ -30,7 +36,11 @@ namespace Fungus.Tests
             yield return b.Execute(0, null);
             vi.Value = InitialVariableValue;
 
-            var fd = FlowchartData.Encode(f);
+            var saveHandler = new DefaultSaveGameSaveHandler();
+            var mf = new MultiFlowchartSaveDataItemSerializer();
+            saveHandler.SaveDataItemSerializers.Add(mf);
+            mf.flowchartsToSave.Add(f);
+            var saveData = saveHandler.CreateSaveData("ManualSaveLoadFlowchart", "");
 
             //change data
             yield return b.Execute(0, null);
@@ -38,7 +48,7 @@ namespace Fungus.Tests
             vi.Value = ChangedVariableValue;
 
             //decode to revert
-            fd.Decode(f);
+            saveHandler.LoadSaveData(saveData);
 
             Assert.That(b.GetExecutionCount() == 1);
             Assert.That(vi.Value == InitialVariableValue);
@@ -49,15 +59,123 @@ namespace Fungus.Tests
         [Test]
         public void ManualSaveLoadValueCollection()
         {
-            throw new System.NotImplementedException();
-            //ValueTypeCollectionData
+            var go = new GameObject();
+            var intcol = go.AddComponent<IntCollection>();
+
+            intcol.Add(1);
+            intcol.Add(2);
+
+            var saveHandler = new DefaultSaveGameSaveHandler();
+            var vts = new ValueTypeCollectionSaveDataItemSerializer();
+            saveHandler.SaveDataItemSerializers.Add(vts);
+
+            vts.collectionsToSerialize.Add(intcol);
+            var saveData = saveHandler.CreateSaveData("ManualSaveLoadValueCollection", "");
+
+            intcol.Remove(1);
+            intcol.Add(3);
+            intcol.Add(4);
+
+            saveHandler.LoadSaveData(saveData);
+
+            Assert.That(intcol.Count == 2);
+            Assert.That(intcol.IndexOf(1) == 0);
+            Assert.That(intcol.IndexOf(2) == 1);
         }
 
         [Test]
-        public void ManualSaveLoadGlobalVars()
+        public void UserProfileCycle()
         {
-            throw new System.NotImplementedException();
-            //GlobalVariableData
+            var upm = new UserProfileManager();
+            upm.Init();
+            upm.ChangeProfile("test1");
+            Assert.AreEqual(upm.CurrentUserProfileName, "test1");
+            upm.ChangeProfile("test2");
+            Assert.AreEqual(upm.LastLoadedProfileData.saveName, "test2");
+
+            void PairAdder() { upm.LastLoadedProfileData.stringPairs.AddUnique("key", "value"); }
+
+            UserProfileManagerSignals.OnUserProfileChangedPreSave += PairAdder;
+
+            upm.SaveProfileData();
+
+            UserProfileManagerSignals.OnUserProfileChangedPreSave -= PairAdder;
+
+            upm = new UserProfileManager();
+            Assert.AreEqual(upm.LastLoadedProfileData, null);
+            upm.Init();
+            Assert.AreEqual(upm.LastLoadedProfileData.saveName, "test2");
+            Assert.AreEqual(upm.LastLoadedProfileData.stringPairs.GetOrDefault("key"), "value");
+
+
+            upm.ResetProfile();
+            Assert.IsTrue(string.IsNullOrEmpty(upm.LastLoadedProfileData.stringPairs.GetOrDefault("key")));
+        }
+
+        [UnityTest]
+        public IEnumerator SaveManagerManualLoad()
+        {
+            var upm = new UserProfileManager();
+            upm.Init();
+            upm.ChangeProfile("save_manager_test");
+            yield return null;
+
+            var sm = new SaveFileManager();
+            sm.Init(upm);
+            sm.DeleteAllSaves();
+            Assert.AreEqual(sm.NumSaveMetas, 0);
+
+            var go = new GameObject();
+            var intcol = go.AddComponent<IntCollection>();
+
+
+            var saveHandler = sm.CurrentSaveHandler;
+            var vts = new ValueTypeCollectionSaveDataItemSerializer();
+            saveHandler.SaveDataItemSerializers.Add(vts);
+
+            vts.collectionsToSerialize.Add(intcol);
+
+
+            const int MaxSaves = 3;
+
+            for (int i = 0; i < MaxSaves; i++)
+            {
+                intcol.Add(i);
+                sm.Save(i.ToString(), string.Empty, i.ToString() + "_");
+            }
+
+            Assert.AreEqual(intcol.Count, 3);
+            Assert.AreEqual(sm.NumSaveMetas, MaxSaves);
+
+
+            //can't use regular load as it uses scenes
+            var sd = sm.GetSaveDataFromMeta(sm.SaveNameToMeta("1"));
+
+            sm.CurrentSaveHandler.LoadSaveData(sd);
+
+            Assert.AreEqual(intcol.Count, 2);
+        }
+
+        [Test]
+        public void UserLangPrefSaveLoad()
+        {
+            var upm = new UserProfileManager();
+            upm.Init();
+            upm.ChangeProfile("langtest");
+            upm.ResetProfile();
+            SetLanguage.SetActiveLanguage(string.Empty);
+            Assert.AreEqual(SetLanguage.mostRecentLanguage, string.Empty);
+
+            SetLanguage.SetActiveLanguage("en");
+            Assert.AreEqual(SetLanguage.mostRecentLanguage, "en");
+
+            upm.SaveProfileData();
+
+
+            upm = new UserProfileManager();
+            Assert.AreEqual(upm.LastLoadedProfileData, null);
+            upm.Init();
+            Assert.AreEqual(SetLanguage.mostRecentLanguage, "en");
         }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    // <summary>
+    /// <summary>
     /// Stop velocity and angular velocity on a Rigidbody2D
     /// </summary>
     [CommandInfo("Rigidbody2D",
