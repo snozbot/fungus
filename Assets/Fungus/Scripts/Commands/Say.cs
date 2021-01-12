@@ -191,7 +191,7 @@ namespace Fungus
             }
 
             if (error != string.Empty) return error;
-            else return error + namePrefix + "\"" + _storyText.Truncate(92) + "\""; //truncate story text so it's easier to see.
+            else return error + namePrefix + "\"" + storyText.Truncate(92) + "\""; //truncate story text so it's easier to see.
         }
 
         public override Color GetButtonColor()
