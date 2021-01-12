@@ -23,7 +23,7 @@ namespace Fungus
             tokenList.Add(token);
         }
         
-        private static void AddTagToken(List<TextTagToken> tokenList, string tagText)
+        private static void AddTagToken(List<TextTagToken> tokenList, string tagText, bool notifyInvalid = true)
         {
             if (tagText.Length < 3 ||
                 tagText.Substring(0,1) != "{" ||
@@ -179,7 +179,7 @@ namespace Fungus
             }
             else
             {
-                Debug.LogWarning("Invalid text tag " + tag);
+                if(notifyInvalid) Debug.LogWarning("Invalid text tag " + tag);
             }
         }
 
@@ -242,7 +242,7 @@ namespace Fungus
         /// <summary>
         /// Processes a block of story text and converts it to a list of tokens.
         /// </summary>
-        public static List<TextTagToken> Tokenize(string storyText)
+        public static List<TextTagToken> Tokenize(string storyText, bool notifyInvalid = true)
         {
             List<TextTagToken> tokens = new List<TextTagToken>();
 
@@ -261,7 +261,7 @@ namespace Fungus
                 {
                     AddWordsToken(tokens, preText);
                 }
-                AddTagToken(tokens, tagText);
+                AddTagToken(tokens, tagText, notifyInvalid);
 
                 position = m.Index + tagText.Length;
                 m = m.NextMatch();

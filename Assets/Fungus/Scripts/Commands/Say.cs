@@ -144,6 +144,7 @@ namespace Fungus
         {
             string namePrefix = "";
             string error = string.Empty;
+            var flowchart = GetFlowchart();
 
             //get SayDialog data
             // for some reason, initialising sayDialog as null results in it getting the wrong dialog or being null, hence why GetActiveSayDialog() is called twice.
@@ -172,9 +173,11 @@ namespace Fungus
             storyMaxLength = portrait != null ? sayDialog.portraitStoryTextLimit : sayDialog.storyTextLimit;
             characterNameMaxLength = sayDialog.characterNameLimit;
 
-            if (storyMaxLength != 0 && storyText.Length > storyMaxLength)
+            string _storyText = flowchart.SubstituteVariables(storyText).SterilizeString();
+
+            if (storyMaxLength != 0 && _storyText.Length > storyMaxLength)
             {
-                error = "Error: Story text too large to fit in SayDialog: " + sayDialog.name + ", " + storyText.Length + " / " + storyMaxLength;
+                error = "Error: Story text too large to fit in SayDialog: " + sayDialog.name + ", " + _storyText.Length + " / " + storyMaxLength;
             }
 
             //character name errors are a little more problematic, so any story errors will be overridden so the character name can be taken care of.
@@ -188,7 +191,7 @@ namespace Fungus
             }
 
             if (error != string.Empty) return error;
-            else return error + namePrefix + "\"" + storyText.Truncate(92) + "\""; //truncate story text so it's easier to see.
+            else return error + namePrefix + "\"" + _storyText.Truncate(92) + "\""; //truncate story text so it's easier to see.
         }
 
         public override Color GetButtonColor()

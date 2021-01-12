@@ -1888,6 +1888,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043113241}
   m_CullTransparentMesh: 0
+--- !u!1 &1346811718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1346811722}
+  - component: {fileID: 1346811721}
+  - component: {fileID: 1346811720}
+  - component: {fileID: 1346811719}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1346811719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346811718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d49b7c1bcd2e07499844da127be038d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ForceModuleActive: 0
+--- !u!114 &1346811720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346811718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1346811721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346811718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
+--- !u!4 &1346811722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346811718}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1374474910
 GameObject:
   m_ObjectHideFlags: 0
@@ -2845,6 +2925,10 @@ GameObject:
   - component: {fileID: 1875833271}
   - component: {fileID: 1875833274}
   - component: {fileID: 1875833275}
+  - component: {fileID: 1875833276}
+  - component: {fileID: 1875833277}
+  - component: {fileID: 1875833279}
+  - component: {fileID: 1875833278}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -2881,8 +2965,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 63
-    y: 67
+    x: 66
+    y: 66
     width: 111
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -2900,6 +2984,8 @@ MonoBehaviour:
   - {fileID: 1875833256}
   - {fileID: 1875833251}
   - {fileID: 1875833252}
+  - {fileID: 1875833276}
+  - {fileID: 1875833277}
   - {fileID: 1875833253}
   - {fileID: 1875833257}
   - {fileID: 1875833258}
@@ -2917,6 +3003,7 @@ MonoBehaviour:
   - {fileID: 1875833272}
   - {fileID: 1875833271}
   - {fileID: 1875833270}
+  - {fileID: 1875833279}
   suppressAllAutoSelections: 0
 --- !u!114 &1875833249
 MonoBehaviour:
@@ -2931,7 +3018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 102, y: 115}
+  scrollPos: {x: 101, y: 118}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 498
@@ -2944,9 +3031,9 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 1875833248}
-  selectedCommands:
-  - {fileID: 1875833270}
-  variables: []
+  selectedCommands: []
+  variables:
+  - {fileID: 1875833278}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -3032,7 +3119,8 @@ MonoBehaviour:
   itemId: 3
   indentLevel: 0
   storyText: Here, I'm given a lot more space than the normal 158 limit because my
-    portrait is missing. The Say Command should now show this in the editor.
+    portrait is missing. The Say Command should now show this in the editor. {b}The
+    counter even includes text tags.{/b}
   description: 
   character: {fileID: 1825085936}
   portrait: {fileID: 0}
@@ -3516,6 +3604,70 @@ MonoBehaviour:
   commentText: SetSayDialog commands do not show changes in say dialogues. This is
     because SetSayDialog has no editor time changes for Say to detect. Maybe change
     this in a future update?
+--- !u!114 &1875833276
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875833246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 26
+  indentLevel: 0
+  commenterName: 
+  commentText: Text tags also do not count towards the limit since they are not shown.
+    Variables have their names counted, so "{$var}" becomes "var" to the counter
+--- !u!114 &1875833277
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875833246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6e8f632db87477eb750446b28d73a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 27
+  indentLevel: 0
+  commenterName: 
+  commentText: If a variable is found, the variable is put in and the counter will
+    be updated.
+--- !u!114 &1875833278
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875833246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb91b566ceda411bad1e9d3c3243ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: intVar
+  value: 85
+--- !u!114 &1875833279
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875833246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65d551a201c94bc79950076ff3eaf2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 30
+  indentLevel: 0
+  sayDialog: {fileID: 1733429295}
 --- !u!1 &1878449316
 GameObject:
   m_ObjectHideFlags: 0

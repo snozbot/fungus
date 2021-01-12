@@ -3,6 +3,7 @@
 
 using System.Text;
 using System;
+using System.Text.RegularExpressions;
 
 namespace Fungus
 {
@@ -73,6 +74,38 @@ namespace Fungus
             if (value.Length <= maxLength) return value;
 
             return value.Substring(0, Math.Min(value.Length, maxLength)).Trim() + suffix;
+        }
+
+
+        /// <summary>
+        /// Sterilizes a string, removing tokens and returning only text. Variables are returned as the variable name.
+        /// </summary>
+        /// <param name="value">String to sterilize.</param>
+        /// <returns></returns>
+        public static string SterilizeString(this string value)
+        {
+            Regex r = new Regex("{\\$.*?}"); //variable regex from Flowchart.
+            string sterilizedString = string.Empty;
+
+            var results = r.Matches(value);
+            for (int i = 0; i < results.Count; i++)
+            {
+                Match match = results[i];
+                string key = match.Value.Substring(2, match.Value.Length - 3);
+                value = value.Replace("{$" + key + "}", key);
+            }
+
+            var tokens = TextTagParser.Tokenize(value, false);
+
+            foreach (TextTagToken token in tokens)
+            {
+                if (token.type == TokenType.Words)
+                {
+                    sterilizedString += token.paramList[0].ToString();
+                }
+            }
+
+            return sterilizedString;
         }
 
         #endregion
