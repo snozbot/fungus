@@ -39,13 +39,13 @@ namespace Fungus
 
         protected Vector3 startingPosition; // So we know where to move this if returnOnCompleted is true
         protected bool updatePosition = false;
-        protected Vector3 newLocalPosition;
+        protected Vector3 newPosition;
         protected Vector3 mouseMovement = Vector3.zero;
 
         protected virtual void Awake()
         {
             CacheMainCamera(); // Performance
-            SetLocalPositionUpdaters();
+            SetPositionUpdaters();
         }
 
         protected virtual void CacheMainCamera()
@@ -55,25 +55,25 @@ namespace Fungus
 
         protected Camera mainCamera;
 
-        protected virtual void SetLocalPositionUpdaters()
+        protected virtual void SetPositionUpdaters()
         {
             // The boolean corresponds to useEventSystem
-            newPositionUpdaters[true] = UpdateLocalPositionForUI;
-            newPositionUpdaters[false] = UpdateLocalPositionForSprites;
+            newPositionUpdaters[true] = UpdatePositionForUI;
+            newPositionUpdaters[false] = UpdatePositionForSprites;
         }
 
         protected Dictionary<bool, Action> newPositionUpdaters = new Dictionary<bool, Action>();
 
-        protected virtual void UpdateLocalPositionForUI()
+        protected virtual void UpdatePositionForUI()
         {
             mouseMovement = Input.mousePosition - prevMousePosition;
-            newLocalPosition += mouseMovement;
+            newPosition += mouseMovement;
         }
 
-        protected virtual void UpdateLocalPositionForSprites()
+        protected virtual void UpdatePositionForSprites()
         {
             mouseMovement = mainCamera.ScreenToWorldPoint(Input.mousePosition) - mainCamera.ScreenToWorldPoint(prevMousePosition);
-            newLocalPosition += mouseMovement;
+            newPosition += mouseMovement;
         }
 
         #region DragCompleted handlers
@@ -99,7 +99,7 @@ namespace Fungus
             // To make sure this doesn't happen, we force the position change to happen in LateUpdate.
             if (updatePosition)
             {
-                transform.localPosition = newLocalPosition;
+                transform.position = newPosition;
                 updatePosition = false;
             }
         }
@@ -140,11 +140,12 @@ namespace Fungus
         protected virtual void ResetCachedPositions()
         {
             startingPosition = transform.position;
-            newLocalPosition = transform.localPosition;
+            prevPosition = transform.position;
+            newPosition = transform.position;
             prevMousePosition = Input.mousePosition;
         }
 
-        Vector3 prevMousePosition = Vector3.zero;
+        Vector3 prevPosition = Vector3.zero, prevMousePosition = Vector3.zero;
 
         protected virtual void DoDrag()
         {
@@ -153,13 +154,14 @@ namespace Fungus
                 return;
             }
 
-            UpdateNewLocalPosition();
+            UpdateNewPosition();
 
             prevMousePosition = Input.mousePosition; // For the next frame's drag operations
+            prevPosition = transform.position;
             updatePosition = true;
         }
 
-        protected virtual void UpdateNewLocalPosition()
+        protected virtual void UpdateNewPosition()
         {
             var updater = newPositionUpdaters[useEventSystem];
             updater();
