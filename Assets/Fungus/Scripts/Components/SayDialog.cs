@@ -351,7 +351,7 @@ namespace Fungus
                     //Make sure portraitImage.color is white
                     if(speakingCharacter != null)
                     {
-                        if(speakingCharacter.State.portraitImage.color != Color.white)
+                        if(!speakingCharacter.State.dimmed)
                         {
                             float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
                             LeanTween.color(speakingCharacter.State.portraitImage.rectTransform, Color.white, duration).setEase(stage.FadeEaseType).setRecursive(false);
