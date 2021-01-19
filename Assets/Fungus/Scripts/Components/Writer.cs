@@ -629,6 +629,7 @@ namespace Fungus
                     // No delay if user has clicked and Instant Complete is enabled
                     if (instantComplete && inputFlag)
                     {
+                        yield return null;
                         continue;
                     }
 
