@@ -348,17 +348,14 @@ namespace Fungus
                 var activeStages = Stage.ActiveStages;
                 for (int i = 0; i < activeStages.Count; i++)
                 {
-                    //Make sure portraitImage.color is white
-                    if(speakingCharacter != null)
-                    {
-                        if(!speakingCharacter.State.dimmed)
-                        {
-                            float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
-                            LeanTween.color(speakingCharacter.State.portraitImage.rectTransform, Color.white, duration).setEase(stage.FadeEaseType).setRecursive(false);
-                        }
-                    }
-
                     var stage = activeStages[i];
+                    //Make sure portraitImage.color is white
+                    if(!speakingCharacter.State.dimmed)
+                    {
+                        float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
+                        LeanTween.color(speakingCharacter.State.portraitImage.rectTransform, Color.white, duration).setEase(stage.FadeEaseType).setRecursive(false);
+                    }
+                    
                     if (stage.DimPortraits)
                     {
                         var charactersOnStage = stage.CharactersOnStage;
