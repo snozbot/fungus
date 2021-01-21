@@ -351,16 +351,7 @@ namespace Fungus
                     var stage = activeStages[i];
                     
                     if (stage.DimPortraits)
-                    {
-                        //Make sure portraitImage.color is white
-                        if(speakingCharacter.State.portraitImage != null)
-                        {
-                            if(!speakingCharacter.State.dimmed)
-                            {
-                                float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
-                                LeanTween.color(speakingCharacter.State.portraitImage.rectTransform, Color.white, duration).setEase(stage.FadeEaseType).setRecursive(false);
-                            }
-                        }
+                    {                        
                         var charactersOnStage = stage.CharactersOnStage;
                         for (int j = 0; j < charactersOnStage.Count; j++)
                         {
@@ -374,6 +365,22 @@ namespace Fungus
                                 else
                                 {
                                     stage.SetDimmed(c, false);
+                                }
+                            }
+
+                            //Dim issue workaround. Temporary solution until it completely fixed
+                            if(c != null && c.State.dimmed == false && c.State.portraitImage.color != Color.white)
+                            {
+                                if(c == speakingCharacter)
+                                {
+                                    LeanTween.color(c.State.portraitImage.rectTransform, Color.white, duration).setEase(stage.FadeEaseType).setRecursive(false);
+                                }
+                            }
+                            if(c != null && c.State.dimmed == true && c.State.portraitImage.color != stage.DimColor)
+                            {
+                                if(c == prevSpeakingCharacter)
+                                {
+                                    LeanTween.color(c.State.portraitImage.rectTransform, stage.DimColor, duration).setEase(stage.FadeEaseType).setRecursive(false);
                                 }
                             }
                         }
