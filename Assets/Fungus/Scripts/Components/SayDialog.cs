@@ -369,6 +369,8 @@ namespace Fungus
                             }
 
                             //Dim issue workaround. Temporary solution until it completely fixed
+                            float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
+                            
                             if(c != null && c.State.dimmed == false && c.State.portraitImage.color != Color.white)
                             {
                                 if(c == speakingCharacter)
