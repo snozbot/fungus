@@ -66,6 +66,10 @@ namespace Fungus
                 {
                     case BaseVariableProperty.GetSet.Get:
                         value.Value = slider.value;
+                        if (waitUntilFinished)
+                        {
+                            Continue();
+                        }
                         break;
                     case BaseVariableProperty.GetSet.Set:
                         SliderValueSet(value);
