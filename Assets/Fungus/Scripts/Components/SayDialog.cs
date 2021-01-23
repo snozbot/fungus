@@ -371,18 +371,21 @@ namespace Fungus
                             //Dim issue workaround. Temporary solution until it completely fixed
                             float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
                             
-                            if(c != null && c.State.dimmed == false && c.State.portraitImage.color != Color.white)
+                            if(c.State.portraitImage != null && c != null)
                             {
-                                if(c == speakingCharacter)
+                                if(c.State.dimmed == false && !c.State.portraitImage.color.Equals(Color.white))
                                 {
-                                    LeanTween.color(c.State.portraitImage.rectTransform, Color.white, duration).setEase(stage.FadeEaseType).setRecursive(false);
+                                    if(c == speakingCharacter && speakingCharacter.State.portraitImage != null)
+                                    {
+                                        LeanTween.color(c.State.portraitImage.rectTransform, Color.white, duration).setEase(stage.FadeEaseType).setRecursive(false);
+                                    }
                                 }
-                            }
-                            if(c != null && c.State.dimmed == true && c.State.portraitImage.color != stage.DimColor)
-                            {
-                                if(c == prevSpeakingCharacter)
+                                if(c.State.dimmed == true && !c.State.portraitImage.color.Equals(stage.DimColor))
                                 {
-                                    LeanTween.color(c.State.portraitImage.rectTransform, stage.DimColor, duration).setEase(stage.FadeEaseType).setRecursive(false);
+                                    if(c == prevSpeakingCharacter && prevSpeakingCharacter.State.portraitImage != null)
+                                    {
+                                        LeanTween.color(c.State.portraitImage.rectTransform, stage.DimColor, duration).setEase(stage.FadeEaseType).setRecursive(false);
+                                    }
                                 }
                             }
                         }
