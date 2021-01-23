@@ -375,14 +375,14 @@ namespace Fungus
                             {
                                 if(c.State.dimmed == false && !c.State.portraitImage.color.Equals(Color.white))
                                 {
-                                    if(c == speakingCharacter && speakingCharacter.State.portraitImage != null)
+                                    if(c.Equals(speakingCharacter))
                                     {
                                         LeanTween.color(c.State.portraitImage.rectTransform, Color.white, duration).setEase(stage.FadeEaseType).setRecursive(false);
                                     }
                                 }
                                 if(c.State.dimmed == true && !c.State.portraitImage.color.Equals(stage.DimColor))
                                 {
-                                    if(c == prevSpeakingCharacter && prevSpeakingCharacter.State.portraitImage != null)
+                                    if(c.Equals(prevSpeakingCharacter))
                                     {
                                         LeanTween.color(c.State.portraitImage.rectTransform, stage.DimColor, duration).setEase(stage.FadeEaseType).setRecursive(false);
                                     }
