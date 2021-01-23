@@ -366,9 +366,9 @@ namespace Fungus
                                     stage.SetDimmed(c, false);
                                 }
                             }
-                            if(stage.thirdPersonDim)
+                            if(stage.ThirdPersonDim)
                             {
-                                if(speakingCharacter.State.portraitImage == null)
+                                if(speakingCharacter.State.portraitImage == null && c != null)
                                 {
                                     stage.SetDimmed(c, false);
                                 }

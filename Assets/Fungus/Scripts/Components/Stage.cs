@@ -99,6 +99,11 @@ namespace Fungus
         /// Dim portraits when a character is not speaking.
         /// </summary>
         public virtual bool DimPortraits { get { return dimPortraits; } set { dimPortraits = value; } }
+        
+        /// <summary>
+        /// UnDim portraits when 3rd person is speaking.
+        /// </summary>
+        public virtual bool ThirdPersonDim { get { return thirdPersonDim; } set { thirdPersonDim = value; } }
 
         /// <summary>
         /// Choose a dimColor.
