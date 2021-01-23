@@ -19,7 +19,8 @@ namespace Fungus
 
         [Tooltip("Dim portraits when a character is not speaking.")]
         [SerializeField] protected bool dimPortraits;
-
+        [Tooltip("Un-Dim portraits when a there's a speaking character with no portrait on screen")]
+        [SerializeField] protected bool thirdPersonDim;
         [Tooltip("Choose a dimColor")]
         [SerializeField] protected Color dimColor =new Color(0.5f, 0.5f, 0.5f, 1f);
 
