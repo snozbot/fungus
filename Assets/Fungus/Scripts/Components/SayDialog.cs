@@ -304,11 +304,19 @@ namespace Fungus
 
                         if (c.State.punched == true)
                         {
-                            LeanTween.scale(c.State.portraitImage.rectTransform, new Vector3(1f, 1f, 1f), 0.5f);
+                            var activeStages = Stage.ActiveStages;
+                            for (int j = 0; j < activeStages.Count; j++)
+                            {
+                                var stage = activeStages[j];
+                                // LeanTween doesn't handle 0 duration properly
+                                float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
+
+                                LeanTween.scale(c.State.portraitImage.rectTransform, Vector3.zero, duration).setEase(LeanTweenType.punch).setRecursive(false);
+                            }
                         }
                         else
                         {
-                            PortraitController.SetRectTransform(c.State.holder, c.State.position.GetComponent<RectTransform>());
+                            c.State.portraitImage.transform.localScale = Vector3.one;
                         }
                     }
                 }
