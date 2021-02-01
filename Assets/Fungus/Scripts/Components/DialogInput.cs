@@ -149,7 +149,10 @@ namespace Fungus
         /// </summary>
         public virtual void SetNextLineFlag()
         {
-            nextLineInputFlag = true;
+            if(writer.IsWaitingForInput || writer.IsWriting)
+            {
+                nextLineInputFlag = true;
+            }
         }
 
         /// <summary>
