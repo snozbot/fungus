@@ -100,7 +100,7 @@ namespace Fungus
             case ClickMode.ClickAnywhere:
                 if (Input.GetMouseButtonDown(0))
                 {
-                    SetNextLineFlag();
+                    SetClickAnywhereClickedFlag();
                 }
                 break;
             case ClickMode.ClickOnDialog:
@@ -151,7 +151,23 @@ namespace Fungus
         {
             nextLineInputFlag = true;
         }
+        /// <summary>
+        /// Set the ClickAnywhere click flag.
+        /// </summary>
+        public virtual void SetClickAnywhereClickedFlag()
+        {
+            if (ignoreClickTimer > 0f)
+            {
+                return;
+            }
+            ignoreClickTimer = nextClickDelay;
 
+            // Only applies if ClickedAnywhere is selected
+            if (clickMode == ClickMode.ClickAnywhere)
+            {
+                SetNextLineFlag();
+            }
+        }
         /// <summary>
         /// Set the dialog clicked flag (usually from an Event Trigger component in the dialog UI).
         /// </summary>
