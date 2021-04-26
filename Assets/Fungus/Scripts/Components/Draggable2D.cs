@@ -36,19 +36,10 @@ namespace Fungus
         [Tooltip("Use the UI Event System to check for drag events. Clicks that hit an overlapping UI object will be ignored. Camera must have a PhysicsRaycaster component, or a Physics2DRaycaster for 2D colliders.")]
         [SerializeField] protected bool useEventSystem;
 
-        [Tooltip("Whether or not this draggable is being dragged, and can thus invoke drag events.")]
-        [SerializeField] protected bool beingDragged;
-
         protected Vector3 startingPosition;
         protected bool updatePosition = false;
         protected Vector3 newPosition;
         protected Vector3 delta = Vector3.zero;
-
-        public virtual bool BeingDragged
-        {
-            get { return beingDragged; }
-            set { beingDragged = value; }
-        }
 
         #region DragCompleted handlers
         protected List<DragCompleted> dragCompletedHandlers = new List<DragCompleted>();
@@ -104,8 +95,6 @@ namespace Fungus
 
         protected virtual void DoBeginDrag()
         {
-            beingDragged = true;
-
             // Offset the object so that the drag is anchored to the exact point where the user clicked it
 
 #if ENABLE_INPUT_SYSTEM
@@ -181,8 +170,6 @@ namespace Fungus
             {
                 LeanTween.move(gameObject, startingPosition, returnDuration).setEase(LeanTweenType.easeOutExpo);
             }
-
-            beingDragged = false;
         }
 
         protected virtual void DoPointerEnter()
