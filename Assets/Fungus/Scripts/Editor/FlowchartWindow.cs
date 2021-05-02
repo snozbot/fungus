@@ -1174,12 +1174,12 @@ namespace Fungus.EditorUtils
                 // Block dragging
                 if (dragBlock != null)
                 {
+                    var distance = e.mousePosition / flowchart.Zoom - flowchart.ScrollPos - startDragPosition;
                     for (int i = 0; i < flowchart.SelectedBlocks.Count; ++i)
                     {
                         var block = flowchart.SelectedBlocks[i];
                         var tempRect = tempRectDict[block];
-                        tempRect.position += e.delta / flowchart.Zoom;
-                        tempRectDict[block] = tempRect;
+                        tempRect.position += distance;
                         block._NodeRect = FungusEditorPreferences.useGridSnap ? tempRect.SnapPosition(GridObjectSnap) : tempRect;
                     }
 
@@ -1276,12 +1276,13 @@ namespace Fungus.EditorUtils
 
                 if (dragBlock != null)
                 {
+                    var distance = e.mousePosition / flowchart.Zoom - flowchart.ScrollPos - startDragPosition;
                     for (int i = 0; i < flowchart.SelectedBlocks.Count; ++i)
                     {
                         var block = flowchart.SelectedBlocks[i];
                         var nodeRect = block._NodeRect;
                         var tempRect = nodeRect;
-                        tempRect.position -= e.mousePosition / flowchart.Zoom - flowchart.ScrollPos - startDragPosition;
+                        tempRect.position -= distance;
                         block._NodeRect = FungusEditorPreferences.useGridSnap ? tempRect.SnapPosition(GridObjectSnap) : tempRect;
                         Undo.RecordObject(block, "Block Position");
                         block._NodeRect = nodeRect;
