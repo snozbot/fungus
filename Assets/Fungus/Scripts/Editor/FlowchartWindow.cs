@@ -1709,13 +1709,13 @@ namespace Fungus.EditorUtils
         {
             //previous method made a lot of garbage so now we reuse the same array
             pointsA[0] = new Vector2(rectA.xMin, rectA.center.y);
-            pointsA[1] = new Vector2(rectA.xMin + rectA.width / 2, rectA.yMin);
-            pointsA[2] = new Vector2(rectA.xMin + rectA.width / 2, rectA.yMax);
+            pointsA[1] = new Vector2(rectA.xMin + rectA.width * .5f, rectA.yMin);
+            pointsA[2] = new Vector2(rectA.xMin + rectA.width * .5f, rectA.yMax);
             pointsA[3] = new Vector2(rectA.xMax, rectA.center.y);
 
             pointsB[0] = new Vector2(rectB.xMin, rectB.center.y);
-            pointsB[1] = new Vector2(rectB.xMin + rectB.width / 2, rectB.yMin);
-            pointsB[2] = new Vector2(rectB.xMin + rectB.width / 2, rectB.yMax);
+            pointsB[1] = new Vector2(rectB.xMin + rectB.width * .5f, rectB.yMin);
+            pointsB[2] = new Vector2(rectB.xMin + rectB.width * .5f, rectB.yMax);
             pointsB[3] = new Vector2(rectB.xMax, rectB.center.y);
 
             Vector2 pointA = Vector2.zero;
