@@ -217,6 +217,7 @@ namespace Fungus.EditorUtils
         protected int prevVarCount;
         protected Block[] blocks = new Block[0];
         protected Block dragBlock;
+        protected Dictionary<Block, Rect> blockTempRects = new Dictionary<Block, Rect>();
         protected bool hasDraggedSelected = false;
         protected static FungusState fungusState;
 
@@ -1169,12 +1170,23 @@ namespace Fungus.EditorUtils
                 // Block dragging
                 if (dragBlock != null)
                 {
+                    if (blockTempRects.Count == 0)
+                    {
+                        foreach (var block in flowchart.SelectedBlocks)
+                        {
+                            blockTempRects.Add(block, block._NodeRect);
+                        }
+                    }
+
                     for (int i = 0; i < flowchart.SelectedBlocks.Count; ++i)
                     {
                         var block = flowchart.SelectedBlocks[i];
-                        var tempRect = block._NodeRect;
+                        var tempRect = blockTempRects[block];
                         tempRect.position += e.delta / flowchart.Zoom;
-                        block._NodeRect = tempRect;
+                        blockTempRects[block] = tempRect;
+                        block._NodeRect = FungusEditorPreferences.useGridSnap
+                            ? tempRect.SnapPosition(GridObjectSnap)
+                            : tempRect;
                     }
 
                     hasDraggedSelected = true;
@@ -1280,12 +1292,10 @@ namespace Fungus.EditorUtils
                         Undo.RecordObject(block, "Block Position");
                         tempRect.position += distance;
                         block._NodeRect = tempRect;
-                        if (FungusEditorPreferences.useGridSnap)
-                        {
-                            block._NodeRect = block._NodeRect.SnapPosition(GridObjectSnap);
-                        }
                         Repaint();
                     }
+
+                    blockTempRects.Clear();
 
                     dragBlock = null;
                 }
@@ -2099,20 +2109,12 @@ namespace Fungus.EditorUtils
             Rect tempRect = block._NodeRect;
             tempRect.width = Mathf.Clamp(nodeWidthA, BlockMinWidth, BlockMaxWidth);
             tempRect.height = DefaultBlockHeight;
-            if (FungusEditorPreferences.useGridSnap)
-            {
-                tempRect = tempRect.SnapWidth(GridObjectSnap);
-            }
             block._NodeRect = tempRect;
 
             // Draw blocks
             var graphics = GetBlockGraphics(block);
 
             Rect windowRelativeRect = new Rect(block._NodeRect);
-            if (FungusEditorPreferences.useGridSnap)
-            {
-                windowRelativeRect = windowRelativeRect.SnapPosition(GridObjectSnap);
-            }
             windowRelativeRect.position += flowchart.ScrollPos;
 
             //skip if outside of view
