@@ -656,6 +656,8 @@ namespace Fungus.EditorUtils
         {
             Copy();
             Delete();
+
+            CommandCopyBuffer.GetInstance().IsCut = true;
         }
 
         protected void Copy()
@@ -671,6 +673,7 @@ namespace Fungus.EditorUtils
 
             CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
             commandCopyBuffer.Clear();
+            commandCopyBuffer.IsCut = false;
 
             // Scan through all commands in execution order to see if each needs to be copied
             foreach (Command command in flowchart.SelectedBlock.CommandList)
@@ -712,8 +715,6 @@ namespace Fungus.EditorUtils
                 return;
             }
 
-            CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
-
             // Find where to paste commands in block (either at end or after last selected command)
             int pasteIndex = flowchart.SelectedBlock.CommandList.Count;
             if (flowchart.SelectedCommands.Count > 0)
@@ -732,6 +733,8 @@ namespace Fungus.EditorUtils
                 }
             }
 
+            CommandCopyBuffer commandCopyBuffer = CommandCopyBuffer.GetInstance();
+
             foreach (Command command in commandCopyBuffer.GetCommands())
             {
                 // Using the Editor copy / paste functionality instead instead of reflection
@@ -744,7 +747,8 @@ namespace Fungus.EditorUtils
                         Command pastedCommand = commands.Last<Command>();
                         if (pastedCommand != null)
                         {
-                            pastedCommand.ItemId = flowchart.NextItemId();
+                            if (!commandCopyBuffer.IsCut)
+                                pastedCommand.ItemId = flowchart.NextItemId();
                             flowchart.SelectedBlock.CommandList.Insert(pasteIndex++, pastedCommand);
                         }
                     }
@@ -752,6 +756,12 @@ namespace Fungus.EditorUtils
                     // This stops the user pasting the command manually into another game object.
                     ComponentUtility.CopyComponent(flowchart.transform);
                 }
+            }
+
+            if (commandCopyBuffer.IsCut)
+            {
+                commandCopyBuffer.IsCut = false;
+                commandCopyBuffer.Clear();
             }
 
             // Because this is an async call, we need to force prefab instances to record changes

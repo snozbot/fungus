@@ -70,6 +70,8 @@ namespace Fungus
             }
         }
 
+        public bool IsCut { get; set; }
+
         #endregion
     }
 }
