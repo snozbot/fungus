@@ -217,8 +217,8 @@ namespace Fungus.EditorUtils
         protected int prevVarCount;
         protected Block[] blocks = new Block[0];
         protected Block dragBlock;
-        protected Dictionary<Block, Rect> blockTempRects = new Dictionary<Block, Rect>();
         protected bool hasDraggedSelected = false;
+        protected Dictionary<Block, Rect> tempRectDict = new Dictionary<Block, Rect>();
         protected static FungusState fungusState;
 
         static protected VariableListAdaptor variableListAdaptor;
@@ -1140,6 +1140,10 @@ namespace Fungus.EditorUtils
 
                             dragBlock = hitBlock;
                             hasDraggedSelected = false;
+
+                            tempRectDict.Clear();
+                            foreach (var block in flowchart.SelectedBlocks)
+                                tempRectDict[block] = block._NodeRect;
                         }
 
                         e.Use();
@@ -1170,23 +1174,13 @@ namespace Fungus.EditorUtils
                 // Block dragging
                 if (dragBlock != null)
                 {
-                    if (blockTempRects.Count == 0)
-                    {
-                        foreach (var block in flowchart.SelectedBlocks)
-                        {
-                            blockTempRects.Add(block, block._NodeRect);
-                        }
-                    }
-
                     for (int i = 0; i < flowchart.SelectedBlocks.Count; ++i)
                     {
                         var block = flowchart.SelectedBlocks[i];
-                        var tempRect = blockTempRects[block];
+                        var tempRect = tempRectDict[block];
                         tempRect.position += e.delta / flowchart.Zoom;
-                        blockTempRects[block] = tempRect;
-                        block._NodeRect = FungusEditorPreferences.useGridSnap
-                            ? tempRect.SnapPosition(GridObjectSnap)
-                            : tempRect;
+                        tempRectDict[block] = tempRect;
+                        block._NodeRect = FungusEditorPreferences.useGridSnap ? tempRect.SnapPosition(GridObjectSnap) : tempRect;
                     }
 
                     hasDraggedSelected = true;
@@ -1285,19 +1279,17 @@ namespace Fungus.EditorUtils
                     for (int i = 0; i < flowchart.SelectedBlocks.Count; ++i)
                     {
                         var block = flowchart.SelectedBlocks[i];
-                        var tempRect = block._NodeRect;
-                        var distance = e.mousePosition / flowchart.Zoom - flowchart.ScrollPos - startDragPosition;
-                        tempRect.position -= distance;
-                        block._NodeRect = tempRect;
+                        var nodeRect = block._NodeRect;
+                        var tempRect = nodeRect;
+                        tempRect.position -= e.mousePosition / flowchart.Zoom - flowchart.ScrollPos - startDragPosition;
+                        block._NodeRect = FungusEditorPreferences.useGridSnap ? tempRect.SnapPosition(GridObjectSnap) : tempRect;
                         Undo.RecordObject(block, "Block Position");
-                        tempRect.position += distance;
-                        block._NodeRect = tempRect;
+                        block._NodeRect = nodeRect;
                         Repaint();
                     }
 
-                    blockTempRects.Clear();
-
                     dragBlock = null;
+                    tempRectDict.Clear();
                 }
 
                 // Check to see if selection actually changed?
