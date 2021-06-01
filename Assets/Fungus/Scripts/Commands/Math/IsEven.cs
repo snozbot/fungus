@@ -7,32 +7,32 @@ namespace Fungus
     /// </summary>
     [CommandInfo("Math",
                  "Is Even",
-                 "Returns true if the input number is even.")]
+                 "Returns true if Input is even.")]
     [AddComponentMenu("")]
     public class IsEven : Condition
     {
         [Tooltip("Variable to check.")]
         [VariableProperty(typeof(IntegerVariable),
                           typeof(FloatVariable))]
-        [SerializeField] protected Variable variable;
+        [SerializeField] protected Variable input;
         float DivideBy = 2;
         float remainder = 0;
 
         public override string GetSummary()
         {
-            if (variable != null) return "Is (" + variable.Key + ") " + variable.GetValue() + " even?";
+            if (input != null) return "Is (" + input.Key + ") " + input.GetValue() + " even?";
             else return "Error: [Null Variable]";
         }
 
         protected override bool EvaluateCondition()
         {
-            if (variable is IntegerVariable) return (int)variable.GetValue() % DivideBy == remainder;
-            else return (float)variable.GetValue() % DivideBy == remainder;
+            if (input is IntegerVariable) return (int)input.GetValue() % DivideBy == remainder;
+            else return (float)input.GetValue() % DivideBy == remainder;
         }
 
         public override bool HasReference(Variable Variable)
         {
-            return variable == Variable;
+            return input == Variable;
         }
     }
 }

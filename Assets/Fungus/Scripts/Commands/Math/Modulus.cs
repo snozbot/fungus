@@ -7,17 +7,18 @@ namespace Fungus
     /// </summary>
     [CommandInfo("Math",
                  "Modulus",
-                 "Performs a modulus operation on Variable and outputs it to Remainder.")]
+                 "Performs a modulus operation on Input and outputs it to Remainder.")]
     [AddComponentMenu("")]
     public class Modulus : Command
     {
         [Tooltip("Variable to check.")]
         [VariableProperty(typeof(IntegerVariable),
                           typeof(FloatVariable))]
-        [SerializeField] protected Variable variable;
+        [SerializeField] protected Variable input;
 
         [SerializeField] protected FloatData DivideBy = new FloatData(2);
 
+        [Tooltip("Variable to output remainder to.")]
         [VariableProperty(typeof(IntegerVariable),
                           typeof(FloatVariable))]
         [SerializeField] protected Variable remainderOutput;
@@ -27,8 +28,8 @@ namespace Fungus
             float value = 0;
             Flowchart flowchart = GetFlowchart();
 
-            if (variable is IntegerVariable) value = (int)variable.GetValue() % DivideBy.Value;
-            else value = (float)variable.GetValue() % DivideBy.Value;
+            if (input is IntegerVariable) value = (int)input.GetValue() % DivideBy.Value;
+            else value = (float)input.GetValue() % DivideBy.Value;
 
             if (remainderOutput is IntegerVariable) flowchart.SetIntegerVariable(remainderOutput.Key, System.Convert.ToInt32(value));
             else flowchart.SetFloatVariable(remainderOutput.Key, value);
@@ -36,14 +37,14 @@ namespace Fungus
 
         public override string GetSummary()
         {
-            if (variable == null) return "Error: [Null Variable] % " + DivideBy;
+            if (input == null) return "Error: [Null Variable]";
             else if (remainderOutput == null) return "Error: [Null remainder output]";
-            else return "(" + variable.Key + ") " + variable.GetValue() + " % " + DivideBy.Value + " -> " + remainderOutput.Key;
+            else return "(" + input.Key + ") " + input.GetValue() + " % " + DivideBy.Value + " -> " + remainderOutput.Key;
         }
 
         public override bool HasReference(Variable Variable)
         {
-            return variable == Variable || DivideBy.floatRef == Variable || remainderOutput == Variable;
+            return input == Variable || DivideBy.floatRef == Variable || remainderOutput == Variable;
         }
     }
 }
