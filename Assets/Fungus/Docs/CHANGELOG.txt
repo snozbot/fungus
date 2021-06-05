@@ -9,6 +9,7 @@ Unreleased
  
 ## Changed
  - Block will LogError when an exception is caught from a Command being Executed.
+ - WriterAudio.GetSecondsRemaining reports 0 if not playing. Thanks to KVinS.
 
 v3.13.6
 ======
