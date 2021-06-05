@@ -3,6 +3,9 @@ Changelog {#changelog}
 
 Unreleased
 ======
+## Fixed
+ - Add missing VariableDrawer for ObjectVariable. Thanks to CG-Tespy.
+ 
 ## Changed
  - Block will LogError when an exception is caught from a Command being Executed.
 
