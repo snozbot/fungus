@@ -3,6 +3,8 @@ Changelog {#changelog}
 
 Unreleased
 ======
+## Changed
+ - Block will LogError when an exception is caught from a Command being Executed.
 
 v3.13.6
 ======
