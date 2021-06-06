@@ -6,6 +6,7 @@ Unreleased
 ## Fixed
  - Add missing VariableDrawer for ObjectVariable. Thanks to CG-Tespy.
  - Fix double duplication of blocks in flowchart window. Thanks to ongjinwen.
+ - Dialog ClickAnywhere not supports ignore click delay. Thanks to breadnone.
  
 ## Changed
  - Block will LogError when an exception is caught from a Command being Executed.
