@@ -103,7 +103,7 @@ namespace Fungus
                 currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
             }
 
-            if (writer != null && writer.IsWriting)
+            if (writer != null)
             {
                 if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
                     (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
@@ -174,7 +174,10 @@ namespace Fungus
         /// </summary>
         public virtual void SetNextLineFlag()
         {
-            nextLineInputFlag = true;
+            if(writer.IsWaitingForInput || writer.IsWriting)
+            {
+                nextLineInputFlag = true;
+            }
         }
         /// <summary>
         /// Set the ClickAnywhere click flag.

@@ -1009,10 +1009,11 @@ namespace Fungus
 
         public virtual void OnNextLineEvent()
         {
-            inputFlag = true;
+            
 
-            if (isWriting)
+            if (isWriting || isWaitingForInput)
             {
+                inputFlag = true;
                 NotifyInput();
             }
         }
