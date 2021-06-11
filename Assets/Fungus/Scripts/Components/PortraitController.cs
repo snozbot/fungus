@@ -245,33 +245,30 @@ namespace Fungus
 
                     character.State.allPortraits.Add(pi);
 
-                    if(character.ClickableCharacter)
+                    //Add EventTrigger to Portraits
+                    var charPortraits = character.State.allPortraits;
+
+                    //Disable Block Raycast, this is necessary so click events will get triggered. 
+                    var canvasBlockRaycast = stage.PortraitCanvas.GetComponent<CanvasGroup>();
+
+                    if(!canvasBlockRaycast.blocksRaycasts)
                     {
-                        //Add EventTrigger to Portraits
-                        var charPortraits = character.State.allPortraits;
-
-                        //Disable Block Raycast, this is necessary so click events will get triggered. 
-                        var canvasBlockRaycast = stage.PortraitCanvas.GetComponent<CanvasGroup>();
-
-                        if(!canvasBlockRaycast.blocksRaycasts)
-                        {
-                            canvasBlockRaycast.blocksRaycasts = true;
-                        }
+                        canvasBlockRaycast.blocksRaycasts = true;
+                    }
                         
-                        //Add and assign EventTrigger component to Portraits
-                        for(int i = 0; i < charPortraits.Count; i++)
+                    //Add and assign EventTrigger component to Portraits
+                    for(int i = 0; i < charPortraits.Count; i++)
+                    {
+                        if(charPortraits[i].GetComponent<EventTrigger>() == null)
                         {
-                            if(charPortraits[i].GetComponent<EventTrigger>() == null)
-                            {
-                                charPortraits[i].gameObject.AddComponent<EventTrigger>();
-                                EventTrigger trigger = charPortraits[i].GetComponent<EventTrigger>();
-                                EventTrigger.Entry entry = new EventTrigger.Entry();
-                                entry.eventID = EventTriggerType.PointerClick;
+                            charPortraits[i].gameObject.AddComponent<EventTrigger>();
+                            EventTrigger trigger = charPortraits[i].GetComponent<EventTrigger>();
+                            EventTrigger.Entry entry = new EventTrigger.Entry();
+                            entry.eventID = EventTriggerType.PointerClick;
 
-                                //Character callback
-                                entry.callback.AddListener( (eventData) => { character.ClickCharacter(); } );
-                                trigger.triggers.Add(entry);
-                            }
+                            //Character callback
+                            entry.callback.AddListener( (eventData) => { character.ClickCharacter(); } );
+                            trigger.triggers.Add(entry);
                         }
                     }
                 }
