@@ -15,6 +15,9 @@ namespace Fungus.EditorUtils
         protected SerializedProperty portraitsProp;
         protected SerializedProperty portraitsFaceProp;
         protected SerializedProperty descriptionProp;
+        protected SerializedProperty clickableCharacterProp;
+        protected SerializedProperty flowchartProp;
+        protected SerializedProperty execBlockProp;
         protected SerializedProperty setSayDialogProp;
 
         protected virtual void OnEnable()
@@ -25,7 +28,12 @@ namespace Fungus.EditorUtils
             portraitsProp = serializedObject.FindProperty ("portraits");
             portraitsFaceProp = serializedObject.FindProperty ("portraitsFace");
             descriptionProp = serializedObject.FindProperty ("description");
+            clickableCharacterProp = serializedObject.FindProperty ("clickableCharacter");
+            flowchartProp = serializedObject.FindProperty ("flowchart");
+            execBlockProp = serializedObject.FindProperty ("executeBlock");
             setSayDialogProp = serializedObject.FindProperty("setSayDialog");
+
+
         }
 
         public override void OnInspectorGUI() 
@@ -40,6 +48,13 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(soundEffectProp, new GUIContent("Sound Effect", "Sound to play when the character is talking. Overrides the setting in the Dialog."));
             EditorGUILayout.PropertyField(setSayDialogProp);
             EditorGUILayout.PropertyField(descriptionProp, new GUIContent("Description", "Notes about this story character (personality, attibutes, etc.)"));
+            EditorGUILayout.PropertyField(clickableCharacterProp, new GUIContent("Clickable Character", "Set the character to be clickable"));
+
+            if(t.ClickableCharacter)
+            {
+                EditorGUILayout.PropertyField(flowchartProp, new GUIContent("Flowchart", "Set flowchart to execute block"));
+                EditorGUILayout.PropertyField(execBlockProp, new GUIContent("Execute Block", "Execute block in a flowchart"));
+            }
 
             if (t.Portraits != null &&
                 t.Portraits.Count > 0)

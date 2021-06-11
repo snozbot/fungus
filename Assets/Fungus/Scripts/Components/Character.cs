@@ -36,10 +36,28 @@ namespace Fungus
         [TextArea(5,10)]
         [SerializeField] protected string description;
 
+        [Tooltip("Set character portrait to be clickable")]
+        [SerializeField] protected bool clickableCharacter;
+
+        [Tooltip("Flowchart")]
+        [SerializeField] protected Flowchart flowchart;
+
+        [Tooltip("Execute block when the character gets clicked")]
+        [SerializeField] protected string executeBlock;
+
         protected PortraitState portaitState = new PortraitState();
 
         protected static List<Character> activeCharacters = new List<Character>();
-
+        public void ClickCharacter()
+        {
+            if (clickableCharacter && flowchart != null && executeBlock != string.Empty)
+            {
+                if (flowchart.HasBlock(executeBlock))
+                {
+                    flowchart.ExecuteBlock(executeBlock);
+                }
+            }
+        }
         protected virtual void OnEnable()
         {
             if (!activeCharacters.Contains(this))
