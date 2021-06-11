@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 using MoonSharp.Interpreter;
+using UnityEngine.EventSystems;
 
 namespace Fungus
 {
@@ -243,6 +244,33 @@ namespace Fungus
                     po.SetActive(false);
 
                     character.State.allPortraits.Add(pi);
+
+                    //Add EventTrigger to Portraits
+                    var b = character.State.allPortraits;
+
+                    //Disable Block Raycast so the Click event will get trigger
+                    var canvasBlockRaycast = stage.PortraitCanvas.GetComponent<CanvasGroup>();
+
+                    if(!canvasBlockRaycast.blocksRaycasts)
+                    {
+                        canvasBlockRaycast.blocksRaycasts = true;
+                    }
+                    
+                    //Add and assign EventTrigger component to Portraits
+                    for(int i = 0; i < b.Count; i++)
+                    {
+                        if(b[i].GetComponent<EventTrigger>() == null)
+                        {
+                            b[i].gameObject.AddComponent<EventTrigger>();
+                            EventTrigger trigger = b[i].GetComponent<EventTrigger>();
+                            EventTrigger.Entry entry = new EventTrigger.Entry();
+                            entry.eventID = EventTriggerType.PointerClick;
+
+                            //Character callback
+                            entry.callback.AddListener( (eventData) => { character.ClickCharacter(); } );
+                            trigger.triggers.Add(entry);
+                        }
+                    }
                 }
             }
         }
