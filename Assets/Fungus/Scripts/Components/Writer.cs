@@ -789,6 +789,7 @@ namespace Fungus
 
             if (clear)
             {
+                NotifyEnd(false);
                 textAdapter.Text = "";
             }
 
