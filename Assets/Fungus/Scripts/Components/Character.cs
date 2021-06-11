@@ -71,9 +71,12 @@ namespace Fungus
         {
             activeCharacters.Remove(this);
         }
-
+        
         #region Public members
-
+        /// <summary>
+        /// Gets the state of clickable character.
+        /// </summary>
+        public virtual bool ClickableCharacter { get; set; }
         /// <summary>
         /// Gets the list of active characters.
         /// </summary>
