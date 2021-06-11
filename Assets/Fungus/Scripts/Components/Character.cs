@@ -76,7 +76,7 @@ namespace Fungus
         /// <summary>
         /// Gets the state of clickable character.
         /// </summary>
-        public virtual bool ClickableCharacter { get; set; }
+        public virtual bool ClickableCharacter { get { return clickableCharacter; } set { clickableCharacter = value; } }
         /// <summary>
         /// Gets the list of active characters.
         /// </summary>
