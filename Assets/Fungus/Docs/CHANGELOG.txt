@@ -32,6 +32,7 @@ Unreleased
  - All iTween based Commands that have LeanTween alternatives are now marked as Obsolete/Deprecated.
  - Block will LogError when an exception is caught from a Command being Executed.
  - Fungus no longer uses iTween for it's shakes and punches.
+ - Add special case that skips variation logic for sequences that contains no elements, making no change.
 
 v3.13.6
 ======
