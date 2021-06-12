@@ -32,10 +32,6 @@ namespace Fungus
         [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. This Say Dialog will be used whenever the character speaks.")]
         [SerializeField] protected SayDialog setSayDialog;
 
-        [FormerlySerializedAs("notes")]
-        [TextArea(5,10)]
-        [SerializeField] protected string description;
-
         [Tooltip("Set character portrait to be clickable")]
         [SerializeField] protected bool clickableCharacter;
 
@@ -44,6 +40,10 @@ namespace Fungus
 
         [Tooltip("Execute block when the character gets clicked")]
         [SerializeField] protected string executeBlock;
+
+        [FormerlySerializedAs("notes")]
+        [TextArea(5,10)]
+        [SerializeField] protected string description;
 
         protected PortraitState portaitState = new PortraitState();
 
