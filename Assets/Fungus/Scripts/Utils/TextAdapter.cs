@@ -320,6 +320,7 @@ namespace Fungus
                 else if (tmpro != null)
                 {
                     tmpro.text = value;
+                    tmpro.ForceMeshUpdate();
                 }
 #endif
                 else if (textProperty != null)
