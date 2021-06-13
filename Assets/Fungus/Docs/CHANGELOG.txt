@@ -33,6 +33,7 @@ Unreleased
  - Block will LogError when an exception is caught from a Command being Executed.
  - Fungus no longer uses iTween for it's shakes and punches.
  - Add special case that skips variation logic for sequences that contains no elements, making no change.
+ - Add NotifyEnd to Writer WaitForInputAndClear logic. Thanks to wolfrug.
 
 v3.13.6
 ======
