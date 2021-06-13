@@ -302,7 +302,7 @@ namespace Fungus
 
         protected void StopFadeTween()
         {
-            if (fadeTween != null && !LeanTween.isTweening(fadeTween.id))
+            if (fadeTween != null)
             {
                 LeanTween.cancel(fadeTween.id, true);
                 fadeTween = null;
