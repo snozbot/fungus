@@ -8,6 +8,7 @@ Unreleased
  - Fix double duplication of blocks in flowchart window. Thanks to ongjinwen.
  - Dialog ClickAnywhere not supports ignore click delay. Thanks to breadnone.
  - SetNextLineFlag only flags if Dialog is actually active/writing. Thanks to breadnone. 
+ - TextAdapter with TMPro, now forces mesh update on text change. Fixes cases where a Say/Writer would expect RevealedCharacters to be current but would be previous frame stale value.  
  
 ## Changed
  - Block will LogError when an exception is caught from a Command being Executed.
