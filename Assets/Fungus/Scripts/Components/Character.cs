@@ -84,7 +84,7 @@ namespace Fungus
         /// <summary>
         /// Gets the state of clickable character.
         /// </summary>
-        public virtual Flowchart SetFlowchartFroClickable { get { return flowchart; } set { flowchart = value; } }
+        public virtual Flowchart SetFlowchartForClickable { get { return flowchart; } set { flowchart = value; } }
 
         /// <summary>
         /// Sets target block.

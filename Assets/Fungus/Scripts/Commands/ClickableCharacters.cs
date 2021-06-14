@@ -44,13 +44,13 @@ namespace Fungus
                 if(activeState == ClickableCharacterState.Enable && executeBlock != null)
                 {
                     character.ClickableCharacter = true;
-                    character.SetFlowchartFroClickable = flowchart;
+                    character.SetFlowchartForClickable = flowchart;
                     character.SetBlockForClickable = executeBlock.BlockName;
                 }
                 if(activeState == ClickableCharacterState.Disable)
                 {
                     character.ClickableCharacter = false;
-                    character.SetFlowchartFroClickable = null;
+                    character.SetFlowchartForClickable = null;
                     character.SetBlockForClickable = string.Empty;
                 }
             }
