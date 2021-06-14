@@ -82,6 +82,16 @@ namespace Fungus
         public virtual bool ClickableCharacter { get { return clickableCharacter; } set { clickableCharacter = value; } }
 
         /// <summary>
+        /// Gets the state of clickable character.
+        /// </summary>
+        public virtual Flowchart SetFlowchartFroClickable { get { return flowchart; } set { flowchart = value; } }
+
+        /// <summary>
+        /// Sets target block.
+        /// </summary>
+        public virtual string SetBlockForClickable { get { return executeBlock; } set { executeBlock = value; } }
+
+        /// <summary>
         /// Gets the list of active characters.
         /// </summary>
         public static List<Character> ActiveCharacters { get { return activeCharacters; } }
