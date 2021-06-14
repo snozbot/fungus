@@ -62,6 +62,8 @@ namespace Fungus
         public override string GetSummary()
         {
             string chars = "";
+            string flow = "";
+            string block = "";
 
             if(character != null)
             {
@@ -69,10 +71,30 @@ namespace Fungus
             }
             else
             {
-                chars = "Error : Character's can't be empty";
+                chars = "Error : Character slot can't be empty";
+            }
+            if(activeState == ClickableCharacterState.Enable)
+            {
+                if(flowchart == null)
+                {
+                    flow = "Error : Flowchart can't be empty";
+                }
+                else
+                {
+                    flow = flowchart.name;
+                }
+
+                if(block == null)
+                {
+                    block = "Error : Execute Block can't be empty";
+                }
+                else
+                {
+                    block = executeBlock.BlockName;
+                }
             }
 
-            return chars;
+            return chars + " : " + flow + " : " + block;
         }
         
         public override Color GetButtonColor()
