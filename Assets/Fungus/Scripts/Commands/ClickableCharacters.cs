@@ -47,6 +47,12 @@ namespace Fungus
                     character.SetFlowchartFroClickable = flowchart;
                     character.SetBlockForClickable = executeBlock.BlockName;
                 }
+                if(activeState == ClickableCharacterState.Disable)
+                {
+                    character.ClickableCharacter = false;
+                    character.SetFlowchartFroClickable = null;
+                    character.SetBlockForClickable = string.Empty;
+                }
             }
 
             Continue();
@@ -77,6 +83,7 @@ namespace Fungus
         public override void OnCommandAdded(Block parentBlock)
         {
             //Default to display type: show
+            activeState = ClickableCharacterState.Disable;
         }
 
         #endregion

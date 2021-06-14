@@ -9,6 +9,7 @@ namespace Fungus.EditorUtils
     [CustomEditor (typeof(ClickableCharacters))]
     public class ClickableCharactersEditor : CommandEditor
     {
+        protected SerializedProperty stateProp;
         protected SerializedProperty characterProp;
         protected SerializedProperty flowchartProp;
         protected SerializedProperty targetBlockProp;
@@ -17,6 +18,7 @@ namespace Fungus.EditorUtils
         {
             base.OnEnable();
 
+            stateProp = serializedObject.FindProperty("activeState");
             characterProp = serializedObject.FindProperty("character");
             flowchartProp = serializedObject.FindProperty("flowchart");
             targetBlockProp = serializedObject.FindProperty("executeBlock");
@@ -29,6 +31,8 @@ namespace Fungus.EditorUtils
             ClickableCharacters t = target as ClickableCharacters;
 
             string characterLabel = "Character";
+
+            EditorGUILayout.PropertyField(stateProp, new GUIContent("Active State", "Enable or Disable"));
             
             CommandEditor.ObjectField<Character>(characterProp, 
                                                  new GUIContent(characterLabel, "Character to display"), 
