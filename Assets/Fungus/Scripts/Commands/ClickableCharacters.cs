@@ -41,7 +41,7 @@ namespace Fungus
         {
             if(character != null)
             {
-                if(activeState == ClickableCharacterState.Enable && executeBlock != null)
+                if(activeState == ClickableCharacterState.Enable && flowchart != null && executeBlock != null)
                 {
                     character.ClickableCharacter = true;
                     character.SetFlowchartForClickable = flowchart;
@@ -94,7 +94,7 @@ namespace Fungus
                 }
             }
 
-            return chars + " : " + flow + " : " + block;
+            return chars + " : " + activeState.ToString() + " : " + flow + " : " + block;
         }
         
         public override Color GetButtonColor()
