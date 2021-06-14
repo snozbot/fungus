@@ -26,6 +26,9 @@ namespace Fungus
         [Tooltip("A scrollable text field used for displaying conversation history.")]
         [SerializeField] protected ScrollRect narrativeLogView;
 
+        [Tooltip("Limit characters to be shown in Narrative Log")]
+        [SerializeField] protected int maxCharacters = 10000;
+
         protected TextAdapter narLogViewtextAdapter = new TextAdapter();
         
         [Tooltip("The CanvasGroup containing the save menu buttons")]
@@ -132,6 +135,7 @@ namespace Fungus
         {
             if (narrativeLogView.enabled)
             {
+                NarrativeLog.maxSize = maxCharacters;
                 narLogViewtextAdapter.Text = FungusManager.Instance.NarrativeLog.GetPrettyHistory();
                 
                 Canvas.ForceUpdateCanvases();

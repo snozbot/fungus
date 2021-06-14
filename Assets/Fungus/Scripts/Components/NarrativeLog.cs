@@ -35,6 +35,7 @@ namespace Fungus
         /// </summary>
         public static event NarrativeAddedHandler OnNarrativeAdded;
         public delegate void NarrativeAddedHandler(NarrativeLogEntry data);
+        public static int maxSize {get; set;} = 10000;
         public static void DoNarrativeAdded(NarrativeLogEntry data)
         {
             if (OnNarrativeAdded != null)
@@ -140,6 +141,12 @@ namespace Fungus
                 output += "<b>" + history.entries[i].name + "</b>\n";
                 output += history.entries[i].text + "\n\n";
             }
+
+            if (output.Length > maxSize)
+            {
+                output =  "... " + output.Substring(output.Length - maxSize, maxSize);
+            }
+
             return output;
         }
 
