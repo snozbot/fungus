@@ -17,7 +17,10 @@ namespace Fungus
     {
         [Tooltip("Automatically select the first interactable button when the menu is shown.")]
         [SerializeField] protected bool autoSelectFirstButton = false;
-
+        [Tooltip("Enable fade in/out to Menu Dialog")]
+        [SerializeField] protected bool enableFadeInOut = false;
+        [Tooltip("Fade In/Out duration")]
+        [SerializeField] protected float duration = 1f;
         protected Button[] cachedButtons;
 
         protected Slider cachedSlider;
@@ -47,10 +50,15 @@ namespace Fungus
         /// </summary>
         public virtual void SetActive(bool state)
         {
-            gameObject.SetActive(state);
+            if(enableFadeInOut)
+            {
+                AlphaCanvasMenu(state);
+            }
+            else
+            {
+                gameObject.SetActive(state);
+            }
         }
-
-
 
         /// <summary>
         /// Returns a menu dialog by searching for one in the scene or creating one if none exists.
@@ -108,7 +116,7 @@ namespace Fungus
             if (eventSystem == null)
             {
                 // Auto spawn an Event System from the prefab
-                GameObject prefab = Resources.Load<GameObject>(FungusConstants.EventSystemPrefabName);
+                GameObject prefab = Resources.Load<GameObject>("Prefabs/EventSystem");
                 if (prefab != null)
                 {
                     GameObject go = Instantiate(prefab) as GameObject;
@@ -122,6 +130,23 @@ namespace Fungus
             // The canvas may fail to update if the menu dialog is enabled in the first game frame.
             // To fix this we just need to force a canvas update when the object is enabled.
             Canvas.ForceUpdateCanvases();
+        }
+
+        protected virtual void AlphaCanvasMenu(bool state)
+        {
+            var canvyG = GetComponent<CanvasGroup>();
+
+            if(state)
+            {
+                //Make sure alpha canvas is zero before it starts
+                canvyG.alpha = 0;
+                LeanTween.alphaCanvas(canvyG, 1f, duration).setEaseOutQuad();
+            }
+            else
+            {
+                LeanTween.alphaCanvas(canvyG, 0f, duration).setEaseOutQuad()
+                    .setOnComplete(()=>{Clear();});
+            }
         }
 
         protected virtual IEnumerator WaitForTimeout(float timeoutDuration, Block targetBlock)
@@ -143,8 +168,15 @@ namespace Fungus
                 yield return null;
             }
 
-            Clear();
-            gameObject.SetActive(false);
+            if(enableFadeInOut)
+            {
+                SetActive(false);
+            }
+            else
+            {
+                Clear();
+                gameObject.SetActive(false);
+            }
 
             HideSayDialog();
 
@@ -235,12 +267,19 @@ namespace Fungus
                 EventSystem.current.SetSelectedGameObject(null);
                 StopAllCoroutines();
                 // Stop timeout
-                Clear();
+                if(enableFadeInOut)
+                {
+                    SetActive(false);
+                }
+                else
+                {
+                    Clear();
+                }
                 HideSayDialog();
                 if (block != null)
                 {
                     var flowchart = block.GetFlowchart();
-                    gameObject.SetActive(false);
+                    //gameObject.SetActive(false);
                     // Use a coroutine to call the block on the next frame
                     // Have to use the Flowchart gameobject as the MenuDialog is now inactive
                     flowchart.StartCoroutine(CallBlock(block));
@@ -269,7 +308,14 @@ namespace Fungus
             {
                 StopAllCoroutines();
                 // Stop timeout
-                Clear();
+                if(enableFadeInOut)
+                {
+                    SetActive(false);
+                }
+                else
+                {
+                    Clear();
+                }
                 HideSayDialog();
                 // Use a coroutine to call the callback on the next frame
                 StartCoroutine(CallLuaClosure(env, call));
@@ -377,9 +423,16 @@ namespace Fungus
 
                 yield return null;
             }
+            if(enableFadeInOut)
+            {
+                SetActive(false);
+            }
+            else
+            {
+                Clear();
+                gameObject.SetActive(false);
+            }
 
-            Clear();
-            gameObject.SetActive(false);
             HideSayDialog();
 
             if (callBack != null)
