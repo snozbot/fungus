@@ -145,7 +145,7 @@ namespace Fungus
             else
             {
                 LeanTween.alphaCanvas(canvyG, 0f, duration).setEaseOutQuad()
-                    .setOnComplete(()=>{Clear(); gameObject.SetActive(false);});
+                    .setOnComplete(()=>{Clear();});
             }
         }
 
