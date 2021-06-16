@@ -20,6 +20,7 @@ Unreleased
 ## Fixed
  - Many Summaries that had \\ instead of \\\
  - Add missing VariableDrawer for ObjectVariable. Thanks to CG-Tespy.
+ - TextAdapter with TMPro, now forces mesh update on text change. Fixes cases where a Say/Writer would expect RevealedCharacters to be current but would be previous frame stale value.  
  
 ## Changed
  - SetSliderValue command can now also get the current value of the target slider.
