@@ -39,7 +39,7 @@ namespace Fungus
         [SerializeField] protected Flowchart flowchart;
 
         [Tooltip("Execute block when the character gets clicked")]
-        [SerializeField] protected string executeBlock;
+        [SerializeField] protected Block executeBlock;
 
         [FormerlySerializedAs("notes")]
         [TextArea(5,10)]
@@ -51,12 +51,9 @@ namespace Fungus
 
         public virtual void ClickCharacter()
         {
-            if (clickableCharacter && flowchart != null && executeBlock != string.Empty)
+            if (clickableCharacter && flowchart != null && executeBlock != null)
             {
-                if (flowchart.HasBlock(executeBlock))
-                {
-                    flowchart.ExecuteBlock(executeBlock);
-                }
+                flowchart.ExecuteBlock(executeBlock);
             }
         }
 
@@ -89,7 +86,7 @@ namespace Fungus
         /// <summary>
         /// Sets target block.
         /// </summary>
-        public virtual string SetBlockForClickable { get { return executeBlock; } set { executeBlock = value; } }
+        public virtual Block SetBlockForClickable { get { return executeBlock; } set { executeBlock = value; } }
 
         /// <summary>
         /// Gets the list of active characters.

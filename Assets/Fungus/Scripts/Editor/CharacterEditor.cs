@@ -50,7 +50,21 @@ namespace Fungus.EditorUtils
             if(t.ClickableCharacter)
             {
                 EditorGUILayout.PropertyField(flowchartProp, new GUIContent("Flowchart", "Set flowchart to execute block"));
-                EditorGUILayout.PropertyField(execBlockProp, new GUIContent("Execute Block", "Execute block in a flowchart"));
+
+                Flowchart flowchart = null;
+                if (flowchartProp.objectReferenceValue == null)
+                {
+                    flowchart = t.SetFlowchartForClickable;
+                }
+                else
+                {
+                    flowchart = t.SetFlowchartForClickable as Flowchart;
+                }
+
+                BlockEditor.BlockField(execBlockProp,
+                                       new GUIContent("Target Block", "Block to call"), 
+                                       new GUIContent("<None>"), 
+                                       flowchart);
             }
 
             EditorGUILayout.PropertyField(descriptionProp, new GUIContent("Description", "Notes about this story character (personality, attibutes, etc.)"));
