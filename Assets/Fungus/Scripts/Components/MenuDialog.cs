@@ -137,9 +137,15 @@ namespace Fungus
             var canvyG = GetComponent<CanvasGroup>();
 
             if(state)
-            {
-                //Make sure alpha canvas is zero before it starts
+            {                
+                //Make sure alpha canvas is zero and it's not in the middle of tweening before it starts
+                if(LeanTween.isTweening(canvyG.gameObject))
+                {
+                    LeanTween.cancel(canvyG.gameObject);
+                }
+
                 canvyG.alpha = 0;
+
                 LeanTween.alphaCanvas(canvyG, 1f, duration).setEaseOutQuad();
             }
             else
