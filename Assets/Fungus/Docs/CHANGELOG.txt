@@ -16,6 +16,7 @@ Unreleased
  - WriterAudio.GetSecondsRemaining reports 0 if not playing. Thanks to KVinS.
  - Add special case that skips variation logic for sequences that contains no elements, making no change.
  - Add NotifyEnd to Writer WaitForInputAndClear logic. Thanks to wolfrug.
+ - Drag event handlers now only trigger from direct drags, not just movement. Thanks to CG-Tespy.
 
 v3.13.6
 ======
