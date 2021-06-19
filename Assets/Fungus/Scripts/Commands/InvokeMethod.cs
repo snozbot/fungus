@@ -280,7 +280,7 @@ namespace Fungus
         {
             PrepareTargets();
 
-            if (targetObject == null || string.IsNullOrEmpty(targetComponentAssemblyName) || string.IsNullOrEmpty(targetMethod))
+            if (targetObject == null || string.IsNullOrEmpty(targetComponentText) || string.IsNullOrEmpty(targetComponentAssemblyName) || string.IsNullOrEmpty(targetMethod))
             {
                 Continue();
                 return;
@@ -322,6 +322,11 @@ namespace Fungus
             if (targetObject == null)
             {
                 return "Error: targetObject is not assigned";
+            }
+
+            if (string.IsNullOrEmpty(targetComponentText))
+            {
+                return "Error: targetComponent is not assigned";
             }
 
             if (!string.IsNullOrEmpty(description))
