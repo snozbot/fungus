@@ -176,7 +176,11 @@ namespace Fungus.EditorUtils
             // Because this is an async call, we need to force prefab instances to record changes
             PrefabUtility.RecordPrefabInstancePropertyModifications(block);
 
-            flowchart.ClearSelectedCommands();
+            //clear commands just in case there was a selection made prior, 
+            // this way, only one command is selected at the end; the new one.
+            flowchart.ClearSelectedCommands(); 
+            
+            flowchart.SelectedCommands.Add(newCommand); //select the new command.
 
         }
     }
