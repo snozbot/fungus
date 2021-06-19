@@ -178,10 +178,10 @@ namespace Fungus.EditorUtils
 
             //clear commands just in case there was a selection made prior, 
             // this way, only one command is selected at the end; the new one.
-            flowchart.ClearSelectedCommands(); 
-            
-            flowchart.SelectedCommands.Add(newCommand); //select the new command.
+            flowchart.ClearSelectedCommands();
 
+            CommandListAdaptor.ScrollToCommandOnDraw = true;
+            flowchart.AddSelectedCommand(newCommand); //select the new command.
         }
     }
 }
