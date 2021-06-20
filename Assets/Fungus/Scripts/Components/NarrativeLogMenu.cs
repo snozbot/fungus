@@ -135,9 +135,14 @@ namespace Fungus
         {
             if (narrativeLogView.enabled)
             {
-                NarrativeLog.maxSize = maxCharacters;
-                narLogViewtextAdapter.Text = FungusManager.Instance.NarrativeLog.GetPrettyHistory();
-                
+                var prettyHistory = FungusManager.Instance.NarrativeLog.GetPrettyHistory();
+
+                if (prettyHistory.Length > maxCharacters)
+                {
+                    prettyHistory = "... " + prettyHistory.Substring(prettyHistory.Length - maxCharacters, maxCharacters);
+                }
+                narLogViewtextAdapter.Text = prettyHistory;
+
                 Canvas.ForceUpdateCanvases();
                 narrativeLogView.verticalNormalizedPosition = 0f;
                 Canvas.ForceUpdateCanvases();
