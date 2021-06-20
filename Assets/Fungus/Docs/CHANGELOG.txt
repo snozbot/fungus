@@ -36,6 +36,7 @@ Unreleased
  - Add special case that skips variation logic for sequences that contains no elements, making no change.
  - Add NotifyEnd to Writer WaitForInputAndClear logic. Thanks to wolfrug.
  - Drag event handlers now only trigger from direct drags, not just movement. Thanks to CG-Tespy.
+ - NarrativeLogMenu can limit the length of it's output, quick fix for narrative logs that would overflow the max ushort vert limit. Thanks to breadnone.
 
 v3.13.6
 ======
