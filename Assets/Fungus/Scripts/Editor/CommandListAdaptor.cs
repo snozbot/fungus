@@ -11,8 +11,13 @@ namespace Fungus.EditorUtils
 {
     public class CommandListAdaptor
     {
+
+        public static bool lockCommandList = false;
+
         public void DrawCommandList()
         {
+            list.draggable = !lockCommandList;
+
             if (summaryStyle == null)
             {
                 summaryStyle = new GUIStyle();
@@ -84,7 +89,7 @@ namespace Fungus.EditorUtils
             this._arrayProperty = arrayProperty;
             this.block = _block;
 
-            list = new ReorderableList(arrayProperty.serializedObject, arrayProperty, true, true, false, false);
+            list = new ReorderableList(arrayProperty.serializedObject, arrayProperty, !lockCommandList, true, false, false);
             list.drawHeaderCallback = DrawHeader;
             list.drawElementCallback = DrawItem;
             //list.elementHeightCallback = GetElementHeight;

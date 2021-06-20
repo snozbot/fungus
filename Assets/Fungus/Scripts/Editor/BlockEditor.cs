@@ -163,7 +163,7 @@ namespace Fungus.EditorUtils
                     CacheCallerString();
                     GUI.enabled = false;
                     EditorGUILayout.TextArea(callersString);
-                    GUI.enabled = true;
+                    GUI.enabled = true; //reset
                 }
                 EditorGUI.indentLevel--;
                 
@@ -186,7 +186,13 @@ namespace Fungus.EditorUtils
 
                 EditorGUILayout.Space();
 
+                GUI.enabled = true; //reset
+
+                //skip GUI enabled here; command list has its own method to handle locking. 
+                //This way, commands can still be selected and read
                 commandListAdaptor.DrawCommandList();
+
+                GUI.enabled = !flowchart.locked; //toggle again to disable context menu
 
                 // EventType.contextClick doesn't register since we moved the Block Editor to be inside
                 // a GUI Area, no idea why. As a workaround we just check for right click instead.
@@ -292,6 +298,8 @@ namespace Fungus.EditorUtils
                 }
             }
 
+            GUI.enabled = true; //reset
+
             // Remove any null entries in the command list.
             // This can happen when a command class is deleted or renamed.
             for (int i = commandListProperty.arraySize - 1; i >= 0; --i)
@@ -358,6 +366,8 @@ namespace Fungus.EditorUtils
                 lastCMDpopupPos.x += EditorGUIUtility.labelWidth;
                 lastCMDpopupPos.y += EditorGUIUtility.singleLineHeight * 2;
             }
+
+            GUI.enabled = !CommandListAdaptor.lockCommandList; //flowchart reference does not exist here, use this to check if it's locked
             // Add Button
             if (GUILayout.Button(addIcon))
             {
@@ -384,6 +394,8 @@ namespace Fungus.EditorUtils
             {
                 Delete();
             }
+
+            GUI.enabled = true; //reset
 
             GUILayout.EndHorizontal();
 
