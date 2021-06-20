@@ -2124,7 +2124,7 @@ namespace Fungus.EditorUtils
 
             graphics.tint = (block.UseCustomTint ? block.Tint : defaultTint) * FungusEditorPreferences.flowchatBlockTint;
 
-            if (flowchart.locked) graphics.tint.a = 0.5f; //if locked, grey blocks (makes it easier to notice the flowchart's locked.
+            if (flowchart.locked) graphics.tint.a = 0.75f; //if locked, grey blocks (makes it easier to notice the flowchart's locked
 
             return graphics;
         }
