@@ -14,7 +14,7 @@ namespace Fungus
     /// Controls character's click property.
     /// </summary>
     [CommandInfo("Flow", 
-                 "Cickable Character", 
+                 "Clickable Character", 
                  "Sets character to be clickable")]
     public class ClickableCharacters : Command
     {
