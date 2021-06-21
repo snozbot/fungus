@@ -260,7 +260,6 @@ namespace Fungus.EditorUtils
                             if (afterLoadedSprite != null && afterLoadedSprite is Sprite)
                                 t.Portraits.Add(afterLoadedSprite);
                         }
-                        ActiveEditorTracker.sharedTracker.ForceRebuild();
                     }
                     break;
             }
