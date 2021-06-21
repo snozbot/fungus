@@ -72,13 +72,20 @@ namespace Fungus.EditorUtils
             GUILayout.BeginHorizontal("box");
             GUILayout.FlexibleSpace();
 
+            var mybuttonStyle = new GUIStyle(GUI.skin.GetStyle("button"));
+            mybuttonStyle.wordWrap = true;
+            mybuttonStyle.richText = true;
+            mybuttonStyle.fixedHeight = 30;
+            mybuttonStyle.normal.textColor = new Color32(94, 94, 94, 255);
+            mybuttonStyle.alignment = TextAnchor.MiddleCenter;
+
             var myCustomStyle = new GUIStyle(GUI.skin.GetStyle("label"));
             myCustomStyle.wordWrap = true;
             myCustomStyle.richText = true;
             myCustomStyle.normal.textColor = Color.yellow;
             myCustomStyle.alignment = TextAnchor.MiddleCenter;
 
-            if (GUILayout.Button("PREV", GUILayout.Width(50), GUILayout.Height(30)))
+            if (GUILayout.Button("PREV", mybuttonStyle))
             {
                 if (t.Portraits != null && t.Portraits.Count != 0)
                 {
@@ -103,7 +110,7 @@ namespace Fungus.EditorUtils
                 }
             }
 
-            if (GUILayout.Button("NEXT", GUILayout.Width(50), GUILayout.Height(30)))
+            if (GUILayout.Button("NEXT", mybuttonStyle))
             {
                 if (t.Portraits != null && t.Portraits.Count != 0)
                 {
@@ -124,7 +131,7 @@ namespace Fungus.EditorUtils
                 }
             }
 
-            if (GUILayout.Button("DEL", GUILayout.Width(50), GUILayout.Height(30)))
+            if (GUILayout.Button("DEL", mybuttonStyle))
             {
                 if (t.Portraits != null && t.Portraits.Count > 0)
                 {
@@ -141,7 +148,7 @@ namespace Fungus.EditorUtils
                 }
             }
 
-            if (GUILayout.Button("CLEAR", GUILayout.Width(50), GUILayout.Height(30)))
+            if (GUILayout.Button("CLEAR", mybuttonStyle))
             {
                 if (t.Portraits != null && t.Portraits.Count > 0)
                 {
@@ -157,7 +164,7 @@ namespace Fungus.EditorUtils
             }
 
             //Lock the Character inspector so selecting multiple files in assets folder will be easier without losing focus
-            if (GUILayout.Button("LOCK", GUILayout.Width(50), GUILayout.Height(30)))
+            if (GUILayout.Button("LOCK\n<size=10>inspector</size>", mybuttonStyle))
             {
                 if (!toggleLock)
                 {
@@ -199,7 +206,7 @@ namespace Fungus.EditorUtils
             EditorGUILayout.Separator();
             EditorGUILayout.PropertyField(portraitsProp, new GUIContent("Portraits", "Character image sprites to display in the dialog"), true);
 
-            EditorGUILayout.HelpBox("All portrait images should use the exact same resolution to avoid positioning and tiling issues.", MessageType.Info);
+            EditorGUILayout.HelpBox("All portrait images should use the exact same resolution to avoid positioning and tiling issues.\n\nPress Lock, to easily select multiple files", MessageType.Info);
 
             EditorGUILayout.Separator();
 
