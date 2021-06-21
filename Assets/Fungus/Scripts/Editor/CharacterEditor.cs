@@ -140,6 +140,7 @@ namespace Fungus.EditorUtils
                         t.Portraits.RemoveAt(counter);
                         t.Portraits.TrimExcess();
                         t.ProfileSprite = t.Portraits[counter];
+                        counter--;
                     }
                     else
                     {
@@ -155,6 +156,7 @@ namespace Fungus.EditorUtils
                     if (EditorUtility.DisplayDialog("REMOVE Character Portraits", "Are you sure you want to remove all portraits for this character!?", "REMOVE ALL", "CANCEL"))
                     {
                         t.Portraits.Clear();
+                        counter = 0;
                     }
                     else
                     {
