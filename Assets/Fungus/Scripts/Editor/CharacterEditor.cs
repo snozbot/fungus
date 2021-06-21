@@ -80,7 +80,7 @@ namespace Fungus.EditorUtils
 
             if (GUILayout.Button("PREV", GUILayout.Width(50), GUILayout.Height(30)))
             {
-                if (t.Portraits != null)
+                if (t.Portraits != null && t.Portraits.Count != 0)
                 {
                     if (!defaultPortrait)
                     {
@@ -97,11 +97,15 @@ namespace Fungus.EditorUtils
                         t.ProfileSprite = t.Portraits[0];
                     }
                 }
+                else
+                {
+                    defaultPortrait = false;
+                }
             }
 
             if (GUILayout.Button("NEXT", GUILayout.Width(50), GUILayout.Height(30)))
             {
-                if (t.Portraits != null)
+                if (t.Portraits != null && t.Portraits.Count != 0)
                 {
                     if (!defaultPortrait)
                     {
@@ -113,6 +117,10 @@ namespace Fungus.EditorUtils
                         if (t.Portraits[counter] != null)
                             t.ProfileSprite = t.Portraits[counter];
                     }
+                }
+                else
+                {
+                    defaultPortrait = false;
                 }
             }
 
@@ -210,7 +218,7 @@ namespace Fungus.EditorUtils
 
             serializedObject.ApplyModifiedProperties();
         }
-        
+
         public void DropAreaGUI()
         {
             Character t = target as Character;
