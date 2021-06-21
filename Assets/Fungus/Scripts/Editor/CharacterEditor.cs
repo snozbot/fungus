@@ -251,12 +251,11 @@ namespace Fungus.EditorUtils
                     {
                         DragAndDrop.AcceptDrag();
                         var path = DragAndDrop.paths;
-                        for (int i = 0; i < DragAndDrop.objectReferences.Length; i++)
+                        for (int i = 0; i < DragAndDrop.paths.Length; i++)
                         {
-                            var afterLoadedSprite = AssetDatabase.LoadAssetAtPath<Sprite>(path[i]);
+                            Sprite afterLoadedSprite = AssetDatabase.LoadAssetAtPath<Sprite>(path[i]) as Sprite;
 
-                            // No need to check for types, if it's not a Sprite it will be nulled by default
-                            if (afterLoadedSprite != null)
+                            if (afterLoadedSprite != null && afterLoadedSprite is Sprite)
                                 t.Portraits.Add(afterLoadedSprite);
                         }
                         ActiveEditorTracker.sharedTracker.ForceRebuild();
