@@ -7,6 +7,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+public enum SayDialogAnim
+{
+    None,
+    VerticalSlideIn,
+    HorizontalSlideIn,
+    ZoomIn
+}
+
 namespace Fungus
 {
     /// <summary>
@@ -14,6 +22,12 @@ namespace Fungus
     /// </summary>
     public class SayDialog : MonoBehaviour
     {
+        [Tooltip("SayDialog Animation")]
+        [SerializeField] protected SayDialogAnim dialogPanelAnimation;
+
+        [Tooltip("Set from where the animation should start")]
+        [SerializeField] protected Vector2 setFrom = new Vector2(200f, 150f);
+
         [Tooltip("Duration to fade dialogue in/out")]
         [SerializeField] protected float fadeDuration = 0.25f;
 
@@ -94,6 +108,51 @@ namespace Fungus
 
 		// Cache active Say Dialogs to avoid expensive scene search
 		protected static List<SayDialog> activeSayDialogs = new List<SayDialog>();
+
+        protected Transform[] sayDialogTransformCache;
+        protected GameObject panelGo;
+        protected Transform cacheTransDialog;
+        protected virtual void SayDialogAnimation()
+        {
+            if(panelGo == null)
+            {
+                sayDialogTransformCache = GetComponentsInChildren<Transform>();
+                foreach (Transform child in sayDialogTransformCache)
+                {
+                    if(child.name.Equals("Panel"))
+                    {
+                        panelGo = child.gameObject;
+                        cacheTransDialog = child.transform;
+                        break;
+                    }
+                }
+            }
+            
+            //Reset to default
+            LeanTween.cancel(panelGo, true);
+            panelGo.transform.position = cacheTransDialog.transform.position;
+            panelGo.transform.localScale = cacheTransDialog.transform.localScale;
+
+            switch (dialogPanelAnimation)
+            {                
+                case SayDialogAnim.HorizontalSlideIn:
+                    LeanTween.moveX(panelGo, panelGo.transform.position.x, fadeDuration)
+                    .setFrom(panelGo.transform.position.x - setFrom.x).setEaseLinear();
+                    break;
+                case SayDialogAnim.VerticalSlideIn:
+                    LeanTween.moveY(panelGo, panelGo.transform.position.y, fadeDuration)
+                    .setFrom(panelGo.transform.position.y - setFrom.y).setEaseLinear();
+                    break;
+                case SayDialogAnim.ZoomIn:
+                    panelGo.transform.localScale = Vector3.zero;
+                    LeanTween.scale(panelGo, Vector3.one, fadeDuration).setEaseLinear()
+                    //Screen shakes may disrupt the tween, reset the scale onComplete is necessary
+                    .setOnComplete(()=>{panelGo.transform.localScale = Vector3.one;});
+                    break;
+                default:
+                    break;
+            }
+        }
 
 		protected virtual void Awake()
 		{
@@ -379,6 +438,12 @@ namespace Fungus
                 }
                     
                 SetCharacterName(characterName, character.NameColor);
+
+                //SayDialog Animation
+                if (prevSpeakingCharacter != speakingCharacter && dialogPanelAnimation != SayDialogAnim.None)
+                {
+                    SayDialogAnimation();
+                }
             }
         }
 
