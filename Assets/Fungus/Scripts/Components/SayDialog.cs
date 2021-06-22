@@ -108,22 +108,20 @@ namespace Fungus
 
 		// Cache active Say Dialogs to avoid expensive scene search
 		protected static List<SayDialog> activeSayDialogs = new List<SayDialog>();
-
-        protected Transform[] sayDialogTransformCache;
         protected GameObject panelGo;
         protected Transform cacheTransDialog;
         protected virtual void SayDialogAnimation()
         {
             if(panelGo == null)
             {
-                sayDialogTransformCache = GetComponentsInChildren<Transform>();
+                var sayDialogTransformCache = GetComponentsInChildren<Transform>();
+                
                 foreach (Transform child in sayDialogTransformCache)
                 {
                     if(child.name.Equals("Panel"))
                     {
                         panelGo = child.gameObject;
                         cacheTransDialog = child.transform;
-                        break;
                     }
                 }
             }
