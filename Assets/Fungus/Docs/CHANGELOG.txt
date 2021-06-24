@@ -3,6 +3,7 @@ Changelog {#changelog}
 
 Unreleased
 ======
+
 ## Fixed
  - Add missing VariableDrawer for ObjectVariable. Thanks to CG-Tespy.
  - Fix double duplication of blocks in flowchart window. Thanks to ongjinwen.
@@ -11,6 +12,7 @@ Unreleased
  - TextAdapter with TMPro, now forces mesh update on text change. Fixes cases where a Say/Writer would expect RevealedCharacters to be current but would be previous frame stale value.
  - Camera Fade clears local callback before execution, fixes #973.
  - Force portraits undimmed on change sprite.
+ - Correct CommandList focus and selection when adding a new command. Thanks to Arylos07.
 
 ## Changed
  - Block will LogError when an exception is caught from a Command being Executed.
