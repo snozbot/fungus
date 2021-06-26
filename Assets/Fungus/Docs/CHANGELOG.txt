@@ -19,12 +19,6 @@ Unreleased
 
 ## Fixed
  - Many Summaries that had \\ instead of \\\
- - Add missing VariableDrawer for ObjectVariable. Thanks to CG-Tespy.
- - TextAdapter with TMPro, now forces mesh update on text change. Fixes cases where a Say/Writer would expect RevealedCharacters to be current but would be previous frame stale value.  
- - Force portraits undimmed on change sprite.
- - Correct CommandList focus and selection when adding a new command. Thanks to Arylos07.
- 
-## Changed
  - SetSliderValue command can now also get the current value of the target slider.
  - MusicManager uses new Mixer Groups.
  - WriterAudio userLegacyAudioLogic toggles it to behave as it did prior to 3.14.
@@ -33,8 +27,24 @@ Unreleased
  - EventHandler GetSummaries report Error if missing required information.
  - Standard Info boxes for Commands and EventHandlers can be disabled via Fungus EditorPreferences, claiming back some inspector space.
  - All iTween based Commands that have LeanTween alternatives are now marked as Obsolete/Deprecated.
- - Block will LogError when an exception is caught from a Command being Executed.
  - Fungus no longer uses iTween for it's shakes and punches.
+
+v3.13.7
+======
+
+## Fixed
+ - Add missing VariableDrawer for ObjectVariable. Thanks to CG-Tespy.
+ - Fix double duplication of blocks in flowchart window. Thanks to ongjinwen.
+ - Dialog ClickAnywhere not supports ignore click delay. Thanks to breadnone.
+ - SetNextLineFlag only flags if Dialog is actually active/writing. Thanks to breadnone. 
+ - TextAdapter with TMPro, now forces mesh update on text change. Fixes cases where a Say/Writer would expect RevealedCharacters to be current but would be previous frame stale value.
+ - Camera Fade clears local callback before execution, fixes #973.
+ - Force portraits undimmed on change sprite.
+ - Correct CommandList focus and selection when adding a new command. Thanks to Arylos07.
+
+## Changed
+ - Block will LogError when an exception is caught from a Command being Executed.
+ - WriterAudio.GetSecondsRemaining reports 0 if not playing. Thanks to KVinS.
  - Add special case that skips variation logic for sequences that contains no elements, making no change.
  - Add NotifyEnd to Writer WaitForInputAndClear logic. Thanks to wolfrug.
  - Drag event handlers now only trigger from direct drags, not just movement. Thanks to CG-Tespy.
