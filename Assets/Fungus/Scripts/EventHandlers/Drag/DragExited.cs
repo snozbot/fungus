@@ -7,24 +7,24 @@ using UnityEngine;
 namespace Fungus
 {
     /// <summary>
-    /// The block will execute when the player is dragging an object which starts touching the target object.
+    /// The block will execute when the player is dragging an object which stops touching the target object.
     ///
     /// ExecuteAlways used to get the Compatibility that we need, use of ISerializationCallbackReceiver is error prone
     /// when used on Unity controlled objects as it runs on threads other than main thread.
     /// </summary>
     [EventHandlerInfo("Sprite",
-                      "Drag Entered",
-                      "The block will execute when the player is dragging an object which starts touching the target object.")]
+                      "Drag Exited",
+                      "The block will execute when the player is dragging an object which stops touching the target object.")]
     [AddComponentMenu("")]
     [ExecuteInEditMode]
-    public class DragEntered : EventHandler, ISerializationCallbackReceiver
+    public class DragExited : EventHandler, ISerializationCallbackReceiver
     {
-        public class DragEnteredEvent
+        public class DragExitedEvent
         {
             public Draggable2D DraggableObject;
             public Collider2D TargetCollider;
 
-            public DragEnteredEvent(Draggable2D draggableObject, Collider2D targetCollider)
+            public DragExitedEvent(Draggable2D draggableObject, Collider2D targetCollider)
             {
                 DraggableObject = draggableObject;
                 TargetCollider = targetCollider;
@@ -57,7 +57,7 @@ namespace Fungus
             {
                 eventDispatcher = FungusManager.Instance.EventDispatcher;
 
-                eventDispatcher.AddListener<DragEnteredEvent>(OnDragEnteredEvent);
+                eventDispatcher.AddListener<DragExitedEvent>(OnDragEnteredEvent);
             }
         }
 
@@ -65,15 +65,15 @@ namespace Fungus
         {
             if (Application.isPlaying)
             {
-                eventDispatcher.RemoveListener<DragEnteredEvent>(OnDragEnteredEvent);
+                eventDispatcher.RemoveListener<DragExitedEvent>(OnDragEnteredEvent);
 
                 eventDispatcher = null;
             }
         }
 
-        private void OnDragEnteredEvent(DragEnteredEvent evt)
+        private void OnDragEnteredEvent(DragExitedEvent evt)
         {
-            OnDragEntered(evt.DraggableObject, evt.TargetCollider);
+            OnDragExited(evt.DraggableObject, evt.TargetCollider);
         }
 
         #region Compatibility
@@ -113,11 +113,12 @@ namespace Fungus
         #region Public members
 
         /// <summary>
-        /// Called by the Draggable2D object when the the drag enters the drag target.
+        /// Called by the Draggable2D object when the drag exits from the targetObject.
         /// </summary>
-        public virtual void OnDragEntered(Draggable2D draggableObject, Collider2D targetObject)
+        public virtual void OnDragExited(Draggable2D draggableObject, Collider2D targetObject)
         {
-            if (this.targetObjects != null && this.draggableObjects != null &&
+            if (draggableObject.BeingDragged &&
+                this.targetObjects != null && this.draggableObjects != null &&
                 this.draggableObjects.Contains(draggableObject) &&
                 this.targetObjects.Contains(targetObject))
             {

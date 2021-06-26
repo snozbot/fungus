@@ -10,6 +10,12 @@ namespace Fungus.EditorUtils
 {
     public class CommandListAdaptor
     {
+        /// <summary>
+        /// If true, scrolls to the currently selected command in the inspector when the editor is redrawn. A
+        /// Automatically resets to false.
+        /// </summary>
+        public static bool ScrollToCommandOnDraw = false;
+
         public void DrawCommandList()
         {
             if (summaryStyle == null)
@@ -159,6 +165,11 @@ namespace Fungus.EditorUtils
                 if (selectedCommand == command)
                 {
                     commandIsSelected = true;
+                    if (ScrollToCommandOnDraw)
+                    {
+                        GUI.ScrollTo(position);
+                        ScrollToCommandOnDraw = false;
+                    }
                     break;
                 }
             }

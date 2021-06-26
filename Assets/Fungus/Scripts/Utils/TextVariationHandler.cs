@@ -168,6 +168,15 @@ namespace Fungus
                 }
             }
 
+            // As per issue #963 this should just return as if no variation 
+            if(varyingSections.Count == 1)
+            {
+                if (varyingSections[0].type == Section.VaryType.Sequence &&
+                    varyingSections[0].elements.Count == 0)
+                    return false;
+            }
+
+
             return varyingSections.Count > 0;
         }
 
