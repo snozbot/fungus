@@ -4,6 +4,9 @@ Changelog {#changelog}
 Unreleased
 ======
 
+v3.13.7
+======
+
 ## Fixed
  - Add missing VariableDrawer for ObjectVariable. Thanks to CG-Tespy.
  - Fix double duplication of blocks in flowchart window. Thanks to ongjinwen.
