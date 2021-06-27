@@ -35,7 +35,7 @@ namespace Fungus
             {
                 return "Error: No say dialog selected";
             }
-
+            SayDialog.ActiveSayDialog = sayDialog; //update the current say dialog for Say commands to display the appropriate say dialog that would affect them.
             return sayDialog.name;
         }
 
