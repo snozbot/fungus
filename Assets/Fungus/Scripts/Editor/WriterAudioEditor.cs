@@ -17,6 +17,7 @@ namespace Fungus.EditorUtils
         protected SerializedProperty soundEffectProp;
         protected SerializedProperty inputSoundProp;
         protected SerializedProperty useLegacyAudioLogicProp;
+        protected SerializedProperty lerpAudioProp;
 
         protected virtual void OnEnable()
         {
@@ -28,6 +29,7 @@ namespace Fungus.EditorUtils
             beepSoundsProp = serializedObject.FindProperty("beepSounds");
             soundEffectProp = serializedObject.FindProperty("soundEffect");
             useLegacyAudioLogicProp = serializedObject.FindProperty("useLegacyAudioLogic");
+            lerpAudioProp = serializedObject.FindProperty("lerpWriterVolume");
         }
 
         public override void OnInspectorGUI() 
@@ -37,6 +39,7 @@ namespace Fungus.EditorUtils
             EditorGUILayout.PropertyField(volumeProp);
             EditorGUILayout.PropertyField(loopProp);
             EditorGUILayout.PropertyField(useLegacyAudioLogicProp);
+            EditorGUILayout.PropertyField(lerpAudioProp);
             if (useLegacyAudioLogicProp.boolValue)
             {
                 EditorGUILayout.PropertyField(targetAudioSourceProp);
