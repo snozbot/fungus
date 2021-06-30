@@ -8,13 +8,13 @@ namespace Fungus
     /// Sets a game object in the scene to be active / inactive.
     /// </summary>
     [CommandInfo("Scripting",
-                 "Is Active",
-                 "Checks if an object is active in the scene.\n" +
+                 "Is Inactive",
+                 "Checks if an object is inactive (disabled) in the scene.\n" +
                 "If 'ignoreParent' is true, this command will only return the state of the object independent of the parent." +
                 "\nLeave this as true unless you really need to check activeInHierarchy")]
     [AddComponentMenu("")]
     [ExecuteInEditMode]
-    public class IsActive : Condition
+    public class IsInactive : Condition
     {
         [Tooltip("Reference of game object to check")]
         [SerializeField] protected GameObjectData targetObject;
@@ -25,9 +25,9 @@ namespace Fungus
 
         protected override bool EvaluateCondition()
         {
-            if (ignoreParent) return targetObject.Value.activeSelf == true;
+            if (ignoreParent) return targetObject.Value.activeSelf == false;
 
-            else return targetObject.Value.activeInHierarchy == true;
+            else return targetObject.Value.activeInHierarchy == false;
         }
 
         public override string GetSummary()
@@ -35,7 +35,7 @@ namespace Fungus
             if (targetObject.Value == null) return "Error: no target object assigned!";
 
             string hierarchy = ignoreParent == true ? " in hierarchy, ignoring parent" : string.Empty;
-            return "Is " + targetObject.Value.name + " active" + hierarchy + "?";
+            return "Is " + targetObject.Value.name + " inactive" + hierarchy + "?";
         }
 
         public override bool HasReference(Variable variable)
