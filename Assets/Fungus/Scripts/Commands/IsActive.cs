@@ -7,7 +7,7 @@ namespace Fungus
     /// <summary>
     /// Sets a game object in the scene to be active / inactive.
     /// </summary>
-    [CommandInfo("Scripting",
+    [CommandInfo("Flow",
                  "Is Active",
                  "Checks if an object is active in the scene.\n" +
                 "If 'ignoreParent' is true, this command will only return the state of the object independent of the parent." +
