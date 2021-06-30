@@ -24,6 +24,9 @@ namespace Fungus
         [Tooltip("Time for the tween to complete")]
         [SerializeField] protected FloatData duration = new FloatData(1f);
 
+        [Tooltip("Disable target objects when tween is finished finished.")]
+        [SerializeField] protected BooleanData disableOnFinished = new BooleanData(false);
+
         protected virtual void ApplyTween()
         {
             for (int i = 0; i < targetObjects.Count; i++)
@@ -33,12 +36,18 @@ namespace Fungus
                 {
                     continue;
                 }
+                targetObject.SetActive(true); //enable object if disabled; no point in tweening a disabled object.
                 ApplyTween(targetObject);
             }
 
             if (waitUntilFinished)
             {
                 LeanTween.value(gameObject, 0f, 1f, duration).setOnComplete(OnComplete);
+            }
+
+            if (disableOnFinished)
+            {
+                Invoke(nameof(DisableObjects), duration);
             }
         }
 
@@ -47,6 +56,14 @@ namespace Fungus
         protected virtual void OnComplete()
         {
             Continue();
+        }
+
+        void DisableObjects()
+        {
+            foreach(GameObject go in targetObjects)
+            {
+                go.SetActive(false);
+            }
         }
 
         protected virtual string GetSummaryValue()
@@ -134,7 +151,7 @@ namespace Fungus
 
         public override bool HasReference(Variable variable)
         {
-            return waitUntilFinished.booleanRef == variable || duration.floatRef == variable || base.HasReference(variable);
+            return waitUntilFinished.booleanRef == variable || disableOnFinished.booleanRef == variable || duration.floatRef == variable || base.HasReference(variable);
         }
 
         #endregion
