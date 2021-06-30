@@ -1932,11 +1932,8 @@ namespace Fungus.EditorUtils
         {
             copyList.Clear();
 
-            foreach (var block in flowchart.SelectedBlocks)
-            {
-                copyList.Add(new BlockCopy(block));
-            }
-            foreach (var block in mouseDownSelectionState)
+            foreach (var block in flowchart.SelectedBlocks
+                .Union(mouseDownSelectionState))
             {
                 copyList.Add(new BlockCopy(block));
             }
