@@ -114,5 +114,20 @@ namespace Fungus.Tests
                 Assert.Fail();
             }
         }
+
+        [Test]
+        public void SquareBracketsWithoutTypeNoImpact()
+        {
+            Fungus.TextVariationHandler.ClearHistory();
+
+            string startingText = @"This is test a [of changing nothing]";
+            const string expected = @"This is test a [of changing nothing]";
+
+            string res = string.Empty;
+
+            res = Fungus.TextVariationHandler.SelectVariations(startingText);
+
+            Assert.AreEqual(expected, res);
+        }
     }
 }

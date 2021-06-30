@@ -789,6 +789,7 @@ namespace Fungus
 
             if (clear)
             {
+                NotifyEnd(false);
                 textAdapter.Text = "";
             }
 
@@ -1009,10 +1010,11 @@ namespace Fungus
 
         public virtual void OnNextLineEvent()
         {
-            inputFlag = true;
+            
 
-            if (isWriting)
+            if (isWriting || isWaitingForInput)
             {
+                inputFlag = true;
                 NotifyInput();
             }
         }
