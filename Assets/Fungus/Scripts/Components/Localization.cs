@@ -55,7 +55,7 @@ namespace Fungus
             if (SetLanguage.mostRecentLanguage != "")
             {
                 // This language will be used when Start() is called
-                activeLanguage = SetLanguage.mostRecentLanguage;
+                ActiveLanguage = SetLanguage.mostRecentLanguage;
             }
         }
 
@@ -272,7 +272,16 @@ namespace Fungus
         /// <summary>
         /// Language to use at startup, usually defined by a two letter language code (e.g DE = German).
         /// </summary>
-        public virtual string ActiveLanguage { get { return activeLanguage; } }
+        public virtual string ActiveLanguage 
+        { 
+            get { return activeLanguage; } 
+            protected set // Added this for triggering the signal automatically
+            {
+                string prevLang = activeLanguage;
+                activeLanguage = value;
+                LocalizationSignals.DoLangChanged(prevLang, activeLanguage);
+            }
+        }
 
         /// <summary>
         /// CSV file containing localization data which can be easily edited in a spreadsheet tool.
@@ -452,6 +461,8 @@ namespace Fungus
                     PopulateTextProperty(stringId, languageEntry);
                 }
             }
+
+            ActiveLanguage = languageCode;
         }
 
         /// <summary>
