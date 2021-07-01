@@ -22,6 +22,9 @@ namespace Fungus
         [Tooltip("Use the UI Event System to check for clicks. Clicks that hit an overlapping UI object will be ignored. Camera must have a PhysicsRaycaster component, or a Physics2DRaycaster for 2D colliders.")]
         [SerializeField] protected bool useEventSystem;
 
+        [Tooltip("Ignore click event when mouse pointer is on top of UIs")]
+        [SerializeField] protected bool ignoreUI;
+
         protected virtual void ChangeCursor(Texture2D cursorTexture)
         {
             if (!clickEnabled)
@@ -34,6 +37,11 @@ namespace Fungus
 
         protected virtual void DoPointerClick()
         {
+            if(ignoreUI)
+            {
+                if(EventSystem.current.IsPointerOverGameObject())
+                return;
+            }
             if (!clickEnabled)
             {
                 return;
@@ -59,6 +67,11 @@ namespace Fungus
 
         protected virtual void OnMouseDown()
         {
+            if(ignoreUI)
+            {
+                if(EventSystem.current.IsPointerOverGameObject())
+                return;
+            }
             if (!useEventSystem)
             {
                 DoPointerClick();
