@@ -37,7 +37,7 @@ namespace Fungus
 
                 if(canvyG != null)
                 {
-                    float tmpVal = targetValue > 1f ? tmpVal = 1f : tmpVal = targetValue;
+                    float tmpVal = targetValue > 1f ? 1f : targetValue;
 
                     LeanTween.alphaCanvas(canvyG, tmpVal, duration)
                         .setOnComplete(()=>
