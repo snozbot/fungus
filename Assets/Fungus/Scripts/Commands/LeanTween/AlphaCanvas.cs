@@ -42,6 +42,7 @@ namespace Fungus
                     LeanTween.alphaCanvas(canvyG, tmpVal, duration)
                         .setOnComplete(()=>
                         {
+                            if(waitUntilFinished)
                             Continue();
                         });
                 }
