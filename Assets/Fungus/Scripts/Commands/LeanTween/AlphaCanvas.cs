@@ -64,7 +64,7 @@ namespace Fungus
             {
                 canvyG = _targetObject.Value.GetComponent<CanvasGroup>();
                 if(canvyG == null)
-                return canvyGerr = "No Canvas Group vailable";
+                return canvyGerr = "No Canvas Group available";
             }
 
             return "Fade In/Out " + _targetObject.Value.name + " " + canvyGerr;
