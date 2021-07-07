@@ -25,8 +25,11 @@ namespace Fungus.EditorUtils
             if (GameObject.FindObjectsOfType<Flowchart>().Length > 1)
             {
                 var block = go.GetComponent<Block>();
-                GameObject.DestroyImmediate(block._EventHandler);
-                block._EventHandler = null;
+                if (block._EventHandler is GameStarted)
+                {
+                    GameObject.DestroyImmediate(block._EventHandler);
+                    block._EventHandler = null;
+                }
             }
         }
 
