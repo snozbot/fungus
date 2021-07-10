@@ -43,7 +43,7 @@ namespace Fungus
                 return "Error: Variable not selected";
             }
 
-            return variable.Key;
+            return variable.Key + $" [{minValue.Value}-{maxValue.Value}]"; ;
         }
 
         public override bool HasReference(Variable variable)

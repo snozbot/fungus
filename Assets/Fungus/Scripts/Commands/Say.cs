@@ -75,6 +75,22 @@ namespace Fungus
         /// </summary>
         public virtual bool ExtendPrevious { get { return extendPrevious; } }
 
+        /// <summary>
+        /// A wait delay that applies after this command is done executing, and before the next command
+        /// starts executing.
+        /// </summary>
+        protected static float endDelay = 0f;
+        public static float EndDelay
+        {
+            get { return endDelay; }
+            set
+            {
+                // We can't have negative delays... That would be time-traveling into the past!
+                endDelay = Mathf.Max(value, 0);
+            }
+        }
+
+
         public override void OnEnter()
         {
             if (!showAlways && executionCount >= showCount)
@@ -121,6 +137,11 @@ namespace Fungus
                 {
                     displayText = displayText.Replace(ct.TagEndSymbol, ct.ReplaceTagEndWith);
                 }
+            }
+
+            if (EndDelay > 0)
+            {
+                displayText += $"{{w={EndDelay}}}";
             }
 
             string subbedText = flowchart.SubstituteVariables(displayText);

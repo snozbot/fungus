@@ -686,18 +686,20 @@ ClassName, enumgen, CamelCaseClassName, getcontents, setcontents, typeVars, vari
             var fields = TargetType.GetFields(GetBindingFlags());
             for (int i = 0; i < fields.Length; i++)
             {
-                if (helper.IsTypeHandled(fields[i].FieldType))
+                var currentField = fields[i];
+
+                if (helper.IsTypeHandled(currentField.FieldType))
                 {
-                    var actualName = fields[i].Name;
+                    var actualName = currentField.Name;
                     var upperCaseName = Char.ToUpperInvariant(actualName[0]) + actualName.Substring(1);
                     //add it to the enum
                     AddToEnum(upperCaseName);
 
                     //add it to the get
-                    AddToGet(fields[i].FieldType, upperCaseName, actualName);
+                    AddToGet(currentField.FieldType, upperCaseName, actualName);
 
                     //add it to the set
-                    AddToSet(fields[i].FieldType, upperCaseName, actualName);
+                    AddToSet(currentField.FieldType, upperCaseName, actualName);
                     retval++;
                 }
             }
@@ -713,25 +715,29 @@ ClassName, enumgen, CamelCaseClassName, getcontents, setcontents, typeVars, vari
             var props = TargetType.GetProperties(GetBindingFlags());
             for (int i = 0; i < props.Length; i++)
             {
-                if (helper.IsTypeHandled(props[i].PropertyType) && props[i].GetIndexParameters().Length == 0 && !IsObsolete(props[i].GetCustomAttributes(false)))
+                var currentProp = props[i];
+                if (helper.IsTypeHandled(currentProp.PropertyType) && 
+                    currentProp.GetIndexParameters().Length == 0 && 
+                    !IsObsolete(currentProp.GetCustomAttributes(false)))
                 {
-                    var actualName = props[i].Name;
+
+                    var actualName = currentProp.Name;
                     var upperCaseName = Char.ToUpperInvariant(actualName[0]) + actualName.Substring(1);
                     //add it to the enum
                     AddToEnum(upperCaseName);
 
-                    if (props[i].CanRead)
+                    if (currentProp.CanRead && (currentProp.GetGetMethod()?.IsPublic ?? false))
                     {
                         //add it to the get
-                        AddToGet(props[i].PropertyType, upperCaseName, actualName);
+                        AddToGet(currentProp.PropertyType, upperCaseName, actualName);
                     }
-                    if (props[i].CanWrite)
+                    if (currentProp.CanWrite && (currentProp.GetSetMethod()?.IsPublic ?? false))
                     {
                         //add it to the set
-                        AddToSet(props[i].PropertyType, upperCaseName, actualName);
+                        AddToSet(currentProp.PropertyType, upperCaseName, actualName);
                     }
 
-                    if (props[i].CanRead || props[i].CanWrite)
+                    if (currentProp.CanRead || currentProp.CanWrite)
                         retval++;
                 }
             }

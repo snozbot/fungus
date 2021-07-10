@@ -478,6 +478,11 @@ namespace Fungus
 
                 previousCharacter = currentCharacter;
 
+                if (Say.EndDelay > 0)
+                {
+                    item.Text += $"{{w={Say.EndDelay}}}";
+                }
+
                 if (!string.IsNullOrEmpty(item.Text)) { 
                     exitSayWait = false;
                     sayDialog.Say(item.Text, item.ClearPrev, item.WaitForInput, item.FadeDone, true, false, null, () => {
