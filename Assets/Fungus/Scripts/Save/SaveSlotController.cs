@@ -44,7 +44,8 @@ namespace Fungus
 
             if (saveCont == null)
             {
-                Debug.LogError("SaveSlot clicked without a SaveController, not allowed");
+                // The line below is a bit misleading; it doesn't execute based on clicking
+                //Debug.LogError("SaveSlot clicked without a SaveController, not allowed");
             }
         }
 
@@ -85,6 +86,22 @@ namespace Fungus
         public virtual void RefreshDisplay()
         {
             UpdateViews();
+        }
+    
+        /// <summary>
+        /// Returns a view object of the specified type registered under this controller. Returns null
+        /// if no such object exists.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public virtual T GetView<T>() where T: class, ISaveSlotView
+        {
+            foreach (var view in slotViews)
+            {
+                if (view is T)
+                    return view as T;
+            }
+
+            return null;
         }
     }
 }
