@@ -32,25 +32,30 @@ namespace Fungus
         [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. This Say Dialog will be used whenever the character speaks.")]
         [SerializeField] protected SayDialog setSayDialog;
 
+        [Tooltip("Set character portrait to be clickable")]
+        [SerializeField] protected bool clickableCharacter;
+
+        [Tooltip("Flowchart")]
+        [SerializeField] protected Flowchart flowchart;
+
+        [Tooltip("Execute block when the character gets clicked")]
+        [SerializeField] protected Block executeBlock;
+
         [FormerlySerializedAs("notes")]
         [TextArea(5,10)]
         [SerializeField] protected string description;
-
-        [Tooltip("Optional, AudioSource to be used for effects and 'beeps' for this Character.")]
-        [SerializeField] protected AudioSource effectAudioSource;
-
-        [Tooltip("Optional, AudioSource to be used for voice over AudioClips for this Character.")]
-        [SerializeField] protected AudioSource voiceAudioSource;
 
         protected PortraitState portaitState = new PortraitState();
 
         protected static List<Character> activeCharacters = new List<Character>();
 
-        /// <summary>
-        /// Currently display profile sprite for this character.
-        /// </summary>
-        /// <value>The profile sprite.</value>
-        public virtual Sprite ProfileSprite { get; set; }
+        public virtual void ClickCharacter()
+        {
+            if (clickableCharacter && flowchart != null && executeBlock != null)
+            {
+                flowchart.ExecuteBlock(executeBlock);
+            }
+        }
 
         protected virtual void OnEnable()
         {
@@ -65,8 +70,23 @@ namespace Fungus
         {
             activeCharacters.Remove(this);
         }
-
+        
         #region Public members
+        
+        /// <summary>
+        /// Gets the state of clickable character.
+        /// </summary>
+        public virtual bool ClickableCharacter { get { return clickableCharacter; } set { clickableCharacter = value; } }
+
+        /// <summary>
+        /// Gets the state of clickable character.
+        /// </summary>
+        public virtual Flowchart SetFlowchartForClickable { get { return flowchart; } set { flowchart = value; } }
+
+        /// <summary>
+        /// Sets target block.
+        /// </summary>
+        public virtual Block SetBlockForClickable { get { return executeBlock; } set { executeBlock = value; } }
 
         /// <summary>
         /// Gets the list of active characters.
@@ -81,13 +101,13 @@ namespace Fungus
         /// <summary>
         /// Color to display the character name in Say Dialog.
         /// </summary>
-        public virtual Color NameColor { get { return nameColor; } set { nameColor = value; } }
+        public virtual Color NameColor { get { return nameColor; } }
 
         /// <summary>
         /// Sound effect to play when this character is speaking.
         /// </summary>
         /// <value>The sound effect.</value>
-        public virtual AudioClip SoundEffect { get { return soundEffect; } set { soundEffect = value; } }
+        public virtual AudioClip SoundEffect { get { return soundEffect; } }
 
         /// <summary>
         /// List of portrait images that can be displayed for this character.
@@ -100,6 +120,12 @@ namespace Fungus
         public virtual FacingDirection PortraitsFace { get { return portraitsFace; } }
 
         /// <summary>
+        /// Currently display profile sprite for this character.
+        /// </summary>
+        /// <value>The profile sprite.</value>
+        public virtual Sprite ProfileSprite { get; set; }
+
+        /// <summary>
         /// Current display state of this character's portrait.
         /// </summary>
         /// <value>The state.</value>
@@ -109,26 +135,6 @@ namespace Fungus
         /// Sets the active Say dialog with a reference to a Say Dialog object in the scene. This Say Dialog will be used whenever the character speaks.
         /// </summary>
         public virtual SayDialog SetSayDialog { get { return setSayDialog; } }
-
-        public virtual AudioSource VoiceAudioSource { get { return voiceAudioSource; } set { voiceAudioSource = value; } }
-
-        public virtual AudioSource EffectAudioSource { get { return effectAudioSource; } set { effectAudioSource = value; } }
-
-        public virtual GameObject SayDialogGameObject
-        {
-            get
-            {
-                return setSayDialog.gameObject;
-            }
-            set
-            {
-                var sd = value.GetComponent<SayDialog>();
-                if (sd != null)
-                {
-                    setSayDialog = sd;
-                }
-            }
-        }
 
         /// <summary>
         /// Returns the name of the game object.
@@ -145,7 +151,7 @@ namespace Fungus
                 || nameText.StartsWith(matchString, StringComparison.CurrentCultureIgnoreCase);
 #else
             return name.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture)
-                || NameText.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture);
+                || nameText.StartsWith(matchString, true, System.Globalization.CultureInfo.CurrentCulture);
 #endif
         }
 
@@ -197,7 +203,7 @@ namespace Fungus
 
         public virtual string GetStandardText()
         {
-            return NameText;
+            return nameText;
         }
 
         public virtual void SetStandardText(string standardText)
@@ -213,7 +219,7 @@ namespace Fungus
         public virtual string GetStringId()
         {
             // String id for character names is CHARACTER.<Character Name>
-            return "CHARACTER." + NameText;
+            return "CHARACTER." + nameText;
         }
 
         #endregion
