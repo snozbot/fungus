@@ -218,6 +218,7 @@ namespace Fungus.EditorUtils
         protected Block[] blocks = new Block[0];
         protected Block dragBlock;
         protected bool hasDraggedSelected = false;
+        protected Dictionary<Block, Rect> tempRectDict = new Dictionary<Block, Rect>();
         protected static FungusState fungusState;
 
         static protected VariableListAdaptor variableListAdaptor;
@@ -1139,6 +1140,10 @@ namespace Fungus.EditorUtils
 
                             dragBlock = hitBlock;
                             hasDraggedSelected = false;
+
+                            tempRectDict.Clear();
+                            foreach (var block in flowchart.SelectedBlocks)
+                                tempRectDict[block] = block._NodeRect;
                         }
 
                         e.Use();
@@ -1169,12 +1174,13 @@ namespace Fungus.EditorUtils
                 // Block dragging
                 if (dragBlock != null)
                 {
+                    var distance = e.mousePosition / flowchart.Zoom - flowchart.ScrollPos - startDragPosition;
                     for (int i = 0; i < flowchart.SelectedBlocks.Count; ++i)
                     {
                         var block = flowchart.SelectedBlocks[i];
-                        var tempRect = block._NodeRect;
-                        tempRect.position += e.delta / flowchart.Zoom;
-                        block._NodeRect = tempRect;
+                        var tempRect = tempRectDict[block];
+                        tempRect.position += distance;
+                        block._NodeRect = FungusEditorPreferences.useGridSnap ? tempRect.SnapPosition(GridObjectSnap) : tempRect;
                     }
 
                     hasDraggedSelected = true;
@@ -1270,24 +1276,21 @@ namespace Fungus.EditorUtils
 
                 if (dragBlock != null)
                 {
+                    var distance = e.mousePosition / flowchart.Zoom - flowchart.ScrollPos - startDragPosition;
                     for (int i = 0; i < flowchart.SelectedBlocks.Count; ++i)
                     {
                         var block = flowchart.SelectedBlocks[i];
-                        var tempRect = block._NodeRect;
-                        var distance = e.mousePosition / flowchart.Zoom - flowchart.ScrollPos - startDragPosition;
+                        var nodeRect = block._NodeRect;
+                        var tempRect = nodeRect;
                         tempRect.position -= distance;
-                        block._NodeRect = tempRect;
+                        block._NodeRect = FungusEditorPreferences.useGridSnap ? tempRect.SnapPosition(GridObjectSnap) : tempRect;
                         Undo.RecordObject(block, "Block Position");
-                        tempRect.position += distance;
-                        block._NodeRect = tempRect;
-                        if (FungusEditorPreferences.useGridSnap)
-                        {
-                            block._NodeRect = block._NodeRect.SnapPosition(GridObjectSnap);
-                        }
+                        block._NodeRect = nodeRect;
                         Repaint();
                     }
 
                     dragBlock = null;
+                    tempRectDict.Clear();
                 }
 
                 // Check to see if selection actually changed?
@@ -1706,13 +1709,13 @@ namespace Fungus.EditorUtils
         {
             //previous method made a lot of garbage so now we reuse the same array
             pointsA[0] = new Vector2(rectA.xMin, rectA.center.y);
-            pointsA[1] = new Vector2(rectA.xMin + rectA.width / 2, rectA.yMin);
-            pointsA[2] = new Vector2(rectA.xMin + rectA.width / 2, rectA.yMax);
+            pointsA[1] = new Vector2(rectA.xMin + rectA.width * .5f, rectA.yMin);
+            pointsA[2] = new Vector2(rectA.xMin + rectA.width * .5f, rectA.yMax);
             pointsA[3] = new Vector2(rectA.xMax, rectA.center.y);
 
             pointsB[0] = new Vector2(rectB.xMin, rectB.center.y);
-            pointsB[1] = new Vector2(rectB.xMin + rectB.width / 2, rectB.yMin);
-            pointsB[2] = new Vector2(rectB.xMin + rectB.width / 2, rectB.yMax);
+            pointsB[1] = new Vector2(rectB.xMin + rectB.width * .5f, rectB.yMin);
+            pointsB[2] = new Vector2(rectB.xMin + rectB.width * .5f, rectB.yMax);
             pointsB[3] = new Vector2(rectB.xMax, rectB.center.y);
 
             Vector2 pointA = Vector2.zero;
@@ -2096,20 +2099,12 @@ namespace Fungus.EditorUtils
             Rect tempRect = block._NodeRect;
             tempRect.width = Mathf.Clamp(nodeWidthA, BlockMinWidth, BlockMaxWidth);
             tempRect.height = DefaultBlockHeight;
-            if (FungusEditorPreferences.useGridSnap)
-            {
-                tempRect = tempRect.SnapWidth(GridObjectSnap);
-            }
             block._NodeRect = tempRect;
 
             // Draw blocks
             var graphics = GetBlockGraphics(block);
 
             Rect windowRelativeRect = new Rect(block._NodeRect);
-            if (FungusEditorPreferences.useGridSnap)
-            {
-                windowRelativeRect = windowRelativeRect.SnapPosition(GridObjectSnap);
-            }
             windowRelativeRect.position += flowchart.ScrollPos;
 
             //skip if outside of view

@@ -56,9 +56,8 @@ namespace Fungus.EditorUtils
         public static Rect SnapPosition(this Rect rect, float snapInterval)
         {
             var tmp = rect;
-            var x = tmp.position.x;
-            var y = tmp.position.y;
-            tmp.position = new Vector2(Mathf.RoundToInt(x / snapInterval) * snapInterval, Mathf.RoundToInt(y / snapInterval) * snapInterval);
+            var pos = tmp.position;
+            tmp.position = new Vector2(Mathf.RoundToInt(pos.x / snapInterval) * snapInterval, Mathf.RoundToInt(pos.y / snapInterval) * snapInterval);
             return tmp;
         }
 
