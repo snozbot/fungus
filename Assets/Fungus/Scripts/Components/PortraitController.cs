@@ -530,6 +530,24 @@ namespace Fungus
             LeanTween.color(character.State.portraitImage.rectTransform, targetColor, duration).setEase(stage.FadeEaseType).setRecursive(false);
         }
 
+        /// <summary>
+        /// Sets the punched state of a character on the stage.
+        /// </summary>
+        public virtual void SetPunched(Character character, bool punchedState)
+        {
+            if (character.State.punched != punchedState)
+            {
+                return;
+            }
+
+            character.State.punched = punchedState;
+
+            // LeanTween doesn't handle 0 duration properly
+            float duration = (stage.FadeDuration > 0f) ? stage.FadeDuration : float.Epsilon;
+
+            LeanTween.scale(character.State.portraitImage.rectTransform, Vector3.zero, duration).setEase(LeanTweenType.punch).setRecursive(false);
+        }
+
         #region Overloads and Helpers
 
         /// <summary>
