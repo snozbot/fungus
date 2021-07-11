@@ -67,11 +67,15 @@ namespace Fungus
         protected virtual void OnEnable()
         {
             WriterSignals.OnWriterState += OnWriterState;
+            MenuSignals.OnMenuSelectionMade += MenuSignals_OnMenuSelectionMade;
+            MenuSignals.OnMenuTimerElapsed += MenuSignals_OnMenuTimerElapsed;
         }
 
         protected virtual void OnDisable()
         {
             WriterSignals.OnWriterState -= OnWriterState;
+            MenuSignals.OnMenuSelectionMade -= MenuSignals_OnMenuSelectionMade;
+            MenuSignals.OnMenuTimerElapsed -= MenuSignals_OnMenuTimerElapsed;
         }
 
         protected virtual void OnWriterState(Writer writer, WriterState writerState)
@@ -90,6 +94,23 @@ namespace Fungus
                     AddLine(entry);
                 }
             }
+        }
+
+        protected void MenuSignals_OnMenuTimerElapsed()
+        {
+            if(SetMenuElapsedNarrativeLog.menuTimerElapsedEntry != null)
+            {
+                AddLine(SetMenuElapsedNarrativeLog.menuTimerElapsedEntry);
+            }
+        }
+
+        protected void MenuSignals_OnMenuSelectionMade(string selectionText)
+        {
+            NarrativeLogEntry entry = new NarrativeLogEntry()
+            {
+                text = selectionText
+            };
+            AddLine(entry);
         }
 
         #region Public Methods
