@@ -60,12 +60,13 @@ namespace Fungus
             saveCont.SetSelectedSlot(this);
         }
 
+        public virtual void RefreshDisplay()
+        {
+            UpdateViews();
+        }
+
         protected virtual void UpdateViews()
         {
-            //nameText.text = ourMeta.saveName;
-            //descText.text = ourMeta.description;
-            //timeStampText.text = ourMeta.GetReadableTime();
-
             // Pass the metadata to the views, so they can do their thing with it.
             slotViews = GetComponentsInChildren<ISaveSlotView>();
             for (int i = 0; i < slotViews.Length; i++)
@@ -75,11 +76,6 @@ namespace Fungus
             }
         }
 
-        public virtual void RefreshDisplay()
-        {
-            UpdateViews();
-        }
-    
         /// <summary>
         /// Returns a view object of the specified type registered under this controller. Returns null
         /// if no such object exists.
