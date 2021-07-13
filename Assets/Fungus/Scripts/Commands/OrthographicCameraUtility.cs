@@ -49,9 +49,9 @@ namespace Fungus
         [SerializeField] protected float smoothness;
         [Tooltip("Target object for camera to follow")]
         [SerializeField] protected Transform targetObject;
-        public bool SetPinch { get { return isScrollToZoom; } set { isScrollToZoom = value; } }
-        public bool SetLockToObject { get { return isLockToObject; } set { isLockToObject = value; } }
-        public bool SetMouseDrag { get { return isDragged; } set { isDragged = value; } }
+        public virtual bool SetPinch { get { return isScrollToZoom; } set { isScrollToZoom = value; } }
+        public virtual bool SetLockToObject { get { return isLockToObject; } set { isLockToObject = value; } }
+        public virtual bool SetMouseDrag { get { return isDragged; } set { isDragged = value; } }
         void FixedUpdate()
         {
             if (isLockToObject)
@@ -60,6 +60,7 @@ namespace Fungus
                 targetCamera.transform.position = Vector3.Lerp(targetCamera.transform.position, cameraPosition, smoothness * Time.fixedDeltaTime);
             }
         }
+
         void LateUpdate()
         {
             if (isScrollToZoom)
@@ -77,8 +78,8 @@ namespace Fungus
                     Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
                     Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
-                    float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
-                    float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
+                    float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).sqrMagnitude;
+                    float currentMagnitude = (touchZero.position - touchOne.position).sqrMagnitude;
                     float difference = currentMagnitude - prevMagnitude;
 
                     Zoom(difference * 0.01f);
@@ -120,38 +121,44 @@ namespace Fungus
         }
 
         #region Public members
-        public virtual void Start()
+        public override void OnEnter()
         {
             if (targetCamera == null)
             {
                 targetCamera = Camera.main;
             }
-
             if (targetCamera == null)
-            {
-                targetCamera = GameObject.FindObjectOfType<Camera>();
+            {            
+                Debug.LogWarning("Camera not found");
+                Continue();
+                return;
             }
-        }
-
-        public override void OnEnter()
-        {
+            if(!targetCamera.orthographic)
+            {
+                Debug.LogWarning("Camera projection type is not orthographic");
+                Continue();
+                return;
+            }
             if(targetCamera != null && action != CameraUtilSelect.None)
             {
-                switch (action)
+                if(targetCamera.orthographic)
                 {
-                    case CameraUtilSelect.ScrollPinchToZoom:
-                        isScrollToZoom = true;
-                        break;
-                    case CameraUtilSelect.LockCameraToObject:
-                        if(targetObject != null)
-                        {
-                            initalOffset = targetCamera.transform.position - targetObject.position;
-                            isLockToObject = true;
-                        }
-                        break;
-                    case CameraUtilSelect.DragCamera:
-                        isDragged = true;
-                        break;
+                    switch (action)
+                    {
+                        case CameraUtilSelect.ScrollPinchToZoom:
+                            isScrollToZoom = true;
+                            break;
+                        case CameraUtilSelect.LockCameraToObject:
+                            if(targetObject != null)
+                            {
+                                initalOffset = targetCamera.transform.position - targetObject.position;
+                                isLockToObject = true;
+                            }
+                            break;
+                        case CameraUtilSelect.DragCamera:
+                            isDragged = true;
+                            break;
+                    }
                 }
             }
             Continue();
