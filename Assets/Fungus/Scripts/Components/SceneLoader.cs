@@ -89,6 +89,7 @@ namespace Fungus
                 displayedImage = true;
             }
         }
+        protected static List<string> sceneStrings = new List<string>();
 
         #region Public members
 
@@ -99,7 +100,21 @@ namespace Fungus
         /// <param name="_loadingTexture">Loading image to display while loading the new scene.</param>
         public static void LoadScene(string _sceneToLoad, Texture2D _loadingTexture)
         {
-            // Unity does not provide a way to check if the named scene actually exists in the project.
+            if(_sceneToLoad != string.Empty)
+            {
+                for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+                {
+                    string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+                    int lastSlash = scenePath.LastIndexOf("/");
+                    sceneStrings.Add(scenePath.Substring(lastSlash + 1, scenePath.LastIndexOf(".") - lastSlash - 1));
+                }
+                if(!sceneStrings.Contains(_sceneToLoad))
+                {
+                    Debug.LogWarning("The scene does not exist in build settings");
+                    return;
+                }
+            }
+
             GameObject go = new GameObject("SceneLoader");
             DontDestroyOnLoad(go);
 
