@@ -14,7 +14,7 @@ public enum CameraUtilSelect
 namespace Fungus
 {
     /// <summary>
-    /// Activates swipe panning mode where the player can pan the camera within the area between viewA & viewB.
+    /// Functionalitites for orthographic camere for platformer or adverture type of games
     /// </summary>
     [CommandInfo("Camera",
                  "Orthographic Camera Utility",
