@@ -20,13 +20,29 @@ namespace Tests
         {
             scenePrefab = Resources.Load<GameObject>(pathToScene);
             sceneObj = Object.Instantiate(scenePrefab);
-            slots = GameObject.FindObjectsOfType<SaveSlotController>();
+            slots = new List<SaveSlotController>(GameObject.FindObjectsOfType<SaveSlotController>());
+            slots.Sort(SortSlotsAscending);
             AssignMetasToSlots();
+        }
+
+        protected List<SaveSlotController> slots;
+
+        protected int SortSlotsAscending(SaveSlotController firstSlot, SaveSlotController secondSlot)
+        {
+            var firstSlotNum = firstSlot.transform.GetSiblingIndex();
+            var secondSlotNum = secondSlot.transform.GetSiblingIndex();
+
+            if (firstSlotNum > secondSlotNum)
+                return 1;
+            else if (firstSlotNum < secondSlotNum)
+                return -1;
+            else
+                return 0;
         }
 
         protected void AssignMetasToSlots()
         {
-            for (int i = 0; i < slots.Length; i++)
+            for (int i = 0; i < slots.Count; i++)
             {
                 var currentSlot = slots[i];
                 var currentMeta = metasToAssign[i];
@@ -39,19 +55,19 @@ namespace Tests
             new SaveGameMetaData
             {
                 description = "First desc",
-                lastWritten = DateTime.Parse("1/2/2010"),
+                lastWritten = DateTime.Parse("1/2/2010 4:36:12 PM"),
             },
 
             new SaveGameMetaData
             {
                 description = "Second desc",
-                lastWritten = DateTime.Parse("2/4/2015"),
+                lastWritten = DateTime.Parse("2/4/2015 12:34:45 PM"),
             },
 
             new SaveGameMetaData
             {
-                description = "Third desc desc",
-                lastWritten = DateTime.Parse("5/12/2018"),
+                description = "Third desc's the charm",
+                lastWritten = DateTime.Parse("5/12/2018 7:30:21 AM"),
             },
         };
 
@@ -72,8 +88,6 @@ namespace Tests
             }
 
         }
-
-        protected SaveSlotController[] slots;
 
         [Test]
         public void DescViewsRegistered()
@@ -102,7 +116,7 @@ namespace Tests
         [Test]
         public void CorrectNumbersDisplayed()
         {
-            for (int i = 0; i < slots.Length; i++)
+            for (int i = 0; i < slots.Count; i++)
             {
                 var currentSlot = slots[i];
 
@@ -120,7 +134,7 @@ namespace Tests
         [Test]
         public void CorrectDescsDisplayed()
         {
-            for (int i = 0; i < slots.Length; i++)
+            for (int i = 0; i < slots.Count; i++)
             {
                 var currentSlot = slots[i];
                 var currentMeta = metasToAssign[i];
@@ -138,7 +152,7 @@ namespace Tests
         [Test]
         public void CorrectDatesDisplayed()
         {
-            for (int i = 0; i < slots.Length; i++)
+            for (int i = 0; i < slots.Count; i++)
             {
                 var currentSlot = slots[i];
                 var currentMeta = metasToAssign[i];
