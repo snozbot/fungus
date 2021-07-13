@@ -83,11 +83,6 @@ namespace Fungus
 
                     Zoom(difference * 0.01f);
                 }
-                else if (Input.GetMouseButton(0))
-                {
-                    Vector3 direction = touchStart - targetCamera.ScreenToWorldPoint(Input.mousePosition);
-                    targetCamera.transform.position += direction;
-                }
                 Zoom(Input.GetAxis("Mouse ScrollWheel"));
             }
 
@@ -140,22 +135,25 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            switch (action)
+            if(targetCamera != null && action != CameraUtilSelect.None)
             {
-                case CameraUtilSelect.ScrollPinchToZoom:
-                    isScrollToZoom = true;
-                    break;
-                case CameraUtilSelect.LockCameraToObject:
-                    if(targetObject != null)
-                    {
-                        initalOffset = targetCamera.transform.position - targetObject.position;
-                        isLockToObject = true;
-                    }
-                    break;
-                case CameraUtilSelect.DragCamera:
-                    isDragged = true;
-                    break;
-             }
+                switch (action)
+                {
+                    case CameraUtilSelect.ScrollPinchToZoom:
+                        isScrollToZoom = true;
+                        break;
+                    case CameraUtilSelect.LockCameraToObject:
+                        if(targetObject != null)
+                        {
+                            initalOffset = targetCamera.transform.position - targetObject.position;
+                            isLockToObject = true;
+                        }
+                        break;
+                    case CameraUtilSelect.DragCamera:
+                        isDragged = true;
+                        break;
+                }
+            }
             Continue();
         }
 
