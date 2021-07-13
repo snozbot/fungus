@@ -13,14 +13,6 @@ namespace Fungus
     [RequireComponent(typeof(RectTransform))]
     public class SaveSlotController : MonoBehaviour, ISelectHandler
     {
-        [Tooltip("Displays the number for this slot.")]
-        [SerializeField] protected Text nameText = null;
-
-        [Tooltip("Displays the description for this slot.")]
-        [SerializeField] protected Text descText = null;
-
-        [Tooltip("To display time save was created at.")]
-        [SerializeField] protected Text timeStampText = null;
 
         [SerializeField] protected Button ourButton;
         public virtual Button OurButton { get { return ourButton; } }
