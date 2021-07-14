@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using System;
 
 public enum CameraUtilSelect
 {
@@ -9,6 +10,11 @@ public enum CameraUtilSelect
     DragCamera,
     CameraFollow,
     None
+}
+public enum CameraUtilState
+{
+    Enable,
+    Disable
 }
 
 namespace Fungus
@@ -20,10 +26,12 @@ namespace Fungus
                  "Orthographic Camera Utility",
                  "Pinch or mouse scroll to zoom in/out and drag a camera")]
     [AddComponentMenu("")]
-    public class OrthographicCameraUtility : Command
+    public class CameraUtility : Command
     {
         [Tooltip("Camera behaviour")]
         [SerializeField] protected CameraUtilSelect action;
+        [Tooltip("Active State")]
+        [SerializeField] protected CameraUtilState activeState;
 
         [Tooltip("Minimum zoom out limit of camera")]
         [SerializeField] protected float minValue = 3;
@@ -41,9 +49,6 @@ namespace Fungus
         protected Vector3 Origin; // place where mouse is first pressed
         protected Vector3 Diference; // change in position of mouse relative to origin
         protected Vector3 touchStart;
-        protected bool isScrollToZoom = false;
-        protected bool isDragged = false;
-        protected bool isCameraFollow = false;
         protected Vector3 initalOffset;
         protected Vector3 cameraPosition;
         [Tooltip("Reset to default position via right mouse click")]
@@ -53,9 +58,48 @@ namespace Fungus
         [SerializeField] protected float smoothness;
         [Tooltip("Target object for camera to follow")]
         [SerializeField] protected Transform targetObject;
-        public virtual bool SetPinch { get { return isScrollToZoom; } set { isScrollToZoom = value; } }
-        public virtual bool SetCameraFollow { get { return isCameraFollow; } set { isCameraFollow = value; } }
-        public virtual bool SetMouseDrag { get { return isDragged; } set { isDragged = value; } }
+        public static bool isScrollToZoom{get;set;}
+        public static bool isDragged{get;set;}
+        public static bool isCameraFollow{get;set;}
+        public void ExecOrthoCamera(string act, bool state)
+        {
+            if(state)
+            {
+                if(act.Contains("Zoom") && CameraUtilityHelper.zoomOrtho == null)
+                {                    
+                    Action acts =()=> ExecOrthoCamera(act, isScrollToZoom = state);
+                    CameraUtilityHelper.zoomOrtho = acts;                    
+                }
+                else if (act.Contains("Follow") && CameraUtilityHelper.followOrtho == null)
+                {
+                    Action acts =()=> ExecOrthoCamera(act, isCameraFollow = state);
+                    CameraUtilityHelper.followOrtho = acts;                    
+                }
+                else if(act.Contains("Drag") && CameraUtilityHelper.drgOrtho == null)
+                {
+                    Action acts =()=> ExecOrthoCamera(act, isDragged = state);
+                    CameraUtilityHelper.drgOrtho = acts;
+                }
+            }
+            else
+            {
+                if(act.Contains("Zoom") && CameraUtilityHelper.zoomOrtho != null)
+                {
+                    Action acts =()=> ExecOrthoCamera(act, isScrollToZoom = state);
+                    CameraUtilityHelper.zoomOrtho = null;                    
+                }
+                else if (act.Contains("Follow") && CameraUtilityHelper.followOrtho != null)
+                {
+                    Action acts =()=> ExecOrthoCamera(act, isCameraFollow = state);
+                    CameraUtilityHelper.followOrtho = null;                    
+                }
+                else if(act.Contains("Drag") && CameraUtilityHelper.drgOrtho != null)
+                {
+                    Action acts =()=> ExecOrthoCamera(act, isDragged = state);
+                    CameraUtilityHelper.drgOrtho = null;                    
+                }
+            }
+        }
         void FixedUpdate()
         {
             if (isCameraFollow)
@@ -141,15 +185,8 @@ namespace Fungus
             {
                 targetCamera = Camera.main;
             }
-            if (targetCamera == null)
+            if (targetCamera == null || !targetCamera.orthographic)
             {            
-                Debug.LogWarning("Camera not found");
-                Continue();
-                return;
-            }
-            if(!targetCamera.orthographic)
-            {
-                Debug.LogWarning("Camera projection type is not orthographic");
                 Continue();
                 return;
             }
@@ -157,23 +194,44 @@ namespace Fungus
             {
                 if(targetCamera.orthographic)
                 {
-                    switch (action)
-                    {
-                        case CameraUtilSelect.ScrollPinchToZoom:
-                            isScrollToZoom = true;
-                            tmpVal = targetCamera.orthographicSize;
-                            break;
-                        case CameraUtilSelect.LockCameraToObject:
-                            if(targetObject != null)
-                            {
-                                initalOffset = targetCamera.transform.position - targetObject.position;
-                                isCameraFollow = true;
-                            }
-                            break;
-                        case CameraUtilSelect.DragCamera:
-                            isDragged = true;
-                            break;
-                    }
+                        switch (action)
+                        {
+                            case CameraUtilSelect.ScrollPinchToZoom:
+                                if(activeState == CameraUtilState.Enable)
+                                {
+                                    tmpVal = targetCamera.orthographicSize;
+                                    ExecOrthoCamera("ScrollPinchZoom", true);                                                                   
+                                }
+                                else
+                                {
+                                    ExecOrthoCamera("ScrollPinchZoom", false);
+                                }
+                                break;
+                            case CameraUtilSelect.CameraFollow:
+                                if(activeState == CameraUtilState.Enable)
+                                {
+                                    if(targetObject != null)
+                                    {
+                                        initalOffset = targetCamera.transform.position - targetObject.position;
+                                        ExecOrthoCamera("CameraFollow", true);
+                                    }
+                                }
+                                else
+                                {
+                                    ExecOrthoCamera("CameraFollow", false);
+                                }
+                                break;
+                            case CameraUtilSelect.DragCamera:
+                                if(activeState == CameraUtilState.Enable)
+                                {
+                                    ExecOrthoCamera("DragCamera", true);
+                                }
+                                else
+                                {
+                                    ExecOrthoCamera("DragCamera", false);
+                                }
+                                break;
+                        }
                 }
             }
             Continue();
