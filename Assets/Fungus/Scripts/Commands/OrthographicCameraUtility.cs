@@ -93,6 +93,7 @@ namespace Fungus
         {
             if (state)
             {
+                //One way save the delegates in a list, so the next call would auto disable 
                 var validateOrtho = new Action(() =>
                 {
                     if (act.Contains("Scroll"))
