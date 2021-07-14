@@ -7,7 +7,7 @@ public enum CameraUtilSelect
 {
     ScrollPinchToZoom,
     DragCamera,
-    LockCameraToObject,
+    CameraFollow,
     None
 }
 
@@ -20,7 +20,7 @@ namespace Fungus
                  "Orthographic Camera Utility",
                  "Pinch or mouse scroll to zoom in/out and drag a camera")]
     [AddComponentMenu("")]
-    public class CameraUtility : Command
+    public class OrthographicCameraUtility : Command
     {
         [Tooltip("Camera behaviour")]
         [SerializeField] protected CameraUtilSelect action;
@@ -43,7 +43,7 @@ namespace Fungus
         protected Vector3 touchStart;
         protected bool isScrollToZoom = false;
         protected bool isDragged = false;
-        protected bool isLockToObject = false;
+        protected bool isCameraFollow = false;
         protected Vector3 initalOffset;
         protected Vector3 cameraPosition;
         [Tooltip("Reset to default position via right mouse click")]
@@ -54,11 +54,11 @@ namespace Fungus
         [Tooltip("Target object for camera to follow")]
         [SerializeField] protected Transform targetObject;
         public virtual bool SetPinch { get { return isScrollToZoom; } set { isScrollToZoom = value; } }
-        public virtual bool SetLockToObject { get { return isLockToObject; } set { isLockToObject = value; } }
+        public virtual bool SetCameraFollow { get { return isCameraFollow; } set { isCameraFollow = value; } }
         public virtual bool SetMouseDrag { get { return isDragged; } set { isDragged = value; } }
         void FixedUpdate()
         {
-            if (isLockToObject)
+            if (isCameraFollow)
             {
                 cameraPosition = targetObject.position + initalOffset;
                 targetCamera.transform.position = Vector3.Lerp(targetCamera.transform.position, cameraPosition, smoothness * Time.fixedDeltaTime);
@@ -167,7 +167,7 @@ namespace Fungus
                             if(targetObject != null)
                             {
                                 initalOffset = targetCamera.transform.position - targetObject.position;
-                                isLockToObject = true;
+                                isCameraFollow = true;
                             }
                             break;
                         case CameraUtilSelect.DragCamera:
