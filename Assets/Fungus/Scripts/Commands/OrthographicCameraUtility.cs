@@ -173,7 +173,7 @@ namespace Fungus
                 if (Input.GetMouseButton(0))
                 {
                     Diference = MousePos() - (targetCamera.transform.position);
-                    if(smoothDamp)
+                    if(!smoothDamp)
                     targetCamera.transform.position = Origin - Diference;
                     else
                     targetCamera.transform.position = Vector3.SmoothDamp(targetCamera.transform.position, Origin - Diference, ref velocityVec3, smoothness * Time.deltaTime);
