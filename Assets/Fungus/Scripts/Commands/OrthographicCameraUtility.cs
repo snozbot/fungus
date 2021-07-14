@@ -31,8 +31,12 @@ namespace Fungus
         [Tooltip("Maximum zoom in limit of camera")]
         [SerializeField] protected float maxValue = 12;
 
+        [Tooltip("Velocity")]
+        [SerializeField] protected float velocity = 0.1f;        
+
         [Tooltip("Camera to use. Will use main camera if set to none.")]
         [SerializeField] protected Camera targetCamera;
+        protected float tmpVal = 0f;
         protected Vector3 ResetCamera; // original camera position
         protected Vector3 Origin; // place where mouse is first pressed
         protected Vector3 Diference; // change in position of mouse relative to origin
@@ -117,7 +121,17 @@ namespace Fungus
 
         protected void Zoom(float increment)
         {
-            targetCamera.orthographicSize = Mathf.Clamp(targetCamera.orthographicSize - increment, minValue, maxValue);
+            //Min/Max Range
+            if(tmpVal >= minValue && tmpVal <=maxValue)
+            {
+                tmpVal += increment;
+            }
+
+            //On high mouse scroll rate the above would sometimes fail, thus second check is needed
+            tmpVal = tmpVal >= maxValue? maxValue:tmpVal;
+            tmpVal = tmpVal <= minValue? minValue:tmpVal;
+
+            targetCamera.orthographicSize = Mathf.SmoothDamp(targetCamera.orthographicSize, tmpVal, ref velocity, smoothness);
         }
 
         #region Public members
@@ -147,6 +161,7 @@ namespace Fungus
                     {
                         case CameraUtilSelect.ScrollPinchToZoom:
                             isScrollToZoom = true;
+                            tmpVal = targetCamera.orthographicSize;
                             break;
                         case CameraUtilSelect.LockCameraToObject:
                             if(targetObject != null)
