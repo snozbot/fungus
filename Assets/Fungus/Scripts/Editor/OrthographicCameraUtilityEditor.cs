@@ -16,6 +16,8 @@ namespace Fungus.EditorUtils
         protected SerializedProperty speedProp;
          protected SerializedProperty velocityProp;
         protected SerializedProperty smoothProp;
+        protected SerializedProperty smoothDampProp;
+        protected SerializedProperty velocityVec3Prop;
         protected SerializedProperty camProp;
         protected SerializedProperty rightMouseResetProp;
         protected SerializedProperty targetObjProp;
@@ -31,6 +33,8 @@ namespace Fungus.EditorUtils
             speedProp = serializedObject.FindProperty("speed");
             velocityProp = serializedObject.FindProperty("velocity");
             smoothProp = serializedObject.FindProperty("smoothness");
+            smoothDampProp = serializedObject.FindProperty("smoothDamp");
+            velocityVec3Prop = serializedObject.FindProperty("velocityVec3");
             camProp = serializedObject.FindProperty("targetCamera");
             rightMouseResetProp = serializedObject.FindProperty("rightMouseReset");
             targetObjProp = serializedObject.FindProperty("targetObject");
@@ -41,8 +45,6 @@ namespace Fungus.EditorUtils
             serializedObject.Update();
 
             OrthographicCameraUtility t = target as OrthographicCameraUtility;
-
-
 
             EditorGUILayout.PropertyField(actionProp);
             EditorGUILayout.PropertyField(stateProp);
@@ -59,11 +61,14 @@ namespace Fungus.EditorUtils
             {
                 EditorGUILayout.PropertyField(targetObjProp);
             }
-            if(t.action == CameraUtilSelect.CameraFollow || t.action == CameraUtilSelect.ScrollPinchToZoom)
+
+            if(t.action == CameraUtilSelect.DragCamera)
             {
-                EditorGUILayout.PropertyField(smoothProp);
+                EditorGUILayout.PropertyField(smoothDampProp);
+                EditorGUILayout.PropertyField(velocityVec3Prop);
             }
 
+            EditorGUILayout.PropertyField(smoothProp);
             EditorGUILayout.PropertyField(camProp);
             serializedObject.ApplyModifiedProperties();
         }

@@ -48,6 +48,11 @@ namespace Fungus
 
         [Tooltip("Set smooth/damp level of camera movements")]
         [SerializeField] protected float smoothness = 1f;
+        [Tooltip("Enable dampening effect")]
+        [SerializeField] protected bool smoothDamp = true;
+
+        [Tooltip("Velocity in Vector3")]
+        [SerializeField] protected Vector3 velocityVec3 = Vector3.zero;
 
         [Tooltip("Velocity")]
         [SerializeField] protected float velocity = 0.1f;
@@ -132,7 +137,6 @@ namespace Fungus
                 targetCamera.transform.position = Vector3.Lerp(targetCamera.transform.position, cameraPosition, smoothness * Time.fixedDeltaTime);
             }
         }
-
         void LateUpdate()
         {
             if (isScrollToZoom)
@@ -168,8 +172,11 @@ namespace Fungus
 
                 if (Input.GetMouseButton(0))
                 {
-                    Diference = MousePos() - targetCamera.transform.position;
+                    Diference = MousePos() - (targetCamera.transform.position);
+                    if(smoothDamp)
                     targetCamera.transform.position = Origin - Diference;
+                    else
+                    targetCamera.transform.position = Vector3.SmoothDamp(targetCamera.transform.position, Origin - Diference, ref velocityVec3, smoothness * Time.deltaTime);
                 }
 
                 if (rightMouseReset)
