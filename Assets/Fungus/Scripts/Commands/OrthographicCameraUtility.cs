@@ -65,38 +65,30 @@ namespace Fungus
         {
             if(state)
             {
-                if(act.Contains("Zoom") && CameraUtilityHelper.zoomOrtho == null)
-                {                    
-                    Action acts =()=> ExecOrthoCamera(act, isScrollToZoom = state);
-                    CameraUtilityHelper.zoomOrtho = acts;                    
-                }
-                else if (act.Contains("Follow") && CameraUtilityHelper.followOrtho == null)
+                var validateOrtho = new Action(() =>
                 {
-                    Action acts =()=> ExecOrthoCamera(act, isCameraFollow = state);
-                    CameraUtilityHelper.followOrtho = acts;                    
-                }
-                else if(act.Contains("Drag") && CameraUtilityHelper.drgOrtho == null)
-                {
-                    Action acts =()=> ExecOrthoCamera(act, isDragged = state);
-                    CameraUtilityHelper.drgOrtho = acts;
-                }
+                    if(act.Contains("Scroll"))
+                    isScrollToZoom = !state;
+                    else if(act.Contains("Drag"))
+                    isDragged = !state;
+                    else if(act.Contains("Follow"))
+                    isCameraFollow = !state;
+                });
+
+                CameraUtilityHelper.OrthoActionLists.Add((validateOrtho, act));
             }
             else
             {
-                if(act.Contains("Zoom") && CameraUtilityHelper.zoomOrtho != null)
+                if(CameraUtilityHelper.OrthoActionLists.Count > 0)
                 {
-                    Action acts =()=> ExecOrthoCamera(act, isScrollToZoom = state);
-                    CameraUtilityHelper.zoomOrtho = null;                    
-                }
-                else if (act.Contains("Follow") && CameraUtilityHelper.followOrtho != null)
-                {
-                    Action acts =()=> ExecOrthoCamera(act, isCameraFollow = state);
-                    CameraUtilityHelper.followOrtho = null;                    
-                }
-                else if(act.Contains("Drag") && CameraUtilityHelper.drgOrtho != null)
-                {
-                    Action acts =()=> ExecOrthoCamera(act, isDragged = state);
-                    CameraUtilityHelper.drgOrtho = null;                    
+                    var vals = CameraUtilityHelper.OrthoActionLists;
+                    for(int i = 0; i < vals.Count; i++)
+                    {
+                        if(vals[i].Item2.Equals(act))
+                        {
+                            vals[i].Item1.Invoke();
+                        }
+                    }
                 }
             }
         }
@@ -200,7 +192,7 @@ namespace Fungus
                                 if(activeState == CameraUtilState.Enable)
                                 {
                                     tmpVal = targetCamera.orthographicSize;
-                                    ExecOrthoCamera("ScrollPinchZoom", true);                                                                   
+                                    ExecOrthoCamera("ScrollPinchZoom", isScrollToZoom = true);                                                                   
                                 }
                                 else
                                 {
@@ -213,7 +205,7 @@ namespace Fungus
                                     if(targetObject != null)
                                     {
                                         initalOffset = targetCamera.transform.position - targetObject.position;
-                                        ExecOrthoCamera("CameraFollow", true);
+                                        ExecOrthoCamera("CameraFollow", isCameraFollow = true);
                                     }
                                 }
                                 else
@@ -224,7 +216,7 @@ namespace Fungus
                             case CameraUtilSelect.DragCamera:
                                 if(activeState == CameraUtilState.Enable)
                                 {
-                                    ExecOrthoCamera("DragCamera", true);
+                                    ExecOrthoCamera("DragCamera", isDragged = true);
                                 }
                                 else
                                 {

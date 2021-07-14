@@ -2,10 +2,11 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using System;
+using System.Collections.Generic;
+
 public static class CameraUtilityHelper
 {
-        public static Action zoomOrtho = null;
-        public static Action drgOrtho = null;
-        public static Action followOrtho = null;
+    public static List<(Action, string)> OrthoActionLists = new List<(Action, string)>();
+
 }
 
