@@ -9,7 +9,7 @@ namespace Fungus
     /// </summary>
     public class SaveGameMetaData
     {
-        public string saveName;
+        public string saveName, category;
         public string description;
         public System.DateTime lastWritten;
         public string fileLocation;
