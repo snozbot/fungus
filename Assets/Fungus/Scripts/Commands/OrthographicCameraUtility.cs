@@ -334,6 +334,7 @@ namespace Fungus
                             if (activeState == CameraUtilState.Enable)
                             {
                                 ExecOrthoCamera("DragCamera", tName, isDragged = true);
+                                ResetCamera = targetCamera.transform.position;
                             }
                             else if (activeState == CameraUtilState.Disable)
                             {
