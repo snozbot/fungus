@@ -9,7 +9,9 @@ public enum PauseResume
 {
     None,
     Pause,
-    Resume
+    Resume,
+    PauseAll,
+    ResumeAll
 }
 namespace Fungus
 {
@@ -34,11 +36,21 @@ namespace Fungus
         {
             if (_targetObject.Value != null)
             {
-                if(setTweenState == PauseResume.Pause)
-                LeanTween.pause(_targetObject.Value);
-
-                if(setTweenState == PauseResume.Resume)
-                LeanTween.resume(_targetObject.Value);
+                switch(setTweenState)
+                {
+                    case PauseResume.Pause:
+                    LeanTween.pause(_targetObject.Value);
+                    break;
+                    case PauseResume.Resume:
+                    LeanTween.resume(_targetObject.Value);
+                    break;
+                    case PauseResume.PauseAll:
+                    LeanTween.pauseAll();
+                    break;
+                    case PauseResume.ResumeAll:
+                    LeanTween.resumeAll();
+                    break;
+                }
             }
 
             Continue();
