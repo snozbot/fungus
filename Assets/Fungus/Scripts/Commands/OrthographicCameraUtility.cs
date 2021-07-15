@@ -10,6 +10,7 @@ public enum CameraUtilSelect
     ScrollPinchToZoom,
     DragCamera,
     CameraFollow,
+    Rotate,
     None
 }
 public enum CameraUtilState
@@ -19,7 +20,15 @@ public enum CameraUtilState
     DisableAll,
     None
 }
-
+public enum CameraUtilRotate
+{
+    RotateX,
+    RotateY,
+    RotateZ,
+    Rotate,
+    SetToDefaultRotation,
+    None
+}
 namespace Fungus
 {
     /// <summary>
@@ -27,14 +36,25 @@ namespace Fungus
     /// </summary>
     [CommandInfo("Camera",
                  "Orthographic Camera Utility",
-                 "Orthographic camera utility for actions such as; scroll/pinch to zoom, camera follow, and drag camera")]
+                 "Orthographic camera utility for actions such as; scroll/pinch to zoom, camera follow, and drag camera.\n\nNOTE: CameraFollow and Drag can't be assign to the same camera at once!")]
     [AddComponentMenu("")]
     public class OrthographicCameraUtility : Command
     {
         [Tooltip("Camera behaviour")]
         [SerializeField] public CameraUtilSelect action;
 
-        [Tooltip("Active State")]
+        [Tooltip("Camera behaviour")]
+        [SerializeField] public CameraUtilRotate rotate;
+        [Tooltip("Single axis value")]
+        [SerializeField] protected float rotateValue = 0f;
+
+        [Tooltip("Terget rotation")]
+        [SerializeField] protected Vector3 rotateVector3;
+
+        [Tooltip("Duration")]
+        [SerializeField] protected float duration = 2f;
+
+        [Tooltip("Active state")]
         [SerializeField] public CameraUtilState activeState;
 
         [Tooltip("Minimum zoom out limit of camera")]
@@ -57,13 +77,13 @@ namespace Fungus
         [Tooltip("Velocity")]
         [SerializeField] protected float velocity = 0.1f;
 
-        [Tooltip("Camera to use. Will use main camera if set to none.")]
+        [Tooltip("Camera to use. Will use main camera if set to none")]
         [SerializeField] protected Camera targetCamera;
 
         [Tooltip("Reset to default position via right mouse click")]
         [SerializeField] protected bool rightMouseReset = false;        
 
-        [Tooltip("Target object for camera to follow")]
+        [Tooltip("Target object to follow")]
         [SerializeField] protected Transform targetObject;
         protected float tmpVal = 0f;
         protected Vector3 ResetCamera; // original camera position
@@ -86,14 +106,13 @@ namespace Fungus
                     vals[i].Item1.Invoke();
                 }
 
-                vals = new List<(Action, string)>();
+                vals = new List<(Action, string, string)>();
             }
         }
-        public void ExecOrthoCamera(string act, bool state)
+        public void ExecOrthoCamera(string act, string objName, bool state)
         {
             if (state)
             {
-                //One way save the delegates in a list, so the next call would auto disable 
                 var validateOrtho = new Action(() =>
                 {
                     if (act.Contains("Scroll"))
@@ -105,11 +124,22 @@ namespace Fungus
                 });
 
                 var vals = CameraUtilityHelper.OrthoActionLists;
-                    
-                var matchingvalues = vals.Where(x => x.Item2.Contains(act)).ToList();
-                if (matchingvalues.Count == 0)
+
+                if(vals.Count > 0)
                 {
-                    vals.Add((validateOrtho, act));
+                    //1 camera can only have 1 instance of drag, follow and scroll at once
+                    //And will be ignored if same camera assigned
+                    var matchingvalues = vals.Where(x => x.Item3.Contains(objName) && x.Item2.Contains(act)).ToArray();
+
+                    if (matchingvalues.Length == 0)
+                    {
+                        vals.Add((validateOrtho, act, objName));
+                        Debug.Log(vals.Count);
+                    }
+                }
+                else
+                {
+                    vals.Add((validateOrtho, act, objName));
                 }
             }
             else
@@ -120,7 +150,7 @@ namespace Fungus
 
                     for (int i = 0; i < vals.Count; i++)
                     {
-                        if (vals[i].Item2.Equals(act))
+                        if (vals[i].Item2.Equals(act) && vals[i].Item3.Equals(objName))
                         {
                             vals[i].Item1.Invoke();
                             vals.Remove(vals[i]);
@@ -182,14 +212,14 @@ namespace Fungus
 
                 if (rightMouseReset)
                 {
-                    if (Input.GetMouseButton(1)) // reset camera to original position
+                    if (Input.GetMouseButton(1)) // Resets camera to original position
                     {
                         targetCamera.transform.position = ResetCamera;
                     }
                 }
             }
         }
-        //Return the position of the mouse in world coordinates
+        //Returns the position of the mouse in world coordinates
         protected Vector3 MousePos()
         {
             return targetCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -208,7 +238,45 @@ namespace Fungus
 
             targetCamera.orthographicSize = Mathf.SmoothDamp(targetCamera.orthographicSize, tmpVal, ref velocity, smoothness);
         }
+        public void SetDefaultOrthoRotation()
+        {
+            var ltD = CameraUtilityHelper.OrthoRotateInstance;
+            if(ltD != null)
+            {
+                LeanTween.cancel(targetCamera.gameObject, true);
+            }
+            LeanTween.rotate(targetCamera.gameObject, CameraUtilityHelper.defCamPos, duration).setEaseInOutQuad().setOnComplete(()=>
+            {
+                ltD = null;
+            });
+        }
+        protected void RotateOrthoCamera()
+        {
+            CameraUtilityHelper.defCamPos = targetCamera.transform.rotation.eulerAngles;
+            var ltD = CameraUtilityHelper.OrthoRotateInstance;
 
+            if(ltD == null)
+            {
+                switch (rotate)
+                {
+                    case CameraUtilRotate.RotateX:
+                        ltD = LeanTween.rotateX(targetCamera.gameObject, rotateValue, duration).updateNow().setEaseInOutQuad().setOnComplete(()=>{ltD = null;});
+                    break;
+                    case CameraUtilRotate.RotateY:
+                        ltD = LeanTween.rotateY(targetCamera.gameObject, rotateValue, duration).updateNow().setEaseInOutQuad().setOnComplete(()=>{ltD = null;});
+                    break;
+                    case CameraUtilRotate.RotateZ:
+                        ltD = LeanTween.rotateZ(targetCamera.gameObject, rotateValue, duration).updateNow().setEaseInOutQuad().setOnComplete(()=>{ltD = null;});
+                    break;
+                    case CameraUtilRotate.Rotate:
+                        ltD = LeanTween.rotate(targetCamera.gameObject, rotateVector3, duration).updateNow().setEaseInOutQuad().setOnComplete(()=>{ltD = null;});
+                    break;
+                    case CameraUtilRotate.SetToDefaultRotation:
+                        SetDefaultOrthoRotation();
+                    break;
+                }
+            }
+        }
         #region Public members
         public override void OnEnter()
         {
@@ -225,17 +293,18 @@ namespace Fungus
             {
                 if (targetCamera.orthographic)
                 {
+                    var tName = targetCamera.name;
                     switch (action)
                     {
                         case CameraUtilSelect.ScrollPinchToZoom:
                             if (activeState == CameraUtilState.Enable)
                             {
                                 tmpVal = targetCamera.orthographicSize;
-                                ExecOrthoCamera("ScrollPinchZoom", isScrollToZoom = true);
+                                ExecOrthoCamera("ScrollPinchZoom", tName, isScrollToZoom = true);
                             }
                             else if (activeState == CameraUtilState.Disable)
                             {
-                                ExecOrthoCamera("ScrollPinchZoom", false);
+                                ExecOrthoCamera("ScrollPinchZoom", tName, false);
                             }
                             break;
                         case CameraUtilSelect.CameraFollow:
@@ -244,22 +313,32 @@ namespace Fungus
                                 if (targetObject != null)
                                 {
                                     initialOffset = targetCamera.transform.position - targetObject.position;
-                                    ExecOrthoCamera("CameraFollow", isCameraFollow = true);
+                                    ExecOrthoCamera("CameraFollow", tName, isCameraFollow = true);
                                 }
                             }
                             else if (activeState == CameraUtilState.Disable)
                             {
-                                ExecOrthoCamera("CameraFollow", false);
+                                ExecOrthoCamera("CameraFollow", tName, false);
                             }
                             break;
                         case CameraUtilSelect.DragCamera:
                             if (activeState == CameraUtilState.Enable)
                             {
-                                ExecOrthoCamera("DragCamera", isDragged = true);
+                                ExecOrthoCamera("DragCamera", tName, isDragged = true);
                             }
                             else if (activeState == CameraUtilState.Disable)
                             {
-                                ExecOrthoCamera("DragCamera", false);
+                                ExecOrthoCamera("DragCamera", tName, false);
+                            }
+                            break;
+                        case CameraUtilSelect.Rotate:
+                            if(rotate != CameraUtilRotate.None && rotate != CameraUtilRotate.SetToDefaultRotation)
+                            {
+                                RotateOrthoCamera();
+                            }
+                            if(rotate == CameraUtilRotate.SetToDefaultRotation)
+                            {
+                                SetDefaultOrthoRotation();
                             }
                             break;
                     }
@@ -270,7 +349,6 @@ namespace Fungus
             {
                 DisableAllOrthoUtility();
             }
-            
             Continue();
         }
         

@@ -11,10 +11,14 @@ namespace Fungus.EditorUtils
     {
         protected SerializedProperty actionProp;
         protected SerializedProperty stateProp;
+        protected SerializedProperty rotateProp;
+        protected SerializedProperty rotateValProp;
+        protected SerializedProperty rotateValVec3Prop;
+        protected SerializedProperty rotateDurProp;
         protected SerializedProperty minProp;
         protected SerializedProperty maxProp;
         protected SerializedProperty speedProp;
-         protected SerializedProperty velocityProp;
+        protected SerializedProperty velocityProp;
         protected SerializedProperty smoothProp;
         protected SerializedProperty smoothDampProp;
         protected SerializedProperty velocityVec3Prop;
@@ -28,6 +32,10 @@ namespace Fungus.EditorUtils
 
             actionProp = serializedObject.FindProperty("action");
             stateProp = serializedObject.FindProperty("activeState");
+            rotateProp = serializedObject.FindProperty("rotate");
+            rotateValProp = serializedObject.FindProperty("rotateValue");
+            rotateValVec3Prop = serializedObject.FindProperty("rotateVector3");
+            rotateDurProp = serializedObject.FindProperty("duration");
             minProp = serializedObject.FindProperty("minValue");
             maxProp = serializedObject.FindProperty("maxValue");
             speedProp = serializedObject.FindProperty("speed");
@@ -46,9 +54,27 @@ namespace Fungus.EditorUtils
 
             OrthographicCameraUtility t = target as OrthographicCameraUtility;
 
-            EditorGUILayout.PropertyField(actionProp);
-            EditorGUILayout.PropertyField(stateProp);
+            EditorGUI.BeginChangeCheck();
 
+            EditorGUILayout.PropertyField(actionProp);
+            if(t.action != CameraUtilSelect.Rotate)
+            {
+                EditorGUILayout.PropertyField(stateProp);
+            }
+            if(t.action == CameraUtilSelect.Rotate)
+            {
+                EditorGUILayout.PropertyField(rotateProp);
+                EditorGUILayout.PropertyField(rotateDurProp);
+            }
+            if(t.rotate == CameraUtilRotate.RotateX || t.rotate == CameraUtilRotate.RotateY || t.rotate == CameraUtilRotate.RotateZ)
+            {
+                if(t.action == CameraUtilSelect.Rotate)
+                EditorGUILayout.PropertyField(rotateValProp);
+            }
+            if(t.rotate == CameraUtilRotate.Rotate)
+            {
+                EditorGUILayout.PropertyField(rotateValVec3Prop);
+            }
             if(t.action == CameraUtilSelect.ScrollPinchToZoom)
             {
                 EditorGUILayout.PropertyField(minProp);
@@ -67,8 +93,10 @@ namespace Fungus.EditorUtils
                 EditorGUILayout.PropertyField(smoothDampProp);
                 EditorGUILayout.PropertyField(velocityVec3Prop);
             }
-
-            EditorGUILayout.PropertyField(smoothProp);
+            if(t.action != CameraUtilSelect.Rotate && t.action != CameraUtilSelect.None)
+            {
+                EditorGUILayout.PropertyField(smoothProp);
+            }
             EditorGUILayout.PropertyField(camProp);
             serializedObject.ApplyModifiedProperties();
         }

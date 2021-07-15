@@ -3,10 +3,12 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class CameraUtilityHelper
 {
-    public static List<(Action, string)> OrthoActionLists = new List<(Action, string)>();
-
+    public static List<(Action, string, string)> OrthoActionLists = new List<(Action, string, string)>();
+    public static LTDescr OrthoRotateInstance;
+    public static Vector3 defCamPos;
 }
 
