@@ -46,30 +46,30 @@ namespace Fungus
         [Tooltip("Camera behaviour")]
         [SerializeField] public CameraUtilRotate rotate;
         [Tooltip("Single axis value")]
-        [SerializeField] protected float rotateValue = 0f;
+        [SerializeField] protected FloatData rotateValue = new FloatData(0f);
 
         [Tooltip("Terget rotation")]
-        [SerializeField] protected Vector3 rotateVector3;
+        [SerializeField] protected Vector3Data rotateVector3 = new Vector3Data(Vector3.zero);
 
         [Tooltip("Duration")]
-        [SerializeField] protected float duration = 2f;
+        [SerializeField] protected FloatData duration = new FloatData(2f);
 
         [Tooltip("Active state")]
         [SerializeField] public CameraUtilState activeState;
 
         [Tooltip("Minimum zoom out limit of camera")]
-        [SerializeField] protected float minValue = 3;
+        [SerializeField] protected FloatData minValue = new FloatData(3f);
 
         [Tooltip("Maximum zoom in limit of camera")]
-        [SerializeField] protected float maxValue = 12;
+        [SerializeField] protected FloatData maxValue = new FloatData(10f);
 
         [Tooltip("Speed")]
-        [SerializeField] protected float speed = 10f;
+        [SerializeField] protected FloatData speed = new FloatData(10f);
 
         [Tooltip("Set smooth/damp level of camera movements")]
-        [SerializeField] protected float smoothness = 1f;
+        [SerializeField] protected FloatData smoothness = new FloatData(1f);
         [Tooltip("Enable dampening effect")]
-        [SerializeField] protected bool smoothDamp = true;
+        [SerializeField] protected BooleanData smoothDamp = new BooleanData(true);
 
         [Tooltip("Velocity in Vector3")]
         [SerializeField] protected Vector3 velocityVec3 = Vector3.zero;
@@ -81,10 +81,10 @@ namespace Fungus
         [SerializeField] protected Camera targetCamera;
 
         [Tooltip("Reset to default position via right mouse click")]
-        [SerializeField] protected bool rightMouseReset = false;        
+        [SerializeField] protected BooleanData rightMouseReset;        
 
         [Tooltip("Target object to follow")]
-        [SerializeField] protected Transform targetObject;
+        [SerializeField] protected TransformData targetObject;
         protected float tmpVal = 0f;
         protected Vector3 ResetCamera; // original camera position
         protected Vector3 Origin; // place where mouse is first pressed
@@ -164,7 +164,7 @@ namespace Fungus
         {
             if (isCameraFollow)
             {
-                cameraPosition = targetObject.position + initialOffset;
+                cameraPosition = targetObject.Value.position + initialOffset;
                 targetCamera.transform.position = Vector3.Lerp(targetCamera.transform.position, cameraPosition, smoothness * Time.fixedDeltaTime);
             }
         }
@@ -310,9 +310,9 @@ namespace Fungus
                         case CameraUtilSelect.CameraFollow:
                             if (activeState == CameraUtilState.Enable)
                             {
-                                if (targetObject != null)
+                                if (targetObject.Value != null)
                                 {
-                                    initialOffset = targetCamera.transform.position - targetObject.position;
+                                    initialOffset = targetCamera.transform.position - targetObject.Value.position;
                                     ExecOrthoCamera("CameraFollow", tName, isCameraFollow = true);
                                 }
                             }
@@ -366,13 +366,20 @@ namespace Fungus
             {
                 return tOrt = "Error: Camera's projection type is not orthographic";
             }
-            if (targetObject == null && action == CameraUtilSelect.CameraFollow)
+            if (targetObject.Value == null && action == CameraUtilSelect.CameraFollow)
             {
                 return tObj = "Error: No target object selected";
             }
 
             return  tCam + " : " + tObj + " : " + tOrt;
         }
+        public override bool HasReference(Variable variable)
+        {
+            return targetObject.transformRef == variable || minValue.floatRef == variable || maxValue.floatRef == variable ||
+            speed.floatRef == variable || smoothness.floatRef == variable || duration.floatRef == variable || rotateValue.floatRef == variable ||
+            smoothDamp.booleanRef == variable || base.HasReference(variable);
+        }
+
         
         public override void OnCommandAdded(Block parentBlock)
         {
