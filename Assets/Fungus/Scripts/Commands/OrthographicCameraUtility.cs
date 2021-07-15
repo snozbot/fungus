@@ -214,6 +214,9 @@ namespace Fungus
                 {
                     if (Input.GetMouseButton(1)) // Resets camera to original position
                     {
+                        if(smoothDamp)
+                        targetCamera.transform.position = Vector3.SmoothDamp(targetCamera.transform.position, ResetCamera, ref velocityVec3, smoothness * Time.deltaTime);
+                        else
                         targetCamera.transform.position = ResetCamera;
                     }
                 }
@@ -280,6 +283,12 @@ namespace Fungus
         #region Public members
         public override void OnEnter()
         {
+            if (activeState == CameraUtilState.DisableAll)
+            {
+                DisableAllOrthoUtility();
+                Continue();
+                return;
+            }
             if (targetCamera == null)
             {
                 targetCamera = Camera.main;
@@ -344,11 +353,6 @@ namespace Fungus
                     }
                 }
             }
-
-            if(activeState == CameraUtilState.DisableAll)
-            {
-                DisableAllOrthoUtility();
-            }
             Continue();
         }
         
@@ -378,9 +382,7 @@ namespace Fungus
             return targetObject.transformRef == variable || minValue.floatRef == variable || maxValue.floatRef == variable ||
             speed.floatRef == variable || smoothness.floatRef == variable || duration.floatRef == variable || rotateValue.floatRef == variable ||
             smoothDamp.booleanRef == variable || base.HasReference(variable);
-        }
-
-        
+        }        
         public override void OnCommandAdded(Block parentBlock)
         {
             //Default to display type: None
