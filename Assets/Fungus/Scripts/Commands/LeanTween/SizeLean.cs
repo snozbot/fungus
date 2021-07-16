@@ -2,6 +2,7 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Serialization;
 using System.Collections;
 using System;
@@ -9,7 +10,7 @@ using System;
 namespace Fungus
 {
     /// <summary>
-    /// Changes a game object's scale to a specified value over time.
+    /// Changes a game object's RectTransform's size to a specified value over time.
     /// </summary>
     [CommandInfo("LeanTween",
                  "Size",
@@ -28,7 +29,18 @@ namespace Fungus
 
         public override LTDescr ExecuteTween()
         {
-            var ui = _targetObject.Value.GetComponent<RectTransform>();
+            RectTransform ui;
+
+            if(_targetObject.Value.GetComponent<RectTransform>() != null)
+            {
+                ui = _targetObject.Value.GetComponent<RectTransform>();
+            }
+            else
+            {
+                Debug.LogWarning("Target gameObject is not UI component");
+                return;
+                Continue();
+            }
             var sc = _toRectTransform == null ? _toScale : _toRectTransform.sizeDelta;
 
             if (IsInAddativeMode)
