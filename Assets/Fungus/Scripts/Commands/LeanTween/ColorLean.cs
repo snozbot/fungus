@@ -2,7 +2,6 @@
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
 using UnityEngine;
-
 using UnityEngine.UI;
 
 namespace Fungus
@@ -39,8 +38,7 @@ namespace Fungus
         {
             if(_targetObject.Value != null)
             {
-                var go = _targetObject.Value.GetComponent<Image>();
-                if(go != null)
+                if(targetObject.Value.GetComponent<Image>() != null)
                 {
                     LeanTween.value(_targetObject, go.color, toColor, _duration.Value)
                         .setOnComplete(()=>
@@ -53,7 +51,7 @@ namespace Fungus
                 }
                 else
                 {
-                    Debug.LogWarning("No Image Component Detected");
+                    Debug.LogWarning("No Image Component in target GameObject Detected");
                 }
             }
 
