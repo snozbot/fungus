@@ -81,7 +81,7 @@ namespace Fungus
         [SerializeField] protected Camera targetCamera;
 
         [Tooltip("Reset to default position via right mouse click")]
-        [SerializeField] protected BooleanData rightMouseReset;        
+        [SerializeField] protected BooleanData rightMouseReset;
 
         [Tooltip("Target object to follow")]
         [SerializeField] protected TransformData targetObject;
@@ -125,7 +125,7 @@ namespace Fungus
 
                 var vals = CameraUtilityHelper.OrthoActionLists;
 
-                if(vals.Count > 0)
+                if (vals.Count > 0)
                 {
                     //1 camera can only have 1 instance of drag, follow and scroll at once
                     //And will be ignored if same camera assigned
@@ -134,7 +134,6 @@ namespace Fungus
                     if (matchingvalues.Length == 0)
                     {
                         vals.Add((validateOrtho, act, objName));
-                        Debug.Log(vals.Count);
                     }
                 }
                 else
@@ -204,20 +203,20 @@ namespace Fungus
                 if (Input.GetMouseButton(0))
                 {
                     Diference = MousePos() - (targetCamera.transform.position);
-                    if(!smoothDamp)
-                    targetCamera.transform.position = Origin - Diference;
+                    if (!smoothDamp)
+                        targetCamera.transform.position = Origin - Diference;
                     else
-                    targetCamera.transform.position = Vector3.SmoothDamp(targetCamera.transform.position, Origin - Diference, ref velocityVec3, smoothness * Time.deltaTime);
+                        targetCamera.transform.position = Vector3.SmoothDamp(targetCamera.transform.position, Origin - Diference, ref velocityVec3, smoothness * Time.deltaTime);
                 }
 
                 if (rightMouseReset)
                 {
                     if (Input.GetMouseButton(1)) // Resets camera to original position
                     {
-                        if(smoothDamp)
-                        targetCamera.transform.position = Vector3.SmoothDamp(targetCamera.transform.position, ResetCamera, ref velocityVec3, smoothness * Time.deltaTime);
+                        if (smoothDamp)
+                            targetCamera.transform.position = Vector3.SmoothDamp(targetCamera.transform.position, ResetCamera, ref velocityVec3, smoothness * Time.deltaTime);
                         else
-                        targetCamera.transform.position = ResetCamera;
+                            targetCamera.transform.position = ResetCamera;
                     }
                 }
             }
@@ -235,7 +234,7 @@ namespace Fungus
             {
                 tmpVal += increment;
             }
-            //Mouse with high scroll rate sometimes would fail, thus second check is needed
+            //This is a reliable workaround to prevent zooming in/out of getting locked when the value is outside min/max range. 
             tmpVal = tmpVal >= maxValue ? maxValue : tmpVal;
             tmpVal = tmpVal <= minValue ? minValue : tmpVal;
 
@@ -244,11 +243,11 @@ namespace Fungus
         public void SetDefaultOrthoRotation()
         {
             var ltD = CameraUtilityHelper.OrthoRotateInstance;
-            if(ltD != null)
+            if (ltD != null)
             {
                 LeanTween.cancel(targetCamera.gameObject, true);
             }
-            LeanTween.rotate(targetCamera.gameObject, CameraUtilityHelper.defCamPos, duration).setEaseInOutQuad().setOnComplete(()=>
+            LeanTween.rotate(targetCamera.gameObject, CameraUtilityHelper.defCamPos, duration).setEaseInOutQuad().setOnComplete(() =>
             {
                 ltD = null;
             });
@@ -258,26 +257,27 @@ namespace Fungus
             CameraUtilityHelper.defCamPos = targetCamera.transform.rotation.eulerAngles;
             var ltD = CameraUtilityHelper.OrthoRotateInstance;
 
-            if(ltD == null)
+            if (ltD != null)
             {
-                switch (rotate)
-                {
-                    case CameraUtilRotate.RotateX:
-                        ltD = LeanTween.rotateX(targetCamera.gameObject, rotateValue, duration).updateNow().setEaseInOutQuad().setOnComplete(()=>{ltD = null;});
+                LeanTween.cancel(targetCamera.gameObject, true);
+            }
+            switch (rotate)
+            {
+                case CameraUtilRotate.RotateX:
+                    ltD = LeanTween.rotateX(targetCamera.gameObject, rotateValue, duration).updateNow().setEaseInOutQuad().setOnComplete(() => { ltD = null; });
                     break;
-                    case CameraUtilRotate.RotateY:
-                        ltD = LeanTween.rotateY(targetCamera.gameObject, rotateValue, duration).updateNow().setEaseInOutQuad().setOnComplete(()=>{ltD = null;});
+                case CameraUtilRotate.RotateY:
+                    ltD = LeanTween.rotateY(targetCamera.gameObject, rotateValue, duration).updateNow().setEaseInOutQuad().setOnComplete(() => { ltD = null; });
                     break;
-                    case CameraUtilRotate.RotateZ:
-                        ltD = LeanTween.rotateZ(targetCamera.gameObject, rotateValue, duration).updateNow().setEaseInOutQuad().setOnComplete(()=>{ltD = null;});
+                case CameraUtilRotate.RotateZ:
+                    ltD = LeanTween.rotateZ(targetCamera.gameObject, rotateValue, duration).updateNow().setEaseInOutQuad().setOnComplete(() => { ltD = null; });
                     break;
-                    case CameraUtilRotate.Rotate:
-                        ltD = LeanTween.rotate(targetCamera.gameObject, rotateVector3, duration).updateNow().setEaseInOutQuad().setOnComplete(()=>{ltD = null;});
+                case CameraUtilRotate.Rotate:
+                    ltD = LeanTween.rotate(targetCamera.gameObject, rotateVector3, duration).updateNow().setEaseInOutQuad().setOnComplete(() => { ltD = null; });
                     break;
-                    case CameraUtilRotate.SetToDefaultRotation:
-                        SetDefaultOrthoRotation();
+                case CameraUtilRotate.SetToDefaultRotation:
+                    SetDefaultOrthoRotation();
                     break;
-                }
             }
         }
         #region Public members
@@ -342,11 +342,11 @@ namespace Fungus
                             }
                             break;
                         case CameraUtilSelect.Rotate:
-                            if(rotate != CameraUtilRotate.None && rotate != CameraUtilRotate.SetToDefaultRotation)
+                            if (rotate != CameraUtilRotate.None && rotate != CameraUtilRotate.SetToDefaultRotation)
                             {
                                 RotateOrthoCamera();
                             }
-                            if(rotate == CameraUtilRotate.SetToDefaultRotation)
+                            if (rotate == CameraUtilRotate.SetToDefaultRotation)
                             {
                                 SetDefaultOrthoRotation();
                             }
@@ -356,7 +356,7 @@ namespace Fungus
             }
             Continue();
         }
-        
+
         public override string GetSummary()
         {
             string tCam = string.Empty;
@@ -376,14 +376,14 @@ namespace Fungus
                 return tObj = "Error: No target object selected";
             }
 
-            return  tCam + " : " + tObj + " : " + tOrt;
+            return tCam + " : " + tObj + " : " + tOrt;
         }
         public override bool HasReference(Variable variable)
         {
             return targetObject.transformRef == variable || minValue.floatRef == variable || maxValue.floatRef == variable ||
             speed.floatRef == variable || smoothness.floatRef == variable || duration.floatRef == variable || rotateValue.floatRef == variable ||
             smoothDamp.booleanRef == variable || base.HasReference(variable);
-        }        
+        }
         public override void OnCommandAdded(Block parentBlock)
         {
             //Default to display type: None
