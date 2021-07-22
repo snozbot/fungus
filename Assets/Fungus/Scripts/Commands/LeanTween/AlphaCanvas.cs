@@ -27,6 +27,10 @@ namespace Fungus
         [Tooltip("Wait until finished")]
         [SerializeField]
         protected bool waitUntilFinished = false;
+
+        [Tooltip("Disable On Complete")]
+        [SerializeField]
+        protected bool disableOnComplete = false;
         protected CanvasGroup canvyG;
 
         public override void OnEnter()
@@ -42,6 +46,8 @@ namespace Fungus
                     LeanTween.alphaCanvas(canvyG, tmpVal, duration)
                         .setOnComplete(()=>
                         {
+                            if(disableOnComplete)
+                            canvyG.gameObject.SetActive(false);
                             if(waitUntilFinished)
                             Continue();
                         });
