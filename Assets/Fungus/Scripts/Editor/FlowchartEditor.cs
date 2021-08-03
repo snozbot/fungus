@@ -104,6 +104,7 @@ namespace Fungus.EditorUtils
                     flowchart.locked = false;
                     Undo.RecordObject(flowchart, "Unlock Flowchart " + flowchart.name);
                     PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
+                    EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart").Repaint(); //force flowchart window to repaint
                 }
             }
             else
@@ -113,11 +114,11 @@ namespace Fungus.EditorUtils
                     flowchart.locked = true;
                     Undo.RecordObject(flowchart, "Lock Flowchart " + flowchart.name);
                     PrefabUtility.RecordPrefabInstancePropertyModifications(flowchart);
+                    EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart").Repaint(); //force flowchart window to repaint
                 }
             }
 
             CommandListAdaptor.lockCommandList = flowchart.locked; // pass to commandlist so it can repaint
-            EditorWindow.GetWindow(typeof(FlowchartWindow), false, "Flowchart").Repaint(); //force flowchart window to repaint
 
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
