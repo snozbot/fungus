@@ -24,6 +24,9 @@ namespace Fungus
         [SerializeField] protected int version = 0; // Default to 0 to always trigger an update for older versions of Fungus.
 
         [HideInInspector]
+        [SerializeField] public bool locked = false;
+
+        [HideInInspector]
         [SerializeField] protected Vector2 scrollPos;
 
         [HideInInspector]

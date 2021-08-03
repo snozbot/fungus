@@ -146,7 +146,11 @@ namespace Fungus.EditorUtils
 
                 if (_arrayProperty.isExpanded)
                 {
+                    //disable variable list if locked. The list can still be expanded
+                    //applies to flowchart window and flowchart inspector
+                    GUI.enabled = !TargetFlowchart.locked;
                     list.DoLayoutList();
+                    GUI.enabled = true; //reset
                 }
                 _arrayProperty.serializedObject.ApplyModifiedProperties();
             }

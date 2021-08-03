@@ -93,6 +93,8 @@ namespace Fungus.EditorUtils
                 return;
             }
 
+            GUI.enabled = !flowchart.locked; //lock the block header
+
             //if there is no selection but we are drawing, fix that
             if (flowchart.SelectedBlocks.Count == 0)
             {
@@ -161,12 +163,12 @@ namespace Fungus.EditorUtils
 
             if (inspectCommand != null)
             {
+                GUI.enabled = !flowchart.locked; //disable command editor if locked
                 if (activeCommandEditor == null || 
                     !inspectCommand.Equals(activeCommandEditor.target))
                 {
                     // See if we have a cached version of the command editor already,
                     var editors = (from e in cachedCommandEditors where (e != null && (e.target.Equals(inspectCommand))) select e);
-
                     if (editors.Count() > 0)
                     {
                         // Use cached editor
@@ -183,6 +185,7 @@ namespace Fungus.EditorUtils
                 {
                     activeCommandEditor.DrawCommandInspectorGUI();
                 }
+                GUI.enabled = true; //reset
             }
 
             GUILayout.EndScrollView();

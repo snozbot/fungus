@@ -45,6 +45,9 @@ namespace Fungus
         [Tooltip("Sound effect to play on user input (e.g. a click)")]
         [SerializeField] protected AudioClip inputSound;
 
+        [Tooltip("Lerp voice effect while playing. Enabled results in smoother volume transitions between different write sounds. Disable to keep writer volume constant.")]
+        [SerializeField] protected bool lerpWriterVolume = true;
+
         protected float targetVolume = 0f;
 
         // When true, a beep will be played on every written character glyph
@@ -219,8 +222,17 @@ namespace Fungus
 
         protected virtual void Update()
         {
-            if(lastUsedAudioSource != null)
-                lastUsedAudioSource.volume = Mathf.MoveTowards(lastUsedAudioSource.volume, targetVolume, Time.deltaTime * 5f);
+            if (lastUsedAudioSource != null)
+            {
+                if (lerpWriterVolume)
+                {
+                    lastUsedAudioSource.volume = Mathf.MoveTowards(lastUsedAudioSource.volume, targetVolume, Time.deltaTime * 5f);
+                }
+                else
+                {
+                    lastUsedAudioSource.volume = targetVolume;
+                }
+            }
         }
 
         #region IWriterListener implementation
