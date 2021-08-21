@@ -44,7 +44,11 @@ namespace Fungus
 
         protected float ignoreClickTimer;
 
+#if ENABLE_INPUT_SYSTEM
+        protected UnityEngine.InputSystem.UI.InputSystemUIInputModule inputSystemUIInputModule;
+#else
         protected StandaloneInputModule currentStandaloneInputModule;
+#endif
 
         protected Writer writer;
 
@@ -63,7 +67,7 @@ namespace Fungus
             if (eventSystem == null)
             {
                 // Auto spawn an Event System from the prefab
-                GameObject prefab = Resources.Load<GameObject>("Prefabs/EventSystem");
+                GameObject prefab = Resources.Load<GameObject>(FungusConstants.EventSystemPrefabName);
                 if (prefab != null)
                 {
                     GameObject go = Instantiate(prefab) as GameObject;
@@ -79,12 +83,27 @@ namespace Fungus
                 return;
             }
 
+#if ENABLE_INPUT_SYSTEM
+            if(inputSystemUIInputModule == null)
+            {
+                inputSystemUIInputModule = FindObjectOfType<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+            }
+            
+            if (writer != null && writer.IsWriting)
+            {
+                if (inputSystemUIInputModule.submit.action.triggered ||
+                    (cancelEnabled && inputSystemUIInputModule.cancel.action.triggered))
+                {
+                    SetNextLineFlag();
+                }
+            }
+#else
             if (currentStandaloneInputModule == null)
             {
                 currentStandaloneInputModule = EventSystem.current.GetComponent<StandaloneInputModule>();
             }
 
-            if (writer != null && writer.IsWriting)
+            if (writer != null)
             {
                 if (Input.GetButtonDown(currentStandaloneInputModule.submitButton) ||
                     (cancelEnabled && Input.GetButton(currentStandaloneInputModule.cancelButton)))
@@ -92,15 +111,21 @@ namespace Fungus
                     SetNextLineFlag();
                 }
             }
+#endif
 
             switch (clickMode)
             {
             case ClickMode.Disabled:
                 break;
             case ClickMode.ClickAnywhere:
+#if ENABLE_INPUT_SYSTEM
+                if ((UnityEngine.InputSystem.Mouse.current?.leftButton.wasPressedThisFrame ?? false) ||
+                    (UnityEngine.InputSystem.Touchscreen.current?.primaryTouch?.press.wasPressedThisFrame ?? false))
+#else
                 if (Input.GetMouseButtonDown(0))
+#endif
                 {
-                    SetNextLineFlag();
+                    SetClickAnywhereClickedFlag();
                 }
                 break;
             case ClickMode.ClickOnDialog:
@@ -142,16 +167,35 @@ namespace Fungus
             }
         }
 
-        #region Public members
+#region Public members
 
         /// <summary>
         /// Trigger next line input event from script.
         /// </summary>
         public virtual void SetNextLineFlag()
         {
-            nextLineInputFlag = true;
+            if(writer.IsWaitingForInput || writer.IsWriting)
+            {
+                nextLineInputFlag = true;
+            }
         }
+        /// <summary>
+        /// Set the ClickAnywhere click flag.
+        /// </summary>
+        public virtual void SetClickAnywhereClickedFlag()
+        {
+            if (ignoreClickTimer > 0f)
+            {
+                return;
+            }
+            ignoreClickTimer = nextClickDelay;
 
+            // Only applies if ClickedAnywhere is selected
+            if (clickMode == ClickMode.ClickAnywhere)
+            {
+                SetNextLineFlag();
+            }
+        }
         /// <summary>
         /// Set the dialog clicked flag (usually from an Event Trigger component in the dialog UI).
         /// </summary>
@@ -183,6 +227,6 @@ namespace Fungus
             }
         }
 
-        #endregion
+#endregion
     }
 }

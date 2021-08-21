@@ -5,7 +5,6 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Fungus;
 
 namespace Fungus
 {
@@ -112,8 +111,22 @@ namespace Fungus
             }
 
             Vector3 delta = Vector3.zero;
-            
-            if (Input.touchCount > 0)
+
+#if ENABLE_INPUT_SYSTEM
+            delta = UnityEngine.InputSystem.Touchscreen.current?.primaryTouch?.delta.ReadValue() ?? Vector3.zero;
+
+            if(UnityEngine.InputSystem.Mouse.current?.leftButton.wasPressedThisFrame ?? false)
+            {
+                previousMousePos = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
+            }
+            else if(UnityEngine.InputSystem.Mouse.current?.leftButton.isPressed ?? false)
+            {
+                delta = UnityEngine.InputSystem.Mouse.current.position.ReadValue() - (Vector2)previousMousePos;
+                previousMousePos = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
+            }
+#else
+            if (
+           Input.touchCount > 0)
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Moved)
                 {
@@ -130,6 +143,7 @@ namespace Fungus
                 delta = Input.mousePosition - previousMousePos;
                 previousMousePos = Input.mousePosition;
             }
+#endif
 
             Vector3 cameraDelta = swipeCamera.ScreenToViewportPoint(delta);
             cameraDelta.x *= -2f * swipeSpeedMultiplier;
@@ -224,8 +238,9 @@ namespace Fungus
                     .setOnComplete(() =>
                     {
                         fadeAlpha = targetAlpha;
-                        if (fadeAction != null) fadeAction();
-                        fadeTween = null;
+                        var tempFadeActin = fadeAction;
+                        fadeAction = null;
+                        if (tempFadeActin != null) tempFadeActin();
                     });
             }
         }

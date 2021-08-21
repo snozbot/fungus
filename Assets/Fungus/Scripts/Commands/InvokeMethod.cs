@@ -77,6 +77,19 @@ namespace Fungus
 
         protected virtual void Awake()
         {
+            try
+            {
+                PrepareTargets();
+            }
+            catch (Exception)
+            {
+                Debug.LogError("Rethrowing Exception thrown by:" + GetLocationIdentifier());
+                throw;
+            }
+        }
+        
+        protected virtual void PrepareTargets()
+        { 
             if (componentType == null)
             {
                 componentType = ReflectionHelper.GetType(targetComponentAssemblyName);
@@ -265,43 +278,38 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            try
+            PrepareTargets();
+
+            if (targetObject == null || string.IsNullOrEmpty(targetComponentAssemblyName) || string.IsNullOrEmpty(targetMethod))
             {
-                if (targetObject == null || string.IsNullOrEmpty(targetComponentAssemblyName) || string.IsNullOrEmpty(targetMethod))
+                Continue();
+                return;
+            }
+
+            if (returnValueType != "System.Collections.IEnumerator")
+            {
+                var objReturnValue = objMethod.Invoke(objComponent, GetParameterValues());
+
+                if (saveReturnValue)
                 {
-                    Continue();
-                    return;
+                    SetVariable(returnValueVariableKey, objReturnValue, returnValueType);
                 }
 
-                if (returnValueType != "System.Collections.IEnumerator")
+                Continue();
+            }
+            else
+            {
+                StartCoroutine(ExecuteCoroutine());
+
+                if (callMode == CallMode.Continue)
                 {
-                    var objReturnValue = objMethod.Invoke(objComponent, GetParameterValues());
-
-                    if (saveReturnValue)
-                    {
-                        SetVariable(returnValueVariableKey, objReturnValue, returnValueType);
-                    }
-
                     Continue();
                 }
-                else
+                else if (callMode == CallMode.Stop)
                 {
-                    StartCoroutine(ExecuteCoroutine());
-
-                    if (callMode == CallMode.Continue)
-                    {
-                        Continue();
-                    }
-                    else if(callMode == CallMode.Stop)
-                    {
-                        StopParentBlock();
-                    }
+                    StopParentBlock();
                 }
             }
-            catch (System.Exception ex)
-            {
-                Debug.LogError("Error: " + ex.Message);
-            }      
         }
 
         public override Color GetButtonColor()

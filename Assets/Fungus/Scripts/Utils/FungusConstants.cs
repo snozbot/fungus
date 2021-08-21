@@ -51,6 +51,16 @@ namespace Fungus
         public const string UIPrefixForDeprecated_RichText = "<color=yellow>" + UIPrefixForDeprecated + "</color>";
 
         /// <summary>
+        /// The default name of the Input EventSystem, stored in the resources folder.
+        /// </summary>
+        public const string EventSystemPrefabName =
+#if ENABLE_INPUT_SYSTEM
+            "Prefabs/EventSystem_NewInputSystem";
+#else
+            "Prefabs/EventSystem";
+#endif
+
+        /// <summary>
         /// The prefix for auto saves
         /// </summary>
         public const string AutoSavePrefix = "autosave_";
