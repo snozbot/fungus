@@ -11,7 +11,7 @@ namespace Fungus
     public class SaveData
     {
         public int version = FungusConstants.CurrentSaveGameDataVersion;
-        public string saveName;
+        public string saveName, category;
         public StringPairList saveDataItems;
         public StringPairList stringPairs;
         public string lastWrittenDateTimeString;
