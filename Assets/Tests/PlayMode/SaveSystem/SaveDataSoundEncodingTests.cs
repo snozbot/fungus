@@ -6,6 +6,7 @@ using Fungus;
 
 namespace SaveSystemTests
 {
+    
     public class SaveDataSoundEncodingTests
     {
         protected string pathToScene = "Prefabs/SoundEncodingTests";
@@ -27,6 +28,7 @@ namespace SaveSystemTests
         }
 
         [UnityTest]
+        [Ignore("Not focusing on saving sound data yet")]
         public IEnumerator RightAmountOfEncodedData()
         {
             yield return new WaitForSeconds(forSoundToPlay);
@@ -34,8 +36,6 @@ namespace SaveSystemTests
 
             Assert.AreEqual(encodedSoundData.Length, expectedEncodedDataCount);
         }
-
-       
 
         protected float forSoundToPlay = 0.15f;
 
@@ -52,7 +52,7 @@ namespace SaveSystemTests
         // it puts the data for those things into a single StringPair
 
         [UnityTest]
-        [Ignore("")]
+        [Ignore("Not focusing on saving sound data yet")]
         public IEnumerator EncodedPitchIsCorrect()
         {
             yield return new WaitForSeconds(forSoundToPlay);
