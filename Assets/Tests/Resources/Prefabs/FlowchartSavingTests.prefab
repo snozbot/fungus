@@ -10,8 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4791800464364344667}
   - component: {fileID: 3880639863672605529}
+  - component: {fileID: 2690687035996103399}
+  - component: {fileID: 7360104146332506633}
+  - component: {fileID: 7844112303411751695}
   m_Layer: 0
-  m_Name: ColorFlowchart
+  m_Name: StringFlowchart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +60,10 @@ MonoBehaviour:
     height: 0
   selectedBlocks: []
   selectedCommands: []
-  variables: []
+  variables:
+  - {fileID: 2690687035996103399}
+  - {fileID: 7360104146332506633}
+  - {fileID: 7844112303411751695}
   description: 
   stepPause: 0
   colorCommands: 1
@@ -68,6 +74,51 @@ MonoBehaviour:
   hideCommands: []
   luaEnvironment: {fileID: 0}
   luaBindingName: flowchart
+--- !u!114 &2690687035996103399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972569955055091050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4580f28dd8581476b810b38eea2f1316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: firstString
+  value: Hi
+--- !u!114 &7360104146332506633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972569955055091050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4580f28dd8581476b810b38eea2f1316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: secondString
+  value: I'm
+--- !u!114 &7844112303411751695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972569955055091050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4580f28dd8581476b810b38eea2f1316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scope: 0
+  key: thirdString
+  value: Paul
 --- !u!1 &6609570569751383371
 GameObject:
   m_ObjectHideFlags: 0

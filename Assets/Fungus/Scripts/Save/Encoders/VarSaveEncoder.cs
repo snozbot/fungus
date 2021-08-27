@@ -48,7 +48,7 @@ namespace Fungus
             throw new System.InvalidOperationException(message);
         }
 
-        protected static string invalidVarTypeMessageFormat = "Variable {1} cannot be encoded by {2}, due to its type not being supported by {2}.";
+        protected static string invalidVarTypeMessageFormat = "Variable {0} cannot be encoded by {1}, due to its type not being supported by {1}.";
 
         public virtual IList<StringPair> Encode(IList<Variable> varsToEncode)
         {

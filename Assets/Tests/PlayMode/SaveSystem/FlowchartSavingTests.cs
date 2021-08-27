@@ -96,6 +96,37 @@ namespace SaveSystemTests
             bool success = SameContentsInOrder(expectedInOrder, result);
             Assert.IsTrue(success);
         }
+        
+        [Test]
+        public void NumVarEncoderRejectsInvalidInput_PassingSingles()
+        {
+            IList<StringVariable> stringVars = GameObject.FindObjectsOfType<StringVariable>();
+
+            for (int i = 0; i < stringVars.Count; i++)
+            {
+                var currentVar = stringVars[i];
+                Assert.Throws<System.InvalidOperationException>(() => { PassNonNumVarToNumberEncoder(currentVar); });
+            }
+        }
+
+        protected virtual void PassNonNumVarToNumberEncoder(Variable shouldNotWork)
+        {
+            numberSaver.Encode(shouldNotWork);
+        }
+
+        [Test]
+        public void NumVarEncoderRejectsInvalidInput_PassingIList()
+        {
+            IList<StringVariable> stringVars = GameObject.FindObjectsOfType<StringVariable>();
+
+            Assert.Throws<System.InvalidOperationException>(() => { PassNonNumVarListToNumberEncoder(stringVars); });
+
+        }
+
+        protected virtual void PassNonNumVarListToNumberEncoder<T>(IList<T> noneOfTheseShouldWork) where T: Variable
+        {
+            numberSaver.Encode( (IList<Variable>) noneOfTheseShouldWork);
+        }
 
         #endregion
     }
