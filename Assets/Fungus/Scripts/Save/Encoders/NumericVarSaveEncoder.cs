@@ -32,6 +32,20 @@ namespace Fungus
             return encodedVar;
         }
 
+        public virtual IList<StringPair> Encode(IList<Variable> varsToEncode)
+        {
+            IList<StringPair> results = new StringPair[varsToEncode.Count];
+
+            for (int i = 0; i < varsToEncode.Count; i++)
+            {
+                var currentVar = varsToEncode[i];
+                var encodedVar = Encode(currentVar);
+                results[i] = encodedVar;
+            }
+
+            return results;
+        }
+
         
     }
 }

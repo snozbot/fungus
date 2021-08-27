@@ -34,7 +34,7 @@ namespace SaveSystemTests
 
         #region Saving the various variable types
         [Test]
-        public void CreateNumericVarSaveData()
+        public void EncodeNumericVars_PassingSingles()
         {
             IList<Variable> varsToSave = numericFlowchart.Variables;
             IList<StringPair> savedVars = new List<StringPair>();
@@ -84,6 +84,19 @@ namespace SaveSystemTests
             return true;
         }
 
+
+        [Test]
+        public void EncodeNumericVars_PassingIList()
+        {
+            IList<Variable> varsToSave = numericFlowchart.Variables;
+            IList<StringPair> savedVars = numberSaver.Encode(varsToSave);
+           
+            // We want to be sure that the values are what we expect
+            string[] expectedInOrder = { "10", "25", "55", "1.23", "5.6789", "123.4568" };
+            string[] result = GetSavedValuesInOrder(savedVars);
+            bool success = SameContentsInOrder(expectedInOrder, result);
+            Assert.IsTrue(success);
+        }
 
         #endregion
     }
