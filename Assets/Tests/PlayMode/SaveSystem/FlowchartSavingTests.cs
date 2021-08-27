@@ -84,7 +84,6 @@ namespace SaveSystemTests
             return true;
         }
 
-
         [Test]
         public void EncodeNumericVars_PassingIList()
         {
