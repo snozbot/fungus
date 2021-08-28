@@ -7,54 +7,24 @@ using Fungus;
 
 namespace SaveSystemTests
 {
-    public class FlowchartColorVarSavingTests : FlowchartSavingTests
+    public class FlowchartColorVarSavingTests : FlowchartSavingTests<ColorVarSaveEncoder>
     {
-        public override void SetUp()
-        {
-            base.SetUp();
-            colorFlowchartGO = GameObject.Find(stringFlowchartName);
-            colorFlowchart = colorFlowchartGO.GetComponent<Flowchart>();
-
-            flowchartEncodersGO = GameObject.Find(flowchartEncodersGOName);
-            colorSaver = flowchartEncodersGO.GetComponent<ColorVarSaveEncoder>();
-            PrepareExpectedResult();
-        }
-
-        protected GameObject colorFlowchartGO;
-        protected Flowchart colorFlowchart;
-        protected string stringFlowchartName = "ColorFlowchart";
-
-        protected ColorVarSaveEncoder colorSaver;
-
-        protected virtual void PrepareExpectedResult()
-        {
-            expected.Clear();
-            var colorVars = colorFlowchart.Variables;
-
-            foreach (var colorVarEl in colorVars)
-            {
-                var colorAsString = colorVarEl.GetValue().ToString();
-                expected.Add(colorAsString);
-            }
-        }
-
-        protected IList<string> expected = new List<string>();
+        protected override string VariableHolderName => "ColorFlowchart";
 
         [Test]
         public void EncodeColorVars_PassingSingles()
         {
-            IList<Variable> varsToSave = colorFlowchart.Variables;
             IList<StringPair> savedVars = new List<StringPair>();
   
-            foreach (var varEl in varsToSave)
+            foreach (var varEl in variablesToEncode)
             {
-                var encodingResult = colorSaver.Encode(varEl);
+                var encodingResult = varSaver.Encode(varEl);
                 savedVars.Add(encodingResult);
             }
 
             // We want to be sure that the values are what we expect
             IList<string> result = savedVars.GetValues();
-            bool success = expected.HasSameContentsInOrderAs(result);
+            bool success = ExpectedResults.HasSameContentsInOrderAs(result);
             Assert.IsTrue(success);
         }
 
@@ -94,12 +64,11 @@ namespace SaveSystemTests
         [Test]
         public void EncodeColorVars_PassingIList()
         {
-            IList<Variable> varsToSave = colorFlowchart.Variables;
-            IList<StringPair> savedVars = colorSaver.Encode(varsToSave);
+            IList<StringPair> savedVars = varSaver.Encode(variablesToEncode);
             
             // We want to be sure that the values are what we expect
             IList<string> result = savedVars.GetValues();
-            bool success = expected.HasSameContentsInOrderAs(result);
+            bool success = ExpectedResults.HasSameContentsInOrderAs(result);
             Assert.IsTrue(success);
         }
     }

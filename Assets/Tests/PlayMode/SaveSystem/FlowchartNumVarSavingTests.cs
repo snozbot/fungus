@@ -7,53 +7,36 @@ using Fungus;
 
 namespace SaveSystemTests
 {
-    public class FlowchartNumVarSavingTests : FlowchartSavingTests
+    public class FlowchartNumVarSavingTests : FlowchartSavingTests<NumericVarSaveEncoder>
     {
-        public override void SetUp()
-        {
-            base.SetUp();
-            numericFlowchartGO = GameObject.Find(numericFlowchartName);
-            numericFlowchart = numericFlowchartGO.GetComponent<Flowchart>();
-
-            flowchartEncodersGO = GameObject.Find(flowchartEncodersGOName);
-            numberSaver = flowchartEncodersGO.GetComponent<NumericVarSaveEncoder>();
-        }
-
-        protected GameObject numericFlowchartGO;
-        protected Flowchart numericFlowchart;
-        protected string numericFlowchartName = "NumericFlowchart";
-
-        protected NumericVarSaveEncoder numberSaver;
+        
+        protected override string VariableHolderName => "NumericFlowchart";
 
         [Test]
         public void EncodeNumericVars_PassingSingles()
         {
-            IList<Variable> varsToSave = numericFlowchart.Variables;
             IList<StringPair> savedVars = new List<StringPair>();
 
-            foreach (var varEl in varsToSave)
+            foreach (var varEl in variablesToEncode)
             {
-                var encodingResult = numberSaver.Encode(varEl);
+                var encodingResult = varSaver.Encode(varEl);
                 savedVars.Add(encodingResult);
             }
 
             // We want to be sure that the values are what we expect
-            IList<string> expectedInOrder = new string[] { "10", "25", "55", "1.23", "5.6789", "123.4568" };
             IList<string> result = savedVars.GetValues();
-            bool success = expectedInOrder.HasSameContentsInOrderAs(result);
+            bool success = ExpectedResults.HasSameContentsInOrderAs(result);
             Assert.IsTrue(success);
         }
 
         [Test]
         public void EncodeNumericVars_PassingIList()
         {
-            IList<Variable> varsToSave = numericFlowchart.Variables;
-            IList<StringPair> savedVars = numberSaver.Encode(varsToSave);
+            IList<StringPair> savedVars = varSaver.Encode(variablesToEncode);
 
             // We want to be sure that the values are what we expect
-            IList<string> expectedInOrder = new string[] { "10", "25", "55", "1.23", "5.6789", "123.4568" };
             IList<string> result = savedVars.GetValues();
-            bool success = expectedInOrder.HasSameContentsInOrderAs(result);
+            bool success = ExpectedResults.HasSameContentsInOrderAs(result);
             Assert.IsTrue(success);
             
         }
@@ -72,7 +55,7 @@ namespace SaveSystemTests
 
         protected virtual void PassNonNumVarToNumberEncoder(Variable shouldNotWork)
         {
-            numberSaver.Encode(shouldNotWork);
+            varSaver.Encode(shouldNotWork);
         }
 
         [Test]
@@ -86,7 +69,7 @@ namespace SaveSystemTests
 
         protected virtual void PassNonNumVarListToNumberEncoder<T>(IList<T> noneOfTheseShouldWork) where T : Variable
         {
-            numberSaver.Encode((IList<Variable>)noneOfTheseShouldWork);
+            varSaver.Encode((IList<Variable>)noneOfTheseShouldWork);
         }
 
     }
