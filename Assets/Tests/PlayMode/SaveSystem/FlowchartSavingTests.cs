@@ -63,5 +63,49 @@ namespace SaveSystemTests
 
         protected IList<string> ExpectedResults { get; } = new List<string>();
 
+        [Test]
+        public void EncodeVars_PassingSingles()
+        {
+            encodingResults = VarsEncodedWithMultipleEncodeCalls();
+
+            AssertEncodingSuccess();
+        }
+
+        protected IList<StringPair> encodingResults;
+
+        protected virtual IList<StringPair> VarsEncodedWithMultipleEncodeCalls()
+        {
+            IList<StringPair> savedVars = new List<StringPair>();
+
+            foreach (var varEl in variablesToEncode)
+            {
+                var result = varSaver.Encode(varEl);
+                savedVars.Add(result);
+            }
+
+            return savedVars;
+        }
+
+        protected virtual void AssertEncodingSuccess()
+        {
+            IList<string> whatWeGot = encodingResults.GetValues();
+            bool success = ExpectedResults.HasSameContentsInOrderAs(whatWeGot);
+            Assert.IsTrue(success);
+        }
+
+        [Test]
+        public void EncodeColorVars_PassingIList()
+        {
+            encodingResults = VarsEncodedWithOneEncodeCall();
+
+            AssertEncodingSuccess();
+        }
+
+        protected virtual IList<StringPair> VarsEncodedWithOneEncodeCall()
+        {
+            // One that involves passing multiple vars at once to the encoder
+            return varSaver.Encode(variablesToEncode);
+        }
+
     }
 }
