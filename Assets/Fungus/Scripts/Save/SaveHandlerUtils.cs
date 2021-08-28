@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Fungus
 {
-    //Our current version of c# in unity doesn't yet support default methods in interfaces so we use helpers
+    // Our current version of c# in unity doesn't yet support default methods in interfaces so we use helpers
     public static class SaveHandlerUtils
     {
         public static SaveData CreateSaveData(ISaveHandler saveHandler, string saveName, string saveDesc, int version)

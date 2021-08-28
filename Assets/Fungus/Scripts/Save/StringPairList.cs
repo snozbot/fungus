@@ -65,6 +65,9 @@ namespace Fungus
             stringPairs.Add(sp);
         }
 
+        /// <summary>
+        /// Removes duplicates from this list.
+        /// </summary>
         public void MakeUnique()
         {
             stringPairs = stringPairs.Distinct().ToList();
