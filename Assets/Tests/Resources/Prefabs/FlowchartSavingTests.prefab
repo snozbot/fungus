@@ -332,6 +332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5183909318052556847}
   - component: {fileID: 9152531124950458862}
+  - component: {fileID: 8243872687726805428}
   m_Layer: 0
   m_Name: FlowchartEncoders
   m_TagString: Untagged
@@ -363,5 +364,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25a648df24631ca439db170302879310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8243872687726805428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8355802931863322742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9636e45849ddf654faa7decc3498a982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
