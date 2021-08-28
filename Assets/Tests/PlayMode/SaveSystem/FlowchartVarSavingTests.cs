@@ -5,7 +5,7 @@ using Fungus;
 
 namespace SaveSystemTests
 {
-    public abstract class FlowchartSavingTests<TVarSaver>: SaveSysPlayModeTest where TVarSaver: VarSaveEncoder
+    public abstract class FlowchartVarSavingTests<TVarSaver>: SaveSysPlayModeTest where TVarSaver: VarSaveEncoder
     {
         protected override string PathToScene => "Prefabs/FlowchartSavingTests";
         
@@ -13,9 +13,10 @@ namespace SaveSystemTests
         {
             base.SetUp();
             allFlowcharts = GameObject.FindObjectsOfType<Flowchart>();
-            GetVariableHolder();
+            variablesToEncode = GetVarsOfFlowchartNamed(VariableHolderName);
             GetSaverNeeded();
             PrepareExpectedResults();
+            PrepareInvalidInputs();
         }
 
         protected Flowchart[] allFlowcharts;
@@ -52,19 +53,22 @@ namespace SaveSystemTests
         protected virtual void PrepareExpectedResults()
         {
             ExpectedResults.Clear();
-            var colorVars = variableHolder.Variables;
 
-            foreach (var colorVarEl in colorVars)
+            foreach (var varEl in variablesToEncode)
             {
-                var colorAsString = colorVarEl.GetValue().ToString();
-                ExpectedResults.Add(colorAsString);
+                var varAsString = varEl.GetValue().ToString();
+                ExpectedResults.Add(varAsString);
             }
         }
 
         protected IList<string> ExpectedResults { get; } = new List<string>();
 
+        protected abstract void PrepareInvalidInputs();
+
+        protected IList<Variable> invalidInputs;
+
         [Test]
-        public void EncodeVars_PassingSingles()
+        public virtual void EncodeVars_PassingSingles()
         {
             encodingResults = VarsEncodedWithMultipleEncodeCalls();
 
@@ -94,7 +98,7 @@ namespace SaveSystemTests
         }
 
         [Test]
-        public void EncodeColorVars_PassingIList()
+        public virtual void EncodeColorVars_PassingIList()
         {
             encodingResults = VarsEncodedWithOneEncodeCall();
 
@@ -106,6 +110,30 @@ namespace SaveSystemTests
             // One that involves passing multiple vars at once to the encoder
             return varSaver.Encode(variablesToEncode);
         }
+
+        [Test]
+        public virtual void RejectSingleInvalidInputs()
+        {
+            foreach (var invalid in invalidInputs)
+            {
+                Assert.Throws<System.InvalidOperationException>(() => varSaver.Encode(invalid));
+            }
+        }
+
+        [Test]
+        public virtual void RejectMultipleInvalidInputsAtOnce()
+        {
+            Assert.Throws<System.InvalidOperationException>(() => varSaver.Encode(invalidInputs));
+            
+        }
+
+        protected virtual IList<Variable> GetVarsOfFlowchartNamed(string name)
+        {
+            GameObject flowchartGO = GameObject.Find(name);
+            Flowchart flowchart = flowchartGO.GetComponent<Flowchart>();
+            return flowchart.Variables;
+        }
+
 
     }
 }
