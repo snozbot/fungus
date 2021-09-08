@@ -5,7 +5,7 @@ namespace Fungus
 {
     public class ColorVarSaveEncoder : VarSaveEncoder
     {
-        protected override IList<Type> SupportedTypes { get; } = new List<Type>
+        protected override IList<Type> SupportedTypes { get; } = new Type[]
         {
             typeof(ColorVariable),
         };

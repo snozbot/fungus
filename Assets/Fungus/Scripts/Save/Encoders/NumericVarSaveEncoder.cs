@@ -8,7 +8,7 @@ namespace Fungus
     /// </summary>
     public class NumericVarSaveEncoder: VarSaveEncoder
     {
-        protected override IList<Type> SupportedTypes { get; } = new List<Type>
+        protected override IList<Type> SupportedTypes { get; } = new Type[]
         {
             typeof(IntegerVariable),
             typeof(FloatVariable),

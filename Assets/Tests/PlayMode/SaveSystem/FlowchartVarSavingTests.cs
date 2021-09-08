@@ -98,7 +98,7 @@ namespace SaveSystemTests
         }
 
         [Test]
-        public virtual void EncodeColorVars_PassingIList()
+        public virtual void EncodeVars_PassingIList()
         {
             encodingResults = VarsEncodedWithOneEncodeCall();
 
