@@ -56,7 +56,7 @@ namespace SaveSystemTests
 
             foreach (var varEl in variablesToEncode)
             {
-                var varAsString = varEl.GetValue().ToString();
+                var varAsString = JsonUtility.ToJson(varEl.GetValue());
                 ExpectedResults.Add(varAsString);
             }
         }

@@ -11,5 +11,7 @@ namespace Fungus
         {
             typeof(StringVariable),
         };
+
+        protected override EncodingValueType EncodeValueAs { get; } = EncodingValueType.normalString;
     }
 }

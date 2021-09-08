@@ -15,5 +15,7 @@ namespace Fungus
             typeof(BooleanVariable) // Yes, we count bools as numerics
         };
 
+        protected override EncodingValueType EncodeValueAs { get; } = EncodingValueType.normalString;
+
     }
 }

@@ -13,6 +13,14 @@ namespace Fungus
     {
         protected abstract IList<Type> SupportedTypes { get; }
 
+        protected enum EncodingValueType
+        {
+            jsonString,
+            normalString,
+        }
+
+        protected virtual EncodingValueType EncodeValueAs { get; } = EncodingValueType.jsonString;
+
         public virtual StringPair Encode(Variable varToEncode)
         {
             EnsureValidVarType(varToEncode);
@@ -26,9 +34,19 @@ namespace Fungus
             // security or something?
             StringPair encodedVar = new StringPair();
             encodedVar.key = varToEncode.name;
-            encodedVar.val = varToEncode.GetValue().ToString();
+            encodedVar = EncodeValueAsAppropriate(varToEncode, encodedVar);
 
             return encodedVar;
+        }
+
+        protected virtual StringPair EncodeValueAsAppropriate(Variable varToEncode, StringPair encodingResult)
+        {
+            if (EncodeValueAs == EncodingValueType.jsonString)
+                encodingResult.val = JsonUtility.ToJson(varToEncode.GetValue());
+            else if (EncodeValueAs == EncodingValueType.normalString)
+                encodingResult.val = varToEncode.GetValue().ToString();
+
+            return encodingResult;
         }
 
         protected virtual void EnsureValidVarType(Variable toCheck)

@@ -9,5 +9,6 @@ namespace Fungus
         {
             typeof(ColorVariable),
         };
+
     }
 }

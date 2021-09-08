@@ -11,5 +11,6 @@ namespace Fungus
         {
             typeof(Vector2Variable)
         };
+
     }
 }

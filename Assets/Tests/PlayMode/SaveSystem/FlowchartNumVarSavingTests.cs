@@ -27,6 +27,19 @@ namespace SaveSystemTests
             invalidInputs = gatheredUp;
         }
 
+        protected override void PrepareExpectedResults()
+        {
+            ExpectedResults.Clear();
+
+            foreach (var varEl in variablesToEncode)
+            {
+                var varAsString = varEl.GetValue().ToString();
+                // ^As opposed to turning it into a json. Converting a number to
+                // a JSON only gets you an empty json object
+                ExpectedResults.Add(varAsString);
+            }
+        }
+
     }
 
     
