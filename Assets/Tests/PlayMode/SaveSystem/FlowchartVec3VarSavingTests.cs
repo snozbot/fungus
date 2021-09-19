@@ -7,20 +7,20 @@ using Fungus;
 
 namespace SaveSystemTests
 {
-    public class FlowchartVec2VarSavingTests : FlowchartVarSavingTests<Vec2VarSaveEncoder>
+    public class FlowchartVec3VarSavingTests : FlowchartVarSavingTests<Vec3VarSaveEncoder>
     {
-        protected override string VariableHolderName => "Vec_2_Flowchart";
+        protected override string VariableHolderName => "Vec_3_Flowchart";
 
         protected override void PrepareInvalidInputs()
         {
-            string colorFlowchartName = "ColorFlowchart";
-            IList<Variable> colorVars = GetVarsOfFlowchartNamed(colorFlowchartName);
+            string vec2VarFlowchart = "Vec_2_Flowchart";
+            IList<Variable> vec2Vars = GetVarsOfFlowchartNamed(vec2VarFlowchart);
 
             string stringFlowchartName = "StringFlowchart";
             IList<Variable> stringVars = GetVarsOfFlowchartNamed(stringFlowchartName);
 
             List<Variable> gatheredUp = new List<Variable>();
-            gatheredUp.AddRange(colorVars);
+            gatheredUp.AddRange(vec2Vars);
             gatheredUp.AddRange(stringVars);
 
             invalidInputs = gatheredUp;
