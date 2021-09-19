@@ -6,7 +6,7 @@ namespace Fungus
     /// <summary>
     /// This handles encoding numeric variables into Save Data.
     /// </summary>
-    public class NumericVarSaveEncoder: VarSaveEncoder
+    public class NumericVarSaver: VarSaver
     {
         protected override IList<Type> SupportedTypes { get; } = new Type[]
         {

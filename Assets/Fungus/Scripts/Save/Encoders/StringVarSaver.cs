@@ -5,12 +5,13 @@ using Type = System.Type;
 
 namespace Fungus
 {
-    public class Vec2VarSaveEncoder : VarSaveEncoder
+    public class StringVarSaver : VarSaver
     {
         protected override IList<Type> SupportedTypes { get; } = new Type[]
         {
-            typeof(Vector2Variable)
+            typeof(StringVariable),
         };
 
+        protected override EncodingValueType EncodeValueAs { get; } = EncodingValueType.normalString;
     }
 }

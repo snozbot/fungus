@@ -3,7 +3,7 @@ using Type = System.Type;
 
 namespace Fungus
 {
-    public class ColorVarSaveEncoder : VarSaveEncoder
+    public class ColorVarSaver : VarSaver
     {
         protected override IList<Type> SupportedTypes { get; } = new Type[]
         {

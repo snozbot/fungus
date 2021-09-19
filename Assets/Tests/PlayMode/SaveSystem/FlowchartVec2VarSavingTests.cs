@@ -7,7 +7,7 @@ using Fungus;
 
 namespace SaveSystemTests
 {
-    public class FlowchartVec2VarSavingTests : FlowchartVarSavingTests<Vec2VarSaveEncoder>
+    public class FlowchartVec2VarSavingTests : FlowchartVarSavingTests<Vec2VarSaver>
     {
         protected override string VariableHolderName => "Vec_2_Flowchart";
 

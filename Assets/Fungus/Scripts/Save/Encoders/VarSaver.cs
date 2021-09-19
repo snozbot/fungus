@@ -9,7 +9,7 @@ namespace Fungus
     /// <summary>
     /// Base class for encoders that handle Fungus Flowchart Variables.
     /// </summary>
-    public abstract class VarSaveEncoder : MonoBehaviour
+    public abstract class VarSaver : MonoBehaviour
     {
         protected abstract IList<Type> SupportedTypes { get; }
 

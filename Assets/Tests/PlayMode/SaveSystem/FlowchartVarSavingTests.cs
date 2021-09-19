@@ -5,7 +5,7 @@ using Fungus;
 
 namespace SaveSystemTests
 {
-    public abstract class FlowchartVarSavingTests<TVarSaver>: SaveSysPlayModeTest where TVarSaver: VarSaveEncoder
+    public abstract class FlowchartVarSavingTests<TVarSaver>: SaveSysPlayModeTest where TVarSaver: VarSaver
     {
         protected override string PathToScene => "Prefabs/FlowchartSavingTests";
         

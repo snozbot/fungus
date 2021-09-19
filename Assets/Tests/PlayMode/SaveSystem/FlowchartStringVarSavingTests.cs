@@ -7,7 +7,7 @@ using Fungus;
 
 namespace SaveSystemTests
 {
-    public class FlowchartStringVarSavingTests : FlowchartVarSavingTests<StringVarSaveEncoder>
+    public class FlowchartStringVarSavingTests : FlowchartVarSavingTests<StringVarSaver>
     {
         protected override string VariableHolderName => "StringFlowchart";
 
