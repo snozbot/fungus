@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Object = System.Object;
 
 namespace Fungus
 {
@@ -7,14 +7,11 @@ namespace Fungus
     /// </summary>
     public interface ISaveUnit
     {
-        /// <summary>
-        /// For relatively type-independent retrieval of contents.
-        /// </summary>
-        Object GetContents();
+        Object Contents { get; }
     }
 
     public interface ISaveUnit<TContents> : ISaveUnit
     {
-        TContents Contents { get; }
+        new TContents Contents { get; }
     }
 }

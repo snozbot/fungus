@@ -7,7 +7,7 @@ namespace Fungus
     /// <summary>
     /// Base class for encoders that handle Fungus Flowchart Variables.
     /// </summary>
-    public abstract class VarSaver : MonoBehaviour
+    public abstract class VarSaver<TSaveUnit> : MonoBehaviour where TSaveUnit: SaveUnit
     {
         protected abstract IList<Type> SupportedTypes { get; }
 
@@ -19,7 +19,7 @@ namespace Fungus
 
         protected virtual EncodingValueType EncodeValueAs { get; } = EncodingValueType.jsonString;
 
-        public virtual StringPair Encode(Variable varToEncode)
+        public virtual ISaveUnit Encode(Variable varToEncode)
         {
             EnsureValidVarType(varToEncode);
 

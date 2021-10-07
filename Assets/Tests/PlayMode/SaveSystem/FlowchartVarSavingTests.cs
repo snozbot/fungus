@@ -77,11 +77,11 @@ namespace SaveSystemTests
             AssertEncodingSuccess();
         }
 
-        protected IList<StringPair> encodingResults;
+        protected IList<ISaveUnit> encodingResults;
 
         protected virtual IList<StringPair> VarsEncodedWithMultipleEncodeCalls()
         {
-            IList<StringPair> savedVars = new List<StringPair>();
+            IList<ISaveUnit> savedVars = new List<ISaveUnit>();
 
             foreach (var varEl in variablesToEncode)
             {
