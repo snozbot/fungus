@@ -725,7 +725,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3532365471836062832}
-  - {fileID: 5183909318052556847}
+  - {fileID: 7207508386225608450}
   - {fileID: 4791800464364344667}
   - {fileID: 2950243309250108225}
   - {fileID: 113591577111040844}
@@ -741,7 +741,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5183909318052556847}
+  - component: {fileID: 7207508386225608450}
   - component: {fileID: 9152531124950458862}
   - component: {fileID: 8243872687726805428}
   - component: {fileID: 7978557987652571297}
@@ -754,8 +754,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5183909318052556847
-Transform:
+--- !u!224 &7207508386225608450
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -768,6 +768,11 @@ Transform:
   m_Father: {fileID: 134484536365499727}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &9152531124950458862
 MonoBehaviour:
   m_ObjectHideFlags: 0
