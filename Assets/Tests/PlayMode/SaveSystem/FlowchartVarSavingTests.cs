@@ -8,7 +8,9 @@ namespace SaveSystemTests
     public abstract class FlowchartVarSavingTests<TVarSaver>: SaveSysPlayModeTest where TVarSaver: VarSaver
     {
         protected override string PathToScene => "Prefabs/FlowchartSavingTests";
-        
+
+        #region Prep work
+
         public override void SetUp()
         {
             base.SetUp();
@@ -20,19 +22,16 @@ namespace SaveSystemTests
         }
 
         protected Flowchart[] allFlowcharts;
+        protected IList<Variable> variablesToEncode;
 
-        protected virtual void GetVariableHolder()
+        protected virtual IList<Variable> GetVarsOfFlowchartNamed(string name)
         {
-            variableHolderGO = GameObject.Find(VariableHolderName);
-            variableHolder = variableHolderGO.GetComponent<Flowchart>();
-            variablesToEncode = variableHolder.Variables;
+            GameObject flowchartGO = GameObject.Find(name);
+            Flowchart flowchart = flowchartGO.GetComponent<Flowchart>();
+            return flowchart.Variables;
         }
 
-        protected GameObject variableHolderGO;
         protected abstract string VariableHolderName { get; }
-        protected Flowchart variableHolder;
-        protected IList<Variable> variablesToEncode;
-        
 
         protected virtual void GetSaverNeeded()
         {
@@ -47,7 +46,6 @@ namespace SaveSystemTests
 
         protected GameObject hasEncoders;
         protected string encoderContainerGOName = "FlowchartEncoders";
-
         protected TVarSaver varSaver;
 
         protected virtual void PrepareExpectedResults()
@@ -66,6 +64,10 @@ namespace SaveSystemTests
         protected abstract void PrepareInvalidInputs();
 
         protected IList<Variable> invalidInputs;
+
+        #endregion
+
+        #region Tests
 
         [Test]
         public virtual void EncodeVars_PassingSingles()
@@ -126,14 +128,7 @@ namespace SaveSystemTests
             Assert.Throws<System.InvalidOperationException>(() => varSaver.Encode(invalidInputs));
             
         }
-
-        protected virtual IList<Variable> GetVarsOfFlowchartNamed(string name)
-        {
-            GameObject flowchartGO = GameObject.Find(name);
-            Flowchart flowchart = flowchartGO.GetComponent<Flowchart>();
-            return flowchart.Variables;
-        }
-
+        #endregion
 
     }
 }
