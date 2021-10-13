@@ -21,6 +21,7 @@ namespace SaveSystemTests
             return result;
         }
 
+
         public static bool HasSameContentsInOrderAs<T>(this IList<T> firstList, IList<T> secondList)
         {
             bool differentSizes = firstList.Count != secondList.Count;

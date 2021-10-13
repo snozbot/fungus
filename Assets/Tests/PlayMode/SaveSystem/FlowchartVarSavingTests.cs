@@ -5,7 +5,7 @@ using Fungus;
 
 namespace SaveSystemTests
 {
-    public abstract class FlowchartVarSavingTests<TVarSaver>: SaveSysPlayModeTest where TVarSaver: VarSaver
+    public abstract class FlowchartVarSavingTests: SaveSysPlayModeTest
     {
         protected override string PathToScene => "Prefabs/FlowchartSavingTests";
 
@@ -36,7 +36,7 @@ namespace SaveSystemTests
         protected virtual void GetSaverNeeded()
         {
             GetEncoderHolder();
-            varSaver = hasEncoders.GetComponent<TVarSaver>();
+            varSaver = hasEncoders.GetComponent<VarSaver>();
         }
 
         protected virtual void GetEncoderHolder()
@@ -46,7 +46,7 @@ namespace SaveSystemTests
 
         protected GameObject hasEncoders;
         protected string encoderContainerGOName = "FlowchartEncoders";
-        protected TVarSaver varSaver;
+        protected VarSaver varSaver;
 
         protected virtual void PrepareExpectedResults()
         {
@@ -54,7 +54,7 @@ namespace SaveSystemTests
 
             foreach (var varEl in variablesToEncode)
             {
-                var varAsString = JsonUtility.ToJson(varEl.GetValue());
+                var varAsString = varEl.GetValue().ToString();
                 ExpectedResults.Add(varAsString);
             }
         }
@@ -77,15 +77,15 @@ namespace SaveSystemTests
             AssertEncodingSuccess();
         }
 
-        protected IList<ISaveUnit> encodingResults;
+        protected IList<ISaveUnit<VariableInfo>> encodingResults;
 
-        protected virtual IList<StringPair> VarsEncodedWithMultipleEncodeCalls()
+        protected virtual IList<ISaveUnit<VariableInfo>> VarsEncodedWithMultipleEncodeCalls()
         {
-            IList<ISaveUnit> savedVars = new List<ISaveUnit>();
+            IList<ISaveUnit<VariableInfo>> savedVars = new List<ISaveUnit<VariableInfo>>();
 
             foreach (var varEl in variablesToEncode)
             {
-                var result = varSaver.Encode(varEl);
+                var result = varSaver.CreateSaveFrom(varEl);
                 savedVars.Add(result);
             }
 
@@ -94,10 +94,25 @@ namespace SaveSystemTests
 
         protected virtual void AssertEncodingSuccess()
         {
-            IList<string> whatWeGot = encodingResults.GetValues();
+            IList<string> whatWeGot = GetValuesIn(encodingResults);
             bool success = ExpectedResults.HasSameContentsInOrderAs(whatWeGot);
             Assert.IsTrue(success);
         }
+
+        protected virtual IList<string> GetValuesIn(IList<ISaveUnit<VariableInfo>> saveUnits)
+        {
+            IList<string> results = new string[saveUnits.Count];
+
+            for (int i = 0; i < saveUnits.Count; i++)
+            {
+                var currentUnit = saveUnits[i];
+                var unitValue = currentUnit.Contents.Value;
+                results[i] = unitValue;
+            }
+
+            return results;
+        }
+
 
         [Test]
         public virtual void EncodeVars_PassingIList()
@@ -107,27 +122,12 @@ namespace SaveSystemTests
             AssertEncodingSuccess();
         }
 
-        protected virtual IList<StringPair> VarsEncodedWithOneEncodeCall()
+        protected virtual IList<ISaveUnit<VariableInfo>> VarsEncodedWithOneEncodeCall()
         {
             // One that involves passing multiple vars at once to the encoder
-            return varSaver.Encode(variablesToEncode);
+            return varSaver.CreateSavesFrom(variablesToEncode);
         }
 
-        [Test]
-        public virtual void RejectSingleInvalidInputs()
-        {
-            foreach (var invalid in invalidInputs)
-            {
-                Assert.Throws<System.InvalidOperationException>(() => varSaver.Encode(invalid));
-            }
-        }
-
-        [Test]
-        public virtual void RejectMultipleInvalidInputsAtOnce()
-        {
-            Assert.Throws<System.InvalidOperationException>(() => varSaver.Encode(invalidInputs));
-            
-        }
         #endregion
 
     }

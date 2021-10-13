@@ -7,7 +7,7 @@ using Fungus;
 
 namespace SaveSystemTests
 {
-    public class FlowchartStringVarSavingTests : FlowchartVarSavingTests<StringVarSaver>
+    public class FlowchartStringVarSavingTests : FlowchartVarSavingTests
     {
         protected override string VariableHolderName => "StringFlowchart";
 
@@ -33,8 +33,6 @@ namespace SaveSystemTests
             foreach (var varEl in variablesToEncode)
             {
                 var varAsString = varEl.GetValue().ToString();
-                // ^As opposed to turning it into a json. Converting a number to
-                // a JSON only gets you an empty json object
                 ExpectedResults.Add(varAsString);
             }
         }

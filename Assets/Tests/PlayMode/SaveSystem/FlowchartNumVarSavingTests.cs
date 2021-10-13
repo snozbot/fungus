@@ -7,9 +7,8 @@ using Fungus;
 
 namespace SaveSystemTests
 {
-    public class FlowchartNumVarSavingTests : FlowchartVarSavingTests<NumericVarSaver>
+    public class FlowchartNumVarSavingTests : FlowchartVarSavingTests
     {
-        
         protected override string VariableHolderName => "NumericFlowchart";
 
         protected override void PrepareInvalidInputs()

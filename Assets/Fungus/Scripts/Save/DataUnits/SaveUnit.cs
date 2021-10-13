@@ -16,11 +16,11 @@ namespace Fungus
     /// Has a default implementation for units of save data made to work with 
     /// Fungus's save system.
     /// </summary>
-    /// <typeparam name="TSave"></typeparam>
-    public abstract class SaveUnit<TSave> : SaveUnit, ISaveUnit<TSave>
+    /// <typeparam name="TContents"></typeparam>
+    public abstract class SaveUnit<TContents> : SaveUnit, ISaveUnit<TContents>
     {
-        protected new TSave contents;
-        public new virtual TSave Contents
+        protected new TContents contents;
+        public new virtual TContents Contents
         {
             get { return contents; }
             set

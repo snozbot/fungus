@@ -1,13 +1,15 @@
-﻿using Object = System.Object;
+﻿using System.Collections.Generic;
+using Object = System.Object;
 
 namespace Fungus
 {
     /// <summary>
-    /// For classes that create save data.
+    /// For classes that create save data to be stored in RAM as opposed to saves stored on disk.
     /// </summary>
     public interface ISaveCreator
     {
         ISaveUnit CreateSaveFrom(Object input);
+        IList<ISaveUnit> CreateSavesFrom(IList<Object> inputs);
         
     }
 
@@ -19,5 +21,6 @@ namespace Fungus
     public interface ISaveCreator<TSaveUnit, TInput>: ISaveCreator where TSaveUnit: ISaveUnit
     {
         TSaveUnit CreateSaveFrom(TInput input);
+        IList<TSaveUnit> CreateSavesFrom(IList<TInput> inputs);
     }
 }
