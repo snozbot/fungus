@@ -18,7 +18,6 @@ namespace SaveSystemTests
             variablesToEncode = GetVarsOfFlowchartNamed(VariableHolderName);
             GetSaverNeeded();
             PrepareExpectedResults();
-            PrepareInvalidInputs();
         }
 
         protected Flowchart[] allFlowcharts;
@@ -61,9 +60,6 @@ namespace SaveSystemTests
 
         protected IList<string> ExpectedResults { get; } = new List<string>();
 
-        protected abstract void PrepareInvalidInputs();
-
-        protected IList<Variable> invalidInputs;
 
         #endregion
 

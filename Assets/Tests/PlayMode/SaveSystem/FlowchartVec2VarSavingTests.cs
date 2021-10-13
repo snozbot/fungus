@@ -11,19 +11,5 @@ namespace SaveSystemTests
     {
         protected override string VariableHolderName => "Vec_2_Flowchart";
 
-        protected override void PrepareInvalidInputs()
-        {
-            string colorFlowchartName = "ColorFlowchart";
-            IList<Variable> colorVars = GetVarsOfFlowchartNamed(colorFlowchartName);
-
-            string stringFlowchartName = "StringFlowchart";
-            IList<Variable> stringVars = GetVarsOfFlowchartNamed(stringFlowchartName);
-
-            List<Variable> gatheredUp = new List<Variable>();
-            gatheredUp.AddRange(colorVars);
-            gatheredUp.AddRange(stringVars);
-
-            invalidInputs = gatheredUp;
-        }
     }
 }
